@@ -1178,7 +1178,7 @@ C - - - - - 0x01C81B 07:C80B: 20 24 C8  JSR sub_C824
 C - - - - - 0x01C81E 07:C80E: A9 8F     LDA #$8F
 C - - - - - 0x01C820 07:C810: 85 00     STA ram_0000
 C - - - - - 0x01C822 07:C812: A5 5F     LDA ram_005F
-C - - - - - 0x01C824 07:C814: 20 5F D0  JSR sub_D05F
+C - - - - - 0x01C824 07:C814: 20 5F D0  JSR sub_accumulator_shift_right_by_4
 C - - - - - 0x01C827 07:C817: 20 24 C8  JSR sub_C824
 C - - - - - 0x01C82A 07:C81A: A9 CF     LDA #$CF
 C - - - - - 0x01C82C 07:C81C: 85 00     STA ram_0000
@@ -1387,7 +1387,7 @@ C - - - - - 0x01C95D 07:C94D: 48        PHA
 C - - - - - 0x01C95E 07:C94E: 29 0F     AND #$0F
 C - - - - - 0x01C960 07:C950: 85 AC     STA ram_00AC
 C - - - - - 0x01C962 07:C952: 68        PLA
-C - - - - - 0x01C963 07:C953: 20 5F D0  JSR sub_D05F
+C - - - - - 0x01C963 07:C953: 20 5F D0  JSR sub_accumulator_shift_right_by_4
 C - - - - - 0x01C966 07:C956: 85 AB     STA ram_00AB
 C - - - - - 0x01C968 07:C958: 8A        TXA
 C - - - - - 0x01C969 07:C959: 48        PHA
@@ -1403,7 +1403,7 @@ C - - - - - 0x01C976 07:C966: 48        PHA
 C - - - - - 0x01C977 07:C967: 29 0F     AND #$0F
 C - - - - - 0x01C979 07:C969: 85 AB     STA ram_00AB
 C - - - - - 0x01C97B 07:C96B: 68        PLA
-C - - - - - 0x01C97C 07:C96C: 20 5F D0  JSR sub_D05F
+C - - - - - 0x01C97C 07:C96C: 20 5F D0  JSR sub_accumulator_shift_right_by_4
 C - - - - - 0x01C97F 07:C96F: 85 AA     STA ram_00AA
 C - - - - - 0x01C981 07:C971: 8A        TXA
 C - - - - - 0x01C982 07:C972: 48        PHA
@@ -2568,7 +2568,7 @@ C - - - - - 0x01CFEC 07:CFDC: D0 E3     BNE bra_CFC1
 - D 2 - I - 0x01D06D 07:D05D: 05        .byte $05   ; 
 sub_D05E:
 C - - - - - 0x01D06E 07:D05E: 4A        LSR
-sub_D05F:
+sub_accumulator_shift_right_by_4:
 C - - - - - 0x01D06F 07:D05F: 4A        LSR
 C - - - - - 0x01D070 07:D060: 4A        LSR
 C - - - - - 0x01D071 07:D061: 4A        LSR
@@ -2985,7 +2985,7 @@ C - - - - - 0x01D30C 07:D2FC: AA        TAX
 C - - - - - 0x01D30D 07:D2FD: A9 00     LDA #$00
 C - - - - - 0x01D30F 07:D2FF: 60        RTS
 bra_D300:
-C - - - - - 0x01D310 07:D300: 20 5F D0  JSR sub_D05F
+C - - - - - 0x01D310 07:D300: 20 5F D0  JSR sub_accumulator_shift_right_by_4
 C - - - - - 0x01D313 07:D303: 18        CLC
 C - - - - - 0x01D314 07:D304: 65 04     ADC ram_0004
 C - - - - - 0x01D316 07:D306: 48        PHA
@@ -4225,7 +4225,7 @@ C - - - - - 0x01DB37 07:DB27: 4C 24 E6  JMP $E624
 bra_DB2A:
 C - - - - - 0x01DB3A 07:DB2A: A5 6C     LDA ram_006C
 C - - - - - 0x01DB3C 07:DB2C: 29 7F     AND #$7F
-C - - - - - 0x01DB3E 07:DB2E: 20 5F D0  JSR sub_D05F
+C - - - - - 0x01DB3E 07:DB2E: 20 5F D0  JSR sub_accumulator_shift_right_by_4
 C - - - - - 0x01DB41 07:DB31: 20 C1 D0  JSR sub_D0C1
 - D 2 - I - 0x01DB44 07:DB34: 43        .byte $43   ; 
 - D 2 - I - 0x01DB45 07:DB35: DB        .byte $DB   ; 
@@ -6349,7 +6349,7 @@ C - - - - - 0x01E920 07:E910: D0 F4     BNE bra_E906
 bra_E912:
 C - - - - - 0x01E922 07:E912: A5 6C     LDA ram_006C
 C - - - - - 0x01E924 07:E914: 29 7F     AND #$7F
-C - - - - - 0x01E926 07:E916: 20 5F D0  JSR sub_D05F
+C - - - - - 0x01E926 07:E916: 20 5F D0  JSR sub_accumulator_shift_right_by_4
 C - - - - - 0x01E929 07:E919: 20 C1 D0  JSR sub_D0C1
 - D 3 - I - 0x01E92C 07:E91C: 2B        .byte $2B   ; 
 - D 3 - I - 0x01E92D 07:E91D: E9        .byte $E9   ; 
