@@ -11,6 +11,9 @@ PPU_STATUS = $2002
 JOY1 = $4016
 JOY2 = $4017
 
+v_menu_counter       = ram_0033
+v_menu_counter_times = ram_0034
+
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI
 C - - - - - 0x01C011 07:C001: D8        CLD
@@ -54,7 +57,7 @@ loc_C046:
 C D 2 - - - 0x01C056 07:C046: A9 07     LDA #$07
 C - - - - - 0x01C058 07:C048: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01C05B 07:C04B: A9 0D     LDA #$0D
-C - - - - - 0x01C05D 07:C04D: 8D 01 80  STA MMC3_Bank_data ; switch bank 00 (1 page) in 0x8000-09FFF
+C - - - - - 0x01C05D 07:C04D: 8D 01 80  STA MMC3_Bank_data ; switch bank 06_2 in 0xA000-0BFFF
 C - - - - - 0x01C060 07:C050: A2 00     LDX #$00
 C - - - - - 0x01C062 07:C052: 86 19     STX ram_0019
 C - - - - - 0x01C064 07:C054: 8E 10 40  STX $4010
@@ -77,7 +80,7 @@ C - - - - - 0x01C086 07:C076: 86 2F     STX ram_002F
 C - - - - - 0x01C088 07:C078: 86 30     STX ram_0030
 C - - - - - 0x01C08A 07:C07A: 86 31     STX ram_0031
 C - - - - - 0x01C08C 07:C07C: 86 32     STX ram_0032
-C - - - - - 0x01C08E 07:C07E: 86 33     STX ram_0033
+C - - - - - 0x01C08E 07:C07E: 86 33     STX v_menu_counter
 C - - - - - 0x01C090 07:C080: A9 40     LDA #$40
 C - - - - - 0x01C092 07:C082: 8D 17 40  STA JOY2
 C - - - - - 0x01C095 07:C085: A9 FC     LDA #$FC
@@ -150,14 +153,14 @@ C - - - - - 0x01C123 07:C113: D0 03     BNE bra_C118
 C - - - - - 0x01C125 07:C115: 4C A6 C2  JMP loc_C2A6
 bra_C118:
 C - - - - - 0x01C128 07:C118: A9 FF     LDA #$FF
-C - - - - - 0x01C12A 07:C11A: 85 33     STA ram_0033
+C - - - - - 0x01C12A 07:C11A: 85 33     STA v_menu_counter ; Initializes a counter.
 C - - - - - 0x01C12C 07:C11C: A9 02     LDA #$02
-C - - - - - 0x01C12E 07:C11E: 85 34     STA ram_0034
+C - - - - - 0x01C12E 07:C11E: 85 34     STA v_menu_counter_times ; Initializes a time of a demo scene.
 bra_C120:
 C - - - - - 0x01C130 07:C120: 20 64 D0  JSR sub_D064
 C - - - - - 0x01C133 07:C123: A5 37     LDA ram_0037
 C - - - - - 0x01C135 07:C125: 10 08     BPL bra_C12F
-C - - - - - 0x01C137 07:C127: A5 34     LDA ram_0034
+C - - - - - 0x01C137 07:C127: A5 34     LDA v_menu_counter_times
 C - - - - - 0x01C139 07:C129: D0 04     BNE bra_C12F
 C - - - - - 0x01C13B 07:C12B: A9 80     LDA #$80
 C - - - - - 0x01C13D 07:C12D: 85 39     STA ram_0039
@@ -760,7 +763,7 @@ C - - - - - 0x01C556 07:C546: E6 3D     INC ram_003D
 C - - - - - 0x01C558 07:C548: A6 24     LDX ram_0024
 C - - - - - 0x01C55A 07:C54A: E8        INX
 C - - - - - 0x01C55B 07:C54B: 8A        TXA
-C - - - - - 0x01C55C 07:C54C: 4C 34 B2  JMP $B234; to bra_B234 (bank 06)
+C - - - - - 0x01C55C 07:C54C: 4C 34 B2  JMP $B234; to loc_B234 (bank 06_2)
 bra_C54F:
 C - - - - - 0x01C55F 07:C54F: C9 01     CMP #$01
 C - - - - - 0x01C561 07:C551: F0 0B     BEQ bra_C55E
@@ -785,7 +788,7 @@ C - - - - - 0x01C57E 07:C56E: F0 02     BEQ bra_C572
 C - - - - - 0x01C580 07:C570: E6 3D     INC ram_003D
 bra_C572:
 C - - - - - 0x01C582 07:C572: 20 D5 C5  JSR sub_C5D5
-C - - - - - 0x01C585 07:C575: 20 2A BB  JSR $BB2A ; to bra_BB2A (bank 06)
+C - - - - - 0x01C585 07:C575: 20 2A BB  JSR $BB2A ; to sub_BB2A (bank 06_2)
 C - - - - - 0x01C588 07:C578: A5 2D     LDA ram_002D
 C - - - - - 0x01C58A 07:C57A: F0 4E     BEQ bra_C5CA_RTS
 C - - - - - 0x01C58C 07:C57C: C9 02     CMP #$02
@@ -1259,11 +1262,11 @@ C - - - - - 0x01C894 07:C884: 60        RTS
 sub_C885:
 C - - - - - 0x01C895 07:C885: A5 37     LDA ram_0037
 C - - - - - 0x01C897 07:C887: 10 20     BPL bra_C8A9
-C - - - - - 0x01C899 07:C889: C6 33     DEC ram_0033
+C - - - - - 0x01C899 07:C889: C6 33     DEC v_menu_counter
 C - - - - - 0x01C89B 07:C88B: D0 06     BNE bra_C893
-C - - - - - 0x01C89D 07:C88D: A5 34     LDA ram_0034
+C - - - - - 0x01C89D 07:C88D: A5 34     LDA v_menu_counter_times
 C - - - - - 0x01C89F 07:C88F: F0 02     BEQ bra_C893
-C - - - - - 0x01C8A1 07:C891: C6 34     DEC ram_0034
+C - - - - - 0x01C8A1 07:C891: C6 34     DEC v_menu_counter_times
 bra_C893:
 C - - - - - 0x01C8A3 07:C893: A5 1E     LDA ram_001E
 C - - - - - 0x01C8A5 07:C895: 29 08     AND #$08
