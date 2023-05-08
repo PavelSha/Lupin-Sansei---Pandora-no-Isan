@@ -2,18 +2,27 @@
 .include "bank_ram.inc"
 ; 0x01C010-0x02000F
 
-loc_C000:
+MMC3_Bank_select    = $8000 ; see https://www.nesdev.org/wiki/MMC3
+MMC3_Bank_data      = $8001 ;
+
+PPU_CTRL   = $2000
+PPU_MASK   = $2001
+PPU_STATUS = $2002
+JOY1 = $4016
+JOY2 = $4017
+
+vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI
 C - - - - - 0x01C011 07:C001: D8        CLD
 C - - - - - 0x01C012 07:C002: A9 00     LDA #$00
-C - - - - - 0x01C014 07:C004: 8D 00 20  STA $2000
-C - - - - - 0x01C017 07:C007: 8D 01 20  STA $2001
+C - - - - - 0x01C014 07:C004: 8D 00 20  STA PPU_CTRL
+C - - - - - 0x01C017 07:C007: 8D 01 20  STA PPU_MASK
 C - - - - - 0x01C01A 07:C00A: 85 26     STA ram_0026
 bra_C00C:
-C - - - - - 0x01C01C 07:C00C: AD 02 20  LDA $2002
+C - - - - - 0x01C01C 07:C00C: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01C01F 07:C00F: 10 FB     BPL bra_C00C
 bra_C011:
-C - - - - - 0x01C021 07:C011: AD 02 20  LDA $2002
+C - - - - - 0x01C021 07:C011: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01C024 07:C014: 10 FB     BPL bra_C011
 C - - - - - 0x01C026 07:C016: A2 FF     LDX #$FF
 C - - - - - 0x01C028 07:C018: 9A        TXS
@@ -43,9 +52,9 @@ C - - - - - 0x01C052 07:C042: A9 FF     LDA #$FF
 C - - - - - 0x01C054 07:C044: 85 37     STA ram_0037
 loc_C046:
 C D 2 - - - 0x01C056 07:C046: A9 07     LDA #$07
-C - - - - - 0x01C058 07:C048: 8D 00 80  STA $8000
+C - - - - - 0x01C058 07:C048: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01C05B 07:C04B: A9 0D     LDA #$0D
-C - - - - - 0x01C05D 07:C04D: 8D 01 80  STA $8001
+C - - - - - 0x01C05D 07:C04D: 8D 01 80  STA MMC3_Bank_data ; switch bank 00 (1 page) in 0x8000-09FFF
 C - - - - - 0x01C060 07:C050: A2 00     LDX #$00
 C - - - - - 0x01C062 07:C052: 86 19     STX ram_0019
 C - - - - - 0x01C064 07:C054: 8E 10 40  STX $4010
@@ -70,7 +79,7 @@ C - - - - - 0x01C08A 07:C07A: 86 31     STX ram_0031
 C - - - - - 0x01C08C 07:C07C: 86 32     STX ram_0032
 C - - - - - 0x01C08E 07:C07E: 86 33     STX ram_0033
 C - - - - - 0x01C090 07:C080: A9 40     LDA #$40
-C - - - - - 0x01C092 07:C082: 8D 17 40  STA $4017
+C - - - - - 0x01C092 07:C082: 8D 17 40  STA JOY2
 C - - - - - 0x01C095 07:C085: A9 FC     LDA #$FC
 C - - - - - 0x01C097 07:C087: 85 5F     STA ram_005F
 C - - - - - 0x01C099 07:C089: 20 D4 C8  JSR sub_C8D4
@@ -405,7 +414,7 @@ C - - - - - 0x01C2F1 07:C2E1: C9 0E     CMP #$0E
 C - - - - - 0x01C2F3 07:C2E3: 90 FA     BCC bra_C2DF
 C - - - - - 0x01C2F5 07:C2E5: A9 00     LDA #$00
 C - - - - - 0x01C2F7 07:C2E7: 8D 09 01  STA ram_0109
-C - - - - - 0x01C2FA 07:C2EA: 4C 00 C0  JMP loc_C000
+C - - - - - 0x01C2FA 07:C2EA: 4C 00 C0  JMP vec_C000_RESET
 sub_C2ED:
 C - - - - - 0x01C2FD 07:C2ED: A5 46     LDA ram_0046
 C - - - - - 0x01C2FF 07:C2EF: C9 24     CMP #$24
@@ -426,7 +435,7 @@ C - - - - - 0x01C315 07:C305: A5 26     LDA ram_0026
 C - - - - - 0x01C317 07:C307: 29 7F     AND #$7F
 bra_C309:
 C - - - - - 0x01C319 07:C309: 85 26     STA ram_0026
-C - - - - - 0x01C31B 07:C30B: 8D 00 20  STA $2000
+C - - - - - 0x01C31B 07:C30B: 8D 00 20  STA PPU_CTRL
 C - - - - - 0x01C31E 07:C30E: 60        RTS
 sub_C30F:
 loc_C30F:
@@ -435,7 +444,7 @@ C - - - - - 0x01C321 07:C311: D0 02     BNE bra_C315
 sub_C313:
 C - - - - - 0x01C323 07:C313: A9 00     LDA #$00
 bra_C315:
-C - - - - - 0x01C325 07:C315: 8D 01 20  STA $2001
+C - - - - - 0x01C325 07:C315: 8D 01 20  STA PPU_MASK
 C - - - - - 0x01C328 07:C318: 60        RTS
 sub_C319:
 C - - - - - 0x01C329 07:C319: A9 01     LDA #$01
@@ -446,7 +455,7 @@ bra_C31F:
 C - - - - - 0x01C32F 07:C31F: 85 12     STA ram_0012
 C - - - - - 0x01C331 07:C321: 20 05 C3  JSR sub_C305
 C - - - - - 0x01C334 07:C324: 20 13 C3  JSR sub_C313
-C - - - - - 0x01C337 07:C327: AD 02 20  LDA $2002
+C - - - - - 0x01C337 07:C327: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01C33A 07:C32A: A9 20     LDA #$20
 C - - - - - 0x01C33C 07:C32C: 20 31 C3  JSR sub_C331
 C - - - - - 0x01C33F 07:C32F: A9 24     LDA #$24
@@ -528,8 +537,8 @@ C - - - - - 0x01C3D2 07:C3C2: 8D 06 20  STA $2006
 C - - - - - 0x01C3D5 07:C3C5: 60        RTS
 sub_C3C6:
 C - - - - - 0x01C3D6 07:C3C6: A5 26     LDA ram_0026
-C - - - - - 0x01C3D8 07:C3C8: 8D 00 20  STA $2000
-C - - - - - 0x01C3DB 07:C3CB: AD 02 20  LDA $2002
+C - - - - - 0x01C3D8 07:C3C8: 8D 00 20  STA PPU_CTRL
+C - - - - - 0x01C3DB 07:C3CB: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01C3DE 07:C3CE: A5 27     LDA ram_0027
 C - - - - - 0x01C3E0 07:C3D0: 8D 05 20  STA $2005
 C - - - - - 0x01C3E3 07:C3D3: A5 29     LDA ram_0029
@@ -563,7 +572,7 @@ C - - - - - 0x01C3EB 07:C3DB: 60        RTS
 - - - - - - 0x01C402 07:C3F2: F6        .byte $F6   ; 
 - - - - - - 0x01C403 07:C3F3: 60        .byte $60   ; 
 sub_C3F4:
-C - - - - - 0x01C404 07:C3F4: AD 02 20  LDA $2002
+C - - - - - 0x01C404 07:C3F4: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01C407 07:C3F7: A9 00     LDA #$00
 C - - - - - 0x01C409 07:C3F9: 8D 03 20  STA $2003
 C - - - - - 0x01C40C 07:C3FC: A9 07     LDA #$07
@@ -622,9 +631,9 @@ C - - - - - 0x01C464 07:C454: 9D 13 04  STA ram_0413,X
 C - - - - - 0x01C467 07:C457: A9 00     LDA #$00
 C - - - - - 0x01C469 07:C459: 9D 10 04  STA ram_0410,X
 C - - - - - 0x01C46C 07:C45C: A9 06     LDA #$06
-C - - - - - 0x01C46E 07:C45E: 8D 00 80  STA $8000
+C - - - - - 0x01C46E 07:C45E: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01C471 07:C461: AD B5 06  LDA ram_06B5
-C - - - - - 0x01C474 07:C464: 8D 01 80  STA $8001
+C - - - - - 0x01C474 07:C464: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01C477 07:C467: 68        PLA
 C - - - - - 0x01C478 07:C468: A8        TAY
 C - - - - - 0x01C479 07:C469: 68        PLA
@@ -670,16 +679,16 @@ C - - - - - 0x01C4B9 07:C4A9: 85 21     STA ram_0021
 C - - - - - 0x01C4BB 07:C4AB: A5 1F     LDA ram_001F
 C - - - - - 0x01C4BD 07:C4AD: 85 20     STA ram_0020
 C - - - - - 0x01C4BF 07:C4AF: A2 01     LDX #$01
-C - - - - - 0x01C4C1 07:C4B1: 8E 16 40  STX $4016
+C - - - - - 0x01C4C1 07:C4B1: 8E 16 40  STX JOY1
 C - - - - - 0x01C4C4 07:C4B4: CA        DEX
-C - - - - - 0x01C4C5 07:C4B5: 8E 16 40  STX $4016
+C - - - - - 0x01C4C5 07:C4B5: 8E 16 40  STX JOY1
 C - - - - - 0x01C4C8 07:C4B8: A2 08     LDX #$08
 bra_C4BA:
-C - - - - - 0x01C4CA 07:C4BA: AD 16 40  LDA $4016
+C - - - - - 0x01C4CA 07:C4BA: AD 16 40  LDA JOY1
 C - - - - - 0x01C4CD 07:C4BD: 29 03     AND #$03
 C - - - - - 0x01C4CF 07:C4BF: C9 01     CMP #$01
 C - - - - - 0x01C4D1 07:C4C1: 66 1E     ROR ram_001E
-C - - - - - 0x01C4D3 07:C4C3: AD 17 40  LDA $4017
+C - - - - - 0x01C4D3 07:C4C3: AD 17 40  LDA JOY2
 C - - - - - 0x01C4D6 07:C4C6: 29 03     AND #$03
 C - - - - - 0x01C4D8 07:C4C8: C9 01     CMP #$01
 C - - - - - 0x01C4DA 07:C4CA: 66 1F     ROR ram_001F
@@ -698,19 +707,19 @@ C - - - - - 0x01C4ED 07:C4DD: 6A        ROR
 C - - - - - 0x01C4EE 07:C4DE: 90 23     BCC bra_C503_RTS
 C - - - - - 0x01C4F0 07:C4E0: AD B6 06  LDA ram_06B6
 C - - - - - 0x01C4F3 07:C4E3: A2 01     LDX #$01
-C - - - - - 0x01C4F5 07:C4E5: 8E 00 80  STX $8000
-C - - - - - 0x01C4F8 07:C4E8: 8D 01 80  STA $8001
+C - - - - - 0x01C4F5 07:C4E5: 8E 00 80  STX MMC3_Bank_select
+C - - - - - 0x01C4F8 07:C4E8: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01C4FB 07:C4EB: CA        DEX
 C - - - - - 0x01C4FC 07:C4EC: A9 38     LDA #$38
-C - - - - - 0x01C4FE 07:C4EE: 8E 00 80  STX $8000
-C - - - - - 0x01C501 07:C4F1: 8D 01 80  STA $8001
+C - - - - - 0x01C4FE 07:C4EE: 8E 00 80  STX MMC3_Bank_select
+C - - - - - 0x01C501 07:C4F1: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01C504 07:C4F4: 60        RTS
 sub_C4F5:
 C - - - - - 0x01C505 07:C4F5: A2 05     LDX #$05
 bra_C4F7:
-C - - - - - 0x01C507 07:C4F7: 8E 00 80  STX $8000
+C - - - - - 0x01C507 07:C4F7: 8E 00 80  STX MMC3_Bank_select
 C - - - - - 0x01C50A 07:C4FA: BD AF 06  LDA ram_06AF,X
-C - - - - - 0x01C50D 07:C4FD: 8D 01 80  STA $8001
+C - - - - - 0x01C50D 07:C4FD: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01C510 07:C500: CA        DEX
 C - - - - - 0x01C511 07:C501: 10 F4     BPL bra_C4F7
 bra_C503_RTS:
@@ -721,8 +730,8 @@ C - - - - - 0x01C516 07:C506: 48        PHA
 C - - - - - 0x01C517 07:C507: 20 5E D0  JSR sub_D05E
 C - - - - - 0x01C51A 07:C50A: A8        TAY
 C - - - - - 0x01C51B 07:C50B: A9 06     LDA #$06
-C - - - - - 0x01C51D 07:C50D: 8D 00 80  STA $8000
-C - - - - - 0x01C520 07:C510: 8C 01 80  STY $8001
+C - - - - - 0x01C51D 07:C50D: 8D 00 80  STA MMC3_Bank_select
+C - - - - - 0x01C520 07:C510: 8C 01 80  STY MMC3_Bank_data
 C - - - - - 0x01C523 07:C513: 8C B5 06  STY ram_06B5
 C - - - - - 0x01C526 07:C516: 68        PLA
 C - - - - - 0x01C527 07:C517: 29 1F     AND #$1F
@@ -735,8 +744,8 @@ C - - - - - 0x01C531 07:C521: 20 F4 C3  JSR sub_C3F4
 C - - - - - 0x01C534 07:C524: 20 F3 D4  JSR sub_D4F3
 C - - - - - 0x01C537 07:C527: A9 90     LDA #$90
 C - - - - - 0x01C539 07:C529: 85 26     STA ram_0026
-C - - - - - 0x01C53B 07:C52B: 8D 00 20  STA $2000
-C - - - - - 0x01C53E 07:C52E: AD 02 20  LDA $2002
+C - - - - - 0x01C53B 07:C52B: 8D 00 20  STA PPU_CTRL
+C - - - - - 0x01C53E 07:C52E: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01C541 07:C531: A9 00     LDA #$00
 C - - - - - 0x01C543 07:C533: 8D 05 20  STA $2005
 C - - - - - 0x01C546 07:C536: 8D 05 20  STA $2005
@@ -751,7 +760,7 @@ C - - - - - 0x01C556 07:C546: E6 3D     INC ram_003D
 C - - - - - 0x01C558 07:C548: A6 24     LDX ram_0024
 C - - - - - 0x01C55A 07:C54A: E8        INX
 C - - - - - 0x01C55B 07:C54B: 8A        TXA
-C - - - - - 0x01C55C 07:C54C: 4C 34 B2  JMP $B234
+C - - - - - 0x01C55C 07:C54C: 4C 34 B2  JMP $B234; to bra_B234 (bank 06)
 bra_C54F:
 C - - - - - 0x01C55F 07:C54F: C9 01     CMP #$01
 C - - - - - 0x01C561 07:C551: F0 0B     BEQ bra_C55E
@@ -776,7 +785,7 @@ C - - - - - 0x01C57E 07:C56E: F0 02     BEQ bra_C572
 C - - - - - 0x01C580 07:C570: E6 3D     INC ram_003D
 bra_C572:
 C - - - - - 0x01C582 07:C572: 20 D5 C5  JSR sub_C5D5
-C - - - - - 0x01C585 07:C575: 20 2A BB  JSR $BB2A
+C - - - - - 0x01C585 07:C575: 20 2A BB  JSR $BB2A ; to bra_BB2A (bank 06)
 C - - - - - 0x01C588 07:C578: A5 2D     LDA ram_002D
 C - - - - - 0x01C58A 07:C57A: F0 4E     BEQ bra_C5CA_RTS
 C - - - - - 0x01C58C 07:C57C: C9 02     CMP #$02
@@ -806,9 +815,9 @@ C - - - - - 0x01C5B8 07:C5A8: 20 46 EF  JSR sub_EF46
 C - - - - - 0x01C5BB 07:C5AB: A2 33     LDX #$33
 C - - - - - 0x01C5BD 07:C5AD: A9 00     LDA #$00
 C - - - - - 0x01C5BF 07:C5AF: 20 41 CA  JSR sub_CA41
-C - - - - - 0x01C5C2 07:C5B2: B9 00 80  LDA $8000,Y
+C - - - - - 0x01C5C2 07:C5B2: B9 00 80  LDA MMC3_Bank_select,Y
 C - - - - - 0x01C5C5 07:C5B5: 85 12     STA ram_0012
-C - - - - - 0x01C5C7 07:C5B7: B9 01 80  LDA $8001,Y
+C - - - - - 0x01C5C7 07:C5B7: B9 01 80  LDA MMC3_Bank_data,Y
 C - - - - - 0x01C5CA 07:C5BA: 85 13     STA ram_0013
 C - - - - - 0x01C5CC 07:C5BC: A0 00     LDY #$00
 bra_C5BE:
@@ -2206,9 +2215,9 @@ C D 2 - - - 0x01CE6A 07:CE5A: A9 00     LDA #$00
 C - - - - - 0x01CE6C 07:CE5C: 85 08     STA ram_0008
 C - - - - - 0x01CE6E 07:CE5E: 85 09     STA ram_0009
 C - - - - - 0x01CE70 07:CE60: A9 06     LDA #$06
-C - - - - - 0x01CE72 07:CE62: 8D 00 80  STA $8000
+C - - - - - 0x01CE72 07:CE62: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01CE75 07:CE65: A9 0A     LDA #$0A
-C - - - - - 0x01CE77 07:CE67: 8D 01 80  STA $8001
+C - - - - - 0x01CE77 07:CE67: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01CE7A 07:CE6A: A5 45     LDA ram_0045
 C - - - - - 0x01CE7C 07:CE6C: 48        PHA
 C - - - - - 0x01CE7D 07:CE6D: 29 03     AND #$03
@@ -2340,8 +2349,8 @@ C - - - - - 0x01CF46 07:CF36: F0 02     BEQ bra_CF3A
 C - - - - - 0x01CF48 07:CF38: A2 0A     LDX #$0A
 bra_CF3A:
 C - - - - - 0x01CF4A 07:CF3A: A9 06     LDA #$06
-C - - - - - 0x01CF4C 07:CF3C: 8D 00 80  STA $8000
-C - - - - - 0x01CF4F 07:CF3F: 8E 01 80  STX $8001
+C - - - - - 0x01CF4C 07:CF3C: 8D 00 80  STA MMC3_Bank_select
+C - - - - - 0x01CF4F 07:CF3F: 8E 01 80  STX MMC3_Bank_data
 C - - - - - 0x01CF52 07:CF42: 68        PLA
 C - - - - - 0x01CF53 07:CF43: 29 03     AND #$03
 C - - - - - 0x01CF55 07:CF45: 85 45     STA ram_0045
@@ -2603,7 +2612,7 @@ sub_D086:
 C - - - - - 0x01D096 07:D086: 20 A3 D0  JSR sub_D0A3
 loc_D089:
 sub_D089:
-C D 2 - - - 0x01D099 07:D089: AD 02 20  LDA $2002
+C D 2 - - - 0x01D099 07:D089: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01D09C 07:D08C: A5 15     LDA ram_0015
 C - - - - - 0x01D09E 07:D08E: 8D 06 20  STA $2006
 C - - - - - 0x01D0A1 07:D091: A5 14     LDA ram_0014
@@ -2662,7 +2671,7 @@ C - - - - - 0x01D0E8 07:D0D8: 85 00     STA ram_0000
 C - - - - - 0x01D0EA 07:D0DA: 86 01     STX ram_0001
 C - - - - - 0x01D0EC 07:D0DC: A5 26     LDA ram_0026
 C - - - - - 0x01D0EE 07:D0DE: 09 04     ORA #$04
-C - - - - - 0x01D0F0 07:D0E0: 8D 00 20  STA $2000
+C - - - - - 0x01D0F0 07:D0E0: 8D 00 20  STA PPU_CTRL
 C - - - - - 0x01D0F3 07:D0E3: AD 32 06  LDA ram_0632
 C - - - - - 0x01D0F6 07:D0E6: 85 02     STA ram_0002
 C - - - - - 0x01D0F8 07:D0E8: A2 00     LDX #$00
@@ -2711,7 +2720,7 @@ C - - - - - 0x01D142 07:D132: 10 0B     BPL bra_D13F
 C - - - - - 0x01D144 07:D134: 48        PHA
 C - - - - - 0x01D145 07:D135: A5 26     LDA ram_0026
 C - - - - - 0x01D147 07:D137: 09 04     ORA #$04
-C - - - - - 0x01D149 07:D139: 8D 00 20  STA $2000
+C - - - - - 0x01D149 07:D139: 8D 00 20  STA PPU_CTRL
 C - - - - - 0x01D14C 07:D13C: 68        PLA
 C - - - - - 0x01D14D 07:D13D: 29 7F     AND #$7F
 bra_D13F:
@@ -2727,7 +2736,7 @@ bra_D14E:
 C - - - - - 0x01D15E 07:D14E: A9 00     LDA #$00
 C - - - - - 0x01D160 07:D150: 8D 31 06  STA ram_0631
 C - - - - - 0x01D163 07:D153: A5 26     LDA ram_0026
-C - - - - - 0x01D165 07:D155: 8D 00 20  STA $2000
+C - - - - - 0x01D165 07:D155: 8D 00 20  STA PPU_CTRL
 bra_D158_RTS:
 C - - - - - 0x01D168 07:D158: 60        RTS
 bra_D159:
@@ -2891,9 +2900,9 @@ C - - - - - 0x01D269 07:D259: A0 00     LDY #$00
 C - - - - - 0x01D26B 07:D25B: A2 00     LDX #$00
 bra_D25D:
 C - - - - - 0x01D26D 07:D25D: A9 06     LDA #$06
-C - - - - - 0x01D26F 07:D25F: 8D 00 80  STA $8000
+C - - - - - 0x01D26F 07:D25F: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01D272 07:D262: A5 02     LDA ram_0002
-C - - - - - 0x01D274 07:D264: 8D 01 80  STA $8001
+C - - - - - 0x01D274 07:D264: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01D277 07:D267: A9 00     LDA #$00
 C - - - - - 0x01D279 07:D269: 85 07     STA ram_0007
 C - - - - - 0x01D27B 07:D26B: B1 52     LDA (ram_0052),Y
@@ -3171,9 +3180,9 @@ C - - - - - 0x01D436 07:D426: A8        TAY
 C - - - - - 0x01D437 07:D427: 60        RTS
 sub_D428:
 C - - - - - 0x01D438 07:D428: A9 06     LDA #$06
-C - - - - - 0x01D43A 07:D42A: 8D 00 80  STA $8000
+C - - - - - 0x01D43A 07:D42A: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01D43D 07:D42D: A9 03     LDA #$03
-C - - - - - 0x01D43F 07:D42F: 8D 01 80  STA $8001
+C - - - - - 0x01D43F 07:D42F: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01D442 07:D432: A5 46     LDA ram_0046
 C - - - - - 0x01D444 07:D434: 0A        ASL
 C - - - - - 0x01D445 07:D435: A8        TAY
@@ -3280,13 +3289,13 @@ C - - - - - 0x01D4FE 07:D4EE: 90 03     BCC bra_D4F3
 C - - - - - 0x01D500 07:D4F0: 20 FB D4  JSR sub_D4FB
 bra_D4F3:
 sub_D4F3:
-C - - - - - 0x01D503 07:D4F3: AD 02 20  LDA $2002
+C - - - - - 0x01D503 07:D4F3: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01D506 07:D4F6: 10 FB     BPL bra_D4F3
 C - - - - - 0x01D508 07:D4F8: 4C 71 C3  JMP loc_C371
 sub_D4FB:
 C - - - - - 0x01D50B 07:D4FB: A5 B7     LDA ram_00B7
 C - - - - - 0x01D50D 07:D4FD: 85 B8     STA ram_00B8
-C - - - - - 0x01D50F 07:D4FF: AD 02 20  LDA $2002
+C - - - - - 0x01D50F 07:D4FF: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01D512 07:D502: A9 20     LDA #$20
 C - - - - - 0x01D514 07:D504: 8D 06 20  STA $2006
 C - - - - - 0x01D517 07:D507: A9 00     LDA #$00
@@ -3297,7 +3306,7 @@ bra_D50F:
 C - - - - - 0x01D51F 07:D50F: 8D 07 20  STA $2007
 C - - - - - 0x01D522 07:D512: C8        INY
 C - - - - - 0x01D523 07:D513: D0 FA     BNE bra_D50F
-C - - - - - 0x01D525 07:D515: AD 02 20  LDA $2002
+C - - - - - 0x01D525 07:D515: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01D528 07:D518: A9 20     LDA #$20
 C - - - - - 0x01D52A 07:D51A: 8D 06 20  STA $2006
 C - - - - - 0x01D52D 07:D51D: A9 E0     LDA #$E0
@@ -3322,9 +3331,9 @@ C - - - - - 0x01D551 07:D541: 60        RTS
 - - - - - - 0x01D554 07:D544: 60        .byte $60   ; 
 sub_D545:
 C - - - - - 0x01D555 07:D545: A9 06     LDA #$06
-C - - - - - 0x01D557 07:D547: 8D 00 80  STA $8000
+C - - - - - 0x01D557 07:D547: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01D55A 07:D54A: A9 03     LDA #$03
-C - - - - - 0x01D55C 07:D54C: 8D 01 80  STA $8001
+C - - - - - 0x01D55C 07:D54C: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01D55F 07:D54F: A5 46     LDA ram_0046
 C - - - - - 0x01D561 07:D551: 0A        ASL
 C - - - - - 0x01D562 07:D552: AA        TAX
@@ -7082,12 +7091,13 @@ tbl_ED49:
 - D 3 - - - 0x01ED5B 07:ED4B: 36        .byte $36   ; 
 - D 3 - - - 0x01ED5C 07:ED4C: 3A        .byte $3A   ; 
 - D 3 - - - 0x01ED5D 07:ED4D: 3E        .byte $3E   ; 
+vec_ED4E_NMI:
 C - - - - - 0x01ED5E 07:ED4E: 48        PHA
 C - - - - - 0x01ED5F 07:ED4F: 8A        TXA
 C - - - - - 0x01ED60 07:ED50: 48        PHA
 C - - - - - 0x01ED61 07:ED51: 98        TYA
 C - - - - - 0x01ED62 07:ED52: 48        PHA
-C - - - - - 0x01ED63 07:ED53: AD 02 20  LDA $2002
+C - - - - - 0x01ED63 07:ED53: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01ED66 07:ED56: A9 00     LDA #$00
 C - - - - - 0x01ED68 07:ED58: 8D 03 20  STA $2003
 C - - - - - 0x01ED6B 07:ED5B: A9 07     LDA #$07
@@ -7096,8 +7106,8 @@ C - - - - - 0x01ED70 07:ED60: 20 D9 C3  JSR sub_C3D9
 C - - - - - 0x01ED73 07:ED63: 20 1B D1  JSR sub_D11B
 C - - - - - 0x01ED76 07:ED66: A5 26     LDA ram_0026
 C - - - - - 0x01ED78 07:ED68: 29 FC     AND #$FC
-C - - - - - 0x01ED7A 07:ED6A: 8D 00 20  STA $2000
-C - - - - - 0x01ED7D 07:ED6D: AD 02 20  LDA $2002
+C - - - - - 0x01ED7A 07:ED6A: 8D 00 20  STA PPU_CTRL
+C - - - - - 0x01ED7D 07:ED6D: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01ED80 07:ED70: A9 00     LDA #$00
 C - - - - - 0x01ED82 07:ED72: 8D 05 20  STA $2005
 C - - - - - 0x01ED85 07:ED75: 8D 05 20  STA $2005
@@ -7112,10 +7122,10 @@ C - - - - - 0x01ED96 07:ED86: 4C 21 EE  JMP loc_EE21
 bra_ED89:
 C - - - - - 0x01ED99 07:ED89: 20 B3 C9  JSR sub_C9B3
 bra_ED8C:
-C - - - - - 0x01ED9C 07:ED8C: 2C 02 20  BIT $2002
+C - - - - - 0x01ED9C 07:ED8C: 2C 02 20  BIT PPU_STATUS
 C - - - - - 0x01ED9F 07:ED8F: 70 FB     BVS bra_ED8C
 bra_ED91:
-C - - - - - 0x01EDA1 07:ED91: 2C 02 20  BIT $2002
+C - - - - - 0x01EDA1 07:ED91: 2C 02 20  BIT PPU_STATUS
 C - - - - - 0x01EDA4 07:ED94: 50 FB     BVC bra_ED91
 C - - - - - 0x01EDA6 07:ED96: 20 F5 C4  JSR sub_C4F5
 C - - - - - 0x01EDA9 07:ED99: 20 C6 C3  JSR sub_C3C6
@@ -7158,8 +7168,8 @@ C - - - - - 0x01EDF9 07:EDE9: 86 43     STX ram_0043
 C - - - - - 0x01EDFB 07:EDEB: 20 F9 CE  JSR sub_CEF9
 C - - - - - 0x01EDFE 07:EDEE: A9 07     LDA #$07
 C - - - - - 0x01EE00 07:EDF0: A2 04     LDX #$04
-C - - - - - 0x01EE02 07:EDF2: 8D 00 80  STA $8000
-C - - - - - 0x01EE05 07:EDF5: 8E 01 80  STX $8001
+C - - - - - 0x01EE02 07:EDF2: 8D 00 80  STA MMC3_Bank_select
+C - - - - - 0x01EE05 07:EDF5: 8E 01 80  STX MMC3_Bank_data
 C - - - - - 0x01EE08 07:EDF8: 20 F0 FF  JSR sub_FFF0
 C - - - - - 0x01EE0B 07:EDFB: 20 1A EF  JSR sub_EF1A
 C - - - - - 0x01EE0E 07:EDFE: A9 00     LDA #$00
@@ -7170,10 +7180,11 @@ C - - - - - 0x01EE13 07:EE03: A8        TAY
 C - - - - - 0x01EE14 07:EE04: 68        PLA
 C - - - - - 0x01EE15 07:EE05: AA        TAX
 C - - - - - 0x01EE16 07:EE06: 68        PLA
+vec_C000_IRQ:
 C - - - - - 0x01EE17 07:EE07: 40        RTI
 bra_EE08:
 C - - - - - 0x01EE18 07:EE08: A9 07     LDA #$07
-C - - - - - 0x01EE1A 07:EE0A: 8D 00 80  STA $8000
+C - - - - - 0x01EE1A 07:EE0A: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01EE1D 07:EE0D: D0 F3     BNE bra_EE02
 bra_EE0F:
 C - - - - - 0x01EE1F 07:EE0F: 20 FE B5  JSR $B5FE
@@ -7280,47 +7291,47 @@ C - - - - - 0x01EF27 07:EF17: 4C 1A EF  JMP loc_EF1A
 sub_EF1A:
 loc_EF1A:
 C D 3 - - - 0x01EF2A 07:EF1A: A9 07     LDA #$07
-C - - - - - 0x01EF2C 07:EF1C: 8D 00 80  STA $8000
+C - - - - - 0x01EF2C 07:EF1C: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01EF2F 07:EF1F: A9 0D     LDA #$0D
-C - - - - - 0x01EF31 07:EF21: 8D 01 80  STA $8001
+C - - - - - 0x01EF31 07:EF21: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01EF34 07:EF24: 60        RTS
 sub_EF25:
 C - - - - - 0x01EF35 07:EF25: A9 07     LDA #$07
-C - - - - - 0x01EF37 07:EF27: 8D 00 80  STA $8000
+C - - - - - 0x01EF37 07:EF27: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01EF3A 07:EF2A: A9 0C     LDA #$0C
-C - - - - - 0x01EF3C 07:EF2C: 8D 01 80  STA $8001
+C - - - - - 0x01EF3C 07:EF2C: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01EF3F 07:EF2F: 60        RTS
 sub_EF30:
 C - - - - - 0x01EF40 07:EF30: A9 07     LDA #$07
-C - - - - - 0x01EF42 07:EF32: 8D 00 80  STA $8000
+C - - - - - 0x01EF42 07:EF32: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01EF45 07:EF35: A9 07     LDA #$07
-C - - - - - 0x01EF47 07:EF37: 8D 01 80  STA $8001
+C - - - - - 0x01EF47 07:EF37: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01EF4A 07:EF3A: 60        RTS
 sub_EF3B:
 C - - - - - 0x01EF4B 07:EF3B: A9 06     LDA #$06
-C - - - - - 0x01EF4D 07:EF3D: 8D 00 80  STA $8000
+C - - - - - 0x01EF4D 07:EF3D: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01EF50 07:EF40: A9 04     LDA #$04
-C - - - - - 0x01EF52 07:EF42: 8D 01 80  STA $8001
+C - - - - - 0x01EF52 07:EF42: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01EF55 07:EF45: 60        RTS
 sub_EF46:
 C - - - - - 0x01EF56 07:EF46: A9 06     LDA #$06
-C - - - - - 0x01EF58 07:EF48: 8D 00 80  STA $8000
+C - - - - - 0x01EF58 07:EF48: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01EF5B 07:EF4B: A9 08     LDA #$08
 C - - - - - 0x01EF5D 07:EF4D: D0 07     BNE bra_EF56
 sub_EF4F:
 C D 3 - - - 0x01EF5F 07:EF4F: A9 06     LDA #$06
-C - - - - - 0x01EF61 07:EF51: 8D 00 80  STA $8000
+C - - - - - 0x01EF61 07:EF51: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01EF64 07:EF54: A9 09     LDA #$09
 bra_EF56:
-C - - - - - 0x01EF66 07:EF56: 8D 01 80  STA $8001
+C - - - - - 0x01EF66 07:EF56: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01EF69 07:EF59: 8D B5 06  STA ram_06B5
 C - - - - - 0x01EF6C 07:EF5C: 60        RTS
 sub_EF5D:
 loc_EF5D:
 C D 3 - - - 0x01EF6D 07:EF5D: A9 06     LDA #$06
-C - - - - - 0x01EF6F 07:EF5F: 8D 00 80  STA $8000
+C - - - - - 0x01EF6F 07:EF5F: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01EF72 07:EF62: AD B5 06  LDA ram_06B5
-C - - - - - 0x01EF75 07:EF65: 8D 01 80  STA $8001
+C - - - - - 0x01EF75 07:EF65: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01EF78 07:EF68: 60        RTS
 sub_EF69:
 C - - - - - 0x01EF79 07:EF69: A2 00     LDX #$00
@@ -9589,11 +9600,11 @@ C - - - - - 0x01FE1B 07:FE0B: A0 0C     LDY #$0C
 bra_FE0D:
 C - - - - - 0x01FE1D 07:FE0D: 3E F9 00  ROL a: ram_00F9,X
 C - - - - - 0x01FE20 07:FE10: 08        PHP
-C - - - - - 0x01FE21 07:FE11: AD 17 40  LDA $4017
+C - - - - - 0x01FE21 07:FE11: AD 17 40  LDA JOY2
 C - - - - - 0x01FE24 07:FE14: 4A        LSR
 C - - - - - 0x01FE25 07:FE15: 28        PLP
 C - - - - - 0x01FE26 07:FE16: 2A        ROL
-C - - - - - 0x01FE27 07:FE17: 8D 16 40  STA $4016
+C - - - - - 0x01FE27 07:FE17: 8D 16 40  STA JOY1
 C - - - - - 0x01FE2A 07:FE1A: 29 08     AND #$08
 C - - - - - 0x01FE2C 07:FE1C: C9 01     CMP #$01
 C - - - - - 0x01FE2E 07:FE1E: 88        DEY
@@ -10068,12 +10079,9 @@ C - - - - - 0x020003 07:FFF3: 4C 80 AD  JMP $AD80
 - - - - - - 0x020009 07:FFF9: 00        .byte $00   ; 
 
 .segment "VECTORS"
-- D 3 - - - 0x02000A 07:FFFA: 4E        .byte $4E   ; 
-- D 3 - - - 0x02000B 07:FFFB: ED        .byte $ED   ; 
-- D 3 - - - 0x02000C 07:FFFC: 00        .byte $00   ; 
-- D 3 - - - 0x02000D 07:FFFD: C0        .byte $C0   ; 
-- - - - - - 0x02000E 07:FFFE: 07        .byte $07   ; 
-- - - - - - 0x02000F 07:FFFF: EE        .byte $EE   ; 
+- D 3 - - - 0x02000A 07:FFFA: 4E ED     .word vec_ED4E_NMI
+- D 3 - - - 0x02000C 07:FFFC: 00 C0     .word vec_C000_RESET
+- - - - - - 0x02000E 07:FFFE: 07 EE     .word vec_C000_IRQ
 
 
 
