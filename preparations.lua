@@ -10,7 +10,8 @@ files_list = {
     "bank_03.asm",
     "bank_04.asm",
     "bank_05.asm",
-    "bank_06.asm",
+    "bank_06_1.asm",
+    "bank_06_2.asm",
     "bank_FF.asm",
     "bank_ram.inc",
 }

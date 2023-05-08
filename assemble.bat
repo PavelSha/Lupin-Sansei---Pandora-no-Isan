@@ -19,7 +19,8 @@ ca65 -U -l copy_bank_02.lst  -g copy_bank_02.asm
 ca65 -U -l copy_bank_03.lst  -g copy_bank_03.asm
 ca65 -U -l copy_bank_04.lst  -g copy_bank_04.asm
 ca65 -U -l copy_bank_05.lst  -g copy_bank_05.asm
-ca65 -U -l copy_bank_06.lst  -g copy_bank_06.asm
+ca65 -U -l copy_bank_06_1.lst  -g copy_bank_06_1.asm
+ca65 -U -l copy_bank_06_2.lst  -g copy_bank_06_2.asm
 ca65 -U -l copy_bank_FF.lst  -g copy_bank_FF.asm
 
 :: assemble code into binaries
@@ -30,7 +31,8 @@ ld65 -C ld65.cfg -o PRG_ROM.bin --dbgfile _debug.txt ^
     copy_bank_03.o ^
     copy_bank_04.o ^
     copy_bank_05.o ^
-    copy_bank_06.o ^
+    copy_bank_06_1.o ^
+    copy_bank_06_2.o ^
     copy_bank_FF.o
 
 :: split PRG_ROM.bin into actual PRG_ROM.bin and CHR_screens.chr
