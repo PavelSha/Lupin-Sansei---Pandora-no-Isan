@@ -1,6 +1,10 @@
 .segment "BANK_06"
 .include "bank_ram.inc"
 ; 0x018010-0x01C00F
+; Consider Offset 0x2000 by memory address
+
+v_start_level       = ram_00B1 ; The start level [0-3]
+v_count_secret_hits = ram_00B2 ; Stage select codes at the title screen
 
 tbl_A000:
 C - - - - - 0x018010 06:A000: 4C 4D A0  JMP loc_A04D
@@ -8475,8 +8479,8 @@ C - - - - - 0x01B94C 06:D93C: 20 1C C9  JSR $C91C
 C - - - - - 0x01B94F 06:D93F: A9 80     LDA #$80
 C - - - - - 0x01B951 06:D941: 85 3B     STA ram_003B
 C - - - - - 0x01B953 06:D943: A9 00     LDA #$00
-C - - - - - 0x01B955 06:D945: 85 B1     STA ram_00B1
-C - - - - - 0x01B957 06:D947: 85 B2     STA ram_00B2
+C - - - - - 0x01B955 06:D945: 85 B1     STA v_start_level
+C - - - - - 0x01B957 06:D947: 85 B2     STA v_count_secret_hits
 C - - - - - 0x01B959 06:D949: 85 B3     STA ram_00B3
 C - - - - - 0x01B95B 06:D94B: 85 B4     STA ram_00B4
 C - - - - - 0x01B95D 06:D94D: 85 2C     STA ram_002C
@@ -8522,11 +8526,11 @@ C - - - - - 0x01B9A8 06:D998: E0 9F     CPX #$9F
 C - - - - - 0x01B9AA 06:D99A: F0 07     BEQ bra_D9A3
 C - - - - - 0x01B9AC 06:D99C: A5 B1     LDA ram_00B1
 C - - - - - 0x01B9AE 06:D99E: F0 09     BEQ bra_D9A9
-- - - - - - 0x01B9B0 06:D9A0: A8        .byte $A8   ; 
-- - - - - - 0x01B9B1 06:D9A1: D0        .byte $D0   ; 
-- - - - - - 0x01B9B2 06:D9A2: 03        .byte $03   ; 
+C - - - - - 0x01B9B0 06:D9A0: A8        TAY
+C - - - - - 0x01B9B1 06:D9A1: D0 03     BNE bra_D9A6
 bra_D9A3:
 C - - - - - 0x01B9B3 06:D9A3: AC 09 01  LDY ram_0109
+bra_D9A6:
 C - - - - - 0x01B9B6 06:D9A6: B9 CA C1  LDA tbl_C1CA,Y
 bra_D9A9:
 C - - - - - 0x01B9B9 06:D9A9: 85 C4     STA ram_00C4
@@ -8755,12 +8759,9 @@ C - - - - - 0x01BB55 06:DB45: D0 28     BNE bra_DB6F
 C - - - - - 0x01BB57 06:DB47: AD 98 BB  LDA $BB98
 C - - - - - 0x01BB5A 06:DB4A: 20 79 D0  JSR sub_D079
 C - - - - - 0x01BB5D 06:DB4D: F0 06     BEQ bra_DB55
-- - - - - - 0x01BB5F 06:DB4F: A9        .byte $A9   ; 
-- - - - - - 0x01BB60 06:DB50: 06        .byte $06   ; 
-- - - - - - 0x01BB61 06:DB51: 85        .byte $85   ; 
-- - - - - - 0x01BB62 06:DB52: B4        .byte $B4   ; 
-- - - - - - 0x01BB63 06:DB53: D0        .byte $D0   ; 
-- - - - - - 0x01BB64 06:DB54: 1A        .byte $1A   ; 
+C - - - - - 0x01BB5F 06:DB4F: A9 06     LDA #$06
+C - - - - - 0x01BB61 06:DB51: 85 B4     STA ram_00B4
+C - - - - - 0x01BB63 06:DB53: D0 1A     BNE bra_DB6F
 bra_DB55:
 C - - - - - 0x01BB65 06:DB55: AD 9E BB  LDA $BB9E
 C - - - - - 0x01BB68 06:DB58: 20 79 D0  JSR sub_D079
@@ -8776,25 +8777,20 @@ C - - - - - 0x01BB77 06:DB67: B9 92 BB  LDA tbl_BB92,Y
 C - - - - - 0x01BB7A 06:DB6A: 20 79 D0  JSR sub_D079
 C - - - - - 0x01BB7D 06:DB6D: F0 18     BEQ bra_DB87
 bra_DB6F:
-C - - - - - 0x01BB7F 06:DB6F: E6 B2     INC ram_00B2
+C - - - - - 0x01BB7F 06:DB6F: E6 B2     INC v_count_secret_hits;
 C - - - - - 0x01BB81 06:DB71: E6 B3     INC ram_00B3
-C - - - - - 0x01BB83 06:DB73: A5 B2     LDA ram_00B2
-C - - - - - 0x01BB85 06:DB75: C9 06     CMP #$06
-C - - - - - 0x01BB87 06:DB77: D0 18     BNE bra_DB91_RTS
-- - - - - - 0x01BB89 06:DB79: A2        .byte $A2   ; 
-- - - - - - 0x01BB8A 06:DB7A: 01        .byte $01   ; 
-- - - - - - 0x01BB8B 06:DB7B: A5        .byte $A5   ; 
-- - - - - - 0x01BB8C 06:DB7C: B4        .byte $B4   ; 
-- - - - - - 0x01BB8D 06:DB7D: F0        .byte $F0   ; 
-- - - - - - 0x01BB8E 06:DB7E: 06        .byte $06   ; 
-- - - - - - 0x01BB8F 06:DB7F: E8        .byte $E8   ; 
-- - - - - - 0x01BB90 06:DB80: C9        .byte $C9   ; 
-- - - - - - 0x01BB91 06:DB81: 06        .byte $06   ; 
-- - - - - - 0x01BB92 06:DB82: F0        .byte $F0   ; 
-- - - - - - 0x01BB93 06:DB83: 01        .byte $01   ; 
-- - - - - - 0x01BB94 06:DB84: E8        .byte $E8   ; 
-- - - - - - 0x01BB95 06:DB85: 86        .byte $86   ; 
-- - - - - - 0x01BB96 06:DB86: B1        .byte $B1   ; 
+C - - - - - 0x01BB83 06:DB73: A5 B2     LDA v_count_secret_hits;
+C - - - - - 0x01BB85 06:DB75: C9 06     CMP #$06 ; COUNT_SECRET_BUTTONS
+C - - - - - 0x01BB87 06:DB77: D0 18     BNE bra_DB91_RTS ; Let's go if not all 6 secret buttons have been entered
+C - - - - - 0x01BB89 06:DB79: A2 01     LDX #$01
+C - - - - - 0x01BB8B 06:DB7B: A5 B4     LDA ram_00B4
+C - - - - - 0x01BB8D 06:DB7D: F0 06     BEQ bra_DB85
+C - - - - - 0x01BB8F 06:DB7F: E8        INX
+C - - - - - 0x01BB90 06:DB80: C9 06     CMP #$06
+C - - - - - 0x01BB92 06:DB82: F0 01     BEQ bra_DB85
+C - - - - - 0x01BB94 06:DB84: E8        INX
+bra_DB85:
+C - - - - - 0x01BB95 06:DB85: 86 B1     STX v_start_level
 bra_DB87:
 C - - - - - 0x01BB97 06:DB87: A9 00     LDA #$00
 C - - - - - 0x01BB99 06:DB89: 85 B2     STA ram_00B2
@@ -8805,23 +8801,23 @@ C - - - - - 0x01BB9F 06:DB8F: 85 B3     STA ram_00B3
 bra_DB91_RTS:
 C - - - - - 0x01BBA1 06:DB91: 60        RTS
 - D 1 - - - 0x01BBA2 06:DB92: 10        .byte $10   ; 
-- - - - - - 0x01BBA3 06:DB93: 20        .byte $20   ; 
-- - - - - - 0x01BBA4 06:DB94: 40        .byte $40   ; 
-- - - - - - 0x01BBA5 06:DB95: 80        .byte $80   ; 
-- - - - - - 0x01BBA6 06:DB96: 02        .byte $02   ; 
-- - - - - - 0x01BBA7 06:DB97: 01        .byte $01   ; 
+- D 1 - - - 0x01BBA3 06:DB93: 20        .byte $20   ; 
+- D 1 - - - 0x01BBA4 06:DB94: 40        .byte $40   ; 
+- D 1 - - - 0x01BBA5 06:DB95: 80        .byte $80   ; 
+- D 1 - - - 0x01BBA6 06:DB96: 02        .byte $02   ; 
+- D 1 - - - 0x01BBA7 06:DB97: 01        .byte $01   ; 
 - D 1 - - - 0x01BBA8 06:DB98: 40        .byte $40   ; 
-- - - - - - 0x01BBA9 06:DB99: 80        .byte $80   ; 
-- - - - - - 0x01BBAA 06:DB9A: 10        .byte $10   ; 
-- - - - - - 0x01BBAB 06:DB9B: 20        .byte $20   ; 
-- - - - - - 0x01BBAC 06:DB9C: 01        .byte $01   ; 
-- - - - - - 0x01BBAD 06:DB9D: 02        .byte $02   ; 
+- D 1 - - - 0x01BBA9 06:DB99: 80        .byte $80   ; 
+- D 1 - - - 0x01BBAA 06:DB9A: 10        .byte $10   ; 
+- D 1 - - - 0x01BBAB 06:DB9B: 20        .byte $20   ; 
+- D 1 - - - 0x01BBAC 06:DB9C: 01        .byte $01   ; 
+- D 1 - - - 0x01BBAD 06:DB9D: 02        .byte $02   ; 
 - D 1 - - - 0x01BBAE 06:DB9E: 20        .byte $20   ; 
 - D 1 - - - 0x01BBAF 06:DB9F: 10        .byte $10   ; 
-- - - - - - 0x01BBB0 06:DBA0: 80        .byte $80   ; 
-- - - - - - 0x01BBB1 06:DBA1: 40        .byte $40   ; 
-- - - - - - 0x01BBB2 06:DBA2: 01        .byte $01   ; 
-- - - - - - 0x01BBB3 06:DBA3: 01        .byte $01   ; 
+- D 1 - - - 0x01BBB0 06:DBA0: 80        .byte $80   ; 
+- D 1 - - - 0x01BBB1 06:DBA1: 40        .byte $40   ; 
+- D 1 - - - 0x01BBB2 06:DBA2: 01        .byte $01   ; 
+- D 1 - - - 0x01BBB3 06:DBA3: 01        .byte $01   ; 
 C D 1 - - - 0x01BBB4 06:DBA4: A9 05     LDA #$05
 C - - - - - 0x01BBB6 06:DBA6: 24 6D     BIT ram_006D
 C - - - - - 0x01BBB8 06:DBA8: 30 13     BMI bra_DBBD
