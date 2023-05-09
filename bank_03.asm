@@ -2,6 +2,9 @@
 .include "bank_ram.inc"
 ; 0x00C010-0x01000F
 
+v_nmi_counter        = ram_002B
+
+; Page 1 (Only data ?)
 - D 0 - - - 0x00C010 03:8000: 0B        .byte $0B   ; 
 - D 0 - - - 0x00C011 03:8001: 0B        .byte $0B   ; 
 - D 0 - I - 0x00C012 03:8002: 0B        .byte $0B   ; 
@@ -8194,6 +8197,7 @@
 - - - - - - 0x00E00D 03:9FFD: 1C        .byte $1C   ; 
 - - - - - - 0x00E00E 03:9FFE: 18        .byte $18   ; 
 - - - - - - 0x00E00F 03:9FFF: 38        .byte $38   ; <8>
+; Page 2
 C - - - - - 0x00E010 03:A000: 4C 1E A1  JMP loc_A11E
 C - - - - - 0x00E013 03:A003: 4C 04 A6  JMP loc_A604
 C - - - - - 0x00E016 03:A006: 4C E0 A8  JMP loc_A8E0
@@ -10547,7 +10551,7 @@ C - - - - - 0x00EEE5 03:AED5: 60        RTS
 bra_AED6:
 C - - - - - 0x00EEE6 03:AED6: 4C A9 AF  JMP loc_AFA9
 sub_AED9:
-C - - - - - 0x00EEE9 03:AED9: A5 2B     LDA ram_002B
+C - - - - - 0x00EEE9 03:AED9: A5 2B     LDA v_nmi_counter
 C - - - - - 0x00EEEB 03:AEDB: 29 01     AND #$01
 C - - - - - 0x00EEED 03:AEDD: D0 D9     BNE bra_AEB8
 C - - - - - 0x00EEEF 03:AEDF: A9 C6     LDA #$C6

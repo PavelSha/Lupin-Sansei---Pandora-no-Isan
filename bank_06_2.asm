@@ -2743,6 +2743,7 @@ C - - - - - 0x01B2F7 06:B2E7: 8D 06 20  STA PPU_ADDR
 C - - - - - 0x01B2FA 06:B2EA: 68        PLA
 C - - - - - 0x01B2FB 06:B2EB: 8D 06 20  STA PPU_ADDR
 C - - - - - 0x01B2FE 06:B2EE: 4C FC B2  JMP loc_B2FC
+
 - - - - - - 0x01B301 06:B2F1: AD 02 20  LDA PPU_STATUS ; not used ???
 - - - - - - 0x01B304 06:B2F4: A9 00     LDA #$00  ; not used ???
 - - - - - - 0x01B306 06:B2F6: 8D 06 20  STA PPU_ADDR ; not used ???
