@@ -15,10 +15,11 @@ DMC_FREQ     = $4010
 JOY1 = $4016
 JOY2 = $4017
 
-v_nmi_counter        = ram_002B
-v_menu_counter       = ram_0033
-v_menu_counter_times = ram_0034
-v_bank_data          = ram_06B5
+v_nmi_counter           = ram_002B
+v_menu_counter          = ram_0033
+v_menu_counter_times    = ram_0034
+v_bank_data             = ram_06B5
+v_array_white_briefcase = ram_0219
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI
@@ -7149,8 +7150,8 @@ C - - - - - 0x01EDCE 07:EDBE: 20 53 EE  JSR sub_EE53
 C - - - - - 0x01EDD1 07:EDC1: A5 3B     LDA ram_003B
 C - - - - - 0x01EDD3 07:EDC3: 6A        ROR
 C - - - - - 0x01EDD4 07:EDC4: B0 55     BCS bra_EE1B
-C - - - - - 0x01EDD6 07:EDC6: 20 9A B0  JSR $B09A
-C - - - - - 0x01EDD9 07:EDC9: 20 4D AF  JSR $AF4D
+C - - - - - 0x01EDD6 07:EDC6: 20 9A B0  JSR $B09A ; to sub_B09A bank 06_2
+C - - - - - 0x01EDD9 07:EDC9: 20 4D AF  JSR $AF4D ; to sub_AF4D bank 06_2
 C - - - - - 0x01EDDC 07:EDCC: 20 8C CB  JSR sub_CB8C
 C - - - - - 0x01EDDF 07:EDCF: 20 D9 CB  JSR sub_CBD9
 C - - - - - 0x01EDE2 07:EDD2: 20 5F CD  JSR sub_CD5F
@@ -7378,10 +7379,10 @@ C - - - - - 0x01EFB5 07:EFA5: 20 8D EF  JSR sub_EF8D
 C - - - - - 0x01EFB8 07:EFA8: 85 60     STA ram_0060
 C - - - - - 0x01EFBA 07:EFAA: 85 61     STA ram_0061
 C - - - - - 0x01EFBC 07:EFAC: A2 0F     LDX #$0F
-bra_EFAE:
+bra_EFAE_repeat:
 C - - - - - 0x01EFBE 07:EFAE: 9D C0 05  STA ram_05C0,X
 C - - - - - 0x01EFC1 07:EFB1: CA        DEX
-C - - - - - 0x01EFC2 07:EFB2: 10 FA     BPL bra_EFAE
+C - - - - - 0x01EFC2 07:EFB2: 10 FA     BPL bra_EFAE_repeat
 C - - - - - 0x01EFC4 07:EFB4: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2
 C - - - - - 0x01EFC7 07:EFB7: A5 5E     LDA ram_005E
 C - - - - - 0x01EFC9 07:EFB9: 85 00     STA ram_0000
@@ -7394,21 +7395,21 @@ C - - - - - 0x01EFD3 07:EFC3: BD 17 81  LDA $8117,X
 C - - - - - 0x01EFD6 07:EFC6: 85 12     STA ram_0012
 C - - - - - 0x01EFD8 07:EFC8: BD 18 81  LDA $8118,X
 C - - - - - 0x01EFDB 07:EFCB: 85 13     STA ram_0013
-bra_EFCD:
+bra_EFCD_repeat:
 C - - - - - 0x01EFDD 07:EFCD: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01EFDF 07:EFCF: 99 00 05  STA ram_0500,Y
 C - - - - - 0x01EFE2 07:EFD2: 88        DEY
-C - - - - - 0x01EFE3 07:EFD3: D0 F8     BNE bra_EFCD
+C - - - - - 0x01EFE3 07:EFD3: D0 F8     BNE bra_EFCD_repeat
 C - - - - - 0x01EFE5 07:EFD5: BC 22 81  LDY $8122,X
 C - - - - - 0x01EFE8 07:EFD8: BD 23 81  LDA $8123,X
 C - - - - - 0x01EFEB 07:EFDB: 85 12     STA ram_0012
 C - - - - - 0x01EFED 07:EFDD: BD 24 81  LDA $8124,X
 C - - - - - 0x01EFF0 07:EFE0: 85 13     STA ram_0013
-bra_EFE2:
-C - - - - - 0x01EFF2 07:EFE2: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01EFF4 07:EFE4: 99 19 02  STA ram_0219,Y
+bra_EFE2_repeat:
+C - - - - - 0x01EFF2 07:EFE2: B1 12     LDA (ram_0012),Y ; This addresses from a bank 04, page 2
+C - - - - - 0x01EFF4 07:EFE4: 99 19 02  STA v_array_white_briefcase,Y ; Fill memory the white briefcases from ROM
 C - - - - - 0x01EFF7 07:EFE7: 88        DEY
-C - - - - - 0x01EFF8 07:EFE8: D0 F8     BNE bra_EFE2
+C - - - - - 0x01EFF8 07:EFE8: D0 F8     BNE bra_EFE2_repeat
 C - - - - - 0x01EFFA 07:EFEA: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01EFFD 07:EFED: A5 5E     LDA ram_005E
 C - - - - - 0x01EFFF 07:EFEF: 0A        ASL
@@ -7421,10 +7422,10 @@ C - - - - - 0x01F00B 07:EFFB: 60        RTS
 sub_EFFC:
 C - - - - - 0x01F00C 07:EFFC: A2 09     LDX #$09
 C - - - - - 0x01F00E 07:EFFE: A9 00     LDA #$00
-bra_F000:
+bra_F000_repeat:
 C - - - - - 0x01F010 07:F000: 9D 0A 02  STA ram_020A,X
 C - - - - - 0x01F013 07:F003: CA        DEX
-C - - - - - 0x01F014 07:F004: 10 FA     BPL bra_F000
+C - - - - - 0x01F014 07:F004: 10 FA     BPL bra_F000_repeat
 C - - - - - 0x01F016 07:F006: A2 05     LDX #$05
 bra_F008:
 C - - - - - 0x01F018 07:F008: A4 3C     LDY ram_003C

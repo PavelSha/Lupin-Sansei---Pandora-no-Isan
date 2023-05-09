@@ -9,8 +9,20 @@ PPU_STATUS = $2002
 PPU_ADDR   = $2006
 PPU_DATA   = $2007
 
-v_start_level       = ram_00B1 ; The start level [0-3]
-v_count_secret_hits = ram_00B2 ; Stage select codes at the title screen
+RADIO_IN_WHITE_BRIEFCASE               = $00
+BOMB_IN_WHITE_BRIEFCASE                = $01
+ARTILLERY_RIFLE_IN_WHITE_BRIEFCASE     = $02
+JET_PACK_IN_WHITE_BRIEFCASE            = $03
+INFRARED_GOGGLES_IN_WHITE_BRIEFCASE    = $04
+BREATHING_APPARATUS_IN_WHITE_BRIEFCASE = $05
+HELIUM_BALLOON_IN_WHITE_BRIEFCASE      = $06
+BULLET_PROOF_VEST_IN_WHITE_BRIEFCASE   = $07
+BIT_USING_WHITE_BRIEFCASE              = $80
+
+v_start_level           = ram_00B1 ; The start level [0-3]
+v_count_secret_hits     = ram_00B2 ; Stage select codes at the title screen
+v_array_white_briefcase = ram_0219 ; List of the structure with a white briefcase
+v_sub_AF4D_counter      = ram_001A ; Intermediate counter
 
 tbl_A000:
 - D 1 - - - 0x01A010 06:A000: 00        .byte $00   ; 
@@ -2242,10 +2254,11 @@ C - - - - - 0x01AF55 06:AF45: A9 00     LDA #$00
 C - - - - - 0x01AF57 06:AF47: 9D 5C 03  STA ram_035C,X
 bra_AF4A:
 C - - - - - 0x01AF5A 06:AF4A: 4C A9 AE  JMP loc_AEA9
+sub_AF4D: ; from bank FF
 C - - - - - 0x01AF5D 06:AF4D: A2 05     LDX #$05
-C - - - - - 0x01AF5F 06:AF4F: 86 1A     STX ram_001A
-bra_AF51:
-C - - - - - 0x01AF61 06:AF51: A6 1A     LDX ram_001A
+C - - - - - 0x01AF5F 06:AF4F: 86 1A     STX v_sub_AF4D_counter
+bra_AF51_repeat:
+C - - - - - 0x01AF61 06:AF51: A6 1A     LDX v_sub_AF4D_counter
 C - - - - - 0x01AF63 06:AF53: 20 F8 AF  JSR sub_AFF8
 C - - - - - 0x01AF66 06:AF56: BD 9E 03  LDA ram_039E,X
 C - - - - - 0x01AF69 06:AF59: C9 E0     CMP #$E0
@@ -2277,10 +2290,10 @@ C - - - - - 0x01AF9E 06:AF8E: 90 36     BCC bra_AFC6
 C - - - - - 0x01AFA0 06:AF90: BC 98 03  LDY ram_0398,X
 C - - - - - 0x01AFA3 06:AF93: A5 6D     LDA ram_006D
 C - - - - - 0x01AFA5 06:AF95: 30 0B     BMI bra_AFA2
-C - - - - - 0x01AFA7 06:AF97: B9 19 02  LDA ram_0219,Y
+C - - - - - 0x01AFA7 06:AF97: B9 19 02  LDA v_array_white_briefcase,Y
 C - - - - - 0x01AFAA 06:AF9A: 48        PHA
-C - - - - - 0x01AFAB 06:AF9B: 09 80     ORA #$80
-C - - - - - 0x01AFAD 06:AF9D: 99 19 02  STA ram_0219,Y
+C - - - - - 0x01AFAB 06:AF9B: 09 80     ORA #BIT_USING_WHITE_BRIEFCASE
+C - - - - - 0x01AFAD 06:AF9D: 99 19 02  STA v_array_white_briefcase,Y ; The white briefcase taken
 C - - - - - 0x01AFB0 06:AFA0: 68        PLA
 C - - - - - 0x01AFB1 06:AFA1: A8        TAY
 bra_AFA2:
@@ -2297,15 +2310,15 @@ C - - - - - 0x01AFC6 06:AFB6: 20 D5 AF  JSR sub_AFD5
 C - - - - - 0x01AFC9 06:AFB9: 4C C6 AF  JMP loc_AFC6
 bra_AFBC:
 C - - - - - 0x01AFCC 06:AFBC: A6 7A     LDX ram_007A
-bra_AFBE:
+bra_AFBE_repeat:
 C - - - - - 0x01AFCE 06:AFBE: 20 B6 D5  JSR $D5B6
 C - - - - - 0x01AFD1 06:AFC1: B0 08     BCS bra_AFCB
 C - - - - - 0x01AFD3 06:AFC3: CA        DEX
-C - - - - - 0x01AFD4 06:AFC4: 10 F8     BPL bra_AFBE
+C - - - - - 0x01AFD4 06:AFC4: 10 F8     BPL bra_AFBE_repeat
 bra_AFC6:
 loc_AFC6:
-C D 1 - - - 0x01AFD6 06:AFC6: C6 1A     DEC ram_001A
-C - - - - - 0x01AFD8 06:AFC8: D0 87     BNE bra_AF51
+C D 1 - - - 0x01AFD6 06:AFC6: C6 1A     DEC v_sub_AF4D_counter
+C - - - - - 0x01AFD8 06:AFC8: D0 87     BNE bra_AF51_repeat
 C - - - - - 0x01AFDA 06:AFCA: 60        RTS
 bra_AFCB:
 C - - - - - 0x01AFDB 06:AFCB: A9 00     LDA #$00
@@ -2313,7 +2326,7 @@ C - - - - - 0x01AFDD 06:AFCD: 95 8F     STA ram_008F,X
 C - - - - - 0x01AFDF 06:AFCF: 20 D5 AF  JSR sub_AFD5
 C - - - - - 0x01AFE2 06:AFD2: 4C C6 AF  JMP loc_AFC6
 sub_AFD5:
-C - - - - - 0x01AFE5 06:AFD5: A6 1A     LDX ram_001A
+C - - - - - 0x01AFE5 06:AFD5: A6 1A     LDX v_sub_AF4D_counter
 C - - - - - 0x01AFE7 06:AFD7: DE A4 03  DEC ram_03A4,X
 C - - - - - 0x01AFEA 06:AFDA: D0 12     BNE bra_AFEE_RTS
 C - - - - - 0x01AFEC 06:AFDC: BD 9E 03  LDA ram_039E,X
@@ -2354,7 +2367,7 @@ C - - - - - 0x01B02C 06:B01C: BD 98 03  LDA ram_0398,X
 C - - - - - 0x01B02F 06:B01F: A4 6D     LDY ram_006D
 C - - - - - 0x01B031 06:B021: 30 06     BMI bra_B029
 C - - - - - 0x01B033 06:B023: A8        TAY
-C - - - - - 0x01B034 06:B024: B9 19 02  LDA ram_0219,Y
+C - - - - - 0x01B034 06:B024: B9 19 02  LDA v_array_white_briefcase,Y
 C - - - - - 0x01B037 06:B027: 29 0F     AND #$0F
 bra_B029:
 C - - - - - 0x01B039 06:B029: 0A        ASL
@@ -2417,6 +2430,7 @@ C - - - - - 0x01B0A1 06:B091: 99 0A 02  STA ram_020A,Y
 C - - - - - 0x01B0A4 06:B094: A9 18     LDA #$18
 C - - - - - 0x01B0A6 06:B096: 20 20 C4  JSR $C420
 C - - - - - 0x01B0A9 06:B099: 60        RTS
+sub_B09A: ; from bank FF
 C - - - - - 0x01B0AA 06:B09A: A2 05     LDX #$05
 bra_B09C:
 C - - - - - 0x01B0AC 06:B09C: BD 9E 03  LDA ram_039E,X
@@ -2428,7 +2442,7 @@ C - - - - - 0x01B0B4 06:B0A4: 60        RTS
 bra_B0A5:
 C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA ram_006D
 C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113
-C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR $EF4F
+C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR $EF4F ; sub_EF4F_switch_bank_4_p2, bank FF
 C - - - - - 0x01B0BC 06:B0AC: A0 00     LDY #$00
 C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA ram_0046
 C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ bra_B0BE
@@ -2447,7 +2461,7 @@ C - - - - - 0x01B0D8 06:B0C8: A9 01     LDA #$01
 C - - - - - 0x01B0DA 06:B0CA: 20 D6 F2  JSR $F2D6
 C - - - - - 0x01B0DD 06:B0CD: 90 D5     BCC bra_B0A4_RTS
 C - - - - - 0x01B0DF 06:B0CF: A4 0A     LDY ram_000A
-C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA ram_0219,Y
+C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA v_array_white_briefcase,Y
 C - - - - - 0x01B0E4 06:B0D4: 30 CE     BMI bra_B0A4_RTS
 C - - - - - 0x01B0E6 06:B0D6: A0 05     LDY #$05
 bra_B0D8:
@@ -2598,7 +2612,7 @@ C - - - - - 0x01B1EE 06:B1DE: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01B1F0 06:B1E0: 9D 98 03  STA ram_0398,X
 C - - - - - 0x01B1F3 06:B1E3: F0 0A     BEQ bra_B1EF
 C - - - - - 0x01B1F5 06:B1E5: A8        TAY
-C - - - - - 0x01B1F6 06:B1E6: B9 19 02  LDA ram_0219,Y
+C - - - - - 0x01B1F6 06:B1E6: B9 19 02  LDA v_array_white_briefcase,Y
 C - - - - - 0x01B1F9 06:B1E9: 30 04     BMI bra_B1EF
 C - - - - - 0x01B1FB 06:B1EB: A9 C0     LDA #$C0
 C - - - - - 0x01B1FD 06:B1ED: D0 02     BNE bra_B1F1
