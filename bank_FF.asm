@@ -18,8 +18,10 @@ JOY2 = $4017
 v_nmi_counter           = ram_002B
 v_menu_counter          = ram_0033
 v_menu_counter_times    = ram_0034
+v_bomb_on_screen        = ram_039E
 v_bank_data             = ram_06B5
 v_array_white_briefcase = ram_0219
+v_item_on_screen        = ram_039E ; [039F-03A3] - briefcase, C0 - briefcase, D0 - self item
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI
@@ -2018,7 +2020,7 @@ sub_CD1C:
 C - - - - - 0x01CD2C 07:CD1C: B9 53 CD  LDA tbl_CD53,Y
 C - - - - - 0x01CD2F 07:CD1F: 8D 98 03  STA ram_0398
 C - - - - - 0x01CD32 07:CD22: B9 54 CD  LDA tbl_CD54,Y
-C - - - - - 0x01CD35 07:CD25: 8D 9E 03  STA ram_039E
+C - - - - - 0x01CD35 07:CD25: 8D 9E 03  STA v_bomb_on_screen
 C - - - - - 0x01CD38 07:CD28: A5 6A     LDA ram_006A
 C - - - - - 0x01CD3A 07:CD2A: 18        CLC
 C - - - - - 0x01CD3B 07:CD2B: 79 55 CD  ADC tbl_CD55,Y
@@ -2042,7 +2044,7 @@ C - - - - - 0x01CD62 07:CD52: 60        RTS
 tbl_CD53:
 - D 2 - - - 0x01CD63 07:CD53: 01        .byte $01   ; 
 tbl_CD54:
-- D 2 - - - 0x01CD64 07:CD54: C2        .byte $C2   ; 
+- D 2 - - - 0x01CD64 07:CD54: C2        .byte $C2   ;
 tbl_CD55:
 - D 2 - - - 0x01CD65 07:CD55: 00        .byte $00   ; 
 tbl_CD56:
@@ -7462,21 +7464,21 @@ C - - - - - 0x01F052 07:F042: 09 40     ORA #$40
 C - - - - - 0x01F054 07:F044: 85 3C     STA ram_003C
 C - - - - - 0x01F056 07:F046: A9 00     LDA #$00
 C - - - - - 0x01F058 07:F048: A2 05     LDX #$05
-bra_F04A:
-C - - - - - 0x01F05A 07:F04A: 9D 9E 03  STA ram_039E,X
+bra_F04A_repeat:
+C - - - - - 0x01F05A 07:F04A: 9D 9E 03  STA v_item_on_screen,X
 C - - - - - 0x01F05D 07:F04D: CA        DEX
-C - - - - - 0x01F05E 07:F04E: 10 FA     BPL bra_F04A
+C - - - - - 0x01F05E 07:F04E: 10 FA     BPL bra_F04A_repeat
 C - - - - - 0x01F060 07:F050: 8D D4 03  STA ram_03D4
 C - - - - - 0x01F063 07:F053: 8D D5 03  STA ram_03D5
 C - - - - - 0x01F066 07:F056: 8D D6 03  STA ram_03D6
 C - - - - - 0x01F069 07:F059: 85 D1     STA ram_00D1
 C - - - - - 0x01F06B 07:F05B: A2 03     LDX #$03
-bra_F05D:
+bra_F05D_repeat:
 C - - - - - 0x01F06D 07:F05D: 9D 18 03  STA ram_0318,X
 C - - - - - 0x01F070 07:F060: 9D 1C 03  STA ram_031C,X
 C - - - - - 0x01F073 07:F063: 9D 15 02  STA ram_0215,X
 C - - - - - 0x01F076 07:F066: CA        DEX
-C - - - - - 0x01F077 07:F067: 10 F4     BPL bra_F05D
+C - - - - - 0x01F077 07:F067: 10 F4     BPL bra_F05D_repeat
 C - - - - - 0x01F079 07:F069: 20 75 F0  JSR sub_F075
 C - - - - - 0x01F07C 07:F06C: A9 00     LDA #$00
 C - - - - - 0x01F07E 07:F06E: 8D 14 03  STA ram_0314
