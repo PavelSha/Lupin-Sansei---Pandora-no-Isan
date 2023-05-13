@@ -1,20 +1,9 @@
 .segment "BANK_FF"
 .include "bank_ram.inc"
+.include "consts.inc"
 ; 0x01C010-0x02000F
 
-MMC3_Bank_select    = $8000 ; see https://www.nesdev.org/wiki/MMC3
-MMC3_Bank_data      = $8001 ;
-
-PPU_CTRL     = $2000
-PPU_MASK     = $2001
-PPU_STATUS   = $2002
-PPU_OAM_ADDR = $2003
-PPU_ADDRESS  = $2006
-PPU_DATA     = $2007
-DMC_FREQ     = $4010
-JOY1 = $4016
-JOY2 = $4017
-
+v_btn_pressed           = ram_001E
 v_nmi_counter           = ram_002B
 v_menu_counter          = ram_0033
 v_menu_counter_times    = ram_0034
@@ -49,16 +38,16 @@ C - - - - - 0x01C038 07:C028: 9D 00 06  STA ram_0600,X
 C - - - - - 0x01C03B 07:C02B: 9D 00 07  STA ram_0700,X
 C - - - - - 0x01C03E 07:C02E: E8        INX
 C - - - - - 0x01C03F 07:C02F: D0 EB     BNE bra_C01C_memset_zero
-bra_C031:
+bra_C031_repeat:
 C - - - - - 0x01C041 07:C031: 95 00     STA ram_0000,X
 C - - - - - 0x01C043 07:C033: E8        INX
 C - - - - - 0x01C044 07:C034: E0 99     CPX #$99
-C - - - - - 0x01C046 07:C036: 90 F9     BCC bra_C031
+C - - - - - 0x01C046 07:C036: 90 F9     BCC bra_C031_repeat
 C - - - - - 0x01C048 07:C038: A2 A7     LDX #$A7
-bra_C03A:
+bra_C03A_repeat:
 C - - - - - 0x01C04A 07:C03A: 95 00     STA ram_0000,X
 C - - - - - 0x01C04C 07:C03C: E8        INX
-C - - - - - 0x01C04D 07:C03D: D0 FB     BNE bra_C03A
+C - - - - - 0x01C04D 07:C03D: D0 FB     BNE bra_C03A_repeat
 C - - - - - 0x01C04F 07:C03F: 20 FB FD  JSR sub_FDFB
 C - - - - - 0x01C052 07:C042: A9 FF     LDA #$FF
 C - - - - - 0x01C054 07:C044: 85 37     STA ram_0037
@@ -95,8 +84,8 @@ C - - - - - 0x01C092 07:C082: 8D 17 40  STA JOY2
 C - - - - - 0x01C095 07:C085: A9 FC     LDA #$FC
 C - - - - - 0x01C097 07:C087: 85 5F     STA ram_005F
 C - - - - - 0x01C099 07:C089: 20 D4 C8  JSR sub_C8D4
-C - - - - - 0x01C09C 07:C08C: 20 C7 B8  JSR $B8C7
-C - - - - - 0x01C09F 07:C08F: 20 DA B9  JSR $B9DA
+C - - - - - 0x01C09C 07:C08C: 20 C7 B8  JSR $B8C7 ; to sub_B8C7 (bank 06_2)
+C - - - - - 0x01C09F 07:C08F: 20 DA B9  JSR $B9DA ; to sub_B9DA (bank 06_2)
 C - - - - - 0x01C0A2 07:C092: 20 96 EF  JSR sub_EF96
 loc_C095:
 C D 2 - - - 0x01C0A5 07:C095: A5 37     LDA ram_0037
@@ -582,7 +571,8 @@ C - - - - - 0x01C409 07:C3F9: 8D 03 20  STA PPU_OAM_ADDR
 C - - - - - 0x01C40C 07:C3FC: A9 07     LDA #$07
 C - - - - - 0x01C40E 07:C3FE: 8D 14 40  STA $4014
 C - - - - - 0x01C411 07:C401: 60        RTS
-sub_C402:
+loc_C402: ; from bank 06_2
+sub_C402: ; from bank 06_2
 C D 2 - - - 0x01C412 07:C402: A9 FF     LDA #$FF
 C - - - - - 0x01C414 07:C404: 85 FD     STA ram_00FD
 C - - - - - 0x01C416 07:C406: A0 00     LDY #$00
@@ -678,7 +668,7 @@ C - - - - - 0x01C4B3 07:C4A3: 45 1C     EOR ram_001C
 C - - - - - 0x01C4B5 07:C4A5: 85 1C     STA ram_001C
 bra_C4A7:
 sub_C4A7:
-C - - - - - 0x01C4B7 07:C4A7: A5 1E     LDA ram_001E
+C - - - - - 0x01C4B7 07:C4A7: A5 1E     LDA v_btn_pressed
 C - - - - - 0x01C4B9 07:C4A9: 85 21     STA ram_0021
 C - - - - - 0x01C4BB 07:C4AB: A5 1F     LDA ram_001F
 C - - - - - 0x01C4BD 07:C4AD: 85 20     STA ram_0020
@@ -691,7 +681,7 @@ bra_C4BA:
 C - - - - - 0x01C4CA 07:C4BA: AD 16 40  LDA JOY1
 C - - - - - 0x01C4CD 07:C4BD: 29 03     AND #$03
 C - - - - - 0x01C4CF 07:C4BF: C9 01     CMP #$01
-C - - - - - 0x01C4D1 07:C4C1: 66 1E     ROR ram_001E
+C - - - - - 0x01C4D1 07:C4C1: 66 1E     ROR v_btn_pressed
 C - - - - - 0x01C4D3 07:C4C3: AD 17 40  LDA JOY2
 C - - - - - 0x01C4D6 07:C4C6: 29 03     AND #$03
 C - - - - - 0x01C4D8 07:C4C8: C9 01     CMP #$01
@@ -701,7 +691,7 @@ C - - - - - 0x01C4DD 07:C4CD: D0 EB     BNE bra_C4BA
 C - - - - - 0x01C4DF 07:C4CF: 60        RTS
 bra_C4D0:
 C - - - - - 0x01C4E0 07:C4D0: 20 A7 C4  JSR sub_C4A7
-C - - - - - 0x01C4E3 07:C4D3: A5 1E     LDA ram_001E
+C - - - - - 0x01C4E3 07:C4D3: A5 1E     LDA v_btn_pressed
 C - - - - - 0x01C4E5 07:C4D5: 85 1C     STA ram_001C
 C - - - - - 0x01C4E7 07:C4D7: 60        RTS
 sub_C4D8:
@@ -783,8 +773,8 @@ C - - - - - 0x01C576 07:C566: E6 3D     INC ram_003D
 bra_C568_RTS:
 C - - - - - 0x01C578 07:C568: 60        RTS
 sub_C569:
-C - - - - - 0x01C579 07:C569: A9 08     LDA #$08
-C - - - - - 0x01C57B 07:C56B: 20 79 D0  JSR sub_D079
+C - - - - - 0x01C579 07:C569: A9 08     LDA #BIT_BUTTON_START
+C - - - - - 0x01C57B 07:C56B: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01C57E 07:C56E: F0 02     BEQ bra_C572
 C - - - - - 0x01C580 07:C570: E6 3D     INC ram_003D
 bra_C572:
@@ -1133,9 +1123,9 @@ C - - - - - 0x01C7A1 07:C791: 30 13     BMI bra_C7A6
 bra_C7A6:
 C - - - - - 0x01C7B6 07:C7A6: A5 3D     LDA ram_003D
 C - - - - - 0x01C7B8 07:C7A8: D0 0B     BNE bra_C7B5
-C - - - - - 0x01C7BA 07:C7AA: A9 03     LDA #$03
-C - - - - - 0x01C7BC 07:C7AC: 20 79 D0  JSR sub_D079
-C - - - - - 0x01C7BF 07:C7AF: F0 09     BEQ bra_C7BA
+C - - - - - 0x01C7BA 07:C7AA: A9 03     LDA #BIT_BUTTON_B_OR_A ; Selects a character before start a level
+C - - - - - 0x01C7BC 07:C7AC: 20 79 D0  JSR sub_D079_check_button_press
+C - - - - - 0x01C7BF 07:C7AF: F0 09     BEQ bra_C7BA ; Go to the branch If the buttons 'A' or 'B' doesn't pressed
 C - - - - - 0x01C7C1 07:C7B1: A9 C0     LDA #$C0
 C - - - - - 0x01C7C3 07:C7B3: 85 3D     STA ram_003D
 bra_C7B5:
@@ -1144,8 +1134,8 @@ C - - - - - 0x01C7C7 07:C7B7: 4C EF C7  JMP loc_C7EF
 bra_C7BA:
 C - - - - - 0x01C7CA 07:C7BA: A5 AD     LDA ram_00AD
 C - - - - - 0x01C7CC 07:C7BC: 85 AE     STA ram_00AE
-C - - - - - 0x01C7CE 07:C7BE: A9 30     LDA #$30
-C - - - - - 0x01C7D0 07:C7C0: 20 79 D0  JSR sub_D079
+C - - - - - 0x01C7CE 07:C7BE: A9 30     LDA #BIT_BUTTON_Up_OR_Down
+C - - - - - 0x01C7D0 07:C7C0: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01C7D3 07:C7C3: F0 2A     BEQ bra_C7EF
 C - - - - - 0x01C7D5 07:C7C5: 48        PHA
 C - - - - - 0x01C7D6 07:C7C6: A9 15     LDA #$15
@@ -1269,9 +1259,9 @@ C - - - - - 0x01C89D 07:C88D: A5 34     LDA v_menu_counter_times
 C - - - - - 0x01C89F 07:C88F: F0 02     BEQ bra_C893
 C - - - - - 0x01C8A1 07:C891: C6 34     DEC v_menu_counter_times
 bra_C893:
-C - - - - - 0x01C8A3 07:C893: A5 1E     LDA ram_001E
-C - - - - - 0x01C8A5 07:C895: 29 08     AND #$08
-C - - - - - 0x01C8A7 07:C897: F0 3A     BEQ bra_C8D3_RTS
+C - - - - - 0x01C8A3 07:C893: A5 1E     LDA v_btn_pressed
+C - - - - - 0x01C8A5 07:C895: 29 08     AND #BIT_BUTTON_START
+C - - - - - 0x01C8A7 07:C897: F0 3A     BEQ bra_C8D3_RTS ; Go to the branch If the button 'Start' doesn't press
 C - - - - - 0x01C8A9 07:C899: 45 21     EOR ram_0021
 C - - - - - 0x01C8AB 07:C89B: 29 08     AND #$08
 C - - - - - 0x01C8AD 07:C89D: F0 34     BEQ bra_C8D3_RTS
@@ -1281,8 +1271,8 @@ C - - - - - 0x01C8B3 07:C8A3: A2 FF     LDX #$FF
 C - - - - - 0x01C8B5 07:C8A5: 9A        TXS
 C - - - - - 0x01C8B6 07:C8A6: 4C 46 C0  JMP loc_C046
 bra_C8A9:
-C - - - - - 0x01C8B9 07:C8A9: A9 08     LDA #$08
-C - - - - - 0x01C8BB 07:C8AB: 20 79 D0  JSR sub_D079
+C - - - - - 0x01C8B9 07:C8A9: A9 08     LDA #BIT_BUTTON_START
+C - - - - - 0x01C8BB 07:C8AB: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01C8BE 07:C8AE: F0 23     BEQ bra_C8D3_RTS
 C - - - - - 0x01C8C0 07:C8B0: 24 38     BIT ram_0038
 C - - - - - 0x01C8C2 07:C8B2: 70 12     BVS bra_C8C6
@@ -1754,8 +1744,8 @@ C - - - - - 0x01CB5D 07:CB4D: 29 07     AND #$07
 C - - - - - 0x01CB5F 07:CB4F: AA        TAX
 C - - - - - 0x01CB60 07:CB50: A9 05     LDA #$05
 C - - - - - 0x01CB62 07:CB52: 85 14     STA ram_0014
-C - - - - - 0x01CB64 07:CB54: A9 C0     LDA #$C0
-C - - - - - 0x01CB66 07:CB56: 20 79 D0  JSR sub_D079
+C - - - - - 0x01CB64 07:CB54: A9 C0     LDA #BIT_BUTTON_Left_OR_Right
+C - - - - - 0x01CB66 07:CB56: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01CB69 07:CB59: F0 31     BEQ bra_CB8C
 C - - - - - 0x01CB6B 07:CB5B: C9 40     CMP #$40
 C - - - - - 0x01CB6D 07:CB5D: D0 11     BNE bra_CB70
@@ -1839,8 +1829,8 @@ C - - - - - 0x01CBF4 07:CBE4: D0 43     BNE bra_CC29_RTS
 C - - - - - 0x01CBF6 07:CBE6: A5 6C     LDA ram_006C
 C - - - - - 0x01CBF8 07:CBE8: 29 28     AND #$28
 C - - - - - 0x01CBFA 07:CBEA: D0 3D     BNE bra_CC29_RTS
-C - - - - - 0x01CBFC 07:CBEC: A9 04     LDA #$04
-C - - - - - 0x01CBFE 07:CBEE: 20 79 D0  JSR sub_D079
+C - - - - - 0x01CBFC 07:CBEC: A9 04     LDA #BIT_BUTTON_SELECT
+C - - - - - 0x01CBFE 07:CBEE: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01CC01 07:CBF1: F0 36     BEQ bra_CC29_RTS
 C - - - - - 0x01CC03 07:CBF3: 20 29 CB  JSR sub_CB29
 C - - - - - 0x01CC06 07:CBF6: B0 31     BCS bra_CC29_RTS
@@ -2603,7 +2593,7 @@ C - - - - - 0x01D083 07:D073: 49 FF     EOR #$FF
 C - - - - - 0x01D085 07:D075: 18        CLC
 C - - - - - 0x01D086 07:D076: 69 01     ADC #$01
 C - - - - - 0x01D088 07:D078: 60        RTS
-sub_D079:
+sub_D079_check_button_press:
 C - - - - - 0x01D089 07:D079: 85 12     STA ram_0012
 C - - - - - 0x01D08B 07:D07B: A5 1C     LDA ram_001C
 C - - - - - 0x01D08D 07:D07D: 25 12     AND ram_0012
@@ -4271,16 +4261,16 @@ C - - - - - 0x01DB69 07:DB59: A5 73     LDA ram_0073
 C - - - - - 0x01DB6B 07:DB5B: F0 03     BEQ bra_DB60
 C - - - - - 0x01DB6D 07:DB5D: 4C FB B1  JMP $B1FB
 bra_DB60:
-C - - - - - 0x01DB70 07:DB60: A9 01     LDA #$01
-C - - - - - 0x01DB72 07:DB62: 20 79 D0  JSR sub_D079
+C - - - - - 0x01DB70 07:DB60: A9 01     LDA #BIT_BUTTON_A
+C - - - - - 0x01DB72 07:DB62: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01DB75 07:DB65: F0 03     BEQ bra_DB6A
 C - - - - - 0x01DB77 07:DB67: 4C 87 DD  JMP loc_DD87
 bra_DB6A:
 C - - - - - 0x01DB7A 07:DB6A: AD 14 02  LDA ram_0214
 C - - - - - 0x01DB7D 07:DB6D: C9 42     CMP #$42
 C - - - - - 0x01DB7F 07:DB6F: F0 2C     BEQ bra_DB9D
-C - - - - - 0x01DB81 07:DB71: A9 10     LDA #$10
-C - - - - - 0x01DB83 07:DB73: 20 79 D0  JSR sub_D079
+C - - - - - 0x01DB81 07:DB71: A9 10     LDA #BIT_BUTTON_Up
+C - - - - - 0x01DB83 07:DB73: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01DB86 07:DB76: F0 1B     BEQ bra_DB93
 C - - - - - 0x01DB88 07:DB78: 20 28 FC  JSR sub_FC28
 C - - - - - 0x01DB8B 07:DB7B: B0 16     BCS bra_DB93
@@ -5037,8 +5027,8 @@ tbl_E036:
 - - - - - - 0x01E05A 07:E04A: C2        .byte $C2   ; 
 - - - - - - 0x01E05B 07:E04B: DB        .byte $DB   ; 
 sub_E04C:
-C - - - - - 0x01E05C 07:E04C: A9 02     LDA #$02
-C - - - - - 0x01E05E 07:E04E: 20 79 D0  JSR sub_D079
+C - - - - - 0x01E05C 07:E04C: A9 02     LDA #BIT_BUTTON_B
+C - - - - - 0x01E05E 07:E04E: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01E061 07:E051: F0 30     BEQ bra_E083_RTS
 C - - - - - 0x01E063 07:E053: 24 79     BIT ram_0079
 C - - - - - 0x01E065 07:E055: 10 2C     BPL bra_E083_RTS
@@ -5672,8 +5662,8 @@ C - - - - - 0x01E3DA 07:E3CA: 85 79     STA ram_0079
 C - - - - - 0x01E3DC 07:E3CC: 20 63 DF  JSR sub_DF63
 C - - - - - 0x01E3DF 07:E3CF: A6 2E     LDX ram_002E
 C - - - - - 0x01E3E1 07:E3D1: D0 0F     BNE bra_E3E2
-C - - - - - 0x01E3E3 07:E3D3: A9 01     LDA #$01
-C - - - - - 0x01E3E5 07:E3D5: 20 79 D0  JSR sub_D079
+C - - - - - 0x01E3E3 07:E3D3: A9 01     LDA #BIT_BUTTON_A
+C - - - - - 0x01E3E5 07:E3D5: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01E3E8 07:E3D8: F0 38     BEQ bra_E412
 C - - - - - 0x01E3EA 07:E3DA: A9 09     LDA #$09
 C - - - - - 0x01E3EC 07:E3DC: 85 71     STA ram_0071
@@ -6025,8 +6015,8 @@ loc_E632:
 C D 3 - - - 0x01E642 07:E632: 20 EE CD  JSR sub_CDEE
 C - - - - - 0x01E645 07:E635: 4C 4B DB  JMP loc_DB4B
 bra_E638:
-C - - - - - 0x01E648 07:E638: A9 01     LDA #$01
-C - - - - - 0x01E64A 07:E63A: 20 79 D0  JSR sub_D079
+C - - - - - 0x01E648 07:E638: A9 01     LDA #BIT_BUTTON_A
+C - - - - - 0x01E64A 07:E63A: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01E64D 07:E63D: D0 F3     BNE bra_E632
 C - - - - - 0x01E64F 07:E63F: A5 2C     LDA ram_002C
 C - - - - - 0x01E651 07:E641: 29 07     AND #$07
@@ -6081,8 +6071,8 @@ C - - - - - 0x01E6AA 07:E69A: A2 0C     LDX #$0C
 C - - - - - 0x01E6AC 07:E69C: A5 2F     LDA ram_002F
 C - - - - - 0x01E6AE 07:E69E: D0 19     BNE bra_E6B9
 C - - - - - 0x01E6B0 07:E6A0: A2 04     LDX #$04
-C - - - - - 0x01E6B2 07:E6A2: A9 20     LDA #$20
-C - - - - - 0x01E6B4 07:E6A4: 20 79 D0  JSR sub_D079
+C - - - - - 0x01E6B2 07:E6A2: A9 20     LDA #BIT_BUTTON_Down
+C - - - - - 0x01E6B4 07:E6A4: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01E6B7 07:E6A7: F0 04     BEQ bra_E6AD
 C - - - - - 0x01E6B9 07:E6A9: A9 08     LDA #$08
 C - - - - - 0x01E6BB 07:E6AB: 85 2F     STA ram_002F
@@ -6316,8 +6306,8 @@ C - - - - - 0x01E835 07:E825: 90 02     BCC bra_E829
 C - - - - - 0x01E837 07:E827: A2 80     LDX #$80
 bra_E829:
 C - - - - - 0x01E839 07:E829: 86 42     STX ram_0042
-C - - - - - 0x01E83B 07:E82B: A9 01     LDA #$01
-C - - - - - 0x01E83D 07:E82D: 20 79 D0  JSR sub_D079
+C - - - - - 0x01E83B 07:E82B: A9 01     LDA #BIT_BUTTON_A
+C - - - - - 0x01E83D 07:E82D: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01E840 07:E830: D0 0B     BNE bra_E83D
 C - - - - - 0x01E842 07:E832: 20 34 E5  JSR sub_E534
 C - - - - - 0x01E845 07:E835: A9 03     LDA #$03
@@ -6338,8 +6328,8 @@ C - - - - - 0x01E861 07:E851: 29 08     AND #$08
 C - - - - - 0x01E863 07:E853: D0 6F     BNE bra_E8C4
 C - - - - - 0x01E865 07:E855: 24 42     BIT ram_0042
 C - - - - - 0x01E867 07:E857: 70 67     BVS bra_E8C0
-C - - - - - 0x01E869 07:E859: A9 01     LDA #$01
-C - - - - - 0x01E86B 07:E85B: 20 79 D0  JSR sub_D079
+C - - - - - 0x01E869 07:E859: A9 01     LDA #BIT_BUTTON_A
+C - - - - - 0x01E86B 07:E85B: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01E86E 07:E85E: D0 6D     BNE bra_E8CD
 C - - - - - 0x01E870 07:E860: A9 80     LDA #$80
 C - - - - - 0x01E872 07:E862: 85 79     STA ram_0079
@@ -6480,8 +6470,8 @@ bra_E94B:
 C - - - - - 0x01E95B 07:E94B: A5 68     LDA ram_0068
 C - - - - - 0x01E95D 07:E94D: C5 4A     CMP ram_004A
 C - - - - - 0x01E95F 07:E94F: F0 0F     BEQ bra_E960
-C - - - - - 0x01E961 07:E951: A9 01     LDA #$01
-C - - - - - 0x01E963 07:E953: 20 79 D0  JSR sub_D079
+C - - - - - 0x01E961 07:E951: A9 01     LDA #BIT_BUTTON_A
+C - - - - - 0x01E963 07:E953: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01E966 07:E956: F0 35     BEQ bra_E98D
 C - - - - - 0x01E968 07:E958: A9 40     LDA #$40
 C - - - - - 0x01E96A 07:E95A: 20 20 C4  JSR sub_C420

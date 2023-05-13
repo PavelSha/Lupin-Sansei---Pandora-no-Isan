@@ -1,23 +1,7 @@
 .segment "BANK_06_2"
 .include "bank_ram.inc"
+.include "consts.inc"
 ; 0x01A010-0x01C00F
-
-MMC3_Bank_select    = $8000 ; see https://www.nesdev.org/wiki/MMC3
-MMC3_Bank_data      = $8001 ;
-
-PPU_STATUS = $2002
-PPU_ADDR   = $2006
-PPU_DATA   = $2007
-
-RADIO_IN_WHITE_BRIEFCASE               = $00
-BOMB_IN_WHITE_BRIEFCASE                = $01
-ARTILLERY_RIFLE_IN_WHITE_BRIEFCASE     = $02
-JET_PACK_IN_WHITE_BRIEFCASE            = $03
-INFRARED_GOGGLES_IN_WHITE_BRIEFCASE    = $04
-BREATHING_APPARATUS_IN_WHITE_BRIEFCASE = $05
-HELIUM_BALLOON_IN_WHITE_BRIEFCASE      = $06
-BULLET_PROOF_VEST_IN_WHITE_BRIEFCASE   = $07
-BIT_USING_WHITE_BRIEFCASE              = $80
 
 v_start_level           = ram_00B1 ; The start level [0-3]
 v_count_secret_hits     = ram_00B2 ; Stage select codes at the title screen
@@ -2754,15 +2738,15 @@ C - - - - - 0x01B2F0 06:B2E0: 65 CB     ADC ram_00CB
 C - - - - - 0x01B2F2 06:B2E2: 48        PHA
 C - - - - - 0x01B2F3 06:B2E3: A5 CC     LDA ram_00CC
 C - - - - - 0x01B2F5 06:B2E5: 69 00     ADC #$00
-C - - - - - 0x01B2F7 06:B2E7: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01B2F7 06:B2E7: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B2FA 06:B2EA: 68        PLA
-C - - - - - 0x01B2FB 06:B2EB: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01B2FB 06:B2EB: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B2FE 06:B2EE: 4C FC B2  JMP loc_B2FC
 
 - - - - - - 0x01B301 06:B2F1: AD 02 20  LDA PPU_STATUS ; not used ???
 - - - - - - 0x01B304 06:B2F4: A9 00     LDA #$00  ; not used ???
-- - - - - - 0x01B306 06:B2F6: 8D 06 20  STA PPU_ADDR ; not used ???
-- - - - - - 0x01B309 06:B2F9: 8C 06 20  STY PPU_ADDR ; not used ???
+- - - - - - 0x01B306 06:B2F6: 8D 06 20  STA PPU_ADDRESS ; not used ???
+- - - - - - 0x01B309 06:B2F9: 8C 06 20  STY PPU_ADDRESS ; not used ???
 loc_B2FC:
 C D 1 - - - 0x01B30C 06:B2FC: AD 07 20  LDA PPU_DATA
 C - - - - - 0x01B30F 06:B2FF: AD 07 20  LDA PPU_DATA
@@ -2907,8 +2891,8 @@ C - - - - - 0x01B3FA 06:B3EA: 24 41     BIT ram_0041
 C - - - - - 0x01B3FC 06:B3EC: 70 23     BVS bra_B411
 C - - - - - 0x01B3FE 06:B3EE: 20 3E FC  JSR $FC3E
 C - - - - - 0x01B401 06:B3F1: F0 0F     BEQ bra_B402
-C - - - - - 0x01B403 06:B3F3: A9 03     LDA #$03
-C - - - - - 0x01B405 06:B3F5: 20 79 D0  JSR $D079
+C - - - - - 0x01B403 06:B3F3: A9 03     LDA #BIT_BUTTON_B_OR_A
+C - - - - - 0x01B405 06:B3F5: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
 C - - - - - 0x01B408 06:B3F8: F0 17     BEQ bra_B411
 C - - - - - 0x01B40A 06:B3FA: A5 41     LDA ram_0041
 C - - - - - 0x01B40C 06:B3FC: C9 06     CMP #$06
@@ -2978,8 +2962,8 @@ C - - - - - 0x01B47C 06:B46C: A5 C8     LDA ram_00C8
 C - - - - - 0x01B47E 06:B46E: D0 F3     BNE bra_B463_RTS
 C - - - - - 0x01B480 06:B470: A5 39     LDA ram_0039
 C - - - - - 0x01B482 06:B472: 30 EF     BMI bra_B463_RTS
-C - - - - - 0x01B484 06:B474: A9 03     LDA #$03
-C - - - - - 0x01B486 06:B476: 20 79 D0  JSR $D079
+C - - - - - 0x01B484 06:B474: A9 03     LDA #BIT_BUTTON_B_OR_A
+C - - - - - 0x01B486 06:B476: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
 C - - - - - 0x01B489 06:B479: F0 E8     BEQ bra_B463_RTS
 C - - - - - 0x01B48B 06:B47B: A9 E0     LDA #$E0
 C - - - - - 0x01B48D 06:B47D: 85 39     STA ram_0039
@@ -3259,8 +3243,8 @@ C - - - - - 0x01B64F 06:B63F: E6 D8     INC ram_00D8
 C - - - - - 0x01B651 06:B641: D0 0D     BNE bra_B650
 C - - - - - 0x01B653 06:B643: A5 C8     LDA ram_00C8
 C - - - - - 0x01B655 06:B645: D0 09     BNE bra_B650
-C - - - - - 0x01B657 06:B647: A9 03     LDA #$03
-C - - - - - 0x01B659 06:B649: 20 79 D0  JSR $D079
+C - - - - - 0x01B657 06:B647: A9 03     LDA #BIT_BUTTON_B_OR_A
+C - - - - - 0x01B659 06:B649: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
 C - - - - - 0x01B65C 06:B64C: F0 02     BEQ bra_B650
 C - - - - - 0x01B65E 06:B64E: E6 D8     INC ram_00D8
 bra_B650:
@@ -3330,8 +3314,8 @@ C - - - - - 0x01B6EE 06:B6DE: E6 D8     INC ram_00D8
 C - - - - - 0x01B6F0 06:B6E0: 60        RTS
 C - - - - - 0x01B6F1 06:B6E1: A5 C8     LDA ram_00C8
 C - - - - - 0x01B6F3 06:B6E3: D0 0A     BNE bra_B6EF_RTS
-C - - - - - 0x01B6F5 06:B6E5: A9 03     LDA #$03
-C - - - - - 0x01B6F7 06:B6E7: 20 79 D0  JSR $D079
+C - - - - - 0x01B6F5 06:B6E5: A9 03     LDA #BIT_BUTTON_B_OR_A
+C - - - - - 0x01B6F7 06:B6E7: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
 C - - - - - 0x01B6FA 06:B6EA: D0 01     BNE bra_B6ED
 C - - - - - 0x01B6FC 06:B6EC: 60        RTS
 bra_B6ED:
@@ -3387,16 +3371,16 @@ C - - - - - 0x01B75D 06:B74D: F0 55     BEQ bra_B7A4
 C - - - - - 0x01B75F 06:B74F: D0 1D     BNE bra_B76E
 C - - - - - 0x01B761 06:B751: A5 C8     LDA ram_00C8
 C - - - - - 0x01B763 06:B753: D0 4F     BNE bra_B7A4
-C - - - - - 0x01B765 06:B755: A9 03     LDA #$03
-C - - - - - 0x01B767 06:B757: 20 79 D0  JSR $D079
+C - - - - - 0x01B765 06:B755: A9 03     LDA #BIT_BUTTON_B_OR_A
+C - - - - - 0x01B767 06:B757: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
 C - - - - - 0x01B76A 06:B75A: F0 48     BEQ bra_B7A4
 C - - - - - 0x01B76C 06:B75C: 4C 72 B7  JMP loc_B772
 C - - - - - 0x01B76F 06:B75F: A9 02     LDA #$02
 C - - - - - 0x01B771 06:B761: D0 2A     BNE bra_B78D
 C - - - - - 0x01B773 06:B763: A5 C8     LDA ram_00C8
 C - - - - - 0x01B775 06:B765: D0 3D     BNE bra_B7A4
-C - - - - - 0x01B777 06:B767: A9 03     LDA #$03
-C - - - - - 0x01B779 06:B769: 20 79 D0  JSR $D079
+C - - - - - 0x01B777 06:B767: A9 03     LDA #BIT_BUTTON_B_OR_A
+C - - - - - 0x01B779 06:B769: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
 C - - - - - 0x01B77C 06:B76C: F0 36     BEQ bra_B7A4
 bra_B76E:
 C - - - - - 0x01B77E 06:B76E: A9 05     LDA #$05
@@ -3496,9 +3480,9 @@ C - - - - - 0x01B82F 06:B81F: 85 00     STA ram_0000
 C - - - - - 0x01B831 06:B821: 20 68 C6  JSR $C668
 C - - - - - 0x01B834 06:B824: 20 52 C6  JSR $C652
 C - - - - - 0x01B837 06:B827: A9 21     LDA #$21
-C - - - - - 0x01B839 06:B829: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01B839 06:B829: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B83C 06:B82C: A9 94     LDA #$94
-C - - - - - 0x01B83E 06:B82E: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01B83E 06:B82E: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B841 06:B831: A9 00     LDA #$00
 C - - - - - 0x01B843 06:B833: 85 08     STA ram_0008
 C - - - - - 0x01B845 06:B835: A9 70     LDA #$70
@@ -3506,9 +3490,9 @@ C - - - - - 0x01B847 06:B837: 85 09     STA ram_0009
 C - - - - - 0x01B849 06:B839: A2 99     LDX #$99
 C - - - - - 0x01B84B 06:B83B: 20 24 C9  JSR $C924
 C - - - - - 0x01B84E 06:B83E: A9 22     LDA #$22
-C - - - - - 0x01B850 06:B840: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01B850 06:B840: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B853 06:B843: A9 14     LDA #$14
-C - - - - - 0x01B855 06:B845: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01B855 06:B845: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B858 06:B848: A2 56     LDX #$56
 C - - - - - 0x01B85A 06:B84A: 4C 24 C9  JMP $C924
 sub_B84D:
@@ -3584,6 +3568,7 @@ C - - - - - 0x01B8CA 06:B8BA: 60        RTS
 - - - - - - 0x01B8D4 06:B8C4: 00        .byte $00   ; 
 - - - - - - 0x01B8D5 06:B8C5: 81        .byte $81   ; 
 - - - - - - 0x01B8D6 06:B8C6: 80        .byte $80   ; 
+sub_B8C7: ; from bank FF
 C - - - - - 0x01B8D7 06:B8C7: A5 37     LDA ram_0037
 C - - - - - 0x01B8D9 06:B8C9: 10 01     BPL bra_B8CC
 C - - - - - 0x01B8DB 06:B8CB: 60        RTS
@@ -3630,15 +3615,15 @@ C - - - - - 0x01B92A 06:B91A: 20 86 D0  JSR $D086
 C - - - - - 0x01B92D 06:B91D: C6 00     DEC ram_0000
 C - - - - - 0x01B92F 06:B91F: 10 F7     BPL bra_B918
 C - - - - - 0x01B931 06:B921: A9 20     LDA #$20
-C - - - - - 0x01B933 06:B923: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01B933 06:B923: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B936 06:B926: A9 84     LDA #$84
-C - - - - - 0x01B938 06:B928: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01B938 06:B928: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B93B 06:B92B: A2 56     LDX #$56
 C - - - - - 0x01B93D 06:B92D: 20 1C C9  JSR $C91C
 C - - - - - 0x01B940 06:B930: A9 20     LDA #$20
-C - - - - - 0x01B942 06:B932: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01B942 06:B932: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B945 06:B935: A9 8E     LDA #$8E
-C - - - - - 0x01B947 06:B937: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01B947 06:B937: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B94A 06:B93A: A2 99     LDX #$99
 C - - - - - 0x01B94C 06:B93C: 20 1C C9  JSR $C91C
 C - - - - - 0x01B94F 06:B93F: A9 80     LDA #$80
@@ -3731,12 +3716,13 @@ C - - - - - 0x01B9DF 06:B9CF: A9 FF     LDA #$FF
 C - - - - - 0x01B9E1 06:B9D1: 85 37     STA ram_0037
 C - - - - - 0x01B9E3 06:B9D3: A9 01     LDA #$01
 C - - - - - 0x01B9E5 06:B9D5: 85 24     STA ram_0024
-C - - - - - 0x01B9E7 06:B9D7: 4C 02 C4  JMP $C402
+C - - - - - 0x01B9E7 06:B9D7: 4C 02 C4  JMP $C402 ; to loc_C402 (bank FF)
+sub_B9DA: ; from bank FF
 C - - - - - 0x01B9EA 06:B9DA: A5 37     LDA ram_0037
 C - - - - - 0x01B9EC 06:B9DC: 30 01     BMI bra_B9DF
 C - - - - - 0x01B9EE 06:B9DE: 60        RTS
 bra_B9DF:
-C - - - - - 0x01B9EF 06:B9DF: 20 02 C4  JSR $C402
+C - - - - - 0x01B9EF 06:B9DF: 20 02 C4  JSR $C402 ; to sub_C402 (bank FF)
 C - - - - - 0x01B9F2 06:B9E2: 20 1D C3  JSR $C31D
 C - - - - - 0x01B9F5 06:B9E5: 20 58 C3  JSR $C358
 C - - - - - 0x01B9F8 06:B9E8: 20 46 EF  JSR $EF46
@@ -3754,9 +3740,9 @@ C - - - - - 0x01BA0F 06:B9FF: E8        INX
 C - - - - - 0x01BA10 06:BA00: 8E B4 06  STX ram_06B4
 C - - - - - 0x01BA13 06:BA03: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01BA16 06:BA06: A9 23     LDA #$23
-C - - - - - 0x01BA18 06:BA08: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01BA18 06:BA08: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01BA1B 06:BA0B: A9 64     LDA #$64
-C - - - - - 0x01BA1D 06:BA0D: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01BA1D 06:BA0D: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01BA20 06:BA10: A2 00     LDX #$00
 bra_BA12:
 C - - - - - 0x01BA22 06:BA12: BD 2A 80  LDA $802A,X
@@ -3765,9 +3751,9 @@ C - - - - - 0x01BA28 06:BA18: E8        INX
 C - - - - - 0x01BA29 06:BA19: E0 18     CPX #$18
 C - - - - - 0x01BA2B 06:BA1B: D0 F5     BNE bra_BA12
 C - - - - - 0x01BA2D 06:BA1D: A9 23     LDA #$23
-C - - - - - 0x01BA2F 06:BA1F: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01BA2F 06:BA1F: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01BA32 06:BA22: A9 4B     LDA #$4B
-C - - - - - 0x01BA34 06:BA24: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01BA34 06:BA24: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01BA37 06:BA27: A9 7F     LDA #$7F
 C - - - - - 0x01BA39 06:BA29: 8D 07 20  STA PPU_DATA
 bra_BA2C:
@@ -3901,9 +3887,9 @@ C - - - - - 0x01BB1F 06:BB0F: D0 F6     BNE bra_BB07
 C - - - - - 0x01BB21 06:BB11: 60        RTS
 sub_BB12:
 C - - - - - 0x01BB22 06:BB12: A5 01     LDA ram_0001
-C - - - - - 0x01BB24 06:BB14: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01BB24 06:BB14: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01BB27 06:BB17: A5 00     LDA ram_0000
-C - - - - - 0x01BB29 06:BB19: 8D 06 20  STA PPU_ADDR
+C - - - - - 0x01BB29 06:BB19: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01BB2C 06:BB1C: A6 05     LDX ram_0005
 bra_BB1E:
 C - - - - - 0x01BB2E 06:BB1E: B1 02     LDA (ram_0002),Y
@@ -3926,17 +3912,17 @@ C - - - - - 0x01BB49 06:BB39: D0 56     BNE bra_BB91_RTS
 C - - - - - 0x01BB4B 06:BB3B: A5 B2     LDA ram_00B2
 C - - - - - 0x01BB4D 06:BB3D: D0 24     BNE bra_BB63
 C - - - - - 0x01BB4F 06:BB3F: AD 92 BB  LDA $BB92
-C - - - - - 0x01BB52 06:BB42: 20 79 D0  JSR $D079
+C - - - - - 0x01BB52 06:BB42: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
 C - - - - - 0x01BB55 06:BB45: D0 28     BNE bra_BB6F
 C - - - - - 0x01BB57 06:BB47: AD 98 BB  LDA $BB98
-C - - - - - 0x01BB5A 06:BB4A: 20 79 D0  JSR $D079
+C - - - - - 0x01BB5A 06:BB4A: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
 C - - - - - 0x01BB5D 06:BB4D: F0 06     BEQ bra_BB55
 C - - - - - 0x01BB5F 06:BB4F: A9 06     LDA #$06
 C - - - - - 0x01BB61 06:BB51: 85 B4     STA ram_00B4
 C - - - - - 0x01BB63 06:BB53: D0 1A     BNE bra_BB6F
 bra_BB55:
 C - - - - - 0x01BB65 06:BB55: AD 9E BB  LDA $BB9E
-C - - - - - 0x01BB68 06:BB58: 20 79 D0  JSR $D079
+C - - - - - 0x01BB68 06:BB58: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
 C - - - - - 0x01BB6B 06:BB5B: F0 2A     BEQ bra_BB87
 C - - - - - 0x01BB6D 06:BB5D: A9 0C     LDA #$0C
 C - - - - - 0x01BB6F 06:BB5F: 85 B4     STA ram_00B4
@@ -3946,7 +3932,7 @@ C - - - - - 0x01BB73 06:BB63: 18        CLC
 C - - - - - 0x01BB74 06:BB64: 65 B4     ADC ram_00B4
 C - - - - - 0x01BB76 06:BB66: A8        TAY
 C - - - - - 0x01BB77 06:BB67: B9 92 BB  LDA tbl_BB92,Y
-C - - - - - 0x01BB7A 06:BB6A: 20 79 D0  JSR $D079
+C - - - - - 0x01BB7A 06:BB6A: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
 C - - - - - 0x01BB7D 06:BB6D: F0 18     BEQ bra_BB87
 bra_BB6F:
 C - - - - - 0x01BB7F 06:BB6F: E6 B2     INC v_count_secret_hits

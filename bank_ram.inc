@@ -32,7 +32,7 @@ ram_001A                        = $1A ; 176
 ram_001B                        = $1B ; N/A
 ram_001C                        = $1C ; 36   
 ram_001D                        = $1D ; 2   
-ram_001E                        = $1E ; 4   
+ram_001E                        = $1E ; Button pressed status (A = 0x01, B = 0x02, Select = 0x04, Start = 0x08, Up = 0x10, Down = 0x20, Left = 0x40, Right = 0x80)
 ram_001F                        = $1F ; 3   
 ram_0020                        = $20 ; 1   
 ram_0021                        = $21 ; 2   
