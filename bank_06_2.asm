@@ -3,12 +3,6 @@
 .include "consts.inc"
 ; 0x01A010-0x01C00F
 
-v_start_level           = ram_00B1 ; The start level [0-3]
-v_count_secret_hits     = ram_00B2 ; Stage select codes at the title screen
-v_array_white_briefcase = ram_0219 ; List of the structure with a white briefcase
-v_sub_AF4D_counter      = ram_001A ; Intermediate counter
-v_item_on_screen        = ram_039E ; [039F-03A3] - briefcase, C0 - briefcase, D0 - self item
-
 tbl_A000:
 - D 1 - - - 0x01A010 06:A000: 00        .byte $00   ; 
 tbl_A001:
@@ -3233,7 +3227,7 @@ C - - - - - 0x01B61C 06:B60C: 20 C1 D0  JSR $D0C1
 - - - - - - 0x01B641 06:B631: EE        .byte $EE   ; 
 - - - - - - 0x01B642 06:B632: B6        .byte $B6   ; 
 C - - - - - 0x01B643 06:B633: A9 7B     LDA #$7B
-C - - - - - 0x01B645 06:B635: 2C F6 FF  BIT $FFF6
+C - - - - - 0x01B645 06:B635: 2C F6 FF  BIT Set_features
 C - - - - - 0x01B648 06:B638: 70 02     BVS bra_B63C
 - - - - - - 0x01B64A 06:B63A: A9        .byte $A9   ; 
 - - - - - - 0x01B64B 06:B63B: 7D        .byte $7D   ; 
@@ -3631,8 +3625,8 @@ C - - - - - 0x01B951 06:B941: 85 3B     STA ram_003B
 C - - - - - 0x01B953 06:B943: A9 00     LDA #$00
 C - - - - - 0x01B955 06:B945: 85 B1     STA v_start_level
 C - - - - - 0x01B957 06:B947: 85 B2     STA v_count_secret_hits
-C - - - - - 0x01B959 06:B949: 85 B3     STA ram_00B3
-C - - - - - 0x01B95B 06:B94B: 85 B4     STA ram_00B4
+C - - - - - 0x01B959 06:B949: 85 B3     STA v_lock_secret_hits
+C - - - - - 0x01B95B 06:B94B: 85 B4     STA v_offset_in_secret_codes
 C - - - - - 0x01B95D 06:B94D: 85 2C     STA ram_002C
 C - - - - - 0x01B95F 06:B94F: 85 2D     STA ram_002D
 C - - - - - 0x01B961 06:B951: 85 19     STA ram_0019
@@ -3900,83 +3894,88 @@ C - - - - - 0x01BB35 06:BB25: D0 F7     BNE bra_BB1E
 C - - - - - 0x01BB37 06:BB27: C6 04     DEC ram_0004
 bra_BB29_RTS:
 C - - - - - 0x01BB39 06:BB29: 60        RTS
-sub_BB2A: ; from bank FF
-C - - - - - 0x01BB3A 06:BB2A: 2C F6 FF  BIT $FFF6
+sub_BB2A_solve_secret_codes: ; from bank FF
+C - - - - - 0x01BB3A 06:BB2A: 2C F6 FF  BIT Set_features
 C - - - - - 0x01BB3D 06:BB2D: 50 62     BVC bra_BB91_RTS
-C - - - - - 0x01BB3F 06:BB2F: A5 B1     LDA ram_00B1
-C - - - - - 0x01BB41 06:BB31: D0 5E     BNE bra_BB91_RTS
-C - - - - - 0x01BB43 06:BB33: A5 1C     LDA ram_001C
-C - - - - - 0x01BB45 06:BB35: F0 56     BEQ bra_BB8D
-C - - - - - 0x01BB47 06:BB37: A5 B3     LDA ram_00B3
-C - - - - - 0x01BB49 06:BB39: D0 56     BNE bra_BB91_RTS
-C - - - - - 0x01BB4B 06:BB3B: A5 B2     LDA ram_00B2
-C - - - - - 0x01BB4D 06:BB3D: D0 24     BNE bra_BB63
-C - - - - - 0x01BB4F 06:BB3F: AD 92 BB  LDA $BB92
+C - - - - - 0x01BB3F 06:BB2F: A5 B1     LDA v_start_level
+C - - - - - 0x01BB41 06:BB31: D0 5E     BNE bra_BB91_RTS ; Go to the branch If start level is activated
+C - - - - - 0x01BB43 06:BB33: A5 1C     LDA v_btn_pressed_in_game
+C - - - - - 0x01BB45 06:BB35: F0 56     BEQ bra_BB8D ; Go to the branch If the any buttons aren't pressed
+C - - - - - 0x01BB47 06:BB37: A5 B3     LDA v_lock_secret_hits
+C - - - - - 0x01BB49 06:BB39: D0 56     BNE bra_BB91_RTS ; Go to the branch If the some buttons is pressing
+C - - - - - 0x01BB4B 06:BB3B: A5 B2     LDA v_count_secret_hits
+C - - - - - 0x01BB4D 06:BB3D: D0 24     BNE bra_BB63  ; Go to the branch If some secret button is pressed
+C - - - - - 0x01BB4F 06:BB3F: AD 92 BB  LDA $BB92 ; BIT_BUTTON_Up, on the main title screen
 C - - - - - 0x01BB52 06:BB42: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
-C - - - - - 0x01BB55 06:BB45: D0 28     BNE bra_BB6F
-C - - - - - 0x01BB57 06:BB47: AD 98 BB  LDA $BB98
+C - - - - - 0x01BB55 06:BB45: D0 28     BNE bra_BB6F  ; Go to the branch If the button 'Up' is pressed
+C - - - - - 0x01BB57 06:BB47: AD 98 BB  LDA $BB98 ; BIT_BUTTON_Left, on the main title screen
 C - - - - - 0x01BB5A 06:BB4A: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
-C - - - - - 0x01BB5D 06:BB4D: F0 06     BEQ bra_BB55
-C - - - - - 0x01BB5F 06:BB4F: A9 06     LDA #$06
-C - - - - - 0x01BB61 06:BB51: 85 B4     STA ram_00B4
+C - - - - - 0x01BB5D 06:BB4D: F0 06     BEQ bra_BB55 ; Go to the branch If the button 'Left' isn't pressed
+C - - - - - 0x01BB5F 06:BB4F: A9 06     LDA #$06 ; The offset in the table secret code -> level 3
+C - - - - - 0x01BB61 06:BB51: 85 B4     STA v_offset_in_secret_codes
 C - - - - - 0x01BB63 06:BB53: D0 1A     BNE bra_BB6F
 bra_BB55:
-C - - - - - 0x01BB65 06:BB55: AD 9E BB  LDA $BB9E
+C - - - - - 0x01BB65 06:BB55: AD 9E BB  LDA $BB9E ; BIT_BUTTON_Down, on the main title screen
 C - - - - - 0x01BB68 06:BB58: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
-C - - - - - 0x01BB6B 06:BB5B: F0 2A     BEQ bra_BB87
-C - - - - - 0x01BB6D 06:BB5D: A9 0C     LDA #$0C
-C - - - - - 0x01BB6F 06:BB5F: 85 B4     STA ram_00B4
+C - - - - - 0x01BB6B 06:BB5B: F0 2A     BEQ bra_BB87_reset ; Go to the branch If the button 'Down' isn't pressed
+C - - - - - 0x01BB6D 06:BB5D: A9 0C     LDA #$0C ; The offset in the table secret code -> level 4
+C - - - - - 0x01BB6F 06:BB5F: 85 B4     STA v_offset_in_secret_codes
 C - - - - - 0x01BB71 06:BB61: D0 0C     BNE bra_BB6F
 bra_BB63:
 C - - - - - 0x01BB73 06:BB63: 18        CLC
-C - - - - - 0x01BB74 06:BB64: 65 B4     ADC ram_00B4
+C - - - - - 0x01BB74 06:BB64: 65 B4     ADC v_offset_in_secret_codes
 C - - - - - 0x01BB76 06:BB66: A8        TAY
-C - - - - - 0x01BB77 06:BB67: B9 92 BB  LDA tbl_BB92,Y
+C - - - - - 0x01BB77 06:BB67: B9 92 BB  LDA tbl_BB92_stage_select_codes,Y
 C - - - - - 0x01BB7A 06:BB6A: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
-C - - - - - 0x01BB7D 06:BB6D: F0 18     BEQ bra_BB87
+C - - - - - 0x01BB7D 06:BB6D: F0 18     BEQ bra_BB87_reset ; Go to the branch If the secret button isn't pressed
 bra_BB6F:
 C - - - - - 0x01BB7F 06:BB6F: E6 B2     INC v_count_secret_hits
-C - - - - - 0x01BB81 06:BB71: E6 B3     INC ram_00B3
+C - - - - - 0x01BB81 06:BB71: E6 B3     INC v_lock_secret_hits
 C - - - - - 0x01BB83 06:BB73: A5 B2     LDA v_count_secret_hits
-C - - - - - 0x01BB85 06:BB75: C9 06     CMP #$06
+C - - - - - 0x01BB85 06:BB75: C9 06     CMP #$06 ; The count of the buttons is in the secret combination
 C - - - - - 0x01BB87 06:BB77: D0 18     BNE bra_BB91_RTS
-C - - - - - 0x01BB89 06:BB79: A2 01     LDX #$01
-C - - - - - 0x01BB8B 06:BB7B: A5 B4     LDA ram_00B4
+C - - - - - 0x01BB89 06:BB79: A2 01     LDX #$01 ; ; It's 1 secret combination
+C - - - - - 0x01BB8B 06:BB7B: A5 B4     LDA v_offset_in_secret_codes
 C - - - - - 0x01BB8D 06:BB7D: F0 06     BEQ bra_BB85
-C - - - - - 0x01BB8F 06:BB7F: E8        INX
+C - - - - - 0x01BB8F 06:BB7F: E8        INX ; If it's 2 secret combination
 C - - - - - 0x01BB90 06:BB80: C9 06     CMP #$06
 C - - - - - 0x01BB92 06:BB82: F0 01     BEQ bra_BB85
-C - - - - - 0x01BB94 06:BB84: E8        INX
+C - - - - - 0x01BB94 06:BB84: E8        INX ; If it's 3 secret combination
 bra_BB85:
 C - - - - - 0x01BB95 06:BB85: 86 B1     STX v_start_level
-bra_BB87:
+bra_BB87_reset:
 C - - - - - 0x01BB97 06:BB87: A9 00     LDA #$00
-C - - - - - 0x01BB99 06:BB89: 85 B2     STA ram_00B2
-C - - - - - 0x01BB9B 06:BB8B: 85 B4     STA ram_00B4
+C - - - - - 0x01BB99 06:BB89: 85 B2     STA v_count_secret_hits
+C - - - - - 0x01BB9B 06:BB8B: 85 B4     STA v_offset_in_secret_codes
 bra_BB8D:
 C - - - - - 0x01BB9D 06:BB8D: A9 00     LDA #$00
-C - - - - - 0x01BB9F 06:BB8F: 85 B3     STA ram_00B3
+C - - - - - 0x01BB9F 06:BB8F: 85 B3     STA v_lock_secret_hits
 bra_BB91_RTS:
 C - - - - - 0x01BBA1 06:BB91: 60        RTS
-tbl_BB92:
-- D 1 - - - 0x01BBA2 06:BB92: 10        .byte $10   ; 
-- D 1 - - - 0x01BBA3 06:BB93: 20        .byte $20   ; 
-- D 1 - - - 0x01BBA4 06:BB94: 40        .byte $40   ; 
-- D 1 - - - 0x01BBA5 06:BB95: 80        .byte $80   ; 
-- D 1 - - - 0x01BBA6 06:BB96: 02        .byte $02   ; 
-- D 1 - - - 0x01BBA7 06:BB97: 01        .byte $01   ; 
-- D 1 - - - 0x01BBA8 06:BB98: 40        .byte $40   ; 
-- D 1 - - - 0x01BBA9 06:BB99: 80        .byte $80   ; 
-- D 1 - - - 0x01BBAA 06:BB9A: 10        .byte $10   ; 
-- D 1 - - - 0x01BBAB 06:BB9B: 20        .byte $20   ; 
-- D 1 - - - 0x01BBAC 06:BB9C: 01        .byte $01   ; 
-- D 1 - - - 0x01BBAD 06:BB9D: 02        .byte $02   ; 
-- D 1 - - - 0x01BBAE 06:BB9E: 20        .byte $20   ; 
-- D 1 - - - 0x01BBAF 06:BB9F: 10        .byte $10   ; 
-- D 1 - - - 0x01BBB0 06:BBA0: 80        .byte $80   ; 
-- D 1 - - - 0x01BBB1 06:BBA1: 40        .byte $40   ; 
-- D 1 - - - 0x01BBB2 06:BBA2: 01        .byte $01   ; 
-- D 1 - - - 0x01BBB3 06:BBA3: 01        .byte $01   ; 
+tbl_BB92_stage_select_codes:
+; Stage select codes (level 2)
+- D 1 - - - 0x01BBA2 06:BB92: 10        .byte BIT_BUTTON_Up
+- D 1 - - - 0x01BBA3 06:BB93: 20        .byte BIT_BUTTON_Down
+- D 1 - - - 0x01BBA4 06:BB94: 40        .byte BIT_BUTTON_Left
+- D 1 - - - 0x01BBA5 06:BB95: 80        .byte BIT_BUTTON_Right
+- D 1 - - - 0x01BBA6 06:BB96: 02        .byte BIT_BUTTON_B
+- D 1 - - - 0x01BBA7 06:BB97: 01        .byte BIT_BUTTON_A
+; Stage select codes (level 3)
+- D 1 - - - 0x01BBA8 06:BB98: 40        .byte BIT_BUTTON_Left
+- D 1 - - - 0x01BBA9 06:BB99: 80        .byte BIT_BUTTON_Right
+- D 1 - - - 0x01BBAA 06:BB9A: 10        .byte BIT_BUTTON_Up
+- D 1 - - - 0x01BBAB 06:BB9B: 20        .byte BIT_BUTTON_Down
+- D 1 - - - 0x01BBAC 06:BB9C: 01        .byte BIT_BUTTON_A
+- D 1 - - - 0x01BBAD 06:BB9D: 02        .byte BIT_BUTTON_B
+; Stage select codes (level 4)
+- D 1 - - - 0x01BBAE 06:BB9E: 20        .byte BIT_BUTTON_Down
+- D 1 - - - 0x01BBAF 06:BB9F: 10        .byte BIT_BUTTON_Up
+- D 1 - - - 0x01BBB0 06:BBA0: 80        .byte BIT_BUTTON_Right
+- D 1 - - - 0x01BBB1 06:BBA1: 40        .byte BIT_BUTTON_Left
+- D 1 - - - 0x01BBB2 06:BBA2: 01        .byte BIT_BUTTON_A
+- D 1 - - - 0x01BBB3 06:BBA3: 01        .byte BIT_BUTTON_A
+loc_BBA4:
+sub_BBA4:
 C D 1 - - - 0x01BBB4 06:BBA4: A9 05     LDA #$05
 C - - - - - 0x01BBB6 06:BBA6: 24 6D     BIT ram_006D
 C - - - - - 0x01BBB8 06:BBA8: 30 13     BMI bra_BBBD
@@ -4098,33 +4097,23 @@ tbl_BC13:
 - D 1 - - - 0x01BC55 06:BC45: 25        .byte $25   ; 
 - D 1 - - - 0x01BC56 06:BC46: 47        .byte $47   ; <G>
 - D 1 - - - 0x01BC57 06:BC47: 4F        .byte $4F   ; <O>
-- - - - - - 0x01BC58 06:BC48: A9        .byte $A9   ; 
-- - - - - - 0x01BC59 06:BC49: 00        .byte $00   ; 
-- - - - - - 0x01BC5A 06:BC4A: 85        .byte $85   ; 
-- - - - - - 0x01BC5B 06:BC4B: B7        .byte $B7   ; 
-- - - - - - 0x01BC5C 06:BC4C: E6        .byte $E6   ; 
-- - - - - - 0x01BC5D 06:BC4D: 46        .byte $46   ; <F>
-- - - - - - 0x01BC5E 06:BC4E: A5        .byte $A5   ; 
-- - - - - - 0x01BC5F 06:BC4F: 46        .byte $46   ; <F>
-- - - - - - 0x01BC60 06:BC50: 85        .byte $85   ; 
-- - - - - - 0x01BC61 06:BC51: C4        .byte $C4   ; 
-- - - - - - 0x01BC62 06:BC52: 4A        .byte $4A   ; <J>
-- - - - - - 0x01BC63 06:BC53: 4A        .byte $4A   ; <J>
-- - - - - - 0x01BC64 06:BC54: 4A        .byte $4A   ; <J>
-- - - - - - 0x01BC65 06:BC55: A8        .byte $A8   ; 
-- - - - - - 0x01BC66 06:BC56: A5        .byte $A5   ; 
-- - - - - - 0x01BC67 06:BC57: C4        .byte $C4   ; 
-- - - - - - 0x01BC68 06:BC58: 29        .byte $29   ; 
-- - - - - - 0x01BC69 06:BC59: 07        .byte $07   ; 
-- - - - - - 0x01BC6A 06:BC5A: AA        .byte $AA   ; 
-- - - - - - 0x01BC6B 06:BC5B: BD        .byte $BD   ; 
-- - - - - - 0x01BC6C 06:BC5C: 70        .byte $70   ; <p>
-- - - - - - 0x01BC6D 06:BC5D: BC        .byte $BC   ; 
-- - - - - - 0x01BC6E 06:BC5E: 39        .byte $39   ; <9>
-- - - - - - 0x01BC6F 06:BC5F: 78        .byte $78   ; <x>
-- - - - - - 0x01BC70 06:BC60: BC        .byte $BC   ; 
-- - - - - - 0x01BC71 06:BC61: D0        .byte $D0   ; 
-- - - - - - 0x01BC72 06:BC62: 0C        .byte $0C   ; 
+; Only for test mode
+sub_BC48: ; from bank FF
+- - - - - - 0x01BC58 06:BC48: A9 00     LDA #$00
+- - - - - - 0x01BC5A 06:BC4A: 85 B7     STA ram_00B7
+- - - - - - 0x01BC5C 06:BC4C: E6 46     INC ram_0046
+- - - - - - 0x01BC5E 06:BC4E: A5 46     LDA ram_0046
+- - - - - - 0x01BC60 06:BC50: 85 C4     STA ram_00C4
+- - - - - - 0x01BC62 06:BC52: 4A        LSR
+- - - - - - 0x01BC63 06:BC53: 4A        LSR
+- - - - - - 0x01BC64 06:BC54: 4A        LSR
+- - - - - - 0x01BC65 06:BC55: A8        TAY
+- - - - - - 0x01BC66 06:BC56: A5 C4     LDA ram_00C4
+- - - - - - 0x01BC68 06:BC58: 29 07     AND #$07
+- - - - - - 0x01BC6A 06:BC5A: AA        TAX
+- - - - - - 0x01BC6B 06:BC5B: BD 70 BC  LDA tbl_BC70,X
+- - - - - - 0x01BC6E 06:BC5E: 39 78 BC  AND tbl_BC78,Y
+- - - - - - 0x01BC71 06:BC61: D0 0C     BNE bra_BC6F_RTS
 - - - - - - 0x01BC73 06:BC63: E6        .byte $E6   ; 
 - - - - - - 0x01BC74 06:BC64: C4        .byte $C4   ; 
 - - - - - - 0x01BC75 06:BC65: A5        .byte $A5   ; 
@@ -4137,7 +4126,9 @@ tbl_BC13:
 - - - - - - 0x01BC7C 06:BC6C: 00        .byte $00   ; 
 - - - - - - 0x01BC7D 06:BC6D: 85        .byte $85   ; 
 - - - - - - 0x01BC7E 06:BC6E: C4        .byte $C4   ; 
-- - - - - - 0x01BC7F 06:BC6F: 60        .byte $60   ; 
+bra_BC6F_RTS:
+- - - - - - 0x01BC7F 06:BC6F: 60        RTS
+tbl_BC70:
 - - - - - - 0x01BC80 06:BC70: 80        .byte $80   ; 
 - - - - - - 0x01BC81 06:BC71: 40        .byte $40   ; 
 - - - - - - 0x01BC82 06:BC72: 20        .byte $20   ; 
@@ -4146,6 +4137,7 @@ tbl_BC13:
 - - - - - - 0x01BC85 06:BC75: 04        .byte $04   ; 
 - - - - - - 0x01BC86 06:BC76: 02        .byte $02   ; 
 - - - - - - 0x01BC87 06:BC77: 01        .byte $01   ; 
+tbl_BC78:
 - - - - - - 0x01BC88 06:BC78: 9F        .byte $9F   ; 
 - - - - - - 0x01BC89 06:BC79: FF        .byte $FF   ; 
 - - - - - - 0x01BC8A 06:BC7A: F0        .byte $F0   ; 

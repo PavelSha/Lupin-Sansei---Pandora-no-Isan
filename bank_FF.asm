@@ -3,15 +3,6 @@
 .include "consts.inc"
 ; 0x01C010-0x02000F
 
-v_btn_pressed           = ram_001E
-v_nmi_counter           = ram_002B
-v_menu_counter          = ram_0033
-v_menu_counter_times    = ram_0034
-v_bomb_on_screen        = ram_039E
-v_bank_data             = ram_06B5
-v_array_white_briefcase = ram_0219
-v_item_on_screen        = ram_039E ; [039F-03A3] - briefcase, C0 - briefcase, D0 - self item
-
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI
 C - - - - - 0x01C011 07:C001: D8        CLD
@@ -62,13 +53,13 @@ C - - - - - 0x01C064 07:C054: 8E 10 40  STX DMC_FREQ
 C - - - - - 0x01C067 07:C057: 86 3B     STX ram_003B
 C - - - - - 0x01C069 07:C059: 86 3C     STX ram_003C
 C - - - - - 0x01C06B 07:C05B: 86 39     STX ram_0039
-C - - - - - 0x01C06D 07:C05D: 86 3A     STX ram_003A
+C - - - - - 0x01C06D 07:C05D: 86 3A     STX v_resists
 C - - - - - 0x01C06F 07:C05F: 86 38     STX ram_0038
 C - - - - - 0x01C071 07:C061: 86 D6     STX ram_00D6
 C - - - - - 0x01C073 07:C063: 86 27     STX ram_0027
 C - - - - - 0x01C075 07:C065: 86 29     STX ram_0029
 C - - - - - 0x01C077 07:C067: 86 1C     STX ram_001C
-C - - - - - 0x01C079 07:C069: 86 1F     STX ram_001F
+C - - - - - 0x01C079 07:C069: 86 1F     STX v_player2_btn_pressed
 C - - - - - 0x01C07B 07:C06B: 86 5E     STX ram_005E
 C - - - - - 0x01C07D 07:C06D: 86 C4     STX ram_00C4
 C - - - - - 0x01C07F 07:C06F: 8E B6 06  STX ram_06B6
@@ -139,7 +130,7 @@ C - - - - - 0x01C103 07:C0F3: EE B2 06  INC ram_06B2
 C - - - - - 0x01C106 07:C0F6: 20 F8 E2  JSR sub_E2F8
 C - - - - - 0x01C109 07:C0F9: 20 F3 CD  JSR sub_CDF3
 C - - - - - 0x01C10C 07:C0FC: 20 ED C2  JSR sub_C2ED
-C - - - - - 0x01C10F 07:C0FF: 20 A4 BB  JSR $BBA4
+C - - - - - 0x01C10F 07:C0FF: 20 A4 BB  JSR $BBA4 ; to sub_BBA4 (bank 06_2)
 C - - - - - 0x01C112 07:C102: 20 14 FC  JSR sub_FC14
 C - - - - - 0x01C115 07:C105: A9 00     LDA #$00
 C - - - - - 0x01C117 07:C107: 85 3C     STA ram_003C
@@ -154,7 +145,7 @@ C - - - - - 0x01C128 07:C118: A9 FF     LDA #$FF
 C - - - - - 0x01C12A 07:C11A: 85 33     STA v_menu_counter ; Initializes a counter.
 C - - - - - 0x01C12C 07:C11C: A9 02     LDA #$02
 C - - - - - 0x01C12E 07:C11E: 85 34     STA v_menu_counter_times ; Initializes a time of a demo scene.
-bra_C120:
+bra_C120_repeat:
 C - - - - - 0x01C130 07:C120: 20 64 D0  JSR sub_D064
 C - - - - - 0x01C133 07:C123: A5 37     LDA ram_0037
 C - - - - - 0x01C135 07:C125: 10 08     BPL bra_C12F
@@ -163,34 +154,24 @@ C - - - - - 0x01C139 07:C129: D0 04     BNE bra_C12F
 C - - - - - 0x01C13B 07:C12B: A9 80     LDA #$80
 C - - - - - 0x01C13D 07:C12D: 85 39     STA ram_0039
 bra_C12F:
-C - - - - - 0x01C13F 07:C12F: AD F6 FF  LDA $FFF6
+C - - - - - 0x01C13F 07:C12F: AD F6 FF  LDA Set_features
 C - - - - - 0x01C142 07:C132: 30 14     BMI bra_C148
-- - - - - - 0x01C144 07:C134: A5        .byte $A5   ; 
-- - - - - - 0x01C145 07:C135: 1F        .byte $1F   ; 
-- - - - - - 0x01C146 07:C136: 29        .byte $29   ; 
-- - - - - - 0x01C147 07:C137: 02        .byte $02   ; 
-- - - - - - 0x01C148 07:C138: F0        .byte $F0   ; 
-- - - - - - 0x01C149 07:C139: 0E        .byte $0E   ; 
-- - - - - - 0x01C14A 07:C13A: 45        .byte $45   ; 
-- - - - - - 0x01C14B 07:C13B: 20        .byte $20   ; 
-- - - - - - 0x01C14C 07:C13C: 29        .byte $29   ; 
-- - - - - - 0x01C14D 07:C13D: 02        .byte $02   ; 
-- - - - - - 0x01C14E 07:C13E: F0        .byte $F0   ; 
-- - - - - - 0x01C14F 07:C13F: 08        .byte $08   ; 
-- - - - - - 0x01C150 07:C140: 85        .byte $85   ; 
-- - - - - - 0x01C151 07:C141: 20        .byte $20   ; 
-- - - - - - 0x01C152 07:C142: 20        .byte $20   ; 
-- - - - - - 0x01C153 07:C143: 48        .byte $48   ; 
-- - - - - - 0x01C154 07:C144: BC        .byte $BC   ; 
-- - - - - - 0x01C155 07:C145: 4C        .byte $4C   ; 
-- - - - - - 0x01C156 07:C146: 94        .byte $94   ; 
-- - - - - - 0x01C157 07:C147: C1        .byte $C1   ; 
+; Only for test mode
+- - - - - - 0x01C144 07:C134: A5 1F     LDA v_player2_btn_pressed
+- - - - - - 0x01C146 07:C136: 29 02     AND #$02
+- - - - - - 0x01C148 07:C138: F0 0E     BEQ bra_C148
+- - - - - - 0x01C14A 07:C13A: 45 20     EOR v_last_p2_btn_pressed
+- - - - - - 0x01C14C 07:C13C: 29 02     AND #$02
+- - - - - - 0x01C14E 07:C13E: F0 08     BEQ bra_C148
+- - - - - - 0x01C150 07:C140: 85 20     STA v_last_p2_btn_pressed
+- - - - - - 0x01C152 07:C142: 20 48 BC  JSR $BC48 ; to sub_BC48 (bank 06_2)
+- - - - - - 0x01C155 07:C145: 4C 94 C1  JMP loc_C194
 bra_C148:
 C - - - - - 0x01C158 07:C148: 24 39     BIT ram_0039
 C - - - - - 0x01C15A 07:C14A: 30 12     BMI bra_C15E
 C - - - - - 0x01C15C 07:C14C: A5 3B     LDA ram_003B
 C - - - - - 0x01C15E 07:C14E: 29 10     AND #$10
-C - - - - - 0x01C160 07:C150: F0 CE     BEQ bra_C120
+C - - - - - 0x01C160 07:C150: F0 CE     BEQ bra_C120_repeat
 C - - - - - 0x01C162 07:C152: A9 80     LDA #$80
 C - - - - - 0x01C164 07:C154: 85 3C     STA ram_003C
 C - - - - - 0x01C166 07:C156: 85 D6     STA ram_00D6
@@ -211,7 +192,7 @@ C - - - - - 0x01C183 07:C173: E6 5E     INC ram_005E
 C - - - - - 0x01C185 07:C175: A5 5E     LDA ram_005E
 C - - - - - 0x01C187 07:C177: C9 02     CMP #$02
 C - - - - - 0x01C189 07:C179: D0 08     BNE bra_C183
-C - - - - - 0x01C18B 07:C17B: 2C F6 FF  BIT $FFF6
+C - - - - - 0x01C18B 07:C17B: 2C F6 FF  BIT Set_features
 C - - - - - 0x01C18E 07:C17E: 70 03     BVS bra_C183
 - - - - - - 0x01C190 07:C180: 4C        .byte $4C   ; 
 - - - - - - 0x01C191 07:C181: 5B        .byte $5B   ; 
@@ -225,33 +206,23 @@ C - - - - - 0x01C19B 07:C18B: AA        TAX
 C - - - - - 0x01C19C 07:C18C: BD CA C1  LDA tbl_C1CA,X
 C - - - - - 0x01C19F 07:C18F: 85 C4     STA ram_00C4
 C - - - - - 0x01C1A1 07:C191: 4C B1 C1  JMP loc_C1B1
-- - - - - - 0x01C1A4 07:C194: 20        .byte $20   ; 
-- - - - - - 0x01C1A5 07:C195: 05        .byte $05   ; 
-- - - - - - 0x01C1A6 07:C196: C3        .byte $C3   ; 
-- - - - - - 0x01C1A7 07:C197: 20        .byte $20   ; 
-- - - - - - 0x01C1A8 07:C198: 13        .byte $13   ; 
-- - - - - - 0x01C1A9 07:C199: C3        .byte $C3   ; 
-- - - - - - 0x01C1AA 07:C19A: A2        .byte $A2   ; 
-- - - - - - 0x01C1AB 07:C19B: 00        .byte $00   ; 
-- - - - - - 0x01C1AC 07:C19C: A5        .byte $A5   ; 
-- - - - - - 0x01C1AD 07:C19D: C4        .byte $C4   ; 
-- - - - - - 0x01C1AE 07:C19E: F0        .byte $F0   ; 
-- - - - - - 0x01C1AF 07:C19F: 0F        .byte $0F   ; 
-- - - - - - 0x01C1B0 07:C1A0: E8        .byte $E8   ; 
-- - - - - - 0x01C1B1 07:C1A1: C9        .byte $C9   ; 
-- - - - - - 0x01C1B2 07:C1A2: 06        .byte $06   ; 
-- - - - - - 0x01C1B3 07:C1A3: F0        .byte $F0   ; 
-- - - - - - 0x01C1B4 07:C1A4: 0A        .byte $0A   ; 
-- - - - - - 0x01C1B5 07:C1A5: E8        .byte $E8   ; 
-- - - - - - 0x01C1B6 07:C1A6: C9        .byte $C9   ; 
-- - - - - - 0x01C1B7 07:C1A7: 0F        .byte $0F   ; 
-- - - - - - 0x01C1B8 07:C1A8: F0        .byte $F0   ; 
-- - - - - - 0x01C1B9 07:C1A9: 05        .byte $05   ; 
-- - - - - - 0x01C1BA 07:C1AA: E8        .byte $E8   ; 
-- - - - - - 0x01C1BB 07:C1AB: C9        .byte $C9   ; 
-- - - - - - 0x01C1BC 07:C1AC: 19        .byte $19   ; 
-- - - - - - 0x01C1BD 07:C1AD: D0        .byte $D0   ; 
-- - - - - - 0x01C1BE 07:C1AE: 14        .byte $14   ; 
+; Only for test mode
+loc_C194:
+- - - - - - 0x01C1A4 07:C194: 20 05 C3  JSR sub_C305
+- - - - - - 0x01C1A7 07:C197: 20 13 C3  JSR sub_C313
+- - - - - - 0x01C1AA 07:C19A: A2 00     LDX #$00
+- - - - - - 0x01C1AC 07:C19C: A5 C4     LDA ram_00C4
+- - - - - - 0x01C1AE 07:C19E: F0 0F     BEQ bra_C1AF
+- - - - - - 0x01C1B0 07:C1A0: E8        INX
+- - - - - - 0x01C1B1 07:C1A1: C9 06     CMP #$06
+- - - - - - 0x01C1B3 07:C1A3: F0 0A     BEQ bra_C1AF
+- - - - - - 0x01C1B5 07:C1A5: E8        INX
+- - - - - - 0x01C1B6 07:C1A6: C9 0F     CMP #$0F
+- - - - - - 0x01C1B8 07:C1A8: F0 05     BEQ bra_C1AF
+- - - - - - 0x01C1BA 07:C1AA: E8        INX
+- - - - - - 0x01C1BB 07:C1AB: C9 19     CMP #$19
+- - - - - - 0x01C1BD 07:C1AD: D0 14     BNE bra_C1C3
+bra_C1AF:
 - - - - - - 0x01C1BF 07:C1AF: 86        .byte $86   ; 
 - - - - - - 0x01C1C0 07:C1B0: 5E        .byte $5E   ; 
 loc_C1B1:
@@ -263,6 +234,7 @@ C - - - - - 0x01C1C9 07:C1B9: A9 FC     LDA #$FC
 C - - - - - 0x01C1CB 07:C1BB: 85 5F     STA ram_005F
 C - - - - - 0x01C1CD 07:C1BD: 20 72 C6  JSR sub_C672
 C - - - - - 0x01C1D0 07:C1C0: 20 A5 EF  JSR sub_EFA5
+bra_C1C3:
 C - - - - - 0x01C1D3 07:C1C3: A2 00     LDX #$00
 C - - - - - 0x01C1D5 07:C1C5: 86 B6     STX ram_00B6
 C - - - - - 0x01C1D7 07:C1C7: 4C 9C C0  JMP loc_C09C
@@ -635,9 +607,9 @@ C - - - - - 0x01C47A 07:C46A: AA        TAX
 C - - - - - 0x01C47B 07:C46B: 60        RTS
 sub_C46C:
 C - - - - - 0x01C47C 07:C46C: A5 1C     LDA ram_001C
-C - - - - - 0x01C47E 07:C46E: 85 1D     STA ram_001D
+C - - - - - 0x01C47E 07:C46E: 85 1D     STA v_copy_001C
 C - - - - - 0x01C480 07:C470: A5 37     LDA ram_0037
-C - - - - - 0x01C482 07:C472: 10 5C     BPL bra_C4D0
+C - - - - - 0x01C482 07:C472: 10 5C     BPL bra_C4D0_update_btn_pressed
 C - - - - - 0x01C484 07:C474: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01C487 07:C477: A5 22     LDA ram_0022
 C - - - - - 0x01C489 07:C479: D0 1E     BNE bra_C499
@@ -662,37 +634,37 @@ bra_C499:
 C - - - - - 0x01C4A9 07:C499: C6 22     DEC ram_0022
 C - - - - - 0x01C4AB 07:C49B: A5 2C     LDA ram_002C
 C - - - - - 0x01C4AD 07:C49D: 29 0F     AND #$0F
-C - - - - - 0x01C4AF 07:C49F: D0 06     BNE bra_C4A7
+C - - - - - 0x01C4AF 07:C49F: D0 06     BNE bra_C4A7_read_io_controller
 C - - - - - 0x01C4B1 07:C4A1: A9 02     LDA #$02
 C - - - - - 0x01C4B3 07:C4A3: 45 1C     EOR ram_001C
 C - - - - - 0x01C4B5 07:C4A5: 85 1C     STA ram_001C
-bra_C4A7:
-sub_C4A7:
-C - - - - - 0x01C4B7 07:C4A7: A5 1E     LDA v_btn_pressed
-C - - - - - 0x01C4B9 07:C4A9: 85 21     STA ram_0021
-C - - - - - 0x01C4BB 07:C4AB: A5 1F     LDA ram_001F
-C - - - - - 0x01C4BD 07:C4AD: 85 20     STA ram_0020
+bra_C4A7_read_io_controller:
+sub_C4A7_read_io_controller:
+C - - - - - 0x01C4B7 07:C4A7: A5 1E     LDA v_player1_btn_pressed
+C - - - - - 0x01C4B9 07:C4A9: 85 21     STA v_last_p1_btn_pressed
+C - - - - - 0x01C4BB 07:C4AB: A5 1F     LDA v_player2_btn_pressed
+C - - - - - 0x01C4BD 07:C4AD: 85 20     STA v_last_p2_btn_pressed
 C - - - - - 0x01C4BF 07:C4AF: A2 01     LDX #$01
-C - - - - - 0x01C4C1 07:C4B1: 8E 16 40  STX JOY1
+C - - - - - 0x01C4C1 07:C4B1: 8E 16 40  STX JOY1 ; Writes to instruct both controllers to start recording the current states of all pressed buttons)
 C - - - - - 0x01C4C4 07:C4B4: CA        DEX
-C - - - - - 0x01C4C5 07:C4B5: 8E 16 40  STX JOY1
-C - - - - - 0x01C4C8 07:C4B8: A2 08     LDX #$08
-bra_C4BA:
+C - - - - - 0x01C4C5 07:C4B5: 8E 16 40  STX JOY1 ; Writes to stop recording button states so they can be read out
+C - - - - - 0x01C4C8 07:C4B8: A2 08     LDX #$08 ; The count of the buttons
+bra_C4BA_repeat:
 C - - - - - 0x01C4CA 07:C4BA: AD 16 40  LDA JOY1
 C - - - - - 0x01C4CD 07:C4BD: 29 03     AND #$03
 C - - - - - 0x01C4CF 07:C4BF: C9 01     CMP #$01
-C - - - - - 0x01C4D1 07:C4C1: 66 1E     ROR v_btn_pressed
+C - - - - - 0x01C4D1 07:C4C1: 66 1E     ROR v_player1_btn_pressed
 C - - - - - 0x01C4D3 07:C4C3: AD 17 40  LDA JOY2
 C - - - - - 0x01C4D6 07:C4C6: 29 03     AND #$03
 C - - - - - 0x01C4D8 07:C4C8: C9 01     CMP #$01
-C - - - - - 0x01C4DA 07:C4CA: 66 1F     ROR ram_001F
+C - - - - - 0x01C4DA 07:C4CA: 66 1F     ROR v_player2_btn_pressed
 C - - - - - 0x01C4DC 07:C4CC: CA        DEX
-C - - - - - 0x01C4DD 07:C4CD: D0 EB     BNE bra_C4BA
+C - - - - - 0x01C4DD 07:C4CD: D0 EB     BNE bra_C4BA_repeat
 C - - - - - 0x01C4DF 07:C4CF: 60        RTS
-bra_C4D0:
-C - - - - - 0x01C4E0 07:C4D0: 20 A7 C4  JSR sub_C4A7
-C - - - - - 0x01C4E3 07:C4D3: A5 1E     LDA v_btn_pressed
-C - - - - - 0x01C4E5 07:C4D5: 85 1C     STA ram_001C
+bra_C4D0_update_btn_pressed:
+C - - - - - 0x01C4E0 07:C4D0: 20 A7 C4  JSR sub_C4A7_read_io_controller
+C - - - - - 0x01C4E3 07:C4D3: A5 1E     LDA v_player1_btn_pressed
+C - - - - - 0x01C4E5 07:C4D5: 85 1C     STA v_btn_pressed_in_game
 C - - - - - 0x01C4E7 07:C4D7: 60        RTS
 sub_C4D8:
 C - - - - - 0x01C4E8 07:C4D8: 20 F5 C4  JSR sub_C4F5
@@ -773,13 +745,13 @@ C - - - - - 0x01C576 07:C566: E6 3D     INC ram_003D
 bra_C568_RTS:
 C - - - - - 0x01C578 07:C568: 60        RTS
 sub_C569:
-C - - - - - 0x01C579 07:C569: A9 08     LDA #BIT_BUTTON_START
+C - - - - - 0x01C579 07:C569: A9 08     LDA #BIT_BUTTON_START ; Switches a cutscene to a main title screen
 C - - - - - 0x01C57B 07:C56B: 20 79 D0  JSR sub_D079_check_button_press
-C - - - - - 0x01C57E 07:C56E: F0 02     BEQ bra_C572
+C - - - - - 0x01C57E 07:C56E: F0 02     BEQ bra_C572 ; Go to the branch If the button 'Start' isn't pressed
 C - - - - - 0x01C580 07:C570: E6 3D     INC ram_003D
 bra_C572:
 C - - - - - 0x01C582 07:C572: 20 D5 C5  JSR sub_C5D5
-C - - - - - 0x01C585 07:C575: 20 2A BB  JSR $BB2A ; to sub_BB2A (bank 06_2)
+C - - - - - 0x01C585 07:C575: 20 2A BB  JSR $BB2A ; to sub_BB2A_solve_secret_codes (bank 06_2)
 C - - - - - 0x01C588 07:C578: A5 2D     LDA ram_002D
 C - - - - - 0x01C58A 07:C57A: F0 4E     BEQ bra_C5CA_RTS
 C - - - - - 0x01C58C 07:C57C: C9 02     CMP #$02
@@ -896,17 +868,17 @@ C - - - - - 0x01C642 07:C632: 20 58 C3  JSR sub_C358
 C - - - - - 0x01C645 07:C635: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01C648 07:C638: 20 02 C4  JSR sub_C402
 C - - - - - 0x01C64B 07:C63B: A2 05     LDX #$05
-bra_C63D:
+bra_C63D_repeat:
 C - - - - - 0x01C64D 07:C63D: BD 14 80  LDA $8014,X
 C - - - - - 0x01C650 07:C640: 9D AF 06  STA ram_06AF,X
 C - - - - - 0x01C653 07:C643: CA        DEX
-C - - - - - 0x01C654 07:C644: 10 F7     BPL bra_C63D
+C - - - - - 0x01C654 07:C644: 10 F7     BPL bra_C63D_repeat
 C - - - - - 0x01C656 07:C646: A2 17     LDX #$17
-bra_C648:
+bra_C648_repeat:
 C - - - - - 0x01C658 07:C648: BD 7A 81  LDA $817A,X
 C - - - - - 0x01C65B 07:C64B: 9D 00 06  STA ram_0600,X
 C - - - - - 0x01C65E 07:C64E: CA        DEX
-C - - - - - 0x01C65F 07:C64F: 10 F7     BPL bra_C648
+C - - - - - 0x01C65F 07:C64F: 10 F7     BPL bra_C648_repeat
 C - - - - - 0x01C661 07:C651: 60        RTS
 sub_C652:
 C - - - - - 0x01C662 07:C652: A9 6B     LDA #$6B
@@ -1099,33 +1071,24 @@ C - - - - - 0x01C799 07:C789: 29 03     AND #$03
 C - - - - - 0x01C79B 07:C78B: C9 03     CMP #$03
 C - - - - - 0x01C79D 07:C78D: 60        RTS
 sub_C78E:
-C - - - - - 0x01C79E 07:C78E: AD F6 FF  LDA $FFF6
+C - - - - - 0x01C79E 07:C78E: AD F6 FF  LDA Set_features
 C - - - - - 0x01C7A1 07:C791: 30 13     BMI bra_C7A6
-- - - - - - 0x01C7A3 07:C793: A5        .byte $A5   ; 
-- - - - - - 0x01C7A4 07:C794: 1C        .byte $1C   ; 
-- - - - - - 0x01C7A5 07:C795: 29        .byte $29   ; 
-- - - - - - 0x01C7A6 07:C796: 40        .byte $40   ; 
-- - - - - - 0x01C7A7 07:C797: F0        .byte $F0   ; 
-- - - - - - 0x01C7A8 07:C798: 0D        .byte $0D   ; 
-- - - - - - 0x01C7A9 07:C799: A9        .byte $A9   ; 
-- - - - - - 0x01C7AA 07:C79A: 08        .byte $08   ; 
-- - - - - - 0x01C7AB 07:C79B: 20        .byte $20   ; 
-- - - - - - 0x01C7AC 07:C79C: 79        .byte $79   ; 
-- - - - - - 0x01C7AD 07:C79D: D0        .byte $D0   ; 
-- - - - - - 0x01C7AE 07:C79E: F0        .byte $F0   ; 
-- - - - - - 0x01C7AF 07:C79F: 06        .byte $06   ; 
-- - - - - - 0x01C7B0 07:C7A0: A5        .byte $A5   ; 
-- - - - - - 0x01C7B1 07:C7A1: 3A        .byte $3A   ; 
-- - - - - - 0x01C7B2 07:C7A2: 49        .byte $49   ; 
-- - - - - - 0x01C7B3 07:C7A3: 80        .byte $80   ; 
-- - - - - - 0x01C7B4 07:C7A4: 85        .byte $85   ; 
-- - - - - - 0x01C7B5 07:C7A5: 3A        .byte $3A   ; 
+; Only for test mode
+- - - - - - 0x01C7A3 07:C793: A5 1C     LDA v_btn_pressed_in_game
+- - - - - - 0x01C7A5 07:C795: 29 40     AND #BIT_BUTTON_Left
+- - - - - - 0x01C7A7 07:C797: F0 0D     BEQ bra_C7A6
+- - - - - - 0x01C7A9 07:C799: A9 08     LDA #BIT_BUTTON_START
+- - - - - - 0x01C7AB 07:C79B: 20 79 D0  JSR sub_D079_check_button_press
+- - - - - - 0x01C7AE 07:C79E: F0 06     BEQ bra_C7A6
+- - - - - - 0x01C7B0 07:C7A0: A5 3A     LDA v_resists
+- - - - - - 0x01C7B2 07:C7A2: 49 80     EOR #$80 ; The enemies don't damage
+- - - - - - 0x01C7B4 07:C7A4: 85 3A     STA v_resists
 bra_C7A6:
 C - - - - - 0x01C7B6 07:C7A6: A5 3D     LDA ram_003D
 C - - - - - 0x01C7B8 07:C7A8: D0 0B     BNE bra_C7B5
 C - - - - - 0x01C7BA 07:C7AA: A9 03     LDA #BIT_BUTTON_B_OR_A ; Selects a character before start a level
 C - - - - - 0x01C7BC 07:C7AC: 20 79 D0  JSR sub_D079_check_button_press
-C - - - - - 0x01C7BF 07:C7AF: F0 09     BEQ bra_C7BA ; Go to the branch If the buttons 'A' or 'B' doesn't pressed
+C - - - - - 0x01C7BF 07:C7AF: F0 09     BEQ bra_C7BA ; Go to the branch If the buttons 'A' or 'B' aren't pressed
 C - - - - - 0x01C7C1 07:C7B1: A9 C0     LDA #$C0
 C - - - - - 0x01C7C3 07:C7B3: 85 3D     STA ram_003D
 bra_C7B5:
@@ -1259,10 +1222,10 @@ C - - - - - 0x01C89D 07:C88D: A5 34     LDA v_menu_counter_times
 C - - - - - 0x01C89F 07:C88F: F0 02     BEQ bra_C893
 C - - - - - 0x01C8A1 07:C891: C6 34     DEC v_menu_counter_times
 bra_C893:
-C - - - - - 0x01C8A3 07:C893: A5 1E     LDA v_btn_pressed
+C - - - - - 0x01C8A3 07:C893: A5 1E     LDA v_player1_btn_pressed
 C - - - - - 0x01C8A5 07:C895: 29 08     AND #BIT_BUTTON_START
 C - - - - - 0x01C8A7 07:C897: F0 3A     BEQ bra_C8D3_RTS ; Go to the branch If the button 'Start' doesn't press
-C - - - - - 0x01C8A9 07:C899: 45 21     EOR ram_0021
+C - - - - - 0x01C8A9 07:C899: 45 21     EOR v_last_p1_btn_pressed
 C - - - - - 0x01C8AB 07:C89B: 29 08     AND #$08
 C - - - - - 0x01C8AD 07:C89D: F0 34     BEQ bra_C8D3_RTS
 C - - - - - 0x01C8AF 07:C89F: A9 00     LDA #$00
@@ -1290,7 +1253,7 @@ C - - - - - 0x01C8D8 07:C8C8: 85 38     STA ram_0038
 C - - - - - 0x01C8DA 07:C8CA: A5 3B     LDA ram_003B
 C - - - - - 0x01C8DC 07:C8CC: 29 BF     AND #$BF
 C - - - - - 0x01C8DE 07:C8CE: 85 3B     STA ram_003B
-C - - - - - 0x01C8E0 07:C8D0: 4C A4 BB  JMP $BBA4
+C - - - - - 0x01C8E0 07:C8D0: 4C A4 BB  JMP $BBA4 ; to loc_BBA4 (bank 06_2)
 bra_C8D3_RTS:
 C - - - - - 0x01C8E3 07:C8D3: 60        RTS
 sub_C8D4:
@@ -2593,13 +2556,14 @@ C - - - - - 0x01D083 07:D073: 49 FF     EOR #$FF
 C - - - - - 0x01D085 07:D075: 18        CLC
 C - - - - - 0x01D086 07:D076: 69 01     ADC #$01
 C - - - - - 0x01D088 07:D078: 60        RTS
-sub_D079_check_button_press:
-C - - - - - 0x01D089 07:D079: 85 12     STA ram_0012
-C - - - - - 0x01D08B 07:D07B: A5 1C     LDA ram_001C
-C - - - - - 0x01D08D 07:D07D: 25 12     AND ram_0012
+sub_D079_check_button_press: ; The accumulator contains a button state
+sub_D079:
+C - - - - - 0x01D089 07:D079: 85 12     STA v_temp_check_buttons
+C - - - - - 0x01D08B 07:D07B: A5 1C     LDA v_btn_pressed_in_game
+C - - - - - 0x01D08D 07:D07D: 25 12     AND v_temp_check_buttons
 C - - - - - 0x01D08F 07:D07F: F0 04     BEQ bra_D085_RTS
-C - - - - - 0x01D091 07:D081: 45 1D     EOR ram_001D
-C - - - - - 0x01D093 07:D083: 25 12     AND ram_0012
+C - - - - - 0x01D091 07:D081: 45 1D     EOR v_copy_001C
+C - - - - - 0x01D093 07:D083: 25 12     AND v_temp_check_buttons
 bra_D085_RTS:
 C - - - - - 0x01D095 07:D085: 60        RTS
 sub_D086:
@@ -5397,7 +5361,7 @@ C - - - - - 0x01E2A8 07:E298: 60        RTS
 - - - - - - 0x01E2B4 07:E2A4: 12        .byte $12   ; 
 - - - - - - 0x01E2B5 07:E2A5: 60        .byte $60   ; 
 sub_E2A6:
-C - - - - - 0x01E2B6 07:E2A6: AD F6 FF  LDA $FFF6
+C - - - - - 0x01E2B6 07:E2A6: AD F6 FF  LDA Set_features
 C - - - - - 0x01E2B9 07:E2A9: 30 4C     BMI bra_E2F7_RTS
 - - - - - - 0x01E2BB 07:E2AB: A5        .byte $A5   ; 
 - - - - - - 0x01E2BC 07:E2AC: 3B        .byte $3B   ; 
@@ -10067,10 +10031,10 @@ tbl_FFA0:
 sub_FFF0:
 C - - - - - 0x020000 07:FFF0: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1
 C - - - - - 0x020003 07:FFF3: 4C 80 AD  JMP $AD80
-- D 3 - - - 0x020006 07:FFF6: FF        .byte $FF   ; 
-- - - - - - 0x020007 07:FFF7: 00        .byte $00   ; 
-- - - - - - 0x020008 07:FFF8: 00        .byte $00   ; 
-- - - - - - 0x020009 07:FFF9: 00        .byte $00   ; 
+- D 3 - - - 0x020006 07:FFF6: FF        .byte %11111111   ; The set of the features
+- - - - - - 0x020007 07:FFF7: 00        .byte $00   ; not used ???
+- - - - - - 0x020008 07:FFF8: 00        .byte $00   ; not used ???
+- - - - - - 0x020009 07:FFF9: 00        .byte $00   ; not used ???
 
 .segment "VECTORS"
 - D 3 - - - 0x02000A 07:FFFA: 4E ED     .word vec_ED4E_NMI
