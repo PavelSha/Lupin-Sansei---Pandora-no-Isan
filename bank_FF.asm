@@ -7181,12 +7181,12 @@ C - - - - - 0x01EE66 07:EE56: A2 00     LDX #$00
 C - - - - - 0x01EE68 07:EE58: 20 5D EE  JSR sub_EE5D
 C - - - - - 0x01EE6B 07:EE5B: A2 01     LDX #$01
 sub_EE5D:
-C - - - - - 0x01EE6D 07:EE5D: BD 00 03  LDA ram_0300,X
+C - - - - - 0x01EE6D 07:EE5D: BD 00 03  LDA v_enemies,X
 C - - - - - 0x01EE70 07:EE60: 0A        ASL
 C - - - - - 0x01EE71 07:EE61: A8        TAY
 C - - - - - 0x01EE72 07:EE62: B9 BA FC  LDA tbl_FCBA,Y
 C - - - - - 0x01EE75 07:EE65: 85 00     STA ram_0000
-C - - - - - 0x01EE77 07:EE67: B9 BB FC  LDA tbl_FCBB,Y
+C - - - - - 0x01EE77 07:EE67: B9 BB FC  LDA tbl_FCBA + 1,Y
 C - - - - - 0x01EE7A 07:EE6A: 85 01     STA ram_0001
 C - - - - - 0x01EE7C 07:EE6C: 6C 00 00  JMP (ram_0000)
 C - - J - - 0x01EE7F 07:EE6F: 20 25 EF  JSR sub_EF25_switch_bank_06_2
@@ -9224,123 +9224,65 @@ C - - - - - 0x01FCC3 07:FCB3: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01FCC5 07:FCB5: 85 C4     STA ram_00C4
 C - - - - - 0x01FCC7 07:FCB7: 4C 5D EF  JMP loc_EF5D_switch_variable_bank
 tbl_FCBA:
-- D 3 - - - 0x01FCCA 07:FCBA: 87        .byte $87   ; 
-tbl_FCBB:
-- D 3 - - - 0x01FCCB 07:FCBB: F8        .byte $F8   ; 
-- D 3 - - - 0x01FCCC 07:FCBC: AE        .byte $AE   ; 
-- D 3 - - - 0x01FCCD 07:FCBD: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCCE 07:FCBE: 78        .byte $78   ; 
-- D 3 - - - 0x01FCCF 07:FCBF: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCD0 07:FCC0: 78        .byte $78   ; 
-- D 3 - - - 0x01FCD1 07:FCC1: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCD2 07:FCC2: 6F        .byte $6F   ; 
-- D 3 - - - 0x01FCD3 07:FCC3: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCD4 07:FCC4: 6F        .byte $6F   ; 
-- D 3 - - - 0x01FCD5 07:FCC5: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCD6 07:FCC6: 6F        .byte $6F   ; 
-- D 3 - - - 0x01FCD7 07:FCC7: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCD8 07:FCC8: B7        .byte $B7   ; 
-- D 3 - - - 0x01FCD9 07:FCC9: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCDA 07:FCCA: 8A        .byte $8A   ; 
-- D 3 - - - 0x01FCDB 07:FCCB: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCDC 07:FCCC: C0        .byte $C0   ; 
-- D 3 - - - 0x01FCDD 07:FCCD: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCDE 07:FCCE: 81        .byte $81   ; 
-- D 3 - - - 0x01FCDF 07:FCCF: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCE0 07:FCD0: 28        .byte $28   ; 
-- D 3 - - - 0x01FCE1 07:FCD1: A0        .byte $A0   ; 
-- D 3 - - - 0x01FCE2 07:FCD2: 08        .byte $08   ; 
-- D 3 - - - 0x01FCE3 07:FCD3: AD        .byte $AD   ; 
-- D 3 - - - 0x01FCE4 07:FCD4: 93        .byte $93   ; 
-- D 3 - - - 0x01FCE5 07:FCD5: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCE6 07:FCD6: 78        .byte $78   ; 
-- D 3 - - - 0x01FCE7 07:FCD7: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCE8 07:FCD8: 11        .byte $11   ; 
-- D 3 - - - 0x01FCE9 07:FCD9: EF        .byte $EF   ; 
-- D 3 - - - 0x01FCEA 07:FCDA: 28        .byte $28   ; 
-- D 3 - - - 0x01FCEB 07:FCDB: A0        .byte $A0   ; 
-- D 3 - - - 0x01FCEC 07:FCDC: FF        .byte $FF   ; 
-- D 3 - - - 0x01FCED 07:FCDD: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCEE 07:FCDE: 78        .byte $78   ; 
-- D 3 - - - 0x01FCEF 07:FCDF: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCF0 07:FCE0: 78        .byte $78   ; 
-- D 3 - - - 0x01FCF1 07:FCE1: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCF2 07:FCE2: 8A        .byte $8A   ; 
-- D 3 - - - 0x01FCF3 07:FCE3: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCF4 07:FCE4: 93        .byte $93   ; 
-- D 3 - - - 0x01FCF5 07:FCE5: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCF6 07:FCE6: 11        .byte $11   ; 
-- D 3 - - - 0x01FCF7 07:FCE7: EF        .byte $EF   ; 
-- D 3 - - - 0x01FCF8 07:FCE8: 68        .byte $68   ; 
-- D 3 - - - 0x01FCF9 07:FCE9: A6        .byte $A6   ; 
-- D 3 - - - 0x01FCFA 07:FCEA: 68        .byte $68   ; 
-- D 3 - - - 0x01FCFB 07:FCEB: A6        .byte $A6   ; 
-- D 3 - - - 0x01FCFC 07:FCEC: AE        .byte $AE   ; 
-- D 3 - - - 0x01FCFD 07:FCED: EE        .byte $EE   ; 
-- D 3 - - - 0x01FCFE 07:FCEE: 09        .byte $09   ; 
-- D 3 - - - 0x01FCFF 07:FCEF: A3        .byte $A3   ; 
-- D 3 - - - 0x01FD00 07:FCF0: FF        .byte $FF   ; 
-- D 3 - - - 0x01FD01 07:FCF1: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD02 07:FCF2: 08        .byte $08   ; 
-- D 3 - - - 0x01FD03 07:FCF3: EF        .byte $EF   ; 
-- D 3 - - - 0x01FD04 07:FCF4: 81        .byte $81   ; 
-- D 3 - - - 0x01FD05 07:FCF5: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD06 07:FCF6: 93        .byte $93   ; 
-- D 3 - - - 0x01FD07 07:FCF7: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD08 07:FCF8: A5        .byte $A5   ; 
-- D 3 - - - 0x01FD09 07:FCF9: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD0A 07:FCFA: 8A        .byte $8A   ; 
-- D 3 - - - 0x01FD0B 07:FCFB: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD0C 07:FCFC: 81        .byte $81   ; 
-- D 3 - - - 0x01FD0D 07:FCFD: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD0E 07:FCFE: 0A        .byte $0A   ; 
-- D 3 - - - 0x01FD0F 07:FCFF: AC        .byte $AC   ; 
-- D 3 - - - 0x01FD10 07:FD00: 02        .byte $02   ; 
-- D 3 - - - 0x01FD11 07:FD01: AA        .byte $AA   ; 
-- D 3 - - - 0x01FD12 07:FD02: F6        .byte $F6   ; 
-- D 3 - - - 0x01FD13 07:FD03: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD14 07:FD04: 9C        .byte $9C   ; 
-- D 3 - - - 0x01FD15 07:FD05: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD16 07:FD06: F6        .byte $F6   ; 
-- D 3 - - - 0x01FD17 07:FD07: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD18 07:FD08: 78        .byte $78   ; 
-- D 3 - - - 0x01FD19 07:FD09: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD1A 07:FD0A: D2        .byte $D2   ; 
-- D 3 - - - 0x01FD1B 07:FD0B: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD1C 07:FD0C: 87        .byte $87   ; 
-- D 3 - - - 0x01FD1D 07:FD0D: F8        .byte $F8   ; 
-- D 3 - - - 0x01FD1E 07:FD0E: DB        .byte $DB   ; 
-- D 3 - - - 0x01FD1F 07:FD0F: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD20 07:FD10: 87        .byte $87   ; 
-- D 3 - - - 0x01FD21 07:FD11: F8        .byte $F8   ; 
-- D 3 - - - 0x01FD22 07:FD12: E4        .byte $E4   ; 
-- D 3 - - - 0x01FD23 07:FD13: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD24 07:FD14: 87        .byte $87   ; 
-- D 3 - - - 0x01FD25 07:FD15: F8        .byte $F8   ; 
-- D 3 - - - 0x01FD26 07:FD16: ED        .byte $ED   ; 
-- D 3 - - - 0x01FD27 07:FD17: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD28 07:FD18: 87        .byte $87   ; 
-- D 3 - - - 0x01FD29 07:FD19: F8        .byte $F8   ; 
-- D 3 - - - 0x01FD2A 07:FD1A: 34        .byte $34   ; 
-- D 3 - - - 0x01FD2B 07:FD1B: AE        .byte $AE   ; 
-- D 3 - - - 0x01FD2C 07:FD1C: 34        .byte $34   ; 
-- D 3 - - - 0x01FD2D 07:FD1D: AE        .byte $AE   ; 
-- D 3 - - - 0x01FD2E 07:FD1E: 34        .byte $34   ; 
-- D 3 - - - 0x01FD2F 07:FD1F: AE        .byte $AE   ; 
-- D 3 - - - 0x01FD30 07:FD20: C9        .byte $C9   ; 
-- D 3 - - - 0x01FD31 07:FD21: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD32 07:FD22: 11        .byte $11   ; 
-- D 3 - - - 0x01FD33 07:FD23: EF        .byte $EF   ; 
-- D 3 - - - 0x01FD34 07:FD24: AE        .byte $AE   ; 
-- D 3 - - - 0x01FD35 07:FD25: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD36 07:FD26: FF        .byte $FF   ; 
-- D 3 - - - 0x01FD37 07:FD27: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD38 07:FD28: AE        .byte $AE   ; 
-- D 3 - - - 0x01FD39 07:FD29: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD3A 07:FD2A: AE        .byte $AE   ; 
-- D 3 - - - 0x01FD3B 07:FD2B: EE        .byte $EE   ; 
-- D 3 - - - 0x01FD3C 07:FD2C: 93        .byte $93   ; 
-- D 3 - - - 0x01FD3D 07:FD2D: EE        .byte $EE   ; 
+- D 3 - - - 0x01FCCA 07:FCBA: 87 F8     .word $F887 ; Nobody  (0x00)
+- D 3 - - - 0x01FCCC 07:FCBC: AE EE     .word $EEAE ; Cat with the gun (level 3) (0x01) Type A
+- D 3 - - - 0x01FCCE 07:FCBE: 78 EE     .word $EE78 ; Gray Land hat (level 3) (0x08) Type B
+- D 3 - - - 0x01FCD0 07:FCC0: 78 EE     .word $EE78 ; Black Land hat (level 3) (0x03) Type B
+- D 3 - - - 0x01FCD2 07:FCC2: 6F EE     .word $EE6F ; Land Diver (level 3) (0x04) 
+- D 3 - - - 0x01FCD4 07:FCC4: 6F EE     .word $EE6F ; Land Diver (level 2) (0x05) Type A
+- D 3 - - - 0x01FCD6 07:FCC6: 6F EE     .word $EE6F ; Land Diver (level 1)  (0x06) Type A
+- D 3 - - - 0x01FCD8 07:FCC8: B7 EE     .word $EEB7 ; Zenigata (0x07) Type A
+- D 3 - - - 0x01FCDA 07:FCCA: 8A EE     .word $EE8A ; Shooter with bazooka (level 3) (0x08) Type A
+- D 3 - - - 0x01FCDC 07:FCCC: C0 EE     .word $EEC0 ; The fat sailor (level 3) (0x09) Type A
+- D 3 - - - 0x01FCDE 07:FCCE: 81 EE     .word $EE81 ; The barrel (level 3) (0x0A) Type B
+- D 3 - - - 0x01FCE0 07:FCD0: 28 A0     .word $A028 ; Jumping sailor (level 3) (0x0B) Type A
+- D 3 - - - 0x01FCE2 07:FCD2: 08 AD     .word $AD08 ; The lift (level 3) (0x0C) Type A
+- D 3 - - - 0x01FCE4 07:FCD4: 93 EE     .word $EE93 ; Sensor (level 3) (0x0D) Type B
+- D 3 - - - 0x01FCE6 07:FCD6: 78 EE     .word $EE78 ; Bat (level 1) (0x0E) Type B
+- D 3 - - - 0x01FCE8 07:FCD8: 11 EF     .word $EF11 ; Gray cat (level 1) (0x0F) Type B
+- D 3 - - - 0x01FCEA 07:FCDA: 28 A0     .word $A028 ; Nun (level 2) (0x10) Type A
+- D 3 - - - 0x01FCEC 07:FCDC: FF EE     .word $EEFF ; Girl in red, in the castle (level 1) (0x11) Type A
+- D 3 - - - 0x01FCEE 07:FCDE: 78 EE     .word $EE78 ; Batterfly (level 2) (0x12) Type B
+- D 3 - - - 0x01FCF0 07:FCE0: 78 EE     .word $EE78 ; Broned batterfly (level 2) (0x13) Type B
+- D 3 - - - 0x01FCF2 07:FCE2: 8A EE     .word $EE8A ; Shooter with bazooka (level 2) (0x14) Type A
+- D 3 - - - 0x01FCF4 07:FCE4: 93 EE     .word $EE93 ; Sensor (level 2) (0x15) Type B
+- D 3 - - - 0x01FCF6 07:FCE6: 11 EF     .word $EF11 ; Black cat (level 1) (0x16) Type B
+- D 3 - - - 0x01FCF8 07:FCE8: 68 A6     .word $A668 ; Karate-boy  (level 2) (0x17) Type A
+- D 3 - - - 0x01FCFA 07:FCEA: 68 A6     .word $A668 ; Karate-boy in blue on the street (level 2) (0x18) Type A
+- D 3 - - - 0x01FCFC 07:FCEC: AE EE     .word $EEAE ; Karate-girl (level 2) (0x19) Type A
+- D 3 - - - 0x01FCFE 07:FCEE: 09 A3     .word $A309 ; Boy in green (level 2) (0x1A) Type A
+- D 3 - - - 0x01FD00 07:FCF0: FF EE     .word $EEFF ; Girl with sword (level 1) (0x1B) Type A
+- D 3 - - - 0x01FD02 07:FCF2: 08 EF     .word $EF08 ; Knight in armor with a shield (level 1) (0x1C) Type A
+- D 3 - - - 0x01FD04 07:FCF4: 81 EE     .word $EE81 ; ??? (0x1D)
+- D 3 - - - 0x01FD06 07:FCF6: 93 EE     .word $EE93 ; Sensor (level 1) (0x1E) Type B
+- D 3 - - - 0x01FD08 07:FCF8: A5 EE     .word $EEA5 ; Fly man (0x1F) (level 1) Type A
+- D 3 - - - 0x01FD0A 07:FCFA: 8A EE     .word $EE8A ; Shooter with bazooka (level 1) (0x20) Type A
+- D 3 - - - 0x01FD0C 07:FCFC: 81 EE     .word $EE81 ; Cobblestone (level-racing, level 4) (0x21) Type B
+- D 3 - - - 0x01FD0E 07:FCFE: 0A AC     .word $AC0A ; The bird (level-racing) (0x22) Type B
+- D 3 - - - 0x01FD10 07:FD00: 02 AA     .word $AA02 ; The bird with a bomb (level-racing) (0x23) Type B
+- D 3 - - - 0x01FD12 07:FD02: F6 EE     .word $EEF6 ; Skeleton (level 4) (0x24) Type A
+- D 3 - - - 0x01FD14 07:FD04: 9C EE     .word $EE9C ; Diver (0x25) Type B
+- D 3 - - - 0x01FD16 07:FD06: F6 EE     .word $EEF6 ; Mummy (0x26) (level 4) Type A
+- D 3 - - - 0x01FD18 07:FD08: 78 EE     .word $EE78 ; Gargoyle (0x27) (level 4) Type B
+- D 3 - - - 0x01FD1A 07:FD0A: D2 EE     .word $EED2 ; Boss (level 1) (0x28) Type A
+- D 3 - - - 0x01FD1C 07:FD0C: 87 F8     .word $F887 ; ??? (0x29)
+- D 3 - - - 0x01FD1E 07:FD0E: DB EE     .word $EEDB ; Boss (level 2) (0x2A) Type A
+- D 3 - - - 0x01FD20 07:FD10: 87 F8     .word $F887 ; ??? (0x2B)
+- D 3 - - - 0x01FD22 07:FD12: E4 EE     .word $EEE4 ; Boss (level 3) (0x2C) Type A
+- D 3 - - - 0x01FD24 07:FD14: 87 F8     .word $F887 ; ??? (0x2D)
+- D 3 - - - 0x01FD26 07:FD16: ED EE     .word $EEED ; Boss (level 4) (0x2E) Type A
+- D 3 - - - 0x01FD28 07:FD18: 87 F8     .word $F887 ; ??? (0x2F)
+- D 3 - - - 0x01FD2A 07:FD1A: 34 AE     .word $AE34 ; ??? (0x30)
+- D 3 - - - 0x01FD2C 07:FD1C: 34 AE     .word $AE34 ; ??? (0x31)
+- D 3 - - - 0x01FD2E 07:FD1E: 34 AE     .word $AE34 ; Breaking platform (level 4) (0x32) Type B
+- D 3 - - - 0x01FD30 07:FD20: C9 EE     .word $EEC9 ; Blade trap (level 4) (0x33) Type B
+- D 3 - - - 0x01FD32 07:FD22: 11 EF     .word $EF11 ; Potted snakes (level 4) (0x34)  Type B
+- D 3 - - - 0x01FD34 07:FD24: AE EE     .word $EEAE ; Egyptian with bow (level 4) (0x35) Type A
+- D 3 - - - 0x01FD36 07:FD26: FF EE     .word $EEFF ; Egyptian with a sword (level 4) (0x36) Type A
+- D 3 - - - 0x01FD38 07:FD28: AE EE     .word $EEAE ; Egyptian with a boomerung (level 4) (0x37) Type A
+- D 3 - - - 0x01FD3A 07:FD2A: AE EE     .word $EEAE ; Ninja upside down (level 4) (0x38) Type A
+- D 3 - - - 0x01FD3C 07:FD2C: 93 EE     .word $EE93 ; Sensor (level 4) (0x39) Type B
+
 - - - - - - 0x01FD3E 07:FD2E: A9        .byte $A9   ; 
 - - - - - - 0x01FD3F 07:FD2F: 06        .byte $06   ; 
 - - - - - - 0x01FD40 07:FD30: A0        .byte $A0   ; 

@@ -57,4 +57,7 @@ v_offset_in_secret_codes = ram_00B4
 v_bomb_on_screen         = ram_039E
 v_bank_data              = ram_06B5
 v_array_white_briefcase  = ram_0219
+v_enemies                = ram_0300
+v_enemyA                 = ram_0300
+v_enemyB                 = ram_0301
 v_item_on_screen         = ram_039E ; [039F-03A3] - briefcase, C0 - briefcase, D0 - self item
