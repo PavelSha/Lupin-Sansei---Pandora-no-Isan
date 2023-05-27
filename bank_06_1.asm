@@ -2,16 +2,27 @@
 .include "bank_ram.inc"
 ; 0x018010-0x01A00F
 
+sub_A000: ; from bank_FF
 C - - - - - 0x018010 06:A000: 4C 4D A0  JMP loc_A04D
+sub_A003: ; from bank_FF
 C - - - - - 0x018013 06:A003: 4C 66 A3  JMP loc_A366
+sub_A006: ; from bank_FF
 C - - - - - 0x018016 06:A006: 4C B3 A5  JMP loc_A5B3
+sub_A009: ; from bank_FF
 C - - - - - 0x018019 06:A009: 4C 82 A7  JMP loc_A782
+sub_A00C: ; from bank_FF
 C - - - - - 0x01801C 06:A00C: 4C 3B AC  JMP loc_AC3B
+sub_A00F: ; from bank_FF
 C - - - - - 0x01801F 06:A00F: 4C 09 AE  JMP loc_AE09
+sub_A012: ; from bank_FF
 C - - - - - 0x018022 06:A012: 4C A7 AF  JMP loc_AFA7
+sub_A015: ; from bank_FF
 C - - - - - 0x018025 06:A015: 4C E4 B1  JMP loc_B1E4
+sub_A018: ; from bank_FF
 C - - - - - 0x018028 06:A018: 4C 33 B8  JMP loc_B833
+sub_A01B: ; from bank_FF
 C - - - - - 0x01802B 06:A01B: 4C FB BA  JMP loc_BAFB
+sub_A01E: ; from bank_FF
 C - - - - - 0x01802E 06:A01E: 4C 96 BD  JMP loc_BD96
 tbl_A021:
 - D 1 - - - 0x018031 06:A021: 00        .byte $00   ; 
@@ -2677,10 +2688,11 @@ tbl_B1C4:
 loc_B1E4:
 C D 1 - - - 0x0191F4 06:B1E4: 20 EA B1  JSR sub_B1EA
 C - - - - - 0x0191F7 06:B1E7: 4C 73 A9  JMP loc_A973
+
 sub_B1EA:
 C - - - - - 0x0191FA 06:B1EA: A2 01     LDX #$01
 C - - - - - 0x0191FC 06:B1EC: 86 1A     STX ram_001A
-bra_B1EE:
+bra_B1EE_repeat:
 C - - - - - 0x0191FE 06:B1EE: A6 1A     LDX ram_001A
 C - - - - - 0x019200 06:B1F0: 20 56 B3  JSR sub_B356
 C - - - - - 0x019203 06:B1F3: A6 1A     LDX ram_001A
@@ -2732,13 +2744,15 @@ C - - - - - 0x01925C 06:B24C: 20 62 D5  JSR $D562
 bra_B24F:
 loc_B24F:
 C D 1 - - - 0x01925F 06:B24F: C6 1A     DEC ram_001A
-C - - - - - 0x019261 06:B251: 10 9B     BPL bra_B1EE
+C - - - - - 0x019261 06:B251: 10 9B     BPL bra_B1EE_repeat
 C - - - - - 0x019263 06:B253: 60        RTS
+
 bra_B254:
 C - - - - - 0x019264 06:B254: A9 00     LDA #$00
 C - - - - - 0x019266 06:B256: 95 8F     STA ram_008F,X
 C - - - - - 0x019268 06:B258: 20 5E B2  JSR sub_B25E
 C - - - - - 0x01926B 06:B25B: 4C 4F B2  JMP loc_B24F
+
 sub_B25E:
 C - - - - - 0x01926E 06:B25E: A6 1A     LDX ram_001A
 C - - - - - 0x019270 06:B260: AD 00 03  LDA ram_0300
@@ -2780,6 +2794,7 @@ C - - - - - 0x0192BA 06:B2AA: 98        TYA
 C - - - - - 0x0192BB 06:B2AB: 9D 4A 03  STA ram_034A,X
 bra_B2AE_RTS:
 C - - - - - 0x0192BE 06:B2AE: 60        RTS
+
 sub_B2AF:
 C - - - - - 0x0192BF 06:B2AF: AD 00 03  LDA ram_0300
 C - - - - - 0x0192C2 06:B2B2: C9 19     CMP #$19
@@ -2808,6 +2823,7 @@ C - - - - - 0x0192E9 06:B2D9: 18        CLC
 C - - - - - 0x0192EA 06:B2DA: 69 18     ADC #$18
 C - - - - - 0x0192EC 06:B2DC: A8        TAY
 C - - - - - 0x0192ED 06:B2DD: 4C 26 B3  JMP loc_B326
+
 sub_B2E0:
 C - - - - - 0x0192F0 06:B2E0: A0 38     LDY #$38
 C - - - - - 0x0192F2 06:B2E2: BD 20 03  LDA ram_0320,X
@@ -2823,6 +2839,7 @@ C - - - - - 0x019300 06:B2F0: C8        INY
 C - - - - - 0x019301 06:B2F1: C8        INY
 bra_B2F2:
 C - - - - - 0x019302 06:B2F2: 4C 26 B3  JMP loc_B326
+
 sub_B2F5:
 C - - - - - 0x019305 06:B2F5: AD 00 03  LDA ram_0300
 C - - - - - 0x019308 06:B2F8: C9 01     CMP #$01

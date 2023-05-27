@@ -8198,13 +8198,21 @@ v_nmi_counter        = ram_002B
 - - - - - - 0x00E00E 03:9FFE: 18        .byte $18   ; 
 - - - - - - 0x00E00F 03:9FFF: 38        .byte $38   ; <8>
 ; Page 2
+sub_A000: ; from bank_FF
 C - - - - - 0x00E010 03:A000: 4C 1E A1  JMP loc_A11E
+sub_A003: ; from bank_FF
 C - - - - - 0x00E013 03:A003: 4C 04 A6  JMP loc_A604
+sub_A006: ; from bank_FF
 C - - - - - 0x00E016 03:A006: 4C E0 A8  JMP loc_A8E0
+sub_A009: ; from bank_FF
 C - - - - - 0x00E019 03:A009: 4C 92 AC  JMP loc_AC92
+sub_A00C: ; from bank_FF
 C - - - - - 0x00E01C 03:A00C: 4C FB AF  JMP loc_AFFB
+sub_A00F: ; from bank_FF
 C - - - - - 0x00E01F 03:A00F: 4C F0 B3  JMP loc_B3F0
+sub_A012: ; from bank_FF
 C - - - - - 0x00E022 03:A012: 4C 14 B8  JMP loc_B814
+sub_A015: ; from bank_FF
 C - - - - - 0x00E025 03:A015: 4C 5E BB  JMP loc_BB5E
 tbl_A018:
 - D 1 - - - 0x00E028 03:A018: 00        .byte $00   ; 

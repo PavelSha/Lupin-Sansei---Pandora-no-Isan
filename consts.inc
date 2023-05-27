@@ -6,7 +6,7 @@ Set_features        = $FFF6 ;
 
 PPU_CTRL     = $2000
 PPU_MASK     = $2001
-PPU_STATUS   = $2002
+PPU_STATUS   = $2002 ; (R)
 PPU_OAM_ADDR = $2003
 PPU_ADDRESS  = $2006
 PPU_DATA     = $2007
@@ -49,6 +49,7 @@ v_last_p1_btn_pressed    = ram_0021 ; It's the previouse value for a contoller1 
 v_nmi_counter            = ram_002B
 v_menu_counter           = ram_0033
 v_menu_counter_times     = ram_0034
+v_game_mode              = ram_0037 ; 0x00 - in game, 0xFF - Starting cutscenes
 v_resists                = ram_003A ; TODO: !!!, 0x80 - The enemies don't damage
 v_start_level            = ram_00B1 ; The start level [0-3]
 v_count_secret_hits      = ram_00B2 ; Stage select codes at the title screen

@@ -3550,6 +3550,7 @@ C - - - - - 0x01B8C5 06:B8B5: E8        INX
 C - - - - - 0x01B8C6 06:B8B6: E0 08     CPX #$08
 C - - - - - 0x01B8C8 06:B8B8: D0 F4     BNE bra_B8AE
 C - - - - - 0x01B8CA 06:B8BA: 60        RTS
+
 - - - - - - 0x01B8CB 06:B8BB: 07        .byte $07   ; 
 - - - - - - 0x01B8CC 06:B8BC: 17        .byte $17   ; 
 - - - - - - 0x01B8CD 06:B8BD: 27        .byte $27   ; 
@@ -3563,9 +3564,10 @@ C - - - - - 0x01B8CA 06:B8BA: 60        RTS
 - - - - - - 0x01B8D5 06:B8C5: 81        .byte $81   ; 
 - - - - - - 0x01B8D6 06:B8C6: 80        .byte $80   ; 
 sub_B8C7: ; from bank FF
-C - - - - - 0x01B8D7 06:B8C7: A5 37     LDA ram_0037
-C - - - - - 0x01B8D9 06:B8C9: 10 01     BPL bra_B8CC
+C - - - - - 0x01B8D7 06:B8C7: A5 37     LDA v_game_mode
+C - - - - - 0x01B8D9 06:B8C9: 10 01     BPL bra_B8CC; Branch If in game
 C - - - - - 0x01B8DB 06:B8CB: 60        RTS
+
 bra_B8CC:
 C - - - - - 0x01B8DC 06:B8CC: 20 02 C4  JSR $C402
 C - - - - - 0x01B8DF 06:B8CF: A9 00     LDA #$00
@@ -3613,13 +3615,13 @@ C - - - - - 0x01B933 06:B923: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B936 06:B926: A9 84     LDA #$84
 C - - - - - 0x01B938 06:B928: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B93B 06:B92B: A2 56     LDX #$56
-C - - - - - 0x01B93D 06:B92D: 20 1C C9  JSR $C91C
+C - - - - - 0x01B93D 06:B92D: 20 1C C9  JSR $C91C ; to sub_C91C (bank_FF)
 C - - - - - 0x01B940 06:B930: A9 20     LDA #$20
 C - - - - - 0x01B942 06:B932: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B945 06:B935: A9 8E     LDA #$8E
 C - - - - - 0x01B947 06:B937: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B94A 06:B93A: A2 99     LDX #$99
-C - - - - - 0x01B94C 06:B93C: 20 1C C9  JSR $C91C
+C - - - - - 0x01B94C 06:B93C: 20 1C C9  JSR $C91C ; to sub_C91C (bank_FF)
 C - - - - - 0x01B94F 06:B93F: A9 80     LDA #$80
 C - - - - - 0x01B951 06:B941: 85 3B     STA ram_003B
 C - - - - - 0x01B953 06:B943: A9 00     LDA #$00
@@ -3659,9 +3661,9 @@ bra_B984:
 C - - - - - 0x01B994 06:B984: A5 3D     LDA ram_003D
 C - - - - - 0x01B996 06:B986: F0 F0     BEQ bra_B978
 C - - - - - 0x01B998 06:B988: 20 05 C3  JSR $C305
-C - - - - - 0x01B99B 06:B98B: A9 00     LDA #$00
+C - - - - - 0x01B99B 06:B98B: A9 00     LDA #$00 ; CONTANT - In game
 C - - - - - 0x01B99D 06:B98D: A8        TAY
-C - - - - - 0x01B99E 06:B98E: 85 37     STA ram_0037
+C - - - - - 0x01B99E 06:B98E: 85 37     STA v_game_mode
 C - - - - - 0x01B9A0 06:B990: 85 B6     STA ram_00B6
 C - - - - - 0x01B9A2 06:B992: 85 B7     STA ram_00B7
 C - - - - - 0x01B9A4 06:B994: 85 39     STA ram_0039
@@ -3681,7 +3683,7 @@ C - - - - - 0x01B9B9 06:B9A9: 85 C4     STA ram_00C4
 C - - - - - 0x01B9BB 06:B9AB: 84 5E     STY ram_005E
 C - - - - - 0x01B9BD 06:B9AD: A9 FC     LDA #$FC
 C - - - - - 0x01B9BF 06:B9AF: 85 D4     STA ram_00D4
-C - - - - - 0x01B9C1 06:B9B1: 20 04 C9  JSR $C904
+C - - - - - 0x01B9C1 06:B9B1: 20 04 C9  JSR $C904 ; to sub_C904 (bank_FF)
 C - - - - - 0x01B9C4 06:B9B4: A9 10     LDA #$10
 C - - - - - 0x01B9C6 06:B9B6: 85 3B     STA ram_003B
 C - - - - - 0x01B9C8 06:B9B8: 60        RTS
@@ -3706,15 +3708,17 @@ tbl_B9C1:
 bra_B9C9:
 C - - - - - 0x01B9D9 06:B9C9: 20 13 C3  JSR $C313
 C - - - - - 0x01B9DC 06:B9CC: 20 05 C3  JSR $C305
-C - - - - - 0x01B9DF 06:B9CF: A9 FF     LDA #$FF
-C - - - - - 0x01B9E1 06:B9D1: 85 37     STA ram_0037
+C - - - - - 0x01B9DF 06:B9CF: A9 FF     LDA #$FF ; CONSTANT - Cutscene
+C - - - - - 0x01B9E1 06:B9D1: 85 37     STA v_game_mode
 C - - - - - 0x01B9E3 06:B9D3: A9 01     LDA #$01
 C - - - - - 0x01B9E5 06:B9D5: 85 24     STA ram_0024
 C - - - - - 0x01B9E7 06:B9D7: 4C 02 C4  JMP $C402 ; to loc_C402 (bank FF)
+
 sub_B9DA: ; from bank FF
-C - - - - - 0x01B9EA 06:B9DA: A5 37     LDA ram_0037
-C - - - - - 0x01B9EC 06:B9DC: 30 01     BMI bra_B9DF
+C - - - - - 0x01B9EA 06:B9DA: A5 37     LDA v_game_mode
+C - - - - - 0x01B9EC 06:B9DC: 30 01     BMI bra_B9DF ; Branch If mode=cutscene
 C - - - - - 0x01B9EE 06:B9DE: 60        RTS
+
 bra_B9DF:
 C - - - - - 0x01B9EF 06:B9DF: 20 02 C4  JSR $C402 ; to sub_C402 (bank FF)
 C - - - - - 0x01B9F2 06:B9E2: 20 1D C3  JSR $C31D
@@ -3818,9 +3822,10 @@ C - - - - - 0x01BAB5 06:BAA5: 85 23     STA ram_0023
 C - - - - - 0x01BAB7 06:BAA7: 85 B6     STA ram_00B6
 C - - - - - 0x01BAB9 06:BAA9: E6 25     INC ram_0025
 C - - - - - 0x01BABB 06:BAAB: 60        RTS
+
 bra_BAAC:
-C - - - - - 0x01BABC 06:BAAC: A9 00     LDA #$00
-C - - - - - 0x01BABE 06:BAAE: 85 37     STA ram_0037
+C - - - - - 0x01BABC 06:BAAC: A9 00     LDA #$00 ; CONSTANT - In game
+C - - - - - 0x01BABE 06:BAAE: 85 37     STA v_game_mode
 C - - - - - 0x01BAC0 06:BAB0: 68        PLA
 C - - - - - 0x01BAC1 06:BAB1: 68        PLA
 C - - - - - 0x01BAC2 06:BAB2: 4C 46 C0  JMP $C046
@@ -3838,6 +3843,7 @@ C - - - - - 0x01BAD3 06:BAC3: 10 F7     BPL bra_BABC
 C - - - - - 0x01BAD5 06:BAC5: A9 0F     LDA #$0F
 C - - - - - 0x01BAD7 06:BAC7: 8D 10 06  STA ram_0610
 C - - - - - 0x01BADA 06:BACA: 60        RTS
+
 sub_BACB:
 C - - - - - 0x01BADB 06:BACB: A0 00     LDY #$00
 C - - - - - 0x01BADD 06:BACD: 20 05 BB  JSR sub_BB05
