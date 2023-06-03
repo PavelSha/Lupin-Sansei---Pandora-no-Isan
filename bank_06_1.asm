@@ -1,5 +1,6 @@
 .segment "BANK_06_1"
 .include "bank_ram.inc"
+.include "consts.inc"
 ; 0x018010-0x01A00F
 
 sub_A000: ; from bank_FF
@@ -3720,7 +3721,7 @@ bra_B940:
 C - - - - - 0x019950 06:B940: BD 20 03  LDA ram_0320,X
 C - - - - - 0x019953 06:B943: 29 20     AND #$20
 C - - - - - 0x019955 06:B945: D0 1A     BNE bra_B961_RTS
-C - - - - - 0x019957 06:B947: A5 5E     LDA ram_005E
+C - - - - - 0x019957 06:B947: A5 5E     LDA v_no_level
 C - - - - - 0x019959 06:B949: C9 03     CMP #$03
 C - - - - - 0x01995B 06:B94B: F0 14     BEQ bra_B961_RTS
 C - - - - - 0x01995D 06:B94D: A9 14     LDA #$14

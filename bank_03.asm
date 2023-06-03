@@ -1,8 +1,7 @@
 .segment "BANK_03"
 .include "bank_ram.inc"
+.include "consts.inc"
 ; 0x00C010-0x01000F
-
-v_nmi_counter        = ram_002B
 
 ; Page 1 (Only data ?)
 - D 0 - - - 0x00C010 03:8000: 0B        .byte $0B   ; 
@@ -8824,7 +8823,7 @@ C - - - - - 0x00E37F 03:A36F: BD 20 03  LDA ram_0320,X
 C - - - - - 0x00E382 03:A372: 8D D7 03  STA ram_03D7
 C - - - - - 0x00E385 03:A375: AD 32 03  LDA ram_0332
 C - - - - - 0x00E388 03:A378: 8D D8 03  STA ram_03D8
-C - - - - - 0x00E38B 03:A37B: A4 5E     LDY ram_005E
+C - - - - - 0x00E38B 03:A37B: A4 5E     LDY v_no_level
 C - - - - - 0x00E38D 03:A37D: B9 88 A3  LDA tbl_A388,Y
 C - - - - - 0x00E390 03:A380: 20 60 C9  JSR $C960
 C - - - - - 0x00E393 03:A383: A9 00     LDA #$00
@@ -8845,7 +8844,7 @@ C - - - - - 0x00E3A7 03:A397: 68        PLA
 bra_A398_RTS:
 C - - - - - 0x00E3A8 03:A398: 60        RTS
 sub_A399:
-C - - - - - 0x00E3A9 03:A399: A5 5E     LDA ram_005E
+C - - - - - 0x00E3A9 03:A399: A5 5E     LDA v_no_level
 C - - - - - 0x00E3AB 03:A39B: 0A        ASL
 C - - - - - 0x00E3AC 03:A39C: A8        TAY
 C - - - - - 0x00E3AD 03:A39D: B9 46 A0  LDA tbl_A046,Y
@@ -8879,7 +8878,7 @@ C - - - - - 0x00E3E4 03:A3D4: 29 0F     AND #$0F
 C - - - - - 0x00E3E6 03:A3D6: 18        CLC
 C - - - - - 0x00E3E7 03:A3D7: 65 11     ADC ram_0011
 C - - - - - 0x00E3E9 03:A3D9: 85 00     STA ram_0000
-C - - - - - 0x00E3EB 03:A3DB: A4 5E     LDY ram_005E
+C - - - - - 0x00E3EB 03:A3DB: A4 5E     LDY v_no_level
 C - - - - - 0x00E3ED 03:A3DD: B9 42 A0  LDA tbl_A042,Y
 C - - - - - 0x00E3F0 03:A3E0: 18        CLC
 C - - - - - 0x00E3F1 03:A3E1: 65 00     ADC ram_0000
