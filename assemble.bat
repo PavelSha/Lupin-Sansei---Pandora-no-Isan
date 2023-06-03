@@ -15,7 +15,8 @@ start /wait lua53 preparations.lua
 :: -g = create debug file
 ca65 -U -l copy_bank_00.lst  -g copy_bank_00.asm
 ca65 -U -l copy_bank_01.lst  -g copy_bank_01.asm
-ca65 -U -l copy_bank_02.lst  -g copy_bank_02.asm
+ca65 -U -l copy_bank_02_1.lst  -g copy_bank_02_1.asm
+ca65 -U -l copy_bank_02_2.lst  -g copy_bank_02_2.asm
 ca65 -U -l copy_bank_03.lst  -g copy_bank_03.asm
 ca65 -U -l copy_bank_04.lst  -g copy_bank_04.asm
 ca65 -U -l copy_bank_05.lst  -g copy_bank_05.asm
@@ -27,7 +28,8 @@ ca65 -U -l copy_bank_FF.lst  -g copy_bank_FF.asm
 ld65 -C ld65.cfg -o PRG_ROM.bin --dbgfile _debug.txt ^
     copy_bank_00.o ^
     copy_bank_01.o ^
-    copy_bank_02.o ^
+    copy_bank_02_1.o ^
+    copy_bank_02_2.o ^
     copy_bank_03.o ^
     copy_bank_04.o ^
     copy_bank_05.o ^

@@ -6,7 +6,8 @@ time = os.clock()       --record script execution time
 files_list = {
     "bank_00.asm",
     "bank_01.asm",
-    "bank_02.asm",
+    "bank_02_1.asm",
+    "bank_02_2.asm",
     "bank_03.asm",
     "bank_04.asm",
     "bank_05.asm",
