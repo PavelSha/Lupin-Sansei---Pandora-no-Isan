@@ -4000,8 +4000,9 @@ loc_BBBD:
 C D 1 - - - 0x01BBCD 06:BBBD: C5 FD     CMP ram_00FD
 C - - - - - 0x01BBCF 06:BBBF: D0 07     BNE bra_BBC8
 C - - - - - 0x01BBD1 06:BBC1: AD 00 04  LDA ram_0400
-C - - - - - 0x01BBD4 06:BBC4: 8D 15 40  STA $4015
+C - - - - - 0x01BBD4 06:BBC4: 8D 15 40  STA APU_STATUS
 C - - - - - 0x01BBD7 06:BBC7: 60        RTS
+
 bra_BBC8:
 C - - - - - 0x01BBD8 06:BBC8: 85 FD     STA ram_00FD
 C - - - - - 0x01BBDA 06:BBCA: 0A        ASL

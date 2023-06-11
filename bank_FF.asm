@@ -554,25 +554,25 @@ C D 2 - - - 0x01C412 07:C402: A9 FF     LDA #$FF
 C - - - - - 0x01C414 07:C404: 85 FD     STA ram_00FD
 C - - - - - 0x01C416 07:C406: A0 00     LDY #$00
 C - - - - - 0x01C418 07:C408: 8C 07 04  STY ram_0407
-C - - - - - 0x01C41B 07:C40B: 8C 15 40  STY $4015
+C - - - - - 0x01C41B 07:C40B: 8C 15 40  STY APU_STATUS
 C - - - - - 0x01C41E 07:C40E: 8C 00 04  STY ram_0400
-bra_C411:
+bra_C411_repeat:
 C - - - - - 0x01C421 07:C411: A9 FF     LDA #$FF
 C - - - - - 0x01C423 07:C413: 99 10 04  STA ram_0410,Y
 C - - - - - 0x01C426 07:C416: 98        TYA
 C - - - - - 0x01C427 07:C417: 18        CLC
-C - - - - - 0x01C428 07:C418: 69 15     ADC #$15
+C - - - - - 0x01C428 07:C418: 69 15     ADC #$15 ; CONSTANT: Sound row step
 C - - - - - 0x01C42A 07:C41A: A8        TAY
-C - - - - - 0x01C42B 07:C41B: C9 A8     CMP #$A8
-C - - - - - 0x01C42D 07:C41D: D0 F2     BNE bra_C411
+C - - - - - 0x01C42B 07:C41B: C9 A8     CMP #$A8 ; 8 iterations for sound row
+C - - - - - 0x01C42D 07:C41D: D0 F2     BNE bra_C411_repeat
 C - - - - - 0x01C42F 07:C41F: 60        RTS
-sub_C420:
-loc_C420:
+sub_C420_add_sound_effect:
+loc_C420_add_sound_effect:
 C D 2 - - - 0x01C430 07:C420: 85 12     STA ram_0012
 C - - - - - 0x01C432 07:C422: 8A        TXA
-C - - - - - 0x01C433 07:C423: 48        PHA
+C - - - - - 0x01C433 07:C423: 48        PHA ; store x
 C - - - - - 0x01C434 07:C424: 98        TYA
-C - - - - - 0x01C435 07:C425: 48        PHA
+C - - - - - 0x01C435 07:C425: 48        PHA ; store y
 C - - - - - 0x01C436 07:C426: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1
 C - - - - - 0x01C439 07:C429: A9 00     LDA #$00
 C - - - - - 0x01C43B 07:C42B: 06 12     ASL ram_0012
@@ -606,9 +606,9 @@ C - - - - - 0x01C46E 07:C45E: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01C471 07:C461: AD B5 06  LDA v_bank_data
 C - - - - - 0x01C474 07:C464: 8D 01 80  STA MMC3_Bank_data ; switch v_bank_data (PRG) in 0x8000-09FFF
 C - - - - - 0x01C477 07:C467: 68        PLA
-C - - - - - 0x01C478 07:C468: A8        TAY
+C - - - - - 0x01C478 07:C468: A8        TAY ; retrieve y
 C - - - - - 0x01C479 07:C469: 68        PLA
-C - - - - - 0x01C47A 07:C46A: AA        TAX
+C - - - - - 0x01C47A 07:C46A: AA        TAX ; retrieve x
 C - - - - - 0x01C47B 07:C46B: 60        RTS
 sub_C46C:
 C - - - - - 0x01C47C 07:C46C: A5 1C     LDA ram_001C
@@ -804,9 +804,9 @@ C - - - - - 0x01C5DA 07:C5CA: 60        RTS
 
 bra_C5CB:
 C - - - - - 0x01C5DB 07:C5CB: A9 51     LDA #$51
-C - - - - - 0x01C5DD 07:C5CD: 20 20 C4  JSR sub_C420
+C - - - - - 0x01C5DD 07:C5CD: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01C5E0 07:C5D0: A9 52     LDA #$52
-C - - - - - 0x01C5E2 07:C5D2: 4C 20 C4  JMP loc_C420
+C - - - - - 0x01C5E2 07:C5D2: 4C 20 C4  JMP loc_C420_add_sound_effect
 
 sub_C5D5:
 C - - - - - 0x01C5E5 07:C5D5: AD 09 01  LDA v_last_level
@@ -1112,7 +1112,7 @@ C - - - - - 0x01C7D0 07:C7C0: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01C7D3 07:C7C3: F0 2A     BEQ bra_C7EF
 C - - - - - 0x01C7D5 07:C7C5: 48        PHA
 C - - - - - 0x01C7D6 07:C7C6: A9 15     LDA #$15
-C - - - - - 0x01C7D8 07:C7C8: 20 20 C4  JSR sub_C420
+C - - - - - 0x01C7D8 07:C7C8: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01C7DB 07:C7CB: 68        PLA
 C - - - - - 0x01C7DC 07:C7CC: 29 10     AND #$10
 C - - - - - 0x01C7DE 07:C7CE: F0 0B     BEQ bra_C7DB
@@ -1256,7 +1256,7 @@ C - - - - - 0x01C8CA 07:C8BA: 09 40     ORA #$40
 C - - - - - 0x01C8CC 07:C8BC: 85 3B     STA ram_003B
 C - - - - - 0x01C8CE 07:C8BE: 20 02 C4  JSR sub_C402
 C - - - - - 0x01C8D1 07:C8C1: A9 0E     LDA #$0E
-C - - - - - 0x01C8D3 07:C8C3: 4C 20 C4  JMP loc_C420
+C - - - - - 0x01C8D3 07:C8C3: 4C 20 C4  JMP loc_C420_add_sound_effect
 bra_C8C6:
 C - - - - - 0x01C8D6 07:C8C6: A9 00     LDA #$00
 C - - - - - 0x01C8D8 07:C8C8: 85 38     STA ram_0038
@@ -1872,7 +1872,7 @@ C - - J - - 0x01CC68 07:CC58: A9 10     LDA #$10
 C - - - - - 0x01CC6A 07:CC5A: 85 3B     STA ram_003B
 C - - - - - 0x01CC6C 07:CC5C: 20 F3 CD  JSR sub_CDF3
 C - - - - - 0x01CC6F 07:CC5F: A9 11     LDA #$11
-C - - - - - 0x01CC71 07:CC61: 20 20 C4  JSR sub_C420
+C - - - - - 0x01CC71 07:CC61: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01CC74 07:CC64: 18        CLC
 C - - - - - 0x01CC75 07:CC65: 60        RTS
 bra_CC66:
@@ -1935,7 +1935,7 @@ C - - - - - 0x01CCE2 07:CCD2: A5 D1     LDA ram_00D1
 C - - - - - 0x01CCE4 07:CCD4: 09 80     ORA #$80
 C - - - - - 0x01CCE6 07:CCD6: 85 D1     STA ram_00D1
 C - - - - - 0x01CCE8 07:CCD8: A9 1A     LDA #$1A
-C - - - - - 0x01CCEA 07:CCDA: 20 20 C4  JSR sub_C420
+C - - - - - 0x01CCEA 07:CCDA: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01CCED 07:CCDD: 18        CLC
 C - - - - - 0x01CCEE 07:CCDE: 60        RTS
 loc_CCDF:
@@ -3355,7 +3355,7 @@ C - - - - - 0x01D5B9 07:D5A9: 85 6E     STA ram_006E
 C - - - - - 0x01D5BB 07:D5AB: A9 06     LDA #$06
 C - - - - - 0x01D5BD 07:D5AD: 85 71     STA ram_0071
 C - - - - - 0x01D5BF 07:D5AF: A9 12     LDA #$12
-C - - - - - 0x01D5C1 07:D5B1: 20 20 C4  JSR sub_C420
+C - - - - - 0x01D5C1 07:D5B1: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01D5C4 07:D5B4: 38        SEC
 C - - - - - 0x01D5C5 07:D5B5: 60        RTS
 C - - - - - 0x01D5C6 07:D5B6: B5 8F     LDA ram_008F,X
@@ -3373,7 +3373,7 @@ C - - - - - 0x01D5DB 07:D5CB: 85 B4     STA ram_00B4
 C - - - - - 0x01D5DD 07:D5CD: 20 D9 D5  JSR sub_D5D9
 C - - - - - 0x01D5E0 07:D5D0: 90 06     BCC bra_D5D8_RTS
 C - - - - - 0x01D5E2 07:D5D2: A9 21     LDA #$21
-C - - - - - 0x01D5E4 07:D5D4: 20 20 C4  JSR sub_C420
+C - - - - - 0x01D5E4 07:D5D4: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01D5E7 07:D5D7: 38        SEC
 bra_D5D8_RTS:
 C - - - - - 0x01D5E8 07:D5D8: 60        RTS
@@ -3439,7 +3439,7 @@ C - - - - - 0x01D644 07:D634: 85 B4     STA ram_00B4
 C - - - - - 0x01D646 07:D636: 20 D9 D5  JSR sub_D5D9
 C - - - - - 0x01D649 07:D639: 90 06     BCC bra_D641_RTS
 C - - - - - 0x01D64B 07:D63B: A9 19     LDA #$19
-C - - - - - 0x01D64D 07:D63D: 20 20 C4  JSR sub_C420
+C - - - - - 0x01D64D 07:D63D: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01D650 07:D640: 38        SEC
 bra_D641_RTS:
 C - - - - - 0x01D651 07:D641: 60        RTS
@@ -3616,7 +3616,7 @@ C D 2 - - - 0x01D774 07:D764: 48        PHA
 C - - - - - 0x01D775 07:D765: C9 01     CMP #$01
 C - - - - - 0x01D777 07:D767: D0 05     BNE bra_D76E
 C - - - - - 0x01D779 07:D769: A9 36     LDA #$36
-C - - - - - 0x01D77B 07:D76B: 20 20 C4  JSR sub_C420
+C - - - - - 0x01D77B 07:D76B: 20 20 C4  JSR sub_C420_add_sound_effect
 bra_D76E:
 C - - - - - 0x01D77E 07:D76E: 68        PLA
 C - - - - - 0x01D77F 07:D76F: 29 18     AND #$18
@@ -3944,7 +3944,7 @@ C D 2 - - - 0x01D999 07:D989: BD 4A 03  LDA ram_034A,X
 C - - - - - 0x01D99C 07:D98C: C9 1F     CMP #$1F
 C - - - - - 0x01D99E 07:D98E: D0 05     BNE bra_D995
 C - - - - - 0x01D9A0 07:D990: A9 13     LDA #$13
-C - - - - - 0x01D9A2 07:D992: 20 20 C4  JSR sub_C420
+C - - - - - 0x01D9A2 07:D992: 20 20 C4  JSR sub_C420_add_sound_effect
 bra_D995:
 C - - - - - 0x01D9A5 07:D995: 98        TYA
 loc_D996:
@@ -4064,7 +4064,7 @@ C - - - - - 0x01DA61 07:DA51: 20 1F D9  JSR sub_D91F
 C - - - - - 0x01DA64 07:DA54: A9 10     LDA #$10
 C - - - - - 0x01DA66 07:DA56: 9D C8 03  STA ram_03C8,X
 C - - - - - 0x01DA69 07:DA59: A9 0F     LDA #$0F
-C - - - - - 0x01DA6B 07:DA5B: 20 20 C4  JSR sub_C420
+C - - - - - 0x01DA6B 07:DA5B: 20 20 C4  JSR sub_C420_add_sound_effect
 bra_DA5E:
 C - - - - - 0x01DA6E 07:DA5E: A0 64     LDY #$64
 loc_DA60:
@@ -5016,7 +5016,7 @@ C - - - - - 0x01E06B 07:E05B: F0 0F     BEQ bra_E06C
 C - - - - - 0x01E06D 07:E05D: A5 78     LDA ram_0078
 C - - - - - 0x01E06F 07:E05F: D0 22     BNE bra_E083_RTS
 C - - - - - 0x01E071 07:E061: A9 0C     LDA #$0C
-C - - - - - 0x01E073 07:E063: 20 20 C4  JSR sub_C420
+C - - - - - 0x01E073 07:E063: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01E076 07:E066: A9 08     LDA #$08
 C - - - - - 0x01E078 07:E068: 85 78     STA ram_0078
 C - - - - - 0x01E07A 07:E06A: D0 17     BNE bra_E083_RTS
@@ -5042,7 +5042,7 @@ C - - - - - 0x01E096 07:E086: D0 FB     BNE bra_E083_RTS
 C - - - - - 0x01E098 07:E088: A9 30     LDA #$30
 C - - - - - 0x01E09A 07:E08A: 85 73     STA ram_0073
 C - - - - - 0x01E09C 07:E08C: A9 17     LDA #$17
-C - - - - - 0x01E09E 07:E08E: 20 20 C4  JSR sub_C420
+C - - - - - 0x01E09E 07:E08E: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01E0A1 07:E091: A2 04     LDX #$04
 bra_E093:
 C - - - - - 0x01E0A3 07:E093: A9 87     LDA #$87
@@ -5060,7 +5060,7 @@ tbl_E0A1:
 - D 3 - - - 0x01E0B5 07:E0A5: 02        .byte $02   ; 
 bra_E0A6:
 C - - - - - 0x01E0B6 07:E0A6: A9 0B     LDA #$0B
-C - - - - - 0x01E0B8 07:E0A8: 20 20 C4  JSR sub_C420
+C - - - - - 0x01E0B8 07:E0A8: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01E0BB 07:E0AB: A0 81     LDY #$81
 C - - - - - 0x01E0BD 07:E0AD: A5 5F     LDA ram_005F
 C - - - - - 0x01E0BF 07:E0AF: 6A        ROR
@@ -6000,7 +6000,7 @@ C - - - - - 0x01E64F 07:E63F: A5 2C     LDA ram_002C
 C - - - - - 0x01E651 07:E641: 29 07     AND #$07
 C - - - - - 0x01E653 07:E643: D0 05     BNE bra_E64A
 C - - - - - 0x01E655 07:E645: A9 16     LDA #$16
-C - - - - - 0x01E657 07:E647: 20 20 C4  JSR sub_C420
+C - - - - - 0x01E657 07:E647: 20 20 C4  JSR sub_C420_add_sound_effect
 bra_E64A:
 C - - - - - 0x01E65A 07:E64A: A5 2E     LDA ram_002E
 C - - - - - 0x01E65C 07:E64C: F0 05     BEQ bra_E653
@@ -6372,7 +6372,7 @@ C - - - - - 0x01E8D8 07:E8C8: 85 6D     STA ram_006D
 C - - - - - 0x01E8DA 07:E8CA: 4C 32 E6  JMP loc_E632
 bra_E8CD:
 C - - - - - 0x01E8DD 07:E8CD: A9 28     LDA #$28
-C - - - - - 0x01E8DF 07:E8CF: 20 20 C4  JSR sub_C420
+C - - - - - 0x01E8DF 07:E8CF: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01E8E2 07:E8D2: 20 78 E7  JSR sub_E778
 bra_E8D5:
 loc_E8D5:
@@ -6452,7 +6452,7 @@ C - - - - - 0x01E961 07:E951: A9 01     LDA #BIT_BUTTON_A
 C - - - - - 0x01E963 07:E953: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01E966 07:E956: F0 35     BEQ bra_E98D
 C - - - - - 0x01E968 07:E958: A9 40     LDA #$40
-C - - - - - 0x01E96A 07:E95A: 20 20 C4  JSR sub_C420
+C - - - - - 0x01E96A 07:E95A: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01E96D 07:E95D: 4C 1F EB  JMP loc_EB1F
 bra_E960:
 C - - - - - 0x01E970 07:E960: A5 1C     LDA ram_001C
@@ -6772,7 +6772,7 @@ C - - - - - 0x01EB8D 07:EB7D: C9 03     CMP #$03
 C - - - - - 0x01EB8F 07:EB7F: F0 19     BEQ bra_EB9A
 C - - - - - 0x01EB91 07:EB81: 20 32 E3  JSR sub_E332
 C - - - - - 0x01EB94 07:EB84: A9 41     LDA #$41
-C - - - - - 0x01EB96 07:EB86: 20 20 C4  JSR sub_C420
+C - - - - - 0x01EB96 07:EB86: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01EB99 07:EB89: A5 6C     LDA ram_006C
 C - - - - - 0x01EB9B 07:EB8B: 29 08     AND #$08
 C - - - - - 0x01EB9D 07:EB8D: F0 1B     BEQ bra_EBAA
@@ -6811,7 +6811,7 @@ C D 3 - - - 0x01EBD3 07:EBC3: A5 2E     LDA ram_002E
 C - - - - - 0x01EBD5 07:EBC5: C9 5F     CMP #$5F
 C - - - - - 0x01EBD7 07:EBC7: D0 05     BNE bra_EBCE
 C - - - - - 0x01EBD9 07:EBC9: A9 0F     LDA #$0F
-C - - - - - 0x01EBDB 07:EBCB: 20 20 C4  JSR sub_C420
+C - - - - - 0x01EBDB 07:EBCB: 20 20 C4  JSR sub_C420_add_sound_effect
 bra_EBCE:
 C - - - - - 0x01EBDE 07:EBCE: A5 2E     LDA ram_002E
 C - - - - - 0x01EBE0 07:EBD0: 38        SEC
@@ -8153,7 +8153,7 @@ C - - - - - 0x01F53B 07:F52B: A9 42     LDA #$42
 bra_F52D:
 C - - - - - 0x01F53D 07:F52D: 8D 03 03  STA ram_0303
 C - - - - - 0x01F540 07:F530: A9 2A     LDA #$2A
-C - - - - - 0x01F542 07:F532: 20 20 C4  JSR sub_C420
+C - - - - - 0x01F542 07:F532: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01F545 07:F535: A9 0C     LDA #$0C
 C - - - - - 0x01F547 07:F537: 8D 02 03  STA ram_0302
 C - - - - - 0x01F54A 07:F53A: 4C 4A F8  JMP loc_F84A
@@ -8925,7 +8925,7 @@ C - - - - - 0x01FAC4 07:FAB4: E8        INX
 C - - - - - 0x01FAC5 07:FAB5: EC 32 06  CPX ram_0632
 C - - - - - 0x01FAC8 07:FAB8: D0 F4     BNE bra_FAAE
 C - - - - - 0x01FACA 07:FABA: A9 0D     LDA #$0D
-C - - - - - 0x01FACC 07:FABC: 20 20 C4  JSR sub_C420
+C - - - - - 0x01FACC 07:FABC: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01FACF 07:FABF: 60        RTS
 sub_FAC0:
 C - - - - - 0x01FAD0 07:FAC0: A9 00     LDA #$00
@@ -9976,7 +9976,7 @@ tbl_FFA0:
 - - - - - - 0x01FFFF 07:FFEF: FF        .byte $FF   ; 
 sub_FFF0:
 C - - - - - 0x020000 07:FFF0: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1
-C - - - - - 0x020003 07:FFF3: 4C 80 AD  JMP $AD80 ; to loc_8D80 ((bank 02)
+C - - - - - 0x020003 07:FFF3: 4C 80 AD  JMP $AD80 ; to loc_AD80 ((bank 02)
 
 - D 3 - - - 0x020006 07:FFF6: FF        .byte %11111111   ; The set of the features
 - - - - - - 0x020007 07:FFF7: 00        .byte $00   ; not used ???
