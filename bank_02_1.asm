@@ -47,10 +47,12 @@
 - - - - - - 0x008039 02:A029: 03        .byte $03   ; 
 - - - - - - 0x00803A 02:A02A: BD        .byte $BD   ; 
 - - - - - - 0x00803B 02:A02B: 84        .byte $84   ; 
+
 - D 0 - I - 0x00803C 02:A02C: 3F        .byte $3F   ; 3rd sound row
 - D 0 - I - 0x00803D 02:A02D: 03        .byte $03   ; 
 - D 0 - I - 0x00803E 02:A02E: BE        .byte $BE   ; 
 - D 0 - I - 0x00803F 02:A02F: 84        .byte $84   ; 
+
 - D 0 - I - 0x008040 02:A030: 3F        .byte $3F   ; 
 - D 0 - I - 0x008041 02:A031: 03        .byte $03   ; 
 - D 0 - I - 0x008042 02:A032: C7        .byte $C7   ; 

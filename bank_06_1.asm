@@ -588,7 +588,7 @@ C - - - - - 0x0183DF 06:A3CF: 20 DD A3  JSR sub_A3DD
 C - - - - - 0x0183E2 06:A3D2: 4C BF A3  JMP loc_A3BF
 bra_A3D5:
 C - - - - - 0x0183E5 06:A3D5: A9 10     LDA #$10
-C - - - - - 0x0183E7 06:A3D7: 20 20 C4  JSR $C420
+C - - - - - 0x0183E7 06:A3D7: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x0183EA 06:A3DA: 4C B9 A3  JMP loc_A3B9
 sub_A3DD:
 C - - - - - 0x0183ED 06:A3DD: A6 1A     LDX ram_001A
@@ -877,7 +877,7 @@ bra_A5EF:
 C - - - - - 0x0185FF 06:A5EF: 20 B6 D5  JSR $D5B6
 C - - - - - 0x018602 06:A5F2: 90 09     BCC bra_A5FD
 C - - - - - 0x018604 06:A5F4: A9 10     LDA #$10
-C - - - - - 0x018606 06:A5F6: 20 20 C4  JSR $C420
+C - - - - - 0x018606 06:A5F6: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x018609 06:A5F9: A9 00     LDA #$00
 C - - - - - 0x01860B 06:A5FB: 95 8F     STA ram_008F,X
 bra_A5FD:
@@ -968,7 +968,7 @@ C - - - - - 0x0186A0 06:A690: A5 2C     LDA ram_002C
 C - - - - - 0x0186A2 06:A692: 29 0F     AND #$0F
 C - - - - - 0x0186A4 06:A694: D0 05     BNE bra_A69B
 C - - - - - 0x0186A6 06:A696: A9 37     LDA #$37
-C - - - - - 0x0186A8 06:A698: 20 20 C4  JSR $C420
+C - - - - - 0x0186A8 06:A698: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 bra_A69B:
 C - - - - - 0x0186AB 06:A69B: A5 2C     LDA ram_002C
 C - - - - - 0x0186AD 06:A69D: 29 03     AND #$03
@@ -1324,7 +1324,7 @@ bra_A8F7:
 C - - - - - 0x018907 06:A8F7: D9 7F A7  CMP tbl_A77F,Y
 C - - - - - 0x01890A 06:A8FA: D0 10     BNE bra_A90C
 C - - - - - 0x01890C 06:A8FC: A9 17     LDA #$17
-C - - - - - 0x01890E 06:A8FE: 20 20 C4  JSR $C420
+C - - - - - 0x01890E 06:A8FE: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x018911 06:A901: 20 28 A9  JSR sub_A928
 C - - - - - 0x018914 06:A904: A9 0C     LDA #$0C
 C - - - - - 0x018916 06:A906: 9D 26 03  STA ram_0326,X
@@ -1800,7 +1800,7 @@ C - - - - - 0x018C56 06:AC46: A8        TAY
 C - - - - - 0x018C57 06:AC47: B9 5E 03  LDA ram_035E,Y
 C - - - - - 0x018C5A 06:AC4A: 30 29     BMI bra_AC75
 C - - - - - 0x018C5C 06:AC4C: A9 29     LDA #$29
-C - - - - - 0x018C5E 06:AC4E: 20 20 C4  JSR $C420
+C - - - - - 0x018C5E 06:AC4E: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x018C61 06:AC51: A9 C2     LDA #$C2
 C - - - - - 0x018C63 06:AC53: 99 5E 03  STA ram_035E,Y
 C - - - - - 0x018C66 06:AC56: 20 64 D0  JSR $D064
@@ -2732,7 +2732,7 @@ bra_B236:
 C - - - - - 0x019246 06:B236: 20 B6 D5  JSR $D5B6
 C - - - - - 0x019249 06:B239: 90 09     BCC bra_B244
 C - - - - - 0x01924B 06:B23B: A9 10     LDA #$10
-C - - - - - 0x01924D 06:B23D: 20 20 C4  JSR $C420
+C - - - - - 0x01924D 06:B23D: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x019250 06:B240: A9 00     LDA #$00
 C - - - - - 0x019252 06:B242: 95 8F     STA ram_008F,X
 bra_B244:
@@ -3459,14 +3459,14 @@ C - - - - - 0x019775 06:B765: D0 0A     BNE bra_B771
 C - - - - - 0x019777 06:B767: BD 26 03  LDA ram_0326,X
 C - - - - - 0x01977A 06:B76A: 30 05     BMI bra_B771
 C - - - - - 0x01977C 06:B76C: A9 31     LDA #$31
-C - - - - - 0x01977E 06:B76E: 20 20 C4  JSR $C420
+C - - - - - 0x01977E 06:B76E: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 bra_B771:
 C - - - - - 0x019781 06:B771: 68        PLA
 C - - - - - 0x019782 06:B772: 60        RTS
 sub_B773:
 loc_B773:
 C D 1 - - - 0x019783 06:B773: A9 31     LDA #$31
-C - - - - - 0x019785 06:B775: 20 20 C4  JSR $C420
+C - - - - - 0x019785 06:B775: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x019788 06:B778: A9 F0     LDA #$F0
 C - - - - - 0x01978A 06:B77A: AC 00 03  LDY ram_0300
 C - - - - - 0x01978D 06:B77D: C0 35     CPY #$35
@@ -3947,7 +3947,7 @@ C - - - - - 0x019AE4 06:BAD4: 9D 46 03  STA ram_0346,X
 C - - - - - 0x019AE7 06:BAD7: A9 03     LDA #$03
 C - - - - - 0x019AE9 06:BAD9: 9D 4C 03  STA ram_034C,X
 C - - - - - 0x019AEC 06:BADC: A9 31     LDA #$31
-C - - - - - 0x019AEE 06:BADE: 4C 20 C4  JMP $C420
+C - - - - - 0x019AEE 06:BADE: 4C 20 C4  JMP $C420 ; to loc_C420_add_sound_effect (bank_FF)
 sub_BAE1:
 C - - - - - 0x019AF1 06:BAE1: A9 3F     LDA #$3F
 C - - - - - 0x019AF3 06:BAE3: 20 BD D6  JSR $D6BD

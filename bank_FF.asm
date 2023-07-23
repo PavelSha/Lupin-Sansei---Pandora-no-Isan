@@ -5059,7 +5059,7 @@ tbl_E0A1:
 - D 3 - - - 0x01E0B4 07:E0A4: 01        .byte $01   ; 
 - D 3 - - - 0x01E0B5 07:E0A5: 02        .byte $02   ; 
 bra_E0A6:
-C - - - - - 0x01E0B6 07:E0A6: A9 0B     LDA #$0B
+C - - - - - 0x01E0B6 07:E0A6: A9 0B     LDA #$0B ; Lupen shoots (sound effect)
 C - - - - - 0x01E0B8 07:E0A8: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01E0BB 07:E0AB: A0 81     LDY #$81
 C - - - - - 0x01E0BD 07:E0AD: A5 5F     LDA ram_005F
@@ -8152,7 +8152,7 @@ C - - - - - 0x01F538 07:F528: 8D B3 06  STA ram_06B3
 C - - - - - 0x01F53B 07:F52B: A9 42     LDA #$42
 bra_F52D:
 C - - - - - 0x01F53D 07:F52D: 8D 03 03  STA ram_0303
-C - - - - - 0x01F540 07:F530: A9 2A     LDA #$2A
+C - - - - - 0x01F540 07:F530: A9 2A     LDA #$2A ; Enemy pops up (sound effect)
 C - - - - - 0x01F542 07:F532: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01F545 07:F535: A9 0C     LDA #$0C
 C - - - - - 0x01F547 07:F537: 8D 02 03  STA ram_0302

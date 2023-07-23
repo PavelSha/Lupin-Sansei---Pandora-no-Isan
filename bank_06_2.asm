@@ -252,7 +252,7 @@ C - - - - - 0x01A199 06:A189: A0 08     LDY #$08
 C - - - - - 0x01A19B 06:A18B: 4C 1E A1  JMP loc_A11E
 bra_A18E:
 C - - - - - 0x01A19E 06:A18E: A9 34     LDA #$34
-C - - - - - 0x01A1A0 06:A190: 20 20 C4  JSR $C420
+C - - - - - 0x01A1A0 06:A190: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01A1A3 06:A193: A0 02     LDY #$02
 C - - - - - 0x01A1A5 06:A195: AD 00 03  LDA ram_0300
 C - - - - - 0x01A1A8 06:A198: C9 10     CMP #$10
@@ -871,7 +871,7 @@ bra_A5B5:
 C - - - - - 0x01A5C5 06:A5B5: C9 18     CMP #$18
 C - - - - - 0x01A5C7 06:A5B7: B0 0B     BCS bra_A5C4
 C - - - - - 0x01A5C9 06:A5B9: A9 31     LDA #$31
-C - - - - - 0x01A5CB 06:A5BB: 20 20 C4  JSR $C420
+C - - - - - 0x01A5CB 06:A5BB: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01A5CE 06:A5BE: A9 0C     LDA #$0C
 C - - - - - 0x01A5D0 06:A5C0: 85 05     STA ram_0005
 C - - - - - 0x01A5D2 06:A5C2: D0 1E     BNE bra_A5E2
@@ -1196,7 +1196,7 @@ C - - - - - 0x01A7BC 06:A7AC: BD 4A 03  LDA ram_034A,X
 C - - - - - 0x01A7BF 06:A7AF: 29 07     AND #$07
 C - - - - - 0x01A7C1 06:A7B1: D0 05     BNE bra_A7B8
 C - - - - - 0x01A7C3 06:A7B3: A9 31     LDA #$31
-C - - - - - 0x01A7C5 06:A7B5: 20 20 C4  JSR $C420
+C - - - - - 0x01A7C5 06:A7B5: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 bra_A7B8:
 C - - - - - 0x01A7C8 06:A7B8: A0 18     LDY #$18
 C - - - - - 0x01A7CA 06:A7BA: BD 4A 03  LDA ram_034A,X
@@ -1320,7 +1320,7 @@ C - - - - - 0x01A8AD 06:A89D: AD 00 03  LDA ram_0300
 C - - - - - 0x01A8B0 06:A8A0: C9 18     CMP #$18
 C - - - - - 0x01A8B2 06:A8A2: D0 05     BNE bra_A8A9
 C - - - - - 0x01A8B4 06:A8A4: A9 32     LDA #$32
-C - - - - - 0x01A8B6 06:A8A6: 20 20 C4  JSR $C420
+C - - - - - 0x01A8B6 06:A8A6: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 bra_A8A9:
 C - - - - - 0x01A8B9 06:A8A9: 20 3E E3  JSR $E33E
 C - - - - - 0x01A8BC 06:A8AC: BC 2C 03  LDY ram_032C,X
@@ -1662,7 +1662,7 @@ C - - - - - 0x01AB34 06:AB24: 9D 5E 03  STA ram_035E,X
 C - - - - - 0x01AB37 06:AB27: A9 18     LDA #$18
 C - - - - - 0x01AB39 06:AB29: 9D 88 03  STA ram_0388,X
 C - - - - - 0x01AB3C 06:AB2C: A9 3F     LDA #$3F
-C - - - - - 0x01AB3E 06:AB2E: 4C 20 C4  JMP $C420
+C - - - - - 0x01AB3E 06:AB2E: 4C 20 C4  JMP $C420 ; to loc_C420_add_sound_effect (bank_FF)
 bra_AB31_RTS:
 C - - - - - 0x01AB41 06:AB31: 60        RTS
 loc_AB32:
@@ -2314,7 +2314,7 @@ C - - - - - 0x01AFF1 06:AFE1: 9D 9E 03  STA v_item_on_screen,X
 C - - - - - 0x01AFF4 06:AFE4: A9 10     LDA #$10
 C - - - - - 0x01AFF6 06:AFE6: 9D C8 03  STA ram_03C8,X
 C - - - - - 0x01AFF9 06:AFE9: A9 14     LDA #$14
-C - - - - - 0x01AFFB 06:AFEB: 20 20 C4  JSR $C420
+C - - - - - 0x01AFFB 06:AFEB: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 bra_AFEE_RTS:
 C - - - - - 0x01AFFE 06:AFEE: 60        RTS
 sub_AFEF:
@@ -2407,7 +2407,7 @@ C - - - - - 0x01B09C 06:B08C: 99 00 02  STA ram_0200,Y
 C - - - - - 0x01B09F 06:B08F: A9 20     LDA #$20
 C - - - - - 0x01B0A1 06:B091: 99 0A 02  STA ram_020A,Y
 C - - - - - 0x01B0A4 06:B094: A9 18     LDA #$18
-C - - - - - 0x01B0A6 06:B096: 20 20 C4  JSR $C420
+C - - - - - 0x01B0A6 06:B096: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B0A9 06:B099: 60        RTS
 sub_B09A: ; from bank FF
 C - - - - - 0x01B0AA 06:B09A: A2 05     LDX #$05
@@ -2708,7 +2708,7 @@ C - - - - - 0x01B2C1 06:B2B1: A9 82     LDA #$82
 C - - - - - 0x01B2C3 06:B2B3: 8D 32 06  STA ram_0632
 C - - - - - 0x01B2C6 06:B2B6: E6 CF     INC ram_00CF
 C - - - - - 0x01B2C8 06:B2B8: A9 50     LDA #$50
-C - - - - - 0x01B2CA 06:B2BA: 4C 20 C4  JMP $C420
+C - - - - - 0x01B2CA 06:B2BA: 4C 20 C4  JMP $C420 ; to loc_C420_add_sound_effect (bank_FF)
 - - - - - - 0x01B2CD 06:B2BD: 60        .byte $60   ; 
 sub_B2BE_switch_cpu_banks:
 C - - - - - 0x01B2CE 06:B2BE: A2 00     LDX #$00
@@ -3249,15 +3249,15 @@ C - - - - - 0x01B668 06:B658: F0 03     BEQ bra_B65D
 C - - - - - 0x01B66A 06:B65A: 4C A4 B7  JMP loc_B7A4
 bra_B65D:
 C - - - - - 0x01B66D 06:B65D: A9 55     LDA #$55
-C - - - - - 0x01B66F 06:B65F: 20 20 C4  JSR $C420
+C - - - - - 0x01B66F 06:B65F: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B672 06:B662: A9 56     LDA #$56
-C - - - - - 0x01B674 06:B664: 20 20 C4  JSR $C420
+C - - - - - 0x01B674 06:B664: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B677 06:B667: A9 57     LDA #$57
-C - - - - - 0x01B679 06:B669: 20 20 C4  JSR $C420
+C - - - - - 0x01B679 06:B669: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B67C 06:B66C: A9 5F     LDA #$5F
-C - - - - - 0x01B67E 06:B66E: 20 20 C4  JSR $C420
+C - - - - - 0x01B67E 06:B66E: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B681 06:B671: A9 60     LDA #$60
-C - - - - - 0x01B683 06:B673: 20 20 C4  JSR $C420
+C - - - - - 0x01B683 06:B673: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B686 06:B676: A0 00     LDY #$00
 C - - - - - 0x01B688 06:B678: A9 21     LDA #$21
 C - - - - - 0x01B68A 06:B67A: 8D 31 06  STA ram_0631
@@ -3287,13 +3287,13 @@ C - - - - - 0x01B6C0 06:B6B0: 4C 72 B7  JMP loc_B772
 C - - - - - 0x01B6C3 06:B6B3: A5 C8     LDA ram_00C8
 C - - - - - 0x01B6C5 06:B6B5: D0 38     BNE bra_B6EF_RTS
 C - - - - - 0x01B6C7 06:B6B7: A9 5B     LDA #$5B
-C - - - - - 0x01B6C9 06:B6B9: 20 20 C4  JSR $C420
+C - - - - - 0x01B6C9 06:B6B9: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B6CC 06:B6BC: A9 5C     LDA #$5C
-C - - - - - 0x01B6CE 06:B6BE: 20 20 C4  JSR $C420
+C - - - - - 0x01B6CE 06:B6BE: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B6D1 06:B6C1: A9 5D     LDA #$5D
-C - - - - - 0x01B6D3 06:B6C3: 20 20 C4  JSR $C420
+C - - - - - 0x01B6D3 06:B6C3: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B6D6 06:B6C6: A9 5E     LDA #$5E
-C - - - - - 0x01B6D8 06:B6C8: 20 20 C4  JSR $C420
+C - - - - - 0x01B6D8 06:B6C8: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B6DB 06:B6CB: A5 5F     LDA ram_005F
 C - - - - - 0x01B6DD 06:B6CD: 29 03     AND #$03
 C - - - - - 0x01B6DF 06:B6CF: A8        TAY
@@ -3326,7 +3326,7 @@ C - - - - - 0x01B70F 06:B6FF: A5 2C     LDA ram_002C
 C - - - - - 0x01B711 06:B701: 29 7F     AND #$7F
 C - - - - - 0x01B713 06:B703: D0 05     BNE bra_B70A
 C - - - - - 0x01B715 06:B705: A9 60     LDA #$60
-C - - - - - 0x01B717 06:B707: 20 20 C4  JSR $C420
+C - - - - - 0x01B717 06:B707: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 bra_B70A:
 C - - - - - 0x01B71A 06:B70A: A5 2C     LDA ram_002C
 C - - - - - 0x01B71C 06:B70C: 29 03     AND #$03
@@ -3571,13 +3571,13 @@ C - - - - - 0x01B8DB 06:B8CB: 60        RTS
 bra_B8CC:
 C - - - - - 0x01B8DC 06:B8CC: 20 02 C4  JSR $C402
 C - - - - - 0x01B8DF 06:B8CF: A9 00     LDA #$00
-C - - - - - 0x01B8E1 06:B8D1: 20 20 C4  JSR $C420
+C - - - - - 0x01B8E1 06:B8D1: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B8E4 06:B8D4: A9 01     LDA #$01
-C - - - - - 0x01B8E6 06:B8D6: 20 20 C4  JSR $C420
+C - - - - - 0x01B8E6 06:B8D6: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B8E9 06:B8D9: A9 02     LDA #$02
-C - - - - - 0x01B8EB 06:B8DB: 20 20 C4  JSR $C420
+C - - - - - 0x01B8EB 06:B8DB: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B8EE 06:B8DE: A9 03     LDA #$03
-C - - - - - 0x01B8F0 06:B8E0: 20 20 C4  JSR $C420
+C - - - - - 0x01B8F0 06:B8E0: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B8F3 06:B8E3: 20 1D C3  JSR $C31D
 C - - - - - 0x01B8F6 06:B8E6: 20 58 C3  JSR $C358
 C - - - - - 0x01B8F9 06:B8E9: 20 46 EF  JSR $EF46
@@ -4009,13 +4009,13 @@ C - - - - - 0x01BBDA 06:BBCA: 0A        ASL
 C - - - - - 0x01BBDB 06:BBCB: 0A        ASL
 C - - - - - 0x01BBDC 06:BBCC: AA        TAX
 C - - - - - 0x01BBDD 06:BBCD: BD 10 BC  LDA tbl_BC10,X
-C - - - - - 0x01BBE0 06:BBD0: 20 20 C4  JSR $C420
+C - - - - - 0x01BBE0 06:BBD0: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01BBE3 06:BBD3: BD 11 BC  LDA tbl_BC11,X
-C - - - - - 0x01BBE6 06:BBD6: 20 20 C4  JSR $C420
+C - - - - - 0x01BBE6 06:BBD6: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01BBE9 06:BBD9: BD 12 BC  LDA tbl_BC12,X
-C - - - - - 0x01BBEC 06:BBDC: 20 20 C4  JSR $C420
+C - - - - - 0x01BBEC 06:BBDC: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01BBEF 06:BBDF: BD 13 BC  LDA tbl_BC13,X
-C - - - - - 0x01BBF2 06:BBE2: 4C 20 C4  JMP $C420
+C - - - - - 0x01BBF2 06:BBE2: 4C 20 C4  JMP $C420 ; to loc_C420_add_sound_effect (bank_FF)
 bra_BBE5:
 C - - - - - 0x01BBF5 06:BBE5: A0 0A     LDY #$0A
 C - - - - - 0x01BBF7 06:BBE7: A5 B6     LDA ram_00B6
