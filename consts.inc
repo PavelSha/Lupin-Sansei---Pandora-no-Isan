@@ -41,6 +41,7 @@ BIT_USING_WHITE_BRIEFCASE             = %10000000
 
 ; Variables
 
+v_CE5A_counter           = ram_0005
 v_temp_check_buttons     = ram_0012 ; There is a variable that stores the checked state of the button
 v_sub_AF4D_counter       = ram_001A ; Intermediate counter
 v_btn_pressed_in_game    = ram_001C ; In a level 1-4 or a title screen
@@ -54,6 +55,7 @@ v_menu_counter           = ram_0033
 v_menu_counter_times     = ram_0034
 v_game_mode              = ram_0037 ; 0x00 - in game, 0xFF - Starting cutscenes
 v_resists                = ram_003A ; TODO: !!!, 0x80 - The enemies don't damage
+v_temp_bank_data         = ram_0045 ; 
 v_no_level               = ram_005E ; It is a number of a level than it starts with 0.
 v_start_level            = ram_00B1 ; The start level [0-3]
 v_count_secret_hits      = ram_00B2 ; Stage select codes at the title screen
@@ -80,3 +82,6 @@ v_OAM_3                  = ram_0708
 v_OAM_3_2b               = ram_0709 ; 2nd byte
 v_OAM_3_3b               = ram_070A ; 3rd byte
 v_OAM_3_4b               = ram_070B ; 4th byte
+
+; Unknown:
+; 0x0042 - 0 - left, 0x80 - right in 1st level
