@@ -85,10 +85,8 @@
 - - - - - - 0x01408B 05:807B: 8B        .byte $8B   ; 
 - - - - - - 0x01408C 05:807C: 9A        .byte $9A   ; 
 - - - - - - 0x01408D 05:807D: 8B        .byte $8B   ; 
-- D 0 - I - 0x01408E 05:807E: 9F        .byte $9F   ; 
-- D 0 - I - 0x01408F 05:807F: 8B        .byte $8B   ; 
-- D 0 - I - 0x014090 05:8080: A8        .byte $A8   ; 
-- D 0 - I - 0x014091 05:8081: 8B        .byte $8B   ; 
+- D 0 - I - 0x01408E 05:807E: 9F 8B     .word $8B9F ; A car wheel (Daisuke)
+- D 0 - I - 0x014090 05:8080: A8 8B     .word $8BA8 ; A car wheel (Lupin or Goemon)
 - D 0 - I - 0x014092 05:8082: B1        .byte $B1   ; 
 - D 0 - I - 0x014093 05:8083: 8B        .byte $8B   ; 
 - - - - - - 0x014094 05:8084: BA        .byte $BA   ; 
@@ -97,62 +95,40 @@
 - - - - - - 0x014097 05:8087: 8B        .byte $8B   ; 
 - D 0 - I - 0x014098 05:8088: CC        .byte $CC   ; 
 - D 0 - I - 0x014099 05:8089: 8B        .byte $8B   ; 
-- D 0 - I - 0x01409A 05:808A: D5        .byte $D5   ; 
-- D 0 - I - 0x01409B 05:808B: 8B        .byte $8B   ; 
-- D 0 - I - 0x01409C 05:808C: DE        .byte $DE   ; 
-- D 0 - I - 0x01409D 05:808D: 8B        .byte $8B   ; 
-- D 0 - I - 0x01409E 05:808E: DF        .byte $DF   ; 
-- D 0 - I - 0x01409F 05:808F: 8B        .byte $8B   ; 
+- D 0 - I - 0x01409A 05:808A: D5 8B     .word $8BD5 ; A car wheel (45 degree)
+- D 0 - I - 0x01409C 05:808C: DE 8B     .word $8BDE ; A car wheel (90 degree)
+- D 0 - I - 0x01409E 05:808E: DF 8B     .word $8BDF ; A car
 - - - - - - 0x0140A0 05:8090: FC        .byte $FC   ; 
 - - - - - - 0x0140A1 05:8091: 8B        .byte $8B   ; 
-- D 0 - I - 0x0140A2 05:8092: 19        .byte $19   ; 
-- D 0 - I - 0x0140A3 05:8093: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140A4 05:8094: 3A        .byte $3A   ; 
-- D 0 - I - 0x0140A5 05:8095: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140A6 05:8096: 5B        .byte $5B   ; 
-- D 0 - I - 0x0140A7 05:8097: 8C        .byte $8C   ; 
-- - - - - - 0x0140A8 05:8098: 64        .byte $64   ; <d>
-- - - - - - 0x0140A9 05:8099: 8C        .byte $8C   ; 
-- - - - - - 0x0140AA 05:809A: 6D        .byte $6D   ; <m>
-- - - - - - 0x0140AB 05:809B: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140AC 05:809C: 76        .byte $76   ; <v>
-- D 0 - I - 0x0140AD 05:809D: 8C        .byte $8C   ; 
+- D 0 - I - 0x0140A2 05:8092: 19 8C     .word $8C19 ; A car (45 degree)
+- D 0 - I - 0x0140A4 05:8094: 3A 8C     .word $8C3A ; A car (90 degree)
+- D 0 - I - 0x0140A6 05:8096: 5B 8C     .word $8C5B ; Lupin is in the car
+- - - - - - 0x0140A8 05:8098: 64 8C     .word $8C64
+- - - - - - 0x0140AA 05:809A: 6D 8C     .word $8C6D
+- D 0 - I - 0x0140AC 05:809C: 76 8C     .word $8C76 ; Daisuke is in the car
 - D 0 - I - 0x0140AE 05:809E: 7F        .byte $7F   ; 
 - D 0 - I - 0x0140AF 05:809F: 8C        .byte $8C   ; 
 - D 0 - I - 0x0140B0 05:80A0: 88        .byte $88   ; 
 - D 0 - I - 0x0140B1 05:80A1: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140B2 05:80A2: 91        .byte $91   ; 
-- D 0 - I - 0x0140B3 05:80A3: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140B4 05:80A4: 96        .byte $96   ; 
-- D 0 - I - 0x0140B5 05:80A5: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140B6 05:80A6: 9B        .byte $9B   ; 
-- D 0 - I - 0x0140B7 05:80A7: 8C        .byte $8C   ; 
+- D 0 - I - 0x0140B2 05:80A2: 91 8C     .word $8C91 ; Doemon is in the car
+- D 0 - I - 0x0140B4 05:80A4: 96 8C     .word $8C96 ; Doemon is in the car (45 degree)
+- D 0 - I - 0x0140B6 05:80A6: 9B 8C     .word $8C9B ; Doemon is in the car (90 degree)
 - D 0 - I - 0x0140B8 05:80A8: A5        .byte $A5   ; 
 - D 0 - I - 0x0140B9 05:80A9: 8C        .byte $8C   ; 
 - D 0 - I - 0x0140BA 05:80AA: A0        .byte $A0   ; 
 - D 0 - I - 0x0140BB 05:80AB: 8C        .byte $8C   ; 
 - D 0 - I - 0x0140BC 05:80AC: F5        .byte $F5   ; 
 - D 0 - I - 0x0140BD 05:80AD: 85        .byte $85   ; 
-- D 0 - I - 0x0140BE 05:80AE: AA        .byte $AA   ; 
-- D 0 - I - 0x0140BF 05:80AF: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140C0 05:80B0: C3        .byte $C3   ; 
-- D 0 - I - 0x0140C1 05:80B1: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140C2 05:80B2: D4        .byte $D4   ; 
-- D 0 - I - 0x0140C3 05:80B3: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140C4 05:80B4: E5        .byte $E5   ; 
-- D 0 - I - 0x0140C5 05:80B5: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140C6 05:80B6: F6        .byte $F6   ; 
-- D 0 - I - 0x0140C7 05:80B7: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140C8 05:80B8: 07        .byte $07   ; 
-- D 0 - I - 0x0140C9 05:80B9: 8D        .byte $8D   ; 
-- D 0 - I - 0x0140CA 05:80BA: 10        .byte $10   ; 
-- D 0 - I - 0x0140CB 05:80BB: 8D        .byte $8D   ; 
-- D 0 - I - 0x0140CC 05:80BC: 19        .byte $19   ; 
-- D 0 - I - 0x0140CD 05:80BD: 8D        .byte $8D   ; 
-- D 0 - I - 0x0140CE 05:80BE: 1E        .byte $1E   ; 
-- D 0 - I - 0x0140CF 05:80BF: 8D        .byte $8D   ; 
-- D 0 - I - 0x0140D0 05:80C0: E8        .byte $E8   ; 
-- D 0 - I - 0x0140D1 05:80C1: 82        .byte $82   ; 
+- D 0 - I - 0x0140BE 05:80AE: AA 8C     .word $8CAA ; The car drives into the pyramid (frame 1)
+- D 0 - I - 0x0140C0 05:80B0: C3 8C     .word $8CC3 ; The car drives into the pyramid (frame 2)
+- D 0 - I - 0x0140C2 05:80B2: D4 8C     .word $8CD4 ; The car drives into the pyramid (frame 2, mirror)
+- D 0 - I - 0x0140C4 05:80B4: E5 8C     .word $8CE5 ; The car drives into the pyramid (frame 3)
+- D 0 - I - 0x0140C6 05:80B6: F6 8C     .word $8CF6 ; The car drives into the pyramid (frame 3, mirror)
+- D 0 - I - 0x0140C8 05:80B8: 07 8D     .word $8D07 ; The car drives into the pyramid (frame 4)
+- D 0 - I - 0x0140CA 05:80BA: 10 8D     .word $8D10 ; The car drives into the pyramid (frame 4, mirror)
+- D 0 - I - 0x0140CC 05:80BC: 19 8D     .word $8D19 ; The car drives into the pyramid (frame 6)
+- D 0 - I - 0x0140CE 05:80BE: 1E 8D     .word $8D1E ; The car drives into the pyramid (frame 5)
+- D 0 - I - 0x0140D0 05:80C0: E8 82     .word $82E8
 - D 0 - I - 0x0140D2 05:80C2: 09        .byte $09   ; 
 - D 0 - I - 0x0140D3 05:80C3: 83        .byte $83   ; 
 - D 0 - I - 0x0140D4 05:80C4: 2E        .byte $2E   ; 
@@ -703,39 +679,17 @@
 - D 0 - I - 0x0142F5 05:82E5: 9E        .byte $9E   ; 
 - D 0 - I - 0x0142F6 05:82E6: C4        .byte $C4   ; 
 - D 0 - I - 0x0142F7 05:82E7: 9E        .byte $9E   ; 
+
 - D 0 - I - 0x0142F8 05:82E8: 08        .byte $08   ; 
-- D 0 - I - 0x0142F9 05:82E9: E4        .byte $E4   ; 
-- D 0 - I - 0x0142FA 05:82EA: C0        .byte $C0   ; 
-- D 0 - I - 0x0142FB 05:82EB: 43        .byte $43   ; <C>
-- D 0 - I - 0x0142FC 05:82EC: FC        .byte $FC   ; 
-- D 0 - I - 0x0142FD 05:82ED: EC        .byte $EC   ; 
-- D 0 - I - 0x0142FE 05:82EE: C1        .byte $C1   ; 
-- D 0 - I - 0x0142FF 05:82EF: 43        .byte $43   ; <C>
-- D 0 - I - 0x014300 05:82F0: FC        .byte $FC   ; 
-- D 0 - I - 0x014301 05:82F1: F4        .byte $F4   ; 
-- D 0 - I - 0x014302 05:82F2: C2        .byte $C2   ; 
-- D 0 - I - 0x014303 05:82F3: 43        .byte $43   ; <C>
-- D 0 - I - 0x014304 05:82F4: FD        .byte $FD   ; 
-- D 0 - I - 0x014305 05:82F5: F8        .byte $F8   ; 
-- D 0 - I - 0x014306 05:82F6: C3        .byte $C3   ; 
-- D 0 - I - 0x014307 05:82F7: 43        .byte $43   ; <C>
-- D 0 - I - 0x014308 05:82F8: 00        .byte $00   ; 
-- D 0 - I - 0x014309 05:82F9: F8        .byte $F8   ; 
-- D 0 - I - 0x01430A 05:82FA: C4        .byte $C4   ; 
-- D 0 - I - 0x01430B 05:82FB: 43        .byte $43   ; <C>
-- D 0 - I - 0x01430C 05:82FC: F8        .byte $F8   ; 
-- D 0 - I - 0x01430D 05:82FD: EA        .byte $EA   ; 
-- D 0 - I - 0x01430E 05:82FE: CB        .byte $CB   ; 
-- D 0 - I - 0x01430F 05:82FF: 40        .byte $40   ; 
-- D 0 - I - 0x014310 05:8300: FD        .byte $FD   ; 
-- D 0 - I - 0x014311 05:8301: E7        .byte $E7   ; 
-- D 0 - I - 0x014312 05:8302: CC        .byte $CC   ; 
-- D 0 - I - 0x014313 05:8303: 41        .byte $41   ; <A>
-- D 0 - I - 0x014314 05:8304: F9        .byte $F9   ; 
-- D 0 - I - 0x014315 05:8305: F8        .byte $F8   ; 
-- D 0 - I - 0x014316 05:8306: CD        .byte $CD   ; 
-- D 0 - I - 0x014317 05:8307: 41        .byte $41   ; <A>
-- D 0 - I - 0x014318 05:8308: FE        .byte $FE   ; 
+- D 0 - I - 0x0142F9 05:82E9: E4        .byte $E4, $C0, $43, $FC
+- D 0 - I - 0x0142FD 05:82ED: EC        .byte $EC, $C1, $43, $FC
+- D 0 - I - 0x014301 05:82F1: F4        .byte $F4, $C2, $43, $FD
+- D 0 - I - 0x014305 05:82F5: F8        .byte $F8, $C3, $43, $00
+- D 0 - I - 0x014309 05:82F9: F8        .byte $F8, $C4, $43, $F8
+- D 0 - I - 0x01430D 05:82FD: EA        .byte $EA, $CB, $40, $FD
+- D 0 - I - 0x014311 05:8301: E7        .byte $E7, $CC, $41, $F9
+- D 0 - I - 0x014315 05:8305: F8        .byte $F8, $CD, $41, $FE
+
 - D 0 - I - 0x014319 05:8309: 09        .byte $09   ; 
 - D 0 - I - 0x01431A 05:830A: E0        .byte $E0   ; 
 - D 0 - I - 0x01431B 05:830B: C5        .byte $C5   ; 
@@ -1486,7 +1440,7 @@
 - D 0 - I - 0x014604 05:85F4: FD        .byte $FD   ; 
 - D 0 - I - 0x014605 05:85F5: 00        .byte $00   ; 
 
-; Daisuke Jigen
+; Daisuke Jigen is standing (right) (or Lupin)
 - D 0 - I - 0x014606 05:85F6: 08        .byte $08   ; Tile count
 - D 0 - I - 0x014607 05:85F7: E0        .byte $E0, $53, $00, $FD
 - D 0 - I - 0x01460B 05:85FB: E8        .byte $E8, $54, $00, $F8
@@ -1497,7 +1451,7 @@
 - D 0 - I - 0x01461F 05:860F: F8        .byte $F8, $59, $00, $F8
 - D 0 - I - 0x014623 05:8613: F8        .byte $F8, $5B, $00, $00
 
-; Daisuke Jigen
+; Daisuke Jigen is standing (left) (or Lupin)
 - D 0 - I - 0x014627 05:8617: 08        .byte $08   ; 
 - D 0 - I - 0x014628 05:8618: E0        .byte $E0, $53, $40, $FB
 - D 0 - I - 0x01462C 05:861C: E8        .byte $E8, $54, $40, $00
@@ -1508,7 +1462,7 @@
 - D 0 - I - 0x014640 05:8630: F8        .byte $F8, $59, $40, $00
 - D 0 - I - 0x014644 05:8634: F8        .byte $F8, $5B, $40, $F8
 
-; Daisuke Jigen
+; Daisuke Jigen is running (right) (or Lupin)
 - D 0 - I - 0x014648 05:8638: 06        .byte $06   ; 
 - D 0 - I - 0x014649 05:8639: E0        .byte $E0, $44, $00, $FF
 - D 0 - I - 0x01464D 05:863D: E8        .byte $E8, $40, $00, $F8
@@ -1525,165 +1479,61 @@
 - D 0 - I - 0x01466E 05:865E: F0        .byte $F0, $41, $40, $00
 - D 0 - I - 0x014672 05:8662: F0        .byte $F0, $43, $40, $F8
 - D 0 - I - 0x014676 05:8666: F8        .byte $F8, $45, $40, $F8
- 
+
+; Daisuke Jigen 
 - D 0 - I - 0x01467A 05:866A: 06        .byte $06   ; 
-- D 0 - I - 0x01467B 05:866B: E0        .byte $E0   ; 
-- D 0 - I - 0x01467C 05:866C: 46        .byte $46   ; <F>
-- D 0 - I - 0x01467D 05:866D: 00        .byte $00   ; 
-- D 0 - I - 0x01467E 05:866E: FF        .byte $FF   ; 
-- D 0 - I - 0x01467F 05:866F: E8        .byte $E8   ; 
-- D 0 - I - 0x014680 05:8670: 48        .byte $48   ; <H>
-- D 0 - I - 0x014681 05:8671: 00        .byte $00   ; 
-- D 0 - I - 0x014682 05:8672: F8        .byte $F8   ; 
-- D 0 - I - 0x014683 05:8673: E8        .byte $E8   ; 
-- D 0 - I - 0x014684 05:8674: 4A        .byte $4A   ; <J>
-- D 0 - I - 0x014685 05:8675: 00        .byte $00   ; 
-- D 0 - I - 0x014686 05:8676: 00        .byte $00   ; 
-- D 0 - I - 0x014687 05:8677: F0        .byte $F0   ; 
-- D 0 - I - 0x014688 05:8678: 49        .byte $49   ; <I>
-- D 0 - I - 0x014689 05:8679: 00        .byte $00   ; 
-- D 0 - I - 0x01468A 05:867A: F8        .byte $F8   ; 
-- D 0 - I - 0x01468B 05:867B: F0        .byte $F0   ; 
-- D 0 - I - 0x01468C 05:867C: 4B        .byte $4B   ; <K>
-- D 0 - I - 0x01468D 05:867D: 00        .byte $00   ; 
-- D 0 - I - 0x01468E 05:867E: 00        .byte $00   ; 
-- D 0 - I - 0x01468F 05:867F: F8        .byte $F8   ; 
-- D 0 - I - 0x014690 05:8680: 47        .byte $47   ; <G>
-- D 0 - I - 0x014691 05:8681: 00        .byte $00   ; 
-- D 0 - I - 0x014692 05:8682: FA        .byte $FA   ; 
+- D 0 - I - 0x01467B 05:866B: E0        .byte $E0, $46, $00, $FF
+- D 0 - I - 0x01467F 05:866F: E8        .byte $E8, $48, $00, $F8
+- D 0 - I - 0x014683 05:8673: E8        .byte $E8, $4A, $00, $00
+- D 0 - I - 0x014687 05:8677: F0        .byte $F0, $49, $00, $F8
+- D 0 - I - 0x01468B 05:867B: F0        .byte $F0, $4B, $00, $00
+- D 0 - I - 0x01468F 05:867F: F8        .byte $F8, $47, $00, $FA
+
+; Daisuke Jigen
 - D 0 - I - 0x014693 05:8683: 06        .byte $06   ; 
-- D 0 - I - 0x014694 05:8684: E0        .byte $E0   ; 
-- D 0 - I - 0x014695 05:8685: 46        .byte $46   ; <F>
-- D 0 - I - 0x014696 05:8686: 40        .byte $40   ; 
-- D 0 - I - 0x014697 05:8687: F9        .byte $F9   ; 
-- D 0 - I - 0x014698 05:8688: E8        .byte $E8   ; 
-- D 0 - I - 0x014699 05:8689: 48        .byte $48   ; <H>
-- D 0 - I - 0x01469A 05:868A: 40        .byte $40   ; 
-- D 0 - I - 0x01469B 05:868B: 00        .byte $00   ; 
-- D 0 - I - 0x01469C 05:868C: E8        .byte $E8   ; 
-- D 0 - I - 0x01469D 05:868D: 4A        .byte $4A   ; <J>
-- D 0 - I - 0x01469E 05:868E: 40        .byte $40   ; 
-- D 0 - I - 0x01469F 05:868F: F8        .byte $F8   ; 
-- D 0 - I - 0x0146A0 05:8690: F0        .byte $F0   ; 
-- D 0 - I - 0x0146A1 05:8691: 49        .byte $49   ; <I>
-- D 0 - I - 0x0146A2 05:8692: 40        .byte $40   ; 
-- D 0 - I - 0x0146A3 05:8693: 00        .byte $00   ; 
-- D 0 - I - 0x0146A4 05:8694: F0        .byte $F0   ; 
-- D 0 - I - 0x0146A5 05:8695: 4B        .byte $4B   ; <K>
-- D 0 - I - 0x0146A6 05:8696: 40        .byte $40   ; 
-- D 0 - I - 0x0146A7 05:8697: F8        .byte $F8   ; 
-- D 0 - I - 0x0146A8 05:8698: F8        .byte $F8   ; 
-- D 0 - I - 0x0146A9 05:8699: 47        .byte $47   ; <G>
-- D 0 - I - 0x0146AA 05:869A: 40        .byte $40   ; 
-- D 0 - I - 0x0146AB 05:869B: FE        .byte $FE   ; 
+- D 0 - I - 0x014694 05:8684: E0        .byte $E0, $46, $40, $F9
+- D 0 - I - 0x014698 05:8688: E8        .byte $E8, $48, $40, $00
+- D 0 - I - 0x01469C 05:868C: E8        .byte $E8, $4A, $40, $F8
+- D 0 - I - 0x0146A0 05:8690: F0        .byte $F0, $49, $40, $00
+- D 0 - I - 0x0146A4 05:8694: F0        .byte $F0, $4B, $40, $F8
+- D 0 - I - 0x0146A8 05:8698: F8        .byte $F8, $47, $40, $FE
+
+; Daisuke Jigen
 - D 0 - I - 0x0146AC 05:869C: 07        .byte $07   ; 
-- D 0 - I - 0x0146AD 05:869D: E0        .byte $E0   ; 
-- D 0 - I - 0x0146AE 05:869E: 52        .byte $52   ; <R>
-- D 0 - I - 0x0146AF 05:869F: 00        .byte $00   ; 
-- D 0 - I - 0x0146B0 05:86A0: FF        .byte $FF   ; 
-- D 0 - I - 0x0146B1 05:86A1: E8        .byte $E8   ; 
-- D 0 - I - 0x0146B2 05:86A2: 4C        .byte $4C   ; <L>
-- D 0 - I - 0x0146B3 05:86A3: 00        .byte $00   ; 
-- D 0 - I - 0x0146B4 05:86A4: F8        .byte $F8   ; 
-- D 0 - I - 0x0146B5 05:86A5: E8        .byte $E8   ; 
-- D 0 - I - 0x0146B6 05:86A6: 4E        .byte $4E   ; <N>
-- D 0 - I - 0x0146B7 05:86A7: 00        .byte $00   ; 
-- D 0 - I - 0x0146B8 05:86A8: 00        .byte $00   ; 
-- D 0 - I - 0x0146B9 05:86A9: F0        .byte $F0   ; 
-- D 0 - I - 0x0146BA 05:86AA: 4D        .byte $4D   ; <M>
-- D 0 - I - 0x0146BB 05:86AB: 00        .byte $00   ; 
-- D 0 - I - 0x0146BC 05:86AC: F8        .byte $F8   ; 
-- D 0 - I - 0x0146BD 05:86AD: F0        .byte $F0   ; 
-- D 0 - I - 0x0146BE 05:86AE: 4F        .byte $4F   ; <O>
-- D 0 - I - 0x0146BF 05:86AF: 00        .byte $00   ; 
-- D 0 - I - 0x0146C0 05:86B0: 00        .byte $00   ; 
-- D 0 - I - 0x0146C1 05:86B1: F8        .byte $F8   ; 
-- D 0 - I - 0x0146C2 05:86B2: 50        .byte $50   ; <P>
-- D 0 - I - 0x0146C3 05:86B3: 00        .byte $00   ; 
-- D 0 - I - 0x0146C4 05:86B4: F8        .byte $F8   ; 
-- D 0 - I - 0x0146C5 05:86B5: F8        .byte $F8   ; 
-- D 0 - I - 0x0146C6 05:86B6: 51        .byte $51   ; <Q>
-- D 0 - I - 0x0146C7 05:86B7: 00        .byte $00   ; 
-- D 0 - I - 0x0146C8 05:86B8: 00        .byte $00   ; 
+- D 0 - I - 0x0146AD 05:869D: E0        .byte $E0, $52, $00, $FF
+- D 0 - I - 0x0146B1 05:86A1: E8        .byte $E8, $4C, $00, $F8
+- D 0 - I - 0x0146B5 05:86A5: E8        .byte $E8, $4E, $00, $00
+- D 0 - I - 0x0146B9 05:86A9: F0        .byte $F0, $4D, $00, $F8
+- D 0 - I - 0x0146BD 05:86AD: F0        .byte $F0, $4F, $00, $00
+- D 0 - I - 0x0146C1 05:86B1: F8        .byte $F8, $50, $00, $F8
+- D 0 - I - 0x0146C5 05:86B5: F8        .byte $F8, $51, $00, $00
+
 - D 0 - I - 0x0146C9 05:86B9: 07        .byte $07   ; 
-- D 0 - I - 0x0146CA 05:86BA: E0        .byte $E0   ; 
-- D 0 - I - 0x0146CB 05:86BB: 52        .byte $52   ; <R>
-- D 0 - I - 0x0146CC 05:86BC: 40        .byte $40   ; 
-- D 0 - I - 0x0146CD 05:86BD: F9        .byte $F9   ; 
-- D 0 - I - 0x0146CE 05:86BE: E8        .byte $E8   ; 
-- D 0 - I - 0x0146CF 05:86BF: 4C        .byte $4C   ; <L>
-- D 0 - I - 0x0146D0 05:86C0: 40        .byte $40   ; 
-- D 0 - I - 0x0146D1 05:86C1: 00        .byte $00   ; 
-- D 0 - I - 0x0146D2 05:86C2: E8        .byte $E8   ; 
-- D 0 - I - 0x0146D3 05:86C3: 4E        .byte $4E   ; <N>
-- D 0 - I - 0x0146D4 05:86C4: 40        .byte $40   ; 
-- D 0 - I - 0x0146D5 05:86C5: F8        .byte $F8   ; 
-- D 0 - I - 0x0146D6 05:86C6: F0        .byte $F0   ; 
-- D 0 - I - 0x0146D7 05:86C7: 4D        .byte $4D   ; <M>
-- D 0 - I - 0x0146D8 05:86C8: 40        .byte $40   ; 
-- D 0 - I - 0x0146D9 05:86C9: 00        .byte $00   ; 
-- D 0 - I - 0x0146DA 05:86CA: F0        .byte $F0   ; 
-- D 0 - I - 0x0146DB 05:86CB: 4F        .byte $4F   ; <O>
-- D 0 - I - 0x0146DC 05:86CC: 40        .byte $40   ; 
-- D 0 - I - 0x0146DD 05:86CD: F8        .byte $F8   ; 
-- D 0 - I - 0x0146DE 05:86CE: F8        .byte $F8   ; 
-- D 0 - I - 0x0146DF 05:86CF: 50        .byte $50   ; <P>
-- D 0 - I - 0x0146E0 05:86D0: 40        .byte $40   ; 
-- D 0 - I - 0x0146E1 05:86D1: 00        .byte $00   ; 
-- D 0 - I - 0x0146E2 05:86D2: F8        .byte $F8   ; 
-- D 0 - I - 0x0146E3 05:86D3: 51        .byte $51   ; <Q>
-- D 0 - I - 0x0146E4 05:86D4: 40        .byte $40   ; 
-- D 0 - I - 0x0146E5 05:86D5: F8        .byte $F8   ; 
+- D 0 - I - 0x0146CA 05:86BA: E0        .byte $E0, $52, $40, $F9
+- D 0 - I - 0x0146CE 05:86BE: E8        .byte $E8, $4C, $40, $00
+- D 0 - I - 0x0146D2 05:86C2: E8        .byte $E8, $4E, $40, $F8
+- D 0 - I - 0x0146D6 05:86C6: F0        .byte $F0, $4D, $40, $00
+- D 0 - I - 0x0146DA 05:86CA: F0        .byte $F0, $4F, $40, $F8
+- D 0 - I - 0x0146DE 05:86CE: F8        .byte $F8, $50, $40, $00
+- D 0 - I - 0x0146E2 05:86D2: F8        .byte $F8, $51, $40, $F8
+
+; Broken
 - - - - - - 0x0146E6 05:86D6: 06        .byte $06   ; 
-- - - - - - 0x0146E7 05:86D7: E8        .byte $E8   ; 
-- - - - - - 0x0146E8 05:86D8: 60        .byte $60   ; 
-- - - - - - 0x0146E9 05:86D9: 00        .byte $00   ; 
-- - - - - - 0x0146EA 05:86DA: F8        .byte $F8   ; 
-- - - - - - 0x0146EB 05:86DB: E8        .byte $E8   ; 
-- - - - - - 0x0146EC 05:86DC: 62        .byte $62   ; <b>
-- - - - - - 0x0146ED 05:86DD: 00        .byte $00   ; 
-- - - - - - 0x0146EE 05:86DE: 00        .byte $00   ; 
-- - - - - - 0x0146EF 05:86DF: F0        .byte $F0   ; 
-- - - - - - 0x0146F0 05:86E0: 61        .byte $61   ; <a>
-- - - - - - 0x0146F1 05:86E1: 00        .byte $00   ; 
-- - - - - - 0x0146F2 05:86E2: F8        .byte $F8   ; 
-- - - - - - 0x0146F3 05:86E3: F0        .byte $F0   ; 
-- - - - - - 0x0146F4 05:86E4: 63        .byte $63   ; <c>
-- - - - - - 0x0146F5 05:86E5: 00        .byte $00   ; 
-- - - - - - 0x0146F6 05:86E6: 00        .byte $00   ; 
-- - - - - - 0x0146F7 05:86E7: F8        .byte $F8   ; 
-- - - - - - 0x0146F8 05:86E8: 64        .byte $64   ; <d>
-- - - - - - 0x0146F9 05:86E9: 00        .byte $00   ; 
-- - - - - - 0x0146FA 05:86EA: F8        .byte $F8   ; 
-- - - - - - 0x0146FB 05:86EB: F8        .byte $F8   ; 
-- - - - - - 0x0146FC 05:86EC: 66        .byte $66   ; <f>
-- - - - - - 0x0146FD 05:86ED: 00        .byte $00   ; 
-- - - - - - 0x0146FE 05:86EE: 00        .byte $00   ; 
+- - - - - - 0x0146E7 05:86D7: E8        .byte $E8, $60, $00, $F8
+- - - - - - 0x0146EB 05:86DB: E8        .byte $E8, $62, $00, $00
+- - - - - - 0x0146EF 05:86DF: F0        .byte $F0, $61, $00, $F8
+- - - - - - 0x0146F3 05:86E3: F0        .byte $F0, $63, $00, $00
+- - - - - - 0x0146F7 05:86E7: F8        .byte $F8, $64, $00, $F8
+- - - - - - 0x0146FB 05:86EB: F8        .byte $F8, $66, $00, $00
+
+; Broken
 - - - - - - 0x0146FF 05:86EF: 06        .byte $06   ; 
-- - - - - - 0x014700 05:86F0: E8        .byte $E8   ; 
-- - - - - - 0x014701 05:86F1: 60        .byte $60   ; 
-- - - - - - 0x014702 05:86F2: 40        .byte $40   ; 
-- - - - - - 0x014703 05:86F3: 00        .byte $00   ; 
-- - - - - - 0x014704 05:86F4: E8        .byte $E8   ; 
-- - - - - - 0x014705 05:86F5: 62        .byte $62   ; <b>
-- - - - - - 0x014706 05:86F6: 40        .byte $40   ; 
-- - - - - - 0x014707 05:86F7: F8        .byte $F8   ; 
-- - - - - - 0x014708 05:86F8: F0        .byte $F0   ; 
-- - - - - - 0x014709 05:86F9: 61        .byte $61   ; <a>
-- - - - - - 0x01470A 05:86FA: 40        .byte $40   ; 
-- - - - - - 0x01470B 05:86FB: 00        .byte $00   ; 
-- - - - - - 0x01470C 05:86FC: F0        .byte $F0   ; 
-- - - - - - 0x01470D 05:86FD: 63        .byte $63   ; <c>
-- - - - - - 0x01470E 05:86FE: 40        .byte $40   ; 
-- - - - - - 0x01470F 05:86FF: F8        .byte $F8   ; 
-- - - - - - 0x014710 05:8700: F8        .byte $F8   ; 
-- - - - - - 0x014711 05:8701: 64        .byte $64   ; <d>
-- - - - - - 0x014712 05:8702: 40        .byte $40   ; 
-- - - - - - 0x014713 05:8703: 00        .byte $00   ; 
-- - - - - - 0x014714 05:8704: F8        .byte $F8   ; 
-- - - - - - 0x014715 05:8705: 66        .byte $66   ; <f>
-- - - - - - 0x014716 05:8706: 40        .byte $40   ; 
-- - - - - - 0x014717 05:8707: F8        .byte $F8   ; 
+- - - - - - 0x014700 05:86F0: E8        .byte $E8, $60, $40, $00
+- - - - - - 0x014704 05:86F4: E8        .byte $E8, $62, $40, $F8
+- - - - - - 0x014708 05:86F8: F0        .byte $F0, $61, $40, $00
+- - - - - - 0x01470C 05:86FC: F0        .byte $F0, $63, $40, $F8
+- - - - - - 0x014710 05:8700: F8        .byte $F8, $64, $40, $00
+- - - - - - 0x014714 05:8704: F8        .byte $F8, $66, $40, $F8
 
 ; Daisuke Jigen sitting
 - D 0 - I - 0x014718 05:8708: 06        .byte $06   ; 
@@ -2784,24 +2634,17 @@
 - - - - - - 0x014BAC 05:8B9C: 10        .byte $10   ; 
 - - - - - - 0x014BAD 05:8B9D: 00        .byte $00   ; 
 - - - - - - 0x014BAE 05:8B9E: FC        .byte $FC   ; 
+
+; A car wheel (Daisuke)
 - D 0 - I - 0x014BAF 05:8B9F: 02        .byte $02   ; 
-- D 0 - I - 0x014BB0 05:8BA0: FB        .byte $FB   ; 
-- D 0 - I - 0x014BB1 05:8BA1: 46        .byte $46   ; <F>
-- D 0 - I - 0x014BB2 05:8BA2: 00        .byte $00   ; 
-- D 0 - I - 0x014BB3 05:8BA3: F3        .byte $F3   ; 
-- D 0 - I - 0x014BB4 05:8BA4: FA        .byte $FA   ; 
-- D 0 - I - 0x014BB5 05:8BA5: 46        .byte $46   ; <F>
-- D 0 - I - 0x014BB6 05:8BA6: 00        .byte $00   ; 
-- D 0 - I - 0x014BB7 05:8BA7: 04        .byte $04   ; 
+- D 0 - I - 0x014BB0 05:8BA0: FB        .byte $FB, $46, $00, $F3
+- D 0 - I - 0x014BB4 05:8BA4: FA        .byte $FA, $46, $00, $04
+
+; A car wheel (Lupin)
 - D 0 - I - 0x014BB8 05:8BA8: 02        .byte $02   ; 
-- D 0 - I - 0x014BB9 05:8BA9: FA        .byte $FA   ; 
-- D 0 - I - 0x014BBA 05:8BAA: 46        .byte $46   ; <F>
-- D 0 - I - 0x014BBB 05:8BAB: 00        .byte $00   ; 
-- D 0 - I - 0x014BBC 05:8BAC: F3        .byte $F3   ; 
-- D 0 - I - 0x014BBD 05:8BAD: FB        .byte $FB   ; 
-- D 0 - I - 0x014BBE 05:8BAE: 46        .byte $46   ; <F>
-- D 0 - I - 0x014BBF 05:8BAF: 00        .byte $00   ; 
-- D 0 - I - 0x014BC0 05:8BB0: 04        .byte $04   ; 
+- D 0 - I - 0x014BB9 05:8BA9: FA        .byte $FA, $46, $00, $F3
+- D 0 - I - 0x014BBD 05:8BAD: FB        .byte $FB, $46, $00, $04
+
 - D 0 - I - 0x014BC1 05:8BB1: 02        .byte $02   ; 
 - D 0 - I - 0x014BC2 05:8BB2: FB        .byte $FB   ; 
 - D 0 - I - 0x014BC3 05:8BB3: 46        .byte $46   ; <F>
@@ -2838,45 +2681,25 @@
 - D 0 - I - 0x014BE2 05:8BD2: 5B        .byte $5B   ; 
 - D 0 - I - 0x014BE3 05:8BD3: 00        .byte $00   ; 
 - D 0 - I - 0x014BE4 05:8BD4: 04        .byte $04   ; 
+
+; A car wheel (45 degree)
 - D 0 - I - 0x014BE5 05:8BD5: 02        .byte $02   ; 
-- D 0 - I - 0x014BE6 05:8BD6: FD        .byte $FD   ; 
-- D 0 - I - 0x014BE7 05:8BD7: 59        .byte $59   ; <Y>
-- D 0 - I - 0x014BE8 05:8BD8: 00        .byte $00   ; 
-- D 0 - I - 0x014BE9 05:8BD9: F3        .byte $F3   ; 
-- D 0 - I - 0x014BEA 05:8BDA: FD        .byte $FD   ; 
-- D 0 - I - 0x014BEB 05:8BDB: 59        .byte $59   ; <Y>
-- D 0 - I - 0x014BEC 05:8BDC: 00        .byte $00   ; 
-- D 0 - I - 0x014BED 05:8BDD: 04        .byte $04   ; 
+- D 0 - I - 0x014BE6 05:8BD6: FD        .byte $FD, $59, $00, $F3
+- D 0 - I - 0x014BEA 05:8BDA: FD        .byte $FD, $59, $00, $04
+
+; A car wheel (90 degree)
 - D 0 - I - 0x014BEE 05:8BDE: 00        .byte $00   ; 
+
+; A car
 - D 0 - I - 0x014BEF 05:8BDF: 07        .byte $07   ; 
-- D 0 - I - 0x014BF0 05:8BE0: F0        .byte $F0   ; 
-- D 0 - I - 0x014BF1 05:8BE1: 40        .byte $40   ; 
-- D 0 - I - 0x014BF2 05:8BE2: 00        .byte $00   ; 
-- D 0 - I - 0x014BF3 05:8BE3: F1        .byte $F1   ; 
-- D 0 - I - 0x014BF4 05:8BE4: F0        .byte $F0   ; 
-- D 0 - I - 0x014BF5 05:8BE5: 42        .byte $42   ; <B>
-- D 0 - I - 0x014BF6 05:8BE6: 00        .byte $00   ; 
-- D 0 - I - 0x014BF7 05:8BE7: F9        .byte $F9   ; 
-- D 0 - I - 0x014BF8 05:8BE8: F0        .byte $F0   ; 
-- D 0 - I - 0x014BF9 05:8BE9: 44        .byte $44   ; <D>
-- D 0 - I - 0x014BFA 05:8BEA: 00        .byte $00   ; 
-- D 0 - I - 0x014BFB 05:8BEB: 01        .byte $01   ; 
-- D 0 - I - 0x014BFC 05:8BEC: F8        .byte $F8   ; 
-- D 0 - I - 0x014BFD 05:8BED: 41        .byte $41   ; <A>
-- D 0 - I - 0x014BFE 05:8BEE: 00        .byte $00   ; 
-- D 0 - I - 0x014BFF 05:8BEF: EE        .byte $EE   ; 
-- D 0 - I - 0x014C00 05:8BF0: F8        .byte $F8   ; 
-- D 0 - I - 0x014C01 05:8BF1: 43        .byte $43   ; <C>
-- D 0 - I - 0x014C02 05:8BF2: 00        .byte $00   ; 
-- D 0 - I - 0x014C03 05:8BF3: F6        .byte $F6   ; 
-- D 0 - I - 0x014C04 05:8BF4: F8        .byte $F8   ; 
-- D 0 - I - 0x014C05 05:8BF5: 45        .byte $45   ; <E>
-- D 0 - I - 0x014C06 05:8BF6: 00        .byte $00   ; 
-- D 0 - I - 0x014C07 05:8BF7: FE        .byte $FE   ; 
-- D 0 - I - 0x014C08 05:8BF8: F8        .byte $F8   ; 
-- D 0 - I - 0x014C09 05:8BF9: 47        .byte $47   ; <G>
-- D 0 - I - 0x014C0A 05:8BFA: 00        .byte $00   ; 
-- D 0 - I - 0x014C0B 05:8BFB: 06        .byte $06   ; 
+- D 0 - I - 0x014BF0 05:8BE0: F0        .byte $F0, $40, $00, $F1
+- D 0 - I - 0x014BF4 05:8BE4: F0        .byte $F0, $42, $00, $F9
+- D 0 - I - 0x014BF8 05:8BE8: F0        .byte $F0, $44, $00, $01
+- D 0 - I - 0x014BFC 05:8BEC: F8        .byte $F8, $41, $00, $EE
+- D 0 - I - 0x014C00 05:8BF0: F8        .byte $F8, $43, $00, $F6
+- D 0 - I - 0x014C04 05:8BF4: F8        .byte $F8, $45, $00, $FE
+- D 0 - I - 0x014C08 05:8BF8: F8        .byte $F8, $47, $00, $06
+
 - - - - - - 0x014C0C 05:8BFC: 07        .byte $07   ; 
 - - - - - - 0x014C0D 05:8BFD: F0        .byte $F0   ; 
 - - - - - - 0x014C0E 05:8BFE: 50        .byte $50   ; <P>
@@ -2906,108 +2729,47 @@
 - - - - - - 0x014C26 05:8C16: 56        .byte $56   ; <V>
 - - - - - - 0x014C27 05:8C17: 00        .byte $00   ; 
 - - - - - - 0x014C28 05:8C18: 06        .byte $06   ; 
+
+; A car (45 degree)
 - D 0 - I - 0x014C29 05:8C19: 08        .byte $08   ; 
-- D 0 - I - 0x014C2A 05:8C1A: F0        .byte $F0   ; 
-- D 0 - I - 0x014C2B 05:8C1B: 48        .byte $48   ; <H>
-- D 0 - I - 0x014C2C 05:8C1C: 00        .byte $00   ; 
-- D 0 - I - 0x014C2D 05:8C1D: EC        .byte $EC   ; 
-- D 0 - I - 0x014C2E 05:8C1E: F0        .byte $F0   ; 
-- D 0 - I - 0x014C2F 05:8C1F: 4A        .byte $4A   ; <J>
-- D 0 - I - 0x014C30 05:8C20: 00        .byte $00   ; 
-- D 0 - I - 0x014C31 05:8C21: F4        .byte $F4   ; 
-- D 0 - I - 0x014C32 05:8C22: F0        .byte $F0   ; 
-- D 0 - I - 0x014C33 05:8C23: 4C        .byte $4C   ; <L>
-- D 0 - I - 0x014C34 05:8C24: 00        .byte $00   ; 
-- D 0 - I - 0x014C35 05:8C25: FC        .byte $FC   ; 
-- D 0 - I - 0x014C36 05:8C26: F0        .byte $F0   ; 
-- D 0 - I - 0x014C37 05:8C27: 4E        .byte $4E   ; <N>
-- D 0 - I - 0x014C38 05:8C28: 00        .byte $00   ; 
-- D 0 - I - 0x014C39 05:8C29: 04        .byte $04   ; 
-- D 0 - I - 0x014C3A 05:8C2A: F8        .byte $F8   ; 
-- D 0 - I - 0x014C3B 05:8C2B: 49        .byte $49   ; <I>
-- D 0 - I - 0x014C3C 05:8C2C: 00        .byte $00   ; 
-- D 0 - I - 0x014C3D 05:8C2D: EE        .byte $EE   ; 
-- D 0 - I - 0x014C3E 05:8C2E: F8        .byte $F8   ; 
-- D 0 - I - 0x014C3F 05:8C2F: 4B        .byte $4B   ; <K>
-- D 0 - I - 0x014C40 05:8C30: 00        .byte $00   ; 
-- D 0 - I - 0x014C41 05:8C31: F6        .byte $F6   ; 
-- D 0 - I - 0x014C42 05:8C32: F8        .byte $F8   ; 
-- D 0 - I - 0x014C43 05:8C33: 4D        .byte $4D   ; <M>
-- D 0 - I - 0x014C44 05:8C34: 00        .byte $00   ; 
-- D 0 - I - 0x014C45 05:8C35: FE        .byte $FE   ; 
-- D 0 - I - 0x014C46 05:8C36: F8        .byte $F8   ; 
-- D 0 - I - 0x014C47 05:8C37: 4F        .byte $4F   ; <O>
-- D 0 - I - 0x014C48 05:8C38: 00        .byte $00   ; 
-- D 0 - I - 0x014C49 05:8C39: 06        .byte $06   ; 
+- D 0 - I - 0x014C2A 05:8C1A: F0        .byte $F0, $48, $00, $EC
+- D 0 - I - 0x014C2E 05:8C1E: F0        .byte $F0, $4A, $00, $F4
+- D 0 - I - 0x014C32 05:8C22: F0        .byte $F0, $4C, $00, $FC
+- D 0 - I - 0x014C36 05:8C26: F0        .byte $F0, $4E, $00, $04
+- D 0 - I - 0x014C3A 05:8C2A: F8        .byte $F8, $49, $00, $EE
+- D 0 - I - 0x014C3E 05:8C2E: F8        .byte $F8, $4B, $00, $F6
+- D 0 - I - 0x014C42 05:8C32: F8        .byte $F8, $4D, $00, $FE
+- D 0 - I - 0x014C46 05:8C36: F8        .byte $F8, $4F, $00, $06
+
+; A car (90 degree)
 - D 0 - I - 0x014C4A 05:8C3A: 08        .byte $08   ; 
-- D 0 - I - 0x014C4B 05:8C3B: F0        .byte $F0   ; 
-- D 0 - I - 0x014C4C 05:8C3C: 58        .byte $58   ; <X>
-- D 0 - I - 0x014C4D 05:8C3D: 00        .byte $00   ; 
-- D 0 - I - 0x014C4E 05:8C3E: EE        .byte $EE   ; 
-- D 0 - I - 0x014C4F 05:8C3F: F0        .byte $F0   ; 
-- D 0 - I - 0x014C50 05:8C40: 5A        .byte $5A   ; <Z>
-- D 0 - I - 0x014C51 05:8C41: 00        .byte $00   ; 
-- D 0 - I - 0x014C52 05:8C42: F6        .byte $F6   ; 
-- D 0 - I - 0x014C53 05:8C43: F0        .byte $F0   ; 
-- D 0 - I - 0x014C54 05:8C44: 5C        .byte $5C   ; 
-- D 0 - I - 0x014C55 05:8C45: 00        .byte $00   ; 
-- D 0 - I - 0x014C56 05:8C46: FE        .byte $FE   ; 
-- D 0 - I - 0x014C57 05:8C47: F0        .byte $F0   ; 
-- D 0 - I - 0x014C58 05:8C48: 5E        .byte $5E   ; 
-- D 0 - I - 0x014C59 05:8C49: 00        .byte $00   ; 
-- D 0 - I - 0x014C5A 05:8C4A: 06        .byte $06   ; 
-- D 0 - I - 0x014C5B 05:8C4B: F8        .byte $F8   ; 
-- D 0 - I - 0x014C5C 05:8C4C: 58        .byte $58   ; <X>
-- D 0 - I - 0x014C5D 05:8C4D: 80        .byte $80   ; 
-- D 0 - I - 0x014C5E 05:8C4E: EE        .byte $EE   ; 
-- D 0 - I - 0x014C5F 05:8C4F: F8        .byte $F8   ; 
-- D 0 - I - 0x014C60 05:8C50: 5A        .byte $5A   ; <Z>
-- D 0 - I - 0x014C61 05:8C51: 80        .byte $80   ; 
-- D 0 - I - 0x014C62 05:8C52: F6        .byte $F6   ; 
-- D 0 - I - 0x014C63 05:8C53: F8        .byte $F8   ; 
-- D 0 - I - 0x014C64 05:8C54: 5C        .byte $5C   ; 
-- D 0 - I - 0x014C65 05:8C55: 80        .byte $80   ; 
-- D 0 - I - 0x014C66 05:8C56: FE        .byte $FE   ; 
-- D 0 - I - 0x014C67 05:8C57: F8        .byte $F8   ; 
-- D 0 - I - 0x014C68 05:8C58: 5D        .byte $5D   ; 
-- D 0 - I - 0x014C69 05:8C59: 00        .byte $00   ; 
-- D 0 - I - 0x014C6A 05:8C5A: 06        .byte $06   ; 
+- D 0 - I - 0x014C4B 05:8C3B: F0        .byte $F0, $58, $00, $EE
+- D 0 - I - 0x014C4F 05:8C3F: F0        .byte $F0, $5A, $00, $F6
+- D 0 - I - 0x014C53 05:8C43: F0        .byte $F0, $5C, $00, $FE
+- D 0 - I - 0x014C57 05:8C47: F0        .byte $F0, $5E, $00, $06
+- D 0 - I - 0x014C5B 05:8C4B: F8        .byte $F8, $58, $80, $EE
+- D 0 - I - 0x014C5F 05:8C4F: F8        .byte $F8, $5A, $80, $F6
+- D 0 - I - 0x014C63 05:8C53: F8        .byte $F8, $5C, $80, $FE
+- D 0 - I - 0x014C67 05:8C57: F8        .byte $F8, $5D, $00, $06
+
+; Lupin is in the car
 - D 0 - I - 0x014C6B 05:8C5B: 02        .byte $02   ; 
-- D 0 - I - 0x014C6C 05:8C5C: F8        .byte $F8   ; 
-- D 0 - I - 0x014C6D 05:8C5D: 68        .byte $68   ; <h>
-- D 0 - I - 0x014C6E 05:8C5E: 00        .byte $00   ; 
-- D 0 - I - 0x014C6F 05:8C5F: FD        .byte $FD   ; 
-- D 0 - I - 0x014C70 05:8C60: F8        .byte $F8   ; 
-- D 0 - I - 0x014C71 05:8C61: 69        .byte $69   ; <i>
-- D 0 - I - 0x014C72 05:8C62: 00        .byte $00   ; 
-- D 0 - I - 0x014C73 05:8C63: 05        .byte $05   ; 
+- D 0 - I - 0x014C6C 05:8C5C: F8        .byte $F8, $68, $00, $FD
+- D 0 - I - 0x014C70 05:8C60: F8        .byte $F8, $69, $00, $05
+
 - - - - - - 0x014C74 05:8C64: 02        .byte $02   ; 
-- - - - - - 0x014C75 05:8C65: F8        .byte $F8   ; 
-- - - - - - 0x014C76 05:8C66: 6C        .byte $6C   ; <l>
-- - - - - - 0x014C77 05:8C67: 00        .byte $00   ; 
-- - - - - - 0x014C78 05:8C68: FD        .byte $FD   ; 
-- - - - - - 0x014C79 05:8C69: F7        .byte $F7   ; 
-- - - - - - 0x014C7A 05:8C6A: 69        .byte $69   ; <i>
-- - - - - - 0x014C7B 05:8C6B: 00        .byte $00   ; 
-- - - - - - 0x014C7C 05:8C6C: 05        .byte $05   ; 
+- - - - - - 0x014C75 05:8C65: F8        .byte $F8, $6C, $00, $FD
+- - - - - - 0x014C79 05:8C69: F7        .byte $F7, $69, $00, $05
+
 - - - - - - 0x014C7D 05:8C6D: 02        .byte $02   ; 
-- - - - - - 0x014C7E 05:8C6E: F8        .byte $F8   ; 
-- - - - - - 0x014C7F 05:8C6F: 6A        .byte $6A   ; <j>
-- - - - - - 0x014C80 05:8C70: 00        .byte $00   ; 
-- - - - - - 0x014C81 05:8C71: FD        .byte $FD   ; 
-- - - - - - 0x014C82 05:8C72: F8        .byte $F8   ; 
-- - - - - - 0x014C83 05:8C73: 6B        .byte $6B   ; <k>
-- - - - - - 0x014C84 05:8C74: 00        .byte $00   ; 
-- - - - - - 0x014C85 05:8C75: 05        .byte $05   ; 
+- - - - - - 0x014C7E 05:8C6E: F8        .byte $F8, $6A, $00, $FD
+- - - - - - 0x014C82 05:8C72: F8        .byte $F8, $6B, $00, $05
+
+; Daisuke is in the car 
 - D 0 - I - 0x014C86 05:8C76: 02        .byte $02   ; 
-- D 0 - I - 0x014C87 05:8C77: F8        .byte $F8   ; 
-- D 0 - I - 0x014C88 05:8C78: 63        .byte $63   ; <c>
-- D 0 - I - 0x014C89 05:8C79: 00        .byte $00   ; 
-- D 0 - I - 0x014C8A 05:8C7A: FD        .byte $FD   ; 
-- D 0 - I - 0x014C8B 05:8C7B: F8        .byte $F8   ; 
-- D 0 - I - 0x014C8C 05:8C7C: 64        .byte $64   ; <d>
-- D 0 - I - 0x014C8D 05:8C7D: 00        .byte $00   ; 
-- D 0 - I - 0x014C8E 05:8C7E: 05        .byte $05   ; 
+- D 0 - I - 0x014C87 05:8C77: F8        .byte $F8, $63, $00, $FD
+- D 0 - I - 0x014C8B 05:8C7B: F8        .byte $F8, $64, $00, $05
+
 - D 0 - I - 0x014C8F 05:8C7F: 02        .byte $02   ; 
 - D 0 - I - 0x014C90 05:8C80: F8        .byte $F8   ; 
 - D 0 - I - 0x014C91 05:8C81: 67        .byte $67   ; <g>
@@ -3026,21 +2788,19 @@
 - D 0 - I - 0x014C9E 05:8C8E: 66        .byte $66   ; <f>
 - D 0 - I - 0x014C9F 05:8C8F: 00        .byte $00   ; 
 - D 0 - I - 0x014CA0 05:8C90: 05        .byte $05   ; 
+
+; Doemon is in the car
 - D 0 - I - 0x014CA1 05:8C91: 01        .byte $01   ; 
-- D 0 - I - 0x014CA2 05:8C92: F8        .byte $F8   ; 
-- D 0 - I - 0x014CA3 05:8C93: 5F        .byte $5F   ; 
-- D 0 - I - 0x014CA4 05:8C94: 00        .byte $00   ; 
-- D 0 - I - 0x014CA5 05:8C95: FD        .byte $FD   ; 
+- D 0 - I - 0x014CA2 05:8C92: F8        .byte $F8, $5F, $00, $FD
+
+; Doemon is in the car (45 degree)
 - D 0 - I - 0x014CA6 05:8C96: 01        .byte $01   ; 
-- D 0 - I - 0x014CA7 05:8C97: F8        .byte $F8   ; 
-- D 0 - I - 0x014CA8 05:8C98: 62        .byte $62   ; <b>
-- D 0 - I - 0x014CA9 05:8C99: 00        .byte $00   ; 
-- D 0 - I - 0x014CAA 05:8C9A: FD        .byte $FD   ; 
+- D 0 - I - 0x014CA7 05:8C97: F8        .byte $F8, $62, $00, $FD
+
+; Doemon is in the car (90 degree)
 - D 0 - I - 0x014CAB 05:8C9B: 01        .byte $01   ; 
-- D 0 - I - 0x014CAC 05:8C9C: F8        .byte $F8   ; 
-- D 0 - I - 0x014CAD 05:8C9D: 61        .byte $61   ; <a>
-- D 0 - I - 0x014CAE 05:8C9E: 00        .byte $00   ; 
-- D 0 - I - 0x014CAF 05:8C9F: FD        .byte $FD   ; 
+- D 0 - I - 0x014CAC 05:8C9C: F8        .byte $F8, $61, $00, $FD
+
 - D 0 - I - 0x014CB0 05:8CA0: 01        .byte $01   ; 
 - D 0 - I - 0x014CB1 05:8CA1: F8        .byte $F8   ; 
 - D 0 - I - 0x014CB2 05:8CA2: 60        .byte $60   ; 
@@ -3051,127 +2811,62 @@
 - D 0 - I - 0x014CB7 05:8CA7: 6D        .byte $6D   ; <m>
 - D 0 - I - 0x014CB8 05:8CA8: 00        .byte $00   ; 
 - D 0 - I - 0x014CB9 05:8CA9: 05        .byte $05   ; 
+
+; The car drives into the pyramid (frame 1)
 - D 0 - I - 0x014CBA 05:8CAA: 06        .byte $06   ; 
-- D 0 - I - 0x014CBB 05:8CAB: F0        .byte $F0   ; 
-- D 0 - I - 0x014CBC 05:8CAC: 6E        .byte $6E   ; <n>
-- D 0 - I - 0x014CBD 05:8CAD: 00        .byte $00   ; 
-- D 0 - I - 0x014CBE 05:8CAE: F4        .byte $F4   ; 
-- D 0 - I - 0x014CBF 05:8CAF: F0        .byte $F0   ; 
-- D 0 - I - 0x014CC0 05:8CB0: 70        .byte $70   ; <p>
-- D 0 - I - 0x014CC1 05:8CB1: 00        .byte $00   ; 
-- D 0 - I - 0x014CC2 05:8CB2: FC        .byte $FC   ; 
-- D 0 - I - 0x014CC3 05:8CB3: F0        .byte $F0   ; 
-- D 0 - I - 0x014CC4 05:8CB4: 72        .byte $72   ; <r>
-- D 0 - I - 0x014CC5 05:8CB5: 00        .byte $00   ; 
-- D 0 - I - 0x014CC6 05:8CB6: 04        .byte $04   ; 
-- D 0 - I - 0x014CC7 05:8CB7: F8        .byte $F8   ; 
-- D 0 - I - 0x014CC8 05:8CB8: 6F        .byte $6F   ; <o>
-- D 0 - I - 0x014CC9 05:8CB9: 00        .byte $00   ; 
-- D 0 - I - 0x014CCA 05:8CBA: F4        .byte $F4   ; 
-- D 0 - I - 0x014CCB 05:8CBB: F8        .byte $F8   ; 
-- D 0 - I - 0x014CCC 05:8CBC: 71        .byte $71   ; <q>
-- D 0 - I - 0x014CCD 05:8CBD: 00        .byte $00   ; 
-- D 0 - I - 0x014CCE 05:8CBE: FC        .byte $FC   ; 
-- D 0 - I - 0x014CCF 05:8CBF: F8        .byte $F8   ; 
-- D 0 - I - 0x014CD0 05:8CC0: 73        .byte $73   ; <s>
-- D 0 - I - 0x014CD1 05:8CC1: 00        .byte $00   ; 
-- D 0 - I - 0x014CD2 05:8CC2: 04        .byte $04   ; 
+- D 0 - I - 0x014CBB 05:8CAB: F0        .byte $F0, $6E, $00, $F4
+- D 0 - I - 0x014CBF 05:8CAF: F0        .byte $F0, $70, $00, $FC
+- D 0 - I - 0x014CC3 05:8CB3: F0        .byte $F0, $72, $00, $04
+- D 0 - I - 0x014CC7 05:8CB7: F8        .byte $F8, $6F, $00, $F4
+- D 0 - I - 0x014CCB 05:8CBB: F8        .byte $F8, $71, $00, $FC
+- D 0 - I - 0x014CCF 05:8CBF: F8        .byte $F8, $73, $00, $04
+
+; The car drives into the pyramid (frame 2)
 - D 0 - I - 0x014CD3 05:8CC3: 04        .byte $04   ; 
-- D 0 - I - 0x014CD4 05:8CC4: F0        .byte $F0   ; 
-- D 0 - I - 0x014CD5 05:8CC5: 74        .byte $74   ; <t>
-- D 0 - I - 0x014CD6 05:8CC6: 00        .byte $00   ; 
-- D 0 - I - 0x014CD7 05:8CC7: F8        .byte $F8   ; 
-- D 0 - I - 0x014CD8 05:8CC8: F0        .byte $F0   ; 
-- D 0 - I - 0x014CD9 05:8CC9: 74        .byte $74   ; <t>
-- D 0 - I - 0x014CDA 05:8CCA: 40        .byte $40   ; 
-- D 0 - I - 0x014CDB 05:8CCB: 00        .byte $00   ; 
-- D 0 - I - 0x014CDC 05:8CCC: F8        .byte $F8   ; 
-- D 0 - I - 0x014CDD 05:8CCD: 75        .byte $75   ; <u>
-- D 0 - I - 0x014CDE 05:8CCE: 00        .byte $00   ; 
-- D 0 - I - 0x014CDF 05:8CCF: F8        .byte $F8   ; 
-- D 0 - I - 0x014CE0 05:8CD0: F8        .byte $F8   ; 
-- D 0 - I - 0x014CE1 05:8CD1: 76        .byte $76   ; <v>
-- D 0 - I - 0x014CE2 05:8CD2: 00        .byte $00   ; 
-- D 0 - I - 0x014CE3 05:8CD3: 00        .byte $00   ; 
+- D 0 - I - 0x014CD4 05:8CC4: F0        .byte $F0, $74, $00, $F8
+- D 0 - I - 0x014CD8 05:8CC8: F0        .byte $F0, $74, $40, $00
+- D 0 - I - 0x014CDC 05:8CCC: F8        .byte $F8, $75, $00, $F8
+- D 0 - I - 0x014CE0 05:8CD0: F8        .byte $F8, $76, $00, $00
+
+; The car drives into the pyramid (frame 2, mirror)
 - D 0 - I - 0x014CE4 05:8CD4: 04        .byte $04   ; 
-- D 0 - I - 0x014CE5 05:8CD5: F0        .byte $F0   ; 
-- D 0 - I - 0x014CE6 05:8CD6: 74        .byte $74   ; <t>
-- D 0 - I - 0x014CE7 05:8CD7: 00        .byte $00   ; 
-- D 0 - I - 0x014CE8 05:8CD8: F8        .byte $F8   ; 
-- D 0 - I - 0x014CE9 05:8CD9: F0        .byte $F0   ; 
-- D 0 - I - 0x014CEA 05:8CDA: 74        .byte $74   ; <t>
-- D 0 - I - 0x014CEB 05:8CDB: 40        .byte $40   ; 
-- D 0 - I - 0x014CEC 05:8CDC: 00        .byte $00   ; 
-- D 0 - I - 0x014CED 05:8CDD: F8        .byte $F8   ; 
-- D 0 - I - 0x014CEE 05:8CDE: 76        .byte $76   ; <v>
-- D 0 - I - 0x014CEF 05:8CDF: 40        .byte $40   ; 
-- D 0 - I - 0x014CF0 05:8CE0: F8        .byte $F8   ; 
-- D 0 - I - 0x014CF1 05:8CE1: F8        .byte $F8   ; 
-- D 0 - I - 0x014CF2 05:8CE2: 75        .byte $75   ; <u>
-- D 0 - I - 0x014CF3 05:8CE3: 40        .byte $40   ; 
-- D 0 - I - 0x014CF4 05:8CE4: 00        .byte $00   ; 
+- D 0 - I - 0x014CE5 05:8CD5: F0        .byte $F0, $74, $00, $F8
+- D 0 - I - 0x014CE9 05:8CD9: F0        .byte $F0, $74, $40, $00
+- D 0 - I - 0x014CED 05:8CDD: F8        .byte $F8, $76, $40, $F8
+- D 0 - I - 0x014CF1 05:8CE1: F8        .byte $F8, $75, $40, $00
+
+; The car drives into the pyramid (frame 3)
 - D 0 - I - 0x014CF5 05:8CE5: 04        .byte $04   ; 
-- D 0 - I - 0x014CF6 05:8CE6: F4        .byte $F4   ; 
-- D 0 - I - 0x014CF7 05:8CE7: 78        .byte $78   ; <x>
-- D 0 - I - 0x014CF8 05:8CE8: 00        .byte $00   ; 
-- D 0 - I - 0x014CF9 05:8CE9: F8        .byte $F8   ; 
-- D 0 - I - 0x014CFA 05:8CEA: F4        .byte $F4   ; 
-- D 0 - I - 0x014CFB 05:8CEB: 78        .byte $78   ; <x>
-- D 0 - I - 0x014CFC 05:8CEC: 40        .byte $40   ; 
-- D 0 - I - 0x014CFD 05:8CED: 00        .byte $00   ; 
-- D 0 - I - 0x014CFE 05:8CEE: FC        .byte $FC   ; 
-- D 0 - I - 0x014CFF 05:8CEF: 79        .byte $79   ; <y>
-- D 0 - I - 0x014D00 05:8CF0: 00        .byte $00   ; 
-- D 0 - I - 0x014D01 05:8CF1: F8        .byte $F8   ; 
-- D 0 - I - 0x014D02 05:8CF2: FC        .byte $FC   ; 
-- D 0 - I - 0x014D03 05:8CF3: 77        .byte $77   ; <w>
-- D 0 - I - 0x014D04 05:8CF4: 00        .byte $00   ; 
-- D 0 - I - 0x014D05 05:8CF5: 00        .byte $00   ; 
+- D 0 - I - 0x014CF6 05:8CE6: F4        .byte $F4, $78, $00, $F8
+- D 0 - I - 0x014CFA 05:8CEA: F4        .byte $F4, $78, $40, $00
+- D 0 - I - 0x014CFE 05:8CEE: FC        .byte $FC, $79, $00, $F8
+- D 0 - I - 0x014D02 05:8CF2: FC        .byte $FC, $77, $00, $00
+
+; The car drives into the pyramid (frame 3, mirror)
 - D 0 - I - 0x014D06 05:8CF6: 04        .byte $04   ; 
-- D 0 - I - 0x014D07 05:8CF7: F4        .byte $F4   ; 
-- D 0 - I - 0x014D08 05:8CF8: 78        .byte $78   ; <x>
-- D 0 - I - 0x014D09 05:8CF9: 00        .byte $00   ; 
-- D 0 - I - 0x014D0A 05:8CFA: F8        .byte $F8   ; 
-- D 0 - I - 0x014D0B 05:8CFB: F4        .byte $F4   ; 
-- D 0 - I - 0x014D0C 05:8CFC: 78        .byte $78   ; <x>
-- D 0 - I - 0x014D0D 05:8CFD: 40        .byte $40   ; 
-- D 0 - I - 0x014D0E 05:8CFE: 00        .byte $00   ; 
-- D 0 - I - 0x014D0F 05:8CFF: FC        .byte $FC   ; 
-- D 0 - I - 0x014D10 05:8D00: 77        .byte $77   ; <w>
-- D 0 - I - 0x014D11 05:8D01: 40        .byte $40   ; 
-- D 0 - I - 0x014D12 05:8D02: F8        .byte $F8   ; 
-- D 0 - I - 0x014D13 05:8D03: FC        .byte $FC   ; 
-- D 0 - I - 0x014D14 05:8D04: 79        .byte $79   ; <y>
-- D 0 - I - 0x014D15 05:8D05: 40        .byte $40   ; 
-- D 0 - I - 0x014D16 05:8D06: 00        .byte $00   ; 
+- D 0 - I - 0x014D07 05:8CF7: F4        .byte $F4, $78, $00, $F8
+- D 0 - I - 0x014D0B 05:8CFB: F4        .byte $F4, $78, $40, $00
+- D 0 - I - 0x014D0F 05:8CFF: FC        .byte $FC, $77, $40, $F8
+- D 0 - I - 0x014D13 05:8D03: FC        .byte $FC, $79, $40, $00
+
+; The car drives into the pyramid (frame 4)
 - D 0 - I - 0x014D17 05:8D07: 02        .byte $02   ; 
-- D 0 - I - 0x014D18 05:8D08: F6        .byte $F6   ; 
-- D 0 - I - 0x014D19 05:8D09: 7A        .byte $7A   ; <z>
-- D 0 - I - 0x014D1A 05:8D0A: 00        .byte $00   ; 
-- D 0 - I - 0x014D1B 05:8D0B: FC        .byte $FC   ; 
-- D 0 - I - 0x014D1C 05:8D0C: FE        .byte $FE   ; 
-- D 0 - I - 0x014D1D 05:8D0D: 7B        .byte $7B   ; 
-- D 0 - I - 0x014D1E 05:8D0E: 00        .byte $00   ; 
-- D 0 - I - 0x014D1F 05:8D0F: FC        .byte $FC   ; 
+- D 0 - I - 0x014D18 05:8D08: F6        .byte $F6, $7A, $00, $FC
+- D 0 - I - 0x014D1C 05:8D0C: FE        .byte $FE, $7B, $00, $FC
+
+; The car drives into the pyramid (frame 4, mirror)
 - D 0 - I - 0x014D20 05:8D10: 02        .byte $02   ; 
-- D 0 - I - 0x014D21 05:8D11: F6        .byte $F6   ; 
-- D 0 - I - 0x014D22 05:8D12: 7A        .byte $7A   ; <z>
-- D 0 - I - 0x014D23 05:8D13: 00        .byte $00   ; 
-- D 0 - I - 0x014D24 05:8D14: FC        .byte $FC   ; 
-- D 0 - I - 0x014D25 05:8D15: FE        .byte $FE   ; 
-- D 0 - I - 0x014D26 05:8D16: 7B        .byte $7B   ; 
-- D 0 - I - 0x014D27 05:8D17: 40        .byte $40   ; 
-- D 0 - I - 0x014D28 05:8D18: FC        .byte $FC   ; 
+- D 0 - I - 0x014D21 05:8D11: F6        .byte $F6, $7A, $00, $FC
+- D 0 - I - 0x014D25 05:8D15: FE        .byte $FE, $7B, $40, $FC
+
+; The car drives into the pyramid (frame 6)
 - D 0 - I - 0x014D29 05:8D19: 01        .byte $01   ; 
-- D 0 - I - 0x014D2A 05:8D1A: F8        .byte $F8   ; 
-- D 0 - I - 0x014D2B 05:8D1B: 7C        .byte $7C   ; 
-- D 0 - I - 0x014D2C 05:8D1C: 00        .byte $00   ; 
-- D 0 - I - 0x014D2D 05:8D1D: FC        .byte $FC   ; 
+- D 0 - I - 0x014D2A 05:8D1A: F8        .byte $F8, $7C, $00, $FC
+
+; The car drives into the pyramid (frame 5)
 - D 0 - I - 0x014D2E 05:8D1E: 01        .byte $01   ; 
-- D 0 - I - 0x014D2F 05:8D1F: F8        .byte $F8   ; 
-- D 0 - I - 0x014D30 05:8D20: 7D        .byte $7D   ; 
-- D 0 - I - 0x014D31 05:8D21: 00        .byte $00   ; 
-- D 0 - I - 0x014D32 05:8D22: FC        .byte $FC   ; 
+- D 0 - I - 0x014D2F 05:8D1F: F8        .byte $F8, $7D, $00, $FC
+
 - D 0 - I - 0x014D33 05:8D23: 09        .byte $09   ; 
 - D 0 - I - 0x014D34 05:8D24: E0        .byte $E0   ; 
 - D 0 - I - 0x014D35 05:8D25: 57        .byte $57   ; <W>

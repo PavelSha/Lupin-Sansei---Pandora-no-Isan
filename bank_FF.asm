@@ -2174,8 +2174,8 @@ C - - - - - 0x01CE67 07:CE57: 68        PLA
 C - - - - - 0x01CE68 07:CE58: A8        TAY
 C - - - - - 0x01CE69 07:CE59: 60        RTS
 
-sub_CE5A:
-loc_CE5A:
+sub_CE5A_render_character:
+loc_CE5A_render_character:
 C D 2 - - - 0x01CE6A 07:CE5A: A9 00     LDA #$00
 C - - - - - 0x01CE6C 07:CE5C: 85 08     STA ram_0008 ; memzero
 C - - - - - 0x01CE6E 07:CE5E: 85 09     STA ram_0009 ; memzero
@@ -4330,7 +4330,7 @@ C - - - - - 0x01DC0C 07:DBFC: 30 02     BMI bra_DC00
 C - - - - - 0x01DC0E 07:DBFE: A9 01     LDA #$01
 bra_DC00:
 C - - - - - 0x01DC10 07:DC00: 85 45     STA ram_0045
-C - - - - - 0x01DC12 07:DC02: 20 5A CE  JSR sub_CE5A
+C - - - - - 0x01DC12 07:DC02: 20 5A CE  JSR sub_CE5A_render_character
 loc_DC05:
 C D 2 - - - 0x01DC15 07:DC05: A2 00     LDX #$00
 C - - - - - 0x01DC17 07:DC07: A5 5F     LDA ram_005F
@@ -4348,7 +4348,7 @@ C - - - - - 0x01DC26 07:DC16: 18        CLC
 C - - - - - 0x01DC27 07:DC17: 69 3A     ADC #$3A
 C - - - - - 0x01DC29 07:DC19: AA        TAX
 loc_DC1A:
-C D 2 - - - 0x01DC2A 07:DC1A: 20 5A CE  JSR sub_CE5A
+C D 2 - - - 0x01DC2A 07:DC1A: 20 5A CE  JSR sub_CE5A_render_character
 C - - - - - 0x01DC2D 07:DC1D: A2 04     LDX #$04
 C - - - - - 0x01DC2F 07:DC1F: 86 7A     STX ram_007A
 C - - - - - 0x01DC31 07:DC21: 4C 32 E1  JMP loc_E132
@@ -4381,7 +4381,7 @@ bra_DC4B_skip:
 C - - - - - 0x01DC5B 07:DC4B: 18        CLC
 C - - - - - 0x01DC5C 07:DC4C: 69 52     ADC #$52
 C - - - - - 0x01DC5E 07:DC4E: AA        TAX
-C - - - - - 0x01DC5F 07:DC4F: 4C 5A CE  JMP loc_CE5A
+C - - - - - 0x01DC5F 07:DC4F: 4C 5A CE  JMP loc_CE5A_render_character
 
 loc_DC52:
 C D 2 - - - 0x01DC62 07:DC52: 30 1E     BMI bra_DC72
@@ -5353,7 +5353,7 @@ C - - - - - 0x01E288 07:E278: 69 58     ADC #$58
 C - - - - - 0x01E28A 07:E27A: AA        TAX
 C - - - - - 0x01E28B 07:E27B: A9 01     LDA #$01
 C - - - - - 0x01E28D 07:E27D: 85 45     STA ram_0045
-C - - - - - 0x01E28F 07:E27F: 4C 5A CE  JMP loc_CE5A
+C - - - - - 0x01E28F 07:E27F: 4C 5A CE  JMP loc_CE5A_render_character
 
 sub_E282:
 C - - - - - 0x01E292 07:E282: 18        CLC
@@ -5361,7 +5361,7 @@ C - - - - - 0x01E293 07:E283: 69 2C     ADC #$2C
 C - - - - - 0x01E295 07:E285: AA        TAX
 C - - - - - 0x01E296 07:E286: A9 01     LDA #$01
 C - - - - - 0x01E298 07:E288: 85 45     STA ram_0045
-C - - - - - 0x01E29A 07:E28A: 4C 5A CE  JMP loc_CE5A
+C - - - - - 0x01E29A 07:E28A: 4C 5A CE  JMP loc_CE5A_render_character
 
 sub_E28D:
 C - - - - - 0x01E29D 07:E28D: A5 78     LDA ram_0078
@@ -5797,7 +5797,7 @@ C - - - - - 0x01E4EA 07:E4DA: 69 18     ADC #$18
 C - - - - - 0x01E4EC 07:E4DC: AA        TAX
 C - - - - - 0x01E4ED 07:E4DD: A9 40     LDA #$40
 C - - - - - 0x01E4EF 07:E4DF: 85 45     STA ram_0045
-C - - - - - 0x01E4F1 07:E4E1: 4C 5A CE  JMP loc_CE5A
+C - - - - - 0x01E4F1 07:E4E1: 4C 5A CE  JMP loc_CE5A_render_character
 
 sub_E4E4:
 C - - - - - 0x01E4F4 07:E4E4: A0 00     LDY #$00
@@ -6116,7 +6116,7 @@ C - - - - - 0x01E6FF 07:E6EF: 69 2A     ADC #$2A
 C - - - - - 0x01E701 07:E6F1: AA        TAX
 C - - - - - 0x01E702 07:E6F2: A5 6A     LDA ram_006A
 C - - - - - 0x01E704 07:E6F4: 85 00     STA ram_0000
-C - - - - - 0x01E706 07:E6F6: 20 5A CE  JSR sub_CE5A
+C - - - - - 0x01E706 07:E6F6: 20 5A CE  JSR sub_CE5A_render_character
 C - - - - - 0x01E709 07:E6F9: A2 00     LDX #$00
 C - - - - - 0x01E70B 07:E6FB: 86 7A     STX ram_007A
 C - - - - - 0x01E70D 07:E6FD: 4C 32 E1  JMP loc_E132
@@ -6138,7 +6138,7 @@ C - - - - - 0x01E723 07:E713: A5 6A     LDA ram_006A
 C - - - - - 0x01E725 07:E715: 18        CLC
 C - - - - - 0x01E726 07:E716: 65 05     ADC ram_0005
 C - - - - - 0x01E728 07:E718: 85 00     STA ram_0000
-C - - - - - 0x01E72A 07:E71A: 4C 5A CE  JMP loc_CE5A
+C - - - - - 0x01E72A 07:E71A: 4C 5A CE  JMP loc_CE5A_render_character
 
 sub_E71D:
 C - - - - - 0x01E72D 07:E71D: A5 6C     LDA ram_006C
@@ -6911,7 +6911,7 @@ C - - - - - 0x01EC64 07:EC54: 8A        TXA
 C - - - - - 0x01EC65 07:EC55: 18        CLC
 C - - - - - 0x01EC66 07:EC56: 69 7E     ADC #$7E
 C - - - - - 0x01EC68 07:EC58: AA        TAX
-C - - - - - 0x01EC69 07:EC59: 4C 5A CE  JMP loc_CE5A
+C - - - - - 0x01EC69 07:EC59: 4C 5A CE  JMP loc_CE5A_render_character
 
 loc_EC5C:
 sub_EC5C:
@@ -6929,7 +6929,7 @@ C - - - - - 0x01EC81 07:EC71: A5 72     LDA ram_0072
 C - - - - - 0x01EC83 07:EC73: 18        CLC
 C - - - - - 0x01EC84 07:EC74: 69 7E     ADC #$7E
 C - - - - - 0x01EC86 07:EC76: AA        TAX
-C - - - - - 0x01EC87 07:EC77: 4C 5A CE  JMP loc_CE5A
+C - - - - - 0x01EC87 07:EC77: 4C 5A CE  JMP loc_CE5A_render_character
 
 sub_EC7A:
 C - - - - - 0x01EC8A 07:EC7A: A5 6A     LDA ram_006A
@@ -6951,7 +6951,7 @@ C - - - - - 0x01ECA4 07:EC94: 65 76     ADC ram_0076
 C - - - - - 0x01ECA6 07:EC96: 18        CLC
 C - - - - - 0x01ECA7 07:EC97: 69 7E     ADC #$7E
 C - - - - - 0x01ECA9 07:EC99: AA        TAX
-C - - - - - 0x01ECAA 07:EC9A: 20 5A CE  JSR sub_CE5A
+C - - - - - 0x01ECAA 07:EC9A: 20 5A CE  JSR sub_CE5A_render_character
 C - - - - - 0x01ECAD 07:EC9D: A5 5F     LDA ram_005F
 C - - - - - 0x01ECAF 07:EC9F: 29 02     AND #$02
 C - - - - - 0x01ECB1 07:ECA1: F0 12     BEQ bra_ECB5_RTS
@@ -6964,7 +6964,7 @@ C - - - - - 0x01ECBD 07:ECAD: 0A        ASL
 C - - - - - 0x01ECBE 07:ECAE: 18        CLC
 C - - - - - 0x01ECBF 07:ECAF: 69 A8     ADC #$A8
 C - - - - - 0x01ECC1 07:ECB1: AA        TAX
-C - - - - - 0x01ECC2 07:ECB2: 4C 5A CE  JMP loc_CE5A
+C - - - - - 0x01ECC2 07:ECB2: 4C 5A CE  JMP loc_CE5A_render_character
 
 bra_ECB5_RTS:
 C - - - - - 0x01ECC5 07:ECB5: 60        RTS
@@ -6982,7 +6982,7 @@ C - - - - - 0x01ECD5 07:ECC5: A5 73     LDA ram_0073
 C - - - - - 0x01ECD7 07:ECC7: 18        CLC
 C - - - - - 0x01ECD8 07:ECC8: 69 7E     ADC #$7E
 C - - - - - 0x01ECDA 07:ECCA: AA        TAX
-C - - - - - 0x01ECDB 07:ECCB: 4C 5A CE  JMP loc_CE5A
+C - - - - - 0x01ECDB 07:ECCB: 4C 5A CE  JMP loc_CE5A_render_character
 
 sub_ECCE:
 C - - - - - 0x01ECDE 07:ECCE: A2 07     LDX #$07
