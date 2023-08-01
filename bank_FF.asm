@@ -465,16 +465,16 @@ C - - - - - 0x01C368 07:C358: A2 00     LDX #$00
 C - - - - - 0x01C36A 07:C35A: A0 00     LDY #$00
 C - - - - - 0x01C36C 07:C35C: A9 F0     LDA #$F0
 bra_C35E_repeat:
-C - - - - - 0x01C36E 07:C35E: 9D 00 07  STA v_start_OAM,X
-C - - - - - 0x01C371 07:C361: 99 B7 06  STA ram_06B7,Y ; [0x06B7-0x06F6] in 0xF0
+C - - - - - 0x01C36E 07:C35E: 9D 00 07  STA v_start_OAM,X ; OAM in 0F 00 00 00 0F 00 00 00 0F 00 00 00 0F ...
+C - - - - - 0x01C371 07:C361: 99 B7 06  STA v_sprite_magics,Y ; [0x06B7-0x06F6] in 0xF0
 C - - - - - 0x01C374 07:C364: C8        INY
 C - - - - - 0x01C375 07:C365: E8        INX ; To 2nd sprite data byte
 C - - - - - 0x01C376 07:C366: E8        INX ; To 3rd sprite data byte
 C - - - - - 0x01C377 07:C367: E8        INX ; To 4th sprite data byte
 C - - - - - 0x01C378 07:C368: E8        INX ; To 1st next sprite data byte
 C - - - - - 0x01C379 07:C369: D0 F3     BNE bra_C35E_repeat
-C - - - - - 0x01C37B 07:C36B: 86 43     STX ram_0043
-C - - - - - 0x01C37D 07:C36D: 8E F7 06  STX ram_06F7
+C - - - - - 0x01C37B 07:C36B: 86 43     STX v_current_number_sprite ; Store 0x00
+C - - - - - 0x01C37D 07:C36D: 8E F7 06  STX ram_06F7 ; Store 0x00
 C - - - - - 0x01C380 07:C370: 60        RTS
 
 loc_C371:
@@ -1174,11 +1174,11 @@ sub_C832:
 C - - - - - 0x01C842 07:C832: 85 03     STA ram_0003
 C - - - - - 0x01C844 07:C834: 98        TYA
 C - - - - - 0x01C845 07:C835: 18        CLC
-C - - - - - 0x01C846 07:C836: 69 70     ADC #$70
+C - - - - - 0x01C846 07:C836: 69 70     ADC #$70 ; ~> sprite_magic2
 C - - - - - 0x01C848 07:C838: 85 01     STA ram_0001
-C - - - - - 0x01C84A 07:C83A: A9 20     LDA #$20
+C - - - - - 0x01C84A 07:C83A: A9 20     LDA #$20 ; ~> sprite_magic3
 C - - - - - 0x01C84C 07:C83C: 85 02     STA ram_0002
-C - - - - - 0x01C84E 07:C83E: 4C 33 CE  JMP loc_CE33
+C - - - - - 0x01C84E 07:C83E: 4C 33 CE  JMP loc_CE33_add_sprite_magic
 sub_C841:
 C - - - - - 0x01C851 07:C841: A6 AE     LDX ram_00AE
 C - - - - - 0x01C853 07:C843: 20 49 C8  JSR sub_C849
@@ -2147,29 +2147,29 @@ C - - - - - 0x01CE36 07:CE26: 8D 02 07  STA v_start_OAM_3b
 C - - - - - 0x01CE39 07:CE29: A9 00     LDA #$00
 C - - - - - 0x01CE3B 07:CE2B: 8D 03 07  STA v_start_OAM_4b
 C - - - - - 0x01CE3E 07:CE2E: A9 04     LDA #$04
-C - - - - - 0x01CE40 07:CE30: 85 43     STA ram_0043
+C - - - - - 0x01CE40 07:CE30: 85 43     STA v_current_number_sprite
 C - - - - - 0x01CE42 07:CE32: 60        RTS
 
-loc_CE33:
+loc_CE33_add_sprite_magic:
 C D 2 - - - 0x01CE43 07:CE33: 98        TYA
 C - - - - - 0x01CE44 07:CE34: 48        PHA
 C - - - - - 0x01CE45 07:CE35: AC F7 06  LDY ram_06F7
 C - - - - - 0x01CE48 07:CE38: C0 40     CPY #$40
-C - - - - - 0x01CE4A 07:CE3A: B0 1B     BCS bra_CE57
+C - - - - - 0x01CE4A 07:CE3A: B0 1B     BCS bra_CE57_skip
 C - - - - - 0x01CE4C 07:CE3C: A5 00     LDA ram_0000
-C - - - - - 0x01CE4E 07:CE3E: 99 B7 06  STA ram_06B7,Y
+C - - - - - 0x01CE4E 07:CE3E: 99 B7 06  STA v_sprite_magic1,Y
 C - - - - - 0x01CE51 07:CE41: A5 01     LDA ram_0001
-C - - - - - 0x01CE53 07:CE43: 99 B8 06  STA ram_06B8,Y
+C - - - - - 0x01CE53 07:CE43: 99 B8 06  STA v_sprite_magic2,Y
 C - - - - - 0x01CE56 07:CE46: A5 02     LDA ram_0002
-C - - - - - 0x01CE58 07:CE48: 99 B9 06  STA ram_06B9,Y
+C - - - - - 0x01CE58 07:CE48: 99 B9 06  STA v_sprite_magic3,Y
 C - - - - - 0x01CE5B 07:CE4B: A5 03     LDA ram_0003
-C - - - - - 0x01CE5D 07:CE4D: 99 BA 06  STA ram_06BA,Y
+C - - - - - 0x01CE5D 07:CE4D: 99 BA 06  STA v_sprite_magic4,Y
 C - - - - - 0x01CE60 07:CE50: C8        INY
 C - - - - - 0x01CE61 07:CE51: C8        INY
 C - - - - - 0x01CE62 07:CE52: C8        INY
 C - - - - - 0x01CE63 07:CE53: C8        INY
-C - - - - - 0x01CE64 07:CE54: 8C F7 06  STY ram_06F7
-bra_CE57:
+C - - - - - 0x01CE64 07:CE54: 8C F7 06  STY ram_06F7 ; += 4
+bra_CE57_skip:
 C - - - - - 0x01CE67 07:CE57: 68        PLA
 C - - - - - 0x01CE68 07:CE58: A8        TAY
 C - - - - - 0x01CE69 07:CE59: 60        RTS
@@ -2203,7 +2203,7 @@ C - - - - - 0x01CE93 07:CE83: 85 02     STA ram_0002 ; Assinged a high byte addr
 C - - - - - 0x01CE95 07:CE85: C8        INY
 C - - - - - 0x01CE96 07:CE86: B1 04     LDA (ram_0004),Y
 C - - - - - 0x01CE98 07:CE88: 85 03     STA ram_0003 ; Assinged a low byte address
-C - - - - - 0x01CE9A 07:CE8A: A6 43     LDX ram_0043
+C - - - - - 0x01CE9A 07:CE8A: A6 43     LDX v_current_number_sprite ; Offset OAM
 C - - - - - 0x01CE9C 07:CE8C: E0 FF     CPX #$FF
 C - - - - - 0x01CE9E 07:CE8E: F0 5C     BEQ bra_CEEC_skip
 C - - - - - 0x01CEA0 07:CE90: A0 00     LDY #$00
@@ -2252,7 +2252,7 @@ C - - - - - 0x01CEE9 07:CED9: 9D 03 07  STA v_start_OAM_4b,X
 C - - - - - 0x01CEEC 07:CEDC: E8        INX
 C - - - - - 0x01CEED 07:CEDD: E8        INX
 C - - - - - 0x01CEEE 07:CEDE: E8        INX
-C - - - - - 0x01CEEF 07:CEDF: E8        INX
+C - - - - - 0x01CEEF 07:CEDF: E8        INX ; To 1st next sprite data byte
 C - - - - - 0x01CEF0 07:CEE0: D0 03     BNE bra_CEE5_repeat_skip
 C - - - - - 0x01CEF2 07:CEE2: CA        DEX
 C - - - - - 0x01CEF3 07:CEE3: D0 05     BNE bra_CEEA_skip
@@ -2261,9 +2261,9 @@ C - - - - - 0x01CEF5 07:CEE5: C8        INY
 C - - - - - 0x01CEF6 07:CEE6: C6 05     DEC v_CE5A_counter
 C - - - - - 0x01CEF8 07:CEE8: D0 AF     BNE bra_CE99_repeat
 bra_CEEA_skip:
-C - - - - - 0x01CEFA 07:CEEA: 86 43     STX ram_0043
+C - - - - - 0x01CEFA 07:CEEA: 86 43     STX v_current_number_sprite ; Store target byte OAM (sprite)
 bra_CEEC_skip:
-C - - - - - 0x01CEFC 07:CEEC: 86 44     STX ram_0044
+C - - - - - 0x01CEFC 07:CEEC: 86 44     STX v_copy_current_number_sprite
 C - - - - - 0x01CEFE 07:CEEE: 60        RTS
 
 bra_CEEF_skip:
@@ -2294,27 +2294,27 @@ C D 2 - - - 0x01CF20 07:CF10: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01CF22 07:CF12: 0A        ASL
 C - - - - - 0x01CF23 07:CF13: 0A        ASL
 C - - - - - 0x01CF24 07:CF14: A8        TAY
-C - - - - - 0x01CF25 07:CF15: B9 B7 06  LDA ram_06B7,Y
+C - - - - - 0x01CF25 07:CF15: B9 B7 06  LDA v_sprite_magic1,Y
 C - - - - - 0x01CF28 07:CF18: C9 F0     CMP #$F0
 C - - - - - 0x01CF2A 07:CF1A: D0 03     BNE bra_CF1F_skip
 C - - - - - 0x01CF2C 07:CF1C: 4C C8 CF  JMP loc_CFC8
 
 bra_CF1F_skip:
 C - - - - - 0x01CF2F 07:CF1F: 85 00     STA ram_0000
-C - - - - - 0x01CF31 07:CF21: B9 BA 06  LDA ram_06BA,Y
+C - - - - - 0x01CF31 07:CF21: B9 BA 06  LDA v_sprite_magic4,Y
 C - - - - - 0x01CF34 07:CF24: 85 01     STA ram_0001
-C - - - - - 0x01CF36 07:CF26: B9 B9 06  LDA ram_06B9,Y
+C - - - - - 0x01CF36 07:CF26: B9 B9 06  LDA v_sprite_magic3,Y
 C - - - - - 0x01CF39 07:CF29: 48        PHA
 C - - - - - 0x01CF3A 07:CF2A: 48        PHA
 C - - - - - 0x01CF3B 07:CF2B: 48        PHA
 C - - - - - 0x01CF3C 07:CF2C: A2 0B     LDX #$0B
 C - - - - - 0x01CF3E 07:CF2E: 29 30     AND #$30
-C - - - - - 0x01CF40 07:CF30: F0 08     BEQ bra_CF3A
+C - - - - - 0x01CF40 07:CF30: F0 08     BEQ bra_CF3A_skip
 C - - - - - 0x01CF42 07:CF32: A2 05     LDX #$05
 C - - - - - 0x01CF44 07:CF34: C9 10     CMP #$10
-C - - - - - 0x01CF46 07:CF36: F0 02     BEQ bra_CF3A
-C - - - - - 0x01CF48 07:CF38: A2 0A     LDX #$0A
-bra_CF3A:
+C - - - - - 0x01CF46 07:CF36: F0 02     BEQ bra_CF3A_skip
+C - - - - - 0x01CF48 07:CF38: A2 0A     LDX #$0A ; bank 05 (1 page) in 0x8000-0x9FFF
+bra_CF3A_skip:
 C - - - - - 0x01CF4A 07:CF3A: A9 06     LDA #$06
 C - - - - - 0x01CF4C 07:CF3C: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01CF4F 07:CF3F: 8E 01 80  STX MMC3_Bank_data
@@ -2323,9 +2323,9 @@ C - - - - - 0x01CF53 07:CF43: 29 03     AND #$03
 C - - - - - 0x01CF55 07:CF45: 85 45     STA ram_0045
 C - - - - - 0x01CF57 07:CF47: 68        PLA
 C - - - - - 0x01CF58 07:CF48: 29 04     AND #$04
-C - - - - - 0x01CF5A 07:CF4A: F0 02     BEQ bra_CF4E
+C - - - - - 0x01CF5A 07:CF4A: F0 02     BEQ bra_CF4E_skip
 C - - - - - 0x01CF5C 07:CF4C: A9 40     LDA #$40
-bra_CF4E:
+bra_CF4E_skip:
 C - - - - - 0x01CF5E 07:CF4E: 85 0A     STA ram_000A
 C - - - - - 0x01CF60 07:CF50: 68        PLA
 C - - - - - 0x01CF61 07:CF51: 2A        ROL
@@ -2333,23 +2333,23 @@ C - - - - - 0x01CF62 07:CF52: 2A        ROL
 C - - - - - 0x01CF63 07:CF53: 2A        ROL
 C - - - - - 0x01CF64 07:CF54: 29 03     AND #$03
 C - - - - - 0x01CF66 07:CF56: 09 80     ORA #$80
-C - - - - - 0x01CF68 07:CF58: 85 05     STA ram_0005
+C - - - - - 0x01CF68 07:CF58: 85 05     STA ram_0005 ; High address
 C - - - - - 0x01CF6A 07:CF5A: A9 00     LDA #$00
-C - - - - - 0x01CF6C 07:CF5C: 85 04     STA ram_0004
-C - - - - - 0x01CF6E 07:CF5E: B9 B8 06  LDA ram_06B8,Y
+C - - - - - 0x01CF6C 07:CF5C: 85 04     STA ram_0004 ; Low address
+C - - - - - 0x01CF6E 07:CF5E: B9 B8 06  LDA v_sprite_magic2,Y
 C - - - - - 0x01CF71 07:CF61: A8        TAY
 C - - - - - 0x01CF72 07:CF62: B1 04     LDA (ram_0004),Y
-C - - - - - 0x01CF74 07:CF64: 85 02     STA ram_0002
+C - - - - - 0x01CF74 07:CF64: 85 02     STA ram_0002  ; Low address
 C - - - - - 0x01CF76 07:CF66: C8        INY
 C - - - - - 0x01CF77 07:CF67: B1 04     LDA (ram_0004),Y
-C - - - - - 0x01CF79 07:CF69: 85 03     STA ram_0003
+C - - - - - 0x01CF79 07:CF69: 85 03     STA ram_0003  ; High address
 C - - - - - 0x01CF7B 07:CF6B: A0 00     LDY #$00
-C - - - - - 0x01CF7D 07:CF6D: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CF7F 07:CF6F: 85 05     STA ram_0005
-C - - - - - 0x01CF81 07:CF71: F0 55     BEQ bra_CFC8
-C - - - - - 0x01CF83 07:CF73: A6 43     LDX ram_0043
+C - - - - - 0x01CF7D 07:CF6D: B1 02     LDA (ram_0002),Y ; Tile count
+C - - - - - 0x01CF7F 07:CF6F: 85 05     STA v_CF76_counter
+C - - - - - 0x01CF81 07:CF71: F0 55     BEQ bra_CFC8_skip ; If counter == 0
+C - - - - - 0x01CF83 07:CF73: A6 43     LDX v_current_number_sprite
 C - - - - - 0x01CF85 07:CF75: C8        INY
-bra_CF76:
+bra_CF76_repeat:
 C - - - - - 0x01CF86 07:CF76: A9 00     LDA #$00
 C - - - - - 0x01CF88 07:CF78: 85 04     STA ram_0004
 C - - - - - 0x01CF8A 07:CF7A: B1 02     LDA (ram_0002),Y
@@ -2390,14 +2390,14 @@ C - - - - - 0x01CFC8 07:CFB8: 9D 03 07  STA v_start_OAM_4b,X
 C - - - - - 0x01CFCB 07:CFBB: E8        INX
 C - - - - - 0x01CFCC 07:CFBC: E8        INX
 C - - - - - 0x01CFCD 07:CFBD: E8        INX
-C - - - - - 0x01CFCE 07:CFBE: E8        INX
+C - - - - - 0x01CFCE 07:CFBE: E8        INX ; To 1st next sprite data byte
 C - - - - - 0x01CFCF 07:CFBF: F0 12     BEQ bra_CFD3_RTS
 bra_CFC1:
 C - - - - - 0x01CFD1 07:CFC1: C8        INY
-C - - - - - 0x01CFD2 07:CFC2: C6 05     DEC ram_0005
-C - - - - - 0x01CFD4 07:CFC4: D0 B0     BNE bra_CF76
-C - - - - - 0x01CFD6 07:CFC6: 86 43     STX ram_0043
-bra_CFC8:
+C - - - - - 0x01CFD2 07:CFC2: C6 05     DEC v_CF76_counter
+C - - - - - 0x01CFD4 07:CFC4: D0 B0     BNE bra_CF76_repeat ; ; If counter != 0
+C - - - - - 0x01CFD6 07:CFC6: 86 43     STX v_current_number_sprite
+bra_CFC8_skip:
 loc_CFC8:
 C D 2 - - - 0x01CFD8 07:CFC8: E6 1A     INC ram_001A
 C - - - - - 0x01CFDA 07:CFCA: A4 1A     LDY ram_001A
@@ -3630,7 +3630,7 @@ C - - - - - 0x01D784 07:D774: 69 D8     ADC #$D8
 C - - - - - 0x01D786 07:D776: 85 01     STA ram_0001
 C - - - - - 0x01D788 07:D778: A9 40     LDA #$40
 C - - - - - 0x01D78A 07:D77A: 85 02     STA ram_0002
-C - - - - - 0x01D78C 07:D77C: 4C 33 CE  JMP loc_CE33
+C - - - - - 0x01D78C 07:D77C: 4C 33 CE  JMP loc_CE33_add_sprite_magic
 bra_D77F:
 C D 2 - - - 0x01D78F 07:D77F: A6 1A     LDX ram_001A
 C - - - - - 0x01D791 07:D781: AC 00 03  LDY ram_0300
@@ -3954,7 +3954,7 @@ loc_D996:
 C D 2 - - - 0x01D9A6 07:D996: 85 01     STA ram_0001
 C - - - - - 0x01D9A8 07:D998: A9 41     LDA #$41
 C - - - - - 0x01D9AA 07:D99A: 85 02     STA ram_0002
-C - - - - - 0x01D9AC 07:D99C: 4C 33 CE  JMP loc_CE33
+C - - - - - 0x01D9AC 07:D99C: 4C 33 CE  JMP loc_CE33_add_sprite_magic
 C D 2 - - - 0x01D9AF 07:D99F: 29 0C     AND #$0C
 C - - - - - 0x01D9B1 07:D9A1: 4A        LSR
 C - - - - - 0x01D9B2 07:D9A2: 18        CLC
@@ -3962,7 +3962,7 @@ C - - - - - 0x01D9B3 07:D9A3: 69 D0     ADC #$D0
 C - - - - - 0x01D9B5 07:D9A5: 85 01     STA ram_0001
 C - - - - - 0x01D9B7 07:D9A7: A9 40     LDA #$40
 C - - - - - 0x01D9B9 07:D9A9: 85 02     STA ram_0002
-C - - - - - 0x01D9BB 07:D9AB: 4C 33 CE  JMP loc_CE33
+C - - - - - 0x01D9BB 07:D9AB: 4C 33 CE  JMP loc_CE33_add_sprite_magic
 C D 2 - - - 0x01D9BE 07:D9AE: A5 2C     LDA ram_002C
 C - - - - - 0x01D9C0 07:D9B0: 29 07     AND #$07
 C - - - - - 0x01D9C2 07:D9B2: D0 0F     BNE bra_D9C3_RTS
@@ -4088,7 +4088,7 @@ C - - - - - 0x01DA89 07:DA79: 9D B0 03  STA ram_03B0,X
 C D 2 - - - 0x01DA8C 07:DA7C: 84 01     STY ram_0001
 C - - - - - 0x01DA8E 07:DA7E: A9 60     LDA #$60
 C - - - - - 0x01DA90 07:DA80: 85 02     STA ram_0002
-C - - - - - 0x01DA92 07:DA82: 4C 33 CE  JMP loc_CE33
+C - - - - - 0x01DA92 07:DA82: 4C 33 CE  JMP loc_CE33_add_sprite_magic
 bra_DA85:
 C - - - - - 0x01DA95 07:DA85: 20 9F DA  JSR sub_DA9F
 C - - - - - 0x01DA98 07:DA88: A9 00     LDA #$00
@@ -5189,7 +5189,7 @@ C - - - - - 0x01E17F 07:E16F: B5 80     LDA ram_0080,X
 C - - - - - 0x01E181 07:E171: 85 00     STA ram_0000
 C - - - - - 0x01E183 07:E173: A5 03     LDA ram_0003
 C - - - - - 0x01E185 07:E175: 95 7B     STA ram_007B,X
-C - - - - - 0x01E187 07:E177: 4C 33 CE  JMP loc_CE33
+C - - - - - 0x01E187 07:E177: 4C 33 CE  JMP loc_CE33_add_sprite_magic
 sub_E17A:
 C - - - - - 0x01E18A 07:E17A: 20 9C E1  JSR sub_E19C
 C - - - - - 0x01E18D 07:E17D: B5 85     LDA ram_0085,X
@@ -6851,7 +6851,7 @@ C - - - - - 0x01EBFD 07:EBED: A5 64     LDA ram_0064
 C - - - - - 0x01EBFF 07:EBEF: 85 03     STA ram_0003
 C - - - - - 0x01EC01 07:EBF1: A9 60     LDA #$60
 C - - - - - 0x01EC03 07:EBF3: 85 02     STA ram_0002
-C - - - - - 0x01EC05 07:EBF5: 4C 33 CE  JMP loc_CE33
+C - - - - - 0x01EC05 07:EBF5: 4C 33 CE  JMP loc_CE33_add_sprite_magic
 C - - - - - 0x01EC08 07:EBF8: 20 11 EA  JSR sub_EA11
 C - - - - - 0x01EC0B 07:EBFB: A5 2E     LDA ram_002E
 C - - - - - 0x01EC0D 07:EBFD: D0 06     BNE bra_EC05
@@ -7157,8 +7157,8 @@ loc_EDE1:
 C D 3 - - - 0x01EDF1 07:EDE1: 20 6C C4  JSR sub_C46C
 C - - - - - 0x01EDF4 07:EDE4: 20 85 C8  JSR sub_C885
 loc_EDE7:
-C D 3 - - - 0x01EDF7 07:EDE7: A6 44     LDX ram_0044
-C - - - - - 0x01EDF9 07:EDE9: 86 43     STX ram_0043
+C D 3 - - - 0x01EDF7 07:EDE7: A6 44     LDX v_copy_current_number_sprite
+C - - - - - 0x01EDF9 07:EDE9: 86 43     STX v_current_number_sprite
 C - - - - - 0x01EDFB 07:EDEB: 20 F9 CE  JSR sub_CEF9
 C - - - - - 0x01EDFE 07:EDEE: A9 07     LDA #$07
 C - - - - - 0x01EE00 07:EDF0: A2 04     LDX #$04
