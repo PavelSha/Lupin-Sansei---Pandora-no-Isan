@@ -7528,7 +7528,7 @@ C - - - - - 0x01F098 07:F088: 90 02     BCC bra_F08C
 C - - - - - 0x01F09A 07:F08A: A2 02     LDX #$02
 bra_F08C:
 C - - - - - 0x01F09C 07:F08C: 86 2C     STX v_low_counter
-C - - - - - 0x01F09E 07:F08E: 20 B2 F2  JSR sub_F2B2
+C - - - - - 0x01F09E 07:F08E: 20 B2 F2  JSR sub_F2B2_try_generate_enemy
 C - - - - - 0x01F0A1 07:F091: 90 15     BCC bra_F0A8_RTS
 C - - - - - 0x01F0A3 07:F093: A5 0A     LDA ram_000A
 C - - - - - 0x01F0A5 07:F095: C9 0C     CMP #$0C
@@ -7549,7 +7549,7 @@ C - - - - - 0x01F0BB 07:F0AB: 10 03     BPL bra_F0B0
 C - - - - - 0x01F0BD 07:F0AD: 4C 59 F2  JMP loc_F259
 
 bra_F0B0:
-C - - - - - 0x01F0C0 07:F0B0: 20 B2 F2  JSR sub_F2B2
+C - - - - - 0x01F0C0 07:F0B0: 20 B2 F2  JSR sub_F2B2_try_generate_enemy
 C - - - - - 0x01F0C3 07:F0B3: B0 03     BCS bra_F0B8_skip
 C - - - - - 0x01F0C5 07:F0B5: 4C 46 F1  JMP loc_F146
 
@@ -7829,48 +7829,51 @@ C - - - - - 0x01F2BE 07:F2AE: 85 00     STA ram_0000
 C - - - - - 0x01F2C0 07:F2B0: 18        CLC
 C - - - - - 0x01F2C1 07:F2B1: 60        RTS
 
-sub_F2B2:
-C - - - - - 0x01F2C2 07:F2B2: AD 00 03  LDA ram_0300
-C - - - - - 0x01F2C5 07:F2B5: C9 07     CMP #$07
-C - - - - - 0x01F2C7 07:F2B7: F0 41     BEQ bra_F2FA_clear_c_rts
+; Return the carry status (analog return true or false)
+; If true, ram_000A - type of an enemy (or an index of briefcase in an array)
+sub_F2B2_try_generate_enemy:
+C - - - - - 0x01F2C2 07:F2B2: AD 00 03  LDA v_enemyA
+C - - - - - 0x01F2C5 07:F2B5: C9 07     CMP #$07 ; CONSTANT - Zenigata
+C - - - - - 0x01F2C7 07:F2B7: F0 41     BEQ bra_F2FA_clear_c_rts ; If enemyA is Zenigata
 C - - - - - 0x01F2C9 07:F2B9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2
-C - - - - - 0x01F2CC 07:F2BC: A5 46     LDA ram_0046
+C - - - - - 0x01F2CC 07:F2BC: A5 46     LDA v_no_sub_level
 C - - - - - 0x01F2CE 07:F2BE: 0A        ASL
 C - - - - - 0x01F2CF 07:F2BF: AA        TAX
 C - - - - - 0x01F2D0 07:F2C0: BD A2 83  LDA $83A2,X
-C - - - - - 0x01F2D3 07:F2C3: 85 12     STA ram_0012
+C - - - - - 0x01F2D3 07:F2C3: 85 12     STA ram_0012 ; Low address
 C - - - - - 0x01F2D5 07:F2C5: BD A3 83  LDA $83A3,X
-C - - - - - 0x01F2D8 07:F2C8: 85 13     STA ram_0013
+C - - - - - 0x01F2D8 07:F2C8: 85 13     STA ram_0013 ; High address
 C - - - - - 0x01F2DA 07:F2CA: A5 2C     LDA v_low_counter
 C - - - - - 0x01F2DC 07:F2CC: 29 07     AND #$07
-C - - - - - 0x01F2DE 07:F2CE: F0 06     BEQ bra_F2D6_skip
+C - - - - - 0x01F2DE 07:F2CE: F0 06     BEQ bra_F2D6_skip ; if low_counter == 0xX0 or if low_counter == 0xX8
 C - - - - - 0x01F2E0 07:F2D0: 29 01     AND #$01
-C - - - - - 0x01F2E2 07:F2D2: D0 26     BNE bra_F2FA_clear_c_rts
+C - - - - - 0x01F2E2 07:F2D2: D0 26     BNE bra_F2FA_clear_c_rts ; if low_counter is odd
 C - - - - - 0x01F2E4 07:F2D4: A9 01     LDA #$01
+sub_F2D6_try_put_briefcase: ; from bank_06_2
 bra_F2D6_skip:
-C - - - - - 0x01F2E6 07:F2D6: 85 00     STA ram_0000
-C - - - - - 0x01F2E8 07:F2D8: A5 6C     LDA ram_006C
-C - - - - - 0x01F2EA 07:F2DA: 29 01     AND #$01
+C - - - - - 0x01F2E6 07:F2D6: 85 00     STA ram_0000 ; Register A has 0x00 or 0x01
+C - - - - - 0x01F2E8 07:F2D8: A5 6C     LDA v_chr_status
+C - - - - - 0x01F2EA 07:F2DA: 29 01     AND #$01 ; only left or right
 C - - - - - 0x01F2EC 07:F2DC: 45 00     EOR ram_0000
 C - - - - - 0x01F2EE 07:F2DE: 85 0B     STA ram_000B
-C - - - - - 0x01F2F0 07:F2E0: A5 4B     LDA ram_004B
+C - - - - - 0x01F2F0 07:F2E0: A5 4B     LDA v_macro_chr_pos_x
 C - - - - - 0x01F2F2 07:F2E2: 18        CLC
 C - - - - - 0x01F2F3 07:F2E3: 65 0B     ADC ram_000B
 C - - - - - 0x01F2F5 07:F2E5: 85 01     STA ram_0001
 C - - - - - 0x01F2F7 07:F2E7: A0 00     LDY #$00
 bra_F2E9_repeat:
-loc_F2E9:
+loc_F2E9_update_address_and_repeat:
 C D 3 - - - 0x01F2F9 07:F2E9: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01F2FB 07:F2EB: C5 01     CMP ram_0001
-C - - - - - 0x01F2FD 07:F2ED: B0 0D     BCS bra_F2FC_skip
+C - - - - - 0x01F2FD 07:F2ED: B0 0D     BCS bra_F2FC_skip  ; If Register A >= ram_0001
 C - - - - - 0x01F2FF 07:F2EF: C8        INY
 bra_F2F0_repeat:
 C - - - - - 0x01F300 07:F2F0: C8        INY
 C - - - - - 0x01F301 07:F2F1: C8        INY
 C - - - - - 0x01F302 07:F2F2: C8        INY
 C - - - - - 0x01F303 07:F2F3: D0 F4     BNE bra_F2E9_repeat
-C - - - - - 0x01F305 07:F2F5: E6 13     INC ram_0013
-C - - - - - 0x01F307 07:F2F7: 4C E9 F2  JMP loc_F2E9
+C - - - - - 0x01F305 07:F2F5: E6 13     INC ram_0013 ; ; Increment the high address
+C - - - - - 0x01F307 07:F2F7: 4C E9 F2  JMP loc_F2E9_update_address_and_repeat
 
 bra_F2FA_clear_c_rts:
 C - - - - - 0x01F30A 07:F2FA: 18        CLC
@@ -7878,16 +7881,16 @@ C - - - - - 0x01F30B 07:F2FB: 60        RTS
 
 bra_F2FC_skip:
 C - - - - - 0x01F30C 07:F2FC: D0 FC     BNE bra_F2FA_clear_c_rts
-C - - - - - 0x01F30E 07:F2FE: C8        INY
+C - - - - - 0x01F30E 07:F2FE: C8        INY ; to 2 byte of 4
 C - - - - - 0x01F30F 07:F2FF: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01F311 07:F301: 38        SEC
-C - - - - - 0x01F312 07:F302: E5 27     SBC ram_0027
+C - - - - - 0x01F312 07:F302: E5 27     SBC v_chr_pos_x
 C - - - - - 0x01F314 07:F304: B0 03     BCS bra_F309_skip
 C - - - - - 0x01F316 07:F306: 20 73 D0  JSR sub_D073
 bra_F309_skip:
 C - - - - - 0x01F319 07:F309: C9 0A     CMP #$0A
-C - - - - - 0x01F31B 07:F30B: B0 E3     BCS bra_F2F0_repeat
-C - - - - - 0x01F31D 07:F30D: 88        DEY
+C - - - - - 0x01F31B 07:F30B: B0 E3     BCS bra_F2F0_repeat ; If Register A >= 0x0A
+C - - - - - 0x01F31D 07:F30D: 88        DEY ; to 1 byte of 4
 C - - - - - 0x01F31E 07:F30E: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01F320 07:F310: 85 00     STA ram_0000
 C - - - - - 0x01F322 07:F312: C8        INY

@@ -51,6 +51,7 @@ v_player1_btn_pressed         = ram_001E ; For a contoller1
 v_player2_btn_pressed         = ram_001F ; For a contoller2
 v_last_p2_btn_pressed         = ram_0020 ; It's the previouse value for a contoller2 (the state of the buttons)
 v_last_p1_btn_pressed         = ram_0021 ; It's the previouse value for a contoller1 (the state of the buttons)
+v_chr_pos_x                   = ram_0027 ; In level it's the position of the character along the x-axis relative to the screen (may repeat)
 v_nmi_counter                 = ram_002B
 v_low_counter                 = ram_002C
 v_high_counter                = ram_002D
@@ -61,7 +62,29 @@ v_resists                     = ram_003A ; TODO: !!!, 0x80 - The enemies don't d
 v_current_number_sprite       = ram_0043
 v_copy_current_number_sprite  = ram_0044
 v_temp_bank_data              = ram_0045 ; 
+v_no_sub_level                = ram_0046
+; 0x00 - level 1.0
+; 0x03 - level 1.1
+; 0x04 - level 1.2
+; 0x05 - level 1.3
+; 0x1F - boss of level 1
+; 0x1A - select of a character before level 2
+; 0x06 - level 2 (outside)
+; 0x07 - level 2 (1-3)
+; 0x08 - level 2 (2)
+; ...
+; 0x21 - boss of level 2
+; 0x1C - select of a character before level 2
+; 0x0F - level 3.0
+; ...
+
+v_macro_chr_pos_x             = ram_004B ; The high value for an overflow ram_0027
 v_no_level                    = ram_005E ; It is a number of a level than it starts with 0.
+v_chr_status                  = ram_006C ; A status of a character
+; 0x00000001 - the character is looking to the left
+; 0x00000010 - the character is sitting
+; 0x00010000 - the character is jumping
+							  
 v_start_level                 = ram_00B1 ; The start level [0-3]
 v_count_secret_hits           = ram_00B2 ; Stage select codes at the title screen
 v_lock_secret_hits            = ram_00B3 ; Allow button to be pressed only when other buttons aren't pressed

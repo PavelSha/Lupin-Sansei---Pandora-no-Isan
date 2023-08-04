@@ -2423,21 +2423,21 @@ C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA ram_006D
 C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113
 C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR $EF4F ; sub_EF4F_switch_bank_4_p2, bank FF
 C - - - - - 0x01B0BC 06:B0AC: A0 00     LDY #$00
-C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA ram_0046
-C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ bra_B0BE
+C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA v_no_sub_level
+C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ bra_B0BE ; If level == level 1.0
 C - - - - - 0x01B0C2 06:B0B2: A0 02     LDY #$02
 C - - - - - 0x01B0C4 06:B0B4: C9 06     CMP #$06
-C - - - - - 0x01B0C6 06:B0B6: F0 06     BEQ bra_B0BE
+C - - - - - 0x01B0C6 06:B0B6: F0 06     BEQ bra_B0BE ; If level == level 2 (outside)
 C - - - - - 0x01B0C8 06:B0B8: A0 04     LDY #$04
 C - - - - - 0x01B0CA 06:B0BA: C9 0F     CMP #$0F
-C - - - - - 0x01B0CC 06:B0BC: D0 E6     BNE bra_B0A4_RTS
+C - - - - - 0x01B0CC 06:B0BC: D0 E6     BNE bra_B0A4_RTS ; If level != level 3.0
 bra_B0BE:
 C - - - - - 0x01B0CE 06:B0BE: B9 9E 84  LDA $849E,Y
-C - - - - - 0x01B0D1 06:B0C1: 85 12     STA ram_0012
+C - - - - - 0x01B0D1 06:B0C1: 85 12     STA ram_0012 ; Low address
 C - - - - - 0x01B0D3 06:B0C3: B9 9F 84  LDA $849F,Y
-C - - - - - 0x01B0D6 06:B0C6: 85 13     STA ram_0013
+C - - - - - 0x01B0D6 06:B0C6: 85 13     STA ram_0013 ; High address
 C - - - - - 0x01B0D8 06:B0C8: A9 01     LDA #$01
-C - - - - - 0x01B0DA 06:B0CA: 20 D6 F2  JSR $F2D6
+C - - - - - 0x01B0DA 06:B0CA: 20 D6 F2  JSR $F2D6 ; to sub_F2D6_try_put_briefcase (bank_FF)
 C - - - - - 0x01B0DD 06:B0CD: 90 D5     BCC bra_B0A4_RTS
 C - - - - - 0x01B0DF 06:B0CF: A4 0A     LDY ram_000A
 C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA v_array_white_briefcase,Y
@@ -2473,6 +2473,7 @@ C - - - - - 0x01B11D 06:B10D: A5 0A     LDA ram_000A
 C - - - - - 0x01B11F 06:B10F: 9D 98 03  STA ram_0398,X
 bra_B112_RTS:
 C - - - - - 0x01B122 06:B112: 60        RTS
+
 bra_B113:
 C - - - - - 0x01B123 06:B113: 20 3B EF  JSR $EF3B
 C - - - - - 0x01B126 06:B116: A5 2C     LDA v_low_counter

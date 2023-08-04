@@ -292,18 +292,14 @@
 - D 0 - - - 0x01212F 04:811F: 91        .byte $91   ; 
 - D 0 - - - 0x012130 04:8120: AF        .byte $AF   ; 
 - D 0 - - - 0x012131 04:8121: 9A        .byte $9A   ; 
-- D 0 - - - 0x012132 04:8122: 1C        .byte $1C   ; 
-- D 0 - - - 0x012133 04:8123: 41        .byte $41   ; <A>
-- D 0 - - - 0x012134 04:8124: 9B        .byte $9B   ; 
-- D 0 - - - 0x012135 04:8125: 7D        .byte $7D   ; 
-- D 0 - - - 0x012136 04:8126: 5D        .byte $5D   ; 
-- D 0 - - - 0x012137 04:8127: 9B        .byte $9B   ; 
-- D 0 - - - 0x012138 04:8128: 42        .byte $42   ; <B>
-- D 0 - - - 0x012139 04:8129: DB        .byte $DB   ; 
-- D 0 - - - 0x01213A 04:812A: 9B        .byte $9B   ; 
-- D 0 - - - 0x01213B 04:812B: A5        .byte $A5   ; 
-- D 0 - - - 0x01213C 04:812C: 1E        .byte $1E   ; 
-- D 0 - - - 0x01213D 04:812D: 9C        .byte $9C   ; 
+- D 0 - - - 0x012132 04:8122: 1C        .byte $1C   ; The number of the white briefcases in level 1
+- D 0 - - - 0x012133 04:8123: 41 9B     .word $9B41 ; Address to the white briefcase in level 1
+- D 0 - - - 0x012135 04:8125: 7D        .byte $7D   ; The number of the white briefcases in level 2
+- D 0 - - - 0x012136 04:8126: 5D 9B     .word $9B5D ; Address to the white briefcase in level 2
+- D 0 - - - 0x012138 04:8128: 42        .byte $42   ; The number of the white briefcases in level 3
+- D 0 - - - 0x012139 04:8129: DB 9B     .word $9BDB ; Address to the white briefcase in level 3
+- D 0 - - - 0x01213B 04:812B: A5        .byte $A5   ; The number of the white briefcases in level 4
+- D 0 - - - 0x01213C 04:812C: 1E 9C     .word $9C1E ; Address to the white briefcase in level 4
 - D 0 - - - 0x01213E 04:812E: 7D        .byte $7D   ; 
 - D 0 - - - 0x01213F 04:812F: 98        .byte $98   ; 
 - D 0 - - - 0x012140 04:8130: 91        .byte $91   ; 
@@ -932,16 +928,13 @@
 - D 0 - - - 0x0123AF 04:839F: EB        .byte $EB   ; 
 - D 0 - - - 0x0123B0 04:83A0: FA        .byte $FA   ; 
 - D 0 - - - 0x0123B1 04:83A1: FB        .byte $FB   ; 
-- D 0 - - - 0x0123B2 04:83A2: A4        .byte $A4   ; 
-- D 0 - - - 0x0123B3 04:83A3: 84        .byte $84   ; 
-- - - - - - 0x0123B4 04:83A4: 90        .byte $90   ; 
-- - - - - - 0x0123B5 04:83A5: 85        .byte $85   ; 
-- - - - - - 0x0123B6 04:83A6: 90        .byte $90   ; 
-- - - - - - 0x0123B7 04:83A7: 85        .byte $85   ; 
-- D 0 - - - 0x0123B8 04:83A8: 91        .byte $91   ; 
-- D 0 - - - 0x0123B9 04:83A9: 85        .byte $85   ; 
-- D 0 - - - 0x0123BA 04:83AA: E2        .byte $E2   ; 
-- D 0 - - - 0x0123BB 04:83AB: 85        .byte $85   ; 
+
+; Templates for a generation of enemies 
+- D 0 - - - 0x0123B2 04:83A2: A4 84     .word $84A4 ;
+- - - - - - 0x0123B4 04:83A4: 90 85     .word $8590
+- - - - - - 0x0123B6 04:83A6: 90 85     .word $8590
+- D 0 - - - 0x0123B8 04:83A8: 91 85     .word $8591
+- D 0 - - - 0x0123BA 04:83AA: E2 85     .word $85E2
 - D 0 - - - 0x0123BC 04:83AC: 53        .byte $53   ; <S>
 - D 0 - - - 0x0123BD 04:83AD: 86        .byte $86   ; 
 - D 0 - - - 0x0123BE 04:83AE: BC        .byte $BC   ; 
@@ -1184,16 +1177,14 @@
 - D 0 - - - 0x0124AB 04:849B: 85        .byte $85   ; 
 - D 0 - - - 0x0124AC 04:849C: 90        .byte $90   ; 
 - D 0 - - - 0x0124AD 04:849D: 85        .byte $85   ; 
-- D 0 - - - 0x0124AE 04:849E: 2E        .byte $2E   ; 
-- D 0 - - - 0x0124AF 04:849F: 98        .byte $98   ; 
-- D 0 - - - 0x0124B0 04:84A0: 4F        .byte $4F   ; <O>
-- D 0 - - - 0x0124B1 04:84A1: 98        .byte $98   ; 
-- D 0 - - - 0x0124B2 04:84A2: 64        .byte $64   ; <d>
-- D 0 - - - 0x0124B3 04:84A3: 98        .byte $98   ; 
-- D 0 - I - 0x0124B4 04:84A4: 01        .byte $01   ; 
-- D 0 - I - 0x0124B5 04:84A5: 28        .byte $28   ; 
-- D 0 - I - 0x0124B6 04:84A6: DF        .byte $DF   ; 
-- D 0 - I - 0x0124B7 04:84A7: 06        .byte $06   ; 
+
+; The briefcases on the level
+- D 0 - - - 0x0124AE 04:849E: 2E 98     .word $982E
+- D 0 - - - 0x0124B0 04:84A0: 4F 98     .word $984F
+- D 0 - - - 0x0124B2 04:84A2: 64 98     .word $9864
+
+; Tip: XYZW, X - macro position x, Y - position x, W - type of enemy
+- D 0 - I - 0x0124B4 04:84A4: 01        .byte $01, $28, $DF, $06
 - D 0 - I - 0x0124B8 04:84A8: 01        .byte $01   ; 
 - D 0 - I - 0x0124B9 04:84A9: 88        .byte $88   ; 
 - D 0 - I - 0x0124BA 04:84AA: DF        .byte $DF   ; 
@@ -1427,10 +1418,7 @@
 - D 0 - I - 0x01259E 04:858E: DF        .byte $DF   ; 
 - D 0 - I - 0x01259F 04:858F: 06        .byte $06   ; 
 - D 0 - I - 0x0125A0 04:8590: FF        .byte $FF   ; 
-- D 0 - I - 0x0125A1 04:8591: 01        .byte $01   ; 
-- D 0 - I - 0x0125A2 04:8592: 18        .byte $18   ; 
-- D 0 - I - 0x0125A3 04:8593: AF        .byte $AF   ; 
-- D 0 - I - 0x0125A4 04:8594: 11        .byte $11   ; 
+- D 0 - I - 0x0125A1 04:8591: 01        .byte $01, $18, $AF, $11 ; Girl in red, in the castle (level 1)
 - D 0 - I - 0x0125A5 04:8595: 01        .byte $01   ; 
 - D 0 - I - 0x0125A6 04:8596: C8        .byte $C8   ; 
 - D 0 - I - 0x0125A7 04:8597: 6F        .byte $6F   ; <o>
@@ -1508,14 +1496,8 @@
 - D 0 - I - 0x0125EF 04:85DF: BF        .byte $BF   ; 
 - D 0 - I - 0x0125F0 04:85E0: 11        .byte $11   ; 
 - D 0 - I - 0x0125F1 04:85E1: FF        .byte $FF   ; 
-- D 0 - I - 0x0125F2 04:85E2: 00        .byte $00   ; 
-- D 0 - I - 0x0125F3 04:85E3: 28        .byte $28   ; 
-- D 0 - I - 0x0125F4 04:85E4: 3F        .byte $3F   ; 
-- D 0 - I - 0x0125F5 04:85E5: 0E        .byte $0E   ; 
-- D 0 - I - 0x0125F6 04:85E6: 00        .byte $00   ; 
-- D 0 - I - 0x0125F7 04:85E7: 60        .byte $60   ; 
-- D 0 - I - 0x0125F8 04:85E8: BF        .byte $BF   ; 
-- D 0 - I - 0x0125F9 04:85E9: 1B        .byte $1B   ; 
+- D 0 - I - 0x0125F2 04:85E2: 00        .byte $00, $28, $3F, $0E ; Bat (level 1)
+- D 0 - I - 0x0125F6 04:85E6: 00        .byte $00, $60, $BF, $1B ; Girl with sword (level 1)
 - D 0 - I - 0x0125FA 04:85EA: 00        .byte $00   ; 
 - D 0 - I - 0x0125FB 04:85EB: 80        .byte $80   ; 
 - D 0 - I - 0x0125FC 04:85EC: 3F        .byte $3F   ; 
@@ -6245,31 +6227,14 @@
 - D 0 - I - 0x013870 04:9860: C8        .byte $C8   ; 
 - D 0 - I - 0x013871 04:9861: 77        .byte $77   ; <w>
 - D 0 - I - 0x013872 04:9862: 05        .byte $05   ; 
-- D 0 - I - 0x013873 04:9863: FF        .byte $FF   ; 
-- D 0 - I - 0x013874 04:9864: 02        .byte $02   ; 
-- D 0 - I - 0x013875 04:9865: 70        .byte $70   ; <p>
-- D 0 - I - 0x013876 04:9866: 9F        .byte $9F   ; 
-- D 0 - I - 0x013877 04:9867: 01        .byte $01   ; 
-- D 0 - I - 0x013878 04:9868: 04        .byte $04   ; 
-- D 0 - I - 0x013879 04:9869: E0        .byte $E0   ; 
-- D 0 - I - 0x01387A 04:986A: 8F        .byte $8F   ; 
-- D 0 - I - 0x01387B 04:986B: 02        .byte $02   ; 
-- D 0 - I - 0x01387C 04:986C: 06        .byte $06   ; 
-- D 0 - I - 0x01387D 04:986D: 58        .byte $58   ; <X>
-- D 0 - I - 0x01387E 04:986E: 9F        .byte $9F   ; 
-- D 0 - I - 0x01387F 04:986F: 03        .byte $03   ; 
-- D 0 - I - 0x013880 04:9870: 09        .byte $09   ; 
-- D 0 - I - 0x013881 04:9871: E0        .byte $E0   ; 
-- D 0 - I - 0x013882 04:9872: 67        .byte $67   ; <g>
-- D 0 - I - 0x013883 04:9873: 04        .byte $04   ; 
-- D 0 - I - 0x013884 04:9874: 0B        .byte $0B   ; 
-- D 0 - I - 0x013885 04:9875: B0        .byte $B0   ; 
-- D 0 - I - 0x013886 04:9876: BF        .byte $BF   ; 
-- D 0 - I - 0x013887 04:9877: 05        .byte $05   ; 
-- D 0 - I - 0x013888 04:9878: 0D        .byte $0D   ; 
-- D 0 - I - 0x013889 04:9879: 68        .byte $68   ; <h>
-- D 0 - I - 0x01388A 04:987A: 7F        .byte $7F   ; 
-- D 0 - I - 0x01388B 04:987B: 06        .byte $06   ; 
+- D 0 - I - 0x013873 04:9863: FF        .byte $FF   ;
+ 
+- D 0 - I - 0x013874 04:9864: 02        .byte $02, $70, $9F, $01 ; briefcase (level 3.0)
+- D 0 - I - 0x013878 04:9868: 04        .byte $04, $E0, $8F, $02 ; briefcase (level 3.0)
+- D 0 - I - 0x01387C 04:986C: 06        .byte $06, $58, $9F, $03 ; briefcase (level 3.0)
+- D 0 - I - 0x013880 04:9870: 09        .byte $09, $E0, $67, $04 ; briefcase (level 3.0)
+- D 0 - I - 0x013884 04:9874: 0B        .byte $0B, $B0, $BF, $05 ; briefcase (level 3.0)
+- D 0 - I - 0x013888 04:9878: 0D        .byte $0D, $68, $7F, $06 ; briefcase (level 3.0)
 - D 0 - I - 0x01388C 04:987C: FF        .byte $FF   ; 
 - D 0 - I - 0x01388D 04:987D: 08        .byte $08   ; 
 - D 0 - I - 0x01388E 04:987E: 09        .byte $09   ; 
@@ -6979,6 +6944,8 @@
 - D 0 - I - 0x013B4E 04:9B3E: 11        .byte $11   ; 
 - D 0 - I - 0x013B4F 04:9B3F: 11        .byte $11   ; 
 - D 0 - I - 0x013B50 04:9B40: 13        .byte $13   ; 
+
+; The white briefcases in level 1:
 - - - - - - 0x013B51 04:9B41: 80        .byte $80   ; 
 - D 0 - I - 0x013B52 04:9B42: 07        .byte $07   ; 
 - D 0 - I - 0x013B53 04:9B43: 06        .byte $06   ; 
@@ -7007,6 +6974,8 @@
 - D 0 - I - 0x013B6A 04:9B5A: 08        .byte $08   ; 
 - D 0 - I - 0x013B6B 04:9B5B: 80        .byte $80   ; 
 - D 0 - I - 0x013B6C 04:9B5C: 03        .byte $03   ; 
+
+; The white briefcases in level 2:
 - D 0 - I - 0x013B6D 04:9B5D: 80        .byte $80   ; 
 - D 0 - I - 0x013B6E 04:9B5E: 05        .byte $05   ; 
 - D 0 - I - 0x013B6F 04:9B5F: 00        .byte $00   ; 
@@ -7133,6 +7102,8 @@
 - D 0 - I - 0x013BE8 04:9BD8: 07        .byte $07   ; 
 - D 0 - I - 0x013BE9 04:9BD9: 80        .byte $80   ; 
 - D 0 - I - 0x013BEA 04:9BDA: 80        .byte $80   ; 
+
+; The white briefcases in level 3:
 - - - - - - 0x013BEB 04:9BDB: 80        .byte $80   ; 
 - D 0 - I - 0x013BEC 04:9BDC: 05        .byte $05   ; 
 - D 0 - I - 0x013BED 04:9BDD: 07        .byte $07   ; 
@@ -7200,6 +7171,8 @@
 - D 0 - I - 0x013C2B 04:9C1B: 80        .byte $80   ; 
 - D 0 - I - 0x013C2C 04:9C1C: 80        .byte $80   ; 
 - D 0 - I - 0x013C2D 04:9C1D: 80        .byte $80   ; 
+
+; The white briefcases in level 4:
 - - - - - - 0x013C2E 04:9C1E: 80        .byte $80   ; 
 - D 0 - I - 0x013C2F 04:9C1F: 00        .byte $00   ; 
 - D 0 - I - 0x013C30 04:9C20: 01        .byte $01   ; 
