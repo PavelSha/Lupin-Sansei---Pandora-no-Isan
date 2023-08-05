@@ -68,10 +68,11 @@ v_no_sub_level                = ram_0046
 ; 0x04 - level 1.2
 ; 0x05 - level 1.3
 ; 0x1F - boss of level 1
-; 0x1A - select of a character before level 2
+; 0x1A - ending cutscene + select of a character before level 2
 ; 0x06 - level 2 (outside)
 ; 0x07 - level 2 (1-3)
 ; 0x08 - level 2 (2)
+; 0x09 - level 2 (4-5)
 ; ...
 ; 0x21 - boss of level 2
 ; 0x1C - select of a character before level 2
@@ -94,6 +95,65 @@ v_bomb_on_screen              = ram_039E
 v_bank_data                   = ram_06B5
 v_array_white_briefcase       = ram_0219
 v_enemies                     = ram_0300
+; 0x00 - Nobody
+; 0x01 - Cat with the gun (level 3) Type A
+; 0x02 - Gray Land hat (level 3) Type B
+; 0x03 - Black Land hat (level 3) Type B
+; 0x04 - Land Diver (level 3)
+; 0x05 - Land Diver (level 2) Type A
+; 0x06 - Land Diver (level 1) Type A
+; 0x07 - Zenigata Type A
+; 0x08 - Shooter with bazooka (level 3) Type A
+; 0x09 - The fat sailor (level 3) Type A
+; 0x0A - The barrel (level 3) Type B
+; 0x0B - Jumping sailor (level 3) Type A
+; 0x0C - The lift (level 3) Type A
+; 0x0D - Sensor (level 3) Type B
+; 0x0E - Bat (level 1) Type B
+; 0x0F - Gray cat (level 1) Type B
+; 0x10 - Nun (level 2) Type A
+; 0x11 - Girl in red, in the castle (level 1) Type A
+; 0x12 - Batterfly (level 2) Type B
+; 0x13 - Broned batterfly (level 2) Type B
+; 0x14 - Shooter with bazooka (level 2) Type A
+; 0x15 - Sensor (level 2) Type B
+; 0x16 - Black cat (level 1) Type B
+; 0x17 - Karate-boy (level 2) Type A
+; 0x18 - Karate-boy in blue on the street (level 2) Type A
+; 0x19 - Karate-girl (level 2) Type A
+; 0x1A - Boy in green (level 2) Type A
+; 0x1B - Girl with sword (level 1) Type A
+; 0x1C - Knight in armor with a shield (level 1) Type A
+; 0x1D - The barrel (level 2) Type B
+; 0x1E - Sensor (level 1) Type B
+; 0x1F - Fly man (level 1) Type A
+; 0x20 - Shooter with bazooka (level 1) Type A
+; 0x21 - Cobblestone (level-racing, level 4) Type B
+; 0x22 - The bird (level-racing) Type B
+; 0x23 - The bird with a bomb (level-racing) Type B
+; 0x24 - Skeleton (level 4) Type A
+; Diver (0x25) Type B
+; Mummy (0x26) (level 4) Type A
+; Gargoyle (0x27) (level 4) Type B
+; Boss (level 1) (0x28) Type A
+; ??? (0x29)
+; Boss (level 2) (0x2A) Type A
+; ??? (0x2B)
+; Boss (level 3) (0x2C) Type A
+; ??? (0x2D)
+; Boss (level 4) (0x2E) Type A
+; 0x2F - ???
+; 0x30 - ???
+; 0x31 - ???
+; Breaking platform (level 4) (0x32) Type B
+; Blade trap (level 4) (0x33) Type B
+; Potted snakes (level 4) (0x34)  Type B
+; Egyptian with bow (level 4) (0x35) Type A
+; Egyptian with a sword (level 4) (0x36) Type A
+; Egyptian with a boomerung (level 4) (0x37) Type A
+; Ninja upside down (level 4) (0x38) Type A
+; 0x39 - Sensor (level 4) Type B
+
 v_enemyA                      = ram_0300
 v_enemyB                      = ram_0301
 v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, C0 - briefcase, D0 - self item
