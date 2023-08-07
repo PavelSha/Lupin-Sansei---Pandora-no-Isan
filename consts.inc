@@ -67,16 +67,30 @@ v_no_sub_level                = ram_0046
 ; 0x03 - level 1.1
 ; 0x04 - level 1.2
 ; 0x05 - level 1.3
-; 0x1F - boss of level 1
-; 0x1A - ending cutscene + select of a character before level 2
 ; 0x06 - level 2 (outside)
 ; 0x07 - level 2 (1-3)
 ; 0x08 - level 2 (2)
 ; 0x09 - level 2 (4-5)
+; 0x0A - level 2 (6-8)
+; 0x0B - level 2 (7)
+; 0x0C - level 2 (9-10)
+; 0x0D - level 2 (11-13)
+; 0x0E - level 2 (12)
+; 0x0F - level 3.0
+; 0x10 - level 3.1
+; 0x11 - level 3.2
+; 0x12 - level 3.3
+; 0x13 - level 3.4
+; 0x14 - boss of level 4
+; ....
+; 0x19 - level racing
+; 0x1A - ending cutscene + select of a character before level 2
+; 0x1C - ending cutscene + select of a character before level 3
+; 0x1D - ending cutscene + select of a character before level 4 (racing)
+; 0x1F - boss of level 1
 ; ...
 ; 0x21 - boss of level 2
-; 0x1C - select of a character before level 2
-; 0x0F - level 3.0
+; 0x22 - boss of level 3
 ; ...
 ;
 ; Map 1
@@ -222,6 +236,28 @@ v_no_sub_level                = ram_0046
 ;   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ;
 ; 0x67 - level 4, map 4 (A0-J0)
+; 0x68 - level 4, map 4 (A0-A9)
+; 0x69 - level 4, map 4 (A9-J9)
+; 0x6A - level 4, map 4 (J0-J9)
+; 0x6B - level 4, map 4 (B1-I1)
+; 0x6C - level 4, map 4 (B1-B8)
+; 0x6D - level 4, map 4 (B8-E8)
+; 0x6E - level 4, map 4 (G8-J8)
+; 0x6F - level 4, map 4 (I6-I8)
+; 0x70 - level 4, map 4 (I1-I3)
+; 0x71 - level 4, map 4 (G2-I2)
+; 0x72 - level 4, map 4 (C2-E2)
+; 0x73 - level 4, map 4 (C1-C9)
+; 0x74 - level 4, map 4 (A7-I7)
+; 0x75 - level 4, map 4 (H2-H7)
+; 0x76 - level 4, map 4 (D3-G3)
+; 0x77 - level 4, map 4 (D2-D7)
+; 0x78 - level 4, map 4 (D6-H6)
+; 0x79 - level 4, map 4 (G3-G6)
+; 0x7A - level 4, map 4 (E4-G4)
+; 0x7B - level 4, map 4 (E3-E5)
+; 0x7C - level 4, map 4 (E5-F5)
+; 0x7C - level 4, map 4 (F4-F5)
 
 v_macro_chr_pos_x             = ram_004B ; The high value for an overflow ram_0027
 v_no_level                    = ram_005E ; It is a number of a level than it starts with 0.
@@ -240,7 +276,7 @@ v_bank_data                   = ram_06B5
 v_array_white_briefcase       = ram_0219
 v_enemies                     = ram_0300
 ; 0x00 - Nobody
-; 0x01 - Cat with the gun (level 3) Type A
+; 0x01 - Cat with the gun (level 3) Type A - TODO: 0x81 - it's copy
 ; 0x02 - Gray Land hat (level 3) Type B
 ; 0x03 - Black Land hat (level 3) Type B
 ; 0x04 - Land Diver (level 3)
