@@ -85,7 +85,7 @@
 - - - - - - 0x01408B 05:807B: 8B        .byte $8B   ; 
 - - - - - - 0x01408C 05:807C: 9A        .byte $9A   ; 
 - - - - - - 0x01408D 05:807D: 8B        .byte $8B   ; 
-- D 0 - I - 0x01408E 05:807E: 9F 8B     .word $8B9F ; A car wheel (Daisuke)
+- D 0 - I - 0x01408E 05:807E: 9F 8B     .word $8B9F ; A car wheel (Jigen)
 - D 0 - I - 0x014090 05:8080: A8 8B     .word $8BA8 ; A car wheel (Lupin or Goemon)
 - D 0 - I - 0x014092 05:8082: B1        .byte $B1   ; 
 - D 0 - I - 0x014093 05:8083: 8B        .byte $8B   ; 
@@ -105,7 +105,7 @@
 - D 0 - I - 0x0140A6 05:8096: 5B 8C     .word $8C5B ; Lupin is in the car
 - - - - - - 0x0140A8 05:8098: 64 8C     .word $8C64
 - - - - - - 0x0140AA 05:809A: 6D 8C     .word $8C6D
-- D 0 - I - 0x0140AC 05:809C: 76 8C     .word $8C76 ; Daisuke is in the car
+- D 0 - I - 0x0140AC 05:809C: 76 8C     .word $8C76 ; Jigen is in the car
 - D 0 - I - 0x0140AE 05:809E: 7F        .byte $7F   ; 
 - D 0 - I - 0x0140AF 05:809F: 8C        .byte $8C   ; 
 - D 0 - I - 0x0140B0 05:80A0: 88        .byte $88   ; 
@@ -2635,7 +2635,7 @@
 - - - - - - 0x014BAD 05:8B9D: 00        .byte $00   ; 
 - - - - - - 0x014BAE 05:8B9E: FC        .byte $FC   ; 
 
-; A car wheel (Daisuke)
+; A car wheel (Jigen)
 - D 0 - I - 0x014BAF 05:8B9F: 02        .byte $02   ; 
 - D 0 - I - 0x014BB0 05:8BA0: FB        .byte $FB, $46, $00, $F3
 - D 0 - I - 0x014BB4 05:8BA4: FA        .byte $FA, $46, $00, $04
@@ -2765,7 +2765,7 @@
 - - - - - - 0x014C7E 05:8C6E: F8        .byte $F8, $6A, $00, $FD
 - - - - - - 0x014C82 05:8C72: F8        .byte $F8, $6B, $00, $05
 
-; Daisuke is in the car 
+; Jigen is in the car 
 - D 0 - I - 0x014C86 05:8C76: 02        .byte $02   ; 
 - D 0 - I - 0x014C87 05:8C77: F8        .byte $F8, $63, $00, $FD
 - D 0 - I - 0x014C8B 05:8C7B: F8        .byte $F8, $64, $00, $05

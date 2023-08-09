@@ -59,6 +59,7 @@ v_menu_counter                = ram_0033
 v_menu_counter_times          = ram_0034
 v_game_mode                   = ram_0037 ; 0x00 - in game, 0xFF - Starting cutscenes
 v_resists                     = ram_003A ; TODO: !!!, 0x80 - The enemies don't damage
+v_npc_message_status          = ram_0041
 v_current_number_sprite       = ram_0043
 v_copy_current_number_sprite  = ram_0044
 v_temp_bank_data              = ram_0045 ; 
@@ -257,10 +258,14 @@ v_no_sub_level                = ram_0046
 ; 0x7A - level 4, map 4 (E4-G4)
 ; 0x7B - level 4, map 4 (E3-E5)
 ; 0x7C - level 4, map 4 (E5-F5)
-; 0x7C - level 4, map 4 (F4-F5)
+; 0x7D - level 4, map 4 (F4-F5)
 
 v_macro_chr_pos_x             = ram_004B ; The high value for an overflow ram_0027
 v_no_level                    = ram_005E ; It is a number of a level than it starts with 0.
+; 0x00 - level 1
+; 0x01 - level 2
+; 0x02 - level 3
+; 0x03 - level 4 + racing
 v_chr_status                  = ram_006C ; A status of a character
 ; 0x00000001 - the character is looking to the left
 ; 0x00000010 - the character is sitting
@@ -270,13 +275,16 @@ v_start_level                 = ram_00B1 ; The start level [0-3]
 v_count_secret_hits           = ram_00B2 ; Stage select codes at the title screen
 v_lock_secret_hits            = ram_00B3 ; Allow button to be pressed only when other buttons aren't pressed
 v_offset_in_secret_codes      = ram_00B4
+v_low_msg_ppu_address         = ram_00CF ; This temporary address for the message on the screen
+v_high_msg_ppu_address        = ram_00D0
+v_letter_offset               = ram_00C9
 v_last_level                  = ram_0109 ; It is a last played level.
 v_bomb_on_screen              = ram_039E
 v_bank_data                   = ram_06B5
 v_array_white_briefcase       = ram_0219
 v_enemies                     = ram_0300
 ; 0x00 - Nobody
-; 0x01 - Cat with the gun (level 3) Type A - TODO: 0x81 - it's copy
+; 0x01 - Cat with the weapon (level 3) (0x01 - knife, 0x81 - gun)
 ; 0x02 - Gray Land hat (level 3) Type B
 ; 0x03 - Black Land hat (level 3) Type B
 ; 0x04 - Land Diver (level 3)
@@ -338,6 +346,10 @@ v_enemyA                      = ram_0300
 v_enemyB                      = ram_0301
 v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, C0 - briefcase, D0 - self item
 v_sound_counter               = ram_0406
+v_rooms                       = ram_0500
+; flag 0x80 - the room has already been visited
+v_low_ppu_address             = ram_0630
+v_high_ppu_address            = ram_0631
 v_sprite_magics               = ram_06B7
 v_sprite_magic1               = ram_06B7
 v_sprite_magic2               = ram_06B8

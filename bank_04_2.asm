@@ -258,22 +258,17 @@
 - - - - - - 0x01210D 04:80FD: 00        .byte $00   ; 
 - - - - - - 0x01210E 04:80FE: 00        .byte $00   ; 
 - - - - - - 0x01210F 04:80FF: 00        .byte $00   ; 
-- D 0 - - - 0x012110 04:8100: D4        .byte $D4   ; 
-- D 0 - - - 0x012111 04:8101: 9D        .byte $9D   ; 
-- D 0 - - - 0x012112 04:8102: DC        .byte $DC   ; 
-- D 0 - - - 0x012113 04:8103: 9D        .byte $9D   ; 
-- D 0 - - - 0x012114 04:8104: F0        .byte $F0   ; 
-- D 0 - - - 0x012115 04:8105: 9D        .byte $9D   ; 
-- D 0 - - - 0x012116 04:8106: FA        .byte $FA   ; 
-- D 0 - - - 0x012117 04:8107: 9D        .byte $9D   ; 
-- D 0 - - - 0x012118 04:8108: C4        .byte $C4   ; 
-- D 0 - - - 0x012119 04:8109: 9C        .byte $9C   ; 
-- D 0 - - - 0x01211A 04:810A: CD        .byte $CD   ; 
-- D 0 - - - 0x01211B 04:810B: 9C        .byte $9C   ; 
-- D 0 - - - 0x01211C 04:810C: E5        .byte $E5   ; 
-- D 0 - - - 0x01211D 04:810D: 9C        .byte $9C   ; 
-- D 0 - - - 0x01211E 04:810E: F1        .byte $F1   ; 
-- D 0 - - - 0x01211F 04:810F: 9C        .byte $9C   ; 
+
+; Rooms with NPCs
+- D 0 - - - 0x012110 04:8100: D4 9D     .word $9DD4
+- D 0 - - - 0x012112 04:8102: DC 9D     .word $9DDC
+- D 0 - - - 0x012114 04:8104: F0 9D     .word $9DF0
+- D 0 - - - 0x012116 04:8106: FA 9D     .word $9DFA
+
+- D 0 - - - 0x012118 04:8108: C4 9C     .word $9CC4
+- D 0 - - - 0x01211A 04:810A: CD 9C     .word $9CCD
+- D 0 - - - 0x01211C 04:810C: E5 9C     .word $9CE5
+- D 0 - - - 0x01211E 04:810E: F1 9C     .word $9CF1
 - D 0 - - - 0x012120 04:8110: 32        .byte $32   ; <2>
 - D 0 - - - 0x012121 04:8111: 9E        .byte $9E   ; 
 - D 0 - - - 0x012122 04:8112: 35        .byte $35   ; <5>
@@ -3911,100 +3906,62 @@
 - - - - - - 0x013DE1 04:9DD1: 8A        .byte $8A   ; 
 - - - - - - 0x013DE2 04:9DD2: 8D        .byte $8D   ; 
 - - - - - - 0x013DE3 04:9DD3: 8E        .byte $8E   ; 
-- D 0 - I - 0x013DE4 04:9DD4: 3B        .byte $3B   ; 
-- D 0 - I - 0x013DE5 04:9DD5: 9E        .byte $9E   ; 
-- D 0 - I - 0x013DE6 04:9DD6: 41        .byte $41   ; <A>
-- D 0 - I - 0x013DE7 04:9DD7: 9E        .byte $9E   ; 
-- D 0 - I - 0x013DE8 04:9DD8: 47        .byte $47   ; <G>
-- D 0 - I - 0x013DE9 04:9DD9: 9E        .byte $9E   ; 
-- D 0 - I - 0x013DEA 04:9DDA: 4D        .byte $4D   ; <M>
-- D 0 - I - 0x013DEB 04:9DDB: 9E        .byte $9E   ; 
-- D 0 - I - 0x013DEC 04:9DDC: 56        .byte $56   ; <V>
-- D 0 - I - 0x013DED 04:9DDD: 9E        .byte $9E   ; 
-- D 0 - I - 0x013DEE 04:9DDE: 5C        .byte $5C   ; 
-- D 0 - I - 0x013DEF 04:9DDF: 9E        .byte $9E   ; 
-- D 0 - I - 0x013DF0 04:9DE0: 62        .byte $62   ; <b>
-- D 0 - I - 0x013DF1 04:9DE1: 9E        .byte $9E   ; 
-- D 0 - I - 0x013DF2 04:9DE2: 68        .byte $68   ; <h>
-- D 0 - I - 0x013DF3 04:9DE3: 9E        .byte $9E   ; 
-- D 0 - I - 0x013DF4 04:9DE4: 6C        .byte $6C   ; <l>
-- D 0 - I - 0x013DF5 04:9DE5: 9E        .byte $9E   ; 
-- D 0 - I - 0x013DF6 04:9DE6: 72        .byte $72   ; <r>
-- D 0 - I - 0x013DF7 04:9DE7: 9E        .byte $9E   ; 
-- D 0 - I - 0x013DF8 04:9DE8: 76        .byte $76   ; <v>
-- D 0 - I - 0x013DF9 04:9DE9: 9E        .byte $9E   ; 
-- D 0 - I - 0x013DFA 04:9DEA: 7A        .byte $7A   ; <z>
-- D 0 - I - 0x013DFB 04:9DEB: 9E        .byte $9E   ; 
-- D 0 - I - 0x013DFC 04:9DEC: 7E        .byte $7E   ; 
-- D 0 - I - 0x013DFD 04:9DED: 9E        .byte $9E   ; 
-- D 0 - I - 0x013DFE 04:9DEE: 84        .byte $84   ; 
-- D 0 - I - 0x013DFF 04:9DEF: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E00 04:9DF0: 8D        .byte $8D   ; 
-- D 0 - I - 0x013E01 04:9DF1: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E02 04:9DF2: 93        .byte $93   ; 
-- D 0 - I - 0x013E03 04:9DF3: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E04 04:9DF4: 99        .byte $99   ; 
-- D 0 - I - 0x013E05 04:9DF5: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E06 04:9DF6: 9F        .byte $9F   ; 
-- D 0 - I - 0x013E07 04:9DF7: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E08 04:9DF8: A5        .byte $A5   ; 
-- D 0 - I - 0x013E09 04:9DF9: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E0A 04:9DFA: AE        .byte $AE   ; 
-- D 0 - I - 0x013E0B 04:9DFB: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E0C 04:9DFC: B1        .byte $B1   ; 
-- D 0 - I - 0x013E0D 04:9DFD: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E0E 04:9DFE: B4        .byte $B4   ; 
-- D 0 - I - 0x013E0F 04:9DFF: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E10 04:9E00: B7        .byte $B7   ; 
-- D 0 - I - 0x013E11 04:9E01: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E12 04:9E02: BA        .byte $BA   ; 
-- D 0 - I - 0x013E13 04:9E03: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E14 04:9E04: BD        .byte $BD   ; 
-- D 0 - I - 0x013E15 04:9E05: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E16 04:9E06: C0        .byte $C0   ; 
-- D 0 - I - 0x013E17 04:9E07: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E18 04:9E08: C4        .byte $C4   ; 
-- D 0 - I - 0x013E19 04:9E09: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E1A 04:9E0A: C7        .byte $C7   ; 
-- D 0 - I - 0x013E1B 04:9E0B: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E1C 04:9E0C: CA        .byte $CA   ; 
-- D 0 - I - 0x013E1D 04:9E0D: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E1E 04:9E0E: CD        .byte $CD   ; 
-- D 0 - I - 0x013E1F 04:9E0F: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E20 04:9E10: D0        .byte $D0   ; 
-- D 0 - I - 0x013E21 04:9E11: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E22 04:9E12: D3        .byte $D3   ; 
-- D 0 - I - 0x013E23 04:9E13: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E24 04:9E14: D7        .byte $D7   ; 
-- D 0 - I - 0x013E25 04:9E15: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E26 04:9E16: DA        .byte $DA   ; 
-- D 0 - I - 0x013E27 04:9E17: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E28 04:9E18: DD        .byte $DD   ; 
-- D 0 - I - 0x013E29 04:9E19: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E2A 04:9E1A: E0        .byte $E0   ; 
-- D 0 - I - 0x013E2B 04:9E1B: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E2C 04:9E1C: E3        .byte $E3   ; 
-- D 0 - I - 0x013E2D 04:9E1D: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E2E 04:9E1E: E6        .byte $E6   ; 
-- D 0 - I - 0x013E2F 04:9E1F: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E30 04:9E20: EA        .byte $EA   ; 
-- D 0 - I - 0x013E31 04:9E21: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E32 04:9E22: ED        .byte $ED   ; 
-- D 0 - I - 0x013E33 04:9E23: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E34 04:9E24: F0        .byte $F0   ; 
-- D 0 - I - 0x013E35 04:9E25: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E36 04:9E26: F3        .byte $F3   ; 
-- D 0 - I - 0x013E37 04:9E27: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E38 04:9E28: F7        .byte $F7   ; 
-- D 0 - I - 0x013E39 04:9E29: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E3A 04:9E2A: FA        .byte $FA   ; 
-- D 0 - I - 0x013E3B 04:9E2B: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E3C 04:9E2C: FD        .byte $FD   ; 
-- D 0 - I - 0x013E3D 04:9E2D: 9E        .byte $9E   ; 
-- D 0 - I - 0x013E3E 04:9E2E: 00        .byte $00   ; 
-- D 0 - I - 0x013E3F 04:9E2F: 9F        .byte $9F   ; 
-- D 0 - I - 0x013E40 04:9E30: 03        .byte $03   ; 
-- D 0 - I - 0x013E41 04:9E31: 9F        .byte $9F   ; 
+
+; Rooms (level 1)
+- D 0 - I - 0x013DE4 04:9DD4: 3B 9E     .word $9E3B ; Count Lazare de Cagliostro
+- D 0 - I - 0x013DE6 04:9DD6: 41 9E     .word $9E41 ; Girl 1
+- D 0 - I - 0x013DE8 04:9DD8: 47 9E     .word $9E47 ; Girl 2
+- D 0 - I - 0x013DEA 04:9DDA: 4D 9E     .word $9E4D ; Boss (after the battle)
+
+; Rooms (level 2)
+- D 0 - I - 0x013DEC 04:9DDC: 56 9E     .word $9E56
+- D 0 - I - 0x013DEE 04:9DDE: 5C 9E     .word $9E5C
+- D 0 - I - 0x013DF0 04:9DE0: 62 9E     .word $9E62
+- D 0 - I - 0x013DF2 04:9DE2: 68 9E     .word $9E68
+- D 0 - I - 0x013DF4 04:9DE4: 6C 9E     .word $9E6C
+- D 0 - I - 0x013DF6 04:9DE6: 72 9E     .word $9E72
+- D 0 - I - 0x013DF8 04:9DE8: 76 9E     .word $9E76
+- D 0 - I - 0x013DFA 04:9DEA: 7A 9E     .word $9E7A
+- D 0 - I - 0x013DFC 04:9DEC: 7E 9E     .word $9E7E
+- D 0 - I - 0x013DFE 04:9DEE: 84 9E     .word $9E84 ; Boss (after the battle)
+
+; Rooms (level 3)
+- D 0 - I - 0x013E00 04:9DF0: 8D 9E     .word $9E8D
+- D 0 - I - 0x013E02 04:9DF2: 93 9E     .word $9E93
+- D 0 - I - 0x013E04 04:9DF4: 99 9E     .word $9E99
+- D 0 - I - 0x013E06 04:9DF6: 9F 9E     .word $9E9F
+- D 0 - I - 0x013E08 04:9DF8: A5 9E     .word $9EA5 ; Boss (after the battle)
+
+; Rooms (level 4)
+- D 0 - I - 0x013E0A 04:9DFA: AE 9E     .word $9EAE
+- D 0 - I - 0x013E0C 04:9DFC: B1 9E     .word $9EB1
+- D 0 - I - 0x013E0E 04:9DFE: B4 9E     .word $9EB4
+- D 0 - I - 0x013E10 04:9E00: B7 9E     .word $9EB7
+- D 0 - I - 0x013E12 04:9E02: BA 9E     .word $9EBA
+- D 0 - I - 0x013E14 04:9E04: BD 9E     .word $9EBD
+- D 0 - I - 0x013E16 04:9E06: C0 9E     .word $9EC0
+- D 0 - I - 0x013E18 04:9E08: C4 9E     .word $9EC4
+- D 0 - I - 0x013E1A 04:9E0A: C7 9E     .word $9EC7
+- D 0 - I - 0x013E1C 04:9E0C: CA 9E     .word $9ECA
+- D 0 - I - 0x013E1E 04:9E0E: CD 9E     .word $9ECD
+- D 0 - I - 0x013E20 04:9E10: D0 9E     .word $9ED0
+- D 0 - I - 0x013E22 04:9E12: D3 9E     .word $9ED3
+- D 0 - I - 0x013E24 04:9E14: D7 9E     .word $9ED7
+- D 0 - I - 0x013E26 04:9E16: DA 9E     .word $9EDA
+- D 0 - I - 0x013E28 04:9E18: DD 9E     .word $9EDD
+- D 0 - I - 0x013E2A 04:9E1A: E0 9E     .word $9EE0
+- D 0 - I - 0x013E2C 04:9E1C: E3 9E     .word $9EE3
+- D 0 - I - 0x013E2E 04:9E1E: E6 9E     .word $9EE6
+- D 0 - I - 0x013E30 04:9E20: EA 9E     .word $9EEA
+- D 0 - I - 0x013E32 04:9E22: ED 9E     .word $9EED
+- D 0 - I - 0x013E34 04:9E24: F0 9E     .word $9EF0
+- D 0 - I - 0x013E36 04:9E26: F3 9E     .word $9EF3
+- D 0 - I - 0x013E38 04:9E28: F7 9E     .word $9EF7
+- D 0 - I - 0x013E3A 04:9E2A: FA 9E     .word $9EFA
+- D 0 - I - 0x013E3C 04:9E2C: FD 9E     .word $9EFD
+- D 0 - I - 0x013E3E 04:9E2E: 00 9F     .word $9F00
+- D 0 - I - 0x013E40 04:9E30: 03 9F     .word $9F03 ; Sarcophagus (G3-G6)
+
 - D 0 - I - 0x013E42 04:9E32: 27        .byte $27   ; 
 - D 0 - I - 0x013E43 04:9E33: 00        .byte $00   ; 
 - D 0 - I - 0x013E44 04:9E34: 2A        .byte $2A   ; 
