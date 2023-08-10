@@ -1,6 +1,6 @@
 .segment "BANK_03"
 .include "bank_ram.inc"
-.include "consts.inc"
+.include "constants.inc"
 ; 0x00C010-0x01000F
 
 ; Page 1 (Only data ?)

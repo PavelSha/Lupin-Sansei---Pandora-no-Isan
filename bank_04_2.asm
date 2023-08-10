@@ -2,6 +2,13 @@
 .include "bank_ram.inc"
 ; 0x012010-0x01400F
 
+.export tbl_ptr_rooms_with_NPCs
+.export tbl_ptr_briefcases_outside
+.export number_of_rooms_on_the_level
+.export tbl_ptr_rooms_on_the_level
+.export number_of_briefcases_on_the_level
+.export tbl_ptr_briefcases_on_the_level
+
 - - - - - - 0x012010 04:8000: 65        .byte $65   ; <e>
 - - - - - - 0x012011 04:8001: 80        .byte $80   ; 
 - D 0 - - - 0x012012 04:8002: 00        .byte $00   ; 
@@ -259,11 +266,11 @@
 - - - - - - 0x01210E 04:80FE: 00        .byte $00   ; 
 - - - - - - 0x01210F 04:80FF: 00        .byte $00   ; 
 
-; Rooms with NPCs
-- D 0 - - - 0x012110 04:8100: D4 9D     .word $9DD4
-- D 0 - - - 0x012112 04:8102: DC 9D     .word $9DDC
-- D 0 - - - 0x012114 04:8104: F0 9D     .word $9DF0
-- D 0 - - - 0x012116 04:8106: FA 9D     .word $9DFA
+tbl_ptr_rooms_with_NPCs:
+- D 0 - - - 0x012110 04:8100: D4 9D     .addr tbl_ptr_rooms1_with_NPCs ; CPU address $9DD4 
+- D 0 - - - 0x012112 04:8102: DC 9D     .addr tbl_ptr_rooms2_with_NPCs ; CPU address $9DDC 
+- D 0 - - - 0x012114 04:8104: F0 9D     .addr tbl_ptr_rooms3_with_NPCs ; CPU address $9DF0 
+- D 0 - - - 0x012116 04:8106: FA 9D     .addr tbl_ptr_rooms4_with_NPCs ; CPU address $9DFA 
 
 - D 0 - - - 0x012118 04:8108: C4 9C     .word $9CC4
 - D 0 - - - 0x01211A 04:810A: CD 9C     .word $9CCD
@@ -275,26 +282,29 @@
 - D 0 - - - 0x012123 04:8113: 9E        .byte $9E   ; 
 - D 0 - - - 0x012124 04:8114: 38        .byte $38   ; <8>
 - D 0 - - - 0x012125 04:8115: 9E        .byte $9E   ; 
-- D 0 - - - 0x012126 04:8116: 1F        .byte $1F   ; 
-- D 0 - - - 0x012127 04:8117: EA        .byte $EA   ; 
-- D 0 - - - 0x012128 04:8118: 99        .byte $99   ; 
-- D 0 - - - 0x012129 04:8119: 6D        .byte $6D   ; <m>
-- D 0 - - - 0x01212A 04:811A: 0A        .byte $0A   ; 
-- D 0 - - - 0x01212B 04:811B: 9A        .byte $9A   ; 
-- D 0 - - - 0x01212C 04:811C: 36        .byte $36   ; <6>
-- D 0 - - - 0x01212D 04:811D: 78        .byte $78   ; <x>
-- D 0 - - - 0x01212E 04:811E: 9A        .byte $9A   ; 
-- D 0 - - - 0x01212F 04:811F: 91        .byte $91   ; 
-- D 0 - - - 0x012130 04:8120: AF        .byte $AF   ; 
-- D 0 - - - 0x012131 04:8121: 9A        .byte $9A   ; 
-- D 0 - - - 0x012132 04:8122: 1C        .byte $1C   ; The number of the white briefcases in level 1
-- D 0 - - - 0x012133 04:8123: 41 9B     .word $9B41 ; Address to the white briefcase in level 1
-- D 0 - - - 0x012135 04:8125: 7D        .byte $7D   ; The number of the white briefcases in level 2
-- D 0 - - - 0x012136 04:8126: 5D 9B     .word $9B5D ; Address to the white briefcase in level 2
-- D 0 - - - 0x012138 04:8128: 42        .byte $42   ; The number of the white briefcases in level 3
-- D 0 - - - 0x012139 04:8129: DB 9B     .word $9BDB ; Address to the white briefcase in level 3
-- D 0 - - - 0x01213B 04:812B: A5        .byte $A5   ; The number of the white briefcases in level 4
-- D 0 - - - 0x01213C 04:812C: 1E 9C     .word $9C1E ; Address to the white briefcase in level 4
+
+number_of_rooms_on_the_level:
+- D 0 - - - 0x012126 04:8116: 1F        .byte $1F                     ; CPU address $8116 (level 1)
+tbl_ptr_rooms_on_the_level:
+- D 0 - - - 0x012127 04:8117: EA 99     .addr tbl_rooms_on_the_level1 ; CPU address $99EA
+- D 0 - - - 0x012129 04:8119: 6D        .byte $6D                     ; CPU address $8119 (level 2)
+- D 0 - - - 0x01212A 04:811A: 0A 9A     .addr tbl_rooms_on_the_level2 ; CPU address $9A0A
+- D 0 - - - 0x01212C 04:811C: 36        .byte $36                     ; CPU address $811C (level 3)
+- D 0 - - - 0x01212D 04:811D: 78 9A     .addr tbl_rooms_on_the_level3 ; CPU address $9A78
+- D 0 - - - 0x01212F 04:811F: 91        .byte $91                     ; CPU address $811F (level 4)
+- D 0 - - - 0x012130 04:8120: AF 9A     .addr tbl_rooms_on_the_level4 ; CPU address $9AAF
+
+number_of_briefcases_on_the_level: ; the white briefcases
+- D 0 - - - 0x012132 04:8122: 1C        .byte $1C                          ; CPU address $8116 (level 1)
+tbl_ptr_briefcases_on_the_level:
+- D 0 - - - 0x012133 04:8123: 41 9B     .addr tbl_briefcases_on_the_level1 ; CPU address $9B41
+- D 0 - - - 0x012135 04:8125: 7D        .byte $7D                          ; CPU address $8125 (level 2)
+- D 0 - - - 0x012136 04:8126: 5D 9B     .addr tbl_briefcases_on_the_level2 ; CPU address $9B5D
+- D 0 - - - 0x012138 04:8128: 42        .byte $42                          ; CPU address $8128 (level 2)
+- D 0 - - - 0x012139 04:8129: DB 9B     .addr tbl_briefcases_on_the_level3 ; CPU address $9BDB
+- D 0 - - - 0x01213B 04:812B: A5        .byte $A5                          ; CPU address $812B (level 4)
+- D 0 - - - 0x01213C 04:812C: 1E 9C     .addr tbl_briefcases_on_the_level4 ; CPU address $9C1E
+
 - D 0 - - - 0x01213E 04:812E: 7D        .byte $7D   ; 
 - D 0 - - - 0x01213F 04:812F: 98        .byte $98   ; 
 - D 0 - - - 0x012140 04:8130: 91        .byte $91   ; 
@@ -1052,10 +1062,10 @@
 - D 0 - - - 0x0124AA 04:849A: 90 85     .word $8590
 - D 0 - - - 0x0124AC 04:849C: 90 85     .word $8590
 
-; The briefcases on the level
-- D 0 - - - 0x0124AE 04:849E: 2E 98     .word $982E ; level 1.0
-- D 0 - - - 0x0124B0 04:84A0: 4F 98     .word $984F ; level 2 (outside)
-- D 0 - - - 0x0124B2 04:84A2: 64 98     .word $9864 ; level 3.0
+tbl_ptr_briefcases_outside:
+- D 0 - - - 0x0124AE 04:849E: 2E 98     .addr tbl_ptr_briefcases_outside1 ; CPU address $982E
+- D 0 - - - 0x0124B0 04:84A0: 4F 98     .addr tbl_ptr_briefcases_outside2 ; CPU address $984F
+- D 0 - - - 0x0124B2 04:84A2: 64 98     .addr tbl_ptr_briefcases_outside3 ; CPU address $9864
 
 ; Tip: XYZW, X - macro position x, Y - position x, W - type of enemy
 ; Level 1.0
@@ -2503,7 +2513,7 @@
 - D 0 - I - 0x013839 04:9829: 01        .byte $01, $D8, $4F, $21   ; 
 - D 0 - I - 0x01383D 04:982D: FF        .byte $FF   ; 
 
-; level 1.0
+tbl_ptr_briefcases_outside1: ; level 1.0
 - D 0 - I - 0x01383E 04:982E: 01        .byte $01, $60, $7F, $01   ; briefcase
 - D 0 - I - 0x013842 04:9832: 03        .byte $03, $E0, $BF, $02   ; 
 - D 0 - I - 0x013846 04:9836: 05        .byte $05, $B8, $BF, $03   ; 
@@ -2514,7 +2524,7 @@
 - D 0 - I - 0x01385A 04:984A: 0F        .byte $0F, $98, $6F, $1B   ; 
 - D 0 - I - 0x01385E 04:984E: FF        .byte $FF   ; 
 
-; level 2 (outside)
+tbl_ptr_briefcases_outside2: ; level 2 (outside)
 - D 0 - I - 0x01385F 04:984F: 02        .byte $02, $80, $6F, $01   ; briefcase
 - D 0 - I - 0x013863 04:9853: 05        .byte $05, $70, $77, $02   ; 
 - D 0 - I - 0x013867 04:9857: 08        .byte $08, $80, $7F, $03   ; 
@@ -2522,7 +2532,7 @@
 - D 0 - I - 0x01386F 04:985F: 0D        .byte $0D, $C8, $77, $05   ; 
 - D 0 - I - 0x013873 04:9863: FF        .byte $FF   ;
 
-; level 3.0
+tbl_ptr_briefcases_outside3: ; level 3.0
 - D 0 - I - 0x013874 04:9864: 02        .byte $02, $70, $9F, $01 ; briefcase
 - D 0 - I - 0x013878 04:9868: 04        .byte $04, $E0, $8F, $02 ;
 - D 0 - I - 0x01387C 04:986C: 06        .byte $06, $58, $9F, $03 ;
@@ -2896,6 +2906,8 @@
 - D 0 - I - 0x0139F7 04:99E7: A3        .byte $A3   ; 
 - D 0 - I - 0x0139F8 04:99E8: A4        .byte $A4   ; 
 - D 0 - I - 0x0139F9 04:99E9: A5        .byte $A5   ; 
+
+tbl_rooms_on_the_level1:
 - - - - - - 0x0139FA 04:99EA: 80        .byte $80   ; 
 - D 0 - I - 0x0139FB 04:99EB: B0        .byte $B0   ; 
 - D 0 - I - 0x0139FC 04:99EC: B0        .byte $B0   ; 
@@ -2928,6 +2940,8 @@
 - D 0 - I - 0x013A17 04:9A07: B0        .byte $B0   ; 
 - D 0 - I - 0x013A18 04:9A08: B0        .byte $B0   ; 
 - D 0 - I - 0x013A19 04:9A09: 13        .byte $13   ; 
+
+tbl_rooms_on_the_level2:
 - - - - - - 0x013A1A 04:9A0A: 80        .byte $80   ; 
 - D 0 - I - 0x013A1B 04:9A0B: B0        .byte $B0   ; 
 - D 0 - I - 0x013A1C 04:9A0C: B0        .byte $B0   ; 
@@ -3038,6 +3052,8 @@
 - D 0 - I - 0x013A85 04:9A75: B4        .byte $B4   ; 
 - D 0 - I - 0x013A86 04:9A76: B4        .byte $B4   ; 
 - D 0 - I - 0x013A87 04:9A77: B7        .byte $B7   ; 
+
+tbl_rooms_on_the_level3:
 - - - - - - 0x013A88 04:9A78: B0        .byte $B0   ; 
 - D 0 - I - 0x013A89 04:9A79: 11        .byte $11   ; 
 - D 0 - I - 0x013A8A 04:9A7A: B0        .byte $B0   ; 
@@ -3093,6 +3109,8 @@
 - D 0 - I - 0x013ABC 04:9AAC: B0        .byte $B0   ; 
 - D 0 - I - 0x013ABD 04:9AAD: B0        .byte $B0   ; 
 - D 0 - I - 0x013ABE 04:9AAE: 13        .byte $13   ; 
+
+tbl_rooms_on_the_level4:
 - - - - - - 0x013ABF 04:9AAF: B0        .byte $B0   ; 
 - D 0 - I - 0x013AC0 04:9AB0: B0        .byte $B0   ; 
 - D 0 - I - 0x013AC1 04:9AB1: 12        .byte $12   ; 
@@ -3240,7 +3258,7 @@
 - D 0 - I - 0x013B4F 04:9B3F: 11        .byte $11   ; 
 - D 0 - I - 0x013B50 04:9B40: 13        .byte $13   ; 
 
-; The white briefcases in level 1:
+tbl_briefcases_on_the_level1:
 - - - - - - 0x013B51 04:9B41: 80        .byte $80   ; 
 - D 0 - I - 0x013B52 04:9B42: 07        .byte $07   ; 
 - D 0 - I - 0x013B53 04:9B43: 06        .byte $06   ; 
@@ -3270,7 +3288,7 @@
 - D 0 - I - 0x013B6B 04:9B5B: 80        .byte $80   ; 
 - D 0 - I - 0x013B6C 04:9B5C: 03        .byte $03   ; 
 
-; The white briefcases in level 2:
+tbl_briefcases_on_the_level2:
 - D 0 - I - 0x013B6D 04:9B5D: 80        .byte $80   ; 
 - D 0 - I - 0x013B6E 04:9B5E: 05        .byte $05   ; 
 - D 0 - I - 0x013B6F 04:9B5F: 00        .byte $00   ; 
@@ -3398,7 +3416,7 @@
 - D 0 - I - 0x013BE9 04:9BD9: 80        .byte $80   ; 
 - D 0 - I - 0x013BEA 04:9BDA: 80        .byte $80   ; 
 
-; The white briefcases in level 3:
+tbl_briefcases_on_the_level3:
 - - - - - - 0x013BEB 04:9BDB: 80        .byte $80   ; 
 - D 0 - I - 0x013BEC 04:9BDC: 05        .byte $05   ; 
 - D 0 - I - 0x013BED 04:9BDD: 07        .byte $07   ; 
@@ -3467,7 +3485,7 @@
 - D 0 - I - 0x013C2C 04:9C1C: 80        .byte $80   ; 
 - D 0 - I - 0x013C2D 04:9C1D: 80        .byte $80   ; 
 
-; The white briefcases in level 4:
+tbl_briefcases_on_the_level4:
 - - - - - - 0x013C2E 04:9C1E: 80        .byte $80   ; 
 - D 0 - I - 0x013C2F 04:9C1F: 00        .byte $00   ; 
 - D 0 - I - 0x013C30 04:9C20: 01        .byte $01   ; 
@@ -3907,13 +3925,14 @@
 - - - - - - 0x013DE2 04:9DD2: 8D        .byte $8D   ; 
 - - - - - - 0x013DE3 04:9DD3: 8E        .byte $8E   ; 
 
-; Rooms (level 1)
+
+tbl_ptr_rooms1_with_NPCs: ; Rooms (level 1)
 - D 0 - I - 0x013DE4 04:9DD4: 3B 9E     .word $9E3B ; Count Lazare de Cagliostro
 - D 0 - I - 0x013DE6 04:9DD6: 41 9E     .word $9E41 ; Girl 1
 - D 0 - I - 0x013DE8 04:9DD8: 47 9E     .word $9E47 ; Girl 2
 - D 0 - I - 0x013DEA 04:9DDA: 4D 9E     .word $9E4D ; Boss (after the battle)
 
-; Rooms (level 2)
+tbl_ptr_rooms2_with_NPCs: ; Rooms (level 2)
 - D 0 - I - 0x013DEC 04:9DDC: 56 9E     .word $9E56
 - D 0 - I - 0x013DEE 04:9DDE: 5C 9E     .word $9E5C
 - D 0 - I - 0x013DF0 04:9DE0: 62 9E     .word $9E62
@@ -3925,14 +3944,14 @@
 - D 0 - I - 0x013DFC 04:9DEC: 7E 9E     .word $9E7E
 - D 0 - I - 0x013DFE 04:9DEE: 84 9E     .word $9E84 ; Boss (after the battle)
 
-; Rooms (level 3)
+tbl_ptr_rooms3_with_NPCs: ; Rooms (level 3)
 - D 0 - I - 0x013E00 04:9DF0: 8D 9E     .word $9E8D
 - D 0 - I - 0x013E02 04:9DF2: 93 9E     .word $9E93
 - D 0 - I - 0x013E04 04:9DF4: 99 9E     .word $9E99
 - D 0 - I - 0x013E06 04:9DF6: 9F 9E     .word $9E9F
 - D 0 - I - 0x013E08 04:9DF8: A5 9E     .word $9EA5 ; Boss (after the battle)
 
-; Rooms (level 4)
+tbl_ptr_rooms4_with_NPCs: ; Rooms (level 4)
 - D 0 - I - 0x013E0A 04:9DFA: AE 9E     .word $9EAE
 - D 0 - I - 0x013E0C 04:9DFC: B1 9E     .word $9EB1
 - D 0 - I - 0x013E0E 04:9DFE: B4 9E     .word $9EB4

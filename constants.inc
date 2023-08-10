@@ -275,6 +275,13 @@ v_start_level                 = ram_00B1 ; The start level [0-3]
 v_count_secret_hits           = ram_00B2 ; Stage select codes at the title screen
 v_lock_secret_hits            = ram_00B3 ; Allow button to be pressed only when other buttons aren't pressed
 v_offset_in_secret_codes      = ram_00B4
+v_tmp_target_room             = ram_00BC
+
+; ram_00BD low address
+; ram_00BE hign address
+; ram_00BF low address
+; ram_00C0 hign address
+
 v_low_msg_ppu_address         = ram_00CF ; This temporary address for the message on the screen
 v_high_msg_ppu_address        = ram_00D0
 v_letter_offset               = ram_00C9

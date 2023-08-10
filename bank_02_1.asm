@@ -1,6 +1,6 @@
 .segment "BANK_02_1"
 .include "bank_ram.inc"
-.include "consts.inc"
+.include "constants.inc"
 ; 0x008010-0x00A00F
 
 - - - - - - 0x008010 02:A000: 54        .byte $54   ; <T>

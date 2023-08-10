@@ -1,7 +1,12 @@
 .segment "BANK_06_2"
 .include "bank_ram.inc"
-.include "consts.inc"
+.include "constants.inc"
 ; 0x01A010-0x01C00F
+
+.import tbl_ptr_rooms_with_NPCs ; bank 04 (Page 2)
+.import tbl_ptr_briefcases_outside ; bank 04 (Page 2)
+.import sub_EF4F_switch_bank_4_p2 ; bank FF
+.import sub_F2D6_try_put_briefcase ; bank FF
 
 tbl_A000:
 - D 1 - - - 0x01A010 06:A000: 00        .byte $00   ; 
@@ -2133,6 +2138,7 @@ loc_AE80:
 C D 1 - - - 0x01AE90 06:AE80: C6 1A     DEC ram_001A
 C - - - - - 0x01AE92 06:AE82: 10 B4     BPL bra_AE38
 C - - - - - 0x01AE94 06:AE84: 60        RTS
+
 sub_AE85:
 C - - - - - 0x01AE95 06:AE85: A6 1A     LDX ram_001A
 C - - - - - 0x01AE97 06:AE87: A9 00     LDA #$00
@@ -2142,6 +2148,7 @@ C - - - - - 0x01AE9F 06:AE8F: A9 FF     LDA #$FF
 C - - - - - 0x01AEA1 06:AE91: 99 C0 05  STA ram_05C0,Y
 bra_AE94_RTS:
 C - - - - - 0x01AEA4 06:AE94: 60        RTS
+
 sub_AE95:
 C - - - - - 0x01AEA5 06:AE95: BD 5C 03  LDA ram_035C,X
 C - - - - - 0x01AEA8 06:AE98: 10 FA     BPL bra_AE94_RTS
@@ -2409,6 +2416,7 @@ C - - - - - 0x01B0A1 06:B091: 99 0A 02  STA ram_020A,Y
 C - - - - - 0x01B0A4 06:B094: A9 18     LDA #$18
 C - - - - - 0x01B0A6 06:B096: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B0A9 06:B099: 60        RTS
+
 sub_B09A: ; from bank FF
 C - - - - - 0x01B0AA 06:B09A: A2 05     LDX #$05
 bra_B09C:
@@ -2418,10 +2426,11 @@ C - - - - - 0x01B0B1 06:B0A1: CA        DEX
 C - - - - - 0x01B0B2 06:B0A2: D0 F8     BNE bra_B09C
 bra_B0A4_RTS:
 C - - - - - 0x01B0B4 06:B0A4: 60        RTS
+
 bra_B0A5:
 C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA ram_006D
 C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113
-C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR $EF4F ; sub_EF4F_switch_bank_4_p2, bank FF
+C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ; bank FF
 C - - - - - 0x01B0BC 06:B0AC: A0 00     LDY #$00
 C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA v_no_sub_level
 C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ bra_B0BE ; If level == level 1.0
@@ -2432,12 +2441,12 @@ C - - - - - 0x01B0C8 06:B0B8: A0 04     LDY #$04
 C - - - - - 0x01B0CA 06:B0BA: C9 0F     CMP #$0F
 C - - - - - 0x01B0CC 06:B0BC: D0 E6     BNE bra_B0A4_RTS ; If level != level 3.0
 bra_B0BE:
-C - - - - - 0x01B0CE 06:B0BE: B9 9E 84  LDA $849E,Y
+C - - - - - 0x01B0CE 06:B0BE: B9 9E 84  LDA tbl_ptr_briefcases_outside,Y
 C - - - - - 0x01B0D1 06:B0C1: 85 12     STA ram_0012 ; Low address
-C - - - - - 0x01B0D3 06:B0C3: B9 9F 84  LDA $849F,Y
+C - - - - - 0x01B0D3 06:B0C3: B9 9F 84  LDA tbl_ptr_briefcases_outside + 1,Y
 C - - - - - 0x01B0D6 06:B0C6: 85 13     STA ram_0013 ; High address
 C - - - - - 0x01B0D8 06:B0C8: A9 01     LDA #$01
-C - - - - - 0x01B0DA 06:B0CA: 20 D6 F2  JSR $F2D6 ; to sub_F2D6_try_put_briefcase (bank_FF)
+C - - - - - 0x01B0DA 06:B0CA: 20 D6 F2  JSR sub_F2D6_try_put_briefcase ; bank FF
 C - - - - - 0x01B0DD 06:B0CD: 90 D5     BCC bra_B0A4_RTS
 C - - - - - 0x01B0DF 06:B0CF: A4 0A     LDY ram_000A
 C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA v_array_white_briefcase,Y
@@ -2638,7 +2647,7 @@ C - - - - - 0x01B241 06:B231: 4C C2 DB  JMP $DBC2
 loc_B234:
 sub_B234:
 C D 1 - - - 0x01B244 06:B234: 48        PHA
-C - - - - - 0x01B245 06:B235: 20 4F EF  JSR $EF4F ; to sub_EF4F_switch_bank_4_p2 (bank FF)
+C - - - - - 0x01B245 06:B235: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ; bank FF
 C - - - - - 0x01B248 06:B238: 68        PLA
 C - - - - - 0x01B249 06:B239: 0A        ASL
 C - - - - - 0x01B24A 06:B23A: A8        TAY
@@ -2744,14 +2753,13 @@ C - - - - - 0x01B2F5 06:B2E5: 69 00     ADC #$00
 C - - - - - 0x01B2F7 06:B2E7: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B2FA 06:B2EA: 68        PLA
 C - - - - - 0x01B2FB 06:B2EB: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01B2FE 06:B2EE: 4C FC B2  JMP loc_B2FC
+C - - - - - 0x01B2FE 06:B2EE: 4C FC B2  JMP @loc_B2FC_skip
 
 - - - - - - 0x01B301 06:B2F1: AD 02 20  LDA PPU_STATUS ; not used ???
 - - - - - - 0x01B304 06:B2F4: A9 00     LDA #$00  ; not used ???
 - - - - - - 0x01B306 06:B2F6: 8D 06 20  STA PPU_ADDRESS ; not used ???
 - - - - - - 0x01B309 06:B2F9: 8C 06 20  STY PPU_ADDRESS ; not used ???
-
-loc_B2FC:
+@loc_B2FC_skip:
 C D 1 - - - 0x01B30C 06:B2FC: AD 07 20  LDA PPU_DATA ; Increments address
 C - - - - - 0x01B30F 06:B2FF: AD 07 20  LDA PPU_DATA ; Increments address
 C - - - - - 0x01B312 06:B302: 60        RTS
@@ -2764,11 +2772,11 @@ C - - - - - 0x01B31B 06:B30B: 60        RTS
 
 sub_B30C:
 C - - - - - 0x01B31C 06:B30C: A0 00     LDY #$00
-C - - - - - 0x01B31E 06:B30E: A5 BC     LDA ram_00BC
+C - - - - - 0x01B31E 06:B30E: A5 BC     LDA v_tmp_target_room
 C - - - - - 0x01B320 06:B310: C5 60     CMP ram_0060
-C - - - - - 0x01B322 06:B312: F0 01     BEQ bra_B315_skip
+C - - - - - 0x01B322 06:B312: F0 01     BEQ @bra_B315_skip
 - - - - - - 0x01B324 06:B314: C8        .byte $C8   ; 
-bra_B315_skip:
+@bra_B315_skip:
 C - - - - - 0x01B325 06:B315: B9 62 00  LDA ram_0062,Y
 C - - - - - 0x01B328 06:B318: 60        RTS
 
@@ -2862,13 +2870,15 @@ C - - - - - 0x01B3B2 06:B3A2: 99 60 00  STA ram_0060,Y
 C - - - - - 0x01B3B5 06:B3A5: C6 11     DEC ram_0011
 C - - - - - 0x01B3B7 06:B3A7: 10 D2     BPL bra_B37B
 C - - - - - 0x01B3B9 06:B3A9: 60        RTS
-C - - - - - 0x01B3BA 06:B3AA: 20 4F EF  JSR $EF4F ; to sub_EF4F_switch_bank_4_p2 (bank FF)
+
+sub_B3AA:
+C - - - - - 0x01B3BA 06:B3AA: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ; bank FF
 C - - - - - 0x01B3BD 06:B3AD: A5 5E     LDA v_no_level
 C - - - - - 0x01B3BF 06:B3AF: 0A        ASL
 C - - - - - 0x01B3C0 06:B3B0: A8        TAY
-C - - - - - 0x01B3C1 06:B3B1: B9 00 81  LDA $8100,Y
+C - - - - - 0x01B3C1 06:B3B1: B9 00 81  LDA tbl_ptr_rooms_with_NPCs,Y
 C - - - - - 0x01B3C4 06:B3B4: 85 14     STA ram_0014
-C - - - - - 0x01B3C6 06:B3B6: B9 01 81  LDA $8101,Y
+C - - - - - 0x01B3C6 06:B3B6: B9 01 81  LDA tbl_ptr_rooms_with_NPCs + 1,Y
 C - - - - - 0x01B3C9 06:B3B9: 85 15     STA ram_0015
 C - - - - - 0x01B3CB 06:B3BB: A5 B9     LDA ram_00B9
 C - - - - - 0x01B3CD 06:B3BD: 29 03     AND #$03
@@ -3199,7 +3209,7 @@ C - - - - - 0x01B5FA 06:B5EA: AD 6D 05  LDA ram_056D
 C - - - - - 0x01B5FD 06:B5ED: 29 1F     AND #$1F
 C - - - - - 0x01B5FF 06:B5EF: 8D 6D 05  STA ram_056D
 bra_B5F2:
-C - - J - - 0x01B602 06:B5F2: A6 BC     LDX ram_00BC
+C - - J - - 0x01B602 06:B5F2: A6 BC     LDX v_tmp_target_room
 C - - - - - 0x01B604 06:B5F4: BD 00 05  LDA ram_0500,X
 C - - - - - 0x01B607 06:B5F7: 09 08     ORA #$08
 C - - - - - 0x01B609 06:B5F9: 9D 00 05  STA ram_0500,X

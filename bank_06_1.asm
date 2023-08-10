@@ -1,6 +1,6 @@
 .segment "BANK_06_1"
 .include "bank_ram.inc"
-.include "consts.inc"
+.include "constants.inc"
 ; 0x018010-0x01A00F
 
 sub_A000: ; from bank_FF

@@ -1,7 +1,16 @@
 .segment "BANK_FF"
 .include "bank_ram.inc"
-.include "consts.inc"
+.include "constants.inc"
 ; 0x01C010-0x02000F
+
+.import tbl_ptr_destructible_walls ; bank 04 (Page 1)
+.import number_of_rooms_on_the_level ; bank 04 (Page 2)
+.import tbl_ptr_rooms_on_the_level ; bank 04 (Page 2)
+.import number_of_briefcases_on_the_level ; bank 04 (Page 2)
+.import tbl_ptr_briefcases_on_the_level ; bank 04 (Page 2)
+
+.export sub_EF4F_switch_bank_4_p2
+.export sub_F2D6_try_put_briefcase
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI
@@ -3250,16 +3259,16 @@ C - - - - - 0x01D4D1 07:D4C1: CA        DEX
 C - - - - - 0x01D4D2 07:D4C2: 8A        TXA
 C - - - - - 0x01D4D3 07:D4C3: D0 DE     BNE bra_D4A3_repeat
 C - - - - - 0x01D4D5 07:D4C5: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
-C - - - - - 0x01D4D8 07:D4C8: A5 46     LDA ram_0046
+C - - - - - 0x01D4D8 07:D4C8: A5 46     LDA v_no_sub_level
 C - - - - - 0x01D4DA 07:D4CA: 0A        ASL
 C - - - - - 0x01D4DB 07:D4CB: A8        TAY
 C - - - - - 0x01D4DC 07:D4CC: B9 9A 81  LDA $819A,Y
 C - - - - - 0x01D4DF 07:D4CF: 85 BD     STA ram_00BD
 C - - - - - 0x01D4E1 07:D4D1: B9 9B 81  LDA $819B,Y
 C - - - - - 0x01D4E4 07:D4D4: 85 BE     STA ram_00BE
-C - - - - - 0x01D4E6 07:D4D6: B9 96 82  LDA $8296,Y
+C - - - - - 0x01D4E6 07:D4D6: B9 96 82  LDA tbl_ptr_destructible_walls,Y
 C - - - - - 0x01D4E9 07:D4D9: 85 BF     STA ram_00BF
-C - - - - - 0x01D4EB 07:D4DB: B9 97 82  LDA $8297,Y
+C - - - - - 0x01D4EB 07:D4DB: B9 97 82  LDA tbl_ptr_destructible_walls + 1,Y
 C - - - - - 0x01D4EE 07:D4DE: 85 C0     STA ram_00C0
 C - - - - - 0x01D4F0 07:D4E0: A5 B6     LDA ram_00B6
 C - - - - - 0x01D4F2 07:D4E2: 29 33     AND #$33
@@ -7202,7 +7211,7 @@ bra_EE15:
 C - - - - - 0x01EE25 07:EE15: 20 7B EF  JSR sub_EF7B
 C - - - - - 0x01EE28 07:EE18: 4C E7 ED  JMP loc_EDE7
 bra_EE1B:
-C - - - - - 0x01EE2B 07:EE1B: 20 AA B3  JSR $B3AA
+C - - - - - 0x01EE2B 07:EE1B: 20 AA B3  JSR $B3AA ; to sub_B3AA (bank 06_2)
 C - - - - - 0x01EE2E 07:EE1E: 4C D5 ED  JMP loc_EDD5
 loc_EE21:
 C D 3 - - - 0x01EE31 07:EE21: A5 19     LDA ram_0019
@@ -7405,10 +7414,10 @@ C - - - - - 0x01EFA5 07:EF95: 60        RTS
 sub_EF96:
 C - - - - - 0x01EFA6 07:EF96: A9 00     LDA #$00
 C - - - - - 0x01EFA8 07:EF98: A2 09     LDX #$09
-bra_EF9A:
-C - - - - - 0x01EFAA 07:EF9A: 9D 00 02  STA ram_0200,X
+@clear_loop:
+C - - - - - 0x01EFAA 07:EF9A: 9D 00 02  STA ram_0200,X ; 0x0209-0x02FF in 0
 C - - - - - 0x01EFAD 07:EF9D: CA        DEX
-C - - - - - 0x01EFAE 07:EF9E: 10 FA     BPL bra_EF9A
+C - - - - - 0x01EFAE 07:EF9E: 10 FA     BPL @clear_loop
 C - - - - - 0x01EFB0 07:EFA0: A9 00     LDA #$00
 C - - - - - 0x01EFB2 07:EFA2: 8D 14 02  STA ram_0214
 sub_EFA5:
@@ -7427,26 +7436,28 @@ C - - - - - 0x01EFCB 07:EFBB: 0A        ASL
 C - - - - - 0x01EFCC 07:EFBC: 18        CLC
 C - - - - - 0x01EFCD 07:EFBD: 65 00     ADC ram_0000
 C - - - - - 0x01EFCF 07:EFBF: AA        TAX
-C - - - - - 0x01EFD0 07:EFC0: BC 16 81  LDY $8116,X
-C - - - - - 0x01EFD3 07:EFC3: BD 17 81  LDA $8117,X
+ ; Fill memory the rooms from ROM (Register X - level number)
+C - - - - - 0x01EFD0 07:EFC0: BC 16 81  LDY number_of_rooms_on_the_level,X
+C - - - - - 0x01EFD3 07:EFC3: BD 17 81  LDA tbl_ptr_rooms_on_the_level,X
 C - - - - - 0x01EFD6 07:EFC6: 85 12     STA ram_0012
-C - - - - - 0x01EFD8 07:EFC8: BD 18 81  LDA $8118,X
+C - - - - - 0x01EFD8 07:EFC8: BD 18 81  LDA tbl_ptr_rooms_on_the_level + 1,X
 C - - - - - 0x01EFDB 07:EFCB: 85 13     STA ram_0013
-bra_EFCD_repeat:
+@room_loop:
 C - - - - - 0x01EFDD 07:EFCD: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01EFDF 07:EFCF: 99 00 05  STA ram_0500,Y
+C - - - - - 0x01EFDF 07:EFCF: 99 00 05  STA v_rooms,Y
 C - - - - - 0x01EFE2 07:EFD2: 88        DEY
-C - - - - - 0x01EFE3 07:EFD3: D0 F8     BNE bra_EFCD_repeat
-C - - - - - 0x01EFE5 07:EFD5: BC 22 81  LDY $8122,X
-C - - - - - 0x01EFE8 07:EFD8: BD 23 81  LDA $8123,X
+C - - - - - 0x01EFE3 07:EFD3: D0 F8     BNE @room_loop
+ ; Fill memory the white briefcases from ROM  (Register X - level number)
+C - - - - - 0x01EFE5 07:EFD5: BC 22 81  LDY number_of_briefcases_on_the_level,X
+C - - - - - 0x01EFE8 07:EFD8: BD 23 81  LDA tbl_ptr_briefcases_on_the_level,X
 C - - - - - 0x01EFEB 07:EFDB: 85 12     STA ram_0012
-C - - - - - 0x01EFED 07:EFDD: BD 24 81  LDA $8124,X
+C - - - - - 0x01EFED 07:EFDD: BD 24 81  LDA tbl_ptr_briefcases_on_the_level + 1,X
 C - - - - - 0x01EFF0 07:EFE0: 85 13     STA ram_0013
-bra_EFE2_repeat:
-C - - - - - 0x01EFF2 07:EFE2: B1 12     LDA (ram_0012),Y ; This addresses from a bank 04, page 2
-C - - - - - 0x01EFF4 07:EFE4: 99 19 02  STA v_array_white_briefcase,Y ; Fill memory the white briefcases from ROM
+@briefcase_loop:
+C - - - - - 0x01EFF2 07:EFE2: B1 12     LDA (ram_0012),Y
+C - - - - - 0x01EFF4 07:EFE4: 99 19 02  STA v_array_white_briefcase,Y
 C - - - - - 0x01EFF7 07:EFE7: 88        DEY
-C - - - - - 0x01EFF8 07:EFE8: D0 F8     BNE bra_EFE2_repeat
+C - - - - - 0x01EFF8 07:EFE8: D0 F8     BNE @briefcase_loop
 C - - - - - 0x01EFFA 07:EFEA: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01EFFD 07:EFED: A5 5E     LDA v_no_level
 C - - - - - 0x01EFFF 07:EFEF: 0A        ASL
@@ -7456,6 +7467,7 @@ C - - - - - 0x01F004 07:EFF4: 85 BA     STA ram_00BA
 C - - - - - 0x01F006 07:EFF6: BD B7 85  LDA $85B7,X
 C - - - - - 0x01F009 07:EFF9: 85 BB     STA ram_00BB
 C - - - - - 0x01F00B 07:EFFB: 60        RTS
+
 sub_EFFC:
 C - - - - - 0x01F00C 07:EFFC: A2 09     LDX #$09
 C - - - - - 0x01F00E 07:EFFE: A9 00     LDA #$00
@@ -7851,7 +7863,7 @@ C - - - - - 0x01F2CC 07:F2BC: A5 46     LDA v_no_sub_level
 C - - - - - 0x01F2CE 07:F2BE: 0A        ASL
 C - - - - - 0x01F2CF 07:F2BF: AA        TAX
 C - - - - - 0x01F2D0 07:F2C0: BD A2 83  LDA $83A2,X
-C - - - - - 0x01F2D3 07:F2C3: 85 12     STA ram_0012 ; Low address
+C - - - - - 0x01F2D3 07:F2C3: 85 12     STA ram_0012 ; Low addressaddress
 C - - - - - 0x01F2D5 07:F2C5: BD A3 83  LDA $83A3,X
 C - - - - - 0x01F2D8 07:F2C8: 85 13     STA ram_0013 ; High address
 C - - - - - 0x01F2DA 07:F2CA: A5 2C     LDA v_low_counter
@@ -8787,9 +8799,9 @@ C - - - - - 0x01F994 07:F984: B1 BD     LDA (ram_00BD),Y
 C - - - - - 0x01F996 07:F986: AA        TAX
 C - - - - - 0x01F997 07:F987: BD 00 05  LDA v_rooms,X
 C - - - - - 0x01F99A 07:F98A: 85 C5     STA ram_00C5
-C - - - - - 0x01F99C 07:F98C: 86 BC     STX ram_00BC
+C - - - - - 0x01F99C 07:F98C: 86 BC     STX v_tmp_target_room
 C - - - - - 0x01F99E 07:F98E: 48        PHA
-C - - - - - 0x01F99F 07:F98F: 09 80     ORA #$80
+C - - - - - 0x01F99F 07:F98F: 09 80     ORA #$80 ; CONSTANT - the room has already been visited
 C - - - - - 0x01F9A1 07:F991: 9D 00 05  STA v_rooms,X
 C - - - - - 0x01F9A4 07:F994: 68        PLA
 C - - - - - 0x01F9A5 07:F995: 29 3F     AND #$3F
@@ -8824,12 +8836,14 @@ C - - - - - 0x01F9D5 07:F9C5: 68        PLA
 C - - - - - 0x01F9D6 07:F9C6: AA        TAX
 C - - - - - 0x01F9D7 07:F9C7: 38        SEC
 C - - - - - 0x01F9D8 07:F9C8: 60        RTS
+
 bra_F9C9:
 loc_F9C9:
 C D 3 - - - 0x01F9D9 07:F9C9: 68        PLA
 C - - - - - 0x01F9DA 07:F9CA: AA        TAX
 C - - - - - 0x01F9DB 07:F9CB: 18        CLC
 C - - - - - 0x01F9DC 07:F9CC: 60        RTS
+
 sub_F9CD:
 C - - - - - 0x01F9DD 07:F9CD: 8A        TXA
 C - - - - - 0x01F9DE 07:F9CE: 48        PHA
@@ -8837,7 +8851,7 @@ C - - - - - 0x01F9DF 07:F9CF: BD AA 03  LDA ram_03AA,X
 C - - - - - 0x01F9E2 07:F9D2: C9 BF     CMP #$BF
 C - - - - - 0x01F9E4 07:F9D4: D0 F3     BNE bra_F9C9
 C - - - - - 0x01F9E6 07:F9D6: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
-C - - - - - 0x01F9E9 07:F9D9: A0 00     LDY #$00
+C - - - - - 0x01F9E9 07:F9D9: A0 00     LDY #$00 ; 1st of 5 bytes
 bra_F9DB:
 C - - - - - 0x01F9EB 07:F9DB: B1 BF     LDA (ram_00BF),Y
 C - - - - - 0x01F9ED 07:F9DD: C9 FF     CMP #$FF
@@ -8845,7 +8859,7 @@ C - - - - - 0x01F9EF 07:F9DF: F0 E8     BEQ bra_F9C9
 C - - - - - 0x01F9F1 07:F9E1: 38        SEC
 C - - - - - 0x01F9F2 07:F9E2: ED B6 03  SBC ram_03B6
 C - - - - - 0x01F9F5 07:F9E5: 85 00     STA ram_0000
-C - - - - - 0x01F9F7 07:F9E7: C8        INY
+C - - - - - 0x01F9F7 07:F9E7: C8        INY ; 2nd of 5 bytes
 C - - - - - 0x01F9F8 07:F9E8: B1 BF     LDA (ram_00BF),Y
 C - - - - - 0x01F9FA 07:F9EA: ED BC 03  SBC ram_03BC
 C - - - - - 0x01F9FD 07:F9ED: 85 01     STA ram_0001
@@ -8860,22 +8874,23 @@ C - - - - - 0x01FA0C 07:F9FC: D0 22     BNE bra_FA20
 C - - - - - 0x01FA0E 07:F9FE: A5 00     LDA ram_0000
 C - - - - - 0x01FA10 07:FA00: C9 08     CMP #$08
 C - - - - - 0x01FA12 07:FA02: B0 1C     BCS bra_FA20
-C - - - - - 0x01FA14 07:FA04: C8        INY
+C - - - - - 0x01FA14 07:FA04: C8        INY ; 3rd of 5 bytes
 C - - - - - 0x01FA15 07:FA05: B1 BF     LDA (ram_00BF),Y
 C - - - - - 0x01FA17 07:FA07: 85 C3     STA ram_00C3
-C - - - - - 0x01FA19 07:FA09: C8        INY
+C - - - - - 0x01FA19 07:FA09: C8        INY ; 4th of 5 bytes
 C - - - - - 0x01FA1A 07:FA0A: B1 BF     LDA (ram_00BF),Y
 C - - - - - 0x01FA1C 07:FA0C: AA        TAX
 C - - - - - 0x01FA1D 07:FA0D: BD 00 05  LDA ram_0500,X
 C - - - - - 0x01FA20 07:FA10: 29 BF     AND #$BF
 C - - - - - 0x01FA22 07:FA12: 9D 00 05  STA ram_0500,X
-C - - - - - 0x01FA25 07:FA15: C8        INY
+C - - - - - 0x01FA25 07:FA15: C8        INY ; 5th of 5 bytes
 C - - - - - 0x01FA26 07:FA16: B1 BF     LDA (ram_00BF),Y
 C - - - - - 0x01FA28 07:FA18: 85 C1     STA ram_00C1
 C - - - - - 0x01FA2A 07:FA1A: 20 2F FA  JSR sub_FA2F
 C - - - - - 0x01FA2D 07:FA1D: 68        PLA
 C - - - - - 0x01FA2E 07:FA1E: AA        TAX
 C - - - - - 0x01FA2F 07:FA1F: 60        RTS
+
 bra_FA20:
 C - - - - - 0x01FA30 07:FA20: C8        INY
 C - - - - - 0x01FA31 07:FA21: C8        INY
