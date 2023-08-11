@@ -3,6 +3,7 @@
 .include "constants.inc"
 ; 0x01C010-0x02000F
 
+.import tbl_ptr_corridors ; bank 04 (Page 1)
 .import tbl_ptr_destructible_walls ; bank 04 (Page 1)
 .import number_of_rooms_on_the_level ; bank 04 (Page 2)
 .import tbl_ptr_rooms_on_the_level ; bank 04 (Page 2)
@@ -707,7 +708,7 @@ bra_C503_RTS:
 C - - - - - 0x01C513 07:C503: 60        RTS
 
 sub_C504:
-C - - - - - 0x01C514 07:C504: 84 11     STY ram_0011
+C - - - - - 0x01C514 07:C504: 84 11     STY v_cache_reg_y
 C - - - - - 0x01C516 07:C506: 48        PHA
 C - - - - - 0x01C517 07:C507: 20 5E D0  JSR sub_D05E
 C - - - - - 0x01C51A 07:C50A: A8        TAY
@@ -718,8 +719,9 @@ C - - - - - 0x01C523 07:C513: 8C B5 06  STY v_bank_data
 C - - - - - 0x01C526 07:C516: 68        PLA
 C - - - - - 0x01C527 07:C517: 29 1F     AND #$1F
 C - - - - - 0x01C529 07:C519: 09 80     ORA #$80
-C - - - - - 0x01C52B 07:C51B: A4 11     LDY ram_0011
+C - - - - - 0x01C52B 07:C51B: A4 11     LDY v_cache_reg_y
 C - - - - - 0x01C52D 07:C51D: 60        RTS
+
 sub_C51E:
 C - - - - - 0x01C52E 07:C51E: 20 F5 C4  JSR sub_C4F5
 C - - - - - 0x01C531 07:C521: 20 F4 C3  JSR sub_C3F4
@@ -2922,11 +2924,12 @@ C - - - - - 0x01D2A1 07:D291: E8        INX
 C - - - - - 0x01D2A2 07:D292: B1 06     LDA (ram_0006),Y
 C - - - - - 0x01D2A4 07:D294: 9D 33 06  STA ram_0633,X
 C - - - - - 0x01D2A7 07:D297: E8        INX
-C - - - - - 0x01D2A8 07:D298: A4 11     LDY ram_0011
+C - - - - - 0x01D2A8 07:D298: A4 11     LDY v_cache_reg_y
 C - - - - - 0x01D2AA 07:D29A: C8        INY
 C - - - - - 0x01D2AB 07:D29B: E0 18     CPX #$18
 C - - - - - 0x01D2AD 07:D29D: 90 BE     BCC bra_D25D
 C - - - - - 0x01D2AF 07:D29F: 60        RTS
+
 loc_D2A0:
 C D 2 - - - 0x01D2B0 07:D2A0: A5 46     LDA ram_0046
 C - - - - - 0x01D2B2 07:D2A2: C9 06     CMP #$06
@@ -3262,9 +3265,9 @@ C - - - - - 0x01D4D5 07:D4C5: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01D4D8 07:D4C8: A5 46     LDA v_no_sub_level
 C - - - - - 0x01D4DA 07:D4CA: 0A        ASL
 C - - - - - 0x01D4DB 07:D4CB: A8        TAY
-C - - - - - 0x01D4DC 07:D4CC: B9 9A 81  LDA $819A,Y
+C - - - - - 0x01D4DC 07:D4CC: B9 9A 81  LDA tbl_ptr_corridors,Y
 C - - - - - 0x01D4DF 07:D4CF: 85 BD     STA ram_00BD
-C - - - - - 0x01D4E1 07:D4D1: B9 9B 81  LDA $819B,Y
+C - - - - - 0x01D4E1 07:D4D1: B9 9B 81  LDA tbl_ptr_corridors + 1,Y
 C - - - - - 0x01D4E4 07:D4D4: 85 BE     STA ram_00BE
 C - - - - - 0x01D4E6 07:D4D6: B9 96 82  LDA tbl_ptr_destructible_walls,Y
 C - - - - - 0x01D4E9 07:D4D9: 85 BF     STA ram_00BF
@@ -8011,19 +8014,20 @@ C - - - - - 0x01F3AC 07:F39C: A5 02     LDA ram_0002
 C - - - - - 0x01F3AE 07:F39E: 9D 68 03  STA ram_0368,X
 C - - - - - 0x01F3B1 07:F3A1: 60        RTS
 
+enemy_F3A2:
 C - - J - - 0x01F3B2 07:F3A2: 20 72 F3  JSR sub_F372
 C - - - - - 0x01F3B5 07:F3A5: 20 59 F3  JSR sub_F359
 C - - - - - 0x01F3B8 07:F3A8: A9 0F     LDA #$0F
-C - - - - - 0x01F3BA 07:F3AA: 85 11     STA ram_0011
+C - - - - - 0x01F3BA 07:F3AA: 85 11     STA v_cache_reg_y
 C - - - - - 0x01F3BC 07:F3AC: A0 00     LDY #$00
 C - - - - - 0x01F3BE 07:F3AE: AD 00 03  LDA ram_0300
 bra_F3B1:
 C - - - - - 0x01F3C1 07:F3B1: D9 0D BD  CMP $BD0D,Y
-C - - - - - 0x01F3C4 07:F3B4: F0 05     BEQ bra_F3BB
+C - - - - - 0x01F3C4 07:F3B4: F0 05     BEQ @bra_F3BB_skip
 C - - - - - 0x01F3C6 07:F3B6: C8        INY
 C - - - - - 0x01F3C7 07:F3B7: C0 0F     CPY #$0F
 C - - - - - 0x01F3C9 07:F3B9: D0 F6     BNE bra_F3B1
-bra_F3BB:
+@bra_F3BB_skip:
 C - - - - - 0x01F3CB 07:F3BB: 98        TYA
 C - - - - - 0x01F3CC 07:F3BC: 0A        ASL
 C - - - - - 0x01F3CD 07:F3BD: 0A        ASL
@@ -8074,6 +8078,7 @@ C - - - - - 0x01F432 07:F422: 09 08     ORA #$08
 C - - - - - 0x01F434 07:F424: 9D 20 03  STA ram_0320,X
 bra_F427:
 C - - - - - 0x01F437 07:F427: 4C 4A F8  JMP loc_F84A
+
 bra_F42A:
 C - - - - - 0x01F43A 07:F42A: A0 00     LDY #$00
 C - - - - - 0x01F43C 07:F42C: A5 0B     LDA ram_000B
@@ -8090,21 +8095,21 @@ C - - J - - 0x01F44E 07:F43E: 20 8A F3  JSR sub_F38A
 C - - - - - 0x01F451 07:F441: A0 00     LDY #$00
 C - - - - - 0x01F453 07:F443: AD 01 03  LDA ram_0301
 C - - - - - 0x01F456 07:F446: C9 02     CMP #$02
-C - - - - - 0x01F458 07:F448: F0 1A     BEQ bra_F464
+C - - - - - 0x01F458 07:F448: F0 1A     BEQ @bra_F464_skip
 C - - - - - 0x01F45A 07:F44A: A0 08     LDY #$08
 C - - - - - 0x01F45C 07:F44C: C9 03     CMP #$03
-C - - - - - 0x01F45E 07:F44E: F0 14     BEQ bra_F464
+C - - - - - 0x01F45E 07:F44E: F0 14     BEQ @bra_F464_skip
 C - - - - - 0x01F460 07:F450: A0 10     LDY #$10
 C - - - - - 0x01F462 07:F452: C9 0E     CMP #$0E
-C - - - - - 0x01F464 07:F454: F0 0E     BEQ bra_F464
+C - - - - - 0x01F464 07:F454: F0 0E     BEQ @bra_F464_skip
 C - - - - - 0x01F466 07:F456: A0 18     LDY #$18
 C - - - - - 0x01F468 07:F458: C9 12     CMP #$12
-C - - - - - 0x01F46A 07:F45A: F0 08     BEQ bra_F464
+C - - - - - 0x01F46A 07:F45A: F0 08     BEQ @bra_F464_skip
 C - - - - - 0x01F46C 07:F45C: A0 20     LDY #$20
 C - - - - - 0x01F46E 07:F45E: C9 13     CMP #$13
-C - - - - - 0x01F470 07:F460: F0 02     BEQ bra_F464
+C - - - - - 0x01F470 07:F460: F0 02     BEQ @bra_F464_skip
 C - - - - - 0x01F472 07:F462: A0 28     LDY #$28
-bra_F464:
+@bra_F464_skip:
 C - - - - - 0x01F474 07:F464: A5 0B     LDA ram_000B
 C - - - - - 0x01F476 07:F466: 6A        ROR
 C - - - - - 0x01F477 07:F467: 90 05     BCC bra_F46E
@@ -8144,6 +8149,7 @@ C - - - - - 0x01F4BE 07:F4AE: A0 47     LDY #$47
 bra_F4B0:
 C - - - - - 0x01F4C0 07:F4B0: 8C 07 03  STY ram_0307
 C - - - - - 0x01F4C3 07:F4B3: 4C 20 F8  JMP loc_F820
+
 bra_F4B6:
 C - - - - - 0x01F4C6 07:F4B6: 8D B4 06  STA ram_06B4
 C - - - - - 0x01F4C9 07:F4B9: A9 02     LDA #$02
@@ -8643,15 +8649,15 @@ C - - J - - 0x01F897 07:F887: 60        RTS
 
 tbl_F888:
 - - - - - - 0x01F898 07:F888: 87 F8     .word $F887 ; Nobody  (0x00)
-- D 3 - - - 0x01F89A 07:F88A: A2 F3     .word $F3A2 ; Cat with the gun
+- D 3 - - - 0x01F89A 07:F88A: A2 F3     .addr enemy_F3A2 ; Cat with the gun
 - D 3 - - - 0x01F89C 07:F88C: 3E F4     .word $F43E ; Gray Land hat
 - D 3 - - - 0x01F89E 07:F88E: 3E F4     .word $F43E ; Black Land hat
 - D 3 - - - 0x01F8A0 07:F890: CB F4     .word $F4CB ; Land Diver
 - D 3 - - - 0x01F8A2 07:F892: CB F4     .word $F4CB ; Land Diver
 - D 3 - - - 0x01F8A4 07:F894: CB F4     .word $F4CB ; Land Diver
-- D 3 - - - 0x01F8A6 07:F896: A2 F3     .word $F3A2 ; Zenigata
+- D 3 - - - 0x01F8A6 07:F896: A2 F3     .addr enemy_F3A2 ; Zenigata
 - D 3 - - - 0x01F8A8 07:F898: 3D F5     .word $F53D ; Shooter with bazooka
-- D 3 - - - 0x01F8AA 07:F89A: A2 F3     .word $F3A2 ; The fat sailor
+- D 3 - - - 0x01F8AA 07:F89A: A2 F3     .addr enemy_F3A2 ; The fat sailor
 - D 3 - - - 0x01F8AC 07:F89C: 90 F5     .word $F590 ; The barrel
 - D 3 - - - 0x01F8AE 07:F89E: 6A F6     .word $F66A ; Jumping sailor
 - D 3 - - - 0x01F8B0 07:F8A0: AB F6     .word $F6AB ; The lift
@@ -8659,28 +8665,28 @@ tbl_F888:
 - D 3 - - - 0x01F8B4 07:F8A4: 3E F4     .word $F43E ; Bat
 - D 3 - - - 0x01F8B6 07:F8A6: 90 F5     .word $F590 ; Gray cat
 - D 3 - - - 0x01F8B8 07:F8A8: 6A F6     .word $F66A ; Nun (0x10)
-- D 3 - - - 0x01F8BA 07:F8AA: A2 F3     .word $F3A2 ; Girl in red, in the castle
+- D 3 - - - 0x01F8BA 07:F8AA: A2 F3     .addr enemy_F3A2 ; Girl in red, in the castle
 - D 3 - - - 0x01F8BC 07:F8AC: 3E F4     .word $F43E ; Batterfly
 - D 3 - - - 0x01F8BE 07:F8AE: 3E F4     .word $F43E ; Broned batterfly
 - D 3 - - - 0x01F8C0 07:F8B0: 3D F5     .word $F53D ; Shooter with bazooka
 - D 3 - - - 0x01F8C2 07:F8B2: 34 F6     .word $F634 ; Sensor
 - D 3 - - - 0x01F8C4 07:F8B4: 90 F5     .word $F590 ; Black cat
-- D 3 - - - 0x01F8C6 07:F8B6: A2 F3     .word $F3A2 ; Karate-boy
-- D 3 - - - 0x01F8C8 07:F8B8: A2 F3     .word $F3A2 ; Karate-boy in blue on the street
-- D 3 - - - 0x01F8CA 07:F8BA: A2 F3     .word $F3A2 ; Karate-girl
-- D 3 - - - 0x01F8CC 07:F8BC: A2 F3     .word $F3A2 ; Boy in green
-- D 3 - - - 0x01F8CE 07:F8BE: A2 F3     .word $F3A2 ; Girl with sword
-- D 3 - - - 0x01F8D0 07:F8C0: A2 F3     .word $F3A2 ; Knight in armor with a shield
+- D 3 - - - 0x01F8C6 07:F8B6: A2 F3     .addr enemy_F3A2 ; Karate-boy
+- D 3 - - - 0x01F8C8 07:F8B8: A2 F3     .addr enemy_F3A2 ; Karate-boy in blue on the street
+- D 3 - - - 0x01F8CA 07:F8BA: A2 F3     .addr enemy_F3A2 ; Karate-girl
+- D 3 - - - 0x01F8CC 07:F8BC: A2 F3     .addr enemy_F3A2 ; Boy in green
+- D 3 - - - 0x01F8CE 07:F8BE: A2 F3     .addr enemy_F3A2 ; Girl with sword
+- D 3 - - - 0x01F8D0 07:F8C0: A2 F3     .addr enemy_F3A2 ; Knight in armor with a shield
 - D 3 - - - 0x01F8D2 07:F8C2: 90 F5     .word $F590 ; ???
 - D 3 - - - 0x01F8D4 07:F8C4: 34 F6     .word $F634 ; Sensor
-- D 3 - - - 0x01F8D6 07:F8C6: A2 F3     .word $F3A2 ; Fly man
+- D 3 - - - 0x01F8D6 07:F8C6: A2 F3     .addr enemy_F3A2 ; Fly man
 - D 3 - - - 0x01F8D8 07:F8C8: 3D F5     .word $F53D ; Shooter with bazooka (0x20)
 - D 3 - - - 0x01F8DA 07:F8CA: 90 F5     .word $F590 ; Cobblestone
 - D 3 - - - 0x01F8DC 07:F8CC: 90 F5     .word $F590 ; The bird
 - D 3 - - - 0x01F8DE 07:F8CE: 90 F5     .word $F590 ; The bird with a bomb
-- D 3 - - - 0x01F8E0 07:F8D0: A2 F3     .word $F3A2 ; Skeleton 
+- D 3 - - - 0x01F8E0 07:F8D0: A2 F3     .addr enemy_F3A2 ; Skeleton 
 - D 3 - - - 0x01F8E2 07:F8D2: 62 F7     .word $F762 ; Diver
-- D 3 - - - 0x01F8E4 07:F8D4: A2 F3     .word $F3A2 ; Mummy
+- D 3 - - - 0x01F8E4 07:F8D4: A2 F3     .addr enemy_F3A2 ; Mummy
 - D 3 - - - 0x01F8E6 07:F8D6: 3E F4     .word $F43E ; Gargoyle
 - D 3 - - - 0x01F8E8 07:F8D8: 81 F7     .word $F781 ; Boss
 - - - - - - 0x01F8EA 07:F8DA: 87 F8     .word $F887 ; ???
@@ -8695,10 +8701,10 @@ tbl_F888:
 - D 3 - - - 0x01F8FC 07:F8EC: E7 F6     .word $F6E7 ; Breaking platform
 - D 3 - - - 0x01F8FE 07:F8EE: 34 F6     .word $F634 ; Blade trap
 - D 3 - - - 0x01F900 07:F8F0: 90 F5     .word $F590 ; Potted snakes
-- D 3 - - - 0x01F902 07:F8F2: A2 F3     .word $F3A2 ; Egyptian with bow
-- D 3 - - - 0x01F904 07:F8F4: A2 F3     .word $F3A2 ; Egyptian with a sword
-- D 3 - - - 0x01F906 07:F8F6: A2 F3     .word $F3A2 ; Egyptian with a boomerung
-- D 3 - - - 0x01F908 07:F8F8: A2 F3     .word $F3A2 ; Ninja upside down
+- D 3 - - - 0x01F902 07:F8F2: A2 F3     .addr enemy_F3A2 ; Egyptian with bow
+- D 3 - - - 0x01F904 07:F8F4: A2 F3     .addr enemy_F3A2 ; Egyptian with a sword
+- D 3 - - - 0x01F906 07:F8F6: A2 F3     .addr enemy_F3A2 ; Egyptian with a boomerung
+- D 3 - - - 0x01F908 07:F8F8: A2 F3     .addr enemy_F3A2 ; Ninja upside down
 - D 3 - - - 0x01F90A 07:F8FA: 34 F6     .word $F634 ; Sensor
 tbl_F8FC:
 - D 3 - - - 0x01F90C 07:F8FC: 02        .byte $02   ; 
@@ -8723,30 +8729,34 @@ tbl_F8FC:
 - D 3 - - - 0x01F91F 07:F90F: 33        .byte $33   ; 
 - D 3 - - - 0x01F920 07:F910: 34        .byte $34   ; 
 - D 3 - - - 0x01F921 07:F911: 39        .byte $39   ; 
-bra_F912:
-C - - - - - 0x01F922 07:F912: C8        INY
-bra_F913:
-C - - - - - 0x01F923 07:F913: C8        INY
-bra_F914:
-C - - - - - 0x01F924 07:F914: C8        INY
-C - - - - - 0x01F925 07:F915: C8        INY
-C - - - - - 0x01F926 07:F916: C8        INY
-C - - - - - 0x01F927 07:F917: 4C 21 F9  JMP loc_F921
+
+bra_F912_inc_next_set:
+C - - - - - 0x01F922 07:F912: C8        INY ; 2nd of 5 bytes
+bra_F913_inc_next_set:
+C - - - - - 0x01F923 07:F913: C8        INY ; 3rd of 5 bytes
+bra_F914_inc_next_set:
+C - - - - - 0x01F924 07:F914: C8        INY ; 4th of 5 bytes
+C - - - - - 0x01F925 07:F915: C8        INY ; 5th of 5 bytes
+C - - - - - 0x01F926 07:F916: C8        INY ; next the set of bytes
+C - - - - - 0x01F927 07:F917: 4C 21 F9  JMP loc_F921_next_set
+
+; Return the carry status (analog return true or false)
 sub_F91A:
 C - - - - - 0x01F92A 07:F91A: 8A        TXA
 C - - - - - 0x01F92B 07:F91B: 48        PHA
 C - - - - - 0x01F92C 07:F91C: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
-C - - - - - 0x01F92F 07:F91F: A0 00     LDY #$00
-loc_F921:
+C - - - - - 0x01F92F 07:F91F: A0 00     LDY #$00 ; 1st of 5 bytes
+loc_F921_next_set:
 C D 3 - - - 0x01F931 07:F921: B1 BD     LDA (ram_00BD),Y
-C - - - - - 0x01F933 07:F923: 10 03     BPL bra_F928
+C - - - - - 0x01F933 07:F923: 10 03     BPL bra_F928_skip ; If Register A < 0xF0
 bra_F925:
-C - - - - - 0x01F935 07:F925: 4C C9 F9  JMP loc_F9C9
-bra_F928:
+C - - - - - 0x01F935 07:F925: 4C C9 F9  JMP loc_F9C9_safe_return
+
+bra_F928_skip:
 C - - - - - 0x01F938 07:F928: 85 00     STA ram_0000
 C - - - - - 0x01F93A 07:F92A: 29 0F     AND #$0F
-C - - - - - 0x01F93C 07:F92C: C5 68     CMP ram_0068
-C - - - - - 0x01F93E 07:F92E: 90 E2     BCC bra_F912
+C - - - - - 0x01F93C 07:F92C: C5 68     CMP v_no_screen
+C - - - - - 0x01F93E 07:F92E: 90 E2     BCC bra_F912_inc_next_set
 C - - - - - 0x01F940 07:F930: D0 F3     BNE bra_F925
 C - - - - - 0x01F942 07:F932: A5 00     LDA ram_0000
 C - - - - - 0x01F944 07:F934: 29 40     AND #$40
@@ -8754,38 +8764,38 @@ C - - - - - 0x01F946 07:F936: 18        CLC
 C - - - - - 0x01F947 07:F937: 69 7F     ADC #$7F
 C - - - - - 0x01F949 07:F939: 85 AD     STA ram_00AD
 C - - - - - 0x01F94B 07:F93B: C5 6A     CMP ram_006A
-C - - - - - 0x01F94D 07:F93D: D0 D3     BNE bra_F912
+C - - - - - 0x01F94D 07:F93D: D0 D3     BNE bra_F912_inc_next_set
 C - - - - - 0x01F94F 07:F93F: A2 08     LDX #$08
 C - - - - - 0x01F951 07:F941: A5 00     LDA ram_0000
 C - - - - - 0x01F953 07:F943: 29 20     AND #$20
-C - - - - - 0x01F955 07:F945: F0 02     BEQ bra_F949
+C - - - - - 0x01F955 07:F945: F0 02     BEQ @bra_F949_skip
 C - - - - - 0x01F957 07:F947: A2 0C     LDX #$0C
-bra_F949:
+@bra_F949_skip:
 C - - - - - 0x01F959 07:F949: 86 01     STX ram_0001
-C - - - - - 0x01F95B 07:F94B: C8        INY
+C - - - - - 0x01F95B 07:F94B: C8        INY ; 2nd of 5 bytes
 C - - - - - 0x01F95C 07:F94C: B1 BD     LDA (ram_00BD),Y
 C - - - - - 0x01F95E 07:F94E: 38        SEC
 C - - - - - 0x01F95F 07:F94F: E5 66     SBC ram_0066
-C - - - - - 0x01F961 07:F951: B0 03     BCS bra_F956
+C - - - - - 0x01F961 07:F951: B0 03     BCS @bra_F956_skip
 C - - - - - 0x01F963 07:F953: 20 73 D0  JSR sub_D073
-bra_F956:
+@bra_F956_skip:
 C - - - - - 0x01F966 07:F956: 84 C1     STY ram_00C1
 C - - - - - 0x01F968 07:F958: C6 C1     DEC ram_00C1
 C - - - - - 0x01F96A 07:F95A: C5 01     CMP ram_0001
-C - - - - - 0x01F96C 07:F95C: B0 B5     BCS bra_F913
-C - - - - - 0x01F96E 07:F95E: C8        INY
+C - - - - - 0x01F96C 07:F95C: B0 B5     BCS bra_F913_inc_next_set
+C - - - - - 0x01F96E 07:F95E: C8        INY ; 3rd of 5 bytes
 C - - - - - 0x01F96F 07:F95F: B1 BD     LDA (ram_00BD),Y
 C - - - - - 0x01F971 07:F961: 85 C6     STA ram_00C6
-C - - - - - 0x01F973 07:F963: 10 0E     BPL bra_F973
-C - - - - - 0x01F975 07:F965: C8        INY
+C - - - - - 0x01F973 07:F963: 10 0E     BPL @bra_F973_skip
+C - - - - - 0x01F975 07:F965: C8        INY ; 4th of 5 bytes
 C - - - - - 0x01F976 07:F966: B1 BD     LDA (ram_00BD),Y
 C - - - - - 0x01F978 07:F968: AA        TAX
-C - - - - - 0x01F979 07:F969: 88        DEY
+C - - - - - 0x01F979 07:F969: 88        DEY ; 3rd of 5 bytes
 C - - - - - 0x01F97A 07:F96A: BD 00 05  LDA ram_0500,X
 C - - - - - 0x01F97D 07:F96D: 85 B5     STA ram_00B5
 C - - - - - 0x01F97F 07:F96F: 29 40     AND #$40
-C - - - - - 0x01F981 07:F971: D0 A1     BNE bra_F914
-bra_F973:
+C - - - - - 0x01F981 07:F971: D0 A1     BNE bra_F914_inc_next_set
+@bra_F973_skip:
 C - - - - - 0x01F983 07:F973: B1 BD     LDA (ram_00BD),Y
 C - - - - - 0x01F985 07:F975: 85 00     STA ram_0000
 C - - - - - 0x01F987 07:F977: 29 0F     AND #$0F
@@ -8794,7 +8804,7 @@ C - - - - - 0x01F98B 07:F97B: 24 00     BIT ram_0000
 C - - - - - 0x01F98D 07:F97D: 50 3C     BVC bra_F9BB
 C - - - - - 0x01F98F 07:F97F: A9 00     LDA #$00
 C - - - - - 0x01F991 07:F981: 85 C4     STA ram_00C4
-C - - - - - 0x01F993 07:F983: C8        INY
+C - - - - - 0x01F993 07:F983: C8        INY ; 4th of 5 bytes
 C - - - - - 0x01F994 07:F984: B1 BD     LDA (ram_00BD),Y
 C - - - - - 0x01F996 07:F986: AA        TAX
 C - - - - - 0x01F997 07:F987: BD 00 05  LDA v_rooms,X
@@ -8807,29 +8817,29 @@ C - - - - - 0x01F9A4 07:F994: 68        PLA
 C - - - - - 0x01F9A5 07:F995: 29 3F     AND #$3F
 C - - - - - 0x01F9A7 07:F997: 85 B6     STA ram_00B6
 C - - - - - 0x01F9A9 07:F999: C9 10     CMP #$10
-C - - - - - 0x01F9AB 07:F99B: 90 17     BCC bra_F9B4_skip
+C - - - - - 0x01F9AB 07:F99B: 90 17     BCC @bra_F9B4_skip
 C - - - - - 0x01F9AD 07:F99D: C9 20     CMP #$20
-C - - - - - 0x01F9AF 07:F99F: B0 13     BCS bra_F9B4_skip
-C - - - - - 0x01F9B1 07:F9A1: 84 11     STY ram_0011
+C - - - - - 0x01F9AF 07:F99F: B0 13     BCS @bra_F9B4_skip
+C - - - - - 0x01F9B1 07:F9A1: 84 11     STY v_cache_reg_y
 C - - - - - 0x01F9B3 07:F9A3: 29 07     AND #$07
 C - - - - - 0x01F9B5 07:F9A5: 85 B9     STA ram_00B9
 C - - - - - 0x01F9B7 07:F9A7: A8        TAY
 C - - - - - 0x01F9B8 07:F9A8: B1 BA     LDA (ram_00BA),Y
 C - - - - - 0x01F9BA 07:F9AA: 85 C4     STA ram_00C4
 C - - - - - 0x01F9BC 07:F9AC: 20 DA FB  JSR sub_FBDA
-C - - - - - 0x01F9BF 07:F9AF: A4 11     LDY ram_0011
+C - - - - - 0x01F9BF 07:F9AF: A4 11     LDY v_cache_reg_y
 C - - - - - 0x01F9C1 07:F9B1: 4C C0 F9  JMP loc_F9C0
-bra_F9B4_skip:
+@bra_F9B4_skip:
 C - - - - - 0x01F9C4 07:F9B4: A9 00     LDA #$00
 C - - - - - 0x01F9C6 07:F9B6: 85 B6     STA ram_00B6
 C - - - - - 0x01F9C8 07:F9B8: 4C C0 F9  JMP loc_F9C0
 
 bra_F9BB:
-C - - - - - 0x01F9CB 07:F9BB: C8        INY
+C - - - - - 0x01F9CB 07:F9BB: C8        INY ; 4th of 5 bytes
 C - - - - - 0x01F9CC 07:F9BC: B1 BD     LDA (ram_00BD),Y
 C - - - - - 0x01F9CE 07:F9BE: 85 C4     STA ram_00C4
 loc_F9C0:
-C D 3 - - - 0x01F9D0 07:F9C0: C8        INY
+C D 3 - - - 0x01F9D0 07:F9C0: C8        INY ; 5th of 5 bytes
 C - - - - - 0x01F9D1 07:F9C1: B1 BD     LDA (ram_00BD),Y
 C - - - - - 0x01F9D3 07:F9C3: 85 B7     STA ram_00B7
 C - - - - - 0x01F9D5 07:F9C5: 68        PLA
@@ -8837,25 +8847,25 @@ C - - - - - 0x01F9D6 07:F9C6: AA        TAX
 C - - - - - 0x01F9D7 07:F9C7: 38        SEC
 C - - - - - 0x01F9D8 07:F9C8: 60        RTS
 
-bra_F9C9:
-loc_F9C9:
+bra_F9C9_safe_return:
+loc_F9C9_safe_return:
 C D 3 - - - 0x01F9D9 07:F9C9: 68        PLA
-C - - - - - 0x01F9DA 07:F9CA: AA        TAX
+C - - - - - 0x01F9DA 07:F9CA: AA        TAX ; retrieve x
 C - - - - - 0x01F9DB 07:F9CB: 18        CLC
 C - - - - - 0x01F9DC 07:F9CC: 60        RTS
 
 sub_F9CD:
 C - - - - - 0x01F9DD 07:F9CD: 8A        TXA
-C - - - - - 0x01F9DE 07:F9CE: 48        PHA
+C - - - - - 0x01F9DE 07:F9CE: 48        PHA ; store x
 C - - - - - 0x01F9DF 07:F9CF: BD AA 03  LDA ram_03AA,X
 C - - - - - 0x01F9E2 07:F9D2: C9 BF     CMP #$BF
-C - - - - - 0x01F9E4 07:F9D4: D0 F3     BNE bra_F9C9
+C - - - - - 0x01F9E4 07:F9D4: D0 F3     BNE bra_F9C9_safe_return
 C - - - - - 0x01F9E6 07:F9D6: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01F9E9 07:F9D9: A0 00     LDY #$00 ; 1st of 5 bytes
-bra_F9DB:
+bra_F9DB_next_set:
 C - - - - - 0x01F9EB 07:F9DB: B1 BF     LDA (ram_00BF),Y
 C - - - - - 0x01F9ED 07:F9DD: C9 FF     CMP #$FF
-C - - - - - 0x01F9EF 07:F9DF: F0 E8     BEQ bra_F9C9
+C - - - - - 0x01F9EF 07:F9DF: F0 E8     BEQ bra_F9C9_safe_return
 C - - - - - 0x01F9F1 07:F9E1: 38        SEC
 C - - - - - 0x01F9F2 07:F9E2: ED B6 03  SBC ram_03B6
 C - - - - - 0x01F9F5 07:F9E5: 85 00     STA ram_0000
@@ -8870,10 +8880,10 @@ C - - - - - 0x01FA06 07:F9F6: 85 00     STA ram_0000
 C - - - - - 0x01FA08 07:F9F8: A5 01     LDA ram_0001
 C - - - - - 0x01FA0A 07:F9FA: C9 FF     CMP #$FF
 bra_F9FC:
-C - - - - - 0x01FA0C 07:F9FC: D0 22     BNE bra_FA20
+C - - - - - 0x01FA0C 07:F9FC: D0 22     BNE bra_FA20_inc_next_set
 C - - - - - 0x01FA0E 07:F9FE: A5 00     LDA ram_0000
 C - - - - - 0x01FA10 07:FA00: C9 08     CMP #$08
-C - - - - - 0x01FA12 07:FA02: B0 1C     BCS bra_FA20
+C - - - - - 0x01FA12 07:FA02: B0 1C     BCS bra_FA20_inc_next_set
 C - - - - - 0x01FA14 07:FA04: C8        INY ; 3rd of 5 bytes
 C - - - - - 0x01FA15 07:FA05: B1 BF     LDA (ram_00BF),Y
 C - - - - - 0x01FA17 07:FA07: 85 C3     STA ram_00C3
@@ -8891,14 +8901,15 @@ C - - - - - 0x01FA2D 07:FA1D: 68        PLA
 C - - - - - 0x01FA2E 07:FA1E: AA        TAX
 C - - - - - 0x01FA2F 07:FA1F: 60        RTS
 
-bra_FA20:
-C - - - - - 0x01FA30 07:FA20: C8        INY
-C - - - - - 0x01FA31 07:FA21: C8        INY
-C - - - - - 0x01FA32 07:FA22: C8        INY
-C - - - - - 0x01FA33 07:FA23: C8        INY
-C - - - - - 0x01FA34 07:FA24: D0 B5     BNE bra_F9DB
+bra_FA20_inc_next_set:
+C - - - - - 0x01FA30 07:FA20: C8        INY ; 3rd of 5 bytes
+C - - - - - 0x01FA31 07:FA21: C8        INY ; 4th of 5 bytes
+C - - - - - 0x01FA32 07:FA22: C8        INY ; 5th of 5 bytes
+C - - - - - 0x01FA33 07:FA23: C8        INY ; next the set of bytes
+C - - - - - 0x01FA34 07:FA24: D0 B5     BNE bra_F9DB_next_set
 bra_FA26_RTS:
 C - - - - - 0x01FA36 07:FA26: 60        RTS
+
 sub_FA27:
 C - - - - - 0x01FA37 07:FA27: A5 C6     LDA ram_00C6
 C - - - - - 0x01FA39 07:FA29: 30 FB     BMI bra_FA26_RTS

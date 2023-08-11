@@ -43,6 +43,7 @@ BIT_USING_WHITE_BRIEFCASE             = %10000000
 
 v_CF76_counter                = ram_0005
 v_CE5A_counter                = ram_0005
+v_cache_reg_y                 = ram_0011
 v_temp_check_buttons          = ram_0012 ; There is a variable that stores the checked state of the button
 v_sub_AF4D_counter            = ram_001A ; Intermediate counter
 v_btn_pressed_in_game         = ram_001C ; In a level 1-4 or a title screen
@@ -266,6 +267,7 @@ v_no_level                    = ram_005E ; It is a number of a level than it sta
 ; 0x01 - level 2
 ; 0x02 - level 3
 ; 0x03 - level 4 + racing
+v_no_screen                   = ram_0068 ; The number of 1 of 4 screen (name tables)
 v_chr_status                  = ram_006C ; A status of a character
 ; 0x00000001 - the character is looking to the left
 ; 0x00000010 - the character is sitting
@@ -276,12 +278,10 @@ v_count_secret_hits           = ram_00B2 ; Stage select codes at the title scree
 v_lock_secret_hits            = ram_00B3 ; Allow button to be pressed only when other buttons aren't pressed
 v_offset_in_secret_codes      = ram_00B4
 v_tmp_target_room             = ram_00BC
-
-; ram_00BD low address
-; ram_00BE hign address
-; ram_00BF low address
-; ram_00C0 hign address
-
+v_low_corridor_address        = ram_00BD
+v_high_corridor_address       = ram_00BE
+v_low_destr_wall_address      = ram_00BF
+v_high_destr_wall_address     = ram_00C0
 v_low_msg_ppu_address         = ram_00CF ; This temporary address for the message on the screen
 v_high_msg_ppu_address        = ram_00D0
 v_letter_offset               = ram_00C9
