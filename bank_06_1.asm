@@ -3288,8 +3288,9 @@ C - - - - - 0x019631 06:B621: D0 02     BNE bra_B625
 C - - - - - 0x019633 06:B623: A0 08     LDY #$08
 bra_B625:
 C - - - - - 0x019635 06:B625: 4C 06 B4  JMP loc_B406
+
 bra_B628:
-C - - - - - 0x019638 06:B628: 20 D5 D7  JSR $D7D5
+C - - - - - 0x019638 06:B628: 20 D5 D7  JSR $D7D5 ; to sub_D7D5 (bank FF)
 C - - - - - 0x01963B 06:B62B: D0 D7     BNE bra_B604
 C - - - - - 0x01963D 06:B62D: A9 18     LDA #$18
 C - - - - - 0x01963F 06:B62F: 9D 4A 03  STA ram_034A,X

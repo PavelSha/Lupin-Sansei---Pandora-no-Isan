@@ -45,6 +45,7 @@ v_CF76_counter                = ram_0005
 v_CE5A_counter                = ram_0005
 v_cache_reg_y                 = ram_0011
 v_temp_check_buttons          = ram_0012 ; There is a variable that stores the checked state of the button
+v_temp_counter12              = ram_0012
 v_sub_AF4D_counter            = ram_001A ; Intermediate counter
 v_btn_pressed_in_game         = ram_001C ; In a level 1-4 or a title screen
 v_copy_001C                   = ram_001D
@@ -286,8 +287,12 @@ v_low_msg_ppu_address         = ram_00CF ; This temporary address for the messag
 v_high_msg_ppu_address        = ram_00D0
 v_letter_offset               = ram_00C9
 v_last_level                  = ram_0109 ; It is a last played level.
-v_bomb_on_screen              = ram_039E
-v_bank_data                   = ram_06B5
+v_items                       = ram_0200 ; 0x0200-0x0208
+v_radio_item                  = ram_0200
+v_breathing_apparatus_item    = ram_0205
+v_helium_balloon_item         = ram_0206
+v_bullet_proof_vest_item      = ram_0207
+v_ruby_ring                   = ram_0208
 v_array_white_briefcase       = ram_0219
 v_enemies                     = ram_0300
 ; 0x00 - Nobody
@@ -351,12 +356,17 @@ v_enemies                     = ram_0300
 
 v_enemyA                      = ram_0300
 v_enemyB                      = ram_0301
-v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, C0 - briefcase, D0 - self item
+v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, 039E - screen
+; C0 - briefcase
+; D0 - self item
+v_bomb_on_screen              = ram_039E ; C2 - a bomb
+
 v_sound_counter               = ram_0406
 v_rooms                       = ram_0500
 ; flag 0x80 - the room has already been visited
 v_low_ppu_address             = ram_0630
 v_high_ppu_address            = ram_0631
+v_bank_data                   = ram_06B5
 v_sprite_magics               = ram_06B7
 v_sprite_magic1               = ram_06B7
 v_sprite_magic2               = ram_06B8
