@@ -5,6 +5,7 @@
 
 .import tbl_ptr_rooms_with_NPCs ; bank 04 (Page 2)
 .import tbl_ptr_briefcases_outside ; bank 04 (Page 2)
+.import tbl_briefcases_indexex_on_the_level ; bank 04 (Page 2)
 .import sub_EF4F_switch_bank_4_p2 ; bank FF
 .import sub_F2D6_try_put_briefcase ; bank FF
 
@@ -2392,7 +2393,7 @@ C - - - - - 0x01AF96 06:AF86: BD C8 03  LDA ram_03C8,X
 C - - - - - 0x01AF99 06:AF89: D0 3B     BNE bra_AFC6
 C - - - - - 0x01AF9B 06:AF8B: 20 42 D6  JSR $D642
 C - - - - - 0x01AF9E 06:AF8E: 90 36     BCC bra_AFC6
-C - - - - - 0x01AFA0 06:AF90: BC 98 03  LDY ram_0398,X
+C - - - - - 0x01AFA0 06:AF90: BC 98 03  LDY v_briefcase_index,X
 C - - - - - 0x01AFA3 06:AF93: A5 6D     LDA ram_006D
 C - - - - - 0x01AFA5 06:AF95: 30 0B     BMI bra_AFA2
 C - - - - - 0x01AFA7 06:AF97: B9 19 02  LDA v_array_white_briefcase,Y
@@ -2452,7 +2453,7 @@ sub_AFEF:
 loc_AFEF:
 C D 1 - - - 0x01AFFF 06:AFEF: A9 00     LDA #$00
 C - - - - - 0x01B001 06:AFF1: 9D 9E 03  STA v_item_on_screen,X ; A character picked up an item.
-C - - - - - 0x01B004 06:AFF4: 9D 98 03  STA ram_0398,X
+C - - - - - 0x01B004 06:AFF4: 9D 98 03  STA v_briefcase_index,X
 C - - - - - 0x01B007 06:AFF7: 60        RTS
 
 sub_AFF8:
@@ -2474,7 +2475,7 @@ C - - - - - 0x01B025 06:B015: A5 6D     LDA ram_006D
 C - - - - - 0x01B027 06:B017: 10 03     BPL bra_B01C
 C - - - - - 0x01B029 06:B019: 20 57 B0  JSR sub_B057
 bra_B01C:
-C - - - - - 0x01B02C 06:B01C: BD 98 03  LDA ram_0398,X
+C - - - - - 0x01B02C 06:B01C: BD 98 03  LDA v_briefcase_index,X
 C - - - - - 0x01B02F 06:B01F: A4 6D     LDY ram_006D
 C - - - - - 0x01B031 06:B021: 30 06     BMI bra_B029
 C - - - - - 0x01B033 06:B023: A8        TAY
@@ -2548,11 +2549,11 @@ C - - - - - 0x01B0A9 06:B099: 60        RTS
 
 sub_B09A: ; from bank FF
 C - - - - - 0x01B0AA 06:B09A: A2 05     LDX #$05
-bra_B09C:
-C - - - - - 0x01B0AC 06:B09C: BD 9E 03  LDA ram_039E,X
+bra_B09C_loop:                                         ; loop by x
+C - - - - - 0x01B0AC 06:B09C: BD 9E 03  LDA v_item_on_screen,X
 C - - - - - 0x01B0AF 06:B09F: 10 04     BPL bra_B0A5
 C - - - - - 0x01B0B1 06:B0A1: CA        DEX
-C - - - - - 0x01B0B2 06:B0A2: D0 F8     BNE bra_B09C
+C - - - - - 0x01B0B2 06:B0A2: D0 F8     BNE bra_B09C_loop ; If register X > 0
 bra_B0A4_RTS:
 C - - - - - 0x01B0B4 06:B0A4: 60        RTS
 
@@ -2576,13 +2577,13 @@ C - - - - - 0x01B0D3 06:B0C3: B9 9F 84  LDA tbl_ptr_briefcases_outside + 1,Y
 C - - - - - 0x01B0D6 06:B0C6: 85 13     STA ram_0013 ; High address
 C - - - - - 0x01B0D8 06:B0C8: A9 01     LDA #$01
 C - - - - - 0x01B0DA 06:B0CA: 20 D6 F2  JSR sub_F2D6_try_put_briefcase ; bank FF
-C - - - - - 0x01B0DD 06:B0CD: 90 D5     BCC bra_B0A4_RTS
-C - - - - - 0x01B0DF 06:B0CF: A4 0A     LDY ram_000A
-C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA v_array_white_briefcase,Y
-C - - - - - 0x01B0E4 06:B0D4: 30 CE     BMI bra_B0A4_RTS
+C - - - - - 0x01B0DD 06:B0CD: 90 D5     BCC bra_B0A4_RTS              ; If a briefcase doesn't put
+C - - - - - 0x01B0DF 06:B0CF: A4 0A     LDY ram_000A                  ; load index of a briefcase
+C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA v_array_white_briefcase,Y ; load an item (inside a briefcase)
+C - - - - - 0x01B0E4 06:B0D4: 30 CE     BMI bra_B0A4_RTS ; If the item is got
 C - - - - - 0x01B0E6 06:B0D6: A0 05     LDY #$05
-bra_B0D8:
-C - - - - - 0x01B0E8 06:B0D8: B9 9E 03  LDA ram_039E,Y
+bra_B0D8_loop:                                         ; loop by y (5 times)
+C - - - - - 0x01B0E8 06:B0D8: B9 9E 03  LDA v_item_on_screen,Y
 C - - - - - 0x01B0EB 06:B0DB: 10 14     BPL bra_B0F1
 C - - - - - 0x01B0ED 06:B0DD: B9 B6 03  LDA ram_03B6,Y
 C - - - - - 0x01B0F0 06:B0E0: 38        SEC
@@ -2595,9 +2596,9 @@ C - - - - - 0x01B0FD 06:B0ED: C5 02     CMP ram_0002
 C - - - - - 0x01B0FF 06:B0EF: F0 B3     BEQ bra_B0A4_RTS
 bra_B0F1:
 C - - - - - 0x01B101 06:B0F1: 88        DEY
-C - - - - - 0x01B102 06:B0F2: D0 E4     BNE bra_B0D8
-C - - - - - 0x01B104 06:B0F4: A9 C0     LDA #$C0
-C - - - - - 0x01B106 06:B0F6: 9D 9E 03  STA ram_039E,X
+C - - - - - 0x01B102 06:B0F2: D0 E4     BNE bra_B0D8_loop ; If register Y > 0
+C - - - - - 0x01B104 06:B0F4: A9 C0     LDA #$C0          ; CONSTANT: The item is in the briefcase, i.e. it's hidden
+C - - - - - 0x01B106 06:B0F6: 9D 9E 03  STA v_item_on_screen,X
 C - - - - - 0x01B109 06:B0F9: A9 03     LDA #$03
 loc_B0FB:
 C D 1 - - - 0x01B10B 06:B0FB: 9D A4 03  STA ram_03A4,X
@@ -2608,7 +2609,7 @@ C - - - - - 0x01B115 06:B105: 9D B6 03  STA ram_03B6,X
 C - - - - - 0x01B118 06:B108: A5 02     LDA ram_0002
 C - - - - - 0x01B11A 06:B10A: 9D AA 03  STA ram_03AA,X
 C - - - - - 0x01B11D 06:B10D: A5 0A     LDA ram_000A
-C - - - - - 0x01B11F 06:B10F: 9D 98 03  STA ram_0398,X
+C - - - - - 0x01B11F 06:B10F: 9D 98 03  STA v_briefcase_index,X ; load index of a briefcase
 bra_B112_RTS:
 C - - - - - 0x01B122 06:B112: 60        RTS
 
@@ -2699,7 +2700,7 @@ C - - - - - 0x01B1B3 06:B1A3: 18        CLC
 C - - - - - 0x01B1B4 06:B1A4: 65 12     ADC ram_0012
 C - - - - - 0x01B1B6 06:B1A6: A8        TAY
 C - - - - - 0x01B1B7 06:B1A7: A2 05     LDX #$05
-bra_B1A9:
+bra_B1A9_loop:                                         ; loop by x (5 times)
 C - - - - - 0x01B1B9 06:B1A9: B9 36 81  LDA $8136,Y
 C - - - - - 0x01B1BC 06:B1AC: 9D AA 03  STA ram_03AA,X
 C - - - - - 0x01B1BF 06:B1AF: C8        INY
@@ -2711,13 +2712,13 @@ C - - - - - 0x01B1CB 06:B1BB: A9 03     LDA #$03
 C - - - - - 0x01B1CD 06:B1BD: 9D A4 03  STA ram_03A4,X
 C - - - - - 0x01B1D0 06:B1C0: C8        INY
 C - - - - - 0x01B1D1 06:B1C1: CA        DEX
-C - - - - - 0x01B1D2 06:B1C2: D0 E5     BNE bra_B1A9
+C - - - - - 0x01B1D2 06:B1C2: D0 E5     BNE bra_B1A9_loop
 C - - - - - 0x01B1D4 06:B1C4: A5 5E     LDA v_no_level
 C - - - - - 0x01B1D6 06:B1C6: 0A        ASL
 C - - - - - 0x01B1D7 06:B1C7: A8        TAY
-C - - - - - 0x01B1D8 06:B1C8: B9 2E 81  LDA $812E,Y
+C - - - - - 0x01B1D8 06:B1C8: B9 2E 81  LDA tbl_briefcases_indexex_on_the_level,Y
 C - - - - - 0x01B1DB 06:B1CB: 85 12     STA ram_0012
-C - - - - - 0x01B1DD 06:B1CD: B9 2F 81  LDA $812F,Y
+C - - - - - 0x01B1DD 06:B1CD: B9 2F 81  LDA tbl_briefcases_indexex_on_the_level + 1,Y
 C - - - - - 0x01B1E0 06:B1D0: 85 13     STA ram_0013
 C - - - - - 0x01B1E2 06:B1D2: A5 B7     LDA ram_00B7
 C - - - - - 0x01B1E4 06:B1D4: 0A        ASL
@@ -2726,24 +2727,24 @@ C - - - - - 0x01B1E6 06:B1D6: 18        CLC
 C - - - - - 0x01B1E7 06:B1D7: 65 B7     ADC ram_00B7
 C - - - - - 0x01B1E9 06:B1D9: A8        TAY
 C - - - - - 0x01B1EA 06:B1DA: A2 05     LDX #$05
-bra_B1DC_repeat:
+bra_B1DC_loop:                                           ; loop by x (5 times)
 C - - - - - 0x01B1EC 06:B1DC: 84 11     STY ram_0011
 C - - - - - 0x01B1EE 06:B1DE: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01B1F0 06:B1E0: 9D 98 03  STA ram_0398,X
-C - - - - - 0x01B1F3 06:B1E3: F0 0A     BEQ bra_B1EF
+C - - - - - 0x01B1F0 06:B1E0: 9D 98 03  STA v_briefcase_index,X
+C - - - - - 0x01B1F3 06:B1E3: F0 0A     BEQ @bra_B1EF
 C - - - - - 0x01B1F5 06:B1E5: A8        TAY
 C - - - - - 0x01B1F6 06:B1E6: B9 19 02  LDA v_array_white_briefcase,Y
-C - - - - - 0x01B1F9 06:B1E9: 30 04     BMI bra_B1EF ; Go to branch, if the briefcase item is collected
+C - - - - - 0x01B1F9 06:B1E9: 30 04     BMI @bra_B1EF ; Go to branch, if the briefcase item is collected
 C - - - - - 0x01B1FB 06:B1EB: A9 C0     LDA #$C0 ; CONSTANT: The item is in the briefcase, i.e. it's hidden
-C - - - - - 0x01B1FD 06:B1ED: D0 02     BNE bra_B1F1
-bra_B1EF:
+C - - - - - 0x01B1FD 06:B1ED: D0 02     BNE @bra_B1F1
+@bra_B1EF:
 C - - - - - 0x01B1FF 06:B1EF: A9 00     LDA #$00
-bra_B1F1:
+@bra_B1F1:
 C - - - - - 0x01B201 06:B1F1: 9D 9E 03  STA v_item_on_screen,X ; Prepare memory for render briefcase
 C - - - - - 0x01B204 06:B1F4: A4 11     LDY ram_0011
 C - - - - - 0x01B206 06:B1F6: C8        INY
 C - - - - - 0x01B207 06:B1F7: CA        DEX
-C - - - - - 0x01B208 06:B1F8: D0 E2     BNE bra_B1DC_repeat
+C - - - - - 0x01B208 06:B1F8: D0 E2     BNE bra_B1DC_loop
 C - - - - - 0x01B20A 06:B1FA: 60        RTS
 
 C D 1 - - - 0x01B20B 06:B1FB: C6 73     DEC ram_0073

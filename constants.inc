@@ -294,6 +294,7 @@ v_helium_balloon_item         = ram_0206
 v_bullet_proof_vest_item      = ram_0207
 v_ruby_ring                   = ram_0208
 v_array_white_briefcase       = ram_0219
+; flag 0x80 - the item is got (see BIT_USING_WHITE_BRIEFCASE)
 v_enemies                     = ram_0300
 ; 0x00 - Nobody
 ; 0x01 - Cat with the weapon (level 3) (0x01 - knife, 0x81 - gun)
@@ -356,6 +357,7 @@ v_enemies                     = ram_0300
 
 v_enemyA                      = ram_0300
 v_enemyB                      = ram_0301
+v_briefcase_index             = ram_0398 ; [0399-039D]
 v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, 039E - screen
 ; C0 - briefcase
 ; D0 - self item
