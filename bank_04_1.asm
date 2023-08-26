@@ -453,36 +453,36 @@ tbl_ptr_corridors:
 - D 0 - - - 0x0101EC 04:81DC: 1C 9A     .word $9A1C
 - D 0 - - - 0x0101EE 04:81DE: 22 9A     .word $9A22
 - D 0 - - - 0x0101F0 04:81E0: 28 9A     .word $9A28
-- D 0 - - - 0x0101F2 04:81E2: 08 8F     .word $8F08
-- - - - - - 0x0101F4 04:81E4: 08 8F     .word $8F08
-- D 0 - - - 0x0101F6 04:81E6: 08 8F     .word $8F08
-- - - - - - 0x0101F8 04:81E8: 08 8F     .word $8F08
-- - - - - - 0x0101FA 04:81EA: 08 8F     .word $8F08
-- D 0 - - - 0x0101FC 04:81EC: 08 8F     .word $8F08
-- - - - - - 0x0101FE 04:81EE: 08 8F     .word $8F08
-- D 0 - - - 0x010200 04:81F0: 08 8F     .word $8F08
-- D 0 - - - 0x010202 04:81F2: 08 8F     .word $8F08
-- D 0 - - - 0x010204 04:81F4: 08 8F     .word $8F08
-- - - - - - 0x010206 04:81F6: 08 8F     .word $8F08
-- - - - - - 0x010208 04:81F8: 08 8F     .word $8F08
-- D 0 - - - 0x01020A 04:81FA: 08 8F     .word $8F08
-- D 0 - - - 0x01020C 04:81FC: 08 8F     .word $8F08
-- D 0 - - - 0x01020E 04:81FE: 08 8F     .word $8F08
-- - - - - - 0x010210 04:8200: 08 8F     .word $8F08
-- - - - - - 0x010212 04:8202: 08 8F     .word $8F08
-- - - - - - 0x010214 04:8204: 08 8F     .word $8F08
-- D 0 - - - 0x010216 04:8206: 08 8F     .word $8F08
-- D 0 - - - 0x010218 04:8208: 08 8F     .word $8F08
-- D 0 - - - 0x01021A 04:820A: 08 8F     .word $8F08
-- D 0 - - - 0x01021C 04:820C: 08 8F     .word $8F08
-- - - - - - 0x01021E 04:820E: 08 8F     .word $8F08
-- - - - - - 0x010220 04:8210: 08 8F     .word $8F08
-- D 0 - - - 0x010222 04:8212: 08 8F     .word $8F08
-- D 0 - - - 0x010224 04:8214: 08 8F     .word $8F08
-- D 0 - - - 0x010226 04:8216: 08 8F     .word $8F08
-- D 0 - - - 0x010228 04:8218: 08 8F     .word $8F08
-- D 0 - - - 0x01022A 04:821A: 08 8F     .word $8F08
-- D 0 - - - 0x01022C 04:821C: 08 8F     .word $8F08
+- D 0 - - - 0x0101F2 04:81E2: 08 8F     .addr deadlock ; CPU address 81E2
+- - - - - - 0x0101F4 04:81E4: 08 8F     .addr deadlock ; CPU address 81E4
+- D 0 - - - 0x0101F6 04:81E6: 08 8F     .addr deadlock ; CPU address 81E6
+- - - - - - 0x0101F8 04:81E8: 08 8F     .addr deadlock ; CPU address 81E8
+- - - - - - 0x0101FA 04:81EA: 08 8F     .addr deadlock ; CPU address 81EA
+- D 0 - - - 0x0101FC 04:81EC: 08 8F     .addr deadlock ; CPU address 81EC
+- - - - - - 0x0101FE 04:81EE: 08 8F     .addr deadlock ; CPU address 81EE
+- D 0 - - - 0x010200 04:81F0: 08 8F     .addr deadlock ; CPU address 81F0
+- D 0 - - - 0x010202 04:81F2: 08 8F     .addr deadlock ; CPU address 81F2
+- D 0 - - - 0x010204 04:81F4: 08 8F     .addr deadlock ; CPU address 81F4
+- - - - - - 0x010206 04:81F6: 08 8F     .addr deadlock ; CPU address 81F6
+- - - - - - 0x010208 04:81F8: 08 8F     .addr deadlock ; CPU address 81F8
+- D 0 - - - 0x01020A 04:81FA: 08 8F     .addr deadlock ; CPU address 81FA
+- D 0 - - - 0x01020C 04:81FC: 08 8F     .addr deadlock ; CPU address 81FC
+- D 0 - - - 0x01020E 04:81FE: 08 8F     .addr deadlock ; CPU address 81FE
+- - - - - - 0x010210 04:8200: 08 8F     .addr deadlock ; CPU address 8200
+- - - - - - 0x010212 04:8202: 08 8F     .addr deadlock ; CPU address 8202
+- - - - - - 0x010214 04:8204: 08 8F     .addr deadlock ; CPU address 8204
+- D 0 - - - 0x010216 04:8206: 08 8F     .addr deadlock ; CPU address 8206
+- D 0 - - - 0x010218 04:8208: 08 8F     .addr deadlock ; CPU address 8208
+- D 0 - - - 0x01021A 04:820A: 08 8F     .addr deadlock ; CPU address 820A
+- D 0 - - - 0x01021C 04:820C: 08 8F     .addr deadlock ; CPU address 820C
+- - - - - - 0x01021E 04:820E: 08 8F     .addr deadlock ; CPU address 820E
+- - - - - - 0x010220 04:8210: 08 8F     .addr deadlock ; CPU address 8210
+- D 0 - - - 0x010222 04:8212: 08 8F     .addr deadlock ; CPU address 8212
+- D 0 - - - 0x010224 04:8214: 08 8F     .addr deadlock ; CPU address 8214
+- D 0 - - - 0x010226 04:8216: 08 8F     .addr deadlock ; CPU address 8216
+- D 0 - - - 0x010228 04:8218: 08 8F     .addr deadlock ; CPU address 8218
+- D 0 - - - 0x01022A 04:821A: 08 8F     .addr deadlock ; CPU address 821A
+- D 0 - - - 0x01022C 04:821C: 08 8F     .addr deadlock ; CPU address 821C
 - D 0 - - - 0x01022E 04:821E: AD 93     .word $93AD
 - D 0 - - - 0x010230 04:8220: BD 93     .word $93BD
 - D 0 - - - 0x010232 04:8222: CD 93     .word $93CD
@@ -545,13 +545,13 @@ tbl_ptr_corridors:
 - D 0 - - - 0x0102A4 04:8294: 05 9A     .addr tbl_ptr_corridors_level4_map4_f4_f5 ; CPU address $9A05
 
 tbl_ptr_destructible_walls:
-- D 0 - - - 0x0102A6 04:8296: 08 8F     .word $8F08
-- - - - - - 0x0102A8 04:8298: 08 8F     .word $8F08
-- - - - - - 0x0102AA 04:829A: 08 8F     .word $8F08
-- D 0 - - - 0x0102AC 04:829C: 08 8F     .word $8F08
+- D 0 - - - 0x0102A6 04:8296: 08 8F     .addr deadlock ; CPU address 8296
+- - - - - - 0x0102A8 04:8298: 08 8F     .addr deadlock ; CPU address 8298
+- - - - - - 0x0102AA 04:829A: 08 8F     .addr deadlock ; CPU address 829A
+- D 0 - - - 0x0102AC 04:829C: 08 8F     .addr deadlock ; CPU address 829C
 - D 0 - - - 0x0102AE 04:829E: 2E 9A     .word $9A2E ; Level 1.2
 - D 0 - - - 0x0102B0 04:82A0: 34 9A     .word $9A34 ; Level 1.3
-- D 0 - - - 0x0102B2 04:82A2: 08 8F     .word $8F08
+- D 0 - - - 0x0102B2 04:82A2: 08 8F     .addr deadlock ; CPU address 82A2
 - D 0 - - - 0x0102B4 04:82A4: 44 9A     .word $9A44 ; Level 2 (1-3)
 - D 0 - - - 0x0102B6 04:82A6: 4A 9A     .word $9A4A ; Level 2 (2)
 - D 0 - - - 0x0102B8 04:82A8: 5A 9A     .word $9A5A ; Level 2 (4-5)
@@ -560,117 +560,117 @@ tbl_ptr_destructible_walls:
 - D 0 - - - 0x0102BE 04:82AE: 71 9A     .word $9A71 ; Level 2 (9-10)
 - D 0 - - - 0x0102C0 04:82B0: 77 9A     .word $9A77 ; Level 2 (11-13)
 - D 0 - - - 0x0102C2 04:82B2: 7D 9A     .word $9A7D ; Level 2 (12)
-- D 0 - - - 0x0102C4 04:82B4: 08 8F     .word $8F08
+- D 0 - - - 0x0102C4 04:82B4: 08 8F     .addr deadlock ; CPU address 82B4
 - D 0 - - - 0x0102C6 04:82B6: 8D 9A     .word $9A8D ; level 3.1
 - D 0 - - - 0x0102C8 04:82B8: 93 9A     .word $9A93 ; level 3.2
 - D 0 - - - 0x0102CA 04:82BA: 9E 9A     .word $9A9E ; level 3.3
 - D 0 - - - 0x0102CC 04:82BC: A4 9A     .word $9AA4 ; level 3.4
-- D 0 - - - 0x0102CE 04:82BE: 08 8F     .word $8F08
-- - - - - - 0x0102D0 04:82C0: 08 8F     .word $8F08
-- - - - - - 0x0102D2 04:82C2: 08 8F     .word $8F08
-- - - - - - 0x0102D4 04:82C4: 08 8F     .word $8F08
-- - - - - - 0x0102D6 04:82C6: 08 8F     .word $8F08
-- D 0 - - - 0x0102D8 04:82C8: 08 8F     .word $8F08
-- D 0 - - - 0x0102DA 04:82CA: 08 8F     .word $8F08
-- D 0 - - - 0x0102DC 04:82CC: 08 8F     .word $8F08
-- D 0 - - - 0x0102DE 04:82CE: 08 8F     .word $8F08
-- D 0 - - - 0x0102E0 04:82D0: 08 8F     .word $8F08
-- D 0 - - - 0x0102E2 04:82D2: 08 8F     .word $8F08
-- D 0 - - - 0x0102E4 04:82D4: 08 8F     .word $8F08
-- D 0 - - - 0x0102E6 04:82D6: 08 8F     .word $8F08
-- D 0 - - - 0x0102E8 04:82D8: 08 8F     .word $8F08
-- D 0 - - - 0x0102EA 04:82DA: 08 8F     .word $8F08
-- D 0 - - - 0x0102EC 04:82DC: 08 8F     .word $8F08
-- D 0 - - - 0x0102EE 04:82DE: 08 8F     .word $8F08
-- - - - - - 0x0102F0 04:82E0: 08 8F     .word $8F08
-- D 0 - - - 0x0102F2 04:82E2: 08 8F     .word $8F08
-- - - - - - 0x0102F4 04:82E4: 08 8F     .word $8F08
-- - - - - - 0x0102F6 04:82E6: 08 8F     .word $8F08
-- D 0 - - - 0x0102F8 04:82E8: 08 8F     .word $8F08
-- - - - - - 0x0102FA 04:82EA: 08 8F     .word $8F08
-- D 0 - - - 0x0102FC 04:82EC: 08 8F     .word $8F08
-- D 0 - - - 0x0102FE 04:82EE: 08 8F     .word $8F08
-- D 0 - - - 0x010300 04:82F0: 08 8F     .word $8F08
-- - - - - - 0x010302 04:82F2: 08 8F     .word $8F08
-- - - - - - 0x010304 04:82F4: 08 8F     .word $8F08
-- D 0 - - - 0x010306 04:82F6: 08 8F     .word $8F08
-- D 0 - - - 0x010308 04:82F8: 08 8F     .word $8F08
-- D 0 - - - 0x01030A 04:82FA: 08 8F     .word $8F08
-- - - - - - 0x01030C 04:82FC: 08 8F     .word $8F08
-- - - - - - 0x01030E 04:82FE: 08 8F     .word $8F08
-- - - - - - 0x010310 04:8300: 08 8F     .word $8F08
-- D 0 - - - 0x010312 04:8302: 08 8F     .word $8F08
-- D 0 - - - 0x010314 04:8304: 08 8F     .word $8F08
-- D 0 - - - 0x010316 04:8306: 08 8F     .word $8F08
-- D 0 - - - 0x010318 04:8308: 08 8F     .word $8F08
-- - - - - - 0x01031A 04:830A: 08 8F     .word $8F08
-- - - - - - 0x01031C 04:830C: 08 8F     .word $8F08
-- D 0 - - - 0x01031E 04:830E: 08 8F     .word $8F08
-- D 0 - - - 0x010320 04:8310: 08 8F     .word $8F08
-- D 0 - - - 0x010322 04:8312: 08 8F     .word $8F08
-- D 0 - - - 0x010324 04:8314: 08 8F     .word $8F08
-- D 0 - - - 0x010326 04:8316: 08 8F     .word $8F08
-- D 0 - - - 0x010328 04:8318: 08 8F     .word $8F08
-- D 0 - - - 0x01032A 04:831A: 08 8F     .word $8F08
-- D 0 - - - 0x01032C 04:831C: 08 8F     .word $8F08
-- D 0 - - - 0x01032E 04:831E: 08 8F     .word $8F08
-- D 0 - - - 0x010330 04:8320: 08 8F     .word $8F08
-- D 0 - - - 0x010332 04:8322: 08 8F     .word $8F08
-- D 0 - - - 0x010334 04:8324: 08 8F     .word $8F08
-- D 0 - - - 0x010336 04:8326: 08 8F     .word $8F08
-- D 0 - - - 0x010338 04:8328: 08 8F     .word $8F08
-- D 0 - - - 0x01033A 04:832A: 08 8F     .word $8F08
-- D 0 - - - 0x01033C 04:832C: 08 8F     .word $8F08
-- D 0 - - - 0x01033E 04:832E: 08 8F     .word $8F08
-- D 0 - - - 0x010340 04:8330: 08 8F     .word $8F08
-- D 0 - - - 0x010342 04:8332: 08 8F     .word $8F08
-- D 0 - - - 0x010344 04:8334: 08 8F     .word $8F08
-- D 0 - - - 0x010346 04:8336: 08 8F     .word $8F08
-- D 0 - - - 0x010348 04:8338: 08 8F     .word $8F08
-- D 0 - - - 0x01034A 04:833A: 08 8F     .word $8F08
-- D 0 - - - 0x01034C 04:833C: 08 8F     .word $8F08
-- D 0 - - - 0x01034E 04:833E: 08 8F     .word $8F08
-- D 0 - - - 0x010350 04:8340: 08 8F     .word $8F08
-- D 0 - - - 0x010352 04:8342: 08 8F     .word $8F08
-- D 0 - - - 0x010354 04:8344: 08 8F     .word $8F08
-- D 0 - - - 0x010356 04:8346: 08 8F     .word $8F08
-- D 0 - - - 0x010358 04:8348: 08 8F     .word $8F08
-- D 0 - - - 0x01035A 04:834A: 08 8F     .word $8F08
-- D 0 - - - 0x01035C 04:834C: 08 8F     .word $8F08
-- D 0 - - - 0x01035E 04:834E: 08 8F     .word $8F08
-- D 0 - - - 0x010360 04:8350: 08 8F     .word $8F08
-- D 0 - - - 0x010362 04:8352: 08 8F     .word $8F08
-- D 0 - - - 0x010364 04:8354: 08 8F     .word $8F08
-- D 0 - - - 0x010366 04:8356: 08 8F     .word $8F08
-- D 0 - - - 0x010368 04:8358: 08 8F     .word $8F08
-- D 0 - - - 0x01036A 04:835A: 08 8F     .word $8F08
-- D 0 - - - 0x01036C 04:835C: 08 8F     .word $8F08
-- D 0 - - - 0x01036E 04:835E: 08 8F     .word $8F08
-- D 0 - - - 0x010370 04:8360: 08 8F     .word $8F08
-- D 0 - - - 0x010372 04:8362: 08 8F     .word $8F08
-- D 0 - - - 0x010374 04:8364: 08 8F     .word $8F08
-- D 0 - - - 0x010376 04:8366: 08 8F     .word $8F08
-- D 0 - - - 0x010378 04:8368: 08 8F     .word $8F08
-- D 0 - - - 0x01037A 04:836A: 08 8F     .word $8F08
-- D 0 - - - 0x01037C 04:836C: 08 8F     .word $8F08
-- D 0 - - - 0x01037E 04:836E: 08 8F     .word $8F08
-- D 0 - - - 0x010380 04:8370: 08 8F     .word $8F08
-- D 0 - - - 0x010382 04:8372: 08 8F     .word $8F08
-- D 0 - - - 0x010384 04:8374: 08 8F     .word $8F08
-- D 0 - - - 0x010386 04:8376: 08 8F     .word $8F08
-- D 0 - - - 0x010388 04:8378: 08 8F     .word $8F08
-- D 0 - - - 0x01038A 04:837A: 08 8F     .word $8F08
-- D 0 - - - 0x01038C 04:837C: 08 8F     .word $8F08
-- D 0 - - - 0x01038E 04:837E: 08 8F     .word $8F08
-- D 0 - - - 0x010390 04:8380: 08 8F     .word $8F08
-- D 0 - - - 0x010392 04:8382: 08 8F     .word $8F08
-- D 0 - - - 0x010394 04:8384: 08 8F     .word $8F08
-- D 0 - - - 0x010396 04:8386: 08 8F     .word $8F08
-- D 0 - - - 0x010398 04:8388: 08 8F     .word $8F08
-- D 0 - - - 0x01039A 04:838A: 08 8F     .word $8F08
-- D 0 - - - 0x01039C 04:838C: 08 8F     .word $8F08
-- D 0 - - - 0x01039E 04:838E: 08 8F     .word $8F08
-- D 0 - - - 0x0103A0 04:8390: 08 8F     .word $8F08
+- D 0 - - - 0x0102CE 04:82BE: 08 8F     .addr deadlock ; CPU address 82BE
+- - - - - - 0x0102D0 04:82C0: 08 8F     .addr deadlock ; CPU address 82C0
+- - - - - - 0x0102D2 04:82C2: 08 8F     .addr deadlock ; CPU address 82C2
+- - - - - - 0x0102D4 04:82C4: 08 8F     .addr deadlock ; CPU address 82C4
+- - - - - - 0x0102D6 04:82C6: 08 8F     .addr deadlock ; CPU address 82C6
+- D 0 - - - 0x0102D8 04:82C8: 08 8F     .addr deadlock ; CPU address 82C8
+- D 0 - - - 0x0102DA 04:82CA: 08 8F     .addr deadlock ; CPU address 82CA
+- D 0 - - - 0x0102DC 04:82CC: 08 8F     .addr deadlock ; CPU address 82CC
+- D 0 - - - 0x0102DE 04:82CE: 08 8F     .addr deadlock ; CPU address 82CE
+- D 0 - - - 0x0102E0 04:82D0: 08 8F     .addr deadlock ; CPU address 82D0
+- D 0 - - - 0x0102E2 04:82D2: 08 8F     .addr deadlock ; CPU address 82D2
+- D 0 - - - 0x0102E4 04:82D4: 08 8F     .addr deadlock ; CPU address 82D4
+- D 0 - - - 0x0102E6 04:82D6: 08 8F     .addr deadlock ; CPU address 82D6
+- D 0 - - - 0x0102E8 04:82D8: 08 8F     .addr deadlock ; CPU address 82D8
+- D 0 - - - 0x0102EA 04:82DA: 08 8F     .addr deadlock ; CPU address 82DA
+- D 0 - - - 0x0102EC 04:82DC: 08 8F     .addr deadlock ; CPU address 82DC
+- D 0 - - - 0x0102EE 04:82DE: 08 8F     .addr deadlock ; CPU address 82DE
+- - - - - - 0x0102F0 04:82E0: 08 8F     .addr deadlock ; CPU address 82E0
+- D 0 - - - 0x0102F2 04:82E2: 08 8F     .addr deadlock ; CPU address 82E2
+- - - - - - 0x0102F4 04:82E4: 08 8F     .addr deadlock ; CPU address 82E4
+- - - - - - 0x0102F6 04:82E6: 08 8F     .addr deadlock ; CPU address 82E6
+- D 0 - - - 0x0102F8 04:82E8: 08 8F     .addr deadlock ; CPU address 82E8
+- - - - - - 0x0102FA 04:82EA: 08 8F     .addr deadlock ; CPU address 82EA
+- D 0 - - - 0x0102FC 04:82EC: 08 8F     .addr deadlock ; CPU address 82EC
+- D 0 - - - 0x0102FE 04:82EE: 08 8F     .addr deadlock ; CPU address 82EE
+- D 0 - - - 0x010300 04:82F0: 08 8F     .addr deadlock ; CPU address 82F0
+- - - - - - 0x010302 04:82F2: 08 8F     .addr deadlock ; CPU address 82F2
+- - - - - - 0x010304 04:82F4: 08 8F     .addr deadlock ; CPU address 82F4
+- D 0 - - - 0x010306 04:82F6: 08 8F     .addr deadlock ; CPU address 82F6
+- D 0 - - - 0x010308 04:82F8: 08 8F     .addr deadlock ; CPU address 82F8
+- D 0 - - - 0x01030A 04:82FA: 08 8F     .addr deadlock ; CPU address 82FA
+- - - - - - 0x01030C 04:82FC: 08 8F     .addr deadlock ; CPU address 82FC
+- - - - - - 0x01030E 04:82FE: 08 8F     .addr deadlock ; CPU address 82FE
+- - - - - - 0x010310 04:8300: 08 8F     .addr deadlock ; CPU address 8300
+- D 0 - - - 0x010312 04:8302: 08 8F     .addr deadlock ; CPU address 8302
+- D 0 - - - 0x010314 04:8304: 08 8F     .addr deadlock ; CPU address 8304
+- D 0 - - - 0x010316 04:8306: 08 8F     .addr deadlock ; CPU address 8306
+- D 0 - - - 0x010318 04:8308: 08 8F     .addr deadlock ; CPU address 8308
+- - - - - - 0x01031A 04:830A: 08 8F     .addr deadlock ; CPU address 830A
+- - - - - - 0x01031C 04:830C: 08 8F     .addr deadlock ; CPU address 830C
+- D 0 - - - 0x01031E 04:830E: 08 8F     .addr deadlock ; CPU address 830E
+- D 0 - - - 0x010320 04:8310: 08 8F     .addr deadlock ; CPU address 8310
+- D 0 - - - 0x010322 04:8312: 08 8F     .addr deadlock ; CPU address 8312
+- D 0 - - - 0x010324 04:8314: 08 8F     .addr deadlock ; CPU address 8314
+- D 0 - - - 0x010326 04:8316: 08 8F     .addr deadlock ; CPU address 8316
+- D 0 - - - 0x010328 04:8318: 08 8F     .addr deadlock ; CPU address 8318
+- D 0 - - - 0x01032A 04:831A: 08 8F     .addr deadlock ; CPU address 831A
+- D 0 - - - 0x01032C 04:831C: 08 8F     .addr deadlock ; CPU address 831C
+- D 0 - - - 0x01032E 04:831E: 08 8F     .addr deadlock ; CPU address 831E
+- D 0 - - - 0x010330 04:8320: 08 8F     .addr deadlock ; CPU address 8320
+- D 0 - - - 0x010332 04:8322: 08 8F     .addr deadlock ; CPU address 8322
+- D 0 - - - 0x010334 04:8324: 08 8F     .addr deadlock ; CPU address 8324
+- D 0 - - - 0x010336 04:8326: 08 8F     .addr deadlock ; CPU address 8326
+- D 0 - - - 0x010338 04:8328: 08 8F     .addr deadlock ; CPU address 8328
+- D 0 - - - 0x01033A 04:832A: 08 8F     .addr deadlock ; CPU address 832A
+- D 0 - - - 0x01033C 04:832C: 08 8F     .addr deadlock ; CPU address 832C
+- D 0 - - - 0x01033E 04:832E: 08 8F     .addr deadlock ; CPU address 832E
+- D 0 - - - 0x010340 04:8330: 08 8F     .addr deadlock ; CPU address 8330
+- D 0 - - - 0x010342 04:8332: 08 8F     .addr deadlock ; CPU address 8332
+- D 0 - - - 0x010344 04:8334: 08 8F     .addr deadlock ; CPU address 8334
+- D 0 - - - 0x010346 04:8336: 08 8F     .addr deadlock ; CPU address 8336
+- D 0 - - - 0x010348 04:8338: 08 8F     .addr deadlock ; CPU address 8338
+- D 0 - - - 0x01034A 04:833A: 08 8F     .addr deadlock ; CPU address 833A
+- D 0 - - - 0x01034C 04:833C: 08 8F     .addr deadlock ; CPU address 833C 
+- D 0 - - - 0x01034E 04:833E: 08 8F     .addr deadlock ; CPU address 833E
+- D 0 - - - 0x010350 04:8340: 08 8F     .addr deadlock ; CPU address 8340
+- D 0 - - - 0x010352 04:8342: 08 8F     .addr deadlock ; CPU address 8342
+- D 0 - - - 0x010354 04:8344: 08 8F     .addr deadlock ; CPU address 8344
+- D 0 - - - 0x010356 04:8346: 08 8F     .addr deadlock ; CPU address 8346
+- D 0 - - - 0x010358 04:8348: 08 8F     .addr deadlock ; CPU address 8348
+- D 0 - - - 0x01035A 04:834A: 08 8F     .addr deadlock ; CPU address 834A
+- D 0 - - - 0x01035C 04:834C: 08 8F     .addr deadlock ; CPU address 834C
+- D 0 - - - 0x01035E 04:834E: 08 8F     .addr deadlock ; CPU address 834E
+- D 0 - - - 0x010360 04:8350: 08 8F     .addr deadlock ; CPU address 8350
+- D 0 - - - 0x010362 04:8352: 08 8F     .addr deadlock ; CPU address 8352
+- D 0 - - - 0x010364 04:8354: 08 8F     .addr deadlock ; CPU address 8354
+- D 0 - - - 0x010366 04:8356: 08 8F     .addr deadlock ; CPU address 8356
+- D 0 - - - 0x010368 04:8358: 08 8F     .addr deadlock ; CPU address 8358
+- D 0 - - - 0x01036A 04:835A: 08 8F     .addr deadlock ; CPU address 835A
+- D 0 - - - 0x01036C 04:835C: 08 8F     .addr deadlock ; CPU address 835C
+- D 0 - - - 0x01036E 04:835E: 08 8F     .addr deadlock ; CPU address 835E
+- D 0 - - - 0x010370 04:8360: 08 8F     .addr deadlock ; CPU address 8360
+- D 0 - - - 0x010372 04:8362: 08 8F     .addr deadlock ; CPU address 8362
+- D 0 - - - 0x010374 04:8364: 08 8F     .addr deadlock ; CPU address 8364
+- D 0 - - - 0x010376 04:8366: 08 8F     .addr deadlock ; CPU address 8366
+- D 0 - - - 0x010378 04:8368: 08 8F     .addr deadlock ; CPU address 8368
+- D 0 - - - 0x01037A 04:836A: 08 8F     .addr deadlock ; CPU address 836A
+- D 0 - - - 0x01037C 04:836C: 08 8F     .addr deadlock ; CPU address 836C
+- D 0 - - - 0x01037E 04:836E: 08 8F     .addr deadlock ; CPU address 836E
+- D 0 - - - 0x010380 04:8370: 08 8F     .addr deadlock ; CPU address 8370
+- D 0 - - - 0x010382 04:8372: 08 8F     .addr deadlock ; CPU address 8372
+- D 0 - - - 0x010384 04:8374: 08 8F     .addr deadlock ; CPU address 8374
+- D 0 - - - 0x010386 04:8376: 08 8F     .addr deadlock ; CPU address 8376
+- D 0 - - - 0x010388 04:8378: 08 8F     .addr deadlock ; CPU address 8378
+- D 0 - - - 0x01038A 04:837A: 08 8F     .addr deadlock ; CPU address 837A
+- D 0 - - - 0x01038C 04:837C: 08 8F     .addr deadlock ; CPU address 837C
+- D 0 - - - 0x01038E 04:837E: 08 8F     .addr deadlock ; CPU address 837E
+- D 0 - - - 0x010390 04:8380: 08 8F     .addr deadlock ; CPU address 8380
+- D 0 - - - 0x010392 04:8382: 08 8F     .addr deadlock ; CPU address 8382
+- D 0 - - - 0x010394 04:8384: 08 8F     .addr deadlock ; CPU address 8384
+- D 0 - - - 0x010396 04:8386: 08 8F     .addr deadlock ; CPU address 8386
+- D 0 - - - 0x010398 04:8388: 08 8F     .addr deadlock ; CPU address 8388
+- D 0 - - - 0x01039A 04:838A: 08 8F     .addr deadlock ; CPU address 838A
+- D 0 - - - 0x01039C 04:838C: 08 8F     .addr deadlock ; CPU address 838C
+- D 0 - - - 0x01039E 04:838E: 08 8F     .addr deadlock ; CPU address 838E
+- D 0 - - - 0x0103A0 04:8390: 08 8F     .addr deadlock ; CPU address 8390
 
 - D 0 - - - 0x0103A2 04:8392: 8D        .byte $8D   ; 
 - D 0 - - - 0x0103A3 04:8393: 9B        .byte $9B   ; 
@@ -5712,8 +5712,7 @@ tbl_ptr_corridors_level4_map4_f4_f5:
 - D 0 - I - 0x011C3E 04:9C2E: EB        .byte $EB   ; 
 - D 0 - I - 0x011C3F 04:9C2F: E8        .byte $E8   ; 
 - D 0 - I - 0x011C40 04:9C30: E9        .byte $E9   ; 
-- D 0 - I - 0x011C41 04:9C31: 18        .byte $18   ; 
-- D 0 - I - 0x011C42 04:9C32: 06        .byte $06   ; 
+- D 0 - I - 0x011C41 04:9C31: 18        .byte $18, $06   ; 
 - D 0 - I - 0x011C43 04:9C33: A1        .byte $A1   ; 
 - D 0 - I - 0x011C44 04:9C34: A5        .byte $A5   ; 
 - D 0 - I - 0x011C45 04:9C35: A5        .byte $A5   ; 
@@ -5738,8 +5737,7 @@ tbl_ptr_corridors_level4_map4_f4_f5:
 - D 0 - I - 0x011C58 04:9C48: A7        .byte $A7   ; 
 - D 0 - I - 0x011C59 04:9C49: A5        .byte $A5   ; 
 - D 0 - I - 0x011C5A 04:9C4A: A5        .byte $A5   ; 
-- D 0 - I - 0x011C5B 04:9C4B: 18        .byte $18   ; 
-- D 0 - I - 0x011C5C 04:9C4C: 06        .byte $06   ; 
+- D 0 - I - 0x011C5B 04:9C4B: 18        .byte $18, $06   ; 
 - D 0 - I - 0x011C5D 04:9C4D: 0E        .byte $0E   ; 
 - D 0 - I - 0x011C5E 04:9C4E: 12        .byte $12   ; 
 - D 0 - I - 0x011C5F 04:9C4F: 12        .byte $12   ; 

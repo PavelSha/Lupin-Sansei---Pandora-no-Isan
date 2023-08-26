@@ -6,6 +6,7 @@
 .import tbl_ptr_rooms_with_NPCs ; bank 04 (Page 2)
 .import tbl_ptr_briefcases_outside ; bank 04 (Page 2)
 .import tbl_briefcases_indexex_on_the_level ; bank 04 (Page 2)
+.import npc_portrait_sprites ; bank 04 (Page 2)
 .import sub_EF4F_switch_bank_4_p2 ; bank FF
 .import sub_F2D6_try_put_briefcase ; bank FF
 
@@ -2856,7 +2857,7 @@ C - - - - - 0x01B2B9 06:B2A9: 8D 30 06  STA v_low_ppu_address
 C - - - - - 0x01B2BC 06:B2AC: A5 D0     LDA v_high_msg_ppu_address
 C - - - - - 0x01B2BE 06:B2AE: 8D 31 06  STA v_high_ppu_address
 C - - - - - 0x01B2C1 06:B2B1: A9 82     LDA #$82
-C - - - - - 0x01B2C3 06:B2B3: 8D 32 06  STA ram_0632
+C - - - - - 0x01B2C3 06:B2B3: 8D 32 06  STA v_ppu_buffer_count
 C - - - - - 0x01B2C6 06:B2B6: E6 CF     INC v_low_msg_ppu_address
 C - - - - - 0x01B2C8 06:B2B8: A9 50     LDA #$50
 C - - - - - 0x01B2CA 06:B2BA: 4C 20 C4  JMP $C420 ; to loc_C420_add_sound_effect (bank_FF)
@@ -3173,21 +3174,21 @@ C - - - - - 0x01B4D5 06:B4C5: 18        CLC
 C - - - - - 0x01B4D6 06:B4C6: 65 00     ADC ram_0000
 C - - - - - 0x01B4D8 06:B4C8: AA        TAX
 C - - - - - 0x01B4D9 06:B4C9: A0 00     LDY #$00
-bra_B4CB:
-C - - - - - 0x01B4DB 06:B4CB: BD 2A 83  LDA $832A,X
+@bra_B4CB_loop:
+C - - - - - 0x01B4DB 06:B4CB: BD 2A 83  LDA npc_portrait_sprites,X
 C - - - - - 0x01B4DE 06:B4CE: 99 33 06  STA ram_0633,Y
 C - - - - - 0x01B4E1 06:B4D1: E8        INX
 C - - - - - 0x01B4E2 06:B4D2: C8        INY
 C - - - - - 0x01B4E3 06:B4D3: C0 0C     CPY #$0C
-C - - - - - 0x01B4E5 06:B4D5: D0 F4     BNE bra_B4CB
+C - - - - - 0x01B4E5 06:B4D5: D0 F4     BNE @bra_B4CB_loop
 C - - - - - 0x01B4E7 06:B4D7: A9 04     LDA #$04
 C - - - - - 0x01B4E9 06:B4D9: 85 54     STA ram_0054
 C - - - - - 0x01B4EB 06:B4DB: A9 A0     LDA #$A0
-C - - - - - 0x01B4ED 06:B4DD: 8D 31 06  STA ram_0631
+C - - - - - 0x01B4ED 06:B4DD: 8D 31 06  STA v_high_ppu_address
 C - - - - - 0x01B4F0 06:B4E0: A9 63     LDA #$63
-C - - - - - 0x01B4F2 06:B4E2: 8D 30 06  STA ram_0630
+C - - - - - 0x01B4F2 06:B4E2: 8D 30 06  STA v_low_ppu_address
 C - - - - - 0x01B4F5 06:B4E5: A9 0C     LDA #$0C
-C - - - - - 0x01B4F7 06:B4E7: 8D 32 06  STA ram_0632
+C - - - - - 0x01B4F7 06:B4E7: 8D 32 06  STA v_ppu_buffer_count
 C - - - - - 0x01B4FA 06:B4EA: 60        RTS
 
 sub_B4EB:
@@ -3261,7 +3262,7 @@ loc_B56D:
 sub_B56D:
 C D 1 - - - 0x01B57D 06:B56D: A9 01     LDA #$01
 C - - - - - 0x01B57F 06:B56F: A2 14     LDX #$14
-C - - - - - 0x01B581 06:B571: 8E 32 06  STX ram_0632
+C - - - - - 0x01B581 06:B571: 8E 32 06  STX v_ppu_buffer_count
 bra_B574:
 C - - - - - 0x01B584 06:B574: 9D 33 06  STA ram_0633,X
 C - - - - - 0x01B587 06:B577: CA        DEX
@@ -3445,7 +3446,7 @@ C - - - - - 0x01B698 06:B688: C8        INY
 C - - - - - 0x01B699 06:B689: C0 04     CPY #$04
 C - - - - - 0x01B69B 06:B68B: D0 F5     BNE bra_B682
 C - - - - - 0x01B69D 06:B68D: A9 04     LDA #$04
-C - - - - - 0x01B69F 06:B68F: 8D 32 06  STA ram_0632
+C - - - - - 0x01B69F 06:B68F: 8D 32 06  STA v_ppu_buffer_count
 C - - - - - 0x01B6A2 06:B692: A9 02     LDA #$02
 C - - - - - 0x01B6A4 06:B694: 8D 44 03  STA ram_0344
 C - - - - - 0x01B6A7 06:B697: A9 A0     LDA #$A0

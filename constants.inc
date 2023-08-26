@@ -368,6 +368,7 @@ v_rooms                       = ram_0500
 ; flag 0x80 - the room has already been visited
 v_low_ppu_address             = ram_0630
 v_high_ppu_address            = ram_0631
+v_ppu_buffer_count            = ram_0632
 v_bank_data                   = ram_06B5
 v_sprite_magics               = ram_06B7
 v_sprite_magic1               = ram_06B7

@@ -2705,7 +2705,7 @@ C - - - - - 0x01D0EA 07:D0DA: 86 01     STX ram_0001
 C - - - - - 0x01D0EC 07:D0DC: A5 26     LDA ram_0026
 C - - - - - 0x01D0EE 07:D0DE: 09 04     ORA #$04
 C - - - - - 0x01D0F0 07:D0E0: 8D 00 20  STA PPU_CTRL
-C - - - - - 0x01D0F3 07:D0E3: AD 32 06  LDA ram_0632
+C - - - - - 0x01D0F3 07:D0E3: AD 32 06  LDA v_ppu_buffer_count
 C - - - - - 0x01D0F6 07:D0E6: 85 02     STA ram_0002
 C - - - - - 0x01D0F8 07:D0E8: A2 00     LDX #$00
 loc_D0EA:
@@ -2749,7 +2749,7 @@ C - - - - - 0x01D134 07:D124: 30 AD     BMI bra_D0D3
 C - - - - - 0x01D136 07:D126: AE 30 06  LDX v_low_ppu_address
 C - - - - - 0x01D139 07:D129: 8D 06 20  STA PPU_ADDRESS ; writes high byte
 C - - - - - 0x01D13C 07:D12C: 8E 06 20  STX PPU_ADDRESS ; writes low byte
-C - - - - - 0x01D13F 07:D12F: AD 32 06  LDA ram_0632
+C - - - - - 0x01D13F 07:D12F: AD 32 06  LDA v_ppu_buffer_count
 C - - - - - 0x01D142 07:D132: 10 0B     BPL bra_D13F_skip
 C - - - - - 0x01D144 07:D134: 48        PHA
 C - - - - - 0x01D145 07:D135: A5 26     LDA ram_0026
@@ -2898,7 +2898,7 @@ C D 2 - - - 0x01D213 07:D203: A5 4D     LDA ram_004D
 C - - - - - 0x01D215 07:D205: C5 49     CMP ram_0049
 C - - - - - 0x01D217 07:D207: B0 EF     BCS bra_D1F8_RTS
 C - - - - - 0x01D219 07:D209: A9 98     LDA #$98
-C - - - - - 0x01D21B 07:D20B: 8D 32 06  STA ram_0632
+C - - - - - 0x01D21B 07:D20B: 8D 32 06  STA v_ppu_buffer_count
 C - - - - - 0x01D21E 07:D20E: A2 20     LDX #$20
 C - - - - - 0x01D220 07:D210: A5 4D     LDA ram_004D
 C - - - - - 0x01D222 07:D212: 6A        ROR
@@ -2994,7 +2994,7 @@ bra_D2B0:
 C - - - - - 0x01D2C0 07:D2B0: 8E 05 06  STX ram_0605
 bra_D2B3:
 C - - - - - 0x01D2C3 07:D2B3: A9 38     LDA #$38
-C - - - - - 0x01D2C5 07:D2B5: 8D 32 06  STA ram_0632
+C - - - - - 0x01D2C5 07:D2B5: 8D 32 06  STA v_ppu_buffer_count
 C - - - - - 0x01D2C8 07:D2B8: A9 C8     LDA #$C8
 C - - - - - 0x01D2CA 07:D2BA: 8D 30 06  STA ram_0630
 C - - - - - 0x01D2CD 07:D2BD: A2 23     LDX #$23
@@ -5133,6 +5133,8 @@ C - - - - - 0x01DFAB 07:DF9B: 20 C1 D0  JSR sub_D0C1
 - D 2 - I - 0x01DFBD 07:DFAD: DF        .byte $DF   ; 
 - D 2 - I - 0x01DFBE 07:DFAE: B6        .byte $B6   ; 
 - D 2 - I - 0x01DFBF 07:DFAF: DF        .byte $DF   ; 
+
+
 C - - - - - 0x01DFC0 07:DFB0: 20 2F FA  JSR sub_FA2F
 C - - - - - 0x01DFC3 07:DFB3: A9 02     LDA #$02
 C - - - - - 0x01DFC5 07:DFB5: D0 05     BNE bra_DFBC
@@ -9237,11 +9239,11 @@ sub_FA27:
 C - - - - - 0x01FA37 07:FA27: A5 C6     LDA ram_00C6
 C - - - - - 0x01FA39 07:FA29: 30 FB     BMI bra_FA26_RTS
 C - - - - - 0x01FA3B 07:FA2B: A9 02     LDA #$02
-C - - - - - 0x01FA3D 07:FA2D: D0 02     BNE bra_FA31
+C - - - - - 0x01FA3D 07:FA2D: D0 02     BNE bra_FA31_skip ; Always true
 sub_FA2F:
 C - - - - - 0x01FA3F 07:FA2F: A9 00     LDA #$00
-bra_FA31:
-C - - - - - 0x01FA41 07:FA31: 85 12     STA ram_0012
+bra_FA31_skip:
+C - - - - - 0x01FA41 07:FA31: 85 12     STA ram_0012 ; store 0x00 or 0x02
 C - - - - - 0x01FA43 07:FA33: A4 C3     LDY ram_00C3
 C - - - - - 0x01FA45 07:FA35: F0 EF     BEQ bra_FA26_RTS
 C - - - - - 0x01FA47 07:FA37: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
@@ -9258,7 +9260,7 @@ C - - - - - 0x01FA57 07:FA47: B9 93 83  LDA $8393,Y
 C - - - - - 0x01FA5A 07:FA4A: 85 13     STA ram_0013
 C - - - - - 0x01FA5C 07:FA4C: A0 00     LDY #$00
 C - - - - - 0x01FA5E 07:FA4E: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01FA60 07:FA50: 8D 32 06  STA ram_0632
+C - - - - - 0x01FA60 07:FA50: 8D 32 06  STA v_ppu_buffer_count
 C - - - - - 0x01FA63 07:FA53: C8        INY
 C - - - - - 0x01FA64 07:FA54: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01FA66 07:FA56: 85 54     STA ram_0054
@@ -9267,9 +9269,9 @@ C - - - - - 0x01FA6A 07:FA5A: B1 BD     LDA (ram_00BD),Y
 C - - - - - 0x01FA6C 07:FA5C: 48        PHA
 C - - - - - 0x01FA6D 07:FA5D: A2 A2     LDX #$A2
 C - - - - - 0x01FA6F 07:FA5F: 6A        ROR
-C - - - - - 0x01FA70 07:FA60: 90 02     BCC bra_FA64
+C - - - - - 0x01FA70 07:FA60: 90 02     BCC bra_FA64_skip
 C - - - - - 0x01FA72 07:FA62: A2 A6     LDX #$A6
-bra_FA64:
+bra_FA64_skip:
 C - - - - - 0x01FA74 07:FA64: 8E 31 06  STX ram_0631
 C - - - - - 0x01FA77 07:FA67: 68        PLA
 C - - - - - 0x01FA78 07:FA68: 29 40     AND #$40
@@ -9314,7 +9316,7 @@ C - - - - - 0x01FABE 07:FAAE: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01FAC0 07:FAB0: 9D 33 06  STA ram_0633,X
 C - - - - - 0x01FAC3 07:FAB3: C8        INY
 C - - - - - 0x01FAC4 07:FAB4: E8        INX
-C - - - - - 0x01FAC5 07:FAB5: EC 32 06  CPX ram_0632
+C - - - - - 0x01FAC5 07:FAB5: EC 32 06  CPX v_ppu_buffer_count
 C - - - - - 0x01FAC8 07:FAB8: D0 F4     BNE bra_FAAE
 C - - - - - 0x01FACA 07:FABA: A9 0D     LDA #$0D
 C - - - - - 0x01FACC 07:FABC: 20 20 C4  JSR sub_C420_add_sound_effect
