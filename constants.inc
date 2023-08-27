@@ -62,6 +62,8 @@ v_menu_counter_times          = ram_0034
 v_game_mode                   = ram_0037 ; 0x00 - in game, 0xFF - Starting cutscenes
 v_resists                     = ram_003A ; TODO: !!!, 0x80 - The enemies don't damage
 v_npc_message_status          = ram_0041
+; 83 - npc is saying the message 
+; C3 - npc said the message 
 v_current_number_sprite       = ram_0043
 v_copy_current_number_sprite  = ram_0044
 v_temp_bank_data              = ram_0045 ; 
@@ -278,6 +280,8 @@ v_start_level                 = ram_00B1 ; The start level [0-3]
 v_count_secret_hits           = ram_00B2 ; Stage select codes at the title screen
 v_lock_secret_hits            = ram_00B3 ; Allow button to be pressed only when other buttons aren't pressed
 v_offset_in_secret_codes      = ram_00B4
+v_corridor_magic5             = ram_00B7
+v_corridor_magic5_cache       = ram_00B8
 v_tmp_target_room             = ram_00BC
 v_low_corridor_address        = ram_00BD
 v_high_corridor_address       = ram_00BE

@@ -7,6 +7,8 @@
 .import tbl_ptr_briefcases_outside ; bank 04 (Page 2)
 .import tbl_briefcases_indexex_on_the_level ; bank 04 (Page 2)
 .import npc_portrait_sprites ; bank 04 (Page 2)
+.import loc_CE33_add_sprite_magic ; bank FF
+.import sub_D079_check_button_press ; bank FF
 .import sub_EF4F_switch_bank_4_p2 ; bank FF
 .import sub_F2D6_try_put_briefcase ; bank FF
 
@@ -3030,15 +3032,18 @@ C - - - - - 0x01B3DE 06:B3CE: 85 13     STA ram_0013
 C - - - - - 0x01B3E0 06:B3D0: 20 49 B5  JSR sub_B549
 C - - - - - 0x01B3E3 06:B3D3: 4C E3 B3  JMP loc_B3E3
 
+; Params:
+; ram_0014-ram_0015 - tbl_ptr_roomsX_with_NPCs
+; v_corridor_magic5_cache - the index of NPC (every level)
 bra_B3D6_skip:
-C - - - - - 0x01B3E6 06:B3D6: A5 B8     LDA ram_00B8
+C - - - - - 0x01B3E6 06:B3D6: A5 B8     LDA v_corridor_magic5_cache
 C - - - - - 0x01B3E8 06:B3D8: 0A        ASL
 C - - - - - 0x01B3E9 06:B3D9: A8        TAY
 C - - - - - 0x01B3EA 06:B3DA: B1 14     LDA (ram_0014),Y
-C - - - - - 0x01B3EC 06:B3DC: 85 12     STA ram_0012
+C - - - - - 0x01B3EC 06:B3DC: 85 12     STA ram_0012 ; low address - tbl_ptr_roomsX_X_with_NPCs
 C - - - - - 0x01B3EE 06:B3DE: C8        INY
 C - - - - - 0x01B3EF 06:B3DF: B1 14     LDA (ram_0014),Y
-C - - - - - 0x01B3F1 06:B3E1: 85 13     STA ram_0013
+C - - - - - 0x01B3F1 06:B3E1: 85 13     STA ram_0013 ; low address - tbl_ptr_roomsX_X_with_NPCs
 loc_B3E3:
 C D 1 - - - 0x01B3F3 06:B3E3: 20 EB B4  JSR sub_B4EB
 C - - - - - 0x01B3F6 06:B3E6: A5 C8     LDA ram_00C8
@@ -3048,7 +3053,7 @@ C - - - - - 0x01B3FC 06:B3EC: 70 23     BVS bra_B411_skip
 C - - - - - 0x01B3FE 06:B3EE: 20 3E FC  JSR $FC3E ; to sub_FC3E (bank FF)
 C - - - - - 0x01B401 06:B3F1: F0 0F     BEQ bra_B402_skip
 C - - - - - 0x01B403 06:B3F3: A9 03     LDA #BIT_BUTTON_B_OR_A
-C - - - - - 0x01B405 06:B3F5: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
+C - - - - - 0x01B405 06:B3F5: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
 C - - - - - 0x01B408 06:B3F8: F0 17     BEQ bra_B411_skip
 C - - - - - 0x01B40A 06:B3FA: A5 41     LDA v_npc_message_status
 C - - - - - 0x01B40C 06:B3FC: C9 06     CMP #$06
@@ -3079,12 +3084,12 @@ C - - - - - 0x01B434 06:B424: 20 85 B4  JSR sub_B485_minus_npc_msg_status
 C - - - - - 0x01B437 06:B427: A5 41     LDA v_npc_message_status
 C - - - - - 0x01B439 06:B429: 29 0F     AND #$0F
 C - - - - - 0x01B43B 06:B42B: A8        TAY
-C - - - - - 0x01B43C 06:B42C: 84 11     STY ram_0011
+C - - - - - 0x01B43C 06:B42C: 84 11     STY v_cache_reg_y
 C - - - - - 0x01B43E 06:B42E: 20 8A B4  JSR sub_B48A
-C - - - - - 0x01B441 06:B431: A4 11     LDY ram_0011
-C - - - - - 0x01B443 06:B433: C8        INY
+C - - - - - 0x01B441 06:B431: A4 11     LDY v_cache_reg_y
+C - - - - - 0x01B443 06:B433: C8        INY ; 2 of NPC bytes
 C - - - - - 0x01B444 06:B434: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01B446 06:B436: 20 8C B5  JSR sub_B58C
+C - - - - - 0x01B446 06:B436: 20 8C B5  JSR sub_B58C ; 3,4,... of NPC bytes
 C - - - - - 0x01B449 06:B439: E6 41     INC v_npc_message_status
 C - - - - - 0x01B44B 06:B43B: E6 41     INC v_npc_message_status
 C - - - - - 0x01B44D 06:B43D: E6 41     INC v_npc_message_status
@@ -3122,7 +3127,7 @@ C - - - - - 0x01B47E 06:B46E: D0 F3     BNE bra_B463_RTS
 C - - - - - 0x01B480 06:B470: A5 39     LDA ram_0039
 C - - - - - 0x01B482 06:B472: 30 EF     BMI bra_B463_RTS
 C - - - - - 0x01B484 06:B474: A9 03     LDA #BIT_BUTTON_B_OR_A
-C - - - - - 0x01B486 06:B476: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
+C - - - - - 0x01B486 06:B476: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
 C - - - - - 0x01B489 06:B479: F0 E8     BEQ bra_B463_RTS
 C - - - - - 0x01B48B 06:B47B: A9 E0     LDA #$E0
 C - - - - - 0x01B48D 06:B47D: 85 39     STA ram_0039
@@ -3138,15 +3143,17 @@ C - - - - - 0x01B495 06:B485: 25 41     AND v_npc_message_status
 C - - - - - 0x01B497 06:B487: 85 41     STA v_npc_message_status
 C - - - - - 0x01B499 06:B489: 60        RTS
 
+; Params:
+; Register Y (0x0X) - npc_message_status
 sub_B48A:
 C - - - - - 0x01B49A 06:B48A: A9 00     LDA #$00
 C - - - - - 0x01B49C 06:B48C: 85 00     STA ram_0000
 C - - - - - 0x01B49E 06:B48E: C0 00     CPY #$00
-C - - - - - 0x01B4A0 06:B490: F0 06     BEQ bra_B498
+C - - - - - 0x01B4A0 06:B490: F0 06     BEQ bra_B498_skip
 C - - - - - 0x01B4A2 06:B492: A5 5F     LDA ram_005F
 C - - - - - 0x01B4A4 06:B494: 29 03     AND #$03
 C - - - - - 0x01B4A6 06:B496: 85 00     STA ram_0000
-bra_B498:
+bra_B498_skip:
 sub_B498:
 C - - - - - 0x01B4A8 06:B498: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01B4AA 06:B49A: 18        CLC
@@ -3179,7 +3186,7 @@ C - - - - - 0x01B4DB 06:B4CB: BD 2A 83  LDA npc_portrait_sprites,X
 C - - - - - 0x01B4DE 06:B4CE: 99 33 06  STA ram_0633,Y
 C - - - - - 0x01B4E1 06:B4D1: E8        INX
 C - - - - - 0x01B4E2 06:B4D2: C8        INY
-C - - - - - 0x01B4E3 06:B4D3: C0 0C     CPY #$0C
+C - - - - - 0x01B4E3 06:B4D3: C0 0C     CPY #$0C ; CONSTANT - the number of the sprites
 C - - - - - 0x01B4E5 06:B4D5: D0 F4     BNE @bra_B4CB_loop
 C - - - - - 0x01B4E7 06:B4D7: A9 04     LDA #$04
 C - - - - - 0x01B4E9 06:B4D9: 85 54     STA ram_0054
@@ -3191,10 +3198,12 @@ C - - - - - 0x01B4F5 06:B4E5: A9 0C     LDA #$0C
 C - - - - - 0x01B4F7 06:B4E7: 8D 32 06  STA v_ppu_buffer_count
 C - - - - - 0x01B4FA 06:B4EA: 60        RTS
 
+; Params:
+; ram_0012-ram_0013 - tbl_ptr_roomsX_X_with_NPCs
 sub_B4EB:
 C - - - - - 0x01B4FB 06:B4EB: A0 00     LDY #$00
 C - - - - - 0x01B4FD 06:B4ED: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01B4FF 06:B4EF: 85 00     STA ram_0000
+C - - - - - 0x01B4FF 06:B4EF: 85 00     STA ram_0000 ; 1 of NPC bytes
 C - - - - - 0x01B501 06:B4F1: 0A        ASL
 C - - - - - 0x01B502 06:B4F2: 0A        ASL
 C - - - - - 0x01B503 06:B4F3: 18        CLC
@@ -3235,7 +3244,7 @@ C - - - - - 0x01B54E 06:B53E: A9 BF     LDA #$BF
 C - - - - - 0x01B550 06:B540: 85 00     STA ram_0000
 C - - - - - 0x01B552 06:B542: A9 62     LDA #$62
 C - - - - - 0x01B554 06:B544: 85 02     STA ram_0002
-C - - - - - 0x01B556 06:B546: 4C 33 CE  JMP $CE33
+C - - - - - 0x01B556 06:B546: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 sub_B549:
 C - - - - - 0x01B559 06:B549: A9 04     LDA #$04
@@ -3289,78 +3298,75 @@ C - - - - - 0x01B5A6 06:B596: 85 03     STA ram_0003
 C - - - - - 0x01B5A8 06:B598: 6C 02 00  JMP (ram_0002)
 
 tbl_B59B:
-- D 1 - - - 0x01B5AB 06:B59B: B4 B5     .word $B5B4
-- - - - - - 0x01B5AD 06:B59D: B3        .byte $B3   ; 
-- - - - - - 0x01B5AE 06:B59E: B5        .byte $B5   ; 
-- - - - - - 0x01B5AF 06:B59F: B2        .byte $B2   ; 
-- - - - - - 0x01B5B0 06:B5A0: B5        .byte $B5   ; 
-- - - - - - 0x01B5B1 06:B5A1: B1        .byte $B1   ; 
-- - - - - - 0x01B5B2 06:B5A2: B5        .byte $B5   ; 
-- D 1 - - - 0x01B5B3 06:B5A3: BE        .byte $BE   ; 
-- D 1 - - - 0x01B5B4 06:B5A4: B5        .byte $B5   ; 
-- D 1 - - - 0x01B5B5 06:B5A5: B6        .byte $B6   ; 
-- D 1 - - - 0x01B5B6 06:B5A6: B5        .byte $B5   ; 
-- D 1 - - - 0x01B5B7 06:B5A7: CA        .byte $CA   ; 
-- D 1 - - - 0x01B5B8 06:B5A8: B5        .byte $B5   ; 
-- D 1 - - - 0x01B5B9 06:B5A9: DD        .byte $DD   ; 
-- D 1 - - - 0x01B5BA 06:B5AA: B5        .byte $B5   ; 
-- D 1 - - - 0x01B5BB 06:B5AB: D9        .byte $D9   ; 
-- D 1 - - - 0x01B5BC 06:B5AC: B5        .byte $B5   ; 
-- D 1 - - - 0x01B5BD 06:B5AD: D5        .byte $D5   ; 
-- D 1 - - - 0x01B5BE 06:B5AE: B5        .byte $B5   ; 
-- D 1 - - - 0x01B5BF 06:B5AF: F2        .byte $F2   ; 
-- D 1 - - - 0x01B5C0 06:B5B0: B5        .byte $B5   ; 
-bra_B5B1:
+- D 1 - - - 0x01B5AB 06:B59B: B4 B5     .addr loc_npc_type0; CPU address $B5B4
+- - - - - - 0x01B5AD 06:B59D: B3 B5     .addr loc_npc_type1; CPU address $B5B3
+- - - - - - 0x01B5AF 06:B59F: B2 B5     .addr loc_npc_type2; CPU address $B5B2
+- - - - - - 0x01B5B1 06:B5A1: B1 B5     .addr loc_npc_type3; CPU address $B5B1
+- D 1 - - - 0x01B5B3 06:B5A3: BE B5     .addr loc_npc_type4; CPU address $B5BE
+- D 1 - - - 0x01B5B5 06:B5A5: B6 B5     .addr loc_npc_type5; CPU address $B5B6
+- D 1 - - - 0x01B5B7 06:B5A7: CA B5     .addr loc_npc_type6; CPU address $B5CA
+- D 1 - - - 0x01B5B9 06:B5A9: DD B5     .addr loc_npc_type7; CPU address $B5DD
+- D 1 - - - 0x01B5BB 06:B5AB: D9 B5     .addr loc_npc_type8; CPU address $B5D9
+- D 1 - - - 0x01B5BD 06:B5AD: D5 B5     .addr loc_npc_type9; CPU address $B5D5
+- D 1 - - - 0x01B5BF 06:B5AF: F2 B5     .addr loc_npc_type10; CPU address $B5F2
+
+loc_npc_type3:
 C - - - - - 0x01B5C1 06:B5B1: C8        INY
-bra_B5B2:
+loc_npc_type2:
 C - - - - - 0x01B5C2 06:B5B2: C8        INY
-bra_B5B3:
-loc_B5B3:
+loc_npc_type1:
 C D 1 - - - 0x01B5C3 06:B5B3: C8        INY
-bra_B5B4:
+loc_npc_type0:
 C - - - - - 0x01B5C4 06:B5B4: C8        INY
 C - - - - - 0x01B5C5 06:B5B5: 60        RTS
 
+loc_npc_type5:
 C - - J - - 0x01B5C6 06:B5B6: AD 08 02  LDA v_ruby_ring
-C - - - - - 0x01B5C9 06:B5B9: F0 F9     BEQ bra_B5B4
+C - - - - - 0x01B5C9 06:B5B9: F0 F9     BEQ loc_npc_type0
 C - - - - - 0x01B5CB 06:B5BB: CE 08 02  DEC v_ruby_ring
+loc_npc_type4:
 C - - J - - 0x01B5CE 06:B5BE: A5 5F     LDA ram_005F
 C - - - - - 0x01B5D0 06:B5C0: 29 03     AND #$03
-C - - - - - 0x01B5D2 06:B5C2: F0 EF     BEQ bra_B5B3
+C - - - - - 0x01B5D2 06:B5C2: F0 EF     BEQ loc_npc_type1
 C - - - - - 0x01B5D4 06:B5C4: C9 01     CMP #$01
-C - - - - - 0x01B5D6 06:B5C6: F0 EA     BEQ bra_B5B2
-C - - - - - 0x01B5D8 06:B5C8: D0 E7     BNE bra_B5B1
+C - - - - - 0x01B5D6 06:B5C6: F0 EA     BEQ loc_npc_type2
+C - - - - - 0x01B5D8 06:B5C8: D0 E7     BNE loc_npc_type3
+loc_npc_type6:
 C - - J - - 0x01B5DA 06:B5CA: AD 08 02  LDA v_ruby_ring
-C - - - - - 0x01B5DD 06:B5CD: F0 E5     BEQ bra_B5B4
+C - - - - - 0x01B5DD 06:B5CD: F0 E5     BEQ loc_npc_type0
 C - - - - - 0x01B5DF 06:B5CF: CE 08 02  DEC v_ruby_ring
-C - - - - - 0x01B5E2 06:B5D2: 4C B3 B5  JMP loc_B5B3
+C - - - - - 0x01B5E2 06:B5D2: 4C B3 B5  JMP loc_npc_type1
 
+loc_npc_type9:
 C - - J - - 0x01B5E5 06:B5D5: A2 4B     LDX #$4B
 C - - - - - 0x01B5E7 06:B5D7: D0 06     BNE bra_B5DF
+loc_npc_type8:
 C - - J - - 0x01B5E9 06:B5D9: A2 44     LDX #$44
 C - - - - - 0x01B5EB 06:B5DB: D0 02     BNE bra_B5DF
+loc_npc_type7:
 C - - J - - 0x01B5ED 06:B5DD: A2 32     LDX #$32
 bra_B5DF:
 C - - - - - 0x01B5EF 06:B5DF: BD 00 05  LDA ram_0500,X
 C - - - - - 0x01B5F2 06:B5E2: 29 08     AND #$08
-C - - - - - 0x01B5F4 06:B5E4: F0 CE     BEQ bra_B5B4
+C - - - - - 0x01B5F4 06:B5E4: F0 CE     BEQ loc_npc_type0
 C - - - - - 0x01B5F6 06:B5E6: E0 4B     CPX #$4B
 C - - - - - 0x01B5F8 06:B5E8: D0 08     BNE bra_B5F2
 C - - - - - 0x01B5FA 06:B5EA: AD 6D 05  LDA ram_056D
 C - - - - - 0x01B5FD 06:B5ED: 29 1F     AND #$1F
 C - - - - - 0x01B5FF 06:B5EF: 8D 6D 05  STA ram_056D
 bra_B5F2:
+loc_npc_type10:
 C - - J - - 0x01B602 06:B5F2: A6 BC     LDX v_tmp_target_room
 C - - - - - 0x01B604 06:B5F4: BD 00 05  LDA ram_0500,X
 C - - - - - 0x01B607 06:B5F7: 09 08     ORA #$08
 C - - - - - 0x01B609 06:B5F9: 9D 00 05  STA ram_0500,X
-C - - - - - 0x01B60C 06:B5FC: D0 B5     BNE bra_B5B3
+C - - - - - 0x01B60C 06:B5FC: D0 B5     BNE loc_npc_type1
 C - - - - - 0x01B60E 06:B5FE: A5 30     LDA ram_0030
-C - - - - - 0x01B610 06:B600: F0 06     BEQ bra_B608
+C - - - - - 0x01B610 06:B600: F0 06     BEQ bra_B608_skip
 C - - - - - 0x01B612 06:B602: 20 6D B5  JSR sub_B56D
 C - - - - - 0x01B615 06:B605: 4C A4 B7  JMP loc_B7A4
 
-bra_B608:
+bra_B608_skip:
 C - - - - - 0x01B618 06:B608: A5 D8     LDA ram_00D8
 C - - - - - 0x01B61A 06:B60A: 29 1F     AND #$1F
 C - - - - - 0x01B61C 06:B60C: 20 C1 D0  JSR $D0C1
@@ -3412,7 +3418,7 @@ C - - - - - 0x01B651 06:B641: D0 0D     BNE bra_B650
 C - - - - - 0x01B653 06:B643: A5 C8     LDA ram_00C8
 C - - - - - 0x01B655 06:B645: D0 09     BNE bra_B650
 C - - - - - 0x01B657 06:B647: A9 03     LDA #BIT_BUTTON_B_OR_A
-C - - - - - 0x01B659 06:B649: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
+C - - - - - 0x01B659 06:B649: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
 C - - - - - 0x01B65C 06:B64C: F0 02     BEQ bra_B650
 C - - - - - 0x01B65E 06:B64E: E6 D8     INC ram_00D8
 bra_B650:
@@ -3487,7 +3493,7 @@ C - - - - - 0x01B6F0 06:B6E0: 60        RTS
 C - - - - - 0x01B6F1 06:B6E1: A5 C8     LDA ram_00C8
 C - - - - - 0x01B6F3 06:B6E3: D0 0A     BNE bra_B6EF_RTS
 C - - - - - 0x01B6F5 06:B6E5: A9 03     LDA #BIT_BUTTON_B_OR_A
-C - - - - - 0x01B6F7 06:B6E7: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
+C - - - - - 0x01B6F7 06:B6E7: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
 C - - - - - 0x01B6FA 06:B6EA: D0 01     BNE bra_B6ED
 C - - - - - 0x01B6FC 06:B6EC: 60        RTS
 
@@ -3548,7 +3554,7 @@ C - - - - - 0x01B75F 06:B74F: D0 1D     BNE bra_B76E
 C - - - - - 0x01B761 06:B751: A5 C8     LDA ram_00C8
 C - - - - - 0x01B763 06:B753: D0 4F     BNE bra_B7A4
 C - - - - - 0x01B765 06:B755: A9 03     LDA #BIT_BUTTON_B_OR_A
-C - - - - - 0x01B767 06:B757: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
+C - - - - - 0x01B767 06:B757: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
 C - - - - - 0x01B76A 06:B75A: F0 48     BEQ bra_B7A4
 C - - - - - 0x01B76C 06:B75C: 4C 72 B7  JMP loc_B772
 
@@ -3557,7 +3563,7 @@ C - - - - - 0x01B771 06:B761: D0 2A     BNE bra_B78D
 C - - - - - 0x01B773 06:B763: A5 C8     LDA ram_00C8
 C - - - - - 0x01B775 06:B765: D0 3D     BNE bra_B7A4
 C - - - - - 0x01B777 06:B767: A9 03     LDA #BIT_BUTTON_B_OR_A
-C - - - - - 0x01B779 06:B769: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
+C - - - - - 0x01B779 06:B769: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
 C - - - - - 0x01B77C 06:B76C: F0 36     BEQ bra_B7A4
 bra_B76E:
 C - - - - - 0x01B77E 06:B76E: A9 05     LDA #$05
@@ -4108,17 +4114,17 @@ C - - - - - 0x01BB49 06:BB39: D0 56     BNE bra_BB91_RTS ; Go to the branch If t
 C - - - - - 0x01BB4B 06:BB3B: A5 B2     LDA v_count_secret_hits
 C - - - - - 0x01BB4D 06:BB3D: D0 24     BNE bra_BB63  ; Go to the branch If some secret button is pressed
 C - - - - - 0x01BB4F 06:BB3F: AD 92 BB  LDA $BB92 ; BIT_BUTTON_Up, on the main title screen
-C - - - - - 0x01BB52 06:BB42: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
+C - - - - - 0x01BB52 06:BB42: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
 C - - - - - 0x01BB55 06:BB45: D0 28     BNE bra_BB6F  ; Go to the branch If the button 'Up' is pressed
 C - - - - - 0x01BB57 06:BB47: AD 98 BB  LDA $BB98 ; BIT_BUTTON_Left, on the main title screen
-C - - - - - 0x01BB5A 06:BB4A: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
+C - - - - - 0x01BB5A 06:BB4A: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
 C - - - - - 0x01BB5D 06:BB4D: F0 06     BEQ bra_BB55 ; Go to the branch If the button 'Left' isn't pressed
 C - - - - - 0x01BB5F 06:BB4F: A9 06     LDA #$06 ; The offset in the table secret code -> level 3
 C - - - - - 0x01BB61 06:BB51: 85 B4     STA v_offset_in_secret_codes
 C - - - - - 0x01BB63 06:BB53: D0 1A     BNE bra_BB6F
 bra_BB55:
 C - - - - - 0x01BB65 06:BB55: AD 9E BB  LDA $BB9E ; BIT_BUTTON_Down, on the main title screen
-C - - - - - 0x01BB68 06:BB58: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
+C - - - - - 0x01BB68 06:BB58: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
 C - - - - - 0x01BB6B 06:BB5B: F0 2A     BEQ bra_BB87_reset ; Go to the branch If the button 'Down' isn't pressed
 C - - - - - 0x01BB6D 06:BB5D: A9 0C     LDA #$0C ; The offset in the table secret code -> level 4
 C - - - - - 0x01BB6F 06:BB5F: 85 B4     STA v_offset_in_secret_codes
@@ -4128,7 +4134,7 @@ C - - - - - 0x01BB73 06:BB63: 18        CLC
 C - - - - - 0x01BB74 06:BB64: 65 B4     ADC v_offset_in_secret_codes
 C - - - - - 0x01BB76 06:BB66: A8        TAY
 C - - - - - 0x01BB77 06:BB67: B9 92 BB  LDA tbl_BB92_stage_select_codes,Y
-C - - - - - 0x01BB7A 06:BB6A: 20 79 D0  JSR $D079 ; to sub_D079_check_button_press (bank FF)
+C - - - - - 0x01BB7A 06:BB6A: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
 C - - - - - 0x01BB7D 06:BB6D: F0 18     BEQ bra_BB87_reset ; Go to the branch If the secret button isn't pressed
 bra_BB6F:
 C - - - - - 0x01BB7F 06:BB6F: E6 B2     INC v_count_secret_hits

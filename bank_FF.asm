@@ -10,8 +10,10 @@
 .import number_of_briefcases_on_the_level ; bank 04 (Page 2)
 .import tbl_ptr_briefcases_on_the_level ; bank 04 (Page 2)
 
+.export loc_CE33_add_sprite_magic
 .export sub_EF4F_switch_bank_4_p2
 .export sub_F2D6_try_put_briefcase
+.export sub_D079_check_button_press
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI
@@ -3357,8 +3359,8 @@ C - - - - - 0x01D506 07:D4F6: 10 FB     BPL bra_D4F3 ; wait for vblank
 C - - - - - 0x01D508 07:D4F8: 4C 71 C3  JMP loc_C371
 
 sub_D4FB:
-C - - - - - 0x01D50B 07:D4FB: A5 B7     LDA ram_00B7
-C - - - - - 0x01D50D 07:D4FD: 85 B8     STA ram_00B8
+C - - - - - 0x01D50B 07:D4FB: A5 B7     LDA v_corridor_magic5
+C - - - - - 0x01D50D 07:D4FD: 85 B8     STA v_corridor_magic5_cache
 C - - - - - 0x01D50F 07:D4FF: AD 02 20  LDA PPU_STATUS ; read PPU status to reset the high/low latch
 C - - - - - 0x01D512 07:D502: A9 20     LDA #$20
 C - - - - - 0x01D514 07:D504: 8D 06 20  STA PPU_ADDRESS
@@ -9166,7 +9168,7 @@ C - - - - - 0x01F9CE 07:F9BE: 85 C4     STA ram_00C4
 loc_F9C0:
 C D 3 - - - 0x01F9D0 07:F9C0: C8        INY ; 5th of 5 bytes
 C - - - - - 0x01F9D1 07:F9C1: B1 BD     LDA (ram_00BD),Y
-C - - - - - 0x01F9D3 07:F9C3: 85 B7     STA ram_00B7
+C - - - - - 0x01F9D3 07:F9C3: 85 B7     STA v_corridor_magic5
 C - - - - - 0x01F9D5 07:F9C5: 68        PLA
 C - - - - - 0x01F9D6 07:F9C6: AA        TAX
 C - - - - - 0x01F9D7 07:F9C7: 38        SEC
@@ -9462,11 +9464,11 @@ C - - - - - 0x01FBA9 07:FB99: 60        RTS
 
 sub_FB9A:
 C - - - - - 0x01FBAA 07:FB9A: A9 01     LDA #$01
-C - - - - - 0x01FBAC 07:FB9C: 24 B7     BIT ram_00B7
-C - - - - - 0x01FBAE 07:FB9E: 30 02     BMI bra_FBA2
+C - - - - - 0x01FBAC 07:FB9C: 24 B7     BIT v_corridor_magic5
+C - - - - - 0x01FBAE 07:FB9E: 30 02     BMI @bra_FBA2_skip
 C - - - - - 0x01FBB0 07:FBA0: A9 00     LDA #$00
-bra_FBA2:
-C - - - - - 0x01FBB2 07:FBA2: 85 01     STA ram_0001
+@bra_FBA2_skip:
+C - - - - - 0x01FBB2 07:FBA2: 85 01     STA ram_0001 ; Register A has 0x00 or 0x01
 C - - - - - 0x01FBB4 07:FBA4: A5 C4     LDA ram_00C4
 C - - - - - 0x01FBB6 07:FBA6: 0A        ASL
 C - - - - - 0x01FBB7 07:FBA7: 26 01     ROL ram_0001
