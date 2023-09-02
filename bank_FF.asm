@@ -85,7 +85,7 @@ C - - - - - 0x01C08E 07:C07E: 86 33     STX v_menu_counter
 C - - - - - 0x01C090 07:C080: A9 40     LDA #$40
 C - - - - - 0x01C092 07:C082: 8D 17 40  STA JOY2
 C - - - - - 0x01C095 07:C085: A9 FC     LDA #$FC
-C - - - - - 0x01C097 07:C087: 85 5F     STA ram_005F
+C - - - - - 0x01C097 07:C087: 85 5F     STA v_chr_live_status
 C - - - - - 0x01C099 07:C089: 20 D4 C8  JSR sub_C8D4_check_Yoshikawa
 C - - - - - 0x01C09C 07:C08C: 20 C7 B8  JSR $B8C7 ; to sub_B8C7 (bank 06_2)
 C - - - - - 0x01C09F 07:C08F: 20 DA B9  JSR $B9DA ; to sub_B9DA (bank 06_2)
@@ -245,10 +245,10 @@ bra_C1AF:
 loc_C1B1:
 C D 2 - - - 0x01C1C1 07:C1B1: A9 00     LDA #$00
 C - - - - - 0x01C1C3 07:C1B3: 85 D6     STA ram_00D6
-C - - - - - 0x01C1C5 07:C1B5: A5 5F     LDA ram_005F
+C - - - - - 0x01C1C5 07:C1B5: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01C1C7 07:C1B7: 85 D4     STA ram_00D4
 C - - - - - 0x01C1C9 07:C1B9: A9 FC     LDA #$FC
-C - - - - - 0x01C1CB 07:C1BB: 85 5F     STA ram_005F
+C - - - - - 0x01C1CB 07:C1BB: 85 5F     STA v_chr_live_status
 C - - - - - 0x01C1CD 07:C1BD: 20 72 C6  JSR sub_C672
 C - - - - - 0x01C1D0 07:C1C0: 20 A5 EF  JSR sub_EFA5
 bra_C1C3:
@@ -302,8 +302,8 @@ C - - - - - 0x01C21F 07:C20F: 2A        ROL
 C - - - - - 0x01C220 07:C210: 2A        ROL
 C - - - - - 0x01C221 07:C211: 88        DEY
 C - - - - - 0x01C222 07:C212: 10 FB     BPL bra_C20F
-C - - - - - 0x01C224 07:C214: 25 5F     AND ram_005F
-C - - - - - 0x01C226 07:C216: 85 5F     STA ram_005F
+C - - - - - 0x01C224 07:C214: 25 5F     AND v_chr_live_status
+C - - - - - 0x01C226 07:C216: 85 5F     STA v_chr_live_status
 C - - - - - 0x01C228 07:C218: 29 A8     AND #$A8
 C - - - - - 0x01C22A 07:C21A: F0 20     BEQ bra_C23C_skip
 C - - - - - 0x01C22C 07:C21C: 24 6D     BIT ram_006D
@@ -972,7 +972,7 @@ C - - - - - 0x01C6A9 07:C699: 8D 31 06  STA ram_0631
 C - - - - - 0x01C6AC 07:C69C: 8D 7B 06  STA ram_067B
 C - - - - - 0x01C6AF 07:C69F: 85 3D     STA ram_003D
 C - - - - - 0x01C6B1 07:C6A1: AA        TAX
-C - - - - - 0x01C6B2 07:C6A2: A5 5F     LDA ram_005F
+C - - - - - 0x01C6B2 07:C6A2: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01C6B4 07:C6A4: 6A        ROR
 C - - - - - 0x01C6B5 07:C6A5: 6A        ROR
 bra_C6A6:
@@ -1023,7 +1023,7 @@ bra_C6E8:
 C - - - - - 0x01C6F8 07:C6E8: A5 1A     LDA ram_001A
 C - - - - - 0x01C6FA 07:C6EA: 0A        ASL
 C - - - - - 0x01C6FB 07:C6EB: A8        TAY
-C - - - - - 0x01C6FC 07:C6EC: A5 5F     LDA ram_005F
+C - - - - - 0x01C6FC 07:C6EC: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01C6FE 07:C6EE: 85 D4     STA ram_00D4
 C - - - - - 0x01C700 07:C6F0: 20 7B C7  JSR sub_C77B
 C - - - - - 0x01C703 07:C6F3: F0 07     BEQ bra_C6FC
@@ -1036,7 +1036,7 @@ C - - - - - 0x01C709 07:C6F9: 4C 1F C7  JMP loc_C71F
 bra_C6FC:
 C - - - - - 0x01C70C 07:C6FC: A5 D6     LDA ram_00D6
 C - - - - - 0x01C70E 07:C6FE: 10 1F     BPL bra_C71F
-C - - - - - 0x01C710 07:C700: A5 5F     LDA ram_005F
+C - - - - - 0x01C710 07:C700: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01C712 07:C702: 29 03     AND #$03
 C - - - - - 0x01C714 07:C704: 85 00     STA ram_0000
 C - - - - - 0x01C716 07:C706: A5 1A     LDA ram_001A
@@ -1195,18 +1195,18 @@ C - - - - - 0x01C810 07:C800: 20 32 C8  JSR sub_C832
 bra_C803:
 C D 2 - - - 0x01C813 07:C803: A9 4F     LDA #$4F
 C - - - - - 0x01C815 07:C805: 85 00     STA ram_0000
-C - - - - - 0x01C817 07:C807: A5 5F     LDA ram_005F
+C - - - - - 0x01C817 07:C807: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01C819 07:C809: 4A        LSR
 C - - - - - 0x01C81A 07:C80A: 4A        LSR
 C - - - - - 0x01C81B 07:C80B: 20 24 C8  JSR sub_C824
 C - - - - - 0x01C81E 07:C80E: A9 8F     LDA #$8F
 C - - - - - 0x01C820 07:C810: 85 00     STA ram_0000
-C - - - - - 0x01C822 07:C812: A5 5F     LDA ram_005F
+C - - - - - 0x01C822 07:C812: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01C824 07:C814: 20 5F D0  JSR sub_accumulator_shift_right_by_4
 C - - - - - 0x01C827 07:C817: 20 24 C8  JSR sub_C824
 C - - - - - 0x01C82A 07:C81A: A9 CF     LDA #$CF
 C - - - - - 0x01C82C 07:C81C: 85 00     STA ram_0000
-C - - - - - 0x01C82E 07:C81E: A5 5F     LDA ram_005F
+C - - - - - 0x01C82E 07:C81E: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01C830 07:C820: 20 5E D0  JSR sub_D05E
 C - - - - - 0x01C833 07:C823: 4A        LSR
 sub_C824:
@@ -1236,7 +1236,7 @@ bra_C848_RTS:
 C - - - - - 0x01C858 07:C848: 60        RTS
 
 sub_C849:
-C - - - - - 0x01C859 07:C849: A5 5F     LDA ram_005F
+C - - - - - 0x01C859 07:C849: A5 5F     LDA v_chr_live_status
 bra_C84B:
 C - - - - - 0x01C85B 07:C84B: 4A        LSR
 C - - - - - 0x01C85C 07:C84C: 4A        LSR
@@ -1246,10 +1246,10 @@ C - - - - - 0x01C860 07:C850: 29 03     AND #$03
 C - - - - - 0x01C862 07:C852: 60        RTS
 
 sub_C853:
-C - - - - - 0x01C863 07:C853: A5 5F     LDA ram_005F
+C - - - - - 0x01C863 07:C853: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01C865 07:C855: 29 FC     AND #$FC
 C - - - - - 0x01C867 07:C857: 05 AD     ORA ram_00AD
-C - - - - - 0x01C869 07:C859: 85 5F     STA ram_005F
+C - - - - - 0x01C869 07:C859: 85 5F     STA v_chr_live_status
 C - - - - - 0x01C86B 07:C85B: 60        RTS
 
 sub_C85C:
@@ -1751,7 +1751,7 @@ tbl_CB20:
 sub_CB29:
 C - - - - - 0x01CB39 07:CB29: AD 14 02  LDA ram_0214
 C - - - - - 0x01CB3C 07:CB2C: F0 08     BEQ bra_CB36
-C - - - - - 0x01CB3E 07:CB2E: A5 5F     LDA ram_005F
+C - - - - - 0x01CB3E 07:CB2E: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01CB40 07:CB30: 29 03     AND #$03
 C - - - - - 0x01CB42 07:CB32: F0 02     BEQ bra_CB36
 - - - - - - 0x01CB44 07:CB34: 38        .byte $38   ; 
@@ -1815,7 +1815,7 @@ bra_CB8C:
 sub_CB8C:
 C - - - - - 0x01CB9C 07:CB8C: A5 6D     LDA ram_006D
 C - - - - - 0x01CB9E 07:CB8E: 30 48     BMI bra_CBD8_RTS
-C - - - - - 0x01CBA0 07:CB90: A5 5F     LDA ram_005F
+C - - - - - 0x01CBA0 07:CB90: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01CBA2 07:CB92: 29 03     AND #$03
 C - - - - - 0x01CBA4 07:CB94: F0 0D     BEQ bra_CBA3
 C - - - - - 0x01CBA6 07:CB96: AD 00 02  LDA v_radio_item
@@ -4499,7 +4499,7 @@ C - - - - - 0x01DBF2 07:DBE2: 90 02     BCC bra_DBE6
 C - - - - - 0x01DBF4 07:DBE4: E8        INX
 C - - - - - 0x01DBF5 07:DBE5: E8        INX
 bra_DBE6:
-C - - - - - 0x01DBF6 07:DBE6: A5 5F     LDA ram_005F
+C - - - - - 0x01DBF6 07:DBE6: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01DBF8 07:DBE8: 29 02     AND #$02
 C - - - - - 0x01DBFA 07:DBEA: F0 03     BEQ bra_DBEF
 C - - - - - 0x01DBFC 07:DBEC: 4C 1C E2  JMP loc_E21C
@@ -4518,7 +4518,7 @@ C - - - - - 0x01DC10 07:DC00: 85 45     STA ram_0045
 C - - - - - 0x01DC12 07:DC02: 20 5A CE  JSR sub_CE5A_render_character
 loc_DC05:
 C D 2 - - - 0x01DC15 07:DC05: A2 00     LDX #$00
-C - - - - - 0x01DC17 07:DC07: A5 5F     LDA ram_005F
+C - - - - - 0x01DC17 07:DC07: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01DC19 07:DC09: 6A        ROR
 C - - - - - 0x01DC1A 07:DC0A: 90 02     BCC bra_DC0E
 C - - - - - 0x01DC1C 07:DC0C: A2 02     LDX #$02
@@ -5062,7 +5062,7 @@ C - - - - - 0x01DF64 07:DF54: C9 1F     CMP #$1F
 C - - - - - 0x01DF66 07:DF56: 60        RTS
 
 sub_DF57:
-C - - - - - 0x01DF67 07:DF57: A5 5F     LDA ram_005F
+C - - - - - 0x01DF67 07:DF57: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01DF69 07:DF59: 29 03     AND #$03
 C - - - - - 0x01DF6B 07:DF5B: 60        RTS
 
@@ -5244,7 +5244,7 @@ C - - - - - 0x01E05E 07:E04E: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01E061 07:E051: F0 30     BEQ bra_E083_RTS
 C - - - - - 0x01E063 07:E053: 24 79     BIT ram_0079
 C - - - - - 0x01E065 07:E055: 10 2C     BPL bra_E083_RTS
-C - - - - - 0x01E067 07:E057: A5 5F     LDA ram_005F
+C - - - - - 0x01E067 07:E057: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01E069 07:E059: 29 02     AND #$02
 C - - - - - 0x01E06B 07:E05B: F0 0F     BEQ bra_E06C
 C - - - - - 0x01E06D 07:E05D: A5 78     LDA ram_0078
@@ -5256,7 +5256,7 @@ C - - - - - 0x01E078 07:E068: 85 78     STA ram_0078
 C - - - - - 0x01E07A 07:E06A: D0 17     BNE bra_E083_RTS
 bra_E06C:
 C - - - - - 0x01E07C 07:E06C: A2 02     LDX #$02
-C - - - - - 0x01E07E 07:E06E: A5 5F     LDA ram_005F
+C - - - - - 0x01E07E 07:E06E: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01E080 07:E070: 6A        ROR
 C - - - - - 0x01E081 07:E071: B0 09     BCS bra_E07C
 C - - - - - 0x01E083 07:E073: AD 14 02  LDA ram_0214
@@ -5298,7 +5298,7 @@ bra_E0A6:
 C - - - - - 0x01E0B6 07:E0A6: A9 0B     LDA #$0B ; Lupen shoots (sound effect)
 C - - - - - 0x01E0B8 07:E0A8: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01E0BB 07:E0AB: A0 81     LDY #$81
-C - - - - - 0x01E0BD 07:E0AD: A5 5F     LDA ram_005F
+C - - - - - 0x01E0BD 07:E0AD: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01E0BF 07:E0AF: 6A        ROR
 C - - - - - 0x01E0C0 07:E0B0: B0 02     BCS bra_E0B4
 C - - - - - 0x01E0C2 07:E0B2: A0 C1     LDY #$C1
@@ -5713,7 +5713,7 @@ bra_E2F7_RTS:
 C - - - - - 0x01E307 07:E2F7: 60        RTS
 
 sub_E2F8:
-C - - - - - 0x01E308 07:E2F8: A5 5F     LDA ram_005F
+C - - - - - 0x01E308 07:E2F8: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01E30A 07:E2FA: 29 03     AND #$03
 C - - - - - 0x01E30C 07:E2FC: 0A        ASL
 C - - - - - 0x01E30D 07:E2FD: 0A        ASL
@@ -6804,7 +6804,7 @@ C - - - - - 0x01E9AF 07:E99F: 20 4C E0  JSR sub_E04C
 C - - - - - 0x01E9B2 07:E9A2: 68        PLA
 C - - - - - 0x01E9B3 07:E9A3: AA        TAX
 bra_E9A4:
-C - - - - - 0x01E9B4 07:E9A4: A5 5F     LDA ram_005F
+C - - - - - 0x01E9B4 07:E9A4: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01E9B6 07:E9A6: 29 02     AND #$02
 C - - - - - 0x01E9B8 07:E9A8: F0 03     BEQ bra_E9AD
 C - - - - - 0x01E9BA 07:E9AA: 4C 5C EC  JMP loc_EC5C
@@ -7053,7 +7053,7 @@ C - - - - - 0x01EB3D 07:EB2D: 85 6C     STA ram_006C
 C - - - - - 0x01EB3F 07:EB2F: A5 6C     LDA ram_006C
 C - - - - - 0x01EB41 07:EB31: 29 08     AND #$08
 C - - - - - 0x01EB43 07:EB33: D0 1E     BNE bra_EB53
-C - - - - - 0x01EB45 07:EB35: A5 5F     LDA ram_005F
+C - - - - - 0x01EB45 07:EB35: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01EB47 07:EB37: 29 02     AND #$02
 C - - - - - 0x01EB49 07:EB39: F0 04     BEQ bra_EB3F
 C - - - - - 0x01EB4B 07:EB3B: A9 80     LDA #$80
@@ -7255,7 +7255,7 @@ C - - - - - 0x01EC91 07:EC81: A5 64     LDA ram_0064
 C - - - - - 0x01EC93 07:EC83: 85 01     STA ram_0001
 C - - - - - 0x01EC95 07:EC85: A9 01     LDA #$01
 C - - - - - 0x01EC97 07:EC87: 85 45     STA ram_0045
-C - - - - - 0x01EC99 07:EC89: A5 5F     LDA ram_005F
+C - - - - - 0x01EC99 07:EC89: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01EC9B 07:EC8B: 29 03     AND #$03
 C - - - - - 0x01EC9D 07:EC8D: 0A        ASL
 C - - - - - 0x01EC9E 07:EC8E: 85 12     STA ram_0012
@@ -7267,7 +7267,7 @@ C - - - - - 0x01ECA6 07:EC96: 18        CLC
 C - - - - - 0x01ECA7 07:EC97: 69 7E     ADC #$7E
 C - - - - - 0x01ECA9 07:EC99: AA        TAX
 C - - - - - 0x01ECAA 07:EC9A: 20 5A CE  JSR sub_CE5A_render_character
-C - - - - - 0x01ECAD 07:EC9D: A5 5F     LDA ram_005F
+C - - - - - 0x01ECAD 07:EC9D: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01ECAF 07:EC9F: 29 02     AND #$02
 C - - - - - 0x01ECB1 07:ECA1: F0 12     BEQ bra_ECB5_RTS
 C - - - - - 0x01ECB3 07:ECA3: 20 8D E2  JSR sub_E28D
@@ -8170,7 +8170,7 @@ C - - - - - 0x01F2CC 07:F2BC: A5 46     LDA v_no_sub_level
 C - - - - - 0x01F2CE 07:F2BE: 0A        ASL
 C - - - - - 0x01F2CF 07:F2BF: AA        TAX
 C - - - - - 0x01F2D0 07:F2C0: BD A2 83  LDA $83A2,X
-C - - - - - 0x01F2D3 07:F2C3: 85 12     STA ram_0012 ; Low addressaddress
+C - - - - - 0x01F2D3 07:F2C3: 85 12     STA ram_0012 ; Low address
 C - - - - - 0x01F2D5 07:F2C5: BD A3 83  LDA $83A3,X
 C - - - - - 0x01F2D8 07:F2C8: 85 13     STA ram_0013 ; High address
 C - - - - - 0x01F2DA 07:F2CA: A5 2C     LDA v_low_counter

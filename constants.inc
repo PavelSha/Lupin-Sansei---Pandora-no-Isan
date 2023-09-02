@@ -270,6 +270,15 @@ v_no_level                    = ram_005E ; It is a number of a level than it sta
 ; 0x01 - level 2
 ; 0x02 - level 3
 ; 0x03 - level 4 + racing
+v_chr_live_status              = ram_005F
+; Byte: XYZW KLMN
+; MN - the current selected character (0x00 - Lupin, 0x01 - Jigen, 0x10 - Goemon)
+; X - Goemon fell (1 - true)
+; Y - Goemon arrested (1 - true)
+; Z - Jigen fell (1 - true)
+; W - Jigen arrested (1 - true)
+; K - Lupin fell (1 - true)
+; L - Lupin arrested (1 - true)
 v_no_screen                   = ram_0068 ; The number of 1 of 4 screen (name tables)
 v_chr_status                  = ram_006C ; A status of a character
 ; 0x00000001 - the character is looking to the left
@@ -287,6 +296,8 @@ v_low_corridor_address        = ram_00BD
 v_high_corridor_address       = ram_00BE
 v_low_destr_wall_address      = ram_00BF
 v_high_destr_wall_address     = ram_00C0
+v_low_vram_msg_address        = ram_00CB
+v_hign_vram_msg_address       = ram_00CC
 v_low_msg_ppu_address         = ram_00CF ; This temporary address for the message on the screen
 v_high_msg_ppu_address        = ram_00D0
 v_letter_offset               = ram_00C9

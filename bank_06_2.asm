@@ -3,6 +3,7 @@
 .include "constants.inc"
 ; 0x01A010-0x01C00F
 
+.import tbl_messages ; bank 04 (Page 2)
 .import tbl_ptr_rooms_with_NPCs ; bank 04 (Page 2)
 .import tbl_ptr_briefcases_outside ; bank 04 (Page 2)
 .import tbl_briefcases_indexex_on_the_level ; bank 04 (Page 2)
@@ -71,7 +72,7 @@ C - - - - - 0x01A04A 06:A03A: 90 30     BCC bra_A06C
 C - - - - - 0x01A04C 06:A03C: 20 B6 A0  JSR sub_A0B6
 C - - - - - 0x01A04F 06:A03F: 20 60 D6  JSR $D660 ; to sub_D660 (bank FF)
 C - - - - - 0x01A052 06:A042: B0 0B     BCS bra_A04F
-C - - - - - 0x01A054 06:A044: A5 5F     LDA ram_005F
+C - - - - - 0x01A054 06:A044: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01A056 06:A046: 29 02     AND #$02
 C - - - - - 0x01A058 06:A048: F0 10     BEQ bra_A05A
 C - - - - - 0x01A05A 06:A04A: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
@@ -523,7 +524,7 @@ C - - - - - 0x01A32D 06:A31D: 90 35     BCC bra_A354
 C - - - - - 0x01A32F 06:A31F: 20 93 A3  JSR sub_A393
 C - - - - - 0x01A332 06:A322: 20 60 D6  JSR $D660 ; to sub_D660 (bank FF)
 C - - - - - 0x01A335 06:A325: B0 0B     BCS bra_A332
-C - - - - - 0x01A337 06:A327: A5 5F     LDA ram_005F
+C - - - - - 0x01A337 06:A327: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01A339 06:A329: 29 02     AND #$02
 C - - - - - 0x01A33B 06:A32B: F0 0B     BEQ bra_A338
 C - - - - - 0x01A33D 06:A32D: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
@@ -1089,7 +1090,7 @@ C - - - - - 0x01A69B 06:A68B: 20 4A A7  JSR sub_A74A
 loc_A68E:
 C D 1 - - - 0x01A69E 06:A68E: 20 60 D6  JSR $D660 ; to sub_D660 (bank FF)
 C - - - - - 0x01A6A1 06:A691: B0 0B     BCS bra_A69E
-C - - - - - 0x01A6A3 06:A693: A5 5F     LDA ram_005F
+C - - - - - 0x01A6A3 06:A693: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01A6A5 06:A695: 29 02     AND #$02
 C - - - - - 0x01A6A7 06:A697: F0 0B     BEQ bra_A6A4
 C - - - - - 0x01A6A9 06:A699: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
@@ -1601,7 +1602,7 @@ C - - - - - 0x01AA30 06:AA20: A9 10     LDA #$10
 C - - - - - 0x01AA32 06:AA22: 85 AF     STA ram_00AF
 C - - - - - 0x01AA34 06:AA24: A9 06     LDA #$06
 C - - - - - 0x01AA36 06:AA26: 85 B0     STA ram_00B0
-C - - - - - 0x01AA38 06:AA28: A5 5F     LDA ram_005F
+C - - - - - 0x01AA38 06:AA28: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01AA3A 06:AA2A: 29 02     AND #$02
 C - - - - - 0x01AA3C 06:AA2C: F0 0B     BEQ bra_AA39
 C - - - - - 0x01AA3E 06:AA2E: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
@@ -1901,7 +1902,7 @@ C - - - - - 0x01AC38 06:AC28: A9 16     LDA #$16
 C - - - - - 0x01AC3A 06:AC2A: 85 AF     STA ram_00AF
 C - - - - - 0x01AC3C 06:AC2C: A9 06     LDA #$06
 C - - - - - 0x01AC3E 06:AC2E: 85 B0     STA ram_00B0
-C - - - - - 0x01AC40 06:AC30: A5 5F     LDA ram_005F
+C - - - - - 0x01AC40 06:AC30: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01AC42 06:AC32: 29 02     AND #$02
 C - - - - - 0x01AC44 06:AC34: F0 0B     BEQ bra_AC41
 C - - - - - 0x01AC46 06:AC36: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
@@ -2237,7 +2238,7 @@ C - - - - - 0x01AE76 06:AE66: 20 85 AE  JSR sub_AE85
 C - - - - - 0x01AE79 06:AE69: 4C 80 AE  JMP loc_AE80
 
 bra_AE6C:
-C - - - - - 0x01AE7C 06:AE6C: A5 5F     LDA ram_005F
+C - - - - - 0x01AE7C 06:AE6C: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01AE7E 06:AE6E: 29 02     AND #$02
 C - - - - - 0x01AE80 06:AE70: D0 0E     BNE bra_AE80
 C - - - - - 0x01AE82 06:AE72: A6 7A     LDX ram_007A
@@ -2411,7 +2412,7 @@ C - - - - - 0x01AFB5 06:AFA5: 20 EF AF  JSR sub_AFEF
 C - - - - - 0x01AFB8 06:AFA8: 4C C6 AF  JMP loc_AFC6
 
 bra_AFAB:
-C - - - - - 0x01AFBB 06:AFAB: A5 5F     LDA ram_005F
+C - - - - - 0x01AFBB 06:AFAB: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01AFBD 06:AFAD: 29 02     AND #$02
 C - - - - - 0x01AFBF 06:AFAF: F0 0B     BEQ bra_AFBC
 C - - - - - 0x01AFC1 06:AFB1: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
@@ -2783,18 +2784,18 @@ C - - - - - 0x01B23F 06:B22F: A2 14     LDX #$14
 bra_B231:
 C - - - - - 0x01B241 06:B231: 4C C2 DB  JMP $DBC2
 
-loc_B234:
-sub_B234:
+loc_B234_get_vram_msg_address:
+sub_B234_get_vram_msg_address:
 C D 1 - - - 0x01B244 06:B234: 48        PHA
 C - - - - - 0x01B245 06:B235: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ; bank FF
 C - - - - - 0x01B248 06:B238: 68        PLA
 C - - - - - 0x01B249 06:B239: 0A        ASL
 C - - - - - 0x01B24A 06:B23A: A8        TAY
-C - - - - - 0x01B24B 06:B23B: B9 00 80  LDA MMC3_Bank_select,Y
-C - - - - - 0x01B24E 06:B23E: 85 CB     STA ram_00CB
-C - - - - - 0x01B250 06:B240: B9 01 80  LDA MMC3_Bank_data,Y
+C - - - - - 0x01B24B 06:B23B: B9 00 80  LDA tbl_messages,Y
+C - - - - - 0x01B24E 06:B23E: 85 CB     STA v_low_vram_msg_address
+C - - - - - 0x01B250 06:B240: B9 01 80  LDA tbl_messages + 1,Y
 C - - - - - 0x01B253 06:B243: 29 1F     AND #$1F
-C - - - - - 0x01B255 06:B245: 85 CC     STA ram_00CC
+C - - - - - 0x01B255 06:B245: 85 CC     STA v_hign_vram_msg_address
 C - - - - - 0x01B257 06:B247: A9 80     LDA #$80
 C - - - - - 0x01B259 06:B249: 85 C8     STA ram_00C8
 C - - - - - 0x01B25B 06:B24B: A9 00     LDA #$00
@@ -2885,9 +2886,9 @@ sub_B2DB_prepare_letter_address:
 C - - - - - 0x01B2EB 06:B2DB: AD 02 20  LDA PPU_STATUS ; ; Reset PPU Address
 C - - - - - 0x01B2EE 06:B2DE: 98        TYA
 C - - - - - 0x01B2EF 06:B2DF: 18        CLC
-C - - - - - 0x01B2F0 06:B2E0: 65 CB     ADC ram_00CB
+C - - - - - 0x01B2F0 06:B2E0: 65 CB     ADC v_low_vram_msg_address
 C - - - - - 0x01B2F2 06:B2E2: 48        PHA
-C - - - - - 0x01B2F3 06:B2E3: A5 CC     LDA ram_00CC
+C - - - - - 0x01B2F3 06:B2E3: A5 CC     LDA v_hign_vram_msg_address
 C - - - - - 0x01B2F5 06:B2E5: 69 00     ADC #$00
 C - - - - - 0x01B2F7 06:B2E7: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B2FA 06:B2EA: 68        PLA
@@ -2923,7 +2924,7 @@ sub_B319: ; from bank FF
 C - - - - - 0x01B329 06:B319: 20 4F EF  JSR $EF4F
 C - - - - - 0x01B32C 06:B31C: A0 FF     LDY #$FF
 C - - - - - 0x01B32E 06:B31E: A2 00     LDX #$00
-C - - - - - 0x01B330 06:B320: A5 5F     LDA ram_005F
+C - - - - - 0x01B330 06:B320: A5 5F     LDA v_chr_live_status
 bra_B322:
 C - - - - - 0x01B332 06:B322: 4A        LSR
 C - - - - - 0x01B333 06:B323: 4A        LSR
@@ -3103,22 +3104,22 @@ C - - - - - 0x01B45B 06:B44B: 29 03     AND #$03
 C - - - - - 0x01B45D 06:B44D: D0 10     BNE bra_B45F_skip
 C - - - - - 0x01B45F 06:B44F: 20 0C B3  JSR sub_B30C
 C - - - - - 0x01B462 06:B452: AA        TAX
-C - - - - - 0x01B463 06:B453: A5 5F     LDA ram_005F
-C - - - - - 0x01B465 06:B455: 1D 64 B4  ORA tbl_B464,X
-C - - - - - 0x01B468 06:B458: 85 5F     STA ram_005F
+C - - - - - 0x01B463 06:B453: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01B465 06:B455: 1D 64 B4  ORA tbl_rescue_character,X
+C - - - - - 0x01B468 06:B458: 85 5F     STA v_chr_live_status
 C - - - - - 0x01B46A 06:B45A: B6 60     LDX ram_0060,Y
 C - - - - - 0x01B46C 06:B45C: 20 03 B3  JSR sub_B303
 bra_B45F_skip:
 C - - - - - 0x01B46F 06:B45F: 68        PLA
-C - - - - - 0x01B470 06:B460: 4C 34 B2  JMP loc_B234
+C - - - - - 0x01B470 06:B460: 4C 34 B2  JMP loc_B234_get_vram_msg_address
 
 bra_B463_RTS:
 C - - - - - 0x01B473 06:B463: 60        RTS
 
-tbl_B464:
-- D 1 - - - 0x01B474 06:B464: 0C        .byte $0C   ; 
-- D 1 - - - 0x01B475 06:B465: 30        .byte $30   ; <0>
-- D 1 - - - 0x01B476 06:B466: C0        .byte $C0   ; 
+tbl_rescue_character:
+- D 1 - - - 0x01B474 06:B464: 0C        .byte $0C   ; Lupin
+- D 1 - - - 0x01B475 06:B465: 30        .byte $30   ; Jigen
+- D 1 - - - 0x01B476 06:B466: C0        .byte $C0   ; Goemon
 bra_B467:
 C - - - - - 0x01B477 06:B467: 20 3E FC  JSR $FC3E
 C - - - - - 0x01B47A 06:B46A: F0 F7     BEQ bra_B463_RTS
@@ -3150,7 +3151,7 @@ C - - - - - 0x01B49A 06:B48A: A9 00     LDA #$00
 C - - - - - 0x01B49C 06:B48C: 85 00     STA ram_0000
 C - - - - - 0x01B49E 06:B48E: C0 00     CPY #$00
 C - - - - - 0x01B4A0 06:B490: F0 06     BEQ bra_B498_skip
-C - - - - - 0x01B4A2 06:B492: A5 5F     LDA ram_005F
+C - - - - - 0x01B4A2 06:B492: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01B4A4 06:B494: 29 03     AND #$03
 C - - - - - 0x01B4A6 06:B496: 85 00     STA ram_0000
 bra_B498_skip:
@@ -3291,13 +3292,13 @@ C - - - - - 0x01B597 06:B587: 60        RTS
 sub_B58C:
 C - - - - - 0x01B59C 06:B58C: 0A        ASL
 C - - - - - 0x01B59D 06:B58D: AA        TAX
-C - - - - - 0x01B59E 06:B58E: BD 9B B5  LDA tbl_B59B,X
-C - - - - - 0x01B5A1 06:B591: 85 02     STA ram_0002
-C - - - - - 0x01B5A3 06:B593: BD 9C B5  LDA tbl_B59B + 1,X
-C - - - - - 0x01B5A6 06:B596: 85 03     STA ram_0003
+C - - - - - 0x01B59E 06:B58E: BD 9B B5  LDA tbl_npc_types,X
+C - - - - - 0x01B5A1 06:B591: 85 02     STA ram_0002 ; Low address
+C - - - - - 0x01B5A3 06:B593: BD 9C B5  LDA tbl_npc_types + 1,X
+C - - - - - 0x01B5A6 06:B596: 85 03     STA ram_0003 ; High address
 C - - - - - 0x01B5A8 06:B598: 6C 02 00  JMP (ram_0002)
 
-tbl_B59B:
+tbl_npc_types:
 - D 1 - - - 0x01B5AB 06:B59B: B4 B5     .addr loc_npc_type0; CPU address $B5B4
 - - - - - - 0x01B5AD 06:B59D: B3 B5     .addr loc_npc_type1; CPU address $B5B3
 - - - - - - 0x01B5AF 06:B59F: B2 B5     .addr loc_npc_type2; CPU address $B5B2
@@ -3325,12 +3326,12 @@ C - - J - - 0x01B5C6 06:B5B6: AD 08 02  LDA v_ruby_ring
 C - - - - - 0x01B5C9 06:B5B9: F0 F9     BEQ loc_npc_type0
 C - - - - - 0x01B5CB 06:B5BB: CE 08 02  DEC v_ruby_ring
 loc_npc_type4:
-C - - J - - 0x01B5CE 06:B5BE: A5 5F     LDA ram_005F
-C - - - - - 0x01B5D0 06:B5C0: 29 03     AND #$03
-C - - - - - 0x01B5D2 06:B5C2: F0 EF     BEQ loc_npc_type1
+C - - J - - 0x01B5CE 06:B5BE: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01B5D0 06:B5C0: 29 03     AND #$03 ; Get the current selected character
+C - - - - - 0x01B5D2 06:B5C2: F0 EF     BEQ loc_npc_type1 ; If the character is Lupin
 C - - - - - 0x01B5D4 06:B5C4: C9 01     CMP #$01
-C - - - - - 0x01B5D6 06:B5C6: F0 EA     BEQ loc_npc_type2
-C - - - - - 0x01B5D8 06:B5C8: D0 E7     BNE loc_npc_type3
+C - - - - - 0x01B5D6 06:B5C6: F0 EA     BEQ loc_npc_type2 ; If the character is Jugen
+C - - - - - 0x01B5D8 06:B5C8: D0 E7     BNE loc_npc_type3 ; If the character is Goemon
 loc_npc_type6:
 C - - J - - 0x01B5DA 06:B5CA: AD 08 02  LDA v_ruby_ring
 C - - - - - 0x01B5DD 06:B5CD: F0 E5     BEQ loc_npc_type0
@@ -3412,7 +3413,7 @@ C - - - - - 0x01B648 06:B638: 70 02     BVS bra_B63C
 - - - - - - 0x01B64A 06:B63A: A9        .byte $A9   ; 
 - - - - - - 0x01B64B 06:B63B: 7D        .byte $7D   ; 
 bra_B63C:
-C - - - - - 0x01B64C 06:B63C: 20 34 B2  JSR sub_B234
+C - - - - - 0x01B64C 06:B63C: 20 34 B2  JSR sub_B234_get_vram_msg_address
 C - - - - - 0x01B64F 06:B63F: E6 D8     INC ram_00D8
 C - - - - - 0x01B651 06:B641: D0 0D     BNE bra_B650
 C - - - - - 0x01B653 06:B643: A5 C8     LDA ram_00C8
@@ -3477,7 +3478,7 @@ C - - - - - 0x01B6D1 06:B6C1: A9 5D     LDA #$5D
 C - - - - - 0x01B6D3 06:B6C3: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x01B6D6 06:B6C6: A9 5E     LDA #$5E
 C - - - - - 0x01B6D8 06:B6C8: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
-C - - - - - 0x01B6DB 06:B6CB: A5 5F     LDA ram_005F
+C - - - - - 0x01B6DB 06:B6CB: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01B6DD 06:B6CD: 29 03     AND #$03
 C - - - - - 0x01B6DF 06:B6CF: A8        TAY
 C - - - - - 0x01B6E0 06:B6D0: B9 C4 BC  LDA tbl_BCC4,Y
@@ -3486,7 +3487,7 @@ C - - - - - 0x01B6E5 06:B6D5: A5 C8     LDA ram_00C8
 C - - - - - 0x01B6E7 06:B6D7: D0 16     BNE bra_B6EF_RTS
 C - - - - - 0x01B6E9 06:B6D9: A9 7C     LDA #$7C
 bra_B6DB:
-C - - - - - 0x01B6EB 06:B6DB: 20 34 B2  JSR sub_B234
+C - - - - - 0x01B6EB 06:B6DB: 20 34 B2  JSR sub_B234_get_vram_msg_address
 C - - - - - 0x01B6EE 06:B6DE: E6 D8     INC ram_00D8
 C - - - - - 0x01B6F0 06:B6E0: 60        RTS
 
@@ -3586,7 +3587,7 @@ bra_B78D:
 loc_B78D:
 C D 1 - - - 0x01B79D 06:B78D: 20 C3 B7  JSR sub_B7C3
 C - - - - - 0x01B7A0 06:B790: B9 A9 BC  LDA tbl_BCA9,Y
-C - - - - - 0x01B7A3 06:B793: 20 34 B2  JSR sub_B234
+C - - - - - 0x01B7A3 06:B793: 20 34 B2  JSR sub_B234_get_vram_msg_address
 C - - - - - 0x01B7A6 06:B796: 20 4F EF  JSR $EF4F
 C - - - - - 0x01B7A9 06:B799: A4 11     LDY ram_0011
 C - - - - - 0x01B7AB 06:B79B: A9 00     LDA #$00
@@ -3618,7 +3619,7 @@ C - - - - - 0x01B7D5 06:B7C5: A9 A8     LDA #$A8
 C - - - - - 0x01B7D7 06:B7C7: 85 12     STA ram_0012
 C - - - - - 0x01B7D9 06:B7C9: A9 BC     LDA #$BC
 C - - - - - 0x01B7DB 06:B7CB: 85 13     STA ram_0013
-C - - - - - 0x01B7DD 06:B7CD: A5 5F     LDA ram_005F
+C - - - - - 0x01B7DD 06:B7CD: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01B7DF 06:B7CF: 29 03     AND #$03
 C - - - - - 0x01B7E1 06:B7D1: 0A        ASL
 C - - - - - 0x01B7E2 06:B7D2: 0A        ASL
@@ -4003,8 +4004,8 @@ C - - - - - 0x01BA98 06:BA88: E0 04     CPX #$04
 C - - - - - 0x01BA9A 06:BA8A: B0 29     BCS bra_BAB5
 C - - - - - 0x01BA9C 06:BA8C: CA        DEX
 C - - - - - 0x01BA9D 06:BA8D: 8A        TXA
-C - - - - - 0x01BA9E 06:BA8E: 05 5F     ORA ram_005F
-C - - - - - 0x01BAA0 06:BA90: 85 5F     STA ram_005F
+C - - - - - 0x01BA9E 06:BA8E: 05 5F     ORA v_chr_live_status
+C - - - - - 0x01BAA0 06:BA90: 85 5F     STA v_chr_live_status
 C - - - - - 0x01BAA2 06:BA92: A5 25     LDA ram_0025
 C - - - - - 0x01BAA4 06:BA94: 29 07     AND #$07
 C - - - - - 0x01BAA6 06:BA96: A8        TAY
