@@ -2791,11 +2791,11 @@ C - - - - - 0x01B245 06:B235: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ; bank FF
 C - - - - - 0x01B248 06:B238: 68        PLA
 C - - - - - 0x01B249 06:B239: 0A        ASL
 C - - - - - 0x01B24A 06:B23A: A8        TAY
-C - - - - - 0x01B24B 06:B23B: B9 00 80  LDA tbl_messages,Y
-C - - - - - 0x01B24E 06:B23E: 85 CB     STA v_low_vram_msg_address
-C - - - - - 0x01B250 06:B240: B9 01 80  LDA tbl_messages + 1,Y
+C - - - - - 0x01B24B 06:B23B: B9 00 80  LDA tbl_messages,Y ; Load messages (low address)
+C - - - - - 0x01B24E 06:B23E: 85 CB     STA v_low_vram_msg_address ; Store a low address
+C - - - - - 0x01B250 06:B240: B9 01 80  LDA tbl_messages + 1,Y ; Load messages (high address)
 C - - - - - 0x01B253 06:B243: 29 1F     AND #$1F
-C - - - - - 0x01B255 06:B245: 85 CC     STA v_hign_vram_msg_address
+C - - - - - 0x01B255 06:B245: 85 CC     STA v_hign_vram_msg_address ; Store a high address
 C - - - - - 0x01B257 06:B247: A9 80     LDA #$80
 C - - - - - 0x01B259 06:B249: 85 C8     STA ram_00C8
 C - - - - - 0x01B25B 06:B24B: A9 00     LDA #$00
@@ -3760,7 +3760,7 @@ C - - - - - 0x01B8CA 06:B8BA: 60        RTS
 - - - - - - 0x01B8D5 06:B8C5: 81        .byte $81   ; 
 - - - - - - 0x01B8D6 06:B8C6: 80        .byte $80   ; 
 sub_B8C7: ; from bank FF
-C - - - - - 0x01B8D7 06:B8C7: A5 37     LDA v_game_mode
+C - - - - - 0x01B8D7 06:B8C7: A5 37     LDA vGameMode
 C - - - - - 0x01B8D9 06:B8C9: 10 01     BPL bra_B8CC; Branch If in game
 C - - - - - 0x01B8DB 06:B8CB: 60        RTS
 
@@ -3859,7 +3859,7 @@ C - - - - - 0x01B996 06:B986: F0 F0     BEQ bra_B978
 C - - - - - 0x01B998 06:B988: 20 05 C3  JSR $C305 ; to sub_C305 (bank FF)
 C - - - - - 0x01B99B 06:B98B: A9 00     LDA #$00 ; CONTANT - In game
 C - - - - - 0x01B99D 06:B98D: A8        TAY
-C - - - - - 0x01B99E 06:B98E: 85 37     STA v_game_mode
+C - - - - - 0x01B99E 06:B98E: 85 37     STA vGameMode
 C - - - - - 0x01B9A0 06:B990: 85 B6     STA ram_00B6
 C - - - - - 0x01B9A2 06:B992: 85 B7     STA ram_00B7
 C - - - - - 0x01B9A4 06:B994: 85 39     STA ram_0039
@@ -3906,13 +3906,13 @@ bra_B9C9:
 C - - - - - 0x01B9D9 06:B9C9: 20 13 C3  JSR $C313
 C - - - - - 0x01B9DC 06:B9CC: 20 05 C3  JSR $C305
 C - - - - - 0x01B9DF 06:B9CF: A9 FF     LDA #$FF ; CONSTANT - Cutscene
-C - - - - - 0x01B9E1 06:B9D1: 85 37     STA v_game_mode
+C - - - - - 0x01B9E1 06:B9D1: 85 37     STA vGameMode
 C - - - - - 0x01B9E3 06:B9D3: A9 01     LDA #$01
 C - - - - - 0x01B9E5 06:B9D5: 85 24     STA ram_0024
 C - - - - - 0x01B9E7 06:B9D7: 4C 02 C4  JMP $C402 ; to loc_C402 (bank FF)
 
 sub_B9DA: ; from bank FF
-C - - - - - 0x01B9EA 06:B9DA: A5 37     LDA v_game_mode
+C - - - - - 0x01B9EA 06:B9DA: A5 37     LDA vGameMode
 C - - - - - 0x01B9EC 06:B9DC: 30 01     BMI bra_B9DF ; Branch If mode=cutscene
 C - - - - - 0x01B9EE 06:B9DE: 60        RTS
 
@@ -4022,7 +4022,7 @@ C - - - - - 0x01BABB 06:BAAB: 60        RTS
 
 bra_BAAC:
 C - - - - - 0x01BABC 06:BAAC: A9 00     LDA #$00 ; CONSTANT - In game
-C - - - - - 0x01BABE 06:BAAE: 85 37     STA v_game_mode
+C - - - - - 0x01BABE 06:BAAE: 85 37     STA vGameMode
 C - - - - - 0x01BAC0 06:BAB0: 68        PLA
 C - - - - - 0x01BAC1 06:BAB1: 68        PLA
 C - - - - - 0x01BAC2 06:BAB2: 4C 46 C0  JMP $C046

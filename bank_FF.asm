@@ -38,7 +38,7 @@ C - - - - - 0x01C02F 07:C01F: 9D 00 03  STA ram_0300,X ; [0x0300-0x03FF] in 0
 C - - - - - 0x01C032 07:C022: 9D 00 04  STA ram_0400,X ; [0x0400-0x04FF] in 0
 C - - - - - 0x01C035 07:C025: 9D 00 05  STA ram_0500,X ; [0x0500-0x05FF] in 0
 C - - - - - 0x01C038 07:C028: 9D 00 06  STA ram_0600,X ; [0x0600-0x06FF] in 0
-C - - - - - 0x01C03B 07:C02B: 9D 00 07  STA v_start_OAM,X ; [0x0700-0x07FF] in 0
+C - - - - - 0x01C03B 07:C02B: 9D 00 07  STA vStartOAM,X ; [0x0700-0x07FF] in 0
 C - - - - - 0x01C03E 07:C02E: E8        INX
 C - - - - - 0x01C03F 07:C02F: D0 EB     BNE bra_C01C_memset_zero
 bra_C031_repeat:
@@ -53,7 +53,7 @@ C - - - - - 0x01C04C 07:C03C: E8        INX
 C - - - - - 0x01C04D 07:C03D: D0 FB     BNE bra_C03A_repeat
 C - - - - - 0x01C04F 07:C03F: 20 FB FD  JSR sub_FDFB
 C - - - - - 0x01C052 07:C042: A9 FF     LDA #$FF ; CONSTANT - Cutscene
-C - - - - - 0x01C054 07:C044: 85 37     STA v_game_mode
+C - - - - - 0x01C054 07:C044: 85 37     STA vGameMode
 loc_C046:
 C D 2 - - - 0x01C056 07:C046: A9 07     LDA #$07
 C - - - - - 0x01C058 07:C048: 8D 00 80  STA MMC3_Bank_select
@@ -91,7 +91,7 @@ C - - - - - 0x01C09C 07:C08C: 20 C7 B8  JSR $B8C7 ; to sub_B8C7 (bank 06_2)
 C - - - - - 0x01C09F 07:C08F: 20 DA B9  JSR $B9DA ; to sub_B9DA (bank 06_2)
 C - - - - - 0x01C0A2 07:C092: 20 96 EF  JSR sub_EF96
 loc_C095:
-C D 2 - - - 0x01C0A5 07:C095: A5 37     LDA v_game_mode
+C D 2 - - - 0x01C0A5 07:C095: A5 37     LDA vGameMode
 C - - - - - 0x01C0A7 07:C097: 30 03     BMI bra_C09C ; ; Branch If mode=cutscene
 C - - - - - 0x01C0A9 07:C099: 20 72 C6  JSR sub_C672
 bra_C09C:
@@ -160,7 +160,7 @@ C - - - - - 0x01C12C 07:C11C: A9 02     LDA #$02
 C - - - - - 0x01C12E 07:C11E: 85 34     STA v_menu_counter_times ; Initializes a time of a demo scene.
 bra_C120_repeat:
 C - - - - - 0x01C130 07:C120: 20 64 D0  JSR sub_D064
-C - - - - - 0x01C133 07:C123: A5 37     LDA v_game_mode
+C - - - - - 0x01C133 07:C123: A5 37     LDA vGameMode
 C - - - - - 0x01C135 07:C125: 10 08     BPL bra_C12F ; ; Branch If in game
 C - - - - - 0x01C137 07:C127: A5 34     LDA v_menu_counter_times
 C - - - - - 0x01C139 07:C129: D0 04     BNE bra_C12F
@@ -262,7 +262,7 @@ tbl_C1CA:
 - D 2 - - - 0x01C1DC 07:C1CC: 0F        .byte $0F   ; 
 - D 2 - - - 0x01C1DD 07:C1CD: 19        .byte $19   ; 
 bra_C1CE:
-C - - - - - 0x01C1DE 07:C1CE: A5 37     LDA v_game_mode
+C - - - - - 0x01C1DE 07:C1CE: A5 37     LDA vGameMode
 C - - - - - 0x01C1E0 07:C1D0: 10 03     BPL bra_C1D5 ; ; Branch If in game
 C - - - - - 0x01C1E2 07:C1D2: 4C 8D C2  JMP loc_C28D
 
@@ -371,7 +371,7 @@ C - - - - - 0x01C2A5 07:C295: A5 24     LDA ram_0024
 C - - - - - 0x01C2A7 07:C297: C9 07     CMP #$07
 C - - - - - 0x01C2A9 07:C299: 90 08     BCC bra_C2A3
 C - - - - - 0x01C2AB 07:C29B: A9 FF     LDA #$FF ; CONSTANT - Cutscene
-C - - - - - 0x01C2AD 07:C29D: 85 37     STA v_game_mode
+C - - - - - 0x01C2AD 07:C29D: 85 37     STA vGameMode
 C - - - - - 0x01C2AF 07:C29F: A9 00     LDA #$00
 C - - - - - 0x01C2B1 07:C2A1: 85 24     STA ram_0024
 bra_C2A3:
@@ -488,7 +488,7 @@ C - - - - - 0x01C368 07:C358: A2 00     LDX #$00
 C - - - - - 0x01C36A 07:C35A: A0 00     LDY #$00
 C - - - - - 0x01C36C 07:C35C: A9 F0     LDA #$F0
 bra_C35E_repeat:
-C - - - - - 0x01C36E 07:C35E: 9D 00 07  STA v_start_OAM,X ; OAM in 0F 00 00 00 0F 00 00 00 0F 00 00 00 0F ...
+C - - - - - 0x01C36E 07:C35E: 9D 00 07  STA vStartOAM,X ; OAM in 0F 00 00 00 0F 00 00 00 0F 00 00 00 0F ...
 C - - - - - 0x01C371 07:C361: 99 B7 06  STA v_sprite_magics,Y ; [0x06B7-0x06F6] in 0xF0
 C - - - - - 0x01C374 07:C364: C8        INY
 C - - - - - 0x01C375 07:C365: E8        INX ; To 2nd sprite data byte
@@ -560,7 +560,7 @@ C - - - - - 0x01C3EB 07:C3DB: 60        RTS
 - - - - - - 0x01C3F4 07:C3E4: 8E 03 20  STX PPU_OAM_ADDR ; not used ???
 - - - - - - 0x01C3F7 07:C3E7: A0 40     LDY #$40 ; not used ???
 bra_C3E9_not_used:
-- - - - - - 0x01C3F9 07:C3E9: BD 00 07  LDA v_start_OAM,X ; not used ???
+- - - - - - 0x01C3F9 07:C3E9: BD 00 07  LDA vStartOAM,X ; not used ???
 - - - - - - 0x01C3FC 07:C3EC: 8D 04 20  STA $2004 ; not used ???
 - - - - - - 0x01C3FF 07:C3EF: E8        INX ; not used ???
 - - - - - - 0x01C400 07:C3F0: 88        DEY ; not used ???
@@ -642,7 +642,7 @@ C - - - - - 0x01C47B 07:C46B: 60        RTS
 sub_C46C:
 C - - - - - 0x01C47C 07:C46C: A5 1C     LDA ram_001C
 C - - - - - 0x01C47E 07:C46E: 85 1D     STA v_copy_001C
-C - - - - - 0x01C480 07:C470: A5 37     LDA v_game_mode
+C - - - - - 0x01C480 07:C470: A5 37     LDA vGameMode
 C - - - - - 0x01C482 07:C472: 10 5C     BPL bra_C4D0_update_btn_pressed ; ; Branch If in game
 C - - - - - 0x01C484 07:C474: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01C487 07:C477: A5 22     LDA ram_0022
@@ -1277,7 +1277,7 @@ C - - - - - 0x01C892 07:C882: 10 DF     BPL bra_C863
 C - - - - - 0x01C894 07:C884: 60        RTS
 
 sub_C885:
-C - - - - - 0x01C895 07:C885: A5 37     LDA v_game_mode
+C - - - - - 0x01C895 07:C885: A5 37     LDA vGameMode
 C - - - - - 0x01C897 07:C887: 10 20     BPL bra_C8A9 ; ; Branch If in game
 C - - - - - 0x01C899 07:C889: C6 33     DEC v_menu_counter
 C - - - - - 0x01C89B 07:C88B: D0 06     BNE bra_C893
@@ -1292,7 +1292,7 @@ C - - - - - 0x01C8A9 07:C899: 45 21     EOR v_last_p1_btn_pressed
 C - - - - - 0x01C8AB 07:C89B: 29 08     AND #$08
 C - - - - - 0x01C8AD 07:C89D: F0 34     BEQ bra_C8D3_RTS
 C - - - - - 0x01C8AF 07:C89F: A9 00     LDA #$00 ; CONSTANT - In game
-C - - - - - 0x01C8B1 07:C8A1: 85 37     STA v_game_mode
+C - - - - - 0x01C8B1 07:C8A1: 85 37     STA vGameMode
 C - - - - - 0x01C8B3 07:C8A3: A2 FF     LDX #$FF
 C - - - - - 0x01C8B5 07:C8A5: 9A        TXS
 C - - - - - 0x01C8B6 07:C8A6: 4C 46 C0  JMP loc_C046
@@ -1407,7 +1407,7 @@ C - - - - - 0x01C956 07:C946: 60        RTS
 
 loc_C947:
 C D 2 - - - 0x01C957 07:C947: 48        PHA
-C - - - - - 0x01C958 07:C948: A5 37     LDA v_game_mode
+C - - - - - 0x01C958 07:C948: A5 37     LDA vGameMode
 C - - - - - 0x01C95A 07:C94A: 30 F9     BMI bra_C945 ; Branch If mode=cutscene
 C - - - - - 0x01C95C 07:C94C: 68        PLA
 C - - - - - 0x01C95D 07:C94D: 48        PHA
@@ -1423,7 +1423,7 @@ C - - - - - 0x01C96C 07:C95C: 85 AA     STA ram_00AA
 C - - - - - 0x01C96E 07:C95E: F0 17     BEQ bra_C977
 sub_C960:
 C - - - - - 0x01C970 07:C960: 48        PHA
-C - - - - - 0x01C971 07:C961: A5 37     LDA v_game_mode
+C - - - - - 0x01C971 07:C961: A5 37     LDA vGameMode
 C - - - - - 0x01C973 07:C963: 30 E0     BMI bra_C945 ; Branch If mode=cutscene
 C - - - - - 0x01C975 07:C965: 68        PLA
 C - - - - - 0x01C976 07:C966: 48        PHA
@@ -2196,13 +2196,13 @@ C - - - - - 0x01CE27 07:CE17: 6A        ROR
 C - - - - - 0x01CE28 07:CE18: 90 02     BCC bra_CE1C
 C - - - - - 0x01CE2A 07:CE1A: A2 37     LDX #$37
 bra_CE1C:
-C - - - - - 0x01CE2C 07:CE1C: 8E 00 07  STX v_start_OAM
+C - - - - - 0x01CE2C 07:CE1C: 8E 00 07  STX vStartOAM
 C - - - - - 0x01CE2F 07:CE1F: A9 3F     LDA #$3F
-C - - - - - 0x01CE31 07:CE21: 8D 01 07  STA v_start_OAM_2b
+C - - - - - 0x01CE31 07:CE21: 8D 01 07  STA vStartOAM_2b
 C - - - - - 0x01CE34 07:CE24: A9 20     LDA #$20
-C - - - - - 0x01CE36 07:CE26: 8D 02 07  STA v_start_OAM_3b
+C - - - - - 0x01CE36 07:CE26: 8D 02 07  STA vStartOAM_3b
 C - - - - - 0x01CE39 07:CE29: A9 00     LDA #$00
-C - - - - - 0x01CE3B 07:CE2B: 8D 03 07  STA v_start_OAM_4b
+C - - - - - 0x01CE3B 07:CE2B: 8D 03 07  STA vStartOAM_4b
 C - - - - - 0x01CE3E 07:CE2E: A9 04     LDA #$04
 C - - - - - 0x01CE40 07:CE30: 85 43     STA v_current_number_sprite
 C - - - - - 0x01CE42 07:CE32: 60        RTS
@@ -2279,17 +2279,17 @@ C - - - - - 0x01CEB1 07:CEA1: C6 04     DEC ram_0004
 bra_CEA3_skip:
 C - - - - - 0x01CEB3 07:CEA3: 18        CLC
 C - - - - - 0x01CEB4 07:CEA4: 65 00     ADC ram_0000
-C - - - - - 0x01CEB6 07:CEA6: 9D 00 07  STA v_start_OAM,X
+C - - - - - 0x01CEB6 07:CEA6: 9D 00 07  STA vStartOAM,X
 C - - - - - 0x01CEB9 07:CEA9: A5 04     LDA ram_0004
 C - - - - - 0x01CEBB 07:CEAB: 65 08     ADC ram_0008
 C - - - - - 0x01CEBD 07:CEAD: D0 40     BNE bra_CEEF_skip
 C - - - - - 0x01CEBF 07:CEAF: C8        INY                  ; Changes to the second byte (Tile index number)
 C - - - - - 0x01CEC0 07:CEB0: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CEC2 07:CEB2: 9D 01 07  STA v_start_OAM_2b,X
+C - - - - - 0x01CEC2 07:CEB2: 9D 01 07  STA vStartOAM_2b,X
 C - - - - - 0x01CEC5 07:CEB5: C8        INY                  ; Changes to the third byte (Attributes)  
 C - - - - - 0x01CEC6 07:CEB6: B1 02     LDA (ram_0002),Y
 C - - - - - 0x01CEC8 07:CEB8: 05 0C     ORA ram_000C
-C - - - - - 0x01CECA 07:CEBA: 9D 02 07  STA v_start_OAM_3b,X
+C - - - - - 0x01CECA 07:CEBA: 9D 02 07  STA vStartOAM_3b,X
 C - - - - - 0x01CECD 07:CEBD: C8        INY
 C - - - - - 0x01CECE 07:CEBE: A9 00     LDA #$00
 C - - - - - 0x01CED0 07:CEC0: 85 04     STA ram_0004
@@ -2306,7 +2306,7 @@ C - - - - - 0x01CEE1 07:CED1: D0 1F     BNE bra_CEF2
 C - - - - - 0x01CEE3 07:CED3: A5 06     LDA ram_0006
 C - - - - - 0x01CEE5 07:CED5: C9 F9     CMP #$F9
 C - - - - - 0x01CEE7 07:CED7: B0 19     BCS bra_CEF2
-C - - - - - 0x01CEE9 07:CED9: 9D 03 07  STA v_start_OAM_4b,X
+C - - - - - 0x01CEE9 07:CED9: 9D 03 07  STA vStartOAM_4b,X
 C - - - - - 0x01CEEC 07:CEDC: E8        INX
 C - - - - - 0x01CEED 07:CEDD: E8        INX
 C - - - - - 0x01CEEE 07:CEDE: E8        INX
@@ -2330,7 +2330,7 @@ C - - - - - 0x01CF00 07:CEF0: C8        INY
 C - - - - - 0x01CF01 07:CEF1: C8        INY
 bra_CEF2:
 C - - - - - 0x01CF02 07:CEF2: A9 F0     LDA #$F0
-C - - - - - 0x01CF04 07:CEF4: 9D 00 07  STA v_start_OAM,X
+C - - - - - 0x01CF04 07:CEF4: 9D 00 07  STA vStartOAM,X
 C - - - - - 0x01CF07 07:CEF7: D0 EC     BNE bra_CEE5_repeat_skip
 sub_CEF9:
 C - - - - - 0x01CF09 07:CEF9: A5 2C     LDA v_low_counter
@@ -2416,18 +2416,18 @@ C - - - - - 0x01CF8E 07:CF7E: C6 04     DEC ram_0004
 bra_CF80_skip:
 C - - - - - 0x01CF90 07:CF80: 18        CLC
 C - - - - - 0x01CF91 07:CF81: 65 00     ADC ram_0000
-C - - - - - 0x01CF93 07:CF83: 9D 00 07  STA v_start_OAM,X
+C - - - - - 0x01CF93 07:CF83: 9D 00 07  STA vStartOAM,X
 C - - - - - 0x01CF96 07:CF86: A5 04     LDA ram_0004
 C - - - - - 0x01CF98 07:CF88: 69 00     ADC #$00
 C - - - - - 0x01CF9A 07:CF8A: D0 48     BNE bra_CFD4
 C - - - - - 0x01CF9C 07:CF8C: C8        INY
 C - - - - - 0x01CF9D 07:CF8D: B1 02     LDA (ram_0002),Y
 C - - - - - 0x01CF9F 07:CF8F: 05 0A     ORA ram_000A
-C - - - - - 0x01CFA1 07:CF91: 9D 01 07  STA v_start_OAM_2b,X
+C - - - - - 0x01CFA1 07:CF91: 9D 01 07  STA vStartOAM_2b,X
 C - - - - - 0x01CFA4 07:CF94: C8        INY
 C - - - - - 0x01CFA5 07:CF95: B1 02     LDA (ram_0002),Y
 C - - - - - 0x01CFA7 07:CF97: 05 45     ORA ram_0045
-C - - - - - 0x01CFA9 07:CF99: 9D 02 07  STA v_start_OAM_3b,X
+C - - - - - 0x01CFA9 07:CF99: 9D 02 07  STA vStartOAM_3b,X
 C - - - - - 0x01CFAC 07:CF9C: C8        INY
 C - - - - - 0x01CFAD 07:CF9D: A9 00     LDA #$00
 C - - - - - 0x01CFAF 07:CF9F: 85 04     STA ram_0004
@@ -2444,7 +2444,7 @@ C - - - - - 0x01CFC0 07:CFB0: D0 25     BNE bra_CFD7
 C - - - - - 0x01CFC2 07:CFB2: A5 06     LDA ram_0006
 C - - - - - 0x01CFC4 07:CFB4: C9 F9     CMP #$F9
 C - - - - - 0x01CFC6 07:CFB6: B0 1F     BCS bra_CFD7
-C - - - - - 0x01CFC8 07:CFB8: 9D 03 07  STA v_start_OAM_4b,X
+C - - - - - 0x01CFC8 07:CFB8: 9D 03 07  STA vStartOAM_4b,X
 C - - - - - 0x01CFCB 07:CFBB: E8        INX
 C - - - - - 0x01CFCC 07:CFBC: E8        INX
 C - - - - - 0x01CFCD 07:CFBD: E8        INX
@@ -2472,7 +2472,7 @@ C - - - - - 0x01CFE5 07:CFD5: C8        INY
 C - - - - - 0x01CFE6 07:CFD6: C8        INY
 bra_CFD7:
 C - - - - - 0x01CFE7 07:CFD7: A9 F0     LDA #$F0
-C - - - - - 0x01CFE9 07:CFD9: 9D 00 07  STA v_start_OAM,X
+C - - - - - 0x01CFE9 07:CFD9: 9D 00 07  STA vStartOAM,X
 C - - - - - 0x01CFEC 07:CFDC: D0 E3     BNE bra_CFC1
 - D 2 - I - 0x01CFEE 07:CFDE: 00        .byte $00   ; 
 - D 2 - I - 0x01CFEF 07:CFDF: 01        .byte $01   ; 
@@ -7744,7 +7744,7 @@ C - - - - - 0x01EFD8 07:EFC8: BD 18 81  LDA tbl_ptr_rooms_on_the_level + 1,X
 C - - - - - 0x01EFDB 07:EFCB: 85 13     STA ram_0013
 @room_loop:
 C - - - - - 0x01EFDD 07:EFCD: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01EFDF 07:EFCF: 99 00 05  STA v_rooms,Y
+C - - - - - 0x01EFDF 07:EFCF: 99 00 05  STA vRooms,Y
 C - - - - - 0x01EFE2 07:EFD2: 88        DEY
 C - - - - - 0x01EFE3 07:EFD3: D0 F8     BNE @room_loop
  ; Fill memory the white briefcases from ROM  (Register X - level number)
@@ -9133,12 +9133,12 @@ C - - - - - 0x01F991 07:F981: 85 C4     STA ram_00C4
 C - - - - - 0x01F993 07:F983: C8        INY ; 4th of 5 bytes
 C - - - - - 0x01F994 07:F984: B1 BD     LDA (ram_00BD),Y
 C - - - - - 0x01F996 07:F986: AA        TAX
-C - - - - - 0x01F997 07:F987: BD 00 05  LDA v_rooms,X
+C - - - - - 0x01F997 07:F987: BD 00 05  LDA vRooms,X
 C - - - - - 0x01F99A 07:F98A: 85 C5     STA ram_00C5
 C - - - - - 0x01F99C 07:F98C: 86 BC     STX v_tmp_target_room
 C - - - - - 0x01F99E 07:F98E: 48        PHA
 C - - - - - 0x01F99F 07:F98F: 09 80     ORA #$80 ; CONSTANT - the room has already been visited
-C - - - - - 0x01F9A1 07:F991: 9D 00 05  STA v_rooms,X
+C - - - - - 0x01F9A1 07:F991: 9D 00 05  STA vRooms,X
 C - - - - - 0x01F9A4 07:F994: 68        PLA
 C - - - - - 0x01F9A5 07:F995: 29 3F     AND #$3F
 C - - - - - 0x01F9A7 07:F997: 85 B6     STA ram_00B6

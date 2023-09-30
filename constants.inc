@@ -59,7 +59,7 @@ v_low_counter                 = ram_002C
 v_high_counter                = ram_002D
 v_menu_counter                = ram_0033
 v_menu_counter_times          = ram_0034
-v_game_mode                   = ram_0037 ; 0x00 - in game, 0xFF - Starting cutscenes
+vGameMode                     = ram_0037 ; 0x00 - in game, 0xFF - Starting cutscenes
 v_resists                     = ram_003A ; TODO: !!!, 0x80 - The enemies don't damage
 v_npc_message_status          = ram_0041
 ; 83 - npc is saying the message 
@@ -379,7 +379,7 @@ v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, 039E - scree
 v_bomb_on_screen              = ram_039E ; C2 - a bomb
 
 v_sound_counter               = ram_0406
-v_rooms                       = ram_0500
+vRooms                        = ram_0500
 ; flag 0x80 - the room has already been visited
 v_low_ppu_address             = ram_0630
 v_high_ppu_address            = ram_0631
@@ -391,10 +391,10 @@ v_sprite_magic2               = ram_06B8
 v_sprite_magic3               = ram_06B9 ; BBBB XXXX, BBBB - sign MMC3 bank data
 v_sprite_magic4               = ram_06BA
 v_offset_sprite_magic         = ram_06F7 ; The pack is using 1,2,3,4 sprite magic
-v_start_OAM              = ram_0700
-v_start_OAM_2b           = ram_0701 ; 2nd byte
-v_start_OAM_3b           = ram_0702 ; 3rd byte
-v_start_OAM_4b           = ram_0703 ; 4th byte
+vStartOAM                     = ram_0700
+vStartOAM_2b                  = ram_0701 ; 2nd byte
+vStartOAM_3b                  = ram_0702 ; 3rd byte
+vStartOAM_4b                  = ram_0703 ; 4th byte
 v_OAM_2                  = ram_0704
 v_OAM_2_2b               = ram_0705 ; 2nd byte
 v_OAM_2_3b               = ram_0706 ; 3rd byte
