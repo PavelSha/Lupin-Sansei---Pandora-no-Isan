@@ -16,23 +16,23 @@
 .export sub_D079_check_button_press
 
 vec_C000_RESET:
-C D 2 - - - 0x01C010 07:C000: 78        SEI
-C - - - - - 0x01C011 07:C001: D8        CLD
+C D 2 - - - 0x01C010 07:C000: 78        SEI ; disable interrupts
+C - - - - - 0x01C011 07:C001: D8        CLD ; disable decimal mode (NES chip 2A03 doesn't use decimal mode)
 C - - - - - 0x01C012 07:C002: A9 00     LDA #$00
 C - - - - - 0x01C014 07:C004: 8D 00 20  STA PPU_CTRL
 C - - - - - 0x01C017 07:C007: 8D 01 20  STA PPU_MASK
 C - - - - - 0x01C01A 07:C00A: 85 26     STA ram_0026
-bra_C00C_repeat:
+@bra_C00C_wait_til_vblank:
 C - - - - - 0x01C01C 07:C00C: AD 02 20  LDA PPU_STATUS ; wait for vblank (1 time)
-C - - - - - 0x01C01F 07:C00F: 10 FB     BPL bra_C00C_repeat
-bra_C011_repeat:
+C - - - - - 0x01C01F 07:C00F: 10 FB     BPL @bra_C00C_wait_til_vblank
+@bra_C011_wait_til_vblank:
 C - - - - - 0x01C021 07:C011: AD 02 20  LDA PPU_STATUS ; wait for vblank (2 time)
-C - - - - - 0x01C024 07:C014: 10 FB     BPL bra_C011_repeat
+C - - - - - 0x01C024 07:C014: 10 FB     BPL @bra_C011_wait_til_vblank
 C - - - - - 0x01C026 07:C016: A2 FF     LDX #$FF
 C - - - - - 0x01C028 07:C018: 9A        TXS
 C - - - - - 0x01C029 07:C019: A9 00     LDA #$00
 C - - - - - 0x01C02B 07:C01B: AA        TAX
-bra_C01C_memset_zero:
+@bra_C01C_memset_zero:                                 ; loop by x
 C - - - - - 0x01C02C 07:C01C: 9D 00 02  STA ram_0200,X ; [0x0200-0x02FF] in 0
 C - - - - - 0x01C02F 07:C01F: 9D 00 03  STA ram_0300,X ; [0x0300-0x03FF] in 0
 C - - - - - 0x01C032 07:C022: 9D 00 04  STA ram_0400,X ; [0x0400-0x04FF] in 0
@@ -40,17 +40,17 @@ C - - - - - 0x01C035 07:C025: 9D 00 05  STA ram_0500,X ; [0x0500-0x05FF] in 0
 C - - - - - 0x01C038 07:C028: 9D 00 06  STA ram_0600,X ; [0x0600-0x06FF] in 0
 C - - - - - 0x01C03B 07:C02B: 9D 00 07  STA vStartOAM,X ; [0x0700-0x07FF] in 0
 C - - - - - 0x01C03E 07:C02E: E8        INX
-C - - - - - 0x01C03F 07:C02F: D0 EB     BNE bra_C01C_memset_zero
-bra_C031_repeat:
+C - - - - - 0x01C03F 07:C02F: D0 EB     BNE @bra_C01C_memset_zero
+@bra_C031_loop:                                        ; loop by x
 C - - - - - 0x01C041 07:C031: 95 00     STA ram_0000,X ; [0x0000-0x0098] in 0
 C - - - - - 0x01C043 07:C033: E8        INX
 C - - - - - 0x01C044 07:C034: E0 99     CPX #$99
-C - - - - - 0x01C046 07:C036: 90 F9     BCC bra_C031_repeat
+C - - - - - 0x01C046 07:C036: 90 F9     BCC @bra_C031_loop
 C - - - - - 0x01C048 07:C038: A2 A7     LDX #$A7
-bra_C03A_repeat:
+@bra_C03A_loop:                                         ; loop by x
 C - - - - - 0x01C04A 07:C03A: 95 00     STA ram_0000,X ; [0x00A7-0x00FF] in 0
 C - - - - - 0x01C04C 07:C03C: E8        INX
-C - - - - - 0x01C04D 07:C03D: D0 FB     BNE bra_C03A_repeat
+C - - - - - 0x01C04D 07:C03D: D0 FB     BNE @bra_C03A_loop
 C - - - - - 0x01C04F 07:C03F: 20 FB FD  JSR sub_FDFB
 C - - - - - 0x01C052 07:C042: A9 FF     LDA #$FF ; CONSTANT - Cutscene
 C - - - - - 0x01C054 07:C044: 85 37     STA vGameMode
@@ -113,7 +113,7 @@ C - - - - - 0x01C0C5 07:C0B5: D0 F9     BNE bra_C0B0
 loc_C0B7:
 C D 2 - - - 0x01C0C7 07:C0B7: A9 00     LDA #$00
 C - - - - - 0x01C0C9 07:C0B9: 8D 15 40  STA $4015
-C - - - - - 0x01C0CC 07:C0BC: 20 19 C3  JSR sub_C319
+C - - - - - 0x01C0CC 07:C0BC: 20 19 C3  JSR sub_C319_fill_ppu
 C - - - - - 0x01C0CF 07:C0BF: 20 58 C3  JSR sub_C358_clear_OAM
 C - - - - - 0x01C0D2 07:C0C2: 20 FC EF  JSR sub_EFFC
 C - - - - - 0x01C0D5 07:C0C5: A5 4B     LDA ram_004B
@@ -445,11 +445,11 @@ bra_C315_skip:
 C - - - - - 0x01C325 07:C315: 8D 01 20  STA PPU_MASK
 C - - - - - 0x01C328 07:C318: 60        RTS
 
-sub_C319:
-C - - - - - 0x01C329 07:C319: A9 01     LDA #$01
+sub_C319_fill_ppu:
+C - - - - - 0x01C329 07:C319: A9 01     LDA #$01 ; CONSTANT - A white tile
 C - - - - - 0x01C32B 07:C31B: D0 02     BNE bra_C31F_skip
-sub_C31D:
-C - - - - - 0x01C32D 07:C31D: A9 00     LDA #$00
+sub_C31D_clear_ppu:
+C - - - - - 0x01C32D 07:C31D: A9 00     LDA #$00 ; CONSTANT - A black tile
 bra_C31F_skip:
 C - - - - - 0x01C32F 07:C31F: 85 12     STA ram_0012
 C - - - - - 0x01C331 07:C321: 20 05 C3  JSR sub_C305
@@ -909,7 +909,7 @@ tbl_C62C:
 - D 2 - - - 0x01C63D 07:C62D: 87        .byte $87   ; 
 - D 2 - - - 0x01C63E 07:C62E: C7        .byte $C7   ; 
 sub_C62F:
-C - - - - - 0x01C63F 07:C62F: 20 1D C3  JSR sub_C31D
+C - - - - - 0x01C63F 07:C62F: 20 1D C3  JSR sub_C31D_clear_ppu
 C - - - - - 0x01C642 07:C632: 20 58 C3  JSR sub_C358_clear_OAM
 C - - - - - 0x01C645 07:C635: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01C648 07:C638: 20 02 C4  JSR sub_C402
@@ -7541,7 +7541,7 @@ C - - - - - 0x01EE66 07:EE56: A2 00     LDX #$00
 C - - - - - 0x01EE68 07:EE58: 20 5D EE  JSR sub_EE5D
 C - - - - - 0x01EE6B 07:EE5B: A2 01     LDX #$01
 sub_EE5D:
-C - - - - - 0x01EE6D 07:EE5D: BD 00 03  LDA v_enemies,X
+C - - - - - 0x01EE6D 07:EE5D: BD 00 03  LDA vEnemies,X
 C - - - - - 0x01EE70 07:EE60: 0A        ASL
 C - - - - - 0x01EE71 07:EE61: A8        TAY
 C - - - - - 0x01EE72 07:EE62: B9 BA FC  LDA tbl_FCBA,Y
@@ -7769,27 +7769,27 @@ C - - - - - 0x01F009 07:EFF9: 85 BB     STA ram_00BB
 C - - - - - 0x01F00B 07:EFFB: 60        RTS
 
 sub_EFFC:
-C - - - - - 0x01F00C 07:EFFC: A2 09     LDX #$09
-C - - - - - 0x01F00E 07:EFFE: A9 00     LDA #$00
-bra_F000_repeat:
-C - - - - - 0x01F010 07:F000: 9D 0A 02  STA ram_020A,X
-C - - - - - 0x01F013 07:F003: CA        DEX
-C - - - - - 0x01F014 07:F004: 10 FA     BPL bra_F000_repeat
-C - - - - - 0x01F016 07:F006: A2 05     LDX #$05
-bra_F008:
+C - - - - - 0x01F00C 07:EFFC: A2 09     LDX #$09 ; set loop counter
+C - - - - - 0x01F00E 07:EFFE: A9 00     LDA #$00 ; set assigning value
+@bra_F000_loop:                                      ; loop by x (9 times)
+C - - - - - 0x01F010 07:F000: 9D 0A 02  STA v_items + 10,X ; clear items
+C - - - - - 0x01F013 07:F003: CA        DEX ; decrements loop counter
+C - - - - - 0x01F014 07:F004: 10 FA     BPL @bra_F000_loop
+C - - - - - 0x01F016 07:F006: A2 05     LDX #$05 ; set loop counter
+bra_F008_loop:                                       ; loop by x (5 times)
 C - - - - - 0x01F018 07:F008: A4 3C     LDY ram_003C
-C - - - - - 0x01F01A 07:F00A: 10 0C     BPL bra_F018
+C - - - - - 0x01F01A 07:F00A: 10 0C     BPL @bra_F018_skip
 C - - - - - 0x01F01C 07:F00C: AC 00 03  LDY ram_0300
 C - - - - - 0x01F01F 07:F00F: C0 0C     CPY #$0C
-C - - - - - 0x01F021 07:F011: F0 10     BEQ bra_F023
+C - - - - - 0x01F021 07:F011: F0 10     BEQ @bra_F023_skip
 C - - - - - 0x01F023 07:F013: 20 28 FC  JSR sub_FC28
-C - - - - - 0x01F026 07:F016: B0 0B     BCS bra_F023
-bra_F018:
+C - - - - - 0x01F026 07:F016: B0 0B     BCS @bra_F023_skip
+@bra_F018_skip:
 C - - - - - 0x01F028 07:F018: A9 00     LDA #$00
 C - - - - - 0x01F02A 07:F01A: 8D 0A 03  STA ram_030A
 C - - - - - 0x01F02D 07:F01D: 8D 00 03  STA ram_0300
 C - - - - - 0x01F030 07:F020: 9D 20 03  STA ram_0320,X
-bra_F023:
+@bra_F023_skip:
 C - - - - - 0x01F033 07:F023: A4 3C     LDY ram_003C
 C - - - - - 0x01F035 07:F025: 10 0B     BPL bra_F032
 C - - - - - 0x01F037 07:F027: AC 01 03  LDY ram_0301
@@ -7805,14 +7805,14 @@ C - - - - - 0x01F044 07:F034: 9D 5C 03  STA ram_035C,X
 C - - - - - 0x01F047 07:F037: 8D 0B 03  STA ram_030B
 C - - - - - 0x01F04A 07:F03A: 8D 01 03  STA ram_0301
 C - - - - - 0x01F04D 07:F03D: CA        DEX
-C - - - - - 0x01F04E 07:F03E: 10 C8     BPL bra_F008
+C - - - - - 0x01F04E 07:F03E: 10 C8     BPL bra_F008_loop
 C - - - - - 0x01F050 07:F040: A5 3C     LDA ram_003C
 C - - - - - 0x01F052 07:F042: 09 40     ORA #$40
 C - - - - - 0x01F054 07:F044: 85 3C     STA ram_003C
 C - - - - - 0x01F056 07:F046: A9 00     LDA #$00
 C - - - - - 0x01F058 07:F048: A2 05     LDX #$05
-@clear_item_loop:
-C - - - - - 0x01F05A 07:F04A: 9D 9E 03  STA v_item_on_screen,X
+@clear_item_loop:                                      ; loop by x (5 times)
+C - - - - - 0x01F05A 07:F04A: 9D 9E 03  STA v_item_on_screen,X ; clear
 C - - - - - 0x01F05D 07:F04D: CA        DEX
 C - - - - - 0x01F05E 07:F04E: 10 FA     BPL @clear_item_loop
 C - - - - - 0x01F060 07:F050: 8D D4 03  STA ram_03D4
@@ -7820,16 +7820,16 @@ C - - - - - 0x01F063 07:F053: 8D D5 03  STA ram_03D5
 C - - - - - 0x01F066 07:F056: 8D D6 03  STA ram_03D6
 C - - - - - 0x01F069 07:F059: 85 D1     STA ram_00D1
 C - - - - - 0x01F06B 07:F05B: A2 03     LDX #$03
-bra_F05D_repeat:
+@bra_F05D_loop:                                        ; loop by x (3 times)
 C - - - - - 0x01F06D 07:F05D: 9D 18 03  STA ram_0318,X
 C - - - - - 0x01F070 07:F060: 9D 1C 03  STA ram_031C,X
 C - - - - - 0x01F073 07:F063: 9D 15 02  STA ram_0215,X
 C - - - - - 0x01F076 07:F066: CA        DEX
-C - - - - - 0x01F077 07:F067: 10 F4     BPL bra_F05D_repeat
+C - - - - - 0x01F077 07:F067: 10 F4     BPL @bra_F05D_loop
 C - - - - - 0x01F079 07:F069: 20 75 F0  JSR sub_F075
 C - - - - - 0x01F07C 07:F06C: A9 00     LDA #$00
-C - - - - - 0x01F07E 07:F06E: 8D 14 03  STA ram_0314
-C - - - - - 0x01F081 07:F071: 8D 15 03  STA ram_0315
+C - - - - - 0x01F07E 07:F06E: 8D 14 03  STA vEnemyTimerLow1  ; clear a low part
+C - - - - - 0x01F081 07:F071: 8D 15 03  STA vEnemyTimerHigh1 ; clear a high part
 C - - - - - 0x01F084 07:F074: 60        RTS
 
 sub_F075:
@@ -7919,8 +7919,8 @@ C - - - - - 0x01F10F 07:F0FF: 9D 00 03  STA ram_0300,X
 C - - - - - 0x01F112 07:F102: FE 0A 03  INC ram_030A,X
 C - - - - - 0x01F115 07:F105: 20 27 F3  JSR sub_F327
 C - - - - - 0x01F118 07:F108: A9 00     LDA #$00
-C - - - - - 0x01F11A 07:F10A: 8D 14 03  STA ram_0314
-C - - - - - 0x01F11D 07:F10D: 8D 15 03  STA ram_0315
+C - - - - - 0x01F11A 07:F10A: 8D 14 03  STA vEnemyTimerLow1  ; clear a low part
+C - - - - - 0x01F11D 07:F10D: 8D 15 03  STA vEnemyTimerHigh1 ; clear a high part
 bra_F110:
 C - - - - - 0x01F120 07:F110: 24 3C     BIT ram_003C
 C - - - - - 0x01F122 07:F112: 70 31     BVS bra_F145_RTS
@@ -7945,12 +7945,10 @@ C - - - - - 0x01F141 07:F131: 10 F4     BPL bra_F127
 C - - - - - 0x01F143 07:F133: EE 16 03  INC ram_0316
 C - - - - - 0x01F146 07:F136: D0 0D     BNE bra_F145_RTS
 C - - - - - 0x01F148 07:F138: EE 17 03  INC ram_0317
-C - - - - - 0x01F14B 07:F13B: A9 4B     LDA #$4B
+C - - - - - 0x01F14B 07:F13B: A9 4B     LDA #$4B         ; CONSTANT - Max value
 C - - - - - 0x01F14D 07:F13D: CD 17 03  CMP ram_0317
-C - - - - - 0x01F150 07:F140: B0 03     BCS bra_F145_RTS
-- - - - - - 0x01F152 07:F142: 8D        .byte $8D   ; 
-- - - - - - 0x01F153 07:F143: 17        .byte $17   ; 
-- - - - - - 0x01F154 07:F144: 03        .byte $03   ; 
+C - - - - - 0x01F150 07:F140: B0 03     BCS bra_F145_RTS ; If ram_0317 < $4B
+- - - - - - 0x01F152 07:F142: 8D 17 03  STA ram_0317     ; Assigned $4B
 bra_F145_RTS:
 C - - - - - 0x01F155 07:F145: 60        RTS
 
@@ -7959,15 +7957,15 @@ C D 3 - - - 0x01F156 07:F146: AD 0A 03  LDA ram_030A
 C - - - - - 0x01F159 07:F149: D0 C5     BNE bra_F110
 C - - - - - 0x01F15B 07:F14B: AD 0B 03  LDA ram_030B
 C - - - - - 0x01F15E 07:F14E: D0 C0     BNE bra_F110
-C - - - - - 0x01F160 07:F150: EE 14 03  INC ram_0314
+C - - - - - 0x01F160 07:F150: EE 14 03  INC vEnemyTimerLow1  ; increment low
 C - - - - - 0x01F163 07:F153: D0 03     BNE bra_F158
-C - - - - - 0x01F165 07:F155: EE 15 03  INC ram_0315
+C - - - - - 0x01F165 07:F155: EE 15 03  INC vEnemyTimerHigh1 ; increment high
 bra_F158:
-C - - - - - 0x01F168 07:F158: AD 15 03  LDA ram_0315
-C - - - - - 0x01F16B 07:F15B: C9 03     CMP #$03
-C - - - - - 0x01F16D 07:F15D: 90 B1     BCC bra_F110
-C - - - - - 0x01F16F 07:F15F: AD 00 03  LDA ram_0300
-C - - - - - 0x01F172 07:F162: C9 07     CMP #$07
+C - - - - - 0x01F168 07:F158: AD 15 03  LDA vEnemyTimerHigh1
+C - - - - - 0x01F16B 07:F15B: C9 03     CMP #$03 ; CONSTANT - from now on we create a random enemy
+C - - - - - 0x01F16D 07:F15D: 90 B1     BCC bra_F110 ; If vEnemyTimerHigh1 != 3
+C - - - - - 0x01F16F 07:F15F: AD 00 03  LDA vEnemyA
+C - - - - - 0x01F172 07:F162: C9 07     CMP #$07 ; CONSTANT - Zenigata
 C - - - - - 0x01F174 07:F164: F0 DF     BEQ bra_F145_RTS
 C - - - - - 0x01F176 07:F166: A4 46     LDY ram_0046
 C - - - - - 0x01F178 07:F168: A9 00     LDA #$00
@@ -8162,7 +8160,7 @@ C - - - - - 0x01F2C1 07:F2B1: 60        RTS
 ; Return the carry status (analog return true or false)
 ; If true, ram_000A - type of an enemy (or an index of briefcase in an array)
 sub_F2B2_try_generate_enemy:
-C - - - - - 0x01F2C2 07:F2B2: AD 00 03  LDA v_enemyA
+C - - - - - 0x01F2C2 07:F2B2: AD 00 03  LDA vEnemyA
 C - - - - - 0x01F2C5 07:F2B5: C9 07     CMP #$07 ; CONSTANT - Zenigata
 C - - - - - 0x01F2C7 07:F2B7: F0 41     BEQ bra_F2FA_clear_c_rts ; If enemyA is Zenigata
 C - - - - - 0x01F2C9 07:F2B9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2
@@ -8239,7 +8237,7 @@ C - - - - - 0x01F336 07:F326: 60        RTS
 
 sub_F327:
 loc_F327:
-C D 3 - - - 0x01F337 07:F327: BD 00 03  LDA v_enemies,X
+C D 3 - - - 0x01F337 07:F327: BD 00 03  LDA vEnemies,X
 C - - - - - 0x01F33A 07:F32A: 0A        ASL
 C - - - - - 0x01F33B 07:F32B: AA        TAX
 C - - - - - 0x01F33C 07:F32C: BD 88 F8  LDA tbl_F888,X

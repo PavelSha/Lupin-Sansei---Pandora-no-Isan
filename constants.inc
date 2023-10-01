@@ -46,6 +46,7 @@ v_CE5A_counter                = ram_0005
 v_cache_reg_y                 = ram_0011
 v_temp_check_buttons          = ram_0012 ; There is a variable that stores the checked state of the button
 v_temp_counter12              = ram_0012
+vCacheRam12                   = ram_0012 ; 
 v_sub_AF4D_counter            = ram_001A ; Intermediate counter
 v_btn_pressed_in_game         = ram_001C ; In a level 1-4 or a title screen
 v_copy_001C                   = ram_001D
@@ -310,7 +311,7 @@ v_bullet_proof_vest_item      = ram_0207
 v_ruby_ring                   = ram_0208
 v_array_white_briefcase       = ram_0219
 ; flag 0x80 - the item is got (see BIT_USING_WHITE_BRIEFCASE)
-v_enemies                     = ram_0300
+vEnemies                     = ram_0300
 ; 0x00 - Nobody
 ; 0x01 - Cat with the weapon (level 3) (0x01 - knife, 0x81 - gun)
 ; 0x02 - Gray Land hat (level 3) Type B
@@ -370,8 +371,10 @@ v_enemies                     = ram_0300
 ; 0x38 - Ninja upside down (level 4) Type A
 ; 0x39 - Sensor (level 4) Type B
 
-v_enemyA                      = ram_0300
-v_enemyB                      = ram_0301
+vEnemyA                       = ram_0300
+vEnemyB                       = ram_0301
+vEnemyTimerLow1               = ram_0314
+vEnemyTimerHigh1              = ram_0315
 v_briefcase_index             = ram_0398 ; [0399-039D]
 v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, 039E - screen
 ; C0 - briefcase
