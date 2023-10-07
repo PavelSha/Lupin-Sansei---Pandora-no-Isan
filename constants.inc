@@ -384,9 +384,12 @@ v_bomb_on_screen              = ram_039E ; C2 - a bomb
 v_sound_counter               = ram_0406
 vRooms                        = ram_0500
 ; flag 0x80 - the room has already been visited
+
+vCachePalette                 = ram_0600
 v_low_ppu_address             = ram_0630
 v_high_ppu_address            = ram_0631
 v_ppu_buffer_count            = ram_0632
+vCacheChrBankSelect              = ram_06AF ; [ram_06AF - ram_06B4]
 v_bank_data                   = ram_06B5
 v_sprite_magics               = ram_06B7
 v_sprite_magic1               = ram_06B7

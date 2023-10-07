@@ -10,10 +10,19 @@
 .import number_of_briefcases_on_the_level ; bank 04 (Page 2)
 .import tbl_ptr_briefcases_on_the_level ; bank 04 (Page 2)
 
+.export sub_C31D_clear_ppu
+.export sub_C358_clear_OAM
+.export loc_C371_update_palette
+.export loc_C402_clear_sound_parts
+.export sub_C402_clear_sound_parts
+.export sub_C420_add_sound_effect
+.export loc_C420_add_sound_effect
 .export loc_CE33_add_sprite_magic
+.export sub_EF46_switch_bank_4_p1_p2
 .export sub_EF4F_switch_bank_4_p2
 .export sub_F2D6_try_put_briefcase
 .export sub_D079_check_button_press
+.export sub_C4F5_selectAllChrBanks
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI ; disable interrupts
@@ -37,7 +46,7 @@ C - - - - - 0x01C02C 07:C01C: 9D 00 02  STA ram_0200,X ; [0x0200-0x02FF] in 0
 C - - - - - 0x01C02F 07:C01F: 9D 00 03  STA ram_0300,X ; [0x0300-0x03FF] in 0
 C - - - - - 0x01C032 07:C022: 9D 00 04  STA ram_0400,X ; [0x0400-0x04FF] in 0
 C - - - - - 0x01C035 07:C025: 9D 00 05  STA ram_0500,X ; [0x0500-0x05FF] in 0
-C - - - - - 0x01C038 07:C028: 9D 00 06  STA ram_0600,X ; [0x0600-0x06FF] in 0
+C - - - - - 0x01C038 07:C028: 9D 00 06  STA vCachePalette,X ; [0x0600-0x06FF] in 0
 C - - - - - 0x01C03B 07:C02B: 9D 00 07  STA vStartOAM,X ; [0x0700-0x07FF] in 0
 C - - - - - 0x01C03E 07:C02E: E8        INX
 C - - - - - 0x01C03F 07:C02F: D0 EB     BNE @bra_C01C_memset_zero
@@ -500,41 +509,41 @@ C - - - - - 0x01C37B 07:C36B: 86 43     STX v_current_number_sprite ; Store 0x00
 C - - - - - 0x01C37D 07:C36D: 8E F7 06  STX v_offset_sprite_magic ; Store 0x00
 C - - - - - 0x01C380 07:C370: 60        RTS
 
-loc_C371:
-C D 2 - - - 0x01C381 07:C371: A9 3F     LDA #$3F
-C - - - - - 0x01C383 07:C373: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01C386 07:C376: A9 00     LDA #$00
-C - - - - - 0x01C388 07:C378: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01C38B 07:C37B: A8        TAY
-bra_C37C:
-C - - - - - 0x01C38C 07:C37C: B9 00 06  LDA ram_0600,Y
-C - - - - - 0x01C38F 07:C37F: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01C392 07:C382: B9 01 06  LDA ram_0601,Y
-C - - - - - 0x01C395 07:C385: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01C398 07:C388: B9 02 06  LDA ram_0602,Y
-C - - - - - 0x01C39B 07:C38B: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01C39E 07:C38E: B9 03 06  LDA ram_0603,Y
-C - - - - - 0x01C3A1 07:C391: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01C3A4 07:C394: B9 04 06  LDA ram_0604,Y
-C - - - - - 0x01C3A7 07:C397: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01C3AA 07:C39A: B9 05 06  LDA ram_0605,Y
-C - - - - - 0x01C3AD 07:C39D: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01C3B0 07:C3A0: B9 06 06  LDA ram_0606,Y
-C - - - - - 0x01C3B3 07:C3A3: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01C3B6 07:C3A6: B9 07 06  LDA ram_0607,Y
-C - - - - - 0x01C3B9 07:C3A9: 8D 07 20  STA PPU_DATA
+loc_C371_update_palette:
+C D 2 - - - 0x01C381 07:C371: A9 3F     LDA #$3F        ;
+C - - - - - 0x01C383 07:C373: 8D 06 20  STA PPU_ADDRESS ;
+C - - - - - 0x01C386 07:C376: A9 00     LDA #$00        ;
+C - - - - - 0x01C388 07:C378: 8D 06 20  STA PPU_ADDRESS ; PPU address is 0x3F00
+C - - - - - 0x01C38B 07:C37B: A8        TAY             ; set loop counter (y=0)
+@bra_C37C_loop:                                         ; loop by y
+C - - - - - 0x01C38C 07:C37C: B9 00 06  LDA vCachePalette,Y      ;
+C - - - - - 0x01C38F 07:C37F: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C392 07:C382: B9 01 06  LDA vCachePalette + 1,Y  ;
+C - - - - - 0x01C395 07:C385: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C398 07:C388: B9 02 06  LDA vCachePalette + 2,Y  ;
+C - - - - - 0x01C39B 07:C38B: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C39E 07:C38E: B9 03 06  LDA vCachePalette + 3,Y  ;
+C - - - - - 0x01C3A1 07:C391: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C3A4 07:C394: B9 04 06  LDA vCachePalette + 4,Y  ;
+C - - - - - 0x01C3A7 07:C397: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C3AA 07:C39A: B9 05 06  LDA vCachePalette + 5,Y  ;
+C - - - - - 0x01C3AD 07:C39D: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C3B0 07:C3A0: B9 06 06  LDA vCachePalette + 6,Y  ;
+C - - - - - 0x01C3B3 07:C3A3: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C3B6 07:C3A6: B9 07 06  LDA vCachePalette + 7,Y  ;
+C - - - - - 0x01C3B9 07:C3A9: 8D 07 20  STA PPU_DATA           ;
 C - - - - - 0x01C3BC 07:C3AC: 98        TYA
 C - - - - - 0x01C3BD 07:C3AD: 18        CLC
 C - - - - - 0x01C3BE 07:C3AE: 69 08     ADC #$08
 C - - - - - 0x01C3C0 07:C3B0: A8        TAY
 C - - - - - 0x01C3C1 07:C3B1: C0 20     CPY #$20
-C - - - - - 0x01C3C3 07:C3B3: 90 C7     BCC bra_C37C
-C - - - - - 0x01C3C5 07:C3B5: A9 3F     LDA #$3F
-C - - - - - 0x01C3C7 07:C3B7: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01C3CA 07:C3BA: A9 00     LDA #$00
-C - - - - - 0x01C3CC 07:C3BC: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01C3CF 07:C3BF: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01C3D2 07:C3C2: 8D 06 20  STA PPU_ADDRESS
+C - - - - - 0x01C3C3 07:C3B3: 90 C7     BCC @bra_C37C_loop ; If Register Y -= 0x20
+C - - - - - 0x01C3C5 07:C3B5: A9 3F     LDA #$3F        ;
+C - - - - - 0x01C3C7 07:C3B7: 8D 06 20  STA PPU_ADDRESS ;
+C - - - - - 0x01C3CA 07:C3BA: A9 00     LDA #$00        ; 
+C - - - - - 0x01C3CC 07:C3BC: 8D 06 20  STA PPU_ADDRESS ; 
+C - - - - - 0x01C3CF 07:C3BF: 8D 06 20  STA PPU_ADDRESS ;
+C - - - - - 0x01C3D2 07:C3C2: 8D 06 20  STA PPU_ADDRESS ; see https://www.nesdev.org/wiki/PPU_registers#Palette_corruption
 C - - - - - 0x01C3D5 07:C3C5: 60        RTS
 
 sub_C3C6:
@@ -575,15 +584,15 @@ C - - - - - 0x01C40C 07:C3FC: A9 07     LDA #$07
 C - - - - - 0x01C40E 07:C3FE: 8D 14 40  STA OAM_DMA
 C - - - - - 0x01C411 07:C401: 60        RTS
 
-loc_C402: ; from bank 06_2
-sub_C402: ; from bank 06_2
+loc_C402_clear_sound_parts: ; from bank 06_2
+sub_C402_clear_sound_parts: ; from bank 06_2
 C D 2 - - - 0x01C412 07:C402: A9 FF     LDA #$FF
 C - - - - - 0x01C414 07:C404: 85 FD     STA ram_00FD
-C - - - - - 0x01C416 07:C406: A0 00     LDY #$00
-C - - - - - 0x01C418 07:C408: 8C 07 04  STY ram_0407
-C - - - - - 0x01C41B 07:C40B: 8C 15 40  STY APU_STATUS
-C - - - - - 0x01C41E 07:C40E: 8C 00 04  STY ram_0400
-bra_C411_repeat:
+C - - - - - 0x01C416 07:C406: A0 00     LDY #$00       ; set loop counter
+C - - - - - 0x01C418 07:C408: 8C 07 04  STY ram_0407   ; clear
+C - - - - - 0x01C41B 07:C40B: 8C 15 40  STY APU_STATUS ; clear
+C - - - - - 0x01C41E 07:C40E: 8C 00 04  STY ram_0400   ; clear
+@bra_C411_loop:
 C - - - - - 0x01C421 07:C411: A9 FF     LDA #$FF
 C - - - - - 0x01C423 07:C413: 99 10 04  STA ram_0410,Y
 C - - - - - 0x01C426 07:C416: 98        TYA
@@ -591,7 +600,7 @@ C - - - - - 0x01C427 07:C417: 18        CLC
 C - - - - - 0x01C428 07:C418: 69 15     ADC #$15 ; CONSTANT: Sound row step
 C - - - - - 0x01C42A 07:C41A: A8        TAY
 C - - - - - 0x01C42B 07:C41B: C9 A8     CMP #$A8 ; 8 iterations for sound row
-C - - - - - 0x01C42D 07:C41D: D0 F2     BNE bra_C411_repeat
+C - - - - - 0x01C42D 07:C41D: D0 F2     BNE @bra_C411_loop ; If Register A != 0xA8
 C - - - - - 0x01C42F 07:C41F: 60        RTS
 
 sub_C420_add_sound_effect:
@@ -703,7 +712,7 @@ C - - - - - 0x01C4E5 07:C4D5: 85 1C     STA v_btn_pressed_in_game
 C - - - - - 0x01C4E7 07:C4D7: 60        RTS
 
 sub_C4D8:
-C - - - - - 0x01C4E8 07:C4D8: 20 F5 C4  JSR sub_C4F5
+C - - - - - 0x01C4E8 07:C4D8: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
 C - - - - - 0x01C4EB 07:C4DB: A5 3B     LDA ram_003B
 C - - - - - 0x01C4ED 07:C4DD: 6A        ROR
 C - - - - - 0x01C4EE 07:C4DE: 90 23     BCC bra_C503_RTS
@@ -717,14 +726,14 @@ C - - - - - 0x01C4FE 07:C4EE: 8E 00 80  STX MMC3_Bank_select
 C - - - - - 0x01C501 07:C4F1: 8D 01 80  STA MMC3_Bank_data
 C - - - - - 0x01C504 07:C4F4: 60        RTS
 
-sub_C4F5:
-C - - - - - 0x01C505 07:C4F5: A2 05     LDX #$05
-bra_C4F7:
-C - - - - - 0x01C507 07:C4F7: 8E 00 80  STX MMC3_Bank_select
-C - - - - - 0x01C50A 07:C4FA: BD AF 06  LDA ram_06AF,X
-C - - - - - 0x01C50D 07:C4FD: 8D 01 80  STA MMC3_Bank_data
-C - - - - - 0x01C510 07:C500: CA        DEX
-C - - - - - 0x01C511 07:C501: 10 F4     BPL bra_C4F7
+sub_C4F5_selectAllChrBanks:
+C - - - - - 0x01C505 07:C4F5: A2 05     LDX #$05                  ; set loop counter
+@bra_C4F7_loop:                                                   ; loop by x
+C - - - - - 0x01C507 07:C4F7: 8E 00 80  STX MMC3_Bank_select      ;
+C - - - - - 0x01C50A 07:C4FA: BD AF 06  LDA vCacheChrBankSelect,X ;
+C - - - - - 0x01C50D 07:C4FD: 8D 01 80  STA MMC3_Bank_data        ;
+C - - - - - 0x01C510 07:C500: CA        DEX                       ; decrements loop counter 
+C - - - - - 0x01C511 07:C501: 10 F4     BPL @bra_C4F7_loop        ; If Register X >= 0
 bra_C503_RTS:
 C - - - - - 0x01C513 07:C503: 60        RTS
 
@@ -744,7 +753,7 @@ C - - - - - 0x01C52B 07:C51B: A4 11     LDY v_cache_reg_y
 C - - - - - 0x01C52D 07:C51D: 60        RTS
 
 sub_C51E:
-C - - - - - 0x01C52E 07:C51E: 20 F5 C4  JSR sub_C4F5
+C - - - - - 0x01C52E 07:C51E: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
 C - - - - - 0x01C531 07:C521: 20 F4 C3  JSR sub_C3F4
 C - - - - - 0x01C534 07:C524: 20 F3 D4  JSR sub_D4F3
 C - - - - - 0x01C537 07:C527: A9 90     LDA #$90
@@ -912,17 +921,17 @@ sub_C62F:
 C - - - - - 0x01C63F 07:C62F: 20 1D C3  JSR sub_C31D_clear_ppu
 C - - - - - 0x01C642 07:C632: 20 58 C3  JSR sub_C358_clear_OAM
 C - - - - - 0x01C645 07:C635: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
-C - - - - - 0x01C648 07:C638: 20 02 C4  JSR sub_C402
+C - - - - - 0x01C648 07:C638: 20 02 C4  JSR sub_C402_clear_sound_parts
 C - - - - - 0x01C64B 07:C63B: A2 05     LDX #$05
 bra_C63D_repeat:
 C - - - - - 0x01C64D 07:C63D: BD 14 80  LDA $8014,X
-C - - - - - 0x01C650 07:C640: 9D AF 06  STA ram_06AF,X
+C - - - - - 0x01C650 07:C640: 9D AF 06  STA vCacheChrBankSelect,X
 C - - - - - 0x01C653 07:C643: CA        DEX
 C - - - - - 0x01C654 07:C644: 10 F7     BPL bra_C63D_repeat
 C - - - - - 0x01C656 07:C646: A2 17     LDX #$17
 bra_C648_repeat:
 C - - - - - 0x01C658 07:C648: BD 7A 81  LDA $817A,X
-C - - - - - 0x01C65B 07:C64B: 9D 00 06  STA ram_0600,X
+C - - - - - 0x01C65B 07:C64B: 9D 00 06  STA vCachePalette,X
 C - - - - - 0x01C65E 07:C64E: CA        DEX
 C - - - - - 0x01C65F 07:C64F: 10 F7     BPL bra_C648_repeat
 C - - - - - 0x01C661 07:C651: 60        RTS
@@ -1308,7 +1317,7 @@ C - - - - - 0x01C8C6 07:C8B6: 85 38     STA ram_0038
 C - - - - - 0x01C8C8 07:C8B8: A5 3B     LDA ram_003B
 C - - - - - 0x01C8CA 07:C8BA: 09 40     ORA #$40
 C - - - - - 0x01C8CC 07:C8BC: 85 3B     STA ram_003B
-C - - - - - 0x01C8CE 07:C8BE: 20 02 C4  JSR sub_C402
+C - - - - - 0x01C8CE 07:C8BE: 20 02 C4  JSR sub_C402_clear_sound_parts
 C - - - - - 0x01C8D1 07:C8C1: A9 0E     LDA #$0E
 C - - - - - 0x01C8D3 07:C8C3: 4C 20 C4  JMP loc_C420_add_sound_effect
 
@@ -1993,7 +2002,7 @@ C - - - - - 0x01CCD3 07:CCC3: B1 00     LDA (ram_0000),Y
 C - - - - - 0x01CCD5 07:CCC5: 38        SEC
 C - - - - - 0x01CCD6 07:CCC6: E9 10     SBC #$10
 C - - - - - 0x01CCD8 07:CCC8: 90 03     BCC bra_CCCD
-C - - - - - 0x01CCDA 07:CCCA: 99 00 06  STA ram_0600,Y
+C - - - - - 0x01CCDA 07:CCCA: 99 00 06  STA vCachePalette,Y
 bra_CCCD:
 C - - - - - 0x01CCDD 07:CCCD: 88        DEY
 C - - - - - 0x01CCDE 07:CCCE: C0 03     CPY #$03
@@ -2787,7 +2796,7 @@ C - - - - - 0x01D171 07:D161: 90 03     BCC bra_D166_skip
 C - - - - - 0x01D173 07:D163: 4C 55 B2  JMP $B255 ; to loc_B255 (bank 06_2)
 
 bra_D166_skip:
-C - - - - - 0x01D176 07:D166: 4C 71 C3  JMP loc_C371
+C - - - - - 0x01D176 07:D166: 4C 71 C3  JMP loc_C371_update_palette
 
 bra_D169_skip:
 C - - - - - 0x01D179 07:D169: AD 7B 06  LDA ram_067B
@@ -3263,7 +3272,7 @@ C D 2 - - - 0x01D455 07:D445: 20 28 D4  JSR sub_D428
 C - - - - - 0x01D458 07:D448: A0 0F     LDY #$0F
 bra_D44A:
 C - - - - - 0x01D45A 07:D44A: B1 00     LDA (ram_0000),Y
-C - - - - - 0x01D45C 07:D44C: 99 00 06  STA ram_0600,Y
+C - - - - - 0x01D45C 07:D44C: 99 00 06  STA vCachePalette,Y
 C - - - - - 0x01D45F 07:D44F: 88        DEY
 C - - - - - 0x01D460 07:D450: 10 F8     BPL bra_D44A
 C - - - - - 0x01D462 07:D452: 60        RTS
@@ -3277,7 +3286,7 @@ C - - - - - 0x01D46C 07:D45C: D0 02     BNE bra_D460
 C - - - - - 0x01D46E 07:D45E: A0 1B     LDY #$1B
 bra_D460:
 C - - - - - 0x01D470 07:D460: B1 00     LDA (ram_0000),Y
-C - - - - - 0x01D472 07:D462: 99 00 06  STA ram_0600,Y
+C - - - - - 0x01D472 07:D462: 99 00 06  STA vCachePalette,Y
 C - - - - - 0x01D475 07:D465: 88        DEY
 C - - - - - 0x01D476 07:D466: C0 0F     CPY #$0F
 C - - - - - 0x01D478 07:D468: D0 F6     BNE bra_D460
@@ -3295,7 +3304,7 @@ C - - - - - 0x01D48E 07:D47E: 85 03     STA ram_0003
 C - - - - - 0x01D490 07:D480: A0 05     LDY #$05
 bra_D482:
 C - - - - - 0x01D492 07:D482: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01D494 07:D484: 99 AF 06  STA ram_06AF,Y
+C - - - - - 0x01D494 07:D484: 99 AF 06  STA vCacheChrBankSelect,Y
 C - - - - - 0x01D497 07:D487: 88        DEY
 C - - - - - 0x01D498 07:D488: 10 F8     BPL bra_D482
 C - - - - - 0x01D49A 07:D48A: E6 4B     INC ram_004B
@@ -3356,7 +3365,7 @@ bra_D4F3:
 sub_D4F3:
 C - - - - - 0x01D503 07:D4F3: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01D506 07:D4F6: 10 FB     BPL bra_D4F3 ; wait for vblank
-C - - - - - 0x01D508 07:D4F8: 4C 71 C3  JMP loc_C371
+C - - - - - 0x01D508 07:D4F8: 4C 71 C3  JMP loc_C371_update_palette
 
 sub_D4FB:
 C - - - - - 0x01D50B 07:D4FB: A5 B7     LDA v_corridor_magic5
@@ -7438,7 +7447,7 @@ C - - - - - 0x01ED9F 07:ED8F: 70 FB     BVS bra_ED8C_repeat
 bra_ED91_repeat:
 C - - - - - 0x01EDA1 07:ED91: 2C 02 20  BIT PPU_STATUS
 C - - - - - 0x01EDA4 07:ED94: 50 FB     BVC bra_ED91_repeat
-C - - - - - 0x01EDA6 07:ED96: 20 F5 C4  JSR sub_C4F5
+C - - - - - 0x01EDA6 07:ED96: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
 C - - - - - 0x01EDA9 07:ED99: 20 C6 C3  JSR sub_C3C6
 C - - - - - 0x01EDAC 07:ED9C: A5 19     LDA ram_0019
 C - - - - - 0x01EDAE 07:ED9E: D0 68     BNE bra_EE08

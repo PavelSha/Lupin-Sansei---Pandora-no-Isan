@@ -6,10 +6,21 @@
 .import tbl_messages ; bank 04 (Page 2)
 .import tbl_ptr_rooms_with_NPCs ; bank 04 (Page 2)
 .import tbl_ptr_briefcases_outside ; bank 04 (Page 2)
+.import tbl_copyright ; bank 04 (Page 1)
+.import tbl_template_chr_banks1 ; bank 04 (Page 1)
 .import tbl_briefcases_indexex_on_the_level ; bank 04 (Page 2)
 .import npc_portrait_sprites ; bank 04 (Page 2)
+.import sub_C31D_clear_ppu ; bank FF
+.import sub_C358_clear_OAM ; bank FF
+.import loc_C371_update_palette ; bank FF
+.import loc_C402_clear_sound_parts ; bank FF
+.import sub_C402_clear_sound_parts ; bank FF
+.import sub_C420_add_sound_effect ; bank FF
+.import loc_C420_add_sound_effect ; bank FF
+.import sub_C4F5_selectAllChrBanks ; bank FF
 .import loc_CE33_add_sprite_magic ; bank FF
 .import sub_D079_check_button_press ; bank FF
+.import sub_EF46_switch_bank_4_p1_p2 ; bank FF
 .import sub_EF4F_switch_bank_4_p2 ; bank FF
 .import sub_F2D6_try_put_briefcase ; bank FF
 
@@ -276,7 +287,7 @@ C - - - - - 0x01A19B 06:A18B: 4C 1E A1  JMP loc_A11E
 
 bra_A18E:
 C - - - - - 0x01A19E 06:A18E: A9 34     LDA #$34
-C - - - - - 0x01A1A0 06:A190: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01A1A0 06:A190: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01A1A3 06:A193: A0 02     LDY #$02
 C - - - - - 0x01A1A5 06:A195: AD 00 03  LDA ram_0300
 C - - - - - 0x01A1A8 06:A198: C9 10     CMP #$10
@@ -922,7 +933,7 @@ bra_A5B5:
 C - - - - - 0x01A5C5 06:A5B5: C9 18     CMP #$18
 C - - - - - 0x01A5C7 06:A5B7: B0 0B     BCS bra_A5C4
 C - - - - - 0x01A5C9 06:A5B9: A9 31     LDA #$31
-C - - - - - 0x01A5CB 06:A5BB: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01A5CB 06:A5BB: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01A5CE 06:A5BE: A9 0C     LDA #$0C
 C - - - - - 0x01A5D0 06:A5C0: 85 05     STA ram_0005
 C - - - - - 0x01A5D2 06:A5C2: D0 1E     BNE bra_A5E2
@@ -1258,7 +1269,7 @@ C - - - - - 0x01A7BC 06:A7AC: BD 4A 03  LDA ram_034A,X
 C - - - - - 0x01A7BF 06:A7AF: 29 07     AND #$07
 C - - - - - 0x01A7C1 06:A7B1: D0 05     BNE bra_A7B8
 C - - - - - 0x01A7C3 06:A7B3: A9 31     LDA #$31
-C - - - - - 0x01A7C5 06:A7B5: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01A7C5 06:A7B5: 20 20 C4  JSR sub_C420_add_sound_effect
 bra_A7B8:
 C - - - - - 0x01A7C8 06:A7B8: A0 18     LDY #$18
 C - - - - - 0x01A7CA 06:A7BA: BD 4A 03  LDA ram_034A,X
@@ -1393,7 +1404,7 @@ C - - - - - 0x01A8AD 06:A89D: AD 00 03  LDA ram_0300
 C - - - - - 0x01A8B0 06:A8A0: C9 18     CMP #$18
 C - - - - - 0x01A8B2 06:A8A2: D0 05     BNE bra_A8A9
 C - - - - - 0x01A8B4 06:A8A4: A9 32     LDA #$32
-C - - - - - 0x01A8B6 06:A8A6: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01A8B6 06:A8A6: 20 20 C4  JSR sub_C420_add_sound_effect
 bra_A8A9:
 C - - - - - 0x01A8B9 06:A8A9: 20 3E E3  JSR $E33E
 C - - - - - 0x01A8BC 06:A8AC: BC 2C 03  LDY ram_032C,X
@@ -1755,7 +1766,7 @@ C - - - - - 0x01AB34 06:AB24: 9D 5E 03  STA ram_035E,X
 C - - - - - 0x01AB37 06:AB27: A9 18     LDA #$18
 C - - - - - 0x01AB39 06:AB29: 9D 88 03  STA ram_0388,X
 C - - - - - 0x01AB3C 06:AB2C: A9 3F     LDA #$3F
-C - - - - - 0x01AB3E 06:AB2E: 4C 20 C4  JMP $C420 ; to loc_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01AB3E 06:AB2E: 4C 20 C4  JMP loc_C420_add_sound_effect
 
 bra_AB31_RTS:
 C - - - - - 0x01AB41 06:AB31: 60        RTS
@@ -2449,7 +2460,7 @@ C - - - - - 0x01AFF1 06:AFE1: 9D 9E 03  STA v_item_on_screen,X
 C - - - - - 0x01AFF4 06:AFE4: A9 10     LDA #$10
 C - - - - - 0x01AFF6 06:AFE6: 9D C8 03  STA ram_03C8,X
 C - - - - - 0x01AFF9 06:AFE9: A9 14     LDA #$14
-C - - - - - 0x01AFFB 06:AFEB: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01AFFB 06:AFEB: 20 20 C4  JSR sub_C420_add_sound_effect
 bra_AFEE_RTS:
 C - - - - - 0x01AFFE 06:AFEE: 60        RTS
 
@@ -2548,7 +2559,7 @@ C - - - - - 0x01B09C 06:B08C: 99 00 02  STA v_items,Y
 C - - - - - 0x01B09F 06:B08F: A9 20     LDA #$20
 C - - - - - 0x01B0A1 06:B091: 99 0A 02  STA ram_020A,Y
 C - - - - - 0x01B0A4 06:B094: A9 18     LDA #$18
-C - - - - - 0x01B0A6 06:B096: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B0A6 06:B096: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B0A9 06:B099: 60        RTS
 
 sub_B09A: ; from bank FF
@@ -2804,7 +2815,7 @@ C - - - - - 0x01B25F 06:B24F: 85 C9     STA v_letter_offset ; in 0
 C - - - - - 0x01B261 06:B251: 60        RTS
 
 bra_B252_return:
-C - - - - - 0x01B262 06:B252: 4C 71 C3  JMP $C371 ; to loc_C371  (bank_FF)
+C - - - - - 0x01B262 06:B252: 4C 71 C3  JMP loc_C371_update_palette
 
 loc_B255: ; from bank FF 
 C D 1 - - - 0x01B265 06:B255: A5 C8     LDA ram_00C8
@@ -2863,7 +2874,7 @@ C - - - - - 0x01B2C1 06:B2B1: A9 82     LDA #$82
 C - - - - - 0x01B2C3 06:B2B3: 8D 32 06  STA v_ppu_buffer_count
 C - - - - - 0x01B2C6 06:B2B6: E6 CF     INC v_low_msg_ppu_address
 C - - - - - 0x01B2C8 06:B2B8: A9 50     LDA #$50
-C - - - - - 0x01B2CA 06:B2BA: 4C 20 C4  JMP $C420 ; to loc_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B2CA 06:B2BA: 4C 20 C4  JMP loc_C420_add_sound_effect
 
 - - - - - - 0x01B2CD 06:B2BD: 60        .byte $60   ; 
 
@@ -3423,7 +3434,7 @@ C - - - - - 0x01B659 06:B649: 20 79 D0  JSR sub_D079_check_button_press ; bank F
 C - - - - - 0x01B65C 06:B64C: F0 02     BEQ bra_B650
 C - - - - - 0x01B65E 06:B64E: E6 D8     INC ram_00D8
 bra_B650:
-C - - - - - 0x01B660 06:B650: 20 F5 C4  JSR $C4F5
+C - - - - - 0x01B660 06:B650: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
 C - - - - - 0x01B663 06:B653: 4C 03 C8  JMP $C803
 
 C - - - - - 0x01B666 06:B656: A5 C8     LDA ram_00C8
@@ -3432,15 +3443,15 @@ C - - - - - 0x01B66A 06:B65A: 4C A4 B7  JMP loc_B7A4
 
 bra_B65D:
 C - - - - - 0x01B66D 06:B65D: A9 55     LDA #$55
-C - - - - - 0x01B66F 06:B65F: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B66F 06:B65F: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B672 06:B662: A9 56     LDA #$56
-C - - - - - 0x01B674 06:B664: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B674 06:B664: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B677 06:B667: A9 57     LDA #$57
-C - - - - - 0x01B679 06:B669: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B679 06:B669: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B67C 06:B66C: A9 5F     LDA #$5F
-C - - - - - 0x01B67E 06:B66E: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B67E 06:B66E: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B681 06:B671: A9 60     LDA #$60
-C - - - - - 0x01B683 06:B673: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B683 06:B673: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B686 06:B676: A0 00     LDY #$00
 C - - - - - 0x01B688 06:B678: A9 21     LDA #$21
 C - - - - - 0x01B68A 06:B67A: 8D 31 06  STA ram_0631
@@ -3471,13 +3482,13 @@ C - - - - - 0x01B6C0 06:B6B0: 4C 72 B7  JMP loc_B772
 C - - - - - 0x01B6C3 06:B6B3: A5 C8     LDA ram_00C8
 C - - - - - 0x01B6C5 06:B6B5: D0 38     BNE bra_B6EF_RTS
 C - - - - - 0x01B6C7 06:B6B7: A9 5B     LDA #$5B
-C - - - - - 0x01B6C9 06:B6B9: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B6C9 06:B6B9: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B6CC 06:B6BC: A9 5C     LDA #$5C
-C - - - - - 0x01B6CE 06:B6BE: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B6CE 06:B6BE: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B6D1 06:B6C1: A9 5D     LDA #$5D
-C - - - - - 0x01B6D3 06:B6C3: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B6D3 06:B6C3: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B6D6 06:B6C6: A9 5E     LDA #$5E
-C - - - - - 0x01B6D8 06:B6C8: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B6D8 06:B6C8: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B6DB 06:B6CB: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01B6DD 06:B6CD: 29 03     AND #$03
 C - - - - - 0x01B6DF 06:B6CF: A8        TAY
@@ -3515,7 +3526,7 @@ C - - - - - 0x01B70F 06:B6FF: A5 2C     LDA v_low_counter
 C - - - - - 0x01B711 06:B701: 29 7F     AND #$7F
 C - - - - - 0x01B713 06:B703: D0 05     BNE bra_B70A
 C - - - - - 0x01B715 06:B705: A9 60     LDA #$60
-C - - - - - 0x01B717 06:B707: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B717 06:B707: 20 20 C4  JSR sub_C420_add_sound_effect
 bra_B70A:
 C - - - - - 0x01B71A 06:B70A: A5 2C     LDA v_low_counter
 C - - - - - 0x01B71C 06:B70C: 29 03     AND #$03
@@ -3630,14 +3641,14 @@ C - - - - - 0x01B7E7 06:B7D7: A8        TAY
 C - - - - - 0x01B7E8 06:B7D8: 84 11     STY ram_0011
 C - - - - - 0x01B7EA 06:B7DA: 60        RTS
 
-C - - - - - 0x01B7EB 06:B7DB: 20 02 C4  JSR $C402
-C - - - - - 0x01B7EE 06:B7DE: 20 1D C3  JSR $C31D
-C - - - - - 0x01B7F1 06:B7E1: 20 58 C3  JSR $C358
-C - - - - - 0x01B7F4 06:B7E4: 20 46 EF  JSR $EF46
+C - - - - - 0x01B7EB 06:B7DB: 20 02 C4  JSR sub_C402_clear_sound_parts
+C - - - - - 0x01B7EE 06:B7DE: 20 1D C3  JSR sub_C31D_clear_ppu
+C - - - - - 0x01B7F1 06:B7E1: 20 58 C3  JSR sub_C358_clear_OAM
+C - - - - - 0x01B7F4 06:B7E4: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01B7F7 06:B7E7: A2 05     LDX #$05
 bra_B7E9:
 C - - - - - 0x01B7F9 06:B7E9: BD CF BC  LDA tbl_BCCF,X
-C - - - - - 0x01B7FC 06:B7EC: 9D AF 06  STA ram_06AF,X
+C - - - - - 0x01B7FC 06:B7EC: 9D AF 06  STA vCacheChrBankSelect,X
 C - - - - - 0x01B7FF 06:B7EF: CA        DEX
 C - - - - - 0x01B800 06:B7F0: 10 F7     BPL bra_B7E9
 C - - - - - 0x01B802 06:B7F2: 20 BA BA  JSR sub_BABA
@@ -3765,28 +3776,28 @@ C - - - - - 0x01B8D9 06:B8C9: 10 01     BPL bra_B8CC; Branch If in game
 C - - - - - 0x01B8DB 06:B8CB: 60        RTS
 
 bra_B8CC:
-C - - - - - 0x01B8DC 06:B8CC: 20 02 C4  JSR $C402
+C - - - - - 0x01B8DC 06:B8CC: 20 02 C4  JSR sub_C402_clear_sound_parts
 C - - - - - 0x01B8DF 06:B8CF: A9 00     LDA #$00
-C - - - - - 0x01B8E1 06:B8D1: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B8E1 06:B8D1: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B8E4 06:B8D4: A9 01     LDA #$01
-C - - - - - 0x01B8E6 06:B8D6: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B8E6 06:B8D6: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B8E9 06:B8D9: A9 02     LDA #$02
-C - - - - - 0x01B8EB 06:B8DB: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01B8EB 06:B8DB: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B8EE 06:B8DE: A9 03     LDA #$03
-C - - - - - 0x01B8F0 06:B8E0: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
-C - - - - - 0x01B8F3 06:B8E3: 20 1D C3  JSR $C31D
-C - - - - - 0x01B8F6 06:B8E6: 20 58 C3  JSR $C358
-C - - - - - 0x01B8F9 06:B8E9: 20 46 EF  JSR $EF46
+C - - - - - 0x01B8F0 06:B8E0: 20 20 C4  JSR sub_C420_add_sound_effect
+C - - - - - 0x01B8F3 06:B8E3: 20 1D C3  JSR sub_C31D_clear_ppu
+C - - - - - 0x01B8F6 06:B8E6: 20 58 C3  JSR sub_C358_clear_OAM
+C - - - - - 0x01B8F9 06:B8E9: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01B8FC 06:B8EC: A2 05     LDX #$05
 bra_B8EE_repeat:
 C - - - - - 0x01B8FE 06:B8EE: BD BE 80  LDA $80BE,X
-C - - - - - 0x01B901 06:B8F1: 9D AF 06  STA ram_06AF,X
+C - - - - - 0x01B901 06:B8F1: 9D AF 06  STA vCacheChrBankSelect,X
 C - - - - - 0x01B904 06:B8F4: CA        DEX
 C - - - - - 0x01B905 06:B8F5: 10 F7     BPL bra_B8EE_repeat
 C - - - - - 0x01B907 06:B8F7: A2 1F     LDX #$1F
 bra_B8F9_repeat:
 C - - - - - 0x01B909 06:B8F9: BD C4 80  LDA $80C4,X
-C - - - - - 0x01B90C 06:B8FC: 9D 00 06  STA ram_0600,X
+C - - - - - 0x01B90C 06:B8FC: 9D 00 06  STA vCachePalette,X
 C - - - - - 0x01B90F 06:B8FF: CA        DEX
 C - - - - - 0x01B910 06:B900: 10 F7     BPL bra_B8F9_repeat
 C - - - - - 0x01B912 06:B902: A9 E4     LDA #$E4
@@ -3909,7 +3920,7 @@ C - - - - - 0x01B9DF 06:B9CF: A9 FF     LDA #$FF ; CONSTANT - Cutscene
 C - - - - - 0x01B9E1 06:B9D1: 85 37     STA vGameMode
 C - - - - - 0x01B9E3 06:B9D3: A9 01     LDA #$01
 C - - - - - 0x01B9E5 06:B9D5: 85 24     STA ram_0024
-C - - - - - 0x01B9E7 06:B9D7: 4C 02 C4  JMP $C402 ; to loc_C402 (bank FF)
+C - - - - - 0x01B9E7 06:B9D7: 4C 02 C4  JMP loc_C402_clear_sound_parts
 
 sub_B9DA: ; from bank FF
 C - - - - - 0x01B9EA 06:B9DA: A5 37     LDA vGameMode
@@ -3917,41 +3928,41 @@ C - - - - - 0x01B9EC 06:B9DC: 30 01     BMI bra_B9DF ; Branch If mode=cutscene
 C - - - - - 0x01B9EE 06:B9DE: 60        RTS
 
 bra_B9DF:
-C - - - - - 0x01B9EF 06:B9DF: 20 02 C4  JSR $C402 ; to sub_C402 (bank FF)
-C - - - - - 0x01B9F2 06:B9E2: 20 1D C3  JSR $C31D
-C - - - - - 0x01B9F5 06:B9E5: 20 58 C3  JSR $C358
-C - - - - - 0x01B9F8 06:B9E8: 20 46 EF  JSR $EF46
-C - - - - - 0x01B9FB 06:B9EB: A2 05     LDX #$05
-bra_B9ED:
-C - - - - - 0x01B9FD 06:B9ED: BD 14 80  LDA $8014,X
-C - - - - - 0x01BA00 06:B9F0: 9D AF 06  STA ram_06AF,X
-C - - - - - 0x01BA03 06:B9F3: CA        DEX
-C - - - - - 0x01BA04 06:B9F4: 10 F7     BPL bra_B9ED
+C - - - - - 0x01B9EF 06:B9DF: 20 02 C4  JSR sub_C402_clear_sound_parts
+C - - - - - 0x01B9F2 06:B9E2: 20 1D C3  JSR sub_C31D_clear_ppu
+C - - - - - 0x01B9F5 06:B9E5: 20 58 C3  JSR sub_C358_clear_OAM
+C - - - - - 0x01B9F8 06:B9E8: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
+C - - - - - 0x01B9FB 06:B9EB: A2 05     LDX #$05           ; set loop counter
+@bra_B9ED_loop:                                            ; loop by x
+C - - - - - 0x01B9FD 06:B9ED: BD 14 80  LDA tbl_template_chr_banks1,X
+C - - - - - 0x01BA00 06:B9F0: 9D AF 06  STA vCacheChrBankSelect,X
+C - - - - - 0x01BA03 06:B9F3: CA        DEX                ; decrements loop counter
+C - - - - - 0x01BA04 06:B9F4: 10 F7     BPL @bra_B9ED_loop ; If Register X >= 0
 C - - - - - 0x01BA06 06:B9F6: A5 24     LDA ram_0024
-C - - - - - 0x01BA08 06:B9F8: D0 32     BNE bra_BA2C
+C - - - - - 0x01BA08 06:B9F8: D0 32     BNE @bra_BA2C_skip
 C - - - - - 0x01BA0A 06:B9FA: A2 36     LDX #$36
 C - - - - - 0x01BA0C 06:B9FC: 8E B3 06  STX ram_06B3
 C - - - - - 0x01BA0F 06:B9FF: E8        INX
 C - - - - - 0x01BA10 06:BA00: 8E B4 06  STX ram_06B4
-C - - - - - 0x01BA13 06:BA03: AD 02 20  LDA PPU_STATUS
-C - - - - - 0x01BA16 06:BA06: A9 23     LDA #$23
-C - - - - - 0x01BA18 06:BA08: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01BA1B 06:BA0B: A9 64     LDA #$64
-C - - - - - 0x01BA1D 06:BA0D: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01BA20 06:BA10: A2 00     LDX #$00
-bra_BA12:
-C - - - - - 0x01BA22 06:BA12: BD 2A 80  LDA $802A,X
-C - - - - - 0x01BA25 06:BA15: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01BA28 06:BA18: E8        INX
-C - - - - - 0x01BA29 06:BA19: E0 18     CPX #$18
-C - - - - - 0x01BA2B 06:BA1B: D0 F5     BNE bra_BA12
-C - - - - - 0x01BA2D 06:BA1D: A9 23     LDA #$23
-C - - - - - 0x01BA2F 06:BA1F: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01BA32 06:BA22: A9 4B     LDA #$4B
-C - - - - - 0x01BA34 06:BA24: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01BA37 06:BA27: A9 7F     LDA #$7F
-C - - - - - 0x01BA39 06:BA29: 8D 07 20  STA PPU_DATA
-bra_BA2C:
+C - - - - - 0x01BA13 06:BA03: AD 02 20  LDA PPU_STATUS     ; Read PPU status to reset the high/low latch
+C - - - - - 0x01BA16 06:BA06: A9 23     LDA #$23           ;
+C - - - - - 0x01BA18 06:BA08: 8D 06 20  STA PPU_ADDRESS    ;
+C - - - - - 0x01BA1B 06:BA0B: A9 64     LDA #$64           ;
+C - - - - - 0x01BA1D 06:BA0D: 8D 06 20  STA PPU_ADDRESS    ; PPU address is 0x2364
+C - - - - - 0x01BA20 06:BA10: A2 00     LDX #$00           ; set loop counter
+@bra_BA12_loop:                                            ; loop by x
+C - - - - - 0x01BA22 06:BA12: BD 2A 80  LDA tbl_copyright,X
+C - - - - - 0x01BA25 06:BA15: 8D 07 20  STA PPU_DATA       ;
+C - - - - - 0x01BA28 06:BA18: E8        INX                ; increments loop counter
+C - - - - - 0x01BA29 06:BA19: E0 18     CPX #$18           ; CONSTANT - 18 tiles 
+C - - - - - 0x01BA2B 06:BA1B: D0 F5     BNE @bra_BA12_loop ; If Register X != 0x18
+C - - - - - 0x01BA2D 06:BA1D: A9 23     LDA #$23           ;
+C - - - - - 0x01BA2F 06:BA1F: 8D 06 20  STA PPU_ADDRESS    ;
+C - - - - - 0x01BA32 06:BA22: A9 4B     LDA #$4B           ;
+C - - - - - 0x01BA34 06:BA24: 8D 06 20  STA PPU_ADDRESS    ; PPU address is 0x234B
+C - - - - - 0x01BA37 06:BA27: A9 7F     LDA #$7F           ;
+C - - - - - 0x01BA39 06:BA29: 8D 07 20  STA PPU_DATA       ; The part of the sign (the part of the copyright)
+@bra_BA2C_skip:
 C - - - - - 0x01BA3C 06:BA2C: 20 BA BA  JSR sub_BABA
 C - - - - - 0x01BA3F 06:BA2F: A5 24     LDA ram_0024
 C - - - - - 0x01BA41 06:BA31: 0A        ASL
@@ -3960,7 +3971,7 @@ C - - - - - 0x01BA43 06:BA33: AA        TAX
 C - - - - - 0x01BA44 06:BA34: A0 04     LDY #$04
 bra_BA36:
 C - - - - - 0x01BA46 06:BA36: BD 42 80  LDA $8042,X
-C - - - - - 0x01BA49 06:BA39: 99 00 06  STA ram_0600,Y
+C - - - - - 0x01BA49 06:BA39: 99 00 06  STA vCachePalette,Y
 C - - - - - 0x01BA4C 06:BA3C: E8        INX
 C - - - - - 0x01BA4D 06:BA3D: C8        INY
 C - - - - - 0x01BA4E 06:BA3E: C0 08     CPY #$08
@@ -4036,7 +4047,7 @@ sub_BABA:
 C - - - - - 0x01BACA 06:BABA: A2 0F     LDX #$0F
 bra_BABC:
 C - - - - - 0x01BACC 06:BABC: BD 1A 80  LDA $801A,X
-C - - - - - 0x01BACF 06:BABF: 9D 00 06  STA ram_0600,X
+C - - - - - 0x01BACF 06:BABF: 9D 00 06  STA vCachePalette,X
 C - - - - - 0x01BAD2 06:BAC2: CA        DEX
 C - - - - - 0x01BAD3 06:BAC3: 10 F7     BPL bra_BABC
 C - - - - - 0x01BAD5 06:BAC5: A9 0F     LDA #$0F
@@ -4212,13 +4223,13 @@ C - - - - - 0x01BBDA 06:BBCA: 0A        ASL
 C - - - - - 0x01BBDB 06:BBCB: 0A        ASL
 C - - - - - 0x01BBDC 06:BBCC: AA        TAX
 C - - - - - 0x01BBDD 06:BBCD: BD 10 BC  LDA tbl_BC10,X
-C - - - - - 0x01BBE0 06:BBD0: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01BBE0 06:BBD0: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01BBE3 06:BBD3: BD 11 BC  LDA tbl_BC11,X
-C - - - - - 0x01BBE6 06:BBD6: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01BBE6 06:BBD6: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01BBE9 06:BBD9: BD 12 BC  LDA tbl_BC12,X
-C - - - - - 0x01BBEC 06:BBDC: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01BBEC 06:BBDC: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01BBEF 06:BBDF: BD 13 BC  LDA tbl_BC13,X
-C - - - - - 0x01BBF2 06:BBE2: 4C 20 C4  JMP $C420 ; to loc_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01BBF2 06:BBE2: 4C 20 C4  JMP loc_C420_add_sound_effect
 
 bra_BBE5:
 C - - - - - 0x01BBF5 06:BBE5: A0 0A     LDY #$0A
