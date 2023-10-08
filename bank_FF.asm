@@ -56,41 +56,41 @@ C - - - - - 0x01C043 07:C033: E8        INX
 C - - - - - 0x01C044 07:C034: E0 99     CPX #$99
 C - - - - - 0x01C046 07:C036: 90 F9     BCC @bra_C031_loop
 C - - - - - 0x01C048 07:C038: A2 A7     LDX #$A7
-@bra_C03A_loop:                                         ; loop by x
-C - - - - - 0x01C04A 07:C03A: 95 00     STA ram_0000,X ; [0x00A7-0x00FF] in 0
-C - - - - - 0x01C04C 07:C03C: E8        INX
-C - - - - - 0x01C04D 07:C03D: D0 FB     BNE @bra_C03A_loop
+@bra_C03A_loop:                                             ; loop by x
+C - - - - - 0x01C04A 07:C03A: 95 00     STA ram_0000,X      ; [0x00A7-0x00FF] in 0
+C - - - - - 0x01C04C 07:C03C: E8        INX                 ; increments loop counter
+C - - - - - 0x01C04D 07:C03D: D0 FB     BNE @bra_C03A_loop  ; If Register X != 0
 C - - - - - 0x01C04F 07:C03F: 20 FB FD  JSR sub_FDFB
-C - - - - - 0x01C052 07:C042: A9 FF     LDA #$FF ; CONSTANT - Cutscene
-C - - - - - 0x01C054 07:C044: 85 37     STA vGameMode
+C - - - - - 0x01C052 07:C042: A9 FF     LDA #$FF             ; CONSTANT - Cutscene
+C - - - - - 0x01C054 07:C044: 85 37     STA vGameMode        ; assign a value
 loc_C046:
-C D 2 - - - 0x01C056 07:C046: A9 07     LDA #$07
-C - - - - - 0x01C058 07:C048: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01C05B 07:C04B: A9 0D     LDA #$0D
-C - - - - - 0x01C05D 07:C04D: 8D 01 80  STA MMC3_Bank_data ; switch bank 06_2 in 0xA000-0BFFF
+C D 2 - - - 0x01C056 07:C046: A9 07     LDA #$07             ;
+C - - - - - 0x01C058 07:C048: 8D 00 80  STA MMC3_Bank_select ;
+C - - - - - 0x01C05B 07:C04B: A9 0D     LDA #$0D             ;
+C - - - - - 0x01C05D 07:C04D: 8D 01 80  STA MMC3_Bank_data   ; switch bank 06_2 in 0xA000-0BFFF
 C - - - - - 0x01C060 07:C050: A2 00     LDX #$00
-C - - - - - 0x01C062 07:C052: 86 19     STX ram_0019
-C - - - - - 0x01C064 07:C054: 8E 10 40  STX DMC_FREQ
-C - - - - - 0x01C067 07:C057: 86 3B     STX ram_003B
-C - - - - - 0x01C069 07:C059: 86 3C     STX ram_003C
-C - - - - - 0x01C06B 07:C05B: 86 39     STX ram_0039
-C - - - - - 0x01C06D 07:C05D: 86 3A     STX v_resists
-C - - - - - 0x01C06F 07:C05F: 86 38     STX ram_0038
-C - - - - - 0x01C071 07:C061: 86 D6     STX ram_00D6
-C - - - - - 0x01C073 07:C063: 86 27     STX ram_0027
-C - - - - - 0x01C075 07:C065: 86 29     STX ram_0029
-C - - - - - 0x01C077 07:C067: 86 1C     STX ram_001C
-C - - - - - 0x01C079 07:C069: 86 1F     STX v_player2_btn_pressed
-C - - - - - 0x01C07B 07:C06B: 86 5E     STX v_no_level
-C - - - - - 0x01C07D 07:C06D: 86 C4     STX ram_00C4
-C - - - - - 0x01C07F 07:C06F: 8E B6 06  STX ram_06B6
-C - - - - - 0x01C082 07:C072: 86 C8     STX ram_00C8
-C - - - - - 0x01C084 07:C074: 86 2E     STX ram_002E
-C - - - - - 0x01C086 07:C076: 86 2F     STX ram_002F
-C - - - - - 0x01C088 07:C078: 86 30     STX ram_0030
-C - - - - - 0x01C08A 07:C07A: 86 31     STX ram_0031
-C - - - - - 0x01C08C 07:C07C: 86 32     STX ram_0032
-C - - - - - 0x01C08E 07:C07E: 86 33     STX v_menu_counter
+C - - - - - 0x01C062 07:C052: 86 19     STX ram_0019              ; clear
+C - - - - - 0x01C064 07:C054: 8E 10 40  STX DMC_FREQ              ; clear
+C - - - - - 0x01C067 07:C057: 86 3B     STX ram_003B              ; clear
+C - - - - - 0x01C069 07:C059: 86 3C     STX ram_003C              ; clear
+C - - - - - 0x01C06B 07:C05B: 86 39     STX ram_0039              ; clear
+C - - - - - 0x01C06D 07:C05D: 86 3A     STX v_resists             ; clear
+C - - - - - 0x01C06F 07:C05F: 86 38     STX ram_0038              ; clear
+C - - - - - 0x01C071 07:C061: 86 D6     STX ram_00D6              ; clear
+C - - - - - 0x01C073 07:C063: 86 27     STX ram_0027              ; clear
+C - - - - - 0x01C075 07:C065: 86 29     STX ram_0029              ; clear
+C - - - - - 0x01C077 07:C067: 86 1C     STX ram_001C              ; clear
+C - - - - - 0x01C079 07:C069: 86 1F     STX v_player2_btn_pressed ; clear
+C - - - - - 0x01C07B 07:C06B: 86 5E     STX v_no_level            ; clear
+C - - - - - 0x01C07D 07:C06D: 86 C4     STX ram_00C4              ; clear
+C - - - - - 0x01C07F 07:C06F: 8E B6 06  STX ram_06B6              ; clear
+C - - - - - 0x01C082 07:C072: 86 C8     STX ram_00C8              ; clear
+C - - - - - 0x01C084 07:C074: 86 2E     STX ram_002E              ; clear
+C - - - - - 0x01C086 07:C076: 86 2F     STX ram_002F              ; clear
+C - - - - - 0x01C088 07:C078: 86 30     STX ram_0030              ; clear
+C - - - - - 0x01C08A 07:C07A: 86 31     STX ram_0031              ; clear
+C - - - - - 0x01C08C 07:C07C: 86 32     STX ram_0032              ; clear
+C - - - - - 0x01C08E 07:C07E: 86 33     STX v_menu_counter        ; clear
 C - - - - - 0x01C090 07:C080: A9 40     LDA #$40
 C - - - - - 0x01C092 07:C082: 8D 17 40  STA JOY2
 C - - - - - 0x01C095 07:C085: A9 FC     LDA #$FC
@@ -640,8 +640,8 @@ C - - - - - 0x01C467 07:C457: A9 00     LDA #$00
 C - - - - - 0x01C469 07:C459: 9D 10 04  STA ram_0410,X
 C - - - - - 0x01C46C 07:C45C: A9 06     LDA #$06
 C - - - - - 0x01C46E 07:C45E: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01C471 07:C461: AD B5 06  LDA v_bank_data
-C - - - - - 0x01C474 07:C464: 8D 01 80  STA MMC3_Bank_data ; switch v_bank_data (PRG) in 0x8000-09FFF
+C - - - - - 0x01C471 07:C461: AD B5 06  LDA vBankData
+C - - - - - 0x01C474 07:C464: 8D 01 80  STA MMC3_Bank_data ; switch vBankData (PRG) in 0x8000-09FFF
 C - - - - - 0x01C477 07:C467: 68        PLA
 C - - - - - 0x01C478 07:C468: A8        TAY ; retrieve y
 C - - - - - 0x01C479 07:C469: 68        PLA
@@ -745,7 +745,7 @@ C - - - - - 0x01C51A 07:C50A: A8        TAY
 C - - - - - 0x01C51B 07:C50B: A9 06     LDA #$06
 C - - - - - 0x01C51D 07:C50D: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01C520 07:C510: 8C 01 80  STY MMC3_Bank_data
-C - - - - - 0x01C523 07:C513: 8C B5 06  STY v_bank_data
+C - - - - - 0x01C523 07:C513: 8C B5 06  STY vBankData
 C - - - - - 0x01C526 07:C516: 68        PLA
 C - - - - - 0x01C527 07:C517: 29 1F     AND #$1F
 C - - - - - 0x01C529 07:C519: 09 80     ORA #$80
@@ -7410,12 +7410,12 @@ tbl_ED49:
 - D 3 - - - 0x01ED5C 07:ED4C: 3A        .byte $3A   ; 
 - D 3 - - - 0x01ED5D 07:ED4D: 3E        .byte $3E   ; 
 vec_ED4E_NMI:
-C - - - - - 0x01ED5E 07:ED4E: 48        PHA
-C - - - - - 0x01ED5F 07:ED4F: 8A        TXA
-C - - - - - 0x01ED60 07:ED50: 48        PHA
-C - - - - - 0x01ED61 07:ED51: 98        TYA
-C - - - - - 0x01ED62 07:ED52: 48        PHA
-C - - - - - 0x01ED63 07:ED53: AD 02 20  LDA PPU_STATUS
+C - - - - - 0x01ED5E 07:ED4E: 48        PHA ; store a
+C - - - - - 0x01ED5F 07:ED4F: 8A        TXA ;
+C - - - - - 0x01ED60 07:ED50: 48        PHA ; store x
+C - - - - - 0x01ED61 07:ED51: 98        TYA ; 
+C - - - - - 0x01ED62 07:ED52: 48        PHA ; store y
+C - - - - - 0x01ED63 07:ED53: AD 02 20  LDA PPU_STATUS  ; Read PPU status to reset the high/low latch
 C - - - - - 0x01ED66 07:ED56: A9 00     LDA #$00
 C - - - - - 0x01ED68 07:ED58: 8D 03 20  STA PPU_OAM_ADDR
 C - - - - - 0x01ED6B 07:ED5B: A9 07     LDA #$07
@@ -7425,10 +7425,10 @@ C - - - - - 0x01ED73 07:ED63: 20 1B D1  JSR sub_D11B_shared_render
 C - - - - - 0x01ED76 07:ED66: A5 26     LDA ram_0026
 C - - - - - 0x01ED78 07:ED68: 29 FC     AND #$FC
 C - - - - - 0x01ED7A 07:ED6A: 8D 00 20  STA PPU_CTRL
-C - - - - - 0x01ED7D 07:ED6D: AD 02 20  LDA PPU_STATUS
+C - - - - - 0x01ED7D 07:ED6D: AD 02 20  LDA PPU_STATUS ; Read PPU status to reset the high/low latch
 C - - - - - 0x01ED80 07:ED70: A9 00     LDA #$00
-C - - - - - 0x01ED82 07:ED72: 8D 05 20  STA $2005
-C - - - - - 0x01ED85 07:ED75: 8D 05 20  STA $2005
+C - - - - - 0x01ED82 07:ED72: 8D 05 20  STA PPU_SCROLL ; write X scroll-position
+C - - - - - 0x01ED85 07:ED75: 8D 05 20  STA PPU_SCROLL ; write Y scroll-position
 C - - - - - 0x01ED88 07:ED78: 20 D8 C4  JSR sub_C4D8
 C - - - - - 0x01ED8B 07:ED7B: A5 3B     LDA ram_003B
 C - - - - - 0x01ED8D 07:ED7D: 10 03     BPL bra_ED82
@@ -7487,22 +7487,22 @@ loc_EDE7:
 C D 3 - - - 0x01EDF7 07:EDE7: A6 44     LDX v_copy_current_number_sprite
 C - - - - - 0x01EDF9 07:EDE9: 86 43     STX v_current_number_sprite
 C - - - - - 0x01EDFB 07:EDEB: 20 F9 CE  JSR sub_CEF9
-C - - - - - 0x01EDFE 07:EDEE: A9 07     LDA #$07
-C - - - - - 0x01EE00 07:EDF0: A2 04     LDX #$04
-C - - - - - 0x01EE02 07:EDF2: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01EE05 07:EDF5: 8E 01 80  STX MMC3_Bank_data
+C - - - - - 0x01EDFE 07:EDEE: A9 07     LDA #$07             ;
+C - - - - - 0x01EE00 07:EDF0: A2 04     LDX #$04             ; 
+C - - - - - 0x01EE02 07:EDF2: 8D 00 80  STA MMC3_Bank_select ;
+C - - - - - 0x01EE05 07:EDF5: 8E 01 80  STX MMC3_Bank_data   ; switch bank 02 (page 1) in 0xA000-0BFFF
 C - - - - - 0x01EE08 07:EDF8: 20 F0 FF  JSR sub_FFF0
 C - - - - - 0x01EE0B 07:EDFB: 20 1A EF  JSR sub_EF1A_switch_bank_06_2
 C - - - - - 0x01EE0E 07:EDFE: A9 00     LDA #$00
 C - - - - - 0x01EE10 07:EE00: 85 19     STA ram_0019
 bra_EE02:
 C - - - - - 0x01EE12 07:EE02: 68        PLA
-C - - - - - 0x01EE13 07:EE03: A8        TAY
+C - - - - - 0x01EE13 07:EE03: A8        TAY ; retrieve y
 C - - - - - 0x01EE14 07:EE04: 68        PLA
-C - - - - - 0x01EE15 07:EE05: AA        TAX
-C - - - - - 0x01EE16 07:EE06: 68        PLA
+C - - - - - 0x01EE15 07:EE05: AA        TAX ; retrieve x
+C - - - - - 0x01EE16 07:EE06: 68        PLA ; retrieve a
 vec_C000_IRQ:
-C - - - - - 0x01EE17 07:EE07: 40        RTI
+C - - - - - 0x01EE17 07:EE07: 40        RTI ; irq
 
 bra_EE08:
 C - - - - - 0x01EE18 07:EE08: A9 07     LDA #$07
@@ -7637,53 +7637,53 @@ C - - - - - 0x01EF27 07:EF17: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
 
 sub_EF1A_switch_bank_06_2:
 loc_EF1A_switch_bank_06_2:
-C D 3 - - - 0x01EF2A 07:EF1A: A9 07     LDA #$07
-C - - - - - 0x01EF2C 07:EF1C: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01EF2F 07:EF1F: A9 0D     LDA #$0D
-C - - - - - 0x01EF31 07:EF21: 8D 01 80  STA MMC3_Bank_data ; switch bank 06_2 in 0xA000-0BFFF
+C D 3 - - - 0x01EF2A 07:EF1A: A9 07     LDA #$07              ;
+C - - - - - 0x01EF2C 07:EF1C: 8D 00 80  STA MMC3_Bank_select  ;
+C - - - - - 0x01EF2F 07:EF1F: A9 0D     LDA #$0D              ;
+C - - - - - 0x01EF31 07:EF21: 8D 01 80  STA MMC3_Bank_data    ; switch bank 06_2 in 0xA000-0BFFF
 C - - - - - 0x01EF34 07:EF24: 60        RTS
 
 sub_EF25_switch_bank_06_1:
-C - - - - - 0x01EF35 07:EF25: A9 07     LDA #$07
-C - - - - - 0x01EF37 07:EF27: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01EF3A 07:EF2A: A9 0C     LDA #$0C
-C - - - - - 0x01EF3C 07:EF2C: 8D 01 80  STA MMC3_Bank_data ; switch bank 06_1 in 0xA000-0BFFF
+C - - - - - 0x01EF35 07:EF25: A9 07     LDA #$07             ;
+C - - - - - 0x01EF37 07:EF27: 8D 00 80  STA MMC3_Bank_select ;
+C - - - - - 0x01EF3A 07:EF2A: A9 0C     LDA #$0C             ;
+C - - - - - 0x01EF3C 07:EF2C: 8D 01 80  STA MMC3_Bank_data   ; switch bank 06_1 in 0xA000-0BFFF
 C - - - - - 0x01EF3F 07:EF2F: 60        RTS
 
 sub_EF30_switch_bank_3_p2:
-C - - - - - 0x01EF40 07:EF30: A9 07     LDA #$07
-C - - - - - 0x01EF42 07:EF32: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01EF45 07:EF35: A9 07     LDA #$07
-C - - - - - 0x01EF47 07:EF37: 8D 01 80  STA MMC3_Bank_data ; switch bank 03 (page 2) in 0xA000-0BFFF
+C - - - - - 0x01EF40 07:EF30: A9 07     LDA #$07             ;
+C - - - - - 0x01EF42 07:EF32: 8D 00 80  STA MMC3_Bank_select ;
+C - - - - - 0x01EF45 07:EF35: A9 07     LDA #$07             ;
+C - - - - - 0x01EF47 07:EF37: 8D 01 80  STA MMC3_Bank_data   ; switch bank 03 (page 2) in 0xA000-0BFFF
 C - - - - - 0x01EF4A 07:EF3A: 60        RTS
 
 sub_EF3B_switch_bank_2_p1:
-C - - - - - 0x01EF4B 07:EF3B: A9 06     LDA #$06
-C - - - - - 0x01EF4D 07:EF3D: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01EF50 07:EF40: A9 04     LDA #$04
-C - - - - - 0x01EF52 07:EF42: 8D 01 80  STA MMC3_Bank_data ; switch bank 02 (page 1) in 0x8000-09FFF
+C - - - - - 0x01EF4B 07:EF3B: A9 06     LDA #$06             ;
+C - - - - - 0x01EF4D 07:EF3D: 8D 00 80  STA MMC3_Bank_select ;
+C - - - - - 0x01EF50 07:EF40: A9 04     LDA #$04             ; 
+C - - - - - 0x01EF52 07:EF42: 8D 01 80  STA MMC3_Bank_data   ; switch bank 02 (page 1) in 0x8000-09FFF
 C - - - - - 0x01EF55 07:EF45: 60        RTS
 
 sub_EF46_switch_bank_4_p1_p2:
-C - - - - - 0x01EF56 07:EF46: A9 06     LDA #$06
-C - - - - - 0x01EF58 07:EF48: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01EF5B 07:EF4B: A9 08     LDA #$08
-C - - - - - 0x01EF5D 07:EF4D: D0 07     BNE bra_EF56_on_page1
+C - - - - - 0x01EF56 07:EF46: A9 06     LDA #$06               ;
+C - - - - - 0x01EF58 07:EF48: 8D 00 80  STA MMC3_Bank_select   ;
+C - - - - - 0x01EF5B 07:EF4B: A9 08     LDA #$08               ; 
+C - - - - - 0x01EF5D 07:EF4D: D0 07     BNE bra_EF56_on_page1 ; If Register A != 0x00
 sub_EF4F_switch_bank_4_p2:
-C D 3 - - - 0x01EF5F 07:EF4F: A9 06     LDA #$06
-C - - - - - 0x01EF61 07:EF51: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01EF64 07:EF54: A9 09     LDA #$09
+C D 3 - - - 0x01EF5F 07:EF4F: A9 06     LDA #$06               ;
+C - - - - - 0x01EF61 07:EF51: 8D 00 80  STA MMC3_Bank_select   ;
+C - - - - - 0x01EF64 07:EF54: A9 09     LDA #$09               ;
 bra_EF56_on_page1:
-C - - - - - 0x01EF66 07:EF56: 8D 01 80  STA MMC3_Bank_data ; switch bank 04 (page 1 or 2) in 0x8000-09FFF
-C - - - - - 0x01EF69 07:EF59: 8D B5 06  STA v_bank_data
+C - - - - - 0x01EF66 07:EF56: 8D 01 80  STA MMC3_Bank_data     ; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+C - - - - - 0x01EF69 07:EF59: 8D B5 06  STA vBankData          ; assign 0x08 or 0x09
 C - - - - - 0x01EF6C 07:EF5C: 60        RTS
 
 sub_EF5D_switch_variable_bank:
 loc_EF5D_switch_variable_bank:
 C D 3 - - - 0x01EF6D 07:EF5D: A9 06     LDA #$06
 C - - - - - 0x01EF6F 07:EF5F: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01EF72 07:EF62: AD B5 06  LDA v_bank_data
-C - - - - - 0x01EF75 07:EF65: 8D 01 80  STA MMC3_Bank_data ; switch v_bank_data (PRG) in 0x8000-09FFF
+C - - - - - 0x01EF72 07:EF62: AD B5 06  LDA vBankData
+C - - - - - 0x01EF75 07:EF65: 8D 01 80  STA MMC3_Bank_data ; switch vBankData (PRG) in 0x8000-09FFF
 C - - - - - 0x01EF78 07:EF68: 60        RTS
 
 sub_EF69:

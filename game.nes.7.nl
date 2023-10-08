@@ -27,3 +27,67 @@ $EFFC##set loop counter
 $EFFE##set assigning value
 $F008#F008_loop#
 $F162##CONSTANT - Zenigata
+$C4F5#sub_C4F5_selectAllChrBanks#
+$C371#C371_update_palette#
+$C402#C402_clear_sound_parts#
+$C420#C420_add_sound_effect#
+$CE33#CE33_add_sprite_magic#
+$EF46#EF46_switch_bank_4_p1_p2#;
+$EF4F#EF4F_switch_bank_4_p2#;
+$F2D6#F2D6_try_put_briefcase#
+$C052##clear
+$C054##clear
+$C057##clear
+$C059##clear
+$C05B##clear
+$C05D##clear
+$C05F##clear
+$C061##clear
+$C063##clear
+$C067##clear
+$C065##clear
+$C07E##clear
+$C07C##clear
+$C07A##clear
+$C078##clear
+$C074##clear
+$C06F##clear
+$C076##clear
+$C072##clear
+$C06B##clear
+$C069##clear
+$C06D##clear
+$EF1A#EF1A_switch_bank_06_2#switch bank 06_2 in 0xA000-0BFFF
+$EF25#EF25_switch_bank_06_1#switch bank 06_1 in 0xA000-0BFFF
+$EF30#EF30_switch_bank_3_p2#switch bank 03 (page 2) in 0xA000-0BFFF
+$EF3B#EF3B_switch_bank_2_p1#switch bank 02 (page 1) in 0x8000-09FFF
+$EF1C##;
+$EF1F##;
+$EF21##;
+$EF24##;
+$EF27##;
+$EF2A##;
+$EF2C##;
+$EF2F##;
+$EF32##;
+$EF35##;
+$EF37##;
+$EF3A##;
+$EF3D##;
+$EF40##;
+$EF42##;
+$EF45##;
+$EF5D#EF5D_switch_variable_bank#
+$EF59##assign 0x08 or 0x09
+$EF51##;
+$EF54##;
+$EF56##;
+$EF48##;
+$EF4B##;
+$EF4D##;
+$EF5C##;
+$EDEE##switch bank 02 (page 1) in 0xA000-0BFFF
+$EDF0##;
+$EDF2##;
+$EDF5##;
+$ED4E#vec_ED4E_NMI#

@@ -4,3 +4,4 @@ $005F#v_chr_live_status#
 $0700#vStartOAM#
 $0037#vGameMode#
 $0300#vEnemies#
+$06B5#vBankData#

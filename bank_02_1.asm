@@ -3075,10 +3075,14 @@
 - D 0 - I - 0x008C0B 02:ABFB: B0        .byte $B0   ; 
 - D 0 - I - 0x008C0C 02:ABFC: 02        .byte $02   ; 
 - - - - - - 0x008C0D 02:ABFD: FF        .byte $FF   ; 
+
+; 0x8BFE in 0x8000-0x9FFF
 - D 0 - I - 0x008C0E 02:ABFE: 00        .byte $00   ; 
 - D 0 - I - 0x008C0F 02:ABFF: 02        .byte $02   ; 
 - D 0 - I - 0x008C10 02:AC00: 02        .byte $02   ; 
 - D 0 - I - 0x008C11 02:AC01: 00        .byte $00   ; 
+
+; 0x8C02 in 0x8000-0x9FFF
 - D 0 - I - 0x008C12 02:AC02: 20        .byte $20   ; 
 - D 0 - I - 0x008C13 02:AC03: 02        .byte $02   ; 
 - D 0 - I - 0x008C14 02:AC04: 1F        .byte $1F   ; 
@@ -3466,7 +3470,7 @@ loc_AD80: ; from bank_FF
 C D 1 - - - 0x008D90 02:AD80: A9 00     LDA #$00
 C - - - - - 0x008D92 02:AD82: 8D 01 04  STA ram_0401
 C - - - - - 0x008D95 02:AD85: EE 06 04  INC v_sound_counter
-; Sound row in 21 bytes, starts with ram_0410
+; Sound row in 21 bytes each, starts with ram_0410
 ; 00 - 0th sound row
 ; 15 - 1st sound row
 ; 2A - 2nd sound row
@@ -3480,14 +3484,14 @@ bra_AD88_repeat:
 C - - - - - 0x008D98 02:AD88: AA        TAX
 C - - - - - 0x008D99 02:AD89: BD 11 04  LDA ram_0411,X
 C - - - - - 0x008D9C 02:AD8C: 29 03     AND #$03
-C - - - - - 0x008D9E 02:AD8E: 8D 02 04  STA ram_0402
-C - - - - - 0x008DA1 02:AD91: A8        TAY
+C - - - - - 0x008D9E 02:AD8E: 8D 02 04  STA ram_0402 ; 0x00, 0x01, 0x02 or 0x03
+C - - - - - 0x008DA1 02:AD91: A8        TAY          ; 0x00, 0x01, 0x02 or 0x03
 C - - - - - 0x008DA2 02:AD92: B9 A6 B1  LDA tbl_B1A6,Y
 C - - - - - 0x008DA5 02:AD95: 8D 03 04  STA ram_0403
 C - - - - - 0x008DA8 02:AD98: BD 10 04  LDA ram_0410,X
-C - - - - - 0x008DAB 02:AD9B: F0 5C     BEQ bra_ADF9_skip
+C - - - - - 0x008DAB 02:AD9B: F0 5C     BEQ bra_ADF9_skip ; If Register A == 0x00
 C - - - - - 0x008DAD 02:AD9D: C9 FF     CMP #$FF
-C - - - - - 0x008DAF 02:AD9F: F0 4F     BEQ bra_ADF0_skip
+C - - - - - 0x008DAF 02:AD9F: F0 4F     BEQ bra_ADF0_next_row ; If Register A == 0xFF
 C - - - - - 0x008DB1 02:ADA1: 20 3F B1  JSR sub_B13F
 C - - - - - 0x008DB4 02:ADA4: 20 B4 B0  JSR sub_B0B4
 C - - - - - 0x008DB7 02:ADA7: FE 1D 04  INC ram_041D,X
@@ -3512,6 +3516,7 @@ C - - - - - 0x008DE3 02:ADD3: F0 06     BEQ bra_ADDB_skip
 bra_ADD5_skip:
 C - - - - - 0x008DE5 02:ADD5: 20 89 B0  JSR sub_B089
 C - - - - - 0x008DE8 02:ADD8: 4C E4 AD  JMP loc_ADE4
+
 bra_ADDB_skip:
 loc_ADDB:
 C D 1 - - - 0x008DEB 02:ADDB: BD 23 04  LDA ram_0423,X
@@ -3519,34 +3524,34 @@ C - - - - - 0x008DEE 02:ADDE: 9D 24 04  STA ram_0424,X
 C - - - - - 0x008DF1 02:ADE1: 20 38 AE  JSR sub_AE38
 loc_ADE4:
 C D 1 - - - 0x008DF4 02:ADE4: AC 02 04  LDY ram_0402
-C - - - - - 0x008DF7 02:ADE7: B9 9E B1  LDA tbl_B19E,Y
+C - - - - - 0x008DF7 02:ADE7: B9 9E B1  LDA tbl_apu_channel,Y
 C - - - - - 0x008DFA 02:ADEA: 0D 01 04  ORA ram_0401
 C - - - - - 0x008DFD 02:ADED: 8D 01 04  STA ram_0401
-bra_ADF0_skip:
+bra_ADF0_next_row:
 C - - - - - 0x008E00 02:ADF0: 8A        TXA
 C - - - - - 0x008E01 02:ADF1: 18        CLC
-C - - - - - 0x008E02 02:ADF2: 69 15     ADC #$15 ; CONSTANT: Sound row step, step for X
-C - - - - - 0x008E04 02:ADF4: C9 A8     CMP #$A8 ; $15+$15+$15+$15+$15+$15+$15+$15=$A8, 8 iterations for sound row
-C - - - - - 0x008E06 02:ADF6: D0 90     BNE bra_AD88_repeat
+C - - - - - 0x008E02 02:ADF2: 69 15     ADC #$15             ; CONSTANT: Sound row step, step for X
+C - - - - - 0x008E04 02:ADF4: C9 A8     CMP #$A8             ; $15+$15+$15+$15+$15+$15+$15+$15=$A8, 8 iterations for sound row
+C - - - - - 0x008E06 02:ADF6: D0 90     BNE bra_AD88_repeat  ; If Register A != 0xA8
 C - - - - - 0x008E08 02:ADF8: 60        RTS
 
 bra_ADF9_skip:
 C - - - - - 0x008E09 02:ADF9: BD 12 04  LDA ram_0412,X
-C - - - - - 0x008E0C 02:ADFC: 85 FE     STA ram_00FE
+C - - - - - 0x008E0C 02:ADFC: 85 FE     STA ram_00FE   ; Low address
 C - - - - - 0x008E0E 02:ADFE: BD 13 04  LDA ram_0413,X
-C - - - - - 0x008E11 02:AE01: 85 FF     STA ram_00FF
-C - - - - - 0x008E13 02:AE03: A0 00     LDY #$00
+C - - - - - 0x008E11 02:AE01: 85 FF     STA ram_00FF   ; High address
+C - - - - - 0x008E13 02:AE03: A0 00     LDY #$00         ; to 1 byte of N
 C - - - - - 0x008E15 02:AE05: B1 FE     LDA (ram_00FE),Y
 C - - - - - 0x008E17 02:AE07: 29 0F     AND #$0F
 C - - - - - 0x008E19 02:AE09: 9D 14 04  STA ram_0414,X
 C - - - - - 0x008E1C 02:AE0C: 9D 15 04  STA ram_0415,X
-C - - - - - 0x008E1F 02:AE0F: C8        INY
+C - - - - - 0x008E1F 02:AE0F: C8        INY              ; to 2 byte of N
 C - - - - - 0x008E20 02:AE10: 20 6F B0  JSR sub_B06F
-C - - - - - 0x008E23 02:AE13: C8        INY
+C - - - - - 0x008E23 02:AE13: C8        INY              ; to 3 byte of N
 C - - - - - 0x008E24 02:AE14: B1 FE     LDA (ram_00FE),Y
 C - - - - - 0x008E26 02:AE16: 0D 04 04  ORA ram_0404
 C - - - - - 0x008E29 02:AE19: 9D 16 04  STA ram_0416,X
-C - - - - - 0x008E2C 02:AE1C: C8        INY
+C - - - - - 0x008E2C 02:AE1C: C8        INY              ; to 4 byte of N
 C - - - - - 0x008E2D 02:AE1D: B1 FE     LDA (ram_00FE),Y
 C - - - - - 0x008E2F 02:AE1F: 9D 18 04  STA ram_0418,X
 C - - - - - 0x008E32 02:AE22: A9 00     LDA #$00
@@ -3554,13 +3559,13 @@ C - - - - - 0x008E34 02:AE24: 9D 19 04  STA ram_0419,X
 C - - - - - 0x008E37 02:AE27: 9D 1A 04  STA ram_041A,X
 C - - - - - 0x008E3A 02:AE2A: 9D 1B 04  STA ram_041B,X
 C - - - - - 0x008E3D 02:AE2D: 9D 1E 04  STA ram_041E,X
-C - - - - - 0x008E40 02:AE30: A9 02     LDA #$02
+C - - - - - 0x008E40 02:AE30: A9 02     LDA #$02         ; CONSTANT - ???
 C - - - - - 0x008E42 02:AE32: 9D 10 04  STA ram_0410,X
 C - - - - - 0x008E45 02:AE35: 4C DB AD  JMP loc_ADDB
 
 sub_AE38:
 loc_AE38:
-C D 1 - - - 0x008E48 02:AE38: A0 00     LDY #$00
+C D 1 - - - 0x008E48 02:AE38: A0 00     LDY #$00       ; to 1 byte of N
 C - - - - - 0x008E4A 02:AE3A: 84 FF     STY ram_00FF
 C - - - - - 0x008E4C 02:AE3C: BD 10 04  LDA ram_0410,X
 C - - - - - 0x008E4F 02:AE3F: 0A        ASL
@@ -3573,21 +3578,23 @@ C - - - - - 0x008E5C 02:AE4C: 85 FF     STA ram_00FF
 C - - - - - 0x008E5E 02:AE4E: B1 FE     LDA (ram_00FE),Y
 C - - - - - 0x008E60 02:AE50: FE 10 04  INC ram_0410,X
 C - - - - - 0x008E63 02:AE53: C8        INY
-C - - - - - 0x008E64 02:AE54: C9 F0     CMP #$F0
-C - - - - - 0x008E66 02:AE56: B0 1A     BCS bra_AE72
+C - - - - - 0x008E64 02:AE54: C9 F0     CMP #$F0     
+C - - - - - 0x008E66 02:AE56: B0 1A     BCS bra_AE72 ; If Register A >= 0xF0
 C - - - - - 0x008E68 02:AE58: C9 E0     CMP #$E0
-C - - - - - 0x008E6A 02:AE5A: B0 2D     BCS bra_AE89
+C - - - - - 0x008E6A 02:AE5A: B0 2D     BCS bra_AE89 ; If Register A >= 0xE0
 C - - - - - 0x008E6C 02:AE5C: C9 D0     CMP #$D0
-C - - - - - 0x008E6E 02:AE5E: B0 33     BCS bra_AE93
+C - - - - - 0x008E6E 02:AE5E: B0 33     BCS bra_AE93 ; If Register A >= 0xD0
 C - - - - - 0x008E70 02:AE60: C9 C0     CMP #$C0
-C - - - - - 0x008E72 02:AE62: B0 44     BCS bra_AEA8
+C - - - - - 0x008E72 02:AE62: B0 44     BCS bra_AEA8 ; If Register A >= 0xC0
 C - - - - - 0x008E74 02:AE64: C9 B0     CMP #$B0
-C - - - - - 0x008E76 02:AE66: B0 5F     BCS bra_AEC7
+C - - - - - 0x008E76 02:AE66: B0 5F     BCS bra_AEC7 ; If Register A >= 0xB0
 C - - - - - 0x008E78 02:AE68: C9 A0     CMP #$A0
-C - - - - - 0x008E7A 02:AE6A: 90 03     BCC bra_AE6F
+C - - - - - 0x008E7A 02:AE6A: 90 03     BCC bra_AE6F ; If Register A < 0xA0
 C - - - - - 0x008E7C 02:AE6C: 4C F5 AE  JMP loc_AEF5
+
 bra_AE6F:
 C - - - - - 0x008E7F 02:AE6F: 4C B7 AF  JMP loc_AFB7
+
 bra_AE72:
 C - - - - - 0x008E82 02:AE72: C9 FD     CMP #$FD
 C - - - - - 0x008E84 02:AE74: D0 09     BNE bra_AE7F
@@ -3595,17 +3602,20 @@ C - - - - - 0x008E86 02:AE76: BD 10 04  LDA ram_0410,X
 C - - - - - 0x008E89 02:AE79: 9D 22 04  STA ram_0422,X
 bra_AE7C_repeat:
 C - - - - - 0x008E8C 02:AE7C: 4C 38 AE  JMP loc_AE38
+
 bra_AE7F:
 C - - - - - 0x008E8F 02:AE7F: C9 FF     CMP #$FF
 C - - - - - 0x008E91 02:AE81: D0 F9     BNE bra_AE7C_repeat
 C - - - - - 0x008E93 02:AE83: 9D 10 04  STA ram_0410,X
 C - - - - - 0x008E96 02:AE86: 4C 51 B0  JMP loc_B051
+
 bra_AE89:
 C - - - - - 0x008E99 02:AE89: 29 0F     AND #$0F
 C - - - - - 0x008E9B 02:AE8B: 49 FF     EOR #$FF
 C - - - - - 0x008E9D 02:AE8D: 18        CLC
 C - - - - - 0x008E9E 02:AE8E: 69 01     ADC #$01
 C - - - - - 0x008EA0 02:AE90: 4C 95 AE  JMP loc_AE95
+
 bra_AE93:
 - - - - - - 0x008EA3 02:AE93: 29        .byte $29   ; 
 - - - - - - 0x008EA4 02:AE94: 0F        .byte $0F   ; 
@@ -3618,6 +3628,7 @@ C - - - - - 0x008EAF 02:AE9F: 9D 1F 04  STA ram_041F,X
 C - - - - - 0x008EB2 02:AEA2: 9D 20 04  STA ram_0420,X
 bra_AEA5:
 C - - - - - 0x008EB5 02:AEA5: 4C 38 AE  JMP loc_AE38
+
 bra_AEA8:
 C - - - - - 0x008EB8 02:AEA8: 29 0F     AND #$0F
 C - - - - - 0x008EBA 02:AEAA: 8D 04 04  STA ram_0404
@@ -3632,6 +3643,7 @@ C - - - - - 0x008ECE 02:AEBE: AD 04 04  LDA ram_0404
 C - - - - - 0x008ED1 02:AEC1: 9D 1B 04  STA ram_041B,X
 bra_AEC4:
 C - - - - - 0x008ED4 02:AEC4: 4C 38 AE  JMP loc_AE38
+
 bra_AEC7:
 C - - - - - 0x008ED7 02:AEC7: 29 0F     AND #$0F
 C - - - - - 0x008ED9 02:AEC9: F0 1D     BEQ bra_AEE8
@@ -3658,6 +3670,7 @@ bra_AEEF:
 C - - - - - 0x008EFF 02:AEEF: 9D 10 04  STA ram_0410,X
 bra_AEF2:
 C - - - - - 0x008F02 02:AEF2: 4C 38 AE  JMP loc_AE38
+
 loc_AEF5:
 C D 1 - - - 0x008F05 02:AEF5: D0 0F     BNE bra_AF06
 C - - - - - 0x008F07 02:AEF7: 2C 03 04  BIT ram_0403
@@ -3666,6 +3679,7 @@ C - - - - - 0x008F0C 02:AEFC: BD 16 04  LDA ram_0416,X
 C - - - - - 0x008F0F 02:AEFF: 29 C0     AND #$C0
 C - - - - - 0x008F11 02:AF01: 11 FE     ORA (ram_00FE),Y
 C - - - - - 0x008F13 02:AF03: 4C 23 AF  JMP loc_AF23
+
 bra_AF06:
 C - - - - - 0x008F16 02:AF06: C9 A1     CMP #$A1
 C - - - - - 0x008F18 02:AF08: D0 08     BNE bra_AF12
@@ -3673,6 +3687,7 @@ C - - - - - 0x008F1A 02:AF0A: B1 FE     LDA (ram_00FE),Y
 C - - - - - 0x008F1C 02:AF0C: 9D 18 04  STA ram_0418,X
 bra_AF0F:
 C - - - - - 0x008F1F 02:AF0F: 4C 38 AE  JMP loc_AE38
+
 bra_AF12:
 C - - - - - 0x008F22 02:AF12: C9 A2     CMP #$A2
 C - - - - - 0x008F24 02:AF14: D0 13     BNE bra_AF29
@@ -3685,6 +3700,7 @@ bra_AF23:
 loc_AF23:
 C D 1 - - - 0x008F33 02:AF23: 9D 16 04  STA ram_0416,X
 C - - - - - 0x008F36 02:AF26: 4C 38 AE  JMP loc_AE38
+
 bra_AF29:
 C - - - - - 0x008F39 02:AF29: C9 A3     CMP #$A3
 C - - - - - 0x008F3B 02:AF2B: D0 1C     BNE bra_AF49
@@ -3814,14 +3830,16 @@ bra_AF4D:
 - - - - - - 0x008FC4 02:AFB4: 4C        .byte $4C   ; <L>
 - - - - - - 0x008FC5 02:AFB5: 38        .byte $38   ; <8>
 - - - - - - 0x008FC6 02:AFB6: AE        .byte $AE   ; 
+
 loc_AFB7:
 C D 1 - - - 0x008FC7 02:AFB7: 2C 03 04  BIT ram_0403
-C - - - - - 0x008FCA 02:AFBA: 70 7F     BVS bra_B03B
+C - - - - - 0x008FCA 02:AFBA: 70 7F     BVS bra_B03B ; If 6th bit is set
 C - - - - - 0x008FCC 02:AFBC: 48        PHA
 C - - - - - 0x008FCD 02:AFBD: 29 0F     AND #$0F
 C - - - - - 0x008FCF 02:AFBF: C9 0C     CMP #$0C
-C - - - - - 0x008FD1 02:AFC1: 90 03     BCC bra_AFC6
+C - - - - - 0x008FD1 02:AFC1: 90 03     BCC bra_AFC6 ; If Register A < 0x0C
 C - - - - - 0x008FD3 02:AFC3: 4C 49 B0  JMP loc_B049
+
 bra_AFC6:
 C - - - - - 0x008FD6 02:AFC6: 0A        ASL
 C - - - - - 0x008FD7 02:AFC7: A8        TAY
@@ -3839,7 +3857,7 @@ C - - - - - 0x008FE8 02:AFD8: B9 6F B1  LDA tbl_B16E + 1,Y
 C - - - - - 0x008FEB 02:AFDB: 8D 05 04  STA ram_0405
 C - - - - - 0x008FEE 02:AFDE: 68        PLA
 C - - - - - 0x008FEF 02:AFDF: 29 F0     AND #$F0
-C - - - - - 0x008FF1 02:AFE1: F0 0E     BEQ bra_AFF1
+C - - - - - 0x008FF1 02:AFE1: F0 0E     BEQ bra_AFF1 ; If Register A == 0
 C - - - - - 0x008FF3 02:AFE3: 4A        LSR
 C - - - - - 0x008FF4 02:AFE4: 4A        LSR
 C - - - - - 0x008FF5 02:AFE5: 4A        LSR
@@ -3849,15 +3867,15 @@ bra_AFE8_repeat:
 C - - - - - 0x008FF8 02:AFE8: 4E 05 04  LSR ram_0405
 C - - - - - 0x008FFB 02:AFEB: 6E 04 04  ROR ram_0404
 C - - - - - 0x008FFE 02:AFEE: 88        DEY
-C - - - - - 0x008FFF 02:AFEF: D0 F7     BNE bra_AFE8_repeat
+C - - - - - 0x008FFF 02:AFEF: D0 F7     BNE bra_AFE8_repeat ; If Register Y != 0
 bra_AFF1:
-C - - - - - 0x009001 02:AFF1: A0 01     LDY #$01
+C - - - - - 0x009001 02:AFF1: A0 01     LDY #$01 ; to 2 byte of N
 C - - - - - 0x009003 02:AFF3: B1 FE     LDA (ram_00FE),Y
 C - - - - - 0x009005 02:AFF5: 9D 17 04  STA ram_0417,X
 C - - - - - 0x009008 02:AFF8: A9 00     LDA #$00
 C - - - - - 0x00900A 02:AFFA: 9D 1D 04  STA ram_041D,X
 C - - - - - 0x00900D 02:AFFD: 20 61 B0  JSR sub_B061
-C - - - - - 0x009010 02:B000: B9 9E B1  LDA tbl_B19E,Y
+C - - - - - 0x009010 02:B000: B9 9E B1  LDA tbl_apu_channel,Y
 C - - - - - 0x009013 02:B003: 0D 00 04  ORA ram_0400
 C - - - - - 0x009016 02:B006: 8D 00 04  STA ram_0400
 C - - - - - 0x009019 02:B009: 8D 15 40  STA APU_STATUS
@@ -3867,13 +3885,13 @@ C - - - - - 0x009020 02:B010: AD 04 04  LDA ram_0404
 C - - - - - 0x009023 02:B013: 48        PHA
 C - - - - - 0x009024 02:B014: 20 8C B0  JSR sub_B08C
 C - - - - - 0x009027 02:B017: BD 18 04  LDA ram_0418,X
-C - - - - - 0x00902A 02:B01A: 99 01 40  STA $4001,Y
+C - - - - - 0x00902A 02:B01A: 99 01 40  STA $4001,Y    ; assign a length counter (pulse channel)
 C - - - - - 0x00902D 02:B01D: 68        PLA
-C - - - - - 0x00902E 02:B01E: 99 02 40  STA $4002,Y
+C - - - - - 0x00902E 02:B01E: 99 02 40  STA $4002,Y    ; assign a evelope (pulse channel)
 C - - - - - 0x009031 02:B021: C9 02     CMP #$02
-C - - - - - 0x009033 02:B023: 90 08     BCC bra_B02D
+C - - - - - 0x009033 02:B023: 90 08     BCC bra_B02D ; If Register A < 0x02
 C - - - - - 0x009035 02:B025: C9 FE     CMP #$FE
-C - - - - - 0x009037 02:B027: 90 06     BCC bra_B02F
+C - - - - - 0x009037 02:B027: 90 06     BCC bra_B02F ; If Register A < 0xFE
 C - - - - - 0x009039 02:B029: A9 FD     LDA #$FD
 C - - - - - 0x00903B 02:B02B: D0 02     BNE bra_B02F
 bra_B02D:
@@ -3883,7 +3901,7 @@ C - - - - - 0x00903F 02:B02F: 9D 21 04  STA ram_0421,X
 C - - - - - 0x009042 02:B032: 68        PLA
 C - - - - - 0x009043 02:B033: 29 07     AND #$07
 C - - - - - 0x009045 02:B035: 09 08     ORA #$08
-C - - - - - 0x009047 02:B037: 99 03 40  STA $4003,Y
+C - - - - - 0x009047 02:B037: 99 03 40  STA $4003,Y ; assign a sweep (pulse channel)
 C - - - - - 0x00904A 02:B03A: 60        RTS
 
 bra_B03B:
@@ -3909,9 +3927,9 @@ C - - - - - 0x009070 02:B060: 60        RTS
 
 sub_B061:
 C - - - - - 0x009071 02:B061: AC 02 04  LDY ram_0402
-C - - - - - 0x009074 02:B064: B9 9E B1  LDA tbl_B19E,Y
+C - - - - - 0x009074 02:B064: B9 9E B1  LDA tbl_apu_channel,Y
 C - - - - - 0x009077 02:B067: 2C 01 04  BIT ram_0401
-C - - - - - 0x00907A 02:B06A: F0 02     BEQ bra_B06E_RTS
+C - - - - - 0x00907A 02:B06A: F0 02     BEQ bra_B06E_RTS ; If Register A AND ram_0401 == 0
 C - - - - - 0x00907C 02:B06C: 68        PLA
 C - - - - - 0x00907D 02:B06D: 68        PLA
 bra_B06E_RTS:
@@ -3940,9 +3958,9 @@ sub_B089:
 C - - - - - 0x009099 02:B089: 20 61 B0  JSR sub_B061
 sub_B08C:
 C - - - - - 0x00909C 02:B08C: C0 02     CPY #$02
-C - - - - - 0x00909E 02:B08E: F0 15     BEQ bra_B0A5_skip
+C - - - - - 0x00909E 02:B08E: F0 15     BEQ bra_B0A5_skip ; If Register Y == 0x02
 C - - - - - 0x0090A0 02:B090: BD 1B 04  LDA ram_041B,X
-C - - - - - 0x0090A3 02:B093: D0 2B     BNE bra_B0C0_skip
+C - - - - - 0x0090A3 02:B093: D0 2B     BNE bra_B0C0_skip ; If Register A != 0x00
 C - - - - - 0x0090A5 02:B095: 20 AB B0  JSR sub_B0AB
 C - - - - - 0x0090A8 02:B098: BD 16 04  LDA ram_0416,X
 C - - - - - 0x0090AB 02:B09B: 29 10     AND #$10
@@ -4115,11 +4133,11 @@ tbl_B16E:
 - - - - - - 0x0091AB 02:B19B: 03        .byte $03   ; 
 - - - - - - 0x0091AC 02:B19C: 71        .byte $71   ; <q>
 - - - - - - 0x0091AD 02:B19D: 03        .byte $03   ; 
-tbl_B19E:
-- D 1 - - - 0x0091AE 02:B19E: 01        .byte $01   ; 
-- D 1 - - - 0x0091AF 02:B19F: 02        .byte $02   ; 
-- D 1 - - - 0x0091B0 02:B1A0: 04        .byte $04   ; 
-- D 1 - - - 0x0091B1 02:B1A1: 08        .byte $08   ; 
+tbl_apu_channel:
+- D 1 - - - 0x0091AE 02:B19E: 01        .byte $01   ; Flag: pulse channel 1
+- D 1 - - - 0x0091AF 02:B19F: 02        .byte $02   ; Flag: pulse channel 2
+- D 1 - - - 0x0091B0 02:B1A0: 04        .byte $04   ; Flag: triangle channel
+- D 1 - - - 0x0091B1 02:B1A1: 08        .byte $08   ; Flag: noise channel
 tbl_B1A2:
 - D 1 - - - 0x0091B2 02:B1A2: 0E        .byte $0E   ; 
 - D 1 - - - 0x0091B3 02:B1A3: 0D        .byte $0D   ; 
