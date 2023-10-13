@@ -8,8 +8,8 @@ PPU_CTRL     = $2000
 PPU_MASK     = $2001
 PPU_STATUS   = $2002 ; (R)
 PPU_OAM_ADDR = $2003
-PPU_ADDRESS  = $2006
 PPU_SCROLL   = $2005
+PPU_ADDRESS  = $2006
 PPU_DATA     = $2007
 TRI_LINEAR   = $4008
 DMC_FREQ     = $4010
@@ -383,6 +383,27 @@ v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, 039E - scree
 v_bomb_on_screen              = ram_039E ; C2 - a bomb
 
 v_sound_counter               = ram_0406
+vSoundRowB_0                  = ram_0410 ; ???
+vSoundRowB_1                  = ram_0411 ; ???
+vSoundRowB_2                  = ram_0412 ; ???
+vSoundRowB_3                  = ram_0413 ; ???
+vSoundRowB_4                  = ram_0414 ; ???
+vSoundRowB_5                  = ram_0415 ; ???
+vSoundRowB_6                  = ram_0416 ; ???
+vSoundRowB_7                  = ram_0417 ; ???
+vSoundRowB_8                  = ram_0418 ; ???
+vSoundRowB_9                  = ram_0419 ; ???
+vSoundRowB_A                  = ram_041A ; ???
+vSoundRowB_B                  = ram_041B ; ???
+vSoundRowB_C                  = ram_041C ; ???
+vSoundRowB_D                  = ram_041D ; ???
+vSoundRowB_E                  = ram_041E ; ???
+vSoundRowB_F                  = ram_041F ; ???
+vSoundRowB_G                  = ram_0420 ; ???
+vSoundRowB_H                  = ram_0421 ; ???
+vSoundRowB_I                  = ram_0422 ; ???
+vSoundRowB_J                  = ram_0423 ; ???
+vSoundRowB_K                  = ram_0424 ; ???
 vRooms                        = ram_0500
 ; flag 0x80 - the room has already been visited
 

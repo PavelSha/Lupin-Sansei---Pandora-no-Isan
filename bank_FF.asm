@@ -272,7 +272,7 @@ tbl_C1CA:
 - D 2 - - - 0x01C1DD 07:C1CD: 19        .byte $19   ; 
 bra_C1CE:
 C - - - - - 0x01C1DE 07:C1CE: A5 37     LDA vGameMode
-C - - - - - 0x01C1E0 07:C1D0: 10 03     BPL bra_C1D5 ; ; Branch If in game
+C - - - - - 0x01C1E0 07:C1D0: 10 03     BPL bra_C1D5 ; Branch If in game
 C - - - - - 0x01C1E2 07:C1D2: 4C 8D C2  JMP loc_C28D
 
 bra_C1D5:
@@ -594,7 +594,7 @@ C - - - - - 0x01C41B 07:C40B: 8C 15 40  STY APU_STATUS ; clear
 C - - - - - 0x01C41E 07:C40E: 8C 00 04  STY ram_0400   ; clear
 @bra_C411_loop:
 C - - - - - 0x01C421 07:C411: A9 FF     LDA #$FF
-C - - - - - 0x01C423 07:C413: 99 10 04  STA ram_0410,Y
+C - - - - - 0x01C423 07:C413: 99 10 04  STA vSoundRowB_0,Y
 C - - - - - 0x01C426 07:C416: 98        TYA
 C - - - - - 0x01C427 07:C417: 18        CLC
 C - - - - - 0x01C428 07:C418: 69 15     ADC #$15 ; CONSTANT: Sound row step
@@ -603,41 +603,43 @@ C - - - - - 0x01C42B 07:C41B: C9 A8     CMP #$A8 ; 8 iterations for sound row
 C - - - - - 0x01C42D 07:C41D: D0 F2     BNE @bra_C411_loop ; If Register A != 0xA8
 C - - - - - 0x01C42F 07:C41F: 60        RTS
 
+; Params:
+; Register A - ???
 sub_C420_add_sound_effect:
 loc_C420_add_sound_effect:
-C D 2 - - - 0x01C430 07:C420: 85 12     STA ram_0012
-C - - - - - 0x01C432 07:C422: 8A        TXA
+C D 2 - - - 0x01C430 07:C420: 85 12     STA ram_0012 ; put to cache vCacheRam12
+C - - - - - 0x01C432 07:C422: 8A        TXA ;
 C - - - - - 0x01C433 07:C423: 48        PHA ; store x
-C - - - - - 0x01C434 07:C424: 98        TYA
+C - - - - - 0x01C434 07:C424: 98        TYA ;
 C - - - - - 0x01C435 07:C425: 48        PHA ; store y
 C - - - - - 0x01C436 07:C426: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1
-C - - - - - 0x01C439 07:C429: A9 00     LDA #$00
-C - - - - - 0x01C43B 07:C42B: 06 12     ASL ram_0012
-C - - - - - 0x01C43D 07:C42D: 2A        ROL
-C - - - - - 0x01C43E 07:C42E: 06 12     ASL ram_0012
-C - - - - - 0x01C440 07:C430: 2A        ROL
-C - - - - - 0x01C441 07:C431: 85 13     STA ram_0013
-C - - - - - 0x01C443 07:C433: A9 00     LDA #$00
-C - - - - - 0x01C445 07:C435: 18        CLC
-C - - - - - 0x01C446 07:C436: 65 12     ADC ram_0012
-C - - - - - 0x01C448 07:C438: 85 12     STA ram_0012
-C - - - - - 0x01C44A 07:C43A: A9 80     LDA #$80
-C - - - - - 0x01C44C 07:C43C: 65 13     ADC ram_0013
-C - - - - - 0x01C44E 07:C43E: 85 13     STA ram_0013
-C - - - - - 0x01C450 07:C440: A0 00     LDY #$00
+C - - - - - 0x01C439 07:C429: A9 00     LDA #$00     ; Resolve an address: 0x8000 + ram_0012 * 4
+C - - - - - 0x01C43B 07:C42B: 06 12     ASL ram_0012 ;
+C - - - - - 0x01C43D 07:C42D: 2A        ROL          ;
+C - - - - - 0x01C43E 07:C42E: 06 12     ASL ram_0012 ;
+C - - - - - 0x01C440 07:C430: 2A        ROL          ;
+C - - - - - 0x01C441 07:C431: 85 13     STA ram_0013 ;
+C - - - - - 0x01C443 07:C433: A9 00     LDA #$00     ;
+C - - - - - 0x01C445 07:C435: 18        CLC          ;
+C - - - - - 0x01C446 07:C436: 65 12     ADC ram_0012 ;
+C - - - - - 0x01C448 07:C438: 85 12     STA ram_0012 ; Low address
+C - - - - - 0x01C44A 07:C43A: A9 80     LDA #$80     ; 
+C - - - - - 0x01C44C 07:C43C: 65 13     ADC ram_0013 ; High address
+C - - - - - 0x01C44E 07:C43E: 85 13     STA ram_0013 ; 
+C - - - - - 0x01C450 07:C440: A0 00     LDY #$00     ; to 1 byte of 4
 C - - - - - 0x01C452 07:C442: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01C454 07:C444: AA        TAX
-C - - - - - 0x01C455 07:C445: C8        INY
+C - - - - - 0x01C455 07:C445: C8        INY          ; to 2 byte of 4
 C - - - - - 0x01C456 07:C446: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01C458 07:C448: 9D 11 04  STA ram_0411,X
-C - - - - - 0x01C45B 07:C44B: C8        INY
+C - - - - - 0x01C458 07:C448: 9D 11 04  STA vSoundRowB_1,X
+C - - - - - 0x01C45B 07:C44B: C8        INY          ; to 3 byte of 4
 C - - - - - 0x01C45C 07:C44C: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01C45E 07:C44E: 9D 12 04  STA ram_0412,X
-C - - - - - 0x01C461 07:C451: C8        INY
+C - - - - - 0x01C45E 07:C44E: 9D 12 04  STA vSoundRowB_2,X
+C - - - - - 0x01C461 07:C451: C8        INY          ; to 4 byte of 4
 C - - - - - 0x01C462 07:C452: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01C464 07:C454: 9D 13 04  STA ram_0413,X
+C - - - - - 0x01C464 07:C454: 9D 13 04  STA vSoundRowB_3,X
 C - - - - - 0x01C467 07:C457: A9 00     LDA #$00
-C - - - - - 0x01C469 07:C459: 9D 10 04  STA ram_0410,X
+C - - - - - 0x01C469 07:C459: 9D 10 04  STA vSoundRowB_0,X
 C - - - - - 0x01C46C 07:C45C: A9 06     LDA #$06
 C - - - - - 0x01C46E 07:C45E: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01C471 07:C461: AD B5 06  LDA vBankData
@@ -761,8 +763,8 @@ C - - - - - 0x01C539 07:C529: 85 26     STA ram_0026
 C - - - - - 0x01C53B 07:C52B: 8D 00 20  STA PPU_CTRL
 C - - - - - 0x01C53E 07:C52E: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01C541 07:C531: A9 00     LDA #$00
-C - - - - - 0x01C543 07:C533: 8D 05 20  STA $2005
-C - - - - - 0x01C546 07:C536: 8D 05 20  STA $2005
+C - - - - - 0x01C543 07:C533: 8D 05 20  STA PPU_SCROLL
+C - - - - - 0x01C546 07:C536: 8D 05 20  STA PPU_SCROLL
 C - - - - - 0x01C549 07:C539: 4C 0F C3  JMP loc_C30F
 
 sub_C53C:

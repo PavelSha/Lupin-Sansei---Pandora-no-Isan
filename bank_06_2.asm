@@ -2873,7 +2873,7 @@ C - - - - - 0x01B2BE 06:B2AE: 8D 31 06  STA v_high_ppu_address
 C - - - - - 0x01B2C1 06:B2B1: A9 82     LDA #$82
 C - - - - - 0x01B2C3 06:B2B3: 8D 32 06  STA v_ppu_buffer_count
 C - - - - - 0x01B2C6 06:B2B6: E6 CF     INC v_low_msg_ppu_address
-C - - - - - 0x01B2C8 06:B2B8: A9 50     LDA #$50
+C - - - - - 0x01B2C8 06:B2B8: A9 50     LDA #$50                      ; typing sound
 C - - - - - 0x01B2CA 06:B2BA: 4C 20 C4  JMP loc_C420_add_sound_effect
 
 - - - - - - 0x01B2CD 06:B2BD: 60        .byte $60   ; 
@@ -3777,14 +3777,14 @@ C - - - - - 0x01B8DB 06:B8CB: 60        RTS
 
 bra_B8CC:
 C - - - - - 0x01B8DC 06:B8CC: 20 02 C4  JSR sub_C402_clear_sound_parts
-C - - - - - 0x01B8DF 06:B8CF: A9 00     LDA #$00
-C - - - - - 0x01B8E1 06:B8D1: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01B8E4 06:B8D4: A9 01     LDA #$01
-C - - - - - 0x01B8E6 06:B8D6: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01B8E9 06:B8D9: A9 02     LDA #$02
-C - - - - - 0x01B8EB 06:B8DB: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01B8EE 06:B8DE: A9 03     LDA #$03
-C - - - - - 0x01B8F0 06:B8E0: 20 20 C4  JSR sub_C420_add_sound_effect
+C - - - - - 0x01B8DF 06:B8CF: A9 00     LDA #$00                      ; start screen track1
+C - - - - - 0x01B8E1 06:B8D1: 20 20 C4  JSR sub_C420_add_sound_effect ;
+C - - - - - 0x01B8E4 06:B8D4: A9 01     LDA #$01                      ; start screen track2
+C - - - - - 0x01B8E6 06:B8D6: 20 20 C4  JSR sub_C420_add_sound_effect ;
+C - - - - - 0x01B8E9 06:B8D9: A9 02     LDA #$02                      ; start screen track3
+C - - - - - 0x01B8EB 06:B8DB: 20 20 C4  JSR sub_C420_add_sound_effect ;
+C - - - - - 0x01B8EE 06:B8DE: A9 03     LDA #$03                      ; start screen track4
+C - - - - - 0x01B8F0 06:B8E0: 20 20 C4  JSR sub_C420_add_sound_effect ;
 C - - - - - 0x01B8F3 06:B8E3: 20 1D C3  JSR sub_C31D_clear_ppu
 C - - - - - 0x01B8F6 06:B8E6: 20 58 C3  JSR sub_C358_clear_OAM
 C - - - - - 0x01B8F9 06:B8E9: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
@@ -3847,7 +3847,7 @@ C - - - - - 0x01B96D 06:B95D: 85 3D     STA ram_003D
 C - - - - - 0x01B96F 06:B95F: A9 8F     LDA #$8F
 C - - - - - 0x01B971 06:B961: 85 AD     STA ram_00AD
 C - - - - - 0x01B973 06:B963: 85 1C     STA ram_001C
-C - - - - - 0x01B975 06:B965: 20 1E C5  JSR $C51E
+C - - - - - 0x01B975 06:B965: 20 1E C5  JSR $C51E ; to sub_C51E (bank_FF)
 bra_B968_repeat:
 C - - - - - 0x01B978 06:B968: A5 1C     LDA ram_001C
 C - - - - - 0x01B97A 06:B96A: 29 08     AND #$08
@@ -4222,13 +4222,13 @@ C - - - - - 0x01BBD8 06:BBC8: 85 FD     STA ram_00FD
 C - - - - - 0x01BBDA 06:BBCA: 0A        ASL
 C - - - - - 0x01BBDB 06:BBCB: 0A        ASL
 C - - - - - 0x01BBDC 06:BBCC: AA        TAX
-C - - - - - 0x01BBDD 06:BBCD: BD 10 BC  LDA tbl_BC10,X
+C - - - - - 0x01BBDD 06:BBCD: BD 10 BC  LDA tbl_BC10_sound_indexes,X
 C - - - - - 0x01BBE0 06:BBD0: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01BBE3 06:BBD3: BD 11 BC  LDA tbl_BC11,X
+C - - - - - 0x01BBE3 06:BBD3: BD 11 BC  LDA tbl_BC10_sound_indexes + 1,X
 C - - - - - 0x01BBE6 06:BBD6: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01BBE9 06:BBD9: BD 12 BC  LDA tbl_BC12,X
+C - - - - - 0x01BBE9 06:BBD9: BD 12 BC  LDA tbl_BC10_sound_indexes + 2,X
 C - - - - - 0x01BBEC 06:BBDC: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01BBEF 06:BBDF: BD 13 BC  LDA tbl_BC13,X
+C - - - - - 0x01BBEF 06:BBDF: BD 13 BC  LDA tbl_BC10_sound_indexes + 3,X
 C - - - - - 0x01BBF2 06:BBE2: 4C 20 C4  JMP loc_C420_add_sound_effect
 
 bra_BBE5:
@@ -4263,66 +4263,21 @@ bra_BC0E:
 C - - - - - 0x01BC1E 06:BC0E: 38        SEC
 C - - - - - 0x01BC1F 06:BC0F: 60        RTS
 
-tbl_BC10:
-- D 1 - - - 0x01BC20 06:BC10: 04        .byte $04   ; 
-tbl_BC11:
-- D 1 - - - 0x01BC21 06:BC11: 05        .byte $05   ; 
-tbl_BC12:
-- D 1 - - - 0x01BC22 06:BC12: 39        .byte $39   ; <9>
-tbl_BC13:
-- D 1 - - - 0x01BC23 06:BC13: 48        .byte $48   ; <H>
-- D 1 - - - 0x01BC24 06:BC14: 06        .byte $06   ; 
-- D 1 - - - 0x01BC25 06:BC15: 07        .byte $07   ; 
-- D 1 - - - 0x01BC26 06:BC16: 3A        .byte $3A   ; 
-- D 1 - - - 0x01BC27 06:BC17: 4B        .byte $4B   ; <K>
-- D 1 - - - 0x01BC28 06:BC18: 08        .byte $08   ; 
-- D 1 - - - 0x01BC29 06:BC19: 09        .byte $09   ; 
-- D 1 - - - 0x01BC2A 06:BC1A: 3B        .byte $3B   ; 
-- D 1 - - - 0x01BC2B 06:BC1B: 49        .byte $49   ; <I>
-- D 1 - - - 0x01BC2C 06:BC1C: 1D        .byte $1D   ; 
-- D 1 - - - 0x01BC2D 06:BC1D: 1E        .byte $1E   ; 
-- D 1 - - - 0x01BC2E 06:BC1E: 44        .byte $44   ; <D>
-- D 1 - - - 0x01BC2F 06:BC1F: 4D        .byte $4D   ; <M>
-- D 1 - - - 0x01BC30 06:BC20: 1B        .byte $1B   ; 
-- D 1 - - - 0x01BC31 06:BC21: 1C        .byte $1C   ; 
-- D 1 - - - 0x01BC32 06:BC22: 43        .byte $43   ; <C>
-- D 1 - - - 0x01BC33 06:BC23: 4C        .byte $4C   ; <L>
-- D 1 - - - 0x01BC34 06:BC24: 1F        .byte $1F   ; 
-- D 1 - - - 0x01BC35 06:BC25: 20        .byte $20   ; 
-- D 1 - - - 0x01BC36 06:BC26: 45        .byte $45   ; <E>
-- D 1 - - - 0x01BC37 06:BC27: 4A        .byte $4A   ; <J>
-- D 1 - - - 0x01BC38 06:BC28: 22        .byte $22   ; 
-- D 1 - - - 0x01BC39 06:BC29: 23        .byte $23   ; 
-- D 1 - - - 0x01BC3A 06:BC2A: 46        .byte $46   ; <F>
-- D 1 - - - 0x01BC3B 06:BC2B: 4E        .byte $4E   ; <N>
-- D 1 - - - 0x01BC3C 06:BC2C: 22        .byte $22   ; 
-- D 1 - - - 0x01BC3D 06:BC2D: 23        .byte $23   ; 
-- D 1 - - - 0x01BC3E 06:BC2E: 46        .byte $46   ; <F>
-- D 1 - - - 0x01BC3F 06:BC2F: 4E        .byte $4E   ; <N>
-- D 1 - - - 0x01BC40 06:BC30: 22        .byte $22   ; 
-- D 1 - - - 0x01BC41 06:BC31: 23        .byte $23   ; 
-- D 1 - - - 0x01BC42 06:BC32: 46        .byte $46   ; <F>
-- D 1 - - - 0x01BC43 06:BC33: 4E        .byte $4E   ; <N>
-- D 1 - - - 0x01BC44 06:BC34: 22        .byte $22   ; 
-- D 1 - - - 0x01BC45 06:BC35: 23        .byte $23   ; 
-- D 1 - - - 0x01BC46 06:BC36: 46        .byte $46   ; <F>
-- D 1 - - - 0x01BC47 06:BC37: 4E        .byte $4E   ; <N>
-- D 1 - - - 0x01BC48 06:BC38: 24        .byte $24   ; 
-- D 1 - - - 0x01BC49 06:BC39: 25        .byte $25   ; 
-- D 1 - - - 0x01BC4A 06:BC3A: 47        .byte $47   ; <G>
-- D 1 - - - 0x01BC4B 06:BC3B: 4F        .byte $4F   ; <O>
-- D 1 - - - 0x01BC4C 06:BC3C: 24        .byte $24   ; 
-- D 1 - - - 0x01BC4D 06:BC3D: 25        .byte $25   ; 
-- D 1 - - - 0x01BC4E 06:BC3E: 47        .byte $47   ; <G>
-- D 1 - - - 0x01BC4F 06:BC3F: 4F        .byte $4F   ; <O>
-- D 1 - - - 0x01BC50 06:BC40: 24        .byte $24   ; 
-- D 1 - - - 0x01BC51 06:BC41: 25        .byte $25   ; 
-- D 1 - - - 0x01BC52 06:BC42: 47        .byte $47   ; <G>
-- D 1 - - - 0x01BC53 06:BC43: 4F        .byte $4F   ; <O>
-- D 1 - - - 0x01BC54 06:BC44: 24        .byte $24   ; 
-- D 1 - - - 0x01BC55 06:BC45: 25        .byte $25   ; 
-- D 1 - - - 0x01BC56 06:BC46: 47        .byte $47   ; <G>
-- D 1 - - - 0x01BC57 06:BC47: 4F        .byte $4F   ; <O>
+tbl_BC10_sound_indexes:
+- D 1 - - - 0x01BC20 06:BC10: 04        .byte $04, $05, $39, $48 ; music level 1.0
+- D 1 - - - 0x01BC24 06:BC14: 06        .byte $06, $07, $3A, $4B ; music level 2.0
+- D 1 - - - 0x01BC28 06:BC18: 08        .byte $08, $09, $3B, $49 ; music level 3.0
+- D 1 - - - 0x01BC2C 06:BC1C: 1D        .byte $1D, $1E, $44, $4D ; music level 3.0
+- D 1 - - - 0x01BC30 06:BC20: 1B        .byte $1B, $1C, $43, $4C ; music level racing
+- D 1 - - - 0x01BC34 06:BC24: 1F        .byte $1F, $20, $45, $4A ; music 'under the water'
+- D 1 - - - 0x01BC38 06:BC28: 22        .byte $22, $23, $46, $4E ; music 'boss time'
+- D 1 - - - 0x01BC3C 06:BC2C: 22        .byte $22, $23, $46, $4E ;
+- D 1 - - - 0x01BC40 06:BC30: 22        .byte $22, $23, $46, $4E ; 
+- D 1 - - - 0x01BC44 06:BC34: 22        .byte $22, $23, $46, $4E ;
+- D 1 - - - 0x01BC48 06:BC38: 24        .byte $24, $25, $47, $4F ; music 'in a room'
+- D 1 - - - 0x01BC4C 06:BC3C: 24        .byte $24, $25, $47, $4F ;
+- D 1 - - - 0x01BC50 06:BC40: 24        .byte $24, $25, $47, $4F ;
+- D 1 - - - 0x01BC54 06:BC44: 24        .byte $24, $25, $47, $4F ;
 ; Only for test mode
 sub_BC48: ; from bank FF
 - - - - - - 0x01BC58 06:BC48: A9 00     LDA #$00
