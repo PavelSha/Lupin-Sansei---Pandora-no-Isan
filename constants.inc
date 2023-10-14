@@ -55,14 +55,34 @@ v_player1_btn_pressed         = ram_001E ; For a contoller1
 v_player2_btn_pressed         = ram_001F ; For a contoller2
 v_last_p2_btn_pressed         = ram_0020 ; It's the previouse value for a contoller2 (the state of the buttons)
 v_last_p1_btn_pressed         = ram_0021 ; It's the previouse value for a contoller1 (the state of the buttons)
+vMenuDemoIndex                = ram_0024
+; 0x00 - The menu
+; 0x01 - Lupin demo
+; 0x02 - Jigen demo
+; 0x03 - Goemon demo
+; 0x04 - Zenigata demo
+; 0x05 - Fujiko demo
+; 0x06 - Clarisse demo
+; 0x07 - Stop demo
+
 v_chr_pos_x                   = ram_0027 ; In level it's the position of the character along the x-axis relative to the screen (may repeat)
 v_nmi_counter                 = ram_002B
 v_low_counter                 = ram_002C
 v_high_counter                = ram_002D
 v_menu_counter                = ram_0033
-v_menu_counter_times          = ram_0034
-vGameMode                     = ram_0037 ; 0x00 - in game, 0xFF - Starting cutscenes
+vMenuCounterTimes             = ram_0034
+vGameMode                     = ram_0037
+; 0x00 - in game
+; 0xFF - Starting cutscenes
+
 v_resists                     = ram_003A ; TODO: !!!, 0x80 - The enemies don't damage
+
+vStartStatus                  = ram_003D
+; 0x00 - The starting cutscene, before typing the message
+; 0x01 - The starting cutscene, during typing the message
+; 0x02 - The starting cutscene, after typing the message
+; 0x00 - Allowed to show menu
+
 v_npc_message_status          = ram_0041
 ; 83 - npc is saying the message 
 ; C3 - npc said the message 
@@ -298,6 +318,10 @@ v_low_corridor_address        = ram_00BD
 v_high_corridor_address       = ram_00BE
 v_low_destr_wall_address      = ram_00BF
 v_high_destr_wall_address     = ram_00C0
+vMessageInProgress            = ram_00C8
+; 0x00 - no message
+; 0x80 - the message is typing
+
 v_low_vram_msg_address        = ram_00CB
 v_hign_vram_msg_address       = ram_00CC
 v_low_msg_ppu_address         = ram_00CF ; This temporary address for the message on the screen

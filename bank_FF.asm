@@ -9,6 +9,9 @@
 .import tbl_ptr_rooms_on_the_level ; bank 04 (Page 2)
 .import number_of_briefcases_on_the_level ; bank 04 (Page 2)
 .import tbl_ptr_briefcases_on_the_level ; bank 04 (Page 2)
+.import loc_AD80_activate_sound_manager ; bank 02 (Page 1)
+.import loc_B234_get_vram_msg_address ; bank 06 (Page 2)
+.import sub_B234_get_vram_msg_address ; bank 06 (Page 2)
 
 .export sub_C31D_clear_ppu
 .export sub_C358_clear_OAM
@@ -166,12 +169,12 @@ bra_C118:
 C - - - - - 0x01C128 07:C118: A9 FF     LDA #$FF
 C - - - - - 0x01C12A 07:C11A: 85 33     STA v_menu_counter ; Initializes a counter.
 C - - - - - 0x01C12C 07:C11C: A9 02     LDA #$02
-C - - - - - 0x01C12E 07:C11E: 85 34     STA v_menu_counter_times ; Initializes a time of a demo scene.
+C - - - - - 0x01C12E 07:C11E: 85 34     STA vMenuCounterTimes ; Initializes a time of a demo scene.
 bra_C120_repeat:
 C - - - - - 0x01C130 07:C120: 20 64 D0  JSR sub_D064
 C - - - - - 0x01C133 07:C123: A5 37     LDA vGameMode
 C - - - - - 0x01C135 07:C125: 10 08     BPL bra_C12F ; ; Branch If in game
-C - - - - - 0x01C137 07:C127: A5 34     LDA v_menu_counter_times
+C - - - - - 0x01C137 07:C127: A5 34     LDA vMenuCounterTimes
 C - - - - - 0x01C139 07:C129: D0 04     BNE bra_C12F
 C - - - - - 0x01C13B 07:C12B: A9 80     LDA #$80
 C - - - - - 0x01C13D 07:C12D: 85 39     STA ram_0039
@@ -349,7 +352,7 @@ C - - - - - 0x01C261 07:C251: A5 2C     LDA v_low_counter
 C - - - - - 0x01C263 07:C253: C9 40     CMP #$40
 C - - - - - 0x01C265 07:C255: 90 FA     BCC bra_C251
 C - - - - - 0x01C267 07:C257: A9 06     LDA #$06
-C - - - - - 0x01C269 07:C259: 85 24     STA ram_0024
+C - - - - - 0x01C269 07:C259: 85 24     STA vMenuDemoIndex
 C - - - - - 0x01C26B 07:C25B: 20 13 C3  JSR sub_C313
 C - - - - - 0x01C26E 07:C25E: 20 05 C3  JSR sub_C305
 C - - - - - 0x01C271 07:C261: 20 0D B8  JSR $B80D
@@ -375,15 +378,15 @@ C - - - - - 0x01C29B 07:C28B: 90 FA     BCC bra_C287
 loc_C28D:
 C D 2 - - - 0x01C29D 07:C28D: 20 13 C3  JSR sub_C313
 C - - - - - 0x01C2A0 07:C290: 20 05 C3  JSR sub_C305
-C - - - - - 0x01C2A3 07:C293: E6 24     INC ram_0024
-C - - - - - 0x01C2A5 07:C295: A5 24     LDA ram_0024
-C - - - - - 0x01C2A7 07:C297: C9 07     CMP #$07
-C - - - - - 0x01C2A9 07:C299: 90 08     BCC bra_C2A3
-C - - - - - 0x01C2AB 07:C29B: A9 FF     LDA #$FF ; CONSTANT - Cutscene
-C - - - - - 0x01C2AD 07:C29D: 85 37     STA vGameMode
-C - - - - - 0x01C2AF 07:C29F: A9 00     LDA #$00
-C - - - - - 0x01C2B1 07:C2A1: 85 24     STA ram_0024
-bra_C2A3:
+C - - - - - 0x01C2A3 07:C293: E6 24     INC vMenuDemoIndex
+C - - - - - 0x01C2A5 07:C295: A5 24     LDA vMenuDemoIndex
+C - - - - - 0x01C2A7 07:C297: C9 07     CMP #$07           ; CONSTANT - Stop demo
+C - - - - - 0x01C2A9 07:C299: 90 08     BCC @bra_C2A3_skip ; If vMenuDemoIndex < 0x07
+C - - - - - 0x01C2AB 07:C29B: A9 FF     LDA #$FF           ; CONSTANT - Cutscene
+C - - - - - 0x01C2AD 07:C29D: 85 37     STA vGameMode      ;
+C - - - - - 0x01C2AF 07:C29F: A9 00     LDA #$00           ; CONSTANT - The menu
+C - - - - - 0x01C2B1 07:C2A1: 85 24     STA vMenuDemoIndex ;
+@bra_C2A3_skip:
 C - - - - - 0x01C2B3 07:C2A3: 4C 46 C0  JMP loc_C046
 
 bra_C2A6:
@@ -658,7 +661,7 @@ C - - - - - 0x01C482 07:C472: 10 5C     BPL bra_C4D0_update_btn_pressed ; ; Bran
 C - - - - - 0x01C484 07:C474: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01C487 07:C477: A5 22     LDA ram_0022
 C - - - - - 0x01C489 07:C479: D0 1E     BNE bra_C499
-C - - - - - 0x01C48B 07:C47B: A6 24     LDX ram_0024
+C - - - - - 0x01C48B 07:C47B: A6 24     LDX vMenuDemoIndex
 C - - - - - 0x01C48D 07:C47D: CA        DEX
 C - - - - - 0x01C48E 07:C47E: 8A        TXA
 C - - - - - 0x01C48F 07:C47F: 0A        ASL
@@ -767,34 +770,34 @@ C - - - - - 0x01C543 07:C533: 8D 05 20  STA PPU_SCROLL
 C - - - - - 0x01C546 07:C536: 8D 05 20  STA PPU_SCROLL
 C - - - - - 0x01C549 07:C539: 4C 0F C3  JMP loc_C30F
 
-sub_C53C:
-C - - - - - 0x01C54C 07:C53C: A5 3D     LDA ram_003D
-C - - - - - 0x01C54E 07:C53E: D0 0F     BNE bra_C54F_skip
-C - - - - - 0x01C550 07:C540: A5 2C     LDA v_low_counter
-C - - - - - 0x01C552 07:C542: C9 40     CMP #$40
-C - - - - - 0x01C554 07:C544: D0 22     BNE bra_C568_RTS
-C - - - - - 0x01C556 07:C546: E6 3D     INC ram_003D
-C - - - - - 0x01C558 07:C548: A6 24     LDX ram_0024
+sub_C53C_resolve_start_status:
+C - - - - - 0x01C54C 07:C53C: A5 3D     LDA vStartStatus  ;
+C - - - - - 0x01C54E 07:C53E: D0 0F     BNE bra_C54F_skip ; If Register A != 0x00
+C - - - - - 0x01C550 07:C540: A5 2C     LDA v_low_counter ;
+C - - - - - 0x01C552 07:C542: C9 40     CMP #$40          ; A time before message is shown
+C - - - - - 0x01C554 07:C544: D0 22     BNE bra_C568_RTS  ; If Register A != 0x40
+C - - - - - 0x01C556 07:C546: E6 3D     INC vStartStatus  ; 0 + 1 = 1
+C - - - - - 0x01C558 07:C548: A6 24     LDX vMenuDemoIndex
 C - - - - - 0x01C55A 07:C54A: E8        INX
 C - - - - - 0x01C55B 07:C54B: 8A        TXA
-C - - - - - 0x01C55C 07:C54C: 4C 34 B2  JMP $B234; to loc_B234 (bank 06_2)
+C - - - - - 0x01C55C 07:C54C: 4C 34 B2  JMP loc_B234_get_vram_msg_address
 
 bra_C54F_skip:
-C - - - - - 0x01C55F 07:C54F: C9 01     CMP #$01
-C - - - - - 0x01C561 07:C551: F0 0B     BEQ bra_C55E_skip
-C - - - - - 0x01C563 07:C553: A9 80     LDA #$80
-C - - - - - 0x01C565 07:C555: C5 2C     CMP v_low_counter
-C - - - - - 0x01C567 07:C557: B0 0F     BCS bra_C568_RTS
-C - - - - - 0x01C569 07:C559: A9 FF     LDA #$FF
-C - - - - - 0x01C56B 07:C55B: 85 3D     STA ram_003D
+C - - - - - 0x01C55F 07:C54F: C9 01     CMP #$01          ; CONSTANT - The starting cutscene, during typing the message
+C - - - - - 0x01C561 07:C551: F0 0B     BEQ bra_C55E_skip ; If Register A == 0x01
+C - - - - - 0x01C563 07:C553: A9 80     LDA #$80          ; A time between the message and menu
+C - - - - - 0x01C565 07:C555: C5 2C     CMP v_low_counter ; 
+C - - - - - 0x01C567 07:C557: B0 0F     BCS bra_C568_RTS  ; If Register A > counter
+C - - - - - 0x01C569 07:C559: A9 FF     LDA #$FF          ; CONSTANT - Show the menu
+C - - - - - 0x01C56B 07:C55B: 85 3D     STA vStartStatus  ;
 C - - - - - 0x01C56D 07:C55D: 60        RTS
 
 bra_C55E_skip:
-C - - - - - 0x01C56E 07:C55E: A5 C8     LDA ram_00C8
-C - - - - - 0x01C570 07:C560: D0 06     BNE bra_C568_RTS
-C - - - - - 0x01C572 07:C562: 85 2D     STA v_high_counter
-C - - - - - 0x01C574 07:C564: 85 2C     STA v_low_counter
-C - - - - - 0x01C576 07:C566: E6 3D     INC ram_003D
+C - - - - - 0x01C56E 07:C55E: A5 C8     LDA vMessageInProgress ; 0x00 or 0x80
+C - - - - - 0x01C570 07:C560: D0 06     BNE bra_C568_RTS       ; If Register A != 0x00
+C - - - - - 0x01C572 07:C562: 85 2D     STA v_high_counter     ; clear
+C - - - - - 0x01C574 07:C564: 85 2C     STA v_low_counter      ; clear
+C - - - - - 0x01C576 07:C566: E6 3D     INC vStartStatus       ; 1 + 1 = 2
 bra_C568_RTS:
 C - - - - - 0x01C578 07:C568: 60        RTS
 
@@ -1288,19 +1291,19 @@ C - - - - - 0x01C892 07:C882: 10 DF     BPL bra_C863
 C - - - - - 0x01C894 07:C884: 60        RTS
 
 sub_C885:
-C - - - - - 0x01C895 07:C885: A5 37     LDA vGameMode
-C - - - - - 0x01C897 07:C887: 10 20     BPL bra_C8A9 ; ; Branch If in game
-C - - - - - 0x01C899 07:C889: C6 33     DEC v_menu_counter
-C - - - - - 0x01C89B 07:C88B: D0 06     BNE bra_C893
-C - - - - - 0x01C89D 07:C88D: A5 34     LDA v_menu_counter_times
-C - - - - - 0x01C89F 07:C88F: F0 02     BEQ bra_C893
-C - - - - - 0x01C8A1 07:C891: C6 34     DEC v_menu_counter_times
-bra_C893:
+C - - - - - 0x01C895 07:C885: A5 37     LDA vGameMode         ;
+C - - - - - 0x01C897 07:C887: 10 20     BPL bra_C8A9          ; Branch If in game
+C - - - - - 0x01C899 07:C889: C6 33     DEC v_menu_counter    ;
+C - - - - - 0x01C89B 07:C88B: D0 06     BNE @bra_C893_skip    ; If v_menu_counter == 0x00
+C - - - - - 0x01C89D 07:C88D: A5 34     LDA vMenuCounterTimes ;
+C - - - - - 0x01C89F 07:C88F: F0 02     BEQ @bra_C893_skip    ; If vMenuCounterTimes != 0x00
+C - - - - - 0x01C8A1 07:C891: C6 34     DEC vMenuCounterTimes ;
+@bra_C893_skip:
 C - - - - - 0x01C8A3 07:C893: A5 1E     LDA v_player1_btn_pressed
 C - - - - - 0x01C8A5 07:C895: 29 08     AND #BIT_BUTTON_START
-C - - - - - 0x01C8A7 07:C897: F0 3A     BEQ bra_C8D3_RTS ; Go to the branch If the button 'Start' doesn't press
+C - - - - - 0x01C8A7 07:C897: F0 3A     BEQ bra_C8D3_RTS          ; Go to the branch If the button 'Start' doesn't press
 C - - - - - 0x01C8A9 07:C899: 45 21     EOR v_last_p1_btn_pressed
-C - - - - - 0x01C8AB 07:C89B: 29 08     AND #$08
+C - - - - - 0x01C8AB 07:C89B: 29 08     AND #BIT_BUTTON_START     ; avoid looping
 C - - - - - 0x01C8AD 07:C89D: F0 34     BEQ bra_C8D3_RTS
 C - - - - - 0x01C8AF 07:C89F: A9 00     LDA #$00 ; CONSTANT - In game
 C - - - - - 0x01C8B1 07:C8A1: 85 37     STA vGameMode
@@ -1363,7 +1366,7 @@ C - - - - - 0x01C901 07:C8F1: 9D 00 01  STA ram_0100,X ; set Yoshikawa
 C - - - - - 0x01C904 07:C8F4: CA        DEX
 C - - - - - 0x01C905 07:C8F5: 10 F7     BPL bra_C8EE_repeat
 C - - - - - 0x01C907 07:C8F7: A9 00     LDA #$00
-C - - - - - 0x01C909 07:C8F9: 85 24     STA ram_0024
+C - - - - - 0x01C909 07:C8F9: 85 24     STA vMenuDemoIndex
 C - - - - - 0x01C90B 07:C8FB: A2 99     LDX #$99
 C - - - - - 0x01C90D 07:C8FD: 20 11 C9  JSR sub_C911_memset_zero ; [0x0099-0x009F] in 0
 C - - - - - 0x01C910 07:C900: A9 05     LDA #$05
@@ -5306,7 +5309,7 @@ tbl_E0A1:
 - D 3 - - - 0x01E0B4 07:E0A4: 01        .byte $01   ; 
 - D 3 - - - 0x01E0B5 07:E0A5: 02        .byte $02   ; 
 bra_E0A6:
-C - - - - - 0x01E0B6 07:E0A6: A9 0B     LDA #$0B ; Lupen shoots (sound effect)
+C - - - - - 0x01E0B6 07:E0A6: A9 0B     LDA #$0B ; Lupin shoots (sound effect)
 C - - - - - 0x01E0B8 07:E0A8: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01E0BB 07:E0AB: A0 81     LDY #$81
 C - - - - - 0x01E0BD 07:E0AD: A5 5F     LDA v_chr_live_status
@@ -7480,7 +7483,7 @@ C D 3 - - - 0x01EDE5 07:EDD5: 20 7B EF  JSR sub_EF7B
 C - - - - - 0x01EDE8 07:EDD8: 4C E1 ED  JMP loc_EDE1
 
 bra_EDDB:
-C - - - - - 0x01EDEB 07:EDDB: 20 86 EF  JSR sub_EF86
+C - - - - - 0x01EDEB 07:EDDB: 20 86 EF  JSR sub_EF86_increment_counter
 C - - - - - 0x01EDEE 07:EDDE: 20 38 CB  JSR sub_CB38
 loc_EDE1:
 C D 3 - - - 0x01EDF1 07:EDE1: 20 6C C4  JSR sub_C46C
@@ -7527,7 +7530,7 @@ C - - - - - 0x01EE33 07:EE23: D0 E3     BNE bra_EE08
 C - - - - - 0x01EE35 07:EE25: 20 58 C3  JSR sub_C358_clear_OAM
 C - - - - - 0x01EE38 07:EE28: 20 8E C7  JSR sub_C78E
 C - - - - - 0x01EE3B 07:EE2B: 20 6C C4  JSR sub_C46C
-C - - - - - 0x01EE3E 07:EE2E: 20 86 EF  JSR sub_EF86
+C - - - - - 0x01EE3E 07:EE2E: 20 86 EF  JSR sub_EF86_increment_counter
 C - - - - - 0x01EE41 07:EE31: 4C E7 ED  JMP loc_EDE7
 
 loc_EE34:
@@ -7543,7 +7546,7 @@ C - - - - - 0x01EE57 07:EE47: 20 6C C4  JSR sub_C46C
 C - - - - - 0x01EE5A 07:EE4A: 4C E7 ED  JMP loc_EDE7
 
 bra_EE4D:
-C - - - - - 0x01EE5D 07:EE4D: 20 3C C5  JSR sub_C53C
+C - - - - - 0x01EE5D 07:EE4D: 20 3C C5  JSR sub_C53C_resolve_start_status
 C - - - - - 0x01EE60 07:EE50: 4C D5 ED  JMP loc_EDD5
 
 sub_EE53:
@@ -7709,11 +7712,11 @@ C - - - - - 0x01EF91 07:EF81: D6 2E     DEC ram_002E,X
 bra_EF83:
 C - - - - - 0x01EF93 07:EF83: CA        DEX
 C - - - - - 0x01EF94 07:EF84: 10 F7     BPL bra_EF7D
-sub_EF86:
-C - - - - - 0x01EF96 07:EF86: E6 2C     INC v_low_counter
-C - - - - - 0x01EF98 07:EF88: D0 02     BNE bra_EF8C_RTS
-C - - - - - 0x01EF9A 07:EF8A: E6 2D     INC v_high_counter
-bra_EF8C_RTS:
+sub_EF86_increment_counter:
+C - - - - - 0x01EF96 07:EF86: E6 2C     INC v_low_counter  ;
+C - - - - - 0x01EF98 07:EF88: D0 02     BNE @bra_EF8C_RTS  ;
+C - - - - - 0x01EF9A 07:EF8A: E6 2D     INC v_high_counter ;
+@bra_EF8C_RTS:
 C - - - - - 0x01EF9C 07:EF8C: 60        RTS
 
 sub_EF8D:
@@ -10401,7 +10404,7 @@ tbl_FFA0:
 - - - - - - 0x01FFFF 07:FFEF: FF        .byte $FF   ; 
 sub_FFF0:
 C - - - - - 0x020000 07:FFF0: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1
-C - - - - - 0x020003 07:FFF3: 4C 80 AD  JMP $AD80 ; to loc_AD80 ((bank 02)
+C - - - - - 0x020003 07:FFF3: 4C 80 AD  JMP loc_AD80_activate_sound_manager
 
 - D 3 - - - 0x020006 07:FFF6: FF        .byte %11111111   ; The set of the features
 - - - - - - 0x020007 07:FFF7: 00        .byte $00   ; not used ???

@@ -5,3 +5,8 @@ $0700#vStartOAM#
 $0037#vGameMode#
 $0300#vEnemies#
 $06B5#vBankData#
+$002C#vLowCounter#
+$002D#vHighCounter#
+$0024#vMenuDemoIndex#
+$0033#vMenuCounter#
+$0034#vMenuCounterTimes#

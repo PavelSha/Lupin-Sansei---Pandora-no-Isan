@@ -30,7 +30,7 @@ $F162##CONSTANT - Zenigata
 $C4F5#sub_C4F5_selectAllChrBanks#
 $C371#C371_update_palette#
 $C402#C402_clear_sound_parts#
-$C420#C420_add_sound_effect#
+$C420#C420_add_sound_effect#put to cache vCacheRam12
 $CE33#CE33_add_sprite_magic#
 $EF46#EF46_switch_bank_4_p1_p2#;
 $EF4F#EF4F_switch_bank_4_p2#;
@@ -91,3 +91,62 @@ $EDF0##;
 $EDF2##;
 $EDF5##;
 $ED4E#vec_ED4E_NMI#
+$C451##to 4 byte of 4
+$C44B##to 3 byte of 4
+$C445##to 2 byte of 4
+$C440##to 1 byte of 4
+$C438##Low address
+$C43C##High address
+$C429##Resolve an address: 0x8000 + ram_0012 * 4
+$C42B##;
+$C42D##;
+$C42E##;
+$C430##;
+$C431##;
+$C433##;
+$C435##;
+$C436##;
+$C43A##;
+$C43E##;
+$C423##store x
+$C425##store y
+$C424##;
+$C422##;
+$C426##;
+$FFF3##; to bank 02
+$C53C#resolve_start_status#
+$C53E##If Register A != 0x00
+$C540##;
+$C542##A time before message is shown
+$C544##If Register A != 0x40
+$C546##0 + 1 = 1
+$C54F##CONSTANT - The starting cutscene, during typing the message
+$C551##If Register A == 0x01
+$C553##A time between the message and menu
+$C555##;
+$C557##If Register A > counter
+$C559##CONSTANT - Show the menu
+$C55B##;
+$C55D##;
+$C566##1 + 1 = 2
+$C55E##0x00 or 0x80
+$C560##If Register A != 0x00
+$C562##clear
+$C564##clear
+$C297##CONSTANT - Stop demo
+$C299##If vMenuDemoIndex < 0x07
+$C29B##CONSTANT - Cutscene
+$C29D##;
+$C29F##CONSTANT - The menu
+$C2A1##;
+$EF86##;
+$EF88##;
+$EF8A##;
+$EF8C##;
+$C885##;
+$C887##Branch If in game
+$C889##;
+$C88B##If vMenuCounter == 0x00
+$C88D##;
+$C88F##If vMenuCounterTimes != 0x00
+$C891##;

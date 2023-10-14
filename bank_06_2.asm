@@ -24,6 +24,9 @@
 .import sub_EF4F_switch_bank_4_p2 ; bank FF
 .import sub_F2D6_try_put_briefcase ; bank FF
 
+.export loc_B234_get_vram_msg_address
+.export sub_B234_get_vram_msg_address
+
 tbl_A000:
 - D 1 - - - 0x01A010 06:A000: 00        .byte $00   ; 
 tbl_A001:
@@ -2807,8 +2810,8 @@ C - - - - - 0x01B24E 06:B23E: 85 CB     STA v_low_vram_msg_address ; Store a low
 C - - - - - 0x01B250 06:B240: B9 01 80  LDA tbl_messages + 1,Y ; Load messages (high address)
 C - - - - - 0x01B253 06:B243: 29 1F     AND #$1F
 C - - - - - 0x01B255 06:B245: 85 CC     STA v_hign_vram_msg_address ; Store a high address
-C - - - - - 0x01B257 06:B247: A9 80     LDA #$80
-C - - - - - 0x01B259 06:B249: 85 C8     STA ram_00C8
+C - - - - - 0x01B257 06:B247: A9 80     LDA #$80               ; CONSTANT - the message is typing
+C - - - - - 0x01B259 06:B249: 85 C8     STA vMessageInProgress
 C - - - - - 0x01B25B 06:B24B: A9 00     LDA #$00
 C - - - - - 0x01B25D 06:B24D: 85 CA     STA ram_00CA
 C - - - - - 0x01B25F 06:B24F: 85 C9     STA v_letter_offset ; in 0
@@ -2831,7 +2834,7 @@ loc_B269:
 C D 1 - - - 0x01B279 06:B269: C9 FC     CMP #$FC
 C - - - - - 0x01B27B 06:B26B: 90 1E     BCC bra_B28B_skip
 C - - - - - 0x01B27D 06:B26D: C9 FE     CMP #$FE ; CONSTANT - Tile 'A new paragraph'.
-C - - - - - 0x01B27F 06:B26F: D0 15     BNE bra_B286_skip ; If letter isn't a new paragraph
+C - - - - - 0x01B27F 06:B26F: D0 15     BNE bra_B286_finish ; If letter isn't a new paragraph
 C - - - - - 0x01B281 06:B271: C8        INY
 C - - - - - 0x01B282 06:B272: AD 07 20  LDA PPU_DATA ; Increments address
 C - - - - - 0x01B285 06:B275: 85 CF     STA v_low_msg_ppu_address
@@ -2843,9 +2846,9 @@ C - - - - - 0x01B28E 06:B27E: 84 C9     STY v_letter_offset
 C - - - - - 0x01B290 06:B280: AD 07 20  LDA PPU_DATA ; Increments address
 C - - - - - 0x01B293 06:B283: 4C 69 B2  JMP loc_B269
 
-bra_B286_skip:
-C - - - - - 0x01B296 06:B286: A9 00     LDA #$00
-C - - - - - 0x01B298 06:B288: 85 C8     STA ram_00C8
+bra_B286_finish:
+C - - - - - 0x01B296 06:B286: A9 00     LDA #$00               ; CONSTANT - the message is typed
+C - - - - - 0x01B298 06:B288: 85 C8     STA vMessageInProgress ;
 C - - - - - 0x01B29A 06:B28A: 60        RTS
 
 bra_B28B_skip:
@@ -3832,18 +3835,18 @@ C - - - - - 0x01B94C 06:B93C: 20 1C C9  JSR $C91C ; to sub_C91C (bank_FF)
 C - - - - - 0x01B94F 06:B93F: A9 80     LDA #$80
 C - - - - - 0x01B951 06:B941: 85 3B     STA ram_003B
 C - - - - - 0x01B953 06:B943: A9 00     LDA #$00
-C - - - - - 0x01B955 06:B945: 85 B1     STA v_start_level
-C - - - - - 0x01B957 06:B947: 85 B2     STA v_count_secret_hits
-C - - - - - 0x01B959 06:B949: 85 B3     STA v_lock_secret_hits
-C - - - - - 0x01B95B 06:B94B: 85 B4     STA v_offset_in_secret_codes
-C - - - - - 0x01B95D 06:B94D: 85 2C     STA v_low_counter
-C - - - - - 0x01B95F 06:B94F: 85 2D     STA v_high_counter
-C - - - - - 0x01B961 06:B951: 85 19     STA ram_0019
-C - - - - - 0x01B963 06:B953: 8D 31 06  STA ram_0631
-C - - - - - 0x01B966 06:B956: 8D 7B 06  STA ram_067B
-C - - - - - 0x01B969 06:B959: 85 29     STA ram_0029
-C - - - - - 0x01B96B 06:B95B: 85 27     STA ram_0027
-C - - - - - 0x01B96D 06:B95D: 85 3D     STA ram_003D
+C - - - - - 0x01B955 06:B945: 85 B1     STA v_start_level            ; clear
+C - - - - - 0x01B957 06:B947: 85 B2     STA v_count_secret_hits      ; clear
+C - - - - - 0x01B959 06:B949: 85 B3     STA v_lock_secret_hits       ; clear
+C - - - - - 0x01B95B 06:B94B: 85 B4     STA v_offset_in_secret_codes ; clear
+C - - - - - 0x01B95D 06:B94D: 85 2C     STA v_low_counter            ; clear
+C - - - - - 0x01B95F 06:B94F: 85 2D     STA v_high_counter           ; clear
+C - - - - - 0x01B961 06:B951: 85 19     STA ram_0019                 ; clear
+C - - - - - 0x01B963 06:B953: 8D 31 06  STA ram_0631                 ; clear
+C - - - - - 0x01B966 06:B956: 8D 7B 06  STA ram_067B                 ; clear
+C - - - - - 0x01B969 06:B959: 85 29     STA ram_0029                 ; clear
+C - - - - - 0x01B96B 06:B95B: 85 27     STA ram_0027                 ; clear
+C - - - - - 0x01B96D 06:B95D: 85 3D     STA ram_003D                 ; clear
 C - - - - - 0x01B96F 06:B95F: A9 8F     LDA #$8F
 C - - - - - 0x01B971 06:B961: 85 AD     STA ram_00AD
 C - - - - - 0x01B973 06:B963: 85 1C     STA ram_001C
@@ -3916,10 +3919,10 @@ tbl_B9C1:
 bra_B9C9:
 C - - - - - 0x01B9D9 06:B9C9: 20 13 C3  JSR $C313
 C - - - - - 0x01B9DC 06:B9CC: 20 05 C3  JSR $C305
-C - - - - - 0x01B9DF 06:B9CF: A9 FF     LDA #$FF ; CONSTANT - Cutscene
-C - - - - - 0x01B9E1 06:B9D1: 85 37     STA vGameMode
-C - - - - - 0x01B9E3 06:B9D3: A9 01     LDA #$01
-C - - - - - 0x01B9E5 06:B9D5: 85 24     STA ram_0024
+C - - - - - 0x01B9DF 06:B9CF: A9 FF     LDA #$FF           ; CONSTANT - Cutscene
+C - - - - - 0x01B9E1 06:B9D1: 85 37     STA vGameMode      ;
+C - - - - - 0x01B9E3 06:B9D3: A9 01     LDA #$01           ; CONSTANT - Lupin demo
+C - - - - - 0x01B9E5 06:B9D5: 85 24     STA vMenuDemoIndex ;
 C - - - - - 0x01B9E7 06:B9D7: 4C 02 C4  JMP loc_C402_clear_sound_parts
 
 sub_B9DA: ; from bank FF
@@ -3938,7 +3941,7 @@ C - - - - - 0x01B9FD 06:B9ED: BD 14 80  LDA tbl_template_chr_banks1,X
 C - - - - - 0x01BA00 06:B9F0: 9D AF 06  STA vCacheChrBankSelect,X
 C - - - - - 0x01BA03 06:B9F3: CA        DEX                ; decrements loop counter
 C - - - - - 0x01BA04 06:B9F4: 10 F7     BPL @bra_B9ED_loop ; If Register X >= 0
-C - - - - - 0x01BA06 06:B9F6: A5 24     LDA ram_0024
+C - - - - - 0x01BA06 06:B9F6: A5 24     LDA vMenuDemoIndex
 C - - - - - 0x01BA08 06:B9F8: D0 32     BNE @bra_BA2C_skip
 C - - - - - 0x01BA0A 06:B9FA: A2 36     LDX #$36
 C - - - - - 0x01BA0C 06:B9FC: 8E B3 06  STX ram_06B3
@@ -3964,7 +3967,7 @@ C - - - - - 0x01BA37 06:BA27: A9 7F     LDA #$7F           ;
 C - - - - - 0x01BA39 06:BA29: 8D 07 20  STA PPU_DATA       ; The part of the sign (the part of the copyright)
 @bra_BA2C_skip:
 C - - - - - 0x01BA3C 06:BA2C: 20 BA BA  JSR sub_BABA
-C - - - - - 0x01BA3F 06:BA2F: A5 24     LDA ram_0024
+C - - - - - 0x01BA3F 06:BA2F: A5 24     LDA vMenuDemoIndex
 C - - - - - 0x01BA41 06:BA31: 0A        ASL
 C - - - - - 0x01BA42 06:BA32: 0A        ASL
 C - - - - - 0x01BA43 06:BA33: AA        TAX
@@ -3976,7 +3979,7 @@ C - - - - - 0x01BA4C 06:BA3C: E8        INX
 C - - - - - 0x01BA4D 06:BA3D: C8        INY
 C - - - - - 0x01BA4E 06:BA3E: C0 08     CPY #$08
 C - - - - - 0x01BA50 06:BA40: D0 F4     BNE bra_BA36
-C - - - - - 0x01BA52 06:BA42: A5 24     LDA ram_0024
+C - - - - - 0x01BA52 06:BA42: A5 24     LDA vMenuDemoIndex
 C - - - - - 0x01BA54 06:BA44: 0A        ASL
 C - - - - - 0x01BA55 06:BA45: 0A        ASL
 C - - - - - 0x01BA56 06:BA46: 85 12     STA ram_0012
@@ -3994,22 +3997,22 @@ C - - - - - 0x01BA6A 06:BA5A: 20 CB BA  JSR sub_BACB
 C - - - - - 0x01BA6D 06:BA5D: A9 91     LDA #$91
 C - - - - - 0x01BA6F 06:BA5F: 85 3B     STA ram_003B
 C - - - - - 0x01BA71 06:BA61: A9 00     LDA #$00
-C - - - - - 0x01BA73 06:BA63: 8D 31 06  STA ram_0631
-C - - - - - 0x01BA76 06:BA66: 8D 7B 06  STA ram_067B
-C - - - - - 0x01BA79 06:BA69: 85 29     STA ram_0029
-C - - - - - 0x01BA7B 06:BA6B: 85 27     STA ram_0027
-C - - - - - 0x01BA7D 06:BA6D: 85 2C     STA v_low_counter
-C - - - - - 0x01BA7F 06:BA6F: 85 2D     STA v_high_counter
-C - - - - - 0x01BA81 06:BA71: 85 3D     STA ram_003D
-C - - - - - 0x01BA83 06:BA73: 85 19     STA ram_0019
-C - - - - - 0x01BA85 06:BA75: 85 C8     STA ram_00C8
+C - - - - - 0x01BA73 06:BA63: 8D 31 06  STA ram_0631       ; clear
+C - - - - - 0x01BA76 06:BA66: 8D 7B 06  STA ram_067B       ; clear
+C - - - - - 0x01BA79 06:BA69: 85 29     STA ram_0029       ; clear
+C - - - - - 0x01BA7B 06:BA6B: 85 27     STA ram_0027       ; clear
+C - - - - - 0x01BA7D 06:BA6D: 85 2C     STA v_low_counter  ; clear
+C - - - - - 0x01BA7F 06:BA6F: 85 2D     STA v_high_counter ; clear
+C - - - - - 0x01BA81 06:BA71: 85 3D     STA vStartStatus   ; clear
+C - - - - - 0x01BA83 06:BA73: 85 19     STA ram_0019       ; clear
+C - - - - - 0x01BA85 06:BA75: 85 C8     STA ram_00C8       ; clear
 C - - - - - 0x01BA87 06:BA77: 20 1E C5  JSR $C51E
-bra_BA7A:
-C - - - - - 0x01BA8A 06:BA7A: A5 3D     LDA ram_003D
-C - - - - - 0x01BA8C 06:BA7C: 10 FC     BPL bra_BA7A
+bra_BA7A_wait_menu:
+C - - - - - 0x01BA8A 06:BA7A: A5 3D     LDA vStartStatus       ;
+C - - - - - 0x01BA8C 06:BA7C: 10 FC     BPL bra_BA7A_wait_menu ; If Register A != 0b1XXXXXXX
 C - - - - - 0x01BA8E 06:BA7E: 20 13 C3  JSR $C313
 C - - - - - 0x01BA91 06:BA81: 20 05 C3  JSR $C305
-C - - - - - 0x01BA94 06:BA84: A6 24     LDX ram_0024
+C - - - - - 0x01BA94 06:BA84: A6 24     LDX vMenuDemoIndex
 C - - - - - 0x01BA96 06:BA86: F0 24     BEQ bra_BAAC
 C - - - - - 0x01BA98 06:BA88: E0 04     CPX #$04
 C - - - - - 0x01BA9A 06:BA8A: B0 29     BCS bra_BAB5
