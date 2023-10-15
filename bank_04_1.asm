@@ -7,16 +7,11 @@
 .export tbl_ptr_corridors
 .export tbl_ptr_destructible_walls
 
-- - - - - - 0x010010 04:8000: 7B        .byte $7B   ; 
-- - - - - - 0x010011 04:8001: 9D        .byte $9D   ; 
-- D 0 - - - 0x010012 04:8002: 9B        .byte $9B   ; 
-- D 0 - - - 0x010013 04:8003: 9D        .byte $9D   ; 
-- D 0 - - - 0x010014 04:8004: BE        .byte $BE   ; 
-- D 0 - - - 0x010015 04:8005: 9D        .byte $9D   ; 
-- D 0 - - - 0x010016 04:8006: D9        .byte $D9   ; 
-- D 0 - - - 0x010017 04:8007: 9D        .byte $9D   ; 
-- D 0 - - - 0x010018 04:8008: 00        .byte $00   ; 
-- D 0 - - - 0x010019 04:8009: 9E        .byte $9E   ; 
+- - - - - - 0x010010 04:8000: 7B 9D     .word $9D7B
+- D 0 - - - 0x010012 04:8002: 9B 9D     .word $9D9B
+- D 0 - - - 0x010014 04:8004: BE 9D     .word $9DBE
+- D 0 - - - 0x010016 04:8006: D9 9D     .word $9DD9
+- D 0 - - - 0x010018 04:8008: 00 9E     .word $9E00
 - D 0 - - - 0x01001A 04:800A: 3B        .byte $3B   ; 
 - D 0 - - - 0x01001B 04:800B: 89        .byte $89   ; 
 - D 0 - - - 0x01001C 04:800C: CD        .byte $CD   ; 
@@ -6049,6 +6044,7 @@ tbl_ptr_corridors_level4_map4_f4_f5:
 - D 0 - I - 0x011D88 04:9D78: 10        .byte $10   ; 
 - D 0 - I - 0x011D89 04:9D79: 15        .byte $15   ; 
 - D 0 - I - 0x011D8A 04:9D7A: 0F        .byte $0F   ; 
+
 - D 0 - I - 0x011D8B 04:9D7B: 03        .byte $03   ; 
 - D 0 - I - 0x011D8C 04:9D7C: 20        .byte $20   ; 
 - D 0 - I - 0x011D8D 04:9D7D: EE        .byte $EE   ; 
@@ -6081,6 +6077,7 @@ tbl_ptr_corridors_level4_map4_f4_f5:
 - D 0 - I - 0x011DA8 04:9D98: 6D        .byte $6D   ; <m>
 - D 0 - I - 0x011DA9 04:9D99: 69        .byte $69   ; <i>
 - D 0 - I - 0x011DAA 04:9D9A: FF        .byte $FF   ; 
+
 - D 0 - I - 0x011DAB 04:9D9B: 01        .byte $01   ; 
 - D 0 - I - 0x011DAC 04:9D9C: 20        .byte $20   ; 
 - D 0 - I - 0x011DAD 04:9D9D: CE        .byte $CE   ; 
@@ -6116,6 +6113,7 @@ tbl_ptr_corridors_level4_map4_f4_f5:
 - D 0 - I - 0x011DCB 04:9DBB: 47        .byte $47   ; <G>
 - D 0 - I - 0x011DCC 04:9DBC: 49        .byte $49   ; <I>
 - D 0 - I - 0x011DCD 04:9DBD: FF        .byte $FF   ; 
+
 - D 0 - I - 0x011DCE 04:9DBE: 01        .byte $01   ; 
 - D 0 - I - 0x011DCF 04:9DBF: 21        .byte $21   ; 
 - D 0 - I - 0x011DD0 04:9DC0: 4C        .byte $4C   ; <L>
@@ -6143,6 +6141,7 @@ tbl_ptr_corridors_level4_map4_f4_f5:
 - D 0 - I - 0x011DE6 04:9DD6: 77        .byte $77   ; <w>
 - D 0 - I - 0x011DE7 04:9DD7: 79        .byte $79   ; <y>
 - D 0 - I - 0x011DE8 04:9DD8: FF        .byte $FF   ; 
+
 - D 0 - I - 0x011DE9 04:9DD9: 01        .byte $01   ; 
 - D 0 - I - 0x011DEA 04:9DDA: 20        .byte $20   ; 
 - D 0 - I - 0x011DEB 04:9DDB: AE        .byte $AE   ; 
@@ -6182,6 +6181,7 @@ tbl_ptr_corridors_level4_map4_f4_f5:
 - D 0 - I - 0x011E0D 04:9DFD: 39        .byte $39   ; <9>
 - D 0 - I - 0x011E0E 04:9DFE: 3B        .byte $3B   ; 
 - D 0 - I - 0x011E0F 04:9DFF: FF        .byte $FF   ; 
+
 - D 0 - I - 0x011E10 04:9E00: 09        .byte $09   ; 
 - D 0 - I - 0x011E11 04:9E01: 21        .byte $21   ; 
 - D 0 - I - 0x011E12 04:9E02: 89        .byte $89   ; 
@@ -6227,6 +6227,7 @@ tbl_ptr_corridors_level4_map4_f4_f5:
 - D 0 - I - 0x011E3A 04:9E2A: EE        .byte $EE   ; 
 - D 0 - I - 0x011E3B 04:9E2B: 75        .byte $75   ; <u>
 - D 0 - I - 0x011E3C 04:9E2C: FF        .byte $FF   ; 
+
 - - - - - - 0x011E3D 04:9E2D: FC        .byte $FC   ; 
 - - - - - - 0x011E3E 04:9E2E: FC        .byte $FC   ; 
 - - - - - - 0x011E3F 04:9E2F: FF        .byte $FF   ; 

@@ -1,5 +1,9 @@
 $8000#MMC3_Bank_select#
 $8001#MMC3_Bank_data#
 $AD80#activate_sound_manager#
-$B295##If Register A >= 0x80
-$B29B##If Register A >= 0xC0
+$B255#display_message_by_letter#
+$B257##commented
+$B25F##commented
+$B25B##commented
+$B25D##commented
+$B259##commented

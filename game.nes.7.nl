@@ -150,3 +150,6 @@ $C88B##If vMenuCounter == 0x00
 $C88D##;
 $C88F##If vMenuCounterTimes != 0x00
 $C891##;
+$EE39##CONSTANT - First cutscene with the message
+$EE3B##If Register A == 0x91
+$C5CB#sounds_of_a_gunshot#

@@ -12,6 +12,8 @@
 .import loc_AD80_activate_sound_manager ; bank 02 (Page 1)
 .import loc_B234_get_vram_msg_address ; bank 06 (Page 2)
 .import sub_B234_get_vram_msg_address ; bank 06 (Page 2)
+.import loc_B255_display_message_by_letter ; bank 06 (Page 2)
+.import sub_BB2A_solve_secret_codes ; bank 06 (Page 2)
 
 .export sub_C31D_clear_ppu
 .export sub_C358_clear_OAM
@@ -74,7 +76,7 @@ C - - - - - 0x01C05D 07:C04D: 8D 01 80  STA MMC3_Bank_data   ; switch bank 06_2 
 C - - - - - 0x01C060 07:C050: A2 00     LDX #$00
 C - - - - - 0x01C062 07:C052: 86 19     STX ram_0019              ; clear
 C - - - - - 0x01C064 07:C054: 8E 10 40  STX DMC_FREQ              ; clear
-C - - - - - 0x01C067 07:C057: 86 3B     STX ram_003B              ; clear
+C - - - - - 0x01C067 07:C057: 86 3B     STX vSharedGameStatus     ; clear
 C - - - - - 0x01C069 07:C059: 86 3C     STX ram_003C              ; clear
 C - - - - - 0x01C06B 07:C05B: 86 39     STX ram_0039              ; clear
 C - - - - - 0x01C06D 07:C05D: 86 3A     STX v_resists             ; clear
@@ -160,7 +162,7 @@ C - - - - - 0x01C115 07:C105: A9 00     LDA #$00
 C - - - - - 0x01C117 07:C107: 85 3C     STA ram_003C
 C - - - - - 0x01C119 07:C109: 20 0F C3  JSR sub_C30F
 C - - - - - 0x01C11C 07:C10C: 20 FF C2  JSR sub_C2FF
-C - - - - - 0x01C11F 07:C10F: A5 3B     LDA ram_003B
+C - - - - - 0x01C11F 07:C10F: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01C121 07:C111: C9 0B     CMP #$0B
 C - - - - - 0x01C123 07:C113: D0 03     BNE bra_C118
 C - - - - - 0x01C125 07:C115: 4C A6 C2  JMP loc_C2A6
@@ -195,7 +197,7 @@ C - - - - - 0x01C142 07:C132: 30 14     BMI bra_C148
 bra_C148:
 C - - - - - 0x01C158 07:C148: 24 39     BIT ram_0039
 C - - - - - 0x01C15A 07:C14A: 30 12     BMI bra_C15E
-C - - - - - 0x01C15C 07:C14C: A5 3B     LDA ram_003B
+C - - - - - 0x01C15C 07:C14C: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01C15E 07:C14E: 29 10     AND #$10
 C - - - - - 0x01C160 07:C150: F0 CE     BEQ bra_C120_repeat
 C - - - - - 0x01C162 07:C152: A9 80     LDA #$80
@@ -284,7 +286,7 @@ C - - - - - 0x01C1E8 07:C1D8: A5 6A     LDA ram_006A
 C - - - - - 0x01C1EA 07:C1DA: C9 DF     CMP #$DF
 C - - - - - 0x01C1EC 07:C1DC: 90 14     BCC bra_C1F2
 C - - - - - 0x01C1EE 07:C1DE: A9 20     LDA #$20
-C - - - - - 0x01C1F0 07:C1E0: 85 3B     STA ram_003B
+C - - - - - 0x01C1F0 07:C1E0: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C1F2 07:C1E2: A9 00     LDA #$00
 C - - - - - 0x01C1F4 07:C1E4: 85 2C     STA v_low_counter
 C - - - - - 0x01C1F6 07:C1E6: 20 FF C2  JSR sub_C2FF
@@ -343,7 +345,7 @@ C - - - - - 0x01C251 07:C241: 90 03     BCC bra_C246_skip
 C - - - - - 0x01C253 07:C243: 8D 09 01  STA v_last_level
 bra_C246_skip:
 C - - - - - 0x01C256 07:C246: A9 20     LDA #$20
-C - - - - - 0x01C258 07:C248: 85 3B     STA ram_003B
+C - - - - - 0x01C258 07:C248: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C25A 07:C24A: A9 00     LDA #$00
 C - - - - - 0x01C25C 07:C24C: 85 2C     STA v_low_counter
 C - - - - - 0x01C25E 07:C24E: 20 FF C2  JSR sub_C2FF
@@ -365,7 +367,7 @@ C - - - - - 0x01C280 07:C270: 85 C8     STA ram_00C8
 C - - - - - 0x01C282 07:C272: A9 90     LDA #$90
 C - - - - - 0x01C284 07:C274: 85 26     STA ram_0026
 C - - - - - 0x01C286 07:C276: A9 93     LDA #$93
-C - - - - - 0x01C288 07:C278: 85 3B     STA ram_003B
+C - - - - - 0x01C288 07:C278: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C28A 07:C27A: A9 0F     LDA #$0F
 C - - - - - 0x01C28C 07:C27C: 85 D8     STA ram_00D8
 C - - - - - 0x01C28E 07:C27E: 20 F4 C3  JSR sub_C3F4
@@ -398,7 +400,7 @@ C - - - - - 0x01C2BC 07:C2AC: 20 05 C3  JSR sub_C305
 C - - - - - 0x01C2BF 07:C2AF: 20 13 C3  JSR sub_C313
 C - - - - - 0x01C2C2 07:C2B2: 20 DB B7  JSR $B7DB
 C - - - - - 0x01C2C5 07:C2B5: A9 93     LDA #$93
-C - - - - - 0x01C2C7 07:C2B7: 85 3B     STA ram_003B
+C - - - - - 0x01C2C7 07:C2B7: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C2C9 07:C2B9: 20 F4 C3  JSR sub_C3F4
 C - - - - - 0x01C2CC 07:C2BC: 20 0F C3  JSR sub_C30F
 C - - - - - 0x01C2CF 07:C2BF: 20 FF C2  JSR sub_C2FF
@@ -718,7 +720,7 @@ C - - - - - 0x01C4E7 07:C4D7: 60        RTS
 
 sub_C4D8:
 C - - - - - 0x01C4E8 07:C4D8: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
-C - - - - - 0x01C4EB 07:C4DB: A5 3B     LDA ram_003B
+C - - - - - 0x01C4EB 07:C4DB: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01C4ED 07:C4DD: 6A        ROR
 C - - - - - 0x01C4EE 07:C4DE: 90 23     BCC bra_C503_RTS
 C - - - - - 0x01C4F0 07:C4E0: AD B6 06  LDA ram_06B6
@@ -808,32 +810,32 @@ C - - - - - 0x01C57E 07:C56E: F0 02     BEQ bra_C572 ; Go to the branch If the b
 C - - - - - 0x01C580 07:C570: E6 3D     INC ram_003D
 bra_C572:
 C - - - - - 0x01C582 07:C572: 20 D5 C5  JSR sub_C5D5
-C - - - - - 0x01C585 07:C575: 20 2A BB  JSR $BB2A ; to sub_BB2A_solve_secret_codes (bank 06_2)
+C - - - - - 0x01C585 07:C575: 20 2A BB  JSR sub_BB2A_solve_secret_codes
 C - - - - - 0x01C588 07:C578: A5 2D     LDA v_high_counter
-C - - - - - 0x01C58A 07:C57A: F0 4E     BEQ bra_C5CA_RTS
+C - - - - - 0x01C58A 07:C57A: F0 4E     BEQ bra_C5CA_RTS ; If vHighCounter == 0x00
 C - - - - - 0x01C58C 07:C57C: C9 02     CMP #$02
-C - - - - - 0x01C58E 07:C57E: F0 4A     BEQ bra_C5CA_RTS
+C - - - - - 0x01C58E 07:C57E: F0 4A     BEQ bra_C5CA_RTS ; If vHighCounter == 0x02
 C - - - - - 0x01C590 07:C580: A5 2C     LDA v_low_counter
 C - - - - - 0x01C592 07:C582: C9 E0     CMP #$E0
-C - - - - - 0x01C594 07:C584: 90 44     BCC bra_C5CA_RTS
-C - - - - - 0x01C596 07:C586: F0 43     BEQ bra_C5CB
-C - - - - - 0x01C598 07:C588: A0 00     LDY #$00
+C - - - - - 0x01C594 07:C584: 90 44     BCC bra_C5CA_RTS                     ; If vLowCounter < 0xE0
+C - - - - - 0x01C596 07:C586: F0 43     BEQ bra_C5CB_sounds_of_a_gunshot     ; If vLowCounter == 0xE0
+C - - - - - 0x01C598 07:C588: A0 00     LDY #$00                             ; relative address = 0x9D7B in 0x12-0x13 (1st frame)
 C - - - - - 0x01C59A 07:C58A: C9 E4     CMP #$E4
-C - - - - - 0x01C59C 07:C58C: 90 3C     BCC bra_C5CA_RTS
-C - - - - - 0x01C59E 07:C58E: F0 18     BEQ bra_C5A8
-C - - - - - 0x01C5A0 07:C590: A0 02     LDY #$02
+C - - - - - 0x01C59C 07:C58C: 90 3C     BCC bra_C5CA_RTS                     ; If vLowCounter < 0xE4
+C - - - - - 0x01C59E 07:C58E: F0 18     BEQ bra_C5A8_prepare_for_gunshot     ; If vLowCounter == 0xE4
+C - - - - - 0x01C5A0 07:C590: A0 02     LDY #$02                             ; relative address = 0x9D9B in 0x12-0x13 (2nd frame)
 C - - - - - 0x01C5A2 07:C592: C9 E8     CMP #$E8
-C - - - - - 0x01C5A4 07:C594: F0 12     BEQ bra_C5A8
-C - - - - - 0x01C5A6 07:C596: A0 04     LDY #$04
+C - - - - - 0x01C5A4 07:C594: F0 12     BEQ bra_C5A8_prepare_for_gunshot
+C - - - - - 0x01C5A6 07:C596: A0 04     LDY #$04                             ; relative address = 0x9DBE in 0x12-0x13 (3rd frame)
 C - - - - - 0x01C5A8 07:C598: C9 EC     CMP #$EC
-C - - - - - 0x01C5AA 07:C59A: F0 0C     BEQ bra_C5A8
-C - - - - - 0x01C5AC 07:C59C: A0 06     LDY #$06
+C - - - - - 0x01C5AA 07:C59A: F0 0C     BEQ bra_C5A8_prepare_for_gunshot
+C - - - - - 0x01C5AC 07:C59C: A0 06     LDY #$06                             ; relative address = 0x9DD9 in 0x12-0x13 (4th frame)
 C - - - - - 0x01C5AE 07:C59E: C9 F0     CMP #$F0
-C - - - - - 0x01C5B0 07:C5A0: F0 06     BEQ bra_C5A8
-C - - - - - 0x01C5B2 07:C5A2: A0 08     LDY #$08
+C - - - - - 0x01C5B0 07:C5A0: F0 06     BEQ bra_C5A8_prepare_for_gunshot
+C - - - - - 0x01C5B2 07:C5A2: A0 08     LDY #$08                             ; relative address = 0x9E00 in 0x12-0x13 (5th frame)
 C - - - - - 0x01C5B4 07:C5A4: C9 F4     CMP #$F4
 C - - - - - 0x01C5B6 07:C5A6: D0 22     BNE bra_C5CA_RTS
-bra_C5A8:
+bra_C5A8_prepare_for_gunshot:
 C - - - - - 0x01C5B8 07:C5A8: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01C5BB 07:C5AB: A2 33     LDX #$33
 C - - - - - 0x01C5BD 07:C5AD: A9 00     LDA #$00
@@ -842,22 +844,22 @@ C - - - - - 0x01C5C2 07:C5B2: B9 00 80  LDA MMC3_Bank_select,Y
 C - - - - - 0x01C5C5 07:C5B5: 85 12     STA ram_0012
 C - - - - - 0x01C5C7 07:C5B7: B9 01 80  LDA MMC3_Bank_data,Y
 C - - - - - 0x01C5CA 07:C5BA: 85 13     STA ram_0013
-C - - - - - 0x01C5CC 07:C5BC: A0 00     LDY #$00
-bra_C5BE:
+C - - - - - 0x01C5CC 07:C5BC: A0 00     LDY #$00         ; set loop counter
+bra_C5BE_loop:                                           ; loop by y
 C - - - - - 0x01C5CE 07:C5BE: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01C5D0 07:C5C0: C9 FF     CMP #$FF
 C - - - - - 0x01C5D2 07:C5C2: F0 06     BEQ bra_C5CA_RTS
-C - - - - - 0x01C5D4 07:C5C4: 99 7B 06  STA ram_067B,Y
-C - - - - - 0x01C5D7 07:C5C7: C8        INY
-C - - - - - 0x01C5D8 07:C5C8: D0 F4     BNE bra_C5BE
+C - - - - - 0x01C5D4 07:C5C4: 99 7B 06  STA vPpuAddrDataCache,Y
+C - - - - - 0x01C5D7 07:C5C7: C8        INY              ; increments y
+C - - - - - 0x01C5D8 07:C5C8: D0 F4     BNE bra_C5BE_loop
 bra_C5CA_RTS:
 C - - - - - 0x01C5DA 07:C5CA: 60        RTS
 
-bra_C5CB:
-C - - - - - 0x01C5DB 07:C5CB: A9 51     LDA #$51
-C - - - - - 0x01C5DD 07:C5CD: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01C5E0 07:C5D0: A9 52     LDA #$52
-C - - - - - 0x01C5E2 07:C5D2: 4C 20 C4  JMP loc_C420_add_sound_effect
+bra_C5CB_sounds_of_a_gunshot:
+C - - - - - 0x01C5DB 07:C5CB: A9 51     LDA #$51                      ; sound of a gunshot #1
+C - - - - - 0x01C5DD 07:C5CD: 20 20 C4  JSR sub_C420_add_sound_effect ;
+C - - - - - 0x01C5E0 07:C5D0: A9 52     LDA #$52                      ; sound of a gunshot #2
+C - - - - - 0x01C5E2 07:C5D2: 4C 20 C4  JMP loc_C420_add_sound_effect ;
 
 sub_C5D5:
 C - - - - - 0x01C5E5 07:C5D5: AD 09 01  LDA v_last_level
@@ -999,7 +1001,7 @@ bra_C6AD:
 C - - - - - 0x01C6BD 07:C6AD: 86 AD     STX ram_00AD
 C - - - - - 0x01C6BF 07:C6AF: 20 53 C8  JSR sub_C853
 C - - - - - 0x01C6C2 07:C6B2: A9 10     LDA #$10
-C - - - - - 0x01C6C4 07:C6B4: 85 3B     STA ram_003B
+C - - - - - 0x01C6C4 07:C6B4: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C6C6 07:C6B6: 20 1E C5  JSR sub_C51E
 bra_C6B9:
 C - - - - - 0x01C6C9 07:C6B9: A5 3D     LDA ram_003D
@@ -1022,7 +1024,7 @@ C - - - - - 0x01C6E4 07:C6D4: A9 32     LDA #$32
 C - - - - - 0x01C6E6 07:C6D6: E8        INX
 bra_C6D7:
 C - - - - - 0x01C6E7 07:C6D7: 8D B6 06  STA ram_06B6
-C - - - - - 0x01C6EA 07:C6DA: 86 3B     STX ram_003B
+C - - - - - 0x01C6EA 07:C6DA: 86 3B     STX vSharedGameStatus
 C - - - - - 0x01C6EC 07:C6DC: 60        RTS
 
 sub_C6DD:
@@ -1319,9 +1321,9 @@ C - - - - - 0x01C8C0 07:C8B0: 24 38     BIT ram_0038
 C - - - - - 0x01C8C2 07:C8B2: 70 12     BVS bra_C8C6
 C - - - - - 0x01C8C4 07:C8B4: A9 40     LDA #$40
 C - - - - - 0x01C8C6 07:C8B6: 85 38     STA ram_0038
-C - - - - - 0x01C8C8 07:C8B8: A5 3B     LDA ram_003B
+C - - - - - 0x01C8C8 07:C8B8: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01C8CA 07:C8BA: 09 40     ORA #$40
-C - - - - - 0x01C8CC 07:C8BC: 85 3B     STA ram_003B
+C - - - - - 0x01C8CC 07:C8BC: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C8CE 07:C8BE: 20 02 C4  JSR sub_C402_clear_sound_parts
 C - - - - - 0x01C8D1 07:C8C1: A9 0E     LDA #$0E
 C - - - - - 0x01C8D3 07:C8C3: 4C 20 C4  JMP loc_C420_add_sound_effect
@@ -1329,9 +1331,9 @@ C - - - - - 0x01C8D3 07:C8C3: 4C 20 C4  JMP loc_C420_add_sound_effect
 bra_C8C6:
 C - - - - - 0x01C8D6 07:C8C6: A9 00     LDA #$00
 C - - - - - 0x01C8D8 07:C8C8: 85 38     STA ram_0038
-C - - - - - 0x01C8DA 07:C8CA: A5 3B     LDA ram_003B
+C - - - - - 0x01C8DA 07:C8CA: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01C8DC 07:C8CC: 29 BF     AND #$BF
-C - - - - - 0x01C8DE 07:C8CE: 85 3B     STA ram_003B
+C - - - - - 0x01C8DE 07:C8CE: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C8E0 07:C8D0: 4C A4 BB  JMP $BBA4 ; to loc_BBA4 (bank 06_2)
 
 bra_C8D3_RTS:
@@ -1499,7 +1501,7 @@ C - - - - - 0x01C9C2 07:C9B2: 60        RTS
 sub_C9B3:
 C - - - - - 0x01C9C3 07:C9B3: A5 19     LDA ram_0019
 C - - - - - 0x01C9C5 07:C9B5: D0 FB     BNE bra_C9B2_RTS
-C - - - - - 0x01C9C7 07:C9B7: A5 3B     LDA ram_003B
+C - - - - - 0x01C9C7 07:C9B7: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01C9C9 07:C9B9: 6A        ROR
 C - - - - - 0x01C9CA 07:C9BA: B0 F6     BCS bra_C9B2_RTS
 C - - - - - 0x01C9CC 07:C9BC: A5 2C     LDA v_low_counter
@@ -1776,7 +1778,7 @@ bra_CB37_RTS:
 C - - - - - 0x01CB47 07:CB37: 60        RTS
 
 sub_CB38:
-C - - - - - 0x01CB48 07:CB38: A5 3B     LDA ram_003B
+C - - - - - 0x01CB48 07:CB38: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01CB4A 07:CB3A: 6A        ROR
 C - - - - - 0x01CB4B 07:CB3B: B0 FA     BCS bra_CB37_RTS
 C - - - - - 0x01CB4D 07:CB3D: 24 6D     BIT ram_006D
@@ -1945,7 +1947,7 @@ tbl_CC46:
 - - - - - - 0x01CC66 07:CC56: 11        .byte $11   ; 
 - - - - - - 0x01CC67 07:CC57: CD        .byte $CD   ; 
 C - - J - - 0x01CC68 07:CC58: A9 10     LDA #$10
-C - - - - - 0x01CC6A 07:CC5A: 85 3B     STA ram_003B
+C - - - - - 0x01CC6A 07:CC5A: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01CC6C 07:CC5C: 20 F3 CD  JSR sub_CDF3
 C - - - - - 0x01CC6F 07:CC5F: A9 11     LDA #$11
 C - - - - - 0x01CC71 07:CC61: 20 20 C4  JSR sub_C420_add_sound_effect
@@ -2205,7 +2207,7 @@ C - - - - - 0x01CE22 07:CE12: 60        RTS
 
 sub_CE13:
 C - - - - - 0x01CE23 07:CE13: A2 27     LDX #$27
-C - - - - - 0x01CE25 07:CE15: A5 3B     LDA ram_003B
+C - - - - - 0x01CE25 07:CE15: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01CE27 07:CE17: 6A        ROR
 C - - - - - 0x01CE28 07:CE18: 90 02     BCC bra_CE1C
 C - - - - - 0x01CE2A 07:CE1A: A2 37     LDX #$37
@@ -2795,38 +2797,38 @@ C - - - - - 0x01D169 07:D159: A5 2C     LDA v_low_counter
 C - - - - - 0x01D16B 07:D15B: 6A        ROR
 C - - - - - 0x01D16C 07:D15C: B0 0B     BCS bra_D169_skip
 bra_D15E:
-C - - - - - 0x01D16E 07:D15E: A5 3B     LDA ram_003B
+C - - - - - 0x01D16E 07:D15E: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01D170 07:D160: 6A        ROR
-C - - - - - 0x01D171 07:D161: 90 03     BCC bra_D166_skip
-C - - - - - 0x01D173 07:D163: 4C 55 B2  JMP $B255 ; to loc_B255 (bank 06_2)
+C - - - - - 0x01D171 07:D161: 90 03     BCC bra_D166_skip ; If vSharedGameStatus was 0bXXXXXXX0
+C - - - - - 0x01D173 07:D163: 4C 55 B2  JMP loc_B255_display_message_by_letter
 
 bra_D166_skip:
 C - - - - - 0x01D176 07:D166: 4C 71 C3  JMP loc_C371_update_palette
 
 bra_D169_skip:
-C - - - - - 0x01D179 07:D169: AD 7B 06  LDA ram_067B
+C - - - - - 0x01D179 07:D169: AD 7B 06  LDA vPpuAddrDataCache
 C - - - - - 0x01D17C 07:D16C: F0 F0     BEQ bra_D15E
-C - - - - - 0x01D17E 07:D16E: A2 00     LDX #$00
+C - - - - - 0x01D17E 07:D16E: A2 00     LDX #$00        ; 1 of N
 bra_D170:
-C - - - - - 0x01D180 07:D170: BD 7B 06  LDA ram_067B,X
+C - - - - - 0x01D180 07:D170: BD 7B 06  LDA vPpuAddrDataCache,X
 C - - - - - 0x01D183 07:D173: F0 1C     BEQ bra_D191
 C - - - - - 0x01D185 07:D175: A8        TAY
-C - - - - - 0x01D186 07:D176: E8        INX
-C - - - - - 0x01D187 07:D177: BD 7B 06  LDA ram_067B,X
+C - - - - - 0x01D186 07:D176: E8        INX             ; 2 of N
+C - - - - - 0x01D187 07:D177: BD 7B 06  LDA vPpuAddrDataCache,X
 C - - - - - 0x01D18A 07:D17A: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01D18D 07:D17D: E8        INX
-C - - - - - 0x01D18E 07:D17E: BD 7B 06  LDA ram_067B,X
+C - - - - - 0x01D18D 07:D17D: E8        INX             ; 3 of N
+C - - - - - 0x01D18E 07:D17E: BD 7B 06  LDA vPpuAddrDataCache,X
 C - - - - - 0x01D191 07:D181: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01D194 07:D184: E8        INX
+C - - - - - 0x01D194 07:D184: E8        INX             ; 4 of N
 bra_D185:
-C - - - - - 0x01D195 07:D185: BD 7B 06  LDA ram_067B,X
+C - - - - - 0x01D195 07:D185: BD 7B 06  LDA vPpuAddrDataCache,X
 C - - - - - 0x01D198 07:D188: 8D 07 20  STA PPU_DATA
 C - - - - - 0x01D19B 07:D18B: E8        INX
 C - - - - - 0x01D19C 07:D18C: 88        DEY
 C - - - - - 0x01D19D 07:D18D: D0 F6     BNE bra_D185
 C - - - - - 0x01D19F 07:D18F: F0 DF     BEQ bra_D170
 bra_D191:
-C - - - - - 0x01D1A1 07:D191: 8D 7B 06  STA ram_067B
+C - - - - - 0x01D1A1 07:D191: 8D 7B 06  STA vPpuAddrDataCache
 C - - - - - 0x01D1A4 07:D194: 60        RTS
 
 sub_D195:
@@ -3362,7 +3364,7 @@ C - - - - - 0x01D4F4 07:D4E4: C9 12     CMP #$12
 C - - - - - 0x01D4F6 07:D4E6: D0 03     BNE bra_D4EB
 C - - - - - 0x01D4F8 07:D4E8: 20 8C B1  JSR $B18C
 bra_D4EB:
-C - - - - - 0x01D4FB 07:D4EB: A5 3B     LDA ram_003B
+C - - - - - 0x01D4FB 07:D4EB: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01D4FD 07:D4ED: 6A        ROR
 C - - - - - 0x01D4FE 07:D4EE: 90 03     BCC bra_D4F3
 C - - - - - 0x01D500 07:D4F0: 20 FB D4  JSR sub_D4FB
@@ -7435,7 +7437,7 @@ C - - - - - 0x01ED80 07:ED70: A9 00     LDA #$00
 C - - - - - 0x01ED82 07:ED72: 8D 05 20  STA PPU_SCROLL ; write X scroll-position
 C - - - - - 0x01ED85 07:ED75: 8D 05 20  STA PPU_SCROLL ; write Y scroll-position
 C - - - - - 0x01ED88 07:ED78: 20 D8 C4  JSR sub_C4D8
-C - - - - - 0x01ED8B 07:ED7B: A5 3B     LDA ram_003B
+C - - - - - 0x01ED8B 07:ED7B: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01ED8D 07:ED7D: 10 03     BPL bra_ED82
 C - - - - - 0x01ED8F 07:ED7F: 4C 34 EE  JMP loc_EE34
 
@@ -7457,20 +7459,20 @@ C - - - - - 0x01EDA9 07:ED99: 20 C6 C3  JSR sub_C3C6
 C - - - - - 0x01EDAC 07:ED9C: A5 19     LDA ram_0019
 C - - - - - 0x01EDAE 07:ED9E: D0 68     BNE bra_EE08
 C - - - - - 0x01EDB0 07:EDA0: E6 19     INC ram_0019
-C - - - - - 0x01EDB2 07:EDA2: 24 3B     BIT ram_003B
+C - - - - - 0x01EDB2 07:EDA2: 24 3B     BIT vSharedGameStatus
 C - - - - - 0x01EDB4 07:EDA4: 70 35     BVS bra_EDDB
-C - - - - - 0x01EDB6 07:EDA6: A5 3B     LDA ram_003B
+C - - - - - 0x01EDB6 07:EDA6: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01EDB8 07:EDA8: 29 20     AND #$20
 C - - - - - 0x01EDBA 07:EDAA: D0 69     BNE bra_EE15
 C - - - - - 0x01EDBC 07:EDAC: 20 58 C3  JSR sub_C358_clear_OAM
 C - - - - - 0x01EDBF 07:EDAF: 20 13 CE  JSR sub_CE13
 C - - - - - 0x01EDC2 07:EDB2: 20 F4 DA  JSR sub_DAF4
-C - - - - - 0x01EDC5 07:EDB5: A5 3B     LDA ram_003B
+C - - - - - 0x01EDC5 07:EDB5: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01EDC7 07:EDB7: C9 0B     CMP #$0B
 C - - - - - 0x01EDC9 07:EDB9: F0 54     BEQ bra_EE0F
 C - - - - - 0x01EDCB 07:EDBB: 20 A9 F0  JSR sub_F0A9
 C - - - - - 0x01EDCE 07:EDBE: 20 53 EE  JSR sub_EE53
-C - - - - - 0x01EDD1 07:EDC1: A5 3B     LDA ram_003B
+C - - - - - 0x01EDD1 07:EDC1: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01EDD3 07:EDC3: 6A        ROR
 C - - - - - 0x01EDD4 07:EDC4: B0 55     BCS bra_EE1B
 C - - - - - 0x01EDD6 07:EDC6: 20 9A B0  JSR $B09A ; to sub_B09A bank 06_2
@@ -7535,9 +7537,9 @@ C - - - - - 0x01EE41 07:EE31: 4C E7 ED  JMP loc_EDE7
 
 loc_EE34:
 C D 3 - - - 0x01EE44 07:EE34: 20 58 C3  JSR sub_C358_clear_OAM
-C - - - - - 0x01EE47 07:EE37: A5 3B     LDA ram_003B
-C - - - - - 0x01EE49 07:EE39: C9 91     CMP #$91
-C - - - - - 0x01EE4B 07:EE3B: F0 10     BEQ bra_EE4D
+C - - - - - 0x01EE47 07:EE37: A5 3B     LDA vSharedGameStatus ;
+C - - - - - 0x01EE49 07:EE39: C9 91     CMP #$91              ; CONSTANT - First cutscene with the message
+C - - - - - 0x01EE4B 07:EE3B: F0 10     BEQ bra_EE4D          ; If Register A == 0x91
 C - - - - - 0x01EE4D 07:EE3D: C9 93     CMP #$93
 C - - - - - 0x01EE4F 07:EE3F: F0 CE     BEQ bra_EE0F
 C - - - - - 0x01EE51 07:EE41: 20 69 C5  JSR sub_C569
@@ -9339,7 +9341,7 @@ C - - - - - 0x01FACF 07:FABF: 60        RTS
 sub_FAC0:
 C - - - - - 0x01FAD0 07:FAC0: A9 00     LDA #$00
 C - - - - - 0x01FAD2 07:FAC2: 85 41     STA v_npc_message_status
-C - - - - - 0x01FAD4 07:FAC4: 85 3B     STA ram_003B
+C - - - - - 0x01FAD4 07:FAC4: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01FAD6 07:FAC6: 85 C8     STA ram_00C8
 C - - - - - 0x01FAD8 07:FAC8: 85 38     STA ram_0038
 C - - - - - 0x01FADA 07:FACA: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
@@ -9383,9 +9385,9 @@ C - - - - - 0x01FB1A 07:FB0A: 85 46     STA ram_0046
 C - - - - - 0x01FB1C 07:FB0C: B9 2F FB  LDA tbl_FB2F,Y
 C - - - - - 0x01FB1F 07:FB0F: 85 B7     STA ram_00B7
 C - - - - - 0x01FB21 07:FB11: 20 C7 C6  JSR sub_C6C7
-C - - - - - 0x01FB24 07:FB14: A5 3B     LDA ram_003B
+C - - - - - 0x01FB24 07:FB14: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01FB26 07:FB16: 09 02     ORA #$02
-C - - - - - 0x01FB28 07:FB18: 85 3B     STA ram_003B
+C - - - - - 0x01FB28 07:FB18: 85 3B     STA vSharedGameStatus
 loc_FB1A:
 C D 3 - - - 0x01FB2A 07:FB1A: A9 40     LDA #$40
 C - - - - - 0x01FB2C 07:FB1C: 85 41     STA v_npc_message_status
@@ -9395,7 +9397,7 @@ bra_FB1F:
 C - - - - - 0x01FB2F 07:FB1F: A9 32     LDA #$32
 C - - - - - 0x01FB31 07:FB21: 8D B6 06  STA ram_06B6
 C - - - - - 0x01FB34 07:FB24: A9 0B     LDA #$0B
-C - - - - - 0x01FB36 07:FB26: 85 3B     STA ram_003B
+C - - - - - 0x01FB36 07:FB26: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01FB38 07:FB28: A9 00     LDA #$00
 C - - - - - 0x01FB3A 07:FB2A: 85 D8     STA ram_00D8
 C - - - - - 0x01FB3C 07:FB2C: 4C 1A FB  JMP loc_FB1A
@@ -9574,7 +9576,7 @@ C - - - - - 0x01FC4C 07:FC3C: 18        CLC
 C - - - - - 0x01FC4D 07:FC3D: 60        RTS
 
 sub_FC3E:
-C - - - - - 0x01FC4E 07:FC3E: A5 3B     LDA ram_003B
+C - - - - - 0x01FC4E 07:FC3E: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01FC50 07:FC40: 29 02     AND #$02
 C - - - - - 0x01FC52 07:FC42: 60        RTS
 

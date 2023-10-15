@@ -76,6 +76,17 @@ vGameMode                     = ram_0037
 ; 0xFF - Starting cutscenes
 
 v_resists                     = ram_003A ; TODO: !!!, 0x80 - The enemies don't damage
+vSharedGameStatus             = ram_003B
+; Value (some the flags):
+; 0x00 - In then game
+; 0x01 - A screen with the message
+; 0x03 - A screen with the message after boss
+; 0x10 - Select the character
+; 0x40 - Pause in the game
+; 0x41 - Pause in the game (a screen with the message)
+; 0x80 - Main menu
+; 0x91 - First cutscene
+
 
 vStartStatus                  = ram_003D
 ; 0x00 - The starting cutscene, before typing the message
@@ -322,6 +333,7 @@ vMessageInProgress            = ram_00C8
 ; 0x00 - no message
 ; 0x80 - the message is typing
 
+vMessageCounter               = ram_00CA
 v_low_vram_msg_address        = ram_00CB
 v_hign_vram_msg_address       = ram_00CC
 v_low_msg_ppu_address         = ram_00CF ; This temporary address for the message on the screen
@@ -435,6 +447,7 @@ vCachePalette                 = ram_0600
 v_low_ppu_address             = ram_0630
 v_high_ppu_address            = ram_0631
 v_ppu_buffer_count            = ram_0632
+vPpuAddrDataCache             = ram_067B
 vCacheChrBankSelect           = ram_06AF ; [ram_06AF - ram_06B4]
 vBankData                     = ram_06B5
 v_sprite_magics               = ram_06B7

@@ -10,3 +10,4 @@ $002D#vHighCounter#
 $0024#vMenuDemoIndex#
 $0033#vMenuCounter#
 $0034#vMenuCounterTimes#
+$003B#vSharedGameStatus#

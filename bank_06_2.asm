@@ -26,6 +26,8 @@
 
 .export loc_B234_get_vram_msg_address
 .export sub_B234_get_vram_msg_address
+.export loc_B255_display_message_by_letter
+.export sub_BB2A_solve_secret_codes
 
 tbl_A000:
 - D 1 - - - 0x01A010 06:A000: 00        .byte $00   ; 
@@ -2811,22 +2813,22 @@ C - - - - - 0x01B250 06:B240: B9 01 80  LDA tbl_messages + 1,Y ; Load messages (
 C - - - - - 0x01B253 06:B243: 29 1F     AND #$1F
 C - - - - - 0x01B255 06:B245: 85 CC     STA v_hign_vram_msg_address ; Store a high address
 C - - - - - 0x01B257 06:B247: A9 80     LDA #$80               ; CONSTANT - the message is typing
-C - - - - - 0x01B259 06:B249: 85 C8     STA vMessageInProgress
-C - - - - - 0x01B25B 06:B24B: A9 00     LDA #$00
-C - - - - - 0x01B25D 06:B24D: 85 CA     STA ram_00CA
-C - - - - - 0x01B25F 06:B24F: 85 C9     STA v_letter_offset ; in 0
+C - - - - - 0x01B259 06:B249: 85 C8     STA vMessageInProgress ;
+C - - - - - 0x01B25B 06:B24B: A9 00     LDA #$00               ;
+C - - - - - 0x01B25D 06:B24D: 85 CA     STA vMessageCounter    ; resets the counter
+C - - - - - 0x01B25F 06:B24F: 85 C9     STA v_letter_offset    ; in 0
 C - - - - - 0x01B261 06:B251: 60        RTS
 
 bra_B252_return:
 C - - - - - 0x01B262 06:B252: 4C 71 C3  JMP loc_C371_update_palette
 
-loc_B255: ; from bank FF 
-C D 1 - - - 0x01B265 06:B255: A5 C8     LDA ram_00C8
-C - - - - - 0x01B267 06:B257: F0 F9     BEQ bra_B252_return
-C - - - - - 0x01B269 06:B259: E6 CA     INC ram_00CA
-C - - - - - 0x01B26B 06:B25B: A5 CA     LDA ram_00CA
-C - - - - - 0x01B26D 06:B25D: 29 03     AND #$03
-C - - - - - 0x01B26F 06:B25F: D0 F1     BNE bra_B252_return
+loc_B255_display_message_by_letter:
+C D 1 - - - 0x01B265 06:B255: A5 C8     LDA vMessageInProgress ;
+C - - - - - 0x01B267 06:B257: F0 F9     BEQ bra_B252_return    ; If vMessageInProgress == 0x00
+C - - - - - 0x01B269 06:B259: E6 CA     INC vMessageCounter    ; increments vMessageCounter
+C - - - - - 0x01B26B 06:B25B: A5 CA     LDA vMessageCounter    ;
+C - - - - - 0x01B26D 06:B25D: 29 03     AND #$03               ; set the frequency of displaying the letter
+C - - - - - 0x01B26F 06:B25F: D0 F1     BNE bra_B252_return    ; If Register A == 0x00
 C - - - - - 0x01B271 06:B261: 20 BE B2  JSR sub_B2BE_switch_messages_ppu_banks
 C - - - - - 0x01B274 06:B264: A4 C9     LDY v_letter_offset
 C - - - - - 0x01B276 06:B266: 20 DB B2  JSR sub_B2DB_prepare_letter_address
@@ -2851,18 +2853,20 @@ C - - - - - 0x01B296 06:B286: A9 00     LDA #$00               ; CONSTANT - the 
 C - - - - - 0x01B298 06:B288: 85 C8     STA vMessageInProgress ;
 C - - - - - 0x01B29A 06:B28A: 60        RTS
 
+; Params:
+; Register A - tile (a number)
 bra_B28B_skip:
 C - - - - - 0x01B29B 06:B28B: E6 C9     INC v_letter_offset
-C - - - - - 0x01B29D 06:B28D: D0 02     BNE bra_B291_skip
+C - - - - - 0x01B29D 06:B28D: D0 02     BNE @bra_B291_skip
 - - - - - - 0x01B29F 06:B28F: E6        .byte $E6   ; 
 - - - - - - 0x01B2A0 06:B290: C8        .byte $C8   ; 
-bra_B291_skip:
+@bra_B291_skip:
 C - - - - - 0x01B2A1 06:B291: A2 00     LDX #$00
 C - - - - - 0x01B2A3 06:B293: C9 80     CMP #$80
-C - - - - - 0x01B2A5 06:B295: 90 0A     BCC bra_B2A1_skip
+C - - - - - 0x01B2A5 06:B295: 90 0A     BCC bra_B2A1_skip ; If Register A >= 0x80
 C - - - - - 0x01B2A7 06:B297: A2 7E     LDX #$7E
 C - - - - - 0x01B2A9 06:B299: C9 C0     CMP #$C0
-C - - - - - 0x01B2AB 06:B29B: 90 02     BCC bra_B29F_skip
+C - - - - - 0x01B2AB 06:B29B: 90 02     BCC bra_B29F_skip ; If Register A >= 0xC0
 C - - - - - 0x01B2AD 06:B29D: A2 7F     LDX #$7F
 bra_B29F_skip:
 C - - - - - 0x01B2AF 06:B29F: 29 3F     AND #$3F
@@ -3833,7 +3837,7 @@ C - - - - - 0x01B947 06:B937: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B94A 06:B93A: A2 99     LDX #$99
 C - - - - - 0x01B94C 06:B93C: 20 1C C9  JSR $C91C ; to sub_C91C (bank_FF)
 C - - - - - 0x01B94F 06:B93F: A9 80     LDA #$80
-C - - - - - 0x01B951 06:B941: 85 3B     STA ram_003B
+C - - - - - 0x01B951 06:B941: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01B953 06:B943: A9 00     LDA #$00
 C - - - - - 0x01B955 06:B945: 85 B1     STA v_start_level            ; clear
 C - - - - - 0x01B957 06:B947: 85 B2     STA v_count_secret_hits      ; clear
@@ -3895,7 +3899,7 @@ C - - - - - 0x01B9BD 06:B9AD: A9 FC     LDA #$FC
 C - - - - - 0x01B9BF 06:B9AF: 85 D4     STA ram_00D4
 C - - - - - 0x01B9C1 06:B9B1: 20 04 C9  JSR $C904 ; to sub_C904 (bank_FF)
 C - - - - - 0x01B9C4 06:B9B4: A9 10     LDA #$10
-C - - - - - 0x01B9C6 06:B9B6: 85 3B     STA ram_003B
+C - - - - - 0x01B9C6 06:B9B6: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01B9C8 06:B9B8: 60        RTS
 
 tbl_B9B9:
@@ -3995,7 +3999,7 @@ C - - - - - 0x01BA65 06:BA55: 85 13     STA ram_0013
 C - - - - - 0x01BA67 06:BA57: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01BA6A 06:BA5A: 20 CB BA  JSR sub_BACB
 C - - - - - 0x01BA6D 06:BA5D: A9 91     LDA #$91
-C - - - - - 0x01BA6F 06:BA5F: 85 3B     STA ram_003B
+C - - - - - 0x01BA6F 06:BA5F: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01BA71 06:BA61: A9 00     LDA #$00
 C - - - - - 0x01BA73 06:BA63: 8D 31 06  STA ram_0631       ; clear
 C - - - - - 0x01BA76 06:BA66: 8D 7B 06  STA ram_067B       ; clear
@@ -4117,7 +4121,7 @@ C - - - - - 0x01BB37 06:BB27: C6 04     DEC ram_0004
 bra_BB29_RTS:
 C - - - - - 0x01BB39 06:BB29: 60        RTS
 
-sub_BB2A_solve_secret_codes: ; from bank FF
+sub_BB2A_solve_secret_codes:
 C - - - - - 0x01BB3A 06:BB2A: 2C F6 FF  BIT Set_features
 C - - - - - 0x01BB3D 06:BB2D: 50 62     BVC bra_BB91_RTS
 C - - - - - 0x01BB3F 06:BB2F: A5 B1     LDA v_start_level
@@ -4240,7 +4244,7 @@ C - - - - - 0x01BBF7 06:BBE7: A5 B6     LDA ram_00B6
 C - - - - - 0x01BBF9 06:BBE9: 29 03     AND #$03
 C - - - - - 0x01BBFB 06:BBEB: C9 03     CMP #$03
 C - - - - - 0x01BBFD 06:BBED: D0 08     BNE bra_BBF7
-C - - - - - 0x01BBFF 06:BBEF: A5 3B     LDA ram_003B
+C - - - - - 0x01BBFF 06:BBEF: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01BC01 06:BBF1: 29 01     AND #$01
 C - - - - - 0x01BC03 06:BBF3: D0 02     BNE bra_BBF7
 C - - - - - 0x01BC05 06:BBF5: A0 06     LDY #$06
