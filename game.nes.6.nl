@@ -1,9 +1,10 @@
 $8000#MMC3_Bank_select#
 $8001#MMC3_Bank_data#
 $AD80#activate_sound_manager#
-$B255#display_message_by_letter#
-$B257##commented
-$B25F##commented
-$B25B##commented
-$B25D##commented
-$B259##commented
+$B978##commented
+$B97A##commented
+$B97C##commented
+$B97E##commented
+$B9C9#start_demo#
+$B980##commented
+$B982##commented

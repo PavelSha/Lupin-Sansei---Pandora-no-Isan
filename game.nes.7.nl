@@ -153,3 +153,6 @@ $C891##;
 $EE39##CONSTANT - First cutscene with the message
 $EE3B##If Register A == 0x91
 $C5CB#sounds_of_a_gunshot#
+$D07F##to RTS
+$C2FF#update_ppu_ctrl_with_nmi#
+$C305#update_ppu_ctrl_with_no_nmi#

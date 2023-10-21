@@ -15,6 +15,7 @@
 .import loc_B255_display_message_by_letter ; bank 06 (Page 2)
 .import sub_BB2A_solve_secret_codes ; bank 06 (Page 2)
 
+.export sub_C305_update_ppu_ctrl_with_no_nmi
 .export sub_C31D_clear_ppu
 .export sub_C358_clear_OAM
 .export loc_C371_update_palette
@@ -32,10 +33,10 @@
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI ; disable interrupts
 C - - - - - 0x01C011 07:C001: D8        CLD ; disable decimal mode (NES chip 2A03 doesn't use decimal mode)
-C - - - - - 0x01C012 07:C002: A9 00     LDA #$00
-C - - - - - 0x01C014 07:C004: 8D 00 20  STA PPU_CTRL
-C - - - - - 0x01C017 07:C007: 8D 01 20  STA PPU_MASK
-C - - - - - 0x01C01A 07:C00A: 85 26     STA ram_0026
+C - - - - - 0x01C012 07:C002: A9 00     LDA #$00             ;
+C - - - - - 0x01C014 07:C004: 8D 00 20  STA PPU_CTRL         ; clear ppu 
+C - - - - - 0x01C017 07:C007: 8D 01 20  STA PPU_MASK         ; clear ppu 
+C - - - - - 0x01C01A 07:C00A: 85 26     STA vPpuCtrlSettings ; clear ppu
 @bra_C00C_wait_til_vblank:
 C - - - - - 0x01C01C 07:C00C: AD 02 20  LDA PPU_STATUS ; wait for vblank (1 time)
 C - - - - - 0x01C01F 07:C00F: 10 FB     BPL @bra_C00C_wait_til_vblank
@@ -141,7 +142,7 @@ C - - - - - 0x01C0E2 07:C0D2: 85 27     STA ram_0027
 C - - - - - 0x01C0E4 07:C0D4: 68        PLA
 C - - - - - 0x01C0E5 07:C0D5: 29 01     AND #$01
 C - - - - - 0x01C0E7 07:C0D7: 09 08     ORA #$08
-C - - - - - 0x01C0E9 07:C0D9: 85 26     STA ram_0026
+C - - - - - 0x01C0E9 07:C0D9: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01C0EB 07:C0DB: A9 00     LDA #$00
 C - - - - - 0x01C0ED 07:C0DD: 85 39     STA ram_0039
 C - - - - - 0x01C0EF 07:C0DF: 8D 31 06  STA ram_0631
@@ -161,7 +162,7 @@ C - - - - - 0x01C112 07:C102: 20 14 FC  JSR sub_FC14
 C - - - - - 0x01C115 07:C105: A9 00     LDA #$00
 C - - - - - 0x01C117 07:C107: 85 3C     STA ram_003C
 C - - - - - 0x01C119 07:C109: 20 0F C3  JSR sub_C30F
-C - - - - - 0x01C11C 07:C10C: 20 FF C2  JSR sub_C2FF
+C - - - - - 0x01C11C 07:C10C: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 C - - - - - 0x01C11F 07:C10F: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01C121 07:C111: C9 0B     CMP #$0B
 C - - - - - 0x01C123 07:C113: D0 03     BNE bra_C118
@@ -208,7 +209,7 @@ C - - - - - 0x01C16B 07:C15B: 4C B7 C0  JMP loc_C0B7
 
 bra_C15E:
 C - - - - - 0x01C16E 07:C15E: 50 6E     BVC bra_C1CE
-C - - - - - 0x01C170 07:C160: 20 05 C3  JSR sub_C305
+C - - - - - 0x01C170 07:C160: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C173 07:C163: 20 13 C3  JSR sub_C313
 C - - - - - 0x01C176 07:C166: A5 39     LDA ram_0039
 C - - - - - 0x01C178 07:C168: C9 E0     CMP #$E0
@@ -239,7 +240,7 @@ C - - - - - 0x01C1A1 07:C191: 4C B1 C1  JMP loc_C1B1
 
 ; Only for test mode
 loc_C194:
-- - - - - - 0x01C1A4 07:C194: 20 05 C3  JSR sub_C305
+- - - - - - 0x01C1A4 07:C194: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 - - - - - - 0x01C1A7 07:C197: 20 13 C3  JSR sub_C313
 - - - - - - 0x01C1AA 07:C19A: A2 00     LDX #$00
 - - - - - - 0x01C1AC 07:C19C: A5 C4     LDA ram_00C4
@@ -281,7 +282,7 @@ C - - - - - 0x01C1E0 07:C1D0: 10 03     BPL bra_C1D5 ; Branch If in game
 C - - - - - 0x01C1E2 07:C1D2: 4C 8D C2  JMP loc_C28D
 
 bra_C1D5:
-C - - - - - 0x01C1E5 07:C1D5: 20 05 C3  JSR sub_C305
+C - - - - - 0x01C1E5 07:C1D5: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C1E8 07:C1D8: A5 6A     LDA ram_006A
 C - - - - - 0x01C1EA 07:C1DA: C9 DF     CMP #$DF
 C - - - - - 0x01C1EC 07:C1DC: 90 14     BCC bra_C1F2
@@ -289,12 +290,12 @@ C - - - - - 0x01C1EE 07:C1DE: A9 20     LDA #$20
 C - - - - - 0x01C1F0 07:C1E0: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C1F2 07:C1E2: A9 00     LDA #$00
 C - - - - - 0x01C1F4 07:C1E4: 85 2C     STA v_low_counter
-C - - - - - 0x01C1F6 07:C1E6: 20 FF C2  JSR sub_C2FF
+C - - - - - 0x01C1F6 07:C1E6: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 bra_C1E9:
 C - - - - - 0x01C1F9 07:C1E9: A5 2C     LDA v_low_counter
 C - - - - - 0x01C1FB 07:C1EB: C9 40     CMP #$40
 C - - - - - 0x01C1FD 07:C1ED: 90 FA     BCC bra_C1E9
-C - - - - - 0x01C1FF 07:C1EF: 20 05 C3  JSR sub_C305
+C - - - - - 0x01C1FF 07:C1EF: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 bra_C1F2:
 C - - - - - 0x01C202 07:C1F2: A9 40     LDA #$40
 C - - - - - 0x01C204 07:C1F4: 85 D6     STA ram_00D6
@@ -348,7 +349,7 @@ C - - - - - 0x01C256 07:C246: A9 20     LDA #$20
 C - - - - - 0x01C258 07:C248: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C25A 07:C24A: A9 00     LDA #$00
 C - - - - - 0x01C25C 07:C24C: 85 2C     STA v_low_counter
-C - - - - - 0x01C25E 07:C24E: 20 FF C2  JSR sub_C2FF
+C - - - - - 0x01C25E 07:C24E: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 bra_C251:
 C - - - - - 0x01C261 07:C251: A5 2C     LDA v_low_counter
 C - - - - - 0x01C263 07:C253: C9 40     CMP #$40
@@ -356,7 +357,7 @@ C - - - - - 0x01C265 07:C255: 90 FA     BCC bra_C251
 C - - - - - 0x01C267 07:C257: A9 06     LDA #$06
 C - - - - - 0x01C269 07:C259: 85 24     STA vMenuDemoIndex
 C - - - - - 0x01C26B 07:C25B: 20 13 C3  JSR sub_C313
-C - - - - - 0x01C26E 07:C25E: 20 05 C3  JSR sub_C305
+C - - - - - 0x01C26E 07:C25E: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C271 07:C261: 20 0D B8  JSR $B80D
 C - - - - - 0x01C274 07:C264: A9 00     LDA #$00
 C - - - - - 0x01C276 07:C266: 85 27     STA ram_0027
@@ -365,21 +366,21 @@ C - - - - - 0x01C27A 07:C26A: 8D 31 06  STA ram_0631
 C - - - - - 0x01C27D 07:C26D: 8D 7B 06  STA ram_067B
 C - - - - - 0x01C280 07:C270: 85 C8     STA ram_00C8
 C - - - - - 0x01C282 07:C272: A9 90     LDA #$90
-C - - - - - 0x01C284 07:C274: 85 26     STA ram_0026
+C - - - - - 0x01C284 07:C274: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01C286 07:C276: A9 93     LDA #$93
 C - - - - - 0x01C288 07:C278: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C28A 07:C27A: A9 0F     LDA #$0F
 C - - - - - 0x01C28C 07:C27C: 85 D8     STA ram_00D8
 C - - - - - 0x01C28E 07:C27E: 20 F4 C3  JSR sub_C3F4
 C - - - - - 0x01C291 07:C281: 20 0F C3  JSR sub_C30F
-C - - - - - 0x01C294 07:C284: 20 FF C2  JSR sub_C2FF
+C - - - - - 0x01C294 07:C284: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 bra_C287:
 C - - - - - 0x01C297 07:C287: A5 D8     LDA ram_00D8
 C - - - - - 0x01C299 07:C289: C9 11     CMP #$11
 C - - - - - 0x01C29B 07:C28B: 90 FA     BCC bra_C287
 loc_C28D:
 C D 2 - - - 0x01C29D 07:C28D: 20 13 C3  JSR sub_C313
-C - - - - - 0x01C2A0 07:C290: 20 05 C3  JSR sub_C305
+C - - - - - 0x01C2A0 07:C290: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C2A3 07:C293: E6 24     INC vMenuDemoIndex
 C - - - - - 0x01C2A5 07:C295: A5 24     LDA vMenuDemoIndex
 C - - - - - 0x01C2A7 07:C297: C9 07     CMP #$07           ; CONSTANT - Stop demo
@@ -396,26 +397,26 @@ loc_C2A6:
 C D 2 - - - 0x01C2B6 07:C2A6: A5 D8     LDA ram_00D8
 C - - - - - 0x01C2B8 07:C2A8: C9 0A     CMP #$0A
 C - - - - - 0x01C2BA 07:C2AA: 90 FA     BCC bra_C2A6
-C - - - - - 0x01C2BC 07:C2AC: 20 05 C3  JSR sub_C305
+C - - - - - 0x01C2BC 07:C2AC: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C2BF 07:C2AF: 20 13 C3  JSR sub_C313
 C - - - - - 0x01C2C2 07:C2B2: 20 DB B7  JSR $B7DB
 C - - - - - 0x01C2C5 07:C2B5: A9 93     LDA #$93
 C - - - - - 0x01C2C7 07:C2B7: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C2C9 07:C2B9: 20 F4 C3  JSR sub_C3F4
 C - - - - - 0x01C2CC 07:C2BC: 20 0F C3  JSR sub_C30F
-C - - - - - 0x01C2CF 07:C2BF: 20 FF C2  JSR sub_C2FF
+C - - - - - 0x01C2CF 07:C2BF: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 bra_C2C2:
 C - - - - - 0x01C2D2 07:C2C2: A5 D8     LDA ram_00D8
 C - - - - - 0x01C2D4 07:C2C4: C9 0C     CMP #$0C
 C - - - - - 0x01C2D6 07:C2C6: 90 FA     BCC bra_C2C2
 C - - - - - 0x01C2D8 07:C2C8: 20 13 C3  JSR sub_C313
-C - - - - - 0x01C2DB 07:C2CB: 20 05 C3  JSR sub_C305
+C - - - - - 0x01C2DB 07:C2CB: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C2DE 07:C2CE: A9 30     LDA #$30
 C - - - - - 0x01C2E0 07:C2D0: 20 60 C9  JSR sub_C960
 C - - - - - 0x01C2E3 07:C2D3: 20 0D B8  JSR $B80D
 C - - - - - 0x01C2E6 07:C2D6: 20 F4 C3  JSR sub_C3F4
 C - - - - - 0x01C2E9 07:C2D9: 20 0F C3  JSR sub_C30F
-C - - - - - 0x01C2EC 07:C2DC: 20 FF C2  JSR sub_C2FF
+C - - - - - 0x01C2EC 07:C2DC: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 bra_C2DF:
 C - - - - - 0x01C2EF 07:C2DF: A5 D8     LDA ram_00D8
 C - - - - - 0x01C2F1 07:C2E1: C9 0E     CMP #$0E
@@ -437,15 +438,15 @@ C - - - - - 0x01C30B 07:C2FB: 4C DF CC  JMP loc_CCDF
 bra_C2FE_RTS:
 C - - - - - 0x01C30E 07:C2FE: 60        RTS
 
-sub_C2FF:
-C - - - - - 0x01C30F 07:C2FF: A5 26     LDA ram_0026
-C - - - - - 0x01C311 07:C301: 09 80     ORA #$80
-C - - - - - 0x01C313 07:C303: D0 04     BNE bra_C309
-sub_C305:
-C - - - - - 0x01C315 07:C305: A5 26     LDA ram_0026
+sub_C2FF_update_ppu_ctrl_with_nmi:
+C - - - - - 0x01C30F 07:C2FF: A5 26     LDA vPpuCtrlSettings
+C - - - - - 0x01C311 07:C301: 09 80     ORA #$80             ; CONSTANT - Generate an NMI at the start of the vblank
+C - - - - - 0x01C313 07:C303: D0 04     BNE bra_C309_skip    ; Always true
+sub_C305_update_ppu_ctrl_with_no_nmi:
+C - - - - - 0x01C315 07:C305: A5 26     LDA vPpuCtrlSettings
 C - - - - - 0x01C317 07:C307: 29 7F     AND #$7F
-bra_C309:
-C - - - - - 0x01C319 07:C309: 85 26     STA ram_0026
+bra_C309_skip:
+C - - - - - 0x01C319 07:C309: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01C31B 07:C30B: 8D 00 20  STA PPU_CTRL
 C - - - - - 0x01C31E 07:C30E: 60        RTS
 
@@ -466,7 +467,7 @@ sub_C31D_clear_ppu:
 C - - - - - 0x01C32D 07:C31D: A9 00     LDA #$00 ; CONSTANT - A black tile
 bra_C31F_skip:
 C - - - - - 0x01C32F 07:C31F: 85 12     STA ram_0012
-C - - - - - 0x01C331 07:C321: 20 05 C3  JSR sub_C305
+C - - - - - 0x01C331 07:C321: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C334 07:C324: 20 13 C3  JSR sub_C313
 C - - - - - 0x01C337 07:C327: AD 02 20  LDA PPU_STATUS ; Read PPU status to reset the high/low latch
 C - - - - - 0x01C33A 07:C32A: A9 20     LDA #$20 ; For the first ppu data ($2000)
@@ -552,7 +553,7 @@ C - - - - - 0x01C3D2 07:C3C2: 8D 06 20  STA PPU_ADDRESS ; see https://www.nesdev
 C - - - - - 0x01C3D5 07:C3C5: 60        RTS
 
 sub_C3C6:
-C - - - - - 0x01C3D6 07:C3C6: A5 26     LDA ram_0026
+C - - - - - 0x01C3D6 07:C3C6: A5 26     LDA vPpuCtrlSettings
 C - - - - - 0x01C3D8 07:C3C8: 8D 00 20  STA PPU_CTRL
 C - - - - - 0x01C3DB 07:C3CB: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01C3DE 07:C3CE: A5 27     LDA ram_0027
@@ -657,7 +658,7 @@ C - - - - - 0x01C47B 07:C46B: 60        RTS
 
 sub_C46C:
 C - - - - - 0x01C47C 07:C46C: A5 1C     LDA ram_001C
-C - - - - - 0x01C47E 07:C46E: 85 1D     STA v_copy_001C
+C - - - - - 0x01C47E 07:C46E: 85 1D     STA vCopy001C
 C - - - - - 0x01C480 07:C470: A5 37     LDA vGameMode
 C - - - - - 0x01C482 07:C472: 10 5C     BPL bra_C4D0_update_btn_pressed ; ; Branch If in game
 C - - - - - 0x01C484 07:C474: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
@@ -764,7 +765,7 @@ C - - - - - 0x01C52E 07:C51E: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
 C - - - - - 0x01C531 07:C521: 20 F4 C3  JSR sub_C3F4
 C - - - - - 0x01C534 07:C524: 20 F3 D4  JSR sub_D4F3
 C - - - - - 0x01C537 07:C527: A9 90     LDA #$90
-C - - - - - 0x01C539 07:C529: 85 26     STA ram_0026
+C - - - - - 0x01C539 07:C529: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01C53B 07:C52B: 8D 00 20  STA PPU_CTRL
 C - - - - - 0x01C53E 07:C52E: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01C541 07:C531: A9 00     LDA #$00
@@ -806,9 +807,9 @@ C - - - - - 0x01C578 07:C568: 60        RTS
 sub_C569:
 C - - - - - 0x01C579 07:C569: A9 08     LDA #BIT_BUTTON_START ; Switches a cutscene to a main title screen
 C - - - - - 0x01C57B 07:C56B: 20 79 D0  JSR sub_D079_check_button_press
-C - - - - - 0x01C57E 07:C56E: F0 02     BEQ bra_C572 ; Go to the branch If the button 'Start' isn't pressed
-C - - - - - 0x01C580 07:C570: E6 3D     INC ram_003D
-bra_C572:
+C - - - - - 0x01C57E 07:C56E: F0 02     BEQ @bra_C572_skip ; Go to the branch If the button 'Start' isn't pressed
+C - - - - - 0x01C580 07:C570: E6 3D     INC vActivateCharacterSelect
+@bra_C572_skip:
 C - - - - - 0x01C582 07:C572: 20 D5 C5  JSR sub_C5D5
 C - - - - - 0x01C585 07:C575: 20 2A BB  JSR sub_BB2A_solve_secret_codes
 C - - - - - 0x01C588 07:C578: A5 2D     LDA v_high_counter
@@ -822,20 +823,20 @@ C - - - - - 0x01C596 07:C586: F0 43     BEQ bra_C5CB_sounds_of_a_gunshot     ; I
 C - - - - - 0x01C598 07:C588: A0 00     LDY #$00                             ; relative address = 0x9D7B in 0x12-0x13 (1st frame)
 C - - - - - 0x01C59A 07:C58A: C9 E4     CMP #$E4
 C - - - - - 0x01C59C 07:C58C: 90 3C     BCC bra_C5CA_RTS                     ; If vLowCounter < 0xE4
-C - - - - - 0x01C59E 07:C58E: F0 18     BEQ bra_C5A8_prepare_for_gunshot     ; If vLowCounter == 0xE4
+C - - - - - 0x01C59E 07:C58E: F0 18     BEQ @bra_C5A8_prepare_for_gunshot     ; If vLowCounter == 0xE4
 C - - - - - 0x01C5A0 07:C590: A0 02     LDY #$02                             ; relative address = 0x9D9B in 0x12-0x13 (2nd frame)
 C - - - - - 0x01C5A2 07:C592: C9 E8     CMP #$E8
-C - - - - - 0x01C5A4 07:C594: F0 12     BEQ bra_C5A8_prepare_for_gunshot
+C - - - - - 0x01C5A4 07:C594: F0 12     BEQ @bra_C5A8_prepare_for_gunshot
 C - - - - - 0x01C5A6 07:C596: A0 04     LDY #$04                             ; relative address = 0x9DBE in 0x12-0x13 (3rd frame)
 C - - - - - 0x01C5A8 07:C598: C9 EC     CMP #$EC
-C - - - - - 0x01C5AA 07:C59A: F0 0C     BEQ bra_C5A8_prepare_for_gunshot
+C - - - - - 0x01C5AA 07:C59A: F0 0C     BEQ @bra_C5A8_prepare_for_gunshot
 C - - - - - 0x01C5AC 07:C59C: A0 06     LDY #$06                             ; relative address = 0x9DD9 in 0x12-0x13 (4th frame)
 C - - - - - 0x01C5AE 07:C59E: C9 F0     CMP #$F0
-C - - - - - 0x01C5B0 07:C5A0: F0 06     BEQ bra_C5A8_prepare_for_gunshot
+C - - - - - 0x01C5B0 07:C5A0: F0 06     BEQ @bra_C5A8_prepare_for_gunshot
 C - - - - - 0x01C5B2 07:C5A2: A0 08     LDY #$08                             ; relative address = 0x9E00 in 0x12-0x13 (5th frame)
 C - - - - - 0x01C5B4 07:C5A4: C9 F4     CMP #$F4
 C - - - - - 0x01C5B6 07:C5A6: D0 22     BNE bra_C5CA_RTS
-bra_C5A8_prepare_for_gunshot:
+@bra_C5A8_prepare_for_gunshot:
 C - - - - - 0x01C5B8 07:C5A8: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01C5BB 07:C5AB: A2 33     LDX #$33
 C - - - - - 0x01C5BD 07:C5AD: A9 00     LDA #$00
@@ -1010,7 +1011,7 @@ bra_C6BD:
 C - - - - - 0x01C6CD 07:C6BD: A5 3D     LDA ram_003D
 C - - - - - 0x01C6CF 07:C6BF: 30 FC     BMI bra_C6BD
 C - - - - - 0x01C6D1 07:C6C1: 20 13 C3  JSR sub_C313
-C - - - - - 0x01C6D4 07:C6C4: 20 05 C3  JSR sub_C305
+C - - - - - 0x01C6D4 07:C6C4: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 sub_C6C7:
 loc_C6C7:
 C D 2 - - - 0x01C6D7 07:C6C7: A9 00     LDA #$00
@@ -2645,13 +2646,14 @@ C - - - - - 0x01D085 07:D075: 18        CLC
 C - - - - - 0x01D086 07:D076: 69 01     ADC #$01
 C - - - - - 0x01D088 07:D078: 60        RTS
 
-sub_D079_check_button_press: ; The accumulator contains a button state
-sub_D079:
+; The accumulator contains a button state
+; Returns 0 in Register A if the button isn't pressed
+sub_D079_check_button_press: 
 C - - - - - 0x01D089 07:D079: 85 12     STA v_temp_check_buttons
 C - - - - - 0x01D08B 07:D07B: A5 1C     LDA v_btn_pressed_in_game
 C - - - - - 0x01D08D 07:D07D: 25 12     AND v_temp_check_buttons
-C - - - - - 0x01D08F 07:D07F: F0 04     BEQ bra_D085_RTS
-C - - - - - 0x01D091 07:D081: 45 1D     EOR v_copy_001C
+C - - - - - 0x01D08F 07:D07F: F0 04     BEQ bra_D085_RTS ; If the button does not match the expected result
+C - - - - - 0x01D091 07:D081: 45 1D     EOR vCopy001C  ; The double click protection
 C - - - - - 0x01D093 07:D083: 25 12     AND v_temp_check_buttons
 bra_D085_RTS:
 C - - - - - 0x01D095 07:D085: 60        RTS
@@ -2720,7 +2722,7 @@ C - - - - - 0x01D0E3 07:D0D3: 29 7F     AND #$7F
 C - - - - - 0x01D0E5 07:D0D5: AE 30 06  LDX ram_0630
 C - - - - - 0x01D0E8 07:D0D8: 85 00     STA ram_0000
 C - - - - - 0x01D0EA 07:D0DA: 86 01     STX ram_0001
-C - - - - - 0x01D0EC 07:D0DC: A5 26     LDA ram_0026
+C - - - - - 0x01D0EC 07:D0DC: A5 26     LDA vPpuCtrlSettings
 C - - - - - 0x01D0EE 07:D0DE: 09 04     ORA #$04
 C - - - - - 0x01D0F0 07:D0E0: 8D 00 20  STA PPU_CTRL
 C - - - - - 0x01D0F3 07:D0E3: AD 32 06  LDA v_ppu_buffer_count
@@ -2770,7 +2772,7 @@ C - - - - - 0x01D13C 07:D12C: 8E 06 20  STX PPU_ADDRESS ; writes low byte
 C - - - - - 0x01D13F 07:D12F: AD 32 06  LDA v_ppu_buffer_count
 C - - - - - 0x01D142 07:D132: 10 0B     BPL bra_D13F_skip
 C - - - - - 0x01D144 07:D134: 48        PHA
-C - - - - - 0x01D145 07:D135: A5 26     LDA ram_0026
+C - - - - - 0x01D145 07:D135: A5 26     LDA vPpuCtrlSettings
 C - - - - - 0x01D147 07:D137: 09 04     ORA #$04 ; Sprite tile select (bit S)
 C - - - - - 0x01D149 07:D139: 8D 00 20  STA PPU_CTRL
 C - - - - - 0x01D14C 07:D13C: 68        PLA
@@ -2787,7 +2789,7 @@ C - - - - - 0x01D15C 07:D14C: D0 F5     BNE bra_D143_repeat ; If ram_0000 != 0
 bra_D14E_skip:
 C - - - - - 0x01D15E 07:D14E: A9 00     LDA #$00
 C - - - - - 0x01D160 07:D150: 8D 31 06  STA ram_0631
-C - - - - - 0x01D163 07:D153: A5 26     LDA ram_0026
+C - - - - - 0x01D163 07:D153: A5 26     LDA vPpuCtrlSettings
 C - - - - - 0x01D165 07:D155: 8D 00 20  STA PPU_CTRL
 bra_D158_RTS:
 C - - - - - 0x01D168 07:D158: 60        RTS
@@ -2847,9 +2849,9 @@ C - - - - - 0x01D1B9 07:D1A9: 85 27     STA ram_0027
 C - - - - - 0x01D1BB 07:D1AB: 60        RTS
 
 bra_D1AC:
-C - - - - - 0x01D1BC 07:D1AC: A5 26     LDA ram_0026
+C - - - - - 0x01D1BC 07:D1AC: A5 26     LDA vPpuCtrlSettings
 C - - - - - 0x01D1BE 07:D1AE: 49 01     EOR #$01
-C - - - - - 0x01D1C0 07:D1B0: 85 26     STA ram_0026
+C - - - - - 0x01D1C0 07:D1B0: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01D1C2 07:D1B2: C6 4B     DEC ram_004B
 C - - - - - 0x01D1C4 07:D1B4: 60        RTS
 
@@ -2884,9 +2886,9 @@ C - - - - - 0x01D1E8 07:D1D8: E6 27     INC ram_0027
 C - - - - - 0x01D1EA 07:D1DA: A5 27     LDA ram_0027
 C - - - - - 0x01D1EC 07:D1DC: D0 0D     BNE bra_D1EB
 C - - - - - 0x01D1EE 07:D1DE: 48        PHA
-C - - - - - 0x01D1EF 07:D1DF: A5 26     LDA ram_0026
+C - - - - - 0x01D1EF 07:D1DF: A5 26     LDA vPpuCtrlSettings
 C - - - - - 0x01D1F1 07:D1E1: 49 01     EOR #$01
-C - - - - - 0x01D1F3 07:D1E3: 85 26     STA ram_0026
+C - - - - - 0x01D1F3 07:D1E3: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01D1F5 07:D1E5: E6 4B     INC ram_004B
 C - - - - - 0x01D1F7 07:D1E7: E6 4D     INC ram_004D
 C - - - - - 0x01D1F9 07:D1E9: D0 0E     BNE bra_D1F9
@@ -3326,7 +3328,7 @@ bra_D499:
 C - - - - - 0x01D4A9 07:D499: A5 4B     LDA ram_004B
 C - - - - - 0x01D4AB 07:D49B: 29 01     AND #$01
 C - - - - - 0x01D4AD 07:D49D: 09 08     ORA #$08
-C - - - - - 0x01D4AF 07:D49F: 85 26     STA ram_0026
+C - - - - - 0x01D4AF 07:D49F: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01D4B1 07:D4A1: A9 91     LDA #$91
 bra_D4A3_repeat:                                      ; loop by x (145 times)
 C - - - - - 0x01D4B3 07:D4A3: 48        PHA
@@ -7429,7 +7431,7 @@ C - - - - - 0x01ED6B 07:ED5B: A9 07     LDA #$07
 C - - - - - 0x01ED6D 07:ED5D: 8D 14 40  STA OAM_DMA
 C - - - - - 0x01ED70 07:ED60: 20 D9 C3  JSR sub_C3D9_increment_nmi_counter
 C - - - - - 0x01ED73 07:ED63: 20 1B D1  JSR sub_D11B_shared_render
-C - - - - - 0x01ED76 07:ED66: A5 26     LDA ram_0026
+C - - - - - 0x01ED76 07:ED66: A5 26     LDA vPpuCtrlSettings
 C - - - - - 0x01ED78 07:ED68: 29 FC     AND #$FC
 C - - - - - 0x01ED7A 07:ED6A: 8D 00 20  STA PPU_CTRL
 C - - - - - 0x01ED7D 07:ED6D: AD 02 20  LDA PPU_STATUS ; Read PPU status to reset the high/low latch

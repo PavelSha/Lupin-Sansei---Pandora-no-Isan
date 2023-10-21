@@ -50,7 +50,7 @@ v_temp_counter12              = ram_0012
 vCacheRam12                   = ram_0012 ; 
 v_sub_AF4D_counter            = ram_001A ; Intermediate counter
 v_btn_pressed_in_game         = ram_001C ; In a level 1-4 or a title screen
-v_copy_001C                   = ram_001D
+vCopy001C                     = ram_001D
 v_player1_btn_pressed         = ram_001E ; For a contoller1
 v_player2_btn_pressed         = ram_001F ; For a contoller2
 v_last_p2_btn_pressed         = ram_0020 ; It's the previouse value for a contoller2 (the state of the buttons)
@@ -65,6 +65,7 @@ vMenuDemoIndex                = ram_0024
 ; 0x06 - Clarisse demo
 ; 0x07 - Stop demo
 
+vPpuCtrlSettings              = ram_0026 ; This is a last actual ppu controller flags.
 v_chr_pos_x                   = ram_0027 ; In level it's the position of the character along the x-axis relative to the screen (may repeat)
 v_nmi_counter                 = ram_002B
 v_low_counter                 = ram_002C
@@ -87,12 +88,15 @@ vSharedGameStatus             = ram_003B
 ; 0x80 - Main menu
 ; 0x91 - First cutscene
 
-
 vStartStatus                  = ram_003D
 ; 0x00 - The starting cutscene, before typing the message
 ; 0x01 - The starting cutscene, during typing the message
 ; 0x02 - The starting cutscene, after typing the message
 ; 0x00 - Allowed to show menu
+
+vActivateCharacterSelect      = ram_003D
+; 0x00 - no active
+; 0x01 - has beed activated
 
 v_npc_message_status          = ram_0041
 ; 83 - npc is saying the message 

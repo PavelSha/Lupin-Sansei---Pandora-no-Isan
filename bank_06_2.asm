@@ -10,6 +10,7 @@
 .import tbl_template_chr_banks1 ; bank 04 (Page 1)
 .import tbl_briefcases_indexex_on_the_level ; bank 04 (Page 2)
 .import npc_portrait_sprites ; bank 04 (Page 2)
+.import sub_C305_update_ppu_ctrl_with_no_nmi ; bank FF
 .import sub_C31D_clear_ppu ; bank FF
 .import sub_C358_clear_OAM ; bank FF
 .import loc_C371_update_palette ; bank FF
@@ -3652,12 +3653,12 @@ C - - - - - 0x01B7EB 06:B7DB: 20 02 C4  JSR sub_C402_clear_sound_parts
 C - - - - - 0x01B7EE 06:B7DE: 20 1D C3  JSR sub_C31D_clear_ppu
 C - - - - - 0x01B7F1 06:B7E1: 20 58 C3  JSR sub_C358_clear_OAM
 C - - - - - 0x01B7F4 06:B7E4: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
-C - - - - - 0x01B7F7 06:B7E7: A2 05     LDX #$05
-bra_B7E9:
+C - - - - - 0x01B7F7 06:B7E7: A2 05     LDX #$05                  ; set loop counter
+@bra_B7E9_loop:                                                   ; loop by x
 C - - - - - 0x01B7F9 06:B7E9: BD CF BC  LDA tbl_BCCF,X
 C - - - - - 0x01B7FC 06:B7EC: 9D AF 06  STA vCacheChrBankSelect,X
-C - - - - - 0x01B7FF 06:B7EF: CA        DEX
-C - - - - - 0x01B800 06:B7F0: 10 F7     BPL bra_B7E9
+C - - - - - 0x01B7FF 06:B7EF: CA        DEX                       ; decrement x
+C - - - - - 0x01B800 06:B7F0: 10 F7     BPL @bra_B7E9_loop        ; In Register X >= 0x00 && X < 0xF0
 C - - - - - 0x01B802 06:B7F2: 20 BA BA  JSR sub_BABA
 C - - - - - 0x01B805 06:B7F5: A9 5E     LDA #$5E
 C - - - - - 0x01B807 06:B7F7: 18        CLC
@@ -3669,7 +3670,7 @@ C - - - - - 0x01B810 06:B800: 85 13     STA ram_0013
 C - - - - - 0x01B812 06:B802: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01B815 06:B805: 20 CB BA  JSR sub_BACB
 C - - - - - 0x01B818 06:B808: A9 10     LDA #$10
-C - - - - - 0x01B81A 06:B80A: 85 26     STA ram_0026
+C - - - - - 0x01B81A 06:B80A: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01B81C 06:B80C: 60        RTS
 
 C - - - - - 0x01B81D 06:B80D: 20 2F C6  JSR $C62F
@@ -3855,27 +3856,27 @@ C - - - - - 0x01B96F 06:B95F: A9 8F     LDA #$8F
 C - - - - - 0x01B971 06:B961: 85 AD     STA ram_00AD
 C - - - - - 0x01B973 06:B963: 85 1C     STA ram_001C
 C - - - - - 0x01B975 06:B965: 20 1E C5  JSR $C51E ; to sub_C51E (bank_FF)
-bra_B968_repeat:
-C - - - - - 0x01B978 06:B968: A5 1C     LDA ram_001C
-C - - - - - 0x01B97A 06:B96A: 29 08     AND #$08
-C - - - - - 0x01B97C 06:B96C: D0 FA     BNE bra_B968_repeat
-C - - - - - 0x01B97E 06:B96E: 85 1C     STA ram_001C
+@bra_B968_loop:
+C - - - - - 0x01B978 06:B968: A5 1C     LDA v_btn_pressed_in_game
+C - - - - - 0x01B97A 06:B96A: 29 08     AND #BIT_BUTTON_START
+C - - - - - 0x01B97C 06:B96C: D0 FA     BNE @bra_B968_loop  ; break in NMI
+C - - - - - 0x01B97E 06:B96E: 85 1C     STA v_btn_pressed_in_game
 C - - - - - 0x01B980 06:B970: 85 3D     STA ram_003D
-C - - - - - 0x01B982 06:B972: A9 00     LDA #$00
-C - - - - - 0x01B984 06:B974: 85 2C     STA v_low_counter
-C - - - - - 0x01B986 06:B976: 85 2D     STA v_high_counter
+C - - - - - 0x01B982 06:B972: A9 00     LDA #$00            ;
+C - - - - - 0x01B984 06:B974: 85 2C     STA v_low_counter   ; clear
+C - - - - - 0x01B986 06:B976: 85 2D     STA v_high_counter  ; clear
 bra_B978:
-C - - - - - 0x01B988 06:B978: A5 2D     LDA v_high_counter
-C - - - - - 0x01B98A 06:B97A: C9 02     CMP #$02
-C - - - - - 0x01B98C 06:B97C: 90 06     BCC bra_B984
-C - - - - - 0x01B98E 06:B97E: A5 2C     LDA v_low_counter
-C - - - - - 0x01B990 06:B980: C9 40     CMP #$40
-C - - - - - 0x01B992 06:B982: B0 45     BCS bra_B9C9
-bra_B984:
-C - - - - - 0x01B994 06:B984: A5 3D     LDA ram_003D
-C - - - - - 0x01B996 06:B986: F0 F0     BEQ bra_B978
-C - - - - - 0x01B998 06:B988: 20 05 C3  JSR $C305 ; to sub_C305 (bank FF)
-C - - - - - 0x01B99B 06:B98B: A9 00     LDA #$00 ; CONTANT - In game
+C - - - - - 0x01B988 06:B978: A5 2D     LDA v_high_counter      ;
+C - - - - - 0x01B98A 06:B97A: C9 02     CMP #$02                ;
+C - - - - - 0x01B98C 06:B97C: 90 06     BCC @bra_B984_skip      ;
+C - - - - - 0x01B98E 06:B97E: A5 2C     LDA v_low_counter       ;
+C - - - - - 0x01B990 06:B980: C9 40     CMP #$40                ; 
+C - - - - - 0x01B992 06:B982: B0 45     BCS bra_B9C9_start_demo ; If Hc:Lc == 02:40
+@bra_B984_skip:
+C - - - - - 0x01B994 06:B984: A5 3D     LDA vActivateCharacterSelect
+C - - - - - 0x01B996 06:B986: F0 F0     BEQ bra_B978 ; If vActivateCharacterSelect == 0x00
+C - - - - - 0x01B998 06:B988: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
+C - - - - - 0x01B99B 06:B98B: A9 00     LDA #$00     ; CONTANT - In game
 C - - - - - 0x01B99D 06:B98D: A8        TAY
 C - - - - - 0x01B99E 06:B98E: 85 37     STA vGameMode
 C - - - - - 0x01B9A0 06:B990: 85 B6     STA ram_00B6
@@ -3920,9 +3921,10 @@ tbl_B9C1:
 - D 1 - - - 0x01B9D6 06:B9C6: 01        .byte $01   ; 
 - D 1 - - - 0x01B9D7 06:B9C7: 03        .byte $03   ; 
 - D 1 - - - 0x01B9D8 06:B9C8: 00        .byte $00   ; 
-bra_B9C9:
+
+bra_B9C9_start_demo:
 C - - - - - 0x01B9D9 06:B9C9: 20 13 C3  JSR $C313
-C - - - - - 0x01B9DC 06:B9CC: 20 05 C3  JSR $C305
+C - - - - - 0x01B9DC 06:B9CC: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01B9DF 06:B9CF: A9 FF     LDA #$FF           ; CONSTANT - Cutscene
 C - - - - - 0x01B9E1 06:B9D1: 85 37     STA vGameMode      ;
 C - - - - - 0x01B9E3 06:B9D3: A9 01     LDA #$01           ; CONSTANT - Lupin demo
@@ -4015,7 +4017,7 @@ bra_BA7A_wait_menu:
 C - - - - - 0x01BA8A 06:BA7A: A5 3D     LDA vStartStatus       ;
 C - - - - - 0x01BA8C 06:BA7C: 10 FC     BPL bra_BA7A_wait_menu ; If Register A != 0b1XXXXXXX
 C - - - - - 0x01BA8E 06:BA7E: 20 13 C3  JSR $C313
-C - - - - - 0x01BA91 06:BA81: 20 05 C3  JSR $C305
+C - - - - - 0x01BA91 06:BA81: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01BA94 06:BA84: A6 24     LDX vMenuDemoIndex
 C - - - - - 0x01BA96 06:BA86: F0 24     BEQ bra_BAAC
 C - - - - - 0x01BA98 06:BA88: E0 04     CPX #$04
@@ -4125,30 +4127,30 @@ sub_BB2A_solve_secret_codes:
 C - - - - - 0x01BB3A 06:BB2A: 2C F6 FF  BIT Set_features
 C - - - - - 0x01BB3D 06:BB2D: 50 62     BVC bra_BB91_RTS
 C - - - - - 0x01BB3F 06:BB2F: A5 B1     LDA v_start_level
-C - - - - - 0x01BB41 06:BB31: D0 5E     BNE bra_BB91_RTS ; Go to the branch If start level is activated
+C - - - - - 0x01BB41 06:BB31: D0 5E     BNE bra_BB91_RTS          ; Go to the branch If start level is activated
 C - - - - - 0x01BB43 06:BB33: A5 1C     LDA v_btn_pressed_in_game
-C - - - - - 0x01BB45 06:BB35: F0 56     BEQ bra_BB8D ; Go to the branch If the any buttons aren't pressed
+C - - - - - 0x01BB45 06:BB35: F0 56     BEQ bra_BB8D              ; Go to the branch If the any buttons aren't pressed
 C - - - - - 0x01BB47 06:BB37: A5 B3     LDA v_lock_secret_hits
-C - - - - - 0x01BB49 06:BB39: D0 56     BNE bra_BB91_RTS ; Go to the branch If the some buttons is pressing
+C - - - - - 0x01BB49 06:BB39: D0 56     BNE bra_BB91_RTS          ; Go to the branch If the some buttons is pressing
 C - - - - - 0x01BB4B 06:BB3B: A5 B2     LDA v_count_secret_hits
-C - - - - - 0x01BB4D 06:BB3D: D0 24     BNE bra_BB63  ; Go to the branch If some secret button is pressed
-C - - - - - 0x01BB4F 06:BB3F: AD 92 BB  LDA $BB92 ; BIT_BUTTON_Up, on the main title screen
-C - - - - - 0x01BB52 06:BB42: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
-C - - - - - 0x01BB55 06:BB45: D0 28     BNE bra_BB6F  ; Go to the branch If the button 'Up' is pressed
-C - - - - - 0x01BB57 06:BB47: AD 98 BB  LDA $BB98 ; BIT_BUTTON_Left, on the main title screen
-C - - - - - 0x01BB5A 06:BB4A: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
-C - - - - - 0x01BB5D 06:BB4D: F0 06     BEQ bra_BB55 ; Go to the branch If the button 'Left' isn't pressed
-C - - - - - 0x01BB5F 06:BB4F: A9 06     LDA #$06 ; The offset in the table secret code -> level 3
+C - - - - - 0x01BB4D 06:BB3D: D0 24     BNE bra_BB63_skip         ; Go to the branch If some secret button is pressed
+C - - - - - 0x01BB4F 06:BB3F: AD 92 BB  LDA tbl_BB92_stage_select_codes      ; BIT_BUTTON_Up, on the main title screen
+C - - - - - 0x01BB52 06:BB42: 20 79 D0  JSR sub_D079_check_button_press      ;
+C - - - - - 0x01BB55 06:BB45: D0 28     BNE bra_BB6F                         ; Go to the branch If the button 'Up' is pressed
+C - - - - - 0x01BB57 06:BB47: AD 98 BB  LDA tbl_BB92_stage_select_codes + 6  ; BIT_BUTTON_Left, on the main title screen
+C - - - - - 0x01BB5A 06:BB4A: 20 79 D0  JSR sub_D079_check_button_press      ;
+C - - - - - 0x01BB5D 06:BB4D: F0 06     BEQ @bra_BB55_skip                   ; Go to the branch If the button 'Left' isn't pressed
+C - - - - - 0x01BB5F 06:BB4F: A9 06     LDA #$06                             ; The offset in the table secret code -> level 3
 C - - - - - 0x01BB61 06:BB51: 85 B4     STA v_offset_in_secret_codes
 C - - - - - 0x01BB63 06:BB53: D0 1A     BNE bra_BB6F
-bra_BB55:
-C - - - - - 0x01BB65 06:BB55: AD 9E BB  LDA $BB9E ; BIT_BUTTON_Down, on the main title screen
-C - - - - - 0x01BB68 06:BB58: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
-C - - - - - 0x01BB6B 06:BB5B: F0 2A     BEQ bra_BB87_reset ; Go to the branch If the button 'Down' isn't pressed
-C - - - - - 0x01BB6D 06:BB5D: A9 0C     LDA #$0C ; The offset in the table secret code -> level 4
+@bra_BB55_skip:
+C - - - - - 0x01BB65 06:BB55: AD 9E BB  LDA tbl_BB92_stage_select_codes + 12 ; BIT_BUTTON_Down, on the main title screen
+C - - - - - 0x01BB68 06:BB58: 20 79 D0  JSR sub_D079_check_button_press      ;
+C - - - - - 0x01BB6B 06:BB5B: F0 2A     BEQ bra_BB87_reset                   ; Go to the branch If the button 'Down' isn't pressed
+C - - - - - 0x01BB6D 06:BB5D: A9 0C     LDA #$0C                             ; The offset in the table secret code -> level 4
 C - - - - - 0x01BB6F 06:BB5F: 85 B4     STA v_offset_in_secret_codes
 C - - - - - 0x01BB71 06:BB61: D0 0C     BNE bra_BB6F
-bra_BB63:
+bra_BB63_skip:
 C - - - - - 0x01BB73 06:BB63: 18        CLC
 C - - - - - 0x01BB74 06:BB64: 65 B4     ADC v_offset_in_secret_codes
 C - - - - - 0x01BB76 06:BB66: A8        TAY
