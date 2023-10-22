@@ -7,6 +7,7 @@
 .import tbl_ptr_rooms_with_NPCs ; bank 04 (Page 2)
 .import tbl_ptr_briefcases_outside ; bank 04 (Page 2)
 .import tbl_copyright ; bank 04 (Page 1)
+.import tbl_main_menu_chr_banks ; bank 04 (Page 1)
 .import tbl_template_chr_banks1 ; bank 04 (Page 1)
 .import tbl_briefcases_indexex_on_the_level ; bank 04 (Page 2)
 .import npc_portrait_sprites ; bank 04 (Page 2)
@@ -21,9 +22,11 @@
 .import sub_C4F5_selectAllChrBanks ; bank FF
 .import loc_CE33_add_sprite_magic ; bank FF
 .import sub_D079_check_button_press ; bank FF
+.import sub_D086_render_14_15_16_17_18_v1 ; bank FF
 .import sub_EF46_switch_bank_4_p1_p2 ; bank FF
 .import sub_EF4F_switch_bank_4_p2 ; bank FF
 .import sub_F2D6_try_put_briefcase ; bank FF
+.import tbl_C1CA_checkpoint_on_start_levels ; bank FF
 
 .export loc_B234_get_vram_msg_address
 .export sub_B234_get_vram_msg_address
@@ -3796,35 +3799,35 @@ C - - - - - 0x01B8F0 06:B8E0: 20 20 C4  JSR sub_C420_add_sound_effect ;
 C - - - - - 0x01B8F3 06:B8E3: 20 1D C3  JSR sub_C31D_clear_ppu
 C - - - - - 0x01B8F6 06:B8E6: 20 58 C3  JSR sub_C358_clear_OAM
 C - - - - - 0x01B8F9 06:B8E9: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
-C - - - - - 0x01B8FC 06:B8EC: A2 05     LDX #$05
-bra_B8EE_repeat:
-C - - - - - 0x01B8FE 06:B8EE: BD BE 80  LDA $80BE,X
-C - - - - - 0x01B901 06:B8F1: 9D AF 06  STA vCacheChrBankSelect,X
-C - - - - - 0x01B904 06:B8F4: CA        DEX
-C - - - - - 0x01B905 06:B8F5: 10 F7     BPL bra_B8EE_repeat
-C - - - - - 0x01B907 06:B8F7: A2 1F     LDX #$1F
-bra_B8F9_repeat:
-C - - - - - 0x01B909 06:B8F9: BD C4 80  LDA $80C4,X
-C - - - - - 0x01B90C 06:B8FC: 9D 00 06  STA vCachePalette,X
-C - - - - - 0x01B90F 06:B8FF: CA        DEX
-C - - - - - 0x01B910 06:B900: 10 F7     BPL bra_B8F9_repeat
-C - - - - - 0x01B912 06:B902: A9 E4     LDA #$E4
-C - - - - - 0x01B914 06:B904: 85 12     STA ram_0012
-C - - - - - 0x01B916 06:B906: A9 80     LDA #$80
-C - - - - - 0x01B918 06:B908: 85 13     STA ram_0013
+C - - - - - 0x01B8FC 06:B8EC: A2 05     LDX #$05                  ; set loop counter
+@bra_B8EE_repeat:                                                 ; loop by x
+C - - - - - 0x01B8FE 06:B8EE: BD BE 80  LDA tbl_main_menu_chr_banks,X
+C - - - - - 0x01B901 06:B8F1: 9D AF 06  STA vCacheChrBankSelect,X ;
+C - - - - - 0x01B904 06:B8F4: CA        DEX                       ; decrements loop counter
+C - - - - - 0x01B905 06:B8F5: 10 F7     BPL @bra_B8EE_repeat
+C - - - - - 0x01B907 06:B8F7: A2 1F     LDX #$1F                  ; set loop counter
+@bra_B8F9_repeat:                                                 ; loop by x
+C - - - - - 0x01B909 06:B8F9: BD C4 80  LDA tbl_main_menu_palette,X
+C - - - - - 0x01B90C 06:B8FC: 9D 00 06  STA vCachePalette,X       ;
+C - - - - - 0x01B90F 06:B8FF: CA        DEX                       ; decrements loop counter
+C - - - - - 0x01B910 06:B900: 10 F7     BPL @bra_B8F9_repeat
+C - - - - - 0x01B912 06:B902: A9 E4     LDA #$E4     ;
+C - - - - - 0x01B914 06:B904: 85 12     STA ram_0012 ; Low address
+C - - - - - 0x01B916 06:B906: A9 80     LDA #$80     ;
+C - - - - - 0x01B918 06:B908: 85 13     STA ram_0013 ; High address (0x80E4 in the bank 04_1)
 C - - - - - 0x01B91A 06:B90A: A9 00     LDA #$00
 C - - - - - 0x01B91C 06:B90C: 85 D6     STA ram_00D6
 C - - - - - 0x01B91E 06:B90E: A2 0F     LDX #$0F
 C - - - - - 0x01B920 06:B910: AD 09 01  LDA v_last_level
-C - - - - - 0x01B923 06:B913: F0 01     BEQ bra_B916_skip
-C - - - - - 0x01B925 06:B915: E8        INX
-bra_B916_skip:
+C - - - - - 0x01B923 06:B913: F0 01     BEQ @bra_B916_skip
+C - - - - - 0x01B925 06:B915: E8        INX                ; For rendering a word 'Continue'
+@bra_B916_skip:
 C - - - - - 0x01B926 06:B916: 86 00     STX ram_0000
-bra_B918:
-C - - - - - 0x01B928 06:B918: A5 00     LDA ram_0000
-C - - - - - 0x01B92A 06:B91A: 20 86 D0  JSR $D086
-C - - - - - 0x01B92D 06:B91D: C6 00     DEC ram_0000
-C - - - - - 0x01B92F 06:B91F: 10 F7     BPL bra_B918
+bra_B918_loop:                                       ; loop by 0x00
+C - - - - - 0x01B928 06:B918: A5 00     LDA ram_0000 ; assigned as the parameter of the function
+C - - - - - 0x01B92A 06:B91A: 20 86 D0  JSR sub_D086_render_14_15_16_17_18_v1
+C - - - - - 0x01B92D 06:B91D: C6 00     DEC ram_0000 ; decrement 0x00
+C - - - - - 0x01B92F 06:B91F: 10 F7     BPL bra_B918_loop
 C - - - - - 0x01B931 06:B921: A9 20     LDA #$20
 C - - - - - 0x01B933 06:B923: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B936 06:B926: A9 84     LDA #$84
@@ -3856,10 +3859,10 @@ C - - - - - 0x01B96F 06:B95F: A9 8F     LDA #$8F
 C - - - - - 0x01B971 06:B961: 85 AD     STA ram_00AD
 C - - - - - 0x01B973 06:B963: 85 1C     STA ram_001C
 C - - - - - 0x01B975 06:B965: 20 1E C5  JSR $C51E ; to sub_C51E (bank_FF)
-@bra_B968_loop:
+@bra_B968_infinite_loop:
 C - - - - - 0x01B978 06:B968: A5 1C     LDA v_btn_pressed_in_game
 C - - - - - 0x01B97A 06:B96A: 29 08     AND #BIT_BUTTON_START
-C - - - - - 0x01B97C 06:B96C: D0 FA     BNE @bra_B968_loop  ; break in NMI
+C - - - - - 0x01B97C 06:B96C: D0 FA     BNE @bra_B968_infinite_loop  ; break in NMI
 C - - - - - 0x01B97E 06:B96E: 85 1C     STA v_btn_pressed_in_game
 C - - - - - 0x01B980 06:B970: 85 3D     STA ram_003D
 C - - - - - 0x01B982 06:B972: A9 00     LDA #$00            ;
@@ -3880,22 +3883,22 @@ C - - - - - 0x01B99B 06:B98B: A9 00     LDA #$00     ; CONTANT - In game
 C - - - - - 0x01B99D 06:B98D: A8        TAY
 C - - - - - 0x01B99E 06:B98E: 85 37     STA vGameMode
 C - - - - - 0x01B9A0 06:B990: 85 B6     STA ram_00B6
-C - - - - - 0x01B9A2 06:B992: 85 B7     STA ram_00B7
+C - - - - - 0x01B9A2 06:B992: 85 B7     STA v_corridor_magic5 ; clear
 C - - - - - 0x01B9A4 06:B994: 85 39     STA ram_0039
 C - - - - - 0x01B9A6 06:B996: A6 AD     LDX ram_00AD
 C - - - - - 0x01B9A8 06:B998: E0 9F     CPX #$9F
-C - - - - - 0x01B9AA 06:B99A: F0 07     BEQ bra_B9A3
-C - - - - - 0x01B9AC 06:B99C: A5 B1     LDA ram_00B1
-C - - - - - 0x01B9AE 06:B99E: F0 09     BEQ bra_B9A9
-C - - - - - 0x01B9B0 06:B9A0: A8        TAY
-C - - - - - 0x01B9B1 06:B9A1: D0 03     BNE bra_B9A6
-bra_B9A3:
+C - - - - - 0x01B9AA 06:B99A: F0 07     BEQ @bra_B9A3_skip ; If select 'Continue' in the main menu
+C - - - - - 0x01B9AC 06:B99C: A5 B1     LDA v_start_level  ;
+C - - - - - 0x01B9AE 06:B99E: F0 09     BEQ @bra_B9A9_skip ; Is v_start_level == 0x00
+C - - - - - 0x01B9B0 06:B9A0: A8        TAY                ; 
+C - - - - - 0x01B9B1 06:B9A1: D0 03     BNE @bra_B9A6_skip ; Always the true branch
+@bra_B9A3_skip:
 C - - - - - 0x01B9B3 06:B9A3: AC 09 01  LDY v_last_level
-bra_B9A6:
-C - - - - - 0x01B9B6 06:B9A6: B9 CA C1  LDA $C1CA,Y ; use tbl_C1CA (bank_FF)
-bra_B9A9:
-C - - - - - 0x01B9B9 06:B9A9: 85 C4     STA ram_00C4
-C - - - - - 0x01B9BB 06:B9AB: 84 5E     STY v_no_level
+@bra_B9A6_skip:
+C - - - - - 0x01B9B6 06:B9A6: B9 CA C1  LDA tbl_C1CA_checkpoint_on_start_levels,Y
+@bra_B9A9_skip:
+C - - - - - 0x01B9B9 06:B9A9: 85 C4     STA vCheckpoint ; assigned
+C - - - - - 0x01B9BB 06:B9AB: 84 5E     STY v_no_level  ; assigned
 C - - - - - 0x01B9BD 06:B9AD: A9 FC     LDA #$FC
 C - - - - - 0x01B9BF 06:B9AF: 85 D4     STA ram_00D4
 C - - - - - 0x01B9C1 06:B9B1: 20 04 C9  JSR $C904 ; to sub_C904 (bank_FF)
@@ -4030,7 +4033,7 @@ C - - - - - 0x01BAA2 06:BA92: A5 25     LDA ram_0025
 C - - - - - 0x01BAA4 06:BA94: 29 07     AND #$07
 C - - - - - 0x01BAA6 06:BA96: A8        TAY
 C - - - - - 0x01BAA7 06:BA97: B9 B9 B9  LDA tbl_B9B9,Y
-C - - - - - 0x01BAAA 06:BA9A: 85 C4     STA ram_00C4
+C - - - - - 0x01BAAA 06:BA9A: 85 C4     STA vCheckpoint
 C - - - - - 0x01BAAC 06:BA9C: B9 C1 B9  LDA tbl_B9C1,Y
 C - - - - - 0x01BAAF 06:BA9F: 85 5E     STA v_no_level
 C - - - - - 0x01BAB1 06:BAA1: A9 00     LDA #$00
@@ -4293,12 +4296,12 @@ sub_BC48: ; from bank FF
 - - - - - - 0x01BC5A 06:BC4A: 85 B7     STA ram_00B7
 - - - - - - 0x01BC5C 06:BC4C: E6 46     INC ram_0046
 - - - - - - 0x01BC5E 06:BC4E: A5 46     LDA ram_0046
-- - - - - - 0x01BC60 06:BC50: 85 C4     STA ram_00C4
+- - - - - - 0x01BC60 06:BC50: 85 C4     STA vCheckpoint
 - - - - - - 0x01BC62 06:BC52: 4A        LSR
 - - - - - - 0x01BC63 06:BC53: 4A        LSR
 - - - - - - 0x01BC64 06:BC54: 4A        LSR
 - - - - - - 0x01BC65 06:BC55: A8        TAY
-- - - - - - 0x01BC66 06:BC56: A5 C4     LDA ram_00C4
+- - - - - - 0x01BC66 06:BC56: A5 C4     LDA vCheckpoint
 - - - - - - 0x01BC68 06:BC58: 29 07     AND #$07
 - - - - - - 0x01BC6A 06:BC5A: AA        TAX
 - - - - - - 0x01BC6B 06:BC5B: BD 70 BC  LDA tbl_BC70,X

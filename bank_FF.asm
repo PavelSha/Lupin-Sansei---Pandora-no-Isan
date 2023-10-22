@@ -28,7 +28,9 @@
 .export sub_EF4F_switch_bank_4_p2
 .export sub_F2D6_try_put_briefcase
 .export sub_D079_check_button_press
+.export sub_D086_render_14_15_16_17_18_v1
 .export sub_C4F5_selectAllChrBanks
+.export tbl_C1CA_checkpoint_on_start_levels
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI ; disable interrupts
@@ -38,10 +40,10 @@ C - - - - - 0x01C014 07:C004: 8D 00 20  STA PPU_CTRL         ; clear ppu
 C - - - - - 0x01C017 07:C007: 8D 01 20  STA PPU_MASK         ; clear ppu 
 C - - - - - 0x01C01A 07:C00A: 85 26     STA vPpuCtrlSettings ; clear ppu
 @bra_C00C_wait_til_vblank:
-C - - - - - 0x01C01C 07:C00C: AD 02 20  LDA PPU_STATUS ; wait for vblank (1 time)
+C - - - - - 0x01C01C 07:C00C: AD 02 20  LDA PPU_STATUS       ; wait for vblank (1 time)
 C - - - - - 0x01C01F 07:C00F: 10 FB     BPL @bra_C00C_wait_til_vblank
 @bra_C011_wait_til_vblank:
-C - - - - - 0x01C021 07:C011: AD 02 20  LDA PPU_STATUS ; wait for vblank (2 time)
+C - - - - - 0x01C021 07:C011: AD 02 20  LDA PPU_STATUS       ; wait for vblank (2 time)
 C - - - - - 0x01C024 07:C014: 10 FB     BPL @bra_C011_wait_til_vblank
 C - - - - - 0x01C026 07:C016: A2 FF     LDX #$FF
 C - - - - - 0x01C028 07:C018: 9A        TXS
@@ -88,7 +90,7 @@ C - - - - - 0x01C075 07:C065: 86 29     STX ram_0029              ; clear
 C - - - - - 0x01C077 07:C067: 86 1C     STX ram_001C              ; clear
 C - - - - - 0x01C079 07:C069: 86 1F     STX v_player2_btn_pressed ; clear
 C - - - - - 0x01C07B 07:C06B: 86 5E     STX v_no_level            ; clear
-C - - - - - 0x01C07D 07:C06D: 86 C4     STX ram_00C4              ; clear
+C - - - - - 0x01C07D 07:C06D: 86 C4     STX vCheckpoint           ; clear
 C - - - - - 0x01C07F 07:C06F: 8E B6 06  STX ram_06B6              ; clear
 C - - - - - 0x01C082 07:C072: 86 C8     STX ram_00C8              ; clear
 C - - - - - 0x01C084 07:C074: 86 2E     STX ram_002E              ; clear
@@ -234,8 +236,8 @@ C - - - - - 0x01C196 07:C186: 90 03     BCC bra_C18B_skip
 C - - - - - 0x01C198 07:C188: 8D 09 01  STA v_last_level
 bra_C18B_skip:
 C - - - - - 0x01C19B 07:C18B: AA        TAX
-C - - - - - 0x01C19C 07:C18C: BD CA C1  LDA tbl_C1CA,X
-C - - - - - 0x01C19F 07:C18F: 85 C4     STA ram_00C4
+C - - - - - 0x01C19C 07:C18C: BD CA C1  LDA tbl_C1CA_checkpoint_on_start_levels,X
+C - - - - - 0x01C19F 07:C18F: 85 C4     STA vCheckpoint
 C - - - - - 0x01C1A1 07:C191: 4C B1 C1  JMP loc_C1B1
 
 ; Only for test mode
@@ -243,7 +245,7 @@ loc_C194:
 - - - - - - 0x01C1A4 07:C194: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 - - - - - - 0x01C1A7 07:C197: 20 13 C3  JSR sub_C313
 - - - - - - 0x01C1AA 07:C19A: A2 00     LDX #$00
-- - - - - - 0x01C1AC 07:C19C: A5 C4     LDA ram_00C4
+- - - - - - 0x01C1AC 07:C19C: A5 C4     LDA vCheckpoint
 - - - - - - 0x01C1AE 07:C19E: F0 0F     BEQ bra_C1AF
 - - - - - - 0x01C1B0 07:C1A0: E8        INX
 - - - - - - 0x01C1B1 07:C1A1: C9 06     CMP #$06
@@ -271,7 +273,7 @@ C - - - - - 0x01C1D3 07:C1C3: A2 00     LDX #$00
 C - - - - - 0x01C1D5 07:C1C5: 86 B6     STX ram_00B6
 C - - - - - 0x01C1D7 07:C1C7: 4C 9C C0  JMP loc_C09C
 
-tbl_C1CA:
+tbl_C1CA_checkpoint_on_start_levels:
 - - - - - - 0x01C1DA 07:C1CA: 00        .byte $00   ; 
 - D 2 - - - 0x01C1DB 07:C1CB: 06        .byte $06   ; 
 - D 2 - - - 0x01C1DC 07:C1CC: 0F        .byte $0F   ; 
@@ -336,7 +338,7 @@ C - - - - - 0x01C240 07:C230: F0 03     BEQ bra_C235_skip
 C - - - - - 0x01C242 07:C232: 20 19 B3  JSR $B319 ; to sub_B319 (bank 06_2)
 bra_C235_skip:
 C - - - - - 0x01C245 07:C235: A5 46     LDA ram_0046
-C - - - - - 0x01C247 07:C237: 85 C4     STA ram_00C4
+C - - - - - 0x01C247 07:C237: 85 C4     STA vCheckpoint
 C - - - - - 0x01C249 07:C239: 4C 95 C0  JMP loc_C095
 
 bra_C23C_skip:
@@ -867,11 +869,11 @@ C - - - - - 0x01C5E5 07:C5D5: AD 09 01  LDA v_last_level
 C - - - - - 0x01C5E8 07:C5D8: F0 39     BEQ bra_C613_RTS ; Branch If a last played level is 0.
 C - - - - - 0x01C5EA 07:C5DA: A5 AD     LDA ram_00AD
 C - - - - - 0x01C5EC 07:C5DC: F0 35     BEQ bra_C613_RTS
-C - - - - - 0x01C5EE 07:C5DE: A5 1C     LDA ram_001C
-C - - - - - 0x01C5F0 07:C5E0: 29 30     AND #$30
+C - - - - - 0x01C5EE 07:C5DE: A5 1C     LDA v_btn_pressed_in_game
+C - - - - - 0x01C5F0 07:C5E0: 29 30     AND #BIT_BUTTON_Up_OR_Down
 C - - - - - 0x01C5F2 07:C5E2: F0 0A     BEQ bra_C5EE_skip
 C - - - - - 0x01C5F4 07:C5E4: A2 8F     LDX #$8F
-C - - - - - 0x01C5F6 07:C5E6: C9 10     CMP #$10
+C - - - - - 0x01C5F6 07:C5E6: C9 10     CMP #BIT_BUTTON_Up
 C - - - - - 0x01C5F8 07:C5E8: F0 02     BEQ bra_C5EC_skip
 C - - - - - 0x01C5FA 07:C5EA: A2 9F     LDX #$9F
 bra_C5EC_skip:
@@ -961,7 +963,7 @@ C - - - - - 0x01C677 07:C667: 60        RTS
 bra_C668:
 sub_C668:
 C - - - - - 0x01C678 07:C668: A5 00     LDA ram_0000
-C - - - - - 0x01C67A 07:C66A: 20 86 D0  JSR sub_D086
+C - - - - - 0x01C67A 07:C66A: 20 86 D0  JSR sub_D086_render_14_15_16_17_18_v1
 C - - - - - 0x01C67D 07:C66D: C6 00     DEC ram_0000
 C - - - - - 0x01C67F 07:C66F: 10 F7     BPL bra_C668
 C - - - - - 0x01C681 07:C671: 60        RTS
@@ -992,13 +994,13 @@ C - - - - - 0x01C6B1 07:C6A1: AA        TAX
 C - - - - - 0x01C6B2 07:C6A2: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01C6B4 07:C6A4: 6A        ROR
 C - - - - - 0x01C6B5 07:C6A5: 6A        ROR
-bra_C6A6:
+@bra_C6A6_loop:
 C - - - - - 0x01C6B6 07:C6A6: 6A        ROR
 C - - - - - 0x01C6B7 07:C6A7: 6A        ROR
-C - - - - - 0x01C6B8 07:C6A8: B0 03     BCS bra_C6AD
+C - - - - - 0x01C6B8 07:C6A8: B0 03     BCS @bra_C6AD_skip
 C - - - - - 0x01C6BA 07:C6AA: E8        INX
-C - - - - - 0x01C6BB 07:C6AB: D0 F9     BNE bra_C6A6
-bra_C6AD:
+C - - - - - 0x01C6BB 07:C6AB: D0 F9     BNE @bra_C6A6_loop
+@bra_C6AD_skip:
 C - - - - - 0x01C6BD 07:C6AD: 86 AD     STX ram_00AD
 C - - - - - 0x01C6BF 07:C6AF: 20 53 C8  JSR sub_C853
 C - - - - - 0x01C6C2 07:C6B2: A9 10     LDA #$10
@@ -1126,7 +1128,7 @@ C - - - - - 0x01C780 07:C770: A9 06     LDA #$06
 C - - - - - 0x01C782 07:C772: 85 17     STA ram_0017
 C - - - - - 0x01C784 07:C774: A9 14     LDA #$14
 C - - - - - 0x01C786 07:C776: 85 18     STA ram_0018
-C - - - - - 0x01C788 07:C778: 4C 89 D0  JMP loc_D089
+C - - - - - 0x01C788 07:C778: 4C 89 D0  JMP loc_D089_render_14_15_16_17_18_v2
 
 sub_C77B:
 C - - - - - 0x01C78B 07:C77B: A5 1A     LDA ram_001A
@@ -1270,11 +1272,11 @@ C - - - - - 0x01C869 07:C859: 85 5F     STA v_chr_live_status
 C - - - - - 0x01C86B 07:C85B: 60        RTS
 
 sub_C85C:
-C - - - - - 0x01C86C 07:C85C: 20 A3 D0  JSR sub_D0A3
+C - - - - - 0x01C86C 07:C85C: 20 A3 D0  JSR sub_D0A3_prepare_14_15_16_17_18
 C - - - - - 0x01C86F 07:C85F: A9 03     LDA #$03
 C - - - - - 0x01C871 07:C861: 85 0F     STA ram_000F
 bra_C863:
-C - - - - - 0x01C873 07:C863: 20 89 D0  JSR sub_D089
+C - - - - - 0x01C873 07:C863: 20 89 D0  JSR sub_D089_render_14_15_16_17_18_v2
 C - - - - - 0x01C876 07:C866: A5 14     LDA ram_0014
 C - - - - - 0x01C878 07:C868: 18        CLC
 C - - - - - 0x01C879 07:C869: 69 20     ADC #$20
@@ -2658,39 +2660,46 @@ C - - - - - 0x01D093 07:D083: 25 12     AND v_temp_check_buttons
 bra_D085_RTS:
 C - - - - - 0x01D095 07:D085: 60        RTS
 
-sub_D086:
-C - - - - - 0x01D096 07:D086: 20 A3 D0  JSR sub_D0A3
-loc_D089:
-sub_D089:
-C D 2 - - - 0x01D099 07:D089: AD 02 20  LDA PPU_STATUS ; Reset PPU Address
-C - - - - - 0x01D09C 07:D08C: A5 15     LDA ram_0015
-C - - - - - 0x01D09E 07:D08E: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01D0A1 07:D091: A5 14     LDA ram_0014
-C - - - - - 0x01D0A3 07:D093: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01D0A6 07:D096: A0 00     LDY #$00
-bra_D098_repeat:
-C - - - - - 0x01D0A8 07:D098: B1 16     LDA (ram_0016),Y
-C - - - - - 0x01D0AA 07:D09A: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01D0AD 07:D09D: C8        INY
-C - - - - - 0x01D0AE 07:D09E: C4 18     CPY ram_0018
-C - - - - - 0x01D0B0 07:D0A0: D0 F6     BNE bra_D098_repeat
+; Params:
+; 0x12-0x13 - an input address
+; Register A - position by the content (indirect 0x12-0x13)
+sub_D086_render_14_15_16_17_18_v1:
+C - - - - - 0x01D096 07:D086: 20 A3 D0  JSR sub_D0A3_prepare_14_15_16_17_18
+; Or 0x14, 0x15, 0x16, 0x17, 0x18 are prepared outside
+loc_D089_render_14_15_16_17_18_v2:
+sub_D089_render_14_15_16_17_18_v2:
+C D 2 - - - 0x01D099 07:D089: AD 02 20  LDA PPU_STATUS  ; Reset PPU Address
+C - - - - - 0x01D09C 07:D08C: A5 15     LDA ram_0015    ;
+C - - - - - 0x01D09E 07:D08E: 8D 06 20  STA PPU_ADDRESS ;
+C - - - - - 0x01D0A1 07:D091: A5 14     LDA ram_0014    ;
+C - - - - - 0x01D0A3 07:D093: 8D 06 20  STA PPU_ADDRESS ; PPU address is {0x14-0x15}
+C - - - - - 0x01D0A6 07:D096: A0 00     LDY #$00           ; set loop counter
+@bra_D098_loop:                                            ; loop by y
+C - - - - - 0x01D0A8 07:D098: B1 16     LDA (ram_0016),Y   ;
+C - - - - - 0x01D0AA 07:D09A: 8D 07 20  STA PPU_DATA       ;
+C - - - - - 0x01D0AD 07:D09D: C8        INY                ; increments loop counter
+C - - - - - 0x01D0AE 07:D09E: C4 18     CPY ram_0018       ;
+C - - - - - 0x01D0B0 07:D0A0: D0 F6     BNE @bra_D098_loop ; If Register Y != 0x18
 C - - - - - 0x01D0B2 07:D0A2: 60        RTS
 
-sub_D0A3:
-C - - - - - 0x01D0B3 07:D0A3: 85 14     STA ram_0014
-C - - - - - 0x01D0B5 07:D0A5: 0A        ASL
-C - - - - - 0x01D0B6 07:D0A6: 0A        ASL
-C - - - - - 0x01D0B7 07:D0A7: 18        CLC
-C - - - - - 0x01D0B8 07:D0A8: 65 14     ADC ram_0014
+; Params:
+; 0x12-0x13 - an input address
+; Register A - position by the content (indirect 0x12-0x13)
+sub_D0A3_prepare_14_15_16_17_18:
+C - - - - - 0x01D0B3 07:D0A3: 85 14     STA ram_0014 ;
+C - - - - - 0x01D0B5 07:D0A5: 0A        ASL          ;
+C - - - - - 0x01D0B6 07:D0A6: 0A        ASL          ;
+C - - - - - 0x01D0B7 07:D0A7: 18        CLC          ;
+C - - - - - 0x01D0B8 07:D0A8: 65 14     ADC ram_0014 ; increment += 5
 C - - - - - 0x01D0BA 07:D0AA: A8        TAY
-C - - - - - 0x01D0BB 07:D0AB: A2 00     LDX #$00
-bra_D0AD:
+C - - - - - 0x01D0BB 07:D0AB: A2 00     LDX #$00         ; set loop counter
+@bra_D0AD_loop:                                          ; loop by x
 C - - - - - 0x01D0BD 07:D0AD: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01D0BF 07:D0AF: 95 14     STA ram_0014,X
 C - - - - - 0x01D0C1 07:D0B1: C8        INY
-C - - - - - 0x01D0C2 07:D0B2: E8        INX
+C - - - - - 0x01D0C2 07:D0B2: E8        INX              ; increments loop counter
 C - - - - - 0x01D0C3 07:D0B3: E0 05     CPX #$05
-C - - - - - 0x01D0C5 07:D0B5: D0 F6     BNE bra_D0AD
+C - - - - - 0x01D0C5 07:D0B5: D0 F6     BNE @bra_D0AD_loop ; If Register X > 0x00
 C - - - - - 0x01D0C7 07:D0B7: 60        RTS
 
 C - - - - - 0x01D0C8 07:D0B8: A0 02     LDY #$02
@@ -5056,9 +5065,9 @@ loc_DF31:
 C D 2 - - - 0x01DF41 07:DF31: A2 80     LDX #$80
 C - - - - - 0x01DF43 07:DF33: A5 3A     LDA ram_003A
 C - - - - - 0x01DF45 07:DF35: 29 20     AND #$20
-C - - - - - 0x01DF47 07:DF37: D0 02     BNE bra_DF3B
-C - - - - - 0x01DF49 07:DF39: A2 81     LDX #$81
-bra_DF3B:
+C - - - - - 0x01DF47 07:DF37: D0 02     BNE @bra_DF3B_skip
+C - - - - - 0x01DF49 07:DF39: A2 81     LDX #$81           ; CONSTANT
+@bra_DF3B_skip:
 C - - - - - 0x01DF4B 07:DF3B: 86 39     STX ram_0039
 C - - - - - 0x01DF4D 07:DF3D: 60        RTS
 
@@ -5179,7 +5188,7 @@ C - - - - - 0x01DFE8 07:DFD8: 85 6C     STA ram_006C
 C - - - - - 0x01DFEA 07:DFDA: A2 00     LDX #$00
 C - - - - - 0x01DFEC 07:DFDC: 4C C2 DB  JMP loc_DBC2
 
-C - - - - - 0x01DFEF 07:DFDF: A5 C4     LDA ram_00C4
+C - - - - - 0x01DFEF 07:DFDF: A5 C4     LDA vCheckpoint
 C - - - - - 0x01DFF1 07:DFE1: F0 2A     BEQ bra_E00D
 C - - - - - 0x01DFF3 07:DFE3: A2 C0     LDX #$C0
 C - - - - - 0x01DFF5 07:DFE5: C9 FF     CMP #$FF
@@ -5188,7 +5197,7 @@ C - - - - - 0x01DFF9 07:DFE9: A2 C3     LDX #$C3
 bra_DFEB:
 C - - - - - 0x01DFFB 07:DFEB: 86 39     STX ram_0039
 C - - - - - 0x01DFFD 07:DFED: D0 1E     BNE bra_E00D
-C - - - - - 0x01DFFF 07:DFEF: A5 C4     LDA ram_00C4
+C - - - - - 0x01DFFF 07:DFEF: A5 C4     LDA vCheckpoint
 C - - - - - 0x01E001 07:DFF1: D0 1A     BNE bra_E00D
 C - - - - - 0x01E003 07:DFF3: A4 C5     LDY ram_00C5
 C - - - - - 0x01E005 07:DFF5: 30 16     BMI bra_E00D
@@ -5221,7 +5230,7 @@ C - - - - - 0x01E02C 07:E01C: 4C C2 DB  JMP loc_DBC2
 bra_E01F:
 C - - - - - 0x01E02F 07:E01F: A5 39     LDA ram_0039
 C - - - - - 0x01E031 07:E021: 30 12     BMI bra_E035_RTS
-C - - - - - 0x01E033 07:E023: A5 C4     LDA ram_00C4
+C - - - - - 0x01E033 07:E023: A5 C4     LDA vCheckpoint
 C - - - - - 0x01E035 07:E025: D0 0E     BNE bra_E035_RTS
 C - - - - - 0x01E037 07:E027: A5 1C     LDA ram_001C
 C - - - - - 0x01E039 07:E029: 29 10     AND #$10
@@ -6794,7 +6803,7 @@ C - - - - - 0x01E980 07:E970: 90 08     BCC bra_E97A
 C - - - - - 0x01E982 07:E972: A2 C0     LDX #$C0
 C - - - - - 0x01E984 07:E974: 86 39     STX ram_0039
 C - - - - - 0x01E986 07:E976: A2 42     LDX #$42
-C - - - - - 0x01E988 07:E978: 86 C4     STX ram_00C4
+C - - - - - 0x01E988 07:E978: 86 C4     STX vCheckpoint
 bra_E97A:
 C - - - - - 0x01E98A 07:E97A: C9 55     CMP #$55
 C - - - - - 0x01E98C 07:E97C: 90 0F     BCC bra_E98D
@@ -9145,7 +9154,7 @@ C - - - - - 0x01F989 07:F979: 85 C3     STA ram_00C3
 C - - - - - 0x01F98B 07:F97B: 24 00     BIT ram_0000
 C - - - - - 0x01F98D 07:F97D: 50 3C     BVC bra_F9BB
 C - - - - - 0x01F98F 07:F97F: A9 00     LDA #$00
-C - - - - - 0x01F991 07:F981: 85 C4     STA ram_00C4
+C - - - - - 0x01F991 07:F981: 85 C4     STA vCheckpoint
 C - - - - - 0x01F993 07:F983: C8        INY ; 4th of 5 bytes
 C - - - - - 0x01F994 07:F984: B1 BD     LDA (ram_00BD),Y
 C - - - - - 0x01F996 07:F986: AA        TAX
@@ -9167,7 +9176,7 @@ C - - - - - 0x01F9B3 07:F9A3: 29 07     AND #$07
 C - - - - - 0x01F9B5 07:F9A5: 85 B9     STA ram_00B9
 C - - - - - 0x01F9B7 07:F9A7: A8        TAY
 C - - - - - 0x01F9B8 07:F9A8: B1 BA     LDA (ram_00BA),Y
-C - - - - - 0x01F9BA 07:F9AA: 85 C4     STA ram_00C4
+C - - - - - 0x01F9BA 07:F9AA: 85 C4     STA vCheckpoint
 C - - - - - 0x01F9BC 07:F9AC: 20 DA FB  JSR sub_FBDA
 C - - - - - 0x01F9BF 07:F9AF: A4 11     LDY v_cache_reg_y
 C - - - - - 0x01F9C1 07:F9B1: 4C C0 F9  JMP loc_F9C0
@@ -9180,7 +9189,7 @@ C - - - - - 0x01F9C8 07:F9B8: 4C C0 F9  JMP loc_F9C0
 bra_F9BB:
 C - - - - - 0x01F9CB 07:F9BB: C8        INY ; 4th of 5 bytes
 C - - - - - 0x01F9CC 07:F9BC: B1 BD     LDA (ram_00BD),Y
-C - - - - - 0x01F9CE 07:F9BE: 85 C4     STA ram_00C4
+C - - - - - 0x01F9CE 07:F9BE: 85 C4     STA vCheckpoint
 loc_F9C0:
 C D 3 - - - 0x01F9D0 07:F9C0: C8        INY ; 5th of 5 bytes
 C - - - - - 0x01F9D1 07:F9C1: B1 BD     LDA (ram_00BD),Y
@@ -9481,11 +9490,11 @@ C - - - - - 0x01FBA9 07:FB99: 60        RTS
 sub_FB9A:
 C - - - - - 0x01FBAA 07:FB9A: A9 01     LDA #$01
 C - - - - - 0x01FBAC 07:FB9C: 24 B7     BIT v_corridor_magic5
-C - - - - - 0x01FBAE 07:FB9E: 30 02     BMI @bra_FBA2_skip
+C - - - - - 0x01FBAE 07:FB9E: 30 02     BMI @bra_FBA2_skip    ; If v_corridor_magic5 & 0x80
 C - - - - - 0x01FBB0 07:FBA0: A9 00     LDA #$00
 @bra_FBA2_skip:
 C - - - - - 0x01FBB2 07:FBA2: 85 01     STA ram_0001 ; Register A has 0x00 or 0x01
-C - - - - - 0x01FBB4 07:FBA4: A5 C4     LDA ram_00C4
+C - - - - - 0x01FBB4 07:FBA4: A5 C4     LDA vCheckpoint
 C - - - - - 0x01FBB6 07:FBA6: 0A        ASL
 C - - - - - 0x01FBB7 07:FBA7: 26 01     ROL ram_0001
 C - - - - - 0x01FBB9 07:FBA9: 0A        ASL
@@ -9655,7 +9664,7 @@ C - - - - - 0x01FCBD 07:FCAD: A4 68     LDY ram_0068
 C - - - - - 0x01FCBF 07:FCAF: A9 00     LDA #$00
 C - - - - - 0x01FCC1 07:FCB1: 85 B7     STA ram_00B7
 C - - - - - 0x01FCC3 07:FCB3: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01FCC5 07:FCB5: 85 C4     STA ram_00C4
+C - - - - - 0x01FCC5 07:FCB5: 85 C4     STA vCheckpoint
 C - - - - - 0x01FCC7 07:FCB7: 4C 5D EF  JMP loc_EF5D_switch_variable_bank
 
 tbl_FCBA:

@@ -76,6 +76,9 @@ vGameMode                     = ram_0037
 ; 0x00 - in game
 ; 0xFF - Starting cutscenes
 
+; ??? = ram_0039
+; 0x81 - ???
+
 v_resists                     = ram_003A ; TODO: !!!, 0x80 - The enemies don't damage
 vSharedGameStatus             = ram_003B
 ; Value (some the flags):
@@ -321,6 +324,10 @@ v_chr_status                  = ram_006C ; A status of a character
 ; 0x00000001 - the character is looking to the left
 ; 0x00000010 - the character is sitting
 ; 0x00010000 - the character is jumping
+
+; ??? - ram_00AD
+; 0x8F - ???
+; 0x9F - ???
 							  
 v_start_level                 = ram_00B1 ; The start level [0-3]
 v_count_secret_hits           = ram_00B2 ; Stage select codes at the title screen
@@ -336,6 +343,13 @@ v_high_destr_wall_address     = ram_00C0
 vMessageInProgress            = ram_00C8
 ; 0x00 - no message
 ; 0x80 - the message is typing
+
+vCheckpoint                   = ram_00C4
+; 0x00 - level 1
+; 0x06 - level 2
+; 0x0F - level 3
+; 0x19 - level racing
+; 0x42 - level 4 (pyramid)
 
 vMessageCounter               = ram_00CA
 v_low_vram_msg_address        = ram_00CB

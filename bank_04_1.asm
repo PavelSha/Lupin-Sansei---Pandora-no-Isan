@@ -3,6 +3,8 @@
 ; 0x010010-0x01200F
 
 .export tbl_template_chr_banks1
+.export tbl_main_menu_chr_banks
+.export tbl_main_menu_palette
 .export tbl_copyright
 .export tbl_ptr_corridors
 .export tbl_ptr_destructible_walls
@@ -199,129 +201,72 @@ tbl_copyright:
 - D 0 - I - 0x0100CB 04:80BB: 87        .byte $87   ; 
 - D 0 - I - 0x0100CC 04:80BC: 03        .byte $03   ; 
 - D 0 - I - 0x0100CD 04:80BD: 02        .byte $02   ; 
-- D 0 - - - 0x0100CE 04:80BE: 12        .byte $12   ; 
-- D 0 - - - 0x0100CF 04:80BF: 00        .byte $00   ; 
-- D 0 - - - 0x0100D0 04:80C0: 3C        .byte $3C   ; 
-- D 0 - - - 0x0100D1 04:80C1: 3D        .byte $3D   ; 
-- D 0 - - - 0x0100D2 04:80C2: 3A        .byte $3A   ; 
-- D 0 - - - 0x0100D3 04:80C3: 3B        .byte $3B   ; 
-- D 0 - - - 0x0100D4 04:80C4: 0F        .byte $0F   ; 
-- D 0 - - - 0x0100D5 04:80C5: 20        .byte $20   ; 
-- D 0 - - - 0x0100D6 04:80C6: 27        .byte $27   ; 
-- D 0 - - - 0x0100D7 04:80C7: 00        .byte $00   ; 
-- D 0 - - - 0x0100D8 04:80C8: 0F        .byte $0F   ; 
-- D 0 - - - 0x0100D9 04:80C9: 20        .byte $20   ; 
-- D 0 - - - 0x0100DA 04:80CA: 20        .byte $20   ; 
-- D 0 - - - 0x0100DB 04:80CB: 20        .byte $20   ; 
-- D 0 - - - 0x0100DC 04:80CC: 0F        .byte $0F   ; 
-- D 0 - - - 0x0100DD 04:80CD: 16        .byte $16   ; 
-- D 0 - - - 0x0100DE 04:80CE: 16        .byte $16   ; 
-- D 0 - - - 0x0100DF 04:80CF: 16        .byte $16   ; 
-- D 0 - - - 0x0100E0 04:80D0: 0F        .byte $0F   ; 
-- D 0 - - - 0x0100E1 04:80D1: 27        .byte $27   ; 
-- D 0 - - - 0x0100E2 04:80D2: 27        .byte $27   ; 
-- D 0 - - - 0x0100E3 04:80D3: 27        .byte $27   ; 
-- D 0 - - - 0x0100E4 04:80D4: 0F        .byte $0F   ; 
-- D 0 - - - 0x0100E5 04:80D5: 10        .byte $10   ; 
-- D 0 - - - 0x0100E6 04:80D6: 17        .byte $17   ; 
-- D 0 - - - 0x0100E7 04:80D7: 00        .byte $00   ; 
-- D 0 - - - 0x0100E8 04:80D8: 0F        .byte $0F   ; 
-- D 0 - - - 0x0100E9 04:80D9: 20        .byte $20   ; 
-- D 0 - - - 0x0100EA 04:80DA: 20        .byte $20   ; 
-- D 0 - - - 0x0100EB 04:80DB: 20        .byte $20   ; 
-- D 0 - - - 0x0100EC 04:80DC: 0F        .byte $0F   ; 
-- D 0 - - - 0x0100ED 04:80DD: 25        .byte $25   ; 
-- D 0 - - - 0x0100EE 04:80DE: 25        .byte $25   ; 
-- D 0 - - - 0x0100EF 04:80DF: 25        .byte $25   ; 
-- D 0 - - - 0x0100F0 04:80E0: 0F        .byte $0F   ; 
-- D 0 - - - 0x0100F1 04:80E1: 12        .byte $12   ; 
-- D 0 - - - 0x0100F2 04:80E2: 12        .byte $12   ; 
-- D 0 - - - 0x0100F3 04:80E3: 12        .byte $12   ; 
-- D 0 - I - 0x0100F4 04:80E4: E5        .byte $E5   ; 
-- D 0 - I - 0x0100F5 04:80E5: 20        .byte $20   ; 
-- D 0 - I - 0x0100F6 04:80E6: 79        .byte $79   ; <y>
-- D 0 - I - 0x0100F7 04:80E7: 88        .byte $88   ; 
-- D 0 - I - 0x0100F8 04:80E8: 16        .byte $16   ; 
-- D 0 - I - 0x0100F9 04:80E9: 05        .byte $05   ; 
-- D 0 - I - 0x0100FA 04:80EA: 21        .byte $21   ; 
-- D 0 - I - 0x0100FB 04:80EB: 8F        .byte $8F   ; 
-- D 0 - I - 0x0100FC 04:80EC: 88        .byte $88   ; 
-- D 0 - I - 0x0100FD 04:80ED: 16        .byte $16   ; 
-- D 0 - I - 0x0100FE 04:80EE: 25        .byte $25   ; 
-- D 0 - I - 0x0100FF 04:80EF: 21        .byte $21   ; 
-- D 0 - I - 0x010100 04:80F0: A5        .byte $A5   ; 
-- D 0 - I - 0x010101 04:80F1: 88        .byte $88   ; 
-- D 0 - I - 0x010102 04:80F2: 16        .byte $16   ; 
-- D 0 - I - 0x010103 04:80F3: 45        .byte $45   ; <E>
-- D 0 - I - 0x010104 04:80F4: 21        .byte $21   ; 
-- D 0 - I - 0x010105 04:80F5: BB        .byte $BB   ; 
-- D 0 - I - 0x010106 04:80F6: 88        .byte $88   ; 
-- D 0 - I - 0x010107 04:80F7: 16        .byte $16   ; 
-- D 0 - I - 0x010108 04:80F8: 65        .byte $65   ; <e>
-- D 0 - I - 0x010109 04:80F9: 21        .byte $21   ; 
-- D 0 - I - 0x01010A 04:80FA: D1        .byte $D1   ; 
-- D 0 - I - 0x01010B 04:80FB: 88        .byte $88   ; 
-- D 0 - I - 0x01010C 04:80FC: 16        .byte $16   ; 
-- D 0 - I - 0x01010D 04:80FD: 85        .byte $85   ; 
-- D 0 - I - 0x01010E 04:80FE: 21        .byte $21   ; 
-- D 0 - I - 0x01010F 04:80FF: E7        .byte $E7   ; 
-- D 0 - I - 0x010110 04:8100: 88        .byte $88   ; 
-- D 0 - I - 0x010111 04:8101: 16        .byte $16   ; 
-- D 0 - I - 0x010112 04:8102: A4        .byte $A4   ; 
-- D 0 - I - 0x010113 04:8103: 21        .byte $21   ; 
-- D 0 - I - 0x010114 04:8104: FD        .byte $FD   ; 
-- D 0 - I - 0x010115 04:8105: 88        .byte $88   ; 
-- D 0 - I - 0x010116 04:8106: 02        .byte $02   ; 
-- D 0 - I - 0x010117 04:8107: C8        .byte $C8   ; 
-- D 0 - I - 0x010118 04:8108: 21        .byte $21   ; 
-- D 0 - I - 0x010119 04:8109: FF        .byte $FF   ; 
-- D 0 - I - 0x01011A 04:810A: 88        .byte $88   ; 
-- D 0 - I - 0x01011B 04:810B: 0F        .byte $0F   ; 
-- D 0 - - - 0x01011C 04:810C: E8        .byte $E8   ; 
-- D 0 - - - 0x01011D 04:810D: 21        .byte $21   ; 
-- D 0 - I - 0x01011E 04:810E: 0E        .byte $0E   ; 
-- D 0 - I - 0x01011F 04:810F: 89        .byte $89   ; 
-- D 0 - I - 0x010120 04:8110: 0F        .byte $0F   ; 
-- D 0 - I - 0x010121 04:8111: C0        .byte $C0   ; 
-- D 0 - I - 0x010122 04:8112: 23        .byte $23   ; 
-- D 0 - I - 0x010123 04:8113: F3        .byte $F3   ; 
-- D 0 - I - 0x010124 04:8114: 87        .byte $87   ; 
-- D 0 - I - 0x010125 04:8115: 40        .byte $40   ; 
-- D 0 - I - 0x010126 04:8116: 64        .byte $64   ; <d>
-- D 0 - I - 0x010127 04:8117: 20        .byte $20   ; 
-- D 0 - I - 0x010128 04:8118: 33        .byte $33   ; <3>
-- D 0 - I - 0x010129 04:8119: 88        .byte $88   ; 
-- D 0 - I - 0x01012A 04:811A: 05        .byte $05   ; 
-- D 0 - I - 0x01012B 04:811B: 6E        .byte $6E   ; <n>
-- D 0 - I - 0x01012C 04:811C: 20        .byte $20   ; 
-- D 0 - I - 0x01012D 04:811D: 38        .byte $38   ; <8>
-- D 0 - I - 0x01012E 04:811E: 88        .byte $88   ; 
-- D 0 - I - 0x01012F 04:811F: 08        .byte $08   ; 
-- D 0 - I - 0x010130 04:8120: EC        .byte $EC   ; 
-- D 0 - I - 0x010131 04:8121: 22        .byte $22   ; 
-- D 0 - I - 0x010132 04:8122: 40        .byte $40   ; 
-- D 0 - I - 0x010133 04:8123: 88        .byte $88   ; 
-- D 0 - I - 0x010134 04:8124: 08        .byte $08   ; 
-- D 0 - I - 0x010135 04:8125: 28        .byte $28   ; 
-- D 0 - I - 0x010136 04:8126: 23        .byte $23   ; 
-- D 0 - I - 0x010137 04:8127: 5B        .byte $5B   ; 
-- D 0 - I - 0x010138 04:8128: 88        .byte $88   ; 
-- D 0 - I - 0x010139 04:8129: 11        .byte $11   ; 
-- D 0 - I - 0x01013A 04:812A: 67        .byte $67   ; <g>
-- D 0 - I - 0x01013B 04:812B: 23        .byte $23   ; 
-- D 0 - I - 0x01013C 04:812C: 48        .byte $48   ; <H>
-- D 0 - I - 0x01013D 04:812D: 88        .byte $88   ; 
-- D 0 - I - 0x01013E 04:812E: 13        .byte $13   ; 
-- D 0 - I - 0x01013F 04:812F: 4D        .byte $4D   ; <M>
-- D 0 - I - 0x010140 04:8130: 22        .byte $22   ; 
-- D 0 - I - 0x010141 04:8131: 6C        .byte $6C   ; <l>
-- D 0 - I - 0x010142 04:8132: 88        .byte $88   ; 
-- D 0 - I - 0x010143 04:8133: 05        .byte $05   ; 
-- D 0 - I - 0x010144 04:8134: 8D        .byte $8D   ; 
-- D 0 - I - 0x010145 04:8135: 22        .byte $22   ; 
-- D 0 - I - 0x010146 04:8136: 71        .byte $71   ; <q>
-- D 0 - I - 0x010147 04:8137: 88        .byte $88   ; 
-- D 0 - I - 0x010148 04:8138: 08        .byte $08   ; 
+
+tbl_main_menu_chr_banks:
+- D 0 - - - 0x0100CE 04:80BE: 12        .byte $12, $00, $3C, $3D, $3A, $3B   ; 
+
+tbl_main_menu_palette:
+- D 0 - - - 0x0100D4 04:80C4: 0F        .byte $0F, $20, $27, $00   ; 
+- D 0 - - - 0x0100D8 04:80C8: 0F        .byte $0F, $20, $20, $20   ; 
+- D 0 - - - 0x0100DC 04:80CC: 0F        .byte $0F, $16, $16, $16   ; 
+- D 0 - - - 0x0100E0 04:80D0: 0F        .byte $0F, $27, $27, $27   ; 
+- D 0 - - - 0x0100E4 04:80D4: 0F        .byte $0F, $10, $17, $00   ; 
+- D 0 - - - 0x0100E8 04:80D8: 0F        .byte $0F, $20, $20, $20   ; 
+- D 0 - - - 0x0100EC 04:80DC: 0F        .byte $0F, $25, $25, $25   ; 
+- D 0 - - - 0x0100F0 04:80E0: 0F        .byte $0F, $12, $12, $12   ; 
+
+- D 0 - I - 0x0100F4 04:80E4: E5        .addr $20E5 ; ppu address
+                                        .addr $8879
+                                        .byte $16
+- D 0 - I - 0x0100F9 04:80E9: 05        .addr $2105 ; ppu address
+                                        .addr $888F
+                                        .byte $16
+- D 0 - I - 0x0100FE 04:80EE: 25        .addr $2125 ; ppu address
+                                        .addr $88A5
+                                        .byte $16
+- D 0 - I - 0x010103 04:80F3: 45        .addr $2145 ; ppu address
+                                        .addr $88BB
+                                        .byte $16
+- D 0 - I - 0x010108 04:80F8: 65        .addr $2165 ; ppu address
+                                        .addr $88D1
+                                        .byte $16
+- D 0 - I - 0x01010D 04:80FD: 85        .addr $2185 ; ppu address
+                                        .addr $88E7
+                                        .byte $16
+- D 0 - I - 0x010112 04:8102: A4        .addr $21A4 ; ppu address
+                                        .addr $88FD
+                                        .byte $02
+- D 0 - I - 0x010117 04:8107: C8        .addr $21C8 ; ppu address
+                                        .addr $88FF
+                                        .byte $0F
+- D 0 - - - 0x01011C 04:810C: E8        .addr $21E8 ; ppu address
+                                        .addr $890E
+                                        .byte $0F
+- D 0 - I - 0x010121 04:8111: C0        .addr $23C0 ; ppu address
+                                        .addr $87F3
+                                        .byte $40
+- D 0 - I - 0x010126 04:8116: 64        .addr $2064 ; ppu address
+                                        .addr $8833
+                                        .byte $05
+- D 0 - I - 0x01012B 04:811B: 6E        .addr $206E ; ppu address
+                                        .addr $8838
+                                        .byte $08
+- D 0 - I - 0x010130 04:8120: EC        .addr $22EC ; ppu address
+                                        .addr $8840
+                                        .byte $08
+- D 0 - I - 0x010135 04:8125: 28        .addr $2328 ; ppu address
+                                        .addr $885B
+                                        .byte $11
+- D 0 - I - 0x01013A 04:812A: 67        .addr $2367 ; ppu address
+                                        .addr $8848
+                                        .byte $13
+- D 0 - I - 0x01013F 04:812F: 4D        .addr $224D ; ppu address
+                                        .addr $886C
+                                        .byte $05
+- D 0 - I - 0x010144 04:8134: 8D        .addr $228D ; ppu address
+                                        .addr $8871
+                                        .byte $08
+
 - D 0 - I - 0x010149 04:8139: 62        .byte $62   ; <b>
 - D 0 - I - 0x01014A 04:813A: 20        .byte $20   ; 
 - D 0 - I - 0x01014B 04:813B: C9        .byte $C9   ; 

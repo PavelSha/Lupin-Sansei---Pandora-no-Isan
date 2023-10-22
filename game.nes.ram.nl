@@ -13,3 +13,4 @@ $0034#vMenuCounterTimes#
 $003B#vSharedGameStatus#
 $001D#vCopy001C#
 $0026#vPpuCtrlSettings#
+$00C4#vCheckpoint#
