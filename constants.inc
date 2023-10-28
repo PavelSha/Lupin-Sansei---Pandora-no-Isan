@@ -101,6 +101,8 @@ vActivateCharacterSelect      = ram_003D
 ; 0x00 - no active
 ; 0x01 - has beed activated
 
+vTempCounter3D                = ram_003D
+
 v_npc_message_status          = ram_0041
 ; 83 - npc is saying the message 
 ; C3 - npc said the message 
@@ -310,7 +312,7 @@ v_no_level                    = ram_005E ; It is a number of a level than it sta
 ; 0x01 - level 2
 ; 0x02 - level 3
 ; 0x03 - level 4 + racing
-v_chr_live_status              = ram_005F
+v_chr_live_status             = ram_005F
 ; Byte: XYZW KLMN
 ; MN - the current selected character (0x00 - Lupin, 0x01 - Jigen, 0x10 - Goemon)
 ; X - Goemon fell (1 - true)
@@ -328,6 +330,9 @@ v_chr_status                  = ram_006C ; A status of a character
 ; ??? - ram_00AD
 ; 0x8F - ???
 ; 0x9F - ???
+
+vIndexSelectableChr           = ram_00AD ; Selectable character number in character selection mode
+vCacheIndexSelectableChr      = ram_00AE ;
 							  
 v_start_level                 = ram_00B1 ; The start level [0-3]
 v_count_secret_hits           = ram_00B2 ; Stage select codes at the title screen
@@ -469,10 +474,10 @@ vPpuAddrDataCache             = ram_067B
 vCacheChrBankSelect           = ram_06AF ; [ram_06AF - ram_06B4]
 vBankData                     = ram_06B5
 v_sprite_magics               = ram_06B7
-v_sprite_magic1               = ram_06B7
+v_sprite_magic1               = ram_06B7 ; Y-position
 v_sprite_magic2               = ram_06B8
 v_sprite_magic3               = ram_06B9 ; BBBB XXXX, BBBB - sign MMC3 bank data
-v_sprite_magic4               = ram_06BA
+v_sprite_magic4               = ram_06BA ; X-position
 v_offset_sprite_magic         = ram_06F7 ; The pack is using 1,2,3,4 sprite magic
 vStartOAM                     = ram_0700
 vStartOAM_2b                  = ram_0701 ; 2nd byte

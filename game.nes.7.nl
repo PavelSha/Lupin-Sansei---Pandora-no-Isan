@@ -156,3 +156,7 @@ $C5CB#sounds_of_a_gunshot#
 $D07F##to RTS
 $C2FF#update_ppu_ctrl_with_nmi#
 $C305#update_ppu_ctrl_with_no_nmi#
+$C7EF#sprite_magic_in_select_character#
+$C668#render_14_15_16_17_18_loop#
+$D086#render_14_15_16_17_18_v1#
+$D0A3#prepare_14_15_16_17_18#

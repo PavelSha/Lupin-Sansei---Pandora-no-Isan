@@ -1,5 +1,6 @@
 $8000#MMC3_Bank_select#
 $8001#MMC3_Bank_data#
+$B968#B968_infinite_loop#
 $AD80#activate_sound_manager#
 $B978##commented
 $B97A##commented

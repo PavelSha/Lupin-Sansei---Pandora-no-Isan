@@ -1,6 +1,5 @@
 $005E#v_no_level#
 $0500#vRooms#
-$005F#v_chr_live_status#
 $0700#vStartOAM#
 $0037#vGameMode#
 $0300#vEnemies#
@@ -14,3 +13,5 @@ $003B#vSharedGameStatus#
 $001D#vCopy001C#
 $0026#vPpuCtrlSettings#
 $00C4#vCheckpoint#
+$001C#vBtnPressedInGame#
+$005F#vChrLiveStatus#

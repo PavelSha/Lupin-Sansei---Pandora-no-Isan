@@ -267,46 +267,32 @@ tbl_main_menu_palette:
                                         .addr $8871
                                         .byte $08
 
-- D 0 - I - 0x010149 04:8139: 62        .byte $62   ; <b>
-- D 0 - I - 0x01014A 04:813A: 20        .byte $20   ; 
-- D 0 - I - 0x01014B 04:813B: C9        .byte $C9   ; 
-- D 0 - I - 0x01014C 04:813C: 86        .byte $86   ; 
-- D 0 - I - 0x01014D 04:813D: 1C        .byte $1C   ; 
-- D 0 - I - 0x01014E 04:813E: 45        .byte $45   ; <E>
-- D 0 - I - 0x01014F 04:813F: 21        .byte $21   ; 
-- D 0 - I - 0x010150 04:8140: E5        .byte $E5   ; 
-- D 0 - I - 0x010151 04:8141: 86        .byte $86   ; 
-- D 0 - I - 0x010152 04:8142: 03        .byte $03   ; 
-- D 0 - I - 0x010153 04:8143: 65        .byte $65   ; <e>
-- D 0 - I - 0x010154 04:8144: 21        .byte $21   ; 
-- D 0 - I - 0x010155 04:8145: E8        .byte $E8   ; 
-- D 0 - I - 0x010156 04:8146: 86        .byte $86   ; 
-- D 0 - I - 0x010157 04:8147: 03        .byte $03   ; 
-- D 0 - I - 0x010158 04:8148: 45        .byte $45   ; <E>
-- D 0 - I - 0x010159 04:8149: 22        .byte $22   ; 
-- D 0 - I - 0x01015A 04:814A: EB        .byte $EB   ; 
-- D 0 - I - 0x01015B 04:814B: 86        .byte $86   ; 
-- D 0 - I - 0x01015C 04:814C: 03        .byte $03   ; 
-- D 0 - I - 0x01015D 04:814D: 65        .byte $65   ; <e>
-- D 0 - I - 0x01015E 04:814E: 22        .byte $22   ; 
-- D 0 - I - 0x01015F 04:814F: EE        .byte $EE   ; 
-- D 0 - I - 0x010160 04:8150: 86        .byte $86   ; 
-- D 0 - I - 0x010161 04:8151: 03        .byte $03   ; 
-- D 0 - I - 0x010162 04:8152: 45        .byte $45   ; <E>
-- D 0 - I - 0x010163 04:8153: 23        .byte $23   ; 
-- D 0 - I - 0x010164 04:8154: F1        .byte $F1   ; 
-- D 0 - I - 0x010165 04:8155: 86        .byte $86   ; 
-- D 0 - I - 0x010166 04:8156: 04        .byte $04   ; 
-- D 0 - I - 0x010167 04:8157: 65        .byte $65   ; <e>
-- D 0 - I - 0x010168 04:8158: 23        .byte $23   ; 
-- D 0 - I - 0x010169 04:8159: F5        .byte $F5   ; 
-- D 0 - I - 0x01016A 04:815A: 86        .byte $86   ; 
-- D 0 - I - 0x01016B 04:815B: 04        .byte $04   ; 
-- D 0 - I - 0x01016C 04:815C: C0        .byte $C0   ; 
-- D 0 - I - 0x01016D 04:815D: 23        .byte $23   ; 
-- D 0 - I - 0x01016E 04:815E: 89        .byte $89   ; 
-- D 0 - I - 0x01016F 04:815F: 86        .byte $86   ; 
-- D 0 - I - 0x010170 04:8160: 40        .byte $40   ; 
+; Screen 'Select a character'
+- D 0 - I - 0x010149 04:8139: 62        .addr $2062                      ; ppu address (insertion point)
+                                        .addr loc_tile_select_character1 ; CPU address $86C9
+                                        .byte $1C                        ; count
+- D 0 - I - 0x01014E 04:813E: 45        .addr $2145
+                                        .addr loc_tile_select_character2 ; CPU address $86E5
+                                        .byte $03
+- D 0 - I - 0x010153 04:8143: 65        .addr $2165
+                                        .addr loc_tile_select_character3 ; CPU address $86E8
+                                        .byte $03
+- D 0 - I - 0x010158 04:8148: 45        .addr $2245
+                                        .addr loc_tile_select_character4 ; CPU address $86EB
+                                        .byte $03
+- D 0 - I - 0x01015D 04:814D: 65        .addr $2265
+                                        .addr loc_tile_select_character5 ; CPU address $86EE
+                                        .byte $03
+- D 0 - I - 0x010162 04:8152: 45        .addr $2345
+                                        .addr loc_tile_select_character6 ; CPU address $86F1
+                                        .byte $04
+- D 0 - I - 0x010167 04:8157: 65        .addr $2365
+                                        .addr loc_tile_select_character7 ; CPU address $86F5
+                                        .byte $04
+- D 0 - I - 0x01016C 04:815C: C0        .addr $23C0
+                                        .addr loc_tbl_attrs_select_character ; CPU address $8689
+                                        .byte $40
+
 - D 0 - I - 0x010171 04:8161: 8B        .byte $8B   ; 
 - D 0 - I - 0x010172 04:8162: 21        .byte $21   ; 
 - D 0 - I - 0x010173 04:8163: EB        .byte $EB   ; 
@@ -1380,6 +1366,8 @@ tbl_ptr_destructible_walls:
 - D 0 - I - 0x010696 04:8686: 1E        .byte $1E   ; 
 - D 0 - I - 0x010697 04:8687: 23        .byte $23   ; 
 - D 0 - I - 0x010698 04:8688: 14        .byte $14   ; 
+
+loc_tbl_attrs_select_character:
 - D 0 - I - 0x010699 04:8689: 00        .byte $00   ; 
 - D 0 - I - 0x01069A 04:868A: 00        .byte $00   ; 
 - D 0 - I - 0x01069B 04:868B: 00        .byte $00   ; 
@@ -1444,6 +1432,9 @@ tbl_ptr_destructible_walls:
 - D 0 - I - 0x0106D6 04:86C6: 00        .byte $00   ; 
 - D 0 - I - 0x0106D7 04:86C7: 00        .byte $00   ; 
 - D 0 - I - 0x0106D8 04:86C8: 00        .byte $00   ; 
+
+; Please select your character
+loc_tile_select_character1:
 - D 0 - I - 0x0106D9 04:86C9: 4F        .byte $4F   ; <O>
 - D 0 - I - 0x0106DA 04:86CA: 4B        .byte $4B   ; <K>
 - D 0 - I - 0x0106DB 04:86CB: 44        .byte $44   ; <D>
@@ -1472,26 +1463,45 @@ tbl_ptr_destructible_walls:
 - D 0 - I - 0x0106F2 04:86E2: 53        .byte $53   ; <S>
 - D 0 - I - 0x0106F3 04:86E3: 44        .byte $44   ; <D>
 - D 0 - I - 0x0106F4 04:86E4: 51        .byte $51   ; <Q>
+
+; Lupin (top row)
+loc_tile_select_character2:
 - D 0 - I - 0x0106F5 04:86E5: 00        .byte $00   ; 
 - D 0 - I - 0x0106F6 04:86E6: 7F        .byte $7F   ; 
 - D 0 - I - 0x0106F7 04:86E7: 00        .byte $00   ; 
+
+; Lupin (bottom row)
+loc_tile_select_character3:
 - D 0 - I - 0x0106F8 04:86E8: 04        .byte $04   ; 
 - D 0 - I - 0x0106F9 04:86E9: 05        .byte $05   ; 
 - D 0 - I - 0x0106FA 04:86EA: 6C        .byte $6C   ; <l>
+
+; Jigen (top row)
+loc_tile_select_character4:
 - D 0 - I - 0x0106FB 04:86EB: 7E        .byte $7E   ; 
 - D 0 - I - 0x0106FC 04:86EC: 7E        .byte $7E   ; 
 - D 0 - I - 0x0106FD 04:86ED: 00        .byte $00   ; 
+
+; Jigen (bottom row)
+loc_tile_select_character5:
 - D 0 - I - 0x0106FE 04:86EE: 30        .byte $30   ; <0>
 - D 0 - I - 0x0106FF 04:86EF: 2D        .byte $2D   ; 
 - D 0 - I - 0x010700 04:86F0: 29        .byte $29   ; 
+
+; Goemon (top row)
+loc_tile_select_character6:
 - D 0 - I - 0x010701 04:86F1: 7E        .byte $7E   ; 
 - D 0 - I - 0x010702 04:86F2: 00        .byte $00   ; 
 - D 0 - I - 0x010703 04:86F3: 00        .byte $00   ; 
 - D 0 - I - 0x010704 04:86F4: 00        .byte $00   ; 
+
+; Goemon (bottom row)
+loc_tile_select_character7:
 - D 0 - I - 0x010705 04:86F5: 2E        .byte $2E   ; 
 - D 0 - I - 0x010706 04:86F6: 13        .byte $13   ; 
 - D 0 - I - 0x010707 04:86F7: 1E        .byte $1E   ; 
 - D 0 - I - 0x010708 04:86F8: 29        .byte $29   ; 
+
 - D 0 - I - 0x010709 04:86F9: 00        .byte $00   ; 
 - D 0 - I - 0x01070A 04:86FA: AF        .byte $AF   ; 
 - D 0 - I - 0x01070B 04:86FB: BE        .byte $BE   ; 
