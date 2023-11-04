@@ -163,7 +163,7 @@ C - - - - - 0x01C10F 07:C0FF: 20 A4 BB  JSR $BBA4 ; to sub_BBA4 (bank 06_2)
 C - - - - - 0x01C112 07:C102: 20 14 FC  JSR sub_FC14
 C - - - - - 0x01C115 07:C105: A9 00     LDA #$00
 C - - - - - 0x01C117 07:C107: 85 3C     STA ram_003C
-C - - - - - 0x01C119 07:C109: 20 0F C3  JSR sub_C30F
+C - - - - - 0x01C119 07:C109: 20 0F C3  JSR sub_C30F_screen_on
 C - - - - - 0x01C11C 07:C10C: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 C - - - - - 0x01C11F 07:C10F: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01C121 07:C111: C9 0B     CMP #$0B
@@ -212,7 +212,7 @@ C - - - - - 0x01C16B 07:C15B: 4C B7 C0  JMP loc_C0B7
 bra_C15E:
 C - - - - - 0x01C16E 07:C15E: 50 6E     BVC bra_C1CE
 C - - - - - 0x01C170 07:C160: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
-C - - - - - 0x01C173 07:C163: 20 13 C3  JSR sub_C313
+C - - - - - 0x01C173 07:C163: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C176 07:C166: A5 39     LDA ram_0039
 C - - - - - 0x01C178 07:C168: C9 E0     CMP #$E0
 C - - - - - 0x01C17A 07:C16A: F0 03     BEQ bra_C16F
@@ -243,7 +243,7 @@ C - - - - - 0x01C1A1 07:C191: 4C B1 C1  JMP loc_C1B1
 ; Only for test mode
 loc_C194:
 - - - - - - 0x01C1A4 07:C194: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
-- - - - - - 0x01C1A7 07:C197: 20 13 C3  JSR sub_C313
+- - - - - - 0x01C1A7 07:C197: 20 13 C3  JSR sub_C313_screen_off
 - - - - - - 0x01C1AA 07:C19A: A2 00     LDX #$00
 - - - - - - 0x01C1AC 07:C19C: A5 C4     LDA vCheckpoint
 - - - - - - 0x01C1AE 07:C19E: F0 0F     BEQ bra_C1AF
@@ -358,7 +358,7 @@ C - - - - - 0x01C263 07:C253: C9 40     CMP #$40
 C - - - - - 0x01C265 07:C255: 90 FA     BCC bra_C251
 C - - - - - 0x01C267 07:C257: A9 06     LDA #$06
 C - - - - - 0x01C269 07:C259: 85 24     STA vMenuDemoIndex
-C - - - - - 0x01C26B 07:C25B: 20 13 C3  JSR sub_C313
+C - - - - - 0x01C26B 07:C25B: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C26E 07:C25E: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C271 07:C261: 20 0D B8  JSR $B80D
 C - - - - - 0x01C274 07:C264: A9 00     LDA #$00
@@ -374,14 +374,14 @@ C - - - - - 0x01C288 07:C278: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C28A 07:C27A: A9 0F     LDA #$0F
 C - - - - - 0x01C28C 07:C27C: 85 D8     STA ram_00D8
 C - - - - - 0x01C28E 07:C27E: 20 F4 C3  JSR sub_C3F4
-C - - - - - 0x01C291 07:C281: 20 0F C3  JSR sub_C30F
+C - - - - - 0x01C291 07:C281: 20 0F C3  JSR sub_C30F_screen_on
 C - - - - - 0x01C294 07:C284: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 bra_C287:
 C - - - - - 0x01C297 07:C287: A5 D8     LDA ram_00D8
 C - - - - - 0x01C299 07:C289: C9 11     CMP #$11
 C - - - - - 0x01C29B 07:C28B: 90 FA     BCC bra_C287
 loc_C28D:
-C D 2 - - - 0x01C29D 07:C28D: 20 13 C3  JSR sub_C313
+C D 2 - - - 0x01C29D 07:C28D: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C2A0 07:C290: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C2A3 07:C293: E6 24     INC vMenuDemoIndex
 C - - - - - 0x01C2A5 07:C295: A5 24     LDA vMenuDemoIndex
@@ -400,24 +400,24 @@ C D 2 - - - 0x01C2B6 07:C2A6: A5 D8     LDA ram_00D8
 C - - - - - 0x01C2B8 07:C2A8: C9 0A     CMP #$0A
 C - - - - - 0x01C2BA 07:C2AA: 90 FA     BCC bra_C2A6
 C - - - - - 0x01C2BC 07:C2AC: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
-C - - - - - 0x01C2BF 07:C2AF: 20 13 C3  JSR sub_C313
+C - - - - - 0x01C2BF 07:C2AF: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C2C2 07:C2B2: 20 DB B7  JSR $B7DB
 C - - - - - 0x01C2C5 07:C2B5: A9 93     LDA #$93
 C - - - - - 0x01C2C7 07:C2B7: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C2C9 07:C2B9: 20 F4 C3  JSR sub_C3F4
-C - - - - - 0x01C2CC 07:C2BC: 20 0F C3  JSR sub_C30F
+C - - - - - 0x01C2CC 07:C2BC: 20 0F C3  JSR sub_C30F_screen_on
 C - - - - - 0x01C2CF 07:C2BF: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 bra_C2C2:
 C - - - - - 0x01C2D2 07:C2C2: A5 D8     LDA ram_00D8
 C - - - - - 0x01C2D4 07:C2C4: C9 0C     CMP #$0C
 C - - - - - 0x01C2D6 07:C2C6: 90 FA     BCC bra_C2C2
-C - - - - - 0x01C2D8 07:C2C8: 20 13 C3  JSR sub_C313
+C - - - - - 0x01C2D8 07:C2C8: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C2DB 07:C2CB: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C2DE 07:C2CE: A9 30     LDA #$30
 C - - - - - 0x01C2E0 07:C2D0: 20 60 C9  JSR sub_C960
 C - - - - - 0x01C2E3 07:C2D3: 20 0D B8  JSR $B80D
 C - - - - - 0x01C2E6 07:C2D6: 20 F4 C3  JSR sub_C3F4
-C - - - - - 0x01C2E9 07:C2D9: 20 0F C3  JSR sub_C30F
+C - - - - - 0x01C2E9 07:C2D9: 20 0F C3  JSR sub_C30F_screen_on
 C - - - - - 0x01C2EC 07:C2DC: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 bra_C2DF:
 C - - - - - 0x01C2EF 07:C2DF: A5 D8     LDA ram_00D8
@@ -452,14 +452,14 @@ C - - - - - 0x01C319 07:C309: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01C31B 07:C30B: 8D 00 20  STA PPU_CTRL
 C - - - - - 0x01C31E 07:C30E: 60        RTS
 
-sub_C30F:
-loc_C30F:
-C D 2 - - - 0x01C31F 07:C30F: A9 1E     LDA #$1E
-C - - - - - 0x01C321 07:C311: D0 02     BNE bra_C315_skip
-sub_C313:
-C - - - - - 0x01C323 07:C313: A9 00     LDA #$00
+sub_C30F_screen_on:
+loc_C30F_screen_on:
+C D 2 - - - 0x01C31F 07:C30F: A9 1E     LDA #$1E          ; see https://www.nesdev.org/wiki/PPU_registers#Mask_($2001)_%3E_write
+C - - - - - 0x01C321 07:C311: D0 02     BNE bra_C315_skip ; Always true
+sub_C313_screen_off:
+C - - - - - 0x01C323 07:C313: A9 00     LDA #$00          ; see https://www.nesdev.org/wiki/PPU_registers#Mask_($2001)_%3E_write
 bra_C315_skip:
-C - - - - - 0x01C325 07:C315: 8D 01 20  STA PPU_MASK
+C - - - - - 0x01C325 07:C315: 8D 01 20  STA PPU_MASK      ;
 C - - - - - 0x01C328 07:C318: 60        RTS
 
 sub_C319_fill_ppu:
@@ -470,7 +470,7 @@ C - - - - - 0x01C32D 07:C31D: A9 00     LDA #$00 ; CONSTANT - A black tile
 bra_C31F_skip:
 C - - - - - 0x01C32F 07:C31F: 85 12     STA ram_0012
 C - - - - - 0x01C331 07:C321: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
-C - - - - - 0x01C334 07:C324: 20 13 C3  JSR sub_C313
+C - - - - - 0x01C334 07:C324: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C337 07:C327: AD 02 20  LDA PPU_STATUS ; Read PPU status to reset the high/low latch
 C - - - - - 0x01C33A 07:C32A: A9 20     LDA #$20 ; For the first ppu data ($2000)
 C - - - - - 0x01C33C 07:C32C: 20 31 C3  JSR sub_C331_store_ppu_data
@@ -482,22 +482,22 @@ C - - - - - 0x01C346 07:C336: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01C349 07:C339: A8        TAY
 C - - - - - 0x01C34A 07:C33A: A2 03     LDX #$03
 C - - - - - 0x01C34C 07:C33C: A5 12     LDA ram_0012
-bra_C33E_repeat:
+@bra_C33E_repeat:
 C - - - - - 0x01C34E 07:C33E: 8D 07 20  STA PPU_DATA
 C - - - - - 0x01C351 07:C341: C8        INY
-C - - - - - 0x01C352 07:C342: D0 FA     BNE bra_C33E_repeat
+C - - - - - 0x01C352 07:C342: D0 FA     BNE @bra_C33E_repeat
 C - - - - - 0x01C354 07:C344: CA        DEX
-C - - - - - 0x01C355 07:C345: D0 F7     BNE bra_C33E_repeat
-bra_C347_repeat:
+C - - - - - 0x01C355 07:C345: D0 F7     BNE @bra_C33E_repeat
+@bra_C347_repeat:
 C - - - - - 0x01C357 07:C347: 8D 07 20  STA PPU_DATA
 C - - - - - 0x01C35A 07:C34A: C8        INY
 C - - - - - 0x01C35B 07:C34B: C0 C0     CPY #$C0
-C - - - - - 0x01C35D 07:C34D: 90 F8     BCC bra_C347_repeat
+C - - - - - 0x01C35D 07:C34D: 90 F8     BCC @bra_C347_repeat
 C - - - - - 0x01C35F 07:C34F: A9 00     LDA #$00
-bra_C351_repeat:
+@bra_C351_repeat:
 C - - - - - 0x01C361 07:C351: 8D 07 20  STA PPU_DATA
 C - - - - - 0x01C364 07:C354: C8        INY
-C - - - - - 0x01C365 07:C355: D0 FA     BNE bra_C351_repeat
+C - - - - - 0x01C365 07:C355: D0 FA     BNE @bra_C351_repeat
 C - - - - - 0x01C367 07:C357: 60        RTS
 
 sub_C358_clear_OAM:
@@ -525,27 +525,27 @@ C - - - - - 0x01C388 07:C378: 8D 06 20  STA PPU_ADDRESS ; PPU address is 0x3F00
 C - - - - - 0x01C38B 07:C37B: A8        TAY             ; set loop counter (y=0)
 @bra_C37C_loop:                                         ; loop by y
 C - - - - - 0x01C38C 07:C37C: B9 00 06  LDA vCachePalette,Y      ;
-C - - - - - 0x01C38F 07:C37F: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C38F 07:C37F: 8D 07 20  STA PPU_DATA             ;
 C - - - - - 0x01C392 07:C382: B9 01 06  LDA vCachePalette + 1,Y  ;
-C - - - - - 0x01C395 07:C385: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C395 07:C385: 8D 07 20  STA PPU_DATA             ;
 C - - - - - 0x01C398 07:C388: B9 02 06  LDA vCachePalette + 2,Y  ;
-C - - - - - 0x01C39B 07:C38B: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C39B 07:C38B: 8D 07 20  STA PPU_DATA             ;
 C - - - - - 0x01C39E 07:C38E: B9 03 06  LDA vCachePalette + 3,Y  ;
-C - - - - - 0x01C3A1 07:C391: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C3A1 07:C391: 8D 07 20  STA PPU_DATA             ;
 C - - - - - 0x01C3A4 07:C394: B9 04 06  LDA vCachePalette + 4,Y  ;
-C - - - - - 0x01C3A7 07:C397: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C3A7 07:C397: 8D 07 20  STA PPU_DATA             ;
 C - - - - - 0x01C3AA 07:C39A: B9 05 06  LDA vCachePalette + 5,Y  ;
-C - - - - - 0x01C3AD 07:C39D: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C3AD 07:C39D: 8D 07 20  STA PPU_DATA             ;
 C - - - - - 0x01C3B0 07:C3A0: B9 06 06  LDA vCachePalette + 6,Y  ;
-C - - - - - 0x01C3B3 07:C3A3: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C3B3 07:C3A3: 8D 07 20  STA PPU_DATA             ;
 C - - - - - 0x01C3B6 07:C3A6: B9 07 06  LDA vCachePalette + 7,Y  ;
-C - - - - - 0x01C3B9 07:C3A9: 8D 07 20  STA PPU_DATA           ;
+C - - - - - 0x01C3B9 07:C3A9: 8D 07 20  STA PPU_DATA             ;
 C - - - - - 0x01C3BC 07:C3AC: 98        TYA
 C - - - - - 0x01C3BD 07:C3AD: 18        CLC
 C - - - - - 0x01C3BE 07:C3AE: 69 08     ADC #$08
 C - - - - - 0x01C3C0 07:C3B0: A8        TAY
 C - - - - - 0x01C3C1 07:C3B1: C0 20     CPY #$20
-C - - - - - 0x01C3C3 07:C3B3: 90 C7     BCC @bra_C37C_loop ; If Register Y -= 0x20
+C - - - - - 0x01C3C3 07:C3B3: 90 C7     BCC @bra_C37C_loop ; If Register Y != 0x20
 C - - - - - 0x01C3C5 07:C3B5: A9 3F     LDA #$3F        ;
 C - - - - - 0x01C3C7 07:C3B7: 8D 06 20  STA PPU_ADDRESS ;
 C - - - - - 0x01C3CA 07:C3BA: A9 00     LDA #$00        ; 
@@ -773,7 +773,7 @@ C - - - - - 0x01C53E 07:C52E: AD 02 20  LDA PPU_STATUS
 C - - - - - 0x01C541 07:C531: A9 00     LDA #$00
 C - - - - - 0x01C543 07:C533: 8D 05 20  STA PPU_SCROLL
 C - - - - - 0x01C546 07:C536: 8D 05 20  STA PPU_SCROLL
-C - - - - - 0x01C549 07:C539: 4C 0F C3  JMP loc_C30F
+C - - - - - 0x01C549 07:C539: 4C 0F C3  JMP loc_C30F_screen_on
 
 sub_C53C_resolve_start_status:
 C - - - - - 0x01C54C 07:C53C: A5 3D     LDA vStartStatus  ;
@@ -1015,7 +1015,7 @@ C - - - - - 0x01C6CB 07:C6BB: F0 FC     BEQ bra_C6B9
 bra_C6BD:
 C - - - - - 0x01C6CD 07:C6BD: A5 3D     LDA ram_003D
 C - - - - - 0x01C6CF 07:C6BF: 30 FC     BMI bra_C6BD
-C - - - - - 0x01C6D1 07:C6C1: 20 13 C3  JSR sub_C313
+C - - - - - 0x01C6D1 07:C6C1: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C6D4 07:C6C4: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 sub_C6C7:
 loc_C6C7:
@@ -2234,8 +2234,8 @@ loc_CE33_add_sprite_magic:
 C D 2 - - - 0x01CE43 07:CE33: 98        TYA
 C - - - - - 0x01CE44 07:CE34: 48        PHA ; store y
 C - - - - - 0x01CE45 07:CE35: AC F7 06  LDY v_offset_sprite_magic
-C - - - - - 0x01CE48 07:CE38: C0 40     CPY #$40 ; Maximum sprites
-C - - - - - 0x01CE4A 07:CE3A: B0 1B     BCS bra_CE57_skip ; If sprite's count == maximum
+C - - - - - 0x01CE48 07:CE38: C0 40     CPY #$40           ; Maximum sprites
+C - - - - - 0x01CE4A 07:CE3A: B0 1B     BCS @bra_CE57_skip ; If sprite's count == maximum
 C - - - - - 0x01CE4C 07:CE3C: A5 00     LDA ram_0000
 C - - - - - 0x01CE4E 07:CE3E: 99 B7 06  STA v_sprite_magic1,Y
 C - - - - - 0x01CE51 07:CE41: A5 01     LDA ram_0001
@@ -2249,7 +2249,7 @@ C - - - - - 0x01CE61 07:CE51: C8        INY
 C - - - - - 0x01CE62 07:CE52: C8        INY
 C - - - - - 0x01CE63 07:CE53: C8        INY
 C - - - - - 0x01CE64 07:CE54: 8C F7 06  STY v_offset_sprite_magic ; += 4
-bra_CE57_skip:
+@bra_CE57_skip:
 C - - - - - 0x01CE67 07:CE57: 68        PLA
 C - - - - - 0x01CE68 07:CE58: A8        TAY ; retrieve y
 C - - - - - 0x01CE69 07:CE59: 60        RTS

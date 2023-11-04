@@ -306,6 +306,10 @@ v_no_sub_level                = ram_0046
 ; 0x7C - level 4, map 4 (E5-F5)
 ; 0x7D - level 4, map 4 (F4-F5)
 
+vSortOfRoom                   = ram_0046
+; 1A - a npc room or a character tied up
+; 1F - a room with briefcases
+
 v_macro_chr_pos_x             = ram_004B ; The high value for an overflow ram_0027
 v_no_level                    = ram_005E ; It is a number of a level than it starts with 0.
 ; 0x00 - level 1
@@ -466,7 +470,7 @@ vSoundRowB_K                  = ram_0424 ; ???
 vRooms                        = ram_0500
 ; flag 0x80 - the room has already been visited
 
-vCachePalette                 = ram_0600
+vCachePalette                 = ram_0600 ; [ram_0600 - ram_061F]
 v_low_ppu_address             = ram_0630
 v_high_ppu_address            = ram_0631
 v_ppu_buffer_count            = ram_0632

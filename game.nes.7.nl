@@ -160,3 +160,5 @@ $C7EF#sprite_magic_in_select_character#
 $C668#render_14_15_16_17_18_loop#
 $D086#render_14_15_16_17_18_v1#
 $D0A3#prepare_14_15_16_17_18#
+$C30F#screen_on#
+$C313#screen_off#

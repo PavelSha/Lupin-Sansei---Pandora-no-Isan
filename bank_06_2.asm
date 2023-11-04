@@ -11,6 +11,8 @@
 .import tbl_template_chr_banks1 ; bank 04 (Page 1)
 .import tbl_briefcases_indexex_on_the_level ; bank 04 (Page 2)
 .import npc_portrait_sprites ; bank 04 (Page 2)
+.import npc_portrait_set ; bank 04 (Page 2)
+.import npc_sprite_set ; bank 04 (Page 2)
 .import sub_C305_update_ppu_ctrl_with_no_nmi ; bank FF
 .import sub_C31D_clear_ppu ; bank FF
 .import sub_C358_clear_OAM ; bank FF
@@ -3063,17 +3065,17 @@ C - - - - - 0x01B3E6 06:B3D6: A5 B8     LDA v_corridor_magic5_cache
 C - - - - - 0x01B3E8 06:B3D8: 0A        ASL
 C - - - - - 0x01B3E9 06:B3D9: A8        TAY
 C - - - - - 0x01B3EA 06:B3DA: B1 14     LDA (ram_0014),Y
-C - - - - - 0x01B3EC 06:B3DC: 85 12     STA ram_0012 ; low address - tbl_ptr_roomsX_X_with_NPCs
+C - - - - - 0x01B3EC 06:B3DC: 85 12     STA ram_0012 ; high address - tbl_ptr_roomsX_X_with_NPCs
 C - - - - - 0x01B3EE 06:B3DE: C8        INY
 C - - - - - 0x01B3EF 06:B3DF: B1 14     LDA (ram_0014),Y
 C - - - - - 0x01B3F1 06:B3E1: 85 13     STA ram_0013 ; low address - tbl_ptr_roomsX_X_with_NPCs
 loc_B3E3:
-C D 1 - - - 0x01B3F3 06:B3E3: 20 EB B4  JSR sub_B4EB
-C - - - - - 0x01B3F6 06:B3E6: A5 C8     LDA ram_00C8
-C - - - - - 0x01B3F8 06:B3E8: D0 27     BNE bra_B411_skip
+C D 1 - - - 0x01B3F3 06:B3E3: 20 EB B4  JSR sub_B4EB_prepare_npc_sprite_in_room
+C - - - - - 0x01B3F6 06:B3E6: A5 C8     LDA vMessageInProgress
+C - - - - - 0x01B3F8 06:B3E8: D0 27     BNE bra_B411_skip               ; If vMessageInProgress != 0x00 (no message)
 C - - - - - 0x01B3FA 06:B3EA: 24 41     BIT v_npc_message_status
 C - - - - - 0x01B3FC 06:B3EC: 70 23     BVS bra_B411_skip
-C - - - - - 0x01B3FE 06:B3EE: 20 3E FC  JSR $FC3E ; to sub_FC3E (bank FF)
+C - - - - - 0x01B3FE 06:B3EE: 20 3E FC  JSR $FC3E                       ; to sub_FC3E (bank FF)
 C - - - - - 0x01B401 06:B3F1: F0 0F     BEQ bra_B402_skip
 C - - - - - 0x01B403 06:B3F3: A9 03     LDA #BIT_BUTTON_B_OR_A
 C - - - - - 0x01B405 06:B3F5: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
@@ -3167,6 +3169,7 @@ C - - - - - 0x01B497 06:B487: 85 41     STA v_npc_message_status
 C - - - - - 0x01B499 06:B489: 60        RTS
 
 ; Params:
+; ram_0012-ram_0013 - tbl_ptr_roomsX_X_with_NPCs
 ; Register Y (0x0X) - npc_message_status
 sub_B48A:
 C - - - - - 0x01B49A 06:B48A: A9 00     LDA #$00
@@ -3187,15 +3190,15 @@ C - - - - - 0x01B4B0 06:B4A0: 0A        ASL
 C - - - - - 0x01B4B1 06:B4A1: 18        CLC
 C - - - - - 0x01B4B2 06:B4A2: 65 00     ADC ram_0000
 C - - - - - 0x01B4B4 06:B4A4: AA        TAX
-C - - - - - 0x01B4B5 06:B4A5: BD 69 81  LDA $8169,X
-C - - - - - 0x01B4B8 06:B4A8: 8D 0D 06  STA ram_060D
-C - - - - - 0x01B4BB 06:B4AB: BD 6A 81  LDA $816A,X
-C - - - - - 0x01B4BE 06:B4AE: 8D 0E 06  STA ram_060E
-C - - - - - 0x01B4C1 06:B4B1: BD 6B 81  LDA $816B,X
-C - - - - - 0x01B4C4 06:B4B4: 8D 0F 06  STA ram_060F
-C - - - - - 0x01B4C7 06:B4B7: BD 6C 81  LDA $816C,X
+C - - - - - 0x01B4B5 06:B4A5: BD 69 81  LDA npc_portrait_set + 1,X
+C - - - - - 0x01B4B8 06:B4A8: 8D 0D 06  STA vCachePalette + 13
+C - - - - - 0x01B4BB 06:B4AB: BD 6A 81  LDA npc_portrait_set + 2,X
+C - - - - - 0x01B4BE 06:B4AE: 8D 0E 06  STA vCachePalette + 14
+C - - - - - 0x01B4C1 06:B4B1: BD 6B 81  LDA npc_portrait_set + 3,X
+C - - - - - 0x01B4C4 06:B4B4: 8D 0F 06  STA vCachePalette + 15
+C - - - - - 0x01B4C7 06:B4B7: BD 6C 81  LDA npc_portrait_set + 4,X
 C - - - - - 0x01B4CA 06:B4BA: 8D B6 06  STA ram_06B6
-C - - - - - 0x01B4CD 06:B4BD: BD 68 81  LDA $8168,X
+C - - - - - 0x01B4CD 06:B4BD: BD 68 81  LDA npc_portrait_set,X
 C - - - - - 0x01B4D0 06:B4C0: 0A        ASL
 C - - - - - 0x01B4D1 06:B4C1: 0A        ASL
 C - - - - - 0x01B4D2 06:B4C2: 85 00     STA ram_0000
@@ -3223,7 +3226,7 @@ C - - - - - 0x01B4FA 06:B4EA: 60        RTS
 
 ; Params:
 ; ram_0012-ram_0013 - tbl_ptr_roomsX_X_with_NPCs
-sub_B4EB:
+sub_B4EB_prepare_npc_sprite_in_room:
 C - - - - - 0x01B4FB 06:B4EB: A0 00     LDY #$00
 C - - - - - 0x01B4FD 06:B4ED: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01B4FF 06:B4EF: 85 00     STA ram_0000 ; 1 of NPC bytes
@@ -3232,41 +3235,41 @@ C - - - - - 0x01B502 06:B4F2: 0A        ASL
 C - - - - - 0x01B503 06:B4F3: 18        CLC
 C - - - - - 0x01B504 06:B4F4: 65 00     ADC ram_0000
 C - - - - - 0x01B506 06:B4F6: AA        TAX
-C - - - - - 0x01B507 06:B4F7: BD 4A 82  LDA $824A,X
-C - - - - - 0x01B50A 06:B4FA: 8D 19 06  STA ram_0619
-C - - - - - 0x01B50D 06:B4FD: 8D 1D 06  STA ram_061D
-C - - - - - 0x01B510 06:B500: BD 4B 82  LDA $824B,X
-C - - - - - 0x01B513 06:B503: 8D 1A 06  STA ram_061A
-C - - - - - 0x01B516 06:B506: 8D 1E 06  STA ram_061E
-C - - - - - 0x01B519 06:B509: BD 4C 82  LDA $824C,X
-C - - - - - 0x01B51C 06:B50C: 8D 1B 06  STA ram_061B
-C - - - - - 0x01B51F 06:B50F: 8D 1F 06  STA ram_061F
-C - - - - - 0x01B522 06:B512: BD 4D 82  LDA $824D,X
-C - - - - - 0x01B525 06:B515: 8D B3 06  STA ram_06B3
-C - - - - - 0x01B528 06:B518: 8D B4 06  STA ram_06B4
-C - - - - - 0x01B52B 06:B51B: EE B4 06  INC ram_06B4
-C - - - - - 0x01B52E 06:B51E: BD 49 82  LDA $8249,X
+C - - - - - 0x01B507 06:B4F7: BD 4A 82  LDA npc_sprite_set + 1,X
+C - - - - - 0x01B50A 06:B4FA: 8D 19 06  STA vCachePalette + 25
+C - - - - - 0x01B50D 06:B4FD: 8D 1D 06  STA vCachePalette + 29
+C - - - - - 0x01B510 06:B500: BD 4B 82  LDA npc_sprite_set + 2,X
+C - - - - - 0x01B513 06:B503: 8D 1A 06  STA vCachePalette + 26
+C - - - - - 0x01B516 06:B506: 8D 1E 06  STA vCachePalette + 30
+C - - - - - 0x01B519 06:B509: BD 4C 82  LDA npc_sprite_set + 3,X
+C - - - - - 0x01B51C 06:B50C: 8D 1B 06  STA vCachePalette + 27
+C - - - - - 0x01B51F 06:B50F: 8D 1F 06  STA vCachePalette + 31
+C - - - - - 0x01B522 06:B512: BD 4D 82  LDA npc_sprite_set + 4,X
+C - - - - - 0x01B525 06:B515: 8D B3 06  STA vCacheChrBankSelect + 4
+C - - - - - 0x01B528 06:B518: 8D B4 06  STA vCacheChrBankSelect + 5
+C - - - - - 0x01B52B 06:B51B: EE B4 06  INC vCacheChrBankSelect + 5
+C - - - - - 0x01B52E 06:B51E: BD 49 82  LDA npc_sprite_set,X
 C - - - - - 0x01B531 06:B521: 18        CLC
 C - - - - - 0x01B532 06:B522: 69 84     ADC #$84
 C - - - - - 0x01B534 06:B524: 85 01     STA ram_0001
-C - - - - - 0x01B536 06:B526: 20 3E FC  JSR $FC3E
-C - - - - - 0x01B539 06:B529: F0 0F     BEQ bra_B53A
+C - - - - - 0x01B536 06:B526: 20 3E FC  JSR $FC3E ; to sub_FC3E (bank_FF)
+C - - - - - 0x01B539 06:B529: F0 0F     BEQ @bra_B53A_skip
 C - - - - - 0x01B53B 06:B52B: AD D7 03  LDA ram_03D7
 C - - - - - 0x01B53E 06:B52E: 6A        ROR
-C - - - - - 0x01B53F 06:B52F: 90 04     BCC bra_B535
+C - - - - - 0x01B53F 06:B52F: 90 04     BCC @bra_B535_skip
 C - - - - - 0x01B541 06:B531: E6 01     INC ram_0001
 C - - - - - 0x01B543 06:B533: E6 01     INC ram_0001
-bra_B535:
-C - - - - - 0x01B545 06:B535: AD D8 03  LDA ram_03D8
-C - - - - - 0x01B548 06:B538: D0 02     BNE bra_B53C
-bra_B53A:
-C - - - - - 0x01B54A 06:B53A: A9 80     LDA #$80
-bra_B53C:
+@bra_B535_skip:
+C - - - - - 0x01B545 06:B535: AD D8 03  LDA ram_03D8      ;
+C - - - - - 0x01B548 06:B538: D0 02     BNE @bra_B53C_skip ; If Register A != 0x00
+@bra_B53A_skip:
+C - - - - - 0x01B54A 06:B53A: A9 80     LDA #$80     ; ~> sprite_magic4 (X pos)
+@bra_B53C_skip:
 C - - - - - 0x01B54C 06:B53C: 85 03     STA ram_0003
-C - - - - - 0x01B54E 06:B53E: A9 BF     LDA #$BF
+C - - - - - 0x01B54E 06:B53E: A9 BF     LDA #$BF     ; ~> sprite_magic1 (Y pos)
 C - - - - - 0x01B550 06:B540: 85 00     STA ram_0000
-C - - - - - 0x01B552 06:B542: A9 62     LDA #$62
-C - - - - - 0x01B554 06:B544: 85 02     STA ram_0002
+C - - - - - 0x01B552 06:B542: A9 62     LDA #$62     ; ~> sprite_magic3 (attributes)
+C - - - - - 0x01B554 06:B544: 85 02     STA ram_0002 ;
 C - - - - - 0x01B556 06:B546: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 sub_B549:
