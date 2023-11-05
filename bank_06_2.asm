@@ -935,7 +935,7 @@ C - - - - - 0x01A5B1 06:A5A1: F0 21     BEQ bra_A5C4
 C - - - - - 0x01A5B3 06:A5A3: A5 6A     LDA ram_006A
 C - - - - - 0x01A5B5 06:A5A5: DD 2C 03  CMP ram_032C,X
 C - - - - - 0x01A5B8 06:A5A8: D0 1A     BNE bra_A5C4
-C - - - - - 0x01A5BA 06:A5AA: A5 64     LDA ram_0064
+C - - - - - 0x01A5BA 06:A5AA: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01A5BC 06:A5AC: 38        SEC
 C - - - - - 0x01A5BD 06:A5AD: FD 32 03  SBC ram_0332,X
 C - - - - - 0x01A5C0 06:A5B0: B0 03     BCS bra_A5B5
@@ -2588,7 +2588,7 @@ C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA ram_006D
 C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113
 C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ; bank FF
 C - - - - - 0x01B0BC 06:B0AC: A0 00     LDY #$00
-C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA v_no_sub_level
+C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA vNoSubLevel
 C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ bra_B0BE ; If level == level 1.0
 C - - - - - 0x01B0C2 06:B0B2: A0 02     LDY #$02
 C - - - - - 0x01B0C4 06:B0B4: C9 06     CMP #$06
@@ -3086,7 +3086,7 @@ C - - - - - 0x01B40E 06:B3FE: 90 08     BCC bra_B408
 C - - - - - 0x01B410 06:B400: B0 65     BCS bra_B467
 bra_B402_skip:
 C - - - - - 0x01B412 06:B402: A9 60     LDA #$60
-C - - - - - 0x01B414 06:B404: C5 64     CMP ram_0064
+C - - - - - 0x01B414 06:B404: C5 64     CMP vScreenChrPosX
 C - - - - - 0x01B416 06:B406: B0 09     BCS bra_B411_skip
 bra_B408:
 C - - - - - 0x01B418 06:B408: A9 40     LDA #$40

@@ -162,3 +162,4 @@ $D086#render_14_15_16_17_18_v1#
 $D0A3#prepare_14_15_16_17_18#
 $C30F#screen_on#
 $C313#screen_off#
+$FB9A#prepare_position_by_checkpoint#

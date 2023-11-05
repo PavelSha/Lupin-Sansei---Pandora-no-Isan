@@ -66,7 +66,8 @@ vMenuDemoIndex                = ram_0024
 ; 0x07 - Stop demo
 
 vPpuCtrlSettings              = ram_0026 ; This is a last actual ppu controller flags.
-v_chr_pos_x                   = ram_0027 ; In level it's the position of the character along the x-axis relative to the screen (may repeat)
+vChrPosX                      = ram_0027 ; In level it's the position of the character along the x-axis relative to the screen (may repeat, with scrolling)
+vTempChrPosX                  = ram_0028
 v_nmi_counter                 = ram_002B
 v_low_counter                 = ram_002C
 v_high_counter                = ram_002D
@@ -77,12 +78,19 @@ vGameMode                     = ram_0037
 ; 0xFF - Starting cutscenes
 
 ; ??? = ram_0039
+; 0x00 - ???
 ; 0x81 - ???
+; 0xC0 - ???
+; 0xC1 - ???
+; 0xC2 - ???
+; 0xC3 - ???
+; 0xC4 - ???
+; 0xE0 - ???
 
 v_resists                     = ram_003A ; TODO: !!!, 0x80 - The enemies don't damage
 vSharedGameStatus             = ram_003B
 ; Value (some the flags):
-; 0x00 - In then game
+; 0x00 - In the game
 ; 0x01 - A screen with the message
 ; 0x03 - A screen with the message after boss
 ; 0x10 - Select the character
@@ -109,7 +117,12 @@ v_npc_message_status          = ram_0041
 v_current_number_sprite       = ram_0043
 v_copy_current_number_sprite  = ram_0044
 v_temp_bank_data              = ram_0045 ; 
-v_no_sub_level                = ram_0046
+
+vSortOfRoom                   = ram_0046 ; Only in the room
+; 1A - a npc room or a character tied up
+; 1F - a room with briefcases
+
+vNoSubLevel                   = ram_0046
 ; 0x00 - level 1.0
 ; 0x03 - level 1.1
 ; 0x04 - level 1.2
@@ -306,9 +319,7 @@ v_no_sub_level                = ram_0046
 ; 0x7C - level 4, map 4 (E5-F5)
 ; 0x7D - level 4, map 4 (F4-F5)
 
-vSortOfRoom                   = ram_0046
-; 1A - a npc room or a character tied up
-; 1F - a room with briefcases
+vTempNoSubLevel               = ram_0047
 
 v_macro_chr_pos_x             = ram_004B ; The high value for an overflow ram_0027
 v_no_level                    = ram_005E ; It is a number of a level than it starts with 0.
@@ -325,7 +336,10 @@ v_chr_live_status             = ram_005F
 ; W - Jigen arrested (1 - true)
 ; K - Lupin fell (1 - true)
 ; L - Lupin arrested (1 - true)
+vScreenChrPosX                = ram_0064 ; The character's position along the X axis relative to the screen (no repeat)
+vTempScreenChrPosX            = ram_0065
 v_no_screen                   = ram_0068 ; The number of 1 of 4 screen (name tables)
+vScreenChrPosY                = ram_006A ; The character's position along the Y axis relative to the screen (no repeat)
 v_chr_status                  = ram_006C ; A status of a character
 ; 0x00000001 - the character is looking to the left
 ; 0x00000010 - the character is sitting

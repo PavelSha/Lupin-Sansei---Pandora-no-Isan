@@ -15,3 +15,6 @@ $0026#vPpuCtrlSettings#
 $00C4#vCheckpoint#
 $001C#vBtnPressedInGame#
 $005F#vChrLiveStatus#
+$0064#vScreenChrPosX#
+$0027#vChrPosX#
+$006A#vScreenChrPosY#

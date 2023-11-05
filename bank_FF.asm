@@ -3,8 +3,10 @@
 .include "constants.inc"
 ; 0x01C010-0x02000F
 
+.import addr_tbl_checkpoints
 .import tbl_ptr_corridors ; bank 04 (Page 1)
 .import tbl_ptr_destructible_walls ; bank 04 (Page 1)
+.import tbl_room_lengths
 .import number_of_rooms_on_the_level ; bank 04 (Page 2)
 .import tbl_ptr_rooms_on_the_level ; bank 04 (Page 2)
 .import number_of_briefcases_on_the_level ; bank 04 (Page 2)
@@ -109,14 +111,14 @@ C - - - - - 0x01C09F 07:C08F: 20 DA B9  JSR $B9DA ; to sub_B9DA (bank 06_2)
 C - - - - - 0x01C0A2 07:C092: 20 96 EF  JSR sub_EF96
 loc_C095:
 C D 2 - - - 0x01C0A5 07:C095: A5 37     LDA vGameMode
-C - - - - - 0x01C0A7 07:C097: 30 03     BMI bra_C09C ; ; Branch If mode=cutscene
+C - - - - - 0x01C0A7 07:C097: 30 03     BMI bra_C09C ; Branch If mode=cutscene
 C - - - - - 0x01C0A9 07:C099: 20 72 C6  JSR sub_C672
 bra_C09C:
 loc_C09C:
 C D 2 - - - 0x01C0AC 07:C09C: 20 C0 FA  JSR sub_FAC0
 C - - - - - 0x01C0AF 07:C09F: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
-C - - - - - 0x01C0B2 07:C0A2: A4 46     LDY ram_0046
-C - - - - - 0x01C0B4 07:C0A4: BE 38 85  LDX $8538,Y
+C - - - - - 0x01C0B2 07:C0A2: A4 46     LDY vNoSubLevel
+C - - - - - 0x01C0B4 07:C0A4: BE 38 85  LDX tbl_room_lengths,Y
 C - - - - - 0x01C0B7 07:C0A7: 86 49     STX ram_0049
 C - - - - - 0x01C0B9 07:C0A9: CA        DEX
 C - - - - - 0x01C0BA 07:C0AA: 86 4A     STX ram_004A
@@ -325,8 +327,8 @@ C - - - - - 0x01C228 07:C218: 29 A8     AND #$A8
 C - - - - - 0x01C22A 07:C21A: F0 20     BEQ bra_C23C_skip
 C - - - - - 0x01C22C 07:C21C: 24 6D     BIT ram_006D
 C - - - - - 0x01C22E 07:C21E: 10 0C     BPL bra_C22C_skip
-C - - - - - 0x01C230 07:C220: A5 47     LDA ram_0047
-C - - - - - 0x01C232 07:C222: 85 46     STA ram_0046
+C - - - - - 0x01C230 07:C220: A5 47     LDA vTempNoSubLevel
+C - - - - - 0x01C232 07:C222: 85 46     STA vNoSubLevel
 C - - - - - 0x01C234 07:C224: A5 67     LDA ram_0067
 C - - - - - 0x01C236 07:C226: 85 66     STA ram_0066
 C - - - - - 0x01C238 07:C228: A5 69     LDA ram_0069
@@ -1023,12 +1025,12 @@ C D 2 - - - 0x01C6D7 07:C6C7: A9 00     LDA #$00
 C - - - - - 0x01C6D9 07:C6C9: AA        TAX
 C - - - - - 0x01C6DA 07:C6CA: A4 46     LDY ram_0046
 C - - - - - 0x01C6DC 07:C6CC: C0 1A     CPY #$1A
-C - - - - - 0x01C6DE 07:C6CE: 90 07     BCC bra_C6D7
+C - - - - - 0x01C6DE 07:C6CE: 90 07     BCC @bra_C6D7_skip
 C - - - - - 0x01C6E0 07:C6D0: C0 1F     CPY #$1F
-C - - - - - 0x01C6E2 07:C6D2: B0 03     BCS bra_C6D7
+C - - - - - 0x01C6E2 07:C6D2: B0 03     BCS @bra_C6D7_skip
 C - - - - - 0x01C6E4 07:C6D4: A9 32     LDA #$32
 C - - - - - 0x01C6E6 07:C6D6: E8        INX
-bra_C6D7:
+@bra_C6D7_skip:
 C - - - - - 0x01C6E7 07:C6D7: 8D B6 06  STA ram_06B6
 C - - - - - 0x01C6EA 07:C6DA: 86 3B     STX vSharedGameStatus
 C - - - - - 0x01C6EC 07:C6DC: 60        RTS
@@ -3362,7 +3364,7 @@ C - - - - - 0x01D4D1 07:D4C1: CA        DEX
 C - - - - - 0x01D4D2 07:D4C2: 8A        TXA
 C - - - - - 0x01D4D3 07:D4C3: D0 DE     BNE bra_D4A3_repeat
 C - - - - - 0x01D4D5 07:D4C5: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
-C - - - - - 0x01D4D8 07:D4C8: A5 46     LDA v_no_sub_level
+C - - - - - 0x01D4D8 07:D4C8: A5 46     LDA vNoSubLevel
 C - - - - - 0x01D4DA 07:D4CA: 0A        ASL
 C - - - - - 0x01D4DB 07:D4CB: A8        TAY
 C - - - - - 0x01D4DC 07:D4CC: B9 9A 81  LDA tbl_ptr_corridors,Y
@@ -3567,7 +3569,7 @@ C - - - - - 0x01D636 07:D626: A0 F0     LDY #$F0
 bra_D628:
 C - - - - - 0x01D638 07:D628: 98        TYA
 C - - - - - 0x01D639 07:D629: 18        CLC
-C - - - - - 0x01D63A 07:D62A: 65 64     ADC ram_0064
+C - - - - - 0x01D63A 07:D62A: 65 64     ADC vScreenChrPosX
 C - - - - - 0x01D63C 07:D62C: 85 B2     STA ram_00B2
 C - - - - - 0x01D63E 07:D62E: A9 24     LDA #$24
 C - - - - - 0x01D640 07:D630: 85 B3     STA ram_00B3
@@ -3595,7 +3597,7 @@ C - - - - - 0x01D661 07:D651: E9 04     SBC #$04
 C - - - - - 0x01D663 07:D653: 85 B1     STA ram_00B1
 C - - - - - 0x01D665 07:D655: A9 06     LDA #$06
 C - - - - - 0x01D667 07:D657: 85 B4     STA ram_00B4
-C - - - - - 0x01D669 07:D659: A5 64     LDA ram_0064
+C - - - - - 0x01D669 07:D659: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01D66B 07:D65B: 85 B2     STA ram_00B2
 C - - - - - 0x01D66D 07:D65D: 4C D9 D5  JMP loc_D5D9
 
@@ -4518,7 +4520,7 @@ C - - - - - 0x01DBDE 07:DBCE: AA        TAX
 bra_DBCF:
 C - - - - - 0x01DBDF 07:DBCF: A5 6A     LDA ram_006A
 C - - - - - 0x01DBE1 07:DBD1: 85 00     STA ram_0000
-C - - - - - 0x01DBE3 07:DBD3: A5 64     LDA ram_0064
+C - - - - - 0x01DBE3 07:DBD3: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01DBE5 07:DBD5: 85 01     STA ram_0001
 C - - - - - 0x01DBE7 07:DBD7: A5 6C     LDA ram_006C
 C - - - - - 0x01DBE9 07:DBD9: 29 70     AND #$70
@@ -4576,7 +4578,7 @@ C - - - - - 0x01DC37 07:DC27: 48        PHA
 C - - - - - 0x01DC38 07:DC28: 20 3B DC  JSR sub_DC3B
 C - - - - - 0x01DC3B 07:DC2B: A5 6A     LDA ram_006A
 C - - - - - 0x01DC3D 07:DC2D: 85 00     STA ram_0000
-C - - - - - 0x01DC3F 07:DC2F: A5 64     LDA ram_0064
+C - - - - - 0x01DC3F 07:DC2F: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01DC41 07:DC31: 85 01     STA ram_0001
 C - - - - - 0x01DC43 07:DC33: 68        PLA
 C - - - - - 0x01DC44 07:DC34: 18        CLC
@@ -4668,7 +4670,7 @@ loc_DCA9:
 C D 2 - - - 0x01DCB9 07:DCA9: A5 66     LDA ram_0066
 C - - - - - 0x01DCBB 07:DCAB: 38        SEC
 C - - - - - 0x01DCBC 07:DCAC: E5 27     SBC ram_0027
-C - - - - - 0x01DCBE 07:DCAE: 85 64     STA ram_0064
+C - - - - - 0x01DCBE 07:DCAE: 85 64     STA vScreenChrPosX
 C - - - - - 0x01DCC0 07:DCB0: 60        RTS
 
 sub_DCB1:
@@ -5046,7 +5048,7 @@ C - - - - - 0x01DF18 07:DF08: AD 05 02  LDA v_breathing_apparatus_item
 C - - - - - 0x01DF1B 07:DF0B: F0 24     BEQ bra_DF31
 C - - - - - 0x01DF1D 07:DF0D: A2 05     LDX #$05
 C - - - - - 0x01DF1F 07:DF0F: 20 13 CD  JSR sub_CD13
-C - - - - - 0x01DF22 07:DF12: 20 DA FB  JSR sub_FBDA
+C - - - - - 0x01DF22 07:DF12: 20 DA FB  JSR sub_FBDA_push_stack_room
 C - - - - - 0x01DF25 07:DF15: A2 C1     LDX #$C1
 C - - - - - 0x01DF27 07:DF17: 86 39     STX ram_0039
 bra_DF19:
@@ -5078,7 +5080,7 @@ C - - - - - 0x01DF4D 07:DF3D: 60        RTS
 sub_DF3E:
 C - - - - - 0x01DF4E 07:DF3E: A5 6A     LDA ram_006A
 C - - - - - 0x01DF50 07:DF40: 85 00     STA ram_0000
-C - - - - - 0x01DF52 07:DF42: A5 64     LDA ram_0064
+C - - - - - 0x01DF52 07:DF42: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01DF54 07:DF44: 85 03     STA ram_0003
 C - - - - - 0x01DF56 07:DF46: E6 70     INC ram_0070
 C - - - - - 0x01DF58 07:DF48: A5 70     LDA ram_0070
@@ -5585,7 +5587,7 @@ C - - - - - 0x01E24A 07:E23A: 48        PHA
 C - - - - - 0x01E24B 07:E23B: 20 57 E2  JSR sub_E257
 C - - - - - 0x01E24E 07:E23E: A5 6A     LDA ram_006A
 C - - - - - 0x01E250 07:E240: 85 00     STA ram_0000
-C - - - - - 0x01E252 07:E242: A5 64     LDA ram_0064
+C - - - - - 0x01E252 07:E242: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01E254 07:E244: 85 01     STA ram_0001
 C - - - - - 0x01E256 07:E246: 68        PLA
 C - - - - - 0x01E257 07:E247: 48        PHA
@@ -6388,7 +6390,7 @@ C - - - - - 0x01E6CF 07:E6BF: AA        TAX
 loc_E6C0:
 C D 3 - - - 0x01E6D0 07:E6C0: 8A        TXA
 C - - - - - 0x01E6D1 07:E6C1: 48        PHA
-C - - - - - 0x01E6D2 07:E6C2: A5 64     LDA ram_0064
+C - - - - - 0x01E6D2 07:E6C2: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01E6D4 07:E6C4: 85 01     STA ram_0001
 C - - - - - 0x01E6D6 07:E6C6: A2 1E     LDX #$1E
 C - - - - - 0x01E6D8 07:E6C8: A5 2C     LDA v_low_counter
@@ -7189,7 +7191,7 @@ C - - - - - 0x01EBF4 07:EBE4: A9 08     LDA #$08
 C - - - - - 0x01EBF6 07:EBE6: 8D B2 06  STA ram_06B2
 C - - - - - 0x01EBF9 07:EBE9: A5 6A     LDA ram_006A
 C - - - - - 0x01EBFB 07:EBEB: 85 00     STA ram_0000
-C - - - - - 0x01EBFD 07:EBED: A5 64     LDA ram_0064
+C - - - - - 0x01EBFD 07:EBED: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01EBFF 07:EBEF: 85 03     STA ram_0003
 C - - - - - 0x01EC01 07:EBF1: A9 60     LDA #$60
 C - - - - - 0x01EC03 07:EBF3: 85 02     STA ram_0002
@@ -7267,7 +7269,7 @@ C - - - - - 0x01EC72 07:EC62: 4C B6 EC  JMP loc_ECB6
 sub_EC65:
 C - - - - - 0x01EC75 07:EC65: A5 6A     LDA ram_006A
 C - - - - - 0x01EC77 07:EC67: 85 00     STA ram_0000
-C - - - - - 0x01EC79 07:EC69: A5 64     LDA ram_0064
+C - - - - - 0x01EC79 07:EC69: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01EC7B 07:EC6B: 85 01     STA ram_0001
 C - - - - - 0x01EC7D 07:EC6D: A9 02     LDA #$02
 C - - - - - 0x01EC7F 07:EC6F: 85 45     STA ram_0045
@@ -7282,7 +7284,7 @@ C - - - - - 0x01EC8A 07:EC7A: A5 6A     LDA ram_006A
 C - - - - - 0x01EC8C 07:EC7C: 18        CLC
 C - - - - - 0x01EC8D 07:EC7D: 65 75     ADC ram_0075
 C - - - - - 0x01EC8F 07:EC7F: 85 00     STA ram_0000
-C - - - - - 0x01EC91 07:EC81: A5 64     LDA ram_0064
+C - - - - - 0x01EC91 07:EC81: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01EC93 07:EC83: 85 01     STA ram_0001
 C - - - - - 0x01EC95 07:EC85: A9 01     LDA #$01
 C - - - - - 0x01EC97 07:EC87: 85 45     STA ram_0045
@@ -7320,7 +7322,7 @@ C D 3 - - - 0x01ECC6 07:ECB6: A5 6A     LDA ram_006A
 C - - - - - 0x01ECC8 07:ECB8: 18        CLC
 C - - - - - 0x01ECC9 07:ECB9: 65 74     ADC ram_0074
 C - - - - - 0x01ECCB 07:ECBB: 85 00     STA ram_0000
-C - - - - - 0x01ECCD 07:ECBD: A5 64     LDA ram_0064
+C - - - - - 0x01ECCD 07:ECBD: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01ECCF 07:ECBF: 85 01     STA ram_0001
 C - - - - - 0x01ECD1 07:ECC1: A9 02     LDA #$02
 C - - - - - 0x01ECD3 07:ECC3: 85 45     STA ram_0045
@@ -8195,7 +8197,7 @@ C - - - - - 0x01F2C2 07:F2B2: AD 00 03  LDA vEnemyA
 C - - - - - 0x01F2C5 07:F2B5: C9 07     CMP #$07 ; CONSTANT - Zenigata
 C - - - - - 0x01F2C7 07:F2B7: F0 41     BEQ bra_F2FA_clear_c_rts ; If enemyA is Zenigata
 C - - - - - 0x01F2C9 07:F2B9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2
-C - - - - - 0x01F2CC 07:F2BC: A5 46     LDA v_no_sub_level
+C - - - - - 0x01F2CC 07:F2BC: A5 46     LDA vNoSubLevel
 C - - - - - 0x01F2CE 07:F2BE: 0A        ASL
 C - - - - - 0x01F2CF 07:F2BF: AA        TAX
 C - - - - - 0x01F2D0 07:F2C0: BD A2 83  LDA $83A2,X
@@ -8243,7 +8245,7 @@ C - - - - - 0x01F30C 07:F2FC: D0 FC     BNE bra_F2FA_clear_c_rts
 C - - - - - 0x01F30E 07:F2FE: C8        INY ; to 2 byte of 4
 C - - - - - 0x01F30F 07:F2FF: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01F311 07:F301: 38        SEC
-C - - - - - 0x01F312 07:F302: E5 27     SBC v_chr_pos_x
+C - - - - - 0x01F312 07:F302: E5 27     SBC vChrPosX
 C - - - - - 0x01F314 07:F304: B0 03     BCS bra_F309_skip
 C - - - - - 0x01F316 07:F306: 20 73 D0  JSR sub_D073
 bra_F309_skip:
@@ -9181,7 +9183,7 @@ C - - - - - 0x01F9B5 07:F9A5: 85 B9     STA ram_00B9
 C - - - - - 0x01F9B7 07:F9A7: A8        TAY
 C - - - - - 0x01F9B8 07:F9A8: B1 BA     LDA (ram_00BA),Y
 C - - - - - 0x01F9BA 07:F9AA: 85 C4     STA vCheckpoint
-C - - - - - 0x01F9BC 07:F9AC: 20 DA FB  JSR sub_FBDA
+C - - - - - 0x01F9BC 07:F9AC: 20 DA FB  JSR sub_FBDA_push_stack_room
 C - - - - - 0x01F9BF 07:F9AF: A4 11     LDY v_cache_reg_y
 C - - - - - 0x01F9C1 07:F9B1: 4C C0 F9  JMP loc_F9C0
 
@@ -9354,39 +9356,39 @@ C - - - - - 0x01FACC 07:FABC: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01FACF 07:FABF: 60        RTS
 
 sub_FAC0:
-C - - - - - 0x01FAD0 07:FAC0: A9 00     LDA #$00
-C - - - - - 0x01FAD2 07:FAC2: 85 41     STA v_npc_message_status
-C - - - - - 0x01FAD4 07:FAC4: 85 3B     STA vSharedGameStatus
-C - - - - - 0x01FAD6 07:FAC6: 85 C8     STA ram_00C8
+C - - - - - 0x01FAD0 07:FAC0: A9 00     LDA #$00                 ;
+C - - - - - 0x01FAD2 07:FAC2: 85 41     STA v_npc_message_status ; clear
+C - - - - - 0x01FAD4 07:FAC4: 85 3B     STA vSharedGameStatus    ; CONSTANT - In the game
+C - - - - - 0x01FAD6 07:FAC6: 85 C8     STA vMessageInProgress   ; CONSTANT - no message
 C - - - - - 0x01FAD8 07:FAC8: 85 38     STA ram_0038
 C - - - - - 0x01FADA 07:FACA: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01FADD 07:FACD: A5 39     LDA ram_0039
-C - - - - - 0x01FADF 07:FACF: F0 1B     BEQ bra_FAEC
+C - - - - - 0x01FADF 07:FACF: F0 1B     BEQ bra_FAEC_skip         ; If ram_0039 == 0x00
 C - - - - - 0x01FAE1 07:FAD1: C9 E0     CMP #$E0
-C - - - - - 0x01FAE3 07:FAD3: F0 17     BEQ bra_FAEC
+C - - - - - 0x01FAE3 07:FAD3: F0 17     BEQ bra_FAEC_skip         ; If ram_0039 == 0xE0
 C - - - - - 0x01FAE5 07:FAD5: C9 C0     CMP #$C0
-C - - - - - 0x01FAE7 07:FAD7: F0 13     BEQ bra_FAEC
+C - - - - - 0x01FAE7 07:FAD7: F0 13     BEQ bra_FAEC_skip         ; If ram_0039 == 0xE0
 C - - - - - 0x01FAE9 07:FAD9: C9 C1     CMP #$C1
-C - - - - - 0x01FAEB 07:FADB: F0 55     BEQ bra_FB32
+C - - - - - 0x01FAEB 07:FADB: F0 55     BEQ bra_FB32              ; If ram_0039 == 0xC1
 C - - - - - 0x01FAED 07:FADD: C9 C2     CMP #$C2
-C - - - - - 0x01FAEF 07:FADF: F0 5A     BEQ bra_FB3B
+C - - - - - 0x01FAEF 07:FADF: F0 5A     BEQ bra_FB3B              ; If ram_0039 == 0xC2
 C - - - - - 0x01FAF1 07:FAE1: C9 C3     CMP #$C3
-C - - - - - 0x01FAF3 07:FAE3: F0 53     BEQ bra_FB38
+C - - - - - 0x01FAF3 07:FAE3: F0 53     BEQ bra_FB38              ; If ram_0039 == 0xC3
 C - - - - - 0x01FAF5 07:FAE5: C9 C4     CMP #$C4
-C - - - - - 0x01FAF7 07:FAE7: F0 16     BEQ bra_FAFF
+C - - - - - 0x01FAF7 07:FAE7: F0 16     BEQ bra_FAFF              ; If ram_0039 == 0xC4
 C - - - - - 0x01FAF9 07:FAE9: 4C 41 FB  JMP loc_FB41
 
-bra_FAEC:
+bra_FAEC_skip:
 loc_FAEC:
-C D 3 - - - 0x01FAFC 07:FAEC: 20 9A FB  JSR sub_FB9A
+C D 3 - - - 0x01FAFC 07:FAEC: 20 9A FB  JSR sub_FB9A_prepare_position_by_checkpoint
 C - - - - - 0x01FAFF 07:FAEF: 20 C7 C6  JSR sub_C6C7
-C - - - - - 0x01FB02 07:FAF2: A0 C7     LDY #$C7
-C - - - - - 0x01FB04 07:FAF4: A5 46     LDA ram_0046
-C - - - - - 0x01FB06 07:FAF6: C9 19     CMP #$19
-C - - - - - 0x01FB08 07:FAF8: F0 02     BEQ bra_FAFC
-C - - - - - 0x01FB0A 07:FAFA: A0 BF     LDY #$BF
-bra_FAFC:
-C - - - - - 0x01FB0C 07:FAFC: 84 6A     STY ram_006A
+C - - - - - 0x01FB02 07:FAF2: A0 C7     LDY #$C7           ; ~> vScreenChrPosY
+C - - - - - 0x01FB04 07:FAF4: A5 46     LDA vNoSubLevel    ;
+C - - - - - 0x01FB06 07:FAF6: C9 19     CMP #$19           ; CONSTANT - level racing
+C - - - - - 0x01FB08 07:FAF8: F0 02     BEQ @bra_FAFC_skip ; If vNoSubLevel == 0x19
+C - - - - - 0x01FB0A 07:FAFA: A0 BF     LDY #$BF           ; ~> vScreenChrPosY 
+@bra_FAFC_skip:
+C - - - - - 0x01FB0C 07:FAFC: 84 6A     STY vScreenChrPosY ;
 C - - - - - 0x01FB0E 07:FAFE: 60        RTS
 
 bra_FAFF:
@@ -9426,7 +9428,7 @@ C - - - - - 0x01FB42 07:FB32: 20 47 FC  JSR sub_FC47
 C - - - - - 0x01FB45 07:FB35: 4C C7 C6  JMP loc_C6C7
 
 bra_FB38:
-C - - - - - 0x01FB48 07:FB38: 4C F7 FB  JMP loc_FBF7
+C - - - - - 0x01FB48 07:FB38: 4C F7 FB  JMP loc_FBF7_pop_stack_room
 
 bra_FB3B:
 C - - - - - 0x01FB4B 07:FB3B: 20 9C FC  JSR sub_FC9C
@@ -9477,7 +9479,7 @@ C - - - - - 0x01FB93 07:FB83: C8        INY
 C - - - - - 0x01FB94 07:FB84: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01FB96 07:FB86: 85 6A     STA ram_006A
 C - - - - - 0x01FB98 07:FB88: A9 80     LDA #$80
-C - - - - - 0x01FB9A 07:FB8A: 85 64     STA ram_0064
+C - - - - - 0x01FB9A 07:FB8A: 85 64     STA vScreenChrPosX
 C - - - - - 0x01FB9C 07:FB8C: 60        RTS
 
 sub_FB8D:
@@ -9491,7 +9493,7 @@ C - - - - - 0x01FBA6 07:FB96: E5 68     SBC ram_0068
 C - - - - - 0x01FBA8 07:FB98: C8        INY
 C - - - - - 0x01FBA9 07:FB99: 60        RTS
 
-sub_FB9A:
+sub_FB9A_prepare_position_by_checkpoint:
 C - - - - - 0x01FBAA 07:FB9A: A9 01     LDA #$01
 C - - - - - 0x01FBAC 07:FB9C: 24 B7     BIT v_corridor_magic5
 C - - - - - 0x01FBAE 07:FB9E: 30 02     BMI @bra_FBA2_skip    ; If v_corridor_magic5 & 0x80
@@ -9504,63 +9506,65 @@ C - - - - - 0x01FBB7 07:FBA7: 26 01     ROL ram_0001
 C - - - - - 0x01FBB9 07:FBA9: 0A        ASL
 C - - - - - 0x01FBBA 07:FBAA: 26 01     ROL ram_0001
 C - - - - - 0x01FBBC 07:FBAC: 18        CLC
-C - - - - - 0x01FBBD 07:FBAD: 6D 0A 80  ADC $800A
-C - - - - - 0x01FBC0 07:FBB0: 85 00     STA ram_0000
+C - - - - - 0x01FBBD 07:FBAD: 6D 0A 80  ADC addr_tbl_checkpoints
+C - - - - - 0x01FBC0 07:FBB0: 85 00     STA ram_0000       ; Low address
 C - - - - - 0x01FBC2 07:FBB2: A5 01     LDA ram_0001
-C - - - - - 0x01FBC4 07:FBB4: 6D 0B 80  ADC $800B
-C - - - - - 0x01FBC7 07:FBB7: 85 01     STA ram_0001
-C - - - - - 0x01FBC9 07:FBB9: A0 00     LDY #$00
+C - - - - - 0x01FBC4 07:FBB4: 6D 0B 80  ADC addr_tbl_checkpoints + 1
+C - - - - - 0x01FBC7 07:FBB7: 85 01     STA ram_0001       ; High address
+C - - - - - 0x01FBC9 07:FBB9: A0 00     LDY #$00         ; ; 1 of 4 bytes
 C - - - - - 0x01FBCB 07:FBBB: B1 00     LDA (ram_0000),Y
-C - - - - - 0x01FBCD 07:FBBD: 85 46     STA ram_0046
-C - - - - - 0x01FBCF 07:FBBF: C8        INY
+C - - - - - 0x01FBCD 07:FBBD: 85 46     STA vNoSubLevel
+C - - - - - 0x01FBCF 07:FBBF: C8        INY                ; 2 of 4 bytes
 C - - - - - 0x01FBD0 07:FBC0: B1 00     LDA (ram_0000),Y
-C - - - - - 0x01FBD2 07:FBC2: 85 4B     STA ram_004B
-C - - - - - 0x01FBD4 07:FBC4: C8        INY
+C - - - - - 0x01FBD2 07:FBC2: 85 4B     STA v_macro_chr_pos_x
+C - - - - - 0x01FBD4 07:FBC4: C8        INY                ; 3 of 4 bytes
 C - - - - - 0x01FBD5 07:FBC5: B1 00     LDA (ram_0000),Y
-C - - - - - 0x01FBD7 07:FBC7: 85 27     STA ram_0027
-C - - - - - 0x01FBD9 07:FBC9: C8        INY
+C - - - - - 0x01FBD7 07:FBC7: 85 27     STA vChrPosX
+C - - - - - 0x01FBD9 07:FBC9: C8        INY                ; 4 of 4 bytes
 C - - - - - 0x01FBDA 07:FBCA: B1 00     LDA (ram_0000),Y
-C - - - - - 0x01FBDC 07:FBCC: 85 64     STA ram_0064
+C - - - - - 0x01FBDC 07:FBCC: 85 64     STA vScreenChrPosX
 C - - - - - 0x01FBDE 07:FBCE: 18        CLC
-C - - - - - 0x01FBDF 07:FBCF: 65 27     ADC ram_0027
+C - - - - - 0x01FBDF 07:FBCF: 65 27     ADC vChrPosX
 C - - - - - 0x01FBE1 07:FBD1: 85 66     STA ram_0066
-C - - - - - 0x01FBE3 07:FBD3: A5 4B     LDA ram_004B
+C - - - - - 0x01FBE3 07:FBD3: A5 4B     LDA v_macro_chr_pos_x
 C - - - - - 0x01FBE5 07:FBD5: 69 00     ADC #$00
 C - - - - - 0x01FBE7 07:FBD7: 85 68     STA ram_0068
 C - - - - - 0x01FBE9 07:FBD9: 60        RTS
 
-sub_FBDA:
-C - - - - - 0x01FBEA 07:FBDA: A5 46     LDA ram_0046
-C - - - - - 0x01FBEC 07:FBDC: 85 47     STA ram_0047
+; Fill the stack before entering the room
+sub_FBDA_push_stack_room:
+C - - - - - 0x01FBEA 07:FBDA: A5 46     LDA vNoSubLevel
+C - - - - - 0x01FBEC 07:FBDC: 85 47     STA vTempNoSubLevel
 C - - - - - 0x01FBEE 07:FBDE: A5 66     LDA ram_0066
 C - - - - - 0x01FBF0 07:FBE0: 85 67     STA ram_0067
 C - - - - - 0x01FBF2 07:FBE2: A5 68     LDA ram_0068
 C - - - - - 0x01FBF4 07:FBE4: 85 69     STA ram_0069
 C - - - - - 0x01FBF6 07:FBE6: A5 6A     LDA ram_006A
 C - - - - - 0x01FBF8 07:FBE8: 85 6B     STA ram_006B
-C - - - - - 0x01FBFA 07:FBEA: A5 64     LDA ram_0064
-C - - - - - 0x01FBFC 07:FBEC: 85 65     STA ram_0065
+C - - - - - 0x01FBFA 07:FBEA: A5 64     LDA vScreenChrPosX
+C - - - - - 0x01FBFC 07:FBEC: 85 65     STA vTempScreenChrPosX
 C - - - - - 0x01FBFE 07:FBEE: A5 4B     LDA ram_004B
 C - - - - - 0x01FC00 07:FBF0: 85 4C     STA ram_004C
-C - - - - - 0x01FC02 07:FBF2: A5 27     LDA ram_0027
-C - - - - - 0x01FC04 07:FBF4: 85 28     STA ram_0028
+C - - - - - 0x01FC02 07:FBF2: A5 27     LDA vChrPosX
+C - - - - - 0x01FC04 07:FBF4: 85 28     STA vTempChrPosX
 C - - - - - 0x01FC06 07:FBF6: 60        RTS
 
-loc_FBF7:
+; Release the stack after leaving the room
+loc_FBF7_pop_stack_room:
 C D 3 - - - 0x01FC07 07:FBF7: A5 4C     LDA ram_004C
 C - - - - - 0x01FC09 07:FBF9: 85 4B     STA ram_004B
-C - - - - - 0x01FC0B 07:FBFB: A5 28     LDA ram_0028
-C - - - - - 0x01FC0D 07:FBFD: 85 27     STA ram_0027
-C - - - - - 0x01FC0F 07:FBFF: A5 65     LDA ram_0065
-C - - - - - 0x01FC11 07:FC01: 85 64     STA ram_0064
+C - - - - - 0x01FC0B 07:FBFB: A5 28     LDA vTempChrPosX
+C - - - - - 0x01FC0D 07:FBFD: 85 27     STA vChrPosX
+C - - - - - 0x01FC0F 07:FBFF: A5 65     LDA vTempScreenChrPosX
+C - - - - - 0x01FC11 07:FC01: 85 64     STA vScreenChrPosX
 C - - - - - 0x01FC13 07:FC03: A5 6B     LDA ram_006B
 C - - - - - 0x01FC15 07:FC05: 85 6A     STA ram_006A
 C - - - - - 0x01FC17 07:FC07: A5 69     LDA ram_0069
 C - - - - - 0x01FC19 07:FC09: 85 68     STA ram_0068
 C - - - - - 0x01FC1B 07:FC0B: A5 67     LDA ram_0067
 C - - - - - 0x01FC1D 07:FC0D: 85 66     STA ram_0066
-C - - - - - 0x01FC1F 07:FC0F: A5 47     LDA ram_0047
-C - - - - - 0x01FC21 07:FC11: 85 46     STA ram_0046
+C - - - - - 0x01FC1F 07:FC0F: A5 47     LDA vTempNoSubLevel
+C - - - - - 0x01FC21 07:FC11: 85 46     STA vNoSubLevel
 C - - - - - 0x01FC23 07:FC13: 60        RTS
 
 sub_FC14:
@@ -9649,7 +9653,7 @@ C - - - - - 0x01FC9B 07:FC8B: 85 40     STA ram_0040
 C - - - - - 0x01FC9D 07:FC8D: A9 00     LDA #$00
 C - - - - - 0x01FC9F 07:FC8F: 85 27     STA ram_0027
 C - - - - - 0x01FCA1 07:FC91: A9 80     LDA #$80
-C - - - - - 0x01FCA3 07:FC93: 85 64     STA ram_0064
+C - - - - - 0x01FCA3 07:FC93: 85 64     STA vScreenChrPosX
 C - - - - - 0x01FCA5 07:FC95: 85 66     STA ram_0066
 C - - - - - 0x01FCA7 07:FC97: A9 60     LDA #$60
 C - - - - - 0x01FCA9 07:FC99: 85 6A     STA ram_006A

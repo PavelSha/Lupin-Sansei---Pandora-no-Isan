@@ -17,6 +17,12 @@
  
 ; CMP #$A8
 ; BNE bra_XXX ; If Register A != 0xA8
+ 
+; CMP #$A8
+; BEQ bra_XXX ; If Register A == 0xA8
 
 ; LDA *
 ; BNE bra_XXX ; If Register A != 0x00
+
+; LDA *
+; BEQ bra_XXX ; If Register A == 0x00
