@@ -66,8 +66,8 @@ vMenuDemoIndex                = ram_0024
 ; 0x07 - Stop demo
 
 vPpuCtrlSettings              = ram_0026 ; This is a last actual ppu controller flags.
-vChrPosX                      = ram_0027 ; In level it's the position of the character along the x-axis relative to the screen (may repeat, with scrolling)
-vTempChrPosX                  = ram_0028
+vLowChrPosX                   = ram_0027 ; In level it's the position of the character along the x-axis relative to the level (may repeat, with scrolling)
+vTempLowChrPosX               = ram_0028
 v_nmi_counter                 = ram_002B
 v_low_counter                 = ram_002C
 v_high_counter                = ram_002D
@@ -321,7 +321,7 @@ vNoSubLevel                   = ram_0046
 
 vTempNoSubLevel               = ram_0047
 
-v_macro_chr_pos_x             = ram_004B ; The high value for an overflow ram_0027
+vHighChrPosX                  = ram_004B ; The high value for an overflow ram_0027
 v_no_level                    = ram_005E ; It is a number of a level than it starts with 0.
 ; 0x00 - level 1
 ; 0x01 - level 2
