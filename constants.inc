@@ -144,13 +144,24 @@ vNoSubLevel                   = ram_0046
 ; 0x14 - boss of level 4
 ; ....
 ; 0x19 - level racing
+; 0x1A - room with NPC in level 1
 ; 0x1A - ending cutscene + select of a character before level 2
+; 0x1B - room with NPC in level 2 (part 1)
 ; 0x1C - ending cutscene + select of a character before level 3
+; 0x1C - room with NPC in level 2 (part 2)
 ; 0x1D - ending cutscene + select of a character before level 4 (racing)
+; 0x1D - room with NPC in level 3
+; 0x1E - room with NPC in level 4
 ; 0x1F - boss of level 1
 ; ...
 ; 0x21 - boss of level 2
 ; 0x22 - boss of level 3
+
+; 0x1F - room with briefcases in level 1
+; 0x20 - room with briefcases in level 2 (part 1)
+; 0x21 - room with briefcases in level 2 (part 2)
+; 0x22 - room with briefcases in level 3
+; 0x23 - room with briefcases in level 4
 ; ...
 ;
 ; Map 1
@@ -322,6 +333,9 @@ vNoSubLevel                   = ram_0046
 vTempNoSubLevel               = ram_0047
 
 vHighChrPosX                  = ram_004B ; The high value for an overflow ram_0027
+
+; ram_004D - ???
+
 v_no_level                    = ram_005E ; It is a number of a level than it starts with 0.
 ; 0x00 - level 1
 ; 0x01 - level 2

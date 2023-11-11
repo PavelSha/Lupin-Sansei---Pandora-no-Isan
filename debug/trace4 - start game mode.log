@@ -313,20 +313,20 @@ i7916463     A:00 X:FF Y:00 S:FD P:nvUbdIZC  $07:F074: 60        RTS (from $EFFC
 i7916468     A:00 X:FF Y:00 S:FD P:nvUbdIZC  $07:C0CB: 20 53 D4  JSR $D453
 i7916469     A:00 X:FF Y:00 S:FB P:nvUbdIZC  $07:D453: 20 45 D4  JSR $D445
 i7916470     A:00 X:FF Y:00 S:F9 P:nvUbdIZC  $07:D445: 20 28 D4  JSR $D428
-i7916471     A:00 X:FF Y:00 S:F7 P:nvUbdIZC  $07:D428: A9 06     LDA #$06
-i7916472     A:06 X:FF Y:00 S:F7 P:nvUbdIzC  $07:D42A: 8D 00 80  STA $8000 tbl_messages = #$7B
-i7916473     A:06 X:FF Y:00 S:F7 P:nvUbdIzC  $07:D42D: A9 03     LDA #$03
-i7916474     A:03 X:FF Y:00 S:F7 P:nvUbdIzC  $07:D42F: 8D 01 80  STA $8001 tbl_messages+1 = #$9D
-i7916475     A:03 X:FF Y:00 S:F7 P:nvUbdIzC  $07:D432: A5 46     LDA $46 = #$00
-i7916476     A:00 X:FF Y:00 S:F7 P:nvUbdIZC  $07:D434: 0A        ASL
-i7916477     A:00 X:FF Y:00 S:F7 P:nvUbdIZc  $07:D435: A8        TAY
-i7916478     A:00 X:FF Y:00 S:F7 P:nvUbdIZc  $07:D436: B9 FC 90  LDA $90FC,Y @ $90FC = #$5C
-i7916479     A:5C X:FF Y:00 S:F7 P:nvUbdIzc  $07:D439: 85 00     STA $00 = #$3B
-i7916480     A:5C X:FF Y:00 S:F7 P:nvUbdIzc  $07:D43B: B9 FD 90  LDA $90FD,Y @ $90FD = #$72
-i7916481     A:72 X:FF Y:00 S:F7 P:nvUbdIzc  $07:D43E: 29 1F     AND #$1F
-i7916482     A:12 X:FF Y:00 S:F7 P:nvUbdIzc  $07:D440: 09 80     ORA #$80
-i7916483     A:92 X:FF Y:00 S:F7 P:NvUbdIzc  $07:D442: 85 01     STA $01 = #$89
-i7916484     A:92 X:FF Y:00 S:F7 P:NvUbdIzc  $07:D444: 60        RTS (from $D428) ----------------------------
+---COMMENTED! i7916471     A:00 X:FF Y:00 S:F7 P:nvUbdIZC  $07:D428: A9 06     LDA #$06
+---COMMENTED! i7916472     A:06 X:FF Y:00 S:F7 P:nvUbdIzC  $07:D42A: 8D 00 80  STA $8000 tbl_messages = #$7B
+---COMMENTED! i7916473     A:06 X:FF Y:00 S:F7 P:nvUbdIzC  $07:D42D: A9 03     LDA #$03
+---COMMENTED! i7916474     A:03 X:FF Y:00 S:F7 P:nvUbdIzC  $07:D42F: 8D 01 80  STA $8001 tbl_messages+1 = #$9D
+---COMMENTED! i7916475     A:03 X:FF Y:00 S:F7 P:nvUbdIzC  $07:D432: A5 46     LDA $46 = #$00
+---COMMENTED! i7916476     A:00 X:FF Y:00 S:F7 P:nvUbdIZC  $07:D434: 0A        ASL
+---COMMENTED! i7916477     A:00 X:FF Y:00 S:F7 P:nvUbdIZc  $07:D435: A8        TAY
+---COMMENTED! i7916478     A:00 X:FF Y:00 S:F7 P:nvUbdIZc  $07:D436: B9 FC 90  LDA $90FC,Y @ $90FC = #$5C
+---COMMENTED! i7916479     A:5C X:FF Y:00 S:F7 P:nvUbdIzc  $07:D439: 85 00     STA $00 = #$3B
+---COMMENTED! i7916480     A:5C X:FF Y:00 S:F7 P:nvUbdIzc  $07:D43B: B9 FD 90  LDA $90FD,Y @ $90FD = #$72
+---COMMENTED! i7916481     A:72 X:FF Y:00 S:F7 P:nvUbdIzc  $07:D43E: 29 1F     AND #$1F
+---COMMENTED! i7916482     A:12 X:FF Y:00 S:F7 P:nvUbdIzc  $07:D440: 09 80     ORA #$80
+---COMMENTED! i7916483     A:92 X:FF Y:00 S:F7 P:NvUbdIzc  $07:D442: 85 01     STA $01 = #$89
+---COMMENTED! i7916484     A:92 X:FF Y:00 S:F7 P:NvUbdIzc  $07:D444: 60        RTS (from $D428) ----------------------------
 i7916485     A:92 X:FF Y:00 S:F9 P:NvUbdIzc  $07:D448: A0 0F     LDY #$0F
 i7916486     A:92 X:FF Y:0F S:F9 P:nvUbdIzc  $07:D44A: B1 00     LDA ($00),Y @ $926B = #$10
 i7916487     A:10 X:FF Y:0F S:F9 P:nvUbdIzc  $07:D44C: 99 00 06  STA $0600,Y @ $060F = #$10
@@ -334,16 +334,16 @@ i7916488     A:10 X:FF Y:0F S:F9 P:nvUbdIzc  $07:D44F: 88        DEY
 i7916489     A:10 X:FF Y:0E S:F9 P:nvUbdIzc  $07:D450: 10 F8     BPL $D44A
 (60 lines skipped)
 i7916550     A:0F X:FF Y:FF S:F9 P:NvUbdIzc  $07:D452: 60        RTS (from $D445) ----------------------------
-i7916551     A:0F X:FF Y:FF S:FB P:NvUbdIzc  $07:D456: A0 13     LDY #$13
-i7916552     A:0F X:FF Y:13 S:FB P:nvUbdIzc  $07:D458: A5 46     LDA $46 = #$00
-i7916553     A:00 X:FF Y:13 S:FB P:nvUbdIZc  $07:D45A: C9 19     CMP #$19
-i7916554     A:00 X:FF Y:13 S:FB P:NvUbdIzc  $07:D45C: D0 02     BNE $D460
-i7916555     A:00 X:FF Y:13 S:FB P:NvUbdIzc  $07:D460: B1 00     LDA ($00),Y @ $926F = #$0F
-i7916556     A:0F X:FF Y:13 S:FB P:nvUbdIzc  $07:D462: 99 00 06  STA $0600,Y @ $0613 = #$00
-i7916557     A:0F X:FF Y:13 S:FB P:nvUbdIzc  $07:D465: 88        DEY
-i7916558     A:0F X:FF Y:12 S:FB P:nvUbdIzc  $07:D466: C0 0F     CPY #$0F
-i7916559     A:0F X:FF Y:12 S:FB P:nvUbdIzC  $07:D468: D0 F6     BNE $D460
-(15 lines skipped)
+---COMMENTED! i7916551     A:0F X:FF Y:FF S:FB P:NvUbdIzc  $07:D456: A0 13     LDY #$13
+---COMMENTED! i7916552     A:0F X:FF Y:13 S:FB P:nvUbdIzc  $07:D458: A5 46     LDA $46 = #$00
+---COMMENTED! i7916553     A:00 X:FF Y:13 S:FB P:nvUbdIZc  $07:D45A: C9 19     CMP #$19
+---COMMENTED! i7916554     A:00 X:FF Y:13 S:FB P:NvUbdIzc  $07:D45C: D0 02     BNE $D460
+---COMMENTED! i7916555     A:00 X:FF Y:13 S:FB P:NvUbdIzc  $07:D460: B1 00     LDA ($00),Y @ $926F = #$0F
+---COMMENTED! i7916556     A:0F X:FF Y:13 S:FB P:nvUbdIzc  $07:D462: 99 00 06  STA $0600,Y @ $0613 = #$00
+---COMMENTED! i7916557     A:0F X:FF Y:13 S:FB P:nvUbdIzc  $07:D465: 88        DEY
+---COMMENTED! i7916558     A:0F X:FF Y:12 S:FB P:nvUbdIzc  $07:D466: C0 0F     CPY #$0F
+---COMMENTED! i7916559     A:0F X:FF Y:12 S:FB P:nvUbdIzC  $07:D468: D0 F6     BNE $D460
+
 i7916575     A:0F X:FF Y:0F S:FB P:nvUbdIZC  $07:D46A: A5 4B     LDA $4B = #$00
 i7916576     A:00 X:FF Y:0F S:FB P:nvUbdIZC  $07:D46C: 85 4D     STA $4D = #$00
 i7916577     A:00 X:FF Y:0F S:FB P:nvUbdIZC  $07:D46E: 20 F7 D3  JSR $D3F7

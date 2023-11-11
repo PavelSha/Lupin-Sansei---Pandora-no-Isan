@@ -1,6 +1,6 @@
 oldValue = 0;
---no       = 0x0046;
-no       = 0x003B;
+no       = 0x0046;
+--no       = 0x003B;
 --no       = 0x003C;
 wait10   = 0;
 
@@ -8,7 +8,7 @@ while (true) do
   value = memory.readbyte(no);
   if oldValue ~= value then
     oldValue = value;
-    emu.print(string.format("frame: %d, value: %X", emu.framecount(), value));
+    emu.print(string.format("addr:%04X, frame: %d, value: %02X", no, emu.framecount(), value));
 
 	-- Execute screenshot
 	-- gui.savescreenshotas(string.format("snaps/%X-%d.png", no, emu.framecount()));
