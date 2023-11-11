@@ -1,12 +1,28 @@
 oldValue = 0;
-no       = 0x0046;
+--no       = 0x0046;
+no       = 0x003B;
+--no       = 0x003C;
+wait10   = 0;
 
 while (true) do
   value = memory.readbyte(no);
   if oldValue ~= value then
     oldValue = value;
     emu.print(string.format("frame: %d, value: %X", emu.framecount(), value));
-	--[[gui.savescreenshotas(string.format("%X-%d.png", no, emu.framecount()));--]]
+
+	-- Execute screenshot
+	-- gui.savescreenshotas(string.format("snaps/%X-%d.png", no, emu.framecount()));
+
+	if wait10 == 0 then
+	  wait10 = 10;
+	end;
+  end;
+  if wait10 > 0 then
+    if wait10 == 1 then
+	  -- Execute screenshot after 10 frames
+	  -- gui.savescreenshotas(string.format("snaps/%X-%d-w.png", no, emu.framecount()));
+	end;
+	wait10 = wait10 - 1;
   end;
   emu.frameadvance();
 end;

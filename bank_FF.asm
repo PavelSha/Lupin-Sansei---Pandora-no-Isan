@@ -4,6 +4,9 @@
 ; 0x01C010-0x02000F
 
 .import addr_tbl_checkpoints
+
+.import tbl_background_palette ; bank 01 (Page 2)
+
 .import tbl_ptr_corridors ; bank 04 (Page 1)
 .import tbl_ptr_destructible_walls ; bank 04 (Page 1)
 .import tbl_room_lengths
@@ -135,17 +138,17 @@ C - - - - - 0x01C0C9 07:C0B9: 8D 15 40  STA APU_STATUS    ; clear
 C - - - - - 0x01C0CC 07:C0BC: 20 19 C3  JSR sub_C319_fill_ppu
 C - - - - - 0x01C0CF 07:C0BF: 20 58 C3  JSR sub_C358_clear_OAM
 C - - - - - 0x01C0D2 07:C0C2: 20 FC EF  JSR sub_EFFC
-C - - - - - 0x01C0D5 07:C0C5: A5 4B     LDA ram_004B
-C - - - - - 0x01C0D7 07:C0C7: 48        PHA
-C - - - - - 0x01C0D8 07:C0C8: A5 27     LDA ram_0027
-C - - - - - 0x01C0DA 07:C0CA: 48        PHA
+C - - - - - 0x01C0D5 07:C0C5: A5 4B     LDA vHighChrPosX ;
+C - - - - - 0x01C0D7 07:C0C7: 48        PHA              ; store the high position of the character
+C - - - - - 0x01C0D8 07:C0C8: A5 27     LDA vLowChrPosX  ; 
+C - - - - - 0x01C0DA 07:C0CA: 48        PHA              ; store the low position of the character
 C - - - - - 0x01C0DB 07:C0CB: 20 53 D4  JSR sub_D453
 C - - - - - 0x01C0DE 07:C0CE: 20 13 CE  JSR sub_CE13
-C - - - - - 0x01C0E1 07:C0D1: 68        PLA
-C - - - - - 0x01C0E2 07:C0D2: 85 27     STA ram_0027
-C - - - - - 0x01C0E4 07:C0D4: 68        PLA
-C - - - - - 0x01C0E5 07:C0D5: 29 01     AND #$01
-C - - - - - 0x01C0E7 07:C0D7: 09 08     ORA #$08
+C - - - - - 0x01C0E1 07:C0D1: 68        PLA              ; retrieve the low position of the character
+C - - - - - 0x01C0E2 07:C0D2: 85 27     STA vLowChrPosX  ;
+C - - - - - 0x01C0E4 07:C0D4: 68        PLA              ; retrieve the high position of the character
+C - - - - - 0x01C0E5 07:C0D5: 29 01     AND #$01         ; multiplicity of vHighChrPosX by 2 sets the nametable address (0x2000 or 0x2400)
+C - - - - - 0x01C0E7 07:C0D7: 09 08     ORA #$08         ; activate the right pattern table (0x1000)
 C - - - - - 0x01C0E9 07:C0D9: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01C0EB 07:C0DB: A9 00     LDA #$00
 C - - - - - 0x01C0ED 07:C0DD: 85 39     STA ram_0039
@@ -3275,16 +3278,16 @@ C - - - - - 0x01D436 07:D426: A8        TAY
 C - - - - - 0x01D437 07:D427: 60        RTS
 
 sub_D428:
-C - - - - - 0x01D438 07:D428: A9 06     LDA #$06
-C - - - - - 0x01D43A 07:D42A: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01D43D 07:D42D: A9 03     LDA #$03
-C - - - - - 0x01D43F 07:D42F: 8D 01 80  STA MMC3_Bank_data
-C - - - - - 0x01D442 07:D432: A5 46     LDA ram_0046
+C - - - - - 0x01D438 07:D428: A9 06     LDA #$06             ;
+C - - - - - 0x01D43A 07:D42A: 8D 00 80  STA MMC3_Bank_select ;
+C - - - - - 0x01D43D 07:D42D: A9 03     LDA #$03             ;
+C - - - - - 0x01D43F 07:D42F: 8D 01 80  STA MMC3_Bank_data   ; switch bank 01 (page 2) in 0x8000-09FFF
+C - - - - - 0x01D442 07:D432: A5 46     LDA vNoSubLevel
 C - - - - - 0x01D444 07:D434: 0A        ASL
 C - - - - - 0x01D445 07:D435: A8        TAY
-C - - - - - 0x01D446 07:D436: B9 FC 90  LDA $90FC,Y
+C - - - - - 0x01D446 07:D436: B9 FC 90  LDA tbl_background_palette,Y
 C - - - - - 0x01D449 07:D439: 85 00     STA ram_0000
-C - - - - - 0x01D44B 07:D43B: B9 FD 90  LDA $90FD,Y
+C - - - - - 0x01D44B 07:D43B: B9 FD 90  LDA tbl_background_palette + 1,Y
 C - - - - - 0x01D44E 07:D43E: 29 1F     AND #$1F
 C - - - - - 0x01D450 07:D440: 09 80     ORA #$80
 C - - - - - 0x01D452 07:D442: 85 01     STA ram_0001
@@ -3293,12 +3296,12 @@ C - - - - - 0x01D454 07:D444: 60        RTS
 loc_D445:
 sub_D445:
 C D 2 - - - 0x01D455 07:D445: 20 28 D4  JSR sub_D428
-C - - - - - 0x01D458 07:D448: A0 0F     LDY #$0F
-bra_D44A:
+C - - - - - 0x01D458 07:D448: A0 0F     LDY #$0F            ; set loop counter
+@bra_D44A_loop:                                             ; loop by y
 C - - - - - 0x01D45A 07:D44A: B1 00     LDA (ram_0000),Y
 C - - - - - 0x01D45C 07:D44C: 99 00 06  STA vCachePalette,Y
-C - - - - - 0x01D45F 07:D44F: 88        DEY
-C - - - - - 0x01D460 07:D450: 10 F8     BPL bra_D44A
+C - - - - - 0x01D45F 07:D44F: 88        DEY                 ; decrement y
+C - - - - - 0x01D460 07:D450: 10 F8     BPL @bra_D44A_loop  ; In Register Y >= 0x00 && Y < 0xF0
 C - - - - - 0x01D462 07:D452: 60        RTS
 
 sub_D453:
@@ -7802,14 +7805,14 @@ C - - - - - 0x01F009 07:EFF9: 85 BB     STA ram_00BB
 C - - - - - 0x01F00B 07:EFFB: 60        RTS
 
 sub_EFFC:
-C - - - - - 0x01F00C 07:EFFC: A2 09     LDX #$09 ; set loop counter
-C - - - - - 0x01F00E 07:EFFE: A9 00     LDA #$00 ; set assigning value
-@bra_F000_loop:                                      ; loop by x (9 times)
+C - - - - - 0x01F00C 07:EFFC: A2 09     LDX #$09           ; set loop counter
+C - - - - - 0x01F00E 07:EFFE: A9 00     LDA #$00           ; set assigning value
+@bra_F000_loop:                                            ; loop by x (9 times)
 C - - - - - 0x01F010 07:F000: 9D 0A 02  STA v_items + 10,X ; clear items
-C - - - - - 0x01F013 07:F003: CA        DEX ; decrements loop counter
+C - - - - - 0x01F013 07:F003: CA        DEX                ; decrements loop counter
 C - - - - - 0x01F014 07:F004: 10 FA     BPL @bra_F000_loop
-C - - - - - 0x01F016 07:F006: A2 05     LDX #$05 ; set loop counter
-bra_F008_loop:                                       ; loop by x (5 times)
+C - - - - - 0x01F016 07:F006: A2 05     LDX #$05           ; set loop counter
+bra_F008_loop:                                             ; loop by x (5 times)
 C - - - - - 0x01F018 07:F008: A4 3C     LDY ram_003C
 C - - - - - 0x01F01A 07:F00A: 10 0C     BPL @bra_F018_skip
 C - - - - - 0x01F01C 07:F00C: AC 00 03  LDY ram_0300
@@ -7824,15 +7827,15 @@ C - - - - - 0x01F02D 07:F01D: 8D 00 03  STA ram_0300
 C - - - - - 0x01F030 07:F020: 9D 20 03  STA ram_0320,X
 @bra_F023_skip:
 C - - - - - 0x01F033 07:F023: A4 3C     LDY ram_003C
-C - - - - - 0x01F035 07:F025: 10 0B     BPL bra_F032
+C - - - - - 0x01F035 07:F025: 10 0B     BPL bra_F032_skip
 C - - - - - 0x01F037 07:F027: AC 01 03  LDY ram_0301
 C - - - - - 0x01F03A 07:F02A: C0 30     CPY #$30
-C - - - - - 0x01F03C 07:F02C: 90 04     BCC bra_F032
+C - - - - - 0x01F03C 07:F02C: 90 04     BCC bra_F032_skip
 - - - - - - 0x01F03E 07:F02E: C0        .byte $C0   ; 
 - - - - - - 0x01F03F 07:F02F: 33        .byte $33   ; 
 - - - - - - 0x01F040 07:F030: 90        .byte $90   ; 
 - - - - - - 0x01F041 07:F031: 0B        .byte $0B   ; 
-bra_F032:
+bra_F032_skip:
 C - - - - - 0x01F042 07:F032: A9 00     LDA #$00
 C - - - - - 0x01F044 07:F034: 9D 5C 03  STA ram_035C,X
 C - - - - - 0x01F047 07:F037: 8D 0B 03  STA ram_030B
@@ -8268,6 +8271,8 @@ C - - - - - 0x01F333 07:F323: 85 0A     STA ram_000A
 C - - - - - 0x01F335 07:F325: 38        SEC
 C - - - - - 0x01F336 07:F326: 60        RTS
 
+; Params:
+; Register X - a enemy number
 sub_F327:
 loc_F327:
 C D 3 - - - 0x01F337 07:F327: BD 00 03  LDA vEnemies,X
@@ -9572,21 +9577,22 @@ C - - - - - 0x01FC24 07:FC14: 20 28 FC  JSR sub_FC28
 C - - - - - 0x01FC27 07:FC17: 90 23     BCC bra_FC3C_skip
 C - - - - - 0x01FC29 07:FC19: D0 21     BNE bra_FC3C_skip
 C - - - - - 0x01FC2B 07:FC1B: A4 5E     LDY v_no_level
-C - - - - - 0x01FC2D 07:FC1D: B9 43 FC  LDA tbl_FC43,Y
-C - - - - - 0x01FC30 07:FC20: 8D 00 03  STA ram_0300
+C - - - - - 0x01FC2D 07:FC1D: B9 43 FC  LDA tbl_FC43_enemy_boss,Y
+C - - - - - 0x01FC30 07:FC20: 8D 00 03  STA vEnemyA
 C - - - - - 0x01FC33 07:FC23: A2 00     LDX #$00
 C - - - - - 0x01FC35 07:FC25: 4C 27 F3  JMP loc_F327
 
+; Return the carry status (analog return true or false)
 sub_FC28:
 C - - - - - 0x01FC38 07:FC28: 20 3E FC  JSR sub_FC3E
-C - - - - - 0x01FC3B 07:FC2B: D0 0D     BNE bra_FC3A
+C - - - - - 0x01FC3B 07:FC2B: D0 0D     BNE bra_FC3A_return_true ; If Register A != 0x00
 C - - - - - 0x01FC3D 07:FC2D: 20 FE BB  JSR $BBFE ; to sub_BBFE (bank 06_2)
 C - - - - - 0x01FC40 07:FC30: 90 0A     BCC bra_FC3C_skip
 C - - - - - 0x01FC42 07:FC32: A5 B6     LDA ram_00B6
 C - - - - - 0x01FC44 07:FC34: 29 03     AND #$03
 C - - - - - 0x01FC46 07:FC36: C9 03     CMP #$03
 C - - - - - 0x01FC48 07:FC38: D0 02     BNE bra_FC3C_skip
-bra_FC3A:
+bra_FC3A_return_true:
 C - - - - - 0x01FC4A 07:FC3A: 38        SEC
 C - - - - - 0x01FC4B 07:FC3B: 60        RTS
 
@@ -9599,11 +9605,12 @@ C - - - - - 0x01FC4E 07:FC3E: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01FC50 07:FC40: 29 02     AND #$02
 C - - - - - 0x01FC52 07:FC42: 60        RTS
 
-tbl_FC43:
-- D 3 - - - 0x01FC53 07:FC43: 28        .byte $28   ; 
-- D 3 - - - 0x01FC54 07:FC44: 2A        .byte $2A   ; 
-- D 3 - - - 0x01FC55 07:FC45: 2C        .byte $2C   ; 
-- D 3 - - - 0x01FC56 07:FC46: 2E        .byte $2E   ; 
+; Enemy (boss) indexes by level
+tbl_FC43_enemy_boss:
+- D 3 - - - 0x01FC53 07:FC43: 28        .byte $28   ; Boss (level 1)
+- D 3 - - - 0x01FC54 07:FC44: 2A        .byte $2A   ; Boss (level 2)
+- D 3 - - - 0x01FC55 07:FC45: 2C        .byte $2C   ; Boss (level 3)
+- D 3 - - - 0x01FC56 07:FC46: 2E        .byte $2E   ; Boss (level 4)
 
 sub_FC47:
 C - - - - - 0x01FC57 07:FC47: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1

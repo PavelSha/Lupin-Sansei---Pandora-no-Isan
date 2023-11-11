@@ -1,0 +1,1475 @@
+FCEUX 2.6.6-interim git58b87387eb934976373f5febbf85261fa427c30e - Trace Log File
+(6156784 lines skipped)
+; CONSTANT - Show the menu
+i6156784     A:80 X:00 Y:40 S:F5 P:NvUbdIzc  $07:C559: A9 FF     LDA #$FF
+; ;
+i6156785     A:FF X:00 Y:40 S:F5 P:NvUbdIzc  $07:C55B: 85 3D     STA $3D = #$02
+; ;
+i6156786     A:FF X:00 Y:40 S:F5 P:NvUbdIzc  $07:C55D: 60        RTS (from $C53C resolve_start_status) -------
+(531 lines skipped)
+i6157318     A:FF X:FF Y:20 S:FD P:NvUbdIzC  $06:BA7E: 20 13 C3  JSR $C313
+(3 lines skipped)
+i6157322     A:00 X:FF Y:20 S:FD P:nvUbdIZC  $06:BA81: 20 05 C3  JSR $C305 update_ppu_ctrl_with_no_nmi
+(5 lines skipped)
+i6157328     A:10 X:FF Y:20 S:FD P:nvUbdIzC  $06:BA84: A6 24     LDX $24 vMenuDemoIndex = #$00
+i6157329     A:10 X:00 Y:20 S:FD P:nvUbdIZC  $06:BA86: F0 24     BEQ $BAAC
+i6157330     A:10 X:00 Y:20 S:FD P:nvUbdIZC  $06:BAAC: A9 00     LDA #$00
+i6157331     A:00 X:00 Y:20 S:FD P:nvUbdIZC  $06:BAAE: 85 37     STA $37 vGameMode = #$FF
+i6157332     A:00 X:00 Y:20 S:FD P:nvUbdIZC  $06:BAB0: 68        PLA
+i6157333     A:91 X:00 Y:20 S:FE P:NvUbdIzC  $06:BAB1: 68        PLA
+i6157334     A:C0 X:00 Y:20 S:FF P:NvUbdIzC  $06:BAB2: 4C 46 C0  JMP $C046
+(36 lines skipped)
+i6157371     A:61 X:08 Y:20 S:FD P:nvUbdIZC  $07:C8DE: CA        DEX
+i6157372     A:61 X:07 Y:20 S:FD P:nvUbdIzC  $07:C8DF: 10 F5     BPL $C8D6
+(40 lines skipped)
+i6157413     A:59 X:FF Y:20 S:FD P:NvUbdIzC  $07:C8E1: 60        RTS (from $C8D4) ----------------------------
+
+---COMMENTED! i6157417     A:00 X:FF Y:20 S:FD P:nvUbdIZC  $06:B8CC: 20 02 C4  JSR $C402 C402_clear_sound_parts
+
+---COMMENTED! i6157489     A:A8 X:FF Y:A8 S:FD P:nvUbdIZC  $06:B8CF: A9 00     LDA #$00
+---COMMENTED! i6157490     A:00 X:FF Y:A8 S:FD P:nvUbdIZC  $06:B8D1: 20 20 C4  JSR $C420 C420_add_sound_effect
+
+---COMMENTED! i6157538     A:FF X:FF Y:A8 S:FD P:NvUbdIzc  $06:B8D4: A9 01     LDA #$01
+---COMMENTED! i6157539     A:01 X:FF Y:A8 S:FD P:nvUbdIzc  $06:B8D6: 20 20 C4  JSR $C420 C420_add_sound_effect
+
+---COMMENTED! i6157587     A:FF X:FF Y:A8 S:FD P:NvUbdIzc  $06:B8D9: A9 02     LDA #$02
+---COMMENTED! i6157588     A:02 X:FF Y:A8 S:FD P:nvUbdIzc  $06:B8DB: 20 20 C4  JSR $C420 C420_add_sound_effect
+
+---COMMENTED! i6157636     A:FF X:FF Y:A8 S:FD P:NvUbdIzc  $06:B8DE: A9 03     LDA #$03
+---COMMENTED! i6157637     A:03 X:FF Y:A8 S:FD P:nvUbdIzc  $06:B8E0: 20 20 C4  JSR $C420 C420_add_sound_effect
+
+---COMMENTED! i6157685     A:FF X:FF Y:A8 S:FD P:NvUbdIzc  $06:B8E3: 20 1D C3  JSR $C31D C31D_clear_ppu
+
+---COMMENTED! i6164258     A:00 X:00 Y:00 S:FD P:nvUbdIZC  $06:B8E6: 20 58 C3  JSR $C358 C358_clear_OAM
+
+---COMMENTED! i6164777     A:F0 X:00 Y:40 S:FD P:nvUbdIZC  $06:B8E9: 20 46 EF  JSR $EF46 EF46_switch_bank_4_p1_p2
+
+---COMMENTED! i6164785     A:08 X:00 Y:40 S:FD P:nvUbdIzC  $06:B8EC: A2 05     LDX #$05
+i6164786     A:08 X:05 Y:40 S:FD P:nvUbdIzC  $06:B8EE: BD BE 80  LDA $80BE,X @ $80C3 = #$3B
+i6164787     A:3B X:05 Y:40 S:FD P:nvUbdIzC  $06:B8F1: 9D AF 06  STA $06AF,X @ $06B4 = #$37
+i6164788     A:3B X:05 Y:40 S:FD P:nvUbdIzC  $06:B8F4: CA        DEX
+i6164789     A:3B X:04 Y:40 S:FD P:nvUbdIzC  $06:B8F5: 10 F7     BPL $B8EE
+(20 lines skipped)
+i6164810     A:12 X:FF Y:40 S:FD P:NvUbdIzC  $06:B8F7: A2 1F     LDX #$1F
+i6164811     A:12 X:1F Y:40 S:FD P:nvUbdIzC  $06:B8F9: BD C4 80  LDA $80C4,X @ $80E3 = #$12
+i6164812     A:12 X:1F Y:40 S:FD P:nvUbdIzC  $06:B8FC: 9D 00 06  STA $0600,X @ $061F = #$00
+i6164813     A:12 X:1F Y:40 S:FD P:nvUbdIzC  $06:B8FF: CA        DEX
+i6164814     A:12 X:1E Y:40 S:FD P:nvUbdIzC  $06:B900: 10 F7     BPL $B8F9
+(124 lines skipped)
+i6164939     A:0F X:FF Y:40 S:FD P:NvUbdIzC  $06:B902: A9 E4     LDA #$E4
+i6164940     A:E4 X:FF Y:40 S:FD P:NvUbdIzC  $06:B904: 85 12     STA $12 = #$00
+i6164941     A:E4 X:FF Y:40 S:FD P:NvUbdIzC  $06:B906: A9 80     LDA #$80
+i6164942     A:80 X:FF Y:40 S:FD P:NvUbdIzC  $06:B908: 85 13     STA $13 = #$80
+i6164943     A:80 X:FF Y:40 S:FD P:NvUbdIzC  $06:B90A: A9 00     LDA #$00
+i6164944     A:00 X:FF Y:40 S:FD P:nvUbdIZC  $06:B90C: 85 D6     STA $D6 = #$00
+i6164945     A:00 X:FF Y:40 S:FD P:nvUbdIZC  $06:B90E: A2 0F     LDX #$0F
+i6164946     A:00 X:0F Y:40 S:FD P:nvUbdIzC  $06:B910: AD 09 01  LDA $0109 = #$00
+i6164947     A:00 X:0F Y:40 S:FD P:nvUbdIZC  $06:B913: F0 01     BEQ $B916
+i6164948     A:00 X:0F Y:40 S:FD P:nvUbdIZC  $06:B916: 86 00     STX $00 = #$E8
+i6164949     A:00 X:0F Y:40 S:FD P:nvUbdIZC  $06:B918: A5 00     LDA $00 = #$0F
+i6164950     A:0F X:0F Y:40 S:FD P:nvUbdIzC  $06:B91A: 20 86 D0  JSR $D086
+(71 lines skipped)
+i6165022     A:9D X:05 Y:05 S:FD P:nvUbdIZC  $06:B91D: C6 00     DEC $00 = #$0F
+i6165023     A:9D X:05 Y:05 S:FD P:nvUbdIzC  $06:B91F: 10 F7     BPL $B918
+(2175 lines skipped)
+i6167199     A:00 X:05 Y:16 S:FD P:NvUbdIzC  $06:B921: A9 20     LDA #$20
+i6167200     A:20 X:05 Y:16 S:FD P:nvUbdIzC  $06:B923: 8D 06 20  STA PPU_ADDRESS = #$FB
+i6167201     A:20 X:05 Y:16 S:FD P:nvUbdIzC  $06:B926: A9 84     LDA #$84
+i6167202     A:84 X:05 Y:16 S:FD P:NvUbdIzC  $06:B928: 8D 06 20  STA PPU_ADDRESS = #$FB
+i6167203     A:84 X:05 Y:16 S:FD P:NvUbdIzC  $06:B92B: A2 56     LDX #$56
+i6167204     A:84 X:56 Y:16 S:FD P:nvUbdIzC  $06:B92D: 20 1C C9  JSR $C91C
+i6167205     A:84 X:56 Y:16 S:FB P:nvUbdIzC  $07:C91C: A9 80     LDA #$80
+i6167206     A:80 X:56 Y:16 S:FB P:NvUbdIzC  $07:C91E: 85 08     STA $08 = #$00
+i6167207     A:80 X:56 Y:16 S:FB P:NvUbdIzC  $07:C920: A9 80     LDA #$80
+i6167208     A:80 X:56 Y:16 S:FB P:NvUbdIzC  $07:C922: 85 09     STA $09 = #$00
+i6167209     A:80 X:56 Y:16 S:FB P:NvUbdIzC  $07:C924: A9 00     LDA #$00
+i6167210     A:00 X:56 Y:16 S:FB P:nvUbdIZC  $07:C926: 85 07     STA $07 = #$00
+i6167211     A:00 X:56 Y:16 S:FB P:nvUbdIZC  $07:C928: A0 07     LDY #$07
+i6167212     A:00 X:56 Y:07 S:FB P:nvUbdIzC  $07:C92A: B5 00     LDA $00,X @ $0056 = #$00
+i6167213     A:00 X:56 Y:07 S:FB P:nvUbdIZC  $07:C92C: F0 02     BEQ $C930
+i6167214     A:00 X:56 Y:07 S:FB P:nvUbdIZC  $07:C930: 24 07     BIT $07 = #$00
+i6167215     A:00 X:56 Y:07 S:FB P:nvUbdIZC  $07:C932: 30 06     BMI $C93A
+i6167216     A:00 X:56 Y:07 S:FB P:nvUbdIZC  $07:C934: C0 03     CPY #$03
+i6167217     A:00 X:56 Y:07 S:FB P:nvUbdIzC  $07:C936: 90 02     BCC $C93A
+i6167218     A:00 X:56 Y:07 S:FB P:nvUbdIzC  $07:C938: A5 08     LDA $08 = #$80
+i6167219     A:80 X:56 Y:07 S:FB P:NvUbdIzC  $07:C93A: 18        CLC
+i6167220     A:80 X:56 Y:07 S:FB P:NvUbdIzc  $07:C93B: 65 09     ADC $09 = #$80
+i6167221     A:00 X:56 Y:07 S:FB P:nVUbdIZC  $07:C93D: 8D 07 20  STA PPU_DATA = #$FE
+i6167222     A:00 X:56 Y:07 S:FB P:nVUbdIZC  $07:C940: E8        INX
+i6167223     A:00 X:57 Y:07 S:FB P:nVUbdIzC  $07:C941: 88        DEY
+i6167224     A:00 X:57 Y:06 S:FB P:nVUbdIzC  $07:C942: D0 E6     BNE $C92A
+(76 lines skipped)
+i6167301     A:80 X:5D Y:00 S:FB P:nvUbdIZc  $07:C944: 60        RTS (from $C91C) ----------------------------
+i6167302     A:80 X:5D Y:00 S:FD P:nvUbdIZc  $06:B930: A9 20     LDA #$20
+i6167303     A:20 X:5D Y:00 S:FD P:nvUbdIzc  $06:B932: 8D 06 20  STA PPU_ADDRESS = #$8B
+i6167304     A:20 X:5D Y:00 S:FD P:nvUbdIzc  $06:B935: A9 8E     LDA #$8E
+i6167305     A:8E X:5D Y:00 S:FD P:NvUbdIzc  $06:B937: 8D 06 20  STA PPU_ADDRESS = #$8B
+i6167306     A:8E X:5D Y:00 S:FD P:NvUbdIzc  $06:B93A: A2 99     LDX #$99
+i6167307     A:8E X:99 Y:00 S:FD P:NvUbdIzc  $06:B93C: 20 1C C9  JSR $C91C
+(48 lines skipped)
+i6167356     A:05 X:9C Y:04 S:FB P:nVUbdIzC  $07:C92E: C6 07     DEC $07 = #$00
+(39 lines skipped)
+i6167396     A:80 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B93F: A9 80     LDA #$80
+i6167397     A:80 X:A0 Y:00 S:FD P:NvUbdIzc  $06:B941: 85 3B     STA $3B vSharedGameStatus = #$00
+i6167398     A:80 X:A0 Y:00 S:FD P:NvUbdIzc  $06:B943: A9 00     LDA #$00
+i6167399     A:00 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B945: 85 B1     STA $B1 = #$00
+i6167400     A:00 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B947: 85 B2     STA $B2 = #$00
+i6167401     A:00 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B949: 85 B3     STA $B3 = #$00
+i6167402     A:00 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B94B: 85 B4     STA $B4 = #$00
+i6167403     A:00 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B94D: 85 2C     STA $2C vLowCounter = #$82
+i6167404     A:00 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B94F: 85 2D     STA $2D vHighCounter = #$00
+i6167405     A:00 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B951: 85 19     STA $19 = #$00
+i6167406     A:00 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B953: 8D 31 06  STA $0631 = #$00
+i6167407     A:00 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B956: 8D 7B 06  STA $067B = #$00
+i6167408     A:00 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B959: 85 29     STA $29 = #$00
+i6167409     A:00 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B95B: 85 27     STA $27 = #$00
+i6167410     A:00 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B95D: 85 3D     STA $3D = #$FF
+i6167411     A:00 X:A0 Y:00 S:FD P:nvUbdIZc  $06:B95F: A9 8F     LDA #$8F
+i6167412     A:8F X:A0 Y:00 S:FD P:NvUbdIzc  $06:B961: 85 AD     STA $AD = #$00
+i6167413     A:8F X:A0 Y:00 S:FD P:NvUbdIzc  $06:B963: 85 1C     STA $1C = #$00
+i6167414     A:8F X:A0 Y:00 S:FD P:NvUbdIzc  $06:B965: 20 1E C5  JSR $C51E
+(6950 lines skipped)
+i6174365     A:1E X:FF Y:20 S:FD P:nvUbdIzC  $06:B968: A5 1C     LDA $1C = #$8F
+i6174366     A:8F X:FF Y:20 S:FD P:NvUbdIzC  $06:B96A: 29 08     AND #$08
+---COMMENTED! i6174367     A:08 X:FF Y:20 S:FD P:nvUbdIzC  $06:B96C: D0 FA     BNE $B968
+(12498 lines skipped)
+    i6186866     A:06 X:7E Y:01 S:F3 P:NvUbdIzc  $02:B080: B1 FE     LDA ($FE),Y @ $81D5 = #$7F
+    i6186867     A:7F X:7E Y:01 S:F3 P:nvUbdIzc  $02:B082: 29 7F     AND #$7F
+    i6186868     A:7F X:7E Y:01 S:F3 P:nvUbdIzc  $02:B084: 8D 04 04  STA $0404 = #$00
+    i6186869     A:7F X:7E Y:01 S:F3 P:nvUbdIzc  $02:B087: 38        SEC
+    i6186870     A:7F X:7E Y:01 S:F3 P:nvUbdIzC  $02:B088: 60        RTS (from $B06F) ----------------------------
+(194 lines skipped)
+i6187065     A:00 X:FF Y:20 S:FD P:nvUbdIZC  $06:B96E: 85 1C     STA $1C = #$00
+i6187066     A:00 X:FF Y:20 S:FD P:nvUbdIZC  $06:B970: 85 3D     STA $3D = #$01
+---COMMENTED! i6187067     A:00 X:FF Y:20 S:FD P:nvUbdIZC  $06:B972: A9 00     LDA #$00
+---COMMENTED! i6187068     A:00 X:FF Y:20 S:FD P:nvUbdIZC  $06:B974: 85 2C     STA $2C vLowCounter = #$01
+---COMMENTED! i6187069     A:00 X:FF Y:20 S:FD P:nvUbdIZC  $06:B976: 85 2D     STA $2D vHighCounter = #$00
+(1097219 lines skipped)
+i7284289     A:01 X:00 Y:40 S:F5 P:nvUbdIzc  $07:C7B1: A9 C0     LDA #$C0
+i7284290     A:C0 X:00 Y:40 S:F5 P:NvUbdIzc  $07:C7B3: 85 3D     STA $3D = #$00
+i7284291     A:C0 X:00 Y:40 S:F5 P:NvUbdIzc  $07:C7B5: C6 3D     DEC $3D = #$C0
+i7284292     A:C0 X:00 Y:40 S:F5 P:NvUbdIzc  $07:C7B7: 4C EF C7  JMP $C7EF
+(538 lines skipped)
+i7284831     A:BF X:FF Y:20 S:FD P:NvUbdIzC  $07:C6BD: A5 3D     LDA $3D = #$BF
+i7284832     A:BF X:FF Y:20 S:FD P:NvUbdIzC  $07:C6BF: 30 FC     BMI $C6BD
+(624066 lines skipped)
+
+**** GAME MODE *******
+
+i7908899     A:7F X:FF Y:20 S:FD P:nvUbdIzC  $07:C6C1: 20 13 C3  JSR $C313
+(3 lines skipped)
+i7908903     A:00 X:FF Y:20 S:FD P:nvUbdIZC  $07:C6C4: 20 05 C3  JSR $C305 update_ppu_ctrl_with_no_nmi
+(5 lines skipped)
+i7908909     A:10 X:FF Y:20 S:FD P:nvUbdIzC  $07:C6C7: A9 00     LDA #$00
+i7908910     A:00 X:FF Y:20 S:FD P:nvUbdIZC  $07:C6C9: AA        TAX
+i7908911     A:00 X:00 Y:20 S:FD P:nvUbdIZC  $07:C6CA: A4 46     LDY $46 = #$00
+i7908912     A:00 X:00 Y:00 S:FD P:nvUbdIZC  $07:C6CC: C0 1A     CPY #$1A
+i7908913     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:C6CE: 90 07     BCC $C6D7
+i7908914     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:C6D7: 8D B6 06  STA $06B6 = #$00
+i7908915     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:C6DA: 86 3B     STX $3B vSharedGameStatus = #$10
+i7908916     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:C6DC: 60        RTS (from $C672) ----------------------------
+i7908917     A:00 X:00 Y:00 S:FF P:NvUbdIzc  $07:C09C: 20 C0 FA  JSR $FAC0
+i7908918     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:FAC0: A9 00     LDA #$00
+i7908919     A:00 X:00 Y:00 S:FD P:nvUbdIZc  $07:FAC2: 85 41     STA $41 = #$00
+i7908920     A:00 X:00 Y:00 S:FD P:nvUbdIZc  $07:FAC4: 85 3B     STA $3B vSharedGameStatus = #$00
+i7908921     A:00 X:00 Y:00 S:FD P:nvUbdIZc  $07:FAC6: 85 C8     STA $C8 = #$00
+i7908922     A:00 X:00 Y:00 S:FD P:nvUbdIZc  $07:FAC8: 85 38     STA $38 = #$00
+i7908923     A:00 X:00 Y:00 S:FD P:nvUbdIZc  $07:FACA: 20 46 EF  JSR $EF46 EF46_switch_bank_4_p1_p2
+(7 lines skipped)
+i7908931     A:08 X:00 Y:00 S:FD P:nvUbdIzc  $07:FACD: A5 39     LDA $39 = #$00
+i7908932     A:00 X:00 Y:00 S:FD P:nvUbdIZc  $07:FACF: F0 1B     BEQ $FAEC
+---COMMENTED! i7908933     A:00 X:00 Y:00 S:FD P:nvUbdIZc  $07:FAEC: 20 9A FB  JSR $FB9A
+i7908934     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:FB9A: A9 01     LDA #$01
+i7908935     A:01 X:00 Y:00 S:FB P:nvUbdIzc  $07:FB9C: 24 B7     BIT $B7 = #$00
+i7908936     A:01 X:00 Y:00 S:FB P:nvUbdIZc  $07:FB9E: 30 02     BMI $FBA2
+i7908937     A:01 X:00 Y:00 S:FB P:nvUbdIZc  $07:FBA0: A9 00     LDA #$00
+i7908938     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:FBA2: 85 01     STA $01 = #$10
+i7908939     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:FBA4: A5 C4     LDA $C4 vCheckpoint = #$00
+i7908940     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:FBA6: 0A        ASL
+i7908941     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:FBA7: 26 01     ROL $01 = #$00
+i7908942     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:FBA9: 0A        ASL
+i7908943     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:FBAA: 26 01     ROL $01 = #$00
+i7908944     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:FBAC: 18        CLC
+i7908945     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:FBAD: 6D 0A 80  ADC $800A = #$3B
+i7908946     A:3B X:00 Y:00 S:FB P:nvUbdIzc  $07:FBB0: 85 00     STA $00 = #$CF
+i7908947     A:3B X:00 Y:00 S:FB P:nvUbdIzc  $07:FBB2: A5 01     LDA $01 = #$00
+i7908948     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:FBB4: 6D 0B 80  ADC $800B = #$89
+i7908949     A:89 X:00 Y:00 S:FB P:NvUbdIzc  $07:FBB7: 85 01     STA $01 = #$00
+i7908950     A:89 X:00 Y:00 S:FB P:NvUbdIzc  $07:FBB9: A0 00     LDY #$00
+i7908951     A:89 X:00 Y:00 S:FB P:nvUbdIZc  $07:FBBB: B1 00     LDA ($00),Y @ $893B = #$00
+i7908952     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:FBBD: 85 46     STA $46 = #$00
+i7908953     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:FBBF: C8        INY
+i7908954     A:00 X:00 Y:01 S:FB P:nvUbdIzc  $07:FBC0: B1 00     LDA ($00),Y @ $893C = #$00
+i7908955     A:00 X:00 Y:01 S:FB P:nvUbdIZc  $07:FBC2: 85 4B     STA $4B = #$00
+i7908956     A:00 X:00 Y:01 S:FB P:nvUbdIZc  $07:FBC4: C8        INY
+i7908957     A:00 X:00 Y:02 S:FB P:nvUbdIzc  $07:FBC5: B1 00     LDA ($00),Y @ $893D = #$00
+i7908958     A:00 X:00 Y:02 S:FB P:nvUbdIZc  $07:FBC7: 85 27     STA $27 = #$00
+i7908959     A:00 X:00 Y:02 S:FB P:nvUbdIZc  $07:FBC9: C8        INY
+i7908960     A:00 X:00 Y:03 S:FB P:nvUbdIzc  $07:FBCA: B1 00     LDA ($00),Y @ $893E = #$30
+i7908961     A:30 X:00 Y:03 S:FB P:nvUbdIzc  $07:FBCC: 85 64     STA $64 = #$00
+i7908962     A:30 X:00 Y:03 S:FB P:nvUbdIzc  $07:FBCE: 18        CLC
+i7908963     A:30 X:00 Y:03 S:FB P:nvUbdIzc  $07:FBCF: 65 27     ADC $27 = #$00
+i7908964     A:30 X:00 Y:03 S:FB P:nvUbdIzc  $07:FBD1: 85 66     STA $66 = #$00
+i7908965     A:30 X:00 Y:03 S:FB P:nvUbdIzc  $07:FBD3: A5 4B     LDA $4B = #$00
+i7908966     A:00 X:00 Y:03 S:FB P:nvUbdIZc  $07:FBD5: 69 00     ADC #$00
+i7908967     A:00 X:00 Y:03 S:FB P:nvUbdIZc  $07:FBD7: 85 68     STA $68 = #$00
+---COMMENTED! i7908968     A:00 X:00 Y:03 S:FB P:nvUbdIZc  $07:FBD9: 60        RTS (from $FB9A) ----------------------------
+i7908969     A:00 X:00 Y:03 S:FD P:nvUbdIZc  $07:FAEF: 20 C7 C6  JSR $C6C7
+
+---COMMENTED! i7908978     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:FAF2: A0 C7     LDY #$C7
+---COMMENTED! i7908979     A:00 X:00 Y:C7 S:FD P:NvUbdIzc  $07:FAF4: A5 46     LDA $46 = #$00
+---COMMENTED! i7908980     A:00 X:00 Y:C7 S:FD P:nvUbdIZc  $07:FAF6: C9 19     CMP #$19
+---COMMENTED! i7908981     A:00 X:00 Y:C7 S:FD P:NvUbdIzc  $07:FAF8: F0 02     BEQ $FAFC
+---COMMENTED! i7908982     A:00 X:00 Y:C7 S:FD P:NvUbdIzc  $07:FAFA: A0 BF     LDY #$BF
+---COMMENTED! i7908983     A:00 X:00 Y:BF S:FD P:NvUbdIzc  $07:FAFC: 84 6A     STY $6A = #$00
+---COMMENTED! i7908984     A:00 X:00 Y:BF S:FD P:NvUbdIzc  $07:FAFE: 60        RTS (from $FAC0) ----------------------------
+i7908985     A:00 X:00 Y:BF S:FF P:NvUbdIzc  $07:C09F: 20 46 EF  JSR $EF46 EF46_switch_bank_4_p1_p2
+(7 lines skipped)
+i7908993     A:08 X:00 Y:BF S:FF P:nvUbdIzc  $07:C0A2: A4 46     LDY $46 = #$00
+i7908994     A:08 X:00 Y:00 S:FF P:nvUbdIZc  $07:C0A4: BE 38 85  LDX $8538,Y @ $8538 = #$10
+i7908995     A:08 X:10 Y:00 S:FF P:nvUbdIzc  $07:C0A7: 86 49     STX $49 = #$00
+i7908996     A:08 X:10 Y:00 S:FF P:nvUbdIzc  $07:C0A9: CA        DEX
+i7908997     A:08 X:0F Y:00 S:FF P:nvUbdIzc  $07:C0AA: 86 4A     STX $4A = #$00
+---COMMENTED! i7908998     A:08 X:0F Y:00 S:FF P:nvUbdIzc  $07:C0AC: A2 6C     LDX #$6C
+---COMMENTED! i7908999     A:08 X:6C Y:00 S:FF P:nvUbdIzc  $07:C0AE: A9 00     LDA #$00
+---COMMENTED! i7909000     A:00 X:6C Y:00 S:FF P:nvUbdIZc  $07:C0B0: 95 00     STA $00,X @ $006C = #$00
+---COMMENTED! i7909001     A:00 X:6C Y:00 S:FF P:nvUbdIZc  $07:C0B2: E8        INX
+---COMMENTED! i7909002     A:00 X:6D Y:00 S:FF P:nvUbdIzc  $07:C0B3: E0 99     CPX #$99
+---COMMENTED! i7909003     A:00 X:6D Y:00 S:FF P:NvUbdIzc  $07:C0B5: D0 F9     BNE $C0B0
+
+i7909180     A:00 X:99 Y:00 S:FF P:nvUbdIZC  $07:C0B7: A9 00     LDA #$00
+i7909181     A:00 X:99 Y:00 S:FF P:nvUbdIZC  $07:C0B9: 8D 15 40  STA APU_STATUS = #$00
+i7909182     A:00 X:99 Y:00 S:FF P:nvUbdIZC  $07:C0BC: 20 19 C3  JSR $C319 C319_fill_ppu
+
+---COMMENTED! i7909183     A:00 X:99 Y:00 S:FD P:nvUbdIZC  $07:C319: A9 01     LDA #$01
+i7909184     A:01 X:99 Y:00 S:FD P:nvUbdIzC  $07:C31B: D0 02     BNE $C31F C31F_skip
+(6571 lines skipped)
+i7915756     A:00 X:00 Y:00 S:FF P:nvUbdIZC  $07:C0BF: 20 58 C3  JSR $C358 C358_clear_OAM
+(518 lines skipped)
+i7916275     A:F0 X:00 Y:40 S:FF P:nvUbdIZC  $07:C0C2: 20 FC EF  JSR $EFFC
+; set loop counter
+i7916276     A:F0 X:00 Y:40 S:FD P:nvUbdIZC  $07:EFFC: A2 09     LDX #$09
+; set assigning value
+i7916277     A:F0 X:09 Y:40 S:FD P:nvUbdIzC  $07:EFFE: A9 00     LDA #$00
+F000_loop:
+; clear items
+i7916278     A:00 X:09 Y:40 S:FD P:nvUbdIZC  $07:F000: 9D 0A 02  STA $020A,X @ $0213 = #$00
+i7916279     A:00 X:09 Y:40 S:FD P:nvUbdIZC  $07:F003: CA        DEX
+i7916280     A:00 X:08 Y:40 S:FD P:nvUbdIzC  $07:F004: 10 FA     BPL $F000 F000_loop
+(27 lines skipped)
+i7916308     A:00 X:FF Y:40 S:FD P:NvUbdIzC  $07:F006: A2 05     LDX #$05
+F008_loop:
+i7916309     A:00 X:05 Y:40 S:FD P:nvUbdIzC  $07:F008: A4 3C     LDY $3C = #$00
+i7916310     A:00 X:05 Y:00 S:FD P:nvUbdIZC  $07:F00A: 10 0C     BPL $F018
+i7916311     A:00 X:05 Y:00 S:FD P:nvUbdIZC  $07:F018: A9 00     LDA #$00
+i7916312     A:00 X:05 Y:00 S:FD P:nvUbdIZC  $07:F01A: 8D 0A 03  STA $030A = #$00
+i7916313     A:00 X:05 Y:00 S:FD P:nvUbdIZC  $07:F01D: 8D 00 03  STA $0300 vEnemies = #$00
+i7916314     A:00 X:05 Y:00 S:FD P:nvUbdIZC  $07:F020: 9D 20 03  STA $0320,X @ $0325 = #$00
+i7916315     A:00 X:05 Y:00 S:FD P:nvUbdIZC  $07:F023: A4 3C     LDY $3C = #$00
+i7916316     A:00 X:05 Y:00 S:FD P:nvUbdIZC  $07:F025: 10 0B     BPL $F032
+i7916317     A:00 X:05 Y:00 S:FD P:nvUbdIZC  $07:F032: A9 00     LDA #$00
+i7916318     A:00 X:05 Y:00 S:FD P:nvUbdIZC  $07:F034: 9D 5C 03  STA $035C,X @ $0361 = #$00
+i7916319     A:00 X:05 Y:00 S:FD P:nvUbdIZC  $07:F037: 8D 0B 03  STA $030B = #$00
+i7916320     A:00 X:05 Y:00 S:FD P:nvUbdIZC  $07:F03A: 8D 01 03  STA $0301 = #$00
+i7916321     A:00 X:05 Y:00 S:FD P:nvUbdIZC  $07:F03D: CA        DEX
+i7916322     A:00 X:04 Y:00 S:FD P:nvUbdIzC  $07:F03E: 10 C8     BPL $F008 F008_loop
+(70 lines skipped)
+i7916393     A:00 X:FF Y:00 S:FD P:NvUbdIzC  $07:F040: A5 3C     LDA $3C = #$00
+i7916394     A:00 X:FF Y:00 S:FD P:nvUbdIZC  $07:F042: 09 40     ORA #$40
+i7916395     A:40 X:FF Y:00 S:FD P:nvUbdIzC  $07:F044: 85 3C     STA $3C = #$00
+i7916396     A:40 X:FF Y:00 S:FD P:nvUbdIzC  $07:F046: A9 00     LDA #$00
+i7916397     A:00 X:FF Y:00 S:FD P:nvUbdIZC  $07:F048: A2 05     LDX #$05
+i7916398     A:00 X:05 Y:00 S:FD P:nvUbdIzC  $07:F04A: 9D 9E 03  STA $039E,X @ $03A3 = #$00
+i7916399     A:00 X:05 Y:00 S:FD P:nvUbdIzC  $07:F04D: CA        DEX
+i7916400     A:00 X:04 Y:00 S:FD P:nvUbdIzC  $07:F04E: 10 FA     BPL $F04A
+(15 lines skipped)
+i7916416     A:00 X:FF Y:00 S:FD P:NvUbdIzC  $07:F050: 8D D4 03  STA $03D4 = #$00
+i7916417     A:00 X:FF Y:00 S:FD P:NvUbdIzC  $07:F053: 8D D5 03  STA $03D5 = #$00
+i7916418     A:00 X:FF Y:00 S:FD P:NvUbdIzC  $07:F056: 8D D6 03  STA $03D6 = #$00
+i7916419     A:00 X:FF Y:00 S:FD P:NvUbdIzC  $07:F059: 85 D1     STA $D1 = #$00
+i7916420     A:00 X:FF Y:00 S:FD P:NvUbdIzC  $07:F05B: A2 03     LDX #$03
+i7916421     A:00 X:03 Y:00 S:FD P:nvUbdIzC  $07:F05D: 9D 18 03  STA $0318,X @ $031B = #$00
+i7916422     A:00 X:03 Y:00 S:FD P:nvUbdIzC  $07:F060: 9D 1C 03  STA $031C,X @ $031F = #$00
+i7916423     A:00 X:03 Y:00 S:FD P:nvUbdIzC  $07:F063: 9D 15 02  STA $0215,X @ $0218 = #$00
+i7916424     A:00 X:03 Y:00 S:FD P:nvUbdIzC  $07:F066: CA        DEX
+i7916425     A:00 X:02 Y:00 S:FD P:nvUbdIzC  $07:F067: 10 F4     BPL $F05D
+(15 lines skipped)
+i7916441     A:00 X:FF Y:00 S:FD P:NvUbdIzC  $07:F069: 20 75 F0  JSR $F075
+i7916442     A:00 X:FF Y:00 S:FB P:NvUbdIzC  $07:F075: A9 00     LDA #$00
+i7916443     A:00 X:FF Y:00 S:FB P:nvUbdIZC  $07:F077: A2 04     LDX #$04
+i7916444     A:00 X:04 Y:00 S:FB P:nvUbdIzC  $07:F079: 95 8F     STA $8F,X @ $0093 = #$00
+i7916445     A:00 X:04 Y:00 S:FB P:nvUbdIzC  $07:F07B: CA        DEX
+i7916446     A:00 X:03 Y:00 S:FB P:nvUbdIzC  $07:F07C: 10 FB     BPL $F079
+(12 lines skipped)
+i7916459     A:00 X:FF Y:00 S:FB P:NvUbdIzC  $07:F07E: 60        RTS (from $F075) ----------------------------
+i7916460     A:00 X:FF Y:00 S:FD P:NvUbdIzC  $07:F06C: A9 00     LDA #$00
+i7916461     A:00 X:FF Y:00 S:FD P:nvUbdIZC  $07:F06E: 8D 14 03  STA $0314 = #$00
+i7916462     A:00 X:FF Y:00 S:FD P:nvUbdIZC  $07:F071: 8D 15 03  STA $0315 = #$00
+i7916463     A:00 X:FF Y:00 S:FD P:nvUbdIZC  $07:F074: 60        RTS (from $EFFC) ----------------------------
+---COMMENTED! i7916464     A:00 X:FF Y:00 S:FF P:nvUbdIZC  $07:C0C5: A5 4B     LDA $4B = #$00
+---COMMENTED! i7916465     A:00 X:FF Y:00 S:FF P:nvUbdIZC  $07:C0C7: 48        PHA
+---COMMENTED! i7916466     A:00 X:FF Y:00 S:FE P:nvUbdIZC  $07:C0C8: A5 27     LDA $27 = #$00
+---COMMENTED! i7916467     A:00 X:FF Y:00 S:FE P:nvUbdIZC  $07:C0CA: 48        PHA
+i7916468     A:00 X:FF Y:00 S:FD P:nvUbdIZC  $07:C0CB: 20 53 D4  JSR $D453
+i7916469     A:00 X:FF Y:00 S:FB P:nvUbdIZC  $07:D453: 20 45 D4  JSR $D445
+i7916470     A:00 X:FF Y:00 S:F9 P:nvUbdIZC  $07:D445: 20 28 D4  JSR $D428
+i7916471     A:00 X:FF Y:00 S:F7 P:nvUbdIZC  $07:D428: A9 06     LDA #$06
+i7916472     A:06 X:FF Y:00 S:F7 P:nvUbdIzC  $07:D42A: 8D 00 80  STA $8000 tbl_messages = #$7B
+i7916473     A:06 X:FF Y:00 S:F7 P:nvUbdIzC  $07:D42D: A9 03     LDA #$03
+i7916474     A:03 X:FF Y:00 S:F7 P:nvUbdIzC  $07:D42F: 8D 01 80  STA $8001 tbl_messages+1 = #$9D
+i7916475     A:03 X:FF Y:00 S:F7 P:nvUbdIzC  $07:D432: A5 46     LDA $46 = #$00
+i7916476     A:00 X:FF Y:00 S:F7 P:nvUbdIZC  $07:D434: 0A        ASL
+i7916477     A:00 X:FF Y:00 S:F7 P:nvUbdIZc  $07:D435: A8        TAY
+i7916478     A:00 X:FF Y:00 S:F7 P:nvUbdIZc  $07:D436: B9 FC 90  LDA $90FC,Y @ $90FC = #$5C
+i7916479     A:5C X:FF Y:00 S:F7 P:nvUbdIzc  $07:D439: 85 00     STA $00 = #$3B
+i7916480     A:5C X:FF Y:00 S:F7 P:nvUbdIzc  $07:D43B: B9 FD 90  LDA $90FD,Y @ $90FD = #$72
+i7916481     A:72 X:FF Y:00 S:F7 P:nvUbdIzc  $07:D43E: 29 1F     AND #$1F
+i7916482     A:12 X:FF Y:00 S:F7 P:nvUbdIzc  $07:D440: 09 80     ORA #$80
+i7916483     A:92 X:FF Y:00 S:F7 P:NvUbdIzc  $07:D442: 85 01     STA $01 = #$89
+i7916484     A:92 X:FF Y:00 S:F7 P:NvUbdIzc  $07:D444: 60        RTS (from $D428) ----------------------------
+i7916485     A:92 X:FF Y:00 S:F9 P:NvUbdIzc  $07:D448: A0 0F     LDY #$0F
+i7916486     A:92 X:FF Y:0F S:F9 P:nvUbdIzc  $07:D44A: B1 00     LDA ($00),Y @ $926B = #$10
+i7916487     A:10 X:FF Y:0F S:F9 P:nvUbdIzc  $07:D44C: 99 00 06  STA $0600,Y @ $060F = #$10
+i7916488     A:10 X:FF Y:0F S:F9 P:nvUbdIzc  $07:D44F: 88        DEY
+i7916489     A:10 X:FF Y:0E S:F9 P:nvUbdIzc  $07:D450: 10 F8     BPL $D44A
+(60 lines skipped)
+i7916550     A:0F X:FF Y:FF S:F9 P:NvUbdIzc  $07:D452: 60        RTS (from $D445) ----------------------------
+i7916551     A:0F X:FF Y:FF S:FB P:NvUbdIzc  $07:D456: A0 13     LDY #$13
+i7916552     A:0F X:FF Y:13 S:FB P:nvUbdIzc  $07:D458: A5 46     LDA $46 = #$00
+i7916553     A:00 X:FF Y:13 S:FB P:nvUbdIZc  $07:D45A: C9 19     CMP #$19
+i7916554     A:00 X:FF Y:13 S:FB P:NvUbdIzc  $07:D45C: D0 02     BNE $D460
+i7916555     A:00 X:FF Y:13 S:FB P:NvUbdIzc  $07:D460: B1 00     LDA ($00),Y @ $926F = #$0F
+i7916556     A:0F X:FF Y:13 S:FB P:nvUbdIzc  $07:D462: 99 00 06  STA $0600,Y @ $0613 = #$00
+i7916557     A:0F X:FF Y:13 S:FB P:nvUbdIzc  $07:D465: 88        DEY
+i7916558     A:0F X:FF Y:12 S:FB P:nvUbdIzc  $07:D466: C0 0F     CPY #$0F
+i7916559     A:0F X:FF Y:12 S:FB P:nvUbdIzC  $07:D468: D0 F6     BNE $D460
+(15 lines skipped)
+i7916575     A:0F X:FF Y:0F S:FB P:nvUbdIZC  $07:D46A: A5 4B     LDA $4B = #$00
+i7916576     A:00 X:FF Y:0F S:FB P:nvUbdIZC  $07:D46C: 85 4D     STA $4D = #$00
+i7916577     A:00 X:FF Y:0F S:FB P:nvUbdIZC  $07:D46E: 20 F7 D3  JSR $D3F7
+i7916578     A:00 X:FF Y:0F S:F9 P:nvUbdIZC  $07:D3F7: A9 00     LDA #$00
+i7916579     A:00 X:FF Y:0F S:F9 P:nvUbdIZC  $07:D3F9: 20 04 C5  JSR $C504
+i7916580     A:00 X:FF Y:0F S:F7 P:nvUbdIZC  $07:C504: 84 11     STY $11 = #$06
+i7916581     A:00 X:FF Y:0F S:F7 P:nvUbdIZC  $07:C506: 48        PHA
+i7916582     A:00 X:FF Y:0F S:F6 P:nvUbdIZC  $07:C507: 20 5E D0  JSR $D05E
+(6 lines skipped)
+i7916589     A:00 X:FF Y:0F S:F6 P:nvUbdIZc  $07:C50A: A8        TAY
+i7916590     A:00 X:FF Y:00 S:F6 P:nvUbdIZc  $07:C50B: A9 06     LDA #$06
+i7916591     A:06 X:FF Y:00 S:F6 P:nvUbdIzc  $07:C50D: 8D 00 80  STA $8000 = #$00
+i7916592     A:06 X:FF Y:00 S:F6 P:nvUbdIzc  $07:C510: 8C 01 80  STY $8001 = #$00
+i7916593     A:06 X:FF Y:00 S:F6 P:nvUbdIzc  $07:C513: 8C B5 06  STY $06B5 vBankData = #$08
+i7916594     A:06 X:FF Y:00 S:F6 P:nvUbdIzc  $07:C516: 68        PLA
+i7916595     A:00 X:FF Y:00 S:F7 P:nvUbdIZc  $07:C517: 29 1F     AND #$1F
+i7916596     A:00 X:FF Y:00 S:F7 P:nvUbdIZc  $07:C519: 09 80     ORA #$80
+i7916597     A:80 X:FF Y:00 S:F7 P:NvUbdIzc  $07:C51B: A4 11     LDY $11 = #$0F
+i7916598     A:80 X:FF Y:0F S:F7 P:nvUbdIzc  $07:C51D: 60        RTS (from $C504) ----------------------------
+i7916599     A:80 X:FF Y:0F S:F9 P:nvUbdIzc  $07:D3FC: 98        TYA
+i7916600     A:0F X:FF Y:0F S:F9 P:nvUbdIzc  $07:D3FD: 48        PHA
+i7916601     A:0F X:FF Y:0F S:F8 P:nvUbdIzc  $07:D3FE: A5 46     LDA $46 = #$00
+i7916602     A:00 X:FF Y:0F S:F8 P:nvUbdIZc  $07:D400: 0A        ASL
+i7916603     A:00 X:FF Y:0F S:F8 P:nvUbdIZc  $07:D401: A8        TAY
+i7916604     A:00 X:FF Y:00 S:F8 P:nvUbdIZc  $07:D402: B9 80 84  LDA $8480,Y @ $8480 = #$7C
+i7916605     A:7C X:FF Y:00 S:F8 P:nvUbdIzc  $07:D405: 85 0C     STA $0C = #$00
+i7916606     A:7C X:FF Y:00 S:F8 P:nvUbdIzc  $07:D407: B9 81 84  LDA $8481,Y @ $8481 = #$05
+i7916607     A:05 X:FF Y:00 S:F8 P:nvUbdIzc  $07:D40A: 29 1F     AND #$1F
+i7916608     A:05 X:FF Y:00 S:F8 P:nvUbdIzc  $07:D40C: 09 80     ORA #$80
+i7916609     A:85 X:FF Y:00 S:F8 P:NvUbdIzc  $07:D40E: 85 0D     STA $0D = #$00
+i7916610     A:85 X:FF Y:00 S:F8 P:NvUbdIzc  $07:D410: A4 4D     LDY $4D = #$00
+i7916611     A:85 X:FF Y:00 S:F8 P:nvUbdIZc  $07:D412: B1 0C     LDA ($0C),Y @ $857C = #$36
+i7916612     A:36 X:FF Y:00 S:F8 P:nvUbdIzc  $07:D414: 85 4E     STA $4E = #$00
+i7916613     A:36 X:FF Y:00 S:F8 P:nvUbdIzc  $07:D416: A9 00     LDA #$00
+i7916614     A:00 X:FF Y:00 S:F8 P:nvUbdIZc  $07:D418: 06 4E     ASL $4E = #$36
+i7916615     A:00 X:FF Y:00 S:F8 P:nvUbdIzc  $07:D41A: 2A        ROL
+i7916616     A:00 X:FF Y:00 S:F8 P:nvUbdIZc  $07:D41B: 06 4E     ASL $4E = #$6C
+i7916617     A:00 X:FF Y:00 S:F8 P:NvUbdIzc  $07:D41D: 2A        ROL
+i7916618     A:00 X:FF Y:00 S:F8 P:nvUbdIZc  $07:D41E: 06 4E     ASL $4E = #$D8
+i7916619     A:00 X:FF Y:00 S:F8 P:NvUbdIzC  $07:D420: 2A        ROL
+i7916620     A:01 X:FF Y:00 S:F8 P:nvUbdIzc  $07:D421: 09 80     ORA #$80
+i7916621     A:81 X:FF Y:00 S:F8 P:NvUbdIzc  $07:D423: 85 4F     STA $4F = #$00
+i7916622     A:81 X:FF Y:00 S:F8 P:NvUbdIzc  $07:D425: 68        PLA
+i7916623     A:0F X:FF Y:00 S:F9 P:nvUbdIzc  $07:D426: A8        TAY
+i7916624     A:0F X:FF Y:0F S:F9 P:nvUbdIzc  $07:D427: 60        RTS (from $D3F7) ----------------------------
+i7916625     A:0F X:FF Y:0F S:FB P:nvUbdIzc  $07:D471: A0 06     LDY #$06
+i7916626     A:0F X:FF Y:06 S:FB P:nvUbdIzc  $07:D473: B1 4E     LDA ($4E),Y @ $81B6 = #$B7
+i7916627     A:B7 X:FF Y:06 S:FB P:NvUbdIzc  $07:D475: 85 02     STA $02 = #$2D
+i7916628     A:B7 X:FF Y:06 S:FB P:NvUbdIzc  $07:D477: C8        INY
+i7916629     A:B7 X:FF Y:07 S:FB P:nvUbdIzc  $07:D478: B1 4E     LDA ($4E),Y @ $81B7 = #$07
+i7916630     A:07 X:FF Y:07 S:FB P:nvUbdIzc  $07:D47A: 29 1F     AND #$1F
+i7916631     A:07 X:FF Y:07 S:FB P:nvUbdIzc  $07:D47C: 09 80     ORA #$80
+i7916632     A:87 X:FF Y:07 S:FB P:NvUbdIzc  $07:D47E: 85 03     STA $03 = #$8B
+i7916633     A:87 X:FF Y:07 S:FB P:NvUbdIzc  $07:D480: A0 05     LDY #$05
+i7916634     A:87 X:FF Y:05 S:FB P:nvUbdIzc  $07:D482: B1 02     LDA ($02),Y @ $87BC = #$15
+i7916635     A:15 X:FF Y:05 S:FB P:nvUbdIzc  $07:D484: 99 AF 06  STA $06AF,Y @ $06B4 = #$33
+i7916636     A:15 X:FF Y:05 S:FB P:nvUbdIzc  $07:D487: 88        DEY
+i7916637     A:15 X:FF Y:04 S:FB P:nvUbdIzc  $07:D488: 10 F8     BPL $D482
+(20 lines skipped)
+i7916658     A:20 X:FF Y:FF S:FB P:NvUbdIzc  $07:D48A: E6 4B     INC $4B = #$00
+i7916659     A:20 X:FF Y:FF S:FB P:nvUbdIzc  $07:D48C: E6 4B     INC $4B = #$01
+i7916660     A:20 X:FF Y:FF S:FB P:nvUbdIzc  $07:D48E: A5 27     LDA $27 = #$00
+i7916661     A:00 X:FF Y:FF S:FB P:nvUbdIZc  $07:D490: 18        CLC
+i7916662     A:00 X:FF Y:FF S:FB P:nvUbdIZc  $07:D491: 69 44     ADC #$44
+i7916663     A:44 X:FF Y:FF S:FB P:nvUbdIzc  $07:D493: 85 27     STA $27 = #$00
+i7916664     A:44 X:FF Y:FF S:FB P:nvUbdIzc  $07:D495: 90 02     BCC $D499
+i7916665     A:44 X:FF Y:FF S:FB P:nvUbdIzc  $07:D499: A5 4B     LDA $4B = #$02
+i7916666     A:02 X:FF Y:FF S:FB P:nvUbdIzc  $07:D49B: 29 01     AND #$01
+i7916667     A:00 X:FF Y:FF S:FB P:nvUbdIZc  $07:D49D: 09 08     ORA #$08
+i7916668     A:08 X:FF Y:FF S:FB P:nvUbdIzc  $07:D49F: 85 26     STA $26 vPpuCtrlSettings = #$10
+i7916669     A:08 X:FF Y:FF S:FB P:nvUbdIzc  $07:D4A1: A9 91     LDA #$91
+i7916670     A:91 X:FF Y:FF S:FB P:NvUbdIzc  $07:D4A3: 48        PHA
+i7916671     A:91 X:FF Y:FF S:FA P:NvUbdIzc  $07:D4A4: A9 40     LDA #$40
+i7916672     A:40 X:FF Y:FF S:FA P:nvUbdIzc  $07:D4A6: 85 48     STA $48 = #$00
+i7916673     A:40 X:FF Y:FF S:FA P:nvUbdIzc  $07:D4A8: 20 95 D1  JSR $D195
+i7916674     A:40 X:FF Y:FF S:F8 P:nvUbdIzc  $07:D195: A5 4B     LDA $4B = #$02
+i7916675     A:02 X:FF Y:FF S:F8 P:nvUbdIzc  $07:D197: 85 4D     STA $4D = #$00
+i7916676     A:02 X:FF Y:FF S:F8 P:nvUbdIzc  $07:D199: A5 48     LDA $48 = #$40
+i7916677     A:40 X:FF Y:FF S:F8 P:nvUbdIzc  $07:D19B: 30 33     BMI $D1D0
+i7916678     A:40 X:FF Y:FF S:F8 P:nvUbdIzc  $07:D19D: C6 27     DEC $27 = #$44
+i7916679     A:40 X:FF Y:FF S:F8 P:nvUbdIzc  $07:D19F: A5 27     LDA $27 = #$43
+i7916680     A:43 X:FF Y:FF S:F8 P:nvUbdIzc  $07:D1A1: C9 FF     CMP #$FF
+i7916681     A:43 X:FF Y:FF S:F8 P:nvUbdIzc  $07:D1A3: D0 10     BNE $D1B5
+i7916682     A:43 X:FF Y:FF S:F8 P:nvUbdIzc  $07:D1B5: C9 FC     CMP #$FC
+i7916683     A:43 X:FF Y:FF S:F8 P:nvUbdIzc  $07:D1B7: D0 03     BNE $D1BC
+i7916684     A:43 X:FF Y:FF S:F8 P:nvUbdIzc  $07:D1BC: 48        PHA
+i7916685     A:43 X:FF Y:FF S:F7 P:nvUbdIzc  $07:D1BD: 29 07     AND #$07
+i7916686     A:03 X:FF Y:FF S:F7 P:nvUbdIzc  $07:D1BF: F0 02     BEQ $D1C3
+i7916687     A:03 X:FF Y:FF S:F7 P:nvUbdIzc  $07:D1C1: 68        PLA
+i7916688     A:43 X:FF Y:FF S:F8 P:nvUbdIzc  $07:D1C2: 60        RTS (from $D195) ----------------------------
+i7916689     A:43 X:FF Y:FF S:FA P:nvUbdIzc  $07:D4AB: 20 95 D1  JSR $D195
+(15 lines skipped)
+i7916705     A:42 X:FF Y:FF S:FA P:nvUbdIzc  $07:D4AE: 20 95 D1  JSR $D195
+(15 lines skipped)
+i7916721     A:41 X:FF Y:FF S:FA P:nvUbdIzc  $07:D4B1: 20 95 D1  JSR $D195
+(13 lines skipped)
+i7916735     A:00 X:FF Y:FF S:F7 P:nvUbdIZc  $07:D1C3: 68        PLA
+i7916736     A:40 X:FF Y:FF S:F8 P:nvUbdIzc  $07:D1C4: 38        SEC
+i7916737     A:40 X:FF Y:FF S:F8 P:nvUbdIzC  $07:D1C5: E9 40     SBC #$40
+i7916738     A:00 X:FF Y:FF S:F8 P:nvUbdIZC  $07:D1C7: B0 02     BCS $D1CB
+i7916739     A:00 X:FF Y:FF S:F8 P:nvUbdIZC  $07:D1CB: 85 02     STA $02 = #$B7
+i7916740     A:00 X:FF Y:FF S:F8 P:nvUbdIZC  $07:D1CD: 4C 03 D2  JMP $D203
+i7916741     A:00 X:FF Y:FF S:F8 P:nvUbdIZC  $07:D203: A5 4D     LDA $4D = #$02
+i7916742     A:02 X:FF Y:FF S:F8 P:nvUbdIzC  $07:D205: C5 49     CMP $49 = #$10
+i7916743     A:02 X:FF Y:FF S:F8 P:NvUbdIzc  $07:D207: B0 EF     BCS $D1F8
+i7916744     A:02 X:FF Y:FF S:F8 P:NvUbdIzc  $07:D209: A9 98     LDA #$98
+i7916745     A:98 X:FF Y:FF S:F8 P:NvUbdIzc  $07:D20B: 8D 32 06  STA $0632 = #$82
+i7916746     A:98 X:FF Y:FF S:F8 P:NvUbdIzc  $07:D20E: A2 20     LDX #$20
+i7916747     A:98 X:20 Y:FF S:F8 P:nvUbdIzc  $07:D210: A5 4D     LDA $4D = #$02
+i7916748     A:02 X:20 Y:FF S:F8 P:nvUbdIzc  $07:D212: 6A        ROR
+i7916749     A:01 X:20 Y:FF S:F8 P:nvUbdIzc  $07:D213: 90 02     BCC $D217
+i7916750     A:01 X:20 Y:FF S:F8 P:nvUbdIzc  $07:D217: 8E 31 06  STX $0631 = #$00
+i7916751     A:01 X:20 Y:FF S:F8 P:nvUbdIzc  $07:D21A: A9 00     LDA #$00
+i7916752     A:00 X:20 Y:FF S:F8 P:nvUbdIZc  $07:D21C: 85 01     STA $01 = #$92
+i7916753     A:00 X:20 Y:FF S:F8 P:nvUbdIZc  $07:D21E: A5 02     LDA $02 = #$00
+i7916754     A:00 X:20 Y:FF S:F8 P:nvUbdIZc  $07:D220: 4A        LSR
+i7916755     A:00 X:20 Y:FF S:F8 P:nvUbdIZc  $07:D221: 4A        LSR
+i7916756     A:00 X:20 Y:FF S:F8 P:nvUbdIZc  $07:D222: 4A        LSR
+i7916757     A:00 X:20 Y:FF S:F8 P:nvUbdIZc  $07:D223: 09 C0     ORA #$C0
+i7916758     A:C0 X:20 Y:FF S:F8 P:NvUbdIzc  $07:D225: 8D 30 06  STA $0630 = #$DA
+i7916759     A:C0 X:20 Y:FF S:F8 P:NvUbdIzc  $07:D228: 20 F7 D3  JSR $D3F7
+(47 lines skipped)
+i7916807     A:FF X:20 Y:FF S:F8 P:NvUbdIzc  $07:D22B: A5 02     LDA $02 = #$00
+i7916808     A:00 X:20 Y:FF S:F8 P:nvUbdIZc  $07:D22D: 29 F0     AND #$F0
+i7916809     A:00 X:20 Y:FF S:F8 P:nvUbdIZc  $07:D22F: 4A        LSR
+i7916810     A:00 X:20 Y:FF S:F8 P:nvUbdIZc  $07:D230: 85 02     STA $02 = #$00
+i7916811     A:00 X:20 Y:FF S:F8 P:nvUbdIZc  $07:D232: 4A        LSR
+i7916812     A:00 X:20 Y:FF S:F8 P:nvUbdIZc  $07:D233: 18        CLC
+i7916813     A:00 X:20 Y:FF S:F8 P:nvUbdIZc  $07:D234: 65 02     ADC $02 = #$00
+i7916814     A:00 X:20 Y:FF S:F8 P:nvUbdIZc  $07:D236: A0 00     LDY #$00
+i7916815     A:00 X:20 Y:00 S:F8 P:nvUbdIZc  $07:D238: 71 4E     ADC ($4E),Y @ $81C0 = #$80
+i7916816     A:80 X:20 Y:00 S:F8 P:NvUbdIzc  $07:D23A: 85 52     STA $52 = #$00
+i7916817     A:80 X:20 Y:00 S:F8 P:NvUbdIzc  $07:D23C: C8        INY
+i7916818     A:80 X:20 Y:01 S:F8 P:nvUbdIzc  $07:D23D: B1 4E     LDA ($4E),Y @ $81C1 = #$51
+i7916819     A:51 X:20 Y:01 S:F8 P:nvUbdIzc  $07:D23F: 69 00     ADC #$00
+i7916820     A:51 X:20 Y:01 S:F8 P:nvUbdIzc  $07:D241: 48        PHA
+i7916821     A:51 X:20 Y:01 S:F7 P:nvUbdIzc  $07:D242: 29 1F     AND #$1F
+i7916822     A:11 X:20 Y:01 S:F7 P:nvUbdIzc  $07:D244: 09 80     ORA #$80
+i7916823     A:91 X:20 Y:01 S:F7 P:NvUbdIzc  $07:D246: 85 53     STA $53 = #$00
+i7916824     A:91 X:20 Y:01 S:F7 P:NvUbdIzc  $07:D248: 68        PLA
+i7916825     A:51 X:20 Y:01 S:F8 P:nvUbdIzc  $07:D249: 20 5E D0  JSR $D05E
+(6 lines skipped)
+i7916832     A:02 X:20 Y:01 S:F8 P:nvUbdIzC  $07:D24C: 85 02     STA $02 = #$00
+i7916833     A:02 X:20 Y:01 S:F8 P:nvUbdIzC  $07:D24E: A0 04     LDY #$04
+i7916834     A:02 X:20 Y:04 S:F8 P:nvUbdIzC  $07:D250: B1 4E     LDA ($4E),Y @ $81C4 = #$00
+i7916835     A:00 X:20 Y:04 S:F8 P:nvUbdIZC  $07:D252: 85 50     STA $50 = #$00
+i7916836     A:00 X:20 Y:04 S:F8 P:nvUbdIZC  $07:D254: C8        INY
+i7916837     A:00 X:20 Y:05 S:F8 P:nvUbdIzC  $07:D255: B1 4E     LDA ($4E),Y @ $81C5 = #$60
+i7916838     A:60 X:20 Y:05 S:F8 P:nvUbdIzC  $07:D257: 85 51     STA $51 = #$00
+i7916839     A:60 X:20 Y:05 S:F8 P:nvUbdIzC  $07:D259: A0 00     LDY #$00
+i7916840     A:60 X:20 Y:00 S:F8 P:nvUbdIZC  $07:D25B: A2 00     LDX #$00
+i7916841     A:60 X:00 Y:00 S:F8 P:nvUbdIZC  $07:D25D: A9 06     LDA #$06
+i7916842     A:06 X:00 Y:00 S:F8 P:nvUbdIzC  $07:D25F: 8D 00 80  STA $8000 = #$00
+i7916843     A:06 X:00 Y:00 S:F8 P:nvUbdIzC  $07:D262: A5 02     LDA $02 = #$02
+i7916844     A:02 X:00 Y:00 S:F8 P:nvUbdIzC  $07:D264: 8D 01 80  STA $8001 = #$08
+i7916845     A:02 X:00 Y:00 S:F8 P:nvUbdIzC  $07:D267: A9 00     LDA #$00
+i7916846     A:00 X:00 Y:00 S:F8 P:nvUbdIZC  $07:D269: 85 07     STA $07 = #$FF
+i7916847     A:00 X:00 Y:00 S:F8 P:nvUbdIZC  $07:D26B: B1 52     LDA ($52),Y @ $9180 = #$01
+i7916848     A:01 X:00 Y:00 S:F8 P:nvUbdIzC  $07:D26D: 0A        ASL
+i7916849     A:02 X:00 Y:00 S:F8 P:nvUbdIzc  $07:D26E: 26 07     ROL $07 = #$00
+i7916850     A:02 X:00 Y:00 S:F8 P:nvUbdIZc  $07:D270: 0A        ASL
+i7916851     A:04 X:00 Y:00 S:F8 P:nvUbdIzc  $07:D271: 26 07     ROL $07 = #$00
+i7916852     A:04 X:00 Y:00 S:F8 P:nvUbdIZc  $07:D273: 18        CLC
+i7916853     A:04 X:00 Y:00 S:F8 P:nvUbdIZc  $07:D274: 65 50     ADC $50 = #$00
+i7916854     A:04 X:00 Y:00 S:F8 P:nvUbdIzc  $07:D276: 85 06     STA $06 = #$10
+i7916855     A:04 X:00 Y:00 S:F8 P:nvUbdIzc  $07:D278: A5 07     LDA $07 = #$00
+i7916856     A:00 X:00 Y:00 S:F8 P:nvUbdIZc  $07:D27A: 65 51     ADC $51 = #$60
+i7916857     A:60 X:00 Y:00 S:F8 P:nvUbdIzc  $07:D27C: 20 04 C5  JSR $C504
+(19 lines skipped)
+i7916877     A:80 X:00 Y:00 S:F8 P:nvUbdIZc  $07:D27F: 85 07     STA $07 = #$00
+i7916878     A:80 X:00 Y:00 S:F8 P:nvUbdIZc  $07:D281: A0 00     LDY #$00
+i7916879     A:80 X:00 Y:00 S:F8 P:nvUbdIZc  $07:D283: A5 27     LDA $27 = #$40
+i7916880     A:40 X:00 Y:00 S:F8 P:nvUbdIzc  $07:D285: 29 08     AND #$08
+i7916881     A:00 X:00 Y:00 S:F8 P:nvUbdIZc  $07:D287: F0 02     BEQ $D28B
+i7916882     A:00 X:00 Y:00 S:F8 P:nvUbdIZc  $07:D28B: B1 06     LDA ($06),Y @ $8004 = #$01
+i7916883     A:01 X:00 Y:00 S:F8 P:nvUbdIzc  $07:D28D: 9D 33 06  STA $0633,X @ $0633 = #$00
+i7916884     A:01 X:00 Y:00 S:F8 P:nvUbdIzc  $07:D290: C8        INY
+i7916885     A:01 X:00 Y:01 S:F8 P:nvUbdIzc  $07:D291: E8        INX
+i7916886     A:01 X:01 Y:01 S:F8 P:nvUbdIzc  $07:D292: B1 06     LDA ($06),Y @ $8005 = #$01
+i7916887     A:01 X:01 Y:01 S:F8 P:nvUbdIzc  $07:D294: 9D 33 06  STA $0633,X @ $0634 = #$00
+i7916888     A:01 X:01 Y:01 S:F8 P:nvUbdIzc  $07:D297: E8        INX
+i7916889     A:01 X:02 Y:01 S:F8 P:nvUbdIzc  $07:D298: A4 11     LDY $11 = #$00
+i7916890     A:01 X:02 Y:00 S:F8 P:nvUbdIZc  $07:D29A: C8        INY
+i7916891     A:01 X:02 Y:01 S:F8 P:nvUbdIzc  $07:D29B: E0 18     CPX #$18
+i7916892     A:01 X:02 Y:01 S:F8 P:NvUbdIzc  $07:D29D: 90 BE     BCC $D25D
+(572 lines skipped)
+i7917465     A:00 X:18 Y:0C S:F8 P:nvUbdIZC  $07:D29F: 60        RTS (from $D195) ----------------------------
+i7917466     A:00 X:18 Y:0C S:FA P:nvUbdIZC  $07:D4B4: 20 7F F0  JSR $F07F
+i7917467     A:00 X:18 Y:0C S:F8 P:nvUbdIZC  $07:F07F: A5 6D     LDA $6D = #$00
+i7917468     A:00 X:18 Y:0C S:F8 P:nvUbdIZC  $07:F081: 30 25     BMI $F0A8
+i7917469     A:00 X:18 Y:0C S:F8 P:nvUbdIZC  $07:F083: A2 00     LDX #$00
+i7917470     A:00 X:00 Y:0C S:F8 P:nvUbdIZC  $07:F085: A5 6C     LDA $6C = #$00
+i7917471     A:00 X:00 Y:0C S:F8 P:nvUbdIZC  $07:F087: 6A        ROR
+i7917472     A:80 X:00 Y:0C S:F8 P:NvUbdIzc  $07:F088: 90 02     BCC $F08C
+i7917473     A:80 X:00 Y:0C S:F8 P:NvUbdIzc  $07:F08C: 86 2C     STX $2C vLowCounter = #$AC
+i7917474     A:80 X:00 Y:0C S:F8 P:NvUbdIzc  $07:F08E: 20 B2 F2  JSR $F2B2
+i7917475     A:80 X:00 Y:0C S:F6 P:NvUbdIzc  $07:F2B2: AD 00 03  LDA $0300 vEnemies = #$00
+i7917476     A:00 X:00 Y:0C S:F6 P:nvUbdIZc  $07:F2B5: C9 07     CMP #$07
+i7917477     A:00 X:00 Y:0C S:F6 P:NvUbdIzc  $07:F2B7: F0 41     BEQ $F2FA
+i7917478     A:00 X:00 Y:0C S:F6 P:NvUbdIzc  $07:F2B9: 20 4F EF  JSR $EF4F EF4F_switch_bank_4_p2
+(6 lines skipped)
+i7917485     A:09 X:00 Y:0C S:F6 P:nvUbdIzc  $07:F2BC: A5 46     LDA $46 = #$00
+i7917486     A:00 X:00 Y:0C S:F6 P:nvUbdIZc  $07:F2BE: 0A        ASL
+i7917487     A:00 X:00 Y:0C S:F6 P:nvUbdIZc  $07:F2BF: AA        TAX
+i7917488     A:00 X:00 Y:0C S:F6 P:nvUbdIZc  $07:F2C0: BD A2 83  LDA $83A2,X @ $83A2 = #$A4
+i7917489     A:A4 X:00 Y:0C S:F6 P:NvUbdIzc  $07:F2C3: 85 12     STA $12 = #$01
+i7917490     A:A4 X:00 Y:0C S:F6 P:NvUbdIzc  $07:F2C5: BD A3 83  LDA $83A3,X @ $83A3 = #$84
+i7917491     A:84 X:00 Y:0C S:F6 P:NvUbdIzc  $07:F2C8: 85 13     STA $13 = #$D0
+i7917492     A:84 X:00 Y:0C S:F6 P:NvUbdIzc  $07:F2CA: A5 2C     LDA $2C vLowCounter = #$00
+i7917493     A:00 X:00 Y:0C S:F6 P:nvUbdIZc  $07:F2CC: 29 07     AND #$07
+i7917494     A:00 X:00 Y:0C S:F6 P:nvUbdIZc  $07:F2CE: F0 06     BEQ $F2D6 F2D6_try_put_briefcase
+F2D6_try_put_briefcase:
+i7917495     A:00 X:00 Y:0C S:F6 P:nvUbdIZc  $07:F2D6: 85 00     STA $00 = #$5C
+i7917496     A:00 X:00 Y:0C S:F6 P:nvUbdIZc  $07:F2D8: A5 6C     LDA $6C = #$00
+i7917497     A:00 X:00 Y:0C S:F6 P:nvUbdIZc  $07:F2DA: 29 01     AND #$01
+i7917498     A:00 X:00 Y:0C S:F6 P:nvUbdIZc  $07:F2DC: 45 00     EOR $00 = #$00
+i7917499     A:00 X:00 Y:0C S:F6 P:nvUbdIZc  $07:F2DE: 85 0B     STA $0B = #$00
+i7917500     A:00 X:00 Y:0C S:F6 P:nvUbdIZc  $07:F2E0: A5 4B     LDA $4B = #$02
+i7917501     A:02 X:00 Y:0C S:F6 P:nvUbdIzc  $07:F2E2: 18        CLC
+i7917502     A:02 X:00 Y:0C S:F6 P:nvUbdIzc  $07:F2E3: 65 0B     ADC $0B = #$00
+i7917503     A:02 X:00 Y:0C S:F6 P:nvUbdIzc  $07:F2E5: 85 01     STA $01 = #$00
+i7917504     A:02 X:00 Y:0C S:F6 P:nvUbdIzc  $07:F2E7: A0 00     LDY #$00
+i7917505     A:02 X:00 Y:00 S:F6 P:nvUbdIZc  $07:F2E9: B1 12     LDA ($12),Y @ $84A4 = #$01
+i7917506     A:01 X:00 Y:00 S:F6 P:nvUbdIzc  $07:F2EB: C5 01     CMP $01 = #$02
+i7917507     A:01 X:00 Y:00 S:F6 P:NvUbdIzc  $07:F2ED: B0 0D     BCS $F2FC
+i7917508     A:01 X:00 Y:00 S:F6 P:NvUbdIzc  $07:F2EF: C8        INY
+i7917509     A:01 X:00 Y:01 S:F6 P:nvUbdIzc  $07:F2F0: C8        INY
+i7917510     A:01 X:00 Y:02 S:F6 P:nvUbdIzc  $07:F2F1: C8        INY
+i7917511     A:01 X:00 Y:03 S:F6 P:nvUbdIzc  $07:F2F2: C8        INY
+i7917512     A:01 X:00 Y:04 S:F6 P:nvUbdIzc  $07:F2F3: D0 F4     BNE $F2E9
+(11 lines skipped)
+i7917524     A:02 X:00 Y:08 S:F6 P:nvUbdIZC  $07:F2FC: D0 FC     BNE $F2FA
+i7917525     A:02 X:00 Y:08 S:F6 P:nvUbdIZC  $07:F2FE: C8        INY
+i7917526     A:02 X:00 Y:09 S:F6 P:nvUbdIzC  $07:F2FF: B1 12     LDA ($12),Y @ $84AD = #$18
+i7917527     A:18 X:00 Y:09 S:F6 P:nvUbdIzC  $07:F301: 38        SEC
+i7917528     A:18 X:00 Y:09 S:F6 P:nvUbdIzC  $07:F302: E5 27     SBC $27 = #$40
+i7917529     A:D8 X:00 Y:09 S:F6 P:NvUbdIzc  $07:F304: B0 03     BCS $F309
+i7917530     A:D8 X:00 Y:09 S:F6 P:NvUbdIzc  $07:F306: 20 73 D0  JSR $D073
+i7917531     A:D8 X:00 Y:09 S:F4 P:NvUbdIzc  $07:D073: 49 FF     EOR #$FF
+i7917532     A:27 X:00 Y:09 S:F4 P:nvUbdIzc  $07:D075: 18        CLC
+i7917533     A:27 X:00 Y:09 S:F4 P:nvUbdIzc  $07:D076: 69 01     ADC #$01
+i7917534     A:28 X:00 Y:09 S:F4 P:nvUbdIzc  $07:D078: 60        RTS (from $D073) ----------------------------
+i7917535     A:28 X:00 Y:09 S:F6 P:nvUbdIzc  $07:F309: C9 0A     CMP #$0A
+i7917536     A:28 X:00 Y:09 S:F6 P:nvUbdIzC  $07:F30B: B0 E3     BCS $F2F0
+(38 lines skipped)
+i7917575     A:03 X:00 Y:14 S:F6 P:nvUbdIzC  $07:F2FA: 18        CLC
+i7917576     A:03 X:00 Y:14 S:F6 P:nvUbdIzc  $07:F2FB: 60        RTS (from $F2B2) ----------------------------
+i7917577     A:03 X:00 Y:14 S:F8 P:nvUbdIzc  $07:F091: 90 15     BCC $F0A8
+i7917578     A:03 X:00 Y:14 S:F8 P:nvUbdIzc  $07:F0A8: 60        RTS (from $F07F) ----------------------------
+i7917579     A:03 X:00 Y:14 S:FA P:nvUbdIzc  $07:D4B7: AD 31 06  LDA $0631 = #$20
+i7917580     A:20 X:00 Y:14 S:FA P:nvUbdIzc  $07:D4BA: F0 03     BEQ $D4BF
+i7917581     A:20 X:00 Y:14 S:FA P:nvUbdIzc  $07:D4BC: 20 1B D1  JSR $D11B
+(143 lines skipped)
+i7917725     A:08 X:18 Y:14 S:FA P:nvUbdIzc  $07:D4BF: 68        PLA
+i7917726     A:91 X:18 Y:14 S:FB P:NvUbdIzc  $07:D4C0: AA        TAX
+i7917727     A:91 X:91 Y:14 S:FB P:NvUbdIzc  $07:D4C1: CA        DEX
+i7917728     A:91 X:90 Y:14 S:FB P:NvUbdIzc  $07:D4C2: 8A        TXA
+i7917729     A:90 X:90 Y:14 S:FB P:NvUbdIzc  $07:D4C3: D0 DE     BNE $D4A3
+(256 lines skipped)
+i7917986     A:F8 X:8F Y:14 S:F8 P:NvUbdIzc  $07:D1C9: C6 4D     DEC $4D = #$02
+(11 lines skipped)
+i7917998     A:00 X:20 Y:14 S:F8 P:nvUbdIZC  $07:D215: A2 24     LDX #$24
+(132 lines skipped)
+i7918131     A:08 X:00 Y:00 S:F8 P:nvUbdIzc  $07:D289: A0 02     LDY #$02
+(4425 lines skipped)
+i7922557     A:08 X:00 Y:09 S:F6 P:NvUbdIzc  $07:F30D: 88        DEY
+i7922558     A:08 X:00 Y:08 S:F6 P:nvUbdIzc  $07:F30E: B1 12     LDA ($12),Y @ $84AC = #$02
+i7922559     A:02 X:00 Y:08 S:F6 P:nvUbdIzc  $07:F310: 85 00     STA $00 = #$00
+i7922560     A:02 X:00 Y:08 S:F6 P:nvUbdIzc  $07:F312: C8        INY
+i7922561     A:02 X:00 Y:09 S:F6 P:nvUbdIzc  $07:F313: B1 12     LDA ($12),Y @ $84AD = #$18
+i7922562     A:18 X:00 Y:09 S:F6 P:nvUbdIzc  $07:F315: 85 01     STA $01 = #$02
+i7922563     A:18 X:00 Y:09 S:F6 P:nvUbdIzc  $07:F317: C8        INY
+i7922564     A:18 X:00 Y:0A S:F6 P:nvUbdIzc  $07:F318: B1 12     LDA ($12),Y @ $84AE = #$87
+i7922565     A:87 X:00 Y:0A S:F6 P:NvUbdIzc  $07:F31A: 85 02     STA $02 = #$02
+i7922566     A:87 X:00 Y:0A S:F6 P:NvUbdIzc  $07:F31C: C8        INY
+i7922567     A:87 X:00 Y:0B S:F6 P:nvUbdIzc  $07:F31D: B1 12     LDA ($12),Y @ $84AF = #$1F
+i7922568     A:1F X:00 Y:0B S:F6 P:nvUbdIzc  $07:F31F: 85 0C     STA $0C = #$7C
+i7922569     A:1F X:00 Y:0B S:F6 P:nvUbdIzc  $07:F321: 29 7F     AND #$7F
+i7922570     A:1F X:00 Y:0B S:F6 P:nvUbdIzc  $07:F323: 85 0A     STA $0A = #$00
+i7922571     A:1F X:00 Y:0B S:F6 P:nvUbdIzc  $07:F325: 38        SEC
+i7922572     A:1F X:00 Y:0B S:F6 P:nvUbdIzC  $07:F326: 60        RTS (from $F2B2) ----------------------------
+(1 lines skipped)
+i7922574     A:1F X:00 Y:0B S:F8 P:nvUbdIzC  $07:F093: A5 0A     LDA $0A = #$1F
+i7922575     A:1F X:00 Y:0B S:F8 P:nvUbdIzC  $07:F095: C9 0C     CMP #$0C
+i7922576     A:1F X:00 Y:0B S:F8 P:nvUbdIzC  $07:F097: F0 1F     BEQ $F0B8
+i7922577     A:1F X:00 Y:0B S:F8 P:nvUbdIzC  $07:F099: C9 30     CMP #$30
+i7922578     A:1F X:00 Y:0B S:F8 P:NvUbdIzc  $07:F09B: 90 0B     BCC $F0A8
+(5073 lines skipped)
+i7927652     A:FF X:80 Y:14 S:F8 P:nvUbdIZC  $07:D1A5: A5 4B     LDA $4B = #$02
+i7927653     A:02 X:80 Y:14 S:F8 P:nvUbdIzC  $07:D1A7: D0 03     BNE $D1AC
+i7927654     A:02 X:80 Y:14 S:F8 P:nvUbdIzC  $07:D1AC: A5 26     LDA $26 vPpuCtrlSettings = #$08
+i7927655     A:08 X:80 Y:14 S:F8 P:nvUbdIzC  $07:D1AE: 49 01     EOR #$01
+i7927656     A:09 X:80 Y:14 S:F8 P:nvUbdIzC  $07:D1B0: 85 26     STA $26 vPpuCtrlSettings = #$08
+i7927657     A:09 X:80 Y:14 S:F8 P:nvUbdIzC  $07:D1B2: C6 4B     DEC $4B = #$02
+i7927658     A:09 X:80 Y:14 S:F8 P:nvUbdIzC  $07:D1B4: 60        RTS (from $D195) ----------------------------
+(43 lines skipped)
+i7927702     A:FC X:80 Y:14 S:F8 P:nvUbdIZC  $07:D1B9: 4C A0 D2  JMP $D2A0
+i7927703     A:FC X:80 Y:14 S:F8 P:nvUbdIZC  $07:D2A0: A5 46     LDA $46 = #$00
+i7927704     A:00 X:80 Y:14 S:F8 P:nvUbdIZC  $07:D2A2: C9 06     CMP #$06
+i7927705     A:00 X:80 Y:14 S:F8 P:NvUbdIzc  $07:D2A4: D0 0D     BNE $D2B3
+i7927706     A:00 X:80 Y:14 S:F8 P:NvUbdIzc  $07:D2B3: A9 38     LDA #$38
+i7927707     A:38 X:80 Y:14 S:F8 P:nvUbdIzc  $07:D2B5: 8D 32 06  STA $0632 = #$98
+i7927708     A:38 X:80 Y:14 S:F8 P:nvUbdIzc  $07:D2B8: A9 C8     LDA #$C8
+i7927709     A:C8 X:80 Y:14 S:F8 P:NvUbdIzc  $07:D2BA: 8D 30 06  STA $0630 = #$D8
+i7927710     A:C8 X:80 Y:14 S:F8 P:NvUbdIzc  $07:D2BD: A2 23     LDX #$23
+i7927711     A:C8 X:23 Y:14 S:F8 P:nvUbdIzc  $07:D2BF: A5 4D     LDA $4D = #$01
+i7927712     A:01 X:23 Y:14 S:F8 P:nvUbdIzc  $07:D2C1: 6A        ROR
+i7927713     A:00 X:23 Y:14 S:F8 P:nvUbdIZC  $07:D2C2: 90 02     BCC $D2C6
+i7927714     A:00 X:23 Y:14 S:F8 P:nvUbdIZC  $07:D2C4: A2 27     LDX #$27
+i7927715     A:00 X:27 Y:14 S:F8 P:nvUbdIzC  $07:D2C6: 8E 31 06  STX $0631 = #$00
+i7927716     A:00 X:27 Y:14 S:F8 P:nvUbdIzC  $07:D2C9: 20 F7 D3  JSR $D3F7
+(47 lines skipped)
+i7927764     A:14 X:27 Y:14 S:F8 P:nvUbdIzc  $07:D2CC: A0 02     LDY #$02
+i7927765     A:14 X:27 Y:02 S:F8 P:nvUbdIzc  $07:D2CE: B1 4E     LDA ($4E),Y @ $81BA = #$38
+i7927766     A:38 X:27 Y:02 S:F8 P:nvUbdIzc  $07:D2D0: 85 02     STA $02 = #$02
+i7927767     A:38 X:27 Y:02 S:F8 P:nvUbdIzc  $07:D2D2: C8        INY
+i7927768     A:38 X:27 Y:03 S:F8 P:nvUbdIzc  $07:D2D3: B1 4E     LDA ($4E),Y @ $81BB = #$5C
+i7927769     A:5C X:27 Y:03 S:F8 P:nvUbdIzc  $07:D2D5: 20 04 C5  JSR $C504
+(19 lines skipped)
+i7927789     A:9C X:27 Y:03 S:F8 P:nvUbdIzC  $07:D2D8: 85 03     STA $03 = #$87
+i7927790     A:9C X:27 Y:03 S:F8 P:nvUbdIzC  $07:D2DA: A0 3F     LDY #$3F
+i7927791     A:9C X:27 Y:3F S:F8 P:nvUbdIzC  $07:D2DC: B1 02     LDA ($02),Y @ $9C77 = #$50
+i7927792     A:50 X:27 Y:3F S:F8 P:nvUbdIzC  $07:D2DE: 99 33 06  STA $0633,Y @ $0672 = #$00
+i7927793     A:50 X:27 Y:3F S:F8 P:nvUbdIzC  $07:D2E1: 88        DEY
+i7927794     A:50 X:27 Y:3E S:F8 P:nvUbdIzC  $07:D2E2: 10 F8     BPL $D2DC
+(252 lines skipped)
+i7928047     A:50 X:27 Y:FF S:F8 P:NvUbdIzC  $07:D2E4: 60        RTS (from $D195) ----------------------------
+(66238 lines skipped)
+i7994286     A:FF X:0F Y:00 S:F8 P:NvUbdIzC  $07:D1F8: 60        RTS (from $D195) ----------------------------
+(1811 lines skipped)
+i7996098     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:D4C5: 20 46 EF  JSR $EF46 EF46_switch_bank_4_p1_p2
+(7 lines skipped)
+i7996106     A:08 X:00 Y:00 S:FB P:nvUbdIzc  $07:D4C8: A5 46     LDA $46 = #$00
+i7996107     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:D4CA: 0A        ASL
+i7996108     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:D4CB: A8        TAY
+i7996109     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:D4CC: B9 9A 81  LDA $819A,Y @ $819A = #$03
+i7996110     A:03 X:00 Y:00 S:FB P:nvUbdIzc  $07:D4CF: 85 BD     STA $BD = #$00
+i7996111     A:03 X:00 Y:00 S:FB P:nvUbdIzc  $07:D4D1: B9 9B 81  LDA $819B,Y @ $819B = #$8F
+i7996112     A:8F X:00 Y:00 S:FB P:NvUbdIzc  $07:D4D4: 85 BE     STA $BE = #$00
+i7996113     A:8F X:00 Y:00 S:FB P:NvUbdIzc  $07:D4D6: B9 96 82  LDA $8296,Y @ $8296 = #$08
+i7996114     A:08 X:00 Y:00 S:FB P:nvUbdIzc  $07:D4D9: 85 BF     STA $BF = #$00
+i7996115     A:08 X:00 Y:00 S:FB P:nvUbdIzc  $07:D4DB: B9 97 82  LDA $8297,Y @ $8297 = #$8F
+i7996116     A:8F X:00 Y:00 S:FB P:NvUbdIzc  $07:D4DE: 85 C0     STA $C0 = #$00
+i7996117     A:8F X:00 Y:00 S:FB P:NvUbdIzc  $07:D4E0: A5 B6     LDA $B6 = #$00
+i7996118     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:D4E2: 29 33     AND #$33
+i7996119     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:D4E4: C9 12     CMP #$12
+i7996120     A:00 X:00 Y:00 S:FB P:NvUbdIzc  $07:D4E6: D0 03     BNE $D4EB
+i7996121     A:00 X:00 Y:00 S:FB P:NvUbdIzc  $07:D4EB: A5 3B     LDA $3B vSharedGameStatus = #$00
+i7996122     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:D4ED: 6A        ROR
+i7996123     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:D4EE: 90 03     BCC $D4F3
+(4401 lines skipped)
+i8000525     A:00 X:00 Y:20 S:FD P:nvUbdIZC  $07:C0CE: 20 13 CE  JSR $CE13
+i8000526     A:00 X:00 Y:20 S:FB P:nvUbdIZC  $07:CE13: A2 27     LDX #$27
+i8000527     A:00 X:27 Y:20 S:FB P:nvUbdIzC  $07:CE15: A5 3B     LDA $3B vSharedGameStatus = #$00
+i8000528     A:00 X:27 Y:20 S:FB P:nvUbdIZC  $07:CE17: 6A        ROR
+i8000529     A:80 X:27 Y:20 S:FB P:NvUbdIzc  $07:CE18: 90 02     BCC $CE1C
+i8000530     A:80 X:27 Y:20 S:FB P:NvUbdIzc  $07:CE1C: 8E 00 07  STX $0700 vStartOAM = #$F0
+i8000531     A:80 X:27 Y:20 S:FB P:NvUbdIzc  $07:CE1F: A9 3F     LDA #$3F
+i8000532     A:3F X:27 Y:20 S:FB P:nvUbdIzc  $07:CE21: 8D 01 07  STA $0701 = #$62
+i8000533     A:3F X:27 Y:20 S:FB P:nvUbdIzc  $07:CE24: A9 20     LDA #$20
+i8000534     A:20 X:27 Y:20 S:FB P:nvUbdIzc  $07:CE26: 8D 02 07  STA $0702 = #$00
+i8000535     A:20 X:27 Y:20 S:FB P:nvUbdIzc  $07:CE29: A9 00     LDA #$00
+i8000536     A:00 X:27 Y:20 S:FB P:nvUbdIZc  $07:CE2B: 8D 03 07  STA $0703 = #$08
+i8000537     A:00 X:27 Y:20 S:FB P:nvUbdIZc  $07:CE2E: A9 04     LDA #$04
+i8000538     A:04 X:27 Y:20 S:FB P:nvUbdIzc  $07:CE30: 85 43     STA $43 = #$00
+i8000539     A:04 X:27 Y:20 S:FB P:nvUbdIzc  $07:CE32: 60        RTS (from $CE13) ----------------------------
+i8000540     A:04 X:27 Y:20 S:FD P:nvUbdIzc  $07:C0D1: 68        PLA
+i8000541     A:00 X:27 Y:20 S:FE P:nvUbdIZc  $07:C0D2: 85 27     STA $27 = #$00
+i8000542     A:00 X:27 Y:20 S:FE P:nvUbdIZc  $07:C0D4: 68        PLA
+i8000543     A:00 X:27 Y:20 S:FF P:nvUbdIZc  $07:C0D5: 29 01     AND #$01
+i8000544     A:00 X:27 Y:20 S:FF P:nvUbdIZc  $07:C0D7: 09 08     ORA #$08
+i8000545     A:08 X:27 Y:20 S:FF P:nvUbdIzc  $07:C0D9: 85 26     STA $26 vPpuCtrlSettings = #$08
+i8000546     A:08 X:27 Y:20 S:FF P:nvUbdIzc  $07:C0DB: A9 00     LDA #$00
+i8000547     A:00 X:27 Y:20 S:FF P:nvUbdIZc  $07:C0DD: 85 39     STA $39 = #$00
+i8000548     A:00 X:27 Y:20 S:FF P:nvUbdIZc  $07:C0DF: 8D 31 06  STA $0631 = #$00
+i8000549     A:00 X:27 Y:20 S:FF P:nvUbdIZc  $07:C0E2: 8D 7B 06  STA $067B = #$00
+i8000550     A:00 X:27 Y:20 S:FF P:nvUbdIZc  $07:C0E5: 85 19     STA $19 = #$00
+i8000551     A:00 X:27 Y:20 S:FF P:nvUbdIZc  $07:C0E7: A5 3A     LDA $3A = #$00
+i8000552     A:00 X:27 Y:20 S:FF P:nvUbdIZc  $07:C0E9: 29 80     AND #$80
+i8000553     A:00 X:27 Y:20 S:FF P:nvUbdIZc  $07:C0EB: 85 3A     STA $3A = #$00
+i8000554     A:00 X:27 Y:20 S:FF P:nvUbdIZc  $07:C0ED: 20 57 DF  JSR $DF57
+i8000555     A:00 X:27 Y:20 S:FD P:nvUbdIZc  $07:DF57: A5 5F     LDA $5F v_chr_live_status = #$FC
+i8000556     A:FC X:27 Y:20 S:FD P:NvUbdIzc  $07:DF59: 29 03     AND #$03
+i8000557     A:00 X:27 Y:20 S:FD P:nvUbdIZc  $07:DF5B: 60        RTS (from $DF57) ----------------------------
+i8000558     A:00 X:27 Y:20 S:FF P:nvUbdIZc  $07:C0F0: 8D B2 06  STA $06B2 = #$01
+i8000559     A:00 X:27 Y:20 S:FF P:nvUbdIZc  $07:C0F3: EE B2 06  INC $06B2 = #$00
+i8000560     A:00 X:27 Y:20 S:FF P:nvUbdIzc  $07:C0F6: 20 F8 E2  JSR $E2F8
+i8000561     A:00 X:27 Y:20 S:FD P:nvUbdIzc  $07:E2F8: A5 5F     LDA $5F v_chr_live_status = #$FC
+i8000562     A:FC X:27 Y:20 S:FD P:NvUbdIzc  $07:E2FA: 29 03     AND #$03
+i8000563     A:00 X:27 Y:20 S:FD P:nvUbdIZc  $07:E2FC: 0A        ASL
+i8000564     A:00 X:27 Y:20 S:FD P:nvUbdIZc  $07:E2FD: 0A        ASL
+i8000565     A:00 X:27 Y:20 S:FD P:nvUbdIZc  $07:E2FE: AA        TAX
+i8000566     A:00 X:00 Y:20 S:FD P:nvUbdIZc  $07:E2FF: A0 01     LDY #$01
+i8000567     A:00 X:00 Y:01 S:FD P:nvUbdIzc  $07:E301: BD A6 E3  LDA $E3A6,X @ $E3A6 = #$37
+i8000568     A:37 X:00 Y:01 S:FD P:nvUbdIzc  $07:E304: 99 14 06  STA $0614,Y @ $0615 = #$20
+i8000569     A:37 X:00 Y:01 S:FD P:nvUbdIzc  $07:E307: E8        INX
+i8000570     A:37 X:01 Y:01 S:FD P:nvUbdIzc  $07:E308: C8        INY
+i8000571     A:37 X:01 Y:02 S:FD P:nvUbdIzc  $07:E309: C0 04     CPY #$04
+i8000572     A:37 X:01 Y:02 S:FD P:NvUbdIzc  $07:E30B: D0 F4     BNE $E301
+(12 lines skipped)
+i8000585     A:0F X:03 Y:04 S:FD P:nvUbdIZC  $07:E30D: 60        RTS (from $E2F8) ----------------------------
+i8000586     A:0F X:03 Y:04 S:FF P:nvUbdIZC  $07:C0F9: 20 F3 CD  JSR $CDF3
+i8000587     A:0F X:03 Y:04 S:FD P:nvUbdIZC  $07:CDF3: AD 14 02  LDA $0214 = #$00
+i8000588     A:00 X:03 Y:04 S:FD P:nvUbdIZC  $07:CDF6: 29 BF     AND #$BF
+i8000589     A:00 X:03 Y:04 S:FD P:nvUbdIZC  $07:CDF8: 8D 14 02  STA $0214 = #$00
+i8000590     A:00 X:03 Y:04 S:FD P:nvUbdIZC  $07:CDFB: A9 00     LDA #$00
+i8000591     A:00 X:03 Y:04 S:FD P:nvUbdIZC  $07:CDFD: 8D 15 02  STA $0215 = #$00
+i8000592     A:00 X:03 Y:04 S:FD P:nvUbdIZC  $07:CE00: 8D 16 02  STA $0216 = #$00
+i8000593     A:00 X:03 Y:04 S:FD P:nvUbdIZC  $07:CE03: A2 04     LDX #$04
+i8000594     A:00 X:04 Y:04 S:FD P:nvUbdIzC  $07:CE05: BD 00 02  LDA $0200,X @ $0204 = #$00
+i8000595     A:00 X:04 Y:04 S:FD P:nvUbdIZC  $07:CE08: D0 08     BNE $CE12
+i8000596     A:00 X:04 Y:04 S:FD P:nvUbdIZC  $07:CE0A: CA        DEX
+i8000597     A:00 X:03 Y:04 S:FD P:nvUbdIzC  $07:CE0B: 10 F8     BPL $CE05
+(16 lines skipped)
+i8000614     A:00 X:FF Y:04 S:FD P:NvUbdIzC  $07:CE0D: A9 80     LDA #$80
+i8000615     A:80 X:FF Y:04 S:FD P:NvUbdIzC  $07:CE0F: 8D 14 02  STA $0214 = #$00
+i8000616     A:80 X:FF Y:04 S:FD P:NvUbdIzC  $07:CE12: 60        RTS (from $CDF3) ----------------------------
+i8000617     A:80 X:FF Y:04 S:FF P:NvUbdIzC  $07:C0FC: 20 ED C2  JSR $C2ED
+i8000618     A:80 X:FF Y:04 S:FD P:NvUbdIzC  $07:C2ED: A5 46     LDA $46 = #$00
+i8000619     A:00 X:FF Y:04 S:FD P:nvUbdIZC  $07:C2EF: C9 24     CMP #$24
+i8000620     A:00 X:FF Y:04 S:FD P:NvUbdIzc  $07:C2F1: 90 0B     BCC $C2FE
+i8000621     A:00 X:FF Y:04 S:FD P:NvUbdIzc  $07:C2FE: 60        RTS (from $C2ED) ----------------------------
+i8000622     A:00 X:FF Y:04 S:FF P:NvUbdIzc  $07:C0FF: 20 A4 BB  JSR $BBA4
+    i8000623     A:00 X:FF Y:04 S:FD P:NvUbdIzc  $06:BBA4: A9 05     LDA #$05
+    i8000624     A:05 X:FF Y:04 S:FD P:nvUbdIzc  $06:BBA6: 24 6D     BIT $6D = #$00
+    i8000625     A:05 X:FF Y:04 S:FD P:nvUbdIZc  $06:BBA8: 30 13     BMI $BBBD
+    i8000626     A:05 X:FF Y:04 S:FD P:nvUbdIZc  $06:BBAA: 20 FE BB  JSR $BBFE
+    i8000627     A:05 X:FF Y:04 S:FB P:nvUbdIZc  $06:BBFE: A5 46     LDA $46 = #$00
+    i8000628     A:00 X:FF Y:04 S:FB P:nvUbdIZc  $06:BC00: C9 14     CMP #$14
+    i8000629     A:00 X:FF Y:04 S:FB P:NvUbdIzc  $06:BC02: F0 0A     BEQ $BC0E
+    i8000630     A:00 X:FF Y:04 S:FB P:NvUbdIzc  $06:BC04: C9 1A     CMP #$1A
+    i8000631     A:00 X:FF Y:04 S:FB P:NvUbdIzc  $06:BC06: 90 04     BCC $BC0C
+    i8000632     A:00 X:FF Y:04 S:FB P:NvUbdIzc  $06:BC0C: 18        CLC
+    i8000633     A:00 X:FF Y:04 S:FB P:NvUbdIzc  $06:BC0D: 60        RTS (from $BBFE) ----------------------------
+    i8000634     A:00 X:FF Y:04 S:FD P:NvUbdIzc  $06:BBAD: B0 36     BCS $BBE5
+    i8000635     A:00 X:FF Y:04 S:FD P:NvUbdIzc  $06:BBAF: A5 5E     LDA $5E v_no_level = #$00
+    i8000636     A:00 X:FF Y:04 S:FD P:nvUbdIZc  $06:BBB1: C9 03     CMP #$03
+    i8000637     A:00 X:FF Y:04 S:FD P:NvUbdIzc  $06:BBB3: D0 08     BNE $BBBD
+    i8000638     A:00 X:FF Y:04 S:FD P:NvUbdIzc  $06:BBBD: C5 FD     CMP $FD = #$FF
+    i8000639     A:00 X:FF Y:04 S:FD P:nvUbdIzc  $06:BBBF: D0 07     BNE $BBC8
+    i8000640     A:00 X:FF Y:04 S:FD P:nvUbdIzc  $06:BBC8: 85 FD     STA $FD = #$FF
+    i8000641     A:00 X:FF Y:04 S:FD P:nvUbdIzc  $06:BBCA: 0A        ASL
+    i8000642     A:00 X:FF Y:04 S:FD P:nvUbdIZc  $06:BBCB: 0A        ASL
+    i8000643     A:00 X:FF Y:04 S:FD P:nvUbdIZc  $06:BBCC: AA        TAX
+    i8000644     A:00 X:00 Y:04 S:FD P:nvUbdIZc  $06:BBCD: BD 10 BC  LDA $BC10,X @ $BC10 = #$04
+    i8000645     A:04 X:00 Y:04 S:FD P:nvUbdIzc  $06:BBD0: 20 20 C4  JSR $C420 C420_add_sound_effect
+    (47 lines skipped)
+    i8000693     A:00 X:00 Y:04 S:FD P:nvUbdIZc  $06:BBD3: BD 11 BC  LDA $BC11,X @ $BC11 = #$05
+    i8000694     A:05 X:00 Y:04 S:FD P:nvUbdIzc  $06:BBD6: 20 20 C4  JSR $C420 C420_add_sound_effect
+    (47 lines skipped)
+    i8000742     A:00 X:00 Y:04 S:FD P:nvUbdIZc  $06:BBD9: BD 12 BC  LDA $BC12,X @ $BC12 = #$39
+    i8000743     A:39 X:00 Y:04 S:FD P:nvUbdIzc  $06:BBDC: 20 20 C4  JSR $C420 C420_add_sound_effect
+    (47 lines skipped)
+    i8000791     A:00 X:00 Y:04 S:FD P:nvUbdIZc  $06:BBDF: BD 13 BC  LDA $BC13,X @ $BC13 = #$48
+    i8000792     A:48 X:00 Y:04 S:FD P:nvUbdIzc  $06:BBE2: 4C 20 C4  JMP $C420 C420_add_sound_effect
+(47 lines skipped)
+i8000840     A:00 X:00 Y:04 S:FF P:nvUbdIZc  $07:C102: 20 14 FC  JSR $FC14
+i8000841     A:00 X:00 Y:04 S:FD P:nvUbdIZc  $07:FC14: 20 28 FC  JSR $FC28
+i8000842     A:00 X:00 Y:04 S:FB P:nvUbdIZc  $07:FC28: 20 3E FC  JSR $FC3E
+i8000843     A:00 X:00 Y:04 S:F9 P:nvUbdIZc  $07:FC3E: A5 3B     LDA $3B vSharedGameStatus = #$00
+i8000844     A:00 X:00 Y:04 S:F9 P:nvUbdIZc  $07:FC40: 29 02     AND #$02
+i8000845     A:00 X:00 Y:04 S:F9 P:nvUbdIZc  $07:FC42: 60        RTS (from $FC3E) ----------------------------
+i8000846     A:00 X:00 Y:04 S:FB P:nvUbdIZc  $07:FC2B: D0 0D     BNE $FC3A
+i8000847     A:00 X:00 Y:04 S:FB P:nvUbdIZc  $07:FC2D: 20 FE BB  JSR $BBFE
+(7 lines skipped)
+i8000855     A:00 X:00 Y:04 S:FB P:NvUbdIzc  $07:FC30: 90 0A     BCC $FC3C
+i8000856     A:00 X:00 Y:04 S:FB P:NvUbdIzc  $07:FC3C: 18        CLC
+i8000857     A:00 X:00 Y:04 S:FB P:NvUbdIzc  $07:FC3D: 60        RTS (from $FC28) ----------------------------
+i8000858     A:00 X:00 Y:04 S:FD P:NvUbdIzc  $07:FC17: 90 23     BCC $FC3C
+(2 lines skipped)
+i8000861     A:00 X:00 Y:04 S:FF P:NvUbdIzc  $07:C105: A9 00     LDA #$00
+i8000862     A:00 X:00 Y:04 S:FF P:nvUbdIZc  $07:C107: 85 3C     STA $3C = #$40
+i8000863     A:00 X:00 Y:04 S:FF P:nvUbdIZc  $07:C109: 20 0F C3  JSR $C30F
+(4 lines skipped)
+i8000868     A:1E X:00 Y:04 S:FF P:nvUbdIzc  $07:C10C: 20 FF C2  JSR $C2FF update_ppu_ctrl_with_nmi
+update_ppu_ctrl_with_nmi:
+i8000869     A:1E X:00 Y:04 S:FD P:nvUbdIzc  $07:C2FF: A5 26     LDA $26 vPpuCtrlSettings = #$08
+i8000870     A:08 X:00 Y:04 S:FD P:nvUbdIzc  $07:C301: 09 80     ORA #$80
+i8000871     A:88 X:00 Y:04 S:FD P:NvUbdIzc  $07:C303: D0 04     BNE $C309
+(3 lines skipped)
+i8000875     A:88 X:00 Y:04 S:FF P:NvUbdIzc  $07:C10F: A5 3B     LDA $3B vSharedGameStatus = #$00
+i8000876     A:00 X:00 Y:04 S:FF P:nvUbdIZc  $07:C111: C9 0B     CMP #$0B
+i8000877     A:00 X:00 Y:04 S:FF P:NvUbdIzc  $07:C113: D0 03     BNE $C118
+i8000878     A:00 X:00 Y:04 S:FF P:NvUbdIzc  $07:C118: A9 FF     LDA #$FF
+i8000879     A:FF X:00 Y:04 S:FF P:NvUbdIzc  $07:C11A: 85 33     STA $33 vMenuCounter = #$00
+i8000880     A:FF X:00 Y:04 S:FF P:NvUbdIzc  $07:C11C: A9 02     LDA #$02
+i8000881     A:02 X:00 Y:04 S:FF P:nvUbdIzc  $07:C11E: 85 34     STA $34 vMenuCounterTimes = #$00
+i8000882     A:02 X:00 Y:04 S:FF P:nvUbdIzc  $07:C120: 20 64 D0  JSR $D064
+i8000883     A:02 X:00 Y:04 S:FD P:nvUbdIzc  $07:D064: A5 35     LDA $35 = #$00
+i8000884     A:00 X:00 Y:04 S:FD P:nvUbdIZc  $07:D066: 85 12     STA $12 = #$20
+i8000885     A:00 X:00 Y:04 S:FD P:nvUbdIZc  $07:D068: 0A        ASL
+i8000886     A:00 X:00 Y:04 S:FD P:nvUbdIZc  $07:D069: 0A        ASL
+i8000887     A:00 X:00 Y:04 S:FD P:nvUbdIZc  $07:D06A: 18        CLC
+i8000888     A:00 X:00 Y:04 S:FD P:nvUbdIZc  $07:D06B: 65 12     ADC $12 = #$00
+i8000889     A:00 X:00 Y:04 S:FD P:nvUbdIZc  $07:D06D: 18        CLC
+i8000890     A:00 X:00 Y:04 S:FD P:nvUbdIZc  $07:D06E: 69 13     ADC #$13
+i8000891     A:13 X:00 Y:04 S:FD P:nvUbdIzc  $07:D070: 85 35     STA $35 = #$00
+i8000892     A:13 X:00 Y:04 S:FD P:nvUbdIzc  $07:D072: 60        RTS (from $D064) ----------------------------
+i8000893     A:13 X:00 Y:04 S:FF P:nvUbdIzc  $07:C123: A5 37     LDA $37 vGameMode = #$00
+i8000894     A:00 X:00 Y:04 S:FF P:nvUbdIZc  $07:C125: 10 08     BPL $C12F
+i8000895     A:00 X:00 Y:04 S:FF P:nvUbdIZc  $07:C12F: AD F6 FF  LDA $FFF6 = #$FF
+i8000896     A:FF X:00 Y:04 S:FF P:NvUbdIzc  $07:C132: 30 14     BMI $C148
+i8000897     A:FF X:00 Y:04 S:FF P:NvUbdIzc  $07:C148: 24 39     BIT $39 = #$00
+i8000898     A:FF X:00 Y:04 S:FF P:nvUbdIZc  $07:C14A: 30 12     BMI $C15E
+i8000899     A:FF X:00 Y:04 S:FF P:nvUbdIZc  $07:C14C: A5 3B     LDA $3B vSharedGameStatus = #$00
+i8000900     A:00 X:00 Y:04 S:FF P:nvUbdIZc  $07:C14E: 29 10     AND #$10
+i8000901     A:00 X:00 Y:04 S:FF P:nvUbdIZc  $07:C150: F0 CE     BEQ $C120
+(9565 lines skipped)
+i8010467     A:00 X:FF Y:20 S:F9 P:nvUbdIZc  $07:ED89: 20 B3 C9  JSR $C9B3
+i8010468     A:00 X:FF Y:20 S:F7 P:nvUbdIZc  $07:C9B3: A5 19     LDA $19 = #$00
+i8010469     A:00 X:FF Y:20 S:F7 P:nvUbdIZc  $07:C9B5: D0 FB     BNE $C9B2
+i8010470     A:00 X:FF Y:20 S:F7 P:nvUbdIZc  $07:C9B7: A5 3B     LDA $3B vSharedGameStatus = #$00
+i8010471     A:00 X:FF Y:20 S:F7 P:nvUbdIZc  $07:C9B9: 6A        ROR
+i8010472     A:00 X:FF Y:20 S:F7 P:nvUbdIZc  $07:C9BA: B0 F6     BCS $C9B2
+i8010473     A:00 X:FF Y:20 S:F7 P:nvUbdIZc  $07:C9BC: A5 2C     LDA $2C vLowCounter = #$00
+i8010474     A:00 X:FF Y:20 S:F7 P:nvUbdIZc  $07:C9BE: 29 02     AND #$02
+i8010475     A:00 X:FF Y:20 S:F7 P:nvUbdIZc  $07:C9C0: D0 03     BNE $C9C5
+i8010476     A:00 X:FF Y:20 S:F7 P:nvUbdIZc  $07:C9C2: 4C 48 CA  JMP $CA48
+i8010477     A:00 X:FF Y:20 S:F7 P:nvUbdIZc  $07:CA48: A2 09     LDX #$09
+i8010478     A:00 X:09 Y:20 S:F7 P:nvUbdIzc  $07:CA4A: BD 0A 02  LDA $020A,X @ $0213 = #$00
+i8010479     A:00 X:09 Y:20 S:F7 P:nvUbdIZc  $07:CA4D: F0 03     BEQ $CA52
+i8010480     A:00 X:09 Y:20 S:F7 P:nvUbdIZc  $07:CA52: CA        DEX
+i8010481     A:00 X:08 Y:20 S:F7 P:nvUbdIzc  $07:CA53: 10 F5     BPL $CA4A
+(36 lines skipped)
+i8010518     A:00 X:FF Y:20 S:F7 P:NvUbdIzc  $07:CA55: A2 31     LDX #$31
+i8010519     A:00 X:31 Y:20 S:F7 P:nvUbdIzc  $07:CA57: 20 3F CA  JSR $CA3F
+i8010520     A:00 X:31 Y:20 S:F5 P:nvUbdIzc  $07:CA3F: A9 01     LDA #$01
+i8010521     A:01 X:31 Y:20 S:F5 P:nvUbdIzc  $07:CA41: 9D 7B 06  STA $067B,X @ $06AC = #$00
+i8010522     A:01 X:31 Y:20 S:F5 P:nvUbdIzc  $07:CA44: CA        DEX
+i8010523     A:01 X:30 Y:20 S:F5 P:nvUbdIzc  $07:CA45: 10 FA     BPL $CA41
+(147 lines skipped)
+i8010671     A:01 X:FF Y:20 S:F5 P:NvUbdIzc  $07:CA47: 60        RTS (from $CA3F) ----------------------------
+i8010672     A:01 X:FF Y:20 S:F7 P:NvUbdIzc  $07:CA5A: A2 00     LDX #$00
+i8010673     A:01 X:00 Y:20 S:F7 P:nvUbdIZc  $07:CA5C: A0 00     LDY #$00
+i8010674     A:01 X:00 Y:00 S:F7 P:nvUbdIZc  $07:CA5E: BD E0 CA  LDA $CAE0,X @ $CAE0 = #$0B
+i8010675     A:0B X:00 Y:00 S:F7 P:nvUbdIzc  $07:CA61: 99 7B 06  STA $067B,Y @ $067B = #$01
+i8010676     A:0B X:00 Y:00 S:F7 P:nvUbdIzc  $07:CA64: BD E1 CA  LDA $CAE1,X @ $CAE1 = #$08
+i8010677     A:08 X:00 Y:00 S:F7 P:nvUbdIzc  $07:CA67: 99 89 06  STA $0689,Y @ $0689 = #$01
+i8010678     A:08 X:00 Y:00 S:F7 P:nvUbdIzc  $07:CA6A: BD E2 CA  LDA $CAE2,X @ $CAE2 = #$0B
+i8010679     A:0B X:00 Y:00 S:F7 P:nvUbdIzc  $07:CA6D: 99 94 06  STA $0694,Y @ $0694 = #$01
+i8010680     A:0B X:00 Y:00 S:F7 P:nvUbdIzc  $07:CA70: BD E3 CA  LDA $CAE3,X @ $CAE3 = #$08
+i8010681     A:08 X:00 Y:00 S:F7 P:nvUbdIzc  $07:CA73: 99 A2 06  STA $06A2,Y @ $06A2 = #$01
+i8010682     A:08 X:00 Y:00 S:F7 P:nvUbdIzc  $07:CA76: E8        INX
+i8010683     A:08 X:01 Y:00 S:F7 P:nvUbdIzc  $07:CA77: E8        INX
+i8010684     A:08 X:02 Y:00 S:F7 P:nvUbdIzc  $07:CA78: E8        INX
+i8010685     A:08 X:03 Y:00 S:F7 P:nvUbdIzc  $07:CA79: E8        INX
+i8010686     A:08 X:04 Y:00 S:F7 P:nvUbdIzc  $07:CA7A: C8        INY
+i8010687     A:08 X:04 Y:01 S:F7 P:nvUbdIzc  $07:CA7B: C0 03     CPY #$03
+i8010688     A:08 X:04 Y:01 S:F7 P:NvUbdIzc  $07:CA7D: D0 DF     BNE $CA5E
+(30 lines skipped)
+i8010719     A:76 X:0C Y:03 S:F7 P:nvUbdIZC  $07:CA7F: A9 08     LDA #$08
+i8010720     A:08 X:0C Y:03 S:F7 P:nvUbdIzC  $07:CA81: 85 1A     STA $1A = #$10
+i8010721     A:08 X:0C Y:03 S:F7 P:nvUbdIzC  $07:CA83: A6 1A     LDX $1A = #$08
+i8010722     A:08 X:08 Y:03 S:F7 P:nvUbdIzC  $07:CA85: BD 0A 02  LDA $020A,X @ $0212 = #$00
+i8010723     A:00 X:08 Y:03 S:F7 P:nvUbdIZC  $07:CA88: 29 08     AND #$08
+i8010724     A:00 X:08 Y:03 S:F7 P:nvUbdIZC  $07:CA8A: D0 0E     BNE $CA9A
+i8010725     A:00 X:08 Y:03 S:F7 P:nvUbdIZC  $07:CA8C: BD 00 02  LDA $0200,X @ $0208 = #$00
+i8010726     A:00 X:08 Y:03 S:F7 P:nvUbdIZC  $07:CA8F: F0 29     BEQ $CABA
+i8010727     A:00 X:08 Y:03 S:F7 P:nvUbdIZC  $07:CABA: C6 1A     DEC $1A = #$08
+i8010728     A:00 X:08 Y:03 S:F7 P:nvUbdIzC  $07:CABC: 10 C5     BPL $CA83
+(64 lines skipped)
+i8010793     A:00 X:00 Y:03 S:F7 P:NvUbdIzC  $07:CABE: A9 00     LDA #$00
+i8010794     A:00 X:00 Y:03 S:F7 P:nvUbdIZC  $07:CAC0: 8D AD 06  STA $06AD = #$00
+i8010795     A:00 X:00 Y:03 S:F7 P:nvUbdIZC  $07:CAC3: 60        RTS (from $C9B3) ----------------------------
+i8010796     A:00 X:00 Y:03 S:F9 P:nvUbdIZC  $07:ED8C: 2C 02 20  BIT PPU_STATUS = #$00
+i8010797     A:00 X:00 Y:03 S:F9 P:nvUbdIZC  $07:ED8F: 70 FB     BVS $ED8C
+i8010798     A:00 X:00 Y:03 S:F9 P:nvUbdIZC  $07:ED91: 2C 02 20  BIT PPU_STATUS = #$00
+i8010799     A:00 X:00 Y:03 S:F9 P:nvUbdIZC  $07:ED94: 50 FB     BVC $ED91
+(1350 lines skipped)
+i8012150     A:00 X:00 Y:03 S:F9 P:nVUbdIZC  $07:ED96: 20 F5 C4  JSR $C4F5 sub_C4F5_selectAllChrBanks
+(32 lines skipped)
+i8012183     A:20 X:FF Y:03 S:F9 P:NVUbdIzC  $07:ED99: 20 C6 C3  JSR $C3C6
+i8012184     A:20 X:FF Y:03 S:F7 P:NVUbdIzC  $07:C3C6: A5 26     LDA $26 vPpuCtrlSettings = #$88
+i8012185     A:88 X:FF Y:03 S:F7 P:NVUbdIzC  $07:C3C8: 8D 00 20  STA PPU_CTRL = #$88
+i8012186     A:88 X:FF Y:03 S:F7 P:NVUbdIzC  $07:C3CB: AD 02 20  LDA PPU_STATUS = #$48
+i8012187     A:48 X:FF Y:03 S:F7 P:nVUbdIzC  $07:C3CE: A5 27     LDA $27 = #$00
+i8012188     A:00 X:FF Y:03 S:F7 P:nVUbdIZC  $07:C3D0: 8D 05 20  STA PPU_SCROLL = #$00
+i8012189     A:00 X:FF Y:03 S:F7 P:nVUbdIZC  $07:C3D3: A5 29     LDA $29 = #$00
+i8012190     A:00 X:FF Y:03 S:F7 P:nVUbdIZC  $07:C3D5: 8D 05 20  STA PPU_SCROLL = #$00
+i8012191     A:00 X:FF Y:03 S:F7 P:nVUbdIZC  $07:C3D8: 60        RTS (from $C3C6) ----------------------------
+i8012192     A:00 X:FF Y:03 S:F9 P:nVUbdIZC  $07:ED9C: A5 19     LDA $19 = #$00
+i8012193     A:00 X:FF Y:03 S:F9 P:nVUbdIZC  $07:ED9E: D0 68     BNE $EE08
+i8012194     A:00 X:FF Y:03 S:F9 P:nVUbdIZC  $07:EDA0: E6 19     INC $19 = #$00
+i8012195     A:00 X:FF Y:03 S:F9 P:nVUbdIzC  $07:EDA2: 24 3B     BIT $3B vSharedGameStatus = #$00
+i8012196     A:00 X:FF Y:03 S:F9 P:nvUbdIZC  $07:EDA4: 70 35     BVS $EDDB
+i8012197     A:00 X:FF Y:03 S:F9 P:nvUbdIZC  $07:EDA6: A5 3B     LDA $3B vSharedGameStatus = #$00
+i8012198     A:00 X:FF Y:03 S:F9 P:nvUbdIZC  $07:EDA8: 29 20     AND #$20
+i8012199     A:00 X:FF Y:03 S:F9 P:nvUbdIZC  $07:EDAA: D0 69     BNE $EE15
+i8012200     A:00 X:FF Y:03 S:F9 P:nvUbdIZC  $07:EDAC: 20 58 C3  JSR $C358 C358_clear_OAM
+(518 lines skipped)
+i8012719     A:F0 X:00 Y:40 S:F9 P:nvUbdIZC  $07:EDAF: 20 13 CE  JSR $CE13
+(14 lines skipped)
+i8012734     A:04 X:27 Y:40 S:F9 P:nvUbdIzc  $07:EDB2: 20 F4 DA  JSR $DAF4
+i8012735     A:04 X:27 Y:40 S:F7 P:nvUbdIzc  $07:DAF4: 20 A6 E2  JSR $E2A6
+i8012736     A:04 X:27 Y:40 S:F5 P:nvUbdIzc  $07:E2A6: AD F6 FF  LDA $FFF6 = #$FF
+i8012737     A:FF X:27 Y:40 S:F5 P:NvUbdIzc  $07:E2A9: 30 4C     BMI $E2F7
+i8012738     A:FF X:27 Y:40 S:F5 P:NvUbdIzc  $07:E2F7: 60        RTS (from $E2A6) ----------------------------
+i8012739     A:FF X:27 Y:40 S:F7 P:NvUbdIzc  $07:DAF7: A9 00     LDA #$00
+i8012740     A:00 X:27 Y:40 S:F7 P:nvUbdIZc  $07:DAF9: 85 48     STA $48 = #$40
+i8012741     A:00 X:27 Y:40 S:F7 P:nvUbdIZc  $07:DAFB: 85 79     STA $79 = #$00
+i8012742     A:00 X:27 Y:40 S:F7 P:nvUbdIZc  $07:DAFD: A5 46     LDA $46 = #$00
+i8012743     A:00 X:27 Y:40 S:F7 P:nvUbdIZc  $07:DAFF: D0 0C     BNE $DB0D
+i8012744     A:00 X:27 Y:40 S:F7 P:nvUbdIZc  $07:DB01: 20 0E E3  JSR $E30E
+i8012745     A:00 X:27 Y:40 S:F5 P:nvUbdIZc  $07:E30E: A2 00     LDX #$00
+i8012746     A:00 X:00 Y:40 S:F5 P:nvUbdIZc  $07:E310: A5 27     LDA $27 = #$00
+i8012747     A:00 X:00 Y:40 S:F5 P:nvUbdIZc  $07:E312: 38        SEC
+i8012748     A:00 X:00 Y:40 S:F5 P:nvUbdIZC  $07:E313: E9 80     SBC #$80
+i8012749     A:80 X:00 Y:40 S:F5 P:NVUbdIzc  $07:E315: A5 4B     LDA $4B = #$00
+i8012750     A:00 X:00 Y:40 S:F5 P:nVUbdIZc  $07:E317: E9 03     SBC #$03
+i8012751     A:FC X:00 Y:40 S:F5 P:NvUbdIzc  $07:E319: 90 0A     BCC $E325
+i8012752     A:FC X:00 Y:40 S:F5 P:NvUbdIzc  $07:E325: BD B5 E3  LDA $E3B5,X @ $E3B5 = #$06
+i8012753     A:06 X:00 Y:40 S:F5 P:nvUbdIzc  $07:E328: 8D 06 06  STA $0606 = #$06
+i8012754     A:06 X:00 Y:40 S:F5 P:nvUbdIzc  $07:E32B: BD B6 E3  LDA $E3B6,X @ $E3B6 = #$00
+i8012755     A:00 X:00 Y:40 S:F5 P:nvUbdIZc  $07:E32E: 8D 0A 06  STA $060A = #$00
+i8012756     A:00 X:00 Y:40 S:F5 P:nvUbdIZc  $07:E331: 60        RTS (from $E30E) ----------------------------
+i8012757     A:00 X:00 Y:40 S:F7 P:nvUbdIZc  $07:DB04: A5 6D     LDA $6D = #$00
+i8012758     A:00 X:00 Y:40 S:F7 P:nvUbdIZc  $07:DB06: 29 20     AND #$20
+i8012759     A:00 X:00 Y:40 S:F7 P:nvUbdIZc  $07:DB08: F0 0A     BEQ $DB14
+i8012760     A:00 X:00 Y:40 S:F7 P:nvUbdIZc  $07:DB14: 24 6D     BIT $6D = #$00
+i8012761     A:00 X:00 Y:40 S:F7 P:nvUbdIZc  $07:DB16: 10 03     BPL $DB1B
+i8012762     A:00 X:00 Y:40 S:F7 P:nvUbdIZc  $07:DB1B: 50 03     BVC $DB20
+i8012763     A:00 X:00 Y:40 S:F7 P:nvUbdIZc  $07:DB20: AD 14 02  LDA $0214 = #$80
+i8012764     A:80 X:00 Y:40 S:F7 P:NvUbdIzc  $07:DB23: C9 43     CMP #$43
+i8012765     A:80 X:00 Y:40 S:F7 P:nvUbdIzC  $07:DB25: D0 03     BNE $DB2A
+i8012766     A:80 X:00 Y:40 S:F7 P:nvUbdIzC  $07:DB2A: A5 6C     LDA $6C = #$00
+i8012767     A:00 X:00 Y:40 S:F7 P:nvUbdIZC  $07:DB2C: 29 7F     AND #$7F
+i8012768     A:00 X:00 Y:40 S:F7 P:nvUbdIZC  $07:DB2E: 20 5F D0  JSR $D05F
+(5 lines skipped)
+i8012774     A:00 X:00 Y:40 S:F7 P:nvUbdIZc  $07:DB31: 20 C1 D0  JSR $D0C1
+i8012775     A:00 X:00 Y:40 S:F5 P:nvUbdIZc  $07:D0C1: 0A        ASL
+i8012776     A:00 X:00 Y:40 S:F5 P:nvUbdIZc  $07:D0C2: A8        TAY
+i8012777     A:00 X:00 Y:00 S:F5 P:nvUbdIZc  $07:D0C3: C8        INY
+i8012778     A:00 X:00 Y:01 S:F5 P:nvUbdIzc  $07:D0C4: C8        INY
+i8012779     A:00 X:00 Y:02 S:F5 P:nvUbdIzc  $07:D0C5: 68        PLA
+i8012780     A:33 X:00 Y:02 S:F6 P:nvUbdIzc  $07:D0C6: 85 12     STA $12 = #$F6
+i8012781     A:33 X:00 Y:02 S:F6 P:nvUbdIzc  $07:D0C8: 68        PLA
+i8012782     A:DB X:00 Y:02 S:F7 P:NvUbdIzc  $07:D0C9: 85 13     STA $13 = #$81
+i8012783     A:DB X:00 Y:02 S:F7 P:NvUbdIzc  $07:D0CB: B1 12     LDA ($12),Y @ $DB35 = #$DB
+i8012784     A:DB X:00 Y:02 S:F7 P:NvUbdIzc  $07:D0CD: 48        PHA
+i8012785     A:DB X:00 Y:02 S:F6 P:NvUbdIzc  $07:D0CE: 88        DEY
+i8012786     A:DB X:00 Y:01 S:F6 P:nvUbdIzc  $07:D0CF: B1 12     LDA ($12),Y @ $DB34 = #$43
+i8012787     A:43 X:00 Y:01 S:F6 P:nvUbdIzc  $07:D0D1: 48        PHA
+i8012788     A:43 X:00 Y:01 S:F5 P:nvUbdIzc  $07:D0D2: 60        RTS -----------------------------------------
+i8012789     A:43 X:00 Y:01 S:F7 P:nvUbdIzc  $07:DB44: A9 00     LDA #$00
+i8012790     A:00 X:00 Y:01 S:F7 P:nvUbdIZc  $07:DB46: 20 AB E5  JSR $E5AB
+i8012791     A:00 X:00 Y:01 S:F5 P:nvUbdIZc  $07:E5AB: 18        CLC
+i8012792     A:00 X:00 Y:01 S:F5 P:nvUbdIZc  $07:E5AC: 65 6A     ADC $6A = #$BF
+i8012793     A:BF X:00 Y:01 S:F5 P:NvUbdIzc  $07:E5AE: 85 00     STA $00 = #$00
+i8012794     A:BF X:00 Y:01 S:F5 P:NvUbdIzc  $07:E5B0: E6 00     INC $00 = #$BF
+i8012795     A:BF X:00 Y:01 S:F5 P:NvUbdIzc  $07:E5B2: 4C 6A D3  JMP $D36A
+i8012796     A:BF X:00 Y:01 S:F5 P:NvUbdIzc  $07:D36A: 20 6E AD  JSR $AD6E
+    i8012797     A:BF X:00 Y:01 S:F3 P:NvUbdIzc  $06:AD6E: AD 01 03  LDA $0301 = #$00
+    i8012798     A:00 X:00 Y:01 S:F3 P:nvUbdIZc  $06:AD71: C9 32     CMP #$32
+    i8012799     A:00 X:00 Y:01 S:F3 P:NvUbdIzc  $06:AD73: D0 03     BNE $AD78
+    i8012800     A:00 X:00 Y:01 S:F3 P:NvUbdIzc  $06:AD78: A5 46     LDA $46 = #$00
+    i8012801     A:00 X:00 Y:01 S:F3 P:nvUbdIZc  $06:AD7A: C9 0F     CMP #$0F
+    i8012802     A:00 X:00 Y:01 S:F3 P:NvUbdIzc  $06:AD7C: D0 4F     BNE $ADCD
+    i8012803     A:00 X:00 Y:01 S:F3 P:NvUbdIzc  $06:ADCD: 60        RTS (from $AD6E) ----------------------------
+i8012804     A:00 X:00 Y:01 S:F5 P:NvUbdIzc  $07:D36D: 20 74 D9  JSR $D974
+i8012805     A:00 X:00 Y:01 S:F3 P:NvUbdIzc  $07:D974: A5 66     LDA $66 = #$30
+i8012806     A:30 X:00 Y:01 S:F3 P:nvUbdIzc  $07:D976: 85 01     STA $01 = #$00
+i8012807     A:30 X:00 Y:01 S:F3 P:nvUbdIzc  $07:D978: A5 68     LDA $68 = #$00
+i8012808     A:00 X:00 Y:01 S:F3 P:nvUbdIZc  $07:D97A: 85 4D     STA $4D = #$FF
+i8012809     A:00 X:00 Y:01 S:F3 P:nvUbdIZc  $07:D97C: 60        RTS (from $D974) ----------------------------
+i8012810     A:00 X:00 Y:01 S:F5 P:nvUbdIZc  $07:D370: A9 04     LDA #$04
+i8012811     A:04 X:00 Y:01 S:F5 P:nvUbdIzc  $07:D372: 20 89 D3  JSR $D389
+i8012812     A:04 X:00 Y:01 S:F3 P:nvUbdIzc  $07:D389: 18        CLC
+i8012813     A:04 X:00 Y:01 S:F3 P:nvUbdIzc  $07:D38A: 65 01     ADC $01 = #$30
+i8012814     A:34 X:00 Y:01 S:F3 P:nvUbdIzc  $07:D38C: 85 01     STA $01 = #$30
+i8012815     A:34 X:00 Y:01 S:F3 P:nvUbdIzc  $07:D38E: A5 4D     LDA $4D = #$00
+i8012816     A:00 X:00 Y:01 S:F3 P:nvUbdIZc  $07:D390: 69 00     ADC #$00
+i8012817     A:00 X:00 Y:01 S:F3 P:nvUbdIZc  $07:D392: 85 4D     STA $4D = #$00
+i8012818     A:00 X:00 Y:01 S:F3 P:nvUbdIZc  $07:D394: 4C E5 D2  JMP $D2E5
+i8012819     A:00 X:00 Y:01 S:F3 P:nvUbdIZc  $07:D2E5: 8A        TXA
+i8012820     A:00 X:00 Y:01 S:F3 P:nvUbdIZc  $07:D2E6: 48        PHA
+i8012821     A:00 X:00 Y:01 S:F2 P:nvUbdIZc  $07:D2E7: A5 01     LDA $01 = #$34
+i8012822     A:34 X:00 Y:01 S:F2 P:nvUbdIzc  $07:D2E9: 29 F0     AND #$F0
+i8012823     A:30 X:00 Y:01 S:F2 P:nvUbdIzc  $07:D2EB: 4A        LSR
+i8012824     A:18 X:00 Y:01 S:F2 P:nvUbdIzc  $07:D2EC: 85 04     STA $04 = #$00
+i8012825     A:18 X:00 Y:01 S:F2 P:nvUbdIzc  $07:D2EE: 4A        LSR
+i8012826     A:0C X:00 Y:01 S:F2 P:nvUbdIzc  $07:D2EF: 18        CLC
+i8012827     A:0C X:00 Y:01 S:F2 P:nvUbdIzc  $07:D2F0: 65 04     ADC $04 = #$18
+i8012828     A:24 X:00 Y:01 S:F2 P:nvUbdIzc  $07:D2F2: 85 04     STA $04 = #$18
+i8012829     A:24 X:00 Y:01 S:F2 P:nvUbdIzc  $07:D2F4: A5 00     LDA $00 = #$C0
+i8012830     A:C0 X:00 Y:01 S:F2 P:NvUbdIzc  $07:D2F6: 38        SEC
+i8012831     A:C0 X:00 Y:01 S:F2 P:NvUbdIzC  $07:D2F7: E9 30     SBC #$30
+i8012832     A:90 X:00 Y:01 S:F2 P:NvUbdIzC  $07:D2F9: B0 05     BCS $D300
+i8012833     A:90 X:00 Y:01 S:F2 P:NvUbdIzC  $07:D300: 20 5F D0  JSR $D05F
+(5 lines skipped)
+i8012839     A:09 X:00 Y:01 S:F2 P:nvUbdIzc  $07:D303: 18        CLC
+i8012840     A:09 X:00 Y:01 S:F2 P:nvUbdIzc  $07:D304: 65 04     ADC $04 = #$24
+i8012841     A:2D X:00 Y:01 S:F2 P:nvUbdIzc  $07:D306: 48        PHA
+i8012842     A:2D X:00 Y:01 S:F1 P:nvUbdIzc  $07:D307: 20 F7 D3  JSR $D3F7
+(47 lines skipped)
+i8012890     A:01 X:00 Y:01 S:F1 P:nvUbdIzc  $07:D30A: A0 00     LDY #$00
+i8012891     A:01 X:00 Y:00 S:F1 P:nvUbdIZc  $07:D30C: B1 4E     LDA ($4E),Y @ $81B0 = #$00
+i8012892     A:00 X:00 Y:00 S:F1 P:nvUbdIZc  $07:D30E: 85 52     STA $52 = #$00
+i8012893     A:00 X:00 Y:00 S:F1 P:nvUbdIZc  $07:D310: C8        INY
+i8012894     A:00 X:00 Y:01 S:F1 P:nvUbdIzc  $07:D311: B1 4E     LDA ($4E),Y @ $81B1 = #$50
+i8012895     A:50 X:00 Y:01 S:F1 P:nvUbdIzc  $07:D313: 20 04 C5  JSR $C504
+(19 lines skipped)
+i8012915     A:90 X:00 Y:01 S:F1 P:nvUbdIzC  $07:D316: 85 53     STA $53 = #$90
+i8012916     A:90 X:00 Y:01 S:F1 P:nvUbdIzC  $07:D318: 68        PLA
+i8012917     A:2D X:00 Y:01 S:F2 P:nvUbdIzC  $07:D319: A8        TAY
+i8012918     A:2D X:00 Y:2D S:F2 P:nvUbdIzC  $07:D31A: B1 52     LDA ($52),Y @ $902D = #$8E
+i8012919     A:8E X:00 Y:2D S:F2 P:NvUbdIzC  $07:D31C: 48        PHA
+i8012920     A:8E X:00 Y:2D S:F1 P:NvUbdIzC  $07:D31D: 20 45 D5  JSR $D545
+i8012921     A:8E X:00 Y:2D S:EF P:NvUbdIzC  $07:D545: A9 06     LDA #$06
+i8012922     A:06 X:00 Y:2D S:EF P:nvUbdIzC  $07:D547: 8D 00 80  STA $8000 = #$B5
+i8012923     A:06 X:00 Y:2D S:EF P:nvUbdIzC  $07:D54A: A9 03     LDA #$03
+i8012924     A:03 X:00 Y:2D S:EF P:nvUbdIzC  $07:D54C: 8D 01 80  STA $8001 = #$B4
+i8012925     A:03 X:00 Y:2D S:EF P:nvUbdIzC  $07:D54F: A5 46     LDA $46 = #$00
+i8012926     A:00 X:00 Y:2D S:EF P:nvUbdIZC  $07:D551: 0A        ASL
+i8012927     A:00 X:00 Y:2D S:EF P:nvUbdIZc  $07:D552: AA        TAX
+i8012928     A:00 X:00 Y:2D S:EF P:nvUbdIZc  $07:D553: BD 00 90  LDA $9000,X @ $9000 = #$C0
+i8012929     A:C0 X:00 Y:2D S:EF P:NvUbdIzc  $07:D556: 85 0E     STA $0E = #$00
+i8012930     A:C0 X:00 Y:2D S:EF P:NvUbdIzc  $07:D558: BD 01 90  LDA $9001,X @ $9001 = #$78
+i8012931     A:78 X:00 Y:2D S:EF P:nvUbdIzc  $07:D55B: 29 1F     AND #$1F
+i8012932     A:18 X:00 Y:2D S:EF P:nvUbdIzc  $07:D55D: 09 80     ORA #$80
+i8012933     A:98 X:00 Y:2D S:EF P:NvUbdIzc  $07:D55F: 85 0F     STA $0F = #$FF
+i8012934     A:98 X:00 Y:2D S:EF P:NvUbdIzc  $07:D561: 60        RTS (from $D545) ----------------------------
+i8012935     A:98 X:00 Y:2D S:F1 P:NvUbdIzc  $07:D320: 68        PLA
+i8012936     A:8E X:00 Y:2D S:F2 P:NvUbdIzc  $07:D321: 0A        ASL
+i8012937     A:1C X:00 Y:2D S:F2 P:nvUbdIzC  $07:D322: A8        TAY
+i8012938     A:1C X:00 Y:1C S:F2 P:nvUbdIzC  $07:D323: 90 02     BCC $D327
+i8012939     A:1C X:00 Y:1C S:F2 P:nvUbdIzC  $07:D325: E6 0F     INC $0F = #$98
+i8012940     A:1C X:00 Y:1C S:F2 P:NvUbdIzC  $07:D327: A5 00     LDA $00 = #$C0
+i8012941     A:C0 X:00 Y:1C S:F2 P:NvUbdIzC  $07:D329: 29 08     AND #$08
+i8012942     A:00 X:00 Y:1C S:F2 P:nvUbdIZC  $07:D32B: D0 01     BNE $D32E
+i8012943     A:00 X:00 Y:1C S:F2 P:nvUbdIZC  $07:D32D: C8        INY
+i8012944     A:00 X:00 Y:1D S:F2 P:nvUbdIzC  $07:D32E: B1 0E     LDA ($0E),Y @ $99DD = #$11
+i8012945     A:11 X:00 Y:1D S:F2 P:nvUbdIzC  $07:D330: 85 04     STA $04 = #$24
+i8012946     A:11 X:00 Y:1D S:F2 P:nvUbdIzC  $07:D332: A5 01     LDA $01 = #$34
+i8012947     A:34 X:00 Y:1D S:F2 P:nvUbdIzC  $07:D334: 29 08     AND #$08
+i8012948     A:00 X:00 Y:1D S:F2 P:nvUbdIZC  $07:D336: F0 08     BEQ $D340
+i8012949     A:00 X:00 Y:1D S:F2 P:nvUbdIZC  $07:D340: 68        PLA
+i8012950     A:00 X:00 Y:1D S:F3 P:nvUbdIZC  $07:D341: AA        TAX
+i8012951     A:00 X:00 Y:1D S:F3 P:nvUbdIZC  $07:D342: A5 04     LDA $04 = #$11
+i8012952     A:11 X:00 Y:1D S:F3 P:nvUbdIzC  $07:D344: 29 0F     AND #$0F
+i8012953     A:01 X:00 Y:1D S:F3 P:nvUbdIzC  $07:D346: 60        RTS (from $D389) ----------------------------
+i8012954     A:01 X:00 Y:1D S:F5 P:nvUbdIzC  $07:D375: 48        PHA
+i8012955     A:01 X:00 Y:1D S:F4 P:nvUbdIzC  $07:D376: C9 01     CMP #$01
+i8012956     A:01 X:00 Y:1D S:F4 P:nvUbdIZC  $07:D378: D0 02     BNE $D37C
+i8012957     A:01 X:00 Y:1D S:F4 P:nvUbdIZC  $07:D37A: 68        PLA
+i8012958     A:01 X:00 Y:1D S:F5 P:nvUbdIzC  $07:D37B: 60        RTS (from $E5AB) ----------------------------
+i8012959     A:01 X:00 Y:1D S:F7 P:nvUbdIzC  $07:DB49: D0 07     BNE $DB52
+i8012960     A:01 X:00 Y:1D S:F7 P:nvUbdIzC  $07:DB52: AD 14 02  LDA $0214 = #$80
+i8012961     A:80 X:00 Y:1D S:F7 P:NvUbdIzC  $07:DB55: C9 42     CMP #$42
+i8012962     A:80 X:00 Y:1D S:F7 P:nvUbdIzC  $07:DB57: D0 07     BNE $DB60
+i8012963     A:80 X:00 Y:1D S:F7 P:nvUbdIzC  $07:DB60: A9 01     LDA #$01
+i8012964     A:01 X:00 Y:1D S:F7 P:nvUbdIzC  $07:DB62: 20 79 D0  JSR $D079 Check button press
+(5 lines skipped)
+i8012970     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DB65: F0 03     BEQ $DB6A
+i8012971     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DB6A: AD 14 02  LDA $0214 = #$80
+i8012972     A:80 X:00 Y:1D S:F7 P:NvUbdIzC  $07:DB6D: C9 42     CMP #$42
+i8012973     A:80 X:00 Y:1D S:F7 P:nvUbdIzC  $07:DB6F: F0 2C     BEQ $DB9D
+i8012974     A:80 X:00 Y:1D S:F7 P:nvUbdIzC  $07:DB71: A9 10     LDA #$10
+i8012975     A:10 X:00 Y:1D S:F7 P:nvUbdIzC  $07:DB73: 20 79 D0  JSR $D079 Check button press
+(5 lines skipped)
+i8012981     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DB76: F0 1B     BEQ $DB93
+i8012982     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DB93: A9 80     LDA #$80
+i8012983     A:80 X:00 Y:1D S:F7 P:NvUbdIzC  $07:DB95: 85 79     STA $79 = #$00
+i8012984     A:80 X:00 Y:1D S:F7 P:NvUbdIzC  $07:DB97: A5 1C     LDA $1C = #$00
+i8012985     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DB99: 29 20     AND #$20
+i8012986     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DB9B: D0 17     BNE $DBB4
+i8012987     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DB9D: A9 80     LDA #$80
+i8012988     A:80 X:00 Y:1D S:F7 P:NvUbdIzC  $07:DB9F: 85 79     STA $79 = #$80
+i8012989     A:80 X:00 Y:1D S:F7 P:NvUbdIzC  $07:DBA1: A5 6C     LDA $6C = #$00
+i8012990     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBA3: 29 FD     AND #$FD
+i8012991     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBA5: 85 6C     STA $6C = #$00
+i8012992     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBA7: A5 1C     LDA $1C = #$00
+i8012993     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBA9: 29 C0     AND #$C0
+i8012994     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBAB: F0 03     BEQ $DBB0
+i8012995     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBB0: A2 00     LDX #$00
+i8012996     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBB2: F0 0B     BEQ $DBBF
+i8012997     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBBF: 20 F1 DC  JSR $DCF1
+i8012998     A:00 X:00 Y:1D S:F5 P:nvUbdIZC  $07:DCF1: A9 04     LDA #$04
+i8012999     A:04 X:00 Y:1D S:F5 P:nvUbdIzC  $07:DCF3: D0 02     BNE $DCF7
+i8013000     A:04 X:00 Y:1D S:F5 P:nvUbdIzC  $07:DCF7: 85 71     STA $71 = #$00
+i8013001     A:04 X:00 Y:1D S:F5 P:nvUbdIzC  $07:DCF9: 60        RTS (from $DCF1) ----------------------------
+i8013002     A:04 X:00 Y:1D S:F7 P:nvUbdIzC  $07:DBC2: A5 6C     LDA $6C = #$00
+i8013003     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBC4: 29 08     AND #$08
+i8013004     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBC6: D0 07     BNE $DBCF
+i8013005     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBC8: 8A        TXA
+i8013006     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBC9: 48        PHA
+i8013007     A:00 X:00 Y:1D S:F6 P:nvUbdIZC  $07:DBCA: 20 4C E0  JSR $E04C
+i8013008     A:00 X:00 Y:1D S:F4 P:nvUbdIZC  $07:E04C: A9 02     LDA #$02
+i8013009     A:02 X:00 Y:1D S:F4 P:nvUbdIzC  $07:E04E: 20 79 D0  JSR $D079 Check button press
+(5 lines skipped)
+i8013015     A:00 X:00 Y:1D S:F4 P:nvUbdIZC  $07:E051: F0 30     BEQ $E083
+i8013016     A:00 X:00 Y:1D S:F4 P:nvUbdIZC  $07:E083: 60        RTS (from $E04C) ----------------------------
+i8013017     A:00 X:00 Y:1D S:F6 P:nvUbdIZC  $07:DBCD: 68        PLA
+i8013018     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBCE: AA        TAX
+i8013019     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBCF: A5 6A     LDA $6A = #$BF
+i8013020     A:BF X:00 Y:1D S:F7 P:NvUbdIzC  $07:DBD1: 85 00     STA $00 = #$C0
+i8013021     A:BF X:00 Y:1D S:F7 P:NvUbdIzC  $07:DBD3: A5 64     LDA $64 = #$30
+i8013022     A:30 X:00 Y:1D S:F7 P:nvUbdIzC  $07:DBD5: 85 01     STA $01 = #$34
+i8013023     A:30 X:00 Y:1D S:F7 P:nvUbdIzC  $07:DBD7: A5 6C     LDA $6C = #$00
+i8013024     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBD9: 29 70     AND #$70
+i8013025     A:00 X:00 Y:1D S:F7 P:nvUbdIZC  $07:DBDB: C9 20     CMP #$20
+i8013026     A:00 X:00 Y:1D S:F7 P:NvUbdIzc  $07:DBDD: F0 07     BEQ $DBE6
+i8013027     A:00 X:00 Y:1D S:F7 P:NvUbdIzc  $07:DBDF: A5 6C     LDA $6C = #$00
+i8013028     A:00 X:00 Y:1D S:F7 P:nvUbdIZc  $07:DBE1: 6A        ROR
+i8013029     A:00 X:00 Y:1D S:F7 P:nvUbdIZc  $07:DBE2: 90 02     BCC $DBE6
+i8013030     A:00 X:00 Y:1D S:F7 P:nvUbdIZc  $07:DBE6: A5 5F     LDA $5F v_chr_live_status = #$FC
+i8013031     A:FC X:00 Y:1D S:F7 P:NvUbdIzc  $07:DBE8: 29 02     AND #$02
+i8013032     A:00 X:00 Y:1D S:F7 P:nvUbdIZc  $07:DBEA: F0 03     BEQ $DBEF
+i8013033     A:00 X:00 Y:1D S:F7 P:nvUbdIZc  $07:DBEF: AC 14 02  LDY $0214 = #$80
+i8013034     A:00 X:00 Y:80 S:F7 P:NvUbdIzc  $07:DBF2: A9 40     LDA #$40
+i8013035     A:40 X:00 Y:80 S:F7 P:nvUbdIzc  $07:DBF4: C0 42     CPY #$42
+i8013036     A:40 X:00 Y:80 S:F7 P:nvUbdIzC  $07:DBF6: F0 1B     BEQ $DC13
+i8013037     A:40 X:00 Y:80 S:F7 P:nvUbdIzC  $07:DBF8: 24 6D     BIT $6D = #$00
+i8013038     A:40 X:00 Y:80 S:F7 P:nvUbdIZC  $07:DBFA: 70 28     BVS $DC24
+i8013039     A:40 X:00 Y:80 S:F7 P:nvUbdIZC  $07:DBFC: 30 02     BMI $DC00
+i8013040     A:40 X:00 Y:80 S:F7 P:nvUbdIZC  $07:DBFE: A9 01     LDA #$01
+i8013041     A:01 X:00 Y:80 S:F7 P:nvUbdIzC  $07:DC00: 85 45     STA $45 = #$00
+i8013042     A:01 X:00 Y:80 S:F7 P:nvUbdIzC  $07:DC02: 20 5A CE  JSR $CE5A
+i8013043     A:01 X:00 Y:80 S:F5 P:nvUbdIzC  $07:CE5A: A9 00     LDA #$00
+i8013044     A:00 X:00 Y:80 S:F5 P:nvUbdIZC  $07:CE5C: 85 08     STA $08 = #$80
+i8013045     A:00 X:00 Y:80 S:F5 P:nvUbdIZC  $07:CE5E: 85 09     STA $09 = #$80
+i8013046     A:00 X:00 Y:80 S:F5 P:nvUbdIZC  $07:CE60: A9 06     LDA #$06
+i8013047     A:06 X:00 Y:80 S:F5 P:nvUbdIzC  $07:CE62: 8D 00 80  STA $8000 = #$00
+i8013048     A:06 X:00 Y:80 S:F5 P:nvUbdIzC  $07:CE65: A9 0A     LDA #$0A
+i8013049     A:0A X:00 Y:80 S:F5 P:nvUbdIzC  $07:CE67: 8D 01 80  STA $8001 = #$00
+i8013050     A:0A X:00 Y:80 S:F5 P:nvUbdIzC  $07:CE6A: A5 45     LDA $45 = #$01
+i8013051     A:01 X:00 Y:80 S:F5 P:nvUbdIzC  $07:CE6C: 48        PHA
+i8013052     A:01 X:00 Y:80 S:F4 P:nvUbdIzC  $07:CE6D: 29 03     AND #$03
+i8013053     A:01 X:00 Y:80 S:F4 P:nvUbdIzC  $07:CE6F: 85 0C     STA $0C = #$7C
+i8013054     A:01 X:00 Y:80 S:F4 P:nvUbdIzC  $07:CE71: 68        PLA
+i8013055     A:01 X:00 Y:80 S:F5 P:nvUbdIzC  $07:CE72: 2A        ROL
+i8013056     A:03 X:00 Y:80 S:F5 P:nvUbdIzc  $07:CE73: 2A        ROL
+i8013057     A:06 X:00 Y:80 S:F5 P:nvUbdIzc  $07:CE74: 2A        ROL
+i8013058     A:0C X:00 Y:80 S:F5 P:nvUbdIzc  $07:CE75: 29 03     AND #$03
+i8013059     A:00 X:00 Y:80 S:F5 P:nvUbdIZc  $07:CE77: 09 80     ORA #$80
+i8013060     A:80 X:00 Y:80 S:F5 P:NvUbdIzc  $07:CE79: 85 05     STA $05 = #$00
+i8013061     A:80 X:00 Y:80 S:F5 P:NvUbdIzc  $07:CE7B: A9 00     LDA #$00
+i8013062     A:00 X:00 Y:80 S:F5 P:nvUbdIZc  $07:CE7D: 85 04     STA $04 = #$11
+i8013063     A:00 X:00 Y:80 S:F5 P:nvUbdIZc  $07:CE7F: 8A        TXA
+i8013064     A:00 X:00 Y:80 S:F5 P:nvUbdIZc  $07:CE80: A8        TAY
+i8013065     A:00 X:00 Y:00 S:F5 P:nvUbdIZc  $07:CE81: B1 04     LDA ($04),Y @ $8000 = #$F6
+i8013066     A:F6 X:00 Y:00 S:F5 P:NvUbdIzc  $07:CE83: 85 02     STA $02 = #$C0
+i8013067     A:F6 X:00 Y:00 S:F5 P:NvUbdIzc  $07:CE85: C8        INY
+i8013068     A:F6 X:00 Y:01 S:F5 P:nvUbdIzc  $07:CE86: B1 04     LDA ($04),Y @ $8001 = #$85
+i8013069     A:85 X:00 Y:01 S:F5 P:NvUbdIzc  $07:CE88: 85 03     STA $03 = #$9C
+i8013070     A:85 X:00 Y:01 S:F5 P:NvUbdIzc  $07:CE8A: A6 43     LDX $43 = #$04
+i8013071     A:85 X:04 Y:01 S:F5 P:nvUbdIzc  $07:CE8C: E0 FF     CPX #$FF
+i8013072     A:85 X:04 Y:01 S:F5 P:nvUbdIzc  $07:CE8E: F0 5C     BEQ $CEEC
+i8013073     A:85 X:04 Y:01 S:F5 P:nvUbdIzc  $07:CE90: A0 00     LDY #$00
+i8013074     A:85 X:04 Y:00 S:F5 P:nvUbdIZc  $07:CE92: B1 02     LDA ($02),Y @ $85F6 = #$08
+i8013075     A:08 X:04 Y:00 S:F5 P:nvUbdIzc  $07:CE94: 85 05     STA $05 = #$80
+i8013076     A:08 X:04 Y:00 S:F5 P:nvUbdIzc  $07:CE96: F0 54     BEQ $CEEC
+i8013077     A:08 X:04 Y:00 S:F5 P:nvUbdIzc  $07:CE98: C8        INY
+i8013078     A:08 X:04 Y:01 S:F5 P:nvUbdIzc  $07:CE99: A9 00     LDA #$00
+i8013079     A:00 X:04 Y:01 S:F5 P:nvUbdIZc  $07:CE9B: 85 04     STA $04 = #$00
+i8013080     A:00 X:04 Y:01 S:F5 P:nvUbdIZc  $07:CE9D: B1 02     LDA ($02),Y @ $85F7 = #$E0
+i8013081     A:E0 X:04 Y:01 S:F5 P:NvUbdIzc  $07:CE9F: 10 02     BPL $CEA3
+i8013082     A:E0 X:04 Y:01 S:F5 P:NvUbdIzc  $07:CEA1: C6 04     DEC $04 = #$00
+i8013083     A:E0 X:04 Y:01 S:F5 P:NvUbdIzc  $07:CEA3: 18        CLC
+i8013084     A:E0 X:04 Y:01 S:F5 P:NvUbdIzc  $07:CEA4: 65 00     ADC $00 = #$BF
+i8013085     A:9F X:04 Y:01 S:F5 P:NvUbdIzC  $07:CEA6: 9D 00 07  STA $0700 vStartOAM,X @ $0704 = #$F0
+i8013086     A:9F X:04 Y:01 S:F5 P:NvUbdIzC  $07:CEA9: A5 04     LDA $04 = #$FF
+i8013087     A:FF X:04 Y:01 S:F5 P:NvUbdIzC  $07:CEAB: 65 08     ADC $08 = #$00
+i8013088     A:00 X:04 Y:01 S:F5 P:nvUbdIZC  $07:CEAD: D0 40     BNE $CEEF
+i8013089     A:00 X:04 Y:01 S:F5 P:nvUbdIZC  $07:CEAF: C8        INY
+i8013090     A:00 X:04 Y:02 S:F5 P:nvUbdIzC  $07:CEB0: B1 02     LDA ($02),Y @ $85F8 = #$53
+i8013091     A:53 X:04 Y:02 S:F5 P:nvUbdIzC  $07:CEB2: 9D 01 07  STA $0701,X @ $0705 = #$63
+i8013092     A:53 X:04 Y:02 S:F5 P:nvUbdIzC  $07:CEB5: C8        INY
+i8013093     A:53 X:04 Y:03 S:F5 P:nvUbdIzC  $07:CEB6: B1 02     LDA ($02),Y @ $85F9 = #$00
+i8013094     A:00 X:04 Y:03 S:F5 P:nvUbdIZC  $07:CEB8: 05 0C     ORA $0C = #$01
+i8013095     A:01 X:04 Y:03 S:F5 P:nvUbdIzC  $07:CEBA: 9D 02 07  STA $0702,X @ $0706 = #$00
+i8013096     A:01 X:04 Y:03 S:F5 P:nvUbdIzC  $07:CEBD: C8        INY
+i8013097     A:01 X:04 Y:04 S:F5 P:nvUbdIzC  $07:CEBE: A9 00     LDA #$00
+i8013098     A:00 X:04 Y:04 S:F5 P:nvUbdIZC  $07:CEC0: 85 04     STA $04 = #$FF
+i8013099     A:00 X:04 Y:04 S:F5 P:nvUbdIZC  $07:CEC2: B1 02     LDA ($02),Y @ $85FA = #$FD
+i8013100     A:FD X:04 Y:04 S:F5 P:NvUbdIzC  $07:CEC4: 10 02     BPL $CEC8
+i8013101     A:FD X:04 Y:04 S:F5 P:NvUbdIzC  $07:CEC6: C6 04     DEC $04 = #$00
+i8013102     A:FD X:04 Y:04 S:F5 P:NvUbdIzC  $07:CEC8: 18        CLC
+i8013103     A:FD X:04 Y:04 S:F5 P:NvUbdIzc  $07:CEC9: 65 01     ADC $01 = #$30
+i8013104     A:2D X:04 Y:04 S:F5 P:nvUbdIzC  $07:CECB: 85 06     STA $06 = #$00
+i8013105     A:2D X:04 Y:04 S:F5 P:nvUbdIzC  $07:CECD: A5 04     LDA $04 = #$FF
+i8013106     A:FF X:04 Y:04 S:F5 P:NvUbdIzC  $07:CECF: 65 09     ADC $09 = #$00
+i8013107     A:00 X:04 Y:04 S:F5 P:nvUbdIZC  $07:CED1: D0 1F     BNE $CEF2
+i8013108     A:00 X:04 Y:04 S:F5 P:nvUbdIZC  $07:CED3: A5 06     LDA $06 = #$2D
+i8013109     A:2D X:04 Y:04 S:F5 P:nvUbdIzC  $07:CED5: C9 F9     CMP #$F9
+i8013110     A:2D X:04 Y:04 S:F5 P:nvUbdIzc  $07:CED7: B0 19     BCS $CEF2
+i8013111     A:2D X:04 Y:04 S:F5 P:nvUbdIzc  $07:CED9: 9D 03 07  STA $0703,X @ $0707 = #$10
+i8013112     A:2D X:04 Y:04 S:F5 P:nvUbdIzc  $07:CEDC: E8        INX
+i8013113     A:2D X:05 Y:04 S:F5 P:nvUbdIzc  $07:CEDD: E8        INX
+i8013114     A:2D X:06 Y:04 S:F5 P:nvUbdIzc  $07:CEDE: E8        INX
+i8013115     A:2D X:07 Y:04 S:F5 P:nvUbdIzc  $07:CEDF: E8        INX
+i8013116     A:2D X:08 Y:04 S:F5 P:nvUbdIzc  $07:CEE0: D0 03     BNE $CEE5
+i8013117     A:2D X:08 Y:04 S:F5 P:nvUbdIzc  $07:CEE5: C8        INY
+i8013118     A:2D X:08 Y:05 S:F5 P:nvUbdIzc  $07:CEE6: C6 05     DEC $05 = #$08
+i8013119     A:2D X:08 Y:05 S:F5 P:nvUbdIzc  $07:CEE8: D0 AF     BNE $CE99
+(290 lines skipped)
+i8013410     A:30 X:24 Y:21 S:F5 P:nvUbdIZc  $07:CEEA: 86 43     STX $43 = #$04
+i8013411     A:30 X:24 Y:21 S:F5 P:nvUbdIZc  $07:CEEC: 86 44     STX $44 = #$00
+i8013412     A:30 X:24 Y:21 S:F5 P:nvUbdIZc  $07:CEEE: 60        RTS (from $CE5A) ----------------------------
+i8013413     A:30 X:24 Y:21 S:F7 P:nvUbdIZc  $07:DC05: A2 00     LDX #$00
+i8013414     A:30 X:00 Y:21 S:F7 P:nvUbdIZc  $07:DC07: A5 5F     LDA $5F v_chr_live_status = #$FC
+i8013415     A:FC X:00 Y:21 S:F7 P:NvUbdIzc  $07:DC09: 6A        ROR
+i8013416     A:7E X:00 Y:21 S:F7 P:nvUbdIzc  $07:DC0A: 90 02     BCC $DC0E
+i8013417     A:7E X:00 Y:21 S:F7 P:nvUbdIzc  $07:DC0E: 86 7A     STX $7A = #$00
+i8013418     A:7E X:00 Y:21 S:F7 P:nvUbdIzc  $07:DC10: 4C 32 E1  JMP $E132
+i8013419     A:7E X:00 Y:21 S:F7 P:nvUbdIzc  $07:E132: 86 10     STX $10 = #$00
+i8013420     A:7E X:00 Y:21 S:F7 P:nvUbdIzc  $07:E134: A6 10     LDX $10 = #$00
+i8013421     A:7E X:00 Y:21 S:F7 P:nvUbdIZc  $07:E136: 20 3E E1  JSR $E13E
+i8013422     A:7E X:00 Y:21 S:F5 P:nvUbdIZc  $07:E13E: B5 8F     LDA $8F,X @ $008F = #$00
+i8013423     A:00 X:00 Y:21 S:F5 P:nvUbdIZc  $07:E140: 10 FB     BPL $E13D
+i8013424     A:00 X:00 Y:21 S:F5 P:nvUbdIZc  $07:E13D: 60        RTS (from $E13E) ----------------------------
+i8013425     A:00 X:00 Y:21 S:F7 P:nvUbdIZc  $07:E139: C6 10     DEC $10 = #$00
+i8013426     A:00 X:00 Y:21 S:F7 P:NvUbdIzc  $07:E13B: 10 F7     BPL $E134
+(1 lines skipped)
+i8013428     A:00 X:00 Y:21 S:F9 P:NvUbdIzc  $07:EDB5: A5 3B     LDA $3B vSharedGameStatus = #$00
+i8013429     A:00 X:00 Y:21 S:F9 P:nvUbdIZc  $07:EDB7: C9 0B     CMP #$0B
+i8013430     A:00 X:00 Y:21 S:F9 P:NvUbdIzc  $07:EDB9: F0 54     BEQ $EE0F
+i8013431     A:00 X:00 Y:21 S:F9 P:NvUbdIzc  $07:EDBB: 20 A9 F0  JSR $F0A9
+i8013432     A:00 X:00 Y:21 S:F7 P:NvUbdIzc  $07:F0A9: A5 6D     LDA $6D = #$00
+i8013433     A:00 X:00 Y:21 S:F7 P:nvUbdIZc  $07:F0AB: 10 03     BPL $F0B0
+i8013434     A:00 X:00 Y:21 S:F7 P:nvUbdIZc  $07:F0B0: 20 B2 F2  JSR $F2B2
+(36 lines skipped)
+i8013471     A:01 X:00 Y:00 S:F7 P:nvUbdIzc  $07:F0B3: B0 03     BCS $F0B8
+i8013472     A:01 X:00 Y:00 S:F7 P:nvUbdIzc  $07:F0B5: 4C 46 F1  JMP $F146
+i8013473     A:01 X:00 Y:00 S:F7 P:nvUbdIzc  $07:F146: AD 0A 03  LDA $030A = #$00
+i8013474     A:00 X:00 Y:00 S:F7 P:nvUbdIZc  $07:F149: D0 C5     BNE $F110
+i8013475     A:00 X:00 Y:00 S:F7 P:nvUbdIZc  $07:F14B: AD 0B 03  LDA $030B = #$00
+i8013476     A:00 X:00 Y:00 S:F7 P:nvUbdIZc  $07:F14E: D0 C0     BNE $F110
+i8013477     A:00 X:00 Y:00 S:F7 P:nvUbdIZc  $07:F150: EE 14 03  INC $0314 = #$00
+i8013478     A:00 X:00 Y:00 S:F7 P:nvUbdIzc  $07:F153: D0 03     BNE $F158
+i8013479     A:00 X:00 Y:00 S:F7 P:nvUbdIzc  $07:F158: AD 15 03  LDA $0315 = #$00
+i8013480     A:00 X:00 Y:00 S:F7 P:nvUbdIZc  $07:F15B: C9 03     CMP #$03
+i8013481     A:00 X:00 Y:00 S:F7 P:NvUbdIzc  $07:F15D: 90 B1     BCC $F110
+i8013482     A:00 X:00 Y:00 S:F7 P:NvUbdIzc  $07:F110: 24 3C     BIT $3C = #$00
+i8013483     A:00 X:00 Y:00 S:F7 P:nvUbdIZc  $07:F112: 70 31     BVS $F145
+i8013484     A:00 X:00 Y:00 S:F7 P:nvUbdIZc  $07:F114: A5 6D     LDA $6D = #$00
+i8013485     A:00 X:00 Y:00 S:F7 P:nvUbdIZc  $07:F116: 30 0D     BMI $F125
+i8013486     A:00 X:00 Y:00 S:F7 P:nvUbdIZc  $07:F118: A5 46     LDA $46 = #$00
+i8013487     A:00 X:00 Y:00 S:F7 P:nvUbdIZc  $07:F11A: C9 19     CMP #$19
+i8013488     A:00 X:00 Y:00 S:F7 P:NvUbdIzc  $07:F11C: F0 07     BEQ $F125
+i8013489     A:00 X:00 Y:00 S:F7 P:NvUbdIzc  $07:F11E: AD 17 03  LDA $0317 = #$00
+i8013490     A:00 X:00 Y:00 S:F7 P:nvUbdIZc  $07:F121: C9 4B     CMP #$4B
+i8013491     A:00 X:00 Y:00 S:F7 P:NvUbdIzc  $07:F123: B0 66     BCS $F18B
+i8013492     A:00 X:00 Y:00 S:F7 P:NvUbdIzc  $07:F125: A2 06     LDX #$06
+i8013493     A:00 X:06 Y:00 S:F7 P:nvUbdIzc  $07:F127: FE 19 03  INC $0319,X @ $031F = #$00
+i8013494     A:00 X:06 Y:00 S:F7 P:nvUbdIzc  $07:F12A: D0 03     BNE $F12F
+i8013495     A:00 X:06 Y:00 S:F7 P:nvUbdIzc  $07:F12F: CA        DEX
+i8013496     A:00 X:05 Y:00 S:F7 P:nvUbdIzc  $07:F130: CA        DEX
+i8013497     A:00 X:04 Y:00 S:F7 P:nvUbdIzc  $07:F131: 10 F4     BPL $F127
+(15 lines skipped)
+i8013513     A:00 X:FE Y:00 S:F7 P:NvUbdIzc  $07:F133: EE 16 03  INC $0316 = #$00
+i8013514     A:00 X:FE Y:00 S:F7 P:nvUbdIzc  $07:F136: D0 0D     BNE $F145
+i8013515     A:00 X:FE Y:00 S:F7 P:nvUbdIzc  $07:F145: 60        RTS (from $F0A9) ----------------------------
+i8013516     A:00 X:FE Y:00 S:F9 P:nvUbdIzc  $07:EDBE: 20 53 EE  JSR $EE53
+i8013517     A:00 X:FE Y:00 S:F7 P:nvUbdIzc  $07:EE53: 20 69 EF  JSR $EF69
+i8013518     A:00 X:FE Y:00 S:F5 P:nvUbdIzc  $07:EF69: A2 00     LDX #$00
+i8013519     A:00 X:00 Y:00 S:F5 P:nvUbdIZc  $07:EF6B: AD 9E 03  LDA $039E = #$00
+i8013520     A:00 X:00 Y:00 S:F5 P:nvUbdIZc  $07:EF6E: 10 0A     BPL $EF7A
+i8013521     A:00 X:00 Y:00 S:F5 P:nvUbdIZc  $07:EF7A: 60        RTS (from $EF69) ----------------------------
+i8013522     A:00 X:00 Y:00 S:F7 P:nvUbdIZc  $07:EE56: A2 00     LDX #$00
+i8013523     A:00 X:00 Y:00 S:F7 P:nvUbdIZc  $07:EE58: 20 5D EE  JSR $EE5D
+i8013524     A:00 X:00 Y:00 S:F5 P:nvUbdIZc  $07:EE5D: BD 00 03  LDA $0300 vEnemies,X @ $0300 vEnemies = #$00
+i8013525     A:00 X:00 Y:00 S:F5 P:nvUbdIZc  $07:EE60: 0A        ASL
+i8013526     A:00 X:00 Y:00 S:F5 P:nvUbdIZc  $07:EE61: A8        TAY
+i8013527     A:00 X:00 Y:00 S:F5 P:nvUbdIZc  $07:EE62: B9 BA FC  LDA $FCBA,Y @ $FCBA = #$87
+i8013528     A:87 X:00 Y:00 S:F5 P:NvUbdIzc  $07:EE65: 85 00     STA $00 = #$00
+i8013529     A:87 X:00 Y:00 S:F5 P:NvUbdIzc  $07:EE67: B9 BB FC  LDA $FCBB,Y @ $FCBB = #$F8
+i8013530     A:F8 X:00 Y:00 S:F5 P:NvUbdIzc  $07:EE6A: 85 01     STA $01 = #$00
+i8013531     A:F8 X:00 Y:00 S:F5 P:NvUbdIzc  $07:EE6C: 6C 00 00  JMP ($0000) = $F887
+i8013532     A:F8 X:00 Y:00 S:F5 P:NvUbdIzc  $07:F887: 60        RTS (from $EE5D) ----------------------------
+i8013533     A:F8 X:00 Y:00 S:F7 P:NvUbdIzc  $07:EE5B: A2 01     LDX #$01
+(9 lines skipped)
+i8013543     A:F8 X:01 Y:00 S:F9 P:NvUbdIzc  $07:EDC1: A5 3B     LDA $3B vSharedGameStatus = #$00
+i8013544     A:00 X:01 Y:00 S:F9 P:nvUbdIZc  $07:EDC3: 6A        ROR
+i8013545     A:00 X:01 Y:00 S:F9 P:nvUbdIZc  $07:EDC4: B0 55     BCS $EE1B
+i8013546     A:00 X:01 Y:00 S:F9 P:nvUbdIZc  $07:EDC6: 20 9A B0  JSR $B09A
+    i8013547     A:00 X:01 Y:00 S:F7 P:nvUbdIZc  $06:B09A: A2 05     LDX #$05
+    i8013548     A:00 X:05 Y:00 S:F7 P:nvUbdIzc  $06:B09C: BD 9E 03  LDA $039E,X @ $03A3 = #$00
+    i8013549     A:00 X:05 Y:00 S:F7 P:nvUbdIZc  $06:B09F: 10 04     BPL $B0A5
+    i8013550     A:00 X:05 Y:00 S:F7 P:nvUbdIZc  $06:B0A5: A5 6D     LDA $6D = #$00
+    i8013551     A:00 X:05 Y:00 S:F7 P:nvUbdIZc  $06:B0A7: 30 6A     BMI $B113
+    i8013552     A:00 X:05 Y:00 S:F7 P:nvUbdIZc  $06:B0A9: 20 4F EF  JSR $EF4F EF4F_switch_bank_4_p2
+    (6 lines skipped)
+    i8013559     A:09 X:05 Y:00 S:F7 P:nvUbdIzc  $06:B0AC: A0 00     LDY #$00
+    i8013560     A:09 X:05 Y:00 S:F7 P:nvUbdIZc  $06:B0AE: A5 46     LDA $46 = #$00
+    i8013561     A:00 X:05 Y:00 S:F7 P:nvUbdIZc  $06:B0B0: F0 0C     BEQ $B0BE
+    i8013562     A:00 X:05 Y:00 S:F7 P:nvUbdIZc  $06:B0BE: B9 9E 84  LDA $849E,Y @ $849E = #$2E
+    i8013563     A:2E X:05 Y:00 S:F7 P:nvUbdIzc  $06:B0C1: 85 12     STA $12 = #$A4
+    i8013564     A:2E X:05 Y:00 S:F7 P:nvUbdIzc  $06:B0C3: B9 9F 84  LDA $849F,Y @ $849F = #$98
+    i8013565     A:98 X:05 Y:00 S:F7 P:NvUbdIzc  $06:B0C6: 85 13     STA $13 = #$84
+    i8013566     A:98 X:05 Y:00 S:F7 P:NvUbdIzc  $06:B0C8: A9 01     LDA #$01
+    i8013567     A:01 X:05 Y:00 S:F7 P:nvUbdIzc  $06:B0CA: 20 D6 F2  JSR $F2D6 F2D6_try_put_briefcase
+    (31 lines skipped)
+    i8013599     A:03 X:05 Y:04 S:F7 P:nvUbdIzc  $06:B0CD: 90 D5     BCC $B0A4
+    i8013600     A:03 X:05 Y:04 S:F7 P:nvUbdIzc  $06:B0A4: 60        RTS (from $B09A) ----------------------------
+    i8013601     A:03 X:05 Y:04 S:F9 P:nvUbdIzc  $07:EDC9: 20 4D AF  JSR $AF4D
+    i8013602     A:03 X:05 Y:04 S:F7 P:nvUbdIzc  $06:AF4D: A2 05     LDX #$05
+    i8013603     A:03 X:05 Y:04 S:F7 P:nvUbdIzc  $06:AF4F: 86 1A     STX $1A = #$FF
+    i8013604     A:03 X:05 Y:04 S:F7 P:nvUbdIzc  $06:AF51: A6 1A     LDX $1A = #$05
+    i8013605     A:03 X:05 Y:04 S:F7 P:nvUbdIzc  $06:AF53: 20 F8 AF  JSR $AFF8
+    i8013606     A:03 X:05 Y:04 S:F5 P:nvUbdIzc  $06:AFF8: BD 9E 03  LDA $039E,X @ $03A3 = #$00
+    i8013607     A:00 X:05 Y:04 S:F5 P:nvUbdIZc  $06:AFFB: 10 F1     BPL $AFEE
+    i8013608     A:00 X:05 Y:04 S:F5 P:nvUbdIZc  $06:AFEE: 60        RTS (from $AFF8) ----------------------------
+    i8013609     A:00 X:05 Y:04 S:F7 P:nvUbdIZc  $06:AF56: BD 9E 03  LDA $039E,X @ $03A3 = #$00
+    i8013610     A:00 X:05 Y:04 S:F7 P:nvUbdIZc  $06:AF59: C9 E0     CMP #$E0
+    i8013611     A:00 X:05 Y:04 S:F7 P:nvUbdIzc  $06:AF5B: B0 69     BCS $AFC6
+    i8013612     A:00 X:05 Y:04 S:F7 P:nvUbdIzc  $06:AF5D: C9 C0     CMP #$C0
+    i8013613     A:00 X:05 Y:04 S:F7 P:nvUbdIzc  $06:AF5F: 90 65     BCC $AFC6
+    i8013614     A:00 X:05 Y:04 S:F7 P:nvUbdIzc  $06:AFC6: C6 1A     DEC $1A = #$05
+    i8013615     A:00 X:05 Y:04 S:F7 P:nvUbdIzc  $06:AFC8: D0 87     BNE $AF51
+    (48 lines skipped)
+    i8013664     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $06:AFCA: 60        RTS (from $AF4D) ----------------------------
+i8013665     A:00 X:01 Y:04 S:F9 P:nvUbdIZc  $07:EDCC: 20 8C CB  JSR $CB8C
+i8013666     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CB8C: A5 6D     LDA $6D = #$00
+i8013667     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CB8E: 30 48     BMI $CBD8
+i8013668     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CB90: A5 5F     LDA $5F v_chr_live_status = #$FC
+i8013669     A:FC X:01 Y:04 S:F7 P:NvUbdIzc  $07:CB92: 29 03     AND #$03
+i8013670     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CB94: F0 0D     BEQ $CBA3
+i8013671     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CBA3: AD 14 02  LDA $0214 = #$80
+i8013672     A:80 X:01 Y:04 S:F7 P:NvUbdIzc  $07:CBA6: 30 30     BMI $CBD8
+i8013673     A:80 X:01 Y:04 S:F7 P:NvUbdIzc  $07:CBD8: 60        RTS (from $CB8C) ----------------------------
+i8013674     A:80 X:01 Y:04 S:F9 P:NvUbdIzc  $07:EDCF: 20 D9 CB  JSR $CBD9
+i8013675     A:80 X:01 Y:04 S:F7 P:NvUbdIzc  $07:CBD9: 2C 14 02  BIT $0214 = #$80
+i8013676     A:80 X:01 Y:04 S:F7 P:NvUbdIzc  $07:CBDC: 30 4B     BMI $CC29
+i8013677     A:80 X:01 Y:04 S:F7 P:NvUbdIzc  $07:CC29: 60        RTS (from $CBD9) ----------------------------
+i8013678     A:80 X:01 Y:04 S:F9 P:NvUbdIzc  $07:EDD2: 20 5F CD  JSR $CD5F
+i8013679     A:80 X:01 Y:04 S:F7 P:NvUbdIzc  $07:CD5F: A5 D1     LDA $D1 = #$00
+i8013680     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CD61: 10 1C     BPL $CD7F
+i8013681     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CD7F: AD 16 02  LDA $0216 = #$00
+i8013682     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CD82: D0 26     BNE $CDAA
+i8013683     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CD84: AD 15 02  LDA $0215 = #$00
+i8013684     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CD87: D0 21     BNE $CDAA
+i8013685     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CD89: 24 6D     BIT $6D = #$00
+i8013686     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CD8B: 30 43     BMI $CDD0
+i8013687     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CD8D: 70 5E     BVS $CDED
+i8013688     A:00 X:01 Y:04 S:F7 P:nvUbdIZc  $07:CD8F: 2C 14 02  BIT $0214 = #$80
+i8013689     A:00 X:01 Y:04 S:F7 P:NvUbdIZc  $07:CD92: 30 59     BMI $CDED
+i8013690     A:00 X:01 Y:04 S:F7 P:NvUbdIZc  $07:CDED: 60        RTS (from $CD5F) ----------------------------
+(128 lines skipped)
+i8013819     A:00 X:00 Y:04 S:F7 P:nvUbdIZc  $07:C8A9: A9 08     LDA #$08
+i8013820     A:08 X:00 Y:04 S:F7 P:nvUbdIzc  $07:C8AB: 20 79 D0  JSR $D079 Check button press
+(5 lines skipped)
+i8013826     A:00 X:00 Y:04 S:F7 P:nvUbdIZc  $07:C8AE: F0 23     BEQ $C8D3
+(701 lines skipped)
+i8014528     A:FD X:7E Y:01 S:F5 P:nvUbdIZC  $02:AE76: BD 10 04  LDA $0410,X @ $048E = #$03
+i8014529     A:03 X:7E Y:01 S:F5 P:nvUbdIzC  $02:AE79: 9D 22 04  STA $0422,X @ $04A0 = #$00
+i8014530     A:03 X:7E Y:01 S:F5 P:nvUbdIzC  $02:AE7C: 4C 38 AE  JMP $AE38
+(5087 lines skipped)
+i8019618     A:0B X:00 Y:04 S:F5 P:nvUbdIzC  $07:D16E: A2 00     LDX #$00
+i8019619     A:0B X:00 Y:04 S:F5 P:nvUbdIZC  $07:D170: BD 7B 06  LDA $067B,X @ $067B = #$0B
+i8019620     A:0B X:00 Y:04 S:F5 P:nvUbdIzC  $07:D173: F0 1C     BEQ $D191
+i8019621     A:0B X:00 Y:04 S:F5 P:nvUbdIzC  $07:D175: A8        TAY
+i8019622     A:0B X:00 Y:0B S:F5 P:nvUbdIzC  $07:D176: E8        INX
+i8019623     A:0B X:01 Y:0B S:F5 P:nvUbdIzC  $07:D177: BD 7B 06  LDA $067B,X @ $067C = #$20
+i8019624     A:20 X:01 Y:0B S:F5 P:nvUbdIzC  $07:D17A: 8D 06 20  STA PPU_ADDRESS = #$00
+i8019625     A:20 X:01 Y:0B S:F5 P:nvUbdIzC  $07:D17D: E8        INX
+i8019626     A:20 X:02 Y:0B S:F5 P:nvUbdIzC  $07:D17E: BD 7B 06  LDA $067B,X @ $067D = #$42
+i8019627     A:42 X:02 Y:0B S:F5 P:nvUbdIzC  $07:D181: 8D 06 20  STA PPU_ADDRESS = #$00
+i8019628     A:42 X:02 Y:0B S:F5 P:nvUbdIzC  $07:D184: E8        INX
+i8019629     A:42 X:03 Y:0B S:F5 P:nvUbdIzC  $07:D185: BD 7B 06  LDA $067B,X @ $067E = #$01
+i8019630     A:01 X:03 Y:0B S:F5 P:nvUbdIzC  $07:D188: 8D 07 20  STA PPU_DATA = #$FE
+i8019631     A:01 X:03 Y:0B S:F5 P:nvUbdIzC  $07:D18B: E8        INX
+i8019632     A:01 X:04 Y:0B S:F5 P:nvUbdIzC  $07:D18C: 88        DEY
+i8019633     A:01 X:04 Y:0A S:F5 P:nvUbdIzC  $07:D18D: D0 F6     BNE $D185
+(50 lines skipped)
+i8019684     A:01 X:0E Y:00 S:F5 P:nvUbdIZC  $07:D18F: F0 DF     BEQ $D170
+(170 lines skipped)
+i8019855     A:00 X:32 Y:00 S:F5 P:nvUbdIZC  $07:D191: 8D 7B 06  STA $067B = #$0B
+i8019856     A:00 X:32 Y:00 S:F5 P:nvUbdIZC  $07:D194: 60        RTS (from $D11B) ----------------------------
+(2933 lines skipped)
+i8022790     A:01 X:00 Y:21 S:F3 P:nvUbdIzc  $07:F2D0: 29 01     AND #$01
+i8022791     A:01 X:00 Y:21 S:F3 P:nvUbdIzc  $07:F2D2: D0 26     BNE $F2FA
+(6338 lines skipped)
+i8029130     A:02 X:FF Y:20 S:F5 P:nvUbdIzc  $07:C9C5: A2 25     LDX #$25
+i8029131     A:02 X:25 Y:20 S:F5 P:nvUbdIzc  $07:C9C7: 20 3F CA  JSR $CA3F
+(116 lines skipped)
+i8029248     A:01 X:FF Y:20 S:F5 P:NvUbdIzc  $07:C9CA: 20 13 CA  JSR $CA13
+i8029249     A:01 X:FF Y:20 S:F3 P:NvUbdIzc  $07:CA13: A9 05     LDA #$05
+i8029250     A:05 X:FF Y:20 S:F3 P:nvUbdIzc  $07:CA15: 8D 7B 06  STA $067B = #$01
+i8029251     A:05 X:FF Y:20 S:F3 P:nvUbdIzc  $07:CA18: A9 20     LDA #$20
+i8029252     A:20 X:FF Y:20 S:F3 P:nvUbdIzc  $07:CA1A: 8D 7C 06  STA $067C = #$01
+i8029253     A:20 X:FF Y:20 S:F3 P:nvUbdIzc  $07:CA1D: A9 4F     LDA #$4F
+i8029254     A:4F X:FF Y:20 S:F3 P:nvUbdIzc  $07:CA1F: 8D 7D 06  STA $067D = #$01
+i8029255     A:4F X:FF Y:20 S:F3 P:nvUbdIzc  $07:CA22: A2 00     LDX #$00
+i8029256     A:4F X:00 Y:20 S:F3 P:nvUbdIZc  $07:CA24: A0 00     LDY #$00
+i8029257     A:4F X:00 Y:00 S:F3 P:nvUbdIZc  $07:CA26: 24 38     BIT $38 = #$00
+i8029258     A:4F X:00 Y:00 S:F3 P:nvUbdIZc  $07:CA28: 50 08     BVC $CA32
+i8029259     A:4F X:00 Y:00 S:F3 P:nvUbdIZc  $07:CA32: B9 C4 CA  LDA $CAC4,Y @ $CAC4 = #$4D
+i8029260     A:4D X:00 Y:00 S:F3 P:nvUbdIzc  $07:CA35: 9D 7E 06  STA $067E,X @ $067E = #$01
+i8029261     A:4D X:00 Y:00 S:F3 P:nvUbdIzc  $07:CA38: C8        INY
+i8029262     A:4D X:00 Y:01 S:F3 P:nvUbdIzc  $07:CA39: E8        INX
+i8029263     A:4D X:01 Y:01 S:F3 P:nvUbdIzc  $07:CA3A: E0 05     CPX #$05
+i8029264     A:4D X:01 Y:01 S:F3 P:NvUbdIzc  $07:CA3C: D0 F4     BNE $CA32
+(24 lines skipped)
+i8029289     A:4E X:05 Y:05 S:F3 P:nvUbdIZC  $07:CA3E: 60        RTS (from $CA13) ----------------------------
+i8029290     A:4E X:05 Y:05 S:F5 P:nvUbdIZC  $07:C9CD: A9 1B     LDA #$1B
+i8029291     A:1B X:05 Y:05 S:F5 P:nvUbdIzC  $07:C9CF: 8D 83 06  STA $0683 = #$01
+i8029292     A:1B X:05 Y:05 S:F5 P:nvUbdIzC  $07:C9D2: A9 20     LDA #$20
+i8029293     A:20 X:05 Y:05 S:F5 P:nvUbdIzC  $07:C9D4: 8D 84 06  STA $0684 = #$01
+i8029294     A:20 X:05 Y:05 S:F5 P:nvUbdIzC  $07:C9D7: A9 83     LDA #$83
+i8029295     A:83 X:05 Y:05 S:F5 P:NvUbdIzC  $07:C9D9: 8D 85 06  STA $0685 = #$01
+i8029296     A:83 X:05 Y:05 S:F5 P:NvUbdIzC  $07:C9DC: A2 00     LDX #$00
+i8029297     A:83 X:00 Y:05 S:F5 P:nvUbdIZC  $07:C9DE: 86 07     STX $07 = #$80
+i8029298     A:83 X:00 Y:05 S:F5 P:nvUbdIZC  $07:C9E0: A0 07     LDY #$07
+i8029299     A:83 X:00 Y:07 S:F5 P:nvUbdIzC  $07:C9E2: B5 56     LDA $56,X @ $0056 = #$00
+i8029300     A:00 X:00 Y:07 S:F5 P:nvUbdIZC  $07:C9E4: D0 08     BNE $C9EE
+i8029301     A:00 X:00 Y:07 S:F5 P:nvUbdIZC  $07:C9E6: 24 07     BIT $07 = #$00
+i8029302     A:00 X:00 Y:07 S:F5 P:nvUbdIZC  $07:C9E8: 30 04     BMI $C9EE
+i8029303     A:00 X:00 Y:07 S:F5 P:nvUbdIZC  $07:C9EA: C0 03     CPY #$03
+i8029304     A:00 X:00 Y:07 S:F5 P:nvUbdIzC  $07:C9EC: B0 07     BCS $C9F5
+i8029305     A:00 X:00 Y:07 S:F5 P:nvUbdIzC  $07:C9F5: E8        INX
+i8029306     A:00 X:01 Y:07 S:F5 P:nvUbdIzC  $07:C9F6: 88        DEY
+i8029307     A:00 X:01 Y:06 S:F5 P:nvUbdIzC  $07:C9F7: D0 E9     BNE $C9E2
+(42 lines skipped)
+i8029350     A:00 X:05 Y:02 S:F5 P:NvUbdIzc  $07:C9EE: C6 07     DEC $07 = #$00
+i8029351     A:00 X:05 Y:02 S:F5 P:NvUbdIzc  $07:C9F0: 09 40     ORA #$40
+i8029352     A:40 X:05 Y:02 S:F5 P:nvUbdIzc  $07:C9F2: 9D 91 06  STA $0691,X @ $0696 = #$01
+(13 lines skipped)
+i8029366     A:40 X:07 Y:00 S:F5 P:nVUbdIZc  $07:C9F9: A2 00     LDX #$00
+i8029367     A:40 X:00 Y:00 S:F5 P:nVUbdIZc  $07:C9FB: BD 00 02  LDA $0200,X @ $0200 = #$00
+i8029368     A:00 X:00 Y:00 S:F5 P:nVUbdIZc  $07:C9FE: F0 08     BEQ $CA08
+i8029369     A:00 X:00 Y:00 S:F5 P:nVUbdIZc  $07:CA08: E8        INX
+i8029370     A:00 X:01 Y:00 S:F5 P:nVUbdIzc  $07:CA09: E0 09     CPX #$09
+i8029371     A:00 X:01 Y:00 S:F5 P:NVUbdIzc  $07:CA0B: D0 EE     BNE $C9FB
+(40 lines skipped)
+i8029412     A:00 X:09 Y:00 S:F5 P:nVUbdIZC  $07:CA0D: A9 00     LDA #$00
+i8029413     A:00 X:09 Y:00 S:F5 P:nVUbdIZC  $07:CA0F: 8D A1 06  STA $06A1 = #$01
+i8029414     A:00 X:09 Y:00 S:F5 P:nVUbdIZC  $07:CA12: 60        RTS (from $C9B3) ----------------------------
+(2711 lines skipped)
+i8032126     A:00 X:00 Y:21 S:F3 P:nvUbdIZc  $07:F2D4: A9 01     LDA #$01

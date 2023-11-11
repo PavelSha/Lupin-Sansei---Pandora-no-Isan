@@ -1,0 +1,69 @@
+FCEUX 2.6.6-interim git58b87387eb934976373f5febbf85261fa427c30e - Trace Log File
+---COMMENTED!     i915056      A:00 X:FF Y:20 S:FD P:nvUbdIZc  $06:B978: A5 2D     LDA $2D vHighCounter = #$00
+---COMMENTED!     i915057      A:00 X:FF Y:20 S:FD P:nvUbdIZc  $06:B97A: C9 02     CMP #$02
+---COMMENTED!     i915058      A:00 X:FF Y:20 S:FD P:NvUbdIzc  $06:B97C: 90 06     BCC $B984
+---COMMENTED!     i915059      A:00 X:FF Y:20 S:FD P:NvUbdIzc  $06:B984: A5 3D     LDA $3D = #$00
+---COMMENTED!     i915060      A:00 X:FF Y:20 S:FD P:nvUbdIZc  $06:B986: F0 F0     BEQ $B978
+(62 lines skipped)
+****** i915123      A:40 X:FF Y:20 S:F5 P:nvUbdIzc  $07:D166: 4C 71 C3  JMP $C371 C371_update_palette
+(670 lines skipped)
+i915794      A:80 X:00 Y:40 S:F7 P:NvUbdIzc  $07:EE3D: C9 93     CMP #$93
+i915795      A:80 X:00 Y:40 S:F7 P:NvUbdIzc  $07:EE3F: F0 CE     BEQ $EE0F
+i915796      A:80 X:00 Y:40 S:F7 P:NvUbdIzc  $07:EE41: 20 69 C5  JSR $C569
+i915797      A:80 X:00 Y:40 S:F5 P:NvUbdIzc  $07:C569: A9 08     LDA #$08
+i915798      A:08 X:00 Y:40 S:F5 P:nvUbdIzc  $07:C56B: 20 79 D0  JSR $D079 Check button press
+Check button press:
+i915799      A:08 X:00 Y:40 S:F3 P:nvUbdIzc  $07:D079: 85 12     STA $12 = #$DE
+i915800      A:08 X:00 Y:40 S:F3 P:nvUbdIzc  $07:D07B: A5 1C     LDA $1C = #$00
+i915801      A:00 X:00 Y:40 S:F3 P:nvUbdIZc  $07:D07D: 25 12     AND $12 = #$08
+i915802      A:00 X:00 Y:40 S:F3 P:nvUbdIZc  $07:D07F: F0 04     BEQ $D085
+i915803      A:00 X:00 Y:40 S:F3 P:nvUbdIZc  $07:D085: 60        RTS (from $D079 Check button press) ---------
+i915804      A:00 X:00 Y:40 S:F5 P:nvUbdIZc  $07:C56E: F0 02     BEQ $C572
+i915805      A:00 X:00 Y:40 S:F5 P:nvUbdIZc  $07:C572: 20 D5 C5  JSR $C5D5
+i915806      A:00 X:00 Y:40 S:F3 P:nvUbdIZc  $07:C5D5: AD 09 01  LDA $0109 = #$00
+i915807      A:00 X:00 Y:40 S:F3 P:nvUbdIZc  $07:C5D8: F0 39     BEQ $C613
+i915808      A:00 X:00 Y:40 S:F3 P:nvUbdIZc  $07:C613: 60        RTS (from $C5D5) ----------------------------
+i915809      A:00 X:00 Y:40 S:F5 P:nvUbdIZc  $07:C575: 20 2A BB  JSR $BB2A
+    i915810      A:00 X:00 Y:40 S:F3 P:nvUbdIZc  $06:BB2A: 2C F6 FF  BIT $FFF6 = #$FF
+    i915811      A:00 X:00 Y:40 S:F3 P:NVUbdIZc  $06:BB2D: 50 62     BVC $BB91
+    i915812      A:00 X:00 Y:40 S:F3 P:NVUbdIZc  $06:BB2F: A5 B1     LDA $B1 = #$00
+    i915813      A:00 X:00 Y:40 S:F3 P:nVUbdIZc  $06:BB31: D0 5E     BNE $BB91
+    i915814      A:00 X:00 Y:40 S:F3 P:nVUbdIZc  $06:BB33: A5 1C     LDA $1C = #$00
+    i915815      A:00 X:00 Y:40 S:F3 P:nVUbdIZc  $06:BB35: F0 56     BEQ $BB8D
+    i915816      A:00 X:00 Y:40 S:F3 P:nVUbdIZc  $06:BB8D: A9 00     LDA #$00
+    i915817      A:00 X:00 Y:40 S:F3 P:nVUbdIZc  $06:BB8F: 85 B3     STA $B3 = #$00
+    i915818      A:00 X:00 Y:40 S:F3 P:nVUbdIZc  $06:BB91: 60        RTS (from $BB2A) ----------------------------
+i915819      A:00 X:00 Y:40 S:F5 P:nVUbdIZc  $07:C578: A5 2D     LDA $2D vHighCounter = #$00
+i915820      A:00 X:00 Y:40 S:F5 P:nVUbdIZc  $07:C57A: F0 4E     BEQ $C5CA
+i915821      A:00 X:00 Y:40 S:F5 P:nVUbdIZc  $07:C5CA: 60        RTS (from $C569) ----------------------------
+i915822      A:00 X:00 Y:40 S:F7 P:nVUbdIZc  $07:EE44: 20 7B EF  JSR $EF7B
+(24 lines skipped)
+i915847      A:00 X:FF Y:40 S:F7 P:nVUbdIzc  $07:EE47: 20 6C C4  JSR $C46C
+(4 lines skipped)
+i915852      A:00 X:FF Y:40 S:F5 P:nVUbdIZc  $07:C4D0: 20 A7 C4  JSR $C4A7
+(90 lines skipped)
+i915943      A:00 X:00 Y:40 S:F5 P:nVUbdIZc  $07:C4D3: A5 1E     LDA $1E = #$00
+i915944      A:00 X:00 Y:40 S:F5 P:nVUbdIZc  $07:C4D5: 85 1C     STA $1C = #$00
+i915945      A:00 X:00 Y:40 S:F5 P:nVUbdIZc  $07:C4D7: 60        RTS (from $C46C) ----------------------------
+i915946      A:00 X:00 Y:40 S:F7 P:nVUbdIZc  $07:EE4A: 4C E7 ED  JMP $EDE7
+(525 lines skipped)
+    i916472      A:04 X:7E Y:02 S:F3 P:nvUbdIZC  $02:B0A5: BD 16 04  LDA $0416,X @ $0494 = #$7F
+    i916473      A:7F X:7E Y:02 S:F3 P:nvUbdIzC  $02:B0A8: 8D 08 40  STA TRI_LINEAR = #$7F
+    (337811 lines skipped)
+    i1254285     A:A0 X:54 Y:01 S:F3 P:nvUbdIZC  $02:AE6C: 4C F5 AE  JMP $AEF5
+    i1254286     A:A0 X:54 Y:01 S:F3 P:nvUbdIZC  $02:AEF5: D0 0F     BNE $AF06
+    i1254287     A:A0 X:54 Y:01 S:F3 P:nvUbdIZC  $02:AEF7: 2C 03 04  BIT $0403 = #$00
+    i1254288     A:A0 X:54 Y:01 S:F3 P:nvUbdIZC  $02:AEFA: 30 13     BMI $AF0F
+    i1254289     A:A0 X:54 Y:01 S:F3 P:nvUbdIZC  $02:AEFC: BD 16 04  LDA $0416,X @ $046A = #$C2
+    i1254290     A:C2 X:54 Y:01 S:F3 P:NvUbdIzC  $02:AEFF: 29 C0     AND #$C0
+    i1254291     A:C0 X:54 Y:01 S:F3 P:NvUbdIzC  $02:AF01: 11 FE     ORA ($FE),Y @ $8191 = #$0F
+    i1254292     A:CF X:54 Y:01 S:F3 P:NvUbdIzC  $02:AF03: 4C 23 AF  JMP $AF23
+    i1254293     A:CF X:54 Y:01 S:F3 P:NvUbdIzC  $02:AF23: 9D 16 04  STA $0416,X @ $046A = #$C2
+    i1254294     A:CF X:54 Y:01 S:F3 P:NvUbdIzC  $02:AF26: 4C 38 AE  JMP $AE38
+    (553 lines skipped)
+    i1254848     A:02 X:93 Y:01 S:F3 P:nVUbdIzc  $02:B03B: C9 10     CMP #$10
+    i1254849     A:02 X:93 Y:01 S:F3 P:NVUbdIzc  $02:B03D: B0 0B     BCS $B04A
+    i1254850     A:02 X:93 Y:01 S:F3 P:NVUbdIzc  $02:B03F: 8D 04 04  STA $0404 = #$1D
+    i1254851     A:02 X:93 Y:01 S:F3 P:NVUbdIzc  $02:B042: A9 00     LDA #$00
+    i1254852     A:00 X:93 Y:01 S:F3 P:nVUbdIZc  $02:B044: 8D 05 04  STA $0405 = #$01
+    i1254853     A:00 X:93 Y:01 S:F3 P:nVUbdIZc  $02:B047: F0 A8     BEQ $AFF1
