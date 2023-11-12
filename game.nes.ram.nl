@@ -16,5 +16,7 @@ $00C4#vCheckpoint#
 $001C#vBtnPressedInGame#
 $005F#vChrLiveStatus#
 $0064#vScreenChrPosX#
-$0027#vChrPosX#
+$0027#vLowViewPortPosX#
 $006A#vScreenChrPosY#
+$004B#vHighViewPortPosX#
+$0066#vLowChrPosX#

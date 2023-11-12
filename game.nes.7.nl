@@ -163,3 +163,6 @@ $D0A3#prepare_14_15_16_17_18#
 $C30F#screen_on#
 $C313#screen_off#
 $FB9A#prepare_position_by_checkpoint#
+$D96D#get_absolute_chr_positions#
+$D96F#get_relative_chr_positions#
+$D974#get_short_chr_positions#

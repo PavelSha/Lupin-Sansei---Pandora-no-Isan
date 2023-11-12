@@ -1003,8 +1003,8 @@ i8012796     A:BF X:00 Y:01 S:F5 P:NvUbdIzc  $07:D36A: 20 6E AD  JSR $AD6E
     i8012802     A:00 X:00 Y:01 S:F3 P:NvUbdIzc  $06:AD7C: D0 4F     BNE $ADCD
     i8012803     A:00 X:00 Y:01 S:F3 P:NvUbdIzc  $06:ADCD: 60        RTS (from $AD6E) ----------------------------
 i8012804     A:00 X:00 Y:01 S:F5 P:NvUbdIzc  $07:D36D: 20 74 D9  JSR $D974
-i8012805     A:00 X:00 Y:01 S:F3 P:NvUbdIzc  $07:D974: A5 66     LDA $66 = #$30
-i8012806     A:30 X:00 Y:01 S:F3 P:nvUbdIzc  $07:D976: 85 01     STA $01 = #$00
+---COMMENTED! i8012805     A:00 X:00 Y:01 S:F3 P:NvUbdIzc  $07:D974: A5 66     LDA $66 = #$30
+---COMMENTED! i8012806     A:30 X:00 Y:01 S:F3 P:nvUbdIzc  $07:D976: 85 01     STA $01 = #$00
 i8012807     A:30 X:00 Y:01 S:F3 P:nvUbdIzc  $07:D978: A5 68     LDA $68 = #$00
 i8012808     A:00 X:00 Y:01 S:F3 P:nvUbdIZc  $07:D97A: 85 4D     STA $4D = #$FF
 i8012809     A:00 X:00 Y:01 S:F3 P:nvUbdIZc  $07:D97C: 60        RTS (from $D974) ----------------------------

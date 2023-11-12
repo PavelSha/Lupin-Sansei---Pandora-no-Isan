@@ -1,0 +1,265 @@
+FCEUX 2.6.6-interim git58b87387eb934976373f5febbf85261fa427c30e - Trace Log File
+(8092826 lines skipped)
+$07:DBAD: 4C 52 DC  JMP $DC52                                    A:40 X:00 Y:1D S:F5 P:nvUbdIzC 
+---COMMENTED! $07:DC52: 30 1E     BMI $DC72                                    A:40 X:00 Y:1D S:F5 P:nvUbdIzC 
+---COMMENTED! $07:DC54: A5 6C     LDA $6C = #$00                               A:40 X:00 Y:1D S:F5 P:nvUbdIzC 
+---COMMENTED! $07:DC56: 6A        ROR                                          A:00 X:00 Y:1D S:F5 P:nvUbdIZC 
+---COMMENTED! $07:DC57: B0 05     BCS $DC5E                                    A:80 X:00 Y:1D S:F5 P:NvUbdIzc 
+---COMMENTED! $07:DC59: E6 6C     INC $6C = #$00                               A:80 X:00 Y:1D S:F5 P:NvUbdIzc 
+$07:DC5B: 20 F1 DC  JSR $DCF1                                    A:80 X:00 Y:1D S:F5 P:nvUbdIzc 
+(4 lines skipped)
+$07:DC5E: 20 B1 DC  JSR $DCB1                                    A:04 X:00 Y:1D S:F5 P:nvUbdIzc 
+$07:DCB1: 20 34 DD  JSR $DD34                                    A:04 X:00 Y:1D S:F3 P:nvUbdIzc 
+$07:DD34: A5 5E     LDA $5E v_no_level = #$00                    A:04 X:00 Y:1D S:F1 P:nvUbdIzc 
+$07:DD36: C9 03     CMP #$03                                     A:00 X:00 Y:1D S:F1 P:nvUbdIZc 
+$07:DD38: D0 0A     BNE $DD44                                    A:00 X:00 Y:1D S:F1 P:NvUbdIzc 
+$07:DD44: 20 6D D9  JSR $D96D                                    A:00 X:00 Y:1D S:F1 P:NvUbdIzc 
+---COMMENTED! $07:D96D: A9 00     LDA #$00                                     A:00 X:00 Y:1D S:EF P:NvUbdIzc 
+---COMMENTED! $07:D96F: 18        CLC                                          A:00 X:00 Y:1D S:EF P:nvUbdIZc 
+---COMMENTED! $07:D970: 65 6A     ADC $6A vScreenChrPosY = #$BF                A:00 X:00 Y:1D S:EF P:nvUbdIZc 
+---COMMENTED! $07:D972: 85 00     STA $00 = #$C0                               A:BF X:00 Y:1D S:EF P:NvUbdIzc 
+(5 lines skipped)
+$07:DD47: A9 F8     LDA #$F8                                     A:00 X:00 Y:1D S:F1 P:nvUbdIZc 
+$07:DD49: 20 AD D3  JSR $D3AD                                    A:F8 X:00 Y:1D S:F1 P:NvUbdIzc 
+$07:D3AD: 20 9F D3  JSR $D39F                                    A:F8 X:00 Y:1D S:EF P:NvUbdIzc 
+$07:D39F: 18        CLC                                          A:F8 X:00 Y:1D S:ED P:NvUbdIzc 
+$07:D3A0: 65 01     ADC $01 = #$30                               A:F8 X:00 Y:1D S:ED P:NvUbdIzc 
+$07:D3A2: 85 01     STA $01 = #$30                               A:28 X:00 Y:1D S:ED P:nvUbdIzC 
+$07:D3A4: A5 4D     LDA $4D = #$00                               A:28 X:00 Y:1D S:ED P:nvUbdIzC 
+$07:D3A6: 69 FF     ADC #$FF                                     A:00 X:00 Y:1D S:ED P:nvUbdIZC 
+$07:D3A8: 85 4D     STA $4D = #$00                               A:00 X:00 Y:1D S:ED P:nvUbdIZC 
+$07:D3AA: 4C E5 D2  JMP $D2E5                                    A:00 X:00 Y:1D S:ED P:nvUbdIZC 
+(129 lines skipped)
+$07:D338: 46 04     LSR $04 = #$00                               A:08 X:00 Y:0C S:EC P:nvUbdIzC 
+$07:D33A: 46 04     LSR $04 = #$00                               A:08 X:00 Y:0C S:EC P:nvUbdIZc 
+$07:D33C: 46 04     LSR $04 = #$00                               A:08 X:00 Y:0C S:EC P:nvUbdIZc 
+$07:D33E: 46 04     LSR $04 = #$00                               A:08 X:00 Y:0C S:EC P:nvUbdIZc 
+(5 lines skipped)
+$07:D3B0: C9 01     CMP #$01                                     A:00 X:00 Y:0C S:EF P:nvUbdIZc 
+$07:D3B2: D0 01     BNE $D3B5                                    A:00 X:00 Y:0C S:EF P:NvUbdIzc 
+$07:D3B5: 48        PHA                                          A:00 X:00 Y:0C S:EF P:NvUbdIzc 
+$07:D3B6: A5 5E     LDA $5E v_no_level = #$00                    A:00 X:00 Y:0C S:EE P:NvUbdIzc 
+$07:D3B8: C9 03     CMP #$03                                     A:00 X:00 Y:0C S:EE P:nvUbdIZc 
+$07:D3BA: D0 35     BNE $D3F1                                    A:00 X:00 Y:0C S:EE P:NvUbdIzc 
+$07:D3F1: 68        PLA                                          A:00 X:00 Y:0C S:EE P:NvUbdIzc 
+$07:D3F2: 60        RTS (from $D3AD) ----------------------------A:00 X:00 Y:0C S:EF P:nvUbdIZc 
+$07:DD4C: C9 01     CMP #$01                                     A:00 X:00 Y:0C S:F1 P:nvUbdIZc 
+$07:DD4E: 60        RTS (from $DD34) ----------------------------A:00 X:00 Y:0C S:F1 P:NvUbdIzc 
+$07:DCB4: F0 3B     BEQ $DCF1                                    A:00 X:00 Y:0C S:F3 P:NvUbdIzc 
+$07:DCB6: A9 80     LDA #$80                                     A:00 X:00 Y:0C S:F3 P:NvUbdIzc 
+$07:DCB8: D0 32     BNE $DCEC                                    A:80 X:00 Y:0C S:F3 P:NvUbdIzc 
+$07:DCEC: 85 42     STA $42 = #$00                               A:80 X:00 Y:0C S:F3 P:NvUbdIzc 
+$07:DCEE: 4C 34 E5  JMP $E534                                    A:80 X:00 Y:0C S:F3 P:NvUbdIzc 
+$07:E534: A5 71     LDA $71 = #$04                               A:80 X:00 Y:0C S:F3 P:NvUbdIzc 
+$07:E536: C9 02     CMP #$02                                     A:04 X:00 Y:0C S:F3 P:nvUbdIzc 
+$07:E538: 90 41     BCC $E57B                                    A:04 X:00 Y:0C S:F3 P:nvUbdIzC 
+$07:E53A: C9 04     CMP #$04                                     A:04 X:00 Y:0C S:F3 P:nvUbdIzC 
+$07:E53C: 90 39     BCC $E577                                    A:04 X:00 Y:0C S:F3 P:nvUbdIZC 
+$07:E53E: C9 06     CMP #$06                                     A:04 X:00 Y:0C S:F3 P:nvUbdIZC 
+$07:E540: 90 1D     BCC $E55F                                    A:04 X:00 Y:0C S:F3 P:NvUbdIzc 
+$07:E55F: A9 03     LDA #$03                                     A:04 X:00 Y:0C S:F3 P:NvUbdIzc 
+$07:E561: 25 2C     AND $2C vLowCounter = #$08                   A:03 X:00 Y:0C S:F3 P:nvUbdIzc 
+$07:E563: F0 1C     BEQ $E581                                    A:00 X:00 Y:0C S:F3 P:nvUbdIZc 
+$07:E581: 60        RTS (from $DCB1) ----------------------------A:00 X:00 Y:0C S:F3 P:nvUbdIZc 
+$07:DC61: 20 82 DC  JSR $DC82                                    A:00 X:00 Y:0C S:F5 P:nvUbdIZc 
+$07:DC82: A5 2C     LDA $2C vLowCounter = #$08                   A:00 X:00 Y:0C S:F3 P:nvUbdIZc 
+$07:DC84: 29 03     AND #$03                                     A:08 X:00 Y:0C S:F3 P:nvUbdIzc 
+$07:DC86: D0 0C     BNE $DC94                                    A:00 X:00 Y:0C S:F3 P:nvUbdIZc 
+$07:DC88: A2 0C     LDX #$0C                                     A:00 X:00 Y:0C S:F3 P:nvUbdIZc 
+$07:DC8A: E6 71     INC $71 = #$04                               A:00 X:0C Y:0C S:F3 P:nvUbdIzc 
+$07:DC8C: E4 71     CPX $71 = #$05                               A:00 X:0C Y:0C S:F3 P:nvUbdIzc 
+$07:DC8E: B0 02     BCS $DC92                                    A:00 X:0C Y:0C S:F3 P:nvUbdIzC 
+$07:DC92: 38        SEC                                          A:00 X:0C Y:0C S:F3 P:nvUbdIzC 
+$07:DC93: 60        RTS (from $DC82) ----------------------------A:00 X:0C Y:0C S:F3 P:nvUbdIzC 
+$07:DC64: 20 96 DC  JSR $DC96                                    A:00 X:0C Y:0C S:F5 P:nvUbdIzC 
+$07:DC96: A9 07     LDA #$07                                     A:00 X:0C Y:0C S:F3 P:nvUbdIzC 
+$07:DC98: 25 2C     AND $2C vLowCounter = #$08                   A:07 X:0C Y:0C S:F3 P:nvUbdIzC 
+$07:DC9A: D0 F9     BNE $DC95                                    A:00 X:0C Y:0C S:F3 P:nvUbdIZC 
+$07:DC9C: E6 70     INC $70 = #$00                               A:00 X:0C Y:0C S:F3 P:nvUbdIZC 
+$07:DC9E: A5 70     LDA $70 = #$01                               A:00 X:0C Y:0C S:F3 P:nvUbdIzC 
+$07:DCA0: C9 03     CMP #$03                                     A:01 X:0C Y:0C S:F3 P:nvUbdIzC 
+$07:DCA2: 90 04     BCC $DCA8                                    A:01 X:0C Y:0C S:F3 P:NvUbdIzc 
+$07:DCA8: 60        RTS (from $DC96) ----------------------------A:01 X:0C Y:0C S:F3 P:NvUbdIzc 
+$07:DC67: A4 70     LDY $70 = #$01                               A:01 X:0C Y:0C S:F5 P:NvUbdIzc 
+$07:DC69: BE 6F DC  LDX $DC6F,Y @ $DC70 = #$08                   A:01 X:0C Y:01 S:F5 P:nvUbdIzc 
+$07:DC6C: 4C C2 DB  JMP $DBC2                                    A:01 X:08 Y:01 S:F5 P:nvUbdIzc 
+(28 lines skipped)
+$07:DBE4: E8        INX                                          A:00 X:08 Y:01 S:F5 P:nvUbdIZC 
+$07:DBE5: E8        INX                                          A:00 X:09 Y:01 S:F5 P:nvUbdIzC 
+(38718 lines skipped)
+$02:AEC7: 29 0F     AND #$0F                                     A:BF X:7E Y:01 S:F5 P:nvUbdIzC 
+$02:AEC9: F0 1D     BEQ $AEE8                                    A:0F X:7E Y:01 S:F5 P:nvUbdIzC 
+$02:AECB: 48        PHA                                          A:0F X:7E Y:01 S:F5 P:nvUbdIzC 
+$02:AECC: B1 FE     LDA ($FE),Y @ $87FA = #$00                   A:0F X:7E Y:01 S:F4 P:nvUbdIzC 
+$02:AECE: D0 0D     BNE $AEDD                                    A:00 X:7E Y:01 S:F4 P:nvUbdIZC 
+$02:AED0: 68        PLA                                          A:00 X:7E Y:01 S:F4 P:nvUbdIZC 
+$02:AED1: DE 19 04  DEC $0419,X @ $0497 = #$00                   A:0F X:7E Y:01 S:F5 P:nvUbdIzC 
+$02:AED4: F0 1C     BEQ $AEF2                                    A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
+$02:AED6: 10 10     BPL $AEE8                                    A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
+$02:AED8: 9D 19 04  STA $0419,X @ $0497 = #$FF                   A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
+$02:AEDB: 30 0B     BMI $AEE8                                    A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
+$02:AEE8: B1 FE     LDA ($FE),Y @ $87FA = #$00                   A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
+$02:AEEA: D0 03     BNE $AEEF                                    A:00 X:7E Y:01 S:F5 P:nvUbdIZC 
+$02:AEEC: BD 22 04  LDA $0422,X @ $04A0 = #$03                   A:00 X:7E Y:01 S:F5 P:nvUbdIZC 
+$02:AEEF: 9D 10 04  STA $0410,X @ $048E = #$05                   A:03 X:7E Y:01 S:F5 P:nvUbdIzC 
+$02:AEF2: 4C 38 AE  JMP $AE38                                    A:03 X:7E Y:01 S:F5 P:nvUbdIzC 
+(26422 lines skipped)
+$07:DBB4: A5 6C     LDA $6C = #$01                               A:20 X:00 Y:1D S:F7 P:nvUbdIzC 
+$07:DBB6: 09 02     ORA #$02                                     A:01 X:00 Y:1D S:F7 P:nvUbdIzC 
+$07:DBB8: 85 6C     STA $6C = #$01                               A:03 X:00 Y:1D S:F7 P:nvUbdIzC 
+$07:DBBA: 20 63 DF  JSR $DF63                                    A:03 X:00 Y:1D S:F7 P:nvUbdIzC 
+$07:DF63: A5 1C     LDA $1C vBtnPressedInGame = #$20             A:03 X:00 Y:1D S:F5 P:nvUbdIzC 
+$07:DF65: 29 C0     AND #$C0                                     A:20 X:00 Y:1D S:F5 P:nvUbdIzC 
+$07:DF67: F0 23     BEQ $DF8C                                    A:00 X:00 Y:1D S:F5 P:nvUbdIZC 
+$07:DF8C: 60        RTS (from $DF63) ----------------------------A:00 X:00 Y:1D S:F5 P:nvUbdIZC 
+$07:DBBD: A2 14     LDX #$14                                     A:00 X:00 Y:1D S:F7 P:nvUbdIZC 
+(65410 lines skipped)
+$07:DB67: 4C 87 DD  JMP $DD87                                    A:01 X:00 Y:1D S:F5 P:nvUbdIzC 
+$07:DD87: A0 00     LDY #$00                                     A:01 X:00 Y:1D S:F5 P:nvUbdIzC 
+$07:DD89: A5 1C     LDA $1C vBtnPressedInGame = #$01             A:01 X:00 Y:00 S:F5 P:nvUbdIZC 
+$07:DD8B: 29 F0     AND #$F0                                     A:01 X:00 Y:00 S:F5 P:nvUbdIzC 
+$07:DD8D: F0 0B     BEQ $DD9A                                    A:00 X:00 Y:00 S:F5 P:nvUbdIZC 
+$07:DD9A: B9 58 E3  LDA $E358,Y @ $E358 = #$06                   A:00 X:00 Y:00 S:F5 P:nvUbdIZC 
+$07:DD9D: 85 6F     STA $6F = #$00                               A:06 X:00 Y:00 S:F5 P:nvUbdIzC 
+$07:DD9F: 84 6E     STY $6E = #$00                               A:06 X:00 Y:00 S:F5 P:nvUbdIzC 
+$07:DDA1: A5 6C     LDA $6C = #$01                               A:06 X:00 Y:00 S:F5 P:nvUbdIzC 
+$07:DDA3: 09 10     ORA #$10                                     A:01 X:00 Y:00 S:F5 P:nvUbdIzC 
+$07:DDA5: 85 6C     STA $6C = #$01                               A:11 X:00 Y:00 S:F5 P:nvUbdIzC 
+$07:DDA7: A5 6A     LDA $6A vScreenChrPosY = #$BF                A:11 X:00 Y:00 S:F5 P:nvUbdIzC 
+$07:DDA9: C9 DF     CMP #$DF                                     A:BF X:00 Y:00 S:F5 P:NvUbdIzC 
+$07:DDAB: B0 59     BCS $DE06                                    A:BF X:00 Y:00 S:F5 P:NvUbdIzc 
+$07:DDAD: A5 6C     LDA $6C = #$11                               A:BF X:00 Y:00 S:F5 P:NvUbdIzc 
+$07:DDAF: 29 08     AND #$08                                     A:11 X:00 Y:00 S:F5 P:nvUbdIzc 
+$07:DDB1: D0 23     BNE $DDD6                                    A:00 X:00 Y:00 S:F5 P:nvUbdIZc 
+$07:DDB3: 20 57 DF  JSR $DF57                                    A:00 X:00 Y:00 S:F5 P:nvUbdIZc 
+(3 lines skipped)
+$07:DDB6: F0 04     BEQ $DDBC                                    A:00 X:00 Y:00 S:F5 P:nvUbdIZc 
+$07:DDBC: A5 6F     LDA $6F = #$06                               A:00 X:00 Y:00 S:F5 P:nvUbdIZc 
+$07:DDBE: C9 0C     CMP #$0C                                     A:06 X:00 Y:00 S:F5 P:nvUbdIzc 
+$07:DDC0: 90 0E     BCC $DDD0                                    A:06 X:00 Y:00 S:F5 P:NvUbdIzc 
+$07:DDD0: A5 6E     LDA $6E = #$00                               A:06 X:00 Y:00 S:F5 P:NvUbdIzc 
+$07:DDD2: C9 03     CMP #$03                                     A:00 X:00 Y:00 S:F5 P:nvUbdIZc 
+$07:DDD4: D0 30     BNE $DE06                                    A:00 X:00 Y:00 S:F5 P:NvUbdIzc 
+$07:DE06: A6 6F     LDX $6F = #$06                               A:00 X:00 Y:00 S:F5 P:NvUbdIzc 
+$07:DE08: BD 5D E3  LDA $E35D,X @ $E363 = #$FC                   A:00 X:06 Y:00 S:F5 P:nvUbdIzc 
+$07:DE0B: 18        CLC                                          A:FC X:06 Y:00 S:F5 P:NvUbdIzc 
+$07:DE0C: 65 6A     ADC $6A vScreenChrPosY = #$BF                A:FC X:06 Y:00 S:F5 P:NvUbdIzc 
+$07:DE0E: C9 DF     CMP #$DF                                     A:BB X:06 Y:00 S:F5 P:NvUbdIzC 
+$07:DE10: 90 09     BCC $DE1B                                    A:BB X:06 Y:00 S:F5 P:NvUbdIzc 
+$07:DE1B: 85 6A     STA $6A vScreenChrPosY = #$BF                A:BB X:06 Y:00 S:F5 P:NvUbdIzc 
+$07:DE1D: 85 00     STA $00 = #$C0                               A:BB X:06 Y:00 S:F5 P:NvUbdIzc 
+$07:DE1F: A2 0C     LDX #$0C                                     A:BB X:06 Y:00 S:F5 P:NvUbdIzc 
+$07:DE21: AD 14 02  LDA $0214 = #$80                             A:BB X:0C Y:00 S:F5 P:nvUbdIzc 
+$07:DE24: C9 41     CMP #$41                                     A:80 X:0C Y:00 S:F5 P:NvUbdIzc 
+$07:DE26: F0 08     BEQ $DE30                                    A:80 X:0C Y:00 S:F5 P:nvUbdIzC 
+$07:DE28: A5 6E     LDA $6E = #$00                               A:80 X:0C Y:00 S:F5 P:nvUbdIzC 
+$07:DE2A: C9 02     CMP #$02                                     A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
+$07:DE2C: D0 02     BNE $DE30                                    A:00 X:0C Y:00 S:F5 P:NvUbdIzc 
+$07:DE30: A5 6F     LDA $6F = #$06                               A:00 X:0C Y:00 S:F5 P:NvUbdIzc 
+$07:DE32: C9 18     CMP #$18                                     A:06 X:0C Y:00 S:F5 P:nvUbdIzc 
+$07:DE34: B0 03     BCS $DE39                                    A:06 X:0C Y:00 S:F5 P:NvUbdIzc 
+$07:DE36: 4C D2 DE  JMP $DED2                                    A:06 X:0C Y:00 S:F5 P:NvUbdIzc 
+$07:DED2: A5 5E     LDA $5E v_no_level = #$00                    A:06 X:0C Y:00 S:F5 P:NvUbdIzc 
+$07:DED4: C9 03     CMP #$03                                     A:00 X:0C Y:00 S:F5 P:nvUbdIZc 
+$07:DED6: D0 0B     BNE $DEE3                                    A:00 X:0C Y:00 S:F5 P:NvUbdIzc 
+$07:DEE3: 4C 86 DE  JMP $DE86                                    A:00 X:0C Y:00 S:F5 P:NvUbdIzc 
+$07:DE86: A5 6F     LDA $6F = #$06                               A:00 X:0C Y:00 S:F5 P:NvUbdIzc 
+$07:DE88: C9 18     CMP #$18                                     A:06 X:0C Y:00 S:F5 P:nvUbdIzc 
+$07:DE8A: 90 08     BCC $DE94                                    A:06 X:0C Y:00 S:F5 P:NvUbdIzc 
+$07:DE94: E6 6F     INC $6F = #$06                               A:06 X:0C Y:00 S:F5 P:NvUbdIzc 
+$07:DE96: A9 2F     LDA #$2F                                     A:06 X:0C Y:00 S:F5 P:nvUbdIzc 
+$07:DE98: C5 6F     CMP $6F = #$07                               A:2F X:0C Y:00 S:F5 P:nvUbdIzc 
+$07:DE9A: B0 02     BCS $DE9E                                    A:2F X:0C Y:00 S:F5 P:nvUbdIzC 
+$07:DE9E: A5 6C     LDA $6C = #$11                               A:2F X:0C Y:00 S:F5 P:nvUbdIzC 
+$07:DEA0: 29 08     AND #$08                                     A:11 X:0C Y:00 S:F5 P:nvUbdIzC 
+$07:DEA2: F0 02     BEQ $DEA6                                    A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
+$07:DEA6: 4C C2 DB  JMP $DBC2                                    A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
+(55939 lines skipped)
+$07:DDC2: C9 15     CMP #$15                                     A:0C X:00 Y:03 S:F7 P:nvUbdIZC 
+$07:DDC4: B0 0A     BCS $DDD0                                    A:0C X:00 Y:03 S:F7 P:NvUbdIzc 
+$07:DDC6: A5 1C     LDA $1C vBtnPressedInGame = #$00             A:0C X:00 Y:03 S:F7 P:NvUbdIzc 
+$07:DDC8: 29 01     AND #$01                                     A:00 X:00 Y:03 S:F7 P:nvUbdIZc 
+$07:DDCA: D0 04     BNE $DDD0                                    A:00 X:00 Y:03 S:F7 P:nvUbdIZc 
+$07:DDCC: A9 15     LDA #$15                                     A:00 X:00 Y:03 S:F7 P:nvUbdIZc 
+$07:DDCE: 85 6F     STA $6F = #$0C                               A:15 X:00 Y:03 S:F7 P:nvUbdIzc 
+(28139 lines skipped)
+$07:DE39: A5 6A     LDA $6A vScreenChrPosY = #$A7                A:18 X:0C Y:03 S:F7 P:nvUbdIZC 
+$07:DE3B: 85 00     STA $00 = #$A7                               A:A7 X:0C Y:03 S:F7 P:NvUbdIzC 
+$07:DE3D: C9 DF     CMP #$DF                                     A:A7 X:0C Y:03 S:F7 P:NvUbdIzC 
+$07:DE3F: 90 03     BCC $DE44                                    A:A7 X:0C Y:03 S:F7 P:NvUbdIzc 
+$07:DE44: E6 00     INC $00 = #$A7                               A:A7 X:0C Y:03 S:F7 P:NvUbdIzc 
+$07:DE46: 20 6A D3  JSR $D36A                                    A:A7 X:0C Y:03 S:F7 P:NvUbdIzc 
+(160 lines skipped)
+$07:D37C: A9 F8     LDA #$F8                                     A:00 X:0C Y:02 S:F4 P:NvUbdIzc 
+$07:D37E: 20 9F D3  JSR $D39F                                    A:F8 X:0C Y:02 S:F4 P:NvUbdIzc 
+(145 lines skipped)
+$07:D381: 85 01     STA $01 = #$2C                               A:00 X:0C Y:0C S:F4 P:nvUbdIZc 
+$07:D383: 68        PLA                                          A:00 X:0C Y:0C S:F4 P:nvUbdIZc 
+$07:D384: 85 02     STA $02 = #$B9                               A:00 X:0C Y:0C S:F5 P:nvUbdIZc 
+$07:D386: 05 01     ORA $01 = #$00                               A:00 X:0C Y:0C S:F5 P:nvUbdIZc 
+$07:D388: 60        RTS (from $D36A) ----------------------------A:00 X:0C Y:0C S:F5 P:nvUbdIZc 
+$07:DE49: F0 3B     BEQ $DE86                                    A:00 X:0C Y:0C S:F7 P:nvUbdIZc 
+(3 lines skipped)
+$07:DE8C: 20 8A E7  JSR $E78A                                    A:18 X:0C Y:0C S:F7 P:nvUbdIZC 
+$07:E78A: A5 46     LDA $46 = #$00                               A:18 X:0C Y:0C S:F5 P:nvUbdIZC 
+$07:E78C: D0 37     BNE $E7C5                                    A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
+$07:E78E: 20 46 EF  JSR $EF46 EF46_switch_bank_4_p1_p2           A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
+(7 lines skipped)
+$07:E791: A5 6C     LDA $6C = #$11                               A:08 X:0C Y:0C S:F5 P:nvUbdIzC 
+$07:E793: 29 08     AND #$08                                     A:11 X:0C Y:0C S:F5 P:nvUbdIzC 
+$07:E795: D0 2E     BNE $E7C5                                    A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
+$07:E797: A0 00     LDY #$00                                     A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
+$07:E799: A5 6C     LDA $6C = #$11                               A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
+$07:E79B: 6A        ROR                                          A:11 X:0C Y:00 S:F5 P:nvUbdIzC 
+$07:E79C: B0 02     BCS $E7A0                                    A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
+$07:E7A0: B9 CE 85  LDA $85CE,Y @ $85CE = #$88                   A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
+$07:E7A3: 38        SEC                                          A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
+$07:E7A4: E5 66     SBC $66 = #$30                               A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
+$07:E7A6: 85 01     STA $01 = #$00                               A:58 X:0C Y:00 S:F5 P:nVUbdIzC 
+$07:E7A8: B9 CF 85  LDA $85CF,Y @ $85CF = #$03                   A:58 X:0C Y:00 S:F5 P:nVUbdIzC 
+$07:E7AB: E5 68     SBC $68 = #$00                               A:03 X:0C Y:00 S:F5 P:nVUbdIzC 
+$07:E7AD: B0 16     BCS $E7C5                                    A:03 X:0C Y:00 S:F5 P:nvUbdIzC 
+$07:E7C5: A5 6D     LDA $6D = #$00                               A:03 X:0C Y:00 S:F5 P:nvUbdIzC 
+$07:E7C7: 29 DF     AND #$DF                                     A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
+$07:E7C9: 85 6D     STA $6D = #$00                               A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
+$07:E7CB: 18        CLC                                          A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
+$07:E7CC: 60        RTS (from $E78A) ----------------------------A:00 X:0C Y:00 S:F5 P:nvUbdIZc 
+$07:DE8F: 90 03     BCC $DE94                                    A:00 X:0C Y:00 S:F7 P:nvUbdIZc 
+(102558 lines skipped)
+$07:DE4B: C9 02     CMP #$02                                     A:01 X:0C Y:1D S:F5 P:nvUbdIzC 
+$07:DE4D: F0 07     BEQ $DE56                                    A:01 X:0C Y:1D S:F5 P:NvUbdIzc 
+$07:DE4F: 20 7C DD  JSR $DD7C                                    A:01 X:0C Y:1D S:F5 P:NvUbdIzc 
+$07:DD7C: A9 F9     LDA #$F9                                     A:01 X:0C Y:1D S:F3 P:NvUbdIzc 
+$07:DD7E: 20 6F D9  JSR $D96F                                    A:F9 X:0C Y:1D S:F3 P:NvUbdIzc 
+(8 lines skipped)
+$07:DD81: 20 70 D3  JSR $D370                                    A:00 X:0C Y:1D S:F3 P:nvUbdIZC 
+(298 lines skipped)
+$07:DD84: C9 01     CMP #$01                                     A:00 X:0C Y:0C S:F3 P:nvUbdIZc 
+$07:DD86: 60        RTS (from $DD7C) ----------------------------A:00 X:0C Y:0C S:F3 P:NvUbdIzc 
+$07:DE52: F0 32     BEQ $DE86                                    A:00 X:0C Y:0C S:F5 P:NvUbdIzc 
+$07:DE54: D0 11     BNE $DE67                                    A:00 X:0C Y:0C S:F5 P:NvUbdIzc 
+$07:DE67: A5 6D     LDA $6D = #$00                               A:00 X:0C Y:0C S:F5 P:NvUbdIzc 
+$07:DE69: 29 01     AND #$01                                     A:00 X:0C Y:0C S:F5 P:nvUbdIZc 
+$07:DE6B: D0 03     BNE $DE70                                    A:00 X:0C Y:0C S:F5 P:nvUbdIZc 
+$07:DE6D: 20 32 E3  JSR $E332                                    A:00 X:0C Y:0C S:F5 P:nvUbdIZc 
+$07:E332: A5 6A     LDA $6A vScreenChrPosY = #$C0                A:00 X:0C Y:0C S:F3 P:nvUbdIZc 
+$07:E334: 29 07     AND #$07                                     A:C0 X:0C Y:0C S:F3 P:NvUbdIzc 
+$07:E336: C9 07     CMP #$07                                     A:00 X:0C Y:0C S:F3 P:nvUbdIZc 
+$07:E338: F0 04     BEQ $E33E                                    A:00 X:0C Y:0C S:F3 P:NvUbdIzc 
+$07:E33A: C6 6A     DEC $6A vScreenChrPosY = #$C0                A:00 X:0C Y:0C S:F3 P:NvUbdIzc 
+$07:E33C: D0 F4     BNE $E332                                    A:00 X:0C Y:0C S:F3 P:NvUbdIzc 
+(4 lines skipped)
+$07:E33E: 20 64 D0  JSR $D064                                    A:07 X:0C Y:0C S:F3 P:nvUbdIZC 
+(10 lines skipped)
+$07:E341: 29 0F     AND #$0F                                     A:C4 X:0C Y:0C S:F3 P:NvUbdIzc 
+$07:E343: A8        TAY                                          A:04 X:0C Y:0C S:F3 P:nvUbdIzc 
+$07:E344: B9 48 E3  LDA $E348,Y @ $E34C = #$04                   A:04 X:0C Y:04 S:F3 P:nvUbdIzc 
+$07:E347: 60        RTS (from $E332) ----------------------------A:04 X:0C Y:04 S:F3 P:nvUbdIzc 
+$07:DE70: A5 6C     LDA $6C = #$11                               A:04 X:0C Y:04 S:F5 P:nvUbdIzc 
+$07:DE72: 29 08     AND #$08                                     A:11 X:0C Y:04 S:F5 P:nvUbdIzc 
+$07:DE74: F0 0D     BEQ $DE83                                    A:00 X:0C Y:04 S:F5 P:nvUbdIZc 
+$07:DE83: 20 5C DF  JSR $DF5C                                    A:00 X:0C Y:04 S:F5 P:nvUbdIZc 
+$07:DF5C: A5 6C     LDA $6C = #$11                               A:00 X:0C Y:04 S:F3 P:nvUbdIZc 
+$07:DF5E: 29 87     AND #$87                                     A:11 X:0C Y:04 S:F3 P:nvUbdIzc 
+$07:DF60: 85 6C     STA $6C = #$11                               A:01 X:0C Y:04 S:F3 P:nvUbdIzc 
+$07:DF62: 60        RTS (from $DF5C) ----------------------------A:01 X:0C Y:04 S:F3 P:nvUbdIzc 

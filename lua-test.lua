@@ -1,11 +1,20 @@
 oldValue = 0;
-no       = 0x0046;
---no       = 0x003B;
---no       = 0x003C;
+noDamageB = 0x003A;
 wait10   = 0;
+
+--no        = 0x0068;
+no        = 0x0066;
+--no        = 0x0046;
+--no        = 0x003B;
+--no        = 0x003C;
 
 while (true) do
   value = memory.readbyte(no);
+
+  -- Cheat 'no damage'
+  if memory.readbyte(noDamageB) ~= 0x80 then
+    memory.writebyte(noDamageB, 0x80);
+  end;
   if oldValue ~= value then
     oldValue = value;
     emu.print(string.format("addr:%04X, frame: %d, value: %02X", no, emu.framecount(), value));

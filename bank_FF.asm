@@ -4,6 +4,7 @@
 ; 0x01C010-0x02000F
 
 .import addr_tbl_checkpoints
+.import tbl_background_screens ; bank 00 (Page 1)
 .import tbl_background_palette ; bank 01 (Page 2)
 .import tbl_ptr_corridors ; bank 04 (Page 1)
 .import tbl_ptr_destructible_walls ; bank 04 (Page 1)
@@ -136,16 +137,16 @@ C - - - - - 0x01C0C9 07:C0B9: 8D 15 40  STA APU_STATUS    ; clear
 C - - - - - 0x01C0CC 07:C0BC: 20 19 C3  JSR sub_C319_fill_ppu
 C - - - - - 0x01C0CF 07:C0BF: 20 58 C3  JSR sub_C358_clear_OAM
 C - - - - - 0x01C0D2 07:C0C2: 20 FC EF  JSR sub_EFFC
-C - - - - - 0x01C0D5 07:C0C5: A5 4B     LDA vHighChrPosX ;
+C - - - - - 0x01C0D5 07:C0C5: A5 4B     LDA vHighViewPortPosX ;
 C - - - - - 0x01C0D7 07:C0C7: 48        PHA              ; store the high position of the character
-C - - - - - 0x01C0D8 07:C0C8: A5 27     LDA vLowChrPosX  ; 
+C - - - - - 0x01C0D8 07:C0C8: A5 27     LDA vLowViewPortPosX  ; 
 C - - - - - 0x01C0DA 07:C0CA: 48        PHA              ; store the low position of the character
 C - - - - - 0x01C0DB 07:C0CB: 20 53 D4  JSR sub_D453
 C - - - - - 0x01C0DE 07:C0CE: 20 13 CE  JSR sub_CE13
 C - - - - - 0x01C0E1 07:C0D1: 68        PLA              ; retrieve the low position of the character
-C - - - - - 0x01C0E2 07:C0D2: 85 27     STA vLowChrPosX  ;
+C - - - - - 0x01C0E2 07:C0D2: 85 27     STA vLowViewPortPosX  ;
 C - - - - - 0x01C0E4 07:C0D4: 68        PLA              ; retrieve the high position of the character
-C - - - - - 0x01C0E5 07:C0D5: 29 01     AND #$01         ; multiplicity of vHighChrPosX by 2 sets the nametable address (0x2000 or 0x2400)
+C - - - - - 0x01C0E5 07:C0D5: 29 01     AND #$01         ; multiplicity of vHighViewPortPosX by 2 sets the nametable address (0x2000 or 0x2400)
 C - - - - - 0x01C0E7 07:C0D7: 09 08     ORA #$08         ; activate the right pattern table (0x1000)
 C - - - - - 0x01C0E9 07:C0D9: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01C0EB 07:C0DB: A9 00     LDA #$00
@@ -721,7 +722,7 @@ C - - - - - 0x01C4DF 07:C4CF: 60        RTS
 bra_C4D0_update_btn_pressed:
 C - - - - - 0x01C4E0 07:C4D0: 20 A7 C4  JSR sub_C4A7_read_io_controller
 C - - - - - 0x01C4E3 07:C4D3: A5 1E     LDA v_player1_btn_pressed
-C - - - - - 0x01C4E5 07:C4D5: 85 1C     STA v_btn_pressed_in_game
+C - - - - - 0x01C4E5 07:C4D5: 85 1C     STA vBtnPressedInGame
 C - - - - - 0x01C4E7 07:C4D7: 60        RTS
 
 sub_C4D8:
@@ -874,7 +875,7 @@ C - - - - - 0x01C5E5 07:C5D5: AD 09 01  LDA v_last_level
 C - - - - - 0x01C5E8 07:C5D8: F0 39     BEQ bra_C613_RTS ; Branch If a last played level is 0.
 C - - - - - 0x01C5EA 07:C5DA: A5 AD     LDA ram_00AD
 C - - - - - 0x01C5EC 07:C5DC: F0 35     BEQ bra_C613_RTS
-C - - - - - 0x01C5EE 07:C5DE: A5 1C     LDA v_btn_pressed_in_game
+C - - - - - 0x01C5EE 07:C5DE: A5 1C     LDA vBtnPressedInGame
 C - - - - - 0x01C5F0 07:C5E0: 29 30     AND #BIT_BUTTON_Up_OR_Down
 C - - - - - 0x01C5F2 07:C5E2: F0 0A     BEQ bra_C5EE_skip
 C - - - - - 0x01C5F4 07:C5E4: A2 8F     LDX #$8F
@@ -1158,7 +1159,7 @@ sub_C78E:
 C - - - - - 0x01C79E 07:C78E: AD F6 FF  LDA Set_features
 C - - - - - 0x01C7A1 07:C791: 30 13     BMI bra_C7A6_skip
 ; Only for test mode
-- - - - - - 0x01C7A3 07:C793: A5 1C     LDA v_btn_pressed_in_game
+- - - - - - 0x01C7A3 07:C793: A5 1C     LDA vBtnPressedInGame
 - - - - - - 0x01C7A5 07:C795: 29 40     AND #BIT_BUTTON_Left
 - - - - - - 0x01C7A7 07:C797: F0 0D     BEQ bra_C7A6_skip
 - - - - - - 0x01C7A9 07:C799: A9 08     LDA #BIT_BUTTON_START
@@ -2661,7 +2662,7 @@ C - - - - - 0x01D088 07:D078: 60        RTS
 ; Returns 0 in Register A if the button isn't pressed
 sub_D079_check_button_press: 
 C - - - - - 0x01D089 07:D079: 85 12     STA v_temp_check_buttons
-C - - - - - 0x01D08B 07:D07B: A5 1C     LDA v_btn_pressed_in_game
+C - - - - - 0x01D08B 07:D07B: A5 1C     LDA vBtnPressedInGame
 C - - - - - 0x01D08D 07:D07D: 25 12     AND v_temp_check_buttons
 C - - - - - 0x01D08F 07:D07F: F0 04     BEQ bra_D085_RTS ; If the button does not match the expected result
 C - - - - - 0x01D091 07:D081: 45 1D     EOR vCopy001C  ; The double click protection
@@ -3058,6 +3059,10 @@ C - - - - - 0x01D2F1 07:D2E1: 88        DEY
 C - - - - - 0x01D2F2 07:D2E2: 10 F8     BPL bra_D2DC
 C - - - - - 0x01D2F4 07:D2E4: 60        RTS
 
+; Params:
+; 0x0000 - vScreenChrPosY
+; 0x0001 - vLowChrPosX
+; 0x004D - vNoScreen
 loc_D2E5:
 sub_D2E5:
 C D 2 - - - 0x01D2F5 07:D2E5: 8A        TXA
@@ -3073,13 +3078,13 @@ C - - - - - 0x01D302 07:D2F2: 85 04     STA ram_0004
 C - - - - - 0x01D304 07:D2F4: A5 00     LDA ram_0000
 C - - - - - 0x01D306 07:D2F6: 38        SEC
 C - - - - - 0x01D307 07:D2F7: E9 30     SBC #$30
-C - - - - - 0x01D309 07:D2F9: B0 05     BCS bra_D300
+C - - - - - 0x01D309 07:D2F9: B0 05     BCS bra_D300_skip
 C - - - - - 0x01D30B 07:D2FB: 68        PLA
 C - - - - - 0x01D30C 07:D2FC: AA        TAX
 C - - - - - 0x01D30D 07:D2FD: A9 00     LDA #$00
 C - - - - - 0x01D30F 07:D2FF: 60        RTS
 
-bra_D300:
+bra_D300_skip:
 C - - - - - 0x01D310 07:D300: 20 5F D0  JSR sub_accumulator_shift_right_by_4
 C - - - - - 0x01D313 07:D303: 18        CLC
 C - - - - - 0x01D314 07:D304: 65 04     ADC ram_0004
@@ -3100,24 +3105,24 @@ C - - - - - 0x01D32D 07:D31D: 20 45 D5  JSR sub_D545
 C - - - - - 0x01D330 07:D320: 68        PLA
 C - - - - - 0x01D331 07:D321: 0A        ASL
 C - - - - - 0x01D332 07:D322: A8        TAY
-C - - - - - 0x01D333 07:D323: 90 02     BCC bra_D327
+C - - - - - 0x01D333 07:D323: 90 02     BCC bra_D327_skip
 C - - - - - 0x01D335 07:D325: E6 0F     INC ram_000F
-bra_D327:
+bra_D327_skip:
 C - - - - - 0x01D337 07:D327: A5 00     LDA ram_0000
 C - - - - - 0x01D339 07:D329: 29 08     AND #$08
-C - - - - - 0x01D33B 07:D32B: D0 01     BNE bra_D32E
+C - - - - - 0x01D33B 07:D32B: D0 01     BNE bra_D32E_skip
 C - - - - - 0x01D33D 07:D32D: C8        INY
-bra_D32E:
+bra_D32E_skip:
 C - - - - - 0x01D33E 07:D32E: B1 0E     LDA (ram_000E),Y
 C - - - - - 0x01D340 07:D330: 85 04     STA ram_0004
 C - - - - - 0x01D342 07:D332: A5 01     LDA ram_0001
 C - - - - - 0x01D344 07:D334: 29 08     AND #$08
-C - - - - - 0x01D346 07:D336: F0 08     BEQ bra_D340
+C - - - - - 0x01D346 07:D336: F0 08     BEQ bra_D340_skip
 C - - - - - 0x01D348 07:D338: 46 04     LSR ram_0004
 C - - - - - 0x01D34A 07:D33A: 46 04     LSR ram_0004
 C - - - - - 0x01D34C 07:D33C: 46 04     LSR ram_0004
 C - - - - - 0x01D34E 07:D33E: 46 04     LSR ram_0004
-bra_D340:
+bra_D340_skip:
 C - - - - - 0x01D350 07:D340: 68        PLA
 C - - - - - 0x01D351 07:D341: AA        TAX
 C - - - - - 0x01D352 07:D342: A5 04     LDA ram_0004
@@ -3126,11 +3131,11 @@ C - - - - - 0x01D356 07:D346: 60        RTS
 
 C - - - - - 0x01D357 07:D347: A5 5E     LDA v_no_level
 C - - - - - 0x01D359 07:D349: C9 03     CMP #$03
-C - - - - - 0x01D35B 07:D34B: D0 03     BNE bra_D350
+C - - - - - 0x01D35B 07:D34B: D0 03     BNE bra_D350_skip
 C - - - - - 0x01D35D 07:D34D: A9 01     LDA #$01
 C - - - - - 0x01D35F 07:D34F: 60        RTS
 
-bra_D350:
+bra_D350_skip:
 C - - - - - 0x01D360 07:D350: A9 F8     LDA #$F8
 C - - - - - 0x01D362 07:D352: 20 F0 D7  JSR sub_D7F0
 C - - - - - 0x01D365 07:D355: C9 01     CMP #$01
@@ -3154,11 +3159,11 @@ C - - - - - 0x01D36B 07:D35B: 4C 70 D3  JMP loc_D370
 sub_D36A:
 loc_D36A:
 C D 2 - - - 0x01D37A 07:D36A: 20 6E AD  JSR $AD6E
-C - - - - - 0x01D37D 07:D36D: 20 74 D9  JSR sub_D974
+C - - - - - 0x01D37D 07:D36D: 20 74 D9  JSR sub_D974_get_short_chr_positions
 loc_D370:
 sub_D370:
 C D 2 - - - 0x01D380 07:D370: A9 04     LDA #$04
-C - - - - - 0x01D382 07:D372: 20 89 D3  JSR sub_D389
+C - - - - - 0x01D382 07:D372: 20 89 D3  JSR sub_D389_increment_by_posX
 C - - - - - 0x01D385 07:D375: 48        PHA
 C - - - - - 0x01D386 07:D376: C9 01     CMP #$01
 C - - - - - 0x01D388 07:D378: D0 02     BNE bra_D37C
@@ -3174,7 +3179,12 @@ C - - - - - 0x01D394 07:D384: 85 02     STA ram_0002
 C - - - - - 0x01D396 07:D386: 05 01     ORA ram_0001
 C - - - - - 0x01D398 07:D388: 60        RTS
 
-sub_D389:
+; Params:
+; Register A - increment
+; 0x0000 - vScreenChrPosY
+; 0x0001 - vLowChrPosX
+; 0x004D - vNoScreen
+sub_D389_increment_by_posX:
 C - - - - - 0x01D399 07:D389: 18        CLC
 C - - - - - 0x01D39A 07:D38A: 65 01     ADC ram_0001
 C - - - - - 0x01D39C 07:D38C: 85 01     STA ram_0001
@@ -3183,8 +3193,13 @@ C - - - - - 0x01D3A0 07:D390: 69 00     ADC #$00
 C - - - - - 0x01D3A2 07:D392: 85 4D     STA ram_004D
 C - - - - - 0x01D3A4 07:D394: 4C E5 D2  JMP loc_D2E5
 
+; Params:
+; Register A - increment
+; 0x0000 - vScreenChrPosY
+; 0x0001 - vLowChrPosX
+; 0x004D - vNoScreen
 sub_D397:
-C D 2 - - - 0x01D3A7 07:D397: 20 89 D3  JSR sub_D389
+C D 2 - - - 0x01D3A7 07:D397: 20 89 D3  JSR sub_D389_increment_by_posX
 C - - - - - 0x01D3AA 07:D39A: C9 01     CMP #$01
 C - - - - - 0x01D3AC 07:D39C: D0 17     BNE bra_D3B5
 C - - - - - 0x01D3AE 07:D39E: 60        RTS
@@ -3247,18 +3262,20 @@ C - - - - - 0x01D403 07:D3F3: 68        PLA
 C - - - - - 0x01D404 07:D3F4: A9 01     LDA #$01
 C - - - - - 0x01D406 07:D3F6: 60        RTS
 
+; Params:
+; 0x004D - vNoScreen
 ; Return the CPU-address in [0x004E-0x004F]
 sub_D3F7:
 C - - - - - 0x01D407 07:D3F7: A9 00     LDA #$00
 C - - - - - 0x01D409 07:D3F9: 20 04 C5  JSR sub_C504
 C - - - - - 0x01D40C 07:D3FC: 98        TYA
 C - - - - - 0x01D40D 07:D3FD: 48        PHA
-C - - - - - 0x01D40E 07:D3FE: A5 46     LDA ram_0046
+C - - - - - 0x01D40E 07:D3FE: A5 46     LDA vNoSubLevel
 C - - - - - 0x01D410 07:D400: 0A        ASL
 C - - - - - 0x01D411 07:D401: A8        TAY
-C - - - - - 0x01D412 07:D402: B9 80 84  LDA $8480,Y
+C - - - - - 0x01D412 07:D402: B9 80 84  LDA tbl_background_screens,Y
 C - - - - - 0x01D415 07:D405: 85 0C     STA ram_000C
-C - - - - - 0x01D417 07:D407: B9 81 84  LDA $8481,Y
+C - - - - - 0x01D417 07:D407: B9 81 84  LDA tbl_background_screens + 1,Y
 C - - - - - 0x01D41A 07:D40A: 29 1F     AND #$1F
 C - - - - - 0x01D41C 07:D40C: 09 80     ORA #$80
 C - - - - - 0x01D41E 07:D40E: 85 0D     STA ram_000D
@@ -4119,17 +4136,20 @@ C - - - - - 0x01D96C 07:D95C: 60        RTS
 - - - - - - 0x01D97A 07:D96A: 85        .byte $85   ; 
 - - - - - - 0x01D97B 07:D96B: 01        .byte $01   ; 
 - - - - - - 0x01D97C 07:D96C: 60        .byte $60   ; 
-sub_D96D:
-C - - - - - 0x01D97D 07:D96D: A9 00     LDA #$00
-sub_D96F:
-C - - - - - 0x01D97F 07:D96F: 18        CLC
-C - - - - - 0x01D980 07:D970: 65 6A     ADC ram_006A
-C - - - - - 0x01D982 07:D972: 85 00     STA ram_0000
-sub_D974:
-loc_D974:
-C D 2 - - - 0x01D984 07:D974: A5 66     LDA ram_0066
-C - - - - - 0x01D986 07:D976: 85 01     STA ram_0001
-C - - - - - 0x01D988 07:D978: A5 68     LDA ram_0068
+
+; Return the CPU-address in [0x0000-0x0001]
+; Return 0x004D
+sub_D96D_get_absolute_chr_positions:
+C - - - - - 0x01D97D 07:D96D: A9 00     LDA #$00           ;
+sub_D96F_get_relative_chr_positions:
+C - - - - - 0x01D97F 07:D96F: 18        CLC                ;
+C - - - - - 0x01D980 07:D970: 65 6A     ADC vScreenChrPosY ;
+C - - - - - 0x01D982 07:D972: 85 00     STA ram_0000       ;
+sub_D974_get_short_chr_positions:
+loc_D974_get_short_chr_positions:
+C D 2 - - - 0x01D984 07:D974: A5 66     LDA vLowChrPosX    ;
+C - - - - - 0x01D986 07:D976: 85 01     STA ram_0001       ;
+C - - - - - 0x01D988 07:D978: A5 68     LDA vNoScreen
 C - - - - - 0x01D98A 07:D97A: 85 4D     STA ram_004D
 C - - - - - 0x01D98C 07:D97C: 60        RTS
 
@@ -4498,12 +4518,12 @@ C - - - - - 0x01DBAF 07:DB9F: 85 79     STA ram_0079
 C - - - - - 0x01DBB1 07:DBA1: A5 6C     LDA ram_006C
 C - - - - - 0x01DBB3 07:DBA3: 29 FD     AND #$FD
 C - - - - - 0x01DBB5 07:DBA5: 85 6C     STA ram_006C
-C - - - - - 0x01DBB7 07:DBA7: A5 1C     LDA ram_001C
-C - - - - - 0x01DBB9 07:DBA9: 29 C0     AND #$C0
-C - - - - - 0x01DBBB 07:DBAB: F0 03     BEQ bra_DBB0
+C - - - - - 0x01DBB7 07:DBA7: A5 1C     LDA vBtnPressedInGame
+C - - - - - 0x01DBB9 07:DBA9: 29 C0     AND #BIT_BUTTON_Left_OR_Right
+C - - - - - 0x01DBBB 07:DBAB: F0 03     BEQ bra_DBB0_skip ; If the button 'Left' or 'Right' isn't pressed
 C - - - - - 0x01DBBD 07:DBAD: 4C 52 DC  JMP loc_DC52
 
-bra_DBB0:
+bra_DBB0_skip:
 C - - - - - 0x01DBC0 07:DBB0: A2 00     LDX #$00
 C - - - - - 0x01DBC2 07:DBB2: F0 0B     BEQ bra_DBBF
 bra_DBB4:
@@ -4513,7 +4533,7 @@ C - - - - - 0x01DBC8 07:DBB8: 85 6C     STA ram_006C
 C - - - - - 0x01DBCA 07:DBBA: 20 63 DF  JSR sub_DF63
 C - - - - - 0x01DBCD 07:DBBD: A2 14     LDX #$14
 bra_DBBF:
-C - - - - - 0x01DBCF 07:DBBF: 20 F1 DC  JSR sub_DCF1
+C - - - - - 0x01DBCF 07:DBBF: 20 F1 DC  JSR sub_DCF1_reset_velocity
 loc_DBC2:
 C D 2 - - - 0x01DBD2 07:DBC2: A5 6C     LDA ram_006C
 C - - - - - 0x01DBD4 07:DBC4: 29 08     AND #$08
@@ -4608,13 +4628,13 @@ C - - - - - 0x01DC5E 07:DC4E: AA        TAX
 C - - - - - 0x01DC5F 07:DC4F: 4C 5A CE  JMP loc_CE5A_render_character
 
 loc_DC52:
-C D 2 - - - 0x01DC62 07:DC52: 30 1E     BMI bra_DC72
-C - - - - - 0x01DC64 07:DC54: A5 6C     LDA ram_006C
-C - - - - - 0x01DC66 07:DC56: 6A        ROR
-C - - - - - 0x01DC67 07:DC57: B0 05     BCS bra_DC5E
-C - - - - - 0x01DC69 07:DC59: E6 6C     INC ram_006C
-C - - - - - 0x01DC6B 07:DC5B: 20 F1 DC  JSR sub_DCF1
-bra_DC5E:
+C D 2 - - - 0x01DC62 07:DC52: 30 1E     BMI bra_DC72_skip ; If the button 'Right' is pressed
+C - - - - - 0x01DC64 07:DC54: A5 6C     LDA v_chr_status  ;
+C - - - - - 0x01DC66 07:DC56: 6A        ROR               ;  
+C - - - - - 0x01DC67 07:DC57: B0 05     BCS bra_DC5E_skip ; If v_chr_status is changed yet
+C - - - - - 0x01DC69 07:DC59: E6 6C     INC v_chr_status  ; Changes a status to 'left'
+C - - - - - 0x01DC6B 07:DC5B: 20 F1 DC  JSR sub_DCF1_reset_velocity
+bra_DC5E_skip:
 C - - - - - 0x01DC6E 07:DC5E: 20 B1 DC  JSR sub_DCB1
 loc_DC61:
 C D 2 - - - 0x01DC71 07:DC61: 20 82 DC  JSR sub_DC82
@@ -4628,13 +4648,14 @@ tbl_DC6F:
 - D 2 - - - 0x01DC7F 07:DC6F: 04        .byte $04   ; 
 - D 2 - - - 0x01DC80 07:DC70: 08        .byte $08   ; 
 - D 2 - - - 0x01DC81 07:DC71: 0C        .byte $0C   ; 
-bra_DC72:
-C - - - - - 0x01DC82 07:DC72: A5 6C     LDA ram_006C
-C - - - - - 0x01DC84 07:DC74: 6A        ROR
-C - - - - - 0x01DC85 07:DC75: 90 05     BCC bra_DC7C
-C - - - - - 0x01DC87 07:DC77: C6 6C     DEC ram_006C
-C D 2 - - - 0x01DC89 07:DC79: 20 F1 DC  JSR sub_DCF1
-bra_DC7C:
+
+bra_DC72_skip:
+C - - - - - 0x01DC82 07:DC72: A5 6C     LDA v_chr_status  ;
+C - - - - - 0x01DC84 07:DC74: 6A        ROR               ;
+C - - - - - 0x01DC85 07:DC75: 90 05     BCC bra_DC7C_skip ;
+C - - - - - 0x01DC87 07:DC77: C6 6C     DEC v_chr_status  ; Changes a status to 'right'
+C D 2 - - - 0x01DC89 07:DC79: 20 F1 DC  JSR sub_DCF1_reset_velocity
+bra_DC7C_skip:
 C - - - - - 0x01DC8C 07:DC7C: 20 E5 DC  JSR sub_DCE5
 C - - - - - 0x01DC8F 07:DC7F: 4C 61 DC  JMP loc_DC61
 
@@ -4681,7 +4702,7 @@ C - - - - - 0x01DCC0 07:DCB0: 60        RTS
 
 sub_DCB1:
 C - - - - - 0x01DCC1 07:DCB1: 20 34 DD  JSR sub_DD34
-C - - - - - 0x01DCC4 07:DCB4: F0 3B     BEQ bra_DCF1
+C - - - - - 0x01DCC4 07:DCB4: F0 3B     BEQ bra_DCF1_reset_velocity
 C - - - - - 0x01DCC6 07:DCB6: A9 80     LDA #$80
 C - - - - - 0x01DCC8 07:DCB8: D0 32     BNE bra_DCEC
 bra_DCBA_RTS:
@@ -4714,20 +4735,19 @@ C - - - - - 0x01DCF4 07:DCE4: 60        RTS
 
 sub_DCE5:
 C - - - - - 0x01DCF5 07:DCE5: 20 19 DD  JSR sub_DD19
-C - - - - - 0x01DCF8 07:DCE8: F0 07     BEQ bra_DCF1
+C - - - - - 0x01DCF8 07:DCE8: F0 07     BEQ bra_DCF1_reset_velocity
 C - - - - - 0x01DCFA 07:DCEA: A9 00     LDA #$00
 bra_DCEC:
 C - - - - - 0x01DCFC 07:DCEC: 85 42     STA ram_0042
 C - - - - - 0x01DCFE 07:DCEE: 4C 34 E5  JMP loc_E534
 
-bra_DCF1:
-sub_DCF1:
+bra_DCF1_reset_velocity:
+sub_DCF1_reset_velocity:
 C - - - - - 0x01DD01 07:DCF1: A9 04     LDA #$04
-C - - - - - 0x01DD03 07:DCF3: D0 02     BNE bra_DCF7
-- - - - - - 0x01DD05 07:DCF5: A9        .byte $A9   ; 
-- - - - - - 0x01DD06 07:DCF6: 00        .byte $00   ; 
-bra_DCF7:
-C - - - - - 0x01DD07 07:DCF7: 85 71     STA ram_0071
+C - - - - - 0x01DD03 07:DCF3: D0 02     BNE bra_DCF7_skip
+- - - - - - 0x01DD05 07:DCF5: A9 00     LDA #$00     ; it will never happen
+bra_DCF7_skip:
+C - - - - - 0x01DD07 07:DCF7: 85 71     STA vVelocity
 C - - - - - 0x01DD09 07:DCF9: 60        RTS
 
 loc_DCFA:
@@ -4752,13 +4772,13 @@ C - - - - - 0x01DD26 07:DD16: 4C 95 D1  JMP loc_D195
 sub_DD19:
 C - - - - - 0x01DD29 07:DD19: A5 5E     LDA v_no_level
 C - - - - - 0x01DD2B 07:DD1B: C9 03     CMP #$03
-C - - - - - 0x01DD2D 07:DD1D: D0 0A     BNE bra_DD29
+C - - - - - 0x01DD2D 07:DD1D: D0 0A     BNE bra_DD29_skip
 C - - - - - 0x01DD2F 07:DD1F: A9 E1     LDA #$E1
-C - - - - - 0x01DD31 07:DD21: 20 6F D9  JSR sub_D96F
+C - - - - - 0x01DD31 07:DD21: 20 6F D9  JSR sub_D96F_get_relative_chr_positions
 C - - - - - 0x01DD34 07:DD24: 20 2C DD  JSR sub_DD2C
 C - - - - - 0x01DD37 07:DD27: F0 0A     BEQ bra_DD33_RTS
-bra_DD29:
-C - - - - - 0x01DD39 07:DD29: 20 6D D9  JSR sub_D96D
+bra_DD29_skip:
+C - - - - - 0x01DD39 07:DD29: 20 6D D9  JSR sub_D96D_get_absolute_chr_positions
 sub_DD2C:
 C - - - - - 0x01DD3C 07:DD2C: A9 08     LDA #$08
 C - - - - - 0x01DD3E 07:DD2E: 20 97 D3  JSR sub_D397
@@ -4769,13 +4789,13 @@ C - - - - - 0x01DD43 07:DD33: 60        RTS
 sub_DD34:
 C - - - - - 0x01DD44 07:DD34: A5 5E     LDA v_no_level
 C - - - - - 0x01DD46 07:DD36: C9 03     CMP #$03
-C - - - - - 0x01DD48 07:DD38: D0 0A     BNE bra_DD44
+C - - - - - 0x01DD48 07:DD38: D0 0A     BNE bra_DD44_skip
 C - - - - - 0x01DD4A 07:DD3A: A9 E1     LDA #$E1
-C - - - - - 0x01DD4C 07:DD3C: 20 6F D9  JSR sub_D96F
+C - - - - - 0x01DD4C 07:DD3C: 20 6F D9  JSR sub_D96F_get_relative_chr_positions
 C - - - - - 0x01DD4F 07:DD3F: 20 47 DD  JSR sub_DD47
 C - - - - - 0x01DD52 07:DD42: F0 EF     BEQ bra_DD33_RTS
-bra_DD44:
-C - - - - - 0x01DD54 07:DD44: 20 6D D9  JSR sub_D96D
+bra_DD44_skip:
+C - - - - - 0x01DD54 07:DD44: 20 6D D9  JSR sub_D96D_get_absolute_chr_positions
 sub_DD47:
 C - - - - - 0x01DD57 07:DD47: A9 F8     LDA #$F8
 C - - - - - 0x01DD59 07:DD49: 20 AD D3  JSR sub_D3AD
@@ -4822,7 +4842,7 @@ sub_DD7C:
 C - - - - - 0x01DD8C 07:DD7C: A9 F9     LDA #$F9
 loc_DD7E:
 sub_DD7E:
-C D 2 - - - 0x01DD8E 07:DD7E: 20 6F D9  JSR sub_D96F
+C D 2 - - - 0x01DD8E 07:DD7E: 20 6F D9  JSR sub_D96F_get_relative_chr_positions
 C - - - - - 0x01DD91 07:DD81: 20 70 D3  JSR sub_D370
 C - - - - - 0x01DD94 07:DD84: C9 01     CMP #$01
 C - - - - - 0x01DD96 07:DD86: 60        RTS
@@ -6300,7 +6320,7 @@ C - - - - - 0x01E62A 07:E61A: A5 6A     LDA ram_006A
 C - - - - - 0x01E62C 07:E61C: 38        SEC
 C - - - - - 0x01E62D 07:E61D: E9 04     SBC #$04
 C - - - - - 0x01E62F 07:E61F: 85 00     STA ram_0000
-C - - - - - 0x01E631 07:E621: 4C 74 D9  JMP loc_D974
+C - - - - - 0x01E631 07:E621: 4C 74 D9  JMP loc_D974_get_short_chr_positions
 
 loc_E624:
 C D 3 - - - 0x01E634 07:E624: A9 04     LDA #$04
@@ -6668,7 +6688,7 @@ C - - - - - 0x01E88A 07:E87A: 6A        ROR
 C - - - - - 0x01E88B 07:E87B: 90 05     BCC bra_E882
 C - - - - - 0x01E88D 07:E87D: C6 6C     DEC ram_006C
 loc_E87F:
-C D 3 - - - 0x01E88F 07:E87F: 20 F1 DC  JSR sub_DCF1
+C D 3 - - - 0x01E88F 07:E87F: 20 F1 DC  JSR sub_DCF1_reset_velocity
 bra_E882:
 C - - - - - 0x01E892 07:E882: A5 2C     LDA v_low_counter
 C - - - - - 0x01E894 07:E884: 29 07     AND #$07
@@ -6910,7 +6930,7 @@ C - - - - - 0x01EA1F 07:EA0F: 85 6C     STA ram_006C
 bra_EA11:
 loc_EA11:
 sub_EA11:
-C D 3 - - - 0x01EA21 07:EA11: 20 6D D9  JSR sub_D96D
+C D 3 - - - 0x01EA21 07:EA11: 20 6D D9  JSR sub_D96D_get_absolute_chr_positions
 C - - - - - 0x01EA24 07:EA14: A9 0E     LDA #$0E
 C - - - - - 0x01EA26 07:EA16: 20 97 D3  JSR sub_D397
 C - - - - - 0x01EA29 07:EA19: C9 01     CMP #$01
@@ -8223,7 +8243,7 @@ C - - - - - 0x01F2E8 07:F2D8: A5 6C     LDA v_chr_status
 C - - - - - 0x01F2EA 07:F2DA: 29 01     AND #$01 ; only left or right
 C - - - - - 0x01F2EC 07:F2DC: 45 00     EOR ram_0000
 C - - - - - 0x01F2EE 07:F2DE: 85 0B     STA ram_000B
-C - - - - - 0x01F2F0 07:F2E0: A5 4B     LDA vHighChrPosX
+C - - - - - 0x01F2F0 07:F2E0: A5 4B     LDA vHighViewPortPosX
 C - - - - - 0x01F2F2 07:F2E2: 18        CLC
 C - - - - - 0x01F2F3 07:F2E3: 65 0B     ADC ram_000B
 C - - - - - 0x01F2F5 07:F2E5: 85 01     STA ram_0001
@@ -8251,7 +8271,7 @@ C - - - - - 0x01F30C 07:F2FC: D0 FC     BNE bra_F2FA_clear_c_rts
 C - - - - - 0x01F30E 07:F2FE: C8        INY ; to 2 byte of 4
 C - - - - - 0x01F30F 07:F2FF: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01F311 07:F301: 38        SEC
-C - - - - - 0x01F312 07:F302: E5 27     SBC vLowChrPosX
+C - - - - - 0x01F312 07:F302: E5 27     SBC vLowViewPortPosX
 C - - - - - 0x01F314 07:F304: B0 03     BCS bra_F309_skip
 C - - - - - 0x01F316 07:F306: 20 73 D0  JSR sub_D073
 bra_F309_skip:
@@ -9120,7 +9140,7 @@ C - - - - - 0x01F935 07:F925: 4C C9 F9  JMP loc_F9C9_safe_return
 bra_F928_skip:
 C - - - - - 0x01F938 07:F928: 85 00     STA ram_0000
 C - - - - - 0x01F93A 07:F92A: 29 0F     AND #$0F
-C - - - - - 0x01F93C 07:F92C: C5 68     CMP v_no_screen
+C - - - - - 0x01F93C 07:F92C: C5 68     CMP vNoScreen
 C - - - - - 0x01F93E 07:F92E: 90 E2     BCC bra_F912_inc_next_set
 C - - - - - 0x01F940 07:F930: D0 F3     BNE bra_F925
 C - - - - - 0x01F942 07:F932: A5 00     LDA ram_0000
@@ -9524,17 +9544,17 @@ C - - - - - 0x01FBCB 07:FBBB: B1 00     LDA (ram_0000),Y
 C - - - - - 0x01FBCD 07:FBBD: 85 46     STA vNoSubLevel
 C - - - - - 0x01FBCF 07:FBBF: C8        INY                ; 2 of 4 bytes
 C - - - - - 0x01FBD0 07:FBC0: B1 00     LDA (ram_0000),Y
-C - - - - - 0x01FBD2 07:FBC2: 85 4B     STA vHighChrPosX
+C - - - - - 0x01FBD2 07:FBC2: 85 4B     STA vHighViewPortPosX
 C - - - - - 0x01FBD4 07:FBC4: C8        INY                ; 3 of 4 bytes
 C - - - - - 0x01FBD5 07:FBC5: B1 00     LDA (ram_0000),Y
-C - - - - - 0x01FBD7 07:FBC7: 85 27     STA vLowChrPosX
+C - - - - - 0x01FBD7 07:FBC7: 85 27     STA vLowViewPortPosX
 C - - - - - 0x01FBD9 07:FBC9: C8        INY                ; 4 of 4 bytes
 C - - - - - 0x01FBDA 07:FBCA: B1 00     LDA (ram_0000),Y
 C - - - - - 0x01FBDC 07:FBCC: 85 64     STA vScreenChrPosX
 C - - - - - 0x01FBDE 07:FBCE: 18        CLC
-C - - - - - 0x01FBDF 07:FBCF: 65 27     ADC vLowChrPosX
-C - - - - - 0x01FBE1 07:FBD1: 85 66     STA ram_0066
-C - - - - - 0x01FBE3 07:FBD3: A5 4B     LDA vHighChrPosX
+C - - - - - 0x01FBDF 07:FBCF: 65 27     ADC vLowViewPortPosX
+C - - - - - 0x01FBE1 07:FBD1: 85 66     STA vLowChrPosX
+C - - - - - 0x01FBE3 07:FBD3: A5 4B     LDA vHighViewPortPosX
 C - - - - - 0x01FBE5 07:FBD5: 69 00     ADC #$00
 C - - - - - 0x01FBE7 07:FBD7: 85 68     STA ram_0068
 C - - - - - 0x01FBE9 07:FBD9: 60        RTS
@@ -9543,34 +9563,34 @@ C - - - - - 0x01FBE9 07:FBD9: 60        RTS
 sub_FBDA_push_stack_room:
 C - - - - - 0x01FBEA 07:FBDA: A5 46     LDA vNoSubLevel
 C - - - - - 0x01FBEC 07:FBDC: 85 47     STA vTempNoSubLevel
-C - - - - - 0x01FBEE 07:FBDE: A5 66     LDA ram_0066
-C - - - - - 0x01FBF0 07:FBE0: 85 67     STA ram_0067
-C - - - - - 0x01FBF2 07:FBE2: A5 68     LDA ram_0068
-C - - - - - 0x01FBF4 07:FBE4: 85 69     STA ram_0069
+C - - - - - 0x01FBEE 07:FBDE: A5 66     LDA vLowChrPosX
+C - - - - - 0x01FBF0 07:FBE0: 85 67     STA vTempLowChrPosX
+C - - - - - 0x01FBF2 07:FBE2: A5 68     LDA vNoScreen
+C - - - - - 0x01FBF4 07:FBE4: 85 69     STA vTempNoScreen
 C - - - - - 0x01FBF6 07:FBE6: A5 6A     LDA ram_006A
 C - - - - - 0x01FBF8 07:FBE8: 85 6B     STA ram_006B
 C - - - - - 0x01FBFA 07:FBEA: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01FBFC 07:FBEC: 85 65     STA vTempScreenChrPosX
-C - - - - - 0x01FBFE 07:FBEE: A5 4B     LDA ram_004B
-C - - - - - 0x01FC00 07:FBF0: 85 4C     STA ram_004C
-C - - - - - 0x01FC02 07:FBF2: A5 27     LDA vLowChrPosX
-C - - - - - 0x01FC04 07:FBF4: 85 28     STA vTempLowChrPosX
+C - - - - - 0x01FBFE 07:FBEE: A5 4B     LDA vHighViewPortPosX
+C - - - - - 0x01FC00 07:FBF0: 85 4C     STA vTempHighViewPortPosX
+C - - - - - 0x01FC02 07:FBF2: A5 27     LDA vLowViewPortPosX
+C - - - - - 0x01FC04 07:FBF4: 85 28     STA vTempLowViewPortPosX
 C - - - - - 0x01FC06 07:FBF6: 60        RTS
 
 ; Release the stack after leaving the room
 loc_FBF7_pop_stack_room:
-C D 3 - - - 0x01FC07 07:FBF7: A5 4C     LDA ram_004C
-C - - - - - 0x01FC09 07:FBF9: 85 4B     STA ram_004B
-C - - - - - 0x01FC0B 07:FBFB: A5 28     LDA vTempLowChrPosX
-C - - - - - 0x01FC0D 07:FBFD: 85 27     STA vLowChrPosX
+C D 3 - - - 0x01FC07 07:FBF7: A5 4C     LDA vTempHighViewPortPosX
+C - - - - - 0x01FC09 07:FBF9: 85 4B     STA vHighViewPortPosX
+C - - - - - 0x01FC0B 07:FBFB: A5 28     LDA vTempLowViewPortPosX
+C - - - - - 0x01FC0D 07:FBFD: 85 27     STA vLowViewPortPosX
 C - - - - - 0x01FC0F 07:FBFF: A5 65     LDA vTempScreenChrPosX
 C - - - - - 0x01FC11 07:FC01: 85 64     STA vScreenChrPosX
 C - - - - - 0x01FC13 07:FC03: A5 6B     LDA ram_006B
 C - - - - - 0x01FC15 07:FC05: 85 6A     STA ram_006A
-C - - - - - 0x01FC17 07:FC07: A5 69     LDA ram_0069
-C - - - - - 0x01FC19 07:FC09: 85 68     STA ram_0068
-C - - - - - 0x01FC1B 07:FC0B: A5 67     LDA ram_0067
-C - - - - - 0x01FC1D 07:FC0D: 85 66     STA ram_0066
+C - - - - - 0x01FC17 07:FC07: A5 69     LDA vTempNoScreen
+C - - - - - 0x01FC19 07:FC09: 85 68     STA vNoScreen
+C - - - - - 0x01FC1B 07:FC0B: A5 67     LDA vTempLowChrPosX
+C - - - - - 0x01FC1D 07:FC0D: 85 66     STA vLowChrPosX
 C - - - - - 0x01FC1F 07:FC0F: A5 47     LDA vTempNoSubLevel
 C - - - - - 0x01FC21 07:FC11: 85 46     STA vNoSubLevel
 C - - - - - 0x01FC23 07:FC13: 60        RTS

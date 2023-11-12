@@ -49,7 +49,7 @@ v_temp_check_buttons          = ram_0012 ; There is a variable that stores the c
 v_temp_counter12              = ram_0012
 vCacheRam12                   = ram_0012 ; 
 v_sub_AF4D_counter            = ram_001A ; Intermediate counter
-v_btn_pressed_in_game         = ram_001C ; In a level 1-4 or a title screen
+vBtnPressedInGame             = ram_001C ; In a level 1-4 or a title screen
 vCopy001C                     = ram_001D
 v_player1_btn_pressed         = ram_001E ; For a contoller1
 v_player2_btn_pressed         = ram_001F ; For a contoller2
@@ -66,8 +66,8 @@ vMenuDemoIndex                = ram_0024
 ; 0x07 - Stop demo
 
 vPpuCtrlSettings              = ram_0026 ; This is a last actual ppu controller flags.
-vLowChrPosX                   = ram_0027 ; In level it's the position of the character along the x-axis relative to the level (may repeat, with scrolling)
-vTempLowChrPosX               = ram_0028
+vLowViewPortPosX              = ram_0027 ; In level it's the position of the viewport along the x-axis relative to the level (may repeat, with scrolling)
+vTempLowViewPortPosX          = ram_0028
 v_nmi_counter                 = ram_002B
 v_low_counter                 = ram_002C
 v_high_counter                = ram_002D
@@ -332,7 +332,8 @@ vNoSubLevel                   = ram_0046
 
 vTempNoSubLevel               = ram_0047
 
-vHighChrPosX                  = ram_004B ; The high value for an overflow ram_0027
+vHighViewPortPosX             = ram_004B ; The high value for an overflow ram_0027
+vTempHighViewPortPosX         = ram_004C
 
 ; ram_004D - ???
 
@@ -352,12 +353,19 @@ v_chr_live_status             = ram_005F
 ; L - Lupin arrested (1 - true)
 vScreenChrPosX                = ram_0064 ; The character's position along the X axis relative to the screen (no repeat)
 vTempScreenChrPosX            = ram_0065
-v_no_screen                   = ram_0068 ; The number of 1 of 4 screen (name tables)
+vLowChrPosX                   = ram_0066 ; The character's position along the X axis relative to the level (with repeat) 
+vTempLowChrPosX               = ram_0067
+vNoScreen                     = ram_0068 ; The number of the level screen
+vTempNoScreen                 = ram_0069
 vScreenChrPosY                = ram_006A ; The character's position along the Y axis relative to the screen (no repeat)
 v_chr_status                  = ram_006C ; A status of a character
-; 0x00000001 - the character is looking to the left
-; 0x00000010 - the character is sitting
+; Byte: XYZW KLMN
+; N - the character is looking to the right/left (1 - left, 0 - right)
+; M - the character is/isn't sitting (1 - sitting, 0 - no sitting)
+; ...
 ; 0x00010000 - the character is jumping
+
+vVelocity                     = ram_0071 ; 0x04 - min, 0x0C - max
 
 ; ??? - ram_00AD
 ; 0x8F - ???

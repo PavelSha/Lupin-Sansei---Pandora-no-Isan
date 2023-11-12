@@ -3863,10 +3863,10 @@ C - - - - - 0x01B971 06:B961: 85 AD     STA ram_00AD
 C - - - - - 0x01B973 06:B963: 85 1C     STA ram_001C
 C - - - - - 0x01B975 06:B965: 20 1E C5  JSR $C51E ; to sub_C51E (bank_FF)
 @bra_B968_infinite_loop:
-C - - - - - 0x01B978 06:B968: A5 1C     LDA v_btn_pressed_in_game
+C - - - - - 0x01B978 06:B968: A5 1C     LDA vBtnPressedInGame
 C - - - - - 0x01B97A 06:B96A: 29 08     AND #BIT_BUTTON_START
 C - - - - - 0x01B97C 06:B96C: D0 FA     BNE @bra_B968_infinite_loop  ; break in NMI
-C - - - - - 0x01B97E 06:B96E: 85 1C     STA v_btn_pressed_in_game
+C - - - - - 0x01B97E 06:B96E: 85 1C     STA vBtnPressedInGame
 C - - - - - 0x01B980 06:B970: 85 3D     STA ram_003D
 C - - - - - 0x01B982 06:B972: A9 00     LDA #$00            ;
 C - - - - - 0x01B984 06:B974: 85 2C     STA v_low_counter   ; clear
@@ -4134,7 +4134,7 @@ C - - - - - 0x01BB3A 06:BB2A: 2C F6 FF  BIT Set_features
 C - - - - - 0x01BB3D 06:BB2D: 50 62     BVC bra_BB91_RTS
 C - - - - - 0x01BB3F 06:BB2F: A5 B1     LDA v_start_level
 C - - - - - 0x01BB41 06:BB31: D0 5E     BNE bra_BB91_RTS          ; Go to the branch If start level is activated
-C - - - - - 0x01BB43 06:BB33: A5 1C     LDA v_btn_pressed_in_game
+C - - - - - 0x01BB43 06:BB33: A5 1C     LDA vBtnPressedInGame
 C - - - - - 0x01BB45 06:BB35: F0 56     BEQ bra_BB8D              ; Go to the branch If the any buttons aren't pressed
 C - - - - - 0x01BB47 06:BB37: A5 B3     LDA v_lock_secret_hits
 C - - - - - 0x01BB49 06:BB39: D0 56     BNE bra_BB91_RTS          ; Go to the branch If the some buttons is pressing
