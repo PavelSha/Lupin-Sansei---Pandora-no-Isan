@@ -2114,12 +2114,13 @@ C - - - - - 0x01AD7A 06:AD6A: 9D 20 03  STA ram_0320,X
 bra_AD6D_RTS:
 C - - - - - 0x01AD7D 06:AD6D: 60        RTS
 
-C - - - - - 0x01AD7E 06:AD6E: AD 01 03  LDA ram_0301
-C - - - - - 0x01AD81 06:AD71: C9 32     CMP #$32
-C - - - - - 0x01AD83 06:AD73: D0 03     BNE bra_AD78
+sub_AD6E: ; from bank FF
+C - - - - - 0x01AD7E 06:AD6E: AD 01 03  LDA vEnemyB       ;
+C - - - - - 0x01AD81 06:AD71: C9 32     CMP #$32          ; CONSTANT - Breaking platform
+C - - - - - 0x01AD83 06:AD73: D0 03     BNE bra_AD78_skip ; If the enemy isn't the 'breaking platform'
 C - - - - - 0x01AD85 06:AD75: 4C FD AD  JMP loc_ADFD
 
-bra_AD78:
+bra_AD78_skip:
 C - - - - - 0x01AD88 06:AD78: A5 46     LDA ram_0046
 C - - - - - 0x01AD8A 06:AD7A: C9 0F     CMP #$0F
 C - - - - - 0x01AD8C 06:AD7C: D0 4F     BNE bra_ADCD_RTS

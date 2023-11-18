@@ -86,24 +86,24 @@ $07:DC6C: 4C C2 DB  JMP $DBC2                                    A:01 X:08 Y:01 
 (28 lines skipped)
 $07:DBE4: E8        INX                                          A:00 X:08 Y:01 S:F5 P:nvUbdIZC 
 $07:DBE5: E8        INX                                          A:00 X:09 Y:01 S:F5 P:nvUbdIzC 
-(38718 lines skipped)
-$02:AEC7: 29 0F     AND #$0F                                     A:BF X:7E Y:01 S:F5 P:nvUbdIzC 
-$02:AEC9: F0 1D     BEQ $AEE8                                    A:0F X:7E Y:01 S:F5 P:nvUbdIzC 
-$02:AECB: 48        PHA                                          A:0F X:7E Y:01 S:F5 P:nvUbdIzC 
-$02:AECC: B1 FE     LDA ($FE),Y @ $87FA = #$00                   A:0F X:7E Y:01 S:F4 P:nvUbdIzC 
-$02:AECE: D0 0D     BNE $AEDD                                    A:00 X:7E Y:01 S:F4 P:nvUbdIZC 
-$02:AED0: 68        PLA                                          A:00 X:7E Y:01 S:F4 P:nvUbdIZC 
-$02:AED1: DE 19 04  DEC $0419,X @ $0497 = #$00                   A:0F X:7E Y:01 S:F5 P:nvUbdIzC 
-$02:AED4: F0 1C     BEQ $AEF2                                    A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
-$02:AED6: 10 10     BPL $AEE8                                    A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
-$02:AED8: 9D 19 04  STA $0419,X @ $0497 = #$FF                   A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
-$02:AEDB: 30 0B     BMI $AEE8                                    A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
-$02:AEE8: B1 FE     LDA ($FE),Y @ $87FA = #$00                   A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
-$02:AEEA: D0 03     BNE $AEEF                                    A:00 X:7E Y:01 S:F5 P:nvUbdIZC 
-$02:AEEC: BD 22 04  LDA $0422,X @ $04A0 = #$03                   A:00 X:7E Y:01 S:F5 P:nvUbdIZC 
-$02:AEEF: 9D 10 04  STA $0410,X @ $048E = #$05                   A:03 X:7E Y:01 S:F5 P:nvUbdIzC 
-$02:AEF2: 4C 38 AE  JMP $AE38                                    A:03 X:7E Y:01 S:F5 P:nvUbdIzC 
-(26422 lines skipped)
+
+    $02:AEC7: 29 0F     AND #$0F                                     A:BF X:7E Y:01 S:F5 P:nvUbdIzC 
+    $02:AEC9: F0 1D     BEQ $AEE8                                    A:0F X:7E Y:01 S:F5 P:nvUbdIzC 
+    $02:AECB: 48        PHA                                          A:0F X:7E Y:01 S:F5 P:nvUbdIzC 
+    $02:AECC: B1 FE     LDA ($FE),Y @ $87FA = #$00                   A:0F X:7E Y:01 S:F4 P:nvUbdIzC 
+    $02:AECE: D0 0D     BNE $AEDD                                    A:00 X:7E Y:01 S:F4 P:nvUbdIZC 
+    $02:AED0: 68        PLA                                          A:00 X:7E Y:01 S:F4 P:nvUbdIZC 
+    $02:AED1: DE 19 04  DEC $0419,X @ $0497 = #$00                   A:0F X:7E Y:01 S:F5 P:nvUbdIzC 
+    $02:AED4: F0 1C     BEQ $AEF2                                    A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
+    $02:AED6: 10 10     BPL $AEE8                                    A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
+    $02:AED8: 9D 19 04  STA $0419,X @ $0497 = #$FF                   A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
+    $02:AEDB: 30 0B     BMI $AEE8                                    A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
+    $02:AEE8: B1 FE     LDA ($FE),Y @ $87FA = #$00                   A:0F X:7E Y:01 S:F5 P:NvUbdIzC 
+    $02:AEEA: D0 03     BNE $AEEF                                    A:00 X:7E Y:01 S:F5 P:nvUbdIZC 
+    $02:AEEC: BD 22 04  LDA $0422,X @ $04A0 = #$03                   A:00 X:7E Y:01 S:F5 P:nvUbdIZC 
+    $02:AEEF: 9D 10 04  STA $0410,X @ $048E = #$05                   A:03 X:7E Y:01 S:F5 P:nvUbdIzC 
+    $02:AEF2: 4C 38 AE  JMP $AE38                                    A:03 X:7E Y:01 S:F5 P:nvUbdIzC 
+
 $07:DBB4: A5 6C     LDA $6C = #$01                               A:20 X:00 Y:1D S:F7 P:nvUbdIzC 
 $07:DBB6: 09 02     ORA #$02                                     A:01 X:00 Y:1D S:F7 P:nvUbdIzC 
 $07:DBB8: 85 6C     STA $6C = #$01                               A:03 X:00 Y:1D S:F7 P:nvUbdIzC 

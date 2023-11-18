@@ -436,14 +436,16 @@
 - D 0 - I - 0x0001BD 00:81AD: 3E        .byte $3E   ; 
 - D 0 - I - 0x0001BE 00:81AE: C9        .byte $C9   ; 
 - D 0 - I - 0x0001BF 00:81AF: 07        .byte $07   ; 
+
 - D 0 - I - 0x0001C0 00:81B0: 00        .byte $00   ; 
-- D 0 - I - 0x0001C1 00:81B1: 50        .byte $50   ; <P>
+- D 0 - I - 0x0001C1 00:81B1: 50        .byte $50   ; B = 2, A = 0x90   %BBBAAAAA (B - Bank data, A + 0x80 - high address)
 - D 0 - I - 0x0001C2 00:81B2: 00        .byte $00   ; 
 - D 0 - I - 0x0001C3 00:81B3: 5C        .byte $5C   ; 
 - D 0 - I - 0x0001C4 00:81B4: 00        .byte $00   ; 
 - D 0 - I - 0x0001C5 00:81B5: 60        .byte $60   ; 
 - D 0 - I - 0x0001C6 00:81B6: B7        .byte $B7   ; 
 - D 0 - I - 0x0001C7 00:81B7: 07        .byte $07   ; 
+
 - D 0 - I - 0x0001C8 00:81B8: C0        .byte $C0   ; 
 - D 0 - I - 0x0001C9 00:81B9: 50        .byte $50   ; <P>
 - D 0 - I - 0x0001CA 00:81BA: 38        .byte $38   ; <8>
@@ -1286,22 +1288,23 @@ tbl_background_screens:
 - D 0 - - - 0x000588 00:8578: A9 07     .word $07A9
 - D 0 - - - 0x00058A 00:857A: AA 07     .word $07AA
 
-- D 0 - I - 0x00058C 00:857C: 36        .byte $36   ; <6>
-- D 0 - I - 0x00058D 00:857D: 37        .byte $37   ; <7>
-- D 0 - I - 0x00058E 00:857E: 38        .byte $38   ; <8>
-- D 0 - I - 0x00058F 00:857F: 39        .byte $39   ; <9>
-- D 0 - I - 0x000590 00:8580: 3A        .byte $3A   ; 
-- D 0 - I - 0x000591 00:8581: 3B        .byte $3B   ; 
-- D 0 - I - 0x000592 00:8582: 3C        .byte $3C   ; 
-- D 0 - I - 0x000593 00:8583: 3D        .byte $3D   ; 
-- D 0 - I - 0x000594 00:8584: 3E        .byte $3E   ; 
-- D 0 - I - 0x000595 00:8585: 3F        .byte $3F   ; 
-- D 0 - I - 0x000596 00:8586: 40        .byte $40   ; 
-- D 0 - I - 0x000597 00:8587: 41        .byte $41   ; <A>
-- D 0 - I - 0x000598 00:8588: 42        .byte $42   ; <B>
-- D 0 - I - 0x000599 00:8589: 43        .byte $43   ; <C>
-- D 0 - I - 0x00059A 00:858A: 44        .byte $44   ; <D>
-- D 0 - I - 0x00059B 00:858B: 45        .byte $45   ; <E>
+loc_background_screens_level_1_0:
+- D 0 - I - 0x00058C 00:857C: 36        .byte $36   ; screen  0 (0x81B0)
+- D 0 - I - 0x00058D 00:857D: 37        .byte $37   ; screen  1 (0x81B8)
+- D 0 - I - 0x00058E 00:857E: 38        .byte $38   ; screen  2
+- D 0 - I - 0x00058F 00:857F: 39        .byte $39   ; screen  3
+- D 0 - I - 0x000590 00:8580: 3A        .byte $3A   ; screen  4
+- D 0 - I - 0x000591 00:8581: 3B        .byte $3B   ; screen  5
+- D 0 - I - 0x000592 00:8582: 3C        .byte $3C   ; screen  6
+- D 0 - I - 0x000593 00:8583: 3D        .byte $3D   ; screen  7
+- D 0 - I - 0x000594 00:8584: 3E        .byte $3E   ; screen  8
+- D 0 - I - 0x000595 00:8585: 3F        .byte $3F   ; screen  9
+- D 0 - I - 0x000596 00:8586: 40        .byte $40   ; screen 10
+- D 0 - I - 0x000597 00:8587: 41        .byte $41   ; screen 11
+- D 0 - I - 0x000598 00:8588: 42        .byte $42   ; screen 12
+- D 0 - I - 0x000599 00:8589: 43        .byte $43   ; screen 13
+- D 0 - I - 0x00059A 00:858A: 44        .byte $44   ; screen 14
+- D 0 - I - 0x00059B 00:858B: 45        .byte $45   ; screen 15
 
 - D 0 - I - 0x00059C 00:858C: 46        .byte $46   ; <F>
 - D 0 - I - 0x00059D 00:858D: 4F        .byte $4F   ; <O>
