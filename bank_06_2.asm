@@ -869,12 +869,12 @@ C - - - - - 0x01A53B 06:A52B: 20 58 D3  JSR $D358
 C - - - - - 0x01A53E 06:A52E: F0 1C     BEQ bra_A54C
 C - - - - - 0x01A540 06:A530: C9 02     CMP #$02
 C - - - - - 0x01A542 06:A532: F0 07     BEQ bra_A53B
-C - - - - - 0x01A544 06:A534: 20 47 D3  JSR $D347
+C - - - - - 0x01A544 06:A534: 20 47 D3  JSR $D347 ; to sub_D347 (bank FF)
 C - - - - - 0x01A547 06:A537: D0 07     BNE bra_A540
 - - - - - - 0x01A549 06:A539: F0        .byte $F0   ; 
 - - - - - - 0x01A54A 06:A53A: 11        .byte $11   ; 
 bra_A53B:
-C - - - - - 0x01A54B 06:A53B: 20 47 D3  JSR $D347
+C - - - - - 0x01A54B 06:A53B: 20 47 D3  JSR $D347 ; to sub_D347 (bank FF)
 C - - - - - 0x01A54E 06:A53E: F0 0C     BEQ bra_A54C
 bra_A540:
 C - - - - - 0x01A550 06:A540: 20 A8 D7  JSR $D7A8

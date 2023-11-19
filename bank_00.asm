@@ -437,8 +437,10 @@
 - D 0 - I - 0x0001BE 00:81AE: C9        .byte $C9   ; 
 - D 0 - I - 0x0001BF 00:81AF: 07        .byte $07   ; 
 
+; 1 byte - low address
+; 2 byte - %BBBAAAAA, where B - Bank data, A + 0x80 - high address
 - D 0 - I - 0x0001C0 00:81B0: 00        .byte $00   ; 
-- D 0 - I - 0x0001C1 00:81B1: 50        .byte $50   ; B = 2, A = 0x90   %BBBAAAAA (B - Bank data, A + 0x80 - high address)
+- D 0 - I - 0x0001C1 00:81B1: 50        .byte $50   ; bank 01, page 01, 0x9000
 - D 0 - I - 0x0001C2 00:81B2: 00        .byte $00   ; 
 - D 0 - I - 0x0001C3 00:81B3: 5C        .byte $5C   ; 
 - D 0 - I - 0x0001C4 00:81B4: 00        .byte $00   ; 
@@ -1288,7 +1290,7 @@ tbl_background_screens:
 - D 0 - - - 0x000588 00:8578: A9 07     .word $07A9
 - D 0 - - - 0x00058A 00:857A: AA 07     .word $07AA
 
-loc_background_screens_level_1_0:
+tbl_background_screens_level_1_0:
 - D 0 - I - 0x00058C 00:857C: 36        .byte $36   ; screen  0 (0x81B0)
 - D 0 - I - 0x00058D 00:857D: 37        .byte $37   ; screen  1 (0x81B8)
 - D 0 - I - 0x00058E 00:857E: 38        .byte $38   ; screen  2

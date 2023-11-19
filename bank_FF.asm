@@ -3063,6 +3063,7 @@ C - - - - - 0x01D2F4 07:D2E4: 60        RTS
 ; In: 0x0000 - vScreenChrPosY
 ; In: 0x0001 - vLowChrPosX
 ; In: 0x004D - vNoScreen
+; In: Register X - ???
 loc_D2E5:
 sub_D2E5:
 C D 2 - - - 0x01D2F5 07:D2E5: 8A        TXA
@@ -3084,11 +3085,13 @@ C - - - - - 0x01D30C 07:D2FC: AA        TAX
 C - - - - - 0x01D30D 07:D2FD: A9 00     LDA #$00
 C - - - - - 0x01D30F 07:D2FF: 60        RTS
 
+; In: 0x0004 - ???
+; In: Register A - ???
 bra_D300_skip:
 C - - - - - 0x01D310 07:D300: 20 5F D0  JSR sub_accumulator_shift_right_by_4
 C - - - - - 0x01D313 07:D303: 18        CLC
 C - - - - - 0x01D314 07:D304: 65 04     ADC ram_0004
-C - - - - - 0x01D316 07:D306: 48        PHA
+C - - - - - 0x01D316 07:D306: 48        PHA             ; store A
 C - - - - - 0x01D317 07:D307: 20 F7 D3  JSR sub_D3F7_background_screen_subroutine
 C - - - - - 0x01D31A 07:D30A: A0 00     LDY #$00
 C - - - - - 0x01D31C 07:D30C: B1 4E     LDA (ram_004E),Y
@@ -3097,12 +3100,12 @@ C - - - - - 0x01D320 07:D310: C8        INY
 C - - - - - 0x01D321 07:D311: B1 4E     LDA (ram_004E),Y
 C - - - - - 0x01D323 07:D313: 20 04 C5  JSR sub_C504_switch_prg_8000
 C - - - - - 0x01D326 07:D316: 85 53     STA ram_0053
-C - - - - - 0x01D328 07:D318: 68        PLA
+C - - - - - 0x01D328 07:D318: 68        PLA             ; retrieve A
 C - - - - - 0x01D329 07:D319: A8        TAY
 C - - - - - 0x01D32A 07:D31A: B1 52     LDA (ram_0052),Y
-C - - - - - 0x01D32C 07:D31C: 48        PHA
+C - - - - - 0x01D32C 07:D31C: 48        PHA             ; store A
 C - - - - - 0x01D32D 07:D31D: 20 45 D5  JSR sub_D545
-C - - - - - 0x01D330 07:D320: 68        PLA
+C - - - - - 0x01D330 07:D320: 68        PLA             ; retrieve A
 C - - - - - 0x01D331 07:D321: 0A        ASL
 C - - - - - 0x01D332 07:D322: A8        TAY
 C - - - - - 0x01D333 07:D323: 90 02     BCC bra_D327_skip
@@ -3453,12 +3456,14 @@ C - - - - - 0x01D551 07:D541: 60        RTS
 - - - - - - 0x01D552 07:D542: 09        .byte $09   ; 
 - - - - - - 0x01D553 07:D543: 80        .byte $80   ; 
 - - - - - - 0x01D554 07:D544: 60        .byte $60   ; 
+
+; Out: the CPU-address in [0x000E-0x000F]
 sub_D545:
 C - - - - - 0x01D555 07:D545: A9 06     LDA #$06
 C - - - - - 0x01D557 07:D547: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01D55A 07:D54A: A9 03     LDA #$03
-C - - - - - 0x01D55C 07:D54C: 8D 01 80  STA MMC3_Bank_data
-C - - - - - 0x01D55F 07:D54F: A5 46     LDA ram_0046
+C - - - - - 0x01D55C 07:D54C: 8D 01 80  STA MMC3_Bank_data ; switch bank 01, page 2 in 0x8000-09FFF
+C - - - - - 0x01D55F 07:D54F: A5 46     LDA vNoSubLevel
 C - - - - - 0x01D561 07:D551: 0A        ASL
 C - - - - - 0x01D562 07:D552: AA        TAX
 C - - - - - 0x01D563 07:D553: BD 00 90  LDA $9000,X
