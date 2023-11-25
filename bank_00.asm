@@ -439,8 +439,7 @@
 
 ; 1 byte - low address
 ; 2 byte - %BBBAAAAA, where B - Bank data, A + 0x80 - high address
-- D 0 - I - 0x0001C0 00:81B0: 00        .byte $00   ; 
-- D 0 - I - 0x0001C1 00:81B1: 50        .byte $50   ; bank 01, page 01, 0x9000
+- D 0 - I - 0x0001C0 00:81B0: 00        .byte $00, $50   ; bank 01, page 01, 0x9000
 - D 0 - I - 0x0001C2 00:81B2: 00        .byte $00   ; 
 - D 0 - I - 0x0001C3 00:81B3: 5C        .byte $5C   ; 
 - D 0 - I - 0x0001C4 00:81B4: 00        .byte $00   ; 
@@ -448,8 +447,7 @@
 - D 0 - I - 0x0001C6 00:81B6: B7        .byte $B7   ; 
 - D 0 - I - 0x0001C7 00:81B7: 07        .byte $07   ; 
 
-- D 0 - I - 0x0001C8 00:81B8: C0        .byte $C0   ; 
-- D 0 - I - 0x0001C9 00:81B9: 50        .byte $50   ; <P>
+- D 0 - I - 0x0001C8 00:81B8: C0        .byte $C0, $50   ; bank 01, page 01, 0x90C0
 - D 0 - I - 0x0001CA 00:81BA: 38        .byte $38   ; <8>
 - D 0 - I - 0x0001CB 00:81BB: 5C        .byte $5C   ; 
 - D 0 - I - 0x0001CC 00:81BC: 00        .byte $00   ; 

@@ -4135,10 +4135,9 @@
 - D 0 - - - 0x00704C 01:903C: E0 7C     .word $7CE0 ; room with NPC in level 4          (0x9CE0)
 - D 0 - - - 0x00704E 01:903E: 18 7A     .word $7A18 ; room with briefcases in level 1          (0x9A18)
 - D 0 - - - 0x007050 01:9040: 80 77     .word $7780 ; room with briefcases in level 2 (part 1) (0x9780)
-- D 0 - - - 0x007050 01:9040: 80 77     .word $7780 ; room with briefcases in level 2 (part 2) (0x9780)
-- D 0 - - - 0x007052 01:9042: 80 77     .word $7780 ; room with briefcases in level 3          (0x9780)
-- D 0 - - - 0x007054 01:9044: A0 74     .word $74A0 ; room with briefcases in level 4          (0x94A0)
-- D 0 - - - 0x007056 01:9046: E0 7C     .word $7CE0
+- D 0 - - - 0x007052 01:9042: 80 77     .word $7780 ; room with briefcases in level 2 (part 2) (0x9780)
+- D 0 - - - 0x007054 01:9044: A0 74     .word $74A0 ; room with briefcases in level 3          (0x94A0)
+- D 0 - - - 0x007056 01:9046: E0 7C     .word $7CE0 ; room with briefcases in level 4          (0x9CE0)
 - D 0 - - - 0x007058 01:9048: A0 74     .word $74A0
 - - - - - - 0x00705A 01:904A: A0 74     .word $74A0
 - D 0 - - - 0x00705C 01:904C: A0 74     .word $74A0
