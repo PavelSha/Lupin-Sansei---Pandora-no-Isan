@@ -1777,7 +1777,7 @@ tbl_CB20:
 - - - - - - 0x01CB37 07:CB27: D0        .byte $D0
 - - - - - - 0x01CB38 07:CB28: E0        .byte $E0
 sub_CB29:
-C - - - - - 0x01CB39 07:CB29: AD 14 02  LDA ram_0214
+C - - - - - 0x01CB39 07:CB29: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CB3C 07:CB2C: F0 08     BEQ bra_CB36
 C - - - - - 0x01CB3E 07:CB2E: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01CB40 07:CB30: 29 03     AND #$03
@@ -1796,10 +1796,10 @@ C - - - - - 0x01CB4B 07:CB3B: B0 FA     BCS bra_CB37_RTS
 C - - - - - 0x01CB4D 07:CB3D: 24 6D     BIT ram_006D
 C - - - - - 0x01CB4F 07:CB3F: 30 F6     BMI bra_CB37_RTS
 C - - - - - 0x01CB51 07:CB41: 70 F4     BVS bra_CB37_RTS
-C - - - - - 0x01CB53 07:CB43: 2C 14 02  BIT ram_0214
+C - - - - - 0x01CB53 07:CB43: 2C 14 02  BIT vCurrentWeaponStatus
 C - - - - - 0x01CB56 07:CB46: 30 EF     BMI bra_CB37_RTS
 C - - - - - 0x01CB58 07:CB48: 70 42     BVS bra_CB8C
-C - - - - - 0x01CB5A 07:CB4A: AD 14 02  LDA ram_0214
+C - - - - - 0x01CB5A 07:CB4A: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CB5D 07:CB4D: 29 07     AND #$07
 C - - - - - 0x01CB5F 07:CB4F: AA        TAX
 C - - - - - 0x01CB60 07:CB50: A9 05     LDA #$05
@@ -1835,10 +1835,10 @@ C - - - - - 0x01CB8A 07:CB7A: D0 04     BNE bra_CB80
 - - - - - - 0x01CB8F 07:CB7F: F0        .byte $F0
 bra_CB80:
 C - - - - - 0x01CB90 07:CB80: 86 00     STX ram_0000
-C - - - - - 0x01CB92 07:CB82: AD 14 02  LDA ram_0214
+C - - - - - 0x01CB92 07:CB82: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CB95 07:CB85: 29 F0     AND #$F0
 C - - - - - 0x01CB97 07:CB87: 05 00     ORA ram_0000
-C - - - - - 0x01CB99 07:CB89: 8D 14 02  STA ram_0214
+C - - - - - 0x01CB99 07:CB89: 8D 14 02  STA vCurrentWeaponStatus
 bra_CB8C:
 sub_CB8C:
 C - - - - - 0x01CB9C 07:CB8C: A5 6D     LDA ram_006D
@@ -1848,11 +1848,11 @@ C - - - - - 0x01CBA2 07:CB92: 29 03     AND #$03
 C - - - - - 0x01CBA4 07:CB94: F0 0D     BEQ bra_CBA3
 C - - - - - 0x01CBA6 07:CB96: AD 00 02  LDA v_radio_item
 C - - - - - 0x01CBA9 07:CB99: F0 3D     BEQ bra_CBD8_RTS
-C - - - - - 0x01CBAB 07:CB9B: AD 14 02  LDA ram_0214
+C - - - - - 0x01CBAB 07:CB9B: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CBAE 07:CB9E: 29 F0     AND #$F0
-C - - - - - 0x01CBB0 07:CBA0: 8D 14 02  STA ram_0214
+C - - - - - 0x01CBB0 07:CBA0: 8D 14 02  STA vCurrentWeaponStatus
 bra_CBA3:
-C - - - - - 0x01CBB3 07:CBA3: AD 14 02  LDA ram_0214
+C - - - - - 0x01CBB3 07:CBA3: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CBB6 07:CBA6: 30 30     BMI bra_CBD8_RTS
 C - - - - - 0x01CBB8 07:CBA8: 29 07     AND #$07
 C - - - - - 0x01CBBA 07:CBAA: AA        TAX
@@ -1881,7 +1881,7 @@ bra_CBD8_RTS:
 C - - - - - 0x01CBE8 07:CBD8: 60        RTS
 
 sub_CBD9:
-C - - - - - 0x01CBE9 07:CBD9: 2C 14 02  BIT ram_0214
+C - - - - - 0x01CBE9 07:CBD9: 2C 14 02  BIT vCurrentWeaponStatus
 C - - - - - 0x01CBEC 07:CBDC: 30 4B     BMI bra_CC29_RTS
 C - - - - - 0x01CBEE 07:CBDE: 70 49     BVS bra_CC29_RTS
 C - - - - - 0x01CBF0 07:CBE0: A5 6D     LDA ram_006D
@@ -1897,7 +1897,7 @@ C - - - - - 0x01CC03 07:CBF3: 20 29 CB  JSR sub_CB29
 C - - - - - 0x01CC06 07:CBF6: B0 31     BCS bra_CC29_RTS
 C - - - - - 0x01CC08 07:CBF8: 20 2A CC  JSR sub_CC2A
 C - - - - - 0x01CC0B 07:CBFB: B0 2C     BCS bra_CC29_RTS
-C - - - - - 0x01CC0D 07:CBFD: AD 14 02  LDA ram_0214
+C - - - - - 0x01CC0D 07:CBFD: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CC10 07:CC00: 29 0F     AND #$0F
 C - - - - - 0x01CC12 07:CC02: AA        TAX
 C - - - - - 0x01CC13 07:CC03: 4C 13 CD  JMP loc_CD13
@@ -1905,7 +1905,7 @@ C - - - - - 0x01CC13 07:CC03: 4C 13 CD  JMP loc_CD13
 sub_CC06:
 C - - - - - 0x01CC16 07:CC06: BD 00 02  LDA v_items,X
 C - - - - - 0x01CC19 07:CC09: D0 1E     BNE bra_CC29_RTS
-C - - - - - 0x01CC1B 07:CC0B: 2C 14 02  BIT ram_0214
+C - - - - - 0x01CC1B 07:CC0B: 2C 14 02  BIT vCurrentWeaponStatus
 C - - - - - 0x01CC1E 07:CC0E: 70 19     BVS bra_CC29_RTS
 C - - - - - 0x01CC20 07:CC10: A9 05     LDA #$05
 C - - - - - 0x01CC22 07:CC12: 85 12     STA v_temp_counter12
@@ -1922,12 +1922,12 @@ C - - - - - 0x01CC32 07:CC22: D0 F0     BNE @bra_CC14_loop
 - - - - - - 0x01CC34 07:CC24: A2        .byte $A2
 - - - - - - 0x01CC35 07:CC25: 80        .byte $80
 @bra_CC26_skip:
-C - - - - - 0x01CC36 07:CC26: 8E 14 02  STX ram_0214
+C - - - - - 0x01CC36 07:CC26: 8E 14 02  STX vCurrentWeaponStatus
 bra_CC29_RTS:
 C - - - - - 0x01CC39 07:CC29: 60        RTS
 
 sub_CC2A:
-C - - - - - 0x01CC3A 07:CC2A: AD 14 02  LDA ram_0214
+C - - - - - 0x01CC3A 07:CC2A: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CC3D 07:CC2D: A4 46     LDY ram_0046
 C - - - - - 0x01CC3F 07:CC2F: C0 19     CPY #$19
 C - - - - - 0x01CC41 07:CC31: D0 04     BNE bra_CC37
@@ -1980,7 +1980,7 @@ C - - - - - 0x01CC83 07:CC73: 99 20 06  STA ram_0620,Y
 C - - - - - 0x01CC86 07:CC76: 88        DEY
 C - - - - - 0x01CC87 07:CC77: 10 F7     BPL bra_CC70
 C - - - - - 0x01CC89 07:CC79: A0 00     LDY #$00
-C - - - - - 0x01CC8B 07:CC7B: A5 6C     LDA v_chr_status
+C - - - - - 0x01CC8B 07:CC7B: A5 6C     LDA vChrStatus
 C - - - - - 0x01CC8D 07:CC7D: 6A        ROR
 C - - - - - 0x01CC8E 07:CC7E: 90 02     BCC @bra_CC82_skip ; If the character is looking to the right
 C - - - - - 0x01CC90 07:CC80: A0 06     LDY #$06 ; 2nd row
@@ -1990,9 +1990,9 @@ C - - - - - 0x01CC95 07:CC85: 4C 49 CD  JMP loc_CD49
 
 C - - J - - 0x01CC98 07:CC88: 20 75 F0  JSR sub_F075
 C - - - - - 0x01CC9B 07:CC8B: A9 00     LDA #$00
-C - - - - - 0x01CC9D 07:CC8D: 85 73     STA ram_0073
+C - - - - - 0x01CC9D 07:CC8D: 85 73     STA vRifleFireTime
 C - - - - - 0x01CC9F 07:CC8F: A9 05     LDA #$05
-C - - - - - 0x01CCA1 07:CC91: 85 72     STA ram_0072
+C - - - - - 0x01CCA1 07:CC91: 85 72     STA vRifleShotCount
 C - - - - - 0x01CCA3 07:CC93: A9 07     LDA #$07
 C - - - - - 0x01CCA5 07:CC95: 8D B2 06  STA ram_06B2
 C - - - - - 0x01CCA8 07:CC98: 4C 49 CD  JMP loc_CD49
@@ -2093,9 +2093,9 @@ C - - - - - 0x01CD55 07:CD45: 8D C8 03  STA ram_03C8
 C - - - - - 0x01CD58 07:CD48: 60        RTS
 
 loc_CD49:
-C D 2 - - - 0x01CD59 07:CD49: AD 14 02  LDA ram_0214
+C D 2 - - - 0x01CD59 07:CD49: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CD5C 07:CD4C: 09 40     ORA #$40
-C - - - - - 0x01CD5E 07:CD4E: 8D 14 02  STA ram_0214
+C - - - - - 0x01CD5E 07:CD4E: 8D 14 02  STA vCurrentWeaponStatus
 C - - - - - 0x01CD61 07:CD51: 18        CLC
 C - - - - - 0x01CD62 07:CD52: 60        RTS
 
@@ -2129,10 +2129,10 @@ C - - - - - 0x01CD97 07:CD87: D0 21     BNE bra_CDAA
 C - - - - - 0x01CD99 07:CD89: 24 6D     BIT ram_006D
 C - - - - - 0x01CD9B 07:CD8B: 30 43     BMI bra_CDD0
 C - - - - - 0x01CD9D 07:CD8D: 70 5E     BVS bra_CDED_RTS
-C - - - - - 0x01CD9F 07:CD8F: 2C 14 02  BIT ram_0214
+C - - - - - 0x01CD9F 07:CD8F: 2C 14 02  BIT vCurrentWeaponStatus
 C - - - - - 0x01CDA2 07:CD92: 30 59     BMI bra_CDED_RTS
 C - - - - - 0x01CDA4 07:CD94: 50 57     BVC bra_CDED_RTS
-C - - - - - 0x01CDA6 07:CD96: AD 14 02  LDA ram_0214
+C - - - - - 0x01CDA6 07:CD96: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CDA9 07:CD99: 29 0F     AND #$0F
 C - - - - - 0x01CDAB 07:CD9B: 0A        ASL
 C - - - - - 0x01CDAC 07:CD9C: A8        TAY
@@ -2200,9 +2200,9 @@ C - - - - - 0x01CDFE 07:CDEE: A9 01     LDA #$01
 C - - - - - 0x01CE00 07:CDF0: 8D B2 06  STA ram_06B2
 sub_CDF3:
 loc_CDF3:
-C D 2 - - - 0x01CE03 07:CDF3: AD 14 02  LDA ram_0214
+C D 2 - - - 0x01CE03 07:CDF3: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CE06 07:CDF6: 29 BF     AND #$BF
-C - - - - - 0x01CE08 07:CDF8: 8D 14 02  STA ram_0214
+C - - - - - 0x01CE08 07:CDF8: 8D 14 02  STA vCurrentWeaponStatus
 C - - - - - 0x01CE0B 07:CDFB: A9 00     LDA #$00
 C - - - - - 0x01CE0D 07:CDFD: 8D 15 02  STA ram_0215
 C - - - - - 0x01CE10 07:CE00: 8D 16 02  STA ram_0216
@@ -2213,7 +2213,7 @@ C - - - - - 0x01CE18 07:CE08: D0 08     BNE bra_CE12_RTS
 C - - - - - 0x01CE1A 07:CE0A: CA        DEX
 C - - - - - 0x01CE1B 07:CE0B: 10 F8     BPL @bra_CE05_loop
 C - - - - - 0x01CE1D 07:CE0D: A9 80     LDA #$80
-C - - - - - 0x01CE1F 07:CE0F: 8D 14 02  STA ram_0214
+C - - - - - 0x01CE1F 07:CE0F: 8D 14 02  STA vCurrentWeaponStatus
 bra_CE12_RTS:
 C - - - - - 0x01CE22 07:CE12: 60        RTS
 
@@ -3168,7 +3168,7 @@ C - - - - - 0x01D36B 07:D35B: 4C 70 D3  JMP loc_D370
 sub_D36A:
 loc_D36A:
 C D 2 - - - 0x01D37A 07:D36A: 20 6E AD  JSR $AD6E ; to sub_AD6E bank 06_2
-C - - - - - 0x01D37D 07:D36D: 20 74 D9  JSR sub_D974_get_short_chr_positions
+C - - - - - 0x01D37D 07:D36D: 20 74 D9  JSR sub_D974_init_short_chr_positions
 loc_D370:
 sub_D370:
 C D 2 - - - 0x01D380 07:D370: A9 04     LDA #$04
@@ -4149,14 +4149,14 @@ C - - - - - 0x01D96C 07:D95C: 60        RTS
 
 ; Return the CPU-address in [0x0000-0x0001]
 ; Return 0x004D
-sub_D96D_get_absolute_chr_positions:
+sub_D96D_init_absolute_chr_positions:
 C - - - - - 0x01D97D 07:D96D: A9 00     LDA #$00           ;
-sub_D96F_get_relative_chr_positions:
+sub_D96F_init_relative_chr_positions:
 C - - - - - 0x01D97F 07:D96F: 18        CLC                ;
 C - - - - - 0x01D980 07:D970: 65 6A     ADC vScreenChrPosY ;
 C - - - - - 0x01D982 07:D972: 85 00     STA ram_0000       ;
-sub_D974_get_short_chr_positions:
-loc_D974_get_short_chr_positions:
+sub_D974_init_short_chr_positions:
+loc_D974_init_short_chr_positions:
 C D 2 - - - 0x01D984 07:D974: A5 66     LDA vLowChrPosX    ;
 C - - - - - 0x01D986 07:D976: 85 01     STA ram_0001       ;
 C - - - - - 0x01D988 07:D978: A5 68     LDA vNoScreen
@@ -4424,7 +4424,7 @@ sub_DAF4:
 C - - - - - 0x01DB04 07:DAF4: 20 A6 E2  JSR sub_E2A6
 C - - - - - 0x01DB07 07:DAF7: A9 00     LDA #$00
 C - - - - - 0x01DB09 07:DAF9: 85 48     STA ram_0048
-C - - - - - 0x01DB0B 07:DAFB: 85 79     STA ram_0079
+C - - - - - 0x01DB0B 07:DAFB: 85 79     STA vChrLandStatus
 C - - - - - 0x01DB0D 07:DAFD: A5 46     LDA ram_0046
 C - - - - - 0x01DB0F 07:DAFF: D0 0C     BNE bra_DB0D
 C - - - - - 0x01DB11 07:DB01: 20 0E E3  JSR sub_E30E
@@ -4448,13 +4448,13 @@ C - - - - - 0x01DB2B 07:DB1B: 50 03     BVC bra_DB20_skip
 C - - - - - 0x01DB2D 07:DB1D: 4C 47 E8  JMP loc_E847
 
 bra_DB20_skip:
-C - - - - - 0x01DB30 07:DB20: AD 14 02  LDA ram_0214
+C - - - - - 0x01DB30 07:DB20: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01DB33 07:DB23: C9 43     CMP #$43
 C - - - - - 0x01DB35 07:DB25: D0 03     BNE bra_DB2A_skip
 C - - - - - 0x01DB37 07:DB27: 4C 24 E6  JMP loc_E624
 
 bra_DB2A_skip:
-C - - - - - 0x01DB3A 07:DB2A: A5 6C     LDA v_chr_status
+C - - - - - 0x01DB3A 07:DB2A: A5 6C     LDA vChrStatus
 C - - - - - 0x01DB3C 07:DB2C: 29 7F     AND #$7F
 C - - - - - 0x01DB3E 07:DB2E: 20 5F D0  JSR sub_accumulator_shift_right_by_4
 C - - - - - 0x01DB41 07:DB31: 20 C1 D0  JSR sub_D0C1_change_stack_pointer
@@ -4485,63 +4485,63 @@ C - - - - - 0x01DB5D 07:DB4D: A0 02     LDY #$02
 C - - - - - 0x01DB5F 07:DB4F: 4C 9D DD  JMP loc_DD9D
 
 bra_DB52_skip:
-C - - - - - 0x01DB62 07:DB52: AD 14 02  LDA ram_0214
-C - - - - - 0x01DB65 07:DB55: C9 42     CMP #$42
-C - - - - - 0x01DB67 07:DB57: D0 07     BNE bra_DB60
-C - - - - - 0x01DB69 07:DB59: A5 73     LDA ram_0073
-C - - - - - 0x01DB6B 07:DB5B: F0 03     BEQ bra_DB60
-C - - - - - 0x01DB6D 07:DB5D: 4C FB B1  JMP $B1FB
+C - - - - - 0x01DB62 07:DB52: AD 14 02  LDA vCurrentWeaponStatus ;
+C - - - - - 0x01DB65 07:DB55: C9 42     CMP #$42                 ; CONSTANT - The rifle is current and activated
+C - - - - - 0x01DB67 07:DB57: D0 07     BNE bra_DB60_skip        ; If vCurrentWeaponStatus != 0x42
+C - - - - - 0x01DB69 07:DB59: A5 73     LDA vRifleFireTime       ;
+C - - - - - 0x01DB6B 07:DB5B: F0 03     BEQ bra_DB60_skip        ; If RifleFire is timeout
+C - - - - - 0x01DB6D 07:DB5D: 4C FB B1  JMP $B1FB ; to loc_B1FB (bank_06_2)
 
-bra_DB60:
-C - - - - - 0x01DB70 07:DB60: A9 01     LDA #BIT_BUTTON_A
-C - - - - - 0x01DB72 07:DB62: 20 79 D0  JSR sub_D079_check_button_press
-C - - - - - 0x01DB75 07:DB65: F0 03     BEQ bra_DB6A
+bra_DB60_skip:
+C - - - - - 0x01DB70 07:DB60: A9 01     LDA #BIT_BUTTON_A               ;
+C - - - - - 0x01DB72 07:DB62: 20 79 D0  JSR sub_D079_check_button_press ;
+C - - - - - 0x01DB75 07:DB65: F0 03     BEQ bra_DB6A                    ; Go to the branch If the button 'A' isn't pressed
 C - - - - - 0x01DB77 07:DB67: 4C 87 DD  JMP loc_DD87
 
 bra_DB6A:
-C - - - - - 0x01DB7A 07:DB6A: AD 14 02  LDA ram_0214
-C - - - - - 0x01DB7D 07:DB6D: C9 42     CMP #$42
-C - - - - - 0x01DB7F 07:DB6F: F0 2C     BEQ bra_DB9D
-C - - - - - 0x01DB81 07:DB71: A9 10     LDA #BIT_BUTTON_Up
-C - - - - - 0x01DB83 07:DB73: 20 79 D0  JSR sub_D079_check_button_press
-C - - - - - 0x01DB86 07:DB76: F0 1B     BEQ bra_DB93
+C - - - - - 0x01DB7A 07:DB6A: AD 14 02  LDA vCurrentWeaponStatus ;
+C - - - - - 0x01DB7D 07:DB6D: C9 42     CMP #$42                 ; CONSTANT - The rifle is current and activated
+C - - - - - 0x01DB7F 07:DB6F: F0 2C     BEQ bra_DB9D_skip        ; If vCurrentWeaponStatus == 0x42
+C - - - - - 0x01DB81 07:DB71: A9 10     LDA #BIT_BUTTON_Up              ;
+C - - - - - 0x01DB83 07:DB73: 20 79 D0  JSR sub_D079_check_button_press ;
+C - - - - - 0x01DB86 07:DB76: F0 1B     BEQ bra_DB93_skip               ; Go to the branch If the button 'Up' isn't pressed
 C - - - - - 0x01DB88 07:DB78: 20 28 FC  JSR sub_FC28
-C - - - - - 0x01DB8B 07:DB7B: B0 16     BCS bra_DB93
+C - - - - - 0x01DB8B 07:DB7B: B0 16     BCS bra_DB93_skip
 C - - - - - 0x01DB8D 07:DB7D: 20 1A F9  JSR sub_F91A
-C - - - - - 0x01DB90 07:DB80: 90 11     BCC bra_DB93
-C - - - - - 0x01DB92 07:DB82: A5 6C     LDA ram_006C
-C - - - - - 0x01DB94 07:DB84: 09 20     ORA #$20
-C - - - - - 0x01DB96 07:DB86: 85 6C     STA ram_006C
+C - - - - - 0x01DB90 07:DB80: 90 11     BCC bra_DB93_skip
+C - - - - - 0x01DB92 07:DB82: A5 6C     LDA vChrStatus
+C - - - - - 0x01DB94 07:DB84: 09 20     ORA #$20       ; CONSTANT - the character is entering a corridor
+C - - - - - 0x01DB96 07:DB86: 85 6C     STA vChrStatus
 C - - - - - 0x01DB98 07:DB88: A9 00     LDA #$00
 C - - - - - 0x01DB9A 07:DB8A: 85 70     STA ram_0070
 C - - - - - 0x01DB9C 07:DB8C: A9 40     LDA #$40
 C - - - - - 0x01DB9E 07:DB8E: 85 2E     STA ram_002E
 C - - - - - 0x01DBA0 07:DB90: 4C 8D DF  JMP loc_DF8D
 
-bra_DB93:
-C - - - - - 0x01DBA3 07:DB93: A9 80     LDA #$80
-C - - - - - 0x01DBA5 07:DB95: 85 79     STA ram_0079
-C - - - - - 0x01DBA7 07:DB97: A5 1C     LDA ram_001C
-C - - - - - 0x01DBA9 07:DB99: 29 20     AND #$20
-C - - - - - 0x01DBAB 07:DB9B: D0 17     BNE bra_DBB4
-bra_DB9D:
-C - - - - - 0x01DBAD 07:DB9D: A9 80     LDA #$80
-C - - - - - 0x01DBAF 07:DB9F: 85 79     STA ram_0079
-C - - - - - 0x01DBB1 07:DBA1: A5 6C     LDA ram_006C
-C - - - - - 0x01DBB3 07:DBA3: 29 FD     AND #$FD
-C - - - - - 0x01DBB5 07:DBA5: 85 6C     STA ram_006C
-C - - - - - 0x01DBB7 07:DBA7: A5 1C     LDA vBtnPressedInGame
-C - - - - - 0x01DBB9 07:DBA9: 29 C0     AND #BIT_BUTTON_Left_OR_Right
-C - - - - - 0x01DBBB 07:DBAB: F0 03     BEQ bra_DBB0_skip ; If the button 'Left' or 'Right' isn't pressed
+bra_DB93_skip:
+C - - - - - 0x01DBA3 07:DB93: A9 80     LDA #$80              ; CONSTANT -  the character stands on the ground
+C - - - - - 0x01DBA5 07:DB95: 85 79     STA vChrLandStatus    ;
+C - - - - - 0x01DBA7 07:DB97: A5 1C     LDA vBtnPressedInGame ;
+C - - - - - 0x01DBA9 07:DB99: 29 20     AND #BIT_BUTTON_Down  ;
+C - - - - - 0x01DBAB 07:DB9B: D0 17     BNE bra_DBB4_skip     ; If the button 'Down' is pressed
+bra_DB9D_skip:
+C - - - - - 0x01DBAD 07:DB9D: A9 80     LDA #$80           ; CONSTANT -  the character stands on the ground
+C - - - - - 0x01DBAF 07:DB9F: 85 79     STA vChrLandStatus ;
+C - - - - - 0x01DBB1 07:DBA1: A5 6C     LDA vChrStatus     ;
+C - - - - - 0x01DBB3 07:DBA3: 29 FD     AND #$FD           ;
+C - - - - - 0x01DBB5 07:DBA5: 85 6C     STA vChrStatus     ; We stand up the character, he no longer sits
+C - - - - - 0x01DBB7 07:DBA7: A5 1C     LDA vBtnPressedInGame         ;
+C - - - - - 0x01DBB9 07:DBA9: 29 C0     AND #BIT_BUTTON_Left_OR_Right ;
+C - - - - - 0x01DBBB 07:DBAB: F0 03     BEQ bra_DBB0_skip             ; If the button 'Left' or 'Right' isn't pressed
 C - - - - - 0x01DBBD 07:DBAD: 4C 52 DC  JMP loc_DC52
 
 bra_DBB0_skip:
 C - - - - - 0x01DBC0 07:DBB0: A2 00     LDX #$00
 C - - - - - 0x01DBC2 07:DBB2: F0 0B     BEQ bra_DBBF
-bra_DBB4:
-C - - - - - 0x01DBC4 07:DBB4: A5 6C     LDA ram_006C
-C - - - - - 0x01DBC6 07:DBB6: 09 02     ORA #$02
-C - - - - - 0x01DBC8 07:DBB8: 85 6C     STA ram_006C
+bra_DBB4_skip:
+C - - - - - 0x01DBC4 07:DBB4: A5 6C     LDA vChrStatus ;
+C - - - - - 0x01DBC6 07:DBB6: 09 02     ORA #$02       ; CONSTANT - the character is sitting
+C - - - - - 0x01DBC8 07:DBB8: 85 6C     STA vChrStatus ; 
 C - - - - - 0x01DBCA 07:DBBA: 20 63 DF  JSR sub_DF63
 C - - - - - 0x01DBCD 07:DBBD: A2 14     LDX #$14
 bra_DBBF:
@@ -4576,7 +4576,7 @@ C - - - - - 0x01DBFA 07:DBEA: F0 03     BEQ bra_DBEF
 C - - - - - 0x01DBFC 07:DBEC: 4C 1C E2  JMP loc_E21C
 
 bra_DBEF:
-C - - - - - 0x01DBFF 07:DBEF: AC 14 02  LDY ram_0214
+C - - - - - 0x01DBFF 07:DBEF: AC 14 02  LDY vCurrentWeaponStatus
 C - - - - - 0x01DC02 07:DBF2: A9 40     LDA #$40
 C - - - - - 0x01DC04 07:DBF4: C0 42     CPY #$42
 C - - - - - 0x01DC06 07:DBF6: F0 1B     BEQ bra_DC13
@@ -4641,10 +4641,10 @@ C - - - - - 0x01DC5F 07:DC4F: 4C 5A CE  JMP loc_CE5A_render_character
 
 loc_DC52:
 C D 2 - - - 0x01DC62 07:DC52: 30 1E     BMI bra_DC72_skip ; If the button 'Right' is pressed
-C - - - - - 0x01DC64 07:DC54: A5 6C     LDA v_chr_status  ;
+C - - - - - 0x01DC64 07:DC54: A5 6C     LDA vChrStatus  ;
 C - - - - - 0x01DC66 07:DC56: 6A        ROR               ;  
-C - - - - - 0x01DC67 07:DC57: B0 05     BCS bra_DC5E_skip ; If v_chr_status is changed yet
-C - - - - - 0x01DC69 07:DC59: E6 6C     INC v_chr_status  ; Changes a status to 'left'
+C - - - - - 0x01DC67 07:DC57: B0 05     BCS bra_DC5E_skip ; If vChrStatus is changed yet
+C - - - - - 0x01DC69 07:DC59: E6 6C     INC vChrStatus  ; Changes a status to 'left'
 C - - - - - 0x01DC6B 07:DC5B: 20 F1 DC  JSR sub_DCF1_reset_velocity
 bra_DC5E_skip:
 C - - - - - 0x01DC6E 07:DC5E: 20 B1 DC  JSR sub_DCB1
@@ -4662,10 +4662,10 @@ tbl_DC6F:
 - D 2 - - - 0x01DC81 07:DC71: 0C        .byte $0C
 
 bra_DC72_skip:
-C - - - - - 0x01DC82 07:DC72: A5 6C     LDA v_chr_status  ;
+C - - - - - 0x01DC82 07:DC72: A5 6C     LDA vChrStatus  ;
 C - - - - - 0x01DC84 07:DC74: 6A        ROR               ;
 C - - - - - 0x01DC85 07:DC75: 90 05     BCC bra_DC7C_skip ;
-C - - - - - 0x01DC87 07:DC77: C6 6C     DEC v_chr_status  ; Changes a status to 'right'
+C - - - - - 0x01DC87 07:DC77: C6 6C     DEC vChrStatus  ; Changes a status to 'right'
 C D 2 - - - 0x01DC89 07:DC79: 20 F1 DC  JSR sub_DCF1_reset_velocity
 bra_DC7C_skip:
 C - - - - - 0x01DC8C 07:DC7C: 20 E5 DC  JSR sub_DCE5
@@ -4786,11 +4786,11 @@ C - - - - - 0x01DD29 07:DD19: A5 5E     LDA v_no_level
 C - - - - - 0x01DD2B 07:DD1B: C9 03     CMP #$03
 C - - - - - 0x01DD2D 07:DD1D: D0 0A     BNE bra_DD29_skip
 C - - - - - 0x01DD2F 07:DD1F: A9 E1     LDA #$E1
-C - - - - - 0x01DD31 07:DD21: 20 6F D9  JSR sub_D96F_get_relative_chr_positions
+C - - - - - 0x01DD31 07:DD21: 20 6F D9  JSR sub_D96F_init_relative_chr_positions
 C - - - - - 0x01DD34 07:DD24: 20 2C DD  JSR sub_DD2C
 C - - - - - 0x01DD37 07:DD27: F0 0A     BEQ bra_DD33_RTS
 bra_DD29_skip:
-C - - - - - 0x01DD39 07:DD29: 20 6D D9  JSR sub_D96D_get_absolute_chr_positions
+C - - - - - 0x01DD39 07:DD29: 20 6D D9  JSR sub_D96D_init_absolute_chr_positions
 sub_DD2C:
 C - - - - - 0x01DD3C 07:DD2C: A9 08     LDA #$08
 C - - - - - 0x01DD3E 07:DD2E: 20 97 D3  JSR sub_D397
@@ -4803,11 +4803,11 @@ C - - - - - 0x01DD44 07:DD34: A5 5E     LDA v_no_level
 C - - - - - 0x01DD46 07:DD36: C9 03     CMP #$03
 C - - - - - 0x01DD48 07:DD38: D0 0A     BNE bra_DD44_skip
 C - - - - - 0x01DD4A 07:DD3A: A9 E1     LDA #$E1
-C - - - - - 0x01DD4C 07:DD3C: 20 6F D9  JSR sub_D96F_get_relative_chr_positions
+C - - - - - 0x01DD4C 07:DD3C: 20 6F D9  JSR sub_D96F_init_relative_chr_positions
 C - - - - - 0x01DD4F 07:DD3F: 20 47 DD  JSR sub_DD47
 C - - - - - 0x01DD52 07:DD42: F0 EF     BEQ bra_DD33_RTS
 bra_DD44_skip:
-C - - - - - 0x01DD54 07:DD44: 20 6D D9  JSR sub_D96D_get_absolute_chr_positions
+C - - - - - 0x01DD54 07:DD44: 20 6D D9  JSR sub_D96D_init_absolute_chr_positions
 sub_DD47:
 C - - - - - 0x01DD57 07:DD47: A9 F8     LDA #$F8
 C - - - - - 0x01DD59 07:DD49: 20 AD D3  JSR sub_D3AD
@@ -4854,7 +4854,7 @@ sub_DD7C:
 C - - - - - 0x01DD8C 07:DD7C: A9 F9     LDA #$F9
 loc_DD7E:
 sub_DD7E:
-C D 2 - - - 0x01DD8E 07:DD7E: 20 6F D9  JSR sub_D96F_get_relative_chr_positions
+C D 2 - - - 0x01DD8E 07:DD7E: 20 6F D9  JSR sub_D96F_init_relative_chr_positions
 C - - - - - 0x01DD91 07:DD81: 20 70 D3  JSR sub_D370
 C - - - - - 0x01DD94 07:DD84: C9 01     CMP #$01
 C - - - - - 0x01DD96 07:DD86: 60        RTS
@@ -4888,7 +4888,7 @@ C - - - - - 0x01DDC1 07:DDB1: D0 23     BNE bra_DDD6
 C - - - - - 0x01DDC3 07:DDB3: 20 57 DF  JSR sub_DF57
 C - - - - - 0x01DDC6 07:DDB6: F0 04     BEQ bra_DDBC
 C - - - - - 0x01DDC8 07:DDB8: A9 80     LDA #$80
-C - - - - - 0x01DDCA 07:DDBA: 85 79     STA ram_0079
+C - - - - - 0x01DDCA 07:DDBA: 85 79     STA vChrLandStatus
 bra_DDBC:
 C - - - - - 0x01DDCC 07:DDBC: A5 6F     LDA ram_006F
 C - - - - - 0x01DDCE 07:DDBE: C9 0C     CMP #$0C
@@ -4951,7 +4951,7 @@ bra_DE1B:
 C - - - - - 0x01DE2B 07:DE1B: 85 6A     STA ram_006A
 C - - - - - 0x01DE2D 07:DE1D: 85 00     STA ram_0000
 C - - - - - 0x01DE2F 07:DE1F: A2 0C     LDX #$0C
-C - - - - - 0x01DE31 07:DE21: AD 14 02  LDA ram_0214
+C - - - - - 0x01DE31 07:DE21: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01DE34 07:DE24: C9 41     CMP #$41
 C - - - - - 0x01DE36 07:DE26: F0 08     BEQ bra_DE30
 C - - - - - 0x01DE38 07:DE28: A5 6E     LDA ram_006E
@@ -4974,21 +4974,21 @@ C - - - - - 0x01DE51 07:DE41: 4C E6 DE  JMP loc_DEE6
 bra_DE44:
 C - - - - - 0x01DE54 07:DE44: E6 00     INC ram_0000
 C - - - - - 0x01DE56 07:DE46: 20 6A D3  JSR sub_D36A
-C - - - - - 0x01DE59 07:DE49: F0 3B     BEQ bra_DE86
+C - - - - - 0x01DE59 07:DE49: F0 3B     BEQ bra_DE86_skip
 C - - - - - 0x01DE5B 07:DE4B: C9 02     CMP #$02
 C - - - - - 0x01DE5D 07:DE4D: F0 07     BEQ bra_DE56
 C - - - - - 0x01DE5F 07:DE4F: 20 7C DD  JSR sub_DD7C
-C - - - - - 0x01DE62 07:DE52: F0 32     BEQ bra_DE86
+C - - - - - 0x01DE62 07:DE52: F0 32     BEQ bra_DE86_skip
 C - - - - - 0x01DE64 07:DE54: D0 11     BNE bra_DE67
 bra_DE56:
 C - - - - - 0x01DE66 07:DE56: 20 7C DD  JSR sub_DD7C
-C - - - - - 0x01DE69 07:DE59: F0 2B     BEQ bra_DE86
+C - - - - - 0x01DE69 07:DE59: F0 2B     BEQ bra_DE86_skip
 C - - - - - 0x01DE6B 07:DE5B: A5 6E     LDA ram_006E
 C - - - - - 0x01DE6D 07:DE5D: C9 02     CMP #$02
 C - - - - - 0x01DE6F 07:DE5F: D0 06     BNE bra_DE67
 C - - - - - 0x01DE71 07:DE61: A5 1C     LDA ram_001C
 C - - - - - 0x01DE73 07:DE63: 29 20     AND #$20
-C - - - - - 0x01DE75 07:DE65: D0 1F     BNE bra_DE86
+C - - - - - 0x01DE75 07:DE65: D0 1F     BNE bra_DE86_skip
 bra_DE67:
 C - - - - - 0x01DE77 07:DE67: A5 6D     LDA ram_006D
 C - - - - - 0x01DE79 07:DE69: 29 01     AND #$01
@@ -5007,7 +5007,7 @@ C - - - - - 0x01DE90 07:DE80: 4C A9 DE  JMP loc_DEA9
 
 bra_DE83:
 C - - - - - 0x01DE93 07:DE83: 20 5C DF  JSR sub_DF5C
-bra_DE86:
+bra_DE86_skip:
 loc_DE86:
 C D 2 - - - 0x01DE96 07:DE86: A5 6F     LDA ram_006F
 C - - - - - 0x01DE98 07:DE88: C9 18     CMP #$18
@@ -5313,7 +5313,7 @@ sub_E04C:
 C - - - - - 0x01E05C 07:E04C: A9 02     LDA #BIT_BUTTON_B
 C - - - - - 0x01E05E 07:E04E: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01E061 07:E051: F0 30     BEQ bra_E083_RTS
-C - - - - - 0x01E063 07:E053: 24 79     BIT ram_0079
+C - - - - - 0x01E063 07:E053: 24 79     BIT vChrLandStatus
 C - - - - - 0x01E065 07:E055: 10 2C     BPL bra_E083_RTS
 C - - - - - 0x01E067 07:E057: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01E069 07:E059: 29 02     AND #$02
@@ -5330,7 +5330,7 @@ C - - - - - 0x01E07C 07:E06C: A2 02     LDX #$02
 C - - - - - 0x01E07E 07:E06E: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01E080 07:E070: 6A        ROR
 C - - - - - 0x01E081 07:E071: B0 09     BCS bra_E07C
-C - - - - - 0x01E083 07:E073: AD 14 02  LDA ram_0214
+C - - - - - 0x01E083 07:E073: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01E086 07:E076: C9 42     CMP #$42
 C - - - - - 0x01E088 07:E078: F0 0A     BEQ bra_E084
 C - - - - - 0x01E08A 07:E07A: A2 00     LDX #$00
@@ -5343,10 +5343,10 @@ bra_E083_RTS:
 C - - - - - 0x01E093 07:E083: 60        RTS
 
 bra_E084:
-C - - - - - 0x01E094 07:E084: A5 73     LDA ram_0073
+C - - - - - 0x01E094 07:E084: A5 73     LDA vRifleFireTime
 C - - - - - 0x01E096 07:E086: D0 FB     BNE bra_E083_RTS
 C - - - - - 0x01E098 07:E088: A9 30     LDA #$30
-C - - - - - 0x01E09A 07:E08A: 85 73     STA ram_0073
+C - - - - - 0x01E09A 07:E08A: 85 73     STA vRifleFireTime
 C - - - - - 0x01E09C 07:E08C: A9 17     LDA #$17
 C - - - - - 0x01E09E 07:E08E: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01E0A1 07:E091: A2 04     LDX #$04
@@ -5421,7 +5421,7 @@ C - - - - - 0x01E106 07:E0F6: A0 16     LDY #$16
 C - - - - - 0x01E108 07:E0F8: 24 6D     BIT ram_006D
 C - - - - - 0x01E10A 07:E0FA: 30 13     BMI bra_E10F
 C - - - - - 0x01E10C 07:E0FC: A0 10     LDY #$10
-C - - - - - 0x01E10E 07:E0FE: AD 14 02  LDA ram_0214
+C - - - - - 0x01E10E 07:E0FE: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01E111 07:E101: C9 42     CMP #$42
 C - - - - - 0x01E113 07:E103: F0 0A     BEQ bra_E10F
 C - - - - - 0x01E115 07:E105: A0 0F     LDY #$0F
@@ -5442,7 +5442,7 @@ C - - - - - 0x01E12E 07:E11E: A0 16     LDY #$16
 C - - - - - 0x01E130 07:E120: 24 6D     BIT ram_006D
 C - - - - - 0x01E132 07:E122: 30 0B     BMI bra_E12F
 C - - - - - 0x01E134 07:E124: A0 14     LDY #$14
-C - - - - - 0x01E136 07:E126: AD 14 02  LDA ram_0214
+C - - - - - 0x01E136 07:E126: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01E139 07:E129: C9 42     CMP #$42
 C - - - - - 0x01E13B 07:E12B: F0 02     BEQ bra_E12F
 C - - - - - 0x01E13D 07:E12D: A0 10     LDY #$10
@@ -5536,7 +5536,7 @@ C - - - - - 0x01E1BC 07:E1AC: 29 03     AND #$03
 C - - - - - 0x01E1BE 07:E1AE: F0 0D     BEQ bra_E1BD
 C - - - - - 0x01E1C0 07:E1B0: D6 8F     DEC ram_008F,X
 C - - - - - 0x01E1C2 07:E1B2: A0 18     LDY #$18
-C - - - - - 0x01E1C4 07:E1B4: AD 14 02  LDA ram_0214
+C - - - - - 0x01E1C4 07:E1B4: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01E1C7 07:E1B7: C9 42     CMP #$42
 C - - - - - 0x01E1C9 07:E1B9: F0 02     BEQ bra_E1BD
 C - - - - - 0x01E1CB 07:E1BB: A0 04     LDY #$04
@@ -5618,7 +5618,7 @@ bra_E234_RTS:
 C - - - - - 0x01E244 07:E234: 60        RTS
 
 bra_E235:
-C - - - - - 0x01E245 07:E235: A5 79     LDA ram_0079
+C - - - - - 0x01E245 07:E235: A5 79     LDA vChrLandStatus
 C - - - - - 0x01E247 07:E237: 10 EC     BPL bra_E225
 C - - - - - 0x01E249 07:E239: 8A        TXA
 C - - - - - 0x01E24A 07:E23A: 48        PHA
@@ -5967,7 +5967,7 @@ C - - - - - 0x01E3D5 07:E3C5: 4C 4A E4  JMP loc_E44A
 
 bra_E3C8:
 C - - - - - 0x01E3D8 07:E3C8: A9 80     LDA #$80
-C - - - - - 0x01E3DA 07:E3CA: 85 79     STA ram_0079
+C - - - - - 0x01E3DA 07:E3CA: 85 79     STA vChrLandStatus
 C - - - - - 0x01E3DC 07:E3CC: 20 63 DF  JSR sub_DF63
 C - - - - - 0x01E3DF 07:E3CF: A6 2E     LDX ram_002E
 C - - - - - 0x01E3E1 07:E3D1: D0 0F     BNE bra_E3E2
@@ -6020,7 +6020,7 @@ C - - - - - 0x01E432 07:E422: A9 C2     LDA #$C2
 C - - - - - 0x01E434 07:E424: 85 39     STA ram_0039
 bra_E426:
 C - - - - - 0x01E436 07:E426: A9 00     LDA #$00
-C - - - - - 0x01E438 07:E428: 85 79     STA ram_0079
+C - - - - - 0x01E438 07:E428: 85 79     STA vChrLandStatus
 C - - - - - 0x01E43A 07:E42A: A2 14     LDX #$14
 C - - - - - 0x01E43C 07:E42C: D0 16     BNE bra_E444
 bra_E42E:
@@ -6333,7 +6333,7 @@ C - - - - - 0x01E62A 07:E61A: A5 6A     LDA ram_006A
 C - - - - - 0x01E62C 07:E61C: 38        SEC
 C - - - - - 0x01E62D 07:E61D: E9 04     SBC #$04
 C - - - - - 0x01E62F 07:E61F: 85 00     STA ram_0000
-C - - - - - 0x01E631 07:E621: 4C 74 D9  JMP loc_D974_get_short_chr_positions
+C - - - - - 0x01E631 07:E621: 4C 74 D9  JMP loc_D974_init_short_chr_positions
 
 loc_E624:
 C D 3 - - - 0x01E634 07:E624: A9 04     LDA #$04
@@ -6365,7 +6365,7 @@ C - - - - - 0x01E660 07:E650: 4C C0 E6  JMP loc_E6C0
 
 bra_E653:
 C - - - - - 0x01E663 07:E653: A9 80     LDA #$80
-C - - - - - 0x01E665 07:E655: 85 79     STA ram_0079
+C - - - - - 0x01E665 07:E655: 85 79     STA vChrLandStatus
 C - - - - - 0x01E667 07:E657: 20 83 E7  JSR sub_E783
 C - - - - - 0x01E66A 07:E65A: A5 1C     LDA ram_001C
 C - - - - - 0x01E66C 07:E65C: 29 C0     AND #$C0
@@ -6683,7 +6683,7 @@ C - - - - - 0x01E869 07:E859: A9 01     LDA #BIT_BUTTON_A
 C - - - - - 0x01E86B 07:E85B: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01E86E 07:E85E: D0 6D     BNE bra_E8CD
 C - - - - - 0x01E870 07:E860: A9 80     LDA #$80
-C - - - - - 0x01E872 07:E862: 85 79     STA ram_0079
+C - - - - - 0x01E872 07:E862: 85 79     STA vChrLandStatus
 C - - - - - 0x01E874 07:E864: A5 1C     LDA ram_001C
 C - - - - - 0x01E876 07:E866: 29 C0     AND #$C0
 C - - - - - 0x01E878 07:E868: F0 26     BEQ bra_E890
@@ -6865,7 +6865,7 @@ bra_E98D:
 C - - - - - 0x01E99D 07:E98D: 20 B3 E9  JSR sub_E9B3
 loc_E990:
 C D 3 - - - 0x01E9A0 07:E990: A9 80     LDA #$80
-C - - - - - 0x01E9A2 07:E992: 85 79     STA ram_0079
+C - - - - - 0x01E9A2 07:E992: 85 79     STA vChrLandStatus
 C - - - - - 0x01E9A4 07:E994: 20 CE EC  JSR sub_ECCE
 C - - - - - 0x01E9A7 07:E997: A5 6C     LDA ram_006C
 C - - - - - 0x01E9A9 07:E999: 29 08     AND #$08
@@ -6943,7 +6943,7 @@ C - - - - - 0x01EA1F 07:EA0F: 85 6C     STA ram_006C
 bra_EA11:
 loc_EA11:
 sub_EA11:
-C D 3 - - - 0x01EA21 07:EA11: 20 6D D9  JSR sub_D96D_get_absolute_chr_positions
+C D 3 - - - 0x01EA21 07:EA11: 20 6D D9  JSR sub_D96D_init_absolute_chr_positions
 C - - - - - 0x01EA24 07:EA14: A9 0E     LDA #$0E
 C - - - - - 0x01EA26 07:EA16: 20 97 D3  JSR sub_D397
 C - - - - - 0x01EA29 07:EA19: C9 01     CMP #$01
@@ -7128,8 +7128,8 @@ C - - - - - 0x01EB43 07:EB33: D0 1E     BNE bra_EB53
 C - - - - - 0x01EB45 07:EB35: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01EB47 07:EB37: 29 02     AND #$02
 C - - - - - 0x01EB49 07:EB39: F0 04     BEQ bra_EB3F
-C - - - - - 0x01EB4B 07:EB3B: A9 80     LDA #$80
-C - - - - - 0x01EB4D 07:EB3D: 85 79     STA ram_0079
+C - - - - - 0x01EB4B 07:EB3B: A9 80     LDA #$80           ; CONSTANT - the character stands on the ground
+C - - - - - 0x01EB4D 07:EB3D: 85 79     STA vChrLandStatus ; 
 bra_EB3F:
 C - - - - - 0x01EB4F 07:EB3F: A5 6F     LDA ram_006F
 C - - - - - 0x01EB51 07:EB41: C9 0C     CMP #$0C
@@ -7312,7 +7312,7 @@ C - - - - - 0x01EC79 07:EC69: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01EC7B 07:EC6B: 85 01     STA ram_0001
 C - - - - - 0x01EC7D 07:EC6D: A9 02     LDA #$02
 C - - - - - 0x01EC7F 07:EC6F: 85 45     STA ram_0045
-C - - - - - 0x01EC81 07:EC71: A5 72     LDA ram_0072
+C - - - - - 0x01EC81 07:EC71: A5 72     LDA vRifleShotCount
 C - - - - - 0x01EC83 07:EC73: 18        CLC
 C - - - - - 0x01EC84 07:EC74: 69 7E     ADC #$7E
 C - - - - - 0x01EC86 07:EC76: AA        TAX
@@ -7365,7 +7365,7 @@ C - - - - - 0x01ECCD 07:ECBD: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01ECCF 07:ECBF: 85 01     STA ram_0001
 C - - - - - 0x01ECD1 07:ECC1: A9 02     LDA #$02
 C - - - - - 0x01ECD3 07:ECC3: 85 45     STA ram_0045
-C - - - - - 0x01ECD5 07:ECC5: A5 73     LDA ram_0073
+C - - - - - 0x01ECD5 07:ECC5: A5 73     LDA vRifleFireTime
 C - - - - - 0x01ECD7 07:ECC7: 18        CLC
 C - - - - - 0x01ECD8 07:ECC8: 69 7E     ADC #$7E
 C - - - - - 0x01ECDA 07:ECCA: AA        TAX
@@ -7441,7 +7441,7 @@ C - - - - - 0x01ED3A 07:ED2A: AA        TAX
 C - - - - - 0x01ED3B 07:ED2B: A0 05     LDY #$05
 bra_ED2D:
 C - - - - - 0x01ED3D 07:ED2D: BD 27 86  LDA $8627,X
-C - - - - - 0x01ED40 07:ED30: 99 72 00  STA ram_0072,Y
+C - - - - - 0x01ED40 07:ED30: 99 72 00  STA vRifleShotCount,Y
 C - - - - - 0x01ED43 07:ED33: CA        DEX
 C - - - - - 0x01ED44 07:ED34: 88        DEY
 C - - - - - 0x01ED45 07:ED35: 10 F6     BPL bra_ED2D
@@ -7791,7 +7791,7 @@ C - - - - - 0x01EFAA 07:EF9A: 9D 00 02  STA ram_0200,X ; 0x0209-0x02FF in 0
 C - - - - - 0x01EFAD 07:EF9D: CA        DEX
 C - - - - - 0x01EFAE 07:EF9E: 10 FA     BPL @clear_loop
 C - - - - - 0x01EFB0 07:EFA0: A9 00     LDA #$00
-C - - - - - 0x01EFB2 07:EFA2: 8D 14 02  STA ram_0214
+C - - - - - 0x01EFB2 07:EFA2: 8D 14 02  STA vCurrentWeaponStatus
 sub_EFA5:
 C - - - - - 0x01EFB5 07:EFA5: 20 8D EF  JSR sub_EF8D
 C - - - - - 0x01EFB8 07:EFA8: 85 60     STA ram_0060
@@ -8251,9 +8251,9 @@ C - - - - - 0x01F2E2 07:F2D2: D0 26     BNE bra_F2FA_clear_c_rts ; if low_counte
 C - - - - - 0x01F2E4 07:F2D4: A9 01     LDA #$01
 sub_F2D6_try_put_briefcase: ; from bank_06_2
 bra_F2D6_skip:
-C - - - - - 0x01F2E6 07:F2D6: 85 00     STA ram_0000 ; Register A has 0x00 or 0x01
-C - - - - - 0x01F2E8 07:F2D8: A5 6C     LDA v_chr_status
-C - - - - - 0x01F2EA 07:F2DA: 29 01     AND #$01 ; only left or right
+C - - - - - 0x01F2E6 07:F2D6: 85 00     STA ram_0000   ; Register A has 0x00 or 0x01
+C - - - - - 0x01F2E8 07:F2D8: A5 6C     LDA vChrStatus ;
+C - - - - - 0x01F2EA 07:F2DA: 29 01     AND #$01       ; only left or right
 C - - - - - 0x01F2EC 07:F2DC: 45 00     EOR ram_0000
 C - - - - - 0x01F2EE 07:F2DE: 85 0B     STA ram_000B
 C - - - - - 0x01F2F0 07:F2E0: A5 4B     LDA vHighViewPortPosX

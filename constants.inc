@@ -358,14 +358,23 @@ vTempLowChrPosX               = ram_0067
 vNoScreen                     = ram_0068 ; The number of the level screen
 vTempNoScreen                 = ram_0069
 vScreenChrPosY                = ram_006A ; The character's position along the Y axis relative to the screen (no repeat)
-v_chr_status                  = ram_006C ; A status of a character
+vChrStatus                    = ram_006C ; A status of a character
 ; Byte: XYZW KLMN
 ; N - the character is looking to the right/left (1 - left, 0 - right)
 ; M - the character is/isn't sitting (1 - sitting, 0 - no sitting)
+; L - the character is getting a damage  (1 - getting, 0 - no getting)
+; W - the character is/isn't jumping (1 - jumping, 0 - no jumping)
+; Z - the character is entering a corridor or hiding place (1 - entering, 0 - no entering)
 ; ...
-; 0x00010000 - the character is jumping
 
 vVelocity                     = ram_0071 ; 0x04 - min, 0x0C - max
+
+
+vRifleShotCount               = ram_0072 ; A number of rifle shots
+vRifleFireTime                = ram_0073 ; The time it takes for a rifle to fire
+vChrLandStatus                = ram_0079 ;
+; 0x00 - the character is in the air
+; 0x80 - the character stands on the ground
 
 ; ??? - ram_00AD
 ; 0x8F - ???
@@ -409,6 +418,15 @@ v_breathing_apparatus_item    = ram_0205
 v_helium_balloon_item         = ram_0206
 v_bullet_proof_vest_item      = ram_0207
 v_ruby_ring                   = ram_0208
+vCurrentWeaponStatus          = ram_0214 ; Only the active items
+; 0x10000000 - the weapons are not exist
+; 0x00100000 - the weapon is activated
+; 0x00000000 - Using the radio
+; 0x00000001 - Using the bomb
+; 0x00000010 - Using the artillery rifle
+; 0x00000011 - Using the jet-pack
+; 0x00000100 - Using the infrared goggles
+
 v_array_white_briefcase       = ram_0219
 ; flag 0x80 - the item is got (see BIT_USING_WHITE_BRIEFCASE)
 vEnemies                     = ram_0300

@@ -2548,17 +2548,17 @@ C - - - - - 0x01B074 06:B064: 4C F4 D8  JMP $D8F4
 
 sub_B067:
 C - - - - - 0x01B077 06:B067: A5 6D     LDA ram_006D
-C - - - - - 0x01B079 06:B069: 30 15     BMI bra_B080
-C - - - - - 0x01B07B 06:B06B: 2C 14 02  BIT ram_0214
-C - - - - - 0x01B07E 06:B06E: 10 10     BPL bra_B080
+C - - - - - 0x01B079 06:B069: 30 15     BMI bra_B080_skip
+C - - - - - 0x01B07B 06:B06B: 2C 14 02  BIT vCurrentWeaponStatus
+C - - - - - 0x01B07E 06:B06E: 10 10     BPL bra_B080_skip
 C - - - - - 0x01B080 06:B070: C0 05     CPY #$05
-C - - - - - 0x01B082 06:B072: B0 0C     BCS bra_B080
+C - - - - - 0x01B082 06:B072: B0 0C     BCS bra_B080_skip
 C - - - - - 0x01B084 06:B074: 84 11     STY ram_0011
-C - - - - - 0x01B086 06:B076: AD 14 02  LDA ram_0214
+C - - - - - 0x01B086 06:B076: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01B089 06:B079: 29 7F     AND #$7F
 C - - - - - 0x01B08B 06:B07B: 05 11     ORA ram_0011
-C - - - - - 0x01B08D 06:B07D: 8D 14 02  STA ram_0214
-bra_B080:
+C - - - - - 0x01B08D 06:B07D: 8D 14 02  STA vCurrentWeaponStatus
+bra_B080_skip:
 C - - - - - 0x01B090 06:B080: B9 00 02  LDA v_items,Y
 C - - - - - 0x01B093 06:B083: 18        CLC
 C - - - - - 0x01B094 06:B084: 69 01     ADC #$01
@@ -2774,32 +2774,33 @@ C - - - - - 0x01B207 06:B1F7: CA        DEX
 C - - - - - 0x01B208 06:B1F8: D0 E2     BNE bra_B1DC_loop
 C - - - - - 0x01B20A 06:B1FA: 60        RTS
 
-C D 1 - - - 0x01B20B 06:B1FB: C6 73     DEC ram_0073
-C - - - - - 0x01B20D 06:B1FD: D0 0F     BNE bra_B20E
-C - - - - - 0x01B20F 06:B1FF: C6 72     DEC ram_0072
-C - - - - - 0x01B211 06:B201: D0 03     BNE bra_B206
+loc_B1FB: ; from bank FF
+C D 1 - - - 0x01B20B 06:B1FB: C6 73     DEC vRifleFireTime
+C - - - - - 0x01B20D 06:B1FD: D0 0F     BNE bra_B20E_skip
+C - - - - - 0x01B20F 06:B1FF: C6 72     DEC vRifleShotCount
+C - - - - - 0x01B211 06:B201: D0 03     BNE bra_B206_skip
 C - - - - - 0x01B213 06:B203: 20 EE CD  JSR $CDEE
-bra_B206:
+bra_B206_skip:
 C - - - - - 0x01B216 06:B206: 20 63 DF  JSR $DF63
 C - - - - - 0x01B219 06:B209: A2 00     LDX #$00
 C - - - - - 0x01B21B 06:B20B: 4C C2 DB  JMP $DBC2
 
-bra_B20E:
-C - - - - - 0x01B21E 06:B20E: A5 73     LDA ram_0073
+bra_B20E_skip:
+C - - - - - 0x01B21E 06:B20E: A5 73     LDA vRifleFireTime
 C - - - - - 0x01B220 06:B210: C9 20     CMP #$20
-C - - - - - 0x01B222 06:B212: 90 F2     BCC bra_B206
+C - - - - - 0x01B222 06:B212: 90 F2     BCC bra_B206_skip
 C - - - - - 0x01B224 06:B214: 20 F1 DC  JSR $DCF1
 C - - - - - 0x01B227 06:B217: A5 6C     LDA ram_006C
 C - - - - - 0x01B229 06:B219: 6A        ROR
-C - - - - - 0x01B22A 06:B21A: 90 06     BCC bra_B222
+C - - - - - 0x01B22A 06:B21A: 90 06     BCC bra_B222_skip
 C - - - - - 0x01B22C 06:B21C: 20 E5 DC  JSR $DCE5
 C - - - - - 0x01B22F 06:B21F: 4C 25 B2  JMP loc_B225
 
-bra_B222:
+bra_B222_skip:
 C - - - - - 0x01B232 06:B222: 20 B1 DC  JSR $DCB1
 loc_B225:
 C D 1 - - - 0x01B235 06:B225: A2 10     LDX #$10
-C - - - - - 0x01B237 06:B227: A5 73     LDA ram_0073
+C - - - - - 0x01B237 06:B227: A5 73     LDA vRifleFireTime
 C - - - - - 0x01B239 06:B229: 29 0F     AND #$0F
 C - - - - - 0x01B23B 06:B22B: C9 08     CMP #$08
 C - - - - - 0x01B23D 06:B22D: B0 02     BCS bra_B231

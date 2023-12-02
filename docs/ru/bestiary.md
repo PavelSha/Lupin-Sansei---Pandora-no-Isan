@@ -1,9 +1,9 @@
 |Идентификатор|Имя|Тип|Миниатюра|Уровень|
 |---|---|---|---|---|
 |0x00| - | - | - | - |
-|0x01|   |   |   |   |
-|0x02|   |   |   |   |
-|0x03|   |   |   |   |
+|0x01|Cat with the gun| A |   | 3 |
+|0x02|Gray land hat| B |   | 3 |
+|0x03|Black land hat| B |   | 3 |
 |0x04|Land Diver| A |   | 3 |
 |0x05|Land Diver| A |   | 2 |
 |0x06|Land Diver| A |   | 1 |

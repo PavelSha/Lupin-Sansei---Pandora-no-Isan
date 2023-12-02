@@ -8807,7 +8807,7 @@ bra_A352:
 - - - - - - 0x00E36A 03:A35A: 60        .byte $60   ; 
 sub_A35B:
 C - - - - - 0x00E36B 03:A35B: A0 03     LDY #$03
-C - - - - - 0x00E36D 03:A35D: AD 14 02  LDA ram_0214
+C - - - - - 0x00E36D 03:A35D: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x00E370 03:A360: C9 41     CMP #$41
 C - - - - - 0x00E372 03:A362: F0 06     BEQ bra_A36A_RTS
 C - - - - - 0x00E374 03:A364: 88        DEY
@@ -10785,7 +10785,7 @@ C - - - - - 0x00F068 03:B058: 4C 4C B0  JMP loc_B04C
 sub_B05B:
 C - - - - - 0x00F06B 03:B05B: A6 1A     LDX ram_001A
 C - - - - - 0x00F06D 03:B05D: A0 04     LDY #$04
-C - - - - - 0x00F06F 03:B05F: AD 14 02  LDA ram_0214
+C - - - - - 0x00F06F 03:B05F: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x00F072 03:B062: C9 41     CMP #$41
 C - - - - - 0x00F074 03:B064: F0 08     BEQ bra_B06E
 C - - - - - 0x00F076 03:B066: A0 02     LDY #$02

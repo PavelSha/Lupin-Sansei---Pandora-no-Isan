@@ -33,7 +33,7 @@ function getBankNl()
                         {
                             comment = Strings.trimLeft(parts[1]);
                             if (comment.length == 0)
-                                comment = ';';
+                                comment = '; --NO-COMMENT--';
                         }
                     }
 
@@ -84,9 +84,11 @@ function getBankNl()
                 label = array[i]['label'];
             if (array[i]['comment'])
                 comment = array[i]['comment'];
-            nlFile.writeLine("$"+value+"#"+label+"#"+comment);
+            if (i + 1 == array.length)
+                nlFile.write("$"+value+"#"+label+"#"+comment);
+            else
+                nlFile.writeLine("$"+value+"#"+label+"#"+comment);
         }
-        //nlFile.writeLine();
     }
     finally
     {
@@ -159,9 +161,12 @@ function getVariablesNl()
                 continue;
 
             var label = array[i]['label'];
-            nlFile.writeLine("$"+value+"#"+label+"#");
+            if (i + 1 == array.length)
+                nlFile.write("$"+value+"#"+label+"#");
+            else
+                nlFile.writeLine("$"+value+"#"+label+"#");
+
         }
-        //nlFile.writeLine();
     }
     finally
     {

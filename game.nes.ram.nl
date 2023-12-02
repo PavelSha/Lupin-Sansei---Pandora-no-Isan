@@ -33,8 +33,11 @@ $0067#vTempLowChrPosX#
 $0068#vNoScreen#
 $0069#vTempNoScreen#
 $006A#vScreenChrPosY#
-$006C#v_chr_status#
+$006C#vChrStatus#
 $0071#vVelocity#
+$0072#vRifleShotCount#
+$0073#vRifleFireTime#
+$0079#vChrLandStatus#
 $00AD#vIndexSelectableChr#
 $00AE#vCacheIndexSelectableChr#
 $00B1#v_start_level#
@@ -62,6 +65,7 @@ $0205#v_breathing_apparatus_item#
 $0206#v_helium_balloon_item#
 $0207#v_bullet_proof_vest_item#
 $0208#v_ruby_ring#
+$0214#vCurrentWeaponStatus#
 $0219#v_array_white_briefcase#
 $0300#vEnemyA#
 $0301#vEnemyB#

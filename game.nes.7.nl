@@ -1,6 +1,6 @@
 $C000#vec_C000_RESET#disable interrupts
 $C001##disable decimal mode (NES chip 2A03 doesn't use decimal mode)
-$C002##;
+$C002##; --NO-COMMENT--
 $C004##clear ppu 
 $C007##clear ppu 
 $C00A##clear ppu
@@ -18,9 +18,9 @@ $C03C##increments loop counter
 $C03D##If Register X != 0
 $C042##CONSTANT - Cutscene
 $C044##assign a value
-$C046#loc_C046#;
-$C048##;
-$C04B##;
+$C046#loc_C046#; --NO-COMMENT--
+$C048##; --NO-COMMENT--
+$C04B##; --NO-COMMENT--
 $C04D##switch bank 06_2 in 0xA000-0BFFF
 $C052##clear
 $C054##clear
@@ -53,16 +53,16 @@ $C0AC##set loop counter
 $C0AE##set assigning value
 $C0B0#@bra_C0B0_loop#[0x006C-0x0099] in 0x00
 $C0B2##increments loop counter
-$C0B3##;
+$C0B3##; --NO-COMMENT--
 $C0B5##If Register X != 0x99
 $C0B7#loc_C0B7#
 $C0B9##clear
-$C0C5##;
+$C0C5##; --NO-COMMENT--
 $C0C7##store the high position of the character
-$C0C8##;
+$C0C8##; --NO-COMMENT--
 $C0CA##store the low position of the character
 $C0D1##retrieve the low position of the character
-$C0D2##;
+$C0D2##; --NO-COMMENT--
 $C0D4##retrieve the high position of the character
 $C0D5##multiplicity of vHighViewPortPosX by 2 sets the nametable address (0x2000 or 0x2400)
 $C0D7##activate the right pattern table (0x1000)
@@ -71,7 +71,7 @@ $C118#bra_C118#
 $C11A##Initializes a counter.
 $C11E##Initializes a time of a demo scene.
 $C120#bra_C120_repeat#
-$C125##;
+$C125##; --NO-COMMENT--
 $C12F#bra_C12F#
 $C142##to sub_BC48 (bank 06_2)
 $C148#bra_C148#
@@ -102,9 +102,9 @@ $C28D#loc_C28D#
 $C297##CONSTANT - Stop demo
 $C299##If vMenuDemoIndex < 0x07
 $C29B##CONSTANT - Cutscene
-$C29D##;
+$C29D##; --NO-COMMENT--
 $C29F##CONSTANT - The menu
-$C2A1##;
+$C2A1##; --NO-COMMENT--
 $C2A3#@bra_C2A3_skip#
 $C2A6#loc_C2A6#
 $C2C2#bra_C2C2#
@@ -119,7 +119,7 @@ $C309#bra_C309_skip#
 $C30F#loc_C30F_screen_on#see https://www.nesdev.org/wiki/PPU_registers#Mask_($2001)_%3E_write
 $C311##Always true
 $C313#sub_C313_screen_off#see https://www.nesdev.org/wiki/PPU_registers#Mask_($2001)_%3E_write
-$C315#bra_C315_skip#;
+$C315#bra_C315_skip#; --NO-COMMENT--
 $C319#sub_C319_fill_ppu#CONSTANT - A white tile
 $C31D#sub_C31D_clear_ppu#CONSTANT - A black tile
 $C31F#bra_C31F_skip#
@@ -139,33 +139,33 @@ $C367##To 4th sprite data byte
 $C368##To 1st next sprite data byte
 $C36B##Store 0x00
 $C36D##Store 0x00
-$C371#loc_C371_update_palette#;
-$C373##;
-$C376##;
+$C371#loc_C371_update_palette#; --NO-COMMENT--
+$C373##; --NO-COMMENT--
+$C376##; --NO-COMMENT--
 $C378##PPU address is 0x3F00
 $C37B##set loop counter (y=0)
-$C37C#@bra_C37C_loop#;
-$C37F##;
-$C382##;
-$C385##;
-$C388##;
-$C38B##;
-$C38E##;
-$C391##;
-$C394##;
-$C397##;
-$C39A##;
-$C39D##;
-$C3A0##;
-$C3A3##;
-$C3A6##;
-$C3A9##;
+$C37C#@bra_C37C_loop#; --NO-COMMENT--
+$C37F##; --NO-COMMENT--
+$C382##; --NO-COMMENT--
+$C385##; --NO-COMMENT--
+$C388##; --NO-COMMENT--
+$C38B##; --NO-COMMENT--
+$C38E##; --NO-COMMENT--
+$C391##; --NO-COMMENT--
+$C394##; --NO-COMMENT--
+$C397##; --NO-COMMENT--
+$C39A##; --NO-COMMENT--
+$C39D##; --NO-COMMENT--
+$C3A0##; --NO-COMMENT--
+$C3A3##; --NO-COMMENT--
+$C3A6##; --NO-COMMENT--
+$C3A9##; --NO-COMMENT--
 $C3B3##If Register Y != 0x20
-$C3B5##;
-$C3B7##;
-$C3BA##;
-$C3BC##;
-$C3BF##;
+$C3B5##; --NO-COMMENT--
+$C3B7##; --NO-COMMENT--
+$C3BA##; --NO-COMMENT--
+$C3BC##; --NO-COMMENT--
+$C3BF##; --NO-COMMENT--
 $C3C2##see https://www.nesdev.org/wiki/PPU_registers#Palette_corruption
 $C3C6#sub_C3C6#
 $C3D9#sub_C3D9_increment_nmi_counter#
@@ -194,23 +194,23 @@ $C418##CONSTANT: Sound row step
 $C41B##8 iterations for sound row
 $C41D##If Register A != 0xA8
 $C420#loc_C420_add_sound_effect#put to cache vCacheRam12
-$C422##;
+$C422##; --NO-COMMENT--
 $C423##store x
-$C424##;
+$C424##; --NO-COMMENT--
 $C425##store y
 $C429##Resolve an address: 0x8000 + ram_0012 * 4
-$C42B##;
-$C42D##;
-$C42E##;
-$C430##;
-$C431##;
-$C433##;
-$C435##;
-$C436##;
+$C42B##; --NO-COMMENT--
+$C42D##; --NO-COMMENT--
+$C42E##; --NO-COMMENT--
+$C430##; --NO-COMMENT--
+$C431##; --NO-COMMENT--
+$C433##; --NO-COMMENT--
+$C435##; --NO-COMMENT--
+$C436##; --NO-COMMENT--
 $C438##Low address
-$C43A##;
+$C43A##; --NO-COMMENT--
 $C43C##High address
-$C43E##;
+$C43E##; --NO-COMMENT--
 $C440##to 1 byte of 4
 $C445##to 2 byte of 4
 $C44B##to 3 byte of 4
@@ -229,28 +229,28 @@ $C4BA#bra_C4BA_repeat#
 $C4D0#bra_C4D0_update_btn_pressed#
 $C4D8#sub_C4D8#
 $C4F5#sub_C4F5_selectAllChrBanks#set loop counter
-$C4F7#@bra_C4F7_loop#;
-$C4FA##;
-$C4FD##;
+$C4F7#@bra_C4F7_loop#; --NO-COMMENT--
+$C4FA##; --NO-COMMENT--
+$C4FD##; --NO-COMMENT--
 $C500##decrements loop counter 
 $C501##If Register X >= 0
 $C503#bra_C503_RTS#
 $C504#sub_C504_switch_prg_8000#
 $C510##switch vBankData (PRG) in 0x8000-09FFF
 $C51E#sub_C51E#
-$C53C#sub_C53C_resolve_start_status#;
+$C53C#sub_C53C_resolve_start_status#; --NO-COMMENT--
 $C53E##If Register A != 0x00
-$C540##;
+$C540##; --NO-COMMENT--
 $C542##A time before message is shown
 $C544##If Register A != 0x40
 $C546##0 + 1 = 1
 $C54F#bra_C54F_skip#CONSTANT - The starting cutscene, during typing the message
 $C551##If Register A == 0x01
 $C553##A time between the message and menu
-$C555##;
+$C555##; --NO-COMMENT--
 $C557##If Register A > counter
 $C559##CONSTANT - Show the menu
-$C55B##;
+$C55B##; --NO-COMMENT--
 $C55E#bra_C55E_skip#0x00 or 0x80
 $C560##If Register A != 0x00
 $C562##clear
@@ -277,9 +277,9 @@ $C5BE#bra_C5BE_loop#
 $C5C7##increments y
 $C5CA#bra_C5CA_RTS#
 $C5CB#bra_C5CB_sounds_of_a_gunshot#sound of a gunshot #1
-$C5CD##;
+$C5CD##; --NO-COMMENT--
 $C5D0##sound of a gunshot #2
-$C5D2##;
+$C5D2##; --NO-COMMENT--
 $C5D5#sub_C5D5#
 $C5D8##Branch If a last played level is 0.
 $C5EC#bra_C5EC_skip#
@@ -332,7 +332,7 @@ $C7B5#bra_C7B5#Decrement a counter
 $C7BA#bra_C7BA_skip#
 $C7C5##store a
 $C7C6##CONSTANT - Sound 'switch a character'
-$C7C8##;
+$C7C8##; --NO-COMMENT--
 $C7CB##restore a
 $C7D0#bra_C7D0#
 $C7DB#bra_C7DB#
@@ -344,13 +344,13 @@ $C7FA##~> sprite_magic1 (Y pos)
 $C7FC##~> sprite_magic4 (X pos)
 $C7FE##tile 'Gun'
 $C803#bra_C803_skip#Y-position for Lupin
-$C805##;
+$C805##; --NO-COMMENT--
 $C809##accumulator_shift_right_by_2
-$C80A##;
+$C80A##; --NO-COMMENT--
 $C80E##Y-position for Jigen
-$C810##;
+$C810##; --NO-COMMENT--
 $C81A##Y-position for Goemon
-$C81C##;
+$C81C##; --NO-COMMENT--
 $C823##+ 1 shift = shift right by 6
 $C824#sub_C824#tile 'Handcuffs'
 $C826##CONSTANT - Did the character fall or get arrested?
@@ -364,19 +364,19 @@ $C841#sub_C841#
 $C848#bra_C848_RTS#
 $C849#sub_C849#
 $C84B#bra_C84B#
-$C853#sub_C853_activate_selectable_character#;
+$C853#sub_C853_activate_selectable_character#; --NO-COMMENT--
 $C855##CONSTANT - see info 'v_chr_live_status'
-$C857##;
-$C859##;
+$C857##; --NO-COMMENT--
+$C859##; --NO-COMMENT--
 $C85C#sub_C85C#
 $C863#bra_C863#
-$C885#sub_C885#;
+$C885#sub_C885#; --NO-COMMENT--
 $C887##Branch If in game
-$C889##;
+$C889##; --NO-COMMENT--
 $C88B##If v_menu_counter == 0x00
-$C88D##;
+$C88D##; --NO-COMMENT--
 $C88F##If vMenuCounterTimes != 0x00
-$C891##;
+$C891##; --NO-COMMENT--
 $C893#@bra_C893_skip#
 $C897##Go to the branch If the button 'Start' doesn't press
 $C89B##avoid looping
@@ -397,7 +397,7 @@ $C8E7##k
 $C8E8##a
 $C8E9##w
 $C8EA##a
-$C8EB##;
+$C8EB##; --NO-COMMENT--
 $C8EC#bra_C8EC#
 $C8EE#bra_C8EE_repeat#
 $C8F1##set Yoshikawa
@@ -553,7 +553,7 @@ $CF80#bra_CF80_skip#
 $CFA7#bra_CFA7_skip#
 $CFBE##To 1st next sprite data byte
 $CFC1#bra_CFC1#
-$CFC4##;
+$CFC4##; --NO-COMMENT--
 $CFC8#loc_CFC8#
 $CFD3#bra_CFD3_RTS#
 $CFD4#bra_CFD4#
@@ -568,39 +568,39 @@ $D081##The double click protection
 $D085#bra_D085_RTS#
 $D086#sub_D086_render_14_15_16_17_18_v1#
 $D089#sub_D089_render_14_15_16_17_18_v2#Reset PPU Address
-$D08C##;
-$D08E##;
-$D091##;
+$D08C##; --NO-COMMENT--
+$D08E##; --NO-COMMENT--
+$D091##; --NO-COMMENT--
 $D093##PPU address is {0x14-0x15}
 $D096##set loop counter
-$D098#@bra_D098_loop#;
-$D09A##;
+$D098#@bra_D098_loop#; --NO-COMMENT--
+$D09A##; --NO-COMMENT--
 $D09D##increments loop counter
-$D09E##;
+$D09E##; --NO-COMMENT--
 $D0A0##If Register Y != 0x18
-$D0A3#sub_D0A3_prepare_14_15_16_17_18#;
-$D0A5##;
-$D0A6##;
-$D0A7##;
+$D0A3#sub_D0A3_prepare_14_15_16_17_18#; --NO-COMMENT--
+$D0A5##; --NO-COMMENT--
+$D0A6##; --NO-COMMENT--
+$D0A7##; --NO-COMMENT--
 $D0A8##increment += 5
 $D0AB##set loop counter
 $D0AD#@bra_D0AD_loop#
 $D0B2##increments loop counter
 $D0B5##If Register X > 0x00
 $D0BA#bra_D0BA#
-$D0C1#sub_D0C1_change_stack_pointer#;
-$D0C2##;
-$D0C3##;
-$D0C4##;
-$D0C5#bra_D0C5_skip#;
-$D0C6##;
-$D0C8##;
-$D0C9##;
-$D0CB##;
-$D0CD##;
-$D0CE##;
-$D0CF##;
-$D0D1##;
+$D0C1#sub_D0C1_change_stack_pointer#; --NO-COMMENT--
+$D0C2##; --NO-COMMENT--
+$D0C3##; --NO-COMMENT--
+$D0C4##; --NO-COMMENT--
+$D0C5#bra_D0C5_skip#; --NO-COMMENT--
+$D0C6##; --NO-COMMENT--
+$D0C8##; --NO-COMMENT--
+$D0C9##; --NO-COMMENT--
+$D0CB##; --NO-COMMENT--
+$D0CD##; --NO-COMMENT--
+$D0CE##; --NO-COMMENT--
+$D0CF##; --NO-COMMENT--
+$D0D1##; --NO-COMMENT--
 $D0D3#bra_D0D3#
 $D0EA#loc_D0EA#
 $D0F6#bra_D0F6#
@@ -647,16 +647,33 @@ $D2B0#bra_D2B0#
 $D2B3#bra_D2B3#
 $D2C6#bra_D2C6#
 $D2DC#bra_D2DC#
-$D2E5#sub_D2E5#
-$D300#bra_D300_skip#
+$D2E5#sub_D2E5#; --NO-COMMENT--
+$D2E6##store x (D2E6)
+$D2E7##; --NO-COMMENT--
+$D2E9##; --NO-COMMENT--
+$D2EB##; --NO-COMMENT--
+$D2EC##; --NO-COMMENT--
+$D2EE##; --NO-COMMENT--
+$D2EF##; --NO-COMMENT--
+$D2F0##; --NO-COMMENT--
+$D2F2##; --NO-COMMENT--
+$D2F4##; --NO-COMMENT--
+$D2F6##; --NO-COMMENT--
+$D2F7##; --NO-COMMENT--
+$D2F9##If vScreenChrPosY >= 0x30
+$D2FB##; --NO-COMMENT--
+$D2FC##retrieve x (see D2E6)
+$D300#bra_D300_skip#get {0x00, 0x01, 0x02, ..., 0x0C}
+$D304##get point(x, y)
 $D306##store A
 $D318##retrieve A
 $D31C##store A
 $D320##retrieve A
 $D325##increment a high address
-$D327#bra_D327_skip#
-$D32E#bra_D32E_skip#
-$D340#bra_D340_skip#
+$D327#@bra_D327_skip#
+$D32E#@bra_D32E_skip#
+$D340#@bra_D340_skip#
+$D341##retrieve x (see D2E6)
 $D347#sub_D347#
 $D350#bra_D350_skip#
 $D36A#loc_D36A#to sub_AD6E bank 06_2
@@ -679,39 +696,39 @@ $D3F3#bra_D3F3#
 $D3F7#sub_D3F7_background_screen_subroutine#to v_cache_reg_y, bank 00 (page 1)
 $D3FC##v_cache_reg_y to A
 $D3FD##store a
-$D3FE##;
-$D400##;
-$D401##;
-$D402##;
-$D405##;
-$D407##;
-$D40A##;
-$D40C##;
-$D40E##;
-$D410##;
-$D412##;
-$D414##;
-$D416##;
-$D418##;
-$D41A##;
-$D41B##;
-$D41D##;
-$D41E##;
-$D420##;
-$D421##;
+$D3FE##; --NO-COMMENT--
+$D400##; --NO-COMMENT--
+$D401##; --NO-COMMENT--
+$D402##; --NO-COMMENT--
+$D405##; --NO-COMMENT--
+$D407##; --NO-COMMENT--
+$D40A##; --NO-COMMENT--
+$D40C##; --NO-COMMENT--
+$D40E##; --NO-COMMENT--
+$D410##; --NO-COMMENT--
+$D412##; --NO-COMMENT--
+$D414##; --NO-COMMENT--
+$D416##; --NO-COMMENT--
+$D418##; --NO-COMMENT--
+$D41A##; --NO-COMMENT--
+$D41B##; --NO-COMMENT--
+$D41D##; --NO-COMMENT--
+$D41E##; --NO-COMMENT--
+$D420##; --NO-COMMENT--
+$D421##; --NO-COMMENT--
 $D423##0x80, 0x81, 0x83 or 0x87 (depends on the first three bits ram_004E)
 $D425##retrieve a  
-$D428#sub_D428_get_addr_background_palette#;
-$D42A##;
-$D42D##;
+$D428#sub_D428_get_addr_background_palette#; --NO-COMMENT--
+$D42A##; --NO-COMMENT--
+$D42D##; --NO-COMMENT--
 $D42F##switch bank 01 (page 2) in 0x8000-09FFF
-$D432##;
+$D432##; --NO-COMMENT--
 $D434##multiply by 2
-$D435##;
-$D439##;
-$D43E##;
+$D435##; --NO-COMMENT--
+$D439##; --NO-COMMENT--
+$D43E##; --NO-COMMENT--
 $D440##transfer 0x7XXX -> 0x9XXX
-$D442##;
+$D442##; --NO-COMMENT--
 $D445#sub_D445_load_background_palette#
 $D448##set loop counter
 $D44A#@bra_D44A_loop#
@@ -719,14 +736,14 @@ $D44F##decrement y
 $D450##In Register Y >= 0x00 && Y < 0xF0
 $D453#sub_D453#
 $D456##set loop counter 
-$D458##;
+$D458##; --NO-COMMENT--
 $D45A##CONSTANT - level racing
 $D45C##If vNoSubLevel != 0x19
 $D45E##set loop counter
-$D460#@bra_D460_loop#;
-$D462##;
+$D460#@bra_D460_loop#; --NO-COMMENT--
+$D462##; --NO-COMMENT--
 $D465##decrement x
-$D466##;
+$D466##; --NO-COMMENT--
 $D468##If Register Y != 0x0F
 $D482#bra_D482#
 $D499#bra_D499#
@@ -812,12 +829,12 @@ $D939#sub_D939#
 $D93F#sub_D93F#
 $D94A#sub_D94A#
 $D952#sub_D952#
-$D96D#sub_D96D_get_absolute_chr_positions#;
-$D96F#sub_D96F_get_relative_chr_positions#;
-$D970##;
-$D972##;
-$D974#loc_D974_get_short_chr_positions#;
-$D976##;
+$D96D#sub_D96D_init_absolute_chr_positions#; --NO-COMMENT--
+$D96F#sub_D96F_init_relative_chr_positions#; --NO-COMMENT--
+$D970##; --NO-COMMENT--
+$D972##; --NO-COMMENT--
+$D974#loc_D974_init_short_chr_positions#; --NO-COMMENT--
+$D976##; --NO-COMMENT--
 $D995#bra_D995#
 $D996#loc_D996#
 $D9C3#bra_D9C3_RTS#
@@ -853,14 +870,39 @@ $DB20#bra_DB20_skip#
 $DB2A#bra_DB2A_skip#
 $DB44#loc_DB44#
 $DB4B#loc_DB4B#
-$DB52#bra_DB52_skip#
-$DB60#bra_DB60#
-$DB6A#bra_DB6A#
-$DB93#bra_DB93#
-$DB9D#bra_DB9D#
+$DB52#bra_DB52_skip#; --NO-COMMENT--
+$DB55##CONSTANT - The rifle is current and activated
+$DB57##If vCurrentWeaponStatus != 0x42
+$DB59##; --NO-COMMENT--
+$DB5B##If RifleFire is timeout
+$DB5D##to loc_B1FB (bank_06_2)
+$DB60#bra_DB60_skip#; --NO-COMMENT--
+$DB62##; --NO-COMMENT--
+$DB65##Go to the branch If the button 'A' isn't pressed
+$DB6A#bra_DB6A#; --NO-COMMENT--
+$DB6D##CONSTANT - The rifle is current and activated
+$DB6F##If vCurrentWeaponStatus == 0x42
+$DB71##; --NO-COMMENT--
+$DB73##; --NO-COMMENT--
+$DB76##Go to the branch If the button 'Up' isn't pressed
+$DB84##CONSTANT - the character is entering a corridor
+$DB93#bra_DB93_skip#CONSTANT -  the character stands on the ground
+$DB95##; --NO-COMMENT--
+$DB97##; --NO-COMMENT--
+$DB99##; --NO-COMMENT--
+$DB9B##If the button 'Down' is pressed
+$DB9D#bra_DB9D_skip#CONSTANT -  the character stands on the ground
+$DB9F##; --NO-COMMENT--
+$DBA1##; --NO-COMMENT--
+$DBA3##; --NO-COMMENT--
+$DBA5##We stand up the character, he no longer sits
+$DBA7##; --NO-COMMENT--
+$DBA9##; --NO-COMMENT--
 $DBAB##If the button 'Left' or 'Right' isn't pressed
 $DBB0#bra_DBB0_skip#
-$DBB4#bra_DBB4#
+$DBB4#bra_DBB4_skip#; --NO-COMMENT--
+$DBB6##CONSTANT - the character is sitting
+$DBB8##; --NO-COMMENT--
 $DBBF#bra_DBBF#
 $DBC2#loc_DBC2#
 $DBCF#bra_DBCF#
@@ -875,17 +917,17 @@ $DC24#bra_DC24_skip#
 $DC3B#sub_DC3B#
 $DC4B#bra_DC4B_skip#
 $DC52#loc_DC52#If the button 'Right' is pressed
-$DC54##;
-$DC56##;
-$DC57##If v_chr_status is changed yet
+$DC54##; --NO-COMMENT--
+$DC56##; --NO-COMMENT--
+$DC57##If vChrStatus is changed yet
 $DC59##Changes a status to 'left'
 $DC5E#bra_DC5E_skip#
 $DC61#loc_DC61#
 $DC67#loc_DC67#
 $DC6F#tbl_DC6F#
-$DC72#bra_DC72_skip#;
-$DC74##;
-$DC75##;
+$DC72#bra_DC72_skip#; --NO-COMMENT--
+$DC74##; --NO-COMMENT--
+$DC75##; --NO-COMMENT--
 $DC77##Changes a status to 'right'
 $DC7C#bra_DC7C_skip#
 $DC82#sub_DC82#
@@ -1088,9 +1130,9 @@ $E594#bra_E594#
 $E5A3#sub_E5A3#
 $E5A5#sub_E5A5#
 $E5AB#sub_E5AB_add_short_chr_y_positions#
-$E5AC##;
-$E5AE##;
-$E5B0##;
+$E5AC##; --NO-COMMENT--
+$E5AE##; --NO-COMMENT--
+$E5B0##; --NO-COMMENT--
 $E5B5#sub_E5B5#
 $E5BE#sub_E5BE#
 $E5C5#bra_E5C5#
@@ -1197,6 +1239,8 @@ $EB08#bra_EB08#
 $EB11#bra_EB11#
 $EB1F#loc_EB1F#
 $EB23#loc_EB23#
+$EB3B##CONSTANT - the character stands on the ground
+$EB3D##; --NO-COMMENT--
 $EB3F#bra_EB3F#
 $EB53#bra_EB53#
 $EB74#bra_EB74#
@@ -1232,9 +1276,9 @@ $ED38#tbl_ED38#
 $ED44#tbl_ED44#
 $ED49#tbl_ED49#
 $ED4E#vec_ED4E_NMI#store a
-$ED4F##;
+$ED4F##; --NO-COMMENT--
 $ED50##store x
-$ED51##;
+$ED51##; --NO-COMMENT--
 $ED52##store y
 $ED53##Read PPU status to reset the high/low latch
 $ED6D##Read PPU status to reset the high/low latch
@@ -1250,9 +1294,9 @@ $EDD5#loc_EDD5#
 $EDDB#bra_EDDB#
 $EDE1#loc_EDE1#
 $EDE7#loc_EDE7#
-$EDEE##;
-$EDF0##;
-$EDF2##;
+$EDEE##; --NO-COMMENT--
+$EDF0##; --NO-COMMENT--
+$EDF2##; --NO-COMMENT--
 $EDF5##switch bank 02 (page 1) in 0xA000-0BFFF
 $EE02#bra_EE02#
 $EE03##retrieve y
@@ -1265,7 +1309,7 @@ $EE15#bra_EE15#
 $EE1B#bra_EE1B#to sub_B3AA (bank 06_2)
 $EE21#loc_EE21#
 $EE34#loc_EE34#
-$EE37##;
+$EE37##; --NO-COMMENT--
 $EE39##CONSTANT - First cutscene with the message
 $EE3B##If Register A == 0x91
 $EE4D#bra_EE4D#
@@ -1290,29 +1334,29 @@ $EEF9##to sub_A00C
 $EF02##to sub_A00F
 $EF0B##to sub_A012
 $EF14##to sub_A015
-$EF1A#loc_EF1A_switch_bank_06_2#;
-$EF1C##;
-$EF1F##;
+$EF1A#loc_EF1A_switch_bank_06_2#; --NO-COMMENT--
+$EF1C##; --NO-COMMENT--
+$EF1F##; --NO-COMMENT--
 $EF21##switch bank 06_2 in 0xA000-0BFFF
-$EF25#sub_EF25_switch_bank_06_1#;
-$EF27##;
-$EF2A##;
+$EF25#sub_EF25_switch_bank_06_1#; --NO-COMMENT--
+$EF27##; --NO-COMMENT--
+$EF2A##; --NO-COMMENT--
 $EF2C##switch bank 06_1 in 0xA000-0BFFF
-$EF30#sub_EF30_switch_bank_3_p2#;
-$EF32##;
-$EF35##;
+$EF30#sub_EF30_switch_bank_3_p2#; --NO-COMMENT--
+$EF32##; --NO-COMMENT--
+$EF35##; --NO-COMMENT--
 $EF37##switch bank 03 (page 2) in 0xA000-0BFFF
-$EF3B#sub_EF3B_switch_bank_2_p1#;
-$EF3D##;
-$EF40##;
+$EF3B#sub_EF3B_switch_bank_2_p1#; --NO-COMMENT--
+$EF3D##; --NO-COMMENT--
+$EF40##; --NO-COMMENT--
 $EF42##switch bank 02 (page 1) in 0x8000-09FFF
-$EF46#sub_EF46_switch_bank_4_p1_p2#;
-$EF48##;
-$EF4B##;
+$EF46#sub_EF46_switch_bank_4_p1_p2#; --NO-COMMENT--
+$EF48##; --NO-COMMENT--
+$EF4B##; --NO-COMMENT--
 $EF4D##If Register A != 0x00
-$EF4F#sub_EF4F_switch_bank_4_p2#;
-$EF51##;
-$EF54##;
+$EF4F#sub_EF4F_switch_bank_4_p2#; --NO-COMMENT--
+$EF51##; --NO-COMMENT--
+$EF54##; --NO-COMMENT--
 $EF56#bra_EF56_on_page1#switch bank 04 (page 1 or 2) in 0x8000-09FFF
 $EF59##assign 0x08 or 0x09
 $EF5D#loc_EF5D_switch_variable_bank#
@@ -1322,9 +1366,9 @@ $EF7A#bra_EF7A_RTS#
 $EF7B#sub_EF7B#
 $EF7D#bra_EF7D#
 $EF83#bra_EF83#
-$EF86#sub_EF86_increment_counter#;
-$EF88##;
-$EF8A##;
+$EF86#sub_EF86_increment_counter#; --NO-COMMENT--
+$EF88##; --NO-COMMENT--
+$EF8A##; --NO-COMMENT--
 $EF8C#@bra_EF8C_RTS#
 $EF8D#sub_EF8D#
 $EF96#sub_EF96#
@@ -1404,11 +1448,12 @@ $F2C8##High address
 $F2CE##if low_counter == 0xX0 or if low_counter == 0xX8
 $F2D2##if low_counter is odd
 $F2D6#bra_F2D6_skip#Register A has 0x00 or 0x01
+$F2D8##; --NO-COMMENT--
 $F2DA##only left or right
 $F2E9#loc_F2E9_update_address_and_repeat#
 $F2ED##If Register A >= ram_0001
 $F2F0#bra_F2F0_repeat#
-$F2F5##;
+$F2F5##; --NO-COMMENT--
 $F2FA#bra_F2FA_clear_c_rts#
 $F2FC#bra_F2FC_skip#
 $F2FE##to 2 byte of 4
@@ -1602,7 +1647,7 @@ $FA76#bra_FA76#
 $FAA7#bra_FAA7#
 $FAAA#bra_FAAA#
 $FAAE#bra_FAAE#
-$FAC0#sub_FAC0#;
+$FAC0#sub_FAC0#; --NO-COMMENT--
 $FAC2##clear
 $FAC4##CONSTANT - In the game
 $FAC6##CONSTANT - no message
@@ -1615,11 +1660,11 @@ $FAE3##If ram_0039 == 0xC3
 $FAE7##If ram_0039 == 0xC4
 $FAEC#loc_FAEC#
 $FAF2##~> vScreenChrPosY
-$FAF4##;
+$FAF4##; --NO-COMMENT--
 $FAF6##CONSTANT - level racing
 $FAF8##If vNoSubLevel == 0x19
 $FAFA##~> vScreenChrPosY 
-$FAFC#@bra_FAFC_skip#;
+$FAFC#@bra_FAFC_skip#; --NO-COMMENT--
 $FAFF#bra_FAFF#
 $FB1A#loc_FB1A#
 $FB1F#bra_FB1F#
@@ -1638,7 +1683,7 @@ $FB9E##If v_corridor_magic5 & 0x80
 $FBA2#@bra_FBA2_skip#Register A has 0x00 or 0x01
 $FBB0##Low address
 $FBB7##High address
-$FBB9##;
+$FBB9##; --NO-COMMENT--
 $FBBF##2 of 4 bytes
 $FBC4##3 of 4 bytes
 $FBC9##4 of 4 bytes

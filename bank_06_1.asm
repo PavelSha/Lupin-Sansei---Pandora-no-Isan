@@ -1914,7 +1914,7 @@ C - - - - - 0x018D31 06:AD21: A9 0C     LDA #$0C
 C - - - - - 0x018D33 06:AD23: 85 AF     STA ram_00AF
 C - - - - - 0x018D35 06:AD25: A9 04     LDA #$04
 C - - - - - 0x018D37 06:AD27: 85 B0     STA ram_00B0
-C - - - - - 0x018D39 06:AD29: AD 14 02  LDA ram_0214
+C - - - - - 0x018D39 06:AD29: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x018D3C 06:AD2C: C9 49     CMP #$49
 C - - - - - 0x018D3E 06:AD2E: D0 0B     BNE bra_AD3B
 - - - - - - 0x018D40 06:AD30: 20        .byte $20   ; 
@@ -2766,7 +2766,7 @@ C - - - - - 0x019270 06:B260: AD 00 03  LDA ram_0300
 C - - - - - 0x019273 06:B263: C9 37     CMP #$37
 C - - - - - 0x019275 06:B265: D0 21     BNE bra_B288
 C - - - - - 0x019277 06:B267: A0 04     LDY #$04
-C - - - - - 0x019279 06:B269: AD 14 02  LDA ram_0214
+C - - - - - 0x019279 06:B269: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01927C 06:B26C: C9 41     CMP #$41
 C - - - - - 0x01927E 06:B26E: F0 08     BEQ bra_B278
 C - - - - - 0x019280 06:B270: A0 02     LDY #$02
