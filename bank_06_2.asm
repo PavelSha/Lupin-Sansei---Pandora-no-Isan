@@ -29,6 +29,7 @@
 .import sub_EF4F_switch_bank_4_p2 ; bank FF
 .import sub_F2D6_try_put_briefcase ; bank FF
 .import tbl_C1CA_checkpoint_on_start_levels ; bank FF
+.import sub_CE5A_render_character ; bank FF
 
 .export loc_B234_get_vram_msg_address
 .export sub_B234_get_vram_msg_address
@@ -2166,9 +2167,9 @@ bra_ADC2:
 C - - - - - 0x01ADD2 06:ADC2: CA        DEX
 C - - - - - 0x01ADD3 06:ADC3: 10 BD     BPL bra_AD82
 loc_ADC5:
-C D 1 - - - 0x01ADD5 06:ADC5: A5 6D     LDA ram_006D
+C D 1 - - - 0x01ADD5 06:ADC5: A5 6D     LDA vStatusInWater
 C - - - - - 0x01ADD7 06:ADC7: 29 FE     AND #$FE
-C - - - - - 0x01ADD9 06:ADC9: 85 6D     STA ram_006D
+C - - - - - 0x01ADD9 06:ADC9: 85 6D     STA vStatusInWater
 C - - - - - 0x01ADDB 06:ADCB: 68        PLA
 C - - - - - 0x01ADDC 06:ADCC: AA        TAX
 bra_ADCD_RTS:
@@ -2194,9 +2195,9 @@ C - - - - - 0x01ADFC 06:ADEC: 68        PLA
 C - - - - - 0x01ADFD 06:ADED: AA        TAX
 C - - - - - 0x01ADFE 06:ADEE: 68        PLA
 C - - - - - 0x01ADFF 06:ADEF: 68        PLA
-C - - - - - 0x01AE00 06:ADF0: A5 6D     LDA ram_006D
+C - - - - - 0x01AE00 06:ADF0: A5 6D     LDA vStatusInWater
 C - - - - - 0x01AE02 06:ADF2: 09 01     ORA #$01
-C - - - - - 0x01AE04 06:ADF4: 85 6D     STA ram_006D
+C - - - - - 0x01AE04 06:ADF4: 85 6D     STA vStatusInWater
 C - - - - - 0x01AE06 06:ADF6: A9 03     LDA #$03
 C - - - - - 0x01AE08 06:ADF8: 85 6E     STA ram_006E
 C - - - - - 0x01AE0A 06:ADFA: A9 02     LDA #$02
@@ -2421,7 +2422,7 @@ C - - - - - 0x01AF99 06:AF89: D0 3B     BNE bra_AFC6
 C - - - - - 0x01AF9B 06:AF8B: 20 42 D6  JSR $D642
 C - - - - - 0x01AF9E 06:AF8E: 90 36     BCC bra_AFC6
 C - - - - - 0x01AFA0 06:AF90: BC 98 03  LDY v_briefcase_index,X
-C - - - - - 0x01AFA3 06:AF93: A5 6D     LDA ram_006D
+C - - - - - 0x01AFA3 06:AF93: A5 6D     LDA vStatusInWater
 C - - - - - 0x01AFA5 06:AF95: 30 0B     BMI bra_AFA2
 C - - - - - 0x01AFA7 06:AF97: B9 19 02  LDA v_array_white_briefcase,Y
 C - - - - - 0x01AFAA 06:AF9A: 48        PHA
@@ -2498,12 +2499,12 @@ C - - - - - 0x01B01F 06:B00F: B0 1D     BCS bra_B02E
 C - - - - - 0x01B021 06:B011: A0 04     LDY #$04
 C - - - - - 0x01B023 06:B013: D0 19     BNE bra_B02E
 bra_B015:
-C - - - - - 0x01B025 06:B015: A5 6D     LDA ram_006D
+C - - - - - 0x01B025 06:B015: A5 6D     LDA vStatusInWater
 C - - - - - 0x01B027 06:B017: 10 03     BPL bra_B01C
 C - - - - - 0x01B029 06:B019: 20 57 B0  JSR sub_B057
 bra_B01C:
 C - - - - - 0x01B02C 06:B01C: BD 98 03  LDA v_briefcase_index,X
-C - - - - - 0x01B02F 06:B01F: A4 6D     LDY ram_006D
+C - - - - - 0x01B02F 06:B01F: A4 6D     LDY vStatusInWater
 C - - - - - 0x01B031 06:B021: 30 06     BMI bra_B029
 C - - - - - 0x01B033 06:B023: A8        TAY
 C - - - - - 0x01B034 06:B024: B9 19 02  LDA v_array_white_briefcase,Y
@@ -2547,7 +2548,7 @@ bra_B064:
 C - - - - - 0x01B074 06:B064: 4C F4 D8  JMP $D8F4
 
 sub_B067:
-C - - - - - 0x01B077 06:B067: A5 6D     LDA ram_006D
+C - - - - - 0x01B077 06:B067: A5 6D     LDA vStatusInWater
 C - - - - - 0x01B079 06:B069: 30 15     BMI bra_B080_skip
 C - - - - - 0x01B07B 06:B06B: 2C 14 02  BIT vCurrentWeaponStatus
 C - - - - - 0x01B07E 06:B06E: 10 10     BPL bra_B080_skip
@@ -2585,7 +2586,7 @@ bra_B0A4_RTS:
 C - - - - - 0x01B0B4 06:B0A4: 60        RTS
 
 bra_B0A5:
-C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA ram_006D
+C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA vStatusInWater
 C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113
 C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ; bank FF
 C - - - - - 0x01B0BC 06:B0AC: A0 00     LDY #$00
@@ -3291,9 +3292,9 @@ C - - - - - 0x01B56D 06:B55D: 85 01     STA ram_0001
 C - - - - - 0x01B56F 06:B55F: A9 BF     LDA #$BF
 C - - - - - 0x01B571 06:B561: 85 00     STA ram_0000
 C - - - - - 0x01B573 06:B563: A9 62     LDA #$62
-C - - - - - 0x01B575 06:B565: 85 45     STA ram_0045
-C - - - - - 0x01B577 06:B567: 20 5A CE  JSR $CE5A
-C - - - - - 0x01B57A 06:B56A: 4C 4F EF  JMP $EF4F
+C - - - - - 0x01B575 06:B565: 85 45     STA vCharacterRenderData
+C - - - - - 0x01B577 06:B567: 20 5A CE  JSR sub_CE5A_render_character
+C - - - - - 0x01B57A 06:B56A: 4C 4F EF  JMP sub_EF4F_switch_bank_4_p2
 
 loc_B56D:
 sub_B56D:
@@ -4215,7 +4216,7 @@ tbl_BB92_stage_select_codes:
 loc_BBA4:
 sub_BBA4:
 C D 1 - - - 0x01BBB4 06:BBA4: A9 05     LDA #$05
-C - - - - - 0x01BBB6 06:BBA6: 24 6D     BIT ram_006D
+C - - - - - 0x01BBB6 06:BBA6: 24 6D     BIT vStatusInWater
 C - - - - - 0x01BBB8 06:BBA8: 30 13     BMI bra_BBBD
 C - - - - - 0x01BBBA 06:BBAA: 20 FE BB  JSR sub_BBFE
 C - - - - - 0x01BBBD 06:BBAD: B0 36     BCS bra_BBE5

@@ -12,6 +12,9 @@
 ; CPY #$1A
 ; BNE bra_XXX ; If Register Y != 0x1A
 
+; CPY #$1A
+; BEQ bra_XXX ; If Register Y == 0x1A
+
 ; LDA *
 ; BPL bra_XXX ; If Register A < 0xF0
 

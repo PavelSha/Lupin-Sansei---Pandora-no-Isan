@@ -33,7 +33,7 @@ function getBankNl()
                         {
                             comment = Strings.trimLeft(parts[1]);
                             if (comment.length == 0)
-                                comment = '; --NO-COMMENT--';
+                                comment = '--NO-COMMENT--';
                         }
                     }
 

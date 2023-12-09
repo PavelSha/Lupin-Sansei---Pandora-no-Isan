@@ -1161,7 +1161,7 @@ i8013039     A:40 X:00 Y:80 S:F7 P:nvUbdIZC  $07:DBFC: 30 02     BMI $DC00
 i8013040     A:40 X:00 Y:80 S:F7 P:nvUbdIZC  $07:DBFE: A9 01     LDA #$01
 i8013041     A:01 X:00 Y:80 S:F7 P:nvUbdIzC  $07:DC00: 85 45     STA $45 = #$00
 i8013042     A:01 X:00 Y:80 S:F7 P:nvUbdIzC  $07:DC02: 20 5A CE  JSR $CE5A
-i8013043     A:01 X:00 Y:80 S:F5 P:nvUbdIzC  $07:CE5A: A9 00     LDA #$00
+---COMMENTED! i8013043     A:01 X:00 Y:80 S:F5 P:nvUbdIzC  $07:CE5A: A9 00     LDA #$00
 i8013044     A:00 X:00 Y:80 S:F5 P:nvUbdIZC  $07:CE5C: 85 08     STA $08 = #$80
 i8013045     A:00 X:00 Y:80 S:F5 P:nvUbdIZC  $07:CE5E: 85 09     STA $09 = #$80
 i8013046     A:00 X:00 Y:80 S:F5 P:nvUbdIZC  $07:CE60: A9 06     LDA #$06
@@ -1211,9 +1211,9 @@ i8013089     A:00 X:04 Y:01 S:F5 P:nvUbdIZC  $07:CEAF: C8        INY
 i8013090     A:00 X:04 Y:02 S:F5 P:nvUbdIzC  $07:CEB0: B1 02     LDA ($02),Y @ $85F8 = #$53
 i8013091     A:53 X:04 Y:02 S:F5 P:nvUbdIzC  $07:CEB2: 9D 01 07  STA $0701,X @ $0705 = #$63
 i8013092     A:53 X:04 Y:02 S:F5 P:nvUbdIzC  $07:CEB5: C8        INY
-i8013093     A:53 X:04 Y:03 S:F5 P:nvUbdIzC  $07:CEB6: B1 02     LDA ($02),Y @ $85F9 = #$00
-i8013094     A:00 X:04 Y:03 S:F5 P:nvUbdIZC  $07:CEB8: 05 0C     ORA $0C = #$01
-i8013095     A:01 X:04 Y:03 S:F5 P:nvUbdIzC  $07:CEBA: 9D 02 07  STA $0702,X @ $0706 = #$00
+---COMMENTED! i8013093     A:53 X:04 Y:03 S:F5 P:nvUbdIzC  $07:CEB6: B1 02     LDA ($02),Y @ $85F9 = #$00
+---COMMENTED! i8013094     A:00 X:04 Y:03 S:F5 P:nvUbdIZC  $07:CEB8: 05 0C     ORA $0C = #$01
+---COMMENTED! i8013095     A:01 X:04 Y:03 S:F5 P:nvUbdIzC  $07:CEBA: 9D 02 07  STA $0702,X @ $0706 = #$00
 i8013096     A:01 X:04 Y:03 S:F5 P:nvUbdIzC  $07:CEBD: C8        INY
 i8013097     A:01 X:04 Y:04 S:F5 P:nvUbdIzC  $07:CEBE: A9 00     LDA #$00
 i8013098     A:00 X:04 Y:04 S:F5 P:nvUbdIZC  $07:CEC0: 85 04     STA $04 = #$FF
@@ -1241,7 +1241,7 @@ i8013119     A:2D X:08 Y:05 S:F5 P:nvUbdIzc  $07:CEE8: D0 AF     BNE $CE99
 (290 lines skipped)
 i8013410     A:30 X:24 Y:21 S:F5 P:nvUbdIZc  $07:CEEA: 86 43     STX $43 = #$04
 i8013411     A:30 X:24 Y:21 S:F5 P:nvUbdIZc  $07:CEEC: 86 44     STX $44 = #$00
-i8013412     A:30 X:24 Y:21 S:F5 P:nvUbdIZc  $07:CEEE: 60        RTS (from $CE5A) ----------------------------
+---COMMENTED! i8013412     A:30 X:24 Y:21 S:F5 P:nvUbdIZc  $07:CEEE: 60        RTS (from $CE5A) ----------------------------
 i8013413     A:30 X:24 Y:21 S:F7 P:nvUbdIZc  $07:DC05: A2 00     LDX #$00
 i8013414     A:30 X:00 Y:21 S:F7 P:nvUbdIZc  $07:DC07: A5 5F     LDA $5F v_chr_live_status = #$FC
 i8013415     A:FC X:00 Y:21 S:F7 P:NvUbdIzc  $07:DC09: 6A        ROR

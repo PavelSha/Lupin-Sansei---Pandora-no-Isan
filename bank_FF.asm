@@ -35,6 +35,7 @@
 .export sub_D086_render_14_15_16_17_18_v1
 .export sub_C4F5_selectAllChrBanks
 .export tbl_C1CA_checkpoint_on_start_levels
+.export sub_CE5A_render_character
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI ; disable interrupts
@@ -327,7 +328,7 @@ C - - - - - 0x01C224 07:C214: 25 5F     AND v_chr_live_status
 C - - - - - 0x01C226 07:C216: 85 5F     STA v_chr_live_status
 C - - - - - 0x01C228 07:C218: 29 A8     AND #$A8
 C - - - - - 0x01C22A 07:C21A: F0 20     BEQ bra_C23C_skip
-C - - - - - 0x01C22C 07:C21C: 24 6D     BIT ram_006D
+C - - - - - 0x01C22C 07:C21C: 24 6D     BIT vStatusInWater
 C - - - - - 0x01C22E 07:C21E: 10 0C     BPL bra_C22C_skip
 C - - - - - 0x01C230 07:C220: A5 47     LDA vTempNoSubLevel
 C - - - - - 0x01C232 07:C222: 85 46     STA vNoSubLevel
@@ -438,7 +439,7 @@ C - - - - - 0x01C301 07:C2F1: 90 0B     BCC bra_C2FE_RTS
 C - - - - - 0x01C303 07:C2F3: C9 42     CMP #$42
 C - - - - - 0x01C305 07:C2F5: B0 07     BCS bra_C2FE_RTS
 C - - - - - 0x01C307 07:C2F7: A9 80     LDA #$80
-C - - - - - 0x01C309 07:C2F9: 85 6D     STA ram_006D
+C - - - - - 0x01C309 07:C2F9: 85 6D     STA vStatusInWater
 C - - - - - 0x01C30B 07:C2FB: 4C DF CC  JMP loc_CCDF
 
 bra_C2FE_RTS:
@@ -517,7 +518,7 @@ C - - - - - 0x01C376 07:C366: E8        INX ; To 3rd sprite data byte
 C - - - - - 0x01C377 07:C367: E8        INX ; To 4th sprite data byte
 C - - - - - 0x01C378 07:C368: E8        INX ; To 1st next sprite data byte
 C - - - - - 0x01C379 07:C369: D0 F3     BNE bra_C35E_repeat
-C - - - - - 0x01C37B 07:C36B: 86 43     STX v_current_number_sprite ; Store 0x00
+C - - - - - 0x01C37B 07:C36B: 86 43     STX vCurrentNumberSprite ; Store 0x00
 C - - - - - 0x01C37D 07:C36D: 8E F7 06  STX v_offset_sprite_magic ; Store 0x00
 C - - - - - 0x01C380 07:C370: 60        RTS
 
@@ -1793,7 +1794,7 @@ sub_CB38:
 C - - - - - 0x01CB48 07:CB38: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01CB4A 07:CB3A: 6A        ROR
 C - - - - - 0x01CB4B 07:CB3B: B0 FA     BCS bra_CB37_RTS
-C - - - - - 0x01CB4D 07:CB3D: 24 6D     BIT ram_006D
+C - - - - - 0x01CB4D 07:CB3D: 24 6D     BIT vStatusInWater
 C - - - - - 0x01CB4F 07:CB3F: 30 F6     BMI bra_CB37_RTS
 C - - - - - 0x01CB51 07:CB41: 70 F4     BVS bra_CB37_RTS
 C - - - - - 0x01CB53 07:CB43: 2C 14 02  BIT vCurrentWeaponStatus
@@ -1841,7 +1842,7 @@ C - - - - - 0x01CB97 07:CB87: 05 00     ORA ram_0000
 C - - - - - 0x01CB99 07:CB89: 8D 14 02  STA vCurrentWeaponStatus
 bra_CB8C:
 sub_CB8C:
-C - - - - - 0x01CB9C 07:CB8C: A5 6D     LDA ram_006D
+C - - - - - 0x01CB9C 07:CB8C: A5 6D     LDA vStatusInWater
 C - - - - - 0x01CB9E 07:CB8E: 30 48     BMI bra_CBD8_RTS
 C - - - - - 0x01CBA0 07:CB90: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01CBA2 07:CB92: 29 03     AND #$03
@@ -1884,7 +1885,7 @@ sub_CBD9:
 C - - - - - 0x01CBE9 07:CBD9: 2C 14 02  BIT vCurrentWeaponStatus
 C - - - - - 0x01CBEC 07:CBDC: 30 4B     BMI bra_CC29_RTS
 C - - - - - 0x01CBEE 07:CBDE: 70 49     BVS bra_CC29_RTS
-C - - - - - 0x01CBF0 07:CBE0: A5 6D     LDA ram_006D
+C - - - - - 0x01CBF0 07:CBE0: A5 6D     LDA vStatusInWater
 C - - - - - 0x01CBF2 07:CBE2: 29 FE     AND #$FE
 C - - - - - 0x01CBF4 07:CBE4: D0 43     BNE bra_CC29_RTS
 C - - - - - 0x01CBF6 07:CBE6: A5 6C     LDA ram_006C
@@ -2049,9 +2050,9 @@ C - - - - - 0x01CCFF 07:CCEF: A9 08     LDA #$08
 C - - - - - 0x01CD01 07:CCF1: 8D B2 06  STA ram_06B2
 C - - - - - 0x01CD04 07:CCF4: A9 00     LDA #$00
 C - - - - - 0x01CD06 07:CCF6: 85 42     STA ram_0042
-C - - - - - 0x01CD08 07:CCF8: A5 6D     LDA ram_006D
+C - - - - - 0x01CD08 07:CCF8: A5 6D     LDA vStatusInWater
 C - - - - - 0x01CD0A 07:CCFA: 09 40     ORA #$40
-C - - - - - 0x01CD0C 07:CCFC: 85 6D     STA ram_006D
+C - - - - - 0x01CD0C 07:CCFC: 85 6D     STA vStatusInWater
 C - - - - - 0x01CD0E 07:CCFE: A5 6C     LDA ram_006C
 C - - - - - 0x01CD10 07:CD00: 29 81     AND #$81
 C - - - - - 0x01CD12 07:CD02: 85 6C     STA ram_006C
@@ -2126,7 +2127,7 @@ C - - - - - 0x01CD8F 07:CD7F: AD 16 02  LDA ram_0216
 C - - - - - 0x01CD92 07:CD82: D0 26     BNE bra_CDAA
 C - - - - - 0x01CD94 07:CD84: AD 15 02  LDA ram_0215
 C - - - - - 0x01CD97 07:CD87: D0 21     BNE bra_CDAA
-C - - - - - 0x01CD99 07:CD89: 24 6D     BIT ram_006D
+C - - - - - 0x01CD99 07:CD89: 24 6D     BIT vStatusInWater
 C - - - - - 0x01CD9B 07:CD8B: 30 43     BMI bra_CDD0
 C - - - - - 0x01CD9D 07:CD8D: 70 5E     BVS bra_CDED_RTS
 C - - - - - 0x01CD9F 07:CD8F: 2C 14 02  BIT vCurrentWeaponStatus
@@ -2232,7 +2233,7 @@ C - - - - - 0x01CE36 07:CE26: 8D 02 07  STA vStartOAM_3b
 C - - - - - 0x01CE39 07:CE29: A9 00     LDA #$00
 C - - - - - 0x01CE3B 07:CE2B: 8D 03 07  STA vStartOAM_4b
 C - - - - - 0x01CE3E 07:CE2E: A9 04     LDA #$04
-C - - - - - 0x01CE40 07:CE30: 85 43     STA v_current_number_sprite
+C - - - - - 0x01CE40 07:CE30: 85 43     STA vCurrentNumberSprite
 C - - - - - 0x01CE42 07:CE32: 60        RTS
 
 ; function(0x00, 0x01, 0x02, 0x03)
@@ -2260,64 +2261,66 @@ C - - - - - 0x01CE67 07:CE57: 68        PLA
 C - - - - - 0x01CE68 07:CE58: A8        TAY ; retrieve y
 C - - - - - 0x01CE69 07:CE59: 60        RTS
 
+; In: Register X - the offset of the sprite address
+; in: 0x0000 - vScreenChrPosY with increment
 sub_CE5A_render_character:
 loc_CE5A_render_character:
-C D 2 - - - 0x01CE6A 07:CE5A: A9 00     LDA #$00
-C - - - - - 0x01CE6C 07:CE5C: 85 08     STA ram_0008 ; in 0
-C - - - - - 0x01CE6E 07:CE5E: 85 09     STA ram_0009 ; in 0
-C - - - - - 0x01CE70 07:CE60: A9 06     LDA #$06
-C - - - - - 0x01CE72 07:CE62: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01CE75 07:CE65: A9 0A     LDA #$0A
-C - - - - - 0x01CE77 07:CE67: 8D 01 80  STA MMC3_Bank_data ; switch bank 05 in 0x8000-0x9FFF
-C - - - - - 0x01CE7A 07:CE6A: A5 45     LDA ram_0045
-C - - - - - 0x01CE7C 07:CE6C: 48        PHA
-C - - - - - 0x01CE7D 07:CE6D: 29 03     AND #$03
-C - - - - - 0x01CE7F 07:CE6F: 85 0C     STA ram_000C
-C - - - - - 0x01CE81 07:CE71: 68        PLA
-C - - - - - 0x01CE82 07:CE72: 2A        ROL
-C - - - - - 0x01CE83 07:CE73: 2A        ROL
-C - - - - - 0x01CE84 07:CE74: 2A        ROL
-C - - - - - 0x01CE85 07:CE75: 29 03     AND #$03
-C - - - - - 0x01CE87 07:CE77: 09 80     ORA #$80
-C - - - - - 0x01CE89 07:CE79: 85 05     STA ram_0005
-C - - - - - 0x01CE8B 07:CE7B: A9 00     LDA #$00
-C - - - - - 0x01CE8D 07:CE7D: 85 04     STA ram_0004 ; in 0
-C - - - - - 0x01CE8F 07:CE7F: 8A        TXA          ; In x register is found an offset of a address  
-C - - - - - 0x01CE90 07:CE80: A8        TAY
-C - - - - - 0x01CE91 07:CE81: B1 04     LDA (ram_0004),Y
-C - - - - - 0x01CE93 07:CE83: 85 02     STA ram_0002 ; Assinged a high byte address
-C - - - - - 0x01CE95 07:CE85: C8        INY
-C - - - - - 0x01CE96 07:CE86: B1 04     LDA (ram_0004),Y
-C - - - - - 0x01CE98 07:CE88: 85 03     STA ram_0003 ; Assinged a low byte address
-C - - - - - 0x01CE9A 07:CE8A: A6 43     LDX v_current_number_sprite ; Offset OAM
-C - - - - - 0x01CE9C 07:CE8C: E0 FF     CPX #$FF
-C - - - - - 0x01CE9E 07:CE8E: F0 5C     BEQ bra_CEEC_skip
-C - - - - - 0x01CEA0 07:CE90: A0 00     LDY #$00
-C - - - - - 0x01CEA2 07:CE92: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CEA4 07:CE94: 85 05     STA v_CE5A_counter
-C - - - - - 0x01CEA6 07:CE96: F0 54     BEQ bra_CEEC_skip
-C - - - - - 0x01CEA8 07:CE98: C8        INY
+C D 2 - - - 0x01CE6A 07:CE5A: A9 00     LDA #$00                 ;
+C - - - - - 0x01CE6C 07:CE5C: 85 08     STA ram_0008             ; clear
+C - - - - - 0x01CE6E 07:CE5E: 85 09     STA ram_0009             ; clear
+C - - - - - 0x01CE70 07:CE60: A9 06     LDA #$06                 ;
+C - - - - - 0x01CE72 07:CE62: 8D 00 80  STA MMC3_Bank_select     ;
+C - - - - - 0x01CE75 07:CE65: A9 0A     LDA #$0A                 ;
+C - - - - - 0x01CE77 07:CE67: 8D 01 80  STA MMC3_Bank_data       ; switch bank 05 in 0x8000-0x9FFF
+C - - - - - 0x01CE7A 07:CE6A: A5 45     LDA vCharacterRenderData ;
+C - - - - - 0x01CE7C 07:CE6C: 48        PHA               ;
+C - - - - - 0x01CE7D 07:CE6D: 29 03     AND #$03          ;
+C - - - - - 0x01CE7F 07:CE6F: 85 0C     STA vTempCounterC ; get the part of the attributes
+C - - - - - 0x01CE81 07:CE71: 68        PLA          ;
+C - - - - - 0x01CE82 07:CE72: 2A        ROL          ;
+C - - - - - 0x01CE83 07:CE73: 2A        ROL          ;
+C - - - - - 0x01CE84 07:CE74: 2A        ROL          ; get the part of the address
+C - - - - - 0x01CE85 07:CE75: 29 03     AND #$03     ;
+C - - - - - 0x01CE87 07:CE77: 09 80     ORA #$80     ;
+C - - - - - 0x01CE89 07:CE79: 85 05     STA ram_0005 ; a high byte address [0x80-0x83]
+C - - - - - 0x01CE8B 07:CE7B: A9 00     LDA #$00     ;
+C - - - - - 0x01CE8D 07:CE7D: 85 04     STA ram_0004 ; a low byte address
+C - - - - - 0x01CE8F 07:CE7F: 8A        TXA          ; shift by x
+C - - - - - 0x01CE90 07:CE80: A8        TAY          ;
+C - - - - - 0x01CE91 07:CE81: B1 04     LDA (ram_0004),Y ;
+C - - - - - 0x01CE93 07:CE83: 85 02     STA ram_0002     ; Assinged a high byte address
+C - - - - - 0x01CE95 07:CE85: C8        INY              ;
+C - - - - - 0x01CE96 07:CE86: B1 04     LDA (ram_0004),Y ;
+C - - - - - 0x01CE98 07:CE88: 85 03     STA ram_0003     ; Assinged a low byte address
+C - - - - - 0x01CE9A 07:CE8A: A6 43     LDX vCurrentNumberSprite ; Offset of the entire OAM
+C - - - - - 0x01CE9C 07:CE8C: E0 FF     CPX #$FF           ;
+C - - - - - 0x01CE9E 07:CE8E: F0 5C     BEQ bra_CEEC_end   ; If the count of the sprites is overflow
+C - - - - - 0x01CEA0 07:CE90: A0 00     LDY #$00           ;
+C - - - - - 0x01CEA2 07:CE92: B1 02     LDA (ram_0002),Y   ; get a tile count
+C - - - - - 0x01CEA4 07:CE94: 85 05     STA v_CE5A_counter ; set loop counter
+C - - - - - 0x01CEA6 07:CE96: F0 54     BEQ bra_CEEC_end   ; If v_CE5A_counter == 0x00
+C - - - - - 0x01CEA8 07:CE98: C8        INY                ; y == 1, the position of first tile-byte
 loc_CE99:
-bra_CE99_repeat:
-C D 2 - - - 0x01CEA9 07:CE99: A9 00     LDA #$00
-C - - - - - 0x01CEAB 07:CE9B: 85 04     STA ram_0004 ; in 0
+bra_CE99_loop:                                       ; loop by v_CE5A_counter
+C D 2 - - - 0x01CEA9 07:CE99: A9 00     LDA #$00     ;
+C - - - - - 0x01CEAB 07:CE9B: 85 04     STA ram_0004 ; clear
 C - - - - - 0x01CEAD 07:CE9D: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CEAF 07:CE9F: 10 02     BPL bra_CEA3_skip
-C - - - - - 0x01CEB1 07:CEA1: C6 04     DEC ram_0004
+C - - - - - 0x01CEAF 07:CE9F: 10 02     BPL bra_CEA3_skip ; If Register A < 0xF0
+C - - - - - 0x01CEB1 07:CEA1: C6 04     DEC ram_0004      ; 0x00 -> 0xFF
 bra_CEA3_skip:
-C - - - - - 0x01CEB3 07:CEA3: 18        CLC
-C - - - - - 0x01CEB4 07:CEA4: 65 00     ADC ram_0000
-C - - - - - 0x01CEB6 07:CEA6: 9D 00 07  STA vStartOAM,X
+C - - - - - 0x01CEB3 07:CEA3: 18        CLC                  ;
+C - - - - - 0x01CEB4 07:CEA4: 65 00     ADC ram_0000         ;
+C - - - - - 0x01CEB6 07:CEA6: 9D 00 07  STA vStartOAM,X      ; set Y-position
 C - - - - - 0x01CEB9 07:CEA9: A5 04     LDA ram_0004
 C - - - - - 0x01CEBB 07:CEAB: 65 08     ADC ram_0008
-C - - - - - 0x01CEBD 07:CEAD: D0 40     BNE bra_CEEF_skip
+C - - - - - 0x01CEBD 07:CEAD: D0 40     BNE bra_CEEF_skip    ; If Register A != 0x00
 C - - - - - 0x01CEBF 07:CEAF: C8        INY                  ; Changes to the second byte (Tile index number)
-C - - - - - 0x01CEC0 07:CEB0: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CEC2 07:CEB2: 9D 01 07  STA vStartOAM_2b,X
-C - - - - - 0x01CEC5 07:CEB5: C8        INY                  ; Changes to the third byte (Attributes)  
-C - - - - - 0x01CEC6 07:CEB6: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CEC8 07:CEB8: 05 0C     ORA ram_000C
-C - - - - - 0x01CECA 07:CEBA: 9D 02 07  STA vStartOAM_3b,X
+C - - - - - 0x01CEC0 07:CEB0: B1 02     LDA (ram_0002),Y     ;
+C - - - - - 0x01CEC2 07:CEB2: 9D 01 07  STA vStartOAM_2b,X   ; set the tile number sprite
+C - - - - - 0x01CEC5 07:CEB5: C8        INY                  ; Changes to the third byte (Attributes)
+C - - - - - 0x01CEC6 07:CEB6: B1 02     LDA (ram_0002),Y     ;
+C - - - - - 0x01CEC8 07:CEB8: 05 0C     ORA vTempCounterC    ; add attributes from outside
+C - - - - - 0x01CECA 07:CEBA: 9D 02 07  STA vStartOAM_3b,X   ; set the attributes
 C - - - - - 0x01CECD 07:CEBD: C8        INY
 C - - - - - 0x01CECE 07:CEBE: A9 00     LDA #$00
 C - - - - - 0x01CED0 07:CEC0: 85 04     STA ram_0004
@@ -2334,21 +2337,21 @@ C - - - - - 0x01CEE1 07:CED1: D0 1F     BNE bra_CEF2
 C - - - - - 0x01CEE3 07:CED3: A5 06     LDA ram_0006
 C - - - - - 0x01CEE5 07:CED5: C9 F9     CMP #$F9
 C - - - - - 0x01CEE7 07:CED7: B0 19     BCS bra_CEF2
-C - - - - - 0x01CEE9 07:CED9: 9D 03 07  STA vStartOAM_4b,X
-C - - - - - 0x01CEEC 07:CEDC: E8        INX
-C - - - - - 0x01CEED 07:CEDD: E8        INX
-C - - - - - 0x01CEEE 07:CEDE: E8        INX
-C - - - - - 0x01CEEF 07:CEDF: E8        INX ; To 1st next sprite data byte
+C - - - - - 0x01CEE9 07:CED9: 9D 03 07  STA vStartOAM_4b,X ; set X-position
+C - - - - - 0x01CEEC 07:CEDC: E8        INX                ;
+C - - - - - 0x01CEED 07:CEDD: E8        INX                ;
+C - - - - - 0x01CEEE 07:CEDE: E8        INX                ;
+C - - - - - 0x01CEEF 07:CEDF: E8        INX                ; To 1st next sprite data byte
 C - - - - - 0x01CEF0 07:CEE0: D0 03     BNE bra_CEE5_repeat_skip
 C - - - - - 0x01CEF2 07:CEE2: CA        DEX
 C - - - - - 0x01CEF3 07:CEE3: D0 05     BNE bra_CEEA_skip
 bra_CEE5_repeat_skip:
 C - - - - - 0x01CEF5 07:CEE5: C8        INY
 C - - - - - 0x01CEF6 07:CEE6: C6 05     DEC v_CE5A_counter
-C - - - - - 0x01CEF8 07:CEE8: D0 AF     BNE bra_CE99_repeat
+C - - - - - 0x01CEF8 07:CEE8: D0 AF     BNE bra_CE99_loop
 bra_CEEA_skip:
-C - - - - - 0x01CEFA 07:CEEA: 86 43     STX v_current_number_sprite ; Store target byte OAM (sprite)
-bra_CEEC_skip:
+C - - - - - 0x01CEFA 07:CEEA: 86 43     STX vCurrentNumberSprite ; Store target byte OAM (sprite)
+bra_CEEC_end:
 C - - - - - 0x01CEFC 07:CEEC: 86 44     STX v_copy_current_number_sprite
 C - - - - - 0x01CEFE 07:CEEE: 60        RTS
 
@@ -2406,7 +2409,7 @@ C - - - - - 0x01CF4C 07:CF3C: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01CF4F 07:CF3F: 8E 01 80  STX MMC3_Bank_data
 C - - - - - 0x01CF52 07:CF42: 68        PLA
 C - - - - - 0x01CF53 07:CF43: 29 03     AND #$03
-C - - - - - 0x01CF55 07:CF45: 85 45     STA ram_0045
+C - - - - - 0x01CF55 07:CF45: 85 45     STA vCharacterRenderData
 C - - - - - 0x01CF57 07:CF47: 68        PLA
 C - - - - - 0x01CF58 07:CF48: 29 04     AND #$04
 C - - - - - 0x01CF5A 07:CF4A: F0 02     BEQ bra_CF4E_skip
@@ -2433,7 +2436,7 @@ C - - - - - 0x01CF7B 07:CF6B: A0 00     LDY #$00
 C - - - - - 0x01CF7D 07:CF6D: B1 02     LDA (ram_0002),Y ; Tile count
 C - - - - - 0x01CF7F 07:CF6F: 85 05     STA v_CF76_counter
 C - - - - - 0x01CF81 07:CF71: F0 55     BEQ bra_CFC8_skip ; If counter == 0
-C - - - - - 0x01CF83 07:CF73: A6 43     LDX v_current_number_sprite
+C - - - - - 0x01CF83 07:CF73: A6 43     LDX vCurrentNumberSprite
 C - - - - - 0x01CF85 07:CF75: C8        INY
 bra_CF76_repeat:
 C - - - - - 0x01CF86 07:CF76: A9 00     LDA #$00
@@ -2454,7 +2457,7 @@ C - - - - - 0x01CF9F 07:CF8F: 05 0A     ORA ram_000A
 C - - - - - 0x01CFA1 07:CF91: 9D 01 07  STA vStartOAM_2b,X
 C - - - - - 0x01CFA4 07:CF94: C8        INY
 C - - - - - 0x01CFA5 07:CF95: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CFA7 07:CF97: 05 45     ORA ram_0045
+C - - - - - 0x01CFA7 07:CF97: 05 45     ORA vCharacterRenderData
 C - - - - - 0x01CFA9 07:CF99: 9D 02 07  STA vStartOAM_3b,X
 C - - - - - 0x01CFAC 07:CF9C: C8        INY
 C - - - - - 0x01CFAD 07:CF9D: A9 00     LDA #$00
@@ -2482,7 +2485,7 @@ bra_CFC1:
 C - - - - - 0x01CFD1 07:CFC1: C8        INY
 C - - - - - 0x01CFD2 07:CFC2: C6 05     DEC v_CF76_counter
 C - - - - - 0x01CFD4 07:CFC4: D0 B0     BNE bra_CF76_repeat ; ; If counter != 0
-C - - - - - 0x01CFD6 07:CFC6: 86 43     STX v_current_number_sprite
+C - - - - - 0x01CFD6 07:CFC6: 86 43     STX vCurrentNumberSprite
 bra_CFC8_skip:
 loc_CFC8:
 C D 2 - - - 0x01CFD8 07:CFC8: E6 1A     INC ram_001A
@@ -3499,7 +3502,7 @@ C - - - - - 0x01D58D 07:D57D: 20 57 DF  JSR sub_DF57
 C - - - - - 0x01D590 07:D580: D0 19     BNE bra_D59B
 C - - - - - 0x01D592 07:D582: A9 60     LDA #$60
 C - - - - - 0x01D594 07:D584: 85 2E     STA ram_002E
-C - - - - - 0x01D596 07:D586: A5 6D     LDA ram_006D
+C - - - - - 0x01D596 07:D586: A5 6D     LDA vStatusInWater
 C - - - - - 0x01D598 07:D588: 30 11     BMI bra_D59B
 C - - - - - 0x01D59A 07:D58A: 20 EE CD  JSR sub_CDEE
 C - - - - - 0x01D59D 07:D58D: AD 07 02  LDA v_bullet_proof_vest_item
@@ -4420,15 +4423,15 @@ tbl_DAC5:
 - D 2 - - - 0x01DB01 07:DAF1: FE        .byte $FE
 - D 2 - - - 0x01DB02 07:DAF2: FE        .byte $FE
 - D 2 - - - 0x01DB03 07:DAF3: FF        .byte $FF
-sub_DAF4:
-C - - - - - 0x01DB04 07:DAF4: 20 A6 E2  JSR sub_E2A6
+sub_DAF4_render_character_subroutine:
+C - - - - - 0x01DB04 07:DAF4: 20 A6 E2  JSR sub_E2A6_test_feature_smth
 C - - - - - 0x01DB07 07:DAF7: A9 00     LDA #$00
 C - - - - - 0x01DB09 07:DAF9: 85 48     STA ram_0048
 C - - - - - 0x01DB0B 07:DAFB: 85 79     STA vChrLandStatus
 C - - - - - 0x01DB0D 07:DAFD: A5 46     LDA ram_0046
 C - - - - - 0x01DB0F 07:DAFF: D0 0C     BNE bra_DB0D
 C - - - - - 0x01DB11 07:DB01: 20 0E E3  JSR sub_E30E
-C - - - - - 0x01DB14 07:DB04: A5 6D     LDA ram_006D
+C - - - - - 0x01DB14 07:DB04: A5 6D     LDA vStatusInWater
 C - - - - - 0x01DB16 07:DB06: 29 20     AND #$20
 C - - - - - 0x01DB18 07:DB08: F0 0A     BEQ bra_DB14_skip
 C - - - - - 0x01DB1A 07:DB0A: 4C 10 E8  JMP loc_E810
@@ -4439,7 +4442,7 @@ C - - - - - 0x01DB1F 07:DB0F: D0 03     BNE bra_DB14_skip
 C - - - - - 0x01DB21 07:DB11: 4C DA E8  JMP loc_E8DA
 
 bra_DB14_skip:
-C - - - - - 0x01DB24 07:DB14: 24 6D     BIT ram_006D
+C - - - - - 0x01DB24 07:DB14: 24 6D     BIT vStatusInWater
 C - - - - - 0x01DB26 07:DB16: 10 03     BPL bra_DB1B_skip
 C - - - - - 0x01DB28 07:DB18: 4C BB E3  JMP loc_E3BB
 
@@ -4578,27 +4581,27 @@ C - - - - - 0x01DBFC 07:DBEC: 4C 1C E2  JMP loc_E21C
 bra_DBEF:
 C - - - - - 0x01DBFF 07:DBEF: AC 14 02  LDY vCurrentWeaponStatus
 C - - - - - 0x01DC02 07:DBF2: A9 40     LDA #$40
-C - - - - - 0x01DC04 07:DBF4: C0 42     CPY #$42
-C - - - - - 0x01DC06 07:DBF6: F0 1B     BEQ bra_DC13
-C - - - - - 0x01DC08 07:DBF8: 24 6D     BIT ram_006D
+C - - - - - 0x01DC04 07:DBF4: C0 42     CPY #$42          ; CONSTANT - The artillery rifle is activated
+C - - - - - 0x01DC06 07:DBF6: F0 1B     BEQ bra_DC13_skip ; If Register Y == #$42
+C - - - - - 0x01DC08 07:DBF8: 24 6D     BIT vStatusInWater
 C - - - - - 0x01DC0A 07:DBFA: 70 28     BVS bra_DC24_skip
-C - - - - - 0x01DC0C 07:DBFC: 30 02     BMI bra_DC00
+C - - - - - 0x01DC0C 07:DBFC: 30 02     BMI bra_DC00_skip
 C - - - - - 0x01DC0E 07:DBFE: A9 01     LDA #$01
-bra_DC00:
-C - - - - - 0x01DC10 07:DC00: 85 45     STA ram_0045
+bra_DC00_skip:
+C - - - - - 0x01DC10 07:DC00: 85 45     STA vCharacterRenderData
 C - - - - - 0x01DC12 07:DC02: 20 5A CE  JSR sub_CE5A_render_character
 loc_DC05:
 C D 2 - - - 0x01DC15 07:DC05: A2 00     LDX #$00
 C - - - - - 0x01DC17 07:DC07: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01DC19 07:DC09: 6A        ROR
-C - - - - - 0x01DC1A 07:DC0A: 90 02     BCC bra_DC0E
+C - - - - - 0x01DC1A 07:DC0A: 90 02     BCC bra_DC0E_skip
 C - - - - - 0x01DC1C 07:DC0C: A2 02     LDX #$02
-bra_DC0E:
+bra_DC0E_skip:
 C - - - - - 0x01DC1E 07:DC0E: 86 7A     STX ram_007A
 C - - - - - 0x01DC20 07:DC10: 4C 32 E1  JMP loc_E132
 
-bra_DC13:
-C - - - - - 0x01DC23 07:DC13: 85 45     STA ram_0045
+bra_DC13_skip:
+C - - - - - 0x01DC23 07:DC13: 85 45     STA vCharacterRenderData
 C - - - - - 0x01DC25 07:DC15: 8A        TXA
 C - - - - - 0x01DC26 07:DC16: 18        CLC
 C - - - - - 0x01DC27 07:DC17: 69 3A     ADC #$3A
@@ -4610,7 +4613,7 @@ C - - - - - 0x01DC2F 07:DC1F: 86 7A     STX ram_007A
 C - - - - - 0x01DC31 07:DC21: 4C 32 E1  JMP loc_E132
 
 bra_DC24_skip:
-C - - - - - 0x01DC34 07:DC24: 85 45     STA ram_0045
+C - - - - - 0x01DC34 07:DC24: 85 45     STA vCharacterRenderData
 C - - - - - 0x01DC36 07:DC26: 8A        TXA
 C - - - - - 0x01DC37 07:DC27: 48        PHA
 C - - - - - 0x01DC38 07:DC28: 20 3B DC  JSR sub_DC3B
@@ -4990,7 +4993,7 @@ C - - - - - 0x01DE71 07:DE61: A5 1C     LDA ram_001C
 C - - - - - 0x01DE73 07:DE63: 29 20     AND #$20
 C - - - - - 0x01DE75 07:DE65: D0 1F     BNE bra_DE86_skip
 bra_DE67:
-C - - - - - 0x01DE77 07:DE67: A5 6D     LDA ram_006D
+C - - - - - 0x01DE77 07:DE67: A5 6D     LDA vStatusInWater
 C - - - - - 0x01DE79 07:DE69: 29 01     AND #$01
 C - - - - - 0x01DE7B 07:DE6B: D0 03     BNE bra_DE70
 C - - - - - 0x01DE7D 07:DE6D: 20 32 E3  JSR sub_E332
@@ -5418,7 +5421,7 @@ C - - - - - 0x01E105 07:E0F5: 60        RTS
 
 sub_E0F6:
 C - - - - - 0x01E106 07:E0F6: A0 16     LDY #$16
-C - - - - - 0x01E108 07:E0F8: 24 6D     BIT ram_006D
+C - - - - - 0x01E108 07:E0F8: 24 6D     BIT vStatusInWater
 C - - - - - 0x01E10A 07:E0FA: 30 13     BMI bra_E10F
 C - - - - - 0x01E10C 07:E0FC: A0 10     LDY #$10
 C - - - - - 0x01E10E 07:E0FE: AD 14 02  LDA vCurrentWeaponStatus
@@ -5436,10 +5439,10 @@ C - - - - - 0x01E123 07:E113: 38        SEC
 C - - - - - 0x01E124 07:E114: E5 02     SBC ram_0002
 C - - - - - 0x01E126 07:E116: 95 80     STA ram_0080,X
 C - - - - - 0x01E128 07:E118: A0 18     LDY #$18
-C - - - - - 0x01E12A 07:E11A: 24 6D     BIT ram_006D
+C - - - - - 0x01E12A 07:E11A: 24 6D     BIT vStatusInWater
 C - - - - - 0x01E12C 07:E11C: 70 11     BVS bra_E12F
 C - - - - - 0x01E12E 07:E11E: A0 16     LDY #$16
-C - - - - - 0x01E130 07:E120: 24 6D     BIT ram_006D
+C - - - - - 0x01E130 07:E120: 24 6D     BIT vStatusInWater
 C - - - - - 0x01E132 07:E122: 30 0B     BMI bra_E12F
 C - - - - - 0x01E134 07:E124: A0 14     LDY #$14
 C - - - - - 0x01E136 07:E126: AD 14 02  LDA vCurrentWeaponStatus
@@ -5451,12 +5454,12 @@ C - - - - - 0x01E13F 07:E12F: 84 02     STY ram_0002
 C - - - - - 0x01E141 07:E131: 60        RTS
 
 loc_E132:
-C D 3 - - - 0x01E142 07:E132: 86 10     STX ram_0010
-bra_E134:
-C - - - - - 0x01E144 07:E134: A6 10     LDX ram_0010
+C D 3 - - - 0x01E142 07:E132: 86 10     STX vTempCounter10 ; set loop counter
+bra_E134_loop:                                             ; loop by x
+C - - - - - 0x01E144 07:E134: A6 10     LDX vTempCounter10
 C - - - - - 0x01E146 07:E136: 20 3E E1  JSR sub_E13E
-C - - - - - 0x01E149 07:E139: C6 10     DEC ram_0010
-C - - - - - 0x01E14B 07:E13B: 10 F7     BPL bra_E134
+C - - - - - 0x01E149 07:E139: C6 10     DEC vTempCounter10 ; decrement x
+C - - - - - 0x01E14B 07:E13B: 10 F7     BPL bra_E134_loop  ; In Register X < 0xF0
 bra_E13D_RTS:
 C - - - - - 0x01E14D 07:E13D: 60        RTS
 
@@ -5665,7 +5668,7 @@ C - - - - - 0x01E287 07:E277: 18        CLC
 C - - - - - 0x01E288 07:E278: 69 58     ADC #$58
 C - - - - - 0x01E28A 07:E27A: AA        TAX
 C - - - - - 0x01E28B 07:E27B: A9 01     LDA #$01
-C - - - - - 0x01E28D 07:E27D: 85 45     STA ram_0045
+C - - - - - 0x01E28D 07:E27D: 85 45     STA vCharacterRenderData
 C - - - - - 0x01E28F 07:E27F: 4C 5A CE  JMP loc_CE5A_render_character
 
 sub_E282:
@@ -5673,7 +5676,7 @@ C - - - - - 0x01E292 07:E282: 18        CLC
 C - - - - - 0x01E293 07:E283: 69 2C     ADC #$2C
 C - - - - - 0x01E295 07:E285: AA        TAX
 C - - - - - 0x01E296 07:E286: A9 01     LDA #$01
-C - - - - - 0x01E298 07:E288: 85 45     STA ram_0045
+C - - - - - 0x01E298 07:E288: 85 45     STA vCharacterRenderData
 C - - - - - 0x01E29A 07:E28A: 4C 5A CE  JMP loc_CE5A_render_character
 
 sub_E28D:
@@ -5700,7 +5703,7 @@ C - - - - - 0x01E2A8 07:E298: 60        RTS
 - - - - - - 0x01E2B4 07:E2A4: 12        .byte $12
 - - - - - - 0x01E2B5 07:E2A5: 60        .byte $60
 
-sub_E2A6:
+sub_E2A6_test_feature_smth:
 C - - - - - 0x01E2B6 07:E2A6: AD F6 FF  LDA Set_features
 C - - - - - 0x01E2B9 07:E2A9: 30 4C     BMI bra_E2F7_RTS
 - - - - - - 0x01E2BB 07:E2AB: A5        .byte $A5
@@ -6118,7 +6121,7 @@ C - - - - - 0x01E4E9 07:E4D9: 18        CLC
 C - - - - - 0x01E4EA 07:E4DA: 69 18     ADC #$18
 C - - - - - 0x01E4EC 07:E4DC: AA        TAX
 C - - - - - 0x01E4ED 07:E4DD: A9 40     LDA #$40
-C - - - - - 0x01E4EF 07:E4DF: 85 45     STA ram_0045
+C - - - - - 0x01E4EF 07:E4DF: 85 45     STA vCharacterRenderData
 C - - - - - 0x01E4F1 07:E4E1: 4C 5A CE  JMP loc_CE5A_render_character
 
 sub_E4E4:
@@ -6205,7 +6208,7 @@ C - - - - - 0x01E573 07:E563: F0 1C     BEQ bra_E581_RTS
 bra_E565:
 sub_E565:
 loc_E565:
-C D 3 - - - 0x01E575 07:E565: A5 6D     LDA ram_006D
+C D 3 - - - 0x01E575 07:E565: A5 6D     LDA vStatusInWater
 C - - - - - 0x01E577 07:E567: 29 20     AND #$20
 C - - - - - 0x01E579 07:E569: F0 02     BEQ bra_E56D
 C - - - - - 0x01E57B 07:E56B: E6 6A     INC ram_006A
@@ -6254,7 +6257,7 @@ C - - - - - 0x01E5B8 07:E5A8: C9 01     CMP #$01
 C - - - - - 0x01E5BA 07:E5AA: 60        RTS
 
 ; in: Register A - an increment
-; out: ???
+; out: 0x0000 - vScreenChrPosY with increment
 sub_E5AB_add_short_chr_y_positions:
 C - - - - - 0x01E5BB 07:E5AB: 18        CLC
 C - - - - - 0x01E5BC 07:E5AC: 65 6A     ADC vScreenChrPosY ;
@@ -6473,7 +6476,7 @@ C - - - - - 0x01E715 07:E705: E8        INX
 C - - - - - 0x01E716 07:E706: E8        INX
 bra_E707:
 C - - - - - 0x01E717 07:E707: A9 40     LDA #$40
-C - - - - - 0x01E719 07:E709: 85 45     STA ram_0045
+C - - - - - 0x01E719 07:E709: 85 45     STA vCharacterRenderData
 C - - - - - 0x01E71B 07:E70B: A5 2E     LDA ram_002E
 C - - - - - 0x01E71D 07:E70D: F0 02     BEQ bra_E711_skip
 C - - - - - 0x01E71F 07:E70F: A9 04     LDA #$04
@@ -6592,14 +6595,14 @@ C - - - - - 0x01E7D2 07:E7C2: C8        INY
 C - - - - - 0x01E7D3 07:E7C3: D0 DB     BNE bra_E7A0
 bra_E7C5:
 sub_E7C5:
-C - - - - - 0x01E7D5 07:E7C5: A5 6D     LDA ram_006D
+C - - - - - 0x01E7D5 07:E7C5: A5 6D     LDA vStatusInWater
 C - - - - - 0x01E7D7 07:E7C7: 29 DF     AND #$DF
-C - - - - - 0x01E7D9 07:E7C9: 85 6D     STA ram_006D
+C - - - - - 0x01E7D9 07:E7C9: 85 6D     STA vStatusInWater
 C - - - - - 0x01E7DB 07:E7CB: 18        CLC
 C - - - - - 0x01E7DC 07:E7CC: 60        RTS
 
 bra_E7CD:
-C - - - - - 0x01E7DD 07:E7CD: A5 6D     LDA ram_006D
+C - - - - - 0x01E7DD 07:E7CD: A5 6D     LDA vStatusInWater
 C - - - - - 0x01E7DF 07:E7CF: 29 20     AND #$20
 C - - - - - 0x01E7E1 07:E7D1: D0 31     BNE bra_E804
 C - - - - - 0x01E7E3 07:E7D3: B9 D2 85  LDA $85D2,Y
@@ -6626,7 +6629,7 @@ C - - - - - 0x01E807 07:E7F7: 18        CLC
 C - - - - - 0x01E808 07:E7F8: 65 02     ADC ram_0002
 C - - - - - 0x01E80A 07:E7FA: 85 6A     STA ram_006A
 C - - - - - 0x01E80C 07:E7FC: A9 20     LDA #$20
-C - - - - - 0x01E80E 07:E7FE: 85 6D     STA ram_006D
+C - - - - - 0x01E80E 07:E7FE: 85 6D     STA vStatusInWater
 C - - - - - 0x01E810 07:E800: A9 00     LDA #$00
 C - - - - - 0x01E812 07:E802: 85 71     STA ram_0071
 bra_E804:
@@ -6742,9 +6745,9 @@ bra_E8C0:
 C - - - - - 0x01E8D0 07:E8C0: A5 2F     LDA ram_002F
 C - - - - - 0x01E8D2 07:E8C2: D0 11     BNE bra_E8D5
 bra_E8C4:
-C - - - - - 0x01E8D4 07:E8C4: A5 6D     LDA ram_006D
+C - - - - - 0x01E8D4 07:E8C4: A5 6D     LDA vStatusInWater
 C - - - - - 0x01E8D6 07:E8C6: 29 BF     AND #$BF
-C - - - - - 0x01E8D8 07:E8C8: 85 6D     STA ram_006D
+C - - - - - 0x01E8D8 07:E8C8: 85 6D     STA vStatusInWater
 C - - - - - 0x01E8DA 07:E8CA: 4C 32 E6  JMP loc_E632
 
 bra_E8CD:
@@ -7292,7 +7295,7 @@ C - - - - - 0x01EC5A 07:EC4A: 85 00     STA ram_0000
 C - - - - - 0x01EC5C 07:EC4C: A5 66     LDA ram_0066
 C - - - - - 0x01EC5E 07:EC4E: 85 01     STA ram_0001
 C - - - - - 0x01EC60 07:EC50: A9 02     LDA #$02
-C - - - - - 0x01EC62 07:EC52: 85 45     STA ram_0045
+C - - - - - 0x01EC62 07:EC52: 85 45     STA vCharacterRenderData
 C - - - - - 0x01EC64 07:EC54: 8A        TXA
 C - - - - - 0x01EC65 07:EC55: 18        CLC
 C - - - - - 0x01EC66 07:EC56: 69 7E     ADC #$7E
@@ -7311,7 +7314,7 @@ C - - - - - 0x01EC77 07:EC67: 85 00     STA ram_0000
 C - - - - - 0x01EC79 07:EC69: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01EC7B 07:EC6B: 85 01     STA ram_0001
 C - - - - - 0x01EC7D 07:EC6D: A9 02     LDA #$02
-C - - - - - 0x01EC7F 07:EC6F: 85 45     STA ram_0045
+C - - - - - 0x01EC7F 07:EC6F: 85 45     STA vCharacterRenderData
 C - - - - - 0x01EC81 07:EC71: A5 72     LDA vRifleShotCount
 C - - - - - 0x01EC83 07:EC73: 18        CLC
 C - - - - - 0x01EC84 07:EC74: 69 7E     ADC #$7E
@@ -7326,7 +7329,7 @@ C - - - - - 0x01EC8F 07:EC7F: 85 00     STA ram_0000
 C - - - - - 0x01EC91 07:EC81: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01EC93 07:EC83: 85 01     STA ram_0001
 C - - - - - 0x01EC95 07:EC85: A9 01     LDA #$01
-C - - - - - 0x01EC97 07:EC87: 85 45     STA ram_0045
+C - - - - - 0x01EC97 07:EC87: 85 45     STA vCharacterRenderData
 C - - - - - 0x01EC99 07:EC89: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01EC9B 07:EC8B: 29 03     AND #$03
 C - - - - - 0x01EC9D 07:EC8D: 0A        ASL
@@ -7364,7 +7367,7 @@ C - - - - - 0x01ECCB 07:ECBB: 85 00     STA ram_0000
 C - - - - - 0x01ECCD 07:ECBD: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01ECCF 07:ECBF: 85 01     STA ram_0001
 C - - - - - 0x01ECD1 07:ECC1: A9 02     LDA #$02
-C - - - - - 0x01ECD3 07:ECC3: 85 45     STA ram_0045
+C - - - - - 0x01ECD3 07:ECC3: 85 45     STA vCharacterRenderData
 C - - - - - 0x01ECD5 07:ECC5: A5 73     LDA vRifleFireTime
 C - - - - - 0x01ECD7 07:ECC7: 18        CLC
 C - - - - - 0x01ECD8 07:ECC8: 69 7E     ADC #$7E
@@ -7522,7 +7525,7 @@ C - - - - - 0x01EDB8 07:EDA8: 29 20     AND #$20
 C - - - - - 0x01EDBA 07:EDAA: D0 69     BNE bra_EE15
 C - - - - - 0x01EDBC 07:EDAC: 20 58 C3  JSR sub_C358_clear_OAM
 C - - - - - 0x01EDBF 07:EDAF: 20 13 CE  JSR sub_CE13
-C - - - - - 0x01EDC2 07:EDB2: 20 F4 DA  JSR sub_DAF4
+C - - - - - 0x01EDC2 07:EDB2: 20 F4 DA  JSR sub_DAF4_render_character_subroutine
 C - - - - - 0x01EDC5 07:EDB5: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01EDC7 07:EDB7: C9 0B     CMP #$0B
 C - - - - - 0x01EDC9 07:EDB9: F0 54     BEQ bra_EE0F
@@ -7548,7 +7551,7 @@ C D 3 - - - 0x01EDF1 07:EDE1: 20 6C C4  JSR sub_C46C
 C - - - - - 0x01EDF4 07:EDE4: 20 85 C8  JSR sub_C885
 loc_EDE7:
 C D 3 - - - 0x01EDF7 07:EDE7: A6 44     LDX v_copy_current_number_sprite
-C - - - - - 0x01EDF9 07:EDE9: 86 43     STX v_current_number_sprite
+C - - - - - 0x01EDF9 07:EDE9: 86 43     STX vCurrentNumberSprite
 C - - - - - 0x01EDFB 07:EDEB: 20 F9 CE  JSR sub_CEF9
 C - - - - - 0x01EDFE 07:EDEE: A9 07     LDA #$07             ;
 C - - - - - 0x01EE00 07:EDF0: A2 04     LDX #$04             ; 
@@ -7914,7 +7917,7 @@ C - - - - - 0x01F08C 07:F07C: 10 FB     BPL bra_F079_repeat
 C - - - - - 0x01F08E 07:F07E: 60        RTS
 
 sub_F07F:
-C - - - - - 0x01F08F 07:F07F: A5 6D     LDA ram_006D
+C - - - - - 0x01F08F 07:F07F: A5 6D     LDA vStatusInWater
 C - - - - - 0x01F091 07:F081: 30 25     BMI bra_F0A8_RTS
 C - - - - - 0x01F093 07:F083: A2 00     LDX #$00
 C - - - - - 0x01F095 07:F085: A5 6C     LDA ram_006C
@@ -7939,7 +7942,7 @@ bra_F0A8_RTS:
 C - - - - - 0x01F0B8 07:F0A8: 60        RTS
 
 sub_F0A9:
-C - - - - - 0x01F0B9 07:F0A9: A5 6D     LDA ram_006D
+C - - - - - 0x01F0B9 07:F0A9: A5 6D     LDA vStatusInWater
 C - - - - - 0x01F0BB 07:F0AB: 10 03     BPL bra_F0B0
 C - - - - - 0x01F0BD 07:F0AD: 4C 59 F2  JMP loc_F259
 
@@ -7996,7 +7999,7 @@ C - - - - - 0x01F11D 07:F10D: 8D 15 03  STA vEnemyTimerHigh1 ; clear a high part
 bra_F110:
 C - - - - - 0x01F120 07:F110: 24 3C     BIT ram_003C
 C - - - - - 0x01F122 07:F112: 70 31     BVS bra_F145_RTS
-C - - - - - 0x01F124 07:F114: A5 6D     LDA ram_006D
+C - - - - - 0x01F124 07:F114: A5 6D     LDA vStatusInWater
 C - - - - - 0x01F126 07:F116: 30 0D     BMI bra_F125
 C - - - - - 0x01F128 07:F118: A5 46     LDA ram_0046
 C - - - - - 0x01F12A 07:F11A: C9 19     CMP #$19

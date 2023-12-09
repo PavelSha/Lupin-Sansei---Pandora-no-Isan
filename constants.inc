@@ -44,6 +44,8 @@ BIT_USING_WHITE_BRIEFCASE             = %10000000
 
 v_CF76_counter                = ram_0005
 v_CE5A_counter                = ram_0005
+vTempCounterC                 = ram_000C
+vTempCounter10                = ram_0010
 v_cache_reg_y                 = ram_0011
 v_temp_check_buttons          = ram_0012 ; There is a variable that stores the checked state of the button
 v_temp_counter12              = ram_0012
@@ -114,9 +116,13 @@ vTempCounter3D                = ram_003D
 v_npc_message_status          = ram_0041
 ; 83 - npc is saying the message 
 ; C3 - npc said the message 
-v_current_number_sprite       = ram_0043
+vCurrentNumberSprite          = ram_0043
 v_copy_current_number_sprite  = ram_0044
-v_temp_bank_data              = ram_0045 ; 
+vCharacterRenderData          = ram_0045
+; Byte: ??LLLAAA
+; AAA - the OAM-attributes
+; LLL - the high part of address (0%10000LLL), e.i. [0x8000 - 0x8300]
+
 
 vSortOfRoom                   = ram_0046 ; Only in the room
 ; 1A - a npc room or a character tied up
@@ -366,6 +372,7 @@ vChrStatus                    = ram_006C ; A status of a character
 ; W - the character is/isn't jumping (1 - jumping, 0 - no jumping)
 ; Z - the character is entering a corridor or hiding place (1 - entering, 0 - no entering)
 ; ...
+vStatusInWater                = ram_006D
 
 vVelocity                     = ram_0071 ; 0x04 - min, 0x0C - max
 
@@ -420,7 +427,7 @@ v_bullet_proof_vest_item      = ram_0207
 v_ruby_ring                   = ram_0208
 vCurrentWeaponStatus          = ram_0214 ; Only the active items
 ; 0x10000000 - the weapons are not exist
-; 0x00100000 - the weapon is activated
+; 0x01000000 - the weapon is activated
 ; 0x00000000 - Using the radio
 ; 0x00000001 - Using the bomb
 ; 0x00000010 - Using the artillery rifle
