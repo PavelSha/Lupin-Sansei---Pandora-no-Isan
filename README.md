@@ -4,3 +4,6 @@ The repo was created for educational purposes.
 All rights reserved by NAMCO.
 ## Resources
 -  Lupin Sansei - Pandora no Isan (J) `9d21fe96`
+## Building
+-  Windows - run a command ***assemble.bat***
+-  Linux - assemble.sh (!! TODO !!)

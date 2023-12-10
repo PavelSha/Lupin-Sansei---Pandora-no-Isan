@@ -1,3 +1,5 @@
+$000C#vTempCounterC#
+$0010#vTempCounter10#
 $001C#vBtnPressedInGame#
 $001D#vCopy001C#
 $001E#v_player1_btn_pressed#
@@ -17,9 +19,9 @@ $0037#vGameMode#
 $003B#vSharedGameStatus#
 $003D#vTempCounter3D#
 $0041#v_npc_message_status#
-$0043#v_current_number_sprite#
+$0043#vCurrentNumberSprite#
 $0044#v_copy_current_number_sprite#
-$0045#v_temp_bank_data#
+$0045#vCharacterRenderData#
 $0046#vNoSubLevel#
 $0047#vTempNoSubLevel#
 $004B#vHighViewPortPosX#
@@ -34,10 +36,13 @@ $0068#vNoScreen#
 $0069#vTempNoScreen#
 $006A#vScreenChrPosY#
 $006C#vChrStatus#
+$006D#vStatusInWater#
 $0071#vVelocity#
 $0072#vRifleShotCount#
 $0073#vRifleFireTime#
 $0079#vChrLandStatus#
+$007A#vBulletCount#
+$008F#vBulletStatus#
 $00AD#vIndexSelectableChr#
 $00AE#vCacheIndexSelectableChr#
 $00B1#v_start_level#

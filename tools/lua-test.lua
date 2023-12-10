@@ -2,7 +2,7 @@ oldValue = 0;
 noDamageB = 0x003A;
 wait10   = 0;
 
-no        = 0x0008;
+--no        = 0x0008;
 --no        = 0x003B;
 --no        = 0x003C;
 --no        = 0x0046;
@@ -10,6 +10,8 @@ no        = 0x0008;
 --no        = 0x0066;
 --no        = 0x0073;
 --no        = 0x0079;
+--no        = 0x007A;
+no        = 0x008F;
 --no        = 0x0214;
 
 while (true) do

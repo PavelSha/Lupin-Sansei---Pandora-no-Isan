@@ -351,12 +351,12 @@ v_no_level                    = ram_005E ; It is a number of a level than it sta
 v_chr_live_status             = ram_005F
 ; Byte: XYZW KLMN
 ; MN - the current selected character (0x00 - Lupin, 0x01 - Jigen, 0x10 - Goemon)
-; X - Goemon fell (1 - true)
-; Y - Goemon arrested (1 - true)
-; Z - Jigen fell (1 - true)
-; W - Jigen arrested (1 - true)
-; K - Lupin fell (1 - true)
-; L - Lupin arrested (1 - true)
+; X - Goemon fell (0 - true)
+; Y - Goemon arrested (0 - true)
+; Z - Jigen fell (0 - true)
+; W - Jigen arrested (0 - true)
+; K - Lupin fell (0 - true)
+; L - Lupin arrested (0 - true)
 vScreenChrPosX                = ram_0064 ; The character's position along the X axis relative to the screen (no repeat)
 vTempScreenChrPosX            = ram_0065
 vLowChrPosX                   = ram_0066 ; The character's position along the X axis relative to the level (with repeat) 
@@ -383,8 +383,13 @@ vChrLandStatus                = ram_0079 ;
 ; 0x00 - the character is in the air
 ; 0x80 - the character stands on the ground
 
+vBulletCount                  = ram_007A ; 0x00 - 1 bullet, 0x01 - 2 bullets, 0x02 - 3 bullets and so on...
+
 ; ??? - ram_00AD
 ; 0x8F - ???
+
+vBulletStatus                 = ram_008F ; [0x8F-0x93] , for a rifle, Lupin's pistol, Jigen's pistol
+
 ; 0x9F - ???
 
 vIndexSelectableChr           = ram_00AD ; Selectable character number in character selection mode

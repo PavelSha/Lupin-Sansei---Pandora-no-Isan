@@ -6,7 +6,7 @@
 |0x03|Black land hat| B |   | 3 |
 |0x04|Land Diver| A |   | 3 |
 |0x05|Land Diver| A |   | 2 |
-|0x06|Land Diver| A |   | 1 |
+|0x06|Land Diver| A | ![Land Diver](/../images/bestiary-6.png) | 1 |
 |0x07|Zenigata| A |   |All|
 |0x08|   |   |   |   |
 |0x09|   |   |   |   |

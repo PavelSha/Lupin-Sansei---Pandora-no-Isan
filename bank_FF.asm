@@ -1989,7 +1989,7 @@ C - - - - - 0x01CC90 07:CC80: A0 06     LDY #$06 ; 2nd row
 C - - - - - 0x01CC92 07:CC82: 20 1C CD  JSR sub_CD1C
 C - - - - - 0x01CC95 07:CC85: 4C 49 CD  JMP loc_CD49
 
-C - - J - - 0x01CC98 07:CC88: 20 75 F0  JSR sub_F075
+C - - J - - 0x01CC98 07:CC88: 20 75 F0  JSR sub_F075_clear_bullet_status
 C - - - - - 0x01CC9B 07:CC8B: A9 00     LDA #$00
 C - - - - - 0x01CC9D 07:CC8D: 85 73     STA vRifleFireTime
 C - - - - - 0x01CC9F 07:CC8F: A9 05     LDA #$05
@@ -3482,19 +3482,19 @@ C - - - - - 0x01D56F 07:D55F: 85 0F     STA ram_000F
 C - - - - - 0x01D571 07:D561: 60        RTS
 
 C D 2 - - - 0x01D572 07:D562: A5 32     LDA ram_0032
-C - - - - - 0x01D574 07:D564: D0 06     BNE bra_D56C
+C - - - - - 0x01D574 07:D564: D0 06     BNE bra_D56C_clear_c_rts
 C - - - - - 0x01D576 07:D566: A5 6C     LDA ram_006C
 C - - - - - 0x01D578 07:D568: 29 A8     AND #$A8
 C - - - - - 0x01D57A 07:D56A: F0 02     BEQ bra_D56E
-bra_D56C:
+bra_D56C_clear_c_rts:
 C - - - - - 0x01D57C 07:D56C: 18        CLC
 C - - - - - 0x01D57D 07:D56D: 60        RTS
 
 bra_D56E:
 C - - - - - 0x01D57E 07:D56E: A5 3A     LDA ram_003A
-C - - - - - 0x01D580 07:D570: 30 FA     BMI bra_D56C
+C - - - - - 0x01D580 07:D570: 30 FA     BMI bra_D56C_clear_c_rts
 C - - - - - 0x01D582 07:D572: 20 42 D6  JSR sub_D642
-C - - - - - 0x01D585 07:D575: 90 F5     BCC bra_D56C
+C - - - - - 0x01D585 07:D575: 90 F5     BCC bra_D56C_clear_c_rts
 C - - - - - 0x01D587 07:D577: A5 46     LDA ram_0046
 C - - - - - 0x01D589 07:D579: C9 19     CMP #$19
 C - - - - - 0x01D58B 07:D57B: F0 1E     BEQ bra_D59B
@@ -3527,8 +3527,10 @@ C - - - - - 0x01D5C1 07:D5B1: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01D5C4 07:D5B4: 38        SEC
 C - - - - - 0x01D5C5 07:D5B5: 60        RTS
 
-C - - - - - 0x01D5C6 07:D5B6: B5 8F     LDA ram_008F,X
-C - - - - - 0x01D5C8 07:D5B8: 10 B2     BPL bra_D56C
+; Out: the carry status (analog return true or false)
+sub_D5B6: ; from bank 03, bank 06_1, bank 06_2
+C - - - - - 0x01D5C6 07:D5B6: B5 8F     LDA vBulletStatus,X
+C - - - - - 0x01D5C8 07:D5B8: 10 B2     BPL bra_D56C_clear_c_rts
 C - - - - - 0x01D5CA 07:D5BA: B5 80     LDA ram_0080,X
 C - - - - - 0x01D5CC 07:D5BC: 18        CLC
 C - - - - - 0x01D5CD 07:D5BD: 69 02     ADC #$02
@@ -3547,7 +3549,7 @@ C - - - - - 0x01D5E7 07:D5D7: 38        SEC
 bra_D5D8_RTS:
 C - - - - - 0x01D5E8 07:D5D8: 60        RTS
 
-; Return the carry status (analog return true or false)
+; Out: the carry status (analog return true or false)
 sub_D5D9:
 loc_D5D9:
 C D 2 - - - 0x01D5E9 07:D5D9: A5 AD     LDA ram_00AD
@@ -3581,7 +3583,7 @@ bra_D604_clear_c_rts:
 C - - - - - 0x01D614 07:D604: 18        CLC
 C - - - - - 0x01D615 07:D605: 60        RTS
 
-; Return the carry status (analog return true or false)
+; Out: the carry status (analog return true or false)
 sub_D606: ; from bank 06_2
 C - - - - - 0x01D616 07:D606: A5 78     LDA ram_0078
 C - - - - - 0x01D618 07:D608: C9 02     CMP #$02
@@ -3637,7 +3639,7 @@ C - - - - - 0x01D669 07:D659: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01D66B 07:D65B: 85 B2     STA ram_00B2
 C - - - - - 0x01D66D 07:D65D: 4C D9 D5  JMP loc_D5D9
 
-; Return the carry status (analog return true or false)
+; Out: the carry status (analog return true or false)
 sub_D660: ; from bank_06_2
 C - - - - - 0x01D670 07:D660: AD 9E 03  LDA ram_039E
 C - - - - - 0x01D673 07:D663: 10 10     BPL bra_D675_clear_c_rts
@@ -4423,7 +4425,7 @@ tbl_DAC5:
 - D 2 - - - 0x01DB01 07:DAF1: FE        .byte $FE
 - D 2 - - - 0x01DB02 07:DAF2: FE        .byte $FE
 - D 2 - - - 0x01DB03 07:DAF3: FF        .byte $FF
-sub_DAF4_render_character_subroutine:
+sub_DAF4_character_subroutine:
 C - - - - - 0x01DB04 07:DAF4: 20 A6 E2  JSR sub_E2A6_test_feature_smth
 C - - - - - 0x01DB07 07:DAF7: A9 00     LDA #$00
 C - - - - - 0x01DB09 07:DAF9: 85 48     STA ram_0048
@@ -4591,13 +4593,13 @@ bra_DC00_skip:
 C - - - - - 0x01DC10 07:DC00: 85 45     STA vCharacterRenderData
 C - - - - - 0x01DC12 07:DC02: 20 5A CE  JSR sub_CE5A_render_character
 loc_DC05:
-C D 2 - - - 0x01DC15 07:DC05: A2 00     LDX #$00
-C - - - - - 0x01DC17 07:DC07: A5 5F     LDA v_chr_live_status
-C - - - - - 0x01DC19 07:DC09: 6A        ROR
-C - - - - - 0x01DC1A 07:DC0A: 90 02     BCC bra_DC0E_skip
-C - - - - - 0x01DC1C 07:DC0C: A2 02     LDX #$02
-bra_DC0E_skip:
-C - - - - - 0x01DC1E 07:DC0E: 86 7A     STX ram_007A
+C D 2 - - - 0x01DC15 07:DC05: A2 00     LDX #$00              ; 1 bullet
+C - - - - - 0x01DC17 07:DC07: A5 5F     LDA v_chr_live_status ;
+C - - - - - 0x01DC19 07:DC09: 6A        ROR                   ;
+C - - - - - 0x01DC1A 07:DC0A: 90 02     BCC @bra_DC0E_skip    ; If a current character isn't Jigen
+C - - - - - 0x01DC1C 07:DC0C: A2 02     LDX #$02              ; 3 bullets
+@bra_DC0E_skip:
+C - - - - - 0x01DC1E 07:DC0E: 86 7A     STX vBulletCount      ;
 C - - - - - 0x01DC20 07:DC10: 4C 32 E1  JMP loc_E132
 
 bra_DC13_skip:
@@ -4609,7 +4611,7 @@ C - - - - - 0x01DC29 07:DC19: AA        TAX
 loc_DC1A:
 C D 2 - - - 0x01DC2A 07:DC1A: 20 5A CE  JSR sub_CE5A_render_character
 C - - - - - 0x01DC2D 07:DC1D: A2 04     LDX #$04
-C - - - - - 0x01DC2F 07:DC1F: 86 7A     STX ram_007A
+C - - - - - 0x01DC2F 07:DC1F: 86 7A     STX vBulletCount
 C - - - - - 0x01DC31 07:DC21: 4C 32 E1  JMP loc_E132
 
 bra_DC24_skip:
@@ -5338,7 +5340,7 @@ C - - - - - 0x01E086 07:E076: C9 42     CMP #$42
 C - - - - - 0x01E088 07:E078: F0 0A     BEQ bra_E084
 C - - - - - 0x01E08A 07:E07A: A2 00     LDX #$00
 bra_E07C:
-C - - - - - 0x01E08C 07:E07C: B5 8F     LDA ram_008F,X
+C - - - - - 0x01E08C 07:E07C: B5 8F     LDA vBulletStatus,X
 C - - - - - 0x01E08E 07:E07E: 10 26     BPL bra_E0A6
 C - - - - - 0x01E090 07:E080: CA        DEX
 C - - - - - 0x01E091 07:E081: 10 F9     BPL bra_E07C
@@ -5355,7 +5357,7 @@ C - - - - - 0x01E09E 07:E08E: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01E0A1 07:E091: A2 04     LDX #$04
 bra_E093:
 C - - - - - 0x01E0A3 07:E093: A9 87     LDA #$87
-C - - - - - 0x01E0A5 07:E095: 95 8F     STA ram_008F,X
+C - - - - - 0x01E0A5 07:E095: 95 8F     STA vBulletStatus,X
 C - - - - - 0x01E0A7 07:E097: BD A1 E0  LDA tbl_E0A1,X
 C - - - - - 0x01E0AA 07:E09A: 20 B9 E0  JSR sub_E0B9
 C - - - - - 0x01E0AD 07:E09D: CA        DEX
@@ -5378,18 +5380,18 @@ C - - - - - 0x01E0C0 07:E0B0: B0 02     BCS bra_E0B4
 C - - - - - 0x01E0C2 07:E0B2: A0 C1     LDY #$C1
 bra_E0B4:
 C - - - - - 0x01E0C4 07:E0B4: 98        TYA
-C - - - - - 0x01E0C5 07:E0B5: 95 8F     STA ram_008F,X
+C - - - - - 0x01E0C5 07:E0B5: 95 8F     STA vBulletStatus,X
 C - - - - - 0x01E0C7 07:E0B7: A9 15     LDA #$15
 sub_E0B9:
 C - - - - - 0x01E0C9 07:E0B9: 95 94     STA ram_0094,X
-C - - - - - 0x01E0CB 07:E0BB: B4 8F     LDY ram_008F,X
+C - - - - - 0x01E0CB 07:E0BB: B4 8F     LDY vBulletStatus,X
 C - - - - - 0x01E0CD 07:E0BD: A5 6C     LDA ram_006C
 C - - - - - 0x01E0CF 07:E0BF: 6A        ROR
 C - - - - - 0x01E0D0 07:E0C0: 98        TYA
 C - - - - - 0x01E0D1 07:E0C1: 90 02     BCC bra_E0C5
 C - - - - - 0x01E0D3 07:E0C3: 09 10     ORA #$10
 bra_E0C5:
-C - - - - - 0x01E0D5 07:E0C5: 95 8F     STA ram_008F,X
+C - - - - - 0x01E0D5 07:E0C5: 95 8F     STA vBulletStatus,X
 C - - - - - 0x01E0D7 07:E0C7: 29 10     AND #$10
 C - - - - - 0x01E0D9 07:E0C9: D0 1A     BNE bra_E0E5
 C - - - - - 0x01E0DB 07:E0CB: A5 46     LDA ram_0046
@@ -5453,6 +5455,7 @@ bra_E12F:
 C - - - - - 0x01E13F 07:E12F: 84 02     STY ram_0002
 C - - - - - 0x01E141 07:E131: 60        RTS
 
+; In Register X - the number of the bullets
 loc_E132:
 C D 3 - - - 0x01E142 07:E132: 86 10     STX vTempCounter10 ; set loop counter
 bra_E134_loop:                                             ; loop by x
@@ -5463,9 +5466,10 @@ C - - - - - 0x01E14B 07:E13B: 10 F7     BPL bra_E134_loop  ; In Register X < 0xF
 bra_E13D_RTS:
 C - - - - - 0x01E14D 07:E13D: 60        RTS
 
+; In Register X - the number of the bullets
 sub_E13E:
-C - - - - - 0x01E14E 07:E13E: B5 8F     LDA ram_008F,X
-C - - - - - 0x01E150 07:E140: 10 FB     BPL bra_E13D_RTS
+C - - - - - 0x01E14E 07:E13E: B5 8F     LDA vBulletStatus,X ;
+C - - - - - 0x01E150 07:E140: 10 FB     BPL bra_E13D_RTS    ; If Register A < 0xF0
 C - - - - - 0x01E152 07:E142: 29 10     AND #$10
 C - - - - - 0x01E154 07:E144: F0 06     BEQ bra_E14C
 C - - - - - 0x01E156 07:E146: 20 7A E1  JSR sub_E17A
@@ -5477,7 +5481,7 @@ loc_E14F:
 C D 3 - - - 0x01E15F 07:E14F: 20 A8 E1  JSR sub_E1A8
 C - - - - - 0x01E162 07:E152: B0 E9     BCS bra_E13D_RTS
 C - - - - - 0x01E164 07:E154: A4 0A     LDY ram_000A
-C - - - - - 0x01E166 07:E156: B5 8F     LDA ram_008F,X
+C - - - - - 0x01E166 07:E156: B5 8F     LDA vBulletStatus,X
 C - - - - - 0x01E168 07:E158: 29 10     AND #$10
 C - - - - - 0x01E16A 07:E15A: F0 02     BEQ bra_E15E
 C - - - - - 0x01E16C 07:E15C: C8        INY
@@ -5524,7 +5528,7 @@ C - - - - - 0x01E1AB 07:E19B: 60        RTS
 
 sub_E19C:
 C - - - - - 0x01E1AC 07:E19C: A0 03     LDY #$03
-C - - - - - 0x01E1AE 07:E19E: B5 8F     LDA ram_008F,X
+C - - - - - 0x01E1AE 07:E19E: B5 8F     LDA vBulletStatus,X
 C - - - - - 0x01E1B0 07:E1A0: 29 20     AND #$20
 C - - - - - 0x01E1B2 07:E1A2: F0 01     BEQ bra_E1A5
 - - - - - - 0x01E1B4 07:E1A4: 88        .byte $88
@@ -5534,10 +5538,10 @@ C - - - - - 0x01E1B7 07:E1A7: 60        RTS
 
 sub_E1A8:
 C - - - - - 0x01E1B8 07:E1A8: A0 00     LDY #$00
-C - - - - - 0x01E1BA 07:E1AA: B5 8F     LDA ram_008F,X
+C - - - - - 0x01E1BA 07:E1AA: B5 8F     LDA vBulletStatus,X
 C - - - - - 0x01E1BC 07:E1AC: 29 03     AND #$03
 C - - - - - 0x01E1BE 07:E1AE: F0 0D     BEQ bra_E1BD
-C - - - - - 0x01E1C0 07:E1B0: D6 8F     DEC ram_008F,X
+C - - - - - 0x01E1C0 07:E1B0: D6 8F     DEC vBulletStatus,X
 C - - - - - 0x01E1C2 07:E1B2: A0 18     LDY #$18
 C - - - - - 0x01E1C4 07:E1B4: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01E1C7 07:E1B7: C9 42     CMP #$42
@@ -5545,7 +5549,7 @@ C - - - - - 0x01E1C9 07:E1B9: F0 02     BEQ bra_E1BD
 C - - - - - 0x01E1CB 07:E1BB: A0 04     LDY #$04
 bra_E1BD:
 C - - - - - 0x01E1CD 07:E1BD: 84 0A     STY ram_000A
-C - - - - - 0x01E1CF 07:E1BF: B5 8F     LDA ram_008F,X
+C - - - - - 0x01E1CF 07:E1BF: B5 8F     LDA vBulletStatus,X
 C - - - - - 0x01E1D1 07:E1C1: 29 04     AND #$04
 C - - - - - 0x01E1D3 07:E1C3: F0 11     BEQ bra_E1D6
 C - - - - - 0x01E1D5 07:E1C5: C0 00     CPY #$00
@@ -5558,7 +5562,7 @@ C - - - - - 0x01E1E0 07:E1D0: C9 F0     CMP #$F0
 C - - - - - 0x01E1E2 07:E1D2: B0 40     BCS bra_E214
 C - - - - - 0x01E1E4 07:E1D4: 90 31     BCC bra_E207
 bra_E1D6:
-C - - - - - 0x01E1E6 07:E1D6: B5 8F     LDA ram_008F,X
+C - - - - - 0x01E1E6 07:E1D6: B5 8F     LDA vBulletStatus,X
 C - - - - - 0x01E1E8 07:E1D8: 29 40     AND #$40
 C - - - - - 0x01E1EA 07:E1DA: F0 04     BEQ bra_E1E0
 C - - - - - 0x01E1EC 07:E1DC: D6 94     DEC ram_0094,X
@@ -5593,7 +5597,7 @@ C - - - - - 0x01E222 07:E212: 90 06     BCC bra_E21A_skip
 bra_E214:
 sub_E214:
 C - - - - - 0x01E224 07:E214: A9 00     LDA #$00
-C - - - - - 0x01E226 07:E216: 95 8F     STA ram_008F,X
+C - - - - - 0x01E226 07:E216: 95 8F     STA vBulletStatus,X
 C - - - - - 0x01E228 07:E218: 38        SEC
 C - - - - - 0x01E229 07:E219: 60        RTS
 
@@ -6465,7 +6469,7 @@ C - - - - - 0x01E702 07:E6F2: A5 6A     LDA ram_006A
 C - - - - - 0x01E704 07:E6F4: 85 00     STA ram_0000
 C - - - - - 0x01E706 07:E6F6: 20 5A CE  JSR sub_CE5A_render_character
 C - - - - - 0x01E709 07:E6F9: A2 00     LDX #$00
-C - - - - - 0x01E70B 07:E6FB: 86 7A     STX ram_007A
+C - - - - - 0x01E70B 07:E6FB: 86 7A     STX vBulletCount
 C - - - - - 0x01E70D 07:E6FD: 4C 32 E1  JMP loc_E132
 
 sub_E700:
@@ -7525,7 +7529,7 @@ C - - - - - 0x01EDB8 07:EDA8: 29 20     AND #$20
 C - - - - - 0x01EDBA 07:EDAA: D0 69     BNE bra_EE15
 C - - - - - 0x01EDBC 07:EDAC: 20 58 C3  JSR sub_C358_clear_OAM
 C - - - - - 0x01EDBF 07:EDAF: 20 13 CE  JSR sub_CE13
-C - - - - - 0x01EDC2 07:EDB2: 20 F4 DA  JSR sub_DAF4_render_character_subroutine
+C - - - - - 0x01EDC2 07:EDB2: 20 F4 DA  JSR sub_DAF4_character_subroutine
 C - - - - - 0x01EDC5 07:EDB5: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01EDC7 07:EDB7: C9 0B     CMP #$0B
 C - - - - - 0x01EDC9 07:EDB9: F0 54     BEQ bra_EE0F
@@ -7901,20 +7905,20 @@ C - - - - - 0x01F070 07:F060: 9D 1C 03  STA ram_031C,X
 C - - - - - 0x01F073 07:F063: 9D 15 02  STA ram_0215,X
 C - - - - - 0x01F076 07:F066: CA        DEX
 C - - - - - 0x01F077 07:F067: 10 F4     BPL @bra_F05D_loop
-C - - - - - 0x01F079 07:F069: 20 75 F0  JSR sub_F075
+C - - - - - 0x01F079 07:F069: 20 75 F0  JSR sub_F075_clear_bullet_status
 C - - - - - 0x01F07C 07:F06C: A9 00     LDA #$00
 C - - - - - 0x01F07E 07:F06E: 8D 14 03  STA vEnemyTimerLow1  ; clear a low part
 C - - - - - 0x01F081 07:F071: 8D 15 03  STA vEnemyTimerHigh1 ; clear a high part
 C - - - - - 0x01F084 07:F074: 60        RTS
 
-sub_F075:
-C - - - - - 0x01F085 07:F075: A9 00     LDA #$00
-C - - - - - 0x01F087 07:F077: A2 04     LDX #$04
-bra_F079_repeat:
-C - - - - - 0x01F089 07:F079: 95 8F     STA ram_008F,X
-C - - - - - 0x01F08B 07:F07B: CA        DEX
-C - - - - - 0x01F08C 07:F07C: 10 FB     BPL bra_F079_repeat
-C - - - - - 0x01F08E 07:F07E: 60        RTS
+sub_F075_clear_bullet_status:
+C - - - - - 0x01F085 07:F075: A9 00     LDA #$00            ;
+C - - - - - 0x01F087 07:F077: A2 04     LDX #$04            ; set loop counter
+@bra_F079_loop:                                             ; loop by x
+C - - - - - 0x01F089 07:F079: 95 8F     STA vBulletStatus,X ;
+C - - - - - 0x01F08B 07:F07B: CA        DEX                 ; decrement x
+C - - - - - 0x01F08C 07:F07C: 10 FB     BPL @bra_F079_loop  ; If Register A < 0xF0
+C - - - - - 0x01F08E 07:F07E: 60        RTS                 ;
 
 sub_F07F:
 C - - - - - 0x01F08F 07:F07F: A5 6D     LDA vStatusInWater

@@ -97,9 +97,9 @@ bra_A074:
 C - - - - - 0x018084 06:A074: 20 98 A0  JSR sub_A098
 C - - - - - 0x018087 06:A077: 4C 89 A0  JMP loc_A089
 bra_A07A:
-C - - - - - 0x01808A 06:A07A: A6 7A     LDX ram_007A
+C - - - - - 0x01808A 06:A07A: A6 7A     LDX vBulletCount
 bra_A07C:
-C - - - - - 0x01808C 06:A07C: 20 B6 D5  JSR $D5B6
+C - - - - - 0x01808C 06:A07C: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x01808F 06:A07F: B0 0D     BCS bra_A08E
 C - - - - - 0x018091 06:A081: CA        DEX
 C - - - - - 0x018092 06:A082: 10 F8     BPL bra_A07C
@@ -113,7 +113,7 @@ C - - - - - 0x01809B 06:A08B: 10 C4     BPL bra_A051
 C - - - - - 0x01809D 06:A08D: 60        RTS
 bra_A08E:
 C - - - - - 0x01809E 06:A08E: A9 00     LDA #$00
-C - - - - - 0x0180A0 06:A090: 95 8F     STA ram_008F,X
+C - - - - - 0x0180A0 06:A090: 95 8F     STA vBulletStatus,X
 C - - - - - 0x0180A2 06:A092: 20 98 A0  JSR sub_A098
 C - - - - - 0x0180A5 06:A095: 4C 89 A0  JMP loc_A089
 sub_A098:
@@ -565,9 +565,9 @@ bra_A3AC:
 C - - - - - 0x0183BC 06:A3AC: 20 DD A3  JSR sub_A3DD
 C - - - - - 0x0183BF 06:A3AF: 4C BF A3  JMP loc_A3BF
 bra_A3B2:
-C - - - - - 0x0183C2 06:A3B2: A6 7A     LDX ram_007A
+C - - - - - 0x0183C2 06:A3B2: A6 7A     LDX vBulletCount
 bra_A3B4:
-C - - - - - 0x0183C4 06:A3B4: 20 B6 D5  JSR $D5B6
+C - - - - - 0x0183C4 06:A3B4: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x0183C7 06:A3B7: B0 0B     BCS bra_A3C4
 loc_A3B9:
 C D 1 - - - 0x0183C9 06:A3B9: CA        DEX
@@ -581,7 +581,7 @@ C - - - - - 0x0183D1 06:A3C1: 10 A7     BPL bra_A36A
 C - - - - - 0x0183D3 06:A3C3: 60        RTS
 bra_A3C4:
 C - - - - - 0x0183D4 06:A3C4: A9 00     LDA #$00
-C - - - - - 0x0183D6 06:A3C6: 95 8F     STA ram_008F,X
+C - - - - - 0x0183D6 06:A3C6: 95 8F     STA vBulletStatus,X
 C - - - - - 0x0183D8 06:A3C8: A6 1A     LDX ram_001A
 C - - - - - 0x0183DA 06:A3CA: BD 62 03  LDA ram_0362,X
 C - - - - - 0x0183DD 06:A3CD: 30 06     BMI bra_A3D5
@@ -874,14 +874,14 @@ C - - - - - 0x0185F5 06:A5E5: 90 19     BCC bra_A600
 C - - - - - 0x0185F7 06:A5E7: 20 08 A6  JSR sub_A608
 C - - - - - 0x0185FA 06:A5EA: 4C 03 A6  JMP loc_A603
 bra_A5ED:
-C - - - - - 0x0185FD 06:A5ED: A6 7A     LDX ram_007A
+C - - - - - 0x0185FD 06:A5ED: A6 7A     LDX vBulletCount
 bra_A5EF:
-C - - - - - 0x0185FF 06:A5EF: 20 B6 D5  JSR $D5B6
+C - - - - - 0x0185FF 06:A5EF: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x018602 06:A5F2: 90 09     BCC bra_A5FD
 C - - - - - 0x018604 06:A5F4: A9 10     LDA #$10
 C - - - - - 0x018606 06:A5F6: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x018609 06:A5F9: A9 00     LDA #$00
-C - - - - - 0x01860B 06:A5FB: 95 8F     STA ram_008F,X
+C - - - - - 0x01860B 06:A5FB: 95 8F     STA vBulletStatus,X
 bra_A5FD:
 C - - - - - 0x01860D 06:A5FD: CA        DEX
 C - - - - - 0x01860E 06:A5FE: 10 EF     BPL bra_A5EF
@@ -1146,9 +1146,9 @@ bra_A7BE:
 C - - - - - 0x0187CE 06:A7BE: 20 E0 A7  JSR sub_A7E0
 C - - - - - 0x0187D1 06:A7C1: 4C D1 A7  JMP loc_A7D1
 bra_A7C4:
-C - - - - - 0x0187D4 06:A7C4: A6 7A     LDX ram_007A
+C - - - - - 0x0187D4 06:A7C4: A6 7A     LDX vBulletCount
 bra_A7C6:
-C - - - - - 0x0187D6 06:A7C6: 20 B6 D5  JSR $D5B6
+C - - - - - 0x0187D6 06:A7C6: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x0187D9 06:A7C9: B0 0B     BCS bra_A7D6
 C - - - - - 0x0187DB 06:A7CB: CA        DEX
 C - - - - - 0x0187DC 06:A7CC: 10 F8     BPL bra_A7C6
@@ -1160,7 +1160,7 @@ C - - - - - 0x0187E3 06:A7D3: 10 B7     BPL bra_A78C
 C - - - - - 0x0187E5 06:A7D5: 60        RTS
 bra_A7D6:
 C - - - - - 0x0187E6 06:A7D6: A9 00     LDA #$00
-C - - - - - 0x0187E8 06:A7D8: 95 8F     STA ram_008F,X
+C - - - - - 0x0187E8 06:A7D8: 95 8F     STA vBulletStatus,X
 C - - - - - 0x0187EA 06:A7DA: 20 E0 A7  JSR sub_A7E0
 C - - - - - 0x0187ED 06:A7DD: 4C D1 A7  JMP loc_A7D1
 sub_A7E0:
@@ -2078,9 +2078,9 @@ C - - - - - 0x018E37 06:AE27: A9 20     LDA #$20
 C - - - - - 0x018E39 06:AE29: 85 AF     STA ram_00AF
 C - - - - - 0x018E3B 06:AE2B: A9 06     LDA #$06
 C - - - - - 0x018E3D 06:AE2D: 85 B0     STA ram_00B0
-C - - - - - 0x018E3F 06:AE2F: A6 7A     LDX ram_007A
+C - - - - - 0x018E3F 06:AE2F: A6 7A     LDX vBulletCount
 bra_AE31:
-C - - - - - 0x018E41 06:AE31: 20 B6 D5  JSR $D5B6
+C - - - - - 0x018E41 06:AE31: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x018E44 06:AE34: B0 0B     BCS bra_AE41
 C - - - - - 0x018E46 06:AE36: CA        DEX
 C - - - - - 0x018E47 06:AE37: 10 F8     BPL bra_AE31
@@ -2092,7 +2092,7 @@ C - - - - - 0x018E4E 06:AE3E: 10 CD     BPL bra_AE0D
 C - - - - - 0x018E50 06:AE40: 60        RTS
 bra_AE41:
 C - - - - - 0x018E51 06:AE41: A9 00     LDA #$00
-C - - - - - 0x018E53 06:AE43: 95 8F     STA ram_008F,X
+C - - - - - 0x018E53 06:AE43: 95 8F     STA vBulletStatus,X
 C - - - - - 0x018E55 06:AE45: 20 4B AE  JSR sub_AE4B
 C - - - - - 0x018E58 06:AE48: 4C 3C AE  JMP loc_AE3C
 sub_AE4B:
@@ -2370,9 +2370,9 @@ bra_AFE8:
 C - - - - - 0x018FF8 06:AFE8: 20 0A B0  JSR sub_B00A
 C - - - - - 0x018FFB 06:AFEB: 4C FB AF  JMP loc_AFFB
 bra_AFEE:
-C - - - - - 0x018FFE 06:AFEE: A6 7A     LDX ram_007A
+C - - - - - 0x018FFE 06:AFEE: A6 7A     LDX vBulletCount
 bra_AFF0:
-C - - - - - 0x019000 06:AFF0: 20 B6 D5  JSR $D5B6
+C - - - - - 0x019000 06:AFF0: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x019003 06:AFF3: B0 0B     BCS bra_B000
 C - - - - - 0x019005 06:AFF5: CA        DEX
 C - - - - - 0x019006 06:AFF6: 10 F8     BPL bra_AFF0
@@ -2385,7 +2385,7 @@ C - - - - - 0x01900D 06:AFFD: 10 B2     BPL bra_AFB1
 C - - - - - 0x01900F 06:AFFF: 60        RTS
 bra_B000:
 C - - - - - 0x019010 06:B000: A9 00     LDA #$00
-C - - - - - 0x019012 06:B002: 95 8F     STA ram_008F,X
+C - - - - - 0x019012 06:B002: 95 8F     STA vBulletStatus,X
 C - - - - - 0x019014 06:B004: 20 0A B0  JSR sub_B00A
 C - - - - - 0x019017 06:B007: 4C FB AF  JMP loc_AFFB
 sub_B00A:
@@ -2720,9 +2720,9 @@ bra_B213:
 C - - - - - 0x019223 06:B213: 20 5E B2  JSR sub_B25E
 C - - - - - 0x019226 06:B216: 4C 4F B2  JMP loc_B24F
 bra_B219:
-C - - - - - 0x019229 06:B219: A6 7A     LDX ram_007A
+C - - - - - 0x019229 06:B219: A6 7A     LDX vBulletCount
 bra_B21B:
-C - - - - - 0x01922B 06:B21B: 20 B6 D5  JSR $D5B6
+C - - - - - 0x01922B 06:B21B: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x01922E 06:B21E: B0 34     BCS bra_B254
 C - - - - - 0x019230 06:B220: CA        DEX
 C - - - - - 0x019231 06:B221: 10 F8     BPL bra_B21B
@@ -2733,14 +2733,14 @@ C - - - - - 0x01923A 06:B22A: A6 1A     LDX ram_001A
 C - - - - - 0x01923C 06:B22C: BD 22 03  LDA ram_0322,X
 C - - - - - 0x01923F 06:B22F: 30 16     BMI bra_B247
 C - - - - - 0x019241 06:B231: 20 E0 B2  JSR sub_B2E0
-C - - - - - 0x019244 06:B234: A6 7A     LDX ram_007A
+C - - - - - 0x019244 06:B234: A6 7A     LDX vBulletCount
 bra_B236:
-C - - - - - 0x019246 06:B236: 20 B6 D5  JSR $D5B6
+C - - - - - 0x019246 06:B236: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x019249 06:B239: 90 09     BCC bra_B244
 C - - - - - 0x01924B 06:B23B: A9 10     LDA #$10
 C - - - - - 0x01924D 06:B23D: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
 C - - - - - 0x019250 06:B240: A9 00     LDA #$00
-C - - - - - 0x019252 06:B242: 95 8F     STA ram_008F,X
+C - - - - - 0x019252 06:B242: 95 8F     STA vBulletStatus,X
 bra_B244:
 C - - - - - 0x019254 06:B244: CA        DEX
 C - - - - - 0x019255 06:B245: 10 EF     BPL bra_B236
@@ -2756,7 +2756,7 @@ C - - - - - 0x019263 06:B253: 60        RTS
 
 bra_B254:
 C - - - - - 0x019264 06:B254: A9 00     LDA #$00
-C - - - - - 0x019266 06:B256: 95 8F     STA ram_008F,X
+C - - - - - 0x019266 06:B256: 95 8F     STA vBulletStatus,X
 C - - - - - 0x019268 06:B258: 20 5E B2  JSR sub_B25E
 C - - - - - 0x01926B 06:B25B: 4C 4F B2  JMP loc_B24F
 
@@ -3373,9 +3373,9 @@ C - - - - - 0x0196D2 06:B6C2: F0 37     BEQ bra_B6FB
 C - - - - - 0x0196D4 06:B6C4: A5 2C     LDA v_low_counter
 C - - - - - 0x0196D6 06:B6C6: 29 07     AND #$07
 C - - - - - 0x0196D8 06:B6C8: D0 31     BNE bra_B6FB
-C - - - - - 0x0196DA 06:B6CA: A4 7A     LDY ram_007A
+C - - - - - 0x0196DA 06:B6CA: A4 7A     LDY vBulletCount
 bra_B6CC:
-C - - - - - 0x0196DC 06:B6CC: B9 8F 00  LDA ram_008F,Y
+C - - - - - 0x0196DC 06:B6CC: B9 8F 00  LDA vBulletStatus,Y
 C - - - - - 0x0196DF 06:B6CF: 10 27     BPL bra_B6F8
 C - - - - - 0x0196E1 06:B6D1: B9 7B 00  LDA ram_007B,Y
 C - - - - - 0x0196E4 06:B6D4: 38        SEC
@@ -4005,9 +4005,9 @@ bra_BB24:
 - - - - - - 0x019B38 06:BB28: 37        .byte $37   ; <7>
 - - - - - - 0x019B39 06:BB29: BB        .byte $BB   ; 
 bra_BB2A:
-C - - - - - 0x019B3A 06:BB2A: A6 7A     LDX ram_007A
+C - - - - - 0x019B3A 06:BB2A: A6 7A     LDX vBulletCount
 bra_BB2C:
-C - - - - - 0x019B3C 06:BB2C: 20 B6 D5  JSR $D5B6
+C - - - - - 0x019B3C 06:BB2C: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x019B3F 06:BB2F: B0 0B     BCS bra_BB3C
 C - - - - - 0x019B41 06:BB31: CA        DEX
 C - - - - - 0x019B42 06:BB32: 10 F8     BPL bra_BB2C
@@ -4019,7 +4019,7 @@ C - - - - - 0x019B49 06:BB39: 10 C4     BPL bra_BAFF
 C - - - - - 0x019B4B 06:BB3B: 60        RTS
 bra_BB3C:
 C - - - - - 0x019B4C 06:BB3C: A9 00     LDA #$00
-C - - - - - 0x019B4E 06:BB3E: 95 8F     STA ram_008F,X
+C - - - - - 0x019B4E 06:BB3E: 95 8F     STA vBulletStatus,X
 C - - - - - 0x019B50 06:BB40: A6 1A     LDX ram_001A
 C - - - - - 0x019B52 06:BB42: BD 20 03  LDA ram_0320,X
 C - - - - - 0x019B55 06:BB45: 29 02     AND #$02
@@ -4367,9 +4367,9 @@ C - - - - - 0x019DB6 06:BDA6: 20 E9 BD  JSR sub_BDE9
 C - - - - - 0x019DB9 06:BDA9: A5 5F     LDA ram_005F
 C - - - - - 0x019DBB 06:BDAB: 29 02     AND #$02
 C - - - - - 0x019DBD 06:BDAD: D0 0A     BNE bra_BDB9
-C - - - - - 0x019DBF 06:BDAF: A6 7A     LDX ram_007A
+C - - - - - 0x019DBF 06:BDAF: A6 7A     LDX vBulletCount
 bra_BDB1:
-C - - - - - 0x019DC1 06:BDB1: 20 B6 D5  JSR $D5B6
+C - - - - - 0x019DC1 06:BDB1: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x019DC4 06:BDB4: B0 0B     BCS bra_BDC1
 C - - - - - 0x019DC6 06:BDB6: CA        DEX
 C - - - - - 0x019DC7 06:BDB7: 10 F8     BPL bra_BDB1
