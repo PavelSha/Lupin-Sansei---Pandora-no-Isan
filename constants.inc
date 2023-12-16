@@ -78,6 +78,7 @@ vMenuCounterTimes             = ram_0034
 vGameMode                     = ram_0037
 ; 0x00 - in game
 ; 0xFF - Starting cutscenes
+vPauseStatus                  = ram_0038 ; 0x00 - no pause, 0x40 - pause
 
 ; ??? = ram_0039
 ; 0x00 - ???
@@ -343,6 +344,8 @@ vTempHighViewPortPosX         = ram_004C
 
 ; ram_004D - ???
 
+vScore                        = ram_0056 ; [0x56-0x5C]
+
 v_no_level                    = ram_005E ; It is a number of a level than it starts with 0.
 ; 0x00 - level 1
 ; 0x01 - level 2
@@ -540,7 +543,11 @@ vCachePalette                 = ram_0600 ; [ram_0600 - ram_061F]
 v_low_ppu_address             = ram_0630
 v_high_ppu_address            = ram_0631
 v_ppu_buffer_count            = ram_0632
-vPpuAddrDataCache             = ram_067B
+vPpuAddrDataCache             = ram_067B ; [ram_067B - ram_06AC]
+; 1st - count (N)
+; 2nd + 3rd - ppu address
+; next Nth byte - ppu data
+; next repeat
 vCacheChrBankSelect           = ram_06AF ; [ram_06AF - ram_06B4]
 vBankData                     = ram_06B5
 v_sprite_magics               = ram_06B7
