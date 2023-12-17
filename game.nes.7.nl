@@ -5,14 +5,21 @@ $C004##clear ppu
 $C007##clear ppu 
 $C00A##clear ppu
 $C00C#@bra_C00C_wait_til_vblank#wait for vblank (1 time)
+$C00F##--NO-COMMENT--
 $C011#@bra_C011_wait_til_vblank#wait for vblank (2 time)
+$C014##--NO-COMMENT--
 $C01C#@bra_C01C_memset_zero#[0x0200-0x02FF] in 0
 $C01F##[0x0300-0x03FF] in 0
 $C022##[0x0400-0x04FF] in 0
 $C025##[0x0500-0x05FF] in 0
 $C028##[0x0600-0x06FF] in 0
 $C02B##[0x0700-0x07FF] in 0
+$C02E##increment counter x
+$C02F##--NO-COMMENT--
 $C031#@bra_C031_loop#[0x0000-0x0098] in 0
+$C033##increment counter x 
+$C034##--NO-COMMENT--
+$C036##If Register X != 0x99
 $C03A#@bra_C03A_loop#[0x00A7-0x00FF] in 0
 $C03C##increments loop counter
 $C03D##If Register X != 0
@@ -44,6 +51,7 @@ $C078##clear
 $C07A##clear
 $C07C##clear
 $C07E##clear
+$C089##--NO-COMMENT--
 $C08C##to sub_B8C7 (bank 06_2)
 $C08F##to sub_B9DA (bank 06_2)
 $C095#loc_C095#
@@ -66,6 +74,8 @@ $C0D2##--NO-COMMENT--
 $C0D4##retrieve the high position of the character
 $C0D5##multiplicity of vHighViewPortPosX by 2 sets the nametable address (0x2000 or 0x2400)
 $C0D7##activate the right pattern table (0x1000)
+$C0E2##clear
+$C0E5##clear
 $C0FF##to sub_BBA4 (bank 06_2)
 $C118#bra_C118#
 $C11A##Initializes a counter.
@@ -97,6 +107,7 @@ $C235#bra_C235_skip#
 $C23C#bra_C23C_skip#
 $C246#bra_C246_skip#
 $C251#bra_C251#
+$C26D##put empty cache
 $C287#bra_C287#
 $C28D#loc_C28D#
 $C297##CONSTANT - Stop demo
@@ -251,6 +262,7 @@ $C555##--NO-COMMENT--
 $C557##If Register A > counter
 $C559##CONSTANT - Show the menu
 $C55B##--NO-COMMENT--
+$C55D##--NO-COMMENT--
 $C55E#bra_C55E_skip#0x00 or 0x80
 $C560##If Register A != 0x00
 $C562##clear
@@ -303,6 +315,8 @@ $C677##Low address
 $C67B##High address (0x8139 in the bank 04_1)
 $C67D##set loop counter
 $C68E#bra_C68E#
+$C697##activate
+$C69C##empty cache
 $C6A6#@bra_C6A6_loop#
 $C6AD#@bra_C6AD_skip#
 $C6B2##CONSTANT - Select the character
@@ -381,14 +395,31 @@ $C893#@bra_C893_skip#
 $C897##Go to the branch If the button 'Start' doesn't press
 $C89B##avoid looping
 $C89F##CONSTANT - In game
-$C8A9#bra_C8A9#
-$C8C6#bra_C8C6#
+$C8A9#bra_C8A9#--NO-COMMENT--
+$C8AB##--NO-COMMENT--
+$C8AE##Branch If the button 'Start' doesn't press
+$C8B0##--NO-COMMENT--
+$C8B2##Branch If pause is activated
+$C8B4##CONSTANT - pause
+$C8B6##--NO-COMMENT--
+$C8B8##--NO-COMMENT--
+$C8BA##CONSTANT - Pause in the game
+$C8BC##--NO-COMMENT--
+$C8C6#bra_C8C6_skip#--NO-COMMENT--
+$C8C8##CONSTANT - no pause
+$C8CA##--NO-COMMENT--
+$C8CC##--NO-COMMENT--
+$C8CE##Reset a flag 'Pause in the game'
 $C8D0##to loc_BBA4 (bank 06_2)
 $C8D3#bra_C8D3_RTS#
-$C8D4#sub_C8D4_check_Yoshikawa#
-$C8D6#bra_C8D6_repeat#
+$C8D4#sub_C8D4_check_Yoshikawa#set loop counter
+$C8D6#bra_C8D6_loop#--NO-COMMENT--
+$C8D9##--NO-COMMENT--
 $C8DC##branch If [0x0100-0x0108] isn't Yoshikawa
-$C8E2#tbl_C8E2#Y
+$C8DE##decrement x 
+$C8DF##In Register X >= 0x00 && X < 0xF0
+$C8E1##--NO-COMMENT--
+$C8E2#tbl_C8E2_symbols#Y
 $C8E3##o
 $C8E4##s
 $C8E5##h
@@ -398,7 +429,7 @@ $C8E8##a
 $C8E9##w
 $C8EA##a
 $C8EB##--NO-COMMENT--
-$C8EC#bra_C8EC#
+$C8EC#bra_C8EC_skip#
 $C8EE#bra_C8EE_repeat#
 $C8F1##set Yoshikawa
 $C8FD##[0x0099-0x009F] in 0
@@ -424,36 +455,174 @@ $C998#bra_C998#
 $C9A7#bra_C9A7#
 $C9B0#bra_C9B0#
 $C9B2#bra_C9B2_RTS#
-$C9B3#sub_C9B3#
-$C9C5#bra_C9C5#
-$C9E2#bra_C9E2#
-$C9EE#bra_C9EE#
-$C9F5#bra_C9F5#
-$C9FB#@bra_C9FB_loop#
-$CA08#@bra_CA08_skip#
-$CA13#sub_CA13#
-$CA32#bra_CA32#
-$CA3E#bra_CA3E_RTS#
-$CA3F#sub_CA3F#
-$CA41#sub_CA41#
-$CA48#loc_CA48#
-$CA4A#bra_CA4A#
-$CA52#bra_CA52#
-$CA5E#bra_CA5E#
-$CA83#bra_CA83_loop#
-$CA9A#bra_CA9A#
-$CABA#bra_CABA#
-$CAC4#tbl_CAC4#
-$CACE#tbl_CACE#
-$CAD7#tbl_CAD7#
-$CAE0#tbl_CAE0#
-$CAE1#tbl_CAE1#
-$CAE2#tbl_CAE2#
-$CAE3#tbl_CAE3#
-$CAEC#tbl_CAEC#
-$CAED#tbl_CAED#
-$CAEE#tbl_CAEE#
-$CAEF#tbl_CAEF#
+$C9B3#sub_C9B3_prepare_inventory_ppu_cache#--NO-COMMENT--
+$C9B5##Branch If the render isn't activated
+$C9B7##--NO-COMMENT--
+$C9B9##--NO-COMMENT--
+$C9BA##Branch if 'A screen with the message'
+$C9BC##--NO-COMMENT--
+$C9BE##--NO-COMMENT--
+$C9C0##Branch every 2 times after 2
+$C9C2##--NO-COMMENT--
+$C9C5#bra_C9C5_skip#the number of PpuAddrDataCache bytes
+$C9C7##--NO-COMMENT--
+$C9CA##--NO-COMMENT--
+$C9CD##a count
+$C9CF##--NO-COMMENT--
+$C9D2##a high ppu address
+$C9D4##--NO-COMMENT--
+$C9D7##a low ppu address
+$C9D9##--NO-COMMENT--
+$C9DC##--NO-COMMENT--
+$C9DE##fact of displaying some digit
+$C9E0##set loop counter
+$C9E2#@bra_C9E2_loop#--NO-COMMENT--
+$C9E4##Branch If Register A != 0x00
+$C9E6##--NO-COMMENT--
+$C9E8##Branch If ram_0007 == 0%1XXXXXXX
+$C9EA##show 00 in score (3 - 1 = 2 digits)
+$C9EC##Branch If Register Y >= 0x03
+$C9EE#@bra_C9EE_skip#--NO-COMMENT--
+$C9F0##0x40-0x49 are tiles for '0'-'9' digits
+$C9F2##--NO-COMMENT--
+$C9F5#@bra_C9F5_skip#next a score position
+$C9F6##decrement counter y
+$C9F7##Branch If Register Y != 0
+$C9F9##set loop counter
+$C9FB#@bra_C9FB_loop#--NO-COMMENT--
+$C9FE##Branch If a item is missing
+$CA00##0x40-0x49 are tiles for '0'-'9' digits
+$CA02##--NO-COMMENT--
+$CA05##caches only the number of the items (the digits themselves)
+$CA08#@bra_CA08_skip#increment counter x
+$CA09##--NO-COMMENT--
+$CA0B##Branch If Register X != 0x09
+$CA0D##--NO-COMMENT--
+$CA0F##mark for the end of the cache
+$CA12##--NO-COMMENT--
+$CA13#sub_CA13_score_or_pause#a count
+$CA15##--NO-COMMENT--
+$CA18##a high ppu address
+$CA1A##--NO-COMMENT--
+$CA1D##a low ppu address
+$CA1F##--NO-COMMENT--
+$CA22##--NO-COMMENT--
+$CA24##--NO-COMMENT--
+$CA26##--NO-COMMENT--
+$CA28##Branch if no pause
+$CA2A##changes the index in the table
+$CA2C##--NO-COMMENT--
+$CA2E##--NO-COMMENT--
+$CA30##Branch If v_low_counter doesn't division without remainder by 8 and 16
+$CA32#@bra_CA32_loop#--NO-COMMENT--
+$CA35##tile numbers
+$CA38##--NO-COMMENT--
+$CA39##increment x 
+$CA3A##--NO-COMMENT--
+$CA3C##If Register X != 0x05
+$CA3E#@bra_CA3E_RTS#--NO-COMMENT--
+$CA3F#sub_CA3F_clear_inventory_panel#an assigned value (Tile number)
+$CA41#sub_CA41_fill_inventory_panel#--NO-COMMENT--
+$CA44##decrement x
+$CA45##In Register X >= 0x00 && X < 0xF0
+$CA47##--NO-COMMENT--
+$CA48#loc_CA48_prepare_icon_items#set loop counter
+$CA4A#@bra_CA4A_loop#--NO-COMMENT--
+$CA4D##If Register A == 0x00
+$CA4F##--NO-COMMENT--
+$CA52#@bra_CA52_skip#decrement x
+$CA53##Branch If Register X < 0xF0
+$CA55##the number of PpuAddrDataCache bytes
+$CA57##--NO-COMMENT--
+$CA5A##--NO-COMMENT--
+$CA5C##set loop counter
+$CA5E#@bra_CA5E_loop#--NO-COMMENT--
+$CA61##--NO-COMMENT--
+$CA64##--NO-COMMENT--
+$CA67##--NO-COMMENT--
+$CA6A##--NO-COMMENT--
+$CA6D##--NO-COMMENT--
+$CA70##--NO-COMMENT--
+$CA73##--NO-COMMENT--
+$CA76##--NO-COMMENT--
+$CA77##--NO-COMMENT--
+$CA78##--NO-COMMENT--
+$CA79##increnemnt x for the table
+$CA7A##increnemnt counter y
+$CA7B##--NO-COMMENT--
+$CA7D##If Register Y != 0x03
+$CA7F##--NO-COMMENT--
+$CA81##set loop counter
+$CA83#@bra_CA83_loop#--NO-COMMENT--
+$CA85##--NO-COMMENT--
+$CA88##--NO-COMMENT--
+$CA8A##If BlinkTime is 0%XXXX1XXX (every 8 after 8)
+$CA8C##--NO-COMMENT--
+$CA8F##Branch If item is missing
+$CA91##--NO-COMMENT--
+$CA94##Branch If BlinkTime is time out
+$CA96##--NO-COMMENT--
+$CA98##If BlinkTime isn't 0%XXXX1XXX (every 8 after 8, never true) 
+$CA9A#@bra_CA9A_put_cache#--NO-COMMENT--
+$CA9B##--NO-COMMENT--
+$CA9C##--NO-COMMENT--
+$CA9D##Y = 4 * X (offset by 4 bytes)
+$CA9E##offset in vPpuAddrDataCache
+$CAA1##--NO-COMMENT--
+$CAA2##--NO-COMMENT--
+$CAA5##ppu data (tile number)
+$CAA8##--NO-COMMENT--
+$CAAB##ppu data (tile number)
+$CAAE##--NO-COMMENT--
+$CAB1##ppu data (tile number)
+$CAB4##--NO-COMMENT--
+$CAB7##ppu data (tile number)
+$CABA#@bra_CABA_skip#decrement CA48_counter
+$CABC##Branch If decrement CA48 < 0xF0
+$CABE##--NO-COMMENT--
+$CAC0##mark for the end of the cache
+$CAC3##--NO-COMMENT--
+$CAC4#tbl_CAC4_tiles#S
+$CAC5##C
+$CAC6##O
+$CAC7##R
+$CAC8##E
+$CAC9##P
+$CACA##A
+$CACB##U
+$CACC##S
+$CACD##E
+$CACE#tbl_CACE_offset#Radio
+$CACF##Bomb
+$CAD0##Artillery Rifle
+$CAD1##Jet-pack
+$CAD2##Infrared Goggles
+$CAD3##Breathing apparatus
+$CAD4##Helium balloon
+$CAD5##Bullet proof vest
+$CAD6##Ruby ring
+$CAD7#tbl_CAD7_offset#
+$CAE0#tbl_CAE0_attrs#count
+$CAE1##count
+$CAE2##count
+$CAE3##count
+$CAE4##ppu high address
+$CAE5##ppu high address
+$CAE6##ppu high address
+$CAE7##ppu high address
+$CAE8##ppu low address
+$CAE9##ppu low address
+$CAEA##ppu low address
+$CAEB##ppu low address
+$CAEC#tbl_CAEC_items#Radio
+$CAF0##Bomb
+$CAF4##Artillery Rifle
+$CAF8##Jet-pack
+$CAFC##Infrared Goggles
+$CB00##Breathing apparatus
+$CB04##Helium balloon
+$CB08##Bullet proof vest
+$CB0C##Ruby ring
 $CB10#tbl_CB10#
 $CB20#tbl_CB20#
 $CB29#sub_CB29#
@@ -489,7 +658,10 @@ $CCDF#loc_CCDF#
 $CCE9#sub_CCE9#
 $CCEF#sub_CCEF#
 $CD0D#sub_CD0D#
-$CD13#sub_CD13#
+$CD13#sub_CD13_use_item#Decrement an item
+$CD16##Initializing the remaining time
+$CD18##--NO-COMMENT--
+$CD1B##--NO-COMMENT--
 $CD1C#sub_CD1C#
 $CD49#loc_CD49#
 $CD53#tbl_CD53#a bomb is on the right
@@ -645,7 +817,8 @@ $D0D3#bra_D0D3#
 $D0EA#loc_D0EA#
 $D0F6#bra_D0F6#
 $D116#bra_D116#
-$D11B#sub_D11B_shared_render#
+$D11B#sub_D11B_shared_render#--NO-COMMENT--
+$D11D##Branch If the render isn't activated
 $D129##writes high byte
 $D12C##writes low byte
 $D137##Sprite tile select (bit S)
@@ -654,18 +827,32 @@ $D143#bra_D143_repeat#
 $D14C##If ram_0000 != 0
 $D14E#bra_D14E_skip#
 $D158#bra_D158_RTS#
-$D159#bra_D159#
+$D159#bra_D159#--NO-COMMENT--
+$D15B##--NO-COMMENT--
+$D15C##Branch if v_low_counter doesn't multiple of 2
 $D15E#bra_D15E#
 $D161##If vSharedGameStatus was 0bXXXXXXX0
 $D166#bra_D166_skip#
-$D169#bra_D169_skip#
+$D169#bra_D169_render_ppu_cache#--NO-COMMENT--
+$D16C##Branch If the is empty (0x00 - first byte)
 $D16E##1 of N
-$D170#bra_D170#
-$D176##2 of N
-$D17D##3 of N
-$D184##4 of N
-$D185#bra_D185#
-$D191#bra_D191#
+$D170#bra_D170_repeat#--NO-COMMENT--
+$D173##Branch If the count == 0x00
+$D175##the count -> Register y
+$D176##2 + offs of N
+$D177##--NO-COMMENT--
+$D17A##--NO-COMMENT--
+$D17D##3 + offs of N
+$D17E##--NO-COMMENT--
+$D181##--NO-COMMENT--
+$D184##4 + offs of N
+$D185#bra_D185_loop#--NO-COMMENT--
+$D188##--NO-COMMENT--
+$D18B##--NO-COMMENT--
+$D18C##decrement y (the count)
+$D18D##Branch If Register Y != 0
+$D18F##Always true
+$D191#bra_D191_skip#
 $D195#loc_D195#
 $D1AC#bra_D1AC#
 $D1B5#bra_D1B5#
@@ -1336,8 +1523,12 @@ $ED72##write X scroll-position
 $ED75##write Y scroll-position
 $ED82#bra_ED82#
 $ED89#bra_ED89#
-$ED8C#bra_ED8C_repeat#
-$ED91#bra_ED91_repeat#
+$ED8C#bra_ED8C_wait#--NO-COMMENT--
+$ED8F##checking a sprite 0 hits
+$ED91#bra_ED91_wait#--NO-COMMENT--
+$ED94##checking a sprite 0 hits
+$ED9C##--NO-COMMENT--
+$ED9E##Branch If the render isn't activated
 $EDC6##to sub_B09A bank 06_2
 $EDC9##to sub_AF4D bank 06_2
 $EDD5#loc_EDD5#
@@ -1353,11 +1544,13 @@ $EE03##retrieve y
 $EE05##retrieve x
 $EE06##retrieve a
 $EE07#vec_C000_IRQ#irq
-$EE08#bra_EE08#
+$EE08#bra_EE08_skip#
 $EE0F#bra_EE0F#
 $EE15#bra_EE15#
 $EE1B#bra_EE1B#to sub_B3AA (bank 06_2)
-$EE21#loc_EE21#
+$EE21#loc_EE21#--NO-COMMENT--
+$EE23##Branch If the render isn't activated
+$EE25##--NO-COMMENT--
 $EE34#loc_EE34#
 $EE37##--NO-COMMENT--
 $EE39##CONSTANT - First cutscene with the message
@@ -1705,6 +1898,7 @@ $FAC0#sub_FAC0#--NO-COMMENT--
 $FAC2##clear
 $FAC4##CONSTANT - In the game
 $FAC6##CONSTANT - no message
+$FAC8##CONSTANT - no pause
 $FACF##If ram_0039 == 0x00
 $FAD3##If ram_0039 == 0xE0
 $FAD7##If ram_0039 == 0xE0

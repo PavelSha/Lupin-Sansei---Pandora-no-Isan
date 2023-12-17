@@ -7,7 +7,7 @@
 ; BCC bra_XXX ; If Register Y != 0x1A
 
 ; CPY #$1A
-; BCS bra_XXX ; If Register Y > 0x1A
+; BCS bra_XXX ; If Register Y >= 0x1A
 
 ; CPY #$1A
 ; BNE bra_XXX ; If Register Y != 0x1A
@@ -19,6 +19,9 @@
 ; BPL bra_XXX ; If Register A < 0xF0
 
 ; INX
+; BNE bra_XXX ; If Register X != 0
+
+; DEX
 ; BNE bra_XXX ; If Register X != 0
  
 ; CMP #$A8
@@ -32,3 +35,6 @@
 
 ; LDA *
 ; BEQ bra_XXX ; If Register A == 0x00
+
+; DEX
+; BPL bra_XXX ; If Register X < 0xF0

@@ -20,6 +20,7 @@
 .import sub_BB2A_solve_secret_codes ; bank 06 (Page 2)
 
 .export sub_C305_update_ppu_ctrl_with_no_nmi
+.export sub_C313_screen_off
 .export sub_C31D_clear_ppu
 .export sub_C358_clear_OAM
 .export loc_C371_update_palette
@@ -45,34 +46,34 @@ C - - - - - 0x01C014 07:C004: 8D 00 20  STA PPU_CTRL         ; clear ppu
 C - - - - - 0x01C017 07:C007: 8D 01 20  STA PPU_MASK         ; clear ppu 
 C - - - - - 0x01C01A 07:C00A: 85 26     STA vPpuCtrlSettings ; clear ppu
 @bra_C00C_wait_til_vblank:
-C - - - - - 0x01C01C 07:C00C: AD 02 20  LDA PPU_STATUS       ; wait for vblank (1 time)
-C - - - - - 0x01C01F 07:C00F: 10 FB     BPL @bra_C00C_wait_til_vblank
+C - - - - - 0x01C01C 07:C00C: AD 02 20  LDA PPU_STATUS                ; wait for vblank (1 time)
+C - - - - - 0x01C01F 07:C00F: 10 FB     BPL @bra_C00C_wait_til_vblank ;
 @bra_C011_wait_til_vblank:
-C - - - - - 0x01C021 07:C011: AD 02 20  LDA PPU_STATUS       ; wait for vblank (2 time)
-C - - - - - 0x01C024 07:C014: 10 FB     BPL @bra_C011_wait_til_vblank
+C - - - - - 0x01C021 07:C011: AD 02 20  LDA PPU_STATUS                ; wait for vblank (2 time)
+C - - - - - 0x01C024 07:C014: 10 FB     BPL @bra_C011_wait_til_vblank ;
 C - - - - - 0x01C026 07:C016: A2 FF     LDX #$FF
 C - - - - - 0x01C028 07:C018: 9A        TXS
 C - - - - - 0x01C029 07:C019: A9 00     LDA #$00
 C - - - - - 0x01C02B 07:C01B: AA        TAX
-@bra_C01C_memset_zero:                                 ; loop by x
-C - - - - - 0x01C02C 07:C01C: 9D 00 02  STA ram_0200,X ; [0x0200-0x02FF] in 0
-C - - - - - 0x01C02F 07:C01F: 9D 00 03  STA ram_0300,X ; [0x0300-0x03FF] in 0
-C - - - - - 0x01C032 07:C022: 9D 00 04  STA ram_0400,X ; [0x0400-0x04FF] in 0
-C - - - - - 0x01C035 07:C025: 9D 00 05  STA ram_0500,X ; [0x0500-0x05FF] in 0
-C - - - - - 0x01C038 07:C028: 9D 00 06  STA vCachePalette,X ; [0x0600-0x06FF] in 0
-C - - - - - 0x01C03B 07:C02B: 9D 00 07  STA vStartOAM,X ; [0x0700-0x07FF] in 0
-C - - - - - 0x01C03E 07:C02E: E8        INX
-C - - - - - 0x01C03F 07:C02F: D0 EB     BNE @bra_C01C_memset_zero
-@bra_C031_loop:                                        ; loop by x
-C - - - - - 0x01C041 07:C031: 95 00     STA ram_0000,X ; [0x0000-0x0098] in 0
-C - - - - - 0x01C043 07:C033: E8        INX
-C - - - - - 0x01C044 07:C034: E0 99     CPX #$99
-C - - - - - 0x01C046 07:C036: 90 F9     BCC @bra_C031_loop
+@bra_C01C_memset_zero:                                            ; loop by x
+C - - - - - 0x01C02C 07:C01C: 9D 00 02  STA ram_0200,X            ; [0x0200-0x02FF] in 0
+C - - - - - 0x01C02F 07:C01F: 9D 00 03  STA ram_0300,X            ; [0x0300-0x03FF] in 0
+C - - - - - 0x01C032 07:C022: 9D 00 04  STA ram_0400,X            ; [0x0400-0x04FF] in 0
+C - - - - - 0x01C035 07:C025: 9D 00 05  STA ram_0500,X            ; [0x0500-0x05FF] in 0
+C - - - - - 0x01C038 07:C028: 9D 00 06  STA vCachePalette,X       ; [0x0600-0x06FF] in 0
+C - - - - - 0x01C03B 07:C02B: 9D 00 07  STA vStartOAM,X           ; [0x0700-0x07FF] in 0
+C - - - - - 0x01C03E 07:C02E: E8        INX                       ; increment counter x
+C - - - - - 0x01C03F 07:C02F: D0 EB     BNE @bra_C01C_memset_zero ;
+@bra_C031_loop:                                              ; loop by x
+C - - - - - 0x01C041 07:C031: 95 00     STA ram_0000,X       ; [0x0000-0x0098] in 0
+C - - - - - 0x01C043 07:C033: E8        INX                  ; increment counter x 
+C - - - - - 0x01C044 07:C034: E0 99     CPX #$99             ;
+C - - - - - 0x01C046 07:C036: 90 F9     BCC @bra_C031_loop   ; If Register X != 0x99
 C - - - - - 0x01C048 07:C038: A2 A7     LDX #$A7
-@bra_C03A_loop:                                             ; loop by x
-C - - - - - 0x01C04A 07:C03A: 95 00     STA ram_0000,X      ; [0x00A7-0x00FF] in 0
-C - - - - - 0x01C04C 07:C03C: E8        INX                 ; increments loop counter
-C - - - - - 0x01C04D 07:C03D: D0 FB     BNE @bra_C03A_loop  ; If Register X != 0
+@bra_C03A_loop:                                              ; loop by x
+C - - - - - 0x01C04A 07:C03A: 95 00     STA ram_0000,X       ; [0x00A7-0x00FF] in 0
+C - - - - - 0x01C04C 07:C03C: E8        INX                  ; increments loop counter
+C - - - - - 0x01C04D 07:C03D: D0 FB     BNE @bra_C03A_loop   ; If Register X != 0
 C - - - - - 0x01C04F 07:C03F: 20 FB FD  JSR sub_FDFB
 C - - - - - 0x01C052 07:C042: A9 FF     LDA #$FF             ; CONSTANT - Cutscene
 C - - - - - 0x01C054 07:C044: 85 37     STA vGameMode        ; assign a value
@@ -82,7 +83,7 @@ C - - - - - 0x01C058 07:C048: 8D 00 80  STA MMC3_Bank_select ;
 C - - - - - 0x01C05B 07:C04B: A9 0D     LDA #$0D             ;
 C - - - - - 0x01C05D 07:C04D: 8D 01 80  STA MMC3_Bank_data   ; switch bank 06_2 in 0xA000-0BFFF
 C - - - - - 0x01C060 07:C050: A2 00     LDX #$00
-C - - - - - 0x01C062 07:C052: 86 19     STX ram_0019              ; clear
+C - - - - - 0x01C062 07:C052: 86 19     STX vRenderActive         ; clear
 C - - - - - 0x01C064 07:C054: 8E 10 40  STX DMC_FREQ              ; clear
 C - - - - - 0x01C067 07:C057: 86 3B     STX vSharedGameStatus     ; clear
 C - - - - - 0x01C069 07:C059: 86 3C     STX ram_003C              ; clear
@@ -108,7 +109,7 @@ C - - - - - 0x01C090 07:C080: A9 40     LDA #$40
 C - - - - - 0x01C092 07:C082: 8D 17 40  STA JOY2
 C - - - - - 0x01C095 07:C085: A9 FC     LDA #$FC
 C - - - - - 0x01C097 07:C087: 85 5F     STA v_chr_live_status
-C - - - - - 0x01C099 07:C089: 20 D4 C8  JSR sub_C8D4_check_Yoshikawa
+C - - - - - 0x01C099 07:C089: 20 D4 C8  JSR sub_C8D4_check_Yoshikawa ;
 C - - - - - 0x01C09C 07:C08C: 20 C7 B8  JSR $B8C7 ; to sub_B8C7 (bank 06_2)
 C - - - - - 0x01C09F 07:C08F: 20 DA B9  JSR $B9DA ; to sub_B9DA (bank 06_2)
 C - - - - - 0x01C0A2 07:C092: 20 96 EF  JSR sub_EF96
@@ -153,8 +154,8 @@ C - - - - - 0x01C0E9 07:C0D9: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01C0EB 07:C0DB: A9 00     LDA #$00
 C - - - - - 0x01C0ED 07:C0DD: 85 39     STA ram_0039
 C - - - - - 0x01C0EF 07:C0DF: 8D 31 06  STA ram_0631
-C - - - - - 0x01C0F2 07:C0E2: 8D 7B 06  STA ram_067B
-C - - - - - 0x01C0F5 07:C0E5: 85 19     STA ram_0019
+C - - - - - 0x01C0F2 07:C0E2: 8D 7B 06  STA vPpuAddrDataCache ; clear
+C - - - - - 0x01C0F5 07:C0E5: 85 19     STA vRenderActive     ; clear
 C - - - - - 0x01C0F7 07:C0E7: A5 3A     LDA ram_003A
 C - - - - - 0x01C0F9 07:C0E9: 29 80     AND #$80
 C - - - - - 0x01C0FB 07:C0EB: 85 3A     STA ram_003A
@@ -370,7 +371,7 @@ C - - - - - 0x01C274 07:C264: A9 00     LDA #$00
 C - - - - - 0x01C276 07:C266: 85 27     STA ram_0027
 C - - - - - 0x01C278 07:C268: 85 30     STA ram_0030
 C - - - - - 0x01C27A 07:C26A: 8D 31 06  STA ram_0631
-C - - - - - 0x01C27D 07:C26D: 8D 7B 06  STA ram_067B
+C - - - - - 0x01C27D 07:C26D: 8D 7B 06  STA vPpuAddrDataCache ; put empty cache
 C - - - - - 0x01C280 07:C270: 85 C8     STA ram_00C8
 C - - - - - 0x01C282 07:C272: A9 90     LDA #$90
 C - - - - - 0x01C284 07:C274: 85 26     STA vPpuCtrlSettings
@@ -996,9 +997,9 @@ C - - - - - 0x01C69E 07:C68E: 20 DD C6  JSR sub_C6DD
 C - - - - - 0x01C6A1 07:C691: C6 1A     DEC ram_001A
 C - - - - - 0x01C6A3 07:C693: 10 F9     BPL bra_C68E
 C - - - - - 0x01C6A5 07:C695: A9 00     LDA #$00
-C - - - - - 0x01C6A7 07:C697: 85 19     STA ram_0019
+C - - - - - 0x01C6A7 07:C697: 85 19     STA vRenderActive     ; activate
 C - - - - - 0x01C6A9 07:C699: 8D 31 06  STA ram_0631
-C - - - - - 0x01C6AC 07:C69C: 8D 7B 06  STA ram_067B
+C - - - - - 0x01C6AC 07:C69C: 8D 7B 06  STA vPpuAddrDataCache ; empty cache
 C - - - - - 0x01C6AF 07:C69F: 85 3D     STA ram_003D
 C - - - - - 0x01C6B1 07:C6A1: AA        TAX
 C - - - - - 0x01C6B2 07:C6A2: A5 5F     LDA v_chr_live_status
@@ -1513,58 +1514,58 @@ bra_C9B2_RTS:
 C - - - - - 0x01C9C2 07:C9B2: 60        RTS
 
 sub_C9B3_prepare_inventory_ppu_cache:
-C - - - - - 0x01C9C3 07:C9B3: A5 19     LDA ram_0019
-C - - - - - 0x01C9C5 07:C9B5: D0 FB     BNE bra_C9B2_RTS
+C - - - - - 0x01C9C3 07:C9B3: A5 19     LDA vRenderActive     ;
+C - - - - - 0x01C9C5 07:C9B5: D0 FB     BNE bra_C9B2_RTS      ; Branch If the render isn't activated
 C - - - - - 0x01C9C7 07:C9B7: A5 3B     LDA vSharedGameStatus ;
 C - - - - - 0x01C9C9 07:C9B9: 6A        ROR                   ; 
 C - - - - - 0x01C9CA 07:C9BA: B0 F6     BCS bra_C9B2_RTS      ; Branch if 'A screen with the message'
-C - - - - - 0x01C9CC 07:C9BC: A5 2C     LDA v_low_counter
-C - - - - - 0x01C9CE 07:C9BE: 29 02     AND #$02
-C - - - - - 0x01C9D0 07:C9C0: D0 03     BNE bra_C9C5_skip
-C - - - - - 0x01C9D2 07:C9C2: 4C 48 CA  JMP loc_CA48
+C - - - - - 0x01C9CC 07:C9BC: A5 2C     LDA v_low_counter     ;
+C - - - - - 0x01C9CE 07:C9BE: 29 02     AND #$02              ;
+C - - - - - 0x01C9D0 07:C9C0: D0 03     BNE bra_C9C5_skip     ; Branch every 2 times after 2
+C - - - - - 0x01C9D2 07:C9C2: 4C 48 CA  JMP loc_CA48_prepare_icon_items ;
 
 bra_C9C5_skip:
 C - - - - - 0x01C9D5 07:C9C5: A2 25     LDX #$25                   ; the number of PpuAddrDataCache bytes
-C - - - - - 0x01C9D7 07:C9C7: 20 3F CA  JSR sub_CA3F_clear_inventory_panel
-C - - - - - 0x01C9DA 07:C9CA: 20 13 CA  JSR sub_CA13_score_or_pause
+C - - - - - 0x01C9D7 07:C9C7: 20 3F CA  JSR sub_CA3F_clear_inventory_panel ;
+C - - - - - 0x01C9DA 07:C9CA: 20 13 CA  JSR sub_CA13_score_or_pause        ;
 C - - - - - 0x01C9DD 07:C9CD: A9 1B     LDA #$1B                   ; a count
 C - - - - - 0x01C9DF 07:C9CF: 8D 83 06  STA vPpuAddrDataCache + 8  ;
 C - - - - - 0x01C9E2 07:C9D2: A9 20     LDA #$20                   ; a high ppu address
 C - - - - - 0x01C9E4 07:C9D4: 8D 84 06  STA vPpuAddrDataCache + 9  ;
 C - - - - - 0x01C9E7 07:C9D7: A9 83     LDA #$83                   ; a low ppu address
 C - - - - - 0x01C9E9 07:C9D9: 8D 85 06  STA vPpuAddrDataCache + 10 ;
-C - - - - - 0x01C9EC 07:C9DC: A2 00     LDX #$00
-C - - - - - 0x01C9EE 07:C9DE: 86 07     STX ram_0007
-C - - - - - 0x01C9F0 07:C9E0: A0 07     LDY #$07
-bra_C9E2:
-C - - - - - 0x01C9F2 07:C9E2: B5 56     LDA vScore,X
-C - - - - - 0x01C9F4 07:C9E4: D0 08     BNE bra_C9EE
-C - - - - - 0x01C9F6 07:C9E6: 24 07     BIT ram_0007
-C - - - - - 0x01C9F8 07:C9E8: 30 04     BMI bra_C9EE
-C - - - - - 0x01C9FA 07:C9EA: C0 03     CPY #$03
-C - - - - - 0x01C9FC 07:C9EC: B0 07     BCS bra_C9F5
-bra_C9EE:
-C - - - - - 0x01C9FE 07:C9EE: C6 07     DEC ram_0007
-C - - - - - 0x01CA00 07:C9F0: 09 40     ORA #$40
-C - - - - - 0x01CA02 07:C9F2: 9D 91 06  STA vPpuAddrDataCache + 22,X
-bra_C9F5:
-C - - - - - 0x01CA05 07:C9F5: E8        INX
-C - - - - - 0x01CA06 07:C9F6: 88        DEY
-C - - - - - 0x01CA07 07:C9F7: D0 E9     BNE bra_C9E2
-C - - - - - 0x01CA09 07:C9F9: A2 00     LDX #$00
-@bra_C9FB_loop:                                            ; loop by x
-C - - - - - 0x01CA0B 07:C9FB: BD 00 02  LDA v_items,X      ; 
-C - - - - - 0x01CA0E 07:C9FE: F0 08     BEQ @bra_CA08_skip ; Branch If a item is missing
-C - - - - - 0x01CA10 07:CA00: 09 40     ORA #$40           ; 0x40-0x49 are tiles for '0'-'9' digits
-C - - - - - 0x01CA12 07:CA02: BC CE CA  LDY tbl_CACE_offset,X
-C - - - - - 0x01CA15 07:CA05: 99 7B 06  STA vPpuAddrDataCache,Y
-@bra_CA08_skip:
-C - - - - - 0x01CA18 07:CA08: E8        INX
-C - - - - - 0x01CA19 07:CA09: E0 09     CPX #$09
-C - - - - - 0x01CA1B 07:CA0B: D0 EE     BNE @bra_C9FB_loop
-C - - - - - 0x01CA1D 07:CA0D: A9 00     LDA #$00
-C - - - - - 0x01CA1F 07:CA0F: 8D A1 06  STA ram_06A1
-C - - - - - 0x01CA22 07:CA12: 60        RTS
+C - - - - - 0x01C9EC 07:C9DC: A2 00     LDX #$00                     ;
+C - - - - - 0x01C9EE 07:C9DE: 86 07     STX ram_0007                 ; fact of displaying some digit
+C - - - - - 0x01C9F0 07:C9E0: A0 07     LDY #$07                     ; set loop counter
+@bra_C9E2_loop:                                                      ; loop by y
+C - - - - - 0x01C9F2 07:C9E2: B5 56     LDA vScore,X                 ;  
+C - - - - - 0x01C9F4 07:C9E4: D0 08     BNE @bra_C9EE_skip           ; Branch If Register A != 0x00
+C - - - - - 0x01C9F6 07:C9E6: 24 07     BIT ram_0007                 ;
+C - - - - - 0x01C9F8 07:C9E8: 30 04     BMI @bra_C9EE_skip           ; Branch If ram_0007 == 0%1XXXXXXX
+C - - - - - 0x01C9FA 07:C9EA: C0 03     CPY #$03                     ; show 00 in score (3 - 1 = 2 digits)
+C - - - - - 0x01C9FC 07:C9EC: B0 07     BCS @bra_C9F5_skip           ; Branch If Register Y >= 0x03
+@bra_C9EE_skip:
+C - - - - - 0x01C9FE 07:C9EE: C6 07     DEC ram_0007                 ;
+C - - - - - 0x01CA00 07:C9F0: 09 40     ORA #$40                     ; 0x40-0x49 are tiles for '0'-'9' digits
+C - - - - - 0x01CA02 07:C9F2: 9D 91 06  STA vPpuAddrDataCache + 22,X ;
+@bra_C9F5_skip:
+C - - - - - 0x01CA05 07:C9F5: E8        INX                          ; next a score position
+C - - - - - 0x01CA06 07:C9F6: 88        DEY                          ; decrement counter y
+C - - - - - 0x01CA07 07:C9F7: D0 E9     BNE @bra_C9E2_loop           ; Branch If Register Y != 0
+C - - - - - 0x01CA09 07:C9F9: A2 00     LDX #$00                     ; set loop counter
+@bra_C9FB_loop:                                                      ; loop by x
+C - - - - - 0x01CA0B 07:C9FB: BD 00 02  LDA v_items,X                ;
+C - - - - - 0x01CA0E 07:C9FE: F0 08     BEQ @bra_CA08_skip           ; Branch If a item is missing
+C - - - - - 0x01CA10 07:CA00: 09 40     ORA #$40                     ; 0x40-0x49 are tiles for '0'-'9' digits
+C - - - - - 0x01CA12 07:CA02: BC CE CA  LDY tbl_CACE_offset,X        ;
+C - - - - - 0x01CA15 07:CA05: 99 7B 06  STA vPpuAddrDataCache,Y      ; caches only the number of the items (the digits themselves)
+@bra_CA08_skip:                                                      ; loop by x
+C - - - - - 0x01CA18 07:CA08: E8        INX                          ; increment counter x
+C - - - - - 0x01CA19 07:CA09: E0 09     CPX #$09                     ;
+C - - - - - 0x01CA1B 07:CA0B: D0 EE     BNE @bra_C9FB_loop           ; Branch If Register X != 0x09
+C - - - - - 0x01CA1D 07:CA0D: A9 00     LDA #$00                     ;
+C - - - - - 0x01CA1F 07:CA0F: 8D A1 06  STA vPpuAddrDataCache + 38   ; mark for the end of the cache
+C - - - - - 0x01CA22 07:CA12: 60        RTS                          ;
 
 ; Prepare “SCORE” or “PAUSE” tiles for rendering.
 sub_CA13_score_or_pause:
@@ -1603,69 +1604,69 @@ C - - - - - 0x01CA54 07:CA44: CA        DEX                     ; decrement x
 C - - - - - 0x01CA55 07:CA45: 10 FA     BPL bra_CA41_loop       ; In Register X >= 0x00 && X < 0xF0
 C - - - - - 0x01CA57 07:CA47: 60        RTS                     ;
 
-loc_CA48:
-C D 2 - - - 0x01CA58 07:CA48: A2 09     LDX #$09
-bra_CA4A:
-C - - - - - 0x01CA5A 07:CA4A: BD 0A 02  LDA ram_020A,X
-C - - - - - 0x01CA5D 07:CA4D: F0 03     BEQ bra_CA52
-C - - - - - 0x01CA5F 07:CA4F: DE 0A 02  DEC ram_020A,X
-bra_CA52:
-C - - - - - 0x01CA62 07:CA52: CA        DEX
-C - - - - - 0x01CA63 07:CA53: 10 F5     BPL bra_CA4A
-C - - - - - 0x01CA65 07:CA55: A2 31     LDX #$31     ; the number of PpuAddrDataCache bytes
-C - - - - - 0x01CA67 07:CA57: 20 3F CA  JSR sub_CA3F_clear_inventory_panel
-C - - - - - 0x01CA6A 07:CA5A: A2 00     LDX #$00
-C - - - - - 0x01CA6C 07:CA5C: A0 00     LDY #$00
-bra_CA5E:
-C - - - - - 0x01CA6E 07:CA5E: BD E0 CA  LDA tbl_CAE0,X
-C - - - - - 0x01CA71 07:CA61: 99 7B 06  STA ram_067B,Y
-C - - - - - 0x01CA74 07:CA64: BD E1 CA  LDA tbl_CAE1,X
-C - - - - - 0x01CA77 07:CA67: 99 89 06  STA ram_0689,Y
-C - - - - - 0x01CA7A 07:CA6A: BD E2 CA  LDA tbl_CAE2,X
-C - - - - - 0x01CA7D 07:CA6D: 99 94 06  STA ram_0694,Y
-C - - - - - 0x01CA80 07:CA70: BD E3 CA  LDA tbl_CAE3,X
-C - - - - - 0x01CA83 07:CA73: 99 A2 06  STA ram_06A2,Y
-C - - - - - 0x01CA86 07:CA76: E8        INX
-C - - - - - 0x01CA87 07:CA77: E8        INX
-C - - - - - 0x01CA88 07:CA78: E8        INX
-C - - - - - 0x01CA89 07:CA79: E8        INX
-C - - - - - 0x01CA8A 07:CA7A: C8        INY
-C - - - - - 0x01CA8B 07:CA7B: C0 03     CPY #$03
-C - - - - - 0x01CA8D 07:CA7D: D0 DF     BNE bra_CA5E
-C - - - - - 0x01CA8F 07:CA7F: A9 08     LDA #$08
-C - - - - - 0x01CA91 07:CA81: 85 1A     STA ram_001A
-bra_CA83_loop:                                         ; loop by x
-C - - - - - 0x01CA93 07:CA83: A6 1A     LDX ram_001A
-C - - - - - 0x01CA95 07:CA85: BD 0A 02  LDA ram_020A,X
-C - - - - - 0x01CA98 07:CA88: 29 08     AND #$08
-C - - - - - 0x01CA9A 07:CA8A: D0 0E     BNE bra_CA9A
-C - - - - - 0x01CA9C 07:CA8C: BD 00 02  LDA v_items,X
-C - - - - - 0x01CA9F 07:CA8F: F0 29     BEQ bra_CABA
-C - - - - - 0x01CAA1 07:CA91: BD 0A 02  LDA ram_020A,X
-C - - - - - 0x01CAA4 07:CA94: F0 04     BEQ bra_CA9A
-C - - - - - 0x01CAA6 07:CA96: 29 08     AND #$08
-C - - - - - 0x01CAA8 07:CA98: F0 20     BEQ bra_CABA
-bra_CA9A:
-C - - - - - 0x01CAAA 07:CA9A: 8A        TXA
-C - - - - - 0x01CAAB 07:CA9B: 0A        ASL
-C - - - - - 0x01CAAC 07:CA9C: 0A        ASL
-C - - - - - 0x01CAAD 07:CA9D: A8        TAY
-C - - - - - 0x01CAAE 07:CA9E: BD D7 CA  LDA tbl_CAD7,X
-C - - - - - 0x01CAB1 07:CAA1: AA        TAX
-C - - - - - 0x01CAB2 07:CAA2: B9 EC CA  LDA tbl_CAEC,Y
-C - - - - - 0x01CAB5 07:CAA5: 9D 7B 06  STA ram_067B,X
-C - - - - - 0x01CAB8 07:CAA8: B9 ED CA  LDA tbl_CAED,Y
-C - - - - - 0x01CABB 07:CAAB: 9D 7C 06  STA ram_067C,X
-C - - - - - 0x01CABE 07:CAAE: B9 EE CA  LDA tbl_CAEE,Y
-C - - - - - 0x01CAC1 07:CAB1: 9D 94 06  STA ram_0694,X
-C - - - - - 0x01CAC4 07:CAB4: B9 EF CA  LDA tbl_CAEF,Y
-C - - - - - 0x01CAC7 07:CAB7: 9D 95 06  STA ram_0695,X
-bra_CABA:
-C - - - - - 0x01CACA 07:CABA: C6 1A     DEC ram_001A
-C - - - - - 0x01CACC 07:CABC: 10 C5     BPL bra_CA83_loop
-C - - - - - 0x01CACE 07:CABE: A9 00     LDA #$00
-C - - - - - 0x01CAD0 07:CAC0: 8D AD 06  STA ram_06AD
-C - - - - - 0x01CAD3 07:CAC3: 60        RTS
+loc_CA48_prepare_icon_items:
+C D 2 - - - 0x01CA58 07:CA48: A2 09     LDX #$09              ; set loop counter
+@bra_CA4A_loop:                                               ; loop by x
+C - - - - - 0x01CA5A 07:CA4A: BD 0A 02  LDA vItemsBlinkTime,X ;
+C - - - - - 0x01CA5D 07:CA4D: F0 03     BEQ @bra_CA52_skip    ; If Register A == 0x00
+C - - - - - 0x01CA5F 07:CA4F: DE 0A 02  DEC vItemsBlinkTime,X ;
+@bra_CA52_skip:
+C - - - - - 0x01CA62 07:CA52: CA        DEX                 ; decrement x
+C - - - - - 0x01CA63 07:CA53: 10 F5     BPL @bra_CA4A_loop  ; Branch If Register X < 0xF0
+C - - - - - 0x01CA65 07:CA55: A2 31     LDX #$31                           ; the number of PpuAddrDataCache bytes
+C - - - - - 0x01CA67 07:CA57: 20 3F CA  JSR sub_CA3F_clear_inventory_panel ;
+C - - - - - 0x01CA6A 07:CA5A: A2 00     LDX #$00                           ;
+C - - - - - 0x01CA6C 07:CA5C: A0 00     LDY #$00                           ; set loop counter
+@bra_CA5E_loop:                                                            ; loop by y
+C - - - - - 0x01CA6E 07:CA5E: BD E0 CA  LDA tbl_CAE0_attrs,X               ; 
+C - - - - - 0x01CA71 07:CA61: 99 7B 06  STA vPpuAddrDataCache,Y            ; 
+C - - - - - 0x01CA74 07:CA64: BD E1 CA  LDA tbl_CAE0_attrs + 1,X           ;
+C - - - - - 0x01CA77 07:CA67: 99 89 06  STA vPpuAddrDataCache + 14,Y       ;
+C - - - - - 0x01CA7A 07:CA6A: BD E2 CA  LDA tbl_CAE0_attrs + 2,X           ;
+C - - - - - 0x01CA7D 07:CA6D: 99 94 06  STA vPpuAddrDataCache + 25,Y       ; 
+C - - - - - 0x01CA80 07:CA70: BD E3 CA  LDA tbl_CAE0_attrs + 3,X           ;
+C - - - - - 0x01CA83 07:CA73: 99 A2 06  STA vPpuAddrDataCache + 39,Y       ;
+C - - - - - 0x01CA86 07:CA76: E8        INX                                ; 
+C - - - - - 0x01CA87 07:CA77: E8        INX                                ; 
+C - - - - - 0x01CA88 07:CA78: E8        INX                                ; 
+C - - - - - 0x01CA89 07:CA79: E8        INX                                ; increnemnt x for the table
+C - - - - - 0x01CA8A 07:CA7A: C8        INY                                ; increnemnt counter y
+C - - - - - 0x01CA8B 07:CA7B: C0 03     CPY #$03                           ;
+C - - - - - 0x01CA8D 07:CA7D: D0 DF     BNE @bra_CA5E_loop                 ; If Register Y != 0x03
+C - - - - - 0x01CA8F 07:CA7F: A9 08     LDA #$08                ;
+C - - - - - 0x01CA91 07:CA81: 85 1A     STA v_loc_CA48_counter  ; set loop counter
+@bra_CA83_loop:                                                 ; loop by CA48_counter
+C - - - - - 0x01CA93 07:CA83: A6 1A     LDX v_loc_CA48_counter  ;
+C - - - - - 0x01CA95 07:CA85: BD 0A 02  LDA vItemsBlinkTime,X   ;
+C - - - - - 0x01CA98 07:CA88: 29 08     AND #$08                ;
+C - - - - - 0x01CA9A 07:CA8A: D0 0E     BNE @bra_CA9A_put_cache ; If BlinkTime is 0%XXXX1XXX (every 8 after 8)
+C - - - - - 0x01CA9C 07:CA8C: BD 00 02  LDA v_items,X           ;
+C - - - - - 0x01CA9F 07:CA8F: F0 29     BEQ @bra_CABA_skip      ; Branch If item is missing
+C - - - - - 0x01CAA1 07:CA91: BD 0A 02  LDA vItemsBlinkTime,X   ;
+C - - - - - 0x01CAA4 07:CA94: F0 04     BEQ @bra_CA9A_put_cache ; Branch If BlinkTime is time out
+C - - - - - 0x01CAA6 07:CA96: 29 08     AND #$08                ;
+C - - - - - 0x01CAA8 07:CA98: F0 20     BEQ @bra_CABA_skip      ; If BlinkTime isn't 0%XXXX1XXX (every 8 after 8, never true) 
+@bra_CA9A_put_cache:
+C - - - - - 0x01CAAA 07:CA9A: 8A        TXA                          ;  
+C - - - - - 0x01CAAB 07:CA9B: 0A        ASL                          ;
+C - - - - - 0x01CAAC 07:CA9C: 0A        ASL                          ;
+C - - - - - 0x01CAAD 07:CA9D: A8        TAY                          ; Y = 4 * X (offset by 4 bytes)
+C - - - - - 0x01CAAE 07:CA9E: BD D7 CA  LDA tbl_CAD7_offset,X        ; offset in vPpuAddrDataCache
+C - - - - - 0x01CAB1 07:CAA1: AA        TAX                          ;  
+C - - - - - 0x01CAB2 07:CAA2: B9 EC CA  LDA tbl_CAEC_items,Y         ;
+C - - - - - 0x01CAB5 07:CAA5: 9D 7B 06  STA vPpuAddrDataCache,X      ; ppu data (tile number)
+C - - - - - 0x01CAB8 07:CAA8: B9 ED CA  LDA tbl_CAEC_items + 1,Y     ;
+C - - - - - 0x01CABB 07:CAAB: 9D 7C 06  STA vPpuAddrDataCache + 1,X  ; ppu data (tile number)
+C - - - - - 0x01CABE 07:CAAE: B9 EE CA  LDA tbl_CAEC_items + 2,Y     ;
+C - - - - - 0x01CAC1 07:CAB1: 9D 94 06  STA vPpuAddrDataCache + 25,X ; ppu data (tile number)
+C - - - - - 0x01CAC4 07:CAB4: B9 EF CA  LDA tbl_CAEC_items + 3,Y     ;
+C - - - - - 0x01CAC7 07:CAB7: 9D 95 06  STA vPpuAddrDataCache + 26,X ; ppu data (tile number)
+@bra_CABA_skip:
+C - - - - - 0x01CACA 07:CABA: C6 1A     DEC v_loc_CA48_counter       ; decrement CA48_counter
+C - - - - - 0x01CACC 07:CABC: 10 C5     BPL @bra_CA83_loop           ; Branch If decrement CA48 < 0xF0
+C - - - - - 0x01CACE 07:CABE: A9 00     LDA #$00                     ; 
+C - - - - - 0x01CAD0 07:CAC0: 8D AD 06  STA vPpuAddrDataCache + 50   ; mark for the end of the cache
+C - - - - - 0x01CAD3 07:CAC3: 60        RTS                          ;  
 
 tbl_CAC4_tiles:
 - D 2 - - - 0x01CAD4 07:CAC4: 4D        .byte $4D ; S
@@ -1688,7 +1689,7 @@ tbl_CACE_offset:
 - D 2 - - - 0x01CAE4 07:CAD4: 21        .byte $21 ; Helium balloon
 - D 2 - - - 0x01CAE5 07:CAD5: 23        .byte $23 ; Bullet proof vest
 - D 2 - - - 0x01CAE6 07:CAD6: 25        .byte $25 ; Ruby ring
-tbl_CAD7:
+tbl_CAD7_offset:
 - D 2 - - - 0x01CAE7 07:CAD7: 03        .byte $03
 - D 2 - - - 0x01CAE8 07:CAD8: 06        .byte $06
 - D 2 - - - 0x01CAE9 07:CAD9: 08        .byte $08
@@ -1698,62 +1699,29 @@ tbl_CAD7:
 - D 2 - - - 0x01CAED 07:CADD: 13        .byte $13
 - D 2 - - - 0x01CAEE 07:CADE: 15        .byte $15
 - D 2 - - - 0x01CAEF 07:CADF: 17        .byte $17
-tbl_CAE0:
-- D 2 - - - 0x01CAF0 07:CAE0: 0B        .byte $0B
-tbl_CAE1:
-- D 2 - - - 0x01CAF1 07:CAE1: 08        .byte $08
-tbl_CAE2:
-- D 2 - - - 0x01CAF2 07:CAE2: 0B        .byte $0B
-tbl_CAE3:
-- D 2 - - - 0x01CAF3 07:CAE3: 08        .byte $08
-- D 2 - - - 0x01CAF4 07:CAE4: 20        .byte $20
-- D 2 - - - 0x01CAF5 07:CAE5: 20        .byte $20
-- D 2 - - - 0x01CAF6 07:CAE6: 20        .byte $20
-- D 2 - - - 0x01CAF7 07:CAE7: 20        .byte $20
-- D 2 - - - 0x01CAF8 07:CAE8: 42        .byte $42
-- D 2 - - - 0x01CAF9 07:CAE9: 56        .byte $56
-- D 2 - - - 0x01CAFA 07:CAEA: 62        .byte $62
-- D 2 - - - 0x01CAFB 07:CAEB: 76        .byte $76
-tbl_CAEC:
-- D 2 - - - 0x01CAFC 07:CAEC: 54        .byte $54
-tbl_CAED:
-- D 2 - - - 0x01CAFD 07:CAED: 56        .byte $56
-tbl_CAEE:
-- D 2 - - - 0x01CAFE 07:CAEE: 55        .byte $55
-tbl_CAEF:
-- D 2 - - - 0x01CAFF 07:CAEF: 57        .byte $57
-- D 2 - - - 0x01CB00 07:CAF0: 58        .byte $58
-- D 2 - - - 0x01CB01 07:CAF1: 5A        .byte $5A
-- D 2 - - - 0x01CB02 07:CAF2: 59        .byte $59
-- D 2 - - - 0x01CB03 07:CAF3: 5B        .byte $5B
-- D 2 - - - 0x01CB04 07:CAF4: 5C        .byte $5C
-- D 2 - - - 0x01CB05 07:CAF5: 5E        .byte $5E
-- D 2 - - - 0x01CB06 07:CAF6: 5D        .byte $5D
-- D 2 - - - 0x01CB07 07:CAF7: 5F        .byte $5F
-- D 2 - - - 0x01CB08 07:CAF8: 60        .byte $60
-- D 2 - - - 0x01CB09 07:CAF9: 62        .byte $62
-- D 2 - - - 0x01CB0A 07:CAFA: 61        .byte $61
-- D 2 - - - 0x01CB0B 07:CAFB: 63        .byte $63
-- D 2 - - - 0x01CB0C 07:CAFC: 64        .byte $64
-- D 2 - - - 0x01CB0D 07:CAFD: 66        .byte $66
-- D 2 - - - 0x01CB0E 07:CAFE: 65        .byte $65
-- D 2 - - - 0x01CB0F 07:CAFF: 67        .byte $67
-- D 2 - - - 0x01CB10 07:CB00: 68        .byte $68
-- D 2 - - - 0x01CB11 07:CB01: 6A        .byte $6A
-- D 2 - - - 0x01CB12 07:CB02: 69        .byte $69
-- D 2 - - - 0x01CB13 07:CB03: 6B        .byte $6B
-- D 2 - - - 0x01CB14 07:CB04: 6C        .byte $6C
-- D 2 - - - 0x01CB15 07:CB05: 6E        .byte $6E
-- D 2 - - - 0x01CB16 07:CB06: 6D        .byte $6D
-- D 2 - - - 0x01CB17 07:CB07: 6F        .byte $6F
-- D 2 - - - 0x01CB18 07:CB08: 70        .byte $70
-- D 2 - - - 0x01CB19 07:CB09: 72        .byte $72
-- D 2 - - - 0x01CB1A 07:CB0A: 71        .byte $71
-- D 2 - - - 0x01CB1B 07:CB0B: 73        .byte $73
-- D 2 - - - 0x01CB1C 07:CB0C: 74        .byte $74
-- D 2 - - - 0x01CB1D 07:CB0D: 76        .byte $76
-- D 2 - - - 0x01CB1E 07:CB0E: 75        .byte $75
-- D 2 - - - 0x01CB1F 07:CB0F: 77        .byte $77
+tbl_CAE0_attrs:
+- D 2 - - - 0x01CAF0 07:CAE0: 0B        .byte $0B ; count
+- D 2 - - - 0x01CAF1 07:CAE1: 08        .byte $08 ; count
+- D 2 - - - 0x01CAF2 07:CAE2: 0B        .byte $0B ; count
+- D 2 - - - 0x01CAF3 07:CAE3: 08        .byte $08 ; count
+- D 2 - - - 0x01CAF4 07:CAE4: 20        .byte $20 ; ppu high address
+- D 2 - - - 0x01CAF5 07:CAE5: 20        .byte $20 ; ppu high address
+- D 2 - - - 0x01CAF6 07:CAE6: 20        .byte $20 ; ppu high address
+- D 2 - - - 0x01CAF7 07:CAE7: 20        .byte $20 ; ppu high address
+- D 2 - - - 0x01CAF8 07:CAE8: 42        .byte $42 ; ppu low address
+- D 2 - - - 0x01CAF9 07:CAE9: 56        .byte $56 ; ppu low address
+- D 2 - - - 0x01CAFA 07:CAEA: 62        .byte $62 ; ppu low address
+- D 2 - - - 0x01CAFB 07:CAEB: 76        .byte $76 ; ppu low address
+tbl_CAEC_items:
+- D 2 - - - 0x01CAFC 07:CAEC: 54        .byte $54, $56, $55, $57 ; Radio
+- D 2 - - - 0x01CB00 07:CAF0: 58        .byte $58, $5A, $59, $5B ; Bomb
+- D 2 - - - 0x01CB04 07:CAF4: 5C        .byte $5C, $5E, $5D, $5F ; Artillery Rifle
+- D 2 - - - 0x01CB08 07:CAF8: 60        .byte $60, $62, $61, $63 ; Jet-pack
+- D 2 - - - 0x01CB0C 07:CAFC: 64        .byte $64, $66, $65, $67 ; Infrared Goggles
+- D 2 - - - 0x01CB10 07:CB00: 68        .byte $68, $6A, $69, $6B ; Breathing apparatus
+- D 2 - - - 0x01CB14 07:CB04: 6C        .byte $6C, $6E, $6D, $6F ; Helium balloon
+- D 2 - - - 0x01CB18 07:CB08: 70        .byte $70, $72, $71, $73 ; Bullet proof vest
+- D 2 - - - 0x01CB1C 07:CB0C: 74        .byte $74, $76, $75, $77 ; Ruby ring
 tbl_CB10:
 - D 2 - - - 0x01CB20 07:CB10: 0F        .byte $0F
 - D 2 - - - 0x01CB21 07:CB11: 03        .byte $03
@@ -1905,7 +1873,7 @@ C - - - - - 0x01CC0B 07:CBFB: B0 2C     BCS bra_CC29_RTS
 C - - - - - 0x01CC0D 07:CBFD: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CC10 07:CC00: 29 0F     AND #$0F
 C - - - - - 0x01CC12 07:CC02: AA        TAX
-C - - - - - 0x01CC13 07:CC03: 4C 13 CD  JMP loc_CD13
+C - - - - - 0x01CC13 07:CC03: 4C 13 CD  JMP loc_CD13_use_item
 
 sub_CC06:
 C - - - - - 0x01CC16 07:CC06: BD 00 02  LDA v_items,X
@@ -2070,12 +2038,13 @@ C - - - - - 0x01CD1F 07:CD0F: D0 02     BNE bra_CD13
 - - - - - - 0x01CD21 07:CD11: A2        .byte $A2
 - - - - - - 0x01CD22 07:CD12: 08        .byte $08
 bra_CD13:
-loc_CD13:
-sub_CD13:
-C D 2 - - - 0x01CD23 07:CD13: DE 00 02  DEC v_items,X
-C - - - - - 0x01CD26 07:CD16: A9 20     LDA #$20
-C - - - - - 0x01CD28 07:CD18: 9D 0A 02  STA ram_020A,X
-C - - - - - 0x01CD2B 07:CD1B: 60        RTS
+; In: Register X - the index of the item
+loc_CD13_use_item:
+sub_CD13_use_item:
+C D 2 - - - 0x01CD23 07:CD13: DE 00 02  DEC v_items,X         ; Decrement an item
+C - - - - - 0x01CD26 07:CD16: A9 20     LDA #$20              ; Initializing the remaining time
+C - - - - - 0x01CD28 07:CD18: 9D 0A 02  STA vItemsBlinkTime,X ;
+C - - - - - 0x01CD2B 07:CD1B: 60        RTS                   ;
 
 sub_CD1C:
 C - - - - - 0x01CD2C 07:CD1C: B9 53 CD  LDA tbl_CD53,Y
@@ -2178,7 +2147,7 @@ C - - - - - 0x01CDE0 07:CDD0: AD 05 02  LDA v_breathing_apparatus_item
 C - - - - - 0x01CDE3 07:CDD3: F0 08     BEQ bra_CDDD
 C - - - - - 0x01CDE5 07:CDD5: 20 E9 CC  JSR sub_CCE9
 C - - - - - 0x01CDE8 07:CDD8: A2 05     LDX #$05
-C - - - - - 0x01CDEA 07:CDDA: 4C 13 CD  JMP loc_CD13
+C - - - - - 0x01CDEA 07:CDDA: 4C 13 CD  JMP loc_CD13_use_item
 
 bra_CDDD:
 - - - - - - 0x01CDED 07:CDDD: A5        .byte $A5
@@ -2788,8 +2757,8 @@ C - - - - - 0x01D126 07:D116: E6 01     INC ram_0001
 C - - - - - 0x01D128 07:D118: 4C EA D0  JMP loc_D0EA
 
 sub_D11B_shared_render:
-C - - - - - 0x01D12B 07:D11B: A5 19     LDA ram_0019
-C - - - - - 0x01D12D 07:D11D: D0 39     BNE bra_D158_RTS
+C - - - - - 0x01D12B 07:D11B: A5 19     LDA vRenderActive      ;
+C - - - - - 0x01D12D 07:D11D: D0 39     BNE bra_D158_RTS       ; Branch If the render isn't activated
 C - - - - - 0x01D12F 07:D11F: AD 31 06  LDA v_high_ppu_address
 C - - - - - 0x01D132 07:D122: F0 35     BEQ bra_D159
 C - - - - - 0x01D134 07:D124: 30 AD     BMI bra_D0D3
@@ -5094,7 +5063,7 @@ C - - - - - 0x01DF16 07:DF06: D0 29     BNE bra_DF31
 C - - - - - 0x01DF18 07:DF08: AD 05 02  LDA v_breathing_apparatus_item
 C - - - - - 0x01DF1B 07:DF0B: F0 24     BEQ bra_DF31
 C - - - - - 0x01DF1D 07:DF0D: A2 05     LDX #$05
-C - - - - - 0x01DF1F 07:DF0F: 20 13 CD  JSR sub_CD13
+C - - - - - 0x01DF1F 07:DF0F: 20 13 CD  JSR sub_CD13_use_item
 C - - - - - 0x01DF22 07:DF12: 20 DA FB  JSR sub_FBDA_push_stack_room
 C - - - - - 0x01DF25 07:DF15: A2 C1     LDX #$C1
 C - - - - - 0x01DF27 07:DF17: 86 39     STX ram_0039
@@ -7523,9 +7492,9 @@ C - - - - - 0x01EDA1 07:ED91: 2C 02 20  BIT PPU_STATUS    ;
 C - - - - - 0x01EDA4 07:ED94: 50 FB     BVC bra_ED91_wait ; checking a sprite 0 hits
 C - - - - - 0x01EDA6 07:ED96: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
 C - - - - - 0x01EDA9 07:ED99: 20 C6 C3  JSR sub_C3C6
-C - - - - - 0x01EDAC 07:ED9C: A5 19     LDA ram_0019
-C - - - - - 0x01EDAE 07:ED9E: D0 68     BNE bra_EE08
-C - - - - - 0x01EDB0 07:EDA0: E6 19     INC ram_0019
+C - - - - - 0x01EDAC 07:ED9C: A5 19     LDA vRenderActive ;
+C - - - - - 0x01EDAE 07:ED9E: D0 68     BNE bra_EE08_skip ; Branch If the render isn't activated
+C - - - - - 0x01EDB0 07:EDA0: E6 19     INC vRenderActive
 C - - - - - 0x01EDB2 07:EDA2: 24 3B     BIT vSharedGameStatus
 C - - - - - 0x01EDB4 07:EDA4: 70 35     BVS bra_EDDB
 C - - - - - 0x01EDB6 07:EDA6: A5 3B     LDA vSharedGameStatus
@@ -7568,7 +7537,7 @@ C - - - - - 0x01EE05 07:EDF5: 8E 01 80  STX MMC3_Bank_data   ; switch bank 02 (p
 C - - - - - 0x01EE08 07:EDF8: 20 F0 FF  JSR sub_FFF0
 C - - - - - 0x01EE0B 07:EDFB: 20 1A EF  JSR sub_EF1A_switch_bank_06_2
 C - - - - - 0x01EE0E 07:EDFE: A9 00     LDA #$00
-C - - - - - 0x01EE10 07:EE00: 85 19     STA ram_0019
+C - - - - - 0x01EE10 07:EE00: 85 19     STA vRenderActive
 bra_EE02:
 C - - - - - 0x01EE12 07:EE02: 68        PLA
 C - - - - - 0x01EE13 07:EE03: A8        TAY ; retrieve y
@@ -7578,7 +7547,7 @@ C - - - - - 0x01EE16 07:EE06: 68        PLA ; retrieve a
 vec_C000_IRQ:
 C - - - - - 0x01EE17 07:EE07: 40        RTI ; irq
 
-bra_EE08:
+bra_EE08_skip:
 C - - - - - 0x01EE18 07:EE08: A9 07     LDA #$07
 C - - - - - 0x01EE1A 07:EE0A: 8D 00 80  STA MMC3_Bank_select
 C - - - - - 0x01EE1D 07:EE0D: D0 F3     BNE bra_EE02
@@ -7594,9 +7563,9 @@ C - - - - - 0x01EE2B 07:EE1B: 20 AA B3  JSR $B3AA ; to sub_B3AA (bank 06_2)
 C - - - - - 0x01EE2E 07:EE1E: 4C D5 ED  JMP loc_EDD5
 
 loc_EE21:
-C D 3 - - - 0x01EE31 07:EE21: A5 19     LDA ram_0019
-C - - - - - 0x01EE33 07:EE23: D0 E3     BNE bra_EE08
-C - - - - - 0x01EE35 07:EE25: 20 58 C3  JSR sub_C358_clear_OAM
+C D 3 - - - 0x01EE31 07:EE21: A5 19     LDA vRenderActive      ;
+C - - - - - 0x01EE33 07:EE23: D0 E3     BNE bra_EE08_skip      ; Branch If the render isn't activated
+C - - - - - 0x01EE35 07:EE25: 20 58 C3  JSR sub_C358_clear_OAM ;
 C - - - - - 0x01EE38 07:EE28: 20 8E C7  JSR sub_C78E
 C - - - - - 0x01EE3B 07:EE2B: 20 6C C4  JSR sub_C46C
 C - - - - - 0x01EE3E 07:EE2E: 20 86 EF  JSR sub_EF86_increment_counter

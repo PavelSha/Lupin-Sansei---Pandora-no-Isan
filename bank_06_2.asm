@@ -14,6 +14,7 @@
 .import npc_portrait_set ; bank 04 (Page 2)
 .import npc_sprite_set ; bank 04 (Page 2)
 .import sub_C305_update_ppu_ctrl_with_no_nmi ; bank FF
+.import sub_C313_screen_off  ; bank FF
 .import sub_C31D_clear_ppu ; bank FF
 .import sub_C358_clear_OAM ; bank FF
 .import loc_C371_update_palette ; bank FF
@@ -2570,7 +2571,7 @@ C - - - - - 0x01B098 06:B088: 90 02     BCC @bra_B08C_skip
 @bra_B08C_skip:
 C - - - - - 0x01B09C 06:B08C: 99 00 02  STA v_items,Y
 C - - - - - 0x01B09F 06:B08F: A9 20     LDA #$20
-C - - - - - 0x01B0A1 06:B091: 99 0A 02  STA ram_020A,Y
+C - - - - - 0x01B0A1 06:B091: 99 0A 02  STA vItemsBlinkTime,Y
 C - - - - - 0x01B0A4 06:B094: A9 18     LDA #$18
 C - - - - - 0x01B0A6 06:B096: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B0A9 06:B099: 60        RTS
@@ -3793,18 +3794,18 @@ C - - - - - 0x01B8D9 06:B8C9: 10 01     BPL bra_B8CC; Branch If in game
 C - - - - - 0x01B8DB 06:B8CB: 60        RTS
 
 bra_B8CC:
-C - - - - - 0x01B8DC 06:B8CC: 20 02 C4  JSR sub_C402_clear_sound_parts
-C - - - - - 0x01B8DF 06:B8CF: A9 00     LDA #$00                      ; start screen track1
-C - - - - - 0x01B8E1 06:B8D1: 20 20 C4  JSR sub_C420_add_sound_effect ;
-C - - - - - 0x01B8E4 06:B8D4: A9 01     LDA #$01                      ; start screen track2
-C - - - - - 0x01B8E6 06:B8D6: 20 20 C4  JSR sub_C420_add_sound_effect ;
-C - - - - - 0x01B8E9 06:B8D9: A9 02     LDA #$02                      ; start screen track3
-C - - - - - 0x01B8EB 06:B8DB: 20 20 C4  JSR sub_C420_add_sound_effect ;
-C - - - - - 0x01B8EE 06:B8DE: A9 03     LDA #$03                      ; start screen track4
-C - - - - - 0x01B8F0 06:B8E0: 20 20 C4  JSR sub_C420_add_sound_effect ;
-C - - - - - 0x01B8F3 06:B8E3: 20 1D C3  JSR sub_C31D_clear_ppu
-C - - - - - 0x01B8F6 06:B8E6: 20 58 C3  JSR sub_C358_clear_OAM
-C - - - - - 0x01B8F9 06:B8E9: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
+C - - - - - 0x01B8DC 06:B8CC: 20 02 C4  JSR sub_C402_clear_sound_parts   ;
+C - - - - - 0x01B8DF 06:B8CF: A9 00     LDA #$00                         ; start screen track1
+C - - - - - 0x01B8E1 06:B8D1: 20 20 C4  JSR sub_C420_add_sound_effect    ;
+C - - - - - 0x01B8E4 06:B8D4: A9 01     LDA #$01                         ; start screen track2
+C - - - - - 0x01B8E6 06:B8D6: 20 20 C4  JSR sub_C420_add_sound_effect    ;
+C - - - - - 0x01B8E9 06:B8D9: A9 02     LDA #$02                         ; start screen track3
+C - - - - - 0x01B8EB 06:B8DB: 20 20 C4  JSR sub_C420_add_sound_effect    ;
+C - - - - - 0x01B8EE 06:B8DE: A9 03     LDA #$03                         ; start screen track4
+C - - - - - 0x01B8F0 06:B8E0: 20 20 C4  JSR sub_C420_add_sound_effect    ;
+C - - - - - 0x01B8F3 06:B8E3: 20 1D C3  JSR sub_C31D_clear_ppu           ;
+C - - - - - 0x01B8F6 06:B8E6: 20 58 C3  JSR sub_C358_clear_OAM           ;
+C - - - - - 0x01B8F9 06:B8E9: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2 ;
 C - - - - - 0x01B8FC 06:B8EC: A2 05     LDX #$05                  ; set loop counter
 @bra_B8EE_repeat:                                                 ; loop by x
 C - - - - - 0x01B8FE 06:B8EE: BD BE 80  LDA tbl_main_menu_chr_banks,X
@@ -3855,9 +3856,9 @@ C - - - - - 0x01B959 06:B949: 85 B3     STA v_lock_secret_hits       ; clear
 C - - - - - 0x01B95B 06:B94B: 85 B4     STA v_offset_in_secret_codes ; clear
 C - - - - - 0x01B95D 06:B94D: 85 2C     STA v_low_counter            ; clear
 C - - - - - 0x01B95F 06:B94F: 85 2D     STA v_high_counter           ; clear
-C - - - - - 0x01B961 06:B951: 85 19     STA ram_0019                 ; clear
+C - - - - - 0x01B961 06:B951: 85 19     STA vRenderActive            ; clear
 C - - - - - 0x01B963 06:B953: 8D 31 06  STA ram_0631                 ; clear
-C - - - - - 0x01B966 06:B956: 8D 7B 06  STA ram_067B                 ; clear
+C - - - - - 0x01B966 06:B956: 8D 7B 06  STA vPpuAddrDataCache        ; clear
 C - - - - - 0x01B969 06:B959: 85 29     STA ram_0029                 ; clear
 C - - - - - 0x01B96B 06:B95B: 85 27     STA ram_0027                 ; clear
 C - - - - - 0x01B96D 06:B95D: 85 3D     STA ram_003D                 ; clear
@@ -3932,13 +3933,13 @@ tbl_B9C1:
 - D 1 - - - 0x01B9D8 06:B9C8: 00        .byte $00   ; 
 
 bra_B9C9_start_demo:
-C - - - - - 0x01B9D9 06:B9C9: 20 13 C3  JSR $C313
-C - - - - - 0x01B9DC 06:B9CC: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
-C - - - - - 0x01B9DF 06:B9CF: A9 FF     LDA #$FF           ; CONSTANT - Cutscene
-C - - - - - 0x01B9E1 06:B9D1: 85 37     STA vGameMode      ;
-C - - - - - 0x01B9E3 06:B9D3: A9 01     LDA #$01           ; CONSTANT - Lupin demo
-C - - - - - 0x01B9E5 06:B9D5: 85 24     STA vMenuDemoIndex ;
-C - - - - - 0x01B9E7 06:B9D7: 4C 02 C4  JMP loc_C402_clear_sound_parts
+C - - - - - 0x01B9D9 06:B9C9: 20 13 C3  JSR sub_C313_screen_off                  ;
+C - - - - - 0x01B9DC 06:B9CC: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi ;
+C - - - - - 0x01B9DF 06:B9CF: A9 FF     LDA #$FF                                 ; CONSTANT - Cutscene
+C - - - - - 0x01B9E1 06:B9D1: 85 37     STA vGameMode                            ;
+C - - - - - 0x01B9E3 06:B9D3: A9 01     LDA #$01                                 ; CONSTANT - Lupin demo
+C - - - - - 0x01B9E5 06:B9D5: 85 24     STA vMenuDemoIndex                       ;
+C - - - - - 0x01B9E7 06:B9D7: 4C 02 C4  JMP loc_C402_clear_sound_parts           ;
 
 sub_B9DA: ; from bank FF
 C - - - - - 0x01B9EA 06:B9DA: A5 37     LDA vGameMode
@@ -3946,40 +3947,40 @@ C - - - - - 0x01B9EC 06:B9DC: 30 01     BMI bra_B9DF ; Branch If mode=cutscene
 C - - - - - 0x01B9EE 06:B9DE: 60        RTS
 
 bra_B9DF:
-C - - - - - 0x01B9EF 06:B9DF: 20 02 C4  JSR sub_C402_clear_sound_parts
-C - - - - - 0x01B9F2 06:B9E2: 20 1D C3  JSR sub_C31D_clear_ppu
-C - - - - - 0x01B9F5 06:B9E5: 20 58 C3  JSR sub_C358_clear_OAM
-C - - - - - 0x01B9F8 06:B9E8: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
-C - - - - - 0x01B9FB 06:B9EB: A2 05     LDX #$05           ; set loop counter
-@bra_B9ED_loop:                                            ; loop by x
-C - - - - - 0x01B9FD 06:B9ED: BD 14 80  LDA tbl_template_chr_banks1,X
-C - - - - - 0x01BA00 06:B9F0: 9D AF 06  STA vCacheChrBankSelect,X
-C - - - - - 0x01BA03 06:B9F3: CA        DEX                ; decrements loop counter
-C - - - - - 0x01BA04 06:B9F4: 10 F7     BPL @bra_B9ED_loop ; If Register X >= 0
+C - - - - - 0x01B9EF 06:B9DF: 20 02 C4  JSR sub_C402_clear_sound_parts   ;
+C - - - - - 0x01B9F2 06:B9E2: 20 1D C3  JSR sub_C31D_clear_ppu           ;
+C - - - - - 0x01B9F5 06:B9E5: 20 58 C3  JSR sub_C358_clear_OAM           ;
+C - - - - - 0x01B9F8 06:B9E8: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2 ;
+C - - - - - 0x01B9FB 06:B9EB: A2 05     LDX #$05                         ; set loop counter
+@bra_B9ED_loop:                                                          ; loop by x
+C - - - - - 0x01B9FD 06:B9ED: BD 14 80  LDA tbl_template_chr_banks1,X    ;
+C - - - - - 0x01BA00 06:B9F0: 9D AF 06  STA vCacheChrBankSelect,X        ; 
+C - - - - - 0x01BA03 06:B9F3: CA        DEX                              ; decrements loop counter
+C - - - - - 0x01BA04 06:B9F4: 10 F7     BPL @bra_B9ED_loop               ; If Register X < 0xF0
 C - - - - - 0x01BA06 06:B9F6: A5 24     LDA vMenuDemoIndex
 C - - - - - 0x01BA08 06:B9F8: D0 32     BNE @bra_BA2C_skip
 C - - - - - 0x01BA0A 06:B9FA: A2 36     LDX #$36
 C - - - - - 0x01BA0C 06:B9FC: 8E B3 06  STX ram_06B3
 C - - - - - 0x01BA0F 06:B9FF: E8        INX
 C - - - - - 0x01BA10 06:BA00: 8E B4 06  STX ram_06B4
-C - - - - - 0x01BA13 06:BA03: AD 02 20  LDA PPU_STATUS     ; Read PPU status to reset the high/low latch
-C - - - - - 0x01BA16 06:BA06: A9 23     LDA #$23           ;
-C - - - - - 0x01BA18 06:BA08: 8D 06 20  STA PPU_ADDRESS    ;
-C - - - - - 0x01BA1B 06:BA0B: A9 64     LDA #$64           ;
-C - - - - - 0x01BA1D 06:BA0D: 8D 06 20  STA PPU_ADDRESS    ; PPU address is 0x2364
-C - - - - - 0x01BA20 06:BA10: A2 00     LDX #$00           ; set loop counter
-@bra_BA12_loop:                                            ; loop by x
-C - - - - - 0x01BA22 06:BA12: BD 2A 80  LDA tbl_copyright,X
-C - - - - - 0x01BA25 06:BA15: 8D 07 20  STA PPU_DATA       ;
-C - - - - - 0x01BA28 06:BA18: E8        INX                ; increments loop counter
-C - - - - - 0x01BA29 06:BA19: E0 18     CPX #$18           ; CONSTANT - 18 tiles 
-C - - - - - 0x01BA2B 06:BA1B: D0 F5     BNE @bra_BA12_loop ; If Register X != 0x18
-C - - - - - 0x01BA2D 06:BA1D: A9 23     LDA #$23           ;
-C - - - - - 0x01BA2F 06:BA1F: 8D 06 20  STA PPU_ADDRESS    ;
-C - - - - - 0x01BA32 06:BA22: A9 4B     LDA #$4B           ;
-C - - - - - 0x01BA34 06:BA24: 8D 06 20  STA PPU_ADDRESS    ; PPU address is 0x234B
-C - - - - - 0x01BA37 06:BA27: A9 7F     LDA #$7F           ;
-C - - - - - 0x01BA39 06:BA29: 8D 07 20  STA PPU_DATA       ; The part of the sign (the part of the copyright)
+C - - - - - 0x01BA13 06:BA03: AD 02 20  LDA PPU_STATUS      ; Read PPU status to reset the high/low latch
+C - - - - - 0x01BA16 06:BA06: A9 23     LDA #$23            ;
+C - - - - - 0x01BA18 06:BA08: 8D 06 20  STA PPU_ADDRESS     ;
+C - - - - - 0x01BA1B 06:BA0B: A9 64     LDA #$64            ;
+C - - - - - 0x01BA1D 06:BA0D: 8D 06 20  STA PPU_ADDRESS     ; PPU address is 0x2364
+C - - - - - 0x01BA20 06:BA10: A2 00     LDX #$00            ; set loop counter
+@bra_BA12_loop:                                             ; loop by x
+C - - - - - 0x01BA22 06:BA12: BD 2A 80  LDA tbl_copyright,X ;
+C - - - - - 0x01BA25 06:BA15: 8D 07 20  STA PPU_DATA        ;
+C - - - - - 0x01BA28 06:BA18: E8        INX                 ; increments loop counter
+C - - - - - 0x01BA29 06:BA19: E0 18     CPX #$18            ; CONSTANT - 18 tiles 
+C - - - - - 0x01BA2B 06:BA1B: D0 F5     BNE @bra_BA12_loop  ; If Register X != 0x18
+C - - - - - 0x01BA2D 06:BA1D: A9 23     LDA #$23            ;
+C - - - - - 0x01BA2F 06:BA1F: 8D 06 20  STA PPU_ADDRESS     ;
+C - - - - - 0x01BA32 06:BA22: A9 4B     LDA #$4B            ;
+C - - - - - 0x01BA34 06:BA24: 8D 06 20  STA PPU_ADDRESS     ; PPU address is 0x234B
+C - - - - - 0x01BA37 06:BA27: A9 7F     LDA #$7F            ;
+C - - - - - 0x01BA39 06:BA29: 8D 07 20  STA PPU_DATA        ; The part of the sign (the part of the copyright)
 @bra_BA2C_skip:
 C - - - - - 0x01BA3C 06:BA2C: 20 BA BA  JSR sub_BABA
 C - - - - - 0x01BA3F 06:BA2F: A5 24     LDA vMenuDemoIndex
@@ -4012,21 +4013,21 @@ C - - - - - 0x01BA6A 06:BA5A: 20 CB BA  JSR sub_BACB
 C - - - - - 0x01BA6D 06:BA5D: A9 91     LDA #$91
 C - - - - - 0x01BA6F 06:BA5F: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01BA71 06:BA61: A9 00     LDA #$00
-C - - - - - 0x01BA73 06:BA63: 8D 31 06  STA ram_0631       ; clear
-C - - - - - 0x01BA76 06:BA66: 8D 7B 06  STA ram_067B       ; clear
-C - - - - - 0x01BA79 06:BA69: 85 29     STA ram_0029       ; clear
-C - - - - - 0x01BA7B 06:BA6B: 85 27     STA ram_0027       ; clear
-C - - - - - 0x01BA7D 06:BA6D: 85 2C     STA v_low_counter  ; clear
-C - - - - - 0x01BA7F 06:BA6F: 85 2D     STA v_high_counter ; clear
-C - - - - - 0x01BA81 06:BA71: 85 3D     STA vStartStatus   ; clear
-C - - - - - 0x01BA83 06:BA73: 85 19     STA ram_0019       ; clear
-C - - - - - 0x01BA85 06:BA75: 85 C8     STA ram_00C8       ; clear
+C - - - - - 0x01BA73 06:BA63: 8D 31 06  STA ram_0631          ; clear
+C - - - - - 0x01BA76 06:BA66: 8D 7B 06  STA vPpuAddrDataCache ; clear
+C - - - - - 0x01BA79 06:BA69: 85 29     STA ram_0029          ; clear
+C - - - - - 0x01BA7B 06:BA6B: 85 27     STA ram_0027          ; clear
+C - - - - - 0x01BA7D 06:BA6D: 85 2C     STA v_low_counter     ; clear
+C - - - - - 0x01BA7F 06:BA6F: 85 2D     STA v_high_counter    ; clear
+C - - - - - 0x01BA81 06:BA71: 85 3D     STA vStartStatus      ; clear
+C - - - - - 0x01BA83 06:BA73: 85 19     STA vRenderActive     ; clear
+C - - - - - 0x01BA85 06:BA75: 85 C8     STA ram_00C8          ; clear
 C - - - - - 0x01BA87 06:BA77: 20 1E C5  JSR $C51E
 bra_BA7A_wait_menu:
-C - - - - - 0x01BA8A 06:BA7A: A5 3D     LDA vStartStatus       ;
-C - - - - - 0x01BA8C 06:BA7C: 10 FC     BPL bra_BA7A_wait_menu ; If Register A != 0b1XXXXXXX
-C - - - - - 0x01BA8E 06:BA7E: 20 13 C3  JSR $C313
-C - - - - - 0x01BA91 06:BA81: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
+C - - - - - 0x01BA8A 06:BA7A: A5 3D     LDA vStartStatus                         ;
+C - - - - - 0x01BA8C 06:BA7C: 10 FC     BPL bra_BA7A_wait_menu                   ; If Register A != 0b1XXXXXXX
+C - - - - - 0x01BA8E 06:BA7E: 20 13 C3  JSR sub_C313_screen_off                  ;
+C - - - - - 0x01BA91 06:BA81: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi ;
 C - - - - - 0x01BA94 06:BA84: A6 24     LDX vMenuDemoIndex
 C - - - - - 0x01BA96 06:BA86: F0 24     BEQ bra_BAAC
 C - - - - - 0x01BA98 06:BA88: E0 04     CPX #$04

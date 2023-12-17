@@ -53,8 +53,8 @@
 |0x32|Breaking platform| B |   | 4 |
 |0x33|   |   |   |   |
 |0x34|   |   |   |   |
-|0x35|   |   |   |   |
-|0x36|   |   |   |   |
-|0x37|   |   |   |   |
-|0x38|   |   |   |   |
+|0x35|Egyptian with bow| A |   | 4 |
+|0x36|Egyptian with a sword| A | ![Egyptian with a sword](../images/bestiary-36.png)  | 4 |
+|0x37|Egyptian with a boomerung| A |   | 4 |
+|0x38|Ninja upside down| A |   | 4 |
 |0x39|   |   |   |   |

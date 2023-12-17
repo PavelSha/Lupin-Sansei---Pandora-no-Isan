@@ -1,5 +1,6 @@
 $000C#vTempCounterC#
 $0010#vTempCounter10#
+$0019#vRenderActive#
 $001C#vBtnPressedInGame#
 $001D#vCopy001C#
 $001E#v_player1_btn_pressed#
@@ -16,6 +17,7 @@ $002D#v_high_counter#
 $0033#v_menu_counter#
 $0034#vMenuCounterTimes#
 $0037#vGameMode#
+$0038#vPauseStatus#
 $003B#vSharedGameStatus#
 $003D#vTempCounter3D#
 $0041#v_npc_message_status#
@@ -26,6 +28,7 @@ $0046#vNoSubLevel#
 $0047#vTempNoSubLevel#
 $004B#vHighViewPortPosX#
 $004C#vTempHighViewPortPosX#
+$0056#vScore#
 $005E#v_no_level#
 $005F#v_chr_live_status#
 $0064#vScreenChrPosX#
@@ -70,6 +73,7 @@ $0205#v_breathing_apparatus_item#
 $0206#v_helium_balloon_item#
 $0207#v_bullet_proof_vest_item#
 $0208#v_ruby_ring#
+$020A#vItemsBlinkTime#
 $0214#vCurrentWeaponStatus#
 $0219#v_array_white_briefcase#
 $0300#vEnemyA#

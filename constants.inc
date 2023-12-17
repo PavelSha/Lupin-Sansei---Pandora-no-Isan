@@ -49,8 +49,10 @@ vTempCounter10                = ram_0010
 v_cache_reg_y                 = ram_0011
 v_temp_check_buttons          = ram_0012 ; There is a variable that stores the checked state of the button
 v_temp_counter12              = ram_0012
-vCacheRam12                   = ram_0012 ; 
+vCacheRam12                   = ram_0012 ;
+vRenderActive                 = ram_0019 ; 0x00 - active, else deactive
 v_sub_AF4D_counter            = ram_001A ; Intermediate counter
+v_loc_CA48_counter            = ram_001A ; Intermediate counter
 vBtnPressedInGame             = ram_001C ; In a level 1-4 or a title screen
 vCopy001C                     = ram_001D
 v_player1_btn_pressed         = ram_001E ; For a contoller1
@@ -433,6 +435,7 @@ v_breathing_apparatus_item    = ram_0205
 v_helium_balloon_item         = ram_0206
 v_bullet_proof_vest_item      = ram_0207
 v_ruby_ring                   = ram_0208
+vItemsBlinkTime               = ram_020A ; 0x020A-0x0212
 vCurrentWeaponStatus          = ram_0214 ; Only the active items
 ; 0x10000000 - the weapons are not exist
 ; 0x01000000 - the weapon is activated
