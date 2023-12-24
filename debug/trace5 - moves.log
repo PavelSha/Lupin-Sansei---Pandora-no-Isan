@@ -113,15 +113,15 @@ $07:DF65: 29 C0     AND #$C0                                     A:20 X:00 Y:1D 
 $07:DF67: F0 23     BEQ $DF8C                                    A:00 X:00 Y:1D S:F5 P:nvUbdIZC 
 $07:DF8C: 60        RTS (from $DF63) ----------------------------A:00 X:00 Y:1D S:F5 P:nvUbdIZC 
 $07:DBBD: A2 14     LDX #$14                                     A:00 X:00 Y:1D S:F7 P:nvUbdIZC 
-(65410 lines skipped)
+
 $07:DB67: 4C 87 DD  JMP $DD87                                    A:01 X:00 Y:1D S:F5 P:nvUbdIzC 
-$07:DD87: A0 00     LDY #$00                                     A:01 X:00 Y:1D S:F5 P:nvUbdIzC 
-$07:DD89: A5 1C     LDA $1C vBtnPressedInGame = #$01             A:01 X:00 Y:00 S:F5 P:nvUbdIZC 
-$07:DD8B: 29 F0     AND #$F0                                     A:01 X:00 Y:00 S:F5 P:nvUbdIzC 
-$07:DD8D: F0 0B     BEQ $DD9A                                    A:00 X:00 Y:00 S:F5 P:nvUbdIZC 
-$07:DD9A: B9 58 E3  LDA $E358,Y @ $E358 = #$06                   A:00 X:00 Y:00 S:F5 P:nvUbdIZC 
-$07:DD9D: 85 6F     STA $6F = #$00                               A:06 X:00 Y:00 S:F5 P:nvUbdIzC 
-$07:DD9F: 84 6E     STY $6E = #$00                               A:06 X:00 Y:00 S:F5 P:nvUbdIzC 
+---COMMENTED! $07:DD87: A0 00     LDY #$00                                     A:01 X:00 Y:1D S:F5 P:nvUbdIzC 
+---COMMENTED! $07:DD89: A5 1C     LDA $1C vBtnPressedInGame = #$01             A:01 X:00 Y:00 S:F5 P:nvUbdIZC 
+---COMMENTED! $07:DD8B: 29 F0     AND #$F0                                     A:01 X:00 Y:00 S:F5 P:nvUbdIzC 
+---COMMENTED! $07:DD8D: F0 0B     BEQ $DD9A                                    A:00 X:00 Y:00 S:F5 P:nvUbdIZC 
+---COMMENTED! $07:DD9A: B9 58 E3  LDA $E358,Y @ $E358 = #$06                   A:00 X:00 Y:00 S:F5 P:nvUbdIZC 
+---COMMENTED! $07:DD9D: 85 6F     STA $6F = #$00                               A:06 X:00 Y:00 S:F5 P:nvUbdIzC 
+---COMMENTED! $07:DD9F: 84 6E     STY $6E = #$00                               A:06 X:00 Y:00 S:F5 P:nvUbdIzC 
 $07:DDA1: A5 6C     LDA $6C = #$01                               A:06 X:00 Y:00 S:F5 P:nvUbdIzC 
 $07:DDA3: 09 10     ORA #$10                                     A:01 X:00 Y:00 S:F5 P:nvUbdIzC 
 $07:DDA5: 85 6C     STA $6C = #$01                               A:11 X:00 Y:00 S:F5 P:nvUbdIzC 

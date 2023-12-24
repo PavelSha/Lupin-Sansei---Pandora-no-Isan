@@ -9,7 +9,12 @@ flowchart TD
     loc_DB44 --> bra_DB52_skip
     bra_DB52_skip --> bra_DB60_skip
     bra_DB60_skip --> bra_DB6A
+    bra_DB60_skip --> loc_DD87_jump_subroutine
+    loc_DD87_jump_subroutine --> loc_DED2
+    loc_DED2 --> loc_DE86
+    loc_DE86 --> loc_DBC2
     bra_DB6A --> bra_DB93_skip
     bra_DB93_skip --> bra_DBB0_skip
     bra_DBB0_skip --> bra_DBEF
+    loc_DBC2 --> loc_E132
     bra_DBEF --> loc_E132

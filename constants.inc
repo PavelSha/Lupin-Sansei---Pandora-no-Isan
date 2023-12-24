@@ -378,6 +378,12 @@ vChrStatus                    = ram_006C ; A status of a character
 ; Z - the character is entering a corridor or hiding place (1 - entering, 0 - no entering)
 ; ...
 vStatusInWater                = ram_006D
+vJumpType                     = ram_006E
+; 0 - simple jump
+; 1 - high jump
+; 2 - jumping off
+; 3 - jump by side
+vJumpCounter                  = ram_006F
 
 vVelocity                     = ram_0071 ; 0x04 - min, 0x0C - max
 

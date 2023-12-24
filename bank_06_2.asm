@@ -2200,7 +2200,7 @@ C - - - - - 0x01AE00 06:ADF0: A5 6D     LDA vStatusInWater
 C - - - - - 0x01AE02 06:ADF2: 09 01     ORA #$01
 C - - - - - 0x01AE04 06:ADF4: 85 6D     STA vStatusInWater
 C - - - - - 0x01AE06 06:ADF6: A9 03     LDA #$03
-C - - - - - 0x01AE08 06:ADF8: 85 6E     STA ram_006E
+C - - - - - 0x01AE08 06:ADF8: 85 6E     STA vJumpType
 C - - - - - 0x01AE0A 06:ADFA: A9 02     LDA #$02
 C - - - - - 0x01AE0C 06:ADFC: 60        RTS
 
