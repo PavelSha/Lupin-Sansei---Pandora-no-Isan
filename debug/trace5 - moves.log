@@ -200,18 +200,18 @@ $07:D386: 05 01     ORA $01 = #$00                               A:00 X:0C Y:0C 
 $07:D388: 60        RTS (from $D36A) ----------------------------A:00 X:0C Y:0C S:F5 P:nvUbdIZc 
 $07:DE49: F0 3B     BEQ $DE86                                    A:00 X:0C Y:0C S:F7 P:nvUbdIZc 
 (3 lines skipped)
-$07:DE8C: 20 8A E7  JSR $E78A                                    A:18 X:0C Y:0C S:F7 P:nvUbdIZC 
-$07:E78A: A5 46     LDA $46 = #$00                               A:18 X:0C Y:0C S:F5 P:nvUbdIZC 
-$07:E78C: D0 37     BNE $E7C5                                    A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
-$07:E78E: 20 46 EF  JSR $EF46 EF46_switch_bank_4_p1_p2           A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
-(7 lines skipped)
-$07:E791: A5 6C     LDA $6C = #$11                               A:08 X:0C Y:0C S:F5 P:nvUbdIzC 
-$07:E793: 29 08     AND #$08                                     A:11 X:0C Y:0C S:F5 P:nvUbdIzC 
-$07:E795: D0 2E     BNE $E7C5                                    A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
-$07:E797: A0 00     LDY #$00                                     A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
-$07:E799: A5 6C     LDA $6C = #$11                               A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
-$07:E79B: 6A        ROR                                          A:11 X:0C Y:00 S:F5 P:nvUbdIzC 
-$07:E79C: B0 02     BCS $E7A0                                    A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
+---COMMENTED! $07:DE8C: 20 8A E7  JSR $E78A                                    A:18 X:0C Y:0C S:F7 P:nvUbdIZC 
+---COMMENTED! $07:E78A: A5 46     LDA $46 = #$00                               A:18 X:0C Y:0C S:F5 P:nvUbdIZC 
+---COMMENTED! $07:E78C: D0 37     BNE $E7C5                                    A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
+---COMMENTED! $07:E78E: 20 46 EF  JSR $EF46 EF46_switch_bank_4_p1_p2           A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
+
+---COMMENTED! $07:E791: A5 6C     LDA $6C = #$11                               A:08 X:0C Y:0C S:F5 P:nvUbdIzC 
+---COMMENTED! $07:E793: 29 08     AND #$08                                     A:11 X:0C Y:0C S:F5 P:nvUbdIzC 
+---COMMENTED! $07:E795: D0 2E     BNE $E7C5                                    A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
+---COMMENTED! $07:E797: A0 00     LDY #$00                                     A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
+---COMMENTED! $07:E799: A5 6C     LDA $6C = #$11                               A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
+---COMMENTED! $07:E79B: 6A        ROR                                          A:11 X:0C Y:00 S:F5 P:nvUbdIzC 
+---COMMENTED! $07:E79C: B0 02     BCS $E7A0                                    A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
 $07:E7A0: B9 CE 85  LDA $85CE,Y @ $85CE = #$88                   A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
 $07:E7A3: 38        SEC                                          A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
 $07:E7A4: E5 66     SBC $66 = #$30                               A:88 X:0C Y:00 S:F5 P:NvUbdIzC 

@@ -172,6 +172,7 @@ vNoSubLevel                   = ram_0046
 ; 0x22 - room with briefcases in level 3
 ; 0x23 - room with briefcases in level 4
 ; ...
+; 0x37 - water room in level 2
 ;
 ; Map 1
 ;
@@ -377,7 +378,10 @@ vChrStatus                    = ram_006C ; A status of a character
 ; W - the character is/isn't jumping (1 - jumping, 0 - no jumping)
 ; Z - the character is entering a corridor or hiding place (1 - entering, 0 - no entering)
 ; ...
-vStatusInWater                = ram_006D
+vMovableChrStatus             = ram_006D
+; Byte: XYZW KLMN
+; Z - the character is moving on the roof pitch (1 - moving, 0 - no moving)
+; ...
 vJumpType                     = ram_006E
 ; 0 - simple jump
 ; 1 - high jump

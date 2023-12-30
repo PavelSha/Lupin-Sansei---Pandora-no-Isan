@@ -9,6 +9,7 @@
 .import tbl_ptr_corridors ; bank 04 (Page 1)
 .import tbl_ptr_destructible_walls ; bank 04 (Page 1)
 .import tbl_room_lengths
+.import tbl_roof_pitches ; bank 04 (Page 1)
 .import number_of_rooms_on_the_level ; bank 04 (Page 2)
 .import tbl_ptr_rooms_on_the_level ; bank 04 (Page 2)
 .import number_of_briefcases_on_the_level ; bank 04 (Page 2)
@@ -32,6 +33,7 @@
 .export sub_EF46_switch_bank_4_p1_p2
 .export sub_EF4F_switch_bank_4_p2
 .export sub_F2D6_try_put_briefcase
+.export sub_D073_invert_sign
 .export sub_D079_check_button_press
 .export sub_D086_render_14_15_16_17_18_v1
 .export sub_C4F5_selectAllChrBanks
@@ -329,7 +331,7 @@ C - - - - - 0x01C224 07:C214: 25 5F     AND v_chr_live_status
 C - - - - - 0x01C226 07:C216: 85 5F     STA v_chr_live_status
 C - - - - - 0x01C228 07:C218: 29 A8     AND #$A8
 C - - - - - 0x01C22A 07:C21A: F0 20     BEQ bra_C23C_skip
-C - - - - - 0x01C22C 07:C21C: 24 6D     BIT vStatusInWater
+C - - - - - 0x01C22C 07:C21C: 24 6D     BIT vMovableChrStatus
 C - - - - - 0x01C22E 07:C21E: 10 0C     BPL bra_C22C_skip
 C - - - - - 0x01C230 07:C220: A5 47     LDA vTempNoSubLevel
 C - - - - - 0x01C232 07:C222: 85 46     STA vNoSubLevel
@@ -440,7 +442,7 @@ C - - - - - 0x01C301 07:C2F1: 90 0B     BCC bra_C2FE_RTS
 C - - - - - 0x01C303 07:C2F3: C9 42     CMP #$42
 C - - - - - 0x01C305 07:C2F5: B0 07     BCS bra_C2FE_RTS
 C - - - - - 0x01C307 07:C2F7: A9 80     LDA #$80
-C - - - - - 0x01C309 07:C2F9: 85 6D     STA vStatusInWater
+C - - - - - 0x01C309 07:C2F9: 85 6D     STA vMovableChrStatus
 C - - - - - 0x01C30B 07:C2FB: 4C DF CC  JMP loc_CCDF
 
 bra_C2FE_RTS:
@@ -1766,7 +1768,7 @@ sub_CB38:
 C - - - - - 0x01CB48 07:CB38: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01CB4A 07:CB3A: 6A        ROR
 C - - - - - 0x01CB4B 07:CB3B: B0 FA     BCS bra_CB37_RTS
-C - - - - - 0x01CB4D 07:CB3D: 24 6D     BIT vStatusInWater
+C - - - - - 0x01CB4D 07:CB3D: 24 6D     BIT vMovableChrStatus
 C - - - - - 0x01CB4F 07:CB3F: 30 F6     BMI bra_CB37_RTS
 C - - - - - 0x01CB51 07:CB41: 70 F4     BVS bra_CB37_RTS
 C - - - - - 0x01CB53 07:CB43: 2C 14 02  BIT vCurrentWeaponStatus
@@ -1814,7 +1816,7 @@ C - - - - - 0x01CB97 07:CB87: 05 00     ORA ram_0000
 C - - - - - 0x01CB99 07:CB89: 8D 14 02  STA vCurrentWeaponStatus
 bra_CB8C:
 sub_CB8C:
-C - - - - - 0x01CB9C 07:CB8C: A5 6D     LDA vStatusInWater
+C - - - - - 0x01CB9C 07:CB8C: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01CB9E 07:CB8E: 30 48     BMI bra_CBD8_RTS
 C - - - - - 0x01CBA0 07:CB90: A5 5F     LDA v_chr_live_status
 C - - - - - 0x01CBA2 07:CB92: 29 03     AND #$03
@@ -1857,7 +1859,7 @@ sub_CBD9:
 C - - - - - 0x01CBE9 07:CBD9: 2C 14 02  BIT vCurrentWeaponStatus
 C - - - - - 0x01CBEC 07:CBDC: 30 4B     BMI bra_CC29_RTS
 C - - - - - 0x01CBEE 07:CBDE: 70 49     BVS bra_CC29_RTS
-C - - - - - 0x01CBF0 07:CBE0: A5 6D     LDA vStatusInWater
+C - - - - - 0x01CBF0 07:CBE0: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01CBF2 07:CBE2: 29 FE     AND #$FE
 C - - - - - 0x01CBF4 07:CBE4: D0 43     BNE bra_CC29_RTS
 C - - - - - 0x01CBF6 07:CBE6: A5 6C     LDA ram_006C
@@ -2022,9 +2024,9 @@ C - - - - - 0x01CCFF 07:CCEF: A9 08     LDA #$08
 C - - - - - 0x01CD01 07:CCF1: 8D B2 06  STA ram_06B2
 C - - - - - 0x01CD04 07:CCF4: A9 00     LDA #$00
 C - - - - - 0x01CD06 07:CCF6: 85 42     STA ram_0042
-C - - - - - 0x01CD08 07:CCF8: A5 6D     LDA vStatusInWater
+C - - - - - 0x01CD08 07:CCF8: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01CD0A 07:CCFA: 09 40     ORA #$40
-C - - - - - 0x01CD0C 07:CCFC: 85 6D     STA vStatusInWater
+C - - - - - 0x01CD0C 07:CCFC: 85 6D     STA vMovableChrStatus
 C - - - - - 0x01CD0E 07:CCFE: A5 6C     LDA ram_006C
 C - - - - - 0x01CD10 07:CD00: 29 81     AND #$81
 C - - - - - 0x01CD12 07:CD02: 85 6C     STA ram_006C
@@ -2100,7 +2102,7 @@ C - - - - - 0x01CD8F 07:CD7F: AD 16 02  LDA ram_0216
 C - - - - - 0x01CD92 07:CD82: D0 26     BNE bra_CDAA
 C - - - - - 0x01CD94 07:CD84: AD 15 02  LDA ram_0215
 C - - - - - 0x01CD97 07:CD87: D0 21     BNE bra_CDAA
-C - - - - - 0x01CD99 07:CD89: 24 6D     BIT vStatusInWater
+C - - - - - 0x01CD99 07:CD89: 24 6D     BIT vMovableChrStatus
 C - - - - - 0x01CD9B 07:CD8B: 30 43     BMI bra_CDD0
 C - - - - - 0x01CD9D 07:CD8D: 70 5E     BVS bra_CDED_RTS
 C - - - - - 0x01CD9F 07:CD8F: 2C 14 02  BIT vCurrentWeaponStatus
@@ -2628,23 +2630,25 @@ C - - - - - 0x01D07E 07:D06E: 69 13     ADC #$13
 C - - - - - 0x01D080 07:D070: 85 35     STA ram_0035
 C - - - - - 0x01D082 07:D072: 60        RTS
 
-sub_D073:
-C - - - - - 0x01D083 07:D073: 49 FF     EOR #$FF
-C - - - - - 0x01D085 07:D075: 18        CLC
-C - - - - - 0x01D086 07:D076: 69 01     ADC #$01
-C - - - - - 0x01D088 07:D078: 60        RTS
+; in: Register A - signed value X
+; out: Register A - signed value -X
+sub_D073_invert_sign:
+C - - - - - 0x01D083 07:D073: 49 FF     EOR #$FF ; see https://www.atariarchives.org/alp/appendix_1.php (LSR Logical Shift Right)
+C - - - - - 0x01D085 07:D075: 18        CLC      ;
+C - - - - - 0x01D086 07:D076: 69 01     ADC #$01 ;
+C - - - - - 0x01D088 07:D078: 60        RTS      ;
 
 ; The accumulator contains a button state
 ; Returns 0 in Register A if the button isn't pressed
 sub_D079_check_button_press: 
-C - - - - - 0x01D089 07:D079: 85 12     STA v_temp_check_buttons
-C - - - - - 0x01D08B 07:D07B: A5 1C     LDA vBtnPressedInGame
-C - - - - - 0x01D08D 07:D07D: 25 12     AND v_temp_check_buttons
-C - - - - - 0x01D08F 07:D07F: F0 04     BEQ bra_D085_RTS ; If the button does not match the expected result
-C - - - - - 0x01D091 07:D081: 45 1D     EOR vCopy001C  ; The double click protection
-C - - - - - 0x01D093 07:D083: 25 12     AND v_temp_check_buttons
+C - - - - - 0x01D089 07:D079: 85 12     STA v_temp_check_buttons ;
+C - - - - - 0x01D08B 07:D07B: A5 1C     LDA vBtnPressedInGame    ;
+C - - - - - 0x01D08D 07:D07D: 25 12     AND v_temp_check_buttons ;
+C - - - - - 0x01D08F 07:D07F: F0 04     BEQ bra_D085_RTS         ; If the button does not match the expected result
+C - - - - - 0x01D091 07:D081: 45 1D     EOR vCopy001C            ; The double click protection
+C - - - - - 0x01D093 07:D083: 25 12     AND v_temp_check_buttons ;
 bra_D085_RTS:
-C - - - - - 0x01D095 07:D085: 60        RTS
+C - - - - - 0x01D095 07:D085: 60        RTS                      ;
 
 ; Params:
 ; 0x12-0x13 - an input address
@@ -3231,7 +3235,7 @@ C - - - - - 0x01D3EF 07:D3DF: A5 01     LDA ram_0001
 C - - - - - 0x01D3F1 07:D3E1: 38        SEC
 C - - - - - 0x01D3F2 07:D3E2: F9 74 03  SBC ram_0374,Y
 C - - - - - 0x01D3F5 07:D3E5: B0 03     BCS bra_D3EA
-C - - - - - 0x01D3F7 07:D3E7: 20 73 D0  JSR sub_D073
+C - - - - - 0x01D3F7 07:D3E7: 20 73 D0  JSR sub_D073_invert_sign
 bra_D3EA:
 C - - - - - 0x01D3FA 07:D3EA: C9 04     CMP #$04
 C - - - - - 0x01D3FC 07:D3EC: 90 05     BCC bra_D3F3
@@ -3475,7 +3479,7 @@ C - - - - - 0x01D58D 07:D57D: 20 57 DF  JSR sub_DF57
 C - - - - - 0x01D590 07:D580: D0 19     BNE bra_D59B
 C - - - - - 0x01D592 07:D582: A9 60     LDA #$60
 C - - - - - 0x01D594 07:D584: 85 2E     STA ram_002E
-C - - - - - 0x01D596 07:D586: A5 6D     LDA vStatusInWater
+C - - - - - 0x01D596 07:D586: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01D598 07:D588: 30 11     BMI bra_D59B
 C - - - - - 0x01D59A 07:D58A: 20 EE CD  JSR sub_CDEE
 C - - - - - 0x01D59D 07:D58D: AD 07 02  LDA v_bullet_proof_vest_item
@@ -3529,7 +3533,7 @@ C D 2 - - - 0x01D5E9 07:D5D9: A5 AD     LDA ram_00AD
 C - - - - - 0x01D5EB 07:D5DB: 38        SEC
 C - - - - - 0x01D5EC 07:D5DC: E5 B1     SBC ram_00B1
 C - - - - - 0x01D5EE 07:D5DE: B0 09     BCS bra_D5E9
-C - - - - - 0x01D5F0 07:D5E0: 20 73 D0  JSR sub_D073
+C - - - - - 0x01D5F0 07:D5E0: 20 73 D0  JSR sub_D073_invert_sign
 C - - - - - 0x01D5F3 07:D5E3: C5 B3     CMP ram_00B3
 C - - - - - 0x01D5F5 07:D5E5: B0 1D     BCS bra_D604_clear_c_rts
 C - - - - - 0x01D5F7 07:D5E7: 90 04     BCC bra_D5ED
@@ -3545,7 +3549,7 @@ C - - - - - 0x01D604 07:D5F4: A5 AE     LDA ram_00AE
 C - - - - - 0x01D606 07:D5F6: 38        SEC
 C - - - - - 0x01D607 07:D5F7: E5 B2     SBC ram_00B2
 C - - - - - 0x01D609 07:D5F9: B0 03     BCS bra_D5FE
-C - - - - - 0x01D60B 07:D5FB: 20 73 D0  JSR sub_D073
+C - - - - - 0x01D60B 07:D5FB: 20 73 D0  JSR sub_D073_invert_sign
 bra_D5FE:
 C - - - - - 0x01D60E 07:D5FE: C5 12     CMP ram_0012
 C - - - - - 0x01D610 07:D600: B0 02     BCS bra_D604_clear_c_rts
@@ -4406,7 +4410,7 @@ C - - - - - 0x01DB0B 07:DAFB: 85 79     STA vChrLandStatus
 C - - - - - 0x01DB0D 07:DAFD: A5 46     LDA ram_0046
 C - - - - - 0x01DB0F 07:DAFF: D0 0C     BNE bra_DB0D
 C - - - - - 0x01DB11 07:DB01: 20 0E E3  JSR sub_E30E
-C - - - - - 0x01DB14 07:DB04: A5 6D     LDA vStatusInWater
+C - - - - - 0x01DB14 07:DB04: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01DB16 07:DB06: 29 20     AND #$20
 C - - - - - 0x01DB18 07:DB08: F0 0A     BEQ bra_DB14_skip
 C - - - - - 0x01DB1A 07:DB0A: 4C 10 E8  JMP loc_E810
@@ -4417,7 +4421,7 @@ C - - - - - 0x01DB1F 07:DB0F: D0 03     BNE bra_DB14_skip
 C - - - - - 0x01DB21 07:DB11: 4C DA E8  JMP loc_E8DA
 
 bra_DB14_skip:
-C - - - - - 0x01DB24 07:DB14: 24 6D     BIT vStatusInWater
+C - - - - - 0x01DB24 07:DB14: 24 6D     BIT vMovableChrStatus
 C - - - - - 0x01DB26 07:DB16: 10 03     BPL bra_DB1B_skip
 C - - - - - 0x01DB28 07:DB18: 4C BB E3  JMP loc_E3BB
 
@@ -4558,7 +4562,7 @@ C - - - - - 0x01DBFF 07:DBEF: AC 14 02  LDY vCurrentWeaponStatus
 C - - - - - 0x01DC02 07:DBF2: A9 40     LDA #$40
 C - - - - - 0x01DC04 07:DBF4: C0 42     CPY #$42          ; CONSTANT - The artillery rifle is activated
 C - - - - - 0x01DC06 07:DBF6: F0 1B     BEQ bra_DC13_skip ; If Register Y == #$42
-C - - - - - 0x01DC08 07:DBF8: 24 6D     BIT vStatusInWater
+C - - - - - 0x01DC08 07:DBF8: 24 6D     BIT vMovableChrStatus
 C - - - - - 0x01DC0A 07:DBFA: 70 28     BVS bra_DC24_skip
 C - - - - - 0x01DC0C 07:DBFC: 30 02     BMI bra_DC00_skip
 C - - - - - 0x01DC0E 07:DBFE: A9 01     LDA #$01
@@ -4968,7 +4972,7 @@ C - - - - - 0x01DE71 07:DE61: A5 1C     LDA ram_001C
 C - - - - - 0x01DE73 07:DE63: 29 20     AND #$20
 C - - - - - 0x01DE75 07:DE65: D0 1F     BNE bra_DE86_skip
 bra_DE67:
-C - - - - - 0x01DE77 07:DE67: A5 6D     LDA vStatusInWater
+C - - - - - 0x01DE77 07:DE67: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01DE79 07:DE69: 29 01     AND #$01
 C - - - - - 0x01DE7B 07:DE6B: D0 03     BNE bra_DE70
 C - - - - - 0x01DE7D 07:DE6D: 20 32 E3  JSR sub_E332
@@ -4987,10 +4991,10 @@ bra_DE83:
 C - - - - - 0x01DE93 07:DE83: 20 5C DF  JSR sub_DF5C
 bra_DE86_skip:
 loc_DE86:
-C D 2 - - - 0x01DE96 07:DE86: A5 6F     LDA ram_006F
-C - - - - - 0x01DE98 07:DE88: C9 18     CMP #$18
-C - - - - - 0x01DE9A 07:DE8A: 90 08     BCC bra_DE94_skip
-C - - - - - 0x01DE9C 07:DE8C: 20 8A E7  JSR sub_E78A
+C D 2 - - - 0x01DE96 07:DE86: A5 6F     LDA vJumpCounter  ;
+C - - - - - 0x01DE98 07:DE88: C9 18     CMP #$18          ; CONSTANT - a maximum amplitude
+C - - - - - 0x01DE9A 07:DE8A: 90 08     BCC bra_DE94_skip ; If vJumpCounter < 0x18
+C - - - - - 0x01DE9C 07:DE8C: 20 8A E7  JSR sub_E78A_has_roof_pitch
 C - - - - - 0x01DE9F 07:DE8F: 90 03     BCC bra_DE94_skip
 C - - - - - 0x01DEA1 07:DE91: 20 5C DF  JSR sub_DF5C
 bra_DE94_skip:
@@ -5396,7 +5400,7 @@ C - - - - - 0x01E105 07:E0F5: 60        RTS
 
 sub_E0F6:
 C - - - - - 0x01E106 07:E0F6: A0 16     LDY #$16
-C - - - - - 0x01E108 07:E0F8: 24 6D     BIT vStatusInWater
+C - - - - - 0x01E108 07:E0F8: 24 6D     BIT vMovableChrStatus
 C - - - - - 0x01E10A 07:E0FA: 30 13     BMI bra_E10F
 C - - - - - 0x01E10C 07:E0FC: A0 10     LDY #$10
 C - - - - - 0x01E10E 07:E0FE: AD 14 02  LDA vCurrentWeaponStatus
@@ -5414,10 +5418,10 @@ C - - - - - 0x01E123 07:E113: 38        SEC
 C - - - - - 0x01E124 07:E114: E5 02     SBC ram_0002
 C - - - - - 0x01E126 07:E116: 95 80     STA ram_0080,X
 C - - - - - 0x01E128 07:E118: A0 18     LDY #$18
-C - - - - - 0x01E12A 07:E11A: 24 6D     BIT vStatusInWater
+C - - - - - 0x01E12A 07:E11A: 24 6D     BIT vMovableChrStatus
 C - - - - - 0x01E12C 07:E11C: 70 11     BVS bra_E12F
 C - - - - - 0x01E12E 07:E11E: A0 16     LDY #$16
-C - - - - - 0x01E130 07:E120: 24 6D     BIT vStatusInWater
+C - - - - - 0x01E130 07:E120: 24 6D     BIT vMovableChrStatus
 C - - - - - 0x01E132 07:E122: 30 0B     BMI bra_E12F
 C - - - - - 0x01E134 07:E124: A0 14     LDY #$14
 C - - - - - 0x01E136 07:E126: AD 14 02  LDA vCurrentWeaponStatus
@@ -6185,7 +6189,7 @@ C - - - - - 0x01E573 07:E563: F0 1C     BEQ bra_E581_RTS
 bra_E565:
 sub_E565:
 loc_E565:
-C D 3 - - - 0x01E575 07:E565: A5 6D     LDA vStatusInWater
+C D 3 - - - 0x01E575 07:E565: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01E577 07:E567: 29 20     AND #$20
 C - - - - - 0x01E579 07:E569: F0 02     BEQ bra_E56D
 C - - - - - 0x01E57B 07:E56B: E6 6A     INC ram_006A
@@ -6223,7 +6227,7 @@ C - - - - - 0x01E5A4 07:E594: 20 E8 E5  JSR sub_E5E8
 C - - - - - 0x01E5A7 07:E597: F0 E8     BEQ bra_E581_RTS
 C - - - - - 0x01E5A9 07:E599: A5 3F     LDA ram_003F
 C - - - - - 0x01E5AB 07:E59B: 85 42     STA ram_0042
-C - - - - - 0x01E5AD 07:E59D: 20 73 D0  JSR sub_D073
+C - - - - - 0x01E5AD 07:E59D: 20 73 D0  JSR sub_D073_invert_sign
 C - - - - - 0x01E5B0 07:E5A0: 4C 36 E5  JMP loc_E536
 
 sub_E5A3:
@@ -6537,81 +6541,82 @@ C - - - - - 0x01E795 07:E785: 29 BF     AND #$BF
 C - - - - - 0x01E797 07:E787: 85 42     STA ram_0042
 C - - - - - 0x01E799 07:E789: 60        RTS
 
-sub_E78A:
-C - - - - - 0x01E79A 07:E78A: A5 46     LDA ram_0046
-C - - - - - 0x01E79C 07:E78C: D0 37     BNE bra_E7C5
-C - - - - - 0x01E79E 07:E78E: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
-C - - - - - 0x01E7A1 07:E791: A5 6C     LDA ram_006C
-C - - - - - 0x01E7A3 07:E793: 29 08     AND #$08
-C - - - - - 0x01E7A5 07:E795: D0 2E     BNE bra_E7C5
-C - - - - - 0x01E7A7 07:E797: A0 00     LDY #$00
-C - - - - - 0x01E7A9 07:E799: A5 6C     LDA ram_006C
-C - - - - - 0x01E7AB 07:E79B: 6A        ROR
-C - - - - - 0x01E7AC 07:E79C: B0 02     BCS bra_E7A0
-C - - - - - 0x01E7AE 07:E79E: A0 2F     LDY #$2F
-bra_E7A0:
-C - - - - - 0x01E7B0 07:E7A0: B9 CE 85  LDA $85CE,Y
-C - - - - - 0x01E7B3 07:E7A3: 38        SEC
-C - - - - - 0x01E7B4 07:E7A4: E5 66     SBC ram_0066
-C - - - - - 0x01E7B6 07:E7A6: 85 01     STA ram_0001
-C - - - - - 0x01E7B8 07:E7A8: B9 CF 85  LDA $85CF,Y
-C - - - - - 0x01E7BB 07:E7AB: E5 68     SBC ram_0068
-C - - - - - 0x01E7BD 07:E7AD: B0 16     BCS bra_E7C5
-C - - - - - 0x01E7BF 07:E7AF: B9 D0 85  LDA $85D0,Y
-C - - - - - 0x01E7C2 07:E7B2: 38        SEC
-C - - - - - 0x01E7C3 07:E7B3: E5 66     SBC ram_0066
-C - - - - - 0x01E7C5 07:E7B5: 85 02     STA ram_0002
-C - - - - - 0x01E7C7 07:E7B7: B9 D1 85  LDA $85D1,Y
-C - - - - - 0x01E7CA 07:E7BA: E5 68     SBC ram_0068
-C - - - - - 0x01E7CC 07:E7BC: B0 0F     BCS bra_E7CD
-C - - - - - 0x01E7CE 07:E7BE: C8        INY
-C - - - - - 0x01E7CF 07:E7BF: C8        INY
-C - - - - - 0x01E7D0 07:E7C0: C8        INY
-C - - - - - 0x01E7D1 07:E7C1: C8        INY
-C - - - - - 0x01E7D2 07:E7C2: C8        INY
-C - - - - - 0x01E7D3 07:E7C3: D0 DB     BNE bra_E7A0
-bra_E7C5:
+; Return the carry status (analog return true or false)
+sub_E78A_has_roof_pitch:
+C - - - - - 0x01E79A 07:E78A: A5 46     LDA vNoSubLevel                  ;
+C - - - - - 0x01E79C 07:E78C: D0 37     BNE bra_E7C5_return_false        ; If vNoSubLevel != 0x00 (i.e. level 1.0)
+C - - - - - 0x01E79E 07:E78E: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2 ;
+C - - - - - 0x01E7A1 07:E791: A5 6C     LDA vChrStatus                   ;  
+C - - - - - 0x01E7A3 07:E793: 29 08     AND #$08                         ; CONSTANT - the character is getting a damage 
+C - - - - - 0x01E7A5 07:E795: D0 2E     BNE bra_E7C5_return_false        ; If the character is getting a damage
+C - - - - - 0x01E7A7 07:E797: A0 00     LDY #$00                         ; set loop counter
+C - - - - - 0x01E7A9 07:E799: A5 6C     LDA vChrStatus                   ;
+C - - - - - 0x01E7AB 07:E79B: 6A        ROR                              ;
+C - - - - - 0x01E7AC 07:E79C: B0 02     BCS @bra_E7A0_loop               ; If the character is looking to the left
+C - - - - - 0x01E7AE 07:E79E: A0 2F     LDY #$2F                         ; set loop counter
+@bra_E7A0_loop:
+C - - - - - 0x01E7B0 07:E7A0: B9 CE 85  LDA tbl_roof_pitches,Y           ; get 1 byte
+C - - - - - 0x01E7B3 07:E7A3: 38        SEC                              ; 
+C - - - - - 0x01E7B4 07:E7A4: E5 66     SBC vLowChrPosX                  ; 
+C - - - - - 0x01E7B6 07:E7A6: 85 01     STA ram_0001                     ; store low x-position relative to the starting screen
+C - - - - - 0x01E7B8 07:E7A8: B9 CF 85  LDA tbl_roof_pitches + 1,Y       ; get 2 byte
+C - - - - - 0x01E7BB 07:E7AB: E5 68     SBC vNoScreen                    ;
+C - - - - - 0x01E7BD 07:E7AD: B0 16     BCS bra_E7C5_return_false        ; If vNoScreen <= start screen-value
+C - - - - - 0x01E7BF 07:E7AF: B9 D0 85  LDA tbl_roof_pitches + 2,Y       ; get 3 byte
+C - - - - - 0x01E7C2 07:E7B2: 38        SEC                              ;
+C - - - - - 0x01E7C3 07:E7B3: E5 66     SBC vLowChrPosX                  ;
+C - - - - - 0x01E7C5 07:E7B5: 85 02     STA ram_0002                     ; store low x-position relative to the ending screen
+C - - - - - 0x01E7C7 07:E7B7: B9 D1 85  LDA tbl_roof_pitches + 3,Y       ; get 4 byte
+C - - - - - 0x01E7CA 07:E7BA: E5 68     SBC vNoScreen                    ;
+C - - - - - 0x01E7CC 07:E7BC: B0 0F     BCS bra_E7CD_skip                ; If vNoScreen <= end screen-value
+C - - - - - 0x01E7CE 07:E7BE: C8        INY                              ; increments y
+C - - - - - 0x01E7CF 07:E7BF: C8        INY                              ; increments y
+C - - - - - 0x01E7D0 07:E7C0: C8        INY                              ; increments y
+C - - - - - 0x01E7D1 07:E7C1: C8        INY                              ; increments y
+C - - - - - 0x01E7D2 07:E7C2: C8        INY                              ; increments y
+C - - - - - 0x01E7D3 07:E7C3: D0 DB     BNE @bra_E7A0_loop               ; If Register Y != 0x00
+bra_E7C5_return_false:
 sub_E7C5:
-C - - - - - 0x01E7D5 07:E7C5: A5 6D     LDA vStatusInWater
-C - - - - - 0x01E7D7 07:E7C7: 29 DF     AND #$DF
-C - - - - - 0x01E7D9 07:E7C9: 85 6D     STA vStatusInWater
-C - - - - - 0x01E7DB 07:E7CB: 18        CLC
-C - - - - - 0x01E7DC 07:E7CC: 60        RTS
+C - - - - - 0x01E7D5 07:E7C5: A5 6D     LDA vMovableChrStatus ;
+C - - - - - 0x01E7D7 07:E7C7: 29 DF     AND #$DF              ; 
+C - - - - - 0x01E7D9 07:E7C9: 85 6D     STA vMovableChrStatus ; reset a flag 'the character is moving on the roof pitch'
+C - - - - - 0x01E7DB 07:E7CB: 18        CLC                   ; return false
+C - - - - - 0x01E7DC 07:E7CC: 60        RTS                   ;
 
-bra_E7CD:
-C - - - - - 0x01E7DD 07:E7CD: A5 6D     LDA vStatusInWater
-C - - - - - 0x01E7DF 07:E7CF: 29 20     AND #$20
-C - - - - - 0x01E7E1 07:E7D1: D0 31     BNE bra_E804
-C - - - - - 0x01E7E3 07:E7D3: B9 D2 85  LDA $85D2,Y
-C - - - - - 0x01E7E6 07:E7D6: 85 03     STA ram_0003
-C - - - - - 0x01E7E8 07:E7D8: A5 6C     LDA ram_006C
-C - - - - - 0x01E7EA 07:E7DA: 6A        ROR
-C - - - - - 0x01E7EB 07:E7DB: B0 07     BCS bra_E7E4
+bra_E7CD_skip:
+C - - - - - 0x01E7DD 07:E7CD: A5 6D     LDA vMovableChrStatus      ;
+C - - - - - 0x01E7DF 07:E7CF: 29 20     AND #$20                   ; CONSTANT - the character is moving on the roof pitch
+C - - - - - 0x01E7E1 07:E7D1: D0 31     BNE bra_E804_return_true   ; If the character is moving on the roof pitch
+C - - - - - 0x01E7E3 07:E7D3: B9 D2 85  LDA tbl_roof_pitches + 4,Y ; get 5 byte
+C - - - - - 0x01E7E6 07:E7D6: 85 03     STA ram_0003               ;
+C - - - - - 0x01E7E8 07:E7D8: A5 6C     LDA vChrStatus             ;
+C - - - - - 0x01E7EA 07:E7DA: 6A        ROR                        ;
+C - - - - - 0x01E7EB 07:E7DB: B0 07     BCS bra_E7E4_skip          ; If the character is looking to the left
 C - - - - - 0x01E7ED 07:E7DD: A5 01     LDA ram_0001
-C - - - - - 0x01E7EF 07:E7DF: 20 73 D0  JSR sub_D073
+C - - - - - 0x01E7EF 07:E7DF: 20 73 D0  JSR sub_D073_invert_sign
 C - - - - - 0x01E7F2 07:E7E2: 85 02     STA ram_0002
-bra_E7E4:
-C - - - - - 0x01E7F4 07:E7E4: A5 6A     LDA ram_006A
+bra_E7E4_skip:
+C - - - - - 0x01E7F4 07:E7E4: A5 6A     LDA vScreenChrPosY
 C - - - - - 0x01E7F6 07:E7E6: 38        SEC
 C - - - - - 0x01E7F7 07:E7E7: E5 03     SBC ram_0003
 C - - - - - 0x01E7F9 07:E7E9: 38        SEC
 C - - - - - 0x01E7FA 07:E7EA: E5 02     SBC ram_0002
-C - - - - - 0x01E7FC 07:E7EC: B0 03     BCS bra_E7F1
-C - - - - - 0x01E7FE 07:E7EE: 20 73 D0  JSR sub_D073
-bra_E7F1:
-C - - - - - 0x01E801 07:E7F1: C9 04     CMP #$04
-C - - - - - 0x01E803 07:E7F3: B0 D0     BCS bra_E7C5
+C - - - - - 0x01E7FC 07:E7EC: B0 03     BCS @bra_E7F1_skip        ; If vScreenChrPosY <= 0x0002 + 0x0003
+C - - - - - 0x01E7FE 07:E7EE: 20 73 D0  JSR sub_D073_invert_sign  ;
+@bra_E7F1_skip:
+C - - - - - 0x01E801 07:E7F1: C9 04     CMP #$04                  ; allowable tolerance
+C - - - - - 0x01E803 07:E7F3: B0 D0     BCS bra_E7C5_return_false ; If |vScreenChrPosY - pitchY| >= 4
 C - - - - - 0x01E805 07:E7F5: A5 03     LDA ram_0003
 C - - - - - 0x01E807 07:E7F7: 18        CLC
 C - - - - - 0x01E808 07:E7F8: 65 02     ADC ram_0002
-C - - - - - 0x01E80A 07:E7FA: 85 6A     STA ram_006A
-C - - - - - 0x01E80C 07:E7FC: A9 20     LDA #$20
-C - - - - - 0x01E80E 07:E7FE: 85 6D     STA vStatusInWater
-C - - - - - 0x01E810 07:E800: A9 00     LDA #$00
-C - - - - - 0x01E812 07:E802: 85 71     STA ram_0071
-bra_E804:
-C - - - - - 0x01E814 07:E804: 38        SEC
-C - - - - - 0x01E815 07:E805: 60        RTS
+C - - - - - 0x01E80A 07:E7FA: 85 6A     STA vScreenChrPosY
+C - - - - - 0x01E80C 07:E7FC: A9 20     LDA #$20                  ; CONSTANT - the character is moving on the roof pitch
+C - - - - - 0x01E80E 07:E7FE: 85 6D     STA vMovableChrStatus     ; 
+C - - - - - 0x01E810 07:E800: A9 00     LDA #$00                  ;
+C - - - - - 0x01E812 07:E802: 85 71     STA vVelocity             ; reset a velocity
+bra_E804_return_true:
+C - - - - - 0x01E814 07:E804: 38        SEC                       ; return true
+C - - - - - 0x01E815 07:E805: 60        RTS                       ;
 
 bra_E806:
 C - - - - - 0x01E816 07:E806: 20 C5 E7  JSR sub_E7C5
@@ -6620,7 +6625,7 @@ C - - - - - 0x01E81B 07:E80B: A0 03     LDY #$03
 C - - - - - 0x01E81D 07:E80D: 4C 9D DD  JMP loc_DD9D
 
 loc_E810:
-C D 3 - - - 0x01E820 07:E810: 20 8A E7  JSR sub_E78A
+C D 3 - - - 0x01E820 07:E810: 20 8A E7  JSR sub_E78A_has_roof_pitch
 C - - - - - 0x01E823 07:E813: 90 F1     BCC bra_E806
 C - - - - - 0x01E825 07:E815: A5 2C     LDA v_low_counter
 C - - - - - 0x01E827 07:E817: 29 01     AND #$01
@@ -6722,9 +6727,9 @@ bra_E8C0:
 C - - - - - 0x01E8D0 07:E8C0: A5 2F     LDA ram_002F
 C - - - - - 0x01E8D2 07:E8C2: D0 11     BNE bra_E8D5
 bra_E8C4:
-C - - - - - 0x01E8D4 07:E8C4: A5 6D     LDA vStatusInWater
+C - - - - - 0x01E8D4 07:E8C4: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01E8D6 07:E8C6: 29 BF     AND #$BF
-C - - - - - 0x01E8D8 07:E8C8: 85 6D     STA vStatusInWater
+C - - - - - 0x01E8D8 07:E8C8: 85 6D     STA vMovableChrStatus
 C - - - - - 0x01E8DA 07:E8CA: 4C 32 E6  JMP loc_E632
 
 bra_E8CD:
@@ -7894,7 +7899,7 @@ C - - - - - 0x01F08C 07:F07C: 10 FB     BPL @bra_F079_loop  ; If Register A < 0x
 C - - - - - 0x01F08E 07:F07E: 60        RTS                 ;
 
 sub_F07F:
-C - - - - - 0x01F08F 07:F07F: A5 6D     LDA vStatusInWater
+C - - - - - 0x01F08F 07:F07F: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01F091 07:F081: 30 25     BMI bra_F0A8_RTS
 C - - - - - 0x01F093 07:F083: A2 00     LDX #$00
 C - - - - - 0x01F095 07:F085: A5 6C     LDA ram_006C
@@ -7919,7 +7924,7 @@ bra_F0A8_RTS:
 C - - - - - 0x01F0B8 07:F0A8: 60        RTS
 
 sub_F0A9:
-C - - - - - 0x01F0B9 07:F0A9: A5 6D     LDA vStatusInWater
+C - - - - - 0x01F0B9 07:F0A9: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01F0BB 07:F0AB: 10 03     BPL bra_F0B0
 C - - - - - 0x01F0BD 07:F0AD: 4C 59 F2  JMP loc_F259
 
@@ -7976,7 +7981,7 @@ C - - - - - 0x01F11D 07:F10D: 8D 15 03  STA vEnemyTimerHigh1 ; clear a high part
 bra_F110:
 C - - - - - 0x01F120 07:F110: 24 3C     BIT ram_003C
 C - - - - - 0x01F122 07:F112: 70 31     BVS bra_F145_RTS
-C - - - - - 0x01F124 07:F114: A5 6D     LDA vStatusInWater
+C - - - - - 0x01F124 07:F114: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01F126 07:F116: 30 0D     BMI bra_F125
 C - - - - - 0x01F128 07:F118: A5 46     LDA ram_0046
 C - - - - - 0x01F12A 07:F11A: C9 19     CMP #$19
@@ -8266,7 +8271,7 @@ C - - - - - 0x01F30F 07:F2FF: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01F311 07:F301: 38        SEC
 C - - - - - 0x01F312 07:F302: E5 27     SBC vLowViewPortPosX
 C - - - - - 0x01F314 07:F304: B0 03     BCS bra_F309_skip
-C - - - - - 0x01F316 07:F306: 20 73 D0  JSR sub_D073
+C - - - - - 0x01F316 07:F306: 20 73 D0  JSR sub_D073_invert_sign
 bra_F309_skip:
 C - - - - - 0x01F319 07:F309: C9 0A     CMP #$0A
 C - - - - - 0x01F31B 07:F30B: B0 E3     BCS bra_F2F0_repeat ; If Register A >= 0x0A
@@ -9155,7 +9160,7 @@ C - - - - - 0x01F95C 07:F94C: B1 BD     LDA (ram_00BD),Y
 C - - - - - 0x01F95E 07:F94E: 38        SEC
 C - - - - - 0x01F95F 07:F94F: E5 66     SBC ram_0066
 C - - - - - 0x01F961 07:F951: B0 03     BCS @bra_F956_skip
-C - - - - - 0x01F963 07:F953: 20 73 D0  JSR sub_D073
+C - - - - - 0x01F963 07:F953: 20 73 D0  JSR sub_D073_invert_sign
 @bra_F956_skip:
 C - - - - - 0x01F966 07:F956: 84 C1     STY ram_00C1
 C - - - - - 0x01F968 07:F958: C6 C1     DEC ram_00C1
@@ -9254,7 +9259,7 @@ C - - - - - 0x01F9FA 07:F9EA: ED BC 03  SBC ram_03BC
 C - - - - - 0x01F9FD 07:F9ED: 85 01     STA ram_0001
 C - - - - - 0x01F9FF 07:F9EF: B0 0B     BCS bra_F9FC
 C - - - - - 0x01FA01 07:F9F1: A5 00     LDA ram_0000
-C - - - - - 0x01FA03 07:F9F3: 20 73 D0  JSR sub_D073
+C - - - - - 0x01FA03 07:F9F3: 20 73 D0  JSR sub_D073_invert_sign
 C - - - - - 0x01FA06 07:F9F6: 85 00     STA ram_0000
 C - - - - - 0x01FA08 07:F9F8: A5 01     LDA ram_0001
 C - - - - - 0x01FA0A 07:F9FA: C9 FF     CMP #$FF

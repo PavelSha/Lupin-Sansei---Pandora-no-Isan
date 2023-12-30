@@ -10,6 +10,7 @@
 .export tbl_ptr_corridors
 .export tbl_ptr_destructible_walls
 .export tbl_room_lengths
+.export tbl_roof_pitches
 
 - - - - - - 0x010010 04:8000: 7B 9D     .word $9D7B
 - D 0 - - - 0x010012 04:8002: 9B 9D     .word $9D9B
@@ -65,8 +66,8 @@ tbl_copyright:
 - D 0 - - - 0x010040 04:8030: 5E        .byte $5E   ; ・
 - D 0 - - - 0x010041 04:8031: 05        .byte $05   ; パ
 - D 0 - - - 0x010042 04:8032: 6C        .byte $6C   ; ン
-- D 0 - - - 0x010043 04:8033: 68        .byte $68   ; <h>
-- D 0 - - - 0x010044 04:8034: 00        .byte $00   ; チ
+- D 0 - - - 0x010043 04:8033: 68        .byte $68   ; チ
+- D 0 - - - 0x010044 04:8034: 00        .byte $00   ;
 - D 0 - - - 0x010045 04:8035: 00        .byte $00   ; 
 - D 0 - - - 0x010046 04:8036: 53        .byte $53   ; T
 - D 0 - - - 0x010047 04:8037: 4C        .byte $4C   ; M
@@ -1186,95 +1187,33 @@ tbl_room_lengths:
 - D 0 - - - 0x0105DB 04:85CB: 00        .byte $00   ; 
 - D 0 - - - 0x0105DC 04:85CC: 00        .byte $00   ; 
 - D 0 - - - 0x0105DD 04:85CD: 00        .byte $00   ; 
-- D 0 - - - 0x0105DE 04:85CE: 88        .byte $88   ; 
-- D 0 - - - 0x0105DF 04:85CF: 03        .byte $03   ; 
-- D 0 - - - 0x0105E0 04:85D0: B0        .byte $B0   ; 
-- D 0 - - - 0x0105E1 04:85D1: 03        .byte $03   ; 
-- D 0 - - - 0x0105E2 04:85D2: 50        .byte $50   ; <P>
-- D 0 - - - 0x0105E3 04:85D3: C8        .byte $C8   ; 
-- D 0 - - - 0x0105E4 04:85D4: 04        .byte $04   ; 
-- D 0 - - - 0x0105E5 04:85D5: 40        .byte $40   ; 
-- D 0 - - - 0x0105E6 04:85D6: 05        .byte $05   ; 
-- - - - - - 0x0105E7 04:85D7: 50        .byte $50   ; <P>
-- D 0 - - - 0x0105E8 04:85D8: C8        .byte $C8   ; 
-- D 0 - - - 0x0105E9 04:85D9: 06        .byte $06   ; 
-- D 0 - - - 0x0105EA 04:85DA: 00        .byte $00   ; 
-- D 0 - - - 0x0105EB 04:85DB: 07        .byte $07   ; 
-- D 0 - - - 0x0105EC 04:85DC: 60        .byte $60   ; 
-- D 0 - - - 0x0105ED 04:85DD: 58        .byte $58   ; <X>
-- D 0 - - - 0x0105EE 04:85DE: 07        .byte $07   ; 
-- D 0 - - - 0x0105EF 04:85DF: A0        .byte $A0   ; 
-- D 0 - - - 0x0105F0 04:85E0: 07        .byte $07   ; 
-- D 0 - - - 0x0105F1 04:85E1: 80        .byte $80   ; 
-- D 0 - - - 0x0105F2 04:85E2: 38        .byte $38   ; <8>
-- D 0 - - - 0x0105F3 04:85E3: 08        .byte $08   ; 
-- D 0 - - - 0x0105F4 04:85E4: 70        .byte $70   ; <p>
-- D 0 - - - 0x0105F5 04:85E5: 08        .byte $08   ; 
-- - - - - - 0x0105F6 04:85E6: 60        .byte $60   ; 
-- D 0 - - - 0x0105F7 04:85E7: 18        .byte $18   ; 
-- D 0 - - - 0x0105F8 04:85E8: 09        .byte $09   ; 
-- D 0 - - - 0x0105F9 04:85E9: 80        .byte $80   ; 
-- D 0 - - - 0x0105FA 04:85EA: 09        .byte $09   ; 
-- D 0 - - - 0x0105FB 04:85EB: 60        .byte $60   ; 
-- D 0 - - - 0x0105FC 04:85EC: 58        .byte $58   ; <X>
-- D 0 - - - 0x0105FD 04:85ED: 0B        .byte $0B   ; 
-- D 0 - - - 0x0105FE 04:85EE: C0        .byte $C0   ; 
-- D 0 - - - 0x0105FF 04:85EF: 0B        .byte $0B   ; 
-- D 0 - - - 0x010600 04:85F0: 50        .byte $50   ; <P>
-- D 0 - - - 0x010601 04:85F1: 08        .byte $08   ; 
-- D 0 - - - 0x010602 04:85F2: 0E        .byte $0E   ; 
-- D 0 - - - 0x010603 04:85F3: 80        .byte $80   ; 
-- D 0 - - - 0x010604 04:85F4: 0E        .byte $0E   ; 
-- D 0 - - - 0x010605 04:85F5: 50        .byte $50   ; <P>
-- D 0 - - - 0x010606 04:85F6: A8        .byte $A8   ; 
-- D 0 - - - 0x010607 04:85F7: 0F        .byte $0F   ; 
-- D 0 - - - 0x010608 04:85F8: D0        .byte $D0   ; 
-- D 0 - - - 0x010609 04:85F9: 0F        .byte $0F   ; 
-- D 0 - - - 0x01060A 04:85FA: 50        .byte $50   ; <P>
-- D 0 - - - 0x01060B 04:85FB: FF        .byte $FF   ; 
-- D 0 - - - 0x01060C 04:85FC: FF        .byte $FF   ; 
-- D 0 - - - 0x01060D 04:85FD: 50        .byte $50   ; <P>
-- D 0 - - - 0x01060E 04:85FE: 04        .byte $04   ; 
-- D 0 - - - 0x01060F 04:85FF: 88        .byte $88   ; 
-- D 0 - - - 0x010610 04:8600: 04        .byte $04   ; 
-- D 0 - - - 0x010611 04:8601: 50        .byte $50   ; <P>
-- D 0 - - - 0x010612 04:8602: 20        .byte $20   ; 
-- D 0 - - - 0x010613 04:8603: 06        .byte $06   ; 
-- D 0 - - - 0x010614 04:8604: 98        .byte $98   ; 
-- D 0 - - - 0x010615 04:8605: 06        .byte $06   ; 
-- D 0 - - - 0x010616 04:8606: 50        .byte $50   ; <P>
-- D 0 - - - 0x010617 04:8607: 30        .byte $30   ; <0>
-- D 0 - - - 0x010618 04:8608: 07        .byte $07   ; 
-- D 0 - - - 0x010619 04:8609: 68        .byte $68   ; <h>
-- D 0 - - - 0x01061A 04:860A: 07        .byte $07   ; 
-- D 0 - - - 0x01061B 04:860B: 60        .byte $60   ; 
-- D 0 - - - 0x01061C 04:860C: 00        .byte $00   ; 
-- D 0 - - - 0x01061D 04:860D: 08        .byte $08   ; 
-- D 0 - - - 0x01061E 04:860E: 48        .byte $48   ; <H>
-- D 0 - - - 0x01061F 04:860F: 08        .byte $08   ; 
-- D 0 - - - 0x010620 04:8610: 80        .byte $80   ; 
-- D 0 - - - 0x010621 04:8611: A0        .byte $A0   ; 
-- D 0 - - - 0x010622 04:8612: 08        .byte $08   ; 
-- D 0 - - - 0x010623 04:8613: D8        .byte $D8   ; 
-- D 0 - - - 0x010624 04:8614: 08        .byte $08   ; 
-- D 0 - - - 0x010625 04:8615: 60        .byte $60   ; 
-- D 0 - - - 0x010626 04:8616: 90        .byte $90   ; 
-- D 0 - - - 0x010627 04:8617: 0A        .byte $0A   ; 
-- D 0 - - - 0x010628 04:8618: F8        .byte $F8   ; 
-- D 0 - - - 0x010629 04:8619: 0A        .byte $0A   ; 
-- D 0 - - - 0x01062A 04:861A: 60        .byte $60   ; 
-- D 0 - - - 0x01062B 04:861B: A0        .byte $A0   ; 
-- D 0 - - - 0x01062C 04:861C: 0C        .byte $0C   ; 
-- D 0 - - - 0x01062D 04:861D: 08        .byte $08   ; 
-- D 0 - - - 0x01062E 04:861E: 0D        .byte $0D   ; 
-- D 0 - - - 0x01062F 04:861F: 50        .byte $50   ; <P>
-- D 0 - - - 0x010630 04:8620: 40        .byte $40   ; 
-- D 0 - - - 0x010631 04:8621: 0F        .byte $0F   ; 
-- D 0 - - - 0x010632 04:8622: 68        .byte $68   ; <h>
-- D 0 - - - 0x010633 04:8623: 0F        .byte $0F   ; 
-- - - - - - 0x010634 04:8624: 50        .byte $50   ; <P>
-- D 0 - - - 0x010635 04:8625: FF        .byte $FF   ; 
-- D 0 - - - 0x010636 04:8626: FF        .byte $FF   ; 
+
+tbl_roof_pitches:
+; 1 byte - the starting x-position in the starting screen
+; 2 byte - the starting number of the screen
+; 3 byte - the ending x-position in the ending screen
+; 4 byte - the ending number of the screen
+; 5 byte - top (minimal) y-position of pitch
+- D 0 - - - 0x0105DE 04:85CE: 88        .byte $88, $03, $B0, $03, $50   ; the left roof pitch 1
+- D 0 - - - 0x0105E3 04:85D3: C8        .byte $C8, $04, $40, $05, $50   ; the left roof pitch 2
+- D 0 - - - 0x0105E8 04:85D8: C8        .byte $C8, $06, $00, $07, $60   ; the left roof pitch 3
+- D 0 - - - 0x0105ED 04:85DD: 58        .byte $58, $07, $A0, $07, $80   ; the left roof pitch 4
+- D 0 - - - 0x0105F2 04:85E2: 38        .byte $38, $08, $70, $08, $60   ; the left roof pitch 5
+- D 0 - - - 0x0105F7 04:85E7: 18        .byte $18, $09, $80, $09, $60   ; the left roof pitch 6
+- D 0 - - - 0x0105FC 04:85EC: 58        .byte $58, $0B, $C0, $0B, $50   ; the left roof pitch 7
+- D 0 - - - 0x010601 04:85F1: 08        .byte $08, $0E, $80, $0E, $50   ; the left roof pitch 8
+- D 0 - - - 0x010606 04:85F6: A8        .byte $A8, $0F, $D0, $0F, $50   ; the left roof pitch 9
+- D 0 - - - 0x01060B 04:85FB: FF        .byte $FF, $FF                  ;
+- D 0 - - - 0x01060D 04:85FD: 50        .byte $50, $04, $88, $04, $50   ; the right roof pitch 1
+- D 0 - - - 0x010612 04:8602: 20        .byte $20, $06, $98, $06, $50   ; the right roof pitch 2
+- D 0 - - - 0x010617 04:8607: 30        .byte $30, $07, $68, $07, $60   ; the right roof pitch 3
+- D 0 - - - 0x01061C 04:860C: 00        .byte $00, $08, $48, $08, $80   ; the right roof pitch 4
+- D 0 - - - 0x010621 04:8611: A0        .byte $A0, $08, $D8, $08, $60   ; the right roof pitch 5
+- D 0 - - - 0x010626 04:8616: 90        .byte $90, $0A, $F8, $0A, $60   ; the right roof pitch 6
+- D 0 - - - 0x01062B 04:861B: A0        .byte $A0, $0C, $08, $0D, $50   ; the right roof pitch 7
+- D 0 - - - 0x010630 04:8620: 40        .byte $40, $0F, $68, $0F, $50   ; the right roof pitch 8
+- D 0 - - - 0x010635 04:8625: FF        .byte $FF, $FF   ; 
+
 - D 0 - - - 0x010637 04:8627: 00        .byte $00   ; 
 - D 0 - - - 0x010638 04:8628: 10        .byte $10   ; 
 - D 0 - - - 0x010639 04:8629: FE        .byte $FE   ; 
