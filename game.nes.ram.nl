@@ -30,7 +30,7 @@ $004B#vHighViewPortPosX#
 $004C#vTempHighViewPortPosX#
 $0056#vScore#
 $005E#v_no_level#
-$005F#v_chr_live_status#
+$005F#vChrLiveStatus#
 $0064#vScreenChrPosX#
 $0065#vTempScreenChrPosX#
 $0066#vLowChrPosX#
@@ -39,7 +39,9 @@ $0068#vNoScreen#
 $0069#vTempNoScreen#
 $006A#vScreenChrPosY#
 $006C#vChrStatus#
-$006D#vStatusInWater#
+$006D#vMovableChrStatus#
+$006E#vJumpType#
+$006F#vJumpCounter#
 $0071#vVelocity#
 $0072#vRifleShotCount#
 $0073#vRifleFireTime#

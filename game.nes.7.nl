@@ -8,6 +8,10 @@ $C00C#@bra_C00C_wait_til_vblank#wait for vblank (1 time)
 $C00F##--NO-COMMENT--
 $C011#@bra_C011_wait_til_vblank#wait for vblank (2 time)
 $C014##--NO-COMMENT--
+$C016##--NO-COMMENT--
+$C018##set a stack pointer
+$C019##--NO-COMMENT--
+$C01B##set loop counter
 $C01C#@bra_C01C_memset_zero#[0x0200-0x02FF] in 0
 $C01F##[0x0300-0x03FF] in 0
 $C022##[0x0400-0x04FF] in 0
@@ -23,12 +27,14 @@ $C036##If Register X != 0x99
 $C03A#@bra_C03A_loop#[0x00A7-0x00FF] in 0
 $C03C##increments loop counter
 $C03D##If Register X != 0
+$C03F##--NO-COMMENT--
 $C042##CONSTANT - Cutscene
 $C044##assign a value
 $C046#loc_C046#--NO-COMMENT--
 $C048##--NO-COMMENT--
 $C04B##--NO-COMMENT--
 $C04D##switch bank 06_2 in 0xA000-0BFFF
+$C050##--NO-COMMENT--
 $C052##clear
 $C054##clear
 $C057##clear
@@ -379,7 +385,7 @@ $C848#bra_C848_RTS#
 $C849#sub_C849#
 $C84B#bra_C84B#
 $C853#sub_C853_activate_selectable_character#--NO-COMMENT--
-$C855##CONSTANT - see info 'v_chr_live_status'
+$C855##CONSTANT - see info 'vChrLiveStatus'
 $C857##--NO-COMMENT--
 $C859##--NO-COMMENT--
 $C85C#sub_C85C#
@@ -773,11 +779,17 @@ $CFD7#bra_CFD7#
 $D05E#sub_accumulator_shift_right_by_5#
 $D05F#sub_accumulator_shift_right_by_4#
 $D064#sub_D064#
-$D073#sub_D073#
-$D079#sub_D079_check_button_press#
+$D073#sub_D073_invert_sign#see https://www.atariarchives.org/alp/appendix_1.php (LSR Logical Shift Right)
+$D075##--NO-COMMENT--
+$D076##--NO-COMMENT--
+$D078##--NO-COMMENT--
+$D079#sub_D079_check_button_press#--NO-COMMENT--
+$D07B##--NO-COMMENT--
+$D07D##--NO-COMMENT--
 $D07F##If the button does not match the expected result
 $D081##The double click protection
-$D085#bra_D085_RTS#
+$D083##--NO-COMMENT--
+$D085#bra_D085_RTS#--NO-COMMENT--
 $D086#sub_D086_render_14_15_16_17_18_v1#
 $D089#sub_D089_render_14_15_16_17_18_v2#Reset PPU Address
 $D08C##--NO-COMMENT--
@@ -1107,6 +1119,7 @@ $DB5D##to loc_B1FB (bank_06_2)
 $DB60#bra_DB60_skip#--NO-COMMENT--
 $DB62##--NO-COMMENT--
 $DB65##Go to the branch If the button 'A' isn't pressed
+$DB67##--NO-COMMENT--
 $DB6A#bra_DB6A#--NO-COMMENT--
 $DB6D##CONSTANT - The rifle is current and activated
 $DB6F##If vCurrentWeaponStatus == 0x42
@@ -1127,27 +1140,60 @@ $DBA5##We stand up the character, he no longer sits
 $DBA7##--NO-COMMENT--
 $DBA9##--NO-COMMENT--
 $DBAB##If the button 'Left' or 'Right' isn't pressed
-$DBB0#bra_DBB0_skip#
+$DBB0#bra_DBB0_skip#--NO-COMMENT--
+$DBB2##Always true
 $DBB4#bra_DBB4_skip#--NO-COMMENT--
 $DBB6##CONSTANT - the character is sitting
 $DBB8##--NO-COMMENT--
-$DBBF#bra_DBBF#
-$DBC2#loc_DBC2#
-$DBCF#bra_DBCF#
-$DBE6#bra_DBE6#
-$DBEF#bra_DBEF#
+$DBBD##the offset of the sprite address
+$DBBF#bra_DBBF_skip#
+$DBC2#loc_DBC2#--NO-COMMENT--
+$DBC4##CONSTANT - the character is getting a damage
+$DBC6##If the character is getting a damage
+$DBC8##--NO-COMMENT--
+$DBC9##store x
+$DBCD##--NO-COMMENT--
+$DBCE##retrieve x (see DBC9)
+$DBCF#bra_DBCF_skip#
+$DBDF##--NO-COMMENT--
+$DBE1##--NO-COMMENT--
+$DBE2##If the character is looking to the right
+$DBE4##--NO-COMMENT--
+$DBE5##increment the offset of the sprite address
+$DBE6#@bra_DBE6_skip#--NO-COMMENT--
+$DBE8##CONSTANT - Goemon
+$DBEA##If the character isn't Goemon
+$DBEF#bra_DBEF_skip#--NO-COMMENT--
+$DBF2##AAA = 0, LLL = 0x01, ?? = 0 (see vCharacterRenderData)
 $DBF4##CONSTANT - The artillery rifle is activated
 $DBF6##If Register Y == #$42
-$DC00#bra_DC00_skip#
+$DBF8##--NO-COMMENT--
+$DBFA##If the character is moving on the balloon
+$DBFC##If the character is moving in the water
+$DBFE##AAA = 1, LLL = 0, ?? = 0x00 (see vCharacterRenderData)
+$DC00#@bra_DC00_skip#--NO-COMMENT--
+$DC02##--NO-COMMENT--
 $DC05#loc_DC05#1 bullet
 $DC07##--NO-COMMENT--
 $DC09##--NO-COMMENT--
 $DC0A##If a current character isn't Jigen
 $DC0C##3 bullets
 $DC0E#@bra_DC0E_skip#--NO-COMMENT--
-$DC13#bra_DC13_skip#
-$DC1A#loc_DC1A#
-$DC24#bra_DC24_skip#
+$DC13#bra_DC13_rifle#--NO-COMMENT--
+$DC15##--NO-COMMENT--
+$DC16##--NO-COMMENT--
+$DC17##--NO-COMMENT--
+$DC19##increment the offset of the sprite address
+$DC1A#loc_DC1A#--NO-COMMENT--
+$DC1D##5 bullets
+$DC1F##--NO-COMMENT--
+$DC24#bra_DC24_balloon#
+$DC26##--NO-COMMENT--
+$DC27##store x
+$DC33##--NO-COMMENT--
+$DC34##--NO-COMMENT--
+$DC35##--NO-COMMENT--
+$DC37##retrieve x + increment
 $DC3B#sub_DC3B#
 $DC4B#bra_DC4B_skip#
 $DC52#loc_DC52#If the button 'Right' is pressed
@@ -1179,9 +1225,11 @@ $DCBB#loc_DCBB#
 $DCD7#sub_DCD7#
 $DCE5#sub_DCE5#
 $DCEC#bra_DCEC#
-$DCF1#sub_DCF1_reset_velocity#
+$DCF1#sub_DCF1_reset_velocity#--NO-COMMENT--
+$DCF3##Always true
 $DCF5##it will never happen
-$DCF7#bra_DCF7_skip#
+$DCF7#@bra_DCF7_skip#--NO-COMMENT--
+$DCF9##--NO-COMMENT--
 $DCFA#loc_DCFA#
 $DD0B#bra_DD0B#
 $DD12#sub_DD12#
@@ -1197,17 +1245,32 @@ $DD5A#sub_DD5A#
 $DD7B#bra_DD7B_RTS#
 $DD7C#sub_DD7C#
 $DD7E#sub_DD7E#
-$DD87#loc_DD87#
-$DD9A#bra_DD9A#
-$DD9D#loc_DD9D#
-$DDBC#bra_DDBC#
-$DDD0#bra_DDD0#
-$DDD6#bra_DDD6#
+$DD87#loc_DD87_jump_subroutine#--NO-COMMENT--
+$DD89##--NO-COMMENT--
+$DD8B##--NO-COMMENT--
+$DD8D##If it was a simple jump
+$DD8F##--NO-COMMENT--
+$DD90##--NO-COMMENT--
+$DD92##If it was a high jump (using Up Button)
+$DD94##--NO-COMMENT--
+$DD95##--NO-COMMENT--
+$DD97##If it was a jump down (using Down Button)
+$DD99##else it was a jump by side
+$DD9A#@bra_DD9A_skip#--NO-COMMENT--
+$DD9D#loc_DD9D#--NO-COMMENT--
+$DD9F##--NO-COMMENT--
+$DDB8##CONSTANT - the character stands on the ground
+$DDBA##--NO-COMMENT--
+$DDBC#@bra_DDBC_skip#
+$DDD0#bra_DDD0_skip#--NO-COMMENT--
+$DDD2##CONSTANT - jump by side
+$DDD4##Branch If it isn't a jump by side
+$DDD6#bra_DDD6_skip#
 $DDDF#bra_DDDF#
-$DDEF#bra_DDEF#
-$DDF2#bra_DDF2#
-$DDF6#bra_DDF6#
-$DE06#loc_DE06#
+$DDEF#bra_DDEF_skip#
+$DDF2#bra_DDF2_skip#
+$DDF6#bra_DDF6_skip#
+$DE06#loc_DE06_skip#
 $DE1A#bra_DE1A#
 $DE1B#bra_DE1B#
 $DE30#bra_DE30#
@@ -1217,10 +1280,20 @@ $DE56#bra_DE56#
 $DE67#bra_DE67#
 $DE70#bra_DE70#
 $DE83#bra_DE83#
-$DE86#loc_DE86#
-$DE94#bra_DE94#
-$DE9E#bra_DE9E#
-$DEA6#bra_DEA6#
+$DE86#loc_DE86#--NO-COMMENT--
+$DE88##CONSTANT - a maximum amplitude
+$DE8A##If vJumpCounter < 0x18
+$DE8C##--NO-COMMENT--
+$DE8F##If it has not a roof pitch
+$DE94#bra_DE94_skip#--NO-COMMENT--
+$DE96##CONSTANT - a maximum jump value
+$DE98##--NO-COMMENT--
+$DE9A##If 0x2F >= vJumpCounter, i.e. less than maximum
+$DE9C##--NO-COMMENT--
+$DE9E#@bra_DE9E_skip#--NO-COMMENT--
+$DEA0##CONSTANT - the character is getting a damage
+$DEA2##If the character isn't getting a damage
+$DEA6#@bra_DEA6_skip#
 $DEA9#loc_DEA9#
 $DEC6#bra_DEC6#
 $DECD#bra_DECD#
@@ -1257,7 +1330,11 @@ $E013#loc_E013#
 $E01F#bra_E01F#
 $E035#bra_E035_RTS#
 $E036#tbl_E036#
-$E04C#sub_E04C#
+$E04C#sub_E04C#--NO-COMMENT--
+$E04E##--NO-COMMENT--
+$E051##Go to the branch If the button 'B' isn't pressed (shot a gun)
+$E053##--NO-COMMENT--
+$E055##If the character is in the air
 $E06C#bra_E06C#
 $E07C#bra_E07C#
 $E083#bra_E083_RTS#
@@ -1315,7 +1392,7 @@ $E325#bra_E325#
 $E332#sub_E332#
 $E33E#bra_E33E#
 $E348#tbl_E348#
-$E358#tbl_E358#
+$E358#tbl_E358_init_counter#
 $E35D#tbl_E35D#
 $E38D#tbl_E38D#
 $E38E#tbl_E38E#
@@ -1410,13 +1487,72 @@ $E762#bra_E762#
 $E775#bra_E775#
 $E778#sub_E778#
 $E783#sub_E783#
-$E78A#sub_E78A#
-$E7A0#bra_E7A0#
-$E7C5#sub_E7C5#
-$E7CD#bra_E7CD#
-$E7E4#bra_E7E4#
-$E7F1#bra_E7F1#
-$E804#bra_E804#
+$E78A#sub_E78A_has_roof_pitch#--NO-COMMENT--
+$E78C##If vNoSubLevel != 0x00 (i.e. level 1.0)
+$E78E##--NO-COMMENT--
+$E791##--NO-COMMENT--
+$E793##CONSTANT - the character is getting a damage 
+$E795##If the character is getting a damage
+$E797##set loop counter
+$E799##--NO-COMMENT--
+$E79B##--NO-COMMENT--
+$E79C##If the character is looking to the left
+$E79E##set loop counter
+$E7A0#@bra_E7A0_loop#get 1 byte
+$E7A3##--NO-COMMENT--
+$E7A4##--NO-COMMENT--
+$E7A6##store low x-position relative to the starting screen
+$E7A8##get 2 byte
+$E7AB##--NO-COMMENT--
+$E7AD##If vNoScreen <= start screen-value
+$E7AF##get 3 byte
+$E7B2##--NO-COMMENT--
+$E7B3##--NO-COMMENT--
+$E7B5##store low x-position relative to the ending screen
+$E7B7##get 4 byte
+$E7BA##--NO-COMMENT--
+$E7BC##If vNoScreen <= end screen-value
+$E7BE##increments y
+$E7BF##increments y
+$E7C0##increments y
+$E7C1##increments y
+$E7C2##increments y
+$E7C3##If Register Y != 0x00
+$E7C5#sub_E7C5#--NO-COMMENT--
+$E7C7##--NO-COMMENT--
+$E7C9##reset a flag 'the character is moving on the roof pitch'
+$E7CB##return false
+$E7CC##--NO-COMMENT--
+$E7CD#bra_E7CD_skip#--NO-COMMENT--
+$E7CF##CONSTANT - the character is moving on the roof pitch
+$E7D1##If the character is moving on the roof pitch
+$E7D3##get 5 byte
+$E7D6##--NO-COMMENT--
+$E7D8##--NO-COMMENT--
+$E7DA##--NO-COMMENT--
+$E7DB##If the character is looking to the left
+$E7DD##--NO-COMMENT--
+$E7DF##--NO-COMMENT--
+$E7E2##get an distance to the top point along the Y axis
+$E7E4#bra_E7E4_skip#--NO-COMMENT--
+$E7E6##--NO-COMMENT--
+$E7E7##0x0003 + 0x0002 = top - leg of a right triangle
+$E7E9##--NO-COMMENT--
+$E7EA##--NO-COMMENT--
+$E7EC##If vScreenChrPosY <= 0x0002 + 0x0003
+$E7EE##--NO-COMMENT--
+$E7F1#@bra_E7F1_skip#allowable tolerance
+$E7F3##If |vScreenChrPosY - pitchY| >= 4
+$E7F5##--NO-COMMENT--
+$E7F7##--NO-COMMENT--
+$E7F8##--NO-COMMENT--
+$E7FA##put a leg of a right triangle
+$E7FC##CONSTANT - the character is moving on the roof pitch
+$E7FE##--NO-COMMENT--
+$E800##--NO-COMMENT--
+$E802##reset a velocity
+$E804#bra_E804_return_true#return true
+$E805##--NO-COMMENT--
 $E806#bra_E806#
 $E810#loc_E810#
 $E820#bra_E820#
@@ -2011,10 +2147,39 @@ $FD26##Egyptian with a sword (level 4) (0x36) Type A
 $FD28##Egyptian with a boomerung (level 4) (0x37) Type A
 $FD2A##Ninja upside down (level 4) (0x38) Type A
 $FD2C##Sensor (level 4) (0x39) Type B
-$FDFB#sub_FDFB#
-$FE0D#bra_FE0D_repeat#
+$FDFB#sub_FDFB_crc_test#
+$FE01#bra_FE01#
+$FE0A##store A
+$FE0B##set loop counter 
+$FE0D#@bra_FE0D_loop#
+$FE10##store control flags
+$FE15##retrieve control flags (from 0xFE10)
+$FE1E##decrement y 
+$FE1F##If Register Y != 0
+$FE21##retrieve a (from 0xFE0A)
+$FE46#sub_FE46#
+$FE4B#bra_FE4B#
+$FE50#sub_FE50#
 $FE67#bra_FE67_RTS#
+$FE68#sub_FE68#
+$FE72#sub_FE72#
+$FE81#bra_FE81#
+$FE86#bra_FE86#
+$FEAD#bra_FEAD#
+$FEC2#loc_FEC2#
+$FEDA#bra_FEDA#
+$FEDD#sub_FEDD#
+$FEE2#bra_FEE2#
+$FEE7#bra_FEE7#
+$FF18#sub_FF18#
+$FF21#bra_FF21_RTS#
+$FF22#sub_FF22#
+$FF29#sub_FF29#
+$FF30#sub_FF30#
+$FF35#@bra_FF35_loop#
+$FF55#sub_FF55#
 $FFA0#tbl_FFA0#
+$FFE0#tbl_FFE0#
 $FFF0#sub_FFF0#
 $FFF6##The set of the features
 $FFF7##not used ???

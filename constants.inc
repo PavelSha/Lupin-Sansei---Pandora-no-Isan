@@ -122,7 +122,7 @@ v_npc_message_status          = ram_0041
 vCurrentNumberSprite          = ram_0043
 v_copy_current_number_sprite  = ram_0044
 vCharacterRenderData          = ram_0045
-; Byte: ??LLLAAA
+; Byte: LLL??AAA
 ; AAA - the OAM-attributes
 ; LLL - the high part of address (0%10000LLL), e.i. [0x8000 - 0x8300]
 
@@ -354,7 +354,7 @@ v_no_level                    = ram_005E ; It is a number of a level than it sta
 ; 0x01 - level 2
 ; 0x02 - level 3
 ; 0x03 - level 4 + racing
-v_chr_live_status             = ram_005F
+vChrLiveStatus                = ram_005F
 ; Byte: XYZW KLMN
 ; MN - the current selected character (0x00 - Lupin, 0x01 - Jigen, 0x10 - Goemon)
 ; X - Goemon fell (0 - true)
@@ -381,6 +381,8 @@ vChrStatus                    = ram_006C ; A status of a character
 vMovableChrStatus             = ram_006D
 ; Byte: XYZW KLMN
 ; Z - the character is moving on the roof pitch (1 - moving, 0 - no moving)
+; Y - the character is moving on the balloon (1 - moving, 0 - no moving)
+; X - the character is moving in the water (1 - moving, 0 - no moving)
 ; ...
 vJumpType                     = ram_006E
 ; 0 - simple jump

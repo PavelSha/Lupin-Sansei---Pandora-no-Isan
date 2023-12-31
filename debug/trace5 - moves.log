@@ -212,18 +212,18 @@ $07:DE49: F0 3B     BEQ $DE86                                    A:00 X:0C Y:0C 
 ---COMMENTED! $07:E799: A5 6C     LDA $6C = #$11                               A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
 ---COMMENTED! $07:E79B: 6A        ROR                                          A:11 X:0C Y:00 S:F5 P:nvUbdIzC 
 ---COMMENTED! $07:E79C: B0 02     BCS $E7A0                                    A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
-$07:E7A0: B9 CE 85  LDA $85CE,Y @ $85CE = #$88                   A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
-$07:E7A3: 38        SEC                                          A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
-$07:E7A4: E5 66     SBC $66 = #$30                               A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
-$07:E7A6: 85 01     STA $01 = #$00                               A:58 X:0C Y:00 S:F5 P:nVUbdIzC 
-$07:E7A8: B9 CF 85  LDA $85CF,Y @ $85CF = #$03                   A:58 X:0C Y:00 S:F5 P:nVUbdIzC 
-$07:E7AB: E5 68     SBC $68 = #$00                               A:03 X:0C Y:00 S:F5 P:nVUbdIzC 
-$07:E7AD: B0 16     BCS $E7C5                                    A:03 X:0C Y:00 S:F5 P:nvUbdIzC 
-$07:E7C5: A5 6D     LDA $6D = #$00                               A:03 X:0C Y:00 S:F5 P:nvUbdIzC 
-$07:E7C7: 29 DF     AND #$DF                                     A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
-$07:E7C9: 85 6D     STA $6D = #$00                               A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
-$07:E7CB: 18        CLC                                          A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
-$07:E7CC: 60        RTS (from $E78A) ----------------------------A:00 X:0C Y:00 S:F5 P:nvUbdIZc 
+---COMMENTED! $07:E7A0: B9 CE 85  LDA $85CE,Y @ $85CE = #$88                   A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
+---COMMENTED! $07:E7A3: 38        SEC                                          A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
+---COMMENTED! $07:E7A4: E5 66     SBC $66 = #$30                               A:88 X:0C Y:00 S:F5 P:NvUbdIzC 
+---COMMENTED! $07:E7A6: 85 01     STA $01 = #$00                               A:58 X:0C Y:00 S:F5 P:nVUbdIzC 
+---COMMENTED! $07:E7A8: B9 CF 85  LDA $85CF,Y @ $85CF = #$03                   A:58 X:0C Y:00 S:F5 P:nVUbdIzC 
+---COMMENTED! $07:E7AB: E5 68     SBC $68 = #$00                               A:03 X:0C Y:00 S:F5 P:nVUbdIzC 
+---COMMENTED! $07:E7AD: B0 16     BCS $E7C5                                    A:03 X:0C Y:00 S:F5 P:nvUbdIzC 
+---COMMENTED! $07:E7C5: A5 6D     LDA $6D = #$00                               A:03 X:0C Y:00 S:F5 P:nvUbdIzC 
+---COMMENTED! $07:E7C7: 29 DF     AND #$DF                                     A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
+---COMMENTED! $07:E7C9: 85 6D     STA $6D = #$00                               A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
+---COMMENTED! $07:E7CB: 18        CLC                                          A:00 X:0C Y:00 S:F5 P:nvUbdIZC 
+---COMMENTED! $07:E7CC: 60        RTS (from $E78A) ----------------------------A:00 X:0C Y:00 S:F5 P:nvUbdIZc 
 $07:DE8F: 90 03     BCC $DE94                                    A:00 X:0C Y:00 S:F7 P:nvUbdIZc 
 (102558 lines skipped)
 $07:DE4B: C9 02     CMP #$02                                     A:01 X:0C Y:1D S:F5 P:nvUbdIzC 

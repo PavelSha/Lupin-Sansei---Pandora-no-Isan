@@ -15,6 +15,12 @@ flowchart TD
     loc_DE86 --> loc_DBC2
     bra_DB6A --> bra_DB93_skip
     bra_DB93_skip --> bra_DBB0_skip
-    bra_DBB0_skip --> bra_DBEF
-    loc_DBC2 --> loc_E132
-    bra_DBEF --> loc_E132
+    bra_DBB0_skip --> bra_DBEF_skip
+    bra_DBB0_skip --> loc_DBC2
+    loc_DBC2 --> bra_DBEF_skip
+    bra_DBEF_skip --> bra_DC13_rifle
+    bra_DBEF_skip --> bra_DC24_balloon
+    bra_DC24_balloon --> loc_DC1A
+    bra_DBEF_skip --> loc_E132
+    bra_DC13_rifle --> loc_DC1A
+    loc_DC1A --> loc_E132

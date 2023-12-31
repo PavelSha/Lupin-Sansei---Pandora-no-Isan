@@ -66,24 +66,24 @@ C - - - - - 0x01C038 07:C028: 9D 00 06  STA vCachePalette,X       ; [0x0600-0x06
 C - - - - - 0x01C03B 07:C02B: 9D 00 07  STA vStartOAM,X           ; [0x0700-0x07FF] in 0
 C - - - - - 0x01C03E 07:C02E: E8        INX                       ; increment counter x
 C - - - - - 0x01C03F 07:C02F: D0 EB     BNE @bra_C01C_memset_zero ;
-@bra_C031_loop:                                              ; loop by x
-C - - - - - 0x01C041 07:C031: 95 00     STA ram_0000,X       ; [0x0000-0x0098] in 0
-C - - - - - 0x01C043 07:C033: E8        INX                  ; increment counter x 
-C - - - - - 0x01C044 07:C034: E0 99     CPX #$99             ;
-C - - - - - 0x01C046 07:C036: 90 F9     BCC @bra_C031_loop   ; If Register X != 0x99
-C - - - - - 0x01C048 07:C038: A2 A7     LDX #$A7
-@bra_C03A_loop:                                              ; loop by x
-C - - - - - 0x01C04A 07:C03A: 95 00     STA ram_0000,X       ; [0x00A7-0x00FF] in 0
-C - - - - - 0x01C04C 07:C03C: E8        INX                  ; increments loop counter
-C - - - - - 0x01C04D 07:C03D: D0 FB     BNE @bra_C03A_loop   ; If Register X != 0
-C - - - - - 0x01C04F 07:C03F: 20 FB FD  JSR sub_FDFB_crc_test ;
-C - - - - - 0x01C052 07:C042: A9 FF     LDA #$FF              ; CONSTANT - Cutscene
-C - - - - - 0x01C054 07:C044: 85 37     STA vGameMode         ; assign a value
+@bra_C031_loop:                                                   ; loop by x
+C - - - - - 0x01C041 07:C031: 95 00     STA ram_0000,X            ; [0x0000-0x0098] in 0
+C - - - - - 0x01C043 07:C033: E8        INX                       ; increment counter x 
+C - - - - - 0x01C044 07:C034: E0 99     CPX #$99                  ;
+C - - - - - 0x01C046 07:C036: 90 F9     BCC @bra_C031_loop        ; If Register X != 0x99
+C - - - - - 0x01C048 07:C038: A2 A7     LDX #$A7                  ; set loop counter
+@bra_C03A_loop:                                                   ; loop by x
+C - - - - - 0x01C04A 07:C03A: 95 00     STA ram_0000,X            ; [0x00A7-0x00FF] in 0
+C - - - - - 0x01C04C 07:C03C: E8        INX                       ; increments loop counter
+C - - - - - 0x01C04D 07:C03D: D0 FB     BNE @bra_C03A_loop        ; If Register X != 0
+C - - - - - 0x01C04F 07:C03F: 20 FB FD  JSR sub_FDFB_crc_test     ;
+C - - - - - 0x01C052 07:C042: A9 FF     LDA #$FF                  ; CONSTANT - Cutscene
+C - - - - - 0x01C054 07:C044: 85 37     STA vGameMode             ; assign a value
 loc_C046:
-C D 2 - - - 0x01C056 07:C046: A9 07     LDA #$07             ;
-C - - - - - 0x01C058 07:C048: 8D 00 80  STA MMC3_Bank_select ;
-C - - - - - 0x01C05B 07:C04B: A9 0D     LDA #$0D             ;
-C - - - - - 0x01C05D 07:C04D: 8D 01 80  STA MMC3_Bank_data   ; switch bank 06_2 in 0xA000-0BFFF
+C D 2 - - - 0x01C056 07:C046: A9 07     LDA #$07                  ;
+C - - - - - 0x01C058 07:C048: 8D 00 80  STA MMC3_Bank_select      ;
+C - - - - - 0x01C05B 07:C04B: A9 0D     LDA #$0D                  ;
+C - - - - - 0x01C05D 07:C04D: 8D 01 80  STA MMC3_Bank_data        ; switch bank 06_2 in 0xA000-0BFFF
 C - - - - - 0x01C060 07:C050: A2 00     LDX #$00                  ;
 C - - - - - 0x01C062 07:C052: 86 19     STX vRenderActive         ; clear
 C - - - - - 0x01C064 07:C054: 8E 10 40  STX DMC_FREQ              ; clear
@@ -107,10 +107,10 @@ C - - - - - 0x01C088 07:C078: 86 30     STX ram_0030              ; clear
 C - - - - - 0x01C08A 07:C07A: 86 31     STX ram_0031              ; clear
 C - - - - - 0x01C08C 07:C07C: 86 32     STX ram_0032              ; clear
 C - - - - - 0x01C08E 07:C07E: 86 33     STX v_menu_counter        ; clear
-C - - - - - 0x01C090 07:C080: A9 40     LDA #$40
-C - - - - - 0x01C092 07:C082: 8D 17 40  STA JOY2
-C - - - - - 0x01C095 07:C085: A9 FC     LDA #$FC
-C - - - - - 0x01C097 07:C087: 85 5F     STA v_chr_live_status
+C - - - - - 0x01C090 07:C080: A9 40     LDA #$40                  ;
+C - - - - - 0x01C092 07:C082: 8D 17 40  STA JOY2                  ; set apu frame counter - 4-step mode, the interrupts are disabled
+C - - - - - 0x01C095 07:C085: A9 FC     LDA #$FC                  ;
+C - - - - - 0x01C097 07:C087: 85 5F     STA vChrLiveStatus        ; clear (see vChrLiveStatus) 
 C - - - - - 0x01C099 07:C089: 20 D4 C8  JSR sub_C8D4_check_Yoshikawa ;
 C - - - - - 0x01C09C 07:C08C: 20 C7 B8  JSR $B8C7 ; to sub_B8C7 (bank 06_2)
 C - - - - - 0x01C09F 07:C08F: 20 DA B9  JSR $B9DA ; to sub_B9DA (bank 06_2)
@@ -270,10 +270,10 @@ bra_C1AF:
 loc_C1B1:
 C D 2 - - - 0x01C1C1 07:C1B1: A9 00     LDA #$00
 C - - - - - 0x01C1C3 07:C1B3: 85 D6     STA ram_00D6
-C - - - - - 0x01C1C5 07:C1B5: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01C1C5 07:C1B5: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01C1C7 07:C1B7: 85 D4     STA ram_00D4
 C - - - - - 0x01C1C9 07:C1B9: A9 FC     LDA #$FC
-C - - - - - 0x01C1CB 07:C1BB: 85 5F     STA v_chr_live_status
+C - - - - - 0x01C1CB 07:C1BB: 85 5F     STA vChrLiveStatus
 C - - - - - 0x01C1CD 07:C1BD: 20 72 C6  JSR sub_C672
 C - - - - - 0x01C1D0 07:C1C0: 20 A5 EF  JSR sub_EFA5
 bra_C1C3:
@@ -327,8 +327,8 @@ C - - - - - 0x01C21F 07:C20F: 2A        ROL
 C - - - - - 0x01C220 07:C210: 2A        ROL
 C - - - - - 0x01C221 07:C211: 88        DEY
 C - - - - - 0x01C222 07:C212: 10 FB     BPL bra_C20F
-C - - - - - 0x01C224 07:C214: 25 5F     AND v_chr_live_status
-C - - - - - 0x01C226 07:C216: 85 5F     STA v_chr_live_status
+C - - - - - 0x01C224 07:C214: 25 5F     AND vChrLiveStatus
+C - - - - - 0x01C226 07:C216: 85 5F     STA vChrLiveStatus
 C - - - - - 0x01C228 07:C218: 29 A8     AND #$A8
 C - - - - - 0x01C22A 07:C21A: F0 20     BEQ bra_C23C_skip
 C - - - - - 0x01C22C 07:C21C: 24 6D     BIT vMovableChrStatus
@@ -1004,7 +1004,7 @@ C - - - - - 0x01C6A9 07:C699: 8D 31 06  STA ram_0631
 C - - - - - 0x01C6AC 07:C69C: 8D 7B 06  STA vPpuAddrDataCache ; empty cache
 C - - - - - 0x01C6AF 07:C69F: 85 3D     STA ram_003D
 C - - - - - 0x01C6B1 07:C6A1: AA        TAX
-C - - - - - 0x01C6B2 07:C6A2: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01C6B2 07:C6A2: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01C6B4 07:C6A4: 6A        ROR
 C - - - - - 0x01C6B5 07:C6A5: 6A        ROR
 @bra_C6A6_loop:
@@ -1055,7 +1055,7 @@ bra_C6E8:
 C - - - - - 0x01C6F8 07:C6E8: A5 1A     LDA ram_001A
 C - - - - - 0x01C6FA 07:C6EA: 0A        ASL
 C - - - - - 0x01C6FB 07:C6EB: A8        TAY
-C - - - - - 0x01C6FC 07:C6EC: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01C6FC 07:C6EC: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01C6FE 07:C6EE: 85 D4     STA ram_00D4
 C - - - - - 0x01C700 07:C6F0: 20 7B C7  JSR sub_C77B
 C - - - - - 0x01C703 07:C6F3: F0 07     BEQ bra_C6FC
@@ -1068,7 +1068,7 @@ C - - - - - 0x01C709 07:C6F9: 4C 1F C7  JMP loc_C71F
 bra_C6FC:
 C - - - - - 0x01C70C 07:C6FC: A5 D6     LDA ram_00D6
 C - - - - - 0x01C70E 07:C6FE: 10 1F     BPL bra_C71F
-C - - - - - 0x01C710 07:C700: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01C710 07:C700: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01C712 07:C702: 29 03     AND #$03
 C - - - - - 0x01C714 07:C704: 85 00     STA ram_0000
 C - - - - - 0x01C716 07:C706: A5 1A     LDA ram_001A
@@ -1227,18 +1227,18 @@ C - - - - - 0x01C810 07:C800: 20 32 C8  JSR sub_C832_gun_sprite_magic
 bra_C803_skip:
 C D 2 - - - 0x01C813 07:C803: A9 4F     LDA #$4F      ; Y-position for Lupin
 C - - - - - 0x01C815 07:C805: 85 00     STA ram_0000  ;
-C - - - - - 0x01C817 07:C807: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01C817 07:C807: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01C819 07:C809: 4A        LSR           ; accumulator_shift_right_by_2
 C - - - - - 0x01C81A 07:C80A: 4A        LSR           ;
 C - - - - - 0x01C81B 07:C80B: 20 24 C8  JSR sub_C824
 C - - - - - 0x01C81E 07:C80E: A9 8F     LDA #$8F      ; Y-position for Jigen
 C - - - - - 0x01C820 07:C810: 85 00     STA ram_0000  ;
-C - - - - - 0x01C822 07:C812: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01C822 07:C812: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01C824 07:C814: 20 5F D0  JSR sub_accumulator_shift_right_by_4
 C - - - - - 0x01C827 07:C817: 20 24 C8  JSR sub_C824
 C - - - - - 0x01C82A 07:C81A: A9 CF     LDA #$CF      ; Y-position for Goemon
 C - - - - - 0x01C82C 07:C81C: 85 00     STA ram_0000  ;
-C - - - - - 0x01C82E 07:C81E: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01C82E 07:C81E: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01C830 07:C820: 20 5E D0  JSR sub_accumulator_shift_right_by_5
 C - - - - - 0x01C833 07:C823: 4A        LSR           ; + 1 shift = shift right by 6
 sub_C824:
@@ -1268,7 +1268,7 @@ bra_C848_RTS:
 C - - - - - 0x01C858 07:C848: 60        RTS
 
 sub_C849:
-C - - - - - 0x01C859 07:C849: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01C859 07:C849: A5 5F     LDA vChrLiveStatus
 bra_C84B:
 C - - - - - 0x01C85B 07:C84B: 4A        LSR
 C - - - - - 0x01C85C 07:C84C: 4A        LSR
@@ -1278,10 +1278,10 @@ C - - - - - 0x01C860 07:C850: 29 03     AND #$03
 C - - - - - 0x01C862 07:C852: 60        RTS
 
 sub_C853_activate_selectable_character:
-C - - - - - 0x01C863 07:C853: A5 5F     LDA v_chr_live_status   ;
-C - - - - - 0x01C865 07:C855: 29 FC     AND #$FC                ; CONSTANT - see info 'v_chr_live_status'
+C - - - - - 0x01C863 07:C853: A5 5F     LDA vChrLiveStatus      ;
+C - - - - - 0x01C865 07:C855: 29 FC     AND #$FC                ; CONSTANT - see info 'vChrLiveStatus'
 C - - - - - 0x01C867 07:C857: 05 AD     ORA vIndexSelectableChr ;
-C - - - - - 0x01C869 07:C859: 85 5F     STA v_chr_live_status   ;
+C - - - - - 0x01C869 07:C859: 85 5F     STA vChrLiveStatus      ;
 C - - - - - 0x01C86B 07:C85B: 60        RTS
 
 sub_C85C:
@@ -1754,7 +1754,7 @@ tbl_CB20:
 sub_CB29:
 C - - - - - 0x01CB39 07:CB29: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CB3C 07:CB2C: F0 08     BEQ bra_CB36
-C - - - - - 0x01CB3E 07:CB2E: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01CB3E 07:CB2E: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01CB40 07:CB30: 29 03     AND #$03
 C - - - - - 0x01CB42 07:CB32: F0 02     BEQ bra_CB36
 - - - - - - 0x01CB44 07:CB34: 38        .byte $38
@@ -1818,7 +1818,7 @@ bra_CB8C:
 sub_CB8C:
 C - - - - - 0x01CB9C 07:CB8C: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01CB9E 07:CB8E: 30 48     BMI bra_CBD8_RTS
-C - - - - - 0x01CBA0 07:CB90: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01CBA0 07:CB90: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01CBA2 07:CB92: 29 03     AND #$03
 C - - - - - 0x01CBA4 07:CB94: F0 0D     BEQ bra_CBA3
 C - - - - - 0x01CBA6 07:CB96: AD 00 02  LDA v_radio_item
@@ -2236,7 +2236,7 @@ C - - - - - 0x01CE67 07:CE57: 68        PLA
 C - - - - - 0x01CE68 07:CE58: A8        TAY ; retrieve y
 C - - - - - 0x01CE69 07:CE59: 60        RTS
 
-; In: Register X - the offset of the sprite address
+; in: Register X - the offset of the sprite address [0x80XX-0x83XX]
 ; in: 0x0000 - vScreenChrPosY with increment
 sub_CE5A_render_character:
 loc_CE5A_render_character:
@@ -2248,54 +2248,54 @@ C - - - - - 0x01CE72 07:CE62: 8D 00 80  STA MMC3_Bank_select     ;
 C - - - - - 0x01CE75 07:CE65: A9 0A     LDA #$0A                 ;
 C - - - - - 0x01CE77 07:CE67: 8D 01 80  STA MMC3_Bank_data       ; switch bank 05 in 0x8000-0x9FFF
 C - - - - - 0x01CE7A 07:CE6A: A5 45     LDA vCharacterRenderData ;
-C - - - - - 0x01CE7C 07:CE6C: 48        PHA               ;
-C - - - - - 0x01CE7D 07:CE6D: 29 03     AND #$03          ;
-C - - - - - 0x01CE7F 07:CE6F: 85 0C     STA vTempCounterC ; get the part of the attributes
-C - - - - - 0x01CE81 07:CE71: 68        PLA          ;
-C - - - - - 0x01CE82 07:CE72: 2A        ROL          ;
-C - - - - - 0x01CE83 07:CE73: 2A        ROL          ;
-C - - - - - 0x01CE84 07:CE74: 2A        ROL          ; get the part of the address
-C - - - - - 0x01CE85 07:CE75: 29 03     AND #$03     ;
-C - - - - - 0x01CE87 07:CE77: 09 80     ORA #$80     ;
-C - - - - - 0x01CE89 07:CE79: 85 05     STA ram_0005 ; a high byte address [0x80-0x83]
-C - - - - - 0x01CE8B 07:CE7B: A9 00     LDA #$00     ;
-C - - - - - 0x01CE8D 07:CE7D: 85 04     STA ram_0004 ; a low byte address
-C - - - - - 0x01CE8F 07:CE7F: 8A        TXA          ; shift by x
-C - - - - - 0x01CE90 07:CE80: A8        TAY          ;
-C - - - - - 0x01CE91 07:CE81: B1 04     LDA (ram_0004),Y ;
-C - - - - - 0x01CE93 07:CE83: 85 02     STA ram_0002     ; Assinged a high byte address
-C - - - - - 0x01CE95 07:CE85: C8        INY              ;
-C - - - - - 0x01CE96 07:CE86: B1 04     LDA (ram_0004),Y ;
-C - - - - - 0x01CE98 07:CE88: 85 03     STA ram_0003     ; Assinged a low byte address
+C - - - - - 0x01CE7C 07:CE6C: 48        PHA                      ;
+C - - - - - 0x01CE7D 07:CE6D: 29 03     AND #$03                 ;
+C - - - - - 0x01CE7F 07:CE6F: 85 0C     STA vTempCounterC        ; get the part of the attributes
+C - - - - - 0x01CE81 07:CE71: 68        PLA                      ;
+C - - - - - 0x01CE82 07:CE72: 2A        ROL                      ;
+C - - - - - 0x01CE83 07:CE73: 2A        ROL                      ;
+C - - - - - 0x01CE84 07:CE74: 2A        ROL                      ; get the part of the address
+C - - - - - 0x01CE85 07:CE75: 29 03     AND #$03                 ;
+C - - - - - 0x01CE87 07:CE77: 09 80     ORA #$80                 ;
+C - - - - - 0x01CE89 07:CE79: 85 05     STA ram_0005             ; a high byte address [0x80-0x83]
+C - - - - - 0x01CE8B 07:CE7B: A9 00     LDA #$00                 ;
+C - - - - - 0x01CE8D 07:CE7D: 85 04     STA ram_0004             ; a low byte address
+C - - - - - 0x01CE8F 07:CE7F: 8A        TXA                      ; shift by x
+C - - - - - 0x01CE90 07:CE80: A8        TAY                      ;
+C - - - - - 0x01CE91 07:CE81: B1 04     LDA (ram_0004),Y         ;
+C - - - - - 0x01CE93 07:CE83: 85 02     STA ram_0002             ; Assinged a high byte address
+C - - - - - 0x01CE95 07:CE85: C8        INY                      ;
+C - - - - - 0x01CE96 07:CE86: B1 04     LDA (ram_0004),Y         ;
+C - - - - - 0x01CE98 07:CE88: 85 03     STA ram_0003             ; Assinged a low byte address
 C - - - - - 0x01CE9A 07:CE8A: A6 43     LDX vCurrentNumberSprite ; Offset of the entire OAM
-C - - - - - 0x01CE9C 07:CE8C: E0 FF     CPX #$FF           ;
-C - - - - - 0x01CE9E 07:CE8E: F0 5C     BEQ bra_CEEC_end   ; If the count of the sprites is overflow
-C - - - - - 0x01CEA0 07:CE90: A0 00     LDY #$00           ;
-C - - - - - 0x01CEA2 07:CE92: B1 02     LDA (ram_0002),Y   ; get a tile count
-C - - - - - 0x01CEA4 07:CE94: 85 05     STA v_CE5A_counter ; set loop counter
-C - - - - - 0x01CEA6 07:CE96: F0 54     BEQ bra_CEEC_end   ; If v_CE5A_counter == 0x00
-C - - - - - 0x01CEA8 07:CE98: C8        INY                ; y == 1, the position of first tile-byte
+C - - - - - 0x01CE9C 07:CE8C: E0 FF     CPX #$FF                 ;
+C - - - - - 0x01CE9E 07:CE8E: F0 5C     BEQ bra_CEEC_end         ; If the count of the sprites is overflow
+C - - - - - 0x01CEA0 07:CE90: A0 00     LDY #$00                 ;
+C - - - - - 0x01CEA2 07:CE92: B1 02     LDA (ram_0002),Y         ; get a tile count
+C - - - - - 0x01CEA4 07:CE94: 85 05     STA v_CE5A_counter       ; set loop counter
+C - - - - - 0x01CEA6 07:CE96: F0 54     BEQ bra_CEEC_end         ; If v_CE5A_counter == 0x00
+C - - - - - 0x01CEA8 07:CE98: C8        INY                      ; y == 1, the position of first tile-byte
 loc_CE99:
-bra_CE99_loop:                                       ; loop by v_CE5A_counter
-C D 2 - - - 0x01CEA9 07:CE99: A9 00     LDA #$00     ;
-C - - - - - 0x01CEAB 07:CE9B: 85 04     STA ram_0004 ; clear
+bra_CE99_loop:                                                   ; loop by v_CE5A_counter
+C D 2 - - - 0x01CEA9 07:CE99: A9 00     LDA #$00                 ;
+C - - - - - 0x01CEAB 07:CE9B: 85 04     STA ram_0004             ; clear
 C - - - - - 0x01CEAD 07:CE9D: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CEAF 07:CE9F: 10 02     BPL bra_CEA3_skip ; If Register A < 0xF0
-C - - - - - 0x01CEB1 07:CEA1: C6 04     DEC ram_0004      ; 0x00 -> 0xFF
+C - - - - - 0x01CEAF 07:CE9F: 10 02     BPL bra_CEA3_skip        ; If Register A < 0xF0
+C - - - - - 0x01CEB1 07:CEA1: C6 04     DEC ram_0004             ; 0x00 -> 0xFF
 bra_CEA3_skip:
-C - - - - - 0x01CEB3 07:CEA3: 18        CLC                  ;
-C - - - - - 0x01CEB4 07:CEA4: 65 00     ADC ram_0000         ;
-C - - - - - 0x01CEB6 07:CEA6: 9D 00 07  STA vStartOAM,X      ; set Y-position
+C - - - - - 0x01CEB3 07:CEA3: 18        CLC                      ;
+C - - - - - 0x01CEB4 07:CEA4: 65 00     ADC ram_0000             ;
+C - - - - - 0x01CEB6 07:CEA6: 9D 00 07  STA vStartOAM,X          ; set Y-position
 C - - - - - 0x01CEB9 07:CEA9: A5 04     LDA ram_0004
 C - - - - - 0x01CEBB 07:CEAB: 65 08     ADC ram_0008
-C - - - - - 0x01CEBD 07:CEAD: D0 40     BNE bra_CEEF_skip    ; If Register A != 0x00
-C - - - - - 0x01CEBF 07:CEAF: C8        INY                  ; Changes to the second byte (Tile index number)
-C - - - - - 0x01CEC0 07:CEB0: B1 02     LDA (ram_0002),Y     ;
-C - - - - - 0x01CEC2 07:CEB2: 9D 01 07  STA vStartOAM_2b,X   ; set the tile number sprite
-C - - - - - 0x01CEC5 07:CEB5: C8        INY                  ; Changes to the third byte (Attributes)
-C - - - - - 0x01CEC6 07:CEB6: B1 02     LDA (ram_0002),Y     ;
-C - - - - - 0x01CEC8 07:CEB8: 05 0C     ORA vTempCounterC    ; add attributes from outside
-C - - - - - 0x01CECA 07:CEBA: 9D 02 07  STA vStartOAM_3b,X   ; set the attributes
+C - - - - - 0x01CEBD 07:CEAD: D0 40     BNE bra_CEEF_skip        ; If Register A != 0x00
+C - - - - - 0x01CEBF 07:CEAF: C8        INY                      ; Changes to the second byte (Tile index number)
+C - - - - - 0x01CEC0 07:CEB0: B1 02     LDA (ram_0002),Y         ;
+C - - - - - 0x01CEC2 07:CEB2: 9D 01 07  STA vStartOAM_2b,X       ; set the tile number sprite
+C - - - - - 0x01CEC5 07:CEB5: C8        INY                      ; Changes to the third byte (Attributes)
+C - - - - - 0x01CEC6 07:CEB6: B1 02     LDA (ram_0002),Y         ;
+C - - - - - 0x01CEC8 07:CEB8: 05 0C     ORA vTempCounterC        ; add attributes from outside
+C - - - - - 0x01CECA 07:CEBA: 9D 02 07  STA vStartOAM_3b,X       ; set the attributes
 C - - - - - 0x01CECD 07:CEBD: C8        INY
 C - - - - - 0x01CECE 07:CEBE: A9 00     LDA #$00
 C - - - - - 0x01CED0 07:CEC0: 85 04     STA ram_0004
@@ -4518,60 +4518,62 @@ C - - - - - 0x01DBBB 07:DBAB: F0 03     BEQ bra_DBB0_skip             ; If the b
 C - - - - - 0x01DBBD 07:DBAD: 4C 52 DC  JMP loc_DC52
 
 bra_DBB0_skip:
-C - - - - - 0x01DBC0 07:DBB0: A2 00     LDX #$00
-C - - - - - 0x01DBC2 07:DBB2: F0 0B     BEQ bra_DBBF
+C - - - - - 0x01DBC0 07:DBB0: A2 00     LDX #$00          ;   
+C - - - - - 0x01DBC2 07:DBB2: F0 0B     BEQ bra_DBBF_skip ; Always true
 bra_DBB4_skip:
-C - - - - - 0x01DBC4 07:DBB4: A5 6C     LDA vChrStatus ;
-C - - - - - 0x01DBC6 07:DBB6: 09 02     ORA #$02       ; CONSTANT - the character is sitting
-C - - - - - 0x01DBC8 07:DBB8: 85 6C     STA vChrStatus ; 
+C - - - - - 0x01DBC4 07:DBB4: A5 6C     LDA vChrStatus    ;
+C - - - - - 0x01DBC6 07:DBB6: 09 02     ORA #$02          ; CONSTANT - the character is sitting
+C - - - - - 0x01DBC8 07:DBB8: 85 6C     STA vChrStatus    ; 
 C - - - - - 0x01DBCA 07:DBBA: 20 63 DF  JSR sub_DF63
-C - - - - - 0x01DBCD 07:DBBD: A2 14     LDX #$14
-bra_DBBF:
+C - - - - - 0x01DBCD 07:DBBD: A2 14     LDX #$14          ; the offset of the sprite address
+bra_DBBF_skip:
 C - - - - - 0x01DBCF 07:DBBF: 20 F1 DC  JSR sub_DCF1_reset_velocity
+; in: Register X - the offset of the sprite address
 loc_DBC2:
-C D 2 - - - 0x01DBD2 07:DBC2: A5 6C     LDA ram_006C
-C - - - - - 0x01DBD4 07:DBC4: 29 08     AND #$08
-C - - - - - 0x01DBD6 07:DBC6: D0 07     BNE bra_DBCF
-C - - - - - 0x01DBD8 07:DBC8: 8A        TXA
-C - - - - - 0x01DBD9 07:DBC9: 48        PHA
+C D 2 - - - 0x01DBD2 07:DBC2: A5 6C     LDA vChrStatus    ;
+C - - - - - 0x01DBD4 07:DBC4: 29 08     AND #$08          ; CONSTANT - the character is getting a damage
+C - - - - - 0x01DBD6 07:DBC6: D0 07     BNE bra_DBCF_skip ; If the character is getting a damage
+C - - - - - 0x01DBD8 07:DBC8: 8A        TXA               ;
+C - - - - - 0x01DBD9 07:DBC9: 48        PHA               ; store x
 C - - - - - 0x01DBDA 07:DBCA: 20 4C E0  JSR sub_E04C
-C - - - - - 0x01DBDD 07:DBCD: 68        PLA
-C - - - - - 0x01DBDE 07:DBCE: AA        TAX
-bra_DBCF:
-C - - - - - 0x01DBDF 07:DBCF: A5 6A     LDA ram_006A
+C - - - - - 0x01DBDD 07:DBCD: 68        PLA               ;
+C - - - - - 0x01DBDE 07:DBCE: AA        TAX               ; retrieve x (see DBC9)
+bra_DBCF_skip:
+C - - - - - 0x01DBDF 07:DBCF: A5 6A     LDA vScreenChrPosY
 C - - - - - 0x01DBE1 07:DBD1: 85 00     STA ram_0000
 C - - - - - 0x01DBE3 07:DBD3: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01DBE5 07:DBD5: 85 01     STA ram_0001
-C - - - - - 0x01DBE7 07:DBD7: A5 6C     LDA ram_006C
+C - - - - - 0x01DBE7 07:DBD7: A5 6C     LDA vChrStatus
 C - - - - - 0x01DBE9 07:DBD9: 29 70     AND #$70
 C - - - - - 0x01DBEB 07:DBDB: C9 20     CMP #$20
-C - - - - - 0x01DBED 07:DBDD: F0 07     BEQ bra_DBE6
-C - - - - - 0x01DBEF 07:DBDF: A5 6C     LDA ram_006C
-C - - - - - 0x01DBF1 07:DBE1: 6A        ROR
-C - - - - - 0x01DBF2 07:DBE2: 90 02     BCC bra_DBE6
-C - - - - - 0x01DBF4 07:DBE4: E8        INX
-C - - - - - 0x01DBF5 07:DBE5: E8        INX
-bra_DBE6:
-C - - - - - 0x01DBF6 07:DBE6: A5 5F     LDA v_chr_live_status
-C - - - - - 0x01DBF8 07:DBE8: 29 02     AND #$02
-C - - - - - 0x01DBFA 07:DBEA: F0 03     BEQ bra_DBEF
+C - - - - - 0x01DBED 07:DBDD: F0 07     BEQ @bra_DBE6_skip
+C - - - - - 0x01DBEF 07:DBDF: A5 6C     LDA vChrStatus     ; 
+C - - - - - 0x01DBF1 07:DBE1: 6A        ROR                ; 
+C - - - - - 0x01DBF2 07:DBE2: 90 02     BCC @bra_DBE6_skip ; If the character is looking to the right
+C - - - - - 0x01DBF4 07:DBE4: E8        INX                ;
+C - - - - - 0x01DBF5 07:DBE5: E8        INX                ; increment the offset of the sprite address
+@bra_DBE6_skip:
+C - - - - - 0x01DBF6 07:DBE6: A5 5F     LDA vChrLiveStatus ;
+C - - - - - 0x01DBF8 07:DBE8: 29 02     AND #$02           ; CONSTANT - Goemon
+C - - - - - 0x01DBFA 07:DBEA: F0 03     BEQ bra_DBEF_skip  ; If the character isn't Goemon
 C - - - - - 0x01DBFC 07:DBEC: 4C 1C E2  JMP loc_E21C
 
-bra_DBEF:
-C - - - - - 0x01DBFF 07:DBEF: AC 14 02  LDY vCurrentWeaponStatus
-C - - - - - 0x01DC02 07:DBF2: A9 40     LDA #$40
-C - - - - - 0x01DC04 07:DBF4: C0 42     CPY #$42          ; CONSTANT - The artillery rifle is activated
-C - - - - - 0x01DC06 07:DBF6: F0 1B     BEQ bra_DC13_skip ; If Register Y == #$42
-C - - - - - 0x01DC08 07:DBF8: 24 6D     BIT vMovableChrStatus
-C - - - - - 0x01DC0A 07:DBFA: 70 28     BVS bra_DC24_skip
-C - - - - - 0x01DC0C 07:DBFC: 30 02     BMI bra_DC00_skip
-C - - - - - 0x01DC0E 07:DBFE: A9 01     LDA #$01
-bra_DC00_skip:
-C - - - - - 0x01DC10 07:DC00: 85 45     STA vCharacterRenderData
-C - - - - - 0x01DC12 07:DC02: 20 5A CE  JSR sub_CE5A_render_character
+; in: Register X - the offset of the sprite address
+bra_DBEF_skip:
+C - - - - - 0x01DBFF 07:DBEF: AC 14 02  LDY vCurrentWeaponStatus ;
+C - - - - - 0x01DC02 07:DBF2: A9 40     LDA #$40                 ; AAA = 0, LLL = 0x01, ?? = 0 (see vCharacterRenderData)
+C - - - - - 0x01DC04 07:DBF4: C0 42     CPY #$42                 ; CONSTANT - The artillery rifle is activated
+C - - - - - 0x01DC06 07:DBF6: F0 1B     BEQ bra_DC13_rifle       ; If Register Y == #$42
+C - - - - - 0x01DC08 07:DBF8: 24 6D     BIT vMovableChrStatus    ;
+C - - - - - 0x01DC0A 07:DBFA: 70 28     BVS bra_DC24_balloon     ; If the character is moving on the balloon
+C - - - - - 0x01DC0C 07:DBFC: 30 02     BMI @bra_DC00_skip       ; If the character is moving in the water
+C - - - - - 0x01DC0E 07:DBFE: A9 01     LDA #$01                 ; AAA = 1, LLL = 0, ?? = 0x00 (see vCharacterRenderData)
+@bra_DC00_skip:
+C - - - - - 0x01DC10 07:DC00: 85 45     STA vCharacterRenderData      ;
+C - - - - - 0x01DC12 07:DC02: 20 5A CE  JSR sub_CE5A_render_character ;
 loc_DC05:
 C D 2 - - - 0x01DC15 07:DC05: A2 00     LDX #$00              ; 1 bullet
-C - - - - - 0x01DC17 07:DC07: A5 5F     LDA v_chr_live_status ;
+C - - - - - 0x01DC17 07:DC07: A5 5F     LDA vChrLiveStatus    ;
 C - - - - - 0x01DC19 07:DC09: 6A        ROR                   ;
 C - - - - - 0x01DC1A 07:DC0A: 90 02     BCC @bra_DC0E_skip    ; If a current character isn't Jigen
 C - - - - - 0x01DC1C 07:DC0C: A2 02     LDX #$02              ; 3 bullets
@@ -4579,31 +4581,31 @@ C - - - - - 0x01DC1C 07:DC0C: A2 02     LDX #$02              ; 3 bullets
 C - - - - - 0x01DC1E 07:DC0E: 86 7A     STX vBulletCount      ;
 C - - - - - 0x01DC20 07:DC10: 4C 32 E1  JMP loc_E132
 
-bra_DC13_skip:
-C - - - - - 0x01DC23 07:DC13: 85 45     STA vCharacterRenderData
-C - - - - - 0x01DC25 07:DC15: 8A        TXA
-C - - - - - 0x01DC26 07:DC16: 18        CLC
-C - - - - - 0x01DC27 07:DC17: 69 3A     ADC #$3A
-C - - - - - 0x01DC29 07:DC19: AA        TAX
+bra_DC13_rifle:
+C - - - - - 0x01DC23 07:DC13: 85 45     STA vCharacterRenderData ;
+C - - - - - 0x01DC25 07:DC15: 8A        TXA                      ;
+C - - - - - 0x01DC26 07:DC16: 18        CLC                      ;
+C - - - - - 0x01DC27 07:DC17: 69 3A     ADC #$3A                 ; 
+C - - - - - 0x01DC29 07:DC19: AA        TAX                      ; increment the offset of the sprite address
 loc_DC1A:
-C D 2 - - - 0x01DC2A 07:DC1A: 20 5A CE  JSR sub_CE5A_render_character
-C - - - - - 0x01DC2D 07:DC1D: A2 04     LDX #$04
-C - - - - - 0x01DC2F 07:DC1F: 86 7A     STX vBulletCount
+C D 2 - - - 0x01DC2A 07:DC1A: 20 5A CE  JSR sub_CE5A_render_character ;
+C - - - - - 0x01DC2D 07:DC1D: A2 04     LDX #$04                      ; 5 bullets
+C - - - - - 0x01DC2F 07:DC1F: 86 7A     STX vBulletCount              ; 
 C - - - - - 0x01DC31 07:DC21: 4C 32 E1  JMP loc_E132
 
-bra_DC24_skip:
+bra_DC24_balloon:
 C - - - - - 0x01DC34 07:DC24: 85 45     STA vCharacterRenderData
-C - - - - - 0x01DC36 07:DC26: 8A        TXA
-C - - - - - 0x01DC37 07:DC27: 48        PHA
+C - - - - - 0x01DC36 07:DC26: 8A        TXA                      ;
+C - - - - - 0x01DC37 07:DC27: 48        PHA                      ; store x
 C - - - - - 0x01DC38 07:DC28: 20 3B DC  JSR sub_DC3B
-C - - - - - 0x01DC3B 07:DC2B: A5 6A     LDA ram_006A
+C - - - - - 0x01DC3B 07:DC2B: A5 6A     LDA vScreenChrPosY
 C - - - - - 0x01DC3D 07:DC2D: 85 00     STA ram_0000
 C - - - - - 0x01DC3F 07:DC2F: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01DC41 07:DC31: 85 01     STA ram_0001
-C - - - - - 0x01DC43 07:DC33: 68        PLA
-C - - - - - 0x01DC44 07:DC34: 18        CLC
-C - - - - - 0x01DC45 07:DC35: 69 52     ADC #$52
-C - - - - - 0x01DC47 07:DC37: AA        TAX
+C - - - - - 0x01DC43 07:DC33: 68        PLA                      ;
+C - - - - - 0x01DC44 07:DC34: 18        CLC                      ;
+C - - - - - 0x01DC45 07:DC35: 69 52     ADC #$52                 ;
+C - - - - - 0x01DC47 07:DC37: AA        TAX                      ; retrieve x + increment
 C - - - - - 0x01DC48 07:DC38: 4C 1A DC  JMP loc_DC1A
 
 sub_DC3B:
@@ -4623,10 +4625,10 @@ C - - - - - 0x01DC5F 07:DC4F: 4C 5A CE  JMP loc_CE5A_render_character
 
 loc_DC52:
 C D 2 - - - 0x01DC62 07:DC52: 30 1E     BMI bra_DC72_skip ; If the button 'Right' is pressed
-C - - - - - 0x01DC64 07:DC54: A5 6C     LDA vChrStatus  ;
+C - - - - - 0x01DC64 07:DC54: A5 6C     LDA vChrStatus    ;
 C - - - - - 0x01DC66 07:DC56: 6A        ROR               ;  
 C - - - - - 0x01DC67 07:DC57: B0 05     BCS bra_DC5E_skip ; If vChrStatus is changed yet
-C - - - - - 0x01DC69 07:DC59: E6 6C     INC vChrStatus  ; Changes a status to 'left'
+C - - - - - 0x01DC69 07:DC59: E6 6C     INC vChrStatus    ; Changes a status to 'left'
 C - - - - - 0x01DC6B 07:DC5B: 20 F1 DC  JSR sub_DCF1_reset_velocity
 bra_DC5E_skip:
 C - - - - - 0x01DC6E 07:DC5E: 20 B1 DC  JSR sub_DCB1
@@ -4644,10 +4646,10 @@ tbl_DC6F:
 - D 2 - - - 0x01DC81 07:DC71: 0C        .byte $0C
 
 bra_DC72_skip:
-C - - - - - 0x01DC82 07:DC72: A5 6C     LDA vChrStatus  ;
+C - - - - - 0x01DC82 07:DC72: A5 6C     LDA vChrStatus    ;
 C - - - - - 0x01DC84 07:DC74: 6A        ROR               ;
 C - - - - - 0x01DC85 07:DC75: 90 05     BCC bra_DC7C_skip ;
-C - - - - - 0x01DC87 07:DC77: C6 6C     DEC vChrStatus  ; Changes a status to 'right'
+C - - - - - 0x01DC87 07:DC77: C6 6C     DEC vChrStatus    ; Changes a status to 'right'
 C D 2 - - - 0x01DC89 07:DC79: 20 F1 DC  JSR sub_DCF1_reset_velocity
 bra_DC7C_skip:
 C - - - - - 0x01DC8C 07:DC7C: 20 E5 DC  JSR sub_DCE5
@@ -4737,12 +4739,12 @@ C - - - - - 0x01DCFE 07:DCEE: 4C 34 E5  JMP loc_E534
 
 bra_DCF1_reset_velocity:
 sub_DCF1_reset_velocity:
-C - - - - - 0x01DD01 07:DCF1: A9 04     LDA #$04
-C - - - - - 0x01DD03 07:DCF3: D0 02     BNE bra_DCF7_skip
-- - - - - - 0x01DD05 07:DCF5: A9 00     LDA #$00     ; it will never happen
-bra_DCF7_skip:
-C - - - - - 0x01DD07 07:DCF7: 85 71     STA vVelocity
-C - - - - - 0x01DD09 07:DCF9: 60        RTS
+C - - - - - 0x01DD01 07:DCF1: A9 04     LDA #$04           ;
+C - - - - - 0x01DD03 07:DCF3: D0 02     BNE @bra_DCF7_skip ; Always true
+- - - - - - 0x01DD05 07:DCF5: A9 00     LDA #$00           ; it will never happen
+@bra_DCF7_skip:
+C - - - - - 0x01DD07 07:DCF7: 85 71     STA vVelocity      ;
+C - - - - - 0x01DD09 07:DCF9: 60        RTS                ;
 
 loc_DCFA:
 C D 2 - - - 0x01DD0A 07:DCFA: A5 66     LDA ram_0066
@@ -4991,24 +4993,24 @@ bra_DE83:
 C - - - - - 0x01DE93 07:DE83: 20 5C DF  JSR sub_DF5C
 bra_DE86_skip:
 loc_DE86:
-C D 2 - - - 0x01DE96 07:DE86: A5 6F     LDA vJumpCounter  ;
-C - - - - - 0x01DE98 07:DE88: C9 18     CMP #$18          ; CONSTANT - a maximum amplitude
-C - - - - - 0x01DE9A 07:DE8A: 90 08     BCC bra_DE94_skip ; If vJumpCounter < 0x18
-C - - - - - 0x01DE9C 07:DE8C: 20 8A E7  JSR sub_E78A_has_roof_pitch
-C - - - - - 0x01DE9F 07:DE8F: 90 03     BCC bra_DE94_skip
+C D 2 - - - 0x01DE96 07:DE86: A5 6F     LDA vJumpCounter            ;
+C - - - - - 0x01DE98 07:DE88: C9 18     CMP #$18                    ; CONSTANT - a maximum amplitude
+C - - - - - 0x01DE9A 07:DE8A: 90 08     BCC bra_DE94_skip           ; If vJumpCounter < 0x18
+C - - - - - 0x01DE9C 07:DE8C: 20 8A E7  JSR sub_E78A_has_roof_pitch ;
+C - - - - - 0x01DE9F 07:DE8F: 90 03     BCC bra_DE94_skip           ; If it has not a roof pitch
 C - - - - - 0x01DEA1 07:DE91: 20 5C DF  JSR sub_DF5C
 bra_DE94_skip:
-C - - - - - 0x01DEA4 07:DE94: E6 6F     INC ram_006F
-C - - - - - 0x01DEA6 07:DE96: A9 2F     LDA #$2F
-C - - - - - 0x01DEA8 07:DE98: C5 6F     CMP ram_006F
-C - - - - - 0x01DEAA 07:DE9A: B0 02     BCS bra_DE9E
-C - - - - - 0x01DEAC 07:DE9C: 85 6F     STA ram_006F
-bra_DE9E:
-C - - - - - 0x01DEAE 07:DE9E: A5 6C     LDA ram_006C
-C - - - - - 0x01DEB0 07:DEA0: 29 08     AND #$08
-C - - - - - 0x01DEB2 07:DEA2: F0 02     BEQ bra_DEA6
+C - - - - - 0x01DEA4 07:DE94: E6 6F     INC vJumpCounter   ;
+C - - - - - 0x01DEA6 07:DE96: A9 2F     LDA #$2F           ; CONSTANT - a maximum jump value
+C - - - - - 0x01DEA8 07:DE98: C5 6F     CMP vJumpCounter   ;
+C - - - - - 0x01DEAA 07:DE9A: B0 02     BCS @bra_DE9E_skip ; If 0x2F >= vJumpCounter, i.e. less than maximum
+C - - - - - 0x01DEAC 07:DE9C: 85 6F     STA vJumpCounter   ;
+@bra_DE9E_skip:
+C - - - - - 0x01DEAE 07:DE9E: A5 6C     LDA vChrStatus     ;
+C - - - - - 0x01DEB0 07:DEA0: 29 08     AND #$08           ; CONSTANT - the character is getting a damage
+C - - - - - 0x01DEB2 07:DEA2: F0 02     BEQ @bra_DEA6_skip ; If the character isn't getting a damage
 C - - - - - 0x01DEB4 07:DEA4: A2 1C     LDX #$1C
-bra_DEA6:
+@bra_DEA6_skip:
 C - - - - - 0x01DEB6 07:DEA6: 4C C2 DB  JMP loc_DBC2
 
 loc_DEA9:
@@ -5115,7 +5117,7 @@ C - - - - - 0x01DF64 07:DF54: C9 1F     CMP #$1F
 C - - - - - 0x01DF66 07:DF56: 60        RTS
 
 sub_DF57:
-C - - - - - 0x01DF67 07:DF57: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01DF67 07:DF57: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01DF69 07:DF59: 29 03     AND #$03
 C - - - - - 0x01DF6B 07:DF5B: 60        RTS
 
@@ -5292,12 +5294,12 @@ tbl_E036:
 - - - - - - 0x01E05A 07:E04A: C2        .byte $C2
 - - - - - - 0x01E05B 07:E04B: DB        .byte $DB
 sub_E04C:
-C - - - - - 0x01E05C 07:E04C: A9 02     LDA #BIT_BUTTON_B
-C - - - - - 0x01E05E 07:E04E: 20 79 D0  JSR sub_D079_check_button_press
-C - - - - - 0x01E061 07:E051: F0 30     BEQ bra_E083_RTS
-C - - - - - 0x01E063 07:E053: 24 79     BIT vChrLandStatus
-C - - - - - 0x01E065 07:E055: 10 2C     BPL bra_E083_RTS
-C - - - - - 0x01E067 07:E057: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01E05C 07:E04C: A9 02     LDA #BIT_BUTTON_B               ;
+C - - - - - 0x01E05E 07:E04E: 20 79 D0  JSR sub_D079_check_button_press ;
+C - - - - - 0x01E061 07:E051: F0 30     BEQ bra_E083_RTS                ; Go to the branch If the button 'B' isn't pressed (shot a gun)
+C - - - - - 0x01E063 07:E053: 24 79     BIT vChrLandStatus              ; 
+C - - - - - 0x01E065 07:E055: 10 2C     BPL bra_E083_RTS                ; If the character is in the air
+C - - - - - 0x01E067 07:E057: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01E069 07:E059: 29 02     AND #$02
 C - - - - - 0x01E06B 07:E05B: F0 0F     BEQ bra_E06C
 C - - - - - 0x01E06D 07:E05D: A5 78     LDA ram_0078
@@ -5309,7 +5311,7 @@ C - - - - - 0x01E078 07:E068: 85 78     STA ram_0078
 C - - - - - 0x01E07A 07:E06A: D0 17     BNE bra_E083_RTS
 bra_E06C:
 C - - - - - 0x01E07C 07:E06C: A2 02     LDX #$02
-C - - - - - 0x01E07E 07:E06E: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01E07E 07:E06E: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01E080 07:E070: 6A        ROR
 C - - - - - 0x01E081 07:E071: B0 09     BCS bra_E07C
 C - - - - - 0x01E083 07:E073: AD 14 02  LDA vCurrentWeaponStatus
@@ -5351,7 +5353,7 @@ bra_E0A6:
 C - - - - - 0x01E0B6 07:E0A6: A9 0B     LDA #$0B ; Lupin shoots (sound effect)
 C - - - - - 0x01E0B8 07:E0A8: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01E0BB 07:E0AB: A0 81     LDY #$81
-C - - - - - 0x01E0BD 07:E0AD: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01E0BD 07:E0AD: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01E0BF 07:E0AF: 6A        ROR
 C - - - - - 0x01E0C0 07:E0B0: B0 02     BCS bra_E0B4
 C - - - - - 0x01E0C2 07:E0B2: A0 C1     LDY #$C1
@@ -5767,7 +5769,7 @@ bra_E2F7_RTS:
 C - - - - - 0x01E307 07:E2F7: 60        RTS
 
 sub_E2F8:
-C - - - - - 0x01E308 07:E2F8: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01E308 07:E2F8: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01E30A 07:E2FA: 29 03     AND #$03
 C - - - - - 0x01E30C 07:E2FC: 0A        ASL
 C - - - - - 0x01E30D 07:E2FD: 0A        ASL
@@ -6592,24 +6594,24 @@ C - - - - - 0x01E7E6 07:E7D6: 85 03     STA ram_0003               ;
 C - - - - - 0x01E7E8 07:E7D8: A5 6C     LDA vChrStatus             ;
 C - - - - - 0x01E7EA 07:E7DA: 6A        ROR                        ;
 C - - - - - 0x01E7EB 07:E7DB: B0 07     BCS bra_E7E4_skip          ; If the character is looking to the left
-C - - - - - 0x01E7ED 07:E7DD: A5 01     LDA ram_0001
-C - - - - - 0x01E7EF 07:E7DF: 20 73 D0  JSR sub_D073_invert_sign
-C - - - - - 0x01E7F2 07:E7E2: 85 02     STA ram_0002
+C - - - - - 0x01E7ED 07:E7DD: A5 01     LDA ram_0001               ;
+C - - - - - 0x01E7EF 07:E7DF: 20 73 D0  JSR sub_D073_invert_sign   ;
+C - - - - - 0x01E7F2 07:E7E2: 85 02     STA ram_0002               ; get an distance to the top point along the Y axis
 bra_E7E4_skip:
-C - - - - - 0x01E7F4 07:E7E4: A5 6A     LDA vScreenChrPosY
-C - - - - - 0x01E7F6 07:E7E6: 38        SEC
-C - - - - - 0x01E7F7 07:E7E7: E5 03     SBC ram_0003
-C - - - - - 0x01E7F9 07:E7E9: 38        SEC
-C - - - - - 0x01E7FA 07:E7EA: E5 02     SBC ram_0002
+C - - - - - 0x01E7F4 07:E7E4: A5 6A     LDA vScreenChrPosY        ; 
+C - - - - - 0x01E7F6 07:E7E6: 38        SEC                       ;
+C - - - - - 0x01E7F7 07:E7E7: E5 03     SBC ram_0003              ; 0x0003 + 0x0002 = top - leg of a right triangle
+C - - - - - 0x01E7F9 07:E7E9: 38        SEC                       ;
+C - - - - - 0x01E7FA 07:E7EA: E5 02     SBC ram_0002              ;
 C - - - - - 0x01E7FC 07:E7EC: B0 03     BCS @bra_E7F1_skip        ; If vScreenChrPosY <= 0x0002 + 0x0003
 C - - - - - 0x01E7FE 07:E7EE: 20 73 D0  JSR sub_D073_invert_sign  ;
 @bra_E7F1_skip:
 C - - - - - 0x01E801 07:E7F1: C9 04     CMP #$04                  ; allowable tolerance
 C - - - - - 0x01E803 07:E7F3: B0 D0     BCS bra_E7C5_return_false ; If |vScreenChrPosY - pitchY| >= 4
-C - - - - - 0x01E805 07:E7F5: A5 03     LDA ram_0003
-C - - - - - 0x01E807 07:E7F7: 18        CLC
-C - - - - - 0x01E808 07:E7F8: 65 02     ADC ram_0002
-C - - - - - 0x01E80A 07:E7FA: 85 6A     STA vScreenChrPosY
+C - - - - - 0x01E805 07:E7F5: A5 03     LDA ram_0003              ;
+C - - - - - 0x01E807 07:E7F7: 18        CLC                       ;
+C - - - - - 0x01E808 07:E7F8: 65 02     ADC ram_0002              ;
+C - - - - - 0x01E80A 07:E7FA: 85 6A     STA vScreenChrPosY        ; put a leg of a right triangle
 C - - - - - 0x01E80C 07:E7FC: A9 20     LDA #$20                  ; CONSTANT - the character is moving on the roof pitch
 C - - - - - 0x01E80E 07:E7FE: 85 6D     STA vMovableChrStatus     ; 
 C - - - - - 0x01E810 07:E800: A9 00     LDA #$00                  ;
@@ -6861,7 +6863,7 @@ C - - - - - 0x01E9AF 07:E99F: 20 4C E0  JSR sub_E04C
 C - - - - - 0x01E9B2 07:E9A2: 68        PLA
 C - - - - - 0x01E9B3 07:E9A3: AA        TAX
 bra_E9A4:
-C - - - - - 0x01E9B4 07:E9A4: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01E9B4 07:E9A4: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01E9B6 07:E9A6: 29 02     AND #$02
 C - - - - - 0x01E9B8 07:E9A8: F0 03     BEQ bra_E9AD
 C - - - - - 0x01E9BA 07:E9AA: 4C 5C EC  JMP loc_EC5C
@@ -7110,7 +7112,7 @@ C - - - - - 0x01EB3D 07:EB2D: 85 6C     STA ram_006C
 C - - - - - 0x01EB3F 07:EB2F: A5 6C     LDA ram_006C
 C - - - - - 0x01EB41 07:EB31: 29 08     AND #$08
 C - - - - - 0x01EB43 07:EB33: D0 1E     BNE bra_EB53
-C - - - - - 0x01EB45 07:EB35: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01EB45 07:EB35: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01EB47 07:EB37: 29 02     AND #$02
 C - - - - - 0x01EB49 07:EB39: F0 04     BEQ bra_EB3F
 C - - - - - 0x01EB4B 07:EB3B: A9 80     LDA #$80           ; CONSTANT - the character stands on the ground
@@ -7312,7 +7314,7 @@ C - - - - - 0x01EC91 07:EC81: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01EC93 07:EC83: 85 01     STA ram_0001
 C - - - - - 0x01EC95 07:EC85: A9 01     LDA #$01
 C - - - - - 0x01EC97 07:EC87: 85 45     STA vCharacterRenderData
-C - - - - - 0x01EC99 07:EC89: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01EC99 07:EC89: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01EC9B 07:EC8B: 29 03     AND #$03
 C - - - - - 0x01EC9D 07:EC8D: 0A        ASL
 C - - - - - 0x01EC9E 07:EC8E: 85 12     STA ram_0012
@@ -7324,7 +7326,7 @@ C - - - - - 0x01ECA6 07:EC96: 18        CLC
 C - - - - - 0x01ECA7 07:EC97: 69 7E     ADC #$7E
 C - - - - - 0x01ECA9 07:EC99: AA        TAX
 C - - - - - 0x01ECAA 07:EC9A: 20 5A CE  JSR sub_CE5A_render_character
-C - - - - - 0x01ECAD 07:EC9D: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01ECAD 07:EC9D: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01ECAF 07:EC9F: 29 02     AND #$02
 C - - - - - 0x01ECB1 07:ECA1: F0 12     BEQ bra_ECB5_RTS
 C - - - - - 0x01ECB3 07:ECA3: 20 8D E2  JSR sub_E28D

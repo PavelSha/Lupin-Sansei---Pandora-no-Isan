@@ -97,7 +97,7 @@ C - - - - - 0x01A04A 06:A03A: 90 30     BCC bra_A06C
 C - - - - - 0x01A04C 06:A03C: 20 B6 A0  JSR sub_A0B6
 C - - - - - 0x01A04F 06:A03F: 20 60 D6  JSR $D660 ; to sub_D660 (bank FF)
 C - - - - - 0x01A052 06:A042: B0 0B     BCS bra_A04F
-C - - - - - 0x01A054 06:A044: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01A054 06:A044: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01A056 06:A046: 29 02     AND #$02
 C - - - - - 0x01A058 06:A048: F0 10     BEQ bra_A05A
 C - - - - - 0x01A05A 06:A04A: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
@@ -549,7 +549,7 @@ C - - - - - 0x01A32D 06:A31D: 90 35     BCC bra_A354
 C - - - - - 0x01A32F 06:A31F: 20 93 A3  JSR sub_A393
 C - - - - - 0x01A332 06:A322: 20 60 D6  JSR $D660 ; to sub_D660 (bank FF)
 C - - - - - 0x01A335 06:A325: B0 0B     BCS bra_A332
-C - - - - - 0x01A337 06:A327: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01A337 06:A327: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01A339 06:A329: 29 02     AND #$02
 C - - - - - 0x01A33B 06:A32B: F0 0B     BEQ bra_A338
 C - - - - - 0x01A33D 06:A32D: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
@@ -1115,7 +1115,7 @@ C - - - - - 0x01A69B 06:A68B: 20 4A A7  JSR sub_A74A
 loc_A68E:
 C D 1 - - - 0x01A69E 06:A68E: 20 60 D6  JSR $D660 ; to sub_D660 (bank FF)
 C - - - - - 0x01A6A1 06:A691: B0 0B     BCS bra_A69E
-C - - - - - 0x01A6A3 06:A693: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01A6A3 06:A693: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01A6A5 06:A695: 29 02     AND #$02
 C - - - - - 0x01A6A7 06:A697: F0 0B     BEQ bra_A6A4
 C - - - - - 0x01A6A9 06:A699: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
@@ -1627,7 +1627,7 @@ C - - - - - 0x01AA30 06:AA20: A9 10     LDA #$10
 C - - - - - 0x01AA32 06:AA22: 85 AF     STA ram_00AF
 C - - - - - 0x01AA34 06:AA24: A9 06     LDA #$06
 C - - - - - 0x01AA36 06:AA26: 85 B0     STA ram_00B0
-C - - - - - 0x01AA38 06:AA28: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01AA38 06:AA28: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01AA3A 06:AA2A: 29 02     AND #$02
 C - - - - - 0x01AA3C 06:AA2C: F0 0B     BEQ bra_AA39
 C - - - - - 0x01AA3E 06:AA2E: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
@@ -1927,7 +1927,7 @@ C - - - - - 0x01AC38 06:AC28: A9 16     LDA #$16
 C - - - - - 0x01AC3A 06:AC2A: 85 AF     STA ram_00AF
 C - - - - - 0x01AC3C 06:AC2C: A9 06     LDA #$06
 C - - - - - 0x01AC3E 06:AC2E: 85 B0     STA ram_00B0
-C - - - - - 0x01AC40 06:AC30: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01AC40 06:AC30: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01AC42 06:AC32: 29 02     AND #$02
 C - - - - - 0x01AC44 06:AC34: F0 0B     BEQ bra_AC41
 C - - - - - 0x01AC46 06:AC36: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
@@ -2264,7 +2264,7 @@ C - - - - - 0x01AE76 06:AE66: 20 85 AE  JSR sub_AE85
 C - - - - - 0x01AE79 06:AE69: 4C 80 AE  JMP loc_AE80
 
 bra_AE6C:
-C - - - - - 0x01AE7C 06:AE6C: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01AE7C 06:AE6C: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01AE7E 06:AE6E: 29 02     AND #$02
 C - - - - - 0x01AE80 06:AE70: D0 0E     BNE bra_AE80
 C - - - - - 0x01AE82 06:AE72: A6 7A     LDX vBulletCount
@@ -2438,7 +2438,7 @@ C - - - - - 0x01AFB5 06:AFA5: 20 EF AF  JSR sub_AFEF
 C - - - - - 0x01AFB8 06:AFA8: 4C C6 AF  JMP loc_AFC6
 
 bra_AFAB:
-C - - - - - 0x01AFBB 06:AFAB: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01AFBB 06:AFAB: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01AFBD 06:AFAD: 29 02     AND #$02
 C - - - - - 0x01AFBF 06:AFAF: F0 0B     BEQ bra_AFBC
 C - - - - - 0x01AFC1 06:AFB1: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
@@ -2953,7 +2953,7 @@ sub_B319: ; from bank FF
 C - - - - - 0x01B329 06:B319: 20 4F EF  JSR $EF4F
 C - - - - - 0x01B32C 06:B31C: A0 FF     LDY #$FF
 C - - - - - 0x01B32E 06:B31E: A2 00     LDX #$00
-C - - - - - 0x01B330 06:B320: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01B330 06:B320: A5 5F     LDA vChrLiveStatus
 bra_B322:
 C - - - - - 0x01B332 06:B322: 4A        LSR
 C - - - - - 0x01B333 06:B323: 4A        LSR
@@ -3133,9 +3133,9 @@ C - - - - - 0x01B45B 06:B44B: 29 03     AND #$03
 C - - - - - 0x01B45D 06:B44D: D0 10     BNE bra_B45F_skip
 C - - - - - 0x01B45F 06:B44F: 20 0C B3  JSR sub_B30C
 C - - - - - 0x01B462 06:B452: AA        TAX
-C - - - - - 0x01B463 06:B453: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01B463 06:B453: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01B465 06:B455: 1D 64 B4  ORA tbl_rescue_character,X
-C - - - - - 0x01B468 06:B458: 85 5F     STA v_chr_live_status
+C - - - - - 0x01B468 06:B458: 85 5F     STA vChrLiveStatus
 C - - - - - 0x01B46A 06:B45A: B6 60     LDX ram_0060,Y
 C - - - - - 0x01B46C 06:B45C: 20 03 B3  JSR sub_B303
 bra_B45F_skip:
@@ -3181,7 +3181,7 @@ C - - - - - 0x01B49A 06:B48A: A9 00     LDA #$00
 C - - - - - 0x01B49C 06:B48C: 85 00     STA ram_0000
 C - - - - - 0x01B49E 06:B48E: C0 00     CPY #$00
 C - - - - - 0x01B4A0 06:B490: F0 06     BEQ bra_B498_skip
-C - - - - - 0x01B4A2 06:B492: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01B4A2 06:B492: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01B4A4 06:B494: 29 03     AND #$03
 C - - - - - 0x01B4A6 06:B496: 85 00     STA ram_0000
 bra_B498_skip:
@@ -3356,7 +3356,7 @@ C - - J - - 0x01B5C6 06:B5B6: AD 08 02  LDA v_ruby_ring
 C - - - - - 0x01B5C9 06:B5B9: F0 F9     BEQ loc_npc_type0
 C - - - - - 0x01B5CB 06:B5BB: CE 08 02  DEC v_ruby_ring
 loc_npc_type4:
-C - - J - - 0x01B5CE 06:B5BE: A5 5F     LDA v_chr_live_status
+C - - J - - 0x01B5CE 06:B5BE: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01B5D0 06:B5C0: 29 03     AND #$03 ; Get the current selected character
 C - - - - - 0x01B5D2 06:B5C2: F0 EF     BEQ loc_npc_type1 ; If the character is Lupin
 C - - - - - 0x01B5D4 06:B5C4: C9 01     CMP #$01
@@ -3508,7 +3508,7 @@ C - - - - - 0x01B6D1 06:B6C1: A9 5D     LDA #$5D
 C - - - - - 0x01B6D3 06:B6C3: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B6D6 06:B6C6: A9 5E     LDA #$5E
 C - - - - - 0x01B6D8 06:B6C8: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01B6DB 06:B6CB: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01B6DB 06:B6CB: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01B6DD 06:B6CD: 29 03     AND #$03
 C - - - - - 0x01B6DF 06:B6CF: A8        TAY
 C - - - - - 0x01B6E0 06:B6D0: B9 C4 BC  LDA tbl_BCC4,Y
@@ -3649,7 +3649,7 @@ C - - - - - 0x01B7D5 06:B7C5: A9 A8     LDA #$A8
 C - - - - - 0x01B7D7 06:B7C7: 85 12     STA ram_0012
 C - - - - - 0x01B7D9 06:B7C9: A9 BC     LDA #$BC
 C - - - - - 0x01B7DB 06:B7CB: 85 13     STA ram_0013
-C - - - - - 0x01B7DD 06:B7CD: A5 5F     LDA v_chr_live_status
+C - - - - - 0x01B7DD 06:B7CD: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01B7DF 06:B7CF: 29 03     AND #$03
 C - - - - - 0x01B7E1 06:B7D1: 0A        ASL
 C - - - - - 0x01B7E2 06:B7D2: 0A        ASL
@@ -4035,8 +4035,8 @@ C - - - - - 0x01BA98 06:BA88: E0 04     CPX #$04
 C - - - - - 0x01BA9A 06:BA8A: B0 29     BCS bra_BAB5
 C - - - - - 0x01BA9C 06:BA8C: CA        DEX
 C - - - - - 0x01BA9D 06:BA8D: 8A        TXA
-C - - - - - 0x01BA9E 06:BA8E: 05 5F     ORA v_chr_live_status
-C - - - - - 0x01BAA0 06:BA90: 85 5F     STA v_chr_live_status
+C - - - - - 0x01BA9E 06:BA8E: 05 5F     ORA vChrLiveStatus
+C - - - - - 0x01BAA0 06:BA90: 85 5F     STA vChrLiveStatus
 C - - - - - 0x01BAA2 06:BA92: A5 25     LDA ram_0025
 C - - - - - 0x01BAA4 06:BA94: 29 07     AND #$07
 C - - - - - 0x01BAA6 06:BA96: A8        TAY
