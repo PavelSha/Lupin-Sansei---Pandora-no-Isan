@@ -23,6 +23,7 @@
 .import sub_C420_add_sound_effect ; bank FF
 .import loc_C420_add_sound_effect ; bank FF
 .import sub_C4F5_selectAllChrBanks ; bank FF
+.import sub_C904_clear_score ; bank FF
 .import loc_CE33_add_sprite_magic ; bank FF
 .import sub_D073_invert_sign ; bank FF
 .import sub_D079_check_button_press ; bank FF
@@ -3860,8 +3861,8 @@ C - - - - - 0x01B95F 06:B94F: 85 2D     STA v_high_counter           ; clear
 C - - - - - 0x01B961 06:B951: 85 19     STA vRenderActive            ; clear
 C - - - - - 0x01B963 06:B953: 8D 31 06  STA ram_0631                 ; clear
 C - - - - - 0x01B966 06:B956: 8D 7B 06  STA vPpuAddrDataCache        ; clear
-C - - - - - 0x01B969 06:B959: 85 29     STA ram_0029                 ; clear
-C - - - - - 0x01B96B 06:B95B: 85 27     STA ram_0027                 ; clear
+C - - - - - 0x01B969 06:B959: 85 29     STA vLowViewPortPosY         ; clear
+C - - - - - 0x01B96B 06:B95B: 85 27     STA vLowViewPortPosX         ; clear
 C - - - - - 0x01B96D 06:B95D: 85 3D     STA ram_003D                 ; clear
 C - - - - - 0x01B96F 06:B95F: A9 8F     LDA #$8F
 C - - - - - 0x01B971 06:B961: 85 AD     STA ram_00AD
@@ -3909,7 +3910,7 @@ C - - - - - 0x01B9B9 06:B9A9: 85 C4     STA vCheckpoint ; assigned
 C - - - - - 0x01B9BB 06:B9AB: 84 5E     STY v_no_level  ; assigned
 C - - - - - 0x01B9BD 06:B9AD: A9 FC     LDA #$FC
 C - - - - - 0x01B9BF 06:B9AF: 85 D4     STA ram_00D4
-C - - - - - 0x01B9C1 06:B9B1: 20 04 C9  JSR $C904 ; to sub_C904 (bank_FF)
+C - - - - - 0x01B9C1 06:B9B1: 20 04 C9  JSR sub_C904_clear_score
 C - - - - - 0x01B9C4 06:B9B4: A9 10     LDA #$10
 C - - - - - 0x01B9C6 06:B9B6: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01B9C8 06:B9B8: 60        RTS
@@ -4016,8 +4017,8 @@ C - - - - - 0x01BA6F 06:BA5F: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01BA71 06:BA61: A9 00     LDA #$00
 C - - - - - 0x01BA73 06:BA63: 8D 31 06  STA ram_0631          ; clear
 C - - - - - 0x01BA76 06:BA66: 8D 7B 06  STA vPpuAddrDataCache ; clear
-C - - - - - 0x01BA79 06:BA69: 85 29     STA ram_0029          ; clear
-C - - - - - 0x01BA7B 06:BA6B: 85 27     STA ram_0027          ; clear
+C - - - - - 0x01BA79 06:BA69: 85 29     STA vLowViewPortPosY  ; clear
+C - - - - - 0x01BA7B 06:BA6B: 85 27     STA vLowViewPortPosX  ; clear
 C - - - - - 0x01BA7D 06:BA6D: 85 2C     STA v_low_counter     ; clear
 C - - - - - 0x01BA7F 06:BA6F: 85 2D     STA v_high_counter    ; clear
 C - - - - - 0x01BA81 06:BA71: 85 3D     STA vStartStatus      ; clear
@@ -4219,37 +4220,39 @@ loc_BBA4:
 sub_BBA4:
 C D 1 - - - 0x01BBB4 06:BBA4: A9 05     LDA #$05
 C - - - - - 0x01BBB6 06:BBA6: 24 6D     BIT vMovableChrStatus
-C - - - - - 0x01BBB8 06:BBA8: 30 13     BMI bra_BBBD
+C - - - - - 0x01BBB8 06:BBA8: 30 13     BMI bra_BBBD_skip
 C - - - - - 0x01BBBA 06:BBAA: 20 FE BB  JSR sub_BBFE
 C - - - - - 0x01BBBD 06:BBAD: B0 36     BCS bra_BBE5
 C - - - - - 0x01BBBF 06:BBAF: A5 5E     LDA v_no_level
 C - - - - - 0x01BBC1 06:BBB1: C9 03     CMP #$03
-C - - - - - 0x01BBC3 06:BBB3: D0 08     BNE bra_BBBD
+C - - - - - 0x01BBC3 06:BBB3: D0 08     BNE bra_BBBD_skip
 C - - - - - 0x01BBC5 06:BBB5: A6 46     LDX ram_0046
 C - - - - - 0x01BBC7 06:BBB7: E0 19     CPX #$19
-C - - - - - 0x01BBC9 06:BBB9: D0 02     BNE bra_BBBD
+C - - - - - 0x01BBC9 06:BBB9: D0 02     BNE bra_BBBD_skip
 C - - - - - 0x01BBCB 06:BBBB: A9 04     LDA #$04
-bra_BBBD:
+; in: Register A - the sound index
+bra_BBBD_skip:
 loc_BBBD:
-C D 1 - - - 0x01BBCD 06:BBBD: C5 FD     CMP ram_00FD
-C - - - - - 0x01BBCF 06:BBBF: D0 07     BNE bra_BBC8
+C D 1 - - - 0x01BBCD 06:BBBD: C5 FD     CMP vSoundRoomIndex         ;
+C - - - - - 0x01BBCF 06:BBBF: D0 07     BNE bra_BBC8_add_room_sound ; If Register A != vSoundRoomIndex
 C - - - - - 0x01BBD1 06:BBC1: AD 00 04  LDA ram_0400
 C - - - - - 0x01BBD4 06:BBC4: 8D 15 40  STA APU_STATUS
 C - - - - - 0x01BBD7 06:BBC7: 60        RTS
 
-bra_BBC8:
-C - - - - - 0x01BBD8 06:BBC8: 85 FD     STA ram_00FD
-C - - - - - 0x01BBDA 06:BBCA: 0A        ASL
-C - - - - - 0x01BBDB 06:BBCB: 0A        ASL
-C - - - - - 0x01BBDC 06:BBCC: AA        TAX
-C - - - - - 0x01BBDD 06:BBCD: BD 10 BC  LDA tbl_BC10_sound_indexes,X
-C - - - - - 0x01BBE0 06:BBD0: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01BBE3 06:BBD3: BD 11 BC  LDA tbl_BC10_sound_indexes + 1,X
-C - - - - - 0x01BBE6 06:BBD6: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01BBE9 06:BBD9: BD 12 BC  LDA tbl_BC10_sound_indexes + 2,X
-C - - - - - 0x01BBEC 06:BBDC: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01BBEF 06:BBDF: BD 13 BC  LDA tbl_BC10_sound_indexes + 3,X
-C - - - - - 0x01BBF2 06:BBE2: 4C 20 C4  JMP loc_C420_add_sound_effect
+; in: Register A - the sound index
+bra_BBC8_add_room_sound:
+C - - - - - 0x01BBD8 06:BBC8: 85 FD     STA vSoundRoomIndex              ;
+C - - - - - 0x01BBDA 06:BBCA: 0A        ASL                              ;
+C - - - - - 0x01BBDB 06:BBCB: 0A        ASL                              ; 
+C - - - - - 0x01BBDC 06:BBCC: AA        TAX                              ;
+C - - - - - 0x01BBDD 06:BBCD: BD 10 BC  LDA tbl_BC10_sound_indexes,X     ;
+C - - - - - 0x01BBE0 06:BBD0: 20 20 C4  JSR sub_C420_add_sound_effect    ;
+C - - - - - 0x01BBE3 06:BBD3: BD 11 BC  LDA tbl_BC10_sound_indexes + 1,X ;
+C - - - - - 0x01BBE6 06:BBD6: 20 20 C4  JSR sub_C420_add_sound_effect    ;
+C - - - - - 0x01BBE9 06:BBD9: BD 12 BC  LDA tbl_BC10_sound_indexes + 2,X ;
+C - - - - - 0x01BBEC 06:BBDC: 20 20 C4  JSR sub_C420_add_sound_effect    ;
+C - - - - - 0x01BBEF 06:BBDF: BD 13 BC  LDA tbl_BC10_sound_indexes + 3,X ;
+C - - - - - 0x01BBF2 06:BBE2: 4C 20 C4  JMP loc_C420_add_sound_effect    ;
 
 bra_BBE5:
 C - - - - - 0x01BBF5 06:BBE5: A0 0A     LDY #$0A

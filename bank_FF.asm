@@ -29,6 +29,7 @@
 .export sub_C402_clear_sound_parts
 .export sub_C420_add_sound_effect
 .export loc_C420_add_sound_effect
+.export sub_C904_clear_score
 .export loc_CE33_add_sprite_magic
 .export sub_EF46_switch_bank_4_p1_p2
 .export sub_EF4F_switch_bank_4_p2
@@ -93,8 +94,8 @@ C - - - - - 0x01C06B 07:C05B: 86 39     STX ram_0039              ; clear
 C - - - - - 0x01C06D 07:C05D: 86 3A     STX v_resists             ; clear
 C - - - - - 0x01C06F 07:C05F: 86 38     STX vPauseStatus          ; clear
 C - - - - - 0x01C071 07:C061: 86 D6     STX ram_00D6              ; clear
-C - - - - - 0x01C073 07:C063: 86 27     STX ram_0027              ; clear
-C - - - - - 0x01C075 07:C065: 86 29     STX ram_0029              ; clear
+C - - - - - 0x01C073 07:C063: 86 27     STX vLowViewPortPosX      ; clear
+C - - - - - 0x01C075 07:C065: 86 29     STX vLowViewPortPosY      ; clear
 C - - - - - 0x01C077 07:C067: 86 1C     STX ram_001C              ; clear
 C - - - - - 0x01C079 07:C069: 86 1F     STX v_player2_btn_pressed ; clear
 C - - - - - 0x01C07B 07:C06B: 86 5E     STX v_no_level            ; clear
@@ -141,23 +142,23 @@ C - - - - - 0x01C0C9 07:C0B9: 8D 15 40  STA APU_STATUS    ; clear
 C - - - - - 0x01C0CC 07:C0BC: 20 19 C3  JSR sub_C319_fill_ppu
 C - - - - - 0x01C0CF 07:C0BF: 20 58 C3  JSR sub_C358_clear_OAM
 C - - - - - 0x01C0D2 07:C0C2: 20 FC EF  JSR sub_EFFC
-C - - - - - 0x01C0D5 07:C0C5: A5 4B     LDA vHighViewPortPosX ;
-C - - - - - 0x01C0D7 07:C0C7: 48        PHA              ; store the high position of the character
-C - - - - - 0x01C0D8 07:C0C8: A5 27     LDA vLowViewPortPosX  ; 
-C - - - - - 0x01C0DA 07:C0CA: 48        PHA              ; store the low position of the character
+C - - - - - 0x01C0D5 07:C0C5: A5 4B     LDA vHighViewPortPosX     ;
+C - - - - - 0x01C0D7 07:C0C7: 48        PHA                       ; store the high position of the character
+C - - - - - 0x01C0D8 07:C0C8: A5 27     LDA vLowViewPortPosX      ; 
+C - - - - - 0x01C0DA 07:C0CA: 48        PHA                       ; store the low position of the character
 C - - - - - 0x01C0DB 07:C0CB: 20 53 D4  JSR sub_D453
-C - - - - - 0x01C0DE 07:C0CE: 20 13 CE  JSR sub_CE13
-C - - - - - 0x01C0E1 07:C0D1: 68        PLA              ; retrieve the low position of the character
-C - - - - - 0x01C0E2 07:C0D2: 85 27     STA vLowViewPortPosX  ;
-C - - - - - 0x01C0E4 07:C0D4: 68        PLA              ; retrieve the high position of the character
-C - - - - - 0x01C0E5 07:C0D5: 29 01     AND #$01         ; multiplicity of vHighViewPortPosX by 2 sets the nametable address (0x2000 or 0x2400)
-C - - - - - 0x01C0E7 07:C0D7: 09 08     ORA #$08         ; activate the right pattern table (0x1000)
+C - - - - - 0x01C0DE 07:C0CE: 20 13 CE  JSR sub_CE13_set_sprite_zero_hits
+C - - - - - 0x01C0E1 07:C0D1: 68        PLA                       ; retrieve the low position of the character
+C - - - - - 0x01C0E2 07:C0D2: 85 27     STA vLowViewPortPosX      ;
+C - - - - - 0x01C0E4 07:C0D4: 68        PLA                       ; retrieve the high position of the character
+C - - - - - 0x01C0E5 07:C0D5: 29 01     AND #$01                  ; multiplicity of vHighViewPortPosX by 2 sets the nametable address (0x2000 or 0x2400)
+C - - - - - 0x01C0E7 07:C0D7: 09 08     ORA #$08                  ; activate the right pattern table (0x1000)
 C - - - - - 0x01C0E9 07:C0D9: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01C0EB 07:C0DB: A9 00     LDA #$00
 C - - - - - 0x01C0ED 07:C0DD: 85 39     STA ram_0039
-C - - - - - 0x01C0EF 07:C0DF: 8D 31 06  STA ram_0631
-C - - - - - 0x01C0F2 07:C0E2: 8D 7B 06  STA vPpuAddrDataCache ; clear
-C - - - - - 0x01C0F5 07:C0E5: 85 19     STA vRenderActive     ; clear
+C - - - - - 0x01C0EF 07:C0DF: 8D 31 06  STA v_high_ppu_address    ; clear
+C - - - - - 0x01C0F2 07:C0E2: 8D 7B 06  STA vPpuAddrDataCache     ; clear
+C - - - - - 0x01C0F5 07:C0E5: 85 19     STA vRenderActive         ; clear
 C - - - - - 0x01C0F7 07:C0E7: A5 3A     LDA ram_003A
 C - - - - - 0x01C0F9 07:C0E9: 29 80     AND #$80
 C - - - - - 0x01C0FB 07:C0EB: 85 3A     STA ram_003A
@@ -179,9 +180,9 @@ C - - - - - 0x01C123 07:C113: D0 03     BNE bra_C118
 C - - - - - 0x01C125 07:C115: 4C A6 C2  JMP loc_C2A6
 
 bra_C118:
-C - - - - - 0x01C128 07:C118: A9 FF     LDA #$FF
-C - - - - - 0x01C12A 07:C11A: 85 33     STA v_menu_counter ; Initializes a counter.
-C - - - - - 0x01C12C 07:C11C: A9 02     LDA #$02
+C - - - - - 0x01C128 07:C118: A9 FF     LDA #$FF              ;
+C - - - - - 0x01C12A 07:C11A: 85 33     STA v_menu_counter    ; Initializes a counter.
+C - - - - - 0x01C12C 07:C11C: A9 02     LDA #$02              ;
 C - - - - - 0x01C12E 07:C11E: 85 34     STA vMenuCounterTimes ; Initializes a time of a demo scene.
 bra_C120_repeat:
 C - - - - - 0x01C130 07:C120: 20 64 D0  JSR sub_D064
@@ -381,7 +382,7 @@ C - - - - - 0x01C286 07:C276: A9 93     LDA #$93
 C - - - - - 0x01C288 07:C278: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C28A 07:C27A: A9 0F     LDA #$0F
 C - - - - - 0x01C28C 07:C27C: 85 D8     STA ram_00D8
-C - - - - - 0x01C28E 07:C27E: 20 F4 C3  JSR sub_C3F4
+C - - - - - 0x01C28E 07:C27E: 20 F4 C3  JSR sub_C3F4_set_OAM_address
 C - - - - - 0x01C291 07:C281: 20 0F C3  JSR sub_C30F_screen_on
 C - - - - - 0x01C294 07:C284: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 bra_C287:
@@ -412,7 +413,7 @@ C - - - - - 0x01C2BF 07:C2AF: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C2C2 07:C2B2: 20 DB B7  JSR $B7DB
 C - - - - - 0x01C2C5 07:C2B5: A9 93     LDA #$93
 C - - - - - 0x01C2C7 07:C2B7: 85 3B     STA vSharedGameStatus
-C - - - - - 0x01C2C9 07:C2B9: 20 F4 C3  JSR sub_C3F4
+C - - - - - 0x01C2C9 07:C2B9: 20 F4 C3  JSR sub_C3F4_set_OAM_address
 C - - - - - 0x01C2CC 07:C2BC: 20 0F C3  JSR sub_C30F_screen_on
 C - - - - - 0x01C2CF 07:C2BF: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 bra_C2C2:
@@ -424,7 +425,7 @@ C - - - - - 0x01C2DB 07:C2CB: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C2DE 07:C2CE: A9 30     LDA #$30
 C - - - - - 0x01C2E0 07:C2D0: 20 60 C9  JSR sub_C960
 C - - - - - 0x01C2E3 07:C2D3: 20 0D B8  JSR $B80D
-C - - - - - 0x01C2E6 07:C2D6: 20 F4 C3  JSR sub_C3F4
+C - - - - - 0x01C2E6 07:C2D6: 20 F4 C3  JSR sub_C3F4_set_OAM_address
 C - - - - - 0x01C2E9 07:C2D9: 20 0F C3  JSR sub_C30F_screen_on
 C - - - - - 0x01C2EC 07:C2DC: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 bra_C2DF:
@@ -522,7 +523,7 @@ C - - - - - 0x01C377 07:C367: E8        INX ; To 4th sprite data byte
 C - - - - - 0x01C378 07:C368: E8        INX ; To 1st next sprite data byte
 C - - - - - 0x01C379 07:C369: D0 F3     BNE bra_C35E_repeat
 C - - - - - 0x01C37B 07:C36B: 86 43     STX vCurrentNumberSprite ; Store 0x00
-C - - - - - 0x01C37D 07:C36D: 8E F7 06  STX v_offset_sprite_magic ; Store 0x00
+C - - - - - 0x01C37D 07:C36D: 8E F7 06  STX vShiftSpriteMagic    ; Store 0x00
 C - - - - - 0x01C380 07:C370: 60        RTS
 
 loc_C371_update_palette:
@@ -565,59 +566,59 @@ C - - - - - 0x01C3D5 07:C3C5: 60        RTS
 sub_C3C6:
 C - - - - - 0x01C3D6 07:C3C6: A5 26     LDA vPpuCtrlSettings
 C - - - - - 0x01C3D8 07:C3C8: 8D 00 20  STA PPU_CTRL
-C - - - - - 0x01C3DB 07:C3CB: AD 02 20  LDA PPU_STATUS
-C - - - - - 0x01C3DE 07:C3CE: A5 27     LDA ram_0027
-C - - - - - 0x01C3E0 07:C3D0: 8D 05 20  STA $2005
-C - - - - - 0x01C3E3 07:C3D3: A5 29     LDA ram_0029
-C - - - - - 0x01C3E5 07:C3D5: 8D 05 20  STA $2005
+C - - - - - 0x01C3DB 07:C3CB: AD 02 20  LDA PPU_STATUS       ; read to reset PPU latch
+C - - - - - 0x01C3DE 07:C3CE: A5 27     LDA vLowViewPortPosX ;
+C - - - - - 0x01C3E0 07:C3D0: 8D 05 20  STA PPU_SCROLL       ;
+C - - - - - 0x01C3E3 07:C3D3: A5 29     LDA vLowViewPortPosY ;
+C - - - - - 0x01C3E5 07:C3D5: 8D 05 20  STA PPU_SCROLL       ;
 C - - - - - 0x01C3E8 07:C3D8: 60        RTS
 
 sub_C3D9_increment_nmi_counter:
-C - - - - - 0x01C3E9 07:C3D9: E6 2B     INC v_nmi_counter
-C - - - - - 0x01C3EB 07:C3DB: 60        RTS
+C - - - - - 0x01C3E9 07:C3D9: E6 2B     INC v_nmi_counter ;
+C - - - - - 0x01C3EB 07:C3DB: 60        RTS               ; 
 
-- - - - - - 0x01C3EC 07:C3DC: A5 2B     LDA v_nmi_counter ; not used ???
-- - - - - - 0x01C3EE 07:C3DE: 29 03     AND #$03 ; not used ???
-- - - - - - 0x01C3F0 07:C3E0: 6A        ROR ; not used ???
-- - - - - - 0x01C3F1 07:C3E1: 6A        ROR ; not used ???
-- - - - - - 0x01C3F2 07:C3E2: 6A        ROR ; not used ???
-- - - - - - 0x01C3F3 07:C3E3: AA        TAX ; not used ???
-- - - - - - 0x01C3F4 07:C3E4: 8E 03 20  STX PPU_OAM_ADDR ; not used ???
-- - - - - - 0x01C3F7 07:C3E7: A0 40     LDY #$40 ; not used ???
-bra_C3E9_not_used:
-- - - - - - 0x01C3F9 07:C3E9: BD 00 07  LDA vStartOAM,X ; not used ???
-- - - - - - 0x01C3FC 07:C3EC: 8D 04 20  STA $2004 ; not used ???
-- - - - - - 0x01C3FF 07:C3EF: E8        INX ; not used ???
-- - - - - - 0x01C400 07:C3F0: 88        DEY ; not used ???
-- - - - - - 0x01C401 07:C3F1: D0 F6     BNE bra_C3E9_not_used ; not used ???
-- - - - - - 0x01C403 07:C3F3: 60        RTS ; not used ???
+- - - - - - 0x01C3EC 07:C3DC: A5 2B     LDA v_nmi_counter      ; not used ???
+- - - - - - 0x01C3EE 07:C3DE: 29 03     AND #$03               ; not used ???
+- - - - - - 0x01C3F0 07:C3E0: 6A        ROR                    ; not used ???
+- - - - - - 0x01C3F1 07:C3E1: 6A        ROR                    ; not used ???
+- - - - - - 0x01C3F2 07:C3E2: 6A        ROR                    ; not used ???
+- - - - - - 0x01C3F3 07:C3E3: AA        TAX                    ; not used ???
+- - - - - - 0x01C3F4 07:C3E4: 8E 03 20  STX PPU_OAM_ADDR       ; not used ???
+- - - - - - 0x01C3F7 07:C3E7: A0 40     LDY #$40               ; not used ???
+@bra_C3E9_not_used:
+- - - - - - 0x01C3F9 07:C3E9: BD 00 07  LDA vStartOAM,X        ; not used ???
+- - - - - - 0x01C3FC 07:C3EC: 8D 04 20  STA $2004              ; not used ???
+- - - - - - 0x01C3FF 07:C3EF: E8        INX                    ; not used ???
+- - - - - - 0x01C400 07:C3F0: 88        DEY                    ; not used ???
+- - - - - - 0x01C401 07:C3F1: D0 F6     BNE @bra_C3E9_not_used ; not used ???
+- - - - - - 0x01C403 07:C3F3: 60        RTS                    ; not used ???
 
-sub_C3F4:
-C - - - - - 0x01C404 07:C3F4: AD 02 20  LDA PPU_STATUS
-C - - - - - 0x01C407 07:C3F7: A9 00     LDA #$00
-C - - - - - 0x01C409 07:C3F9: 8D 03 20  STA PPU_OAM_ADDR
-C - - - - - 0x01C40C 07:C3FC: A9 07     LDA #$07
-C - - - - - 0x01C40E 07:C3FE: 8D 14 40  STA OAM_DMA
-C - - - - - 0x01C411 07:C401: 60        RTS
+sub_C3F4_set_OAM_address:
+C - - - - - 0x01C404 07:C3F4: AD 02 20  LDA PPU_STATUS   ;
+C - - - - - 0x01C407 07:C3F7: A9 00     LDA #$00         ;
+C - - - - - 0x01C409 07:C3F9: 8D 03 20  STA PPU_OAM_ADDR ; DMA is used instead
+C - - - - - 0x01C40C 07:C3FC: A9 07     LDA #$07         ;
+C - - - - - 0x01C40E 07:C3FE: 8D 14 40  STA OAM_DMA      ; set 0x0700-0x07FF
+C - - - - - 0x01C411 07:C401: 60        RTS              ;
 
-loc_C402_clear_sound_parts: ; from bank 06_2
-sub_C402_clear_sound_parts: ; from bank 06_2
-C D 2 - - - 0x01C412 07:C402: A9 FF     LDA #$FF
-C - - - - - 0x01C414 07:C404: 85 FD     STA ram_00FD
-C - - - - - 0x01C416 07:C406: A0 00     LDY #$00       ; set loop counter
-C - - - - - 0x01C418 07:C408: 8C 07 04  STY ram_0407   ; clear
-C - - - - - 0x01C41B 07:C40B: 8C 15 40  STY APU_STATUS ; clear
-C - - - - - 0x01C41E 07:C40E: 8C 00 04  STY ram_0400   ; clear
+loc_C402_clear_sound_parts:
+sub_C402_clear_sound_parts:
+C D 2 - - - 0x01C412 07:C402: A9 FF     LDA #$FF            ;
+C - - - - - 0x01C414 07:C404: 85 FD     STA vSoundRoomIndex ; set the fake index
+C - - - - - 0x01C416 07:C406: A0 00     LDY #$00            ; set loop counter
+C - - - - - 0x01C418 07:C408: 8C 07 04  STY ram_0407        ; clear
+C - - - - - 0x01C41B 07:C40B: 8C 15 40  STY APU_STATUS      ; clear
+C - - - - - 0x01C41E 07:C40E: 8C 00 04  STY ram_0400        ; clear
 @bra_C411_loop:
-C - - - - - 0x01C421 07:C411: A9 FF     LDA #$FF
-C - - - - - 0x01C423 07:C413: 99 10 04  STA vSoundRowB_0,Y
-C - - - - - 0x01C426 07:C416: 98        TYA
-C - - - - - 0x01C427 07:C417: 18        CLC
-C - - - - - 0x01C428 07:C418: 69 15     ADC #$15 ; CONSTANT: Sound row step
-C - - - - - 0x01C42A 07:C41A: A8        TAY
-C - - - - - 0x01C42B 07:C41B: C9 A8     CMP #$A8 ; 8 iterations for sound row
-C - - - - - 0x01C42D 07:C41D: D0 F2     BNE @bra_C411_loop ; If Register A != 0xA8
-C - - - - - 0x01C42F 07:C41F: 60        RTS
+C - - - - - 0x01C421 07:C411: A9 FF     LDA #$FF            ;
+C - - - - - 0x01C423 07:C413: 99 10 04  STA vSoundRowB_0,Y  ;
+C - - - - - 0x01C426 07:C416: 98        TYA                 ;
+C - - - - - 0x01C427 07:C417: 18        CLC                 ; 
+C - - - - - 0x01C428 07:C418: 69 15     ADC #$15            ; CONSTANT: Sound row step
+C - - - - - 0x01C42A 07:C41A: A8        TAY                 ;
+C - - - - - 0x01C42B 07:C41B: C9 A8     CMP #$A8            ; 8 iterations for sound row
+C - - - - - 0x01C42D 07:C41D: D0 F2     BNE @bra_C411_loop  ; If Register A != 0xA8
+C - - - - - 0x01C42F 07:C41F: 60        RTS                 ;
 
 ; Params:
 ; Register A - ???
@@ -774,7 +775,7 @@ C - - - - - 0x01C52D 07:C51D: 60        RTS
 
 sub_C51E:
 C - - - - - 0x01C52E 07:C51E: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
-C - - - - - 0x01C531 07:C521: 20 F4 C3  JSR sub_C3F4
+C - - - - - 0x01C531 07:C521: 20 F4 C3  JSR sub_C3F4_set_OAM_address
 C - - - - - 0x01C534 07:C524: 20 F3 D4  JSR sub_D4F3
 C - - - - - 0x01C537 07:C527: A9 90     LDA #$90
 C - - - - - 0x01C539 07:C529: 85 26     STA vPpuCtrlSettings
@@ -998,8 +999,8 @@ bra_C68E:
 C - - - - - 0x01C69E 07:C68E: 20 DD C6  JSR sub_C6DD
 C - - - - - 0x01C6A1 07:C691: C6 1A     DEC ram_001A
 C - - - - - 0x01C6A3 07:C693: 10 F9     BPL bra_C68E
-C - - - - - 0x01C6A5 07:C695: A9 00     LDA #$00
-C - - - - - 0x01C6A7 07:C697: 85 19     STA vRenderActive     ; activate
+C - - - - - 0x01C6A5 07:C695: A9 00     LDA #$00              ; CONSTANT - active
+C - - - - - 0x01C6A7 07:C697: 85 19     STA vRenderActive     ;
 C - - - - - 0x01C6A9 07:C699: 8D 31 06  STA ram_0631
 C - - - - - 0x01C6AC 07:C69C: 8D 7B 06  STA vPpuAddrDataCache ; empty cache
 C - - - - - 0x01C6AF 07:C69F: 85 3D     STA ram_003D
@@ -1378,34 +1379,35 @@ tbl_C8E2_symbols:
 - D 2 - - - 0x01C8FB 07:C8EB: 00        .byte $00   ; 
 
 bra_C8EC_skip:
-C - - - - - 0x01C8FC 07:C8EC: A2 09     LDX #$09
-bra_C8EE_repeat:
-C - - - - - 0x01C8FE 07:C8EE: BD E2 C8  LDA tbl_C8E2_symbols,X
-C - - - - - 0x01C901 07:C8F1: 9D 00 01  STA ram_0100,X ; set Yoshikawa
-C - - - - - 0x01C904 07:C8F4: CA        DEX
-C - - - - - 0x01C905 07:C8F5: 10 F7     BPL bra_C8EE_repeat
-C - - - - - 0x01C907 07:C8F7: A9 00     LDA #$00
-C - - - - - 0x01C909 07:C8F9: 85 24     STA vMenuDemoIndex
-C - - - - - 0x01C90B 07:C8FB: A2 99     LDX #$99
-C - - - - - 0x01C90D 07:C8FD: 20 11 C9  JSR sub_C911_memset_zero ; [0x0099-0x009F] in 0
-C - - - - - 0x01C910 07:C900: A9 05     LDA #$05
-C - - - - - 0x01C912 07:C902: 85 9C     STA ram_009C
-sub_C904: ; from bank_06_2
-C - - - - - 0x01C914 07:C904: A2 A0     LDX #$A0
-C - - - - - 0x01C916 07:C906: 20 11 C9  JSR sub_C911_memset_zero ; [0x00A0-0x00A6] in 0
-C - - - - - 0x01C919 07:C909: 85 5D     STA ram_005D
-C - - - - - 0x01C91B 07:C90B: A9 05     LDA #$05
-C - - - - - 0x01C91D 07:C90D: 85 A3     STA ram_00A3
-C - - - - - 0x01C91F 07:C90F: A2 56     LDX #$56
+C - - - - - 0x01C8FC 07:C8EC: A2 09     LDX #$09                 ; set loop counter
+@bra_C8EE_loop:                                                  ; loop by x
+C - - - - - 0x01C8FE 07:C8EE: BD E2 C8  LDA tbl_C8E2_symbols,X   ;
+C - - - - - 0x01C901 07:C8F1: 9D 00 01  STA ram_0100,X           ; set Yoshikawa
+C - - - - - 0x01C904 07:C8F4: CA        DEX                      ; decrement x 
+C - - - - - 0x01C905 07:C8F5: 10 F7     BPL @bra_C8EE_loop       ; In Register X >= 0x00 && X < 0xF0
+C - - - - - 0x01C907 07:C8F7: A9 00     LDA #$00                 ; CONSTANT - The menu
+C - - - - - 0x01C909 07:C8F9: 85 24     STA vMenuDemoIndex       ;
+C - - - - - 0x01C90B 07:C8FB: A2 99     LDX #$99                 ; next [0x0099-0x009F] in 0
+C - - - - - 0x01C90D 07:C8FD: 20 11 C9  JSR sub_C911_memset_zero ; 
+C - - - - - 0x01C910 07:C900: A9 05     LDA #$05                 ;  
+C - - - - - 0x01C912 07:C902: 85 9C     STA vNonUsed             ;
+sub_C904_clear_score:
+C - - - - - 0x01C914 07:C904: A2 A0     LDX #$A0                 ; next [0x00A0-0x00A6] in 0
+C - - - - - 0x01C916 07:C906: 20 11 C9  JSR sub_C911_memset_zero ; 
+C - - - - - 0x01C919 07:C909: 85 5D     STA vNonUsed2            ;
+C - - - - - 0x01C91B 07:C90B: A9 05     LDA #$05                 ;
+C - - - - - 0x01C91D 07:C90D: 85 A3     STA vNonUsed3            ;
+C - - - - - 0x01C91F 07:C90F: A2 56     LDX #$56                 ; next [0x0056-0x005C] in 0, i.e. vScore = 0
+; in: Register x - the offset of the address
 sub_C911_memset_zero:
-C - - - - - 0x01C921 07:C911: A0 07     LDY #$07
-C - - - - - 0x01C923 07:C913: A9 00     LDA #$00
-bra_C915_repeat:
-C - - - - - 0x01C925 07:C915: 95 00     STA ram_0000,X
-C - - - - - 0x01C927 07:C917: E8        INX
-C - - - - - 0x01C928 07:C918: 88        DEY
-C - - - - - 0x01C929 07:C919: D0 FA     BNE bra_C915_repeat
-C - - - - - 0x01C92B 07:C91B: 60        RTS
+C - - - - - 0x01C921 07:C911: A0 07     LDY #$07                 ; set loop counter
+C - - - - - 0x01C923 07:C913: A9 00     LDA #$00                 ; set loop value
+@bra_C915_loop:                                                  ; loop by y
+C - - - - - 0x01C925 07:C915: 95 00     STA ram_0000,X           ;
+C - - - - - 0x01C927 07:C917: E8        INX                      ;
+C - - - - - 0x01C928 07:C918: 88        DEY                      ; decrement y
+C - - - - - 0x01C929 07:C919: D0 FA     BNE @bra_C915_loop       ; If Register Y != 0
+C - - - - - 0x01C92B 07:C91B: 60        RTS                      ;
 
 sub_C91C: ; from bank_06_2
 C - - - - - 0x01C92C 07:C91C: A9 80     LDA #$80
@@ -2193,48 +2195,52 @@ C - - - - - 0x01CE1F 07:CE0F: 8D 14 02  STA vCurrentWeaponStatus
 bra_CE12_RTS:
 C - - - - - 0x01CE22 07:CE12: 60        RTS
 
-sub_CE13:
-C - - - - - 0x01CE23 07:CE13: A2 27     LDX #$27
-C - - - - - 0x01CE25 07:CE15: A5 3B     LDA vSharedGameStatus
-C - - - - - 0x01CE27 07:CE17: 6A        ROR
-C - - - - - 0x01CE28 07:CE18: 90 02     BCC bra_CE1C
-C - - - - - 0x01CE2A 07:CE1A: A2 37     LDX #$37
-bra_CE1C:
-C - - - - - 0x01CE2C 07:CE1C: 8E 00 07  STX vStartOAM
-C - - - - - 0x01CE2F 07:CE1F: A9 3F     LDA #$3F
-C - - - - - 0x01CE31 07:CE21: 8D 01 07  STA vStartOAM_2b
-C - - - - - 0x01CE34 07:CE24: A9 20     LDA #$20
-C - - - - - 0x01CE36 07:CE26: 8D 02 07  STA vStartOAM_3b
-C - - - - - 0x01CE39 07:CE29: A9 00     LDA #$00
-C - - - - - 0x01CE3B 07:CE2B: 8D 03 07  STA vStartOAM_4b
-C - - - - - 0x01CE3E 07:CE2E: A9 04     LDA #$04
-C - - - - - 0x01CE40 07:CE30: 85 43     STA vCurrentNumberSprite
-C - - - - - 0x01CE42 07:CE32: 60        RTS
+; see https://www.nesdev.org/wiki/PPU_OAM#Sprite_0_hits
+sub_CE13_set_sprite_zero_hits:
+C - - - - - 0x01CE23 07:CE13: A2 27     LDX #$27                 ; Y-position for message room
+C - - - - - 0x01CE25 07:CE15: A5 3B     LDA vSharedGameStatus    ;
+C - - - - - 0x01CE27 07:CE17: 6A        ROR                      ;
+C - - - - - 0x01CE28 07:CE18: 90 02     BCC @bra_CE1C_skip       ; If A screen isn't with the message
+C - - - - - 0x01CE2A 07:CE1A: A2 37     LDX #$37                 ; Y-position for room without messages 
+@bra_CE1C_skip:
+C - - - - - 0x01CE2C 07:CE1C: 8E 00 07  STX vStartOAM            ; set Y-position
+C - - - - - 0x01CE2F 07:CE1F: A9 3F     LDA #$3F                 ; a black square
+C - - - - - 0x01CE31 07:CE21: 8D 01 07  STA vStartOAM_2b         ; set the tile number sprite
+C - - - - - 0x01CE34 07:CE24: A9 20     LDA #$20                 ; behind background
+C - - - - - 0x01CE36 07:CE26: 8D 02 07  STA vStartOAM_3b         ; set the attributes
+C - - - - - 0x01CE39 07:CE29: A9 00     LDA #$00                 ;
+C - - - - - 0x01CE3B 07:CE2B: 8D 03 07  STA vStartOAM_4b         ; set X-position
+C - - - - - 0x01CE3E 07:CE2E: A9 04     LDA #$04                 ;
+C - - - - - 0x01CE40 07:CE30: 85 43     STA vCurrentNumberSprite ;
+C - - - - - 0x01CE42 07:CE32: 60        RTS                      ;
 
-; function(0x00, 0x01, 0x02, 0x03)
+; in: 0x0000 - sprite magic1 (Y-position)
+; in: 0x0001 - sprite magic2 (The tile number)
+; in: 0x0002 - sprite magic3 (The attributes)
+; in: 0x0003 - sprite magic4 (X-position)
 loc_CE33_add_sprite_magic:
-C D 2 - - - 0x01CE43 07:CE33: 98        TYA
-C - - - - - 0x01CE44 07:CE34: 48        PHA ; store y
-C - - - - - 0x01CE45 07:CE35: AC F7 06  LDY v_offset_sprite_magic
-C - - - - - 0x01CE48 07:CE38: C0 40     CPY #$40           ; Maximum sprites
-C - - - - - 0x01CE4A 07:CE3A: B0 1B     BCS @bra_CE57_skip ; If sprite's count == maximum
-C - - - - - 0x01CE4C 07:CE3C: A5 00     LDA ram_0000
-C - - - - - 0x01CE4E 07:CE3E: 99 B7 06  STA v_sprite_magic1,Y
-C - - - - - 0x01CE51 07:CE41: A5 01     LDA ram_0001
-C - - - - - 0x01CE53 07:CE43: 99 B8 06  STA v_sprite_magic2,Y
-C - - - - - 0x01CE56 07:CE46: A5 02     LDA ram_0002
-C - - - - - 0x01CE58 07:CE48: 99 B9 06  STA v_sprite_magic3,Y
-C - - - - - 0x01CE5B 07:CE4B: A5 03     LDA ram_0003
-C - - - - - 0x01CE5D 07:CE4D: 99 BA 06  STA v_sprite_magic4,Y
-C - - - - - 0x01CE60 07:CE50: C8        INY
-C - - - - - 0x01CE61 07:CE51: C8        INY
-C - - - - - 0x01CE62 07:CE52: C8        INY
-C - - - - - 0x01CE63 07:CE53: C8        INY
-C - - - - - 0x01CE64 07:CE54: 8C F7 06  STY v_offset_sprite_magic ; += 4
+C D 2 - - - 0x01CE43 07:CE33: 98        TYA                     ;
+C - - - - - 0x01CE44 07:CE34: 48        PHA                     ; store y
+C - - - - - 0x01CE45 07:CE35: AC F7 06  LDY vShiftSpriteMagic   ;
+C - - - - - 0x01CE48 07:CE38: C0 40     CPY #$40                ; Maximum sprites
+C - - - - - 0x01CE4A 07:CE3A: B0 1B     BCS @bra_CE57_skip      ; If sprite's count == maximum
+C - - - - - 0x01CE4C 07:CE3C: A5 00     LDA ram_0000            ;
+C - - - - - 0x01CE4E 07:CE3E: 99 B7 06  STA v_sprite_magic1,Y   ;
+C - - - - - 0x01CE51 07:CE41: A5 01     LDA ram_0001            ;
+C - - - - - 0x01CE53 07:CE43: 99 B8 06  STA v_sprite_magic2,Y   ;
+C - - - - - 0x01CE56 07:CE46: A5 02     LDA ram_0002            ;
+C - - - - - 0x01CE58 07:CE48: 99 B9 06  STA v_sprite_magic3,Y   ;
+C - - - - - 0x01CE5B 07:CE4B: A5 03     LDA ram_0003            ;
+C - - - - - 0x01CE5D 07:CE4D: 99 BA 06  STA v_sprite_magic4,Y   ;
+C - - - - - 0x01CE60 07:CE50: C8        INY                     ;
+C - - - - - 0x01CE61 07:CE51: C8        INY                     ;
+C - - - - - 0x01CE62 07:CE52: C8        INY                     ;
+C - - - - - 0x01CE63 07:CE53: C8        INY                     ;
+C - - - - - 0x01CE64 07:CE54: 8C F7 06  STY vShiftSpriteMagic   ; += 4
 @bra_CE57_skip:
-C - - - - - 0x01CE67 07:CE57: 68        PLA
-C - - - - - 0x01CE68 07:CE58: A8        TAY ; retrieve y
-C - - - - - 0x01CE69 07:CE59: 60        RTS
+C - - - - - 0x01CE67 07:CE57: 68        PLA                     ;  
+C - - - - - 0x01CE68 07:CE58: A8        TAY                     ; retrieve y (see CE34)
+C - - - - - 0x01CE69 07:CE59: 60        RTS                     ; 
 
 ; in: Register X - the offset of the sprite address [0x80XX-0x83XX]
 ; in: 0x0000 - vScreenChrPosY with increment
@@ -5437,13 +5443,13 @@ C - - - - - 0x01E141 07:E131: 60        RTS
 ; In Register X - the number of the bullets
 loc_E132:
 C D 3 - - - 0x01E142 07:E132: 86 10     STX vTempCounter10 ; set loop counter
-bra_E134_loop:                                             ; loop by x
-C - - - - - 0x01E144 07:E134: A6 10     LDX vTempCounter10
+bra_E134_loop:                                             ; loop by vTempCounter10
+C - - - - - 0x01E144 07:E134: A6 10     LDX vTempCounter10 ;
 C - - - - - 0x01E146 07:E136: 20 3E E1  JSR sub_E13E
-C - - - - - 0x01E149 07:E139: C6 10     DEC vTempCounter10 ; decrement x
-C - - - - - 0x01E14B 07:E13B: 10 F7     BPL bra_E134_loop  ; In Register X < 0xF0
+C - - - - - 0x01E149 07:E139: C6 10     DEC vTempCounter10 ; decrement vTempCounter10
+C - - - - - 0x01E14B 07:E13B: 10 F7     BPL bra_E134_loop  ; In vTempCounter10 < 0xF0
 bra_E13D_RTS:
-C - - - - - 0x01E14D 07:E13D: 60        RTS
+C - - - - - 0x01E14D 07:E13D: 60        RTS                ;
 
 ; In Register X - the number of the bullets
 sub_E13E:
@@ -7491,24 +7497,24 @@ C - - - - - 0x01ED96 07:ED86: 4C 21 EE  JMP loc_EE21
 
 bra_ED89:
 C - - - - - 0x01ED99 07:ED89: 20 B3 C9  JSR sub_C9B3_prepare_inventory_ppu_cache
-bra_ED8C_wait:
-C - - - - - 0x01ED9C 07:ED8C: 2C 02 20  BIT PPU_STATUS    ; 
-C - - - - - 0x01ED9F 07:ED8F: 70 FB     BVS bra_ED8C_wait ; checking a sprite 0 hits
-bra_ED91_wait:
-C - - - - - 0x01EDA1 07:ED91: 2C 02 20  BIT PPU_STATUS    ;
-C - - - - - 0x01EDA4 07:ED94: 50 FB     BVC bra_ED91_wait ; checking a sprite 0 hits
+@bra_ED8C_wait:
+C - - - - - 0x01ED9C 07:ED8C: 2C 02 20  BIT PPU_STATUS     ; 
+C - - - - - 0x01ED9F 07:ED8F: 70 FB     BVS @bra_ED8C_wait ; checking a sprite 0 hits
+@bra_ED91_wait:
+C - - - - - 0x01EDA1 07:ED91: 2C 02 20  BIT PPU_STATUS     ;
+C - - - - - 0x01EDA4 07:ED94: 50 FB     BVC @bra_ED91_wait ; checking a sprite 0 hits
 C - - - - - 0x01EDA6 07:ED96: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
 C - - - - - 0x01EDA9 07:ED99: 20 C6 C3  JSR sub_C3C6
-C - - - - - 0x01EDAC 07:ED9C: A5 19     LDA vRenderActive ;
-C - - - - - 0x01EDAE 07:ED9E: D0 68     BNE bra_EE08_skip ; Branch If the render isn't activated
-C - - - - - 0x01EDB0 07:EDA0: E6 19     INC vRenderActive
-C - - - - - 0x01EDB2 07:EDA2: 24 3B     BIT vSharedGameStatus
-C - - - - - 0x01EDB4 07:EDA4: 70 35     BVS bra_EDDB
+C - - - - - 0x01EDAC 07:ED9C: A5 19     LDA vRenderActive      ;
+C - - - - - 0x01EDAE 07:ED9E: D0 68     BNE bra_EE08_skip      ; Branch If the render isn't activated
+C - - - - - 0x01EDB0 07:EDA0: E6 19     INC vRenderActive      ; Making rendering temporarily deactivate
+C - - - - - 0x01EDB2 07:EDA2: 24 3B     BIT vSharedGameStatus  ; If status is 'Pause in the game'
+C - - - - - 0x01EDB4 07:EDA4: 70 35     BVS bra_EDDB_pause     ;
 C - - - - - 0x01EDB6 07:EDA6: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01EDB8 07:EDA8: 29 20     AND #$20
 C - - - - - 0x01EDBA 07:EDAA: D0 69     BNE bra_EE15
 C - - - - - 0x01EDBC 07:EDAC: 20 58 C3  JSR sub_C358_clear_OAM
-C - - - - - 0x01EDBF 07:EDAF: 20 13 CE  JSR sub_CE13
+C - - - - - 0x01EDBF 07:EDAF: 20 13 CE  JSR sub_CE13_set_sprite_zero_hits
 C - - - - - 0x01EDC2 07:EDB2: 20 F4 DA  JSR sub_DAF4_character_subroutine
 C - - - - - 0x01EDC5 07:EDB5: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01EDC7 07:EDB7: C9 0B     CMP #$0B
@@ -7527,7 +7533,7 @@ loc_EDD5:
 C D 3 - - - 0x01EDE5 07:EDD5: 20 7B EF  JSR sub_EF7B
 C - - - - - 0x01EDE8 07:EDD8: 4C E1 ED  JMP loc_EDE1
 
-bra_EDDB:
+bra_EDDB_pause:
 C - - - - - 0x01EDEB 07:EDDB: 20 86 EF  JSR sub_EF86_increment_counter
 C - - - - - 0x01EDEE 07:EDDE: 20 38 CB  JSR sub_CB38
 loc_EDE1:
@@ -7543,8 +7549,8 @@ C - - - - - 0x01EE02 07:EDF2: 8D 00 80  STA MMC3_Bank_select ;
 C - - - - - 0x01EE05 07:EDF5: 8E 01 80  STX MMC3_Bank_data   ; switch bank 02 (page 1) in 0xA000-0BFFF
 C - - - - - 0x01EE08 07:EDF8: 20 F0 FF  JSR sub_FFF0
 C - - - - - 0x01EE0B 07:EDFB: 20 1A EF  JSR sub_EF1A_switch_bank_06_2
-C - - - - - 0x01EE0E 07:EDFE: A9 00     LDA #$00
-C - - - - - 0x01EE10 07:EE00: 85 19     STA vRenderActive
+C - - - - - 0x01EE0E 07:EDFE: A9 00     LDA #$00             ; CONSTANT - active
+C - - - - - 0x01EE10 07:EE00: 85 19     STA vRenderActive    ;
 bra_EE02:
 C - - - - - 0x01EE12 07:EE02: 68        PLA
 C - - - - - 0x01EE13 07:EE03: A8        TAY ; retrieve y

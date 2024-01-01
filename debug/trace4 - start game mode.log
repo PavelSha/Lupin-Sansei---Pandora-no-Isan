@@ -694,22 +694,22 @@ i7996120     A:00 X:00 Y:00 S:FB P:NvUbdIzc  $07:D4E6: D0 03     BNE $D4EB
 i7996121     A:00 X:00 Y:00 S:FB P:NvUbdIzc  $07:D4EB: A5 3B     LDA $3B vSharedGameStatus = #$00
 i7996122     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:D4ED: 6A        ROR
 i7996123     A:00 X:00 Y:00 S:FB P:nvUbdIZc  $07:D4EE: 90 03     BCC $D4F3
-(4401 lines skipped)
-i8000525     A:00 X:00 Y:20 S:FD P:nvUbdIZC  $07:C0CE: 20 13 CE  JSR $CE13
-i8000526     A:00 X:00 Y:20 S:FB P:nvUbdIZC  $07:CE13: A2 27     LDX #$27
-i8000527     A:00 X:27 Y:20 S:FB P:nvUbdIzC  $07:CE15: A5 3B     LDA $3B vSharedGameStatus = #$00
-i8000528     A:00 X:27 Y:20 S:FB P:nvUbdIZC  $07:CE17: 6A        ROR
-i8000529     A:80 X:27 Y:20 S:FB P:NvUbdIzc  $07:CE18: 90 02     BCC $CE1C
-i8000530     A:80 X:27 Y:20 S:FB P:NvUbdIzc  $07:CE1C: 8E 00 07  STX $0700 vStartOAM = #$F0
-i8000531     A:80 X:27 Y:20 S:FB P:NvUbdIzc  $07:CE1F: A9 3F     LDA #$3F
-i8000532     A:3F X:27 Y:20 S:FB P:nvUbdIzc  $07:CE21: 8D 01 07  STA $0701 = #$62
-i8000533     A:3F X:27 Y:20 S:FB P:nvUbdIzc  $07:CE24: A9 20     LDA #$20
-i8000534     A:20 X:27 Y:20 S:FB P:nvUbdIzc  $07:CE26: 8D 02 07  STA $0702 = #$00
-i8000535     A:20 X:27 Y:20 S:FB P:nvUbdIzc  $07:CE29: A9 00     LDA #$00
-i8000536     A:00 X:27 Y:20 S:FB P:nvUbdIZc  $07:CE2B: 8D 03 07  STA $0703 = #$08
-i8000537     A:00 X:27 Y:20 S:FB P:nvUbdIZc  $07:CE2E: A9 04     LDA #$04
-i8000538     A:04 X:27 Y:20 S:FB P:nvUbdIzc  $07:CE30: 85 43     STA $43 = #$00
-i8000539     A:04 X:27 Y:20 S:FB P:nvUbdIzc  $07:CE32: 60        RTS (from $CE13) ----------------------------
+
+---COMMENTED! i8000525     A:00 X:00 Y:20 S:FD P:nvUbdIZC  $07:C0CE: 20 13 CE  JSR $CE13
+---COMMENTED! i8000526     A:00 X:00 Y:20 S:FB P:nvUbdIZC  $07:CE13: A2 27     LDX #$27
+---COMMENTED! i8000527     A:00 X:27 Y:20 S:FB P:nvUbdIzC  $07:CE15: A5 3B     LDA $3B vSharedGameStatus = #$00
+---COMMENTED! i8000528     A:00 X:27 Y:20 S:FB P:nvUbdIZC  $07:CE17: 6A        ROR
+---COMMENTED! i8000529     A:80 X:27 Y:20 S:FB P:NvUbdIzc  $07:CE18: 90 02     BCC $CE1C
+---COMMENTED! i8000530     A:80 X:27 Y:20 S:FB P:NvUbdIzc  $07:CE1C: 8E 00 07  STX $0700 vStartOAM = #$F0
+---COMMENTED! i8000531     A:80 X:27 Y:20 S:FB P:NvUbdIzc  $07:CE1F: A9 3F     LDA #$3F
+---COMMENTED! i8000532     A:3F X:27 Y:20 S:FB P:nvUbdIzc  $07:CE21: 8D 01 07  STA $0701 = #$62
+---COMMENTED! i8000533     A:3F X:27 Y:20 S:FB P:nvUbdIzc  $07:CE24: A9 20     LDA #$20
+---COMMENTED! i8000534     A:20 X:27 Y:20 S:FB P:nvUbdIzc  $07:CE26: 8D 02 07  STA $0702 = #$00
+---COMMENTED! i8000535     A:20 X:27 Y:20 S:FB P:nvUbdIzc  $07:CE29: A9 00     LDA #$00
+---COMMENTED! i8000536     A:00 X:27 Y:20 S:FB P:nvUbdIZc  $07:CE2B: 8D 03 07  STA $0703 = #$08
+---COMMENTED! i8000537     A:00 X:27 Y:20 S:FB P:nvUbdIZc  $07:CE2E: A9 04     LDA #$04
+---COMMENTED! i8000538     A:04 X:27 Y:20 S:FB P:nvUbdIzc  $07:CE30: 85 43     STA $43 = #$00
+---COMMENTED! i8000539     A:04 X:27 Y:20 S:FB P:nvUbdIzc  $07:CE32: 60        RTS (from $CE13) ----------------------------
 i8000540     A:04 X:27 Y:20 S:FD P:nvUbdIzc  $07:C0D1: 68        PLA
 i8000541     A:00 X:27 Y:20 S:FE P:nvUbdIZc  $07:C0D2: 85 27     STA $27 = #$00
 i8000542     A:00 X:27 Y:20 S:FE P:nvUbdIZc  $07:C0D4: 68        PLA

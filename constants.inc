@@ -70,8 +70,9 @@ vMenuDemoIndex                = ram_0024
 ; 0x07 - Stop demo
 
 vPpuCtrlSettings              = ram_0026 ; This is a last actual ppu controller flags.
-vLowViewPortPosX              = ram_0027 ; In level it's the position of the viewport along the x-axis relative to the level (may repeat, with scrolling)
+vLowViewPortPosX              = ram_0027 ; a horizontal scroll, in level it's the position of the viewport along the x-axis relative to the level (may repeat, with scrolling)
 vTempLowViewPortPosX          = ram_0028
+vLowViewPortPosY              = ram_0029 ; a vertical scroll
 v_nmi_counter                 = ram_002B
 v_low_counter                 = ram_002C
 v_high_counter                = ram_002D
@@ -349,6 +350,7 @@ vTempHighViewPortPosX         = ram_004C
 
 vScore                        = ram_0056 ; [0x56-0x5C]
 
+vNonUsed2                     = ram_005D
 v_no_level                    = ram_005E ; It is a number of a level than it starts with 0.
 ; 0x00 - level 1
 ; 0x01 - level 2
@@ -407,7 +409,11 @@ vBulletCount                  = ram_007A ; 0x00 - 1 bullet, 0x01 - 2 bullets, 0x
 
 vBulletStatus                 = ram_008F ; [0x8F-0x93] , for a rifle, Lupin's pistol, Jigen's pistol
 
+vNonUsed                      = ram_009C
+
 ; 0x9F - ???
+
+vNonUsed3                     = ram_00A3
 
 vIndexSelectableChr           = ram_00AD ; Selectable character number in character selection mode
 vCacheIndexSelectableChr      = ram_00AE ;
@@ -434,12 +440,13 @@ vCheckpoint                   = ram_00C4
 ; 0x19 - level racing
 ; 0x42 - level 4 (pyramid)
 
+v_letter_offset               = ram_00C9
 vMessageCounter               = ram_00CA
 v_low_vram_msg_address        = ram_00CB
 v_hign_vram_msg_address       = ram_00CC
 v_low_msg_ppu_address         = ram_00CF ; This temporary address for the message on the screen
 v_high_msg_ppu_address        = ram_00D0
-v_letter_offset               = ram_00C9
+vSoundRoomIndex               = ram_00FD
 v_last_level                  = ram_0109 ; It is a last played level.
 v_items                       = ram_0200 ; 0x0200-0x0208
 v_radio_item                  = ram_0200
@@ -570,7 +577,7 @@ v_sprite_magic1               = ram_06B7 ; Y-position
 v_sprite_magic2               = ram_06B8
 v_sprite_magic3               = ram_06B9 ; BBBB XXXX, BBBB - sign MMC3 bank data
 v_sprite_magic4               = ram_06BA ; X-position
-v_offset_sprite_magic         = ram_06F7 ; The pack is using 1,2,3,4 sprite magic
+vShiftSpriteMagic             = ram_06F7 ; The pack is using 1,2,3,4 sprite magic
 vStartOAM                     = ram_0700
 vStartOAM_2b                  = ram_0701 ; 2nd byte
 vStartOAM_3b                  = ram_0702 ; 3rd byte
