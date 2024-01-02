@@ -1338,7 +1338,7 @@ i8013546     A:00 X:01 Y:00 S:F9 P:nvUbdIZc  $07:EDC6: 20 9A B0  JSR $B09A
     (31 lines skipped)
     i8013599     A:03 X:05 Y:04 S:F7 P:nvUbdIzc  $06:B0CD: 90 D5     BCC $B0A4
     i8013600     A:03 X:05 Y:04 S:F7 P:nvUbdIzc  $06:B0A4: 60        RTS (from $B09A) ----------------------------
-    i8013601     A:03 X:05 Y:04 S:F9 P:nvUbdIzc  $07:EDC9: 20 4D AF  JSR $AF4D
+i8013601     A:03 X:05 Y:04 S:F9 P:nvUbdIzc  $07:EDC9: 20 4D AF  JSR $AF4D
     i8013602     A:03 X:05 Y:04 S:F7 P:nvUbdIzc  $06:AF4D: A2 05     LDX #$05
     i8013603     A:03 X:05 Y:04 S:F7 P:nvUbdIzc  $06:AF4F: 86 1A     STX $1A = #$FF
     i8013604     A:03 X:05 Y:04 S:F7 P:nvUbdIzc  $06:AF51: A6 1A     LDX $1A = #$05

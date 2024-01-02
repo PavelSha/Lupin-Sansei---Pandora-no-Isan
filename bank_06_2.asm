@@ -38,6 +38,7 @@
 .export sub_B234_get_vram_msg_address
 .export loc_B255_display_message_by_letter
 .export sub_BB2A_solve_secret_codes
+.export sub_BBFE_check_room
 
 tbl_A000:
 - D 1 - - - 0x01A010 06:A000: 00        .byte $00   ; 
@@ -2579,41 +2580,41 @@ C - - - - - 0x01B0A6 06:B096: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01B0A9 06:B099: 60        RTS
 
 sub_B09A: ; from bank FF
-C - - - - - 0x01B0AA 06:B09A: A2 05     LDX #$05
-bra_B09C_loop:                                         ; loop by x
-C - - - - - 0x01B0AC 06:B09C: BD 9E 03  LDA v_item_on_screen,X
-C - - - - - 0x01B0AF 06:B09F: 10 04     BPL bra_B0A5
-C - - - - - 0x01B0B1 06:B0A1: CA        DEX
-C - - - - - 0x01B0B2 06:B0A2: D0 F8     BNE bra_B09C_loop ; If register X > 0
+C - - - - - 0x01B0AA 06:B09A: A2 05     LDX #$05               ; set loop counter
+@bra_B09C_loop:                                                ; loop by x
+C - - - - - 0x01B0AC 06:B09C: BD 9E 03  LDA v_item_on_screen,X ;
+C - - - - - 0x01B0AF 06:B09F: 10 04     BPL bra_B0A5           ; If v_item_on_screen >= 0x00 && v_item_on_screen < 0xF0
+C - - - - - 0x01B0B1 06:B0A1: CA        DEX                    ; decrement loop counter
+C - - - - - 0x01B0B2 06:B0A2: D0 F8     BNE @bra_B09C_loop     ; If register X != 0x00
 bra_B0A4_RTS:
-C - - - - - 0x01B0B4 06:B0A4: 60        RTS
+C - - - - - 0x01B0B4 06:B0A4: 60        RTS                    ;
 
 bra_B0A5:
-C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA vMovableChrStatus
-C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113
+C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA vMovableChrStatus         ;
+C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113                  ; If 'the character is moving in the water'
 C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ; bank FF
-C - - - - - 0x01B0BC 06:B0AC: A0 00     LDY #$00
-C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA vNoSubLevel
-C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ bra_B0BE ; If level == level 1.0
-C - - - - - 0x01B0C2 06:B0B2: A0 02     LDY #$02
-C - - - - - 0x01B0C4 06:B0B4: C9 06     CMP #$06
-C - - - - - 0x01B0C6 06:B0B6: F0 06     BEQ bra_B0BE ; If level == level 2 (outside)
-C - - - - - 0x01B0C8 06:B0B8: A0 04     LDY #$04
-C - - - - - 0x01B0CA 06:B0BA: C9 0F     CMP #$0F
-C - - - - - 0x01B0CC 06:B0BC: D0 E6     BNE bra_B0A4_RTS ; If level != level 3.0
+C - - - - - 0x01B0BC 06:B0AC: A0 00     LDY #$00                      ;
+C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA vNoSubLevel               ;
+C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ bra_B0BE                  ; If vNoSubLevel == level 1.0
+C - - - - - 0x01B0C2 06:B0B2: A0 02     LDY #$02                      ;
+C - - - - - 0x01B0C4 06:B0B4: C9 06     CMP #$06                      ; CONSTANT - level 2 (outside)
+C - - - - - 0x01B0C6 06:B0B6: F0 06     BEQ bra_B0BE                  ; If vNoSubLevel == level 2 (outside)
+C - - - - - 0x01B0C8 06:B0B8: A0 04     LDY #$04                      ;
+C - - - - - 0x01B0CA 06:B0BA: C9 0F     CMP #$0F                      ; CONSTANT - level 3.0
+C - - - - - 0x01B0CC 06:B0BC: D0 E6     BNE bra_B0A4_RTS              ; If vNoSubLevel != level 3.0
 bra_B0BE:
-C - - - - - 0x01B0CE 06:B0BE: B9 9E 84  LDA tbl_ptr_briefcases_outside,Y
-C - - - - - 0x01B0D1 06:B0C1: 85 12     STA ram_0012 ; Low address
-C - - - - - 0x01B0D3 06:B0C3: B9 9F 84  LDA tbl_ptr_briefcases_outside + 1,Y
-C - - - - - 0x01B0D6 06:B0C6: 85 13     STA ram_0013 ; High address
+C - - - - - 0x01B0CE 06:B0BE: B9 9E 84  LDA tbl_ptr_briefcases_outside,Y     ; 
+C - - - - - 0x01B0D1 06:B0C1: 85 12     STA ram_0012                         ; Low address
+C - - - - - 0x01B0D3 06:B0C3: B9 9F 84  LDA tbl_ptr_briefcases_outside + 1,Y ;
+C - - - - - 0x01B0D6 06:B0C6: 85 13     STA ram_0013                         ; High address
 C - - - - - 0x01B0D8 06:B0C8: A9 01     LDA #$01
-C - - - - - 0x01B0DA 06:B0CA: 20 D6 F2  JSR sub_F2D6_try_put_briefcase ; bank FF
-C - - - - - 0x01B0DD 06:B0CD: 90 D5     BCC bra_B0A4_RTS              ; If a briefcase doesn't put
-C - - - - - 0x01B0DF 06:B0CF: A4 0A     LDY ram_000A                  ; load index of a briefcase
-C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA v_array_white_briefcase,Y ; load an item (inside a briefcase)
-C - - - - - 0x01B0E4 06:B0D4: 30 CE     BMI bra_B0A4_RTS ; If the item is got
-C - - - - - 0x01B0E6 06:B0D6: A0 05     LDY #$05
-bra_B0D8_loop:                                         ; loop by y (5 times)
+C - - - - - 0x01B0DA 06:B0CA: 20 D6 F2  JSR sub_F2D6_try_put_briefcase       ; bank FF
+C - - - - - 0x01B0DD 06:B0CD: 90 D5     BCC bra_B0A4_RTS                     ; If a briefcase doesn't put
+C - - - - - 0x01B0DF 06:B0CF: A4 0A     LDY ram_000A                         ; load index of a briefcase
+C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA v_array_white_briefcase,Y        ; load an item (inside a briefcase)
+C - - - - - 0x01B0E4 06:B0D4: 30 CE     BMI bra_B0A4_RTS                     ; If the item is got
+C - - - - - 0x01B0E6 06:B0D6: A0 05     LDY #$05                             ; set loop counter
+bra_B0D8_loop:                                                              ; loop by y (5 times)
 C - - - - - 0x01B0E8 06:B0D8: B9 9E 03  LDA v_item_on_screen,Y
 C - - - - - 0x01B0EB 06:B0DB: 10 14     BPL bra_B0F1
 C - - - - - 0x01B0ED 06:B0DD: B9 B6 03  LDA ram_03B6,Y
@@ -2627,8 +2628,8 @@ C - - - - - 0x01B0FD 06:B0ED: C5 02     CMP ram_0002
 C - - - - - 0x01B0FF 06:B0EF: F0 B3     BEQ bra_B0A4_RTS
 bra_B0F1:
 C - - - - - 0x01B101 06:B0F1: 88        DEY
-C - - - - - 0x01B102 06:B0F2: D0 E4     BNE bra_B0D8_loop ; If register Y > 0
-C - - - - - 0x01B104 06:B0F4: A9 C0     LDA #$C0          ; CONSTANT: The item is in the briefcase, i.e. it's hidden
+C - - - - - 0x01B102 06:B0F2: D0 E4     BNE bra_B0D8_loop                    ; If register Y > 0
+C - - - - - 0x01B104 06:B0F4: A9 C0     LDA #$C0                             ; CONSTANT: The item is in the briefcase, i.e. it's hidden
 C - - - - - 0x01B106 06:B0F6: 9D 9E 03  STA v_item_on_screen,X
 C - - - - - 0x01B109 06:B0F9: A9 03     LDA #$03
 loc_B0FB:
@@ -4221,7 +4222,7 @@ sub_BBA4:
 C D 1 - - - 0x01BBB4 06:BBA4: A9 05     LDA #$05
 C - - - - - 0x01BBB6 06:BBA6: 24 6D     BIT vMovableChrStatus
 C - - - - - 0x01BBB8 06:BBA8: 30 13     BMI bra_BBBD_skip
-C - - - - - 0x01BBBA 06:BBAA: 20 FE BB  JSR sub_BBFE
+C - - - - - 0x01BBBA 06:BBAA: 20 FE BB  JSR sub_BBFE_check_room
 C - - - - - 0x01BBBD 06:BBAD: B0 36     BCS bra_BBE5
 C - - - - - 0x01BBBF 06:BBAF: A5 5E     LDA v_no_level
 C - - - - - 0x01BBC1 06:BBB1: C9 03     CMP #$03
@@ -4270,19 +4271,20 @@ C - - - - - 0x01BC08 06:BBF8: 18        CLC
 C - - - - - 0x01BC09 06:BBF9: 65 5E     ADC v_no_level
 C - - - - - 0x01BC0B 06:BBFB: 4C BD BB  JMP loc_BBBD
 
-sub_BBFE:
-C - - - - - 0x01BC0E 06:BBFE: A5 46     LDA ram_0046
-C - - - - - 0x01BC10 06:BC00: C9 14     CMP #$14
-C - - - - - 0x01BC12 06:BC02: F0 0A     BEQ bra_BC0E
-C - - - - - 0x01BC14 06:BC04: C9 1A     CMP #$1A
-C - - - - - 0x01BC16 06:BC06: 90 04     BCC bra_BC0C
+; Return the carry status (analog return true or false)
+sub_BBFE_check_room:
+C - - - - - 0x01BC0E 06:BBFE: A5 46     LDA vNoSubLevel            ;
+C - - - - - 0x01BC10 06:BC00: C9 14     CMP #$14                   ; CONSTANT - a room 'boss of level 4'
+C - - - - - 0x01BC12 06:BC02: F0 0A     BEQ bra_BC0E_return_true   ;
+C - - - - - 0x01BC14 06:BC04: C9 1A     CMP #$1A                   ; CONSTANT - a npc room or a character tied up
+C - - - - - 0x01BC16 06:BC06: 90 04     BCC @bra_BC0C_return_false ;
 C - - - - - 0x01BC18 06:BC08: C9 24     CMP #$24
-C - - - - - 0x01BC1A 06:BC0A: 90 02     BCC bra_BC0E
-bra_BC0C:
+C - - - - - 0x01BC1A 06:BC0A: 90 02     BCC bra_BC0E_return_true
+@bra_BC0C_return_false:
 C - - - - - 0x01BC1C 06:BC0C: 18        CLC
 C - - - - - 0x01BC1D 06:BC0D: 60        RTS
 
-bra_BC0E:
+bra_BC0E_return_true:
 C - - - - - 0x01BC1E 06:BC0E: 38        SEC
 C - - - - - 0x01BC1F 06:BC0F: 60        RTS
 

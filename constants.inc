@@ -172,6 +172,7 @@ vNoSubLevel                   = ram_0046
 ; 0x21 - room with briefcases in level 2 (part 2)
 ; 0x22 - room with briefcases in level 3
 ; 0x23 - room with briefcases in level 4
+; 0x24 - ???
 ; ...
 ; 0x37 - water room in level 2
 ;
@@ -528,13 +529,16 @@ vEnemies                     = ram_0300
 
 vEnemyA                       = ram_0300
 vEnemyB                       = ram_0301
-vEnemyTimerLow1               = ram_0314
-vEnemyTimerHigh1              = ram_0315
+vEnemyACount                  = ram_030A
+vEnemyBCount                  = ram_030B
+vEnemyTimerLow1               = ram_0314 ; the low counter after which the enemy will appear
+vEnemyTimerHigh1              = ram_0315 ; the high counter after which the enemy will appear
 v_briefcase_index             = ram_0398 ; [0399-039D]
+v_bomb_on_screen              = ram_039E ; C2 - a bomb
 v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, 039E - screen
+; 0%10000000 - ???
 ; C0 - briefcase
 ; D0 - self item
-v_bomb_on_screen              = ram_039E ; C2 - a bomb
 
 v_sound_counter               = ram_0406
 vSoundRowB_0                  = ram_0410 ; ???
