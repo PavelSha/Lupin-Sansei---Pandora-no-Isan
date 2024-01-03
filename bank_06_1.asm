@@ -1798,7 +1798,7 @@ bra_AC3A_RTS:
 C - - - - - 0x018C4A 06:AC3A: 60        RTS
 loc_AC3B:
 C D 1 - - - 0x018C4B 06:AC3B: 20 80 AC  JSR sub_AC80
-C - - - - - 0x018C4E 06:AC3E: 24 D1     BIT ram_00D1
+C - - - - - 0x018C4E 06:AC3E: 24 D1     BIT vGogglesActive
 C - - - - - 0x018C50 06:AC40: 50 33     BVC bra_AC75
 C - - - - - 0x018C52 06:AC42: A5 2C     LDA v_low_counter
 C - - - - - 0x018C54 06:AC44: 29 03     AND #$03
@@ -1858,7 +1858,7 @@ C - - - - - 0x018CC1 06:ACB1: BD 68 03  LDA ram_0368,X
 C - - - - - 0x018CC4 06:ACB4: 85 00     STA ram_0000
 C - - - - - 0x018CC6 06:ACB6: A5 03     LDA ram_0003
 C - - - - - 0x018CC8 06:ACB8: 9D 6E 03  STA ram_036E,X
-C - - - - - 0x018CCB 06:ACBB: 24 D1     BIT ram_00D1
+C - - - - - 0x018CCB 06:ACBB: 24 D1     BIT vGogglesActive
 C - - - - - 0x018CCD 06:ACBD: 10 0B     BPL bra_ACCA
 C - - - - - 0x018CCF 06:ACBF: A9 6E     LDA #$6E
 C - - - - - 0x018CD1 06:ACC1: 85 01     STA ram_0001
@@ -1868,7 +1868,7 @@ C - - - - - 0x018CD7 06:ACC7: 20 33 CE  JSR $CE33  ; to loc_CE33_add_sprite_magi
 bra_ACCA:
 C - - - - - 0x018CDA 06:ACCA: BD 5C 03  LDA ram_035C,X
 C - - - - - 0x018CDD 06:ACCD: 10 30     BPL bra_ACFF_RTS
-C - - - - - 0x018CDF 06:ACCF: 24 D1     BIT ram_00D1
+C - - - - - 0x018CDF 06:ACCF: 24 D1     BIT vGogglesActive
 C - - - - - 0x018CE1 06:ACD1: 70 2C     BVS bra_ACFF_RTS
 C - - - - - 0x018CE3 06:ACD3: BD 68 03  LDA ram_0368,X
 C - - - - - 0x018CE6 06:ACD6: 85 AD     STA ram_00AD
@@ -1888,9 +1888,9 @@ C - - - - - 0x018D01 06:ACF1: 88        DEY
 C - - - - - 0x018D02 06:ACF2: 10 FA     BPL bra_ACEE
 C - - - - - 0x018D04 06:ACF4: A9 02     LDA #$02
 C - - - - - 0x018D06 06:ACF6: 8D 18 02  STA ram_0218
-C - - - - - 0x018D09 06:ACF9: A5 D1     LDA ram_00D1
+C - - - - - 0x018D09 06:ACF9: A5 D1     LDA vGogglesActive
 C - - - - - 0x018D0B 06:ACFB: 09 40     ORA #$40
-C - - - - - 0x018D0D 06:ACFD: 85 D1     STA ram_00D1
+C - - - - - 0x018D0D 06:ACFD: 85 D1     STA vGogglesActive
 bra_ACFF_RTS:
 C - - - - - 0x018D0F 06:ACFF: 60        RTS
 loc_AD00:
@@ -1940,9 +1940,9 @@ C - - - - - 0x018D5A 06:AD4A: D0 0C     BNE bra_AD58
 C - - - - - 0x018D5C 06:AD4C: AD 17 02  LDA ram_0217
 C - - - - - 0x018D5F 06:AD4F: D0 07     BNE bra_AD58
 loc_AD51:
-C D 1 - - - 0x018D61 06:AD51: A5 D1     LDA ram_00D1
+C D 1 - - - 0x018D61 06:AD51: A5 D1     LDA vGogglesActive
 C - - - - - 0x018D63 06:AD53: 29 BF     AND #$BF
-C - - - - - 0x018D65 06:AD55: 85 D1     STA ram_00D1
+C - - - - - 0x018D65 06:AD55: 85 D1     STA vGogglesActive
 C - - - - - 0x018D67 06:AD57: 60        RTS
 bra_AD58:
 C - - - - - 0x018D68 06:AD58: A0 02     LDY #$02

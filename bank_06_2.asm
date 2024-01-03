@@ -2393,22 +2393,22 @@ bra_AF4A:
 C - - - - - 0x01AF5A 06:AF4A: 4C A9 AE  JMP loc_AEA9
 
 sub_AF4D: ; from bank FF
-C - - - - - 0x01AF5D 06:AF4D: A2 05     LDX #$05
-C - - - - - 0x01AF5F 06:AF4F: 86 1A     STX v_sub_AF4D_counter
-bra_AF51_repeat:
-C - - - - - 0x01AF61 06:AF51: A6 1A     LDX v_sub_AF4D_counter
+C - - - - - 0x01AF5D 06:AF4D: A2 05     LDX #$05                        ; the number of the briefcases
+C - - - - - 0x01AF5F 06:AF4F: 86 1A     STX v_sub_AF4D_briefcase_no     ; set loop counter
+bra_AF51_loop:                                                          ; loop by v_sub_AF4D_briefcase_no
+C - - - - - 0x01AF61 06:AF51: A6 1A     LDX v_sub_AF4D_briefcase_no     ;
 C - - - - - 0x01AF63 06:AF53: 20 F8 AF  JSR sub_AFF8
-C - - - - - 0x01AF66 06:AF56: BD 9E 03  LDA ram_039E,X
-C - - - - - 0x01AF69 06:AF59: C9 E0     CMP #$E0
-C - - - - - 0x01AF6B 06:AF5B: B0 69     BCS bra_AFC6
-C - - - - - 0x01AF6D 06:AF5D: C9 C0     CMP #$C0
-C - - - - - 0x01AF6F 06:AF5F: 90 65     BCC bra_AFC6
+C - - - - - 0x01AF66 06:AF56: BD 9E 03  LDA v_item_on_screen,X          ;
+C - - - - - 0x01AF69 06:AF59: C9 E0     CMP #$E0                        ;
+C - - - - - 0x01AF6B 06:AF5B: B0 69     BCS bra_AFC6_loop_continue      ; If v_item_on_screen >= 0xE0
+C - - - - - 0x01AF6D 06:AF5D: C9 C0     CMP #$C0                        ;   
+C - - - - - 0x01AF6F 06:AF5F: 90 65     BCC bra_AFC6_loop_continue      ; If v_item_on_screen < 0xC0
 C - - - - - 0x01AF71 06:AF61: A0 08     LDY #$08
-C - - - - - 0x01AF73 06:AF63: BD 9E 03  LDA ram_039E,X
+C - - - - - 0x01AF73 06:AF63: BD 9E 03  LDA v_item_on_screen,X
 C - - - - - 0x01AF76 06:AF66: 29 10     AND #$10
-C - - - - - 0x01AF78 06:AF68: D0 02     BNE bra_AF6C
+C - - - - - 0x01AF78 06:AF68: D0 02     BNE @bra_AF6C_skip
 C - - - - - 0x01AF7A 06:AF6A: A0 10     LDY #$10
-bra_AF6C:
+@bra_AF6C_skip:
 C - - - - - 0x01AF7C 06:AF6C: 84 AF     STY ram_00AF
 C - - - - - 0x01AF7E 06:AF6E: BD AA 03  LDA ram_03AA,X
 C - - - - - 0x01AF81 06:AF71: 38        SEC
@@ -2422,9 +2422,9 @@ C - - - - - 0x01AF8F 06:AF7F: BD 9E 03  LDA ram_039E,X
 C - - - - - 0x01AF92 06:AF82: 29 10     AND #$10
 C - - - - - 0x01AF94 06:AF84: F0 25     BEQ bra_AFAB
 C - - - - - 0x01AF96 06:AF86: BD C8 03  LDA ram_03C8,X
-C - - - - - 0x01AF99 06:AF89: D0 3B     BNE bra_AFC6
+C - - - - - 0x01AF99 06:AF89: D0 3B     BNE bra_AFC6_loop_continue
 C - - - - - 0x01AF9B 06:AF8B: 20 42 D6  JSR $D642
-C - - - - - 0x01AF9E 06:AF8E: 90 36     BCC bra_AFC6
+C - - - - - 0x01AF9E 06:AF8E: 90 36     BCC bra_AFC6_loop_continue
 C - - - - - 0x01AFA0 06:AF90: BC 98 03  LDY v_briefcase_index,X
 C - - - - - 0x01AFA3 06:AF93: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01AFA5 06:AF95: 30 0B     BMI bra_AFA2
@@ -2437,16 +2437,16 @@ C - - - - - 0x01AFB1 06:AFA1: A8        TAY
 bra_AFA2:
 C - - - - - 0x01AFB2 06:AFA2: 20 67 B0  JSR sub_B067
 C - - - - - 0x01AFB5 06:AFA5: 20 EF AF  JSR sub_AFEF
-C - - - - - 0x01AFB8 06:AFA8: 4C C6 AF  JMP loc_AFC6
+C - - - - - 0x01AFB8 06:AFA8: 4C C6 AF  JMP loc_AFC6_loop_continue
 
 bra_AFAB:
 C - - - - - 0x01AFBB 06:AFAB: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01AFBD 06:AFAD: 29 02     AND #$02
 C - - - - - 0x01AFBF 06:AFAF: F0 0B     BEQ bra_AFBC
 C - - - - - 0x01AFC1 06:AFB1: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
-C - - - - - 0x01AFC4 06:AFB4: 90 10     BCC bra_AFC6
+C - - - - - 0x01AFC4 06:AFB4: 90 10     BCC bra_AFC6_loop_continue
 C - - - - - 0x01AFC6 06:AFB6: 20 D5 AF  JSR sub_AFD5
-C - - - - - 0x01AFC9 06:AFB9: 4C C6 AF  JMP loc_AFC6
+C - - - - - 0x01AFC9 06:AFB9: 4C C6 AF  JMP loc_AFC6_loop_continue
 
 bra_AFBC:
 C - - - - - 0x01AFCC 06:AFBC: A6 7A     LDX vBulletCount
@@ -2455,20 +2455,20 @@ C - - - - - 0x01AFCE 06:AFBE: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x01AFD1 06:AFC1: B0 08     BCS bra_AFCB
 C - - - - - 0x01AFD3 06:AFC3: CA        DEX
 C - - - - - 0x01AFD4 06:AFC4: 10 F8     BPL bra_AFBE_repeat
-bra_AFC6:
-loc_AFC6:
-C D 1 - - - 0x01AFD6 06:AFC6: C6 1A     DEC v_sub_AF4D_counter
-C - - - - - 0x01AFD8 06:AFC8: D0 87     BNE bra_AF51_repeat
+bra_AFC6_loop_continue:
+loc_AFC6_loop_continue:
+C D 1 - - - 0x01AFD6 06:AFC6: C6 1A     DEC v_sub_AF4D_briefcase_no      ; decrement v_sub_AF4D_briefcase_no
+C - - - - - 0x01AFD8 06:AFC8: D0 87     BNE bra_AF51_loop                ; If v_sub_AF4D_briefcase_no != 0
 C - - - - - 0x01AFDA 06:AFCA: 60        RTS
 
 bra_AFCB:
 C - - - - - 0x01AFDB 06:AFCB: A9 00     LDA #$00
 C - - - - - 0x01AFDD 06:AFCD: 95 8F     STA vBulletStatus,X
 C - - - - - 0x01AFDF 06:AFCF: 20 D5 AF  JSR sub_AFD5
-C - - - - - 0x01AFE2 06:AFD2: 4C C6 AF  JMP loc_AFC6
+C - - - - - 0x01AFE2 06:AFD2: 4C C6 AF  JMP loc_AFC6_loop_continue
 
 sub_AFD5:
-C - - - - - 0x01AFE5 06:AFD5: A6 1A     LDX v_sub_AF4D_counter
+C - - - - - 0x01AFE5 06:AFD5: A6 1A     LDX v_sub_AF4D_briefcase_no
 C - - - - - 0x01AFE7 06:AFD7: DE A4 03  DEC ram_03A4,X
 C - - - - - 0x01AFEA 06:AFDA: D0 12     BNE bra_AFEE_RTS
 C - - - - - 0x01AFEC 06:AFDC: BD 9E 03  LDA v_item_on_screen,X
@@ -2488,9 +2488,10 @@ C - - - - - 0x01B001 06:AFF1: 9D 9E 03  STA v_item_on_screen,X ; A character pic
 C - - - - - 0x01B004 06:AFF4: 9D 98 03  STA v_briefcase_index,X
 C - - - - - 0x01B007 06:AFF7: 60        RTS
 
+; in: Register X - the number of the briefcase
 sub_AFF8:
-C - - - - - 0x01B008 06:AFF8: BD 9E 03  LDA ram_039E,X
-C - - - - - 0x01B00B 06:AFFB: 10 F1     BPL bra_AFEE_RTS
+C - - - - - 0x01B008 06:AFF8: BD 9E 03  LDA v_item_on_screen,X ;
+C - - - - - 0x01B00B 06:AFFB: 10 F1     BPL bra_AFEE_RTS       ; If the briefcase item >= 0x00 && the briefcase item < 0xF0
 C - - - - - 0x01B00D 06:AFFD: A0 00     LDY #$00
 C - - - - - 0x01B00F 06:AFFF: 29 10     AND #$10
 C - - - - - 0x01B011 06:B001: F0 2B     BEQ bra_B02E
@@ -2595,14 +2596,14 @@ C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113                  ; If 'the 
 C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ; bank FF
 C - - - - - 0x01B0BC 06:B0AC: A0 00     LDY #$00                      ;
 C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA vNoSubLevel               ;
-C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ bra_B0BE                  ; If vNoSubLevel == level 1.0
+C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ @bra_B0BE_skip            ; If vNoSubLevel == level 1.0
 C - - - - - 0x01B0C2 06:B0B2: A0 02     LDY #$02                      ;
 C - - - - - 0x01B0C4 06:B0B4: C9 06     CMP #$06                      ; CONSTANT - level 2 (outside)
-C - - - - - 0x01B0C6 06:B0B6: F0 06     BEQ bra_B0BE                  ; If vNoSubLevel == level 2 (outside)
+C - - - - - 0x01B0C6 06:B0B6: F0 06     BEQ @bra_B0BE_skip            ; If vNoSubLevel == level 2 (outside)
 C - - - - - 0x01B0C8 06:B0B8: A0 04     LDY #$04                      ;
 C - - - - - 0x01B0CA 06:B0BA: C9 0F     CMP #$0F                      ; CONSTANT - level 3.0
 C - - - - - 0x01B0CC 06:B0BC: D0 E6     BNE bra_B0A4_RTS              ; If vNoSubLevel != level 3.0
-bra_B0BE:
+@bra_B0BE_skip:
 C - - - - - 0x01B0CE 06:B0BE: B9 9E 84  LDA tbl_ptr_briefcases_outside,Y     ; 
 C - - - - - 0x01B0D1 06:B0C1: 85 12     STA ram_0012                         ; Low address
 C - - - - - 0x01B0D3 06:B0C3: B9 9F 84  LDA tbl_ptr_briefcases_outside + 1,Y ;

@@ -51,7 +51,7 @@ v_temp_check_buttons          = ram_0012 ; There is a variable that stores the c
 v_temp_counter12              = ram_0012
 vCacheRam12                   = ram_0012 ;
 vRenderActive                 = ram_0019 ; 0x00 - active, else deactive
-v_sub_AF4D_counter            = ram_001A ; Intermediate counter
+v_sub_AF4D_briefcase_no       = ram_001A ; Intermediate counter
 v_loc_CA48_counter            = ram_001A ; Intermediate counter
 vBtnPressedInGame             = ram_001C ; In a level 1-4 or a title screen
 vCopy001C                     = ram_001D
@@ -447,6 +447,9 @@ v_low_vram_msg_address        = ram_00CB
 v_hign_vram_msg_address       = ram_00CC
 v_low_msg_ppu_address         = ram_00CF ; This temporary address for the message on the screen
 v_high_msg_ppu_address        = ram_00D0
+vGogglesActive                = ram_00D1 ; 0x80 - active, 0x00 - deactive
+vGogglesLowCounter            = ram_00D2
+vGogglesHighCounter           = ram_00D3
 vSoundRoomIndex               = ram_00FD
 v_last_level                  = ram_0109 ; It is a last played level.
 v_items                       = ram_0200 ; 0x0200-0x0208
@@ -464,10 +467,12 @@ vCurrentWeaponStatus          = ram_0214 ; Only the active items
 ; 0x00000010 - Using the artillery rifle
 ; 0x00000011 - Using the jet-pack
 ; 0x00000100 - Using the infrared goggles
+vBreathingApparatusLowCounter  = ram_0215
+vBreathingApparatusHighCounter = ram_0216
 
-v_array_white_briefcase       = ram_0219
+v_array_white_briefcase        = ram_0219
 ; flag 0x80 - the item is got (see BIT_USING_WHITE_BRIEFCASE)
-vEnemies                     = ram_0300
+vEnemies                       = ram_0300
 ; 0x00 - Nobody
 ; 0x01 - Cat with the weapon (level 3) (0x01 - knife, 0x81 - gun)
 ; 0x02 - Gray Land hat (level 3) Type B
@@ -537,8 +542,10 @@ v_briefcase_index             = ram_0398 ; [0399-039D]
 v_bomb_on_screen              = ram_039E ; C2 - a bomb
 v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, 039E - screen
 ; 0%10000000 - ???
-; C0 - briefcase
+; For briefcase:
+; C0 - allow briefcase
 ; D0 - self item
+; E0 - disallow briefcase
 
 v_sound_counter               = ram_0406
 vSoundRowB_0                  = ram_0410 ; ???
@@ -599,3 +606,13 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; 0x0042 - 0 - left, 0x80 - right in 1st level
 
 ; Byte join regex: "\s\s\s;\s.*\n.*\$" -> ", $"
+
+; Last mini:
+; "^;.*\n.*\n" -> ""
+; "^bra_.*\n" -> "\n"
+; "^@bra_.*\n" -> "\n"
+; "^sub_.*\n" -> "\n"
+; "^@sub_.*\n" -> "\n"
+; "^loc_.*\n" -> "\n"
+; "^@loc_.*\n" -> "\n"
+; "^\(.*\)\s\n" -> "\n"

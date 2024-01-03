@@ -2,18 +2,20 @@ const ASM_FOLDER_PATH = "C:\\Lupin Sansei - Pandora no Isan\\";
 const NL_FOLDER_PATH  = "C:\\Lupin Sansei - Pandora no Isan\\";
 const ASM_FILE1 = "bank_FF.asm";
 const ASM_FILE2 = "constants.inc";
+const ASM_FILE3 = "bank_06_2.asm";
 const NL_FILE1 = "game.nes.7.nl";
 const NL_FILE2 = "game.nes.ram.nl";
+const NL_FILE3 = "game.nes.6.nl";
 const SKIP_COMMERCIAL_AT = false;
 const LOOP_WITH_COUNTER = false;
 const COUNTER_LIMIT = 65;
 const ONLY_LABEL = false;
 const EXCLUDE_LIST = [ '0005', '0011', '0012', '001A', '0039', '003A' ];
 
-function getBankNl()
+function getBankNl(asmFile, nlFile)
 {
     var array = [];
-    var asmFile = FileSystem.openTextFile(ASM_FOLDER_PATH + ASM_FILE1, "utf8");
+    var asmFile = FileSystem.openTextFile(ASM_FOLDER_PATH + asmFile, "utf8");
     try
     {
         var label = null;
@@ -70,7 +72,7 @@ function getBankNl()
     if (array.length == 0)
         return;
 
-    var nlFile = FileSystem.createTextFile(NL_FOLDER_PATH + NL_FILE1, "utf8");
+    var nlFile = FileSystem.createTextFile(NL_FOLDER_PATH + nlFile, "utf8");
     try
     {
         for (var i = 0; i < array.length; i++)
@@ -94,6 +96,16 @@ function getBankNl()
     {
         nlFile.close();
     }
+}
+
+function getBankFFNl()
+{
+    getBankNl(ASM_FILE1, NL_FILE1);
+}
+
+function getBank06Nl()
+{
+    getBankNl(ASM_FILE3, NL_FILE3);
 }
 
 function getVariablesNl()

@@ -24,6 +24,7 @@ $C031#@bra_C031_loop#[0x0000-0x0098] in 0
 $C033##increment counter x 
 $C034##--NO-COMMENT--
 $C036##If Register X != 0x99
+$C038##set loop counter
 $C03A#@bra_C03A_loop#[0x00A7-0x00FF] in 0
 $C03C##increments loop counter
 $C03D##If Register X != 0
@@ -57,6 +58,10 @@ $C078##clear
 $C07A##clear
 $C07C##clear
 $C07E##clear
+$C080##--NO-COMMENT--
+$C082##set apu frame counter - 4-step mode, the interrupts are disabled
+$C085##--NO-COMMENT--
+$C087##clear (see vChrLiveStatus) 
 $C089##--NO-COMMENT--
 $C08C##to sub_B8C7 (bank 06_2)
 $C08F##to sub_B9DA (bank 06_2)
@@ -80,14 +85,16 @@ $C0D2##--NO-COMMENT--
 $C0D4##retrieve the high position of the character
 $C0D5##multiplicity of vHighViewPortPosX by 2 sets the nametable address (0x2000 or 0x2400)
 $C0D7##activate the right pattern table (0x1000)
+$C0DF##clear
 $C0E2##clear
 $C0E5##clear
 $C0FF##to sub_BBA4 (bank 06_2)
-$C118#bra_C118#
+$C118#bra_C118#--NO-COMMENT--
 $C11A##Initializes a counter.
+$C11C##--NO-COMMENT--
 $C11E##Initializes a time of a demo scene.
 $C120#bra_C120_repeat#
-$C125##--NO-COMMENT--
+$C125##Branch If in game
 $C12F#bra_C12F#
 $C142##to sub_BC48 (bank 06_2)
 $C148#bra_C148#
@@ -185,7 +192,13 @@ $C3BC##--NO-COMMENT--
 $C3BF##--NO-COMMENT--
 $C3C2##see https://www.nesdev.org/wiki/PPU_registers#Palette_corruption
 $C3C6#sub_C3C6#
-$C3D9#sub_C3D9_increment_nmi_counter#
+$C3CB##read to reset PPU latch
+$C3CE##--NO-COMMENT--
+$C3D0##--NO-COMMENT--
+$C3D3##--NO-COMMENT--
+$C3D5##--NO-COMMENT--
+$C3D9#sub_C3D9_increment_nmi_counter#--NO-COMMENT--
+$C3DB##--NO-COMMENT--
 $C3DC##not used ???
 $C3DE##not used ???
 $C3E0##not used ???
@@ -194,22 +207,33 @@ $C3E2##not used ???
 $C3E3##not used ???
 $C3E4##not used ???
 $C3E7##not used ???
-$C3E9#bra_C3E9_not_used#not used ???
+$C3E9#@bra_C3E9_not_used#not used ???
 $C3EC##not used ???
 $C3EF##not used ???
 $C3F0##not used ???
 $C3F1##not used ???
 $C3F3##not used ???
-$C3F4#sub_C3F4#
-$C402#sub_C402_clear_sound_parts#
+$C3F4#sub_C3F4_set_OAM_address#--NO-COMMENT--
+$C3F7##--NO-COMMENT--
+$C3F9##DMA is used instead
+$C3FC##--NO-COMMENT--
+$C3FE##set 0x0700-0x07FF
+$C401##--NO-COMMENT--
+$C402#sub_C402_clear_sound_parts#--NO-COMMENT--
+$C404##set the fake index
 $C406##set loop counter
 $C408##clear
 $C40B##clear
 $C40E##clear
-$C411#@bra_C411_loop#
+$C411#@bra_C411_loop#--NO-COMMENT--
+$C413##--NO-COMMENT--
+$C416##--NO-COMMENT--
+$C417##--NO-COMMENT--
 $C418##CONSTANT: Sound row step
+$C41A##--NO-COMMENT--
 $C41B##8 iterations for sound row
 $C41D##If Register A != 0xA8
+$C41F##--NO-COMMENT--
 $C420#loc_C420_add_sound_effect#put to cache vCacheRam12
 $C422##--NO-COMMENT--
 $C423##store x
@@ -321,7 +345,8 @@ $C677##Low address
 $C67B##High address (0x8139 in the bank 04_1)
 $C67D##set loop counter
 $C68E#bra_C68E#
-$C697##activate
+$C695##CONSTANT - active
+$C697##--NO-COMMENT--
 $C69C##empty cache
 $C6A6#@bra_C6A6_loop#
 $C6AD#@bra_C6AD_skip#
@@ -435,14 +460,30 @@ $C8E8##a
 $C8E9##w
 $C8EA##a
 $C8EB##--NO-COMMENT--
-$C8EC#bra_C8EC_skip#
-$C8EE#bra_C8EE_repeat#
+$C8EC#bra_C8EC_skip#set loop counter
+$C8EE#@bra_C8EE_loop#--NO-COMMENT--
 $C8F1##set Yoshikawa
-$C8FD##[0x0099-0x009F] in 0
-$C904#sub_C904#
-$C906##[0x00A0-0x00A6] in 0
-$C911#sub_C911_memset_zero#
-$C915#bra_C915_repeat#
+$C8F4##decrement x 
+$C8F5##In Register X >= 0x00 && X < 0xF0
+$C8F7##CONSTANT - The menu
+$C8F9##--NO-COMMENT--
+$C8FB##next [0x0099-0x009F] in 0
+$C8FD##--NO-COMMENT--
+$C900##--NO-COMMENT--
+$C902##--NO-COMMENT--
+$C904#sub_C904_clear_score#next [0x00A0-0x00A6] in 0
+$C906##--NO-COMMENT--
+$C909##--NO-COMMENT--
+$C90B##--NO-COMMENT--
+$C90D##--NO-COMMENT--
+$C90F##next [0x0056-0x005C] in 0, i.e. vScore = 0
+$C911#sub_C911_memset_zero#set loop counter
+$C913##set loop value
+$C915#@bra_C915_loop#--NO-COMMENT--
+$C917##--NO-COMMENT--
+$C918##decrement y
+$C919##If Register Y != 0
+$C91B##--NO-COMMENT--
 $C91C#sub_C91C#
 $C92A#bra_C92A#
 $C930#bra_C930#
@@ -640,11 +681,18 @@ $CB64#bra_CB64#
 $CB70#bra_CB70#
 $CB77#bra_CB77#
 $CB80#bra_CB80#
-$CB8C#sub_CB8C#
-$CBA3#bra_CBA3#
+$CB8C#sub_CB8C#--NO-COMMENT--
+$CB8E##If 'the character is moving in the water'
+$CB90##--NO-COMMENT--
+$CB92##--NO-COMMENT--
+$CB94##If the character is Lupin
+$CBA3#@bra_CBA3_skip#--NO-COMMENT--
+$CBA6##If the weapons are not exist
 $CBB5#bra_CBB5#
-$CBD8#bra_CBD8_RTS#
-$CBD9#sub_CBD9#
+$CBD8#bra_CBD8_RTS#--NO-COMMENT--
+$CBD9#sub_CBD9#--NO-COMMENT--
+$CBDC##If the weapons are not exist
+$CBDE##If the weapon is activated
 $CC06#sub_CC06#
 $CC14#@bra_CC14_loop#
 $CC1B#@bra_CC1B_skip#
@@ -672,27 +720,85 @@ $CD1C#sub_CD1C#
 $CD49#loc_CD49#
 $CD53#tbl_CD53#a bomb is on the right
 $CD59##a bomb is on the left
-$CD5F#sub_CD5F#
-$CD72#bra_CD72#
-$CD7F#bra_CD7F#
-$CDAA#bra_CDAA#
+$CD5F#sub_CD5F#--NO-COMMENT--
+$CD61##If goggles are not deactivated
+$CD63##--NO-COMMENT--
+$CD65##If a high counter != 0x00
+$CD67##--NO-COMMENT--
+$CD69##If a low counter != 0x00
+$CD6B##--NO-COMMENT--
+$CD6D##reset infrared goggles activity
+$CD6F##--NO-COMMENT--
+$CD72#bra_CD72_decrement_counters#--NO-COMMENT--
+$CD74##--NO-COMMENT--
+$CD75##--NO-COMMENT--
+$CD77##decrement low value
+$CD79##--NO-COMMENT--
+$CD7B##--NO-COMMENT--
+$CD7D##decrement high value
+$CD7F#bra_CD7F_skip#--NO-COMMENT--
+$CD82##If a high counter != 0x00
+$CD84##--NO-COMMENT--
+$CD87##If a low counter != 0x00
+$CD89##--NO-COMMENT--
+$CD8B##If the character is moving in the water 
+$CD8D##If the character is moving on the balloon
+$CD8F##--NO-COMMENT--
+$CD92##If the weapons are not exist
+$CD94##If the weapon isn't activated
+$CDAA#bra_CDAA_decrement_counters#--NO-COMMENT--
+$CDAC##--NO-COMMENT--
+$CDAF##--NO-COMMENT--
+$CDB0##--NO-COMMENT--
+$CDB2##decrement low value
+$CDB5##--NO-COMMENT--
+$CDB8##--NO-COMMENT--
+$CDBA##decrement high value
+$CDBD##--NO-COMMENT--
 $CDBE#tbl_CDBE#
 $CDD0#bra_CDD0#
 $CDDD#bra_CDDD#
-$CDED#bra_CDED_RTS#
+$CDED#bra_CDED_RTS#--NO-COMMENT--
 $CDEE#sub_CDEE#
 $CDF3#loc_CDF3#
 $CE05#@bra_CE05_loop#
 $CE12#bra_CE12_RTS#
-$CE13#sub_CE13#
-$CE1C#bra_CE1C#
-$CE33#loc_CE33_add_sprite_magic#
+$CE13#sub_CE13_set_sprite_zero_hits#Y-position for message room
+$CE15##--NO-COMMENT--
+$CE17##--NO-COMMENT--
+$CE18##If A screen isn't with the message
+$CE1A##Y-position for room without messages 
+$CE1C#@bra_CE1C_skip#set Y-position
+$CE1F##a black square
+$CE21##set the tile number sprite
+$CE24##behind background
+$CE26##set the attributes
+$CE29##--NO-COMMENT--
+$CE2B##set X-position
+$CE2E##--NO-COMMENT--
+$CE30##--NO-COMMENT--
+$CE32##--NO-COMMENT--
+$CE33#loc_CE33_add_sprite_magic#--NO-COMMENT--
 $CE34##store y
+$CE35##--NO-COMMENT--
 $CE38##Maximum sprites
 $CE3A##If sprite's count == maximum
+$CE3C##--NO-COMMENT--
+$CE3E##--NO-COMMENT--
+$CE41##--NO-COMMENT--
+$CE43##--NO-COMMENT--
+$CE46##--NO-COMMENT--
+$CE48##--NO-COMMENT--
+$CE4B##--NO-COMMENT--
+$CE4D##--NO-COMMENT--
+$CE50##--NO-COMMENT--
+$CE51##--NO-COMMENT--
+$CE52##--NO-COMMENT--
+$CE53##--NO-COMMENT--
 $CE54##+= 4
-$CE57#@bra_CE57_skip#
-$CE58##retrieve y
+$CE57#@bra_CE57_skip#--NO-COMMENT--
+$CE58##retrieve y (see CE34)
+$CE59##--NO-COMMENT--
 $CE5A#loc_CE5A_render_character#--NO-COMMENT--
 $CE5C##clear
 $CE5E##clear
@@ -964,15 +1070,20 @@ $D42F##switch bank 01 (page 2) in 0x8000-09FFF
 $D432##--NO-COMMENT--
 $D434##multiply by 2
 $D435##--NO-COMMENT--
+$D436##--NO-COMMENT--
 $D439##--NO-COMMENT--
+$D43B##--NO-COMMENT--
 $D43E##--NO-COMMENT--
 $D440##transfer 0x7XXX -> 0x9XXX
 $D442##--NO-COMMENT--
-$D445#sub_D445_load_background_palette#
+$D444##--NO-COMMENT--
+$D445#sub_D445_load_background_palette#get address in 0x0000-0x0001
 $D448##set loop counter
-$D44A#@bra_D44A_loop#
+$D44A#@bra_D44A_loop#--NO-COMMENT--
+$D44C##--NO-COMMENT--
 $D44F##decrement y
 $D450##In Register Y >= 0x00 && Y < 0xF0
+$D452##--NO-COMMENT--
 $D453#sub_D453#
 $D456##set loop counter 
 $D458##--NO-COMMENT--
@@ -1351,10 +1462,10 @@ $E0F6#sub_E0F6#
 $E10F#bra_E10F#
 $E12F#bra_E12F#
 $E132#loc_E132#set loop counter
-$E134#bra_E134_loop#
-$E139##decrement x
-$E13B##In Register X < 0xF0
-$E13D#bra_E13D_RTS#
+$E134#bra_E134_loop#--NO-COMMENT--
+$E139##decrement vTempCounter10
+$E13B##In vTempCounter10 < 0xF0
+$E13D#bra_E13D_RTS#--NO-COMMENT--
 $E13E#sub_E13E#--NO-COMMENT--
 $E140##If Register A < 0xF0
 $E14C#bra_E14C#
@@ -1658,32 +1769,48 @@ $ED6D##Read PPU status to reset the high/low latch
 $ED72##write X scroll-position
 $ED75##write Y scroll-position
 $ED82#bra_ED82#
-$ED89#bra_ED89#
-$ED8C#bra_ED8C_wait#--NO-COMMENT--
+$ED89#bra_ED89#--NO-COMMENT--
+$ED8C#@bra_ED8C_wait#--NO-COMMENT--
 $ED8F##checking a sprite 0 hits
-$ED91#bra_ED91_wait#--NO-COMMENT--
+$ED91#@bra_ED91_wait#--NO-COMMENT--
 $ED94##checking a sprite 0 hits
 $ED9C##--NO-COMMENT--
 $ED9E##Branch If the render isn't activated
+$EDA0##Making rendering temporarily deactivate
+$EDA2##If status is 'Pause in the game'
+$EDA4##--NO-COMMENT--
+$EDAC##--NO-COMMENT--
+$EDAF##--NO-COMMENT--
+$EDB2##--NO-COMMENT--
+$EDBB##--NO-COMMENT--
+$EDC1##--NO-COMMENT--
+$EDC3##--NO-COMMENT--
+$EDC4##Branch if 'A screen with the message'
 $EDC6##to sub_B09A bank 06_2
 $EDC9##to sub_AF4D bank 06_2
 $EDD5#loc_EDD5#
-$EDDB#bra_EDDB#
-$EDE1#loc_EDE1#
+$EDDB#bra_EDDB_pause#
+$EDE1#loc_EDE1_skip#
 $EDE7#loc_EDE7#
 $EDEE##--NO-COMMENT--
 $EDF0##--NO-COMMENT--
 $EDF2##--NO-COMMENT--
 $EDF5##switch bank 02 (page 1) in 0xA000-0BFFF
-$EE02#bra_EE02#
+$EDFB##--NO-COMMENT--
+$EDFE##CONSTANT - active
+$EE00##--NO-COMMENT--
+$EE02#bra_EE02_finish#--NO-COMMENT--
 $EE03##retrieve y
+$EE04##--NO-COMMENT--
 $EE05##retrieve x
 $EE06##retrieve a
 $EE07#vec_C000_IRQ#irq
-$EE08#bra_EE08_skip#
+$EE08#bra_EE08_skip#--NO-COMMENT--
+$EE0A##switch by MMC3_Bank_data in 0xA000-0BFFF
+$EE0D##Always true
 $EE0F#bra_EE0F#
 $EE15#bra_EE15#
-$EE1B#bra_EE1B#to sub_B3AA (bank 06_2)
+$EE1B#bra_EE1B_skip#to sub_B3AA (bank 06_2)
 $EE21#loc_EE21#--NO-COMMENT--
 $EE23##Branch If the render isn't activated
 $EE25##--NO-COMMENT--
@@ -1738,17 +1865,23 @@ $EF51##--NO-COMMENT--
 $EF54##--NO-COMMENT--
 $EF56#bra_EF56_on_page1#switch bank 04 (page 1 or 2) in 0x8000-09FFF
 $EF59##assign 0x08 or 0x09
-$EF5D#loc_EF5D_switch_variable_bank#
+$EF5D#loc_EF5D_switch_variable_bank#--NO-COMMENT--
+$EF5F##--NO-COMMENT--
+$EF62##--NO-COMMENT--
 $EF65##switch vBankData (PRG) in 0x8000-09FFF
+$EF68##--NO-COMMENT--
 $EF69#sub_EF69#
-$EF7A#bra_EF7A_RTS#
-$EF7B#sub_EF7B#
-$EF7D#bra_EF7D#
-$EF83#bra_EF83#
+$EF6B##--NO-COMMENT--
+$EF6E##If v_item_on_screen >= 0x00 && v_item_on_screen < 0xF0
+$EF7A#bra_EF7A_RTS#--NO-COMMENT--
+$EF7B#sub_EF7B#set loop counter
+$EF7D#@bra_EF7D_loop#
+$EF83#@bra_EF83_skip#decrement x
+$EF84##If Register X < 0xF0
 $EF86#sub_EF86_increment_counter#--NO-COMMENT--
-$EF88##--NO-COMMENT--
+$EF88##If v_low_counter != 0
 $EF8A##--NO-COMMENT--
-$EF8C#@bra_EF8C_RTS#
+$EF8C#@bra_EF8C_RTS#--NO-COMMENT--
 $EF8D#sub_EF8D#
 $EF96#sub_EF96#
 $EF9A#@clear_loop#0x0209-0x02FF in 0
@@ -1766,6 +1899,7 @@ $F018#@bra_F018_skip#
 $F023#@bra_F023_skip#
 $F032#bra_F032_skip#
 $F04A#@clear_item_loop#clear
+$F059##reset the infrared goggles
 $F05D#@bra_F05D_loop#
 $F06E##clear a low part
 $F071##clear a high part
@@ -1775,41 +1909,74 @@ $F079#@bra_F079_loop#--NO-COMMENT--
 $F07B##decrement x
 $F07C##If Register A < 0xF0
 $F07E##--NO-COMMENT--
-$F07F#sub_F07F#
+$F07F#sub_F07F#--NO-COMMENT--
+$F081##If 'the character is moving in the water'
 $F08C#bra_F08C_skip#
-$F091##If the generation failed
+$F08E##--NO-COMMENT--
+$F091##If the generation is failed
 $F093##type of an enemy
 $F095##CONSTANT - The lift
 $F099##CONSTANT - The wall
 $F09D##CONSTANT - Blade trap
 $F0A8#bra_F0A8_RTS#
-$F0A9#sub_F0A9#
-$F0B0#bra_F0B0#
+$F0A9#sub_F0A9_enemy_subroutine#--NO-COMMENT--
+$F0AB##If 'the character isn't moving in the water'
+$F0B0#bra_F0B0_skip#--NO-COMMENT--
+$F0B3##If the generation is success
 $F0B8#bra_F0B8_skip#
 $F0BE#bra_F0BE_repeat#
 $F0C7#loc_F0C7#
 $F0E7#loc_F0E7#
 $F10A##clear a low part
 $F10D##clear a high part
-$F110#bra_F110#
-$F125#bra_F125#
-$F127#bra_F127#
-$F12F#bra_F12F#
+$F110#bra_F110_inc_counters#
+$F114##--NO-COMMENT--
+$F116##If 'the character is moving in the water'
+$F118##--NO-COMMENT--
+$F11A##CONSTANT - level racing
+$F11C##If vSortOfRoom is the level racing
+$F11E##--NO-COMMENT--
+$F121##CONSTANT - Max value
+$F123##If ram_0317 >= $4B
+$F125#@bra_F125_skip#set loop counter
+$F127#@bra_F127_loop#a low counter
+$F12A##If low counter is overflow
+$F12C##--NO-COMMENT--
+$F12F#@bra_F12F_skip#decrement loop counter
+$F130##decrement loop counter
+$F131##If Register X >= 0 && X < 0xF0
+$F133##--NO-COMMENT--
+$F136##If a counter is overflow
+$F138##--NO-COMMENT--
 $F13B##CONSTANT - Max value
+$F13D##--NO-COMMENT--
 $F140##If ram_0317 < $4B
 $F142##Assigned $4B
-$F145#bra_F145_RTS#
-$F146#loc_F146#
+$F145#bra_F145_RTS#--NO-COMMENT--
+$F146#loc_F146#--NO-COMMENT--
+$F149##If vEnemyACount != 0
+$F14B##--NO-COMMENT--
+$F14E##If vEnemyBCount != 0
 $F150##increment low
+$F153##If vEnemyTimerLow1 is overflow
 $F155##increment high
-$F158#bra_F158#
+$F158#@bra_F158_skip#--NO-COMMENT--
 $F15B##CONSTANT - from now on we create a random enemy
 $F15D##If vEnemyTimerHigh1 != 3
+$F15F##--NO-COMMENT--
 $F162##CONSTANT - Zenigata
+$F164##If vEnemyA is Zenigata
 $F177#sub_F177#
 $F183#bra_F183#
 $F188#bra_F188#
-$F18B#bra_F18B#
+$F18B#bra_F18B#--NO-COMMENT--
+$F18E##If the last function returned true
+$F190##--NO-COMMENT--
+$F193##If vEnemyACount != 0
+$F195##--NO-COMMENT--
+$F198##If vEnemyBCount != 0
+$F19A##--NO-COMMENT--
+$F19C##If the infrared goggles is activated
 $F1B1#bra_F1B1#
 $F1D8#bra_F1D8#
 $F1EB#sub_F1EB#
@@ -1922,6 +2089,7 @@ $F82B#bra_F82B#
 $F84A#sub_F84A#
 $F855#bra_F855#
 $F874#sub_F874#
+$F887#enemy_RTS#
 $F888#tbl_F888#Nobody  (0x00)
 $F88A##Cat with the gun
 $F88C##Gray Land hat
@@ -2076,7 +2244,6 @@ $FBF7#loc_FBF7_pop_stack_room#
 $FC14#sub_FC14#
 $FC28#sub_FC28#
 $FC2B##If Register A != 0x00
-$FC2D##to sub_BBFE (bank 06_2)
 $FC3A#bra_FC3A_return_true#
 $FC3C#bra_FC3C_skip#
 $FC3E#sub_FC3E#

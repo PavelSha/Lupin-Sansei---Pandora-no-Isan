@@ -1819,19 +1819,19 @@ C - - - - - 0x01CB97 07:CB87: 05 00     ORA ram_0000
 C - - - - - 0x01CB99 07:CB89: 8D 14 02  STA vCurrentWeaponStatus
 bra_CB8C:
 sub_CB8C:
-C - - - - - 0x01CB9C 07:CB8C: A5 6D     LDA vMovableChrStatus
-C - - - - - 0x01CB9E 07:CB8E: 30 48     BMI bra_CBD8_RTS
-C - - - - - 0x01CBA0 07:CB90: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01CBA2 07:CB92: 29 03     AND #$03
-C - - - - - 0x01CBA4 07:CB94: F0 0D     BEQ bra_CBA3
+C - - - - - 0x01CB9C 07:CB8C: A5 6D     LDA vMovableChrStatus         ;
+C - - - - - 0x01CB9E 07:CB8E: 30 48     BMI bra_CBD8_RTS              ; If 'the character is moving in the water'
+C - - - - - 0x01CBA0 07:CB90: A5 5F     LDA vChrLiveStatus            ;
+C - - - - - 0x01CBA2 07:CB92: 29 03     AND #$03                      ;
+C - - - - - 0x01CBA4 07:CB94: F0 0D     BEQ @bra_CBA3_skip            ; If the character is Lupin
 C - - - - - 0x01CBA6 07:CB96: AD 00 02  LDA v_radio_item
 C - - - - - 0x01CBA9 07:CB99: F0 3D     BEQ bra_CBD8_RTS
 C - - - - - 0x01CBAB 07:CB9B: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CBAE 07:CB9E: 29 F0     AND #$F0
 C - - - - - 0x01CBB0 07:CBA0: 8D 14 02  STA vCurrentWeaponStatus
-bra_CBA3:
-C - - - - - 0x01CBB3 07:CBA3: AD 14 02  LDA vCurrentWeaponStatus
-C - - - - - 0x01CBB6 07:CBA6: 30 30     BMI bra_CBD8_RTS
+@bra_CBA3_skip:
+C - - - - - 0x01CBB3 07:CBA3: AD 14 02  LDA vCurrentWeaponStatus      ; 
+C - - - - - 0x01CBB6 07:CBA6: 30 30     BMI bra_CBD8_RTS              ; If the weapons are not exist
 C - - - - - 0x01CBB8 07:CBA8: 29 07     AND #$07
 C - - - - - 0x01CBBA 07:CBAA: AA        TAX
 C - - - - - 0x01CBBB 07:CBAB: 20 06 CC  JSR sub_CC06
@@ -1856,12 +1856,12 @@ C - - - - - 0x01CBE3 07:CBD3: E8        INX
 C - - - - - 0x01CBE4 07:CBD4: E0 10     CPX #$10
 C - - - - - 0x01CBE6 07:CBD6: D0 DD     BNE bra_CBB5
 bra_CBD8_RTS:
-C - - - - - 0x01CBE8 07:CBD8: 60        RTS
+C - - - - - 0x01CBE8 07:CBD8: 60        RTS                           ;
 
 sub_CBD9:
-C - - - - - 0x01CBE9 07:CBD9: 2C 14 02  BIT vCurrentWeaponStatus
-C - - - - - 0x01CBEC 07:CBDC: 30 4B     BMI bra_CC29_RTS
-C - - - - - 0x01CBEE 07:CBDE: 70 49     BVS bra_CC29_RTS
+C - - - - - 0x01CBE9 07:CBD9: 2C 14 02  BIT vCurrentWeaponStatus      ;
+C - - - - - 0x01CBEC 07:CBDC: 30 4B     BMI bra_CC29_RTS              ; If the weapons are not exist
+C - - - - - 0x01CBEE 07:CBDE: 70 49     BVS bra_CC29_RTS              ; If the weapon is activated
 C - - - - - 0x01CBF0 07:CBE0: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01CBF2 07:CBE2: 29 FE     AND #$FE
 C - - - - - 0x01CBF4 07:CBE4: D0 43     BNE bra_CC29_RTS
@@ -1982,16 +1982,16 @@ C - - - - - 0x01CCB1 07:CCA1: 85 42     STA ram_0042
 C - - - - - 0x01CCB3 07:CCA3: A9 07     LDA #$07
 C - - - - - 0x01CCB5 07:CCA5: 8D B2 06  STA ram_06B2
 C - - - - - 0x01CCB8 07:CCA8: A9 04     LDA #$04
-C - - - - - 0x01CCBA 07:CCAA: 8D 16 02  STA ram_0216
+C - - - - - 0x01CCBA 07:CCAA: 8D 16 02  STA vBreathingApparatusHighCounter
 C - - - - - 0x01CCBD 07:CCAD: 4C 49 CD  JMP loc_CD49
 
-C - - J - - 0x01CCC0 07:CCB0: 24 D1     BIT ram_00D1
+C - - J - - 0x01CCC0 07:CCB0: 24 D1     BIT vGogglesActive
 C - - - - - 0x01CCC2 07:CCB2: 30 B2     BMI bra_CC66
 C - - - - - 0x01CCC4 07:CCB4: A5 46     LDA ram_0046
 C - - - - - 0x01CCC6 07:CCB6: C9 06     CMP #$06
 C - - - - - 0x01CCC8 07:CCB8: F0 AC     BEQ bra_CC66
 C - - - - - 0x01CCCA 07:CCBA: A9 06     LDA #$06
-C - - - - - 0x01CCCC 07:CCBC: 85 D3     STA ram_00D3
+C - - - - - 0x01CCCC 07:CCBC: 85 D3     STA vGogglesHighCounter
 C - - - - - 0x01CCCE 07:CCBE: 20 28 D4  JSR sub_D428_get_addr_background_palette
 C - - - - - 0x01CCD1 07:CCC1: A0 0F     LDY #$0F
 bra_CCC3:
@@ -2004,9 +2004,9 @@ bra_CCCD:
 C - - - - - 0x01CCDD 07:CCCD: 88        DEY
 C - - - - - 0x01CCDE 07:CCCE: C0 03     CPY #$03
 C - - - - - 0x01CCE0 07:CCD0: D0 F1     BNE bra_CCC3
-C - - - - - 0x01CCE2 07:CCD2: A5 D1     LDA ram_00D1
+C - - - - - 0x01CCE2 07:CCD2: A5 D1     LDA vGogglesActive
 C - - - - - 0x01CCE4 07:CCD4: 09 80     ORA #$80
-C - - - - - 0x01CCE6 07:CCD6: 85 D1     STA ram_00D1
+C - - - - - 0x01CCE6 07:CCD6: 85 D1     STA vGogglesActive
 C - - - - - 0x01CCE8 07:CCD8: A9 1A     LDA #$1A
 C - - - - - 0x01CCEA 07:CCDA: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01CCED 07:CCDD: 18        CLC
@@ -2019,7 +2019,7 @@ C - - - - - 0x01CCF4 07:CCE4: A2 0C     LDX #$0C
 C - - - - - 0x01CCF6 07:CCE6: 20 FF E2  JSR sub_E2FF
 sub_CCE9:
 C - - - - - 0x01CCF9 07:CCE9: A2 08     LDX #$08
-C - - - - - 0x01CCFB 07:CCEB: 8E 16 02  STX ram_0216
+C - - - - - 0x01CCFB 07:CCEB: 8E 16 02  STX vBreathingApparatusHighCounter
 C - - - - - 0x01CCFE 07:CCEE: 60        RTS
 
 sub_CCEF:
@@ -2034,7 +2034,7 @@ C - - - - - 0x01CD0E 07:CCFE: A5 6C     LDA ram_006C
 C - - - - - 0x01CD10 07:CD00: 29 81     AND #$81
 C - - - - - 0x01CD12 07:CD02: 85 6C     STA ram_006C
 C - - - - - 0x01CD14 07:CD04: A2 08     LDX #$08
-C - - - - - 0x01CD16 07:CD06: 8E 16 02  STX ram_0216
+C - - - - - 0x01CD16 07:CD06: 8E 16 02  STX vBreathingApparatusHighCounter
 C - - - - - 0x01CD19 07:CD09: A2 06     LDX #$06
 C - - - - - 0x01CD1B 07:CD0B: D0 06     BNE bra_CD13
 sub_CD0D:
@@ -2081,36 +2081,37 @@ C - - - - - 0x01CD62 07:CD52: 60        RTS
 tbl_CD53:
 - D 2 - - - 0x01CD63 07:CD53: 01        .byte $01, $C2, $00, $0C, $00, $40   ; a bomb is on the right
 - D 2 - - - 0x01CD69 07:CD59: 01        .byte $01, $C2, $00, $F4, $FF, $40   ; a bomb is on the left
-sub_CD5F:
-C - - - - - 0x01CD6F 07:CD5F: A5 D1     LDA ram_00D1
-C - - - - - 0x01CD71 07:CD61: 10 1C     BPL bra_CD7F
-C - - - - - 0x01CD73 07:CD63: A5 D3     LDA ram_00D3
-C - - - - - 0x01CD75 07:CD65: D0 0B     BNE bra_CD72
-C - - - - - 0x01CD77 07:CD67: A5 D2     LDA ram_00D2
-C - - - - - 0x01CD79 07:CD69: D0 07     BNE bra_CD72
-C - - - - - 0x01CD7B 07:CD6B: A9 00     LDA #$00
-C - - - - - 0x01CD7D 07:CD6D: 85 D1     STA ram_00D1
-C - - - - - 0x01CD7F 07:CD6F: 4C 45 D4  JMP loc_D445_load_background_palette
 
-bra_CD72:
-C - - - - - 0x01CD82 07:CD72: A5 D2     LDA ram_00D2
-C - - - - - 0x01CD84 07:CD74: 38        SEC
-C - - - - - 0x01CD85 07:CD75: E9 01     SBC #$01
-C - - - - - 0x01CD87 07:CD77: 85 D2     STA ram_00D2
-C - - - - - 0x01CD89 07:CD79: A5 D3     LDA ram_00D3
-C - - - - - 0x01CD8B 07:CD7B: E9 00     SBC #$00
-C - - - - - 0x01CD8D 07:CD7D: 85 D3     STA ram_00D3
-bra_CD7F:
-C - - - - - 0x01CD8F 07:CD7F: AD 16 02  LDA ram_0216
-C - - - - - 0x01CD92 07:CD82: D0 26     BNE bra_CDAA
-C - - - - - 0x01CD94 07:CD84: AD 15 02  LDA ram_0215
-C - - - - - 0x01CD97 07:CD87: D0 21     BNE bra_CDAA
-C - - - - - 0x01CD99 07:CD89: 24 6D     BIT vMovableChrStatus
-C - - - - - 0x01CD9B 07:CD8B: 30 43     BMI bra_CDD0
-C - - - - - 0x01CD9D 07:CD8D: 70 5E     BVS bra_CDED_RTS
-C - - - - - 0x01CD9F 07:CD8F: 2C 14 02  BIT vCurrentWeaponStatus
-C - - - - - 0x01CDA2 07:CD92: 30 59     BMI bra_CDED_RTS
-C - - - - - 0x01CDA4 07:CD94: 50 57     BVC bra_CDED_RTS
+sub_CD5F:
+C - - - - - 0x01CD6F 07:CD5F: A5 D1     LDA vGogglesActive                   ;
+C - - - - - 0x01CD71 07:CD61: 10 1C     BPL bra_CD7F_skip                    ; If goggles are not deactivated
+C - - - - - 0x01CD73 07:CD63: A5 D3     LDA vGogglesHighCounter              ;
+C - - - - - 0x01CD75 07:CD65: D0 0B     BNE bra_CD72_decrement_counters      ; If a high counter != 0x00
+C - - - - - 0x01CD77 07:CD67: A5 D2     LDA vGogglesLowCounter               ;
+C - - - - - 0x01CD79 07:CD69: D0 07     BNE bra_CD72_decrement_counters      ; If a low counter != 0x00
+C - - - - - 0x01CD7B 07:CD6B: A9 00     LDA #$00                             ;
+C - - - - - 0x01CD7D 07:CD6D: 85 D1     STA vGogglesActive                   ; reset infrared goggles activity
+C - - - - - 0x01CD7F 07:CD6F: 4C 45 D4  JMP loc_D445_load_background_palette ;
+
+bra_CD72_decrement_counters:
+C - - - - - 0x01CD82 07:CD72: A5 D2     LDA vGogglesLowCounter               ;
+C - - - - - 0x01CD84 07:CD74: 38        SEC                                  ;
+C - - - - - 0x01CD85 07:CD75: E9 01     SBC #$01                             ;
+C - - - - - 0x01CD87 07:CD77: 85 D2     STA vGogglesLowCounter               ; decrement low value
+C - - - - - 0x01CD89 07:CD79: A5 D3     LDA vGogglesHighCounter              ;
+C - - - - - 0x01CD8B 07:CD7B: E9 00     SBC #$00                             ;
+C - - - - - 0x01CD8D 07:CD7D: 85 D3     STA vGogglesHighCounter              ; decrement high value
+bra_CD7F_skip:
+C - - - - - 0x01CD8F 07:CD7F: AD 16 02  LDA vBreathingApparatusHighCounter   ;
+C - - - - - 0x01CD92 07:CD82: D0 26     BNE bra_CDAA_decrement_counters      ; If a high counter != 0x00
+C - - - - - 0x01CD94 07:CD84: AD 15 02  LDA vBreathingApparatusLowCounter    ;
+C - - - - - 0x01CD97 07:CD87: D0 21     BNE bra_CDAA_decrement_counters      ; If a low counter != 0x00
+C - - - - - 0x01CD99 07:CD89: 24 6D     BIT vMovableChrStatus                ;
+C - - - - - 0x01CD9B 07:CD8B: 30 43     BMI bra_CDD0                         ; If the character is moving in the water 
+C - - - - - 0x01CD9D 07:CD8D: 70 5E     BVS bra_CDED_RTS                     ; If the character is moving on the balloon
+C - - - - - 0x01CD9F 07:CD8F: 2C 14 02  BIT vCurrentWeaponStatus             ;
+C - - - - - 0x01CDA2 07:CD92: 30 59     BMI bra_CDED_RTS                     ; If the weapons are not exist
+C - - - - - 0x01CDA4 07:CD94: 50 57     BVC bra_CDED_RTS                     ; If the weapon isn't activated
 C - - - - - 0x01CDA6 07:CD96: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CDA9 07:CD99: 29 0F     AND #$0F
 C - - - - - 0x01CDAB 07:CD9B: 0A        ASL
@@ -2121,24 +2122,23 @@ C - - - - - 0x01CDB2 07:CDA2: B9 BF CD  LDA tbl_CDBE + 1,Y
 C - - - - - 0x01CDB5 07:CDA5: 85 01     STA ram_0001
 C - - - - - 0x01CDB7 07:CDA7: 6C 00 00  JMP (ram_0000)
 
-bra_CDAA:
-C - - - - - 0x01CDBA 07:CDAA: A0 00     LDY #$00
-C D 2 - - - 0x01CDBC 07:CDAC: B9 15 02  LDA ram_0215,Y
-C - - - - - 0x01CDBF 07:CDAF: 38        SEC
-C - - - - - 0x01CDC0 07:CDB0: E9 01     SBC #$01
-C - - - - - 0x01CDC2 07:CDB2: 99 15 02  STA ram_0215,Y
-C - - - - - 0x01CDC5 07:CDB5: B9 16 02  LDA ram_0216,Y
-C - - - - - 0x01CDC8 07:CDB8: E9 00     SBC #$00
-C - - - - - 0x01CDCA 07:CDBA: 99 16 02  STA ram_0216,Y
-C - - - - - 0x01CDCD 07:CDBD: 60        RTS
+bra_CDAA_decrement_counters:
+C - - - - - 0x01CDBA 07:CDAA: A0 00     LDY #$00                             ;
+C D 2 - - - 0x01CDBC 07:CDAC: B9 15 02  LDA vBreathingApparatusLowCounter,Y  ;
+C - - - - - 0x01CDBF 07:CDAF: 38        SEC                                  ;
+C - - - - - 0x01CDC0 07:CDB0: E9 01     SBC #$01                             ;  
+C - - - - - 0x01CDC2 07:CDB2: 99 15 02  STA vBreathingApparatusLowCounter,Y  ; decrement low value
+C - - - - - 0x01CDC5 07:CDB5: B9 16 02  LDA vBreathingApparatusHighCounter,Y ;
+C - - - - - 0x01CDC8 07:CDB8: E9 00     SBC #$00                             ;
+C - - - - - 0x01CDCA 07:CDBA: 99 16 02  STA vBreathingApparatusHighCounter,Y ; decrement high value
+C - - - - - 0x01CDCD 07:CDBD: 60        RTS                                  ;
 
 tbl_CDBE:
 - - - - - - 0x01CDCE 07:CDBE: EE CD     .word $CDEE
 - D 2 - - - 0x01CDD0 07:CDC0: ED CD     .word $CDED
 - D 2 - - - 0x01CDD2 07:CDC2: ED CD     .word $CDED
 - D 2 - - - 0x01CDD4 07:CDC4: EE CD     .word $CDEE
-- - - - - - 0x01CDD6 07:CDC6: 6B        .byte $6B
-- - - - - - 0x01CDD7 07:CDC7: CD        .byte $CD
+- - - - - - 0x01CDD6 07:CDC6: 6B CD     .word $CD6B
 - - - - - - 0x01CDD8 07:CDC8: D0        .byte $D0
 - - - - - - 0x01CDD9 07:CDC9: CD        .byte $CD
 - - - - - - 0x01CDDA 07:CDCA: ED        .byte $ED
@@ -2172,7 +2172,7 @@ bra_CDDD:
 - - - - - - 0x01CDFB 07:CDEB: 85        .byte $85
 - - - - - - 0x01CDFC 07:CDEC: 2E        .byte $2E
 bra_CDED_RTS:
-C - - - - - 0x01CDFD 07:CDED: 60        RTS
+C - - - - - 0x01CDFD 07:CDED: 60        RTS ;
 
 sub_CDEE:
 C - - - - - 0x01CDFE 07:CDEE: A9 01     LDA #$01
@@ -2183,8 +2183,8 @@ C D 2 - - - 0x01CE03 07:CDF3: AD 14 02  LDA vCurrentWeaponStatus
 C - - - - - 0x01CE06 07:CDF6: 29 BF     AND #$BF
 C - - - - - 0x01CE08 07:CDF8: 8D 14 02  STA vCurrentWeaponStatus
 C - - - - - 0x01CE0B 07:CDFB: A9 00     LDA #$00
-C - - - - - 0x01CE0D 07:CDFD: 8D 15 02  STA ram_0215
-C - - - - - 0x01CE10 07:CE00: 8D 16 02  STA ram_0216
+C - - - - - 0x01CE0D 07:CDFD: 8D 15 02  STA vBreathingApparatusLowCounter
+C - - - - - 0x01CE10 07:CE00: 8D 16 02  STA vBreathingApparatusHighCounter
 C - - - - - 0x01CE13 07:CE03: A2 04     LDX #$04
 @bra_CE05_loop:
 C - - - - - 0x01CE15 07:CE05: BD 00 02  LDA v_items,X
@@ -2617,13 +2617,13 @@ C - - - - - 0x01CFEC 07:CFDC: D0 E3     BNE bra_CFC1
 - D 2 - I - 0x01D06D 07:D05D: 05        .byte $05
 
 sub_accumulator_shift_right_by_5:
-C - - - - - 0x01D06E 07:D05E: 4A        LSR
+C - - - - - 0x01D06E 07:D05E: 4A        LSR  ;
 sub_accumulator_shift_right_by_4:
-C - - - - - 0x01D06F 07:D05F: 4A        LSR
-C - - - - - 0x01D070 07:D060: 4A        LSR
-C - - - - - 0x01D071 07:D061: 4A        LSR
-C - - - - - 0x01D072 07:D062: 4A        LSR
-C - - - - - 0x01D073 07:D063: 60        RTS
+C - - - - - 0x01D06F 07:D05F: 4A        LSR  ;
+C - - - - - 0x01D070 07:D060: 4A        LSR  ;
+C - - - - - 0x01D071 07:D061: 4A        LSR  ;
+C - - - - - 0x01D072 07:D062: 4A        LSR  ;
+C - - - - - 0x01D073 07:D063: 60        RTS  ;
 
 sub_D064:
 C - - - - - 0x01D074 07:D064: A5 35     LDA ram_0035
@@ -3292,31 +3292,31 @@ C - - - - - 0x01D437 07:D427: 60        RTS
 
 ; Return the CPU-address in [0x0000-0x0001]
 sub_D428_get_addr_background_palette:
-C - - - - - 0x01D438 07:D428: A9 06     LDA #$06             ;
-C - - - - - 0x01D43A 07:D42A: 8D 00 80  STA MMC3_Bank_select ;
-C - - - - - 0x01D43D 07:D42D: A9 03     LDA #$03             ;
-C - - - - - 0x01D43F 07:D42F: 8D 01 80  STA MMC3_Bank_data   ; switch bank 01 (page 2) in 0x8000-09FFF
-C - - - - - 0x01D442 07:D432: A5 46     LDA vNoSubLevel      ;
-C - - - - - 0x01D444 07:D434: 0A        ASL                  ; multiply by 2
-C - - - - - 0x01D445 07:D435: A8        TAY                  ;
-C - - - - - 0x01D446 07:D436: B9 FC 90  LDA tbl_background_palette,Y
-C - - - - - 0x01D449 07:D439: 85 00     STA ram_0000         ;
-C - - - - - 0x01D44B 07:D43B: B9 FD 90  LDA tbl_background_palette + 1,Y
-C - - - - - 0x01D44E 07:D43E: 29 1F     AND #$1F             ;
-C - - - - - 0x01D450 07:D440: 09 80     ORA #$80             ; transfer 0x7XXX -> 0x9XXX
-C - - - - - 0x01D452 07:D442: 85 01     STA ram_0001         ;
-C - - - - - 0x01D454 07:D444: 60        RTS
+C - - - - - 0x01D438 07:D428: A9 06     LDA #$06                          ;
+C - - - - - 0x01D43A 07:D42A: 8D 00 80  STA MMC3_Bank_select              ;
+C - - - - - 0x01D43D 07:D42D: A9 03     LDA #$03                          ;
+C - - - - - 0x01D43F 07:D42F: 8D 01 80  STA MMC3_Bank_data                ; switch bank 01 (page 2) in 0x8000-09FFF
+C - - - - - 0x01D442 07:D432: A5 46     LDA vNoSubLevel                   ;
+C - - - - - 0x01D444 07:D434: 0A        ASL                               ; multiply by 2
+C - - - - - 0x01D445 07:D435: A8        TAY                               ;
+C - - - - - 0x01D446 07:D436: B9 FC 90  LDA tbl_background_palette,Y      ;
+C - - - - - 0x01D449 07:D439: 85 00     STA ram_0000                      ;
+C - - - - - 0x01D44B 07:D43B: B9 FD 90  LDA tbl_background_palette + 1,Y  ;
+C - - - - - 0x01D44E 07:D43E: 29 1F     AND #$1F                          ;
+C - - - - - 0x01D450 07:D440: 09 80     ORA #$80                          ; transfer 0x7XXX -> 0x9XXX
+C - - - - - 0x01D452 07:D442: 85 01     STA ram_0001                      ;
+C - - - - - 0x01D454 07:D444: 60        RTS                               ;
 
 loc_D445_load_background_palette:
 sub_D445_load_background_palette:
-C D 2 - - - 0x01D455 07:D445: 20 28 D4  JSR sub_D428_get_addr_background_palette
-C - - - - - 0x01D458 07:D448: A0 0F     LDY #$0F            ; set loop counter
-@bra_D44A_loop:                                             ; loop by y
-C - - - - - 0x01D45A 07:D44A: B1 00     LDA (ram_0000),Y
-C - - - - - 0x01D45C 07:D44C: 99 00 06  STA vCachePalette,Y
-C - - - - - 0x01D45F 07:D44F: 88        DEY                 ; decrement y
-C - - - - - 0x01D460 07:D450: 10 F8     BPL @bra_D44A_loop  ; In Register Y >= 0x00 && Y < 0xF0
-C - - - - - 0x01D462 07:D452: 60        RTS
+C D 2 - - - 0x01D455 07:D445: 20 28 D4  JSR sub_D428_get_addr_background_palette ; get address in 0x0000-0x0001
+C - - - - - 0x01D458 07:D448: A0 0F     LDY #$0F                                 ; set loop counter
+@bra_D44A_loop:                                                                  ; loop by y
+C - - - - - 0x01D45A 07:D44A: B1 00     LDA (ram_0000),Y                         ;
+C - - - - - 0x01D45C 07:D44C: 99 00 06  STA vCachePalette,Y                      ;
+C - - - - - 0x01D45F 07:D44F: 88        DEY                                      ; decrement y
+C - - - - - 0x01D460 07:D450: 10 F8     BPL @bra_D44A_loop                       ; In Register Y >= 0x00 && Y < 0xF0
+C - - - - - 0x01D462 07:D452: 60        RTS                                      ;
 
 sub_D453:
 C - - - - - 0x01D463 07:D453: 20 45 D4  JSR sub_D445_load_background_palette
@@ -6056,10 +6056,10 @@ C - - - - - 0x01E477 07:E467: 8D D6 03  STA ram_03D6
 C - - - - - 0x01E47A 07:E46A: F0 2B     BEQ bra_E497
 sub_E46C:
 C - - - - - 0x01E47C 07:E46C: A2 00     LDX #$00
-C - - - - - 0x01E47E 07:E46E: AD 15 02  LDA ram_0215
+C - - - - - 0x01E47E 07:E46E: AD 15 02  LDA vBreathingApparatusLowCounter
 C - - - - - 0x01E481 07:E471: 29 1F     AND #$1F
 C - - - - - 0x01E483 07:E473: F0 13     BEQ bra_E488
-C - - - - - 0x01E485 07:E475: AC 16 02  LDY ram_0216
+C - - - - - 0x01E485 07:E475: AC 16 02  LDY vBreathingApparatusHighCounter
 C - - - - - 0x01E488 07:E478: C0 02     CPY #$02
 C - - - - - 0x01E48A 07:E47A: B0 E6     BCS bra_E462
 C - - - - - 0x01E48C 07:E47C: A2 01     LDX #$01
@@ -6432,9 +6432,9 @@ C - - - - - 0x01E6DC 07:E6CC: D0 02     BNE bra_E6D0
 C - - - - - 0x01E6DE 07:E6CE: A2 22     LDX #$22
 bra_E6D0:
 C - - - - - 0x01E6E0 07:E6D0: 20 00 E7  JSR sub_E700
-C - - - - - 0x01E6E3 07:E6D3: AD 16 02  LDA ram_0216
+C - - - - - 0x01E6E3 07:E6D3: AD 16 02  LDA vBreathingApparatusHighCounter
 C - - - - - 0x01E6E6 07:E6D6: D0 0C     BNE bra_E6E4
-C - - - - - 0x01E6E8 07:E6D8: AD 15 02  LDA ram_0215
+C - - - - - 0x01E6E8 07:E6D8: AD 15 02  LDA vBreathingApparatusLowCounter
 C - - - - - 0x01E6EB 07:E6DB: 29 0C     AND #$0C
 C - - - - - 0x01E6ED 07:E6DD: D0 05     BNE bra_E6E4
 C - - - - - 0x01E6EF 07:E6DF: A2 26     LDX #$26
@@ -7533,39 +7533,39 @@ C - - - - - 0x01EDDF 07:EDCF: 20 D9 CB  JSR sub_CBD9
 C - - - - - 0x01EDE2 07:EDD2: 20 5F CD  JSR sub_CD5F
 loc_EDD5:
 C D 3 - - - 0x01EDE5 07:EDD5: 20 7B EF  JSR sub_EF7B
-C - - - - - 0x01EDE8 07:EDD8: 4C E1 ED  JMP loc_EDE1
+C - - - - - 0x01EDE8 07:EDD8: 4C E1 ED  JMP loc_EDE1_skip
 
 bra_EDDB_pause:
 C - - - - - 0x01EDEB 07:EDDB: 20 86 EF  JSR sub_EF86_increment_counter
 C - - - - - 0x01EDEE 07:EDDE: 20 38 CB  JSR sub_CB38
-loc_EDE1:
+loc_EDE1_skip:
 C D 3 - - - 0x01EDF1 07:EDE1: 20 6C C4  JSR sub_C46C
 C - - - - - 0x01EDF4 07:EDE4: 20 85 C8  JSR sub_C885
 loc_EDE7:
 C D 3 - - - 0x01EDF7 07:EDE7: A6 44     LDX v_copy_current_number_sprite
 C - - - - - 0x01EDF9 07:EDE9: 86 43     STX vCurrentNumberSprite
 C - - - - - 0x01EDFB 07:EDEB: 20 F9 CE  JSR sub_CEF9
-C - - - - - 0x01EDFE 07:EDEE: A9 07     LDA #$07             ;
-C - - - - - 0x01EE00 07:EDF0: A2 04     LDX #$04             ; 
-C - - - - - 0x01EE02 07:EDF2: 8D 00 80  STA MMC3_Bank_select ;
-C - - - - - 0x01EE05 07:EDF5: 8E 01 80  STX MMC3_Bank_data   ; switch bank 02 (page 1) in 0xA000-0BFFF
+C - - - - - 0x01EDFE 07:EDEE: A9 07     LDA #$07                      ;
+C - - - - - 0x01EE00 07:EDF0: A2 04     LDX #$04                      ; 
+C - - - - - 0x01EE02 07:EDF2: 8D 00 80  STA MMC3_Bank_select          ;
+C - - - - - 0x01EE05 07:EDF5: 8E 01 80  STX MMC3_Bank_data            ; switch bank 02 (page 1) in 0xA000-0BFFF
 C - - - - - 0x01EE08 07:EDF8: 20 F0 FF  JSR sub_FFF0
-C - - - - - 0x01EE0B 07:EDFB: 20 1A EF  JSR sub_EF1A_switch_bank_06_2
-C - - - - - 0x01EE0E 07:EDFE: A9 00     LDA #$00             ; CONSTANT - active
-C - - - - - 0x01EE10 07:EE00: 85 19     STA vRenderActive    ;
-bra_EE02:
-C - - - - - 0x01EE12 07:EE02: 68        PLA
-C - - - - - 0x01EE13 07:EE03: A8        TAY ; retrieve y
-C - - - - - 0x01EE14 07:EE04: 68        PLA
-C - - - - - 0x01EE15 07:EE05: AA        TAX ; retrieve x
-C - - - - - 0x01EE16 07:EE06: 68        PLA ; retrieve a
+C - - - - - 0x01EE0B 07:EDFB: 20 1A EF  JSR sub_EF1A_switch_bank_06_2 ;
+C - - - - - 0x01EE0E 07:EDFE: A9 00     LDA #$00                      ; CONSTANT - active
+C - - - - - 0x01EE10 07:EE00: 85 19     STA vRenderActive             ;
+bra_EE02_finish:
+C - - - - - 0x01EE12 07:EE02: 68        PLA                           ;
+C - - - - - 0x01EE13 07:EE03: A8        TAY                           ; retrieve y
+C - - - - - 0x01EE14 07:EE04: 68        PLA                           ;
+C - - - - - 0x01EE15 07:EE05: AA        TAX                           ; retrieve x
+C - - - - - 0x01EE16 07:EE06: 68        PLA                           ; retrieve a
 vec_C000_IRQ:
-C - - - - - 0x01EE17 07:EE07: 40        RTI ; irq
+C - - - - - 0x01EE17 07:EE07: 40        RTI                           ; irq
 
 bra_EE08_skip:
-C - - - - - 0x01EE18 07:EE08: A9 07     LDA #$07
-C - - - - - 0x01EE1A 07:EE0A: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01EE1D 07:EE0D: D0 F3     BNE bra_EE02
+C - - - - - 0x01EE18 07:EE08: A9 07     LDA #$07                      ;
+C - - - - - 0x01EE1A 07:EE0A: 8D 00 80  STA MMC3_Bank_select          ; switch by MMC3_Bank_data in 0xA000-0BFFF
+C - - - - - 0x01EE1D 07:EE0D: D0 F3     BNE bra_EE02_finish           ; Always true
 bra_EE0F:
 C - - - - - 0x01EE1F 07:EE0F: 20 FE B5  JSR $B5FE
 C - - - - - 0x01EE22 07:EE12: 20 6C C4  JSR sub_C46C
@@ -7757,20 +7757,20 @@ bra_EF7A_RTS:
 C - - - - - 0x01EF8A 07:EF7A: 60        RTS                  ;
 
 sub_EF7B:
-C - - - - - 0x01EF8B 07:EF7B: A2 04     LDX #$04
-bra_EF7D:
+C - - - - - 0x01EF8B 07:EF7B: A2 04     LDX #$04             ; set loop counter
+@bra_EF7D_loop:                                              ; loop by x
 C - - - - - 0x01EF8D 07:EF7D: B5 2E     LDA ram_002E,X
-C - - - - - 0x01EF8F 07:EF7F: F0 02     BEQ bra_EF83
+C - - - - - 0x01EF8F 07:EF7F: F0 02     BEQ @bra_EF83_skip
 C - - - - - 0x01EF91 07:EF81: D6 2E     DEC ram_002E,X
-bra_EF83:
-C - - - - - 0x01EF93 07:EF83: CA        DEX
-C - - - - - 0x01EF94 07:EF84: 10 F7     BPL bra_EF7D
+@bra_EF83_skip:
+C - - - - - 0x01EF93 07:EF83: CA        DEX                  ; decrement x
+C - - - - - 0x01EF94 07:EF84: 10 F7     BPL @bra_EF7D_loop   ; If Register X < 0xF0
 sub_EF86_increment_counter:
-C - - - - - 0x01EF96 07:EF86: E6 2C     INC v_low_counter  ;
-C - - - - - 0x01EF98 07:EF88: D0 02     BNE @bra_EF8C_RTS  ;
-C - - - - - 0x01EF9A 07:EF8A: E6 2D     INC v_high_counter ;
+C - - - - - 0x01EF96 07:EF86: E6 2C     INC v_low_counter    ;
+C - - - - - 0x01EF98 07:EF88: D0 02     BNE @bra_EF8C_RTS    ; If v_low_counter != 0
+C - - - - - 0x01EF9A 07:EF8A: E6 2D     INC v_high_counter   ;
 @bra_EF8C_RTS:
-C - - - - - 0x01EF9C 07:EF8C: 60        RTS
+C - - - - - 0x01EF9C 07:EF8C: 60        RTS                  ;
 
 sub_EF8D:
 C - - - - - 0x01EF9D 07:EF8D: A9 00     LDA #$00
@@ -7885,12 +7885,12 @@ C - - - - - 0x01F05E 07:F04E: 10 FA     BPL @clear_item_loop
 C - - - - - 0x01F060 07:F050: 8D D4 03  STA ram_03D4
 C - - - - - 0x01F063 07:F053: 8D D5 03  STA ram_03D5
 C - - - - - 0x01F066 07:F056: 8D D6 03  STA ram_03D6
-C - - - - - 0x01F069 07:F059: 85 D1     STA ram_00D1
+C - - - - - 0x01F069 07:F059: 85 D1     STA vGogglesActive ; reset the infrared goggles
 C - - - - - 0x01F06B 07:F05B: A2 03     LDX #$03
 @bra_F05D_loop:                                        ; loop by x (3 times)
 C - - - - - 0x01F06D 07:F05D: 9D 18 03  STA ram_0318,X
 C - - - - - 0x01F070 07:F060: 9D 1C 03  STA ram_031C,X
-C - - - - - 0x01F073 07:F063: 9D 15 02  STA ram_0215,X
+C - - - - - 0x01F073 07:F063: 9D 15 02  STA vBreathingApparatusLowCounter,X
 C - - - - - 0x01F076 07:F066: CA        DEX
 C - - - - - 0x01F077 07:F067: 10 F4     BPL @bra_F05D_loop
 C - - - - - 0x01F079 07:F069: 20 75 F0  JSR sub_F075_clear_bullet_status
@@ -8061,8 +8061,8 @@ C - - - - - 0x01F1A0 07:F190: AD 0A 03  LDA vEnemyACount        ;
 C - - - - - 0x01F1A3 07:F193: D0 B0     BNE bra_F145_RTS        ; If vEnemyACount != 0
 C - - - - - 0x01F1A5 07:F195: AD 0B 03  LDA vEnemyBCount        ;
 C - - - - - 0x01F1A8 07:F198: D0 AB     BNE bra_F145_RTS        ; If vEnemyBCount != 0
-C - - - - - 0x01F1AA 07:F19A: 24 D1     BIT ram_00D1
-C - - - - - 0x01F1AC 07:F19C: 30 A7     BMI bra_F145_RTS
+C - - - - - 0x01F1AA 07:F19A: 24 D1     BIT vGogglesActive      ;
+C - - - - - 0x01F1AC 07:F19C: 30 A7     BMI bra_F145_RTS        ; If the infrared goggles is activated
 C - - - - - 0x01F1AE 07:F19E: A9 AF     LDA #$AF
 C - - - - - 0x01F1B0 07:F1A0: 85 02     STA ram_0002
 C - - - - - 0x01F1B2 07:F1A2: A0 10     LDY #$10

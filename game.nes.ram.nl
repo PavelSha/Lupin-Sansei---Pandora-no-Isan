@@ -11,6 +11,7 @@ $0024#vMenuDemoIndex#
 $0026#vPpuCtrlSettings#
 $0027#vLowViewPortPosX#
 $0028#vTempLowViewPortPosX#
+$0029#vLowViewPortPosY#
 $002B#v_nmi_counter#
 $002C#v_low_counter#
 $002D#v_high_counter#
@@ -29,6 +30,7 @@ $0047#vTempNoSubLevel#
 $004B#vHighViewPortPosX#
 $004C#vTempHighViewPortPosX#
 $0056#vScore#
+$005D#vNonUsed2#
 $005E#v_no_level#
 $005F#vChrLiveStatus#
 $0064#vScreenChrPosX#
@@ -48,6 +50,8 @@ $0073#vRifleFireTime#
 $0079#vChrLandStatus#
 $007A#vBulletCount#
 $008F#vBulletStatus#
+$009C#vNonUsed#
+$00A3#vNonUsed3#
 $00AD#vIndexSelectableChr#
 $00AE#vCacheIndexSelectableChr#
 $00B1#v_start_level#
@@ -69,6 +73,10 @@ $00CB#v_low_vram_msg_address#
 $00CC#v_hign_vram_msg_address#
 $00CF#v_low_msg_ppu_address#
 $00D0#v_high_msg_ppu_address#
+$00D1#vGogglesActive#
+$00D2#vGogglesLowCounter#
+$00D3#vGogglesHighCounter#
+$00FD#vSoundRoomIndex#
 $0109#v_last_level#
 $0200#v_radio_item#
 $0205#v_breathing_apparatus_item#
@@ -77,13 +85,17 @@ $0207#v_bullet_proof_vest_item#
 $0208#v_ruby_ring#
 $020A#vItemsBlinkTime#
 $0214#vCurrentWeaponStatus#
+$0215#vBreathingApparatusLowCounter#
+$0216#vBreathingApparatusHighCounter#
 $0219#v_array_white_briefcase#
 $0300#vEnemyA#
 $0301#vEnemyB#
+$030A#vEnemyACount#
+$030B#vEnemyBCount#
 $0314#vEnemyTimerLow1#
 $0315#vEnemyTimerHigh1#
 $0398#v_briefcase_index#
-$039E#v_bomb_on_screen#
+$039E#v_item_on_screen#
 $0406#v_sound_counter#
 $0410#vSoundRowB_0#
 $0411#vSoundRowB_1#
@@ -118,7 +130,7 @@ $06B7#v_sprite_magic1#
 $06B8#v_sprite_magic2#
 $06B9#v_sprite_magic3#
 $06BA#v_sprite_magic4#
-$06F7#v_offset_sprite_magic#
+$06F7#vShiftSpriteMagic#
 $0700#vStartOAM#
 $0701#vStartOAM_2b#
 $0702#vStartOAM_3b#

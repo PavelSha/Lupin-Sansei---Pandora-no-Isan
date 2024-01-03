@@ -3,8 +3,9 @@ noDamageB = 0x003A;
 wait10   = 0;
 
 --no        = 0x0008;
+no        = 0x002E;
 --no        = 0x003B;
-no        = 0x003C;
+--no        = 0x003C;
 --no        = 0x0046;
 --no        = 0x0068;
 --no        = 0x0066;
@@ -14,7 +15,9 @@ no        = 0x003C;
 --no        = 0x0079;
 --no        = 0x007A;
 --no        = 0x008F;
+--no        = 0x00D1;
 --no        = 0x0214;
+--no        = 0x0215;
 
 while (true) do
   value = memory.readbyte(no);
