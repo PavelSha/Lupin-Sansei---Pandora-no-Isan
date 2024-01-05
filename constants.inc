@@ -111,11 +111,7 @@ vStartStatus                  = ram_003D
 ; 0x02 - The starting cutscene, after typing the message
 ; 0x00 - Allowed to show menu
 
-vActivateCharacterSelect      = ram_003D
-; 0x00 - no active
-; 0x01 - has beed activated
-
-vTempCounter3D                = ram_003D
+vCharacterSelectionCounter    = ram_003D ; If 0x00 - no selection else selection
 
 v_npc_message_status          = ram_0041
 ; 83 - npc is saying the message 
@@ -450,6 +446,10 @@ v_high_msg_ppu_address        = ram_00D0
 vGogglesActive                = ram_00D1 ; 0x80 - active, 0x00 - deactive
 vGogglesLowCounter            = ram_00D2
 vGogglesHighCounter           = ram_00D3
+vReasonCharacterChange        = ram_00D6
+; 0x00 - no reason
+; 0x40 - the character is fell or arrested
+; 0x80 - the radio was using
 vSoundRoomIndex               = ram_00FD
 v_last_level                  = ram_0109 ; It is a last played level.
 v_items                       = ram_0200 ; 0x0200-0x0208

@@ -3810,24 +3810,24 @@ C - - - - - 0x01B8F0 06:B8E0: 20 20 C4  JSR sub_C420_add_sound_effect    ;
 C - - - - - 0x01B8F3 06:B8E3: 20 1D C3  JSR sub_C31D_clear_ppu           ;
 C - - - - - 0x01B8F6 06:B8E6: 20 58 C3  JSR sub_C358_clear_OAM           ;
 C - - - - - 0x01B8F9 06:B8E9: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2 ;
-C - - - - - 0x01B8FC 06:B8EC: A2 05     LDX #$05                  ; set loop counter
-@bra_B8EE_repeat:                                                 ; loop by x
-C - - - - - 0x01B8FE 06:B8EE: BD BE 80  LDA tbl_main_menu_chr_banks,X
-C - - - - - 0x01B901 06:B8F1: 9D AF 06  STA vCacheChrBankSelect,X ;
-C - - - - - 0x01B904 06:B8F4: CA        DEX                       ; decrements loop counter
-C - - - - - 0x01B905 06:B8F5: 10 F7     BPL @bra_B8EE_repeat
-C - - - - - 0x01B907 06:B8F7: A2 1F     LDX #$1F                  ; set loop counter
-@bra_B8F9_repeat:                                                 ; loop by x
-C - - - - - 0x01B909 06:B8F9: BD C4 80  LDA tbl_main_menu_palette,X
-C - - - - - 0x01B90C 06:B8FC: 9D 00 06  STA vCachePalette,X       ;
-C - - - - - 0x01B90F 06:B8FF: CA        DEX                       ; decrements loop counter
-C - - - - - 0x01B910 06:B900: 10 F7     BPL @bra_B8F9_repeat
-C - - - - - 0x01B912 06:B902: A9 E4     LDA #$E4     ;
-C - - - - - 0x01B914 06:B904: 85 12     STA ram_0012 ; Low address
-C - - - - - 0x01B916 06:B906: A9 80     LDA #$80     ;
-C - - - - - 0x01B918 06:B908: 85 13     STA ram_0013 ; High address (0x80E4 in the bank 04_1)
-C - - - - - 0x01B91A 06:B90A: A9 00     LDA #$00
-C - - - - - 0x01B91C 06:B90C: 85 D6     STA ram_00D6
+C - - - - - 0x01B8FC 06:B8EC: A2 05     LDX #$05                         ; set loop counter
+@bra_B8EE_repeat:                                                        ; loop by x
+C - - - - - 0x01B8FE 06:B8EE: BD BE 80  LDA tbl_main_menu_chr_banks,X    ;
+C - - - - - 0x01B901 06:B8F1: 9D AF 06  STA vCacheChrBankSelect,X        ;
+C - - - - - 0x01B904 06:B8F4: CA        DEX                              ; decrements loop counter
+C - - - - - 0x01B905 06:B8F5: 10 F7     BPL @bra_B8EE_repeat             ; If Register X < 0xF0
+C - - - - - 0x01B907 06:B8F7: A2 1F     LDX #$1F                         ; set loop counter
+@bra_B8F9_loop:                                                          ; loop by x
+C - - - - - 0x01B909 06:B8F9: BD C4 80  LDA tbl_main_menu_palette,X      ;
+C - - - - - 0x01B90C 06:B8FC: 9D 00 06  STA vCachePalette,X              ;
+C - - - - - 0x01B90F 06:B8FF: CA        DEX                              ; decrements loop counter
+C - - - - - 0x01B910 06:B900: 10 F7     BPL @bra_B8F9_loop               ; If Register X < 0xF0
+C - - - - - 0x01B912 06:B902: A9 E4     LDA #$E4                         ;
+C - - - - - 0x01B914 06:B904: 85 12     STA ram_0012                     ; Low address
+C - - - - - 0x01B916 06:B906: A9 80     LDA #$80                         ;
+C - - - - - 0x01B918 06:B908: 85 13     STA ram_0013                     ; High address (0x80E4 in the bank 04_1)
+C - - - - - 0x01B91A 06:B90A: A9 00     LDA #$00                         ; CONSTANT - no reason
+C - - - - - 0x01B91C 06:B90C: 85 D6     STA vReasonCharacterChange       ;
 C - - - - - 0x01B91E 06:B90E: A2 0F     LDX #$0F
 C - - - - - 0x01B920 06:B910: AD 09 01  LDA v_last_level
 C - - - - - 0x01B923 06:B913: F0 01     BEQ @bra_B916_skip
@@ -3887,8 +3887,8 @@ C - - - - - 0x01B98E 06:B97E: A5 2C     LDA v_low_counter       ;
 C - - - - - 0x01B990 06:B980: C9 40     CMP #$40                ; 
 C - - - - - 0x01B992 06:B982: B0 45     BCS bra_B9C9_start_demo ; If Hc:Lc == 02:40
 @bra_B984_skip:
-C - - - - - 0x01B994 06:B984: A5 3D     LDA vActivateCharacterSelect
-C - - - - - 0x01B996 06:B986: F0 F0     BEQ bra_B978 ; If vActivateCharacterSelect == 0x00
+C - - - - - 0x01B994 06:B984: A5 3D     LDA vCharacterSelectionCounter ;
+C - - - - - 0x01B996 06:B986: F0 F0     BEQ bra_B978                   ; If vCharacterSelectionCounter == 0x00
 C - - - - - 0x01B998 06:B988: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01B99B 06:B98B: A9 00     LDA #$00     ; CONTANT - In game
 C - - - - - 0x01B99D 06:B98D: A8        TAY
