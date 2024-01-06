@@ -38,6 +38,8 @@
 .export sub_B234_get_vram_msg_address
 .export loc_B255_display_message_by_letter
 .export sub_BB2A_solve_secret_codes
+.export loc_BBA4_play_background_music
+.export sub_BBA4_play_background_music
 .export sub_BBFE_check_room
 
 tbl_A000:
@@ -3205,7 +3207,7 @@ C - - - - - 0x01B4BE 06:B4AE: 8D 0E 06  STA vCachePalette + 14
 C - - - - - 0x01B4C1 06:B4B1: BD 6B 81  LDA npc_portrait_set + 3,X
 C - - - - - 0x01B4C4 06:B4B4: 8D 0F 06  STA vCachePalette + 15
 C - - - - - 0x01B4C7 06:B4B7: BD 6C 81  LDA npc_portrait_set + 4,X
-C - - - - - 0x01B4CA 06:B4BA: 8D B6 06  STA ram_06B6
+C - - - - - 0x01B4CA 06:B4BA: 8D B6 06  STA vChrBankData
 C - - - - - 0x01B4CD 06:B4BD: BD 68 81  LDA npc_portrait_set,X
 C - - - - - 0x01B4D0 06:B4C0: 0A        ASL
 C - - - - - 0x01B4D1 06:B4C1: 0A        ASL
@@ -4218,28 +4220,28 @@ tbl_BB92_stage_select_codes:
 - D 1 - - - 0x01BBB1 06:BBA1: 40        .byte BIT_BUTTON_Left
 - D 1 - - - 0x01BBB2 06:BBA2: 01        .byte BIT_BUTTON_A
 - D 1 - - - 0x01BBB3 06:BBA3: 01        .byte BIT_BUTTON_A
-loc_BBA4:
-sub_BBA4:
-C D 1 - - - 0x01BBB4 06:BBA4: A9 05     LDA #$05
-C - - - - - 0x01BBB6 06:BBA6: 24 6D     BIT vMovableChrStatus
-C - - - - - 0x01BBB8 06:BBA8: 30 13     BMI bra_BBBD_skip
+loc_BBA4_play_background_music:
+sub_BBA4_play_background_music:
+C D 1 - - - 0x01BBB4 06:BBA4: A9 05     LDA #$05                ; ~> the sound index 'music 'under the water''
+C - - - - - 0x01BBB6 06:BBA6: 24 6D     BIT vMovableChrStatus   ;
+C - - - - - 0x01BBB8 06:BBA8: 30 13     BMI bra_BBBD_skip       ; If the character is moving in the water
 C - - - - - 0x01BBBA 06:BBAA: 20 FE BB  JSR sub_BBFE_check_room
 C - - - - - 0x01BBBD 06:BBAD: B0 36     BCS bra_BBE5
-C - - - - - 0x01BBBF 06:BBAF: A5 5E     LDA v_no_level
-C - - - - - 0x01BBC1 06:BBB1: C9 03     CMP #$03
-C - - - - - 0x01BBC3 06:BBB3: D0 08     BNE bra_BBBD_skip
-C - - - - - 0x01BBC5 06:BBB5: A6 46     LDX ram_0046
-C - - - - - 0x01BBC7 06:BBB7: E0 19     CPX #$19
-C - - - - - 0x01BBC9 06:BBB9: D0 02     BNE bra_BBBD_skip
-C - - - - - 0x01BBCB 06:BBBB: A9 04     LDA #$04
+C - - - - - 0x01BBBF 06:BBAF: A5 5E     LDA v_no_level          ;
+C - - - - - 0x01BBC1 06:BBB1: C9 03     CMP #$03                ; CONSTANT - level 4 + racing
+C - - - - - 0x01BBC3 06:BBB3: D0 08     BNE bra_BBBD_skip       ; If v_no_level != 0x03
+C - - - - - 0x01BBC5 06:BBB5: A6 46     LDX vNoSubLevel         ;
+C - - - - - 0x01BBC7 06:BBB7: E0 19     CPX #$19                ; CONSTANT - level racing
+C - - - - - 0x01BBC9 06:BBB9: D0 02     BNE bra_BBBD_skip       ; If vNoSubLevel != 0x19
+C - - - - - 0x01BBCB 06:BBBB: A9 04     LDA #$04                ; ~> the sound index 'music level racing'
 ; in: Register A - the sound index
 bra_BBBD_skip:
-loc_BBBD:
+loc_BBBD_add_room_sound:
 C D 1 - - - 0x01BBCD 06:BBBD: C5 FD     CMP vSoundRoomIndex         ;
 C - - - - - 0x01BBCF 06:BBBF: D0 07     BNE bra_BBC8_add_room_sound ; If Register A != vSoundRoomIndex
 C - - - - - 0x01BBD1 06:BBC1: AD 00 04  LDA ram_0400
 C - - - - - 0x01BBD4 06:BBC4: 8D 15 40  STA APU_STATUS
-C - - - - - 0x01BBD7 06:BBC7: 60        RTS
+C - - - - - 0x01BBD7 06:BBC7: 60        RTS                         ;
 
 ; in: Register A - the sound index
 bra_BBC8_add_room_sound:
@@ -4257,7 +4259,7 @@ C - - - - - 0x01BBEF 06:BBDF: BD 13 BC  LDA tbl_BC10_sound_indexes + 3,X ;
 C - - - - - 0x01BBF2 06:BBE2: 4C 20 C4  JMP loc_C420_add_sound_effect    ;
 
 bra_BBE5:
-C - - - - - 0x01BBF5 06:BBE5: A0 0A     LDY #$0A
+C - - - - - 0x01BBF5 06:BBE5: A0 0A     LDY #$0A              ; ~> the starting sound index 'in a room'
 C - - - - - 0x01BBF7 06:BBE7: A5 B6     LDA ram_00B6
 C - - - - - 0x01BBF9 06:BBE9: 29 03     AND #$03
 C - - - - - 0x01BBFB 06:BBEB: C9 03     CMP #$03
@@ -4265,12 +4267,12 @@ C - - - - - 0x01BBFD 06:BBED: D0 08     BNE bra_BBF7
 C - - - - - 0x01BBFF 06:BBEF: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01BC01 06:BBF1: 29 01     AND #$01
 C - - - - - 0x01BC03 06:BBF3: D0 02     BNE bra_BBF7
-C - - - - - 0x01BC05 06:BBF5: A0 06     LDY #$06
+C - - - - - 0x01BC05 06:BBF5: A0 06     LDY #$06              ; ~> the starting sound index 'boss time'
 bra_BBF7:
 C - - - - - 0x01BC07 06:BBF7: 98        TYA
 C - - - - - 0x01BC08 06:BBF8: 18        CLC
 C - - - - - 0x01BC09 06:BBF9: 65 5E     ADC v_no_level
-C - - - - - 0x01BC0B 06:BBFB: 4C BD BB  JMP loc_BBBD
+C - - - - - 0x01BC0B 06:BBFB: 4C BD BB  JMP loc_BBBD_add_room_sound
 
 ; Return the carry status (analog return true or false)
 sub_BBFE_check_room:
@@ -4293,7 +4295,7 @@ tbl_BC10_sound_indexes:
 - D 1 - - - 0x01BC20 06:BC10: 04        .byte $04, $05, $39, $48 ; music level 1.0
 - D 1 - - - 0x01BC24 06:BC14: 06        .byte $06, $07, $3A, $4B ; music level 2.0
 - D 1 - - - 0x01BC28 06:BC18: 08        .byte $08, $09, $3B, $49 ; music level 3.0
-- D 1 - - - 0x01BC2C 06:BC1C: 1D        .byte $1D, $1E, $44, $4D ; music level 3.0
+- D 1 - - - 0x01BC2C 06:BC1C: 1D        .byte $1D, $1E, $44, $4D ; music level 4.0
 - D 1 - - - 0x01BC30 06:BC20: 1B        .byte $1B, $1C, $43, $4C ; music level racing
 - D 1 - - - 0x01BC34 06:BC24: 1F        .byte $1F, $20, $45, $4A ; music 'under the water'
 - D 1 - - - 0x01BC38 06:BC28: 22        .byte $22, $23, $46, $4E ; music 'boss time'

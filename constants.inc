@@ -86,10 +86,10 @@ vPauseStatus                  = ram_0038 ; 0x00 - no pause, 0x40 - pause
 ; ??? = ram_0039
 ; 0x00 - ???
 ; 0x81 - ???
-; 0xC0 - ???
+; 0xC0 - ??? (in corridor)
 ; 0xC1 - ???
 ; 0xC2 - ???
-; 0xC3 - ???
+; 0xC3 - ??? (out corridor with briefcase)
 ; 0xC4 - ???
 ; 0xE0 - ???
 
@@ -99,6 +99,7 @@ vSharedGameStatus             = ram_003B
 ; 0x00 - In the game
 ; 0x01 - A screen with the message
 ; 0x03 - A screen with the message after boss
+; 0x0B - A final scene
 ; 0x10 - Select the character
 ; 0x40 - Pause in the game
 ; 0x41 - Pause in the game (a screen with the message)
@@ -339,7 +340,8 @@ vNoSubLevel                   = ram_0046
 ; 0x7D - level 4, map 4 (F4-F5)
 
 vTempNoSubLevel               = ram_0047
-
+vCurrentRoomLength            = ram_0049 ; in screen units
+vNearCurrentRoomLength        = ram_004A ; vCurrentRoomLength - 1 (in screen units)
 vHighViewPortPosX             = ram_004B ; The high value for an overflow ram_0027
 vTempHighViewPortPosX         = ram_004C
 
@@ -583,6 +585,7 @@ vPpuAddrDataCache             = ram_067B ; [ram_067B - ram_06AC]
 ; next repeat
 vCacheChrBankSelect           = ram_06AF ; [ram_06AF - ram_06B4]
 vBankData                     = ram_06B5
+vChrBankData                  = ram_06B6
 v_sprite_magics               = ram_06B7
 v_sprite_magic1               = ram_06B7 ; Y-position
 v_sprite_magic2               = ram_06B8

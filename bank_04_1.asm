@@ -2029,9 +2029,9 @@ loc_tile_select_character7:
 
 tbl_checkpoints:
 ; 1 byte - It's the number of the checkpoint
-; 2 byte - It's the macro position of the character
-; 3 byte - ???
-; 4 byte - ???
+; 2 byte - It's the high position of the character (high scroll by x)
+; 3 byte - It's the low position of the character (low scroll by x)
+; 4 byte - It's the position of the character relative to the screen
 - D 0 - I - 0x01094B 04:893B: 00        .byte $00, $00, $00, $30 ; level 1.0
 - D 0 - I - 0x01094F 04:893F: 01        .byte $01, $00, $00, $40 ; level 1.1
 - D 0 - I - 0x010953 04:8943: 02        .byte $02, $07, $00, $E0 ; level 1.2

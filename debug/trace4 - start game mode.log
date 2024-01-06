@@ -156,18 +156,18 @@ i7284832     A:BF X:FF Y:20 S:FD P:NvUbdIzC  $07:C6BF: 30 FC     BMI $C6BD
 
 **** GAME MODE *******
 
-i7908899     A:7F X:FF Y:20 S:FD P:nvUbdIzC  $07:C6C1: 20 13 C3  JSR $C313
+---COMMENTED! i7908899     A:7F X:FF Y:20 S:FD P:nvUbdIzC  $07:C6C1: 20 13 C3  JSR $C313
 (3 lines skipped)
-i7908903     A:00 X:FF Y:20 S:FD P:nvUbdIZC  $07:C6C4: 20 05 C3  JSR $C305 update_ppu_ctrl_with_no_nmi
+---COMMENTED! i7908903     A:00 X:FF Y:20 S:FD P:nvUbdIZC  $07:C6C4: 20 05 C3  JSR $C305 update_ppu_ctrl_with_no_nmi
 (5 lines skipped)
-i7908909     A:10 X:FF Y:20 S:FD P:nvUbdIzC  $07:C6C7: A9 00     LDA #$00
-i7908910     A:00 X:FF Y:20 S:FD P:nvUbdIZC  $07:C6C9: AA        TAX
-i7908911     A:00 X:00 Y:20 S:FD P:nvUbdIZC  $07:C6CA: A4 46     LDY $46 = #$00
-i7908912     A:00 X:00 Y:00 S:FD P:nvUbdIZC  $07:C6CC: C0 1A     CPY #$1A
-i7908913     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:C6CE: 90 07     BCC $C6D7
-i7908914     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:C6D7: 8D B6 06  STA $06B6 = #$00
-i7908915     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:C6DA: 86 3B     STX $3B vSharedGameStatus = #$10
-i7908916     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:C6DC: 60        RTS (from $C672) ----------------------------
+---COMMENTED! i7908909     A:10 X:FF Y:20 S:FD P:nvUbdIzC  $07:C6C7: A9 00     LDA #$00
+---COMMENTED! i7908910     A:00 X:FF Y:20 S:FD P:nvUbdIZC  $07:C6C9: AA        TAX
+---COMMENTED! i7908911     A:00 X:00 Y:20 S:FD P:nvUbdIZC  $07:C6CA: A4 46     LDY $46 = #$00
+---COMMENTED! i7908912     A:00 X:00 Y:00 S:FD P:nvUbdIZC  $07:C6CC: C0 1A     CPY #$1A
+---COMMENTED! i7908913     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:C6CE: 90 07     BCC $C6D7
+---COMMENTED! i7908914     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:C6D7: 8D B6 06  STA $06B6 = #$00
+---COMMENTED! i7908915     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:C6DA: 86 3B     STX $3B vSharedGameStatus = #$10
+---COMMENTED! i7908916     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:C6DC: 60        RTS (from $C672) ----------------------------
 i7908917     A:00 X:00 Y:00 S:FF P:NvUbdIzc  $07:C09C: 20 C0 FA  JSR $FAC0
 i7908918     A:00 X:00 Y:00 S:FD P:NvUbdIzc  $07:FAC0: A9 00     LDA #$00
 i7908919     A:00 X:00 Y:00 S:FD P:nvUbdIZc  $07:FAC2: 85 41     STA $41 = #$00

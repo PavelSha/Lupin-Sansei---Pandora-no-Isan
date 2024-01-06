@@ -8909,7 +8909,7 @@ C D 1 - - - 0x00E413 03:A403: BD 38 03  LDA ram_0338,X
 C - - - - - 0x00E416 03:A406: 38        SEC
 C - - - - - 0x00E417 03:A407: E9 E0     SBC #$E0
 C - - - - - 0x00E419 03:A409: BD 3E 03  LDA ram_033E,X
-C - - - - - 0x00E41C 03:A40C: E5 4A     SBC ram_004A
+C - - - - - 0x00E41C 03:A40C: E5 4A     SBC vNearCurrentRoomLength
 C - - - - - 0x00E41E 03:A40E: B0 F1     BCS bra_A401
 C - - - - - 0x00E420 03:A410: 20 1C D7  JSR $D71C
 C - - - - - 0x00E423 03:A413: 38        SEC
