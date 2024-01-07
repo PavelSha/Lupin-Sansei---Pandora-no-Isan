@@ -2667,7 +2667,7 @@ C - - - - - 0x01B13E 06:B12E: 85 01     STA ram_0001
 C - - - - - 0x01B140 06:B130: A5 4B     LDA ram_004B
 C - - - - - 0x01B142 06:B132: 69 00     ADC #$00
 C - - - - - 0x01B144 06:B134: 85 00     STA ram_0000
-C - - - - - 0x01B146 06:B136: A5 35     LDA ram_0035
+C - - - - - 0x01B146 06:B136: A5 35     LDA vEnemyRNG
 C - - - - - 0x01B148 06:B138: 29 1F     AND #$1F
 C - - - - - 0x01B14A 06:B13A: A8        TAY
 C - - - - - 0x01B14B 06:B13B: B9 A0 95  LDA $95A0,Y
@@ -3667,10 +3667,10 @@ C - - - - - 0x01B7EA 06:B7DA: 60        RTS
 
 C - - - - - 0x01B7EB 06:B7DB: 20 02 C4  JSR sub_C402_clear_sound_parts
 C - - - - - 0x01B7EE 06:B7DE: 20 1D C3  JSR sub_C31D_clear_ppu
-C - - - - - 0x01B7F1 06:B7E1: 20 58 C3  JSR sub_C358_clear_OAM
-C - - - - - 0x01B7F4 06:B7E4: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
-C - - - - - 0x01B7F7 06:B7E7: A2 05     LDX #$05                  ; set loop counter
-@bra_B7E9_loop:                                                   ; loop by x
+C - - - - - 0x01B7F1 06:B7E1: 20 58 C3  JSR sub_C358_clear_OAM           ;
+C - - - - - 0x01B7F4 06:B7E4: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2 ;
+C - - - - - 0x01B7F7 06:B7E7: A2 05     LDX #$05                         ; set loop counter
+@bra_B7E9_loop:                                                          ; loop by x
 C - - - - - 0x01B7F9 06:B7E9: BD CF BC  LDA tbl_BCCF,X
 C - - - - - 0x01B7FC 06:B7EC: 9D AF 06  STA vCacheChrBankSelect,X
 C - - - - - 0x01B7FF 06:B7EF: CA        DEX                       ; decrement x

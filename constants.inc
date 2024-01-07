@@ -76,8 +76,9 @@ vLowViewPortPosY              = ram_0029 ; a vertical scroll
 v_nmi_counter                 = ram_002B
 v_low_counter                 = ram_002C
 v_high_counter                = ram_002D
-v_menu_counter                = ram_0033
-vMenuCounterTimes             = ram_0034
+vLowMenuCounter               = ram_0033
+vHighMenuCounter              = ram_0034 ; Only for a demo (the message scenes are not included)
+vEnemyRNG                     = ram_0035
 vGameMode                     = ram_0037
 ; 0x00 - in game
 ; 0xFF - Starting cutscenes
@@ -619,3 +620,5 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; "^loc_.*\n" -> "\n"
 ; "^@loc_.*\n" -> "\n"
 ; "^\(.*\)\s\n" -> "\n"
+; $02: -> Tab
+; $06: -> Tab

@@ -20,13 +20,15 @@ $0034#vMenuCounterTimes#
 $0037#vGameMode#
 $0038#vPauseStatus#
 $003B#vSharedGameStatus#
-$003D#vTempCounter3D#
+$003D#vCharacterSelectionCounter#
 $0041#v_npc_message_status#
 $0043#vCurrentNumberSprite#
 $0044#v_copy_current_number_sprite#
 $0045#vCharacterRenderData#
 $0046#vNoSubLevel#
 $0047#vTempNoSubLevel#
+$0049#vCurrentRoomLength#
+$004A#vNearCurrentRoomLength#
 $004B#vHighViewPortPosX#
 $004C#vTempHighViewPortPosX#
 $0056#vScore#
@@ -76,6 +78,7 @@ $00D0#v_high_msg_ppu_address#
 $00D1#vGogglesActive#
 $00D2#vGogglesLowCounter#
 $00D3#vGogglesHighCounter#
+$00D6#vReasonCharacterChange#
 $00FD#vSoundRoomIndex#
 $0109#v_last_level#
 $0200#v_radio_item#
@@ -126,6 +129,7 @@ $0632#v_ppu_buffer_count#
 $067B#vPpuAddrDataCache#
 $06AF#vCacheChrBankSelect#
 $06B5#vBankData#
+$06B6#vChrBankData#
 $06B7#v_sprite_magic1#
 $06B8#v_sprite_magic2#
 $06B9#v_sprite_magic3#

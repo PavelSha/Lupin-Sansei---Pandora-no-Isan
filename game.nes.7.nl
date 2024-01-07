@@ -23,7 +23,7 @@ $C02F##--NO-COMMENT--
 $C031#@bra_C031_loop#[0x0000-0x0098] in 0
 $C033##increment counter x 
 $C034##--NO-COMMENT--
-$C036##If Register X != 0x99
+$C036##If Register X < 0x99
 $C038##set loop counter
 $C03A#@bra_C03A_loop#[0x00A7-0x00FF] in 0
 $C03C##increments loop counter
@@ -65,31 +65,45 @@ $C087##clear (see vChrLiveStatus)
 $C089##--NO-COMMENT--
 $C08C##to sub_B8C7 (bank 06_2)
 $C08F##to sub_B9DA (bank 06_2)
-$C095#loc_C095#
+$C095#loc_C095#--NO-COMMENT--
 $C097##Branch If mode=cutscene
+$C099##--NO-COMMENT--
 $C09C#loc_C09C#
+$C09F##--NO-COMMENT--
+$C0A2##--NO-COMMENT--
+$C0A4##--NO-COMMENT--
+$C0A7##--NO-COMMENT--
+$C0A9##--NO-COMMENT--
+$C0AA##--NO-COMMENT--
 $C0AC##set loop counter
 $C0AE##set assigning value
 $C0B0#@bra_C0B0_loop#[0x006C-0x0099] in 0x00
 $C0B2##increments loop counter
 $C0B3##--NO-COMMENT--
 $C0B5##If Register X != 0x99
-$C0B7#loc_C0B7#
+$C0B7#loc_C0B7#--NO-COMMENT--
 $C0B9##clear
 $C0C5##--NO-COMMENT--
 $C0C7##store the high position of the character
 $C0C8##--NO-COMMENT--
 $C0CA##store the low position of the character
+$C0CE##--NO-COMMENT--
 $C0D1##retrieve the low position of the character
 $C0D2##--NO-COMMENT--
 $C0D4##retrieve the high position of the character
 $C0D5##multiplicity of vHighViewPortPosX by 2 sets the nametable address (0x2000 or 0x2400)
 $C0D7##activate the right pattern table (0x1000)
+$C0D9##--NO-COMMENT--
 $C0DF##clear
 $C0E2##clear
 $C0E5##clear
-$C0FF##to sub_BBA4 (bank 06_2)
-$C118#bra_C118#--NO-COMMENT--
+$C0FF##--NO-COMMENT--
+$C109##--NO-COMMENT--
+$C10C##--NO-COMMENT--
+$C10F##--NO-COMMENT--
+$C111##CONSTANT - ???
+$C113##If vSharedGameStatus != 0x0B
+$C118#bra_C118_skip#--NO-COMMENT--
 $C11A##Initializes a counter.
 $C11C##--NO-COMMENT--
 $C11E##Initializes a time of a demo scene.
@@ -98,20 +112,24 @@ $C125##Branch If in game
 $C12F#bra_C12F#
 $C142##to sub_BC48 (bank 06_2)
 $C148#bra_C148#
+$C156##CONSTANT - 'the radio was using'
 $C15E#bra_C15E#
-$C16F#bra_C16F#
+$C16F#bra_C16F#CONSTANT - no reason
+$C171##--NO-COMMENT--
 $C183#bra_C183_skip#
 $C18B#bra_C18B_skip#
 $C194#loc_C194#
 $C1AF#bra_C1AF#
-$C1B1#loc_C1B1#
+$C1B1#loc_C1B1#CONSTANT - no reason
+$C1B3##--NO-COMMENT--
 $C1C3#bra_C1C3#
 $C1CA#tbl_C1CA_checkpoint_on_start_levels#
 $C1CE#bra_C1CE#
 $C1D0##Branch If in game
 $C1D5#bra_C1D5#
 $C1E9#bra_C1E9#
-$C1F2#bra_C1F2#
+$C1F2#bra_C1F2#CONSTANT - 'the character is fell or arrested'
+$C1F4##--NO-COMMENT--
 $C20E#bra_C20E_skip#
 $C20F#bra_C20F#
 $C22C#bra_C22C_skip#
@@ -135,16 +153,21 @@ $C2C2#bra_C2C2#
 $C2DF#bra_C2DF#
 $C2ED#sub_C2ED#
 $C2FE#bra_C2FE_RTS#
-$C2FF#sub_C2FF_update_ppu_ctrl_with_nmi#
+$C2FF#sub_C2FF_update_ppu_ctrl_with_nmi#--NO-COMMENT--
 $C301##CONSTANT - Generate an NMI at the start of the vblank
 $C303##Always true
-$C305#sub_C305_update_ppu_ctrl_with_no_nmi#
-$C309#bra_C309_skip#
+$C305#sub_C305_update_ppu_ctrl_with_no_nmi#--NO-COMMENT--
+$C307##--NO-COMMENT--
+$C309#bra_C309_skip#--NO-COMMENT--
+$C30B##--NO-COMMENT--
+$C30E##--NO-COMMENT--
 $C30F#loc_C30F_screen_on#see https://www.nesdev.org/wiki/PPU_registers#Mask_($2001)_%3E_write
 $C311##Always true
 $C313#sub_C313_screen_off#see https://www.nesdev.org/wiki/PPU_registers#Mask_($2001)_%3E_write
 $C315#bra_C315_skip#--NO-COMMENT--
+$C318##--NO-COMMENT--
 $C319#sub_C319_fill_ppu#CONSTANT - A white tile
+$C31B##Always true
 $C31D#sub_C31D_clear_ppu#CONSTANT - A black tile
 $C31F#bra_C31F_skip#
 $C327##Read PPU status to reset the high/low latch
@@ -184,7 +207,7 @@ $C3A0##--NO-COMMENT--
 $C3A3##--NO-COMMENT--
 $C3A6##--NO-COMMENT--
 $C3A9##--NO-COMMENT--
-$C3B3##If Register Y != 0x20
+$C3B3##If Register Y < 0x20
 $C3B5##--NO-COMMENT--
 $C3B7##--NO-COMMENT--
 $C3BA##--NO-COMMENT--
@@ -269,13 +292,25 @@ $C4B8##The count of the buttons
 $C4BA#bra_C4BA_repeat#
 $C4D0#bra_C4D0_update_btn_pressed#
 $C4D8#sub_C4D8#
+$C4DB##--NO-COMMENT--
+$C4DD##--NO-COMMENT--
+$C4DE##Branch if no exist 'A screen with the message'
+$C4E0##--NO-COMMENT--
+$C4E3##--NO-COMMENT--
+$C4E5##--NO-COMMENT--
+$C4E8##switch 2 Kb CHR-bank (#XX) in $0800-$0FFF
+$C4EB##--NO-COMMENT--
+$C4EC##--NO-COMMENT--
+$C4EE##--NO-COMMENT--
+$C4F1##switch 2 Kb CHR-bank (#38) in $0000-$07FF
+$C4F4##--NO-COMMENT--
 $C4F5#sub_C4F5_selectAllChrBanks#set loop counter
 $C4F7#@bra_C4F7_loop#--NO-COMMENT--
 $C4FA##--NO-COMMENT--
 $C4FD##--NO-COMMENT--
 $C500##decrements loop counter 
 $C501##If Register X >= 0
-$C503#bra_C503_RTS#
+$C503#bra_C503_RTS#--NO-COMMENT--
 $C504#sub_C504_switch_prg_8000#
 $C510##switch vBankData (PRG) in 0x8000-09FFF
 $C51E#sub_C51E#
@@ -294,11 +329,11 @@ $C559##CONSTANT - Show the menu
 $C55B##--NO-COMMENT--
 $C55D##--NO-COMMENT--
 $C55E#bra_C55E_skip#0x00 or 0x80
-$C560##If Register A != 0x00
+$C560##If vMessageInProgress != 0x00
 $C562##clear
 $C564##clear
 $C566##1 + 1 = 2
-$C568#bra_C568_RTS#
+$C568#bra_C568_RTS#--NO-COMMENT--
 $C569#sub_C569#Switches a cutscene to a main title screen
 $C56E##Go to the branch If the button 'Start' isn't pressed
 $C572#@bra_C572_skip#
@@ -340,40 +375,75 @@ $C65E#bra_C65E#
 $C668#bra_C668_loop#counter as parameter
 $C66D##decrement $0000
 $C66F##In $0000 >= 0x00 && $0000 < 0xF0
-$C672#sub_C672#
+$C671##--NO-COMMENT--
+$C672#sub_C672_wait_character_select#
+$C675##--NO-COMMENT--
 $C677##Low address
+$C679##--NO-COMMENT--
 $C67B##High address (0x8139 in the bank 04_1)
-$C67D##set loop counter
-$C68E#bra_C68E#
-$C695##CONSTANT - active
-$C697##--NO-COMMENT--
+$C67D##--NO-COMMENT--
+$C67F##set loop counter
+$C681##--NO-COMMENT--
+$C68E#bra_C68E_loop#
+$C695##--NO-COMMENT--
+$C697##put active
+$C699##clear
 $C69C##empty cache
-$C6A6#@bra_C6A6_loop#
+$C69F##reset
+$C6A1##clear Register X
+$C6A2##--NO-COMMENT--
+$C6A4##--NO-COMMENT--
+$C6A5##--NO-COMMENT--
+$C6A6#@bra_C6A6_loop#--NO-COMMENT--
+$C6A7##--NO-COMMENT--
+$C6A8##the current character isn't fell
+$C6AA##--NO-COMMENT--
+$C6AB##If Register X != 0 (there should be no more than 3 iterations)
 $C6AD#@bra_C6AD_skip#
 $C6B2##CONSTANT - Select the character
-$C6B9#bra_C6B9#
-$C6BD#bra_C6BD#
-$C6C7#loc_C6C7#
-$C6D7#@bra_C6D7_skip#
-$C6DD#sub_C6DD#
+$C6B9#@bra_C6B9_wait#--NO-COMMENT--
+$C6BB##Here we wait for the player to select a character.
+$C6BD#@bra_C6BD_wait#--NO-COMMENT--
+$C6BF##Here we wait for the counter to reset (the flashing gun animation will be performed)
+$C6C1##--NO-COMMENT--
+$C6C4##--NO-COMMENT--
+$C6C7#loc_C6C7_update_room_with_message#CHR-bank (a number)
+$C6C9##clear vSharedGameStatus
+$C6CA##--NO-COMMENT--
+$C6CC##CONSTANT - room with NPC in level 1
+$C6CE##If vNoSubLevel < 0x1A
+$C6D0##CONSTANT - boss of level 1, 0x1E - room with NPC in level 4
+$C6D2##If vNoSubLevel >= 0x1F
+$C6D4##CHR-bank (a number)
+$C6D6##For vSharedGameStatus to set 'A screen with the message'
+$C6D7#@bra_C6D7_skip#--NO-COMMENT--
+$C6DA##--NO-COMMENT--
+$C6DC##--NO-COMMENT--
+$C6DD#sub_C6DD#--NO-COMMENT--
+$C6DF##If vReasonCharacterChange == 'no reason'
 $C6E8#bra_C6E8#
-$C6FC#bra_C6FC#
+$C6FC#bra_C6FC#--NO-COMMENT--
+$C6FE##If vReasonCharacterChange != 'the radio was using'
 $C712#bra_C712#
 $C71F#loc_C71F#
-$C72C#bra_C72C#
+$C72C#bra_C72C_skip#
 $C738#bra_C738#
 $C754#loc_C754#
 $C756#bra_C756_repeat#
 $C77B#sub_C77B#
 $C784#bra_C784#
-$C78E#sub_C78E#
+$C78E#sub_C78E#--NO-COMMENT--
+$C791##If test mode is disable
 $C7A2##The enemies don't damage
-$C7A6#bra_C7A6_skip#
-$C7A8##If Register A != 0x00
+$C7A6#bra_C7A6_skip#--NO-COMMENT--
+$C7A8##If vCharacterSelectionCounter != 0x00
 $C7AA##Selects a character before start a level
+$C7AC##--NO-COMMENT--
 $C7AF##Go to the branch If the buttons 'A' or 'B' aren't pressed
-$C7B1##Initializes a counter
-$C7B5#bra_C7B5#Decrement a counter
+$C7B1##--NO-COMMENT--
+$C7B3##Initializes a counter
+$C7B5#bra_C7B5_skip#Decrement a counter
+$C7B7##--NO-COMMENT--
 $C7BA#bra_C7BA_skip#
 $C7C5##store a
 $C7C6##CONSTANT - Sound 'switch a character'
@@ -382,29 +452,46 @@ $C7CB##restore a
 $C7D0#bra_C7D0#
 $C7DB#bra_C7DB#
 $C7E8#bra_C7E8#
-$C7EF#loc_C7EF_sprite_magic_in_select_character#
+$C7EF#loc_C7EF_sprite_magic_in_select_character#--NO-COMMENT--
 $C7F1##CONSTANT - a gun display frequency (in select character)
+$C7F3##If it isn't displayed
 $C7F5##0x00 - Lupin, 0x01 - Jigen, 0x02 - Goemon
+$C7F7##--NO-COMMENT--
 $C7FA##~> sprite_magic1 (Y pos)
 $C7FC##~> sprite_magic4 (X pos)
 $C7FE##tile 'Gun'
+$C800##--NO-COMMENT--
 $C803#bra_C803_skip#Y-position for Lupin
 $C805##--NO-COMMENT--
+$C807##--NO-COMMENT--
 $C809##accumulator_shift_right_by_2
 $C80A##--NO-COMMENT--
+$C80B##--NO-COMMENT--
 $C80E##Y-position for Jigen
 $C810##--NO-COMMENT--
+$C812##--NO-COMMENT--
+$C814##--NO-COMMENT--
+$C817##--NO-COMMENT--
 $C81A##Y-position for Goemon
 $C81C##--NO-COMMENT--
+$C81E##--NO-COMMENT--
+$C820##--NO-COMMENT--
 $C823##+ 1 shift = shift right by 6
-$C824#sub_C824#tile 'Handcuffs'
+$C824#sub_C824_character_sprite#tile 'Handcuffs'
 $C826##CONSTANT - Did the character fall or get arrested?
+$C828##--NO-COMMENT--
 $C82A##CONSTANT - Did the character fall?
+$C82C##--NO-COMMENT--
 $C82E##tile 'Prison bars'
 $C830#bra_C830_handcuffs_sprite_magic#~> sprite_magic4 (X pos)
-$C832#sub_C832_gun_sprite_magic#
+$C832#sub_C832_add_sprite_magic#--NO-COMMENT--
+$C834##--NO-COMMENT--
+$C835##--NO-COMMENT--
 $C836##~> sprite_magic2 (tile pos)
+$C838##--NO-COMMENT--
 $C83A##~> sprite_magic3 (attributes)
+$C83C##--NO-COMMENT--
+$C83E##--NO-COMMENT--
 $C841#sub_C841#
 $C848#bra_C848_RTS#
 $C849#sub_C849#
@@ -441,7 +528,7 @@ $C8C8##CONSTANT - no pause
 $C8CA##--NO-COMMENT--
 $C8CC##--NO-COMMENT--
 $C8CE##Reset a flag 'Pause in the game'
-$C8D0##to loc_BBA4 (bank 06_2)
+$C8D0##--NO-COMMENT--
 $C8D3#bra_C8D3_RTS#
 $C8D4#sub_C8D4_check_Yoshikawa#set loop counter
 $C8D6#bra_C8D6_loop#--NO-COMMENT--
@@ -882,8 +969,12 @@ $CFC8#loc_CFC8#
 $CFD3#bra_CFD3_RTS#
 $CFD4#bra_CFD4#
 $CFD7#bra_CFD7#
-$D05E#sub_accumulator_shift_right_by_5#
-$D05F#sub_accumulator_shift_right_by_4#
+$D05E#sub_accumulator_shift_right_by_5#--NO-COMMENT--
+$D05F#sub_accumulator_shift_right_by_4#--NO-COMMENT--
+$D060##--NO-COMMENT--
+$D061##--NO-COMMENT--
+$D062##--NO-COMMENT--
+$D063##--NO-COMMENT--
 $D064#sub_D064#
 $D073#sub_D073_invert_sign#see https://www.atariarchives.org/alp/appendix_1.php (LSR Logical Shift Right)
 $D075##--NO-COMMENT--
@@ -908,6 +999,7 @@ $D09A##--NO-COMMENT--
 $D09D##increments loop counter
 $D09E##--NO-COMMENT--
 $D0A0##If Register Y != 0x18
+$D0A2##--NO-COMMENT--
 $D0A3#sub_D0A3_prepare_14_15_16_17_18#--NO-COMMENT--
 $D0A5##--NO-COMMENT--
 $D0A6##--NO-COMMENT--
@@ -2203,25 +2295,35 @@ $FAC2##clear
 $FAC4##CONSTANT - In the game
 $FAC6##CONSTANT - no message
 $FAC8##CONSTANT - no pause
+$FACA##--NO-COMMENT--
 $FACF##If ram_0039 == 0x00
+$FAD1##--NO-COMMENT--
 $FAD3##If ram_0039 == 0xE0
-$FAD7##If ram_0039 == 0xE0
+$FAD5##--NO-COMMENT--
+$FAD7##If ram_0039 == 0xC0
+$FAD9##--NO-COMMENT--
 $FADB##If ram_0039 == 0xC1
+$FADD##--NO-COMMENT--
 $FADF##If ram_0039 == 0xC2
+$FAE1##--NO-COMMENT--
 $FAE3##If ram_0039 == 0xC3
+$FAE5##--NO-COMMENT--
 $FAE7##If ram_0039 == 0xC4
-$FAEC#loc_FAEC#
+$FAEC#loc_FAEC#--NO-COMMENT--
+$FAEF##--NO-COMMENT--
 $FAF2##~> vScreenChrPosY
 $FAF4##--NO-COMMENT--
 $FAF6##CONSTANT - level racing
 $FAF8##If vNoSubLevel == 0x19
 $FAFA##~> vScreenChrPosY 
 $FAFC#@bra_FAFC_skip#--NO-COMMENT--
+$FAFE##--NO-COMMENT--
 $FAFF#bra_FAFF#
 $FB1A#loc_FB1A#
 $FB1F#bra_FB1F#
 $FB2F#tbl_FB2F#
 $FB32#bra_FB32#
+$FB35##--NO-COMMENT--
 $FB38#bra_FB38#
 $FB3B#bra_FB3B#
 $FB41#loc_FB41#
@@ -2235,10 +2337,25 @@ $FB9E##If v_corridor_magic5 & 0x80
 $FBA2#@bra_FBA2_skip#Register A has 0x00 or 0x01
 $FBB0##Low address
 $FBB7##High address
-$FBB9##--NO-COMMENT--
+$FBB9##1 of 4 bytes
+$FBBB##--NO-COMMENT--
+$FBBD##--NO-COMMENT--
 $FBBF##2 of 4 bytes
+$FBC0##--NO-COMMENT--
+$FBC2##--NO-COMMENT--
 $FBC4##3 of 4 bytes
+$FBC5##--NO-COMMENT--
+$FBC7##--NO-COMMENT--
 $FBC9##4 of 4 bytes
+$FBCA##--NO-COMMENT--
+$FBCC##--NO-COMMENT--
+$FBCE##--NO-COMMENT--
+$FBCF##--NO-COMMENT--
+$FBD1##--NO-COMMENT--
+$FBD3##--NO-COMMENT--
+$FBD5##--NO-COMMENT--
+$FBD7##--NO-COMMENT--
+$FBD9##--NO-COMMENT--
 $FBDA#sub_FBDA_push_stack_room#
 $FBF7#loc_FBF7_pop_stack_room#
 $FC14#sub_FC14#
