@@ -1,8 +1,8 @@
 $C000#vec_C000_RESET#disable interrupts
 $C001##disable decimal mode (NES chip 2A03 doesn't use decimal mode)
 $C002##--NO-COMMENT--
-$C004##clear ppu 
-$C007##clear ppu 
+$C004##clear ppu
+$C007##clear ppu
 $C00A##clear ppu
 $C00C#@bra_C00C_wait_til_vblank#wait for vblank (1 time)
 $C00F##--NO-COMMENT--
@@ -21,7 +21,7 @@ $C02B##[0x0700-0x07FF] in 0
 $C02E##increment counter x
 $C02F##--NO-COMMENT--
 $C031#@bra_C031_loop#[0x0000-0x0098] in 0
-$C033##increment counter x 
+$C033##increment counter x
 $C034##--NO-COMMENT--
 $C036##If Register X < 0x99
 $C038##set loop counter
@@ -61,7 +61,7 @@ $C07E##clear
 $C080##--NO-COMMENT--
 $C082##set apu frame counter - 4-step mode, the interrupts are disabled
 $C085##--NO-COMMENT--
-$C087##clear (see vChrLiveStatus) 
+$C087##clear (see vChrLiveStatus)
 $C089##--NO-COMMENT--
 $C08C##to sub_B8C7 (bank 06_2)
 $C08F##to sub_B9DA (bank 06_2)
@@ -83,6 +83,8 @@ $C0B3##--NO-COMMENT--
 $C0B5##If Register X != 0x99
 $C0B7#loc_C0B7#--NO-COMMENT--
 $C0B9##clear
+$C0BC##--NO-COMMENT--
+$C0BF##--NO-COMMENT--
 $C0C5##--NO-COMMENT--
 $C0C7##store the high position of the character
 $C0C8##--NO-COMMENT--
@@ -107,11 +109,13 @@ $C118#bra_C118_skip#--NO-COMMENT--
 $C11A##Initializes a counter.
 $C11C##--NO-COMMENT--
 $C11E##Initializes a time of a demo scene.
-$C120#bra_C120_repeat#
+$C120#bra_C120_repeat#--NO-COMMENT--
+$C123##--NO-COMMENT--
 $C125##Branch If in game
-$C12F#bra_C12F#
+$C12F#@bra_C12F_skip#--NO-COMMENT--
+$C132##If test mode is disabled
 $C142##to sub_BC48 (bank 06_2)
-$C148#bra_C148#
+$C148#bra_C148_skip#
 $C156##CONSTANT - 'the radio was using'
 $C15E#bra_C15E#
 $C16F#bra_C16F#CONSTANT - no reason
@@ -169,23 +173,47 @@ $C318##--NO-COMMENT--
 $C319#sub_C319_fill_ppu#CONSTANT - A white tile
 $C31B##Always true
 $C31D#sub_C31D_clear_ppu#CONSTANT - A black tile
-$C31F#bra_C31F_skip#
+$C31F#bra_C31F_skip#set a tile value
+$C321##--NO-COMMENT--
+$C324##--NO-COMMENT--
 $C327##Read PPU status to reset the high/low latch
 $C32A##For the first ppu data ($2000)
+$C32C##--NO-COMMENT--
 $C32F##For the second ppu data  ($2400)
-$C331#sub_C331_store_ppu_data#
-$C33E#@bra_C33E_repeat#
-$C347#@bra_C347_repeat#
-$C351#@bra_C351_repeat#
-$C358#sub_C358_clear_OAM#
-$C35E#bra_C35E_repeat#OAM in 0F 00 00 00 0F 00 00 00 0F 00 00 00 0F ...
+$C331#sub_C331_store_ppu_data#--NO-COMMENT--
+$C334##--NO-COMMENT--
+$C336##--NO-COMMENT--
+$C339##set loop counter (y = 0)
+$C33A##set loop counter (x)
+$C33C##put a tile value
+$C33E#@bra_C33E_loop#[$2000-$22FF] or [$2400-$26FF] in ram_0012
+$C341##increment counter (y)
+$C342##If Register Y != 0
+$C344##decrement counter (x)
+$C345##If Register X != 0
+$C347#@bra_C347_loop#[$2300-$23BF] or [$2700-$27BF] in ram_0012
+$C34A##increment counter (y)
+$C34B##--NO-COMMENT--
+$C34D##If Register Y < 0xC0
+$C34F##put a tile value
+$C351#@bra_C351_loop#[$23C0-$23FF] or [$27C0-$27FF] in 0x00
+$C354##increment counter (y)
+$C355##If Register Y != 0
+$C357##--NO-COMMENT--
+$C358#sub_C358_clear_OAM#set loop counter
+$C35A##set a sprite position
+$C35C##an assigned value
+$C35E#@bra_C35E_loop#OAM in 0F XX XX XX 0F XX XX XX 0F XX XX XX 0F ...
 $C361##[0x06B7-0x06F6] in 0xF0
+$C364##next a sprite position
 $C365##To 2nd sprite data byte
 $C366##To 3rd sprite data byte
 $C367##To 4th sprite data byte
 $C368##To 1st next sprite data byte
+$C369##If Register X != 0
 $C36B##Store 0x00
 $C36D##Store 0x00
+$C370##--NO-COMMENT--
 $C371#loc_C371_update_palette#--NO-COMMENT--
 $C373##--NO-COMMENT--
 $C376##--NO-COMMENT--
@@ -308,7 +336,7 @@ $C4F5#sub_C4F5_selectAllChrBanks#set loop counter
 $C4F7#@bra_C4F7_loop#--NO-COMMENT--
 $C4FA##--NO-COMMENT--
 $C4FD##--NO-COMMENT--
-$C500##decrements loop counter 
+$C500##decrements loop counter
 $C501##If Register X >= 0
 $C503#bra_C503_RTS#--NO-COMMENT--
 $C504#sub_C504_switch_prg_8000#
@@ -367,7 +395,9 @@ $C615#tbl_C615#
 $C62C#tbl_C62C_y_position_characters#Lupin
 $C62D##Jigen
 $C62E##Goemon
-$C62F#sub_C62F#
+$C62F#sub_C62F#--NO-COMMENT--
+$C632##--NO-COMMENT--
+$C635##--NO-COMMENT--
 $C63D#bra_C63D_repeat#
 $C648#bra_C648_repeat#
 $C652#sub_C652#
@@ -505,9 +535,9 @@ $C863#bra_C863#
 $C885#sub_C885#--NO-COMMENT--
 $C887##Branch If in game
 $C889##--NO-COMMENT--
-$C88B##If v_menu_counter == 0x00
+$C88B##If vLowMenuCounter != 0x00
 $C88D##--NO-COMMENT--
-$C88F##If vMenuCounterTimes != 0x00
+$C88F##If vHighMenuCounter == 0x00
 $C891##--NO-COMMENT--
 $C893#@bra_C893_skip#
 $C897##Go to the branch If the button 'Start' doesn't press
@@ -534,7 +564,7 @@ $C8D4#sub_C8D4_check_Yoshikawa#set loop counter
 $C8D6#bra_C8D6_loop#--NO-COMMENT--
 $C8D9##--NO-COMMENT--
 $C8DC##branch If [0x0100-0x0108] isn't Yoshikawa
-$C8DE##decrement x 
+$C8DE##decrement x
 $C8DF##In Register X >= 0x00 && X < 0xF0
 $C8E1##--NO-COMMENT--
 $C8E2#tbl_C8E2_symbols#Y
@@ -550,7 +580,7 @@ $C8EB##--NO-COMMENT--
 $C8EC#bra_C8EC_skip#set loop counter
 $C8EE#@bra_C8EE_loop#--NO-COMMENT--
 $C8F1##set Yoshikawa
-$C8F4##decrement x 
+$C8F4##decrement x
 $C8F5##In Register X >= 0x00 && X < 0xF0
 $C8F7##CONSTANT - The menu
 $C8F9##--NO-COMMENT--
@@ -651,7 +681,7 @@ $CA30##Branch If v_low_counter doesn't division without remainder by 8 and 16
 $CA32#@bra_CA32_loop#--NO-COMMENT--
 $CA35##tile numbers
 $CA38##--NO-COMMENT--
-$CA39##increment x 
+$CA39##increment x
 $CA3A##--NO-COMMENT--
 $CA3C##If Register X != 0x05
 $CA3E#@bra_CA3E_RTS#--NO-COMMENT--
@@ -696,7 +726,7 @@ $CA8F##Branch If item is missing
 $CA91##--NO-COMMENT--
 $CA94##Branch If BlinkTime is time out
 $CA96##--NO-COMMENT--
-$CA98##If BlinkTime isn't 0%XXXX1XXX (every 8 after 8, never true) 
+$CA98##If BlinkTime isn't 0%XXXX1XXX (every 8 after 8, never true)
 $CA9A#@bra_CA9A_put_cache#--NO-COMMENT--
 $CA9B##--NO-COMMENT--
 $CA9C##--NO-COMMENT--
@@ -828,7 +858,7 @@ $CD82##If a high counter != 0x00
 $CD84##--NO-COMMENT--
 $CD87##If a low counter != 0x00
 $CD89##--NO-COMMENT--
-$CD8B##If the character is moving in the water 
+$CD8B##If the character is moving in the water
 $CD8D##If the character is moving on the balloon
 $CD8F##--NO-COMMENT--
 $CD92##If the weapons are not exist
@@ -854,7 +884,7 @@ $CE13#sub_CE13_set_sprite_zero_hits#Y-position for message room
 $CE15##--NO-COMMENT--
 $CE17##--NO-COMMENT--
 $CE18##If A screen isn't with the message
-$CE1A##Y-position for room without messages 
+$CE1A##Y-position for room without messages
 $CE1C#@bra_CE1C_skip#set Y-position
 $CE1F##a black square
 $CE21##set the tile number sprite
@@ -975,7 +1005,16 @@ $D060##--NO-COMMENT--
 $D061##--NO-COMMENT--
 $D062##--NO-COMMENT--
 $D063##--NO-COMMENT--
-$D064#sub_D064#
+$D064#sub_D064_generate_rng#--NO-COMMENT--
+$D066##cache
+$D068##--NO-COMMENT--
+$D069##* 4
+$D06A##--NO-COMMENT--
+$D06B##--NO-COMMENT--
+$D06D##--NO-COMMENT--
+$D06E##--NO-COMMENT--
+$D070##--NO-COMMENT--
+$D072##--NO-COMMENT--
 $D073#sub_D073_invert_sign#see https://www.atariarchives.org/alp/appendix_1.php (LSR Logical Shift Right)
 $D075##--NO-COMMENT--
 $D076##--NO-COMMENT--
@@ -1154,7 +1193,7 @@ $D41E##--NO-COMMENT--
 $D420##--NO-COMMENT--
 $D421##--NO-COMMENT--
 $D423##0x80, 0x81, 0x83 or 0x87 (depends on the first three bits ram_004E)
-$D425##retrieve a  
+$D425##retrieve a
 $D428#sub_D428_get_addr_background_palette#--NO-COMMENT--
 $D42A##--NO-COMMENT--
 $D42D##--NO-COMMENT--
@@ -1177,7 +1216,7 @@ $D44F##decrement y
 $D450##In Register Y >= 0x00 && Y < 0xF0
 $D452##--NO-COMMENT--
 $D453#sub_D453#
-$D456##set loop counter 
+$D456##set loop counter
 $D458##--NO-COMMENT--
 $D45A##CONSTANT - level racing
 $D45C##If vNoSubLevel != 0x19
@@ -1694,7 +1733,7 @@ $E78A#sub_E78A_has_roof_pitch#--NO-COMMENT--
 $E78C##If vNoSubLevel != 0x00 (i.e. level 1.0)
 $E78E##--NO-COMMENT--
 $E791##--NO-COMMENT--
-$E793##CONSTANT - the character is getting a damage 
+$E793##CONSTANT - the character is getting a damage
 $E795##If the character is getting a damage
 $E797##set loop counter
 $E799##--NO-COMMENT--
@@ -1906,7 +1945,7 @@ $EE1B#bra_EE1B_skip#to sub_B3AA (bank 06_2)
 $EE21#loc_EE21#--NO-COMMENT--
 $EE23##Branch If the render isn't activated
 $EE25##--NO-COMMENT--
-$EE34#loc_EE34#
+$EE34#loc_EE34#--NO-COMMENT--
 $EE37##--NO-COMMENT--
 $EE39##CONSTANT - First cutscene with the message
 $EE3B##If Register A == 0x91
@@ -2078,8 +2117,16 @@ $F21E#bra_F21E_RTS#
 $F21F#sub_F21F#
 $F238#sub_F238#
 $F258#bra_F258_RTS#
-$F259#loc_F259#
-$F271#bra_F271#
+$F259#loc_F259#--NO-COMMENT--
+$F25B##--NO-COMMENT--
+$F25D##Branch in 31/32 cases
+$F25F##--NO-COMMENT--
+$F262##--NO-COMMENT--
+$F264##Branch in 3/4 cases
+$F26C##If the sign bit is used - appearance on the left, otherwise on the right
+$F271#@bra_F271_skip#
+$F282##--NO-COMMENT--
+$F285##--NO-COMMENT--
 $F295#sub_F295#
 $F2AA#bra_F2AA#
 $F2B2#sub_F2B2_try_generate_enemy#
@@ -2218,7 +2265,7 @@ $F8C8##Shooter with bazooka (0x20)
 $F8CA##Cobblestone
 $F8CC##The bird
 $F8CE##The bird with a bomb
-$F8D0##Skeleton 
+$F8D0##Skeleton
 $F8D2##Diver
 $F8D4##Mummy
 $F8D6##Gargoyle
@@ -2315,7 +2362,7 @@ $FAF2##~> vScreenChrPosY
 $FAF4##--NO-COMMENT--
 $FAF6##CONSTANT - level racing
 $FAF8##If vNoSubLevel == 0x19
-$FAFA##~> vScreenChrPosY 
+$FAFA##~> vScreenChrPosY
 $FAFC#@bra_FAFC_skip#--NO-COMMENT--
 $FAFE##--NO-COMMENT--
 $FAFF#bra_FAFF#
@@ -2377,7 +2424,7 @@ $FCBA#tbl_FCBA#Nobody  (0x00)
 $FCBC##Cat with the gun (level 3) (0x01) Type A
 $FCBE##Gray Land hat (level 3) (0x02) Type B
 $FCC0##Black Land hat (level 3) (0x03) Type B
-$FCC2##Land Diver (level 3) (0x04) 
+$FCC2##Land Diver (level 3) (0x04)
 $FCC4##Land Diver (level 2) (0x05) Type A
 $FCC6##Land Diver (level 1)  (0x06) Type A
 $FCC8##Zenigata (0x07) Type A
@@ -2434,11 +2481,11 @@ $FD2C##Sensor (level 4) (0x39) Type B
 $FDFB#sub_FDFB_crc_test#
 $FE01#bra_FE01#
 $FE0A##store A
-$FE0B##set loop counter 
+$FE0B##set loop counter
 $FE0D#@bra_FE0D_loop#
 $FE10##store control flags
 $FE15##retrieve control flags (from 0xFE10)
-$FE1E##decrement y 
+$FE1E##decrement y
 $FE1F##If Register Y != 0
 $FE21##retrieve a (from 0xFE0A)
 $FE46#sub_FE46#

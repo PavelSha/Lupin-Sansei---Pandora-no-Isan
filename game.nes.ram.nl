@@ -15,8 +15,9 @@ $0029#vLowViewPortPosY#
 $002B#v_nmi_counter#
 $002C#v_low_counter#
 $002D#v_high_counter#
-$0033#v_menu_counter#
-$0034#vMenuCounterTimes#
+$0033#vLowMenuCounter#
+$0034#vHighMenuCounter#
+$0035#vEnemyRNG#
 $0037#vGameMode#
 $0038#vPauseStatus#
 $003B#vSharedGameStatus#
