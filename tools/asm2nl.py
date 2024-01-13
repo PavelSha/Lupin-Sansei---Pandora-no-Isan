@@ -14,6 +14,7 @@ SKIP_COMMERCIAL_AT = False
 LOOP_WITH_COUNTER = False
 COUNTER_LIMIT = 65
 ONLY_LABEL = False
+EXCLUDE_LIST = [ '0005', '0011', '0012', '001A', '0039', '003A' ]
 
 def getBankNl(asmNameFile, nlNameFile):
     dictionary = {}
@@ -74,7 +75,58 @@ def getBankNl(asmNameFile, nlNameFile):
     finally:
         nlFile.close()
 
+def getVariablesNl():
+    dictionary = {}
+    asmFile = open(ASM_FOLDER_PATH + ASM_FILE2, encoding="utf-8")
+    try:
+        counter = 0
+        for line in asmFile:
+            if LOOP_WITH_COUNTER and counter >= COUNTER_LIMIT:
+                break
+            ramValue = None
+            parts = line.split('=')
+            if len(parts) > 1:
+                ramValue = parts[1].strip()
+
+            if (ramValue is not None) and re.search("^ram_", ramValue):
+                ramValue = re.sub("^ram_", "", ramValue)
+                address = ramValue[0] + ramValue[1] + ramValue[2] + ramValue[3]
+                value = int(address, base=16)
+                label = parts[0].strip()
+                if len(label) > 0:
+                    dictionary[str(value)] = {"label": label}
+            counter += 1
+    finally:
+        asmFile.close()
+    if len(dictionary) == 0:
+        return None
+
+    nlFile = open(NL_FOLDER_PATH + NL_FILE2, "w", encoding="utf-8")
+    try:
+        counter = len(dictionary)
+        for key, value in dictionary.items():
+            counter -= 1
+            iValue = "{0:X}".format(int(key))
+
+            if len(iValue) == 1:
+                iValue = "000" + iValue
+            elif len(iValue) == 2:
+                iValue = "00" + iValue
+            elif len(iValue) == 3:
+                iValue = "0" + iValue
+            if iValue in EXCLUDE_LIST:
+                continue
+
+            label = value['label']
+            if counter == 0:
+                nlFile.write("$"+iValue+"#"+label+"#")
+            else:
+                nlFile.write("$"+iValue+"#"+label+"#\n")
+    finally:
+        nlFile.close()
+
 def getBankFFNl():
     getBankNl(ASM_FILE1, NL_FILE1)
 
-getBankFFNl()
+# getBankFFNl()
+getVariablesNl()

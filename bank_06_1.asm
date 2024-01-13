@@ -3,6 +3,10 @@
 .include "constants.inc"
 ; 0x018010-0x01A00F
 
+.import loc_CE33_add_sprite_magic ; bank FF
+.import loc_C420_add_sound_effect ; bank FF
+.import sub_C420_add_sound_effect ; bank FF
+
 sub_A000: ; from bank_FF
 C - - - - - 0x018010 06:A000: 4C 4D A0  JMP loc_A04D
 sub_A003: ; from bank_FF
@@ -237,7 +241,7 @@ C - - - - - 0x018166 06:A156: 6D 02 03  ADC ram_0302
 C - - - - - 0x018169 06:A159: 85 01     STA ram_0001
 C - - - - - 0x01816B 06:A15B: AD 03 03  LDA ram_0303
 C - - - - - 0x01816E 06:A15E: 85 02     STA ram_0002
-C - - - - - 0x018170 06:A160: 4C 33 CE  JMP $CE33  ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x018170 06:A160: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 bra_A163:
 C - - - - - 0x018173 06:A163: BD 20 03  LDA ram_0320,X
@@ -589,7 +593,7 @@ C - - - - - 0x0183DF 06:A3CF: 20 DD A3  JSR sub_A3DD
 C - - - - - 0x0183E2 06:A3D2: 4C BF A3  JMP loc_A3BF
 bra_A3D5:
 C - - - - - 0x0183E5 06:A3D5: A9 10     LDA #$10
-C - - - - - 0x0183E7 06:A3D7: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x0183E7 06:A3D7: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
 C - - - - - 0x0183EA 06:A3DA: 4C B9 A3  JMP loc_A3B9
 sub_A3DD:
 C - - - - - 0x0183ED 06:A3DD: A6 1A     LDX ram_001A
@@ -672,7 +676,7 @@ C - - - - - 0x018481 06:A471: 6D 06 03  ADC ram_0306
 C - - - - - 0x018484 06:A474: 85 01     STA ram_0001
 C - - - - - 0x018486 06:A476: AD 07 03  LDA ram_0307
 C - - - - - 0x018489 06:A479: 85 02     STA ram_0002
-C - - - - - 0x01848B 06:A47B: 4C 33 CE  JMP $CE33  ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x01848B 06:A47B: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 loc_A47E:
 C D 1 - - - 0x01848E 06:A47E: DE 86 03  DEC ram_0386,X
@@ -879,7 +883,7 @@ bra_A5EF:
 C - - - - - 0x0185FF 06:A5EF: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x018602 06:A5F2: 90 09     BCC bra_A5FD
 C - - - - - 0x018604 06:A5F4: A9 10     LDA #$10
-C - - - - - 0x018606 06:A5F6: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x018606 06:A5F6: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
 C - - - - - 0x018609 06:A5F9: A9 00     LDA #$00
 C - - - - - 0x01860B 06:A5FB: 95 8F     STA vBulletStatus,X
 bra_A5FD:
@@ -958,7 +962,7 @@ C - - - - - 0x018684 06:A674: 6D 06 03  ADC ram_0306  ; ~> sprite_magic2
 C - - - - - 0x018687 06:A677: 85 01     STA ram_0001
 C - - - - - 0x018689 06:A679: AD 07 03  LDA ram_0307  ; ~> sprite_magic3
 C - - - - - 0x01868C 06:A67C: 85 02     STA ram_0002
-C - - - - - 0x01868E 06:A67E: 4C 33 CE  JMP $CE33 ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x01868E 06:A67E: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 bra_A681:
 C - - - - - 0x018691 06:A681: BD 5C 03  LDA ram_035C,X
@@ -973,7 +977,7 @@ C - - - - - 0x0186A0 06:A690: A5 2C     LDA v_low_counter
 C - - - - - 0x0186A2 06:A692: 29 0F     AND #$0F
 C - - - - - 0x0186A4 06:A694: D0 05     BNE bra_A69B
 C - - - - - 0x0186A6 06:A696: A9 37     LDA #$37
-C - - - - - 0x0186A8 06:A698: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x0186A8 06:A698: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
 bra_A69B:
 C - - - - - 0x0186AB 06:A69B: A5 2C     LDA v_low_counter
 C - - - - - 0x0186AD 06:A69D: 29 03     AND #$03
@@ -1219,7 +1223,7 @@ C - - - - - 0x018847 06:A837: 6D 02 03  ADC ram_0302
 C - - - - - 0x01884A 06:A83A: 85 01     STA ram_0001
 C - - - - - 0x01884C 06:A83C: AD 03 03  LDA ram_0303
 C - - - - - 0x01884F 06:A83F: 85 02     STA ram_0002
-C - - - - - 0x018851 06:A841: 4C 33 CE  JMP $CE33  ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x018851 06:A841: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 sub_A844:
 C - - - - - 0x018854 06:A844: 20 37 D9  JSR $D937
@@ -1330,7 +1334,7 @@ bra_A8F7:
 C - - - - - 0x018907 06:A8F7: D9 7F A7  CMP tbl_A77F,Y
 C - - - - - 0x01890A 06:A8FA: D0 10     BNE bra_A90C
 C - - - - - 0x01890C 06:A8FC: A9 17     LDA #$17
-C - - - - - 0x01890E 06:A8FE: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01890E 06:A8FE: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
 C - - - - - 0x018911 06:A901: 20 28 A9  JSR sub_A928
 C - - - - - 0x018914 06:A904: A9 0C     LDA #$0C
 C - - - - - 0x018916 06:A906: 9D 26 03  STA ram_0326,X
@@ -1593,7 +1597,7 @@ C - - - - - 0x018AEF 06:AADF: F0 02     BEQ bra_AAE3
 - - - - - - 0x018AF2 06:AAE2: 44        .byte $44   ; <D>
 bra_AAE3:
 C - - - - - 0x018AF3 06:AAE3: 85 02     STA ram_0002
-C - - - - - 0x018AF5 06:AAE5: 4C 33 CE  JMP $CE33  ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x018AF5 06:AAE5: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 bra_AAE8:
 C - - - - - 0x018AF8 06:AAE8: 98        TYA
 C - - - - - 0x018AF9 06:AAE9: 18        CLC
@@ -1806,7 +1810,7 @@ C - - - - - 0x018C56 06:AC46: A8        TAY
 C - - - - - 0x018C57 06:AC47: B9 5E 03  LDA ram_035E,Y
 C - - - - - 0x018C5A 06:AC4A: 30 29     BMI bra_AC75
 C - - - - - 0x018C5C 06:AC4C: A9 29     LDA #$29
-C - - - - - 0x018C5E 06:AC4E: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x018C5E 06:AC4E: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
 C - - - - - 0x018C61 06:AC51: A9 C2     LDA #$C2
 C - - - - - 0x018C63 06:AC53: 99 5E 03  STA ram_035E,Y
 C - - - - - 0x018C66 06:AC56: 20 64 D0  JSR $D064
@@ -1864,7 +1868,7 @@ C - - - - - 0x018CCF 06:ACBF: A9 6E     LDA #$6E
 C - - - - - 0x018CD1 06:ACC1: 85 01     STA ram_0001
 C - - - - - 0x018CD3 06:ACC3: A9 44     LDA #$44
 C - - - - - 0x018CD5 06:ACC5: 85 02     STA ram_0002
-C - - - - - 0x018CD7 06:ACC7: 20 33 CE  JSR $CE33  ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x018CD7 06:ACC7: 20 33 CE  JSR loc_CE33_add_sprite_magic ; bank FF
 bra_ACCA:
 C - - - - - 0x018CDA 06:ACCA: BD 5C 03  LDA ram_035C,X
 C - - - - - 0x018CDD 06:ACCD: 10 30     BPL bra_ACFF_RTS
@@ -2005,7 +2009,7 @@ C - - - - - 0x018DB8 06:ADA8: 69 98     ADC #$98
 C - - - - - 0x018DBA 06:ADAA: 85 01     STA ram_0001
 C - - - - - 0x018DBC 06:ADAC: A9 47     LDA #$47
 C - - - - - 0x018DBE 06:ADAE: 85 02     STA ram_0002
-C - - - - - 0x018DC0 06:ADB0: 4C 33 CE  JMP $CE33  ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x018DC0 06:ADB0: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 loc_ADB3:
 C D 1 - - - 0x018DC3 06:ADB3: BC 88 03  LDY ram_0388,X
 C - - - - - 0x018DC6 06:ADB6: B9 5D E3  LDA $E35D,Y
@@ -2159,7 +2163,7 @@ C - - - - - 0x018EBA 06:AEAA: 69 1C     ADC #$1C
 C - - - - - 0x018EBC 06:AEAC: 85 01     STA ram_0001
 C - - - - - 0x018EBE 06:AEAE: A9 13     LDA #$13
 C - - - - - 0x018EC0 06:AEB0: 85 02     STA ram_0002
-C - - - - - 0x018EC2 06:AEB2: 4C 33 CE  JMP $CE33  ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x018EC2 06:AEB2: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 C - - - - - 0x018EC5 06:AEB5: DE 86 03  DEC ram_0386,X
 C - - - - - 0x018EC8 06:AEB8: D0 03     BNE bra_AEBD
 C - - - - - 0x018ECA 06:AEBA: 4C 73 D8  JMP $D873
@@ -2450,7 +2454,7 @@ C - - - - - 0x019087 06:B077: 6D 02 03  ADC ram_0302
 C - - - - - 0x01908A 06:B07A: 85 01     STA ram_0001
 C - - - - - 0x01908C 06:B07C: AD 03 03  LDA ram_0303
 C - - - - - 0x01908F 06:B07F: 85 02     STA ram_0002
-C - - - - - 0x019091 06:B081: 4C 33 CE  JMP $CE33  ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x019091 06:B081: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 sub_B084:
 C - - - - - 0x019094 06:B084: 20 FB B0  JSR sub_B0FB
 C - - - - - 0x019097 06:B087: BC 56 03  LDY ram_0356,X
@@ -2738,7 +2742,7 @@ bra_B236:
 C - - - - - 0x019246 06:B236: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x019249 06:B239: 90 09     BCC bra_B244
 C - - - - - 0x01924B 06:B23B: A9 10     LDA #$10
-C - - - - - 0x01924D 06:B23D: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01924D 06:B23D: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
 C - - - - - 0x019250 06:B240: A9 00     LDA #$00
 C - - - - - 0x019252 06:B242: 95 8F     STA vBulletStatus,X
 bra_B244:
@@ -3063,7 +3067,7 @@ C - - - - - 0x01948E 06:B47E: 18        CLC
 C - - - - - 0x01948F 06:B47F: 6D 04 03  ADC ram_0304
 C - - - - - 0x019492 06:B482: 85 01     STA ram_0001
 bra_B484:
-C - - - - - 0x019494 06:B484: 4C 33 CE  JMP $CE33  ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x019494 06:B484: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 bra_B487:
 C - - - - - 0x019497 06:B487: BD 20 03  LDA ram_0320,X
 C - - - - - 0x01949A 06:B48A: 29 30     AND #$30
@@ -3094,7 +3098,7 @@ C - - - - - 0x0194C0 06:B4B0: 6D 02 03  ADC ram_0302
 C - - - - - 0x0194C3 06:B4B3: 85 01     STA ram_0001
 C - - - - - 0x0194C5 06:B4B5: AD 03 03  LDA ram_0303
 C - - - - - 0x0194C8 06:B4B8: 85 02     STA ram_0002
-C - - - - - 0x0194CA 06:B4BA: 4C 33 CE  JMP $CE33  ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x0194CA 06:B4BA: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 sub_B4BD:
 C - - - - - 0x0194CD 06:B4BD: 20 37 D9  JSR $D937
 C - - - - - 0x0194D0 06:B4C0: C6 00     DEC ram_0000
@@ -3467,14 +3471,14 @@ C - - - - - 0x019775 06:B765: D0 0A     BNE bra_B771
 C - - - - - 0x019777 06:B767: BD 26 03  LDA ram_0326,X
 C - - - - - 0x01977A 06:B76A: 30 05     BMI bra_B771
 C - - - - - 0x01977C 06:B76C: A9 31     LDA #$31
-C - - - - - 0x01977E 06:B76E: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x01977E 06:B76E: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
 bra_B771:
 C - - - - - 0x019781 06:B771: 68        PLA
 C - - - - - 0x019782 06:B772: 60        RTS
 sub_B773:
 loc_B773:
 C D 1 - - - 0x019783 06:B773: A9 31     LDA #$31
-C - - - - - 0x019785 06:B775: 20 20 C4  JSR $C420 ; to sub_C420_add_sound_effect (bank_FF)
+C - - - - - 0x019785 06:B775: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
 C - - - - - 0x019788 06:B778: A9 F0     LDA #$F0
 C - - - - - 0x01978A 06:B77A: AC 00 03  LDY ram_0300
 C - - - - - 0x01978D 06:B77D: C0 35     CPY #$35
@@ -3700,7 +3704,7 @@ C - - - - - 0x019916 06:B906: 6D 02 03  ADC ram_0302
 C - - - - - 0x019919 06:B909: 85 01     STA ram_0001
 C - - - - - 0x01991B 06:B90B: AD 03 03  LDA ram_0303
 C - - - - - 0x01991E 06:B90E: 85 02     STA ram_0002
-C - - - - - 0x019920 06:B910: 4C 33 CE  JMP $CE33  ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x019920 06:B910: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 loc_B913:
 C D 1 - - - 0x019923 06:B913: BD 20 03  LDA ram_0320,X
 C - - - - - 0x019926 06:B916: 6A        ROR
@@ -3955,7 +3959,7 @@ C - - - - - 0x019AE4 06:BAD4: 9D 46 03  STA ram_0346,X
 C - - - - - 0x019AE7 06:BAD7: A9 03     LDA #$03
 C - - - - - 0x019AE9 06:BAD9: 9D 4C 03  STA ram_034C,X
 C - - - - - 0x019AEC 06:BADC: A9 31     LDA #$31
-C - - - - - 0x019AEE 06:BADE: 4C 20 C4  JMP $C420 ; to loc_C420_add_sound_effect (bank_FF)
+C - - - - - 0x019AEE 06:BADE: 4C 20 C4  JMP loc_C420_add_sound_effect ; bank_FF
 sub_BAE1:
 C - - - - - 0x019AF1 06:BAE1: A9 3F     LDA #$3F
 C - - - - - 0x019AF3 06:BAE3: 20 BD D6  JSR $D6BD
@@ -4133,7 +4137,7 @@ C - - - - - 0x019C1F 06:BC0F: 29 02     AND #$02
 C - - - - - 0x019C21 06:BC11: 45 02     EOR ram_0002
 C - - - - - 0x019C23 06:BC13: 85 02     STA ram_0002
 bra_BC15:
-C - - - - - 0x019C25 06:BC15: 4C 33 CE  JMP $CE33  ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x019C25 06:BC15: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 sub_BC18:
 C - - - - - 0x019C28 06:BC18: BD 20 03  LDA ram_0320,X
 C - - - - - 0x019C2B 06:BC1B: 6A        ROR
@@ -4458,7 +4462,7 @@ C - - - - - 0x019E51 06:BE41: 69 4A     ADC #$4A
 C - - - - - 0x019E53 06:BE43: 85 01     STA ram_0001
 C - - - - - 0x019E55 06:BE45: A9 07     LDA #$07
 C - - - - - 0x019E57 06:BE47: 85 02     STA ram_0002
-C - - - - - 0x019E59 06:BE49: 4C 33 CE  JMP $CE33  ; to loc_CE33_add_sprite_magic (bank_FF)
+C - - - - - 0x019E59 06:BE49: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 - - - - - - 0x019E5C 06:BE4C: 1A        .byte $1A   ; 
 - - - - - - 0x019E5D 06:BE4D: 30        .byte $30   ; <0>

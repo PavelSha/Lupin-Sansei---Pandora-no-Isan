@@ -429,9 +429,6 @@ v_low_corridor_address        = ram_00BD
 v_high_corridor_address       = ram_00BE
 v_low_destr_wall_address      = ram_00BF
 v_high_destr_wall_address     = ram_00C0
-vMessageInProgress            = ram_00C8
-; 0x00 - no message
-; 0x80 - the message is typing
 
 vCheckpoint                   = ram_00C4
 ; 0x00 - level 1
@@ -439,6 +436,10 @@ vCheckpoint                   = ram_00C4
 ; 0x0F - level 3
 ; 0x19 - level racing
 ; 0x42 - level 4 (pyramid)
+
+vMessageInProgress            = ram_00C8
+; 0x00 - no message
+; 0x80 - the message is typing
 
 v_letter_offset               = ram_00C9
 vMessageCounter               = ram_00CA
