@@ -8,7 +8,7 @@ All rights reserved by モンキー・パンチ, NAMCO.
 -  Windows - run a command ***assemble.bat***
 -  Linux - assemble.sh (!! TODO !!)
 ## Code/Data Logger
-   Code bytes     - ***12.62%***
-   Data bytes     - ***75.63%***
-   Unknown bytes  - ***11.75%***
-   Code commented - ***13.72%***
+-  Code bytes     - ***12.63%***
+-  Data bytes     - ***75.63%***
+-  Unknown bytes  - ***11.73%***
+-  Code commented - ***14.42%***

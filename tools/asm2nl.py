@@ -128,5 +128,5 @@ def getVariablesNl():
 def getBankFFNl():
     getBankNl(ASM_FILE1, NL_FILE1)
 
-# getBankFFNl()
+getBankFFNl()
 getVariablesNl()

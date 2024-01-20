@@ -32,6 +32,8 @@ $0049#vCurrentRoomLength#
 $004A#vNearCurrentRoomLength#
 $004B#vHighViewPortPosX#
 $004C#vTempHighViewPortPosX#
+$004E#vBackgroundScreenInfo#
+$004F#vHighBackgroundScreenInfo#
 $0056#vScore#
 $005D#vNonUsed2#
 $005E#v_no_level#
@@ -64,10 +66,10 @@ $00B4#v_offset_in_secret_codes#
 $00B7#v_corridor_magic5#
 $00B8#v_corridor_magic5_cache#
 $00BC#v_tmp_target_room#
-$00BD#v_low_corridor_address#
-$00BE#v_high_corridor_address#
-$00BF#v_low_destr_wall_address#
-$00C0#v_high_destr_wall_address#
+$00BD#vCorridorAddr#
+$00BE#vHighCorridorAddr#
+$00BF#vDestrWallAddr#
+$00C0#vHighDestrWallAddr#
 $00C4#vCheckpoint#
 $00C8#vMessageInProgress#
 $00C9#v_letter_offset#

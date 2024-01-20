@@ -235,13 +235,19 @@ $C3A0##--NO-COMMENT--
 $C3A3##--NO-COMMENT--
 $C3A6##--NO-COMMENT--
 $C3A9##--NO-COMMENT--
-$C3B3##If Register Y < 0x20
+$C3AC##--NO-COMMENT--
+$C3AD##--NO-COMMENT--
+$C3AE##increment 8
+$C3B0##--NO-COMMENT--
+$C3B1##--NO-COMMENT--
+$C3B3##If Register Y < 0x20 (a loop condition)
 $C3B5##--NO-COMMENT--
 $C3B7##--NO-COMMENT--
 $C3BA##--NO-COMMENT--
 $C3BC##--NO-COMMENT--
 $C3BF##--NO-COMMENT--
 $C3C2##see https://www.nesdev.org/wiki/PPU_registers#Palette_corruption
+$C3C5##--NO-COMMENT--
 $C3C6#sub_C3C6#
 $C3CB##read to reset PPU latch
 $C3CE##--NO-COMMENT--
@@ -339,8 +345,19 @@ $C4FD##--NO-COMMENT--
 $C500##decrements loop counter
 $C501##If Register X >= 0
 $C503#bra_C503_RTS#--NO-COMMENT--
-$C504#sub_C504_switch_prg_8000#
+$C504#sub_C504_switch_prg_8000#--NO-COMMENT--
+$C506##store A
+$C507##--NO-COMMENT--
+$C50A##a new bank data
+$C50B##--NO-COMMENT--
+$C50D##--NO-COMMENT--
 $C510##switch vBankData (PRG) in 0x8000-09FFF
+$C513##--NO-COMMENT--
+$C516##retrieve A ($C506)
+$C517##--NO-COMMENT--
+$C519##--NO-COMMENT--
+$C51B##--NO-COMMENT--
+$C51D##--NO-COMMENT--
 $C51E#sub_C51E#
 $C53C#sub_C53C_resolve_start_status#--NO-COMMENT--
 $C53E##If Register A != 0x00
@@ -1169,11 +1186,12 @@ $D3EA#bra_D3EA#
 $D3EE#bra_D3EE#
 $D3F1#bra_D3F1#
 $D3F3#bra_D3F3#
-$D3F7#sub_D3F7_background_screen_subroutine#to v_cache_reg_y, bank 00 (page 1)
+$D3F7#sub_D3F7_get_background_screen_info_address#switch prg: bank 00 (page 1)
+$D3F9##--NO-COMMENT--
 $D3FC##v_cache_reg_y to A
 $D3FD##store a
 $D3FE##--NO-COMMENT--
-$D400##--NO-COMMENT--
+$D400##*2
 $D401##--NO-COMMENT--
 $D402##--NO-COMMENT--
 $D405##--NO-COMMENT--
@@ -1192,12 +1210,14 @@ $D41D##--NO-COMMENT--
 $D41E##--NO-COMMENT--
 $D420##--NO-COMMENT--
 $D421##--NO-COMMENT--
-$D423##0x80, 0x81, 0x83 or 0x87 (depends on the first three bits ram_004E)
-$D425##retrieve a
+$D423##0x80, 0x81, 0x83 or 0x87 (depends on the first three bits vBackgroundScreenInfo)
+$D425##retrieve a ($D3FD)
+$D426##--NO-COMMENT--
+$D427##--NO-COMMENT--
 $D428#sub_D428_get_addr_background_palette#--NO-COMMENT--
 $D42A##--NO-COMMENT--
 $D42D##--NO-COMMENT--
-$D42F##switch bank 01 (page 2) in 0x8000-09FFF
+$D42F##switch bank 01 (page 2) in $8000-$9FFF
 $D432##--NO-COMMENT--
 $D434##multiply by 2
 $D435##--NO-COMMENT--
@@ -1208,7 +1228,7 @@ $D43E##--NO-COMMENT--
 $D440##transfer 0x7XXX -> 0x9XXX
 $D442##--NO-COMMENT--
 $D444##--NO-COMMENT--
-$D445#sub_D445_load_background_palette#get address in 0x0000-0x0001
+$D445#sub_D445_load_background_palette#get address in $0000-$0001
 $D448##set loop counter
 $D44A#@bra_D44A_loop#--NO-COMMENT--
 $D44C##--NO-COMMENT--
@@ -1226,18 +1246,73 @@ $D462##--NO-COMMENT--
 $D465##decrement x
 $D466##--NO-COMMENT--
 $D468##If Register Y != 0x0F
-$D482#bra_D482#
+$D471##7th of 8 info bytes
+$D473##--NO-COMMENT--
+$D475##low address
+$D477##8th of 8 info bytes
+$D478##--NO-COMMENT--
+$D47A##--NO-COMMENT--
+$D47C##--NO-COMMENT--
+$D47E##high address
+$D480##set loop counter
+$D482#@bra_D482_loop#--NO-COMMENT--
+$D484##prepares a cache for all CHR banks
+$D487##decrement y
+$D488##If Register Y < 0xF0
 $D499#bra_D499#
 $D4A3#bra_D4A3_repeat#
 $D4BF#bra_D4BF_skip#
-$D4EB#bra_D4EB#
-$D4F3#sub_D4F3#
+$D4C5##--NO-COMMENT--
+$D4C8##--NO-COMMENT--
+$D4CA##*2
+$D4CB##--NO-COMMENT--
+$D4CC##--NO-COMMENT--
+$D4CF##Low address
+$D4D1##--NO-COMMENT--
+$D4D4##High address
+$D4D6##--NO-COMMENT--
+$D4D9##Low address
+$D4DB##--NO-COMMENT--
+$D4DE##High address
+$D4EB#bra_D4EB#--NO-COMMENT--
+$D4ED##--NO-COMMENT--
+$D4EE##Branch if no exist 'A screen with the message'
+$D4F0##--NO-COMMENT--
+$D4F3#sub_D4F3#--NO-COMMENT--
 $D4F6##wait for vblank
-$D4FB#sub_D4FB#
+$D4F8##--NO-COMMENT--
+$D4FB#sub_D4FB_render_empty_message_bar#
 $D4FF##read PPU status to reset the high/low latch
-$D50F#bra_D50F_repeat#
-$D536#bra_D536_repeat#
-$D545#sub_D545#
+$D502##--NO-COMMENT--
+$D504##--NO-COMMENT--
+$D507##--NO-COMMENT--
+$D509##PPU address is 0x2000
+$D50C##set loop counter (y=0)
+$D50D##set assigned value, CONSTANT - A black tile
+$D50F#@bra_D50F_loop#[$2000-$20FF] - in a black tile (a canvas of the message panel)
+$D512##increment Y
+$D513##If Register Y != 0
+$D518##--NO-COMMENT--
+$D51A##--NO-COMMENT--
+$D51D##--NO-COMMENT--
+$D51F##PPU address is 0x20E0
+$D522##CONSTANT - A white tile (in another palette a tile is black)
+$D524##$20E0 - in a white tile
+$D527##$20E1 - in a white tile
+$D52A##--NO-COMMENT--
+$D52C##--NO-COMMENT--
+$D52F##--NO-COMMENT--
+$D531##PPU address is 0x23C0
+$D534##set loop counter
+$D536#@bra_D536_loop#--NO-COMMENT--
+$D539##$23C0-$23D0 by the table with attributes
+$D53C##increment X
+$D53D##--NO-COMMENT--
+$D53F##If Register X != 0x10 (a loop condition)
+$D541##--NO-COMMENT--
+$D545#sub_D545#--NO-COMMENT--
+$D547##--NO-COMMENT--
+$D54A##--NO-COMMENT--
 $D54C##switch bank 01, page 2 in 0x8000-09FFF
 $D56C#bra_D56C_clear_c_rts#
 $D56E#bra_D56E#
@@ -2024,16 +2099,29 @@ $EFFC#sub_EFFC#set loop counter
 $EFFE##set assigning value
 $F000#@bra_F000_loop#clear items
 $F003##decrements loop counter
+$F004##If Register X < 0xF0
 $F006##set loop counter
 $F008#bra_F008_loop#
 $F018#@bra_F018_skip#
 $F023#@bra_F023_skip#
 $F032#bra_F032_skip#
+$F03D##decrements loop counter
+$F03E##If Register X < 0xF0 (a loop condition)
+$F046##set assigning value
+$F048##set loop counter
 $F04A#@clear_item_loop#clear
+$F04D##decrements loop counter
+$F04E##If Register X < 0xF0 (a loop condition)
 $F059##reset the infrared goggles
+$F05B##set loop counter
 $F05D#@bra_F05D_loop#
+$F066##decrements loop counter
+$F067##--NO-COMMENT--
+$F069##--NO-COMMENT--
+$F06C##--NO-COMMENT--
 $F06E##clear a low part
 $F071##clear a high part
+$F074##--NO-COMMENT--
 $F075#sub_F075_clear_bullet_status#--NO-COMMENT--
 $F077##set loop counter
 $F079#@bra_F079_loop#--NO-COMMENT--

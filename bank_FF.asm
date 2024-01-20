@@ -3,25 +3,26 @@
 .include "constants.inc"
 ; 0x01C010-0x02000F
 
-.import addr_tbl_checkpoints ; bank 04 (Page 1)
-.import tbl_background_screens ; bank 00 (Page 1)
-.import tbl_background_palette ; bank 01 (Page 2)
-.import tbl_ptr_corridors ; bank 04 (Page 1)
-.import tbl_ptr_destructible_walls ; bank 04 (Page 1)
+.import addr_tbl_checkpoints               ; bank 04 (Page 1)
+.import tbl_background_screens             ; bank 00 (Page 1)
+.import tbl_background_palette             ; bank 01 (Page 2)
+.import tbl_ptr_corridors                  ; bank 04 (Page 1)
+.import tbl_ptr_destructible_walls         ; bank 04 (Page 1)
 .import tbl_room_lengths
-.import tbl_roof_pitches ; bank 04 (Page 1)
-.import number_of_rooms_on_the_level ; bank 04 (Page 2)
-.import tbl_ptr_rooms_on_the_level ; bank 04 (Page 2)
-.import number_of_briefcases_on_the_level ; bank 04 (Page 2)
-.import tbl_ptr_briefcases_on_the_level ; bank 04 (Page 2)
-.import loc_AD80_activate_sound_manager ; bank 02 (Page 1)
-.import loc_B234_get_vram_msg_address ; bank 06 (Page 2)
-.import sub_B234_get_vram_msg_address ; bank 06 (Page 2)
+.import tbl_roof_pitches                   ; bank 04 (Page 1)
+.import tbl_message_bar_bottom_attrs       ; bank 04 (Page 1)
+.import number_of_rooms_on_the_level       ; bank 04 (Page 2)
+.import tbl_ptr_rooms_on_the_level         ; bank 04 (Page 2)
+.import number_of_briefcases_on_the_level  ; bank 04 (Page 2)
+.import tbl_ptr_briefcases_on_the_level    ; bank 04 (Page 2)
+.import loc_AD80_activate_sound_manager    ; bank 02 (Page 1)
+.import loc_B234_get_vram_msg_address      ; bank 06 (Page 2)
+.import sub_B234_get_vram_msg_address      ; bank 06 (Page 2)
 .import loc_B255_display_message_by_letter ; bank 06 (Page 2)
-.import sub_BB2A_solve_secret_codes ; bank 06 (Page 2)
-.import loc_BBA4_play_background_music ; bank 06 (Page 2)
-.import sub_BBA4_play_background_music ; bank 06 (Page 2)
-.import sub_BBFE_check_room ; bank 06 (Page 2)
+.import sub_BB2A_solve_secret_codes        ; bank 06 (Page 2)
+.import loc_BBA4_play_background_music     ; bank 06 (Page 2)
+.import sub_BBA4_play_background_music     ; bank 06 (Page 2)
+.import sub_BBFE_check_room                ; bank 06 (Page 2)
 
 .export sub_C305_update_ppu_ctrl_with_no_nmi
 .export sub_C313_screen_off
@@ -530,12 +531,12 @@ C - - - - - 0x01C37D 07:C36D: 8E F7 06  STX vShiftSpriteMagic    ; Store 0x00
 C - - - - - 0x01C380 07:C370: 60        RTS                      ;
 
 loc_C371_update_palette:
-C D 2 - - - 0x01C381 07:C371: A9 3F     LDA #$3F        ;
-C - - - - - 0x01C383 07:C373: 8D 06 20  STA PPU_ADDRESS ;
-C - - - - - 0x01C386 07:C376: A9 00     LDA #$00        ;
-C - - - - - 0x01C388 07:C378: 8D 06 20  STA PPU_ADDRESS ; PPU address is 0x3F00
-C - - - - - 0x01C38B 07:C37B: A8        TAY             ; set loop counter (y=0)
-@bra_C37C_loop:                                         ; loop by y
+C D 2 - - - 0x01C381 07:C371: A9 3F     LDA #$3F                 ;
+C - - - - - 0x01C383 07:C373: 8D 06 20  STA PPU_ADDRESS          ;
+C - - - - - 0x01C386 07:C376: A9 00     LDA #$00                 ;
+C - - - - - 0x01C388 07:C378: 8D 06 20  STA PPU_ADDRESS          ; PPU address is 0x3F00
+C - - - - - 0x01C38B 07:C37B: A8        TAY                      ; set loop counter (y=0)
+@bra_C37C_loop:                                                  ; loop by y (4 times)
 C - - - - - 0x01C38C 07:C37C: B9 00 06  LDA vCachePalette,Y      ;
 C - - - - - 0x01C38F 07:C37F: 8D 07 20  STA PPU_DATA             ;
 C - - - - - 0x01C392 07:C382: B9 01 06  LDA vCachePalette + 1,Y  ;
@@ -552,19 +553,19 @@ C - - - - - 0x01C3B0 07:C3A0: B9 06 06  LDA vCachePalette + 6,Y  ;
 C - - - - - 0x01C3B3 07:C3A3: 8D 07 20  STA PPU_DATA             ;
 C - - - - - 0x01C3B6 07:C3A6: B9 07 06  LDA vCachePalette + 7,Y  ;
 C - - - - - 0x01C3B9 07:C3A9: 8D 07 20  STA PPU_DATA             ;
-C - - - - - 0x01C3BC 07:C3AC: 98        TYA
-C - - - - - 0x01C3BD 07:C3AD: 18        CLC
-C - - - - - 0x01C3BE 07:C3AE: 69 08     ADC #$08
-C - - - - - 0x01C3C0 07:C3B0: A8        TAY
-C - - - - - 0x01C3C1 07:C3B1: C0 20     CPY #$20
-C - - - - - 0x01C3C3 07:C3B3: 90 C7     BCC @bra_C37C_loop ; If Register Y < 0x20
-C - - - - - 0x01C3C5 07:C3B5: A9 3F     LDA #$3F        ;
-C - - - - - 0x01C3C7 07:C3B7: 8D 06 20  STA PPU_ADDRESS ;
-C - - - - - 0x01C3CA 07:C3BA: A9 00     LDA #$00        ; 
-C - - - - - 0x01C3CC 07:C3BC: 8D 06 20  STA PPU_ADDRESS ; 
-C - - - - - 0x01C3CF 07:C3BF: 8D 06 20  STA PPU_ADDRESS ;
-C - - - - - 0x01C3D2 07:C3C2: 8D 06 20  STA PPU_ADDRESS ; see https://www.nesdev.org/wiki/PPU_registers#Palette_corruption
-C - - - - - 0x01C3D5 07:C3C5: 60        RTS
+C - - - - - 0x01C3BC 07:C3AC: 98        TYA                      ;
+C - - - - - 0x01C3BD 07:C3AD: 18        CLC                      ;
+C - - - - - 0x01C3BE 07:C3AE: 69 08     ADC #$08                 ; increment 8
+C - - - - - 0x01C3C0 07:C3B0: A8        TAY                      ;
+C - - - - - 0x01C3C1 07:C3B1: C0 20     CPY #$20                 ;
+C - - - - - 0x01C3C3 07:C3B3: 90 C7     BCC @bra_C37C_loop       ; If Register Y < 0x20 (a loop condition)
+C - - - - - 0x01C3C5 07:C3B5: A9 3F     LDA #$3F                 ;
+C - - - - - 0x01C3C7 07:C3B7: 8D 06 20  STA PPU_ADDRESS          ;
+C - - - - - 0x01C3CA 07:C3BA: A9 00     LDA #$00                 ; 
+C - - - - - 0x01C3CC 07:C3BC: 8D 06 20  STA PPU_ADDRESS          ; 
+C - - - - - 0x01C3CF 07:C3BF: 8D 06 20  STA PPU_ADDRESS          ;
+C - - - - - 0x01C3D2 07:C3C2: 8D 06 20  STA PPU_ADDRESS          ; see https://www.nesdev.org/wiki/PPU_registers#Palette_corruption
+C - - - - - 0x01C3D5 07:C3C5: 60        RTS                      ;
 
 sub_C3C6:
 C - - - - - 0x01C3D6 07:C3C6: A5 26     LDA vPpuCtrlSettings
@@ -762,19 +763,19 @@ C - - - - - 0x01C513 07:C503: 60        RTS                       ;
 ; In: Register A - %BBBAAAAA (B - for bank data)
 ; Out: Register A - high part of the address (0x8X or 0x9X)
 sub_C504_switch_prg_8000:
-C - - - - - 0x01C514 07:C504: 84 11     STY v_cache_reg_y
-C - - - - - 0x01C516 07:C506: 48        PHA
-C - - - - - 0x01C517 07:C507: 20 5E D0  JSR sub_accumulator_shift_right_by_5
-C - - - - - 0x01C51A 07:C50A: A8        TAY
-C - - - - - 0x01C51B 07:C50B: A9 06     LDA #$06
-C - - - - - 0x01C51D 07:C50D: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01C520 07:C510: 8C 01 80  STY MMC3_Bank_data   ; switch vBankData (PRG) in 0x8000-09FFF
-C - - - - - 0x01C523 07:C513: 8C B5 06  STY vBankData
-C - - - - - 0x01C526 07:C516: 68        PLA
-C - - - - - 0x01C527 07:C517: 29 1F     AND #$1F
-C - - - - - 0x01C529 07:C519: 09 80     ORA #$80
-C - - - - - 0x01C52B 07:C51B: A4 11     LDY v_cache_reg_y
-C - - - - - 0x01C52D 07:C51D: 60        RTS
+C - - - - - 0x01C514 07:C504: 84 11     STY v_cache_reg_y                    ;
+C - - - - - 0x01C516 07:C506: 48        PHA                                  ; store A
+C - - - - - 0x01C517 07:C507: 20 5E D0  JSR sub_accumulator_shift_right_by_5 ;
+C - - - - - 0x01C51A 07:C50A: A8        TAY                                  ; a new bank data
+C - - - - - 0x01C51B 07:C50B: A9 06     LDA #$06                             ;
+C - - - - - 0x01C51D 07:C50D: 8D 00 80  STA MMC3_Bank_select                 ;
+C - - - - - 0x01C520 07:C510: 8C 01 80  STY MMC3_Bank_data                   ; switch vBankData (PRG) in 0x8000-09FFF
+C - - - - - 0x01C523 07:C513: 8C B5 06  STY vBankData                        ;
+C - - - - - 0x01C526 07:C516: 68        PLA                                  ; retrieve A ($C506)
+C - - - - - 0x01C527 07:C517: 29 1F     AND #$1F                             ;
+C - - - - - 0x01C529 07:C519: 09 80     ORA #$80                             ;
+C - - - - - 0x01C52B 07:C51B: A4 11     LDY v_cache_reg_y                    ;
+C - - - - - 0x01C52D 07:C51D: 60        RTS                                  ;
 
 sub_C51E:
 C - - - - - 0x01C52E 07:C51E: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
@@ -2947,7 +2948,7 @@ C - - - - - 0x01D231 07:D221: 4A        LSR
 C - - - - - 0x01D232 07:D222: 4A        LSR
 C - - - - - 0x01D233 07:D223: 09 C0     ORA #$C0
 C - - - - - 0x01D235 07:D225: 8D 30 06  STA ram_0630
-C - - - - - 0x01D238 07:D228: 20 F7 D3  JSR sub_D3F7_background_screen_subroutine
+C - - - - - 0x01D238 07:D228: 20 F7 D3  JSR sub_D3F7_get_background_screen_info_address
 C - - - - - 0x01D23B 07:D22B: A5 02     LDA ram_0002
 C - - - - - 0x01D23D 07:D22D: 29 F0     AND #$F0
 C - - - - - 0x01D23F 07:D22F: 4A        LSR
@@ -2956,10 +2957,10 @@ C - - - - - 0x01D242 07:D232: 4A        LSR
 C - - - - - 0x01D243 07:D233: 18        CLC
 C - - - - - 0x01D244 07:D234: 65 02     ADC ram_0002
 C - - - - - 0x01D246 07:D236: A0 00     LDY #$00
-C - - - - - 0x01D248 07:D238: 71 4E     ADC (ram_004E),Y
+C - - - - - 0x01D248 07:D238: 71 4E     ADC (vBackgroundScreenInfo),Y
 C - - - - - 0x01D24A 07:D23A: 85 52     STA ram_0052
 C - - - - - 0x01D24C 07:D23C: C8        INY
-C - - - - - 0x01D24D 07:D23D: B1 4E     LDA (ram_004E),Y
+C - - - - - 0x01D24D 07:D23D: B1 4E     LDA (vBackgroundScreenInfo),Y
 C - - - - - 0x01D24F 07:D23F: 69 00     ADC #$00
 C - - - - - 0x01D251 07:D241: 48        PHA
 C - - - - - 0x01D252 07:D242: 29 1F     AND #$1F
@@ -2969,10 +2970,10 @@ C - - - - - 0x01D258 07:D248: 68        PLA
 C - - - - - 0x01D259 07:D249: 20 5E D0  JSR sub_accumulator_shift_right_by_5
 C - - - - - 0x01D25C 07:D24C: 85 02     STA ram_0002
 C - - - - - 0x01D25E 07:D24E: A0 04     LDY #$04
-C - - - - - 0x01D260 07:D250: B1 4E     LDA (ram_004E),Y
+C - - - - - 0x01D260 07:D250: B1 4E     LDA (vBackgroundScreenInfo),Y
 C - - - - - 0x01D262 07:D252: 85 50     STA ram_0050
 C - - - - - 0x01D264 07:D254: C8        INY
-C - - - - - 0x01D265 07:D255: B1 4E     LDA (ram_004E),Y
+C - - - - - 0x01D265 07:D255: B1 4E     LDA (vBackgroundScreenInfo),Y
 C - - - - - 0x01D267 07:D257: 85 51     STA ram_0051
 C - - - - - 0x01D269 07:D259: A0 00     LDY #$00
 C - - - - - 0x01D26B 07:D25B: A2 00     LDX #$00
@@ -3037,12 +3038,12 @@ C - - - - - 0x01D2D2 07:D2C2: 90 02     BCC bra_D2C6
 C - - - - - 0x01D2D4 07:D2C4: A2 27     LDX #$27
 bra_D2C6:
 C - - - - - 0x01D2D6 07:D2C6: 8E 31 06  STX ram_0631
-C - - - - - 0x01D2D9 07:D2C9: 20 F7 D3  JSR sub_D3F7_background_screen_subroutine
+C - - - - - 0x01D2D9 07:D2C9: 20 F7 D3  JSR sub_D3F7_get_background_screen_info_address
 C - - - - - 0x01D2DC 07:D2CC: A0 02     LDY #$02
-C - - - - - 0x01D2DE 07:D2CE: B1 4E     LDA (ram_004E),Y
+C - - - - - 0x01D2DE 07:D2CE: B1 4E     LDA (vBackgroundScreenInfo),Y
 C - - - - - 0x01D2E0 07:D2D0: 85 02     STA ram_0002
 C - - - - - 0x01D2E2 07:D2D2: C8        INY
-C - - - - - 0x01D2E3 07:D2D3: B1 4E     LDA (ram_004E),Y
+C - - - - - 0x01D2E3 07:D2D3: B1 4E     LDA (vBackgroundScreenInfo),Y
 C - - - - - 0x01D2E5 07:D2D5: 20 04 C5  JSR sub_C504_switch_prg_8000
 C - - - - - 0x01D2E8 07:D2D8: 85 03     STA ram_0003
 C - - - - - 0x01D2EA 07:D2DA: A0 3F     LDY #$3F
@@ -3088,12 +3089,12 @@ C - - - - - 0x01D310 07:D300: 20 5F D0  JSR sub_accumulator_shift_right_by_4 ; g
 C - - - - - 0x01D313 07:D303: 18        CLC
 C - - - - - 0x01D314 07:D304: 65 04     ADC ram_0004    ; get point(x, y)
 C - - - - - 0x01D316 07:D306: 48        PHA             ; store A
-C - - - - - 0x01D317 07:D307: 20 F7 D3  JSR sub_D3F7_background_screen_subroutine
+C - - - - - 0x01D317 07:D307: 20 F7 D3  JSR sub_D3F7_get_background_screen_info_address
 C - - - - - 0x01D31A 07:D30A: A0 00     LDY #$00
-C - - - - - 0x01D31C 07:D30C: B1 4E     LDA (ram_004E),Y
+C - - - - - 0x01D31C 07:D30C: B1 4E     LDA (vBackgroundScreenInfo),Y
 C - - - - - 0x01D31E 07:D30E: 85 52     STA ram_0052
 C - - - - - 0x01D320 07:D310: C8        INY
-C - - - - - 0x01D321 07:D311: B1 4E     LDA (ram_004E),Y
+C - - - - - 0x01D321 07:D311: B1 4E     LDA (vBackgroundScreenInfo),Y
 C - - - - - 0x01D323 07:D313: 20 04 C5  JSR sub_C504_switch_prg_8000
 C - - - - - 0x01D326 07:D316: 85 53     STA ram_0053
 C - - - - - 0x01D328 07:D318: 68        PLA             ; retrieve A
@@ -3264,16 +3265,18 @@ C - - - - - 0x01D403 07:D3F3: 68        PLA
 C - - - - - 0x01D404 07:D3F4: A9 01     LDA #$01
 C - - - - - 0x01D406 07:D3F6: 60        RTS
 
+; There PRG-bank switching happens 
 ; In: 0x004D - vNoScreen
-; out: the CPU-address in [0x004E-0x004F]
-sub_D3F7_background_screen_subroutine:
-C - - - - - 0x01D407 07:D3F7: A9 00     LDA #$00         ; to v_cache_reg_y, bank 00 (page 1)
-C - - - - - 0x01D409 07:D3F9: 20 04 C5  JSR sub_C504_switch_prg_8000
-C - - - - - 0x01D40C 07:D3FC: 98        TYA              ; v_cache_reg_y to A
-C - - - - - 0x01D40D 07:D3FD: 48        PHA              ; store a
-C - - - - - 0x01D40E 07:D3FE: A5 46     LDA vNoSubLevel  ;
-C - - - - - 0x01D410 07:D400: 0A        ASL              ;
-C - - - - - 0x01D411 07:D401: A8        TAY              ;
+; out: the CPU-address in [$004E-#004F]
+; out Register Y - v_cache_reg_y
+sub_D3F7_get_background_screen_info_address:
+C - - - - - 0x01D407 07:D3F7: A9 00     LDA #$00                         ; switch prg: bank 00 (page 1)
+C - - - - - 0x01D409 07:D3F9: 20 04 C5  JSR sub_C504_switch_prg_8000     ;
+C - - - - - 0x01D40C 07:D3FC: 98        TYA                              ; v_cache_reg_y to A
+C - - - - - 0x01D40D 07:D3FD: 48        PHA                              ; store a
+C - - - - - 0x01D40E 07:D3FE: A5 46     LDA vNoSubLevel                  ;
+C - - - - - 0x01D410 07:D400: 0A        ASL                              ; *2
+C - - - - - 0x01D411 07:D401: A8        TAY                              ;
 C - - - - - 0x01D412 07:D402: B9 80 84  LDA tbl_background_screens,Y     ;
 C - - - - - 0x01D415 07:D405: 85 0C     STA ram_000C                     ;
 C - - - - - 0x01D417 07:D407: B9 81 84  LDA tbl_background_screens + 1,Y ;
@@ -3282,26 +3285,26 @@ C - - - - - 0x01D41C 07:D40C: 09 80     ORA #$80                         ;
 C - - - - - 0x01D41E 07:D40E: 85 0D     STA ram_000D                     ;
 C - - - - - 0x01D420 07:D410: A4 4D     LDY ram_004D                     ;
 C - - - - - 0x01D422 07:D412: B1 0C     LDA (ram_000C),Y                 ;
-C - - - - - 0x01D424 07:D414: 85 4E     STA ram_004E     ;
-C - - - - - 0x01D426 07:D416: A9 00     LDA #$00         ;
-C - - - - - 0x01D428 07:D418: 06 4E     ASL ram_004E     ;
-C - - - - - 0x01D42A 07:D41A: 2A        ROL              ;
-C - - - - - 0x01D42B 07:D41B: 06 4E     ASL ram_004E     ;
-C - - - - - 0x01D42D 07:D41D: 2A        ROL              ;
-C - - - - - 0x01D42E 07:D41E: 06 4E     ASL ram_004E     ;
-C - - - - - 0x01D430 07:D420: 2A        ROL              ;
-C - - - - - 0x01D431 07:D421: 09 80     ORA #$80         ;
-C - - - - - 0x01D433 07:D423: 85 4F     STA ram_004F     ; 0x80, 0x81, 0x83 or 0x87 (depends on the first three bits ram_004E)
-C - - - - - 0x01D435 07:D425: 68        PLA              ; retrieve a
-C - - - - - 0x01D436 07:D426: A8        TAY
-C - - - - - 0x01D437 07:D427: 60        RTS
+C - - - - - 0x01D424 07:D414: 85 4E     STA vBackgroundScreenInfo        ;
+C - - - - - 0x01D426 07:D416: A9 00     LDA #$00                         ;
+C - - - - - 0x01D428 07:D418: 06 4E     ASL vBackgroundScreenInfo        ;
+C - - - - - 0x01D42A 07:D41A: 2A        ROL                              ;
+C - - - - - 0x01D42B 07:D41B: 06 4E     ASL vBackgroundScreenInfo        ;
+C - - - - - 0x01D42D 07:D41D: 2A        ROL                              ;
+C - - - - - 0x01D42E 07:D41E: 06 4E     ASL vBackgroundScreenInfo        ;
+C - - - - - 0x01D430 07:D420: 2A        ROL                              ;
+C - - - - - 0x01D431 07:D421: 09 80     ORA #$80                         ;
+C - - - - - 0x01D433 07:D423: 85 4F     STA vHighBackgroundScreenInfo    ; 0x80, 0x81, 0x83 or 0x87 (depends on the first three bits vBackgroundScreenInfo)
+C - - - - - 0x01D435 07:D425: 68        PLA                              ; retrieve a ($D3FD)
+C - - - - - 0x01D436 07:D426: A8        TAY                              ;
+C - - - - - 0x01D437 07:D427: 60        RTS                              ;
 
-; Return the CPU-address in [0x0000-0x0001]
+; Return the CPU-address in [$0000-$0001]
 sub_D428_get_addr_background_palette:
 C - - - - - 0x01D438 07:D428: A9 06     LDA #$06                          ;
 C - - - - - 0x01D43A 07:D42A: 8D 00 80  STA MMC3_Bank_select              ;
 C - - - - - 0x01D43D 07:D42D: A9 03     LDA #$03                          ;
-C - - - - - 0x01D43F 07:D42F: 8D 01 80  STA MMC3_Bank_data                ; switch bank 01 (page 2) in 0x8000-09FFF
+C - - - - - 0x01D43F 07:D42F: 8D 01 80  STA MMC3_Bank_data                ; switch bank 01 (page 2) in $8000-$9FFF
 C - - - - - 0x01D442 07:D432: A5 46     LDA vNoSubLevel                   ;
 C - - - - - 0x01D444 07:D434: 0A        ASL                               ; multiply by 2
 C - - - - - 0x01D445 07:D435: A8        TAY                               ;
@@ -3315,7 +3318,7 @@ C - - - - - 0x01D454 07:D444: 60        RTS                               ;
 
 loc_D445_load_background_palette:
 sub_D445_load_background_palette:
-C D 2 - - - 0x01D455 07:D445: 20 28 D4  JSR sub_D428_get_addr_background_palette ; get address in 0x0000-0x0001
+C D 2 - - - 0x01D455 07:D445: 20 28 D4  JSR sub_D428_get_addr_background_palette ; get address in $0000-$0001
 C - - - - - 0x01D458 07:D448: A0 0F     LDY #$0F                                 ; set loop counter
 @bra_D44A_loop:                                                                  ; loop by y
 C - - - - - 0x01D45A 07:D44A: B1 00     LDA (ram_0000),Y                         ;
@@ -3327,34 +3330,34 @@ C - - - - - 0x01D462 07:D452: 60        RTS                                     
 sub_D453:
 C - - - - - 0x01D463 07:D453: 20 45 D4  JSR sub_D445_load_background_palette
 ; fill in the missing palette values [0x10-0x13] or [0x10-0x1B]
-C - - - - - 0x01D466 07:D456: A0 13     LDY #$13            ; set loop counter
-C - - - - - 0x01D468 07:D458: A5 46     LDA vNoSubLevel     ;
-C - - - - - 0x01D46A 07:D45A: C9 19     CMP #$19            ; CONSTANT - level racing
-C - - - - - 0x01D46C 07:D45C: D0 02     BNE @bra_D460_loop  ; If vNoSubLevel != 0x19
-C - - - - - 0x01D46E 07:D45E: A0 1B     LDY #$1B            ; set loop counter
-@bra_D460_loop:                                             ; loop by x
-C - - - - - 0x01D470 07:D460: B1 00     LDA (ram_0000),Y    ;
-C - - - - - 0x01D472 07:D462: 99 00 06  STA vCachePalette,Y ;
-C - - - - - 0x01D475 07:D465: 88        DEY                 ; decrement x
-C - - - - - 0x01D476 07:D466: C0 0F     CPY #$0F            ;
-C - - - - - 0x01D478 07:D468: D0 F6     BNE @bra_D460_loop  ; If Register Y != 0x0F
+C - - - - - 0x01D466 07:D456: A0 13     LDY #$13                   ; set loop counter
+C - - - - - 0x01D468 07:D458: A5 46     LDA vNoSubLevel            ;
+C - - - - - 0x01D46A 07:D45A: C9 19     CMP #$19                   ; CONSTANT - level racing
+C - - - - - 0x01D46C 07:D45C: D0 02     BNE @bra_D460_loop         ; If vNoSubLevel != 0x19
+C - - - - - 0x01D46E 07:D45E: A0 1B     LDY #$1B                   ; set loop counter
+@bra_D460_loop:                                                    ; loop by x
+C - - - - - 0x01D470 07:D460: B1 00     LDA (ram_0000),Y           ;
+C - - - - - 0x01D472 07:D462: 99 00 06  STA vCachePalette,Y        ;
+C - - - - - 0x01D475 07:D465: 88        DEY                        ; decrement x
+C - - - - - 0x01D476 07:D466: C0 0F     CPY #$0F                   ;
+C - - - - - 0x01D478 07:D468: D0 F6     BNE @bra_D460_loop         ; If Register Y != 0x0F
 C - - - - - 0x01D47A 07:D46A: A5 4B     LDA ram_004B
 C - - - - - 0x01D47C 07:D46C: 85 4D     STA ram_004D
-C - - - - - 0x01D47E 07:D46E: 20 F7 D3  JSR sub_D3F7_background_screen_subroutine
-C - - - - - 0x01D481 07:D471: A0 06     LDY #$06
-C - - - - - 0x01D483 07:D473: B1 4E     LDA (ram_004E),Y
-C - - - - - 0x01D485 07:D475: 85 02     STA ram_0002
-C - - - - - 0x01D487 07:D477: C8        INY
-C - - - - - 0x01D488 07:D478: B1 4E     LDA (ram_004E),Y
-C - - - - - 0x01D48A 07:D47A: 29 1F     AND #$1F
-C - - - - - 0x01D48C 07:D47C: 09 80     ORA #$80
-C - - - - - 0x01D48E 07:D47E: 85 03     STA ram_0003
-C - - - - - 0x01D490 07:D480: A0 05     LDY #$05
-bra_D482:
-C - - - - - 0x01D492 07:D482: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01D494 07:D484: 99 AF 06  STA vCacheChrBankSelect,Y
-C - - - - - 0x01D497 07:D487: 88        DEY
-C - - - - - 0x01D498 07:D488: 10 F8     BPL bra_D482
+C - - - - - 0x01D47E 07:D46E: 20 F7 D3  JSR sub_D3F7_get_background_screen_info_address
+C - - - - - 0x01D481 07:D471: A0 06     LDY #$06                      ; 7th of 8 info bytes
+C - - - - - 0x01D483 07:D473: B1 4E     LDA (vBackgroundScreenInfo),Y ;
+C - - - - - 0x01D485 07:D475: 85 02     STA ram_0002                  ; low address
+C - - - - - 0x01D487 07:D477: C8        INY                           ; 8th of 8 info bytes
+C - - - - - 0x01D488 07:D478: B1 4E     LDA (vBackgroundScreenInfo),Y ; 
+C - - - - - 0x01D48A 07:D47A: 29 1F     AND #$1F                      ;
+C - - - - - 0x01D48C 07:D47C: 09 80     ORA #$80                      ;
+C - - - - - 0x01D48E 07:D47E: 85 03     STA ram_0003                  ; high address
+C - - - - - 0x01D490 07:D480: A0 05     LDY #$05                      ; set loop counter
+@bra_D482_loop:                                                       ; loop by y (6 times)
+C - - - - - 0x01D492 07:D482: B1 02     LDA (ram_0002),Y              ; 
+C - - - - - 0x01D494 07:D484: 99 AF 06  STA vCacheChrBankSelect,Y     ; prepares a cache for all CHR banks
+C - - - - - 0x01D497 07:D487: 88        DEY                           ; decrement y
+C - - - - - 0x01D498 07:D488: 10 F8     BPL @bra_D482_loop            ; If Register Y < 0xF0
 C - - - - - 0x01D49A 07:D48A: E6 4B     INC ram_004B
 C - - - - - 0x01D49C 07:D48C: E6 4B     INC ram_004B
 C - - - - - 0x01D49E 07:D48E: A5 27     LDA ram_0027
@@ -3387,68 +3390,68 @@ C - - - - - 0x01D4D0 07:D4C0: AA        TAX
 C - - - - - 0x01D4D1 07:D4C1: CA        DEX
 C - - - - - 0x01D4D2 07:D4C2: 8A        TXA
 C - - - - - 0x01D4D3 07:D4C3: D0 DE     BNE bra_D4A3_repeat
-C - - - - - 0x01D4D5 07:D4C5: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
-C - - - - - 0x01D4D8 07:D4C8: A5 46     LDA vNoSubLevel
-C - - - - - 0x01D4DA 07:D4CA: 0A        ASL
-C - - - - - 0x01D4DB 07:D4CB: A8        TAY
-C - - - - - 0x01D4DC 07:D4CC: B9 9A 81  LDA tbl_ptr_corridors,Y
-C - - - - - 0x01D4DF 07:D4CF: 85 BD     STA ram_00BD
-C - - - - - 0x01D4E1 07:D4D1: B9 9B 81  LDA tbl_ptr_corridors + 1,Y
-C - - - - - 0x01D4E4 07:D4D4: 85 BE     STA ram_00BE
-C - - - - - 0x01D4E6 07:D4D6: B9 96 82  LDA tbl_ptr_destructible_walls,Y
-C - - - - - 0x01D4E9 07:D4D9: 85 BF     STA ram_00BF
-C - - - - - 0x01D4EB 07:D4DB: B9 97 82  LDA tbl_ptr_destructible_walls + 1,Y
-C - - - - - 0x01D4EE 07:D4DE: 85 C0     STA ram_00C0
+C - - - - - 0x01D4D5 07:D4C5: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2      ;
+C - - - - - 0x01D4D8 07:D4C8: A5 46     LDA vNoSubLevel                       ;
+C - - - - - 0x01D4DA 07:D4CA: 0A        ASL                                   ; *2
+C - - - - - 0x01D4DB 07:D4CB: A8        TAY                                   ;
+C - - - - - 0x01D4DC 07:D4CC: B9 9A 81  LDA tbl_ptr_corridors,Y               ;
+C - - - - - 0x01D4DF 07:D4CF: 85 BD     STA vCorridorAddr                     ; Low address
+C - - - - - 0x01D4E1 07:D4D1: B9 9B 81  LDA tbl_ptr_corridors + 1,Y           ;
+C - - - - - 0x01D4E4 07:D4D4: 85 BE     STA vHighCorridorAddr                 ; High address
+C - - - - - 0x01D4E6 07:D4D6: B9 96 82  LDA tbl_ptr_destructible_walls,Y      ;
+C - - - - - 0x01D4E9 07:D4D9: 85 BF     STA vDestrWallAddr                    ; Low address
+C - - - - - 0x01D4EB 07:D4DB: B9 97 82  LDA tbl_ptr_destructible_walls + 1,Y  ;
+C - - - - - 0x01D4EE 07:D4DE: 85 C0     STA vHighDestrWallAddr                ; High address
 C - - - - - 0x01D4F0 07:D4E0: A5 B6     LDA ram_00B6
 C - - - - - 0x01D4F2 07:D4E2: 29 33     AND #$33
 C - - - - - 0x01D4F4 07:D4E4: C9 12     CMP #$12
 C - - - - - 0x01D4F6 07:D4E6: D0 03     BNE bra_D4EB
 C - - - - - 0x01D4F8 07:D4E8: 20 8C B1  JSR $B18C
 bra_D4EB:
-C - - - - - 0x01D4FB 07:D4EB: A5 3B     LDA vSharedGameStatus
-C - - - - - 0x01D4FD 07:D4ED: 6A        ROR
-C - - - - - 0x01D4FE 07:D4EE: 90 03     BCC bra_D4F3
-C - - - - - 0x01D500 07:D4F0: 20 FB D4  JSR sub_D4FB
-bra_D4F3:
+C - - - - - 0x01D4FB 07:D4EB: A5 3B     LDA vSharedGameStatus                 ;
+C - - - - - 0x01D4FD 07:D4ED: 6A        ROR                                   ;
+C - - - - - 0x01D4FE 07:D4EE: 90 03     BCC bra_D4F3_wait                     ; Branch if no exist 'A screen with the message'
+C - - - - - 0x01D500 07:D4F0: 20 FB D4  JSR sub_D4FB_render_empty_message_bar ;
+bra_D4F3_wait:
 sub_D4F3:
-C - - - - - 0x01D503 07:D4F3: AD 02 20  LDA PPU_STATUS
-C - - - - - 0x01D506 07:D4F6: 10 FB     BPL bra_D4F3 ; wait for vblank
-C - - - - - 0x01D508 07:D4F8: 4C 71 C3  JMP loc_C371_update_palette
+C - - - - - 0x01D503 07:D4F3: AD 02 20  LDA PPU_STATUS                        ;
+C - - - - - 0x01D506 07:D4F6: 10 FB     BPL bra_D4F3_wait                     ; wait for vblank
+C - - - - - 0x01D508 07:D4F8: 4C 71 C3  JMP loc_C371_update_palette           ;
 
-sub_D4FB:
+sub_D4FB_render_empty_message_bar:
 C - - - - - 0x01D50B 07:D4FB: A5 B7     LDA v_corridor_magic5
 C - - - - - 0x01D50D 07:D4FD: 85 B8     STA v_corridor_magic5_cache
-C - - - - - 0x01D50F 07:D4FF: AD 02 20  LDA PPU_STATUS ; read PPU status to reset the high/low latch
-C - - - - - 0x01D512 07:D502: A9 20     LDA #$20
-C - - - - - 0x01D514 07:D504: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01D517 07:D507: A9 00     LDA #$00
-C - - - - - 0x01D519 07:D509: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01D51C 07:D50C: A8        TAY
-C - - - - - 0x01D51D 07:D50D: A9 00     LDA #$00
-bra_D50F_repeat:
-C - - - - - 0x01D51F 07:D50F: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01D522 07:D512: C8        INY
-C - - - - - 0x01D523 07:D513: D0 FA     BNE bra_D50F_repeat
+C - - - - - 0x01D50F 07:D4FF: AD 02 20  LDA PPU_STATUS                     ; read PPU status to reset the high/low latch
+C - - - - - 0x01D512 07:D502: A9 20     LDA #$20                           ; 
+C - - - - - 0x01D514 07:D504: 8D 06 20  STA PPU_ADDRESS                    ;
+C - - - - - 0x01D517 07:D507: A9 00     LDA #$00                           ; 
+C - - - - - 0x01D519 07:D509: 8D 06 20  STA PPU_ADDRESS                    ; PPU address is 0x2000
+C - - - - - 0x01D51C 07:D50C: A8        TAY                                ; set loop counter (y=0)
+C - - - - - 0x01D51D 07:D50D: A9 00     LDA #$00                           ; set assigned value, CONSTANT - A black tile 
+@bra_D50F_loop:                                                            ; loop by y
+C - - - - - 0x01D51F 07:D50F: 8D 07 20  STA PPU_DATA                       ; [$2000-$20FF] - in a black tile (a canvas of the message panel)
+C - - - - - 0x01D522 07:D512: C8        INY                                ; increment Y
+C - - - - - 0x01D523 07:D513: D0 FA     BNE @bra_D50F_loop                 ; If Register Y != 0
 C - - - - - 0x01D525 07:D515: AD 02 20  LDA PPU_STATUS
-C - - - - - 0x01D528 07:D518: A9 20     LDA #$20
-C - - - - - 0x01D52A 07:D51A: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01D52D 07:D51D: A9 E0     LDA #$E0
-C - - - - - 0x01D52F 07:D51F: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01D532 07:D522: A9 01     LDA #$01
-C - - - - - 0x01D534 07:D524: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01D537 07:D527: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01D53A 07:D52A: A9 23     LDA #$23
-C - - - - - 0x01D53C 07:D52C: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01D53F 07:D52F: A9 C0     LDA #$C0
-C - - - - - 0x01D541 07:D531: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01D544 07:D534: A2 00     LDX #$00
-bra_D536_repeat:
-C - - - - - 0x01D546 07:D536: BD BE 85  LDA $85BE,X
-C - - - - - 0x01D549 07:D539: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01D54C 07:D53C: E8        INX
-C - - - - - 0x01D54D 07:D53D: E0 10     CPX #$10
-C - - - - - 0x01D54F 07:D53F: D0 F5     BNE bra_D536_repeat
-C - - - - - 0x01D551 07:D541: 60        RTS
+C - - - - - 0x01D528 07:D518: A9 20     LDA #$20                           ;
+C - - - - - 0x01D52A 07:D51A: 8D 06 20  STA PPU_ADDRESS                    ;
+C - - - - - 0x01D52D 07:D51D: A9 E0     LDA #$E0                           ;
+C - - - - - 0x01D52F 07:D51F: 8D 06 20  STA PPU_ADDRESS                    ; PPU address is 0x20E0
+C - - - - - 0x01D532 07:D522: A9 01     LDA #$01                           ; CONSTANT - A white tile (in another palette a tile is black)
+C - - - - - 0x01D534 07:D524: 8D 07 20  STA PPU_DATA                       ; $20E0 - in a white tile
+C - - - - - 0x01D537 07:D527: 8D 07 20  STA PPU_DATA                       ; $20E1 - in a white tile
+C - - - - - 0x01D53A 07:D52A: A9 23     LDA #$23                           ;
+C - - - - - 0x01D53C 07:D52C: 8D 06 20  STA PPU_ADDRESS                    ;
+C - - - - - 0x01D53F 07:D52F: A9 C0     LDA #$C0                           ;
+C - - - - - 0x01D541 07:D531: 8D 06 20  STA PPU_ADDRESS                    ; PPU address is 0x23C0
+C - - - - - 0x01D544 07:D534: A2 00     LDX #$00                           ; set loop counter
+@bra_D536_loop:                                                            ; loop by X (16 times)
+C - - - - - 0x01D546 07:D536: BD BE 85  LDA tbl_message_bar_bottom_attrs,X ;
+C - - - - - 0x01D549 07:D539: 8D 07 20  STA PPU_DATA                       ; $23C0-$23D0 by the table with attributes
+C - - - - - 0x01D54C 07:D53C: E8        INX                                ; increment X
+C - - - - - 0x01D54D 07:D53D: E0 10     CPX #$10                           ;
+C - - - - - 0x01D54F 07:D53F: D0 F5     BNE @bra_D536_loop                 ; If Register X != 0x10 (a loop condition)
+C - - - - - 0x01D551 07:D541: 60        RTS                                ;
 
 - - - - - - 0x01D552 07:D542: 09        .byte $09
 - - - - - - 0x01D553 07:D543: 80        .byte $80
@@ -3456,10 +3459,10 @@ C - - - - - 0x01D551 07:D541: 60        RTS
 
 ; Out: the CPU-address in [0x000E-0x000F]
 sub_D545:
-C - - - - - 0x01D555 07:D545: A9 06     LDA #$06
-C - - - - - 0x01D557 07:D547: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01D55A 07:D54A: A9 03     LDA #$03
-C - - - - - 0x01D55C 07:D54C: 8D 01 80  STA MMC3_Bank_data ; switch bank 01, page 2 in 0x8000-09FFF
+C - - - - - 0x01D555 07:D545: A9 06     LDA #$06             ;
+C - - - - - 0x01D557 07:D547: 8D 00 80  STA MMC3_Bank_select ;
+C - - - - - 0x01D55A 07:D54A: A9 03     LDA #$03             ;
+C - - - - - 0x01D55C 07:D54C: 8D 01 80  STA MMC3_Bank_data   ; switch bank 01, page 2 in 0x8000-09FFF
 C - - - - - 0x01D55F 07:D54F: A5 46     LDA vNoSubLevel
 C - - - - - 0x01D561 07:D551: 0A        ASL
 C - - - - - 0x01D562 07:D552: AA        TAX
@@ -7847,7 +7850,7 @@ C - - - - - 0x01F00E 07:EFFE: A9 00     LDA #$00           ; set assigning value
 @bra_F000_loop:                                            ; loop by x (9 times)
 C - - - - - 0x01F010 07:F000: 9D 0A 02  STA v_items + 10,X ; clear items
 C - - - - - 0x01F013 07:F003: CA        DEX                ; decrements loop counter
-C - - - - - 0x01F014 07:F004: 10 FA     BPL @bra_F000_loop
+C - - - - - 0x01F014 07:F004: 10 FA     BPL @bra_F000_loop ; If Register X < 0xF0
 C - - - - - 0x01F016 07:F006: A2 05     LDX #$05           ; set loop counter
 bra_F008_loop:                                             ; loop by x (5 times)
 C - - - - - 0x01F018 07:F008: A4 3C     LDY ram_003C
@@ -7877,33 +7880,33 @@ C - - - - - 0x01F042 07:F032: A9 00     LDA #$00
 C - - - - - 0x01F044 07:F034: 9D 5C 03  STA ram_035C,X
 C - - - - - 0x01F047 07:F037: 8D 0B 03  STA ram_030B
 C - - - - - 0x01F04A 07:F03A: 8D 01 03  STA ram_0301
-C - - - - - 0x01F04D 07:F03D: CA        DEX
-C - - - - - 0x01F04E 07:F03E: 10 C8     BPL bra_F008_loop
+C - - - - - 0x01F04D 07:F03D: CA        DEX                                 ; decrements loop counter
+C - - - - - 0x01F04E 07:F03E: 10 C8     BPL bra_F008_loop                   ; If Register X < 0xF0 (a loop condition)
 C - - - - - 0x01F050 07:F040: A5 3C     LDA ram_003C
 C - - - - - 0x01F052 07:F042: 09 40     ORA #$40
 C - - - - - 0x01F054 07:F044: 85 3C     STA ram_003C
-C - - - - - 0x01F056 07:F046: A9 00     LDA #$00
-C - - - - - 0x01F058 07:F048: A2 05     LDX #$05
-@clear_item_loop:                                      ; loop by x (5 times)
-C - - - - - 0x01F05A 07:F04A: 9D 9E 03  STA v_item_on_screen,X ; clear
-C - - - - - 0x01F05D 07:F04D: CA        DEX
-C - - - - - 0x01F05E 07:F04E: 10 FA     BPL @clear_item_loop
+C - - - - - 0x01F056 07:F046: A9 00     LDA #$00                            ; set assigning value
+C - - - - - 0x01F058 07:F048: A2 05     LDX #$05                            ; set loop counter
+@clear_item_loop:                                                           ; loop by x (5 times)
+C - - - - - 0x01F05A 07:F04A: 9D 9E 03  STA v_item_on_screen,X              ; clear
+C - - - - - 0x01F05D 07:F04D: CA        DEX                                 ; decrements loop counter
+C - - - - - 0x01F05E 07:F04E: 10 FA     BPL @clear_item_loop                ; If Register X < 0xF0 (a loop condition)
 C - - - - - 0x01F060 07:F050: 8D D4 03  STA ram_03D4
 C - - - - - 0x01F063 07:F053: 8D D5 03  STA ram_03D5
 C - - - - - 0x01F066 07:F056: 8D D6 03  STA ram_03D6
-C - - - - - 0x01F069 07:F059: 85 D1     STA vGogglesActive ; reset the infrared goggles
-C - - - - - 0x01F06B 07:F05B: A2 03     LDX #$03
-@bra_F05D_loop:                                        ; loop by x (3 times)
+C - - - - - 0x01F069 07:F059: 85 D1     STA vGogglesActive                  ; reset the infrared goggles
+C - - - - - 0x01F06B 07:F05B: A2 03     LDX #$03                            ; set loop counter
+@bra_F05D_loop:                                                             ; loop by x (3 times)
 C - - - - - 0x01F06D 07:F05D: 9D 18 03  STA ram_0318,X
 C - - - - - 0x01F070 07:F060: 9D 1C 03  STA ram_031C,X
 C - - - - - 0x01F073 07:F063: 9D 15 02  STA vBreathingApparatusLowCounter,X
-C - - - - - 0x01F076 07:F066: CA        DEX
-C - - - - - 0x01F077 07:F067: 10 F4     BPL @bra_F05D_loop
-C - - - - - 0x01F079 07:F069: 20 75 F0  JSR sub_F075_clear_bullet_status
-C - - - - - 0x01F07C 07:F06C: A9 00     LDA #$00
-C - - - - - 0x01F07E 07:F06E: 8D 14 03  STA vEnemyTimerLow1  ; clear a low part
-C - - - - - 0x01F081 07:F071: 8D 15 03  STA vEnemyTimerHigh1 ; clear a high part
-C - - - - - 0x01F084 07:F074: 60        RTS
+C - - - - - 0x01F076 07:F066: CA        DEX                                 ; decrements loop counter
+C - - - - - 0x01F077 07:F067: 10 F4     BPL @bra_F05D_loop ;                ; If Register X < 0xF0 (a loop condition)
+C - - - - - 0x01F079 07:F069: 20 75 F0  JSR sub_F075_clear_bullet_status    ;
+C - - - - - 0x01F07C 07:F06C: A9 00     LDA #$00                            ;
+C - - - - - 0x01F07E 07:F06E: 8D 14 03  STA vEnemyTimerLow1                 ; clear a low part
+C - - - - - 0x01F081 07:F071: 8D 15 03  STA vEnemyTimerHigh1                ; clear a high part
+C - - - - - 0x01F084 07:F074: 60        RTS                                 ;
 
 sub_F075_clear_bullet_status:
 C - - - - - 0x01F085 07:F075: A9 00     LDA #$00            ;
@@ -9150,7 +9153,7 @@ C - - - - - 0x01F92B 07:F91B: 48        PHA
 C - - - - - 0x01F92C 07:F91C: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01F92F 07:F91F: A0 00     LDY #$00 ; 1st of 5 bytes
 loc_F921_next_set:
-C D 3 - - - 0x01F931 07:F921: B1 BD     LDA (ram_00BD),Y
+C D 3 - - - 0x01F931 07:F921: B1 BD     LDA (vCorridorAddr),Y
 C - - - - - 0x01F933 07:F923: 10 03     BPL bra_F928_skip ; If Register A < 0xF0
 bra_F925:
 C - - - - - 0x01F935 07:F925: 4C C9 F9  JMP loc_F9C9_safe_return
@@ -9176,7 +9179,7 @@ C - - - - - 0x01F957 07:F947: A2 0C     LDX #$0C
 @bra_F949_skip:
 C - - - - - 0x01F959 07:F949: 86 01     STX ram_0001
 C - - - - - 0x01F95B 07:F94B: C8        INY ; 2nd of 5 bytes
-C - - - - - 0x01F95C 07:F94C: B1 BD     LDA (ram_00BD),Y
+C - - - - - 0x01F95C 07:F94C: B1 BD     LDA (vCorridorAddr),Y
 C - - - - - 0x01F95E 07:F94E: 38        SEC
 C - - - - - 0x01F95F 07:F94F: E5 66     SBC ram_0066
 C - - - - - 0x01F961 07:F951: B0 03     BCS @bra_F956_skip
@@ -9187,11 +9190,11 @@ C - - - - - 0x01F968 07:F958: C6 C1     DEC ram_00C1
 C - - - - - 0x01F96A 07:F95A: C5 01     CMP ram_0001
 C - - - - - 0x01F96C 07:F95C: B0 B5     BCS bra_F913_inc_next_set
 C - - - - - 0x01F96E 07:F95E: C8        INY ; 3rd of 5 bytes
-C - - - - - 0x01F96F 07:F95F: B1 BD     LDA (ram_00BD),Y
+C - - - - - 0x01F96F 07:F95F: B1 BD     LDA (vCorridorAddr),Y
 C - - - - - 0x01F971 07:F961: 85 C6     STA ram_00C6
 C - - - - - 0x01F973 07:F963: 10 0E     BPL @bra_F973_skip
 C - - - - - 0x01F975 07:F965: C8        INY ; 4th of 5 bytes
-C - - - - - 0x01F976 07:F966: B1 BD     LDA (ram_00BD),Y
+C - - - - - 0x01F976 07:F966: B1 BD     LDA (vCorridorAddr),Y
 C - - - - - 0x01F978 07:F968: AA        TAX
 C - - - - - 0x01F979 07:F969: 88        DEY ; 3rd of 5 bytes
 C - - - - - 0x01F97A 07:F96A: BD 00 05  LDA ram_0500,X
@@ -9199,7 +9202,7 @@ C - - - - - 0x01F97D 07:F96D: 85 B5     STA ram_00B5
 C - - - - - 0x01F97F 07:F96F: 29 40     AND #$40
 C - - - - - 0x01F981 07:F971: D0 A1     BNE bra_F914_inc_next_set
 @bra_F973_skip:
-C - - - - - 0x01F983 07:F973: B1 BD     LDA (ram_00BD),Y
+C - - - - - 0x01F983 07:F973: B1 BD     LDA (vCorridorAddr),Y
 C - - - - - 0x01F985 07:F975: 85 00     STA ram_0000
 C - - - - - 0x01F987 07:F977: 29 0F     AND #$0F
 C - - - - - 0x01F989 07:F979: 85 C3     STA ram_00C3
@@ -9208,7 +9211,7 @@ C - - - - - 0x01F98D 07:F97D: 50 3C     BVC bra_F9BB
 C - - - - - 0x01F98F 07:F97F: A9 00     LDA #$00
 C - - - - - 0x01F991 07:F981: 85 C4     STA vCheckpoint
 C - - - - - 0x01F993 07:F983: C8        INY ; 4th of 5 bytes
-C - - - - - 0x01F994 07:F984: B1 BD     LDA (ram_00BD),Y
+C - - - - - 0x01F994 07:F984: B1 BD     LDA (vCorridorAddr),Y
 C - - - - - 0x01F996 07:F986: AA        TAX
 C - - - - - 0x01F997 07:F987: BD 00 05  LDA vRooms,X
 C - - - - - 0x01F99A 07:F98A: 85 C5     STA ram_00C5
@@ -9240,11 +9243,11 @@ C - - - - - 0x01F9C8 07:F9B8: 4C C0 F9  JMP loc_F9C0
 
 bra_F9BB:
 C - - - - - 0x01F9CB 07:F9BB: C8        INY ; 4th of 5 bytes
-C - - - - - 0x01F9CC 07:F9BC: B1 BD     LDA (ram_00BD),Y
+C - - - - - 0x01F9CC 07:F9BC: B1 BD     LDA (vCorridorAddr),Y
 C - - - - - 0x01F9CE 07:F9BE: 85 C4     STA vCheckpoint
 loc_F9C0:
 C D 3 - - - 0x01F9D0 07:F9C0: C8        INY ; 5th of 5 bytes
-C - - - - - 0x01F9D1 07:F9C1: B1 BD     LDA (ram_00BD),Y
+C - - - - - 0x01F9D1 07:F9C1: B1 BD     LDA (vCorridorAddr),Y
 C - - - - - 0x01F9D3 07:F9C3: 85 B7     STA v_corridor_magic5
 C - - - - - 0x01F9D5 07:F9C5: 68        PLA
 C - - - - - 0x01F9D6 07:F9C6: AA        TAX
@@ -9267,14 +9270,14 @@ C - - - - - 0x01F9E4 07:F9D4: D0 F3     BNE bra_F9C9_safe_return
 C - - - - - 0x01F9E6 07:F9D6: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01F9E9 07:F9D9: A0 00     LDY #$00 ; 1st of 5 bytes
 bra_F9DB_next_set:
-C - - - - - 0x01F9EB 07:F9DB: B1 BF     LDA (ram_00BF),Y
+C - - - - - 0x01F9EB 07:F9DB: B1 BF     LDA (vDestrWallAddr),Y
 C - - - - - 0x01F9ED 07:F9DD: C9 FF     CMP #$FF
 C - - - - - 0x01F9EF 07:F9DF: F0 E8     BEQ bra_F9C9_safe_return
 C - - - - - 0x01F9F1 07:F9E1: 38        SEC
 C - - - - - 0x01F9F2 07:F9E2: ED B6 03  SBC ram_03B6
 C - - - - - 0x01F9F5 07:F9E5: 85 00     STA ram_0000
 C - - - - - 0x01F9F7 07:F9E7: C8        INY ; 2nd of 5 bytes
-C - - - - - 0x01F9F8 07:F9E8: B1 BF     LDA (ram_00BF),Y
+C - - - - - 0x01F9F8 07:F9E8: B1 BF     LDA (vDestrWallAddr),Y
 C - - - - - 0x01F9FA 07:F9EA: ED BC 03  SBC ram_03BC
 C - - - - - 0x01F9FD 07:F9ED: 85 01     STA ram_0001
 C - - - - - 0x01F9FF 07:F9EF: B0 0B     BCS bra_F9FC
@@ -9289,16 +9292,16 @@ C - - - - - 0x01FA0E 07:F9FE: A5 00     LDA ram_0000
 C - - - - - 0x01FA10 07:FA00: C9 08     CMP #$08
 C - - - - - 0x01FA12 07:FA02: B0 1C     BCS bra_FA20_inc_next_set
 C - - - - - 0x01FA14 07:FA04: C8        INY ; 3rd of 5 bytes
-C - - - - - 0x01FA15 07:FA05: B1 BF     LDA (ram_00BF),Y
+C - - - - - 0x01FA15 07:FA05: B1 BF     LDA (vDestrWallAddr),Y
 C - - - - - 0x01FA17 07:FA07: 85 C3     STA ram_00C3
 C - - - - - 0x01FA19 07:FA09: C8        INY ; 4th of 5 bytes
-C - - - - - 0x01FA1A 07:FA0A: B1 BF     LDA (ram_00BF),Y
+C - - - - - 0x01FA1A 07:FA0A: B1 BF     LDA (vDestrWallAddr),Y
 C - - - - - 0x01FA1C 07:FA0C: AA        TAX
 C - - - - - 0x01FA1D 07:FA0D: BD 00 05  LDA ram_0500,X
 C - - - - - 0x01FA20 07:FA10: 29 BF     AND #$BF
 C - - - - - 0x01FA22 07:FA12: 9D 00 05  STA ram_0500,X
 C - - - - - 0x01FA25 07:FA15: C8        INY ; 5th of 5 bytes
-C - - - - - 0x01FA26 07:FA16: B1 BF     LDA (ram_00BF),Y
+C - - - - - 0x01FA26 07:FA16: B1 BF     LDA (vDestrWallAddr),Y
 C - - - - - 0x01FA28 07:FA18: 85 C1     STA ram_00C1
 C - - - - - 0x01FA2A 07:FA1A: 20 2F FA  JSR sub_FA2F
 C - - - - - 0x01FA2D 07:FA1D: 68        PLA
@@ -9344,7 +9347,7 @@ C - - - - - 0x01FA63 07:FA53: C8        INY
 C - - - - - 0x01FA64 07:FA54: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01FA66 07:FA56: 85 54     STA ram_0054
 C - - - - - 0x01FA68 07:FA58: A4 C1     LDY ram_00C1
-C - - - - - 0x01FA6A 07:FA5A: B1 BD     LDA (ram_00BD),Y
+C - - - - - 0x01FA6A 07:FA5A: B1 BD     LDA (vCorridorAddr),Y
 C - - - - - 0x01FA6C 07:FA5C: 48        PHA
 C - - - - - 0x01FA6D 07:FA5D: A2 A2     LDX #$A2
 C - - - - - 0x01FA6F 07:FA5F: 6A        ROR
@@ -9371,7 +9374,7 @@ C - - - - - 0x01FA94 07:FA84: 8D 31 06  STA ram_0631
 C - - - - - 0x01FA97 07:FA87: CA        DEX
 C - - - - - 0x01FA98 07:FA88: D0 EC     BNE bra_FA76
 C - - - - - 0x01FA9A 07:FA8A: C8        INY
-C - - - - - 0x01FA9B 07:FA8B: B1 BD     LDA (ram_00BD),Y
+C - - - - - 0x01FA9B 07:FA8B: B1 BD     LDA (vCorridorAddr),Y
 C - - - - - 0x01FA9D 07:FA8D: 4A        LSR
 C - - - - - 0x01FA9E 07:FA8E: 4A        LSR
 C - - - - - 0x01FA9F 07:FA8F: 4A        LSR

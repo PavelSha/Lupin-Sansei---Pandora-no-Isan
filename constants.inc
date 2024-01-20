@@ -346,6 +346,9 @@ vNearCurrentRoomLength        = ram_004A ; vCurrentRoomLength - 1 (in screen uni
 vHighViewPortPosX             = ram_004B ; The high value for an overflow ram_0027
 vTempHighViewPortPosX         = ram_004C
 
+vBackgroundScreenInfo         = ram_004E
+vHighBackgroundScreenInfo     = ram_004F
+
 ; ram_004D - ???
 
 vScore                        = ram_0056 ; [0x56-0x5C]
@@ -425,10 +428,10 @@ v_offset_in_secret_codes      = ram_00B4
 v_corridor_magic5             = ram_00B7
 v_corridor_magic5_cache       = ram_00B8
 v_tmp_target_room             = ram_00BC
-v_low_corridor_address        = ram_00BD
-v_high_corridor_address       = ram_00BE
-v_low_destr_wall_address      = ram_00BF
-v_high_destr_wall_address     = ram_00C0
+vCorridorAddr                 = ram_00BD ; low address (address to table tbl_ptr_corridors)
+vHighCorridorAddr             = ram_00BE ; high address
+vDestrWallAddr                = ram_00BF ; low address  (address to table tbl_ptr_destructible_walls)
+vHighDestrWallAddr            = ram_00C0 ; high address
 
 vCheckpoint                   = ram_00C4
 ; 0x00 - level 1

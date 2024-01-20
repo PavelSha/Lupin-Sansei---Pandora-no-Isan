@@ -11,6 +11,7 @@
 .export tbl_ptr_destructible_walls
 .export tbl_room_lengths
 .export tbl_roof_pitches
+.export tbl_message_bar_bottom_attrs
 
 - - - - - - 0x010010 04:8000: 7B 9D     .word $9D7B
 - D 0 - - - 0x010012 04:8002: 9B 9D     .word $9D9B
@@ -1171,22 +1172,9 @@ tbl_room_lengths:
 - D 0 - - - 0x0105CB 04:85BB: 86        .byte $86   ; 
 - D 0 - - - 0x0105CC 04:85BC: 85        .byte $85   ; 
 - D 0 - - - 0x0105CD 04:85BD: 86        .byte $86   ; 
-- D 0 - - - 0x0105CE 04:85BE: C0        .byte $C0   ; 
-- D 0 - - - 0x0105CF 04:85BF: 30        .byte $30   ; <0>
-- D 0 - - - 0x0105D0 04:85C0: 00        .byte $00   ; 
-- D 0 - - - 0x0105D1 04:85C1: 00        .byte $00   ; 
-- D 0 - - - 0x0105D2 04:85C2: 00        .byte $00   ; 
-- D 0 - - - 0x0105D3 04:85C3: 00        .byte $00   ; 
-- D 0 - - - 0x0105D4 04:85C4: 00        .byte $00   ; 
-- D 0 - - - 0x0105D5 04:85C5: 00        .byte $00   ; 
-- D 0 - - - 0x0105D6 04:85C6: CC        .byte $CC   ; 
-- D 0 - - - 0x0105D7 04:85C7: 33        .byte $33   ; <3>
-- D 0 - - - 0x0105D8 04:85C8: 00        .byte $00   ; 
-- D 0 - - - 0x0105D9 04:85C9: 00        .byte $00   ; 
-- D 0 - - - 0x0105DA 04:85CA: 00        .byte $00   ; 
-- D 0 - - - 0x0105DB 04:85CB: 00        .byte $00   ; 
-- D 0 - - - 0x0105DC 04:85CC: 00        .byte $00   ; 
-- D 0 - - - 0x0105DD 04:85CD: 00        .byte $00   ; 
+
+tbl_message_bar_bottom_attrs:
+- D 0 - - - 0x0105CE 04:85BE: C0        .byte $C0, $30, $00, $00, $00, $00, $00, $00, $CC, $33, $00, $00, $00, $00, $00, $00
 
 tbl_roof_pitches:
 ; 1 byte - the starting x-position in the starting screen
