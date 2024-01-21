@@ -2887,12 +2887,12 @@ C - - - - - 0x01B2AD 06:B29D: A2 7F     LDX #$7F
 bra_B29F_skip:
 C - - - - - 0x01B2AF 06:B29F: 29 3F     AND #$3F
 bra_B2A1_skip:
-C - - - - - 0x01B2B1 06:B2A1: 8E 33 06  STX ram_0633
+C - - - - - 0x01B2B1 06:B2A1: 8E 33 06  STX vPpuBufferData
 C - - - - - 0x01B2B4 06:B2A4: 8D 34 06  STA ram_0634
 C - - - - - 0x01B2B7 06:B2A7: A5 CF     LDA v_low_msg_ppu_address
-C - - - - - 0x01B2B9 06:B2A9: 8D 30 06  STA v_low_ppu_address
+C - - - - - 0x01B2B9 06:B2A9: 8D 30 06  STA vLowPpuAddress
 C - - - - - 0x01B2BC 06:B2AC: A5 D0     LDA v_high_msg_ppu_address
-C - - - - - 0x01B2BE 06:B2AE: 8D 31 06  STA v_high_ppu_address
+C - - - - - 0x01B2BE 06:B2AE: 8D 31 06  STA vHighPpuAddress
 C - - - - - 0x01B2C1 06:B2B1: A9 82     LDA #$82
 C - - - - - 0x01B2C3 06:B2B3: 8D 32 06  STA v_ppu_buffer_count
 C - - - - - 0x01B2C6 06:B2B6: E6 CF     INC v_low_msg_ppu_address
@@ -3227,9 +3227,9 @@ C - - - - - 0x01B4E5 06:B4D5: D0 F4     BNE @bra_B4CB_loop
 C - - - - - 0x01B4E7 06:B4D7: A9 04     LDA #$04
 C - - - - - 0x01B4E9 06:B4D9: 85 54     STA ram_0054
 C - - - - - 0x01B4EB 06:B4DB: A9 A0     LDA #$A0
-C - - - - - 0x01B4ED 06:B4DD: 8D 31 06  STA v_high_ppu_address
+C - - - - - 0x01B4ED 06:B4DD: 8D 31 06  STA vHighPpuAddress
 C - - - - - 0x01B4F0 06:B4E0: A9 63     LDA #$63
-C - - - - - 0x01B4F2 06:B4E2: 8D 30 06  STA v_low_ppu_address
+C - - - - - 0x01B4F2 06:B4E2: 8D 30 06  STA vLowPpuAddress
 C - - - - - 0x01B4F5 06:B4E5: A9 0C     LDA #$0C
 C - - - - - 0x01B4F7 06:B4E7: 8D 32 06  STA v_ppu_buffer_count
 C - - - - - 0x01B4FA 06:B4EA: 60        RTS

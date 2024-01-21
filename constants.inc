@@ -343,9 +343,9 @@ vNoSubLevel                   = ram_0046
 vTempNoSubLevel               = ram_0047
 vCurrentRoomLength            = ram_0049 ; in screen units
 vNearCurrentRoomLength        = ram_004A ; vCurrentRoomLength - 1 (in screen units)
-vHighViewPortPosX             = ram_004B ; The high value for an overflow ram_0027
+vHighViewPortPosX             = ram_004B ; The high value for an overflow ram_0027 (in screen units)
 vTempHighViewPortPosX         = ram_004C
-
+vCacheNoScreen                = ram_004D ; In screen units
 vBackgroundScreenInfo         = ram_004E
 vHighBackgroundScreenInfo     = ram_004F
 
@@ -580,9 +580,10 @@ vRooms                        = ram_0500
 ; flag 0x80 - the room has already been visited
 
 vCachePalette                 = ram_0600 ; [ram_0600 - ram_061F]
-v_low_ppu_address             = ram_0630
-v_high_ppu_address            = ram_0631
+vLowPpuAddress                = ram_0630
+vHighPpuAddress               = ram_0631
 v_ppu_buffer_count            = ram_0632
+vPpuBufferData                = ram_0633
 vPpuAddrDataCache             = ram_067B ; [ram_067B - ram_06AC]
 ; 1st - count (N)
 ; 2nd + 3rd - ppu address

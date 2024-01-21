@@ -160,7 +160,7 @@ C - - - - - 0x01C0E7 07:C0D7: 09 08     ORA #$08                           ; act
 C - - - - - 0x01C0E9 07:C0D9: 85 26     STA vPpuCtrlSettings               ;
 C - - - - - 0x01C0EB 07:C0DB: A9 00     LDA #$00
 C - - - - - 0x01C0ED 07:C0DD: 85 39     STA ram_0039
-C - - - - - 0x01C0EF 07:C0DF: 8D 31 06  STA v_high_ppu_address             ; clear
+C - - - - - 0x01C0EF 07:C0DF: 8D 31 06  STA vHighPpuAddress                ; clear
 C - - - - - 0x01C0F2 07:C0E2: 8D 7B 06  STA vPpuAddrDataCache              ; clear
 C - - - - - 0x01C0F5 07:C0E5: 85 19     STA vRenderActive                  ; clear
 C - - - - - 0x01C0F7 07:C0E7: A5 3A     LDA ram_003A
@@ -1006,7 +1006,7 @@ C - - - - - 0x01C6A1 07:C691: C6 1A     DEC ram_001A
 C - - - - - 0x01C6A3 07:C693: 10 F9     BPL bra_C68E_loop
 C - - - - - 0x01C6A5 07:C695: A9 00     LDA #$00                       ;
 C - - - - - 0x01C6A7 07:C697: 85 19     STA vRenderActive              ; put active
-C - - - - - 0x01C6A9 07:C699: 8D 31 06  STA v_high_ppu_address         ; clear
+C - - - - - 0x01C6A9 07:C699: 8D 31 06  STA vHighPpuAddress            ; clear
 C - - - - - 0x01C6AC 07:C69C: 8D 7B 06  STA vPpuAddrDataCache          ; empty cache
 C - - - - - 0x01C6AF 07:C69F: 85 3D     STA vCharacterSelectionCounter ; reset
 C - - - - - 0x01C6B1 07:C6A1: AA        TAX                            ; clear Register X
@@ -2729,37 +2729,39 @@ C - - - - - 0x01D0DD 07:D0CD: 48        PHA              ;
 C - - - - - 0x01D0DE 07:D0CE: 88        DEY              ;
 C - - - - - 0x01D0DF 07:D0CF: B1 12     LDA (ram_0012),Y ;
 C - - - - - 0x01D0E1 07:D0D1: 48        PHA              ;
-C - - - - - 0x01D0E2 07:D0D2: 60        RTS
+C - - - - - 0x01D0E2 07:D0D2: 60        RTS              ;
 
-bra_D0D3:
-C - - - - - 0x01D0E3 07:D0D3: 29 7F     AND #$7F
-C - - - - - 0x01D0E5 07:D0D5: AE 30 06  LDX ram_0630
-C - - - - - 0x01D0E8 07:D0D8: 85 00     STA ram_0000
-C - - - - - 0x01D0EA 07:D0DA: 86 01     STX ram_0001
-C - - - - - 0x01D0EC 07:D0DC: A5 26     LDA vPpuCtrlSettings
-C - - - - - 0x01D0EE 07:D0DE: 09 04     ORA #$04
-C - - - - - 0x01D0F0 07:D0E0: 8D 00 20  STA PPU_CTRL
-C - - - - - 0x01D0F3 07:D0E3: AD 32 06  LDA v_ppu_buffer_count
-C - - - - - 0x01D0F6 07:D0E6: 85 02     STA ram_0002
-C - - - - - 0x01D0F8 07:D0E8: A2 00     LDX #$00
-loc_D0EA:
-C D 2 - - - 0x01D0FA 07:D0EA: A5 00     LDA ram_0000
-C - - - - - 0x01D0FC 07:D0EC: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01D0FF 07:D0EF: A5 01     LDA ram_0001
-C - - - - - 0x01D101 07:D0F1: 8D 06 20  STA PPU_ADDRESS
+; 3 mode
+; in: vHighPpuAddress (negative value)
+bra_D0D3_alternative_mode:
+C - - - - - 0x01D0E3 07:D0D3: 29 7F     AND #$7F                 ; negative oount -> positive value
+C - - - - - 0x01D0E5 07:D0D5: AE 30 06  LDX vLowPpuAddress       ;
+C - - - - - 0x01D0E8 07:D0D8: 85 00     STA ram_0000             ; high ppu address -> $0000
+C - - - - - 0x01D0EA 07:D0DA: 86 01     STX ram_0001             ; low ppu address ->  $0001
+C - - - - - 0x01D0EC 07:D0DC: A5 26     LDA vPpuCtrlSettings     ;
+C - - - - - 0x01D0EE 07:D0DE: 09 04     ORA #$04                 ; set vertical increment per CPU read/write of PPUDATA (increment 32)
+C - - - - - 0x01D0F0 07:D0E0: 8D 00 20  STA PPU_CTRL             ;
+C - - - - - 0x01D0F3 07:D0E3: AD 32 06  LDA v_ppu_buffer_count   ;
+C - - - - - 0x01D0F6 07:D0E6: 85 02     STA ram_0002             ; ppu buffer count -> $0002
+C - - - - - 0x01D0F8 07:D0E8: A2 00     LDX #$00                 ;
+loc_D0EA_loop:
+C D 2 - - - 0x01D0FA 07:D0EA: A5 00     LDA ram_0000             ;
+C - - - - - 0x01D0FC 07:D0EC: 8D 06 20  STA PPU_ADDRESS          ;
+C - - - - - 0x01D0FF 07:D0EF: A5 01     LDA ram_0001             ;
+C - - - - - 0x01D101 07:D0F1: 8D 06 20  STA PPU_ADDRESS          ; PPU address by ($0000)
 C - - - - - 0x01D104 07:D0F4: A4 54     LDY ram_0054
-bra_D0F6:
-C - - - - - 0x01D106 07:D0F6: BD 33 06  LDA ram_0633,X
-C - - - - - 0x01D109 07:D0F9: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01D10C 07:D0FC: E8        INX
-C - - - - - 0x01D10D 07:D0FD: C6 02     DEC ram_0002
-C - - - - - 0x01D10F 07:D0FF: F0 4D     BEQ bra_D14E_skip
-C - - - - - 0x01D111 07:D101: 88        DEY
-C - - - - - 0x01D112 07:D102: D0 F2     BNE bra_D0F6
+@bra_D0F6_loop:
+C - - - - - 0x01D106 07:D0F6: BD 33 06  LDA vPpuBufferData,X     ;
+C - - - - - 0x01D109 07:D0F9: 8D 07 20  STA PPU_DATA             ;
+C - - - - - 0x01D10C 07:D0FC: E8        INX                      ;
+C - - - - - 0x01D10D 07:D0FD: C6 02     DEC ram_0002             ; decrement count
+C - - - - - 0x01D10F 07:D0FF: F0 4D     BEQ bra_D14E_clear       ; If count == 0x00
+C - - - - - 0x01D111 07:D101: 88        DEY                      ; increment y
+C - - - - - 0x01D112 07:D102: D0 F2     BNE @bra_D0F6_loop       ; If Register Y != 0
 C - - - - - 0x01D114 07:D104: A5 01     LDA ram_0001
 C - - - - - 0x01D116 07:D106: 29 1F     AND #$1F
 C - - - - - 0x01D118 07:D108: C9 1F     CMP #$1F
-C - - - - - 0x01D11A 07:D10A: D0 0A     BNE bra_D116
+C - - - - - 0x01D11A 07:D10A: D0 0A     BNE bra_D116_skip
 - - - - - - 0x01D11C 07:D10C: 85        .byte $85
 - - - - - - 0x01D11D 07:D10D: 01        .byte $01
 - - - - - - 0x01D11E 07:D10E: A5        .byte $A5
@@ -2770,64 +2772,66 @@ C - - - - - 0x01D11A 07:D10A: D0 0A     BNE bra_D116
 - - - - - - 0x01D123 07:D113: 00        .byte $00
 - - - - - - 0x01D124 07:D114: D0        .byte $D0
 - - - - - - 0x01D125 07:D115: D4        .byte $D4
-bra_D116:
-C - - - - - 0x01D126 07:D116: E6 01     INC ram_0001
-C - - - - - 0x01D128 07:D118: 4C EA D0  JMP loc_D0EA
+bra_D116_skip:
+C - - - - - 0x01D126 07:D116: E6 01     INC ram_0001             ; increment low ppu address
+C - - - - - 0x01D128 07:D118: 4C EA D0  JMP loc_D0EA_loop        ;
 
+; 3 render modes
 sub_D11B_shared_render:
-C - - - - - 0x01D12B 07:D11B: A5 19     LDA vRenderActive      ;
-C - - - - - 0x01D12D 07:D11D: D0 39     BNE bra_D158_RTS       ; Branch If the render isn't activated
-C - - - - - 0x01D12F 07:D11F: AD 31 06  LDA v_high_ppu_address
-C - - - - - 0x01D132 07:D122: F0 35     BEQ bra_D159
-C - - - - - 0x01D134 07:D124: 30 AD     BMI bra_D0D3
-C - - - - - 0x01D136 07:D126: AE 30 06  LDX v_low_ppu_address
-C - - - - - 0x01D139 07:D129: 8D 06 20  STA PPU_ADDRESS ; writes high byte
-C - - - - - 0x01D13C 07:D12C: 8E 06 20  STX PPU_ADDRESS ; writes low byte
-C - - - - - 0x01D13F 07:D12F: AD 32 06  LDA v_ppu_buffer_count
-C - - - - - 0x01D142 07:D132: 10 0B     BPL bra_D13F_skip
-C - - - - - 0x01D144 07:D134: 48        PHA
-C - - - - - 0x01D145 07:D135: A5 26     LDA vPpuCtrlSettings
-C - - - - - 0x01D147 07:D137: 09 04     ORA #$04 ; Sprite tile select (bit S)
-C - - - - - 0x01D149 07:D139: 8D 00 20  STA PPU_CTRL
-C - - - - - 0x01D14C 07:D13C: 68        PLA
-C - - - - - 0x01D14D 07:D13D: 29 7F     AND #$7F
-bra_D13F_skip:
-C - - - - - 0x01D14F 07:D13F: 85 00     STA ram_0000
-C - - - - - 0x01D151 07:D141: A2 00     LDX #$00
-bra_D143_repeat:                                       ; loop by ram_0000
-C - - - - - 0x01D153 07:D143: BD 33 06  LDA ram_0633,X
-C - - - - - 0x01D156 07:D146: 8D 07 20  STA PPU_DATA
-C - - - - - 0x01D159 07:D149: E8        INX
-C - - - - - 0x01D15A 07:D14A: C6 00     DEC ram_0000
-C - - - - - 0x01D15C 07:D14C: D0 F5     BNE bra_D143_repeat ; If ram_0000 != 0
-bra_D14E_skip:
-C - - - - - 0x01D15E 07:D14E: A9 00     LDA #$00
-C - - - - - 0x01D160 07:D150: 8D 31 06  STA ram_0631
-C - - - - - 0x01D163 07:D153: A5 26     LDA vPpuCtrlSettings
-C - - - - - 0x01D165 07:D155: 8D 00 20  STA PPU_CTRL
+C - - - - - 0x01D12B 07:D11B: A5 19     LDA vRenderActive             ;
+C - - - - - 0x01D12D 07:D11D: D0 39     BNE bra_D158_RTS              ; Branch If the render isn't activated
+C - - - - - 0x01D12F 07:D11F: AD 31 06  LDA vHighPpuAddress           ;
+C - - - - - 0x01D132 07:D122: F0 35     BEQ bra_D159_ppu_cache        ; If high ppu address == 0x00
+C - - - - - 0x01D134 07:D124: 30 AD     BMI bra_D0D3_alternative_mode ;
+C - - - - - 0x01D136 07:D126: AE 30 06  LDX vLowPpuAddress            ;
+C - - - - - 0x01D139 07:D129: 8D 06 20  STA PPU_ADDRESS               ; writes high byte
+C - - - - - 0x01D13C 07:D12C: 8E 06 20  STX PPU_ADDRESS               ; writes low byte
+C - - - - - 0x01D13F 07:D12F: AD 32 06  LDA v_ppu_buffer_count        ;
+C - - - - - 0x01D142 07:D132: 10 0B     BPL @bra_D13F_skip            ; If positive value - a horiz inrement, else a vert increment
+C - - - - - 0x01D144 07:D134: 48        PHA                           ; store count
+C - - - - - 0x01D145 07:D135: A5 26     LDA vPpuCtrlSettings          ;
+C - - - - - 0x01D147 07:D137: 09 04     ORA #$04                      ; vertical increment per CPU read/write of PPUDATA (increment 32)
+C - - - - - 0x01D149 07:D139: 8D 00 20  STA PPU_CTRL                  ;
+C - - - - - 0x01D14C 07:D13C: 68        PLA                           ; retrieve count ($D134)
+C - - - - - 0x01D14D 07:D13D: 29 7F     AND #$7F                      ; negative oount -> positive value
+@bra_D13F_skip:
+C - - - - - 0x01D14F 07:D13F: 85 00     STA ram_0000                  ; set loop counter
+C - - - - - 0x01D151 07:D141: A2 00     LDX #$00                      ;
+@bra_D143_loop:                                                       ; loop by ram_0000
+C - - - - - 0x01D153 07:D143: BD 33 06  LDA vPpuBufferData,X          ;
+C - - - - - 0x01D156 07:D146: 8D 07 20  STA PPU_DATA                  ;
+C - - - - - 0x01D159 07:D149: E8        INX                           ;
+C - - - - - 0x01D15A 07:D14A: C6 00     DEC ram_0000                  ; decrement ram_0000
+C - - - - - 0x01D15C 07:D14C: D0 F5     BNE @bra_D143_loop            ; If ram_0000 != 0
+bra_D14E_clear:
+C - - - - - 0x01D15E 07:D14E: A9 00     LDA #$00                      ;
+C - - - - - 0x01D160 07:D150: 8D 31 06  STA vHighPpuAddress           ; clear
+C - - - - - 0x01D163 07:D153: A5 26     LDA vPpuCtrlSettings          ; 
+C - - - - - 0x01D165 07:D155: 8D 00 20  STA PPU_CTRL                  ; retrieve ppu ctrl
 bra_D158_RTS:
-C - - - - - 0x01D168 07:D158: 60        RTS
+C - - - - - 0x01D168 07:D158: 60        RTS                           ;
 
-bra_D159:
-C - - - - - 0x01D169 07:D159: A5 2C     LDA v_low_counter                  ;
-C - - - - - 0x01D16B 07:D15B: 6A        ROR                                ;
+; 2 mode
+bra_D159_ppu_cache:
+C - - - - - 0x01D169 07:D159: A5 2C     LDA v_low_counter             ;
+C - - - - - 0x01D16B 07:D15B: 6A        ROR                           ;
 C - - - - - 0x01D16C 07:D15C: B0 0B     BCS bra_D169_render_ppu_cache ; Branch if v_low_counter doesn't multiple of 2
-bra_D15E:
-C - - - - - 0x01D16E 07:D15E: A5 3B     LDA vSharedGameStatus
-C - - - - - 0x01D170 07:D160: 6A        ROR
-C - - - - - 0x01D171 07:D161: 90 03     BCC bra_D166_skip ; If vSharedGameStatus was 0bXXXXXXX0
-C - - - - - 0x01D173 07:D163: 4C 55 B2  JMP loc_B255_display_message_by_letter
+bra_D15E_message:
+C - - - - - 0x01D16E 07:D15E: A5 3B     LDA vSharedGameStatus                  ;
+C - - - - - 0x01D170 07:D160: 6A        ROR                                    ;
+C - - - - - 0x01D171 07:D161: 90 03     BCC bra_D166_skip                      ; Branch if no exist 'A screen with the message'
+C - - - - - 0x01D173 07:D163: 4C 55 B2  JMP loc_B255_display_message_by_letter ;
 
 bra_D166_skip:
 C - - - - - 0x01D176 07:D166: 4C 71 C3  JMP loc_C371_update_palette
 
 bra_D169_render_ppu_cache:
 C - - - - - 0x01D179 07:D169: AD 7B 06  LDA vPpuAddrDataCache   ;
-C - - - - - 0x01D17C 07:D16C: F0 F0     BEQ bra_D15E            ; Branch If the is empty (0x00 - first byte)
+C - - - - - 0x01D17C 07:D16C: F0 F0     BEQ bra_D15E_message    ; Branch If the is empty (0x00 - first byte)
 C - - - - - 0x01D17E 07:D16E: A2 00     LDX #$00                ; 1 of N
 bra_D170_repeat:
 C - - - - - 0x01D180 07:D170: BD 7B 06  LDA vPpuAddrDataCache,X ;
-C - - - - - 0x01D183 07:D173: F0 1C     BEQ bra_D191_skip       ; Branch If the count == 0x00
+C - - - - - 0x01D183 07:D173: F0 1C     BEQ bra_D191_exit       ; Branch If the count == 0x00
 C - - - - - 0x01D185 07:D175: A8        TAY                     ; the count -> Register y
 C - - - - - 0x01D186 07:D176: E8        INX                     ; 2 + offs of N
 C - - - - - 0x01D187 07:D177: BD 7B 06  LDA vPpuAddrDataCache,X ;
@@ -2836,21 +2840,21 @@ C - - - - - 0x01D18D 07:D17D: E8        INX                     ; 3 + offs of N
 C - - - - - 0x01D18E 07:D17E: BD 7B 06  LDA vPpuAddrDataCache,X ;
 C - - - - - 0x01D191 07:D181: 8D 06 20  STA PPU_ADDRESS         ;
 C - - - - - 0x01D194 07:D184: E8        INX                     ; 4 + offs of N
-bra_D185_loop:
+@bra_D185_loop:                                                 ; loop by y (the count)
 C - - - - - 0x01D195 07:D185: BD 7B 06  LDA vPpuAddrDataCache,X ;
 C - - - - - 0x01D198 07:D188: 8D 07 20  STA PPU_DATA            ;  
 C - - - - - 0x01D19B 07:D18B: E8        INX                     ;
 C - - - - - 0x01D19C 07:D18C: 88        DEY                     ; decrement y (the count)
-C - - - - - 0x01D19D 07:D18D: D0 F6     BNE bra_D185_loop       ; Branch If Register Y != 0
+C - - - - - 0x01D19D 07:D18D: D0 F6     BNE @bra_D185_loop      ; Branch If Register Y != 0
 C - - - - - 0x01D19F 07:D18F: F0 DF     BEQ bra_D170_repeat     ; Always true
-bra_D191_skip:
-C - - - - - 0x01D1A1 07:D191: 8D 7B 06  STA vPpuAddrDataCache
-C - - - - - 0x01D1A4 07:D194: 60        RTS
+bra_D191_exit:
+C - - - - - 0x01D1A1 07:D191: 8D 7B 06  STA vPpuAddrDataCache   ; clear (set 0x00)
+C - - - - - 0x01D1A4 07:D194: 60        RTS                     ;
 
 sub_D195:
 loc_D195:
-C D 2 - - - 0x01D1A5 07:D195: A5 4B     LDA ram_004B
-C - - - - - 0x01D1A7 07:D197: 85 4D     STA ram_004D
+C D 2 - - - 0x01D1A5 07:D195: A5 4B     LDA vHighViewPortPosX
+C - - - - - 0x01D1A7 07:D197: 85 4D     STA vCacheNoScreen
 C - - - - - 0x01D1A9 07:D199: A5 48     LDA ram_0048
 C - - - - - 0x01D1AB 07:D19B: 30 33     BMI bra_D1D0
 C - - - - - 0x01D1AD 07:D19D: C6 27     DEC ram_0027
@@ -2858,16 +2862,16 @@ C - - - - - 0x01D1AF 07:D19F: A5 27     LDA ram_0027
 C - - - - - 0x01D1B1 07:D1A1: C9 FF     CMP #$FF
 C - - - - - 0x01D1B3 07:D1A3: D0 10     BNE bra_D1B5
 C - - - - - 0x01D1B5 07:D1A5: A5 4B     LDA ram_004B
-C - - - - - 0x01D1B7 07:D1A7: D0 03     BNE bra_D1AC
+C - - - - - 0x01D1B7 07:D1A7: D0 03     BNE bra_D1AC_decrement_screen
 C - - - - - 0x01D1B9 07:D1A9: 85 27     STA ram_0027
 C - - - - - 0x01D1BB 07:D1AB: 60        RTS
 
-bra_D1AC:
-C - - - - - 0x01D1BC 07:D1AC: A5 26     LDA vPpuCtrlSettings
-C - - - - - 0x01D1BE 07:D1AE: 49 01     EOR #$01
-C - - - - - 0x01D1C0 07:D1B0: 85 26     STA vPpuCtrlSettings
-C - - - - - 0x01D1C2 07:D1B2: C6 4B     DEC ram_004B
-C - - - - - 0x01D1C4 07:D1B4: 60        RTS
+bra_D1AC_decrement_screen:
+C - - - - - 0x01D1BC 07:D1AC: A5 26     LDA vPpuCtrlSettings  ;
+C - - - - - 0x01D1BE 07:D1AE: 49 01     EOR #$01              ; switch $2000 -> $2400 or $2400 -> $2000 (name table address)
+C - - - - - 0x01D1C0 07:D1B0: 85 26     STA vPpuCtrlSettings  ;
+C - - - - - 0x01D1C2 07:D1B2: C6 4B     DEC vHighViewPortPosX ;
+C - - - - - 0x01D1C4 07:D1B4: 60        RTS                   ; 
 
 bra_D1B5:
 C - - - - - 0x01D1C5 07:D1B5: C9 FC     CMP #$FC
@@ -2999,9 +3003,9 @@ C - - - - - 0x01D28F 07:D27F: 85 07     STA ram_0007
 C - - - - - 0x01D291 07:D281: A0 00     LDY #$00
 C - - - - - 0x01D293 07:D283: A5 27     LDA ram_0027
 C - - - - - 0x01D295 07:D285: 29 08     AND #$08
-C - - - - - 0x01D297 07:D287: F0 02     BEQ bra_D28B
+C - - - - - 0x01D297 07:D287: F0 02     BEQ @bra_D28B_skip
 C - - - - - 0x01D299 07:D289: A0 02     LDY #$02
-bra_D28B:
+@bra_D28B_skip:
 C - - - - - 0x01D29B 07:D28B: B1 06     LDA (ram_0006),Y
 C - - - - - 0x01D29D 07:D28D: 9D 33 06  STA ram_0633,X
 C - - - - - 0x01D2A0 07:D290: C8        INY
@@ -3191,9 +3195,9 @@ sub_D389_increment_by_posX:
 C - - - - - 0x01D399 07:D389: 18        CLC
 C - - - - - 0x01D39A 07:D38A: 65 01     ADC ram_0001
 C - - - - - 0x01D39C 07:D38C: 85 01     STA ram_0001
-C - - - - - 0x01D39E 07:D38E: A5 4D     LDA ram_004D
+C - - - - - 0x01D39E 07:D38E: A5 4D     LDA vCacheNoScreen
 C - - - - - 0x01D3A0 07:D390: 69 00     ADC #$00
-C - - - - - 0x01D3A2 07:D392: 85 4D     STA ram_004D
+C - - - - - 0x01D3A2 07:D392: 85 4D     STA vCacheNoScreen
 C - - - - - 0x01D3A4 07:D394: 4C E5 D2  JMP loc_D2E5
 
 ; Params:
@@ -3211,9 +3215,9 @@ sub_D39F_increment_by_posX:
 C - - - - - 0x01D3AF 07:D39F: 18        CLC
 C - - - - - 0x01D3B0 07:D3A0: 65 01     ADC ram_0001
 C - - - - - 0x01D3B2 07:D3A2: 85 01     STA ram_0001
-C - - - - - 0x01D3B4 07:D3A4: A5 4D     LDA ram_004D
+C - - - - - 0x01D3B4 07:D3A4: A5 4D     LDA vCacheNoScreen
 C - - - - - 0x01D3B6 07:D3A6: 69 FF     ADC #$FF
-C - - - - - 0x01D3B8 07:D3A8: 85 4D     STA ram_004D
+C - - - - - 0x01D3B8 07:D3A8: 85 4D     STA vCacheNoScreen
 C - - - - - 0x01D3BA 07:D3AA: 4C E5 D2  JMP loc_D2E5
 
 sub_D3AD:
@@ -3283,7 +3287,7 @@ C - - - - - 0x01D417 07:D407: B9 81 84  LDA tbl_background_screens + 1,Y ;
 C - - - - - 0x01D41A 07:D40A: 29 1F     AND #$1F                         ;
 C - - - - - 0x01D41C 07:D40C: 09 80     ORA #$80                         ;
 C - - - - - 0x01D41E 07:D40E: 85 0D     STA ram_000D                     ;
-C - - - - - 0x01D420 07:D410: A4 4D     LDY ram_004D                     ;
+C - - - - - 0x01D420 07:D410: A4 4D     LDY vCacheNoScreen               ;
 C - - - - - 0x01D422 07:D412: B1 0C     LDA (ram_000C),Y                 ;
 C - - - - - 0x01D424 07:D414: 85 4E     STA vBackgroundScreenInfo        ;
 C - - - - - 0x01D426 07:D416: A9 00     LDA #$00                         ;
@@ -3341,8 +3345,8 @@ C - - - - - 0x01D472 07:D462: 99 00 06  STA vCachePalette,Y        ;
 C - - - - - 0x01D475 07:D465: 88        DEY                        ; decrement x
 C - - - - - 0x01D476 07:D466: C0 0F     CPY #$0F                   ;
 C - - - - - 0x01D478 07:D468: D0 F6     BNE @bra_D460_loop         ; If Register Y != 0x0F
-C - - - - - 0x01D47A 07:D46A: A5 4B     LDA ram_004B
-C - - - - - 0x01D47C 07:D46C: 85 4D     STA ram_004D
+C - - - - - 0x01D47A 07:D46A: A5 4B     LDA vHighViewPortPosX
+C - - - - - 0x01D47C 07:D46C: 85 4D     STA vCacheNoScreen
 C - - - - - 0x01D47E 07:D46E: 20 F7 D3  JSR sub_D3F7_get_background_screen_info_address
 C - - - - - 0x01D481 07:D471: A0 06     LDY #$06                      ; 7th of 8 info bytes
 C - - - - - 0x01D483 07:D473: B1 4E     LDA (vBackgroundScreenInfo),Y ;
@@ -3358,22 +3362,22 @@ C - - - - - 0x01D492 07:D482: B1 02     LDA (ram_0002),Y              ;
 C - - - - - 0x01D494 07:D484: 99 AF 06  STA vCacheChrBankSelect,Y     ; prepares a cache for all CHR banks
 C - - - - - 0x01D497 07:D487: 88        DEY                           ; decrement y
 C - - - - - 0x01D498 07:D488: 10 F8     BPL @bra_D482_loop            ; If Register Y < 0xF0
-C - - - - - 0x01D49A 07:D48A: E6 4B     INC ram_004B
-C - - - - - 0x01D49C 07:D48C: E6 4B     INC ram_004B
-C - - - - - 0x01D49E 07:D48E: A5 27     LDA ram_0027
+C - - - - - 0x01D49A 07:D48A: E6 4B     INC vHighViewPortPosX
+C - - - - - 0x01D49C 07:D48C: E6 4B     INC vHighViewPortPosX
+C - - - - - 0x01D49E 07:D48E: A5 27     LDA vLowViewPortPosX
 C - - - - - 0x01D4A0 07:D490: 18        CLC
 C - - - - - 0x01D4A1 07:D491: 69 44     ADC #$44
-C - - - - - 0x01D4A3 07:D493: 85 27     STA ram_0027
-C - - - - - 0x01D4A5 07:D495: 90 02     BCC bra_D499
-C - - - - - 0x01D4A7 07:D497: E6 4B     INC ram_004B
-bra_D499:
-C - - - - - 0x01D4A9 07:D499: A5 4B     LDA ram_004B
-C - - - - - 0x01D4AB 07:D49B: 29 01     AND #$01
-C - - - - - 0x01D4AD 07:D49D: 09 08     ORA #$08
-C - - - - - 0x01D4AF 07:D49F: 85 26     STA vPpuCtrlSettings
-C - - - - - 0x01D4B1 07:D4A1: A9 91     LDA #$91
-bra_D4A3_repeat:                                      ; loop by x (145 times)
-C - - - - - 0x01D4B3 07:D4A3: 48        PHA
+C - - - - - 0x01D4A3 07:D493: 85 27     STA vLowViewPortPosX
+C - - - - - 0x01D4A5 07:D495: 90 02     BCC @bra_D499_skip            ; If vLowViewPortPosX + 0x44 haven't set carry flag
+C - - - - - 0x01D4A7 07:D497: E6 4B     INC vHighViewPortPosX
+@bra_D499_skip:
+C - - - - - 0x01D4A9 07:D499: A5 4B     LDA vHighViewPortPosX                 ; $2000 - for 0,2,4,6 ... screens, $2400 - for 1,3,5,7 ... screens
+C - - - - - 0x01D4AB 07:D49B: 29 01     AND #$01                              ; 
+C - - - - - 0x01D4AD 07:D49D: 09 08     ORA #$08                              ; Sprite pattern table address for 8x8 sprites - $1000 
+C - - - - - 0x01D4AF 07:D49F: 85 26     STA vPpuCtrlSettings                  ;
+C - - - - - 0x01D4B1 07:D4A1: A9 91     LDA #$91                              ; set loop counter
+bra_D4A3_repeat:                                                              ; loop by x (145 times)
+C - - - - - 0x01D4B3 07:D4A3: 48        PHA                                   ; store x
 C - - - - - 0x01D4B4 07:D4A4: A9 40     LDA #$40
 C - - - - - 0x01D4B6 07:D4A6: 85 48     STA ram_0048
 C - - - - - 0x01D4B8 07:D4A8: 20 95 D1  JSR sub_D195
@@ -3381,15 +3385,15 @@ C - - - - - 0x01D4BB 07:D4AB: 20 95 D1  JSR sub_D195
 C - - - - - 0x01D4BE 07:D4AE: 20 95 D1  JSR sub_D195
 C - - - - - 0x01D4C1 07:D4B1: 20 95 D1  JSR sub_D195
 C - - - - - 0x01D4C4 07:D4B4: 20 7F F0  JSR sub_F07F
-C - - - - - 0x01D4C7 07:D4B7: AD 31 06  LDA ram_0631
-C - - - - - 0x01D4CA 07:D4BA: F0 03     BEQ bra_D4BF_skip
-C - - - - - 0x01D4CC 07:D4BC: 20 1B D1  JSR sub_D11B_shared_render
+C - - - - - 0x01D4C7 07:D4B7: AD 31 06  LDA vHighPpuAddress                   ;
+C - - - - - 0x01D4CA 07:D4BA: F0 03     BEQ bra_D4BF_skip                     ; If high ppu address == 0x00
+C - - - - - 0x01D4CC 07:D4BC: 20 1B D1  JSR sub_D11B_shared_render            ;
 bra_D4BF_skip:
-C - - - - - 0x01D4CF 07:D4BF: 68        PLA
-C - - - - - 0x01D4D0 07:D4C0: AA        TAX
-C - - - - - 0x01D4D1 07:D4C1: CA        DEX
-C - - - - - 0x01D4D2 07:D4C2: 8A        TXA
-C - - - - - 0x01D4D3 07:D4C3: D0 DE     BNE bra_D4A3_repeat
+C - - - - - 0x01D4CF 07:D4BF: 68        PLA                                   ;
+C - - - - - 0x01D4D0 07:D4C0: AA        TAX                                   ; retrieve x ($D4A3)
+C - - - - - 0x01D4D1 07:D4C1: CA        DEX                                   ; decrement x
+C - - - - - 0x01D4D2 07:D4C2: 8A        TXA                                   ; 
+C - - - - - 0x01D4D3 07:D4C3: D0 DE     BNE bra_D4A3_repeat                   ; If Register X != 0
 C - - - - - 0x01D4D5 07:D4C5: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2      ;
 C - - - - - 0x01D4D8 07:D4C8: A5 46     LDA vNoSubLevel                       ;
 C - - - - - 0x01D4DA 07:D4CA: 0A        ASL                                   ; *2
@@ -3432,7 +3436,7 @@ C - - - - - 0x01D51D 07:D50D: A9 00     LDA #$00                           ; set
 C - - - - - 0x01D51F 07:D50F: 8D 07 20  STA PPU_DATA                       ; [$2000-$20FF] - in a black tile (a canvas of the message panel)
 C - - - - - 0x01D522 07:D512: C8        INY                                ; increment Y
 C - - - - - 0x01D523 07:D513: D0 FA     BNE @bra_D50F_loop                 ; If Register Y != 0
-C - - - - - 0x01D525 07:D515: AD 02 20  LDA PPU_STATUS
+C - - - - - 0x01D525 07:D515: AD 02 20  LDA PPU_STATUS                     ; read PPU status to reset the high/low latch
 C - - - - - 0x01D528 07:D518: A9 20     LDA #$20                           ;
 C - - - - - 0x01D52A 07:D51A: 8D 06 20  STA PPU_ADDRESS                    ;
 C - - - - - 0x01D52D 07:D51D: A9 E0     LDA #$E0                           ;
@@ -7923,9 +7927,9 @@ C - - - - - 0x01F091 07:F081: 30 25     BMI bra_F0A8_RTS                ; If 'th
 C - - - - - 0x01F093 07:F083: A2 00     LDX #$00
 C - - - - - 0x01F095 07:F085: A5 6C     LDA ram_006C
 C - - - - - 0x01F097 07:F087: 6A        ROR
-C - - - - - 0x01F098 07:F088: 90 02     BCC bra_F08C_skip
+C - - - - - 0x01F098 07:F088: 90 02     BCC @bra_F08C_skip
 C - - - - - 0x01F09A 07:F08A: A2 02     LDX #$02
-bra_F08C_skip:
+@bra_F08C_skip:
 C - - - - - 0x01F09C 07:F08C: 86 2C     STX v_low_counter
 C - - - - - 0x01F09E 07:F08E: 20 B2 F2  JSR sub_F2B2_try_generate_enemy ;
 C - - - - - 0x01F0A1 07:F091: 90 15     BCC bra_F0A8_RTS                ; If the generation is failed
