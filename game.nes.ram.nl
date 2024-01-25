@@ -32,6 +32,7 @@ $0049#vCurrentRoomLength#
 $004A#vNearCurrentRoomLength#
 $004B#vHighViewPortPosX#
 $004C#vTempHighViewPortPosX#
+$004D#vCacheNoScreen#
 $004E#vBackgroundScreenInfo#
 $004F#vHighBackgroundScreenInfo#
 $0056#vScore#
@@ -126,9 +127,10 @@ $0423#vSoundRowB_J#
 $0424#vSoundRowB_K#
 $0500#vRooms#
 $0600#vCachePalette#
-$0630#v_low_ppu_address#
-$0631#v_high_ppu_address#
+$0630#vLowPpuAddress#
+$0631#vHighPpuAddress#
 $0632#v_ppu_buffer_count#
+$0633#vPpuBufferData#
 $067B#vPpuAddrDataCache#
 $06AF#vCacheChrBankSelect#
 $06B5#vBankData#

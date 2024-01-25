@@ -16,8 +16,8 @@
 .import number_of_briefcases_on_the_level  ; bank 04 (Page 2)
 .import tbl_ptr_briefcases_on_the_level    ; bank 04 (Page 2)
 .import loc_AD80_activate_sound_manager    ; bank 02 (Page 1)
-.import loc_B234_get_vram_msg_address      ; bank 06 (Page 2)
-.import sub_B234_get_vram_msg_address      ; bank 06 (Page 2)
+.import loc_B234_add_message               ; bank 06 (Page 2)
+.import sub_B234_add_message               ; bank 06 (Page 2)
 .import loc_B255_display_message_by_letter ; bank 06 (Page 2)
 .import sub_BB2A_solve_secret_codes        ; bank 06 (Page 2)
 .import loc_BBA4_play_background_music     ; bank 06 (Page 2)
@@ -628,48 +628,48 @@ C - - - - - 0x01C42F 07:C41F: 60        RTS                 ;
 ; Register A - ???
 sub_C420_add_sound_effect:
 loc_C420_add_sound_effect:
-C D 2 - - - 0x01C430 07:C420: 85 12     STA ram_0012 ; put to cache vCacheRam12
-C - - - - - 0x01C432 07:C422: 8A        TXA ;
-C - - - - - 0x01C433 07:C423: 48        PHA ; store x
-C - - - - - 0x01C434 07:C424: 98        TYA ;
-C - - - - - 0x01C435 07:C425: 48        PHA ; store y
-C - - - - - 0x01C436 07:C426: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1
-C - - - - - 0x01C439 07:C429: A9 00     LDA #$00     ; Resolve an address: 0x8000 + ram_0012 * 4
-C - - - - - 0x01C43B 07:C42B: 06 12     ASL ram_0012 ;
-C - - - - - 0x01C43D 07:C42D: 2A        ROL          ;
-C - - - - - 0x01C43E 07:C42E: 06 12     ASL ram_0012 ;
-C - - - - - 0x01C440 07:C430: 2A        ROL          ;
-C - - - - - 0x01C441 07:C431: 85 13     STA ram_0013 ;
-C - - - - - 0x01C443 07:C433: A9 00     LDA #$00     ;
-C - - - - - 0x01C445 07:C435: 18        CLC          ;
-C - - - - - 0x01C446 07:C436: 65 12     ADC ram_0012 ;
-C - - - - - 0x01C448 07:C438: 85 12     STA ram_0012 ; Low address
-C - - - - - 0x01C44A 07:C43A: A9 80     LDA #$80     ; 
-C - - - - - 0x01C44C 07:C43C: 65 13     ADC ram_0013 ; High address
-C - - - - - 0x01C44E 07:C43E: 85 13     STA ram_0013 ; 
-C - - - - - 0x01C450 07:C440: A0 00     LDY #$00     ; to 1 byte of 4
+C D 2 - - - 0x01C430 07:C420: 85 12     STA ram_0012                  ; put to cache vCacheRam12
+C - - - - - 0x01C432 07:C422: 8A        TXA                           ;
+C - - - - - 0x01C433 07:C423: 48        PHA                           ; store x
+C - - - - - 0x01C434 07:C424: 98        TYA                           ;
+C - - - - - 0x01C435 07:C425: 48        PHA                           ; store y
+C - - - - - 0x01C436 07:C426: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1 ;
+C - - - - - 0x01C439 07:C429: A9 00     LDA #$00                      ; Resolve an address: 0x8000 + ram_0012 * 4
+C - - - - - 0x01C43B 07:C42B: 06 12     ASL ram_0012                  ;
+C - - - - - 0x01C43D 07:C42D: 2A        ROL                           ;
+C - - - - - 0x01C43E 07:C42E: 06 12     ASL ram_0012                  ;
+C - - - - - 0x01C440 07:C430: 2A        ROL                           ;
+C - - - - - 0x01C441 07:C431: 85 13     STA ram_0013                  ;
+C - - - - - 0x01C443 07:C433: A9 00     LDA #$00                      ;
+C - - - - - 0x01C445 07:C435: 18        CLC                           ;
+C - - - - - 0x01C446 07:C436: 65 12     ADC ram_0012                  ;
+C - - - - - 0x01C448 07:C438: 85 12     STA ram_0012                  ; Low address
+C - - - - - 0x01C44A 07:C43A: A9 80     LDA #$80                      ; 
+C - - - - - 0x01C44C 07:C43C: 65 13     ADC ram_0013                  ; High address
+C - - - - - 0x01C44E 07:C43E: 85 13     STA ram_0013                  ; 
+C - - - - - 0x01C450 07:C440: A0 00     LDY #$00                      ; to 1 byte of 4
 C - - - - - 0x01C452 07:C442: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01C454 07:C444: AA        TAX
-C - - - - - 0x01C455 07:C445: C8        INY          ; to 2 byte of 4
+C - - - - - 0x01C455 07:C445: C8        INY                           ; to 2 byte of 4
 C - - - - - 0x01C456 07:C446: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01C458 07:C448: 9D 11 04  STA vSoundRowB_1,X
-C - - - - - 0x01C45B 07:C44B: C8        INY          ; to 3 byte of 4
+C - - - - - 0x01C45B 07:C44B: C8        INY                           ; to 3 byte of 4
 C - - - - - 0x01C45C 07:C44C: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01C45E 07:C44E: 9D 12 04  STA vSoundRowB_2,X
-C - - - - - 0x01C461 07:C451: C8        INY          ; to 4 byte of 4
+C - - - - - 0x01C461 07:C451: C8        INY                           ; to 4 byte of 4
 C - - - - - 0x01C462 07:C452: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01C464 07:C454: 9D 13 04  STA vSoundRowB_3,X
 C - - - - - 0x01C467 07:C457: A9 00     LDA #$00
 C - - - - - 0x01C469 07:C459: 9D 10 04  STA vSoundRowB_0,X
-C - - - - - 0x01C46C 07:C45C: A9 06     LDA #$06
-C - - - - - 0x01C46E 07:C45E: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01C471 07:C461: AD B5 06  LDA vBankData
-C - - - - - 0x01C474 07:C464: 8D 01 80  STA MMC3_Bank_data ; switch vBankData (PRG) in 0x8000-09FFF
-C - - - - - 0x01C477 07:C467: 68        PLA
-C - - - - - 0x01C478 07:C468: A8        TAY ; retrieve y
-C - - - - - 0x01C479 07:C469: 68        PLA
-C - - - - - 0x01C47A 07:C46A: AA        TAX ; retrieve x
-C - - - - - 0x01C47B 07:C46B: 60        RTS
+C - - - - - 0x01C46C 07:C45C: A9 06     LDA #$06                      ;
+C - - - - - 0x01C46E 07:C45E: 8D 00 80  STA MMC3_Bank_select          ;
+C - - - - - 0x01C471 07:C461: AD B5 06  LDA vBankData                 ;
+C - - - - - 0x01C474 07:C464: 8D 01 80  STA MMC3_Bank_data            ; switch vBankData (PRG) in 0x8000-09FFF
+C - - - - - 0x01C477 07:C467: 68        PLA                           ;
+C - - - - - 0x01C478 07:C468: A8        TAY                           ; retrieve y
+C - - - - - 0x01C479 07:C469: 68        PLA                           ;
+C - - - - - 0x01C47A 07:C46A: AA        TAX                           ; retrieve x
+C - - - - - 0x01C47B 07:C46B: 60        RTS                           ;
 
 sub_C46C:
 C - - - - - 0x01C47C 07:C46C: A5 1C     LDA ram_001C
@@ -706,36 +706,36 @@ C - - - - - 0x01C4B3 07:C4A3: 45 1C     EOR ram_001C
 C - - - - - 0x01C4B5 07:C4A5: 85 1C     STA ram_001C
 bra_C4A7_read_io_controller:
 sub_C4A7_read_io_controller:
-C - - - - - 0x01C4B7 07:C4A7: A5 1E     LDA v_player1_btn_pressed
-C - - - - - 0x01C4B9 07:C4A9: 85 21     STA v_last_p1_btn_pressed
-C - - - - - 0x01C4BB 07:C4AB: A5 1F     LDA v_player2_btn_pressed
-C - - - - - 0x01C4BD 07:C4AD: 85 20     STA v_last_p2_btn_pressed
-C - - - - - 0x01C4BF 07:C4AF: A2 01     LDX #$01
-C - - - - - 0x01C4C1 07:C4B1: 8E 16 40  STX JOY1 ; Writes to instruct both controllers to start recording the current states of all pressed buttons)
-C - - - - - 0x01C4C4 07:C4B4: CA        DEX
-C - - - - - 0x01C4C5 07:C4B5: 8E 16 40  STX JOY1 ; Writes to stop recording button states so they can be read out
-C - - - - - 0x01C4C8 07:C4B8: A2 08     LDX #$08 ; The count of the buttons
-bra_C4BA_repeat:
-C - - - - - 0x01C4CA 07:C4BA: AD 16 40  LDA JOY1
-C - - - - - 0x01C4CD 07:C4BD: 29 03     AND #$03
-C - - - - - 0x01C4CF 07:C4BF: C9 01     CMP #$01
-C - - - - - 0x01C4D1 07:C4C1: 66 1E     ROR v_player1_btn_pressed
-C - - - - - 0x01C4D3 07:C4C3: AD 17 40  LDA JOY2
-C - - - - - 0x01C4D6 07:C4C6: 29 03     AND #$03
-C - - - - - 0x01C4D8 07:C4C8: C9 01     CMP #$01
-C - - - - - 0x01C4DA 07:C4CA: 66 1F     ROR v_player2_btn_pressed
-C - - - - - 0x01C4DC 07:C4CC: CA        DEX
-C - - - - - 0x01C4DD 07:C4CD: D0 EB     BNE bra_C4BA_repeat
+C - - - - - 0x01C4B7 07:C4A7: A5 1E     LDA v_player1_btn_pressed ;
+C - - - - - 0x01C4B9 07:C4A9: 85 21     STA v_last_p1_btn_pressed ; store a last button state (player1)
+C - - - - - 0x01C4BB 07:C4AB: A5 1F     LDA v_player2_btn_pressed ;
+C - - - - - 0x01C4BD 07:C4AD: 85 20     STA v_last_p2_btn_pressed ; store a last button state (player2)
+C - - - - - 0x01C4BF 07:C4AF: A2 01     LDX #$01                  ; 
+C - - - - - 0x01C4C1 07:C4B1: 8E 16 40  STX JOY1                  ; Writes to instruct both controllers to start recording the current states of all pressed buttons)
+C - - - - - 0x01C4C4 07:C4B4: CA        DEX                       ; 0x01 -> 0x00
+C - - - - - 0x01C4C5 07:C4B5: 8E 16 40  STX JOY1                  ; Writes to stop recording button states so they can be read out
+C - - - - - 0x01C4C8 07:C4B8: A2 08     LDX #$08                  ; The count of the buttons
+@bra_C4BA_loop:                                                   ; loop by x
+C - - - - - 0x01C4CA 07:C4BA: AD 16 40  LDA JOY1                  ;
+C - - - - - 0x01C4CD 07:C4BD: 29 03     AND #$03                  ;
+C - - - - - 0x01C4CF 07:C4BF: C9 01     CMP #$01                  ;
+C - - - - - 0x01C4D1 07:C4C1: 66 1E     ROR v_player1_btn_pressed ;
+C - - - - - 0x01C4D3 07:C4C3: AD 17 40  LDA JOY2                  ;
+C - - - - - 0x01C4D6 07:C4C6: 29 03     AND #$03                  ;
+C - - - - - 0x01C4D8 07:C4C8: C9 01     CMP #$01                  ;
+C - - - - - 0x01C4DA 07:C4CA: 66 1F     ROR v_player2_btn_pressed ; Standard Read for 2 Controllers and Famicom (https://www.nesdev.org/wiki/Controller_reading_code)
+C - - - - - 0x01C4DC 07:C4CC: CA        DEX                       ; decrement loop counter
+C - - - - - 0x01C4DD 07:C4CD: D0 EB     BNE @bra_C4BA_loop        ; If Register X != 0
 C - - - - - 0x01C4DF 07:C4CF: 60        RTS
 
 bra_C4D0_update_btn_pressed:
-C - - - - - 0x01C4E0 07:C4D0: 20 A7 C4  JSR sub_C4A7_read_io_controller
-C - - - - - 0x01C4E3 07:C4D3: A5 1E     LDA v_player1_btn_pressed
-C - - - - - 0x01C4E5 07:C4D5: 85 1C     STA vBtnPressedInGame
-C - - - - - 0x01C4E7 07:C4D7: 60        RTS
+C - - - - - 0x01C4E0 07:C4D0: 20 A7 C4  JSR sub_C4A7_read_io_controller ;
+C - - - - - 0x01C4E3 07:C4D3: A5 1E     LDA v_player1_btn_pressed       ;
+C - - - - - 0x01C4E5 07:C4D5: 85 1C     STA vBtnPressedInGame           ;
+C - - - - - 0x01C4E7 07:C4D7: 60        RTS                             ;
 
-sub_C4D8:
-C - - - - - 0x01C4E8 07:C4D8: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
+sub_C4D8_selectMessagesChrBanks:
+C - - - - - 0x01C4E8 07:C4D8: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks ;
 C - - - - - 0x01C4EB 07:C4DB: A5 3B     LDA vSharedGameStatus          ;  
 C - - - - - 0x01C4ED 07:C4DD: 6A        ROR                            ;
 C - - - - - 0x01C4EE 07:C4DE: 90 23     BCC bra_C503_RTS               ; Branch if no exist 'A screen with the message'
@@ -751,7 +751,7 @@ C - - - - - 0x01C504 07:C4F4: 60        RTS                            ;
 
 sub_C4F5_selectAllChrBanks:
 C - - - - - 0x01C505 07:C4F5: A2 05     LDX #$05                  ; set loop counter
-@bra_C4F7_loop:                                                   ; loop by x
+@bra_C4F7_loop:                                                   ; loop by x (6 times)
 C - - - - - 0x01C507 07:C4F7: 8E 00 80  STX MMC3_Bank_select      ;
 C - - - - - 0x01C50A 07:C4FA: BD AF 06  LDA vCacheChrBankSelect,X ;
 C - - - - - 0x01C50D 07:C4FD: 8D 01 80  STA MMC3_Bank_data        ;
@@ -791,16 +791,16 @@ C - - - - - 0x01C546 07:C536: 8D 05 20  STA PPU_SCROLL
 C - - - - - 0x01C549 07:C539: 4C 0F C3  JMP loc_C30F_screen_on
 
 sub_C53C_resolve_start_status:
-C - - - - - 0x01C54C 07:C53C: A5 3D     LDA vStartStatus  ;
-C - - - - - 0x01C54E 07:C53E: D0 0F     BNE bra_C54F_skip ; If Register A != 0x00
-C - - - - - 0x01C550 07:C540: A5 2C     LDA v_low_counter ;
-C - - - - - 0x01C552 07:C542: C9 40     CMP #$40          ; A time before message is shown
-C - - - - - 0x01C554 07:C544: D0 22     BNE bra_C568_RTS  ; If Register A != 0x40
-C - - - - - 0x01C556 07:C546: E6 3D     INC vStartStatus  ; 0 + 1 = 1
-C - - - - - 0x01C558 07:C548: A6 24     LDX vMenuDemoIndex
-C - - - - - 0x01C55A 07:C54A: E8        INX
-C - - - - - 0x01C55B 07:C54B: 8A        TXA
-C - - - - - 0x01C55C 07:C54C: 4C 34 B2  JMP loc_B234_get_vram_msg_address
+C - - - - - 0x01C54C 07:C53C: A5 3D     LDA vStartStatus         ;
+C - - - - - 0x01C54E 07:C53E: D0 0F     BNE bra_C54F_skip        ; If Register A != 0x00 (the message is typing)
+C - - - - - 0x01C550 07:C540: A5 2C     LDA v_low_counter        ;
+C - - - - - 0x01C552 07:C542: C9 40     CMP #$40                 ; A time before message is shown
+C - - - - - 0x01C554 07:C544: D0 22     BNE bra_C568_RTS         ; If Register A != 0x40
+C - - - - - 0x01C556 07:C546: E6 3D     INC vStartStatus         ; 0 + 1 = 1
+C - - - - - 0x01C558 07:C548: A6 24     LDX vMenuDemoIndex       ;
+C - - - - - 0x01C55A 07:C54A: E8        INX                      ; 
+C - - - - - 0x01C55B 07:C54B: 8A        TXA                      ; put vMenuDemoIndex + 1 as a message number
+C - - - - - 0x01C55C 07:C54C: 4C 34 B2  JMP loc_B234_add_message ;
 
 bra_C54F_skip:
 C - - - - - 0x01C55F 07:C54F: C9 01     CMP #$01          ; CONSTANT - The starting cutscene, during typing the message
@@ -7481,28 +7481,28 @@ tbl_ED49:
 - D 3 - - - 0x01ED5C 07:ED4C: 3A        .byte $3A
 - D 3 - - - 0x01ED5D 07:ED4D: 3E        .byte $3E
 vec_ED4E_NMI:
-C - - - - - 0x01ED5E 07:ED4E: 48        PHA ; store a
-C - - - - - 0x01ED5F 07:ED4F: 8A        TXA ;
-C - - - - - 0x01ED60 07:ED50: 48        PHA ; store x
-C - - - - - 0x01ED61 07:ED51: 98        TYA ; 
-C - - - - - 0x01ED62 07:ED52: 48        PHA ; store y
-C - - - - - 0x01ED63 07:ED53: AD 02 20  LDA PPU_STATUS  ; Read PPU status to reset the high/low latch
-C - - - - - 0x01ED66 07:ED56: A9 00     LDA #$00
-C - - - - - 0x01ED68 07:ED58: 8D 03 20  STA PPU_OAM_ADDR
-C - - - - - 0x01ED6B 07:ED5B: A9 07     LDA #$07
-C - - - - - 0x01ED6D 07:ED5D: 8D 14 40  STA OAM_DMA
-C - - - - - 0x01ED70 07:ED60: 20 D9 C3  JSR sub_C3D9_increment_nmi_counter
-C - - - - - 0x01ED73 07:ED63: 20 1B D1  JSR sub_D11B_shared_render
-C - - - - - 0x01ED76 07:ED66: A5 26     LDA vPpuCtrlSettings
-C - - - - - 0x01ED78 07:ED68: 29 FC     AND #$FC
-C - - - - - 0x01ED7A 07:ED6A: 8D 00 20  STA PPU_CTRL
-C - - - - - 0x01ED7D 07:ED6D: AD 02 20  LDA PPU_STATUS ; Read PPU status to reset the high/low latch
-C - - - - - 0x01ED80 07:ED70: A9 00     LDA #$00
-C - - - - - 0x01ED82 07:ED72: 8D 05 20  STA PPU_SCROLL ; write X scroll-position
-C - - - - - 0x01ED85 07:ED75: 8D 05 20  STA PPU_SCROLL ; write Y scroll-position
-C - - - - - 0x01ED88 07:ED78: 20 D8 C4  JSR sub_C4D8
-C - - - - - 0x01ED8B 07:ED7B: A5 3B     LDA vSharedGameStatus
-C - - - - - 0x01ED8D 07:ED7D: 10 03     BPL bra_ED82
+C - - - - - 0x01ED5E 07:ED4E: 48        PHA                                 ; store a
+C - - - - - 0x01ED5F 07:ED4F: 8A        TXA                                 ;
+C - - - - - 0x01ED60 07:ED50: 48        PHA                                 ; store x
+C - - - - - 0x01ED61 07:ED51: 98        TYA                                 ; 
+C - - - - - 0x01ED62 07:ED52: 48        PHA                                 ; store y
+C - - - - - 0x01ED63 07:ED53: AD 02 20  LDA PPU_STATUS                      ; Read PPU status to reset the high/low latch
+C - - - - - 0x01ED66 07:ED56: A9 00     LDA #$00                            ;
+C - - - - - 0x01ED68 07:ED58: 8D 03 20  STA PPU_OAM_ADDR                    ; DMA is used instead
+C - - - - - 0x01ED6B 07:ED5B: A9 07     LDA #$07                            ;
+C - - - - - 0x01ED6D 07:ED5D: 8D 14 40  STA OAM_DMA                         ; set 0x0700-0x07FF
+C - - - - - 0x01ED70 07:ED60: 20 D9 C3  JSR sub_C3D9_increment_nmi_counter  ;
+C - - - - - 0x01ED73 07:ED63: 20 1B D1  JSR sub_D11B_shared_render          ;
+C - - - - - 0x01ED76 07:ED66: A5 26     LDA vPpuCtrlSettings                ;
+C - - - - - 0x01ED78 07:ED68: 29 FC     AND #$FC                            ;
+C - - - - - 0x01ED7A 07:ED6A: 8D 00 20  STA PPU_CTRL                        ; switch $2000 (name table address)
+C - - - - - 0x01ED7D 07:ED6D: AD 02 20  LDA PPU_STATUS                      ; Read PPU status to reset the high/low latch
+C - - - - - 0x01ED80 07:ED70: A9 00     LDA #$00                            ;
+C - - - - - 0x01ED82 07:ED72: 8D 05 20  STA PPU_SCROLL                      ; write X scroll-position
+C - - - - - 0x01ED85 07:ED75: 8D 05 20  STA PPU_SCROLL                      ; write Y scroll-position
+C - - - - - 0x01ED88 07:ED78: 20 D8 C4  JSR sub_C4D8_selectMessagesChrBanks ;
+C - - - - - 0x01ED8B 07:ED7B: A5 3B     LDA vSharedGameStatus               ;
+C - - - - - 0x01ED8D 07:ED7D: 10 03     BPL bra_ED82                        ; Branch if it doesn't contain "Main Menu" 
 C - - - - - 0x01ED8F 07:ED7F: 4C 34 EE  JMP loc_EE34
 
 bra_ED82:
@@ -7562,7 +7562,7 @@ C - - - - - 0x01EDFE 07:EDEE: A9 07     LDA #$07                      ;
 C - - - - - 0x01EE00 07:EDF0: A2 04     LDX #$04                      ; 
 C - - - - - 0x01EE02 07:EDF2: 8D 00 80  STA MMC3_Bank_select          ;
 C - - - - - 0x01EE05 07:EDF5: 8E 01 80  STX MMC3_Bank_data            ; switch bank 02 (page 1) in 0xA000-0BFFF
-C - - - - - 0x01EE08 07:EDF8: 20 F0 FF  JSR sub_FFF0
+C - - - - - 0x01EE08 07:EDF8: 20 F0 FF  JSR sub_FFF0_update_sounds    ;
 C - - - - - 0x01EE0B 07:EDFB: 20 1A EF  JSR sub_EF1A_switch_bank_06_2 ;
 C - - - - - 0x01EE0E 07:EDFE: A9 00     LDA #$00                      ; CONSTANT - active
 C - - - - - 0x01EE10 07:EE00: 85 19     STA vRenderActive             ;
@@ -7712,28 +7712,28 @@ C D 3 - - - 0x01EF2A 07:EF1A: A9 07     LDA #$07              ;
 C - - - - - 0x01EF2C 07:EF1C: 8D 00 80  STA MMC3_Bank_select  ;
 C - - - - - 0x01EF2F 07:EF1F: A9 0D     LDA #$0D              ;
 C - - - - - 0x01EF31 07:EF21: 8D 01 80  STA MMC3_Bank_data    ; switch bank 06_2 in 0xA000-0BFFF
-C - - - - - 0x01EF34 07:EF24: 60        RTS
+C - - - - - 0x01EF34 07:EF24: 60        RTS                   ;
 
 sub_EF25_switch_bank_06_1:
 C - - - - - 0x01EF35 07:EF25: A9 07     LDA #$07             ;
 C - - - - - 0x01EF37 07:EF27: 8D 00 80  STA MMC3_Bank_select ;
 C - - - - - 0x01EF3A 07:EF2A: A9 0C     LDA #$0C             ;
 C - - - - - 0x01EF3C 07:EF2C: 8D 01 80  STA MMC3_Bank_data   ; switch bank 06_1 in 0xA000-0BFFF
-C - - - - - 0x01EF3F 07:EF2F: 60        RTS
+C - - - - - 0x01EF3F 07:EF2F: 60        RTS                  ;
 
 sub_EF30_switch_bank_3_p2:
 C - - - - - 0x01EF40 07:EF30: A9 07     LDA #$07             ;
 C - - - - - 0x01EF42 07:EF32: 8D 00 80  STA MMC3_Bank_select ;
 C - - - - - 0x01EF45 07:EF35: A9 07     LDA #$07             ;
 C - - - - - 0x01EF47 07:EF37: 8D 01 80  STA MMC3_Bank_data   ; switch bank 03 (page 2) in 0xA000-0BFFF
-C - - - - - 0x01EF4A 07:EF3A: 60        RTS
+C - - - - - 0x01EF4A 07:EF3A: 60        RTS                  ;
 
 sub_EF3B_switch_bank_2_p1:
 C - - - - - 0x01EF4B 07:EF3B: A9 06     LDA #$06             ;
 C - - - - - 0x01EF4D 07:EF3D: 8D 00 80  STA MMC3_Bank_select ;
 C - - - - - 0x01EF50 07:EF40: A9 04     LDA #$04             ; 
 C - - - - - 0x01EF52 07:EF42: 8D 01 80  STA MMC3_Bank_data   ; switch bank 02 (page 1) in 0x8000-09FFF
-C - - - - - 0x01EF55 07:EF45: 60        RTS
+C - - - - - 0x01EF55 07:EF45: 60        RTS                  ;
 
 sub_EF46_switch_bank_4_p1_p2:
 C - - - - - 0x01EF56 07:EF46: A9 06     LDA #$06               ;
@@ -7747,7 +7747,7 @@ C - - - - - 0x01EF64 07:EF54: A9 09     LDA #$09               ;
 bra_EF56_on_page1:
 C - - - - - 0x01EF66 07:EF56: 8D 01 80  STA MMC3_Bank_data     ; switch bank 04 (page 1 or 2) in 0x8000-09FFF
 C - - - - - 0x01EF69 07:EF59: 8D B5 06  STA vBankData          ; assign 0x08 or 0x09
-C - - - - - 0x01EF6C 07:EF5C: 60        RTS
+C - - - - - 0x01EF6C 07:EF5C: 60        RTS                    ;
 
 sub_EF5D_switch_variable_bank:
 loc_EF5D_switch_variable_bank:
@@ -10327,8 +10327,8 @@ tbl_FFE0:
 - - - - - - 0x01FFFD 07:FFED: FF        .byte $FF
 - - - - - - 0x01FFFE 07:FFEE: FF        .byte $FF
 - - - - - - 0x01FFFF 07:FFEF: FF        .byte $FF
-sub_FFF0:
-C - - - - - 0x020000 07:FFF0: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1
+sub_FFF0_update_sounds:
+C - - - - - 0x020000 07:FFF0: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1       ;
 C - - - - - 0x020003 07:FFF3: 4C 80 AD  JMP loc_AD80_activate_sound_manager
 
 - D 3 - - - 0x020006 07:FFF6: FF        .byte %11111111   ; The set of the features

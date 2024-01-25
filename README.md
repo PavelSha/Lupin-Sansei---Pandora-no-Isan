@@ -11,4 +11,4 @@ All rights reserved by モンキー・パンチ, NAMCO.
 -  Code bytes     - ***12.63%***
 -  Data bytes     - ***75.63%***
 -  Unknown bytes  - ***11.73%***
--  Code commented - ***14.42%***
+-  Code commented - ***15.38%***

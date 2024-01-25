@@ -34,8 +34,8 @@
 .import tbl_C1CA_checkpoint_on_start_levels ; bank FF
 .import sub_CE5A_render_character ; bank FF
 
-.export loc_B234_get_vram_msg_address
-.export sub_B234_get_vram_msg_address
+.export loc_B234_add_message
+.export sub_B234_add_message
 .export loc_B255_display_message_by_letter
 .export sub_BB2A_solve_secret_codes
 .export loc_BBA4_play_background_music
@@ -2586,7 +2586,7 @@ sub_B09A: ; from bank FF
 C - - - - - 0x01B0AA 06:B09A: A2 05     LDX #$05               ; set loop counter
 @bra_B09C_loop:                                                ; loop by x
 C - - - - - 0x01B0AC 06:B09C: BD 9E 03  LDA v_item_on_screen,X ;
-C - - - - - 0x01B0AF 06:B09F: 10 04     BPL bra_B0A5           ; If v_item_on_screen >= 0x00 && v_item_on_screen < 0xF0
+C - - - - - 0x01B0AF 06:B09F: 10 04     BPL bra_B0A5           ; If v_item_on_screen < 0xF0
 C - - - - - 0x01B0B1 06:B0A1: CA        DEX                    ; decrement loop counter
 C - - - - - 0x01B0B2 06:B0A2: D0 F8     BNE @bra_B09C_loop     ; If register X != 0x00
 bra_B0A4_RTS:
@@ -2816,24 +2816,25 @@ C - - - - - 0x01B23F 06:B22F: A2 14     LDX #$14
 bra_B231:
 C - - - - - 0x01B241 06:B231: 4C C2 DB  JMP $DBC2
 
-loc_B234_get_vram_msg_address:
-sub_B234_get_vram_msg_address:
-C D 1 - - - 0x01B244 06:B234: 48        PHA
+; In: Register A - a message number
+loc_B234_add_message:
+sub_B234_add_message:
+C D 1 - - - 0x01B244 06:B234: 48        PHA                           ; store a
 C - - - - - 0x01B245 06:B235: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ; bank FF
-C - - - - - 0x01B248 06:B238: 68        PLA
-C - - - - - 0x01B249 06:B239: 0A        ASL
-C - - - - - 0x01B24A 06:B23A: A8        TAY
-C - - - - - 0x01B24B 06:B23B: B9 00 80  LDA tbl_messages,Y ; Load messages (low address)
-C - - - - - 0x01B24E 06:B23E: 85 CB     STA v_low_vram_msg_address ; Store a low address
-C - - - - - 0x01B250 06:B240: B9 01 80  LDA tbl_messages + 1,Y ; Load messages (high address)
-C - - - - - 0x01B253 06:B243: 29 1F     AND #$1F
-C - - - - - 0x01B255 06:B245: 85 CC     STA v_hign_vram_msg_address ; Store a high address
-C - - - - - 0x01B257 06:B247: A9 80     LDA #$80               ; CONSTANT - the message is typing
-C - - - - - 0x01B259 06:B249: 85 C8     STA vMessageInProgress ;
-C - - - - - 0x01B25B 06:B24B: A9 00     LDA #$00               ;
-C - - - - - 0x01B25D 06:B24D: 85 CA     STA vMessageCounter    ; resets the counter
-C - - - - - 0x01B25F 06:B24F: 85 C9     STA v_letter_offset    ; in 0
-C - - - - - 0x01B261 06:B251: 60        RTS
+C - - - - - 0x01B248 06:B238: 68        PLA                           ; restore a
+C - - - - - 0x01B249 06:B239: 0A        ASL                           ; *2
+C - - - - - 0x01B24A 06:B23A: A8        TAY                           ;
+C - - - - - 0x01B24B 06:B23B: B9 00 80  LDA tbl_messages,Y            ; Load messages (low address)
+C - - - - - 0x01B24E 06:B23E: 85 CB     STA v_low_vram_msg_address    ; Store a low address
+C - - - - - 0x01B250 06:B240: B9 01 80  LDA tbl_messages + 1,Y        ; Load messages (high address)
+C - - - - - 0x01B253 06:B243: 29 1F     AND #$1F                      ;
+C - - - - - 0x01B255 06:B245: 85 CC     STA v_hign_vram_msg_address   ; Store a high address
+C - - - - - 0x01B257 06:B247: A9 80     LDA #$80                      ; CONSTANT - the message is typing
+C - - - - - 0x01B259 06:B249: 85 C8     STA vMessageInProgress        ;
+C - - - - - 0x01B25B 06:B24B: A9 00     LDA #$00                      ;
+C - - - - - 0x01B25D 06:B24D: 85 CA     STA vMessageCounter           ; resets the counter
+C - - - - - 0x01B25F 06:B24F: 85 C9     STA v_letter_offset           ; in 0
+C - - - - - 0x01B261 06:B251: 60        RTS                           ;
 
 bra_B252_return:
 C - - - - - 0x01B262 06:B252: 4C 71 C3  JMP loc_C371_update_palette
@@ -3145,7 +3146,7 @@ C - - - - - 0x01B46A 06:B45A: B6 60     LDX ram_0060,Y
 C - - - - - 0x01B46C 06:B45C: 20 03 B3  JSR sub_B303
 bra_B45F_skip:
 C - - - - - 0x01B46F 06:B45F: 68        PLA
-C - - - - - 0x01B470 06:B460: 4C 34 B2  JMP loc_B234_get_vram_msg_address
+C - - - - - 0x01B470 06:B460: 4C 34 B2  JMP loc_B234_add_message
 
 bra_B463_RTS:
 C - - - - - 0x01B473 06:B463: 60        RTS
@@ -3448,7 +3449,7 @@ C - - - - - 0x01B648 06:B638: 70 02     BVS bra_B63C
 - - - - - - 0x01B64A 06:B63A: A9        .byte $A9   ; 
 - - - - - - 0x01B64B 06:B63B: 7D        .byte $7D   ; 
 bra_B63C:
-C - - - - - 0x01B64C 06:B63C: 20 34 B2  JSR sub_B234_get_vram_msg_address
+C - - - - - 0x01B64C 06:B63C: 20 34 B2  JSR sub_B234_add_message
 C - - - - - 0x01B64F 06:B63F: E6 D8     INC ram_00D8
 C - - - - - 0x01B651 06:B641: D0 0D     BNE bra_B650
 C - - - - - 0x01B653 06:B643: A5 C8     LDA ram_00C8
@@ -3522,7 +3523,7 @@ C - - - - - 0x01B6E5 06:B6D5: A5 C8     LDA ram_00C8
 C - - - - - 0x01B6E7 06:B6D7: D0 16     BNE bra_B6EF_RTS
 C - - - - - 0x01B6E9 06:B6D9: A9 7C     LDA #$7C
 bra_B6DB:
-C - - - - - 0x01B6EB 06:B6DB: 20 34 B2  JSR sub_B234_get_vram_msg_address
+C - - - - - 0x01B6EB 06:B6DB: 20 34 B2  JSR sub_B234_add_message
 C - - - - - 0x01B6EE 06:B6DE: E6 D8     INC ram_00D8
 C - - - - - 0x01B6F0 06:B6E0: 60        RTS
 
@@ -3622,7 +3623,7 @@ bra_B78D:
 loc_B78D:
 C D 1 - - - 0x01B79D 06:B78D: 20 C3 B7  JSR sub_B7C3
 C - - - - - 0x01B7A0 06:B790: B9 A9 BC  LDA tbl_BCA9,Y
-C - - - - - 0x01B7A3 06:B793: 20 34 B2  JSR sub_B234_get_vram_msg_address
+C - - - - - 0x01B7A3 06:B793: 20 34 B2  JSR sub_B234_add_message
 C - - - - - 0x01B7A6 06:B796: 20 4F EF  JSR $EF4F
 C - - - - - 0x01B7A9 06:B799: A4 11     LDY ram_0011
 C - - - - - 0x01B7AB 06:B79B: A9 00     LDA #$00

@@ -296,6 +296,7 @@ $C422##--NO-COMMENT--
 $C423##store x
 $C424##--NO-COMMENT--
 $C425##store y
+$C426##--NO-COMMENT--
 $C429##Resolve an address: 0x8000 + ram_0012 * 4
 $C42B##--NO-COMMENT--
 $C42D##--NO-COMMENT--
@@ -313,19 +314,42 @@ $C440##to 1 byte of 4
 $C445##to 2 byte of 4
 $C44B##to 3 byte of 4
 $C451##to 4 byte of 4
+$C45C##--NO-COMMENT--
+$C45E##--NO-COMMENT--
+$C461##--NO-COMMENT--
 $C464##switch vBankData (PRG) in 0x8000-09FFF
+$C467##--NO-COMMENT--
 $C468##retrieve y
+$C469##--NO-COMMENT--
 $C46A##retrieve x
+$C46B##--NO-COMMENT--
 $C46C#sub_C46C#
 $C472##Branch If in game
 $C499#bra_C499#
-$C4A7#sub_C4A7_read_io_controller#
+$C4A7#sub_C4A7_read_io_controller#--NO-COMMENT--
+$C4A9##store a last button state (player1)
+$C4AB##--NO-COMMENT--
+$C4AD##store a last button state (player2)
+$C4AF##--NO-COMMENT--
 $C4B1##Writes to instruct both controllers to start recording the current states of all pressed buttons)
+$C4B4##0x01 -> 0x00
 $C4B5##Writes to stop recording button states so they can be read out
 $C4B8##The count of the buttons
-$C4BA#bra_C4BA_repeat#
-$C4D0#bra_C4D0_update_btn_pressed#
-$C4D8#sub_C4D8#
+$C4BA#@bra_C4BA_loop#--NO-COMMENT--
+$C4BD##--NO-COMMENT--
+$C4BF##--NO-COMMENT--
+$C4C1##--NO-COMMENT--
+$C4C3##--NO-COMMENT--
+$C4C6##--NO-COMMENT--
+$C4C8##--NO-COMMENT--
+$C4CA##Standard Read for 2 Controllers and Famicom (https://www.nesdev.org/wiki/Controller_reading_code)
+$C4CC##decrement loop counter
+$C4CD##If Register X != 0
+$C4D0#bra_C4D0_update_btn_pressed#--NO-COMMENT--
+$C4D3##--NO-COMMENT--
+$C4D5##--NO-COMMENT--
+$C4D7##--NO-COMMENT--
+$C4D8#sub_C4D8_selectMessagesChrBanks#--NO-COMMENT--
 $C4DB##--NO-COMMENT--
 $C4DD##--NO-COMMENT--
 $C4DE##Branch if no exist 'A screen with the message'
@@ -360,11 +384,15 @@ $C51B##--NO-COMMENT--
 $C51D##--NO-COMMENT--
 $C51E#sub_C51E#
 $C53C#sub_C53C_resolve_start_status#--NO-COMMENT--
-$C53E##If Register A != 0x00
+$C53E##If Register A != 0x00 (the message is typing)
 $C540##--NO-COMMENT--
 $C542##A time before message is shown
 $C544##If Register A != 0x40
 $C546##0 + 1 = 1
+$C548##--NO-COMMENT--
+$C54A##--NO-COMMENT--
+$C54B##put vMenuDemoIndex + 1 as a message number
+$C54C##--NO-COMMENT--
 $C54F#bra_C54F_skip#CONSTANT - The starting cutscene, during typing the message
 $C551##If Register A == 0x01
 $C553##A time between the message and menu
@@ -1079,25 +1107,65 @@ $D0CD##--NO-COMMENT--
 $D0CE##--NO-COMMENT--
 $D0CF##--NO-COMMENT--
 $D0D1##--NO-COMMENT--
-$D0D3#bra_D0D3#
-$D0EA#loc_D0EA#
-$D0F6#bra_D0F6#
-$D116#bra_D116#
+$D0D2##--NO-COMMENT--
+$D0D3#bra_D0D3_alternative_mode#negative oount -> positive value
+$D0D5##--NO-COMMENT--
+$D0D8##high ppu address -> $0000
+$D0DA##low ppu address ->  $0001
+$D0DC##--NO-COMMENT--
+$D0DE##set vertical increment per CPU read/write of PPUDATA (increment 32)
+$D0E0##--NO-COMMENT--
+$D0E3##--NO-COMMENT--
+$D0E6##ppu buffer count -> $0002
+$D0E8##--NO-COMMENT--
+$D0EA#loc_D0EA_loop#--NO-COMMENT--
+$D0EC##--NO-COMMENT--
+$D0EF##--NO-COMMENT--
+$D0F1##PPU address by ($0000)
+$D0F6#@bra_D0F6_loop#--NO-COMMENT--
+$D0F9##--NO-COMMENT--
+$D0FC##--NO-COMMENT--
+$D0FD##decrement count
+$D0FF##If count == 0x00
+$D101##increment y
+$D102##If Register Y != 0
+$D116#bra_D116_skip#increment low ppu address
+$D118##--NO-COMMENT--
 $D11B#sub_D11B_shared_render#--NO-COMMENT--
 $D11D##Branch If the render isn't activated
+$D11F##--NO-COMMENT--
+$D122##If high ppu address == 0x00
+$D124##--NO-COMMENT--
+$D126##--NO-COMMENT--
 $D129##writes high byte
 $D12C##writes low byte
-$D137##Sprite tile select (bit S)
-$D13F#bra_D13F_skip#
-$D143#bra_D143_repeat#
+$D12F##--NO-COMMENT--
+$D132##If positive value - a horiz inrement, else a vert increment
+$D134##store count
+$D135##--NO-COMMENT--
+$D137##vertical increment per CPU read/write of PPUDATA (increment 32)
+$D139##--NO-COMMENT--
+$D13C##retrieve count ($D134)
+$D13D##negative oount -> positive value
+$D13F#@bra_D13F_skip#set loop counter
+$D141##--NO-COMMENT--
+$D143#@bra_D143_loop#--NO-COMMENT--
+$D146##--NO-COMMENT--
+$D149##--NO-COMMENT--
+$D14A##decrement ram_0000
 $D14C##If ram_0000 != 0
-$D14E#bra_D14E_skip#
-$D158#bra_D158_RTS#
-$D159#bra_D159#--NO-COMMENT--
+$D14E#bra_D14E_clear#--NO-COMMENT--
+$D150##clear
+$D153##--NO-COMMENT--
+$D155##retrieve ppu ctrl
+$D158#bra_D158_RTS#--NO-COMMENT--
+$D159#bra_D159_ppu_cache#--NO-COMMENT--
 $D15B##--NO-COMMENT--
 $D15C##Branch if v_low_counter doesn't multiple of 2
-$D15E#bra_D15E#
-$D161##If vSharedGameStatus was 0bXXXXXXX0
+$D15E#bra_D15E_message#--NO-COMMENT--
+$D160##--NO-COMMENT--
+$D161##Branch if no exist 'A screen with the message'
+$D163##--NO-COMMENT--
 $D166#bra_D166_skip#
 $D169#bra_D169_render_ppu_cache#--NO-COMMENT--
 $D16C##Branch If the is empty (0x00 - first byte)
@@ -1112,15 +1180,20 @@ $D17D##3 + offs of N
 $D17E##--NO-COMMENT--
 $D181##--NO-COMMENT--
 $D184##4 + offs of N
-$D185#bra_D185_loop#--NO-COMMENT--
+$D185#@bra_D185_loop#--NO-COMMENT--
 $D188##--NO-COMMENT--
 $D18B##--NO-COMMENT--
 $D18C##decrement y (the count)
 $D18D##Branch If Register Y != 0
 $D18F##Always true
-$D191#bra_D191_skip#
+$D191#bra_D191_exit#clear (set 0x00)
+$D194##--NO-COMMENT--
 $D195#loc_D195#
-$D1AC#bra_D1AC#
+$D1AC#bra_D1AC_decrement_screen#--NO-COMMENT--
+$D1AE##switch $2000 -> $2400 or $2400 -> $2000 (name table address)
+$D1B0##--NO-COMMENT--
+$D1B2##--NO-COMMENT--
+$D1B4##--NO-COMMENT--
 $D1B5#bra_D1B5#
 $D1BC#bra_D1BC#
 $D1C3#bra_D1C3#
@@ -1134,7 +1207,7 @@ $D201#bra_D201#
 $D203#loc_D203#
 $D217#bra_D217#
 $D25D#bra_D25D#
-$D28B#bra_D28B#
+$D28B#@bra_D28B_skip#
 $D2A0#loc_D2A0#
 $D2B0#bra_D2B0#
 $D2B3#bra_D2B3#
@@ -1259,9 +1332,21 @@ $D482#@bra_D482_loop#--NO-COMMENT--
 $D484##prepares a cache for all CHR banks
 $D487##decrement y
 $D488##If Register Y < 0xF0
-$D499#bra_D499#
-$D4A3#bra_D4A3_repeat#
-$D4BF#bra_D4BF_skip#
+$D495##If vLowViewPortPosX + 0x44 haven't set carry flag
+$D499#@bra_D499_skip#$2000 - for 0,2,4,6 ... screens, $2400 - for 1,3,5,7 ... screens
+$D49B##--NO-COMMENT--
+$D49D##Sprite pattern table address for 8x8 sprites - $1000
+$D49F##--NO-COMMENT--
+$D4A1##set loop counter
+$D4A3#bra_D4A3_repeat#store x
+$D4B7##--NO-COMMENT--
+$D4BA##If high ppu address == 0x00
+$D4BC##--NO-COMMENT--
+$D4BF#bra_D4BF_skip#--NO-COMMENT--
+$D4C0##retrieve x ($D4A3)
+$D4C1##decrement x
+$D4C2##--NO-COMMENT--
+$D4C3##If Register X != 0
 $D4C5##--NO-COMMENT--
 $D4C8##--NO-COMMENT--
 $D4CA##*2
@@ -1292,6 +1377,7 @@ $D50D##set assigned value, CONSTANT - A black tile
 $D50F#@bra_D50F_loop#[$2000-$20FF] - in a black tile (a canvas of the message panel)
 $D512##increment Y
 $D513##If Register Y != 0
+$D515##read PPU status to reset the high/low latch
 $D518##--NO-COMMENT--
 $D51A##--NO-COMMENT--
 $D51D##--NO-COMMENT--
@@ -1971,9 +2057,22 @@ $ED50##store x
 $ED51##--NO-COMMENT--
 $ED52##store y
 $ED53##Read PPU status to reset the high/low latch
+$ED56##--NO-COMMENT--
+$ED58##DMA is used instead
+$ED5B##--NO-COMMENT--
+$ED5D##set 0x0700-0x07FF
+$ED60##--NO-COMMENT--
+$ED63##--NO-COMMENT--
+$ED66##--NO-COMMENT--
+$ED68##--NO-COMMENT--
+$ED6A##switch $2000 (name table address)
 $ED6D##Read PPU status to reset the high/low latch
+$ED70##--NO-COMMENT--
 $ED72##write X scroll-position
 $ED75##write Y scroll-position
+$ED78##--NO-COMMENT--
+$ED7B##--NO-COMMENT--
+$ED7D##Branch if it doesn't contain "Main Menu"
 $ED82#bra_ED82#
 $ED89#bra_ED89#--NO-COMMENT--
 $ED8C#@bra_ED8C_wait#--NO-COMMENT--
@@ -2002,6 +2101,7 @@ $EDEE##--NO-COMMENT--
 $EDF0##--NO-COMMENT--
 $EDF2##--NO-COMMENT--
 $EDF5##switch bank 02 (page 1) in 0xA000-0BFFF
+$EDF8##--NO-COMMENT--
 $EDFB##--NO-COMMENT--
 $EDFE##CONSTANT - active
 $EE00##--NO-COMMENT--
@@ -2050,18 +2150,22 @@ $EF1A#loc_EF1A_switch_bank_06_2#--NO-COMMENT--
 $EF1C##--NO-COMMENT--
 $EF1F##--NO-COMMENT--
 $EF21##switch bank 06_2 in 0xA000-0BFFF
+$EF24##--NO-COMMENT--
 $EF25#sub_EF25_switch_bank_06_1#--NO-COMMENT--
 $EF27##--NO-COMMENT--
 $EF2A##--NO-COMMENT--
 $EF2C##switch bank 06_1 in 0xA000-0BFFF
+$EF2F##--NO-COMMENT--
 $EF30#sub_EF30_switch_bank_3_p2#--NO-COMMENT--
 $EF32##--NO-COMMENT--
 $EF35##--NO-COMMENT--
 $EF37##switch bank 03 (page 2) in 0xA000-0BFFF
+$EF3A##--NO-COMMENT--
 $EF3B#sub_EF3B_switch_bank_2_p1#--NO-COMMENT--
 $EF3D##--NO-COMMENT--
 $EF40##--NO-COMMENT--
 $EF42##switch bank 02 (page 1) in 0x8000-09FFF
+$EF45##--NO-COMMENT--
 $EF46#sub_EF46_switch_bank_4_p1_p2#--NO-COMMENT--
 $EF48##--NO-COMMENT--
 $EF4B##--NO-COMMENT--
@@ -2071,6 +2175,7 @@ $EF51##--NO-COMMENT--
 $EF54##--NO-COMMENT--
 $EF56#bra_EF56_on_page1#switch bank 04 (page 1 or 2) in 0x8000-09FFF
 $EF59##assign 0x08 or 0x09
+$EF5C##--NO-COMMENT--
 $EF5D#loc_EF5D_switch_variable_bank#--NO-COMMENT--
 $EF5F##--NO-COMMENT--
 $EF62##--NO-COMMENT--
@@ -2130,7 +2235,7 @@ $F07C##If Register A < 0xF0
 $F07E##--NO-COMMENT--
 $F07F#sub_F07F#--NO-COMMENT--
 $F081##If 'the character is moving in the water'
-$F08C#bra_F08C_skip#
+$F08C#@bra_F08C_skip#
 $F08E##--NO-COMMENT--
 $F091##If the generation is failed
 $F093##type of an enemy
@@ -2599,7 +2704,7 @@ $FF35#@bra_FF35_loop#
 $FF55#sub_FF55#
 $FFA0#tbl_FFA0#
 $FFE0#tbl_FFE0#
-$FFF0#sub_FFF0#
+$FFF0#sub_FFF0_update_sounds#--NO-COMMENT--
 $FFF6##The set of the features
 $FFF7##not used ???
 $FFF8##not used ???
