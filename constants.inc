@@ -118,6 +118,12 @@ vCharacterSelectionCounter    = ram_003D ; If 0x00 - no selection else selection
 v_npc_message_status          = ram_0041
 ; 83 - npc is saying the message 
 ; C3 - npc said the message 
+
+; ram_0042 - ???
+; 0x80 N - the character is looking to the left
+; 0x00 N - the character is looking to the right
+
+
 vCurrentNumberSprite          = ram_0043
 v_copy_current_number_sprite  = ram_0044
 vCharacterRenderData          = ram_0045
@@ -627,3 +633,8 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; "^\(.*\)\s\n" -> "\n"
 ; $02: -> Tab
 ; $06: -> Tab
+
+; "^\$06:.+\n" -> ""
+; "^\$02:.+\n" -> ""
+; "f\d+\s+\$06:.+\n" -> ""
+; "f\d+\s+\$02:.+\n" -> ""

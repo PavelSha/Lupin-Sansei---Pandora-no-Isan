@@ -4667,10 +4667,10 @@ tbl_DC6F:
 - D 2 - - - 0x01DC81 07:DC71: 0C        .byte $0C
 
 bra_DC72_skip:
-C - - - - - 0x01DC82 07:DC72: A5 6C     LDA vChrStatus    ;
-C - - - - - 0x01DC84 07:DC74: 6A        ROR               ;
-C - - - - - 0x01DC85 07:DC75: 90 05     BCC bra_DC7C_skip ;
-C - - - - - 0x01DC87 07:DC77: C6 6C     DEC vChrStatus    ; Changes a status to 'right'
+C - - - - - 0x01DC82 07:DC72: A5 6C     LDA vChrStatus              ;
+C - - - - - 0x01DC84 07:DC74: 6A        ROR                         ;
+C - - - - - 0x01DC85 07:DC75: 90 05     BCC bra_DC7C_skip           ;
+C - - - - - 0x01DC87 07:DC77: C6 6C     DEC vChrStatus              ; Changes a status to 'right'
 C D 2 - - - 0x01DC89 07:DC79: 20 F1 DC  JSR sub_DCF1_reset_velocity
 bra_DC7C_skip:
 C - - - - - 0x01DC8C 07:DC7C: 20 E5 DC  JSR sub_DCE5
@@ -4709,13 +4709,14 @@ C - - - - - 0x01DCB6 07:DCA6: 85 70     STA ram_0070
 bra_DCA8_RTS:
 C - - - - - 0x01DCB8 07:DCA8: 60        RTS
 
-sub_DCA9:
-loc_DCA9:
-C D 2 - - - 0x01DCB9 07:DCA9: A5 66     LDA ram_0066
-C - - - - - 0x01DCBB 07:DCAB: 38        SEC
-C - - - - - 0x01DCBC 07:DCAC: E5 27     SBC ram_0027
-C - - - - - 0x01DCBE 07:DCAE: 85 64     STA vScreenChrPosX
-C - - - - - 0x01DCC0 07:DCB0: 60        RTS
+; Out: Register A - vScreenChrPosX
+sub_DCA9_calc_ScreenChrPosX:
+loc_DCA9_calc_ScreenChrPosX:
+C D 2 - - - 0x01DCB9 07:DCA9: A5 66     LDA vLowChrPosX      ;
+C - - - - - 0x01DCBB 07:DCAB: 38        SEC                  ;
+C - - - - - 0x01DCBC 07:DCAC: E5 27     SBC vLowViewPortPosX ;
+C - - - - - 0x01DCBE 07:DCAE: 85 64     STA vScreenChrPosX   ;
+C - - - - - 0x01DCC0 07:DCB0: 60        RTS                  ;
 
 sub_DCB1:
 C - - - - - 0x01DCC1 07:DCB1: 20 34 DD  JSR sub_DD34
@@ -4733,7 +4734,7 @@ C - - - - - 0x01DCD0 07:DCC0: A5 68     LDA ram_0068
 C - - - - - 0x01DCD2 07:DCC2: E9 00     SBC #$00
 C - - - - - 0x01DCD4 07:DCC4: 90 F4     BCC bra_DCBA_RTS
 C - - - - - 0x01DCD6 07:DCC6: 20 D7 DC  JSR sub_DCD7
-C - - - - - 0x01DCD9 07:DCC9: 20 A9 DC  JSR sub_DCA9
+C - - - - - 0x01DCD9 07:DCC9: 20 A9 DC  JSR sub_DCA9_calc_ScreenChrPosX
 C - - - - - 0x01DCDC 07:DCCC: C9 70     CMP #$70
 C - - - - - 0x01DCDE 07:DCCE: B0 EA     BCS bra_DCBA_RTS
 C - - - - - 0x01DCE0 07:DCD0: A9 40     LDA #$40
@@ -4751,8 +4752,8 @@ C - - - - - 0x01DCF2 07:DCE2: 85 68     STA ram_0068
 C - - - - - 0x01DCF4 07:DCE4: 60        RTS
 
 sub_DCE5:
-C - - - - - 0x01DCF5 07:DCE5: 20 19 DD  JSR sub_DD19
-C - - - - - 0x01DCF8 07:DCE8: F0 07     BEQ bra_DCF1_reset_velocity
+C - - - - - 0x01DCF5 07:DCE5: 20 19 DD  JSR sub_DD19                ;
+C - - - - - 0x01DCF8 07:DCE8: F0 07     BEQ bra_DCF1_reset_velocity ; If the movement to the right is not allowed
 C - - - - - 0x01DCFA 07:DCEA: A9 00     LDA #$00
 bra_DCEC:
 C - - - - - 0x01DCFC 07:DCEC: 85 42     STA ram_0042
@@ -4768,17 +4769,17 @@ C - - - - - 0x01DD07 07:DCF7: 85 71     STA vVelocity      ;
 C - - - - - 0x01DD09 07:DCF9: 60        RTS                ;
 
 loc_DCFA:
-C D 2 - - - 0x01DD0A 07:DCFA: A5 66     LDA ram_0066
-C - - - - - 0x01DD0C 07:DCFC: 38        SEC
-C - - - - - 0x01DD0D 07:DCFD: E9 F0     SBC #$F0
-C - - - - - 0x01DD0F 07:DCFF: A5 68     LDA ram_0068
-C - - - - - 0x01DD11 07:DD01: E5 4A     SBC vNearCurrentRoomLength
-C - - - - - 0x01DD13 07:DD03: B0 B5     BCS bra_DCBA_RTS
-C - - - - - 0x01DD15 07:DD05: E6 66     INC ram_0066
-C - - - - - 0x01DD17 07:DD07: D0 02     BNE bra_DD0B
-C - - - - - 0x01DD19 07:DD09: E6 68     INC ram_0068
-bra_DD0B:
-C - - - - - 0x01DD1B 07:DD0B: 20 A9 DC  JSR sub_DCA9
+C D 2 - - - 0x01DD0A 07:DCFA: A5 66     LDA vLowChrPosX             ;
+C - - - - - 0x01DD0C 07:DCFC: 38        SEC                         ;
+C - - - - - 0x01DD0D 07:DCFD: E9 F0     SBC #$F0                    ; CONSTANT - The character should be visible in its entirety on the right
+C - - - - - 0x01DD0F 07:DCFF: A5 68     LDA vNoScreen               ;
+C - - - - - 0x01DD11 07:DD01: E5 4A     SBC vNearCurrentRoomLength  ;
+C - - - - - 0x01DD13 07:DD03: B0 B5     BCS bra_DCBA_RTS            ; Branch If the character reach the end of the room
+C - - - - - 0x01DD15 07:DD05: E6 66     INC vLowChrPosX             ;
+C - - - - - 0x01DD17 07:DD07: D0 02     BNE @bra_DD0B_skip          ; If the character doesn't move from one screen to another
+C - - - - - 0x01DD19 07:DD09: E6 68     INC vNoScreen               ;
+@bra_DD0B_skip:
+C - - - - - 0x01DD1B 07:DD0B: 20 A9 DC  JSR sub_DCA9_calc_ScreenChrPosX
 C - - - - - 0x01DD1E 07:DD0E: C9 90     CMP #$90
 C - - - - - 0x01DD20 07:DD10: 90 A8     BCC bra_DCBA_RTS
 sub_DD12:
@@ -4786,10 +4787,11 @@ C - - - - - 0x01DD22 07:DD12: A9 80     LDA #$80
 C - - - - - 0x01DD24 07:DD14: 85 48     STA ram_0048
 C - - - - - 0x01DD26 07:DD16: 4C 95 D1  JMP loc_D195
 
+; Out: If flag Z = 1 then movement to the right is not allowed
 sub_DD19:
-C - - - - - 0x01DD29 07:DD19: A5 5E     LDA v_no_level
-C - - - - - 0x01DD2B 07:DD1B: C9 03     CMP #$03
-C - - - - - 0x01DD2D 07:DD1D: D0 0A     BNE bra_DD29_skip
+C - - - - - 0x01DD29 07:DD19: A5 5E     LDA v_no_level                             ;
+C - - - - - 0x01DD2B 07:DD1B: C9 03     CMP #$03                                   ; CONSTANT - level 4 or level-racing
+C - - - - - 0x01DD2D 07:DD1D: D0 0A     BNE bra_DD29_skip                          ; If Register A != 0x03
 C - - - - - 0x01DD2F 07:DD1F: A9 E1     LDA #$E1
 C - - - - - 0x01DD31 07:DD21: 20 6F D9  JSR sub_D96F_init_relative_chr_positions
 C - - - - - 0x01DD34 07:DD24: 20 2C DD  JSR sub_DD2C
@@ -4797,7 +4799,7 @@ C - - - - - 0x01DD37 07:DD27: F0 0A     BEQ bra_DD33_RTS
 bra_DD29_skip:
 C - - - - - 0x01DD39 07:DD29: 20 6D D9  JSR sub_D96D_init_absolute_chr_positions
 sub_DD2C:
-C - - - - - 0x01DD3C 07:DD2C: A9 08     LDA #$08
+C - - - - - 0x01DD3C 07:DD2C: A9 08     LDA #$08                                   ; an increment by posX
 C - - - - - 0x01DD3E 07:DD2E: 20 97 D3  JSR sub_D397
 C - - - - - 0x01DD41 07:DD31: C9 01     CMP #$01
 bra_DD33_RTS:
@@ -6181,7 +6183,7 @@ C - - - - - 0x01E543 07:E533: 60        RTS
 
 loc_E534:
 sub_E534:
-C D 3 - - - 0x01E544 07:E534: A5 71     LDA ram_0071
+C D 3 - - - 0x01E544 07:E534: A5 71     LDA vVelocity
 loc_E536:
 C D 3 - - - 0x01E546 07:E536: C9 02     CMP #$02
 C - - - - - 0x01E548 07:E538: 90 41     BCC bra_E57B
@@ -6212,16 +6214,16 @@ C - - - - - 0x01E573 07:E563: F0 1C     BEQ bra_E581_RTS
 bra_E565:
 sub_E565:
 loc_E565:
-C D 3 - - - 0x01E575 07:E565: A5 6D     LDA vMovableChrStatus
-C - - - - - 0x01E577 07:E567: 29 20     AND #$20
-C - - - - - 0x01E579 07:E569: F0 02     BEQ bra_E56D
-C - - - - - 0x01E57B 07:E56B: E6 6A     INC ram_006A
-bra_E56D:
+C D 3 - - - 0x01E575 07:E565: A5 6D     LDA vMovableChrStatus ;
+C - - - - - 0x01E577 07:E567: 29 20     AND #$20              ;
+C - - - - - 0x01E579 07:E569: F0 02     BEQ @bra_E56D_skip    ; Branch If the character isn't moving on the roof pitch
+C - - - - - 0x01E57B 07:E56B: E6 6A     INC vScreenChrPosY    ;
+@bra_E56D_skip:
 C - - - - - 0x01E57D 07:E56D: A5 42     LDA ram_0042
-C - - - - - 0x01E57F 07:E56F: 30 03     BMI bra_E574
+C - - - - - 0x01E57F 07:E56F: 30 03     BMI bra_E574_skip
 C - - - - - 0x01E581 07:E571: 4C FA DC  JMP loc_DCFA
 
-bra_E574:
+bra_E574_skip:
 C - - - - - 0x01E584 07:E574: 4C BB DC  JMP loc_DCBB
 
 bra_E577:
@@ -6993,7 +6995,7 @@ C - - - - - 0x01EA65 07:EA55: 85 66     STA ram_0066
 C - - - - - 0x01EA67 07:EA57: A5 01     LDA ram_0001
 C - - - - - 0x01EA69 07:EA59: 85 68     STA ram_0068
 bra_EA5B:
-C - - - - - 0x01EA6B 07:EA5B: 4C A9 DC  JMP loc_DCA9
+C - - - - - 0x01EA6B 07:EA5B: 4C A9 DC  JMP loc_DCA9_calc_ScreenChrPosX
 
 sub_EA5E:
 C - - - - - 0x01EA6E 07:EA5E: A5 71     LDA ram_0071

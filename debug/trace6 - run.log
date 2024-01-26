@@ -1,0 +1,836 @@
+FCEUX 2.6.6-interim git58b87387eb934976373f5febbf85261fa427c30e - Trace Log File
+(6157516 lines skipped)
+f634    $07:C442: B1 12     LDA ($12),Y @ $8000 = #$54                   A:80 X:FF Y:00 S:F9 P:nvUbdIZc 
+(2 lines skipped)
+f634    $07:C446: B1 12     LDA ($12),Y @ $8001 = #$00                   A:54 X:54 Y:01 S:F9 P:nvUbdIzc 
+(10 lines skipped)
+f634    $07:C45E: 8D 00 80  STA $8000 = #$54                             A:06 X:54 Y:03 S:F9 P:nvUbdIzc 
+(1 lines skipped)
+; switch vBankData (PRG) in 0x8000-09FFF
+f634    $07:C464: 8D 01 80  STA $8001 = #$00                             A:08 X:54 Y:03 S:F9 P:nvUbdIzc 
+(1759921 lines skipped)
+bra_D28B:
+f812    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f812    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f812    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f812    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2481 lines skipped)
+bra_D28B:
+f812    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f812    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f812    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f812    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2481 lines skipped)
+bra_D28B:
+f812    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f812    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f812    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f812    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2395 lines skipped)
+bra_D28B:
+f812    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f812    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f812    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f812    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2442 lines skipped)
+bra_D28B:
+f813    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f813    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f813    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f813    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(3035 lines skipped)
+bra_D28B:
+f813    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f813    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f813    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f813    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2375 lines skipped)
+bra_D28B:
+f813    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f813    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f813    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f813    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2375 lines skipped)
+bra_D28B:
+f813    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f813    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f813    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f813    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2375 lines skipped)
+bra_D28B:
+f814    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f814    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f814    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f814    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2375 lines skipped)
+bra_D28B:
+f814    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f814    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f814    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f814    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2375 lines skipped)
+bra_D28B:
+f814    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f814    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f814    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f814    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2375 lines skipped)
+bra_D28B:
+f814    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f814    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f814    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f814    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2409 lines skipped)
+bra_D28B:
+f815    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f815    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f815    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f815    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2366 lines skipped)
+bra_D28B:
+f815    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f815    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f815    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f815    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2355 lines skipped)
+bra_D28B:
+f815    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f815    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f815    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f815    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2355 lines skipped)
+bra_D28B:
+f815    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f815    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f815    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f815    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2355 lines skipped)
+bra_D28B:
+f816    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f816    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f816    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f816    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2355 lines skipped)
+bra_D28B:
+f816    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f816    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f816    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f816    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2329 lines skipped)
+bra_D28B:
+f816    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f816    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f816    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f816    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2331 lines skipped)
+bra_D28B:
+f817    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f817    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f817    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f817    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2335 lines skipped)
+bra_D28B:
+f817    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f817    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f817    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f817    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2881 lines skipped)
+bra_D28B:
+f817    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f817    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f817    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f817    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2213 lines skipped)
+bra_D28B:
+f817    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f817    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f817    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f817    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2213 lines skipped)
+bra_D28B:
+f818    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f818    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f818    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f818    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2213 lines skipped)
+bra_D28B:
+f818    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f818    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f818    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f818    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2213 lines skipped)
+bra_D28B:
+f818    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f818    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f818    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f818    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2213 lines skipped)
+bra_D28B:
+f818    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f818    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f818    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f818    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2213 lines skipped)
+bra_D28B:
+f819    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f819    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f819    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f819    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2213 lines skipped)
+bra_D28B:
+f819    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f819    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f819    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f819    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2213 lines skipped)
+bra_D28B:
+f819    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f819    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f819    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f819    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2213 lines skipped)
+bra_D28B:
+f819    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f819    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f819    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f819    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2213 lines skipped)
+bra_D28B:
+f820    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f820    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f820    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f820    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(2213 lines skipped)
+bra_D28B:
+f820    $07:D28B: B1 06     LDA ($06),Y @ $8000 = #$00                   A:00 X:16 Y:00 S:F8 P:nvUbdIZc 
+(3 lines skipped)
+f820    $07:D292: B1 06     LDA ($06),Y @ $8001 = #$00                   A:00 X:17 Y:01 S:F8 P:nvUbdIzc 
+(21 lines skipped)
+; --NO-COMMENT--
+f820    $07:EF51: 8D 00 80  STA $8000 = #$00                             A:06 X:00 Y:0C S:F4 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f820    $07:EF56: 8D 01 80  STA $8001 = #$00                             A:09 X:00 Y:0C S:F4 P:nvUbdIzc 
+(19156 lines skipped)
+; --NO-COMMENT--
+f822    $07:CE81: B1 04     LDA ($04),Y @ $8000 = #$F6                   A:00 X:00 Y:00 S:F5 P:nvUbdIZc 
+(2 lines skipped)
+; --NO-COMMENT--
+f822    $07:CE86: B1 04     LDA ($04),Y @ $8001 = #$85                   A:F6 X:00 Y:01 S:F5 P:nvUbdIzc 
+(371 lines skipped)
+; --NO-COMMENT--
+f822    $07:EF51: 8D 00 80  STA $8000 = #$F6                             A:06 X:00 Y:21 S:F3 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f822    $07:EF56: 8D 01 80  STA $8001 = #$85                             A:09 X:00 Y:21 S:F3 P:nvUbdIzc 
+(8957 lines skipped)
+; --NO-COMMENT--
+f823    $07:CE81: B1 04     LDA ($04),Y @ $8000 = #$F6                   A:00 X:00 Y:00 S:F3 P:nvUbdIZc 
+(2 lines skipped)
+; --NO-COMMENT--
+f823    $07:CE86: B1 04     LDA ($04),Y @ $8001 = #$85                   A:F6 X:00 Y:01 S:F3 P:nvUbdIzc 
+(371 lines skipped)
+; --NO-COMMENT--
+f823    $07:EF51: 8D 00 80  STA $8000 = #$F6                             A:06 X:00 Y:21 S:F1 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f823    $07:EF56: 8D 01 80  STA $8001 = #$85                             A:09 X:00 Y:21 S:F1 P:nvUbdIzc 
+(8956 lines skipped)
+; --NO-COMMENT--
+f824    $07:CE81: B1 04     LDA ($04),Y @ $8000 = #$F6                   A:00 X:00 Y:00 S:F3 P:nvUbdIZc 
+(2 lines skipped)
+; --NO-COMMENT--
+f824    $07:CE86: B1 04     LDA ($04),Y @ $8001 = #$85                   A:F6 X:00 Y:01 S:F3 P:nvUbdIzc 
+(371 lines skipped)
+; --NO-COMMENT--
+f824    $07:EF51: 8D 00 80  STA $8000 = #$F6                             A:06 X:00 Y:21 S:F1 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f824    $07:EF56: 8D 01 80  STA $8001 = #$85                             A:09 X:00 Y:21 S:F1 P:nvUbdIzc 
+(8986 lines skipped)
+; --NO-COMMENT--
+f825    $07:CE81: B1 04     LDA ($04),Y @ $8000 = #$F6                   A:00 X:00 Y:00 S:F3 P:nvUbdIZc 
+(2 lines skipped)
+; --NO-COMMENT--
+f825    $07:CE86: B1 04     LDA ($04),Y @ $8001 = #$85                   A:F6 X:00 Y:01 S:F3 P:nvUbdIzc 
+(371 lines skipped)
+; --NO-COMMENT--
+f825    $07:EF51: 8D 00 80  STA $8000 = #$F6                             A:06 X:00 Y:21 S:F1 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f825    $07:EF56: 8D 01 80  STA $8001 = #$85                             A:09 X:00 Y:21 S:F1 P:nvUbdIzc 
+(8943 lines skipped)
+; --NO-COMMENT--
+f826    $07:CE81: B1 04     LDA ($04),Y @ $8000 = #$F6                   A:00 X:00 Y:00 S:F5 P:nvUbdIZc 
+(2 lines skipped)
+; --NO-COMMENT--
+f826    $07:CE86: B1 04     LDA ($04),Y @ $8001 = #$85                   A:F6 X:00 Y:01 S:F5 P:nvUbdIzc 
+(371 lines skipped)
+; --NO-COMMENT--
+f826    $07:EF51: 8D 00 80  STA $8000 = #$F6                             A:06 X:00 Y:21 S:F3 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f826    $07:EF56: 8D 01 80  STA $8001 = #$85                             A:09 X:00 Y:21 S:F3 P:nvUbdIzc 
+(8980 lines skipped)
+; --NO-COMMENT--
+f827    $07:CE81: B1 04     LDA ($04),Y @ $8000 = #$F6                   A:00 X:00 Y:00 S:F5 P:nvUbdIZc 
+(2 lines skipped)
+; --NO-COMMENT--
+f827    $07:CE86: B1 04     LDA ($04),Y @ $8001 = #$85                   A:F6 X:00 Y:01 S:F5 P:nvUbdIzc 
+(371 lines skipped)
+; --NO-COMMENT--
+f827    $07:EF51: 8D 00 80  STA $8000 = #$F6                             A:06 X:00 Y:21 S:F3 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f827    $07:EF56: 8D 01 80  STA $8001 = #$85                             A:09 X:00 Y:21 S:F3 P:nvUbdIzc 
+(8961 lines skipped)
+; --NO-COMMENT--
+f828    $07:CE81: B1 04     LDA ($04),Y @ $8000 = #$F6                   A:00 X:00 Y:00 S:F5 P:nvUbdIZc 
+(2 lines skipped)
+; --NO-COMMENT--
+f828    $07:CE86: B1 04     LDA ($04),Y @ $8001 = #$85                   A:F6 X:00 Y:01 S:F5 P:nvUbdIzc 
+(371 lines skipped)
+; --NO-COMMENT--
+f828    $07:EF51: 8D 00 80  STA $8000 = #$F6                             A:06 X:00 Y:21 S:F3 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f828    $07:EF56: 8D 01 80  STA $8001 = #$85                             A:09 X:00 Y:21 S:F3 P:nvUbdIzc 
+(8968 lines skipped)
+; --NO-COMMENT--
+f829    $07:CE81: B1 04     LDA ($04),Y @ $8000 = #$F6                   A:00 X:00 Y:00 S:F5 P:nvUbdIZc 
+(2 lines skipped)
+; --NO-COMMENT--
+f829    $07:CE86: B1 04     LDA ($04),Y @ $8001 = #$85                   A:F6 X:00 Y:01 S:F5 P:nvUbdIzc 
+(371 lines skipped)
+; --NO-COMMENT--
+f829    $07:EF51: 8D 00 80  STA $8000 = #$F6                             A:06 X:00 Y:21 S:F3 P:nvUbdIzc 
+(1 lines skipped)
+bra_EF56_on_page1:
+; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+f829    $07:EF56: 8D 01 80  STA $8001 = #$85                             A:09 X:00 Y:21 S:F3 P:nvUbdIzc 
+(448274 lines skipped)
+bra_DC72_skip:
+; --NO-COMMENT--
+f877    $07:DC72: A5 6C     LDA $6C vChrStatus = #$01                    A:80 X:00 Y:1D S:F7 P:NvUbdIzC 
+; --NO-COMMENT--
+f877    $07:DC74: 6A        ROR                                          A:01 X:00 Y:1D S:F7 P:nvUbdIzC 
+; --NO-COMMENT--
+f877    $07:DC75: 90 05     BCC $DC7C bra_DC7C_skip                      A:80 X:00 Y:1D S:F7 P:NvUbdIzC 
+; Changes a status to 'right'
+f877    $07:DC77: C6 6C     DEC $6C vChrStatus = #$01                    A:80 X:00 Y:1D S:F7 P:NvUbdIzC 
+f877    $07:DC79: 20 F1 DC  JSR $DCF1 sub_DCF1_reset_velocity            A:80 X:00 Y:1D S:F7 P:nvUbdIZC 
+(4 lines skipped)
+bra_DC7C_skip:
+f877    $07:DC7C: 20 E5 DC  JSR $DCE5 sub_DCE5                           A:04 X:00 Y:1D S:F7 P:nvUbdIzC 
+sub_DCE5:
+f877    $07:DCE5: 20 19 DD  JSR $DD19 sub_DD19                           A:04 X:00 Y:1D S:F5 P:nvUbdIzC 
+sub_DD19:
+f877    $07:DD19: A5 5E     LDA $5E v_no_level = #$00                    A:04 X:00 Y:1D S:F3 P:nvUbdIzC 
+f877    $07:DD1B: C9 03     CMP #$03                                     A:00 X:00 Y:1D S:F3 P:nvUbdIZC 
+f877    $07:DD1D: D0 0A     BNE $DD29 bra_DD29_skip                      A:00 X:00 Y:1D S:F3 P:NvUbdIzc 
+bra_DD29_skip:
+f877    $07:DD29: 20 6D D9  JSR $D96D sub_D96D_init_absolute_chr_positionA:00 X:00 Y:1D S:F3 P:NvUbdIzc 
+(9 lines skipped)
+sub_DD2C:
+f877    $07:DD2C: A9 08     LDA #$08                                     A:00 X:00 Y:1D S:F3 P:nvUbdIZc 
+f877    $07:DD2E: 20 97 D3  JSR $D397 sub_D397                           A:08 X:00 Y:1D S:F3 P:nvUbdIzc 
+sub_D397:
+f877    $07:D397: 20 89 D3  JSR $D389 sub_D389_increment_by_posX         A:08 X:00 Y:1D S:F1 P:nvUbdIzc 
+(145 lines skipped)
+f877    $07:D39A: C9 01     CMP #$01                                     A:00 X:00 Y:02 S:F1 P:nvUbdIZc 
+f877    $07:D39C: D0 17     BNE $D3B5 bra_D3B5                           A:00 X:00 Y:02 S:F1 P:NvUbdIzc 
+(6 lines skipped)
+f877    $07:DD31: C9 01     CMP #$01                                     A:00 X:00 Y:02 S:F3 P:nvUbdIZc 
+bra_DD33_RTS:
+f877    $07:DD33: 60        RTS (from $DD19 sub_DD19) -------------------A:00 X:00 Y:02 S:F3 P:NvUbdIzc 
+f877    $07:DCE8: F0 07     BEQ $DCF1 sub_DCF1_reset_velocity            A:00 X:00 Y:02 S:F5 P:NvUbdIzc 
+f877    $07:DCEA: A9 00     LDA #$00                                     A:00 X:00 Y:02 S:F5 P:NvUbdIzc 
+(12 lines skipped)
+loc_E565:
+f877    $07:E565: A5 6D     LDA $6D vMovableChrStatus = #$00             A:03 X:00 Y:02 S:F5 P:nvUbdIzc 
+f877    $07:E567: 29 20     AND #$20                                     A:00 X:00 Y:02 S:F5 P:nvUbdIZc 
+f877    $07:E569: F0 02     BEQ $E56D bra_E56D                           A:00 X:00 Y:02 S:F5 P:nvUbdIZc 
+bra_E56D:
+f877    $07:E56D: A5 42     LDA $42 = #$00                               A:00 X:00 Y:02 S:F5 P:nvUbdIZc 
+f877    $07:E56F: 30 03     BMI $E574 bra_E574                           A:00 X:00 Y:02 S:F5 P:nvUbdIZc 
+f877    $07:E571: 4C FA DC  JMP $DCFA loc_DCFA                           A:00 X:00 Y:02 S:F5 P:nvUbdIZc 
+loc_DCFA:
+f877    $07:DCFA: A5 66     LDA $66 vLowChrPosX = #$30                   A:00 X:00 Y:02 S:F5 P:nvUbdIZc 
+f877    $07:DCFC: 38        SEC                                          A:30 X:00 Y:02 S:F5 P:nvUbdIzc 
+f877    $07:DCFD: E9 F0     SBC #$F0                                     A:30 X:00 Y:02 S:F5 P:nvUbdIzC 
+f877    $07:DCFF: A5 68     LDA $68 vNoScreen = #$00                     A:40 X:00 Y:02 S:F5 P:nvUbdIzc 
+f877    $07:DD01: E5 4A     SBC $4A vNearCurrentRoomLength = #$0F        A:00 X:00 Y:02 S:F5 P:nvUbdIZc 
+f877    $07:DD03: B0 B5     BCS $DCBA bra_DCBA_RTS                       A:F0 X:00 Y:02 S:F5 P:NvUbdIzc 
+f877    $07:DD05: E6 66     INC $66 vLowChrPosX = #$30                   A:F0 X:00 Y:02 S:F5 P:NvUbdIzc 
+f877    $07:DD07: D0 02     BNE $DD0B bra_DD0B                           A:F0 X:00 Y:02 S:F5 P:nvUbdIzc 
+bra_DD0B:
+f877    $07:DD0B: 20 A9 DC  JSR $DCA9 loc_DCA9                           A:F0 X:00 Y:02 S:F5 P:nvUbdIzc 
+loc_DCA9:
+f877    $07:DCA9: A5 66     LDA $66 vLowChrPosX = #$31                   A:F0 X:00 Y:02 S:F3 P:nvUbdIzc 
+f877    $07:DCAB: 38        SEC                                          A:31 X:00 Y:02 S:F3 P:nvUbdIzc 
+f877    $07:DCAC: E5 27     SBC $27 vLowViewPortPosX = #$00              A:31 X:00 Y:02 S:F3 P:nvUbdIzC 
+f877    $07:DCAE: 85 64     STA $64 vScreenChrPosX = #$30                A:31 X:00 Y:02 S:F3 P:nvUbdIzC 
+f877    $07:DCB0: 60        RTS (from $DCA9 loc_DCA9) -------------------A:31 X:00 Y:02 S:F3 P:nvUbdIzC 
+f877    $07:DD0E: C9 90     CMP #$90                                     A:31 X:00 Y:02 S:F5 P:nvUbdIzC 
+f877    $07:DD10: 90 A8     BCC $DCBA bra_DCBA_RTS                       A:31 X:00 Y:02 S:F5 P:NvUbdIzc 
+bra_DCBA_RTS:
+f877    $07:DCBA: 60        RTS (from $DCE5 sub_DCE5) -------------------A:31 X:00 Y:02 S:F5 P:NvUbdIzc 
+f877    $07:DC7F: 4C 61 DC  JMP $DC61 loc_DC61                           A:31 X:00 Y:02 S:F7 P:NvUbdIzc 
+(4 lines skipped)
+bra_DC94:
+f877    $07:DC94: 18        CLC                                          A:03 X:00 Y:02 S:F5 P:nvUbdIzc 
+bra_DC95_RTS:
+f877    $07:DC95: 60        RTS (from $DC82 sub_DC82) -------------------A:03 X:00 Y:02 S:F5 P:nvUbdIzc 
+(71 lines skipped)
+; --NO-COMMENT--
+f877    $07:CE81: B1 04     LDA ($04),Y @ $8008 = #$6A                   A:08 X:08 Y:08 S:F5 P:nvUbdIzc 
+(2 lines skipped)
+; --NO-COMMENT--
+f877    $07:CE86: B1 04     LDA ($04),Y @ $8009 = #$86                   A:6A X:08 Y:09 S:F5 P:nvUbdIzc 
+(5 lines skipped)
+; get a tile count
+f877    $07:CE92: B1 02     LDA ($02),Y @ $866A = #$06                   A:86 X:04 Y:00 S:F5 P:nvUbdIZc 
+(5 lines skipped)
+f877    $07:CE9D: B1 02     LDA ($02),Y @ $866B = #$E0                   A:00 X:04 Y:01 S:F5 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f877    $07:CEB0: B1 02     LDA ($02),Y @ $866C = #$46                   A:00 X:04 Y:02 S:F5 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f877    $07:CEB6: B1 02     LDA ($02),Y @ $866D = #$00                   A:46 X:04 Y:03 S:F5 P:nvUbdIzC 
+(5 lines skipped)
+f877    $07:CEC2: B1 02     LDA ($02),Y @ $866E = #$FF                   A:00 X:04 Y:04 S:F5 P:nvUbdIZC 
+(22 lines skipped)
+f877    $07:CE9D: B1 02     LDA ($02),Y @ $866F = #$E8                   A:00 X:08 Y:05 S:F5 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f877    $07:CEB0: B1 02     LDA ($02),Y @ $8670 = #$48                   A:00 X:08 Y:06 S:F5 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f877    $07:CEB6: B1 02     LDA ($02),Y @ $8671 = #$00                   A:48 X:08 Y:07 S:F5 P:nvUbdIzC 
+(5 lines skipped)
+f877    $07:CEC2: B1 02     LDA ($02),Y @ $8672 = #$F8                   A:00 X:08 Y:08 S:F5 P:nvUbdIZC 
+(22 lines skipped)
+f877    $07:CE9D: B1 02     LDA ($02),Y @ $8673 = #$E8                   A:00 X:0C Y:09 S:F5 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f877    $07:CEB0: B1 02     LDA ($02),Y @ $8674 = #$4A                   A:00 X:0C Y:0A S:F5 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f877    $07:CEB6: B1 02     LDA ($02),Y @ $8675 = #$00                   A:4A X:0C Y:0B S:F5 P:nvUbdIzC 
+(5 lines skipped)
+f877    $07:CEC2: B1 02     LDA ($02),Y @ $8676 = #$00                   A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
+(21 lines skipped)
+f877    $07:CE9D: B1 02     LDA ($02),Y @ $8677 = #$F0                   A:00 X:10 Y:0D S:F5 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f877    $07:CEB0: B1 02     LDA ($02),Y @ $8678 = #$49                   A:00 X:10 Y:0E S:F5 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f877    $07:CEB6: B1 02     LDA ($02),Y @ $8679 = #$00                   A:49 X:10 Y:0F S:F5 P:nvUbdIzC 
+(5 lines skipped)
+f877    $07:CEC2: B1 02     LDA ($02),Y @ $867A = #$F8                   A:00 X:10 Y:10 S:F5 P:nvUbdIZC 
+(22 lines skipped)
+f877    $07:CE9D: B1 02     LDA ($02),Y @ $867B = #$F0                   A:00 X:14 Y:11 S:F5 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f877    $07:CEB0: B1 02     LDA ($02),Y @ $867C = #$4B                   A:00 X:14 Y:12 S:F5 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f877    $07:CEB6: B1 02     LDA ($02),Y @ $867D = #$00                   A:4B X:14 Y:13 S:F5 P:nvUbdIzC 
+(5 lines skipped)
+f877    $07:CEC2: B1 02     LDA ($02),Y @ $867E = #$00                   A:00 X:14 Y:14 S:F5 P:nvUbdIZC 
+(21 lines skipped)
+f877    $07:CE9D: B1 02     LDA ($02),Y @ $867F = #$F8                   A:00 X:18 Y:15 S:F5 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f877    $07:CEB0: B1 02     LDA ($02),Y @ $8680 = #$47                   A:00 X:18 Y:16 S:F5 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f877    $07:CEB6: B1 02     LDA ($02),Y @ $8681 = #$00                   A:47 X:18 Y:17 S:F5 P:nvUbdIzC 
+(5 lines skipped)
+f877    $07:CEC2: B1 02     LDA ($02),Y @ $8682 = #$FA                   A:00 X:18 Y:18 S:F5 P:nvUbdIZC 
+(8988 lines skipped)
+f878    $07:DC69: BE 6F DC  LDX $DC6F tbl_DC6F,Y @ $DC71 = #$0C          A:02 X:0C Y:02 S:F5 P:nvUbdIzc 
+(64 lines skipped)
+; --NO-COMMENT--
+f878    $07:CE81: B1 04     LDA ($04),Y @ $800C = #$9C                   A:0C X:0C Y:0C S:F3 P:nvUbdIzc 
+(2 lines skipped)
+; --NO-COMMENT--
+f878    $07:CE86: B1 04     LDA ($04),Y @ $800D = #$86                   A:9C X:0C Y:0D S:F3 P:nvUbdIzc 
+(5 lines skipped)
+; get a tile count
+f878    $07:CE92: B1 02     LDA ($02),Y @ $869C = #$07                   A:86 X:04 Y:00 S:F3 P:nvUbdIZc 
+(5 lines skipped)
+f878    $07:CE9D: B1 02     LDA ($02),Y @ $869D = #$E0                   A:00 X:04 Y:01 S:F3 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB0: B1 02     LDA ($02),Y @ $869E = #$52                   A:00 X:04 Y:02 S:F3 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB6: B1 02     LDA ($02),Y @ $869F = #$00                   A:52 X:04 Y:03 S:F3 P:nvUbdIzC 
+(5 lines skipped)
+f878    $07:CEC2: B1 02     LDA ($02),Y @ $86A0 = #$FF                   A:00 X:04 Y:04 S:F3 P:nvUbdIZC 
+(22 lines skipped)
+f878    $07:CE9D: B1 02     LDA ($02),Y @ $86A1 = #$E8                   A:00 X:08 Y:05 S:F3 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB0: B1 02     LDA ($02),Y @ $86A2 = #$4C                   A:00 X:08 Y:06 S:F3 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB6: B1 02     LDA ($02),Y @ $86A3 = #$00                   A:4C X:08 Y:07 S:F3 P:nvUbdIzC 
+(5 lines skipped)
+f878    $07:CEC2: B1 02     LDA ($02),Y @ $86A4 = #$F8                   A:00 X:08 Y:08 S:F3 P:nvUbdIZC 
+(22 lines skipped)
+f878    $07:CE9D: B1 02     LDA ($02),Y @ $86A5 = #$E8                   A:00 X:0C Y:09 S:F3 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB0: B1 02     LDA ($02),Y @ $86A6 = #$4E                   A:00 X:0C Y:0A S:F3 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB6: B1 02     LDA ($02),Y @ $86A7 = #$00                   A:4E X:0C Y:0B S:F3 P:nvUbdIzC 
+(5 lines skipped)
+f878    $07:CEC2: B1 02     LDA ($02),Y @ $86A8 = #$00                   A:00 X:0C Y:0C S:F3 P:nvUbdIZC 
+(21 lines skipped)
+f878    $07:CE9D: B1 02     LDA ($02),Y @ $86A9 = #$F0                   A:00 X:10 Y:0D S:F3 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB0: B1 02     LDA ($02),Y @ $86AA = #$4D                   A:00 X:10 Y:0E S:F3 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB6: B1 02     LDA ($02),Y @ $86AB = #$00                   A:4D X:10 Y:0F S:F3 P:nvUbdIzC 
+(5 lines skipped)
+f878    $07:CEC2: B1 02     LDA ($02),Y @ $86AC = #$F8                   A:00 X:10 Y:10 S:F3 P:nvUbdIZC 
+(22 lines skipped)
+f878    $07:CE9D: B1 02     LDA ($02),Y @ $86AD = #$F0                   A:00 X:14 Y:11 S:F3 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB0: B1 02     LDA ($02),Y @ $86AE = #$4F                   A:00 X:14 Y:12 S:F3 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB6: B1 02     LDA ($02),Y @ $86AF = #$00                   A:4F X:14 Y:13 S:F3 P:nvUbdIzC 
+(5 lines skipped)
+f878    $07:CEC2: B1 02     LDA ($02),Y @ $86B0 = #$00                   A:00 X:14 Y:14 S:F3 P:nvUbdIZC 
+(21 lines skipped)
+f878    $07:CE9D: B1 02     LDA ($02),Y @ $86B1 = #$F8                   A:00 X:18 Y:15 S:F3 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB0: B1 02     LDA ($02),Y @ $86B2 = #$50                   A:00 X:18 Y:16 S:F3 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB6: B1 02     LDA ($02),Y @ $86B3 = #$00                   A:50 X:18 Y:17 S:F3 P:nvUbdIzC 
+(5 lines skipped)
+f878    $07:CEC2: B1 02     LDA ($02),Y @ $86B4 = #$F8                   A:00 X:18 Y:18 S:F3 P:nvUbdIZC 
+(22 lines skipped)
+f878    $07:CE9D: B1 02     LDA ($02),Y @ $86B5 = #$F8                   A:00 X:1C Y:19 S:F3 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB0: B1 02     LDA ($02),Y @ $86B6 = #$51                   A:00 X:1C Y:1A S:F3 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f878    $07:CEB6: B1 02     LDA ($02),Y @ $86B7 = #$00                   A:51 X:1C Y:1B S:F3 P:nvUbdIzC 
+(5 lines skipped)
+f878    $07:CEC2: B1 02     LDA ($02),Y @ $86B8 = #$00                   A:00 X:1C Y:1C S:F3 P:nvUbdIZC 
+(38195 lines skipped)
+f882    $02:AE4E: B1 FE     LDA ($FE),Y @ $8226 = #$30                   A:82 X:54 Y:00 S:F3 P:NvUbdIzc 
+(50 lines skipped)
+f882    $02:AFF3: B1 FE     LDA ($FE),Y @ $8227 = #$02                   A:03 X:54 Y:01 S:F3 P:nvUbdIzC 
+(133 lines skipped)
+f882    $02:AE4E: B1 FE     LDA ($FE),Y @ $828B = #$29                   A:82 X:69 Y:00 S:F3 P:NvUbdIzc 
+(25 lines skipped)
+f882    $02:AFD2: B9 6E B1  LDA $B16E,Y @ $B180 = #$F9                   A:05 X:69 Y:12 S:F2 P:nvUbdIzc 
+(1 lines skipped)
+f882    $02:AFD8: B9 6F B1  LDA $B16F,Y @ $B181 = #$03                   A:F9 X:69 Y:12 S:F2 P:NvUbdIzc 
+(18 lines skipped)
+f882    $02:AFF3: B1 FE     LDA ($FE),Y @ $828C = #$02                   A:02 X:69 Y:01 S:F3 P:nvUbdIzc 
+(44 lines skipped)
+f882    $02:B029: A9 FD     LDA #$FD                                     A:FE X:69 Y:04 S:F2 P:nvUbdIZC 
+f882    $02:B02B: D0 02     BNE $B02F                                    A:FD X:69 Y:04 S:F2 P:NvUbdIzC 
+(289 lines skipped)
+f882    $02:AE4E: B1 FE     LDA ($FE),Y @ $8B6F = #$02                   A:8B X:93 Y:00 S:F3 P:NvUbdIzc 
+(24 lines skipped)
+f882    $02:AFF3: B1 FE     LDA ($FE),Y @ $8B70 = #$02                   A:00 X:93 Y:01 S:F3 P:nVUbdIzc 
+(7480 lines skipped)
+f883    $07:E542: 48        PHA                                          A:06 X:00 Y:02 S:F3 P:nvUbdIZC 
+f883    $07:E543: 20 65 E5  JSR $E565 loc_E565                           A:06 X:00 Y:02 S:F2 P:nvUbdIZC 
+(23 lines skipped)
+f883    $07:E546: 68        PLA                                          A:35 X:00 Y:02 S:F2 P:NvUbdIzc 
+f883    $07:E547: C9 08     CMP #$08                                     A:06 X:00 Y:02 S:F3 P:nvUbdIzc 
+f883    $07:E549: 90 36     BCC $E581 bra_E581_RTS                       A:06 X:00 Y:02 S:F3 P:NvUbdIzc 
+(28012 lines skipped)
+f886    $07:DCA4: A9 00     LDA #$00                                     A:03 X:0C Y:02 S:F5 P:nvUbdIZC 
+f886    $07:DCA6: 85 70     STA $70 = #$03                               A:00 X:0C Y:02 S:F5 P:nvUbdIZC 
+(2 lines skipped)
+f886    $07:DC69: BE 6F DC  LDX $DC6F tbl_DC6F,Y @ $DC6F tbl_DC6F = #$04 A:00 X:0C Y:00 S:F7 P:nvUbdIZC 
+(64 lines skipped)
+; --NO-COMMENT--
+f886    $07:CE81: B1 04     LDA ($04),Y @ $8004 = #$38                   A:04 X:04 Y:04 S:F5 P:nvUbdIzc 
+(2 lines skipped)
+; --NO-COMMENT--
+f886    $07:CE86: B1 04     LDA ($04),Y @ $8005 = #$86                   A:38 X:04 Y:05 S:F5 P:nvUbdIzc 
+(5 lines skipped)
+; get a tile count
+f886    $07:CE92: B1 02     LDA ($02),Y @ $8638 = #$06                   A:86 X:04 Y:00 S:F5 P:nvUbdIZc 
+(5 lines skipped)
+f886    $07:CE9D: B1 02     LDA ($02),Y @ $8639 = #$E0                   A:00 X:04 Y:01 S:F5 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f886    $07:CEB0: B1 02     LDA ($02),Y @ $863A = #$44                   A:00 X:04 Y:02 S:F5 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f886    $07:CEB6: B1 02     LDA ($02),Y @ $863B = #$00                   A:44 X:04 Y:03 S:F5 P:nvUbdIzC 
+(5 lines skipped)
+f886    $07:CEC2: B1 02     LDA ($02),Y @ $863C = #$FF                   A:00 X:04 Y:04 S:F5 P:nvUbdIZC 
+(22 lines skipped)
+f886    $07:CE9D: B1 02     LDA ($02),Y @ $863D = #$E8                   A:00 X:08 Y:05 S:F5 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f886    $07:CEB0: B1 02     LDA ($02),Y @ $863E = #$40                   A:00 X:08 Y:06 S:F5 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f886    $07:CEB6: B1 02     LDA ($02),Y @ $863F = #$00                   A:40 X:08 Y:07 S:F5 P:nvUbdIzC 
+(5 lines skipped)
+f886    $07:CEC2: B1 02     LDA ($02),Y @ $8640 = #$F8                   A:00 X:08 Y:08 S:F5 P:nvUbdIZC 
+(22 lines skipped)
+f886    $07:CE9D: B1 02     LDA ($02),Y @ $8641 = #$E8                   A:00 X:0C Y:09 S:F5 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f886    $07:CEB0: B1 02     LDA ($02),Y @ $8642 = #$42                   A:00 X:0C Y:0A S:F5 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f886    $07:CEB6: B1 02     LDA ($02),Y @ $8643 = #$00                   A:42 X:0C Y:0B S:F5 P:nvUbdIzC 
+(5 lines skipped)
+f886    $07:CEC2: B1 02     LDA ($02),Y @ $8644 = #$00                   A:00 X:0C Y:0C S:F5 P:nvUbdIZC 
+(21 lines skipped)
+f886    $07:CE9D: B1 02     LDA ($02),Y @ $8645 = #$F0                   A:00 X:10 Y:0D S:F5 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f886    $07:CEB0: B1 02     LDA ($02),Y @ $8646 = #$41                   A:00 X:10 Y:0E S:F5 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f886    $07:CEB6: B1 02     LDA ($02),Y @ $8647 = #$00                   A:41 X:10 Y:0F S:F5 P:nvUbdIzC 
+(5 lines skipped)
+f886    $07:CEC2: B1 02     LDA ($02),Y @ $8648 = #$F8                   A:00 X:10 Y:10 S:F5 P:nvUbdIZC 
+(22 lines skipped)
+f886    $07:CE9D: B1 02     LDA ($02),Y @ $8649 = #$F0                   A:00 X:14 Y:11 S:F5 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f886    $07:CEB0: B1 02     LDA ($02),Y @ $864A = #$43                   A:00 X:14 Y:12 S:F5 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f886    $07:CEB6: B1 02     LDA ($02),Y @ $864B = #$00                   A:43 X:14 Y:13 S:F5 P:nvUbdIzC 
+(5 lines skipped)
+f886    $07:CEC2: B1 02     LDA ($02),Y @ $864C = #$00                   A:00 X:14 Y:14 S:F5 P:nvUbdIZC 
+(21 lines skipped)
+f886    $07:CE9D: B1 02     LDA ($02),Y @ $864D = #$F8                   A:00 X:18 Y:15 S:F5 P:nvUbdIZc 
+(9 lines skipped)
+; --NO-COMMENT--
+f886    $07:CEB0: B1 02     LDA ($02),Y @ $864E = #$45                   A:00 X:18 Y:16 S:F5 P:nvUbdIzC 
+(2 lines skipped)
+; --NO-COMMENT--
+f886    $07:CEB6: B1 02     LDA ($02),Y @ $864F = #$00                   A:45 X:18 Y:17 S:F5 P:nvUbdIzC 
+(5 lines skipped)
+f886    $07:CEC2: B1 02     LDA ($02),Y @ $8650 = #$00                   A:00 X:18 Y:18 S:F5 P:nvUbdIZC 
+(8948 lines skipped)
+@bra_D32E_skip:
+f887    $07:D32E: B1 0E     LDA ($0E),Y @ $98C2 = #$00                   A:08 X:00 Y:02 S:EE P:nvUbdIzc 

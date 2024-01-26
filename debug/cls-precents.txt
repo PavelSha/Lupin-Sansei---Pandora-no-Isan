@@ -1,6 +1,7 @@
-Code precents:
+Code precents (PRG not Logged):
 1 - 98.17 %
 2 - 98.04 % (688 frame)
 3 - 97.02 % (743 frame)
 4 - 93.93 % (827 frame)
 5 - 93.42 % (874 frame), turn left and jump
+6 - 93.27 % (889 frame), 15 frames run (right)
