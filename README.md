@@ -5,11 +5,14 @@ All rights reserved by モンキー・パンチ, NAMCO.
 ## Building
 -  Windows - run a command ***assemble.bat***
 -  Linux - assemble.sh (!! TODO !!)
-## Code/Data Logger
--  Code bytes     - ***12.63%***
--  Data bytes     - ***75.63%***
--  Unknown bytes  - ***11.73%***
--  Code commented - ***15.56%***
+## Statistics
+-  Code Logger bytes - ***12.64%***
+-  Data Logger bytes - ***75.62%***
+-  Unknown bytes     - ***11.74%***
+-  Code commented    - ***16.13%***
+## Documentation
+-  [bestiary](docs/ru/bestiary.md) - The list of all enemies in the game
+-  [maze1](docs/ru/maze1.txt), [maze2](docs/ru/maze2.txt), [maze3](docs/ru/maze3.txt), [maze4](docs/ru/maze4.txt) - The information of the mazes on the level 4
 ## Resources
 -  Lupin Sansei - Pandora no Isan (J) `9d21fe96`
 -  [BZK 6502 Disassembler](https://github.com/cyneprepou4uk/BZK-6502-Disassembler) - the main tool for creating disassembly source code.

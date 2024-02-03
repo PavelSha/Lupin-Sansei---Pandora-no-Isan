@@ -648,17 +648,17 @@ C - - - - - 0x01C44A 07:C43A: A9 80     LDA #$80                      ;
 C - - - - - 0x01C44C 07:C43C: 65 13     ADC ram_0013                  ; High address
 C - - - - - 0x01C44E 07:C43E: 85 13     STA ram_0013                  ; 
 C - - - - - 0x01C450 07:C440: A0 00     LDY #$00                      ; to 1 byte of 4
-C - - - - - 0x01C452 07:C442: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01C454 07:C444: AA        TAX
+C - - - - - 0x01C452 07:C442: B1 12     LDA (ram_0012),Y              ;
+C - - - - - 0x01C454 07:C444: AA        TAX                           ;
 C - - - - - 0x01C455 07:C445: C8        INY                           ; to 2 byte of 4
-C - - - - - 0x01C456 07:C446: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01C458 07:C448: 9D 11 04  STA vSoundRowB_1,X
+C - - - - - 0x01C456 07:C446: B1 12     LDA (ram_0012),Y              ;
+C - - - - - 0x01C458 07:C448: 9D 11 04  STA vSoundRowB_1,X            ;
 C - - - - - 0x01C45B 07:C44B: C8        INY                           ; to 3 byte of 4
-C - - - - - 0x01C45C 07:C44C: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01C45E 07:C44E: 9D 12 04  STA vSoundRowB_2,X
+C - - - - - 0x01C45C 07:C44C: B1 12     LDA (ram_0012),Y              ;
+C - - - - - 0x01C45E 07:C44E: 9D 12 04  STA vSoundRowB_2,X            ;
 C - - - - - 0x01C461 07:C451: C8        INY                           ; to 4 byte of 4
-C - - - - - 0x01C462 07:C452: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01C464 07:C454: 9D 13 04  STA vSoundRowB_3,X
+C - - - - - 0x01C462 07:C452: B1 12     LDA (ram_0012),Y              ;
+C - - - - - 0x01C464 07:C454: 9D 13 04  STA vSoundRowB_3,X            ;
 C - - - - - 0x01C467 07:C457: A9 00     LDA #$00
 C - - - - - 0x01C469 07:C459: 9D 10 04  STA vSoundRowB_0,X
 C - - - - - 0x01C46C 07:C45C: A9 06     LDA #$06                      ;
@@ -2896,21 +2896,21 @@ C - - - - - 0x01D1DB 07:D1CB: 85 02     STA ram_0002
 C - - - - - 0x01D1DD 07:D1CD: 4C 03 D2  JMP loc_D203
 
 bra_D1D0:
-C - - - - - 0x01D1E0 07:D1D0: E6 4D     INC ram_004D
-C - - - - - 0x01D1E2 07:D1D2: A5 4D     LDA ram_004D
-C - - - - - 0x01D1E4 07:D1D4: C5 49     CMP vCurrentRoomLength
-C - - - - - 0x01D1E6 07:D1D6: B0 20     BCS bra_D1F8_RTS
-C - - - - - 0x01D1E8 07:D1D8: E6 27     INC ram_0027
-C - - - - - 0x01D1EA 07:D1DA: A5 27     LDA ram_0027
-C - - - - - 0x01D1EC 07:D1DC: D0 0D     BNE bra_D1EB
-C - - - - - 0x01D1EE 07:D1DE: 48        PHA
-C - - - - - 0x01D1EF 07:D1DF: A5 26     LDA vPpuCtrlSettings
-C - - - - - 0x01D1F1 07:D1E1: 49 01     EOR #$01
-C - - - - - 0x01D1F3 07:D1E3: 85 26     STA vPpuCtrlSettings
-C - - - - - 0x01D1F5 07:D1E5: E6 4B     INC ram_004B
-C - - - - - 0x01D1F7 07:D1E7: E6 4D     INC ram_004D
-C - - - - - 0x01D1F9 07:D1E9: D0 0E     BNE bra_D1F9
-bra_D1EB:
+C - - - - - 0x01D1E0 07:D1D0: E6 4D     INC vCacheNoScreen        ; temp increment
+C - - - - - 0x01D1E2 07:D1D2: A5 4D     LDA vCacheNoScreen        ;
+C - - - - - 0x01D1E4 07:D1D4: C5 49     CMP vCurrentRoomLength    ;
+C - - - - - 0x01D1E6 07:D1D6: B0 20     BCS bra_D1F8_RTS          ; If vCacheNoScreen >= vCurrentRoomLength (outside of the room)
+C - - - - - 0x01D1E8 07:D1D8: E6 27     INC vLowViewPortPosX      ; temp increment
+C - - - - - 0x01D1EA 07:D1DA: A5 27     LDA vLowViewPortPosX      ; 
+C - - - - - 0x01D1EC 07:D1DC: D0 0D     BNE @bra_D1EB_skip        ; If vLowViewPortPosX != 0x00
+C - - - - - 0x01D1EE 07:D1DE: 48        PHA                       ; store vLowViewPortPosX (0x00)
+C - - - - - 0x01D1EF 07:D1DF: A5 26     LDA vPpuCtrlSettings      ;
+C - - - - - 0x01D1F1 07:D1E1: 49 01     EOR #$01                  ; switch $2000 -> $2400 or $2400 -> $2000 (name table address)
+C - - - - - 0x01D1F3 07:D1E3: 85 26     STA vPpuCtrlSettings      ;
+C - - - - - 0x01D1F5 07:D1E5: E6 4B     INC vHighViewPortPosX     ; next screen
+C - - - - - 0x01D1F7 07:D1E7: E6 4D     INC vCacheNoScreen        ;
+C - - - - - 0x01D1F9 07:D1E9: D0 0E     BNE bra_D1F9_increment_40 ;
+@bra_D1EB_skip:
 C - - - - - 0x01D1FB 07:D1EB: C9 04     CMP #$04
 C - - - - - 0x01D1FD 07:D1ED: D0 03     BNE bra_D1F2
 C - - - - - 0x01D1FF 07:D1EF: 4C A0 D2  JMP loc_D2A0
@@ -2918,41 +2918,41 @@ C - - - - - 0x01D1FF 07:D1EF: 4C A0 D2  JMP loc_D2A0
 bra_D1F2:
 C - - - - - 0x01D202 07:D1F2: 48        PHA
 C - - - - - 0x01D203 07:D1F3: 29 07     AND #$07
-C - - - - - 0x01D205 07:D1F5: F0 02     BEQ bra_D1F9
+C - - - - - 0x01D205 07:D1F5: F0 02     BEQ bra_D1F9_increment_40
 C - - - - - 0x01D207 07:D1F7: 68        PLA
 bra_D1F8_RTS:
 C - - - - - 0x01D208 07:D1F8: 60        RTS
 
-bra_D1F9:
-C - - - - - 0x01D209 07:D1F9: 68        PLA
-C - - - - - 0x01D20A 07:D1FA: 18        CLC
-C - - - - - 0x01D20B 07:D1FB: 69 40     ADC #$40
-C - - - - - 0x01D20D 07:D1FD: 90 02     BCC bra_D201
-C - - - - - 0x01D20F 07:D1FF: E6 4D     INC ram_004D
-bra_D201:
-C - - - - - 0x01D211 07:D201: 85 02     STA ram_0002
+bra_D1F9_increment_40:
+C - - - - - 0x01D209 07:D1F9: 68        PLA                                             ; retrieve vLowViewPortPosX
+C - - - - - 0x01D20A 07:D1FA: 18        CLC                                             ;
+C - - - - - 0x01D20B 07:D1FB: 69 40     ADC #$40                                        ;
+C - - - - - 0x01D20D 07:D1FD: 90 02     BCC @bra_D201_skip                              ; If vLowViewPortPosX < 0xC0
+C - - - - - 0x01D20F 07:D1FF: E6 4D     INC vCacheNoScreen                              ;
+@bra_D201_skip:
+C - - - - - 0x01D211 07:D201: 85 02     STA ram_0002                                    ; puts vLowViewPortPosX + 0x40
 loc_D203:
-C D 2 - - - 0x01D213 07:D203: A5 4D     LDA ram_004D
-C - - - - - 0x01D215 07:D205: C5 49     CMP vCurrentRoomLength
-C - - - - - 0x01D217 07:D207: B0 EF     BCS bra_D1F8_RTS
-C - - - - - 0x01D219 07:D209: A9 98     LDA #$98
-C - - - - - 0x01D21B 07:D20B: 8D 32 06  STA v_ppu_buffer_count
-C - - - - - 0x01D21E 07:D20E: A2 20     LDX #$20
-C - - - - - 0x01D220 07:D210: A5 4D     LDA ram_004D
-C - - - - - 0x01D222 07:D212: 6A        ROR
-C - - - - - 0x01D223 07:D213: 90 02     BCC bra_D217
-C - - - - - 0x01D225 07:D215: A2 24     LDX #$24
-bra_D217:
-C - - - - - 0x01D227 07:D217: 8E 31 06  STX ram_0631
-C - - - - - 0x01D22A 07:D21A: A9 00     LDA #$00
-C - - - - - 0x01D22C 07:D21C: 85 01     STA ram_0001
-C - - - - - 0x01D22E 07:D21E: A5 02     LDA ram_0002
-C - - - - - 0x01D230 07:D220: 4A        LSR
-C - - - - - 0x01D231 07:D221: 4A        LSR
-C - - - - - 0x01D232 07:D222: 4A        LSR
-C - - - - - 0x01D233 07:D223: 09 C0     ORA #$C0
-C - - - - - 0x01D235 07:D225: 8D 30 06  STA ram_0630
-C - - - - - 0x01D238 07:D228: 20 F7 D3  JSR sub_D3F7_get_background_screen_info_address
+C D 2 - - - 0x01D213 07:D203: A5 4D     LDA vCacheNoScreen                              ;
+C - - - - - 0x01D215 07:D205: C5 49     CMP vCurrentRoomLength                          ;
+C - - - - - 0x01D217 07:D207: B0 EF     BCS bra_D1F8_RTS                                ; If vCacheNoScreen >= vCurrentRoomLength (outside of the room)
+C - - - - - 0x01D219 07:D209: A9 98     LDA #$98                                        ;
+C - - - - - 0x01D21B 07:D20B: 8D 32 06  STA v_ppu_buffer_count                          ; init count (v_ppu_buffer_count <~ 0x98)
+C - - - - - 0x01D21E 07:D20E: A2 20     LDX #$20                                        ;
+C - - - - - 0x01D220 07:D210: A5 4D     LDA vCacheNoScreen                              ;
+C - - - - - 0x01D222 07:D212: 6A        ROR                                             ;
+C - - - - - 0x01D223 07:D213: 90 02     BCC @bra_D217_skip                              ; If vCacheNoScreen = {0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, ...}
+C - - - - - 0x01D225 07:D215: A2 24     LDX #$24                                        ;
+@bra_D217_skip:
+C - - - - - 0x01D227 07:D217: 8E 31 06  STX vHighPpuAddress                             ; vHighPpuAddress <~ 0x20 or 0x24
+C - - - - - 0x01D22A 07:D21A: A9 00     LDA #$00                                        ;
+C - - - - - 0x01D22C 07:D21C: 85 01     STA ram_0001                                    ; set zero
+C - - - - - 0x01D22E 07:D21E: A5 02     LDA ram_0002                                    ;
+C - - - - - 0x01D230 07:D220: 4A        LSR                                             ;
+C - - - - - 0x01D231 07:D221: 4A        LSR                                             ;
+C - - - - - 0x01D232 07:D222: 4A        LSR                                             ; /8
+C - - - - - 0x01D233 07:D223: 09 C0     ORA #$C0                                        ;
+C - - - - - 0x01D235 07:D225: 8D 30 06  STA vLowPpuAddress                              ; vLowPpuAddress <~ [0xC0-0xDF]
+C - - - - - 0x01D238 07:D228: 20 F7 D3  JSR sub_D3F7_get_background_screen_info_address ;
 C - - - - - 0x01D23B 07:D22B: A5 02     LDA ram_0002
 C - - - - - 0x01D23D 07:D22D: 29 F0     AND #$F0
 C - - - - - 0x01D23F 07:D22F: 4A        LSR
@@ -2960,19 +2960,19 @@ C - - - - - 0x01D240 07:D230: 85 02     STA ram_0002
 C - - - - - 0x01D242 07:D232: 4A        LSR
 C - - - - - 0x01D243 07:D233: 18        CLC
 C - - - - - 0x01D244 07:D234: 65 02     ADC ram_0002
-C - - - - - 0x01D246 07:D236: A0 00     LDY #$00
+C - - - - - 0x01D246 07:D236: A0 00     LDY #$00                                        ; 0th of 8 info bytes
 C - - - - - 0x01D248 07:D238: 71 4E     ADC (vBackgroundScreenInfo),Y
 C - - - - - 0x01D24A 07:D23A: 85 52     STA ram_0052
-C - - - - - 0x01D24C 07:D23C: C8        INY
+C - - - - - 0x01D24C 07:D23C: C8        INY                                             ; 1th of 8 info bytes
 C - - - - - 0x01D24D 07:D23D: B1 4E     LDA (vBackgroundScreenInfo),Y
 C - - - - - 0x01D24F 07:D23F: 69 00     ADC #$00
-C - - - - - 0x01D251 07:D241: 48        PHA
+C - - - - - 0x01D251 07:D241: 48        PHA                                             ; store A
 C - - - - - 0x01D252 07:D242: 29 1F     AND #$1F
 C - - - - - 0x01D254 07:D244: 09 80     ORA #$80
 C - - - - - 0x01D256 07:D246: 85 53     STA ram_0053
-C - - - - - 0x01D258 07:D248: 68        PLA
-C - - - - - 0x01D259 07:D249: 20 5E D0  JSR sub_accumulator_shift_right_by_5
-C - - - - - 0x01D25C 07:D24C: 85 02     STA ram_0002
+C - - - - - 0x01D258 07:D248: 68        PLA                                             ; retrieve A ($D241)
+C - - - - - 0x01D259 07:D249: 20 5E D0  JSR sub_accumulator_shift_right_by_5            ;
+C - - - - - 0x01D25C 07:D24C: 85 02     STA ram_0002                                    ; puts a bank data
 C - - - - - 0x01D25E 07:D24E: A0 04     LDY #$04
 C - - - - - 0x01D260 07:D250: B1 4E     LDA (vBackgroundScreenInfo),Y
 C - - - - - 0x01D262 07:D252: 85 50     STA ram_0050
@@ -2980,12 +2980,12 @@ C - - - - - 0x01D264 07:D254: C8        INY
 C - - - - - 0x01D265 07:D255: B1 4E     LDA (vBackgroundScreenInfo),Y
 C - - - - - 0x01D267 07:D257: 85 51     STA ram_0051
 C - - - - - 0x01D269 07:D259: A0 00     LDY #$00
-C - - - - - 0x01D26B 07:D25B: A2 00     LDX #$00
-bra_D25D:
-C - - - - - 0x01D26D 07:D25D: A9 06     LDA #$06
-C - - - - - 0x01D26F 07:D25F: 8D 00 80  STA MMC3_Bank_select
-C - - - - - 0x01D272 07:D262: A5 02     LDA ram_0002
-C - - - - - 0x01D274 07:D264: 8D 01 80  STA MMC3_Bank_data
+C - - - - - 0x01D26B 07:D25B: A2 00     LDX #$00                                        ; set loop counter
+bra_D25D_loop:                                                                          ; loop by x
+C - - - - - 0x01D26D 07:D25D: A9 06     LDA #$06                                        ; 
+C - - - - - 0x01D26F 07:D25F: 8D 00 80  STA MMC3_Bank_select                            ;
+C - - - - - 0x01D272 07:D262: A5 02     LDA ram_0002                                    ;
+C - - - - - 0x01D274 07:D264: 8D 01 80  STA MMC3_Bank_data                              ; switch $0002 (PRG) in 0x8000-09FFF
 C - - - - - 0x01D277 07:D267: A9 00     LDA #$00
 C - - - - - 0x01D279 07:D269: 85 07     STA ram_0007
 C - - - - - 0x01D27B 07:D26B: B1 52     LDA (ram_0052),Y
@@ -3007,16 +3007,16 @@ C - - - - - 0x01D297 07:D287: F0 02     BEQ @bra_D28B_skip
 C - - - - - 0x01D299 07:D289: A0 02     LDY #$02
 @bra_D28B_skip:
 C - - - - - 0x01D29B 07:D28B: B1 06     LDA (ram_0006),Y
-C - - - - - 0x01D29D 07:D28D: 9D 33 06  STA ram_0633,X
+C - - - - - 0x01D29D 07:D28D: 9D 33 06  STA vPpuBufferData,X
 C - - - - - 0x01D2A0 07:D290: C8        INY
 C - - - - - 0x01D2A1 07:D291: E8        INX
 C - - - - - 0x01D2A2 07:D292: B1 06     LDA (ram_0006),Y
-C - - - - - 0x01D2A4 07:D294: 9D 33 06  STA ram_0633,X
-C - - - - - 0x01D2A7 07:D297: E8        INX
+C - - - - - 0x01D2A4 07:D294: 9D 33 06  STA vPpuBufferData,X
+C - - - - - 0x01D2A7 07:D297: E8        INX                                            ; increment loop counter
 C - - - - - 0x01D2A8 07:D298: A4 11     LDY v_cache_reg_y
 C - - - - - 0x01D2AA 07:D29A: C8        INY
-C - - - - - 0x01D2AB 07:D29B: E0 18     CPX #$18
-C - - - - - 0x01D2AD 07:D29D: 90 BE     BCC bra_D25D
+C - - - - - 0x01D2AB 07:D29B: E0 18     CPX #$18                                       ;
+C - - - - - 0x01D2AD 07:D29D: 90 BE     BCC bra_D25D_loop                              ; If Register X < 0x18
 C - - - - - 0x01D2AF 07:D29F: 60        RTS
 
 loc_D2A0:
@@ -3270,9 +3270,8 @@ C - - - - - 0x01D404 07:D3F4: A9 01     LDA #$01
 C - - - - - 0x01D406 07:D3F6: 60        RTS
 
 ; There PRG-bank switching happens 
-; In: 0x004D - vNoScreen
-; out: the CPU-address in [$004E-#004F]
-; out Register Y - v_cache_reg_y
+; Out: the CPU-address in [$004E-#004F]
+; Out: Register Y - v_cache_reg_y
 sub_D3F7_get_background_screen_info_address:
 C - - - - - 0x01D407 07:D3F7: A9 00     LDA #$00                         ; switch prg: bank 00 (page 1)
 C - - - - - 0x01D409 07:D3F9: 20 04 C5  JSR sub_C504_switch_prg_8000     ;
@@ -3347,21 +3346,21 @@ C - - - - - 0x01D476 07:D466: C0 0F     CPY #$0F                   ;
 C - - - - - 0x01D478 07:D468: D0 F6     BNE @bra_D460_loop         ; If Register Y != 0x0F
 C - - - - - 0x01D47A 07:D46A: A5 4B     LDA vHighViewPortPosX
 C - - - - - 0x01D47C 07:D46C: 85 4D     STA vCacheNoScreen
-C - - - - - 0x01D47E 07:D46E: 20 F7 D3  JSR sub_D3F7_get_background_screen_info_address
-C - - - - - 0x01D481 07:D471: A0 06     LDY #$06                      ; 7th of 8 info bytes
-C - - - - - 0x01D483 07:D473: B1 4E     LDA (vBackgroundScreenInfo),Y ;
-C - - - - - 0x01D485 07:D475: 85 02     STA ram_0002                  ; low address
-C - - - - - 0x01D487 07:D477: C8        INY                           ; 8th of 8 info bytes
-C - - - - - 0x01D488 07:D478: B1 4E     LDA (vBackgroundScreenInfo),Y ; 
-C - - - - - 0x01D48A 07:D47A: 29 1F     AND #$1F                      ;
-C - - - - - 0x01D48C 07:D47C: 09 80     ORA #$80                      ;
-C - - - - - 0x01D48E 07:D47E: 85 03     STA ram_0003                  ; high address
-C - - - - - 0x01D490 07:D480: A0 05     LDY #$05                      ; set loop counter
-@bra_D482_loop:                                                       ; loop by y (6 times)
-C - - - - - 0x01D492 07:D482: B1 02     LDA (ram_0002),Y              ; 
-C - - - - - 0x01D494 07:D484: 99 AF 06  STA vCacheChrBankSelect,Y     ; prepares a cache for all CHR banks
-C - - - - - 0x01D497 07:D487: 88        DEY                           ; decrement y
-C - - - - - 0x01D498 07:D488: 10 F8     BPL @bra_D482_loop            ; If Register Y < 0xF0
+C - - - - - 0x01D47E 07:D46E: 20 F7 D3  JSR sub_D3F7_get_background_screen_info_address ;
+C - - - - - 0x01D481 07:D471: A0 06     LDY #$06                                        ; 7th of 8 info bytes
+C - - - - - 0x01D483 07:D473: B1 4E     LDA (vBackgroundScreenInfo),Y                   ;
+C - - - - - 0x01D485 07:D475: 85 02     STA ram_0002                                    ; low address
+C - - - - - 0x01D487 07:D477: C8        INY                                             ; 8th of 8 info bytes
+C - - - - - 0x01D488 07:D478: B1 4E     LDA (vBackgroundScreenInfo),Y                   ; 
+C - - - - - 0x01D48A 07:D47A: 29 1F     AND #$1F                                        ;
+C - - - - - 0x01D48C 07:D47C: 09 80     ORA #$80                                        ;
+C - - - - - 0x01D48E 07:D47E: 85 03     STA ram_0003                                    ; high address
+C - - - - - 0x01D490 07:D480: A0 05     LDY #$05                                        ; set loop counter
+@bra_D482_loop:                                                                         ; loop by y (6 times)
+C - - - - - 0x01D492 07:D482: B1 02     LDA (ram_0002),Y                                ; 
+C - - - - - 0x01D494 07:D484: 99 AF 06  STA vCacheChrBankSelect,Y                       ; prepares a cache for all CHR banks
+C - - - - - 0x01D497 07:D487: 88        DEY                                             ; decrement y
+C - - - - - 0x01D498 07:D488: 10 F8     BPL @bra_D482_loop                              ; If Register Y < 0xF0
 C - - - - - 0x01D49A 07:D48A: E6 4B     INC vHighViewPortPosX
 C - - - - - 0x01D49C 07:D48C: E6 4B     INC vHighViewPortPosX
 C - - - - - 0x01D49E 07:D48E: A5 27     LDA vLowViewPortPosX
@@ -4941,21 +4940,20 @@ C - - - - - 0x01DE11 07:DE01: 50 03     BVC bra_DE06_skip
 C - - - - - 0x01DE13 07:DE03: 20 80 DF  JSR sub_DF80
 bra_DE06_skip:
 loc_DE06_skip:
-C D 2 - - - 0x01DE16 07:DE06: A6 6F     LDX vJumpCounter
-C - - - - - 0x01DE18 07:DE08: BD 5D E3  LDA tbl_E35D,X
-C - - - - - 0x01DE1B 07:DE0B: 18        CLC
-C - - - - - 0x01DE1C 07:DE0C: 65 6A     ADC ram_006A
-C - - - - - 0x01DE1E 07:DE0E: C9 DF     CMP #$DF
-C - - - - - 0x01DE20 07:DE10: 90 09     BCC bra_DE1B
-C - - - - - 0x01DE22 07:DE12: A0 DF     LDY #$DF
-C - - - - - 0x01DE24 07:DE14: C9 F8     CMP #$F8
-C - - - - - 0x01DE26 07:DE16: 90 02     BCC bra_DE1A
-- - - - - - 0x01DE28 07:DE18: A0        .byte $A0
-- - - - - - 0x01DE29 07:DE19: 00        .byte $00
-bra_DE1A:
+C D 2 - - - 0x01DE16 07:DE06: A6 6F     LDX vJumpCounter                ;
+C - - - - - 0x01DE18 07:DE08: BD 5D E3  LDA tbl_E35D_jump_posY_offset,X ; X = [0x00-0x2F] 
+C - - - - - 0x01DE1B 07:DE0B: 18        CLC                             ;
+C - - - - - 0x01DE1C 07:DE0C: 65 6A     ADC vScreenChrPosY              ;
+C - - - - - 0x01DE1E 07:DE0E: C9 DF     CMP #$DF                        ; CONSTANT - Limit 1 for Y-position
+C - - - - - 0x01DE20 07:DE10: 90 09     BCC @bra_DE1B_skip              ; If Register A < 0xDF
+C - - - - - 0x01DE22 07:DE12: A0 DF     LDY #$DF                        ; 0xDF -> vScreenChrPosY
+C - - - - - 0x01DE24 07:DE14: C9 F8     CMP #$F8                        ; CONSTANT - Limit 2 for Y-position
+C - - - - - 0x01DE26 07:DE16: 90 02     BCC @bra_DE1A_skip              ;
+- - - - - - 0x01DE28 07:DE18: A0 00     LDY #$00                        ; 0x00 -> vScreenChrPosY
+@bra_DE1A_skip:
 C - - - - - 0x01DE2A 07:DE1A: 98        TYA
-bra_DE1B:
-C - - - - - 0x01DE2B 07:DE1B: 85 6A     STA ram_006A
+@bra_DE1B_skip:
+C - - - - - 0x01DE2B 07:DE1B: 85 6A     STA vScreenChrPosY              ; Resolves a new Y-position of the character after jumping
 C - - - - - 0x01DE2D 07:DE1D: 85 00     STA ram_0000
 C - - - - - 0x01DE2F 07:DE1F: A2 0C     LDX #$0C
 C - - - - - 0x01DE31 07:DE21: AD 14 02  LDA vCurrentWeaponStatus
@@ -5866,55 +5864,15 @@ tbl_E358_init_counter:
 - D 3 - - - 0x01E36A 07:E35A: 13        .byte $13
 - D 3 - - - 0x01E36B 07:E35B: 06        .byte $06
 - D 3 - - - 0x01E36C 07:E35C: 13        .byte $13
-tbl_E35D:
-- D 3 - - - 0x01E36D 07:E35D: FB        .byte $FB
-- D 3 - - - 0x01E36E 07:E35E: FC        .byte $FC
-- D 3 - - - 0x01E36F 07:E35F: FC        .byte $FC
-- D 3 - - - 0x01E370 07:E360: FC        .byte $FC
-- D 3 - - - 0x01E371 07:E361: FC        .byte $FC
-- D 3 - - - 0x01E372 07:E362: FC        .byte $FC
-- D 3 - - - 0x01E373 07:E363: FC        .byte $FC
-- D 3 - - - 0x01E374 07:E364: FC        .byte $FC
-- D 3 - - - 0x01E375 07:E365: FC        .byte $FC
-- D 3 - - - 0x01E376 07:E366: FC        .byte $FC
-- D 3 - - - 0x01E377 07:E367: FD        .byte $FD
-- D 3 - - - 0x01E378 07:E368: FD        .byte $FD
-- D 3 - - - 0x01E379 07:E369: FD        .byte $FD
-- D 3 - - - 0x01E37A 07:E36A: FD        .byte $FD
-- D 3 - - - 0x01E37B 07:E36B: FD        .byte $FD
-- D 3 - - - 0x01E37C 07:E36C: FD        .byte $FD
-- D 3 - - - 0x01E37D 07:E36D: FD        .byte $FD
-- D 3 - - - 0x01E37E 07:E36E: FE        .byte $FE
-- D 3 - - - 0x01E37F 07:E36F: FE        .byte $FE
-- D 3 - - - 0x01E380 07:E370: FE        .byte $FE
-- D 3 - - - 0x01E381 07:E371: FE        .byte $FE
-- D 3 - - - 0x01E382 07:E372: FF        .byte $FF
-- D 3 - - - 0x01E383 07:E373: FF        .byte $FF
-- D 3 - - - 0x01E384 07:E374: 00        .byte $00
-- D 3 - - - 0x01E385 07:E375: 00        .byte $00
-- D 3 - - - 0x01E386 07:E376: 01        .byte $01
-- D 3 - - - 0x01E387 07:E377: 01        .byte $01
-- D 3 - - - 0x01E388 07:E378: 02        .byte $02
-- D 3 - - - 0x01E389 07:E379: 02        .byte $02
-- D 3 - - - 0x01E38A 07:E37A: 02        .byte $02
-- D 3 - - - 0x01E38B 07:E37B: 02        .byte $02
-- D 3 - - - 0x01E38C 07:E37C: 03        .byte $03
-- D 3 - - - 0x01E38D 07:E37D: 03        .byte $03
-- D 3 - - - 0x01E38E 07:E37E: 03        .byte $03
-- D 3 - - - 0x01E38F 07:E37F: 03        .byte $03
-- D 3 - - - 0x01E390 07:E380: 03        .byte $03
-- D 3 - - - 0x01E391 07:E381: 03        .byte $03
-- D 3 - - - 0x01E392 07:E382: 03        .byte $03
-- D 3 - - - 0x01E393 07:E383: 04        .byte $04
-- D 3 - - - 0x01E394 07:E384: 04        .byte $04
-- D 3 - - - 0x01E395 07:E385: 04        .byte $04
-- D 3 - - - 0x01E396 07:E386: 04        .byte $04
-- D 3 - - - 0x01E397 07:E387: 04        .byte $04
-- D 3 - - - 0x01E398 07:E388: 04        .byte $04
-- D 3 - - - 0x01E399 07:E389: 04        .byte $04
-- D 3 - - - 0x01E39A 07:E38A: 04        .byte $04
-- D 3 - - - 0x01E39B 07:E38B: 04        .byte $04
-- D 3 - - - 0x01E39C 07:E38C: 05        .byte $05
+
+; In the case jumpCounter is equal to 0x17 or 0x18 - this is the amplitude
+; 0xFF -> -1, 0xFE -> -2, 0xFD -> -3, 0xFC -> -4, 0xFB -> -5
+; 0x00 -> 0
+; 0x01 -> +1, 0x02 -> +2, 0x03 -> +3, 0x04 -> +4, 0x05 -> +5
+tbl_E35D_jump_posY_offset:
+- D 3 - - - 0x01E36D 07:E35D: FB        .byte $FB, $FC, $FC, $FC, $FC, $FC, $FC, $FC, $FC, $FC, $FD, $FD, $FD, $FD, $FD, $FD
+- D 3 - - - 0x01E37D 07:E36D: FD        .byte $FD, $FE, $FE, $FE, $FE, $FF, $FF, $00, $00, $01, $01, $02, $02, $02, $02, $03
+- D 3 - - - 0x01E38D 07:E37D: 03        .byte $03, $03, $03, $03, $03, $03, $04, $04, $04, $04, $04, $04, $04, $04, $04, $05
 tbl_E38D:
 - D 3 - - - 0x01E39D 07:E38D: E9        .byte $E9
 tbl_E38E:
@@ -7154,7 +7112,7 @@ C - - - - - 0x01EB61 07:EB51: 85 6F     STA ram_006F
 bra_EB53:
 C - - - - - 0x01EB63 07:EB53: 20 20 EA  JSR sub_EA20
 C - - - - - 0x01EB66 07:EB56: A6 6F     LDX ram_006F
-C - - - - - 0x01EB68 07:EB58: BD 5D E3  LDA tbl_E35D,X
+C - - - - - 0x01EB68 07:EB58: BD 5D E3  LDA tbl_E35D_jump_posY_offset,X
 C - - - - - 0x01EB6B 07:EB5B: 18        CLC
 C - - - - - 0x01EB6C 07:EB5C: 65 6A     ADC ram_006A
 C - - - - - 0x01EB6E 07:EB5E: 85 6A     STA ram_006A

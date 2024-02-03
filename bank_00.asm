@@ -1290,7 +1290,7 @@ tbl_background_screens:
 - D 0 - - - 0x00058A 00:857A: AA 07     .word $07AA
 
 tbl_background_screens_level_1_0:
-- D 0 - I - 0x00058C 00:857C: 36        .byte $36   ; screen 0 ($81B0)
+- D 0 - I - 0x00058C 00:857C: 36        .byte $36   ; screen 0 ($81B0), 0x01B0 << 0xD8 << 0x6C << 0x36
 - D 0 - I - 0x00058D 00:857D: 37        .byte $37   ; screen 1 ($81B8)
 - D 0 - I - 0x00058E 00:857E: 38        .byte $38   ; screen 2 ($81C0)
 - D 0 - I - 0x00058F 00:857F: 39        .byte $39   ; screen 3 ($81C8)

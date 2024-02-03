@@ -7,6 +7,10 @@
 .export loc_AD80_activate_sound_manager
 
 ; (4 bytes each)
+; 1 byte - the offset of the sound row list {00,15,2A,3F,54,69,7E,93} (i.e. the number of the sound rows)
+; 2 byte - apu channel {0x00, 0x01, 0x02, 0x03}
+; 3 byte - the low address of the track
+; 4 byte - the high address of the track
 tbl_sound_row_mini:     
 - - - - - - 0x008010 02:A000: 54        .byte $54, $00, $84, $81 ; 0x00 start screen track1
 - D 0 - I - 0x008014 02:A004: 69        .byte $69, $01, $B1, $81 ; 0x01 start screen track2
@@ -3387,14 +3391,14 @@ C - - - - - 0x008D95 02:AD85: EE 06 04  INC v_sound_counter
 ; X = {00,15,2A,3F,54,69,7E,93} , in the end - A8
 bra_AD88_repeat:
 C - - - - - 0x008D98 02:AD88: AA        TAX
-C - - - - - 0x008D99 02:AD89: BD 11 04  LDA vSoundRowB_1,X
-C - - - - - 0x008D9C 02:AD8C: 29 03     AND #$03
-C - - - - - 0x008D9E 02:AD8E: 8D 02 04  STA ram_0402 ; 0x00, 0x01, 0x02 or 0x03
-C - - - - - 0x008DA1 02:AD91: A8        TAY          ; 0x00, 0x01, 0x02 or 0x03
+C - - - - - 0x008D99 02:AD89: BD 11 04  LDA vSoundRowB_1,X    ;
+C - - - - - 0x008D9C 02:AD8C: 29 03     AND #$03              ;
+C - - - - - 0x008D9E 02:AD8E: 8D 02 04  STA ram_0402          ; puts the apu channel (0x00, 0x01, 0x02 or 0x03)
+C - - - - - 0x008DA1 02:AD91: A8        TAY                   ; 0x00, 0x01, 0x02 or 0x03
 C - - - - - 0x008DA2 02:AD92: B9 A6 B1  LDA tbl_B1A6,Y
 C - - - - - 0x008DA5 02:AD95: 8D 03 04  STA ram_0403
 C - - - - - 0x008DA8 02:AD98: BD 10 04  LDA vSoundRowB_0,X
-C - - - - - 0x008DAB 02:AD9B: F0 5C     BEQ bra_ADF9_skip ; If Register A == 0x00
+C - - - - - 0x008DAB 02:AD9B: F0 5C     BEQ bra_ADF9_skip     ; If Register A == 0x00
 C - - - - - 0x008DAD 02:AD9D: C9 FF     CMP #$FF
 C - - - - - 0x008DAF 02:AD9F: F0 4F     BEQ bra_ADF0_next_row ; If Register A == 0xFF
 C - - - - - 0x008DB1 02:ADA1: 20 3F B1  JSR sub_B13F
@@ -3441,10 +3445,10 @@ C - - - - - 0x008E06 02:ADF6: D0 90     BNE bra_AD88_repeat  ; If Register A != 
 C - - - - - 0x008E08 02:ADF8: 60        RTS
 
 bra_ADF9_skip:
-C - - - - - 0x008E09 02:ADF9: BD 12 04  LDA vSoundRowB_2,X
-C - - - - - 0x008E0C 02:ADFC: 85 FE     STA ram_00FE   ; Low address
-C - - - - - 0x008E0E 02:ADFE: BD 13 04  LDA vSoundRowB_3,X
-C - - - - - 0x008E11 02:AE01: 85 FF     STA ram_00FF   ; High address
+C - - - - - 0x008E09 02:ADF9: BD 12 04  LDA vSoundRowB_2,X   ;
+C - - - - - 0x008E0C 02:ADFC: 85 FE     STA ram_00FE         ; Low address (the current track)
+C - - - - - 0x008E0E 02:ADFE: BD 13 04  LDA vSoundRowB_3,X   ;
+C - - - - - 0x008E11 02:AE01: 85 FF     STA ram_00FF         ; High address  (the current track)
 C - - - - - 0x008E13 02:AE03: A0 00     LDY #$00         ; to 1 byte of N
 C - - - - - 0x008E15 02:AE05: B1 FE     LDA (ram_00FE),Y
 C - - - - - 0x008E17 02:AE07: 29 0F     AND #$0F

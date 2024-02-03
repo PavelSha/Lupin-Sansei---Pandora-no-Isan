@@ -311,9 +311,17 @@ $C43A##--NO-COMMENT--
 $C43C##High address
 $C43E##--NO-COMMENT--
 $C440##to 1 byte of 4
+$C442##--NO-COMMENT--
+$C444##--NO-COMMENT--
 $C445##to 2 byte of 4
+$C446##--NO-COMMENT--
+$C448##--NO-COMMENT--
 $C44B##to 3 byte of 4
+$C44C##--NO-COMMENT--
+$C44E##--NO-COMMENT--
 $C451##to 4 byte of 4
+$C452##--NO-COMMENT--
+$C454##--NO-COMMENT--
 $C45C##--NO-COMMENT--
 $C45E##--NO-COMMENT--
 $C461##--NO-COMMENT--
@@ -1198,16 +1206,64 @@ $D1B5#bra_D1B5#
 $D1BC#bra_D1BC#
 $D1C3#bra_D1C3#
 $D1CB#bra_D1CB#
-$D1D0#bra_D1D0#
-$D1EB#bra_D1EB#
+$D1D0#bra_D1D0#temp increment
+$D1D2##--NO-COMMENT--
+$D1D4##--NO-COMMENT--
+$D1D6##If vCacheNoScreen >= vCurrentRoomLength (outside of the room)
+$D1D8##temp increment
+$D1DA##--NO-COMMENT--
+$D1DC##If vLowViewPortPosX != 0x00
+$D1DE##store vLowViewPortPosX (0x00)
+$D1DF##--NO-COMMENT--
+$D1E1##switch $2000 -> $2400 or $2400 -> $2000 (name table address)
+$D1E3##--NO-COMMENT--
+$D1E5##next screen
+$D1E7##--NO-COMMENT--
+$D1E9##--NO-COMMENT--
+$D1EB#@bra_D1EB_skip#
 $D1F2#bra_D1F2#
 $D1F8#bra_D1F8_RTS#
-$D1F9#bra_D1F9#
-$D201#bra_D201#
-$D203#loc_D203#
-$D217#bra_D217#
-$D25D#bra_D25D#
+$D1F9#bra_D1F9_increment_40#retrieve vLowViewPortPosX
+$D1FA##--NO-COMMENT--
+$D1FB##--NO-COMMENT--
+$D1FD##If vLowViewPortPosX < 0xC0
+$D1FF##--NO-COMMENT--
+$D201#@bra_D201_skip#puts vLowViewPortPosX + 0x40
+$D203#loc_D203#--NO-COMMENT--
+$D205##--NO-COMMENT--
+$D207##If vCacheNoScreen >= vCurrentRoomLength (outside of the room)
+$D209##--NO-COMMENT--
+$D20B##init count (v_ppu_buffer_count <~ 0x98)
+$D20E##--NO-COMMENT--
+$D210##--NO-COMMENT--
+$D212##--NO-COMMENT--
+$D213##If vCacheNoScreen = {0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, ...}
+$D215##--NO-COMMENT--
+$D217#@bra_D217_skip#vHighPpuAddress <~ 0x20 or 0x24
+$D21A##--NO-COMMENT--
+$D21C##set zero
+$D21E##--NO-COMMENT--
+$D220##--NO-COMMENT--
+$D221##--NO-COMMENT--
+$D222##/8
+$D223##--NO-COMMENT--
+$D225##vLowPpuAddress <~ [0xC0-0xDF]
+$D228##--NO-COMMENT--
+$D236##0th of 8 info bytes
+$D23C##1th of 8 info bytes
+$D241##store A
+$D248##retrieve A ($D241)
+$D249##--NO-COMMENT--
+$D24C##puts a bank data
+$D25B##set loop counter
+$D25D#bra_D25D_loop#--NO-COMMENT--
+$D25F##--NO-COMMENT--
+$D262##--NO-COMMENT--
+$D264##switch $0002 (PRG) in 0x8000-09FFF
 $D28B#@bra_D28B_skip#
+$D297##increment loop counter
+$D29B##--NO-COMMENT--
+$D29D##If Register X < 0x18
 $D2A0#loc_D2A0#
 $D2B0#bra_D2B0#
 $D2B3#bra_D2B3#
@@ -1319,6 +1375,7 @@ $D462##--NO-COMMENT--
 $D465##decrement x
 $D466##--NO-COMMENT--
 $D468##If Register Y != 0x0F
+$D46E##--NO-COMMENT--
 $D471##7th of 8 info bytes
 $D473##--NO-COMMENT--
 $D475##low address
@@ -1621,24 +1678,39 @@ $DC95#bra_DC95_RTS#
 $DC96#sub_DC96#
 $DC98#sub_DC98#
 $DCA8#bra_DCA8_RTS#
-$DCA9#loc_DCA9#
+$DCA9#loc_DCA9_calc_ScreenChrPosX#--NO-COMMENT--
+$DCAB##--NO-COMMENT--
+$DCAC##--NO-COMMENT--
+$DCAE##--NO-COMMENT--
+$DCB0##--NO-COMMENT--
 $DCB1#sub_DCB1#
 $DCBA#bra_DCBA_RTS#
 $DCBB#loc_DCBB#
 $DCD7#sub_DCD7#
-$DCE5#sub_DCE5#
+$DCE5#sub_DCE5#--NO-COMMENT--
+$DCE8##If the movement to the right is not allowed
 $DCEC#bra_DCEC#
 $DCF1#sub_DCF1_reset_velocity#--NO-COMMENT--
 $DCF3##Always true
 $DCF5##it will never happen
 $DCF7#@bra_DCF7_skip#--NO-COMMENT--
 $DCF9##--NO-COMMENT--
-$DCFA#loc_DCFA#
-$DD0B#bra_DD0B#
+$DCFA#loc_DCFA#--NO-COMMENT--
+$DCFC##--NO-COMMENT--
+$DCFD##CONSTANT - The character should be visible in its entirety on the right
+$DCFF##--NO-COMMENT--
+$DD01##--NO-COMMENT--
+$DD03##Branch If the character reach the end of the room
+$DD05##--NO-COMMENT--
+$DD07##If the character doesn't move from one screen to another
+$DD09##--NO-COMMENT--
+$DD0B#@bra_DD0B_skip#
 $DD12#sub_DD12#
-$DD19#sub_DD19#
+$DD19#sub_DD19#--NO-COMMENT--
+$DD1B##CONSTANT - level 4 or level-racing
+$DD1D##If Register A != 0x03
 $DD29#bra_DD29_skip#
-$DD2C#sub_DD2C#
+$DD2C#sub_DD2C#an increment by posX
 $DD33#bra_DD33_RTS#
 $DD34#sub_DD34#
 $DD44#bra_DD44_skip#
@@ -1673,9 +1745,18 @@ $DDDF#bra_DDDF#
 $DDEF#bra_DDEF_skip#
 $DDF2#bra_DDF2_skip#
 $DDF6#bra_DDF6_skip#
-$DE06#loc_DE06_skip#
-$DE1A#bra_DE1A#
-$DE1B#bra_DE1B#
+$DE06#loc_DE06_skip#--NO-COMMENT--
+$DE08##X = [0x00-0x2F]
+$DE0B##--NO-COMMENT--
+$DE0C##--NO-COMMENT--
+$DE0E##CONSTANT - Limit 1 for Y-position
+$DE10##If Register A < 0xDF
+$DE12##0xDF -> vScreenChrPosY
+$DE14##CONSTANT - Limit 2 for Y-position
+$DE16##--NO-COMMENT--
+$DE18##0x00 -> vScreenChrPosY
+$DE1A#@bra_DE1A_skip#
+$DE1B#@bra_DE1B_skip#Resolves a new Y-position of the character after jumping
 $DE30#bra_DE30#
 $DE39#bra_DE39#
 $DE44#bra_DE44#
@@ -1796,7 +1877,7 @@ $E332#sub_E332#
 $E33E#bra_E33E#
 $E348#tbl_E348#
 $E358#tbl_E358_init_counter#
-$E35D#tbl_E35D#
+$E35D#tbl_E35D_jump_posY_offset#
 $E38D#tbl_E38D#
 $E38E#tbl_E38E#
 $E3A6#tbl_E3A6#
@@ -1835,9 +1916,12 @@ $E531#bra_E531#
 $E534#sub_E534#
 $E536#loc_E536#
 $E55F#bra_E55F#
-$E565#loc_E565#
-$E56D#bra_E56D#
-$E574#bra_E574#
+$E565#loc_E565#--NO-COMMENT--
+$E567##--NO-COMMENT--
+$E569##Branch If the character isn't moving on the roof pitch
+$E56B##--NO-COMMENT--
+$E56D#@bra_E56D_skip#
+$E574#bra_E574_skip#
 $E577#bra_E577#
 $E57B#bra_E57B#
 $E57D#bra_E57D#
