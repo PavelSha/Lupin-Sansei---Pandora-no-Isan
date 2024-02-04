@@ -6,10 +6,10 @@ All rights reserved by モンキー・パンチ, NAMCO.
 -  Windows - run a command ***assemble.bat***
 -  Linux - assemble.sh (!! TODO !!)
 ## Statistics
--  Code Logger bytes - ***12.64%***
--  Data Logger bytes - ***75.62%***
--  Unknown bytes     - ***11.74%***
--  Code commented    - ***16.13%***
+-  Code Logger bytes - ***12.97%***
+-  Data Logger bytes - ***75.00%***
+-  Unknown bytes     - ***12.03%***
+-  Code commented    - ***16.41%***
 ## Documentation
 -  [bestiary](docs/ru/bestiary.md) - The list of all enemies in the game
 -  [maze1](docs/ru/maze1.txt), [maze2](docs/ru/maze2.txt), [maze3](docs/ru/maze3.txt), [maze4](docs/ru/maze4.txt) - The information of the mazes on the level 4

@@ -2953,31 +2953,36 @@ C - - - - - 0x01D232 07:D222: 4A        LSR                                     
 C - - - - - 0x01D233 07:D223: 09 C0     ORA #$C0                                        ;
 C - - - - - 0x01D235 07:D225: 8D 30 06  STA vLowPpuAddress                              ; vLowPpuAddress <~ [0xC0-0xDF]
 C - - - - - 0x01D238 07:D228: 20 F7 D3  JSR sub_D3F7_get_background_screen_info_address ;
-C - - - - - 0x01D23B 07:D22B: A5 02     LDA ram_0002
-C - - - - - 0x01D23D 07:D22D: 29 F0     AND #$F0
-C - - - - - 0x01D23F 07:D22F: 4A        LSR
-C - - - - - 0x01D240 07:D230: 85 02     STA ram_0002
-C - - - - - 0x01D242 07:D232: 4A        LSR
-C - - - - - 0x01D243 07:D233: 18        CLC
-C - - - - - 0x01D244 07:D234: 65 02     ADC ram_0002
-C - - - - - 0x01D246 07:D236: A0 00     LDY #$00                                        ; 0th of 8 info bytes
-C - - - - - 0x01D248 07:D238: 71 4E     ADC (vBackgroundScreenInfo),Y
-C - - - - - 0x01D24A 07:D23A: 85 52     STA ram_0052
-C - - - - - 0x01D24C 07:D23C: C8        INY                                             ; 1th of 8 info bytes
-C - - - - - 0x01D24D 07:D23D: B1 4E     LDA (vBackgroundScreenInfo),Y
-C - - - - - 0x01D24F 07:D23F: 69 00     ADC #$00
+C - - - - - 0x01D23B 07:D22B: A5 02     LDA ram_0002                                    ;
+C - - - - - 0x01D23D 07:D22D: 29 F0     AND #$F0                                        ;
+C - - - - - 0x01D23F 07:D22F: 4A        LSR                                             ;
+C - - - - - 0x01D240 07:D230: 85 02     STA ram_0002                                    ;
+C - - - - - 0x01D242 07:D232: 4A        LSR                                             ;
+C - - - - - 0x01D243 07:D233: 18        CLC                                             ;
+C - - - - - 0x01D244 07:D234: 65 02     ADC ram_0002                                    ; put in Register A a whole ram_0002 that is a multiple of 12
+                                                                                        ; 0x0X -> 0x00, 0x1X -> 0x0C, 0x2X -> 0x18, 0x3X -> 0x24
+                                                                                        ; 0x4X -> 0x30, 0x5X -> 0x3C, 0x6X -> 0x48, 0x7X -> 0x54
+                                                                                        ; 0x8X -> 0x60, 0x9X -> 0x6C, 0xAX -> 0x78, 0xBX -> 0x84
+                                                                                        ; 0xCX -> 0x90, 0xDX -> 0x9C, 0xEX -> 0xA8, 0xFX -> 0xB4
+																						; see also loc_D2E5
+C - - - - - 0x01D246 07:D236: A0 00     LDY #$00                                        ; 1th of 8 info bytes
+C - - - - - 0x01D248 07:D238: 71 4E     ADC (vBackgroundScreenInfo),Y                   ;
+C - - - - - 0x01D24A 07:D23A: 85 52     STA ram_0052                                    ; low address + offset
+C - - - - - 0x01D24C 07:D23C: C8        INY                                             ; 2th of 8 info bytes
+C - - - - - 0x01D24D 07:D23D: B1 4E     LDA (vBackgroundScreenInfo),Y                   ;
+C - - - - - 0x01D24F 07:D23F: 69 00     ADC #$00                                        ;
 C - - - - - 0x01D251 07:D241: 48        PHA                                             ; store A
-C - - - - - 0x01D252 07:D242: 29 1F     AND #$1F
-C - - - - - 0x01D254 07:D244: 09 80     ORA #$80
-C - - - - - 0x01D256 07:D246: 85 53     STA ram_0053
+C - - - - - 0x01D252 07:D242: 29 1F     AND #$1F                                        ;
+C - - - - - 0x01D254 07:D244: 09 80     ORA #$80                                        ; using 0x000XXXXX from 0xBBBAAAAA
+C - - - - - 0x01D256 07:D246: 85 53     STA ram_0053                                    ; high address + offset
 C - - - - - 0x01D258 07:D248: 68        PLA                                             ; retrieve A ($D241)
 C - - - - - 0x01D259 07:D249: 20 5E D0  JSR sub_accumulator_shift_right_by_5            ;
-C - - - - - 0x01D25C 07:D24C: 85 02     STA ram_0002                                    ; puts a bank data
-C - - - - - 0x01D25E 07:D24E: A0 04     LDY #$04
-C - - - - - 0x01D260 07:D250: B1 4E     LDA (vBackgroundScreenInfo),Y
+C - - - - - 0x01D25C 07:D24C: 85 02     STA ram_0002                                    ; puts a bank data, using 0xXXX00000 from 0xBBBAAAAA
+C - - - - - 0x01D25E 07:D24E: A0 04     LDY #$04                                        ; 5th of 8 info bytes
+C - - - - - 0x01D260 07:D250: B1 4E     LDA (vBackgroundScreenInfo),Y                   ;
 C - - - - - 0x01D262 07:D252: 85 50     STA ram_0050
-C - - - - - 0x01D264 07:D254: C8        INY
-C - - - - - 0x01D265 07:D255: B1 4E     LDA (vBackgroundScreenInfo),Y
+C - - - - - 0x01D264 07:D254: C8        INY                                             ; 6th of 8 info bytes
+C - - - - - 0x01D265 07:D255: B1 4E     LDA (vBackgroundScreenInfo),Y                   ;
 C - - - - - 0x01D267 07:D257: 85 51     STA ram_0051
 C - - - - - 0x01D269 07:D259: A0 00     LDY #$00
 C - - - - - 0x01D26B 07:D25B: A2 00     LDX #$00                                        ; set loop counter
@@ -2986,38 +2991,39 @@ C - - - - - 0x01D26D 07:D25D: A9 06     LDA #$06                                
 C - - - - - 0x01D26F 07:D25F: 8D 00 80  STA MMC3_Bank_select                            ;
 C - - - - - 0x01D272 07:D262: A5 02     LDA ram_0002                                    ;
 C - - - - - 0x01D274 07:D264: 8D 01 80  STA MMC3_Bank_data                              ; switch $0002 (PRG) in 0x8000-09FFF
-C - - - - - 0x01D277 07:D267: A9 00     LDA #$00
-C - - - - - 0x01D279 07:D269: 85 07     STA ram_0007
+C - - - - - 0x01D277 07:D267: A9 00     LDA #$00                                        ;
+C - - - - - 0x01D279 07:D269: 85 07     STA ram_0007                                    ; set zero
 C - - - - - 0x01D27B 07:D26B: B1 52     LDA (ram_0052),Y
 C - - - - - 0x01D27D 07:D26D: 0A        ASL
 C - - - - - 0x01D27E 07:D26E: 26 07     ROL ram_0007
 C - - - - - 0x01D280 07:D270: 0A        ASL
-C - - - - - 0x01D281 07:D271: 26 07     ROL ram_0007
+C - - - - - 0x01D281 07:D271: 26 07     ROL ram_0007                                    ; ram_0007 = {0x00, 0x01, 0x02, 0x03}
 C - - - - - 0x01D283 07:D273: 18        CLC
-C - - - - - 0x01D284 07:D274: 65 50     ADC ram_0050
-C - - - - - 0x01D286 07:D276: 85 06     STA ram_0006
+C - - - - - 0x01D284 07:D274: 65 50     ADC ram_0050                                    ; low address = ram_0050 + ((ram_0052) << 2)
+C - - - - - 0x01D286 07:D276: 85 06     STA ram_0006                                    ; puts a low address of ppu datas
 C - - - - - 0x01D288 07:D278: A5 07     LDA ram_0007
-C - - - - - 0x01D28A 07:D27A: 65 51     ADC ram_0051
-C - - - - - 0x01D28C 07:D27C: 20 04 C5  JSR sub_C504_switch_prg_8000
-C - - - - - 0x01D28F 07:D27F: 85 07     STA ram_0007
-C - - - - - 0x01D291 07:D281: A0 00     LDY #$00
-C - - - - - 0x01D293 07:D283: A5 27     LDA ram_0027
-C - - - - - 0x01D295 07:D285: 29 08     AND #$08
-C - - - - - 0x01D297 07:D287: F0 02     BEQ @bra_D28B_skip
-C - - - - - 0x01D299 07:D289: A0 02     LDY #$02
+C - - - - - 0x01D28A 07:D27A: 65 51     ADC ram_0051                                    ; 0xBBBAAAAA = ram_0051 + ram_0007
+C - - - - - 0x01D28C 07:D27C: 20 04 C5  JSR sub_C504_switch_prg_8000                    ; switch to the bank with ppu datas
+C - - - - - 0x01D28F 07:D27F: 85 07     STA ram_0007                                    ; puts a high address of ppu datas
+C - - - - - 0x01D291 07:D281: A0 00     LDY #$00                                        ; using first pair of quartet
+C - - - - - 0x01D293 07:D283: A5 27     LDA vLowViewPortPosX                            ;
+C - - - - - 0x01D295 07:D285: 29 08     AND #$08                                        ;
+C - - - - - 0x01D297 07:D287: F0 02     BEQ @bra_D28B_skip                              ; If vLowViewPortPosX == 0xXXXXX000
+                                                                                        ; or which is the same, multiple of 8 without remainder
+C - - - - - 0x01D299 07:D289: A0 02     LDY #$02                                        ; using second pair of quartet
 @bra_D28B_skip:
-C - - - - - 0x01D29B 07:D28B: B1 06     LDA (ram_0006),Y
-C - - - - - 0x01D29D 07:D28D: 9D 33 06  STA vPpuBufferData,X
-C - - - - - 0x01D2A0 07:D290: C8        INY
-C - - - - - 0x01D2A1 07:D291: E8        INX
-C - - - - - 0x01D2A2 07:D292: B1 06     LDA (ram_0006),Y
-C - - - - - 0x01D2A4 07:D294: 9D 33 06  STA vPpuBufferData,X
-C - - - - - 0x01D2A7 07:D297: E8        INX                                            ; increment loop counter
+C - - - - - 0x01D29B 07:D28B: B1 06     LDA (ram_0006),Y                                ;
+C - - - - - 0x01D29D 07:D28D: 9D 33 06  STA vPpuBufferData,X                            ; store a tile number 1
+C - - - - - 0x01D2A0 07:D290: C8        INY                                             ; next vPpuBufferData
+C - - - - - 0x01D2A1 07:D291: E8        INX                                             ; increment loop counter
+C - - - - - 0x01D2A2 07:D292: B1 06     LDA (ram_0006),Y                                ;
+C - - - - - 0x01D2A4 07:D294: 9D 33 06  STA vPpuBufferData,X                            ; store a tile number 2
+C - - - - - 0x01D2A7 07:D297: E8        INX                                             ; increment loop counter
 C - - - - - 0x01D2A8 07:D298: A4 11     LDY v_cache_reg_y
 C - - - - - 0x01D2AA 07:D29A: C8        INY
-C - - - - - 0x01D2AB 07:D29B: E0 18     CPX #$18                                       ;
-C - - - - - 0x01D2AD 07:D29D: 90 BE     BCC bra_D25D_loop                              ; If Register X < 0x18
-C - - - - - 0x01D2AF 07:D29F: 60        RTS
+C - - - - - 0x01D2AB 07:D29B: E0 18     CPX #$18                                        ;
+C - - - - - 0x01D2AD 07:D29D: 90 BE     BCC bra_D25D_loop                               ; If Register X < 0x18
+C - - - - - 0x01D2AF 07:D29F: 60        RTS                                             ;
 
 loc_D2A0:
 C D 2 - - - 0x01D2B0 07:D2A0: A5 46     LDA ram_0046
