@@ -12,105 +12,202 @@
 ; 3 byte - the low address of the track
 ; 4 byte - the high address of the track
 tbl_sound_row_mini:     
-- - - - - - 0x008010 02:A000: 54        .byte $54, $00, $84, $81 ; 0x00 start screen track1
-- D 0 - I - 0x008014 02:A004: 69        .byte $69, $01, $B1, $81 ; 0x01 start screen track2
-- D 0 - I - 0x008018 02:A008: 7E        .byte $7E, $02, $D4, $81 ; 0x02 start screen track3
-- D 0 - I - 0x00801C 02:A00C: 93        .byte $93, $03, $F7, $81 ; 0x03 start screen track4
-- D 0 - I - 0x008020 02:A010: 54        .byte $54, $00, $1C, $82 ; 0x04
-- D 0 - I - 0x008024 02:A014: 69        .byte $69, $01, $81, $82 ; 0x05
-- D 0 - I - 0x008028 02:A018: 54        .byte $54, $00, $F7, $82 ; 0x06
-- D 0 - I - 0x00802C 02:A01C: 7E        .byte $7E, $02, $5A, $83 ; 0x07
-- D 0 - I - 0x008030 02:A020: 54        .byte $54, $00, $B1, $83 ; 0x08
-- D 0 - I - 0x008034 02:A024: 7E        .byte $7E, $02, $94, $88 ; 0x09
-- - - - - - 0x008038 02:A028: 3F        .byte $3F, $03, $BD, $84 ; 0x0A - blank
-- D 0 - I - 0x00803C 02:A02C: 3F        .byte $3F, $03, $BE, $84 ; 0x0B - 3rd sound row
-- D 0 - I - 0x008040 02:A030: 3F        .byte $3F, $03, $C7, $84 ; 0x0C
-- D 0 - I - 0x008044 02:A034: 2A        .byte $2A, $01, $D4, $84 ; 0x0D
-- D 0 - I - 0x008048 02:A038: 00        .byte $00, $01, $DD, $84 ; 0x0E
-- D 0 - I - 0x00804C 02:A03C: 3F        .byte $3F, $03, $EA, $84 ; 0x0F
-- D 0 - I - 0x008050 02:A040: 2A        .byte $2A, $01, $F5, $84 ; 0x10
-- D 0 - I - 0x008054 02:A044: 2A        .byte $2A, $01, $FC, $84 ; 0x11
-- D 0 - I - 0x008058 02:A048: 15        .byte $15, $01, $09, $85 ; 0x12
-- D 0 - I - 0x00805C 02:A04C: 2A        .byte $2A, $01, $14, $85 ; 0x13
-- D 0 - I - 0x008060 02:A050: 2A        .byte $2A, $01, $29, $85 ; 0x14
-- D 0 - I - 0x008064 02:A054: 2A        .byte $2A, $01, $3A, $85 ; 0x15
-- D 0 - I - 0x008068 02:A058: 3F        .byte $3F, $03, $41, $85 ; 0x16
-- D 0 - I - 0x00806C 02:A05C: 3F        .byte $3F, $03, $48, $85 ; 0x17
-- D 0 - I - 0x008070 02:A060: 2A        .byte $2A, $01, $53, $85 ; 0x18
-- D 0 - I - 0x008074 02:A064: 3F        .byte $3F, $03, $62, $85 ; 0x19
-- D 0 - I - 0x008078 02:A068: 3F        .byte $3F, $03, $6D, $85 ; 0x1A
-- D 0 - I - 0x00807C 02:A06C: 54        .byte $54, $00, $83, $85 ; 0x1B
-- D 0 - I - 0x008080 02:A070: 7E        .byte $7E, $02, $E0, $85 ; 0x1C
-- D 0 - I - 0x008084 02:A074: 54        .byte $54, $00, $17, $86 ; 0x1D
-- D 0 - I - 0x008088 02:A078: 7E        .byte $7E, $02, $4C, $86 ; 0x1E
-- D 0 - I - 0x00808C 02:A07C: 54        .byte $54, $00, $B1, $86 ; 0x1F
-- D 0 - I - 0x008090 02:A080: 7E        .byte $7E, $02, $D2, $86 ; 0x20
-- D 0 - I - 0x008094 02:A084: 2A        .byte $2A, $01, $78, $85 ; 0x21
-- D 0 - I - 0x008098 02:A088: 54        .byte $54, $00, $EB, $86 ; 0x22
-- D 0 - I - 0x00809C 02:A08C: 7E        .byte $7E, $02, $76, $87 ; 0x23
-- D 0 - I - 0x0080A0 02:A090: 54        .byte $54, $00, $B1, $87 ; 0x24
-- D 0 - I - 0x0080A4 02:A094: 7E        .byte $7E, $02, $D2, $87 ; 0x25
-- - - - - - 0x0080A8 02:A098: 3F        .byte $3F, $03, $F7, $88 ; 0x26 - blank
-- - - - - - 0x0080AC 02:A09C: 2A        .byte $2A, $01, $F8, $88 ; 0x27 - blank
-- D 0 - I - 0x0080B0 02:A0A0: 3F        .byte $3F, $03, $F9, $88 ; 0x28
-- D 0 - I - 0x0080B4 02:A0A4: 2A        .byte $2A, $01, $00, $89 ; 0x29
-- D 0 - I - 0x0080B8 02:A0A8: 2A        .byte $2A, $01, $09, $89 ; 0x2A
-- - - - - - 0x0080BC 02:A0AC: 2A        .byte $2A, $01, $1A, $89 ; 0x2B - blank
-- D 0 - I - 0x0080C0 02:A0B0: 3F        .byte $3F, $03, $1B, $89 ; 0x2C
-- D 0 - I - 0x0080C4 02:A0B4: 3F        .byte $3F, $03, $26, $89 ; 0x2D
-- - - - - - 0x0080C8 02:A0B8: 3F        .byte $3F, $03, $2F, $89 ; 0x2E - blank
-- - - - - - 0x0080CC 02:A0BC: 3F        .byte $3F, $03, $30, $89 ; 0x2F - blank
-- D 0 - I - 0x0080D0 02:A0C0: 2A        .byte $2A, $01, $31, $89 ; 0x30
-- D 0 - I - 0x0080D4 02:A0C4: 3F        .byte $3F, $03, $40, $89 ; 0x31
-- D 0 - I - 0x0080D8 02:A0C8: 3F        .byte $3F, $03, $47, $89 ; 0x32
-- - - - - - 0x0080DC 02:A0CC: 3F        .byte $3F, $03, $57, $89 ; 0x33 - blank
-- D 0 - I - 0x0080E0 02:A0D0: 2A        .byte $2A, $01, $58, $89 ; 0x34
-- D 0 - I - 0x0080E4 02:A0D4: 2A        .byte $2A, $01, $5F, $89 ; 0x35
-- D 0 - I - 0x0080E8 02:A0D8: 3F        .byte $3F, $03, $6C, $89 ; 0x36
-- D 0 - I - 0x0080EC 02:A0DC: 2A        .byte $2A, $01, $77, $89 ; 0x37
-- - - - - - 0x0080F0 02:A0E0: 2A        .byte $2A, $01, $82, $89 ; 0x38 - blank
-- D 0 - I - 0x0080F4 02:A0E4: 7E        .byte $7E, $02, $F1, $87 ; 0x39
-- D 0 - I - 0x0080F8 02:A0E8: 69        .byte $69, $01, $29, $88 ; 0x3A
-- D 0 - I - 0x0080FC 02:A0EC: 69        .byte $69, $01, $36, $84 ; 0x3B
-- - - - - - 0x008100 02:A0F0: 2A        .byte $2A, $01, $83, $89 ; 0x3C - blank
-- D 0 - I - 0x008104 02:A0F4: 3F        .byte $3F, $03, $84, $89 ; 0x3D
-- - - - - - 0x008108 02:A0F8: 2A        .byte $2A, $01, $8D, $89 ; 0x3E - blank
-- D 0 - I - 0x00810C 02:A0FC: 2A        .byte $2A, $01, $8E, $89 ; 0x3F
-- D 0 - I - 0x008110 02:A100: 2A        .byte $2A, $01, $95, $89 ; 0x40
-- D 0 - I - 0x008114 02:A104: 3F        .byte $3F, $03, $9C, $89 ; 0x41
-- - - - - - 0x008118 02:A108: 2A        .byte $2A, $01, $A7, $89 ; 0x42 - blank
-- D 0 - I - 0x00811C 02:A10C: 69        .byte $69, $01, $A8, $89 ; 0x43
-- D 0 - I - 0x008120 02:A110: 69        .byte $69, $01, $0D, $8A ; 0x44
-- D 0 - I - 0x008124 02:A114: 69        .byte $69, $01, $A8, $8A ; 0x45
-- D 0 - I - 0x008128 02:A118: 69        .byte $69, $01, $C7, $8A ; 0x46
-- D 0 - I - 0x00812C 02:A11C: 69        .byte $69, $01, $3C, $8B ; 0x47
-- D 0 - I - 0x008130 02:A120: 93        .byte $93, $03, $5F, $8B ; 0x48
-- D 0 - I - 0x008134 02:A124: 93        .byte $93, $03, $83, $8B ; 0x49
-- D 0 - I - 0x008138 02:A128: 93        .byte $93, $03, $92, $8B ; 0x4A 
-- D 0 - I - 0x00813C 02:A12C: 93        .byte $93, $03, $9B, $8B ; 0x4B 
-- D 0 - I - 0x008140 02:A130: 93        .byte $93, $03, $B2, $8B ; 0x4C 
-- D 0 - I - 0x008144 02:A134: 93        .byte $93, $03, $C9, $8B ; 0x4D
-- D 0 - I - 0x008148 02:A138: 93        .byte $93, $03, $E0, $8B ; 0x4E
-- D 0 - I - 0x00814C 02:A13C: 93        .byte $93, $03, $EF, $8B ; 0x4F
-- D 0 - I - 0x008150 02:A140: 2A        .byte $2A, $01, $FE, $8B ; 0x50 - typing sound
-- D 0 - I - 0x008154 02:A144: 2A        .byte $2A, $01, $07, $8C ; 0x51
-- D 0 - I - 0x008158 02:A148: 3F        .byte $3F, $03, $16, $8C ; 0x52
-- - - - - - 0x00815C 02:A14C: 00        .byte $00, $00, $21, $8C ; 0x53
-- - - - - - 0x008160 02:A150: 2A        .byte $2A, $02, $36, $8C ; 0x54
-- D 0 - I - 0x008164 02:A154: 54        .byte $54, $00, $4F, $8C ; 0x55
-- D 0 - I - 0x008168 02:A158: 69        .byte $69, $01, $88, $8C ; 0x56
-- D 0 - I - 0x00816C 02:A15C: 7E        .byte $7E, $02, $C1, $8C ; 0x57
-- - - - - - 0x008170 02:A160: 54        .byte $54, $00, $D8, $8C ; 0x58 - blank
-- - - - - - 0x008174 02:A164: 69        .byte $69, $01, $D9, $8C ; 0x59 - blank
-- - - - - - 0x008178 02:A168: 7E        .byte $7E, $02, $DA, $8C ; 0x5A - blank
-- D 0 - I - 0x00817C 02:A16C: 54        .byte $54, $00, $F5, $8C ; 0x5B
-- D 0 - I - 0x008180 02:A170: 69        .byte $69, $01, $2A, $8D ; 0x5C
-- D 0 - I - 0x008184 02:A174: 7E        .byte $7E, $02, $33, $8D ; 0x5D
-- D 0 - I - 0x008188 02:A178: 93        .byte $93, $03, $5A, $8D ; 0x5E
-- D 0 - I - 0x00818C 02:A17C: 2A        .byte $2A, $01, $DB, $8C ; 0x5F
-- D 0 - I - 0x008190 02:A180: 2A        .byte $2A, $01, $EA, $8C ; 0x60
+- - - - - - 0x008010 02:A000: 54        .byte $54, $00           ; 0x00 start screen track1
+                                        .addr $8184              ; loc_track0, $A184
+- D 0 - I - 0x008014 02:A004: 69        .byte $69, $01           ; 0x01 start screen track2
+                                        .addr $81B1              ; loc_track1, $A1B1
+- D 0 - I - 0x008018 02:A008: 7E        .byte $7E, $02           ; 0x02 start screen track3
+                                        .addr $81D4              ; loc_track2, $A1D4
+- D 0 - I - 0x00801C 02:A00C: 93        .byte $93, $03           ; 0x03 start screen track4
+                                        .addr $81F7              ; loc_track3, $A1F7
+- D 0 - I - 0x008020 02:A010: 54        .byte $54, $00           ; 0x04
+                                        .addr $821C              ; loc_track4, $A21C
+- D 0 - I - 0x008024 02:A014: 69        .byte $69, $01           ; 0x05
+                                        .addr $8281              ; loc_track5, $A281
+- D 0 - I - 0x008028 02:A018: 54        .byte $54, $00           ; 0x06
+                                        .addr $82F7              ; loc_track6, $A2F7
+- D 0 - I - 0x00802C 02:A01C: 7E        .byte $7E, $02           ; 0x07
+                                        .addr $835A              ; loc_track7, $A35A
+- D 0 - I - 0x008030 02:A020: 54        .byte $54, $00           ; 0x08
+                                        .addr $83B1              ; loc_track8, $A3B1
+- D 0 - I - 0x008034 02:A024: 7E        .byte $7E, $02           ; 0x09
+                                        .addr $8894              ; loc_track9, $A894
+- - - - - - 0x008038 02:A028: 3F        .byte $3F, $03           ; 0x0A - blank
+                                        .addr $84BD              ; loc_trackA, $A4BD
+- D 0 - I - 0x00803C 02:A02C: 3F        .byte $3F, $03           ; 0x0B - 3rd sound row
+                                        .addr $84BE              ; loc_trackB, $A4BE
+- D 0 - I - 0x008040 02:A030: 3F        .byte $3F, $03           ; 0x0C
+                                        .addr $84C7              ; loc_trackC, $A4C7
+- D 0 - I - 0x008044 02:A034: 2A        .byte $2A, $01           ; 0x0D
+                                        .addr $84D4              ; loc_trackD, $A4D4
+- D 0 - I - 0x008048 02:A038: 00        .byte $00, $01           ; 0x0E
+                                        .addr $84DD              ; loc_trackE, $A4DD
+- D 0 - I - 0x00804C 02:A03C: 3F        .byte $3F, $03           ; 0x0F
+                                        .addr $84EA              ; loc_trackF, $A4EA
+- D 0 - I - 0x008050 02:A040: 2A        .byte $2A, $01           ; 0x10
+                                        .addr $84F5              ; loc_track10, $A4F5
+- D 0 - I - 0x008054 02:A044: 2A        .byte $2A, $01           ; 0x11
+                                        .addr $84FC              ; loc_track11, $A4FC
+- D 0 - I - 0x008058 02:A048: 15        .byte $15, $01           ; 0x12
+                                        .addr $8509              ; loc_track12, $A509
+- D 0 - I - 0x00805C 02:A04C: 2A        .byte $2A, $01           ; 0x13
+                                        .addr $8514              ; loc_track13, $A514
+- D 0 - I - 0x008060 02:A050: 2A        .byte $2A, $01           ; 0x14
+                                        .addr $8529              ; loc_track14, $A529
+- D 0 - I - 0x008064 02:A054: 2A        .byte $2A, $01           ; 0x15
+                                        .addr $853A              ; loc_track15, $A53A
+- D 0 - I - 0x008068 02:A058: 3F        .byte $3F, $03           ; 0x16
+                                        .addr $8541              ; loc_track16, $A541
+- D 0 - I - 0x00806C 02:A05C: 3F        .byte $3F, $03           ; 0x17
+                                        .addr $8548              ; loc_track17, $A548
+- D 0 - I - 0x008070 02:A060: 2A        .byte $2A, $01           ; 0x18
+                                        .addr $8553              ; loc_track18, $A553
+- D 0 - I - 0x008074 02:A064: 3F        .byte $3F, $03           ; 0x19
+                                        .addr $8562              ; loc_track19, $A562
+- D 0 - I - 0x008078 02:A068: 3F        .byte $3F, $03           ; 0x1A
+                                        .addr $856D              ; loc_track1A, $A56D
+- D 0 - I - 0x00807C 02:A06C: 54        .byte $54, $00           ; 0x1B
+                                        .addr $8583              ; loc_track1B, $A583
+- D 0 - I - 0x008080 02:A070: 7E        .byte $7E, $02           ; 0x1C
+                                        .addr $85E0              ; loc_track1C, $A5E0
+- D 0 - I - 0x008084 02:A074: 54        .byte $54, $00           ; 0x1D
+                                        .addr $8617              ; loc_track1D, $A617
+- D 0 - I - 0x008088 02:A078: 7E        .byte $7E, $02           ; 0x1E
+                                        .addr $864C              ; loc_track1E, $A64C
+- D 0 - I - 0x00808C 02:A07C: 54        .byte $54, $00           ; 0x1F
+                                        .addr $86B1              ; loc_track1F, $A6B1
+- D 0 - I - 0x008090 02:A080: 7E        .byte $7E, $02           ; 0x20
+                                        .addr $86D2              ; loc_track20, $A6D2
+- D 0 - I - 0x008094 02:A084: 2A        .byte $2A, $01           ; 0x21
+                                        .addr $8578              ; loc_track21, $A578
+- D 0 - I - 0x008098 02:A088: 54        .byte $54, $00           ; 0x22
+                                        .addr $86EB              ; loc_track22, $A6EB
+- D 0 - I - 0x00809C 02:A08C: 7E        .byte $7E, $02           ; 0x23
+                                        .addr $8776              ; loc_track23, $A776
+- D 0 - I - 0x0080A0 02:A090: 54        .byte $54, $00           ; 0x24
+                                        .addr $87B1              ; loc_track24, $A7B1
+- D 0 - I - 0x0080A4 02:A094: 7E        .byte $7E, $02           ; 0x25
+                                        .addr $87D2              ; loc_track25, $A7D2
+- - - - - - 0x0080A8 02:A098: 3F        .byte $3F, $03           ; 0x26 - blank
+                                        .addr $88F7              ; loc_track26, $A8F7
+- - - - - - 0x0080AC 02:A09C: 2A        .byte $2A, $01           ; 0x27 - blank
+                                        .addr $88F8              ; loc_track27, $A8F8
+- D 0 - I - 0x0080B0 02:A0A0: 3F        .byte $3F, $03           ; 0x28
+                                        .addr $88F9              ; loc_track28, $A8F9
+- D 0 - I - 0x0080B4 02:A0A4: 2A        .byte $2A, $01           ; 0x29
+                                        .addr $8900              ; loc_track29, $A900
+- D 0 - I - 0x0080B8 02:A0A8: 2A        .byte $2A, $01           ; 0x2A
+                                        .addr $8909              ; loc_track2A, $A909
+- - - - - - 0x0080BC 02:A0AC: 2A        .byte $2A, $01           ; 0x2B - blank
+                                        .addr $891A              ; loc_track2B, $A91A
+- D 0 - I - 0x0080C0 02:A0B0: 3F        .byte $3F, $03           ; 0x2C
+                                        .addr $891B              ; loc_track2C, $A91B
+- D 0 - I - 0x0080C4 02:A0B4: 3F        .byte $3F, $03           ; 0x2D
+                                        .addr $8926              ; loc_track2D, $A926
+- - - - - - 0x0080C8 02:A0B8: 3F        .byte $3F, $03           ; 0x2E - blank
+                                        .addr $892F              ; loc_track2E, $A92F
+- - - - - - 0x0080CC 02:A0BC: 3F        .byte $3F, $03           ; 0x2F - blank
+                                        .addr $8930              ; loc_track2F, $A930
+- D 0 - I - 0x0080D0 02:A0C0: 2A        .byte $2A, $01           ; 0x30
+                                        .addr $8931              ; loc_track30, $A931
+- D 0 - I - 0x0080D4 02:A0C4: 3F        .byte $3F, $03           ; 0x31
+                                        .addr $8940              ; loc_track31, $A940
+- D 0 - I - 0x0080D8 02:A0C8: 3F        .byte $3F, $03           ; 0x32
+                                        .addr $8947              ; loc_track32, $A947
+- - - - - - 0x0080DC 02:A0CC: 3F        .byte $3F, $03           ; 0x33 - blank
+                                        .addr $8957              ; loc_track33, $A957
+- D 0 - I - 0x0080E0 02:A0D0: 2A        .byte $2A, $01           ; 0x34
+                                        .addr $8958              ; loc_track34, $A958
+- D 0 - I - 0x0080E4 02:A0D4: 2A        .byte $2A, $01           ; 0x35
+                                        .addr $895F              ; loc_track35, $A95F
+- D 0 - I - 0x0080E8 02:A0D8: 3F        .byte $3F, $03           ; 0x36
+                                        .addr $896C              ; loc_track36, $A96C
+- D 0 - I - 0x0080EC 02:A0DC: 2A        .byte $2A, $01           ; 0x37
+                                        .addr $8977              ; loc_track37, $A977
+- - - - - - 0x0080F0 02:A0E0: 2A        .byte $2A, $01           ; 0x38 - blank
+                                        .addr $8982              ; loc_track38, $A982
+- D 0 - I - 0x0080F4 02:A0E4: 7E        .byte $7E, $02           ; 0x39
+                                        .addr $87F1              ; loc_track39, $A7F1
+- D 0 - I - 0x0080F8 02:A0E8: 69        .byte $69, $01           ; 0x3A
+                                        .addr $8829              ; loc_track3A, $A829
+- D 0 - I - 0x0080FC 02:A0EC: 69        .byte $69, $01           ; 0x3B
+                                        .addr $8436              ; loc_track3B, $A436
+- - - - - - 0x008100 02:A0F0: 2A        .byte $2A, $01           ; 0x3C - blank
+                                        .addr $8983              ; loc_track3C, $A983
+- D 0 - I - 0x008104 02:A0F4: 3F        .byte $3F, $03           ; 0x3D
+                                        .addr $8984              ; loc_track3D, $A984
+- - - - - - 0x008108 02:A0F8: 2A        .byte $2A, $01           ; 0x3E - blank
+                                        .addr $898D              ; loc_track3E, $A98D
+- D 0 - I - 0x00810C 02:A0FC: 2A        .byte $2A, $01           ; 0x3F
+                                        .addr $898E              ; loc_track3F, $A98E
+- D 0 - I - 0x008110 02:A100: 2A        .byte $2A, $01           ; 0x40
+                                        .addr $8995              ; loc_track40, $A995
+- D 0 - I - 0x008114 02:A104: 3F        .byte $3F, $03           ; 0x41
+                                        .addr $899C              ; loc_track41, $A99C
+- - - - - - 0x008118 02:A108: 2A        .byte $2A, $01           ; 0x42 - blank
+                                        .addr $89A7              ; loc_track42, $A9A7
+- D 0 - I - 0x00811C 02:A10C: 69        .byte $69, $01           ; 0x43
+                                        .addr $89A8              ; loc_track43, $A9A8
+- D 0 - I - 0x008120 02:A110: 69        .byte $69, $01           ; 0x44
+                                        .addr $8A0D              ; loc_track44, $AA0D
+- D 0 - I - 0x008124 02:A114: 69        .byte $69, $01           ; 0x45
+                                        .addr $8AA8              ; loc_track45, $AAA8
+- D 0 - I - 0x008128 02:A118: 69        .byte $69, $01           ; 0x46
+                                        .addr $8AC7              ; loc_track46, $AAC7
+- D 0 - I - 0x00812C 02:A11C: 69        .byte $69, $01           ; 0x47
+                                        .addr $8B3C              ; loc_track47, $AB3C
+- D 0 - I - 0x008130 02:A120: 93        .byte $93, $03           ; 0x48
+                                        .addr $8B5F              ; loc_track48, $AB5F
+- D 0 - I - 0x008134 02:A124: 93        .byte $93, $03           ; 0x49
+                                        .addr $8B83              ; loc_track49, $AB83
+- D 0 - I - 0x008138 02:A128: 93        .byte $93, $03           ; 0x4A
+                                        .addr $8B92              ; loc_track4A, $AB92
+- D 0 - I - 0x00813C 02:A12C: 93        .byte $93, $03           ; 0x4B
+                                        .addr $8B9B              ; loc_track4B, $AB9B
+- D 0 - I - 0x008140 02:A130: 93        .byte $93, $03           ; 0x4C
+                                        .addr $8BB2              ; loc_track4C, $ABB2
+- D 0 - I - 0x008144 02:A134: 93        .byte $93, $03           ; 0x4D
+                                        .addr $8BC9              ; loc_track4D, $ABC9
+- D 0 - I - 0x008148 02:A138: 93        .byte $93, $03           ; 0x4E
+                                        .addr $8BE0              ; loc_track4E, $ABE0
+- D 0 - I - 0x00814C 02:A13C: 93        .byte $93, $03           ; 0x4F
+                                        .addr $8BEF              ; loc_track4F, $ABEF
+- D 0 - I - 0x008150 02:A140: 2A        .byte $2A, $01           ; 0x50 - typing sound
+                                        .addr $8BFE              ; loc_track50, $ABFE
+- D 0 - I - 0x008154 02:A144: 2A        .byte $2A, $01           ; 0x51
+                                        .addr $8C07              ; loc_track51, $AC07
+- D 0 - I - 0x008158 02:A148: 3F        .byte $3F, $03           ; 0x52
+                                        .addr $8C16              ; loc_track52, $AC16
+- - - - - - 0x00815C 02:A14C: 00        .byte $00, $00           ; 0x53
+                                        .addr $8C21              ; loc_track53, $AC21
+- - - - - - 0x008160 02:A150: 2A        .byte $2A, $02           ; 0x54
+                                        .addr $8C36              ; loc_track54, $AC36
+- D 0 - I - 0x008164 02:A154: 54        .byte $54, $00           ; 0x55
+                                        .addr $8C4F              ; loc_track55, $AC4F
+- D 0 - I - 0x008168 02:A158: 69        .byte $69, $01           ; 0x56
+                                        .addr $8C88              ; loc_track56, $AC88
+- D 0 - I - 0x00816C 02:A15C: 7E        .byte $7E, $02           ; 0x57
+                                        .addr $8CC1              ; loc_track57, $ACC1
+- - - - - - 0x008170 02:A160: 54        .byte $54, $00           ; 0x58 - blank
+                                        .addr $8CD8              ; loc_track58, $ACD8
+- - - - - - 0x008174 02:A164: 69        .byte $69, $01           ; 0x59 - blank
+                                        .addr $8CD9              ; loc_track59, $ACD9
+- - - - - - 0x008178 02:A168: 7E        .byte $7E, $02           ; 0x5A - blank
+                                        .addr $8CDA              ; loc_track5A, $ACDA
+- D 0 - I - 0x00817C 02:A16C: 54        .byte $54, $00           ; 0x5B
+                                        .addr $8CF5              ; loc_track5B, $ACF5
+- D 0 - I - 0x008180 02:A170: 69        .byte $69, $01           ; 0x5C
+                                        .addr $8D2A              ; loc_track5C, $AD2A
+- D 0 - I - 0x008184 02:A174: 7E        .byte $7E, $02           ; 0x5D
+                                        .addr $8D33              ; loc_track5D, $AD33
+- D 0 - I - 0x008188 02:A178: 93        .byte $93, $03           ; 0x5E
+                                        .addr $8D5A              ; loc_track5E, $AD5A
+- D 0 - I - 0x00818C 02:A17C: 2A        .byte $2A, $01           ; 0x5F
+                                        .addr $8CDB              ; loc_track5F, $ACDB
+- D 0 - I - 0x008190 02:A180: 2A        .byte $2A, $01           ; 0x60
+                                        .addr $8CEA              ; loc_track60, $ACEA
 
-loc_8184: ; 0x00 sound row mini
+loc_track0:
 - D 0 - I - 0x008194 02:A184: 06        .byte $06   ; 
 - D 0 - I - 0x008195 02:A185: 03        .byte $03   ; 
 - D 0 - I - 0x008196 02:A186: 02        .byte $02   ; 
@@ -157,7 +254,7 @@ loc_8184: ; 0x00 sound row mini
 - D 0 - I - 0x0081BF 02:A1AF: 03        .byte $03   ; 
 - D 0 - I - 0x0081C0 02:A1B0: FF        .byte $FF   ; 
 
-loc_81B1: ; 0x01 sound row mini
+loc_track1:
 - D 0 - I - 0x0081C1 02:A1B1: 06        .byte $06   ; 
 - D 0 - I - 0x0081C2 02:A1B2: 00        .byte $00   ; 
 - D 0 - I - 0x0081C3 02:A1B3: 0F        .byte $0F   ; 
@@ -194,7 +291,7 @@ loc_81B1: ; 0x01 sound row mini
 - D 0 - I - 0x0081E2 02:A1D2: 03        .byte $03   ; 
 - D 0 - I - 0x0081E3 02:A1D3: FF        .byte $FF   ; 
 
-loc_81D4: ; 0x02 sound row mini
+loc_track2:
 - D 0 - I - 0x0081E4 02:A1D4: 06        .byte $06   ; 
 - D 0 - I - 0x0081E5 02:A1D5: 7F        .byte $7F   ; 
 - D 0 - I - 0x0081E6 02:A1D6: 00        .byte $00   ; 
@@ -231,7 +328,7 @@ loc_81D4: ; 0x02 sound row mini
 - D 0 - I - 0x008205 02:A1F5: 03        .byte $03   ; 
 - D 0 - I - 0x008206 02:A1F6: FF        .byte $FF   ; 
 
-loc_81F7: ; 0x03 sound row mini
+loc_track3:
 - D 0 - I - 0x008207 02:A1F7: 06        .byte $06   ; 
 - D 0 - I - 0x008208 02:A1F8: 00        .byte $00   ; 
 - D 0 - I - 0x008209 02:A1F9: 00        .byte $00   ; 
@@ -270,7 +367,7 @@ loc_81F7: ; 0x03 sound row mini
 - D 0 - I - 0x00822A 02:A21A: 03        .byte $03   ; 
 - D 0 - I - 0x00822B 02:A21B: FF        .byte $FF   ; 
 
-loc_821C: ; 0x04 sound row mini
+loc_track4:
 - D 0 - I - 0x00822C 02:A21C: 05        .byte $05   ; 
 - D 0 - I - 0x00822D 02:A21D: 01        .byte $01   ; 
 - D 0 - I - 0x00822E 02:A21E: 04        .byte $04   ; 
@@ -373,7 +470,7 @@ loc_821C: ; 0x04 sound row mini
 - D 0 - I - 0x00828F 02:A27F: 02        .byte $02   ; 
 - - - - - - 0x008290 02:A280: FF        .byte $FF   ; 
 
-loc_8281: ; 0x05 sound row mini
+loc_track5:
 - D 0 - I - 0x008291 02:A281: 15        .byte $15   ; 
 - D 0 - I - 0x008292 02:A282: 01        .byte $01   ; 
 - D 0 - I - 0x008293 02:A283: 04        .byte $04   ; 
@@ -493,7 +590,7 @@ loc_8281: ; 0x05 sound row mini
 - D 0 - I - 0x008305 02:A2F5: B0        .byte $B0   ; 
 - D 0 - I - 0x008306 02:A2F6: 02        .byte $02   ; 
 
-loc_82F7: ; 0x06 sound row mini
+loc_track6:
 - D 0 - I - 0x008307 02:A2F7: 05        .byte $05   ; 
 - D 0 - I - 0x008308 02:A2F8: 01        .byte $01   ; 
 - D 0 - I - 0x008309 02:A2F9: 0F        .byte $0F   ; 
@@ -594,7 +691,7 @@ loc_82F7: ; 0x06 sound row mini
 - D 0 - I - 0x008368 02:A358: 02        .byte $02   ; 
 - - - - - - 0x008369 02:A359: FF        .byte $FF   ; 
 
-loc_835A: ; 0x07 sound row mini
+loc_track7:
 - D 0 - I - 0x00836A 02:A35A: 05        .byte $05   ; 
 - D 0 - I - 0x00836B 02:A35B: 19        .byte $19   ; 
 - D 0 - I - 0x00836C 02:A35C: 00        .byte $00   ; 
@@ -683,7 +780,7 @@ loc_835A: ; 0x07 sound row mini
 - D 0 - I - 0x0083BF 02:A3AF: 03        .byte $03   ; 
 - - - - - - 0x0083C0 02:A3B0: FF        .byte $FF   ; 
 
-loc_83B1: ; 0x08 sound row mini
+loc_track8:
 - D 0 - I - 0x0083C1 02:A3B1: 04        .byte $04   ; 
 - D 0 - I - 0x0083C2 02:A3B2: 02        .byte $02   ; 
 - D 0 - I - 0x0083C3 02:A3B3: 02        .byte $02   ; 
@@ -818,7 +915,7 @@ loc_83B1: ; 0x08 sound row mini
 - D 0 - I - 0x008444 02:A434: 02        .byte $02   ; 
 - - - - - - 0x008445 02:A435: FF        .byte $FF   ; 
 
-loc_8436: ; 0x3B sound row mini
+loc_track3B:
 - D 0 - I - 0x008446 02:A436: 04        .byte $04   ; 
 - D 0 - I - 0x008447 02:A437: 02        .byte $02   ; 
 - D 0 - I - 0x008448 02:A438: 02        .byte $02   ; 
@@ -955,10 +1052,10 @@ loc_8436: ; 0x3B sound row mini
 - D 0 - I - 0x0084CB 02:A4BB: 02        .byte $02   ; 
 - - - - - - 0x0084CC 02:A4BC: FF        .byte $FF   ; 
 
-loc_84BD: ; 0x0A sound row mini
+loc_trackA:
 - - - - - - 0x0084CD 02:A4BD: FF        .byte $FF   ; 
 
-loc_84BE: ; 0x0B sound row mini
+loc_trackB:
 - D 0 - I - 0x0084CE 02:A4BE: 30        .byte $30   ; <0>
 - D 0 - I - 0x0084CF 02:A4BF: 00        .byte $00   ; 
 - D 0 - I - 0x0084D0 02:A4C0: 02        .byte $02   ; 
@@ -969,7 +1066,7 @@ loc_84BE: ; 0x0B sound row mini
 - D 0 - I - 0x0084D5 02:A4C5: 0A        .byte $0A   ; 
 - D 0 - I - 0x0084D6 02:A4C6: FF        .byte $FF   ; 
 
-loc_84C7: ; 0x0C sound row mini
+loc_trackC:
 - D 0 - I - 0x0084D7 02:A4C7: 30        .byte $30   ; <0>
 - D 0 - I - 0x0084D8 02:A4C8: 00        .byte $00   ; 
 - D 0 - I - 0x0084D9 02:A4C9: 1F        .byte $1F   ; 
@@ -984,7 +1081,7 @@ loc_84C7: ; 0x0C sound row mini
 - D 0 - I - 0x0084E2 02:A4D2: 01        .byte $01   ; 
 - D 0 - I - 0x0084E3 02:A4D3: FF        .byte $FF   ; 
 
-loc_84D4: ; 0x0D sound row mini
+loc_trackD:
 - D 0 - I - 0x0084E4 02:A4D4: 21        .byte $21   ; 
 - D 0 - I - 0x0084E5 02:A4D5: 02        .byte $02   ; 
 - D 0 - I - 0x0084E6 02:A4D6: 03        .byte $03   ; 
@@ -995,7 +1092,7 @@ loc_84D4: ; 0x0D sound row mini
 - D 0 - I - 0x0084EB 02:A4DB: 02        .byte $02   ; 
 - D 0 - I - 0x0084EC 02:A4DC: FF        .byte $FF   ; 
 
-loc_84DD: ; 0x0E sound row mini
+loc_trackE:
 - D 0 - I - 0x0084ED 02:A4DD: 03        .byte $03   ; 
 - D 0 - I - 0x0084EE 02:A4DE: 02        .byte $02   ; 
 - D 0 - I - 0x0084EF 02:A4DF: 01        .byte $01   ; 
@@ -1010,7 +1107,7 @@ loc_84DD: ; 0x0E sound row mini
 - D 0 - I - 0x0084F8 02:A4E8: 01        .byte $01   ; 
 - D 0 - I - 0x0084F9 02:A4E9: FF        .byte $FF   ; 
 
-loc_84EA: ; 0x0F sound row mini
+loc_trackF:
 - D 0 - I - 0x0084FA 02:A4EA: 32        .byte $32   ; <2>
 - D 0 - I - 0x0084FB 02:A4EB: 00        .byte $00   ; 
 - D 0 - I - 0x0084FC 02:A4EC: 0F        .byte $0F   ; 
@@ -1023,7 +1120,7 @@ loc_84EA: ; 0x0F sound row mini
 - D 0 - I - 0x008503 02:A4F3: 20        .byte $20   ; 
 - D 0 - I - 0x008504 02:A4F4: FF        .byte $FF   ; 
 
-loc_84F5: ; 0x10 sound row mini
+loc_track10:
 - D 0 - I - 0x008505 02:A4F5: 00        .byte $00   ; 
 - D 0 - I - 0x008506 02:A4F6: 02        .byte $02   ; 
 - D 0 - I - 0x008507 02:A4F7: 02        .byte $02   ; 
@@ -1032,7 +1129,7 @@ loc_84F5: ; 0x10 sound row mini
 - D 0 - I - 0x00850A 02:A4FA: 10        .byte $10   ; 
 - D 0 - I - 0x00850B 02:A4FB: FF        .byte $FF   ; 
 
-loc_84FC: ; 0x11 sound row mini
+loc_track11:
 - D 0 - I - 0x00850C 02:A4FC: 06        .byte $06   ; 
 - D 0 - I - 0x00850D 02:A4FD: 02        .byte $02   ; 
 - D 0 - I - 0x00850E 02:A4FE: 0F        .byte $0F   ; 
@@ -1047,7 +1144,7 @@ loc_84FC: ; 0x11 sound row mini
 - - - - - - 0x008517 02:A507: 06        .byte $06   ; 
 - - - - - - 0x008518 02:A508: FF        .byte $FF   ; 
 
-loc_8509: ; 0x12 sound row mini
+loc_track12:
 - D 0 - I - 0x008519 02:A509: 00        .byte $00   ; 
 - D 0 - I - 0x00851A 02:A50A: 01        .byte $01   ; 
 - D 0 - I - 0x00851B 02:A50B: 1B        .byte $1B   ; 
@@ -1060,7 +1157,7 @@ loc_8509: ; 0x12 sound row mini
 - D 0 - I - 0x008522 02:A512: 03        .byte $03   ; 
 - D 0 - I - 0x008523 02:A513: FF        .byte $FF   ; 
 
-loc_8514: ; 0x13 sound row mini
+loc_track13:
 - D 0 - I - 0x008524 02:A514: 00        .byte $00   ; 
 - D 0 - I - 0x008525 02:A515: 01        .byte $01   ; 
 - D 0 - I - 0x008526 02:A516: 19        .byte $19   ; 
@@ -1083,7 +1180,7 @@ loc_8514: ; 0x13 sound row mini
 - D 0 - I - 0x008537 02:A527: 02        .byte $02   ; 
 - D 0 - I - 0x008538 02:A528: FF        .byte $FF   ; 
 
-loc_8529: ; 0x14 sound row mini
+loc_track14:
 - D 0 - I - 0x008539 02:A529: 02        .byte $02   ; 
 - D 0 - I - 0x00853A 02:A52A: 01        .byte $01   ; 
 - D 0 - I - 0x00853B 02:A52B: 02        .byte $02   ; 
@@ -1102,7 +1199,7 @@ loc_8529: ; 0x14 sound row mini
 - D 0 - I - 0x008548 02:A538: 01        .byte $01   ; 
 - D 0 - I - 0x008549 02:A539: FF        .byte $FF   ; 
 
-loc_853A: ; 0x15 sound row mini
+loc_track15:
 - D 0 - I - 0x00854A 02:A53A: 01        .byte $01   ; 
 - D 0 - I - 0x00854B 02:A53B: 00        .byte $00   ; 
 - D 0 - I - 0x00854C 02:A53C: 01        .byte $01   ; 
@@ -1111,7 +1208,7 @@ loc_853A: ; 0x15 sound row mini
 - D 0 - I - 0x00854F 02:A53F: 01        .byte $01   ; 
 - D 0 - I - 0x008550 02:A540: FF        .byte $FF   ; 
 
-loc_8541: ; 0x16 sound row mini
+loc_track16:
 - D 0 - I - 0x008551 02:A541: 30        .byte $30   ; <0>
 - D 0 - I - 0x008552 02:A542: 00        .byte $00   ; 
 - D 0 - I - 0x008553 02:A543: 0F        .byte $0F   ; 
@@ -1120,7 +1217,7 @@ loc_8541: ; 0x16 sound row mini
 - D 0 - I - 0x008556 02:A546: 10        .byte $10   ; 
 - D 0 - I - 0x008557 02:A547: FF        .byte $FF   ; 
 
-loc_8548: ; 0x17 sound row mini
+loc_track17:
 - D 0 - I - 0x008558 02:A548: 30        .byte $30   ; <0>
 - D 0 - I - 0x008559 02:A549: 00        .byte $00   ; 
 - D 0 - I - 0x00855A 02:A54A: 1F        .byte $1F   ; 
@@ -1133,7 +1230,7 @@ loc_8548: ; 0x17 sound row mini
 - D 0 - I - 0x008561 02:A551: 0A        .byte $0A   ; 
 - D 0 - I - 0x008562 02:A552: FF        .byte $FF   ; 
 
-loc_8553: ; 0x18 sound row mini
+loc_track18:
 - D 0 - I - 0x008563 02:A553: 02        .byte $02   ; 
 - D 0 - I - 0x008564 02:A554: 02        .byte $02   ; 
 - D 0 - I - 0x008565 02:A555: 1F        .byte $1F   ; 
@@ -1150,7 +1247,7 @@ loc_8553: ; 0x18 sound row mini
 - D 0 - I - 0x008570 02:A560: 00        .byte $00   ; 
 - D 0 - I - 0x008571 02:A561: FF        .byte $FF   ; 
 
-loc_8562: ; 0x19 sound row mini
+loc_track19:
 - D 0 - I - 0x008572 02:A562: 30        .byte $30   ; <0>
 - D 0 - I - 0x008573 02:A563: 00        .byte $00   ; 
 - D 0 - I - 0x008574 02:A564: 1F        .byte $1F   ; 
@@ -1163,7 +1260,7 @@ loc_8562: ; 0x19 sound row mini
 - D 0 - I - 0x00857B 02:A56B: 02        .byte $02   ; 
 - D 0 - I - 0x00857C 02:A56C: FF        .byte $FF   ; 
 
-loc_856D: ; 0x1A sound row mini
+loc_track1A:
 - D 0 - I - 0x00857D 02:A56D: 30        .byte $30   ; <0>
 - D 0 - I - 0x00857E 02:A56E: 00        .byte $00   ; 
 - D 0 - I - 0x00857F 02:A56F: 1F        .byte $1F   ; 
@@ -1176,7 +1273,7 @@ loc_856D: ; 0x1A sound row mini
 - D 0 - I - 0x008586 02:A576: 01        .byte $01   ; 
 - D 0 - I - 0x008587 02:A577: FF        .byte $FF   ; 
 
-loc_8578: ; 0x21 sound row mini
+loc_track21:
 - D 0 - I - 0x008588 02:A578: 01        .byte $01   ; 
 - D 0 - I - 0x008589 02:A579: 02        .byte $02   ; 
 - D 0 - I - 0x00858A 02:A57A: 00        .byte $00   ; 
@@ -1189,7 +1286,7 @@ loc_8578: ; 0x21 sound row mini
 - D 0 - I - 0x008591 02:A581: 03        .byte $03   ; 
 - D 0 - I - 0x008592 02:A582: FF        .byte $FF   ; 
 
-loc_8583: ; 0x1B sound row mini
+loc_track1B:
 - D 0 - I - 0x008593 02:A583: 04        .byte $04   ; 
 - D 0 - I - 0x008594 02:A584: 02        .byte $02   ; 
 - D 0 - I - 0x008595 02:A585: 0A        .byte $0A   ; 
@@ -1284,7 +1381,7 @@ loc_8583: ; 0x1B sound row mini
 - D 0 - I - 0x0085EE 02:A5DE: 02        .byte $02   ; 
 - - - - - - 0x0085EF 02:A5DF: FF        .byte $FF   ; 
 
-loc_85E0: ; 0x1C sound row mini
+loc_track1C:
 - D 0 - I - 0x0085F0 02:A5E0: 04        .byte $04   ; 
 - D 0 - I - 0x0085F1 02:A5E1: 1A        .byte $1A   ; 
 - D 0 - I - 0x0085F2 02:A5E2: 00        .byte $00   ; 
@@ -1341,7 +1438,7 @@ loc_85E0: ; 0x1C sound row mini
 - D 0 - I - 0x008625 02:A615: 02        .byte $02   ; 
 - - - - - - 0x008626 02:A616: FF        .byte $FF   ; 
 
-loc_8617: ; 0x1D sound row mini
+loc_track1D:
 - D 0 - I - 0x008627 02:A617: 03        .byte $03   ; 
 - D 0 - I - 0x008628 02:A618: 02        .byte $02   ; 
 - D 0 - I - 0x008629 02:A619: 0F        .byte $0F   ; 
@@ -1396,7 +1493,7 @@ loc_8617: ; 0x1D sound row mini
 - D 0 - I - 0x00865A 02:A64A: 02        .byte $02   ; 
 - - - - - - 0x00865B 02:A64B: FF        .byte $FF   ; 
 
-loc_864C: ; 0x1E sound row mini
+loc_track1E:
 - D 0 - I - 0x00865C 02:A64C: 03        .byte $03   ; 
 - D 0 - I - 0x00865D 02:A64D: 15        .byte $15   ; 
 - D 0 - I - 0x00865E 02:A64E: 00        .byte $00   ; 
@@ -1499,7 +1596,7 @@ loc_864C: ; 0x1E sound row mini
 - D 0 - I - 0x0086BF 02:A6AF: 02        .byte $02   ; 
 - - - - - - 0x0086C0 02:A6B0: FF        .byte $FF   ; 
 
-loc_86B1: ; 0x1F sound row mini
+loc_track1F:
 - D 0 - I - 0x0086C1 02:A6B1: 0A        .byte $0A   ; 
 - D 0 - I - 0x0086C2 02:A6B2: 02        .byte $02   ; 
 - D 0 - I - 0x0086C3 02:A6B3: 1F        .byte $1F   ; 
@@ -1534,7 +1631,7 @@ loc_86B1: ; 0x1F sound row mini
 - D 0 - I - 0x0086E0 02:A6D0: 02        .byte $02   ; 
 - - - - - - 0x0086E1 02:A6D1: FF        .byte $FF   ; 
 
-loc_86D2: ; 0x20 sound row mini
+loc_track20:
 - D 0 - I - 0x0086E2 02:A6D2: 2A        .byte $2A   ; 
 - D 0 - I - 0x0086E3 02:A6D3: 7F        .byte $7F   ; 
 - D 0 - I - 0x0086E4 02:A6D4: 00        .byte $00   ; 
@@ -1561,7 +1658,7 @@ loc_86D2: ; 0x20 sound row mini
 - D 0 - I - 0x0086F9 02:A6E9: 02        .byte $02   ; 
 - - - - - - 0x0086FA 02:A6EA: FF        .byte $FF   ; 
 
-loc_86EB: ; 0x22 sound row mini
+loc_track22:
 - D 0 - I - 0x0086FB 02:A6EB: 05        .byte $05   ; 
 - D 0 - I - 0x0086FC 02:A6EC: 02        .byte $02   ; 
 - D 0 - I - 0x0086FD 02:A6ED: 0F        .byte $0F   ; 
@@ -1702,7 +1799,7 @@ loc_86EB: ; 0x22 sound row mini
 - D 0 - I - 0x008784 02:A774: 02        .byte $02   ; 
 - - - - - - 0x008785 02:A775: FF        .byte $FF   ; 
 
-loc_8776: ; 0x23 sound row mini
+loc_track23:
 - D 0 - I - 0x008786 02:A776: 05        .byte $05   ; 
 - D 0 - I - 0x008787 02:A777: 0D        .byte $0D   ; 
 - D 0 - I - 0x008788 02:A778: 00        .byte $00   ; 
@@ -1763,7 +1860,7 @@ loc_8776: ; 0x23 sound row mini
 - D 0 - I - 0x0087BF 02:A7AF: 02        .byte $02   ; 
 - - - - - - 0x0087C0 02:A7B0: FF        .byte $FF   ; 
 
-loc_87B1: ; 0x24 sound row mini
+loc_track24:
 - D 0 - I - 0x0087C1 02:A7B1: 06        .byte $06   ; 
 - D 0 - I - 0x0087C2 02:A7B2: 02        .byte $02   ; 
 - D 0 - I - 0x0087C3 02:A7B3: 0F        .byte $0F   ; 
@@ -1798,7 +1895,7 @@ loc_87B1: ; 0x24 sound row mini
 - D 0 - I - 0x0087E0 02:A7D0: 02        .byte $02   ; 
 - - - - - - 0x0087E1 02:A7D1: FF        .byte $FF   ; 
 
-loc_87D2: ; 0x25 sound row mini
+loc_track25:
 - D 0 - I - 0x0087E2 02:A7D2: 06        .byte $06   ; 
 - D 0 - I - 0x0087E3 02:A7D3: 65        .byte $65   ; <e>
 - D 0 - I - 0x0087E4 02:A7D4: 00        .byte $00   ; 
@@ -1831,7 +1928,7 @@ loc_87D2: ; 0x25 sound row mini
 - D 0 - I - 0x0087FF 02:A7EF: 02        .byte $02   ; 
 - - - - - - 0x008800 02:A7F0: FF        .byte $FF   ; 
 
-loc_87F1: ; 0x39 sound row mini
+loc_track39:
 - D 0 - I - 0x008801 02:A7F1: 25        .byte $25   ; 
 - D 0 - I - 0x008802 02:A7F2: 10        .byte $10   ; 
 - D 0 - I - 0x008803 02:A7F3: 00        .byte $00   ; 
@@ -1889,7 +1986,7 @@ loc_87F1: ; 0x39 sound row mini
 - D 0 - I - 0x008837 02:A827: B0        .byte $B0   ; 
 - D 0 - I - 0x008838 02:A828: 02        .byte $02   ; 
 
-loc_8829: ; 0x3A sound row mini
+loc_track3A:
 - D 0 - I - 0x008839 02:A829: 05        .byte $05   ; 
 - D 0 - I - 0x00883A 02:A82A: 00        .byte $00   ; 
 - D 0 - I - 0x00883B 02:A82B: 02        .byte $02   ; 
@@ -1998,7 +2095,7 @@ loc_8829: ; 0x3A sound row mini
 - D 0 - I - 0x0088A2 02:A892: 02        .byte $02   ; 
 - - - - - - 0x0088A3 02:A893: FF        .byte $FF   ; 
 
-loc_8894: ; 0x09 sound row mini
+loc_track9:
 - D 0 - I - 0x0088A4 02:A894: 24        .byte $24   ; 
 - D 0 - I - 0x0088A5 02:A895: 15        .byte $15   ; 
 - D 0 - I - 0x0088A6 02:A896: 00        .byte $00   ; 
@@ -2099,13 +2196,13 @@ loc_8894: ; 0x09 sound row mini
 - D 0 - I - 0x008905 02:A8F5: 02        .byte $02   ; 
 - - - - - - 0x008906 02:A8F6: FF        .byte $FF   ; 
 
-loc_88F7: ; 0x26 sound row mini
+loc_track26:
 - - - - - - 0x008907 02:A8F7: FF        .byte $FF   ; 
 
-loc_88F8: ; 0x27 sound row mini
+loc_track27:
 - - - - - - 0x008908 02:A8F8: FF        .byte $FF   ; 
 
-loc_88F9: ; 0x28 sound row mini
+loc_track28:
 - D 0 - I - 0x008909 02:A8F9: 30        .byte $30   ; <0>
 - D 0 - I - 0x00890A 02:A8FA: 00        .byte $00   ; 
 - D 0 - I - 0x00890B 02:A8FB: 02        .byte $02   ; 
@@ -2114,7 +2211,7 @@ loc_88F9: ; 0x28 sound row mini
 - D 0 - I - 0x00890E 02:A8FE: 10        .byte $10   ; 
 - D 0 - I - 0x00890F 02:A8FF: FF        .byte $FF   ; 
 
-loc_8900: ; 0x29 sound row mini
+loc_track29:
 - D 0 - I - 0x008910 02:A900: 01        .byte $01   ; 
 - D 0 - I - 0x008911 02:A901: 02        .byte $02   ; 
 - D 0 - I - 0x008912 02:A902: 17        .byte $17   ; 
@@ -2125,7 +2222,7 @@ loc_8900: ; 0x29 sound row mini
 - D 0 - I - 0x008917 02:A907: 01        .byte $01   ; 
 - D 0 - I - 0x008918 02:A908: FF        .byte $FF   ; 
 
-loc_8909: ; 0x2A sound row mini
+loc_track2A:
 - D 0 - I - 0x008919 02:A909: 03        .byte $03   ; 
 - D 0 - I - 0x00891A 02:A90A: 01        .byte $01   ; 
 - D 0 - I - 0x00891B 02:A90B: 1F        .byte $1F   ; 
@@ -2144,10 +2241,10 @@ loc_8909: ; 0x2A sound row mini
 - D 0 - I - 0x008928 02:A918: 00        .byte $00   ; 
 - D 0 - I - 0x008929 02:A919: FF        .byte $FF   ; 
 
-loc_891A: ; 0x2B sound row mini
+loc_track2B:
 - - - - - - 0x00892A 02:A91A: FF        .byte $FF   ; 
 
-loc_891B: ; 0x2C sound row mini
+loc_track2C:
 - D 0 - I - 0x00892B 02:A91B: 32        .byte $32   ; <2>
 - D 0 - I - 0x00892C 02:A91C: 00        .byte $00   ; 
 - D 0 - I - 0x00892D 02:A91D: 03        .byte $03   ; 
@@ -2160,7 +2257,7 @@ loc_891B: ; 0x2C sound row mini
 - D 0 - I - 0x008934 02:A924: 05        .byte $05   ; 
 - D 0 - I - 0x008935 02:A925: FF        .byte $FF   ; 
 
-loc_8926: ; 0x2D sound row mini
+loc_track2D:
 - D 0 - I - 0x008936 02:A926: 32        .byte $32   ; <2>
 - D 0 - I - 0x008937 02:A927: 00        .byte $00   ; 
 - D 0 - I - 0x008938 02:A928: 03        .byte $03   ; 
@@ -2171,13 +2268,13 @@ loc_8926: ; 0x2D sound row mini
 - D 0 - I - 0x00893D 02:A92D: 02        .byte $02   ; 
 - D 0 - I - 0x00893E 02:A92E: FF        .byte $FF   ; 
 
-loc_892F: ; 0x2E sound row mini
+loc_track2E:
 - - - - - - 0x00893F 02:A92F: FF        .byte $FF   ; 
 
-loc_8930: ; 0x2F sound row mini
+loc_track2F:
 - - - - - - 0x008940 02:A930: FF        .byte $FF   ; 
 
-loc_8931: ; 0x30 sound row mini
+loc_track30:
 - D 0 - I - 0x008941 02:A931: 01        .byte $01   ; 
 - D 0 - I - 0x008942 02:A932: 02        .byte $02   ; 
 - D 0 - I - 0x008943 02:A933: 1F        .byte $1F   ; 
@@ -2194,7 +2291,7 @@ loc_8931: ; 0x30 sound row mini
 - D 0 - I - 0x00894E 02:A93E: 00        .byte $00   ; 
 - D 0 - I - 0x00894F 02:A93F: FF        .byte $FF   ; 
 
-loc_8940: ; 0x31 sound row mini
+loc_track31:
 - D 0 - I - 0x008950 02:A940: 32        .byte $32   ; <2>
 - D 0 - I - 0x008951 02:A941: 00        .byte $00   ; 
 - D 0 - I - 0x008952 02:A942: 03        .byte $03   ; 
@@ -2203,7 +2300,7 @@ loc_8940: ; 0x31 sound row mini
 - D 0 - I - 0x008955 02:A945: 01        .byte $01   ; 
 - D 0 - I - 0x008956 02:A946: FF        .byte $FF   ; 
 
-loc_8947: ; 0x32 sound row mini
+loc_track32:
 - D 0 - I - 0x008957 02:A947: 30        .byte $30   ; <0>
 - D 0 - I - 0x008958 02:A948: 00        .byte $00   ; 
 - D 0 - I - 0x008959 02:A949: 01        .byte $01   ; 
@@ -2221,10 +2318,10 @@ loc_8947: ; 0x32 sound row mini
 - D 0 - I - 0x008965 02:A955: FF        .byte $FF   ; 
 - - - - - - 0x008966 02:A956: FF        .byte $FF   ; 
 
-loc_8957: ; 0x33 sound row mini
+loc_track33:
 - - - - - - 0x008967 02:A957: FF        .byte $FF   ; 
 
-loc_8958: ; 0x34 sound row mini
+loc_track34:
 - D 0 - I - 0x008968 02:A958: 01        .byte $01   ; 
 - D 0 - I - 0x008969 02:A959: 01        .byte $01   ; 
 - D 0 - I - 0x00896A 02:A95A: 01        .byte $01   ; 
@@ -2233,7 +2330,7 @@ loc_8958: ; 0x34 sound row mini
 - D 0 - I - 0x00896D 02:A95D: 04        .byte $04   ; 
 - D 0 - I - 0x00896E 02:A95E: FF        .byte $FF   ; 
 
-loc_895F: ; 0x35 sound row mini
+loc_track35:
 - D 0 - I - 0x00896F 02:A95F: 02        .byte $02   ; 
 - D 0 - I - 0x008970 02:A960: 02        .byte $02   ; 
 - D 0 - I - 0x008971 02:A961: 17        .byte $17   ; 
@@ -2248,7 +2345,7 @@ loc_895F: ; 0x35 sound row mini
 - D 0 - I - 0x00897A 02:A96A: 01        .byte $01   ; 
 - D 0 - I - 0x00897B 02:A96B: FF        .byte $FF   ; 
 
-loc_896C: ; 0x36 sound row mini
+loc_track36:
 - D 0 - I - 0x00897C 02:A96C: 30        .byte $30   ; <0>
 - D 0 - I - 0x00897D 02:A96D: 00        .byte $00   ; 
 - D 0 - I - 0x00897E 02:A96E: 05        .byte $05   ; 
@@ -2261,7 +2358,7 @@ loc_896C: ; 0x36 sound row mini
 - D 0 - I - 0x008985 02:A975: 30        .byte $30   ; <0>
 - D 0 - I - 0x008986 02:A976: FF        .byte $FF   ; 
 
-loc_8977: ; 0x37 sound row mini
+loc_track37:
 - D 0 - I - 0x008987 02:A977: 00        .byte $00   ; 
 - D 0 - I - 0x008988 02:A978: 01        .byte $01   ; 
 - D 0 - I - 0x008989 02:A979: 00        .byte $00   ; 
@@ -2274,13 +2371,13 @@ loc_8977: ; 0x37 sound row mini
 - D 0 - I - 0x008990 02:A980: 02        .byte $02   ; 
 - D 0 - I - 0x008991 02:A981: FF        .byte $FF   ; 
 
-loc_8982: ; 0x38 sound row mini
+loc_track38:
 - - - - - - 0x008992 02:A982: FF        .byte $FF   ; 
 
-loc_8983: ; 0x3C sound row mini
+loc_track3C:
 - - - - - - 0x008993 02:A983: FF        .byte $FF   ; 
 
-loc_8984: ; 0x3D sound row mini
+loc_track3D:
 - D 0 - I - 0x008994 02:A984: 30        .byte $30   ; <0>
 - D 0 - I - 0x008995 02:A985: 00        .byte $00   ; 
 - D 0 - I - 0x008996 02:A986: 02        .byte $02   ; 
@@ -2291,10 +2388,10 @@ loc_8984: ; 0x3D sound row mini
 - D 0 - I - 0x00899B 02:A98B: 03        .byte $03   ; 
 - D 0 - I - 0x00899C 02:A98C: FF        .byte $FF   ; 
 
-loc_898D: ; 0x3E sound row mini
+loc_track3E:
 - - - - - - 0x00899D 02:A98D: FF        .byte $FF   ; 
 
-loc_898E: ; 0x3F sound row mini
+loc_track3F:
 - D 0 - I - 0x00899E 02:A98E: 00        .byte $00   ; 
 - D 0 - I - 0x00899F 02:A98F: 02        .byte $02   ; 
 - D 0 - I - 0x0089A0 02:A990: 18        .byte $18   ; 
@@ -2303,7 +2400,7 @@ loc_898E: ; 0x3F sound row mini
 - D 0 - I - 0x0089A3 02:A993: 07        .byte $07   ; 
 - D 0 - I - 0x0089A4 02:A994: FF        .byte $FF   ; 
 
-loc_8995: ; 0x40 sound row mini
+loc_track40:
 - D 0 - I - 0x0089A5 02:A995: 00        .byte $00   ; 
 - D 0 - I - 0x0089A6 02:A996: 01        .byte $01   ; 
 - D 0 - I - 0x0089A7 02:A997: 19        .byte $19   ; 
@@ -2312,7 +2409,7 @@ loc_8995: ; 0x40 sound row mini
 - D 0 - I - 0x0089AA 02:A99A: 06        .byte $06   ; 
 - D 0 - I - 0x0089AB 02:A99B: FF        .byte $FF   ; 
 
-loc_899C: ; 0x41 sound row mini
+loc_track41:
 - D 0 - I - 0x0089AC 02:A99C: 30        .byte $30   ; <0>
 - D 0 - I - 0x0089AD 02:A99D: 00        .byte $00   ; 
 - D 0 - I - 0x0089AE 02:A99E: 05        .byte $05   ; 
@@ -2325,10 +2422,10 @@ loc_899C: ; 0x41 sound row mini
 - D 0 - I - 0x0089B5 02:A9A5: 02        .byte $02   ; 
 - D 0 - I - 0x0089B6 02:A9A6: FF        .byte $FF   ; 
 
-loc_89A7: ; 0x42 sound row mini
+loc_track42:
 - - - - - - 0x0089B7 02:A9A7: FF        .byte $FF   ; 
 
-loc_89A8: ; 0x43 sound row mini
+loc_track43:
 - D 0 - I - 0x0089B8 02:A9A8: 04        .byte $04   ; 
 - D 0 - I - 0x0089B9 02:A9A9: 02        .byte $02   ; 
 - D 0 - I - 0x0089BA 02:A9AA: 0A        .byte $0A   ; 
@@ -2431,7 +2528,7 @@ loc_89A8: ; 0x43 sound row mini
 - D 0 - I - 0x008A1B 02:AA0B: 02        .byte $02   ; 
 - - - - - - 0x008A1C 02:AA0C: FF        .byte $FF   ; 
 
-loc_8A0D: ; 0x44 sound row mini
+loc_track44:
 - D 0 - I - 0x008A1D 02:AA0D: 03        .byte $03   ; 
 - D 0 - I - 0x008A1E 02:AA0E: 00        .byte $00   ; 
 - D 0 - I - 0x008A1F 02:AA0F: 01        .byte $01   ; 
@@ -2588,7 +2685,7 @@ loc_8A0D: ; 0x44 sound row mini
 - D 0 - I - 0x008AB6 02:AAA6: 02        .byte $02   ; 
 - - - - - - 0x008AB7 02:AAA7: FF        .byte $FF   ; 
 
-loc_8AA8: ; 0x45 sound row mini
+loc_track45:
 - D 0 - I - 0x008AB8 02:AAA8: 0A        .byte $0A   ; 
 - D 0 - I - 0x008AB9 02:AAA9: 00        .byte $00   ; 
 - D 0 - I - 0x008ABA 02:AAAA: 17        .byte $17   ; 
@@ -2621,7 +2718,7 @@ loc_8AA8: ; 0x45 sound row mini
 - D 0 - I - 0x008AD5 02:AAC5: 02        .byte $02   ; 
 - - - - - - 0x008AD6 02:AAC6: FF        .byte $FF   ; 
 
-loc_8AC7: ; 0x46 sound row mini
+loc_track46:
 - D 0 - I - 0x008AD7 02:AAC7: 05        .byte $05   ; 
 - D 0 - I - 0x008AD8 02:AAC8: 02        .byte $02   ; 
 - D 0 - I - 0x008AD9 02:AAC9: 00        .byte $00   ; 
@@ -2740,7 +2837,7 @@ loc_8AC7: ; 0x46 sound row mini
 - D 0 - I - 0x008B4A 02:AB3A: 02        .byte $02   ; 
 - - - - - - 0x008B4B 02:AB3B: FF        .byte $FF   ; 
 
-loc_8B3C: ; 0x47 sound row mini
+loc_track47:
 - D 0 - I - 0x008B4C 02:AB3C: 06        .byte $06   ; 
 - D 0 - I - 0x008B4D 02:AB3D: 02        .byte $02   ; 
 - D 0 - I - 0x008B4E 02:AB3E: 09        .byte $09   ; 
@@ -2777,7 +2874,7 @@ loc_8B3C: ; 0x47 sound row mini
 - D 0 - I - 0x008B6D 02:AB5D: 02        .byte $02   ; 
 - - - - - - 0x008B6E 02:AB5E: FF        .byte $FF   ; 
 
-loc_8B5F: ; 0x48 sound row mini
+loc_track48:
 - D 0 - I - 0x008B6F 02:AB5F: 35        .byte $35   ; <5>
 - D 0 - I - 0x008B70 02:AB60: 00        .byte $00   ; 
 - D 0 - I - 0x008B71 02:AB61: 00        .byte $00   ; 
@@ -2815,7 +2912,7 @@ loc_8B5F: ; 0x48 sound row mini
 - - - - - - 0x008B91 02:AB81: B0        .byte $B0   ; 
 - - - - - - 0x008B92 02:AB82: 02        .byte $02   ; 
 
-loc_8B83: ; 0x49 sound row mini
+loc_track49:
 - D 0 - I - 0x008B93 02:AB83: 34        .byte $34   ; <4>
 - D 0 - I - 0x008B94 02:AB84: 00        .byte $00   ; 
 - D 0 - I - 0x008B95 02:AB85: 00        .byte $00   ; 
@@ -2832,7 +2929,7 @@ loc_8B83: ; 0x49 sound row mini
 - D 0 - I - 0x008BA0 02:AB90: 02        .byte $02   ; 
 - - - - - - 0x008BA1 02:AB91: FF        .byte $FF   ; 
 
-loc_8B92: ; 0x4A sound row mini
+loc_track4A:
 - D 0 - I - 0x008BA2 02:AB92: 3A        .byte $3A   ; 
 - D 0 - I - 0x008BA3 02:AB93: 00        .byte $00   ; 
 - D 0 - I - 0x008BA4 02:AB94: 00        .byte $00   ; 
@@ -2843,7 +2940,7 @@ loc_8B92: ; 0x4A sound row mini
 - D 0 - I - 0x008BA9 02:AB99: 02        .byte $02   ; 
 - - - - - - 0x008BAA 02:AB9A: FF        .byte $FF   ; 
 
-loc_8B9B: ; 0x4B sound row mini
+loc_track4B:
 - D 0 - I - 0x008BAB 02:AB9B: 35        .byte $35   ; <5>
 - D 0 - I - 0x008BAC 02:AB9C: 00        .byte $00   ; 
 - D 0 - I - 0x008BAD 02:AB9D: 00        .byte $00   ; 
@@ -2868,7 +2965,7 @@ loc_8B9B: ; 0x4B sound row mini
 - D 0 - I - 0x008BC0 02:ABB0: 02        .byte $02   ; 
 - - - - - - 0x008BC1 02:ABB1: FF        .byte $FF   ; 
 
-loc_8BB2: ; 0x4C sound row mini
+loc_track4C:
 - D 0 - I - 0x008BC2 02:ABB2: 34        .byte $34   ; <4>
 - D 0 - I - 0x008BC3 02:ABB3: 00        .byte $00   ; 
 - D 0 - I - 0x008BC4 02:ABB4: 00        .byte $00   ; 
@@ -2893,7 +2990,7 @@ loc_8BB2: ; 0x4C sound row mini
 - D 0 - I - 0x008BD7 02:ABC7: 02        .byte $02   ; 
 - - - - - - 0x008BD8 02:ABC8: FF        .byte $FF   ; 
 
-loc_8BC9: ; 0x4D sound row mini
+loc_track4D:
 - D 0 - I - 0x008BD9 02:ABC9: 03        .byte $03   ; 
 - D 0 - I - 0x008BDA 02:ABCA: 00        .byte $00   ; 
 - D 0 - I - 0x008BDB 02:ABCB: 00        .byte $00   ; 
@@ -2918,7 +3015,7 @@ loc_8BC9: ; 0x4D sound row mini
 - D 0 - I - 0x008BEE 02:ABDE: 02        .byte $02   ; 
 - - - - - - 0x008BEF 02:ABDF: FF        .byte $FF   ; 
 
-loc_8BE0: ; 0x4E sound row mini
+loc_track4E:
 - D 0 - I - 0x008BF0 02:ABE0: 35        .byte $35   ; <5>
 - D 0 - I - 0x008BF1 02:ABE1: 00        .byte $00   ; 
 - D 0 - I - 0x008BF2 02:ABE2: 00        .byte $00   ; 
@@ -2935,7 +3032,7 @@ loc_8BE0: ; 0x4E sound row mini
 - D 0 - I - 0x008BFD 02:ABED: 02        .byte $02   ; 
 - - - - - - 0x008BFE 02:ABEE: FF        .byte $FF   ; 
 
-loc_8BEF: ; 0x4F sound row mini
+loc_track4F:
 - D 0 - I - 0x008BFF 02:ABEF: 36        .byte $36   ; <6>
 - D 0 - I - 0x008C00 02:ABF0: 00        .byte $00   ; 
 - D 0 - I - 0x008C01 02:ABF1: 00        .byte $00   ; 
@@ -2952,8 +3049,8 @@ loc_8BEF: ; 0x4F sound row mini
 - D 0 - I - 0x008C0C 02:ABFC: 02        .byte $02   ; 
 - - - - - - 0x008C0D 02:ABFD: FF        .byte $FF   ; 
 
-loc_8BFE: ; 0x50 sound row mini
-- D 0 - I - 0x008C0E 02:ABFE: 00        .byte $00   ; 0x8BFE in 0x8000-0x9FFF
+loc_track50:
+- D 0 - I - 0x008C0E 02:ABFE: 00        .byte $00   ;
 - D 0 - I - 0x008C0F 02:ABFF: 02        .byte $02   ; 
 - D 0 - I - 0x008C10 02:AC00: 02        .byte $02   ; 
 - D 0 - I - 0x008C11 02:AC01: 00        .byte $00   ; 
@@ -2965,7 +3062,7 @@ loc_8BFE: ; 0x50 sound row mini
 - D 0 - I - 0x008C15 02:AC05: 02        .byte $02   ; 
 - D 0 - I - 0x008C16 02:AC06: FF        .byte $FF   ; 
 
-loc_8C07: ; 0x51 sound row mini
+loc_track51:
 - D 0 - I - 0x008C17 02:AC07: 00        .byte $00   ; 
 - D 0 - I - 0x008C18 02:AC08: 02        .byte $02   ; 
 - D 0 - I - 0x008C19 02:AC09: 01        .byte $01   ; 
@@ -2982,7 +3079,7 @@ loc_8C07: ; 0x51 sound row mini
 - D 0 - I - 0x008C24 02:AC14: 20        .byte $20   ; 
 - D 0 - I - 0x008C25 02:AC15: FF        .byte $FF   ; 
 
-loc_8C16: ; 0x52 sound row mini
+loc_track52:
 - D 0 - I - 0x008C26 02:AC16: 30        .byte $30   ; <0>
 - D 0 - I - 0x008C27 02:AC17: 00        .byte $00   ; 
 - D 0 - I - 0x008C28 02:AC18: 04        .byte $04   ; 
@@ -2995,7 +3092,7 @@ loc_8C16: ; 0x52 sound row mini
 - D 0 - I - 0x008C2F 02:AC1F: 20        .byte $20   ; 
 - D 0 - I - 0x008C30 02:AC20: FF        .byte $FF   ; 
 
-loc_8C21: ; 0x53 sound row mini
+loc_track53:
 - - - - - - 0x008C31 02:AC21: 07        .byte $07   ; 
 - - - - - - 0x008C32 02:AC22: 01        .byte $01   ; 
 - - - - - - 0x008C33 02:AC23: 0F        .byte $0F   ; 
@@ -3018,7 +3115,7 @@ loc_8C21: ; 0x53 sound row mini
 - - - - - - 0x008C44 02:AC34: 18        .byte $18   ; 
 - - - - - - 0x008C45 02:AC35: FF        .byte $FF   ; 
 
-loc_8C36: ; 0x54 sound row mini
+loc_track54:
 - - - - - - 0x008C46 02:AC36: 07        .byte $07   ; 
 - - - - - - 0x008C47 02:AC37: 60        .byte $60   ; 
 - - - - - - 0x008C48 02:AC38: 00        .byte $00   ; 
@@ -3045,7 +3142,7 @@ loc_8C36: ; 0x54 sound row mini
 - - - - - - 0x008C5D 02:AC4D: 08        .byte $08   ; 
 - - - - - - 0x008C5E 02:AC4E: FF        .byte $FF   ; 
 
-loc_8C4F: ; 0x55 sound row mini
+loc_track55:
 - D 0 - I - 0x008C5F 02:AC4F: 03        .byte $03   ; 
 - D 0 - I - 0x008C60 02:AC50: 02        .byte $02   ; 
 - D 0 - I - 0x008C61 02:AC51: 1C        .byte $1C   ; 
@@ -3104,7 +3201,7 @@ loc_8C4F: ; 0x55 sound row mini
 - D 0 - I - 0x008C96 02:AC86: 02        .byte $02   ; 
 - - - - - - 0x008C97 02:AC87: FF        .byte $FF   ; 
 
-loc_8C88: ; 0x56 sound row mini
+loc_track56:
 - D 0 - I - 0x008C98 02:AC88: 13        .byte $13   ; 
 - D 0 - I - 0x008C99 02:AC89: 02        .byte $02   ; 
 - D 0 - I - 0x008C9A 02:AC8A: 15        .byte $15   ; 
@@ -3163,7 +3260,7 @@ loc_8C88: ; 0x56 sound row mini
 - D 0 - I - 0x008CCF 02:ACBF: 03        .byte $03   ; 
 - - - - - - 0x008CD0 02:ACC0: FF        .byte $FF   ; 
 
-loc_8CC1: ; 0x57 sound row mini
+loc_track57:
 - D 0 - I - 0x008CD1 02:ACC1: 23        .byte $23   ; 
 - D 0 - I - 0x008CD2 02:ACC2: 7F        .byte $7F   ; 
 - D 0 - I - 0x008CD3 02:ACC3: 00        .byte $00   ; 
@@ -3188,16 +3285,16 @@ loc_8CC1: ; 0x57 sound row mini
 - D 0 - I - 0x008CE6 02:ACD6: 02        .byte $02   ; 
 - - - - - - 0x008CE7 02:ACD7: FF        .byte $FF   ; 
 
-loc_8CD8: ; 0x58 sound row mini
+loc_track58:
 - - - - - - 0x008CE8 02:ACD8: FF        .byte $FF   ; 
 
-loc_8CD9: ; 0x59 sound row mini
+loc_track59:
 - - - - - - 0x008CE9 02:ACD9: FF        .byte $FF   ; 
 
-loc_8CDA: ; 0x5A sound row mini
+loc_track5A:
 - - - - - - 0x008CEA 02:ACDA: FF        .byte $FF   ; 
 
-loc_8CDB: ; 0x5F sound row mini
+loc_track5F:
 - - - - - - 0x008CEB 02:ACDB: 03        .byte $03   ; 
 - - - - - - 0x008CEC 02:ACDC: 01        .byte $01   ; 
 - - - - - - 0x008CED 02:ACDD: 1F        .byte $1F   ; 
@@ -3214,7 +3311,7 @@ loc_8CDB: ; 0x5F sound row mini
 - - - - - - 0x008CF8 02:ACE8: 00        .byte $00   ; 
 - - - - - - 0x008CF9 02:ACE9: FF        .byte $FF   ; 
 
-loc_8CEA: ; 0x60 sound row mini
+loc_track60:
 - D 0 - I - 0x008CFA 02:ACEA: 00        .byte $00   ; 
 - D 0 - I - 0x008CFB 02:ACEB: 02        .byte $02   ; 
 - D 0 - I - 0x008CFC 02:ACEC: 0F        .byte $0F   ; 
@@ -3227,7 +3324,7 @@ loc_8CEA: ; 0x60 sound row mini
 - D 0 - I - 0x008D03 02:ACF3: 00        .byte $00   ; 
 - D 0 - I - 0x008D04 02:ACF4: FF        .byte $FF   ; 
 
-loc_8CF5: ; 0x5B sound row mini
+loc_track5B:
 - D 0 - I - 0x008D05 02:ACF5: 07        .byte $07   ; 
 - D 0 - I - 0x008D06 02:ACF6: 02        .byte $02   ; 
 - D 0 - I - 0x008D07 02:ACF7: 0F        .byte $0F   ; 
@@ -3282,7 +3379,7 @@ loc_8CF5: ; 0x5B sound row mini
 - D 0 - I - 0x008D38 02:AD28: 02        .byte $02   ; 
 - - - - - - 0x008D39 02:AD29: FF        .byte $FF   ; 
 
-loc_8D2A: ; 0x5C sound row mini
+loc_track5C:
 - D 0 - I - 0x008D3A 02:AD2A: 07        .byte $07   ; 
 - D 0 - I - 0x008D3B 02:AD2B: 00        .byte $00   ; 
 - D 0 - I - 0x008D3C 02:AD2C: 00        .byte $00   ; 
@@ -3293,7 +3390,7 @@ loc_8D2A: ; 0x5C sound row mini
 - D 0 - I - 0x008D41 02:AD31: 02        .byte $02   ; 
 - - - - - - 0x008D42 02:AD32: FF        .byte $FF   ; 
 
-loc_8D33: ; 0x5D sound row mini
+loc_track5D:
 - D 0 - I - 0x008D43 02:AD33: 07        .byte $07   ; 
 - D 0 - I - 0x008D44 02:AD34: 00        .byte $00   ; 
 - D 0 - I - 0x008D45 02:AD35: 20        .byte $20   ; 
@@ -3334,7 +3431,7 @@ loc_8D33: ; 0x5D sound row mini
 - D 0 - I - 0x008D68 02:AD58: 02        .byte $02   ; 
 - - - - - - 0x008D69 02:AD59: FF        .byte $FF   ; 
 
-loc_8D5A: ; 0x5E sound row mini
+loc_track5E:
 - D 0 - I - 0x008D6A 02:AD5A: 37        .byte $37   ; <7>
 - D 0 - I - 0x008D6B 02:AD5B: 00        .byte $00   ; 
 - D 0 - I - 0x008D6C 02:AD5C: 00        .byte $00   ; 

@@ -42,7 +42,6 @@ BIT_USING_WHITE_BRIEFCASE             = %10000000
 
 ; Variables
 
-v_CF76_counter                = ram_0005
 v_CE5A_counter                = ram_0005
 vTempCounterC                 = ram_000C
 vTempCounter10                = ram_0010
@@ -137,53 +136,7 @@ vSortOfRoom                   = ram_0046 ; Only in the room
 ; 1F - a room with briefcases
 
 vNoSubLevel                   = ram_0046
-; 0x00 - level 1.0
-; 0x03 - level 1.1
-; 0x04 - level 1.2
-; 0x05 - level 1.3
-; 0x06 - level 2 (outside)
-; 0x07 - level 2 (1-3)
-; 0x08 - level 2 (2)
-; 0x09 - level 2 (4-5)
-; 0x0A - level 2 (6-8)
-; 0x0B - level 2 (7)
-; 0x0C - level 2 (9-10)
-; 0x0D - level 2 (11-13)
-; 0x0E - level 2 (12)
-; 0x0F - level 3.0
-; 0x10 - level 3.1
-; 0x11 - level 3.2
-; 0x12 - level 3.3
-; 0x13 - level 3.4
-; 0x14 - boss of level 4
-; ....
-; 0x19 - level racing
-; 0x1A - room with NPC in level 1
-; 0x1A - ending cutscene + select of a character before level 2
-; 0x1B - room with NPC in level 2 (part 1)
-; 0x1C - ending cutscene + select of a character before level 3
-; 0x1C - room with NPC in level 2 (part 2)
-; 0x1D - ending cutscene + select of a character before level 4 (racing)
-; 0x1D - room with NPC in level 3
-; 0x1E - room with NPC in level 4
-; 0x1F - boss of level 1
-; ...
-; 0x21 - boss of level 2
-; 0x22 - boss of level 3
-
-; 0x1F - room with briefcases in level 1
-; 0x20 - room with briefcases in level 2 (part 1)
-; 0x21 - room with briefcases in level 2 (part 2)
-; 0x22 - room with briefcases in level 3
-; 0x23 - room with briefcases in level 4
-; 0x24 - ???
-; ...
-; 0x37 - water room in level 2
-;
-; 0x42-0x49 - level 4, map 1
-; 0x4A-0x56 - level 4, map 2
-; 0x57-0x66 - level 4, map 3
-; 0x67-0x7D - level 4, map 4
+; see docs (Rooms, Maze1, Maze2, Maze3, Maze4)
 
 vTempNoSubLevel               = ram_0047
 vCurrentRoomLength            = ram_0049 ; in screen units
@@ -436,7 +389,7 @@ vCacheChrBankSelect           = ram_06AF ; [ram_06AF - ram_06B4]
 vBankData                     = ram_06B5
 vChrBankData                  = ram_06B6
 v_sprite_magics               = ram_06B7
-v_sprite_magic1               = ram_06B7 ; Y-position
+v_sprite_magic1               = ram_06B7 ; Y-position, 0xF0 - a sprite doesn't exist
 v_sprite_magic2               = ram_06B8
 v_sprite_magic3               = ram_06B9 ; BBBB XXXX, BBBB - sign MMC3 bank data
 v_sprite_magic4               = ram_06BA ; X-position

@@ -1030,8 +1030,28 @@ $CEEA#bra_CEEA_skip#Store target byte OAM (sprite)
 $CEEC#bra_CEEC_end#
 $CEEF#bra_CEEF_skip#
 $CEF2#bra_CEF2#
-$CEF9#sub_CEF9#
-$CF10#loc_CF10#
+$CEF9#sub_CEF9#--NO-COMMENT--
+$CEFB##--NO-COMMENT--
+$CEFD##--NO-COMMENT--
+$CEFE##--NO-COMMENT--
+$CEFF##--NO-COMMENT--
+$CF00##Register A = {0x00, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70}
+$CF01##--NO-COMMENT--
+$CF02##--NO-COMMENT--
+$CF04##ram_0012 = {0xDE, 0xEE, 0xFE, 0x0E, 0x1E, 0x2E, 0x3E, 0x4E}
+$CF06##--NO-COMMENT--
+$CF08##--NO-COMMENT--
+$CF0A##ram_0013 = (0xCF, 0xD0)
+$CF0C##--NO-COMMENT--
+$CF0E##set loop counter
+$CF10#loc_CF10_loop#get a sprite relative index (see 'The order of the indexes X')
+$CF12##--NO-COMMENT--
+$CF13##--NO-COMMENT--
+$CF14##put a sprite offset (4 bytes each)
+$CF15##--NO-COMMENT--
+$CF18##--NO-COMMENT--
+$CF1A##If a sprite is configured
+$CF1C##--NO-COMMENT--
 $CF1F#bra_CF1F_skip#
 $CF38##bank 05 (1 page) in 0x8000-0x9FFF
 $CF3A#bra_CF3A_skip#
@@ -1047,9 +1067,13 @@ $CF80#bra_CF80_skip#
 $CFA7#bra_CFA7_skip#
 $CFBE##To 1st next sprite data byte
 $CFC1#bra_CFC1#
-$CFC4##--NO-COMMENT--
-$CFC8#loc_CFC8#
-$CFD3#bra_CFD3_RTS#
+$CFC4##If counter != 0
+$CFC8#loc_CFC8_continue#increment counter (ram_001A)
+$CFCA##--NO-COMMENT--
+$CFCC##--NO-COMMENT--
+$CFCE##Returns If ram_001A >= 0x10
+$CFD0##Repeat the loop
+$CFD3#bra_CFD3_RTS#--NO-COMMENT--
 $CFD4#bra_CFD4#
 $CFD7#bra_CFD7#
 $D05E#sub_accumulator_shift_right_by_5#--NO-COMMENT--
@@ -1096,11 +1120,17 @@ $D0A3#sub_D0A3_prepare_14_15_16_17_18#--NO-COMMENT--
 $D0A5##--NO-COMMENT--
 $D0A6##--NO-COMMENT--
 $D0A7##--NO-COMMENT--
-$D0A8##increment += 5
+$D0A8##get the content offset (5 byte each * Register A)
+$D0AA##--NO-COMMENT--
 $D0AB##set loop counter
-$D0AD#@bra_D0AD_loop#
+$D0AD#@bra_D0AD_loop#get the content value
+$D0AF##prepare 0x14 or 0x15 or 0x16 or 0x17 or 0x18
+$D0B1##increment the position by the content
 $D0B2##increments loop counter
-$D0B5##If Register X > 0x00
+$D0B3##--NO-COMMENT--
+$D0B5##If Register X != 0x05
+$D0B7##--NO-COMMENT--
+$D0B8#sub_D0B8#
 $D0BA#bra_D0BA#
 $D0C1#sub_D0C1_change_stack_pointer#--NO-COMMENT--
 $D0C2##--NO-COMMENT--
@@ -1249,21 +1279,63 @@ $D222##/8
 $D223##--NO-COMMENT--
 $D225##vLowPpuAddress <~ [0xC0-0xDF]
 $D228##--NO-COMMENT--
-$D236##0th of 8 info bytes
-$D23C##1th of 8 info bytes
+$D22B##--NO-COMMENT--
+$D22D##--NO-COMMENT--
+$D22F##--NO-COMMENT--
+$D230##--NO-COMMENT--
+$D232##--NO-COMMENT--
+$D233##--NO-COMMENT--
+$D234##put in Register A a whole ram_0002 that is a multiple of 12
+$D236##1th of 8 info bytes
+$D238##--NO-COMMENT--
+$D23A##low address + offset
+$D23C##2th of 8 info bytes
+$D23D##--NO-COMMENT--
+$D23F##--NO-COMMENT--
 $D241##store A
+$D242##--NO-COMMENT--
+$D244##using 0x000XXXXX from 0xBBBAAAAA
+$D246##high address + offset
 $D248##retrieve A ($D241)
 $D249##--NO-COMMENT--
-$D24C##puts a bank data
+$D24C##puts a bank data, using 0xXXX00000 from 0xBBBAAAAA
+$D24E##5th of 8 info bytes
+$D250##--NO-COMMENT--
+$D254##6th of 8 info bytes
+$D255##--NO-COMMENT--
 $D25B##set loop counter
 $D25D#bra_D25D_loop#--NO-COMMENT--
 $D25F##--NO-COMMENT--
 $D262##--NO-COMMENT--
 $D264##switch $0002 (PRG) in 0x8000-09FFF
-$D28B#@bra_D28B_skip#
+$D267##--NO-COMMENT--
+$D269##set zero
+$D26B##loads the index of quartet tiles
+$D26D##--NO-COMMENT--
+$D26E##--NO-COMMENT--
+$D270##--NO-COMMENT--
+$D271##ram_0007 = {0x00, 0x01, 0x02, 0x03}
+$D273##--NO-COMMENT--
+$D274##low address = ram_0050 + ((ram_0052) << 2)
+$D276##puts a low address of ppu datas
+$D27A##0xBBBAAAAA = ram_0051 + ram_0007
+$D27C##switch to the bank with ppu datas
+$D27F##puts a high address of ppu datas
+$D281##using first pair of quartet
+$D283##--NO-COMMENT--
+$D285##--NO-COMMENT--
+$D287##If vLowViewPortPosX == 0xXXXXX000
+$D289##using second pair of quartet
+$D28B#@bra_D28B_skip#--NO-COMMENT--
+$D28D##store a tile number 1
+$D290##next vPpuBufferData
+$D291##increment loop counter
+$D292##--NO-COMMENT--
+$D294##store a tile number 2
 $D297##increment loop counter
 $D29B##--NO-COMMENT--
 $D29D##If Register X < 0x18
+$D29F##--NO-COMMENT--
 $D2A0#loc_D2A0#
 $D2B0#bra_D2B0#
 $D2B3#bra_D2B3#

@@ -1162,132 +1162,132 @@
 
 ; Background indexes for the screen
 tbl_background_screens:
-- D 0 - - - 0x000490 00:8480: 7C 05     .word $057C ; level 1.0 ($857C)
+- D 0 - - - 0x000490 00:8480: 7C 05     .word $057C ; level 1.0 ($857C, tbl_background_screens_level_1_0)
 - - - - - - 0x000492 00:8482: 8C 05     .word $058C
 - - - - - - 0x000494 00:8484: 8C 05     .word $058C
 - D 0 - - - 0x000496 00:8486: 8C 05     .word $058C ; level 1.1 ($858C)
 - D 0 - - - 0x000498 00:8488: 94 05     .word $0594 ; level 1.2 ($8594)
 - D 0 - - - 0x00049A 00:848A: 9C 05     .word $059C ; level 1.3 ($859C)
-- D 0 - - - 0x00049C 00:848C: A4 05     .word $05A4 ; level 2 (outside) (0x95A4)
-- D 0 - - - 0x00049E 00:848E: B4 05     .word $05B4 ; level 2 (1-3)     (0x95B4)
-- D 0 - - - 0x0004A0 00:8490: BC 05     .word $05BC ; level 2 (2)       (0x95BC)
-- D 0 - - - 0x0004A2 00:8492: C4 05     .word $05C4 ; level 2 (4-5)     (0x95C4)
-- D 0 - - - 0x0004A4 00:8494: CC 05     .word $05CC ; level 2 (6-8)     (0x95CC)
-- D 0 - - - 0x0004A6 00:8496: D4 05     .word $05D4 ; level 2 (7)       (0x95D4)
-- D 0 - - - 0x0004A8 00:8498: DC 05     .word $05DC ; level 2 (9-10)    (0x95DC)
-- D 0 - - - 0x0004AA 00:849A: E4 05     .word $05E4 ; level 2 (11-13)   (0x95E4)
-- D 0 - - - 0x0004AC 00:849C: EC 05     .word $05EC ; level 2 (12)      (0x95EC)
-- D 0 - - - 0x0004AE 00:849E: F4 05     .word $05F4 ; level 3.0 (0x85F4)
-- D 0 - - - 0x0004B0 00:84A0: 04 06     .word $0604 ; level 3.1 (0x8604)
-- D 0 - - - 0x0004B2 00:84A2: 0C 06     .word $060C ; level 3.2 (0x860C)
-- D 0 - - - 0x0004B4 00:84A4: 14 06     .word $0614 ; level 3.3 (0x8614)
-- D 0 - - - 0x0004B6 00:84A6: 1C 06     .word $061C ; level 3.4 (0x861C)
-- D 0 - - - 0x0004B8 00:84A8: 24 06     .word $0624
+- D 0 - - - 0x00049C 00:848C: A4 05     .word $05A4 ; level 2 (outside) ($95A4)
+- D 0 - - - 0x00049E 00:848E: B4 05     .word $05B4 ; level 2 (1-3)     ($95B4)
+- D 0 - - - 0x0004A0 00:8490: BC 05     .word $05BC ; level 2 (2)       ($95BC)
+- D 0 - - - 0x0004A2 00:8492: C4 05     .word $05C4 ; level 2 (4-5)     ($95C4)
+- D 0 - - - 0x0004A4 00:8494: CC 05     .word $05CC ; level 2 (6-8)     ($95CC)
+- D 0 - - - 0x0004A6 00:8496: D4 05     .word $05D4 ; level 2 (7)       ($95D4)
+- D 0 - - - 0x0004A8 00:8498: DC 05     .word $05DC ; level 2 (9-10)    ($95DC)
+- D 0 - - - 0x0004AA 00:849A: E4 05     .word $05E4 ; level 2 (11-13)   ($95E4)
+- D 0 - - - 0x0004AC 00:849C: EC 05     .word $05EC ; level 2 (12)      ($95EC)
+- D 0 - - - 0x0004AE 00:849E: F4 05     .word $05F4 ; level 3.0 ($85F4)
+- D 0 - - - 0x0004B0 00:84A0: 04 06     .word $0604 ; level 3.1 ($8604)
+- D 0 - - - 0x0004B2 00:84A2: 0C 06     .word $060C ; level 3.2 ($860C)
+- D 0 - - - 0x0004B4 00:84A4: 14 06     .word $0614 ; level 3.3 ($8614)
+- D 0 - - - 0x0004B6 00:84A6: 1C 06     .word $061C ; level 3.4 ($861C)
+- D 0 - - - 0x0004B8 00:84A8: 24 06     .word $0624 ; boss of level 4 ($8624)
 - - - - - - 0x0004BA 00:84AA: 25 06     .word $0625
 - - - - - - 0x0004BC 00:84AC: 25 06     .word $0625
 - - - - - - 0x0004BE 00:84AE: 25 06     .word $0625
 - - - - - - 0x0004C0 00:84B0: 25 06     .word $0625
-- D 0 - - - 0x0004C2 00:84B2: 25 06     .word $0625
-- D 0 - - - 0x0004C4 00:84B4: 49 06     .word $0649
-- D 0 - - - 0x0004C6 00:84B6: 4A 06     .word $064A
-- D 0 - - - 0x0004C8 00:84B8: 4B 06     .word $064B
-- D 0 - - - 0x0004CA 00:84BA: 4C 06     .word $064C
-- D 0 - - - 0x0004CC 00:84BC: 4D 06     .word $064D
+- D 0 - - - 0x0004C2 00:84B2: 25 06     .word $0625 ; level racing ($8625)
+- D 0 - - - 0x0004C4 00:84B4: 49 06     .word $0649 ; room with NPC in level 1 ($8649)
+- D 0 - - - 0x0004C6 00:84B6: 4A 06     .word $064A ; room with NPC in level 2.1 ($864A)
+- D 0 - - - 0x0004C8 00:84B8: 4B 06     .word $064B ; room with NPC in level 2.2 ($864B)
+- D 0 - - - 0x0004CA 00:84BA: 4C 06     .word $064C ; room with NPC in level 3 ($864C)
+- D 0 - - - 0x0004CC 00:84BC: 4D 06     .word $064D ; room with NPC in level 4 ($864D)
 - D 0 - - - 0x0004CE 00:84BE: 49 06     .word $0649
 - D 0 - - - 0x0004D0 00:84C0: 4A 06     .word $064A
 - D 0 - - - 0x0004D2 00:84C2: 4B 06     .word $064B
 - D 0 - - - 0x0004D4 00:84C4: 4C 06     .word $064C
 - D 0 - - - 0x0004D6 00:84C6: 4D 06     .word $064D
-- D 0 - - - 0x0004D8 00:84C8: 4E 06     .word $064E
-- - - - - - 0x0004DA 00:84CA: 4F 06     .word $064F
-- D 0 - - - 0x0004DC 00:84CC: 51 06     .word $0651
-- - - - - - 0x0004DE 00:84CE: 54 06     .word $0654
-- - - - - - 0x0004E0 00:84D0: 58 06     .word $0658
-- D 0 - - - 0x0004E2 00:84D2: 5D 06     .word $065D
-- - - - - - 0x0004E4 00:84D4: 63 06     .word $0663
-- D 0 - - - 0x0004E6 00:84D6: 64 06     .word $0664
-- D 0 - - - 0x0004E8 00:84D8: 66 06     .word $0666
-- D 0 - - - 0x0004EA 00:84DA: 69 06     .word $0669
+- D 0 - - - 0x0004D8 00:84C8: 4E 06     .word $064E ; level 3.0 (water 1.0) ($864E)
+- - - - - - 0x0004DA 00:84CA: 4F 06     .word $064F ; ($864F)
+- D 0 - - - 0x0004DC 00:84CC: 51 06     .word $0651 ; level 3.0 (water 1.0) ($8651)
+- - - - - - 0x0004DE 00:84CE: 54 06     .word $0654 ; ($8654)
+- - - - - - 0x0004E0 00:84D0: 58 06     .word $0658 ; ($8658)
+- D 0 - - - 0x0004E2 00:84D2: 5D 06     .word $065D ; level 3.0 (water 1.2) ($865D)
+- - - - - - 0x0004E4 00:84D4: 63 06     .word $0663 ; ($8663)
+- D 0 - - - 0x0004E6 00:84D6: 64 06     .word $0664 ; level 3.3 (water 1.0) ($8664)
+- D 0 - - - 0x0004E8 00:84D8: 66 06     .word $0666 ; level 3.1 / 3.2 (water 1.0) ($8666)
+- D 0 - - - 0x0004EA 00:84DA: 69 06     .word $0669 ; level 3.4 (water 1.0) ($8669)
 - - - - - - 0x0004EC 00:84DC: 70 06     .word $0670
 - - - - - - 0x0004EE 00:84DE: 70 06     .word $0670
-- D 0 - - - 0x0004F0 00:84E0: 70 06     .word $0670
-- D 0 - - - 0x0004F2 00:84E2: 74 06     .word $0674
-- D 0 - - - 0x0004F4 00:84E4: 78 06     .word $0678
+- D 0 - - - 0x0004F0 00:84E0: 70 06     .word $0670 ; level 2 (1-3) (water 1.0) ($8670)
+- D 0 - - - 0x0004F2 00:84E2: 74 06     .word $0674 ; level 2 (2) (water 1.0) ($8674)
+- D 0 - - - 0x0004F4 00:84E4: 78 06     .word $0678 ; level 2 (4-5) (water 1.0) ($8678)
 - - - - - - 0x0004F6 00:84E6: 7E 06     .word $067E
 - - - - - - 0x0004F8 00:84E8: 7E 06     .word $067E
 - - - - - - 0x0004FA 00:84EA: 7E 06     .word $067E
-- D 0 - - - 0x0004FC 00:84EC: 7E 06     .word $067E
-- D 0 - - - 0x0004FE 00:84EE: 7F 06     .word $067F
-- D 0 - - - 0x000500 00:84F0: 84 06     .word $0684
-- D 0 - - - 0x000502 00:84F2: 86 06     .word $0686
+- D 0 - - - 0x0004FC 00:84EC: 7E 06     .word $067E ; level 2 (6-8) (water 1.0) ($867E)
+- D 0 - - - 0x0004FE 00:84EE: 7F 06     .word $067F ; level 2 (7) (water 1.0) ($867F)
+- D 0 - - - 0x000500 00:84F0: 84 06     .word $0684 ; level 2 (9-10) (water 1.0) ($8684)
+- D 0 - - - 0x000502 00:84F2: 86 06     .word $0686 ; level 2 (11-13) / (12) (water 1.0) ($8686)
 - - - - - - 0x000504 00:84F4: 89 06     .word $0689
 - - - - - - 0x000506 00:84F6: 89 06     .word $0689
 - D 0 - - - 0x000508 00:84F8: 89 06     .word $0689
-- D 0 - - - 0x00050A 00:84FA: 8A 06     .word $068A
-- D 0 - - - 0x00050C 00:84FC: 8C 06     .word $068C
-- D 0 - - - 0x00050E 00:84FE: 8F 06     .word $068F
-- D 0 - - - 0x000510 00:8500: 96 06     .word $0696
-- D 0 - - - 0x000512 00:8502: 9A 06     .word $069A
-- D 0 - - - 0x000514 00:8504: 9E 06     .word $069E
-- D 0 - - - 0x000516 00:8506: A0 06     .word $06A0
-- D 0 - - - 0x000518 00:8508: A2 06     .word $06A2
-- D 0 - - - 0x00051A 00:850A: A3 06     .word $06A3
-- D 0 - - - 0x00051C 00:850C: A5 06     .word $06A5
-- D 0 - - - 0x00051E 00:850E: A9 06     .word $06A9
-- D 0 - - - 0x000520 00:8510: AD 06     .word $06AD
-- D 0 - - - 0x000522 00:8512: B1 06     .word $06B1
-- D 0 - - - 0x000524 00:8514: B5 06     .word $06B5
-- D 0 - - - 0x000526 00:8516: BB 06     .word $06BB
-- D 0 - - - 0x000528 00:8518: C1 06     .word $06C1
-- D 0 - - - 0x00052A 00:851A: C7 06     .word $06C7
-- D 0 - - - 0x00052C 00:851C: CD 06     .word $06CD
-- D 0 - - - 0x00052E 00:851E: D1 06     .word $06D1
-- D 0 - - - 0x000530 00:8520: D2 06     .word $06D2
-- D 0 - - - 0x000532 00:8522: D5 06     .word $06D5
-- D 0 - - - 0x000534 00:8524: DA 06     .word $06DA
-- D 0 - - - 0x000536 00:8526: DE 06     .word $06DE
-- D 0 - - - 0x000538 00:8528: DF 06     .word $06DF
-- D 0 - - - 0x00053A 00:852A: E1 06     .word $06E1
-- D 0 - - - 0x00053C 00:852C: E2 06     .word $06E2
-- D 0 - - - 0x00053E 00:852E: E3 06     .word $06E3
-- D 0 - - - 0x000540 00:8530: E5 06     .word $06E5
-- D 0 - - - 0x000542 00:8532: E7 06     .word $06E7
-- D 0 - - - 0x000544 00:8534: E9 06     .word $06E9
-- D 0 - - - 0x000546 00:8536: EA 06     .word $06EA
-- D 0 - - - 0x000548 00:8538: EE 06     .word $06EE
-- D 0 - - - 0x00054A 00:853A: F3 06     .word $06F3
-- D 0 - - - 0x00054C 00:853C: F7 06     .word $06F7
-- D 0 - - - 0x00054E 00:853E: FB 06     .word $06FB
-- D 0 - - - 0x000550 00:8540: 01 07     .word $0701
-- D 0 - - - 0x000552 00:8542: 07 07     .word $0707
-- D 0 - - - 0x000554 00:8544: 0D 07     .word $070D
-- D 0 - - - 0x000556 00:8546: 13 07     .word $0713
-- D 0 - - - 0x000558 00:8548: 1B 07     .word $071B
-- D 0 - - - 0x00055A 00:854A: 22 07     .word $0722
-- D 0 - - - 0x00055C 00:854C: 2A 07     .word $072A
-- D 0 - - - 0x00055E 00:854E: 31 07     .word $0731
-- D 0 - - - 0x000560 00:8550: 3B 07     .word $073B
-- D 0 - - - 0x000562 00:8552: 45 07     .word $0745
-- D 0 - - - 0x000564 00:8554: 4F 07     .word $074F
-- D 0 - - - 0x000566 00:8556: 59 07     .word $0759
-- D 0 - - - 0x000568 00:8558: 61 07     .word $0761
-- D 0 - - - 0x00056A 00:855A: 69 07     .word $0769
-- D 0 - - - 0x00056C 00:855C: 6C 07     .word $076C
-- D 0 - - - 0x00056E 00:855E: 71 07     .word $0771
-- D 0 - - - 0x000570 00:8560: 74 07     .word $0774
-- D 0 - - - 0x000572 00:8562: 78 07     .word $0778
-- D 0 - - - 0x000574 00:8564: 7B 07     .word $077B
-- D 0 - - - 0x000576 00:8566: 7E 07     .word $077E
-- D 0 - - - 0x000578 00:8568: 86 07     .word $0786
-- D 0 - - - 0x00057A 00:856A: 8E 07     .word $078E
-- D 0 - - - 0x00057C 00:856C: 94 07     .word $0794
-- D 0 - - - 0x00057E 00:856E: 98 07     .word $0798
-- D 0 - - - 0x000580 00:8570: 9D 07     .word $079D
-- D 0 - - - 0x000582 00:8572: A1 07     .word $07A1
-- D 0 - - - 0x000584 00:8574: A5 07     .word $07A5
-- D 0 - - - 0x000586 00:8576: A7 07     .word $07A7
-- D 0 - - - 0x000588 00:8578: A9 07     .word $07A9
-- D 0 - - - 0x00058A 00:857A: AA 07     .word $07AA
+- D 0 - - - 0x00050A 00:84FA: 8A 06     .word $068A ; ($868A)
+- D 0 - - - 0x00050C 00:84FC: 8C 06     .word $068C ; ($868C)
+- D 0 - - - 0x00050E 00:84FE: 8F 06     .word $068F ; ($868F)
+- D 0 - - - 0x000510 00:8500: 96 06     .word $0696 ; ($8696)
+- D 0 - - - 0x000512 00:8502: 9A 06     .word $069A ; ($869A)
+- D 0 - - - 0x000514 00:8504: 9E 06     .word $069E ; level 4, map 1 (B2-D2) (tbl_background_screens_level4_map1_b2_d2 $869E)
+- D 0 - - - 0x000516 00:8506: A0 06     .word $06A0 ; level 4, map 1 (C0-C2) (tbl_background_screens_level4_map1_c0_c2 $86A0)
+- D 0 - - - 0x000518 00:8508: A2 06     .word $06A2 ; level 4, map 1 (B1-C1) (tbl_background_screens_level4_map1_b1_c1 $86A2)
+- D 0 - - - 0x00051A 00:850A: A3 06     .word $06A3 ; level 4, map 1 (B1-B3) (tbl_background_screens_level4_map1_b1_b3 $86A3)
+- D 0 - - - 0x00051C 00:850C: A5 06     .word $06A5 ; level 4, map 1 (A3-D3) (tbl_background_screens_level4_map1_a3_d3 $86A5)
+- D 0 - - - 0x00051E 00:850E: A9 06     .word $06A9 ; level 4, map 1 (D0-D3) (tbl_background_screens_level4_map1_d0_d3 $86A9)
+- D 0 - - - 0x000520 00:8510: AD 06     .word $06AD ; level 4, map 1 (A0-D0) (tbl_background_screens_level4_map1_a0_d0 $86AD)
+- D 0 - - - 0x000522 00:8512: B1 06     .word $06B1 ; level 4, map 1 (A0-A3) (tbl_background_screens_level4_map1_a0_a3 $86B1)
+- D 0 - - - 0x000524 00:8514: B5 06     .word $06B5 ; level 4, map 2 (A0-A6) (tbl_background_screens_level4_map2_a0_a6 $86B5)
+- D 0 - - - 0x000526 00:8516: BB 06     .word $06BB ; level 4, map 2 (A6-F6) (tbl_background_screens_level4_map2_a6_f6 $86BB)
+- D 0 - - - 0x000528 00:8518: C1 06     .word $06C1 ; level 4, map 2 (F0-F6) (tbl_background_screens_level4_map2_f0_f6 $86C1)
+- D 0 - - - 0x00052A 00:851A: C7 06     .word $06C7 ; level 4, map 2 (A0-F0) (tbl_background_screens_level4_map2_a0_f0 $86C7)
+- D 0 - - - 0x00052C 00:851C: CD 06     .word $06CD ; level 4, map 2 (B1-B5) (tbl_background_screens_level4_map2_b1_b5 $86CD)
+- D 0 - - - 0x00052E 00:851E: D1 06     .word $06D1 ; level 4, map 2 (A3-A3) (tbl_background_screens_level4_map2_a3_a3 $86D1)
+- D 0 - - - 0x000530 00:8520: D2 06     .word $06D2 ; level 4, map 2 (B5-E5) (tbl_background_screens_level4_map2_b5_e5 $86D2)
+- D 0 - - - 0x000532 00:8522: D5 06     .word $06D5 ; level 4, map 2 (E0-E6) (tbl_background_screens_level4_map2_e0_e6 $86D5)
+- D 0 - - - 0x000534 00:8524: DA 06     .word $06DA ; level 4, map 2 (B1-F1) (tbl_background_screens_level4_map2_b1_f1 $86DA)
+- D 0 - - - 0x000536 00:8526: DE 06     .word $06DE ; level 4, map 2 (C2-C4) (tbl_background_screens_level4_map2_c2_c4 $86DE)
+- D 0 - - - 0x000538 00:8528: DF 06     .word $06DF ; level 4, map 2 (B4-D4) (tbl_background_screens_level4_map2_b4_d4 $86DF)
+- D 0 - - - 0x00053A 00:852A: E1 06     .word $06E1 ; level 4, map 2 (D2-D4) (tbl_background_screens_level4_map2_d2_d4 $86E1)
+- D 0 - - - 0x00053C 00:852C: E2 06     .word $06E2 ; level 4, map 2 (C2-D2) (tbl_background_screens_level4_map2_c2_d2 $86E2)
+- D 0 - - - 0x00053E 00:852E: E3 06     .word $06E3 ; level 4, map 3 (D3-E3) (tbl_background_screens_level4_map3_d3_e3 $86E3)
+- D 0 - - - 0x000540 00:8530: E5 06     .word $06E5 ; level 4, map 3 (D3-D5) (tbl_background_screens_level4_map3_d3_d5 $86E5)
+- D 0 - - - 0x000542 00:8532: E7 06     .word $06E7 ; level 4, map 3 (D4-F4) (tbl_background_screens_level4_map3_d4_f4 $86E7)
+- D 0 - - - 0x000544 00:8534: E9 06     .word $06E9 ; level 4, map 3 (E3-E4) (tbl_background_screens_level4_map3_e3_e4 $86E9)
+- D 0 - - - 0x000546 00:8536: EA 06     .word $06EA ; level 4, map 3 (C2-G2) (tbl_background_screens_level4_map3_c2_g2 $86EA)
+- D 0 - - - 0x000548 00:8538: EE 06     .word $06EE ; level 4, map 3 (C1-C6) (tbl_background_screens_level4_map3_c1_c6 $86EE)
+- D 0 - - - 0x00054A 00:853A: F3 06     .word $06F3 ; level 4, map 3 (C5-F5) (tbl_background_screens_level4_map3_c5_f5 $86F3)
+- D 0 - - - 0x00054C 00:853C: F7 06     .word $06F7 ; level 4, map 3 (F2-F5) (tbl_background_screens_level4_map3_f2_f5 $86F7)
+- D 0 - - - 0x00054E 00:853E: FB 06     .word $06FB ; level 4, map 3 (B1-G1) (tbl_background_screens_level4_map3_b1_g1 $86FB)
+- D 0 - - - 0x000550 00:8540: 01 07     .word $0701 ; level 4, map 3 (B1-B7) (tbl_background_screens_level4_map3_b1_b7 $8701)
+- D 0 - - - 0x000552 00:8542: 07 07     .word $0707 ; level 4, map 3 (B6-G6) (tbl_background_screens_level4_map3_b6_g6 $8707)
+- D 0 - - - 0x000554 00:8544: 0D 07     .word $070D ; level 4, map 3 (G1-G6) (tbl_background_screens_level4_map3_g1_g6 $870D)
+- D 0 - - - 0x000556 00:8546: 13 07     .word $0713 ; level 4, map 3 (A0-H0) (tbl_background_screens_level4_map3_a0_h0 $8713)
+- D 0 - - - 0x000558 00:8548: 1B 07     .word $071B ; level 4, map 3 (A0-A7) (tbl_background_screens_level4_map3_a0_a7 $871B)
+- D 0 - - - 0x00055A 00:854A: 22 07     .word $0722 ; level 4, map 3 (A7-H7) (tbl_background_screens_level4_map3_a7_h7 $8722)
+- D 0 - - - 0x00055C 00:854C: 2A 07     .word $072A ; level 4, map 3 (H0-H7) (tbl_background_screens_level4_map3_h0_h7 $872A)
+- D 0 - - - 0x00055E 00:854E: 31 07     .word $0731 ; level 4, map 4 (A0-J0) (tbl_background_screens_level4_map4_a0_j0 $8731)
+- D 0 - - - 0x000560 00:8550: 3B 07     .word $073B ; level 4, map 4 (A0-A9) (tbl_background_screens_level4_map4_a0_a9 $873B)
+- D 0 - - - 0x000562 00:8552: 45 07     .word $0745 ; level 4, map 4 (A9-J9) (tbl_background_screens_level4_map4_a9_j9 $8745)
+- D 0 - - - 0x000564 00:8554: 4F 07     .word $074F ; level 4, map 4 (J0-J9) (tbl_background_screens_level4_map4_j0_j9 $874F)
+- D 0 - - - 0x000566 00:8556: 59 07     .word $0759 ; level 4, map 4 (B1-I1) (tbl_background_screens_level4_map4_b1_i1 $8759)
+- D 0 - - - 0x000568 00:8558: 61 07     .word $0761 ; level 4, map 4 (B1-B8) (tbl_background_screens_level4_map4_b1_b8 $8761)
+- D 0 - - - 0x00056A 00:855A: 69 07     .word $0769 ; level 4, map 4 (B8-E8) (tbl_background_screens_level4_map4_b8_e8 $8769)
+- D 0 - - - 0x00056C 00:855C: 6C 07     .word $076C ; level 4, map 4 (G8-J8) (tbl_background_screens_level4_map4_g8_j8 $876C)
+- D 0 - - - 0x00056E 00:855E: 71 07     .word $0771 ; level 4, map 4 (I6-I8) (tbl_background_screens_level4_map4_i6_i8 $8771)
+- D 0 - - - 0x000570 00:8560: 74 07     .word $0774 ; level 4, map 4 (I1-I3) (tbl_background_screens_level4_map4_i1_i3 $8774)
+- D 0 - - - 0x000572 00:8562: 78 07     .word $0778 ; level 4, map 4 (G2-I2) (tbl_background_screens_level4_map4_g2_i2 $8778)
+- D 0 - - - 0x000574 00:8564: 7B 07     .word $077B ; level 4, map 4 (C2-E2) (tbl_background_screens_level4_map4_c2_e2 $877B)
+- D 0 - - - 0x000576 00:8566: 7E 07     .word $077E ; level 4, map 4 (C1-C9) (tbl_background_screens_level4_map4_c1_c9 $877E)
+- D 0 - - - 0x000578 00:8568: 86 07     .word $0786 ; level 4, map 4 (A7-I7) (tbl_background_screens_level4_map4_a7_i7 $8786)
+- D 0 - - - 0x00057A 00:856A: 8E 07     .word $078E ; level 4, map 4 (H2-H7) (tbl_background_screens_level4_map4_h2_h7 $878E)
+- D 0 - - - 0x00057C 00:856C: 94 07     .word $0794 ; level 4, map 4 (D3-G3) (tbl_background_screens_level4_map4_d3_g3 $8794)
+- D 0 - - - 0x00057E 00:856E: 98 07     .word $0798 ; level 4, map 4 (D2-D7) (tbl_background_screens_level4_map4_d2_d7 $8798)
+- D 0 - - - 0x000580 00:8570: 9D 07     .word $079D ; level 4, map 4 (D6-H6) (tbl_background_screens_level4_map4_d6_h6 $879D)
+- D 0 - - - 0x000582 00:8572: A1 07     .word $07A1 ; level 4, map 4 (G3-G6) (tbl_background_screens_level4_map4_g3_g6 $87A1)
+- D 0 - - - 0x000584 00:8574: A5 07     .word $07A5 ; level 4, map 4 (E4-G4) (tbl_background_screens_level4_map4_e4_g4 $87A5)
+- D 0 - - - 0x000586 00:8576: A7 07     .word $07A7 ; level 4, map 4 (E3-E5) (tbl_background_screens_level4_map4_e3_e5 $87A7)
+- D 0 - - - 0x000588 00:8578: A9 07     .word $07A9 ; level 4, map 4 (E5-E5) (tbl_background_screens_level4_map4_e5_e5 $87A9)
+- D 0 - - - 0x00058A 00:857A: AA 07     .word $07AA ; level 4, map 4 (F4-F5) (tbl_background_screens_level4_map4_f4_f5 $87AA)
 
 tbl_background_screens_level_1_0:
 - D 0 - I - 0x00058C 00:857C: 36        .byte $36   ; screen 0 ($81B0), 0x01B0 << 0xD8 << 0x6C << 0x36
@@ -1584,123 +1584,191 @@ tbl_background_screens_level_1_2:
 - D 0 - I - 0x0006AB 00:869B: 58        .byte $58   ; <X>
 - D 0 - I - 0x0006AC 00:869C: 58        .byte $58   ; <X>
 - D 0 - I - 0x0006AD 00:869D: 58        .byte $58   ; <X>
+
+tbl_background_screens_level4_map1_b2_d2:
 - D 0 - I - 0x0006AE 00:869E: 71        .byte $71   ; <q>
 - D 0 - I - 0x0006AF 00:869F: 75        .byte $75   ; <u>
+
+tbl_background_screens_level4_map1_c0_c2:
 - D 0 - I - 0x0006B0 00:86A0: 73        .byte $73   ; <s>
 - D 0 - I - 0x0006B1 00:86A1: 75        .byte $75   ; <u>
+
+tbl_background_screens_level4_map1_b1_c1:
 - D 0 - I - 0x0006B2 00:86A2: 74        .byte $74   ; <t>
+
+tbl_background_screens_level4_map1_b1_b3:
 - D 0 - I - 0x0006B3 00:86A3: 72        .byte $72   ; <r>
 - D 0 - I - 0x0006B4 00:86A4: 76        .byte $76   ; <v>
+
+tbl_background_screens_level4_map1_a3_d3:
 - D 0 - I - 0x0006B5 00:86A5: 7D        .byte $7D   ; 
 - D 0 - I - 0x0006B6 00:86A6: 7C        .byte $7C   ; 
 - D 0 - I - 0x0006B7 00:86A7: 86        .byte $86   ; 
 - D 0 - I - 0x0006B8 00:86A8: 89        .byte $89   ; 
+
+tbl_background_screens_level4_map1_d0_d3:
 - D 0 - I - 0x0006B9 00:86A9: 7D        .byte $7D   ; 
 - D 0 - I - 0x0006BA 00:86AA: 7C        .byte $7C   ; 
 - D 0 - I - 0x0006BB 00:86AB: 82        .byte $82   ; 
 - D 0 - I - 0x0006BC 00:86AC: 89        .byte $89   ; 
+
+tbl_background_screens_level4_map1_a0_d0:
 - D 0 - I - 0x0006BD 00:86AD: 7D        .byte $7D   ; 
 - D 0 - I - 0x0006BE 00:86AE: 7C        .byte $7C   ; 
 - D 0 - I - 0x0006BF 00:86AF: 83        .byte $83   ; 
 - D 0 - I - 0x0006C0 00:86B0: 89        .byte $89   ; 
+
+tbl_background_screens_level4_map1_a0_a3:
 - D 0 - I - 0x0006C1 00:86B1: 88        .byte $88   ; 
 - D 0 - I - 0x0006C2 00:86B2: 85        .byte $85   ; 
 - D 0 - I - 0x0006C3 00:86B3: 7E        .byte $7E   ; 
 - D 0 - I - 0x0006C4 00:86B4: 7B        .byte $7B   ; 
+
+tbl_background_screens_level4_map2_a0_a6:
 - D 0 - I - 0x0006C5 00:86B5: 88        .byte $88   ; 
 - D 0 - I - 0x0006C6 00:86B6: 87        .byte $87   ; 
 - D 0 - I - 0x0006C7 00:86B7: 87        .byte $87   ; 
 - D 0 - I - 0x0006C8 00:86B8: 7C        .byte $7C   ; 
 - D 0 - I - 0x0006C9 00:86B9: 7E        .byte $7E   ; 
 - D 0 - I - 0x0006CA 00:86BA: 7B        .byte $7B   ; 
+
+tbl_background_screens_level4_map2_a6_f6:
 - D 0 - I - 0x0006CB 00:86BB: 8B        .byte $8B   ; 
 - D 0 - I - 0x0006CC 00:86BC: 83        .byte $83   ; 
 - D 0 - I - 0x0006CD 00:86BD: 82        .byte $82   ; 
 - D 0 - I - 0x0006CE 00:86BE: 83        .byte $83   ; 
 - D 0 - I - 0x0006CF 00:86BF: 7C        .byte $7C   ; 
 - D 0 - I - 0x0006D0 00:86C0: 8A        .byte $8A   ; 
+
+tbl_background_screens_level4_map2_f0_f6:
 - D 0 - I - 0x0006D1 00:86C1: 8B        .byte $8B   ; 
 - D 0 - I - 0x0006D2 00:86C2: 7F        .byte $7F   ; 
 - D 0 - I - 0x0006D3 00:86C3: 82        .byte $82   ; 
 - D 0 - I - 0x0006D4 00:86C4: 83        .byte $83   ; 
 - D 0 - I - 0x0006D5 00:86C5: 7C        .byte $7C   ; 
 - D 0 - I - 0x0006D6 00:86C6: 8A        .byte $8A   ; 
+
+tbl_background_screens_level4_map2_a0_f0:
 - D 0 - I - 0x0006D7 00:86C7: 7D        .byte $7D   ; 
 - D 0 - I - 0x0006D8 00:86C8: 7C        .byte $7C   ; 
 - D 0 - I - 0x0006D9 00:86C9: 82        .byte $82   ; 
 - D 0 - I - 0x0006DA 00:86CA: 83        .byte $83   ; 
 - D 0 - I - 0x0006DB 00:86CB: 83        .byte $83   ; 
 - D 0 - I - 0x0006DC 00:86CC: 89        .byte $89   ; 
+
+tbl_background_screens_level4_map2_b1_b5:
 - D 0 - I - 0x0006DD 00:86CD: 8B        .byte $8B   ; 
 - D 0 - I - 0x0006DE 00:86CE: 84        .byte $84   ; 
 - D 0 - I - 0x0006DF 00:86CF: 7C        .byte $7C   ; 
 - D 0 - I - 0x0006E0 00:86D0: 8A        .byte $8A   ; 
+
+tbl_background_screens_level4_map2_a3_a3:
 - D 0 - I - 0x0006E1 00:86D1: 8E        .byte $8E   ; 
+
+tbl_background_screens_level4_map2_b5_e5:
 - D 0 - I - 0x0006E2 00:86D2: 88        .byte $88   ; 
 - D 0 - I - 0x0006E3 00:86D3: 83        .byte $83   ; 
 - D 0 - I - 0x0006E4 00:86D4: 7E        .byte $7E   ; 
+
+tbl_background_screens_level4_map2_e0_e6:
 - D 0 - I - 0x0006E5 00:86D5: 8D        .byte $8D   ; 
 - D 0 - I - 0x0006E6 00:86D6: 88        .byte $88   ; 
 - D 0 - I - 0x0006E7 00:86D7: 86        .byte $86   ; 
 - D 0 - I - 0x0006E8 00:86D8: 7E        .byte $7E   ; 
 - D 0 - I - 0x0006E9 00:86D9: 7A        .byte $7A   ; <z>
+
+tbl_background_screens_level4_map2_b1_f1:
 - D 0 - I - 0x0006EA 00:86DA: 8D        .byte $8D   ; 
 - D 0 - I - 0x0006EB 00:86DB: 88        .byte $88   ; 
 - D 0 - I - 0x0006EC 00:86DC: 85        .byte $85   ; 
 - D 0 - I - 0x0006ED 00:86DD: 7E        .byte $7E   ; 
+
+tbl_background_screens_level4_map2_c2_c4:
 - D 0 - I - 0x0006EE 00:86DE: 72        .byte $72   ; <r>
+
+tbl_background_screens_level4_map2_b4_d4:
 - D 0 - I - 0x0006EF 00:86DF: 8C        .byte $8C   ; 
 - D 0 - I - 0x0006F0 00:86E0: 74        .byte $74   ; <t>
+
+tbl_background_screens_level4_map2_d2_d4:
 - D 0 - I - 0x0006F1 00:86E1: 73        .byte $73   ; <s>
+
+tbl_background_screens_level4_map2_c2_d2:
 - D 0 - I - 0x0006F2 00:86E2: 71        .byte $71   ; <q>
+
+tbl_background_screens_level4_map3_d3_e3:
 - D 0 - I - 0x0006F3 00:86E3: 71        .byte $71   ; <q>
 - D 0 - I - 0x0006F4 00:86E4: 77        .byte $77   ; <w>
+
+tbl_background_screens_level4_map3_d3_d5:
 - D 0 - I - 0x0006F5 00:86E5: 73        .byte $73   ; <s>
 - D 0 - I - 0x0006F6 00:86E6: 7A        .byte $7A   ; <z>
+
+tbl_background_screens_level4_map3_d4_f4:
 - D 0 - I - 0x0006F7 00:86E7: 74        .byte $74   ; <t>
 - D 0 - I - 0x0006F8 00:86E8: 75        .byte $75   ; <u>
+
+tbl_background_screens_level4_map3_e3_e4:
 - D 0 - I - 0x0006F9 00:86E9: 72        .byte $72   ; <r>
+
+tbl_background_screens_level4_map3_c2_g2:
 - D 0 - I - 0x0006FA 00:86EA: 8D        .byte $8D   ; 
 - D 0 - I - 0x0006FB 00:86EB: 88        .byte $88   ; 
 - D 0 - I - 0x0006FC 00:86EC: 86        .byte $86   ; 
 - D 0 - I - 0x0006FD 00:86ED: 7E        .byte $7E   ; 
+
+tbl_background_screens_level4_map3_c1_c6:
 - D 0 - I - 0x0006FE 00:86EE: 8D        .byte $8D   ; 
 - D 0 - I - 0x0006FF 00:86EF: 88        .byte $88   ; 
 - D 0 - I - 0x000700 00:86F0: 82        .byte $82   ; 
 - D 0 - I - 0x000701 00:86F1: 7E        .byte $7E   ; 
 - D 0 - I - 0x000702 00:86F2: 79        .byte $79   ; <y>
+
+tbl_background_screens_level4_map3_c5_f5:
 - D 0 - I - 0x000703 00:86F3: 7D        .byte $7D   ; 
 - D 0 - I - 0x000704 00:86F4: 7C        .byte $7C   ; 
 - D 0 - I - 0x000705 00:86F5: 87        .byte $87   ; 
 - D 0 - I - 0x000706 00:86F6: 89        .byte $89   ; 
+
+tbl_background_screens_level4_map3_f2_f5:
 - D 0 - I - 0x000707 00:86F7: 7D        .byte $7D   ; 
 - D 0 - I - 0x000708 00:86F8: 7C        .byte $7C   ; 
 - D 0 - I - 0x000709 00:86F9: 82        .byte $82   ; 
 - D 0 - I - 0x00070A 00:86FA: 89        .byte $89   ; 
+
+tbl_background_screens_level4_map3_b1_g1:
 - D 0 - I - 0x00070B 00:86FB: 8B        .byte $8B   ; 
 - D 0 - I - 0x00070C 00:86FC: 83        .byte $83   ; 
 - D 0 - I - 0x00070D 00:86FD: 82        .byte $82   ; 
 - D 0 - I - 0x00070E 00:86FE: 82        .byte $82   ; 
 - D 0 - I - 0x00070F 00:86FF: 7C        .byte $7C   ; 
 - D 0 - I - 0x000710 00:8700: 8A        .byte $8A   ; 
+
+tbl_background_screens_level4_map3_b1_b7:
 - D 0 - I - 0x000711 00:8701: 8B        .byte $8B   ; 
 - D 0 - I - 0x000712 00:8702: 82        .byte $82   ; 
 - D 0 - I - 0x000713 00:8703: 81        .byte $81   ; 
 - D 0 - I - 0x000714 00:8704: 80        .byte $80   ; 
 - D 0 - I - 0x000715 00:8705: 7E        .byte $7E   ; 
 - D 0 - I - 0x000716 00:8706: 76        .byte $76   ; <v>
+
+tbl_background_screens_level4_map3_b6_g6:
 - D 0 - I - 0x000717 00:8707: 7D        .byte $7D   ; 
 - D 0 - I - 0x000718 00:8708: 7C        .byte $7C   ; 
 - D 0 - I - 0x000719 00:8709: 82        .byte $82   ; 
 - D 0 - I - 0x00071A 00:870A: 83        .byte $83   ; 
 - D 0 - I - 0x00071B 00:870B: 87        .byte $87   ; 
 - D 0 - I - 0x00071C 00:870C: 89        .byte $89   ; 
+
+tbl_background_screens_level4_map3_g1_g6:
 - D 0 - I - 0x00071D 00:870D: 8B        .byte $8B   ; 
 - D 0 - I - 0x00071E 00:870E: 83        .byte $83   ; 
 - D 0 - I - 0x00071F 00:870F: 87        .byte $87   ; 
 - D 0 - I - 0x000720 00:8710: 87        .byte $87   ; 
 - D 0 - I - 0x000721 00:8711: 7C        .byte $7C   ; 
 - D 0 - I - 0x000722 00:8712: 8A        .byte $8A   ; 
+
+tbl_background_screens_level4_map3_a0_h0:
 - D 0 - I - 0x000723 00:8713: 88        .byte $88   ; 
 - D 0 - I - 0x000724 00:8714: 87        .byte $87   ; 
 - D 0 - I - 0x000725 00:8715: 87        .byte $87   ; 
@@ -1709,6 +1777,8 @@ tbl_background_screens_level_1_2:
 - D 0 - I - 0x000728 00:8718: 84        .byte $84   ; 
 - D 0 - I - 0x000729 00:8719: 7E        .byte $7E   ; 
 - D 0 - I - 0x00072A 00:871A: 7B        .byte $7B   ; 
+
+tbl_background_screens_level4_map3_a0_a7:
 - D 0 - I - 0x00072B 00:871B: 88        .byte $88   ; 
 - D 0 - I - 0x00072C 00:871C: 7F        .byte $7F   ; 
 - D 0 - I - 0x00072D 00:871D: 82        .byte $82   ; 
@@ -1716,6 +1786,8 @@ tbl_background_screens_level_1_2:
 - D 0 - I - 0x00072F 00:871F: 84        .byte $84   ; 
 - D 0 - I - 0x000730 00:8720: 85        .byte $85   ; 
 - D 0 - I - 0x000731 00:8721: 7E        .byte $7E   ; 
+
+tbl_background_screens_level4_map3_a7_h7:
 - D 0 - I - 0x000732 00:8722: 7D        .byte $7D   ; 
 - D 0 - I - 0x000733 00:8723: 7C        .byte $7C   ; 
 - D 0 - I - 0x000734 00:8724: 82        .byte $82   ; 
@@ -1724,6 +1796,8 @@ tbl_background_screens_level_1_2:
 - D 0 - I - 0x000737 00:8727: 85        .byte $85   ; 
 - D 0 - I - 0x000738 00:8728: 87        .byte $87   ; 
 - D 0 - I - 0x000739 00:8729: 89        .byte $89   ; 
+
+tbl_background_screens_level4_map3_h0_h7:
 - D 0 - I - 0x00073A 00:872A: 88        .byte $88   ; 
 - D 0 - I - 0x00073B 00:872B: 83        .byte $83   ; 
 - D 0 - I - 0x00073C 00:872C: 82        .byte $82   ; 
@@ -1731,6 +1805,8 @@ tbl_background_screens_level_1_2:
 - D 0 - I - 0x00073E 00:872E: 85        .byte $85   ; 
 - D 0 - I - 0x00073F 00:872F: 85        .byte $85   ; 
 - D 0 - I - 0x000740 00:8730: 7E        .byte $7E   ; 
+
+tbl_background_screens_level4_map4_a0_j0:
 - D 0 - I - 0x000741 00:8731: 88        .byte $88   ; 
 - D 0 - I - 0x000742 00:8732: 87        .byte $87   ; 
 - D 0 - I - 0x000743 00:8733: 87        .byte $87   ; 
@@ -1741,6 +1817,8 @@ tbl_background_screens_level_1_2:
 - D 0 - I - 0x000748 00:8738: 83        .byte $83   ; 
 - D 0 - I - 0x000749 00:8739: 7E        .byte $7E   ; 
 - D 0 - I - 0x00074A 00:873A: 7B        .byte $7B   ; 
+
+tbl_background_screens_level4_map4_a0_a9:
 - D 0 - I - 0x00074B 00:873B: 8B        .byte $8B   ; 
 - D 0 - I - 0x00074C 00:873C: 83        .byte $83   ; 
 - D 0 - I - 0x00074D 00:873D: 87        .byte $87   ; 
@@ -1751,6 +1829,8 @@ tbl_background_screens_level_1_2:
 - D 0 - I - 0x000752 00:8742: 7C        .byte $7C   ; 
 - D 0 - I - 0x000753 00:8743: 83        .byte $83   ; 
 - D 0 - I - 0x000754 00:8744: 8A        .byte $8A   ; 
+
+tbl_background_screens_level4_map4_a9_j9:
 - D 0 - I - 0x000755 00:8745: 7D        .byte $7D   ; 
 - D 0 - I - 0x000756 00:8746: 83        .byte $83   ; 
 - D 0 - I - 0x000757 00:8747: 7C        .byte $7C   ; 
@@ -1761,6 +1841,8 @@ tbl_background_screens_level_1_2:
 - D 0 - I - 0x00075C 00:874C: 87        .byte $87   ; 
 - D 0 - I - 0x00075D 00:874D: 86        .byte $86   ; 
 - D 0 - I - 0x00075E 00:874E: 89        .byte $89   ; 
+
+tbl_background_screens_level4_map4_j0_j9:
 - D 0 - I - 0x00075F 00:874F: 7D        .byte $7D   ; 
 - D 0 - I - 0x000760 00:8750: 7C        .byte $7C   ; 
 - D 0 - I - 0x000761 00:8751: 87        .byte $87   ; 
@@ -1771,6 +1853,8 @@ tbl_background_screens_level_1_2:
 - D 0 - I - 0x000766 00:8756: 85        .byte $85   ; 
 - D 0 - I - 0x000767 00:8757: 85        .byte $85   ; 
 - D 0 - I - 0x000768 00:8758: 89        .byte $89   ; 
+
+tbl_background_screens_level4_map4_b1_i1:
 - D 0 - I - 0x000769 00:8759: 8B        .byte $8B   ; 
 - D 0 - I - 0x00076A 00:875A: 82        .byte $82   ; 
 - D 0 - I - 0x00076B 00:875B: 83        .byte $83   ; 
@@ -1779,6 +1863,8 @@ tbl_background_screens_level_1_2:
 - D 0 - I - 0x00076E 00:875E: 87        .byte $87   ; 
 - D 0 - I - 0x00076F 00:875F: 7C        .byte $7C   ; 
 - D 0 - I - 0x000770 00:8760: 8A        .byte $8A   ; 
+
+tbl_background_screens_level4_map4_b1_b8:
 - D 0 - I - 0x000771 00:8761: 8B        .byte $8B   ; 
 - D 0 - I - 0x000772 00:8762: 87        .byte $87   ; 
 - D 0 - I - 0x000773 00:8763: 87        .byte $87   ; 
@@ -1787,27 +1873,41 @@ tbl_background_screens_level_1_2:
 - D 0 - I - 0x000776 00:8766: 87        .byte $87   ; 
 - D 0 - I - 0x000777 00:8767: 7C        .byte $7C   ; 
 - D 0 - I - 0x000778 00:8768: 8A        .byte $8A   ; 
+
+tbl_background_screens_level4_map4_b8_e8:
 - D 0 - I - 0x000779 00:8769: 7D        .byte $7D   ; 
 - D 0 - I - 0x00077A 00:876A: 7C        .byte $7C   ; 
 - D 0 - I - 0x00077B 00:876B: 81        .byte $81   ; 
+
+tbl_background_screens_level4_map4_g8_j8:
 - D 0 - I - 0x00077C 00:876C: 80        .byte $80   ; 
 - D 0 - I - 0x00077D 00:876D: 83        .byte $83   ; 
 - D 0 - I - 0x00077E 00:876E: 82        .byte $82   ; 
 - D 0 - I - 0x00077F 00:876F: 7E        .byte $7E   ; 
 - D 0 - I - 0x000780 00:8770: 78        .byte $78   ; <x>
+
+tbl_background_screens_level4_map4_i6_i8:
 - D 0 - I - 0x000781 00:8771: 7D        .byte $7D   ; 
 - D 0 - I - 0x000782 00:8772: 7C        .byte $7C   ; 
 - D 0 - I - 0x000783 00:8773: 81        .byte $81   ; 
+
+tbl_background_screens_level4_map4_i1_i3:
 - D 0 - I - 0x000784 00:8774: 80        .byte $80   ; 
 - D 0 - I - 0x000785 00:8775: 83        .byte $83   ; 
 - D 0 - I - 0x000786 00:8776: 7C        .byte $7C   ; 
 - D 0 - I - 0x000787 00:8777: 8A        .byte $8A   ; 
+
+tbl_background_screens_level4_map4_g2_i2:
 - D 0 - I - 0x000788 00:8778: 8D        .byte $8D   ; 
 - D 0 - I - 0x000789 00:8779: 88        .byte $88   ; 
 - D 0 - I - 0x00078A 00:877A: 81        .byte $81   ; 
+
+tbl_background_screens_level4_map4_c2_e2:
 - D 0 - I - 0x00078B 00:877B: 80        .byte $80   ; 
 - D 0 - I - 0x00078C 00:877C: 7C        .byte $7C   ; 
 - D 0 - I - 0x00078D 00:877D: 8A        .byte $8A   ; 
+
+tbl_background_screens_level4_map4_c1_c9:
 - D 0 - I - 0x00078E 00:877E: 8C        .byte $8C   ; 
 - D 0 - I - 0x00078F 00:877F: 88        .byte $88   ; 
 - D 0 - I - 0x000790 00:8780: 85        .byte $85   ; 
@@ -1816,6 +1916,8 @@ tbl_background_screens_level_1_2:
 - D 0 - I - 0x000793 00:8783: 7E        .byte $7E   ; 
 - D 0 - I - 0x000794 00:8784: 76        .byte $76   ; <v>
 - D 0 - I - 0x000795 00:8785: 78        .byte $78   ; <x>
+
+tbl_background_screens_level4_map4_a7_i7:
 - D 0 - I - 0x000796 00:8786: 8C        .byte $8C   ; 
 - D 0 - I - 0x000797 00:8787: 8D        .byte $8D   ; 
 - D 0 - I - 0x000798 00:8788: 88        .byte $88   ; 
@@ -1824,34 +1926,52 @@ tbl_background_screens_level_1_2:
 - D 0 - I - 0x00079B 00:878B: 83        .byte $83   ; 
 - D 0 - I - 0x00079C 00:878C: 7E        .byte $7E   ; 
 - D 0 - I - 0x00079D 00:878D: 78        .byte $78   ; <x>
+
+tbl_background_screens_level4_map4_h2_h7:
 - D 0 - I - 0x00079E 00:878E: 7D        .byte $7D   ; 
 - D 0 - I - 0x00079F 00:878F: 7C        .byte $7C   ; 
 - D 0 - I - 0x0007A0 00:8790: 85        .byte $85   ; 
 - D 0 - I - 0x0007A1 00:8791: 83        .byte $83   ; 
 - D 0 - I - 0x0007A2 00:8792: 85        .byte $85   ; 
 - D 0 - I - 0x0007A3 00:8793: 89        .byte $89   ; 
+
+tbl_background_screens_level4_map4_d3_g3:
 - D 0 - I - 0x0007A4 00:8794: 8B        .byte $8B   ; 
 - D 0 - I - 0x0007A5 00:8795: 87        .byte $87   ; 
 - D 0 - I - 0x0007A6 00:8796: 7C        .byte $7C   ; 
 - D 0 - I - 0x0007A7 00:8797: 8A        .byte $8A   ; 
+
+tbl_background_screens_level4_map4_d2_d7:
 - D 0 - I - 0x0007A8 00:8798: 8C        .byte $8C   ; 
 - D 0 - I - 0x0007A9 00:8799: 88        .byte $88   ; 
 - D 0 - I - 0x0007AA 00:879A: 82        .byte $82   ; 
 - D 0 - I - 0x0007AB 00:879B: 7E        .byte $7E   ; 
 - D 0 - I - 0x0007AC 00:879C: 77        .byte $77   ; <w>
+
+tbl_background_screens_level4_map4_d6_h6:
 - D 0 - I - 0x0007AD 00:879D: 88        .byte $88   ; 
 - D 0 - I - 0x0007AE 00:879E: 87        .byte $87   ; 
 - D 0 - I - 0x0007AF 00:879F: 7E        .byte $7E   ; 
 - D 0 - I - 0x0007B0 00:87A0: 7A        .byte $7A   ; <z>
+
+tbl_background_screens_level4_map4_g3_g6:
 - D 0 - I - 0x0007B1 00:87A1: 8B        .byte $8B   ; 
 - D 0 - I - 0x0007B2 00:87A2: 83        .byte $83   ; 
 - D 0 - I - 0x0007B3 00:87A3: 7C        .byte $7C   ; 
 - D 0 - I - 0x0007B4 00:87A4: 8A        .byte $8A   ; 
+
+tbl_background_screens_level4_map4_e4_g4:
 - D 0 - I - 0x0007B5 00:87A5: 8C        .byte $8C   ; 
 - D 0 - I - 0x0007B6 00:87A6: 74        .byte $74   ; <t>
+
+tbl_background_screens_level4_map4_e3_e5:
 - D 0 - I - 0x0007B7 00:87A7: 8D        .byte $8D   ; 
 - D 0 - I - 0x0007B8 00:87A8: 72        .byte $72   ; <r>
+
+tbl_background_screens_level4_map4_e5_e5:
 - D 0 - I - 0x0007B9 00:87A9: 71        .byte $71   ; <q>
+
+tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x0007BA 00:87AA: 73        .byte $73   ; <s>
 - D 0 - I - 0x0007BB 00:87AB: 20        .byte $20   ; 
 - D 0 - I - 0x0007BC 00:87AC: 22        .byte $22   ; 

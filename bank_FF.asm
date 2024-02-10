@@ -2352,29 +2352,29 @@ C - - - - - 0x01CF02 07:CEF2: A9 F0     LDA #$F0
 C - - - - - 0x01CF04 07:CEF4: 9D 00 07  STA vStartOAM,X
 C - - - - - 0x01CF07 07:CEF7: D0 EC     BNE bra_CEE5_repeat_skip
 sub_CEF9:
-C - - - - - 0x01CF09 07:CEF9: A5 2C     LDA v_low_counter
-C - - - - - 0x01CF0B 07:CEFB: 29 07     AND #$07
-C - - - - - 0x01CF0D 07:CEFD: 0A        ASL
-C - - - - - 0x01CF0E 07:CEFE: 0A        ASL
-C - - - - - 0x01CF0F 07:CEFF: 0A        ASL
-C - - - - - 0x01CF10 07:CF00: 0A        ASL
-C - - - - - 0x01CF11 07:CF01: 18        CLC
-C - - - - - 0x01CF12 07:CF02: 69 DE     ADC #$DE
-C - - - - - 0x01CF14 07:CF04: 85 12     STA ram_0012
-C - - - - - 0x01CF16 07:CF06: A9 00     LDA #$00
-C - - - - - 0x01CF18 07:CF08: 69 CF     ADC #$CF
-C - - - - - 0x01CF1A 07:CF0A: 85 13     STA ram_0013
-C - - - - - 0x01CF1C 07:CF0C: A0 00     LDY #$00
-C - - - - - 0x01CF1E 07:CF0E: 84 1A     STY ram_001A
-loc_CF10:
-C D 2 - - - 0x01CF20 07:CF10: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01CF22 07:CF12: 0A        ASL
-C - - - - - 0x01CF23 07:CF13: 0A        ASL
-C - - - - - 0x01CF24 07:CF14: A8        TAY
-C - - - - - 0x01CF25 07:CF15: B9 B7 06  LDA v_sprite_magic1,Y
-C - - - - - 0x01CF28 07:CF18: C9 F0     CMP #$F0
-C - - - - - 0x01CF2A 07:CF1A: D0 03     BNE bra_CF1F_skip
-C - - - - - 0x01CF2C 07:CF1C: 4C C8 CF  JMP loc_CFC8
+C - - - - - 0x01CF09 07:CEF9: A5 2C     LDA v_low_counter          ;
+C - - - - - 0x01CF0B 07:CEFB: 29 07     AND #$07                   ;
+C - - - - - 0x01CF0D 07:CEFD: 0A        ASL                        ;
+C - - - - - 0x01CF0E 07:CEFE: 0A        ASL                        ;
+C - - - - - 0x01CF0F 07:CEFF: 0A        ASL                        ;
+C - - - - - 0x01CF10 07:CF00: 0A        ASL                        ; Register A = {0x00, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70}
+C - - - - - 0x01CF11 07:CF01: 18        CLC                        ;
+C - - - - - 0x01CF12 07:CF02: 69 DE     ADC #$DE                   ;
+C - - - - - 0x01CF14 07:CF04: 85 12     STA ram_0012               ; ram_0012 = {0xDE, 0xEE, 0xFE, 0x0E, 0x1E, 0x2E, 0x3E, 0x4E}
+C - - - - - 0x01CF16 07:CF06: A9 00     LDA #$00                   ;
+C - - - - - 0x01CF18 07:CF08: 69 CF     ADC #$CF                   ; 
+C - - - - - 0x01CF1A 07:CF0A: 85 13     STA ram_0013               ; ram_0013 = (0xCF, 0xD0)
+C - - - - - 0x01CF1C 07:CF0C: A0 00     LDY #$00                   ;
+C - - - - - 0x01CF1E 07:CF0E: 84 1A     STY ram_001A               ; set loop counter
+loc_CF10_loop:                                                     ; loop by ram_001A
+C D 2 - - - 0x01CF20 07:CF10: B1 12     LDA (ram_0012),Y           ; get a sprite relative index (see 'The order of the indexes X')
+C - - - - - 0x01CF22 07:CF12: 0A        ASL                        ;
+C - - - - - 0x01CF23 07:CF13: 0A        ASL                        ;
+C - - - - - 0x01CF24 07:CF14: A8        TAY                        ; put a sprite offset (4 bytes each)
+C - - - - - 0x01CF25 07:CF15: B9 B7 06  LDA v_sprite_magic1,Y      ;
+C - - - - - 0x01CF28 07:CF18: C9 F0     CMP #$F0                   ;
+C - - - - - 0x01CF2A 07:CF1A: D0 03     BNE bra_CF1F_skip          ; If a sprite is configured
+C - - - - - 0x01CF2C 07:CF1C: 4C C8 CF  JMP loc_CFC8_continue      ;
 
 bra_CF1F_skip:
 C - - - - - 0x01CF2F 07:CF1F: 85 00     STA ram_0000
@@ -2422,7 +2422,7 @@ C - - - - - 0x01CF77 07:CF67: B1 04     LDA (ram_0004),Y
 C - - - - - 0x01CF79 07:CF69: 85 03     STA ram_0003  ; High address
 C - - - - - 0x01CF7B 07:CF6B: A0 00     LDY #$00
 C - - - - - 0x01CF7D 07:CF6D: B1 02     LDA (ram_0002),Y ; Tile count
-C - - - - - 0x01CF7F 07:CF6F: 85 05     STA v_CF76_counter
+C - - - - - 0x01CF7F 07:CF6F: 85 05     STA ram_0005
 C - - - - - 0x01CF81 07:CF71: F0 55     BEQ bra_CFC8_skip ; If counter == 0
 C - - - - - 0x01CF83 07:CF73: A6 43     LDX vCurrentNumberSprite
 C - - - - - 0x01CF85 07:CF75: C8        INY
@@ -2471,19 +2471,19 @@ C - - - - - 0x01CFCE 07:CFBE: E8        INX ; To 1st next sprite data byte
 C - - - - - 0x01CFCF 07:CFBF: F0 12     BEQ bra_CFD3_RTS
 bra_CFC1:
 C - - - - - 0x01CFD1 07:CFC1: C8        INY
-C - - - - - 0x01CFD2 07:CFC2: C6 05     DEC v_CF76_counter
-C - - - - - 0x01CFD4 07:CFC4: D0 B0     BNE bra_CF76_repeat ; ; If counter != 0
+C - - - - - 0x01CFD2 07:CFC2: C6 05     DEC ram_0005
+C - - - - - 0x01CFD4 07:CFC4: D0 B0     BNE bra_CF76_repeat ; If counter != 0
 C - - - - - 0x01CFD6 07:CFC6: 86 43     STX vCurrentNumberSprite
 bra_CFC8_skip:
-loc_CFC8:
-C D 2 - - - 0x01CFD8 07:CFC8: E6 1A     INC ram_001A
-C - - - - - 0x01CFDA 07:CFCA: A4 1A     LDY ram_001A
-C - - - - - 0x01CFDC 07:CFCC: C0 10     CPY #$10
-C - - - - - 0x01CFDE 07:CFCE: B0 03     BCS bra_CFD3_RTS
-C - - - - - 0x01CFE0 07:CFD0: 4C 10 CF  JMP loc_CF10
+loc_CFC8_continue:
+C D 2 - - - 0x01CFD8 07:CFC8: E6 1A     INC ram_001A             ; increment counter (ram_001A)
+C - - - - - 0x01CFDA 07:CFCA: A4 1A     LDY ram_001A             ;
+C - - - - - 0x01CFDC 07:CFCC: C0 10     CPY #$10                 ;
+C - - - - - 0x01CFDE 07:CFCE: B0 03     BCS bra_CFD3_RTS         ; Returns If ram_001A >= 0x10
+C - - - - - 0x01CFE0 07:CFD0: 4C 10 CF  JMP loc_CF10_loop        ; Repeat the loop
 
 bra_CFD3_RTS:
-C - - - - - 0x01CFE3 07:CFD3: 60        RTS
+C - - - - - 0x01CFE3 07:CFD3: 60        RTS                      ;
 
 bra_CFD4:
 C - - - - - 0x01CFE4 07:CFD4: C8        INY
@@ -2493,134 +2493,23 @@ bra_CFD7:
 C - - - - - 0x01CFE7 07:CFD7: A9 F0     LDA #$F0
 C - - - - - 0x01CFE9 07:CFD9: 9D 00 07  STA vStartOAM,X
 C - - - - - 0x01CFEC 07:CFDC: D0 E3     BNE bra_CFC1
-- D 2 - I - 0x01CFEE 07:CFDE: 00        .byte $00
-- D 2 - I - 0x01CFEF 07:CFDF: 01        .byte $01
-- D 2 - I - 0x01CFF0 07:CFE0: 02        .byte $02
-- D 2 - I - 0x01CFF1 07:CFE1: 03        .byte $03
-- D 2 - I - 0x01CFF2 07:CFE2: 04        .byte $04
-- D 2 - I - 0x01CFF3 07:CFE3: 05        .byte $05
-- D 2 - I - 0x01CFF4 07:CFE4: 06        .byte $06
-- D 2 - I - 0x01CFF5 07:CFE5: 07        .byte $07
-- D 2 - I - 0x01CFF6 07:CFE6: 08        .byte $08
-- D 2 - I - 0x01CFF7 07:CFE7: 09        .byte $09
-- D 2 - I - 0x01CFF8 07:CFE8: 0A        .byte $0A
-- D 2 - I - 0x01CFF9 07:CFE9: 0B        .byte $0B
-- D 2 - I - 0x01CFFA 07:CFEA: 0C        .byte $0C
-- D 2 - I - 0x01CFFB 07:CFEB: 0D        .byte $0D
-- D 2 - I - 0x01CFFC 07:CFEC: 0E        .byte $0E
-- D 2 - I - 0x01CFFD 07:CFED: 0F        .byte $0F
-- D 2 - I - 0x01CFFE 07:CFEE: 09        .byte $09
-- D 2 - I - 0x01CFFF 07:CFEF: 0A        .byte $0A
-- D 2 - I - 0x01D000 07:CFF0: 0B        .byte $0B
-- D 2 - I - 0x01D001 07:CFF1: 0C        .byte $0C
-- D 2 - I - 0x01D002 07:CFF2: 0D        .byte $0D
-- D 2 - I - 0x01D003 07:CFF3: 0E        .byte $0E
-- D 2 - I - 0x01D004 07:CFF4: 0F        .byte $0F
-- D 2 - I - 0x01D005 07:CFF5: 02        .byte $02
-- D 2 - I - 0x01D006 07:CFF6: 03        .byte $03
-- D 2 - I - 0x01D007 07:CFF7: 04        .byte $04
-- D 2 - I - 0x01D008 07:CFF8: 05        .byte $05
-- D 2 - I - 0x01D009 07:CFF9: 06        .byte $06
-- D 2 - I - 0x01D00A 07:CFFA: 07        .byte $07
-- D 2 - I - 0x01D00B 07:CFFB: 08        .byte $08
-- D 2 - I - 0x01D00C 07:CFFC: 01        .byte $01
-- D 2 - I - 0x01D00D 07:CFFD: 00        .byte $00
-- D 2 - I - 0x01D00E 07:CFFE: 0F        .byte $0F
-- D 2 - I - 0x01D00F 07:CFFF: 0E        .byte $0E
-- D 2 - I - 0x01D010 07:D000: 0D        .byte $0D
-- D 2 - I - 0x01D011 07:D001: 0C        .byte $0C
-- D 2 - I - 0x01D012 07:D002: 0B        .byte $0B
-- D 2 - I - 0x01D013 07:D003: 0A        .byte $0A
-- D 2 - I - 0x01D014 07:D004: 00        .byte $00
-- D 2 - I - 0x01D015 07:D005: 01        .byte $01
-- D 2 - I - 0x01D016 07:D006: 09        .byte $09
-- D 2 - I - 0x01D017 07:D007: 08        .byte $08
-- D 2 - I - 0x01D018 07:D008: 07        .byte $07
-- D 2 - I - 0x01D019 07:D009: 06        .byte $06
-- D 2 - I - 0x01D01A 07:D00A: 05        .byte $05
-- D 2 - I - 0x01D01B 07:D00B: 04        .byte $04
-- D 2 - I - 0x01D01C 07:D00C: 03        .byte $03
-- D 2 - I - 0x01D01D 07:D00D: 02        .byte $02
-- D 2 - I - 0x01D01E 07:D00E: 01        .byte $01
-- D 2 - I - 0x01D01F 07:D00F: 08        .byte $08
-- D 2 - I - 0x01D020 07:D010: 07        .byte $07
-- D 2 - I - 0x01D021 07:D011: 06        .byte $06
-- D 2 - I - 0x01D022 07:D012: 05        .byte $05
-- D 2 - I - 0x01D023 07:D013: 04        .byte $04
-- D 2 - I - 0x01D024 07:D014: 03        .byte $03
-- D 2 - I - 0x01D025 07:D015: 02        .byte $02
-- D 2 - I - 0x01D026 07:D016: 00        .byte $00
-- D 2 - I - 0x01D027 07:D017: 0F        .byte $0F
-- D 2 - I - 0x01D028 07:D018: 0E        .byte $0E
-- D 2 - I - 0x01D029 07:D019: 0D        .byte $0D
-- D 2 - I - 0x01D02A 07:D01A: 0C        .byte $0C
-- D 2 - I - 0x01D02B 07:D01B: 0B        .byte $0B
-- D 2 - I - 0x01D02C 07:D01C: 0A        .byte $0A
-- D 2 - I - 0x01D02D 07:D01D: 09        .byte $09
-- D 2 - I - 0x01D02E 07:D01E: 05        .byte $05
-- D 2 - I - 0x01D02F 07:D01F: 06        .byte $06
-- D 2 - I - 0x01D030 07:D020: 07        .byte $07
-- D 2 - I - 0x01D031 07:D021: 08        .byte $08
-- D 2 - I - 0x01D032 07:D022: 02        .byte $02
-- D 2 - I - 0x01D033 07:D023: 03        .byte $03
-- D 2 - I - 0x01D034 07:D024: 04        .byte $04
-- D 2 - I - 0x01D035 07:D025: 0C        .byte $0C
-- D 2 - I - 0x01D036 07:D026: 0D        .byte $0D
-- D 2 - I - 0x01D037 07:D027: 0E        .byte $0E
-- D 2 - I - 0x01D038 07:D028: 00        .byte $00
-- D 2 - I - 0x01D039 07:D029: 01        .byte $01
-- D 2 - I - 0x01D03A 07:D02A: 0F        .byte $0F
-- D 2 - I - 0x01D03B 07:D02B: 09        .byte $09
-- D 2 - I - 0x01D03C 07:D02C: 08        .byte $08
-- D 2 - I - 0x01D03D 07:D02D: 07        .byte $07
-- D 2 - I - 0x01D03E 07:D02E: 0C        .byte $0C
-- D 2 - I - 0x01D03F 07:D02F: 0D        .byte $0D
-- D 2 - I - 0x01D040 07:D030: 0E        .byte $0E
-- D 2 - I - 0x01D041 07:D031: 0F        .byte $0F
-- D 2 - I - 0x01D042 07:D032: 01        .byte $01
-- D 2 - I - 0x01D043 07:D033: 00        .byte $00
-- D 2 - I - 0x01D044 07:D034: 09        .byte $09
-- D 2 - I - 0x01D045 07:D035: 0A        .byte $0A
-- D 2 - I - 0x01D046 07:D036: 0B        .byte $0B
-- D 2 - I - 0x01D047 07:D037: 05        .byte $05
-- D 2 - I - 0x01D048 07:D038: 06        .byte $06
-- D 2 - I - 0x01D049 07:D039: 07        .byte $07
-- D 2 - I - 0x01D04A 07:D03A: 08        .byte $08
-- D 2 - I - 0x01D04B 07:D03B: 02        .byte $02
-- D 2 - I - 0x01D04C 07:D03C: 03        .byte $03
-- D 2 - I - 0x01D04D 07:D03D: 04        .byte $04
-- D 2 - I - 0x01D04E 07:D03E: 04        .byte $04
-- D 2 - I - 0x01D04F 07:D03F: 03        .byte $03
-- D 2 - I - 0x01D050 07:D040: 02        .byte $02
-- D 2 - I - 0x01D051 07:D041: 01        .byte $01
-- D 2 - I - 0x01D052 07:D042: 00        .byte $00
-- D 2 - I - 0x01D053 07:D043: 08        .byte $08
-- D 2 - I - 0x01D054 07:D044: 07        .byte $07
-- D 2 - I - 0x01D055 07:D045: 06        .byte $06
-- D 2 - I - 0x01D056 07:D046: 05        .byte $05
-- D 2 - I - 0x01D057 07:D047: 0B        .byte $0B
-- D 2 - I - 0x01D058 07:D048: 0A        .byte $0A
-- D 2 - I - 0x01D059 07:D049: 09        .byte $09
-- D 2 - I - 0x01D05A 07:D04A: 0F        .byte $0F
-- D 2 - I - 0x01D05B 07:D04B: 0E        .byte $0E
-- D 2 - I - 0x01D05C 07:D04C: 0D        .byte $0D
-- D 2 - I - 0x01D05D 07:D04D: 0C        .byte $0C
-- D 2 - I - 0x01D05E 07:D04E: 0B        .byte $0B
-- D 2 - I - 0x01D05F 07:D04F: 0A        .byte $0A
-- D 2 - I - 0x01D060 07:D050: 09        .byte $09
-- D 2 - I - 0x01D061 07:D051: 0F        .byte $0F
-- D 2 - I - 0x01D062 07:D052: 0E        .byte $0E
-- D 2 - I - 0x01D063 07:D053: 0D        .byte $0D
-- D 2 - I - 0x01D064 07:D054: 0C        .byte $0C
-- D 2 - I - 0x01D065 07:D055: 01        .byte $01
-- D 2 - I - 0x01D066 07:D056: 00        .byte $00
-- D 2 - I - 0x01D067 07:D057: 04        .byte $04
-- D 2 - I - 0x01D068 07:D058: 03        .byte $03
-- D 2 - I - 0x01D069 07:D059: 02        .byte $02
-- D 2 - I - 0x01D06A 07:D05A: 08        .byte $08
-- D 2 - I - 0x01D06B 07:D05B: 07        .byte $07
-- D 2 - I - 0x01D06C 07:D05C: 06        .byte $06
-- D 2 - I - 0x01D06D 07:D05D: 05        .byte $05
+
+; The order of the indexes 1
+- D 2 - I - 0x01CFEE 07:CFDE: 00        .byte $00, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F
+; The order of the indexes 2
+- D 2 - I - 0x01CFFE 07:CFEE: 09        .byte $09, $0A, $0B, $0C, $0D, $0E, $0F, $02, $03, $04, $05, $06, $07, $08, $01, $00
+; The order of the indexes 3
+- D 2 - I - 0x01D00E 07:CFFE: 0F        .byte $0F, $0E, $0D, $0C, $0B, $0A, $00, $01, $09, $08, $07, $06, $05, $04, $03, $02
+; The order of the indexes 4
+- D 2 - I - 0x01D01E 07:D00E: 01        .byte $01, $08, $07, $06, $05, $04, $03, $02, $00, $0F, $0E, $0D, $0C, $0B, $0A, $09
+; The order of the indexes 5
+- D 2 - I - 0x01D02E 07:D01E: 05        .byte $05, $06, $07, $08, $02, $03, $04, $0C, $0D, $0E, $00, $01, $0F, $09, $08, $07
+; The order of the indexes 6
+- D 2 - I - 0x01D03E 07:D02E: 0C        .byte $0C, $0D, $0E, $0F, $01, $00, $09, $0A, $0B, $05, $06, $07, $08, $02, $03, $04
+; The order of the indexes 7
+- D 2 - I - 0x01D04E 07:D03E: 04        .byte $04, $03, $02, $01, $00, $08, $07, $06, $05, $0B, $0A, $09, $0F, $0E, $0D, $0C
+; The order of the indexes 8
+- D 2 - I - 0x01D05E 07:D04E: 0B        .byte $0B, $0A, $09, $0F, $0E, $0D, $0C, $01, $00, $04, $03, $02, $08, $07, $06, $05
 
 sub_accumulator_shift_right_by_5:
 C - - - - - 0x01D06E 07:D05E: 4A        LSR  ;
@@ -2687,25 +2576,26 @@ C - - - - - 0x01D0B0 07:D0A0: D0 F6     BNE @bra_D098_loop ; If Register Y != 0x
 C - - - - - 0x01D0B2 07:D0A2: 60        RTS                ;
 
 ; Params:
-; 0x12-0x13 - an input address
 ; Register A - position by the content (indirect 0x12-0x13)
+; 0x12-0x13 - an input address
 sub_D0A3_prepare_14_15_16_17_18:
-C - - - - - 0x01D0B3 07:D0A3: 85 14     STA ram_0014 ;
-C - - - - - 0x01D0B5 07:D0A5: 0A        ASL          ;
-C - - - - - 0x01D0B6 07:D0A6: 0A        ASL          ;
-C - - - - - 0x01D0B7 07:D0A7: 18        CLC          ;
-C - - - - - 0x01D0B8 07:D0A8: 65 14     ADC ram_0014 ; increment += 5
-C - - - - - 0x01D0BA 07:D0AA: A8        TAY
-C - - - - - 0x01D0BB 07:D0AB: A2 00     LDX #$00         ; set loop counter
-@bra_D0AD_loop:                                          ; loop by x
-C - - - - - 0x01D0BD 07:D0AD: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01D0BF 07:D0AF: 95 14     STA ram_0014,X
-C - - - - - 0x01D0C1 07:D0B1: C8        INY
-C - - - - - 0x01D0C2 07:D0B2: E8        INX              ; increments loop counter
-C - - - - - 0x01D0C3 07:D0B3: E0 05     CPX #$05
-C - - - - - 0x01D0C5 07:D0B5: D0 F6     BNE @bra_D0AD_loop ; If Register X > 0x00
-C - - - - - 0x01D0C7 07:D0B7: 60        RTS
+C - - - - - 0x01D0B3 07:D0A3: 85 14     STA ram_0014       ;
+C - - - - - 0x01D0B5 07:D0A5: 0A        ASL                ;
+C - - - - - 0x01D0B6 07:D0A6: 0A        ASL                ;
+C - - - - - 0x01D0B7 07:D0A7: 18        CLC                ;
+C - - - - - 0x01D0B8 07:D0A8: 65 14     ADC ram_0014       ; get the content offset (5 byte each * Register A)
+C - - - - - 0x01D0BA 07:D0AA: A8        TAY                ; 
+C - - - - - 0x01D0BB 07:D0AB: A2 00     LDX #$00           ; set loop counter
+@bra_D0AD_loop:                                            ; loop by x (5 times)
+C - - - - - 0x01D0BD 07:D0AD: B1 12     LDA (ram_0012),Y   ; get the content value
+C - - - - - 0x01D0BF 07:D0AF: 95 14     STA ram_0014,X     ; prepare 0x14 or 0x15 or 0x16 or 0x17 or 0x18
+C - - - - - 0x01D0C1 07:D0B1: C8        INY                ; increment the position by the content
+C - - - - - 0x01D0C2 07:D0B2: E8        INX                ; increments loop counter
+C - - - - - 0x01D0C3 07:D0B3: E0 05     CPX #$05           ;
+C - - - - - 0x01D0C5 07:D0B5: D0 F6     BNE @bra_D0AD_loop ; If Register X != 0x05
+C - - - - - 0x01D0C7 07:D0B7: 60        RTS                ;
 
+sub_D0B8:
 C - - - - - 0x01D0C8 07:D0B8: A0 02     LDY #$02
 bra_D0BA:
 C - - - - - 0x01D0CA 07:D0BA: 6A        ROR
@@ -2993,12 +2883,12 @@ C - - - - - 0x01D272 07:D262: A5 02     LDA ram_0002                            
 C - - - - - 0x01D274 07:D264: 8D 01 80  STA MMC3_Bank_data                              ; switch $0002 (PRG) in 0x8000-09FFF
 C - - - - - 0x01D277 07:D267: A9 00     LDA #$00                                        ;
 C - - - - - 0x01D279 07:D269: 85 07     STA ram_0007                                    ; set zero
-C - - - - - 0x01D27B 07:D26B: B1 52     LDA (ram_0052),Y
-C - - - - - 0x01D27D 07:D26D: 0A        ASL
-C - - - - - 0x01D27E 07:D26E: 26 07     ROL ram_0007
-C - - - - - 0x01D280 07:D270: 0A        ASL
+C - - - - - 0x01D27B 07:D26B: B1 52     LDA (ram_0052),Y                                ; loads the index of quartet tiles
+C - - - - - 0x01D27D 07:D26D: 0A        ASL                                             ;
+C - - - - - 0x01D27E 07:D26E: 26 07     ROL ram_0007                                    ;
+C - - - - - 0x01D280 07:D270: 0A        ASL                                             ;
 C - - - - - 0x01D281 07:D271: 26 07     ROL ram_0007                                    ; ram_0007 = {0x00, 0x01, 0x02, 0x03}
-C - - - - - 0x01D283 07:D273: 18        CLC
+C - - - - - 0x01D283 07:D273: 18        CLC                                             ;
 C - - - - - 0x01D284 07:D274: 65 50     ADC ram_0050                                    ; low address = ram_0050 + ((ram_0052) << 2)
 C - - - - - 0x01D286 07:D276: 85 06     STA ram_0006                                    ; puts a low address of ppu datas
 C - - - - - 0x01D288 07:D278: A5 07     LDA ram_0007
