@@ -124,7 +124,7 @@ v_npc_message_status          = ram_0041
 
 
 vCurrentNumberSprite          = ram_0043
-v_copy_current_number_sprite  = ram_0044
+vCopyCurrentNumberSprite      = ram_0044
 vCharacterRenderData          = ram_0045
 ; Byte: LLL??AAA
 ; AAA - the OAM-attributes

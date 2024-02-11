@@ -6,6 +6,7 @@
 .import addr_tbl_checkpoints               ; bank 04 (Page 1)
 .import tbl_background_screens             ; bank 00 (Page 1)
 .import tbl_background_palette             ; bank 01 (Page 2)
+.import tbl_background_collisions          ; bank 01 (Page 2)
 .import tbl_ptr_corridors                  ; bank 04 (Page 1)
 .import tbl_ptr_destructible_walls         ; bank 04 (Page 1)
 .import tbl_room_lengths
@@ -2250,107 +2251,108 @@ C - - - - - 0x01CE68 07:CE58: A8        TAY                     ; retrieve y (se
 C - - - - - 0x01CE69 07:CE59: 60        RTS                     ; 
 
 ; in: Register X - the offset of the sprite address [0x80XX-0x83XX]
-; in: 0x0000 - vScreenChrPosY with increment
+; in: 0x0000 - The character's position along the Y axis relative to the screen
+; in: 0x0001 - The character's position along the X axis relative to the screen
 sub_CE5A_render_character:
 loc_CE5A_render_character:
-C D 2 - - - 0x01CE6A 07:CE5A: A9 00     LDA #$00                 ;
-C - - - - - 0x01CE6C 07:CE5C: 85 08     STA ram_0008             ; clear
-C - - - - - 0x01CE6E 07:CE5E: 85 09     STA ram_0009             ; clear
-C - - - - - 0x01CE70 07:CE60: A9 06     LDA #$06                 ;
-C - - - - - 0x01CE72 07:CE62: 8D 00 80  STA MMC3_Bank_select     ;
-C - - - - - 0x01CE75 07:CE65: A9 0A     LDA #$0A                 ;
-C - - - - - 0x01CE77 07:CE67: 8D 01 80  STA MMC3_Bank_data       ; switch bank 05 in 0x8000-0x9FFF
-C - - - - - 0x01CE7A 07:CE6A: A5 45     LDA vCharacterRenderData ;
-C - - - - - 0x01CE7C 07:CE6C: 48        PHA                      ;
-C - - - - - 0x01CE7D 07:CE6D: 29 03     AND #$03                 ;
-C - - - - - 0x01CE7F 07:CE6F: 85 0C     STA vTempCounterC        ; get the part of the attributes
-C - - - - - 0x01CE81 07:CE71: 68        PLA                      ;
-C - - - - - 0x01CE82 07:CE72: 2A        ROL                      ;
-C - - - - - 0x01CE83 07:CE73: 2A        ROL                      ;
-C - - - - - 0x01CE84 07:CE74: 2A        ROL                      ; get the part of the address
-C - - - - - 0x01CE85 07:CE75: 29 03     AND #$03                 ;
-C - - - - - 0x01CE87 07:CE77: 09 80     ORA #$80                 ;
-C - - - - - 0x01CE89 07:CE79: 85 05     STA ram_0005             ; a high byte address [0x80-0x83]
-C - - - - - 0x01CE8B 07:CE7B: A9 00     LDA #$00                 ;
-C - - - - - 0x01CE8D 07:CE7D: 85 04     STA ram_0004             ; a low byte address
-C - - - - - 0x01CE8F 07:CE7F: 8A        TXA                      ; shift by x
-C - - - - - 0x01CE90 07:CE80: A8        TAY                      ;
-C - - - - - 0x01CE91 07:CE81: B1 04     LDA (ram_0004),Y         ;
-C - - - - - 0x01CE93 07:CE83: 85 02     STA ram_0002             ; Assinged a high byte address
-C - - - - - 0x01CE95 07:CE85: C8        INY                      ;
-C - - - - - 0x01CE96 07:CE86: B1 04     LDA (ram_0004),Y         ;
-C - - - - - 0x01CE98 07:CE88: 85 03     STA ram_0003             ; Assinged a low byte address
-C - - - - - 0x01CE9A 07:CE8A: A6 43     LDX vCurrentNumberSprite ; Offset of the entire OAM
-C - - - - - 0x01CE9C 07:CE8C: E0 FF     CPX #$FF                 ;
-C - - - - - 0x01CE9E 07:CE8E: F0 5C     BEQ bra_CEEC_end         ; If the count of the sprites is overflow
-C - - - - - 0x01CEA0 07:CE90: A0 00     LDY #$00                 ;
-C - - - - - 0x01CEA2 07:CE92: B1 02     LDA (ram_0002),Y         ; get a tile count
-C - - - - - 0x01CEA4 07:CE94: 85 05     STA v_CE5A_counter       ; set loop counter
-C - - - - - 0x01CEA6 07:CE96: F0 54     BEQ bra_CEEC_end         ; If v_CE5A_counter == 0x00
-C - - - - - 0x01CEA8 07:CE98: C8        INY                      ; y == 1, the position of first tile-byte
+C D 2 - - - 0x01CE6A 07:CE5A: A9 00     LDA #$00                     ;
+C - - - - - 0x01CE6C 07:CE5C: 85 08     STA ram_0008                 ; clear
+C - - - - - 0x01CE6E 07:CE5E: 85 09     STA ram_0009                 ; clear
+C - - - - - 0x01CE70 07:CE60: A9 06     LDA #$06                     ;
+C - - - - - 0x01CE72 07:CE62: 8D 00 80  STA MMC3_Bank_select         ;
+C - - - - - 0x01CE75 07:CE65: A9 0A     LDA #$0A                     ;
+C - - - - - 0x01CE77 07:CE67: 8D 01 80  STA MMC3_Bank_data           ; switch bank 05 in 0x8000-0x9FFF
+C - - - - - 0x01CE7A 07:CE6A: A5 45     LDA vCharacterRenderData     ;
+C - - - - - 0x01CE7C 07:CE6C: 48        PHA                          ; store A
+C - - - - - 0x01CE7D 07:CE6D: 29 03     AND #$03                     ;
+C - - - - - 0x01CE7F 07:CE6F: 85 0C     STA vTempCounterC            ; get the part of the attributes
+C - - - - - 0x01CE81 07:CE71: 68        PLA                          ; retrieve A ($CE6C)
+C - - - - - 0x01CE82 07:CE72: 2A        ROL                          ;
+C - - - - - 0x01CE83 07:CE73: 2A        ROL                          ;
+C - - - - - 0x01CE84 07:CE74: 2A        ROL                          ; get the part of the address
+C - - - - - 0x01CE85 07:CE75: 29 03     AND #$03                     ;
+C - - - - - 0x01CE87 07:CE77: 09 80     ORA #$80                     ;
+C - - - - - 0x01CE89 07:CE79: 85 05     STA ram_0005                 ; a high byte address [0x80-0x83]
+C - - - - - 0x01CE8B 07:CE7B: A9 00     LDA #$00                     ;
+C - - - - - 0x01CE8D 07:CE7D: 85 04     STA ram_0004                 ; a low byte address
+C - - - - - 0x01CE8F 07:CE7F: 8A        TXA                          ; shift by x (x - an input parameter)
+C - - - - - 0x01CE90 07:CE80: A8        TAY                          ;
+C - - - - - 0x01CE91 07:CE81: B1 04     LDA (ram_0004),Y             ;
+C - - - - - 0x01CE93 07:CE83: 85 02     STA ram_0002                 ; Assinged a high byte address
+C - - - - - 0x01CE95 07:CE85: C8        INY                          ;
+C - - - - - 0x01CE96 07:CE86: B1 04     LDA (ram_0004),Y             ;
+C - - - - - 0x01CE98 07:CE88: 85 03     STA ram_0003                 ; Assinged a low byte address
+C - - - - - 0x01CE9A 07:CE8A: A6 43     LDX vCurrentNumberSprite     ; Offset of the entire OAM
+C - - - - - 0x01CE9C 07:CE8C: E0 FF     CPX #$FF                     ;
+C - - - - - 0x01CE9E 07:CE8E: F0 5C     BEQ bra_CEEC_end             ; If the count of the sprites is overflow
+C - - - - - 0x01CEA0 07:CE90: A0 00     LDY #$00                     ;
+C - - - - - 0x01CEA2 07:CE92: B1 02     LDA (ram_0002),Y             ; get a tile count
+C - - - - - 0x01CEA4 07:CE94: 85 05     STA v_CE5A_counter           ; set loop counter
+C - - - - - 0x01CEA6 07:CE96: F0 54     BEQ bra_CEEC_end             ; If v_CE5A_counter == 0x00
+C - - - - - 0x01CEA8 07:CE98: C8        INY                          ; y == 1, the position of first tile-byte
 loc_CE99:
-bra_CE99_loop:                                                   ; loop by v_CE5A_counter
-C D 2 - - - 0x01CEA9 07:CE99: A9 00     LDA #$00                 ;
-C - - - - - 0x01CEAB 07:CE9B: 85 04     STA ram_0004             ; clear
-C - - - - - 0x01CEAD 07:CE9D: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CEAF 07:CE9F: 10 02     BPL bra_CEA3_skip        ; If Register A < 0xF0
-C - - - - - 0x01CEB1 07:CEA1: C6 04     DEC ram_0004             ; 0x00 -> 0xFF
-bra_CEA3_skip:
-C - - - - - 0x01CEB3 07:CEA3: 18        CLC                      ;
-C - - - - - 0x01CEB4 07:CEA4: 65 00     ADC ram_0000             ;
-C - - - - - 0x01CEB6 07:CEA6: 9D 00 07  STA vStartOAM,X          ; set Y-position
+bra_CE99_loop:                                                       ; loop by v_CE5A_counter
+C D 2 - - - 0x01CEA9 07:CE99: A9 00     LDA #$00                     ;
+C - - - - - 0x01CEAB 07:CE9B: 85 04     STA ram_0004                 ; clear
+C - - - - - 0x01CEAD 07:CE9D: B1 02     LDA (ram_0002),Y             ; 1 of 4
+C - - - - - 0x01CEAF 07:CE9F: 10 02     BPL @bra_CEA3_skip           ; If Register A < 0xF0
+C - - - - - 0x01CEB1 07:CEA1: C6 04     DEC ram_0004                 ; 0x00 -> 0xFF (The position may be negative!)
+@bra_CEA3_skip:
+C - - - - - 0x01CEB3 07:CEA3: 18        CLC                          ;
+C - - - - - 0x01CEB4 07:CEA4: 65 00     ADC ram_0000                 ;
+C - - - - - 0x01CEB6 07:CEA6: 9D 00 07  STA vStartOAM,X              ; set Y-position
 C - - - - - 0x01CEB9 07:CEA9: A5 04     LDA ram_0004
 C - - - - - 0x01CEBB 07:CEAB: 65 08     ADC ram_0008
-C - - - - - 0x01CEBD 07:CEAD: D0 40     BNE bra_CEEF_skip        ; If Register A != 0x00
-C - - - - - 0x01CEBF 07:CEAF: C8        INY                      ; Changes to the second byte (Tile index number)
-C - - - - - 0x01CEC0 07:CEB0: B1 02     LDA (ram_0002),Y         ;
-C - - - - - 0x01CEC2 07:CEB2: 9D 01 07  STA vStartOAM_2b,X       ; set the tile number sprite
-C - - - - - 0x01CEC5 07:CEB5: C8        INY                      ; Changes to the third byte (Attributes)
-C - - - - - 0x01CEC6 07:CEB6: B1 02     LDA (ram_0002),Y         ;
-C - - - - - 0x01CEC8 07:CEB8: 05 0C     ORA vTempCounterC        ; add attributes from outside
-C - - - - - 0x01CECA 07:CEBA: 9D 02 07  STA vStartOAM_3b,X       ; set the attributes
-C - - - - - 0x01CECD 07:CEBD: C8        INY
-C - - - - - 0x01CECE 07:CEBE: A9 00     LDA #$00
-C - - - - - 0x01CED0 07:CEC0: 85 04     STA ram_0004
-C - - - - - 0x01CED2 07:CEC2: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CED4 07:CEC4: 10 02     BPL bra_CEC8_skip
-C - - - - - 0x01CED6 07:CEC6: C6 04     DEC ram_0004
-bra_CEC8_skip:
-C - - - - - 0x01CED8 07:CEC8: 18        CLC
-C - - - - - 0x01CED9 07:CEC9: 65 01     ADC ram_0001
-C - - - - - 0x01CEDB 07:CECB: 85 06     STA ram_0006
+C - - - - - 0x01CEBD 07:CEAD: D0 40     BNE bra_CEEF_blank           ; If Register A != 0x00 (it is an unacceptable sprite)
+C - - - - - 0x01CEBF 07:CEAF: C8        INY                          ; Changes to the second byte (Tile index number)
+C - - - - - 0x01CEC0 07:CEB0: B1 02     LDA (ram_0002),Y             ; 2 of 4
+C - - - - - 0x01CEC2 07:CEB2: 9D 01 07  STA vStartOAM_2b,X           ; set the tile number sprite
+C - - - - - 0x01CEC5 07:CEB5: C8        INY                          ; Changes to the third byte (Attributes)
+C - - - - - 0x01CEC6 07:CEB6: B1 02     LDA (ram_0002),Y             ; 3 of 4
+C - - - - - 0x01CEC8 07:CEB8: 05 0C     ORA vTempCounterC            ; add attributes from outside
+C - - - - - 0x01CECA 07:CEBA: 9D 02 07  STA vStartOAM_3b,X           ; set the attributes
+C - - - - - 0x01CECD 07:CEBD: C8        INY                          ; Changes to the fourth byte (X-position)
+C - - - - - 0x01CECE 07:CEBE: A9 00     LDA #$00                     ;
+C - - - - - 0x01CED0 07:CEC0: 85 04     STA ram_0004                 ; clear
+C - - - - - 0x01CED2 07:CEC2: B1 02     LDA (ram_0002),Y             ; 4 of 4
+C - - - - - 0x01CED4 07:CEC4: 10 02     BPL @bra_CEC8_skip           ; If Register A < 0xF0
+C - - - - - 0x01CED6 07:CEC6: C6 04     DEC ram_0004                 ; 0x00 -> 0xFF (The position may be negative!)
+@bra_CEC8_skip:
+C - - - - - 0x01CED8 07:CEC8: 18        CLC                          ;
+C - - - - - 0x01CED9 07:CEC9: 65 01     ADC ram_0001                 ;
+C - - - - - 0x01CEDB 07:CECB: 85 06     STA ram_0006                 ; store X-position temporarily
 C - - - - - 0x01CEDD 07:CECD: A5 04     LDA ram_0004
 C - - - - - 0x01CEDF 07:CECF: 65 09     ADC ram_0009
-C - - - - - 0x01CEE1 07:CED1: D0 1F     BNE bra_CEF2
-C - - - - - 0x01CEE3 07:CED3: A5 06     LDA ram_0006
-C - - - - - 0x01CEE5 07:CED5: C9 F9     CMP #$F9
-C - - - - - 0x01CEE7 07:CED7: B0 19     BCS bra_CEF2
-C - - - - - 0x01CEE9 07:CED9: 9D 03 07  STA vStartOAM_4b,X ; set X-position
-C - - - - - 0x01CEEC 07:CEDC: E8        INX                ;
-C - - - - - 0x01CEED 07:CEDD: E8        INX                ;
-C - - - - - 0x01CEEE 07:CEDE: E8        INX                ;
-C - - - - - 0x01CEEF 07:CEDF: E8        INX                ; To 1st next sprite data byte
-C - - - - - 0x01CEF0 07:CEE0: D0 03     BNE bra_CEE5_repeat_skip
-C - - - - - 0x01CEF2 07:CEE2: CA        DEX
-C - - - - - 0x01CEF3 07:CEE3: D0 05     BNE bra_CEEA_skip
-bra_CEE5_repeat_skip:
-C - - - - - 0x01CEF5 07:CEE5: C8        INY
-C - - - - - 0x01CEF6 07:CEE6: C6 05     DEC v_CE5A_counter
-C - - - - - 0x01CEF8 07:CEE8: D0 AF     BNE bra_CE99_loop
-bra_CEEA_skip:
-C - - - - - 0x01CEFA 07:CEEA: 86 43     STX vCurrentNumberSprite ; Store target byte OAM (sprite)
+C - - - - - 0x01CEE1 07:CED1: D0 1F     BNE bra_CEF2_blank           ; If Register A != 0x00 (it is an unacceptable sprite)
+C - - - - - 0x01CEE3 07:CED3: A5 06     LDA ram_0006                 ;
+C - - - - - 0x01CEE5 07:CED5: C9 F9     CMP #$F9                     ;
+C - - - - - 0x01CEE7 07:CED7: B0 19     BCS bra_CEF2_blank           ; If Register A >= 0xF9 (it is an unacceptable sprite)
+C - - - - - 0x01CEE9 07:CED9: 9D 03 07  STA vStartOAM_4b,X           ; set X-position
+C - - - - - 0x01CEEC 07:CEDC: E8        INX                          ;
+C - - - - - 0x01CEED 07:CEDD: E8        INX                          ;
+C - - - - - 0x01CEEE 07:CEDE: E8        INX                          ;
+C - - - - - 0x01CEEF 07:CEDF: E8        INX                          ; To 1st next sprite data byte
+C - - - - - 0x01CEF0 07:CEE0: D0 03     BNE bra_CEE5_continue        ; If Register is not overflow
+C - - - - - 0x01CEF2 07:CEE2: CA        DEX                          ; Restores a last success sprite byte
+C - - - - - 0x01CEF3 07:CEE3: D0 05     BNE bra_CEEA_end             ; If Register X != 0
+bra_CEE5_continue:
+C - - - - - 0x01CEF5 07:CEE5: C8        INY                          ; increment offset by ($0002,$0003)
+C - - - - - 0x01CEF6 07:CEE6: C6 05     DEC v_CE5A_counter           ; decrement counter
+C - - - - - 0x01CEF8 07:CEE8: D0 AF     BNE bra_CE99_loop            ; If v_CE5A_counter > 0 (The sprites ($0002,$0003) are exist)
+bra_CEEA_end:
+C - - - - - 0x01CEFA 07:CEEA: 86 43     STX vCurrentNumberSprite     ; Store target byte OAM (sprite)
 bra_CEEC_end:
-C - - - - - 0x01CEFC 07:CEEC: 86 44     STX v_copy_current_number_sprite
-C - - - - - 0x01CEFE 07:CEEE: 60        RTS
+C - - - - - 0x01CEFC 07:CEEC: 86 44     STX vCopyCurrentNumberSprite ;
+C - - - - - 0x01CEFE 07:CEEE: 60        RTS                          ;
 
-bra_CEEF_skip:
-C - - - - - 0x01CEFF 07:CEEF: C8        INY
-C - - - - - 0x01CF00 07:CEF0: C8        INY
-C - - - - - 0x01CF01 07:CEF1: C8        INY
-bra_CEF2:
-C - - - - - 0x01CF02 07:CEF2: A9 F0     LDA #$F0
-C - - - - - 0x01CF04 07:CEF4: 9D 00 07  STA vStartOAM,X
-C - - - - - 0x01CF07 07:CEF7: D0 EC     BNE bra_CEE5_repeat_skip
+bra_CEEF_blank:
+C - - - - - 0x01CEFF 07:CEEF: C8        INY                          ; a correction ($CEAF)
+C - - - - - 0x01CF00 07:CEF0: C8        INY                          ; a correction ($CEB5)
+C - - - - - 0x01CF01 07:CEF1: C8        INY                          ; a correction ($CEBD)
+bra_CEF2_blank:
+C - - - - - 0x01CF02 07:CEF2: A9 F0     LDA #$F0                     ; This value means than the sprite isn't used
+C - - - - - 0x01CF04 07:CEF4: 9D 00 07  STA vStartOAM,X              ;
+C - - - - - 0x01CF07 07:CEF7: D0 EC     BNE bra_CEE5_continue        ;
 sub_CEF9:
 C - - - - - 0x01CF09 07:CEF9: A5 2C     LDA v_low_counter          ;
 C - - - - - 0x01CF0B 07:CEFB: 29 07     AND #$07                   ;
@@ -2990,41 +2992,41 @@ C - - - - - 0x01D313 07:D303: 18        CLC
 C - - - - - 0x01D314 07:D304: 65 04     ADC ram_0004    ; get point(x, y)
 C - - - - - 0x01D316 07:D306: 48        PHA             ; store A
 C - - - - - 0x01D317 07:D307: 20 F7 D3  JSR sub_D3F7_get_background_screen_info_address
-C - - - - - 0x01D31A 07:D30A: A0 00     LDY #$00
-C - - - - - 0x01D31C 07:D30C: B1 4E     LDA (vBackgroundScreenInfo),Y
-C - - - - - 0x01D31E 07:D30E: 85 52     STA ram_0052
-C - - - - - 0x01D320 07:D310: C8        INY
-C - - - - - 0x01D321 07:D311: B1 4E     LDA (vBackgroundScreenInfo),Y
-C - - - - - 0x01D323 07:D313: 20 04 C5  JSR sub_C504_switch_prg_8000
-C - - - - - 0x01D326 07:D316: 85 53     STA ram_0053
-C - - - - - 0x01D328 07:D318: 68        PLA             ; retrieve A
-C - - - - - 0x01D329 07:D319: A8        TAY
-C - - - - - 0x01D32A 07:D31A: B1 52     LDA (ram_0052),Y
-C - - - - - 0x01D32C 07:D31C: 48        PHA             ; store A
+C - - - - - 0x01D31A 07:D30A: A0 00     LDY #$00                             ; 1th of 8 info bytes
+C - - - - - 0x01D31C 07:D30C: B1 4E     LDA (vBackgroundScreenInfo),Y        ;
+C - - - - - 0x01D31E 07:D30E: 85 52     STA ram_0052                         ; low address
+C - - - - - 0x01D320 07:D310: C8        INY                                  ; 2th of 8 info bytes
+C - - - - - 0x01D321 07:D311: B1 4E     LDA (vBackgroundScreenInfo),Y        ;
+C - - - - - 0x01D323 07:D313: 20 04 C5  JSR sub_C504_switch_prg_8000         ; select MMC3 bank
+C - - - - - 0x01D326 07:D316: 85 53     STA ram_0053                         ; high address
+C - - - - - 0x01D328 07:D318: 68        PLA                                  ; retrieve A, point(x, y) ($D306)
+C - - - - - 0x01D329 07:D319: A8        TAY                                  ;
+C - - - - - 0x01D32A 07:D31A: B1 52     LDA (ram_0052),Y                     ; put a index of the quartet tiles
+C - - - - - 0x01D32C 07:D31C: 48        PHA                                  ; store A
 C - - - - - 0x01D32D 07:D31D: 20 45 D5  JSR sub_D545
-C - - - - - 0x01D330 07:D320: 68        PLA             ; retrieve A
-C - - - - - 0x01D331 07:D321: 0A        ASL
-C - - - - - 0x01D332 07:D322: A8        TAY
-C - - - - - 0x01D333 07:D323: 90 02     BCC @bra_D327_skip
-C - - - - - 0x01D335 07:D325: E6 0F     INC ram_000F    ; increment a high address
+C - - - - - 0x01D330 07:D320: 68        PLA                                  ; retrieve A, a index of the quartet tiles ($D31C)
+C - - - - - 0x01D331 07:D321: 0A        ASL                                  ;
+C - - - - - 0x01D332 07:D322: A8        TAY                                  ; 1 of 2 bytes (a relative to offset)
+C - - - - - 0x01D333 07:D323: 90 02     BCC @bra_D327_skip                   ; If an index * 2 < 0xFF
+C - - - - - 0x01D335 07:D325: E6 0F     INC ram_000F                         ; increment a high address (an offset)
 @bra_D327_skip:
-C - - - - - 0x01D337 07:D327: A5 00     LDA ram_0000
-C - - - - - 0x01D339 07:D329: 29 08     AND #$08
-C - - - - - 0x01D33B 07:D32B: D0 01     BNE @bra_D32E_skip
-C - - - - - 0x01D33D 07:D32D: C8        INY
+C - - - - - 0x01D337 07:D327: A5 00     LDA ram_0000                         ; load Y-position
+C - - - - - 0x01D339 07:D329: 29 08     AND #$08                             ; 
+C - - - - - 0x01D33B 07:D32B: D0 01     BNE @bra_D32E_skip                   ; If it isn't a Y-border of the screen block
+C - - - - - 0x01D33D 07:D32D: C8        INY                                  ; 2 of 2 bytes (a relative to offset)
 @bra_D32E_skip:
 C - - - - - 0x01D33E 07:D32E: B1 0E     LDA (ram_000E),Y
 C - - - - - 0x01D340 07:D330: 85 04     STA ram_0004
-C - - - - - 0x01D342 07:D332: A5 01     LDA ram_0001
-C - - - - - 0x01D344 07:D334: 29 08     AND #$08
-C - - - - - 0x01D346 07:D336: F0 08     BEQ @bra_D340_skip
-C - - - - - 0x01D348 07:D338: 46 04     LSR ram_0004
-C - - - - - 0x01D34A 07:D33A: 46 04     LSR ram_0004
-C - - - - - 0x01D34C 07:D33C: 46 04     LSR ram_0004
-C - - - - - 0x01D34E 07:D33E: 46 04     LSR ram_0004
+C - - - - - 0x01D342 07:D332: A5 01     LDA ram_0001                         ; load X-position
+C - - - - - 0x01D344 07:D334: 29 08     AND #$08                             ;
+C - - - - - 0x01D346 07:D336: F0 08     BEQ @bra_D340_skip                   ; If it is a X-border of the screen block
+C - - - - - 0x01D348 07:D338: 46 04     LSR ram_0004                         ;
+C - - - - - 0x01D34A 07:D33A: 46 04     LSR ram_0004                         ;
+C - - - - - 0x01D34C 07:D33C: 46 04     LSR ram_0004                         ;
+C - - - - - 0x01D34E 07:D33E: 46 04     LSR ram_0004                         ; gets high half-byte
 @bra_D340_skip:
-C - - - - - 0x01D350 07:D340: 68        PLA
-C - - - - - 0x01D351 07:D341: AA        TAX         ; retrieve x (see D2E6)
+C - - - - - 0x01D350 07:D340: 68        PLA                ;
+C - - - - - 0x01D351 07:D341: AA        TAX                ; retrieve x (see D2E6)
 C - - - - - 0x01D352 07:D342: A5 04     LDA ram_0004
 C - - - - - 0x01D354 07:D344: 29 0F     AND #$0F
 C - - - - - 0x01D356 07:D346: 60        RTS
@@ -3365,9 +3367,9 @@ C - - - - - 0x01D55C 07:D54C: 8D 01 80  STA MMC3_Bank_data   ; switch bank 01, p
 C - - - - - 0x01D55F 07:D54F: A5 46     LDA vNoSubLevel
 C - - - - - 0x01D561 07:D551: 0A        ASL
 C - - - - - 0x01D562 07:D552: AA        TAX
-C - - - - - 0x01D563 07:D553: BD 00 90  LDA $9000,X
+C - - - - - 0x01D563 07:D553: BD 00 90  LDA tbl_background_collisions,X
 C - - - - - 0x01D566 07:D556: 85 0E     STA ram_000E
-C - - - - - 0x01D568 07:D558: BD 01 90  LDA $9001,X
+C - - - - - 0x01D568 07:D558: BD 01 90  LDA tbl_background_collisions + 1,X
 C - - - - - 0x01D56B 07:D55B: 29 1F     AND #$1F
 C - - - - - 0x01D56D 07:D55D: 09 80     ORA #$80
 C - - - - - 0x01D56F 07:D55F: 85 0F     STA ram_000F
@@ -7411,7 +7413,7 @@ loc_EDE1_skip:
 C D 3 - - - 0x01EDF1 07:EDE1: 20 6C C4  JSR sub_C46C
 C - - - - - 0x01EDF4 07:EDE4: 20 85 C8  JSR sub_C885
 loc_EDE7:
-C D 3 - - - 0x01EDF7 07:EDE7: A6 44     LDX v_copy_current_number_sprite
+C D 3 - - - 0x01EDF7 07:EDE7: A6 44     LDX vCopyCurrentNumberSprite
 C - - - - - 0x01EDF9 07:EDE9: 86 43     STX vCurrentNumberSprite
 C - - - - - 0x01EDFB 07:EDEB: 20 F9 CE  JSR sub_CEF9
 C - - - - - 0x01EDFE 07:EDEE: A9 07     LDA #$07                      ;

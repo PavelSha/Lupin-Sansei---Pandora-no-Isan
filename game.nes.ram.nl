@@ -24,7 +24,7 @@ $003B#vSharedGameStatus#
 $003D#vCharacterSelectionCounter#
 $0041#v_npc_message_status#
 $0043#vCurrentNumberSprite#
-$0044#v_copy_current_number_sprite#
+$0044#vCopyCurrentNumberSprite#
 $0045#vCharacterRenderData#
 $0046#vNoSubLevel#
 $0047#vTempNoSubLevel#

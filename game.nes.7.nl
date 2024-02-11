@@ -977,10 +977,10 @@ $CE62##--NO-COMMENT--
 $CE65##--NO-COMMENT--
 $CE67##switch bank 05 in 0x8000-0x9FFF
 $CE6A##--NO-COMMENT--
-$CE6C##--NO-COMMENT--
+$CE6C##store A
 $CE6D##--NO-COMMENT--
 $CE6F##get the part of the attributes
-$CE71##--NO-COMMENT--
+$CE71##retrieve A ($CE6C)
 $CE72##--NO-COMMENT--
 $CE73##--NO-COMMENT--
 $CE74##get the part of the address
@@ -989,7 +989,7 @@ $CE77##--NO-COMMENT--
 $CE79##a high byte address [0x80-0x83]
 $CE7B##--NO-COMMENT--
 $CE7D##a low byte address
-$CE7F##shift by x
+$CE7F##shift by x (x - an input parameter)
 $CE80##--NO-COMMENT--
 $CE81##--NO-COMMENT--
 $CE83##Assinged a high byte address
@@ -1006,30 +1006,53 @@ $CE96##If v_CE5A_counter == 0x00
 $CE98##y == 1, the position of first tile-byte
 $CE99#bra_CE99_loop#--NO-COMMENT--
 $CE9B##clear
+$CE9D##1 of 4
 $CE9F##If Register A < 0xF0
-$CEA1##0x00 -> 0xFF
-$CEA3#bra_CEA3_skip#--NO-COMMENT--
+$CEA1##0x00 -> 0xFF (The position may be negative!)
+$CEA3#@bra_CEA3_skip#--NO-COMMENT--
 $CEA4##--NO-COMMENT--
 $CEA6##set Y-position
-$CEAD##If Register A != 0x00
+$CEAD##If Register A != 0x00 (it is an unacceptable sprite)
 $CEAF##Changes to the second byte (Tile index number)
-$CEB0##--NO-COMMENT--
+$CEB0##2 of 4
 $CEB2##set the tile number sprite
 $CEB5##Changes to the third byte (Attributes)
-$CEB6##--NO-COMMENT--
+$CEB6##3 of 4
 $CEB8##add attributes from outside
 $CEBA##set the attributes
-$CEC8#bra_CEC8_skip#
+$CEBD##Changes to the fourth byte (X-position)
+$CEBE##--NO-COMMENT--
+$CEC0##clear
+$CEC2##4 of 4
+$CEC4##If Register A < 0xF0
+$CEC6##0x00 -> 0xFF (The position may be negative!)
+$CEC8#@bra_CEC8_skip#--NO-COMMENT--
+$CEC9##--NO-COMMENT--
+$CECB##store X-position temporarily
+$CED1##If Register A != 0x00 (it is an unacceptable sprite)
+$CED3##--NO-COMMENT--
+$CED5##--NO-COMMENT--
+$CED7##If Register A >= 0xF9 (it is an unacceptable sprite)
 $CED9##set X-position
 $CEDC##--NO-COMMENT--
 $CEDD##--NO-COMMENT--
 $CEDE##--NO-COMMENT--
 $CEDF##To 1st next sprite data byte
-$CEE5#bra_CEE5_repeat_skip#
-$CEEA#bra_CEEA_skip#Store target byte OAM (sprite)
-$CEEC#bra_CEEC_end#
-$CEEF#bra_CEEF_skip#
-$CEF2#bra_CEF2#
+$CEE0##If Register is not overflow
+$CEE2##Restores a last success sprite byte
+$CEE3##If Register X != 0
+$CEE5#bra_CEE5_continue#increment offset by ($0002,$0003)
+$CEE6##decrement counter
+$CEE8##If v_CE5A_counter > 0 (The sprites ($0002,$0003) are exist)
+$CEEA#bra_CEEA_end#Store target byte OAM (sprite)
+$CEEC#bra_CEEC_end#--NO-COMMENT--
+$CEEE##--NO-COMMENT--
+$CEEF#bra_CEEF_blank#a correction ($CEAF)
+$CEF0##a correction ($CEB5)
+$CEF1##a correction ($CEBD)
+$CEF2#bra_CEF2_blank#This value means than the sprite isn't used
+$CEF4##--NO-COMMENT--
+$CEF7##--NO-COMMENT--
 $CEF9#sub_CEF9#--NO-COMMENT--
 $CEFB##--NO-COMMENT--
 $CEFD##--NO-COMMENT--
@@ -1360,13 +1383,35 @@ $D2FC##retrieve x (see D2E6)
 $D300#bra_D300_skip#get {0x00, 0x01, 0x02, ..., 0x0C}
 $D304##get point(x, y)
 $D306##store A
-$D318##retrieve A
+$D30A##1th of 8 info bytes
+$D30C##--NO-COMMENT--
+$D30E##low address
+$D310##2th of 8 info bytes
+$D311##--NO-COMMENT--
+$D313##select MMC3 bank
+$D316##high address
+$D318##retrieve A, point(x, y) ($D306)
+$D319##--NO-COMMENT--
+$D31A##put a index of the quartet tiles
 $D31C##store A
-$D320##retrieve A
-$D325##increment a high address
-$D327#@bra_D327_skip#
+$D320##retrieve A, a index of the quartet tiles ($D31C)
+$D321##--NO-COMMENT--
+$D322##1 of 2 bytes (a relative to offset)
+$D323##If an index * 2 < 0xFF
+$D325##increment a high address (an offset)
+$D327#@bra_D327_skip#load Y-position
+$D329##--NO-COMMENT--
+$D32B##If it isn't a Y-border of the screen block
+$D32D##2 of 2 bytes (a relative to offset)
 $D32E#@bra_D32E_skip#
-$D340#@bra_D340_skip#
+$D332##load X-position
+$D334##--NO-COMMENT--
+$D336##If it is a X-border of the screen block
+$D338##--NO-COMMENT--
+$D33A##--NO-COMMENT--
+$D33C##--NO-COMMENT--
+$D33E##gets high half-byte
+$D340#@bra_D340_skip#--NO-COMMENT--
 $D341##retrieve x (see D2E6)
 $D347#sub_D347#
 $D350#bra_D350_skip#
