@@ -131,10 +131,6 @@ vCharacterRenderData          = ram_0045
 ; LLL - the high part of address (0%10000LLL), e.i. [0x8000 - 0x8300]
 
 
-vSortOfRoom                   = ram_0046 ; Only in the room
-; 1A - a npc room or a character tied up
-; 1F - a room with briefcases
-
 vNoSubLevel                   = ram_0046
 ; see docs (Rooms, Maze1, Maze2, Maze3, Maze4)
 
@@ -229,12 +225,7 @@ vHighCorridorAddr             = ram_00BE ; high address
 vDestrWallAddr                = ram_00BF ; low address  (address to table tbl_ptr_destructible_walls)
 vHighDestrWallAddr            = ram_00C0 ; high address
 
-vCheckpoint                   = ram_00C4
-; 0x00 - level 1
-; 0x06 - level 2
-; 0x0F - level 3
-; 0x19 - level racing
-; 0x42 - level 4 (pyramid)
+vCheckpoint                   = ram_00C4 ; see docs (Rooms), i.e. (0x00 - level 1.0, 0x06 - level 2 outside, 0x19 - level racing etc.)
 
 vMessageInProgress            = ram_00C8
 ; 0x00 - no message

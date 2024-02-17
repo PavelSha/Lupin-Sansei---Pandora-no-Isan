@@ -9,9 +9,10 @@
 .import tbl_background_collisions          ; bank 01 (Page 2)
 .import tbl_ptr_corridors                  ; bank 04 (Page 1)
 .import tbl_ptr_destructible_walls         ; bank 04 (Page 1)
-.import tbl_room_lengths
+.import tbl_room_lengths                   ; bank 04 (Page 1)
 .import tbl_roof_pitches                   ; bank 04 (Page 1)
 .import tbl_message_bar_bottom_attrs       ; bank 04 (Page 1)
+.import tbl_character_select_palette       ; bank 04 (Page 1)
 .import number_of_rooms_on_the_level       ; bank 04 (Page 2)
 .import tbl_ptr_rooms_on_the_level         ; bank 04 (Page 2)
 .import number_of_briefcases_on_the_level  ; bank 04 (Page 2)
@@ -944,24 +945,24 @@ tbl_C62C_y_position_characters:
 - D 2 - - - 0x01C63D 07:C62D: 87        .byte $87   ; Jigen
 - D 2 - - - 0x01C63E 07:C62E: C7        .byte $C7   ; Goemon
 
-sub_C62F:
-C - - - - - 0x01C63F 07:C62F: 20 1D C3  JSR sub_C31D_clear_ppu           ;
-C - - - - - 0x01C642 07:C632: 20 58 C3  JSR sub_C358_clear_OAM           ;
-C - - - - - 0x01C645 07:C635: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2 ;
-C - - - - - 0x01C648 07:C638: 20 02 C4  JSR sub_C402_clear_sound_parts
-C - - - - - 0x01C64B 07:C63B: A2 05     LDX #$05
-bra_C63D_repeat:
-C - - - - - 0x01C64D 07:C63D: BD 14 80  LDA $8014,X
-C - - - - - 0x01C650 07:C640: 9D AF 06  STA vCacheChrBankSelect,X
-C - - - - - 0x01C653 07:C643: CA        DEX
-C - - - - - 0x01C654 07:C644: 10 F7     BPL bra_C63D_repeat
-C - - - - - 0x01C656 07:C646: A2 17     LDX #$17
-bra_C648_repeat:
-C - - - - - 0x01C658 07:C648: BD 7A 81  LDA $817A,X
-C - - - - - 0x01C65B 07:C64B: 9D 00 06  STA vCachePalette,X
-C - - - - - 0x01C65E 07:C64E: CA        DEX
-C - - - - - 0x01C65F 07:C64F: 10 F7     BPL bra_C648_repeat
-C - - - - - 0x01C661 07:C651: 60        RTS
+sub_C62F_init_character_select:
+C - - - - - 0x01C63F 07:C62F: 20 1D C3  JSR sub_C31D_clear_ppu             ;
+C - - - - - 0x01C642 07:C632: 20 58 C3  JSR sub_C358_clear_OAM             ;
+C - - - - - 0x01C645 07:C635: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2   ;
+C - - - - - 0x01C648 07:C638: 20 02 C4  JSR sub_C402_clear_sound_parts     ;
+C - - - - - 0x01C64B 07:C63B: A2 05     LDX #$05                           ; set loop counter
+@bra_C63D_loop:                                                            ; loop by x
+C - - - - - 0x01C64D 07:C63D: BD 14 80  LDA tbl_template_chr_banks1,X      ;
+C - - - - - 0x01C650 07:C640: 9D AF 06  STA vCacheChrBankSelect,X          ; set CHR ROMs
+C - - - - - 0x01C653 07:C643: CA        DEX                                ; decrements loop counter
+C - - - - - 0x01C654 07:C644: 10 F7     BPL @bra_C63D_loop                 ; If Register X < 0xF0
+C - - - - - 0x01C656 07:C646: A2 17     LDX #$17                           ; set loop counter
+@bra_C648_repeat:                                                          ; loop by x
+C - - - - - 0x01C658 07:C648: BD 7A 81  LDA tbl_character_select_palette,X ;
+C - - - - - 0x01C65B 07:C64B: 9D 00 06  STA vCachePalette,X                ; 4 bg palette + 2 sprite palette (for a gun)
+C - - - - - 0x01C65E 07:C64E: CA        DEX                                ; decrements loop counter
+C - - - - - 0x01C65F 07:C64F: 10 F7     BPL @bra_C648_repeat               ; If Register X < 0xF0
+C - - - - - 0x01C661 07:C651: 60        RTS                                ;
 
 sub_C652:
 C - - - - - 0x01C662 07:C652: A9 6B     LDA #$6B
@@ -989,7 +990,7 @@ C - - - - - 0x01C67F 07:C66F: 10 F7     BPL bra_C668_loop                     ; 
 C - - - - - 0x01C681 07:C671: 60        RTS                                   ;
 
 sub_C672_wait_character_select:
-C - - - - - 0x01C682 07:C672: 20 2F C6  JSR sub_C62F
+C - - - - - 0x01C682 07:C672: 20 2F C6  JSR sub_C62F_init_character_select      ;
 C - - - - - 0x01C685 07:C675: A9 39     LDA #$39                                ;
 C - - - - - 0x01C687 07:C677: 85 12     STA ram_0012                            ; Low address
 C - - - - - 0x01C689 07:C679: A9 81     LDA #$81                                ;
@@ -998,7 +999,7 @@ C - - - - - 0x01C68D 07:C67D: A9 07     LDA #$07                                
 C - - - - - 0x01C68F 07:C67F: 85 00     STA ram_0000                            ; set loop counter
 C - - - - - 0x01C691 07:C681: 20 68 C6  JSR sub_C668_render_14_15_16_17_18_loop ;
 C - - - - - 0x01C694 07:C684: 20 52 C6  JSR sub_C652
-C - - - - - 0x01C697 07:C687: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1
+C - - - - - 0x01C697 07:C687: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1           ;
 C - - - - - 0x01C69A 07:C68A: A9 0B     LDA #$0B
 C - - - - - 0x01C69C 07:C68C: 85 1A     STA ram_001A
 bra_C68E_loop:
@@ -1349,7 +1350,7 @@ C - - - - - 0x01C8C6 07:C8B6: 85 38     STA vPauseStatus                ;
 C - - - - - 0x01C8C8 07:C8B8: A5 3B     LDA vSharedGameStatus           ;
 C - - - - - 0x01C8CA 07:C8BA: 09 40     ORA #$40                        ; CONSTANT - Pause in the game
 C - - - - - 0x01C8CC 07:C8BC: 85 3B     STA vSharedGameStatus           ;
-C - - - - - 0x01C8CE 07:C8BE: 20 02 C4  JSR sub_C402_clear_sound_parts
+C - - - - - 0x01C8CE 07:C8BE: 20 02 C4  JSR sub_C402_clear_sound_parts  ;
 C - - - - - 0x01C8D1 07:C8C1: A9 0E     LDA #$0E
 C - - - - - 0x01C8D3 07:C8C3: 4C 20 C4  JMP loc_C420_add_sound_effect
 
@@ -2753,9 +2754,9 @@ C - - - - - 0x01D1AD 07:D19D: C6 27     DEC ram_0027
 C - - - - - 0x01D1AF 07:D19F: A5 27     LDA ram_0027
 C - - - - - 0x01D1B1 07:D1A1: C9 FF     CMP #$FF
 C - - - - - 0x01D1B3 07:D1A3: D0 10     BNE bra_D1B5
-C - - - - - 0x01D1B5 07:D1A5: A5 4B     LDA ram_004B
-C - - - - - 0x01D1B7 07:D1A7: D0 03     BNE bra_D1AC_decrement_screen
-C - - - - - 0x01D1B9 07:D1A9: 85 27     STA ram_0027
+C - - - - - 0x01D1B5 07:D1A5: A5 4B     LDA vHighViewPortPosX
+C - - - - - 0x01D1B7 07:D1A7: D0 03     BNE bra_D1AC_decrement_screen ; Branch If vHighViewPortPosX != 0
+C - - - - - 0x01D1B9 07:D1A9: 85 27     STA vLowViewPortPosX          ; vLowViewPortPosX <- 0
 C - - - - - 0x01D1BB 07:D1AB: 60        RTS
 
 bra_D1AC_decrement_screen:
@@ -7865,9 +7866,9 @@ C - - - - - 0x01F120 07:F110: 24 3C     BIT ram_003C
 C - - - - - 0x01F122 07:F112: 70 31     BVS bra_F145_RTS
 C - - - - - 0x01F124 07:F114: A5 6D     LDA vMovableChrStatus ;
 C - - - - - 0x01F126 07:F116: 30 0D     BMI @bra_F125_skip    ; If 'the character is moving in the water'
-C - - - - - 0x01F128 07:F118: A5 46     LDA vSortOfRoom       ;
+C - - - - - 0x01F128 07:F118: A5 46     LDA vNoSubLevel       ;
 C - - - - - 0x01F12A 07:F11A: C9 19     CMP #$19              ; CONSTANT - level racing
-C - - - - - 0x01F12C 07:F11C: F0 07     BEQ @bra_F125_skip    ; If vSortOfRoom is the level racing
+C - - - - - 0x01F12C 07:F11C: F0 07     BEQ @bra_F125_skip    ; If vNoSubLevel is the level racing
 C - - - - - 0x01F12E 07:F11E: AD 17 03  LDA ram_0317          ;
 C - - - - - 0x01F131 07:F121: C9 4B     CMP #$4B              ; CONSTANT - Max value
 C - - - - - 0x01F133 07:F123: B0 66     BCS bra_F18B          ; If ram_0317 >= $4B

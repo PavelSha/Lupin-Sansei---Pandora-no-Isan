@@ -4,7 +4,8 @@ time = os.clock()       --record script execution time
 --список файлов для подготовки перед конвертацией
 --list of files which need to be prepared before compilation
 files_list = {
-    "bank_00.asm",
+    "bank_00_1.asm",
+    "bank_00_2.asm",
     "bank_01_1.asm",
     "bank_01_2.asm",
     "bank_02_1.asm",
