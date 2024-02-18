@@ -28,6 +28,7 @@ $0044#vCopyCurrentNumberSprite#
 $0045#vCharacterRenderData#
 $0046#vNoSubLevel#
 $0047#vTempNoSubLevel#
+$0048#vScrollDirection#
 $0049#vCurrentRoomLength#
 $004A#vNearCurrentRoomLength#
 $004B#vHighViewPortPosX#

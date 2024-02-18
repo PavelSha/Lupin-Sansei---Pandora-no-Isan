@@ -6,15 +6,16 @@ import re
 
 ASM_FOLDER_PATH = "C:\\Lupin Sansei - Pandora no Isan\\"
 ASM_FF_FILE = "bank_FF.asm"
-ASM_00_FILE = "bank_00.asm"
+ASM_00_1_FILE = "bank_00_1.asm"
+ASM_00_2_FILE = "bank_00_2.asm"
 ASM_01_1_FILE = "bank_01_1.asm"
 ASM_01_2_FILE = "bank_01_2.asm"
 ASM_02_1_FILE = "bank_02_1.asm"
 ASM_02_2_FILE = "bank_02_2.asm"
-ASM_03_FILE = "bank_00.asm"
+ASM_03_FILE = "bank_03.asm"
 ASM_04_1_FILE = "bank_04_1.asm"
 ASM_04_2_FILE = "bank_04_2.asm"
-ASM_05_FILE = "bank_00.asm"
+ASM_05_FILE = "bank_05.asm"
 ASM_06_1_FILE = "bank_06_1.asm"
 ASM_06_2_FILE = "bank_06_2.asm"
 allCounter = 0
@@ -59,7 +60,8 @@ def resolveStats():
     global unknownCounter
 
     resolveOneStat(ASM_FF_FILE)
-    resolveOneStat(ASM_00_FILE)
+    resolveOneStat(ASM_00_1_FILE)
+    resolveOneStat(ASM_00_2_FILE)
     resolveOneStat(ASM_01_1_FILE)
     resolveOneStat(ASM_01_2_FILE)
     resolveOneStat(ASM_02_1_FILE)

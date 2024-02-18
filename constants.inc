@@ -135,6 +135,11 @@ vNoSubLevel                   = ram_0046
 ; see docs (Rooms, Maze1, Maze2, Maze3, Maze4)
 
 vTempNoSubLevel               = ram_0047
+vScrollDirection              = ram_0048 ; The direction in which the screen will automatically scroll (viewport offset), e.g. if the character moves
+; 0x00 - none
+; 0x40 - to left
+; 0x80 - to right
+
 vCurrentRoomLength            = ram_0049 ; in screen units
 vNearCurrentRoomLength        = ram_004A ; vCurrentRoomLength - 1 (in screen units)
 vHighViewPortPosX             = ram_004B ; The high value for an overflow ram_0027 (in screen units)
