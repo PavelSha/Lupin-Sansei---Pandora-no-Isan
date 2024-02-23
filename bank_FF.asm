@@ -1000,8 +1000,8 @@ C - - - - - 0x01C68F 07:C67F: 85 00     STA ram_0000                            
 C - - - - - 0x01C691 07:C681: 20 68 C6  JSR sub_C668_render_14_15_16_17_18_loop ;
 C - - - - - 0x01C694 07:C684: 20 52 C6  JSR sub_C652
 C - - - - - 0x01C697 07:C687: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1           ;
-C - - - - - 0x01C69A 07:C68A: A9 0B     LDA #$0B
-C - - - - - 0x01C69C 07:C68C: 85 1A     STA ram_001A
+C - - - - - 0x01C69A 07:C68A: A9 0B     LDA #$0B                                ; CONSTANT - the number of rows containing message symbols
+C - - - - - 0x01C69C 07:C68C: 85 1A     STA vTempRowNumber1A                    ;
 bra_C68E_loop:
 C - - - - - 0x01C69E 07:C68E: 20 DD C6  JSR sub_C6DD
 C - - - - - 0x01C6A1 07:C691: C6 1A     DEC ram_001A
@@ -1051,6 +1051,7 @@ C - - - - - 0x01C6E7 07:C6D7: 8D B6 06  STA vChrBankData       ;
 C - - - - - 0x01C6EA 07:C6DA: 86 3B     STX vSharedGameStatus  ;
 C - - - - - 0x01C6EC 07:C6DC: 60        RTS                    ;
 
+; In: vTempRowNumber1A
 sub_C6DD:
 C - - - - - 0x01C6ED 07:C6DD: A5 D6     LDA vReasonCharacterChange ;
 C - - - - - 0x01C6EF 07:C6DF: F0 4B     BEQ bra_C72C_skip          ; If vReasonCharacterChange == 'no reason'
@@ -1104,14 +1105,14 @@ C - - - - - 0x01C737 07:C727: 85 03     STA ram_0003
 C - - - - - 0x01C739 07:C729: 4C 54 C7  JMP loc_C754
 
 bra_C72C_skip:
-C - - - - - 0x01C73C 07:C72C: A5 1A     LDA ram_001A
+C - - - - - 0x01C73C 07:C72C: A5 1A     LDA vTempRowNumber1A
 C - - - - - 0x01C73E 07:C72E: 29 02     AND #$02
-C - - - - - 0x01C740 07:C730: D0 06     BNE bra_C738
+C - - - - - 0x01C740 07:C730: D0 06     BNE bra_C738_skip
 C - - - - - 0x01C742 07:C732: 20 7B C7  JSR sub_C77B
-C - - - - - 0x01C745 07:C735: D0 01     BNE bra_C738
+C - - - - - 0x01C745 07:C735: D0 01     BNE bra_C738_skip
 C - - - - - 0x01C747 07:C737: 60        RTS
 
-bra_C738:
+bra_C738_skip:
 C - - - - - 0x01C748 07:C738: A5 5E     LDA v_no_level
 C - - - - - 0x01C74A 07:C73A: 0A        ASL
 C - - - - - 0x01C74B 07:C73B: 0A        ASL
@@ -1131,11 +1132,11 @@ C - - - - - 0x01C75F 07:C74F: B9 01 94  LDA $9401,Y
 C - - - - - 0x01C762 07:C752: 85 03     STA ram_0003
 loc_C754:
 C D 2 - - - 0x01C764 07:C754: A0 13     LDY #$13
-bra_C756_repeat:
+@bra_C756_loop:
 C - - - - - 0x01C766 07:C756: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01C768 07:C758: 99 33 06  STA ram_0633,Y
+C - - - - - 0x01C768 07:C758: 99 33 06  STA vPpuBufferData,Y
 C - - - - - 0x01C76B 07:C75B: 88        DEY
-C - - - - - 0x01C76C 07:C75C: 10 F8     BPL bra_C756_repeat
+C - - - - - 0x01C76C 07:C75C: 10 F8     BPL @bra_C756_loop
 C - - - - - 0x01C76E 07:C75E: A5 1A     LDA ram_001A
 C - - - - - 0x01C770 07:C760: 0A        ASL
 C - - - - - 0x01C771 07:C761: A8        TAY
@@ -1158,11 +1159,11 @@ C - - - - - 0x01C78E 07:C77E: 4A        LSR
 C - - - - - 0x01C78F 07:C77F: AA        TAX
 C - - - - - 0x01C790 07:C780: A5 D4     LDA ram_00D4
 C - - - - - 0x01C792 07:C782: 85 00     STA ram_0000
-bra_C784:
+@bra_C784_skip:
 C - - - - - 0x01C794 07:C784: 4A        LSR
 C - - - - - 0x01C795 07:C785: 4A        LSR
 C - - - - - 0x01C796 07:C786: CA        DEX
-C - - - - - 0x01C797 07:C787: 10 FB     BPL bra_C784
+C - - - - - 0x01C797 07:C787: 10 FB     BPL @bra_C784_skip
 C - - - - - 0x01C799 07:C789: 29 03     AND #$03
 C - - - - - 0x01C79B 07:C78B: C9 03     CMP #$03
 C - - - - - 0x01C79D 07:C78D: 60        RTS
@@ -7681,22 +7682,22 @@ C - - - - - 0x01EFD3 07:EFC3: BD 17 81  LDA tbl_ptr_rooms_on_the_level,X
 C - - - - - 0x01EFD6 07:EFC6: 85 12     STA ram_0012
 C - - - - - 0x01EFD8 07:EFC8: BD 18 81  LDA tbl_ptr_rooms_on_the_level + 1,X
 C - - - - - 0x01EFDB 07:EFCB: 85 13     STA ram_0013
-@room_loop:
+@bra_room_loop:
 C - - - - - 0x01EFDD 07:EFCD: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01EFDF 07:EFCF: 99 00 05  STA vRooms,Y
 C - - - - - 0x01EFE2 07:EFD2: 88        DEY
-C - - - - - 0x01EFE3 07:EFD3: D0 F8     BNE @room_loop
+C - - - - - 0x01EFE3 07:EFD3: D0 F8     BNE @bra_room_loop
  ; Fill memory the white briefcases from ROM  (Register X - level number)
 C - - - - - 0x01EFE5 07:EFD5: BC 22 81  LDY number_of_briefcases_on_the_level,X
 C - - - - - 0x01EFE8 07:EFD8: BD 23 81  LDA tbl_ptr_briefcases_on_the_level,X
 C - - - - - 0x01EFEB 07:EFDB: 85 12     STA ram_0012
 C - - - - - 0x01EFED 07:EFDD: BD 24 81  LDA tbl_ptr_briefcases_on_the_level + 1,X
 C - - - - - 0x01EFF0 07:EFE0: 85 13     STA ram_0013
-@briefcase_loop:
+@bra_briefcase_loop:
 C - - - - - 0x01EFF2 07:EFE2: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01EFF4 07:EFE4: 99 19 02  STA v_array_white_briefcase,Y
 C - - - - - 0x01EFF7 07:EFE7: 88        DEY
-C - - - - - 0x01EFF8 07:EFE8: D0 F8     BNE @briefcase_loop
+C - - - - - 0x01EFF8 07:EFE8: D0 F8     BNE @bra_briefcase_loop
 C - - - - - 0x01EFFA 07:EFEA: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2
 C - - - - - 0x01EFFD 07:EFED: A5 5E     LDA v_no_level
 C - - - - - 0x01EFFF 07:EFEF: 0A        ASL

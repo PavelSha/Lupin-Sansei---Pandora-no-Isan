@@ -3717,23 +3717,23 @@ tbl_background_collisions:
 - D 0 - - - 0x00710A 01:90FA: E0 7C     .word $7CE0
 
 tbl_background_palette:
-- D 0 - - - 0x00710C 01:90FC: 5C 72     .word $725C ; level 1.0 (0x925C)
+- D 0 - - - 0x00710C 01:90FC: 5C 72     .word $725C ; level 1.0 ($925C)
 - - - - - - 0x00710E 01:90FE: 70 72     .word $7270
 - - - - - - 0x007110 01:9100: 70 72     .word $7270
-- D 0 - - - 0x007112 01:9102: 70 72     .word $7270 ; level 1.1 (0x9270)
+- D 0 - - - 0x007112 01:9102: 70 72     .word $7270 ; level 1.1 ($9270)
 - D 0 - - - 0x007114 01:9104: 70 72     .word $7270 ; level 1.2
 - D 0 - - - 0x007116 01:9106: 70 72     .word $7270 ; level 1.3
-- D 0 - - - 0x007118 01:9108: 20 72     .word $7220 ; level 2 (outside) (0x9220)
-- D 0 - - - 0x00711A 01:910A: 34 72     .word $7234 ; level 2 (1-3)     (0x9234)
+- D 0 - - - 0x007118 01:9108: 20 72     .word $7220 ; level 2 (outside) ($9220)
+- D 0 - - - 0x00711A 01:910A: 34 72     .word $7234 ; level 2 (1-3)     ($9234)
 - D 0 - - - 0x00711C 01:910C: 34 72     .word $7234 ; level 2 (2)
 - D 0 - - - 0x00711E 01:910E: 34 72     .word $7234 ; level 2 (4-5)
-- D 0 - - - 0x007120 01:9110: 48 72     .word $7248 ; level 2 (6-8)     (0x9248)
+- D 0 - - - 0x007120 01:9110: 48 72     .word $7248 ; level 2 (6-8)     ($9248)
 - D 0 - - - 0x007122 01:9112: 48 72     .word $7248 ; level 2 (7)
 - D 0 - - - 0x007124 01:9114: 48 72     .word $7248 ; level 2 (9-10)
 - D 0 - - - 0x007126 01:9116: 48 72     .word $7248 ; level 2 (11-13)
 - D 0 - - - 0x007128 01:9118: 48 72     .word $7248 ; level 2 (12)
-- D 0 - - - 0x00712A 01:911A: F8 71     .word $71F8 ; level 3.0 (0x91F8)
-- D 0 - - - 0x00712C 01:911C: 0C 72     .word $720C ; level 3.1 (0x920C)
+- D 0 - - - 0x00712A 01:911A: F8 71     .word $71F8 ; level 3.0 ($91F8)
+- D 0 - - - 0x00712C 01:911C: 0C 72     .word $720C ; level 3.1 ($920C)
 - D 0 - - - 0x00712E 01:911E: 0C 72     .word $720C ; level 3.2
 - D 0 - - - 0x007130 01:9120: 0C 72     .word $720C ; level 3.3
 - D 0 - - - 0x007132 01:9122: 0C 72     .word $720C ; level 3.4
@@ -3742,17 +3742,17 @@ tbl_background_palette:
 - - - - - - 0x007138 01:9128: FC 72     .word $72FC
 - - - - - - 0x00713A 01:912A: 10 73     .word $7310
 - - - - - - 0x00713C 01:912C: 24 73     .word $7324
-- D 0 - - - 0x00713E 01:912E: 38 73     .word $7338 ; level racing (0x9338)
-- D 0 - - - 0x007140 01:9130: 90 73     .word $7390 ; room with NPC in level 1                  (0x9390)
-- D 0 - - - 0x007142 01:9132: 68 73     .word $7368 ; room with NPC in level 2 (part 1)         (0x9368)
-- D 0 - - - 0x007144 01:9134: 7C 73     .word $737C ; room with NPC in level 2 (part 2)         (0x937C)
-- D 0 - - - 0x007146 01:9136: 54 73     .word $7354 ; room with NPC in level 3                  (0x9354)
-- D 0 - - - 0x007148 01:9138: A4 73     .word $73A4 ; room with NPC in level 4                  (0x93A4)
-- D 0 - - - 0x00714A 01:913A: 90 73     .word $7390 ; room with briefcases in level 1           (0x9390)
-- D 0 - - - 0x00714C 01:913C: 68 73     .word $7368 ; room with briefcases in level 2 (part 1)  (0x9368)
-- D 0 - - - 0x00714E 01:913E: 7C 73     .word $737C ; room with briefcases in level 2 (part 2)  (0x937C)
-- D 0 - - - 0x007150 01:9140: 54 73     .word $7354 ; room with briefcases in level 3           (0x9354)
-- D 0 - - - 0x007152 01:9142: A4 73     .word $73A4 ; room with briefcases in level 4           (0x93A4)
+- D 0 - - - 0x00713E 01:912E: 38 73     .word $7338 ; level racing ($9338)
+- D 0 - - - 0x007140 01:9130: 90 73     .word $7390 ; room with NPC in level 1                  ($9390)
+- D 0 - - - 0x007142 01:9132: 68 73     .word $7368 ; room with NPC in level 2 (part 1)         ($9368)
+- D 0 - - - 0x007144 01:9134: 7C 73     .word $737C ; room with NPC in level 2 (part 2)         ($937C)
+- D 0 - - - 0x007146 01:9136: 54 73     .word $7354 ; room with NPC in level 3                  ($9354)
+- D 0 - - - 0x007148 01:9138: A4 73     .word $73A4 ; room with NPC in level 4                  ($93A4)
+- D 0 - - - 0x00714A 01:913A: 90 73     .word $7390 ; room with briefcases in level 1           ($9390)
+- D 0 - - - 0x00714C 01:913C: 68 73     .word $7368 ; room with briefcases in level 2 (part 1)  ($9368)
+- D 0 - - - 0x00714E 01:913E: 7C 73     .word $737C ; room with briefcases in level 2 (part 2)  ($937C)
+- D 0 - - - 0x007150 01:9140: 54 73     .word $7354 ; room with briefcases in level 3           ($9354)
+- D 0 - - - 0x007152 01:9142: A4 73     .word $73A4 ; room with briefcases in level 4           ($93A4)
 - D 0 - - - 0x007154 01:9144: D4 72     .word $72D4
 - - - - - - 0x007156 01:9146: D4 72     .word $72D4
 - D 0 - - - 0x007158 01:9148: D4 72     .word $72D4
@@ -3783,7 +3783,7 @@ tbl_background_palette:
 - D 0 - - - 0x00718A 01:917A: 24 73     .word $7324
 - D 0 - - - 0x00718C 01:917C: 24 73     .word $7324
 - D 0 - - - 0x00718E 01:917E: 24 73     .word $7324
-- D 0 - - - 0x007190 01:9180: C0 72     .word $72C0 ; level 4, map 1 (0x92C0)
+- D 0 - - - 0x007190 01:9180: C0 72     .word $72C0 ; level 4, map 1 ($92C0)
 - D 0 - - - 0x007192 01:9182: C0 72     .word $72C0
 - D 0 - - - 0x007194 01:9184: C0 72     .word $72C0
 - D 0 - - - 0x007196 01:9186: C0 72     .word $72C0
@@ -3791,7 +3791,7 @@ tbl_background_palette:
 - D 0 - - - 0x00719A 01:918A: C0 72     .word $72C0
 - D 0 - - - 0x00719C 01:918C: C0 72     .word $72C0
 - D 0 - - - 0x00719E 01:918E: C0 72     .word $72C0
-- D 0 - - - 0x0071A0 01:9190: AC 72     .word $72AC ; level 4, map 2 (0x92AC)
+- D 0 - - - 0x0071A0 01:9190: AC 72     .word $72AC ; level 4, map 2 ($92AC)
 - D 0 - - - 0x0071A2 01:9192: AC 72     .word $72AC
 - D 0 - - - 0x0071A4 01:9194: AC 72     .word $72AC
 - D 0 - - - 0x0071A6 01:9196: AC 72     .word $72AC
@@ -3804,7 +3804,7 @@ tbl_background_palette:
 - D 0 - - - 0x0071B4 01:91A4: AC 72     .word $72AC
 - D 0 - - - 0x0071B6 01:91A6: AC 72     .word $72AC
 - D 0 - - - 0x0071B8 01:91A8: AC 72     .word $72AC
-- D 0 - - - 0x0071BA 01:91AA: 98 72     .word $7298 ; level 4, map 3 (0x9298)
+- D 0 - - - 0x0071BA 01:91AA: 98 72     .word $7298 ; level 4, map 3 ($9298)
 - D 0 - - - 0x0071BC 01:91AC: 98 72     .word $7298
 - D 0 - - - 0x0071BE 01:91AE: 98 72     .word $7298
 - D 0 - - - 0x0071C0 01:91B0: 98 72     .word $7298
@@ -3820,7 +3820,7 @@ tbl_background_palette:
 - D 0 - - - 0x0071D4 01:91C4: 98 72     .word $7298
 - D 0 - - - 0x0071D6 01:91C6: 98 72     .word $7298
 - D 0 - - - 0x0071D8 01:91C8: 98 72     .word $7298
-- D 0 - - - 0x0071DA 01:91CA: 84 72     .word $7284 ; level 4, map 4 (0x9284)
+- D 0 - - - 0x0071DA 01:91CA: 84 72     .word $7284 ; level 4, map 4 ($9284)
 - D 0 - - - 0x0071DC 01:91CC: 84 72     .word $7284
 - D 0 - - - 0x0071DE 01:91CE: 84 72     .word $7284
 - D 0 - - - 0x0071E0 01:91D0: 84 72     .word $7284
