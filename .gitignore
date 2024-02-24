@@ -5,5 +5,9 @@
 CHR_screens.chr
 _debug.txt
 _listing.txt
+z_debug.txt
+z_listing.asm
 snaps/
-
+*.nes
+*.nl
+copy_*
