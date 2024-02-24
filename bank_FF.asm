@@ -915,32 +915,20 @@ C - - - - - 0x01C620 07:C610: 8D 0B 07  STA v_OAM_3_4b
 bra_C613_RTS:
 C - - - - - 0x01C623 07:C613: 60        RTS
 
-tbl_C614:
-- D 2 - - - 0x01C624 07:C614: CA        .byte $CA
-tbl_C615:
-- D 2 - - - 0x01C625 07:C615: 20        .byte $20
-- D 2 - - - 0x01C626 07:C616: EA        .byte $EA
-- D 2 - - - 0x01C627 07:C617: 20        .byte $20
-- D 2 - - - 0x01C628 07:C618: 0A        .byte $0A
-- D 2 - - - 0x01C629 07:C619: 21        .byte $21
-- D 2 - - - 0x01C62A 07:C61A: 2A        .byte $2A
-- D 2 - - - 0x01C62B 07:C61B: 21        .byte $21
-- - - - - - 0x01C62C 07:C61C: CA        .byte $CA
-- - - - - - 0x01C62D 07:C61D: 21        .byte $21
-- - - - - - 0x01C62E 07:C61E: EA        .byte $EA
-- - - - - - 0x01C62F 07:C61F: 21        .byte $21
-- D 2 - - - 0x01C630 07:C620: 0A        .byte $0A
-- D 2 - - - 0x01C631 07:C621: 22        .byte $22
-- D 2 - - - 0x01C632 07:C622: 2A        .byte $2A
-- D 2 - - - 0x01C633 07:C623: 22        .byte $22
-- - - - - - 0x01C634 07:C624: CA        .byte $CA
-- - - - - - 0x01C635 07:C625: 22        .byte $22
-- - - - - - 0x01C636 07:C626: EA        .byte $EA
-- - - - - - 0x01C637 07:C627: 22        .byte $22
-- D 2 - - - 0x01C638 07:C628: 0A        .byte $0A
-- D 2 - - - 0x01C639 07:C629: 23        .byte $23
-- D 2 - - - 0x01C63A 07:C62A: 2A        .byte $2A
-- D 2 - - - 0x01C63B 07:C62B: 23        .byte $23
+tbl_C614_PPU_address:
+- D 2 - - - 0x01C624 07:C614: CA 20     .word $20CA ; Name table address, Lupin, 1 message row
+- D 2 - - - 0x01C626 07:C616: EA 20     .word $20EA ; Name table address, Lupin, 2 message row
+- D 2 - - - 0x01C628 07:C618: 0A 21     .word $210A ; Name table address, Lupin, 3 message row
+- D 2 - - - 0x01C62A 07:C61A: 2A 21     .word $212A ; Name table address, Lupin, 4 message row
+- - - - - - 0x01C62C 07:C61C: CA 21     .word $21CA ; Name table address, Jigen, 1 message row
+- - - - - - 0x01C62E 07:C61E: EA 21     .word $21EA ; Name table address, Jigen, 2 message row
+- D 2 - - - 0x01C630 07:C620: 0A 22     .word $220A ; Name table address, Jigen, 3 message row
+- D 2 - - - 0x01C632 07:C622: 2A 22     .word $222A ; Name table address, Jigen, 4 message row
+- - - - - - 0x01C634 07:C624: CA 22     .word $22CA ; Name table address, Goemon, 1 message row
+- - - - - - 0x01C636 07:C626: EA 22     .word $22EA ; Name table address, Goemon, 2 message row
+- D 2 - - - 0x01C638 07:C628: 0A 23     .word $230A ; Name table address, Goemon, 3 message row
+- D 2 - - - 0x01C63A 07:C62A: 2A 23     .word $232A ; Name table address, Goemon, 4 message row
+
 tbl_C62C_y_position_characters:
 - D 2 - - - 0x01C63C 07:C62C: 47        .byte $47   ; Lupin
 - D 2 - - - 0x01C63D 07:C62D: 87        .byte $87   ; Jigen
@@ -1052,11 +1040,10 @@ C - - - - - 0x01C6E7 07:C6D7: 8D B6 06  STA vChrBankData       ;
 C - - - - - 0x01C6EA 07:C6DA: 86 3B     STX vSharedGameStatus  ;
 C - - - - - 0x01C6EC 07:C6DC: 60        RTS                    ;
 
-; In: vTempRowNumber1A
 sub_C6DD:
 C - - - - - 0x01C6ED 07:C6DD: A5 D6     LDA vReasonCharacterChange ;
 C - - - - - 0x01C6EF 07:C6DF: F0 4B     BEQ bra_C72C_skip          ; If vReasonCharacterChange == 'no reason'
-C - - - - - 0x01C6F1 07:C6E1: A5 1A     LDA ram_001A
+C - - - - - 0x01C6F1 07:C6E1: A5 1A     LDA vTempRowNumber1A
 C - - - - - 0x01C6F3 07:C6E3: 29 02     AND #$02
 C - - - - - 0x01C6F5 07:C6E5: D0 01     BNE bra_C6E8
 C - - - - - 0x01C6F7 07:C6E7: 60        RTS
@@ -1078,9 +1065,9 @@ C - - - - - 0x01C709 07:C6F9: 4C 1F C7  JMP loc_C71F
 bra_C6FC:
 C - - - - - 0x01C70C 07:C6FC: A5 D6     LDA vReasonCharacterChange ;
 C - - - - - 0x01C70E 07:C6FE: 10 1F     BPL bra_C71F_skip          ; If vReasonCharacterChange != 'the radio was using'
-C - - - - - 0x01C710 07:C700: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01C712 07:C702: 29 03     AND #$03
-C - - - - - 0x01C714 07:C704: 85 00     STA ram_0000
+C - - - - - 0x01C710 07:C700: A5 5F     LDA vChrLiveStatus         ;
+C - - - - - 0x01C712 07:C702: 29 03     AND #$03                   ;
+C - - - - - 0x01C714 07:C704: 85 00     STA ram_0000               ; $0000 <- the current selected character
 C - - - - - 0x01C716 07:C706: A5 1A     LDA ram_001A
 C - - - - - 0x01C718 07:C708: 4A        LSR
 C - - - - - 0x01C719 07:C709: 4A        LSR
@@ -1095,7 +1082,7 @@ C - - - - - 0x01C722 07:C712: B9 78 94  LDA $9478,Y
 C - - - - - 0x01C725 07:C715: 85 02     STA ram_0002
 C - - - - - 0x01C727 07:C717: B9 79 94  LDA $9479,Y
 C - - - - - 0x01C72A 07:C71A: 85 03     STA ram_0003
-C - - - - - 0x01C72C 07:C71C: 4C 54 C7  JMP loc_C754
+C - - - - - 0x01C72C 07:C71C: 4C 54 C7  JMP loc_C754_render_02_03
 
 bra_C71F_skip:
 loc_C71F:
@@ -1103,7 +1090,7 @@ C D 2 - - - 0x01C72F 07:C71F: B9 60 94  LDA $9460,Y
 C - - - - - 0x01C732 07:C722: 85 02     STA ram_0002
 C - - - - - 0x01C734 07:C724: B9 61 94  LDA $9461,Y
 C - - - - - 0x01C737 07:C727: 85 03     STA ram_0003
-C - - - - - 0x01C739 07:C729: 4C 54 C7  JMP loc_C754
+C - - - - - 0x01C739 07:C729: 4C 54 C7  JMP loc_C754_render_02_03
 
 bra_C72C_skip:
 C - - - - - 0x01C73C 07:C72C: A5 1A     LDA vTempRowNumber1A
@@ -1131,40 +1118,41 @@ C - - - - - 0x01C75A 07:C74A: B9 00 94  LDA $9400,Y
 C - - - - - 0x01C75D 07:C74D: 85 02     STA ram_0002
 C - - - - - 0x01C75F 07:C74F: B9 01 94  LDA $9401,Y
 C - - - - - 0x01C762 07:C752: 85 03     STA ram_0003
-loc_C754:
-C D 2 - - - 0x01C764 07:C754: A0 13     LDY #$13
-@bra_C756_loop:
-C - - - - - 0x01C766 07:C756: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01C768 07:C758: 99 33 06  STA vPpuBufferData,Y
-C - - - - - 0x01C76B 07:C75B: 88        DEY
-C - - - - - 0x01C76C 07:C75C: 10 F8     BPL @bra_C756_loop
-C - - - - - 0x01C76E 07:C75E: A5 1A     LDA ram_001A
-C - - - - - 0x01C770 07:C760: 0A        ASL
-C - - - - - 0x01C771 07:C761: A8        TAY
-C - - - - - 0x01C772 07:C762: B9 14 C6  LDA tbl_C614,Y
-C - - - - - 0x01C775 07:C765: 85 14     STA ram_0014
-C - - - - - 0x01C777 07:C767: B9 15 C6  LDA tbl_C615,Y
-C - - - - - 0x01C77A 07:C76A: 85 15     STA ram_0015
-C - - - - - 0x01C77C 07:C76C: A9 33     LDA #$33
-C - - - - - 0x01C77E 07:C76E: 85 16     STA ram_0016
-C - - - - - 0x01C780 07:C770: A9 06     LDA #$06
-C - - - - - 0x01C782 07:C772: 85 17     STA ram_0017
-C - - - - - 0x01C784 07:C774: A9 14     LDA #$14
-C - - - - - 0x01C786 07:C776: 85 18     STA ram_0018
-C - - - - - 0x01C788 07:C778: 4C 89 D0  JMP loc_D089_render_14_15_16_17_18_v2
+loc_C754_render_02_03:
+C D 2 - - - 0x01C764 07:C754: A0 13     LDY #$13                              ; set loop counter
+@bra_C756_loop:                                                               ; loop by y (14 times)
+C - - - - - 0x01C766 07:C756: B1 02     LDA (ram_0002),Y                      ;
+C - - - - - 0x01C768 07:C758: 99 33 06  STA vPpuBufferData,Y                  ; fill a buffer for rendering
+C - - - - - 0x01C76B 07:C75B: 88        DEY                                   ;
+C - - - - - 0x01C76C 07:C75C: 10 F8     BPL @bra_C756_loop                    ; If Register Y >= 0
+C - - - - - 0x01C76E 07:C75E: A5 1A     LDA vTempRowNumber1A                  ;
+C - - - - - 0x01C770 07:C760: 0A        ASL                                   ; shift, because PPU address contains 2 bytes
+C - - - - - 0x01C771 07:C761: A8        TAY                                   ;
+C - - - - - 0x01C772 07:C762: B9 14 C6  LDA tbl_C614_PPU_address,Y            ;
+C - - - - - 0x01C775 07:C765: 85 14     STA ram_0014                          ; low PPU address
+C - - - - - 0x01C777 07:C767: B9 15 C6  LDA tbl_C614_PPU_address + 1,Y        ;
+C - - - - - 0x01C77A 07:C76A: 85 15     STA ram_0015                          ; high PPU address
+C - - - - - 0x01C77C 07:C76C: A9 33     LDA #$33                              ;
+C - - - - - 0x01C77E 07:C76E: 85 16     STA ram_0016                          ; low address
+C - - - - - 0x01C780 07:C770: A9 06     LDA #$06                              ;
+C - - - - - 0x01C782 07:C772: 85 17     STA ram_0017                          ; high address ($0633)
+C - - - - - 0x01C784 07:C774: A9 14     LDA #$14                              ;
+C - - - - - 0x01C786 07:C776: 85 18     STA ram_0018                          ; the number of the tiles
+C - - - - - 0x01C788 07:C778: 4C 89 D0  JMP loc_D089_render_14_15_16_17_18_v2 ;
 
+; Out: Zero status - 
 sub_C77B:
-C - - - - - 0x01C78B 07:C77B: A5 1A     LDA ram_001A
-C - - - - - 0x01C78D 07:C77D: 4A        LSR
-C - - - - - 0x01C78E 07:C77E: 4A        LSR
-C - - - - - 0x01C78F 07:C77F: AA        TAX
+C - - - - - 0x01C78B 07:C77B: A5 1A     LDA vTempRowNumber1A        ;
+C - - - - - 0x01C78D 07:C77D: 4A        LSR                         ;
+C - - - - - 0x01C78E 07:C77E: 4A        LSR                         ;
+C - - - - - 0x01C78F 07:C77F: AA        TAX                         ; set loop counter (vTempRowNumber1A / 4)
 C - - - - - 0x01C790 07:C780: A5 D4     LDA ram_00D4
 C - - - - - 0x01C792 07:C782: 85 00     STA ram_0000
-@bra_C784_skip:
+@bra_C784_skip:                                                     ; loop by x
 C - - - - - 0x01C794 07:C784: 4A        LSR
 C - - - - - 0x01C795 07:C785: 4A        LSR
-C - - - - - 0x01C796 07:C786: CA        DEX
-C - - - - - 0x01C797 07:C787: 10 FB     BPL @bra_C784_skip
+C - - - - - 0x01C796 07:C786: CA        DEX                         ; decrements loop counter
+C - - - - - 0x01C797 07:C787: 10 FB     BPL @bra_C784_skip          ; If Register X >= 0
 C - - - - - 0x01C799 07:C789: 29 03     AND #$03
 C - - - - - 0x01C79B 07:C78B: C9 03     CMP #$03
 C - - - - - 0x01C79D 07:C78D: 60        RTS
@@ -2566,18 +2554,18 @@ C - - - - - 0x01D096 07:D086: 20 A3 D0  JSR sub_D0A3_prepare_14_15_16_17_18
 ; Or 0x14, 0x15, 0x16, 0x17, 0x18 are prepared outside
 loc_D089_render_14_15_16_17_18_v2:
 sub_D089_render_14_15_16_17_18_v2:
-C D 2 - - - 0x01D099 07:D089: AD 02 20  LDA PPU_STATUS  ; Reset PPU Address
-C - - - - - 0x01D09C 07:D08C: A5 15     LDA ram_0015    ;
-C - - - - - 0x01D09E 07:D08E: 8D 06 20  STA PPU_ADDRESS ;
-C - - - - - 0x01D0A1 07:D091: A5 14     LDA ram_0014    ;
-C - - - - - 0x01D0A3 07:D093: 8D 06 20  STA PPU_ADDRESS ; PPU address is {0x14-0x15}
+C D 2 - - - 0x01D099 07:D089: AD 02 20  LDA PPU_STATUS     ; Reset PPU Address
+C - - - - - 0x01D09C 07:D08C: A5 15     LDA ram_0015       ;
+C - - - - - 0x01D09E 07:D08E: 8D 06 20  STA PPU_ADDRESS    ;
+C - - - - - 0x01D0A1 07:D091: A5 14     LDA ram_0014       ;
+C - - - - - 0x01D0A3 07:D093: 8D 06 20  STA PPU_ADDRESS    ; PPU address is {0x14-0x15}
 C - - - - - 0x01D0A6 07:D096: A0 00     LDY #$00           ; set loop counter
 @bra_D098_loop:                                            ; loop by y
 C - - - - - 0x01D0A8 07:D098: B1 16     LDA (ram_0016),Y   ;
 C - - - - - 0x01D0AA 07:D09A: 8D 07 20  STA PPU_DATA       ;
 C - - - - - 0x01D0AD 07:D09D: C8        INY                ; increments loop counter
 C - - - - - 0x01D0AE 07:D09E: C4 18     CPY ram_0018       ;
-C - - - - - 0x01D0B0 07:D0A0: D0 F6     BNE @bra_D098_loop ; If Register Y != 0x18
+C - - - - - 0x01D0B0 07:D0A0: D0 F6     BNE @bra_D098_loop ; If Register Y != ($0018)
 C - - - - - 0x01D0B2 07:D0A2: 60        RTS                ;
 
 ; Params:

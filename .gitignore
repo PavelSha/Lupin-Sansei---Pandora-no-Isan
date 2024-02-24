@@ -1,7 +1,5 @@
 # Ignore all files without extension.
 # If you need to git-add a file without extension, add -f
-\!lupin.nes
-\!lupin.nes.ram.nl
 CHR_screens.chr
 _debug.txt
 _listing.txt
@@ -9,5 +7,5 @@ z_debug.txt
 z_listing.asm
 snaps/
 *.nes
-*.nl
+/*.nl
 copy_*
