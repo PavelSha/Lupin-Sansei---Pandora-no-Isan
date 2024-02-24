@@ -1,6 +1,7 @@
 .segment "BANK_03"
 .include "bank_ram.inc"
 .include "constants.inc"
+.org $8000  ; for listing file
 ; 0x00C010-0x01000F
 
 .import loc_C420_add_sound_effect ; bank FF
@@ -13244,6 +13245,8 @@ C - - - - - 0x00FE4A 03:BE3A: 60        RTS
 - - - - - - 0x01000D 03:BFFD: 00        .byte $00   ; 
 - - - - - - 0x01000E 03:BFFE: 00        .byte $00   ; 
 - - - - - - 0x01000F 03:BFFF: 00        .byte $00   ; 
+
+.out .sprintf("Free bytes in bank 03:   0x%X [%d]", ($C000 - *), ($C000 - *))
 
 
 

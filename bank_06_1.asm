@@ -1,6 +1,7 @@
 .segment "BANK_06_1"
 .include "bank_ram.inc"
 .include "constants.inc"
+.org $A000  ; for listing file
 ; 0x018010-0x01A00F
 
 .import loc_CE33_add_sprite_magic ; bank FF
@@ -4900,6 +4901,8 @@ C - - - - - 0x019E59 06:BE49: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 - - - - - - 0x01A00D 06:BFFD: 00        .byte $00   ; 
 - - - - - - 0x01A00E 06:BFFE: 00        .byte $00   ; 
 - - - - - - 0x01A00F 06:BFFF: 00        .byte $00   ; 
+
+.out .sprintf("Free bytes in bank 06_1: 0x%X [%d]", ($C000 - *), ($C000 - *))
 
 
 

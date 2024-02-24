@@ -1,5 +1,6 @@
 .segment "BANK_05"
 .include "bank_ram.inc"
+.org $8000  ; for listing file
 ; 0x014010-0x01800F
 
 ; 1 Page
@@ -15890,6 +15891,8 @@
 - - - - - - 0x01800D 05:BFFD: 00        .byte $00   ; 
 - - - - - - 0x01800E 05:BFFE: 00        .byte $00   ; 
 - - - - - - 0x01800F 05:BFFF: 00        .byte $00   ; 
+
+.out .sprintf("Free bytes in bank 05:   0x%X [%d]", ($C000 - *), ($C000 - *))
 
 
 

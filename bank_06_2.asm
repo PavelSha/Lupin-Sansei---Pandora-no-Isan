@@ -1,6 +1,7 @@
 .segment "BANK_06_2"
 .include "bank_ram.inc"
 .include "constants.inc"
+.org $A000  ; for listing file
 ; 0x01A010-0x01C00F
 
 .import tbl_messages ; bank 04 (Page 2)
@@ -5259,6 +5260,8 @@ tbl_BCCF:
 - - - - - - 0x01C00D 06:BFFD: 00        .byte $00   ; 
 - - - - - - 0x01C00E 06:BFFE: 00        .byte $00   ; 
 - - - - - - 0x01C00F 06:BFFF: 00        .byte $00   ; 
+
+.out .sprintf("Free bytes in bank 06_2: 0x%X [%d]", ($C000 - *), ($C000 - *))
 
 
 

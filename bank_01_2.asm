@@ -1,5 +1,6 @@
 .segment "BANK_01_2"
 .include "bank_ram.inc"
+.org $8000  ; for listing file
 ; 0x006010-0x00800F
 
 .export tbl_background_palette
@@ -6819,6 +6820,8 @@ tbl_background_collisions_level1_1:
 - - - - - - 0x00800D 01:9FFD: FF        .byte $FF   ; 
 - - - - - - 0x00800E 01:9FFE: FF        .byte $FF   ; 
 - - - - - - 0x00800F 01:9FFF: FF        .byte $FF   ; 
+
+.out .sprintf("Free bytes in bank 01_2: 0x%X [%d]", ($A000 - *), ($A000 - *))
 
 
 

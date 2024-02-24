@@ -1,5 +1,6 @@
 .segment "BANK_02_2"
 .include "bank_ram.inc"
+.org $A000  ; for listing file
 ; 0x00A010-0x00C00F
 
 - D 0 - - - 0x00A010 02:A000: B6        .byte $B6   ; 
@@ -8021,6 +8022,8 @@
 - - - - - - 0x00C00D 02:BFFD: 00        .byte $00   ; 
 - - - - - - 0x00C00E 02:BFFE: 00        .byte $00   ; 
 - - - - - - 0x00C00F 02:BFFF: 00        .byte $00   ; 
+
+.out .sprintf("Free bytes in bank 02_2: 0x%X [%d]", ($C000 - *), ($C000 - *))
 
 
 

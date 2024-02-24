@@ -1,6 +1,7 @@
 .segment "BANK_02_1"
 .include "bank_ram.inc"
 .include "constants.inc"
+.org $A000  ; for listing file
 ; 0x008010-0x00A00F
 ; Page 1 can transferred in 2 banks at the same time
 
@@ -7827,6 +7828,8 @@ tbl_B2BA:
 - - - - - - 0x00A00D 02:BFFD: 00        .byte $00   ; 
 - - - - - - 0x00A00E 02:BFFE: 00        .byte $00   ; 
 - - - - - - 0x00A00F 02:BFFF: 00        .byte $00   ; 
+
+.out .sprintf("Free bytes in bank 02_1: 0x%X [%d]", ($C000 - *), ($C000 - *))
 
 
 

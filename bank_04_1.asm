@@ -1,5 +1,6 @@
 .segment "BANK_04_1"
 .include "bank_ram.inc"
+.org $8000  ; for listing file
 ; 0x010010-0x01200F
 
 .export addr_tbl_checkpoints
@@ -6549,6 +6550,8 @@ tbl_ptr_corridors_level4_map4_f4_f5:
 - - - - - - 0x01200D 04:9FFD: 00        .byte $00   ; 
 - - - - - - 0x01200E 04:9FFE: 00        .byte $00   ; 
 - - - - - - 0x01200F 04:9FFF: 00        .byte $00   ; 
+
+.out .sprintf("Free bytes in bank 04_1: 0x%X [%d]", ($A000 - *), ($A000 - *))
 
 
 

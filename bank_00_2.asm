@@ -1,5 +1,6 @@
 .segment "BANK_00_2"
 .include "bank_ram.inc"
+.org $8000  ; for listing file
 ; 0x002010-0x00400F
 
 ; screen 2, 6, 3 (level 3.X), horizontally - y axis, vertically - x axis
@@ -2974,6 +2975,8 @@
 - - - - - - 0x00400D 00:9FFD: B4        .byte $B4   ; 
 - - - - - - 0x00400E 00:9FFE: B6        .byte $B6   ; 
 - - - - - - 0x00400F 00:9FFF: B7        .byte $B7   ; 
+
+.out .sprintf("Free bytes in bank 00_2: 0x%X [%d]", ($A000 - *), ($A000 - *))
 
 
 

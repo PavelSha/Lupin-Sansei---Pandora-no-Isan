@@ -1,5 +1,6 @@
 .segment "BANK_04_2"
 .include "bank_ram.inc"
+.org $8000  ; for listing file
 ; 0x012010-0x01400F
 
 .export tbl_messages
@@ -3706,6 +3707,8 @@ tbl_ptr_rooms3_5_with_NPCs:
 - - - - - - 0x01400D 04:9FFD: 00        .byte $00   ; 
 - - - - - - 0x01400E 04:9FFE: 00        .byte $00   ; 
 - - - - - - 0x01400F 04:9FFF: 00        .byte $00   ; 
+
+.out .sprintf("Free bytes in bank 04_2: 0x%X [%d]", ($A000 - *), ($A000 - *))
 
 
 

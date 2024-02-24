@@ -1,5 +1,6 @@
 .segment "BANK_00_1"
 .include "bank_ram.inc"
+.org $8000  ; for listing file
 ; 0x000010-0x00200F
 
 .export tbl_background_screens
@@ -2696,6 +2697,8 @@ tbl_background_screens_level4_map4_f4_f5:
 - - - - - - 0x002004 00:9FF4: FF        .byte $FF, $FF, $FF, $FF
 - - - - - - 0x002008 00:9FF8: FF        .byte $FF, $FF, $FF, $FF
 - - - - - - 0x00200C 00:9FFC: FF        .byte $FF, $FF, $FF, $FF
+
+.out .sprintf("Free bytes in bank 00_1: 0x%X [%d]", ($A000 - *), ($A000 - *))
 
 
 

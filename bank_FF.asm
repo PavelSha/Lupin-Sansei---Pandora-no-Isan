@@ -1,6 +1,7 @@
 .segment "BANK_FF"
 .include "bank_ram.inc"
 .include "constants.inc"
+.org $C000  ; for listing file
 ; 0x01C010-0x02000F
 
 .import addr_tbl_checkpoints               ; bank 04 (Page 1)
@@ -10195,6 +10196,8 @@ C - - - - - 0x020003 07:FFF3: 4C 80 AD  JMP loc_AD80_activate_sound_manager
 - - - - - - 0x020007 07:FFF7: 00        .byte $00   ; not used ???
 - - - - - - 0x020008 07:FFF8: 00        .byte $00   ; not used ???
 - - - - - - 0x020009 07:FFF9: 00        .byte $00   ; not used ???
+
+.out .sprintf("Free bytes in bank FF:   0x%X [%d]", ($FFFA - *), ($FFFA - *))
 
 .segment "VECTORS"
 - D 3 - - - 0x02000A 07:FFFA: 4E ED     .word vec_ED4E_NMI
