@@ -19,6 +19,7 @@
 .import number_of_briefcases_on_the_level  ; bank 04 (Page 2)
 .import tbl_ptr_briefcases_on_the_level    ; bank 04 (Page 2)
 .import loc_AD80_activate_sound_manager    ; bank 02 (Page 1)
+.import tbl_select_characters_dialog       ; bank 02 (Page 1)
 .import loc_B234_add_message               ; bank 06 (Page 2)
 .import sub_B234_add_message               ; bank 06 (Page 2)
 .import loc_B255_display_message_by_letter ; bank 06 (Page 2)
@@ -47,6 +48,8 @@
 .export sub_C4F5_selectAllChrBanks
 .export tbl_C1CA_checkpoint_on_start_levels
 .export sub_CE5A_render_character
+
+BANK02_OFFSET = -8192
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI ; disable interrupts
@@ -990,11 +993,11 @@ C - - - - - 0x01C691 07:C681: 20 68 C6  JSR sub_C668_render_14_15_16_17_18_loop 
 C - - - - - 0x01C694 07:C684: 20 52 C6  JSR sub_C652
 C - - - - - 0x01C697 07:C687: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1           ;
 C - - - - - 0x01C69A 07:C68A: A9 0B     LDA #$0B                                ; CONSTANT - the number of rows containing message symbols
-C - - - - - 0x01C69C 07:C68C: 85 1A     STA vTempRowNumber1A                    ;
-bra_C68E_loop:
-C - - - - - 0x01C69E 07:C68E: 20 DD C6  JSR sub_C6DD
-C - - - - - 0x01C6A1 07:C691: C6 1A     DEC ram_001A
-C - - - - - 0x01C6A3 07:C693: 10 F9     BPL bra_C68E_loop
+C - - - - - 0x01C69C 07:C68C: 85 1A     STA vTempRowNumber1A                    ; set loop counter
+bra_C68E_loop:                                                                  ; loop by vTempRowNumber1A
+C - - - - - 0x01C69E 07:C68E: 20 DD C6  JSR sub_C6DD_render_row
+C - - - - - 0x01C6A1 07:C691: C6 1A     DEC vTempRowNumber1A                    ; decrement loop counter
+C - - - - - 0x01C6A3 07:C693: 10 F9     BPL bra_C68E_loop                       ; If vTempRowNumber1A >= 0x00
 C - - - - - 0x01C6A5 07:C695: A9 00     LDA #$00                       ;
 C - - - - - 0x01C6A7 07:C697: 85 19     STA vRenderActive              ; put active
 C - - - - - 0x01C6A9 07:C699: 8D 31 06  STA vHighPpuAddress            ; clear
@@ -1040,7 +1043,7 @@ C - - - - - 0x01C6E7 07:C6D7: 8D B6 06  STA vChrBankData       ;
 C - - - - - 0x01C6EA 07:C6DA: 86 3B     STX vSharedGameStatus  ;
 C - - - - - 0x01C6EC 07:C6DC: 60        RTS                    ;
 
-sub_C6DD:
+sub_C6DD_render_row:
 C - - - - - 0x01C6ED 07:C6DD: A5 D6     LDA vReasonCharacterChange ;
 C - - - - - 0x01C6EF 07:C6DF: F0 4B     BEQ bra_C72C_skip          ; If vReasonCharacterChange == 'no reason'
 C - - - - - 0x01C6F1 07:C6E1: A5 1A     LDA vTempRowNumber1A
@@ -1093,31 +1096,31 @@ C - - - - - 0x01C737 07:C727: 85 03     STA ram_0003
 C - - - - - 0x01C739 07:C729: 4C 54 C7  JMP loc_C754_render_02_03
 
 bra_C72C_skip:
-C - - - - - 0x01C73C 07:C72C: A5 1A     LDA vTempRowNumber1A
-C - - - - - 0x01C73E 07:C72E: 29 02     AND #$02
-C - - - - - 0x01C740 07:C730: D0 06     BNE bra_C738_skip
+C - - - - - 0x01C73C 07:C72C: A5 1A     LDA vTempRowNumber1A    ;
+C - - - - - 0x01C73E 07:C72E: 29 02     AND #$02                ;
+C - - - - - 0x01C740 07:C730: D0 06     BNE bra_C738_internal_render_row ; Branch If vTempRowNumber1A = 0x02, 0x03, 0x06, 0x07, 0x0A, 0x0B
 C - - - - - 0x01C742 07:C732: 20 7B C7  JSR sub_C77B
-C - - - - - 0x01C745 07:C735: D0 01     BNE bra_C738_skip
+C - - - - - 0x01C745 07:C735: D0 01     BNE bra_C738_internal_render_row
 C - - - - - 0x01C747 07:C737: 60        RTS
 
-bra_C738_skip:
-C - - - - - 0x01C748 07:C738: A5 5E     LDA v_no_level
-C - - - - - 0x01C74A 07:C73A: 0A        ASL
-C - - - - - 0x01C74B 07:C73B: 0A        ASL
-C - - - - - 0x01C74C 07:C73C: 0A        ASL
-C - - - - - 0x01C74D 07:C73D: 85 00     STA ram_0000
-C - - - - - 0x01C74F 07:C73F: 0A        ASL
-C - - - - - 0x01C750 07:C740: 18        CLC
-C - - - - - 0x01C751 07:C741: 65 00     ADC ram_0000
-C - - - - - 0x01C753 07:C743: 18        CLC
-C - - - - - 0x01C754 07:C744: 65 1A     ADC ram_001A
-C - - - - - 0x01C756 07:C746: 18        CLC
-C - - - - - 0x01C757 07:C747: 65 1A     ADC ram_001A
-C - - - - - 0x01C759 07:C749: A8        TAY
-C - - - - - 0x01C75A 07:C74A: B9 00 94  LDA $9400,Y
-C - - - - - 0x01C75D 07:C74D: 85 02     STA ram_0002
-C - - - - - 0x01C75F 07:C74F: B9 01 94  LDA $9401,Y
-C - - - - - 0x01C762 07:C752: 85 03     STA ram_0003
+bra_C738_internal_render_row:
+C - - - - - 0x01C748 07:C738: A5 5E     LDA v_no_level                                          ;
+C - - - - - 0x01C74A 07:C73A: 0A        ASL                                                     ;
+C - - - - - 0x01C74B 07:C73B: 0A        ASL                                                     ;
+C - - - - - 0x01C74C 07:C73C: 0A        ASL                                                     ; no * 8
+C - - - - - 0x01C74D 07:C73D: 85 00     STA ram_0000                                            ;
+C - - - - - 0x01C74F 07:C73F: 0A        ASL                                                     ;
+C - - - - - 0x01C750 07:C740: 18        CLC                                                     ;
+C - - - - - 0x01C751 07:C741: 65 00     ADC ram_0000                                            ;
+C - - - - - 0x01C753 07:C743: 18        CLC                                                     ;
+C - - - - - 0x01C754 07:C744: 65 1A     ADC vTempRowNumber1A                                    ;
+C - - - - - 0x01C756 07:C746: 18        CLC                                                     ;
+C - - - - - 0x01C757 07:C747: 65 1A     ADC vTempRowNumber1A                                    ;
+C - - - - - 0x01C759 07:C749: A8        TAY                                                     ; Prepares the index by the row and the number of level
+C - - - - - 0x01C75A 07:C74A: B9 00 94  LDA tbl_select_characters_dialog + BANK02_OFFSET,Y      ;
+C - - - - - 0x01C75D 07:C74D: 85 02     STA ram_0002                                            ; low address
+C - - - - - 0x01C75F 07:C74F: B9 01 94  LDA tbl_select_characters_dialog + BANK02_OFFSET + 1,Y  ;
+C - - - - - 0x01C762 07:C752: 85 03     STA ram_0003                                            ; high address
 loc_C754_render_02_03:
 C D 2 - - - 0x01C764 07:C754: A0 13     LDY #$13                              ; set loop counter
 @bra_C756_loop:                                                               ; loop by y (14 times)

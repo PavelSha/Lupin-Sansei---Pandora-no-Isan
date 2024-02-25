@@ -443,8 +443,18 @@ $C5D8##Branch If a last played level is 0.
 $C5EC#bra_C5EC_skip#
 $C5EE#bra_C5EE_skip#
 $C613#bra_C613_RTS#
-$C614#tbl_C614#
-$C615#tbl_C615#
+$C614#tbl_C614_PPU_address#Name table address, Lupin, 1 message row
+$C616##Name table address, Lupin, 2 message row
+$C618##Name table address, Lupin, 3 message row
+$C61A##Name table address, Lupin, 4 message row
+$C61C##Name table address, Jigen, 1 message row
+$C61E##Name table address, Jigen, 2 message row
+$C620##Name table address, Jigen, 3 message row
+$C622##Name table address, Jigen, 4 message row
+$C624##Name table address, Goemon, 1 message row
+$C626##Name table address, Goemon, 2 message row
+$C628##Name table address, Goemon, 3 message row
+$C62A##Name table address, Goemon, 4 message row
 $C62C#tbl_C62C_y_position_characters#Lupin
 $C62D##Jigen
 $C62E##Goemon
@@ -478,7 +488,11 @@ $C67D##--NO-COMMENT--
 $C67F##set loop counter
 $C681##--NO-COMMENT--
 $C687##--NO-COMMENT--
+$C68A##CONSTANT - the number of rows containing message symbols
+$C68C##set loop counter
 $C68E#bra_C68E_loop#
+$C691##decrement loop counter
+$C693##If vTempRowNumber1A >= 0x00
 $C695##--NO-COMMENT--
 $C697##put active
 $C699##clear
@@ -513,19 +527,62 @@ $C6D6##For vSharedGameStatus to set 'A screen with the message'
 $C6D7#bra_C6D7_skip#--NO-COMMENT--
 $C6DA##--NO-COMMENT--
 $C6DC##--NO-COMMENT--
-$C6DD#sub_C6DD#--NO-COMMENT--
+$C6DD#sub_C6DD_render_row#--NO-COMMENT--
 $C6DF##If vReasonCharacterChange == 'no reason'
 $C6E8#bra_C6E8#
 $C6FC#bra_C6FC#--NO-COMMENT--
 $C6FE##If vReasonCharacterChange != 'the radio was using'
+$C700##--NO-COMMENT--
+$C702##--NO-COMMENT--
+$C704##$0000 <- the current selected character
 $C712#bra_C712#
 $C71F#loc_C71F#
-$C72C#bra_C72C_skip#
-$C738#bra_C738#
-$C754#loc_C754#
-$C756#bra_C756_repeat#
-$C77B#sub_C77B#
-$C784#bra_C784#
+$C72C#bra_C72C_skip#--NO-COMMENT--
+$C72E##--NO-COMMENT--
+$C730##Branch If vTempRowNumber1A = 0x02, 0x03, 0x06, 0x07, 0x0A, 0x0B
+$C738#bra_C738_internal_render_row#--NO-COMMENT--
+$C73A##--NO-COMMENT--
+$C73B##--NO-COMMENT--
+$C73C##no * 8
+$C73D##--NO-COMMENT--
+$C73F##--NO-COMMENT--
+$C740##--NO-COMMENT--
+$C741##--NO-COMMENT--
+$C743##--NO-COMMENT--
+$C744##--NO-COMMENT--
+$C746##--NO-COMMENT--
+$C747##--NO-COMMENT--
+$C749##Prepares the index by the row and the number of level
+$C74A##--NO-COMMENT--
+$C74D##low address
+$C74F##--NO-COMMENT--
+$C752##high address
+$C754#loc_C754_render_02_03#set loop counter
+$C756#bra_C756_loop#--NO-COMMENT--
+$C758##fill a buffer for rendering
+$C75B##--NO-COMMENT--
+$C75C##If Register Y >= 0
+$C75E##--NO-COMMENT--
+$C760##shift, because PPU address contains 2 bytes
+$C761##--NO-COMMENT--
+$C762##--NO-COMMENT--
+$C765##low PPU address
+$C767##--NO-COMMENT--
+$C76A##high PPU address
+$C76C##--NO-COMMENT--
+$C76E##low address
+$C770##--NO-COMMENT--
+$C772##high address ($0633)
+$C774##--NO-COMMENT--
+$C776##the number of the tiles
+$C778##--NO-COMMENT--
+$C77B#sub_C77B#--NO-COMMENT--
+$C77D##--NO-COMMENT--
+$C77E##--NO-COMMENT--
+$C77F##set loop counter (vTempRowNumber1A / 4)
+$C784#bra_C784_skip#
+$C786##decrements loop counter
+$C787##If Register X >= 0
 $C78E#sub_C78E#--NO-COMMENT--
 $C791##If test mode is disable
 $C7A2##The enemies don't damage
@@ -1149,7 +1206,7 @@ $D098#bra_D098_loop#--NO-COMMENT--
 $D09A##--NO-COMMENT--
 $D09D##increments loop counter
 $D09E##--NO-COMMENT--
-$D0A0##If Register Y != 0x18
+$D0A0##If Register Y != ($0018)
 $D0A2##--NO-COMMENT--
 $D0A3#sub_D0A3_prepare_14_15_16_17_18#--NO-COMMENT--
 $D0A5##--NO-COMMENT--
@@ -2462,8 +2519,8 @@ $EF96#sub_EF96#
 $EF9A#clear_loop#0x0209-0x02FF in 0
 $EFA5#sub_EFA5#
 $EFAE#bra_EFAE_repeat#
-$EFCD#room_loop#
-$EFE2#briefcase_loop#
+$EFCD#bra_room_loop#
+$EFE2#bra_briefcase_loop#
 $EFFC#sub_EFFC#set loop counter
 $EFFE##set assigning value
 $F000#bra_F000_loop#clear items

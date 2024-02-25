@@ -1,23 +1,22 @@
 ### Уровень 1.0
 
-|ID|Tile|ID|Tile|
-|---|---|---|---|
-|0x00| ![00](../images/bg_level_1_0/00.bmp) |0x10| ![10](../images/bg_level_1_0/10.bmp) |
-|0x01| ![01](../images/bg_level_1_0/01.bmp) |0x11| ![11](../images/bg_level_1_0/11.bmp) |
-|0x02| ![02](../images/bg_level_1_0/02.bmp) |0x12| ![12](../images/bg_level_1_0/12.bmp) |
-|0x03| ![03](../images/bg_level_1_0/03.bmp) |0x13| ![13](../images/bg_level_1_0/13.bmp) |
-|0x04| ![04](../images/bg_level_1_0/04.bmp) |0x14| ![14](../images/bg_level_1_0/14.bmp) |
-|0x05| ![05](../images/bg_level_1_0/05.bmp) |0x15| ![15](../images/bg_level_1_0/15.bmp) |
-|0x06| ![06](../images/bg_level_1_0/06.bmp) |0x16| ![16](../images/bg_level_1_0/16.bmp) |
-|0x07| ![07](../images/bg_level_1_0/07.bmp) |0x17| ![17](../images/bg_level_1_0/17.bmp) |
-|0x08| ![08](../images/bg_level_1_0/08.bmp) |0x18| ![18](../images/bg_level_1_0/18.bmp) |
-|0x09| ![09](../images/bg_level_1_0/09.bmp) |0x19| ![19](../images/bg_level_1_0/19.bmp) |
-|0x0A| ![0A](../images/bg_level_1_0/0a.bmp) |0x1A| ![1A](../images/bg_level_1_0/1a.bmp) |
-|0x0B| ![0B](../images/bg_level_1_0/0b.bmp) |0x1B| ![1B](../images/bg_level_1_0/1b.bmp) |
-|0x0C| ![0C](../images/bg_level_1_0/0c.bmp) |0x1C| ![1C](../images/bg_level_1_0/1c.bmp) |
-|0x0D| ![0D](../images/bg_level_1_0/0d.bmp) |0x1D| ![1D](../images/bg_level_1_0/1d.bmp) |
-|0x0E| ![0E](../images/bg_level_1_0/0e.bmp) |0x1E| ![1E](../images/bg_level_1_0/1e.bmp) |
-|0x0F| ![0F](../images/bg_level_1_0/0f.bmp) |0x1F| ![1F](../images/bg_level_1_0/1f.bmp) |
-|0x20| ![20](../images/bg_level_1_0/20.bmp) |
-|...|...|
-|0xAB|   |
+|ID|MT|ID|MT|ID|MT|ID|MT|ID|MT|ID|MT|ID|MT|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|0x00| ![00](../images/bg_level_1_0/00.bmp) |0x10| ![10](../images/bg_level_1_0/10.bmp) |0x20| ![20](../images/bg_level_1_0/20.bmp) |0x30| ![30](../images/bg_level_1_0/30.bmp) |0x40| ![40](../images/bg_level_1_0/40.bmp) |0x50| ![50](../images/bg_level_1_0/50.bmp) |0x60| ![60](../images/bg_level_1_0/60.bmp) |
+|0x01| ![01](../images/bg_level_1_0/01.bmp) |0x11| ![11](../images/bg_level_1_0/11.bmp) |0x21| ![21](../images/bg_level_1_0/21.bmp) |0x31| ![31](../images/bg_level_1_0/31.bmp) |0x41| ![41](../images/bg_level_1_0/41.bmp) |0x51| ![51](../images/bg_level_1_0/51.bmp) |0x61| ![61](../images/bg_level_1_0/61.bmp) |
+|0x02| ![02](../images/bg_level_1_0/02.bmp) |0x12| ![12](../images/bg_level_1_0/12.bmp) |0x22| ![22](../images/bg_level_1_0/22.bmp) |0x32| ![32](../images/bg_level_1_0/32.bmp) |0x42| ![42](../images/bg_level_1_0/42.bmp) |0x52| ![52](../images/bg_level_1_0/52.bmp) |0x62| ![62](../images/bg_level_1_0/62.bmp) |
+|0x03| ![03](../images/bg_level_1_0/03.bmp) |0x13| ![13](../images/bg_level_1_0/13.bmp) |0x23| ![23](../images/bg_level_1_0/23.bmp) |0x33| ![33](../images/bg_level_1_0/33.bmp) |0x43| ![43](../images/bg_level_1_0/43.bmp) |0x53| ![53](../images/bg_level_1_0/53.bmp) |0x63| ![63](../images/bg_level_1_0/63.bmp) |
+|0x04| ![04](../images/bg_level_1_0/04.bmp) |0x14| ![14](../images/bg_level_1_0/14.bmp) |0x24| ![24](../images/bg_level_1_0/24.bmp) |0x34| ![34](../images/bg_level_1_0/34.bmp) |0x44| ![44](../images/bg_level_1_0/44.bmp) |0x54| ![54](../images/bg_level_1_0/54.bmp) |0x64| ![64](../images/bg_level_1_0/64.bmp) |
+|0x05| ![05](../images/bg_level_1_0/05.bmp) |0x15| ![15](../images/bg_level_1_0/15.bmp) |0x25| ![25](../images/bg_level_1_0/25.bmp) |0x35| ![35](../images/bg_level_1_0/35.bmp) |0x45| ![45](../images/bg_level_1_0/45.bmp) |0x55| ![55](../images/bg_level_1_0/55.bmp) |0x65| ![65](../images/bg_level_1_0/65.bmp) |
+|0x06| ![06](../images/bg_level_1_0/06.bmp) |0x16| ![16](../images/bg_level_1_0/16.bmp) |0x26| ![26](../images/bg_level_1_0/26.bmp) |0x36| ![36](../images/bg_level_1_0/36.bmp) |0x46| ![46](../images/bg_level_1_0/46.bmp) |0x56| ![56](../images/bg_level_1_0/56.bmp) |0x66| ![66](../images/bg_level_1_0/66.bmp) |
+|0x07| ![07](../images/bg_level_1_0/07.bmp) |0x17| ![17](../images/bg_level_1_0/17.bmp) |0x27| ![27](../images/bg_level_1_0/27.bmp) |0x37| ![37](../images/bg_level_1_0/37.bmp) |0x47| ![47](../images/bg_level_1_0/47.bmp) |0x57| ![57](../images/bg_level_1_0/57.bmp) |0x67| ![67](../images/bg_level_1_0/67.bmp) |
+|0x08| ![08](../images/bg_level_1_0/08.bmp) |0x18| ![18](../images/bg_level_1_0/18.bmp) |0x28| ![28](../images/bg_level_1_0/28.bmp) |0x38| ![38](../images/bg_level_1_0/38.bmp) |0x48| ![48](../images/bg_level_1_0/48.bmp) |0x58| ![58](../images/bg_level_1_0/58.bmp) |0x68| ![68](../images/bg_level_1_0/68.bmp) |
+|0x09| ![09](../images/bg_level_1_0/09.bmp) |0x19| ![19](../images/bg_level_1_0/19.bmp) |0x29| ![29](../images/bg_level_1_0/29.bmp) |0x39| ![39](../images/bg_level_1_0/39.bmp) |0x49| ![49](../images/bg_level_1_0/49.bmp) |0x59| ![59](../images/bg_level_1_0/59.bmp) |0x69| ![69](../images/bg_level_1_0/69.bmp) |
+|0x0A| ![0A](../images/bg_level_1_0/0a.bmp) |0x1A| ![1A](../images/bg_level_1_0/1a.bmp) |0x2A| ![2A](../images/bg_level_1_0/2a.bmp) |0x3A| ![3A](../images/bg_level_1_0/3a.bmp) |0x4A| ![4A](../images/bg_level_1_0/4a.bmp) |0x5A| ![5A](../images/bg_level_1_0/5a.bmp) |0x6A| ![6A](../images/bg_level_1_0/6a.bmp) |
+|0x0B| ![0B](../images/bg_level_1_0/0b.bmp) |0x1B| ![1B](../images/bg_level_1_0/1b.bmp) |0x2B| ![2B](../images/bg_level_1_0/2b.bmp) |0x3B| ![3B](../images/bg_level_1_0/3b.bmp) |0x4B| ![4B](../images/bg_level_1_0/4b.bmp) |0x5B| ![5B](../images/bg_level_1_0/5b.bmp) |0x6B| ![6B](../images/bg_level_1_0/6b.bmp) |
+|0x0C| ![0C](../images/bg_level_1_0/0c.bmp) |0x1C| ![1C](../images/bg_level_1_0/1c.bmp) |0x2C| ![2C](../images/bg_level_1_0/2c.bmp) |0x3C| ![3C](../images/bg_level_1_0/3c.bmp) |0x4C| ![4C](../images/bg_level_1_0/4c.bmp) |0x5C| ![5C](../images/bg_level_1_0/5c.bmp) |0x6C| ![6C](../images/bg_level_1_0/6c.bmp) |
+|0x0D| ![0D](../images/bg_level_1_0/0d.bmp) |0x1D| ![1D](../images/bg_level_1_0/1d.bmp) |0x2D| ![2D](../images/bg_level_1_0/2d.bmp) |0x3D| ![3D](../images/bg_level_1_0/3d.bmp) |0x4D| ![4D](../images/bg_level_1_0/4d.bmp) |0x5D| ![5D](../images/bg_level_1_0/5d.bmp) |0x6D| ![6D](../images/bg_level_1_0/6d.bmp) |
+|0x0E| ![0E](../images/bg_level_1_0/0e.bmp) |0x1E| ![1E](../images/bg_level_1_0/1e.bmp) |0x2E| ![2E](../images/bg_level_1_0/2e.bmp) |0x3E| ![3E](../images/bg_level_1_0/3e.bmp) |0x4E| ![4E](../images/bg_level_1_0/4e.bmp) |0x5E| ![5E](../images/bg_level_1_0/5e.bmp) |0x6E| ![6E](../images/bg_level_1_0/6e.bmp) |
+|0x0F| ![0F](../images/bg_level_1_0/0f.bmp) |0x1F| ![1F](../images/bg_level_1_0/1f.bmp) |0x2F| ![2F](../images/bg_level_1_0/2f.bmp) |0x3F| ![3F](../images/bg_level_1_0/3f.bmp) |0x4F| ![4F](../images/bg_level_1_0/4f.bmp) |0x5F| ![5F](../images/bg_level_1_0/5f.bmp) |0x6F| ![6F](../images/bg_level_1_0/6f.bmp) |
+|...|...|...|...|...|...|...|
+|0xAB|   |   |   |   |   |   |

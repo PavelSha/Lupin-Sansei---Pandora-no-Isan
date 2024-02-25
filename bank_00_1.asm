@@ -17,13 +17,13 @@
 - D 0 - I - 0x000018 00:8008: C0        .byte $C0, $08   ; bank 00, page 01, $88C0
 - D 0 - I - 0x00001A 00:800A: 38        .byte $38, $14   ; bank 00, page 01, $9438
 - D 0 - I - 0x00001C 00:800C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- - - - - - 0x00001E 00:800E: AB 07     .word $07AB      ; $87AB
+- D - - - - 0x00001E 00:800E: AB 07     .word $07AB      ; $87AB
 
 ; screen 2 (level 3.0)
 - D 0 - I - 0x000020 00:8010: 80        .byte $80, $09   ; bank 00, page 01, $8980
 - D 0 - I - 0x000022 00:8012: 70        .byte $70, $14   ; bank 00, page 01, $9470
 - D 0 - I - 0x000024 00:8014: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- - - - - - 0x000026 00:8016: AB 07     .word $07AB      ; $87AB
+- D - - - - 0x000026 00:8016: AB 07     .word $07AB      ; $87AB
 
 ; screen 3 (level 3.0)
 - D 0 - I - 0x000028 00:8018: 40        .byte $40, $0A   ; bank 00, page 01, $8A40
@@ -41,7 +41,7 @@
 - D 0 - I - 0x000038 00:8028: C0        .byte $C0, $0B   ; bank 00, page 01, $8BC0
 - D 0 - I - 0x00003A 00:802A: 18        .byte $18, $15   ; bank 00, page 01, $9518
 - D 0 - I - 0x00003C 00:802C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- - - - - - 0x00003E 00:802E: AB 07     .word $07AB      ; $87AB
+- D - - - - 0x00003E 00:802E: AB 07     .word $07AB      ; $87AB
 
 ; screen 6 (level 3.0)
 - D 0 - I - 0x000040 00:8030: 80        .byte $80, $0C   ; bank 00, page 01, $8C80
@@ -65,19 +65,19 @@
 - D 0 - I - 0x000058 00:8048: C0        .byte $C0, $0E   ; bank 00, page 01, $8EC0
 - D 0 - I - 0x00005A 00:804A: F8        .byte $F8, $15   ; bank 00, page 01, $95F8
 - D 0 - I - 0x00005C 00:804C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- - - - - - 0x00005E 00:804E: AB 07     .word $07AB      ; $87AB
+- D - - - - 0x00005E 00:804E: AB 07     .word $07AB      ; $87AB
 
 ; screen A (level 3.0)
 - D 0 - I - 0x000060 00:8050: 80        .byte $80, $0F   ; bank 00, page 01, $8F80
 - D 0 - I - 0x000062 00:8052: 30        .byte $30, $16   ; bank 00, page 01, $9630
 - D 0 - I - 0x000064 00:8054: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- - - - - - 0x000066 00:8056: AB 07     .word $07AB      ; $87AB
+- D - - - - 0x000066 00:8056: AB 07     .word $07AB      ; $87AB
 
 ; screen B (level 3.0)
 - D 0 - I - 0x000068 00:8058: 40        .byte $40, $10   ; bank 00, page 01, $9040
 - D 0 - I - 0x00006A 00:805A: 68        .byte $68, $16   ; bank 00, page 01, $9668
 - D 0 - I - 0x00006C 00:805C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- - - - - - 0x00006E 00:805E: AB 07     .word $07AB      ; $87AB
+- D - - - - 0x00006E 00:805E: AB 07     .word $07AB      ; $87AB
 
 ; screen C (level 3.0)
 - D 0 - I - 0x000070 00:8060: 00        .byte $00, $11   ; bank 00, page 01, $9100
@@ -89,7 +89,7 @@
 - D 0 - I - 0x000078 00:8068: C0        .byte $C0, $11   ; bank 00, page 01, $91C0
 - D 0 - I - 0x00007A 00:806A: D8        .byte $D8, $16   ; bank 00, page 01, $96D8
 - D 0 - I - 0x00007C 00:806C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- - - - - - 0x00007E 00:806E: AB 07     .word $07AB      ; $87AB
+- D - - - - 0x00007E 00:806E: AB 07     .word $07AB      ; $87AB
 
 ; screen E (level 3.0)
 - D 0 - I - 0x000080 00:8070: 80        .byte $80, $12   ; bank 00, page 01, $9280
@@ -101,7 +101,7 @@
 - D 0 - I - 0x000088 00:8078: 40        .byte $40, $13   ; bank 00, page 01, $9340
 - D 0 - I - 0x00008A 00:807A: 48        .byte $48, $17   ; bank 00, page 01, $9748
 - D 0 - I - 0x00008C 00:807C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- - - - - - 0x00008E 00:807E: AB 07     .word $07AB      ; $87AB
+- D - - - - 0x00008E 00:807E: AB 07     .word $07AB      ; $87AB
 
 ; screen 2, 6, 3 (level 3.X)
 - D 0 - I - 0x000090 00:8080: 00        .byte $00, $20   ; bank 00, page 02, $8000
@@ -191,7 +191,7 @@
 - D 0 - I - 0x000100 00:80F0: 80        .byte $80, $2D   ; bank 00, page 02, $8D80
 - D 0 - I - 0x000102 00:80F2: 60        .byte $60, $37   ; bank 00, page 02, $9760
 - D 0 - I - 0x000104 00:80F4: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- - - - - - 0x000106 00:80F6: B1 07     .word $07B1      ; $87B1
+- D - - - - 0x000106 00:80F6: B1 07     .word $07B1      ; $87B1
 
 ; screen 5 (level 2, outside)
 - D 0 - I - 0x000108 00:80F8: 40        .byte $40, $2E   ; bank 00, page 02, $8E40
@@ -209,19 +209,19 @@
 - D 0 - I - 0x000118 00:8108: C0        .byte $C0, $2F   ; bank 00, page 02, $8FC0
 - D 0 - I - 0x00011A 00:810A: 08        .byte $08, $38   ; bank 00, page 02, $9808
 - D 0 - I - 0x00011C 00:810C: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- - - - - - 0x00011E 00:810E: B1 07     .word $07B1      ; $87B1
+- D - - - - 0x00011E 00:810E: B1 07     .word $07B1      ; $87B1
 
 ; screen 8 (level 2, outside)
 - D 0 - I - 0x000120 00:8110: 80        .byte $80, $30   ; bank 00, page 02, $9080
 - D 0 - I - 0x000122 00:8112: 40        .byte $40, $38   ; bank 00, page 02, $9840
 - D 0 - I - 0x000124 00:8114: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- - - - - - 0x000126 00:8116: B1 07     .word $07B1      ; $87B1
+- D - - - - 0x000126 00:8116: B1 07     .word $07B1      ; $87B1
 
 ; screen 9 (level 2, outside)
 - D 0 - I - 0x000128 00:8118: 40        .byte $40, $31   ; bank 00, page 02, $9140
 - D 0 - I - 0x00012A 00:811A: 78        .byte $78, $38   ; bank 00, page 02, $9878
 - D 0 - I - 0x00012C 00:811C: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- - - - - - 0x00012E 00:811E: B1 07     .word $07B1      ; $87B1
+- D - - - - 0x00012E 00:811E: B1 07     .word $07B1      ; $87B1
 
 ; screen A (level 2, outside)
 - D 0 - I - 0x000130 00:8120: 00        .byte $00, $32   ; bank 00, page 02, $9200
@@ -347,25 +347,25 @@
 - D 0 - I - 0x0001C8 00:81B8: C0        .byte $C0, $50   ; bank 01, page 01, $90C0
 - D 0 - I - 0x0001CA 00:81BA: 38        .byte $38, $5C   ; bank 01, page 01, $9C38
 - D 0 - I - 0x0001CC 00:81BC: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- - - - - - 0x0001CE 00:81BE: B7 07     .word $07B7      ; $87B7
+- D - - - - 0x0001CE 00:81BE: B7 07     .word $07B7      ; $87B7
 
 ; screen 2 (level 1.0)
 - D 0 - I - 0x0001D0 00:81C0: 80        .byte $80, $51   ; bank 01, page 01, $9180
 - D 0 - I - 0x0001D2 00:81C2: 70        .byte $70, $5C   ; bank 01, page 01, $9C70
 - D 0 - I - 0x0001D4 00:81C4: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- - - - - - 0x0001D6 00:81C6: B7 07     .word $07B7      ; $87B7
+- D - - - - 0x0001D6 00:81C6: B7 07     .word $07B7      ; $87B7
 
 ; screen 3 (level 1.0)
 - D 0 - I - 0x0001D8 00:81C8: 40        .byte $40, $52   ; bank 01, page 01, $9240
 - D 0 - I - 0x0001DA 00:81CA: A8        .byte $A8, $5C   ; bank 01, page 01, $9CA8
 - D 0 - I - 0x0001DC 00:81CC: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- - - - - - 0x0001DE 00:81CE: B7 07     .word $07B7      ; $87B7
+- D - - - - 0x0001DE 00:81CE: B7 07     .word $07B7      ; $87B7
 
 ; screen 4 (level 1.0)
 - D 0 - I - 0x0001E0 00:81D0: 00        .byte $00, $53   ; bank 01, page 01, $9300
 - D 0 - I - 0x0001E2 00:81D2: E0        .byte $E0, $5C   ; bank 01, page 01, $9CE0
 - D 0 - I - 0x0001E4 00:81D4: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- - - - - - 0x0001E6 00:81D6: B7 07     .word $07B7      ; $87B7
+- D - - - - 0x0001E6 00:81D6: B7 07     .word $07B7      ; $87B7
 
 ; screen 5 (level 1.0)
 - D 0 - I - 0x0001E8 00:81D8: 00        .byte $00, $56   ; bank 01, page 01, $9600
@@ -377,19 +377,19 @@
 - D 0 - I - 0x0001F0 00:81E0: C0        .byte $C0, $56   ; bank 01, page 01, $96C0
 - D 0 - I - 0x0001F2 00:81E2: 50        .byte $50, $5D   ; bank 01, page 01, $9D50
 - D 0 - I - 0x0001F4 00:81E4: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- - - - - - 0x0001F6 00:81E6: B7 07     .word $07B7      ; $87B7
+- D - - - - 0x0001F6 00:81E6: B7 07     .word $07B7      ; $87B7
 
 ; screen 7 (level 1.0)
 - D 0 - I - 0x0001F8 00:81E8: C0        .byte $C0, $53   ; bank 01, page 01, $93C0
 - D 0 - I - 0x0001FA 00:81EA: 88        .byte $88, $5D   ; bank 01, page 01, $9D88
 - D 0 - I - 0x0001FC 00:81EC: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- - - - - - 0x0001FE 00:81EE: B7 07     .word $07B7      ; $87B7
+- D - - - - 0x0001FE 00:81EE: B7 07     .word $07B7      ; $87B7
 
 ; screen 8 (level 1.0)
 - D 0 - I - 0x000200 00:81F0: 80        .byte $80, $54   ; bank 01, page 01, $9480
 - D 0 - I - 0x000202 00:81F2: C0        .byte $C0, $5D   ; bank 01, page 01, $9DC0
 - D 0 - I - 0x000204 00:81F4: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- - - - - - 0x000206 00:81F6: B7 07     .word $07B7      ; $87B7
+- D - - - - 0x000206 00:81F6: B7 07     .word $07B7      ; $87B7
 
 ; screen 9 (level 1.0)
 - D 0 - I - 0x000208 00:81F8: 40        .byte $40, $55   ; bank 01, page 01, $9540
@@ -401,7 +401,7 @@
 - D 0 - I - 0x000210 00:8200: 80        .byte $80, $57   ; bank 01, page 01, $9780
 - D 0 - I - 0x000212 00:8202: 30        .byte $30, $5E   ; bank 01, page 01, $9E30
 - D 0 - I - 0x000214 00:8204: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- - - - - - 0x000216 00:8206: B7 07     .word $07B7      ; $87B7
+- D - - - - 0x000216 00:8206: B7 07     .word $07B7      ; $87B7
 
 ; screen B (level 1.0)
 - D 0 - I - 0x000218 00:8208: 40        .byte $40, $58   ; bank 01, page 01, $9840
@@ -413,13 +413,13 @@
 - D 0 - I - 0x000220 00:8210: 00        .byte $00, $59   ; bank 01, page 01, $9900
 - D 0 - I - 0x000222 00:8212: A0        .byte $A0, $5E   ; bank 01, page 01, $9EA0
 - D 0 - I - 0x000224 00:8214: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- - - - - - 0x000226 00:8216: B7 07     .word $07B7      ; $87B7
+- D - - - - 0x000226 00:8216: B7 07     .word $07B7      ; $87B7
 
 ; screen D (level 1.0)
 - D 0 - I - 0x000228 00:8218: C0        .byte $C0, $59   ; bank 01, page 01, $99C0
 - D 0 - I - 0x00022A 00:821A: D8        .byte $D8, $5E   ; bank 01, page 01, $9ED8
 - D 0 - I - 0x00022C 00:821C: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- - - - - - 0x00022E 00:821E: B7 07     .word $07B7      ; $87B7
+- D - - - - 0x00022E 00:821E: B7 07     .word $07B7      ; $87B7
 
 ; screen E (level 1.0)
 - D 0 - I - 0x000230 00:8220: 80        .byte $80, $5A   ; bank 01, page 01, $9A80
@@ -461,7 +461,7 @@
 - D 0 - I - 0x000260 00:8250: B8        .byte $B8, $65   ; bank 01, page 02, $85B8
 - D 0 - I - 0x000262 00:8252: 18        .byte $18, $6B   ; bank 01, page 02, $8B18
 - D 0 - I - 0x000264 00:8254: 68        .byte $68, $6C   ; bank 01, page 02, $8C68
-- - - - - - 0x000266 00:8256: CF 07     .word $07CF      ; $87CF
+- D - - - - 0x000266 00:8256: CF 07     .word $07CF      ; $87CF
 
 ; screen 3, 6, 5 (level 1.X)
 - D 0 - I - 0x000268 00:8258: 78        .byte $78, $66   ; bank 01, page 02, $8678
@@ -500,10 +500,10 @@
 - D 0 - I - 0x000296 00:8286: C3 07     .word $07C3      ; $87C3
 
 ; screen ???
-- - - - - - 0x000298 00:8288: 40        .byte $40, $28   ; bank 00, page 02, $8840
-- - - - - - 0x00029A 00:828A: E8        .byte $E8, $1C   ; bank 00, page 01, $9CE8
-- - - - - - 0x00029C 00:828C: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- - - - - - 0x00029E 00:828E: C3 07     .word $07C3      ; $87C3
+- D - - - - 0x000298 00:8288: 40        .byte $40, $28   ; bank 00, page 02, $8840
+- D - - - - 0x00029A 00:828A: E8        .byte $E8, $1C   ; bank 00, page 01, $9CE8
+- D - - - - 0x00029C 00:828C: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
+- D - - - - 0x00029E 00:828E: C3 07     .word $07C3      ; $87C3
 
 ; water screen 
 - D 0 - I - 0x0002A0 00:8290: 00        .byte $00, $29   ; bank 00, page 02, $8900
@@ -515,7 +515,7 @@
 - D 0 - I - 0x0002A8 00:8298: C0        .byte $C0, $29   ; bank 00, page 02, $89C0
 - D 0 - I - 0x0002AA 00:829A: 58        .byte $58, $1D   ; bank 00, page 01, $9D58
 - D 0 - I - 0x0002AC 00:829C: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- - - - - - 0x0002AE 00:829E: C3 07     .word $07C3      ; $87C3
+- D - - - - 0x0002AE 00:829E: C3 07     .word $07C3      ; $87C3
 
 ; water screen 
 - D 0 - I - 0x0002B0 00:82A0: 80        .byte $80, $49   ; bank 01, page 01, $8980
@@ -527,7 +527,7 @@
 - D 0 - I - 0x0002B8 00:82A8: 40        .byte $40, $4A   ; bank 01, page 01, $8A40
 - D 0 - I - 0x0002BA 00:82AA: F8        .byte $F8, $4E   ; bank 01, page 01, $8EF8
 - D 0 - I - 0x0002BC 00:82AC: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- - - - - - 0x0002BE 00:82AE: C9 07     .word $07C9      ; $87C9
+- D - - - - 0x0002BE 00:82AE: C9 07     .word $07C9      ; $87C9
 
 ; water screen 
 - D 0 - I - 0x0002C0 00:82B0: 00        .byte $00, $4B   ; bank 01, page 01, $8B00
@@ -539,7 +539,7 @@
 - D 0 - I - 0x0002C8 00:82B8: C0        .byte $C0, $4B   ; bank 01, page 01, $8BC0
 - D 0 - I - 0x0002CA 00:82BA: 68        .byte $68, $4F   ; bank 01, page 01, $8F68
 - D 0 - I - 0x0002CC 00:82BC: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- - - - - - 0x0002CE 00:82BE: C9 07     .word $07C9      ; $87C9
+- D - - - - 0x0002CE 00:82BE: C9 07     .word $07C9      ; $87C9
 
 ; water screen 
 - D 0 - I - 0x0002D0 00:82C0: 80        .byte $80, $D6   ; bank 03, page 01, $9680
@@ -551,25 +551,25 @@
 - D 0 - I - 0x0002D8 00:82C8: 40        .byte $40, $D7   ; bank 03, page 01, $9740
 - D 0 - I - 0x0002DA 00:82CA: 38        .byte $38, $D8   ; bank 03, page 01, $9838
 - D 0 - I - 0x0002DC 00:82CC: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- - - - - - 0x0002DE 00:82CE: D5 07     .word $07D5      ; $87D5
+- D - - - - 0x0002DE 00:82CE: D5 07     .word $07D5      ; $87D5
 
 ; screen 2, B
 - D 0 - I - 0x0002E0 00:82D0: 28        .byte $28, $7E   ; bank 01, page 02, $9E28
 - D 0 - I - 0x0002E2 00:82D2: 90        .byte $90, $B2   ; bank 02, page 02, $9290
 - D 0 - I - 0x0002E4 00:82D4: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x0002E6 00:82D6: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x0002E6 00:82D6: BD 07     .word $07BD      ; $87BD
 
 ; screen 3
 - D 0 - I - 0x0002E8 00:82D8: E8        .byte $E8, $7E   ; bank 01, page 02, $9EE8
 - D 0 - I - 0x0002EA 00:82DA: C8        .byte $C8, $B2   ; bank 02, page 02, $92C8
 - D 0 - I - 0x0002EC 00:82DC: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x0002EE 00:82DE: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x0002EE 00:82DE: BD 07     .word $07BD      ; $87BD
 
 ; screen 4, C
 - D 0 - I - 0x0002F0 00:82E0: 90        .byte $90, $A6   ; bank 02, page 02, $8690
 - D 0 - I - 0x0002F2 00:82E2: 00        .byte $00, $B3   ; bank 02, page 02, $9300
 - D 0 - I - 0x0002F4 00:82E4: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x0002F6 00:82E6: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x0002F6 00:82E6: BD 07     .word $07BD      ; $87BD
 
 ; screen 0, 5, A, F, 16
 - D 0 - I - 0x0002F8 00:82E8: 50        .byte $50, $A7   ; bank 02, page 02, $8750
@@ -581,85 +581,85 @@
 - D 0 - I - 0x000300 00:82F0: 10        .byte $10, $A8   ; bank 02, page 02, $8810
 - D 0 - I - 0x000302 00:82F2: 70        .byte $70, $B3   ; bank 02, page 02, $9370
 - D 0 - I - 0x000304 00:82F4: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x000306 00:82F6: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000306 00:82F6: BD 07     .word $07BD      ; $87BD
 
 ; screen 6
 - D 0 - I - 0x000308 00:82F8: D0        .byte $D0, $A8   ; bank 02, page 02, $88D0
 - D 0 - I - 0x00030A 00:82FA: A8        .byte $A8, $B3   ; bank 02, page 02, $93A8
 - D 0 - I - 0x00030C 00:82FC: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x00030E 00:82FE: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00030E 00:82FE: BD 07     .word $07BD      ; $87BD
 
 ; screen 7, 9
 - D 0 - I - 0x000310 00:8300: 90        .byte $90, $A9   ; bank 02, page 02, $8990
 - D 0 - I - 0x000312 00:8302: E0        .byte $E0, $B3   ; bank 02, page 02, $93E0
 - D 0 - I - 0x000314 00:8304: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x000316 00:8306: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000316 00:8306: BD 07     .word $07BD      ; $87BD
 
 ; screen 8
 - D 0 - I - 0x000318 00:8308: 50        .byte $50, $AA   ; bank 02, page 02, $8A50
 - D 0 - I - 0x00031A 00:830A: 18        .byte $18, $B4   ; bank 02, page 02, $9418
 - D 0 - I - 0x00031C 00:830C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x00031E 00:830E: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00031E 00:830E: BD 07     .word $07BD      ; $87BD
 
 ; screen D, 10, 12
 - D 0 - I - 0x000320 00:8310: 10        .byte $10, $AB   ; bank 02, page 02, $8B10
 - D 0 - I - 0x000322 00:8312: 50        .byte $50, $B4   ; bank 02, page 02, $9450
 - D 0 - I - 0x000324 00:8314: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x000326 00:8316: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000326 00:8316: BD 07     .word $07BD      ; $87BD
 
 ; screen 13, 14
 - D 0 - I - 0x000328 00:8318: D0        .byte $D0, $AB   ; bank 02, page 02, $8BD0
 - D 0 - I - 0x00032A 00:831A: 88        .byte $88, $B4   ; bank 02, page 02, $9488
 - D 0 - I - 0x00032C 00:831C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x00032E 00:831E: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00032E 00:831E: BD 07     .word $07BD      ; $87BD
 
 ; screen E, 11, 15
 - D 0 - I - 0x000330 00:8320: 90        .byte $90, $AC   ; bank 02, page 02, $8C90
 - D 0 - I - 0x000332 00:8322: C0        .byte $C0, $B4   ; bank 02, page 02, $94C0
 - D 0 - I - 0x000334 00:8324: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x000336 00:8326: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000336 00:8326: BD 07     .word $07BD      ; $87BD
 
 ; screen 17, 1B
 - D 0 - I - 0x000338 00:8328: 50        .byte $50, $AD   ; bank 02, page 02, $8D50
 - D 0 - I - 0x00033A 00:832A: F8        .byte $F8, $B4   ; bank 02, page 02, $94F8
 - D 0 - I - 0x00033C 00:832C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x00033E 00:832E: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00033E 00:832E: BD 07     .word $07BD      ; $87BD
 
 ; screen 18, 1E
 - D 0 - I - 0x000340 00:8330: 10        .byte $10, $AE   ; bank 02, page 02, $8E10
 - D 0 - I - 0x000342 00:8332: 30        .byte $30, $B5   ; bank 02, page 02, $9530
 - D 0 - I - 0x000344 00:8334: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x000346 00:8336: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000346 00:8336: BD 07     .word $07BD      ; $87BD
 
 ; screen 19, 1C, 1F
 - D 0 - I - 0x000348 00:8338: D0        .byte $D0, $AE   ; bank 02, page 02, $8ED0
 - D 0 - I - 0x00034A 00:833A: 68        .byte $68, $B5   ; bank 02, page 02, $9568
 - D 0 - I - 0x00034C 00:833C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x00034E 00:833E: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00034E 00:833E: BD 07     .word $07BD      ; $87BD
 
 ; screen 1D
 - D 0 - I - 0x000350 00:8340: 90        .byte $90, $AF   ; bank 02, page 02, $8F90
 - D 0 - I - 0x000352 00:8342: A0        .byte $A0, $B5   ; bank 02, page 02, $95A0
 - D 0 - I - 0x000354 00:8344: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x000356 00:8346: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000356 00:8346: BD 07     .word $07BD      ; $87BD
 
 ; screen 1A, 20
 - D 0 - I - 0x000358 00:8348: 50        .byte $50, $B0   ; bank 02, page 02, $9050
 - D 0 - I - 0x00035A 00:834A: D8        .byte $D8, $B5   ; bank 02, page 02, $95D8
 - D 0 - I - 0x00035C 00:834C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x00035E 00:834E: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00035E 00:834E: BD 07     .word $07BD      ; $87BD
 
 ; screen 21, 22
 - D 0 - I - 0x000360 00:8350: 10        .byte $10, $B1   ; bank 02, page 02, $9110
 - D 0 - I - 0x000362 00:8352: 10        .byte $10, $B6   ; bank 02, page 02, $9610
 - D 0 - I - 0x000364 00:8354: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x000366 00:8356: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000366 00:8356: BD 07     .word $07BD      ; $87BD
 
 ; screen 23
 - D 0 - I - 0x000368 00:8358: D0        .byte $D0, $B1   ; bank 02, page 02, $91D0
 - D 0 - I - 0x00036A 00:835A: 48        .byte $48, $B6   ; bank 02, page 02, $9648
 - D 0 - I - 0x00036C 00:835C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- - - - - - 0x00036E 00:835E: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00036E 00:835E: BD 07     .word $07BD      ; $87BD
 
 ; screen 0
 - D 0 - I - 0x000370 00:8360: B0        .byte $B0, $B9   ; bank 02, page 02, $99B0
@@ -719,19 +719,19 @@
 - D 0 - I - 0x0003B8 00:83A8: 00        .byte $00, $C3   ; bank 03, page 01, $8300
 - D 0 - I - 0x0003BA 00:83AA: 50        .byte $50, $D9   ; bank 03, page 01, $8950
 - D 0 - I - 0x0003BC 00:83AC: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- - - - - - 0x0003BE 00:83AE: D5 07     .word $07D5      ; $87D5
+- D - - - - 0x0003BE 00:83AE: D5 07     .word $07D5      ; $87D5
 
 ; screen level 4
 - D 0 - I - 0x0003C0 00:83B0: C0        .byte $C0, $C3   ; bank 03, page 01, $83C0
 - D 0 - I - 0x0003C2 00:83B2: 88        .byte $88, $D9   ; bank 03, page 01, $8988
 - D 0 - I - 0x0003C4 00:83B4: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- - - - - - 0x0003C6 00:83B6: D5 07     .word $07D5      ; $87D5
+- D - - - - 0x0003C6 00:83B6: D5 07     .word $07D5      ; $87D5
 
 ; screen level 4
 - D 0 - I - 0x0003C8 00:83B8: 80        .byte $80, $C4   ; bank 03, page 01, $8480
 - D 0 - I - 0x0003CA 00:83BA: C0        .byte $C0, $D9   ; bank 03, page 01, $89C0
 - D 0 - I - 0x0003CC 00:83BC: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- - - - - - 0x0003CE 00:83BE: D5 07     .word $07D5      ; $87D5
+- D - - - - 0x0003CE 00:83BE: D5 07     .word $07D5      ; $87D5
 
 ; screen level 4
 - D 0 - I - 0x0003D0 00:83C0: 40        .byte $40, $C5   ; bank 03, page 01, $8540
@@ -791,7 +791,7 @@
 - D 0 - I - 0x000418 00:8408: 00        .byte $00, $CC   ; bank 03, page 01, $8C00
 - D 0 - I - 0x00041A 00:840A: F0        .byte $F0, $DB   ; bank 03, page 01, $8BF0
 - D 0 - I - 0x00041C 00:840C: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- - - - - - 0x00041E 00:840E: D5 07     .word $07D5      ; $87D5
+- D - - - - 0x00041E 00:840E: D5 07     .word $07D5      ; $87D5
 
 ; screen level 4
 - D 0 - I - 0x000420 00:8410: C0        .byte $C0, $CC   ; bank 03, page 01, $8CC0
@@ -839,7 +839,7 @@
 - D 0 - I - 0x000458 00:8448: 00        .byte $00, $D2   ; bank 03, page 01, $9200
 - D 0 - I - 0x00045A 00:844A: B0        .byte $B0, $DD   ; bank 03, page 01, $9DB0
 - D 0 - I - 0x00045C 00:844C: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- - - - - - 0x00045E 00:844E: D5 07     .word $07D5      ; $87D5
+- D - - - - 0x00045E 00:844E: D5 07     .word $07D5      ; $87D5
 
 ; screen level 4
 - D 0 - I - 0x000460 00:8450: C0        .byte $C0, $D2   ; bank 03, page 01, $92C0
@@ -880,8 +880,8 @@
 ; Background indexes for the screen
 tbl_background_screens:
 - D 0 - - - 0x000490 00:8480: 7C 05     .word $057C ; level 1.0 (tbl_background_screens_level_1_0 $857C)
-- - - - - - 0x000492 00:8482: 8C 05     .word $058C
-- - - - - - 0x000494 00:8484: 8C 05     .word $058C
+- D - - - - 0x000492 00:8482: 8C 05     .word $058C
+- D - - - - 0x000494 00:8484: 8C 05     .word $058C
 - D 0 - - - 0x000496 00:8486: 8C 05     .word $058C ; level 1.1 (tbl_background_screens_level_1_1 $858C)
 - D 0 - - - 0x000498 00:8488: 94 05     .word $0594 ; level 1.2 (tbl_background_screens_level_1_2 $8594)
 - D 0 - - - 0x00049A 00:848A: 9C 05     .word $059C ; level 1.3 (tbl_background_screens_level_1_3 $859C)
@@ -900,10 +900,10 @@ tbl_background_screens:
 - D 0 - - - 0x0004B4 00:84A4: 14 06     .word $0614 ; level 3.3 (tbl_background_screens_level3_3 $8614)
 - D 0 - - - 0x0004B6 00:84A6: 1C 06     .word $061C ; level 3.4 (tbl_background_screens_level3_4 $861C)
 - D 0 - - - 0x0004B8 00:84A8: 24 06     .word $0624 ; boss of level 4 ($8624)
-- - - - - - 0x0004BA 00:84AA: 25 06     .word $0625
-- - - - - - 0x0004BC 00:84AC: 25 06     .word $0625
-- - - - - - 0x0004BE 00:84AE: 25 06     .word $0625
-- - - - - - 0x0004C0 00:84B0: 25 06     .word $0625
+- D - - - - 0x0004BA 00:84AA: 25 06     .word $0625
+- D - - - - 0x0004BC 00:84AC: 25 06     .word $0625
+- D - - - - 0x0004BE 00:84AE: 25 06     .word $0625
+- D - - - - 0x0004C0 00:84B0: 25 06     .word $0625
 - D 0 - - - 0x0004C2 00:84B2: 25 06     .word $0625 ; level racing (tbl_background_screens_level_racing $8625)
 - D 0 - - - 0x0004C4 00:84B4: 49 06     .word $0649 ; room with NPC in level 1 ($8649)
 - D 0 - - - 0x0004C6 00:84B6: 4A 06     .word $064A ; room with NPC in level 2.1 ($864A)
@@ -916,29 +916,29 @@ tbl_background_screens:
 - D 0 - - - 0x0004D4 00:84C4: 4C 06     .word $064C
 - D 0 - - - 0x0004D6 00:84C6: 4D 06     .word $064D
 - D 0 - - - 0x0004D8 00:84C8: 4E 06     .word $064E ; level 3.0 (water 1.1) ($864E)
-- - - - - - 0x0004DA 00:84CA: 4F 06     .word $064F ; ($864F)
+- D - - - - 0x0004DA 00:84CA: 4F 06     .word $064F ; ($864F)
 - D 0 - - - 0x0004DC 00:84CC: 51 06     .word $0651 ; level 3.0 (water 1.0) ($8651)
-- - - - - - 0x0004DE 00:84CE: 54 06     .word $0654 ; ($8654)
-- - - - - - 0x0004E0 00:84D0: 58 06     .word $0658 ; ($8658)
+- D - - - - 0x0004DE 00:84CE: 54 06     .word $0654 ; ($8654)
+- D - - - - 0x0004E0 00:84D0: 58 06     .word $0658 ; ($8658)
 - D 0 - - - 0x0004E2 00:84D2: 5D 06     .word $065D ; level 3.0 (water 1.2) ($865D)
-- - - - - - 0x0004E4 00:84D4: 63 06     .word $0663 ; ($8663)
+- D - - - - 0x0004E4 00:84D4: 63 06     .word $0663 ; ($8663)
 - D 0 - - - 0x0004E6 00:84D6: 64 06     .word $0664 ; level 3.3 (water 1.0) ($8664)
 - D 0 - - - 0x0004E8 00:84D8: 66 06     .word $0666 ; level 3.1 / 3.2 (water 1.0) ($8666)
 - D 0 - - - 0x0004EA 00:84DA: 69 06     .word $0669 ; level 3.4 (water 1.0) ($8669)
-- - - - - - 0x0004EC 00:84DC: 70 06     .word $0670
-- - - - - - 0x0004EE 00:84DE: 70 06     .word $0670
+- D - - - - 0x0004EC 00:84DC: 70 06     .word $0670
+- D - - - - 0x0004EE 00:84DE: 70 06     .word $0670
 - D 0 - - - 0x0004F0 00:84E0: 70 06     .word $0670 ; level 2 (1-3) (water 1.0) ($8670)
 - D 0 - - - 0x0004F2 00:84E2: 74 06     .word $0674 ; level 2 (2) (water 1.0) ($8674)
 - D 0 - - - 0x0004F4 00:84E4: 78 06     .word $0678 ; level 2 (4-5) (water 1.0) ($8678)
-- - - - - - 0x0004F6 00:84E6: 7E 06     .word $067E
-- - - - - - 0x0004F8 00:84E8: 7E 06     .word $067E
-- - - - - - 0x0004FA 00:84EA: 7E 06     .word $067E
+- D - - - - 0x0004F6 00:84E6: 7E 06     .word $067E
+- D - - - - 0x0004F8 00:84E8: 7E 06     .word $067E
+- D - - - - 0x0004FA 00:84EA: 7E 06     .word $067E
 - D 0 - - - 0x0004FC 00:84EC: 7E 06     .word $067E ; level 2 (6-8) (water 1.0) ($867E)
 - D 0 - - - 0x0004FE 00:84EE: 7F 06     .word $067F ; level 2 (7) (water 1.0) ($867F)
 - D 0 - - - 0x000500 00:84F0: 84 06     .word $0684 ; level 2 (9-10) (water 1.0) ($8684)
 - D 0 - - - 0x000502 00:84F2: 86 06     .word $0686 ; level 2 (11-13) / (12) (water 1.0) ($8686)
-- - - - - - 0x000504 00:84F4: 89 06     .word $0689
-- - - - - - 0x000506 00:84F6: 89 06     .word $0689
+- D - - - - 0x000504 00:84F4: 89 06     .word $0689
+- D - - - - 0x000506 00:84F6: 89 06     .word $0689
 - D 0 - - - 0x000508 00:84F8: 89 06     .word $0689
 - D 0 - - - 0x00050A 00:84FA: 8A 06     .word $068A ; ($868A)
 - D 0 - - - 0x00050C 00:84FC: 8C 06     .word $068C ; ($868C)
@@ -1263,22 +1263,22 @@ tbl_background_screens_level_racing:
 - D 0 - I - 0x00065E 00:864E: 50        .byte $50   ; screen 0 ($8280)
 
 - D 0 - I - 0x00065F 00:864F: 50        .byte $50   ; screen 0 ($8280)
-- - - - - - 0x000660 00:8650: 50        .byte $50   ; screen 1 ($8280)
+- D - - - - 0x000660 00:8650: 50        .byte $50   ; screen 1 ($8280)
 
 - D 0 - I - 0x000661 00:8651: 50        .byte $50   ; screen 0 ($8280)
 - D 0 - I - 0x000662 00:8652: 50        .byte $50   ; screen 1 ($8280)
 - D 0 - I - 0x000663 00:8653: 50        .byte $50   ; screen 2 ($8280)
 
 - D 0 - I - 0x000664 00:8654: 50        .byte $50   ; screen 0 ($8280)
-- - - - - - 0x000665 00:8655: 50        .byte $50   ; screen 1 ($8280)
-- - - - - - 0x000666 00:8656: 50        .byte $50   ; screen 2 ($8280)
-- - - - - - 0x000667 00:8657: 50        .byte $50   ; screen 3 ($8280)
+- D - - - - 0x000665 00:8655: 50        .byte $50   ; screen 1 ($8280)
+- D - - - - 0x000666 00:8656: 50        .byte $50   ; screen 2 ($8280)
+- D - - - - 0x000667 00:8657: 50        .byte $50   ; screen 3 ($8280)
 
-- - - - - - 0x000668 00:8658: 50        .byte $50   ; screen 0 ($8280)
-- - - - - - 0x000669 00:8659: 50        .byte $50   ; screen 1 ($8280)
-- - - - - - 0x00066A 00:865A: 50        .byte $50   ; screen 2 ($8280)
-- - - - - - 0x00066B 00:865B: 50        .byte $50   ; screen 3 ($8280)
-- - - - - - 0x00066C 00:865C: 50        .byte $50   ; screen 4 ($8280)
+- D - - - - 0x000668 00:8658: 50        .byte $50   ; screen 0 ($8280)
+- D - - - - 0x000669 00:8659: 50        .byte $50   ; screen 1 ($8280)
+- D - - - - 0x00066A 00:865A: 50        .byte $50   ; screen 2 ($8280)
+- D - - - - 0x00066B 00:865B: 50        .byte $50   ; screen 3 ($8280)
+- D - - - - 0x00066C 00:865C: 50        .byte $50   ; screen 4 ($8280)
 
 - D 0 - I - 0x00066D 00:865D: 50        .byte $50   ; screen 0 ($8280)
 - D 0 - I - 0x00066E 00:865E: 50        .byte $50   ; screen 1 ($8280)
@@ -1776,13 +1776,13 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x0007E5 00:87D5: 20        .byte $20, $30, $00, $01, $18, $1A
 
 ; reserve
-- - - - - - 0x0007EB 00:87DB: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF
-- - - - - - 0x0007F1 00:87E1: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF
-- - - - - - 0x0007F7 00:87E7: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF
-- - - - - - 0x0007FD 00:87ED: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF
-- - - - - - 0x000803 00:87F3: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF
-- - - - - - 0x000809 00:87F9: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF
-- - - - - - 0x00080F 00:87FF: FF        .byte $FF
+- D - - - - 0x0007EB 00:87DB: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x0007F1 00:87E1: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x0007F7 00:87E7: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x0007FD 00:87ED: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x000803 00:87F3: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x000809 00:87F9: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x00080F 00:87FF: FF        .byte $FF
 
 ; screen 0 (level 3.0), horizontally - y axis, vertically - x axis
 - D 0 - I - 0x000810 00:8800: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
@@ -2225,21 +2225,21 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x0017A4 00:9794: 87        .byte $87, $88, $87, $88   ; 0x05
 - D 0 - I - 0x0017A8 00:9798: 00        .byte $00, $89, $00, $86   ; 0x06
 - D 0 - I - 0x0017AC 00:979C: 89        .byte $89, $89, $86, $86   ; 0x07
-- - - - - - 0x0017B0 00:97A0: 8B        .byte $8B, $8B, $8C, $8C   ; 0x08
-- - - - - - 0x0017B4 00:97A4: 8C        .byte $8C, $8C, $8B, $8B   ; 0x09
-- - - - - - 0x0017B8 00:97A8: 8C        .byte $8C, $8C, $8C, $8C   ; 0x0A
-- - - - - - 0x0017BC 00:97AC: 8C        .byte $8C, $DF, $8C, $DF   ; 0x0B
-- - - - - - 0x0017C0 00:97B0: 00        .byte $00, $00, $00, $00   ; 0x0C
-- - - - - - 0x0017C4 00:97B4: 00        .byte $00, $00, $00, $00   ; 0x0D
-- - - - - - 0x0017C8 00:97B8: 8A        .byte $8A, $8A, $8A, $8A   ; 0x0E
-- - - - - - 0x0017CC 00:97BC: 00        .byte $00, $00, $00, $00   ; 0x0F
-- - - - - - 0x0017D0 00:97C0: 00        .byte $00, $00, $00, $00   ; 0x10
-- - - - - - 0x0017D4 00:97C4: 00        .byte $00, $00, $00, $00
-- - - - - - 0x0017D8 00:97C8: 00        .byte $00, $00, $00, $00
-- - - - - - 0x0017DC 00:97CC: 00        .byte $00, $00, $00, $00
+- D - - - - 0x0017B0 00:97A0: 8B        .byte $8B, $8B, $8C, $8C   ; 0x08
+- D - - - - 0x0017B4 00:97A4: 8C        .byte $8C, $8C, $8B, $8B   ; 0x09
+- D - - - - 0x0017B8 00:97A8: 8C        .byte $8C, $8C, $8C, $8C   ; 0x0A
+- D - - - - 0x0017BC 00:97AC: 8C        .byte $8C, $DF, $8C, $DF   ; 0x0B
+- D - - - - 0x0017C0 00:97B0: 00        .byte $00, $00, $00, $00   ; 0x0C
+- D - - - - 0x0017C4 00:97B4: 00        .byte $00, $00, $00, $00   ; 0x0D
+- D - - - - 0x0017C8 00:97B8: 8A        .byte $8A, $8A, $8A, $8A   ; 0x0E
+- D - - - - 0x0017CC 00:97BC: 00        .byte $00, $00, $00, $00   ; 0x0F
+- D - - - - 0x0017D0 00:97C0: 00        .byte $00, $00, $00, $00   ; 0x10
+- D - - - - 0x0017D4 00:97C4: 00        .byte $00, $00, $00, $00
+- D - - - - 0x0017D8 00:97C8: 00        .byte $00, $00, $00, $00
+- D - - - - 0x0017DC 00:97CC: 00        .byte $00, $00, $00, $00
 - D 0 - I - 0x0017E0 00:97D0: A4        .byte $A4, $A4, $A5, $A5
-- - - - - - 0x0017E4 00:97D4: 8B        .byte $8B, $8B, $8C, $DF
-- - - - - - 0x0017E8 00:97D8: 8C        .byte $8C, $DF, $8B, $8B
+- D - - - - 0x0017E4 00:97D4: 8B        .byte $8B, $8B, $8C, $DF
+- D - - - - 0x0017E8 00:97D8: 8C        .byte $8C, $DF, $8B, $8B
 - D 0 - I - 0x0017EC 00:97DC: 98        .byte $98, $99, $9A, $9B
 - D 0 - I - 0x0017F0 00:97E0: 00        .byte $00, $E3, $00, $E3
 - D 0 - I - 0x0017F4 00:97E4: E4        .byte $E4, $E5, $E6, $E7
@@ -2247,7 +2247,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x0017FC 00:97EC: EF        .byte $EF, $EF, $EF, $EF
 - D 0 - I - 0x001800 00:97F0: EE        .byte $EE, $E3, $EE, $E3
 - D 0 - I - 0x001804 00:97F4: F0        .byte $F0, $00, $F0, $00
-- - - - - - 0x001808 00:97F8: 8B        .byte $8B, $8B, $00, $00
+- D - - - - 0x001808 00:97F8: 8B        .byte $8B, $8B, $00, $00
 - D 0 - I - 0x00180C 00:97FC: 90        .byte $90, $91, $92, $93
 - D 0 - I - 0x001810 00:9800: 94        .byte $94, $95, $96, $97   ; 0x20
 - D 0 - I - 0x001814 00:9804: 01        .byte $01, $01, $8E, $01
@@ -2268,8 +2268,8 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001850 00:9840: DE        .byte $DE, $DE, $00, $00   ; 0x30
 - D 0 - I - 0x001854 00:9844: E1        .byte $E1, $00, $E1, $00
 - D 0 - I - 0x001858 00:9848: E1        .byte $E1, $00, $00, $00
-- - - - - - 0x00185C 00:984C: 00        .byte $00, $00, $98, $99
-- - - - - - 0x001860 00:9850: 9A        .byte $9A, $9B, $00, $00
+- D - - - - 0x00185C 00:984C: 00        .byte $00, $00, $98, $99
+- D - - - - 0x001860 00:9850: 9A        .byte $9A, $9B, $00, $00
 - D 0 - I - 0x001864 00:9854: A4        .byte $A4, $A4, $A6, $A5
 - D 0 - I - 0x001868 00:9858: A8        .byte $A8, $A4, $A8, $A7
 - D 0 - I - 0x00186C 00:985C: A8        .byte $A8, $A9, $A8, $A9
@@ -2289,13 +2289,13 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x0018A4 00:9894: F4        .byte $F4, $F5, $F6, $F7
 - D 0 - I - 0x0018A8 00:9898: F1        .byte $F1, $F2, $CD, $D4
 - D 0 - I - 0x0018AC 00:989C: B3        .byte $B3, $AF, $00, $00
-- - - - - - 0x0018B0 00:98A0: F3        .byte $F3, $F3, $03, $03
-- - - - - - 0x0018B4 00:98A4: E0        .byte $E0, $03, $E0, $03
-- - - - - - 0x0018B8 00:98A8: E0        .byte $E0, $03, $03, $03
+- D - - - - 0x0018B0 00:98A0: F3        .byte $F3, $F3, $03, $03
+- D - - - - 0x0018B4 00:98A4: E0        .byte $E0, $03, $E0, $03
+- D - - - - 0x0018B8 00:98A8: E0        .byte $E0, $03, $03, $03
 - D 0 - I - 0x0018BC 00:98AC: F1        .byte $F1, $F2, $CC, $D3
-- - - - - - 0x0018C0 00:98B0: E0        .byte $E0, $A9, $E0, $A9
+- D - - - - 0x0018C0 00:98B0: E0        .byte $E0, $A9, $E0, $A9
 - D 0 - I - 0x0018C4 00:98B4: DE        .byte $DE, $E2, $00, $00
-- - - - - - 0x0018C8 00:98B8: F3        .byte $F3, $EC, $03, $03
+- D - - - - 0x0018C8 00:98B8: F3        .byte $F3, $EC, $03, $03
 - D 0 - I - 0x0018CC 00:98BC: EF        .byte $EF, $EE, $EF, $EE
 - D 0 - I - 0x0018D0 00:98C0: 00        .byte $00, $00, $B8, $B9   ; 0x50
 - D 0 - I - 0x0018D4 00:98C4: B8        .byte $B8, $BA, $B8, $BA
@@ -2335,82 +2335,82 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x00195C 00:994C: 85        .byte $85, $E8, $02, $02   ; 0x73
 
 ; reserve
-- - - - - - 0x001960 00:9950: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001964 00:9954: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001968 00:9958: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x00196C 00:995C: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001970 00:9960: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001974 00:9964: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001978 00:9968: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x00197C 00:996C: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001980 00:9970: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001984 00:9974: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001988 00:9978: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x00198C 00:997C: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001990 00:9980: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001994 00:9984: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001998 00:9988: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x00199C 00:998C: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019A0 00:9990: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019A4 00:9994: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019A8 00:9998: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019AC 00:999C: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019B0 00:99A0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019B4 00:99A4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019B8 00:99A8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019BC 00:99AC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019C0 00:99B0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019C4 00:99B4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019C8 00:99B8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019CC 00:99BC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019D0 00:99C0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019D4 00:99C4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019D8 00:99C8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019DC 00:99CC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019E0 00:99D0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019E4 00:99D4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019E8 00:99D8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019EC 00:99DC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019F0 00:99E0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019F4 00:99E4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019F8 00:99E8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x0019FC 00:99EC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A00 00:99F0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A04 00:99F4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A08 00:99F8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A0C 00:99FC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A10 00:9A00: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A14 00:9A04: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A18 00:9A08: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A1C 00:9A0C: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A20 00:9A10: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A24 00:9A14: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A28 00:9A18: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A2C 00:9A1C: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A30 00:9A20: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A34 00:9A24: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A38 00:9A28: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A3C 00:9A2C: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A40 00:9A30: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A44 00:9A34: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A48 00:9A38: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A4C 00:9A3C: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A50 00:9A40: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A54 00:9A44: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A58 00:9A48: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A5C 00:9A4C: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A60 00:9A50: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A64 00:9A54: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A68 00:9A58: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A6C 00:9A5C: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A70 00:9A60: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A74 00:9A64: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A78 00:9A68: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A7C 00:9A6C: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A80 00:9A70: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A84 00:9A74: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A88 00:9A78: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001A8C 00:9A7C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001960 00:9950: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001964 00:9954: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001968 00:9958: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x00196C 00:995C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001970 00:9960: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001974 00:9964: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001978 00:9968: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x00197C 00:996C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001980 00:9970: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001984 00:9974: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001988 00:9978: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x00198C 00:997C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001990 00:9980: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001994 00:9984: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001998 00:9988: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x00199C 00:998C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019A0 00:9990: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019A4 00:9994: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019A8 00:9998: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019AC 00:999C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019B0 00:99A0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019B4 00:99A4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019B8 00:99A8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019BC 00:99AC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019C0 00:99B0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019C4 00:99B4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019C8 00:99B8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019CC 00:99BC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019D0 00:99C0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019D4 00:99C4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019D8 00:99C8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019DC 00:99CC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019E0 00:99D0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019E4 00:99D4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019E8 00:99D8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019EC 00:99DC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019F0 00:99E0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019F4 00:99E4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019F8 00:99E8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x0019FC 00:99EC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A00 00:99F0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A04 00:99F4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A08 00:99F8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A0C 00:99FC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A10 00:9A00: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A14 00:9A04: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A18 00:9A08: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A1C 00:9A0C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A20 00:9A10: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A24 00:9A14: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A28 00:9A18: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A2C 00:9A1C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A30 00:9A20: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A34 00:9A24: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A38 00:9A28: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A3C 00:9A2C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A40 00:9A30: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A44 00:9A34: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A48 00:9A38: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A4C 00:9A3C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A50 00:9A40: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A54 00:9A44: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A58 00:9A48: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A5C 00:9A4C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A60 00:9A50: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A64 00:9A54: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A68 00:9A58: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A6C 00:9A5C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A70 00:9A60: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A74 00:9A64: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A78 00:9A68: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A7C 00:9A6C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A80 00:9A70: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A84 00:9A74: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A88 00:9A78: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001A8C 00:9A7C: FF        .byte $FF, $FF, $FF, $FF
 
 ; screen 2, 6, 3 (level 3.X), attribute tables
 - D 0 - I - 0x001A90 00:9A80: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
@@ -2513,12 +2513,12 @@ tbl_background_screens_level4_map4_f4_f5:
 
 ; screen ???, attribute tables
 - D 0 - I - 0x001CF8 00:9CE8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
-- - - - - - 0x001D00 00:9CF0: AA        .byte $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
-- - - - - - 0x001D08 00:9CF8: AA        .byte $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
-- - - - - - 0x001D10 00:9D00: AA        .byte $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
-- - - - - - 0x001D18 00:9D08: AA        .byte $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
-- - - - - - 0x001D20 00:9D10: FA        .byte $FA, $FA, $FA, $FA, $FA, $FA, $FA, $FA
-- - - - - - 0x001D28 00:9D18: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
+- D - - - - 0x001D00 00:9CF0: AA        .byte $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
+- D - - - - 0x001D08 00:9CF8: AA        .byte $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
+- D - - - - 0x001D10 00:9D00: AA        .byte $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
+- D - - - - 0x001D18 00:9D08: AA        .byte $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
+- D - - - - 0x001D20 00:9D10: FA        .byte $FA, $FA, $FA, $FA, $FA, $FA, $FA, $FA
+- D - - - - 0x001D28 00:9D18: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; water screen, attribute tables
 - D 0 - I - 0x001D30 00:9D20: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
@@ -2587,7 +2587,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001E54 00:9E44: A8        .byte $A8, $01, $AA, $AB
 - D 0 - I - 0x001E58 00:9E48: 94        .byte $94, $00, $8F, $01
 - D 0 - I - 0x001E5C 00:9E4C: 92        .byte $92, $BF, $92, $00
-- - - - - - 0x001E60 00:9E50: 00        .byte $00, $00, $00, $00   ; 0x30
+- D - - - - 0x001E60 00:9E50: 00        .byte $00, $00, $00, $00   ; 0x30
 - D 0 - I - 0x001E64 00:9E54: 92        .byte $92, $00, $92, $00
 - D 0 - I - 0x001E68 00:9E58: A6        .byte $A6, $B4, $A8, $B6
 - D 0 - I - 0x001E6C 00:9E5C: A0        .byte $A0, $B4, $01, $B6
@@ -2598,7 +2598,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001E80 00:9E70: A4        .byte $A4, $BB, $A4, $A5
 - D 0 - I - 0x001E84 00:9E74: BA        .byte $BA, $BB, $A4, $A5
 - D 0 - I - 0x001E88 00:9E78: BC        .byte $BC, $BD, $BE, $00
-- - - - - - 0x001E8C 00:9E7C: 94        .byte $94, $95, $8F, $A0
+- D - - - - 0x001E8C 00:9E7C: 94        .byte $94, $95, $8F, $A0
 - D 0 - I - 0x001E90 00:9E80: A0        .byte $A0, $A7, $01, $01
 - D 0 - I - 0x001E94 00:9E84: 92        .byte $92, $93, $92, $93
 - D 0 - I - 0x001E98 00:9E88: 94        .byte $94, $93, $8F, $01
@@ -2607,12 +2607,12 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001EA4 00:9E94: E1        .byte $E1, $9F, $E2, $A0
 - D 0 - I - 0x001EA8 00:9E98: E3        .byte $E3, $A6, $E3, $A8
 - D 0 - I - 0x001EAC 00:9E9C: E3        .byte $E3, $A8, $E3, $AA
-- - - - - - 0x001EB0 00:9EA0: 00        .byte $00, $00, $00, $00
-- - - - - - 0x001EB4 00:9EA4: 00        .byte $00, $00, $00, $00
-- - - - - - 0x001EB8 00:9EA8: 00        .byte $00, $00, $00, $00
-- - - - - - 0x001EBC 00:9EAC: 00        .byte $00, $00, $00, $00
-- - - - - - 0x001EC0 00:9EB0: 00        .byte $00, $00, $00, $00
-- - - - - - 0x001EC4 00:9EB4: 00        .byte $00, $00, $00, $00
+- D - - - - 0x001EB0 00:9EA0: 00        .byte $00, $00, $00, $00
+- D - - - - 0x001EB4 00:9EA4: 00        .byte $00, $00, $00, $00
+- D - - - - 0x001EB8 00:9EA8: 00        .byte $00, $00, $00, $00
+- D - - - - 0x001EBC 00:9EAC: 00        .byte $00, $00, $00, $00
+- D - - - - 0x001EC0 00:9EB0: 00        .byte $00, $00, $00, $00
+- D - - - - 0x001EC4 00:9EB4: 00        .byte $00, $00, $00, $00
 - D 0 - I - 0x001EC8 00:9EB8: 9F        .byte $9F, $9F, $A0, $A0
 - D 0 - I - 0x001ECC 00:9EBC: A0        .byte $A0, $A0, $01, $01
 - D 0 - I - 0x001ED0 00:9EC0: 01        .byte $01, $01, $9F, $9F
@@ -2638,7 +2638,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001F20 00:9F10: 01        .byte $01, $EB, $01, $EC   ; 0x60
 - D 0 - I - 0x001F24 00:9F14: 01        .byte $01, $F0, $01, $01
 - D 0 - I - 0x001F28 00:9F18: ED        .byte $ED, $EF, $EE, $EF
-- - - - - - 0x001F2C 00:9F1C: 00        .byte $00, $00, $00, $00
+- D - - - - 0x001F2C 00:9F1C: 00        .byte $00, $00, $00, $00
 - D 0 - I - 0x001F30 00:9F20: 8E        .byte $8E, $FB, $FC, $FC
 - D 0 - I - 0x001F34 00:9F24: FB        .byte $FB, $FB, $FC, $FC
 - D 0 - I - 0x001F38 00:9F28: FC        .byte $FC, $FC, $FE, $FF
@@ -2660,43 +2660,43 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001F78 00:9F68: 01        .byte $01, $A8, $01, $AA   ; 0x76
 - D 0 - I - 0x001F7C 00:9F6C: A0        .byte $A0, $A0, $01, $01   ; 0x77
 - D 0 - I - 0x001F80 00:9F70: 01        .byte $01, $01, $9F, $9F   ; 0x78
-- - - - - - 0x001F84 00:9F74: 01        .byte $01, $01, $A0, $A0   ; 0x79
-- - - - - - 0x001F88 00:9F78: 8A        .byte $8A, $8A, $A0, $A0   ; 0x7A
+- D - - - - 0x001F84 00:9F74: 01        .byte $01, $01, $A0, $A0   ; 0x79
+- D - - - - 0x001F88 00:9F78: 8A        .byte $8A, $8A, $A0, $A0   ; 0x7A
 - D 0 - I - 0x001F8C 00:9F7C: B0        .byte $B0, $B1, $B2, $B3   ; 0x7B
 - D 0 - I - 0x001F90 00:9F80: B2        .byte $B2, $B3, $B8, $B9   ; 0x7C
-- - - - - - 0x001F94 00:9F84: 00        .byte $00, $00, $C2, $FA   ; 0x7D
-- - - - - - 0x001F98 00:9F88: 00        .byte $00, $00, $F9, $FA   ; 0x7E
-- - - - - - 0x001F9C 00:9F8C: 00        .byte $00, $00, $F9, $F9   ; 0x7F
+- D - - - - 0x001F94 00:9F84: 00        .byte $00, $00, $C2, $FA   ; 0x7D
+- D - - - - 0x001F98 00:9F88: 00        .byte $00, $00, $F9, $FA   ; 0x7E
+- D - - - - 0x001F9C 00:9F8C: 00        .byte $00, $00, $F9, $F9   ; 0x7F
 
 ; reserve
-- - - - - - 0x001FA0 00:9F90: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FA4 00:9F94: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FA8 00:9F98: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FAC 00:9F9C: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FB0 00:9FA0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FB4 00:9FA4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FB8 00:9FA8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FBC 00:9FAC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FC0 00:9FB0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FC4 00:9FB4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FC8 00:9FB8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FCC 00:9FBC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FD0 00:9FC0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FD4 00:9FC4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FD8 00:9FC8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FDC 00:9FCC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FE0 00:9FD0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FE4 00:9FD4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FE8 00:9FD8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FEC 00:9FDC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FF0 00:9FE0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FF4 00:9FE4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FF8 00:9FE8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x001FFC 00:9FEC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x002000 00:9FF0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x002004 00:9FF4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x002008 00:9FF8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x00200C 00:9FFC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FA0 00:9F90: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FA4 00:9F94: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FA8 00:9F98: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FAC 00:9F9C: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FB0 00:9FA0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FB4 00:9FA4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FB8 00:9FA8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FBC 00:9FAC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FC0 00:9FB0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FC4 00:9FB4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FC8 00:9FB8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FCC 00:9FBC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FD0 00:9FC0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FD4 00:9FC4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FD8 00:9FC8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FDC 00:9FCC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FE0 00:9FD0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FE4 00:9FD4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FE8 00:9FD8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FEC 00:9FDC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FF0 00:9FE0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FF4 00:9FE4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FF8 00:9FE8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x001FFC 00:9FEC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x002000 00:9FF0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x002004 00:9FF4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x002008 00:9FF8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x00200C 00:9FFC: FF        .byte $FF, $FF, $FF, $FF
 
 .out .sprintf("Free bytes in bank 00_1: 0x%X [%d]", ($A000 - *), ($A000 - *))
 
