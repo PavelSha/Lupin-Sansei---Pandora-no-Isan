@@ -5,11 +5,13 @@ Python 3.7.4
 import re
 
 ASM_FOLDER_PATH = "C:\\Lupin Sansei - Pandora no Isan\\"
-NL_FOLDER_PATH  = "C:\\Lupin Sansei - Pandora no Isan\\"
+NL_FOLDER_PATH  = "C:\\Lupin Sansei - Pandora no Isan\\debug\\"
 ASM_FILE1 = "bank_FF.asm"
 ASM_FILE2 = "constants.inc"
+ASM_FILE3 = "bank_06_2.asm"
 NL_FILE1 = "game.nes.7.nl"
 NL_FILE2 = "game.nes.ram.nl"
+NL_FILE3 = "game.nes.6.2.nl"
 SKIP_COMMERCIAL_AT = True
 LOOP_WITH_COUNTER = False
 COUNTER_LIMIT = 65
@@ -125,8 +127,6 @@ def getVariablesNl():
     finally:
         nlFile.close()
 
-def getBankFFNl():
-    getBankNl(ASM_FILE1, NL_FILE1)
-
-getBankFFNl()
+getBankNl(ASM_FILE1, NL_FILE1)
+getBankNl(ASM_FILE3, NL_FILE3)
 getVariablesNl()

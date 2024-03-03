@@ -272,7 +272,7 @@
 - D 0 - I - 0x00016E 00:815E: C9 07     .word $07C9      ; $87C9
 
 ; screen 4, 4, 2 (level 2, inside)
-- D 0 - I - 0x000170 00:8160: 00        .byte $00, $42   ; bank 01, page 01, $8140
+- D 0 - I - 0x000170 00:8160: 00        .byte $00, $42   ; bank 01, page 01, $8200
 - D 0 - I - 0x000172 00:8162: E0        .byte $E0, $4C   ; bank 01, page 01, $8CE0
 - D 0 - I - 0x000174 00:8164: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
 - D 0 - I - 0x000176 00:8166: C9 07     .word $07C9      ; $87C9
@@ -553,109 +553,109 @@
 - D 0 - I - 0x0002DC 00:82CC: 00        .byte $00, $A4   ; bank 02, page 02, $8400
 - D - - - - 0x0002DE 00:82CE: D5 07     .word $07D5      ; $87D5
 
-; screen 2, B
+; screen 2, B (level racing)
 - D 0 - I - 0x0002E0 00:82D0: 28        .byte $28, $7E   ; bank 01, page 02, $9E28
 - D 0 - I - 0x0002E2 00:82D2: 90        .byte $90, $B2   ; bank 02, page 02, $9290
 - D 0 - I - 0x0002E4 00:82D4: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x0002E6 00:82D6: BD 07     .word $07BD      ; $87BD
 
-; screen 3
+; screen 3 (level racing)
 - D 0 - I - 0x0002E8 00:82D8: E8        .byte $E8, $7E   ; bank 01, page 02, $9EE8
 - D 0 - I - 0x0002EA 00:82DA: C8        .byte $C8, $B2   ; bank 02, page 02, $92C8
 - D 0 - I - 0x0002EC 00:82DC: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x0002EE 00:82DE: BD 07     .word $07BD      ; $87BD
 
-; screen 4, C
+; screen 4, C (level racing)
 - D 0 - I - 0x0002F0 00:82E0: 90        .byte $90, $A6   ; bank 02, page 02, $8690
 - D 0 - I - 0x0002F2 00:82E2: 00        .byte $00, $B3   ; bank 02, page 02, $9300
 - D 0 - I - 0x0002F4 00:82E4: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x0002F6 00:82E6: BD 07     .word $07BD      ; $87BD
 
-; screen 0, 5, A, F, 16
+; screen 0, 5, A, F, 16 (level racing)
 - D 0 - I - 0x0002F8 00:82E8: 50        .byte $50, $A7   ; bank 02, page 02, $8750
 - D 0 - I - 0x0002FA 00:82EA: 38        .byte $38, $B3   ; bank 02, page 02, $9338
 - D 0 - I - 0x0002FC 00:82EC: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D 0 - I - 0x0002FE 00:82EE: BD 07     .word $07BD      ; $87BD
 
-; screen 1
+; screen 1 (level racing)
 - D 0 - I - 0x000300 00:82F0: 10        .byte $10, $A8   ; bank 02, page 02, $8810
 - D 0 - I - 0x000302 00:82F2: 70        .byte $70, $B3   ; bank 02, page 02, $9370
 - D 0 - I - 0x000304 00:82F4: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x000306 00:82F6: BD 07     .word $07BD      ; $87BD
 
-; screen 6
+; screen 6 (level racing)
 - D 0 - I - 0x000308 00:82F8: D0        .byte $D0, $A8   ; bank 02, page 02, $88D0
 - D 0 - I - 0x00030A 00:82FA: A8        .byte $A8, $B3   ; bank 02, page 02, $93A8
 - D 0 - I - 0x00030C 00:82FC: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x00030E 00:82FE: BD 07     .word $07BD      ; $87BD
 
-; screen 7, 9
+; screen 7, 9 (level racing)
 - D 0 - I - 0x000310 00:8300: 90        .byte $90, $A9   ; bank 02, page 02, $8990
 - D 0 - I - 0x000312 00:8302: E0        .byte $E0, $B3   ; bank 02, page 02, $93E0
 - D 0 - I - 0x000314 00:8304: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x000316 00:8306: BD 07     .word $07BD      ; $87BD
 
-; screen 8
+; screen 8 (level racing)
 - D 0 - I - 0x000318 00:8308: 50        .byte $50, $AA   ; bank 02, page 02, $8A50
 - D 0 - I - 0x00031A 00:830A: 18        .byte $18, $B4   ; bank 02, page 02, $9418
 - D 0 - I - 0x00031C 00:830C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x00031E 00:830E: BD 07     .word $07BD      ; $87BD
 
-; screen D, 10, 12
+; screen D, 10, 12 (level racing)
 - D 0 - I - 0x000320 00:8310: 10        .byte $10, $AB   ; bank 02, page 02, $8B10
 - D 0 - I - 0x000322 00:8312: 50        .byte $50, $B4   ; bank 02, page 02, $9450
 - D 0 - I - 0x000324 00:8314: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x000326 00:8316: BD 07     .word $07BD      ; $87BD
 
-; screen 13, 14
+; screen 13, 14 (level racing)
 - D 0 - I - 0x000328 00:8318: D0        .byte $D0, $AB   ; bank 02, page 02, $8BD0
 - D 0 - I - 0x00032A 00:831A: 88        .byte $88, $B4   ; bank 02, page 02, $9488
 - D 0 - I - 0x00032C 00:831C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x00032E 00:831E: BD 07     .word $07BD      ; $87BD
 
-; screen E, 11, 15
+; screen E, 11, 15 (level racing)
 - D 0 - I - 0x000330 00:8320: 90        .byte $90, $AC   ; bank 02, page 02, $8C90
 - D 0 - I - 0x000332 00:8322: C0        .byte $C0, $B4   ; bank 02, page 02, $94C0
 - D 0 - I - 0x000334 00:8324: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x000336 00:8326: BD 07     .word $07BD      ; $87BD
 
-; screen 17, 1B
+; screen 17, 1B (level racing)
 - D 0 - I - 0x000338 00:8328: 50        .byte $50, $AD   ; bank 02, page 02, $8D50
 - D 0 - I - 0x00033A 00:832A: F8        .byte $F8, $B4   ; bank 02, page 02, $94F8
 - D 0 - I - 0x00033C 00:832C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x00033E 00:832E: BD 07     .word $07BD      ; $87BD
 
-; screen 18, 1E
+; screen 18, 1E (level racing)
 - D 0 - I - 0x000340 00:8330: 10        .byte $10, $AE   ; bank 02, page 02, $8E10
 - D 0 - I - 0x000342 00:8332: 30        .byte $30, $B5   ; bank 02, page 02, $9530
 - D 0 - I - 0x000344 00:8334: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x000346 00:8336: BD 07     .word $07BD      ; $87BD
 
-; screen 19, 1C, 1F
+; screen 19, 1C, 1F (level racing)
 - D 0 - I - 0x000348 00:8338: D0        .byte $D0, $AE   ; bank 02, page 02, $8ED0
 - D 0 - I - 0x00034A 00:833A: 68        .byte $68, $B5   ; bank 02, page 02, $9568
 - D 0 - I - 0x00034C 00:833C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x00034E 00:833E: BD 07     .word $07BD      ; $87BD
 
-; screen 1D
+; screen 1D (level racing)
 - D 0 - I - 0x000350 00:8340: 90        .byte $90, $AF   ; bank 02, page 02, $8F90
 - D 0 - I - 0x000352 00:8342: A0        .byte $A0, $B5   ; bank 02, page 02, $95A0
 - D 0 - I - 0x000354 00:8344: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x000356 00:8346: BD 07     .word $07BD      ; $87BD
 
-; screen 1A, 20
+; screen 1A, 20 (level racing)
 - D 0 - I - 0x000358 00:8348: 50        .byte $50, $B0   ; bank 02, page 02, $9050
 - D 0 - I - 0x00035A 00:834A: D8        .byte $D8, $B5   ; bank 02, page 02, $95D8
 - D 0 - I - 0x00035C 00:834C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x00035E 00:834E: BD 07     .word $07BD      ; $87BD
 
-; screen 21, 22
+; screen 21, 22 (level racing)
 - D 0 - I - 0x000360 00:8350: 10        .byte $10, $B1   ; bank 02, page 02, $9110
 - D 0 - I - 0x000362 00:8352: 10        .byte $10, $B6   ; bank 02, page 02, $9610
 - D 0 - I - 0x000364 00:8354: 80        .byte $80, $B6   ; bank 02, page 02, $9680
 - D - - - - 0x000366 00:8356: BD 07     .word $07BD      ; $87BD
 
-; screen 23
+; screen 23 (level racing)
 - D 0 - I - 0x000368 00:8358: D0        .byte $D0, $B1   ; bank 02, page 02, $91D0
 - D 0 - I - 0x00036A 00:835A: 48        .byte $48, $B6   ; bank 02, page 02, $9648
 - D 0 - I - 0x00036C 00:835C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
@@ -905,16 +905,16 @@ tbl_background_screens:
 - D - - - - 0x0004BE 00:84AE: 25 06     .word $0625
 - D - - - - 0x0004C0 00:84B0: 25 06     .word $0625
 - D 0 - - - 0x0004C2 00:84B2: 25 06     .word $0625 ; level racing (tbl_background_screens_level_racing $8625)
-- D 0 - - - 0x0004C4 00:84B4: 49 06     .word $0649 ; room with NPC in level 1 ($8649)
+- D 0 - - - 0x0004C4 00:84B4: 49 06     .word $0649 ; room with NPC in level 1   ($8649)
 - D 0 - - - 0x0004C6 00:84B6: 4A 06     .word $064A ; room with NPC in level 2.1 ($864A)
 - D 0 - - - 0x0004C8 00:84B8: 4B 06     .word $064B ; room with NPC in level 2.2 ($864B)
-- D 0 - - - 0x0004CA 00:84BA: 4C 06     .word $064C ; room with NPC in level 3 ($864C)
-- D 0 - - - 0x0004CC 00:84BC: 4D 06     .word $064D ; room with NPC in level 4 ($864D)
-- D 0 - - - 0x0004CE 00:84BE: 49 06     .word $0649
-- D 0 - - - 0x0004D0 00:84C0: 4A 06     .word $064A
-- D 0 - - - 0x0004D2 00:84C2: 4B 06     .word $064B
-- D 0 - - - 0x0004D4 00:84C4: 4C 06     .word $064C
-- D 0 - - - 0x0004D6 00:84C6: 4D 06     .word $064D
+- D 0 - - - 0x0004CA 00:84BA: 4C 06     .word $064C ; room with NPC in level 3   ($864C)
+- D 0 - - - 0x0004CC 00:84BC: 4D 06     .word $064D ; room with NPC in level 4   ($864D)
+- D 0 - - - 0x0004CE 00:84BE: 49 06     .word $0649 ; room with briefcases in level 1   ($8649)
+- D 0 - - - 0x0004D0 00:84C0: 4A 06     .word $064A ; room with briefcases in level 2.1 ($864A)
+- D 0 - - - 0x0004D2 00:84C2: 4B 06     .word $064B ; room with briefcases in level 2.2 ($864B)
+- D 0 - - - 0x0004D4 00:84C4: 4C 06     .word $064C ; room with briefcases in level 3   ($864C)
+- D 0 - - - 0x0004D6 00:84C6: 4D 06     .word $064D ; room with briefcases in level 4   ($864D)
 - D 0 - - - 0x0004D8 00:84C8: 4E 06     .word $064E ; level 3.0 (water 1.1) ($864E)
 - D - - - - 0x0004DA 00:84CA: 4F 06     .word $064F ; ($864F)
 - D 0 - - - 0x0004DC 00:84CC: 51 06     .word $0651 ; level 3.0 (water 1.0) ($8651)
@@ -2538,7 +2538,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001D90 00:9D80: AF        .byte $AF, $AF, $AF, $AF, $AF, $AF, $AF, $AF
 - D 0 - I - 0x001D98 00:9D88: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; ; Indexes of the metatiles (level 3.X, water)
+; Indexes of the metatiles (level 3.X, water)
 - D 0 - I - 0x001DA0 00:9D90: 00        .byte $00, $00, $00, $00   ; 0x00
 - D 0 - I - 0x001DA4 00:9D94: 98        .byte $98, $99, $9A, $9B   ; 0x01
 - D 0 - I - 0x001DA8 00:9D98: 01        .byte $01, $9C, $01, $9E   ; 0x02
