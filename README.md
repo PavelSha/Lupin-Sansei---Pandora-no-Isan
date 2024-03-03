@@ -6,9 +6,9 @@ All rights reserved by モンキー・パンチ, NAMCO.
 -  Windows - run a command ***assemble.bat***
 -  Linux, MacOS - run a command ***assemble.sh*** (more information - [NES Games Disassembly](https://github.com/cyneprepou4uk/NES-Games-Disassembly))
 ## Statistics
--  Code Logger bytes - ***18.96%***
--  Data Logger bytes - ***68.15%***
--  Unknown bytes     - ***12.89%***
+-  Code Logger bytes - ***22.70%***
+-  Data Logger bytes - ***62.92%***
+-  Unknown bytes     - ***14.39%***
 -  Code commented    - ***14.99%***
 ## Documentation
 -  [bestiary](docs/ru/bestiary.md) - The list of all enemies in the game

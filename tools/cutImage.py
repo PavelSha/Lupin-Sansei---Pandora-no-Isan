@@ -6,7 +6,7 @@ import re
 from PIL import Image
 
 FOLDER_PATH = "C:\\Lupin Sansei - Pandora no Isan\\snaps\\"
-START = 96 #112
+START = 160 #176
 
 def cut():
     for x in range(0, 17):

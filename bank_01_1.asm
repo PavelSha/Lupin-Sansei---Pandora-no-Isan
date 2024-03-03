@@ -650,7 +650,7 @@
 - - - - - - 0x00500F 01:8FFF: F7        .byte $F7   ; 
 
 ; 0xCCAAAAAA - see $D267, bank FF
-; Indexes of the quartet tiles
+; Indexes of the metatiles
 ; screen 0, level 1.0, horizontally - y axis, vertically - x axis
 - D 0 - I - 0x005010 01:9000: 01        .byte $01, $01, $01, $01, $01, $28, $7F, $01, $01, $8D, $7A, $00
 - D 0 - I - 0x00501C 01:900C: 01        .byte $01, $01, $01, $01, $01, $97, $80, $01, $01, $9D, $9C, $00
