@@ -29,7 +29,7 @@
 |0x1A|Boy in green| A |   | 2 |
 |0x1B|Girl with sword| A |   | 1 |
 |0x1C|Knight in armor with a shield| A |   | 1 |
-|0x1D| ? |   |   |   |
+|0x1D|The barrel| B |   | 2 |
 |0x1E|Sensor| B |   | 1 |
 |0x1F|Fly man| A |   | 1 |
 |0x20|Shooter with bazooka| A |   | 1 |
@@ -48,8 +48,8 @@
 |0x2D| ? |   |   |   |
 |0x2E|Boss| A |   | 4 |
 |0x2F| ? |   |   |   |
-|0x30| ? |   |   |   |
-|0x31| ? |   |   |   |
+|0x30|Wall| B |   | 4 |
+|0x31|Wall| B |   | 4 |
 |0x32|Breaking platform| B |   | 4 |
 |0x33|Blade trap| B |   | 4 |
 |0x34|Potted snakes| B |   | 4 |

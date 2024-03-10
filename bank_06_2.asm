@@ -29,7 +29,7 @@
 .import sub_D073_invert_sign ; bank FF
 .import sub_D079_check_button_press ; bank FF
 .import sub_D086_render_14_15_16_17_18_v1 ; bank FF
-.import sub_EF46_switch_bank_4_p1_p2 ; bank FF
+.import sub_EF46_switch_bank_4_p1 ; bank FF
 .import sub_EF4F_switch_bank_4_p2 ; bank FF
 .import sub_F2D6_try_put_briefcase ; bank FF
 .import tbl_C1CA_checkpoint_on_start_levels ; bank FF
@@ -2431,10 +2431,10 @@ C - - - - - 0x01AF9E 06:AF8E: 90 36     BCC bra_AFC6_loop_continue
 C - - - - - 0x01AFA0 06:AF90: BC 98 03  LDY v_briefcase_index,X
 C - - - - - 0x01AFA3 06:AF93: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01AFA5 06:AF95: 30 0B     BMI bra_AFA2
-C - - - - - 0x01AFA7 06:AF97: B9 19 02  LDA v_array_white_briefcase,Y
+C - - - - - 0x01AFA7 06:AF97: B9 19 02  LDA vArrayWhiteBriefcase,Y
 C - - - - - 0x01AFAA 06:AF9A: 48        PHA
 C - - - - - 0x01AFAB 06:AF9B: 09 80     ORA #BIT_USING_WHITE_BRIEFCASE
-C - - - - - 0x01AFAD 06:AF9D: 99 19 02  STA v_array_white_briefcase,Y ; The white briefcase taken
+C - - - - - 0x01AFAD 06:AF9D: 99 19 02  STA vArrayWhiteBriefcase,Y ; The white briefcase taken
 C - - - - - 0x01AFB0 06:AFA0: 68        PLA
 C - - - - - 0x01AFB1 06:AFA1: A8        TAY
 bra_AFA2:
@@ -2515,7 +2515,7 @@ C - - - - - 0x01B02C 06:B01C: BD 98 03  LDA v_briefcase_index,X
 C - - - - - 0x01B02F 06:B01F: A4 6D     LDY vMovableChrStatus
 C - - - - - 0x01B031 06:B021: 30 06     BMI bra_B029
 C - - - - - 0x01B033 06:B023: A8        TAY
-C - - - - - 0x01B034 06:B024: B9 19 02  LDA v_array_white_briefcase,Y
+C - - - - - 0x01B034 06:B024: B9 19 02  LDA vArrayWhiteBriefcase,Y
 C - - - - - 0x01B037 06:B027: 29 0F     AND #$0F
 bra_B029:
 C - - - - - 0x01B039 06:B029: 0A        ASL
@@ -2615,10 +2615,10 @@ C - - - - - 0x01B0D8 06:B0C8: A9 01     LDA #$01
 C - - - - - 0x01B0DA 06:B0CA: 20 D6 F2  JSR sub_F2D6_try_put_briefcase       ; bank FF
 C - - - - - 0x01B0DD 06:B0CD: 90 D5     BCC bra_B0A4_RTS                     ; If a briefcase doesn't put
 C - - - - - 0x01B0DF 06:B0CF: A4 0A     LDY ram_000A                         ; load index of a briefcase
-C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA v_array_white_briefcase,Y        ; load an item (inside a briefcase)
+C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA vArrayWhiteBriefcase,Y           ; load an item (inside a briefcase)
 C - - - - - 0x01B0E4 06:B0D4: 30 CE     BMI bra_B0A4_RTS                     ; If the item is got
 C - - - - - 0x01B0E6 06:B0D6: A0 05     LDY #$05                             ; set loop counter
-bra_B0D8_loop:                                                              ; loop by y (5 times)
+bra_B0D8_loop:                                                               ; loop by y (5 times)
 C - - - - - 0x01B0E8 06:B0D8: B9 9E 03  LDA v_item_on_screen,Y
 C - - - - - 0x01B0EB 06:B0DB: 10 14     BPL bra_B0F1
 C - - - - - 0x01B0ED 06:B0DD: B9 B6 03  LDA ram_03B6,Y
@@ -2769,7 +2769,7 @@ C - - - - - 0x01B1EE 06:B1DE: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01B1F0 06:B1E0: 9D 98 03  STA v_briefcase_index,X
 C - - - - - 0x01B1F3 06:B1E3: F0 0A     BEQ @bra_B1EF
 C - - - - - 0x01B1F5 06:B1E5: A8        TAY
-C - - - - - 0x01B1F6 06:B1E6: B9 19 02  LDA v_array_white_briefcase,Y
+C - - - - - 0x01B1F6 06:B1E6: B9 19 02  LDA vArrayWhiteBriefcase,Y
 C - - - - - 0x01B1F9 06:B1E9: 30 04     BMI @bra_B1EF ; Go to branch, if the briefcase item is collected
 C - - - - - 0x01B1FB 06:B1EB: A9 C0     LDA #$C0 ; CONSTANT: The item is in the briefcase, i.e. it's hidden
 C - - - - - 0x01B1FD 06:B1ED: D0 02     BNE @bra_B1F1
@@ -3670,7 +3670,7 @@ C - - - - - 0x01B7EA 06:B7DA: 60        RTS
 C - - - - - 0x01B7EB 06:B7DB: 20 02 C4  JSR sub_C402_clear_sound_parts
 C - - - - - 0x01B7EE 06:B7DE: 20 1D C3  JSR sub_C31D_clear_ppu
 C - - - - - 0x01B7F1 06:B7E1: 20 58 C3  JSR sub_C358_clear_OAM           ;
-C - - - - - 0x01B7F4 06:B7E4: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2 ;
+C - - - - - 0x01B7F4 06:B7E4: 20 46 EF  JSR sub_EF46_switch_bank_4_p1    ;
 C - - - - - 0x01B7F7 06:B7E7: A2 05     LDX #$05                         ; set loop counter
 @bra_B7E9_loop:                                                          ; loop by x
 C - - - - - 0x01B7F9 06:B7E9: BD CF BC  LDA tbl_BCCF,X
@@ -3813,7 +3813,7 @@ C - - - - - 0x01B8EE 06:B8DE: A9 03     LDA #$03                         ; start
 C - - - - - 0x01B8F0 06:B8E0: 20 20 C4  JSR sub_C420_add_sound_effect    ;
 C - - - - - 0x01B8F3 06:B8E3: 20 1D C3  JSR sub_C31D_clear_ppu           ;
 C - - - - - 0x01B8F6 06:B8E6: 20 58 C3  JSR sub_C358_clear_OAM           ;
-C - - - - - 0x01B8F9 06:B8E9: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2 ;
+C - - - - - 0x01B8F9 06:B8E9: 20 46 EF  JSR sub_EF46_switch_bank_4_p1    ;
 C - - - - - 0x01B8FC 06:B8EC: A2 05     LDX #$05                         ; set loop counter
 @bra_B8EE_repeat:                                                        ; loop by x
 C - - - - - 0x01B8FE 06:B8EE: BD BE 80  LDA tbl_main_menu_chr_banks,X    ;
@@ -3958,7 +3958,7 @@ bra_B9DF:
 C - - - - - 0x01B9EF 06:B9DF: 20 02 C4  JSR sub_C402_clear_sound_parts   ;
 C - - - - - 0x01B9F2 06:B9E2: 20 1D C3  JSR sub_C31D_clear_ppu           ;
 C - - - - - 0x01B9F5 06:B9E5: 20 58 C3  JSR sub_C358_clear_OAM           ;
-C - - - - - 0x01B9F8 06:B9E8: 20 46 EF  JSR sub_EF46_switch_bank_4_p1_p2 ;
+C - - - - - 0x01B9F8 06:B9E8: 20 46 EF  JSR sub_EF46_switch_bank_4_p1    ;
 C - - - - - 0x01B9FB 06:B9EB: A2 05     LDX #$05                         ; set loop counter
 @bra_B9ED_loop:                                                          ; loop by x
 C - - - - - 0x01B9FD 06:B9ED: BD 14 80  LDA tbl_template_chr_banks1,X    ;
@@ -4051,9 +4051,9 @@ C - - - - - 0x01BAA7 06:BA97: B9 B9 B9  LDA tbl_B9B9,Y
 C - - - - - 0x01BAAA 06:BA9A: 85 C4     STA vCheckpoint
 C - - - - - 0x01BAAC 06:BA9C: B9 C1 B9  LDA tbl_B9C1,Y
 C - - - - - 0x01BAAF 06:BA9F: 85 5E     STA v_no_level
-C - - - - - 0x01BAB1 06:BAA1: A9 00     LDA #$00
-C - - - - - 0x01BAB3 06:BAA3: 85 22     STA ram_0022
-C - - - - - 0x01BAB5 06:BAA5: 85 23     STA ram_0023
+C - - - - - 0x01BAB1 06:BAA1: A9 00     LDA #$00                                 ;
+C - - - - - 0x01BAB3 06:BAA3: 85 22     STA vDemoBtnPrsdCounter                  ; clear counter 
+C - - - - - 0x01BAB5 06:BAA5: 85 23     STA vDemoBtnPrsdIndex                    ; clear index
 C - - - - - 0x01BAB7 06:BAA7: 85 B6     STA ram_00B6
 C - - - - - 0x01BAB9 06:BAA9: E6 25     INC ram_0025
 C - - - - - 0x01BABB 06:BAAB: 60        RTS

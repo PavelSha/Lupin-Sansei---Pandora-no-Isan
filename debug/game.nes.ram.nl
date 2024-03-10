@@ -7,6 +7,8 @@ $001E#v_player1_btn_pressed#
 $001F#v_player2_btn_pressed#
 $0020#v_last_p2_btn_pressed#
 $0021#v_last_p1_btn_pressed#
+$0022#vDemoBtnPrsdCounter#
+$0023#vDemoBtnPrsdIndex#
 $0024#vMenuDemoIndex#
 $0026#vPpuCtrlSettings#
 $0027#vLowViewPortPosX#
@@ -67,6 +69,8 @@ $00B3#v_lock_secret_hits#
 $00B4#v_offset_in_secret_codes#
 $00B7#v_corridor_magic5#
 $00B8#v_corridor_magic5_cache#
+$00BA#vCheckpointAddr#
+$00BB#vHignCheckpointAddr#
 $00BC#v_tmp_target_room#
 $00BD#vCorridorAddr#
 $00BE#vHighCorridorAddr#
@@ -95,13 +99,15 @@ $020A#vItemsBlinkTime#
 $0214#vCurrentWeaponStatus#
 $0215#vBreathingApparatusLowCounter#
 $0216#vBreathingApparatusHighCounter#
-$0219#v_array_white_briefcase#
+$0219#vArrayWhiteBriefcase#
 $0300#vEnemyA#
 $0301#vEnemyB#
 $030A#vEnemyACount#
 $030B#vEnemyBCount#
 $0314#vEnemyTimerLow1#
 $0315#vEnemyTimerHigh1#
+$0316#vZenigataTimerLow1#
+$0317#vZenigataTimerHigh1#
 $0398#v_briefcase_index#
 $039E#v_item_on_screen#
 $0406#v_sound_counter#

@@ -332,8 +332,12 @@ $C469##--NO-COMMENT--
 $C46A##retrieve x
 $C46B##--NO-COMMENT--
 $C46C#sub_C46C#
+$C470##--NO-COMMENT--
 $C472##Branch If in game
-$C499#bra_C499#
+$C474##--NO-COMMENT--
+$C477##--NO-COMMENT--
+$C479##If vDemoBtnPrsdCounter != 0x00
+$C499#bra_C499_skip#
 $C4A7#sub_C4A7_read_io_controller#--NO-COMMENT--
 $C4A9##store a last button state (player1)
 $C4AB##--NO-COMMENT--
@@ -353,6 +357,7 @@ $C4C8##--NO-COMMENT--
 $C4CA##Standard Read for 2 Controllers and Famicom (https://www.nesdev.org/wiki/Controller_reading_code)
 $C4CC##decrement loop counter
 $C4CD##If Register X != 0
+$C4CF##--NO-COMMENT--
 $C4D0#bra_C4D0_update_btn_pressed#--NO-COMMENT--
 $C4D3##--NO-COMMENT--
 $C4D5##--NO-COMMENT--
@@ -2487,7 +2492,7 @@ $EF3D##--NO-COMMENT--
 $EF40##--NO-COMMENT--
 $EF42##switch bank 02 (page 1) in 0x8000-09FFF
 $EF45##--NO-COMMENT--
-$EF46#sub_EF46_switch_bank_4_p1_p2#--NO-COMMENT--
+$EF46#sub_EF46_switch_bank_4_p1#--NO-COMMENT--
 $EF48##--NO-COMMENT--
 $EF4B##--NO-COMMENT--
 $EF4D##If Register A != 0x00
@@ -2514,13 +2519,53 @@ $EF86#sub_EF86_increment_counter#--NO-COMMENT--
 $EF88##If v_low_counter != 0
 $EF8A##--NO-COMMENT--
 $EF8C#bra_EF8C_RTS#--NO-COMMENT--
-$EF8D#sub_EF8D#
-$EF96#sub_EF96#
-$EF9A#clear_loop#0x0209-0x02FF in 0
-$EFA5#sub_EFA5#
+$EF8D#sub_EF8D_clear_Zenigata_timer#a clear value
+$EF8F##--NO-COMMENT--
+$EF92##--NO-COMMENT--
+$EF95##--NO-COMMENT--
+$EF96#sub_EF96#a clear value
+$EF98##set loop counter
+$EF9A#bra_clear_loop#0x0209-0x02FF in 0
+$EF9D##decrements loop counter
+$EF9E##If Register X < 0xF0
+$EFA0##--NO-COMMENT--
+$EFA2##clear
+$EFA5#sub_EFA5#--NO-COMMENT--
 $EFAE#bra_EFAE_repeat#
-$EFCD#bra_room_loop#
-$EFE2#bra_briefcase_loop#
+$EFB4##--NO-COMMENT--
+$EFB7##--NO-COMMENT--
+$EFB9##--NO-COMMENT--
+$EFBB##--NO-COMMENT--
+$EFBC##--NO-COMMENT--
+$EFBD##A <~ v_no_level * 3, because the offset is 3 bytes
+$EFBF##--NO-COMMENT--
+$EFC0##set loop counter, Y <~ the number of the rooms
+$EFC3##--NO-COMMENT--
+$EFC6##Low address
+$EFC8##--NO-COMMENT--
+$EFCB##High address
+$EFCD#bra_room_loop#--NO-COMMENT--
+$EFCF##a room ROM-value
+$EFD2##decrements loop counter
+$EFD3##If Register Y != 0
+$EFD5##set loop counter, Y <~ the number of the briefcase
+$EFD8##--NO-COMMENT--
+$EFDB##Low address
+$EFDD##--NO-COMMENT--
+$EFE0##High address
+$EFE2#bra_briefcase_loop#--NO-COMMENT--
+$EFE4##a briefcase ROM-value
+$EFE7##decrements loop counter
+$EFE8##If Register Y != 0
+$EFEA##--NO-COMMENT--
+$EFED##--NO-COMMENT--
+$EFEF##*2, because RAM address contains 2 bytes
+$EFF0##--NO-COMMENT--
+$EFF1##--NO-COMMENT--
+$EFF4##--NO-COMMENT--
+$EFF6##--NO-COMMENT--
+$EFF9##--NO-COMMENT--
+$EFFB##--NO-COMMENT--
 $EFFC#sub_EFFC#set loop counter
 $EFFE##set assigning value
 $F000#bra_F000_loop#clear items
@@ -2582,7 +2627,7 @@ $F11A##CONSTANT - level racing
 $F11C##If vNoSubLevel is the level racing
 $F11E##--NO-COMMENT--
 $F121##CONSTANT - Max value
-$F123##If ram_0317 >= $4B
+$F123##If vZenigataTimerHigh1 >= $4B
 $F125#bra_F125_skip#set loop counter
 $F127#bra_F127_loop#a low counter
 $F12A##If low counter is overflow
@@ -2595,7 +2640,7 @@ $F136##If a counter is overflow
 $F138##--NO-COMMENT--
 $F13B##CONSTANT - Max value
 $F13D##--NO-COMMENT--
-$F140##If ram_0317 < $4B
+$F140##If vZenigataTimerHigh1 < $4B
 $F142##Assigned $4B
 $F145#bra_F145_RTS#--NO-COMMENT--
 $F146#loc_F146#--NO-COMMENT--
@@ -2623,6 +2668,7 @@ $F198##If vEnemyBCount != 0
 $F19A##--NO-COMMENT--
 $F19C##If the infrared goggles is activated
 $F1B1#bra_F1B1#
+$F1C2##CONSTANT - Zenigata
 $F1D8#bra_F1D8#
 $F1EB#sub_F1EB#
 $F208#bra_F208#

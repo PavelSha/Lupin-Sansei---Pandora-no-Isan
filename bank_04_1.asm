@@ -4,6 +4,7 @@
 ; 0x010010-0x01200F
 
 .export addr_tbl_checkpoints
+.export tbl_demo_btn_pressed
 .export tbl_template_chr_banks1
 .export tbl_main_menu_chr_banks
 .export tbl_main_menu_palette
@@ -14,6 +15,7 @@
 .export tbl_roof_pitches
 .export tbl_message_bar_bottom_attrs
 .export tbl_character_select_palette
+.export tbl_ptr_checkpoints_on_the_level
 
 - - - - - - 0x010010 04:8000: 7B 9D     .word $9D7B
 - D 0 - - - 0x010012 04:8002: 9B 9D     .word $9D9B
@@ -26,12 +28,11 @@ addr_tbl_checkpoints:
 
 - D 0 - - - 0x01001C 04:800C: CD        .byte $CD   ; 
 - D 0 - - - 0x01001D 04:800D: 9C        .byte $9C   ; 
-- D 0 - - - 0x01001E 04:800E: 1D        .byte $1D   ; 
-- D 0 - - - 0x01001F 04:800F: 89        .byte $89   ; 
-- D 0 - - - 0x010020 04:8010: 1D        .byte $1D   ; 
-- D 0 - - - 0x010021 04:8011: 89        .byte $89   ; 
-- D 0 - - - 0x010022 04:8012: 1D        .byte $1D   ; 
-- D 0 - - - 0x010023 04:8013: 89        .byte $89   ; 
+
+tbl_demo_btn_pressed:
+- D 0 - - - 0x01001E 04:800E: 1D 89     .word $891D ; Lupin
+- D 0 - - - 0x010020 04:8010: 1D 89     .word $891D ; Jigen
+- D 0 - - - 0x010022 04:8012: 1D 89     .word $891D ; Goemon
 
 tbl_template_chr_banks1:
 - D 0 - - - 0x010024 04:8014: 12        .byte $12   ; Tiles: the shortgun
@@ -1145,14 +1146,11 @@ tbl_room_lengths:
 - D 0 - - - 0x0105C4 04:85B4: 01        .byte $01   ; level 4, map 4 (E5-E5)
 - D 0 - - - 0x0105C5 04:85B5: 01        .byte $01   ; level 4, map 4 (F4-F5)
 
-- D 0 - - - 0x0105C6 04:85B6: 75        .byte $75   ; <u>
-- D 0 - - - 0x0105C7 04:85B7: 86        .byte $86   ; 
-- D 0 - - - 0x0105C8 04:85B8: 79        .byte $79   ; <y>
-- D 0 - - - 0x0105C9 04:85B9: 86        .byte $86   ; 
-- D 0 - - - 0x0105CA 04:85BA: 81        .byte $81   ; 
-- D 0 - - - 0x0105CB 04:85BB: 86        .byte $86   ; 
-- D 0 - - - 0x0105CC 04:85BC: 85        .byte $85   ; 
-- D 0 - - - 0x0105CD 04:85BD: 86        .byte $86   ; 
+tbl_ptr_checkpoints_on_the_level:
+- D 0 - - - 0x0105C6 04:85B6: 75 86     .addr tbl_ptr_checkpoints_on_the_level1 ; CPU address $8675
+- D 0 - - - 0x0105C8 04:85B8: 79 86     .addr tbl_ptr_checkpoints_on_the_level2 ; CPU address $8679
+- D 0 - - - 0x0105CA 04:85BA: 81 86     .addr tbl_ptr_checkpoints_on_the_level3 ; CPU address $8681
+- D 0 - - - 0x0105CC 04:85BC: 85 86     .addr tbl_ptr_checkpoints_on_the_level4 ; CPU address $8685
 
 tbl_message_bar_bottom_attrs:
 - D 0 - - - 0x0105CE 04:85BE: C0        .byte $C0, $30, $00, $00, $00, $00, $00, $00, $CC, $33, $00, $00, $00, $00, $00, $00
@@ -1261,26 +1259,34 @@ tbl_roof_pitches:
 - D 0 - - - 0x010682 04:8672: 20        .byte $20   ; 
 - D 0 - - - 0x010683 04:8673: C0        .byte $C0   ; 
 - D 0 - - - 0x010684 04:8674: F0        .byte $F0   ; 
-- D 0 - I - 0x010685 04:8675: 1A        .byte $1A   ; 
-- D 0 - I - 0x010686 04:8676: 1A        .byte $1A   ; 
-- D 0 - I - 0x010687 04:8677: 1F        .byte $1F   ; 
-- D 0 - I - 0x010688 04:8678: 1F        .byte $1F   ; 
-- D 0 - I - 0x010689 04:8679: 1B        .byte $1B   ; 
-- D 0 - I - 0x01068A 04:867A: 1B        .byte $1B   ; 
-- D 0 - I - 0x01068B 04:867B: 20        .byte $20   ; 
-- - - - - - 0x01068C 04:867C: 20        .byte $20   ; 
-- D 0 - I - 0x01068D 04:867D: 1C        .byte $1C   ; 
-- D 0 - I - 0x01068E 04:867E: 1C        .byte $1C   ; 
-- D 0 - I - 0x01068F 04:867F: 21        .byte $21   ; 
-- D 0 - I - 0x010690 04:8680: 21        .byte $21   ; 
-- D 0 - I - 0x010691 04:8681: 1D        .byte $1D   ; 
-- D 0 - I - 0x010692 04:8682: 1D        .byte $1D   ; 
-- D 0 - I - 0x010693 04:8683: 22        .byte $22   ; 
-- D 0 - I - 0x010694 04:8684: 22        .byte $22   ; 
-- - - - - - 0x010695 04:8685: 1E        .byte $1E   ; 
-- D 0 - I - 0x010696 04:8686: 1E        .byte $1E   ; 
-- D 0 - I - 0x010697 04:8687: 23        .byte $23   ; 
-- D 0 - I - 0x010698 04:8688: 14        .byte $14   ; 
+
+tbl_ptr_checkpoints_on_the_level1:
+- D 0 - I - 0x010685 04:8675: 1A        .byte $1A
+- D 0 - I - 0x010686 04:8676: 1A        .byte $1A
+- D 0 - I - 0x010687 04:8677: 1F        .byte $1F
+- D 0 - I - 0x010688 04:8678: 1F        .byte $1F
+
+tbl_ptr_checkpoints_on_the_level2:
+- D 0 - I - 0x010689 04:8679: 1B        .byte $1B
+- D 0 - I - 0x01068A 04:867A: 1B        .byte $1B
+- D 0 - I - 0x01068B 04:867B: 20        .byte $20
+- - - - - - 0x01068C 04:867C: 20        .byte $20
+- D 0 - I - 0x01068D 04:867D: 1C        .byte $1C
+- D 0 - I - 0x01068E 04:867E: 1C        .byte $1C
+- D 0 - I - 0x01068F 04:867F: 21        .byte $21
+- D 0 - I - 0x010690 04:8680: 21        .byte $21
+
+tbl_ptr_checkpoints_on_the_level3:
+- D 0 - I - 0x010691 04:8681: 1D        .byte $1D
+- D 0 - I - 0x010692 04:8682: 1D        .byte $1D
+- D 0 - I - 0x010693 04:8683: 22        .byte $22
+- D 0 - I - 0x010694 04:8684: 22        .byte $22
+
+tbl_ptr_checkpoints_on_the_level4:
+- - - - - - 0x010695 04:8685: 1E        .byte $1E
+- D 0 - I - 0x010696 04:8686: 1E        .byte $1E
+- D 0 - I - 0x010697 04:8687: 23        .byte $23
+- D 0 - I - 0x010698 04:8688: 14        .byte $14
 
 loc_tbl_attrs_select_character:
 - D 0 - I - 0x010699 04:8689: 00        .byte $00   ; 

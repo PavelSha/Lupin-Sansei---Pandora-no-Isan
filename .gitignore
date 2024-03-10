@@ -7,6 +7,7 @@ z_debug.txt
 z_listing.asm
 snaps/
 debug/last-mini.log
+debug/last-mini-*.log
 debug/last.log
 debug/game.nes.6.2.nl
 *.nes

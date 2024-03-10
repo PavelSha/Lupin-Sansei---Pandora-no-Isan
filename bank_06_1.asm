@@ -3612,7 +3612,7 @@ bra_B864_RTS:
 C - - - - - 0x019874 06:B864: 60        RTS
 loc_B865:
 C D 1 - - - 0x019875 06:B865: A9 4A     LDA #$4A
-C - - - - - 0x019877 06:B867: 8D 17 03  STA ram_0317
+C - - - - - 0x019877 06:B867: 8D 17 03  STA vZenigataTimerHigh1
 C - - - - - 0x01987A 06:B86A: 4C 7F D7  JMP $D77F
 sub_B86D:
 C - - - - - 0x01987D 06:B86D: A0 00     LDY #$00

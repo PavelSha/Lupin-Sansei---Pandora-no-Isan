@@ -59,6 +59,8 @@ v_player1_btn_pressed         = ram_001E ; For a contoller1
 v_player2_btn_pressed         = ram_001F ; For a contoller2
 v_last_p2_btn_pressed         = ram_0020 ; It's the previouse value for a contoller2 (the state of the buttons)
 v_last_p1_btn_pressed         = ram_0021 ; It's the previouse value for a contoller1 (the state of the buttons)
+vDemoBtnPrsdCounter           = ram_0022 ; Counter after which an attempt is made to simulate a button press in demo scenes
+vDemoBtnPrsdIndex             = ram_0023 ; Index in the table of pressed buttons in demo scenes
 vMenuDemoIndex                = ram_0024
 ; 0x00 - The menu
 ; 0x01 - Lupin demo
@@ -225,6 +227,9 @@ v_lock_secret_hits            = ram_00B3 ; Allow button to be pressed only when 
 v_offset_in_secret_codes      = ram_00B4
 v_corridor_magic5             = ram_00B7
 v_corridor_magic5_cache       = ram_00B8
+
+vCheckpointAddr               = ram_00BA ; low address (address to table tbl_ptr_checkpoints_on_the_level)
+vHignCheckpointAddr           = ram_00BB ; high address
 v_tmp_target_room             = ram_00BC
 vCorridorAddr                 = ram_00BD ; low address (address to table tbl_ptr_corridors)
 vHighCorridorAddr             = ram_00BE ; high address
@@ -270,67 +275,10 @@ vCurrentWeaponStatus          = ram_0214 ; Only the active items
 vBreathingApparatusLowCounter  = ram_0215
 vBreathingApparatusHighCounter = ram_0216
 
-v_array_white_briefcase        = ram_0219
+vArrayWhiteBriefcase           = ram_0219
 ; flag 0x80 - the item is got (see BIT_USING_WHITE_BRIEFCASE)
 vEnemies                       = ram_0300
-; 0x00 - Nobody
-; 0x01 - Cat with the weapon (level 3) (0x01 - knife, 0x81 - gun)
-; 0x02 - Gray Land hat (level 3) Type B
-; 0x03 - Black Land hat (level 3) Type B
-; 0x04 - Land Diver (level 3)
-; 0x05 - Land Diver (level 2) Type A
-; 0x06 - Land Diver (level 1) Type A
-; 0x07 - Zenigata Type A
-; 0x08 - Shooter with bazooka (level 3) Type A
-; 0x09 - The fat sailor (level 3) Type A
-; 0x0A - The barrel (level 3) Type B
-; 0x0B - Jumping sailor (level 3) Type A
-; 0x0C - The lift (level 3) Type A
-; 0x0D - Sensor (level 3) Type B
-; 0x0E - Bat (level 1) Type B
-; 0x0F - Gray cat (level 1) Type B
-; 0x10 - Nun (level 2) Type A
-; 0x11 - Girl in red, in the castle (level 1) Type A
-; 0x12 - Batterfly (level 2) Type B
-; 0x13 - Broned batterfly (level 2) Type B
-; 0x14 - Shooter with bazooka (level 2) Type A
-; 0x15 - Sensor (level 2) Type B
-; 0x16 - Black cat (level 1) Type B
-; 0x17 - Karate-boy (level 2) Type A
-; 0x18 - Karate-boy in blue on the street (level 2) Type A
-; 0x19 - Karate-girl (level 2) Type A
-; 0x1A - Boy in green (level 2) Type A
-; 0x1B - Girl with sword (level 1) Type A
-; 0x1C - Knight in armor with a shield (level 1) Type A
-; 0x1D - The barrel (level 2) Type B
-; 0x1E - Sensor (level 1) Type B
-; 0x1F - Fly man (level 1) Type A
-; 0x20 - Shooter with bazooka (level 1) Type A
-; 0x21 - Cobblestone (level-racing, level 4) Type B
-; 0x22 - The bird (level-racing) Type B
-; 0x23 - The bird with a bomb (level-racing) Type B
-; 0x24 - Skeleton (level 4) Type A
-; 0x25 - Diver Type B
-; 0x26 - Mummy (level 4) Type A
-; 0x27 - Gargoyle (level 4) Type B
-; 0x28 - Boss (level 1) Type A
-; 0x29 - ???
-; 0x2A - Boss (level 2) Type A
-; 0x2B - ???
-; 0x2C - Boss (level 3) Type A
-; 0x2D - ???
-; 0x2E - Boss (level 4) Type A
-; 0x2F - ???
-; 0x30 - Wall (level 4) Type B
-; 0x31 - Wall (level 4) Type B
-; 0x32 - Breaking platform (level 4) Type B
-; 0x33 - Blade trap (level 4) Type B
-; 0x34 - Potted snakes (level 4) Type B
-; 0x35 - Egyptian with bow (level 4) Type A
-; 0x36 - Egyptian with a sword (level 4) Type A
-; 0x37 - Egyptian with a boomerung (level 4) Type A
-; 0x38 - Ninja upside down (level 4) Type A
-; 0x39 - Sensor (level 4) Type B
+; see docs (Bestiary)
 
 vEnemyA                       = ram_0300
 vEnemyB                       = ram_0301
@@ -338,6 +286,8 @@ vEnemyACount                  = ram_030A
 vEnemyBCount                  = ram_030B
 vEnemyTimerLow1               = ram_0314 ; the low counter after which the enemy will appear
 vEnemyTimerHigh1              = ram_0315 ; the high counter after which the enemy will appear
+vZenigataTimerLow1            = ram_0316 ; the low counter after which Zenigata will appear
+vZenigataTimerHigh1           = ram_0317 ; the high counter after which Zenigata will appear
 v_briefcase_index             = ram_0398 ; [0399-039D]
 v_bomb_on_screen              = ram_039E ; C2 - a bomb
 v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, 039E - screen
@@ -425,3 +375,9 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; "^\$02:.+\n" -> ""
 ; "f\d+\s+\$06:.+\n" -> ""
 ; "f\d+\s+\$02:.+\n" -> ""
+
+; TODO list:
+; tbl_demo_btn_pressed - dissabling
+; преобразовать банк 02 по адресу 0х8000 (1 страница)
+; проверить, почему используется 7 строк вместо 8 для таблицы атрибутов (уровень 2.0, внутренний)
+; индексы в одной из таблиц доходят до 0x70, хотя используются до 0x9F, почему так?
