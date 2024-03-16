@@ -17,6 +17,7 @@ $0029#vLowViewPortPosY#
 $002B#v_nmi_counter#
 $002C#v_low_counter#
 $002D#v_high_counter#
+$002E#vCorridorCounter#
 $0033#vLowMenuCounter#
 $0034#vHighMenuCounter#
 $0035#vEnemyRNG#

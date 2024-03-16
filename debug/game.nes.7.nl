@@ -331,13 +331,37 @@ $C468##retrieve y
 $C469##--NO-COMMENT--
 $C46A##retrieve x
 $C46B##--NO-COMMENT--
-$C46C#sub_C46C#
+$C46C#sub_C46C_simulate_presses_in_demo#--NO-COMMENT--
+$C46E##Store for the double click protection
 $C470##--NO-COMMENT--
 $C472##Branch If in game
 $C474##--NO-COMMENT--
 $C477##--NO-COMMENT--
 $C479##If vDemoBtnPrsdCounter != 0x00
-$C499#bra_C499_skip#
+$C47B##If vMenuDemoIndex == 0x00 then we put the garbage
+$C47D##--NO-COMMENT--
+$C47E##--NO-COMMENT--
+$C47F##*2, because the addresses have 2 bytes
+$C480##--NO-COMMENT--
+$C481##--NO-COMMENT--
+$C484##Low address
+$C486##--NO-COMMENT--
+$C489##High address
+$C48B##restore the table index
+$C48D##--NO-COMMENT--
+$C48F##--NO-COMMENT--
+$C491##increment the table index (to 2 byte)
+$C492##--NO-COMMENT--
+$C494##--NO-COMMENT--
+$C496##increment the table index (to 1 byte)
+$C497##store  the table index
+$C499#bra_C499_skip#decrement a counter
+$C49B##--NO-COMMENT--
+$C49D##--NO-COMMENT--
+$C49F##Branch if v_low_counter does multiple of 16
+$C4A1##--NO-COMMENT--
+$C4A3##addes a shot every 16th frame unless otherwise specified
+$C4A5##--NO-COMMENT--
 $C4A7#sub_C4A7_read_io_controller#--NO-COMMENT--
 $C4A9##store a last button state (player1)
 $C4AB##--NO-COMMENT--
@@ -395,7 +419,17 @@ $C517##--NO-COMMENT--
 $C519##--NO-COMMENT--
 $C51B##--NO-COMMENT--
 $C51D##--NO-COMMENT--
-$C51E#sub_C51E#
+$C51E#sub_C51E_update_ppu_and_screen#--NO-COMMENT--
+$C521##--NO-COMMENT--
+$C524##--NO-COMMENT--
+$C527##CONSTANT - Generate an NMI at the start of the vblank + Background pattern table address: $1000
+$C529##--NO-COMMENT--
+$C52B##--NO-COMMENT--
+$C52E##Read PPU status to reset the high/low latch
+$C531##--NO-COMMENT--
+$C533##write X scroll-position <~ 0x00
+$C536##write Y scroll-position <~ 0x00
+$C539##--NO-COMMENT--
 $C53C#sub_C53C_resolve_start_status#--NO-COMMENT--
 $C53E##If Register A != 0x00 (the message is typing)
 $C540##--NO-COMMENT--
@@ -514,6 +548,8 @@ $C6AA##--NO-COMMENT--
 $C6AB##If Register X != 0 (there should be no more than 3 iterations)
 $C6AD#bra_C6AD_skip#
 $C6B2##CONSTANT - Select the character
+$C6B4##--NO-COMMENT--
+$C6B6##--NO-COMMENT--
 $C6B9#bra_C6B9_wait#--NO-COMMENT--
 $C6BB##Here we wait for the player to select a character.
 $C6BD#bra_C6BD_wait#--NO-COMMENT--
@@ -665,10 +701,14 @@ $C88B##If vLowMenuCounter != 0x00
 $C88D##--NO-COMMENT--
 $C88F##If vHighMenuCounter == 0x00
 $C891##--NO-COMMENT--
-$C893#bra_C893_skip#
+$C893#bra_C893_skip#--NO-COMMENT--
+$C895##--NO-COMMENT--
 $C897##Go to the branch If the button 'Start' doesn't press
+$C899##--NO-COMMENT--
 $C89B##avoid looping
+$C89D##If v_player1_btn_pressed = v_last_p1_btn_pressed
 $C89F##CONSTANT - In game
+$C8A1##--NO-COMMENT--
 $C8A9#bra_C8A9#--NO-COMMENT--
 $C8AB##--NO-COMMENT--
 $C8AE##Branch If the button 'Start' doesn't press
@@ -686,7 +726,7 @@ $C8CA##--NO-COMMENT--
 $C8CC##--NO-COMMENT--
 $C8CE##Reset a flag 'Pause in the game'
 $C8D0##--NO-COMMENT--
-$C8D3#bra_C8D3_RTS#
+$C8D3#bra_C8D3_RTS#--NO-COMMENT--
 $C8D4#sub_C8D4_check_Yoshikawa#set loop counter
 $C8D6#bra_C8D6_loop#--NO-COMMENT--
 $C8D9##--NO-COMMENT--
@@ -1149,10 +1189,28 @@ $CF15##--NO-COMMENT--
 $CF18##--NO-COMMENT--
 $CF1A##If a sprite is configured
 $CF1C##--NO-COMMENT--
-$CF1F#bra_CF1F_skip#
-$CF38##bank 05 (1 page) in 0x8000-0x9FFF
-$CF3A#bra_CF3A_skip#
-$CF4E#bra_CF4E_skip#
+$CF1F#bra_CF1F_skip#<~ Y-position
+$CF21##--NO-COMMENT--
+$CF24##<~ X-position
+$CF29##store v_sprite_magic3
+$CF2A##store v_sprite_magic3
+$CF2B##store v_sprite_magic3
+$CF2C##bank 05 (2 page)
+$CF2E##--NO-COMMENT--
+$CF30##If BBBB = 0xXX00 (see v_sprite_magic3)
+$CF32##bank 02 (2 page)
+$CF34##--NO-COMMENT--
+$CF36##If BBBB = 0xXX01 (see v_sprite_magic3)
+$CF38##bank 05 (1 page)
+$CF3A#bra_CF3A_set_bank#--NO-COMMENT--
+$CF3C##--NO-COMMENT--
+$CF3F##bank 02_2 or 05_1 or 05_2 in 0x8000-0x9FFF
+$CF42##retrieve v_sprite_magic3 ($CF2B)
+$CF43##--NO-COMMENT--
+$CF45##put the OAM-attributes
+$CF47##retrieve v_sprite_magic3 ($CF2A)
+$CF4E#bra_CF4E_skip#0x00 or 0x40
+$CF50##retrieve v_sprite_magic3 ($CF29)
 $CF58##High address
 $CF5C##Low address
 $CF64##Low address
@@ -1662,7 +1720,7 @@ $D4EB#bra_D4EB#--NO-COMMENT--
 $D4ED##--NO-COMMENT--
 $D4EE##Branch if no exist 'A screen with the message'
 $D4F0##--NO-COMMENT--
-$D4F3#sub_D4F3#--NO-COMMENT--
+$D4F3#sub_D4F3_update_palette_with_wait#--NO-COMMENT--
 $D4F6##wait for vblank
 $D4F8##--NO-COMMENT--
 $D4FB#sub_D4FB_render_empty_message_bar#
@@ -2419,9 +2477,9 @@ $EDC3##--NO-COMMENT--
 $EDC4##Branch if 'A screen with the message'
 $EDC6##to sub_B09A bank 06_2
 $EDC9##to sub_AF4D bank 06_2
-$EDD5#loc_EDD5#
-$EDDB#bra_EDDB_pause#
-$EDE1#loc_EDE1_skip#
+$EDD5#loc_EDD5#--NO-COMMENT--
+$EDDB#bra_EDDB_pause#--NO-COMMENT--
+$EDE1#loc_EDE1_skip#--NO-COMMENT--
 $EDE7#loc_EDE7#
 $EDEE##--NO-COMMENT--
 $EDF0##--NO-COMMENT--
@@ -2441,16 +2499,21 @@ $EE08#bra_EE08_skip#--NO-COMMENT--
 $EE0A##switch by MMC3_Bank_data in 0xA000-0BFFF
 $EE0D##Always true
 $EE0F#bra_EE0F#
-$EE15#bra_EE15#
+$EE12##--NO-COMMENT--
+$EE15#bra_EE15#--NO-COMMENT--
 $EE1B#bra_EE1B_skip#to sub_B3AA (bank 06_2)
 $EE21#loc_EE21#--NO-COMMENT--
 $EE23##Branch If the render isn't activated
 $EE25##--NO-COMMENT--
+$EE2B##--NO-COMMENT--
+$EE2E##--NO-COMMENT--
 $EE34#loc_EE34#--NO-COMMENT--
 $EE37##--NO-COMMENT--
 $EE39##CONSTANT - First cutscene with the message
 $EE3B##If Register A == 0x91
-$EE4D#bra_EE4D#
+$EE44##--NO-COMMENT--
+$EE47##--NO-COMMENT--
+$EE4D#bra_EE4D#--NO-COMMENT--
 $EE53#sub_EE53#
 $EE5D#sub_EE5D#
 $EE72##to sub_A000
@@ -2511,8 +2574,10 @@ $EF69#sub_EF69#
 $EF6B##--NO-COMMENT--
 $EF6E##If v_item_on_screen >= 0x00 && v_item_on_screen < 0xF0
 $EF7A#bra_EF7A_RTS#--NO-COMMENT--
-$EF7B#sub_EF7B#set loop counter
-$EF7D#bra_EF7D_loop#
+$EF7B#sub_EF7B_shift_all_counters#set loop counter (5 times)
+$EF7D#bra_EF7D_loop#--NO-COMMENT--
+$EF7F##If counterX == 0x00
+$EF81##--NO-COMMENT--
 $EF83#bra_EF83_skip#decrement x
 $EF84##If Register X < 0xF0
 $EF86#sub_EF86_increment_counter#--NO-COMMENT--

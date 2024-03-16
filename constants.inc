@@ -1,6 +1,6 @@
 ; Contants
 
-MMC3_Bank_select    = $8000 ; see https://www.nesdev.org/wiki/MMC3
+MMC3_Bank_select    = $8000 ; see https://www.nesdev.org/wiki/INES_Mapper_206
 MMC3_Bank_data      = $8001 ;
 Set_features        = $FFF6 ;
 
@@ -78,6 +78,12 @@ vLowViewPortPosY              = ram_0029 ; a vertical scroll
 v_nmi_counter                 = ram_002B
 v_low_counter                 = ram_002C
 v_high_counter                = ram_002D
+vGameCounters                 = ram_002E ; [vCorridorCounter, the unknown counter1, 2, 3, 4]
+vCorridorCounter              = ram_002E ; The counter starts when we enter the corridor
+; ram_002F - the unknown counter1
+; ram_0030 - the unknown counter2
+; ram_0031 - the unknown counter3
+; ram_0032 - the unknown counter4
 vLowMenuCounter               = ram_0033
 vHighMenuCounter              = ram_0034 ; Only for a demo (the message scenes are not included)
 vEnemyRNG                     = ram_0035
@@ -338,7 +344,12 @@ vChrBankData                  = ram_06B6
 v_sprite_magics               = ram_06B7
 v_sprite_magic1               = ram_06B7 ; Y-position, 0xF0 - a sprite doesn't exist
 v_sprite_magic2               = ram_06B8
-v_sprite_magic3               = ram_06B9 ; BBBB XXXX, BBBB - sign MMC3 bank data
+v_sprite_magic3               = ram_06B9
+; SSBB XCOO, BBBB - sign MMC3 bank data
+; SS - the offset of the high address ($8000 + $SS00)
+; BB - 0x00 - bank 05 (2 page), 0x01 - bank 02 (2 page), 0x1X - bank 05 (1 page)
+; C - ??
+; OO - the OAM-attributes
 v_sprite_magic4               = ram_06BA ; X-position
 vShiftSpriteMagic             = ram_06F7 ; The pack is using 1,2,3,4 sprite magic
 vStartOAM                     = ram_0700
@@ -381,3 +392,4 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; преобразовать банк 02 по адресу 0х8000 (1 страница)
 ; проверить, почему используется 7 строк вместо 8 для таблицы атрибутов (уровень 2.0, внутренний)
 ; индексы в одной из таблиц доходят до 0x70, хотя используются до 0x9F, почему так?
+; Game Genie коды - исправление пробелом
