@@ -61,8 +61,9 @@ $0079#vChrLandStatus#
 $007A#vBulletCount#
 $008F#vBulletStatus#
 $009C#vNonUsed#
+$0099#vHiScore#
 $00A3#vNonUsed3#
-$00AD#vIndexSelectableChr#
+$00AD#vMainMenuGunYPos#
 $00AE#vCacheIndexSelectableChr#
 $00B1#v_start_level#
 $00B2#v_count_secret_hits#

@@ -4,36 +4,37 @@
 .org $A000  ; for listing file
 ; 0x01A010-0x01C00F
 
-.import tbl_messages ; bank 04 (Page 2)
-.import tbl_ptr_rooms_with_NPCs ; bank 04 (Page 2)
-.import tbl_ptr_briefcases_outside ; bank 04 (Page 2)
-.import tbl_copyright ; bank 04 (Page 1)
-.import tbl_main_menu_chr_banks ; bank 04 (Page 1)
-.import tbl_template_chr_banks1 ; bank 04 (Page 1)
-.import tbl_briefcases_indexex_on_the_level ; bank 04 (Page 2)
-.import npc_portrait_sprites ; bank 04 (Page 2)
-.import npc_portrait_set ; bank 04 (Page 2)
-.import npc_sprite_set ; bank 04 (Page 2)
+.import tbl_messages                         ; bank 04 (Page 2)
+.import tbl_ptr_rooms_with_NPCs              ; bank 04 (Page 2)
+.import tbl_ptr_briefcases_outside           ; bank 04 (Page 2)
+.import tbl_copyright                        ; bank 04 (Page 1)
+.import tbl_main_menu_chr_banks              ; bank 04 (Page 1)
+.import tbl_template_chr_banks1              ; bank 04 (Page 1)
+.import tbl_briefcases_indexex_on_the_level  ; bank 04 (Page 2)
+.import npc_portrait_sprites                 ; bank 04 (Page 2)
+.import npc_portrait_set                     ; bank 04 (Page 2)
+.import npc_sprite_set                       ; bank 04 (Page 2)
 .import sub_C305_update_ppu_ctrl_with_no_nmi ; bank FF
-.import sub_C313_screen_off  ; bank FF
-.import sub_C31D_clear_ppu ; bank FF
-.import sub_C358_clear_OAM ; bank FF
-.import loc_C371_update_palette ; bank FF
-.import loc_C402_clear_sound_parts ; bank FF
-.import sub_C402_clear_sound_parts ; bank FF
-.import sub_C420_add_sound_effect ; bank FF
-.import loc_C420_add_sound_effect ; bank FF
-.import sub_C4F5_selectAllChrBanks ; bank FF
-.import sub_C904_clear_score ; bank FF
-.import loc_CE33_add_sprite_magic ; bank FF
-.import sub_D073_invert_sign ; bank FF
-.import sub_D079_check_button_press ; bank FF
-.import sub_D086_render_14_15_16_17_18_v1 ; bank FF
-.import sub_EF46_switch_bank_4_p1 ; bank FF
-.import sub_EF4F_switch_bank_4_p2 ; bank FF
-.import sub_F2D6_try_put_briefcase ; bank FF
-.import tbl_C1CA_checkpoint_on_start_levels ; bank FF
-.import sub_CE5A_render_character ; bank FF
+.import sub_C313_screen_off                  ; bank FF
+.import sub_C31D_clear_ppu                   ; bank FF
+.import sub_C358_clear_OAM                   ; bank FF
+.import loc_C371_update_palette              ; bank FF
+.import loc_C402_clear_sound_parts           ; bank FF
+.import sub_C402_clear_sound_parts           ; bank FF
+.import sub_C420_add_sound_effect            ; bank FF
+.import loc_C420_add_sound_effect            ; bank FF
+.import sub_C4F5_selectAllChrBanks           ; bank FF
+.import sub_C904_clear_score                 ; bank FF
+.import loc_CE33_add_sprite_magic            ; bank FF
+.import sub_D073_invert_sign                 ; bank FF
+.import sub_D079_check_button_press          ; bank FF
+.import sub_D086_render_14_15_16_17_18_v1    ; bank FF
+.import sub_EF46_switch_bank_4_p1            ; bank FF
+.import sub_EF4F_switch_bank_4_p2            ; bank FF
+.import sub_F2D6_try_put_briefcase           ; bank FF
+.import tbl_C1CA_checkpoint_on_start_levels  ; bank FF
+.import sub_CE5A_render_character            ; bank FF
+.import sub_C91C_display_menu_score          ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -3843,35 +3844,35 @@ C - - - - - 0x01B928 06:B918: A5 00     LDA ram_0000 ; assigned as the parameter
 C - - - - - 0x01B92A 06:B91A: 20 86 D0  JSR sub_D086_render_14_15_16_17_18_v1
 C - - - - - 0x01B92D 06:B91D: C6 00     DEC ram_0000 ; decrement 0x00
 C - - - - - 0x01B92F 06:B91F: 10 F7     BPL bra_B918_loop
-C - - - - - 0x01B931 06:B921: A9 20     LDA #$20
-C - - - - - 0x01B933 06:B923: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01B936 06:B926: A9 84     LDA #$84
-C - - - - - 0x01B938 06:B928: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01B93B 06:B92B: A2 56     LDX #$56
-C - - - - - 0x01B93D 06:B92D: 20 1C C9  JSR $C91C ; to sub_C91C (bank_FF)
-C - - - - - 0x01B940 06:B930: A9 20     LDA #$20
-C - - - - - 0x01B942 06:B932: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01B945 06:B935: A9 8E     LDA #$8E
-C - - - - - 0x01B947 06:B937: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01B94A 06:B93A: A2 99     LDX #$99
-C - - - - - 0x01B94C 06:B93C: 20 1C C9  JSR $C91C ; to sub_C91C (bank_FF)
-C - - - - - 0x01B94F 06:B93F: A9 80     LDA #$80
-C - - - - - 0x01B951 06:B941: 85 3B     STA vSharedGameStatus
-C - - - - - 0x01B953 06:B943: A9 00     LDA #$00
-C - - - - - 0x01B955 06:B945: 85 B1     STA v_start_level            ; clear
-C - - - - - 0x01B957 06:B947: 85 B2     STA v_count_secret_hits      ; clear
-C - - - - - 0x01B959 06:B949: 85 B3     STA v_lock_secret_hits       ; clear
-C - - - - - 0x01B95B 06:B94B: 85 B4     STA v_offset_in_secret_codes ; clear
-C - - - - - 0x01B95D 06:B94D: 85 2C     STA v_low_counter            ; clear
-C - - - - - 0x01B95F 06:B94F: 85 2D     STA v_high_counter           ; clear
-C - - - - - 0x01B961 06:B951: 85 19     STA vRenderActive            ; clear
-C - - - - - 0x01B963 06:B953: 8D 31 06  STA ram_0631                 ; clear
-C - - - - - 0x01B966 06:B956: 8D 7B 06  STA vPpuAddrDataCache        ; clear
-C - - - - - 0x01B969 06:B959: 85 29     STA vLowViewPortPosY         ; clear
-C - - - - - 0x01B96B 06:B95B: 85 27     STA vLowViewPortPosX         ; clear
-C - - - - - 0x01B96D 06:B95D: 85 3D     STA ram_003D                 ; clear
-C - - - - - 0x01B96F 06:B95F: A9 8F     LDA #$8F
-C - - - - - 0x01B971 06:B961: 85 AD     STA ram_00AD
+C - - - - - 0x01B931 06:B921: A9 20     LDA #$20                              ;
+C - - - - - 0x01B933 06:B923: 8D 06 20  STA PPU_ADDRESS                       ;
+C - - - - - 0x01B936 06:B926: A9 84     LDA #$84                              ;
+C - - - - - 0x01B938 06:B928: 8D 06 20  STA PPU_ADDRESS                       ; PPU address is 0x2084
+C - - - - - 0x01B93B 06:B92B: A2 56     LDX #$56                              ; $0056 - Score
+C - - - - - 0x01B93D 06:B92D: 20 1C C9  JSR sub_C91C_display_menu_score       ;
+C - - - - - 0x01B940 06:B930: A9 20     LDA #$20                              ;
+C - - - - - 0x01B942 06:B932: 8D 06 20  STA PPU_ADDRESS                       ;
+C - - - - - 0x01B945 06:B935: A9 8E     LDA #$8E                              ;
+C - - - - - 0x01B947 06:B937: 8D 06 20  STA PPU_ADDRESS                       ; PPU address is 0x208E
+C - - - - - 0x01B94A 06:B93A: A2 99     LDX #$99                              ; $0056 - HiScore
+C - - - - - 0x01B94C 06:B93C: 20 1C C9  JSR sub_C91C_display_menu_score       ;
+C - - - - - 0x01B94F 06:B93F: A9 80     LDA #$80                              ; CONSTANT - Main menu
+C - - - - - 0x01B951 06:B941: 85 3B     STA vSharedGameStatus                 ;
+C - - - - - 0x01B953 06:B943: A9 00     LDA #$00                              ;
+C - - - - - 0x01B955 06:B945: 85 B1     STA v_start_level                     ; clear
+C - - - - - 0x01B957 06:B947: 85 B2     STA v_count_secret_hits               ; clear
+C - - - - - 0x01B959 06:B949: 85 B3     STA v_lock_secret_hits                ; clear
+C - - - - - 0x01B95B 06:B94B: 85 B4     STA v_offset_in_secret_codes          ; clear
+C - - - - - 0x01B95D 06:B94D: 85 2C     STA v_low_counter                     ; clear
+C - - - - - 0x01B95F 06:B94F: 85 2D     STA v_high_counter                    ; clear
+C - - - - - 0x01B961 06:B951: 85 19     STA vRenderActive                     ; clear
+C - - - - - 0x01B963 06:B953: 8D 31 06  STA ram_0631                          ; clear
+C - - - - - 0x01B966 06:B956: 8D 7B 06  STA vPpuAddrDataCache                 ; clear
+C - - - - - 0x01B969 06:B959: 85 29     STA vLowViewPortPosY                  ; clear
+C - - - - - 0x01B96B 06:B95B: 85 27     STA vLowViewPortPosX                  ; clear
+C - - - - - 0x01B96D 06:B95D: 85 3D     STA ram_003D                          ; clear
+C - - - - - 0x01B96F 06:B95F: A9 8F     LDA #$8F                              ; CONSTANT - The 'Start' position
+C - - - - - 0x01B971 06:B961: 85 AD     STA vMainMenuGunYPos                  ;
 C - - - - - 0x01B973 06:B963: 85 1C     STA ram_001C
 C - - - - - 0x01B975 06:B965: 20 1E C5  JSR $C51E ; to sub_C51E (bank_FF)
 @bra_B968_infinite_loop:
@@ -3883,18 +3884,18 @@ C - - - - - 0x01B980 06:B970: 85 3D     STA ram_003D
 C - - - - - 0x01B982 06:B972: A9 00     LDA #$00            ;
 C - - - - - 0x01B984 06:B974: 85 2C     STA v_low_counter   ; clear
 C - - - - - 0x01B986 06:B976: 85 2D     STA v_high_counter  ; clear
-bra_B978:
-C - - - - - 0x01B988 06:B978: A5 2D     LDA v_high_counter      ;
-C - - - - - 0x01B98A 06:B97A: C9 02     CMP #$02                ;
-C - - - - - 0x01B98C 06:B97C: 90 06     BCC @bra_B984_skip      ;
-C - - - - - 0x01B98E 06:B97E: A5 2C     LDA v_low_counter       ;
-C - - - - - 0x01B990 06:B980: C9 40     CMP #$40                ; 
-C - - - - - 0x01B992 06:B982: B0 45     BCS bra_B9C9_start_demo ; If Hc:Lc == 02:40
+@bra_B978_repeat:
+C - - - - - 0x01B988 06:B978: A5 2D     LDA v_high_counter                       ;
+C - - - - - 0x01B98A 06:B97A: C9 02     CMP #$02                                 ;
+C - - - - - 0x01B98C 06:B97C: 90 06     BCC @bra_B984_skip                       ;
+C - - - - - 0x01B98E 06:B97E: A5 2C     LDA v_low_counter                        ;
+C - - - - - 0x01B990 06:B980: C9 40     CMP #$40                                 ; 
+C - - - - - 0x01B992 06:B982: B0 45     BCS bra_B9C9_start_demo                  ; If Hc:Lc == 02:40
 @bra_B984_skip:
-C - - - - - 0x01B994 06:B984: A5 3D     LDA vCharacterSelectionCounter ;
-C - - - - - 0x01B996 06:B986: F0 F0     BEQ bra_B978                   ; If vCharacterSelectionCounter == 0x00
-C - - - - - 0x01B998 06:B988: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
-C - - - - - 0x01B99B 06:B98B: A9 00     LDA #$00     ; CONTANT - In game
+C - - - - - 0x01B994 06:B984: A5 3D     LDA vCharacterSelectionCounter           ;
+C - - - - - 0x01B996 06:B986: F0 F0     BEQ @bra_B978_repeat                     ; If vCharacterSelectionCounter == 0x00
+C - - - - - 0x01B998 06:B988: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi ;
+C - - - - - 0x01B99B 06:B98B: A9 00     LDA #$00                                 ; CONTANT - In game
 C - - - - - 0x01B99D 06:B98D: A8        TAY
 C - - - - - 0x01B99E 06:B98E: 85 37     STA vGameMode
 C - - - - - 0x01B9A0 06:B990: 85 B6     STA ram_00B6
@@ -4142,16 +4143,16 @@ bra_BB29_RTS:
 C - - - - - 0x01BB39 06:BB29: 60        RTS
 
 sub_BB2A_solve_secret_codes:
-C - - - - - 0x01BB3A 06:BB2A: 2C F6 FF  BIT Set_features
-C - - - - - 0x01BB3D 06:BB2D: 50 62     BVC bra_BB91_RTS
-C - - - - - 0x01BB3F 06:BB2F: A5 B1     LDA v_start_level
-C - - - - - 0x01BB41 06:BB31: D0 5E     BNE bra_BB91_RTS          ; Go to the branch If start level is activated
-C - - - - - 0x01BB43 06:BB33: A5 1C     LDA vBtnPressedInGame
-C - - - - - 0x01BB45 06:BB35: F0 56     BEQ bra_BB8D              ; Go to the branch If the any buttons aren't pressed
-C - - - - - 0x01BB47 06:BB37: A5 B3     LDA v_lock_secret_hits
-C - - - - - 0x01BB49 06:BB39: D0 56     BNE bra_BB91_RTS          ; Go to the branch If the some buttons is pressing
-C - - - - - 0x01BB4B 06:BB3B: A5 B2     LDA v_count_secret_hits
-C - - - - - 0x01BB4D 06:BB3D: D0 24     BNE bra_BB63_skip         ; Go to the branch If some secret button is pressed
+C - - - - - 0x01BB3A 06:BB2A: 2C F6 FF  BIT Set_features                     ;
+C - - - - - 0x01BB3D 06:BB2D: 50 62     BVC bra_BB91_RTS                     ; If Set_features = 0%X0XXXXXX
+C - - - - - 0x01BB3F 06:BB2F: A5 B1     LDA v_start_level                    ;
+C - - - - - 0x01BB41 06:BB31: D0 5E     BNE bra_BB91_RTS                     ; Go to the branch If start level is activated
+C - - - - - 0x01BB43 06:BB33: A5 1C     LDA vBtnPressedInGame                ;
+C - - - - - 0x01BB45 06:BB35: F0 56     BEQ bra_BB8D                         ; Go to the branch If the any buttons aren't pressed
+C - - - - - 0x01BB47 06:BB37: A5 B3     LDA v_lock_secret_hits               ;
+C - - - - - 0x01BB49 06:BB39: D0 56     BNE bra_BB91_RTS                     ; Go to the branch If the some buttons is pressing
+C - - - - - 0x01BB4B 06:BB3B: A5 B2     LDA v_count_secret_hits              ;
+C - - - - - 0x01BB4D 06:BB3D: D0 24     BNE bra_BB63_skip                    ; Go to the branch If some secret button is pressed
 C - - - - - 0x01BB4F 06:BB3F: AD 92 BB  LDA tbl_BB92_stage_select_codes      ; BIT_BUTTON_Up, on the main title screen
 C - - - - - 0x01BB52 06:BB42: 20 79 D0  JSR sub_D079_check_button_press      ;
 C - - - - - 0x01BB55 06:BB45: D0 28     BNE bra_BB6F                         ; Go to the branch If the button 'Up' is pressed
@@ -4173,21 +4174,21 @@ C - - - - - 0x01BB73 06:BB63: 18        CLC
 C - - - - - 0x01BB74 06:BB64: 65 B4     ADC v_offset_in_secret_codes
 C - - - - - 0x01BB76 06:BB66: A8        TAY
 C - - - - - 0x01BB77 06:BB67: B9 92 BB  LDA tbl_BB92_stage_select_codes,Y
-C - - - - - 0x01BB7A 06:BB6A: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
-C - - - - - 0x01BB7D 06:BB6D: F0 18     BEQ bra_BB87_reset ; Go to the branch If the secret button isn't pressed
+C - - - - - 0x01BB7A 06:BB6A: 20 79 D0  JSR sub_D079_check_button_press      ; bank FF
+C - - - - - 0x01BB7D 06:BB6D: F0 18     BEQ bra_BB87_reset                   ; Go to the branch If the secret button isn't pressed
 bra_BB6F:
 C - - - - - 0x01BB7F 06:BB6F: E6 B2     INC v_count_secret_hits
 C - - - - - 0x01BB81 06:BB71: E6 B3     INC v_lock_secret_hits
 C - - - - - 0x01BB83 06:BB73: A5 B2     LDA v_count_secret_hits
-C - - - - - 0x01BB85 06:BB75: C9 06     CMP #$06 ; The count of the buttons is in the secret combination
+C - - - - - 0x01BB85 06:BB75: C9 06     CMP #$06                             ; The count of the buttons is in the secret combination
 C - - - - - 0x01BB87 06:BB77: D0 18     BNE bra_BB91_RTS
-C - - - - - 0x01BB89 06:BB79: A2 01     LDX #$01 ; ; It's 1 secret combination
+C - - - - - 0x01BB89 06:BB79: A2 01     LDX #$01                             ; It's 1 secret combination
 C - - - - - 0x01BB8B 06:BB7B: A5 B4     LDA v_offset_in_secret_codes
 C - - - - - 0x01BB8D 06:BB7D: F0 06     BEQ bra_BB85
-C - - - - - 0x01BB8F 06:BB7F: E8        INX ; If it's 2 secret combination
+C - - - - - 0x01BB8F 06:BB7F: E8        INX                                  ; If it's 2 secret combination
 C - - - - - 0x01BB90 06:BB80: C9 06     CMP #$06
 C - - - - - 0x01BB92 06:BB82: F0 01     BEQ bra_BB85
-C - - - - - 0x01BB94 06:BB84: E8        INX ; If it's 3 secret combination
+C - - - - - 0x01BB94 06:BB84: E8        INX                                  ; If it's 3 secret combination
 bra_BB85:
 C - - - - - 0x01BB95 06:BB85: 86 B1     STX v_start_level
 bra_BB87_reset:
@@ -4198,7 +4199,7 @@ bra_BB8D:
 C - - - - - 0x01BB9D 06:BB8D: A9 00     LDA #$00
 C - - - - - 0x01BB9F 06:BB8F: 85 B3     STA v_lock_secret_hits
 bra_BB91_RTS:
-C - - - - - 0x01BBA1 06:BB91: 60        RTS
+C - - - - - 0x01BBA1 06:BB91: 60        RTS                                  ;
 
 tbl_BB92_stage_select_codes:
 ; Stage select codes (level 2)

@@ -454,34 +454,84 @@ $C562##clear
 $C564##clear
 $C566##1 + 1 = 2
 $C568#bra_C568_RTS#--NO-COMMENT--
-$C569#sub_C569#Switches a cutscene to a main title screen
+$C569#sub_C569_main_menu_subroutine#Switches a cutscene to a main title screen
+$C56B##--NO-COMMENT--
 $C56E##Go to the branch If the button 'Start' isn't pressed
-$C572#bra_C572_skip#
+$C570##Activates the character selection (see $B984, bank 06, page 2)
+$C572#bra_C572_skip#--NO-COMMENT--
+$C575##--NO-COMMENT--
+$C578##--NO-COMMENT--
 $C57A##If vHighCounter == 0x00
+$C57C##--NO-COMMENT--
 $C57E##If vHighCounter == 0x02
+$C580##--NO-COMMENT--
+$C582##--NO-COMMENT--
 $C584##If vLowCounter < 0xE0
 $C586##If vLowCounter == 0xE0
 $C588##relative address = 0x9D7B in 0x12-0x13 (1st frame)
+$C58A##--NO-COMMENT--
 $C58C##If vLowCounter < 0xE4
 $C58E##If vLowCounter == 0xE4
 $C590##relative address = 0x9D9B in 0x12-0x13 (2nd frame)
+$C592##--NO-COMMENT--
+$C594##If vLowCounter == 0xE8
 $C596##relative address = 0x9DBE in 0x12-0x13 (3rd frame)
+$C598##--NO-COMMENT--
+$C59A##If vLowCounter == 0xEC
 $C59C##relative address = 0x9DD9 in 0x12-0x13 (4th frame)
+$C59E##--NO-COMMENT--
+$C5A0##If vLowCounter == 0xF0
 $C5A2##relative address = 0x9E00 in 0x12-0x13 (5th frame)
-$C5A8#bra_C5A8_prepare_for_gunshot#
+$C5A4##--NO-COMMENT--
+$C5A6##If vLowCounter != 0xF4
+$C5A8#bra_C5A8_prepare_for_gunshot#--NO-COMMENT--
+$C5AB##--NO-COMMENT--
+$C5AD##--NO-COMMENT--
+$C5AF##clear vPpuAddrDataCache (34 bytes)
+$C5B2##--NO-COMMENT--
+$C5B5##Low address (see $8000,Y in bank 04, page 1)
+$C5B7##--NO-COMMENT--
+$C5BA##High address
 $C5BC##set loop counter
-$C5BE#bra_C5BE_loop#
+$C5BE#bra_C5BE_loop#load a data cache
+$C5C0##--NO-COMMENT--
+$C5C2##If Register A is 0xFF
+$C5C4##put a data cache
 $C5C7##increments y
-$C5CA#bra_C5CA_RTS#
+$C5C8##If Register X != 0
+$C5CA#bra_C5CA_RTS#--NO-COMMENT--
 $C5CB#bra_C5CB_sounds_of_a_gunshot#sound of a gunshot #1
 $C5CD##--NO-COMMENT--
 $C5D0##sound of a gunshot #2
 $C5D2##--NO-COMMENT--
-$C5D5#sub_C5D5#
+$C5D5#sub_C5D5_display_menu_gun#--NO-COMMENT--
 $C5D8##Branch If a last played level is 0.
-$C5EC#bra_C5EC_skip#
-$C5EE#bra_C5EE_skip#
-$C613#bra_C613_RTS#
+$C5DA##--NO-COMMENT--
+$C5DC##If vMainMenuGunYPos = 0x00 (it isn't set)
+$C5DE##--NO-COMMENT--
+$C5E0##--NO-COMMENT--
+$C5E2##If the button 'Up' or 'Down' isn't pressed
+$C5E4##CONSTANT - The 'Start' position
+$C5E6##--NO-COMMENT--
+$C5E8##If the button 'Down' is pressed
+$C5EA##CONSTANT - The 'Continue' position
+$C5EC#bra_C5EC_change#changes position by pressing a key
+$C5EE#bra_C5EE_render#--NO-COMMENT--
+$C5F0##Y-position <~ 0x8F or 0x9F
+$C5F3##Y-position <~ 0x8F or 0x9F
+$C5F6##--NO-COMMENT--
+$C5F8##Tile number #1 <~ 0x62
+$C5FB##--NO-COMMENT--
+$C5FD##Tile number #2 <~ 0x63
+$C600##--NO-COMMENT--
+$C602##The attributes <~ 0x00
+$C605##The attributes <~ 0x00
+$C608##--NO-COMMENT--
+$C60A##X-position <~ 0x50
+$C60D##--NO-COMMENT--
+$C60E##--NO-COMMENT--
+$C610##X-position <~ 0x58
+$C613#bra_C613_RTS#--NO-COMMENT--
 $C614#tbl_C614_PPU_address#Name table address, Lupin, 1 message row
 $C616##Name table address, Lupin, 2 message row
 $C618##Name table address, Lupin, 3 message row
@@ -512,9 +562,19 @@ $C64B##4 bg palette + 2 sprite palette (for a gun)
 $C64E##decrements loop counter
 $C64F##If Register X < 0xF0
 $C651##--NO-COMMENT--
-$C652#sub_C652#
-$C65E#bra_C65E#
+$C652#sub_C652_display_character_portraits#--NO-COMMENT--
+$C654##--NO-COMMENT--
+$C656##--NO-COMMENT--
+$C658##($0012-$0013) -> $816B
+$C65A##--NO-COMMENT--
+$C65C##set loop counter
+$C65E#bra_C65E_loop#prepares an input parameter
+$C660##--NO-COMMENT--
+$C663##decrement loop counter
+$C665##If Register X < 0xF0
+$C667##--NO-COMMENT--
 $C668#bra_C668_loop#counter as parameter
+$C66A##--NO-COMMENT--
 $C66D##decrement $0000
 $C66F##In $0000 >= 0x00 && $0000 < 0xF0
 $C671##--NO-COMMENT--
@@ -526,6 +586,7 @@ $C67B##High address (0x8139 in the bank 04_1)
 $C67D##--NO-COMMENT--
 $C67F##set loop counter
 $C681##--NO-COMMENT--
+$C684##--NO-COMMENT--
 $C687##--NO-COMMENT--
 $C68A##CONSTANT - the number of rows containing message symbols
 $C68C##set loop counter
@@ -624,7 +685,7 @@ $C77F##set loop counter (vTempRowNumber1A / 4)
 $C784#bra_C784_skip#
 $C786##decrements loop counter
 $C787##If Register X >= 0
-$C78E#sub_C78E#--NO-COMMENT--
+$C78E#sub_C78E_select_character_subroutine#--NO-COMMENT--
 $C791##If test mode is disable
 $C7A2##The enemies don't damage
 $C7A6#bra_C7A6_skip#--NO-COMMENT--
@@ -692,8 +753,27 @@ $C853#sub_C853_activate_selectable_character#--NO-COMMENT--
 $C855##CONSTANT - see info 'vChrLiveStatus'
 $C857##--NO-COMMENT--
 $C859##--NO-COMMENT--
-$C85C#sub_C85C#
-$C863#bra_C863#
+$C85C#sub_C85C_display_character_portrait#--NO-COMMENT--
+$C85F##--NO-COMMENT--
+$C861##set loop counter
+$C863#bra_C863_loop#--NO-COMMENT--
+$C866##--NO-COMMENT--
+$C868##--NO-COMMENT--
+$C869##--NO-COMMENT--
+$C86B##shifts PPU address for next row
+$C86D##--NO-COMMENT--
+$C86F##--NO-COMMENT--
+$C871##shift high address by Carry flag
+$C873##--NO-COMMENT--
+$C875##--NO-COMMENT--
+$C876##--NO-COMMENT--
+$C878##shifts ROM-address value by count of the bytes ($0018 contains 0x03)
+$C87A##--NO-COMMENT--
+$C87C##--NO-COMMENT--
+$C87E##shift high ROM-address value by Carry flag
+$C880##decrement loop counter
+$C882##If $000F < 0xF0
+$C884##--NO-COMMENT--
 $C885#sub_C885#--NO-COMMENT--
 $C887##Branch If in game
 $C889##--NO-COMMENT--
@@ -768,10 +848,28 @@ $C917##--NO-COMMENT--
 $C918##decrement y
 $C919##If Register Y != 0
 $C91B##--NO-COMMENT--
-$C91C#sub_C91C#
-$C92A#bra_C92A#
-$C930#bra_C930#
-$C93A#bra_C93A#
+$C91C#sub_C91C_display_menu_score#--NO-COMMENT--
+$C91E##$0008 <~ 0x80
+$C920##--NO-COMMENT--
+$C922##$0009 <~ 0x80
+$C924##--NO-COMMENT--
+$C926##$0007 <~ 0x00
+$C928##set loop counter
+$C92A#bra_C92A_loop#load a score symbol
+$C92C##If symbol == '0'
+$C92E##marks that it's the first non-null symbol
+$C930#bra_C930_skip#--NO-COMMENT--
+$C932##Branch If need display a symbol
+$C934##--NO-COMMENT--
+$C936##Branch If Register Y < 0x03 (the last 2 symbol are displayed in any case)
+$C938##0x80 + 0x80 -> 0x00, the tile number for blank
+$C93A#bra_C93A_skip#--NO-COMMENT--
+$C93B##0x80 - '0', 0x81 - '1', 0x82 - '2', 0x83 - '3', ... , 0x89 - '9'
+$C93D##--NO-COMMENT--
+$C940##next a score symbol
+$C941##decrement y
+$C942##If Register Y != 0
+$C944##--NO-COMMENT--
 $C945#bra_C945#
 $C947#loc_C947#
 $C94A##Branch If mode=cutscene
@@ -853,7 +951,7 @@ $CA3A##--NO-COMMENT--
 $CA3C##If Register X != 0x05
 $CA3E#bra_CA3E_RTS#--NO-COMMENT--
 $CA3F#sub_CA3F_clear_inventory_panel#an assigned value (Tile number)
-$CA41#sub_CA41_fill_inventory_panel#--NO-COMMENT--
+$CA41#sub_CA41_fill_ppu_addr_data_cache#--NO-COMMENT--
 $CA44##decrement x
 $CA45##In Register X >= 0x00 && X < 0xF0
 $CA47##--NO-COMMENT--
@@ -1258,7 +1356,7 @@ $D07F##If the button does not match the expected result
 $D081##The double click protection
 $D083##--NO-COMMENT--
 $D085#bra_D085_RTS#--NO-COMMENT--
-$D086#sub_D086_render_14_15_16_17_18_v1#
+$D086#sub_D086_render_14_15_16_17_18_v1#--NO-COMMENT--
 $D089#sub_D089_render_14_15_16_17_18_v2#Reset PPU Address
 $D08C##--NO-COMMENT--
 $D08E##--NO-COMMENT--
@@ -1359,7 +1457,7 @@ $D15E#bra_D15E_message#--NO-COMMENT--
 $D160##--NO-COMMENT--
 $D161##Branch if no exist 'A screen with the message'
 $D163##--NO-COMMENT--
-$D166#bra_D166_skip#
+$D166#bra_D166_update_palette#--NO-COMMENT--
 $D169#bra_D169_render_ppu_cache#--NO-COMMENT--
 $D16C##Branch If the is empty (0x00 - first byte)
 $D16E##1 of N
@@ -2505,12 +2603,16 @@ $EE1B#bra_EE1B_skip#to sub_B3AA (bank 06_2)
 $EE21#loc_EE21#--NO-COMMENT--
 $EE23##Branch If the render isn't activated
 $EE25##--NO-COMMENT--
+$EE28##--NO-COMMENT--
 $EE2B##--NO-COMMENT--
 $EE2E##--NO-COMMENT--
 $EE34#loc_EE34#--NO-COMMENT--
 $EE37##--NO-COMMENT--
-$EE39##CONSTANT - First cutscene with the message
+$EE39##CONSTANT - First cutscene with Clarisse Cagliostro
 $EE3B##If Register A == 0x91
+$EE3D##CONSTANT - Last cutscene with Clarisse Cagliostro
+$EE3F##If Register A == 0x93
+$EE41##--NO-COMMENT--
 $EE44##--NO-COMMENT--
 $EE47##--NO-COMMENT--
 $EE4D#bra_EE4D#--NO-COMMENT--

@@ -3,9 +3,9 @@ noDamageB = 0x003A;
 wait10   = 0;
 
 --no        = 0x0008;
-no        = 0x002E;
+--no        = 0x002E;
 --no        = 0x0039;
---no        = 0x003B;
+no        = 0x003B;
 --no        = 0x003C;
 --no        = 0x0046;
 --no        = 0x0068;

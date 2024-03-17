@@ -53,6 +53,7 @@ vRenderActive                 = ram_0019 ; 0x00 - active, else deactive
 v_sub_AF4D_briefcase_no       = ram_001A ; Intermediate counter
 v_loc_CA48_counter            = ram_001A ; Intermediate counter
 vTempRowNumber1A              = ram_001A ; Intermediate counter
+vTempCounter1A                = ram_001A ; Intermediate counter
 vBtnPressedInGame             = ram_001C ; In a level 1-4 or a title screen
 vCopy001C                     = ram_001D
 v_player1_btn_pressed         = ram_001E ; For a contoller1
@@ -113,7 +114,8 @@ vSharedGameStatus             = ram_003B
 ; 0x40 - Pause in the game
 ; 0x41 - Pause in the game (a screen with the message)
 ; 0x80 - Main menu
-; 0x91 - First cutscene
+; 0x91 - First cutscene (with Clarisse Cagliostro)
+; 0x93 - Last cutscene (with Clarisse Cagliostro)
 
 vStartStatus                  = ram_003D
 ; 0x00 - The starting cutscene, before typing the message
@@ -213,18 +215,17 @@ vChrLandStatus                = ram_0079 ;
 
 vBulletCount                  = ram_007A ; 0x00 - 1 bullet, 0x01 - 2 bullets, 0x02 - 3 bullets and so on...
 
-; ??? - ram_00AD
-; 0x8F - ???
-
 vBulletStatus                 = ram_008F ; [0x8F-0x93] , for a rifle, Lupin's pistol, Jigen's pistol
 
 vNonUsed                      = ram_009C
 
-; 0x9F - ???
+vHiScore                      = ram_0099 ; [0x99-0x9F]
 
 vNonUsed3                     = ram_00A3
 
 vIndexSelectableChr           = ram_00AD ; Selectable character number in character selection mode
+vMainMenuGunYPos              = ram_00AD ;
+
 vCacheIndexSelectableChr      = ram_00AE ;
 							  
 v_start_level                 = ram_00B1 ; The start level [0-3]
@@ -345,8 +346,8 @@ v_sprite_magics               = ram_06B7
 v_sprite_magic1               = ram_06B7 ; Y-position, 0xF0 - a sprite doesn't exist
 v_sprite_magic2               = ram_06B8
 v_sprite_magic3               = ram_06B9
-; SSBB XCOO, BBBB - sign MMC3 bank data
-; SS - the offset of the high address ($8000 + $SS00)
+; SSBB XCOO
+; SS - the offset of the high address ($8000), i.e. $8000 + $SS00
 ; BB - 0x00 - bank 05 (2 page), 0x01 - bank 02 (2 page), 0x1X - bank 05 (1 page)
 ; C - ??
 ; OO - the OAM-attributes
