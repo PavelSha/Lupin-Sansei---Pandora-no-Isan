@@ -3913,10 +3913,10 @@ C - - - - - 0x01B9B3 06:B9A3: AC 09 01  LDY v_last_level
 @bra_B9A6_skip:
 C - - - - - 0x01B9B6 06:B9A6: B9 CA C1  LDA tbl_C1CA_checkpoint_on_start_levels,Y
 @bra_B9A9_skip:
-C - - - - - 0x01B9B9 06:B9A9: 85 C4     STA vCheckpoint ; assigned
-C - - - - - 0x01B9BB 06:B9AB: 84 5E     STY v_no_level  ; assigned
-C - - - - - 0x01B9BD 06:B9AD: A9 FC     LDA #$FC
-C - - - - - 0x01B9BF 06:B9AF: 85 D4     STA ram_00D4
+C - - - - - 0x01B9B9 06:B9A9: 85 C4     STA vCheckpoint         ; assigned
+C - - - - - 0x01B9BB 06:B9AB: 84 5E     STY v_no_level          ; assigned
+C - - - - - 0x01B9BD 06:B9AD: A9 FC     LDA #$FC                ; CONSTANT (see vChrLiveStatus)
+C - - - - - 0x01B9BF 06:B9AF: 85 D4     STA vTempChrLiveStatus  ; All characters are ready to play, Lupin is selected
 C - - - - - 0x01B9C1 06:B9B1: 20 04 C9  JSR sub_C904_clear_score
 C - - - - - 0x01B9C4 06:B9B4: A9 10     LDA #$10
 C - - - - - 0x01B9C6 06:B9B6: 85 3B     STA vSharedGameStatus

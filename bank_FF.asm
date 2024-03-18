@@ -284,10 +284,10 @@ bra_C1AF:
 loc_C1B1:
 C D 2 - - - 0x01C1C1 07:C1B1: A9 00     LDA #$00                   ; CONSTANT - no reason
 C - - - - - 0x01C1C3 07:C1B3: 85 D6     STA vReasonCharacterChange ; 
-C - - - - - 0x01C1C5 07:C1B5: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01C1C7 07:C1B7: 85 D4     STA ram_00D4
-C - - - - - 0x01C1C9 07:C1B9: A9 FC     LDA #$FC
-C - - - - - 0x01C1CB 07:C1BB: 85 5F     STA vChrLiveStatus
+C - - - - - 0x01C1C5 07:C1B5: A5 5F     LDA vChrLiveStatus         ;
+C - - - - - 0x01C1C7 07:C1B7: 85 D4     STA vTempChrLiveStatus     ; store a last value
+C - - - - - 0x01C1C9 07:C1B9: A9 FC     LDA #$FC                   ; CONSTANT (see vChrLiveStatus)
+C - - - - - 0x01C1CB 07:C1BB: 85 5F     STA vChrLiveStatus         ; All characters are ready to play, Lupin is selected
 C - - - - - 0x01C1CD 07:C1BD: 20 72 C6  JSR sub_C672_wait_character_select
 C - - - - - 0x01C1D0 07:C1C0: 20 A5 EF  JSR sub_EFA5
 bra_C1C3:
@@ -1059,8 +1059,8 @@ C - - - - - 0x01C6F8 07:C6E8: A5 1A     LDA ram_001A
 C - - - - - 0x01C6FA 07:C6EA: 0A        ASL
 C - - - - - 0x01C6FB 07:C6EB: A8        TAY
 C - - - - - 0x01C6FC 07:C6EC: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01C6FE 07:C6EE: 85 D4     STA ram_00D4
-C - - - - - 0x01C700 07:C6F0: 20 7B C7  JSR sub_C77B
+C - - - - - 0x01C6FE 07:C6EE: 85 D4     STA vTempChrLiveStatus
+C - - - - - 0x01C700 07:C6F0: 20 7B C7  JSR sub_C77B_can_character_play
 C - - - - - 0x01C703 07:C6F3: F0 07     BEQ bra_C6FC
 C - - - - - 0x01C705 07:C6F5: 88        DEY
 C - - - - - 0x01C706 07:C6F6: 88        DEY
@@ -1099,12 +1099,12 @@ C - - - - - 0x01C737 07:C727: 85 03     STA ram_0003
 C - - - - - 0x01C739 07:C729: 4C 54 C7  JMP loc_C754_render_02_03
 
 bra_C72C_skip:
-C - - - - - 0x01C73C 07:C72C: A5 1A     LDA vTempRowNumber1A    ;
-C - - - - - 0x01C73E 07:C72E: 29 02     AND #$02                ;
+C - - - - - 0x01C73C 07:C72C: A5 1A     LDA vTempRowNumber1A             ;
+C - - - - - 0x01C73E 07:C72E: 29 02     AND #$02                         ;
 C - - - - - 0x01C740 07:C730: D0 06     BNE bra_C738_internal_render_row ; Branch If vTempRowNumber1A = 0x02, 0x03, 0x06, 0x07, 0x0A, 0x0B
-C - - - - - 0x01C742 07:C732: 20 7B C7  JSR sub_C77B
-C - - - - - 0x01C745 07:C735: D0 01     BNE bra_C738_internal_render_row
-C - - - - - 0x01C747 07:C737: 60        RTS
+C - - - - - 0x01C742 07:C732: 20 7B C7  JSR sub_C77B_can_character_play  ; For 0x08, 0x09 - Lupin; 0x04, 0x05 - Jigen; 0x00, 0x01 - Goemon
+C - - - - - 0x01C745 07:C735: D0 01     BNE bra_C738_internal_render_row ; If character is fell or arrested
+C - - - - - 0x01C747 07:C737: 60        RTS                              ;
 
 bra_C738_internal_render_row:
 C - - - - - 0x01C748 07:C738: A5 5E     LDA v_no_level                                          ;
@@ -1146,22 +1146,23 @@ C - - - - - 0x01C784 07:C774: A9 14     LDA #$14                              ;
 C - - - - - 0x01C786 07:C776: 85 18     STA ram_0018                          ; the number of the tiles
 C - - - - - 0x01C788 07:C778: 4C 89 D0  JMP loc_D089_render_14_15_16_17_18_v2 ;
 
-; Out: Zero status - 
-sub_C77B:
+; Out: Zero status - The character isn't fell and arrested
+; Out: $0000 - vTempChrLiveStatus
+sub_C77B_can_character_play:
 C - - - - - 0x01C78B 07:C77B: A5 1A     LDA vTempRowNumber1A        ;
 C - - - - - 0x01C78D 07:C77D: 4A        LSR                         ;
 C - - - - - 0x01C78E 07:C77E: 4A        LSR                         ;
 C - - - - - 0x01C78F 07:C77F: AA        TAX                         ; set loop counter (vTempRowNumber1A / 4)
-C - - - - - 0x01C790 07:C780: A5 D4     LDA ram_00D4
-C - - - - - 0x01C792 07:C782: 85 00     STA ram_0000
-@bra_C784_skip:                                                     ; loop by x
-C - - - - - 0x01C794 07:C784: 4A        LSR
-C - - - - - 0x01C795 07:C785: 4A        LSR
+C - - - - - 0x01C790 07:C780: A5 D4     LDA vTempChrLiveStatus      ;
+C - - - - - 0x01C792 07:C782: 85 00     STA ram_0000                ; the out parameter
+@bra_C784_skip:                                                     ; loop by x (1, 2 or 3 times)
+C - - - - - 0x01C794 07:C784: 4A        LSR                         ;
+C - - - - - 0x01C795 07:C785: 4A        LSR                         ;
 C - - - - - 0x01C796 07:C786: CA        DEX                         ; decrements loop counter
 C - - - - - 0x01C797 07:C787: 10 FB     BPL @bra_C784_skip          ; If Register X >= 0
-C - - - - - 0x01C799 07:C789: 29 03     AND #$03
-C - - - - - 0x01C79B 07:C78B: C9 03     CMP #$03
-C - - - - - 0x01C79D 07:C78D: 60        RTS
+C - - - - - 0x01C799 07:C789: 29 03     AND #$03                    ;
+C - - - - - 0x01C79B 07:C78B: C9 03     CMP #$03                    ;
+C - - - - - 0x01C79D 07:C78D: 60        RTS                         ;
 
 sub_C78E_select_character_subroutine:
 C - - - - - 0x01C79E 07:C78E: AD F6 FF  LDA Set_features                              ;
@@ -2225,8 +2226,8 @@ C - - - - - 0x01CE40 07:CE30: 85 43     STA vCurrentNumberSprite ;
 C - - - - - 0x01CE42 07:CE32: 60        RTS                      ;
 
 ; in: 0x0000 - sprite magic1 (Y-position)
-; in: 0x0001 - sprite magic2 (The tile number)
-; in: 0x0002 - sprite magic3 (The attributes)
+; in: 0x0001 - sprite magic2 (see v_sprite_magic2)
+; in: 0x0002 - sprite magic3 (see v_sprite_magic3)
 ; in: 0x0003 - sprite magic4 (X-position)
 loc_CE33_add_sprite_magic:
 C D 2 - - - 0x01CE43 07:CE33: 98        TYA                     ;
@@ -2344,7 +2345,7 @@ C - - - - - 0x01CEF8 07:CEE8: D0 AF     BNE bra_CE99_loop            ; If v_CE5A
 bra_CEEA_end:
 C - - - - - 0x01CEFA 07:CEEA: 86 43     STX vCurrentNumberSprite     ; Store target byte OAM (sprite)
 bra_CEEC_end:
-C - - - - - 0x01CEFC 07:CEEC: 86 44     STX vCopyCurrentNumberSprite ;
+C - - - - - 0x01CEFC 07:CEEC: 86 44     STX vCurrentNumberSpriteAfCh ;
 C - - - - - 0x01CEFE 07:CEEE: 60        RTS                          ;
 
 bra_CEEF_blank:
@@ -2354,46 +2355,48 @@ C - - - - - 0x01CF01 07:CEF1: C8        INY                          ; a correct
 bra_CEF2_blank:
 C - - - - - 0x01CF02 07:CEF2: A9 F0     LDA #$F0                     ; This value means than the sprite isn't used
 C - - - - - 0x01CF04 07:CEF4: 9D 00 07  STA vStartOAM,X              ;
-C - - - - - 0x01CF07 07:CEF7: D0 EC     BNE bra_CEE5_continue        ;
-sub_CEF9:
-C - - - - - 0x01CF09 07:CEF9: A5 2C     LDA v_low_counter          ;
-C - - - - - 0x01CF0B 07:CEFB: 29 07     AND #$07                   ;
-C - - - - - 0x01CF0D 07:CEFD: 0A        ASL                        ;
-C - - - - - 0x01CF0E 07:CEFE: 0A        ASL                        ;
-C - - - - - 0x01CF0F 07:CEFF: 0A        ASL                        ;
-C - - - - - 0x01CF10 07:CF00: 0A        ASL                        ; Register A = {0x00, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70}
-C - - - - - 0x01CF11 07:CF01: 18        CLC                        ;
-C - - - - - 0x01CF12 07:CF02: 69 DE     ADC #$DE                   ;
-C - - - - - 0x01CF14 07:CF04: 85 12     STA ram_0012               ; ram_0012 = {0xDE, 0xEE, 0xFE, 0x0E, 0x1E, 0x2E, 0x3E, 0x4E}
-C - - - - - 0x01CF16 07:CF06: A9 00     LDA #$00                   ;
-C - - - - - 0x01CF18 07:CF08: 69 CF     ADC #$CF                   ; 
-C - - - - - 0x01CF1A 07:CF0A: 85 13     STA ram_0013               ; ram_0013 = (0xCF, 0xD0)
-C - - - - - 0x01CF1C 07:CF0C: A0 00     LDY #$00                   ;
-C - - - - - 0x01CF1E 07:CF0E: 84 1A     STY ram_001A               ; set loop counter
-loc_CF10_loop:                                                     ; loop by ram_001A
-C D 2 - - - 0x01CF20 07:CF10: B1 12     LDA (ram_0012),Y           ; get a sprite relative index (see 'The order of the indexes X')
-C - - - - - 0x01CF22 07:CF12: 0A        ASL                        ;
-C - - - - - 0x01CF23 07:CF13: 0A        ASL                        ;
-C - - - - - 0x01CF24 07:CF14: A8        TAY                        ; put a sprite offset (4 bytes each)
-C - - - - - 0x01CF25 07:CF15: B9 B7 06  LDA v_sprite_magic1,Y      ;
-C - - - - - 0x01CF28 07:CF18: C9 F0     CMP #$F0                   ;
-C - - - - - 0x01CF2A 07:CF1A: D0 03     BNE bra_CF1F_skip          ; If a sprite is configured
-C - - - - - 0x01CF2C 07:CF1C: 4C C8 CF  JMP loc_CFC8_continue      ;
+C - - - - - 0x01CF07 07:CEF7: D0 EC     BNE bra_CEE5_continue        ; Always true
+
+; Display 16 sprites starting from vCurrentNumberSprite
+sub_CEF9_display_16_sprite_magic:
+C - - - - - 0x01CF09 07:CEF9: A5 2C     LDA v_low_counter            ;
+C - - - - - 0x01CF0B 07:CEFB: 29 07     AND #$07                     ;
+C - - - - - 0x01CF0D 07:CEFD: 0A        ASL                          ;
+C - - - - - 0x01CF0E 07:CEFE: 0A        ASL                          ;
+C - - - - - 0x01CF0F 07:CEFF: 0A        ASL                          ;
+C - - - - - 0x01CF10 07:CF00: 0A        ASL                          ; Register A = {0x00, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70}
+C - - - - - 0x01CF11 07:CF01: 18        CLC                          ;
+C - - - - - 0x01CF12 07:CF02: 69 DE     ADC #$DE                     ;
+C - - - - - 0x01CF14 07:CF04: 85 12     STA ram_0012                 ; ram_0012 = {0xDE, 0xEE, 0xFE, 0x0E, 0x1E, 0x2E, 0x3E, 0x4E}
+C - - - - - 0x01CF16 07:CF06: A9 00     LDA #$00                     ;
+C - - - - - 0x01CF18 07:CF08: 69 CF     ADC #$CF                     ; 
+C - - - - - 0x01CF1A 07:CF0A: 85 13     STA ram_0013                 ; ram_0013 = (0xCF, 0xD0)
+C - - - - - 0x01CF1C 07:CF0C: A0 00     LDY #$00                     ;
+C - - - - - 0x01CF1E 07:CF0E: 84 1A     STY vTempCounter1A           ; set loop counter
+loc_CF10_loop:                                                       ; loop by vTempCounter1A (16 times)
+C D 2 - - - 0x01CF20 07:CF10: B1 12     LDA (ram_0012),Y             ; get a sprite relative index (see 'The order of the indexes X')
+C - - - - - 0x01CF22 07:CF12: 0A        ASL                          ;
+C - - - - - 0x01CF23 07:CF13: 0A        ASL                          ;
+C - - - - - 0x01CF24 07:CF14: A8        TAY                          ; put a sprite offset (4 bytes each)
+C - - - - - 0x01CF25 07:CF15: B9 B7 06  LDA v_sprite_magic1,Y        ;
+C - - - - - 0x01CF28 07:CF18: C9 F0     CMP #$F0                     ;
+C - - - - - 0x01CF2A 07:CF1A: D0 03     BNE bra_CF1F_skip            ; If a sprite is configured
+C - - - - - 0x01CF2C 07:CF1C: 4C C8 CF  JMP loc_CFC8_continue        ;
 
 bra_CF1F_skip:
 C - - - - - 0x01CF2F 07:CF1F: 85 00     STA ram_0000               ; <~ Y-position
 C - - - - - 0x01CF31 07:CF21: B9 BA 06  LDA v_sprite_magic4,Y      ;
 C - - - - - 0x01CF34 07:CF24: 85 01     STA ram_0001               ; <~ X-position
-C - - - - - 0x01CF36 07:CF26: B9 B9 06  LDA v_sprite_magic3,Y
+C - - - - - 0x01CF36 07:CF26: B9 B9 06  LDA v_sprite_magic3,Y      ;
 C - - - - - 0x01CF39 07:CF29: 48        PHA                        ; store v_sprite_magic3
 C - - - - - 0x01CF3A 07:CF2A: 48        PHA                        ; store v_sprite_magic3
 C - - - - - 0x01CF3B 07:CF2B: 48        PHA                        ; store v_sprite_magic3
 C - - - - - 0x01CF3C 07:CF2C: A2 0B     LDX #$0B                   ; bank 05 (2 page)
 C - - - - - 0x01CF3E 07:CF2E: 29 30     AND #$30                   ;
-C - - - - - 0x01CF40 07:CF30: F0 08     BEQ @bra_CF3A_set_bank     ; If BBBB = 0xXX00 (see v_sprite_magic3)
+C - - - - - 0x01CF40 07:CF30: F0 08     BEQ @bra_CF3A_set_bank     ; If SSBB = 0xXX00 (see v_sprite_magic3)
 C - - - - - 0x01CF42 07:CF32: A2 05     LDX #$05                   ; bank 02 (2 page)
 C - - - - - 0x01CF44 07:CF34: C9 10     CMP #$10                   ;
-C - - - - - 0x01CF46 07:CF36: F0 02     BEQ @bra_CF3A_set_bank     ; If BBBB = 0xXX01 (see v_sprite_magic3)
+C - - - - - 0x01CF46 07:CF36: F0 02     BEQ @bra_CF3A_set_bank     ; If SSBB = 0xXX01 (see v_sprite_magic3)
 C - - - - - 0x01CF48 07:CF38: A2 0A     LDX #$0A                   ; bank 05 (1 page)
 @bra_CF3A_set_bank:
 C - - - - - 0x01CF4A 07:CF3A: A9 06     LDA #$06                   ;
@@ -2403,100 +2406,100 @@ C - - - - - 0x01CF52 07:CF42: 68        PLA                        ; retrieve v_
 C - - - - - 0x01CF53 07:CF43: 29 03     AND #$03                   ;
 C - - - - - 0x01CF55 07:CF45: 85 45     STA vCharacterRenderData   ; put the OAM-attributes
 C - - - - - 0x01CF57 07:CF47: 68        PLA                        ; retrieve v_sprite_magic3 ($CF2A)
-C - - - - - 0x01CF58 07:CF48: 29 04     AND #$04
-C - - - - - 0x01CF5A 07:CF4A: F0 02     BEQ @bra_CF4E_skip
-C - - - - - 0x01CF5C 07:CF4C: A9 40     LDA #$40
+C - - - - - 0x01CF58 07:CF48: 29 04     AND #$04                   ;
+C - - - - - 0x01CF5A 07:CF4A: F0 02     BEQ @bra_CF4E_skip         ; If XCOO = 0xX0XX (see v_sprite_magic3)
+C - - - - - 0x01CF5C 07:CF4C: A9 40     LDA #$40                   ; using next CHR-page size 1 Kb
 @bra_CF4E_skip:
 C - - - - - 0x01CF5E 07:CF4E: 85 0A     STA ram_000A               ; 0x00 or 0x40
 C - - - - - 0x01CF60 07:CF50: 68        PLA                        ; retrieve v_sprite_magic3 ($CF29)
-C - - - - - 0x01CF61 07:CF51: 2A        ROL
-C - - - - - 0x01CF62 07:CF52: 2A        ROL
-C - - - - - 0x01CF63 07:CF53: 2A        ROL
-C - - - - - 0x01CF64 07:CF54: 29 03     AND #$03
-C - - - - - 0x01CF66 07:CF56: 09 80     ORA #$80
-C - - - - - 0x01CF68 07:CF58: 85 05     STA ram_0005 ; High address
-C - - - - - 0x01CF6A 07:CF5A: A9 00     LDA #$00
-C - - - - - 0x01CF6C 07:CF5C: 85 04     STA ram_0004 ; Low address
-C - - - - - 0x01CF6E 07:CF5E: B9 B8 06  LDA v_sprite_magic2,Y
-C - - - - - 0x01CF71 07:CF61: A8        TAY
-C - - - - - 0x01CF72 07:CF62: B1 04     LDA (ram_0004),Y
-C - - - - - 0x01CF74 07:CF64: 85 02     STA ram_0002  ; Low address
-C - - - - - 0x01CF76 07:CF66: C8        INY
-C - - - - - 0x01CF77 07:CF67: B1 04     LDA (ram_0004),Y
-C - - - - - 0x01CF79 07:CF69: 85 03     STA ram_0003  ; High address
-C - - - - - 0x01CF7B 07:CF6B: A0 00     LDY #$00
-C - - - - - 0x01CF7D 07:CF6D: B1 02     LDA (ram_0002),Y ; Tile count
-C - - - - - 0x01CF7F 07:CF6F: 85 05     STA ram_0005
-C - - - - - 0x01CF81 07:CF71: F0 55     BEQ bra_CFC8_skip ; If counter == 0
-C - - - - - 0x01CF83 07:CF73: A6 43     LDX vCurrentNumberSprite
-C - - - - - 0x01CF85 07:CF75: C8        INY
+C - - - - - 0x01CF61 07:CF51: 2A        ROL                        ;
+C - - - - - 0x01CF62 07:CF52: 2A        ROL                        ;
+C - - - - - 0x01CF63 07:CF53: 2A        ROL                        ;
+C - - - - - 0x01CF64 07:CF54: 29 03     AND #$03                   ; 
+C - - - - - 0x01CF66 07:CF56: 09 80     ORA #$80                   ; <~ 0x80 + SS
+C - - - - - 0x01CF68 07:CF58: 85 05     STA ram_0005               ; High address
+C - - - - - 0x01CF6A 07:CF5A: A9 00     LDA #$00                   ;
+C - - - - - 0x01CF6C 07:CF5C: 85 04     STA ram_0004               ; Low address
+C - - - - - 0x01CF6E 07:CF5E: B9 B8 06  LDA v_sprite_magic2,Y      ;
+C - - - - - 0x01CF71 07:CF61: A8        TAY                        ; 1 of 2 bytes
+C - - - - - 0x01CF72 07:CF62: B1 04     LDA (ram_0004),Y           ;
+C - - - - - 0x01CF74 07:CF64: 85 02     STA ram_0002               ; Low address
+C - - - - - 0x01CF76 07:CF66: C8        INY                        ; 2 of 2 bytes
+C - - - - - 0x01CF77 07:CF67: B1 04     LDA (ram_0004),Y           ;
+C - - - - - 0x01CF79 07:CF69: 85 03     STA ram_0003               ; High address
+C - - - - - 0x01CF7B 07:CF6B: A0 00     LDY #$00                   ;
+C - - - - - 0x01CF7D 07:CF6D: B1 02     LDA (ram_0002),Y           ; Tile count
+C - - - - - 0x01CF7F 07:CF6F: 85 05     STA ram_0005               ; set loop counter
+C - - - - - 0x01CF81 07:CF71: F0 55     BEQ bra_CFC8_skip          ; If counter == 0
+C - - - - - 0x01CF83 07:CF73: A6 43     LDX vCurrentNumberSprite   ;
+C - - - - - 0x01CF85 07:CF75: C8        INY                        ; y == 1, the position of first tile-byte
 bra_CF76_repeat:
-C - - - - - 0x01CF86 07:CF76: A9 00     LDA #$00
-C - - - - - 0x01CF88 07:CF78: 85 04     STA ram_0004
-C - - - - - 0x01CF8A 07:CF7A: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CF8C 07:CF7C: 10 02     BPL bra_CF80_skip
-C - - - - - 0x01CF8E 07:CF7E: C6 04     DEC ram_0004
-bra_CF80_skip:
-C - - - - - 0x01CF90 07:CF80: 18        CLC
-C - - - - - 0x01CF91 07:CF81: 65 00     ADC ram_0000
-C - - - - - 0x01CF93 07:CF83: 9D 00 07  STA vStartOAM,X
-C - - - - - 0x01CF96 07:CF86: A5 04     LDA ram_0004
-C - - - - - 0x01CF98 07:CF88: 69 00     ADC #$00
-C - - - - - 0x01CF9A 07:CF8A: D0 48     BNE bra_CFD4
-C - - - - - 0x01CF9C 07:CF8C: C8        INY
-C - - - - - 0x01CF9D 07:CF8D: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CF9F 07:CF8F: 05 0A     ORA ram_000A
-C - - - - - 0x01CFA1 07:CF91: 9D 01 07  STA vStartOAM_2b,X
-C - - - - - 0x01CFA4 07:CF94: C8        INY
-C - - - - - 0x01CFA5 07:CF95: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CFA7 07:CF97: 05 45     ORA vCharacterRenderData
-C - - - - - 0x01CFA9 07:CF99: 9D 02 07  STA vStartOAM_3b,X
-C - - - - - 0x01CFAC 07:CF9C: C8        INY
-C - - - - - 0x01CFAD 07:CF9D: A9 00     LDA #$00
-C - - - - - 0x01CFAF 07:CF9F: 85 04     STA ram_0004
-C - - - - - 0x01CFB1 07:CFA1: B1 02     LDA (ram_0002),Y
-C - - - - - 0x01CFB3 07:CFA3: 10 02     BPL bra_CFA7_skip
-C - - - - - 0x01CFB5 07:CFA5: C6 04     DEC ram_0004
+C - - - - - 0x01CF86 07:CF76: A9 00     LDA #$00                   ;
+C - - - - - 0x01CF88 07:CF78: 85 04     STA ram_0004               ; clear
+C - - - - - 0x01CF8A 07:CF7A: B1 02     LDA (ram_0002),Y           ; 1 of 4
+C - - - - - 0x01CF8C 07:CF7C: 10 02     BPL @bra_CF80_skip         ; If Register A < 0xF0
+C - - - - - 0x01CF8E 07:CF7E: C6 04     DEC ram_0004               ; 0x00 -> 0xFF (The position may be negative!)
+@bra_CF80_skip:
+C - - - - - 0x01CF90 07:CF80: 18        CLC                        ;
+C - - - - - 0x01CF91 07:CF81: 65 00     ADC ram_0000               ; adds starting Y-point
+C - - - - - 0x01CF93 07:CF83: 9D 00 07  STA vStartOAM,X            ; set Y-position
+C - - - - - 0x01CF96 07:CF86: A5 04     LDA ram_0004               ;
+C - - - - - 0x01CF98 07:CF88: 69 00     ADC #$00                   ;
+C - - - - - 0x01CF9A 07:CF8A: D0 48     BNE bra_CFD4_skip_sprite   ; If Register A != 0x00 (sprite off screen)
+C - - - - - 0x01CF9C 07:CF8C: C8        INY                        ; Changes to the second byte (Tile index number)
+C - - - - - 0x01CF9D 07:CF8D: B1 02     LDA (ram_0002),Y           ; 2 of 4
+C - - - - - 0x01CF9F 07:CF8F: 05 0A     ORA ram_000A               ; 0x00 or 0x40 (current or next CHR-page size 1 Kb)
+C - - - - - 0x01CFA1 07:CF91: 9D 01 07  STA vStartOAM_2b,X         ; set the tile number sprite
+C - - - - - 0x01CFA4 07:CF94: C8        INY                        ; Changes to the third byte (Attributes)
+C - - - - - 0x01CFA5 07:CF95: B1 02     LDA (ram_0002),Y           ; 3 of 4
+C - - - - - 0x01CFA7 07:CF97: 05 45     ORA vCharacterRenderData   ; add attributes from vCharacterRenderData (see vCharacterRenderData)
+C - - - - - 0x01CFA9 07:CF99: 9D 02 07  STA vStartOAM_3b,X         ; set the attributes
+C - - - - - 0x01CFAC 07:CF9C: C8        INY                        ; Changes to the fourth byte (X-position)
+C - - - - - 0x01CFAD 07:CF9D: A9 00     LDA #$00                   ;
+C - - - - - 0x01CFAF 07:CF9F: 85 04     STA ram_0004               ; clear
+C - - - - - 0x01CFB1 07:CFA1: B1 02     LDA (ram_0002),Y           ; 4 of 4
+C - - - - - 0x01CFB3 07:CFA3: 10 02     BPL bra_CFA7_skip          ; If Register A < 0xF0
+C - - - - - 0x01CFB5 07:CFA5: C6 04     DEC ram_0004               ; 0x00 -> 0xFF (The position may be negative!)
 bra_CFA7_skip:
-C - - - - - 0x01CFB7 07:CFA7: 18        CLC
-C - - - - - 0x01CFB8 07:CFA8: 65 01     ADC ram_0001
-C - - - - - 0x01CFBA 07:CFAA: 85 06     STA ram_0006
-C - - - - - 0x01CFBC 07:CFAC: A5 04     LDA ram_0004
-C - - - - - 0x01CFBE 07:CFAE: 69 00     ADC #$00
-C - - - - - 0x01CFC0 07:CFB0: D0 25     BNE bra_CFD7
-C - - - - - 0x01CFC2 07:CFB2: A5 06     LDA ram_0006
-C - - - - - 0x01CFC4 07:CFB4: C9 F9     CMP #$F9
-C - - - - - 0x01CFC6 07:CFB6: B0 1F     BCS bra_CFD7
-C - - - - - 0x01CFC8 07:CFB8: 9D 03 07  STA vStartOAM_4b,X
-C - - - - - 0x01CFCB 07:CFBB: E8        INX
-C - - - - - 0x01CFCC 07:CFBC: E8        INX
-C - - - - - 0x01CFCD 07:CFBD: E8        INX
-C - - - - - 0x01CFCE 07:CFBE: E8        INX ; To 1st next sprite data byte
-C - - - - - 0x01CFCF 07:CFBF: F0 12     BEQ bra_CFD3_RTS
-bra_CFC1:
-C - - - - - 0x01CFD1 07:CFC1: C8        INY
-C - - - - - 0x01CFD2 07:CFC2: C6 05     DEC ram_0005
-C - - - - - 0x01CFD4 07:CFC4: D0 B0     BNE bra_CF76_repeat ; If counter != 0
-C - - - - - 0x01CFD6 07:CFC6: 86 43     STX vCurrentNumberSprite
+C - - - - - 0x01CFB7 07:CFA7: 18        CLC                        ;
+C - - - - - 0x01CFB8 07:CFA8: 65 01     ADC ram_0001               ;
+C - - - - - 0x01CFBA 07:CFAA: 85 06     STA ram_0006               ; store X-position temporarily
+C - - - - - 0x01CFBC 07:CFAC: A5 04     LDA ram_0004               ;
+C - - - - - 0x01CFBE 07:CFAE: 69 00     ADC #$00                   ;
+C - - - - - 0x01CFC0 07:CFB0: D0 25     BNE bra_CFD7_skip_sprite   ; If Register A != 0x00 (sprite off screen)
+C - - - - - 0x01CFC2 07:CFB2: A5 06     LDA ram_0006               ;
+C - - - - - 0x01CFC4 07:CFB4: C9 F9     CMP #$F9                   ;
+C - - - - - 0x01CFC6 07:CFB6: B0 1F     BCS bra_CFD7_skip_sprite   ; If Register A >= 0xF9 (it is an unacceptable sprite)
+C - - - - - 0x01CFC8 07:CFB8: 9D 03 07  STA vStartOAM_4b,X         ; set X-position
+C - - - - - 0x01CFCB 07:CFBB: E8        INX                        ;
+C - - - - - 0x01CFCC 07:CFBC: E8        INX                        ;
+C - - - - - 0x01CFCD 07:CFBD: E8        INX                        ;
+C - - - - - 0x01CFCE 07:CFBE: E8        INX                        ; To 1st next sprite data byte
+C - - - - - 0x01CFCF 07:CFBF: F0 12     BEQ bra_CFD3_RTS           ; If Register X == 0x00
+bra_CFC1_next:
+C - - - - - 0x01CFD1 07:CFC1: C8        INY                        ; 1 of 4 again
+C - - - - - 0x01CFD2 07:CFC2: C6 05     DEC ram_0005               ; decrement loop counter
+C - - - - - 0x01CFD4 07:CFC4: D0 B0     BNE bra_CF76_repeat        ; If counter != 0
+C - - - - - 0x01CFD6 07:CFC6: 86 43     STX vCurrentNumberSprite   ; 
 bra_CFC8_skip:
 loc_CFC8_continue:
-C D 2 - - - 0x01CFD8 07:CFC8: E6 1A     INC ram_001A             ; increment counter (ram_001A)
-C - - - - - 0x01CFDA 07:CFCA: A4 1A     LDY ram_001A             ;
-C - - - - - 0x01CFDC 07:CFCC: C0 10     CPY #$10                 ;
-C - - - - - 0x01CFDE 07:CFCE: B0 03     BCS bra_CFD3_RTS         ; Returns If ram_001A >= 0x10
-C - - - - - 0x01CFE0 07:CFD0: 4C 10 CF  JMP loc_CF10_loop        ; Repeat the loop
+C D 2 - - - 0x01CFD8 07:CFC8: E6 1A     INC vTempCounter1A         ; increment counter (vTempCounter1A)
+C - - - - - 0x01CFDA 07:CFCA: A4 1A     LDY vTempCounter1A         ;
+C - - - - - 0x01CFDC 07:CFCC: C0 10     CPY #$10                   ;
+C - - - - - 0x01CFDE 07:CFCE: B0 03     BCS bra_CFD3_RTS           ; Returns If vTempCounter1A >= 0x10
+C - - - - - 0x01CFE0 07:CFD0: 4C 10 CF  JMP loc_CF10_loop          ; Repeat the loop
 
 bra_CFD3_RTS:
-C - - - - - 0x01CFE3 07:CFD3: 60        RTS                      ;
+C - - - - - 0x01CFE3 07:CFD3: 60        RTS                        ;
 
-bra_CFD4:
-C - - - - - 0x01CFE4 07:CFD4: C8        INY
-C - - - - - 0x01CFE5 07:CFD5: C8        INY
-C - - - - - 0x01CFE6 07:CFD6: C8        INY
-bra_CFD7:
-C - - - - - 0x01CFE7 07:CFD7: A9 F0     LDA #$F0
-C - - - - - 0x01CFE9 07:CFD9: 9D 00 07  STA vStartOAM,X
-C - - - - - 0x01CFEC 07:CFDC: D0 E3     BNE bra_CFC1
+bra_CFD4_skip_sprite:
+C - - - - - 0x01CFE4 07:CFD4: C8        INY                        ; a correction ($CF8C)
+C - - - - - 0x01CFE5 07:CFD5: C8        INY                        ; a correction ($CF94)
+C - - - - - 0x01CFE6 07:CFD6: C8        INY                        ; a correction ($CF9C)
+bra_CFD7_skip_sprite:
+C - - - - - 0x01CFE7 07:CFD7: A9 F0     LDA #$F0                   ; CONSTANT - a sprite doesn't exist
+C - - - - - 0x01CFE9 07:CFD9: 9D 00 07  STA vStartOAM,X            ; 
+C - - - - - 0x01CFEC 07:CFDC: D0 E3     BNE bra_CFC1_next          ; Always true
 
 ; The order of the indexes 1
 - D 2 - I - 0x01CFEE 07:CFDE: 00        .byte $00, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F
@@ -7361,22 +7364,22 @@ C - - - - - 0x01ED82 07:ED72: 8D 05 20  STA PPU_SCROLL                      ; wr
 C - - - - - 0x01ED85 07:ED75: 8D 05 20  STA PPU_SCROLL                      ; write Y scroll-position
 C - - - - - 0x01ED88 07:ED78: 20 D8 C4  JSR sub_C4D8_selectMessagesChrBanks ;
 C - - - - - 0x01ED8B 07:ED7B: A5 3B     LDA vSharedGameStatus               ;
-C - - - - - 0x01ED8D 07:ED7D: 10 03     BPL bra_ED82                        ; Branch if it doesn't contain "Main Menu" 
-C - - - - - 0x01ED8F 07:ED7F: 4C 34 EE  JMP loc_EE34
+C - - - - - 0x01ED8D 07:ED7D: 10 03     BPL bra_ED82_next_check             ; Branch if it doesn't contain "Main Menu"
+C - - - - - 0x01ED8F 07:ED7F: 4C 34 EE  JMP loc_EE34_nmi_main_menu          ;
 
-bra_ED82:
-C - - - - - 0x01ED92 07:ED82: 29 10     AND #$10
-C - - - - - 0x01ED94 07:ED84: F0 03     BEQ bra_ED89
-C - - - - - 0x01ED96 07:ED86: 4C 21 EE  JMP loc_EE21
+bra_ED82_next_check:
+C - - - - - 0x01ED92 07:ED82: 29 10     AND #$10                            ; CONSTANT - Select the character
+C - - - - - 0x01ED94 07:ED84: F0 03     BEQ bra_ED89_next_check             ; If vSharedGameStatus != 'Select the character'
+C - - - - - 0x01ED96 07:ED86: 4C 21 EE  JMP loc_EE21_nmi_select_character   ;
 
-bra_ED89:
+bra_ED89_next_check:
 C - - - - - 0x01ED99 07:ED89: 20 B3 C9  JSR sub_C9B3_prepare_inventory_ppu_cache ;
 @bra_ED8C_wait:
-C - - - - - 0x01ED9C 07:ED8C: 2C 02 20  BIT PPU_STATUS         ;
-C - - - - - 0x01ED9F 07:ED8F: 70 FB     BVS @bra_ED8C_wait     ; checking a sprite 0 hits
+C - - - - - 0x01ED9C 07:ED8C: 2C 02 20  BIT PPU_STATUS                           ;
+C - - - - - 0x01ED9F 07:ED8F: 70 FB     BVS @bra_ED8C_wait                       ; checking a sprite 0 hits
 @bra_ED91_wait:
-C - - - - - 0x01EDA1 07:ED91: 2C 02 20  BIT PPU_STATUS         ;
-C - - - - - 0x01EDA4 07:ED94: 50 FB     BVC @bra_ED91_wait     ; checking a sprite 0 hits
+C - - - - - 0x01EDA1 07:ED91: 2C 02 20  BIT PPU_STATUS                           ;
+C - - - - - 0x01EDA4 07:ED94: 50 FB     BVC @bra_ED91_wait                       ; checking a sprite 0 hits
 C - - - - - 0x01EDA6 07:ED96: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
 C - - - - - 0x01EDA9 07:ED99: 20 C6 C3  JSR sub_C3C6
 C - - - - - 0x01EDAC 07:ED9C: A5 19     LDA vRenderActive      ;
@@ -7413,52 +7416,52 @@ C - - - - - 0x01EDEE 07:EDDE: 20 38 CB  JSR sub_CB38
 loc_EDE1_skip:
 C D 3 - - - 0x01EDF1 07:EDE1: 20 6C C4  JSR sub_C46C_simulate_presses_in_demo ;
 C - - - - - 0x01EDF4 07:EDE4: 20 85 C8  JSR sub_C885
-loc_EDE7:
-C D 3 - - - 0x01EDF7 07:EDE7: A6 44     LDX vCopyCurrentNumberSprite
-C - - - - - 0x01EDF9 07:EDE9: 86 43     STX vCurrentNumberSprite
-C - - - - - 0x01EDFB 07:EDEB: 20 F9 CE  JSR sub_CEF9
-C - - - - - 0x01EDFE 07:EDEE: A9 07     LDA #$07                      ;
-C - - - - - 0x01EE00 07:EDF0: A2 04     LDX #$04                      ; 
-C - - - - - 0x01EE02 07:EDF2: 8D 00 80  STA MMC3_Bank_select          ;
-C - - - - - 0x01EE05 07:EDF5: 8E 01 80  STX MMC3_Bank_data            ; switch bank 02 (page 1) in 0xA000-0BFFF
-C - - - - - 0x01EE08 07:EDF8: 20 F0 FF  JSR sub_FFF0_update_sounds    ;
-C - - - - - 0x01EE0B 07:EDFB: 20 1A EF  JSR sub_EF1A_switch_bank_06_2 ;
-C - - - - - 0x01EE0E 07:EDFE: A9 00     LDA #$00                      ; CONSTANT - active
-C - - - - - 0x01EE10 07:EE00: 85 19     STA vRenderActive             ;
-bra_EE02_finish:
-C - - - - - 0x01EE12 07:EE02: 68        PLA                           ;
-C - - - - - 0x01EE13 07:EE03: A8        TAY                           ; retrieve y
-C - - - - - 0x01EE14 07:EE04: 68        PLA                           ;
-C - - - - - 0x01EE15 07:EE05: AA        TAX                           ; retrieve x
-C - - - - - 0x01EE16 07:EE06: 68        PLA                           ; retrieve a
+loc_EDE7_nmi_prefinish:
+C D 3 - - - 0x01EDF7 07:EDE7: A6 44     LDX vCurrentNumberSpriteAfCh         ;
+C - - - - - 0x01EDF9 07:EDE9: 86 43     STX vCurrentNumberSprite             ; restore last sprite number received after character rendering
+C - - - - - 0x01EDFB 07:EDEB: 20 F9 CE  JSR sub_CEF9_display_16_sprite_magic ;
+C - - - - - 0x01EDFE 07:EDEE: A9 07     LDA #$07                             ;
+C - - - - - 0x01EE00 07:EDF0: A2 04     LDX #$04                             ; 
+C - - - - - 0x01EE02 07:EDF2: 8D 00 80  STA MMC3_Bank_select                 ;
+C - - - - - 0x01EE05 07:EDF5: 8E 01 80  STX MMC3_Bank_data                   ; switch bank 02 (page 1) in 0xA000-0BFFF
+C - - - - - 0x01EE08 07:EDF8: 20 F0 FF  JSR sub_FFF0_update_sounds           ;
+C - - - - - 0x01EE0B 07:EDFB: 20 1A EF  JSR sub_EF1A_switch_bank_06_2        ;
+C - - - - - 0x01EE0E 07:EDFE: A9 00     LDA #$00                             ; CONSTANT - active
+C - - - - - 0x01EE10 07:EE00: 85 19     STA vRenderActive                    ;
+bra_EE02_nmi_finish:
+C - - - - - 0x01EE12 07:EE02: 68        PLA                                  ;
+C - - - - - 0x01EE13 07:EE03: A8        TAY                                  ; retrieve y
+C - - - - - 0x01EE14 07:EE04: 68        PLA                                  ;
+C - - - - - 0x01EE15 07:EE05: AA        TAX                                  ; retrieve x
+C - - - - - 0x01EE16 07:EE06: 68        PLA                                  ; retrieve a
 vec_C000_IRQ:
-C - - - - - 0x01EE17 07:EE07: 40        RTI                           ; irq
+C - - - - - 0x01EE17 07:EE07: 40        RTI                                  ; irq
 
 bra_EE08_skip:
 C - - - - - 0x01EE18 07:EE08: A9 07     LDA #$07                      ;
 C - - - - - 0x01EE1A 07:EE0A: 8D 00 80  STA MMC3_Bank_select          ; switch by MMC3_Bank_data in 0xA000-0BFFF
-C - - - - - 0x01EE1D 07:EE0D: D0 F3     BNE bra_EE02_finish           ; Always true
+C - - - - - 0x01EE1D 07:EE0D: D0 F3     BNE bra_EE02_nmi_finish       ; Always true
 bra_EE0F:
 C - - - - - 0x01EE1F 07:EE0F: 20 FE B5  JSR $B5FE
 C - - - - - 0x01EE22 07:EE12: 20 6C C4  JSR sub_C46C_simulate_presses_in_demo ;
 bra_EE15:
-C - - - - - 0x01EE25 07:EE15: 20 7B EF  JSR sub_EF7B_shift_all_counters ;
-C - - - - - 0x01EE28 07:EE18: 4C E7 ED  JMP loc_EDE7
+C - - - - - 0x01EE25 07:EE15: 20 7B EF  JSR sub_EF7B_shift_all_counters       ;
+C - - - - - 0x01EE28 07:EE18: 4C E7 ED  JMP loc_EDE7_nmi_prefinish            ;
 
 bra_EE1B_skip:
 C - - - - - 0x01EE2B 07:EE1B: 20 AA B3  JSR $B3AA ; to sub_B3AA (bank 06_2)
 C - - - - - 0x01EE2E 07:EE1E: 4C D5 ED  JMP loc_EDD5
 
-loc_EE21:
+loc_EE21_nmi_select_character:
 C D 3 - - - 0x01EE31 07:EE21: A5 19     LDA vRenderActive                        ;
 C - - - - - 0x01EE33 07:EE23: D0 E3     BNE bra_EE08_skip                        ; Branch If the render isn't activated
 C - - - - - 0x01EE35 07:EE25: 20 58 C3  JSR sub_C358_clear_OAM                   ;
 C - - - - - 0x01EE38 07:EE28: 20 8E C7  JSR sub_C78E_select_character_subroutine ;
 C - - - - - 0x01EE3B 07:EE2B: 20 6C C4  JSR sub_C46C_simulate_presses_in_demo    ;
 C - - - - - 0x01EE3E 07:EE2E: 20 86 EF  JSR sub_EF86_increment_counter           ;
-C - - - - - 0x01EE41 07:EE31: 4C E7 ED  JMP loc_EDE7
+C - - - - - 0x01EE41 07:EE31: 4C E7 ED  JMP loc_EDE7_nmi_prefinish               ;
 
-loc_EE34:
+loc_EE34_nmi_main_menu:
 C D 3 - - - 0x01EE44 07:EE34: 20 58 C3  JSR sub_C358_clear_OAM                ;
 C - - - - - 0x01EE47 07:EE37: A5 3B     LDA vSharedGameStatus                 ;
 C - - - - - 0x01EE49 07:EE39: C9 91     CMP #$91                              ; CONSTANT - First cutscene with Clarisse Cagliostro
@@ -7468,7 +7471,7 @@ C - - - - - 0x01EE4F 07:EE3F: F0 CE     BEQ bra_EE0F                          ; 
 C - - - - - 0x01EE51 07:EE41: 20 69 C5  JSR sub_C569_main_menu_subroutine     ;
 C - - - - - 0x01EE54 07:EE44: 20 7B EF  JSR sub_EF7B_shift_all_counters       ;
 C - - - - - 0x01EE57 07:EE47: 20 6C C4  JSR sub_C46C_simulate_presses_in_demo ;
-C - - - - - 0x01EE5A 07:EE4A: 4C E7 ED  JMP loc_EDE7
+C - - - - - 0x01EE5A 07:EE4A: 4C E7 ED  JMP loc_EDE7_nmi_prefinish            ;
 
 bra_EE4D:
 C - - - - - 0x01EE5D 07:EE4D: 20 3C C5  JSR sub_C53C_resolve_start_status ;

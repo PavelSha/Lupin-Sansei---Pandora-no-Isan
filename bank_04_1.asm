@@ -5892,79 +5892,79 @@ tbl_ptr_corridors_level4_map4_f4_f5:
 
 loc_main_menu_gunshot_f1:
 - D 0 - I - 0x011D8B 04:9D7B: 03        .byte $03
-- D 0 - I - 0x011D8C 04:9D7C: 20        .byte $20, $EE   ; $20EE (PPU Address)
+- D 0 - I - 0x011D8C 04:9D7C: 20        .dbyt $20EE   ; PPU Address
 - D 0 - I - 0x011D8E 04:9D7E: 3F        .byte $3F, $38, $3A
 - D 0 - I - 0x011D91 04:9D81: 04        .byte $04
-- D 0 - I - 0x011D92 04:9D82: 21        .byte $21, $0D   ; $210D
+- D 0 - I - 0x011D92 04:9D82: 21        .dbyt $210D   ; PPU Address
 - D 0 - I - 0x011D94 04:9D84: 3C        .byte $3C, $3E, $4C, $4E
 - D 0 - I - 0x011D98 04:9D88: 04        .byte $04
-- D 0 - I - 0x011D99 04:9D89: 21        .byte $21, $2D   ; $212D
+- D 0 - I - 0x011D99 04:9D89: 21        .dbyt $212D   ; PPU Address
 - D 0 - I - 0x011D9B 04:9D8B: 3D        .byte $3D, $4B, $4D, $4F
 - D 0 - I - 0x011D9F 04:9D8F: 04        .byte $04
-- D 0 - I - 0x011DA0 04:9D90: 21        .byte $21, $4D   ; $214D
+- D 0 - I - 0x011DA0 04:9D90: 21        .dbyt $214D   ; PPU Address
 - D 0 - I - 0x011DA2 04:9D92: 68        .byte $68, $6A, $6C, $6E
 - D 0 - I - 0x011DA6 04:9D96: 01        .byte $01
-- D 0 - I - 0x011DA7 04:9D97: 21        .byte $21, $6D   ; $216D
+- D 0 - I - 0x011DA7 04:9D97: 21        .dbyt $216D   ; PPU Address
 - D 0 - I - 0x011DA9 04:9D99: 69        .byte $69
 - D 0 - I - 0x011DAA 04:9D9A: FF        .byte $FF
 
 loc_main_menu_gunshot_f2:
 - D 0 - I - 0x011DAB 04:9D9B: 01        .byte $01
-- D 0 - I - 0x011DAC 04:9D9C: 20        .byte $20, $CE   ; $20CE
+- D 0 - I - 0x011DAC 04:9D9C: 20        .dbyt $20CE   ; PPU Address
 - D 0 - I - 0x011DAE 04:9D9E: 56        .byte $56
 - D 0 - I - 0x011DAF 04:9D9F: 07        .byte $07
-- D 0 - I - 0x011DB0 04:9DA0: 20        .byte $20, $EB   ; $20EB
+- D 0 - I - 0x011DB0 04:9DA0: 20        .dbyt $20EB   ; PPU Address
 - D 0 - I - 0x011DB2 04:9DA2: 51        .byte $51, $53, $00, $57, $38, $7D, $7F
 - D 0 - I - 0x011DB9 04:9DA9: 09        .byte $09
-- D 0 - I - 0x011DBA 04:9DAA: 21        .byte $21, $09   ; $2109
+- D 0 - I - 0x011DBA 04:9DAA: 21        .dbyt $2109   ; PPU Address
 - D 0 - I - 0x011DBC 04:9DAC: 40        .byte $40, $42, $44, $46, $48, $4A, $4C, $4E, $7E
 - D 0 - I - 0x011DC5 04:9DB5: 05        .byte $05
-- D 0 - I - 0x011DC6 04:9DB6: 21        .byte $21, $29   ; $2129
+- D 0 - I - 0x011DC6 04:9DB6: 21        .dbyt $2129   ; PPU Address
 - D 0 - I - 0x011DC8 04:9DB8: 41        .byte $41, $43, $45, $47, $49
 - D 0 - I - 0x011DCD 04:9DBD: FF        .byte $FF
 
 loc_main_menu_gunshot_f3:
 - D 0 - I - 0x011DCE 04:9DBE: 01        .byte $01
-- D 0 - I - 0x011DCF 04:9DBF: 21        .byte $21, $4C   ; $214C
+- D 0 - I - 0x011DCF 04:9DBF: 21        .dbyt $214C   ; PPU Address
 - D 0 - I - 0x011DD1 04:9DC1: 66        .byte $66
 - D 0 - I - 0x011DD2 04:9DC2: 06        .byte $06
-- D 0 - I - 0x011DD3 04:9DC3: 21        .byte $21, $6B   ; $216B
+- D 0 - I - 0x011DD3 04:9DC3: 21        .dbyt $216B   ; PPU Address
 - D 0 - I - 0x011DD5 04:9DC5: 65        .byte $65, $67, $69, $6B, $00, $6F
 - D 0 - I - 0x011DDB 04:9DCB: 05        .byte $05
-- D 0 - I - 0x011DDC 04:9DCC: 21        .byte $21, $8C   ; $218C
+- D 0 - I - 0x011DDC 04:9DCC: 21        .dbyt $218C   ; PPU Address
 - D 0 - I - 0x011DDE 04:9DCE: 72        .byte $72, $F9, $76, $78, $7A
 - D 0 - I - 0x011DE3 04:9DD3: 02        .byte $02
-- D 0 - I - 0x011DE4 04:9DD4: 21        .byte $21, $AE   ; $21AE
+- D 0 - I - 0x011DE4 04:9DD4: 21        .dbyt $21AE   ; PPU Address
 - D 0 - I - 0x011DE6 04:9DD6: 77        .byte $77, $79
-- D 0 - I - 0x011DE8 04:9DD8: FF        .byte $FF   ; 
+- D 0 - I - 0x011DE8 04:9DD8: FF        .byte $FF
 
 loc_main_menu_gunshot_f4:
 - D 0 - I - 0x011DE9 04:9DD9: 01        .byte $01
-- D 0 - I - 0x011DEA 04:9DDA: 20        .byte $20, $AE   ; $20AE
+- D 0 - I - 0x011DEA 04:9DDA: 20        .dbyt $20AE   ; PPU Address
 - D 0 - I - 0x011DEC 04:9DDC: 55        .byte $55
 - D 0 - I - 0x011DED 04:9DDD: 0D        .byte $0D
-- D 0 - I - 0x011DEE 04:9DDE: 20        .byte $20, $C8   ; $20C8
+- D 0 - I - 0x011DEE 04:9DDE: 20        .dbyt $20C8   ; PPU Address
 - D 0 - I - 0x011DF0 04:9DE0: 6D        .byte $6D, $60, $00, $50, $52, $54, $56, $00, $00, $7C, $00, $00, $62
 - D 0 - I - 0x011DFD 04:9DED: 0A        .byte $0A
-- D 0 - I - 0x011DFE 04:9DEE: 20        .byte $20, $EA   ; $20EA
+- D 0 - I - 0x011DFE 04:9DEE: 20        .dbyt $20EA   ; PPU Address
 - D 0 - I - 0x011E00 04:9DF0: 63        .byte $63, $51, $53, $00, $57, $38, $3A, $7D, $7F, $61
 - D 0 - I - 0x011E0A 04:9DFA: 02        .byte $02
-- D 0 - I - 0x011E0B 04:9DFB: 21        .byte $21, $31   ; $2131
+- D 0 - I - 0x011E0B 04:9DFB: 21        .dbyt $2131   ; PPU Address
 - D 0 - I - 0x011E0D 04:9DFD: 39        .byte $39, $3B
 - D 0 - I - 0x011E0F 04:9DFF: FF        .byte $FF
 
 loc_main_menu_gunshot_f5:
 - D 0 - I - 0x011E10 04:9E00: 09        .byte $09
-- D 0 - I - 0x011E11 04:9E01: 21        .byte $21, $89   ; $2189
+- D 0 - I - 0x011E11 04:9E01: 21        .dbyt $2189   ; PPU Address
 - D 0 - I - 0x011E13 04:9E03: 5C        .byte $5C, $5E, $70, $72, $74, $76, $78, $7A, $7B
 - D 0 - I - 0x011E1C 04:9E0C: 0A        .byte $0A
-- D 0 - I - 0x011E1D 04:9E0D: 21        .byte $21, $AA   ; $21AA
+- D 0 - I - 0x011E1D 04:9E0D: 21        .dbyt $21AA   ; PPU Address
 - D 0 - I - 0x011E1F 04:9E0F: 5F        .byte $5F, $71, $00, $00, $77, $79, $00, $00, $58, $5A
 - D 0 - I - 0x011E29 04:9E19: 0C        .byte $0C
-- D 0 - I - 0x011E2A 04:9E1A: 21        .byte $21, $CA   ; $21CA
+- D 0 - I - 0x011E2A 04:9E1A: 21        .dbyt $21CA   ; PPU Address
 - D 0 - I - 0x011E2C 04:9E1C: 5D        .byte $5D, $1A, $1C, $1E, $73, $22, $24, $26, $28, $2A, $59, $5B
 - D 0 - I - 0x011E38 04:9E28: 01        .byte $01
-- D 0 - I - 0x011E39 04:9E29: 21        .byte $21, $EE   ; $21EE
+- D 0 - I - 0x011E39 04:9E29: 21        .dbyt $21EE   ; PPU Address
 - D 0 - I - 0x011E3B 04:9E2B: 75        .byte $75
 - D 0 - I - 0x011E3C 04:9E2C: FF        .byte $FF
 

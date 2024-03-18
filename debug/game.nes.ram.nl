@@ -27,7 +27,7 @@ $003B#vSharedGameStatus#
 $003D#vCharacterSelectionCounter#
 $0041#v_npc_message_status#
 $0043#vCurrentNumberSprite#
-$0044#vCopyCurrentNumberSprite#
+$0044#vCurrentNumberSpriteAfCh#
 $0045#vCharacterRenderData#
 $0046#vNoSubLevel#
 $0047#vTempNoSubLevel#
@@ -89,6 +89,7 @@ $00D0#v_high_msg_ppu_address#
 $00D1#vGogglesActive#
 $00D2#vGogglesLowCounter#
 $00D3#vGogglesHighCounter#
+$00D4#vTempChrLiveStatus#
 $00D6#vReasonCharacterChange#
 $00FD#vSoundRoomIndex#
 $0109#v_last_level#

@@ -126,6 +126,10 @@ $C194#loc_C194#
 $C1AF#bra_C1AF#
 $C1B1#loc_C1B1#CONSTANT - no reason
 $C1B3##--NO-COMMENT--
+$C1B5##--NO-COMMENT--
+$C1B7##store a last value
+$C1B9##CONSTANT (see vChrLiveStatus)
+$C1BB##All characters are ready to play, Lupin is selected
 $C1C3#bra_C1C3#
 $C1CA#tbl_C1CA_checkpoint_on_start_levels#
 $C1CE#bra_C1CE#
@@ -642,6 +646,9 @@ $C71F#loc_C71F#
 $C72C#bra_C72C_skip#--NO-COMMENT--
 $C72E##--NO-COMMENT--
 $C730##Branch If vTempRowNumber1A = 0x02, 0x03, 0x06, 0x07, 0x0A, 0x0B
+$C732##For 0x08, 0x09 - Lupin
+$C735##If character is fell or arrested
+$C737##--NO-COMMENT--
 $C738#bra_C738_internal_render_row#--NO-COMMENT--
 $C73A##--NO-COMMENT--
 $C73B##--NO-COMMENT--
@@ -678,13 +685,19 @@ $C772##high address ($0633)
 $C774##--NO-COMMENT--
 $C776##the number of the tiles
 $C778##--NO-COMMENT--
-$C77B#sub_C77B#--NO-COMMENT--
+$C77B#sub_C77B_can_character_play#--NO-COMMENT--
 $C77D##--NO-COMMENT--
 $C77E##--NO-COMMENT--
 $C77F##set loop counter (vTempRowNumber1A / 4)
-$C784#bra_C784_skip#
+$C780##--NO-COMMENT--
+$C782##the out parameter
+$C784#bra_C784_skip#--NO-COMMENT--
+$C785##--NO-COMMENT--
 $C786##decrements loop counter
 $C787##If Register X >= 0
+$C789##--NO-COMMENT--
+$C78B##--NO-COMMENT--
+$C78D##--NO-COMMENT--
 $C78E#sub_C78E_select_character_subroutine#--NO-COMMENT--
 $C791##If test mode is disable
 $C7A2##The enemies don't damage
@@ -1264,8 +1277,8 @@ $CEF0##a correction ($CEB5)
 $CEF1##a correction ($CEBD)
 $CEF2#bra_CEF2_blank#This value means than the sprite isn't used
 $CEF4##--NO-COMMENT--
-$CEF7##--NO-COMMENT--
-$CEF9#sub_CEF9#--NO-COMMENT--
+$CEF7##Always true
+$CEF9#sub_CEF9_display_16_sprite_magic#--NO-COMMENT--
 $CEFB##--NO-COMMENT--
 $CEFD##--NO-COMMENT--
 $CEFE##--NO-COMMENT--
@@ -1290,15 +1303,16 @@ $CF1C##--NO-COMMENT--
 $CF1F#bra_CF1F_skip#<~ Y-position
 $CF21##--NO-COMMENT--
 $CF24##<~ X-position
+$CF26##--NO-COMMENT--
 $CF29##store v_sprite_magic3
 $CF2A##store v_sprite_magic3
 $CF2B##store v_sprite_magic3
 $CF2C##bank 05 (2 page)
 $CF2E##--NO-COMMENT--
-$CF30##If BBBB = 0xXX00 (see v_sprite_magic3)
+$CF30##If SSBB = 0xXX00 (see v_sprite_magic3)
 $CF32##bank 02 (2 page)
 $CF34##--NO-COMMENT--
-$CF36##If BBBB = 0xXX01 (see v_sprite_magic3)
+$CF36##If SSBB = 0xXX01 (see v_sprite_magic3)
 $CF38##bank 05 (1 page)
 $CF3A#bra_CF3A_set_bank#--NO-COMMENT--
 $CF3C##--NO-COMMENT--
@@ -1307,28 +1321,88 @@ $CF42##retrieve v_sprite_magic3 ($CF2B)
 $CF43##--NO-COMMENT--
 $CF45##put the OAM-attributes
 $CF47##retrieve v_sprite_magic3 ($CF2A)
+$CF48##--NO-COMMENT--
+$CF4A##If XCOO = 0xX0XX (see v_sprite_magic3)
+$CF4C##using next CHR-page size 1 Kb
 $CF4E#bra_CF4E_skip#0x00 or 0x40
 $CF50##retrieve v_sprite_magic3 ($CF29)
+$CF51##--NO-COMMENT--
+$CF52##--NO-COMMENT--
+$CF53##--NO-COMMENT--
+$CF54##--NO-COMMENT--
+$CF56##<~ 0x80 + SS
 $CF58##High address
+$CF5A##--NO-COMMENT--
 $CF5C##Low address
+$CF5E##--NO-COMMENT--
+$CF61##1 of 2 bytes
+$CF62##--NO-COMMENT--
 $CF64##Low address
+$CF66##2 of 2 bytes
+$CF67##--NO-COMMENT--
 $CF69##High address
+$CF6B##--NO-COMMENT--
 $CF6D##Tile count
+$CF6F##set loop counter
 $CF71##If counter == 0
-$CF76#bra_CF76_repeat#
-$CF80#bra_CF80_skip#
-$CFA7#bra_CFA7_skip#
+$CF73##--NO-COMMENT--
+$CF75##y == 1, the position of first tile-byte
+$CF76#bra_CF76_repeat#--NO-COMMENT--
+$CF78##clear
+$CF7A##1 of 4
+$CF7C##If Register A < 0xF0
+$CF7E##0x00 -> 0xFF (The position may be negative!)
+$CF80#bra_CF80_skip#--NO-COMMENT--
+$CF81##adds starting Y-point
+$CF83##set Y-position
+$CF86##--NO-COMMENT--
+$CF88##--NO-COMMENT--
+$CF8A##If Register A != 0x00 (sprite off screen)
+$CF8C##Changes to the second byte (Tile index number)
+$CF8D##2 of 4
+$CF8F##0x00 or 0x40 (current or next CHR-page size 1 Kb)
+$CF91##set the tile number sprite
+$CF94##Changes to the third byte (Attributes)
+$CF95##3 of 4
+$CF97##add attributes from vCharacterRenderData (see vCharacterRenderData)
+$CF99##set the attributes
+$CF9C##Changes to the fourth byte (X-position)
+$CF9D##--NO-COMMENT--
+$CF9F##clear
+$CFA1##4 of 4
+$CFA3##If Register A < 0xF0
+$CFA5##0x00 -> 0xFF (The position may be negative!)
+$CFA7#bra_CFA7_skip#--NO-COMMENT--
+$CFA8##--NO-COMMENT--
+$CFAA##store X-position temporarily
+$CFAC##--NO-COMMENT--
+$CFAE##--NO-COMMENT--
+$CFB0##If Register A != 0x00 (sprite off screen)
+$CFB2##--NO-COMMENT--
+$CFB4##--NO-COMMENT--
+$CFB6##If Register A >= 0xF9 (it is an unacceptable sprite)
+$CFB8##set X-position
+$CFBB##--NO-COMMENT--
+$CFBC##--NO-COMMENT--
+$CFBD##--NO-COMMENT--
 $CFBE##To 1st next sprite data byte
-$CFC1#bra_CFC1#
+$CFBF##If Register X == 0x00
+$CFC1#bra_CFC1_next#1 of 4 again
+$CFC2##decrement loop counter
 $CFC4##If counter != 0
-$CFC8#loc_CFC8_continue#increment counter (ram_001A)
+$CFC6##--NO-COMMENT--
+$CFC8#loc_CFC8_continue#increment counter (vTempCounter1A)
 $CFCA##--NO-COMMENT--
 $CFCC##--NO-COMMENT--
-$CFCE##Returns If ram_001A >= 0x10
+$CFCE##Returns If vTempCounter1A >= 0x10
 $CFD0##Repeat the loop
 $CFD3#bra_CFD3_RTS#--NO-COMMENT--
-$CFD4#bra_CFD4#
-$CFD7#bra_CFD7#
+$CFD4#bra_CFD4_skip_sprite#a correction ($CF8C)
+$CFD5##a correction ($CF94)
+$CFD6##a correction ($CF9C)
+$CFD7#bra_CFD7_skip_sprite#CONSTANT - a sprite doesn't exist
+$CFD9##--NO-COMMENT--
+$CFDC##Always true
 $D05E#sub_accumulator_shift_right_by_5#--NO-COMMENT--
 $D05F#sub_accumulator_shift_right_by_4#--NO-COMMENT--
 $D060##--NO-COMMENT--
@@ -2555,8 +2629,11 @@ $ED75##write Y scroll-position
 $ED78##--NO-COMMENT--
 $ED7B##--NO-COMMENT--
 $ED7D##Branch if it doesn't contain "Main Menu"
-$ED82#bra_ED82#
-$ED89#bra_ED89#--NO-COMMENT--
+$ED7F##--NO-COMMENT--
+$ED82#bra_ED82_next_check#CONSTANT - Select the character
+$ED84##If vSharedGameStatus != 'Select the character'
+$ED86##--NO-COMMENT--
+$ED89#bra_ED89_next_check#--NO-COMMENT--
 $ED8C#bra_ED8C_wait#--NO-COMMENT--
 $ED8F##checking a sprite 0 hits
 $ED91#bra_ED91_wait#--NO-COMMENT--
@@ -2578,7 +2655,9 @@ $EDC9##to sub_AF4D bank 06_2
 $EDD5#loc_EDD5#--NO-COMMENT--
 $EDDB#bra_EDDB_pause#--NO-COMMENT--
 $EDE1#loc_EDE1_skip#--NO-COMMENT--
-$EDE7#loc_EDE7#
+$EDE7#loc_EDE7_nmi_prefinish#--NO-COMMENT--
+$EDE9##restore last sprite number received after character rendering
+$EDEB##--NO-COMMENT--
 $EDEE##--NO-COMMENT--
 $EDF0##--NO-COMMENT--
 $EDF2##--NO-COMMENT--
@@ -2587,7 +2666,7 @@ $EDF8##--NO-COMMENT--
 $EDFB##--NO-COMMENT--
 $EDFE##CONSTANT - active
 $EE00##--NO-COMMENT--
-$EE02#bra_EE02_finish#--NO-COMMENT--
+$EE02#bra_EE02_nmi_finish#--NO-COMMENT--
 $EE03##retrieve y
 $EE04##--NO-COMMENT--
 $EE05##retrieve x
@@ -2599,14 +2678,16 @@ $EE0D##Always true
 $EE0F#bra_EE0F#
 $EE12##--NO-COMMENT--
 $EE15#bra_EE15#--NO-COMMENT--
+$EE18##--NO-COMMENT--
 $EE1B#bra_EE1B_skip#to sub_B3AA (bank 06_2)
-$EE21#loc_EE21#--NO-COMMENT--
+$EE21#loc_EE21_nmi_select_character#--NO-COMMENT--
 $EE23##Branch If the render isn't activated
 $EE25##--NO-COMMENT--
 $EE28##--NO-COMMENT--
 $EE2B##--NO-COMMENT--
 $EE2E##--NO-COMMENT--
-$EE34#loc_EE34#--NO-COMMENT--
+$EE31##--NO-COMMENT--
+$EE34#loc_EE34_nmi_main_menu#--NO-COMMENT--
 $EE37##--NO-COMMENT--
 $EE39##CONSTANT - First cutscene with Clarisse Cagliostro
 $EE3B##If Register A == 0x91
@@ -2615,6 +2696,7 @@ $EE3F##If Register A == 0x93
 $EE41##--NO-COMMENT--
 $EE44##--NO-COMMENT--
 $EE47##--NO-COMMENT--
+$EE4A##--NO-COMMENT--
 $EE4D#bra_EE4D#--NO-COMMENT--
 $EE53#sub_EE53#
 $EE5D#sub_EE5D#
