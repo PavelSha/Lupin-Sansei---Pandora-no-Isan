@@ -31,7 +31,7 @@ $C03D##If Register X != 0
 $C03F##--NO-COMMENT--
 $C042##CONSTANT - Cutscene
 $C044##assign a value
-$C046#loc_C046#--NO-COMMENT--
+$C046#loc_C046_repeat_starting_mode#--NO-COMMENT--
 $C048##--NO-COMMENT--
 $C04B##--NO-COMMENT--
 $C04D##switch bank 06_2 in 0xA000-0BFFF
@@ -63,10 +63,10 @@ $C082##set apu frame counter - 4-step mode, the interrupts are disabled
 $C085##--NO-COMMENT--
 $C087##clear (see vChrLiveStatus)
 $C089##--NO-COMMENT--
-$C08C##to sub_B8C7 (bank 06_2)
-$C08F##to sub_B9DA (bank 06_2)
+$C08C##bank 06_2
+$C08F##bank 06_2
 $C095#loc_C095#--NO-COMMENT--
-$C097##Branch If mode=cutscene
+$C097##Branch If cutscenes are used
 $C099##--NO-COMMENT--
 $C09C#loc_C09C#
 $C09F##--NO-COMMENT--
@@ -155,7 +155,7 @@ $C29B##CONSTANT - Cutscene
 $C29D##--NO-COMMENT--
 $C29F##CONSTANT - The menu
 $C2A1##--NO-COMMENT--
-$C2A3#bra_C2A3_skip#
+$C2A3#bra_C2A3_skip#--NO-COMMENT--
 $C2A6#loc_C2A6#
 $C2C2#bra_C2C2#
 $C2DF#bra_C2DF#
@@ -787,12 +787,12 @@ $C87E##shift high ROM-address value by Carry flag
 $C880##decrement loop counter
 $C882##If $000F < 0xF0
 $C884##--NO-COMMENT--
-$C885#sub_C885#--NO-COMMENT--
-$C887##Branch If in game
+$C885#sub_C885_try_interrupt_mode#--NO-COMMENT--
+$C887##Branch If cutscenes aren't used
 $C889##--NO-COMMENT--
-$C88B##If vLowMenuCounter != 0x00
+$C88B##If vLowCutsceneCounter != 0x00
 $C88D##--NO-COMMENT--
-$C88F##If vHighMenuCounter == 0x00
+$C88F##If vHighCutsceneCounter == 0x00
 $C891##--NO-COMMENT--
 $C893#bra_C893_skip#--NO-COMMENT--
 $C895##--NO-COMMENT--
@@ -800,9 +800,12 @@ $C897##Go to the branch If the button 'Start' doesn't press
 $C899##--NO-COMMENT--
 $C89B##avoid looping
 $C89D##If v_player1_btn_pressed = v_last_p1_btn_pressed
-$C89F##CONSTANT - In game
+$C89F##CONSTANT - Cutscenes aren't used
 $C8A1##--NO-COMMENT--
-$C8A9#bra_C8A9#--NO-COMMENT--
+$C8A3##--NO-COMMENT--
+$C8A5##clears the stack completely
+$C8A6##--NO-COMMENT--
+$C8A9#bra_C8A9_try_change_pause#--NO-COMMENT--
 $C8AB##--NO-COMMENT--
 $C8AE##Branch If the button 'Start' doesn't press
 $C8B0##--NO-COMMENT--
@@ -813,7 +816,9 @@ $C8B8##--NO-COMMENT--
 $C8BA##CONSTANT - Pause in the game
 $C8BC##--NO-COMMENT--
 $C8BE##--NO-COMMENT--
-$C8C6#bra_C8C6_skip#--NO-COMMENT--
+$C8C1##sound of pause
+$C8C3##--NO-COMMENT--
+$C8C6#bra_C8C6_turn_pause_off#--NO-COMMENT--
 $C8C8##CONSTANT - no pause
 $C8CA##--NO-COMMENT--
 $C8CC##--NO-COMMENT--
@@ -2653,8 +2658,10 @@ $EDC4##Branch if 'A screen with the message'
 $EDC6##to sub_B09A bank 06_2
 $EDC9##to sub_AF4D bank 06_2
 $EDD5#loc_EDD5#--NO-COMMENT--
+$EDD8##--NO-COMMENT--
 $EDDB#bra_EDDB_pause#--NO-COMMENT--
-$EDE1#loc_EDE1_skip#--NO-COMMENT--
+$EDE1#loc_EDE1_nmi_skip#--NO-COMMENT--
+$EDE4##--NO-COMMENT--
 $EDE7#loc_EDE7_nmi_prefinish#--NO-COMMENT--
 $EDE9##restore last sprite number received after character rendering
 $EDEB##--NO-COMMENT--
@@ -2938,26 +2945,70 @@ $F282##--NO-COMMENT--
 $F285##--NO-COMMENT--
 $F295#sub_F295#
 $F2AA#bra_F2AA#
-$F2B2#sub_F2B2_try_generate_enemy#
+$F2B2#sub_F2B2_try_generate_enemy#--NO-COMMENT--
 $F2B5##CONSTANT - Zenigata
 $F2B7##If enemyA is Zenigata
+$F2B9##--NO-COMMENT--
+$F2BC##--NO-COMMENT--
+$F2BE##*2, because the CPU addresses have 2 bytes
+$F2BF##--NO-COMMENT--
+$F2C0##--NO-COMMENT--
 $F2C3##Low address
+$F2C5##--NO-COMMENT--
 $F2C8##High address
-$F2CE##if low_counter == 0xX0 or if low_counter == 0xX8
-$F2D2##if low_counter is odd
+$F2CA##--NO-COMMENT--
+$F2CC##--NO-COMMENT--
+$F2CE##if low_counter == 0xX0 or if low_counter == 0xX8 (right-to-left direction, multiple of 8)
+$F2D0##--NO-COMMENT--
+$F2D2##if low_counter is odd (multiple of 2)
+$F2D4##CONSTANT - left-to-right direction
 $F2D6#bra_F2D6_skip#Register A has 0x00 or 0x01
 $F2D8##--NO-COMMENT--
 $F2DA##only left or right
-$F2E9#loc_F2E9_update_address_and_repeat#
-$F2ED##If Register A >= ram_0001
-$F2F0#bra_F2F0_repeat#
-$F2F5##--NO-COMMENT--
-$F2FA#bra_F2FA_clear_c_rts#
-$F2FC#bra_F2FC_skip#
+$F2DC##--NO-COMMENT--
+$F2DE##0x00 or 0x01
+$F2E0##--NO-COMMENT--
+$F2E2##--NO-COMMENT--
+$F2E3##--NO-COMMENT--
+$F2E5##<~ vHighViewPortPosX or vHighViewPortPosX + 1
+$F2E7##set loop counter, 1 of 4
+$F2E9#bra_F2E9_loop#load a item macro X-position
+$F2EB##--NO-COMMENT--
+$F2ED##If the item macro X-position >= HighViewPortPosX (+1)
+$F2EF##2 of 4
+$F2F0#bra_F2F0_repeat#3 of 4
+$F2F1##4 of 4
+$F2F2##1 of 4 again
+$F2F3##If Register Y != 0x00
+$F2F5##increment the high address
+$F2F7##--NO-COMMENT--
+$F2FA#bra_F2FA_return_false#return false
+$F2FB##--NO-COMMENT--
+$F2FC#bra_F2FC_skip#If the item macro X-position != HighViewPortPosX (+1)
 $F2FE##to 2 byte of 4
-$F309#bra_F309_skip#
+$F2FF##load a item X-position
+$F301##--NO-COMMENT--
+$F302##--NO-COMMENT--
+$F304##If vLowViewPortPosX <= item position X
+$F306##--NO-COMMENT--
+$F309#bra_F309_skip#CONSTANT - allowable tolerance for items
 $F30B##If Register A >= 0x0A
 $F30D##to 1 byte of 4
+$F30E##--NO-COMMENT--
+$F310##store 1 item value
+$F312##2 of 4
+$F313##--NO-COMMENT--
+$F315##store 2 item value
+$F317##3 of 4
+$F318##--NO-COMMENT--
+$F31A##store 3 item value
+$F31C##4 of 4
+$F31D##--NO-COMMENT--
+$F31F##store 4 item value
+$F321##--NO-COMMENT--
+$F323##store a type or an index
+$F325##return true
+$F326##--NO-COMMENT--
 $F327#loc_F327#
 $F339#sub_F339#
 $F346#bra_F346#

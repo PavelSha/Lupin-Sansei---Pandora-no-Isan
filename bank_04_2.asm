@@ -5,6 +5,7 @@
 
 .export tbl_messages
 .export tbl_ptr_rooms_with_NPCs
+.export tbl_ptr_enemies
 .export tbl_ptr_briefcases_outside
 .export number_of_rooms_on_the_level
 .export tbl_ptr_rooms_on_the_level
@@ -455,9 +456,10 @@ npc_portrait_sprites: ; 12 bytes
 - D 0 - - - 0x0123A6 04:8396: E6        .byte $E6, $E7, $F6, $F7, $E8, $E9, $F8, $F9, $EA, $EB, $FA, $FB   ; 
 
 ; Templates for a generation of enemies 
+tbl_ptr_enemies:
 - D 0 - - - 0x0123B2 04:83A2: A4 84     .word $84A4 ; Level 1.0
-- - - - - - 0x0123B4 04:83A4: 90 85     .word $8590
-- - - - - - 0x0123B6 04:83A6: 90 85     .word $8590
+- - - - - - 0x0123B4 04:83A4: 90 85     .addr deadlock ; CPU address $8590
+- - - - - - 0x0123B6 04:83A6: 90 85     .addr deadlock
 - D 0 - - - 0x0123B8 04:83A8: 91 85     .word $8591 ; Level 1.1
 - D 0 - - - 0x0123BA 04:83AA: E2 85     .word $85E2 ; Level 1.2
 - D 0 - - - 0x0123BC 04:83AC: 53 86     .word $8653 ; Level 1.3
@@ -475,55 +477,55 @@ npc_portrait_sprites: ; 12 bytes
 - D 0 - - - 0x0123D4 04:83C4: CA 8C     .word $8CCA ; level 3.2
 - D 0 - - - 0x0123D6 04:83C6: 37 8D     .word $8D37 ; level 3.3
 - D 0 - - - 0x0123D8 04:83C8: BC 8D     .word $8DBC ; level 3.4
-- D 0 - - - 0x0123DA 04:83CA: 90 85     .word $8590
-- - - - - - 0x0123DC 04:83CC: 90 85     .word $8590
-- - - - - - 0x0123DE 04:83CE: 90 85     .word $8590
-- - - - - - 0x0123E0 04:83D0: 90 85     .word $8590
-- - - - - - 0x0123E2 04:83D2: 90 85     .word $8590
+- D 0 - - - 0x0123DA 04:83CA: 90 85     .addr deadlock
+- - - - - - 0x0123DC 04:83CC: 90 85     .addr deadlock
+- - - - - - 0x0123DE 04:83CE: 90 85     .addr deadlock
+- - - - - - 0x0123E0 04:83D0: 90 85     .addr deadlock
+- - - - - - 0x0123E2 04:83D2: 90 85     .addr deadlock
 - D 0 - - - 0x0123E4 04:83D4: 41 8E     .word $8E41 ; level racing
-- D 0 - - - 0x0123E6 04:83D6: 90 85     .word $8590
-- D 0 - - - 0x0123E8 04:83D8: 90 85     .word $8590
-- D 0 - - - 0x0123EA 04:83DA: 90 85     .word $8590
-- D 0 - - - 0x0123EC 04:83DC: 90 85     .word $8590
-- D 0 - - - 0x0123EE 04:83DE: 90 85     .word $8590
-- D 0 - - - 0x0123F0 04:83E0: 90 85     .word $8590
-- D 0 - - - 0x0123F2 04:83E2: 90 85     .word $8590
-- D 0 - - - 0x0123F4 04:83E4: 90 85     .word $8590
-- D 0 - - - 0x0123F6 04:83E6: 90 85     .word $8590
-- D 0 - - - 0x0123F8 04:83E8: 90 85     .word $8590
-- D 0 - - - 0x0123FA 04:83EA: 90 85     .word $8590
-- - - - - - 0x0123FC 04:83EC: 90 85     .word $8590
-- D 0 - - - 0x0123FE 04:83EE: 90 85     .word $8590
-- - - - - - 0x012400 04:83F0: 90 85     .word $8590
-- - - - - - 0x012402 04:83F2: 90 85     .word $8590
-- D 0 - - - 0x012404 04:83F4: 90 85     .word $8590
-- - - - - - 0x012406 04:83F6: 90 85     .word $8590
-- D 0 - - - 0x012408 04:83F8: 90 85     .word $8590
-- D 0 - - - 0x01240A 04:83FA: 90 85     .word $8590
-- D 0 - - - 0x01240C 04:83FC: 90 85     .word $8590
-- - - - - - 0x01240E 04:83FE: 90 85     .word $8590
-- - - - - - 0x012410 04:8400: 90 85     .word $8590
-- D 0 - - - 0x012412 04:8402: 90 85     .word $8590
-- D 0 - - - 0x012414 04:8404: 90 85     .word $8590
-- D 0 - - - 0x012416 04:8406: 90 85     .word $8590
-- - - - - - 0x012418 04:8408: 90 85     .word $8590
-- - - - - - 0x01241A 04:840A: 90 85     .word $8590
-- - - - - - 0x01241C 04:840C: 90 85     .word $8590
-- D 0 - - - 0x01241E 04:840E: 90 85     .word $8590
-- D 0 - - - 0x012420 04:8410: 90 85     .word $8590
-- D 0 - - - 0x012422 04:8412: 90 85     .word $8590
-- D 0 - - - 0x012424 04:8414: 90 85     .word $8590
-- - - - - - 0x012426 04:8416: 90 85     .word $8590
-- - - - - - 0x012428 04:8418: 90 85     .word $8590
-- D 0 - - - 0x01242A 04:841A: 90 85     .word $8590
-- D 0 - - - 0x01242C 04:841C: 90 85     .word $8590
-- D 0 - - - 0x01242E 04:841E: 90 85     .word $8590
-- D 0 - - - 0x012430 04:8420: 90 85     .word $8590
-- D 0 - - - 0x012432 04:8422: 90 85     .word $8590
-- D 0 - - - 0x012434 04:8424: 90 85     .word $8590
+- D 0 - - - 0x0123E6 04:83D6: 90 85     .addr deadlock
+- D 0 - - - 0x0123E8 04:83D8: 90 85     .addr deadlock
+- D 0 - - - 0x0123EA 04:83DA: 90 85     .addr deadlock
+- D 0 - - - 0x0123EC 04:83DC: 90 85     .addr deadlock
+- D 0 - - - 0x0123EE 04:83DE: 90 85     .addr deadlock
+- D 0 - - - 0x0123F0 04:83E0: 90 85     .addr deadlock
+- D 0 - - - 0x0123F2 04:83E2: 90 85     .addr deadlock
+- D 0 - - - 0x0123F4 04:83E4: 90 85     .addr deadlock
+- D 0 - - - 0x0123F6 04:83E6: 90 85     .addr deadlock
+- D 0 - - - 0x0123F8 04:83E8: 90 85     .addr deadlock
+- D 0 - - - 0x0123FA 04:83EA: 90 85     .addr deadlock
+- - - - - - 0x0123FC 04:83EC: 90 85     .addr deadlock
+- D 0 - - - 0x0123FE 04:83EE: 90 85     .addr deadlock
+- - - - - - 0x012400 04:83F0: 90 85     .addr deadlock
+- - - - - - 0x012402 04:83F2: 90 85     .addr deadlock
+- D 0 - - - 0x012404 04:83F4: 90 85     .addr deadlock
+- - - - - - 0x012406 04:83F6: 90 85     .addr deadlock
+- D 0 - - - 0x012408 04:83F8: 90 85     .addr deadlock
+- D 0 - - - 0x01240A 04:83FA: 90 85     .addr deadlock
+- D 0 - - - 0x01240C 04:83FC: 90 85     .addr deadlock
+- - - - - - 0x01240E 04:83FE: 90 85     .addr deadlock
+- - - - - - 0x012410 04:8400: 90 85     .addr deadlock
+- D 0 - - - 0x012412 04:8402: 90 85     .addr deadlock
+- D 0 - - - 0x012414 04:8404: 90 85     .addr deadlock
+- D 0 - - - 0x012416 04:8406: 90 85     .addr deadlock
+- - - - - - 0x012418 04:8408: 90 85     .addr deadlock
+- - - - - - 0x01241A 04:840A: 90 85     .addr deadlock
+- - - - - - 0x01241C 04:840C: 90 85     .addr deadlock
+- D 0 - - - 0x01241E 04:840E: 90 85     .addr deadlock
+- D 0 - - - 0x012420 04:8410: 90 85     .addr deadlock
+- D 0 - - - 0x012422 04:8412: 90 85     .addr deadlock
+- D 0 - - - 0x012424 04:8414: 90 85     .addr deadlock
+- - - - - - 0x012426 04:8416: 90 85     .addr deadlock
+- - - - - - 0x012428 04:8418: 90 85     .addr deadlock
+- D 0 - - - 0x01242A 04:841A: 90 85     .addr deadlock
+- D 0 - - - 0x01242C 04:841C: 90 85     .addr deadlock
+- D 0 - - - 0x01242E 04:841E: 90 85     .addr deadlock
+- D 0 - - - 0x012430 04:8420: 90 85     .addr deadlock
+- D 0 - - - 0x012432 04:8422: 90 85     .addr deadlock
+- D 0 - - - 0x012434 04:8424: 90 85     .addr deadlock
 - D 0 - - - 0x012436 04:8426: C6 8E     .word $8EC6 ; Level 4, map 1 (B2-D2)
 - D 0 - - - 0x012438 04:8428: D7 8E     .word $8ED7 ; level 4, map 1 (C0-C2)
-- D 0 - - - 0x01243A 04:842A: 90 85     .word $8590 ; 
+- D 0 - - - 0x01243A 04:842A: 90 85     .addr deadlock ; 
 - D 0 - - - 0x01243C 04:842C: E8 8E     .word $8EE8 ; level 4, map 1 (B1-B3)
 - D 0 - - - 0x01243E 04:842E: ED 8E     .word $8EED ; level 4, map 1 (A3-D3)
 - D 0 - - - 0x012440 04:8430: FE 8E     .word $8EFE ; level 4, map 1 (D0-D3)
@@ -534,18 +536,18 @@ npc_portrait_sprites: ; 12 bytes
 - D 0 - - - 0x01244A 04:843A: 97 8F     .word $8F97 ; level 4, map 2 (F0-F6)
 - D 0 - - - 0x01244C 04:843C: C8 8F     .word $8FC8 ; level 4, map 2 (A0-F0)
 - D 0 - - - 0x01244E 04:843E: 05 90     .word $9005 ; level 4, map 2 (B1-B5)
-- D 0 - - - 0x012450 04:8440: 90 85     .word $8590
+- D 0 - - - 0x012450 04:8440: 90 85     .addr deadlock
 - D 0 - - - 0x012452 04:8442: 26 90     .word $9026 ; level 4, map 2 (B5-E5)
 - D 0 - - - 0x012454 04:8444: 53 90     .word $9053 ; level 4, map 2 (E0-E6)
 - D 0 - - - 0x012456 04:8446: 78 90     .word $9078 ; level 4, map 2 (B1-F1)
-- D 0 - - - 0x012458 04:8448: 90 85     .word $8590
+- D 0 - - - 0x012458 04:8448: 90 85     .addr deadlock
 - D 0 - - - 0x01245A 04:844A: 9D 90     .word $909D ; level 4, map 2 (B4-D4)
-- D 0 - - - 0x01245C 04:844C: 90 85     .word $8590
-- D 0 - - - 0x01245E 04:844E: 90 85     .word $8590
+- D 0 - - - 0x01245C 04:844C: 90 85     .addr deadlock
+- D 0 - - - 0x01245E 04:844E: 90 85     .addr deadlock
 - D 0 - - - 0x012460 04:8450: B6 90     .word $90B6 ; level 4, map 3 (D3-E3)
 - D 0 - - - 0x012462 04:8452: BF 90     .word $90BF ; level 4, map 3 (D3-D5)
 - D 0 - - - 0x012464 04:8454: C8 90     .word $90C8 ; level 4, map 3 (D4-F4)
-- D 0 - - - 0x012466 04:8456: 90 85     .word $8590
+- D 0 - - - 0x012466 04:8456: 90 85     .addr deadlock
 - D 0 - - - 0x012468 04:8458: D9 90     .word $90D9 ; level 4, map 3 (C2-G2)
 - D 0 - - - 0x01246A 04:845A: FE 90     .word $90FE ; level 4, map 3 (C1-C6)
 - D 0 - - - 0x01246C 04:845C: 3B 91     .word $913B ; level 4, map 3 (C5-F5)
@@ -579,8 +581,8 @@ npc_portrait_sprites: ; 12 bytes
 - D 0 - - - 0x0124A4 04:8494: CF 97     .word $97CF ; level 4, map 4 (G3-G6)
 - D 0 - - - 0x0124A6 04:8496: 00 98     .word $9800 ; level 4, map 4 (E4-G4)
 - D 0 - - - 0x0124A8 04:8498: 19 98     .word $9819 ; level 4, map 4 (E3-E5)
-- D 0 - - - 0x0124AA 04:849A: 90 85     .word $8590
-- D 0 - - - 0x0124AC 04:849C: 90 85     .word $8590
+- D 0 - - - 0x0124AA 04:849A: 90 85     .addr deadlock
+- D 0 - - - 0x0124AC 04:849C: 90 85     .addr deadlock
 
 tbl_ptr_briefcases_outside:
 - D 0 - - - 0x0124AE 04:849E: 2E 98     .addr tbl_ptr_briefcases_outside1 ; CPU address $982E
@@ -648,6 +650,8 @@ tbl_ptr_briefcases_outside:
 - D 0 - I - 0x012594 04:8584: 0F        .byte $0F, $78, $DF, $06 ; Land Diver
 - D 0 - I - 0x012598 04:8588: 0F        .byte $0F, $B8, $3F, $0E ; Bat
 - D 0 - I - 0x01259C 04:858C: 0F        .byte $0F, $C8, $DF, $06 ; Land Diver
+
+deadlock:
 - D 0 - I - 0x0125A0 04:8590: FF        .byte $FF   ;
 
 ; Level 1.1 
@@ -2033,6 +2037,7 @@ tbl_ptr_briefcases_outside:
 - D 0 - I - 0x013839 04:9829: 01        .byte $01, $D8, $4F, $21   ; 
 - D 0 - I - 0x01383D 04:982D: FF        .byte $FF   ; 
 
+; Tip: XYZW, X - macro position x, Y - position x
 tbl_ptr_briefcases_outside1: ; level 1.0
 - D 0 - I - 0x01383E 04:982E: 01        .byte $01, $60, $7F, $01   ; briefcase
 - D 0 - I - 0x013842 04:9832: 03        .byte $03, $E0, $BF, $02   ; 

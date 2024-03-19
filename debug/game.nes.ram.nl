@@ -18,10 +18,10 @@ $002B#v_nmi_counter#
 $002C#v_low_counter#
 $002D#v_high_counter#
 $002E#vCorridorCounter#
-$0033#vLowMenuCounter#
-$0034#vHighMenuCounter#
+$0033#vLowCutsceneCounter#
+$0034#vHighCutsceneCounter#
 $0035#vEnemyRNG#
-$0037#vGameMode#
+$0037#vCutscenesMode#
 $0038#vPauseStatus#
 $003B#vSharedGameStatus#
 $003D#vCharacterSelectionCounter#

@@ -35,6 +35,8 @@
 .import tbl_C1CA_checkpoint_on_start_levels  ; bank FF
 .import sub_CE5A_render_character            ; bank FF
 .import sub_C91C_display_menu_score          ; bank FF
+.import sub_C51E_update_ppu_and_screen       ; bank FF
+.import loc_C046_repeat_starting_mode        ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -43,6 +45,8 @@
 .export loc_BBA4_play_background_music
 .export sub_BBA4_play_background_music
 .export sub_BBFE_check_room
+.export sub_B8C7_main_menu_shared_routine
+.export sub_B9DA_curscene_shared_routine
 
 tbl_A000:
 - D 1 - - - 0x01A010 06:A000: 00        .byte $00   ; 
@@ -2595,24 +2599,24 @@ bra_B0A4_RTS:
 C - - - - - 0x01B0B4 06:B0A4: 60        RTS                    ;
 
 bra_B0A5:
-C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA vMovableChrStatus         ;
-C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113                  ; If 'the character is moving in the water'
-C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ; bank FF
-C - - - - - 0x01B0BC 06:B0AC: A0 00     LDY #$00                      ;
-C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA vNoSubLevel               ;
-C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ @bra_B0BE_skip            ; If vNoSubLevel == level 1.0
-C - - - - - 0x01B0C2 06:B0B2: A0 02     LDY #$02                      ;
-C - - - - - 0x01B0C4 06:B0B4: C9 06     CMP #$06                      ; CONSTANT - level 2 (outside)
-C - - - - - 0x01B0C6 06:B0B6: F0 06     BEQ @bra_B0BE_skip            ; If vNoSubLevel == level 2 (outside)
-C - - - - - 0x01B0C8 06:B0B8: A0 04     LDY #$04                      ;
-C - - - - - 0x01B0CA 06:B0BA: C9 0F     CMP #$0F                      ; CONSTANT - level 3.0
-C - - - - - 0x01B0CC 06:B0BC: D0 E6     BNE bra_B0A4_RTS              ; If vNoSubLevel != level 3.0
+C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA vMovableChrStatus                ;
+C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113                         ; If 'the character is moving in the water'
+C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2        ; bank FF
+C - - - - - 0x01B0BC 06:B0AC: A0 00     LDY #$00                             ;
+C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA vNoSubLevel                      ;
+C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ @bra_B0BE_skip                   ; If vNoSubLevel == level 1.0
+C - - - - - 0x01B0C2 06:B0B2: A0 02     LDY #$02                             ;
+C - - - - - 0x01B0C4 06:B0B4: C9 06     CMP #$06                             ; CONSTANT - level 2 (outside)
+C - - - - - 0x01B0C6 06:B0B6: F0 06     BEQ @bra_B0BE_skip                   ; If vNoSubLevel == level 2 (outside)
+C - - - - - 0x01B0C8 06:B0B8: A0 04     LDY #$04                             ;
+C - - - - - 0x01B0CA 06:B0BA: C9 0F     CMP #$0F                             ; CONSTANT - level 3.0
+C - - - - - 0x01B0CC 06:B0BC: D0 E6     BNE bra_B0A4_RTS                     ; If vNoSubLevel != level 3.0
 @bra_B0BE_skip:
 C - - - - - 0x01B0CE 06:B0BE: B9 9E 84  LDA tbl_ptr_briefcases_outside,Y     ; 
 C - - - - - 0x01B0D1 06:B0C1: 85 12     STA ram_0012                         ; Low address
 C - - - - - 0x01B0D3 06:B0C3: B9 9F 84  LDA tbl_ptr_briefcases_outside + 1,Y ;
 C - - - - - 0x01B0D6 06:B0C6: 85 13     STA ram_0013                         ; High address
-C - - - - - 0x01B0D8 06:B0C8: A9 01     LDA #$01
+C - - - - - 0x01B0D8 06:B0C8: A9 01     LDA #$01                             ; CONSTANT - left-to-right direction
 C - - - - - 0x01B0DA 06:B0CA: 20 D6 F2  JSR sub_F2D6_try_put_briefcase       ; bank FF
 C - - - - - 0x01B0DD 06:B0CD: 90 D5     BCC bra_B0A4_RTS                     ; If a briefcase doesn't put
 C - - - - - 0x01B0DF 06:B0CF: A4 0A     LDY ram_000A                         ; load index of a briefcase
@@ -3797,130 +3801,131 @@ C - - - - - 0x01B8CA 06:B8BA: 60        RTS
 - - - - - - 0x01B8D4 06:B8C4: 00        .byte $00   ; 
 - - - - - - 0x01B8D5 06:B8C5: 81        .byte $81   ; 
 - - - - - - 0x01B8D6 06:B8C6: 80        .byte $80   ; 
-sub_B8C7: ; from bank FF
-C - - - - - 0x01B8D7 06:B8C7: A5 37     LDA vGameMode
-C - - - - - 0x01B8D9 06:B8C9: 10 01     BPL bra_B8CC; Branch If in game
-C - - - - - 0x01B8DB 06:B8CB: 60        RTS
 
-bra_B8CC:
-C - - - - - 0x01B8DC 06:B8CC: 20 02 C4  JSR sub_C402_clear_sound_parts   ;
-C - - - - - 0x01B8DF 06:B8CF: A9 00     LDA #$00                         ; start screen track1
-C - - - - - 0x01B8E1 06:B8D1: 20 20 C4  JSR sub_C420_add_sound_effect    ;
-C - - - - - 0x01B8E4 06:B8D4: A9 01     LDA #$01                         ; start screen track2
-C - - - - - 0x01B8E6 06:B8D6: 20 20 C4  JSR sub_C420_add_sound_effect    ;
-C - - - - - 0x01B8E9 06:B8D9: A9 02     LDA #$02                         ; start screen track3
-C - - - - - 0x01B8EB 06:B8DB: 20 20 C4  JSR sub_C420_add_sound_effect    ;
-C - - - - - 0x01B8EE 06:B8DE: A9 03     LDA #$03                         ; start screen track4
-C - - - - - 0x01B8F0 06:B8E0: 20 20 C4  JSR sub_C420_add_sound_effect    ;
-C - - - - - 0x01B8F3 06:B8E3: 20 1D C3  JSR sub_C31D_clear_ppu           ;
-C - - - - - 0x01B8F6 06:B8E6: 20 58 C3  JSR sub_C358_clear_OAM           ;
-C - - - - - 0x01B8F9 06:B8E9: 20 46 EF  JSR sub_EF46_switch_bank_4_p1    ;
-C - - - - - 0x01B8FC 06:B8EC: A2 05     LDX #$05                         ; set loop counter
-@bra_B8EE_repeat:                                                        ; loop by x
-C - - - - - 0x01B8FE 06:B8EE: BD BE 80  LDA tbl_main_menu_chr_banks,X    ;
-C - - - - - 0x01B901 06:B8F1: 9D AF 06  STA vCacheChrBankSelect,X        ;
-C - - - - - 0x01B904 06:B8F4: CA        DEX                              ; decrements loop counter
-C - - - - - 0x01B905 06:B8F5: 10 F7     BPL @bra_B8EE_repeat             ; If Register X < 0xF0
-C - - - - - 0x01B907 06:B8F7: A2 1F     LDX #$1F                         ; set loop counter
-@bra_B8F9_loop:                                                          ; loop by x
-C - - - - - 0x01B909 06:B8F9: BD C4 80  LDA tbl_main_menu_palette,X      ;
-C - - - - - 0x01B90C 06:B8FC: 9D 00 06  STA vCachePalette,X              ;
-C - - - - - 0x01B90F 06:B8FF: CA        DEX                              ; decrements loop counter
-C - - - - - 0x01B910 06:B900: 10 F7     BPL @bra_B8F9_loop               ; If Register X < 0xF0
-C - - - - - 0x01B912 06:B902: A9 E4     LDA #$E4                         ;
-C - - - - - 0x01B914 06:B904: 85 12     STA ram_0012                     ; Low address
-C - - - - - 0x01B916 06:B906: A9 80     LDA #$80                         ;
-C - - - - - 0x01B918 06:B908: 85 13     STA ram_0013                     ; High address (0x80E4 in the bank 04_1)
-C - - - - - 0x01B91A 06:B90A: A9 00     LDA #$00                         ; CONSTANT - no reason
-C - - - - - 0x01B91C 06:B90C: 85 D6     STA vReasonCharacterChange       ;
-C - - - - - 0x01B91E 06:B90E: A2 0F     LDX #$0F
-C - - - - - 0x01B920 06:B910: AD 09 01  LDA v_last_level
-C - - - - - 0x01B923 06:B913: F0 01     BEQ @bra_B916_skip
-C - - - - - 0x01B925 06:B915: E8        INX                ; For rendering a word 'Continue'
+sub_B8C7_main_menu_shared_routine:
+C - - - - - 0x01B8D7 06:B8C7: A5 37     LDA vCutscenesMode                         ;
+C - - - - - 0x01B8D9 06:B8C9: 10 01     BPL bra_B8CC_main_menu_shared_routine      ; Branch If cutscenes aren't used
+C - - - - - 0x01B8DB 06:B8CB: 60        RTS                                        ;
+
+bra_B8CC_main_menu_shared_routine:
+C - - - - - 0x01B8DC 06:B8CC: 20 02 C4  JSR sub_C402_clear_sound_parts             ;
+C - - - - - 0x01B8DF 06:B8CF: A9 00     LDA #$00                                   ; start screen track1
+C - - - - - 0x01B8E1 06:B8D1: 20 20 C4  JSR sub_C420_add_sound_effect              ;
+C - - - - - 0x01B8E4 06:B8D4: A9 01     LDA #$01                                   ; start screen track2
+C - - - - - 0x01B8E6 06:B8D6: 20 20 C4  JSR sub_C420_add_sound_effect              ;
+C - - - - - 0x01B8E9 06:B8D9: A9 02     LDA #$02                                   ; start screen track3
+C - - - - - 0x01B8EB 06:B8DB: 20 20 C4  JSR sub_C420_add_sound_effect              ;
+C - - - - - 0x01B8EE 06:B8DE: A9 03     LDA #$03                                   ; start screen track4
+C - - - - - 0x01B8F0 06:B8E0: 20 20 C4  JSR sub_C420_add_sound_effect              ;
+C - - - - - 0x01B8F3 06:B8E3: 20 1D C3  JSR sub_C31D_clear_ppu                     ;
+C - - - - - 0x01B8F6 06:B8E6: 20 58 C3  JSR sub_C358_clear_OAM                     ;
+C - - - - - 0x01B8F9 06:B8E9: 20 46 EF  JSR sub_EF46_switch_bank_4_p1              ;
+C - - - - - 0x01B8FC 06:B8EC: A2 05     LDX #$05                                   ; set loop counter
+@bra_B8EE_repeat:                                                                  ; loop by x
+C - - - - - 0x01B8FE 06:B8EE: BD BE 80  LDA tbl_main_menu_chr_banks,X              ;
+C - - - - - 0x01B901 06:B8F1: 9D AF 06  STA vCacheChrBankSelect,X                  ;
+C - - - - - 0x01B904 06:B8F4: CA        DEX                                        ; decrements loop counter
+C - - - - - 0x01B905 06:B8F5: 10 F7     BPL @bra_B8EE_repeat                       ; If Register X < 0xF0
+C - - - - - 0x01B907 06:B8F7: A2 1F     LDX #$1F                                   ; set loop counter
+@bra_B8F9_loop:                                                                    ; loop by x
+C - - - - - 0x01B909 06:B8F9: BD C4 80  LDA tbl_main_menu_palette,X                ;
+C - - - - - 0x01B90C 06:B8FC: 9D 00 06  STA vCachePalette,X                        ;
+C - - - - - 0x01B90F 06:B8FF: CA        DEX                                        ; decrements loop counter
+C - - - - - 0x01B910 06:B900: 10 F7     BPL @bra_B8F9_loop                         ; If Register X < 0xF0
+C - - - - - 0x01B912 06:B902: A9 E4     LDA #$E4                                   ;
+C - - - - - 0x01B914 06:B904: 85 12     STA ram_0012                               ; Low address
+C - - - - - 0x01B916 06:B906: A9 80     LDA #$80                                   ;
+C - - - - - 0x01B918 06:B908: 85 13     STA ram_0013                               ; High address (0x80E4 in the bank 04_1)
+C - - - - - 0x01B91A 06:B90A: A9 00     LDA #$00                                   ; CONSTANT - no reason
+C - - - - - 0x01B91C 06:B90C: 85 D6     STA vReasonCharacterChange                 ;
+C - - - - - 0x01B91E 06:B90E: A2 0F     LDX #$0F                                   ;
+C - - - - - 0x01B920 06:B910: AD 09 01  LDA v_last_level                           ;
+C - - - - - 0x01B923 06:B913: F0 01     BEQ @bra_B916_skip                         ; If vLastLevel == 0x00
+C - - - - - 0x01B925 06:B915: E8        INX                                        ; For rendering a word 'Continue'
 @bra_B916_skip:
-C - - - - - 0x01B926 06:B916: 86 00     STX ram_0000
-bra_B918_loop:                                       ; loop by 0x00
-C - - - - - 0x01B928 06:B918: A5 00     LDA ram_0000 ; assigned as the parameter of the function
-C - - - - - 0x01B92A 06:B91A: 20 86 D0  JSR sub_D086_render_14_15_16_17_18_v1
-C - - - - - 0x01B92D 06:B91D: C6 00     DEC ram_0000 ; decrement 0x00
-C - - - - - 0x01B92F 06:B91F: 10 F7     BPL bra_B918_loop
-C - - - - - 0x01B931 06:B921: A9 20     LDA #$20                              ;
-C - - - - - 0x01B933 06:B923: 8D 06 20  STA PPU_ADDRESS                       ;
-C - - - - - 0x01B936 06:B926: A9 84     LDA #$84                              ;
-C - - - - - 0x01B938 06:B928: 8D 06 20  STA PPU_ADDRESS                       ; PPU address is 0x2084
-C - - - - - 0x01B93B 06:B92B: A2 56     LDX #$56                              ; $0056 - Score
-C - - - - - 0x01B93D 06:B92D: 20 1C C9  JSR sub_C91C_display_menu_score       ;
-C - - - - - 0x01B940 06:B930: A9 20     LDA #$20                              ;
-C - - - - - 0x01B942 06:B932: 8D 06 20  STA PPU_ADDRESS                       ;
-C - - - - - 0x01B945 06:B935: A9 8E     LDA #$8E                              ;
-C - - - - - 0x01B947 06:B937: 8D 06 20  STA PPU_ADDRESS                       ; PPU address is 0x208E
-C - - - - - 0x01B94A 06:B93A: A2 99     LDX #$99                              ; $0056 - HiScore
-C - - - - - 0x01B94C 06:B93C: 20 1C C9  JSR sub_C91C_display_menu_score       ;
-C - - - - - 0x01B94F 06:B93F: A9 80     LDA #$80                              ; CONSTANT - Main menu
-C - - - - - 0x01B951 06:B941: 85 3B     STA vSharedGameStatus                 ;
-C - - - - - 0x01B953 06:B943: A9 00     LDA #$00                              ;
-C - - - - - 0x01B955 06:B945: 85 B1     STA v_start_level                     ; clear
-C - - - - - 0x01B957 06:B947: 85 B2     STA v_count_secret_hits               ; clear
-C - - - - - 0x01B959 06:B949: 85 B3     STA v_lock_secret_hits                ; clear
-C - - - - - 0x01B95B 06:B94B: 85 B4     STA v_offset_in_secret_codes          ; clear
-C - - - - - 0x01B95D 06:B94D: 85 2C     STA v_low_counter                     ; clear
-C - - - - - 0x01B95F 06:B94F: 85 2D     STA v_high_counter                    ; clear
-C - - - - - 0x01B961 06:B951: 85 19     STA vRenderActive                     ; clear
-C - - - - - 0x01B963 06:B953: 8D 31 06  STA ram_0631                          ; clear
-C - - - - - 0x01B966 06:B956: 8D 7B 06  STA vPpuAddrDataCache                 ; clear
-C - - - - - 0x01B969 06:B959: 85 29     STA vLowViewPortPosY                  ; clear
-C - - - - - 0x01B96B 06:B95B: 85 27     STA vLowViewPortPosX                  ; clear
-C - - - - - 0x01B96D 06:B95D: 85 3D     STA ram_003D                          ; clear
-C - - - - - 0x01B96F 06:B95F: A9 8F     LDA #$8F                              ; CONSTANT - The 'Start' position
-C - - - - - 0x01B971 06:B961: 85 AD     STA vMainMenuGunYPos                  ;
-C - - - - - 0x01B973 06:B963: 85 1C     STA ram_001C
-C - - - - - 0x01B975 06:B965: 20 1E C5  JSR $C51E ; to sub_C51E (bank_FF)
+C - - - - - 0x01B926 06:B916: 86 00     STX ram_0000                               ; X <~ 0x0F or 0x10
+bra_B918_loop:                                                                     ; loop by 0x00
+C - - - - - 0x01B928 06:B918: A5 00     LDA ram_0000                               ; assigned as the parameter of the function
+C - - - - - 0x01B92A 06:B91A: 20 86 D0  JSR sub_D086_render_14_15_16_17_18_v1      ;
+C - - - - - 0x01B92D 06:B91D: C6 00     DEC ram_0000                               ; decrement 0x00
+C - - - - - 0x01B92F 06:B91F: 10 F7     BPL bra_B918_loop                          ; If $0000 < 0xF0
+C - - - - - 0x01B931 06:B921: A9 20     LDA #$20                                   ;
+C - - - - - 0x01B933 06:B923: 8D 06 20  STA PPU_ADDRESS                            ;
+C - - - - - 0x01B936 06:B926: A9 84     LDA #$84                                   ;
+C - - - - - 0x01B938 06:B928: 8D 06 20  STA PPU_ADDRESS                            ; PPU address is 0x2084
+C - - - - - 0x01B93B 06:B92B: A2 56     LDX #$56                                   ; $0056 - Score
+C - - - - - 0x01B93D 06:B92D: 20 1C C9  JSR sub_C91C_display_menu_score            ;
+C - - - - - 0x01B940 06:B930: A9 20     LDA #$20                                   ;
+C - - - - - 0x01B942 06:B932: 8D 06 20  STA PPU_ADDRESS                            ;
+C - - - - - 0x01B945 06:B935: A9 8E     LDA #$8E                                   ;
+C - - - - - 0x01B947 06:B937: 8D 06 20  STA PPU_ADDRESS                            ; PPU address is 0x208E
+C - - - - - 0x01B94A 06:B93A: A2 99     LDX #$99                                   ; $0056 - HiScore
+C - - - - - 0x01B94C 06:B93C: 20 1C C9  JSR sub_C91C_display_menu_score            ;
+C - - - - - 0x01B94F 06:B93F: A9 80     LDA #$80                                   ; CONSTANT - Main menu
+C - - - - - 0x01B951 06:B941: 85 3B     STA vSharedGameStatus                      ;
+C - - - - - 0x01B953 06:B943: A9 00     LDA #$00                                   ;
+C - - - - - 0x01B955 06:B945: 85 B1     STA v_start_level                          ; clear
+C - - - - - 0x01B957 06:B947: 85 B2     STA v_count_secret_hits                    ; clear
+C - - - - - 0x01B959 06:B949: 85 B3     STA v_lock_secret_hits                     ; clear
+C - - - - - 0x01B95B 06:B94B: 85 B4     STA v_offset_in_secret_codes               ; clear
+C - - - - - 0x01B95D 06:B94D: 85 2C     STA v_low_counter                          ; clear
+C - - - - - 0x01B95F 06:B94F: 85 2D     STA v_high_counter                         ; clear
+C - - - - - 0x01B961 06:B951: 85 19     STA vRenderActive                          ; clear
+C - - - - - 0x01B963 06:B953: 8D 31 06  STA ram_0631                               ; clear
+C - - - - - 0x01B966 06:B956: 8D 7B 06  STA vPpuAddrDataCache                      ; clear
+C - - - - - 0x01B969 06:B959: 85 29     STA vLowViewPortPosY                       ; clear
+C - - - - - 0x01B96B 06:B95B: 85 27     STA vLowViewPortPosX                       ; clear
+C - - - - - 0x01B96D 06:B95D: 85 3D     STA vStartStatus                           ; clear
+C - - - - - 0x01B96F 06:B95F: A9 8F     LDA #$8F                                   ; CONSTANT - The 'Start' position
+C - - - - - 0x01B971 06:B961: 85 AD     STA vMainMenuGunYPos                       ;
+C - - - - - 0x01B973 06:B963: 85 1C     STA vBtnPressedInGame                      ; !(WHY?), seems to be excessive
+C - - - - - 0x01B975 06:B965: 20 1E C5  JSR sub_C51E_update_ppu_and_screen         ;
 @bra_B968_infinite_loop:
-C - - - - - 0x01B978 06:B968: A5 1C     LDA vBtnPressedInGame
-C - - - - - 0x01B97A 06:B96A: 29 08     AND #BIT_BUTTON_START
-C - - - - - 0x01B97C 06:B96C: D0 FA     BNE @bra_B968_infinite_loop  ; break in NMI
-C - - - - - 0x01B97E 06:B96E: 85 1C     STA vBtnPressedInGame
-C - - - - - 0x01B980 06:B970: 85 3D     STA ram_003D
-C - - - - - 0x01B982 06:B972: A9 00     LDA #$00            ;
-C - - - - - 0x01B984 06:B974: 85 2C     STA v_low_counter   ; clear
-C - - - - - 0x01B986 06:B976: 85 2D     STA v_high_counter  ; clear
+C - - - - - 0x01B978 06:B968: A5 1C     LDA vBtnPressedInGame                      ;
+C - - - - - 0x01B97A 06:B96A: 29 08     AND #BIT_BUTTON_START                      ;
+C - - - - - 0x01B97C 06:B96C: D0 FA     BNE @bra_B968_infinite_loop                ; break in NMI, waiting for the button 'Start' to be pressed
+C - - - - - 0x01B97E 06:B96E: 85 1C     STA vBtnPressedInGame                      ; clear
+C - - - - - 0x01B980 06:B970: 85 3D     STA vCharacterSelectionCounter             ; clear
+C - - - - - 0x01B982 06:B972: A9 00     LDA #$00                                   ; !(WHY?), seems to be excessive
+C - - - - - 0x01B984 06:B974: 85 2C     STA v_low_counter                          ; clear
+C - - - - - 0x01B986 06:B976: 85 2D     STA v_high_counter                         ; clear
 @bra_B978_repeat:
-C - - - - - 0x01B988 06:B978: A5 2D     LDA v_high_counter                       ;
-C - - - - - 0x01B98A 06:B97A: C9 02     CMP #$02                                 ;
-C - - - - - 0x01B98C 06:B97C: 90 06     BCC @bra_B984_skip                       ;
-C - - - - - 0x01B98E 06:B97E: A5 2C     LDA v_low_counter                        ;
-C - - - - - 0x01B990 06:B980: C9 40     CMP #$40                                 ; 
-C - - - - - 0x01B992 06:B982: B0 45     BCS bra_B9C9_start_demo                  ; If Hc:Lc == 02:40
+C - - - - - 0x01B988 06:B978: A5 2D     LDA v_high_counter                         ;
+C - - - - - 0x01B98A 06:B97A: C9 02     CMP #$02                                   ;
+C - - - - - 0x01B98C 06:B97C: 90 06     BCC @bra_B984_skip                         ;
+C - - - - - 0x01B98E 06:B97E: A5 2C     LDA v_low_counter                          ;
+C - - - - - 0x01B990 06:B980: C9 40     CMP #$40                                   ; 
+C - - - - - 0x01B992 06:B982: B0 45     BCS bra_B9C9_start_demo                    ; If Hc:Lc >= 02:40
 @bra_B984_skip:
-C - - - - - 0x01B994 06:B984: A5 3D     LDA vCharacterSelectionCounter           ;
-C - - - - - 0x01B996 06:B986: F0 F0     BEQ @bra_B978_repeat                     ; If vCharacterSelectionCounter == 0x00
-C - - - - - 0x01B998 06:B988: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi ;
-C - - - - - 0x01B99B 06:B98B: A9 00     LDA #$00                                 ; CONTANT - In game
-C - - - - - 0x01B99D 06:B98D: A8        TAY
-C - - - - - 0x01B99E 06:B98E: 85 37     STA vGameMode
+C - - - - - 0x01B994 06:B984: A5 3D     LDA vCharacterSelectionCounter             ;
+C - - - - - 0x01B996 06:B986: F0 F0     BEQ @bra_B978_repeat                       ; If vCharacterSelectionCounter == 0x00
+C - - - - - 0x01B998 06:B988: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi   ;
+C - - - - - 0x01B99B 06:B98B: A9 00     LDA #$00                                   ; CONTANT - In game
+C - - - - - 0x01B99D 06:B98D: A8        TAY                                        ;
+C - - - - - 0x01B99E 06:B98E: 85 37     STA vCutscenesMode                         ; vCutscenesMode <~ 'In game'
 C - - - - - 0x01B9A0 06:B990: 85 B6     STA ram_00B6
-C - - - - - 0x01B9A2 06:B992: 85 B7     STA v_corridor_magic5 ; clear
+C - - - - - 0x01B9A2 06:B992: 85 B7     STA v_corridor_magic5                      ; clear
 C - - - - - 0x01B9A4 06:B994: 85 39     STA ram_0039
-C - - - - - 0x01B9A6 06:B996: A6 AD     LDX ram_00AD
-C - - - - - 0x01B9A8 06:B998: E0 9F     CPX #$9F
-C - - - - - 0x01B9AA 06:B99A: F0 07     BEQ @bra_B9A3_skip ; If select 'Continue' in the main menu
-C - - - - - 0x01B9AC 06:B99C: A5 B1     LDA v_start_level  ;
-C - - - - - 0x01B9AE 06:B99E: F0 09     BEQ @bra_B9A9_skip ; Is v_start_level == 0x00
-C - - - - - 0x01B9B0 06:B9A0: A8        TAY                ; 
-C - - - - - 0x01B9B1 06:B9A1: D0 03     BNE @bra_B9A6_skip ; Always the true branch
+C - - - - - 0x01B9A6 06:B996: A6 AD     LDX vMainMenuGunYPos                       ;
+C - - - - - 0x01B9A8 06:B998: E0 9F     CPX #$9F                                   ; CONSTANT - The 'Continue' position
+C - - - - - 0x01B9AA 06:B99A: F0 07     BEQ @bra_B9A3_skip                         ; If select 'Continue' in the main menu
+C - - - - - 0x01B9AC 06:B99C: A5 B1     LDA v_start_level                          ;
+C - - - - - 0x01B9AE 06:B99E: F0 09     BEQ @bra_B9A9_skip                         ; Is v_start_level == 0x00
+C - - - - - 0x01B9B0 06:B9A0: A8        TAY                                        ; 
+C - - - - - 0x01B9B1 06:B9A1: D0 03     BNE @bra_B9A6_skip                         ; Always the true branch
 @bra_B9A3_skip:
-C - - - - - 0x01B9B3 06:B9A3: AC 09 01  LDY v_last_level
+C - - - - - 0x01B9B3 06:B9A3: AC 09 01  LDY v_last_level                           ;
 @bra_B9A6_skip:
-C - - - - - 0x01B9B6 06:B9A6: B9 CA C1  LDA tbl_C1CA_checkpoint_on_start_levels,Y
+C - - - - - 0x01B9B6 06:B9A6: B9 CA C1  LDA tbl_C1CA_checkpoint_on_start_levels,Y  ; 
 @bra_B9A9_skip:
-C - - - - - 0x01B9B9 06:B9A9: 85 C4     STA vCheckpoint         ; assigned
-C - - - - - 0x01B9BB 06:B9AB: 84 5E     STY v_no_level          ; assigned
-C - - - - - 0x01B9BD 06:B9AD: A9 FC     LDA #$FC                ; CONSTANT (see vChrLiveStatus)
-C - - - - - 0x01B9BF 06:B9AF: 85 D4     STA vTempChrLiveStatus  ; All characters are ready to play, Lupin is selected
-C - - - - - 0x01B9C1 06:B9B1: 20 04 C9  JSR sub_C904_clear_score
-C - - - - - 0x01B9C4 06:B9B4: A9 10     LDA #$10
-C - - - - - 0x01B9C6 06:B9B6: 85 3B     STA vSharedGameStatus
-C - - - - - 0x01B9C8 06:B9B8: 60        RTS
+C - - - - - 0x01B9B9 06:B9A9: 85 C4     STA vCheckpoint                            ; assigned
+C - - - - - 0x01B9BB 06:B9AB: 84 5E     STY v_no_level                             ; assigned
+C - - - - - 0x01B9BD 06:B9AD: A9 FC     LDA #$FC                                   ; CONSTANT (see vChrLiveStatus)
+C - - - - - 0x01B9BF 06:B9AF: 85 D4     STA vTempChrLiveStatus                     ; All characters are ready to play, Lupin is selected
+C - - - - - 0x01B9C1 06:B9B1: 20 04 C9  JSR sub_C904_clear_score                   ;
+C - - - - - 0x01B9C4 06:B9B4: A9 10     LDA #$10                                   ; CONSTANT - Select the character
+C - - - - - 0x01B9C6 06:B9B6: 85 3B     STA vSharedGameStatus                      ;
+C - - - - - 0x01B9C8 06:B9B8: 60        RTS                                        ;
 
 tbl_B9B9:
 - D 1 - - - 0x01B9C9 06:B9B9: 00        .byte $00   ; 
@@ -3945,15 +3950,15 @@ bra_B9C9_start_demo:
 C - - - - - 0x01B9D9 06:B9C9: 20 13 C3  JSR sub_C313_screen_off                  ;
 C - - - - - 0x01B9DC 06:B9CC: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi ;
 C - - - - - 0x01B9DF 06:B9CF: A9 FF     LDA #$FF                                 ; CONSTANT - Cutscene
-C - - - - - 0x01B9E1 06:B9D1: 85 37     STA vGameMode                            ;
+C - - - - - 0x01B9E1 06:B9D1: 85 37     STA vCutscenesMode                       ;
 C - - - - - 0x01B9E3 06:B9D3: A9 01     LDA #$01                                 ; CONSTANT - Lupin demo
 C - - - - - 0x01B9E5 06:B9D5: 85 24     STA vMenuDemoIndex                       ;
 C - - - - - 0x01B9E7 06:B9D7: 4C 02 C4  JMP loc_C402_clear_sound_parts           ;
 
-sub_B9DA: ; from bank FF
-C - - - - - 0x01B9EA 06:B9DA: A5 37     LDA vGameMode
-C - - - - - 0x01B9EC 06:B9DC: 30 01     BMI bra_B9DF ; Branch If mode=cutscene
-C - - - - - 0x01B9EE 06:B9DE: 60        RTS
+sub_B9DA_curscene_shared_routine:
+C - - - - - 0x01B9EA 06:B9DA: A5 37     LDA vCutscenesMode     ;
+C - - - - - 0x01B9EC 06:B9DC: 30 01     BMI bra_B9DF           ; Branch If cutscenes are used
+C - - - - - 0x01B9EE 06:B9DE: 60        RTS                    ;
 
 bra_B9DF:
 C - - - - - 0x01B9EF 06:B9DF: 20 02 C4  JSR sub_C402_clear_sound_parts   ;
@@ -4032,9 +4037,9 @@ C - - - - - 0x01BA81 06:BA71: 85 3D     STA vStartStatus      ; clear
 C - - - - - 0x01BA83 06:BA73: 85 19     STA vRenderActive     ; clear
 C - - - - - 0x01BA85 06:BA75: 85 C8     STA ram_00C8          ; clear
 C - - - - - 0x01BA87 06:BA77: 20 1E C5  JSR $C51E
-bra_BA7A_wait_menu:
+@bra_BA7A_wait_menu:
 C - - - - - 0x01BA8A 06:BA7A: A5 3D     LDA vStartStatus                         ;
-C - - - - - 0x01BA8C 06:BA7C: 10 FC     BPL bra_BA7A_wait_menu                   ; If Register A != 0b1XXXXXXX
+C - - - - - 0x01BA8C 06:BA7C: 10 FC     BPL @bra_BA7A_wait_menu                  ; If Register A != 0b1XXXXXXX
 C - - - - - 0x01BA8E 06:BA7E: 20 13 C3  JSR sub_C313_screen_off                  ;
 C - - - - - 0x01BA91 06:BA81: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi ;
 C - - - - - 0x01BA94 06:BA84: A6 24     LDX vMenuDemoIndex
@@ -4061,10 +4066,10 @@ C - - - - - 0x01BABB 06:BAAB: 60        RTS
 
 bra_BAAC:
 C - - - - - 0x01BABC 06:BAAC: A9 00     LDA #$00 ; CONSTANT - In game
-C - - - - - 0x01BABE 06:BAAE: 85 37     STA vGameMode
+C - - - - - 0x01BABE 06:BAAE: 85 37     STA vCutscenesMode
 C - - - - - 0x01BAC0 06:BAB0: 68        PLA
 C - - - - - 0x01BAC1 06:BAB1: 68        PLA
-C - - - - - 0x01BAC2 06:BAB2: 4C 46 C0  JMP $C046
+C - - - - - 0x01BAC2 06:BAB2: 4C 46 C0  JMP loc_C046_repeat_starting_mode        ;
 
 bra_BAB5:
 C - - - - - 0x01BAC5 06:BAB5: 68        PLA
