@@ -48,5 +48,3 @@
 |0xAB| ![AB](../images/bg_level_1_0/ab.bmp) | | | | | | | | |
 |0xAC| ![AC](../images/bg_level_1_0/ac.bmp) | | | | | | | | |
 |0xAD| ![AD](../images/bg_level_1_0/ad.bmp) | | | | | | | | |
-| | | | | | | | | | |
-| | | | | | | | | | |

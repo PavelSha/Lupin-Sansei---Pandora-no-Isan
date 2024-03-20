@@ -611,7 +611,8 @@ $C6A7##--NO-COMMENT--
 $C6A8##the current character isn't fell
 $C6AA##--NO-COMMENT--
 $C6AB##If Register X != 0 (there should be no more than 3 iterations)
-$C6AD#bra_C6AD_skip#
+$C6AD#bra_C6AD_skip#prepare an input parameter
+$C6AF##--NO-COMMENT--
 $C6B2##CONSTANT - Select the character
 $C6B4##--NO-COMMENT--
 $C6B6##--NO-COMMENT--
@@ -710,14 +711,31 @@ $C7B1##--NO-COMMENT--
 $C7B3##Initializes a counter
 $C7B5#bra_C7B5_skip#Decrement a counter
 $C7B7##--NO-COMMENT--
-$C7BA#bra_C7BA_skip#
+$C7BA#bra_C7BA_skip#--NO-COMMENT--
+$C7BC##put an old value
+$C7BE##--NO-COMMENT--
+$C7C0##--NO-COMMENT--
+$C7C3##If the buttons 'Up' or 'Down' aren't pressed
 $C7C5##store a
 $C7C6##CONSTANT - Sound 'switch a character'
 $C7C8##--NO-COMMENT--
-$C7CB##restore a
-$C7D0#bra_C7D0#
-$C7DB#bra_C7DB#
-$C7E8#bra_C7E8#
+$C7CB##restore a ($C7C5)
+$C7CC##--NO-COMMENT--
+$C7CE##If the button 'Up' isn't pressed
+$C7D0#bra_C7D0_prev#temporarily previous the character
+$C7D2##if vCopyIndexSelectableChr < 0 (i.e. >= 0xF0), only display sprites
+$C7D4##--NO-COMMENT--
+$C7D7##If the current character isn't playable
+$C7D9##Always true
+$C7DB#bra_C7DB_next#temporarily next the character
+$C7DD##--NO-COMMENT--
+$C7DF##--NO-COMMENT--
+$C7E1##if vCopyIndexSelectableChr >= 0x03, only display sprites
+$C7E3##--NO-COMMENT--
+$C7E6##If the current character isn't playable
+$C7E8#bra_C7E8_accept#--NO-COMMENT--
+$C7EA##set a new value
+$C7EC##--NO-COMMENT--
 $C7EF#loc_C7EF_sprite_magic_in_select_character#--NO-COMMENT--
 $C7F1##CONSTANT - a gun display frequency (in select character)
 $C7F3##If it isn't displayed
@@ -753,19 +771,27 @@ $C830#bra_C830_handcuffs_sprite_magic#~> sprite_magic4 (X pos)
 $C832#sub_C832_add_sprite_magic#--NO-COMMENT--
 $C834##--NO-COMMENT--
 $C835##--NO-COMMENT--
-$C836##~> sprite_magic2 (tile pos)
+$C836##~> sprite_magic2 (see v_sprite_magic2)
 $C838##--NO-COMMENT--
-$C83A##~> sprite_magic3 (attributes)
+$C83A##~> sprite_magic3 (see v_sprite_magic3)
 $C83C##--NO-COMMENT--
 $C83E##--NO-COMMENT--
-$C841#sub_C841#
-$C848#bra_C848_RTS#
-$C849#sub_C849#
-$C84B#bra_C84B#
+$C841#sub_C841_is_playable_character#prepare an input parameter
+$C843##--NO-COMMENT--
+$C846##CONSTANT - Fallen status
+$C848#bra_C848_RTS#--NO-COMMENT--
+$C849#sub_C849_get_character_status#--NO-COMMENT--
+$C84B#bra_C84B_loop#--NO-COMMENT--
+$C84C##--NO-COMMENT--
+$C84D##decrement loop counter
+$C84E##If Register X < 0xF0
+$C850##--NO-COMMENT--
+$C852##--NO-COMMENT--
 $C853#sub_C853_activate_selectable_character#--NO-COMMENT--
 $C855##CONSTANT - see info 'vChrLiveStatus'
 $C857##--NO-COMMENT--
 $C859##--NO-COMMENT--
+$C85B##--NO-COMMENT--
 $C85C#sub_C85C_display_character_portrait#--NO-COMMENT--
 $C85F##--NO-COMMENT--
 $C861##set loop counter
@@ -2651,13 +2677,16 @@ $EDA4##--NO-COMMENT--
 $EDAC##--NO-COMMENT--
 $EDAF##--NO-COMMENT--
 $EDB2##--NO-COMMENT--
+$EDB5##--NO-COMMENT--
+$EDB7##CONSTANT - 'A final scene'
+$EDB9##If vSharedGameStatus == 0x0B
 $EDBB##--NO-COMMENT--
 $EDC1##--NO-COMMENT--
 $EDC3##--NO-COMMENT--
 $EDC4##Branch if 'A screen with the message'
 $EDC6##to sub_B09A bank 06_2
 $EDC9##to sub_AF4D bank 06_2
-$EDD5#loc_EDD5#--NO-COMMENT--
+$EDD5#loc_EDD5_nmi_skip#--NO-COMMENT--
 $EDD8##--NO-COMMENT--
 $EDDB#bra_EDDB_pause#--NO-COMMENT--
 $EDE1#loc_EDE1_nmi_skip#--NO-COMMENT--
@@ -2682,11 +2711,12 @@ $EE07#vec_C000_IRQ#irq
 $EE08#bra_EE08_skip#--NO-COMMENT--
 $EE0A##switch by MMC3_Bank_data in 0xA000-0BFFF
 $EE0D##Always true
-$EE0F#bra_EE0F#
+$EE0F#bra_EE0F_nmi_last_cutscene#to sub_B5FE (bank 06_2)
 $EE12##--NO-COMMENT--
 $EE15#bra_EE15#--NO-COMMENT--
 $EE18##--NO-COMMENT--
 $EE1B#bra_EE1B_skip#to sub_B3AA (bank 06_2)
+$EE1E##--NO-COMMENT--
 $EE21#loc_EE21_nmi_select_character#--NO-COMMENT--
 $EE23##Branch If the render isn't activated
 $EE25##--NO-COMMENT--
@@ -2704,7 +2734,8 @@ $EE41##--NO-COMMENT--
 $EE44##--NO-COMMENT--
 $EE47##--NO-COMMENT--
 $EE4A##--NO-COMMENT--
-$EE4D#bra_EE4D#--NO-COMMENT--
+$EE4D#bra_EE4D_nmi_first_cutscene#--NO-COMMENT--
+$EE50##--NO-COMMENT--
 $EE53#sub_EE53#
 $EE5D#sub_EE5D#
 $EE72##to sub_A000
@@ -3239,10 +3270,21 @@ $FB60#bra_FB60#
 $FB65#bra_FB65#
 $FB6C#bra_FB6C#
 $FB8D#sub_FB8D#
-$FB9A#sub_FB9A_prepare_position_by_checkpoint#
-$FB9E##If v_corridor_magic5 & 0x80
+$FB9A#sub_FB9A_prepare_position_by_checkpoint#CONSTANT - an offset for the secondary list
+$FB9C##--NO-COMMENT--
+$FB9E##If the secondary list is used
+$FBA0##CONSTANT - an offset for the main list
 $FBA2#bra_FBA2_skip#Register A has 0x00 or 0x01
+$FBA4##--NO-COMMENT--
+$FBA6##--NO-COMMENT--
+$FBA7##--NO-COMMENT--
+$FBA9##--NO-COMMENT--
+$FBAA##*4 or *8, because the checkpoint position have 4 bytes
+$FBAC##--NO-COMMENT--
+$FBAD##--NO-COMMENT--
 $FBB0##Low address
+$FBB2##main list = {0x00, 0x01, 0x02, 0x03}, secondary list = {0x04, 0x05, 0x06, 0x07}
+$FBB4##--NO-COMMENT--
 $FBB7##High address
 $FBB9##1 of 4 bytes
 $FBBB##--NO-COMMENT--

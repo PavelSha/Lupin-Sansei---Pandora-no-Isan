@@ -27,3 +27,5 @@ $EFAE##clear smth.
 $EFB1##clear smth.
 $EFB2##clear smth.
 $C68E##Dissambling sub_C6DD_render_row, when vReasonCharacterChange == 'no reason'
+$FAC0##ram_0039
+$FACD##ram_0039

@@ -226,13 +226,13 @@ vNonUsed3                     = ram_00A3
 vIndexSelectableChr           = ram_00AD ; Selectable character number in character selection mode
 vMainMenuGunYPos              = ram_00AD ;
 
-vCacheIndexSelectableChr      = ram_00AE ;
+vCopyIndexSelectableChr       = ram_00AE ;
 							  
 v_start_level                 = ram_00B1 ; The start level [0-3]
 v_count_secret_hits           = ram_00B2 ; Stage select codes at the title screen
 v_lock_secret_hits            = ram_00B3 ; Allow button to be pressed only when other buttons aren't pressed
 v_offset_in_secret_codes      = ram_00B4
-v_corridor_magic5             = ram_00B7
+v_corridor_magic5             = ram_00B7 ; 0x80 - secondary list, else main list
 v_corridor_magic5_cache       = ram_00B8
 
 vCheckpointAddr               = ram_00BA ; low address (address to table tbl_ptr_checkpoints_on_the_level)

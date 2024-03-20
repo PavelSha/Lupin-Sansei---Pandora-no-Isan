@@ -3404,6 +3404,7 @@ C - - - - - 0x01B604 06:B5F4: BD 00 05  LDA ram_0500,X
 C - - - - - 0x01B607 06:B5F7: 09 08     ORA #$08
 C - - - - - 0x01B609 06:B5F9: 9D 00 05  STA ram_0500,X
 C - - - - - 0x01B60C 06:B5FC: D0 B5     BNE loc_npc_type1
+sub_B5FE:
 C - - - - - 0x01B60E 06:B5FE: A5 30     LDA ram_0030
 C - - - - - 0x01B610 06:B600: F0 06     BEQ bra_B608_skip
 C - - - - - 0x01B612 06:B602: 20 6D B5  JSR sub_B56D
