@@ -100,6 +100,8 @@ $C0DF##clear
 $C0E2##clear
 $C0E5##clear
 $C0FF##--NO-COMMENT--
+$C105##--NO-COMMENT--
+$C107##clear locks
 $C109##--NO-COMMENT--
 $C10C##--NO-COMMENT--
 $C10F##--NO-COMMENT--
@@ -116,6 +118,8 @@ $C12F#bra_C12F_skip#--NO-COMMENT--
 $C132##If test mode is disabled
 $C142##to sub_BC48 (bank 06_2)
 $C148#bra_C148_skip#
+$C152##--NO-COMMENT--
+$C154##CONSTANT - select a character (1)
 $C156##CONSTANT - 'the radio was using'
 $C15E#bra_C15E#
 $C16F#bra_C16F#CONSTANT - no reason
@@ -138,6 +142,8 @@ $C1D5#bra_C1D5#
 $C1E9#bra_C1E9#
 $C1F2#bra_C1F2#CONSTANT - 'the character is fell or arrested'
 $C1F4##--NO-COMMENT--
+$C1F9##CONSTANT - select a character (2)
+$C1FB##--NO-COMMENT--
 $C20E#bra_C20E_skip#
 $C20F#bra_C20F#
 $C22C#bra_C22C_skip#
@@ -1584,13 +1590,18 @@ $D18D##Branch If Register Y != 0
 $D18F##Always true
 $D191#bra_D191_exit#clear (set 0x00)
 $D194##--NO-COMMENT--
-$D195#loc_D195#
+$D195#loc_D195_scroll_to#--NO-COMMENT--
+$D197##store a temporarily value - vHighViewPortPosX
 $D199##--NO-COMMENT--
 $D19B##If vScrollDirection is the auto scroll to right
+$D19D##decrement low X-position
+$D19F##--NO-COMMENT--
+$D1A1##--NO-COMMENT--
 $D1A3##If vLowViewPortPosX != 0xFF, i.e. a screen isn't changed
 $D1A5##--NO-COMMENT--
 $D1A7##Branch If vHighViewPortPosX != 0
 $D1A9##vLowViewPortPosX <- 0
+$D1AB##--NO-COMMENT--
 $D1AC#bra_D1AC_decrement_screen#--NO-COMMENT--
 $D1AE##switch $2000 -> $2400 or $2400 -> $2000 (name table address)
 $D1B0##--NO-COMMENT--
@@ -1615,7 +1626,7 @@ $D1D0#bra_D1D0_scroll_to_right#temp increment
 $D1D2##--NO-COMMENT--
 $D1D4##--NO-COMMENT--
 $D1D6##If vCacheNoScreen >= vCurrentRoomLength (outside of the room)
-$D1D8##temp increment
+$D1D8##increment low X-position
 $D1DA##--NO-COMMENT--
 $D1DC##If vLowViewPortPosX != 0x00
 $D1DE##store vLowViewPortPosX (0x00)
@@ -1867,7 +1878,7 @@ $D44C##--NO-COMMENT--
 $D44F##decrement y
 $D450##In Register Y >= 0x00 && Y < 0xF0
 $D452##--NO-COMMENT--
-$D453#sub_D453#
+$D453#sub_D453#--NO-COMMENT--
 $D456##set loop counter
 $D458##--NO-COMMENT--
 $D45A##CONSTANT - level racing
@@ -1878,6 +1889,8 @@ $D462##--NO-COMMENT--
 $D465##decrement x
 $D466##--NO-COMMENT--
 $D468##If Register Y != 0x0F
+$D46A##--NO-COMMENT--
+$D46C##prepare a value for next function
 $D46E##--NO-COMMENT--
 $D471##7th of 8 info bytes
 $D473##--NO-COMMENT--
@@ -1892,13 +1905,26 @@ $D482#bra_D482_loop#--NO-COMMENT--
 $D484##prepares a cache for all CHR banks
 $D487##decrement y
 $D488##If Register Y < 0xF0
-$D495##If vLowViewPortPosX + 0x44 haven't set carry flag
+$D48A##--NO-COMMENT--
+$D48C##scrolls forward 2 screens from the end
+$D48E##--NO-COMMENT--
+$D490##--NO-COMMENT--
+$D491##scrolls forward 44 pixels for low X-position (scroll border - 0x40)
+$D493##--NO-COMMENT--
+$D495##If vLowViewPortPosX isn't overflow
+$D497##--NO-COMMENT--
 $D499#bra_D499_skip#$2000 - for 0,2,4,6 ... screens, $2400 - for 1,3,5,7 ... screens
 $D49B##--NO-COMMENT--
 $D49D##Sprite pattern table address for 8x8 sprites - $1000
 $D49F##--NO-COMMENT--
 $D4A1##set loop counter
-$D4A3#bra_D4A3_repeat#store x
+$D4A3#bra_D4A3_loop#store x
+$D4A4##CONSTANT - to left
+$D4A6##--NO-COMMENT--
+$D4A8##--NO-COMMENT--
+$D4AB##--NO-COMMENT--
+$D4AE##--NO-COMMENT--
+$D4B1##145 * 4 = 580 (or 0x244 = 0x80 * 4 + 0x44), i.e 2.5 screen
 $D4B7##--NO-COMMENT--
 $D4BA##If high ppu address == 0x00
 $D4BC##--NO-COMMENT--
@@ -2853,18 +2879,35 @@ $EFF4##--NO-COMMENT--
 $EFF6##--NO-COMMENT--
 $EFF9##--NO-COMMENT--
 $EFFB##--NO-COMMENT--
-$EFFC#sub_EFFC#set loop counter
+$EFFC#sub_EFFC_after_select_character#set loop counter
 $EFFE##set assigning value
 $F000#bra_F000_loop#clear items
 $F003##decrements loop counter
 $F004##If Register X < 0xF0
 $F006##set loop counter
-$F008#bra_F008_loop#
-$F018#bra_F018_skip#
-$F023#bra_F023_skip#
-$F032#bra_F032_skip#
-$F03D##decrements loop counter
+$F008#bra_F008_loop#--NO-COMMENT--
+$F00A##If lock 'Select a character' isn't exist
+$F00C##--NO-COMMENT--
+$F00F##CONSTANT - The lift
+$F011##If vEnemyA == 0x0C
+$F018#bra_F018_clear_enemy#--NO-COMMENT--
+$F01A##clear
+$F01D##clear
+$F023#bra_F023_next_enemies#--NO-COMMENT--
+$F025##If lock 'Select a character' isn't exist
+$F027##--NO-COMMENT--
+$F02A##CONSTANT - The wall
+$F02C##If vEnemyB < 0x30
+$F02E##CONSTANT - Blade trap
+$F030##If vEnemyB < 0x33
+$F032#bra_F032_clear_enemy#--NO-COMMENT--
+$F037##--NO-COMMENT--
+$F03A##--NO-COMMENT--
+$F03D#bra_F03D_skip#decrements loop counter
 $F03E##If Register X < 0xF0 (a loop condition)
+$F040##--NO-COMMENT--
+$F042##CONSTANT - the process, after 'Select a character', but before the game itself
+$F044##--NO-COMMENT--
 $F046##set assigning value
 $F048##set loop counter
 $F04A#clear_item_loop#clear
@@ -2874,7 +2917,7 @@ $F059##reset the infrared goggles
 $F05B##set loop counter
 $F05D#bra_F05D_loop#
 $F066##decrements loop counter
-$F067##--NO-COMMENT--
+$F067##If Register X < 0xF0 (a loop condition)
 $F069##--NO-COMMENT--
 $F06C##--NO-COMMENT--
 $F06E##clear a low part
@@ -2888,20 +2931,33 @@ $F07C##If Register A < 0xF0
 $F07E##--NO-COMMENT--
 $F07F#sub_F07F#--NO-COMMENT--
 $F081##If 'the character is moving in the water'
-$F08C#bra_F08C_skip#
+$F083##a new starting value
+$F085##--NO-COMMENT--
+$F087##--NO-COMMENT--
+$F088##If the character is looking to the right
+$F08A##a new starting value
+$F08C#bra_F08C_skip#reset a counter
 $F08E##--NO-COMMENT--
 $F091##If the generation is failed
 $F093##type of an enemy
 $F095##CONSTANT - The lift
 $F099##CONSTANT - The wall
+$F09B##If enemy < 0x30
 $F09D##CONSTANT - Blade trap
+$F09F##If enemy >= 0x30
 $F0A8#bra_F0A8_RTS#
 $F0A9#sub_F0A9_enemy_subroutine#--NO-COMMENT--
 $F0AB##If 'the character isn't moving in the water'
 $F0B0#bra_F0B0_skip#--NO-COMMENT--
 $F0B3##If the generation is success
-$F0B8#bra_F0B8_skip#
-$F0BE#bra_F0BE_repeat#
+$F0B8#bra_F0B8_skip#CONSTANT - type B
+$F0BA##set loop counter
+$F0BC##type of an enemy
+$F0BE#bra_F0BE_loop#--NO-COMMENT--
+$F0C1##If enemy = the current enemy in the table
+$F0C3##decrement loop counter
+$F0C4##If Register Y <=
+$F0C6##0x01 -> 0x00, type A
 $F0C7#loc_F0C7#
 $F0E7#loc_F0E7#
 $F10A##clear a low part
@@ -3052,7 +3108,7 @@ $F372#sub_F372#
 $F37A#sub_F37A#
 $F38A#sub_F38A#
 $F392#sub_F392#
-$F3A2#enemy_F3A2#
+$F3A2#loc_enemy_F3A2#
 $F3B1#bra_F3B1#
 $F3BB#bra_F3BB_skip#
 $F3E2#bra_F3E2#
@@ -3178,7 +3234,28 @@ $F8F4##Egyptian with a sword
 $F8F6##Egyptian with a boomerung
 $F8F8##Ninja upside down
 $F8FA##Sensor
-$F8FC#tbl_F8FC#
+$F8FC#tbl_F8FC_enemies#Gray land hat
+$F8FD##Black land hat
+$F8FE##The barrel
+$F8FF##Sensor
+$F900##Bat
+$F901##Gray cat
+$F902##Batterfly
+$F903##Broned batterfly
+$F904##Sensor
+$F905##Black cat
+$F906##The barrel
+$F907##Sensor
+$F908##Cobblestone
+$F909##The bird
+$F90A##The bird with a bomb
+$F90B##Gargoyle
+$F90C##Wall
+$F90D##Wall
+$F90E##Breaking platform
+$F90F##Blade trap
+$F910##Potted snakes
+$F911##Sensor
 $F912#bra_F912_inc_next_set#2nd of 5 bytes
 $F913#bra_F913_inc_next_set#3rd of 5 bytes
 $F914#bra_F914_inc_next_set#4th of 5 bytes
@@ -3308,11 +3385,17 @@ $FBD9##--NO-COMMENT--
 $FBDA#sub_FBDA_push_stack_room#
 $FBF7#loc_FBF7_pop_stack_room#
 $FC14#sub_FC14#
-$FC28#sub_FC28#
-$FC2B##If Register A != 0x00
-$FC3A#bra_FC3A_return_true#
-$FC3C#bra_FC3C_skip#
-$FC3E#sub_FC3E#
+$FC28#sub_FC28#--NO-COMMENT--
+$FC2B##If The boss is defeated
+$FC2D##--NO-COMMENT--
+$FC30##If room isn't NPC room, room with the briefcase, room with boss
+$FC3A#bra_FC3A_return_true#--NO-COMMENT--
+$FC3B##--NO-COMMENT--
+$FC3C#bra_FC3C_return_false#--NO-COMMENT--
+$FC3D##--NO-COMMENT--
+$FC3E#sub_FC3E_boss_defeated_statue#--NO-COMMENT--
+$FC40##CONSTANT - status 'The boss is defeated'
+$FC42##--NO-COMMENT--
 $FC43#tbl_FC43_enemy_boss#Boss (level 1)
 $FC44##Boss (level 2)
 $FC45##Boss (level 3)

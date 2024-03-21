@@ -24,6 +24,7 @@ $0035#vEnemyRNG#
 $0037#vCutscenesMode#
 $0038#vPauseStatus#
 $003B#vSharedGameStatus#
+$003C#vGameLocks#
 $003D#vCharacterSelectionCounter#
 $0041#v_npc_message_status#
 $0043#vCurrentNumberSprite#
@@ -100,8 +101,8 @@ $0207#v_bullet_proof_vest_item#
 $0208#v_ruby_ring#
 $020A#vItemsBlinkTime#
 $0214#vCurrentWeaponStatus#
-$0215#vBreathingApparatusLowCounter#
-$0216#vBreathingApparatusHighCounter#
+$0215#vApparatusLowCounter#
+$0216#vApparatusHighCounter#
 $0219#vArrayWhiteBriefcase#
 $0300#vEnemyA#
 $0301#vEnemyB#

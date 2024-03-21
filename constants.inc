@@ -117,6 +117,18 @@ vSharedGameStatus             = ram_003B
 ; 0x91 - First cutscene (with Clarisse Cagliostro)
 ; 0x93 - Last cutscene (with Clarisse Cagliostro)
 
+; Byte: XYZW KLMN
+; N - status 'The screen with the message'
+; M - status 'The boss is defeated'
+; W - status 'Select the character'
+; Y - status 'Pause in the game'
+
+vGameLocks                    = ram_003C
+; Byte: XYZ0 0000
+; X - the lock for the process 'Select character' (1 - true)
+; Y - the process, after 'Select a character', but before the game itself
+; Z - use with X, 0 - after the radio; 1 - after a fall or arrest
+
 vStartStatus                  = ram_003D
 ; 0x00 - The starting cutscene, before typing the message
 ; 0x01 - The starting cutscene, during typing the message
@@ -280,8 +292,8 @@ vCurrentWeaponStatus          = ram_0214 ; Only the active items
 ; 0x00000010 - Using the artillery rifle
 ; 0x00000011 - Using the jet-pack
 ; 0x00000100 - Using the infrared goggles
-vBreathingApparatusLowCounter  = ram_0215
-vBreathingApparatusHighCounter = ram_0216
+vApparatusLowCounter  = ram_0215 ; Breathing or flying
+vApparatusHighCounter = ram_0216
 
 vArrayWhiteBriefcase           = ram_0219
 ; flag 0x80 - the item is got (see BIT_USING_WHITE_BRIEFCASE)
@@ -395,3 +407,4 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; проверить, почему используется 7 строк вместо 8 для таблицы атрибутов (уровень 2.0, внутренний)
 ; индексы в одной из таблиц доходят до 0x70, хотя используются до 0x9F, почему так?
 ; Game Genie коды - исправление пробелов
+; Баги - перейти в комнату 0x78, перейти на экран с двумя стенами и сменить персонажа. Стена сменится на стенообразного персонажа

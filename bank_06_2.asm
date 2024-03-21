@@ -44,7 +44,7 @@
 .export sub_BB2A_solve_secret_codes
 .export loc_BBA4_play_background_music
 .export sub_BBA4_play_background_music
-.export sub_BBFE_check_room
+.export sub_BBFE_is_unique_room
 .export sub_B8C7_main_menu_shared_routine
 .export sub_B9DA_curscene_shared_routine
 
@@ -4234,7 +4234,7 @@ sub_BBA4_play_background_music:
 C D 1 - - - 0x01BBB4 06:BBA4: A9 05     LDA #$05                ; ~> the sound index 'music 'under the water''
 C - - - - - 0x01BBB6 06:BBA6: 24 6D     BIT vMovableChrStatus   ;
 C - - - - - 0x01BBB8 06:BBA8: 30 13     BMI bra_BBBD_skip       ; If the character is moving in the water
-C - - - - - 0x01BBBA 06:BBAA: 20 FE BB  JSR sub_BBFE_check_room
+C - - - - - 0x01BBBA 06:BBAA: 20 FE BB  JSR sub_BBFE_is_unique_room
 C - - - - - 0x01BBBD 06:BBAD: B0 36     BCS bra_BBE5
 C - - - - - 0x01BBBF 06:BBAF: A5 5E     LDA v_no_level          ;
 C - - - - - 0x01BBC1 06:BBB1: C9 03     CMP #$03                ; CONSTANT - level 4 + racing
@@ -4283,22 +4283,22 @@ C - - - - - 0x01BC08 06:BBF8: 18        CLC
 C - - - - - 0x01BC09 06:BBF9: 65 5E     ADC v_no_level
 C - - - - - 0x01BC0B 06:BBFB: 4C BD BB  JMP loc_BBBD_add_room_sound
 
-; Return the carry status (analog return true or false)
-sub_BBFE_check_room:
+; Out: Carry flag - 1 for NPC rooms, briefcase rooms, rooms with the boss, else 0.
+sub_BBFE_is_unique_room:
 C - - - - - 0x01BC0E 06:BBFE: A5 46     LDA vNoSubLevel            ;
 C - - - - - 0x01BC10 06:BC00: C9 14     CMP #$14                   ; CONSTANT - a room 'boss of level 4'
-C - - - - - 0x01BC12 06:BC02: F0 0A     BEQ bra_BC0E_return_true   ;
+C - - - - - 0x01BC12 06:BC02: F0 0A     BEQ bra_BC0E_return_true   ; If vNoSubLevel == 0x14
 C - - - - - 0x01BC14 06:BC04: C9 1A     CMP #$1A                   ; CONSTANT - a npc room or a character tied up
-C - - - - - 0x01BC16 06:BC06: 90 04     BCC @bra_BC0C_return_false ;
-C - - - - - 0x01BC18 06:BC08: C9 24     CMP #$24
-C - - - - - 0x01BC1A 06:BC0A: 90 02     BCC bra_BC0E_return_true
+C - - - - - 0x01BC16 06:BC06: 90 04     BCC @bra_BC0C_return_false ; If vNoSubLevel < 0x1A
+C - - - - - 0x01BC18 06:BC08: C9 24     CMP #$24                   ; CONSTANT - a room - level 3.0 (water level)
+C - - - - - 0x01BC1A 06:BC0A: 90 02     BCC bra_BC0E_return_true   ; If vNoSubLevel < 0x24
 @bra_BC0C_return_false:
-C - - - - - 0x01BC1C 06:BC0C: 18        CLC
-C - - - - - 0x01BC1D 06:BC0D: 60        RTS
+C - - - - - 0x01BC1C 06:BC0C: 18        CLC                        ;
+C - - - - - 0x01BC1D 06:BC0D: 60        RTS                        ;
 
 bra_BC0E_return_true:
-C - - - - - 0x01BC1E 06:BC0E: 38        SEC
-C - - - - - 0x01BC1F 06:BC0F: 60        RTS
+C - - - - - 0x01BC1E 06:BC0E: 38        SEC                        ;
+C - - - - - 0x01BC1F 06:BC0F: 60        RTS                        ;
 
 tbl_BC10_sound_indexes:
 - D 1 - - - 0x01BC20 06:BC10: 04        .byte $04, $05, $39, $48 ; music level 1.0
