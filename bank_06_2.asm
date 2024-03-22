@@ -4,39 +4,40 @@
 .org $A000  ; for listing file
 ; 0x01A010-0x01C00F
 
-.import tbl_messages                         ; bank 04 (Page 2)
-.import tbl_ptr_rooms_with_NPCs              ; bank 04 (Page 2)
-.import tbl_ptr_briefcases_outside           ; bank 04 (Page 2)
-.import tbl_copyright                        ; bank 04 (Page 1)
-.import tbl_main_menu_chr_banks              ; bank 04 (Page 1)
-.import tbl_template_chr_banks1              ; bank 04 (Page 1)
-.import tbl_briefcases_indexex_on_the_level  ; bank 04 (Page 2)
-.import npc_portrait_sprites                 ; bank 04 (Page 2)
-.import npc_portrait_set                     ; bank 04 (Page 2)
-.import npc_sprite_set                       ; bank 04 (Page 2)
-.import sub_C305_update_ppu_ctrl_with_no_nmi ; bank FF
-.import sub_C313_screen_off                  ; bank FF
-.import sub_C31D_clear_ppu                   ; bank FF
-.import sub_C358_clear_OAM                   ; bank FF
-.import loc_C371_update_palette              ; bank FF
-.import loc_C402_clear_sound_parts           ; bank FF
-.import sub_C402_clear_sound_parts           ; bank FF
-.import sub_C420_add_sound_effect            ; bank FF
-.import loc_C420_add_sound_effect            ; bank FF
-.import sub_C4F5_selectAllChrBanks           ; bank FF
-.import sub_C904_clear_score                 ; bank FF
-.import loc_CE33_add_sprite_magic            ; bank FF
-.import sub_D073_invert_sign                 ; bank FF
-.import sub_D079_check_button_press          ; bank FF
-.import sub_D086_render_14_15_16_17_18_v1    ; bank FF
-.import sub_EF46_switch_bank_4_p1            ; bank FF
-.import sub_EF4F_switch_bank_4_p2            ; bank FF
-.import sub_F2D6_try_put_briefcase           ; bank FF
-.import tbl_C1CA_checkpoint_on_start_levels  ; bank FF
-.import sub_CE5A_render_character            ; bank FF
-.import sub_C91C_display_menu_score          ; bank FF
-.import sub_C51E_update_ppu_and_screen       ; bank FF
-.import loc_C046_repeat_starting_mode        ; bank FF
+.import tbl_messages                             ; bank 04 (Page 2)
+.import tbl_ptr_rooms_with_NPCs                  ; bank 04 (Page 2)
+.import tbl_ptr_briefcases_outside               ; bank 04 (Page 2)
+.import tbl_copyright                            ; bank 04 (Page 1)
+.import tbl_main_menu_chr_banks                  ; bank 04 (Page 1)
+.import tbl_template_chr_banks1                  ; bank 04 (Page 1)
+.import tbl_ptr_briefcases_indexes_on_the_level  ; bank 04 (Page 2)
+.import tbl_briefcases_positions                 ; bank 04 (Page 2)
+.import npc_portrait_sprites                     ; bank 04 (Page 2)
+.import npc_portrait_set                         ; bank 04 (Page 2)
+.import npc_sprite_set                           ; bank 04 (Page 2)
+.import sub_C305_update_ppu_ctrl_with_no_nmi     ; bank FF
+.import sub_C313_screen_off                      ; bank FF
+.import sub_C31D_clear_ppu                       ; bank FF
+.import sub_C358_clear_OAM                       ; bank FF
+.import loc_C371_update_palette                  ; bank FF
+.import loc_C402_clear_sound_parts               ; bank FF
+.import sub_C402_clear_sound_parts               ; bank FF
+.import sub_C420_add_sound_effect                ; bank FF
+.import loc_C420_add_sound_effect                ; bank FF
+.import sub_C4F5_selectAllChrBanks               ; bank FF
+.import sub_C904_clear_score                     ; bank FF
+.import loc_CE33_add_sprite_magic                ; bank FF
+.import sub_D073_invert_sign                     ; bank FF
+.import sub_D079_check_button_press              ; bank FF
+.import sub_D086_render_14_15_16_17_18_v1        ; bank FF
+.import sub_EF46_switch_bank_4_p1                ; bank FF
+.import sub_EF4F_switch_bank_4_p2                ; bank FF
+.import sub_F2D6_try_put_briefcase               ; bank FF
+.import tbl_C1CA_checkpoint_on_start_levels      ; bank FF
+.import sub_CE5A_render_character                ; bank FF
+.import sub_C91C_display_menu_score              ; bank FF
+.import sub_C51E_update_ppu_and_screen           ; bank FF
+.import loc_C046_repeat_starting_mode            ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -47,6 +48,7 @@
 .export sub_BBFE_is_unique_room
 .export sub_B8C7_main_menu_shared_routine
 .export sub_B9DA_curscene_shared_routine
+.export sub_B18C_prepare_briefcases_by_index
 
 tbl_A000:
 - D 1 - - - 0x01A010 06:A000: 00        .byte $00   ; 
@@ -2477,7 +2479,7 @@ C - - - - - 0x01AFE2 06:AFD2: 4C C6 AF  JMP loc_AFC6_loop_continue
 
 sub_AFD5:
 C - - - - - 0x01AFE5 06:AFD5: A6 1A     LDX v_sub_AF4D_briefcase_no
-C - - - - - 0x01AFE7 06:AFD7: DE A4 03  DEC ram_03A4,X
+C - - - - - 0x01AFE7 06:AFD7: DE A4 03  DEC vBriefcaseHitCount - 1,X
 C - - - - - 0x01AFEA 06:AFDA: D0 12     BNE bra_AFEE_RTS
 C - - - - - 0x01AFEC 06:AFDC: BD 9E 03  LDA v_item_on_screen,X
 C - - - - - 0x01AFEF 06:AFDF: 09 10     ORA #$10
@@ -2642,7 +2644,7 @@ C - - - - - 0x01B104 06:B0F4: A9 C0     LDA #$C0                             ; C
 C - - - - - 0x01B106 06:B0F6: 9D 9E 03  STA v_item_on_screen,X
 C - - - - - 0x01B109 06:B0F9: A9 03     LDA #$03
 loc_B0FB:
-C D 1 - - - 0x01B10B 06:B0FB: 9D A4 03  STA ram_03A4,X
+C D 1 - - - 0x01B10B 06:B0FB: 9D A4 03  STA vBriefcaseHitCount - 1,X
 C - - - - - 0x01B10E 06:B0FE: A5 00     LDA ram_0000
 C - - - - - 0x01B110 06:B100: 9D BC 03  STA ram_03BC,X
 C - - - - - 0x01B113 06:B103: A5 01     LDA ram_0001
@@ -2722,71 +2724,72 @@ C - - - - - 0x01B197 06:B187: F0 02     BEQ bra_B18B_RTS
 C - - - - - 0x01B199 06:B189: 68        PLA
 C - - - - - 0x01B19A 06:B18A: 68        PLA
 bra_B18B_RTS:
-C - - - - - 0x01B19B 06:B18B: 60        RTS
+C - - - - - 0x01B19B 06:B18B: 60        RTS                  ;
 
-C - - - - - 0x01B19C 06:B18C: A5 46     LDA ram_0046
-C - - - - - 0x01B19E 06:B18E: C9 1F     CMP #$1F
-C - - - - - 0x01B1A0 06:B190: 90 F9     BCC bra_B18B_RTS
-C - - - - - 0x01B1A2 06:B192: C9 24     CMP #$24
-C - - - - - 0x01B1A4 06:B194: B0 F5     BCS bra_B18B_RTS
-C - - - - - 0x01B1A6 06:B196: 20 4F EF  JSR $EF4F
-C - - - - - 0x01B1A9 06:B199: A5 46     LDA ram_0046
-C - - - - - 0x01B1AB 06:B19B: 38        SEC
-C - - - - - 0x01B1AC 06:B19C: E9 1F     SBC #$1F
-C - - - - - 0x01B1AE 06:B19E: 0A        ASL
-C - - - - - 0x01B1AF 06:B19F: 85 12     STA ram_0012
-C - - - - - 0x01B1B1 06:B1A1: 0A        ASL
-C - - - - - 0x01B1B2 06:B1A2: 0A        ASL
-C - - - - - 0x01B1B3 06:B1A3: 18        CLC
-C - - - - - 0x01B1B4 06:B1A4: 65 12     ADC ram_0012
-C - - - - - 0x01B1B6 06:B1A6: A8        TAY
-C - - - - - 0x01B1B7 06:B1A7: A2 05     LDX #$05
-bra_B1A9_loop:                                         ; loop by x (5 times)
-C - - - - - 0x01B1B9 06:B1A9: B9 36 81  LDA $8136,Y
-C - - - - - 0x01B1BC 06:B1AC: 9D AA 03  STA ram_03AA,X
-C - - - - - 0x01B1BF 06:B1AF: C8        INY
-C - - - - - 0x01B1C0 06:B1B0: B9 36 81  LDA $8136,Y
-C - - - - - 0x01B1C3 06:B1B3: 9D B6 03  STA ram_03B6,X
+sub_B18C_prepare_briefcases_by_index:
+C - - - - - 0x01B19C 06:B18C: A5 46     LDA vNoSubLevel                                     ;
+C - - - - - 0x01B19E 06:B18E: C9 1F     CMP #$1F                                            ; CONSTANT - a briefcase room on level 1.0
+C - - - - - 0x01B1A0 06:B190: 90 F9     BCC bra_B18B_RTS                                    ; If vNoSubLevel < 0x1A
+C - - - - - 0x01B1A2 06:B192: C9 24     CMP #$24                                            ; CONSTANT - a room - level 3.0 (water level)
+C - - - - - 0x01B1A4 06:B194: B0 F5     BCS bra_B18B_RTS                                    ; If vNoSubLevel >= 0x24
+C - - - - - 0x01B1A6 06:B196: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2                       ;
+C - - - - - 0x01B1A9 06:B199: A5 46     LDA vNoSubLevel                                     ;
+C - - - - - 0x01B1AB 06:B19B: 38        SEC                                                 ;
+C - - - - - 0x01B1AC 06:B19C: E9 1F     SBC #$1F                                            ; A <~ 0x00 (level1), 0x01 (level2.1), 0x02 (level2.2), 0x03 (level3), 0x04 (level4)
+C - - - - - 0x01B1AE 06:B19E: 0A        ASL                                                 ;
+C - - - - - 0x01B1AF 06:B19F: 85 12     STA v_temp_counter12                                ;
+C - - - - - 0x01B1B1 06:B1A1: 0A        ASL                                                 ;
+C - - - - - 0x01B1B2 06:B1A2: 0A        ASL                                                 ;
+C - - - - - 0x01B1B3 06:B1A3: 18        CLC                                                 ;
+C - - - - - 0x01B1B4 06:B1A4: 65 12     ADC v_temp_counter12                                ; *10
+C - - - - - 0x01B1B6 06:B1A6: A8        TAY                                                 ; {0x00, 0x0A, 0x14, 0x1E, 0x28}
+C - - - - - 0x01B1B7 06:B1A7: A2 05     LDX #$05                                            ; set loop counter
+bra_B1A9_loop:                                                                              ; loop by x (5 times)
+C - - - - - 0x01B1B9 06:B1A9: B9 36 81  LDA tbl_briefcases_positions,Y                      ;
+C - - - - - 0x01B1BC 06:B1AC: 9D AA 03  STA ram_03AA,X                                      ; store Y-position
+C - - - - - 0x01B1BF 06:B1AF: C8        INY                                                 ; 2 of 2
+C - - - - - 0x01B1C0 06:B1B0: B9 36 81  LDA tbl_briefcases_positions,Y                      ;
+C - - - - - 0x01B1C3 06:B1B3: 9D B6 03  STA ram_03B6,X                                      ; store X-position
 C - - - - - 0x01B1C6 06:B1B6: A9 00     LDA #$00
 C - - - - - 0x01B1C8 06:B1B8: 9D BC 03  STA ram_03BC,X
-C - - - - - 0x01B1CB 06:B1BB: A9 03     LDA #$03
-C - - - - - 0x01B1CD 06:B1BD: 9D A4 03  STA ram_03A4,X
-C - - - - - 0x01B1D0 06:B1C0: C8        INY
-C - - - - - 0x01B1D1 06:B1C1: CA        DEX
-C - - - - - 0x01B1D2 06:B1C2: D0 E5     BNE bra_B1A9_loop
-C - - - - - 0x01B1D4 06:B1C4: A5 5E     LDA v_no_level
-C - - - - - 0x01B1D6 06:B1C6: 0A        ASL
-C - - - - - 0x01B1D7 06:B1C7: A8        TAY
-C - - - - - 0x01B1D8 06:B1C8: B9 2E 81  LDA tbl_briefcases_indexex_on_the_level,Y
-C - - - - - 0x01B1DB 06:B1CB: 85 12     STA ram_0012
-C - - - - - 0x01B1DD 06:B1CD: B9 2F 81  LDA tbl_briefcases_indexex_on_the_level + 1,Y
-C - - - - - 0x01B1E0 06:B1D0: 85 13     STA ram_0013
-C - - - - - 0x01B1E2 06:B1D2: A5 B7     LDA ram_00B7
-C - - - - - 0x01B1E4 06:B1D4: 0A        ASL
-C - - - - - 0x01B1E5 06:B1D5: 0A        ASL
-C - - - - - 0x01B1E6 06:B1D6: 18        CLC
-C - - - - - 0x01B1E7 06:B1D7: 65 B7     ADC ram_00B7
-C - - - - - 0x01B1E9 06:B1D9: A8        TAY
-C - - - - - 0x01B1EA 06:B1DA: A2 05     LDX #$05
-bra_B1DC_loop:                                           ; loop by x (5 times)
-C - - - - - 0x01B1EC 06:B1DC: 84 11     STY ram_0011
-C - - - - - 0x01B1EE 06:B1DE: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01B1F0 06:B1E0: 9D 98 03  STA v_briefcase_index,X
-C - - - - - 0x01B1F3 06:B1E3: F0 0A     BEQ @bra_B1EF
-C - - - - - 0x01B1F5 06:B1E5: A8        TAY
-C - - - - - 0x01B1F6 06:B1E6: B9 19 02  LDA vArrayWhiteBriefcase,Y
-C - - - - - 0x01B1F9 06:B1E9: 30 04     BMI @bra_B1EF ; Go to branch, if the briefcase item is collected
-C - - - - - 0x01B1FB 06:B1EB: A9 C0     LDA #$C0 ; CONSTANT: The item is in the briefcase, i.e. it's hidden
-C - - - - - 0x01B1FD 06:B1ED: D0 02     BNE @bra_B1F1
-@bra_B1EF:
-C - - - - - 0x01B1FF 06:B1EF: A9 00     LDA #$00
-@bra_B1F1:
-C - - - - - 0x01B201 06:B1F1: 9D 9E 03  STA v_item_on_screen,X ; Prepare memory for render briefcase
-C - - - - - 0x01B204 06:B1F4: A4 11     LDY ram_0011
-C - - - - - 0x01B206 06:B1F6: C8        INY
-C - - - - - 0x01B207 06:B1F7: CA        DEX
-C - - - - - 0x01B208 06:B1F8: D0 E2     BNE bra_B1DC_loop
-C - - - - - 0x01B20A 06:B1FA: 60        RTS
+C - - - - - 0x01B1CB 06:B1BB: A9 03     LDA #$03                                            ; CONSTANT - 3 shots
+C - - - - - 0x01B1CD 06:B1BD: 9D A4 03  STA vBriefcaseHitCount - 1,X                        ;
+C - - - - - 0x01B1D0 06:B1C0: C8        INY                                                 ; 1 of 2 again
+C - - - - - 0x01B1D1 06:B1C1: CA        DEX                                                 ; decrement loop counter
+C - - - - - 0x01B1D2 06:B1C2: D0 E5     BNE bra_B1A9_loop                                   ; If Register X != 0
+C - - - - - 0x01B1D4 06:B1C4: A5 5E     LDA v_no_level                                      ;
+C - - - - - 0x01B1D6 06:B1C6: 0A        ASL                                                 ; *2, because RAM address contains 2 bytes
+C - - - - - 0x01B1D7 06:B1C7: A8        TAY                                                 ;
+C - - - - - 0x01B1D8 06:B1C8: B9 2E 81  LDA tbl_ptr_briefcases_indexes_on_the_level,Y       ;
+C - - - - - 0x01B1DB 06:B1CB: 85 12     STA ram_0012                                        ; Low address
+C - - - - - 0x01B1DD 06:B1CD: B9 2F 81  LDA tbl_ptr_briefcases_indexes_on_the_level + 1,Y   ;
+C - - - - - 0x01B1E0 06:B1D0: 85 13     STA ram_0013                                        ; High address
+C - - - - - 0x01B1E2 06:B1D2: A5 B7     LDA v_corridor_magic5                               ;
+C - - - - - 0x01B1E4 06:B1D4: 0A        ASL                                                 ;
+C - - - - - 0x01B1E5 06:B1D5: 0A        ASL                                                 ;
+C - - - - - 0x01B1E6 06:B1D6: 18        CLC                                                 ;
+C - - - - - 0x01B1E7 06:B1D7: 65 B7     ADC v_corridor_magic5                               ; *5, total briefcases is 5
+C - - - - - 0x01B1E9 06:B1D9: A8        TAY                                                 ; Y <~ v_corridor_magic5 * 5
+C - - - - - 0x01B1EA 06:B1DA: A2 05     LDX #$05                                            ; set loop counter
+@bra_B1DC_loop:                                                                             ; loop by x (5 times)
+C - - - - - 0x01B1EC 06:B1DC: 84 11     STY vTempCounter11                                  ; caches y
+C - - - - - 0x01B1EE 06:B1DE: B1 12     LDA (ram_0012),Y                                    ;
+C - - - - - 0x01B1F0 06:B1E0: 9D 98 03  STA v_briefcase_index,X                             ;
+C - - - - - 0x01B1F3 06:B1E3: F0 0A     BEQ @bra_B1EF_no_exist                              ; If the index == 0x00
+C - - - - - 0x01B1F5 06:B1E5: A8        TAY                                                 ;
+C - - - - - 0x01B1F6 06:B1E6: B9 19 02  LDA vArrayWhiteBriefcase,Y                          ; load briefcase flags by index
+C - - - - - 0x01B1F9 06:B1E9: 30 04     BMI @bra_B1EF_no_exist                              ; Go to branch, if the briefcase item is collected
+C - - - - - 0x01B1FB 06:B1EB: A9 C0     LDA #$C0                                            ; CONSTANT: The item is in the briefcase, i.e. it's hidden
+C - - - - - 0x01B1FD 06:B1ED: D0 02     BNE @bra_B1F1_skip                                  ; Always true
+@bra_B1EF_no_exist:
+C - - - - - 0x01B1FF 06:B1EF: A9 00     LDA #$00                                            ; CONSTANT: the item is collected
+@bra_B1F1_skip:
+C - - - - - 0x01B201 06:B1F1: 9D 9E 03  STA v_item_on_screen,X                              ; prepare memory for render briefcase
+C - - - - - 0x01B204 06:B1F4: A4 11     LDY vTempCounter11                                  ; restore y from the cache
+C - - - - - 0x01B206 06:B1F6: C8        INY                                                 ; increments the index
+C - - - - - 0x01B207 06:B1F7: CA        DEX                                                 ; decrement loop counter
+C - - - - - 0x01B208 06:B1F8: D0 E2     BNE @bra_B1DC_loop                                  ; If Register X != 0
+C - - - - - 0x01B20A 06:B1FA: 60        RTS                                                 ;
 
 loc_B1FB: ; from bank FF
 C D 1 - - - 0x01B20B 06:B1FB: C6 73     DEC vRifleFireTime
@@ -3904,7 +3907,7 @@ C - - - - - 0x01B998 06:B988: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01B99B 06:B98B: A9 00     LDA #$00                                   ; CONTANT - In game
 C - - - - - 0x01B99D 06:B98D: A8        TAY                                        ;
 C - - - - - 0x01B99E 06:B98E: 85 37     STA vCutscenesMode                         ; vCutscenesMode <~ 'In game'
-C - - - - - 0x01B9A0 06:B990: 85 B6     STA ram_00B6
+C - - - - - 0x01B9A0 06:B990: 85 B6     STA vCurrentUniqueRoom                     ; clear
 C - - - - - 0x01B9A2 06:B992: 85 B7     STA v_corridor_magic5                      ; clear
 C - - - - - 0x01B9A4 06:B994: 85 39     STA ram_0039
 C - - - - - 0x01B9A6 06:B996: A6 AD     LDX vMainMenuGunYPos                       ;
@@ -4061,7 +4064,7 @@ C - - - - - 0x01BAAF 06:BA9F: 85 5E     STA v_no_level
 C - - - - - 0x01BAB1 06:BAA1: A9 00     LDA #$00                                 ;
 C - - - - - 0x01BAB3 06:BAA3: 85 22     STA vDemoBtnPrsdCounter                  ; clear counter 
 C - - - - - 0x01BAB5 06:BAA5: 85 23     STA vDemoBtnPrsdIndex                    ; clear index
-C - - - - - 0x01BAB7 06:BAA7: 85 B6     STA ram_00B6
+C - - - - - 0x01BAB7 06:BAA7: 85 B6     STA vCurrentUniqueRoom                   ; clear
 C - - - - - 0x01BAB9 06:BAA9: E6 25     INC ram_0025
 C - - - - - 0x01BABB 06:BAAB: 60        RTS
 
@@ -4269,7 +4272,7 @@ C - - - - - 0x01BBF2 06:BBE2: 4C 20 C4  JMP loc_C420_add_sound_effect    ;
 
 bra_BBE5:
 C - - - - - 0x01BBF5 06:BBE5: A0 0A     LDY #$0A              ; ~> the starting sound index 'in a room'
-C - - - - - 0x01BBF7 06:BBE7: A5 B6     LDA ram_00B6
+C - - - - - 0x01BBF7 06:BBE7: A5 B6     LDA vCurrentUniqueRoom
 C - - - - - 0x01BBF9 06:BBE9: 29 03     AND #$03
 C - - - - - 0x01BBFB 06:BBEB: C9 03     CMP #$03
 C - - - - - 0x01BBFD 06:BBED: D0 08     BNE bra_BBF7

@@ -11,7 +11,8 @@
 .export tbl_ptr_rooms_on_the_level
 .export number_of_briefcases_on_the_level
 .export tbl_ptr_briefcases_on_the_level
-.export tbl_briefcases_indexex_on_the_level
+.export tbl_ptr_briefcases_indexes_on_the_level
+.export tbl_briefcases_positions
 .export npc_portrait_sprites
 .export npc_portrait_set
 .export npc_sprite_set
@@ -286,62 +287,44 @@ tbl_ptr_briefcases_on_the_level:
 - D 0 - - - 0x01213B 04:812B: A5        .byte $A5                          ; CPU address $812B (level 4)
 - D 0 - - - 0x01213C 04:812C: 1E 9C     .addr tbl_briefcases_on_the_level4 ; CPU address $9C1E
 
-tbl_briefcases_indexex_on_the_level:
-- D 0 - - - 0x01213E 04:812E: 7D 98     .addr tbl_briefcases_indexex_on_the_level1 ; CPU address $987D
-- D 0 - - - 0x012140 04:8130: 91 98     .addr tbl_briefcases_indexex_on_the_level2 ; CPU address $9891
-- D 0 - - - 0x012142 04:8132: 09 99     .addr tbl_briefcases_indexex_on_the_level3 ; CPU address $9909
-- D 0 - - - 0x012144 04:8134: 45 99     .addr tbl_briefcases_indexex_on_the_level4 ; CPU address $9945
+tbl_ptr_briefcases_indexes_on_the_level:
+- D 0 - - - 0x01213E 04:812E: 7D 98     .addr tbl_briefcases_indexes_on_the_level1 ; CPU address $987D
+- D 0 - - - 0x012140 04:8130: 91 98     .addr tbl_briefcases_indexes_on_the_level2 ; CPU address $9891
+- D 0 - - - 0x012142 04:8132: 09 99     .addr tbl_briefcases_indexes_on_the_level3 ; CPU address $9909
+- D 0 - - - 0x012144 04:8134: 45 99     .addr tbl_briefcases_indexes_on_the_level4 ; CPU address $9945
 
-- D 0 - - - 0x012146 04:8136: BF        .byte $BF   ; 
-- D 0 - - - 0x012147 04:8137: 84        .byte $84   ; 
-- D 0 - - - 0x012148 04:8138: AF        .byte $AF   ; 
-- D 0 - - - 0x012149 04:8139: C4        .byte $C4   ; 
-- D 0 - - - 0x01214A 04:813A: 7F        .byte $7F   ; 
-- D 0 - - - 0x01214B 04:813B: 5C        .byte $5C   ; 
-- D 0 - - - 0x01214C 04:813C: 7F        .byte $7F   ; 
-- D 0 - - - 0x01214D 04:813D: A4        .byte $A4   ; 
-- D 0 - - - 0x01214E 04:813E: AF        .byte $AF   ; 
-- D 0 - - - 0x01214F 04:813F: EC        .byte $EC   ; 
-- D 0 - - - 0x012150 04:8140: BF        .byte $BF   ; 
-- D 0 - - - 0x012151 04:8141: 7C        .byte $7C   ; 
-- D 0 - - - 0x012152 04:8142: AF        .byte $AF   ; 
-- D 0 - - - 0x012153 04:8143: CC        .byte $CC   ; 
-- D 0 - - - 0x012154 04:8144: 7F        .byte $7F   ; 
-- D 0 - - - 0x012155 04:8145: 4C        .byte $4C   ; <L>
-- D 0 - - - 0x012156 04:8146: 7F        .byte $7F   ; 
-- D 0 - - - 0x012157 04:8147: C4        .byte $C4   ; 
-- D 0 - - - 0x012158 04:8148: 9F        .byte $9F   ; 
-- D 0 - - - 0x012159 04:8149: E4        .byte $E4   ; 
-- D 0 - - - 0x01215A 04:814A: BF        .byte $BF   ; 
-- D 0 - - - 0x01215B 04:814B: 74        .byte $74   ; <t>
-- D 0 - - - 0x01215C 04:814C: AF        .byte $AF   ; 
-- D 0 - - - 0x01215D 04:814D: AC        .byte $AC   ; 
-- D 0 - - - 0x01215E 04:814E: 7F        .byte $7F   ; 
-- D 0 - - - 0x01215F 04:814F: 6C        .byte $6C   ; <l>
-- D 0 - - - 0x012160 04:8150: 9F        .byte $9F   ; 
-- D 0 - - - 0x012161 04:8151: CC        .byte $CC   ; 
-- D 0 - - - 0x012162 04:8152: 8F        .byte $8F   ; 
-- D 0 - - - 0x012163 04:8153: EC        .byte $EC   ; 
-- D 0 - - - 0x012164 04:8154: BF        .byte $BF   ; 
-- D 0 - - - 0x012165 04:8155: 8C        .byte $8C   ; 
-- D 0 - - - 0x012166 04:8156: AF        .byte $AF   ; 
-- D 0 - - - 0x012167 04:8157: C4        .byte $C4   ; 
-- D 0 - - - 0x012168 04:8158: 8F        .byte $8F   ; 
-- D 0 - - - 0x012169 04:8159: D4        .byte $D4   ; 
-- D 0 - - - 0x01216A 04:815A: 9F        .byte $9F   ; 
-- D 0 - - - 0x01216B 04:815B: 5C        .byte $5C   ; 
-- D 0 - - - 0x01216C 04:815C: AF        .byte $AF   ; 
-- D 0 - - - 0x01216D 04:815D: 64        .byte $64   ; <d>
-- D 0 - - - 0x01216E 04:815E: BF        .byte $BF   ; 
-- D 0 - - - 0x01216F 04:815F: BC        .byte $BC   ; 
-- D 0 - - - 0x012170 04:8160: 8F        .byte $8F   ; 
-- D 0 - - - 0x012171 04:8161: 5C        .byte $5C   ; 
-- D 0 - - - 0x012172 04:8162: 5F        .byte $5F   ; 
-- D 0 - - - 0x012173 04:8163: 2C        .byte $2C   ; 
-- D 0 - - - 0x012174 04:8164: 5F        .byte $5F   ; 
-- D 0 - - - 0x012175 04:8165: D4        .byte $D4   ; 
-- D 0 - - - 0x012176 04:8166: 8F        .byte $8F   ; 
-- D 0 - - - 0x012177 04:8167: A4        .byte $A4   ; 
+; 1 byte - Y-position (screen unit)
+; 2 byte - X-position (screen unit)
+tbl_briefcases_positions:
+- D 0 - - - 0x012146 04:8136: BF        .byte $BF, $84   ; level 1
+- D 0 - - - 0x012148 04:8138: AF        .byte $AF, $C4
+- D 0 - - - 0x01214A 04:813A: 7F        .byte $7F, $5C
+- D 0 - - - 0x01214C 04:813C: 7F        .byte $7F, $A4
+- D 0 - - - 0x01214E 04:813E: AF        .byte $AF, $EC
+
+- D 0 - - - 0x012150 04:8140: BF        .byte $BF, $7C   ; level 2.1
+- D 0 - - - 0x012152 04:8142: AF        .byte $AF, $CC
+- D 0 - - - 0x012154 04:8144: 7F        .byte $7F, $4C
+- D 0 - - - 0x012156 04:8146: 7F        .byte $7F, $C4
+- D 0 - - - 0x012158 04:8148: 9F        .byte $9F, $E4
+
+- D 0 - - - 0x01215A 04:814A: BF        .byte $BF, $74   ; level 2.2
+- D 0 - - - 0x01215C 04:814C: AF        .byte $AF, $AC
+- D 0 - - - 0x01215E 04:814E: 7F        .byte $7F, $6C
+- D 0 - - - 0x012160 04:8150: 9F        .byte $9F, $CC
+- D 0 - - - 0x012162 04:8152: 8F        .byte $8F, $EC
+
+- D 0 - - - 0x012164 04:8154: BF        .byte $BF, $8C   ; level 3
+- D 0 - - - 0x012166 04:8156: AF        .byte $AF, $C4
+- D 0 - - - 0x012168 04:8158: 8F        .byte $8F, $D4
+- D 0 - - - 0x01216A 04:815A: 9F        .byte $9F, $5C
+- D 0 - - - 0x01216C 04:815C: AF        .byte $AF, $64
+
+- D 0 - - - 0x01216E 04:815E: BF        .byte $BF, $BC   ; level 4
+- D 0 - - - 0x012170 04:8160: 8F        .byte $8F, $5C
+- D 0 - - - 0x012172 04:8162: 5F        .byte $5F, $2C
+- D 0 - - - 0x012174 04:8164: 5F        .byte $5F, $D4
+- D 0 - - - 0x012176 04:8166: 8F        .byte $8F, $A4
 
 npc_portrait_set:
 ; 1 byte - NPC model
@@ -2066,55 +2049,86 @@ tbl_ptr_briefcases_outside3: ; level 3.0
 - D 0 - I - 0x013888 04:9878: 0D        .byte $0D, $68, $7F, $06 ;
 - D 0 - I - 0x01388C 04:987C: FF        .byte $FF   ; 
 
-tbl_briefcases_indexex_on_the_level1:
-- D 0 - I - 0x01388D 04:987D: 08        .byte $08, $09, $0A   ; 
-- D 0 - I - 0x013890 04:9880: 0B        .byte $0B, $0C, $0D, $0E, $0F, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $1A   ; 
-- D 0 - I - 0x0138A0 04:9890: 1B        .byte $1B   ; 
+tbl_briefcases_indexes_on_the_level1:
+- D 0 - I - 0x01388D 04:987D: 08        .byte $08, $09, $0A, $0B, $0C
+                                        .byte $0D, $0E, $0F, $10, $11
+                                        .byte $12, $13, $14, $15, $16
+                                        .byte $17, $18, $19, $1A, $1B
 
-tbl_briefcases_indexex_on_the_level2:
-- D 0 - I - 0x0138A1 04:9891: 06        .byte $06, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F, $10, $11, $12, $13, $14   ; 
-- D 0 - I - 0x0138B0 04:98A0: 15        .byte $15, $16, $17, $18, $19, $1A, $1B, $1C, $1D, $1E, $1F, $20, $21, $22, $23, $24   ; 
-- D 0 - I - 0x0138C0 04:98B0: 25        .byte $25, $26, $27, $28, $29, $2A, $2B, $2C, $2D, $2E, $2F, $30, $31, $32, $33, $34   ;
-- D 0 - I - 0x0138D0 04:98C0: 35        .byte $35, $36, $37, $38, $39, $3A, $3B, $3C, $3D, $3E, $3F, $40, $41, $42, $43, $44   ;
-- D 0 - I - 0x0138E0 04:98D0: 45        .byte $45, $46, $47, $48, $49, $4A, $4B, $4C, $4D, $4E, $4F, $50, $51, $52, $53, $54   ; 
-- D 0 - I - 0x0138F0 04:98E0: 55        .byte $55, $56, $57, $58, $59, $5A, $5B, $5C, $5D, $5E, $5F, $60, $61, $62, $63, $64   ; 
-- D 0 - I - 0x013900 04:98F0: 65        .byte $65, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F, $70, $71, $72, $73, $74   ; 
-- D 0 - I - 0x013910 04:9900: 75        .byte $75, $76, $77, $78, $79, $7A, $7B, $7C, $7D   ; 
+tbl_briefcases_indexes_on_the_level2:
+- D 0 - I - 0x0138A1 04:9891: 06        .byte $06, $07, $08, $09, $0A
+                                        .byte $0B, $0C, $0D, $0E, $0F
+                                        .byte $10, $11, $12, $13, $14
+- D 0 - I - 0x0138B0 04:98A0: 15        .byte $15, $16, $17, $18, $19
+                                        .byte $1A, $1B, $1C, $1D, $1E
+                                        .byte $1F, $20, $21, $22, $23
+                                        .byte $24, $25, $26, $27, $28
+                                        .byte $29, $2A, $2B, $2C, $2D
+                                        .byte $2E, $2F, $30, $31, $32
+                                        .byte $33, $34, $35, $36, $37
+                                        .byte $38, $39, $3A, $3B, $3C
+                                        .byte $3D, $3E, $3F, $40, $41
+                                        .byte $42, $43, $44, $45, $46
+                                        .byte $47, $48, $49, $4A, $4B
+                                        .byte $4C, $4D, $4E, $4F, $50
+                                        .byte $51, $52, $53, $54, $55
+                                        .byte $56, $57, $58, $59, $5A
+                                        .byte $5B, $5C, $5D, $5E, $5F
+                                        .byte $60, $61, $62, $63, $64
+- D 0 - I - 0x013900 04:98F0: 65        .byte $65, $66, $67, $68, $69
+                                        .byte $6A, $6B, $6C, $6D, $6E
+                                        .byte $6F, $70, $71, $72, $73
+                                        .byte $74, $75, $76, $77, $78
+                                        .byte $79, $7A, $7B, $7C, $7D
 
-tbl_briefcases_indexex_on_the_level3:
-- D 0 - I - 0x013919 04:9909: 07        .byte $07, $08, $09, $0A, $0B, $0C, $0D   ; 
-- D 0 - I - 0x013920 04:9910: 0E        .byte $0E, $0F, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $1A, $1B, $1C, $1D   ; 
-- D 0 - I - 0x013930 04:9920: 1E        .byte $1E, $1F, $20, $21, $22, $23, $24, $29, $25, $26, $27, $28, $2E, $2A, $2B, $2C   ; 
-- D 0 - I - 0x013940 04:9930: 2D        .byte $2D, $33, $2F, $30, $31, $32, $38, $34, $35, $36, $37, $3D, $39, $3A, $3B, $3C   ; 
-- D 0 - I - 0x013950 04:9940: 42        .byte $42, $3E, $3F, $40, $41   ; <A>
+tbl_briefcases_indexes_on_the_level3:
+- D 0 - I - 0x013919 04:9909: 07        .byte $07, $08, $09, $0A, $0B
+                                        .byte $0C, $0D, $0E, $0F, $10
+                                        .byte $11, $12, $13, $14, $15
+                                        .byte $16, $17, $18, $19, $1A
+                                        .byte $1B, $1C, $1D, $1E, $1F
+                                        .byte $20, $21, $22, $23, $24
+                                        .byte $29, $25, $26, $27, $28
+                                        .byte $2E, $2A, $2B, $2C, $2D
+                                        .byte $33, $2F, $30, $31, $32
+                                        .byte $38, $34, $35, $36, $37
+                                        .byte $3D, $39, $3A, $3B, $3C
+- D 0 - I - 0x013950 04:9940: 42        .byte $42, $3E, $3F, $40, $41
 
-tbl_briefcases_indexex_on_the_level4:
-- D 0 - I - 0x013955 04:9945: 01        .byte $01, $02, $03, $04, $05, $06, $07, $08, $09, $0A, $0B   ; 
-- D 0 - I - 0x013960 04:9950: 0C        .byte $0C, $0D, $0E, $0F, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $1A, $1B   ; 
-- D 0 - I - 0x013970 04:9960: 1C        .byte $1C, $1D, $1E, $1F, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $2A, $2B   ; 
-- D 0 - I - 0x013980 04:9970: 2C        .byte $2C, $2D, $2E, $2F, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $3A, $3B   ; 
-- D 0 - I - 0x013990 04:9980: 3C        .byte $3C, $3D, $3E, $3F, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $4A, $4B   ; <K>
-- D 0 - I - 0x0139A0 04:9990: 4C        .byte $4C, $4D, $4E, $4F, $50, $51, $52, $53, $54, $55, $56, $57, $58, $59, $5A, $5B   ; 
-- D 0 - I - 0x0139B0 04:99A0: 5C        .byte $5C   ; 
-- D 0 - I - 0x0139B1 04:99A1: 5D        .byte $5D   ; 
-- D 0 - I - 0x0139B2 04:99A2: 5E        .byte $5E   ; 
-- D 0 - I - 0x0139B3 04:99A3: 5F        .byte $5F   ; 
-- D 0 - I - 0x0139B4 04:99A4: 60        .byte $60   ; 
-- D 0 - I - 0x0139B5 04:99A5: 61        .byte $61   ; <a>
-- D 0 - I - 0x0139B6 04:99A6: 62        .byte $62   ; <b>
-- D 0 - I - 0x0139B7 04:99A7: 63        .byte $63   ; <c>
-- D 0 - I - 0x0139B8 04:99A8: 64        .byte $64   ; <d>
-- - - - - - 0x0139B9 04:99A9: 65        .byte $65   ; <e>
-- - - - - - 0x0139BA 04:99AA: 66        .byte $66   ; <f>
-- - - - - - 0x0139BB 04:99AB: 67        .byte $67   ; <g>
-- - - - - - 0x0139BC 04:99AC: 68        .byte $68   ; <h>
-- - - - - - 0x0139BD 04:99AD: 69        .byte $69   ; <i>
-- D 0 - I - 0x0139BE 04:99AE: 6A        .byte $6A   ; <j>
-- D 0 - I - 0x0139BF 04:99AF: 6B        .byte $6B   ; <k>
-- D 0 - I - 0x0139C0 04:99B0: 6C        .byte $6C, $6D, $6E, $6F, $70, $71, $72, $73, $74, $75, $76, $77, $78, $79, $7A, $7B   ; 
-- D 0 - I - 0x0139D0 04:99C0: 7C        .byte $7C, $7D, $7E, $7F, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89, $8A, $8B   ; 
-- D 0 - I - 0x0139E0 04:99D0: 8C        .byte $8C, $8D, $8E, $8F, $90, $91, $92, $93, $94, $95, $96, $97, $98, $99, $9A, $9B   ; 
-- D 0 - I - 0x0139F0 04:99E0: 9C        .byte $9C, $9D, $9E, $9F, $A0, $A1, $A2, $A3, $A4, $A5   ; 
+tbl_briefcases_indexes_on_the_level4:
+- D 0 - I - 0x013955 04:9945: 01        .byte $01, $02, $03, $04, $05
+                                        .byte $06, $07, $08, $09, $0A
+                                        .byte $0B, $0C, $0D, $0E, $0F
+                                        .byte $10, $11, $12, $13, $14
+                                        .byte $15, $16, $17, $18, $19
+                                        .byte $1A, $1B, $1C, $1D, $1E
+                                        .byte $1F, $20, $21, $22, $23
+                                        .byte $24, $25, $26, $27, $28
+                                        .byte $29, $2A, $2B, $2C, $2D
+                                        .byte $2E, $2F, $30, $31, $32
+                                        .byte $33, $34, $35, $36, $37
+                                        .byte $38, $39, $3A, $3B, $3C
+                                        .byte $3D, $3E, $3F, $40, $41
+                                        .byte $42, $43, $44, $45, $46
+                                        .byte $47, $48, $49, $4A, $4B
+- D 0 - I - 0x0139A0 04:9990: 4C        .byte $4C, $4D, $4E, $4F, $50
+                                        .byte $51, $52, $53, $54, $55
+                                        .byte $56, $57, $58, $59, $5A
+                                        .byte $5B, $5C, $5D, $5E, $5F
+- D 0 - I - 0x0139B4 04:99A4: 60        .byte $60, $61, $62, $63, $64
+- - - - - - 0x0139B9 04:99A9: 65        .byte $65, $66, $67, $68, $69
+- D 0 - I - 0x0139BE 04:99AE: 6A        .byte $6A, $6B, $6C, $6D, $6E
+                                        .byte $6F, $70, $71, $72, $73
+                                        .byte $74, $75, $76, $77, $78
+                                        .byte $79, $7A, $7B, $7C, $7D
+                                        .byte $7E, $7F, $80, $81, $82
+                                        .byte $83, $84, $85, $86, $87
+                                        .byte $88, $89, $8A, $8B, $8C
+                                        .byte $8D, $8E, $8F, $90, $91
+                                        .byte $92, $93, $94, $95, $96
+                                        .byte $97, $98, $99, $9A, $9B
+- D 0 - I - 0x0139F0 04:99E0: 9C        .byte $9C, $9D, $9E, $9F, $A0
+                                        .byte $A1, $A2, $A3, $A4, $A5
 
 tbl_rooms_on_the_level1:
 - - - - - - 0x0139FA 04:99EA: 80        .byte $80   ; 

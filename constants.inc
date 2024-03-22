@@ -46,6 +46,7 @@ v_CE5A_counter                = ram_0005
 vTempCounterC                 = ram_000C
 vTempCounter10                = ram_0010
 v_cache_reg_y                 = ram_0011
+vTempCounter11                = ram_0011 ; Intermediate counter
 v_temp_check_buttons          = ram_0012 ; There is a variable that stores the checked state of the button
 v_temp_counter12              = ram_0012
 vCacheRam12                   = ram_0012 ;
@@ -244,7 +245,14 @@ v_start_level                 = ram_00B1 ; The start level [0-3]
 v_count_secret_hits           = ram_00B2 ; Stage select codes at the title screen
 v_lock_secret_hits            = ram_00B3 ; Allow button to be pressed only when other buttons aren't pressed
 v_offset_in_secret_codes      = ram_00B4
-v_corridor_magic5             = ram_00B7 ; 0x80 - secondary list, else main list
+vCurrentUniqueRoom            = ram_00B6
+; Byte: 00UU 00RR
+; UU - 0x01 for an unique room (NPC, briefcase, boss), else 0x00
+; RR - 0x01 - NPC room (use with UU), 0x02 - briefcase room (use with UU), 0x03 - room with the room
+
+v_corridor_magic5             = ram_00B7
+; 0x80 - secondary list, else main list
+; For main list and briefcase rooms - 5th-byte index in the briefcase indexes table
 v_corridor_magic5_cache       = ram_00B8
 
 vCheckpointAddr               = ram_00BA ; low address (address to table tbl_ptr_checkpoints_on_the_level)
@@ -317,6 +325,8 @@ v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, 039E - scree
 ; D0 - self item
 ; E0 - disallow briefcase
 
+vBriefcaseHitCount            = ram_03A5 ; number of shots the briefcase must receive before it collapses {$03A5, $03A6, $03A7, $03A8, $03A9}
+
 v_sound_counter               = ram_0406
 vSoundRowB_0                  = ram_0410 ; ???
 vSoundRowB_1                  = ram_0411 ; apu channel (0x00 - pulse 1, 0x01 - pulse 2, 0x02 - triangle, 0x03 - noise)
@@ -343,6 +353,7 @@ vRooms                        = ram_0500
 ; flag 0x80 - the room has already been visited
 
 vCachePalette                 = ram_0600 ; [ram_0600 - ram_061F]
+vNonUsed614                   = ram_0614 ; +ram_0615, ram_0616, ram_0617
 vLowPpuAddress                = ram_0630
 vHighPpuAddress               = ram_0631
 v_ppu_buffer_count            = ram_0632
@@ -353,6 +364,7 @@ vPpuAddrDataCache             = ram_067B ; [ram_067B - ram_06AC]
 ; next Nth byte - ppu data
 ; next repeat
 vCacheChrBankSelect           = ram_06AF ; [ram_06AF - ram_06B4]
+vNonUsed6B2                   = ram_06B2 ; !(WHY?), may be for debug
 vBankData                     = ram_06B5
 vChrBankData                  = ram_06B6
 v_sprite_magics               = ram_06B7
