@@ -17,10 +17,12 @@ wait10   = 0;
 --no        = 0x0079;
 --no        = 0x007A;
 --no        = 0x008F;
-no        = 0x00B6;
+--no        = 0x00B6;
 --no        = 0x00D1;
 --no        = 0x0214;
 --no        = 0x0215;
+no        = 0x0606;
+--no        = 0x060A;
 
 while (true) do
   value = memory.readbyte(no);

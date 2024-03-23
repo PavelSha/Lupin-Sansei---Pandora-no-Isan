@@ -155,7 +155,7 @@ C - - - - - 0x01C0C0 07:C0B0: 95 00     STA ram_0000,X                          
 C - - - - - 0x01C0C2 07:C0B2: E8        INX                                     ; increments loop counter
 C - - - - - 0x01C0C3 07:C0B3: E0 99     CPX #$99                                ;
 C - - - - - 0x01C0C5 07:C0B5: D0 F9     BNE @bra_C0B0_loop                      ; If Register X != 0x99
-loc_C0B7:
+loc_C0B7_character_is_selected:
 C D 2 - - - 0x01C0C7 07:C0B7: A9 00     LDA #$00                                ;
 C - - - - - 0x01C0C9 07:C0B9: 8D 15 40  STA APU_STATUS                          ; clear
 C - - - - - 0x01C0CC 07:C0BC: 20 19 C3  JSR sub_C319_fill_ppu                   ;
@@ -185,10 +185,10 @@ C - - - - - 0x01C0FD 07:C0ED: 20 57 DF  JSR sub_DF57_get_current_character      
 C - - - - - 0x01C100 07:C0F0: 8D B2 06  STA vNonUsed6B2                         ;
 C - - - - - 0x01C103 07:C0F3: EE B2 06  INC vNonUsed6B2                         ;
 C - - - - - 0x01C106 07:C0F6: 20 F8 E2  JSR sub_E2F8_garbage                    ;
-C - - - - - 0x01C109 07:C0F9: 20 F3 CD  JSR sub_CDF3
-C - - - - - 0x01C10C 07:C0FC: 20 ED C2  JSR sub_C2ED
+C - - - - - 0x01C109 07:C0F9: 20 F3 CD  JSR sub_CDF3_prepare_activable_items    ;
+C - - - - - 0x01C10C 07:C0FC: 20 ED C2  JSR sub_C2ED_prepare_character_in_water ;
 C - - - - - 0x01C10F 07:C0FF: 20 A4 BB  JSR sub_BBA4_play_background_music      ;
-C - - - - - 0x01C112 07:C102: 20 14 FC  JSR sub_FC14
+C - - - - - 0x01C112 07:C102: 20 14 FC  JSR sub_FC14_prepare_boss               ;
 C - - - - - 0x01C115 07:C105: A9 00     LDA #$00                                ;
 C - - - - - 0x01C117 07:C107: 85 3C     STA vGameLocks                          ; clear locks
 C - - - - - 0x01C119 07:C109: 20 0F C3  JSR sub_C30F_screen_on                  ;
@@ -203,7 +203,7 @@ C - - - - - 0x01C128 07:C118: A9 FF     LDA #$FF                  ;
 C - - - - - 0x01C12A 07:C11A: 85 33     STA vLowCutsceneCounter   ; Initializes a counter.
 C - - - - - 0x01C12C 07:C11C: A9 02     LDA #$02                  ;
 C - - - - - 0x01C12E 07:C11E: 85 34     STA vHighCutsceneCounter  ; Initializes a time of a demo scene.
-bra_C120_repeat:
+bra_C120_wait:
 C - - - - - 0x01C130 07:C120: 20 64 D0  JSR sub_D064_generate_rng ;
 C - - - - - 0x01C133 07:C123: A5 37     LDA vCutscenesMode        ;
 C - - - - - 0x01C135 07:C125: 10 08     BPL @bra_C12F_skip        ; Branch If in game
@@ -228,14 +228,14 @@ C - - - - - 0x01C142 07:C132: 30 14     BMI bra_C148_skip         ; If test mode
 bra_C148_skip:
 C - - - - - 0x01C158 07:C148: 24 39     BIT ram_0039
 C - - - - - 0x01C15A 07:C14A: 30 12     BMI bra_C15E
-C - - - - - 0x01C15C 07:C14C: A5 3B     LDA vSharedGameStatus
-C - - - - - 0x01C15E 07:C14E: 29 10     AND #$10
-C - - - - - 0x01C160 07:C150: F0 CE     BEQ bra_C120_repeat
+C - - - - - 0x01C15C 07:C14C: A5 3B     LDA vSharedGameStatus              ;
+C - - - - - 0x01C15E 07:C14E: 29 10     AND #$10                           ; CONSTANT - status 'Select the character'
+C - - - - - 0x01C160 07:C150: F0 CE     BEQ bra_C120_wait                  ; If vSharedGameStatus isn't contains 'Select the character'
 C - - - - - 0x01C162 07:C152: A9 80     LDA #$80                           ;
 C - - - - - 0x01C164 07:C154: 85 3C     STA vGameLocks                     ; CONSTANT - select a character (1)
 C - - - - - 0x01C166 07:C156: 85 D6     STA vReasonCharacterChange         ; CONSTANT - 'the radio was using'
-C - - - - - 0x01C168 07:C158: 20 72 C6  JSR sub_C672_wait_character_select
-C - - - - - 0x01C16B 07:C15B: 4C B7 C0  JMP loc_C0B7
+C - - - - - 0x01C168 07:C158: 20 72 C6  JSR sub_C672_wait_character_select ;
+C - - - - - 0x01C16B 07:C15B: 4C B7 C0  JMP loc_C0B7_character_is_selected ; 
 
 bra_C15E:
 C - - - - - 0x01C16E 07:C15E: 50 6E     BVC bra_C1CE
@@ -255,9 +255,7 @@ C - - - - - 0x01C187 07:C177: C9 02     CMP #$02
 C - - - - - 0x01C189 07:C179: D0 08     BNE bra_C183_skip
 C - - - - - 0x01C18B 07:C17B: 2C F6 FF  BIT Set_features
 C - - - - - 0x01C18E 07:C17E: 70 03     BVS bra_C183_skip
-- - - - - - 0x01C190 07:C180: 4C        .byte $4C
-- - - - - - 0x01C191 07:C181: 5B        .byte $5B
-- - - - - - 0x01C192 07:C182: C2        .byte $C2
+- - - - - - 0x01C190 07:C180: 4C 5B C2  JMP loc_C25B
 bra_C183_skip:
 C - - - - - 0x01C193 07:C183: CD 09 01  CMP v_last_level
 C - - - - - 0x01C196 07:C186: 90 03     BCC bra_C18B_skip
@@ -386,6 +384,7 @@ C - - - - - 0x01C263 07:C253: C9 40     CMP #$40
 C - - - - - 0x01C265 07:C255: 90 FA     BCC bra_C251
 C - - - - - 0x01C267 07:C257: A9 06     LDA #$06
 C - - - - - 0x01C269 07:C259: 85 24     STA vMenuDemoIndex
+loc_C25B:
 C - - - - - 0x01C26B 07:C25B: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C26E 07:C25E: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C271 07:C261: 20 0D B8  JSR $B80D
@@ -455,18 +454,18 @@ C - - - - - 0x01C2F5 07:C2E5: A9 00     LDA #$00
 C - - - - - 0x01C2F7 07:C2E7: 8D 09 01  STA v_last_level
 C - - - - - 0x01C2FA 07:C2EA: 4C 00 C0  JMP vec_C000_RESET
 
-sub_C2ED:
-C - - - - - 0x01C2FD 07:C2ED: A5 46     LDA ram_0046
-C - - - - - 0x01C2FF 07:C2EF: C9 24     CMP #$24
-C - - - - - 0x01C301 07:C2F1: 90 0B     BCC bra_C2FE_RTS
-C - - - - - 0x01C303 07:C2F3: C9 42     CMP #$42
-C - - - - - 0x01C305 07:C2F5: B0 07     BCS bra_C2FE_RTS
-C - - - - - 0x01C307 07:C2F7: A9 80     LDA #$80
-C - - - - - 0x01C309 07:C2F9: 85 6D     STA vMovableChrStatus
-C - - - - - 0x01C30B 07:C2FB: 4C DF CC  JMP loc_CCDF
+sub_C2ED_prepare_character_in_water:
+C - - - - - 0x01C2FD 07:C2ED: A5 46     LDA vNoSubLevel                        ;
+C - - - - - 0x01C2FF 07:C2EF: C9 24     CMP #$24                               ; CONSTANT - level 3.0 (water room)
+C - - - - - 0x01C301 07:C2F1: 90 0B     BCC bra_C2FE_RTS                       ; If vNoSubLevel < 0x24
+C - - - - - 0x01C303 07:C2F3: C9 42     CMP #$42                               ; CONSTANT - level 4, map 1 (B2-D2) (0x41 - water room)
+C - - - - - 0x01C305 07:C2F5: B0 07     BCS bra_C2FE_RTS                       ; If vNoSubLevel >= 0x42
+C - - - - - 0x01C307 07:C2F7: A9 80     LDA #$80                               ; CONSTANT - the character is moving in the water 
+C - - - - - 0x01C309 07:C2F9: 85 6D     STA vMovableChrStatus                  ;
+C - - - - - 0x01C30B 07:C2FB: 4C DF CC  JMP loc_CCDF_set_apparatus_counter_old ;
 
 bra_C2FE_RTS:
-C - - - - - 0x01C30E 07:C2FE: 60        RTS
+C - - - - - 0x01C30E 07:C2FE: 60        RTS                                    ;
 
 sub_C2FF_update_ppu_ctrl_with_nmi:
 C - - - - - 0x01C30F 07:C2FF: A5 26     LDA vPpuCtrlSettings ;
@@ -1957,7 +1956,7 @@ tbl_CC46:
 - - - - - - 0x01CC67 07:CC57: CD        .byte $CD
 C - - J - - 0x01CC68 07:CC58: A9 10     LDA #$10
 C - - - - - 0x01CC6A 07:CC5A: 85 3B     STA vSharedGameStatus
-C - - - - - 0x01CC6C 07:CC5C: 20 F3 CD  JSR sub_CDF3
+C - - - - - 0x01CC6C 07:CC5C: 20 F3 CD  JSR sub_CDF3_prepare_activable_items
 C - - - - - 0x01CC6F 07:CC5F: A9 11     LDA #$11
 C - - - - - 0x01CC71 07:CC61: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01CC74 07:CC64: 18        CLC
@@ -2031,15 +2030,15 @@ C - - - - - 0x01CCEA 07:CCDA: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01CCED 07:CCDD: 18        CLC
 C - - - - - 0x01CCEE 07:CCDE: 60        RTS
 
-loc_CCDF:
-C D 2 - - - 0x01CCEF 07:CCDF: A9 06     LDA #$06
-C - - - - - 0x01CCF1 07:CCE1: 8D B2 06  STA vNonUsed6B2
-C - - - - - 0x01CCF4 07:CCE4: A2 0C     LDX #$0C
-C - - - - - 0x01CCF6 07:CCE6: 20 FF E2  JSR sub_E2FF
-sub_CCE9:
-C - - - - - 0x01CCF9 07:CCE9: A2 08     LDX #$08
-C - - - - - 0x01CCFB 07:CCEB: 8E 16 02  STX vApparatusHighCounter
-C - - - - - 0x01CCFE 07:CCEE: 60        RTS
+loc_CCDF_set_apparatus_counter_old:
+C D 2 - - - 0x01CCEF 07:CCDF: A9 06     LDA #$06                   ;
+C - - - - - 0x01CCF1 07:CCE1: 8D B2 06  STA vNonUsed6B2            ;
+C - - - - - 0x01CCF4 07:CCE4: A2 0C     LDX #$0C                   ; prepare an input parameter
+C - - - - - 0x01CCF6 07:CCE6: 20 FF E2  JSR sub_E2FF_garbage       ;
+sub_CCE9_set_apparatus_counter:
+C - - - - - 0x01CCF9 07:CCE9: A2 08     LDX #$08                   ; CONSTANT Hc:Lc = 08:XX - time of the breathing apparatus
+C - - - - - 0x01CCFB 07:CCEB: 8E 16 02  STX vApparatusHighCounter  ; 
+C - - - - - 0x01CCFE 07:CCEE: 60        RTS                        ;
 
 sub_CCEF:
 C - - - - - 0x01CCFF 07:CCEF: A9 08     LDA #$08
@@ -2052,8 +2051,8 @@ C - - - - - 0x01CD0C 07:CCFC: 85 6D     STA vMovableChrStatus
 C - - - - - 0x01CD0E 07:CCFE: A5 6C     LDA ram_006C
 C - - - - - 0x01CD10 07:CD00: 29 81     AND #$81
 C - - - - - 0x01CD12 07:CD02: 85 6C     STA ram_006C
-C - - - - - 0x01CD14 07:CD04: A2 08     LDX #$08
-C - - - - - 0x01CD16 07:CD06: 8E 16 02  STX vApparatusHighCounter
+C - - - - - 0x01CD14 07:CD04: A2 08     LDX #$08                   ; CONSTANT Hc:Lc = 08:XX - time of the breathing apparatus
+C - - - - - 0x01CD16 07:CD06: 8E 16 02  STX vApparatusHighCounter  ;
 C - - - - - 0x01CD19 07:CD09: A2 06     LDX #$06
 C - - - - - 0x01CD1B 07:CD0B: D0 06     BNE bra_CD13
 sub_CD0D:
@@ -2169,7 +2168,7 @@ tbl_CDBE:
 bra_CDD0:
 C - - - - - 0x01CDE0 07:CDD0: AD 05 02  LDA v_breathing_apparatus_item
 C - - - - - 0x01CDE3 07:CDD3: F0 08     BEQ bra_CDDD
-C - - - - - 0x01CDE5 07:CDD5: 20 E9 CC  JSR sub_CCE9
+C - - - - - 0x01CDE5 07:CDD5: 20 E9 CC  JSR sub_CCE9_set_apparatus_counter
 C - - - - - 0x01CDE8 07:CDD8: A2 05     LDX #$05
 C - - - - - 0x01CDEA 07:CDDA: 4C 13 CD  JMP loc_CD13_use_item
 
@@ -2193,27 +2192,27 @@ bra_CDDD:
 bra_CDED_RTS:
 C - - - - - 0x01CDFD 07:CDED: 60        RTS ;
 
-sub_CDEE:
-C - - - - - 0x01CDFE 07:CDEE: A9 01     LDA #$01
-C - - - - - 0x01CE00 07:CDF0: 8D B2 06  STA vNonUsed6B2
-sub_CDF3:
-loc_CDF3:
-C D 2 - - - 0x01CE03 07:CDF3: AD 14 02  LDA vCurrentWeaponStatus
-C - - - - - 0x01CE06 07:CDF6: 29 BF     AND #$BF
-C - - - - - 0x01CE08 07:CDF8: 8D 14 02  STA vCurrentWeaponStatus
-C - - - - - 0x01CE0B 07:CDFB: A9 00     LDA #$00
-C - - - - - 0x01CE0D 07:CDFD: 8D 15 02  STA vApparatusLowCounter
-C - - - - - 0x01CE10 07:CE00: 8D 16 02  STA vApparatusHighCounter
-C - - - - - 0x01CE13 07:CE03: A2 04     LDX #$04
-@bra_CE05_loop:
-C - - - - - 0x01CE15 07:CE05: BD 00 02  LDA v_items,X
-C - - - - - 0x01CE18 07:CE08: D0 08     BNE bra_CE12_RTS
-C - - - - - 0x01CE1A 07:CE0A: CA        DEX
-C - - - - - 0x01CE1B 07:CE0B: 10 F8     BPL @bra_CE05_loop
-C - - - - - 0x01CE1D 07:CE0D: A9 80     LDA #$80
-C - - - - - 0x01CE1F 07:CE0F: 8D 14 02  STA vCurrentWeaponStatus
+sub_CDEE_prepare_activable_items_old:
+C - - - - - 0x01CDFE 07:CDEE: A9 01     LDA #$01                  ;
+C - - - - - 0x01CE00 07:CDF0: 8D B2 06  STA vNonUsed6B2           ;
+sub_CDF3_prepare_activable_items:
+loc_CDF3_prepare_activable_items:
+C D 2 - - - 0x01CE03 07:CDF3: AD 14 02  LDA vCurrentWeaponStatus  ;
+C - - - - - 0x01CE06 07:CDF6: 29 BF     AND #$BF                  ;
+C - - - - - 0x01CE08 07:CDF8: 8D 14 02  STA vCurrentWeaponStatus  ; we make weapon inactive
+C - - - - - 0x01CE0B 07:CDFB: A9 00     LDA #$00                  ;
+C - - - - - 0x01CE0D 07:CDFD: 8D 15 02  STA vApparatusLowCounter  ;
+C - - - - - 0x01CE10 07:CE00: 8D 16 02  STA vApparatusHighCounter ; clear
+C - - - - - 0x01CE13 07:CE03: A2 04     LDX #$04                  ; set loop counter 
+@bra_CE05_loop:                                                   ; loop by x (5 times)
+C - - - - - 0x01CE15 07:CE05: BD 00 02  LDA v_items,X             ;
+C - - - - - 0x01CE18 07:CE08: D0 08     BNE bra_CE12_RTS          ; If some item is exist
+C - - - - - 0x01CE1A 07:CE0A: CA        DEX                       ; decrement loop counter
+C - - - - - 0x01CE1B 07:CE0B: 10 F8     BPL @bra_CE05_loop        ; If Register X < 0xF0
+C - - - - - 0x01CE1D 07:CE0D: A9 80     LDA #$80                  ; CONSTANT - the weapons are not exist
+C - - - - - 0x01CE1F 07:CE0F: 8D 14 02  STA vCurrentWeaponStatus  ;
 bra_CE12_RTS:
-C - - - - - 0x01CE22 07:CE12: 60        RTS
+C - - - - - 0x01CE22 07:CE12: 60        RTS                       ;
 
 ; see https://www.nesdev.org/wiki/PPU_OAM#Sprite_0_hits
 sub_CE13_set_sprite_zero_hits:
@@ -3411,7 +3410,7 @@ C - - - - - 0x01D592 07:D582: A9 60     LDA #$60
 C - - - - - 0x01D594 07:D584: 85 2E     STA vCorridorCounter
 C - - - - - 0x01D596 07:D586: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01D598 07:D588: 30 11     BMI bra_D59B
-C - - - - - 0x01D59A 07:D58A: 20 EE CD  JSR sub_CDEE
+C - - - - - 0x01D59A 07:D58A: 20 EE CD  JSR sub_CDEE_prepare_activable_items_old
 C - - - - - 0x01D59D 07:D58D: AD 07 02  LDA v_bullet_proof_vest_item
 C - - - - - 0x01D5A0 07:D590: F0 09     BEQ bra_D59B
 C - - - - - 0x01D5A2 07:D592: A5 3A     LDA ram_003A
@@ -4245,7 +4244,7 @@ bra_DA85:
 C - - - - - 0x01DA95 07:DA85: 20 9F DA  JSR sub_DA9F
 C - - - - - 0x01DA98 07:DA88: A9 00     LDA #$00
 C - - - - - 0x01DA9A 07:DA8A: 9D 9E 03  STA ram_039E,X
-C - - - - - 0x01DA9D 07:DA8D: 4C F3 CD  JMP loc_CDF3
+C - - - - - 0x01DA9D 07:DA8D: 4C F3 CD  JMP loc_CDF3_prepare_activable_items
 
 sub_DA90:
 C - - - - - 0x01DAA0 07:DA90: 29 04     AND #$04
@@ -4335,16 +4334,16 @@ tbl_DAC5:
 - D 2 - - - 0x01DB03 07:DAF3: FF        .byte $FF
 sub_DAF4_character_subroutine:
 C - - - - - 0x01DB04 07:DAF4: 20 A6 E2  JSR sub_E2A6_test_feature_smth
-C - - - - - 0x01DB07 07:DAF7: A9 00     LDA #$00
-C - - - - - 0x01DB09 07:DAF9: 85 48     STA vScrollDirection
-C - - - - - 0x01DB0B 07:DAFB: 85 79     STA vChrLandStatus
-C - - - - - 0x01DB0D 07:DAFD: A5 46     LDA ram_0046
-C - - - - - 0x01DB0F 07:DAFF: D0 0C     BNE bra_DB0D
-C - - - - - 0x01DB11 07:DB01: 20 0E E3  JSR sub_E30E
-C - - - - - 0x01DB14 07:DB04: A5 6D     LDA vMovableChrStatus
-C - - - - - 0x01DB16 07:DB06: 29 20     AND #$20
-C - - - - - 0x01DB18 07:DB08: F0 0A     BEQ bra_DB14_skip
-C - - - - - 0x01DB1A 07:DB0A: 4C 10 E8  JMP loc_E810
+C - - - - - 0x01DB07 07:DAF7: A9 00     LDA #$00                          ; 
+C - - - - - 0x01DB09 07:DAF9: 85 48     STA vScrollDirection              ; none (see vScrollDirection)
+C - - - - - 0x01DB0B 07:DAFB: 85 79     STA vChrLandStatus                ; set 'the character is in the air'
+C - - - - - 0x01DB0D 07:DAFD: A5 46     LDA vNoSubLevel                   ;
+C - - - - - 0x01DB0F 07:DAFF: D0 0C     BNE bra_DB0D                      ; If vNoSubLevel != 0x00 (level 1.0)
+C - - - - - 0x01DB11 07:DB01: 20 0E E3  JSR sub_E30E_fix_colors_in_level1 ;
+C - - - - - 0x01DB14 07:DB04: A5 6D     LDA vMovableChrStatus             ;
+C - - - - - 0x01DB16 07:DB06: 29 20     AND #$20                          ; CONSTANT - the character is moving on the roof pitch
+C - - - - - 0x01DB18 07:DB08: F0 0A     BEQ bra_DB14_skip                 ; If vMovableChrStatus doesn't contains 0x02
+C - - - - - 0x01DB1A 07:DB0A: 4C 10 E8  JMP loc_E810_on_the_roof_pitch
 
 bra_DB0D:
 C - - - - - 0x01DB1D 07:DB0D: C9 19     CMP #$19
@@ -4352,9 +4351,9 @@ C - - - - - 0x01DB1F 07:DB0F: D0 03     BNE bra_DB14_skip
 C - - - - - 0x01DB21 07:DB11: 4C DA E8  JMP loc_E8DA
 
 bra_DB14_skip:
-C - - - - - 0x01DB24 07:DB14: 24 6D     BIT vMovableChrStatus
-C - - - - - 0x01DB26 07:DB16: 10 03     BPL bra_DB1B_skip
-C - - - - - 0x01DB28 07:DB18: 4C BB E3  JMP loc_E3BB
+C - - - - - 0x01DB24 07:DB14: 24 6D     BIT vMovableChrStatus      ;
+C - - - - - 0x01DB26 07:DB16: 10 03     BPL bra_DB1B_skip          ; If the character isn't moving in the water
+C - - - - - 0x01DB28 07:DB18: 4C BB E3  JMP loc_E3BB_in_the_water
 
 bra_DB1B_skip:
 C - - - - - 0x01DB2B 07:DB1B: 50 03     BVC bra_DB20_skip
@@ -4418,7 +4417,7 @@ C - - - - - 0x01DB7F 07:DB6F: F0 2C     BEQ bra_DB9D_skip        ; If vCurrentWe
 C - - - - - 0x01DB81 07:DB71: A9 10     LDA #BIT_BUTTON_Up              ;
 C - - - - - 0x01DB83 07:DB73: 20 79 D0  JSR sub_D079_check_button_press ;
 C - - - - - 0x01DB86 07:DB76: F0 1B     BEQ bra_DB93_skip               ; Go to the branch If the button 'Up' isn't pressed
-C - - - - - 0x01DB88 07:DB78: 20 28 FC  JSR sub_FC28
+C - - - - - 0x01DB88 07:DB78: 20 28 FC  JSR sub_FC28_in_room_with_boss
 C - - - - - 0x01DB8B 07:DB7B: B0 16     BCS bra_DB93_skip
 C - - - - - 0x01DB8D 07:DB7D: 20 1A F9  JSR sub_F91A
 C - - - - - 0x01DB90 07:DB80: 90 11     BCC bra_DB93_skip
@@ -5014,7 +5013,7 @@ C - - - - - 0x01DF2F 07:DF1F: D0 10     BNE bra_DF31
 C - - - - - 0x01DF31 07:DF21: AD 06 02  LDA v_helium_balloon_item
 C - - - - - 0x01DF34 07:DF24: F0 0B     BEQ bra_DF31
 bra_DF26:
-C - - - - - 0x01DF36 07:DF26: 20 F3 CD  JSR sub_CDF3
+C - - - - - 0x01DF36 07:DF26: 20 F3 CD  JSR sub_CDF3_prepare_activable_items
 C - - - - - 0x01DF39 07:DF29: 20 EF CC  JSR sub_CCEF
 C - - - - - 0x01DF3C 07:DF2C: A2 00     LDX #$00
 C - - - - - 0x01DF3E 07:DF2E: 4C C2 DB  JMP loc_DBC2
@@ -5605,101 +5604,54 @@ C - - - - - 0x01E2A6 07:E296: C6 78     DEC ram_0078
 bra_E298_RTS:
 C - - - - - 0x01E2A8 07:E298: 60        RTS
 
-- - - - - - 0x01E2A9 07:E299: 85        .byte $85
-- - - - - - 0x01E2AA 07:E29A: 12        .byte $12
-- - - - - - 0x01E2AB 07:E29B: A5        .byte $A5
-- - - - - - 0x01E2AC 07:E29C: 1F        .byte $1F
-- - - - - - 0x01E2AD 07:E29D: 25        .byte $25
-- - - - - - 0x01E2AE 07:E29E: 12        .byte $12
-- - - - - - 0x01E2AF 07:E29F: F0        .byte $F0
-- - - - - - 0x01E2B0 07:E2A0: 04        .byte $04
-- - - - - - 0x01E2B1 07:E2A1: 45        .byte $45
-- - - - - - 0x01E2B2 07:E2A2: 20        .byte $20
-- - - - - - 0x01E2B3 07:E2A3: 25        .byte $25
-- - - - - - 0x01E2B4 07:E2A4: 12        .byte $12
-- - - - - - 0x01E2B5 07:E2A5: 60        .byte $60
+sub_E299:
+- - - - - - 0x01E2A9 07:E299: 85 12     STA ram_0012
+- - - - - - 0x01E2AB 07:E29B: A5 1F     LDA ram_001F
+- - - - - - 0x01E2AD 07:E29D: 25 12     AND ram_0012
+- - - - - - 0x01E2AF 07:E29F: F0 04     BEQ bra_E2A5_RTS
+- - - - - - 0x01E2B1 07:E2A1: 45 20     EOR ram_0020
+- - - - - - 0x01E2B3 07:E2A3: 25 12     AND ram_0012
+bra_E2A5_RTS:
+- - - - - - 0x01E2B5 07:E2A5: 60        RTS
 
 sub_E2A6_test_feature_smth:
-C - - - - - 0x01E2B6 07:E2A6: AD F6 FF  LDA Set_features
-C - - - - - 0x01E2B9 07:E2A9: 30 4C     BMI bra_E2F7_RTS
-- - - - - - 0x01E2BB 07:E2AB: A5        .byte $A5
-- - - - - - 0x01E2BC 07:E2AC: 3B        .byte $3B
-- - - - - - 0x01E2BD 07:E2AD: 6A        .byte $6A
-- - - - - - 0x01E2BE 07:E2AE: B0        .byte $B0
-- - - - - - 0x01E2BF 07:E2AF: 47        .byte $47
-- - - - - - 0x01E2C0 07:E2B0: A9        .byte $A9
-- - - - - - 0x01E2C1 07:E2B1: 80        .byte $80
-- - - - - - 0x01E2C2 07:E2B2: 20        .byte $20
-- - - - - - 0x01E2C3 07:E2B3: 99        .byte $99
-- - - - - - 0x01E2C4 07:E2B4: E2        .byte $E2
-- - - - - - 0x01E2C5 07:E2B5: F0        .byte $F0
-- - - - - - 0x01E2C6 07:E2B6: 0F        .byte $0F
-- - - - - - 0x01E2C7 07:E2B7: EE        .byte $EE
-- - - - - - 0x01E2C8 07:E2B8: 09        .byte $09
-- - - - - - 0x01E2C9 07:E2B9: 02        .byte $02
-- - - - - - 0x01E2CA 07:E2BA: AD        .byte $AD
-- - - - - - 0x01E2CB 07:E2BB: 09        .byte $09
-- - - - - - 0x01E2CC 07:E2BC: 02        .byte $02
-- - - - - - 0x01E2CD 07:E2BD: C9        .byte $C9
-- - - - - - 0x01E2CE 07:E2BE: 09        .byte $09
-- - - - - - 0x01E2CF 07:E2BF: 90        .byte $90
-- - - - - - 0x01E2D0 07:E2C0: 05        .byte $05
-- - - - - - 0x01E2D1 07:E2C1: A9        .byte $A9
-- - - - - - 0x01E2D2 07:E2C2: 00        .byte $00
-- - - - - - 0x01E2D3 07:E2C3: 8D        .byte $8D
-- - - - - - 0x01E2D4 07:E2C4: 09        .byte $09
-- - - - - - 0x01E2D5 07:E2C5: 02        .byte $02
-- - - - - - 0x01E2D6 07:E2C6: A9        .byte $A9
-- - - - - - 0x01E2D7 07:E2C7: 01        .byte $01
-- - - - - - 0x01E2D8 07:E2C8: 20        .byte $20
-- - - - - - 0x01E2D9 07:E2C9: 99        .byte $99
-- - - - - - 0x01E2DA 07:E2CA: E2        .byte $E2
-- - - - - - 0x01E2DB 07:E2CB: F0        .byte $F0
-- - - - - - 0x01E2DC 07:E2CC: 12        .byte $12
-- - - - - - 0x01E2DD 07:E2CD: AE        .byte $AE
-- - - - - - 0x01E2DE 07:E2CE: 09        .byte $09
-- - - - - - 0x01E2DF 07:E2CF: 02        .byte $02
-- - - - - - 0x01E2E0 07:E2D0: FE        .byte $FE
-- - - - - - 0x01E2E1 07:E2D1: 00        .byte $00
-- - - - - - 0x01E2E2 07:E2D2: 02        .byte $02
-- - - - - - 0x01E2E3 07:E2D3: E0        .byte $E0
-- - - - - - 0x01E2E4 07:E2D4: 05        .byte $05
-- - - - - - 0x01E2E5 07:E2D5: B0        .byte $B0
-- - - - - - 0x01E2E6 07:E2D6: 08        .byte $08
-- - - - - - 0x01E2E7 07:E2D7: AD        .byte $AD
-- - - - - - 0x01E2E8 07:E2D8: 14        .byte $14
-- - - - - - 0x01E2E9 07:E2D9: 02        .byte $02
-- - - - - - 0x01E2EA 07:E2DA: 29        .byte $29
-- - - - - - 0x01E2EB 07:E2DB: 7F        .byte $7F
-- - - - - - 0x01E2EC 07:E2DC: 8D        .byte $8D
-- - - - - - 0x01E2ED 07:E2DD: 14        .byte $14
-- - - - - - 0x01E2EE 07:E2DE: 02        .byte $02
-- - - - - - 0x01E2EF 07:E2DF: A9        .byte $A9
-- - - - - - 0x01E2F0 07:E2E0: 27        .byte $27
-- - - - - - 0x01E2F1 07:E2E1: 8D        .byte $8D
-- - - - - - 0x01E2F2 07:E2E2: EC        .byte $EC
-- - - - - - 0x01E2F3 07:E2E3: 07        .byte $07
-- - - - - - 0x01E2F4 07:E2E4: A9        .byte $A9
-- - - - - - 0x01E2F5 07:E2E5: 3F        .byte $3F
-- - - - - - 0x01E2F6 07:E2E6: 8D        .byte $8D
-- - - - - - 0x01E2F7 07:E2E7: ED        .byte $ED
-- - - - - - 0x01E2F8 07:E2E8: 07        .byte $07
-- - - - - - 0x01E2F9 07:E2E9: A9        .byte $A9
-- - - - - - 0x01E2FA 07:E2EA: 00        .byte $00
-- - - - - - 0x01E2FB 07:E2EB: 8D        .byte $8D
-- - - - - - 0x01E2FC 07:E2EC: EE        .byte $EE
-- - - - - - 0x01E2FD 07:E2ED: 07        .byte $07
-- - - - - - 0x01E2FE 07:E2EE: AE        .byte $AE
-- - - - - - 0x01E2FF 07:E2EF: 09        .byte $09
-- - - - - - 0x01E300 07:E2F0: 02        .byte $02
-- - - - - - 0x01E301 07:E2F1: BD        .byte $BD
-- - - - - - 0x01E302 07:E2F2: 20        .byte $20
-- - - - - - 0x01E303 07:E2F3: CB        .byte $CB
-- - - - - - 0x01E304 07:E2F4: 8D        .byte $8D
-- - - - - - 0x01E305 07:E2F5: EF        .byte $EF
-- - - - - - 0x01E306 07:E2F6: 07        .byte $07
+C - - - - - 0x01E2B6 07:E2A6: AD F6 FF  LDA Set_features   ;
+C - - - - - 0x01E2B9 07:E2A9: 30 4C     BMI bra_E2F7_RTS   ; If test mode is disabled
+- - - - - - 0x01E2BB 07:E2AB: A5 3B     LDA ram_003B
+- - - - - - 0x01E2BD 07:E2AD: 6A        ROR
+- - - - - - 0x01E2BE 07:E2AE: B0 47     BCS bra_E2F7_RTS
+- - - - - - 0x01E2C0 07:E2B0: A9 80     LDA #$80
+- - - - - - 0x01E2C2 07:E2B2: 20 99 E2  JSR sub_E299
+- - - - - - 0x01E2C5 07:E2B5: F0 0F     BEQ bra_E2C6
+- - - - - - 0x01E2C7 07:E2B7: EE 09 02  INC ram_0209
+- - - - - - 0x01E2CA 07:E2BA: AD 09 02  LDA ram_0209
+- - - - - - 0x01E2CD 07:E2BD: C9 09     CMP #$09
+- - - - - - 0x01E2CF 07:E2BF: 90 05     BCC bra_E2C6
+- - - - - - 0x01E2D1 07:E2C1: A9 00     LDA #$00
+- - - - - - 0x01E2D3 07:E2C3: 8D 09 02  STA ram_0209
+bra_E2C6:
+- - - - - - 0x01E2D6 07:E2C6: A9 01     LDA #$01
+- - - - - - 0x01E2D8 07:E2C8: 20 99 E2  JSR sub_E299
+- - - - - - 0x01E2DB 07:E2CB: F0 12     BEQ bra_E2DF
+- - - - - - 0x01E2DD 07:E2CD: AE 09 02  LDX ram_0209
+- - - - - - 0x01E2E0 07:E2D0: FE 00 02  INC ram_0200,X
+- - - - - - 0x01E2E3 07:E2D3: E0 05     CPX #$05
+- - - - - - 0x01E2E5 07:E2D5: B0 08     BCS bra_E2DF
+- - - - - - 0x01E2E7 07:E2D7: AD 14 02  LDA ram_0214
+- - - - - - 0x01E2EA 07:E2DA: 29 7F     AND #$7F
+- - - - - - 0x01E2EC 07:E2DC: 8D 14 02  STA ram_0214
+bra_E2DF:
+- - - - - - 0x01E2EF 07:E2DF: A9 27     LDA #$27
+- - - - - - 0x01E2F1 07:E2E1: 8D EC 07  STA ram_07EC
+- - - - - - 0x01E2F4 07:E2E4: A9 3F     LDA #$3F
+- - - - - - 0x01E2F6 07:E2E6: 8D ED 07  STA ram_07ED
+- - - - - - 0x01E2F9 07:E2E9: A9 00     LDA #$00
+- - - - - - 0x01E2FB 07:E2EB: 8D EE 07  STA ram_07EE
+- - - - - - 0x01E2FE 07:E2EE: AE 09 02  LDX ram_0209
+- - - - - - 0x01E301 07:E2F1: BD 20 CB  LDA tbl_CB20,X
+- - - - - - 0x01E304 07:E2F4: 8D EF 07  STA ram_07EF
 bra_E2F7_RTS:
-C - - - - - 0x01E307 07:E2F7: 60        RTS
+C - - - - - 0x01E307 07:E2F7: 60        RTS                ;
 
 sub_E2F8_garbage:
 C - - - - - 0x01E308 07:E2F8: A5 5F     LDA vChrLiveStatus     ;
@@ -5708,7 +5660,7 @@ C - - - - - 0x01E30C 07:E2FC: 0A        ASL                    ;
 C - - - - - 0x01E30D 07:E2FD: 0A        ASL                    ; *4 
 C - - - - - 0x01E30E 07:E2FE: AA        TAX                    ; X <~ {0x00, 0x04, 0x08}
 ; In: Register X - an offset in the table
-sub_E2FF:
+sub_E2FF_garbage:
 C - - - - - 0x01E30F 07:E2FF: A0 01     LDY #$01               ; set loop counter
 @bra_E301_loop:                                                ; loop by y
 C - - - - - 0x01E311 07:E301: BD A6 E3  LDA tbl_E3A6_unkhown,X ;
@@ -5719,25 +5671,25 @@ C - - - - - 0x01E319 07:E309: C0 04     CPY #$04               ;
 C - - - - - 0x01E31B 07:E30B: D0 F4     BNE @bra_E301_loop     ; If Register Y != 0x04
 C - - - - - 0x01E31D 07:E30D: 60        RTS                    ;
 
-sub_E30E:
-C - - - - - 0x01E31E 07:E30E: A2 00     LDX #$00
-C - - - - - 0x01E320 07:E310: A5 27     LDA ram_0027
-C - - - - - 0x01E322 07:E312: 38        SEC
-C - - - - - 0x01E323 07:E313: E9 80     SBC #$80
-C - - - - - 0x01E325 07:E315: A5 4B     LDA ram_004B
-C - - - - - 0x01E327 07:E317: E9 03     SBC #$03
-C - - - - - 0x01E329 07:E319: 90 0A     BCC bra_E325
-C - - - - - 0x01E32B 07:E31B: A2 02     LDX #$02
-C - - - - - 0x01E32D 07:E31D: A5 4B     LDA ram_004B
-C - - - - - 0x01E32F 07:E31F: C9 0D     CMP #$0D
-C - - - - - 0x01E331 07:E321: 90 02     BCC bra_E325
-C - - - - - 0x01E333 07:E323: A2 04     LDX #$04
-bra_E325:
-C - - - - - 0x01E335 07:E325: BD B5 E3  LDA tbl_E3B5,X
-C - - - - - 0x01E338 07:E328: 8D 06 06  STA ram_0606
-C - - - - - 0x01E33B 07:E32B: BD B6 E3  LDA tbl_E3B6,X
-C - - - - - 0x01E33E 07:E32E: 8D 0A 06  STA ram_060A
-C - - - - - 0x01E341 07:E331: 60        RTS
+sub_E30E_fix_colors_in_level1:
+C - - - - - 0x01E31E 07:E30E: A2 00     LDX #$00                     ; 1 of 3 colors
+C - - - - - 0x01E320 07:E310: A5 27     LDA vLowViewPortPosX         ;
+C - - - - - 0x01E322 07:E312: 38        SEC                          ;
+C - - - - - 0x01E323 07:E313: E9 80     SBC #$80                     ;
+C - - - - - 0x01E325 07:E315: A5 4B     LDA vHighViewPortPosX        ;
+C - - - - - 0x01E327 07:E317: E9 03     SBC #$03                     ;
+C - - - - - 0x01E329 07:E319: 90 0A     BCC @bra_E325_change_colors  ; If Hp:Lp < 0x03:0x80
+C - - - - - 0x01E32B 07:E31B: A2 02     LDX #$02                     ; 2 of 3 colors
+C - - - - - 0x01E32D 07:E31D: A5 4B     LDA vHighViewPortPosX        ;
+C - - - - - 0x01E32F 07:E31F: C9 0D     CMP #$0D                     ;
+C - - - - - 0x01E331 07:E321: 90 02     BCC @bra_E325_change_colors  ; If vHighViewPortPosX < 0x0D
+C - - - - - 0x01E333 07:E323: A2 04     LDX #$04                     ; 3 of 3 colors
+@bra_E325_change_colors:
+C - - - - - 0x01E335 07:E325: BD B5 E3  LDA tbl_E3B5_colors,X        ;
+C - - - - - 0x01E338 07:E328: 8D 06 06  STA vCachePalette + 6        ;
+C - - - - - 0x01E33B 07:E32B: BD B6 E3  LDA tbl_E3B5_colors + 1,X    ;
+C - - - - - 0x01E33E 07:E32E: 8D 0A 06  STA vCachePalette + 10       ; 
+C - - - - - 0x01E341 07:E331: 60        RTS                          ;
 
 bra_E332:
 sub_E332:
@@ -5818,17 +5770,14 @@ tbl_E3A6_unkhown:
 - D 3 - - - 0x01E3B6 07:E3A6: 37        .byte $37, $2A, $0F, $0F ; Lupin
 - D 3 - - - 0x01E3BA 07:E3AA: 37        .byte $37, $22, $0F, $0F ; Jigen
 - D 3 - - - 0x01E3BE 07:E3AE: 37        .byte $37, $10, $0F, $0F ; Goemon
-- D 3 - - - 0x01E3C2 07:E3B2: 36        .byte $36, $1C, $0F      ; ???, broken
+- D 3 - - - 0x01E3C2 07:E3B2: 36        .byte $36, $1C, $0F      ; Lupin in the water (broken)
 
-tbl_E3B5:
-- D 3 - - - 0x01E3C5 07:E3B5: 06        .byte $06
-tbl_E3B6:
-- D 3 - - - 0x01E3C6 07:E3B6: 00        .byte $00
-- D 3 - - - 0x01E3C7 07:E3B7: 06        .byte $06
-- D 3 - - - 0x01E3C8 07:E3B8: 17        .byte $17
-- D 3 - - - 0x01E3C9 07:E3B9: 17        .byte $17
-- D 3 - - - 0x01E3CA 07:E3BA: 17        .byte $17
-loc_E3BB:
+tbl_E3B5_colors:
+- D 3 - - - 0x01E3C5 07:E3B5: 06        .byte $06, $00
+- D 3 - - - 0x01E3C7 07:E3B7: 06        .byte $06, $17
+- D 3 - - - 0x01E3C9 07:E3B9: 17        .byte $17, $17
+
+loc_E3BB_in_the_water:
 C D 3 - - - 0x01E3CB 07:E3BB: A9 03     LDA #$03
 C - - - - - 0x01E3CD 07:E3BD: 85 3E     STA ram_003E
 C - - - - - 0x01E3CF 07:E3BF: A5 6C     LDA ram_006C
@@ -6216,7 +6165,7 @@ C - - - - - 0x01E63E 07:E62E: 29 08     AND #$08
 C - - - - - 0x01E640 07:E630: F0 06     BEQ bra_E638
 bra_E632:
 loc_E632:
-C D 3 - - - 0x01E642 07:E632: 20 EE CD  JSR sub_CDEE
+C D 3 - - - 0x01E642 07:E632: 20 EE CD  JSR sub_CDEE_prepare_activable_items_old
 C - - - - - 0x01E645 07:E635: 4C 4B DB  JMP loc_DB4B
 
 bra_E638:
@@ -6511,7 +6460,7 @@ C - - - - - 0x01E819 07:E809: A9 1C     LDA #$1C
 C - - - - - 0x01E81B 07:E80B: A0 03     LDY #$03
 C - - - - - 0x01E81D 07:E80D: 4C 9D DD  JMP loc_DD9D
 
-loc_E810:
+loc_E810_on_the_roof_pitch:
 C D 3 - - - 0x01E820 07:E810: 20 8A E7  JSR sub_E78A_has_roof_pitch
 C - - - - - 0x01E823 07:E813: 90 F1     BCC bra_E806
 C - - - - - 0x01E825 07:E815: A5 2C     LDA v_low_counter
@@ -7382,16 +7331,16 @@ C - - - - - 0x01ED9F 07:ED8F: 70 FB     BVS @bra_ED8C_wait                      
 @bra_ED91_wait:
 C - - - - - 0x01EDA1 07:ED91: 2C 02 20  BIT PPU_STATUS                           ;
 C - - - - - 0x01EDA4 07:ED94: 50 FB     BVC @bra_ED91_wait                       ; checking a sprite 0 hits
-C - - - - - 0x01EDA6 07:ED96: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
+C - - - - - 0x01EDA6 07:ED96: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks           ;
 C - - - - - 0x01EDA9 07:ED99: 20 C6 C3  JSR sub_C3C6
-C - - - - - 0x01EDAC 07:ED9C: A5 19     LDA vRenderActive      ;
-C - - - - - 0x01EDAE 07:ED9E: D0 68     BNE bra_EE08_skip      ; Branch If the render isn't activated
-C - - - - - 0x01EDB0 07:EDA0: E6 19     INC vRenderActive      ; Making rendering temporarily deactivate
-C - - - - - 0x01EDB2 07:EDA2: 24 3B     BIT vSharedGameStatus  ; If status is 'Pause in the game'
-C - - - - - 0x01EDB4 07:EDA4: 70 35     BVS bra_EDDB_pause     ;
-C - - - - - 0x01EDB6 07:EDA6: A5 3B     LDA vSharedGameStatus
-C - - - - - 0x01EDB8 07:EDA8: 29 20     AND #$20
-C - - - - - 0x01EDBA 07:EDAA: D0 69     BNE bra_EE15
+C - - - - - 0x01EDAC 07:ED9C: A5 19     LDA vRenderActive                  ;
+C - - - - - 0x01EDAE 07:ED9E: D0 68     BNE bra_EE08_skip                  ; Branch If the render isn't activated
+C - - - - - 0x01EDB0 07:EDA0: E6 19     INC vRenderActive                  ; Making rendering temporarily deactivate
+C - - - - - 0x01EDB2 07:EDA2: 24 3B     BIT vSharedGameStatus              ;
+C - - - - - 0x01EDB4 07:EDA4: 70 35     BVS bra_EDDB_pause                 ; If status is 'Pause in the game'
+C - - - - - 0x01EDB6 07:EDA6: A5 3B     LDA vSharedGameStatus              ;
+C - - - - - 0x01EDB8 07:EDA8: 29 20     AND #$20                           ; CONSTANT - status 'Not used'
+C - - - - - 0x01EDBA 07:EDAA: D0 69     BNE bra_EE15_skip                  ; !(WHY?), it will never follow this branch
 C - - - - - 0x01EDBC 07:EDAC: 20 58 C3  JSR sub_C358_clear_OAM             ;
 C - - - - - 0x01EDBF 07:EDAF: 20 13 CE  JSR sub_CE13_set_sprite_zero_hits  ;
 C - - - - - 0x01EDC2 07:EDB2: 20 F4 DA  JSR sub_DAF4_character_subroutine  ;
@@ -7446,7 +7395,7 @@ C - - - - - 0x01EE1D 07:EE0D: D0 F3     BNE bra_EE02_nmi_finish       ; Always t
 bra_EE0F_nmi_last_cutscene:
 C - - - - - 0x01EE1F 07:EE0F: 20 FE B5  JSR $B5FE ; to sub_B5FE (bank 06_2)
 C - - - - - 0x01EE22 07:EE12: 20 6C C4  JSR sub_C46C_simulate_presses_in_demo ;
-bra_EE15:
+bra_EE15_skip:
 C - - - - - 0x01EE25 07:EE15: 20 7B EF  JSR sub_EF7B_shift_all_counters       ;
 C - - - - - 0x01EE28 07:EE18: 4C E7 ED  JMP loc_EDE7_nmi_prefinish            ;
 
@@ -7726,7 +7675,7 @@ C - - - - - 0x01F01A 07:F00A: 10 0C     BPL @bra_F018_clear_enemy           ; If
 C - - - - - 0x01F01C 07:F00C: AC 00 03  LDY vEnemyA                         ;
 C - - - - - 0x01F01F 07:F00F: C0 0C     CPY #$0C                            ; CONSTANT - The lift
 C - - - - - 0x01F021 07:F011: F0 10     BEQ @bra_F023_next_enemies          ; If vEnemyA == 0x0C
-C - - - - - 0x01F023 07:F013: 20 28 FC  JSR sub_FC28
+C - - - - - 0x01F023 07:F013: 20 28 FC  JSR sub_FC28_in_room_with_boss
 C - - - - - 0x01F026 07:F016: B0 0B     BCS @bra_F023_next_enemies
 @bra_F018_clear_enemy:
 C - - - - - 0x01F028 07:F018: A9 00     LDA #$00                            ;
@@ -9495,18 +9444,19 @@ C - - - - - 0x01FC1F 07:FC0F: A5 47     LDA vTempNoSubLevel
 C - - - - - 0x01FC21 07:FC11: 85 46     STA vNoSubLevel
 C - - - - - 0x01FC23 07:FC13: 60        RTS
 
-sub_FC14:
-C - - - - - 0x01FC24 07:FC14: 20 28 FC  JSR sub_FC28
-C - - - - - 0x01FC27 07:FC17: 90 23     BCC bra_FC3C_return_false
-C - - - - - 0x01FC29 07:FC19: D0 21     BNE bra_FC3C_return_false
-C - - - - - 0x01FC2B 07:FC1B: A4 5E     LDY v_no_level
-C - - - - - 0x01FC2D 07:FC1D: B9 43 FC  LDA tbl_FC43_enemy_boss,Y
-C - - - - - 0x01FC30 07:FC20: 8D 00 03  STA vEnemyA
+sub_FC14_prepare_boss:
+C - - - - - 0x01FC24 07:FC14: 20 28 FC  JSR sub_FC28_in_room_with_boss  ;
+C - - - - - 0x01FC27 07:FC17: 90 23     BCC bra_FC3C_return_false       ; If the current room isn't the room with boss
+C - - - - - 0x01FC29 07:FC19: D0 21     BNE bra_FC3C_return_false       ; If the boss is defeated
+C - - - - - 0x01FC2B 07:FC1B: A4 5E     LDY v_no_level                  ;
+C - - - - - 0x01FC2D 07:FC1D: B9 43 FC  LDA tbl_FC43_enemy_boss,Y       ;
+C - - - - - 0x01FC30 07:FC20: 8D 00 03  STA vEnemyA                     ; assigns the boss number
 C - - - - - 0x01FC33 07:FC23: A2 00     LDX #$00
 C - - - - - 0x01FC35 07:FC25: 4C 27 F3  JMP loc_F327
 
-; Return the carry status (analog return true or false)
-sub_FC28:
+; Out: Carry status: true - the current room with boss, false - otherwise
+; Out: Zero status: false - the boss is defeated, true - otherwise
+sub_FC28_in_room_with_boss:
 C - - - - - 0x01FC38 07:FC28: 20 3E FC  JSR sub_FC3E_boss_defeated_status ;
 C - - - - - 0x01FC3B 07:FC2B: D0 0D     BNE bra_FC3A_return_true          ; If The boss is defeated
 C - - - - - 0x01FC3D 07:FC2D: 20 FE BB  JSR sub_BBFE_is_unique_room       ;

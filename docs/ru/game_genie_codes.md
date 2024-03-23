@@ -1,18 +1,38 @@
 # Game Genie Codes
 
-Коды для начала игры с определенной комнаты
+## Коды для начала игры с определенной комнаты
 
-|Коды|Описание|
-|---|---|
-|OXXYKLSX + PEXYSLKG| Уровень 1.1 |
-|...|...|
-|OXXYKLSX + POXYSLKK| Ездовой уровень |
-|...|...|
+### Уровень 1.1
 
-Отключение метаплиток заднего фона.
+OXXYKLSX + PEXYSLKG
 
-- OXESLZOU
-- OXOIZZOU
-- PEOILZTA
-- PEESGZTA
+...
+
+### Ездовой уровень
+
+OXXYKLSX + POXYSLKK
+
+...
+
+## Отключение метаплиток заднего фона.
+
+OXESLZOU + OXOIZZOU + PEOILZTA + PEESGZTA
+
+## Отключение звуковых каналов фоновой музыки
+
+### Меандр 1
+
+GKKUSUSU + USKUVLAP + UUKUNUKU
+
+### Меандр 2
+
+GKSLUUSU + OSSLKLPO + UUSLSUKU
+
+### Треугольный сигнал
+
+GKSUOUSU + NSSUXLZO + UUSUUUKU
+
+### Шум
+
+AVSUNUSL
 

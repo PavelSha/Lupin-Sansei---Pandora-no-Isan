@@ -33,6 +33,8 @@ $FAC0##ram_0039
 $FACD##ram_0039
 $C0DB##ram_0039
 $C0DD##ram_0039
+$C148##ram_0039
+$C14A##ram_0039
 $F020##ram_0320
 $F034##ram_035C
 $F050##ram_03D4
@@ -45,3 +47,4 @@ $D4B4##sub_F2B2_try_generate_enemy
 $C0E7##ram_003A
 $C0E9##ram_003A
 $C0EB##ram_003A
+$DAF4##sub_E2A6_test_feature_smth

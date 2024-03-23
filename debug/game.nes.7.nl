@@ -81,7 +81,7 @@ $C0B0#bra_C0B0_loop#[0x006C-0x0099] in 0x00
 $C0B2##increments loop counter
 $C0B3##--NO-COMMENT--
 $C0B5##If Register X != 0x99
-$C0B7#loc_C0B7#--NO-COMMENT--
+$C0B7#loc_C0B7_character_is_selected#--NO-COMMENT--
 $C0B9##clear
 $C0BC##--NO-COMMENT--
 $C0BF##--NO-COMMENT--
@@ -89,6 +89,7 @@ $C0C5##--NO-COMMENT--
 $C0C7##store the high position of the character
 $C0C8##--NO-COMMENT--
 $C0CA##store the low position of the character
+$C0CB##--NO-COMMENT--
 $C0CE##--NO-COMMENT--
 $C0D1##retrieve the low position of the character
 $C0D2##--NO-COMMENT--
@@ -99,28 +100,40 @@ $C0D9##--NO-COMMENT--
 $C0DF##clear
 $C0E2##clear
 $C0E5##clear
+$C0ED##--NO-COMMENT--
+$C0F0##--NO-COMMENT--
+$C0F3##--NO-COMMENT--
+$C0F6##--NO-COMMENT--
+$C0F9##--NO-COMMENT--
+$C0FC##--NO-COMMENT--
 $C0FF##--NO-COMMENT--
+$C102##--NO-COMMENT--
 $C105##--NO-COMMENT--
 $C107##clear locks
 $C109##--NO-COMMENT--
 $C10C##--NO-COMMENT--
 $C10F##--NO-COMMENT--
-$C111##CONSTANT - ???
+$C111##CONSTANT - A final scene
 $C113##If vSharedGameStatus != 0x0B
 $C118#bra_C118_skip#--NO-COMMENT--
 $C11A##Initializes a counter.
 $C11C##--NO-COMMENT--
 $C11E##Initializes a time of a demo scene.
-$C120#bra_C120_repeat#--NO-COMMENT--
+$C120#bra_C120_wait#--NO-COMMENT--
 $C123##--NO-COMMENT--
 $C125##Branch If in game
 $C12F#bra_C12F_skip#--NO-COMMENT--
 $C132##If test mode is disabled
 $C142##to sub_BC48 (bank 06_2)
 $C148#bra_C148_skip#
+$C14C##--NO-COMMENT--
+$C14E##CONSTANT - status 'Select the character'
+$C150##If vSharedGameStatus isn't contains 'Select the character'
 $C152##--NO-COMMENT--
 $C154##CONSTANT - select a character (1)
 $C156##CONSTANT - 'the radio was using'
+$C158##--NO-COMMENT--
+$C15B##--NO-COMMENT--
 $C15E#bra_C15E#
 $C16F#bra_C16F#CONSTANT - no reason
 $C171##--NO-COMMENT--
@@ -152,6 +165,7 @@ $C235#bra_C235_skip#
 $C23C#bra_C23C_skip#
 $C246#bra_C246_skip#
 $C251#bra_C251#
+$C25B#loc_C25B#
 $C26D##put empty cache
 $C287#bra_C287#
 $C28D#loc_C28D#
@@ -165,8 +179,15 @@ $C2A3#bra_C2A3_skip#--NO-COMMENT--
 $C2A6#loc_C2A6#
 $C2C2#bra_C2C2#
 $C2DF#bra_C2DF#
-$C2ED#sub_C2ED#
-$C2FE#bra_C2FE_RTS#
+$C2ED#sub_C2ED_prepare_character_in_water#--NO-COMMENT--
+$C2EF##CONSTANT - level 3.0 (water room)
+$C2F1##If vNoSubLevel < 0x24
+$C2F3##CONSTANT - level 4, map 1 (B2-D2) (0x41 - water room)
+$C2F5##If vNoSubLevel >= 0x42
+$C2F7##CONSTANT - the character is moving in the water
+$C2F9##--NO-COMMENT--
+$C2FB##--NO-COMMENT--
+$C2FE#bra_C2FE_RTS#--NO-COMMENT--
 $C2FF#sub_C2FF_update_ppu_ctrl_with_nmi#--NO-COMMENT--
 $C301##CONSTANT - Generate an NMI at the start of the vblank
 $C303##Always true
@@ -1140,9 +1161,16 @@ $CC80##2nd row
 $CC82#bra_CC82_skip#
 $CCC3#bra_CCC3#
 $CCCD#bra_CCCD#
-$CCDF#loc_CCDF#
-$CCE9#sub_CCE9#
+$CCDF#loc_CCDF_set_apparatus_counter_old#--NO-COMMENT--
+$CCE1##--NO-COMMENT--
+$CCE4##prepare an input parameter
+$CCE6##--NO-COMMENT--
+$CCE9#sub_CCE9_set_apparatus_counter#CONSTANT Hc:Lc = 08:XX - time of the breathing apparatus
+$CCEB##--NO-COMMENT--
+$CCEE##--NO-COMMENT--
 $CCEF#sub_CCEF#
+$CD04##CONSTANT Hc:Lc = 08:XX - time of the breathing apparatus
+$CD06##--NO-COMMENT--
 $CD0D#sub_CD0D#
 $CD13#sub_CD13_use_item#Decrement an item
 $CD16##Initializing the remaining time
@@ -1191,10 +1219,22 @@ $CDBE#tbl_CDBE#
 $CDD0#bra_CDD0#
 $CDDD#bra_CDDD#
 $CDED#bra_CDED_RTS#--NO-COMMENT--
-$CDEE#sub_CDEE#
-$CDF3#loc_CDF3#
-$CE05#bra_CE05_loop#
-$CE12#bra_CE12_RTS#
+$CDEE#sub_CDEE_prepare_activable_items_old#--NO-COMMENT--
+$CDF0##--NO-COMMENT--
+$CDF3#loc_CDF3_prepare_activable_items#--NO-COMMENT--
+$CDF6##--NO-COMMENT--
+$CDF8##we make weapon inactive
+$CDFB##--NO-COMMENT--
+$CDFD##--NO-COMMENT--
+$CE00##clear
+$CE03##set loop counter
+$CE05#bra_CE05_loop#--NO-COMMENT--
+$CE08##If some item is exist
+$CE0A##decrement loop counter
+$CE0B##If Register X < 0xF0
+$CE0D##CONSTANT - the weapons are not exist
+$CE0F##--NO-COMMENT--
+$CE12#bra_CE12_RTS#--NO-COMMENT--
 $CE13#sub_CE13_set_sprite_zero_hits#Y-position for message room
 $CE15##--NO-COMMENT--
 $CE17##--NO-COMMENT--
@@ -1878,7 +1918,7 @@ $D44C##--NO-COMMENT--
 $D44F##decrement y
 $D450##In Register Y >= 0x00 && Y < 0xF0
 $D452##--NO-COMMENT--
-$D453#sub_D453#--NO-COMMENT--
+$D453#sub_D453_prepare_gaming_environment#--NO-COMMENT--
 $D456##set loop counter
 $D458##--NO-COMMENT--
 $D45A##CONSTANT - level racing
@@ -1945,7 +1985,12 @@ $D4D6##--NO-COMMENT--
 $D4D9##Low address
 $D4DB##--NO-COMMENT--
 $D4DE##High address
-$D4EB#bra_D4EB#--NO-COMMENT--
+$D4E0##--NO-COMMENT--
+$D4E2##--NO-COMMENT--
+$D4E4##CONSTANT - The briefcase room
+$D4E6##If the current room isn't the briefcase room
+$D4E8##--NO-COMMENT--
+$D4EB#bra_D4EB_skip#--NO-COMMENT--
 $D4ED##--NO-COMMENT--
 $D4EE##Branch if no exist 'A screen with the message'
 $D4F0##--NO-COMMENT--
@@ -2092,8 +2137,18 @@ $DAAB#bra_DAAB#
 $DAC0#tbl_DAC0#
 $DAC5#tbl_DAC5#
 $DAF4#sub_DAF4_character_subroutine#
+$DAF7##--NO-COMMENT--
+$DAF9##none (see vScrollDirection)
+$DAFB##set 'the character is in the air'
+$DAFD##--NO-COMMENT--
+$DAFF##If vNoSubLevel != 0x00 (level 1.0)
+$DB01##--NO-COMMENT--
+$DB04##--NO-COMMENT--
+$DB06##CONSTANT - the character is moving on the roof pitch
+$DB08##If vMovableChrStatus doesn't contains 0x02
 $DB0D#bra_DB0D#
-$DB14#bra_DB14_skip#
+$DB14#bra_DB14_skip#--NO-COMMENT--
+$DB16##If the character isn't moving in the water
 $DB1B#bra_DB1B_skip#
 $DB20#bra_DB20_skip#
 $DB2A#bra_DB2A_skip#
@@ -2323,7 +2378,9 @@ $DF39##CONSTANT
 $DF3B#bra_DF3B_skip#
 $DF3E#sub_DF3E#
 $DF54#bra_DF54#
-$DF57#sub_DF57#
+$DF57#sub_DF57_get_current_character#--NO-COMMENT--
+$DF59##CONSTANT - the current selected character
+$DF5B##--NO-COMMENT--
 $DF5C#sub_DF5C#
 $DF63#sub_DF63#
 $DF71#bra_DF71#
@@ -2395,13 +2452,43 @@ $E276#bra_E276#
 $E282#sub_E282#
 $E28D#sub_E28D#
 $E298#bra_E298_RTS#
-$E2A6#sub_E2A6_test_feature_smth#
-$E2F7#bra_E2F7_RTS#
-$E2F8#sub_E2F8#
-$E2FF#sub_E2FF#
-$E301#bra_E301#
-$E30E#sub_E30E#
-$E325#bra_E325#
+$E299#sub_E299#
+$E2A5#bra_E2A5_RTS#
+$E2A6#sub_E2A6_test_feature_smth#--NO-COMMENT--
+$E2A9##If test mode is disabled
+$E2C6#bra_E2C6#
+$E2DF#bra_E2DF#
+$E2F7#bra_E2F7_RTS#--NO-COMMENT--
+$E2F8#sub_E2F8_garbage#--NO-COMMENT--
+$E2FA##CONSTANT - the current selected character
+$E2FC##--NO-COMMENT--
+$E2FD##*4
+$E2FE##X <~ {0x00, 0x04, 0x08}
+$E2FF#sub_E2FF_garbage#set loop counter
+$E301#bra_E301_loop#--NO-COMMENT--
+$E304##--NO-COMMENT--
+$E307##increment position in the table
+$E308##increment loop counter
+$E309##--NO-COMMENT--
+$E30B##If Register Y != 0x04
+$E30D##--NO-COMMENT--
+$E30E#sub_E30E_fix_colors_in_level1#1 of 3 colors
+$E310##--NO-COMMENT--
+$E312##--NO-COMMENT--
+$E313##--NO-COMMENT--
+$E315##--NO-COMMENT--
+$E317##--NO-COMMENT--
+$E319##If Hp:Lp < 0x03:0x80
+$E31B##2 of 3 colors
+$E31D##--NO-COMMENT--
+$E31F##--NO-COMMENT--
+$E321##If vHighViewPortPosX < 0x0D
+$E323##3 of 3 colors
+$E325#bra_E325_change_colors#--NO-COMMENT--
+$E328##--NO-COMMENT--
+$E32B##--NO-COMMENT--
+$E32E##--NO-COMMENT--
+$E331##--NO-COMMENT--
 $E332#sub_E332#
 $E33E#bra_E33E#
 $E348#tbl_E348#
@@ -2409,10 +2496,12 @@ $E358#tbl_E358_init_counter#
 $E35D#tbl_E35D_jump_posY_offset#
 $E38D#tbl_E38D#
 $E38E#tbl_E38E#
-$E3A6#tbl_E3A6#
-$E3B5#tbl_E3B5#
-$E3B6#tbl_E3B6#
-$E3BB#loc_E3BB#
+$E3A6#tbl_E3A6_unkhown#Lupin
+$E3AA##Jigen
+$E3AE##Goemon
+$E3B2##Lupin in the water (broken)
+$E3B5#tbl_E3B5_colors#
+$E3BB#loc_E3BB_in_the_water#
 $E3C8#bra_E3C8#
 $E3E2#bra_E3E2#
 $E3E8#bra_E3E8#
@@ -2570,7 +2659,7 @@ $E802##reset a velocity
 $E804#bra_E804_return_true#return true
 $E805##--NO-COMMENT--
 $E806#bra_E806#
-$E810#loc_E810#
+$E810#loc_E810_on_the_roof_pitch#
 $E820#bra_E820#
 $E829#bra_E829#
 $E83D#bra_E83D#
@@ -2695,11 +2784,15 @@ $ED8C#bra_ED8C_wait#--NO-COMMENT--
 $ED8F##checking a sprite 0 hits
 $ED91#bra_ED91_wait#--NO-COMMENT--
 $ED94##checking a sprite 0 hits
+$ED96##--NO-COMMENT--
 $ED9C##--NO-COMMENT--
 $ED9E##Branch If the render isn't activated
 $EDA0##Making rendering temporarily deactivate
-$EDA2##If status is 'Pause in the game'
-$EDA4##--NO-COMMENT--
+$EDA2##--NO-COMMENT--
+$EDA4##If status is 'Pause in the game'
+$EDA6##--NO-COMMENT--
+$EDA8##CONSTANT - status 'Not used'
+$EDAA##!(WHY?), it will never follow this branch
 $EDAC##--NO-COMMENT--
 $EDAF##--NO-COMMENT--
 $EDB2##--NO-COMMENT--
@@ -2739,7 +2832,7 @@ $EE0A##switch by MMC3_Bank_data in 0xA000-0BFFF
 $EE0D##Always true
 $EE0F#bra_EE0F_nmi_last_cutscene#to sub_B5FE (bank 06_2)
 $EE12##--NO-COMMENT--
-$EE15#bra_EE15#--NO-COMMENT--
+$EE15#bra_EE15_skip#--NO-COMMENT--
 $EE18##--NO-COMMENT--
 $EE1B#bra_EE1B_skip#to sub_B3AA (bank 06_2)
 $EE1E##--NO-COMMENT--
@@ -2910,7 +3003,7 @@ $F042##CONSTANT - the process, after 'Select a character', but before the game i
 $F044##--NO-COMMENT--
 $F046##set assigning value
 $F048##set loop counter
-$F04A#clear_item_loop#clear
+$F04A#bra_F04A_clear_loop#clear
 $F04D##decrements loop counter
 $F04E##If Register X < 0xF0 (a loop condition)
 $F059##reset the infrared goggles
@@ -2945,7 +3038,7 @@ $F099##CONSTANT - The wall
 $F09B##If enemy < 0x30
 $F09D##CONSTANT - Blade trap
 $F09F##If enemy >= 0x30
-$F0A8#bra_F0A8_RTS#
+$F0A8#bra_F0A8_RTS#--NO-COMMENT--
 $F0A9#sub_F0A9_enemy_subroutine#--NO-COMMENT--
 $F0AB##If 'the character isn't moving in the water'
 $F0B0#bra_F0B0_skip#--NO-COMMENT--
@@ -3384,16 +3477,25 @@ $FBD7##--NO-COMMENT--
 $FBD9##--NO-COMMENT--
 $FBDA#sub_FBDA_push_stack_room#
 $FBF7#loc_FBF7_pop_stack_room#
-$FC14#sub_FC14#
-$FC28#sub_FC28#--NO-COMMENT--
+$FC14#sub_FC14_prepare_boss#--NO-COMMENT--
+$FC17##If the current room isn't the room with boss
+$FC19##If the boss is defeated
+$FC1B##--NO-COMMENT--
+$FC1D##--NO-COMMENT--
+$FC20##assigns the boss number
+$FC28#sub_FC28_in_room_with_boss#--NO-COMMENT--
 $FC2B##If The boss is defeated
 $FC2D##--NO-COMMENT--
 $FC30##If room isn't NPC room, room with the briefcase, room with boss
+$FC32##--NO-COMMENT--
+$FC34##--NO-COMMENT--
+$FC36##CONSTANT - This room is the room with boss
+$FC38##Branch if the room with no boss
 $FC3A#bra_FC3A_return_true#--NO-COMMENT--
 $FC3B##--NO-COMMENT--
 $FC3C#bra_FC3C_return_false#--NO-COMMENT--
 $FC3D##--NO-COMMENT--
-$FC3E#sub_FC3E_boss_defeated_statue#--NO-COMMENT--
+$FC3E#sub_FC3E_boss_defeated_status#--NO-COMMENT--
 $FC40##CONSTANT - status 'The boss is defeated'
 $FC42##--NO-COMMENT--
 $FC43#tbl_FC43_enemy_boss#Boss (level 1)

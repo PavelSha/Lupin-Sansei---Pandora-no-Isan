@@ -4234,18 +4234,18 @@ tbl_BB92_stage_select_codes:
 - D 1 - - - 0x01BBB3 06:BBA3: 01        .byte BIT_BUTTON_A
 loc_BBA4_play_background_music:
 sub_BBA4_play_background_music:
-C D 1 - - - 0x01BBB4 06:BBA4: A9 05     LDA #$05                ; ~> the sound index 'music 'under the water''
-C - - - - - 0x01BBB6 06:BBA6: 24 6D     BIT vMovableChrStatus   ;
-C - - - - - 0x01BBB8 06:BBA8: 30 13     BMI bra_BBBD_skip       ; If the character is moving in the water
-C - - - - - 0x01BBBA 06:BBAA: 20 FE BB  JSR sub_BBFE_is_unique_room
-C - - - - - 0x01BBBD 06:BBAD: B0 36     BCS bra_BBE5
-C - - - - - 0x01BBBF 06:BBAF: A5 5E     LDA v_no_level          ;
-C - - - - - 0x01BBC1 06:BBB1: C9 03     CMP #$03                ; CONSTANT - level 4 + racing
-C - - - - - 0x01BBC3 06:BBB3: D0 08     BNE bra_BBBD_skip       ; If v_no_level != 0x03
-C - - - - - 0x01BBC5 06:BBB5: A6 46     LDX vNoSubLevel         ;
-C - - - - - 0x01BBC7 06:BBB7: E0 19     CPX #$19                ; CONSTANT - level racing
-C - - - - - 0x01BBC9 06:BBB9: D0 02     BNE bra_BBBD_skip       ; If vNoSubLevel != 0x19
-C - - - - - 0x01BBCB 06:BBBB: A9 04     LDA #$04                ; ~> the sound index 'music level racing'
+C D 1 - - - 0x01BBB4 06:BBA4: A9 05     LDA #$05                                  ; ~> the sound index 'music 'under the water''
+C - - - - - 0x01BBB6 06:BBA6: 24 6D     BIT vMovableChrStatus                     ;
+C - - - - - 0x01BBB8 06:BBA8: 30 13     BMI bra_BBBD_skip                         ; If the character is moving in the water
+C - - - - - 0x01BBBA 06:BBAA: 20 FE BB  JSR sub_BBFE_is_unique_room               ;
+C - - - - - 0x01BBBD 06:BBAD: B0 36     BCS bra_BBE5_resolve_index_in_unique_room ; If the current room is unique
+C - - - - - 0x01BBBF 06:BBAF: A5 5E     LDA v_no_level                            ;
+C - - - - - 0x01BBC1 06:BBB1: C9 03     CMP #$03                                  ; CONSTANT - level 4 + racing
+C - - - - - 0x01BBC3 06:BBB3: D0 08     BNE bra_BBBD_skip                         ; If v_no_level != 0x03
+C - - - - - 0x01BBC5 06:BBB5: A6 46     LDX vNoSubLevel                           ;
+C - - - - - 0x01BBC7 06:BBB7: E0 19     CPX #$19                                  ; CONSTANT - level racing
+C - - - - - 0x01BBC9 06:BBB9: D0 02     BNE bra_BBBD_skip                         ; If vNoSubLevel != 0x19
+C - - - - - 0x01BBCB 06:BBBB: A9 04     LDA #$04                                  ; ~> the sound index 'music level racing'
 ; in: Register A - the sound index
 bra_BBBD_skip:
 loc_BBBD_add_room_sound:
@@ -4270,21 +4270,21 @@ C - - - - - 0x01BBEC 06:BBDC: 20 20 C4  JSR sub_C420_add_sound_effect    ;
 C - - - - - 0x01BBEF 06:BBDF: BD 13 BC  LDA tbl_BC10_sound_indexes + 3,X ;
 C - - - - - 0x01BBF2 06:BBE2: 4C 20 C4  JMP loc_C420_add_sound_effect    ;
 
-bra_BBE5:
-C - - - - - 0x01BBF5 06:BBE5: A0 0A     LDY #$0A              ; ~> the starting sound index 'in a room'
-C - - - - - 0x01BBF7 06:BBE7: A5 B6     LDA vCurrentUniqueRoom
-C - - - - - 0x01BBF9 06:BBE9: 29 03     AND #$03
-C - - - - - 0x01BBFB 06:BBEB: C9 03     CMP #$03
-C - - - - - 0x01BBFD 06:BBED: D0 08     BNE bra_BBF7
-C - - - - - 0x01BBFF 06:BBEF: A5 3B     LDA vSharedGameStatus
-C - - - - - 0x01BC01 06:BBF1: 29 01     AND #$01
-C - - - - - 0x01BC03 06:BBF3: D0 02     BNE bra_BBF7
-C - - - - - 0x01BC05 06:BBF5: A0 06     LDY #$06              ; ~> the starting sound index 'boss time'
-bra_BBF7:
-C - - - - - 0x01BC07 06:BBF7: 98        TYA
-C - - - - - 0x01BC08 06:BBF8: 18        CLC
-C - - - - - 0x01BC09 06:BBF9: 65 5E     ADC v_no_level
-C - - - - - 0x01BC0B 06:BBFB: 4C BD BB  JMP loc_BBBD_add_room_sound
+bra_BBE5_resolve_index_in_unique_room:
+C - - - - - 0x01BBF5 06:BBE5: A0 0A     LDY #$0A                    ; ~> the starting sound index 'in a room'
+C - - - - - 0x01BBF7 06:BBE7: A5 B6     LDA vCurrentUniqueRoom      ;
+C - - - - - 0x01BBF9 06:BBE9: 29 03     AND #$03                    ; CONSTANT - room with the room
+C - - - - - 0x01BBFB 06:BBEB: C9 03     CMP #$03                    ;
+C - - - - - 0x01BBFD 06:BBED: D0 08     BNE @bra_BBF7_add           ; If the current room isn't with the room
+C - - - - - 0x01BBFF 06:BBEF: A5 3B     LDA vSharedGameStatus       ;
+C - - - - - 0x01BC01 06:BBF1: 29 01     AND #$01                    ; CONSTANT - A screen with the message
+C - - - - - 0x01BC03 06:BBF3: D0 02     BNE @bra_BBF7_add           ; If the current room contains a screen with the message
+C - - - - - 0x01BC05 06:BBF5: A0 06     LDY #$06                    ; ~> the starting sound index 'boss time'
+@bra_BBF7_add:
+C - - - - - 0x01BC07 06:BBF7: 98        TYA                         ;
+C - - - - - 0x01BC08 06:BBF8: 18        CLC                         ;
+C - - - - - 0x01BC09 06:BBF9: 65 5E     ADC v_no_level              ; 0x06 ... x09 - index for music 'boss time', 0x0A ... x0D - index for music 'in a room'
+C - - - - - 0x01BC0B 06:BBFB: 4C BD BB  JMP loc_BBBD_add_room_sound ;
 
 ; Out: Carry flag - 1 for NPC rooms, briefcase rooms, rooms with the boss, else 0.
 sub_BBFE_is_unique_room:

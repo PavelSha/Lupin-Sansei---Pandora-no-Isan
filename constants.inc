@@ -112,6 +112,7 @@ vSharedGameStatus             = ram_003B
 ; 0x03 - A screen with the message after boss
 ; 0x0B - A final scene
 ; 0x10 - Select the character
+; 0x20 - Not used
 ; 0x40 - Pause in the game
 ; 0x41 - Pause in the game (a screen with the message)
 ; 0x80 - Main menu
@@ -122,6 +123,7 @@ vSharedGameStatus             = ram_003B
 ; N - status 'The screen with the message'
 ; M - status 'The boss is defeated'
 ; W - status 'Select the character'
+; Z - status 'Not used'
 ; Y - status 'Pause in the game'
 
 vGameLocks                    = ram_003C
@@ -420,3 +422,4 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; индексы в одной из таблиц доходят до 0x70, хотя используются до 0x9F, почему так?
 ; Game Genie коды - исправление пробелов
 ; Баги - перейти в комнату 0x78, перейти на экран с двумя стенами и сменить персонажа. Стена сменится на стенообразного персонажа
+; vNoSubLevel -> vNoRoom

@@ -70,6 +70,7 @@ $00B1#v_start_level#
 $00B2#v_count_secret_hits#
 $00B3#v_lock_secret_hits#
 $00B4#v_offset_in_secret_codes#
+$00B6#vCurrentUniqueRoom#
 $00B7#v_corridor_magic5#
 $00B8#v_corridor_magic5_cache#
 $00BA#vCheckpointAddr#
@@ -114,6 +115,7 @@ $0316#vZenigataTimerLow1#
 $0317#vZenigataTimerHigh1#
 $0398#v_briefcase_index#
 $039E#v_item_on_screen#
+$03A5#vBriefcaseHitCount#
 $0406#v_sound_counter#
 $0410#vSoundRowB_0#
 $0411#vSoundRowB_1#
@@ -138,12 +140,14 @@ $0423#vSoundRowB_J#
 $0424#vSoundRowB_K#
 $0500#vRooms#
 $0600#vCachePalette#
+$0614#vNonUsed614#
 $0630#vLowPpuAddress#
 $0631#vHighPpuAddress#
 $0632#v_ppu_buffer_count#
 $0633#vPpuBufferData#
 $067B#vPpuAddrDataCache#
 $06AF#vCacheChrBankSelect#
+$06B2#vNonUsed6B2#
 $06B5#vBankData#
 $06B6#vChrBankData#
 $06B7#v_sprite_magic1#
