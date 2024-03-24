@@ -279,12 +279,14 @@ $C3BC##--NO-COMMENT--
 $C3BF##--NO-COMMENT--
 $C3C2##see https://www.nesdev.org/wiki/PPU_registers#Palette_corruption
 $C3C5##--NO-COMMENT--
-$C3C6#sub_C3C6#
+$C3C6#sub_C3C6_update_ppu_params#--NO-COMMENT--
+$C3C8##--NO-COMMENT--
 $C3CB##read to reset PPU latch
 $C3CE##--NO-COMMENT--
 $C3D0##--NO-COMMENT--
 $C3D3##--NO-COMMENT--
 $C3D5##--NO-COMMENT--
+$C3D8##--NO-COMMENT--
 $C3D9#sub_C3D9_increment_nmi_counter#--NO-COMMENT--
 $C3DB##--NO-COMMENT--
 $C3DC##not used ???
@@ -1536,10 +1538,10 @@ $D0B5##If Register X != 0x05
 $D0B7##--NO-COMMENT--
 $D0B8#sub_D0B8#
 $D0BA#bra_D0BA#
-$D0C1#sub_D0C1_change_stack_pointer#--NO-COMMENT--
+$D0C1#sub_D0C1_change_stack_pointer#*2, bacause the address contains high and low parts
 $D0C2##--NO-COMMENT--
 $D0C3##--NO-COMMENT--
-$D0C4##--NO-COMMENT--
+$D0C4##+2, i.e below sub_D0C1_change_stack_pointer
 $D0C5#bra_D0C5_skip#--NO-COMMENT--
 $D0C6##--NO-COMMENT--
 $D0C8##--NO-COMMENT--
@@ -1732,8 +1734,11 @@ $D249##--NO-COMMENT--
 $D24C##puts a bank data, using 0xXXX00000 from 0xBBBAAAAA
 $D24E##5th of 8 info bytes
 $D250##--NO-COMMENT--
+$D252##--NO-COMMENT--
 $D254##6th of 8 info bytes
 $D255##--NO-COMMENT--
+$D257##--NO-COMMENT--
+$D259##set the position in index array
 $D25B##set loop counter
 $D25D#bra_D25D_loop#--NO-COMMENT--
 $D25F##--NO-COMMENT--
@@ -1747,9 +1752,10 @@ $D26E##--NO-COMMENT--
 $D270##--NO-COMMENT--
 $D271##ram_0007 = {0x00, 0x01, 0x02, 0x03}
 $D273##--NO-COMMENT--
-$D274##low address = ram_0050 + ((ram_0052) << 2)
+$D274##low address = vTempValue50 + ((ram_0052) << 2)
 $D276##puts a low address of ppu datas
-$D27A##0xBBBAAAAA = ram_0051 + ram_0007
+$D278##--NO-COMMENT--
+$D27A##0xBBBAAAAA = vTempValue51 + ram_0007
 $D27C##switch to the bank with ppu datas
 $D27F##puts a high address of ppu datas
 $D281##using first pair of quartet
@@ -1764,6 +1770,8 @@ $D291##increment loop counter
 $D292##--NO-COMMENT--
 $D294##store a tile number 2
 $D297##increment loop counter
+$D298##restores the position in index array
+$D29A##increment the position in index array
 $D29B##--NO-COMMENT--
 $D29D##If Register X < 0x18
 $D29F##--NO-COMMENT--
@@ -1800,8 +1808,8 @@ $D2DE##store a tile number X
 $D2E1##decrement loop counter
 $D2E2##If Register Y < 0xF0
 $D2E4##--NO-COMMENT--
-$D2E5#sub_D2E5#--NO-COMMENT--
-$D2E6##store x (D2E6)
+$D2E5#sub_D2E5_get_collision_value#--NO-COMMENT--
+$D2E6##store x
 $D2E7##--NO-COMMENT--
 $D2E9##--NO-COMMENT--
 $D2EB##--NO-COMMENT--
@@ -1816,7 +1824,10 @@ $D2F7##--NO-COMMENT--
 $D2F9##If vScreenChrPosY >= 0x30
 $D2FB##--NO-COMMENT--
 $D2FC##retrieve x (see D2E6)
-$D300#bra_D300_skip#get {0x00, 0x01, 0x02, ..., 0x0C}
+$D2FD##no collision
+$D2FF##--NO-COMMENT--
+$D300#bra_D300_check#get {0x00, 0x01, 0x02, ..., 0x0C}
+$D303##--NO-COMMENT--
 $D304##get point(x, y)
 $D306##store A
 $D307##--NO-COMMENT--
@@ -1829,10 +1840,11 @@ $D313##select MMC3 bank
 $D316##high address
 $D318##retrieve A, point(x, y) ($D306)
 $D319##--NO-COMMENT--
-$D31A##put a index of the quartet tiles
+$D31A##put a index of the metatiles
 $D31C##store A
-$D320##retrieve A, a index of the quartet tiles ($D31C)
-$D321##--NO-COMMENT--
+$D31D##--NO-COMMENT--
+$D320##retrieve A, a index of the metatiles ($D31C)
+$D321##*2, because 2-nd row in the table with the collisions
 $D322##1 of 2 bytes (a relative to offset)
 $D323##If an index * 2 < 0xFF
 $D325##increment a high address (an offset)
@@ -1840,7 +1852,8 @@ $D327#bra_D327_skip#load Y-position
 $D329##--NO-COMMENT--
 $D32B##If it isn't a Y-border of the screen block
 $D32D##2 of 2 bytes (a relative to offset)
-$D32E#bra_D32E_skip#
+$D32E#bra_D32E_skip#load a collision value
+$D330##--NO-COMMENT--
 $D332##load X-position
 $D334##--NO-COMMENT--
 $D336##If it is a X-border of the screen block
@@ -1850,17 +1863,31 @@ $D33C##--NO-COMMENT--
 $D33E##gets high half-byte
 $D340#bra_D340_skip#--NO-COMMENT--
 $D341##retrieve x (see D2E6)
+$D342##--NO-COMMENT--
+$D344##return a collision value
+$D346##--NO-COMMENT--
 $D347#sub_D347#
 $D350#bra_D350_skip#
 $D36A#loc_D36A#to sub_AD6E bank 06_2
-$D370#sub_D370#
-$D375##store A
-$D378##If Register A != 0x01
-$D37A##retrieve A
+$D36D##--NO-COMMENT--
+$D370#sub_D370#increment by x
+$D372##--NO-COMMENT--
+$D375##store a collision value
+$D376##CONSTANT - a strong collistion
+$D378##If a strong collistion no exist
+$D37A##retrieve a collision value ($D375)
+$D37B##--NO-COMMENT--
 $D37C#bra_D37C_skip#
-$D389#sub_D389_increment_by_posX#
+$D389#sub_D389_collision_by_increment_posX#--NO-COMMENT--
+$D38A##--NO-COMMENT--
+$D38C##--NO-COMMENT--
+$D38E##--NO-COMMENT--
+$D390##--NO-COMMENT--
+$D392##+1, if A + $0001 caused an overflow
+$D394##--NO-COMMENT--
 $D397#sub_D397#
-$D39F#sub_D39F_increment_by_posX#
+$D39F#sub_D39F_collision_by_increment_posX#
+$D3AA##--NO-COMMENT--
 $D3AD#sub_D3AD#
 $D3B5#bra_D3B5#
 $D3C7#bra_D3C7#
@@ -2027,10 +2054,21 @@ $D53C##increment X
 $D53D##--NO-COMMENT--
 $D53F##If Register X != 0x10 (a loop condition)
 $D541##--NO-COMMENT--
-$D545#sub_D545#--NO-COMMENT--
+$D545#sub_D545_get_bg_collision_address#--NO-COMMENT--
 $D547##--NO-COMMENT--
 $D54A##--NO-COMMENT--
 $D54C##switch bank 01, page 2 in 0x8000-09FFF
+$D54F##--NO-COMMENT--
+$D551##*2, each row contains 2 bytes in the table
+$D552##--NO-COMMENT--
+$D553##--NO-COMMENT--
+$D556##Low address
+$D558##--NO-COMMENT--
+$D55B##--NO-COMMENT--
+$D55D##--NO-COMMENT--
+$D55F##High address
+$D561##--NO-COMMENT--
+$D562#sub_D562#
 $D56C#bra_D56C_clear_c_rts#
 $D56E#bra_D56E#
 $D59B#bra_D59B#
@@ -2109,6 +2147,9 @@ $D970##--NO-COMMENT--
 $D972##--NO-COMMENT--
 $D974#loc_D974_init_short_chr_positions#--NO-COMMENT--
 $D976##--NO-COMMENT--
+$D978##--NO-COMMENT--
+$D97A##--NO-COMMENT--
+$D97C##--NO-COMMENT--
 $D995#bra_D995#
 $D996#loc_D996#
 $D9C3#bra_D9C3_RTS#
@@ -2146,12 +2187,20 @@ $DB01##--NO-COMMENT--
 $DB04##--NO-COMMENT--
 $DB06##CONSTANT - the character is moving on the roof pitch
 $DB08##If vMovableChrStatus doesn't contains 0x02
-$DB0D#bra_DB0D#
+$DB0D#bra_DB0D_skip#CONSTANT - level racing
+$DB0F##If vNoSubLevel != 0x19
 $DB14#bra_DB14_skip#--NO-COMMENT--
 $DB16##If the character isn't moving in the water
-$DB1B#bra_DB1B_skip#
-$DB20#bra_DB20_skip#
-$DB2A#bra_DB2A_skip#
+$DB1B#bra_DB1B_skip#If the character isn't moving on the balloon
+$DB20#bra_DB20_skip#--NO-COMMENT--
+$DB23##CONSTANT - 'the weapon is activated' + 'Using the jet-pack'
+$DB25##If the character isn't using the jet-pack
+$DB2A#bra_DB2A_skip#--NO-COMMENT--
+$DB2C##--NO-COMMENT--
+$DB2E##Register A <~ { 0x00, 0x01, 0x02, ..., 0x07 }
+$DB31##--NO-COMMENT--
+$DB34##default
+$DB36##jumping
 $DB44#loc_DB44#
 $DB4B#loc_DB4B#
 $DB52#bra_DB52_skip#--NO-COMMENT--
@@ -2318,6 +2367,7 @@ $DD99##else it was a jump by side
 $DD9A#bra_DD9A_skip#--NO-COMMENT--
 $DD9D#loc_DD9D#--NO-COMMENT--
 $DD9F##--NO-COMMENT--
+$DDA7#loc_DDA7#
 $DDB8##CONSTANT - the character stands on the ground
 $DDBA##--NO-COMMENT--
 $DDBC#bra_DDBC_skip#
@@ -2400,6 +2450,8 @@ $E013#loc_E013#
 $E01F#bra_E01F#
 $E035#bra_E035_RTS#
 $E036#tbl_E036#
+$E03A#loc_E03A#
+$E047#bra_E047#
 $E04C#sub_E04C#--NO-COMMENT--
 $E04E##--NO-COMMENT--
 $E051##Go to the branch If the button 'B' isn't pressed (shot a gun)
@@ -2548,7 +2600,7 @@ $E582#sub_E582#
 $E594#bra_E594#
 $E5A3#sub_E5A3#
 $E5A5#sub_E5A5#
-$E5AB#sub_E5AB_add_short_chr_y_positions#
+$E5AB#sub_E5AB_add_short_chr_y_positions#--NO-COMMENT--
 $E5AC##--NO-COMMENT--
 $E5AE##--NO-COMMENT--
 $E5B0##--NO-COMMENT--
@@ -2564,7 +2616,7 @@ $E5F3#sub_E5F3#
 $E5FB#loc_E5FB#
 $E619#bra_E619_RTS#
 $E61A#sub_E61A#
-$E624#loc_E624#
+$E624#loc_E624_jet_pack#
 $E632#loc_E632#
 $E638#bra_E638#
 $E64A#bra_E64A#
@@ -2663,7 +2715,7 @@ $E810#loc_E810_on_the_roof_pitch#
 $E820#bra_E820#
 $E829#bra_E829#
 $E83D#bra_E83D#
-$E847#loc_E847#
+$E847#loc_E847_on_the_balloon#
 $E878#bra_E878#
 $E87F#loc_E87F#
 $E882#bra_E882#
@@ -2675,7 +2727,7 @@ $E8C0#bra_E8C0#
 $E8C4#bra_E8C4#
 $E8CD#bra_E8CD#
 $E8D5#loc_E8D5#
-$E8DA#loc_E8DA#
+$E8DA#loc_E8DA_racing#
 $E8F0#bra_E8F0#
 $E904#bra_E904#
 $E906#bra_E906#
@@ -2785,6 +2837,7 @@ $ED8F##checking a sprite 0 hits
 $ED91#bra_ED91_wait#--NO-COMMENT--
 $ED94##checking a sprite 0 hits
 $ED96##--NO-COMMENT--
+$ED99##--NO-COMMENT--
 $ED9C##--NO-COMMENT--
 $ED9E##Branch If the render isn't activated
 $EDA0##Making rendering temporarily deactivate

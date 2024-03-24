@@ -2032,6 +2032,13 @@ tbl_background_collisions_level2_X:
 - D 0 - I - 0x0078CE 01:98BE: 00        .byte $00, $02   ; 0x9F
 
 ; Indexes of the background collisions (level 1.0)
+; 1 byte - bottom half of metatile
+; 2 byte - entire metatile
+; Each byte: XYZW XYZW
+; 1 half - the right tile
+; 2 half - the left and right tiles
+; W - a strong collistion (the jump off is disallowed)
+; Z - a weak collistion (the jump off is allowed)
 tbl_background_collisions_level1_0:
 - D 0 - I - 0x0078D0 01:98C0: 00        .byte $00, $00   ; 0x00
 - D 0 - I - 0x0078D2 01:98C2: 00        .byte $00, $00   ; 0x01

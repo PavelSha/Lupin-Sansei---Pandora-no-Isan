@@ -44,7 +44,9 @@ $F05D##ram_0318
 $F060##ram_031C
 $F063##ram_0217 + ram_0218
 $D4B4##sub_F2B2_try_generate_enemy
+$F097##sub_F2B2_try_generate_enemy
 $C0E7##ram_003A
 $C0E9##ram_003A
 $C0EB##ram_003A
 $DAF4##sub_E2A6_test_feature_smth
+$D36A##sub_AD6E (bank 06_2)

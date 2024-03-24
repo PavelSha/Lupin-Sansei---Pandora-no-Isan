@@ -40,6 +40,8 @@ $004C#vTempHighViewPortPosX#
 $004D#vCacheNoScreen#
 $004E#vBackgroundScreenInfo#
 $004F#vHighBackgroundScreenInfo#
+$0050#vTempValue50#
+$0051#vTempValue51#
 $0056#vScore#
 $005D#vNonUsed2#
 $005E#v_no_level#

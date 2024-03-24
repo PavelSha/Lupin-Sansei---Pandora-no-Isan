@@ -174,6 +174,9 @@ vCacheNoScreen                = ram_004D ; In screen units
 vBackgroundScreenInfo         = ram_004E
 vHighBackgroundScreenInfo     = ram_004F
 
+vTempValue50                  = ram_0050
+vTempValue51                  = ram_0051
+
 vScore                        = ram_0056 ; [0x56-0x5C]
 
 vNonUsed2                     = ram_005D
@@ -423,3 +426,4 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; Game Genie коды - исправление пробелов
 ; Баги - перейти в комнату 0x78, перейти на экран с двумя стенами и сменить персонажа. Стена сменится на стенообразного персонажа
 ; vNoSubLevel -> vNoRoom
+; JSR $AD6E ; to sub_AD6E bank 06_2 - проверить записи

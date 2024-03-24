@@ -38,6 +38,7 @@
 .import sub_C91C_display_menu_score              ; bank FF
 .import sub_C51E_update_ppu_and_screen           ; bank FF
 .import loc_C046_repeat_starting_mode            ; bank FF
+.import sub_D2E5_get_collision_value             ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -130,7 +131,7 @@ C - - - - - 0x01A072 06:A062: 10 F8     BPL bra_A05C
 bra_A064:
 C - - - - - 0x01A074 06:A064: A6 1A     LDX ram_001A
 C - - - - - 0x01A076 06:A066: 20 9C A0  JSR sub_A09C
-C - - - - - 0x01A079 06:A069: 20 62 D5  JSR $D562
+C - - - - - 0x01A079 06:A069: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
 bra_A06C:
 loc_A06C:
 C D 1 - - - 0x01A07C 06:A06C: C6 1A     DEC ram_001A
@@ -582,12 +583,12 @@ C - - - - - 0x01A34F 06:A33F: CA        DEX
 C - - - - - 0x01A350 06:A340: 10 F8     BPL bra_A33A
 bra_A342:
 C - - - - - 0x01A352 06:A342: A6 1A     LDX ram_001A
-C - - - - - 0x01A354 06:A344: 20 62 D5  JSR $D562
+C - - - - - 0x01A354 06:A344: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
 C - - - - - 0x01A357 06:A347: BD 20 03  LDA ram_0320,X
 C - - - - - 0x01A35A 06:A34A: 29 04     AND #$04
 C - - - - - 0x01A35C 06:A34C: F0 06     BEQ bra_A354
 C - - - - - 0x01A35E 06:A34E: 20 7A A3  JSR sub_A37A
-C - - - - - 0x01A361 06:A351: 20 62 D5  JSR $D562
+C - - - - - 0x01A361 06:A351: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
 bra_A354:
 loc_A354:
 C D 1 - - - 0x01A364 06:A354: C6 1A     DEC ram_001A
@@ -1146,7 +1147,7 @@ C - - - - - 0x01A6BC 06:A6AC: 10 F8     BPL bra_A6A6
 bra_A6AE:
 C - - - - - 0x01A6BE 06:A6AE: A6 1A     LDX ram_001A
 C - - - - - 0x01A6C0 06:A6B0: 20 DC A6  JSR sub_A6DC
-C - - - - - 0x01A6C3 06:A6B3: 20 62 D5  JSR $D562
+C - - - - - 0x01A6C3 06:A6B3: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
 bra_A6B6:
 loc_A6B6:
 C D 1 - - - 0x01A6C6 06:A6B6: C6 1A     DEC ram_001A
@@ -1655,7 +1656,7 @@ C - - - - - 0x01AA4E 06:AA3E: B0 0D     BCS bra_AA4D
 C - - - - - 0x01AA50 06:AA40: CA        DEX
 C - - - - - 0x01AA51 06:AA41: 10 F8     BPL bra_AA3B
 bra_AA43:
-C - - - - - 0x01AA53 06:AA43: 20 62 D5  JSR $D562
+C - - - - - 0x01AA53 06:AA43: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
 bra_AA46:
 loc_AA46:
 C D 1 - - - 0x01AA56 06:AA46: C6 1A     DEC ram_001A
@@ -1818,7 +1819,7 @@ C - - - - - 0x01AB65 06:AB55: A9 06     LDA #$06
 C - - - - - 0x01AB67 06:AB57: 85 AF     STA ram_00AF
 C - - - - - 0x01AB69 06:AB59: A9 03     LDA #$03
 C - - - - - 0x01AB6B 06:AB5B: 85 B0     STA ram_00B0
-C - - - - - 0x01AB6D 06:AB5D: 20 62 D5  JSR $D562
+C - - - - - 0x01AB6D 06:AB5D: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
 bra_AB60:
 C - - - - - 0x01AB70 06:AB60: C6 1A     DEC ram_001A
 C - - - - - 0x01AB72 06:AB62: A6 1A     LDX ram_001A
@@ -1907,7 +1908,7 @@ C - - - - - 0x01ABF8 06:ABE8: 4C 69 AB  JMP loc_AB69
 
 bra_ABEB:
 C - - - - - 0x01ABFB 06:ABEB: 20 4A D9  JSR $D94A
-C - - - - - 0x01ABFE 06:ABEE: 20 E5 D2  JSR $D2E5
+C - - - - - 0x01ABFE 06:ABEE: 20 E5 D2  JSR sub_D2E5_get_collision_value
 C - - - - - 0x01AC01 06:ABF1: C9 01     CMP #$01
 C - - - - - 0x01AC03 06:ABF3: D0 03     BNE bra_ABF8
 C - - - - - 0x01AC05 06:ABF5: 20 71 AB  JSR sub_AB71
@@ -1955,7 +1956,7 @@ C - - - - - 0x01AC56 06:AC46: B0 0B     BCS bra_AC53
 C - - - - - 0x01AC58 06:AC48: CA        DEX
 C - - - - - 0x01AC59 06:AC49: 10 F8     BPL bra_AC43
 bra_AC4B:
-C - - - - - 0x01AC5B 06:AC4B: 20 62 D5  JSR $D562
+C - - - - - 0x01AC5B 06:AC4B: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
 bra_AC4E:
 loc_AC4E:
 C D 1 - - - 0x01AC5E 06:AC4E: C6 1A     DEC ram_001A
@@ -2130,26 +2131,26 @@ bra_AD6D_RTS:
 C - - - - - 0x01AD7D 06:AD6D: 60        RTS
 
 sub_AD6E: ; from bank FF
-C - - - - - 0x01AD7E 06:AD6E: AD 01 03  LDA vEnemyB       ;
-C - - - - - 0x01AD81 06:AD71: C9 32     CMP #$32          ; CONSTANT - Breaking platform
-C - - - - - 0x01AD83 06:AD73: D0 03     BNE bra_AD78_skip ; If the enemy isn't the 'breaking platform'
-C - - - - - 0x01AD85 06:AD75: 4C FD AD  JMP loc_ADFD
+C - - - - - 0x01AD7E 06:AD6E: AD 01 03  LDA vEnemyB                    ;
+C - - - - - 0x01AD81 06:AD71: C9 32     CMP #$32                       ; CONSTANT - Breaking platform
+C - - - - - 0x01AD83 06:AD73: D0 03     BNE bra_AD78_skip              ; If the enemy isn't the 'breaking platform'
+C - - - - - 0x01AD85 06:AD75: 4C FD AD  JMP loc_ADFD_breaking_platform
 
 bra_AD78_skip:
-C - - - - - 0x01AD88 06:AD78: A5 46     LDA ram_0046
-C - - - - - 0x01AD8A 06:AD7A: C9 0F     CMP #$0F
-C - - - - - 0x01AD8C 06:AD7C: D0 4F     BNE bra_ADCD_RTS
+C - - - - - 0x01AD88 06:AD78: A5 46     LDA vNoSubLevel                ;
+C - - - - - 0x01AD8A 06:AD7A: C9 0F     CMP #$0F                       ; CONSTANT - level 3.0
+C - - - - - 0x01AD8C 06:AD7C: D0 4F     BNE bra_ADCD_RTS               ; If vNoSubLevel != 0x0F
 C - - - - - 0x01AD8E 06:AD7E: 8A        TXA
 C - - - - - 0x01AD8F 06:AD7F: 48        PHA
 C - - - - - 0x01AD90 06:AD80: A2 01     LDX #$01
-bra_AD82:
-C - - - - - 0x01AD92 06:AD82: AD 00 03  LDA ram_0300
-C - - - - - 0x01AD95 06:AD85: C9 0C     CMP #$0C
-C - - - - - 0x01AD97 06:AD87: D0 39     BNE bra_ADC2
+bra_AD82_loop:
+C - - - - - 0x01AD92 06:AD82: AD 00 03  LDA vEnemyA                    ;
+C - - - - - 0x01AD95 06:AD85: C9 0C     CMP #$0C                       ; CONSTANT - 'The lift'
+C - - - - - 0x01AD97 06:AD87: D0 39     BNE bra_ADC2_skip              ; If vEnemyA != 0x0C
 C - - - - - 0x01AD99 06:AD89: BD 20 03  LDA ram_0320,X
-C - - - - - 0x01AD9C 06:AD8C: 10 34     BPL bra_ADC2
+C - - - - - 0x01AD9C 06:AD8C: 10 34     BPL bra_ADC2_skip
 C - - - - - 0x01AD9E 06:AD8E: 29 40     AND #$40
-C - - - - - 0x01ADA0 06:AD90: F0 30     BEQ bra_ADC2
+C - - - - - 0x01ADA0 06:AD90: F0 30     BEQ bra_ADC2_skip
 C - - - - - 0x01ADA2 06:AD92: 8A        TXA
 C - - - - - 0x01ADA3 06:AD93: 0A        ASL
 C - - - - - 0x01ADA4 06:AD94: A4 4B     LDY ram_004B
@@ -2161,7 +2162,7 @@ bra_AD9D:
 C - - - - - 0x01ADAD 06:AD9D: A8        TAY
 C - - - - - 0x01ADAE 06:AD9E: B9 DF F6  LDA $F6DF,Y
 C - - - - - 0x01ADB1 06:ADA1: C5 68     CMP ram_0068
-C - - - - - 0x01ADB3 06:ADA3: D0 1D     BNE bra_ADC2
+C - - - - - 0x01ADB3 06:ADA3: D0 1D     BNE bra_ADC2_skip
 C - - - - - 0x01ADB5 06:ADA5: B9 E0 F6  LDA $F6E0,Y
 C - - - - - 0x01ADB8 06:ADA8: 38        SEC
 C - - - - - 0x01ADB9 06:ADA9: E5 66     SBC ram_0066
@@ -2169,7 +2170,7 @@ C - - - - - 0x01ADBB 06:ADAB: B0 03     BCS bra_ADB0
 C - - - - - 0x01ADBD 06:ADAD: 20 73 D0  JSR sub_D073_invert_sign
 bra_ADB0:
 C - - - - - 0x01ADC0 06:ADB0: C9 14     CMP #$14
-C - - - - - 0x01ADC2 06:ADB2: B0 0E     BCS bra_ADC2
+C - - - - - 0x01ADC2 06:ADB2: B0 0E     BCS bra_ADC2_skip
 C - - - - - 0x01ADC4 06:ADB4: A5 6A     LDA ram_006A
 C - - - - - 0x01ADC6 06:ADB6: 38        SEC
 C - - - - - 0x01ADC7 06:ADB7: FD 2C 03  SBC ram_032C,X
@@ -2177,9 +2178,9 @@ C - - - - - 0x01ADCA 06:ADBA: C9 05     CMP #$05
 C - - - - - 0x01ADCC 06:ADBC: 90 29     BCC bra_ADE7
 C - - - - - 0x01ADCE 06:ADBE: C9 FF     CMP #$FF
 C - - - - - 0x01ADD0 06:ADC0: B0 25     BCS bra_ADE7
-bra_ADC2:
+bra_ADC2_skip:
 C - - - - - 0x01ADD2 06:ADC2: CA        DEX
-C - - - - - 0x01ADD3 06:ADC3: 10 BD     BPL bra_AD82
+C - - - - - 0x01ADD3 06:ADC3: 10 BD     BPL bra_AD82_loop
 loc_ADC5:
 C D 1 - - - 0x01ADD5 06:ADC5: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01ADD7 06:ADC7: 29 FE     AND #$FE
@@ -2187,7 +2188,7 @@ C - - - - - 0x01ADD9 06:ADC9: 85 6D     STA vMovableChrStatus
 C - - - - - 0x01ADDB 06:ADCB: 68        PLA
 C - - - - - 0x01ADDC 06:ADCC: AA        TAX
 bra_ADCD_RTS:
-C - - - - - 0x01ADDD 06:ADCD: 60        RTS
+C - - - - - 0x01ADDD 06:ADCD: 60        RTS                         ;
 
 bra_ADCE:
 C - - - - - 0x01ADDE 06:ADCE: BD 5C 03  LDA ram_035C,X
@@ -2217,7 +2218,7 @@ C - - - - - 0x01AE08 06:ADF8: 85 6E     STA vJumpType
 C - - - - - 0x01AE0A 06:ADFA: A9 02     LDA #$02
 C - - - - - 0x01AE0C 06:ADFC: 60        RTS
 
-loc_ADFD:
+loc_ADFD_breaking_platform:
 C D 1 - - - 0x01AE0D 06:ADFD: 8A        TXA
 C - - - - - 0x01AE0E 06:ADFE: 48        PHA
 C - - - - - 0x01AE0F 06:ADFF: A2 01     LDX #$01
