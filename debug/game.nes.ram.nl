@@ -97,7 +97,7 @@ $00D4#vTempChrLiveStatus#
 $00D6#vReasonCharacterChange#
 $00FD#vSoundRoomIndex#
 $0109#v_last_level#
-$0200#v_radio_item#
+$0200#v_items#
 $0205#v_breathing_apparatus_item#
 $0206#v_helium_balloon_item#
 $0207#v_bullet_proof_vest_item#

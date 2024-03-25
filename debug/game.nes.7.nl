@@ -1125,8 +1125,16 @@ $CB00##Breathing apparatus
 $CB04##Helium balloon
 $CB08##Bullet proof vest
 $CB0C##Ruby ring
-$CB10#tbl_CB10#
-$CB20#tbl_CB20#
+$CB10#tbl_CB10_frame_for_current_item#
+$CB20#tbl_CB20_item_offset_x#Radio
+$CB21##Bomb
+$CB22##Artillery Rifle
+$CB23##Jet-pack
+$CB24##Infrared Goggles
+$CB25##Breathing apparatus
+$CB26##Helium balloon
+$CB27##Bullet proof vest
+$CB28##Ruby ring
 $CB29#sub_CB29#
 $CB36#bra_CB36#
 $CB37#bra_CB37_RTS#
@@ -1136,23 +1144,67 @@ $CB64#bra_CB64#
 $CB70#bra_CB70#
 $CB77#bra_CB77#
 $CB80#bra_CB80#
-$CB8C#sub_CB8C#--NO-COMMENT--
+$CB8C#sub_CB8C_render_frame_current_item#--NO-COMMENT--
 $CB8E##If 'the character is moving in the water'
 $CB90##--NO-COMMENT--
 $CB92##--NO-COMMENT--
 $CB94##If the character is Lupin
+$CB96##--NO-COMMENT--
+$CB99##If vRadioItem = 0
+$CB9B##--NO-COMMENT--
+$CB9E##--NO-COMMENT--
+$CBA0##Reset the activable items for Jigen and Goemon
 $CBA3#bra_CBA3_skip#--NO-COMMENT--
 $CBA6##If the weapons are not exist
-$CBB5#bra_CBB5#
+$CBA8##get the number of the item
+$CBAA##--NO-COMMENT--
+$CBAB##--NO-COMMENT--
+$CBAE##--NO-COMMENT--
+$CBB1##caches an offset
+$CBB3##set loop counter
+$CBB5#bra_CBB5_loop#--NO-COMMENT--
+$CBB8##<~ sprite Y-position
+$CBBB##increment loop counter
+$CBBC##--NO-COMMENT--
+$CBBF##<~ sprite tile number
+$CBC2##increment loop counter
+$CBC3##--NO-COMMENT--
+$CBC6##<~ the attributes of the sprite
+$CBC9##increment loop counter
+$CBCA##--NO-COMMENT--
+$CBCD##--NO-COMMENT--
+$CBCE##adds an offset
+$CBD0##<~ sprite X-position
+$CBD3##increment loop counter
+$CBD4##--NO-COMMENT--
+$CBD6##If Register X != 0
 $CBD8#bra_CBD8_RTS#--NO-COMMENT--
-$CBD9#sub_CBD9#--NO-COMMENT--
+$CBD9#sub_CBD9_try_use_current_item#--NO-COMMENT--
 $CBDC##If the weapons are not exist
 $CBDE##If the weapon is activated
-$CC06#sub_CC06#
-$CC14#bra_CC14_loop#
-$CC1B#bra_CC1B_skip#
-$CC26#bra_CC26_skip#
-$CC29#bra_CC29_RTS#
+$CBEE##--NO-COMMENT--
+$CBF1##Go to the branch If the button 'Select' isn't pressed
+$CBFD##--NO-COMMENT--
+$CC00##--NO-COMMENT--
+$CC02##Prepare 'the index of the item'
+$CC03##--NO-COMMENT--
+$CC06#sub_CC06_select_next_activatable_item#--NO-COMMENT--
+$CC09##If the count of the current item != 0
+$CC0B##--NO-COMMENT--
+$CC0E##if the item-weapon is activated
+$CC10##--NO-COMMENT--
+$CC12##set loop counter
+$CC14#bra_CC14_loop#next activatable item
+$CC15##--NO-COMMENT--
+$CC17##If Register X != 0x05, i.e. next item exist
+$CC19##First activatable item will be assigned next
+$CC1B#bra_CC1B_skip#--NO-COMMENT--
+$CC1E##If the current item exist
+$CC20##decrement loop counter
+$CC22##If vTempCounter12 != 0
+$CC24##CONSTANT - the weapons are not exist
+$CC26#bra_CC26_skip#--NO-COMMENT--
+$CC29#bra_CC29_RTS#--NO-COMMENT--
 $CC2A#sub_CC2A#
 $CC37#bra_CC37#
 $CC46#tbl_CC46#
@@ -1182,7 +1234,7 @@ $CD1C#sub_CD1C#
 $CD49#loc_CD49#
 $CD53#tbl_CD53#a bomb is on the right
 $CD59##a bomb is on the left
-$CD5F#sub_CD5F#--NO-COMMENT--
+$CD5F#sub_CD5F_try_reset_goggles#--NO-COMMENT--
 $CD61##If goggles are not deactivated
 $CD63##--NO-COMMENT--
 $CD65##If a high counter != 0x00
@@ -1868,16 +1920,22 @@ $D344##return a collision value
 $D346##--NO-COMMENT--
 $D347#sub_D347#
 $D350#bra_D350_skip#
-$D36A#loc_D36A#to sub_AD6E bank 06_2
+$D36A#loc_D36A_short_left_right_collision#to sub_AD6E bank 06_2
 $D36D##--NO-COMMENT--
-$D370#sub_D370#increment by x
+$D370#sub_D370_left_right_collision#increment by x (+4)
 $D372##--NO-COMMENT--
-$D375##store a collision value
-$D376##CONSTANT - a strong collistion
-$D378##If a strong collistion no exist
-$D37A##retrieve a collision value ($D375)
+$D375##store a right collision value
+$D376##CONSTANT - a strong collision
+$D378##If a strong collision no exist
+$D37A##retrieve a right collision value ($D375)
 $D37B##--NO-COMMENT--
-$D37C#bra_D37C_skip#
+$D37C#bra_D37C_left#increment by x (-8 instead of -4, because see $0001 was changed)
+$D37E##--NO-COMMENT--
+$D381##store a left collision value
+$D383##retrieve a right collision value ($D375)
+$D384##store a right collision value
+$D386##--NO-COMMENT--
+$D388##--NO-COMMENT--
 $D389#sub_D389_collision_by_increment_posX#--NO-COMMENT--
 $D38A##--NO-COMMENT--
 $D38C##--NO-COMMENT--
@@ -1886,7 +1944,12 @@ $D390##--NO-COMMENT--
 $D392##+1, if A + $0001 caused an overflow
 $D394##--NO-COMMENT--
 $D397#sub_D397#
-$D39F#sub_D39F_collision_by_increment_posX#
+$D39F#sub_D39F_collision_by_increment_posX#--NO-COMMENT--
+$D3A0##--NO-COMMENT--
+$D3A2##--NO-COMMENT--
+$D3A4##--NO-COMMENT--
+$D3A6##--NO-COMMENT--
+$D3A8##-1, if A + $0001 doesn't cause an overflow
 $D3AA##--NO-COMMENT--
 $D3AD#sub_D3AD#
 $D3B5#bra_D3B5#
@@ -2201,19 +2264,21 @@ $DB2E##Register A <~ { 0x00, 0x01, 0x02, ..., 0x07 }
 $DB31##--NO-COMMENT--
 $DB34##default
 $DB36##jumping
-$DB44#loc_DB44#
+$DB44#loc_DB44#prepare an input parameter
+$DB46##Check collisions in vScreenChrPosY + 4 and vScreenChrPosY - 4
+$DB49##If collisions exist
 $DB4B#loc_DB4B#
-$DB52#bra_DB52_skip#--NO-COMMENT--
+$DB52#bra_DB52_collisions#--NO-COMMENT--
 $DB55##CONSTANT - The rifle is current and activated
 $DB57##If vCurrentWeaponStatus != 0x42
 $DB59##--NO-COMMENT--
 $DB5B##If RifleFire is timeout
-$DB5D##to loc_B1FB (bank_06_2)
+$DB5D##to bank 06_02
 $DB60#bra_DB60_skip#--NO-COMMENT--
 $DB62##--NO-COMMENT--
 $DB65##Go to the branch If the button 'A' isn't pressed
 $DB67##--NO-COMMENT--
-$DB6A#bra_DB6A#--NO-COMMENT--
+$DB6A#bra_DB6A_skip#--NO-COMMENT--
 $DB6D##CONSTANT - The rifle is current and activated
 $DB6F##If vCurrentWeaponStatus == 0x42
 $DB71##--NO-COMMENT--
@@ -2235,11 +2300,11 @@ $DBA9##--NO-COMMENT--
 $DBAB##If the button 'Left' or 'Right' isn't pressed
 $DBB0#bra_DBB0_skip#--NO-COMMENT--
 $DBB2##Always true
-$DBB4#bra_DBB4_skip#--NO-COMMENT--
+$DBB4#bra_DBB4_down#--NO-COMMENT--
 $DBB6##CONSTANT - the character is sitting
 $DBB8##--NO-COMMENT--
 $DBBD##the offset of the sprite address
-$DBBF#bra_DBBF_skip#
+$DBBF#bra_DBBF_skip#--NO-COMMENT--
 $DBC2#loc_DBC2#--NO-COMMENT--
 $DBC4##CONSTANT - the character is getting a damage
 $DBC6##If the character is getting a damage
@@ -2247,7 +2312,14 @@ $DBC8##--NO-COMMENT--
 $DBC9##store x
 $DBCD##--NO-COMMENT--
 $DBCE##retrieve x (see DBC9)
-$DBCF#bra_DBCF_skip#
+$DBCF#bra_DBCF_skip#--NO-COMMENT--
+$DBD1##prepare an input parameter
+$DBD3##--NO-COMMENT--
+$DBD5##prepare an input parameter
+$DBD7##--NO-COMMENT--
+$DBD9##--NO-COMMENT--
+$DBDB##CONSTANT - 'the character is entering a corridor or hiding place'
+$DBDD##If vChrStatus = 0x2X
 $DBDF##--NO-COMMENT--
 $DBE1##--NO-COMMENT--
 $DBE2##If the character is looking to the right
@@ -2298,7 +2370,7 @@ $DC5E#bra_DC5E_skip#
 $DC61#loc_DC61#
 $DC67#loc_DC67#
 $DC6F#tbl_DC6F#
-$DC72#bra_DC72_skip#--NO-COMMENT--
+$DC72#bra_DC72_right#--NO-COMMENT--
 $DC74##--NO-COMMENT--
 $DC75##--NO-COMMENT--
 $DC77##Changes a status to 'right'
@@ -2452,14 +2524,14 @@ $E035#bra_E035_RTS#
 $E036#tbl_E036#
 $E03A#loc_E03A#
 $E047#bra_E047#
-$E04C#sub_E04C#--NO-COMMENT--
+$E04C#sub_E04C_shot_gun_subroutine#--NO-COMMENT--
 $E04E##--NO-COMMENT--
 $E051##Go to the branch If the button 'B' isn't pressed (shot a gun)
 $E053##--NO-COMMENT--
 $E055##If the character is in the air
 $E06C#bra_E06C#
 $E07C#bra_E07C#
-$E083#bra_E083_RTS#
+$E083#bra_E083_RTS#--NO-COMMENT--
 $E084#bra_E084#
 $E093#bra_E093#
 $E0A1#tbl_E0A1#
@@ -2472,7 +2544,7 @@ $E0E5#bra_E0E5#
 $E0F6#sub_E0F6#
 $E10F#bra_E10F#
 $E12F#bra_E12F#
-$E132#loc_E132#set loop counter
+$E132#loc_E132_bullets_subroutine#set loop counter
 $E134#bra_E134_loop#--NO-COMMENT--
 $E139##decrement vTempCounter10
 $E13B##In vTempCounter10 < 0xF0
@@ -2600,10 +2672,11 @@ $E582#sub_E582#
 $E594#bra_E594#
 $E5A3#sub_E5A3#
 $E5A5#sub_E5A5#
-$E5AB#sub_E5AB_add_short_chr_y_positions#--NO-COMMENT--
+$E5AB#sub_E5AB_short_collision_by_increment#--NO-COMMENT--
 $E5AC##--NO-COMMENT--
 $E5AE##--NO-COMMENT--
-$E5B0##--NO-COMMENT--
+$E5B0##an offset (+1)
+$E5B2##--NO-COMMENT--
 $E5B5#sub_E5B5#
 $E5BE#sub_E5BE#
 $E5C5#bra_E5C5#
@@ -2858,6 +2931,9 @@ $EDC3##--NO-COMMENT--
 $EDC4##Branch if 'A screen with the message'
 $EDC6##to sub_B09A bank 06_2
 $EDC9##to sub_AF4D bank 06_2
+$EDCC##--NO-COMMENT--
+$EDCF##--NO-COMMENT--
+$EDD2##--NO-COMMENT--
 $EDD5#loc_EDD5_nmi_skip#--NO-COMMENT--
 $EDD8##--NO-COMMENT--
 $EDDB#bra_EDDB_pause#--NO-COMMENT--
@@ -2908,8 +2984,18 @@ $EE47##--NO-COMMENT--
 $EE4A##--NO-COMMENT--
 $EE4D#bra_EE4D_nmi_first_cutscene#--NO-COMMENT--
 $EE50##--NO-COMMENT--
-$EE53#sub_EE53#
-$EE5D#sub_EE5D#
+$EE53#sub_EE53_enemies_subroutine#
+$EE56##assign type A
+$EE58##--NO-COMMENT--
+$EE5B##assign type B
+$EE5D#sub_EE5D_enemy_handler#--NO-COMMENT--
+$EE60##*2, because the address has 2 bytes
+$EE61##--NO-COMMENT--
+$EE62##--NO-COMMENT--
+$EE65##Low address
+$EE67##--NO-COMMENT--
+$EE6A##High address
+$EE6C##--NO-COMMENT--
 $EE72##to sub_A000
 $EE7B##to sub_A003
 $EE84##to sub_A006
@@ -3108,7 +3194,8 @@ $F0C7#loc_F0C7#
 $F0E7#loc_F0E7#
 $F10A##clear a low part
 $F10D##clear a high part
-$F110#bra_F110_inc_counters#
+$F110#bra_F110_inc_counters#--NO-COMMENT--
+$F112##If the process, after 'Select a character', but before the game itself
 $F114##--NO-COMMENT--
 $F116##If 'the character is moving in the water'
 $F118##--NO-COMMENT--
@@ -3141,7 +3228,7 @@ $F153##If vEnemyTimerLow1 is overflow
 $F155##increment high
 $F158#bra_F158_skip#--NO-COMMENT--
 $F15B##CONSTANT - from now on we create a random enemy
-$F15D##If vEnemyTimerHigh1 != 3
+$F15D##If vEnemyTimerHigh1 < 3
 $F15F##--NO-COMMENT--
 $F162##CONSTANT - Zenigata
 $F164##If vEnemyA is Zenigata
@@ -3321,7 +3408,7 @@ $F82B#bra_F82B#
 $F84A#sub_F84A#
 $F855#bra_F855#
 $F874#sub_F874#
-$F887#enemy_RTS#
+$F887#loc_enemy_RTS#--NO-COMMENT--
 $F888#tbl_F888#Nobody  (0x00)
 $F88A##Cat with the gun
 $F88C##Gray Land hat

@@ -50,6 +50,7 @@
 .export sub_B8C7_main_menu_shared_routine
 .export sub_B9DA_curscene_shared_routine
 .export sub_B18C_prepare_briefcases_by_index
+.export loc_B1FB_rifle
 
 tbl_A000:
 - D 1 - - - 0x01A010 06:A000: 00        .byte $00   ; 
@@ -2405,9 +2406,9 @@ C - - - - - 0x01AF5A 06:AF4A: 4C A9 AE  JMP loc_AEA9
 
 sub_AF4D: ; from bank FF
 C - - - - - 0x01AF5D 06:AF4D: A2 05     LDX #$05                        ; the number of the briefcases
-C - - - - - 0x01AF5F 06:AF4F: 86 1A     STX v_sub_AF4D_briefcase_no     ; set loop counter
-bra_AF51_loop:                                                          ; loop by v_sub_AF4D_briefcase_no
-C - - - - - 0x01AF61 06:AF51: A6 1A     LDX v_sub_AF4D_briefcase_no     ;
+C - - - - - 0x01AF5F 06:AF4F: 86 1A     STX vTempCounter1A              ; set loop counter
+bra_AF51_loop:                                                          ; loop by vTempCounter1A
+C - - - - - 0x01AF61 06:AF51: A6 1A     LDX vTempCounter1A              ;
 C - - - - - 0x01AF63 06:AF53: 20 F8 AF  JSR sub_AFF8
 C - - - - - 0x01AF66 06:AF56: BD 9E 03  LDA v_item_on_screen,X          ;
 C - - - - - 0x01AF69 06:AF59: C9 E0     CMP #$E0                        ;
@@ -2468,9 +2469,9 @@ C - - - - - 0x01AFD3 06:AFC3: CA        DEX
 C - - - - - 0x01AFD4 06:AFC4: 10 F8     BPL bra_AFBE_repeat
 bra_AFC6_loop_continue:
 loc_AFC6_loop_continue:
-C D 1 - - - 0x01AFD6 06:AFC6: C6 1A     DEC v_sub_AF4D_briefcase_no      ; decrement v_sub_AF4D_briefcase_no
-C - - - - - 0x01AFD8 06:AFC8: D0 87     BNE bra_AF51_loop                ; If v_sub_AF4D_briefcase_no != 0
-C - - - - - 0x01AFDA 06:AFCA: 60        RTS
+C D 1 - - - 0x01AFD6 06:AFC6: C6 1A     DEC vTempCounter1A               ; decrement vTempCounter1A
+C - - - - - 0x01AFD8 06:AFC8: D0 87     BNE bra_AF51_loop                ; If vTempCounter1A != 0
+C - - - - - 0x01AFDA 06:AFCA: 60        RTS                              ;
 
 bra_AFCB:
 C - - - - - 0x01AFDB 06:AFCB: A9 00     LDA #$00
@@ -2479,7 +2480,7 @@ C - - - - - 0x01AFDF 06:AFCF: 20 D5 AF  JSR sub_AFD5
 C - - - - - 0x01AFE2 06:AFD2: 4C C6 AF  JMP loc_AFC6_loop_continue
 
 sub_AFD5:
-C - - - - - 0x01AFE5 06:AFD5: A6 1A     LDX v_sub_AF4D_briefcase_no
+C - - - - - 0x01AFE5 06:AFD5: A6 1A     LDX vTempCounter1A
 C - - - - - 0x01AFE7 06:AFD7: DE A4 03  DEC vBriefcaseHitCount - 1,X
 C - - - - - 0x01AFEA 06:AFDA: D0 12     BNE bra_AFEE_RTS
 C - - - - - 0x01AFEC 06:AFDC: BD 9E 03  LDA v_item_on_screen,X
@@ -2738,11 +2739,11 @@ C - - - - - 0x01B1A9 06:B199: A5 46     LDA vNoSubLevel                         
 C - - - - - 0x01B1AB 06:B19B: 38        SEC                                                 ;
 C - - - - - 0x01B1AC 06:B19C: E9 1F     SBC #$1F                                            ; A <~ 0x00 (level1), 0x01 (level2.1), 0x02 (level2.2), 0x03 (level3), 0x04 (level4)
 C - - - - - 0x01B1AE 06:B19E: 0A        ASL                                                 ;
-C - - - - - 0x01B1AF 06:B19F: 85 12     STA v_temp_counter12                                ;
+C - - - - - 0x01B1AF 06:B19F: 85 12     STA vTempCounter12                                  ;
 C - - - - - 0x01B1B1 06:B1A1: 0A        ASL                                                 ;
 C - - - - - 0x01B1B2 06:B1A2: 0A        ASL                                                 ;
 C - - - - - 0x01B1B3 06:B1A3: 18        CLC                                                 ;
-C - - - - - 0x01B1B4 06:B1A4: 65 12     ADC v_temp_counter12                                ; *10
+C - - - - - 0x01B1B4 06:B1A4: 65 12     ADC vTempCounter12                                  ; *10
 C - - - - - 0x01B1B6 06:B1A6: A8        TAY                                                 ; {0x00, 0x0A, 0x14, 0x1E, 0x28}
 C - - - - - 0x01B1B7 06:B1A7: A2 05     LDX #$05                                            ; set loop counter
 bra_B1A9_loop:                                                                              ; loop by x (5 times)
@@ -2792,7 +2793,7 @@ C - - - - - 0x01B207 06:B1F7: CA        DEX                                     
 C - - - - - 0x01B208 06:B1F8: D0 E2     BNE @bra_B1DC_loop                                  ; If Register X != 0
 C - - - - - 0x01B20A 06:B1FA: 60        RTS                                                 ;
 
-loc_B1FB: ; from bank FF
+loc_B1FB_rifle:
 C D 1 - - - 0x01B20B 06:B1FB: C6 73     DEC vRifleFireTime
 C - - - - - 0x01B20D 06:B1FD: D0 0F     BNE bra_B20E_skip
 C - - - - - 0x01B20F 06:B1FF: C6 72     DEC vRifleShotCount

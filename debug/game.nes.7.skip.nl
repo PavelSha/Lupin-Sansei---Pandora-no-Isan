@@ -50,3 +50,15 @@ $C0E9##ram_003A
 $C0EB##ram_003A
 $DAF4##sub_E2A6_test_feature_smth
 $D36A##sub_AD6E (bank 06_2)
+$DB5D##loc_B1FB (bank 06_2)
+$B09A##sub_B09A (bank 06_2)
+$AF4D##sub_AF4D (bank 06_2)
+$DBCA##sub_E04C_shot_gun_subroutine
+$CEA9##sub_CE5A_render_character
+$CEAB##sub_CE5A_render_character
+$CECD##sub_CE5A_render_character
+$CECF##sub_CE5A_render_character
+$DC10##loc_E132_bullets_subroutine
+$E136##loc_E132_bullets_subroutine
+$EDBE##sub_EE53_enemies_subroutine
+$EF69##sub_EE53_enemies_subroutine
