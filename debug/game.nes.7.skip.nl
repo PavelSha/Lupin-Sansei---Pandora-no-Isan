@@ -60,5 +60,11 @@ $CECD##sub_CE5A_render_character
 $CECF##sub_CE5A_render_character
 $DC10##loc_E132_bullets_subroutine
 $E136##loc_E132_bullets_subroutine
+$F0B5##sub_F0A9_enemy_subroutine
 $EDBE##sub_EE53_enemies_subroutine
+$EE53##sub_EE53_enemies_subroutine
 $EF69##sub_EE53_enemies_subroutine
+$DCB6##ram_0042
+$DCEA##ram_0042
+$DCEC##ram_0042
+$E56D##ram_0042

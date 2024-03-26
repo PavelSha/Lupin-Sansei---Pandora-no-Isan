@@ -3106,16 +3106,15 @@ C - - - - - 0x01D3A0 07:D390: 69 00     ADC #$00                         ;
 C - - - - - 0x01D3A2 07:D392: 85 4D     STA vCacheNoScreen               ; +1, if A + $0001 caused an overflow
 C - - - - - 0x01D3A4 07:D394: 4C E5 D2  JMP loc_D2E5_get_collision_value ;
 
-; Params:
-; Register A - increment
-; 0x0000 - vScreenChrPosY
-; 0x0001 - vLowChrPosX
-; 0x004D - vNoScreen
-sub_D397:
-C D 2 - - - 0x01D3A7 07:D397: 20 89 D3  JSR sub_D389_collision_by_increment_posX
-C - - - - - 0x01D3AA 07:D39A: C9 01     CMP #$01
-C - - - - - 0x01D3AC 07:D39C: D0 17     BNE bra_D3B5
-C - - - - - 0x01D3AE 07:D39E: 60        RTS
+
+; In: Register A - increment by x
+; In: $0000 - ChrPosY (in vScreenChrPosY units)
+; In: $0001 - vLowChrPosX
+sub_D397_right_collision_by_inc_posX:
+C D 2 - - - 0x01D3A7 07:D397: 20 89 D3  JSR sub_D389_collision_by_increment_posX  ;
+C - - - - - 0x01D3AA 07:D39A: C9 01     CMP #$01                                  ; CONSTANT - a strong collision
+C - - - - - 0x01D3AC 07:D39C: D0 17     BNE bra_D3B5_check_walls                  ; If a strong collision no exist
+C - - - - - 0x01D3AE 07:D39E: 60        RTS                                       ;
 
 ; In: Register A - increment by x
 ; In: $0000 - ChrPosY (in vScreenChrPosY units)
@@ -3130,54 +3129,59 @@ C - - - - - 0x01D3B6 07:D3A6: 69 FF     ADC #$FF                         ;
 C - - - - - 0x01D3B8 07:D3A8: 85 4D     STA vCacheNoScreen               ; -1, if A + $0001 doesn't cause an overflow
 C - - - - - 0x01D3BA 07:D3AA: 4C E5 D2  JMP loc_D2E5_get_collision_value ;
 
-sub_D3AD:
-C D 2 - - - 0x01D3BD 07:D3AD: 20 9F D3  JSR sub_D39F_collision_by_increment_posX
-C - - - - - 0x01D3C0 07:D3B0: C9 01     CMP #$01
-C - - - - - 0x01D3C2 07:D3B2: D0 01     BNE bra_D3B5
-C - - - - - 0x01D3C4 07:D3B4: 60        RTS
+; In: Register A - increment by x
+; In: $0000 - ChrPosY (in vScreenChrPosY units)
+; In: $0001 - vLowChrPosX
+sub_D3AD_left_collision_by_inc_posX:
+C D 2 - - - 0x01D3BD 07:D3AD: 20 9F D3  JSR sub_D39F_collision_by_increment_posX  ;
+C - - - - - 0x01D3C0 07:D3B0: C9 01     CMP #$01                                  ; CONSTANT - a strong collision
+C - - - - - 0x01D3C2 07:D3B2: D0 01     BNE bra_D3B5_check_walls                  ; If a strong collision no exist
+C - - - - - 0x01D3C4 07:D3B4: 60        RTS                                       ;
 
-bra_D3B5:
-C - - - - - 0x01D3C5 07:D3B5: 48        PHA
-C - - - - - 0x01D3C6 07:D3B6: A5 5E     LDA v_no_level
-C - - - - - 0x01D3C8 07:D3B8: C9 03     CMP #$03
-C - - - - - 0x01D3CA 07:D3BA: D0 35     BNE bra_D3F1
-C - - - - - 0x01D3CC 07:D3BC: AD 01 03  LDA ram_0301
-C - - - - - 0x01D3CF 07:D3BF: C9 30     CMP #$30
-C - - - - - 0x01D3D1 07:D3C1: F0 04     BEQ bra_D3C7
-C - - - - - 0x01D3D3 07:D3C3: C9 31     CMP #$31
-C - - - - - 0x01D3D5 07:D3C5: D0 2A     BNE bra_D3F1
-bra_D3C7:
-C - - - - - 0x01D3D7 07:D3C7: A0 01     LDY #$01
-bra_D3C9:
+; In: $0000 - ChrPosY (in vScreenChrPosY units)
+; In: $0001 - vLowChrPosX
+bra_D3B5_check_walls:
+C - - - - - 0x01D3C5 07:D3B5: 48        PHA                          ; store A
+C - - - - - 0x01D3C6 07:D3B6: A5 5E     LDA v_no_level               ;
+C - - - - - 0x01D3C8 07:D3B8: C9 03     CMP #$03                     ; CONSTANT - level 4 or level-racing
+C - - - - - 0x01D3CA 07:D3BA: D0 35     BNE bra_D3F1_return          ; If v_no_level != 0x03
+C - - - - - 0x01D3CC 07:D3BC: AD 01 03  LDA vEnemyB                  ;
+C - - - - - 0x01D3CF 07:D3BF: C9 30     CMP #$30                     ; CONSTANT - Wall #1
+C - - - - - 0x01D3D1 07:D3C1: F0 04     BEQ @bra_D3C7                ; If vEnemyB == 0x30
+C - - - - - 0x01D3D3 07:D3C3: C9 31     CMP #$31                     ; CONSTANT - Wall #2
+C - - - - - 0x01D3D5 07:D3C5: D0 2A     BNE bra_D3F1_return          ; If vEnemyB != 0x31
+@bra_D3C7:
+C - - - - - 0x01D3D7 07:D3C7: A0 01     LDY #$01                     ; set loop counter
+@bra_D3C9_loop:                                                      ; loop by y (2 times)
 C - - - - - 0x01D3D9 07:D3C9: B9 5C 03  LDA ram_035C,Y
-C - - - - - 0x01D3DC 07:D3CC: 10 20     BPL bra_D3EE
+C - - - - - 0x01D3DC 07:D3CC: 10 20     BPL @bra_D3EE
 C - - - - - 0x01D3DE 07:D3CE: A5 00     LDA ram_0000
 C - - - - - 0x01D3E0 07:D3D0: C9 8F     CMP #$8F
-C - - - - - 0x01D3E2 07:D3D2: 90 1A     BCC bra_D3EE
+C - - - - - 0x01D3E2 07:D3D2: 90 1A     BCC @bra_D3EE
 C - - - - - 0x01D3E4 07:D3D4: C9 C0     CMP #$C0
-C - - - - - 0x01D3E6 07:D3D6: B0 16     BCS bra_D3EE
-C - - - - - 0x01D3E8 07:D3D8: A5 4D     LDA ram_004D
+C - - - - - 0x01D3E6 07:D3D6: B0 16     BCS @bra_D3EE
+C - - - - - 0x01D3E8 07:D3D8: A5 4D     LDA vCacheNoScreen
 C - - - - - 0x01D3EA 07:D3DA: D9 7A 03  CMP ram_037A,Y
-C - - - - - 0x01D3ED 07:D3DD: D0 0F     BNE bra_D3EE
+C - - - - - 0x01D3ED 07:D3DD: D0 0F     BNE @bra_D3EE
 C - - - - - 0x01D3EF 07:D3DF: A5 01     LDA ram_0001
 C - - - - - 0x01D3F1 07:D3E1: 38        SEC
 C - - - - - 0x01D3F2 07:D3E2: F9 74 03  SBC ram_0374,Y
-C - - - - - 0x01D3F5 07:D3E5: B0 03     BCS bra_D3EA
+C - - - - - 0x01D3F5 07:D3E5: B0 03     BCS @bra_D3EA
 C - - - - - 0x01D3F7 07:D3E7: 20 73 D0  JSR sub_D073_invert_sign
-bra_D3EA:
+@bra_D3EA:
 C - - - - - 0x01D3FA 07:D3EA: C9 04     CMP #$04
-C - - - - - 0x01D3FC 07:D3EC: 90 05     BCC bra_D3F3
-bra_D3EE:
-C - - - - - 0x01D3FE 07:D3EE: 88        DEY
-C - - - - - 0x01D3FF 07:D3EF: 10 D8     BPL bra_D3C9
-bra_D3F1:
-C - - - - - 0x01D401 07:D3F1: 68        PLA
-C - - - - - 0x01D402 07:D3F2: 60        RTS
+C - - - - - 0x01D3FC 07:D3EC: 90 05     BCC bra_D3F3_collision
+@bra_D3EE:
+C - - - - - 0x01D3FE 07:D3EE: 88        DEY                       ; decrement loop counter
+C - - - - - 0x01D3FF 07:D3EF: 10 D8     BPL @bra_D3C9_loop        ; If Register Y < 0xF0
+bra_D3F1_return:
+C - - - - - 0x01D401 07:D3F1: 68        PLA                       ; retrieve A ($D3B5)
+C - - - - - 0x01D402 07:D3F2: 60        RTS                       ;
 
-bra_D3F3:
-C - - - - - 0x01D403 07:D3F3: 68        PLA
-C - - - - - 0x01D404 07:D3F4: A9 01     LDA #$01
-C - - - - - 0x01D406 07:D3F6: 60        RTS
+bra_D3F3_collision:
+C - - - - - 0x01D403 07:D3F3: 68        PLA                       ; retrieve A ($D3B5)
+C - - - - - 0x01D404 07:D3F4: A9 01     LDA #$01                  ; set a strong collision
+C - - - - - 0x01D406 07:D3F6: 60        RTS                       ;
 
 ; There PRG-bank switching happens 
 ; Out: the CPU-address in [$004E-#004F]
@@ -3778,14 +3782,14 @@ C - - - - - 0x01D7CE 07:D7BE: 60        RTS
 sub_D7BF: ; from bank 06_2
 C - - - - - 0x01D7CF 07:D7BF: 20 37 D9  JSR sub_D937
 C - - - - - 0x01D7D2 07:D7C2: A9 08     LDA #$08
-C - - - - - 0x01D7D4 07:D7C4: 20 97 D3  JSR sub_D397
+C - - - - - 0x01D7D4 07:D7C4: 20 97 D3  JSR sub_D397_right_collision_by_inc_posX
 C - - - - - 0x01D7D7 07:D7C7: C9 01     CMP #$01
 C - - - - - 0x01D7D9 07:D7C9: 60        RTS
 
 sub_D7CA: ; from bank 06_2
 C - - - - - 0x01D7DA 07:D7CA: 20 37 D9  JSR sub_D937
 C - - - - - 0x01D7DD 07:D7CD: A9 F8     LDA #$F8
-C - - - - - 0x01D7DF 07:D7CF: 20 AD D3  JSR sub_D3AD
+C - - - - - 0x01D7DF 07:D7CF: 20 AD D3  JSR sub_D3AD_left_collision_by_inc_posX
 C - - - - - 0x01D7E2 07:D7D2: C9 01     CMP #$01
 C - - - - - 0x01D7E4 07:D7D4: 60        RTS
 
@@ -3926,13 +3930,13 @@ C - - - - - 0x01D8C6 07:D8B6: 60        RTS
 
 C - - - - - 0x01D8C7 07:D8B7: 20 4A D9  JSR sub_D94A
 C - - - - - 0x01D8CA 07:D8BA: A9 08     LDA #$08
-C - - - - - 0x01D8CC 07:D8BC: 20 97 D3  JSR sub_D397
+C - - - - - 0x01D8CC 07:D8BC: 20 97 D3  JSR sub_D397_right_collision_by_inc_posX
 C - - - - - 0x01D8CF 07:D8BF: C9 01     CMP #$01
 C - - - - - 0x01D8D1 07:D8C1: 60        RTS
 
 C - - - - - 0x01D8D2 07:D8C2: 20 4A D9  JSR sub_D94A
 C - - - - - 0x01D8D5 07:D8C5: A9 F8     LDA #$F8
-C - - - - - 0x01D8D7 07:D8C7: 20 AD D3  JSR sub_D3AD
+C - - - - - 0x01D8D7 07:D8C7: 20 AD D3  JSR sub_D3AD_left_collision_by_inc_posX
 C - - - - - 0x01D8DA 07:D8CA: C9 01     CMP #$01
 C - - - - - 0x01D8DC 07:D8CC: 60        RTS
 
@@ -4454,7 +4458,7 @@ C - - - - - 0x01DBCD 07:DBBD: A2 14     LDX #$14                    ; the offset
 bra_DBBF_skip:
 C - - - - - 0x01DBCF 07:DBBF: 20 F1 DC  JSR sub_DCF1_reset_velocity ;
 ; in: Register X - the offset of the sprite address
-loc_DBC2:
+loc_DBC2_before_rendering:
 C D 2 - - - 0x01DBD2 07:DBC2: A5 6C     LDA vChrStatus                   ;
 C - - - - - 0x01DBD4 07:DBC4: 29 08     AND #$08                         ; CONSTANT - the character is getting a damage
 C - - - - - 0x01DBD6 07:DBC6: D0 07     BNE bra_DBCF_skip                ; If the character is getting a damage
@@ -4551,36 +4555,36 @@ C - - - - - 0x01DC5E 07:DC4E: AA        TAX
 C - - - - - 0x01DC5F 07:DC4F: 4C 5A CE  JMP loc_CE5A_render_character
 
 loc_DC52:
-C D 2 - - - 0x01DC62 07:DC52: 30 1E     BMI bra_DC72_right          ; If the button 'Right' is pressed
-C - - - - - 0x01DC64 07:DC54: A5 6C     LDA vChrStatus              ;
-C - - - - - 0x01DC66 07:DC56: 6A        ROR                         ;  
-C - - - - - 0x01DC67 07:DC57: B0 05     BCS bra_DC5E_skip           ; If vChrStatus is changed yet
-C - - - - - 0x01DC69 07:DC59: E6 6C     INC vChrStatus              ; Changes a status to 'left'
-C - - - - - 0x01DC6B 07:DC5B: 20 F1 DC  JSR sub_DCF1_reset_velocity
+C D 2 - - - 0x01DC62 07:DC52: 30 1E     BMI bra_DC72_right                ; If the button 'Right' is pressed
+C - - - - - 0x01DC64 07:DC54: A5 6C     LDA vChrStatus                    ;
+C - - - - - 0x01DC66 07:DC56: 6A        ROR                               ;  
+C - - - - - 0x01DC67 07:DC57: B0 05     BCS bra_DC5E_skip                 ; If vChrStatus is changed yet
+C - - - - - 0x01DC69 07:DC59: E6 6C     INC vChrStatus                    ; Changes a status to 'left'
+C - - - - - 0x01DC6B 07:DC5B: 20 F1 DC  JSR sub_DCF1_reset_velocity       ;
 bra_DC5E_skip:
-C - - - - - 0x01DC6E 07:DC5E: 20 B1 DC  JSR sub_DCB1
-loc_DC61:
+C - - - - - 0x01DC6E 07:DC5E: 20 B1 DC  JSR sub_DCB1_try_move_on_the_left ;
+loc_DC61_after_moving:
 C D 2 - - - 0x01DC71 07:DC61: 20 82 DC  JSR sub_DC82
 C - - - - - 0x01DC74 07:DC64: 20 96 DC  JSR sub_DC96
 loc_DC67:
 C D 2 - - - 0x01DC77 07:DC67: A4 70     LDY ram_0070
-C - - - - - 0x01DC79 07:DC69: BE 6F DC  LDX tbl_DC6F,Y
-C - - - - - 0x01DC7C 07:DC6C: 4C C2 DB  JMP loc_DBC2
+C - - - - - 0x01DC79 07:DC69: BE 6F DC  LDX tbl_DC6F_movement_frames,Y    ; prepares the offset of the sprite address
+C - - - - - 0x01DC7C 07:DC6C: 4C C2 DB  JMP loc_DBC2_before_rendering     ;
 
-tbl_DC6F:
-- D 2 - - - 0x01DC7F 07:DC6F: 04        .byte $04
-- D 2 - - - 0x01DC80 07:DC70: 08        .byte $08
-- D 2 - - - 0x01DC81 07:DC71: 0C        .byte $0C
+tbl_DC6F_movement_frames:
+- D 2 - - - 0x01DC7F 07:DC6F: 04        .byte $04    ;  1st frame
+- D 2 - - - 0x01DC80 07:DC70: 08        .byte $08    ;  2nd frame
+- D 2 - - - 0x01DC81 07:DC71: 0C        .byte $0C    ;  3rd frame
 
 bra_DC72_right:
-C - - - - - 0x01DC82 07:DC72: A5 6C     LDA vChrStatus              ;
-C - - - - - 0x01DC84 07:DC74: 6A        ROR                         ;
-C - - - - - 0x01DC85 07:DC75: 90 05     BCC bra_DC7C_skip           ;
-C - - - - - 0x01DC87 07:DC77: C6 6C     DEC vChrStatus              ; Changes a status to 'right'
-C D 2 - - - 0x01DC89 07:DC79: 20 F1 DC  JSR sub_DCF1_reset_velocity
+C - - - - - 0x01DC82 07:DC72: A5 6C     LDA vChrStatus                     ;
+C - - - - - 0x01DC84 07:DC74: 6A        ROR                                ;
+C - - - - - 0x01DC85 07:DC75: 90 05     BCC bra_DC7C_skip                  ;
+C - - - - - 0x01DC87 07:DC77: C6 6C     DEC vChrStatus                     ; Changes a status to 'right'
+C D 2 - - - 0x01DC89 07:DC79: 20 F1 DC  JSR sub_DCF1_reset_velocity        ;
 bra_DC7C_skip:
-C - - - - - 0x01DC8C 07:DC7C: 20 E5 DC  JSR sub_DCE5
-C - - - - - 0x01DC8F 07:DC7F: 4C 61 DC  JMP loc_DC61
+C - - - - - 0x01DC8C 07:DC7C: 20 E5 DC  JSR sub_DCE5_try_move_on_the_right ;
+C - - - - - 0x01DC8F 07:DC7F: 4C 61 DC  JMP loc_DC61_after_moving
 
 sub_DC82:
 C - - - - - 0x01DC92 07:DC82: A5 2C     LDA v_low_counter
@@ -4624,46 +4628,46 @@ C - - - - - 0x01DCBC 07:DCAC: E5 27     SBC vLowViewPortPosX ;
 C - - - - - 0x01DCBE 07:DCAE: 85 64     STA vScreenChrPosX   ;
 C - - - - - 0x01DCC0 07:DCB0: 60        RTS                  ;
 
-sub_DCB1:
-C - - - - - 0x01DCC1 07:DCB1: 20 34 DD  JSR sub_DD34
-C - - - - - 0x01DCC4 07:DCB4: F0 3B     BEQ bra_DCF1_reset_velocity
+sub_DCB1_try_move_on_the_left:
+C - - - - - 0x01DCC1 07:DCB1: 20 34 DD  JSR sub_DD34_check_movement_on_the_left  ;
+C - - - - - 0x01DCC4 07:DCB4: F0 3B     BEQ bra_DCF1_reset_velocity              ; If the movement isn't allowed
 C - - - - - 0x01DCC6 07:DCB6: A9 80     LDA #$80
-C - - - - - 0x01DCC8 07:DCB8: D0 32     BNE bra_DCEC
+C - - - - - 0x01DCC8 07:DCB8: D0 32     BNE bra_DCEC                             ; Always true
 bra_DCBA_RTS:
-C - - - - - 0x01DCCA 07:DCBA: 60        RTS
+C - - - - - 0x01DCCA 07:DCBA: 60        RTS                                      ;
 
-loc_DCBB:
-C D 2 - - - 0x01DCCB 07:DCBB: A5 66     LDA ram_0066
-C - - - - - 0x01DCCD 07:DCBD: 38        SEC
-C - - - - - 0x01DCCE 07:DCBE: E9 10     SBC #$10
-C - - - - - 0x01DCD0 07:DCC0: A5 68     LDA ram_0068
-C - - - - - 0x01DCD2 07:DCC2: E9 00     SBC #$00
-C - - - - - 0x01DCD4 07:DCC4: 90 F4     BCC bra_DCBA_RTS
-C - - - - - 0x01DCD6 07:DCC6: 20 D7 DC  JSR sub_DCD7
-C - - - - - 0x01DCD9 07:DCC9: 20 A9 DC  JSR sub_DCA9_calc_ScreenChrPosX
-C - - - - - 0x01DCDC 07:DCCC: C9 70     CMP #$70
-C - - - - - 0x01DCDE 07:DCCE: B0 EA     BCS bra_DCBA_RTS
-C - - - - - 0x01DCE0 07:DCD0: A9 40     LDA #$40
-C - - - - - 0x01DCE2 07:DCD2: 85 48     STA vScrollDirection
-C - - - - - 0x01DCE4 07:DCD4: 4C 95 D1  JMP loc_D195_scroll_to
+loc_DCBB_dec_LowChrPosX:
+C D 2 - - - 0x01DCCB 07:DCBB: A5 66     LDA vLowChrPosX                 ;
+C - - - - - 0x01DCCD 07:DCBD: 38        SEC                             ;
+C - - - - - 0x01DCCE 07:DCBE: E9 10     SBC #$10                        ; CONSTANT - The character should be visible in its entirety on the left
+C - - - - - 0x01DCD0 07:DCC0: A5 68     LDA vNoScreen                   ;
+C - - - - - 0x01DCD2 07:DCC2: E9 00     SBC #$00                        ;
+C - - - - - 0x01DCD4 07:DCC4: 90 F4     BCC bra_DCBA_RTS                ; Branch If the character reach the beginning of the room
+C - - - - - 0x01DCD6 07:DCC6: 20 D7 DC  JSR sub_DCD7_internal_decrement ;
+C - - - - - 0x01DCD9 07:DCC9: 20 A9 DC  JSR sub_DCA9_calc_ScreenChrPosX ;
+C - - - - - 0x01DCDC 07:DCCC: C9 70     CMP #$70                        ; CONSTANT - the scroll border on the left
+C - - - - - 0x01DCDE 07:DCCE: B0 EA     BCS bra_DCBA_RTS                ; If vScreenChrPosX >= 0x70
+C - - - - - 0x01DCE0 07:DCD0: A9 40     LDA #$40                        ; CONSTANT - to left
+C - - - - - 0x01DCE2 07:DCD2: 85 48     STA vScrollDirection            ;
+C - - - - - 0x01DCE4 07:DCD4: 4C 95 D1  JMP loc_D195_scroll_to          ;
 
-sub_DCD7:
-C - - - - - 0x01DCE7 07:DCD7: A5 66     LDA ram_0066
-C - - - - - 0x01DCE9 07:DCD9: 38        SEC
-C - - - - - 0x01DCEA 07:DCDA: E9 01     SBC #$01
-C - - - - - 0x01DCEC 07:DCDC: 85 66     STA ram_0066
-C - - - - - 0x01DCEE 07:DCDE: A5 68     LDA ram_0068
-C - - - - - 0x01DCF0 07:DCE0: E9 00     SBC #$00
-C - - - - - 0x01DCF2 07:DCE2: 85 68     STA ram_0068
-C - - - - - 0x01DCF4 07:DCE4: 60        RTS
+sub_DCD7_internal_decrement:
+C - - - - - 0x01DCE7 07:DCD7: A5 66     LDA vLowChrPosX     ;
+C - - - - - 0x01DCE9 07:DCD9: 38        SEC                 ;
+C - - - - - 0x01DCEA 07:DCDA: E9 01     SBC #$01            ;
+C - - - - - 0x01DCEC 07:DCDC: 85 66     STA vLowChrPosX     ;
+C - - - - - 0x01DCEE 07:DCDE: A5 68     LDA vNoScreen       ;
+C - - - - - 0x01DCF0 07:DCE0: E9 00     SBC #$00            ; decrement vNoScreen, if vLowChrPosX changed a sign
+C - - - - - 0x01DCF2 07:DCE2: 85 68     STA vNoScreen       ;  
+C - - - - - 0x01DCF4 07:DCE4: 60        RTS                 ;
 
-sub_DCE5:
-C - - - - - 0x01DCF5 07:DCE5: 20 19 DD  JSR sub_DD19                ;
-C - - - - - 0x01DCF8 07:DCE8: F0 07     BEQ bra_DCF1_reset_velocity ; If the movement to the right is not allowed
+sub_DCE5_try_move_on_the_right:
+C - - - - - 0x01DCF5 07:DCE5: 20 19 DD  JSR sub_DD19_check_movement_on_the_right   ;
+C - - - - - 0x01DCF8 07:DCE8: F0 07     BEQ bra_DCF1_reset_velocity                ; If the movement to the right is not allowed
 C - - - - - 0x01DCFA 07:DCEA: A9 00     LDA #$00
 bra_DCEC:
 C - - - - - 0x01DCFC 07:DCEC: 85 42     STA ram_0042
-C - - - - - 0x01DCFE 07:DCEE: 4C 34 E5  JMP loc_E534
+C - - - - - 0x01DCFE 07:DCEE: 4C 34 E5  JMP loc_E534_change_posX_by_velocity       ;
 
 bra_DCF1_reset_velocity:
 sub_DCF1_reset_velocity:
@@ -4674,58 +4678,59 @@ C - - - - - 0x01DD03 07:DCF3: D0 02     BNE @bra_DCF7_skip ; Always true
 C - - - - - 0x01DD07 07:DCF7: 85 71     STA vVelocity      ;
 C - - - - - 0x01DD09 07:DCF9: 60        RTS                ;
 
-loc_DCFA:
-C D 2 - - - 0x01DD0A 07:DCFA: A5 66     LDA vLowChrPosX             ;
-C - - - - - 0x01DD0C 07:DCFC: 38        SEC                         ;
-C - - - - - 0x01DD0D 07:DCFD: E9 F0     SBC #$F0                    ; CONSTANT - The character should be visible in its entirety on the right
-C - - - - - 0x01DD0F 07:DCFF: A5 68     LDA vNoScreen               ;
-C - - - - - 0x01DD11 07:DD01: E5 4A     SBC vNearCurrentRoomLength  ;
-C - - - - - 0x01DD13 07:DD03: B0 B5     BCS bra_DCBA_RTS            ; Branch If the character reach the end of the room
-C - - - - - 0x01DD15 07:DD05: E6 66     INC vLowChrPosX             ;
-C - - - - - 0x01DD17 07:DD07: D0 02     BNE @bra_DD0B_skip          ; If the character doesn't move from one screen to another
-C - - - - - 0x01DD19 07:DD09: E6 68     INC vNoScreen               ;
+loc_DCFA_inc_LowChrPosX:
+C D 2 - - - 0x01DD0A 07:DCFA: A5 66     LDA vLowChrPosX                 ;
+C - - - - - 0x01DD0C 07:DCFC: 38        SEC                             ;
+C - - - - - 0x01DD0D 07:DCFD: E9 F0     SBC #$F0                        ; CONSTANT - The character should be visible in its entirety on the right
+C - - - - - 0x01DD0F 07:DCFF: A5 68     LDA vNoScreen                   ;
+C - - - - - 0x01DD11 07:DD01: E5 4A     SBC vNearCurrentRoomLength      ;
+C - - - - - 0x01DD13 07:DD03: B0 B5     BCS bra_DCBA_RTS                ; Branch If the character reach the end of the room
+C - - - - - 0x01DD15 07:DD05: E6 66     INC vLowChrPosX                 ;
+C - - - - - 0x01DD17 07:DD07: D0 02     BNE @bra_DD0B_skip              ; If the character doesn't move from one screen to another
+C - - - - - 0x01DD19 07:DD09: E6 68     INC vNoScreen                   ;
 @bra_DD0B_skip:
-C - - - - - 0x01DD1B 07:DD0B: 20 A9 DC  JSR sub_DCA9_calc_ScreenChrPosX
-C - - - - - 0x01DD1E 07:DD0E: C9 90     CMP #$90
-C - - - - - 0x01DD20 07:DD10: 90 A8     BCC bra_DCBA_RTS
-sub_DD12:
-C - - - - - 0x01DD22 07:DD12: A9 80     LDA #$80
-C - - - - - 0x01DD24 07:DD14: 85 48     STA vScrollDirection
-C - - - - - 0x01DD26 07:DD16: 4C 95 D1  JMP loc_D195_scroll_to
+C - - - - - 0x01DD1B 07:DD0B: 20 A9 DC  JSR sub_DCA9_calc_ScreenChrPosX ;
+C - - - - - 0x01DD1E 07:DD0E: C9 90     CMP #$90                        ; CONSTANT - the scroll border on the right
+C - - - - - 0x01DD20 07:DD10: 90 A8     BCC bra_DCBA_RTS                ; If vScreenChrPosX < 0x90
+sub_DD12_scroll:
+C - - - - - 0x01DD22 07:DD12: A9 80     LDA #$80                        ; CONSTANT - to right
+C - - - - - 0x01DD24 07:DD14: 85 48     STA vScrollDirection            ;
+C - - - - - 0x01DD26 07:DD16: 4C 95 D1  JMP loc_D195_scroll_to          ;
 
 ; Out: If flag Z = 1 then movement to the right is not allowed
-sub_DD19:
+sub_DD19_check_movement_on_the_right:
 C - - - - - 0x01DD29 07:DD19: A5 5E     LDA v_no_level                             ;
 C - - - - - 0x01DD2B 07:DD1B: C9 03     CMP #$03                                   ; CONSTANT - level 4 or level-racing
 C - - - - - 0x01DD2D 07:DD1D: D0 0A     BNE bra_DD29_skip                          ; If Register A != 0x03
-C - - - - - 0x01DD2F 07:DD1F: A9 E1     LDA #$E1
-C - - - - - 0x01DD31 07:DD21: 20 6F D9  JSR sub_D96F_init_relative_chr_positions
-C - - - - - 0x01DD34 07:DD24: 20 2C DD  JSR sub_DD2C
-C - - - - - 0x01DD37 07:DD27: F0 0A     BEQ bra_DD33_RTS
+C - - - - - 0x01DD2F 07:DD1F: A9 E1     LDA #$E1                                   ; prepare increment by Y (-31)
+C - - - - - 0x01DD31 07:DD21: 20 6F D9  JSR sub_D96F_init_relative_chr_positions   ;
+C - - - - - 0x01DD34 07:DD24: 20 2C DD  JSR sub_DD2C_control_check                 ;
+C - - - - - 0x01DD37 07:DD27: F0 0A     BEQ bra_DD33_RTS                           ; If the collision value exist
 bra_DD29_skip:
-C - - - - - 0x01DD39 07:DD29: 20 6D D9  JSR sub_D96D_init_absolute_chr_positions
-sub_DD2C:
-C - - - - - 0x01DD3C 07:DD2C: A9 08     LDA #$08                                   ; an increment by posX
-C - - - - - 0x01DD3E 07:DD2E: 20 97 D3  JSR sub_D397
-C - - - - - 0x01DD41 07:DD31: C9 01     CMP #$01
+C - - - - - 0x01DD39 07:DD29: 20 6D D9  JSR sub_D96D_init_absolute_chr_positions   ;
+sub_DD2C_control_check:
+C - - - - - 0x01DD3C 07:DD2C: A9 08     LDA #$08                                   ; prepare an increment by X (+8)
+C - - - - - 0x01DD3E 07:DD2E: 20 97 D3  JSR sub_D397_right_collision_by_inc_posX   ;
+C - - - - - 0x01DD41 07:DD31: C9 01     CMP #$01                                   ;
 bra_DD33_RTS:
-C - - - - - 0x01DD43 07:DD33: 60        RTS
+C - - - - - 0x01DD43 07:DD33: 60        RTS                                        ;
 
-sub_DD34:
-C - - - - - 0x01DD44 07:DD34: A5 5E     LDA v_no_level
-C - - - - - 0x01DD46 07:DD36: C9 03     CMP #$03
-C - - - - - 0x01DD48 07:DD38: D0 0A     BNE bra_DD44_skip
-C - - - - - 0x01DD4A 07:DD3A: A9 E1     LDA #$E1
-C - - - - - 0x01DD4C 07:DD3C: 20 6F D9  JSR sub_D96F_init_relative_chr_positions
-C - - - - - 0x01DD4F 07:DD3F: 20 47 DD  JSR sub_DD47
-C - - - - - 0x01DD52 07:DD42: F0 EF     BEQ bra_DD33_RTS
+; Out: If flag Z = 1 then movement to the left is not allowed
+sub_DD34_check_movement_on_the_left:
+C - - - - - 0x01DD44 07:DD34: A5 5E     LDA v_no_level                           ;
+C - - - - - 0x01DD46 07:DD36: C9 03     CMP #$03                                 ; CONSTANT - level 4 + racing
+C - - - - - 0x01DD48 07:DD38: D0 0A     BNE bra_DD44_skip                        ; If v_no_level != 0x03
+C - - - - - 0x01DD4A 07:DD3A: A9 E1     LDA #$E1                                 ; prepare increment by Y (-31)
+C - - - - - 0x01DD4C 07:DD3C: 20 6F D9  JSR sub_D96F_init_relative_chr_positions ;
+C - - - - - 0x01DD4F 07:DD3F: 20 47 DD  JSR sub_DD47_control_check               ;
+C - - - - - 0x01DD52 07:DD42: F0 EF     BEQ bra_DD33_RTS                         ; If the collision value exist
 bra_DD44_skip:
-C - - - - - 0x01DD54 07:DD44: 20 6D D9  JSR sub_D96D_init_absolute_chr_positions
-sub_DD47:
-C - - - - - 0x01DD57 07:DD47: A9 F8     LDA #$F8
-C - - - - - 0x01DD59 07:DD49: 20 AD D3  JSR sub_D3AD
-C - - - - - 0x01DD5C 07:DD4C: C9 01     CMP #$01
-C - - - - - 0x01DD5E 07:DD4E: 60        RTS
+C - - - - - 0x01DD54 07:DD44: 20 6D D9  JSR sub_D96D_init_absolute_chr_positions ;
+sub_DD47_control_check:
+C - - - - - 0x01DD57 07:DD47: A9 F8     LDA #$F8                                 ; prepare an increment by X (-8)
+C - - - - - 0x01DD59 07:DD49: 20 AD D3  JSR sub_D3AD_left_collision_by_inc_posX  ;
+C - - - - - 0x01DD5C 07:DD4C: C9 01     CMP #$01                                 ; 
+C - - - - - 0x01DD5E 07:DD4E: 60        RTS                                      ;
 
 sub_DD4F:
 C - - - - - 0x01DD5F 07:DD4F: A5 5E     LDA v_no_level
@@ -4825,7 +4830,7 @@ C - - - - - 0x01DDE9 07:DDD9: 90 17     BCC bra_DDF2_skip
 C - - - - - 0x01DDEB 07:DDDB: 29 04     AND #$04
 C - - - - - 0x01DDED 07:DDDD: D0 17     BNE bra_DDF6_skip
 bra_DDDF:
-C - - - - - 0x01DDEF 07:DDDF: 20 B1 DC  JSR sub_DCB1
+C - - - - - 0x01DDEF 07:DDDF: 20 B1 DC  JSR sub_DCB1_try_move_on_the_left
 C - - - - - 0x01DDF2 07:DDE2: A5 6C     LDA ram_006C
 C - - - - - 0x01DDF4 07:DDE4: 29 08     AND #$08
 C - - - - - 0x01DDF6 07:DDE6: D0 1E     BNE bra_DE06_skip
@@ -4839,7 +4844,7 @@ bra_DDF2_skip:
 C - - - - - 0x01DE02 07:DDF2: 29 04     AND #$04
 C - - - - - 0x01DE04 07:DDF4: D0 E9     BNE bra_DDDF
 bra_DDF6_skip:
-C - - - - - 0x01DE06 07:DDF6: 20 E5 DC  JSR sub_DCE5
+C - - - - - 0x01DE06 07:DDF6: 20 E5 DC  JSR sub_DCE5_try_move_on_the_right
 C - - - - - 0x01DE09 07:DDF9: A5 6C     LDA ram_006C
 C - - - - - 0x01DE0B 07:DDFB: 29 08     AND #$08
 C - - - - - 0x01DE0D 07:DDFD: D0 07     BNE bra_DE06_skip
@@ -4940,7 +4945,7 @@ C - - - - - 0x01DEB0 07:DEA0: 29 08     AND #$08           ; CONSTANT - the char
 C - - - - - 0x01DEB2 07:DEA2: F0 02     BEQ @bra_DEA6_skip ; If the character isn't getting a damage
 C - - - - - 0x01DEB4 07:DEA4: A2 1C     LDX #$1C
 @bra_DEA6_skip:
-C - - - - - 0x01DEB6 07:DEA6: 4C C2 DB  JMP loc_DBC2
+C - - - - - 0x01DEB6 07:DEA6: 4C C2 DB  JMP loc_DBC2_before_rendering
 
 loc_DEA9:
 C D 2 - - - 0x01DEB9 07:DEA9: 24 3A     BIT ram_003A
@@ -4965,7 +4970,7 @@ C - - - - - 0x01DEDA 07:DECA: 20 31 DF  JSR sub_DF31
 bra_DECD:
 C - - - - - 0x01DEDD 07:DECD: A2 20     LDX #$20
 loc_DECF:
-C D 2 - - - 0x01DEDF 07:DECF: 4C C2 DB  JMP loc_DBC2
+C D 2 - - - 0x01DEDF 07:DECF: 4C C2 DB  JMP loc_DBC2_before_rendering
 
 loc_DED2:
 C D 2 - - - 0x01DEE2 07:DED2: A5 5E     LDA v_no_level
@@ -5014,7 +5019,7 @@ bra_DF26:
 C - - - - - 0x01DF36 07:DF26: 20 F3 CD  JSR sub_CDF3_prepare_activable_items
 C - - - - - 0x01DF39 07:DF29: 20 EF CC  JSR sub_CCEF
 C - - - - - 0x01DF3C 07:DF2C: A2 00     LDX #$00
-C - - - - - 0x01DF3E 07:DF2E: 4C C2 DB  JMP loc_DBC2
+C - - - - - 0x01DF3E 07:DF2E: 4C C2 DB  JMP loc_DBC2_before_rendering
 
 bra_DF31:
 sub_DF31:
@@ -5144,7 +5149,7 @@ C - - - - - 0x01DFE4 07:DFD4: A5 6C     LDA ram_006C
 C - - - - - 0x01DFE6 07:DFD6: 29 DF     AND #$DF
 C - - - - - 0x01DFE8 07:DFD8: 85 6C     STA ram_006C
 C - - - - - 0x01DFEA 07:DFDA: A2 00     LDX #$00
-C - - - - - 0x01DFEC 07:DFDC: 4C C2 DB  JMP loc_DBC2
+C - - - - - 0x01DFEC 07:DFDC: 4C C2 DB  JMP loc_DBC2_before_rendering
 
 C - - - - - 0x01DFEF 07:DFDF: A5 C4     LDA vCheckpoint
 C - - - - - 0x01DFF1 07:DFE1: F0 2A     BEQ bra_E00D
@@ -5183,7 +5188,7 @@ C D 3 - - - 0x01E023 07:E013: A5 6C     LDA ram_006C
 C - - - - - 0x01E025 07:E015: 30 08     BMI bra_E01F
 C - - - - - 0x01E027 07:E017: A4 70     LDY ram_0070
 C - - - - - 0x01E029 07:E019: BE 36 E0  LDX tbl_E036,Y
-C - - - - - 0x01E02C 07:E01C: 4C C2 DB  JMP loc_DBC2
+C - - - - - 0x01E02C 07:E01C: 4C C2 DB  JMP loc_DBC2_before_rendering
 
 bra_E01F:
 C - - - - - 0x01E02F 07:E01F: A5 39     LDA ram_0039
@@ -5215,7 +5220,7 @@ loc_E03A:
 - - - - - - 0x01E055 07:E045: 85 6C     STA vChrStatus
 bra_E047:
 - - - - - - 0x01E057 07:E047: A2 18     LDX #$18
-- - - - - - 0x01E059 07:E049: 4C C2 DB  JMP loc_DBC2
+- - - - - - 0x01E059 07:E049: 4C C2 DB  JMP loc_DBC2_before_rendering
 
 sub_E04C_shot_gun_subroutine:
 C - - - - - 0x01E05C 07:E04C: A9 02     LDA #BIT_BUTTON_B               ;
@@ -5846,7 +5851,7 @@ C - - - - - 0x01E44C 07:E43C: 20 96 DC  JSR sub_DC96
 C - - - - - 0x01E44F 07:E43F: A4 70     LDY ram_0070
 C - - - - - 0x01E451 07:E441: BE 47 E4  LDX tbl_E447,Y
 bra_E444:
-C - - - - - 0x01E454 07:E444: 4C C2 DB  JMP loc_DBC2
+C - - - - - 0x01E454 07:E444: 4C C2 DB  JMP loc_DBC2_before_rendering
 
 tbl_E447:
 - D 3 - - - 0x01E457 07:E447: 04        .byte $04
@@ -5975,7 +5980,7 @@ C - - - - - 0x01E532 07:E522: F0 0B     BEQ bra_E52F
 C - - - - - 0x01E534 07:E524: A9 80     LDA #$80
 loc_E526:
 C D 3 - - - 0x01E536 07:E526: 85 42     STA ram_0042
-C - - - - - 0x01E538 07:E528: 20 34 E5  JSR sub_E534
+C - - - - - 0x01E538 07:E528: 20 34 E5  JSR sub_E534_change_posX_by_velocity
 C - - - - - 0x01E53B 07:E52B: A9 80     LDA #$80
 C - - - - - 0x01E53D 07:E52D: D0 02     BNE bra_E531
 bra_E52F:
@@ -5984,61 +5989,62 @@ bra_E531:
 C - - - - - 0x01E541 07:E531: 85 55     STA ram_0055
 C - - - - - 0x01E543 07:E533: 60        RTS
 
-loc_E534:
-sub_E534:
-C D 3 - - - 0x01E544 07:E534: A5 71     LDA vVelocity
+loc_E534_change_posX_by_velocity:
+sub_E534_change_posX_by_velocity:
+C D 3 - - - 0x01E544 07:E534: A5 71     LDA vVelocity                    ;
+; In: Register A - the velocity
 loc_E536:
 C D 3 - - - 0x01E546 07:E536: C9 02     CMP #$02
-C - - - - - 0x01E548 07:E538: 90 41     BCC bra_E57B
-C - - - - - 0x01E54A 07:E53A: C9 04     CMP #$04
-C - - - - - 0x01E54C 07:E53C: 90 39     BCC bra_E577
-C - - - - - 0x01E54E 07:E53E: C9 06     CMP #$06
-C - - - - - 0x01E550 07:E540: 90 1D     BCC bra_E55F
-C - - - - - 0x01E552 07:E542: 48        PHA
-C - - - - - 0x01E553 07:E543: 20 65 E5  JSR sub_E565
-C - - - - - 0x01E556 07:E546: 68        PLA
-C - - - - - 0x01E557 07:E547: C9 08     CMP #$08
-C - - - - - 0x01E559 07:E549: 90 36     BCC bra_E581_RTS
-C - - - - - 0x01E55B 07:E54B: C9 0C     CMP #$0C
-C - - - - - 0x01E55D 07:E54D: 90 28     BCC bra_E577
-C - - - - - 0x01E55F 07:E54F: 48        PHA
-C - - - - - 0x01E560 07:E550: 20 65 E5  JSR sub_E565
-C - - - - - 0x01E563 07:E553: 68        PLA
-C - - - - - 0x01E564 07:E554: C9 10     CMP #$10
-C - - - - - 0x01E566 07:E556: 90 29     BCC bra_E581_RTS
-C - - - - - 0x01E568 07:E558: C9 14     CMP #$14
-C - - - - - 0x01E56A 07:E55A: 90 1B     BCC bra_E577
-C - - - - - 0x01E56C 07:E55C: 4C 65 E5  JMP loc_E565
+C - - - - - 0x01E548 07:E538: 90 41     BCC bra_E57B_change_by_counter3  ; If the velocity < 0x06
+C - - - - - 0x01E54A 07:E53A: C9 04     CMP #$04                         ;
+C - - - - - 0x01E54C 07:E53C: 90 39     BCC bra_E577_change_by_counter2  ; If the velocity < 0x04
+C - - - - - 0x01E54E 07:E53E: C9 06     CMP #$06                         ;
+C - - - - - 0x01E550 07:E540: 90 1D     BCC bra_E55F_change_by_counter1  ; If the velocity < 0x06
+C - - - - - 0x01E552 07:E542: 48        PHA                              ; store velocity
+C - - - - - 0x01E553 07:E543: 20 65 E5  JSR sub_E565_change_LowChrPosX   ;
+C - - - - - 0x01E556 07:E546: 68        PLA                              ; retrieve velocity ($E542)
+C - - - - - 0x01E557 07:E547: C9 08     CMP #$08                         ;
+C - - - - - 0x01E559 07:E549: 90 36     BCC bra_E581_RTS                 ; If the velocity < 0x08
+C - - - - - 0x01E55B 07:E54B: C9 0C     CMP #$0C                         ;
+C - - - - - 0x01E55D 07:E54D: 90 28     BCC bra_E577_change_by_counter2  ; If the velocity < 0x0C
+C - - - - - 0x01E55F 07:E54F: 48        PHA                              ; store velocity
+C - - - - - 0x01E560 07:E550: 20 65 E5  JSR sub_E565_change_LowChrPosX   ;
+C - - - - - 0x01E563 07:E553: 68        PLA                              ; retrieve velocity ($E54F)
+C - - - - - 0x01E564 07:E554: C9 10     CMP #$10                         ;
+C - - - - - 0x01E566 07:E556: 90 29     BCC bra_E581_RTS                 ; If the velocity < 0x10
+C - - - - - 0x01E568 07:E558: C9 14     CMP #$14                         ;
+C - - - - - 0x01E56A 07:E55A: 90 1B     BCC bra_E577_change_by_counter2  ; If the velocity < 0x14
+C - - - - - 0x01E56C 07:E55C: 4C 65 E5  JMP loc_E565_change_LowChrPosX   ;
 
-bra_E55F:
-C - - - - - 0x01E56F 07:E55F: A9 03     LDA #$03
-C - - - - - 0x01E571 07:E561: 25 2C     AND v_low_counter
-C - - - - - 0x01E573 07:E563: F0 1C     BEQ bra_E581_RTS
-bra_E565:
-sub_E565:
-loc_E565:
-C D 3 - - - 0x01E575 07:E565: A5 6D     LDA vMovableChrStatus ;
-C - - - - - 0x01E577 07:E567: 29 20     AND #$20              ;
-C - - - - - 0x01E579 07:E569: F0 02     BEQ @bra_E56D_skip    ; Branch If the character isn't moving on the roof pitch
-C - - - - - 0x01E57B 07:E56B: E6 6A     INC vScreenChrPosY    ;
+bra_E55F_change_by_counter1:
+C - - - - - 0x01E56F 07:E55F: A9 03     LDA #$03                    ;
+C - - - - - 0x01E571 07:E561: 25 2C     AND v_low_counter           ;
+C - - - - - 0x01E573 07:E563: F0 1C     BEQ bra_E581_RTS            ; Branch if v_low_counter does multiple of 4 (success chance: 3 of 4)
+bra_E565_change_LowChrPosX:
+sub_E565_change_LowChrPosX:
+loc_E565_change_LowChrPosX:
+C D 3 - - - 0x01E575 07:E565: A5 6D     LDA vMovableChrStatus          ;
+C - - - - - 0x01E577 07:E567: 29 20     AND #$20                       ;
+C - - - - - 0x01E579 07:E569: F0 02     BEQ @bra_E56D_skip             ; Branch If the character isn't moving on the roof pitch
+C - - - - - 0x01E57B 07:E56B: E6 6A     INC vScreenChrPosY             ;
 @bra_E56D_skip:
 C - - - - - 0x01E57D 07:E56D: A5 42     LDA ram_0042
-C - - - - - 0x01E57F 07:E56F: 30 03     BMI bra_E574_skip
-C - - - - - 0x01E581 07:E571: 4C FA DC  JMP loc_DCFA
+C - - - - - 0x01E57F 07:E56F: 30 03     BMI bra_E574_skip              ; If the character is looking to the left
+C - - - - - 0x01E581 07:E571: 4C FA DC  JMP loc_DCFA_inc_LowChrPosX    ;
 
 bra_E574_skip:
-C - - - - - 0x01E584 07:E574: 4C BB DC  JMP loc_DCBB
+C - - - - - 0x01E584 07:E574: 4C BB DC  JMP loc_DCBB_dec_LowChrPosX    ;
 
-bra_E577:
-C - - - - - 0x01E587 07:E577: A9 01     LDA #$01
-C - - - - - 0x01E589 07:E579: D0 02     BNE bra_E57D
-bra_E57B:
-C - - - - - 0x01E58B 07:E57B: A9 03     LDA #$03
-bra_E57D:
-C - - - - - 0x01E58D 07:E57D: 25 2C     AND v_low_counter
-C - - - - - 0x01E58F 07:E57F: F0 E4     BEQ bra_E565
+bra_E577_change_by_counter2:
+C - - - - - 0x01E587 07:E577: A9 01     LDA #$01                       ; success chance: 1 of 2
+C - - - - - 0x01E589 07:E579: D0 02     BNE bra_E57D_skip              ; Always true
+bra_E57B_change_by_counter3:
+C - - - - - 0x01E58B 07:E57B: A9 03     LDA #$03                       ; success chance: 1 of 4
+bra_E57D_skip:
+C - - - - - 0x01E58D 07:E57D: 25 2C     AND v_low_counter              ;
+C - - - - - 0x01E58F 07:E57F: F0 E4     BEQ bra_E565_change_LowChrPosX ; Branch if v_low_counter does multiple of A
 bra_E581_RTS:
-C - - - - - 0x01E591 07:E581: 60        RTS
+C - - - - - 0x01E591 07:E581: 60        RTS                            ;
 
 sub_E582:
 C - - - - - 0x01E592 07:E582: A5 3F     LDA ram_003F
@@ -6115,13 +6121,13 @@ C - - - - - 0x01E5F7 07:E5E7: 60        RTS
 sub_E5E8:
 C - - - - - 0x01E5F8 07:E5E8: 20 1A E6  JSR sub_E61A
 C - - - - - 0x01E5FB 07:E5EB: A9 F8     LDA #$F8
-C - - - - - 0x01E5FD 07:E5ED: 20 AD D3  JSR sub_D3AD
+C - - - - - 0x01E5FD 07:E5ED: 20 AD D3  JSR sub_D3AD_left_collision_by_inc_posX
 C - - - - - 0x01E600 07:E5F0: 4C FB E5  JMP loc_E5FB
 
 sub_E5F3:
 C - - - - - 0x01E603 07:E5F3: 20 1A E6  JSR sub_E61A
 C - - - - - 0x01E606 07:E5F6: A9 08     LDA #$08
-C - - - - - 0x01E608 07:E5F8: 20 97 D3  JSR sub_D397
+C - - - - - 0x01E608 07:E5F8: 20 97 D3  JSR sub_D397_right_collision_by_inc_posX
 loc_E5FB:
 C D 3 - - - 0x01E60B 07:E5FB: C9 01     CMP #$01
 C - - - - - 0x01E60D 07:E5FD: F0 1A     BEQ bra_E619_RTS
@@ -6302,14 +6308,14 @@ sub_E71D:
 C - - - - - 0x01E72D 07:E71D: A5 6C     LDA ram_006C
 C - - - - - 0x01E72F 07:E71F: 6A        ROR
 C - - - - - 0x01E730 07:E720: B0 0C     BCS bra_E72E
-C - - - - - 0x01E732 07:E722: 20 19 DD  JSR sub_DD19
+C - - - - - 0x01E732 07:E722: 20 19 DD  JSR sub_DD19_check_movement_on_the_right
 C - - - - - 0x01E735 07:E725: F0 3A     BEQ bra_E761_RTS
 C - - - - - 0x01E737 07:E727: A5 42     LDA ram_0042
 C - - - - - 0x01E739 07:E729: 29 7F     AND #$7F
 C - - - - - 0x01E73B 07:E72B: 4C 37 E7  JMP loc_E737
 
 bra_E72E:
-C - - - - - 0x01E73E 07:E72E: 20 34 DD  JSR sub_DD34
+C - - - - - 0x01E73E 07:E72E: 20 34 DD  JSR sub_DD34_check_movement_on_the_left
 C - - - - - 0x01E741 07:E731: F0 2E     BEQ bra_E761_RTS
 C - - - - - 0x01E743 07:E733: A5 42     LDA ram_0042
 C - - - - - 0x01E745 07:E735: 09 80     ORA #$80
@@ -6472,7 +6478,7 @@ C - - - - - 0x01E839 07:E829: 86 42     STX ram_0042
 C - - - - - 0x01E83B 07:E82B: A9 01     LDA #BIT_BUTTON_A
 C - - - - - 0x01E83D 07:E82D: 20 79 D0  JSR sub_D079_check_button_press
 C - - - - - 0x01E840 07:E830: D0 0B     BNE bra_E83D
-C - - - - - 0x01E842 07:E832: 20 34 E5  JSR sub_E534
+C - - - - - 0x01E842 07:E832: 20 34 E5  JSR sub_E534_change_posX_by_velocity
 C - - - - - 0x01E845 07:E835: A9 03     LDA #$03
 C - - - - - 0x01E847 07:E837: 20 98 DC  JSR sub_DC98
 C - - - - - 0x01E84A 07:E83A: 4C 67 DC  JMP loc_DC67
@@ -6568,7 +6574,7 @@ C - - - - - 0x01E8E2 07:E8D2: 20 78 E7  JSR sub_E778
 bra_E8D5:
 loc_E8D5:
 C D 3 - - - 0x01E8E5 07:E8D5: A2 00     LDX #$00
-C - - - - - 0x01E8E7 07:E8D7: 4C C2 DB  JMP loc_DBC2
+C - - - - - 0x01E8E7 07:E8D7: 4C C2 DB  JMP loc_DBC2_before_rendering
 
 loc_E8DA_racing:
 C D 3 - - - 0x01E8EA 07:E8DA: A9 09     LDA #$09
@@ -6576,11 +6582,11 @@ C - - - - - 0x01E8EC 07:E8DC: 8D B2 06  STA vNonUsed6B2
 C - - - - - 0x01E8EF 07:E8DF: A5 6C     LDA ram_006C
 C - - - - - 0x01E8F1 07:E8E1: 29 08     AND #$08
 C - - - - - 0x01E8F3 07:E8E3: D0 0B     BNE bra_E8F0
-C - - - - - 0x01E8F5 07:E8E5: 20 12 DD  JSR sub_DD12
+C - - - - - 0x01E8F5 07:E8E5: 20 12 DD  JSR sub_DD12_scroll
 C - - - - - 0x01E8F8 07:E8E8: A5 2C     LDA v_low_counter
 C - - - - - 0x01E8FA 07:E8EA: 6A        ROR
 C - - - - - 0x01E8FB 07:E8EB: 90 03     BCC bra_E8F0
-C - - - - - 0x01E8FD 07:E8ED: 20 12 DD  JSR sub_DD12
+C - - - - - 0x01E8FD 07:E8ED: 20 12 DD  JSR sub_DD12_scroll
 bra_E8F0:
 C - - - - - 0x01E900 07:E8F0: A5 4B     LDA ram_004B
 C - - - - - 0x01E902 07:E8F2: C9 05     CMP #$05
@@ -6759,7 +6765,7 @@ loc_EA11:
 sub_EA11:
 C D 3 - - - 0x01EA21 07:EA11: 20 6D D9  JSR sub_D96D_init_absolute_chr_positions
 C - - - - - 0x01EA24 07:EA14: A9 0E     LDA #$0E
-C - - - - - 0x01EA26 07:EA16: 20 97 D3  JSR sub_D397
+C - - - - - 0x01EA26 07:EA16: 20 97 D3  JSR sub_D397_right_collision_by_inc_posX
 C - - - - - 0x01EA29 07:EA19: C9 01     CMP #$01
 C - - - - - 0x01EA2B 07:EA1B: D0 03     BNE bra_EA20
 C - - - - - 0x01EA2D 07:EA1D: 4C 8F EB  JMP loc_EB8F
