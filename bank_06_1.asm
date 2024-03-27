@@ -262,7 +262,7 @@ C - - - - - 0x01818B 06:A17B: 4C 6C A1  JMP loc_A16C
 sub_A17E:
 C - - - - - 0x01818E 06:A17E: 20 CA D7  JSR $D7CA
 C - - - - - 0x018191 06:A181: F0 09     BEQ bra_A18C
-C - - - - - 0x018193 06:A183: A5 2C     LDA v_low_counter
+C - - - - - 0x018193 06:A183: A5 2C     LDA vLowCounter
 C - - - - - 0x018195 06:A185: 29 01     AND #$01
 C - - - - - 0x018197 06:A187: F0 1E     BEQ bra_A1A7_RTS
 C - - - - - 0x018199 06:A189: 4C F0 D6  JMP $D6F0
@@ -283,7 +283,7 @@ C - - - - - 0x0181B7 06:A1A7: 60        RTS
 sub_A1A8:
 C - - - - - 0x0181B8 06:A1A8: 20 BF D7  JSR $D7BF
 C - - - - - 0x0181BB 06:A1AB: F0 DF     BEQ bra_A18C
-C - - - - - 0x0181BD 06:A1AD: A5 2C     LDA v_low_counter
+C - - - - - 0x0181BD 06:A1AD: A5 2C     LDA vLowCounter
 C - - - - - 0x0181BF 06:A1AF: 29 01     AND #$01
 C - - - - - 0x0181C1 06:A1B1: F0 F4     BEQ bra_A1A7_RTS
 C - - - - - 0x0181C3 06:A1B3: 4C 0F D7  JMP $D70F
@@ -456,7 +456,7 @@ C - - - - - 0x018306 06:A2F6: A9 00     LDA #$00
 C - - - - - 0x018308 06:A2F8: 20 23 A3  JSR sub_A323
 bra_A2FB:
 C - - - - - 0x01830B 06:A2FB: 20 30 A3  JSR sub_A330
-C - - - - - 0x01830E 06:A2FE: A5 2C     LDA v_low_counter
+C - - - - - 0x01830E 06:A2FE: A5 2C     LDA vLowCounter
 C - - - - - 0x018310 06:A300: 29 3F     AND #$3F
 C - - - - - 0x018312 06:A302: D0 2B     BNE bra_A32F_RTS
 C - - - - - 0x018314 06:A304: 20 64 D0  JSR $D064
@@ -642,7 +642,7 @@ C - - - - - 0x018440 06:A430: D0 02     BNE bra_A434
 C - - - - - 0x018442 06:A432: A0 01     LDY #$01
 bra_A434:
 C - - - - - 0x018444 06:A434: 98        TYA
-C - - - - - 0x018445 06:A435: 25 2C     AND v_low_counter
+C - - - - - 0x018445 06:A435: 25 2C     AND vLowCounter
 C - - - - - 0x018447 06:A437: D0 06     BNE bra_A43F
 C - - - - - 0x018449 06:A439: 20 28 A5  JSR sub_A528
 C - - - - - 0x01844C 06:A43C: 20 89 A4  JSR sub_A489
@@ -974,13 +974,13 @@ loc_A68A:
 C D 1 - - - 0x01869A 06:A68A: 20 90 A6  JSR sub_A690
 C - - - - - 0x01869D 06:A68D: 4C 47 A6  JMP loc_A647
 sub_A690:
-C - - - - - 0x0186A0 06:A690: A5 2C     LDA v_low_counter
+C - - - - - 0x0186A0 06:A690: A5 2C     LDA vLowCounter
 C - - - - - 0x0186A2 06:A692: 29 0F     AND #$0F
 C - - - - - 0x0186A4 06:A694: D0 05     BNE bra_A69B
 C - - - - - 0x0186A6 06:A696: A9 37     LDA #$37
 C - - - - - 0x0186A8 06:A698: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
 bra_A69B:
-C - - - - - 0x0186AB 06:A69B: A5 2C     LDA v_low_counter
+C - - - - - 0x0186AB 06:A69B: A5 2C     LDA vLowCounter
 C - - - - - 0x0186AD 06:A69D: 29 03     AND #$03
 C - - - - - 0x0186AF 06:A69F: D0 0D     BNE bra_A6AE_RTS
 C - - - - - 0x0186B1 06:A6A1: BD 5C 03  LDA ram_035C,X
@@ -1493,7 +1493,7 @@ C - - - - - 0x018A22 06:AA12: BD 26 03  LDA ram_0326,X
 C - - - - - 0x018A25 06:AA15: 4A        LSR
 C - - - - - 0x018A26 06:AA16: 85 00     STA ram_0000
 C - - - - - 0x018A28 06:AA18: 90 07     BCC bra_AA21_RTS
-C - - - - - 0x018A2A 06:AA1A: A5 2C     LDA v_low_counter
+C - - - - - 0x018A2A 06:AA1A: A5 2C     LDA vLowCounter
 C - - - - - 0x018A2C 06:AA1C: 6A        ROR
 C - - - - - 0x018A2D 06:AA1D: 90 02     BCC bra_AA21_RTS
 C - - - - - 0x018A2F 06:AA1F: E6 00     INC ram_0000
@@ -1573,7 +1573,7 @@ C - - - - - 0x018AC2 06:AAB2: F0 34     BEQ bra_AAE8
 C - - - - - 0x018AC4 06:AAB4: C9 07     CMP #$07
 C - - - - - 0x018AC6 06:AAB6: D0 0A     BNE bra_AAC2
 C - - - - - 0x018AC8 06:AAB8: A0 20     LDY #$20
-C - - - - - 0x018ACA 06:AABA: A5 2C     LDA v_low_counter
+C - - - - - 0x018ACA 06:AABA: A5 2C     LDA vLowCounter
 C - - - - - 0x018ACC 06:AABC: 29 08     AND #$08
 C - - - - - 0x018ACE 06:AABE: D0 02     BNE bra_AAC2
 C - - - - - 0x018AD0 06:AAC0: A0 22     LDY #$22
@@ -1626,7 +1626,7 @@ C - - - - - 0x018B26 06:AB16: F0 04     BEQ bra_AB1C
 C - - - - - 0x018B28 06:AB18: C9 20     CMP #$20
 C - - - - - 0x018B2A 06:AB1A: D0 06     BNE bra_AB22
 bra_AB1C:
-C - - - - - 0x018B2C 06:AB1C: A5 2C     LDA v_low_counter
+C - - - - - 0x018B2C 06:AB1C: A5 2C     LDA vLowCounter
 C - - - - - 0x018B2E 06:AB1E: 29 03     AND #$03
 C - - - - - 0x018B30 06:AB20: F0 33     BEQ bra_AB55
 bra_AB22:
@@ -1664,7 +1664,7 @@ C - - - - - 0x018B6E 06:AB5E: F0 04     BEQ bra_AB64
 C - - - - - 0x018B70 06:AB60: C9 20     CMP #$20
 C - - - - - 0x018B72 06:AB62: D0 06     BNE bra_AB6A
 bra_AB64:
-C - - - - - 0x018B74 06:AB64: A5 2C     LDA v_low_counter
+C - - - - - 0x018B74 06:AB64: A5 2C     LDA vLowCounter
 C - - - - - 0x018B76 06:AB66: 29 03     AND #$03
 C - - - - - 0x018B78 06:AB68: F0 0D     BEQ bra_AB77
 bra_AB6A:
@@ -1737,7 +1737,7 @@ C - - - - - 0x018BCA 06:ABBA: 69 00     ADC #$00
 C - - - - - 0x018BCC 06:ABBC: 85 01     STA ram_0001
 C - - - - - 0x018BCE 06:ABBE: 20 1A AC  JSR sub_AC1A
 C - - - - - 0x018BD1 06:ABC1: 20 DB AB  JSR sub_ABDB
-C - - - - - 0x018BD4 06:ABC4: A5 2C     LDA v_low_counter
+C - - - - - 0x018BD4 06:ABC4: A5 2C     LDA vLowCounter
 C - - - - - 0x018BD6 06:ABC6: 29 03     AND #$03
 C - - - - - 0x018BD8 06:ABC8: D0 03     BNE bra_ABCD
 C - - - - - 0x018BDA 06:ABCA: FE 44 03  INC ram_0344,X
@@ -1805,7 +1805,7 @@ loc_AC3B:
 C D 1 - - - 0x018C4B 06:AC3B: 20 80 AC  JSR sub_AC80
 C - - - - - 0x018C4E 06:AC3E: 24 D1     BIT vGogglesActive
 C - - - - - 0x018C50 06:AC40: 50 33     BVC bra_AC75
-C - - - - - 0x018C52 06:AC42: A5 2C     LDA v_low_counter
+C - - - - - 0x018C52 06:AC42: A5 2C     LDA vLowCounter
 C - - - - - 0x018C54 06:AC44: 29 03     AND #$03
 C - - - - - 0x018C56 06:AC46: A8        TAY
 C - - - - - 0x018C57 06:AC47: B9 5E 03  LDA ram_035E,Y
@@ -2027,7 +2027,7 @@ C - - - - - 0x018DDC 06:ADCC: DD 88 03  CMP ram_0388,X
 C - - - - - 0x018DDF 06:ADCF: B0 03     BCS bra_ADD4
 C - - - - - 0x018DE1 06:ADD1: 9D 88 03  STA ram_0388,X
 bra_ADD4:
-C - - - - - 0x018DE4 06:ADD4: A5 2C     LDA v_low_counter
+C - - - - - 0x018DE4 06:ADD4: A5 2C     LDA vLowCounter
 C - - - - - 0x018DE6 06:ADD6: 29 03     AND #$03
 C - - - - - 0x018DE8 06:ADD8: D0 0F     BNE bra_ADE9
 C - - - - - 0x018DEA 06:ADDA: FE 82 03  INC ram_0382,X
@@ -2290,7 +2290,7 @@ bra_AF22:
 - - - - - - 0x018F76 06:AF66: D0        .byte $D0   ; 
 - - - - - - 0x018F77 06:AF67: 12        .byte $12   ; 
 sub_AF68:
-C - - - - - 0x018F78 06:AF68: A5 2C     LDA v_low_counter
+C - - - - - 0x018F78 06:AF68: A5 2C     LDA vLowCounter
 C - - - - - 0x018F7A 06:AF6A: 29 01     AND #$01
 C - - - - - 0x018F7C 06:AF6C: D0 18     BNE bra_AF86_RTS
 C - - - - - 0x018F7E 06:AF6E: BD 5C 03  LDA ram_035C,X
@@ -2415,7 +2415,7 @@ C - - - - - 0x01903C 06:B02C: 4A        LSR
 C - - - - - 0x01903D 06:B02D: 90 03     BCC bra_B032
 C - - - - - 0x01903F 06:B02F: 4C 2A B1  JMP loc_B12A
 bra_B032:
-C - - - - - 0x019042 06:B032: A5 2C     LDA v_low_counter
+C - - - - - 0x019042 06:B032: A5 2C     LDA vLowCounter
 C - - - - - 0x019044 06:B034: 29 01     AND #$01
 C - - - - - 0x019046 06:B036: D0 06     BNE bra_B03E
 C - - - - - 0x019048 06:B038: 20 B3 B0  JSR sub_B0B3
@@ -2941,7 +2941,7 @@ C - - - - - 0x01939C 06:B38C: D0 0D     BNE bra_B39B
 bra_B38E:
 C - - - - - 0x01939E 06:B38E: 20 BD B4  JSR sub_B4BD
 C - - - - - 0x0193A1 06:B391: A0 00     LDY #$00
-C - - - - - 0x0193A3 06:B393: A5 2C     LDA v_low_counter
+C - - - - - 0x0193A3 06:B393: A5 2C     LDA vLowCounter
 C - - - - - 0x0193A5 06:B395: 29 08     AND #$08
 C - - - - - 0x0193A7 06:B397: D0 02     BNE bra_B39B
 C - - - - - 0x0193A9 06:B399: A0 04     LDY #$04
@@ -3110,7 +3110,7 @@ C - - - - - 0x0194D8 06:B4C8: A9 F8     LDA #$F8
 C - - - - - 0x0194DA 06:B4CA: 20 AD D3  JSR $D3AD
 C - - - - - 0x0194DD 06:B4CD: C9 01     CMP #$01
 C - - - - - 0x0194DF 06:B4CF: D0 08     BNE bra_B4D9
-C - - - - - 0x0194E1 06:B4D1: A5 2C     LDA v_low_counter
+C - - - - - 0x0194E1 06:B4D1: A5 2C     LDA vLowCounter
 C - - - - - 0x0194E3 06:B4D3: 6A        ROR
 C - - - - - 0x0194E4 06:B4D4: 90 A2     BCC bra_B478_RTS
 C - - - - - 0x0194E6 06:B4D6: 4C FD D6  JMP $D6FD
@@ -3124,7 +3124,7 @@ C - - - - - 0x0194F2 06:B4E2: A9 08     LDA #$08
 C - - - - - 0x0194F4 06:B4E4: 20 97 D3  JSR $D397
 C - - - - - 0x0194F7 06:B4E7: C9 01     CMP #$01
 C - - - - - 0x0194F9 06:B4E9: D0 EE     BNE bra_B4D9
-C - - - - - 0x0194FB 06:B4EB: A5 2C     LDA v_low_counter
+C - - - - - 0x0194FB 06:B4EB: A5 2C     LDA vLowCounter
 C - - - - - 0x0194FD 06:B4ED: 6A        ROR
 C - - - - - 0x0194FE 06:B4EE: 90 88     BCC bra_B478_RTS
 C - - - - - 0x019500 06:B4F0: 4C 1C D7  JMP $D71C
@@ -3146,7 +3146,7 @@ C - - - - - 0x01951B 06:B50B: 4C FC B4  JMP loc_B4FC
 sub_B50E:
 C - - - - - 0x01951E 06:B50E: 20 CA D7  JSR $D7CA
 C - - - - - 0x019521 06:B511: F0 08     BEQ bra_B51B
-C - - - - - 0x019523 06:B513: A5 2C     LDA v_low_counter
+C - - - - - 0x019523 06:B513: A5 2C     LDA vLowCounter
 C - - - - - 0x019525 06:B515: 6A        ROR
 C - - - - - 0x019526 06:B516: 90 34     BCC bra_B54C_RTS
 C - - - - - 0x019528 06:B518: 4C F0 D6  JMP $D6F0
@@ -3180,7 +3180,7 @@ C - - - - - 0x01955C 06:B54C: 60        RTS
 sub_B54D:
 C - - - - - 0x01955D 06:B54D: 20 BF D7  JSR $D7BF
 C - - - - - 0x019560 06:B550: F0 C9     BEQ bra_B51B
-C - - - - - 0x019562 06:B552: A5 2C     LDA v_low_counter
+C - - - - - 0x019562 06:B552: A5 2C     LDA vLowCounter
 C - - - - - 0x019564 06:B554: 6A        ROR
 C - - - - - 0x019565 06:B555: 90 F5     BCC bra_B54C_RTS
 C - - - - - 0x019567 06:B557: 4C 0F D7  JMP $D70F
@@ -3375,7 +3375,7 @@ bra_B6BD:
 C - - - - - 0x0196CD 06:B6BD: BD 20 03  LDA ram_0320,X
 C - - - - - 0x0196D0 06:B6C0: 29 40     AND #$40
 C - - - - - 0x0196D2 06:B6C2: F0 37     BEQ bra_B6FB
-C - - - - - 0x0196D4 06:B6C4: A5 2C     LDA v_low_counter
+C - - - - - 0x0196D4 06:B6C4: A5 2C     LDA vLowCounter
 C - - - - - 0x0196D6 06:B6C6: 29 07     AND #$07
 C - - - - - 0x0196D8 06:B6C8: D0 31     BNE bra_B6FB
 C - - - - - 0x0196DA 06:B6CA: A4 7A     LDY vBulletCount
@@ -3405,7 +3405,7 @@ bra_B6F8:
 C - - - - - 0x019708 06:B6F8: 88        DEY
 C - - - - - 0x019709 06:B6F9: 10 D1     BPL bra_B6CC
 bra_B6FB:
-C - - - - - 0x01970B 06:B6FB: A5 2C     LDA v_low_counter
+C - - - - - 0x01970B 06:B6FB: A5 2C     LDA vLowCounter
 C - - - - - 0x01970D 06:B6FD: 29 3F     AND #$3F
 C - - - - - 0x01970F 06:B6FF: D0 59     BNE bra_B75A_RTS
 C - - - - - 0x019711 06:B701: 20 64 D0  JSR $D064
@@ -3726,7 +3726,7 @@ C - - - - - 0x01993E 06:B92E: 20 CA D7  JSR $D7CA
 C - - - - - 0x019941 06:B931: C9 01     CMP #$01
 C - - - - - 0x019943 06:B933: F0 0B     BEQ bra_B940
 C - - - - - 0x019945 06:B935: 20 F0 D6  JSR $D6F0
-C - - - - - 0x019948 06:B938: A5 2C     LDA v_low_counter
+C - - - - - 0x019948 06:B938: A5 2C     LDA vLowCounter
 C - - - - - 0x01994A 06:B93A: 6A        ROR
 C - - - - - 0x01994B 06:B93B: 90 24     BCC bra_B961_RTS
 C - - - - - 0x01994D 06:B93D: 4C F0 D6  JMP $D6F0
@@ -3752,7 +3752,7 @@ C - - - - - 0x019972 06:B962: 20 BF D7  JSR $D7BF
 C - - - - - 0x019975 06:B965: C9 01     CMP #$01
 C - - - - - 0x019977 06:B967: F0 D7     BEQ bra_B940
 C - - - - - 0x019979 06:B969: 20 0F D7  JSR $D70F
-C - - - - - 0x01997C 06:B96C: A5 2C     LDA v_low_counter
+C - - - - - 0x01997C 06:B96C: A5 2C     LDA vLowCounter
 C - - - - - 0x01997E 06:B96E: 6A        ROR
 C - - - - - 0x01997F 06:B96F: 90 F0     BCC bra_B961_RTS
 C - - - - - 0x019981 06:B971: 4C 0F D7  JMP $D70F
@@ -3915,7 +3915,7 @@ C - - - - - 0x019A90 06:BA80: A9 00     LDA #$00
 C - - - - - 0x019A92 06:BA82: 20 AD BA  JSR sub_BAAD
 bra_BA85:
 C - - - - - 0x019A95 06:BA85: 20 E1 BA  JSR sub_BAE1
-C - - - - - 0x019A98 06:BA88: A5 2C     LDA v_low_counter
+C - - - - - 0x019A98 06:BA88: A5 2C     LDA vLowCounter
 C - - - - - 0x019A9A 06:BA8A: 29 3F     AND #$3F
 C - - - - - 0x019A9C 06:BA8C: D0 2B     BNE bra_BAB9_RTS
 C - - - - - 0x019A9E 06:BA8E: 20 64 D0  JSR $D064
@@ -4155,7 +4155,7 @@ C - - - - - 0x019C3D 06:BC2D: F0 0F     BEQ bra_BC3E
 C - - - - - 0x019C3F 06:BC2F: BD 20 03  LDA ram_0320,X
 C - - - - - 0x019C42 06:BC32: 29 04     AND #$04
 C - - - - - 0x019C44 06:BC34: D0 05     BNE bra_BC3B
-C - - - - - 0x019C46 06:BC36: A5 2C     LDA v_low_counter
+C - - - - - 0x019C46 06:BC36: A5 2C     LDA vLowCounter
 C - - - - - 0x019C48 06:BC38: 6A        ROR
 C - - - - - 0x019C49 06:BC39: 90 1E     BCC bra_BC59_RTS
 bra_BC3B:
@@ -4180,7 +4180,7 @@ C - - - - - 0x019C6D 06:BC5D: F0 DF     BEQ bra_BC3E
 C - - - - - 0x019C6F 06:BC5F: BD 20 03  LDA ram_0320,X
 C - - - - - 0x019C72 06:BC62: 29 04     AND #$04
 C - - - - - 0x019C74 06:BC64: D0 05     BNE bra_BC6B
-C - - - - - 0x019C76 06:BC66: A5 2C     LDA v_low_counter
+C - - - - - 0x019C76 06:BC66: A5 2C     LDA vLowCounter
 C - - - - - 0x019C78 06:BC68: 6A        ROR
 C - - - - - 0x019C79 06:BC69: 90 EE     BCC bra_BC59_RTS
 bra_BC6B:
@@ -4298,7 +4298,7 @@ C - - - - - 0x019D4A 06:BD3A: A9 00     LDA #$00
 C - - - - - 0x019D4C 06:BD3C: 20 5F BD  JSR sub_BD5F
 bra_BD3F:
 C - - - - - 0x019D4F 06:BD3F: 20 6C BD  JSR sub_BD6C
-C - - - - - 0x019D52 06:BD42: A5 2C     LDA v_low_counter
+C - - - - - 0x019D52 06:BD42: A5 2C     LDA vLowCounter
 C - - - - - 0x019D54 06:BD44: 29 3F     AND #$3F
 C - - - - - 0x019D56 06:BD46: D0 23     BNE bra_BD6B_RTS
 C - - - - - 0x019D58 06:BD48: 20 64 D0  JSR $D064

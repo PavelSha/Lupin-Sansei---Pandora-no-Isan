@@ -68,3 +68,13 @@ $DCB6##ram_0042
 $DCEA##ram_0042
 $DCEC##ram_0042
 $E56D##ram_0042
+$DC67##ram_0070
+$DC9C##ram_0070
+$DC9E##ram_0070
+$DCA6##ram_0070
+$DF5C##vChrStatus, X, L flags
+$DF5E##vChrStatus, X, L flags
+$DF60##vChrStatus, X, L flags
+$DF62##vChrStatus, X, L flags
+$DE83##vChrStatus, X, L flags
+$DE91##vChrStatus, X, L flags

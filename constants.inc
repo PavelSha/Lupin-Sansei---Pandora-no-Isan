@@ -78,7 +78,7 @@ vLowViewPortPosX              = ram_0027 ; a horizontal scroll, in level it's th
 vTempLowViewPortPosX          = ram_0028
 vLowViewPortPosY              = ram_0029 ; a vertical scroll
 v_nmi_counter                 = ram_002B
-v_low_counter                 = ram_002C
+vLowCounter                   = ram_002C
 v_high_counter                = ram_002D
 vGameCounters                 = ram_002E ; [vCorridorCounter, the unknown counter1, 2, 3, 4]
 vCorridorCounter              = ram_002E ; The counter starts when we enter the corridor
@@ -205,7 +205,7 @@ vChrStatus                    = ram_006C ; A status of a character
 ; Byte: XYZW KLMN
 ; N - the character is looking to the right/left (1 - left, 0 - right)
 ; M - the character is/isn't sitting (1 - sitting, 0 - no sitting)
-; L - the character is getting a damage  (1 - getting, 0 - no getting)
+; K - the character is getting a damage  (1 - getting, 0 - no getting)
 ; W - the character is/isn't jumping (1 - jumping, 0 - no jumping)
 ; Z - the character is entering a corridor or hiding place (1 - entering, 0 - no entering)
 ; ...
@@ -221,6 +221,8 @@ vJumpType                     = ram_006E
 ; 2 - jumping off
 ; 3 - jump by side
 vJumpCounter                  = ram_006F
+
+; ram_0070 - vChrFrameIndex ???
 
 vVelocity                     = ram_0071 ; 0x04 - min, 0x0C - max
 

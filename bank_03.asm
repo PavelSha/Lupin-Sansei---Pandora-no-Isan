@@ -7672,7 +7672,7 @@ C - - - - - 0x00E266 03:A256: AD 5C 03  LDA ram_035C
 C - - - - - 0x00E269 03:A259: 30 AE     BMI bra_A209_RTS
 bra_A25B:
 C - - - - - 0x00E26B 03:A25B: A0 20     LDY #$20
-C - - - - - 0x00E26D 03:A25D: A5 2C     LDA v_low_counter
+C - - - - - 0x00E26D 03:A25D: A5 2C     LDA vLowCounter
 C - - - - - 0x00E26F 03:A25F: 6A        ROR
 C - - - - - 0x00E270 03:A260: 90 02     BCC bra_A264
 C - - - - - 0x00E272 03:A262: A0 18     LDY #$18
@@ -7684,7 +7684,7 @@ C - - - - - 0x00E278 03:A268: B0 61     BCS bra_A2CB
 C - - - - - 0x00E27A 03:A26A: 4A        LSR
 C - - - - - 0x00E27B 03:A26B: B0 0C     BCS bra_A279
 C - - - - - 0x00E27D 03:A26D: A0 18     LDY #$18
-C - - - - - 0x00E27F 03:A26F: A5 2C     LDA v_low_counter
+C - - - - - 0x00E27F 03:A26F: A5 2C     LDA vLowCounter
 C - - - - - 0x00E281 03:A271: 29 08     AND #$08
 C - - - - - 0x00E283 03:A273: D0 02     BNE bra_A277
 C - - - - - 0x00E285 03:A275: A0 1C     LDY #$1C
@@ -7949,12 +7949,12 @@ bra_A43A:
 C - - - - - 0x00E44A 03:A43A: 20 48 A4  JSR sub_A448
 C - - - - - 0x00E44D 03:A43D: 4C 30 A4  JMP loc_A430
 sub_A440:
-C - - - - - 0x00E450 03:A440: A5 2C     LDA v_low_counter
+C - - - - - 0x00E450 03:A440: A5 2C     LDA vLowCounter
 C - - - - - 0x00E452 03:A442: 6A        ROR
 C - - - - - 0x00E453 03:A443: 90 BC     BCC bra_A401
 C - - - - - 0x00E455 03:A445: 4C 15 A4  JMP loc_A415
 sub_A448:
-C - - - - - 0x00E458 03:A448: A5 2C     LDA v_low_counter
+C - - - - - 0x00E458 03:A448: A5 2C     LDA vLowCounter
 C - - - - - 0x00E45A 03:A44A: 6A        ROR
 C - - - - - 0x00E45B 03:A44B: 90 B4     BCC bra_A401
 C - - - - - 0x00E45D 03:A44D: 4C 03 A4  JMP loc_A403
@@ -8045,7 +8045,7 @@ C - - - - - 0x00E507 03:A4F7: CD 86 03  CMP ram_0386
 C - - - - - 0x00E50A 03:A4FA: B0 03     BCS bra_A4FF
 C - - - - - 0x00E50C 03:A4FC: 8D 86 03  STA ram_0386
 bra_A4FF:
-C - - - - - 0x00E50F 03:A4FF: A5 2C     LDA v_low_counter
+C - - - - - 0x00E50F 03:A4FF: A5 2C     LDA vLowCounter
 C - - - - - 0x00E511 03:A501: 29 0C     AND #$0C
 C - - - - - 0x00E513 03:A503: 4A        LSR
 C - - - - - 0x00E514 03:A504: 18        CLC
@@ -8097,7 +8097,7 @@ C - - - - - 0x00E56C 03:A55C: BD 62 03  LDA ram_0362,X
 C - - - - - 0x00E56F 03:A55F: 4A        LSR
 C - - - - - 0x00E570 03:A560: 85 00     STA ram_0000
 C - - - - - 0x00E572 03:A562: 90 07     BCC bra_A56B_RTS
-C - - - - - 0x00E574 03:A564: A5 2C     LDA v_low_counter
+C - - - - - 0x00E574 03:A564: A5 2C     LDA vLowCounter
 C - - - - - 0x00E576 03:A566: 6A        ROR
 C - - - - - 0x00E577 03:A567: 90 02     BCC bra_A56B_RTS
 C - - - - - 0x00E579 03:A569: E6 00     INC ram_0000
@@ -8506,7 +8506,7 @@ C - - - - - 0x00E803 03:A7F3: C9 20     CMP #$20
 C - - - - - 0x00E805 03:A7F5: F0 2C     BEQ bra_A823
 C - - - - - 0x00E807 03:A7F7: 29 04     AND #$04
 C - - - - - 0x00E809 03:A7F9: D0 4A     BNE bra_A845
-C - - - - - 0x00E80B 03:A7FB: A5 2C     LDA v_low_counter
+C - - - - - 0x00E80B 03:A7FB: A5 2C     LDA vLowCounter
 C - - - - - 0x00E80D 03:A7FD: 29 03     AND #$03
 C - - - - - 0x00E80F 03:A7FF: D0 13     BNE bra_A814
 C - - - - - 0x00E811 03:A801: FE 92 03  INC ram_0392,X
@@ -8561,7 +8561,7 @@ C - - - - - 0x00E86E 03:A85E: 9D 62 03  STA ram_0362,X
 C - - - - - 0x00E871 03:A861: A9 BF     LDA #$BF
 C - - - - - 0x00E873 03:A863: 9D 68 03  STA ram_0368,X
 bra_A866:
-C - - - - - 0x00E876 03:A866: A5 2C     LDA v_low_counter
+C - - - - - 0x00E876 03:A866: A5 2C     LDA vLowCounter
 C - - - - - 0x00E878 03:A868: 29 03     AND #$03
 C - - - - - 0x00E87A 03:A86A: D0 AB     BNE bra_A817
 C - - - - - 0x00E87C 03:A86C: 20 6C A5  JSR sub_A56C
@@ -8696,7 +8696,7 @@ C - - - - - 0x00E94A 03:A93A: 4C 7E A1  JMP loc_A17E
 bra_A93D:
 C - - - - - 0x00E94D 03:A93D: 88        DEY
 C - - - - - 0x00E94E 03:A93E: D0 F5     BNE bra_A935
-C - - - - - 0x00E950 03:A940: A5 2C     LDA v_low_counter
+C - - - - - 0x00E950 03:A940: A5 2C     LDA vLowCounter
 C - - - - - 0x00E952 03:A942: 29 03     AND #$03
 C - - - - - 0x00E954 03:A944: D0 06     BNE bra_A94C
 C - - - - - 0x00E956 03:A946: 20 BB AA  JSR sub_AABB
@@ -8790,7 +8790,7 @@ C - - - - - 0x00E9FA 03:A9EA: 90 02     BCC bra_A9EE
 C - - - - - 0x00E9FC 03:A9EC: A0 04     LDY #$04
 bra_A9EE:
 C - - - - - 0x00E9FE 03:A9EE: 84 11     STY ram_0011
-C - - - - - 0x00EA00 03:A9F0: A5 2C     LDA v_low_counter
+C - - - - - 0x00EA00 03:A9F0: A5 2C     LDA vLowCounter
 C - - - - - 0x00EA02 03:A9F2: 29 0C     AND #$0C
 C - - - - - 0x00EA04 03:A9F4: 4A        LSR
 C - - - - - 0x00EA05 03:A9F5: 4A        LSR
@@ -8987,7 +8987,7 @@ C - - - - - 0x00EB65 03:AB55: C9 2E     CMP #$2E
 C - - - - - 0x00EB67 03:AB57: D0 02     BNE bra_AB5B
 C - - - - - 0x00EB69 03:AB59: A0 40     LDY #$40
 bra_AB5B:
-C - - - - - 0x00EB6B 03:AB5B: A5 2C     LDA v_low_counter
+C - - - - - 0x00EB6B 03:AB5B: A5 2C     LDA vLowCounter
 C - - - - - 0x00EB6D 03:AB5D: 29 02     AND #$02
 C - - - - - 0x00EB6F 03:AB5F: D0 02     BNE bra_AB63
 C - - - - - 0x00EB71 03:AB61: C8        INY
@@ -9416,7 +9416,7 @@ C - - - - - 0x00EDC3 03:ADB3: F0 05     BEQ bra_ADBA
 C - - - - - 0x00EDC5 03:ADB5: DE 44 03  DEC ram_0344,X
 C - - - - - 0x00EDC8 03:ADB8: D0 31     BNE bra_ADEB
 bra_ADBA:
-C - - - - - 0x00EDCA 03:ADBA: A5 2C     LDA v_low_counter
+C - - - - - 0x00EDCA 03:ADBA: A5 2C     LDA vLowCounter
 C - - - - - 0x00EDCC 03:ADBC: 29 01     AND #$01
 C - - - - - 0x00EDCE 03:ADBE: D0 2B     BNE bra_ADEB
 C - - - - - 0x00EDD0 03:ADC0: FE 2C 03  INC ram_032C,X
@@ -9430,7 +9430,7 @@ C - - - - - 0x00EDE1 03:ADD1: 9D 44 03  STA ram_0344,X
 C - - - - - 0x00EDE4 03:ADD4: D0 15     BNE bra_ADEB
 C - - - - - 0x00EDE6 03:ADD6: 20 D9 AE  JSR sub_AED9
 C - - - - - 0x00EDE9 03:ADD9: A0 03     LDY #$03
-C - - - - - 0x00EDEB 03:ADDB: A5 2C     LDA v_low_counter
+C - - - - - 0x00EDEB 03:ADDB: A5 2C     LDA vLowCounter
 C - - - - - 0x00EDED 03:ADDD: 29 18     AND #$18
 C - - - - - 0x00EDEF 03:ADDF: F0 0A     BEQ bra_ADEB
 C - - - - - 0x00EDF1 03:ADE1: C9 18     CMP #$18
@@ -10011,7 +10011,7 @@ C - - - - - 0x00F20A 03:B1FA: C0 24     CPY #$24
 C - - - - - 0x00F20C 03:B1FC: F0 02     BEQ bra_B200
 C - - - - - 0x00F20E 03:B1FE: A9 01     LDA #$01
 bra_B200:
-C - - - - - 0x00F210 03:B200: 25 2C     AND v_low_counter
+C - - - - - 0x00F210 03:B200: 25 2C     AND vLowCounter
 C - - - - - 0x00F212 03:B202: 60        RTS
 
 C - - - - - 0x00F213 03:B203: DE 4A 03  DEC ram_034A,X
@@ -10184,7 +10184,7 @@ C - - - - - 0x00F352 03:B342: A9 00     LDA #$00
 C - - - - - 0x00F354 03:B344: 20 69 B3  JSR sub_B369
 bra_B347:
 C - - - - - 0x00F357 03:B347: 20 76 B3  JSR sub_B376
-C - - - - - 0x00F35A 03:B34A: A5 2C     LDA v_low_counter
+C - - - - - 0x00F35A 03:B34A: A5 2C     LDA vLowCounter
 C - - - - - 0x00F35C 03:B34C: 29 3F     AND #$3F
 C - - - - - 0x00F35E 03:B34E: D0 25     BNE bra_B375_RTS
 C - - - - - 0x00F360 03:B350: 20 64 D0  JSR $D064
@@ -10536,7 +10536,7 @@ C - - - - - 0x00F55E 03:B54E: 9D 26 03  STA ram_0326,X
 C - - - - - 0x00F561 03:B551: A0 00     LDY #$00
 C - - - - - 0x00F563 03:B553: 4C 9E B5  JMP loc_B59E
 bra_B556:
-C - - - - - 0x00F566 03:B556: A5 2C     LDA v_low_counter
+C - - - - - 0x00F566 03:B556: A5 2C     LDA vLowCounter
 C - - - - - 0x00F568 03:B558: 29 0F     AND #$0F
 C - - - - - 0x00F56A 03:B55A: D0 14     BNE bra_B570
 C - - - - - 0x00F56C 03:B55C: AD 00 03  LDA ram_0300
@@ -10672,7 +10672,7 @@ C - - - - - 0x00F65A 03:B64A: 4C 3B B6  JMP loc_B63B
 sub_B64D:
 C - - - - - 0x00F65D 03:B64D: 20 CA D7  JSR $D7CA
 C - - - - - 0x00F660 03:B650: F0 08     BEQ bra_B65A
-C - - - - - 0x00F662 03:B652: A5 2C     LDA v_low_counter
+C - - - - - 0x00F662 03:B652: A5 2C     LDA vLowCounter
 C - - - - - 0x00F664 03:B654: 6A        ROR
 C - - - - - 0x00F665 03:B655: 90 30     BCC bra_B687_RTS
 C - - - - - 0x00F667 03:B657: 4C F0 D6  JMP $D6F0
@@ -10703,7 +10703,7 @@ C - - - - - 0x00F697 03:B687: 60        RTS
 sub_B688:
 C - - - - - 0x00F698 03:B688: 20 BF D7  JSR $D7BF
 C - - - - - 0x00F69B 03:B68B: F0 CD     BEQ bra_B65A
-C - - - - - 0x00F69D 03:B68D: A5 2C     LDA v_low_counter
+C - - - - - 0x00F69D 03:B68D: A5 2C     LDA vLowCounter
 C - - - - - 0x00F69F 03:B68F: 6A        ROR
 C - - - - - 0x00F6A0 03:B690: 90 F5     BCC bra_B687_RTS
 C - - - - - 0x00F6A2 03:B692: 4C 0F D7  JMP $D70F
@@ -10843,7 +10843,7 @@ C - - - - - 0x00F79E 03:B78E: A9 00     LDA #$00
 C - - - - - 0x00F7A0 03:B790: 20 C5 B7  JSR sub_B7C5
 bra_B793:
 C - - - - - 0x00F7A3 03:B793: 20 D2 B7  JSR sub_B7D2
-C - - - - - 0x00F7A6 03:B796: A5 2C     LDA v_low_counter
+C - - - - - 0x00F7A6 03:B796: A5 2C     LDA vLowCounter
 C - - - - - 0x00F7A8 03:B798: 29 3F     AND #$3F
 C - - - - - 0x00F7AA 03:B79A: D0 35     BNE bra_B7D1_RTS
 C - - - - - 0x00F7AC 03:B79C: 20 64 D0  JSR $D064
@@ -11168,7 +11168,7 @@ C - - - - - 0x00F9BF 03:B9AF: 4C A0 B9  JMP loc_B9A0
 sub_B9B2:
 C - - - - - 0x00F9C2 03:B9B2: 20 CA D7  JSR $D7CA
 C - - - - - 0x00F9C5 03:B9B5: F0 09     BEQ bra_B9C0
-C - - - - - 0x00F9C7 03:B9B7: A5 2C     LDA v_low_counter
+C - - - - - 0x00F9C7 03:B9B7: A5 2C     LDA vLowCounter
 C - - - - - 0x00F9C9 03:B9B9: 29 01     AND #$01
 C - - - - - 0x00F9CB 03:B9BB: F0 1E     BEQ bra_B9DB_RTS
 C - - - - - 0x00F9CD 03:B9BD: 4C F0 D6  JMP $D6F0
@@ -11189,7 +11189,7 @@ C - - - - - 0x00F9EB 03:B9DB: 60        RTS
 sub_B9DC:
 C - - - - - 0x00F9EC 03:B9DC: 20 BF D7  JSR $D7BF
 C - - - - - 0x00F9EF 03:B9DF: F0 DF     BEQ bra_B9C0
-C - - - - - 0x00F9F1 03:B9E1: A5 2C     LDA v_low_counter
+C - - - - - 0x00F9F1 03:B9E1: A5 2C     LDA vLowCounter
 C - - - - - 0x00F9F3 03:B9E3: 29 01     AND #$01
 C - - - - - 0x00F9F5 03:B9E5: F0 F4     BEQ bra_B9DB_RTS
 C - - - - - 0x00F9F7 03:B9E7: 4C 0F D7  JMP $D70F
@@ -11330,7 +11330,7 @@ C - - - - - 0x00FAEC 03:BADC: A9 00     LDA #$00
 C - - - - - 0x00FAEE 03:BADE: 20 2F BB  JSR sub_BB2F
 bra_BAE1:
 C - - - - - 0x00FAF1 03:BAE1: 20 3C BB  JSR sub_BB3C
-C - - - - - 0x00FAF4 03:BAE4: A5 2C     LDA v_low_counter
+C - - - - - 0x00FAF4 03:BAE4: A5 2C     LDA vLowCounter
 C - - - - - 0x00FAF6 03:BAE6: 29 3F     AND #$3F
 C - - - - - 0x00FAF8 03:BAE8: D0 51     BNE bra_BB3B_RTS
 C - - - - - 0x00FAFA 03:BAEA: BD 20 03  LDA ram_0320,X
@@ -11555,7 +11555,7 @@ C - - - - - 0x00FC71 03:BC61: F0 11     BEQ bra_BC74
 C - - - - - 0x00FC73 03:BC63: A9 00     LDA #$00
 C - - - - - 0x00FC75 03:BC65: 9D 80 03  STA ram_0380,X
 C - - - - - 0x00FC78 03:BC68: A0 0C     LDY #$0C
-C - - - - - 0x00FC7A 03:BC6A: A5 2C     LDA v_low_counter
+C - - - - - 0x00FC7A 03:BC6A: A5 2C     LDA vLowCounter
 C - - - - - 0x00FC7C 03:BC6C: 29 10     AND #$10
 C - - - - - 0x00FC7E 03:BC6E: D0 0D     BNE bra_BC7D
 C - - - - - 0x00FC80 03:BC70: A0 10     LDY #$10
@@ -11615,7 +11615,7 @@ C - - - - - 0x00FCE9 03:BCD9: 6A        ROR
 C - - - - - 0x00FCEA 03:BCDA: 90 19     BCC bra_BCF5
 C - - - - - 0x00FCEC 03:BCDC: 20 FB BC  JSR sub_BCFB
 loc_BCDF:
-C D 1 - - - 0x00FCEF 03:BCDF: A5 2C     LDA v_low_counter
+C D 1 - - - 0x00FCEF 03:BCDF: A5 2C     LDA vLowCounter
 C - - - - - 0x00FCF1 03:BCE1: 29 07     AND #$07
 C - - - - - 0x00FCF3 03:BCE3: D0 0F     BNE bra_BCF4_RTS
 C - - - - - 0x00FCF5 03:BCE5: FE 80 03  INC ram_0380,X
@@ -11632,7 +11632,7 @@ C - - - - - 0x00FD08 03:BCF8: 4C DF BC  JMP loc_BCDF
 sub_BCFB:
 C - - - - - 0x00FD0B 03:BCFB: 20 C2 D8  JSR $D8C2
 C - - - - - 0x00FD0E 03:BCFE: F0 09     BEQ bra_BD09
-C - - - - - 0x00FD10 03:BD00: A5 2C     LDA v_low_counter
+C - - - - - 0x00FD10 03:BD00: A5 2C     LDA vLowCounter
 C - - - - - 0x00FD12 03:BD02: 29 01     AND #$01
 C - - - - - 0x00FD14 03:BD04: F0 19     BEQ bra_BD1F_RTS
 C - - - - - 0x00FD16 03:BD06: 4C FC D7  JMP $D7FC
@@ -11651,7 +11651,7 @@ C - - - - - 0x00FD2F 03:BD1F: 60        RTS
 sub_BD20:
 C - - - - - 0x00FD30 03:BD20: 20 B7 D8  JSR $D8B7
 C - - - - - 0x00FD33 03:BD23: F0 E4     BEQ bra_BD09
-C - - - - - 0x00FD35 03:BD25: A5 2C     LDA v_low_counter
+C - - - - - 0x00FD35 03:BD25: A5 2C     LDA vLowCounter
 C - - - - - 0x00FD37 03:BD27: 29 01     AND #$01
 C - - - - - 0x00FD39 03:BD29: F0 F4     BEQ bra_BD1F_RTS
 C - - - - - 0x00FD3B 03:BD2B: 4C 1B D8  JMP $D81B
@@ -11717,7 +11717,7 @@ C - - - - - 0x00FDA9 03:BD99: F0 0D     BEQ bra_BDA8
 C - - - - - 0x00FDAB 03:BD9B: BD 68 03  LDA ram_0368,X
 C - - - - - 0x00FDAE 03:BD9E: C9 BF     CMP #$BF
 C - - - - - 0x00FDB0 03:BDA0: B0 06     BCS bra_BDA8
-C - - - - - 0x00FDB2 03:BDA2: A5 2C     LDA v_low_counter
+C - - - - - 0x00FDB2 03:BDA2: A5 2C     LDA vLowCounter
 C - - - - - 0x00FDB4 03:BDA4: 29 03     AND #$03
 C - - - - - 0x00FDB6 03:BDA6: D0 19     BNE bra_BDC1
 bra_BDA8:
@@ -11757,7 +11757,7 @@ C - - - - - 0x00FDFB 03:BDEB: 20 29 BE  JSR sub_BE29
 C - - - - - 0x00FDFE 03:BDEE: BD 80 03  LDA ram_0380,X
 C - - - - - 0x00FE01 03:BDF1: C9 01     CMP #$01
 C - - - - - 0x00FE03 03:BDF3: F0 33     BEQ bra_BE28_RTS
-C - - - - - 0x00FE05 03:BDF5: A5 2C     LDA v_low_counter
+C - - - - - 0x00FE05 03:BDF5: A5 2C     LDA vLowCounter
 C - - - - - 0x00FE07 03:BDF7: 29 3F     AND #$3F
 C - - - - - 0x00FE09 03:BDF9: D0 2D     BNE bra_BE28_RTS
 C - - - - - 0x00FE0B 03:BDFB: 20 64 D0  JSR $D064

@@ -15,7 +15,7 @@ $0027#vLowViewPortPosX#
 $0028#vTempLowViewPortPosX#
 $0029#vLowViewPortPosY#
 $002B#v_nmi_counter#
-$002C#v_low_counter#
+$002C#vLowCounter#
 $002D#v_high_counter#
 $002E#vCorridorCounter#
 $0033#vLowCutsceneCounter#

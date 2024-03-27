@@ -391,7 +391,7 @@ $C497##store  the table index
 $C499#bra_C499_skip#decrement a counter
 $C49B##--NO-COMMENT--
 $C49D##--NO-COMMENT--
-$C49F##Branch if v_low_counter does multiple of 16
+$C49F##Branch if vLowCounter does multiple of 16
 $C4A1##--NO-COMMENT--
 $C4A3##addes a shot every 16th frame unless otherwise specified
 $C4A5##--NO-COMMENT--
@@ -1015,7 +1015,7 @@ $CA28##Branch if no pause
 $CA2A##changes the index in the table
 $CA2C##--NO-COMMENT--
 $CA2E##--NO-COMMENT--
-$CA30##Branch If v_low_counter doesn't division without remainder by 8 and 16
+$CA30##Branch If vLowCounter doesn't division without remainder by 8 and 16
 $CA32#bra_CA32_loop#--NO-COMMENT--
 $CA35##tile numbers
 $CA38##--NO-COMMENT--
@@ -1657,7 +1657,7 @@ $D155##retrieve ppu ctrl
 $D158#bra_D158_RTS#--NO-COMMENT--
 $D159#bra_D159_ppu_cache#--NO-COMMENT--
 $D15B##--NO-COMMENT--
-$D15C##Branch if v_low_counter doesn't multiple of 2
+$D15C##Branch if vLowCounter doesn't multiple of 2
 $D15E#bra_D15E_message#--NO-COMMENT--
 $D160##--NO-COMMENT--
 $D161##Branch if no exist 'A screen with the message'
@@ -1943,7 +1943,10 @@ $D38E##--NO-COMMENT--
 $D390##--NO-COMMENT--
 $D392##+1, if A + $0001 caused an overflow
 $D394##--NO-COMMENT--
-$D397#sub_D397#
+$D397#sub_D397_right_collision_by_inc_posX#--NO-COMMENT--
+$D39A##CONSTANT - a strong collision
+$D39C##If a strong collision no exist
+$D39E##--NO-COMMENT--
 $D39F#sub_D39F_collision_by_increment_posX#--NO-COMMENT--
 $D3A0##--NO-COMMENT--
 $D3A2##--NO-COMMENT--
@@ -1951,14 +1954,29 @@ $D3A4##--NO-COMMENT--
 $D3A6##--NO-COMMENT--
 $D3A8##-1, if A + $0001 doesn't cause an overflow
 $D3AA##--NO-COMMENT--
-$D3AD#sub_D3AD#
-$D3B5#bra_D3B5#
-$D3C7#bra_D3C7#
-$D3C9#bra_D3C9#
+$D3AD#sub_D3AD_left_collision_by_inc_posX#--NO-COMMENT--
+$D3B0##CONSTANT - a strong collision
+$D3B2##If a strong collision no exist
+$D3B4##--NO-COMMENT--
+$D3B5#bra_D3B5_check_walls#store A
+$D3B6##--NO-COMMENT--
+$D3B8##CONSTANT - level 4 or level-racing
+$D3BA##If v_no_level != 0x03
+$D3BC##--NO-COMMENT--
+$D3BF##CONSTANT - Wall #1
+$D3C1##If vEnemyB == 0x30
+$D3C3##CONSTANT - Wall #2
+$D3C5##If vEnemyB != 0x31
+$D3C7#bra_D3C7#set loop counter
+$D3C9#bra_D3C9_loop#
 $D3EA#bra_D3EA#
-$D3EE#bra_D3EE#
-$D3F1#bra_D3F1#
-$D3F3#bra_D3F3#
+$D3EE#bra_D3EE#decrement loop counter
+$D3EF##If Register Y < 0xF0
+$D3F1#bra_D3F1_return#retrieve A ($D3B5)
+$D3F2##--NO-COMMENT--
+$D3F3#bra_D3F3_collision#retrieve A ($D3B5)
+$D3F4##set a strong collision
+$D3F6##--NO-COMMENT--
 $D3F7#sub_D3F7_get_background_screen_info_address#switch prg: bank 00 (page 1)
 $D3F9##--NO-COMMENT--
 $D3FC##v_cache_reg_y to A
@@ -2298,14 +2316,16 @@ $DBA5##We stand up the character, he no longer sits
 $DBA7##--NO-COMMENT--
 $DBA9##--NO-COMMENT--
 $DBAB##If the button 'Left' or 'Right' isn't pressed
+$DBAD##--NO-COMMENT--
 $DBB0#bra_DBB0_skip#--NO-COMMENT--
 $DBB2##Always true
 $DBB4#bra_DBB4_down#--NO-COMMENT--
 $DBB6##CONSTANT - the character is sitting
 $DBB8##--NO-COMMENT--
+$DBBA##--NO-COMMENT--
 $DBBD##the offset of the sprite address
 $DBBF#bra_DBBF_skip#--NO-COMMENT--
-$DBC2#loc_DBC2#--NO-COMMENT--
+$DBC2#loc_DBC2_before_rendering#--NO-COMMENT--
 $DBC4##CONSTANT - the character is getting a damage
 $DBC6##If the character is getting a damage
 $DBC8##--NO-COMMENT--
@@ -2361,46 +2381,88 @@ $DC35##--NO-COMMENT--
 $DC37##retrieve x + increment
 $DC3B#sub_DC3B#
 $DC4B#bra_DC4B_skip#
-$DC52#loc_DC52#If the button 'Right' is pressed
+$DC52#loc_DC52_horiz_movement_subroutine#If the button 'Right' is pressed
 $DC54##--NO-COMMENT--
 $DC56##--NO-COMMENT--
 $DC57##If vChrStatus is changed yet
 $DC59##Changes a status to 'left'
-$DC5E#bra_DC5E_skip#
-$DC61#loc_DC61#
-$DC67#loc_DC67#
-$DC6F#tbl_DC6F#
+$DC5B##--NO-COMMENT--
+$DC5E#bra_DC5E_skip#--NO-COMMENT--
+$DC61#loc_DC61_after_moving#--NO-COMMENT--
+$DC64##--NO-COMMENT--
+$DC67#loc_DC67_after_moving_without_velocity#
+$DC69##prepares the offset of the sprite address
+$DC6C##--NO-COMMENT--
+$DC6F#tbl_DC6F_movement_frames#1st frame
+$DC70##2nd frame
+$DC71##3rd frame
 $DC72#bra_DC72_right#--NO-COMMENT--
 $DC74##--NO-COMMENT--
 $DC75##--NO-COMMENT--
 $DC77##Changes a status to 'right'
-$DC7C#bra_DC7C_skip#
-$DC82#sub_DC82#
-$DC8A#sub_DC8A#
-$DC92#bra_DC92#
-$DC94#bra_DC94#
-$DC95#bra_DC95_RTS#
-$DC96#sub_DC96#
-$DC98#sub_DC98#
-$DCA8#bra_DCA8_RTS#
+$DC79##--NO-COMMENT--
+$DC7C#bra_DC7C_skip#--NO-COMMENT--
+$DC7F##--NO-COMMENT--
+$DC82#sub_DC82_try_inc_velocity#--NO-COMMENT--
+$DC84##--NO-COMMENT--
+$DC86##Branch if vLowCounter doesn't multiple of 4 (vLowCounter % 4 != 0)
+$DC88##CONSTANT - Max value
+$DC8A#sub_DC8A_inc_velocity#--NO-COMMENT--
+$DC8C##--NO-COMMENT--
+$DC8E##If 0x0C >= vVelocity
+$DC90##vVelocity <~ limit
+$DC92#bra_DC92_skip#return true
+$DC93##--NO-COMMENT--
+$DC94#bra_DC94_return_false#return false
+$DC95#bra_DC95_RTS#--NO-COMMENT--
+$DC96#sub_DC96_try_change_frame_index#f(A) = 8, see $DC98
+$DC98#sub_DC98_try_change_frame_index_ex#--NO-COMMENT--
+$DC9A##Branch if vLowCounter doesn't multiple of f(A) (vLowCounter % f(A) != 0)
+$DCA0##CONSTANT - Max value
+$DCA2##If ram_0070 < 0x03
+$DCA4##--NO-COMMENT--
+$DCA6##clear (or reset)
+$DCA8#bra_DCA8_RTS#--NO-COMMENT--
 $DCA9#loc_DCA9_calc_ScreenChrPosX#--NO-COMMENT--
 $DCAB##--NO-COMMENT--
 $DCAC##--NO-COMMENT--
 $DCAE##--NO-COMMENT--
 $DCB0##--NO-COMMENT--
-$DCB1#sub_DCB1#
-$DCBA#bra_DCBA_RTS#
-$DCBB#loc_DCBB#
-$DCD7#sub_DCD7#
-$DCE5#sub_DCE5#--NO-COMMENT--
+$DCB1#sub_DCB1_try_move_on_the_left#--NO-COMMENT--
+$DCB4##If the movement isn't allowed
+$DCB8##Always true
+$DCBA#bra_DCBA_RTS#--NO-COMMENT--
+$DCBB#loc_DCBB_dec_LowChrPosX#--NO-COMMENT--
+$DCBD##--NO-COMMENT--
+$DCBE##CONSTANT - The character should be visible in its entirety on the left
+$DCC0##--NO-COMMENT--
+$DCC2##--NO-COMMENT--
+$DCC4##Branch If the character reach the beginning of the room
+$DCC6##--NO-COMMENT--
+$DCC9##--NO-COMMENT--
+$DCCC##CONSTANT - the scroll border on the left
+$DCCE##If vScreenChrPosX >= 0x70
+$DCD0##CONSTANT - to left
+$DCD2##--NO-COMMENT--
+$DCD4##--NO-COMMENT--
+$DCD7#sub_DCD7_internal_decrement#--NO-COMMENT--
+$DCD9##--NO-COMMENT--
+$DCDA##--NO-COMMENT--
+$DCDC##--NO-COMMENT--
+$DCDE##--NO-COMMENT--
+$DCE0##decrement vNoScreen, if vLowChrPosX changed a sign
+$DCE2##--NO-COMMENT--
+$DCE4##--NO-COMMENT--
+$DCE5#sub_DCE5_try_move_on_the_right#--NO-COMMENT--
 $DCE8##If the movement to the right is not allowed
 $DCEC#bra_DCEC#
+$DCEE##--NO-COMMENT--
 $DCF1#sub_DCF1_reset_velocity#--NO-COMMENT--
 $DCF3##Always true
 $DCF5##it will never happen
 $DCF7#bra_DCF7_skip#--NO-COMMENT--
 $DCF9##--NO-COMMENT--
-$DCFA#loc_DCFA#--NO-COMMENT--
+$DCFA#loc_DCFA_inc_LowChrPosX#--NO-COMMENT--
 $DCFC##--NO-COMMENT--
 $DCFD##CONSTANT - The character should be visible in its entirety on the right
 $DCFF##--NO-COMMENT--
@@ -2409,17 +2471,36 @@ $DD03##Branch If the character reach the end of the room
 $DD05##--NO-COMMENT--
 $DD07##If the character doesn't move from one screen to another
 $DD09##--NO-COMMENT--
-$DD0B#bra_DD0B_skip#
-$DD12#sub_DD12#
-$DD19#sub_DD19#--NO-COMMENT--
+$DD0B#bra_DD0B_skip#--NO-COMMENT--
+$DD0E##CONSTANT - the scroll border on the right
+$DD10##If vScreenChrPosX < 0x90
+$DD12#sub_DD12_scroll#CONSTANT - to right
+$DD14##--NO-COMMENT--
+$DD16##--NO-COMMENT--
+$DD19#sub_DD19_check_movement_on_the_right#--NO-COMMENT--
 $DD1B##CONSTANT - level 4 or level-racing
 $DD1D##If Register A != 0x03
-$DD29#bra_DD29_skip#
-$DD2C#sub_DD2C#an increment by posX
-$DD33#bra_DD33_RTS#
-$DD34#sub_DD34#
-$DD44#bra_DD44_skip#
-$DD47#sub_DD47#
+$DD1F##prepare increment by Y (-31)
+$DD21##--NO-COMMENT--
+$DD24##--NO-COMMENT--
+$DD27##If the collision value exist
+$DD29#bra_DD29_skip#--NO-COMMENT--
+$DD2C#sub_DD2C_control_check#prepare an increment by X (+8)
+$DD2E##--NO-COMMENT--
+$DD31##--NO-COMMENT--
+$DD33#bra_DD33_RTS#--NO-COMMENT--
+$DD34#sub_DD34_check_movement_on_the_left#--NO-COMMENT--
+$DD36##CONSTANT - level 4 + racing
+$DD38##If v_no_level != 0x03
+$DD3A##prepare increment by Y (-31)
+$DD3C##--NO-COMMENT--
+$DD3F##--NO-COMMENT--
+$DD42##If the collision value exist
+$DD44#bra_DD44_skip#--NO-COMMENT--
+$DD47#sub_DD47_control_check#prepare an increment by X (-8)
+$DD49##--NO-COMMENT--
+$DD4C##--NO-COMMENT--
+$DD4E##--NO-COMMENT--
 $DD4F#sub_DD4F#
 $DD5A#sub_DD5A#
 $DD7B#bra_DD7B_RTS#
@@ -2439,19 +2520,55 @@ $DD99##else it was a jump by side
 $DD9A#bra_DD9A_skip#--NO-COMMENT--
 $DD9D#loc_DD9D#--NO-COMMENT--
 $DD9F##--NO-COMMENT--
-$DDA7#loc_DDA7#
+$DDA1##--NO-COMMENT--
+$DDA3##CONSTANT - 'the character is jumping'
+$DDA5##updates the character status
+$DDA7#loc_DDA7#--NO-COMMENT--
+$DDA9##CONSTANT - Maximum allowed Y-value on the screen
+$DDAB##If vScreenChrPosY >= 0xDF
+$DDAD##--NO-COMMENT--
+$DDAF##CONSTANT - 'the character is getting a damage'
+$DDB1##If the character is getting a damage
+$DDB3##--NO-COMMENT--
+$DDB6##If the current character is Lupin
 $DDB8##CONSTANT - the character stands on the ground
 $DDBA##--NO-COMMENT--
-$DDBC#bra_DDBC_skip#
+$DDBC#bra_DDBC_skip#--NO-COMMENT--
+$DDBE##--NO-COMMENT--
+$DDC0##If vJumpCounter < 0x0C
+$DDC2##--NO-COMMENT--
+$DDC4##If vJumpCounter >= 0x15
+$DDC6##--NO-COMMENT--
+$DDC8##--NO-COMMENT--
+$DDCA##If the button 'A' is pressed
+$DDCC##--NO-COMMENT--
+$DDCE##reduce the jump height
 $DDD0#bra_DDD0_skip#--NO-COMMENT--
 $DDD2##CONSTANT - jump by side
 $DDD4##Branch If it isn't a jump by side
-$DDD6#bra_DDD6_skip#
-$DDDF#bra_DDDF#
+$DDD6#bra_DDD6_jump_by_side#--NO-COMMENT--
+$DDD8##--NO-COMMENT--
+$DDD9##If the character is looking to the right
+$DDDB##--NO-COMMENT--
+$DDDD##If the character is getting a damage
+$DDDF#bra_DDDF_left2#--NO-COMMENT--
+$DDE2##--NO-COMMENT--
+$DDE4##CONSTANT - 'the character is getting a damage'
+$DDE6##If the character is getting a damage
+$DDE8##--NO-COMMENT--
+$DDEA##If the button 'Right' isn't pressed
+$DDEC##--NO-COMMENT--
 $DDEF#bra_DDEF_skip#
-$DDF2#bra_DDF2_skip#
-$DDF6#bra_DDF6_skip#
-$DE06#loc_DE06_skip#--NO-COMMENT--
+$DDF2#bra_DDF2_right#--NO-COMMENT--
+$DDF4##If the character is getting a damage
+$DDF6#bra_DDF6_right2#--NO-COMMENT--
+$DDF9##--NO-COMMENT--
+$DDFB##CONSTANT - 'the character is getting a damage'
+$DDFD##If the character is getting a damage
+$DDFF##--NO-COMMENT--
+$DE01##If the button 'Left' isn't pressed
+$DE03##--NO-COMMENT--
+$DE06#loc_DE06_after_horiz_moving#--NO-COMMENT--
 $DE08##X = [0x00-0x2F]
 $DE0B##--NO-COMMENT--
 $DE0C##--NO-COMMENT--
@@ -2461,16 +2578,28 @@ $DE12##0xDF -> vScreenChrPosY
 $DE14##CONSTANT - Limit 2 for Y-position
 $DE16##--NO-COMMENT--
 $DE18##0x00 -> vScreenChrPosY
-$DE1A#bra_DE1A_skip#
+$DE1A#bra_DE1A_skip#A <~ 0x00 or 0xDF
 $DE1B#bra_DE1B_skip#Resolves a new Y-position of the character after jumping
-$DE30#bra_DE30#
-$DE39#bra_DE39#
+$DE1F##prepares the offset of the sprite address
+$DE21##--NO-COMMENT--
+$DE24##CONSTANT - the bomb (the weapon) is activated
+$DE26##if vCurrentWeaponStatus = 0x41
+$DE28##--NO-COMMENT--
+$DE2A##CONSTANT - jumping off
+$DE2C##Branch If it isn't jumping off
+$DE2E##prepares the offset of the sprite address
+$DE30#bra_DE30_skip#--NO-COMMENT--
+$DE32##--NO-COMMENT--
+$DE34##If vJumpCounter >= 0x18
+$DE39#bra_DE39_skip#
+$DE3D##CONSTANT - Maximum allowed Y-value on the screen
+$DE3F##If vScreenChrPosY < 0xDF
 $DE44#bra_DE44#
 $DE56#bra_DE56#
 $DE67#bra_DE67#
 $DE70#bra_DE70#
 $DE83#bra_DE83#
-$DE86#loc_DE86#--NO-COMMENT--
+$DE86#loc_DE86_jump_subroutine_bf2#--NO-COMMENT--
 $DE88##CONSTANT - a maximum amplitude
 $DE8A##If vJumpCounter < 0x18
 $DE8C##--NO-COMMENT--
@@ -2483,13 +2612,18 @@ $DE9C##--NO-COMMENT--
 $DE9E#bra_DE9E_skip#--NO-COMMENT--
 $DEA0##CONSTANT - the character is getting a damage
 $DEA2##If the character isn't getting a damage
-$DEA6#bra_DEA6_skip#
+$DEA4##prepares the offset of the sprite address
+$DEA6#bra_DEA6_skip#--NO-COMMENT--
 $DEA9#loc_DEA9#
 $DEC6#bra_DEC6#
 $DECD#bra_DECD#
 $DECF#loc_DECF#
-$DED2#loc_DED2#
-$DEE3#bra_DEE3#
+$DED2#loc_DED2_jump_subroutine_bf#--NO-COMMENT--
+$DED4##CONSTANT - level 4 or level-racing
+$DED6##If v_no_level != 0x03
+$DEDF##CONSTANT - a maximum amplitude
+$DEE1##--NO-COMMENT--
+$DEE3#bra_DEE3_skip#--NO-COMMENT--
 $DEE6#loc_DEE6#
 $DEFE#bra_DEFE#
 $DF19#bra_DF19#
@@ -2504,13 +2638,28 @@ $DF57#sub_DF57_get_current_character#--NO-COMMENT--
 $DF59##CONSTANT - the current selected character
 $DF5B##--NO-COMMENT--
 $DF5C#sub_DF5C#
-$DF63#sub_DF63#
-$DF71#bra_DF71#
-$DF75#bra_DF75#
-$DF78#sub_DF78#
-$DF80#sub_DF80#
-$DF82#bra_DF82#
-$DF8C#bra_DF8C_RTS#
+$DF63#sub_DF63_update_character_status#--NO-COMMENT--
+$DF65##--NO-COMMENT--
+$DF67##If the button 'Left' or 'Right' isn't pressed
+$DF69##If the button 'Right' is pressed
+$DF6B##--NO-COMMENT--
+$DF6D##CONSTANT - 'the character is looking to the right/left'
+$DF6F##Always true
+$DF71#bra_DF71_right#--NO-COMMENT--
+$DF73##resets 'the character is looking to the right/left'
+$DF75#bra_DF75_left#--NO-COMMENT--
+$DF77##--NO-COMMENT--
+$DF78#sub_DF78#f(A) = 4, see $DF82
+$DF7A##--NO-COMMENT--
+$DF7C##f(A) = 1, see $DF82
+$DF7E##--NO-COMMENT--
+$DF80#sub_DF80_slow_down_velocity#f(A) = 2, see $DF82
+$DF82#bra_DF82_slow_down_velocity_ex#--NO-COMMENT--
+$DF84##Branch if vLowCounter doesn't multiple of f(A) (vLowCounter % f(A) != 0)
+$DF86##slow down
+$DF88##If vVelocity is positive
+$DF8A##vVelocity is closing zero
+$DF8C#bra_DF8C_RTS#--NO-COMMENT--
 $DF8D#loc_DF8D#
 $DF96#bra_DF96#
 $DFBC#bra_DFBC#
@@ -2655,19 +2804,45 @@ $E51F#sub_E51F#
 $E526#loc_E526#
 $E52F#bra_E52F#
 $E531#bra_E531#
-$E534#sub_E534#
-$E536#loc_E536#
-$E55F#bra_E55F#
-$E565#loc_E565#--NO-COMMENT--
+$E534#sub_E534_change_posX_by_velocity#--NO-COMMENT--
+$E536#loc_E536#--NO-COMMENT--
+$E538##If the velocity < 0x06
+$E53A##--NO-COMMENT--
+$E53C##If the velocity < 0x04
+$E53E##--NO-COMMENT--
+$E540##If the velocity < 0x06
+$E542##store velocity
+$E543##--NO-COMMENT--
+$E546##retrieve velocity ($E542)
+$E547##--NO-COMMENT--
+$E549##If the velocity < 0x08
+$E54B##--NO-COMMENT--
+$E54D##If the velocity < 0x0C
+$E54F##store velocity
+$E550##--NO-COMMENT--
+$E553##retrieve velocity ($E54F)
+$E554##--NO-COMMENT--
+$E556##If the velocity < 0x10
+$E558##--NO-COMMENT--
+$E55A##If the velocity < 0x14
+$E55C##--NO-COMMENT--
+$E55F#bra_E55F_change_by_counter1#--NO-COMMENT--
+$E561##--NO-COMMENT--
+$E563##Branch if vLowCounter does multiple of 4 (success chance: 3 of 4)
+$E565#loc_E565_change_LowChrPosX#--NO-COMMENT--
 $E567##--NO-COMMENT--
 $E569##Branch If the character isn't moving on the roof pitch
 $E56B##--NO-COMMENT--
 $E56D#bra_E56D_skip#
-$E574#bra_E574_skip#
-$E577#bra_E577#
-$E57B#bra_E57B#
-$E57D#bra_E57D#
-$E581#bra_E581_RTS#
+$E56F##If the character is looking to the left
+$E571##--NO-COMMENT--
+$E574#bra_E574_skip#--NO-COMMENT--
+$E577#bra_E577_change_by_counter2#success chance: 1 of 2
+$E579##Always true
+$E57B#bra_E57B_change_by_counter3#success chance: 1 of 4
+$E57D#bra_E57D_skip#--NO-COMMENT--
+$E57F##Branch if vLowCounter does multiple of A
+$E581#bra_E581_RTS#--NO-COMMENT--
 $E582#sub_E582#
 $E594#bra_E594#
 $E5A3#sub_E5A3#
@@ -2787,6 +2962,9 @@ $E806#bra_E806#
 $E810#loc_E810_on_the_roof_pitch#
 $E820#bra_E820#
 $E829#bra_E829#
+$E835##f(A) = 4, see $DC98
+$E837##--NO-COMMENT--
+$E83A##--NO-COMMENT--
 $E83D#bra_E83D#
 $E847#loc_E847_on_the_balloon#
 $E878#bra_E878#
@@ -3061,7 +3239,7 @@ $EF81##--NO-COMMENT--
 $EF83#bra_EF83_skip#decrement x
 $EF84##If Register X < 0xF0
 $EF86#sub_EF86_increment_counter#--NO-COMMENT--
-$EF88##If v_low_counter != 0
+$EF88##If vLowCounter != 0
 $EF8A##--NO-COMMENT--
 $EF8C#bra_EF8C_RTS#--NO-COMMENT--
 $EF8D#sub_EF8D_clear_Zenigata_timer#a clear value
