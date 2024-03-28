@@ -2528,18 +2528,18 @@ C - - - - - 0x01D071 07:D061: 4A        LSR  ;
 C - - - - - 0x01D072 07:D062: 4A        LSR  ;
 C - - - - - 0x01D073 07:D063: 60        RTS  ;
 
-; out: Register A - vEnemyRNG
+; out: Register A - vEnemyRNGValue
 sub_D064_generate_rng:
-C - - - - - 0x01D074 07:D064: A5 35     LDA vEnemyRNG ;
-C - - - - - 0x01D076 07:D066: 85 12     STA ram_0012  ; cache
-C - - - - - 0x01D078 07:D068: 0A        ASL           ;
-C - - - - - 0x01D079 07:D069: 0A        ASL           ; * 4
-C - - - - - 0x01D07A 07:D06A: 18        CLC           ;
-C - - - - - 0x01D07B 07:D06B: 65 12     ADC ram_0012  ;
-C - - - - - 0x01D07D 07:D06D: 18        CLC           ;
-C - - - - - 0x01D07E 07:D06E: 69 13     ADC #$13      ;
-C - - - - - 0x01D080 07:D070: 85 35     STA vEnemyRNG ;
-C - - - - - 0x01D082 07:D072: 60        RTS           ;
+C - - - - - 0x01D074 07:D064: A5 35     LDA vEnemyRNGValue ;
+C - - - - - 0x01D076 07:D066: 85 12     STA ram_0012       ; cache
+C - - - - - 0x01D078 07:D068: 0A        ASL                ;
+C - - - - - 0x01D079 07:D069: 0A        ASL                ; * 4
+C - - - - - 0x01D07A 07:D06A: 18        CLC                ;
+C - - - - - 0x01D07B 07:D06B: 65 12     ADC ram_0012       ;
+C - - - - - 0x01D07D 07:D06D: 18        CLC                ;
+C - - - - - 0x01D07E 07:D06E: 69 13     ADC #$13           ;
+C - - - - - 0x01D080 07:D070: 85 35     STA vEnemyRNGValue ;
+C - - - - - 0x01D082 07:D072: 60        RTS                ;
 
 ; in: Register A - signed value X
 ; out: Register A - signed value -X
@@ -4740,16 +4740,16 @@ C - - - - - 0x01DD5F 07:DD4F: A5 5E     LDA v_no_level
 C - - - - - 0x01DD61 07:DD51: C9 03     CMP #$03
 C - - - - - 0x01DD63 07:DD53: D0 26     BNE bra_DD7B_RTS
 C - - - - - 0x01DD65 07:DD55: A9 E0     LDA #$E0
-C - - - - - 0x01DD67 07:DD57: 4C 7E DD  JMP loc_DD7E
+C - - - - - 0x01DD67 07:DD57: 4C 7E DD  JMP loc_DD7E_check_strong_collision_ex
 
 sub_DD5A:
 C - - - - - 0x01DD6A 07:DD5A: A5 5E     LDA v_no_level
 C - - - - - 0x01DD6C 07:DD5C: C9 03     CMP #$03
 C - - - - - 0x01DD6E 07:DD5E: D0 1B     BNE bra_DD7B_RTS
 C - - - - - 0x01DD70 07:DD60: A9 E1     LDA #$E1
-C - - - - - 0x01DD72 07:DD62: 20 7E DD  JSR sub_DD7E
+C - - - - - 0x01DD72 07:DD62: 20 7E DD  JSR sub_DD7E_check_strong_collision_ex
 C - - - - - 0x01DD75 07:DD65: A9 01     LDA #$01
-C - - - - - 0x01DD77 07:DD67: 4C 7E DD  JMP loc_DD7E
+C - - - - - 0x01DD77 07:DD67: 4C 7E DD  JMP loc_DD7E_check_strong_collision_ex
 
 - - - - - - 0x01DD7A 07:DD6A: 20        .byte $20
 - - - - - - 0x01DD7B 07:DD6B: 6F        .byte $6F
@@ -4771,14 +4771,17 @@ C - - - - - 0x01DD77 07:DD67: 4C 7E DD  JMP loc_DD7E
 bra_DD7B_RTS:
 C - - - - - 0x01DD8B 07:DD7B: 60        RTS
 
-sub_DD7C:
-C - - - - - 0x01DD8C 07:DD7C: A9 F9     LDA #$F9
-loc_DD7E:
-sub_DD7E:
-C D 2 - - - 0x01DD8E 07:DD7E: 20 6F D9  JSR sub_D96F_init_relative_chr_positions
-C - - - - - 0x01DD91 07:DD81: 20 70 D3  JSR sub_D370_left_right_collision
-C - - - - - 0x01DD94 07:DD84: C9 01     CMP #$01
-C - - - - - 0x01DD96 07:DD86: 60        RTS
+; Out: If flag Z = 1 then there is the strong collision
+sub_DD7C_check_strong_collision_minus_7:
+C - - - - - 0x01DD8C 07:DD7C: A9 F9     LDA #$F9                                 ; prepare ChrPosY (-7)
+; In: Register A - ChrPosY
+; Out: If flag Z = 1 then there is the strong collision
+loc_DD7E_check_strong_collision_ex:
+sub_DD7E_check_strong_collision_ex:
+C D 2 - - - 0x01DD8E 07:DD7E: 20 6F D9  JSR sub_D96F_init_relative_chr_positions ;
+C - - - - - 0x01DD91 07:DD81: 20 70 D3  JSR sub_D370_left_right_collision        ;
+C - - - - - 0x01DD94 07:DD84: C9 01     CMP #$01                                 ; CONSTANT - a strong collision
+C - - - - - 0x01DD96 07:DD86: 60        RTS                                      ;
 
 loc_DD87_jump_subroutine:
 C D 2 - - - 0x01DD97 07:DD87: A0 00     LDY #$00                           ;
@@ -4870,7 +4873,7 @@ C - - - - - 0x01DE26 07:DE16: 90 02     BCC @bra_DE1A_skip              ;
 C - - - - - 0x01DE2A 07:DE1A: 98        TYA                             ; A <~ 0x00 or 0xDF
 @bra_DE1B_skip:
 C - - - - - 0x01DE2B 07:DE1B: 85 6A     STA vScreenChrPosY              ; Resolves a new Y-position of the character after jumping
-C - - - - - 0x01DE2D 07:DE1D: 85 00     STA ram_0000
+C - - - - - 0x01DE2D 07:DE1D: 85 00     STA ram_0000                    ;
 C - - - - - 0x01DE2F 07:DE1F: A2 0C     LDX #$0C                        ; prepares the offset of the sprite address
 C - - - - - 0x01DE31 07:DE21: AD 14 02  LDA vCurrentWeaponStatus        ;
 C - - - - - 0x01DE34 07:DE24: C9 41     CMP #$41                        ; CONSTANT - the bomb (the weapon) is activated
@@ -4881,55 +4884,57 @@ C - - - - - 0x01DE3C 07:DE2C: D0 02     BNE @bra_DE30_skip              ; Branch
 C - - - - - 0x01DE3E 07:DE2E: A2 10     LDX #$10                        ; prepares the offset of the sprite address
 @bra_DE30_skip:
 C - - - - - 0x01DE40 07:DE30: A5 6F     LDA vJumpCounter                ;
-C - - - - - 0x01DE42 07:DE32: C9 18     CMP #$18                        ;
-C - - - - - 0x01DE44 07:DE34: B0 03     BCS bra_DE39_skip               ; If vJumpCounter >= 0x18
-C - - - - - 0x01DE46 07:DE36: 4C D2 DE  JMP loc_DED2_jump_subroutine_bf
+C - - - - - 0x01DE42 07:DE32: C9 18     CMP #$18                        ; CONSTANT - a maximum amplitude
+C - - - - - 0x01DE44 07:DE34: B0 03     BCS bra_DE39_falling            ; If vJumpCounter >= 0x18
+C - - - - - 0x01DE46 07:DE36: 4C D2 DE  JMP loc_DED2_jump_subroutine_bf ;
 
-bra_DE39_skip:
-C - - - - - 0x01DE49 07:DE39: A5 6A     LDA vScreenChrPosY
-C - - - - - 0x01DE4B 07:DE3B: 85 00     STA ram_0000
+; In: $0000 - vScreenChrPosY (a new value)
+bra_DE39_falling:
+C - - - - - 0x01DE49 07:DE39: A5 6A     LDA vScreenChrPosY              ;
+C - - - - - 0x01DE4B 07:DE3B: 85 00     STA ram_0000                    ; !(WHY?), seems to be excessive
 C - - - - - 0x01DE4D 07:DE3D: C9 DF     CMP #$DF                        ; CONSTANT - Maximum allowed Y-value on the screen
-C - - - - - 0x01DE4F 07:DE3F: 90 03     BCC bra_DE44                    ; If vScreenChrPosY < 0xDF
+C - - - - - 0x01DE4F 07:DE3F: 90 03     BCC bra_DE44_safe_falling       ; If vScreenChrPosY < 0xDF
 C - - - - - 0x01DE51 07:DE41: 4C E6 DE  JMP loc_DEE6
 
-bra_DE44:
-C - - - - - 0x01DE54 07:DE44: E6 00     INC ram_0000
-C - - - - - 0x01DE56 07:DE46: 20 6A D3  JSR sub_D36A_short_left_right_collision
-C - - - - - 0x01DE59 07:DE49: F0 3B     BEQ bra_DE86_skip
-C - - - - - 0x01DE5B 07:DE4B: C9 02     CMP #$02
-C - - - - - 0x01DE5D 07:DE4D: F0 07     BEQ bra_DE56
-C - - - - - 0x01DE5F 07:DE4F: 20 7C DD  JSR sub_DD7C
-C - - - - - 0x01DE62 07:DE52: F0 32     BEQ bra_DE86_skip
-C - - - - - 0x01DE64 07:DE54: D0 11     BNE bra_DE67
-bra_DE56:
-C - - - - - 0x01DE66 07:DE56: 20 7C DD  JSR sub_DD7C
-C - - - - - 0x01DE69 07:DE59: F0 2B     BEQ bra_DE86_skip
-C - - - - - 0x01DE6B 07:DE5B: A5 6E     LDA vJumpType
-C - - - - - 0x01DE6D 07:DE5D: C9 02     CMP #$02
-C - - - - - 0x01DE6F 07:DE5F: D0 06     BNE bra_DE67
-C - - - - - 0x01DE71 07:DE61: A5 1C     LDA vBtnPressedInGame
-C - - - - - 0x01DE73 07:DE63: 29 20     AND #BIT_BUTTON_Down
-C - - - - - 0x01DE75 07:DE65: D0 1F     BNE bra_DE86_skip
+; In: $0000 - vScreenChrPosY (a new value)
+bra_DE44_safe_falling:
+C - - - - - 0x01DE54 07:DE44: E6 00     INC ram_0000                                ; <~ vScreenChrPosY + 1, prepare an input parameter
+C - - - - - 0x01DE56 07:DE46: 20 6A D3  JSR sub_D36A_short_left_right_collision     ;
+C - - - - - 0x01DE59 07:DE49: F0 3B     BEQ bra_DE86_jump_subroutine_bf2            ; If collisions don't exist
+C - - - - - 0x01DE5B 07:DE4B: C9 02     CMP #$02                                    ; CONSTANT - a weak collision
+C - - - - - 0x01DE5D 07:DE4D: F0 07     BEQ @bra_DE56_weak                          ; If the weak collision doesn't exist
+C - - - - - 0x01DE5F 07:DE4F: 20 7C DD  JSR sub_DD7C_check_strong_collision_minus_7 ;
+C - - - - - 0x01DE62 07:DE52: F0 32     BEQ bra_DE86_jump_subroutine_bf2            ; If collisions exist
+C - - - - - 0x01DE64 07:DE54: D0 11     BNE bra_DE67                                ; Always true
+@bra_DE56_weak:
+C - - - - - 0x01DE66 07:DE56: 20 7C DD  JSR sub_DD7C_check_strong_collision_minus_7 ;
+C - - - - - 0x01DE69 07:DE59: F0 2B     BEQ bra_DE86_jump_subroutine_bf2            ; If collisions exist
+C - - - - - 0x01DE6B 07:DE5B: A5 6E     LDA vJumpType                               ;
+C - - - - - 0x01DE6D 07:DE5D: C9 02     CMP #$02                                    ; CONSTANT - jumping off
+C - - - - - 0x01DE6F 07:DE5F: D0 06     BNE bra_DE67                                ; If vJumpType != 0x02
+C - - - - - 0x01DE71 07:DE61: A5 1C     LDA vBtnPressedInGame                       ;
+C - - - - - 0x01DE73 07:DE63: 29 20     AND #BIT_BUTTON_Down                        ;
+C - - - - - 0x01DE75 07:DE65: D0 1F     BNE bra_DE86_jump_subroutine_bf2            ; If the button 'Down' is pressed
 bra_DE67:
 C - - - - - 0x01DE77 07:DE67: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01DE79 07:DE69: 29 01     AND #$01
-C - - - - - 0x01DE7B 07:DE6B: D0 03     BNE bra_DE70
-C - - - - - 0x01DE7D 07:DE6D: 20 32 E3  JSR sub_E332
-bra_DE70:
-C - - - - - 0x01DE80 07:DE70: A5 6C     LDA ram_006C
-C - - - - - 0x01DE82 07:DE72: 29 08     AND #$08
-C - - - - - 0x01DE84 07:DE74: F0 0D     BEQ bra_DE83
+C - - - - - 0x01DE7B 07:DE6B: D0 03     BNE @bra_DE70_skip
+C - - - - - 0x01DE7D 07:DE6D: 20 32 E3  JSR sub_E332_correction_ScreenChrPosY       ;
+@bra_DE70_skip:
+C - - - - - 0x01DE80 07:DE70: A5 6C     LDA vChrStatus                              ;
+C - - - - - 0x01DE82 07:DE72: 29 08     AND #$08                                    ; CONSTANT - the character is getting a damage
+C - - - - - 0x01DE84 07:DE74: F0 0D     BEQ bra_DE83_jump_subroutine_before_bf2     ; If the character isn't getting a damage   
 C - - - - - 0x01DE86 07:DE76: A9 80     LDA #$80
 C - - - - - 0x01DE88 07:DE78: 85 2E     STA vCorridorCounter
-C - - - - - 0x01DE8A 07:DE7A: A5 6C     LDA ram_006C
+C - - - - - 0x01DE8A 07:DE7A: A5 6C     LDA vChrStatus
 C - - - - - 0x01DE8C 07:DE7C: 09 20     ORA #$20
-C - - - - - 0x01DE8E 07:DE7E: 85 6C     STA ram_006C
+C - - - - - 0x01DE8E 07:DE7E: 85 6C     STA vChrStatus
 C - - - - - 0x01DE90 07:DE80: 4C A9 DE  JMP loc_DEA9
 
-bra_DE83:
+bra_DE83_jump_subroutine_before_bf2:
 C - - - - - 0x01DE93 07:DE83: 20 5C DF  JSR sub_DF5C
 ; in: Register X - the offset of the sprite address
-bra_DE86_skip:
+bra_DE86_jump_subroutine_bf2:
 loc_DE86_jump_subroutine_bf2:
 C D 2 - - - 0x01DE96 07:DE86: A5 6F     LDA vJumpCounter              ;
 C - - - - - 0x01DE98 07:DE88: C9 18     CMP #$18                      ; CONSTANT - a maximum amplitude
@@ -4978,16 +4983,16 @@ C D 2 - - - 0x01DEDF 07:DECF: 4C C2 DB  JMP loc_DBC2_before_rendering
 
 ; in: Register X - the offset of the sprite address
 loc_DED2_jump_subroutine_bf:
-C D 2 - - - 0x01DEE2 07:DED2: A5 5E     LDA v_no_level                   ;
-C - - - - - 0x01DEE4 07:DED4: C9 03     CMP #$03                         ; CONSTANT - level 4 or level-racing
-C - - - - - 0x01DEE6 07:DED6: D0 0B     BNE bra_DEE3_skip                ; If v_no_level != 0x03
-C - - - - - 0x01DEE8 07:DED8: A9 E0     LDA #$E0
-C - - - - - 0x01DEEA 07:DEDA: 20 7E DD  JSR sub_DD7E
-C - - - - - 0x01DEED 07:DEDD: D0 04     BNE bra_DEE3_skip
-C - - - - - 0x01DEEF 07:DEDF: A9 18     LDA #$18                         ; CONSTANT - a maximum amplitude
-C - - - - - 0x01DEF1 07:DEE1: 85 6F     STA vJumpCounter                 ;
-bra_DEE3_skip:
-C - - - - - 0x01DEF3 07:DEE3: 4C 86 DE  JMP loc_DE86_jump_subroutine_bf2 ;
+C D 2 - - - 0x01DEE2 07:DED2: A5 5E     LDA v_no_level                         ;
+C - - - - - 0x01DEE4 07:DED4: C9 03     CMP #$03                               ; CONSTANT - level 4 or level-racing
+C - - - - - 0x01DEE6 07:DED6: D0 0B     BNE @bra_DEE3_skip                     ; If v_no_level != 0x03
+C - - - - - 0x01DEE8 07:DED8: A9 E0     LDA #$E0                               ; prepare ChrPosY (-32), a character height = 32
+C - - - - - 0x01DEEA 07:DEDA: 20 7E DD  JSR sub_DD7E_check_strong_collision_ex ;
+C - - - - - 0x01DEED 07:DEDD: D0 04     BNE @bra_DEE3_skip                     ; If collisions don't exist
+C - - - - - 0x01DEEF 07:DEDF: A9 18     LDA #$18                               ; CONSTANT - a maximum amplitude
+C - - - - - 0x01DEF1 07:DEE1: 85 6F     STA vJumpCounter                       ; block the jump
+@bra_DEE3_skip:
+C - - - - - 0x01DEF3 07:DEE3: 4C 86 DE  JMP loc_DE86_jump_subroutine_bf2       ;
 
 loc_DEE6:
 C D 2 - - - 0x01DEF6 07:DEE6: A5 68     LDA ram_0068
@@ -5692,38 +5697,27 @@ C - - - - - 0x01E33B 07:E32B: BD B6 E3  LDA tbl_E3B5_colors + 1,X    ;
 C - - - - - 0x01E33E 07:E32E: 8D 0A 06  STA vCachePalette + 10       ; 
 C - - - - - 0x01E341 07:E331: 60        RTS                          ;
 
-bra_E332:
-sub_E332:
-C - - - - - 0x01E342 07:E332: A5 6A     LDA ram_006A
-C - - - - - 0x01E344 07:E334: 29 07     AND #$07
-C - - - - - 0x01E346 07:E336: C9 07     CMP #$07
-C - - - - - 0x01E348 07:E338: F0 04     BEQ bra_E33E
-C - - - - - 0x01E34A 07:E33A: C6 6A     DEC ram_006A
-C - - - - - 0x01E34C 07:E33C: D0 F4     BNE bra_E332
-bra_E33E:
-C - - - - - 0x01E34E 07:E33E: 20 64 D0  JSR sub_D064_generate_rng
-C - - - - - 0x01E351 07:E341: 29 0F     AND #$0F
-C - - - - - 0x01E353 07:E343: A8        TAY
-C - - - - - 0x01E354 07:E344: B9 48 E3  LDA tbl_E348,Y
-C - - - - - 0x01E357 07:E347: 60        RTS
+sub_E332_correction_ScreenChrPosY:
+@bra_E332_repeat:
+C - - - - - 0x01E342 07:E332: A5 6A     LDA vScreenChrPosY           ;
+C - - - - - 0x01E344 07:E334: 29 07     AND #$07                     ;
+C - - - - - 0x01E346 07:E336: C9 07     CMP #$07                     ;
+C - - - - - 0x01E348 07:E338: F0 04     BEQ @bra_E33E_generate       ; If Register A == 0x07
+C - - - - - 0x01E34A 07:E33A: C6 6A     DEC vScreenChrPosY           ;
+C - - - - - 0x01E34C 07:E33C: D0 F4     BNE @bra_E332_repeat         ; If vScreenChrPosY != 0x00
+@bra_E33E_generate:
+C - - - - - 0x01E34E 07:E33E: 20 64 D0  JSR sub_D064_generate_rng    ; generates a random value
+C - - - - - 0x01E351 07:E341: 29 0F     AND #$0F                     ;
+C - - - - - 0x01E353 07:E343: A8        TAY                          ;
+C - - - - - 0x01E354 07:E344: B9 48 E3  LDA tbl_E348_unknown,Y       ;
+C - - - - - 0x01E357 07:E347: 60        RTS                          ;
 
-tbl_E348:
-- D 3 - - - 0x01E358 07:E348: 00        .byte $00
-- D 3 - - - 0x01E359 07:E349: 01        .byte $01
-- D 3 - - - 0x01E35A 07:E34A: 02        .byte $02
-- D 3 - - - 0x01E35B 07:E34B: 03        .byte $03
-- D 3 - - - 0x01E35C 07:E34C: 04        .byte $04
-- D 3 - - - 0x01E35D 07:E34D: 00        .byte $00
-- D 3 - - - 0x01E35E 07:E34E: 01        .byte $01
-- D 3 - - - 0x01E35F 07:E34F: 02        .byte $02
-- D 3 - - - 0x01E360 07:E350: 03        .byte $03
-- D 3 - - - 0x01E361 07:E351: 04        .byte $04
-- D 3 - - - 0x01E362 07:E352: 00        .byte $00
-- D 3 - - - 0x01E363 07:E353: 01        .byte $01
-- D 3 - - - 0x01E364 07:E354: 02        .byte $02
-- D 3 - - - 0x01E365 07:E355: 03        .byte $03
-- D 3 - - - 0x01E366 07:E356: 04        .byte $04
-- D 3 - - - 0x01E367 07:E357: 00        .byte $00
+tbl_E348_unknown:
+- D 3 - - - 0x01E358 07:E348: 00        .byte $00, $01, $02, $03
+- D 3 - - - 0x01E35C 07:E34C: 04        .byte $04, $00, $01, $02
+- D 3 - - - 0x01E360 07:E350: 03        .byte $03, $04, $00, $01
+- D 3 - - - 0x01E364 07:E354: 02        .byte $02, $03, $04, $00
+
 tbl_E358_init_counter:
 - D 3 - - - 0x01E368 07:E358: 06        .byte $06
 - D 3 - - - 0x01E369 07:E359: 00        .byte $00
@@ -6558,7 +6552,7 @@ C - - - - - 0x01E8C0 07:E8B0: A5 5E     LDA v_no_level
 C - - - - - 0x01E8C2 07:E8B2: C9 03     CMP #$03
 C - - - - - 0x01E8C4 07:E8B4: D0 1F     BNE bra_E8D5
 C - - - - - 0x01E8C6 07:E8B6: A9 C0     LDA #$C0
-C - - - - - 0x01E8C8 07:E8B8: 20 7E DD  JSR sub_DD7E
+C - - - - - 0x01E8C8 07:E8B8: 20 7E DD  JSR sub_DD7E_check_strong_collision_ex
 C - - - - - 0x01E8CB 07:E8BB: F0 10     BEQ bra_E8CD
 C - - - - - 0x01E8CD 07:E8BD: 4C D5 E8  JMP loc_E8D5
 
@@ -6989,7 +6983,7 @@ C - - - - - 0x01EB88 07:EB78: 20 6A D3  JSR sub_D36A_short_left_right_collision
 C - - - - - 0x01EB8B 07:EB7B: F0 39     BEQ bra_EBB6
 C - - - - - 0x01EB8D 07:EB7D: C9 03     CMP #$03
 C - - - - - 0x01EB8F 07:EB7F: F0 19     BEQ bra_EB9A
-C - - - - - 0x01EB91 07:EB81: 20 32 E3  JSR sub_E332
+C - - - - - 0x01EB91 07:EB81: 20 32 E3  JSR sub_E332_correction_ScreenChrPosY
 C - - - - - 0x01EB94 07:EB84: A9 41     LDA #$41
 C - - - - - 0x01EB96 07:EB86: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01EB99 07:EB89: A5 6C     LDA ram_006C
@@ -7746,7 +7740,7 @@ C - - - - - 0x01F097 07:F087: 6A        ROR                             ;
 C - - - - - 0x01F098 07:F088: 90 02     BCC @bra_F08C_skip              ; If the character is looking to the right
 C - - - - - 0x01F09A 07:F08A: A2 02     LDX #$02                        ; a new starting value
 @bra_F08C_skip:
-C - - - - - 0x01F09C 07:F08C: 86 2C     STX vLowCounter               ; reset a counter
+C - - - - - 0x01F09C 07:F08C: 86 2C     STX vLowCounter                 ; reset a counter
 C - - - - - 0x01F09E 07:F08E: 20 B2 F2  JSR sub_F2B2_try_generate_enemy ;
 C - - - - - 0x01F0A1 07:F091: 90 15     BCC bra_F0A8_RTS                ; If the generation is failed
 C - - - - - 0x01F0A3 07:F093: A5 0A     LDA ram_000A                    ; type of an enemy
@@ -7772,7 +7766,9 @@ C - - - - - 0x01F0C0 07:F0B0: 20 B2 F2  JSR sub_F2B2_try_generate_enemy ;
 C - - - - - 0x01F0C3 07:F0B3: B0 03     BCS bra_F0B8_skip               ; If the generation is success
 C - - - - - 0x01F0C5 07:F0B5: 4C 46 F1  JMP loc_F146
 
-; TODO: an enemy appeared
+; In: $0000 - macro X-position (in screen units)
+; In: $0001 - X-position
+; In: $000A - type of an enemy
 bra_F0B8_skip:
 C - - - - - 0x01F0C8 07:F0B8: A2 01     LDX #$01                        ; CONSTANT - type B
 C - - - - - 0x01F0CA 07:F0BA: A0 15     LDY #$15                        ; set loop counter
@@ -7781,10 +7777,14 @@ C - - - - - 0x01F0CC 07:F0BC: A5 0A     LDA ram_000A                    ; type o
 C - - - - - 0x01F0CE 07:F0BE: D9 FC F8  CMP tbl_F8FC_enemies,Y          ;
 C - - - - - 0x01F0D1 07:F0C1: F0 04     BEQ @bra_F0C7_skip              ; If enemy = the current enemy in the table
 C - - - - - 0x01F0D3 07:F0C3: 88        DEY                             ; decrement loop counter
-C - - - - - 0x01F0D4 07:F0C4: 10 F8     BPL @bra_F0BE_loop              ; If Register Y <= 
+C - - - - - 0x01F0D4 07:F0C4: 10 F8     BPL @bra_F0BE_loop              ; If Register Y <= 0xF0
 C - - - - - 0x01F0D6 07:F0C6: CA        DEX                             ; 0x01 -> 0x00, type A
 @bra_F0C7_skip:
-; in: Register X - type enemy (0x00 - A, 0x01 - B)
+; In: $0000 - macro X-position (in screen units)
+; In: $0001 - X-position
+; In: $000A - type of an enemy
+; In: Register A - type of an enemy
+; in: Register X - enemy type A/B (0x00 - A, 0x01 - B)
 loc_F0C7:
 C D 3 - - - 0x01F0D7 07:F0C7: 20 EB F1  JSR sub_F1EB
 C - - - - - 0x01F0DA 07:F0CA: 90 44     BCC bra_F110_inc_counters
@@ -7935,12 +7935,17 @@ C - - - - - 0x01F1F4 07:F1E4: 85 00     STA ram_0000
 C - - - - - 0x01F1F6 07:F1E6: A2 00     LDX #$00
 C - - - - - 0x01F1F8 07:F1E8: 4C E7 F0  JMP loc_F0E7
 
+; In: $0000 - macro X-position (in screen units)
+; In: $0001 - X-position
+; In: $000A - type of an enemy
+; In: Register A - type of an enemy
+; in: Register X - enemy type A/B (0x00 - A, 0x01 - B)
 sub_F1EB:
-C - - - - - 0x01F1FB 07:F1EB: 20 38 F2  JSR sub_F238
-C - - - - - 0x01F1FE 07:F1EE: F0 2D     BEQ bra_F21D
-C - - - - - 0x01F200 07:F1F0: 8A        TXA
-C - - - - - 0x01F201 07:F1F1: 0A        ASL
-C - - - - - 0x01F202 07:F1F2: A8        TAY
+C - - - - - 0x01F1FB 07:F1EB: 20 38 F2  JSR sub_F238_is_psevdo_enemy ;
+C - - - - - 0x01F1FE 07:F1EE: F0 2D     BEQ bra_F21D_return_true     ; if the enemy is psevdo enemy
+C - - - - - 0x01F200 07:F1F0: 8A        TXA                          ;
+C - - - - - 0x01F201 07:F1F1: 0A        ASL                          ; *2
+C - - - - - 0x01F202 07:F1F2: A8        TAY                          ; Y = {0x00, 0x02}
 C - - - - - 0x01F203 07:F1F3: A5 00     LDA ram_0000
 C - - - - - 0x01F205 07:F1F5: D9 0C 03  CMP ram_030C,Y
 C - - - - - 0x01F208 07:F1F8: D0 0E     BNE bra_F208
@@ -7953,14 +7958,14 @@ C - - - - - 0x01F216 07:F206: 90 16     BCC bra_F21E_RTS
 bra_F208:
 C - - - - - 0x01F218 07:F208: A5 00     LDA ram_0000
 C - - - - - 0x01F21A 07:F20A: D9 10 03  CMP ram_0310,Y
-C - - - - - 0x01F21D 07:F20D: D0 0E     BNE bra_F21D
+C - - - - - 0x01F21D 07:F20D: D0 0E     BNE bra_F21D_return_true
 C - - - - - 0x01F21F 07:F20F: A5 01     LDA ram_0001
 C - - - - - 0x01F221 07:F211: D9 11 03  CMP ram_0311,Y
-C - - - - - 0x01F224 07:F214: D0 07     BNE bra_F21D
+C - - - - - 0x01F224 07:F214: D0 07     BNE bra_F21D_return_true
 C - - - - - 0x01F226 07:F216: B9 1C 03  LDA ram_031C,Y
 C - - - - - 0x01F229 07:F219: C9 03     CMP #$03
 C - - - - - 0x01F22B 07:F21B: 90 01     BCC bra_F21E_RTS
-bra_F21D:
+bra_F21D_return_true:
 C - - - - - 0x01F22D 07:F21D: 38        SEC
 bra_F21E_RTS:
 C - - - - - 0x01F22E 07:F21E: 60        RTS
@@ -7979,25 +7984,27 @@ C - - - - - 0x01F242 07:F232: B9 BA 84  LDA $84BA,Y
 C - - - - - 0x01F245 07:F235: 85 0A     STA ram_000A
 C - - - - - 0x01F247 07:F237: 60        RTS
 
-sub_F238:
-C - - - - - 0x01F248 07:F238: A5 0A     LDA ram_000A
-C - - - - - 0x01F24A 07:F23A: C9 0C     CMP #$0C
-C - - - - - 0x01F24C 07:F23C: F0 1A     BEQ bra_F258_RTS
-C - - - - - 0x01F24E 07:F23E: C9 0D     CMP #$0D
-C - - - - - 0x01F250 07:F240: F0 16     BEQ bra_F258_RTS
-C - - - - - 0x01F252 07:F242: C9 15     CMP #$15
-C - - - - - 0x01F254 07:F244: F0 12     BEQ bra_F258_RTS
-C - - - - - 0x01F256 07:F246: C9 1E     CMP #$1E
-C - - - - - 0x01F258 07:F248: F0 0E     BEQ bra_F258_RTS
-C - - - - - 0x01F25A 07:F24A: C9 39     CMP #$39
-C - - - - - 0x01F25C 07:F24C: F0 0A     BEQ bra_F258_RTS
-C - - - - - 0x01F25E 07:F24E: C9 30     CMP #$30
-C - - - - - 0x01F260 07:F250: F0 06     BEQ bra_F258_RTS
-C - - - - - 0x01F262 07:F252: C9 31     CMP #$31
-C - - - - - 0x01F264 07:F254: F0 02     BEQ bra_F258_RTS
-C - - - - - 0x01F266 07:F256: C9 32     CMP #$32
+; In: $000A - type of an enemy
+; Out: Z = 1, if the enemy is psevdo enemy (safe)
+sub_F238_is_psevdo_enemy:
+C - - - - - 0x01F248 07:F238: A5 0A     LDA ram_000A         ;
+C - - - - - 0x01F24A 07:F23A: C9 0C     CMP #$0C             ; CONSTANT - The lift
+C - - - - - 0x01F24C 07:F23C: F0 1A     BEQ bra_F258_RTS     ; If the type of an enemy is the lift
+C - - - - - 0x01F24E 07:F23E: C9 0D     CMP #$0D             ; CONSTANT - Sensor
+C - - - - - 0x01F250 07:F240: F0 16     BEQ bra_F258_RTS     ; If the type of an enemy is the sensor
+C - - - - - 0x01F252 07:F242: C9 15     CMP #$15             ; CONSTANT - Sensor
+C - - - - - 0x01F254 07:F244: F0 12     BEQ bra_F258_RTS     ; If the type of an enemy is the sensor
+C - - - - - 0x01F256 07:F246: C9 1E     CMP #$1E             ; CONSTANT - Sensor
+C - - - - - 0x01F258 07:F248: F0 0E     BEQ bra_F258_RTS     ; If the type of an enemy is the sensor
+C - - - - - 0x01F25A 07:F24A: C9 39     CMP #$39             ; CONSTANT - Sensor
+C - - - - - 0x01F25C 07:F24C: F0 0A     BEQ bra_F258_RTS     ; If the type of an enemy is the sensor
+C - - - - - 0x01F25E 07:F24E: C9 30     CMP #$30             ; CONSTANT - Wall
+C - - - - - 0x01F260 07:F250: F0 06     BEQ bra_F258_RTS     ; If the type of an enemy is the wall
+C - - - - - 0x01F262 07:F252: C9 31     CMP #$31             ; CONSTANT - Wall
+C - - - - - 0x01F264 07:F254: F0 02     BEQ bra_F258_RTS     ; If the type of an enemy is the wall
+C - - - - - 0x01F266 07:F256: C9 32     CMP #$32             ; CONSTANT - Breaking platform
 bra_F258_RTS:
-C - - - - - 0x01F268 07:F258: 60        RTS
+C - - - - - 0x01F268 07:F258: 60        RTS                  ;
 
 loc_F259:
 C D 3 - - - 0x01F269 07:F259: A5 2B     LDA v_nmi_counter         ;
@@ -8008,7 +8015,7 @@ C - - - - - 0x01F272 07:F262: 29 03     AND #$03                  ;
 C - - - - - 0x01F274 07:F264: D0 F2     BNE bra_F258_RTS          ; Branch in 3/4 cases
 C - - - - - 0x01F276 07:F266: A9 08     LDA #$08
 C - - - - - 0x01F278 07:F268: A0 00     LDY #$00
-C - - - - - 0x01F27A 07:F26A: 24 35     BIT vEnemyRNG
+C - - - - - 0x01F27A 07:F26A: 24 35     BIT vEnemyRNGValue
 C - - - - - 0x01F27C 07:F26C: 30 03     BMI @bra_F271_skip        ; If the sign bit is used - appearance on the left, otherwise on the right
 C - - - - - 0x01F27E 07:F26E: C8        INY
 C - - - - - 0x01F27F 07:F26F: A9 F8     LDA #$F8

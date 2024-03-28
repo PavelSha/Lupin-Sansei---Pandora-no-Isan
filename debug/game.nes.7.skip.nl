@@ -78,3 +78,6 @@ $DF60##vChrStatus, X, L flags
 $DF62##vChrStatus, X, L flags
 $DE83##vChrStatus, X, L flags
 $DE91##vChrStatus, X, L flags
+$DE67##vMovableChrStatus, 0x01 - flag
+$DE69##vMovableChrStatus, 0x01 - flag
+$DE6B##vMovableChrStatus, 0x01 - flag

@@ -5,3 +5,4 @@ Code precents (PRG not Logged):
 4 - 93.93 % (827 frame)
 5 - 93.42 % (874 frame), turn left and jump
 6 - 93.27 % (889 frame), 15 frames run (right)
+7 - 92.10 % (1052 frame), the enemy is appeared

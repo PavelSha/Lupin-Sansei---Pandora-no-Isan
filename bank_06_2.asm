@@ -2677,7 +2677,7 @@ C - - - - - 0x01B13E 06:B12E: 85 01     STA ram_0001
 C - - - - - 0x01B140 06:B130: A5 4B     LDA ram_004B
 C - - - - - 0x01B142 06:B132: 69 00     ADC #$00
 C - - - - - 0x01B144 06:B134: 85 00     STA ram_0000
-C - - - - - 0x01B146 06:B136: A5 35     LDA vEnemyRNG
+C - - - - - 0x01B146 06:B136: A5 35     LDA vEnemyRNGValue
 C - - - - - 0x01B148 06:B138: 29 1F     AND #$1F
 C - - - - - 0x01B14A 06:B13A: A8        TAY
 C - - - - - 0x01B14B 06:B13B: B9 A0 95  LDA $95A0,Y

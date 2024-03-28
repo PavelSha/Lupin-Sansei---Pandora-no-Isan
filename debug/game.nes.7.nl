@@ -2504,8 +2504,11 @@ $DD4E##--NO-COMMENT--
 $DD4F#sub_DD4F#
 $DD5A#sub_DD5A#
 $DD7B#bra_DD7B_RTS#
-$DD7C#sub_DD7C#
-$DD7E#sub_DD7E#
+$DD7C#sub_DD7C_check_strong_collision_minus_7#prepare ChrPosY (-7)
+$DD7E#sub_DD7E_check_strong_collision_ex#--NO-COMMENT--
+$DD81##--NO-COMMENT--
+$DD84##CONSTANT - a strong collision
+$DD86##--NO-COMMENT--
 $DD87#loc_DD87_jump_subroutine#--NO-COMMENT--
 $DD89##--NO-COMMENT--
 $DD8B##--NO-COMMENT--
@@ -2580,6 +2583,7 @@ $DE16##--NO-COMMENT--
 $DE18##0x00 -> vScreenChrPosY
 $DE1A#bra_DE1A_skip#A <~ 0x00 or 0xDF
 $DE1B#bra_DE1B_skip#Resolves a new Y-position of the character after jumping
+$DE1D##--NO-COMMENT--
 $DE1F##prepares the offset of the sprite address
 $DE21##--NO-COMMENT--
 $DE24##CONSTANT - the bomb (the weapon) is activated
@@ -2589,16 +2593,35 @@ $DE2A##CONSTANT - jumping off
 $DE2C##Branch If it isn't jumping off
 $DE2E##prepares the offset of the sprite address
 $DE30#bra_DE30_skip#--NO-COMMENT--
-$DE32##--NO-COMMENT--
+$DE32##CONSTANT - a maximum amplitude
 $DE34##If vJumpCounter >= 0x18
-$DE39#bra_DE39_skip#
+$DE36##--NO-COMMENT--
+$DE39#bra_DE39_falling#--NO-COMMENT--
+$DE3B##!(WHY?), seems to be excessive
 $DE3D##CONSTANT - Maximum allowed Y-value on the screen
 $DE3F##If vScreenChrPosY < 0xDF
-$DE44#bra_DE44#
-$DE56#bra_DE56#
+$DE44#bra_DE44_safe_falling#<~ vScreenChrPosY + 1, prepare an input parameter
+$DE46##--NO-COMMENT--
+$DE49##If collisions don't exist
+$DE4B##CONSTANT - a weak collision
+$DE4D##If the weak collision doesn't exist
+$DE4F##--NO-COMMENT--
+$DE52##If collisions exist
+$DE54##Always true
+$DE56#bra_DE56_weak#--NO-COMMENT--
+$DE59##If collisions exist
+$DE5B##--NO-COMMENT--
+$DE5D##CONSTANT - jumping off
+$DE5F##If vJumpType != 0x02
+$DE61##--NO-COMMENT--
+$DE63##--NO-COMMENT--
+$DE65##If the button 'Down' is pressed
 $DE67#bra_DE67#
-$DE70#bra_DE70#
-$DE83#bra_DE83#
+$DE6D##--NO-COMMENT--
+$DE70#bra_DE70_skip#--NO-COMMENT--
+$DE72##CONSTANT - the character is getting a damage
+$DE74##If the character isn't getting a damage
+$DE83#bra_DE83_jump_subroutine_before_bf2#
 $DE86#loc_DE86_jump_subroutine_bf2#--NO-COMMENT--
 $DE88##CONSTANT - a maximum amplitude
 $DE8A##If vJumpCounter < 0x18
@@ -2621,8 +2644,11 @@ $DECF#loc_DECF#
 $DED2#loc_DED2_jump_subroutine_bf#--NO-COMMENT--
 $DED4##CONSTANT - level 4 or level-racing
 $DED6##If v_no_level != 0x03
+$DED8##prepare ChrPosY (-32), a character height = 32
+$DEDA##--NO-COMMENT--
+$DEDD##If collisions don't exist
 $DEDF##CONSTANT - a maximum amplitude
-$DEE1##--NO-COMMENT--
+$DEE1##block the jump
 $DEE3#bra_DEE3_skip#--NO-COMMENT--
 $DEE6#loc_DEE6#
 $DEFE#bra_DEFE#
@@ -2762,9 +2788,18 @@ $E328##--NO-COMMENT--
 $E32B##--NO-COMMENT--
 $E32E##--NO-COMMENT--
 $E331##--NO-COMMENT--
-$E332#sub_E332#
-$E33E#bra_E33E#
-$E348#tbl_E348#
+$E332#bra_E332_repeat#--NO-COMMENT--
+$E334##--NO-COMMENT--
+$E336##--NO-COMMENT--
+$E338##If Register A == 0x07
+$E33A##--NO-COMMENT--
+$E33C##If vScreenChrPosY != 0x00
+$E33E#bra_E33E_generate#generates a random value
+$E341##--NO-COMMENT--
+$E343##--NO-COMMENT--
+$E344##--NO-COMMENT--
+$E347##--NO-COMMENT--
+$E348#tbl_E348_unknown#
 $E358#tbl_E358_init_counter#
 $E35D#tbl_E35D_jump_posY_offset#
 $E38D#tbl_E38D#

@@ -9555,7 +9555,7 @@ C - - - - - 0x00EECD 03:AEBD: D0 16     BNE bra_AED5_RTS
 C - - - - - 0x00EECF 03:AEBF: 20 64 D0  JSR $D064
 C - - - - - 0x00EED2 03:AEC2: 29 1F     AND #$1F
 C - - - - - 0x00EED4 03:AEC4: D0 0F     BNE bra_AED5_RTS
-C - - - - - 0x00EED6 03:AEC6: A5 35     LDA vEnemyRNG
+C - - - - - 0x00EED6 03:AEC6: A5 35     LDA vEnemyRNGValue
 C - - - - - 0x00EED8 03:AEC8: 2A        ROL
 C - - - - - 0x00EED9 03:AEC9: B0 0B     BCS bra_AED6
 C - - - - - 0x00EEDB 03:AECB: A9 04     LDA #$04

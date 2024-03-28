@@ -88,7 +88,7 @@ vCorridorCounter              = ram_002E ; The counter starts when we enter the 
 ; ram_0032 - the unknown counter4
 vLowCutsceneCounter           = ram_0033
 vHighCutsceneCounter          = ram_0034 ; Only for a demo (the message scenes are not included)
-vEnemyRNG                     = ram_0035
+vEnemyRNGValue                = ram_0035
 vCutscenesMode                = ram_0037 ; 0xFF - Starting cutscenes are used (with Clarisse Cagliostro), 0x00 - no used
 ; 0x00 - in game
 

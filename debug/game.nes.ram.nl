@@ -20,7 +20,7 @@ $002D#v_high_counter#
 $002E#vCorridorCounter#
 $0033#vLowCutsceneCounter#
 $0034#vHighCutsceneCounter#
-$0035#vEnemyRNG#
+$0035#vEnemyRNGValue#
 $0037#vCutscenesMode#
 $0038#vPauseStatus#
 $003B#vSharedGameStatus#
