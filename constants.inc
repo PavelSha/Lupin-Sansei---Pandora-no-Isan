@@ -286,6 +286,8 @@ vGogglesActive                = ram_00D1 ; 0x80 - active, 0x00 - deactive
 vGogglesLowCounter            = ram_00D2
 vGogglesHighCounter           = ram_00D3
 vTempChrLiveStatus            = ram_00D4
+vTmpEnemyStartingPosXHigh     = ram_00D4
+vTmpEnemyStartingPosXLow      = ram_00D5
 vReasonCharacterChange        = ram_00D6
 ; 0x00 - no reason
 ; 0x40 - the character is fell or arrested
@@ -319,10 +321,36 @@ vEnemyA                       = ram_0300
 vEnemyB                       = ram_0301
 vEnemyACount                  = ram_030A
 vEnemyBCount                  = ram_030B
+vEnemyAStartingPosXHigh1      = ram_030C ; macro X-position in which the enemy (A) appeared
+vEnemyAStartingPosXLow1       = ram_030D ; X-position in which the enemy (A) appeared
+vEnemyBStartingPosXHigh1      = ram_030E ; macro X-position in which the enemy (B) appeared
+vEnemyBStartingPosXLow1       = ram_030F ; X-position in which the enemy (B) appeared
+vEnemyAStartingPosXHigh2      = ram_0310 ; macro X-position in which the enemy (A) appeared
+vEnemyAStartingPosXLow2       = ram_0311 ; X-position in which the enemy (A) appeared
+vEnemyBStartingPosXHigh2      = ram_0312 ; macro X-position in which the enemy (B) appeared
+vEnemyBStartingPosXLow2       = ram_0313 ; X-position in which the enemy (B) appeared
 vEnemyTimerLow1               = ram_0314 ; the low counter after which the enemy will appear
 vEnemyTimerHigh1              = ram_0315 ; the high counter after which the enemy will appear
 vZenigataTimerLow1            = ram_0316 ; the low counter after which Zenigata will appear
 vZenigataTimerHigh1           = ram_0317 ; the high counter after which Zenigata will appear
+vEnemyAppearTimersHigh        = ram_0318 ; see below
+vEnemyAppearTimersLow         = ram_0319 ; see below
+vEnemyAAppearTimerHigh1       = ram_0318 ; the high counter after which the same killed enemy (A) will appear in the same position
+vEnemyAAppearTimerLow1        = ram_0319 ; the low counter after which the same killed enemy (A) will appear in the same position
+vEnemyBAppearTimerHigh1       = ram_031A ; the high counter after which the same killed enemy (B) will appear in the same position
+vEnemyBAppearTimerLow1        = ram_031B ; the low counter after which the same killed enemy (B) will appear in the same position
+vEnemyAAppearTimerHigh2       = ram_031C ; the high counter after which the same killed enemy (A) will appear in the same position
+vEnemyAAppearTimerLow2        = ram_031D ; the low counter after which the same killed enemy (A) will appear in the same position
+vEnemyBAppearTimerHigh2       = ram_031E ; the high counter after which the same killed enemy (B) will appear in the same position
+vEnemyBAppearTimerLow2        = ram_031F ; the low counter after which the same killed enemy (B) will appear in the same position
+vEnemyAStatus                 = ram_0320 ; see below
+; 0x00 - None
+vEnemyAStatus1                = ram_0320
+vEnemyAStatus2                = ram_0321
+vEnemyBStatus                 = ram_035C ; see below
+; 0x00 - None
+vEnemyBStatus1                = ram_035C
+vEnemyBStatus2                = ram_035D
 v_briefcase_index             = ram_0398 ; [0399-039D]
 v_bomb_on_screen              = ram_039E ; C2 - a bomb
 v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, 039E - screen
@@ -360,7 +388,6 @@ vRooms                        = ram_0500
 ; flag 0x80 - the room has already been visited
 
 vCachePalette                 = ram_0600 ; [ram_0600 - ram_061F]
-vNonUsed614                   = ram_0614 ; +ram_0615, ram_0616, ram_0617
 vLowPpuAddress                = ram_0630
 vHighPpuAddress               = ram_0631
 v_ppu_buffer_count            = ram_0632

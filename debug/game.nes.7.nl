@@ -2073,6 +2073,7 @@ $D4A8##--NO-COMMENT--
 $D4AB##--NO-COMMENT--
 $D4AE##--NO-COMMENT--
 $D4B1##145 * 4 = 580 (or 0x244 = 0x80 * 4 + 0x44), i.e 2.5 screen
+$D4B4##--NO-COMMENT--
 $D4B7##--NO-COMMENT--
 $D4BA##If high ppu address == 0x00
 $D4BC##--NO-COMMENT--
@@ -2758,12 +2759,12 @@ $E2A9##If test mode is disabled
 $E2C6#bra_E2C6#
 $E2DF#bra_E2DF#
 $E2F7#bra_E2F7_RTS#--NO-COMMENT--
-$E2F8#sub_E2F8_garbage#--NO-COMMENT--
+$E2F8#sub_E2F8_set_character_palette#--NO-COMMENT--
 $E2FA##CONSTANT - the current selected character
 $E2FC##--NO-COMMENT--
 $E2FD##*4
 $E2FE##X <~ {0x00, 0x04, 0x08}
-$E2FF#sub_E2FF_garbage#set loop counter
+$E2FF#sub_E2FF_set_character_palette_ex#set loop counter
 $E301#bra_E301_loop#--NO-COMMENT--
 $E304##--NO-COMMENT--
 $E307##increment position in the table
@@ -2804,10 +2805,10 @@ $E358#tbl_E358_init_counter#
 $E35D#tbl_E35D_jump_posY_offset#
 $E38D#tbl_E38D#
 $E38E#tbl_E38E#
-$E3A6#tbl_E3A6_unkhown#Lupin
+$E3A6#tbl_E3A6_palette#Lupin
 $E3AA##Jigen
 $E3AE##Goemon
-$E3B2##Lupin in the water (broken)
+$E3B2##Lupin in the water (4th byte is not changed)
 $E3B5#tbl_E3B5_colors#
 $E3BB#loc_E3BB_in_the_water#
 $E3C8#bra_E3C8#
@@ -3335,9 +3336,12 @@ $F00A##If lock 'Select a character' isn't exist
 $F00C##--NO-COMMENT--
 $F00F##CONSTANT - The lift
 $F011##If vEnemyA == 0x0C
+$F013##--NO-COMMENT--
+$F016##If the current room is the room with boss
 $F018#bra_F018_clear_enemy#--NO-COMMENT--
 $F01A##clear
 $F01D##clear
+$F020##clear
 $F023#bra_F023_next_enemies#--NO-COMMENT--
 $F025##If lock 'Select a character' isn't exist
 $F027##--NO-COMMENT--
@@ -3346,8 +3350,9 @@ $F02C##If vEnemyB < 0x30
 $F02E##CONSTANT - Blade trap
 $F030##If vEnemyB < 0x33
 $F032#bra_F032_clear_enemy#--NO-COMMENT--
-$F037##--NO-COMMENT--
-$F03A##--NO-COMMENT--
+$F034##clear
+$F037##clear
+$F03A##clear
 $F03D#bra_F03D_skip#decrements loop counter
 $F03E##If Register X < 0xF0 (a loop condition)
 $F040##--NO-COMMENT--
@@ -3360,7 +3365,8 @@ $F04D##decrements loop counter
 $F04E##If Register X < 0xF0 (a loop condition)
 $F059##reset the infrared goggles
 $F05B##set loop counter
-$F05D#bra_F05D_loop#
+$F05D#bra_F05D_loop#reset the counters
+$F060##reset the counters
 $F066##decrements loop counter
 $F067##If Register X < 0xF0 (a loop condition)
 $F069##--NO-COMMENT--
@@ -3374,7 +3380,7 @@ $F079#bra_F079_loop#--NO-COMMENT--
 $F07B##decrement x
 $F07C##If Register A < 0xF0
 $F07E##--NO-COMMENT--
-$F07F#sub_F07F#--NO-COMMENT--
+$F07F#sub_F07F_prepare_enemy_subroutine#--NO-COMMENT--
 $F081##If 'the character is moving in the water'
 $F083##a new starting value
 $F085##--NO-COMMENT--
@@ -3386,10 +3392,14 @@ $F08E##--NO-COMMENT--
 $F091##If the generation is failed
 $F093##type of an enemy
 $F095##CONSTANT - The lift
+$F097##If enemy == 0x30
 $F099##CONSTANT - The wall
 $F09B##If enemy < 0x30
 $F09D##CONSTANT - Blade trap
 $F09F##If enemy >= 0x30
+$F0A1##CONSTANT for CHR ROM
+$F0A3##--NO-COMMENT--
+$F0A6##Always true
 $F0A8#bra_F0A8_RTS#--NO-COMMENT--
 $F0A9#sub_F0A9_enemy_subroutine#--NO-COMMENT--
 $F0AB##If 'the character isn't moving in the water'
@@ -3401,10 +3411,35 @@ $F0BC##type of an enemy
 $F0BE#bra_F0BE_loop#--NO-COMMENT--
 $F0C1##If enemy = the current enemy in the table
 $F0C3##decrement loop counter
-$F0C4##If Register Y <=
+$F0C4##If Register Y <= 0xF0
 $F0C6##0x01 -> 0x00, type A
-$F0C7#loc_F0C7#
-$F0E7#loc_F0E7#
+$F0C7#loc_F0C7#--NO-COMMENT--
+$F0CA##If the creation is not available
+$F0CC##--NO-COMMENT--
+$F0CF##If the old enemy no exist
+$F0D1##--NO-COMMENT--
+$F0D3##--NO-COMMENT--
+$F0D6##If the type of the old enemy == $000A
+$F0D8##CONSTANT - the lift
+$F0DA##If the type of an enemy != 0x0C
+$F0DC##--NO-COMMENT--
+$F0DE##clear
+$F0E1##clear
+$F0E4##clear (or vEnemyBCount)
+$F0E7#loc_F0E7#--NO-COMMENT--
+$F0EA##--NO-COMMENT--
+$F0EC##If vEnemyACount (or vEnemyBCount) >= 0x02
+$F0EE##--NO-COMMENT--
+$F0F1##CONSTANT - Zenigata
+$F0F3##If vEnemyA is Zenigata
+$F0F5##--NO-COMMENT--
+$F0F7##set macro X-position temporarily
+$F0F9##--NO-COMMENT--
+$F0FB##set X-position temporarily
+$F0FD##--NO-COMMENT--
+$F0FF##set the current enemy type
+$F102##increases the counter
+$F108##--NO-COMMENT--
 $F10A##clear a low part
 $F10D##clear a high part
 $F110#bra_F110_inc_counters#--NO-COMMENT--
@@ -3445,7 +3480,7 @@ $F15D##If vEnemyTimerHigh1 < 3
 $F15F##--NO-COMMENT--
 $F162##CONSTANT - Zenigata
 $F164##If vEnemyA is Zenigata
-$F177#sub_F177#
+$F177#sub_F177_subroutine#
 $F183#bra_F183#
 $F188#bra_F188#
 $F18B#bra_F18B#--NO-COMMENT--
@@ -3459,13 +3494,49 @@ $F19C##If the infrared goggles is activated
 $F1B1#bra_F1B1#
 $F1C2##CONSTANT - Zenigata
 $F1D8#bra_F1D8#
-$F1EB#sub_F1EB#
-$F208#bra_F208#
-$F21D#bra_F21D#
-$F21E#bra_F21E_RTS#
+$F1EB#sub_F1EB_is_creation_available#--NO-COMMENT--
+$F1EE##if the enemy is psevdo enemy
+$F1F0##--NO-COMMENT--
+$F1F1##*2
+$F1F2##Y = {0x00, 0x02}
+$F1F3##--NO-COMMENT--
+$F1F5##--NO-COMMENT--
+$F1F8##If macro X-position != vEnemyAStartingPosXHigh1
+$F1FA##--NO-COMMENT--
+$F1FC##--NO-COMMENT--
+$F1FF##If X-position != vEnemyAStartingPosXLow1
+$F201##--NO-COMMENT--
+$F204##--NO-COMMENT--
+$F206##If vEnemyAAppearTimerHigh1 < 0x03
+$F208#bra_F208_skip#--NO-COMMENT--
+$F20A##--NO-COMMENT--
+$F20D##If macro X-position != vEnemyAStartingPosXHigh2
+$F20F##--NO-COMMENT--
+$F211##--NO-COMMENT--
+$F214##If X-position != vEnemyAStartingPosXLow2
+$F216##--NO-COMMENT--
+$F219##--NO-COMMENT--
+$F21B##If vEnemyAAppearTimerHigh2 < 0x03
+$F21D#bra_F21D_return_true#--NO-COMMENT--
+$F21E#bra_F21E_RTS#--NO-COMMENT--
 $F21F#sub_F21F#
-$F238#sub_F238#
-$F258#bra_F258_RTS#
+$F238#sub_F238_is_psevdo_enemy#--NO-COMMENT--
+$F23A##CONSTANT - The lift
+$F23C##If the type of an enemy is the lift
+$F23E##CONSTANT - Sensor
+$F240##If the type of an enemy is the sensor
+$F242##CONSTANT - Sensor
+$F244##If the type of an enemy is the sensor
+$F246##CONSTANT - Sensor
+$F248##If the type of an enemy is the sensor
+$F24A##CONSTANT - Sensor
+$F24C##If the type of an enemy is the sensor
+$F24E##CONSTANT - Wall
+$F250##If the type of an enemy is the wall
+$F252##CONSTANT - Wall
+$F254##If the type of an enemy is the wall
+$F256##CONSTANT - Breaking platform
+$F258#bra_F258_RTS#--NO-COMMENT--
 $F259#loc_F259#--NO-COMMENT--
 $F25B##--NO-COMMENT--
 $F25D##Branch in 31/32 cases
@@ -3554,7 +3625,7 @@ $F372#sub_F372#
 $F37A#sub_F37A#
 $F38A#sub_F38A#
 $F392#sub_F392#
-$F3A2#loc_enemy_F3A2#
+$F3A2#loc_F3A2_enemy#
 $F3B1#bra_F3B1#
 $F3BB#bra_F3BB_skip#
 $F3E2#bra_F3E2#
@@ -3570,6 +3641,7 @@ $F49D#bra_F49D#
 $F4A0#bra_F4A0#
 $F4B0#bra_F4B0#
 $F4B6#bra_F4B6#
+$F4CB#loc_F3A2_land_diver_enemy#
 $F4D3#bra_F4D3#
 $F4EB#bra_F4EB#
 $F4FC#bra_F4FC#
@@ -3578,6 +3650,7 @@ $F526#bra_F526#
 $F528#bra_F528#
 $F52D#bra_F52D#
 $F530##Enemy pops up (sound effect)
+$F532##--NO-COMMENT--
 $F54A#bra_F54A#
 $F55D#bra_F55D#
 $F57A#bra_F57A#
@@ -3616,11 +3689,56 @@ $F7C1#loc_F7C1#
 $F7E0#sub_F7E0#
 $F7E4#bra_F7E4#
 $F7F4#bra_F7F4#
-$F820#loc_F820#
-$F82B#bra_F82B#
-$F84A#sub_F84A#
-$F855#bra_F855#
-$F874#sub_F874#
+$F820#loc_F820_finish_creating_enemyB#--NO-COMMENT--
+$F823##--NO-COMMENT--
+$F826##--NO-COMMENT--
+$F829##set loop counter
+$F82B#bra_F82B_loop#--NO-COMMENT--
+$F82D##set palette (3 colors)
+$F830##decrement loop counter
+$F831##If Register Y < 0xF0
+$F833##--NO-COMMENT--
+$F834##--NO-COMMENT--
+$F835##--NO-COMMENT--
+$F836##Y = {0x00, 0x04}
+$F837##--NO-COMMENT--
+$F839##set macro X-position
+$F83C##--NO-COMMENT--
+$F83E##set X-position
+$F841##--NO-COMMENT--
+$F843##reset the counter
+$F846##reset the counter
+$F849##--NO-COMMENT--
+$F84A#sub_F84A_finish_creating_enemyA#--NO-COMMENT--
+$F84D##--NO-COMMENT--
+$F850##--NO-COMMENT--
+$F853##set loop counter
+$F855#bra_F855_loop#--NO-COMMENT--
+$F857##set palette (3 colors)
+$F85A##decrement loop counter
+$F85B##If Register Y < 0xF0
+$F85D##--NO-COMMENT--
+$F85E##--NO-COMMENT--
+$F85F##--NO-COMMENT--
+$F860##Y = {0x00, 0x04}
+$F861##--NO-COMMENT--
+$F863##set macro X-position
+$F866##--NO-COMMENT--
+$F868##set X-position
+$F86B##--NO-COMMENT--
+$F86D##reset the counter
+$F870##reset the counter
+$F873##--NO-COMMENT--
+$F874#sub_F874_get_palette_address#--NO-COMMENT--
+$F876##--NO-COMMENT--
+$F877##--NO-COMMENT--
+$F878##*3, because there are 3 colors in the table
+$F87A##--NO-COMMENT--
+$F87B##--NO-COMMENT--
+$F87E##--NO-COMMENT--
+$F880##--NO-COMMENT--
+$F883##+1, if it was overflow
+$F885##--NO-COMMENT--
 $F887#loc_enemy_RTS#--NO-COMMENT--
 $F888#tbl_F888#Nobody  (0x00)
 $F88A##Cat with the gun
@@ -3670,8 +3788,8 @@ $F8E0##Boss
 $F8E2##???
 $F8E4##Boss
 $F8E6##???
-$F8E8##??? (0x30)
-$F8EA##???
+$F8E8##Wall
+$F8EA##Wall
 $F8EC##Breaking platform
 $F8EE##Blade trap
 $F8F0##Potted snakes

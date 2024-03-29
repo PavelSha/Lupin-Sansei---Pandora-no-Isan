@@ -35,16 +35,10 @@ $C0DB##ram_0039
 $C0DD##ram_0039
 $C148##ram_0039
 $C14A##ram_0039
-$F020##ram_0320
-$F034##ram_035C
 $F050##ram_03D4
 $F053##ram_03D5
 $F056##ram_03D6
-$F05D##ram_0318
-$F060##ram_031C
 $F063##ram_0217 + ram_0218
-$D4B4##sub_F2B2_try_generate_enemy
-$F097##sub_F2B2_try_generate_enemy
 $C0E7##ram_003A
 $C0E9##ram_003A
 $C0EB##ram_003A

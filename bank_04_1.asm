@@ -3,7 +3,7 @@
 .org $8000  ; for listing file
 ; 0x010010-0x01200F
 
-.export addr_tbl_checkpoints
+.export tbl_ptr_checkpoints
 .export tbl_demo_btn_pressed
 .export tbl_template_chr_banks1
 .export tbl_main_menu_chr_banks
@@ -16,6 +16,7 @@
 .export tbl_message_bar_bottom_attrs
 .export tbl_character_select_palette
 .export tbl_ptr_checkpoints_on_the_level
+.export tbl_ptr_enemy_palette
 
 ; see $C5B2
 - - - - - - 0x010010 04:8000: 7B 9D     .addr loc_main_menu_gunshot_f1 ; frame 1
@@ -24,11 +25,11 @@
 - D 0 - - - 0x010016 04:8006: D9 9D     .addr loc_main_menu_gunshot_f4 ; frame 4
 - D 0 - - - 0x010018 04:8008: 00 9E     .addr loc_main_menu_gunshot_f5 ; frame 5
 
-addr_tbl_checkpoints:
+tbl_ptr_checkpoints:
 - D 0 - - - 0x01001A 04:800A: 3B 89     .addr tbl_checkpoints
 
-- D 0 - - - 0x01001C 04:800C: CD        .byte $CD   ; 
-- D 0 - - - 0x01001D 04:800D: 9C        .byte $9C   ; 
+tbl_ptr_enemy_palette:
+- D 0 - - - 0x01001C 04:800C: CD 9C     .addr tbl_enemy_palette
 
 tbl_demo_btn_pressed:
 - D 0 - - - 0x01001E 04:800E: 1D 89     .word $891D ; Lupin
@@ -5375,27 +5376,15 @@ tbl_ptr_destructible_walls_level3_4:
 - D 0 - I - 0x011CDA 04:9CCA: B1        .byte $B1   ; 
 - D 0 - I - 0x011CDB 04:9CCB: CD        .byte $CD   ; 
 - D 0 - I - 0x011CDC 04:9CCC: B1        .byte $B1   ; 
-- - - - - - 0x011CDD 04:9CCD: 00        .byte $00   ; 
-- - - - - - 0x011CDE 04:9CCE: 00        .byte $00   ; 
-- - - - - - 0x011CDF 04:9CCF: 00        .byte $00   ; 
-- D 0 - I - 0x011CE0 04:9CD0: 20        .byte $20   ; 
-- D 0 - I - 0x011CE1 04:9CD1: 17        .byte $17   ; 
-- D 0 - I - 0x011CE2 04:9CD2: 0F        .byte $0F   ; 
-- D 0 - I - 0x011CE3 04:9CD3: 10        .byte $10   ; 
-- D 0 - I - 0x011CE4 04:9CD4: 05        .byte $05   ; 
-- D 0 - I - 0x011CE5 04:9CD5: 0F        .byte $0F   ; 
-- D 0 - I - 0x011CE6 04:9CD6: 10        .byte $10   ; 
-- D 0 - I - 0x011CE7 04:9CD7: 05        .byte $05   ; 
-- D 0 - I - 0x011CE8 04:9CD8: 0F        .byte $0F   ; 
-- D 0 - I - 0x011CE9 04:9CD9: 00        .byte $00   ; 
-- D 0 - I - 0x011CEA 04:9CDA: 11        .byte $11   ; 
-- D 0 - I - 0x011CEB 04:9CDB: 0F        .byte $0F   ; 
-- D 0 - I - 0x011CEC 04:9CDC: 20        .byte $20   ; 
-- D 0 - I - 0x011CED 04:9CDD: 29        .byte $29   ; 
-- D 0 - I - 0x011CEE 04:9CDE: 00        .byte $00   ; 
-- D 0 - I - 0x011CEF 04:9CDF: 20        .byte $20   ; 
-- D 0 - I - 0x011CF0 04:9CE0: 29        .byte $29   ; 
-- D 0 - I - 0x011CF1 04:9CE1: 0F        .byte $0F   ; 
+
+tbl_enemy_palette:
+- - - - - - 0x011CDD 04:9CCD: 00        .byte $00, $00, $00   ; Nobody
+- D 0 - I - 0x011CE0 04:9CD0: 20        .byte $20, $17, $0F   ; 
+- D 0 - I - 0x011CE3 04:9CD3: 10        .byte $10, $05, $0F   ; 
+- D 0 - I - 0x011CE6 04:9CD6: 10        .byte $10, $05, $0F   ; 
+- D 0 - I - 0x011CE9 04:9CD9: 00        .byte $00, $11, $0F   ; Land Diver
+- D 0 - I - 0x011CEC 04:9CDC: 20        .byte $20, $29, $00   ; Land Diver
+- D 0 - I - 0x011CEF 04:9CDF: 20        .byte $20, $29, $0F   ; Land Diver
 - D 0 - I - 0x011CF2 04:9CE2: 37        .byte $37   ; <7>
 - D 0 - I - 0x011CF3 04:9CE3: 06        .byte $06   ; 
 - D 0 - I - 0x011CF4 04:9CE4: 0F        .byte $0F   ; 
