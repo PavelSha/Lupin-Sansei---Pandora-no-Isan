@@ -39,6 +39,7 @@
 .import sub_C51E_update_ppu_and_screen           ; bank FF
 .import loc_C046_repeat_starting_mode            ; bank FF
 .import sub_D2E5_get_collision_value             ; bank FF
+.import sub_D0B8_change_stack_pointer_by_bits    ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -219,21 +220,16 @@ sub_A0F8:
 C - - - - - 0x01A108 06:A0F8: BD 20 03  LDA ram_0320,X
 C - - - - - 0x01A10B 06:A0FB: 10 FA     BPL bra_A0F7_RTS
 C - - - - - 0x01A10D 06:A0FD: 4A        LSR
-C - - - - - 0x01A10E 06:A0FE: 20 B8 D0  JSR $D0B8
-- D 1 - I - 0x01A111 06:A101: BD        .byte $BD   ; 
-- D 1 - I - 0x01A112 06:A102: A1        .byte $A1   ; 
-- - - - - - 0x01A113 06:A103: 0E        .byte $0E   ; 
-- - - - - - 0x01A114 06:A104: A1        .byte $A1   ; 
-- D 1 - I - 0x01A115 06:A105: 0E        .byte $0E   ; 
-- D 1 - I - 0x01A116 06:A106: A1        .byte $A1   ; 
-- D 1 - I - 0x01A117 06:A107: 83        .byte $83   ; 
-- D 1 - I - 0x01A118 06:A108: A1        .byte $A1   ; 
-- D 1 - I - 0x01A119 06:A109: 86        .byte $86   ; 
-- D 1 - I - 0x01A11A 06:A10A: A2        .byte $A2   ; 
-- - - - - - 0x01A11B 06:A10B: 0E        .byte $0E   ; 
-- - - - - - 0x01A11C 06:A10C: A1        .byte $A1   ; 
-- - - - - - 0x01A11D 06:A10D: 0E        .byte $0E   ; 
-- - - - - - 0x01A11E 06:A10E: A1        .byte $A1   ; 
+C - - - - - 0x01A10E 06:A0FE: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
+
+- D 1 - I - 0x01A111 06:A101: BD A1     .word $A1BD
+- - - - - - 0x01A113 06:A103: 0E A1     .word $A10E
+- D 1 - I - 0x01A115 06:A105: 0E A1     .word $A10E
+- D 1 - I - 0x01A117 06:A107: 83 A1     .word $A183
+- D 1 - I - 0x01A119 06:A109: 86 A2     .word $A286
+- - - - - - 0x01A11B 06:A10B: 0E A1     .word $A10E
+- - - - - - 0x01A11D 06:A10D: 0E A1     .word $A10E
+
 C - - - - - 0x01A11F 06:A10F: 20 A0 A2  JSR sub_A2A0
 C - - - - - 0x01A122 06:A112: BD 20 03  LDA ram_0320,X
 C - - - - - 0x01A125 06:A115: 29 10     AND #$10
@@ -269,7 +265,7 @@ C - - - - - 0x01A154 06:A144: 6D 02 03  ADC ram_0302
 C - - - - - 0x01A157 06:A147: 85 01     STA ram_0001
 C - - - - - 0x01A159 06:A149: AD 03 03  LDA ram_0303
 C - - - - - 0x01A15C 06:A14C: 85 02     STA ram_0002
-C - - - - - 0x01A15E 06:A14E: 4C 33 CE  JMP $CE33
+C - - - - - 0x01A15E 06:A14E: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 sub_A151:
 C - - - - - 0x01A161 06:A151: 20 CA D7  JSR $D7CA ; to sub_D7CA (bank FF)
@@ -657,21 +653,16 @@ C - - - - - 0x01A3CB 06:A3BB: BD 20 03  LDA ram_0320,X
 C - - - - - 0x01A3CE 06:A3BE: 10 FA     BPL bra_A3BA_RTS
 C - - - - - 0x01A3D0 06:A3C0: BD 20 03  LDA ram_0320,X
 C - - - - - 0x01A3D3 06:A3C3: 4A        LSR
-C - - - - - 0x01A3D4 06:A3C4: 20 B8 D0  JSR $D0B8
-- D 1 - I - 0x01A3D7 06:A3C7: D7        .byte $D7   ; 
-- D 1 - I - 0x01A3D8 06:A3C8: A4        .byte $A4   ; 
-- D 1 - I - 0x01A3D9 06:A3C9: D4        .byte $D4   ; 
-- D 1 - I - 0x01A3DA 06:A3CA: A3        .byte $A3   ; 
-- - - - - - 0x01A3DB 06:A3CB: D4        .byte $D4   ; 
-- - - - - - 0x01A3DC 06:A3CC: A3        .byte $A3   ; 
-- D 1 - I - 0x01A3DD 06:A3CD: A8        .byte $A8   ; 
-- D 1 - I - 0x01A3DE 06:A3CE: A4        .byte $A4   ; 
-- D 1 - I - 0x01A3DF 06:A3CF: 6B        .byte $6B   ; <k>
-- D 1 - I - 0x01A3E0 06:A3D0: A5        .byte $A5   ; 
-- D 1 - I - 0x01A3E1 06:A3D1: D4        .byte $D4   ; 
-- D 1 - I - 0x01A3E2 06:A3D2: A3        .byte $A3   ; 
-- D 1 - I - 0x01A3E3 06:A3D3: D4        .byte $D4   ; 
-- D 1 - I - 0x01A3E4 06:A3D4: A3        .byte $A3   ; 
+C - - - - - 0x01A3D4 06:A3C4: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
+
+- D 1 - I - 0x01A3D7 06:A3C7: D7 A4     .word $A4D7
+- D 1 - I - 0x01A3D9 06:A3C9: D4 A3     .word $A3D4
+- - - - - - 0x01A3DB 06:A3CB: D4 A3     .word $A3D4
+- D 1 - I - 0x01A3DD 06:A3CD: A8 A4     .word $A4A8
+- D 1 - I - 0x01A3DF 06:A3CF: 6B A5     .word $A56B
+- D 1 - I - 0x01A3E1 06:A3D1: D4 A3     .word $A3D4
+- D 1 - I - 0x01A3E3 06:A3D3: D4 A3     .word $A3D4
+
 C - - - - - 0x01A3E5 06:A3D5: BD 2C 03  LDA ram_032C,X
 C - - - - - 0x01A3E8 06:A3D8: 85 00     STA ram_0000
 C - - - - - 0x01A3EA 06:A3DA: E6 00     INC ram_0000
@@ -723,7 +714,7 @@ C - - - - - 0x01A438 06:A428: 6D 02 03  ADC ram_0302
 C - - - - - 0x01A43B 06:A42B: 85 01     STA ram_0001
 C - - - - - 0x01A43D 06:A42D: AD 03 03  LDA ram_0303
 C - - - - - 0x01A440 06:A430: 85 02     STA ram_0002
-C - - - - - 0x01A442 06:A432: 20 33 CE  JSR $CE33
+C - - - - - 0x01A442 06:A432: 20 33 CE  JSR loc_CE33_add_sprite_magic ; bank FF
 C - - - - - 0x01A445 06:A435: 98        TYA
 C - - - - - 0x01A446 06:A436: C9 18     CMP #$18
 C - - - - - 0x01A448 06:A438: 90 05     BCC bra_A43F
@@ -734,7 +725,7 @@ bra_A43F:
 C - - - - - 0x01A44F 06:A43F: 18        CLC
 C - - - - - 0x01A450 06:A440: 6D 04 03  ADC ram_0304
 C - - - - - 0x01A453 06:A443: 85 01     STA ram_0001
-C - - - - - 0x01A455 06:A445: 4C 33 CE  JMP $CE33
+C - - - - - 0x01A455 06:A445: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 bra_A448:
 C - - - - - 0x01A458 06:A448: BD 20 03  LDA ram_0320,X
@@ -1261,21 +1252,16 @@ C - - - - - 0x01A782 06:A772: BD 20 03  LDA ram_0320,X
 C - - - - - 0x01A785 06:A775: 10 FA     BPL bra_A771_RTS
 C - - - - - 0x01A787 06:A777: BD 20 03  LDA ram_0320,X
 C - - - - - 0x01A78A 06:A77A: 4A        LSR
-C - - - - - 0x01A78B 06:A77B: 20 B8 D0  JSR $D0B8
-- D 1 - I - 0x01A78E 06:A77E: CD        .byte $CD   ; 
-- D 1 - I - 0x01A78F 06:A77F: A8        .byte $A8   ; 
-- - - - - - 0x01A790 06:A780: 8B        .byte $8B   ; 
-- - - - - - 0x01A791 06:A781: A7        .byte $A7   ; 
-- D 1 - I - 0x01A792 06:A782: 8B        .byte $8B   ; 
-- D 1 - I - 0x01A793 06:A783: A7        .byte $A7   ; 
-- D 1 - I - 0x01A794 06:A784: 92        .byte $92   ; 
-- D 1 - I - 0x01A795 06:A785: A8        .byte $A8   ; 
-- D 1 - I - 0x01A796 06:A786: 88        .byte $88   ; 
-- D 1 - I - 0x01A797 06:A787: A9        .byte $A9   ; 
-- D 1 - I - 0x01A798 06:A788: 8B        .byte $8B   ; 
-- D 1 - I - 0x01A799 06:A789: A7        .byte $A7   ; 
-- D 1 - I - 0x01A79A 06:A78A: 8B        .byte $8B   ; 
-- D 1 - I - 0x01A79B 06:A78B: A7        .byte $A7   ; 
+C - - - - - 0x01A78B 06:A77B: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
+
+- D 1 - I - 0x01A78E 06:A77E: CD A8     .word $A8CD
+- - - - - - 0x01A790 06:A780: 8B A7     .word $A78B
+- D 1 - I - 0x01A792 06:A782: 8B A7     .word $A78B
+- D 1 - I - 0x01A794 06:A784: 92 A8     .word $A892
+- D 1 - I - 0x01A796 06:A786: 88 A9     .word $A988
+- D 1 - I - 0x01A798 06:A788: 8B A7     .word $A78B
+- D 1 - I - 0x01A79A 06:A78A: 8B A7     .word $A78B
+
 C - - - - - 0x01A79C 06:A78C: BD 2C 03  LDA ram_032C,X
 C - - - - - 0x01A79F 06:A78F: 85 00     STA ram_0000
 C - - - - - 0x01A7A1 06:A791: E6 00     INC ram_0000
@@ -1339,7 +1325,7 @@ C - - - - - 0x01A809 06:A7F9: 6D 05 03  ADC ram_0305
 C - - - - - 0x01A80C 06:A7FC: 85 01     STA ram_0001
 C - - - - - 0x01A80E 06:A7FE: AD 03 03  LDA ram_0303
 C - - - - - 0x01A811 06:A801: 85 02     STA ram_0002
-C - - - - - 0x01A813 06:A803: 4C 33 CE  JMP $CE33
+C - - - - - 0x01A813 06:A803: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 bra_A806:
 C - - - - - 0x01A816 06:A806: 98        TYA
@@ -1348,7 +1334,7 @@ C - - - - - 0x01A818 06:A808: 6D 02 03  ADC ram_0302
 C - - - - - 0x01A81B 06:A80B: 85 01     STA ram_0001
 C - - - - - 0x01A81D 06:A80D: AD 03 03  LDA ram_0303
 C - - - - - 0x01A820 06:A810: 85 02     STA ram_0002
-C - - - - - 0x01A822 06:A812: 20 33 CE  JSR $CE33
+C - - - - - 0x01A822 06:A812: 20 33 CE  JSR loc_CE33_add_sprite_magic ; bank FF
 C - - - - - 0x01A825 06:A815: BD 20 03  LDA ram_0320,X
 C - - - - - 0x01A828 06:A818: 29 08     AND #$08
 C - - - - - 0x01A82A 06:A81A: F0 0A     BEQ bra_A826
@@ -1363,7 +1349,7 @@ C - - - - - 0x01A836 06:A826: 98        TYA
 C - - - - - 0x01A837 06:A827: 18        CLC
 C - - - - - 0x01A838 06:A828: 6D 04 03  ADC ram_0304
 C - - - - - 0x01A83B 06:A82B: 85 01     STA ram_0001
-C - - - - - 0x01A83D 06:A82D: 4C 33 CE  JMP $CE33
+C - - - - - 0x01A83D 06:A82D: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 loc_A830:
 C D 1 - - - 0x01A840 06:A830: BD 20 03  LDA ram_0320,X
@@ -1717,7 +1703,7 @@ C - - - - - 0x01AAB1 06:AAA1: 6D 06 03  ADC ram_0306
 C - - - - - 0x01AAB4 06:AAA4: 85 01     STA ram_0001
 C - - - - - 0x01AAB6 06:AAA6: AD 07 03  LDA ram_0307
 C - - - - - 0x01AAB9 06:AAA9: 85 02     STA ram_0002
-C - - - - - 0x01AABB 06:AAAB: 4C 33 CE  JMP $CE33
+C - - - - - 0x01AABB 06:AAAB: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 loc_AAAE:
 C D 1 - - - 0x01AABE 06:AAAE: DE 86 03  DEC ram_0386,X
@@ -1849,21 +1835,16 @@ sub_AB83:
 C - - - - - 0x01AB93 06:AB83: BD 5C 03  LDA ram_035C,X
 C - - - - - 0x01AB96 06:AB86: 10 E0     BPL bra_AB68_RTS
 C - - - - - 0x01AB98 06:AB88: 4A        LSR
-C - - - - - 0x01AB99 06:AB89: 20 B8 D0  JSR $D0B8
-- D 1 - I - 0x01AB9C 06:AB8C: D3        .byte $D3   ; 
-- D 1 - I - 0x01AB9D 06:AB8D: AB        .byte $AB   ; 
-- - - - - - 0x01AB9E 06:AB8E: 99        .byte $99   ; 
-- - - - - - 0x01AB9F 06:AB8F: AB        .byte $AB   ; 
-- - - - - - 0x01ABA0 06:AB90: 99        .byte $99   ; 
-- - - - - - 0x01ABA1 06:AB91: AB        .byte $AB   ; 
-- - - - - - 0x01ABA2 06:AB92: 99        .byte $99   ; 
-- - - - - - 0x01ABA3 06:AB93: AB        .byte $AB   ; 
-- D 1 - I - 0x01ABA4 06:AB94: 9E        .byte $9E   ; 
-- D 1 - I - 0x01ABA5 06:AB95: AB        .byte $AB   ; 
-- D 1 - I - 0x01ABA6 06:AB96: 99        .byte $99   ; 
-- D 1 - I - 0x01ABA7 06:AB97: AB        .byte $AB   ; 
-- D 1 - I - 0x01ABA8 06:AB98: 99        .byte $99   ; 
-- D 1 - I - 0x01ABA9 06:AB99: AB        .byte $AB   ; 
+C - - - - - 0x01AB99 06:AB89: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
+
+- D 1 - I - 0x01AB9C 06:AB8C: D3 AB     .word $ABD3
+- - - - - - 0x01AB9E 06:AB8E: 99 AB     .word $AB99
+- - - - - - 0x01ABA0 06:AB90: 99 AB     .word $AB99
+- - - - - - 0x01ABA2 06:AB92: 99 AB     .word $AB99
+- D 1 - I - 0x01ABA4 06:AB94: 9E AB     .word $AB9E
+- D 1 - I - 0x01ABA6 06:AB96: 99 AB     .word $AB99
+- D 1 - I - 0x01ABA8 06:AB98: 99 AB     .word $AB99
+
 C - - - - - 0x01ABAA 06:AB9A: 20 DF AA  JSR sub_AADF
 C - - - - - 0x01ABAD 06:AB9D: A0 0C     LDY #$0C
 loc_AB9F:
@@ -2107,7 +2088,7 @@ C - - - - - 0x01AD4A 06:AD3A: AD 02 03  LDA ram_0302
 C - - - - - 0x01AD4D 06:AD3D: 85 01     STA ram_0001
 C - - - - - 0x01AD4F 06:AD3F: AD 03 03  LDA ram_0303
 C - - - - - 0x01AD52 06:AD42: 85 02     STA ram_0002
-C - - - - - 0x01AD54 06:AD44: 4C 33 CE  JMP $CE33
+C - - - - - 0x01AD54 06:AD44: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 sub_AD47:
 C - - - - - 0x01AD57 06:AD47: A5 2C     LDA vLowCounter
@@ -2347,7 +2328,7 @@ C - - - - - 0x01AEE7 06:AED7: 6D 06 03  ADC ram_0306
 C - - - - - 0x01AEEA 06:AEDA: 85 01     STA ram_0001
 C - - - - - 0x01AEEC 06:AEDC: AD 07 03  LDA ram_0307
 C - - - - - 0x01AEEF 06:AEDF: 85 02     STA ram_0002
-C - - - - - 0x01AEF1 06:AEE1: 4C 33 CE  JMP $CE33
+C - - - - - 0x01AEF1 06:AEE1: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 bra_AEE4:
 C - - - - - 0x01AEF4 06:AEE4: BD 5C 03  LDA ram_035C,X
@@ -2551,7 +2532,7 @@ C - - - - - 0x01B05C 06:B04C: 69 5C     ADC #$5C
 C - - - - - 0x01B05E 06:B04E: 85 01     STA ram_0001
 C - - - - - 0x01B060 06:B050: A9 60     LDA #$60
 C - - - - - 0x01B062 06:B052: 85 02     STA ram_0002
-C - - - - - 0x01B064 06:B054: 4C 33 CE  JMP $CE33
+C - - - - - 0x01B064 06:B054: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 sub_B057:
 C - - - - - 0x01B067 06:B057: A5 2C     LDA vLowCounter
@@ -3659,7 +3640,7 @@ C - - - - - 0x01B7C8 06:B7B8: 69 C0     ADC #$C0
 C - - - - - 0x01B7CA 06:B7BA: 85 01     STA ram_0001
 C - - - - - 0x01B7CC 06:B7BC: A9 20     LDA #$20
 C - - - - - 0x01B7CE 06:B7BE: 85 02     STA ram_0002
-C - - - - - 0x01B7D0 06:B7C0: 4C 33 CE  JMP $CE33
+C - - - - - 0x01B7D0 06:B7C0: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 sub_B7C3:
 C - - - - - 0x01B7D3 06:B7C3: 85 00     STA ram_0000

@@ -1588,13 +1588,17 @@ $D0B2##increments loop counter
 $D0B3##--NO-COMMENT--
 $D0B5##If Register X != 0x05
 $D0B7##--NO-COMMENT--
-$D0B8#sub_D0B8#
-$D0BA#bra_D0BA#
+$D0B8#sub_D0B8_change_stack_pointer_by_bits#set loop counter (the offset)
+$D0BA#bra_D0BA_loop#shift to next bit
+$D0BB##If Register A was 0%XXXXXXX1
+$D0BD##--NO-COMMENT--
+$D0BE##+2 decrement loop counter, because the address contains high and low parts
+$D0BF##If Register Y != 0
 $D0C1#sub_D0C1_change_stack_pointer#*2, bacause the address contains high and low parts
 $D0C2##--NO-COMMENT--
 $D0C3##--NO-COMMENT--
 $D0C4##+2, i.e below sub_D0C1_change_stack_pointer
-$D0C5#bra_D0C5_skip#--NO-COMMENT--
+$D0C5#bra_D0C5_done#--NO-COMMENT--
 $D0C6##--NO-COMMENT--
 $D0C8##--NO-COMMENT--
 $D0C9##--NO-COMMENT--
@@ -3210,7 +3214,8 @@ $EE65##Low address
 $EE67##--NO-COMMENT--
 $EE6A##High address
 $EE6C##--NO-COMMENT--
-$EE72##to sub_A000
+$EE6F#loc_EE6F_land_diver_enemy#--NO-COMMENT--
+$EE75##restore bank 06, page 2
 $EE7B##to sub_A003
 $EE84##to sub_A006
 $EE8D##to sub_A009
@@ -3641,16 +3646,52 @@ $F49D#bra_F49D#
 $F4A0#bra_F4A0#
 $F4B0#bra_F4B0#
 $F4B6#bra_F4B6#
-$F4CB#loc_F3A2_land_diver_enemy#
-$F4D3#bra_F4D3#
-$F4EB#bra_F4EB#
-$F4FC#bra_F4FC#
-$F51D#bra_F51D#
-$F526#bra_F526#
-$F528#bra_F528#
-$F52D#bra_F52D#
+$F4CB#loc_F3A2_land_diver_enemy#X <~ 1
+$F4CD##--NO-COMMENT--
+$F4D0##If vEnemyAStatus2 < 0xF0
+$F4D2##X <~ 0
+$F4D3#bra_F4D3_skip#--NO-COMMENT--
+$F4D5##--NO-COMMENT--
+$F4D6##if $000B == 0x00 (the right direction)
+$F4D8##--NO-COMMENT--
+$F4DA##--NO-COMMENT--
+$F4DB##--NO-COMMENT--
+$F4DD##store (X-position - 0x18)
+$F4E0##--NO-COMMENT--
+$F4E2##--NO-COMMENT--
+$F4E4##store macro X-position (-1 with overflow)
+$F4E9##Always true
+$F4EB#bra_F4EB_skip#--NO-COMMENT--
+$F4ED##--NO-COMMENT--
+$F4EE##--NO-COMMENT--
+$F4F0##store (X-position + 0x18)
+$F4F3##--NO-COMMENT--
+$F4F5##--NO-COMMENT--
+$F4F7##store macro X-position (+1 with overflow)
+$F4FC#bra_F4FC#store 0xC4 or 0xC5
+$F4FF##--NO-COMMENT--
+$F501##store Y-position
+$F50E##--NO-COMMENT--
+$F511##CONSTANT - Land Diver from level 2
+$F513##If vEnemyA == 0x05
+$F515##CONSTANT - Land Diver from level 3
+$F517##If vEnemyA == 0x06
+$F519##CONSTANT for CHR ROM
+$F51B##Always true
+$F51D#bra_F51D_from_level2#CONSTANT for CHR ROM
+$F51F##--NO-COMMENT--
+$F522##<~ sprite_magic3 (see v_sprite_magic3)
+$F524##Always true
+$F526#bra_F526_from_level1#CONSTANT for CHR ROM
+$F528#bra_F528_from_level3#--NO-COMMENT--
+$F52B##<~ sprite_magic3 (see v_sprite_magic3)
+$F52D#bra_F52D_skip#--NO-COMMENT--
 $F530##Enemy pops up (sound effect)
 $F532##--NO-COMMENT--
+$F535##<~ sprite_magic2 (see v_sprite_magic2)
+$F537##--NO-COMMENT--
+$F53A##--NO-COMMENT--
+$F53D#loc_F53D_bazooka_enemy#
 $F54A#bra_F54A#
 $F55D#bra_F55D#
 $F57A#bra_F57A#
@@ -3978,7 +4019,7 @@ $FC53#bra_FC53#
 $FC64#bra_FC64#
 $FC77#bra_FC77#
 $FC9C#sub_FC9C#
-$FCBA#tbl_FCBA#Nobody  (0x00)
+$FCBA#tbl_FCBA_enemies#Nobody  (0x00)
 $FCBC##Cat with the gun (level 3) (0x01) Type A
 $FCBE##Gray Land hat (level 3) (0x02) Type B
 $FCC0##Black Land hat (level 3) (0x03) Type B

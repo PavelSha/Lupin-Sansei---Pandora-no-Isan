@@ -319,6 +319,12 @@ vEnemies                       = ram_0300
 
 vEnemyA                       = ram_0300
 vEnemyB                       = ram_0301
+vEnemyASpriteMagic2           = ram_0302 ; see v_sprite_magic2
+vEnemyASpriteMagic3           = ram_0303 ; see v_sprite_magic3
+
+vEnemyBSpriteMagic2           = ram_0306 ; see v_sprite_magic2
+vEnemyBSpriteMagic3           = ram_0307 ; see v_sprite_magic3
+
 vEnemyACount                  = ram_030A
 vEnemyBCount                  = ram_030B
 vEnemyAStartingPosXHigh1      = ram_030C ; macro X-position in which the enemy (A) appeared
@@ -345,8 +351,23 @@ vEnemyBAppearTimerHigh2       = ram_031E ; the high counter after which the same
 vEnemyBAppearTimerLow2        = ram_031F ; the low counter after which the same killed enemy (B) will appear in the same position
 vEnemyAStatus                 = ram_0320 ; see below
 ; 0x00 - None
+; 0x80 - the status is used
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
+vEnemyAPosY                   = ram_032C ; see below
+vEnemyAPosY1                  = ram_032C ; The enemy position along the X axis relative to the level (no repeat)
+vEnemyAPosY2                  = ram_032D ; The enemy position along the X axis relative to the level (no repeat)
+
+vEnemyAPosXHigh               = ram_0338 ; see below
+vEnemyAPosXHigh1              = ram_0338 ; The enemy position along the X axis relative to the level (in screen unit)
+vEnemyAPosXHigh2              = ram_0339 ; The enemy position along the X axis relative to the level (in screen unit)
+vEnemyAPosXLow                = ram_033E ; see below
+vEnemyAPosXLow1               = ram_033E ; The enemy position along the X axis relative to the level (with repeat)
+vEnemyAPosXLow2               = ram_033F ; The enemy position along the X axis relative to the level (with repeat)
+
+; ram_0344 - vChrFrameIndex1 ???
+; ram_0345 - vChrFrameIndex2 ???
+
 vEnemyBStatus                 = ram_035C ; see below
 ; 0x00 - None
 vEnemyBStatus1                = ram_035C

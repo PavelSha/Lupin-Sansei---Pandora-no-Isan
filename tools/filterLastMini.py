@@ -49,9 +49,9 @@ def filter():
                 continue
             if re.search("^\(.*\)\s", line):
                 continue
-            if re.search("^\$06:", line):
+            if re.search("^\s?\$06:", line):
                 continue
-            if re.search("^\$02:", line):
+            if re.search("^\s?\$02:", line):
                 continue
             if re.search("^;", line):
                 wasComment = True
@@ -62,13 +62,13 @@ def filter():
             # Skip lists
             skip = False
             for v in skipFF:
-                if re.search("^\$07:" + v, line):
+                if re.search("^\s?\$07:" + v, line):
                     skip = True
                     break
             if skip:
                 continue
             # for v in skip06_2:
-            #     if re.search("^\$06:" + v, line):
+            #     if re.search("^\s?\$06:" + v, line):
             #         skip = True
             #         break
             # if skip:

@@ -75,3 +75,9 @@ $DE91##vChrStatus, X, L flags
 $DE67##vMovableChrStatus, 0x01 - flag
 $DE69##vMovableChrStatus, 0x01 - flag
 $DE6B##vMovableChrStatus, 0x01 - flag
+$F4E7##vEnemyAStatus, 0xC4
+$F4FA##vEnemyAStatus, 0xC4
+$F504##ram_034A, ram_034B counter1 ??
+$F506##ram_034A, ram_034B counter1 ??
+$F509##ram_0344, ram_0345 vChrFrameIndex1 ??
+$F50B##ram_0344, ram_0345 vChrFrameIndex1 ??

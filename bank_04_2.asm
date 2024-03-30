@@ -440,7 +440,7 @@ npc_portrait_sprites: ; 12 bytes
 
 ; Templates for a generation of enemies 
 tbl_ptr_enemies:
-- D 0 - - - 0x0123B2 04:83A2: A4 84     .word $84A4 ; Level 1.0
+- D 0 - - - 0x0123B2 04:83A2: A4 84     .addr tbl_enemies_level1_0; CPU address 84A4
 - - - - - - 0x0123B4 04:83A4: 90 85     .addr deadlock ; CPU address $8590
 - - - - - - 0x0123B6 04:83A6: 90 85     .addr deadlock
 - D 0 - - - 0x0123B8 04:83A8: 91 85     .word $8591 ; Level 1.1
@@ -572,8 +572,13 @@ tbl_ptr_briefcases_outside:
 - D 0 - - - 0x0124B0 04:84A0: 4F 98     .addr tbl_ptr_briefcases_outside2 ; CPU address $984F
 - D 0 - - - 0x0124B2 04:84A2: 64 98     .addr tbl_ptr_briefcases_outside3 ; CPU address $9864
 
-; Tip: XYZW, X - macro position x, Y - position x, W - type of enemy
+; Tip: XYZW
+; X - macro X-position
+; Y - X-position
+; Z - Y-position
+; W - type of enemy
 ; Level 1.0
+tbl_enemies_level1_0:
 - D 0 - I - 0x0124B4 04:84A4: 01        .byte $01, $28, $DF, $06 ; Land Diver
 - D 0 - I - 0x0124B8 04:84A8: 01        .byte $01, $88, $DF, $06 ; 
 - D 0 - I - 0x0124BC 04:84AC: 02        .byte $02, $18, $87, $1F ; Fly man

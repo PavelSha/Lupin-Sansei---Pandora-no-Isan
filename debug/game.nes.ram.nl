@@ -110,6 +110,10 @@ $0216#vApparatusHighCounter#
 $0219#vArrayWhiteBriefcase#
 $0300#vEnemyA#
 $0301#vEnemyB#
+$0302#vEnemyASpriteMagic2#
+$0303#vEnemyASpriteMagic3#
+$0306#vEnemyBSpriteMagic2#
+$0307#vEnemyBSpriteMagic3#
 $030A#vEnemyACount#
 $030B#vEnemyBCount#
 $030C#vEnemyAStartingPosXHigh1#
@@ -134,6 +138,12 @@ $031E#vEnemyBAppearTimerHigh2#
 $031F#vEnemyBAppearTimerLow2#
 $0320#vEnemyAStatus1#
 $0321#vEnemyAStatus2#
+$032C#vEnemyAPosY1#
+$032D#vEnemyAPosY2#
+$0338#vEnemyAPosXHigh1#
+$0339#vEnemyAPosXHigh2#
+$033E#vEnemyAPosXLow1#
+$033F#vEnemyAPosXLow2#
 $035C#vEnemyBStatus1#
 $035D#vEnemyBStatus2#
 $0398#v_briefcase_index#
