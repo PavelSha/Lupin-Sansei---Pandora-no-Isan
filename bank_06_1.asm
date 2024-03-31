@@ -5,9 +5,14 @@
 ; 0x018010-0x01A00F
 
 .import loc_CE33_add_sprite_magic             ; bank FF
+.import sub_CE33_add_sprite_magic             ; bank FF
 .import loc_C420_add_sound_effect             ; bank FF
 .import sub_C420_add_sound_effect             ; bank FF
 .import sub_D0B8_change_stack_pointer_by_bits ; bank FF
+.import sub_D67B_out_of_sight                 ; bank FF
+.import sub_D6AC_out_of_screen                ; bank FF
+.import loc_D99F_add_flash_sprite             ; bank FF
+.import sub_D660_is_bomb_exploding            ; bank FF
 
 .export sub_A000_land_diver_enemy
 
@@ -106,7 +111,7 @@ C - - - - - 0x01806B 06:A05B: B0 2C     BCS bra_A089
 C - - - - - 0x01806D 06:A05D: C9 C0     CMP #$C0
 C - - - - - 0x01806F 06:A05F: 90 28     BCC bra_A089
 C - - - - - 0x018071 06:A061: 20 CC A0  JSR sub_A0CC
-C - - - - - 0x018074 06:A064: 20 60 D6  JSR $D660
+C - - - - - 0x018074 06:A064: 20 60 D6  JSR sub_D660_is_bomb_exploding
 C - - - - - 0x018077 06:A067: B0 0B     BCS bra_A074
 C - - - - - 0x018079 06:A069: A5 5F     LDA ram_005F
 C - - - - - 0x01807B 06:A06B: 29 02     AND #$02
@@ -239,12 +244,12 @@ C D 1 - - - 0x018140 06:A130: BD 38 03  LDA ram_0338,X
 C - - - - - 0x018143 06:A133: 85 00     STA ram_0000
 C - - - - - 0x018145 06:A135: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x018148 06:A138: 85 01     STA ram_0001
-C - - - - - 0x01814A 06:A13A: 20 7B D6  JSR $D67B
+C - - - - - 0x01814A 06:A13A: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x01814D 06:A13D: 90 03     BCC bra_A142
 C - - - - - 0x01814F 06:A13F: 4C 7F D7  JMP $D77F
 
 bra_A142:
-C - - - - - 0x018152 06:A142: 20 AC D6  JSR $D6AC
+C - - - - - 0x018152 06:A142: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x018155 06:A145: 90 03     BCC bra_A14A
 C - - - - - 0x018157 06:A147: 4C 41 D7  JMP $D741
 
@@ -327,13 +332,11 @@ C - - - - - 0x0181E0 06:A1D0: BD 38 03  LDA ram_0338,X
 C - - - - - 0x0181E3 06:A1D3: 85 00     STA ram_0000
 C - - - - - 0x0181E5 06:A1D5: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x0181E8 06:A1D8: 85 01     STA ram_0001
-C - - - - - 0x0181EA 06:A1DA: 20 7B D6  JSR $D67B
+C - - - - - 0x0181EA 06:A1DA: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x0181ED 06:A1DD: 90 03     BCC bra_A1E2
-- - - - - - 0x0181EF 06:A1DF: 4C        .byte $4C   ; <L>
-- - - - - - 0x0181F0 06:A1E0: 7F        .byte $7F   ; 
-- - - - - - 0x0181F1 06:A1E1: D7        .byte $D7   ; 
+- - - - - - 0x0181EF 06:A1DF: 4C 7F D7  JMP $D77F
 bra_A1E2:
-C - - - - - 0x0181F2 06:A1E2: 20 AC D6  JSR $D6AC
+C - - - - - 0x0181F2 06:A1E2: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x0181F5 06:A1E5: 90 03     BCC bra_A1EA
 C - - - - - 0x0181F7 06:A1E7: 4C 41 D7  JMP $D741
 
@@ -346,7 +349,7 @@ C - - - - - 0x018205 06:A1F5: 85 00     STA ram_0000
 C - - - - - 0x018207 06:A1F7: A5 03     LDA ram_0003
 C - - - - - 0x018209 06:A1F9: 9D 32 03  STA ram_0332,X
 C - - - - - 0x01820C 06:A1FC: BD 4A 03  LDA ram_034A,X
-C - - - - - 0x01820F 06:A1FF: 4C 9F D9  JMP $D99F
+C - - - - - 0x01820F 06:A1FF: 4C 9F D9  JMP loc_D99F_add_flash_sprite
 
 C - - - - - 0x018212 06:A202: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x018215 06:A205: F0 05     BEQ bra_A20C
@@ -593,7 +596,7 @@ C - - - - - 0x0183A3 06:A393: B9 63 A3  LDA tbl_A363,Y
 C - - - - - 0x0183A6 06:A396: 85 AF     STA ram_00AF
 C - - - - - 0x0183A8 06:A398: A9 05     LDA #$05
 C - - - - - 0x0183AA 06:A39A: 85 B0     STA ram_00B0
-C - - - - - 0x0183AC 06:A39C: 20 60 D6  JSR $D660
+C - - - - - 0x0183AC 06:A39C: 20 60 D6  JSR sub_D660_is_bomb_exploding
 C - - - - - 0x0183AF 06:A39F: B0 0B     BCS bra_A3AC
 C - - - - - 0x0183B1 06:A3A1: A5 5F     LDA ram_005F
 C - - - - - 0x0183B3 06:A3A3: 29 02     AND #$02
@@ -697,12 +700,12 @@ C - - - - - 0x018458 06:A448: BD 74 03  LDA ram_0374,X
 C - - - - - 0x01845B 06:A44B: 85 00     STA ram_0000
 C - - - - - 0x01845D 06:A44D: BD 7A 03  LDA ram_037A,X
 C - - - - - 0x018460 06:A450: 85 01     STA ram_0001
-C - - - - - 0x018462 06:A452: 20 7B D6  JSR $D67B
+C - - - - - 0x018462 06:A452: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x018465 06:A455: 90 03     BCC bra_A45A
 C - - - - - 0x018467 06:A457: 4C 73 D8  JMP $D873
 
 bra_A45A:
-C - - - - - 0x01846A 06:A45A: 20 AC D6  JSR $D6AC
+C - - - - - 0x01846A 06:A45A: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x01846D 06:A45D: 90 03     BCC bra_A462
 C - - - - - 0x01846F 06:A45F: 4C 4D D8  JMP $D84D
 
@@ -989,12 +992,12 @@ C D 1 - - - 0x018657 06:A647: BD 74 03  LDA ram_0374,X
 C - - - - - 0x01865A 06:A64A: 85 00     STA ram_0000
 C - - - - - 0x01865C 06:A64C: BD 7A 03  LDA ram_037A,X
 C - - - - - 0x01865F 06:A64F: 85 01     STA ram_0001
-C - - - - - 0x018661 06:A651: 20 7B D6  JSR $D67B
+C - - - - - 0x018661 06:A651: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x018664 06:A654: 90 03     BCC bra_A659
 C - - - - - 0x018666 06:A656: 4C 73 D8  JMP $D873
 
 bra_A659:
-C - - - - - 0x018669 06:A659: 20 AC D6  JSR $D6AC
+C - - - - - 0x018669 06:A659: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x01866C 06:A65C: 90 03     BCC bra_A661
 C - - - - - 0x01866E 06:A65E: 4C 4D D8  JMP $D84D
 
@@ -1146,7 +1149,7 @@ C - - - - - 0x018770 06:A760: 4C 7D D9  JMP $D97D
 
 bra_A763:
 C - - - - - 0x018773 06:A763: BD 86 03  LDA ram_0386,X
-C - - - - - 0x018776 06:A766: 4C 9F D9  JMP $D99F
+C - - - - - 0x018776 06:A766: 4C 9F D9  JMP loc_D99F_add_flash_sprite
 
 tbl_A769:
 - D 1 - - - 0x018779 06:A769: 03        .byte $03   ; 
@@ -1201,7 +1204,7 @@ C - - - - - 0x0187B6 06:A7A6: A9 14     LDA #$14
 C - - - - - 0x0187B8 06:A7A8: 85 AF     STA ram_00AF
 C - - - - - 0x0187BA 06:A7AA: A9 06     LDA #$06
 C - - - - - 0x0187BC 06:A7AC: 85 B0     STA ram_00B0
-C - - - - - 0x0187BE 06:A7AE: 20 60 D6  JSR $D660
+C - - - - - 0x0187BE 06:A7AE: 20 60 D6  JSR sub_D660_is_bomb_exploding
 C - - - - - 0x0187C1 06:A7B1: B0 0B     BCS bra_A7BE
 C - - - - - 0x0187C3 06:A7B3: A5 5F     LDA ram_005F
 C - - - - - 0x0187C5 06:A7B5: 29 02     AND #$02
@@ -1268,12 +1271,12 @@ C D 1 - - - 0x018821 06:A811: BD 38 03  LDA ram_0338,X
 C - - - - - 0x018824 06:A814: 85 00     STA ram_0000
 C - - - - - 0x018826 06:A816: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x018829 06:A819: 85 01     STA ram_0001
-C - - - - - 0x01882B 06:A81B: 20 7B D6  JSR $D67B
+C - - - - - 0x01882B 06:A81B: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x01882E 06:A81E: 90 03     BCC bra_A823
 C - - - - - 0x018830 06:A820: 4C 7F D7  JMP $D77F
 
 bra_A823:
-C - - - - - 0x018833 06:A823: 20 AC D6  JSR $D6AC
+C - - - - - 0x018833 06:A823: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x018836 06:A826: 90 03     BCC bra_A82B
 C - - - - - 0x018838 06:A828: 4C 41 D7  JMP $D741
 
@@ -1640,12 +1643,12 @@ C - - - - - 0x018AA1 06:AA91: 85 01     STA ram_0001
 C - - - - - 0x018AA3 06:AA93: AD 00 03  LDA ram_0300
 C - - - - - 0x018AA6 06:AA96: C9 37     CMP #$37
 C - - - - - 0x018AA8 06:AA98: D0 08     BNE bra_AAA2
-C - - - - - 0x018AAA 06:AA9A: 20 7B D6  JSR $D67B
+C - - - - - 0x018AAA 06:AA9A: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x018AAD 06:AA9D: 90 03     BCC bra_AAA2
 C - - - - - 0x018AAF 06:AA9F: 4C C3 A9  JMP loc_A9C3
 
 bra_AAA2:
-C - - - - - 0x018AB2 06:AAA2: 20 AC D6  JSR $D6AC
+C - - - - - 0x018AB2 06:AAA2: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x018AB5 06:AAA5: 90 03     BCC bra_AAAA
 C - - - - - 0x018AB7 06:AAA7: 4C 41 D7  JMP $D741
 
@@ -1951,9 +1954,9 @@ C - - - - - 0x018CAD 06:AC9D: BD 74 03  LDA ram_0374,X
 C - - - - - 0x018CB0 06:ACA0: 85 00     STA ram_0000
 C - - - - - 0x018CB2 06:ACA2: BD 7A 03  LDA ram_037A,X
 C - - - - - 0x018CB5 06:ACA5: 85 01     STA ram_0001
-C - - - - - 0x018CB7 06:ACA7: 20 7B D6  JSR $D67B
+C - - - - - 0x018CB7 06:ACA7: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x018CBA 06:ACAA: B0 E2     BCS bra_AC8E
-C - - - - - 0x018CBC 06:ACAC: 20 AC D6  JSR $D6AC
+C - - - - - 0x018CBC 06:ACAC: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x018CBF 06:ACAF: B0 DD     BCS bra_AC8E
 C - - - - - 0x018CC1 06:ACB1: BD 68 03  LDA ram_0368,X
 C - - - - - 0x018CC4 06:ACB4: 85 00     STA ram_0000
@@ -1965,7 +1968,7 @@ C - - - - - 0x018CCF 06:ACBF: A9 6E     LDA #$6E
 C - - - - - 0x018CD1 06:ACC1: 85 01     STA ram_0001
 C - - - - - 0x018CD3 06:ACC3: A9 44     LDA #$44
 C - - - - - 0x018CD5 06:ACC5: 85 02     STA ram_0002
-C - - - - - 0x018CD7 06:ACC7: 20 33 CE  JSR loc_CE33_add_sprite_magic ; bank FF
+C - - - - - 0x018CD7 06:ACC7: 20 33 CE  JSR sub_CE33_add_sprite_magic ; bank FF
 bra_ACCA:
 C - - - - - 0x018CDA 06:ACCA: BD 5C 03  LDA ram_035C,X
 C - - - - - 0x018CDD 06:ACCD: 10 30     BPL bra_ACFF_RTS
@@ -2092,7 +2095,7 @@ C D 1 - - - 0x018D93 06:AD83: BD 76 03  LDA ram_0376,X
 C - - - - - 0x018D96 06:AD86: 85 00     STA ram_0000
 C - - - - - 0x018D98 06:AD88: BD 7C 03  LDA ram_037C,X
 C - - - - - 0x018D9B 06:AD8B: 85 01     STA ram_0001
-C - - - - - 0x018D9D 06:AD8D: 20 AC D6  JSR $D6AC
+C - - - - - 0x018D9D 06:AD8D: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x018DA0 06:AD90: B0 DD     BCS bra_AD6F
 C - - - - - 0x018DA2 06:AD92: BD 6A 03  LDA ram_036A,X
 C - - - - - 0x018DA5 06:AD95: 85 00     STA ram_0000
@@ -2251,12 +2254,12 @@ C - - - - - 0x018E9B 06:AE8B: BD 74 03  LDA ram_0374,X
 C - - - - - 0x018E9E 06:AE8E: 85 00     STA ram_0000
 C - - - - - 0x018EA0 06:AE90: BD 7A 03  LDA ram_037A,X
 C - - - - - 0x018EA3 06:AE93: 85 01     STA ram_0001
-C - - - - - 0x018EA5 06:AE95: 20 7B D6  JSR $D67B
+C - - - - - 0x018EA5 06:AE95: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x018EA8 06:AE98: 90 03     BCC bra_AE9D
 C - - - - - 0x018EAA 06:AE9A: 4C 73 D8  JMP $D873
 
 bra_AE9D:
-C - - - - - 0x018EAD 06:AE9D: 20 AC D6  JSR $D6AC
+C - - - - - 0x018EAD 06:AE9D: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x018EB0 06:AEA0: 90 03     BCC bra_AEA5
 C - - - - - 0x018EB2 06:AEA2: 4C 4D D8  JMP $D84D
 
@@ -2476,7 +2479,7 @@ C - - - - - 0x018FE0 06:AFD0: A9 18     LDA #$18
 C - - - - - 0x018FE2 06:AFD2: 85 AF     STA ram_00AF
 C - - - - - 0x018FE4 06:AFD4: A9 06     LDA #$06
 C - - - - - 0x018FE6 06:AFD6: 85 B0     STA ram_00B0
-C - - - - - 0x018FE8 06:AFD8: 20 60 D6  JSR $D660
+C - - - - - 0x018FE8 06:AFD8: 20 60 D6  JSR sub_D660_is_bomb_exploding
 C - - - - - 0x018FEB 06:AFDB: B0 0B     BCS bra_AFE8
 C - - - - - 0x018FED 06:AFDD: A5 5F     LDA ram_005F
 C - - - - - 0x018FEF 06:AFDF: 29 02     AND #$02
@@ -2557,12 +2560,12 @@ C D 1 - - - 0x019068 06:B058: BD 38 03  LDA ram_0338,X
 C - - - - - 0x01906B 06:B05B: 85 00     STA ram_0000
 C - - - - - 0x01906D 06:B05D: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x019070 06:B060: 85 01     STA ram_0001
-C - - - - - 0x019072 06:B062: 20 7B D6  JSR $D67B
+C - - - - - 0x019072 06:B062: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x019075 06:B065: 90 03     BCC bra_B06A
 C - - - - - 0x019077 06:B067: 4C 7F D7  JMP $D77F
 
 bra_B06A:
-C - - - - - 0x01907A 06:B06A: 20 AC D6  JSR $D6AC
+C - - - - - 0x01907A 06:B06A: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x01907D 06:B06D: 90 03     BCC bra_B072
 C - - - - - 0x01907F 06:B06F: 4C 41 D7  JMP $D741
 
@@ -2841,7 +2844,7 @@ C - - - - - 0x01920A 06:B1FA: B0 53     BCS bra_B24F
 C - - - - - 0x01920C 06:B1FC: C9 C0     CMP #$C0
 C - - - - - 0x01920E 06:B1FE: 90 4F     BCC bra_B24F
 C - - - - - 0x019210 06:B200: 20 F5 B2  JSR sub_B2F5
-C - - - - - 0x019213 06:B203: 20 60 D6  JSR $D660
+C - - - - - 0x019213 06:B203: 20 60 D6  JSR sub_D660_is_bomb_exploding
 C - - - - - 0x019216 06:B206: B0 0B     BCS bra_B213
 C - - - - - 0x019218 06:B208: A5 5F     LDA ram_005F
 C - - - - - 0x01921A 06:B20A: 29 02     AND #$02
@@ -3130,12 +3133,12 @@ C D 1 - - - 0x019416 06:B406: BD 38 03  LDA ram_0338,X
 C - - - - - 0x019419 06:B409: 85 00     STA ram_0000
 C - - - - - 0x01941B 06:B40B: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x01941E 06:B40E: 85 01     STA ram_0001
-C - - - - - 0x019420 06:B410: 20 7B D6  JSR $D67B
+C - - - - - 0x019420 06:B410: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x019423 06:B413: 90 03     BCC bra_B418
 C - - - - - 0x019425 06:B415: 4C 7F D7  JMP $D77F
 
 bra_B418:
-C - - - - - 0x019428 06:B418: 20 AC D6  JSR $D6AC
+C - - - - - 0x019428 06:B418: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x01942B 06:B41B: 90 03     BCC bra_B420
 C - - - - - 0x01942D 06:B41D: 4C 41 D7  JMP $D741
 
@@ -3842,12 +3845,12 @@ C D 1 - - - 0x0198F0 06:B8E0: BD 38 03  LDA ram_0338,X
 C - - - - - 0x0198F3 06:B8E3: 85 00     STA ram_0000
 C - - - - - 0x0198F5 06:B8E5: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x0198F8 06:B8E8: 85 01     STA ram_0001
-C - - - - - 0x0198FA 06:B8EA: 20 7B D6  JSR $D67B
+C - - - - - 0x0198FA 06:B8EA: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x0198FD 06:B8ED: 90 03     BCC bra_B8F2
 C - - - - - 0x0198FF 06:B8EF: 4C 65 B8  JMP loc_B865
 
 bra_B8F2:
-C - - - - - 0x019902 06:B8F2: 20 AC D6  JSR $D6AC
+C - - - - - 0x019902 06:B8F2: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x019905 06:B8F5: 90 03     BCC bra_B8FA
 C - - - - - 0x019907 06:B8F7: 4C 41 D7  JMP $D741
 
@@ -4166,7 +4169,7 @@ C - - - - - 0x019B1B 06:BB0B: B0 2A     BCS bra_BB37
 C - - - - - 0x019B1D 06:BB0D: C9 C0     CMP #$C0
 C - - - - - 0x019B1F 06:BB0F: 90 26     BCC bra_BB37
 C - - - - - 0x019B21 06:BB11: 20 75 BB  JSR sub_BB75
-C - - - - - 0x019B24 06:BB14: 20 60 D6  JSR $D660
+C - - - - - 0x019B24 06:BB14: 20 60 D6  JSR sub_D660_is_bomb_exploding
 C - - - - - 0x019B27 06:BB17: B0 0B     BCS bra_BB24
 C - - - - - 0x019B29 06:BB19: A5 5F     LDA ram_005F
 C - - - - - 0x019B2B 06:BB1B: 29 02     AND #$02
@@ -4284,12 +4287,12 @@ C D 1 - - - 0x019BE1 06:BBD1: BD 38 03  LDA ram_0338,X
 C - - - - - 0x019BE4 06:BBD4: 85 00     STA ram_0000
 C - - - - - 0x019BE6 06:BBD6: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x019BE9 06:BBD9: 85 01     STA ram_0001
-C - - - - - 0x019BEB 06:BBDB: 20 7B D6  JSR $D67B
+C - - - - - 0x019BEB 06:BBDB: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x019BEE 06:BBDE: 90 03     BCC bra_BBE3
 C - - - - - 0x019BF0 06:BBE0: 4C 7F D7  JMP $D77F
 
 bra_BBE3:
-C - - - - - 0x019BF3 06:BBE3: 20 AC D6  JSR $D6AC
+C - - - - - 0x019BF3 06:BBE3: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x019BF6 06:BBE6: 90 03     BCC bra_BBEB
 C - - - - - 0x019BF8 06:BBE8: 4C 41 D7  JMP $D741
 
@@ -4639,12 +4642,12 @@ C - - - - - 0x019E2B 06:BE1B: BD 74 03  LDA ram_0374,X
 C - - - - - 0x019E2E 06:BE1E: 85 00     STA ram_0000
 C - - - - - 0x019E30 06:BE20: BD 7A 03  LDA ram_037A,X
 C - - - - - 0x019E33 06:BE23: 85 01     STA ram_0001
-C - - - - - 0x019E35 06:BE25: 20 7B D6  JSR $D67B
+C - - - - - 0x019E35 06:BE25: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x019E38 06:BE28: 90 03     BCC bra_BE2D
 C - - - - - 0x019E3A 06:BE2A: 4C 73 D8  JMP $D873
 
 bra_BE2D:
-C - - - - - 0x019E3D 06:BE2D: 20 AC D6  JSR $D6AC
+C - - - - - 0x019E3D 06:BE2D: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x019E40 06:BE30: 90 03     BCC bra_BE35
 C - - - - - 0x019E42 06:BE32: 4C 4D D8  JMP $D84D
 

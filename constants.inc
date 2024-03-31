@@ -85,7 +85,8 @@ vCorridorCounter              = ram_002E ; The counter starts when we enter the 
 ; ram_002F - the unknown counter1
 ; ram_0030 - the unknown counter2
 ; ram_0031 - the unknown counter3
-; ram_0032 - the unknown counter4
+
+vResistantToDamageCounter     = ram_0032
 vLowCutsceneCounter           = ram_0033
 vHighCutsceneCounter          = ram_0034 ; Only for a demo (the message scenes are not included)
 vEnemyRNGValue                = ram_0035
@@ -372,14 +373,18 @@ vEnemyBStatus                 = ram_035C ; see below
 ; 0x00 - None
 vEnemyBStatus1                = ram_035C
 vEnemyBStatus2                = ram_035D
+vBombOnScreen                 = ram_0398 ; 0x00 - no exist, 0x01 - on screen
 v_briefcase_index             = ram_0398 ; [0399-039D]
-v_bomb_on_screen              = ram_039E ; C2 - a bomb
+vBombStatus                   = ram_039E
+; 0x00 - none
+; 0xC2 - a bomb is laying on screen
+; 0xC0 - a bomb is exploding
 v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, 039E - screen
 ; 0%10000000 - ???
 ; For briefcase:
-; C0 - allow briefcase
-; D0 - self item
-; E0 - disallow briefcase
+; 0xC0 - allow briefcase
+; 0xD0 - self item
+; 0xE0 - disallow briefcase
 
 vBriefcaseHitCount            = ram_03A5 ; number of shots the briefcase must receive before it collapses {$03A5, $03A6, $03A7, $03A8, $03A9}
 

@@ -2154,9 +2154,14 @@ $D55B##--NO-COMMENT--
 $D55D##--NO-COMMENT--
 $D55F##High address
 $D561##--NO-COMMENT--
-$D562#sub_D562#
-$D56C#bra_D56C_clear_c_rts#
-$D56E#bra_D56E#
+$D562#sub_D562#--NO-COMMENT--
+$D564##If character is resistant to damage
+$D566##--NO-COMMENT--
+$D568##CONSTANT - the character isn't controllable (see vChrStatus, flags X Z K)
+$D56A##If the character is controllable
+$D56C#bra_D56C_return_false#return false
+$D56D##--NO-COMMENT--
+$D56E#bra_D56E_skip#
 $D59B#bra_D59B#
 $D5B6#sub_D5B6#
 $D5D8#bra_D5D8_RTS#
@@ -2171,14 +2176,56 @@ $D628#bra_D628#
 $D641#bra_D641_RTS#
 $D642#sub_D642#
 $D64C#bra_D64C#
-$D660#sub_D660#
-$D675#bra_D675_clear_c_rts#
-$D67B#sub_D67B#
-$D693#bra_D693_skip#
-$D6A2#sub_D6A2#
-$D6AB#bra_D6AB_RTS#
-$D6AC#sub_D6AC#
-$D6BB#bra_D6BB#
+$D660#sub_D660_is_bomb_exploding#--NO-COMMENT--
+$D663##If the bomb isn't activated
+$D665##--NO-COMMENT--
+$D668##CONSTANT - 0x01 for bombs always
+$D66A##If the bomb isn't on the screen
+$D66C##--NO-COMMENT--
+$D66F##CONSTANT - 0xC2 (a bomb is laying on screen)
+$D671##If the bomb is laying only
+$D673##return true
+$D674##--NO-COMMENT--
+$D675#bra_D675_return_false#return false
+$D676##--NO-COMMENT--
+$D67B#sub_D67B_out_of_sight#--NO-COMMENT--
+$D67D##$000D <~ 0x40
+$D67F##--NO-COMMENT--
+$D681##--NO-COMMENT--
+$D682##--NO-COMMENT--
+$D684##$0002 <~ LowPosX + 0x40
+$D686##--NO-COMMENT--
+$D688##--NO-COMMENT--
+$D68A##$0003 <~ HighPosX + 0x01 (+1 with overflow)
+$D68C##--NO-COMMENT--
+$D68F##If the subroutine returned true.
+$D691##return true
+$D692##--NO-COMMENT--
+$D693#bra_D693_skip#--NO-COMMENT--
+$D695##--NO-COMMENT--
+$D696##--NO-COMMENT--
+$D698##$0002 <~ LowPosX - 0x40
+$D69A##--NO-COMMENT--
+$D69C##--NO-COMMENT--
+$D69E##$0003 <~ HighPosX - 0x01 (+1 with overflow)
+$D6A0##If vHighViewPortPosX:vLowViewPortPosX < 0x00:0x40
+$D6A2#sub_D6A2_sub#--NO-COMMENT--
+$D6A4##--NO-COMMENT--
+$D6A5##--NO-COMMENT--
+$D6A7##--NO-COMMENT--
+$D6A9##--NO-COMMENT--
+$D6AB#bra_D6AB_RTS#--NO-COMMENT--
+$D6AC#sub_D6AC_out_of_screen#--NO-COMMENT--
+$D6AE##--NO-COMMENT--
+$D6AF##--NO-COMMENT--
+$D6B1##$0003 <~ $0000 - vLowViewPortPosX
+$D6B3##--NO-COMMENT--
+$D6B5##--NO-COMMENT--
+$D6B7##If HighPosX != $0001 (- 1)
+$D6B9##return false
+$D6BA##--NO-COMMENT--
+$D6BB#bra_D6BB_return_true#return true
+$D6BC##--NO-COMMENT--
 $D6BD#sub_D6BD#
 $D6C6#bra_D6C6_clear_c_rts#
 $D6CA#sub_D6CA#
@@ -2238,6 +2285,14 @@ $D97A##--NO-COMMENT--
 $D97C##--NO-COMMENT--
 $D995#bra_D995#
 $D996#loc_D996#
+$D99F#loc_D99F_add_flash_sprite#filters (a mask)
+$D9A1##--NO-COMMENT--
+$D9A2##--NO-COMMENT--
+$D9A3##~> sprite_magic2 (see v_sprite_magic2)
+$D9A5##<~ (0xD0, 0xD2, 0xD4, 0xD6)
+$D9A7##~> sprite_magic3 (see v_sprite_magic3)
+$D9A9##--NO-COMMENT--
+$D9AB##--NO-COMMENT--
 $D9C3#bra_D9C3_RTS#
 $D9DA#sub_D9DA#
 $D9E8#bra_D9E8#
@@ -2256,6 +2311,7 @@ $DA5E#bra_DA5E#
 $DA60#loc_DA60#
 $DA72#bra_DA72#
 $DA85#bra_DA85#
+$DA88#loc_DA88#
 $DA90#sub_DA90#
 $DA98#bra_DA98#
 $DA9F#sub_DA9F#
@@ -3444,6 +3500,7 @@ $F0FB##set X-position temporarily
 $F0FD##--NO-COMMENT--
 $F0FF##set the current enemy type
 $F102##increases the counter
+$F105##--NO-COMMENT--
 $F108##--NO-COMMENT--
 $F10A##clear a low part
 $F10D##clear a high part
@@ -3618,7 +3675,14 @@ $F321##--NO-COMMENT--
 $F323##store a type or an index
 $F325##return true
 $F326##--NO-COMMENT--
-$F327#loc_F327#
+$F327#loc_F327_enemy_appearance#--NO-COMMENT--
+$F32A##*2, because the addresses have 2 bytes
+$F32B##--NO-COMMENT--
+$F32C##--NO-COMMENT--
+$F32F##Low address
+$F331##--NO-COMMENT--
+$F334##High address
+$F336##--NO-COMMENT--
 $F339#sub_F339#
 $F346#bra_F346#
 $F358#bra_F358_RTS#
@@ -3781,7 +3845,7 @@ $F880##--NO-COMMENT--
 $F883##+1, if it was overflow
 $F885##--NO-COMMENT--
 $F887#loc_enemy_RTS#--NO-COMMENT--
-$F888#tbl_F888#Nobody  (0x00)
+$F888#tbl_F888_enemy_appearance#Nobody  (0x00)
 $F88A##Cat with the gun
 $F88C##Gray Land hat
 $F88E##Black Land hat
@@ -3995,6 +4059,8 @@ $FC19##If the boss is defeated
 $FC1B##--NO-COMMENT--
 $FC1D##--NO-COMMENT--
 $FC20##assigns the boss number
+$FC23##CONSTANT - a stub
+$FC25##--NO-COMMENT--
 $FC28#sub_FC28_in_room_with_boss#--NO-COMMENT--
 $FC2B##If The boss is defeated
 $FC2D##--NO-COMMENT--

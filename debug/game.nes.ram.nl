@@ -18,6 +18,7 @@ $002B#v_nmi_counter#
 $002C#vLowCounter#
 $002D#v_high_counter#
 $002E#vCorridorCounter#
+$0032#vResistantToDamageCounter#
 $0033#vLowCutsceneCounter#
 $0034#vHighCutsceneCounter#
 $0035#vEnemyRNGValue#

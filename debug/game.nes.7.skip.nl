@@ -81,3 +81,5 @@ $F504##ram_034A, ram_034B counter1 ??
 $F506##ram_034A, ram_034B counter1 ??
 $F509##ram_0344, ram_0345 vChrFrameIndex1 ??
 $F50B##ram_0344, ram_0345 vChrFrameIndex1 ??
+$D5B6##vBulletStatus
+$D5B8##vBulletStatus
