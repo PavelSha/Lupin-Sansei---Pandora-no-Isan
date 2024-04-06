@@ -77,10 +77,12 @@ if %fast_assembly% equ 1 (
     ca65 -U copy_bank_01_2.asm
     ca65 -U copy_bank_02_1.asm
     ca65 -U copy_bank_02_2.asm
-    ca65 -U copy_bank_03.asm
+    ca65 -U copy_bank_03_1.asm
+    ca65 -U copy_bank_03_2.asm
     ca65 -U copy_bank_04_1.asm
     ca65 -U copy_bank_04_2.asm
-    ca65 -U copy_bank_05.asm
+    ca65 -U copy_bank_05_1.asm
+    ca65 -U copy_bank_05_2.asm
     ca65 -U copy_bank_06_1.asm
     ca65 -U copy_bank_06_2.asm
     ca65 -U copy_bank_FF.asm
@@ -91,10 +93,12 @@ if %fast_assembly% equ 1 (
     ca65 -U -l copy_bank_01_2.lst   -g copy_bank_01_2.asm
     ca65 -U -l copy_bank_02_1.lst   -g copy_bank_02_1.asm
     ca65 -U -l copy_bank_02_2.lst   -g copy_bank_02_2.asm
-    ca65 -U -l copy_bank_03.lst     -g copy_bank_03.asm
+    ca65 -U -l copy_bank_03_1.lst   -g copy_bank_03_1.asm
+    ca65 -U -l copy_bank_03_2.lst   -g copy_bank_03_2.asm
     ca65 -U -l copy_bank_04_1.lst   -g copy_bank_04_1.asm
     ca65 -U -l copy_bank_04_2.lst   -g copy_bank_04_2.asm
-    ca65 -U -l copy_bank_05.lst     -g copy_bank_05.asm
+    ca65 -U -l copy_bank_05_1.lst   -g copy_bank_05_1.asm
+    ca65 -U -l copy_bank_05_2.lst   -g copy_bank_05_2.asm
     ca65 -U -l copy_bank_06_1.lst   -g copy_bank_06_1.asm
     ca65 -U -l copy_bank_06_2.lst   -g copy_bank_06_2.asm
     ca65 -U -l copy_bank_FF.lst     -g copy_bank_FF.asm
@@ -109,10 +113,12 @@ if %fast_assembly% equ 1 (
         copy_bank_01_2.o ^
         copy_bank_02_1.o ^
         copy_bank_02_2.o ^
-        copy_bank_03.o ^
+        copy_bank_03_1.o ^
+        copy_bank_03_2.o ^
         copy_bank_04_1.o ^
         copy_bank_04_2.o ^
-        copy_bank_05.o ^
+        copy_bank_05_1.o ^
+        copy_bank_05_2.o ^
         copy_bank_06_1.o ^
         copy_bank_06_2.o ^
         copy_bank_FF.o
@@ -124,10 +130,12 @@ if %fast_assembly% equ 1 (
         copy_bank_01_2.o ^
         copy_bank_02_1.o ^
         copy_bank_02_2.o ^
-        copy_bank_03.o ^
+        copy_bank_03_1.o ^
+        copy_bank_03_2.o ^
         copy_bank_04_1.o ^
         copy_bank_04_2.o ^
-        copy_bank_05.o ^
+        copy_bank_05_1.o ^
+        copy_bank_05_2.o ^
         copy_bank_06_1.o ^
         copy_bank_06_2.o ^
         copy_bank_FF.o
