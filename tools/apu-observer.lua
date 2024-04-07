@@ -57,28 +57,32 @@ while (true) do
   if (apuCh1Changed or apuCh2Changed or apuCh3Changed or apuCh4Changed) then
 	  emu.print(string.format("case %d:", emu.framecount()));
 	  if apuCh1Changed then
-	      emu.print(string.format("    setApuChannel1(0x%02X, 0x%02X, 0x%02X, 0x%02X);", ram4000, ram4001, ram4002, ram4003));
+	      -- emu.print(string.format("    setApuChannel1(0x%02X, 0x%02X, 0x%02X, 0x%02X);", ram4000, ram4001, ram4002, ram4003));
+		  emu.print(string.format("    Pulse 1: 0x%02X 0x%02X 0x%02X 0x%02X ", ram4000, ram4001, ram4002, ram4003));
 		  oram4000 = ram4000;
 		  oram4001 = ram4001;
 		  oram4002 = ram4002;
 		  oram4003 = ram4003;
 	  end;
 	  if apuCh2Changed then
-	      emu.print(string.format("    setApuChannel2(0x%02X, 0x%02X, 0x%02X, 0x%02X);", ram4004, ram4005, ram4006, ram4007));
+	      --emu.print(string.format("    setApuChannel2(0x%02X, 0x%02X, 0x%02X, 0x%02X);", ram4004, ram4005, ram4006, ram4007));
+		  emu.print(string.format("    Pulse 2: 0x%02X 0x%02X 0x%02X 0x%02X ", ram4004, ram4005, ram4006, ram4007));
 		  oram4004 = ram4004;
 		  oram4005 = ram4005;
 		  oram4006 = ram4006;
 		  oram4007 = ram4007;
 	  end;
 	  if apuCh3Changed then
-	      emu.print(string.format("    setApuChannel3(0x%02X, 0x%02X, 0x%02X, 0x%02X);", ram4008, ram4009, ram400A, ram400B));
+	      --emu.print(string.format("    setApuChannel3(0x%02X, 0x%02X, 0x%02X, 0x%02X);", ram4008, ram4009, ram400A, ram400B));
+		  emu.print(string.format("    Triangle 2: 0x%02X 0x%02X 0x%02X 0x%02X ", ram4008, ram4009, ram400A, ram400B));
 		  oram4008 = ram4008;
 		  oram4009 = ram4009;
 		  oram400A = ram400A;
 		  oram400B = ram400B;
 	  end;
 	  if apuCh4Changed then
-	      emu.print(string.format("    setApuChannel4(0x%02X, 0x%02X, 0x%02X, 0x%02X);", ram400C, ram400D, ram400E, ram400F));
+	      --emu.print(string.format("    setApuChannel4(0x%02X, 0x%02X, 0x%02X, 0x%02X);", ram400C, ram400D, ram400E, ram400F));
+		  emu.print(string.format("    Noise 2: 0x%02X 0x%02X 0x%02X 0x%02X ", ram400C, ram400D, ram400E, ram400F));
 		  oram400C = ram400C;
 		  oram400D = ram400D;
 		  oram400E = ram400E;

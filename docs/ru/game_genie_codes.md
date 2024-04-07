@@ -14,7 +14,7 @@ OXXYKLSX + POXYSLKK
 
 ...
 
-## Отключение метаплиток заднего фона.
+## Отключение метаплиток заднего фона
 
 OXESLZOU + OXOIZZOU + PEOILZTA + PEESGZTA
 
@@ -35,4 +35,32 @@ GKSUOUSU + NSSUXLZO + UUSUUUKU
 ### Шум
 
 AVSUNUSL
+
+## Отключение звуковых каналов главного меню
+
+### Меандр 1
+
+XVSLOAAX + XVSLXAAX + XVSLXAAX
+
+### Меандр 2
+
+XVSLVAAX + XVSLNAAX + XVSUEAKK
+
+### Треугольный сигнал
+
+XVSUUAAX + XVSUKAAX + XVSUSAKK
+
+### Шум
+
+XVVLEAAX + XVVLOAAX + XVVLXAKK
+
+## Отключение звуковых каналов звука выстрела в главном меню
+
+### Меандр 2
+
+XVKKIIAX + XVKKTIAX + XVKKYIKK
+
+### Шум
+
+AVSGZSGG
 

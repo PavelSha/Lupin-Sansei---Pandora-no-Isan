@@ -8,7 +8,7 @@ FOLDER_PATH = "C:\\Lupin Sansei - Pandora no Isan\\debug\\"
 IN_FILE = "last.log"
 OUT_FILE = "last-mini.log"
 NL_FF_SKIP_FILE = "game.nes.7.skip.nl"
-NL_06_2_SKIP_FILE = "game.nes.6.2.nl"
+NL_06_2_SKIP_FILE = "game.nes.6.2.skip.nl"
 
 def getSkipList(nameFile):
     skip = []
@@ -49,6 +49,8 @@ def filter():
                 continue
             if re.search("^\(.*\)\s", line):
                 continue
+            # if re.search("^\s?\$07:", line):
+            #     continue
             if re.search("^\s?\$06:", line):
                 continue
             if re.search("^\s?\$02:", line):

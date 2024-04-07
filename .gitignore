@@ -10,6 +10,7 @@ debug/last-mini.log
 debug/last-mini-*.log
 debug/last.log
 debug/game.nes.6.2.nl
+debug/game.nes.6.2.skip.nl
 *.nes
 /*.nl
 copy_*

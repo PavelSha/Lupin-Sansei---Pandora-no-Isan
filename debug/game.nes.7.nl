@@ -1924,6 +1924,8 @@ $D344##return a collision value
 $D346##--NO-COMMENT--
 $D347#sub_D347#
 $D350#bra_D350_skip#
+$D358#sub_D358_check_left_right_enemy_collision#--NO-COMMENT--
+$D35B##--NO-COMMENT--
 $D36A#loc_D36A_short_left_right_collision#to sub_AD6E bank 06_2
 $D36D##--NO-COMMENT--
 $D370#sub_D370_left_right_collision#increment by x (+4)
@@ -2231,9 +2233,30 @@ $D6C6#bra_D6C6_clear_c_rts#
 $D6CA#sub_D6CA#
 $D6DA#bra_D6DA_RTS#
 $D6EF#bra_D6EF_RTS#
-$D6F0#loc_D6F0#
-$D70E#bra_D70E_RTS#
-$D70F#loc_D70F#
+$D6F0#loc_D6F0_dec_EnemyAPosXLow#--NO-COMMENT--
+$D6F3##--NO-COMMENT--
+$D6F4##CONSTANT - The enemy should be visible in its entirety on the left
+$D6F6##--NO-COMMENT--
+$D6F9##--NO-COMMENT--
+$D6FB##Branch If the enemy reach the beginning of the room
+$D6FD##--NO-COMMENT--
+$D700##--NO-COMMENT--
+$D701##--NO-COMMENT--
+$D703##--NO-COMMENT--
+$D706##--NO-COMMENT--
+$D709##decrement vEnemyAPosXHigh, if vEnemyAPosXLow changed a sign
+$D70B##--NO-COMMENT--
+$D70E#bra_D70E_RTS#--NO-COMMENT--
+$D70F#loc_D70F_inc_EnemyAPosXLow#--NO-COMMENT--
+$D712##--NO-COMMENT--
+$D713##CONSTANT - The enemy should be visible in its entirety on the right
+$D715##--NO-COMMENT--
+$D718##--NO-COMMENT--
+$D71A##Branch If the enemy reach the end of the room
+$D71C##--NO-COMMENT--
+$D71F##If the enemy doesn't move from one screen to another
+$D721##--NO-COMMENT--
+$D724##--NO-COMMENT--
 $D725#sub_D725#
 $D740#bra_D740_RTS#
 $D741#loc_D741#
@@ -2248,8 +2271,16 @@ $D79E#bra_D79E_RTS#
 $D79F#sub_D79F#
 $D7A8#bra_D7A8#
 $D7B6#bra_D7B6#
-$D7BF#sub_D7BF#
-$D7CA#sub_D7CA#
+$D7BF#sub_D7BF_check_enemyA_movement_on_the_right#--NO-COMMENT--
+$D7C2##prepare an increment by X (+8)
+$D7C4##--NO-COMMENT--
+$D7C7##CONSTANT - a strong collision
+$D7C9##--NO-COMMENT--
+$D7CA#sub_D7CA_check_enemyA_movement_on_the_left#--NO-COMMENT--
+$D7CD##prepare an increment by X (-8)
+$D7CF##--NO-COMMENT--
+$D7D2##CONSTANT - a strong collision
+$D7D4##--NO-COMMENT--
 $D7D5#sub_D7D5#
 $D7E5#bra_D7E5_RTS#
 $D7F0#sub_D7F0#
@@ -2269,9 +2300,15 @@ $D8D3#bra_D8D3#
 $D8DB#sub_D8DB#
 $D905#bra_D905_RTS#
 $D91F#sub_D91F#
-$D937#sub_D937#
-$D939#sub_D939#
-$D93F#sub_D93F#
+$D937#sub_D937_init_absolute_enemyA_positions#--NO-COMMENT--
+$D939#sub_D939_init_relative_enemyA_positions#--NO-COMMENT--
+$D93A##--NO-COMMENT--
+$D93D##--NO-COMMENT--
+$D93F#sub_D93F_init_short_enemyA_positions#--NO-COMMENT--
+$D942##--NO-COMMENT--
+$D944##--NO-COMMENT--
+$D947##--NO-COMMENT--
+$D949##--NO-COMMENT--
 $D94A#sub_D94A#
 $D952#sub_D952#
 $D96D#sub_D96D_init_absolute_chr_positions#--NO-COMMENT--
@@ -2861,7 +2898,10 @@ $E343##--NO-COMMENT--
 $E344##--NO-COMMENT--
 $E347##--NO-COMMENT--
 $E348#tbl_E348_unknown#
-$E358#tbl_E358_init_counter#
+$E358#tbl_E358_init_counter#simple jump
+$E359##high jump
+$E35A##jumping off
+$E35B##jump by side
 $E35D#tbl_E35D_jump_posY_offset#
 $E38D#tbl_E38D#
 $E38E#tbl_E38E#

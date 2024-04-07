@@ -12,10 +12,12 @@ ASM_01_1_FILE = "bank_01_1.asm"
 ASM_01_2_FILE = "bank_01_2.asm"
 ASM_02_1_FILE = "bank_02_1.asm"
 ASM_02_2_FILE = "bank_02_2.asm"
-ASM_03_FILE = "bank_03.asm"
+ASM_03_1_FILE = "bank_03_1.asm"
+ASM_03_2_FILE = "bank_03_2.asm"
 ASM_04_1_FILE = "bank_04_1.asm"
 ASM_04_2_FILE = "bank_04_2.asm"
-ASM_05_FILE = "bank_05.asm"
+ASM_05_1_FILE = "bank_05_1.asm"
+ASM_05_2_FILE = "bank_05_1.asm"
 ASM_06_1_FILE = "bank_06_1.asm"
 ASM_06_2_FILE = "bank_06_2.asm"
 allCounter = 0
@@ -66,10 +68,12 @@ def resolveStats():
     resolveOneStat(ASM_01_2_FILE)
     resolveOneStat(ASM_02_1_FILE)
     resolveOneStat(ASM_02_2_FILE)
-    resolveOneStat(ASM_03_FILE)
+    resolveOneStat(ASM_03_1_FILE)
+    resolveOneStat(ASM_03_2_FILE)
     resolveOneStat(ASM_04_1_FILE)
     resolveOneStat(ASM_04_2_FILE)
-    resolveOneStat(ASM_05_FILE)
+    resolveOneStat(ASM_05_1_FILE)
+    resolveOneStat(ASM_05_2_FILE)
     resolveOneStat(ASM_06_1_FILE)
     resolveOneStat(ASM_06_2_FILE)
 

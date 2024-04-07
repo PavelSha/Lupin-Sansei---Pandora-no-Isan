@@ -4,15 +4,22 @@
 .org $A000  ; for listing file
 ; 0x018010-0x01A00F
 
-.import loc_CE33_add_sprite_magic             ; bank FF
-.import sub_CE33_add_sprite_magic             ; bank FF
-.import loc_C420_add_sound_effect             ; bank FF
-.import sub_C420_add_sound_effect             ; bank FF
-.import sub_D0B8_change_stack_pointer_by_bits ; bank FF
-.import sub_D67B_out_of_sight                 ; bank FF
-.import sub_D6AC_out_of_screen                ; bank FF
-.import loc_D99F_add_flash_sprite             ; bank FF
-.import sub_D660_is_bomb_exploding            ; bank FF
+.import loc_CE33_add_sprite_magic                   ; bank FF
+.import sub_CE33_add_sprite_magic                   ; bank FF
+.import loc_C420_add_sound_effect                   ; bank FF
+.import sub_C420_add_sound_effect                   ; bank FF
+.import sub_D0B8_change_stack_pointer_by_bits       ; bank FF
+.import sub_D67B_out_of_sight                       ; bank FF
+.import sub_D6AC_out_of_screen                      ; bank FF
+.import loc_D99F_add_flash_sprite                   ; bank FF
+.import sub_D660_is_bomb_exploding                  ; bank FF
+.import tbl_E35D_jump_posY_offset                   ; bank FF
+.import sub_D358_check_left_right_enemy_collision   ; bank FF
+.import tbl_E358_init_counter                       ; bank FF
+.import sub_D7BF_check_enemyA_movement_on_the_right ; bank FF
+.import sub_D7CA_check_enemyA_movement_on_the_left  ; bank FF
+.import loc_D70F_inc_EnemyAPosXLow                  ; bank FF
+.import loc_D6F0_dec_EnemyAPosXLow                  ; bank FF
 
 .export sub_A000_land_diver_enemy
 
@@ -101,15 +108,15 @@ tbl_A045:
 
 loc_A04D_enemy:
 C D 1 - - - 0x01805D 06:A04D: A2 01     LDX #$01
-C - - - - - 0x01805F 06:A04F: 86 1A     STX ram_001A
-bra_A051:
-C - - - - - 0x018061 06:A051: A6 1A     LDX ram_001A
+C - - - - - 0x01805F 06:A04F: 86 1A     STX vTempCounter1A
+bra_A051_loop:
+C - - - - - 0x018061 06:A051: A6 1A     LDX vTempCounter1A
 C - - - - - 0x018063 06:A053: 20 FA A0  JSR sub_A0FA
 C - - - - - 0x018066 06:A056: BD 20 03  LDA ram_0320,X
 C - - - - - 0x018069 06:A059: C9 E0     CMP #$E0
-C - - - - - 0x01806B 06:A05B: B0 2C     BCS bra_A089
+C - - - - - 0x01806B 06:A05B: B0 2C     BCS bra_A089_next
 C - - - - - 0x01806D 06:A05D: C9 C0     CMP #$C0
-C - - - - - 0x01806F 06:A05F: 90 28     BCC bra_A089
+C - - - - - 0x01806F 06:A05F: 90 28     BCC bra_A089_next
 C - - - - - 0x018071 06:A061: 20 CC A0  JSR sub_A0CC
 C - - - - - 0x018074 06:A064: 20 60 D6  JSR sub_D660_is_bomb_exploding
 C - - - - - 0x018077 06:A067: B0 0B     BCS bra_A074
@@ -120,7 +127,7 @@ C - - - - - 0x01807F 06:A06F: 20 06 D6  JSR $D606
 C - - - - - 0x018082 06:A072: 90 10     BCC bra_A084
 bra_A074:
 C - - - - - 0x018084 06:A074: 20 98 A0  JSR sub_A098
-C - - - - - 0x018087 06:A077: 4C 89 A0  JMP loc_A089
+C - - - - - 0x018087 06:A077: 4C 89 A0  JMP loc_A089_next
 
 bra_A07A:
 C - - - - - 0x01808A 06:A07A: A6 7A     LDX vBulletCount
@@ -130,24 +137,24 @@ C - - - - - 0x01808F 06:A07F: B0 0D     BCS bra_A08E
 C - - - - - 0x018091 06:A081: CA        DEX
 C - - - - - 0x018092 06:A082: 10 F8     BPL bra_A07C
 bra_A084:
-C - - - - - 0x018094 06:A084: A6 1A     LDX ram_001A
+C - - - - - 0x018094 06:A084: A6 1A     LDX vTempCounter1A
 C - - - - - 0x018096 06:A086: 20 62 D5  JSR $D562
-bra_A089:
-loc_A089:
-C D 1 - - - 0x018099 06:A089: C6 1A     DEC ram_001A
-C - - - - - 0x01809B 06:A08B: 10 C4     BPL bra_A051
-C - - - - - 0x01809D 06:A08D: 60        RTS
+bra_A089_next:
+loc_A089_next:
+C D 1 - - - 0x018099 06:A089: C6 1A     DEC vTempCounter1A        ; decrements loop counter
+C - - - - - 0x01809B 06:A08B: 10 C4     BPL bra_A051_loop         ; If Register X >= 0
+C - - - - - 0x01809D 06:A08D: 60        RTS                       ;
 
 bra_A08E:
 C - - - - - 0x01809E 06:A08E: A9 00     LDA #$00
 C - - - - - 0x0180A0 06:A090: 95 8F     STA vBulletStatus,X
 C - - - - - 0x0180A2 06:A092: 20 98 A0  JSR sub_A098
-C - - - - - 0x0180A5 06:A095: 4C 89 A0  JMP loc_A089
+C - - - - - 0x0180A5 06:A095: 4C 89 A0  JMP loc_A089_next
 
 sub_A098:
 C - - - - - 0x0180A8 06:A098: A6 1A     LDX ram_001A
 C - - - - - 0x0180AA 06:A09A: A9 22     LDA #$22
-C - - - - - 0x0180AC 06:A09C: 20 23 A3  JSR sub_A323
+C - - - - - 0x0180AC 06:A09C: 20 23 A3  JSR sub_A323_add_status
 C - - - - - 0x0180AF 06:A09F: A9 10     LDA #$10
 C - - - - - 0x0180B1 06:A0A1: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x0180B4 06:A0A4: A9 03     LDA #$03
@@ -210,30 +217,33 @@ C - - - - - 0x018107 06:A0F7: 85 B0     STA ram_00B0
 bra_A0F9_RTS:
 C - - - - - 0x018109 06:A0F9: 60        RTS
 
+; In: Register X - the enemyA number
 sub_A0FA:
-C - - - - - 0x01810A 06:A0FA: BD 20 03  LDA ram_0320,X
-C - - - - - 0x01810D 06:A0FD: 10 FA     BPL bra_A0F9_RTS
-C - - - - - 0x01810F 06:A0FF: 4A        LSR
+C - - - - - 0x01810A 06:A0FA: BD 20 03  LDA vEnemyAStatus,X                       ;
+C - - - - - 0x01810D 06:A0FD: 10 FA     BPL bra_A0F9_RTS                          ; If the status isn't used
+C - - - - - 0x01810F 06:A0FF: 4A        LSR                                       ;
 C - - - - - 0x018110 06:A100: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
 
-- D 1 - I - 0x018113 06:A103: 30 A2     .word $A230
-- D 1 - I - 0x018115 06:A105: B5 A1     .word $A1B5
-- D 1 - I - 0x018117 06:A107: 10 A1     .word $A110
-- D 1 - I - 0x018119 06:A109: 01 A2     .word $A201
-- D 1 - I - 0x01811B 06:A10B: D2 A2     .word $A2D2
-- D 1 - I - 0x01811D 06:A10D: 10 A1     .word $A110
-- D 1 - I - 0x01811F 06:A10F: 10 A1     .word $A110
+- D 1 - I - 0x018113 06:A103: 30 A2     .addr loc_A231_jump - 1
+- D 1 - I - 0x018115 06:A105: B5 A1     .addr loc_A1B6 - 1
+- D 1 - I - 0x018117 06:A107: 10 A1     .addr loc_A111 - 1
+- D 1 - I - 0x018119 06:A109: 01 A2     .addr loc_A202 - 1
+- D 1 - I - 0x01811B 06:A10B: D2 A2     .addr loc_A2D3 - 1
+- D 1 - I - 0x01811D 06:A10D: 10 A1     .addr loc_A111 - 1
+- D 1 - I - 0x01811F 06:A10F: 10 A1     .addr loc_A111 - 1
 
-C - - - - - 0x018121 06:A111: BD 2C 03  LDA ram_032C,X
-C - - - - - 0x018124 06:A114: 85 00     STA ram_0000
-C - - - - - 0x018126 06:A116: E6 00     INC ram_0000
-C - - - - - 0x018128 06:A118: 20 58 D3  JSR $D358
-C - - - - - 0x01812B 06:A11B: D0 07     BNE bra_A124
-C - - - - - 0x01812D 06:A11D: A9 1C     LDA #$1C
-C - - - - - 0x01812F 06:A11F: A0 02     LDY #$02
+; In: Register X - the enemyA number
+loc_A111:
+C - - - - - 0x018121 06:A111: BD 2C 03  LDA vEnemyAPosY,X                             ;
+C - - - - - 0x018124 06:A114: 85 00     STA ram_0000                                  ;
+C - - - - - 0x018126 06:A116: E6 00     INC ram_0000                                  ; prepare an input parameter (EnemyAPosY + 1)
+C - - - - - 0x018128 06:A118: 20 58 D3  JSR sub_D358_check_left_right_enemy_collision ; 
+C - - - - - 0x01812B 06:A11B: D0 07     BNE bra_A124_skip                             ; If the collisions by Y-position don't exist
+C - - - - - 0x01812D 06:A11D: A9 1C     LDA #$1C                                      ; CONSTANT - a jump counter value
+C - - - - - 0x01812F 06:A11F: A0 02     LDY #$02                                      ; CONSTANT - jumping off, free fall
 C - - - - - 0x018131 06:A121: 4C 20 A2  JMP loc_A220
 
-bra_A124:
+bra_A124_skip:
 C - - - - - 0x018134 06:A124: 20 EC A2  JSR sub_A2EC
 C - - - - - 0x018137 06:A127: BD 20 03  LDA ram_0320,X
 C - - - - - 0x01813A 06:A12A: 29 08     AND #$08
@@ -286,19 +296,19 @@ C - - - - - 0x018188 06:A178: 20 A8 A1  JSR sub_A1A8
 C - - - - - 0x01818B 06:A17B: 4C 6C A1  JMP loc_A16C
 
 sub_A17E:
-C - - - - - 0x01818E 06:A17E: 20 CA D7  JSR $D7CA
+C - - - - - 0x01818E 06:A17E: 20 CA D7  JSR sub_D7CA_check_enemyA_movement_on_the_left
 C - - - - - 0x018191 06:A181: F0 09     BEQ bra_A18C
 C - - - - - 0x018193 06:A183: A5 2C     LDA vLowCounter
 C - - - - - 0x018195 06:A185: 29 01     AND #$01
 C - - - - - 0x018197 06:A187: F0 1E     BEQ bra_A1A7_RTS
-C - - - - - 0x018199 06:A189: 4C F0 D6  JMP $D6F0
+C - - - - - 0x018199 06:A189: 4C F0 D6  JMP loc_D6F0_dec_EnemyAPosXLow
 
 bra_A18C:
 C - - - - - 0x01819C 06:A18C: BD 20 03  LDA ram_0320,X
 C - - - - - 0x01819F 06:A18F: 29 24     AND #$24
 C - - - - - 0x0181A1 06:A191: D0 14     BNE bra_A1A7_RTS
 C - - - - - 0x0181A3 06:A193: A9 02     LDA #$02
-C - - - - - 0x0181A5 06:A195: 20 23 A3  JSR sub_A323
+C - - - - - 0x0181A5 06:A195: 20 23 A3  JSR sub_A323_add_status
 C - - - - - 0x0181A8 06:A198: A9 14     LDA #$14
 C - - - - - 0x0181AA 06:A19A: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x0181AD 06:A19D: A9 03     LDA #$03
@@ -309,13 +319,14 @@ bra_A1A7_RTS:
 C - - - - - 0x0181B7 06:A1A7: 60        RTS
 
 sub_A1A8:
-C - - - - - 0x0181B8 06:A1A8: 20 BF D7  JSR $D7BF
+C - - - - - 0x0181B8 06:A1A8: 20 BF D7  JSR sub_D7BF_check_enemyA_movement_on_the_right
 C - - - - - 0x0181BB 06:A1AB: F0 DF     BEQ bra_A18C
 C - - - - - 0x0181BD 06:A1AD: A5 2C     LDA vLowCounter
 C - - - - - 0x0181BF 06:A1AF: 29 01     AND #$01
 C - - - - - 0x0181C1 06:A1B1: F0 F4     BEQ bra_A1A7_RTS
-C - - - - - 0x0181C3 06:A1B3: 4C 0F D7  JMP $D70F
+C - - - - - 0x0181C3 06:A1B3: 4C 0F D7  JMP loc_D70F_inc_EnemyAPosXLow
 
+loc_A1B6:
 C - - - - - 0x0181C6 06:A1B6: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x0181C9 06:A1B9: D0 15     BNE bra_A1D0
 C - - - - - 0x0181CB 06:A1BB: A9 03     LDA #$03
@@ -351,6 +362,7 @@ C - - - - - 0x018209 06:A1F9: 9D 32 03  STA ram_0332,X
 C - - - - - 0x01820C 06:A1FC: BD 4A 03  LDA ram_034A,X
 C - - - - - 0x01820F 06:A1FF: 4C 9F D9  JMP loc_D99F_add_flash_sprite
 
+loc_A202:
 C - - - - - 0x018212 06:A202: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x018215 06:A205: F0 05     BEQ bra_A20C
 C - - - - - 0x018217 06:A207: A0 0C     LDY #$0C
@@ -366,29 +378,33 @@ C - - - - - 0x018228 06:A218: 6A        ROR
 C - - - - - 0x018229 06:A219: 90 02     BCC bra_A21D
 C - - - - - 0x01822B 06:A21B: A0 04     LDY #$04
 bra_A21D:
-C - - - - - 0x01822D 06:A21D: B9 58 E3  LDA $E358,Y
+C - - - - - 0x01822D 06:A21D: B9 58 E3  LDA tbl_E358_init_counter,Y
+; In: Register A - a jump counter value
+; In: Register X - the enemyA number
 loc_A220:
-C D 1 - - - 0x018230 06:A220: 9D 4A 03  STA ram_034A,X
-C - - - - - 0x018233 06:A223: 98        TYA
-C - - - - - 0x018234 06:A224: 9D 56 03  STA ram_0356,X
-C - - - - - 0x018237 06:A227: A9 02     LDA #$02
-C - - - - - 0x018239 06:A229: 20 23 A3  JSR sub_A323
+C D 1 - - - 0x018230 06:A220: 9D 4A 03  STA vEnemyAJumpCounter,X     ;
+C - - - - - 0x018233 06:A223: 98        TYA                          ;
+C - - - - - 0x018234 06:A224: 9D 56 03  STA vEnemyAJumpType,X        ;
+C - - - - - 0x018237 06:A227: A9 02     LDA #$02                     ; CONSTANT - the jump
+C - - - - - 0x018239 06:A229: 20 23 A3  JSR sub_A323_add_status      ;
 C - - - - - 0x01823C 06:A22C: A9 00     LDA #$00
 C - - - - - 0x01823E 06:A22E: 9D 44 03  STA ram_0344,X
+; In: Register X - the enemyA number
+loc_A231_jump:
 bra_A231:
-C - - - - - 0x018241 06:A231: BD 4A 03  LDA ram_034A,X
-C - - - - - 0x018244 06:A234: C9 18     CMP #$18
-C - - - - - 0x018246 06:A236: 90 07     BCC bra_A23F
-C - - - - - 0x018248 06:A238: BD 2C 03  LDA ram_032C,X
-C - - - - - 0x01824B 06:A23B: C9 DF     CMP #$DF
-C - - - - - 0x01824D 06:A23D: B0 1E     BCS bra_A25D
-bra_A23F:
-C - - - - - 0x01824F 06:A23F: BD 56 03  LDA ram_0356,X
-C - - - - - 0x018252 06:A242: C9 03     CMP #$03
-C - - - - - 0x018254 06:A244: D0 17     BNE bra_A25D
-C - - - - - 0x018256 06:A246: BD 20 03  LDA ram_0320,X
-C - - - - - 0x018259 06:A249: 6A        ROR
-C - - - - - 0x01825A 06:A24A: 90 0A     BCC bra_A256
+C - - - - - 0x018241 06:A231: BD 4A 03  LDA vEnemyAJumpCounter,X     ;
+C - - - - - 0x018244 06:A234: C9 18     CMP #$18                     ; CONSTANT - a maximum amplitude
+C - - - - - 0x018246 06:A236: 90 07     BCC @bra_A23F_skip           ; If JumpCounter < 0x18
+C - - - - - 0x018248 06:A238: BD 2C 03  LDA vEnemyAPosY,X            ;
+C - - - - - 0x01824B 06:A23B: C9 DF     CMP #$DF                     ; CONSTANT - Maximum allowed Y-value on the screen
+C - - - - - 0x01824D 06:A23D: B0 1E     BCS bra_A25D_skip            ; If PosY >= 0xDF
+@bra_A23F_skip:
+C - - - - - 0x01824F 06:A23F: BD 56 03  LDA vEnemyAJumpType,X        ;
+C - - - - - 0x018252 06:A242: C9 03     CMP #$03                     ; CONSTANT - jump by side
+C - - - - - 0x018254 06:A244: D0 17     BNE bra_A25D_skip            ; If vEnemyAJumpType != 0x03
+C - - - - - 0x018256 06:A246: BD 20 03  LDA vEnemyAStatus,X          ;
+C - - - - - 0x018259 06:A249: 6A        ROR                          ;
+C - - - - - 0x01825A 06:A24A: 90 0A     BCC bra_A256                 ; If the enemy is looking to the right
 C - - - - - 0x01825C 06:A24C: 29 10     AND #$10
 C - - - - - 0x01825E 06:A24E: D0 0A     BNE bra_A25A
 bra_A250:
@@ -400,10 +416,10 @@ C - - - - - 0x018266 06:A256: 29 10     AND #$10
 C - - - - - 0x018268 06:A258: D0 F6     BNE bra_A250
 bra_A25A:
 C - - - - - 0x01826A 06:A25A: 20 A8 A1  JSR sub_A1A8
-bra_A25D:
 loc_A25D:
+bra_A25D_skip:
 C D 1 - - - 0x01826D 06:A25D: BC 4A 03  LDY ram_034A,X
-C - - - - - 0x018270 06:A260: B9 5D E3  LDA $E35D,Y
+C - - - - - 0x018270 06:A260: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y
 C - - - - - 0x018273 06:A263: 18        CLC
 C - - - - - 0x018274 06:A264: 7D 2C 03  ADC ram_032C,X
 C - - - - - 0x018277 06:A267: C9 DF     CMP #$DF
@@ -411,8 +427,7 @@ C - - - - - 0x018279 06:A269: 90 09     BCC bra_A274
 C - - - - - 0x01827B 06:A26B: A0 DF     LDY #$DF
 C - - - - - 0x01827D 06:A26D: C9 F8     CMP #$F8
 C - - - - - 0x01827F 06:A26F: 90 02     BCC bra_A273
-- - - - - - 0x018281 06:A271: A0        .byte $A0   ; 
-- - - - - - 0x018282 06:A272: 00        .byte $00   ; 
+- - - - - - 0x018281 06:A271: A0 00     LDY #$00
 bra_A273:
 C - - - - - 0x018283 06:A273: 98        TYA
 bra_A274:
@@ -466,6 +481,7 @@ C - - - - - 0x0182DB 06:A2CB: 4C 30 A1  JMP loc_A130
 bra_A2CE:
 C - - - - - 0x0182DE 06:A2CE: A9 30     LDA #$30
 C - - - - - 0x0182E0 06:A2D0: 9D 4A 03  STA ram_034A,X
+loc_A2D3:
 C - - - - - 0x0182E3 06:A2D3: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x0182E6 06:A2D6: D0 03     BNE bra_A2DB
 C - - - - - 0x0182E8 06:A2D8: 4C 7F D7  JMP $D77F
@@ -488,7 +504,7 @@ C - - - - - 0x0182FF 06:A2EF: F0 0A     BEQ bra_A2FB
 C - - - - - 0x018301 06:A2F1: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x018304 06:A2F4: D0 39     BNE bra_A32F_RTS
 C - - - - - 0x018306 06:A2F6: A9 00     LDA #$00
-C - - - - - 0x018308 06:A2F8: 20 23 A3  JSR sub_A323
+C - - - - - 0x018308 06:A2F8: 20 23 A3  JSR sub_A323_add_status
 bra_A2FB:
 C - - - - - 0x01830B 06:A2FB: 20 30 A3  JSR sub_A330
 C - - - - - 0x01830E 06:A2FE: A5 2C     LDA vLowCounter
@@ -511,15 +527,16 @@ C - - - - - 0x01832C 06:A31C: A9 20     LDA #$20
 bra_A31E:
 C - - - - - 0x01832E 06:A31E: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x018331 06:A321: D0 02     BNE bra_A325
-sub_A323:
-C - - - - - 0x018333 06:A323: 85 05     STA ram_0005
+; In: Register A - an new status
+sub_A323_add_status:
+C - - - - - 0x018333 06:A323: 85 05     STA ram_0005             ;
 bra_A325:
-C - - - - - 0x018335 06:A325: BD 20 03  LDA ram_0320,X
-C - - - - - 0x018338 06:A328: 29 C1     AND #$C1
-C - - - - - 0x01833A 06:A32A: 05 05     ORA ram_0005
-C - - - - - 0x01833C 06:A32C: 9D 20 03  STA ram_0320,X
+C - - - - - 0x018335 06:A325: BD 20 03  LDA vEnemyAStatus,X      ;
+C - - - - - 0x018338 06:A328: 29 C1     AND #$C1                 ;
+C - - - - - 0x01833A 06:A32A: 05 05     ORA ram_0005             ;
+C - - - - - 0x01833C 06:A32C: 9D 20 03  STA vEnemyAStatus,X      ;
 bra_A32F_RTS:
-C - - - - - 0x01833F 06:A32F: 60        RTS
+C - - - - - 0x01833F 06:A32F: 60        RTS                      ;
 
 sub_A330:
 C - - - - - 0x018340 06:A330: A9 7F     LDA #$7F
@@ -1090,7 +1107,7 @@ C - - - - - 0x018702 06:A6F2: 20 C6 A6  JSR sub_A6C6
 bra_A6F5:
 loc_A6F5:
 C D 1 - - - 0x018705 06:A6F5: BC 86 03  LDY ram_0386,X
-C - - - - - 0x018708 06:A6F8: B9 5D E3  LDA $E35D,Y
+C - - - - - 0x018708 06:A6F8: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y
 C - - - - - 0x01870B 06:A6FB: 18        CLC
 C - - - - - 0x01870C 06:A6FC: 7D 68 03  ADC ram_0368,X
 C - - - - - 0x01870F 06:A6FF: C9 D7     CMP #$D7
@@ -1327,7 +1344,7 @@ C - - - - - 0x018886 06:A876: 20 53 A8  JSR sub_A853
 bra_A879:
 loc_A879:
 C D 1 - - - 0x018889 06:A879: BC 4A 03  LDY ram_034A,X
-C - - - - - 0x01888C 06:A87C: B9 5D E3  LDA $E35D,Y
+C - - - - - 0x01888C 06:A87C: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y
 C - - - - - 0x01888F 06:A87F: 18        CLC
 C - - - - - 0x018890 06:A880: 7D 2C 03  ADC ram_032C,X
 C - - - - - 0x018893 06:A883: C9 DF     CMP #$DF
@@ -1728,7 +1745,7 @@ bra_AB2E:
 C - - - - - 0x018B3E 06:AB2E: 20 FD A9  JSR sub_A9FD
 loc_AB31:
 C D 1 - - - 0x018B41 06:AB31: BC 4A 03  LDY ram_034A,X
-C - - - - - 0x018B44 06:AB34: B9 5D E3  LDA $E35D,Y
+C - - - - - 0x018B44 06:AB34: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y
 C - - - - - 0x018B47 06:AB37: 18        CLC
 C - - - - - 0x018B48 06:AB38: 7D 2C 03  ADC ram_032C,X
 C - - - - - 0x018B4B 06:AB3B: C9 F8     CMP #$F8
@@ -2118,7 +2135,7 @@ C - - - - - 0x018DC0 06:ADB0: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 loc_ADB3:
 C D 1 - - - 0x018DC3 06:ADB3: BC 88 03  LDY ram_0388,X
-C - - - - - 0x018DC6 06:ADB6: B9 5D E3  LDA $E35D,Y
+C - - - - - 0x018DC6 06:ADB6: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y
 C - - - - - 0x018DC9 06:ADB9: 18        CLC
 C - - - - - 0x018DCA 06:ADBA: 7D 6A 03  ADC ram_036A,X
 C - - - - - 0x018DCD 06:ADBD: 9D 6A 03  STA ram_036A,X
@@ -2686,7 +2703,7 @@ C - - - - - 0x01914D 06:B13D: 20 1C D7  JSR $D71C
 bra_B140:
 loc_B140:
 C D 1 - - - 0x019150 06:B140: BC 4A 03  LDY ram_034A,X
-C - - - - - 0x019153 06:B143: B9 5D E3  LDA $E35D,Y
+C - - - - - 0x019153 06:B143: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y
 C - - - - - 0x019156 06:B146: 18        CLC
 C - - - - - 0x019157 06:B147: 7D 2C 03  ADC ram_032C,X
 C - - - - - 0x01915A 06:B14A: C9 DF     CMP #$DF
@@ -3285,12 +3302,12 @@ C - - - - - 0x019518 06:B508: 20 4D B5  JSR sub_B54D
 C - - - - - 0x01951B 06:B50B: 4C FC B4  JMP loc_B4FC
 
 sub_B50E:
-C - - - - - 0x01951E 06:B50E: 20 CA D7  JSR $D7CA
+C - - - - - 0x01951E 06:B50E: 20 CA D7  JSR sub_D7CA_check_enemyA_movement_on_the_left
 C - - - - - 0x019521 06:B511: F0 08     BEQ bra_B51B
 C - - - - - 0x019523 06:B513: A5 2C     LDA vLowCounter
 C - - - - - 0x019525 06:B515: 6A        ROR
 C - - - - - 0x019526 06:B516: 90 34     BCC bra_B54C_RTS
-C - - - - - 0x019528 06:B518: 4C F0 D6  JMP $D6F0
+C - - - - - 0x019528 06:B518: 4C F0 D6  JMP loc_D6F0_dec_EnemyAPosXLow
 
 bra_B51B:
 C - - - - - 0x01952B 06:B51B: AD 00 03  LDA ram_0300
@@ -3321,12 +3338,12 @@ bra_B54C_RTS:
 C - - - - - 0x01955C 06:B54C: 60        RTS
 
 sub_B54D:
-C - - - - - 0x01955D 06:B54D: 20 BF D7  JSR $D7BF
+C - - - - - 0x01955D 06:B54D: 20 BF D7  JSR sub_D7BF_check_enemyA_movement_on_the_right
 C - - - - - 0x019560 06:B550: F0 C9     BEQ bra_B51B
 C - - - - - 0x019562 06:B552: A5 2C     LDA vLowCounter
 C - - - - - 0x019564 06:B554: 6A        ROR
 C - - - - - 0x019565 06:B555: 90 F5     BCC bra_B54C_RTS
-C - - - - - 0x019567 06:B557: 4C 0F D7  JMP $D70F
+C - - - - - 0x019567 06:B557: 4C 0F D7  JMP loc_D70F_inc_EnemyAPosXLow
 
 C - - - - - 0x01956A 06:B55A: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x01956D 06:B55D: F0 05     BEQ bra_B564
@@ -3343,7 +3360,7 @@ C - - - - - 0x019580 06:B570: D0 02     BNE bra_B574
 C - - - - - 0x019582 06:B572: A9 03     LDA #$03
 bra_B574:
 C - - - - - 0x019584 06:B574: A8        TAY
-C - - - - - 0x019585 06:B575: B9 58 E3  LDA $E358,Y
+C - - - - - 0x019585 06:B575: B9 58 E3  LDA tbl_E358_init_counter,Y
 loc_B578:
 C D 1 - - - 0x019588 06:B578: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x01958B 06:B57B: 98        TYA
@@ -3375,7 +3392,7 @@ C - - - - - 0x0195BB 06:B5AB: 20 4D B5  JSR sub_B54D
 bra_B5AE:
 loc_B5AE:
 C D 1 - - - 0x0195BE 06:B5AE: BC 4A 03  LDY ram_034A,X
-C - - - - - 0x0195C1 06:B5B1: B9 5D E3  LDA $E35D,Y
+C - - - - - 0x0195C1 06:B5B1: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y
 C - - - - - 0x0195C4 06:B5B4: 18        CLC
 C - - - - - 0x0195C5 06:B5B5: 7D 2C 03  ADC ram_032C,X
 C - - - - - 0x0195C8 06:B5B8: C9 DF     CMP #$DF
@@ -3888,14 +3905,14 @@ C - - - - - 0x019938 06:B928: 20 62 B9  JSR sub_B962
 C - - - - - 0x01993B 06:B92B: 4C 1C B9  JMP loc_B91C
 
 sub_B92E:
-C - - - - - 0x01993E 06:B92E: 20 CA D7  JSR $D7CA
+C - - - - - 0x01993E 06:B92E: 20 CA D7  JSR sub_D7CA_check_enemyA_movement_on_the_left
 C - - - - - 0x019941 06:B931: C9 01     CMP #$01
 C - - - - - 0x019943 06:B933: F0 0B     BEQ bra_B940
-C - - - - - 0x019945 06:B935: 20 F0 D6  JSR $D6F0
+C - - - - - 0x019945 06:B935: 20 F0 D6  JSR loc_D6F0_dec_EnemyAPosXLow
 C - - - - - 0x019948 06:B938: A5 2C     LDA vLowCounter
 C - - - - - 0x01994A 06:B93A: 6A        ROR
 C - - - - - 0x01994B 06:B93B: 90 24     BCC bra_B961_RTS
-C - - - - - 0x01994D 06:B93D: 4C F0 D6  JMP $D6F0
+C - - - - - 0x01994D 06:B93D: 4C F0 D6  JMP loc_D6F0_dec_EnemyAPosXLow
 
 bra_B940:
 C - - - - - 0x019950 06:B940: BD 20 03  LDA ram_0320,X
@@ -3916,14 +3933,14 @@ bra_B961_RTS:
 C - - - - - 0x019971 06:B961: 60        RTS
 
 sub_B962:
-C - - - - - 0x019972 06:B962: 20 BF D7  JSR $D7BF
+C - - - - - 0x019972 06:B962: 20 BF D7  JSR sub_D7BF_check_enemyA_movement_on_the_right
 C - - - - - 0x019975 06:B965: C9 01     CMP #$01
 C - - - - - 0x019977 06:B967: F0 D7     BEQ bra_B940
-C - - - - - 0x019979 06:B969: 20 0F D7  JSR $D70F
+C - - - - - 0x019979 06:B969: 20 0F D7  JSR loc_D70F_inc_EnemyAPosXLow
 C - - - - - 0x01997C 06:B96C: A5 2C     LDA vLowCounter
 C - - - - - 0x01997E 06:B96E: 6A        ROR
 C - - - - - 0x01997F 06:B96F: 90 F0     BCC bra_B961_RTS
-C - - - - - 0x019981 06:B971: 4C 0F D7  JMP $D70F
+C - - - - - 0x019981 06:B971: 4C 0F D7  JMP loc_D70F_inc_EnemyAPosXLow
 
 C - - - - - 0x019984 06:B974: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x019987 06:B977: F0 05     BEQ bra_B97E
@@ -3940,7 +3957,7 @@ C - - - - - 0x01999A 06:B98A: D0 02     BNE bra_B98E
 C - - - - - 0x01999C 06:B98C: A9 03     LDA #$03
 bra_B98E:
 C - - - - - 0x01999E 06:B98E: A8        TAY
-C - - - - - 0x01999F 06:B98F: B9 58 E3  LDA $E358,Y
+C - - - - - 0x01999F 06:B98F: B9 58 E3  LDA tbl_E358_init_counter,Y
 loc_B992:
 C D 1 - - - 0x0199A2 06:B992: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x0199A5 06:B995: 98        TYA
@@ -3972,7 +3989,7 @@ C - - - - - 0x0199D5 06:B9C5: 20 62 B9  JSR sub_B962
 bra_B9C8:
 loc_B9C8:
 C D 1 - - - 0x0199D8 06:B9C8: BC 4A 03  LDY ram_034A,X
-C - - - - - 0x0199DB 06:B9CB: B9 5D E3  LDA $E35D,Y
+C - - - - - 0x0199DB 06:B9CB: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y
 C - - - - - 0x0199DE 06:B9CE: 18        CLC
 C - - - - - 0x0199DF 06:B9CF: 7D 2C 03  ADC ram_032C,X
 C - - - - - 0x0199E2 06:B9D2: C9 DF     CMP #$DF
@@ -4334,7 +4351,7 @@ C - - - - - 0x019C34 06:BC24: 20 5A BC  JSR sub_BC5A
 C - - - - - 0x019C37 06:BC27: 4C 21 BC  JMP loc_BC21
 
 sub_BC2A:
-C - - - - - 0x019C3A 06:BC2A: 20 CA D7  JSR $D7CA
+C - - - - - 0x019C3A 06:BC2A: 20 CA D7  JSR sub_D7CA_check_enemyA_movement_on_the_left
 C - - - - - 0x019C3D 06:BC2D: F0 0F     BEQ bra_BC3E
 C - - - - - 0x019C3F 06:BC2F: BD 20 03  LDA ram_0320,X
 C - - - - - 0x019C42 06:BC32: 29 04     AND #$04
@@ -4361,7 +4378,7 @@ bra_BC59_RTS:
 C - - - - - 0x019C69 06:BC59: 60        RTS
 
 sub_BC5A:
-C - - - - - 0x019C6A 06:BC5A: 20 BF D7  JSR $D7BF
+C - - - - - 0x019C6A 06:BC5A: 20 BF D7  JSR sub_D7BF_check_enemyA_movement_on_the_right
 C - - - - - 0x019C6D 06:BC5D: F0 DF     BEQ bra_BC3E
 C - - - - - 0x019C6F 06:BC5F: BD 20 03  LDA ram_0320,X
 C - - - - - 0x019C72 06:BC62: 29 04     AND #$04
@@ -4406,7 +4423,7 @@ C - - - - - 0x019CB5 06:BCA5: 20 5A BC  JSR sub_BC5A
 bra_BCA8:
 loc_BCA8:
 C D 1 - - - 0x019CB8 06:BCA8: BC 4A 03  LDY ram_034A,X
-C - - - - - 0x019CBB 06:BCAB: B9 5D E3  LDA $E35D,Y
+C - - - - - 0x019CBB 06:BCAB: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y
 C - - - - - 0x019CBE 06:BCAE: 18        CLC
 C - - - - - 0x019CBF 06:BCAF: 7D 2C 03  ADC ram_032C,X
 C - - - - - 0x019CC2 06:BCB2: C9 DF     CMP #$DF

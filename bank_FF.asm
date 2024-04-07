@@ -68,6 +68,13 @@
 .export sub_D6AC_out_of_screen
 .export loc_D99F_add_flash_sprite
 .export sub_D660_is_bomb_exploding
+.export tbl_E35D_jump_posY_offset
+.export sub_D358_check_left_right_enemy_collision
+.export tbl_E358_init_counter
+.export sub_D7BF_check_enemyA_movement_on_the_right
+.export sub_D7CA_check_enemyA_movement_on_the_left
+.export loc_D70F_inc_EnemyAPosXLow
+.export loc_D6F0_dec_EnemyAPosXLow
 
 BANK02_OFFSET = -8192
 
@@ -3061,8 +3068,11 @@ C - - - - - 0x01D362 07:D352: 20 F0 D7  JSR sub_D7F0
 C - - - - - 0x01D365 07:D355: C9 01     CMP #$01
 C - - - - - 0x01D367 07:D357: 60        RTS
 
-C - - - - - 0x01D368 07:D358: 20 3F D9  JSR sub_D93F
-C - - - - - 0x01D36B 07:D35B: 4C 70 D3  JMP loc_D370_left_right_collision
+; In: $0000 - EnemyAPosY
+; Out: Register A - a strong collision or left + right collision value
+sub_D358_check_left_right_enemy_collision:
+C - - - - - 0x01D368 07:D358: 20 3F D9  JSR sub_D93F_init_short_enemyA_positions ;
+C - - - - - 0x01D36B 07:D35B: 4C 70 D3  JMP loc_D370_left_right_collision        ;
 
 - - - - - - 0x01D36E 07:D35E: 20        .byte $20
 - - - - - - 0x01D36F 07:D35F: 52        .byte $52
@@ -3122,6 +3132,7 @@ C - - - - - 0x01D3A4 07:D394: 4C E5 D2  JMP loc_D2E5_get_collision_value ;
 ; In: Register A - increment by x
 ; In: $0000 - ChrPosY (in vScreenChrPosY units)
 ; In: $0001 - vLowChrPosX
+; Out: Register A - a collision value
 sub_D397_right_collision_by_inc_posX:
 C D 2 - - - 0x01D3A7 07:D397: 20 89 D3  JSR sub_D389_collision_by_increment_posX  ;
 C - - - - - 0x01D3AA 07:D39A: C9 01     CMP #$01                                  ; CONSTANT - a strong collision
@@ -3683,34 +3694,36 @@ C - - - - - 0x01D6FE 07:D6EE: C8        INY
 bra_D6EF_RTS:
 C - - - - - 0x01D6FF 07:D6EF: 60        RTS
 
-loc_D6F0: ; from bank 06_2
-C D 2 - - - 0x01D700 07:D6F0: BD 38 03  LDA ram_0338,X
-C - - - - - 0x01D703 07:D6F3: 38        SEC
-C - - - - - 0x01D704 07:D6F4: E9 10     SBC #$10
-C - - - - - 0x01D706 07:D6F6: BD 3E 03  LDA ram_033E,X
-C - - - - - 0x01D709 07:D6F9: E9 00     SBC #$00
-C - - - - - 0x01D70B 07:D6FB: 90 11     BCC bra_D70E_RTS
-C D 2 - - - 0x01D70D 07:D6FD: BD 38 03  LDA ram_0338,X
-C - - - - - 0x01D710 07:D700: 38        SEC
-C - - - - - 0x01D711 07:D701: E9 01     SBC #$01
-C - - - - - 0x01D713 07:D703: 9D 38 03  STA ram_0338,X
-C - - - - - 0x01D716 07:D706: BD 3E 03  LDA ram_033E,X
-C - - - - - 0x01D719 07:D709: E9 00     SBC #$00
-C - - - - - 0x01D71B 07:D70B: 9D 3E 03  STA ram_033E,X
+; In: Register X - the enemyA number
+loc_D6F0_dec_EnemyAPosXLow:
+C D 2 - - - 0x01D700 07:D6F0: BD 38 03  LDA vEnemyAPosXLow,X            ;
+C - - - - - 0x01D703 07:D6F3: 38        SEC                             ;
+C - - - - - 0x01D704 07:D6F4: E9 10     SBC #$10                        ; CONSTANT - The enemy should be visible in its entirety on the left
+C - - - - - 0x01D706 07:D6F6: BD 3E 03  LDA vEnemyAPosXHigh,X           ;
+C - - - - - 0x01D709 07:D6F9: E9 00     SBC #$00                        ;
+C - - - - - 0x01D70B 07:D6FB: 90 11     BCC bra_D70E_RTS                ; Branch If the enemy reach the beginning of the room
+C D 2 - - - 0x01D70D 07:D6FD: BD 38 03  LDA vEnemyAPosXLow,X            ;
+C - - - - - 0x01D710 07:D700: 38        SEC                             ;
+C - - - - - 0x01D711 07:D701: E9 01     SBC #$01                        ;
+C - - - - - 0x01D713 07:D703: 9D 38 03  STA vEnemyAPosXLow,X            ;
+C - - - - - 0x01D716 07:D706: BD 3E 03  LDA vEnemyAPosXHigh,X           ;
+C - - - - - 0x01D719 07:D709: E9 00     SBC #$00                        ; decrement vEnemyAPosXHigh, if vEnemyAPosXLow changed a sign
+C - - - - - 0x01D71B 07:D70B: 9D 3E 03  STA vEnemyAPosXHigh,X           ;
 bra_D70E_RTS:
-C - - - - - 0x01D71E 07:D70E: 60        RTS
+C - - - - - 0x01D71E 07:D70E: 60        RTS                             ;
 
-loc_D70F: ; from bank 06_2
-C D 2 - - - 0x01D71F 07:D70F: BD 38 03  LDA ram_0338,X
-C - - - - - 0x01D722 07:D712: 38        SEC
-C - - - - - 0x01D723 07:D713: E9 F0     SBC #$F0
-C - - - - - 0x01D725 07:D715: BD 3E 03  LDA ram_033E,X
-C - - - - - 0x01D728 07:D718: E5 4A     SBC vNearCurrentRoomLength
-C - - - - - 0x01D72A 07:D71A: B0 F2     BCS bra_D70E_RTS
-C D 2 - - - 0x01D72C 07:D71C: FE 38 03  INC ram_0338,X
-C - - - - - 0x01D72F 07:D71F: D0 ED     BNE bra_D70E_RTS
-C - - - - - 0x01D731 07:D721: FE 3E 03  INC ram_033E,X
-C - - - - - 0x01D734 07:D724: 60        RTS
+; In: Register X - the enemyA number
+loc_D70F_inc_EnemyAPosXLow:
+C D 2 - - - 0x01D71F 07:D70F: BD 38 03  LDA vEnemyAPosXLow,X            ;
+C - - - - - 0x01D722 07:D712: 38        SEC                             ;
+C - - - - - 0x01D723 07:D713: E9 F0     SBC #$F0                        ; CONSTANT - The enemy should be visible in its entirety on the right
+C - - - - - 0x01D725 07:D715: BD 3E 03  LDA vEnemyAPosXHigh,X           ;
+C - - - - - 0x01D728 07:D718: E5 4A     SBC vNearCurrentRoomLength      ;
+C - - - - - 0x01D72A 07:D71A: B0 F2     BCS bra_D70E_RTS                ; Branch If the enemy reach the end of the room
+C D 2 - - - 0x01D72C 07:D71C: FE 38 03  INC vEnemyAPosXLow,X            ;
+C - - - - - 0x01D72F 07:D71F: D0 ED     BNE bra_D70E_RTS                ; If the enemy doesn't move from one screen to another
+C - - - - - 0x01D731 07:D721: FE 3E 03  INC vEnemyAPosXHigh,X           ;
+C - - - - - 0x01D734 07:D724: 60        RTS                             ;
 
 sub_D725: ; from bank 06_2
 C - - - - - 0x01D735 07:D725: BD 2C 03  LDA ram_032C,X
@@ -3805,26 +3818,28 @@ C - - - - - 0x01D7C9 07:D7B9: 29 E1     AND #$E1
 C - - - - - 0x01D7CB 07:D7BB: 9D 20 03  STA ram_0320,X
 C - - - - - 0x01D7CE 07:D7BE: 60        RTS
 
-sub_D7BF: ; from bank 06_2
-C - - - - - 0x01D7CF 07:D7BF: 20 37 D9  JSR sub_D937
-C - - - - - 0x01D7D2 07:D7C2: A9 08     LDA #$08
-C - - - - - 0x01D7D4 07:D7C4: 20 97 D3  JSR sub_D397_right_collision_by_inc_posX
-C - - - - - 0x01D7D7 07:D7C7: C9 01     CMP #$01
-C - - - - - 0x01D7D9 07:D7C9: 60        RTS
+; Out: If flag Z = 1 then the enemy movement to the right is not allowed
+sub_D7BF_check_enemyA_movement_on_the_right:
+C - - - - - 0x01D7CF 07:D7BF: 20 37 D9  JSR sub_D937_init_absolute_enemyA_positions ;
+C - - - - - 0x01D7D2 07:D7C2: A9 08     LDA #$08                                    ; prepare an increment by X (+8)
+C - - - - - 0x01D7D4 07:D7C4: 20 97 D3  JSR sub_D397_right_collision_by_inc_posX    ;
+C - - - - - 0x01D7D7 07:D7C7: C9 01     CMP #$01                                    ; CONSTANT - a strong collision
+C - - - - - 0x01D7D9 07:D7C9: 60        RTS                                         ;
 
-sub_D7CA: ; from bank 06_2
-C - - - - - 0x01D7DA 07:D7CA: 20 37 D9  JSR sub_D937
-C - - - - - 0x01D7DD 07:D7CD: A9 F8     LDA #$F8
-C - - - - - 0x01D7DF 07:D7CF: 20 AD D3  JSR sub_D3AD_left_collision_by_inc_posX
-C - - - - - 0x01D7E2 07:D7D2: C9 01     CMP #$01
-C - - - - - 0x01D7E4 07:D7D4: 60        RTS
+; Out: If flag Z = 1 then the enemy movement to the left is not allowed
+sub_D7CA_check_enemyA_movement_on_the_left:
+C - - - - - 0x01D7DA 07:D7CA: 20 37 D9  JSR sub_D937_init_absolute_enemyA_positions ;
+C - - - - - 0x01D7DD 07:D7CD: A9 F8     LDA #$F8                                    ; prepare an increment by X (-8)
+C - - - - - 0x01D7DF 07:D7CF: 20 AD D3  JSR sub_D3AD_left_collision_by_inc_posX     ;
+C - - - - - 0x01D7E2 07:D7D2: C9 01     CMP #$01                                    ; CONSTANT - a strong collision
+C - - - - - 0x01D7E4 07:D7D4: 60        RTS                                         ;
 
 sub_D7D5: ; from bank 06_1
 C - - - - - 0x01D7E5 07:D7D5: A5 5E     LDA v_no_level
 C - - - - - 0x01D7E7 07:D7D7: C9 03     CMP #$03
 C - - - - - 0x01D7E9 07:D7D9: D0 0A     BNE bra_D7E5_RTS
 C - - - - - 0x01D7EB 07:D7DB: A9 E1     LDA #$E1
-C - - - - - 0x01D7ED 07:D7DD: 20 39 D9  JSR sub_D939
+C - - - - - 0x01D7ED 07:D7DD: 20 39 D9  JSR sub_D939_init_relative_enemyA_positions
 C - - - - - 0x01D7F0 07:D7E0: 20 70 D3  JSR sub_D370_left_right_collision
 C - - - - - 0x01D7F3 07:D7E3: C9 01     CMP #$01
 bra_D7E5_RTS:
@@ -3844,7 +3859,7 @@ sub_D7F0:
 C - - - - - 0x01D800 07:D7F0: 18        CLC
 C - - - - - 0x01D801 07:D7F1: 7D 2C 03  ADC ram_032C,X
 C - - - - - 0x01D804 07:D7F4: 85 00     STA ram_0000
-C - - - - - 0x01D806 07:D7F6: 20 3F D9  JSR sub_D93F
+C - - - - - 0x01D806 07:D7F6: 20 3F D9  JSR sub_D93F_init_short_enemyA_positions
 C - - - - - 0x01D809 07:D7F9: 4C E5 D2  JMP loc_D2E5_get_collision_value
 
 C D 2 - - - 0x01D80C 07:D7FC: BD 74 03  LDA ram_0374,X
@@ -4047,18 +4062,27 @@ C - - - - - 0x01D937 07:D927: 60        RTS
 - - - - - - 0x01D944 07:D934: D0        .byte $D0
 - - - - - - 0x01D945 07:D935: F2        .byte $F2
 - - - - - - 0x01D946 07:D936: 60        .byte $60
-sub_D937:
-C - - - - - 0x01D947 07:D937: A9 00     LDA #$00
-sub_D939:
-C - - - - - 0x01D949 07:D939: 18        CLC
-C - - - - - 0x01D94A 07:D93A: 7D 2C 03  ADC ram_032C,X
-C - - - - - 0x01D94D 07:D93D: 85 00     STA ram_0000
-sub_D93F:
-C - - - - - 0x01D94F 07:D93F: BD 3E 03  LDA ram_033E,X
-C - - - - - 0x01D952 07:D942: 85 4D     STA ram_004D
-C - - - - - 0x01D954 07:D944: BD 38 03  LDA ram_0338,X
-C - - - - - 0x01D957 07:D947: 85 01     STA ram_0001
-C - - - - - 0x01D959 07:D949: 60        RTS
+; In: Register X - the enemyA number
+; Out: $0000 - EnemyAPosY
+; Out: $0001 - EnemyAPosXLow
+sub_D937_init_absolute_enemyA_positions:
+C - - - - - 0x01D947 07:D937: A9 00     LDA #$00               ;
+; In: Register X - the enemyA number
+; In: Register A - ChrPosY
+; Out: $0000 - EnemyAPosY + PosY
+; Out: $0001 - EnemyAPosXLow
+sub_D939_init_relative_enemyA_positions:
+C - - - - - 0x01D949 07:D939: 18        CLC                    ;
+C - - - - - 0x01D94A 07:D93A: 7D 2C 03  ADC vEnemyAPosY,X      ;
+C - - - - - 0x01D94D 07:D93D: 85 00     STA ram_0000           ;
+; In: Register X - the enemyA number
+; Out: $0001 - EnemyAPosXLow
+sub_D93F_init_short_enemyA_positions:
+C - - - - - 0x01D94F 07:D93F: BD 3E 03  LDA vEnemyAPosXHigh,X  ;
+C - - - - - 0x01D952 07:D942: 85 4D     STA vCacheNoScreen     ;
+C - - - - - 0x01D954 07:D944: BD 38 03  LDA vEnemyAPosXLow,X   ;
+C - - - - - 0x01D957 07:D947: 85 01     STA ram_0001           ;
+C - - - - - 0x01D959 07:D949: 60        RTS                    ;
 
 sub_D94A:
 C - - - - - 0x01D95A 07:D94A: A9 00     LDA #$00
@@ -5747,10 +5771,10 @@ tbl_E348_unknown:
 - D 3 - - - 0x01E364 07:E354: 02        .byte $02, $03, $04, $00
 
 tbl_E358_init_counter:
-- D 3 - - - 0x01E368 07:E358: 06        .byte $06
-- D 3 - - - 0x01E369 07:E359: 00        .byte $00
-- D 3 - - - 0x01E36A 07:E35A: 13        .byte $13
-- D 3 - - - 0x01E36B 07:E35B: 06        .byte $06
+- D 3 - - - 0x01E368 07:E358: 06        .byte $06   ; simple jump
+- D 3 - - - 0x01E369 07:E359: 00        .byte $00   ; high jump
+- D 3 - - - 0x01E36A 07:E35A: 13        .byte $13   ; jumping off
+- D 3 - - - 0x01E36B 07:E35B: 06        .byte $06   ; jump by side
 - D 3 - - - 0x01E36C 07:E35C: 13        .byte $13
 
 ; In the case jumpCounter is equal to 0x17 or 0x18 - this is the amplitude
@@ -8434,20 +8458,20 @@ C - - - - - 0x01F4E6 07:F4D6: 90 13     BCC @bra_F4EB_skip                  ; if
 C - - - - - 0x01F4E8 07:F4D8: A5 01     LDA ram_0001                        ;
 C - - - - - 0x01F4EA 07:F4DA: 38        SEC                                 ;
 C - - - - - 0x01F4EB 07:F4DB: E9 18     SBC #$18                            ;
-C - - - - - 0x01F4ED 07:F4DD: 9D 38 03  STA vEnemyAPosXHigh,X               ; store (X-position - 0x18)
+C - - - - - 0x01F4ED 07:F4DD: 9D 38 03  STA vEnemyAPosXLow,X                ; store (X-position - 0x18)
 C - - - - - 0x01F4F0 07:F4E0: A5 00     LDA ram_0000                        ;
 C - - - - - 0x01F4F2 07:F4E2: E9 00     SBC #$00                            ;
-C - - - - - 0x01F4F4 07:F4E4: 9D 3E 03  STA vEnemyAPosXLow,X                ; store macro X-position (-1 with overflow)
+C - - - - - 0x01F4F4 07:F4E4: 9D 3E 03  STA vEnemyAPosXHigh,X               ; store macro X-position (-1 with overflow)
 C - - - - - 0x01F4F7 07:F4E7: A9 C5     LDA #$C5
 C - - - - - 0x01F4F9 07:F4E9: D0 11     BNE bra_F4FC                        ; Always true
 @bra_F4EB_skip:
 C - - - - - 0x01F4FB 07:F4EB: A5 01     LDA ram_0001                        ;
 C - - - - - 0x01F4FD 07:F4ED: 18        CLC                                 ;
 C - - - - - 0x01F4FE 07:F4EE: 69 18     ADC #$18                            ;
-C - - - - - 0x01F500 07:F4F0: 9D 38 03  STA vEnemyAPosXHigh,X               ; store (X-position + 0x18)
+C - - - - - 0x01F500 07:F4F0: 9D 38 03  STA vEnemyAPosXLow,X                ; store (X-position + 0x18)
 C - - - - - 0x01F503 07:F4F3: A5 00     LDA ram_0000                        ;
 C - - - - - 0x01F505 07:F4F5: 69 00     ADC #$00                            ;
-C - - - - - 0x01F507 07:F4F7: 9D 3E 03  STA vEnemyAPosXLow,X                ; store macro X-position (+1 with overflow)
+C - - - - - 0x01F507 07:F4F7: 9D 3E 03  STA vEnemyAPosXHigh,X               ; store macro X-position (+1 with overflow)
 C - - - - - 0x01F50A 07:F4FA: A9 C4     LDA #$C4
 bra_F4FC:
 C - - - - - 0x01F50C 07:F4FC: 9D 20 03  STA vEnemyAStatus,X                 ; store 0xC4 or 0xC5

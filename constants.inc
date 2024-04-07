@@ -352,22 +352,34 @@ vEnemyBAppearTimerHigh2       = ram_031E ; the high counter after which the same
 vEnemyBAppearTimerLow2        = ram_031F ; the low counter after which the same killed enemy (B) will appear in the same position
 vEnemyAStatus                 = ram_0320 ; see below
 ; 0x00 - None
-; 0x80 - the status is used
+; Byte: XYZW KLMN
+; N - the direction (1 - on the left, 0 - on the right)
+; M - the jump (land diver)
+; X - the status is used
+
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
 vEnemyAPosY                   = ram_032C ; see below
 vEnemyAPosY1                  = ram_032C ; The enemy position along the X axis relative to the level (no repeat)
 vEnemyAPosY2                  = ram_032D ; The enemy position along the X axis relative to the level (no repeat)
 
-vEnemyAPosXHigh               = ram_0338 ; see below
-vEnemyAPosXHigh1              = ram_0338 ; The enemy position along the X axis relative to the level (in screen unit)
-vEnemyAPosXHigh2              = ram_0339 ; The enemy position along the X axis relative to the level (in screen unit)
-vEnemyAPosXLow                = ram_033E ; see below
-vEnemyAPosXLow1               = ram_033E ; The enemy position along the X axis relative to the level (with repeat)
-vEnemyAPosXLow2               = ram_033F ; The enemy position along the X axis relative to the level (with repeat)
+vEnemyAPosXLow                = ram_0338 ; see below
+vEnemyAPosXLow1               = ram_0338 ; The enemy position along the X axis relative to the level (with repeat)
+vEnemyAPosXLow2               = ram_0339 ; The enemy position along the X axis relative to the level (with repeat)
+vEnemyAPosXHigh               = ram_033E ; see below
+vEnemyAPosXHigh1              = ram_033E ; The enemy position along the X axis relative to the level (in screen unit)
+vEnemyAPosXHigh2              = ram_033F ; The enemy position along the X axis relative to the level (in screen unit)
+
+vEnemyAJumpCounter            = ram_034A ; see below
+vEnemyAJumpCounter1           = ram_034A ; vJumpCounter analog for the enemy (the enemy number = 1)
+vEnemyAJumpCounter2           = ram_034B ; vJumpCounter analog for the enemy (the enemy number = 2)
 
 ; ram_0344 - vChrFrameIndex1 ???
 ; ram_0345 - vChrFrameIndex2 ???
+
+vEnemyAJumpType               = ram_0356 ; see below
+vEnemyAJumpType1              = ram_0356 ; vJumpType analog for the enemy (the enemy number = 1)
+vEnemyAJumpType2              = ram_0357 ; vJumpType analog for the enemy (the enemy number = 2)
 
 vEnemyBStatus                 = ram_035C ; see below
 ; 0x00 - None
