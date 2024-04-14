@@ -352,16 +352,24 @@ vEnemyBAppearTimerHigh2       = ram_031E ; the high counter after which the same
 vEnemyBAppearTimerLow2        = ram_031F ; the low counter after which the same killed enemy (B) will appear in the same position
 vEnemyAStatus                 = ram_0320 ; see below
 ; 0x00 - None
-; Byte: XYZW KLMN
+; 0x80 - The status is used
+
+; Byte: 0YZW KLMN (template1, land diver)
 ; N - the direction (1 - on the left, 0 - on the right)
-; M - the jump (land diver)
-; X - the status is used
+; M - the jump
+; L - pause for a moment
+; L - the squatting
+; Y - 
 
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
 vEnemyAPosY                   = ram_032C ; see below
 vEnemyAPosY1                  = ram_032C ; The enemy position along the X axis relative to the level (no repeat)
 vEnemyAPosY2                  = ram_032D ; The enemy position along the X axis relative to the level (no repeat)
+
+vEnemyAScreenPosX             = ram_0332 ; see below
+vEnemyAScreenPosX1            = ram_0332 ; The enemy position along the X axis relative to the screen (no repeat)
+vEnemyAScreenPosX2            = ram_0333 ; The enemy position along the X axis relative to the screen (no repeat)
 
 vEnemyAPosXLow                = ram_0338 ; see below
 vEnemyAPosXLow1               = ram_0338 ; The enemy position along the X axis relative to the level (with repeat)

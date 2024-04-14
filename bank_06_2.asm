@@ -110,7 +110,7 @@ C - - - - - 0x01A03A 06:A02A: 86 1A     STX ram_001A
 bra_A02C:
 C - - - - - 0x01A03C 06:A02C: A6 1A     LDX ram_001A
 C - - - - - 0x01A03E 06:A02E: 20 F8 A0  JSR sub_A0F8
-C - - - - - 0x01A041 06:A031: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A041 06:A031: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A044 06:A034: C9 E0     CMP #$E0
 C - - - - - 0x01A046 06:A036: B0 34     BCS bra_A06C
 C - - - - - 0x01A048 06:A038: C9 C0     CMP #$C0
@@ -179,7 +179,7 @@ C - - - - - 0x01A0AC 06:A09C: AD 00 03  LDA ram_0300
 C - - - - - 0x01A0AF 06:A09F: C9 10     CMP #$10
 C - - - - - 0x01A0B1 06:A0A1: F0 54     BEQ bra_A0F7_RTS
 C - - - - - 0x01A0B3 06:A0A3: A0 0C     LDY #$0C
-C - - - - - 0x01A0B5 06:A0A5: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A0B5 06:A0A5: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A0B8 06:A0A8: 29 12     AND #$12
 C - - - - - 0x01A0BA 06:A0AA: F0 2F     BEQ bra_A0DB
 C - - - - - 0x01A0BC 06:A0AC: A0 10     LDY #$10
@@ -192,14 +192,14 @@ C - - - - - 0x01A0C6 06:A0B6: AD 00 03  LDA ram_0300
 C - - - - - 0x01A0C9 06:A0B9: C9 10     CMP #$10
 C - - - - - 0x01A0CB 06:A0BB: D0 0D     BNE bra_A0CA
 C - - - - - 0x01A0CD 06:A0BD: A0 18     LDY #$18
-C - - - - - 0x01A0CF 06:A0BF: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A0CF 06:A0BF: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A0D2 06:A0C2: 29 10     AND #$10
 C - - - - - 0x01A0D4 06:A0C4: F0 15     BEQ bra_A0DB
 C - - - - - 0x01A0D6 06:A0C6: A0 1C     LDY #$1C
 C - - - - - 0x01A0D8 06:A0C8: D0 11     BNE bra_A0DB
 bra_A0CA:
 C - - - - - 0x01A0DA 06:A0CA: A0 00     LDY #$00
-C - - - - - 0x01A0DC 06:A0CC: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A0DC 06:A0CC: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A0DF 06:A0CF: 29 12     AND #$12
 C - - - - - 0x01A0E1 06:A0D1: F0 08     BEQ bra_A0DB
 C - - - - - 0x01A0E3 06:A0D3: A0 04     LDY #$04
@@ -223,7 +223,7 @@ bra_A0F7_RTS:
 C - - - - - 0x01A107 06:A0F7: 60        RTS
 
 sub_A0F8:
-C - - - - - 0x01A108 06:A0F8: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A108 06:A0F8: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A10B 06:A0FB: 10 FA     BPL bra_A0F7_RTS
 C - - - - - 0x01A10D 06:A0FD: 4A        LSR
 C - - - - - 0x01A10E 06:A0FE: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
@@ -237,7 +237,7 @@ C - - - - - 0x01A10E 06:A0FE: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bit
 - - - - - - 0x01A11D 06:A10D: 0E A1     .word $A10E
 
 C - - - - - 0x01A11F 06:A10F: 20 A0 A2  JSR sub_A2A0
-C - - - - - 0x01A122 06:A112: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A122 06:A112: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A125 06:A115: 29 10     AND #$10
 C - - - - - 0x01A127 06:A117: F0 03     BEQ bra_A11C
 C - - - - - 0x01A129 06:A119: 4C 84 A1  JMP loc_A184
@@ -350,7 +350,7 @@ C - - - - - 0x01A1E2 06:A1D2: BD 2C 03  LDA ram_032C,X
 C - - - - - 0x01A1E5 06:A1D5: 4C 06 A2  JMP loc_A206
 
 bra_A1D8:
-C - - - - - 0x01A1E8 06:A1D8: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A1E8 06:A1D8: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A1EB 06:A1DB: 6A        ROR
 C - - - - - 0x01A1EC 06:A1DC: 90 0A     BCC bra_A1E8
 C - - - - - 0x01A1EE 06:A1DE: 29 10     AND #$10
@@ -409,7 +409,7 @@ C - - - - - 0x01A244 06:A234: 29 03     AND #$03
 C - - - - - 0x01A246 06:A236: D0 16     BNE bra_A24E
 bra_A238:
 C - - - - - 0x01A248 06:A238: 20 A8 D7  JSR $D7A8
-C - - - - - 0x01A24B 06:A23B: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A24B 06:A23B: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A24E 06:A23E: 29 20     AND #$20
 C - - - - - 0x01A250 06:A240: D0 34     BNE bra_A276
 bra_A242:
@@ -433,7 +433,7 @@ C - - - - - 0x01A273 06:A263: B0 03     BCS bra_A268
 C - - - - - 0x01A275 06:A265: 9D 4A 03  STA ram_034A,X
 bra_A268:
 C - - - - - 0x01A278 06:A268: A0 0C     LDY #$0C
-C - - - - - 0x01A27A 06:A26A: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A27A 06:A26A: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A27D 06:A26D: 29 20     AND #$20
 C - - - - - 0x01A27F 06:A26F: D0 02     BNE bra_A273
 bra_A271:
@@ -481,10 +481,10 @@ C - - - - - 0x01A2C5 06:A2B5: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x01A2C8 06:A2B8: A9 10     LDA #$10
 sub_A2BA:
 C - - - - - 0x01A2CA 06:A2BA: 85 05     STA ram_0005
-C - - - - - 0x01A2CC 06:A2BC: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A2CC 06:A2BC: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A2CF 06:A2BF: 29 C1     AND #$C1
 C - - - - - 0x01A2D1 06:A2C1: 05 05     ORA ram_0005
-C - - - - - 0x01A2D3 06:A2C3: 9D 20 03  STA ram_0320,X
+C - - - - - 0x01A2D3 06:A2C3: 9D 20 03  STA vEnemyAStatus,X
 bra_A2C6_RTS:
 C - - - - - 0x01A2D6 06:A2C6: 60        RTS
 
@@ -492,10 +492,10 @@ sub_A2C7:
 C - - - - - 0x01A2D7 06:A2C7: A9 3F     LDA #$3F
 C - - - - - 0x01A2D9 06:A2C9: 20 BD D6  JSR $D6BD ; to sub_D6BD (bank FF)
 C - - - - - 0x01A2DC 06:A2CC: 84 05     STY ram_0005
-C - - - - - 0x01A2DE 06:A2CE: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A2DE 06:A2CE: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A2E1 06:A2D1: 29 FE     AND #$FE
 C - - - - - 0x01A2E3 06:A2D3: 05 05     ORA ram_0005
-C - - - - - 0x01A2E5 06:A2D5: 9D 20 03  STA ram_0320,X
+C - - - - - 0x01A2E5 06:A2D5: 9D 20 03  STA vEnemyAStatus,X
 C - - - - - 0x01A2E8 06:A2D8: 60        RTS
 
 tbl_A2D9:
@@ -557,7 +557,7 @@ bra_A30D:
 C - - - - - 0x01A31D 06:A30D: A6 1A     LDX ram_001A
 C - - - - - 0x01A31F 06:A30F: 20 BB A3  JSR sub_A3BB
 C - - - - - 0x01A322 06:A312: A6 1A     LDX ram_001A
-C - - - - - 0x01A324 06:A314: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A324 06:A314: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A327 06:A317: C9 E0     CMP #$E0
 C - - - - - 0x01A329 06:A319: B0 39     BCS bra_A354
 C - - - - - 0x01A32B 06:A31B: C9 C0     CMP #$C0
@@ -587,7 +587,7 @@ C - - - - - 0x01A350 06:A340: 10 F8     BPL bra_A33A
 bra_A342:
 C - - - - - 0x01A352 06:A342: A6 1A     LDX ram_001A
 C - - - - - 0x01A354 06:A344: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
-C - - - - - 0x01A357 06:A347: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A357 06:A347: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A35A 06:A34A: 29 04     AND #$04
 C - - - - - 0x01A35C 06:A34C: F0 06     BEQ bra_A354
 C - - - - - 0x01A35E 06:A34E: 20 7A A3  JSR sub_A37A
@@ -618,7 +618,7 @@ C - - - - - 0x01A389 06:A379: 60        RTS
 
 sub_A37A:
 C - - - - - 0x01A38A 06:A37A: A0 08     LDY #$08
-C - - - - - 0x01A38C 06:A37C: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A38C 06:A37C: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A38F 06:A37F: 6A        ROR
 C - - - - - 0x01A390 06:A380: 90 02     BCC bra_A384
 C - - - - - 0x01A392 06:A382: A0 18     LDY #$18
@@ -634,7 +634,7 @@ C - - - - - 0x01A3A0 06:A390: A8        TAY
 C - - - - - 0x01A3A1 06:A391: D0 0B     BNE bra_A39E
 sub_A393:
 C - - - - - 0x01A3A3 06:A393: A0 00     LDY #$00
-C - - - - - 0x01A3A5 06:A395: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A3A5 06:A395: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A3A8 06:A398: 29 10     AND #$10
 C - - - - - 0x01A3AA 06:A39A: F0 02     BEQ bra_A39E
 C - - - - - 0x01A3AC 06:A39C: A0 04     LDY #$04
@@ -655,9 +655,9 @@ bra_A3BA_RTS:
 C - - - - - 0x01A3CA 06:A3BA: 60        RTS
 
 sub_A3BB:
-C - - - - - 0x01A3CB 06:A3BB: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A3CB 06:A3BB: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A3CE 06:A3BE: 10 FA     BPL bra_A3BA_RTS
-C - - - - - 0x01A3D0 06:A3C0: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A3D0 06:A3C0: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A3D3 06:A3C3: 4A        LSR
 C - - - - - 0x01A3D4 06:A3C4: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
 
@@ -680,7 +680,7 @@ C - - - - - 0x01A3F5 06:A3E5: 4C C7 A4  JMP loc_A4C7
 
 bra_A3E8:
 C - - - - - 0x01A3F8 06:A3E8: 20 85 A5  JSR sub_A585
-C - - - - - 0x01A3FB 06:A3EB: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A3FB 06:A3EB: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A3FE 06:A3EE: 29 0C     AND #$0C
 C - - - - - 0x01A400 06:A3F0: F0 56     BEQ bra_A448
 C - - - - - 0x01A402 06:A3F2: A0 04     LDY #$04
@@ -734,7 +734,7 @@ C - - - - - 0x01A453 06:A443: 85 01     STA ram_0001
 C - - - - - 0x01A455 06:A445: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 bra_A448:
-C - - - - - 0x01A458 06:A448: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A458 06:A448: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A45B 06:A44B: 6A        ROR
 C - - - - - 0x01A45C 06:A44C: 90 0F     BCC bra_A45D
 C - - - - - 0x01A45E 06:A44E: 20 63 A4  JSR sub_A463
@@ -833,7 +833,7 @@ C - - - - - 0x01A4ED 06:A4DD: B0 1E     BCS bra_A4FD
 C - - - - - 0x01A4EF 06:A4DF: BD 56 03  LDA ram_0356,X
 C - - - - - 0x01A4F2 06:A4E2: C9 03     CMP #$03
 C - - - - - 0x01A4F4 06:A4E4: D0 17     BNE bra_A4FD
-C - - - - - 0x01A4F6 06:A4E6: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A4F6 06:A4E6: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A4F9 06:A4E9: 6A        ROR
 C - - - - - 0x01A4FA 06:A4EA: 90 0A     BCC bra_A4F6
 C - - - - - 0x01A4FC 06:A4EC: 29 10     AND #$10
@@ -892,7 +892,7 @@ C - - - - - 0x01A54B 06:A53B: 20 47 D3  JSR $D347 ; to sub_D347 (bank FF)
 C - - - - - 0x01A54E 06:A53E: F0 0C     BEQ bra_A54C
 bra_A540:
 C - - - - - 0x01A550 06:A540: 20 A8 D7  JSR $D7A8
-C - - - - - 0x01A553 06:A543: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A553 06:A543: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A556 06:A546: 29 20     AND #$20
 C - - - - - 0x01A558 06:A548: D0 1D     BNE bra_A567
 C - - - - - 0x01A55A 06:A54A: F0 0A     BEQ bra_A556
@@ -905,7 +905,7 @@ bra_A556:
 C - - - - - 0x01A566 06:A556: 9D 4A 03  STA ram_034A,X
 bra_A559:
 C - - - - - 0x01A569 06:A559: A0 0C     LDY #$0C
-C - - - - - 0x01A56B 06:A55B: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A56B 06:A55B: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A56E 06:A55E: 29 20     AND #$20
 C - - - - - 0x01A570 06:A560: D0 02     BNE bra_A564
 C - - - - - 0x01A572 06:A562: A0 08     LDY #$08
@@ -943,7 +943,7 @@ C - - - - - 0x01A5A4 06:A594: 20 F6 A5  JSR sub_A5F6
 C - - - - - 0x01A5A7 06:A597: A5 2C     LDA vLowCounter
 C - - - - - 0x01A5A9 06:A599: 6A        ROR
 C - - - - - 0x01A5AA 06:A59A: 90 28     BCC bra_A5C4
-C - - - - - 0x01A5AC 06:A59C: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A5AC 06:A59C: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A5AF 06:A59F: 29 40     AND #$40
 C - - - - - 0x01A5B1 06:A5A1: F0 21     BEQ bra_A5C4
 C - - - - - 0x01A5B3 06:A5A3: A5 6A     LDA ram_006A
@@ -986,10 +986,10 @@ C - - - - - 0x01A5F7 06:A5E7: D0 02     BNE bra_A5EB
 sub_A5E9:
 C - - - - - 0x01A5F9 06:A5E9: 85 05     STA ram_0005
 bra_A5EB:
-C - - - - - 0x01A5FB 06:A5EB: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A5FB 06:A5EB: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A5FE 06:A5EE: 29 C1     AND #$C1
 C - - - - - 0x01A600 06:A5F0: 05 05     ORA ram_0005
-C - - - - - 0x01A602 06:A5F2: 9D 20 03  STA ram_0320,X
+C - - - - - 0x01A602 06:A5F2: 9D 20 03  STA vEnemyAStatus,X
 bra_A5F5_RTS:
 C - - - - - 0x01A605 06:A5F5: 60        RTS
 
@@ -997,10 +997,10 @@ sub_A5F6:
 C - - - - - 0x01A606 06:A5F6: A9 7F     LDA #$7F
 C - - - - - 0x01A608 06:A5F8: 20 BD D6  JSR $D6BD
 C - - - - - 0x01A60B 06:A5FB: 84 05     STY ram_0005
-C - - - - - 0x01A60D 06:A5FD: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A60D 06:A5FD: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A610 06:A600: 29 FE     AND #$FE
 C - - - - - 0x01A612 06:A602: 05 05     ORA ram_0005
-C - - - - - 0x01A614 06:A604: 9D 20 03  STA ram_0320,X
+C - - - - - 0x01A614 06:A604: 9D 20 03  STA vEnemyAStatus,X
 C - - - - - 0x01A617 06:A607: 60        RTS
 
 tbl_A608:
@@ -1110,7 +1110,7 @@ bra_A66C:
 C - - - - - 0x01A67C 06:A66C: A6 1A     LDX ram_001A
 C - - - - - 0x01A67E 06:A66E: 20 72 A7  JSR sub_A772
 C - - - - - 0x01A681 06:A671: A6 1A     LDX ram_001A
-C - - - - - 0x01A683 06:A673: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A683 06:A673: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A686 06:A676: C9 E0     CMP #$E0
 C - - - - - 0x01A688 06:A678: B0 3C     BCS bra_A6B6
 C - - - - - 0x01A68A 06:A67A: C9 C0     CMP #$C0
@@ -1177,7 +1177,7 @@ C - - - - - 0x01A6F1 06:A6E1: F0 25     BEQ bra_A708
 C - - - - - 0x01A6F3 06:A6E3: A9 20     LDA #$20
 C - - - - - 0x01A6F5 06:A6E5: 85 00     STA ram_0000
 C - - - - - 0x01A6F7 06:A6E7: A0 30     LDY #$30
-C - - - - - 0x01A6F9 06:A6E9: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A6F9 06:A6E9: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A6FC 06:A6EC: 48        PHA
 C - - - - - 0x01A6FD 06:A6ED: 29 16     AND #$16
 C - - - - - 0x01A6FF 06:A6EF: F0 2D     BEQ bra_A71E
@@ -1196,7 +1196,7 @@ bra_A708:
 C - - - - - 0x01A718 06:A708: A9 18     LDA #$18
 C - - - - - 0x01A71A 06:A70A: 85 00     STA ram_0000
 C - - - - - 0x01A71C 06:A70C: A0 08     LDY #$08
-C - - - - - 0x01A71E 06:A70E: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A71E 06:A70E: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A721 06:A711: 48        PHA
 C - - - - - 0x01A722 06:A712: 29 18     AND #$18
 C - - - - - 0x01A724 06:A714: F0 08     BEQ bra_A71E
@@ -1216,7 +1216,7 @@ C - - - - - 0x01A737 06:A727: 4C 55 A7  JMP loc_A755
 
 sub_A72A:
 C - - - - - 0x01A73A 06:A72A: A0 20     LDY #$20
-C - - - - - 0x01A73C 06:A72C: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A73C 06:A72C: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A73F 06:A72F: 29 16     AND #$16
 C - - - - - 0x01A741 06:A731: F0 22     BEQ bra_A755
 C - - - - - 0x01A743 06:A733: C9 06     CMP #$06
@@ -1232,7 +1232,7 @@ C - - - - - 0x01A756 06:A746: A0 28     LDY #$28
 C - - - - - 0x01A758 06:A748: D0 0B     BNE bra_A755
 sub_A74A:
 C - - - - - 0x01A75A 06:A74A: A0 00     LDY #$00
-C - - - - - 0x01A75C 06:A74C: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A75C 06:A74C: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A75F 06:A74F: 29 10     AND #$10
 C - - - - - 0x01A761 06:A751: F0 02     BEQ bra_A755
 C - - - - - 0x01A763 06:A753: A0 04     LDY #$04
@@ -1254,9 +1254,9 @@ bra_A771_RTS:
 C - - - - - 0x01A781 06:A771: 60        RTS
 
 sub_A772:
-C - - - - - 0x01A782 06:A772: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A782 06:A772: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A785 06:A775: 10 FA     BPL bra_A771_RTS
-C - - - - - 0x01A787 06:A777: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A787 06:A777: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A78A 06:A77A: 4A        LSR
 C - - - - - 0x01A78B 06:A77B: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
 
@@ -1279,7 +1279,7 @@ C - - - - - 0x01A7AC 06:A79C: 4C BD A8  JMP loc_A8BD
 
 bra_A79F:
 C - - - - - 0x01A7AF 06:A79F: 20 A2 A9  JSR sub_A9A2
-C - - - - - 0x01A7B2 06:A7A2: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A7B2 06:A7A2: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A7B5 06:A7A5: 29 08     AND #$08
 C - - - - - 0x01A7B7 06:A7A7: D0 03     BNE bra_A7AC
 C - - - - - 0x01A7B9 06:A7A9: 4C 30 A8  JMP loc_A830
@@ -1321,7 +1321,7 @@ bra_A7E7:
 C - - - - - 0x01A7F7 06:A7E7: AD 00 03  LDA ram_0300
 C - - - - - 0x01A7FA 06:A7EA: C9 18     CMP #$18
 C - - - - - 0x01A7FC 06:A7EC: D0 18     BNE bra_A806
-C - - - - - 0x01A7FE 06:A7EE: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A7FE 06:A7EE: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A801 06:A7F1: 29 26     AND #$26
 C - - - - - 0x01A803 06:A7F3: C9 02     CMP #$02
 C - - - - - 0x01A805 06:A7F5: D0 0F     BNE bra_A806
@@ -1341,11 +1341,11 @@ C - - - - - 0x01A81B 06:A80B: 85 01     STA ram_0001
 C - - - - - 0x01A81D 06:A80D: AD 03 03  LDA ram_0303
 C - - - - - 0x01A820 06:A810: 85 02     STA ram_0002
 C - - - - - 0x01A822 06:A812: 20 33 CE  JSR sub_CE33_add_sprite_magic ; bank FF
-C - - - - - 0x01A825 06:A815: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A825 06:A815: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A828 06:A818: 29 08     AND #$08
 C - - - - - 0x01A82A 06:A81A: F0 0A     BEQ bra_A826
 C - - - - - 0x01A82C 06:A81C: A0 04     LDY #$04
-C - - - - - 0x01A82E 06:A81E: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A82E 06:A81E: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A831 06:A821: 6A        ROR
 C - - - - - 0x01A832 06:A822: 90 02     BCC bra_A826
 C - - - - - 0x01A834 06:A824: C8        INY
@@ -1358,7 +1358,7 @@ C - - - - - 0x01A83B 06:A82B: 85 01     STA ram_0001
 C - - - - - 0x01A83D 06:A82D: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 loc_A830:
-C D 1 - - - 0x01A840 06:A830: BD 20 03  LDA ram_0320,X
+C D 1 - - - 0x01A840 06:A830: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A843 06:A833: 6A        ROR
 C - - - - - 0x01A844 06:A834: 90 11     BCC bra_A847
 C - - - - - 0x01A846 06:A836: 20 4D A8  JSR sub_A84D
@@ -1388,7 +1388,7 @@ bra_A85F:
 C - - - - - 0x01A86F 06:A85F: 4C F0 D6  JMP $D6F0
 
 bra_A862:
-C - - - - - 0x01A872 06:A862: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A872 06:A862: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A875 06:A865: 29 20     AND #$20
 C - - - - - 0x01A877 06:A867: D0 14     BNE bra_A87D_RTS
 C - - - - - 0x01A879 06:A869: A9 06     LDA #$06
@@ -1450,7 +1450,7 @@ C - - - - - 0x01A8E3 06:A8D3: B0 1E     BCS bra_A8F3
 C - - - - - 0x01A8E5 06:A8D5: BD 56 03  LDA ram_0356,X
 C - - - - - 0x01A8E8 06:A8D8: C9 03     CMP #$03
 C - - - - - 0x01A8EA 06:A8DA: D0 17     BNE bra_A8F3
-C - - - - - 0x01A8EC 06:A8DC: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A8EC 06:A8DC: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A8EF 06:A8DF: 6A        ROR
 C - - - - - 0x01A8F0 06:A8E0: 90 0A     BCC bra_A8EC
 C - - - - - 0x01A8F2 06:A8E2: 29 10     AND #$10
@@ -1507,7 +1507,7 @@ C - - - - - 0x01A949 06:A939: C9 04     CMP #$04
 C - - - - - 0x01A94B 06:A93B: F0 10     BEQ bra_A94D
 bra_A93D:
 C - - - - - 0x01A94D 06:A93D: 20 A8 D7  JSR $D7A8
-C - - - - - 0x01A950 06:A940: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A950 06:A940: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A953 06:A943: 29 20     AND #$20
 C - - - - - 0x01A955 06:A945: D0 3D     BNE bra_A984
 C - - - - - 0x01A957 06:A947: 9D 4A 03  STA ram_034A,X
@@ -1521,14 +1521,14 @@ C - - - - - 0x01A965 06:A955: B0 03     BCS bra_A95A
 C - - - - - 0x01A967 06:A957: 9D 4A 03  STA ram_034A,X
 bra_A95A:
 C - - - - - 0x01A96A 06:A95A: A0 0C     LDY #$0C
-C - - - - - 0x01A96C 06:A95C: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A96C 06:A95C: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A96F 06:A95F: 29 20     AND #$20
 C - - - - - 0x01A971 06:A961: D0 1E     BNE bra_A981
 C - - - - - 0x01A973 06:A963: A0 08     LDY #$08
 C - - - - - 0x01A975 06:A965: AD 00 03  LDA ram_0300
 C - - - - - 0x01A978 06:A968: C9 17     CMP #$17
 C - - - - - 0x01A97A 06:A96A: F0 15     BEQ bra_A981
-C - - - - - 0x01A97C 06:A96C: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A97C 06:A96C: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A97F 06:A96F: 29 04     AND #$04
 C - - - - - 0x01A981 06:A971: D0 0E     BNE bra_A981
 C - - - - - 0x01A983 06:A973: A0 10     LDY #$10
@@ -1598,10 +1598,10 @@ C - - - - - 0x01A9F1 06:A9E1: D0 02     BNE bra_A9E5
 sub_A9E3:
 C - - - - - 0x01A9F3 06:A9E3: 85 05     STA ram_0005
 bra_A9E5:
-C - - - - - 0x01A9F5 06:A9E5: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01A9F5 06:A9E5: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A9F8 06:A9E8: 29 C1     AND #$C1
 C - - - - - 0x01A9FA 06:A9EA: 05 05     ORA ram_0005
-C - - - - - 0x01A9FC 06:A9EC: 9D 20 03  STA ram_0320,X
+C - - - - - 0x01A9FC 06:A9EC: 9D 20 03  STA vEnemyAStatus,X
 bra_A9EF_RTS:
 C - - - - - 0x01A9FF 06:A9EF: 60        RTS
 
@@ -1609,10 +1609,10 @@ sub_A9F0:
 C - - - - - 0x01AA00 06:A9F0: A9 7F     LDA #$7F
 C - - - - - 0x01AA02 06:A9F2: 20 BD D6  JSR $D6BD
 C - - - - - 0x01AA05 06:A9F5: 84 05     STY ram_0005
-C - - - - - 0x01AA07 06:A9F7: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01AA07 06:A9F7: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01AA0A 06:A9FA: 29 FE     AND #$FE
 C - - - - - 0x01AA0C 06:A9FC: 05 05     ORA ram_0005
-C - - - - - 0x01AA0E 06:A9FE: 9D 20 03  STA ram_0320,X
+C - - - - - 0x01AA0E 06:A9FE: 9D 20 03  STA vEnemyAStatus,X
 C - - - - - 0x01AA11 06:AA01: 60        RTS
 
 C - - J - - 0x01AA12 06:AA02: A2 01     LDX #$01
@@ -2072,7 +2072,7 @@ bra_AD15_RTS:
 C - - - - - 0x01AD25 06:AD15: 60        RTS
 
 sub_AD16:
-C - - - - - 0x01AD26 06:AD16: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01AD26 06:AD16: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01AD29 06:AD19: 10 FA     BPL bra_AD15_RTS
 C - - - - - 0x01AD2B 06:AD1B: 20 47 AD  JSR sub_AD47
 C - - - - - 0x01AD2E 06:AD1E: BD 38 03  LDA ram_0338,X
@@ -2098,7 +2098,7 @@ sub_AD47:
 C - - - - - 0x01AD57 06:AD47: A5 2C     LDA vLowCounter
 C - - - - - 0x01AD59 06:AD49: 29 03     AND #$03
 C - - - - - 0x01AD5B 06:AD4B: D0 0E     BNE bra_AD5B
-C - - - - - 0x01AD5D 06:AD4D: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01AD5D 06:AD4D: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01AD60 06:AD50: 6A        ROR
 C - - - - - 0x01AD61 06:AD51: 90 05     BCC bra_AD58
 C - - - - - 0x01AD63 06:AD53: FE 2C 03  INC ram_032C,X
@@ -2110,9 +2110,9 @@ C - - - - - 0x01AD6B 06:AD5B: FE 44 03  INC ram_0344,X
 C - - - - - 0x01AD6E 06:AD5E: 10 0D     BPL bra_AD6D_RTS
 C - - - - - 0x01AD70 06:AD60: A9 00     LDA #$00
 C - - - - - 0x01AD72 06:AD62: 9D 44 03  STA ram_0344,X
-C - - - - - 0x01AD75 06:AD65: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01AD75 06:AD65: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01AD78 06:AD68: 49 01     EOR #$01
-C - - - - - 0x01AD7A 06:AD6A: 9D 20 03  STA ram_0320,X
+C - - - - - 0x01AD7A 06:AD6A: 9D 20 03  STA vEnemyAStatus,X
 bra_AD6D_RTS:
 C - - - - - 0x01AD7D 06:AD6D: 60        RTS
 
@@ -2133,7 +2133,7 @@ bra_AD82_loop:
 C - - - - - 0x01AD92 06:AD82: AD 00 03  LDA vEnemyA                    ;
 C - - - - - 0x01AD95 06:AD85: C9 0C     CMP #$0C                       ; CONSTANT - 'The lift'
 C - - - - - 0x01AD97 06:AD87: D0 39     BNE bra_ADC2_skip              ; If vEnemyA != 0x0C
-C - - - - - 0x01AD99 06:AD89: BD 20 03  LDA ram_0320,X
+C - - - - - 0x01AD99 06:AD89: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01AD9C 06:AD8C: 10 34     BPL bra_ADC2_skip
 C - - - - - 0x01AD9E 06:AD8E: 29 40     AND #$40
 C - - - - - 0x01ADA0 06:AD90: F0 30     BEQ bra_ADC2_skip
