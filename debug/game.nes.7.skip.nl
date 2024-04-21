@@ -81,3 +81,7 @@ $F509##ram_0344, ram_0345 vChrFrameIndex1 ??
 $F50B##ram_0344, ram_0345 vChrFrameIndex1 ??
 $D5B6##vBulletStatus
 $D5B8##vBulletStatus
+$D733##vEnemyAStatus, 0x40 flag
+$D736##vEnemyAStatus, 0x40 flag
+$D738##vEnemyAStatus, 0x40 flag
+$C971##Register X - ???

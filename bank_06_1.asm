@@ -58,21 +58,9 @@ sub_A01E: ; from bank_FF
 C - - - - - 0x01802E 06:A01E: 4C 96 BD  JMP loc_BD96
 
 tbl_A021:
-- D 1 - - - 0x018031 06:A021: 00        .byte $00   ; 
-tbl_A022:
-- D 1 - - - 0x018032 06:A022: 00        .byte $00   ; 
-tbl_A023:
-- D 1 - - - 0x018033 06:A023: 18        .byte $18   ; 
-tbl_A024:
-- D 1 - - - 0x018034 06:A024: 06        .byte $06   ; 
-- D 1 - - - 0x018035 06:A025: 00        .byte $00   ; 
-- D 1 - - - 0x018036 06:A026: 00        .byte $00   ; 
-- D 1 - - - 0x018037 06:A027: 14        .byte $14   ; 
-- D 1 - - - 0x018038 06:A028: 06        .byte $06   ; 
-- D 1 - - - 0x018039 06:A029: 00        .byte $00   ; 
-- D 1 - - - 0x01803A 06:A02A: 00        .byte $00   ; 
-- D 1 - - - 0x01803B 06:A02B: 10        .byte $10   ; 
-- D 1 - - - 0x01803C 06:A02C: 06        .byte $06   ; 
+- D 1 - - - 0x018031 06:A021: 00        .byte $00, $00, $18, $06
+- D 1 - - - 0x018035 06:A025: 00        .byte $00, $00, $14, $06
+- D 1 - - - 0x018039 06:A029: 00        .byte $00, $00, $10, $06
 - - - - - - 0x01803D 06:A02D: F8        .byte $F8   ; 
 - - - - - - 0x01803E 06:A02E: 06        .byte $06   ; 
 - - - - - - 0x01803F 06:A02F: 06        .byte $06   ; 
@@ -209,11 +197,11 @@ C - - - - - 0x0180F1 06:A0E1: 79 21 A0  ADC tbl_A021,Y
 C - - - - - 0x0180F4 06:A0E4: 85 AD     STA ram_00AD
 C - - - - - 0x0180F6 06:A0E6: BD 32 03  LDA ram_0332,X
 C - - - - - 0x0180F9 06:A0E9: 18        CLC
-C - - - - - 0x0180FA 06:A0EA: 79 22 A0  ADC tbl_A022,Y
+C - - - - - 0x0180FA 06:A0EA: 79 22 A0  ADC tbl_A021 + 1,Y
 C - - - - - 0x0180FD 06:A0ED: 85 AE     STA ram_00AE
-C - - - - - 0x0180FF 06:A0EF: B9 23 A0  LDA tbl_A023,Y
+C - - - - - 0x0180FF 06:A0EF: B9 23 A0  LDA tbl_A021 + 2,Y
 C - - - - - 0x018102 06:A0F2: 85 AF     STA ram_00AF
-C - - - - - 0x018104 06:A0F4: B9 24 A0  LDA tbl_A024,Y
+C - - - - - 0x018104 06:A0F4: B9 24 A0  LDA tbl_A021 + 3,Y
 C - - - - - 0x018107 06:A0F7: 85 B0     STA ram_00B0
 bra_A0F9_RTS:
 C - - - - - 0x018109 06:A0F9: 60        RTS
@@ -249,7 +237,8 @@ C - - - - - 0x018134 06:A124: 20 EC A2  JSR sub_A2EC
 C - - - - - 0x018137 06:A127: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01813A 06:A12A: 29 08     AND #$08
 C - - - - - 0x01813C 06:A12C: F0 35     BEQ bra_A163
-C - - - - - 0x01813E 06:A12E: A0 08     LDY #$08
+C - - - - - 0x01813E 06:A12E: A0 08     LDY #$08                    ; an input parameter - sprite_magic2
+; In: Register Y - sprite_magic2 (The offset by the address)
 loc_A130:
 C D 1 - - - 0x018140 06:A130: BD 38 03  LDA vEnemyAPosXLow,X        ;
 C - - - - - 0x018143 06:A133: 85 00     STA ram_0000                ; prepares the 1st parameter
@@ -264,6 +253,7 @@ C - - - - - 0x018152 06:A142: 20 AC D6  JSR sub_D6AC_out_of_screen  ;
 C - - - - - 0x018155 06:A145: 90 03     BCC bra_A14A_skip           ; If the enemy is on the screen
 C - - - - - 0x018157 06:A147: 4C 41 D7  JMP $D741
 
+; In: Register Y - sprite_magic2 (The offset by the address)
 bra_A14A_skip:
 C - - - - - 0x01815A 06:A14A: 20 25 D7  JSR $D725
 C - - - - - 0x01815D 06:A14D: C0 E0     CPY #$E0
@@ -476,7 +466,7 @@ C - - - - - 0x0182D0 06:A2C0: A0 10     LDY #$10
 C - - - - - 0x0182D2 06:A2C2: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x0182D5 06:A2C5: 29 20     AND #$20
 C - - - - - 0x0182D7 06:A2C7: D0 02     BNE bra_A2CB
-C - - - - - 0x0182D9 06:A2C9: A0 18     LDY #$18
+C - - - - - 0x0182D9 06:A2C9: A0 18     LDY #$18                  ; an input parameter - sprite_magic2 (a jump frame)
 bra_A2CB:
 C - - - - - 0x0182DB 06:A2CB: 4C 30 A1  JMP loc_A130
 
@@ -3877,9 +3867,7 @@ bra_B8FA:
 C - - - - - 0x01990A 06:B8FA: 20 25 D7  JSR $D725
 C - - - - - 0x01990D 06:B8FD: C0 E0     CPY #$E0
 C - - - - - 0x01990F 06:B8FF: 90 03     BCC bra_B904
-- - - - - - 0x019911 06:B901: 4C        .byte $4C   ; <L>
-- - - - - - 0x019912 06:B902: 89        .byte $89   ; 
-- - - - - - 0x019913 06:B903: D9        .byte $D9   ; 
+- - - - - - 0x019911 06:B901: 4C 89 D9  JMP $D989
 bra_B904:
 C - - - - - 0x019914 06:B904: 98        TYA
 C - - - - - 0x019915 06:B905: 18        CLC

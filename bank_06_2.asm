@@ -258,6 +258,7 @@ C - - - - - 0x01A140 06:A130: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x01A143 06:A133: 90 03     BCC bra_A138
 C - - - - - 0x01A145 06:A135: 4C 41 D7  JMP $D741
 
+; In: Register Y - sprite_magic2 (The offset by the address)
 bra_A138:
 C - - - - - 0x01A148 06:A138: 20 25 D7  JSR $D725
 C - - - - - 0x01A14B 06:A13B: C0 E0     CPY #$E0

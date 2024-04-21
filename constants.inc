@@ -244,6 +244,8 @@ vHiScore                      = ram_0099 ; [0x99-0x9F]
 
 vNonUsed3                     = ram_00A3
 
+vEnemyScore                   = ram_00A6 ; [0xA6-0xAC]
+
 vIndexSelectableChr           = ram_00AD ; Selectable character number in character selection mode
 vMainMenuGunYPos              = ram_00AD ;
 
@@ -358,8 +360,9 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; N - the direction (1 - on the left, 0 - on the right)
 ; M - the jump
 ; L - pause for a moment
-; L - the squatting
-; Y - 
+; K - the squatting
+; Z - it's getting a damage
+; Y - ???
 
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321

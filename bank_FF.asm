@@ -9,6 +9,7 @@
 .import tbl_background_collisions            ; bank 01 (Page 2)
 .import loc_AD80_activate_sound_manager      ; bank 02 (Page 1)
 .import tbl_select_characters_dialog         ; bank 02 (Page 1)
+.import tbl_enemy_score                      ; bank 02 (Page 1)
 .import tbl_ptr_checkpoints                  ; bank 04 (Page 1)
 .import tbl_demo_btn_pressed                 ; bank 04 (Page 1)
 .import tbl_ptr_corridors                    ; bank 04 (Page 1)
@@ -1473,96 +1474,100 @@ C - - - - - 0x01C951 07:C941: 88        DEY                     ; decrement y
 C - - - - - 0x01C952 07:C942: D0 E6     BNE @bra_C92A_loop      ; If Register Y != 0
 C - - - - - 0x01C954 07:C944: 60        RTS                     ;
 
-bra_C945:
-C - - - - - 0x01C955 07:C945: 68        PLA
-C - - - - - 0x01C956 07:C946: 60        RTS
+bra_C945_exit:
+C - - - - - 0x01C955 07:C945: 68        PLA                                    ; retrieve A (see $C947 or $C960)
+C - - - - - 0x01C956 07:C946: 60        RTS                                    ;
 
-loc_C947:
-C D 2 - - - 0x01C957 07:C947: 48        PHA
-C - - - - - 0x01C958 07:C948: A5 37     LDA vCutscenesMode
-C - - - - - 0x01C95A 07:C94A: 30 F9     BMI bra_C945 ; Branch If mode=cutscene
-C - - - - - 0x01C95C 07:C94C: 68        PLA
-C - - - - - 0x01C95D 07:C94D: 48        PHA
-C - - - - - 0x01C95E 07:C94E: 29 0F     AND #$0F
-C - - - - - 0x01C960 07:C950: 85 AC     STA ram_00AC
-C - - - - - 0x01C962 07:C952: 68        PLA
-C - - - - - 0x01C963 07:C953: 20 5F D0  JSR sub_accumulator_shift_right_by_4
-C - - - - - 0x01C966 07:C956: 85 AB     STA ram_00AB
-C - - - - - 0x01C968 07:C958: 8A        TXA
-C - - - - - 0x01C969 07:C959: 48        PHA
-C - - - - - 0x01C96A 07:C95A: A9 00     LDA #$00
-C - - - - - 0x01C96C 07:C95C: 85 AA     STA ram_00AA
-C - - - - - 0x01C96E 07:C95E: F0 17     BEQ bra_C977
+; In: Register A - score value 0xVV, V - a digit (0x65 - 650 Score)
+; In: Register X - the enemyA number
+loc_C947_add_score:
+C D 2 - - - 0x01C957 07:C947: 48        PHA                                    ; store A
+C - - - - - 0x01C958 07:C948: A5 37     LDA vCutscenesMode                     ;
+C - - - - - 0x01C95A 07:C94A: 30 F9     BMI bra_C945_exit                      ; Branch If cutscenes are used
+C - - - - - 0x01C95C 07:C94C: 68        PLA                                    ; retrieve A (see $C947)
+C - - - - - 0x01C95D 07:C94D: 48        PHA                                    ; store A
+C - - - - - 0x01C95E 07:C94E: 29 0F     AND #$0F                               ;
+C - - - - - 0x01C960 07:C950: 85 AC     STA vEnemyScore + 6                    ; ~> 7th digit of 7
+C - - - - - 0x01C962 07:C952: 68        PLA                                    ; retrieve A (see $C94D)
+C - - - - - 0x01C963 07:C953: 20 5F D0  JSR sub_accumulator_shift_right_by_4   ;
+C - - - - - 0x01C966 07:C956: 85 AB     STA vEnemyScore + 5                    ; ~> 6th digit of 7
+C - - - - - 0x01C968 07:C958: 8A        TXA                                    ; A <~ the enemyA number
+C - - - - - 0x01C969 07:C959: 48        PHA                                    ; store A
+C - - - - - 0x01C96A 07:C95A: A9 00     LDA #$00                               ;
+C - - - - - 0x01C96C 07:C95C: 85 AA     STA vEnemyScore + 4                    ; clear 5th digit of 7
+C - - - - - 0x01C96E 07:C95E: F0 17     BEQ bra_C977                           ; Always true
+
+; In: Register A - score value 0xVV, V - a digit (0x65 - 6500 Score)
+; In: Register X - ???
 sub_C960:
-C - - - - - 0x01C970 07:C960: 48        PHA
-C - - - - - 0x01C971 07:C961: A5 37     LDA vCutscenesMode
-C - - - - - 0x01C973 07:C963: 30 E0     BMI bra_C945 ; Branch If mode=cutscene
-C - - - - - 0x01C975 07:C965: 68        PLA
-C - - - - - 0x01C976 07:C966: 48        PHA
-C - - - - - 0x01C977 07:C967: 29 0F     AND #$0F
-C - - - - - 0x01C979 07:C969: 85 AB     STA ram_00AB
-C - - - - - 0x01C97B 07:C96B: 68        PLA
-C - - - - - 0x01C97C 07:C96C: 20 5F D0  JSR sub_accumulator_shift_right_by_4
-C - - - - - 0x01C97F 07:C96F: 85 AA     STA ram_00AA
+C - - - - - 0x01C970 07:C960: 48        PHA                                    ;
+C - - - - - 0x01C971 07:C961: A5 37     LDA vCutscenesMode                     ;
+C - - - - - 0x01C973 07:C963: 30 E0     BMI bra_C945_exit                      ; Branch If cutscenes are used
+C - - - - - 0x01C975 07:C965: 68        PLA                                    ; retrieve A (see $C960)
+C - - - - - 0x01C976 07:C966: 48        PHA                                    ; store A
+C - - - - - 0x01C977 07:C967: 29 0F     AND #$0F                               ;
+C - - - - - 0x01C979 07:C969: 85 AB     STA vEnemyScore + 5                    ; ~> 6th digit of 7
+C - - - - - 0x01C97B 07:C96B: 68        PLA                                    ; retrieve A (see $C966)
+C - - - - - 0x01C97C 07:C96C: 20 5F D0  JSR sub_accumulator_shift_right_by_4   ;
+C - - - - - 0x01C97F 07:C96F: 85 AA     STA vEnemyScore + 4                    ; ~> 5th digit of 7
 C - - - - - 0x01C981 07:C971: 8A        TXA
-C - - - - - 0x01C982 07:C972: 48        PHA
-C - - - - - 0x01C983 07:C973: A9 00     LDA #$00
-C - - - - - 0x01C985 07:C975: 85 AC     STA ram_00AC
+C - - - - - 0x01C982 07:C972: 48        PHA                                    ; store A
+C - - - - - 0x01C983 07:C973: A9 00     LDA #$00                               ;
+C - - - - - 0x01C985 07:C975: 85 AC     STA vEnemyScore + 6                    ; clear 7th digit of 7
 bra_C977:
-C - - - - - 0x01C987 07:C977: A2 02     LDX #$02
-bra_C979:
-C - - - - - 0x01C989 07:C979: 95 A7     STA ram_00A7,X
-C - - - - - 0x01C98B 07:C97B: CA        DEX
-C - - - - - 0x01C98C 07:C97C: 10 FB     BPL bra_C979
-C - - - - - 0x01C98E 07:C97E: A2 05     LDX #$05
-bra_C980:
-C - - - - - 0x01C990 07:C980: B5 A7     LDA ram_00A7,X
-C - - - - - 0x01C992 07:C982: 18        CLC
-C - - - - - 0x01C993 07:C983: 75 56     ADC vScore,X
-loc_C985:
-C D 2 - - - 0x01C995 07:C985: C9 0A     CMP #$0A
-C - - - - - 0x01C997 07:C987: 90 08     BCC bra_C991
-C - - - - - 0x01C999 07:C989: 38        SEC
-C - - - - - 0x01C99A 07:C98A: E9 0A     SBC #$0A
-C - - - - - 0x01C99C 07:C98C: F6 A6     INC ram_00A6,X
-C - - - - - 0x01C99E 07:C98E: 4C 85 C9  JMP loc_C985
+C - - - - - 0x01C987 07:C977: A2 02     LDX #$02                               ; set loop counter
+@bra_C979_loop:                                                                ; loop by x (3 times)
+C - - - - - 0x01C989 07:C979: 95 A7     STA vEnemyScore + 1,X                  ; clear (A = 0)
+C - - - - - 0x01C98B 07:C97B: CA        DEX                                    ; decrement loop counter
+C - - - - - 0x01C98C 07:C97C: 10 FB     BPL @bra_C979_loop                     ; If Register X < 0xF0
+C - - - - - 0x01C98E 07:C97E: A2 05     LDX #$05                               ; set loop counter
+bra_C980_loop:                                                                 ; loop by x
+C - - - - - 0x01C990 07:C980: B5 A7     LDA vEnemyScore + 1,X                  ;
+C - - - - - 0x01C992 07:C982: 18        CLC                                    ;
+C - - - - - 0x01C993 07:C983: 75 56     ADC vScore,X                           ; adds an enemy score in the shared score
+loc_C985_next:
+C D 2 - - - 0x01C995 07:C985: C9 0A     CMP #$0A                               ;
+C - - - - - 0x01C997 07:C987: 90 08     BCC bra_C991_store_score               ; If vScore[X] < 0x0A
+C - - - - - 0x01C999 07:C989: 38        SEC                                    ;
+C - - - - - 0x01C99A 07:C98A: E9 0A     SBC #$0A                               ;
+C - - - - - 0x01C99C 07:C98C: F6 A6     INC vEnemyScore,X                      ; fixes an overflow
+C - - - - - 0x01C99E 07:C98E: 4C 85 C9  JMP loc_C985_next                      ;
 
-bra_C991:
-C - - - - - 0x01C9A1 07:C991: 95 56     STA vScore,X
-C - - - - - 0x01C9A3 07:C993: CA        DEX
-C - - - - - 0x01C9A4 07:C994: 10 EA     BPL bra_C980
-C - - - - - 0x01C9A6 07:C996: A2 00     LDX #$00
-bra_C998:
-C - - - - - 0x01C9A8 07:C998: B5 56     LDA vScore,X
-C - - - - - 0x01C9AA 07:C99A: D5 99     CMP ram_0099,X
-C - - - - - 0x01C9AC 07:C99C: 90 12     BCC bra_C9B0
-C - - - - - 0x01C9AE 07:C99E: D0 07     BNE bra_C9A7
-C - - - - - 0x01C9B0 07:C9A0: E8        INX
-C - - - - - 0x01C9B1 07:C9A1: E0 07     CPX #$07
-C - - - - - 0x01C9B3 07:C9A3: 90 F3     BCC bra_C998
-- - - - - - 0x01C9B5 07:C9A5: B0        .byte $B0
-- - - - - - 0x01C9B6 07:C9A6: 09        .byte $09
-bra_C9A7:
-C - - - - - 0x01C9B7 07:C9A7: B5 56     LDA vScore,X
-C - - - - - 0x01C9B9 07:C9A9: 95 99     STA ram_0099,X
-C - - - - - 0x01C9BB 07:C9AB: E8        INX
-C - - - - - 0x01C9BC 07:C9AC: E0 07     CPX #$07
-C - - - - - 0x01C9BE 07:C9AE: 90 F7     BCC bra_C9A7
-bra_C9B0:
-C - - - - - 0x01C9C0 07:C9B0: 68        PLA
-C - - - - - 0x01C9C1 07:C9B1: AA        TAX
+bra_C991_store_score:
+C - - - - - 0x01C9A1 07:C991: 95 56     STA vScore,X                           ;
+C - - - - - 0x01C9A3 07:C993: CA        DEX                                    ; decrement loop counter
+C - - - - - 0x01C9A4 07:C994: 10 EA     BPL bra_C980_loop                      ; If Register X < 0xF0
+C - - - - - 0x01C9A6 07:C996: A2 00     LDX #$00                               ; set loop counter
+bra_C998_loop:                                                                 ; loop by x
+C - - - - - 0x01C9A8 07:C998: B5 56     LDA vScore,X                           ;
+C - - - - - 0x01C9AA 07:C99A: D5 99     CMP vHiScore,X                         ;
+C - - - - - 0x01C9AC 07:C99C: 90 12     BCC bra_C9B0_exit                      ; If vScore[X] < vHiScore[X]
+C - - - - - 0x01C9AE 07:C99E: D0 07     BNE @bra_C9A7_loop                     ; If vScore[X] != 0x00 then need update Hi-Score
+C - - - - - 0x01C9B0 07:C9A0: E8        INX                                    ; increment loop counter
+C - - - - - 0x01C9B1 07:C9A1: E0 07     CPX #$07                               ;
+C - - - - - 0x01C9B3 07:C9A3: 90 F3     BCC bra_C998_loop                      ; If Register X < 0x07
+- - - - - - 0x01C9B5 07:C9A5: B0 09     BCS bra_C9B0_exit                      ; Always true
+@bra_C9A7_loop:
+C - - - - - 0x01C9B7 07:C9A7: B5 56     LDA vScore,X                           ;
+C - - - - - 0x01C9B9 07:C9A9: 95 99     STA vHiScore,X                         ; updates Hi-Score
+C - - - - - 0x01C9BB 07:C9AB: E8        INX                                    ; increment loop counter
+C - - - - - 0x01C9BC 07:C9AC: E0 07     CPX #$07                               ;
+C - - - - - 0x01C9BE 07:C9AE: 90 F7     BCC @bra_C9A7_loop                     ; If Register X < 0x07
+bra_C9B0_exit:
+C - - - - - 0x01C9C0 07:C9B0: 68        PLA                                    ; retrieve A (see $C959 or $C972)
+C - - - - - 0x01C9C1 07:C9B1: AA        TAX                                    ; X <~ the enemyA number
 bra_C9B2_RTS:
-C - - - - - 0x01C9C2 07:C9B2: 60        RTS
+C - - - - - 0x01C9C2 07:C9B2: 60        RTS                                    ;
 
 sub_C9B3_prepare_inventory_ppu_cache:
-C - - - - - 0x01C9C3 07:C9B3: A5 19     LDA vRenderActive     ;
-C - - - - - 0x01C9C5 07:C9B5: D0 FB     BNE bra_C9B2_RTS      ; Branch If the render isn't activated
-C - - - - - 0x01C9C7 07:C9B7: A5 3B     LDA vSharedGameStatus ;
-C - - - - - 0x01C9C9 07:C9B9: 6A        ROR                   ; 
-C - - - - - 0x01C9CA 07:C9BA: B0 F6     BCS bra_C9B2_RTS      ; Branch if 'A screen with the message'
-C - - - - - 0x01C9CC 07:C9BC: A5 2C     LDA vLowCounter       ;
-C - - - - - 0x01C9CE 07:C9BE: 29 02     AND #$02              ;
-C - - - - - 0x01C9D0 07:C9C0: D0 03     BNE bra_C9C5_skip     ; Branch every 2 times after 2
+C - - - - - 0x01C9C3 07:C9B3: A5 19     LDA vRenderActive               ;
+C - - - - - 0x01C9C5 07:C9B5: D0 FB     BNE bra_C9B2_RTS                ; Branch If the render isn't activated
+C - - - - - 0x01C9C7 07:C9B7: A5 3B     LDA vSharedGameStatus           ;
+C - - - - - 0x01C9C9 07:C9B9: 6A        ROR                             ; 
+C - - - - - 0x01C9CA 07:C9BA: B0 F6     BCS bra_C9B2_RTS                ; Branch if 'A screen with the message'
+C - - - - - 0x01C9CC 07:C9BC: A5 2C     LDA vLowCounter                 ;
+C - - - - - 0x01C9CE 07:C9BE: 29 02     AND #$02                        ;
+C - - - - - 0x01C9D0 07:C9C0: D0 03     BNE bra_C9C5_skip               ; Branch every 2 times after 2
 C - - - - - 0x01C9D2 07:C9C2: 4C 48 CA  JMP loc_CA48_prepare_icon_items ;
 
 bra_C9C5_skip:
@@ -3726,22 +3731,25 @@ C - - - - - 0x01D72F 07:D71F: D0 ED     BNE bra_D70E_RTS                ; If the
 C - - - - - 0x01D731 07:D721: FE 3E 03  INC vEnemyAPosXHigh,X           ;
 C - - - - - 0x01D734 07:D724: 60        RTS                             ;
 
+; In: Register Y - sprite_magic2 (The offset by the address)
+; In:  $0003 - enemy X-position
+; Out: $0000 - enemy Y-position
 sub_D725: ; from bank 06_2
-C - - - - - 0x01D735 07:D725: BD 2C 03  LDA vEnemyAPosY,X
-C - - - - - 0x01D738 07:D728: 85 00     STA ram_0000
-C - - - - - 0x01D73A 07:D72A: A5 03     LDA ram_0003
-C - - - - - 0x01D73C 07:D72C: 9D 32 03  STA vEnemyAScreenPosX,X
+C - - - - - 0x01D735 07:D725: BD 2C 03  LDA vEnemyAPosY,X               ;
+C - - - - - 0x01D738 07:D728: 85 00     STA ram_0000                    ; ~> sprite magic1
+C - - - - - 0x01D73A 07:D72A: A5 03     LDA ram_0003                    ;
+C - - - - - 0x01D73C 07:D72C: 9D 32 03  STA vEnemyAScreenPosX,X         ;
 C - - - - - 0x01D73F 07:D72F: C0 FF     CPY #$FF
 C - - - - - 0x01D741 07:D731: F0 20     BEQ bra_D753
 C - - - - - 0x01D743 07:D733: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01D746 07:D736: 09 40     ORA #$40
 C - - - - - 0x01D748 07:D738: 9D 20 03  STA vEnemyAStatus,X
-C - - - - - 0x01D74B 07:D73B: 6A        ROR
-C - - - - - 0x01D74C 07:D73C: 90 02     BCC bra_D740_RTS
+C - - - - - 0x01D74B 07:D73B: 6A        ROR                      ;
+C - - - - - 0x01D74C 07:D73C: 90 02     BCC bra_D740_RTS         ; if the direction is 'on the right'
 C - - - - - 0x01D74E 07:D73E: C8        INY
 C - - - - - 0x01D74F 07:D73F: C8        INY
 bra_D740_RTS:
-C - - - - - 0x01D750 07:D740: 60        RTS
+C - - - - - 0x01D750 07:D740: 60        RTS                      ;
 
 loc_D741: ; from bank 06_2
 C D 2 - - - 0x01D751 07:D741: BD 20 03  LDA vEnemyAStatus,X
@@ -3783,23 +3791,23 @@ C - - - - - 0x01D78C 07:D77C: 4C 33 CE  JMP loc_CE33_add_sprite_magic
 
 loc_D77F:
 bra_D77F:
-C D 2 - - - 0x01D78F 07:D77F: A6 1A     LDX ram_001A
-C - - - - - 0x01D791 07:D781: AC 00 03  LDY ram_0300
-C - - - - - 0x01D794 07:D784: BD 20 03  LDA vEnemyAStatus,X
+C D 2 - - - 0x01D78F 07:D77F: A6 1A     LDX vTempCounter1A             ; puts the enemyA number
+C - - - - - 0x01D791 07:D781: AC 00 03  LDY vEnemyA                    ;
+C - - - - - 0x01D794 07:D784: BD 20 03  LDA vEnemyAStatus,X            ;
 C - - - - - 0x01D797 07:D787: 20 17 DA  JSR sub_DA17
-C D 2 - - - 0x01D79A 07:D78A: A9 00     LDA #$00
-C - - - - - 0x01D79C 07:D78C: 9D 20 03  STA vEnemyAStatus,X
+C D 2 - - - 0x01D79A 07:D78A: A9 00     LDA #$00                       ;
+C - - - - - 0x01D79C 07:D78C: 9D 20 03  STA vEnemyAStatus,X            ; clear a status
 sub_D78F:
 loc_D78F:
-C D 2 - - - 0x01D79F 07:D78F: AD 0A 03  LDA ram_030A
-C - - - - - 0x01D7A2 07:D792: F0 05     BEQ bra_D799
-C - - - - - 0x01D7A4 07:D794: CE 0A 03  DEC ram_030A
-C - - - - - 0x01D7A7 07:D797: D0 05     BNE bra_D79E_RTS
-bra_D799:
-C - - - - - 0x01D7A9 07:D799: A9 00     LDA #$00
-C - - - - - 0x01D7AB 07:D79B: 8D 00 03  STA ram_0300
-bra_D79E_RTS:
-C - - - - - 0x01D7AE 07:D79E: 60        RTS
+C D 2 - - - 0x01D79F 07:D78F: AD 0A 03  LDA vEnemyACount               ;
+C - - - - - 0x01D7A2 07:D792: F0 05     BEQ @bra_D799_skip             ; If vEnemyACount == 0x00
+C - - - - - 0x01D7A4 07:D794: CE 0A 03  DEC vEnemyACount               ;
+C - - - - - 0x01D7A7 07:D797: D0 05     BNE @bra_D79E_RTS              ; If vEnemyACount != 0x00
+@bra_D799_skip:
+C - - - - - 0x01D7A9 07:D799: A9 00     LDA #$00                       ;
+C - - - - - 0x01D7AB 07:D79B: 8D 00 03  STA vEnemyA                    ; clear
+@bra_D79E_RTS:
+C - - - - - 0x01D7AE 07:D79E: 60        RTS                            ;
 
 sub_D79F:
 C - - - - - 0x01D7AF 07:D79F: FE 44 03  INC ram_0344,X
@@ -4142,19 +4150,21 @@ C - - - - - 0x01D993 07:D983: 18        CLC
 C - - - - - 0x01D994 07:D984: 69 D0     ADC #$D0
 C - - - - - 0x01D996 07:D986: 4C 96 D9  JMP loc_D996
 
+; In: Register Y - sprite_magic2 (The offset by the address)
 loc_D989:
-C D 2 - - - 0x01D999 07:D989: BD 4A 03  LDA vEnemyAJumpCounter,X
-C - - - - - 0x01D99C 07:D98C: C9 1F     CMP #$1F
-C - - - - - 0x01D99E 07:D98E: D0 05     BNE bra_D995
-C - - - - - 0x01D9A0 07:D990: A9 13     LDA #$13
-C - - - - - 0x01D9A2 07:D992: 20 20 C4  JSR sub_C420_add_sound_effect
-bra_D995:
-C - - - - - 0x01D9A5 07:D995: 98        TYA
+C D 2 - - - 0x01D999 07:D989: BD 4A 03  LDA vEnemyAJumpCounter,X        ;
+C - - - - - 0x01D99C 07:D98C: C9 1F     CMP #$1F                        ; CONSTANT - a jump moment when the sound is activated
+C - - - - - 0x01D99E 07:D98E: D0 05     BNE bra_D995_no_sound           ; If vEnemyAJumpCounter != 0x1F
+C - - - - - 0x01D9A0 07:D990: A9 13     LDA #$13                        ; CONSTANT - the enemy got a damage
+C - - - - - 0x01D9A2 07:D992: 20 20 C4  JSR sub_C420_add_sound_effect   ;
+bra_D995_no_sound:
+C - - - - - 0x01D9A5 07:D995: 98        TYA                             ; Y -> sprite_magic2
+; In: Register A - sprite_magic2 (The offset by the address)
 loc_D996:
-C D 2 - - - 0x01D9A6 07:D996: 85 01     STA ram_0001
-C - - - - - 0x01D9A8 07:D998: A9 41     LDA #$41
-C - - - - - 0x01D9AA 07:D99A: 85 02     STA ram_0002
-C - - - - - 0x01D9AC 07:D99C: 4C 33 CE  JMP loc_CE33_add_sprite_magic
+C D 2 - - - 0x01D9A6 07:D996: 85 01     STA ram_0001                    ; ~> sprite_magic2 (see v_sprite_magic2)
+C - - - - - 0x01D9A8 07:D998: A9 41     LDA #$41                        ;
+C - - - - - 0x01D9AA 07:D99A: 85 02     STA ram_0002                    ; ~> sprite_magic3 (see v_sprite_magic3)
+C - - - - - 0x01D9AC 07:D99C: 4C 33 CE  JMP loc_CE33_add_sprite_magic   ;
 
 ; In: Register A - The value of the counter
 ; in: 0x0000 - sprite magic1 (Y-position)
@@ -4239,17 +4249,20 @@ C - - - - - 0x01DA22 07:DA12: 20 5D EF  JSR sub_EF5D_switch_variable_bank
 C - - - - - 0x01DA25 07:DA15: 38        SEC
 C - - - - - 0x01DA26 07:DA16: 60        RTS
 
+; In: Register A - the enemyA status
+; In: Register Y - enemy type A
+; In: Register X - the enemyA number
 sub_DA17:
-C - - - - - 0x01DA27 07:DA17: 29 20     AND #$20
-C - - - - - 0x01DA29 07:DA19: F0 CD     BEQ bra_D9E8
-C - - - - - 0x01DA2B 07:DA1B: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1
-C - - - - - 0x01DA2E 07:DA1E: B9 E0 95  LDA $95E0,Y
-C - - - - - 0x01DA31 07:DA21: A8        TAY
-C - - - - - 0x01DA32 07:DA22: D0 01     BNE bra_DA25
-C - - - - - 0x01DA34 07:DA24: 60        RTS
+C - - - - - 0x01DA27 07:DA17: 29 20     AND #$20                                ; CONSTANT - it's getting a damage (see vEnemyAStatus)
+C - - - - - 0x01DA29 07:DA19: F0 CD     BEQ bra_D9E8                            ; If the enemy didn't get a damage
+C - - - - - 0x01DA2B 07:DA1B: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1           ;
+C - - - - - 0x01DA2E 07:DA1E: B9 E0 95  LDA tbl_enemy_score + BANK02_OFFSET,Y   ;
+C - - - - - 0x01DA31 07:DA21: A8        TAY                                     ; Y <~ Score value
+C - - - - - 0x01DA32 07:DA22: D0 01     BNE bra_DA25_add_score                  ;
+C - - - - - 0x01DA34 07:DA24: 60        RTS                                     ;
 
-bra_DA25:
-C - - - - - 0x01DA35 07:DA25: 4C 47 C9  JMP loc_C947
+bra_DA25_add_score:
+C - - - - - 0x01DA35 07:DA25: 4C 47 C9  JMP loc_C947_add_score                  ;
 
 bra_DA28:
 sub_DA28:
