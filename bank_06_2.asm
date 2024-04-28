@@ -46,6 +46,7 @@
 .import sub_D6AC_out_of_screen                   ; bank FF
 .import loc_D99F_add_flash_sprite                ; bank FF
 .import sub_D660_is_bomb_exploding               ; bank FF
+.import loc_D77F_free_enemyA                     ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -251,7 +252,7 @@ C - - - - - 0x01A133 06:A123: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x01A136 06:A126: 85 01     STA ram_0001
 C - - - - - 0x01A138 06:A128: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x01A13B 06:A12B: 90 03     BCC bra_A130
-C - - - - - 0x01A13D 06:A12D: 4C 7F D7  JMP $D77F
+C - - - - - 0x01A13D 06:A12D: 4C 7F D7  JMP loc_D77F_free_enemyA          ;
 
 bra_A130:
 C - - - - - 0x01A140 06:A130: 20 AC D6  JSR sub_D6AC_out_of_screen
@@ -453,7 +454,7 @@ C - - - - - 0x01A292 06:A282: A9 30     LDA #$30
 C - - - - - 0x01A294 06:A284: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x01A297 06:A287: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x01A29A 06:A28A: D0 03     BNE bra_A28F
-C - - - - - 0x01A29C 06:A28C: 4C 7F D7  JMP $D77F
+C - - - - - 0x01A29C 06:A28C: 4C 7F D7  JMP loc_D77F_free_enemyA          ;
 
 bra_A28F:
 C - - - - - 0x01A29F 06:A28F: BD 4A 03  LDA ram_034A,X
@@ -701,7 +702,7 @@ C - - - - - 0x01A417 06:A407: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x01A41A 06:A40A: 85 01     STA ram_0001
 C - - - - - 0x01A41C 06:A40C: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x01A41F 06:A40F: 90 03     BCC bra_A414
-C - - - - - 0x01A421 06:A411: 4C 7F D7  JMP $D77F
+C - - - - - 0x01A421 06:A411: 4C 7F D7  JMP loc_D77F_free_enemyA            ;
 
 bra_A414:
 C - - - - - 0x01A424 06:A414: 20 AC D6  JSR sub_D6AC_out_of_screen
@@ -918,7 +919,7 @@ C - - - - - 0x01A577 06:A567: A9 30     LDA #$30
 C - - - - - 0x01A579 06:A569: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x01A57C 06:A56C: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x01A57F 06:A56F: D0 03     BNE bra_A574
-C - - - - - 0x01A581 06:A571: 4C 7F D7  JMP $D77F
+C - - - - - 0x01A581 06:A571: 4C 7F D7  JMP loc_D77F_free_enemyA            ;
 
 bra_A574:
 C - - - - - 0x01A584 06:A574: BD 4A 03  LDA ram_034A,X
@@ -1305,7 +1306,7 @@ C - - - - - 0x01A7D8 06:A7C8: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x01A7DB 06:A7CB: 85 01     STA ram_0001
 C - - - - - 0x01A7DD 06:A7CD: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x01A7E0 06:A7D0: 90 03     BCC bra_A7D5
-C - - - - - 0x01A7E2 06:A7D2: 4C 7F D7  JMP $D77F
+C - - - - - 0x01A7E2 06:A7D2: 4C 7F D7  JMP loc_D77F_free_enemyA             ;
 
 bra_A7D5:
 C - - - - - 0x01A7E5 06:A7D5: 20 AC D6  JSR sub_D6AC_out_of_screen
@@ -1547,7 +1548,7 @@ C - - - - - 0x01A994 06:A984: A9 30     LDA #$30
 C - - - - - 0x01A996 06:A986: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x01A999 06:A989: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x01A99C 06:A98C: D0 03     BNE bra_A991
-C - - - - - 0x01A99E 06:A98E: 4C 7F D7  JMP $D77F
+C - - - - - 0x01A99E 06:A98E: 4C 7F D7  JMP loc_D77F_free_enemyA         ;
 
 bra_A991:
 C - - - - - 0x01A9A1 06:A991: BD 4A 03  LDA ram_034A,X

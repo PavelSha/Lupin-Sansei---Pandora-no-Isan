@@ -12,6 +12,7 @@
 .import sub_D67B_out_of_sight                 ; bank FF
 .import sub_D6AC_out_of_screen                ; bank FF
 .import sub_D660_is_bomb_exploding            ; bank FF
+.import loc_D77F_free_enemyA                  ; bank FF
 
 ; Page 2
 sub_A000: ; from bank_FF
@@ -2810,7 +2811,7 @@ C - - - - - 0x00F13A 03:B12A: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x00F13D 03:B12D: 85 01     STA ram_0001
 C - - - - - 0x00F13F 03:B12F: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x00F142 03:B132: 90 03     BCC bra_B137
-C - - - - - 0x00F144 03:B134: 4C 7F D7  JMP $D77F
+C - - - - - 0x00F144 03:B134: 4C 7F D7  JMP loc_D77F_free_enemyA            ;
 
 bra_B137:
 C - - - - - 0x00F147 03:B137: 20 AC D6  JSR sub_D6AC_out_of_screen
@@ -3050,7 +3051,7 @@ C - - - - - 0x00F2F2 03:B2E2: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x00F2F5 03:B2E5: D0 25     BNE bra_B30C
 C - - - - - 0x00F2F7 03:B2E7: BD 26 03  LDA ram_0326,X
 C - - - - - 0x00F2FA 03:B2EA: 10 03     BPL bra_B2EF
-C - - - - - 0x00F2FC 03:B2EC: 4C 7F D7  JMP $D77F
+C - - - - - 0x00F2FC 03:B2EC: 4C 7F D7  JMP loc_D77F_free_enemyA            ;
 
 bra_B2EF:
 C - - - - - 0x00F2FF 03:B2EF: FE 26 03  INC ram_0326,X
@@ -3078,7 +3079,7 @@ C - - - - - 0x00F327 03:B317: D0 F0     BNE bra_B309
 bra_B319:
 C - - - - - 0x00F329 03:B319: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x00F32C 03:B31C: D0 03     BNE bra_B321
-C - - - - - 0x00F32E 03:B31E: 4C 7F D7  JMP $D77F
+C - - - - - 0x00F32E 03:B31E: 4C 7F D7  JMP loc_D77F_free_enemyA               ;
 
 bra_B321:
 C - - - - - 0x00F331 03:B321: BD 4A 03  LDA ram_034A,X
@@ -3499,7 +3500,7 @@ C - - - - - 0x00F5B3 03:B5A3: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x00F5B6 03:B5A6: 85 01     STA ram_0001
 C - - - - - 0x00F5B8 03:B5A8: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x00F5BB 03:B5AB: 90 03     BCC bra_B5B0
-C - - - - - 0x00F5BD 03:B5AD: 4C 7F D7  JMP $D77F
+C - - - - - 0x00F5BD 03:B5AD: 4C 7F D7  JMP loc_D77F_free_enemyA           ;
 
 bra_B5B0:
 C - - - - - 0x00F5C0 03:B5B0: 20 AC D6  JSR sub_D6AC_out_of_screen
@@ -3756,7 +3757,7 @@ C - - - - - 0x00F776 03:B766: A9 30     LDA #$30
 C - - - - - 0x00F778 03:B768: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x00F77B 03:B76B: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x00F77E 03:B76E: D0 03     BNE bra_B773
-C - - - - - 0x00F780 03:B770: 4C 7F D7  JMP $D77F
+C - - - - - 0x00F780 03:B770: 4C 7F D7  JMP loc_D77F_free_enemyA          ;
 
 bra_B773:
 C - - - - - 0x00F783 03:B773: BD 4A 03  LDA ram_034A,X
@@ -4064,7 +4065,7 @@ C - - - - - 0x00F973 03:B963: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x00F976 03:B966: 85 01     STA ram_0001
 C - - - - - 0x00F978 03:B968: 20 7B D6  JSR sub_D67B_out_of_sight
 C - - - - - 0x00F97B 03:B96B: 90 03     BCC bra_B970
-C - - - - - 0x00F97D 03:B96D: 4C 7F D7  JMP $D77F
+C - - - - - 0x00F97D 03:B96D: 4C 7F D7  JMP loc_D77F_free_enemyA             ;
 
 bra_B970:
 C - - - - - 0x00F980 03:B970: 20 AC D6  JSR sub_D6AC_out_of_screen
@@ -4256,7 +4257,7 @@ C - - - - - 0x00FAC4 03:BAB4: A9 30     LDA #$30
 C - - - - - 0x00FAC6 03:BAB6: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x00FAC9 03:BAB9: DE 4A 03  DEC ram_034A,X
 C - - - - - 0x00FACC 03:BABC: D0 03     BNE bra_BAC1
-C - - - - - 0x00FACE 03:BABE: 4C 7F D7  JMP $D77F
+C - - - - - 0x00FACE 03:BABE: 4C 7F D7  JMP loc_D77F_free_enemyA           ;
 
 bra_BAC1:
 C - - - - - 0x00FAD1 03:BAC1: BD 4A 03  LDA ram_034A,X

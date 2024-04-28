@@ -77,6 +77,7 @@
 .export loc_D70F_inc_EnemyAPosXLow
 .export loc_D6F0_dec_EnemyAPosXLow
 .export sub_D064_generate_rng
+.export loc_D77F_free_enemyA
 
 BANK02_OFFSET = -8192
 
@@ -3422,7 +3423,7 @@ C - - - - - 0x01D571 07:D561: 60        RTS                                  ;
 
 sub_D562:
 C D 2 - - - 0x01D572 07:D562: A5 32     LDA vResistantToDamageCounter ;
-C - - - - - 0x01D574 07:D564: D0 06     BNE bra_D56C_return_false    ; If character is resistant to damage
+C - - - - - 0x01D574 07:D564: D0 06     BNE bra_D56C_return_false     ; If character is resistant to damage
 C - - - - - 0x01D576 07:D566: A5 6C     LDA vChrStatus                ;
 C - - - - - 0x01D578 07:D568: 29 A8     AND #$A8                      ; CONSTANT - the character isn't controllable (see vChrStatus, flags X Z K)
 C - - - - - 0x01D57A 07:D56A: F0 02     BEQ bra_D56E_skip             ; If the character is controllable
@@ -3735,30 +3736,30 @@ C - - - - - 0x01D734 07:D724: 60        RTS                             ;
 ; In:  $0003 - enemy X-position
 ; Out: $0000 - enemy Y-position
 sub_D725: ; from bank 06_2
-C - - - - - 0x01D735 07:D725: BD 2C 03  LDA vEnemyAPosY,X               ;
-C - - - - - 0x01D738 07:D728: 85 00     STA ram_0000                    ; ~> sprite magic1
-C - - - - - 0x01D73A 07:D72A: A5 03     LDA ram_0003                    ;
-C - - - - - 0x01D73C 07:D72C: 9D 32 03  STA vEnemyAScreenPosX,X         ;
+C - - - - - 0x01D735 07:D725: BD 2C 03  LDA vEnemyAPosY,X           ;
+C - - - - - 0x01D738 07:D728: 85 00     STA ram_0000                ; ~> sprite magic1
+C - - - - - 0x01D73A 07:D72A: A5 03     LDA ram_0003                ;
+C - - - - - 0x01D73C 07:D72C: 9D 32 03  STA vEnemyAScreenPosX,X     ;
 C - - - - - 0x01D73F 07:D72F: C0 FF     CPY #$FF
 C - - - - - 0x01D741 07:D731: F0 20     BEQ bra_D753
-C - - - - - 0x01D743 07:D733: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x01D746 07:D736: 09 40     ORA #$40
-C - - - - - 0x01D748 07:D738: 9D 20 03  STA vEnemyAStatus,X
-C - - - - - 0x01D74B 07:D73B: 6A        ROR                      ;
-C - - - - - 0x01D74C 07:D73C: 90 02     BCC bra_D740_RTS         ; if the direction is 'on the right'
-C - - - - - 0x01D74E 07:D73E: C8        INY
-C - - - - - 0x01D74F 07:D73F: C8        INY
+C - - - - - 0x01D743 07:D733: BD 20 03  LDA vEnemyAStatus,X         ;
+C - - - - - 0x01D746 07:D736: 09 40     ORA #$40                    ; CONSTANT - the enemy can get damage
+C - - - - - 0x01D748 07:D738: 9D 20 03  STA vEnemyAStatus,X         ;
+C - - - - - 0x01D74B 07:D73B: 6A        ROR                         ;
+C - - - - - 0x01D74C 07:D73C: 90 02     BCC bra_D740_RTS            ; if the direction is 'on the right'
+C - - - - - 0x01D74E 07:D73E: C8        INY                         ;
+C - - - - - 0x01D74F 07:D73F: C8        INY                         ; next the offset for the left frame
 bra_D740_RTS:
-C - - - - - 0x01D750 07:D740: 60        RTS                      ;
+C - - - - - 0x01D750 07:D740: 60        RTS                         ;
 
 loc_D741: ; from bank 06_2
-C D 2 - - - 0x01D751 07:D741: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x01D754 07:D744: 29 BF     AND #$BF
-C - - - - - 0x01D756 07:D746: 9D 20 03  STA vEnemyAStatus,X
+C D 2 - - - 0x01D751 07:D741: BD 20 03  LDA vEnemyAStatus,X       ;
+C - - - - - 0x01D754 07:D744: 29 BF     AND #$BF                  ; CONSTANT - the enemy cann't get damage
+C - - - - - 0x01D756 07:D746: 9D 20 03  STA vEnemyAStatus,X       ; 
 C - - - - - 0x01D759 07:D749: C0 FF     CPY #$FF
 C - - - - - 0x01D75B 07:D74B: D0 05     BNE bra_D752_RTS
 C - - - - - 0x01D75D 07:D74D: 20 9F D7  JSR sub_D79F
-C - - - - - 0x01D760 07:D750: B0 2D     BCS bra_D77F
+C - - - - - 0x01D760 07:D750: B0 2D     BCS bra_D77F_free_enemyA
 bra_D752_RTS:
 C - - - - - 0x01D762 07:D752: 60        RTS
 
@@ -3768,9 +3769,9 @@ C - - - - - 0x01D764 07:D754: 68        PLA
 C - - - - - 0x01D765 07:D755: BD 3E 03  LDA ram_033E,X
 C - - - - - 0x01D768 07:D758: 85 D7     STA ram_00D7
 C - - - - - 0x01D76A 07:D75A: 20 DA D9  JSR sub_D9DA
-C - - - - - 0x01D76D 07:D75D: 90 20     BCC bra_D77F
+C - - - - - 0x01D76D 07:D75D: 90 20     BCC bra_D77F_free_enemyA
 C - - - - - 0x01D76F 07:D75F: 20 9F D7  JSR sub_D79F
-C - - - - - 0x01D772 07:D762: B0 1B     BCS bra_D77F
+C - - - - - 0x01D772 07:D762: B0 1B     BCS bra_D77F_free_enemyA
 loc_D764:
 C D 2 - - - 0x01D774 07:D764: 48        PHA
 C - - - - - 0x01D775 07:D765: C9 01     CMP #$01
@@ -3789,16 +3790,16 @@ C - - - - - 0x01D788 07:D778: A9 40     LDA #$40
 C - - - - - 0x01D78A 07:D77A: 85 02     STA ram_0002
 C - - - - - 0x01D78C 07:D77C: 4C 33 CE  JMP loc_CE33_add_sprite_magic
 
-loc_D77F:
-bra_D77F:
+loc_D77F_free_enemyA:
+bra_D77F_free_enemyA:
 C D 2 - - - 0x01D78F 07:D77F: A6 1A     LDX vTempCounter1A             ; puts the enemyA number
 C - - - - - 0x01D791 07:D781: AC 00 03  LDY vEnemyA                    ;
 C - - - - - 0x01D794 07:D784: BD 20 03  LDA vEnemyAStatus,X            ;
-C - - - - - 0x01D797 07:D787: 20 17 DA  JSR sub_DA17
+C - - - - - 0x01D797 07:D787: 20 17 DA  JSR sub_DA17_add_enemy_score   ;
 C D 2 - - - 0x01D79A 07:D78A: A9 00     LDA #$00                       ;
 C - - - - - 0x01D79C 07:D78C: 9D 20 03  STA vEnemyAStatus,X            ; clear a status
-sub_D78F:
-loc_D78F:
+sub_D78F_dec_enemyA_counter:
+loc_D78F_dec_enemyA_counter:
 C D 2 - - - 0x01D79F 07:D78F: AD 0A 03  LDA vEnemyACount               ;
 C - - - - - 0x01D7A2 07:D792: F0 05     BEQ @bra_D799_skip             ; If vEnemyACount == 0x00
 C - - - - - 0x01D7A4 07:D794: CE 0A 03  DEC vEnemyACount               ;
@@ -3940,7 +3941,7 @@ bra_D873:
 C D 2 - - - 0x01D883 07:D873: A6 1A     LDX ram_001A
 C - - - - - 0x01D885 07:D875: AC 01 03  LDY ram_0301
 C - - - - - 0x01D888 07:D878: BD 5C 03  LDA ram_035C,X
-C - - - - - 0x01D88B 07:D87B: 20 17 DA  JSR sub_DA17
+C - - - - - 0x01D88B 07:D87B: 20 17 DA  JSR sub_DA17_add_enemy_score
 sub_D87E:
 C D 2 - - - 0x01D88E 07:D87E: A9 00     LDA #$00
 C - - - - - 0x01D890 07:D880: 9D 5C 03  STA ram_035C,X
@@ -4252,9 +4253,9 @@ C - - - - - 0x01DA26 07:DA16: 60        RTS
 ; In: Register A - the enemyA status
 ; In: Register Y - enemy type A
 ; In: Register X - the enemyA number
-sub_DA17:
-C - - - - - 0x01DA27 07:DA17: 29 20     AND #$20                                ; CONSTANT - it's getting a damage (see vEnemyAStatus)
-C - - - - - 0x01DA29 07:DA19: F0 CD     BEQ bra_D9E8                            ; If the enemy didn't get a damage
+sub_DA17_add_enemy_score:
+C - - - - - 0x01DA27 07:DA17: 29 20     AND #$20                                ; CONSTANT - it's getting damage (see vEnemyAStatus)
+C - - - - - 0x01DA29 07:DA19: F0 CD     BEQ bra_D9E8                            ; If the enemy didn't get damage
 C - - - - - 0x01DA2B 07:DA1B: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1           ;
 C - - - - - 0x01DA2E 07:DA1E: B9 E0 95  LDA tbl_enemy_score + BANK02_OFFSET,Y   ;
 C - - - - - 0x01DA31 07:DA21: A8        TAY                                     ; Y <~ Score value
@@ -4530,8 +4531,8 @@ C - - - - - 0x01DBCF 07:DBBF: 20 F1 DC  JSR sub_DCF1_reset_velocity          ;
 ; in: Register X - the offset of the sprite address
 loc_DBC2_before_rendering:
 C D 2 - - - 0x01DBD2 07:DBC2: A5 6C     LDA vChrStatus                   ;
-C - - - - - 0x01DBD4 07:DBC4: 29 08     AND #$08                         ; CONSTANT - the character is getting a damage
-C - - - - - 0x01DBD6 07:DBC6: D0 07     BNE bra_DBCF_skip                ; If the character is getting a damage
+C - - - - - 0x01DBD4 07:DBC4: 29 08     AND #$08                         ; CONSTANT - the character is getting damage
+C - - - - - 0x01DBD6 07:DBC6: D0 07     BNE bra_DBCF_skip                ; If the character is getting damage
 C - - - - - 0x01DBD8 07:DBC8: 8A        TXA                              ;
 C - - - - - 0x01DBD9 07:DBC9: 48        PHA                              ; store x
 C - - - - - 0x01DBDA 07:DBCA: 20 4C E0  JSR sub_E04C_shot_gun_subroutine
@@ -4878,8 +4879,8 @@ C - - - - - 0x01DDB7 07:DDA7: A5 6A     LDA vScreenChrPosY                 ;
 C - - - - - 0x01DDB9 07:DDA9: C9 DF     CMP #$DF                           ; CONSTANT - Maximum allowed Y-value on the screen
 C - - - - - 0x01DDBB 07:DDAB: B0 59     BCS bra_DE06_after_horiz_moving    ; If vScreenChrPosY >= 0xDF
 C - - - - - 0x01DDBD 07:DDAD: A5 6C     LDA vChrStatus                     ;
-C - - - - - 0x01DDBF 07:DDAF: 29 08     AND #$08                           ; CONSTANT - 'the character is getting a damage'
-C - - - - - 0x01DDC1 07:DDB1: D0 23     BNE bra_DDD6_jump_by_side          ; If the character is getting a damage
+C - - - - - 0x01DDBF 07:DDAF: 29 08     AND #$08                           ; CONSTANT - 'the character is getting damage'
+C - - - - - 0x01DDC1 07:DDB1: D0 23     BNE bra_DDD6_jump_by_side          ; If the character is getting damage
 C - - - - - 0x01DDC3 07:DDB3: 20 57 DF  JSR sub_DF57_get_current_character ;
 C - - - - - 0x01DDC6 07:DDB6: F0 04     BEQ @bra_DDBC_skip                 ; If the current character is Lupin
 C - - - - - 0x01DDC8 07:DDB8: A9 80     LDA #$80                           ; CONSTANT - the character stands on the ground
@@ -4904,12 +4905,12 @@ C - - - - - 0x01DDE6 07:DDD6: A5 6C     LDA vChrStatus                     ;
 C - - - - - 0x01DDE8 07:DDD8: 6A        ROR                                ;
 C - - - - - 0x01DDE9 07:DDD9: 90 17     BCC bra_DDF2_right                 ; If the character is looking to the right
 C - - - - - 0x01DDEB 07:DDDB: 29 04     AND #$04                           ;
-C - - - - - 0x01DDED 07:DDDD: D0 17     BNE bra_DDF6_right2                ; If the character is getting a damage
+C - - - - - 0x01DDED 07:DDDD: D0 17     BNE bra_DDF6_right2                ; If the character is getting damage
 bra_DDDF_left2:
 C - - - - - 0x01DDEF 07:DDDF: 20 B1 DC  JSR sub_DCB1_try_move_on_the_left  ;
 C - - - - - 0x01DDF2 07:DDE2: A5 6C     LDA vChrStatus                     ;
-C - - - - - 0x01DDF4 07:DDE4: 29 08     AND #$08                           ; CONSTANT - 'the character is getting a damage'
-C - - - - - 0x01DDF6 07:DDE6: D0 1E     BNE bra_DE06_after_horiz_moving    ; If the character is getting a damage
+C - - - - - 0x01DDF4 07:DDE4: 29 08     AND #$08                           ; CONSTANT - 'the character is getting damage'
+C - - - - - 0x01DDF6 07:DDE6: D0 1E     BNE bra_DE06_after_horiz_moving    ; If the character is getting damage
 C - - - - - 0x01DDF8 07:DDE8: 24 1C     BIT vBtnPressedInGame              ;
 C - - - - - 0x01DDFA 07:DDEA: 10 03     BPL bra_DDEF_skip                  ; If the button 'Right' isn't pressed
 C - - - - - 0x01DDFC 07:DDEC: 20 80 DF  JSR sub_DF80_slow_down_velocity    ;
@@ -4918,12 +4919,12 @@ C - - - - - 0x01DDFF 07:DDEF: 4C 06 DE  JMP loc_DE06_after_horiz_moving
 
 bra_DDF2_right:
 C - - - - - 0x01DE02 07:DDF2: 29 04     AND #$04                           ;
-C - - - - - 0x01DE04 07:DDF4: D0 E9     BNE bra_DDDF_left2                 ; If the character is getting a damage
+C - - - - - 0x01DE04 07:DDF4: D0 E9     BNE bra_DDDF_left2                 ; If the character is getting damage
 bra_DDF6_right2:
 C - - - - - 0x01DE06 07:DDF6: 20 E5 DC  JSR sub_DCE5_try_move_on_the_right ;
 C - - - - - 0x01DE09 07:DDF9: A5 6C     LDA vChrStatus                     ;
-C - - - - - 0x01DE0B 07:DDFB: 29 08     AND #$08                           ; CONSTANT - 'the character is getting a damage'
-C - - - - - 0x01DE0D 07:DDFD: D0 07     BNE bra_DE06_after_horiz_moving    ; If the character is getting a damage
+C - - - - - 0x01DE0B 07:DDFB: 29 08     AND #$08                           ; CONSTANT - 'the character is getting damage'
+C - - - - - 0x01DE0D 07:DDFD: D0 07     BNE bra_DE06_after_horiz_moving    ; If the character is getting damage
 C - - - - - 0x01DE0F 07:DDFF: 24 1C     BIT vBtnPressedInGame              ;
 C - - - - - 0x01DE11 07:DE01: 50 03     BVC bra_DE06_after_horiz_moving    ; If the button 'Left' isn't pressed
 C - - - - - 0x01DE13 07:DE03: 20 80 DF  JSR sub_DF80_slow_down_velocity    ;
@@ -4992,8 +4993,8 @@ C - - - - - 0x01DE7B 07:DE6B: D0 03     BNE @bra_DE70_skip
 C - - - - - 0x01DE7D 07:DE6D: 20 32 E3  JSR sub_E332_correction_ScreenChrPosY       ;
 @bra_DE70_skip:
 C - - - - - 0x01DE80 07:DE70: A5 6C     LDA vChrStatus                              ;
-C - - - - - 0x01DE82 07:DE72: 29 08     AND #$08                                    ; CONSTANT - the character is getting a damage
-C - - - - - 0x01DE84 07:DE74: F0 0D     BEQ bra_DE83_jump_subroutine_before_bf2     ; If the character isn't getting a damage   
+C - - - - - 0x01DE82 07:DE72: 29 08     AND #$08                                    ; CONSTANT - the character is getting damage
+C - - - - - 0x01DE84 07:DE74: F0 0D     BEQ bra_DE83_jump_subroutine_before_bf2     ; If the character isn't getting damage
 C - - - - - 0x01DE86 07:DE76: A9 80     LDA #$80
 C - - - - - 0x01DE88 07:DE78: 85 2E     STA vCorridorCounter
 C - - - - - 0x01DE8A 07:DE7A: A5 6C     LDA vChrStatus
@@ -5020,8 +5021,8 @@ C - - - - - 0x01DEAA 07:DE9A: B0 02     BCS @bra_DE9E_skip            ; If 0x2F 
 C - - - - - 0x01DEAC 07:DE9C: 85 6F     STA vJumpCounter              ;
 @bra_DE9E_skip:
 C - - - - - 0x01DEAE 07:DE9E: A5 6C     LDA vChrStatus                ;
-C - - - - - 0x01DEB0 07:DEA0: 29 08     AND #$08                      ; CONSTANT - the character is getting a damage
-C - - - - - 0x01DEB2 07:DEA2: F0 02     BEQ @bra_DEA6_skip            ; If the character isn't getting a damage
+C - - - - - 0x01DEB0 07:DEA0: 29 08     AND #$08                      ; CONSTANT - the character is getting damage
+C - - - - - 0x01DEB2 07:DEA2: F0 02     BEQ @bra_DEA6_skip            ; If the character isn't getting damage
 C - - - - - 0x01DEB4 07:DEA4: A2 1C     LDX #$1C                      ; prepares the offset of the sprite address
 @bra_DEA6_skip:
 C - - - - - 0x01DEB6 07:DEA6: 4C C2 DB  JMP loc_DBC2_before_rendering ;
@@ -6450,8 +6451,8 @@ C - - - - - 0x01E79A 07:E78A: A5 46     LDA vNoSubLevel                  ;
 C - - - - - 0x01E79C 07:E78C: D0 37     BNE bra_E7C5_return_false        ; If vNoSubLevel != 0x00 (i.e. level 1.0)
 C - - - - - 0x01E79E 07:E78E: 20 46 EF  JSR sub_EF46_switch_bank_4_p1    ;
 C - - - - - 0x01E7A1 07:E791: A5 6C     LDA vChrStatus                   ;  
-C - - - - - 0x01E7A3 07:E793: 29 08     AND #$08                         ; CONSTANT - the character is getting a damage
-C - - - - - 0x01E7A5 07:E795: D0 2E     BNE bra_E7C5_return_false        ; If the character is getting a damage
+C - - - - - 0x01E7A3 07:E793: 29 08     AND #$08                         ; CONSTANT - the character is getting damage
+C - - - - - 0x01E7A5 07:E795: D0 2E     BNE bra_E7C5_return_false        ; If the character is getting damage
 C - - - - - 0x01E7A7 07:E797: A0 00     LDY #$00                         ; set loop counter
 C - - - - - 0x01E7A9 07:E799: A5 6C     LDA vChrStatus                   ;
 C - - - - - 0x01E7AB 07:E79B: 6A        ROR                              ;
@@ -8520,7 +8521,7 @@ C - - - - - 0x01F53B 07:F52B: A9 42     LDA #$42                            ; <~
 C - - - - - 0x01F53D 07:F52D: 8D 03 03  STA vEnemyASpriteMagic3             ;
 C - - - - - 0x01F540 07:F530: A9 2A     LDA #$2A                            ; Enemy pops up (sound effect)
 C - - - - - 0x01F542 07:F532: 20 20 C4  JSR sub_C420_add_sound_effect       ;
-C - - - - - 0x01F545 07:F535: A9 0C     LDA #$0C                            ; <~ sprite_magic2 (see v_sprite_magic2)
+C - - - - - 0x01F545 07:F535: A9 0C     LDA #$0C                            ; the offset for sprite_magic2 (Bank 05, Page 2, $8100 + $00C0)
 C - - - - - 0x01F547 07:F537: 8D 02 03  STA vEnemyASpriteMagic2             ;
 C - - - - - 0x01F54A 07:F53A: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA ;
 
@@ -8538,7 +8539,7 @@ C - - - - - 0x01F55D 07:F54D: FD 3E 03  SBC ram_033E,X
 C - - - - - 0x01F560 07:F550: A5 01     LDA ram_0001
 C - - - - - 0x01F562 07:F552: FD 38 03  SBC ram_0338,X
 C - - - - - 0x01F565 07:F555: D0 06     BNE bra_F55D
-- - - - - - 0x01F567 07:F557: 20 8F D7  JSR sub_D78F
+- - - - - - 0x01F567 07:F557: 20 8F D7  JSR sub_D78F_dec_enemyA_counter
 - - - - - - 0x01F56A 07:F55A: 68        PLA
 - - - - - - 0x01F56B 07:F55B: 68        PLA
 - - - - - - 0x01F56C 07:F55C: 60        RTS
@@ -8725,7 +8726,7 @@ C - - - - - 0x01F6C7 07:F6B7: E8        INX
 bra_F6B8:
 C - - - - - 0x01F6C8 07:F6B8: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01F6CB 07:F6BB: 10 03     BPL bra_F6C0
-C - - - - - 0x01F6CD 07:F6BD: 4C 8F D7  JMP loc_D78F
+C - - - - - 0x01F6CD 07:F6BD: 4C 8F D7  JMP loc_D78F_dec_enemyA_counter
 
 bra_F6C0:
 C - - - - - 0x01F6D0 07:F6C0: 20 7A F3  JSR sub_F37A

@@ -206,7 +206,7 @@ vChrStatus                    = ram_006C ; A status of a character
 ; Byte: XYZW KLMN
 ; N - the character is looking to the right/left (1 - left, 0 - right)
 ; M - the character is/isn't sitting (1 - sitting, 0 - no sitting)
-; K - the character is getting a damage  (1 - getting, 0 - no getting)
+; K - the character is getting damage  (1 - getting, 0 - no getting)
 ; W - the character is/isn't jumping (1 - jumping, 0 - no jumping)
 ; Z - the character is entering a corridor or hiding place (1 - entering, 0 - no entering)
 ; ...
@@ -361,8 +361,8 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; M - the jump
 ; L - pause for a moment
 ; K - the squatting
-; Z - it's getting a damage
-; Y - ???
+; Z - the dying
+; Y - the enemy can get damage (1 - true, 0 - false)
 
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
