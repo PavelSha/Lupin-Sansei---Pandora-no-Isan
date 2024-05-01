@@ -47,6 +47,7 @@
 .import loc_D99F_add_flash_sprite                ; bank FF
 .import sub_D660_is_bomb_exploding               ; bank FF
 .import loc_D77F_free_enemyA                     ; bank FF
+.import sub_D6BD_try_change_enemyA_direction     ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -492,7 +493,7 @@ C - - - - - 0x01A2D6 06:A2C6: 60        RTS
 
 sub_A2C7:
 C - - - - - 0x01A2D7 06:A2C7: A9 3F     LDA #$3F
-C - - - - - 0x01A2D9 06:A2C9: 20 BD D6  JSR $D6BD ; to sub_D6BD (bank FF)
+C - - - - - 0x01A2D9 06:A2C9: 20 BD D6  JSR sub_D6BD_try_change_enemyA_direction
 C - - - - - 0x01A2DC 06:A2CC: 84 05     STY ram_0005
 C - - - - - 0x01A2DE 06:A2CE: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A2E1 06:A2D1: 29 FE     AND #$FE
@@ -997,7 +998,7 @@ C - - - - - 0x01A605 06:A5F5: 60        RTS
 
 sub_A5F6:
 C - - - - - 0x01A606 06:A5F6: A9 7F     LDA #$7F
-C - - - - - 0x01A608 06:A5F8: 20 BD D6  JSR $D6BD
+C - - - - - 0x01A608 06:A5F8: 20 BD D6  JSR sub_D6BD_try_change_enemyA_direction
 C - - - - - 0x01A60B 06:A5FB: 84 05     STY ram_0005
 C - - - - - 0x01A60D 06:A5FD: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A610 06:A600: 29 FE     AND #$FE
@@ -1609,7 +1610,7 @@ C - - - - - 0x01A9FF 06:A9EF: 60        RTS
 
 sub_A9F0:
 C - - - - - 0x01AA00 06:A9F0: A9 7F     LDA #$7F
-C - - - - - 0x01AA02 06:A9F2: 20 BD D6  JSR $D6BD
+C - - - - - 0x01AA02 06:A9F2: 20 BD D6  JSR sub_D6BD_try_change_enemyA_direction
 C - - - - - 0x01AA05 06:A9F5: 84 05     STY ram_0005
 C - - - - - 0x01AA07 06:A9F7: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01AA0A 06:A9FA: 29 FE     AND #$FE

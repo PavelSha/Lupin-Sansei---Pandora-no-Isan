@@ -78,6 +78,7 @@
 .export loc_D6F0_dec_EnemyAPosXLow
 .export sub_D064_generate_rng
 .export loc_D77F_free_enemyA
+.export sub_D6BD_try_change_enemyA_direction
 
 BANK02_OFFSET = -8192
 
@@ -3663,30 +3664,36 @@ bra_D6BB_return_true:
 C - - - - - 0x01D6CB 07:D6BB: 38        SEC                      ; return true
 C - - - - - 0x01D6CC 07:D6BC: 60        RTS                      ;
 
-sub_D6BD: ; from bank 06_2
-C - - - - - 0x01D6CD 07:D6BD: 25 2C     AND vLowCounter
-C - - - - - 0x01D6CF 07:D6BF: D0 05     BNE bra_D6C6_clear_c_rts
-C - - - - - 0x01D6D1 07:D6C1: 20 CA D6  JSR sub_D6CA
-C - - - - - 0x01D6D4 07:D6C4: 18        CLC
-C - - - - - 0x01D6D5 07:D6C5: 60        RTS
+; In: Register X - the enemyA number
+; In: Register A - the mask of the low counter
+; Out: Register Y - 1, if the enemy is to the right of the character, 0 - otherwise.
+sub_D6BD_try_change_enemyA_direction:
+C - - - - - 0x01D6CD 07:D6BD: 25 2C     AND vLowCounter                             ;
+C - - - - - 0x01D6CF 07:D6BF: D0 05     BNE bra_D6C6_double_return                  ; Branch if vLowCounter doesn't multiple of f(A) (vLowCounter % f(A) != 0)
+C - - - - - 0x01D6D1 07:D6C1: 20 CA D6  JSR sub_D6CA_get_enemyA_relative_direction  ;
+C - - - - - 0x01D6D4 07:D6C4: 18        CLC                                         ;
+C - - - - - 0x01D6D5 07:D6C5: 60        RTS                                         ;
 
+bra_D6C6_double_return:
 bra_D6C6_clear_c_rts:
-C - - - - - 0x01D6D6 07:D6C6: 68        PLA
-C - - - - - 0x01D6D7 07:D6C7: 68        PLA
-C - - - - - 0x01D6D8 07:D6C8: 18        CLC
-C - - - - - 0x01D6D9 07:D6C9: 60        RTS
+C - - - - - 0x01D6D6 07:D6C6: 68        PLA                                         ;
+C - - - - - 0x01D6D7 07:D6C7: 68        PLA                                         ; double return (i.e. $A332 -> $A2FB)
+C - - - - - 0x01D6D8 07:D6C8: 18        CLC                                         ;
+C - - - - - 0x01D6D9 07:D6C9: 60        RTS                                         ;
 
-sub_D6CA:
-C - - - - - 0x01D6DA 07:D6CA: A0 00     LDY #$00
-C - - - - - 0x01D6DC 07:D6CC: A5 66     LDA ram_0066
-C - - - - - 0x01D6DE 07:D6CE: 38        SEC
-C - - - - - 0x01D6DF 07:D6CF: FD 38 03  SBC ram_0338,X
-C - - - - - 0x01D6E2 07:D6D2: A5 68     LDA ram_0068
-C - - - - - 0x01D6E4 07:D6D4: FD 3E 03  SBC ram_033E,X
-C - - - - - 0x01D6E7 07:D6D7: B0 01     BCS bra_D6DA_RTS
-C - - - - - 0x01D6E9 07:D6D9: C8        INY
-bra_D6DA_RTS:
-C - - - - - 0x01D6EA 07:D6DA: 60        RTS
+; In: Register X - the enemyA number
+; Out: Register Y - 1, if the enemy is to the right of the character, 0 - otherwise.
+sub_D6CA_get_enemyA_relative_direction:
+C - - - - - 0x01D6DA 07:D6CA: A0 00     LDY #$00                 ;
+C - - - - - 0x01D6DC 07:D6CC: A5 66     LDA vLowChrPosX          ;
+C - - - - - 0x01D6DE 07:D6CE: 38        SEC                      ;
+C - - - - - 0x01D6DF 07:D6CF: FD 38 03  SBC vEnemyAPosXLow,X     ;
+C - - - - - 0x01D6E2 07:D6D2: A5 68     LDA vNoScreen            ;
+C - - - - - 0x01D6E4 07:D6D4: FD 3E 03  SBC vEnemyAPosXHigh,X    ;
+C - - - - - 0x01D6E7 07:D6D7: B0 01     BCS @bra_D6DA_RTS        ; If [Hc:Lc] > [He:Le]
+C - - - - - 0x01D6E9 07:D6D9: C8        INY                      ;
+@bra_D6DA_RTS:
+C - - - - - 0x01D6EA 07:D6DA: 60        RTS                      ;
 
 C - - - - - 0x01D6EB 07:D6DB: 25 2C     AND vLowCounter
 C - - - - - 0x01D6ED 07:D6DD: D0 E7     BNE bra_D6C6_clear_c_rts

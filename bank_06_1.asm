@@ -22,6 +22,7 @@
 .import loc_D6F0_dec_EnemyAPosXLow                  ; bank FF
 .import sub_D064_generate_rng                       ; bank FF
 .import loc_D77F_free_enemyA                        ; bank FF
+.import sub_D6BD_try_change_enemyA_direction        ; bank FF
 
 .export sub_A000_land_diver_enemy
 
@@ -97,16 +98,16 @@ tbl_A045:
 - D 1 - - - 0x01805C 06:A04C: 08        .byte $08   ; 
 
 loc_A04D_enemy:
-C D 1 - - - 0x01805D 06:A04D: A2 01     LDX #$01
-C - - - - - 0x01805F 06:A04F: 86 1A     STX vTempCounter1A
-bra_A051_loop:
-C - - - - - 0x018061 06:A051: A6 1A     LDX vTempCounter1A
-C - - - - - 0x018063 06:A053: 20 FA A0  JSR sub_A0FA
-C - - - - - 0x018066 06:A056: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x018069 06:A059: C9 E0     CMP #$E0
+C D 1 - - - 0x01805D 06:A04D: A2 01     LDX #$01                        ;
+C - - - - - 0x01805F 06:A04F: 86 1A     STX vTempCounter1A              ; set loop counter (the enemyA number)
+bra_A051_loop:                                                          ; loop by vTempCounter1A (2 times)
+C - - - - - 0x018061 06:A051: A6 1A     LDX vTempCounter1A              ;
+C - - - - - 0x018063 06:A053: 20 FA A0  JSR sub_A0FA_status_behavior    ;
+C - - - - - 0x018066 06:A056: BD 20 03  LDA vEnemyAStatus,X             ;
+C - - - - - 0x018069 06:A059: C9 E0     CMP #$E0                        ;
 C - - - - - 0x01806B 06:A05B: B0 2C     BCS bra_A089_next               ; If vEnemyAStatus >= 0xE0
-C - - - - - 0x01806D 06:A05D: C9 C0     CMP #$C0
-C - - - - - 0x01806F 06:A05F: 90 28     BCC bra_A089_next               ; If vEnemyAStatus < 0xC0
+C - - - - - 0x01806D 06:A05D: C9 C0     CMP #$C0                        ;
+C - - - - - 0x01806F 06:A05F: 90 28     BCC bra_A089_next               ; If vEnemyAStatus < 0xC0 else only 0xCX or 0xDX
 C - - - - - 0x018071 06:A061: 20 CC A0  JSR sub_A0CC
 C - - - - - 0x018074 06:A064: 20 60 D6  JSR sub_D660_is_bomb_exploding
 C - - - - - 0x018077 06:A067: B0 0B     BCS bra_A074
@@ -144,7 +145,7 @@ C - - - - - 0x0180A5 06:A095: 4C 89 A0  JMP loc_A089_next
 sub_A098:
 C - - - - - 0x0180A8 06:A098: A6 1A     LDX ram_001A
 C - - - - - 0x0180AA 06:A09A: A9 22     LDA #$22
-C - - - - - 0x0180AC 06:A09C: 20 23 A3  JSR sub_A323_add_status
+C - - - - - 0x0180AC 06:A09C: 20 23 A3  JSR sub_A323_change_substatus
 C - - - - - 0x0180AF 06:A09F: A9 10     LDA #$10
 C - - - - - 0x0180B1 06:A0A1: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x0180B4 06:A0A4: A9 03     LDA #$03
@@ -208,7 +209,7 @@ bra_A0F9_RTS:
 C - - - - - 0x018109 06:A0F9: 60        RTS
 
 ; In: Register X - the enemyA number
-sub_A0FA:
+sub_A0FA_status_behavior:
 C - - - - - 0x01810A 06:A0FA: BD 20 03  LDA vEnemyAStatus,X                       ;
 C - - - - - 0x01810D 06:A0FD: 10 FA     BPL bra_A0F9_RTS                          ; If the status isn't used
 C - - - - - 0x01810F 06:A0FF: 4A        LSR                                       ;
@@ -301,7 +302,7 @@ C - - - - - 0x01819C 06:A18C: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01819F 06:A18F: 29 24     AND #$24
 C - - - - - 0x0181A1 06:A191: D0 14     BNE bra_A1A7_RTS
 C - - - - - 0x0181A3 06:A193: A9 02     LDA #$02
-C - - - - - 0x0181A5 06:A195: 20 23 A3  JSR sub_A323_add_status
+C - - - - - 0x0181A5 06:A195: 20 23 A3  JSR sub_A323_change_substatus
 C - - - - - 0x0181A8 06:A198: A9 14     LDA #$14
 C - - - - - 0x0181AA 06:A19A: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x0181AD 06:A19D: A9 03     LDA #$03
@@ -375,11 +376,11 @@ C - - - - - 0x01822D 06:A21D: B9 58 E3  LDA tbl_E358_init_counter,Y
 ; In: Register A - a jump counter value
 ; In: Register X - the enemyA number
 loc_A220:
-C D 1 - - - 0x018230 06:A220: 9D 4A 03  STA vEnemyAJumpCounter,X     ;
-C - - - - - 0x018233 06:A223: 98        TYA                          ;
-C - - - - - 0x018234 06:A224: 9D 56 03  STA vEnemyAJumpType,X        ;
-C - - - - - 0x018237 06:A227: A9 02     LDA #$02                     ; CONSTANT - the jump
-C - - - - - 0x018239 06:A229: 20 23 A3  JSR sub_A323_add_status      ;
+C D 1 - - - 0x018230 06:A220: 9D 4A 03  STA vEnemyAJumpCounter,X       ;
+C - - - - - 0x018233 06:A223: 98        TYA                            ;
+C - - - - - 0x018234 06:A224: 9D 56 03  STA vEnemyAJumpType,X          ;
+C - - - - - 0x018237 06:A227: A9 02     LDA #$02                       ; CONSTANT - the jump
+C - - - - - 0x018239 06:A229: 20 23 A3  JSR sub_A323_change_substatus  ;
 C - - - - - 0x01823C 06:A22C: A9 00     LDA #$00
 C - - - - - 0x01823E 06:A22E: 9D 44 03  STA ram_0344,X
 ; In: Register X - the enemyA number
@@ -491,21 +492,23 @@ tbl_A2E9:
 - D 1 - - - 0x0182F9 06:A2E9: E4        .byte $E4   ; 
 - D 1 - - - 0x0182FA 06:A2EA: E0        .byte $E0   ; 
 - D 1 - - - 0x0182FB 06:A2EB: 14        .byte $14   ; 
+
+; In: Register X - the enemyA number
 sub_A2EC:
-C - - - - - 0x0182FC 06:A2EC: BD 4A 03  LDA ram_034A,X
-C - - - - - 0x0182FF 06:A2EF: F0 0A     BEQ bra_A2FB
-C - - - - - 0x018301 06:A2F1: DE 4A 03  DEC ram_034A,X
-C - - - - - 0x018304 06:A2F4: D0 39     BNE bra_A32F_RTS
-C - - - - - 0x018306 06:A2F6: A9 00     LDA #$00
-C - - - - - 0x018308 06:A2F8: 20 23 A3  JSR sub_A323_add_status
-bra_A2FB:
-C - - - - - 0x01830B 06:A2FB: 20 30 A3  JSR sub_A330
-C - - - - - 0x01830E 06:A2FE: A5 2C     LDA vLowCounter
-C - - - - - 0x018310 06:A300: 29 3F     AND #$3F
-C - - - - - 0x018312 06:A302: D0 2B     BNE bra_A32F_RTS
-C - - - - - 0x018314 06:A304: 20 64 D0  JSR $D064
-C - - - - - 0x018317 06:A307: 6A        ROR
-C - - - - - 0x018318 06:A308: B0 25     BCS bra_A32F_RTS
+C - - - - - 0x0182FC 06:A2EC: BD 4A 03  LDA vEnemyAJumpCounter,X          ;
+C - - - - - 0x0182FF 06:A2EF: F0 0A     BEQ @bra_A2FB_skip                ; If vEnemyAJumpCounter == 0x00
+C - - - - - 0x018301 06:A2F1: DE 4A 03  DEC vEnemyAJumpCounter,X          ;
+C - - - - - 0x018304 06:A2F4: D0 39     BNE bra_A32F_RTS                  ; If vEnemyAJumpCounter != 0x00
+C - - - - - 0x018306 06:A2F6: A9 00     LDA #$00                          ; clear substatus
+C - - - - - 0x018308 06:A2F8: 20 23 A3  JSR sub_A323_change_substatus     ;
+@bra_A2FB_skip:
+C - - - - - 0x01830B 06:A2FB: 20 30 A3  JSR sub_A330_try_change_direction ;
+C - - - - - 0x01830E 06:A2FE: A5 2C     LDA vLowCounter                   ;
+C - - - - - 0x018310 06:A300: 29 3F     AND #$3F                          ;
+C - - - - - 0x018312 06:A302: D0 2B     BNE bra_A32F_RTS                  ; Branch if vLowCounter doesn't multiple of 64 (vLowCounter % 64 != 0)
+C - - - - - 0x018314 06:A304: 20 64 D0  JSR sub_D064_generate_rng         ;
+C - - - - - 0x018317 06:A307: 6A        ROR                               ;
+C - - - - - 0x018318 06:A308: B0 25     BCS bra_A32F_RTS                  ; 50% chance branch
 C - - - - - 0x01831A 06:A30A: 29 07     AND #$07
 C - - - - - 0x01831C 06:A30C: A8        TAY
 C - - - - - 0x01831D 06:A30D: B9 45 A0  LDA tbl_A045,Y
@@ -521,7 +524,7 @@ bra_A31E:
 C - - - - - 0x01832E 06:A31E: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x018331 06:A321: D0 02     BNE bra_A325
 ; In: Register A - an new status
-sub_A323_add_status:
+sub_A323_change_substatus:
 C - - - - - 0x018333 06:A323: 85 05     STA ram_0005             ;
 bra_A325:
 C - - - - - 0x018335 06:A325: BD 20 03  LDA vEnemyAStatus,X      ;
@@ -531,15 +534,16 @@ C - - - - - 0x01833C 06:A32C: 9D 20 03  STA vEnemyAStatus,X      ;
 bra_A32F_RTS:
 C - - - - - 0x01833F 06:A32F: 60        RTS                      ;
 
-sub_A330:
-C - - - - - 0x018340 06:A330: A9 7F     LDA #$7F
-C - - - - - 0x018342 06:A332: 20 BD D6  JSR $D6BD
-C - - - - - 0x018345 06:A335: 84 05     STY ram_0005
-C - - - - - 0x018347 06:A337: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x01834A 06:A33A: 29 FE     AND #$FE
-C - - - - - 0x01834C 06:A33C: 05 05     ORA ram_0005
-C - - - - - 0x01834E 06:A33E: 9D 20 03  STA vEnemyAStatus,X
-C - - - - - 0x018351 06:A341: 60        RTS
+; In: Register X - the enemyA number
+sub_A330_try_change_direction:
+C - - - - - 0x018340 06:A330: A9 7F     LDA #$7F                                 ; f(A) = 128, see $D6BD
+C - - - - - 0x018342 06:A332: 20 BD D6  JSR sub_D6BD_try_change_enemyA_direction ;
+C - - - - - 0x018345 06:A335: 84 05     STY ram_0005                             ; $0005 <~ 1, if the enemy is to the right of the character, 0 - otherwise
+C - - - - - 0x018347 06:A337: BD 20 03  LDA vEnemyAStatus,X                      ;
+C - - - - - 0x01834A 06:A33A: 29 FE     AND #$FE                                 ; CONSTANT: N - the direction (see vEnemyAStatus)
+C - - - - - 0x01834C 06:A33C: 05 05     ORA ram_0005                             ;
+C - - - - - 0x01834E 06:A33E: 9D 20 03  STA vEnemyAStatus,X                      ;
+C - - - - - 0x018351 06:A341: 60        RTS                                      ;
 
 - D 1 - I - 0x018352 06:A342: 05        .byte $05   ; 
 - D 1 - I - 0x018353 06:A343: 04        .byte $04   ; 
@@ -3723,7 +3727,7 @@ C - - - - - 0x019820 06:B810: 60        RTS
 
 sub_B811:
 C - - - - - 0x019821 06:B811: A9 7F     LDA #$7F
-C - - - - - 0x019823 06:B813: 20 BD D6  JSR $D6BD
+C - - - - - 0x019823 06:B813: 20 BD D6  JSR sub_D6BD_try_change_enemyA_direction
 C - - - - - 0x019826 06:B816: 84 05     STY ram_0005
 C - - - - - 0x019828 06:B818: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01982B 06:B81B: 29 FE     AND #$FE
@@ -4145,7 +4149,7 @@ C - - - - - 0x019AEE 06:BADE: 4C 20 C4  JMP loc_C420_add_sound_effect ; bank_FF
 
 sub_BAE1:
 C - - - - - 0x019AF1 06:BAE1: A9 3F     LDA #$3F
-C - - - - - 0x019AF3 06:BAE3: 20 BD D6  JSR $D6BD
+C - - - - - 0x019AF3 06:BAE3: 20 BD D6  JSR sub_D6BD_try_change_enemyA_direction
 C - - - - - 0x019AF6 06:BAE6: 84 05     STY ram_0005
 C - - - - - 0x019AF8 06:BAE8: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x019AFB 06:BAEB: 29 FE     AND #$FE
@@ -4523,7 +4527,7 @@ C - - - - - 0x019D7B 06:BD6B: 60        RTS
 
 sub_BD6C:
 C - - - - - 0x019D7C 06:BD6C: A9 FF     LDA #$FF
-C - - - - - 0x019D7E 06:BD6E: 20 BD D6  JSR $D6BD
+C - - - - - 0x019D7E 06:BD6E: 20 BD D6  JSR sub_D6BD_try_change_enemyA_direction
 C - - - - - 0x019D81 06:BD71: 84 05     STY ram_0005
 C - - - - - 0x019D83 06:BD73: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x019D86 06:BD76: 29 FE     AND #$FE

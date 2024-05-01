@@ -13,6 +13,7 @@
 .import sub_D6AC_out_of_screen                ; bank FF
 .import sub_D660_is_bomb_exploding            ; bank FF
 .import loc_D77F_free_enemyA                  ; bank FF
+.import sub_D6BD_try_change_enemyA_direction  ; bank FF
 
 ; Page 2
 sub_A000: ; from bank_FF
@@ -3131,7 +3132,7 @@ C - - - - - 0x00F385 03:B375: 60        RTS
 bra_B376:
 sub_B376:
 C - - - - - 0x00F386 03:B376: A9 7F     LDA #$7F
-C - - - - - 0x00F388 03:B378: 20 BD D6  JSR $D6BD
+C - - - - - 0x00F388 03:B378: 20 BD D6  JSR sub_D6BD_try_change_enemyA_direction
 C - - - - - 0x00F38B 03:B37B: 84 05     STY ram_0005
 C - - - - - 0x00F38D 03:B37D: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x00F390 03:B380: 29 FE     AND #$FE
@@ -3817,7 +3818,7 @@ bra_B7D1_RTS:
 C - - - - - 0x00F7E1 03:B7D1: 60        RTS
 sub_B7D2:
 C - - - - - 0x00F7E2 03:B7D2: A9 7F     LDA #$7F
-C - - - - - 0x00F7E4 03:B7D4: 20 BD D6  JSR $D6BD
+C - - - - - 0x00F7E4 03:B7D4: 20 BD D6  JSR sub_D6BD_try_change_enemyA_direction
 C - - - - - 0x00F7E7 03:B7D7: 84 05     STY ram_0005
 C - - - - - 0x00F7E9 03:B7D9: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x00F7EC 03:B7DC: 29 FE     AND #$FE
@@ -4336,7 +4337,7 @@ bra_BB3B_RTS:
 C - - - - - 0x00FB4B 03:BB3B: 60        RTS
 sub_BB3C:
 C - - - - - 0x00FB4C 03:BB3C: A9 3F     LDA #$3F
-C - - - - - 0x00FB4E 03:BB3E: 20 BD D6  JSR $D6BD
+C - - - - - 0x00FB4E 03:BB3E: 20 BD D6  JSR sub_D6BD_try_change_enemyA_direction
 C - - - - - 0x00FB51 03:BB41: 84 05     STY ram_0005
 C - - - - - 0x00FB53 03:BB43: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x00FB56 03:BB46: 29 FE     AND #$FE
