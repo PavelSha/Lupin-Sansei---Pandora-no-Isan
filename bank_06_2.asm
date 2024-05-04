@@ -48,6 +48,10 @@
 .import sub_D660_is_bomb_exploding               ; bank FF
 .import loc_D77F_free_enemyA                     ; bank FF
 .import sub_D6BD_try_change_enemyA_direction     ; bank FF
+.import loc_D741_enemyA_off_screen               ; bank FF
+.import sub_D725_enemyA_on_screen                ; bank FF
+.import loc_D989_add_enemyA_sprite_magic_v1      ; bank FF
+.import sub_D358_check_enemy_collision_by_Y      ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -258,14 +262,14 @@ C - - - - - 0x01A13D 06:A12D: 4C 7F D7  JMP loc_D77F_free_enemyA          ;
 bra_A130:
 C - - - - - 0x01A140 06:A130: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x01A143 06:A133: 90 03     BCC bra_A138
-C - - - - - 0x01A145 06:A135: 4C 41 D7  JMP $D741
+C - - - - - 0x01A145 06:A135: 4C 41 D7  JMP loc_D741_enemyA_off_screen
 
 ; In: Register Y - sprite_magic2 (The offset by the address)
 bra_A138:
-C - - - - - 0x01A148 06:A138: 20 25 D7  JSR $D725
+C - - - - - 0x01A148 06:A138: 20 25 D7  JSR sub_D725_enemyA_on_screen
 C - - - - - 0x01A14B 06:A13B: C0 E0     CPY #$E0
 C - - - - - 0x01A14D 06:A13D: 90 03     BCC bra_A142
-C - - - - - 0x01A14F 06:A13F: 4C 89 D9  JMP $D989
+C - - - - - 0x01A14F 06:A13F: 4C 89 D9  JMP loc_D989_add_enemyA_sprite_magic_v1
 
 bra_A142:
 C - - - - - 0x01A152 06:A142: 98        TYA
@@ -396,7 +400,7 @@ C - - - - - 0x01A226 06:A216: 4C 1E A1  JMP loc_A11E
 bra_A219:
 C - - - - - 0x01A229 06:A219: 85 00     STA ram_0000
 C - - - - - 0x01A22B 06:A21B: E6 00     INC ram_0000
-C - - - - - 0x01A22D 06:A21D: 20 58 D3  JSR $D358
+C - - - - - 0x01A22D 06:A21D: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
 C - - - - - 0x01A230 06:A220: F0 2C     BEQ bra_A24E
 C - - - - - 0x01A232 06:A222: C9 02     CMP #$02
 C - - - - - 0x01A234 06:A224: F0 07     BEQ bra_A22D
@@ -675,7 +679,7 @@ C - - - - - 0x01A3D4 06:A3C4: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bit
 C - - - - - 0x01A3E5 06:A3D5: BD 2C 03  LDA ram_032C,X
 C - - - - - 0x01A3E8 06:A3D8: 85 00     STA ram_0000
 C - - - - - 0x01A3EA 06:A3DA: E6 00     INC ram_0000
-C - - - - - 0x01A3EC 06:A3DC: 20 58 D3  JSR $D358
+C - - - - - 0x01A3EC 06:A3DC: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
 C - - - - - 0x01A3EF 06:A3DF: D0 07     BNE bra_A3E8
 C - - - - - 0x01A3F1 06:A3E1: A9 1C     LDA #$1C
 C - - - - - 0x01A3F3 06:A3E3: A0 02     LDY #$02
@@ -708,13 +712,13 @@ C - - - - - 0x01A421 06:A411: 4C 7F D7  JMP loc_D77F_free_enemyA            ;
 bra_A414:
 C - - - - - 0x01A424 06:A414: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x01A427 06:A417: 90 03     BCC bra_A41C
-C - - - - - 0x01A429 06:A419: 4C 41 D7  JMP $D741
+C - - - - - 0x01A429 06:A419: 4C 41 D7  JMP loc_D741_enemyA_off_screen
 
 bra_A41C:
-C - - - - - 0x01A42C 06:A41C: 20 25 D7  JSR $D725
+C - - - - - 0x01A42C 06:A41C: 20 25 D7  JSR sub_D725_enemyA_on_screen
 C - - - - - 0x01A42F 06:A41F: C0 E0     CPY #$E0
 C - - - - - 0x01A431 06:A421: 90 03     BCC bra_A426
-C - - - - - 0x01A433 06:A423: 4C 89 D9  JMP $D989
+C - - - - - 0x01A433 06:A423: 4C 89 D9  JMP loc_D989_add_enemyA_sprite_magic_v1
 
 bra_A426:
 C - - - - - 0x01A436 06:A426: 98        TYA
@@ -882,7 +886,7 @@ C - - - - - 0x01A530 06:A520: 90 05     BCC bra_A527
 bra_A527:
 C - - - - - 0x01A537 06:A527: 85 00     STA ram_0000
 C - - - - - 0x01A539 06:A529: E6 00     INC ram_0000
-C - - - - - 0x01A53B 06:A52B: 20 58 D3  JSR $D358
+C - - - - - 0x01A53B 06:A52B: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
 C - - - - - 0x01A53E 06:A52E: F0 1C     BEQ bra_A54C
 C - - - - - 0x01A540 06:A530: C9 02     CMP #$02
 C - - - - - 0x01A542 06:A532: F0 07     BEQ bra_A53B
@@ -1274,7 +1278,7 @@ C - - - - - 0x01A78B 06:A77B: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bit
 C - - - - - 0x01A79C 06:A78C: BD 2C 03  LDA ram_032C,X
 C - - - - - 0x01A79F 06:A78F: 85 00     STA ram_0000
 C - - - - - 0x01A7A1 06:A791: E6 00     INC ram_0000
-C - - - - - 0x01A7A3 06:A793: 20 58 D3  JSR $D358
+C - - - - - 0x01A7A3 06:A793: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
 C - - - - - 0x01A7A6 06:A796: D0 07     BNE bra_A79F
 C - - - - - 0x01A7A8 06:A798: A9 1C     LDA #$1C
 C - - - - - 0x01A7AA 06:A79A: A0 02     LDY #$02
@@ -1312,13 +1316,13 @@ C - - - - - 0x01A7E2 06:A7D2: 4C 7F D7  JMP loc_D77F_free_enemyA             ;
 bra_A7D5:
 C - - - - - 0x01A7E5 06:A7D5: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x01A7E8 06:A7D8: 90 03     BCC bra_A7DD
-C - - - - - 0x01A7EA 06:A7DA: 4C 41 D7  JMP $D741 ; to loc_D741 (bank FF)
+C - - - - - 0x01A7EA 06:A7DA: 4C 41 D7  JMP loc_D741_enemyA_off_screen
 
 bra_A7DD:
-C - - - - - 0x01A7ED 06:A7DD: 20 25 D7  JSR $D725 ; to sub_D725 (bank FF)
+C - - - - - 0x01A7ED 06:A7DD: 20 25 D7  JSR sub_D725_enemyA_on_screen
 C - - - - - 0x01A7F0 06:A7E0: C0 E0     CPY #$E0
 C - - - - - 0x01A7F2 06:A7E2: 90 03     BCC bra_A7E7
-C - - - - - 0x01A7F4 06:A7E4: 4C 89 D9  JMP $D989
+C - - - - - 0x01A7F4 06:A7E4: 4C 89 D9  JMP loc_D989_add_enemyA_sprite_magic_v1
 
 bra_A7E7:
 C - - - - - 0x01A7F7 06:A7E7: AD 00 03  LDA ram_0300
@@ -1495,7 +1499,7 @@ C - - - - - 0x01A92A 06:A91A: 4C C3 A7  JMP loc_A7C3
 bra_A91D:
 C - - - - - 0x01A92D 06:A91D: 85 00     STA ram_0000
 C - - - - - 0x01A92F 06:A91F: E6 00     INC ram_0000
-C - - - - - 0x01A931 06:A921: 20 58 D3  JSR $D358
+C - - - - - 0x01A931 06:A921: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
 C - - - - - 0x01A934 06:A924: F0 27     BEQ bra_A94D
 C - - - - - 0x01A936 06:A926: C9 02     CMP #$02
 C - - - - - 0x01A938 06:A928: F0 07     BEQ bra_A931

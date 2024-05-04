@@ -943,20 +943,70 @@ $C940##next a score symbol
 $C941##decrement y
 $C942##If Register Y != 0
 $C944##--NO-COMMENT--
-$C945#bra_C945#
-$C947#loc_C947#
-$C94A##Branch If mode=cutscene
-$C960#sub_C960#
-$C963##Branch If mode=cutscene
-$C977#bra_C977#
-$C979#bra_C979#
-$C980#bra_C980#
-$C985#loc_C985#
-$C991#bra_C991#
-$C998#bra_C998#
-$C9A7#bra_C9A7#
-$C9B0#bra_C9B0#
-$C9B2#bra_C9B2_RTS#
+$C945#bra_C945_exit#retrieve A (see $C947 or $C960)
+$C946##--NO-COMMENT--
+$C947#loc_C947_add_score#store A
+$C948##--NO-COMMENT--
+$C94A##Branch If cutscenes are used
+$C94C##retrieve A (see $C947)
+$C94D##store A
+$C94E##--NO-COMMENT--
+$C950##~> 7th digit of 7
+$C952##retrieve A (see $C94D)
+$C953##--NO-COMMENT--
+$C956##~> 6th digit of 7
+$C958##A <~ the enemyA number
+$C959##store A
+$C95A##--NO-COMMENT--
+$C95C##clear 5th digit of 7
+$C95E##Always true
+$C960#sub_C960#--NO-COMMENT--
+$C961##--NO-COMMENT--
+$C963##Branch If cutscenes are used
+$C965##retrieve A (see $C960)
+$C966##store A
+$C967##--NO-COMMENT--
+$C969##~> 6th digit of 7
+$C96B##retrieve A (see $C966)
+$C96C##--NO-COMMENT--
+$C96F##~> 5th digit of 7
+$C972##store A
+$C973##--NO-COMMENT--
+$C975##clear 7th digit of 7
+$C977#bra_C977#set loop counter
+$C979#bra_C979_loop#clear (A = 0)
+$C97B##decrement loop counter
+$C97C##If Register X < 0xF0
+$C97E##set loop counter
+$C980#bra_C980_loop#--NO-COMMENT--
+$C982##--NO-COMMENT--
+$C983##adds an enemy score in the shared score
+$C985#loc_C985_next#--NO-COMMENT--
+$C987##If vScore[X] < 0x0A
+$C989##--NO-COMMENT--
+$C98A##--NO-COMMENT--
+$C98C##fixes an overflow
+$C98E##--NO-COMMENT--
+$C991#bra_C991_store_score#--NO-COMMENT--
+$C993##decrement loop counter
+$C994##If Register X < 0xF0
+$C996##set loop counter
+$C998#bra_C998_loop#--NO-COMMENT--
+$C99A##--NO-COMMENT--
+$C99C##If vScore[X] < vHiScore[X]
+$C99E##If vScore[X] != 0x00 then need update Hi-Score
+$C9A0##increment loop counter
+$C9A1##--NO-COMMENT--
+$C9A3##If Register X < 0x07
+$C9A5##Always true
+$C9A7#bra_C9A7_loop#--NO-COMMENT--
+$C9A9##updates Hi-Score
+$C9AB##increment loop counter
+$C9AC##--NO-COMMENT--
+$C9AE##If Register X < 0x07
+$C9B0#bra_C9B0_exit#retrieve A (see $C959 or $C972)
+$C9B1##X <~ the enemyA number
+$C9B2#bra_C9B2_RTS#--NO-COMMENT--
 $C9B3#sub_C9B3_prepare_inventory_ppu_cache#--NO-COMMENT--
 $C9B5##Branch If the render isn't activated
 $C9B7##--NO-COMMENT--
@@ -1924,7 +1974,7 @@ $D344##return a collision value
 $D346##--NO-COMMENT--
 $D347#sub_D347#
 $D350#bra_D350_skip#
-$D358#sub_D358_check_left_right_enemy_collision#--NO-COMMENT--
+$D358#sub_D358_check_enemy_collision_by_Y#--NO-COMMENT--
 $D35B##--NO-COMMENT--
 $D36A#loc_D36A_short_left_right_collision#to sub_AD6E bank 06_2
 $D36D##--NO-COMMENT--
@@ -2228,10 +2278,24 @@ $D6B9##return false
 $D6BA##--NO-COMMENT--
 $D6BB#bra_D6BB_return_true#return true
 $D6BC##--NO-COMMENT--
-$D6BD#sub_D6BD#
-$D6C6#bra_D6C6_clear_c_rts#
-$D6CA#sub_D6CA#
-$D6DA#bra_D6DA_RTS#
+$D6BD#sub_D6BD_try_change_enemyA_direction#--NO-COMMENT--
+$D6BF##Branch if vLowCounter doesn't multiple of f(A) (vLowCounter % f(A) != 0)
+$D6C1##--NO-COMMENT--
+$D6C4##--NO-COMMENT--
+$D6C5##--NO-COMMENT--
+$D6C6#bra_D6C6_clear_c_rts#--NO-COMMENT--
+$D6C7##double return (i.e. $A332 -> $A2FB)
+$D6C8##--NO-COMMENT--
+$D6C9##--NO-COMMENT--
+$D6CA#sub_D6CA_get_enemyA_relative_direction#--NO-COMMENT--
+$D6CC##--NO-COMMENT--
+$D6CE##--NO-COMMENT--
+$D6CF##--NO-COMMENT--
+$D6D2##--NO-COMMENT--
+$D6D4##--NO-COMMENT--
+$D6D7##If [Hc:Lc] > [He:Le]
+$D6D9##--NO-COMMENT--
+$D6DA#bra_D6DA_RTS#--NO-COMMENT--
 $D6EF#bra_D6EF_RTS#
 $D6F0#loc_D6F0_dec_EnemyAPosXLow#--NO-COMMENT--
 $D6F3##--NO-COMMENT--
@@ -2257,17 +2321,42 @@ $D71C##--NO-COMMENT--
 $D71F##If the enemy doesn't move from one screen to another
 $D721##--NO-COMMENT--
 $D724##--NO-COMMENT--
-$D725#sub_D725#
-$D740#bra_D740_RTS#
-$D741#loc_D741#
-$D752#bra_D752_RTS#
+$D725#sub_D725_enemyA_on_screen#--NO-COMMENT--
+$D728##~> sprite magic1
+$D72A##--NO-COMMENT--
+$D72C##--NO-COMMENT--
+$D72F##CONSTANT - death mark
+$D733##--NO-COMMENT--
+$D736##CONSTANT - the enemy can get damage
+$D738##--NO-COMMENT--
+$D73B##--NO-COMMENT--
+$D73C##if the direction is 'on the right'
+$D73E##--NO-COMMENT--
+$D73F##next the offset for the left frame
+$D740#bra_D740_RTS#--NO-COMMENT--
+$D741#loc_D741_enemyA_off_screen#--NO-COMMENT--
+$D744##CONSTANT - the enemy can't get damage
+$D746##--NO-COMMENT--
+$D749##CONSTANT - death mark
+$D74B##If Register Y != 0xFF
+$D750##If vEnemyAFrame_Counter >= 0x1F
+$D752#bra_D752_RTS#--NO-COMMENT--
 $D753#bra_D753#
 $D764#loc_D764#
 $D76E#bra_D76E#
-$D77F#bra_D77F#
-$D78F#loc_D78F#
-$D799#bra_D799#
-$D79E#bra_D79E_RTS#
+$D77F#bra_D77F_free_enemyA#puts the enemyA number
+$D781##--NO-COMMENT--
+$D784##--NO-COMMENT--
+$D787##--NO-COMMENT--
+$D78A##--NO-COMMENT--
+$D78C##clear a status
+$D78F#loc_D78F_dec_enemyA_counter#--NO-COMMENT--
+$D792##If vEnemyACount == 0x00
+$D794##--NO-COMMENT--
+$D797##If vEnemyACount != 0x00
+$D799#bra_D799_skip#--NO-COMMENT--
+$D79B##clear
+$D79E#bra_D79E_RTS#--NO-COMMENT--
 $D79F#sub_D79F#
 $D7A8#bra_D7A8#
 $D7B6#bra_D7B6#
@@ -2320,8 +2409,16 @@ $D976##--NO-COMMENT--
 $D978##--NO-COMMENT--
 $D97A##--NO-COMMENT--
 $D97C##--NO-COMMENT--
-$D995#bra_D995#
-$D996#loc_D996#
+$D989#loc_D989_add_enemyA_sprite_magic_v1#--NO-COMMENT--
+$D98C##CONSTANT - a jump moment when the sound is activated
+$D98E##If vEnemyAJumpCounter != 0x1F
+$D990##CONSTANT - the enemy got a damage
+$D992##--NO-COMMENT--
+$D995#bra_D995_no_sound#Y -> sprite_magic2
+$D996#loc_D996#~> sprite_magic2 (see v_sprite_magic2)
+$D998##--NO-COMMENT--
+$D99A##~> sprite_magic3 (see v_sprite_magic3)
+$D99C##--NO-COMMENT--
 $D99F#loc_D99F_add_flash_sprite#filters (a mask)
 $D9A1##--NO-COMMENT--
 $D9A2##--NO-COMMENT--
@@ -2330,7 +2427,16 @@ $D9A5##<~ (0xD0, 0xD2, 0xD4, 0xD6)
 $D9A7##~> sprite_magic3 (see v_sprite_magic3)
 $D9A9##--NO-COMMENT--
 $D9AB##--NO-COMMENT--
-$D9C3#bra_D9C3_RTS#
+$D9AE#sub_D9AE_inc_frame_counter#--NO-COMMENT--
+$D9B0##--NO-COMMENT--
+$D9B2##Branch if vLowCounter doesn't multiple of 8 (vLowCounter % 8 != 0)
+$D9B4##--NO-COMMENT--
+$D9B7##--NO-COMMENT--
+$D9BA##CONSTANT - Max value
+$D9BC##If vEnemyAFrame_Counter < 0x03
+$D9BE##--NO-COMMENT--
+$D9C0##reset a counter
+$D9C3#bra_D9C3_RTS#--NO-COMMENT--
 $D9DA#sub_D9DA#
 $D9E8#bra_D9E8#
 $D9EA#bra_D9EA#
@@ -2338,8 +2444,14 @@ $D9EC#bra_D9EC#
 $DA02#bra_DA02#
 $DA0B#bra_DA0B#
 $DA12#bra_DA12#
-$DA17#sub_DA17#
-$DA25#bra_DA25#
+$DA17#sub_DA17_add_enemy_score#CONSTANT - it's getting damage (see vEnemyAStatus)
+$DA19##If the enemy didn't get damage
+$DA1B##--NO-COMMENT--
+$DA1E##--NO-COMMENT--
+$DA21##Y <~ Score value
+$DA22##--NO-COMMENT--
+$DA24##--NO-COMMENT--
+$DA25#bra_DA25_add_score#--NO-COMMENT--
 $DA28#sub_DA28#
 $DA30#bra_DA30#
 $DA38#loc_DA38#
@@ -2424,8 +2536,8 @@ $DBBA##--NO-COMMENT--
 $DBBD##the offset of the sprite address
 $DBBF#bra_DBBF_skip#--NO-COMMENT--
 $DBC2#loc_DBC2_before_rendering#--NO-COMMENT--
-$DBC4##CONSTANT - the character is getting a damage
-$DBC6##If the character is getting a damage
+$DBC4##CONSTANT - the character is getting damage
+$DBC6##If the character is getting damage
 $DBC8##--NO-COMMENT--
 $DBC9##store x
 $DBCD##--NO-COMMENT--
@@ -2628,8 +2740,8 @@ $DDA7#loc_DDA7#--NO-COMMENT--
 $DDA9##CONSTANT - Maximum allowed Y-value on the screen
 $DDAB##If vScreenChrPosY >= 0xDF
 $DDAD##--NO-COMMENT--
-$DDAF##CONSTANT - 'the character is getting a damage'
-$DDB1##If the character is getting a damage
+$DDAF##CONSTANT - 'the character is getting damage'
+$DDB1##If the character is getting damage
 $DDB3##--NO-COMMENT--
 $DDB6##If the current character is Lupin
 $DDB8##CONSTANT - the character stands on the ground
@@ -2651,21 +2763,21 @@ $DDD6#bra_DDD6_jump_by_side#--NO-COMMENT--
 $DDD8##--NO-COMMENT--
 $DDD9##If the character is looking to the right
 $DDDB##--NO-COMMENT--
-$DDDD##If the character is getting a damage
+$DDDD##If the character is getting damage
 $DDDF#bra_DDDF_left2#--NO-COMMENT--
 $DDE2##--NO-COMMENT--
-$DDE4##CONSTANT - 'the character is getting a damage'
-$DDE6##If the character is getting a damage
+$DDE4##CONSTANT - 'the character is getting damage'
+$DDE6##If the character is getting damage
 $DDE8##--NO-COMMENT--
 $DDEA##If the button 'Right' isn't pressed
 $DDEC##--NO-COMMENT--
 $DDEF#bra_DDEF_skip#
 $DDF2#bra_DDF2_right#--NO-COMMENT--
-$DDF4##If the character is getting a damage
+$DDF4##If the character is getting damage
 $DDF6#bra_DDF6_right2#--NO-COMMENT--
 $DDF9##--NO-COMMENT--
-$DDFB##CONSTANT - 'the character is getting a damage'
-$DDFD##If the character is getting a damage
+$DDFB##CONSTANT - 'the character is getting damage'
+$DDFD##If the character is getting damage
 $DDFF##--NO-COMMENT--
 $DE01##If the button 'Left' isn't pressed
 $DE03##--NO-COMMENT--
@@ -2677,7 +2789,7 @@ $DE0E##CONSTANT - Limit 1 for Y-position
 $DE10##If Register A < 0xDF
 $DE12##0xDF -> vScreenChrPosY
 $DE14##CONSTANT - Limit 2 for Y-position
-$DE16##--NO-COMMENT--
+$DE16##If Register A < 0xF8
 $DE18##0x00 -> vScreenChrPosY
 $DE1A#bra_DE1A_skip#A <~ 0x00 or 0xDF
 $DE1B#bra_DE1B_skip#Resolves a new Y-position of the character after jumping
@@ -2717,8 +2829,8 @@ $DE65##If the button 'Down' is pressed
 $DE67#bra_DE67#
 $DE6D##--NO-COMMENT--
 $DE70#bra_DE70_skip#--NO-COMMENT--
-$DE72##CONSTANT - the character is getting a damage
-$DE74##If the character isn't getting a damage
+$DE72##CONSTANT - the character is getting damage
+$DE74##If the character isn't getting damage
 $DE83#bra_DE83_jump_subroutine_before_bf2#
 $DE86#loc_DE86_jump_subroutine_bf2#--NO-COMMENT--
 $DE88##CONSTANT - a maximum amplitude
@@ -2731,8 +2843,8 @@ $DE98##--NO-COMMENT--
 $DE9A##If 0x2F >= vJumpCounter, i.e. less than maximum
 $DE9C##--NO-COMMENT--
 $DE9E#bra_DE9E_skip#--NO-COMMENT--
-$DEA0##CONSTANT - the character is getting a damage
-$DEA2##If the character isn't getting a damage
+$DEA0##CONSTANT - the character is getting damage
+$DEA2##If the character isn't getting damage
 $DEA4##prepares the offset of the sprite address
 $DEA6#bra_DEA6_skip#--NO-COMMENT--
 $DEA9#loc_DEA9#
@@ -2902,6 +3014,7 @@ $E358#tbl_E358_init_counter#simple jump
 $E359##high jump
 $E35A##jumping off
 $E35B##jump by side
+$E35C##jumping off (for the enemies)
 $E35D#tbl_E35D_jump_posY_offset#
 $E38D#tbl_E38D#
 $E38E#tbl_E38E#
@@ -3032,8 +3145,8 @@ $E78A#sub_E78A_has_roof_pitch#--NO-COMMENT--
 $E78C##If vNoSubLevel != 0x00 (i.e. level 1.0)
 $E78E##--NO-COMMENT--
 $E791##--NO-COMMENT--
-$E793##CONSTANT - the character is getting a damage
-$E795##If the character is getting a damage
+$E793##CONSTANT - the character is getting damage
+$E795##If the character is getting damage
 $E797##set loop counter
 $E799##--NO-COMMENT--
 $E79B##--NO-COMMENT--
@@ -3764,6 +3877,7 @@ $F4DD##store (X-position - 0x18)
 $F4E0##--NO-COMMENT--
 $F4E2##--NO-COMMENT--
 $F4E4##store macro X-position (-1 with overflow)
+$F4E7##CONSTANT - the start status (Y,L,N - see vEnemyAStatus)
 $F4E9##Always true
 $F4EB#bra_F4EB_skip#--NO-COMMENT--
 $F4ED##--NO-COMMENT--
@@ -3772,9 +3886,14 @@ $F4F0##store (X-position + 0x18)
 $F4F3##--NO-COMMENT--
 $F4F5##--NO-COMMENT--
 $F4F7##store macro X-position (+1 with overflow)
+$F4FA##CONSTANT - the start status (Y,L - see vEnemyAStatus)
 $F4FC#bra_F4FC#store 0xC4 or 0xC5
 $F4FF##--NO-COMMENT--
 $F501##store Y-position
+$F504##--NO-COMMENT--
+$F506##initializes a jump counter
+$F509##--NO-COMMENT--
+$F50B##reset a counter
 $F50E##--NO-COMMENT--
 $F511##CONSTANT - Land Diver from level 2
 $F513##If vEnemyA == 0x05
@@ -3792,7 +3911,7 @@ $F52B##<~ sprite_magic3 (see v_sprite_magic3)
 $F52D#bra_F52D_skip#--NO-COMMENT--
 $F530##Enemy pops up (sound effect)
 $F532##--NO-COMMENT--
-$F535##<~ sprite_magic2 (see v_sprite_magic2)
+$F535##the offset for sprite_magic2 (Bank 05, Page 2, $8100 + $00C0)
 $F537##--NO-COMMENT--
 $F53A##--NO-COMMENT--
 $F53D#loc_F53D_bazooka_enemy#

@@ -67,6 +67,7 @@ $008F#vBulletStatus#
 $009C#vNonUsed#
 $0099#vHiScore#
 $00A3#vNonUsed3#
+$00A6#vEnemyScore#
 $00AD#vMainMenuGunYPos#
 $00AE#vCopyIndexSelectableChr#
 $00B1#v_start_level#
@@ -141,12 +142,16 @@ $0320#vEnemyAStatus1#
 $0321#vEnemyAStatus2#
 $032C#vEnemyAPosY1#
 $032D#vEnemyAPosY2#
+$0332#vEnemyAScreenPosX1#
+$0333#vEnemyAScreenPosX2#
 $0338#vEnemyAPosXLow1#
 $0339#vEnemyAPosXLow2#
 $033E#vEnemyAPosXHigh1#
 $033F#vEnemyAPosXHigh2#
 $034A#vEnemyAJumpCounter1#
 $034B#vEnemyAJumpCounter2#
+$0344#vEnemyAFrame_Counter1#
+$0345#vEnemyAFrame_Counter2#
 $0356#vEnemyAJumpType1#
 $0357#vEnemyAJumpType2#
 $035C#vEnemyBStatus1#

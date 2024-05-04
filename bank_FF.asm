@@ -70,7 +70,7 @@
 .export loc_D99F_add_flash_sprite
 .export sub_D660_is_bomb_exploding
 .export tbl_E35D_jump_posY_offset
-.export sub_D358_check_left_right_enemy_collision
+.export sub_D358_check_enemy_collision_by_Y
 .export tbl_E358_init_counter
 .export sub_D7BF_check_enemyA_movement_on_the_right
 .export sub_D7CA_check_enemyA_movement_on_the_left
@@ -79,6 +79,10 @@
 .export sub_D064_generate_rng
 .export loc_D77F_free_enemyA
 .export sub_D6BD_try_change_enemyA_direction
+.export sub_D9AE_inc_frame_counter
+.export loc_D741_enemyA_off_screen
+.export sub_D725_enemyA_on_screen
+.export loc_D989_add_enemyA_sprite_magic_v1
 
 BANK02_OFFSET = -8192
 
@@ -3078,7 +3082,7 @@ C - - - - - 0x01D367 07:D357: 60        RTS
 
 ; In: $0000 - EnemyAPosY
 ; Out: Register A - a strong collision or left + right collision value
-sub_D358_check_left_right_enemy_collision:
+sub_D358_check_enemy_collision_by_Y:
 C - - - - - 0x01D368 07:D358: 20 3F D9  JSR sub_D93F_init_short_enemyA_positions ;
 C - - - - - 0x01D36B 07:D35B: 4C 70 D3  JMP loc_D370_left_right_collision        ;
 
@@ -3742,12 +3746,12 @@ C - - - - - 0x01D734 07:D724: 60        RTS                             ;
 ; In: Register Y - sprite_magic2 (The offset by the address)
 ; In:  $0003 - enemy X-position
 ; Out: $0000 - enemy Y-position
-sub_D725: ; from bank 06_2
+sub_D725_enemyA_on_screen:
 C - - - - - 0x01D735 07:D725: BD 2C 03  LDA vEnemyAPosY,X           ;
 C - - - - - 0x01D738 07:D728: 85 00     STA ram_0000                ; ~> sprite magic1
 C - - - - - 0x01D73A 07:D72A: A5 03     LDA ram_0003                ;
 C - - - - - 0x01D73C 07:D72C: 9D 32 03  STA vEnemyAScreenPosX,X     ;
-C - - - - - 0x01D73F 07:D72F: C0 FF     CPY #$FF
+C - - - - - 0x01D73F 07:D72F: C0 FF     CPY #$FF                    ; CONSTANT - death mark
 C - - - - - 0x01D741 07:D731: F0 20     BEQ bra_D753
 C - - - - - 0x01D743 07:D733: BD 20 03  LDA vEnemyAStatus,X         ;
 C - - - - - 0x01D746 07:D736: 09 40     ORA #$40                    ; CONSTANT - the enemy can get damage
@@ -3759,21 +3763,23 @@ C - - - - - 0x01D74F 07:D73F: C8        INY                         ; next the o
 bra_D740_RTS:
 C - - - - - 0x01D750 07:D740: 60        RTS                         ;
 
-loc_D741: ; from bank 06_2
+; In: Register X - the enemyA number
+; In: Register Y - sprite_magic2 (The offset by the address)
+loc_D741_enemyA_off_screen:
 C D 2 - - - 0x01D751 07:D741: BD 20 03  LDA vEnemyAStatus,X       ;
-C - - - - - 0x01D754 07:D744: 29 BF     AND #$BF                  ; CONSTANT - the enemy cann't get damage
+C - - - - - 0x01D754 07:D744: 29 BF     AND #$BF                  ; CONSTANT - the enemy can't get damage
 C - - - - - 0x01D756 07:D746: 9D 20 03  STA vEnemyAStatus,X       ; 
-C - - - - - 0x01D759 07:D749: C0 FF     CPY #$FF
-C - - - - - 0x01D75B 07:D74B: D0 05     BNE bra_D752_RTS
+C - - - - - 0x01D759 07:D749: C0 FF     CPY #$FF                  ; CONSTANT - death mark
+C - - - - - 0x01D75B 07:D74B: D0 05     BNE @bra_D752_RTS         ; If Register Y != 0xFF
 C - - - - - 0x01D75D 07:D74D: 20 9F D7  JSR sub_D79F
-C - - - - - 0x01D760 07:D750: B0 2D     BCS bra_D77F_free_enemyA
-bra_D752_RTS:
-C - - - - - 0x01D762 07:D752: 60        RTS
+C - - - - - 0x01D760 07:D750: B0 2D     BCS bra_D77F_free_enemyA  ; If vEnemyAFrame_Counter >= 0x1F
+@bra_D752_RTS:
+C - - - - - 0x01D762 07:D752: 60        RTS                       ;
 
 bra_D753:
 C - - - - - 0x01D763 07:D753: 68        PLA
 C - - - - - 0x01D764 07:D754: 68        PLA
-C - - - - - 0x01D765 07:D755: BD 3E 03  LDA ram_033E,X
+C - - - - - 0x01D765 07:D755: BD 3E 03  LDA vEnemyAPosXHigh,X
 C - - - - - 0x01D768 07:D758: 85 D7     STA ram_00D7
 C - - - - - 0x01D76A 07:D75A: 20 DA D9  JSR sub_D9DA
 C - - - - - 0x01D76D 07:D75D: 90 20     BCC bra_D77F_free_enemyA
@@ -3817,9 +3823,10 @@ C - - - - - 0x01D7AB 07:D79B: 8D 00 03  STA vEnemyA                    ; clear
 @bra_D79E_RTS:
 C - - - - - 0x01D7AE 07:D79E: 60        RTS                            ;
 
+; In: Register X - the enemyA number
 sub_D79F:
-C - - - - - 0x01D7AF 07:D79F: FE 44 03  INC ram_0344,X
-C - - - - - 0x01D7B2 07:D7A2: BD 44 03  LDA ram_0344,X
+C - - - - - 0x01D7AF 07:D79F: FE 44 03  INC vEnemyAFrame_Counter,X
+C - - - - - 0x01D7B2 07:D7A2: BD 44 03  LDA vEnemyAFrame_Counter,X
 C - - - - - 0x01D7B5 07:D7A5: C9 1F     CMP #$1F
 C - - - - - 0x01D7B7 07:D7A7: 60        RTS
 
@@ -4159,7 +4166,7 @@ C - - - - - 0x01D994 07:D984: 69 D0     ADC #$D0
 C - - - - - 0x01D996 07:D986: 4C 96 D9  JMP loc_D996
 
 ; In: Register Y - sprite_magic2 (The offset by the address)
-loc_D989:
+loc_D989_add_enemyA_sprite_magic_v1:
 C D 2 - - - 0x01D999 07:D989: BD 4A 03  LDA vEnemyAJumpCounter,X        ;
 C - - - - - 0x01D99C 07:D98C: C9 1F     CMP #$1F                        ; CONSTANT - a jump moment when the sound is activated
 C - - - - - 0x01D99E 07:D98E: D0 05     BNE bra_D995_no_sound           ; If vEnemyAJumpCounter != 0x1F
@@ -4188,17 +4195,18 @@ C - - - - - 0x01D9B7 07:D9A7: A9 40     LDA #$40                        ; ~> spr
 C - - - - - 0x01D9B9 07:D9A9: 85 02     STA ram_0002                    ;
 C - - - - - 0x01D9BB 07:D9AB: 4C 33 CE  JMP loc_CE33_add_sprite_magic   ;
 
-C D 2 - - - 0x01D9BE 07:D9AE: A5 2C     LDA vLowCounter
-C - - - - - 0x01D9C0 07:D9B0: 29 07     AND #$07
-C - - - - - 0x01D9C2 07:D9B2: D0 0F     BNE bra_D9C3_RTS
-C - - - - - 0x01D9C4 07:D9B4: FE 44 03  INC ram_0344,X
-C - - - - - 0x01D9C7 07:D9B7: BD 44 03  LDA ram_0344,X
-C - - - - - 0x01D9CA 07:D9BA: C9 03     CMP #$03
-C - - - - - 0x01D9CC 07:D9BC: 90 05     BCC bra_D9C3_RTS
-C - - - - - 0x01D9CE 07:D9BE: A9 00     LDA #$00
-C - - - - - 0x01D9D0 07:D9C0: 9D 44 03  STA ram_0344,X
+sub_D9AE_inc_frame_counter:
+C D 2 - - - 0x01D9BE 07:D9AE: A5 2C     LDA vLowCounter                 ;
+C - - - - - 0x01D9C0 07:D9B0: 29 07     AND #$07                        ;
+C - - - - - 0x01D9C2 07:D9B2: D0 0F     BNE bra_D9C3_RTS                ; Branch if vLowCounter doesn't multiple of 8 (vLowCounter % 8 != 0)
+C - - - - - 0x01D9C4 07:D9B4: FE 44 03  INC vEnemyAFrame_Counter,X      ;
+C - - - - - 0x01D9C7 07:D9B7: BD 44 03  LDA vEnemyAFrame_Counter,X      ;
+C - - - - - 0x01D9CA 07:D9BA: C9 03     CMP #$03                        ; CONSTANT - Max value
+C - - - - - 0x01D9CC 07:D9BC: 90 05     BCC bra_D9C3_RTS                ; If vEnemyAFrame_Counter < 0x03
+C - - - - - 0x01D9CE 07:D9BE: A9 00     LDA #$00                        ;
+C - - - - - 0x01D9D0 07:D9C0: 9D 44 03  STA vEnemyAFrame_Counter,X      ; reset a counter
 bra_D9C3_RTS:
-C - - - - - 0x01D9D3 07:D9C3: 60        RTS
+C - - - - - 0x01D9D3 07:D9C3: 60        RTS                             ;
 
 C - - - - - 0x01D9D4 07:D9C4: A5 2C     LDA vLowCounter
 C - - - - - 0x01D9D6 07:D9C6: 29 07     AND #$07
@@ -4938,14 +4946,14 @@ C - - - - - 0x01DE13 07:DE03: 20 80 DF  JSR sub_DF80_slow_down_velocity    ;
 bra_DE06_after_horiz_moving:
 loc_DE06_after_horiz_moving:
 C D 2 - - - 0x01DE16 07:DE06: A6 6F     LDX vJumpCounter                ;
-C - - - - - 0x01DE18 07:DE08: BD 5D E3  LDA tbl_E35D_jump_posY_offset,X ; X = [0x00-0x2F] 
+C - - - - - 0x01DE18 07:DE08: BD 5D E3  LDA tbl_E35D_jump_posY_offset,X ; X = [0x00-0x2F]
 C - - - - - 0x01DE1B 07:DE0B: 18        CLC                             ;
 C - - - - - 0x01DE1C 07:DE0C: 65 6A     ADC vScreenChrPosY              ;
 C - - - - - 0x01DE1E 07:DE0E: C9 DF     CMP #$DF                        ; CONSTANT - Limit 1 for Y-position
 C - - - - - 0x01DE20 07:DE10: 90 09     BCC @bra_DE1B_skip              ; If Register A < 0xDF
 C - - - - - 0x01DE22 07:DE12: A0 DF     LDY #$DF                        ; 0xDF -> vScreenChrPosY
 C - - - - - 0x01DE24 07:DE14: C9 F8     CMP #$F8                        ; CONSTANT - Limit 2 for Y-position
-C - - - - - 0x01DE26 07:DE16: 90 02     BCC @bra_DE1A_skip              ;
+C - - - - - 0x01DE26 07:DE16: 90 02     BCC @bra_DE1A_skip              ; If Register A < 0xF8
 - - - - - - 0x01DE28 07:DE18: A0 00     LDY #$00                        ; 0x00 -> vScreenChrPosY
 @bra_DE1A_skip:
 C - - - - - 0x01DE2A 07:DE1A: 98        TYA                             ; A <~ 0x00 or 0xDF
@@ -5801,7 +5809,7 @@ tbl_E358_init_counter:
 - D 3 - - - 0x01E369 07:E359: 00        .byte $00   ; high jump
 - D 3 - - - 0x01E36A 07:E35A: 13        .byte $13   ; jumping off
 - D 3 - - - 0x01E36B 07:E35B: 06        .byte $06   ; jump by side
-- D 3 - - - 0x01E36C 07:E35C: 13        .byte $13
+- D 3 - - - 0x01E36C 07:E35C: 13        .byte $13   ; jumping off (for the enemies)
 
 ; In the case jumpCounter is equal to 0x17 or 0x18 - this is the amplitude
 ; 0xFF -> -1, 0xFE -> -2, 0xFD -> -3, 0xFC -> -4, 0xFB -> -5
@@ -8488,7 +8496,7 @@ C - - - - - 0x01F4ED 07:F4DD: 9D 38 03  STA vEnemyAPosXLow,X                ; st
 C - - - - - 0x01F4F0 07:F4E0: A5 00     LDA ram_0000                        ;
 C - - - - - 0x01F4F2 07:F4E2: E9 00     SBC #$00                            ;
 C - - - - - 0x01F4F4 07:F4E4: 9D 3E 03  STA vEnemyAPosXHigh,X               ; store macro X-position (-1 with overflow)
-C - - - - - 0x01F4F7 07:F4E7: A9 C5     LDA #$C5
+C - - - - - 0x01F4F7 07:F4E7: A9 C5     LDA #$C5                            ; CONSTANT - the start status (Y,L,N - see vEnemyAStatus)
 C - - - - - 0x01F4F9 07:F4E9: D0 11     BNE bra_F4FC                        ; Always true
 @bra_F4EB_skip:
 C - - - - - 0x01F4FB 07:F4EB: A5 01     LDA ram_0001                        ;
@@ -8498,15 +8506,15 @@ C - - - - - 0x01F500 07:F4F0: 9D 38 03  STA vEnemyAPosXLow,X                ; st
 C - - - - - 0x01F503 07:F4F3: A5 00     LDA ram_0000                        ;
 C - - - - - 0x01F505 07:F4F5: 69 00     ADC #$00                            ;
 C - - - - - 0x01F507 07:F4F7: 9D 3E 03  STA vEnemyAPosXHigh,X               ; store macro X-position (+1 with overflow)
-C - - - - - 0x01F50A 07:F4FA: A9 C4     LDA #$C4
+C - - - - - 0x01F50A 07:F4FA: A9 C4     LDA #$C4                            ; CONSTANT - the start status (Y,L - see vEnemyAStatus)
 bra_F4FC:
 C - - - - - 0x01F50C 07:F4FC: 9D 20 03  STA vEnemyAStatus,X                 ; store 0xC4 or 0xC5
 C - - - - - 0x01F50F 07:F4FF: A5 02     LDA ram_0002                        ;
 C - - - - - 0x01F511 07:F501: 9D 2C 03  STA vEnemyAPosY,X                   ; store Y-position
 C - - - - - 0x01F514 07:F504: A9 10     LDA #$10                            ;
 C - - - - - 0x01F516 07:F506: 9D 4A 03  STA vEnemyAJumpCounter,X            ; initializes a jump counter 
-C - - - - - 0x01F519 07:F509: A9 00     LDA #$00
-C - - - - - 0x01F51B 07:F50B: 9D 44 03  STA ram_0344,X
+C - - - - - 0x01F519 07:F509: A9 00     LDA #$00                            ;
+C - - - - - 0x01F51B 07:F50B: 9D 44 03  STA vEnemyAFrame_Counter,X           ; reset a counter
 C - - - - - 0x01F51E 07:F50E: AD 00 03  LDA vEnemyA                         ;
 C - - - - - 0x01F521 07:F511: C9 05     CMP #$05                            ; CONSTANT - Land Diver from level 2
 C - - - - - 0x01F523 07:F513: F0 08     BEQ @bra_F51D_from_level2           ; If vEnemyA == 0x05

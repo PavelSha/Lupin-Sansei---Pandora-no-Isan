@@ -359,8 +359,9 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; Byte: 0YZW KLMN (template1, land diver)
 ; N - the direction (1 - on the left, 0 - on the right)
 ; M - the jump
-; L - pause for a moment
-; K - the squatting
+; L - the appearance
+; K - the stop
+; W - squatting
 ; Z - the dying
 ; Y - the enemy can get damage (1 - true, 0 - false)
 
@@ -385,8 +386,9 @@ vEnemyAJumpCounter            = ram_034A ; see below
 vEnemyAJumpCounter1           = ram_034A ; vJumpCounter analog for the enemy (the enemy number = 1)
 vEnemyAJumpCounter2           = ram_034B ; vJumpCounter analog for the enemy (the enemy number = 2)
 
-; ram_0344 - vChrFrameIndex1 ???
-; ram_0345 - vChrFrameIndex2 ???
+vEnemyAFrame_Counter          = ram_0344 ; see below
+vEnemyAFrame_Counter1         = ram_0344 ; The frame index (the enemy number = 1)
+vEnemyAFrame_Counter2         = ram_0345 ; The frame index (the enemy number = 2)
 
 vEnemyAJumpType               = ram_0356 ; see below
 vEnemyAJumpType1              = ram_0356 ; vJumpType analog for the enemy (the enemy number = 1)
