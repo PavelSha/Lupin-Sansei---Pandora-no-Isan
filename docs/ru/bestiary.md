@@ -1,15 +1,3 @@
-<style>
-    .frames
-    {
-        text-align: center;
-    }
-    .frames th
-    {
-        background: #C8ED58;
-        text-align: center;
-    }
-</style>
-
 |Идентификатор|Имя|Тип|Подробнее|Уровень|
 |---|---|---|---|---|
 |0x00| - | - | - | - |
@@ -71,11 +59,28 @@
 |0x38|Ninja upside down| A |   | 4 |
 |0x39|Sensor| B |   | 4 |
 
-## Враг 06 (Земной водолаз, версия 1)
-
+## Враг 06
+Земной водолаз, версия 1
+<!---
+<style>
+    .frames
+    {
+        text-align: center;
+    }
+    .frames th
+    {
+        background: #C8ED58;
+        text-align: center;
+    }
+</style>
+-->
+<!---
 <div class="frames">
+-->
 |Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|
 |---|---|---|---|---|---|---|
 | ![Frame1](../images/enemy06/frame1-r.png) | ![Frame2](../images/enemy06/frame2-r.png) | ![Frame3](../images/enemy06/frame3-r.png) | ![Frame4](../images/enemy06/frame4-r.png) | ![Frame5](../images/enemy06/frame5-r.png) | ![Frame6](../images/enemy06/frame6-r.png) | ![Frame7](../images/enemy06/frame7-r.png) |
 | ![Frame1](../images/enemy06/frame1-l.png) | ![Frame2](../images/enemy06/frame2-l.png) | ![Frame3](../images/enemy06/frame3-l.png) | ![Frame4](../images/enemy06/frame4-l.png) | ![Frame5](../images/enemy06/frame5-l.png) | ![Frame6](../images/enemy06/frame6-l.png) | ![Frame7](../images/enemy06/frame7-l.png) |
+<!---
 </div>
+-->
