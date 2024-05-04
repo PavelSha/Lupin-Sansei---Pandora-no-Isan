@@ -17,4 +17,18 @@ def cut():
         strValue = str(value)[2:]
         newImage.save(FOLDER_PATH + strValue + '.bmp', 'BMP', compression=1)
 
-cut()
+def cut2():
+    image = Image.open(FOLDER_PATH + "ef.png")
+    # newImage = image.crop((6, 160, 34, 184))
+    newImage = image.convert("RGBA")
+    datas = newImage.getdata()
+    newData = []
+    for d in datas:
+        if d[0] == 247 and d[1] == 121 and d[2] == 255:
+            newData.append((247, 121, 255, 0))
+        else:
+            newData.append(d)
+    newImage.putdata(newData)
+    newImage.save(FOLDER_PATH + 'ef-cut.png', 'PNG')
+
+cut2()
