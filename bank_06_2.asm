@@ -52,6 +52,7 @@
 .import sub_D725_enemyA_on_screen                ; bank FF
 .import loc_D989_add_enemyA_sprite_magic_v1      ; bank FF
 .import sub_D358_check_enemy_collision_by_Y      ; bank FF
+.import sub_D562_has_character_damage            ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -145,7 +146,7 @@ C - - - - - 0x01A072 06:A062: 10 F8     BPL bra_A05C
 bra_A064:
 C - - - - - 0x01A074 06:A064: A6 1A     LDX ram_001A
 C - - - - - 0x01A076 06:A066: 20 9C A0  JSR sub_A09C
-C - - - - - 0x01A079 06:A069: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
+C - - - - - 0x01A079 06:A069: 20 62 D5  JSR sub_D562_has_character_damage
 bra_A06C:
 loc_A06C:
 C D 1 - - - 0x01A07C 06:A06C: C6 1A     DEC ram_001A
@@ -593,12 +594,12 @@ C - - - - - 0x01A34F 06:A33F: CA        DEX
 C - - - - - 0x01A350 06:A340: 10 F8     BPL bra_A33A
 bra_A342:
 C - - - - - 0x01A352 06:A342: A6 1A     LDX ram_001A
-C - - - - - 0x01A354 06:A344: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
+C - - - - - 0x01A354 06:A344: 20 62 D5  JSR sub_D562_has_character_damage
 C - - - - - 0x01A357 06:A347: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A35A 06:A34A: 29 04     AND #$04
 C - - - - - 0x01A35C 06:A34C: F0 06     BEQ bra_A354
 C - - - - - 0x01A35E 06:A34E: 20 7A A3  JSR sub_A37A
-C - - - - - 0x01A361 06:A351: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
+C - - - - - 0x01A361 06:A351: 20 62 D5  JSR sub_D562_has_character_damage
 bra_A354:
 loc_A354:
 C D 1 - - - 0x01A364 06:A354: C6 1A     DEC ram_001A
@@ -1152,7 +1153,7 @@ C - - - - - 0x01A6BC 06:A6AC: 10 F8     BPL bra_A6A6
 bra_A6AE:
 C - - - - - 0x01A6BE 06:A6AE: A6 1A     LDX ram_001A
 C - - - - - 0x01A6C0 06:A6B0: 20 DC A6  JSR sub_A6DC
-C - - - - - 0x01A6C3 06:A6B3: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
+C - - - - - 0x01A6C3 06:A6B3: 20 62 D5  JSR sub_D562_has_character_damage
 bra_A6B6:
 loc_A6B6:
 C D 1 - - - 0x01A6C6 06:A6B6: C6 1A     DEC ram_001A
@@ -1656,7 +1657,7 @@ C - - - - - 0x01AA4E 06:AA3E: B0 0D     BCS bra_AA4D
 C - - - - - 0x01AA50 06:AA40: CA        DEX
 C - - - - - 0x01AA51 06:AA41: 10 F8     BPL bra_AA3B
 bra_AA43:
-C - - - - - 0x01AA53 06:AA43: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
+C - - - - - 0x01AA53 06:AA43: 20 62 D5  JSR sub_D562_has_character_damage
 bra_AA46:
 loc_AA46:
 C D 1 - - - 0x01AA56 06:AA46: C6 1A     DEC ram_001A
@@ -1819,7 +1820,7 @@ C - - - - - 0x01AB65 06:AB55: A9 06     LDA #$06
 C - - - - - 0x01AB67 06:AB57: 85 AF     STA ram_00AF
 C - - - - - 0x01AB69 06:AB59: A9 03     LDA #$03
 C - - - - - 0x01AB6B 06:AB5B: 85 B0     STA ram_00B0
-C - - - - - 0x01AB6D 06:AB5D: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
+C - - - - - 0x01AB6D 06:AB5D: 20 62 D5  JSR sub_D562_has_character_damage
 bra_AB60:
 C - - - - - 0x01AB70 06:AB60: C6 1A     DEC ram_001A
 C - - - - - 0x01AB72 06:AB62: A6 1A     LDX ram_001A
@@ -1949,7 +1950,7 @@ C - - - - - 0x01AC56 06:AC46: B0 0B     BCS bra_AC53
 C - - - - - 0x01AC58 06:AC48: CA        DEX
 C - - - - - 0x01AC59 06:AC49: 10 F8     BPL bra_AC43
 bra_AC4B:
-C - - - - - 0x01AC5B 06:AC4B: 20 62 D5  JSR $D562 ; to sub_D562 (bank_FF)
+C - - - - - 0x01AC5B 06:AC4B: 20 62 D5  JSR sub_D562_has_character_damage
 bra_AC4E:
 loc_AC4E:
 C D 1 - - - 0x01AC5E 06:AC4E: C6 1A     DEC ram_001A

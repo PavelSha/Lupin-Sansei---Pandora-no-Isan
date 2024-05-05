@@ -35,6 +35,8 @@ $C0DB##ram_0039
 $C0DD##ram_0039
 $C148##ram_0039
 $C14A##ram_0039
+$DF3B##ram_0039
+$DF17##ram_0039
 $F050##ram_03D4
 $F053##ram_03D5
 $F056##ram_03D6
@@ -62,6 +64,7 @@ $DCB6##ram_0042
 $DCEA##ram_0042
 $DCEC##ram_0042
 $E56D##ram_0042
+$CCF6##ram_0042
 $DC67##ram_0070
 $DC9C##ram_0070
 $DC9E##ram_0070

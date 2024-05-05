@@ -27,6 +27,7 @@
 .import loc_D741_enemyA_off_screen                  ; bank FF
 .import sub_D725_enemyA_on_screen                   ; bank FF
 .import loc_D989_add_enemyA_sprite_magic_v1         ; bank FF
+.import sub_D562_has_character_damage               ; bank FF
 
 .export sub_A000_land_diver_enemy
 
@@ -133,7 +134,7 @@ C - - - - - 0x018091 06:A081: CA        DEX
 C - - - - - 0x018092 06:A082: 10 F8     BPL bra_A07C
 bra_A084:
 C - - - - - 0x018094 06:A084: A6 1A     LDX vTempCounter1A
-C - - - - - 0x018096 06:A086: 20 62 D5  JSR $D562
+C - - - - - 0x018096 06:A086: 20 62 D5  JSR sub_D562_has_character_damage
 bra_A089_next:
 loc_A089_next:
 C D 1 - - - 0x018099 06:A089: C6 1A     DEC vTempCounter1A        ; decrements loop counter
@@ -640,7 +641,7 @@ loc_A3B9:
 C D 1 - - - 0x0183C9 06:A3B9: CA        DEX
 C - - - - - 0x0183CA 06:A3BA: 10 F8     BPL bra_A3B4
 bra_A3BC:
-C - - - - - 0x0183CC 06:A3BC: 20 62 D5  JSR $D562
+C - - - - - 0x0183CC 06:A3BC: 20 62 D5  JSR sub_D562_has_character_damage
 bra_A3BF:
 loc_A3BF:
 C D 1 - - - 0x0183CF 06:A3BF: C6 1A     DEC ram_001A
@@ -969,7 +970,7 @@ bra_A5FD:
 C - - - - - 0x01860D 06:A5FD: CA        DEX
 C - - - - - 0x01860E 06:A5FE: 10 EF     BPL bra_A5EF
 bra_A600:
-C - - - - - 0x018610 06:A600: 20 62 D5  JSR $D562
+C - - - - - 0x018610 06:A600: 20 62 D5  JSR sub_D562_has_character_damage
 bra_A603:
 loc_A603:
 C D 1 - - - 0x018613 06:A603: C6 1A     DEC ram_001A
@@ -1247,7 +1248,7 @@ C - - - - - 0x0187D9 06:A7C9: B0 0B     BCS bra_A7D6
 C - - - - - 0x0187DB 06:A7CB: CA        DEX
 C - - - - - 0x0187DC 06:A7CC: 10 F8     BPL bra_A7C6
 bra_A7CE:
-C - - - - - 0x0187DE 06:A7CE: 20 62 D5  JSR $D562
+C - - - - - 0x0187DE 06:A7CE: 20 62 D5  JSR sub_D562_has_character_damage
 bra_A7D1:
 loc_A7D1:
 C D 1 - - - 0x0187E1 06:A7D1: C6 1A     DEC ram_001A
@@ -1532,7 +1533,7 @@ C - - - - - 0x0189B9 06:A9A9: A0 06     LDY #$06
 bra_A9AB:
 C - - - - - 0x0189BB 06:A9AB: 85 AF     STA ram_00AF
 C - - - - - 0x0189BD 06:A9AD: 84 B0     STY ram_00B0
-C - - - - - 0x0189BF 06:A9AF: 20 62 D5  JSR $D562
+C - - - - - 0x0189BF 06:A9AF: 20 62 D5  JSR sub_D562_has_character_damage
 C - - - - - 0x0189C2 06:A9B2: 90 06     BCC bra_A9BA
 C - - - - - 0x0189C4 06:A9B4: 20 57 B8  JSR sub_B857
 C - - - - - 0x0189C7 06:A9B7: 20 C3 A9  JSR sub_A9C3
@@ -2056,7 +2057,7 @@ C - - - - - 0x018D3E 06:AD2E: D0 0B     BNE bra_AD3B
 - - - - - - 0x018D49 06:AD39: 43        .byte $43   ; <C>
 - - - - - - 0x018D4A 06:AD3A: AD        .byte $AD   ; 
 bra_AD3B:
-C - - - - - 0x018D4B 06:AD3B: 20 62 D5  JSR $D562
+C - - - - - 0x018D4B 06:AD3B: 20 62 D5  JSR sub_D562_has_character_damage
 C - - - - - 0x018D4E 06:AD3E: 90 03     BCC bra_AD43
 C - - - - - 0x018D50 06:AD40: 20 6F AD  JSR sub_AD6F
 bra_AD43:
@@ -2218,7 +2219,7 @@ C - - - - - 0x018E41 06:AE31: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x018E44 06:AE34: B0 0B     BCS bra_AE41
 C - - - - - 0x018E46 06:AE36: CA        DEX
 C - - - - - 0x018E47 06:AE37: 10 F8     BPL bra_AE31
-C - - - - - 0x018E49 06:AE39: 20 62 D5  JSR $D562
+C - - - - - 0x018E49 06:AE39: 20 62 D5  JSR sub_D562_has_character_damage
 bra_AE3C:
 loc_AE3C:
 C D 1 - - - 0x018E4C 06:AE3C: C6 1A     DEC ram_001A
@@ -2520,7 +2521,7 @@ C - - - - - 0x019003 06:AFF3: B0 0B     BCS bra_B000
 C - - - - - 0x019005 06:AFF5: CA        DEX
 C - - - - - 0x019006 06:AFF6: 10 F8     BPL bra_AFF0
 bra_AFF8:
-C - - - - - 0x019008 06:AFF8: 20 62 D5  JSR $D562
+C - - - - - 0x019008 06:AFF8: 20 62 D5  JSR sub_D562_has_character_damage
 bra_AFFB:
 loc_AFFB:
 C D 1 - - - 0x01900B 06:AFFB: C6 1A     DEC ram_001A
@@ -2905,7 +2906,7 @@ C - - - - - 0x019255 06:B245: 10 EF     BPL bra_B236
 bra_B247:
 C - - - - - 0x019257 06:B247: A6 1A     LDX ram_001A
 C - - - - - 0x019259 06:B249: 20 AF B2  JSR sub_B2AF
-C - - - - - 0x01925C 06:B24C: 20 62 D5  JSR $D562
+C - - - - - 0x01925C 06:B24C: 20 62 D5  JSR sub_D562_has_character_damage
 bra_B24F:
 loc_B24F:
 C D 1 - - - 0x01925F 06:B24F: C6 1A     DEC ram_001A
@@ -3782,7 +3783,7 @@ C - - - - - 0x019859 06:B849: B0 19     BCS bra_B864_RTS
 C - - - - - 0x01985B 06:B84B: C9 C0     CMP #$C0
 C - - - - - 0x01985D 06:B84D: 90 15     BCC bra_B864_RTS
 C - - - - - 0x01985F 06:B84F: 20 6D B8  JSR sub_B86D
-C - - - - - 0x019862 06:B852: 20 62 D5  JSR $D562
+C - - - - - 0x019862 06:B852: 20 62 D5  JSR sub_D562_has_character_damage
 C - - - - - 0x019865 06:B855: 90 0D     BCC bra_B864_RTS
 sub_B857:
 C - - - - - 0x019867 06:B857: AD 00 03  LDA ram_0300
@@ -4213,7 +4214,7 @@ C - - - - - 0x019B3C 06:BB2C: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
 C - - - - - 0x019B3F 06:BB2F: B0 0B     BCS bra_BB3C
 C - - - - - 0x019B41 06:BB31: CA        DEX
 C - - - - - 0x019B42 06:BB32: 10 F8     BPL bra_BB2C
-C - - - - - 0x019B44 06:BB34: 20 62 D5  JSR $D562
+C - - - - - 0x019B44 06:BB34: 20 62 D5  JSR sub_D562_has_character_damage
 bra_BB37:
 loc_BB37:
 C D 1 - - - 0x019B47 06:BB37: C6 1A     DEC ram_001A
@@ -4593,7 +4594,7 @@ C - - - - - 0x019DC4 06:BDB4: B0 0B     BCS bra_BDC1
 C - - - - - 0x019DC6 06:BDB6: CA        DEX
 C - - - - - 0x019DC7 06:BDB7: 10 F8     BPL bra_BDB1
 bra_BDB9:
-C - - - - - 0x019DC9 06:BDB9: 20 62 D5  JSR $D562
+C - - - - - 0x019DC9 06:BDB9: 20 62 D5  JSR sub_D562_has_character_damage
 bra_BDBC:
 C - - - - - 0x019DCC 06:BDBC: C6 1A     DEC ram_001A
 C - - - - - 0x019DCE 06:BDBE: 10 DA     BPL bra_BD9A

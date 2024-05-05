@@ -80,8 +80,9 @@ vLowViewPortPosY              = ram_0029 ; a vertical scroll
 v_nmi_counter                 = ram_002B
 vLowCounter                   = ram_002C
 v_high_counter                = ram_002D
-vGameCounters                 = ram_002E ; [vCorridorCounter, the unknown counter1, 2, 3, 4]
+vGameCounters                 = ram_002E ; [vCorridorCounter, the unknown counter1, 2, 3]
 vCorridorCounter              = ram_002E ; The counter starts when we enter the corridor
+; Also the counter starts when the character is flying after damage
 ; ram_002F - the unknown counter1
 ; ram_0030 - the unknown counter2
 ; ram_0031 - the unknown counter3
@@ -97,15 +98,20 @@ vPauseStatus                  = ram_0038 ; 0x00 - no pause, 0x40 - pause
 
 ; ??? = ram_0039
 ; 0x00 - ???
-; 0x81 - ???
+; 0x80 - ??? (the character is arrested)
+; 0x81 - ??? (the character is dying)
 ; 0xC0 - ??? (in corridor)
-; 0xC1 - ???
+; 0xC1 - ??? (in water)
 ; 0xC2 - ???
 ; 0xC3 - ??? (out corridor with briefcase)
 ; 0xC4 - ???
 ; 0xE0 - ???
 
-v_resists                     = ram_003A ; TODO: !!!, 0x80 - The enemies don't damage
+vDamageStatus                 = ram_003A
+; 0x80 - The character isn't getting damage
+; 0x40 - The character got damage with a non-zero bullet proof vest item
+; 0x20 - The character got damage from Zenigata (arrested)
+
 vSharedGameStatus             = ram_003B
 ; Value (some the flags):
 ; 0x00 - In the game
@@ -206,10 +212,12 @@ vChrStatus                    = ram_006C ; A status of a character
 ; Byte: XYZW KLMN
 ; N - the character is looking to the right/left (1 - left, 0 - right)
 ; M - the character is/isn't sitting (1 - sitting, 0 - no sitting)
-; K - the character is getting damage  (1 - getting, 0 - no getting)
+; L - ??
+; K - the character is dying  (1 - dying, 0 - no dying)
 ; W - the character is/isn't jumping (1 - jumping, 0 - no jumping)
-; Z - the character is entering a corridor or hiding place (1 - entering, 0 - no entering)
-; ...
+; Z - the character is entering a corridor or hiding place or died (1 - entering, 0 - no entering)
+; L - ??
+; X - ??
 vMovableChrStatus             = ram_006D
 ; Byte: XYZW KLMN
 ; Z - the character is moving on the roof pitch (1 - moving, 0 - no moving)
@@ -449,7 +457,6 @@ vPpuAddrDataCache             = ram_067B ; [ram_067B - ram_06AC]
 ; next Nth byte - ppu data
 ; next repeat
 vCacheChrBankSelect           = ram_06AF ; [ram_06AF - ram_06B4]
-vNonUsed6B2                   = ram_06B2 ; !(WHY?), may be for debug
 vBankData                     = ram_06B5
 vChrBankData                  = ram_06B6
 v_sprite_magics               = ram_06B7

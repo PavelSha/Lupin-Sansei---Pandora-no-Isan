@@ -18,6 +18,7 @@
 .import sub_D725_enemyA_on_screen             ; bank FF
 .import loc_D989_add_enemyA_sprite_magic_v1   ; bank FF
 .import sub_D358_check_enemy_collision_by_Y   ; bank FF
+.import sub_D562_has_character_damage         ; bank FF
 
 ; Page 2
 sub_A000: ; from bank_FF
@@ -827,7 +828,7 @@ bra_A486:
 C - - - - - 0x00E496 03:A486: CA        DEX
 C - - - - - 0x00E497 03:A487: 10 EF     BPL bra_A478
 bra_A489:
-C - - - - - 0x00E499 03:A489: 4C 62 D5  JMP $D562
+C - - - - - 0x00E499 03:A489: 4C 62 D5  JMP sub_D562_has_character_damage
 
 sub_A48C:
 C - - - - - 0x00E49C 03:A48C: A0 08     LDY #$08
@@ -1117,7 +1118,7 @@ C - - - - - 0x00E646 03:A636: B0 09     BCS bra_A641
 C - - - - - 0x00E648 03:A638: CA        DEX
 C - - - - - 0x00E649 03:A639: 10 F8     BPL bra_A633
 bra_A63B:
-C - - - - - 0x00E64B 03:A63B: 20 62 D5  JSR $D562
+C - - - - - 0x00E64B 03:A63B: 20 62 D5  JSR sub_D562_has_character_damage
 bra_A63E:
 loc_A63E:
 C D 1 - - - 0x00E64E 03:A63E: 4C 26 A7  JMP loc_A726
@@ -1294,7 +1295,7 @@ C - - - - - 0x00E78A 03:A77A: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
 bra_A77D:
 C - - - - - 0x00E78D 03:A77D: CA        DEX
 C - - - - - 0x00E78E 03:A77E: 10 EF     BPL bra_A76F
-C - - - - - 0x00E790 03:A780: 20 62 D5  JSR $D562
+C - - - - - 0x00E790 03:A780: 20 62 D5  JSR sub_D562_has_character_damage
 bra_A783:
 loc_A783:
 C D 1 - - - 0x00E793 03:A783: C6 1A     DEC ram_001A
@@ -1551,7 +1552,7 @@ C - - - - - 0x00E924 03:A914: CA        DEX
 C - - - - - 0x00E925 03:A915: 10 F8     BPL bra_A90F
 bra_A917:
 C - - - - - 0x00E927 03:A917: A6 1A     LDX ram_001A
-C - - - - - 0x00E929 03:A919: 20 62 D5  JSR $D562
+C - - - - - 0x00E929 03:A919: 20 62 D5  JSR sub_D562_has_character_damage
 bra_A91C:
 loc_A91C:
 C D 1 - - - 0x00E92C 03:A91C: 4C 4F AA  JMP loc_AA4F
@@ -1750,7 +1751,7 @@ C - - - - - 0x00EA85 03:AA75: A9 08     LDA #$08
 C - - - - - 0x00EA87 03:AA77: 85 AF     STA ram_00AF
 C - - - - - 0x00EA89 03:AA79: A9 04     LDA #$04
 C - - - - - 0x00EA8B 03:AA7B: 85 B0     STA ram_00B0
-C - - - - - 0x00EA8D 03:AA7D: 20 62 D5  JSR $D562
+C - - - - - 0x00EA8D 03:AA7D: 20 62 D5  JSR sub_D562_has_character_damage
 bra_AA80:
 C - - - - - 0x00EA90 03:AA80: C6 1A     DEC ram_001A
 C - - - - - 0x00EA92 03:AA82: 10 D4     BPL bra_AA58
@@ -2202,7 +2203,7 @@ C - - - - - 0x00ECF3 03:ACE3: 10 EF     BPL bra_ACD4
 bra_ACE5:
 C - - - - - 0x00ECF5 03:ACE5: A6 1A     LDX ram_001A
 C - - - - - 0x00ECF7 03:ACE7: 20 40 AD  JSR sub_AD40
-C - - - - - 0x00ECFA 03:ACEA: 20 62 D5  JSR $D562
+C - - - - - 0x00ECFA 03:ACEA: 20 62 D5  JSR sub_D562_has_character_damage
 bra_ACED:
 loc_ACED:
 C D 1 - - - 0x00ECFD 03:ACED: C6 1A     DEC ram_001A
@@ -2690,7 +2691,7 @@ C - - - - - 0x00F054 03:B044: B0 0B     BCS bra_B051
 C - - - - - 0x00F056 03:B046: CA        DEX
 C - - - - - 0x00F057 03:B047: 10 F8     BPL bra_B041
 bra_B049:
-C - - - - - 0x00F059 03:B049: 20 62 D5  JSR $D562
+C - - - - - 0x00F059 03:B049: 20 62 D5  JSR sub_D562_has_character_damage
 bra_B04C:
 loc_B04C:
 C D 1 - - - 0x00F05C 03:B04C: C6 1A     DEC ram_001A
@@ -3305,7 +3306,7 @@ C - - - - - 0x00F45D 03:B44D: CA        DEX
 C - - - - - 0x00F45E 03:B44E: 10 EF     BPL bra_B43F
 bra_B450:
 loc_B450:
-C D 1 - - - 0x00F460 03:B450: 20 62 D5  JSR $D562
+C D 1 - - - 0x00F460 03:B450: 20 62 D5  JSR sub_D562_has_character_damage
 bra_B453:
 loc_B453:
 C D 1 - - - 0x00F463 03:B453: C6 1A     DEC ram_001A
@@ -3942,7 +3943,7 @@ C - - - - - 0x00F88D 03:B87D: 4C 83 B8  JMP loc_B883
 bra_B880:
 C - - - - - 0x00F890 03:B880: 20 D0 B8  JSR sub_B8D0
 loc_B883:
-C D 1 - - - 0x00F893 03:B883: 20 62 D5  JSR $D562
+C D 1 - - - 0x00F893 03:B883: 20 62 D5  JSR sub_D562_has_character_damage
 bra_B886:
 loc_B886:
 C D 1 - - - 0x00F896 03:B886: C6 1A     DEC ram_001A
@@ -4415,7 +4416,7 @@ C - - - - - 0x00FBC4 03:BBB4: B0 0B     BCS bra_BBC1
 C - - - - - 0x00FBC6 03:BBB6: CA        DEX
 C - - - - - 0x00FBC7 03:BBB7: 10 F8     BPL bra_BBB1
 bra_BBB9:
-C - - - - - 0x00FBC9 03:BBB9: 20 62 D5  JSR $D562
+C - - - - - 0x00FBC9 03:BBB9: 20 62 D5  JSR sub_D562_has_character_damage
 bra_BBBC:
 loc_BBBC:
 C D 1 - - - 0x00FBCC 03:BBBC: C6 1A     DEC ram_001A
