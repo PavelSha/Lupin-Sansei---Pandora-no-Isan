@@ -19,6 +19,8 @@
 .import loc_D989_add_enemyA_sprite_magic_v1   ; bank FF
 .import sub_D358_check_enemy_collision_by_Y   ; bank FF
 .import sub_D562_has_character_damage         ; bank FF
+.import sub_D5B6_have_intersect_bullet        ; bank FF
+.import sub_D606_have_intersect_sword         ; bank FF
 
 ; Page 2
 sub_A000: ; from bank_FF
@@ -324,7 +326,7 @@ C - - - - - 0x00E142 03:A132: B0 0B     BCS bra_A13F
 C - - - - - 0x00E144 03:A134: A5 5F     LDA ram_005F
 C - - - - - 0x00E146 03:A136: 29 02     AND #$02
 C - - - - - 0x00E148 03:A138: F0 0B     BEQ bra_A145
-C - - - - - 0x00E14A 03:A13A: 20 06 D6  JSR $D606
+C - - - - - 0x00E14A 03:A13A: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x00E14D 03:A13D: 90 10     BCC bra_A14F
 bra_A13F:
 C - - - - - 0x00E14F 03:A13F: 20 5C A1  JSR sub_A15C
@@ -333,7 +335,7 @@ C - - - - - 0x00E152 03:A142: 4C 4F A1  JMP loc_A14F
 bra_A145:
 C - - - - - 0x00E155 03:A145: A6 7A     LDX vBulletCount
 bra_A147_loop:
-C - - - - - 0x00E157 03:A147: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x00E157 03:A147: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x00E15A 03:A14A: B0 06     BCS bra_A152
 C - - - - - 0x00E15C 03:A14C: CA        DEX
 C - - - - - 0x00E15D 03:A14D: 10 F8     BPL bra_A147_loop
@@ -818,7 +820,7 @@ C - - - - - 0x00E482 03:A472: 29 02     AND #$02
 C - - - - - 0x00E484 03:A474: D0 13     BNE bra_A489
 C - - - - - 0x00E486 03:A476: A6 7A     LDX vBulletCount
 bra_A478:
-C - - - - - 0x00E488 03:A478: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x00E488 03:A478: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x00E48B 03:A47B: 90 09     BCC bra_A486
 C - - - - - 0x00E48D 03:A47D: A9 10     LDA #$10
 C - - - - - 0x00E48F 03:A47F: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
@@ -1105,7 +1107,7 @@ bra_A620:
 C - - - - - 0x00E630 03:A620: A5 5F     LDA ram_005F
 C - - - - - 0x00E632 03:A622: 29 02     AND #$02
 C - - - - - 0x00E634 03:A624: F0 0B     BEQ bra_A631
-C - - - - - 0x00E636 03:A626: 20 06 D6  JSR $D606
+C - - - - - 0x00E636 03:A626: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x00E639 03:A629: 90 10     BCC bra_A63B
 C - - - - - 0x00E63B 03:A62B: 20 4B A6  JSR sub_A64B
 C - - - - - 0x00E63E 03:A62E: 4C 3E A6  JMP loc_A63E
@@ -1113,7 +1115,7 @@ C - - - - - 0x00E63E 03:A62E: 4C 3E A6  JMP loc_A63E
 bra_A631:
 C - - - - - 0x00E641 03:A631: A6 7A     LDX vBulletCount
 bra_A633:
-C - - - - - 0x00E643 03:A633: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x00E643 03:A633: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x00E646 03:A636: B0 09     BCS bra_A641
 C - - - - - 0x00E648 03:A638: CA        DEX
 C - - - - - 0x00E649 03:A639: 10 F8     BPL bra_A633
@@ -1278,7 +1280,7 @@ bra_A75C:
 C - - - - - 0x00E76C 03:A75C: A5 5F     LDA ram_005F
 C - - - - - 0x00E76E 03:A75E: 29 02     AND #$02
 C - - - - - 0x00E770 03:A760: F0 0B     BEQ bra_A76D
-C - - - - - 0x00E772 03:A762: 20 06 D6  JSR $D606
+C - - - - - 0x00E772 03:A762: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x00E775 03:A765: 90 1C     BCC bra_A783
 C - - - - - 0x00E777 03:A767: 20 88 A7  JSR sub_A788
 C - - - - - 0x00E77A 03:A76A: 4C 83 A7  JMP loc_A783
@@ -1286,7 +1288,7 @@ C - - - - - 0x00E77A 03:A76A: 4C 83 A7  JMP loc_A783
 bra_A76D:
 C - - - - - 0x00E77D 03:A76D: A6 7A     LDX vBulletCount
 bra_A76F:
-C - - - - - 0x00E77F 03:A76F: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x00E77F 03:A76F: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x00E782 03:A772: 90 09     BCC bra_A77D
 C - - - - - 0x00E784 03:A774: A9 00     LDA #$00
 C - - - - - 0x00E786 03:A776: 95 8F     STA vBulletStatus,X
@@ -1538,7 +1540,7 @@ bra_A8FC:
 C - - - - - 0x00E90C 03:A8FC: A5 5F     LDA ram_005F
 C - - - - - 0x00E90E 03:A8FE: 29 02     AND #$02
 C - - - - - 0x00E910 03:A900: F0 0B     BEQ bra_A90D
-C - - - - - 0x00E912 03:A902: 20 06 D6  JSR $D606
+C - - - - - 0x00E912 03:A902: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x00E915 03:A905: 90 10     BCC bra_A917
 C - - - - - 0x00E917 03:A907: 20 29 A9  JSR sub_A929
 C - - - - - 0x00E91A 03:A90A: 4C 1C A9  JMP loc_A91C
@@ -1546,7 +1548,7 @@ C - - - - - 0x00E91A 03:A90A: 4C 1C A9  JMP loc_A91C
 bra_A90D:
 C - - - - - 0x00E91D 03:A90D: A6 7A     LDX vBulletCount
 bra_A90F:
-C - - - - - 0x00E91F 03:A90F: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x00E91F 03:A90F: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x00E922 03:A912: B0 0B     BCS bra_A91F
 C - - - - - 0x00E924 03:A914: CA        DEX
 C - - - - - 0x00E925 03:A915: 10 F8     BPL bra_A90F
@@ -2175,7 +2177,7 @@ bra_ACB2:
 C - - - - - 0x00ECC2 03:ACB2: A5 5F     LDA ram_005F
 C - - - - - 0x00ECC4 03:ACB4: 29 02     AND #$02
 C - - - - - 0x00ECC6 03:ACB6: F0 0B     BEQ bra_ACC3
-C - - - - - 0x00ECC8 03:ACB8: 20 06 D6  JSR $D606
+C - - - - - 0x00ECC8 03:ACB8: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x00ECCB 03:ACBB: 90 28     BCC bra_ACE5
 C - - - - - 0x00ECCD 03:ACBD: 20 FE AC  JSR sub_ACFE
 C - - - - - 0x00ECD0 03:ACC0: 4C ED AC  JMP loc_ACED
@@ -2183,7 +2185,7 @@ C - - - - - 0x00ECD0 03:ACC0: 4C ED AC  JMP loc_ACED
 bra_ACC3:
 C - - - - - 0x00ECD3 03:ACC3: A6 7A     LDX vBulletCount
 bra_ACC5:
-C - - - - - 0x00ECD5 03:ACC5: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x00ECD5 03:ACC5: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x00ECD8 03:ACC8: B0 2A     BCS bra_ACF4
 C - - - - - 0x00ECDA 03:ACCA: CA        DEX
 C - - - - - 0x00ECDB 03:ACCB: 10 F8     BPL bra_ACC5
@@ -2191,7 +2193,7 @@ C - - - - - 0x00ECDD 03:ACCD: A6 1A     LDX ram_001A
 C - - - - - 0x00ECDF 03:ACCF: 20 34 AD  JSR sub_AD34
 C - - - - - 0x00ECE2 03:ACD2: A6 7A     LDX vBulletCount
 bra_ACD4:
-C - - - - - 0x00ECE4 03:ACD4: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x00ECE4 03:ACD4: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x00ECE7 03:ACD7: 90 09     BCC bra_ACE2
 C - - - - - 0x00ECE9 03:ACD9: A9 10     LDA #$10
 C - - - - - 0x00ECEB 03:ACDB: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
@@ -2677,7 +2679,7 @@ C - - - - - 0x00F03C 03:B02C: B0 0B     BCS bra_B039
 C - - - - - 0x00F03E 03:B02E: A5 5F     LDA ram_005F
 C - - - - - 0x00F040 03:B030: 29 02     AND #$02
 C - - - - - 0x00F042 03:B032: F0 0B     BEQ bra_B03F
-C - - - - - 0x00F044 03:B034: 20 06 D6  JSR $D606
+C - - - - - 0x00F044 03:B034: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x00F047 03:B037: 90 10     BCC bra_B049
 bra_B039:
 C - - - - - 0x00F049 03:B039: 20 5B B0  JSR sub_B05B
@@ -2686,7 +2688,7 @@ C - - - - - 0x00F04C 03:B03C: 4C 4C B0  JMP loc_B04C
 bra_B03F:
 C - - - - - 0x00F04F 03:B03F: A6 7A     LDX vBulletCount
 bra_B041:
-C - - - - - 0x00F051 03:B041: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x00F051 03:B041: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x00F054 03:B044: B0 0B     BCS bra_B051
 C - - - - - 0x00F056 03:B046: CA        DEX
 C - - - - - 0x00F057 03:B047: 10 F8     BPL bra_B041
@@ -3271,7 +3273,7 @@ C - - - - - 0x00F41C 03:B40C: B0 13     BCS bra_B421
 C - - - - - 0x00F41E 03:B40E: A5 5F     LDA ram_005F
 C - - - - - 0x00F420 03:B410: 29 02     AND #$02
 C - - - - - 0x00F422 03:B412: F0 13     BEQ bra_B427
-C - - - - - 0x00F424 03:B414: 20 06 D6  JSR $D606
+C - - - - - 0x00F424 03:B414: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x00F427 03:B417: B0 08     BCS bra_B421
 C - - - - - 0x00F429 03:B419: A6 1A     LDX ram_001A
 C - - - - - 0x00F42B 03:B41B: 20 9F B4  JSR sub_B49F
@@ -3284,7 +3286,7 @@ C - - - - - 0x00F434 03:B424: 4C 53 B4  JMP loc_B453
 bra_B427:
 C - - - - - 0x00F437 03:B427: A6 7A     LDX vBulletCount
 bra_B429:
-C - - - - - 0x00F439 03:B429: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x00F439 03:B429: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x00F43C 03:B42C: B0 2A     BCS bra_B458
 C - - - - - 0x00F43E 03:B42E: CA        DEX
 C - - - - - 0x00F43F 03:B42F: 10 F8     BPL bra_B429
@@ -3295,7 +3297,7 @@ C - - - - - 0x00F449 03:B439: C9 11     CMP #$11
 C - - - - - 0x00F44B 03:B43B: F0 13     BEQ bra_B450
 C - - - - - 0x00F44D 03:B43D: A6 7A     LDX vBulletCount
 bra_B43F:
-C - - - - - 0x00F44F 03:B43F: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x00F44F 03:B43F: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x00F452 03:B442: 90 09     BCC bra_B44D
 C - - - - - 0x00F454 03:B444: A9 10     LDA #$10
 C - - - - - 0x00F456 03:B446: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
@@ -3901,7 +3903,7 @@ C - - - - - 0x00F840 03:B830: B0 0B     BCS bra_B83D
 C - - - - - 0x00F842 03:B832: A5 5F     LDA ram_005F
 C - - - - - 0x00F844 03:B834: 29 02     AND #$02
 C - - - - - 0x00F846 03:B836: F0 0B     BEQ bra_B843
-C - - - - - 0x00F848 03:B838: 20 06 D6  JSR $D606
+C - - - - - 0x00F848 03:B838: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x00F84B 03:B83B: 90 36     BCC bra_B873
 bra_B83D:
 C - - - - - 0x00F84D 03:B83D: 20 95 B8  JSR sub_B895
@@ -3910,7 +3912,7 @@ C - - - - - 0x00F850 03:B840: 4C 86 B8  JMP loc_B886
 bra_B843:
 C - - - - - 0x00F853 03:B843: A6 7A     LDX vBulletCount
 bra_B845:
-C - - - - - 0x00F855 03:B845: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x00F855 03:B845: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x00F858 03:B848: B0 41     BCS bra_B88B
 C - - - - - 0x00F85A 03:B84A: CA        DEX
 C - - - - - 0x00F85B 03:B84B: 10 F8     BPL bra_B845
@@ -3924,7 +3926,7 @@ C - - - - - 0x00F86B 03:B85B: F0 16     BEQ bra_B873
 C - - - - - 0x00F86D 03:B85D: 20 B8 B8  JSR sub_B8B8
 C - - - - - 0x00F870 03:B860: A6 7A     LDX vBulletCount
 bra_B862:
-C - - - - - 0x00F872 03:B862: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x00F872 03:B862: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x00F875 03:B865: 90 09     BCC bra_B870
 C - - - - - 0x00F877 03:B867: A9 10     LDA #$10
 C - - - - - 0x00F879 03:B869: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
@@ -4402,7 +4404,7 @@ C - - - - - 0x00FBAC 03:BB9C: B0 0B     BCS bra_BBA9
 C - - - - - 0x00FBAE 03:BB9E: A5 5F     LDA ram_005F
 C - - - - - 0x00FBB0 03:BBA0: 29 02     AND #$02
 C - - - - - 0x00FBB2 03:BBA2: F0 0B     BEQ bra_BBAF
-C - - - - - 0x00FBB4 03:BBA4: 20 06 D6  JSR $D606
+C - - - - - 0x00FBB4 03:BBA4: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x00FBB7 03:BBA7: 90 10     BCC bra_BBB9
 bra_BBA9:
 C - - - - - 0x00FBB9 03:BBA9: 20 CB BB  JSR sub_BBCB
@@ -4411,7 +4413,7 @@ C - - - - - 0x00FBBC 03:BBAC: 4C BC BB  JMP loc_BBBC
 bra_BBAF:
 C - - - - - 0x00FBBF 03:BBAF: A6 7A     LDX vBulletCount
 bra_BBB1:
-C - - - - - 0x00FBC1 03:BBB1: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x00FBC1 03:BBB1: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x00FBC4 03:BBB4: B0 0B     BCS bra_BBC1
 C - - - - - 0x00FBC6 03:BBB6: CA        DEX
 C - - - - - 0x00FBC7 03:BBB7: 10 F8     BPL bra_BBB1

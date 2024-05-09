@@ -53,6 +53,8 @@
 .import loc_D989_add_enemyA_sprite_magic_v1      ; bank FF
 .import sub_D358_check_enemy_collision_by_Y      ; bank FF
 .import sub_D562_has_character_damage            ; bank FF
+.import sub_D5B6_have_intersect_bullet           ; bank FF
+.import sub_D606_have_intersect_sword            ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -128,7 +130,7 @@ C - - - - - 0x01A052 06:A042: B0 0B     BCS bra_A04F
 C - - - - - 0x01A054 06:A044: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01A056 06:A046: 29 02     AND #$02
 C - - - - - 0x01A058 06:A048: F0 10     BEQ bra_A05A
-C - - - - - 0x01A05A 06:A04A: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
+C - - - - - 0x01A05A 06:A04A: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x01A05D 06:A04D: 90 15     BCC bra_A064
 bra_A04F:
 C - - - - - 0x01A05F 06:A04F: A9 01     LDA #$01
@@ -139,7 +141,7 @@ C - - - - - 0x01A067 06:A057: 4C 6C A0  JMP loc_A06C
 bra_A05A:
 C - - - - - 0x01A06A 06:A05A: A6 7A     LDX vBulletCount
 bra_A05C:
-C - - - - - 0x01A06C 06:A05C: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x01A06C 06:A05C: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x01A06F 06:A05F: B0 10     BCS bra_A071
 C - - - - - 0x01A071 06:A061: CA        DEX
 C - - - - - 0x01A072 06:A062: 10 F8     BPL bra_A05C
@@ -576,7 +578,7 @@ C - - - - - 0x01A335 06:A325: B0 0B     BCS bra_A332
 C - - - - - 0x01A337 06:A327: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01A339 06:A329: 29 02     AND #$02
 C - - - - - 0x01A33B 06:A32B: F0 0B     BEQ bra_A338
-C - - - - - 0x01A33D 06:A32D: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
+C - - - - - 0x01A33D 06:A32D: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x01A340 06:A330: 90 10     BCC bra_A342
 bra_A332:
 - - - - - - 0x01A342 06:A332: 20        .byte $20   ; 
@@ -588,7 +590,7 @@ bra_A332:
 bra_A338:
 C - - - - - 0x01A348 06:A338: A6 7A     LDX vBulletCount
 bra_A33A:
-C - - - - - 0x01A34A 06:A33A: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x01A34A 06:A33A: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x01A34D 06:A33D: B0 1A     BCS bra_A359
 C - - - - - 0x01A34F 06:A33F: CA        DEX
 C - - - - - 0x01A350 06:A340: 10 F8     BPL bra_A33A
@@ -1137,7 +1139,7 @@ C - - - - - 0x01A6A1 06:A691: B0 0B     BCS bra_A69E
 C - - - - - 0x01A6A3 06:A693: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01A6A5 06:A695: 29 02     AND #$02
 C - - - - - 0x01A6A7 06:A697: F0 0B     BEQ bra_A6A4
-C - - - - - 0x01A6A9 06:A699: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
+C - - - - - 0x01A6A9 06:A699: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x01A6AC 06:A69C: 90 10     BCC bra_A6AE
 bra_A69E:
 C - - - - - 0x01A6AE 06:A69E: 20 C5 A6  JSR sub_A6C5
@@ -1146,7 +1148,7 @@ C - - - - - 0x01A6B1 06:A6A1: 4C B6 A6  JMP loc_A6B6
 bra_A6A4:
 C - - - - - 0x01A6B4 06:A6A4: A6 7A     LDX vBulletCount
 bra_A6A6:
-C - - - - - 0x01A6B6 06:A6A6: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x01A6B6 06:A6A6: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x01A6B9 06:A6A9: B0 10     BCS bra_A6BB
 C - - - - - 0x01A6BB 06:A6AB: CA        DEX
 C - - - - - 0x01A6BC 06:A6AC: 10 F8     BPL bra_A6A6
@@ -1644,7 +1646,7 @@ C - - - - - 0x01AA36 06:AA26: 85 B0     STA ram_00B0
 C - - - - - 0x01AA38 06:AA28: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01AA3A 06:AA2A: 29 02     AND #$02
 C - - - - - 0x01AA3C 06:AA2C: F0 0B     BEQ bra_AA39
-C - - - - - 0x01AA3E 06:AA2E: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
+C - - - - - 0x01AA3E 06:AA2E: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x01AA41 06:AA31: 90 10     BCC bra_AA43
 C - - - - - 0x01AA43 06:AA33: 20 57 AA  JSR sub_AA57
 C - - - - - 0x01AA46 06:AA36: 4C 46 AA  JMP loc_AA46
@@ -1652,7 +1654,7 @@ C - - - - - 0x01AA46 06:AA36: 4C 46 AA  JMP loc_AA46
 bra_AA39:
 C - - - - - 0x01AA49 06:AA39: A6 7A     LDX vBulletCount
 bra_AA3B:
-C - - - - - 0x01AA4B 06:AA3B: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x01AA4B 06:AA3B: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x01AA4E 06:AA3E: B0 0D     BCS bra_AA4D
 C - - - - - 0x01AA50 06:AA40: CA        DEX
 C - - - - - 0x01AA51 06:AA41: 10 F8     BPL bra_AA3B
@@ -1937,7 +1939,7 @@ C - - - - - 0x01AC3E 06:AC2E: 85 B0     STA ram_00B0
 C - - - - - 0x01AC40 06:AC30: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01AC42 06:AC32: 29 02     AND #$02
 C - - - - - 0x01AC44 06:AC34: F0 0B     BEQ bra_AC41
-C - - - - - 0x01AC46 06:AC36: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
+C - - - - - 0x01AC46 06:AC36: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x01AC49 06:AC39: 90 10     BCC bra_AC4B
 C - - - - - 0x01AC4B 06:AC3B: 20 57 AA  JSR sub_AA57
 C - - - - - 0x01AC4E 06:AC3E: 4C 4E AC  JMP loc_AC4E
@@ -1945,7 +1947,7 @@ C - - - - - 0x01AC4E 06:AC3E: 4C 4E AC  JMP loc_AC4E
 bra_AC41:
 C - - - - - 0x01AC51 06:AC41: A6 7A     LDX vBulletCount
 bra_AC43:
-C - - - - - 0x01AC53 06:AC43: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x01AC53 06:AC43: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x01AC56 06:AC46: B0 0B     BCS bra_AC53
 C - - - - - 0x01AC58 06:AC48: CA        DEX
 C - - - - - 0x01AC59 06:AC49: 10 F8     BPL bra_AC43
@@ -2276,7 +2278,7 @@ C - - - - - 0x01AE7E 06:AE6E: 29 02     AND #$02
 C - - - - - 0x01AE80 06:AE70: D0 0E     BNE bra_AE80
 C - - - - - 0x01AE82 06:AE72: A6 7A     LDX vBulletCount
 bra_AE74:
-C - - - - - 0x01AE84 06:AE74: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x01AE84 06:AE74: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x01AE87 06:AE77: 90 04     BCC bra_AE7D
 - - - - - - 0x01AE89 06:AE79: A9        .byte $A9   ; 
 - - - - - - 0x01AE8A 06:AE7A: 00        .byte $00   ; 
@@ -2448,7 +2450,7 @@ bra_AFAB:
 C - - - - - 0x01AFBB 06:AFAB: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01AFBD 06:AFAD: 29 02     AND #$02
 C - - - - - 0x01AFBF 06:AFAF: F0 0B     BEQ bra_AFBC
-C - - - - - 0x01AFC1 06:AFB1: 20 06 D6  JSR $D606 ; to sub_D606 (bank FF)
+C - - - - - 0x01AFC1 06:AFB1: 20 06 D6  JSR sub_D606_have_intersect_sword
 C - - - - - 0x01AFC4 06:AFB4: 90 10     BCC bra_AFC6_loop_continue
 C - - - - - 0x01AFC6 06:AFB6: 20 D5 AF  JSR sub_AFD5
 C - - - - - 0x01AFC9 06:AFB9: 4C C6 AF  JMP loc_AFC6_loop_continue
@@ -2456,7 +2458,7 @@ C - - - - - 0x01AFC9 06:AFB9: 4C C6 AF  JMP loc_AFC6_loop_continue
 bra_AFBC:
 C - - - - - 0x01AFCC 06:AFBC: A6 7A     LDX vBulletCount
 bra_AFBE_repeat:
-C - - - - - 0x01AFCE 06:AFBE: 20 B6 D5  JSR $D5B6 ; to sub_D5B6 (bank_FF)
+C - - - - - 0x01AFCE 06:AFBE: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
 C - - - - - 0x01AFD1 06:AFC1: B0 08     BCS bra_AFCB
 C - - - - - 0x01AFD3 06:AFC3: CA        DEX
 C - - - - - 0x01AFD4 06:AFC4: 10 F8     BPL bra_AFBE_repeat

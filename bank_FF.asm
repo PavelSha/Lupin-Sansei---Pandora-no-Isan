@@ -84,6 +84,8 @@
 .export sub_D725_enemyA_on_screen
 .export loc_D989_add_enemyA_sprite_magic_v1
 .export sub_D562_has_character_damage
+.export sub_D5B6_have_intersect_bullet
+.export sub_D606_have_intersect_sword
 
 BANK02_OFFSET = -8192
 
@@ -3426,8 +3428,7 @@ C - - - - - 0x01D56D 07:D55D: 09 80     ORA #$80                             ;
 C - - - - - 0x01D56F 07:D55F: 85 0F     STA ram_000F                         ; High address
 C - - - - - 0x01D571 07:D561: 60        RTS                                  ;
 
-
-; Out Carry flag (analog return true or false):
+; Out: carry flag (analog return true or false):
 ; 1, if the character got damage
 ; 0, otherwise.
 sub_D562_has_character_damage:
@@ -3443,8 +3444,8 @@ C - - - - - 0x01D57D 07:D56D: 60        RTS                           ;
 bra_D56E_skip:
 C - - - - - 0x01D57E 07:D56E: A5 3A     LDA vDamageStatus                                 ;
 C - - - - - 0x01D580 07:D570: 30 FA     BMI bra_D56C_return_false                         ; If the character isn't getting damage
-C - - - - - 0x01D582 07:D572: 20 42 D6  JSR sub_D642
-C - - - - - 0x01D585 07:D575: 90 F5     BCC bra_D56C_return_false
+C - - - - - 0x01D582 07:D572: 20 42 D6  JSR sub_D642_have_intersect_with_character        ;
+C - - - - - 0x01D585 07:D575: 90 F5     BCC bra_D56C_return_false                         ;
 C - - - - - 0x01D587 07:D577: A5 46     LDA vNoSubLevel                                   ;
 C - - - - - 0x01D589 07:D579: C9 19     CMP #$19                                          ; CONSTANT - level racing
 C - - - - - 0x01D58B 07:D57B: F0 1E     BEQ @bra_D59B_skip                                ; If vNoSubLevel is the level racing
@@ -3477,120 +3478,128 @@ C - - - - - 0x01D5C1 07:D5B1: 20 20 C4  JSR sub_C420_add_sound_effect        ;
 C - - - - - 0x01D5C4 07:D5B4: 38        SEC                                  ; return true
 C - - - - - 0x01D5C5 07:D5B5: 60        RTS                                  ;
 
-; In: Register X - ????
+; In: Register X - the number of the bullet (0, 1, 2, 3 or 4)
 ; Out: the carry status (analog return true or false)
-sub_D5B6: ; from bank 03, bank 06_1, bank 06_2
+; 1, if the hitboxes are intersected
+; 0, otherwise.
+sub_D5B6_have_intersect_bullet:
 C - - - - - 0x01D5C6 07:D5B6: B5 8F     LDA vBulletStatus,X
 C - - - - - 0x01D5C8 07:D5B8: 10 B2     BPL bra_D56C_return_false
-C - - - - - 0x01D5CA 07:D5BA: B5 80     LDA ram_0080,X
-C - - - - - 0x01D5CC 07:D5BC: 18        CLC
-C - - - - - 0x01D5CD 07:D5BD: 69 02     ADC #$02
-C - - - - - 0x01D5CF 07:D5BF: 85 B1     STA ram_00B1
-C - - - - - 0x01D5D1 07:D5C1: B5 7B     LDA ram_007B,X
-C - - - - - 0x01D5D3 07:D5C3: 85 B2     STA ram_00B2
-C - - - - - 0x01D5D5 07:D5C5: A9 04     LDA #$04
-C - - - - - 0x01D5D7 07:D5C7: 85 B3     STA ram_00B3
-C - - - - - 0x01D5D9 07:D5C9: A9 01     LDA #$01
-C - - - - - 0x01D5DB 07:D5CB: 85 B4     STA ram_00B4
-C - - - - - 0x01D5DD 07:D5CD: 20 D9 D5  JSR sub_D5D9
-C - - - - - 0x01D5E0 07:D5D0: 90 06     BCC bra_D5D8_RTS
-C - - - - - 0x01D5E2 07:D5D2: A9 21     LDA #$21
-C - - - - - 0x01D5E4 07:D5D4: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01D5E7 07:D5D7: 38        SEC
-bra_D5D8_RTS:
-C - - - - - 0x01D5E8 07:D5D8: 60        RTS
+C - - - - - 0x01D5CA 07:D5BA: B5 80     LDA vBulletPosY,X                    ;
+C - - - - - 0x01D5CC 07:D5BC: 18        CLC                                  ;
+C - - - - - 0x01D5CD 07:D5BD: 69 02     ADC #$02                             ;
+C - - - - - 0x01D5CF 07:D5BF: 85 B1     STA vTmpHitBoxY                      ; <~ vBulletPosY - 2
+C - - - - - 0x01D5D1 07:D5C1: B5 7B     LDA vBulletPosX,X                    ;
+C - - - - - 0x01D5D3 07:D5C3: 85 B2     STA vTmpHitBoxX                      ; <~ vBulletPosX
+C - - - - - 0x01D5D5 07:D5C5: A9 04     LDA #$04                             ;
+C - - - - - 0x01D5D7 07:D5C7: 85 B3     STA vTmpHitBoxH                      ;
+C - - - - - 0x01D5D9 07:D5C9: A9 01     LDA #$01                             ;
+C - - - - - 0x01D5DB 07:D5CB: 85 B4     STA vTmpHitBoxW                      ; dimension hitbox - 1x4
+C - - - - - 0x01D5DD 07:D5CD: 20 D9 D5  JSR sub_D5D9_have_intersect_hitboxes ;
+C - - - - - 0x01D5E0 07:D5D0: 90 06     BCC @bra_D5D8_RTS                    ; If the intersect isn't exist
+C - - - - - 0x01D5E2 07:D5D2: A9 21     LDA #$21                             ; the sound of hitting the target
+C - - - - - 0x01D5E4 07:D5D4: 20 20 C4  JSR sub_C420_add_sound_effect        ;
+C - - - - - 0x01D5E7 07:D5D7: 38        SEC                                  ; return true
+@bra_D5D8_RTS:
+C - - - - - 0x01D5E8 07:D5D8: 60        RTS                                  ;
 
 ; Out: the carry status (analog return true or false)
-sub_D5D9:
-loc_D5D9:
-C D 2 - - - 0x01D5E9 07:D5D9: A5 AD     LDA ram_00AD
-C - - - - - 0x01D5EB 07:D5DB: 38        SEC
-C - - - - - 0x01D5EC 07:D5DC: E5 B1     SBC ram_00B1
-C - - - - - 0x01D5EE 07:D5DE: B0 09     BCS bra_D5E9
-C - - - - - 0x01D5F0 07:D5E0: 20 73 D0  JSR sub_D073_invert_sign
-C - - - - - 0x01D5F3 07:D5E3: C5 B3     CMP ram_00B3
-C - - - - - 0x01D5F5 07:D5E5: B0 1D     BCS bra_D604_clear_c_rts
-C - - - - - 0x01D5F7 07:D5E7: 90 04     BCC bra_D5ED
-bra_D5E9:
-C - - - - - 0x01D5F9 07:D5E9: C5 AF     CMP ram_00AF
-C - - - - - 0x01D5FB 07:D5EB: B0 17     BCS bra_D604_clear_c_rts
-bra_D5ED:
-C - - - - - 0x01D5FD 07:D5ED: A5 B0     LDA ram_00B0
-C - - - - - 0x01D5FF 07:D5EF: 18        CLC
-C - - - - - 0x01D600 07:D5F0: 65 B4     ADC ram_00B4
-C - - - - - 0x01D602 07:D5F2: 85 12     STA ram_0012
-C - - - - - 0x01D604 07:D5F4: A5 AE     LDA ram_00AE
-C - - - - - 0x01D606 07:D5F6: 38        SEC
-C - - - - - 0x01D607 07:D5F7: E5 B2     SBC ram_00B2
-C - - - - - 0x01D609 07:D5F9: B0 03     BCS bra_D5FE
-C - - - - - 0x01D60B 07:D5FB: 20 73 D0  JSR sub_D073_invert_sign
-bra_D5FE:
-C - - - - - 0x01D60E 07:D5FE: C5 12     CMP ram_0012
-C - - - - - 0x01D610 07:D600: B0 02     BCS bra_D604_clear_c_rts
-C - - - - - 0x01D612 07:D602: 38        SEC
-C - - - - - 0x01D613 07:D603: 60        RTS
+; 1, if the hitboxes are intersected
+; 0, otherwise.
+sub_D5D9_have_intersect_hitboxes:
+loc_D5D9_have_intersect_hitboxes:
+C D 2 - - - 0x01D5E9 07:D5D9: A5 AD     LDA vEnemyHitBoxY            ;
+C - - - - - 0x01D5EB 07:D5DB: 38        SEC                          ;
+C - - - - - 0x01D5EC 07:D5DC: E5 B1     SBC vTmpHitBoxY              ;
+C - - - - - 0x01D5EE 07:D5DE: B0 09     BCS @bra_D5E9_skip           ; If vEnemyHitBoxY - vTmpHitBoxY >= 0x00
+C - - - - - 0x01D5F0 07:D5E0: 20 73 D0  JSR sub_D073_invert_sign     ;
+C - - - - - 0x01D5F3 07:D5E3: C5 B3     CMP vTmpHitBoxH              ;
+C - - - - - 0x01D5F5 07:D5E5: B0 1D     BCS bra_D604_clear_c_rts     ; If (vTmpHitBoxY - vEnemyHitBoxY) >= vTmpHitBoxH
+C - - - - - 0x01D5F7 07:D5E7: 90 04     BCC @bra_D5ED_other_side     ; Always true
+@bra_D5E9_skip:
+C - - - - - 0x01D5F9 07:D5E9: C5 AF     CMP vEnemyHitBoxH            ;
+C - - - - - 0x01D5FB 07:D5EB: B0 17     BCS bra_D604_clear_c_rts     ; If (vEnemyHitBoxY - vTmpHitBoxY) >= vEnemyHitBoxH
+@bra_D5ED_other_side:
+C - - - - - 0x01D5FD 07:D5ED: A5 B0     LDA vEnemyHitBoxW            ;
+C - - - - - 0x01D5FF 07:D5EF: 18        CLC                          ;
+C - - - - - 0x01D600 07:D5F0: 65 B4     ADC vTmpHitBoxW              ;
+C - - - - - 0x01D602 07:D5F2: 85 12     STA vCacheRam_12             ; <~ vEnemyHitBoxW + vTmpHitBoxW
+C - - - - - 0x01D604 07:D5F4: A5 AE     LDA vEnemyHitBoxX            ;
+C - - - - - 0x01D606 07:D5F6: 38        SEC                          ;
+C - - - - - 0x01D607 07:D5F7: E5 B2     SBC vTmpHitBoxX              ;
+C - - - - - 0x01D609 07:D5F9: B0 03     BCS @bra_D5FE_skip           ; If vEnemyHitBoxX - vTmpHitBoxX >= 0x00
+C - - - - - 0x01D60B 07:D5FB: 20 73 D0  JSR sub_D073_invert_sign     ;
+@bra_D5FE_skip:
+C - - - - - 0x01D60E 07:D5FE: C5 12     CMP vCacheRam_12             ;
+C - - - - - 0x01D610 07:D600: B0 02     BCS bra_D604_clear_c_rts     ; If |vEnemyHitBoxX - vTmpHitBoxX| >= vEnemyHitBoxW + vTmpHitBoxW
+C - - - - - 0x01D612 07:D602: 38        SEC                          ; return true
+C - - - - - 0x01D613 07:D603: 60        RTS                          ;
 
 bra_D604_clear_c_rts:
-C - - - - - 0x01D614 07:D604: 18        CLC
-C - - - - - 0x01D615 07:D605: 60        RTS
+C - - - - - 0x01D614 07:D604: 18        CLC                          ; return false
+C - - - - - 0x01D615 07:D605: 60        RTS                          ;
 
 ; Out: the carry status (analog return true or false)
-sub_D606: ; from bank 06_2
+sub_D606_have_intersect_sword:
+; 1, if the hitboxes are intersected
+; 0, otherwise.
 C - - - - - 0x01D616 07:D606: A5 78     LDA ram_0078
 C - - - - - 0x01D618 07:D608: C9 02     CMP #$02
 C - - - - - 0x01D61A 07:D60A: 90 F8     BCC bra_D604_clear_c_rts
-C - - - - - 0x01D61C 07:D60C: A5 6C     LDA ram_006C
+C - - - - - 0x01D61C 07:D60C: A5 6C     LDA vChrStatus
 C - - - - - 0x01D61E 07:D60E: 29 E8     AND #$E8
 C - - - - - 0x01D620 07:D610: D0 F2     BNE bra_D604_clear_c_rts
-C - - - - - 0x01D622 07:D612: A5 6C     LDA ram_006C
-C - - - - - 0x01D624 07:D614: 29 02     AND #$02
-C - - - - - 0x01D626 07:D616: F0 02     BEQ bra_D61A
-C - - - - - 0x01D628 07:D618: A9 F8     LDA #$F8
-bra_D61A:
-C - - - - - 0x01D62A 07:D61A: 18        CLC
-C - - - - - 0x01D62B 07:D61B: 65 6A     ADC ram_006A
-C - - - - - 0x01D62D 07:D61D: 85 B1     STA ram_00B1
-C - - - - - 0x01D62F 07:D61F: A0 10     LDY #$10
-C - - - - - 0x01D631 07:D621: A5 6C     LDA ram_006C
-C - - - - - 0x01D633 07:D623: 6A        ROR
-C - - - - - 0x01D634 07:D624: 90 02     BCC bra_D628
-C - - - - - 0x01D636 07:D626: A0 F0     LDY #$F0
-bra_D628:
-C - - - - - 0x01D638 07:D628: 98        TYA
-C - - - - - 0x01D639 07:D629: 18        CLC
-C - - - - - 0x01D63A 07:D62A: 65 64     ADC vScreenChrPosX
-C - - - - - 0x01D63C 07:D62C: 85 B2     STA ram_00B2
-C - - - - - 0x01D63E 07:D62E: A9 24     LDA #$24
-C - - - - - 0x01D640 07:D630: 85 B3     STA ram_00B3
-C - - - - - 0x01D642 07:D632: A9 0C     LDA #$0C
-C - - - - - 0x01D644 07:D634: 85 B4     STA ram_00B4
-C - - - - - 0x01D646 07:D636: 20 D9 D5  JSR sub_D5D9
-C - - - - - 0x01D649 07:D639: 90 06     BCC bra_D641_RTS
-C - - - - - 0x01D64B 07:D63B: A9 19     LDA #$19
-C - - - - - 0x01D64D 07:D63D: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01D650 07:D640: 38        SEC
+C - - - - - 0x01D622 07:D612: A5 6C     LDA vChrStatus                         ;
+C - - - - - 0x01D624 07:D614: 29 02     AND #$02                               ; CONSTANT - the character is sitting
+C - - - - - 0x01D626 07:D616: F0 02     BEQ @bra_D61A_skip                     ; the character isn't sitting
+C - - - - - 0x01D628 07:D618: A9 F8     LDA #$F8                               ; offset #1
+@bra_D61A_skip:
+C - - - - - 0x01D62A 07:D61A: 18        CLC                                    ;
+C - - - - - 0x01D62B 07:D61B: 65 6A     ADC vScreenChrPosY                     ;
+C - - - - - 0x01D62D 07:D61D: 85 B1     STA vTmpHitBoxY                        ; <~ vScreenChrPosY or vScreenChrPosY - 8
+C - - - - - 0x01D62F 07:D61F: A0 10     LDY #$10                               ; offset #1
+C - - - - - 0x01D631 07:D621: A5 6C     LDA vChrStatus                         ;
+C - - - - - 0x01D633 07:D623: 6A        ROR                                    ;
+C - - - - - 0x01D634 07:D624: 90 02     BCC @bra_D628_skip                     ; If the character is looking to the right
+C - - - - - 0x01D636 07:D626: A0 F0     LDY #$F0                               ; offset #2
+@bra_D628_skip:
+C - - - - - 0x01D638 07:D628: 98        TYA                                    ;
+C - - - - - 0x01D639 07:D629: 18        CLC                                    ;
+C - - - - - 0x01D63A 07:D62A: 65 64     ADC vScreenChrPosX                     ;
+C - - - - - 0x01D63C 07:D62C: 85 B2     STA vTmpHitBoxX                        ; <~ vScreenChrPosX + 10 or vScreenChrPosX - 10
+C - - - - - 0x01D63E 07:D62E: A9 24     LDA #$24                               ;
+C - - - - - 0x01D640 07:D630: 85 B3     STA vTmpHitBoxH                        ;
+C - - - - - 0x01D642 07:D632: A9 0C     LDA #$0C                               ;
+C - - - - - 0x01D644 07:D634: 85 B4     STA vTmpHitBoxW                        ; dimension hitbox - 12x36
+C - - - - - 0x01D646 07:D636: 20 D9 D5  JSR sub_D5D9_have_intersect_hitboxes   ;
+C - - - - - 0x01D649 07:D639: 90 06     BCC bra_D641_RTS                       ; If the intersect isn't exist
+C - - - - - 0x01D64B 07:D63B: A9 19     LDA #$19                               ; the sound of cutting an enemy with a sword
+C - - - - - 0x01D64D 07:D63D: 20 20 C4  JSR sub_C420_add_sound_effect          ;
+C - - - - - 0x01D650 07:D640: 38        SEC                                    ; return true
 bra_D641_RTS:
-C - - - - - 0x01D651 07:D641: 60        RTS
+C - - - - - 0x01D651 07:D641: 60        RTS                                    ;
 
-sub_D642:
-C - - - - - 0x01D652 07:D642: A0 18     LDY #$18
+sub_D642_have_intersect_with_character:
+C - - - - - 0x01D652 07:D642: A0 18     LDY #$18                               ; hitBoxH #1
 C - - - - - 0x01D654 07:D644: A5 6C     LDA vChrStatus
 C - - - - - 0x01D656 07:D646: 29 42     AND #$42
 C - - - - - 0x01D658 07:D648: F0 02     BEQ @bra_D64C_skip
-C - - - - - 0x01D65A 07:D64A: A0 10     LDY #$10
+C - - - - - 0x01D65A 07:D64A: A0 10     LDY #$10                               ; hitBoxH #2
 @bra_D64C_skip:
-C - - - - - 0x01D65C 07:D64C: 84 B3     STY ram_00B3
-C - - - - - 0x01D65E 07:D64E: A5 6A     LDA vScreenChrPosY
-C - - - - - 0x01D660 07:D650: 38        SEC
-C - - - - - 0x01D661 07:D651: E9 04     SBC #$04
-C - - - - - 0x01D663 07:D653: 85 B1     STA ram_00B1
-C - - - - - 0x01D665 07:D655: A9 06     LDA #$06
-C - - - - - 0x01D667 07:D657: 85 B4     STA ram_00B4
-C - - - - - 0x01D669 07:D659: A5 64     LDA vScreenChrPosX
-C - - - - - 0x01D66B 07:D65B: 85 B2     STA ram_00B2
-C - - - - - 0x01D66D 07:D65D: 4C D9 D5  JMP loc_D5D9
+C - - - - - 0x01D65C 07:D64C: 84 B3     STY vTmpHitBoxH                        ;
+C - - - - - 0x01D65E 07:D64E: A5 6A     LDA vScreenChrPosY                     ;
+C - - - - - 0x01D660 07:D650: 38        SEC                                    ;
+C - - - - - 0x01D661 07:D651: E9 04     SBC #$04                               ;
+C - - - - - 0x01D663 07:D653: 85 B1     STA vTmpHitBoxY                        ; <~ vScreenChrPosY - 0x04
+C - - - - - 0x01D665 07:D655: A9 06     LDA #$06                               ;
+C - - - - - 0x01D667 07:D657: 85 B4     STA vTmpHitBoxW                        ;
+C - - - - - 0x01D669 07:D659: A5 64     LDA vScreenChrPosX                     ;
+C - - - - - 0x01D66B 07:D65B: 85 B2     STA vTmpHitBoxX                        ; <~ vScreenChrPosX
+C - - - - - 0x01D66D 07:D65D: 4C D9 D5  JMP loc_D5D9_have_intersect_hitboxes   ;
 
 ; Out: the carry status (analog return true or false)
+; 1, if the bomb is exploding
+; 0, otherwise
 sub_D660_is_bomb_exploding:
 C - - - - - 0x01D670 07:D660: AD 9E 03  LDA vBombStatus              ;
 C - - - - - 0x01D673 07:D663: 10 10     BPL bra_D675_return_false    ; If the bomb isn't activated

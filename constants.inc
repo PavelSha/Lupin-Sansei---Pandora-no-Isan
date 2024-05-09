@@ -50,6 +50,7 @@ vTempCounter11                = ram_0011 ; Intermediate counter
 v_temp_check_buttons          = ram_0012 ; There is a variable that stores the checked state of the button
 vTempCounter12                = ram_0012
 vCacheRam12                   = ram_0012 ;
+vCacheRam_12                  = ram_0012 ;
 vRenderActive                 = ram_0019 ; 0x00 - active, else deactive
 v_sub_AF4D_briefcase_no       = ram_001A ; Intermediate counter
 v_loc_CA48_counter            = ram_001A ; Intermediate counter
@@ -216,7 +217,7 @@ vChrStatus                    = ram_006C ; A status of a character
 ; K - the character is dying  (1 - dying, 0 - no dying)
 ; W - the character is/isn't jumping (1 - jumping, 0 - no jumping)
 ; Z - the character is entering a corridor or hiding place or died (1 - entering, 0 - no entering)
-; L - ??
+; Y - ??
 ; X - ??
 vMovableChrStatus             = ram_006D
 ; Byte: XYZW KLMN
@@ -243,6 +244,8 @@ vChrLandStatus                = ram_0079 ;
 ; 0x80 - the character stands on the ground
 
 vBulletCount                  = ram_007A ; 0x00 - 1 bullet, 0x01 - 2 bullets, 0x02 - 3 bullets and so on...
+vBulletPosX                   = ram_007B ; [0x7B-0x7F] on the screen, in pixel units
+vBulletPosY                   = ram_0080 ; [0x80-0x84] on the screen, in pixel units
 
 vBulletStatus                 = ram_008F ; [0x8F-0x93] , for a rifle, Lupin's pistol, Jigen's pistol
 
@@ -256,13 +259,19 @@ vEnemyScore                   = ram_00A6 ; [0xA6-0xAC]
 
 vIndexSelectableChr           = ram_00AD ; Selectable character number in character selection mode
 vMainMenuGunYPos              = ram_00AD ;
-
+vEnemyHitBoxY                 = ram_00AD ; position Y on the screen, in pixel units
 vCopyIndexSelectableChr       = ram_00AE ;
-							  
+vEnemyHitBoxX                 = ram_00AE ; position X on the screen, in pixel units
+vEnemyHitBoxH                 = ram_00AF ; height, in pixel units
+vEnemyHitBoxW                 = ram_00B0 ; width, in pixel units							  
 v_start_level                 = ram_00B1 ; The start level [0-3]
+vTmpHitBoxY                   = ram_00B1 ; position Y, in pixel units
 v_count_secret_hits           = ram_00B2 ; Stage select codes at the title screen
+vTmpHitBoxX                   = ram_00B2 ; position X, in pixel units
 v_lock_secret_hits            = ram_00B3 ; Allow button to be pressed only when other buttons aren't pressed
+vTmpHitBoxH                   = ram_00B3 ; height, in pixel units
 v_offset_in_secret_codes      = ram_00B4
+vTmpHitBoxW                   = ram_00B4 ; width, in pixel units
 vCurrentUniqueRoom            = ram_00B6
 ; Byte: 00UU 00RR
 ; UU - 0x01 for an unique room (NPC, briefcase, boss), else 0x00

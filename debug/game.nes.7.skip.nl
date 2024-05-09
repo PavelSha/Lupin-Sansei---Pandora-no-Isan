@@ -75,11 +75,20 @@ $DF60##vChrStatus, X, L flags
 $DF62##vChrStatus, X, L flags
 $DE83##vChrStatus, X, L flags
 $DE91##vChrStatus, X, L flags
+$D644##vChrStatus, Y
+$D646##vChrStatus, Y
+$D648##vChrStatus, Y
+$D60C##vChrStatus, X, Y, Z, K
+$D60E##vChrStatus, X, Y, Z, K
+$D610##vChrStatus, X, Y, Z, K
+$D608##ram_0078, Goemon
+$D608##ram_0078, Goemon
+$D60A##ram_0078, Goemon
 $DE67##vMovableChrStatus, 0x01 - flag
 $DE69##vMovableChrStatus, 0x01 - flag
 $DE6B##vMovableChrStatus, 0x01 - flag
-$D5B6##vBulletStatus
-$D5B8##vBulletStatus
+$D5B6##vBulletStatus, 0x80 flag
+$D5B8##vBulletStatus, 0x80 flag
 $D733##vEnemyAStatus, 0x40 flag
 $D736##vEnemyAStatus, 0x40 flag
 $D738##vEnemyAStatus, 0x40 flag

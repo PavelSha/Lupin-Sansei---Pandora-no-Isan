@@ -100,6 +100,9 @@ $C0D9##--NO-COMMENT--
 $C0DF##clear
 $C0E2##clear
 $C0E5##clear
+$C0E7##--NO-COMMENT--
+$C0E9##--NO-COMMENT--
+$C0EB##clear expect NO DAMAGE MODE
 $C0ED##--NO-COMMENT--
 $C0F0##--NO-COMMENT--
 $C0F3##--NO-COMMENT--
@@ -730,7 +733,7 @@ $C78B##--NO-COMMENT--
 $C78D##--NO-COMMENT--
 $C78E#sub_C78E_select_character_subroutine#--NO-COMMENT--
 $C791##If test mode is disable
-$C7A2##The enemies don't damage
+$C7A2##CONSTANT - The enemies don't damage
 $C7A6#bra_C7A6_skip#--NO-COMMENT--
 $C7A8##If vCharacterSelectionCounter != 0x00
 $C7AA##Selects a character before start a level
@@ -1272,10 +1275,20 @@ $CCE6##--NO-COMMENT--
 $CCE9#sub_CCE9_set_apparatus_counter#CONSTANT Hc:Lc = 08:XX - time of the breathing apparatus
 $CCEB##--NO-COMMENT--
 $CCEE##--NO-COMMENT--
-$CCEF#sub_CCEF#
-$CD04##CONSTANT Hc:Lc = 08:XX - time of the breathing apparatus
+$CCEF#sub_CCEF#--NO-COMMENT--
+$CCF1##--NO-COMMENT--
+$CCF8##--NO-COMMENT--
+$CCFA##CONSTANT - the character is moving on the balloon
+$CCFC##--NO-COMMENT--
+$CCFE##--NO-COMMENT--
+$CD00##--NO-COMMENT--
+$CD02##clear Y Z W K L M flags (see vChrStatus)
+$CD04##CONSTANT Hc:Lc = 08:XX - time of the balloon apparatus
 $CD06##--NO-COMMENT--
-$CD0D#sub_CD0D#
+$CD09##CONSTANT - the index of the balloon item
+$CD0B##Always true
+$CD0D#sub_CD0D_use_bullet_proof_vest#CONSTANT - the index of the bullet proof vest item
+$CD0F##Always true
 $CD13#sub_CD13_use_item#Decrement an item
 $CD16##Initializing the remaining time
 $CD18##--NO-COMMENT--
@@ -1323,7 +1336,7 @@ $CDBE#tbl_CDBE#
 $CDD0#bra_CDD0#
 $CDDD#bra_CDDD#
 $CDED#bra_CDED_RTS#--NO-COMMENT--
-$CDEE#sub_CDEE_prepare_activable_items_old#--NO-COMMENT--
+$CDEE#sub_CDEE_prepare_activable_items_after_damage#CONSTANT for CHR ROM (Frames: Lupin is died)
 $CDF0##--NO-COMMENT--
 $CDF3#loc_CDF3_prepare_activable_items#--NO-COMMENT--
 $CDF6##--NO-COMMENT--
@@ -2206,28 +2219,127 @@ $D55B##--NO-COMMENT--
 $D55D##--NO-COMMENT--
 $D55F##High address
 $D561##--NO-COMMENT--
-$D562#sub_D562#--NO-COMMENT--
+$D562#sub_D562_has_character_damage#--NO-COMMENT--
 $D564##If character is resistant to damage
 $D566##--NO-COMMENT--
 $D568##CONSTANT - the character isn't controllable (see vChrStatus, flags X Z K)
 $D56A##If the character is controllable
 $D56C#bra_D56C_return_false#return false
 $D56D##--NO-COMMENT--
-$D56E#bra_D56E_skip#
-$D59B#bra_D59B#
-$D5B6#sub_D5B6#
-$D5D8#bra_D5D8_RTS#
-$D5D9#loc_D5D9#
-$D5E9#bra_D5E9#
-$D5ED#bra_D5ED#
-$D5FE#bra_D5FE#
-$D604#bra_D604_clear_c_rts#
-$D606#sub_D606#
-$D61A#bra_D61A#
-$D628#bra_D628#
-$D641#bra_D641_RTS#
-$D642#sub_D642#
-$D64C#bra_D64C#
+$D56E#bra_D56E_skip#--NO-COMMENT--
+$D570##If the character isn't getting damage
+$D572##--NO-COMMENT--
+$D575##--NO-COMMENT--
+$D577##--NO-COMMENT--
+$D579##CONSTANT - level racing
+$D57B##If vNoSubLevel is the level racing
+$D57D##--NO-COMMENT--
+$D580##If the current character isn't Lupin
+$D582##CONSTANT - time of the flying after getting damage
+$D584##--NO-COMMENT--
+$D586##--NO-COMMENT--
+$D588##If 'the character is moving in the water'
+$D58A##--NO-COMMENT--
+$D58D##--NO-COMMENT--
+$D590##If vBulletProofVestItem = 0x00
+$D592##--NO-COMMENT--
+$D594##CONSTANT - The character got damage with a non-zero bullet proof vest item
+$D596##--NO-COMMENT--
+$D598##--NO-COMMENT--
+$D59B#bra_D59B_skip#--NO-COMMENT--
+$D59D##clear Y Z W K L M flags (see vChrStatus)
+$D59F##CONSTANT - the character is flying after damage
+$D5A1##--NO-COMMENT--
+$D5A3##--NO-COMMENT--
+$D5A5##initializes a jump counter
+$D5A7##CONSTANT - jump by side
+$D5A9##--NO-COMMENT--
+$D5AB##--NO-COMMENT--
+$D5AD##initializes a velocity
+$D5AF##the sound of the damage
+$D5B1##--NO-COMMENT--
+$D5B4##return true
+$D5B5##--NO-COMMENT--
+$D5B6#sub_D5B6_have_intersect_bullet#
+$D5BA##--NO-COMMENT--
+$D5BC##--NO-COMMENT--
+$D5BD##--NO-COMMENT--
+$D5BF##<~ vBulletPosY - 2
+$D5C1##--NO-COMMENT--
+$D5C3##<~ vBulletPosX
+$D5C5##--NO-COMMENT--
+$D5C7##--NO-COMMENT--
+$D5C9##--NO-COMMENT--
+$D5CB##dimension hitbox - 1x4
+$D5CD##--NO-COMMENT--
+$D5D0##If the intersect isn't exist
+$D5D2##the sound of hitting the target
+$D5D4##--NO-COMMENT--
+$D5D7##return true
+$D5D8#bra_D5D8_RTS#--NO-COMMENT--
+$D5D9#loc_D5D9_have_intersect_hitboxes#--NO-COMMENT--
+$D5DB##--NO-COMMENT--
+$D5DC##--NO-COMMENT--
+$D5DE##If vEnemyHitBoxY - vTmpHitBoxY >= 0x00
+$D5E0##--NO-COMMENT--
+$D5E3##--NO-COMMENT--
+$D5E5##If (vTmpHitBoxY - vEnemyHitBoxY) >= vTmpHitBoxH
+$D5E7##Always true
+$D5E9#bra_D5E9_skip#--NO-COMMENT--
+$D5EB##If (vEnemyHitBoxY - vTmpHitBoxY) >= vEnemyHitBoxH
+$D5ED#bra_D5ED_other_side#--NO-COMMENT--
+$D5EF##--NO-COMMENT--
+$D5F0##--NO-COMMENT--
+$D5F2##<~ vEnemyHitBoxW + vTmpHitBoxW
+$D5F4##--NO-COMMENT--
+$D5F6##--NO-COMMENT--
+$D5F7##--NO-COMMENT--
+$D5F9##If vEnemyHitBoxX - vTmpHitBoxX >= 0x00
+$D5FB##--NO-COMMENT--
+$D5FE#bra_D5FE_skip#--NO-COMMENT--
+$D600##If |vEnemyHitBoxX - vTmpHitBoxX| >= vEnemyHitBoxW + vTmpHitBoxW
+$D602##return true
+$D603##--NO-COMMENT--
+$D604#bra_D604_clear_c_rts#return false
+$D605##--NO-COMMENT--
+$D612##--NO-COMMENT--
+$D614##CONSTANT - the character is sitting
+$D616##the character isn't sitting
+$D618##offset #1
+$D61A#bra_D61A_skip#--NO-COMMENT--
+$D61B##--NO-COMMENT--
+$D61D##<~ vScreenChrPosY or vScreenChrPosY - 8
+$D61F##offset #1
+$D621##--NO-COMMENT--
+$D623##--NO-COMMENT--
+$D624##If the character is looking to the right
+$D626##offset #2
+$D628#bra_D628_skip#--NO-COMMENT--
+$D629##--NO-COMMENT--
+$D62A##--NO-COMMENT--
+$D62C##<~ vScreenChrPosX + 10 or vScreenChrPosX - 10
+$D62E##--NO-COMMENT--
+$D630##--NO-COMMENT--
+$D632##--NO-COMMENT--
+$D634##dimension hitbox - 12x36
+$D636##--NO-COMMENT--
+$D639##If the intersect isn't exist
+$D63B##the sound of cutting an enemy with a sword
+$D63D##--NO-COMMENT--
+$D640##return true
+$D641#bra_D641_RTS#--NO-COMMENT--
+$D642#sub_D642_have_intersect_with_character#hitBoxH #1
+$D64A##hitBoxH #2
+$D64C#bra_D64C_skip#--NO-COMMENT--
+$D64E##--NO-COMMENT--
+$D650##--NO-COMMENT--
+$D651##--NO-COMMENT--
+$D653##<~ vScreenChrPosY - 0x04
+$D655##--NO-COMMENT--
+$D657##--NO-COMMENT--
+$D659##--NO-COMMENT--
+$D65B##<~ vScreenChrPosX
+$D65D##--NO-COMMENT--
 $D660#sub_D660_is_bomb_exploding#--NO-COMMENT--
 $D663##If the bomb isn't activated
 $D665##--NO-COMMENT--
@@ -2492,6 +2604,7 @@ $DB2E##Register A <~ { 0x00, 0x01, 0x02, ..., 0x07 }
 $DB31##--NO-COMMENT--
 $DB34##default
 $DB36##jumping
+$DB3A##--NO-COMMENT--
 $DB44#loc_DB44#prepare an input parameter
 $DB46##Check collisions in vScreenChrPosY + 4 and vScreenChrPosY - 4
 $DB49##If collisions exist
@@ -2603,7 +2716,7 @@ $DC64##--NO-COMMENT--
 $DC67#loc_DC67_after_moving_without_velocity#
 $DC69##prepares the offset of the sprite address
 $DC6C##--NO-COMMENT--
-$DC6F#tbl_DC6F_movement_frames#1st frame
+$DC6F#tbl_DC6F_movement_frames_#1st frame
 $DC70##2nd frame
 $DC71##3rd frame
 $DC72#bra_DC72_right#--NO-COMMENT--
@@ -2831,6 +2944,11 @@ $DE6D##--NO-COMMENT--
 $DE70#bra_DE70_skip#--NO-COMMENT--
 $DE72##CONSTANT - the character is getting damage
 $DE74##If the character isn't getting damage
+$DE76##CONSTANT - Time to switch to the select character mode
+$DE78##--NO-COMMENT--
+$DE7A##--NO-COMMENT--
+$DE7C##CONSTANT - the character is died
+$DE7E##--NO-COMMENT--
 $DE83#bra_DE83_jump_subroutine_before_bf2#
 $DE86#loc_DE86_jump_subroutine_bf2#--NO-COMMENT--
 $DE88##CONSTANT - a maximum amplitude
@@ -2847,10 +2965,24 @@ $DEA0##CONSTANT - the character is getting damage
 $DEA2##If the character isn't getting damage
 $DEA4##prepares the offset of the sprite address
 $DEA6#bra_DEA6_skip#--NO-COMMENT--
-$DEA9#loc_DEA9#
-$DEC6#bra_DEC6#
-$DECD#bra_DECD#
-$DECF#loc_DECF#
+$DEA9#loc_DEA9_died_subroutine_bf2#--NO-COMMENT--
+$DEAB##If the character is dying finally
+$DEAD##--NO-COMMENT--
+$DEAF##--NO-COMMENT--
+$DEB1##clear 'The character got damage with a non-zero bullet proof vest item'
+$DEB3##CONSTANT
+$DEB5##Initializes a counter
+$DEB7##--NO-COMMENT--
+$DEB9##clear
+$DEBB##--NO-COMMENT--
+$DEBD##--NO-COMMENT--
+$DEBF##clear Z W K L M flags (see vChrStatus)
+$DEC1##prepares the offset of the sprite address (the character is standing)
+$DEC3##--NO-COMMENT--
+$DEC6#bra_DEC6_skip#--NO-COMMENT--
+$DEC8##If vCorridorCounter != 0x00
+$DECD#bra_DECD_skip#prepares the offset of the sprite address (the character is died)
+$DECF#loc_DECF_before_rendering#--NO-COMMENT--
 $DED2#loc_DED2_jump_subroutine_bf#--NO-COMMENT--
 $DED4##CONSTANT - level 4 or level-racing
 $DED6##If v_no_level != 0x03
@@ -2863,11 +2995,18 @@ $DEE3#bra_DEE3_skip#--NO-COMMENT--
 $DEE6#loc_DEE6#
 $DEFE#bra_DEFE#
 $DF19#bra_DF19#
-$DF1C#bra_DF1C#
+$DF1C#bra_DF1C#--NO-COMMENT--
+$DF1F##If the current character isn't Lupin
+$DF21##--NO-COMMENT--
+$DF24##If vHeliumBalloonItem == 0x00
 $DF26#bra_DF26#
-$DF31#loc_DF31#
-$DF39##CONSTANT
+$DF31#loc_DF31#CONSTANT - the character is arrested
+$DF33##--NO-COMMENT--
+$DF35##CONSTANT - The character got damage from Zenigata
+$DF37##If vDamageStatus contains 0x20 flag
+$DF39##CONSTANT - the character is dying
 $DF3B#bra_DF3B_skip#
+$DF3D##--NO-COMMENT--
 $DF3E#sub_DF3E#
 $DF54#bra_DF54#
 $DF57#sub_DF57_get_current_character#--NO-COMMENT--
@@ -2898,8 +3037,16 @@ $DF8A##vVelocity is closing zero
 $DF8C#bra_DF8C_RTS#--NO-COMMENT--
 $DF8D#loc_DF8D#
 $DF96#bra_DF96#
+$DFB0#loc_DFB0#
+$DFB3#loc_DFB3#
+$DFB7#loc_DFB7#
+$DFBA#loc_DFBA#
 $DFBC#bra_DFBC#
+$DFCB#loc_DFCB#
+$DFD1#loc_DFD1#
+$DFDF#loc_DFDF#
 $DFEB#bra_DFEB#
+$DFEF#loc_DFEF#
 $DFFB#bra_DFFB#
 $E005#loc_E005#
 $E00D#loc_E00D#
@@ -3232,8 +3379,9 @@ $E8F0#bra_E8F0#
 $E904#bra_E904#
 $E906#bra_E906#
 $E912#bra_E912#
+$E92C#loc_E92C#
 $E94B#bra_E94B#
-$E960#bra_E960#
+$E960#loc_E960#
 $E96A#bra_E96A#
 $E97A#bra_E97A#
 $E98A#bra_E98A#
@@ -3269,6 +3417,7 @@ $EB08#bra_EB08#
 $EB11#bra_EB11#
 $EB1F#loc_EB1F#
 $EB23#loc_EB23#
+$EB2F#loc_EB2F#
 $EB3B##CONSTANT - the character stands on the ground
 $EB3D##--NO-COMMENT--
 $EB3F#bra_EB3F#
@@ -3276,6 +3425,7 @@ $EB53#bra_EB53#
 $EB74#bra_EB74#
 $EB8F#loc_EB8F#
 $EB9A#bra_EB9A#
+$EBA2#loc_EBA2#
 $EBAA#bra_EBAA#
 $EBB6#loc_EBB6#
 $EBC0#bra_EBC0#
@@ -3284,6 +3434,7 @@ $EBCE#bra_EBCE#
 $EBD9#bra_EBD9#
 $EBDC#bra_EBDC_RTS#
 $EBDD#bra_EBDD#
+$EBF8#loc_EBF8#
 $EC05#bra_EC05#
 $EC0A#loc_EC0A#
 $EC1F#loc_EC1F#
