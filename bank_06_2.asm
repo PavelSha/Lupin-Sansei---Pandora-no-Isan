@@ -55,6 +55,8 @@
 .import sub_D562_has_character_damage            ; bank FF
 .import sub_D5B6_have_intersect_bullet           ; bank FF
 .import sub_D606_have_intersect_sword            ; bank FF
+.import sub_D7A8_correction_EnemyAPosY           ; bank FF
+.import sub_D347_check_enemyA_strong_collision   ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -407,18 +409,18 @@ C - - - - - 0x01A22D 06:A21D: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
 C - - - - - 0x01A230 06:A220: F0 2C     BEQ bra_A24E
 C - - - - - 0x01A232 06:A222: C9 02     CMP #$02
 C - - - - - 0x01A234 06:A224: F0 07     BEQ bra_A22D
-C - - - - - 0x01A236 06:A226: 20 47 D3  JSR $D347
+C - - - - - 0x01A236 06:A226: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
 C - - - - - 0x01A239 06:A229: D0 0D     BNE bra_A238
 - - - - - - 0x01A23B 06:A22B: F0        .byte $F0   ; 
 - - - - - - 0x01A23C 06:A22C: 21        .byte $21   ; 
 bra_A22D:
-C - - - - - 0x01A23D 06:A22D: 20 47 D3  JSR $D347
+C - - - - - 0x01A23D 06:A22D: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
 C - - - - - 0x01A240 06:A230: F0 1C     BEQ bra_A24E
 C - - - - - 0x01A242 06:A232: A5 2C     LDA vLowCounter
 C - - - - - 0x01A244 06:A234: 29 03     AND #$03
 C - - - - - 0x01A246 06:A236: D0 16     BNE bra_A24E
 bra_A238:
-C - - - - - 0x01A248 06:A238: 20 A8 D7  JSR $D7A8
+C - - - - - 0x01A248 06:A238: 20 A8 D7  JSR sub_D7A8_correction_EnemyAPosY
 C - - - - - 0x01A24B 06:A23B: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A24E 06:A23E: 29 20     AND #$20
 C - - - - - 0x01A250 06:A240: D0 34     BNE bra_A276
@@ -893,15 +895,15 @@ C - - - - - 0x01A53B 06:A52B: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
 C - - - - - 0x01A53E 06:A52E: F0 1C     BEQ bra_A54C
 C - - - - - 0x01A540 06:A530: C9 02     CMP #$02
 C - - - - - 0x01A542 06:A532: F0 07     BEQ bra_A53B
-C - - - - - 0x01A544 06:A534: 20 47 D3  JSR $D347 ; to sub_D347 (bank FF)
+C - - - - - 0x01A544 06:A534: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
 C - - - - - 0x01A547 06:A537: D0 07     BNE bra_A540
 - - - - - - 0x01A549 06:A539: F0        .byte $F0   ; 
 - - - - - - 0x01A54A 06:A53A: 11        .byte $11   ; 
 bra_A53B:
-C - - - - - 0x01A54B 06:A53B: 20 47 D3  JSR $D347 ; to sub_D347 (bank FF)
+C - - - - - 0x01A54B 06:A53B: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
 C - - - - - 0x01A54E 06:A53E: F0 0C     BEQ bra_A54C
 bra_A540:
-C - - - - - 0x01A550 06:A540: 20 A8 D7  JSR $D7A8
+C - - - - - 0x01A550 06:A540: 20 A8 D7  JSR sub_D7A8_correction_EnemyAPosY
 C - - - - - 0x01A553 06:A543: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A556 06:A546: 29 20     AND #$20
 C - - - - - 0x01A558 06:A548: D0 1D     BNE bra_A567
@@ -1506,17 +1508,17 @@ C - - - - - 0x01A931 06:A921: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
 C - - - - - 0x01A934 06:A924: F0 27     BEQ bra_A94D
 C - - - - - 0x01A936 06:A926: C9 02     CMP #$02
 C - - - - - 0x01A938 06:A928: F0 07     BEQ bra_A931
-C - - - - - 0x01A93A 06:A92A: 20 47 D3  JSR $D347
+C - - - - - 0x01A93A 06:A92A: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
 C - - - - - 0x01A93D 06:A92D: D0 0E     BNE bra_A93D
 C - - - - - 0x01A93F 06:A92F: F0 1C     BEQ bra_A94D
 bra_A931:
-C - - - - - 0x01A941 06:A931: 20 47 D3  JSR $D347
+C - - - - - 0x01A941 06:A931: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
 C - - - - - 0x01A944 06:A934: F0 17     BEQ bra_A94D
 C - - - - - 0x01A946 06:A936: BD 56 03  LDA ram_0356,X
 C - - - - - 0x01A949 06:A939: C9 04     CMP #$04
 C - - - - - 0x01A94B 06:A93B: F0 10     BEQ bra_A94D
 bra_A93D:
-C - - - - - 0x01A94D 06:A93D: 20 A8 D7  JSR $D7A8
+C - - - - - 0x01A94D 06:A93D: 20 A8 D7  JSR sub_D7A8_correction_EnemyAPosY
 C - - - - - 0x01A950 06:A940: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01A953 06:A943: 29 20     AND #$20
 C - - - - - 0x01A955 06:A945: D0 3D     BNE bra_A984

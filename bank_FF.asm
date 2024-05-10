@@ -10,6 +10,7 @@
 .import loc_AD80_activate_sound_manager      ; bank 02 (Page 1)
 .import tbl_select_characters_dialog         ; bank 02 (Page 1)
 .import tbl_enemy_score                      ; bank 02 (Page 1)
+.import tbl_water_gap_level4                 ; bank 02 (Page 1)
 .import tbl_ptr_checkpoints                  ; bank 04 (Page 1)
 .import tbl_demo_btn_pressed                 ; bank 04 (Page 1)
 .import tbl_ptr_corridors                    ; bank 04 (Page 1)
@@ -86,6 +87,8 @@
 .export sub_D562_has_character_damage
 .export sub_D5B6_have_intersect_bullet
 .export sub_D606_have_intersect_sword
+.export sub_D7A8_correction_EnemyAPosY
+.export sub_D347_check_enemyA_strong_collision
 
 BANK02_OFFSET = -8192
 
@@ -3069,18 +3072,19 @@ C - - - - - 0x01D352 07:D342: A5 04     LDA ram_0004                            
 C - - - - - 0x01D354 07:D344: 29 0F     AND #$0F                                        ; return a collision value
 C - - - - - 0x01D356 07:D346: 60        RTS                                             ;
 
-sub_D347: ; from bank 06_2
-C - - - - - 0x01D357 07:D347: A5 5E     LDA v_no_level
-C - - - - - 0x01D359 07:D349: C9 03     CMP #$03
-C - - - - - 0x01D35B 07:D34B: D0 03     BNE bra_D350_skip
-C - - - - - 0x01D35D 07:D34D: A9 01     LDA #$01
-C - - - - - 0x01D35F 07:D34F: 60        RTS
+; Out: If flag Z = 1 then there is the strong collision
+sub_D347_check_enemyA_strong_collision:
+C - - - - - 0x01D357 07:D347: A5 5E     LDA v_no_level                                  ;
+C - - - - - 0x01D359 07:D349: C9 03     CMP #$03                                        ; CONSTANT - level 4 or level-racing
+C - - - - - 0x01D35B 07:D34B: D0 03     BNE bra_D350_skip                               ; If v_no_level != 0x03
+C - - - - - 0x01D35D 07:D34D: A9 01     LDA #$01                                        ; no collisions
+C - - - - - 0x01D35F 07:D34F: 60        RTS                                             ;
 
 bra_D350_skip:
-C - - - - - 0x01D360 07:D350: A9 F8     LDA #$F8
-C - - - - - 0x01D362 07:D352: 20 F0 D7  JSR sub_D7F0
-C - - - - - 0x01D365 07:D355: C9 01     CMP #$01
-C - - - - - 0x01D367 07:D357: 60        RTS
+C - - - - - 0x01D360 07:D350: A9 F8     LDA #$F8                                        ; prepare an input parameter
+C - - - - - 0x01D362 07:D352: 20 F0 D7  JSR sub_D7F0_enemyA_collision_by_shift_posY     ;
+C - - - - - 0x01D365 07:D355: C9 01     CMP #$01                                        ; CONSTANT - a strong collision
+C - - - - - 0x01D367 07:D357: 60        RTS                                             ;
 
 ; In: $0000 - EnemyAPosY
 ; Out: Register A - a strong collision or left + right collision value
@@ -3765,7 +3769,7 @@ C - - - - - 0x01D738 07:D728: 85 00     STA ram_0000                ; ~> sprite 
 C - - - - - 0x01D73A 07:D72A: A5 03     LDA ram_0003                ;
 C - - - - - 0x01D73C 07:D72C: 9D 32 03  STA vEnemyAScreenPosX,X     ;
 C - - - - - 0x01D73F 07:D72F: C0 FF     CPY #$FF                    ; CONSTANT - death mark
-C - - - - - 0x01D741 07:D731: F0 20     BEQ bra_D753
+C - - - - - 0x01D741 07:D731: F0 20     BEQ bra_D753_death          ;
 C - - - - - 0x01D743 07:D733: BD 20 03  LDA vEnemyAStatus,X         ;
 C - - - - - 0x01D746 07:D736: 09 40     ORA #$40                    ; CONSTANT - the enemy can get damage
 C - - - - - 0x01D748 07:D738: 9D 20 03  STA vEnemyAStatus,X         ;
@@ -3779,42 +3783,43 @@ C - - - - - 0x01D750 07:D740: 60        RTS                         ;
 ; In: Register X - the enemyA number
 ; In: Register Y - sprite_magic2 (The offset by the address)
 loc_D741_enemyA_off_screen:
-C D 2 - - - 0x01D751 07:D741: BD 20 03  LDA vEnemyAStatus,X       ;
-C - - - - - 0x01D754 07:D744: 29 BF     AND #$BF                  ; CONSTANT - the enemy can't get damage
-C - - - - - 0x01D756 07:D746: 9D 20 03  STA vEnemyAStatus,X       ; 
-C - - - - - 0x01D759 07:D749: C0 FF     CPY #$FF                  ; CONSTANT - death mark
-C - - - - - 0x01D75B 07:D74B: D0 05     BNE @bra_D752_RTS         ; If Register Y != 0xFF
-C - - - - - 0x01D75D 07:D74D: 20 9F D7  JSR sub_D79F
-C - - - - - 0x01D760 07:D750: B0 2D     BCS bra_D77F_free_enemyA  ; If vEnemyAFrame_Counter >= 0x1F
+C D 2 - - - 0x01D751 07:D741: BD 20 03  LDA vEnemyAStatus,X            ;
+C - - - - - 0x01D754 07:D744: 29 BF     AND #$BF                       ; CONSTANT - the enemy can't get damage
+C - - - - - 0x01D756 07:D746: 9D 20 03  STA vEnemyAStatus,X            ; 
+C - - - - - 0x01D759 07:D749: C0 FF     CPY #$FF                       ; CONSTANT - death mark
+C - - - - - 0x01D75B 07:D74B: D0 05     BNE @bra_D752_RTS              ; If Register Y != 0xFF
+C - - - - - 0x01D75D 07:D74D: 20 9F D7  JSR sub_D79F_inc_diving_frame_ ;
+C - - - - - 0x01D760 07:D750: B0 2D     BCS bra_D77F_free_enemyA       ; If vEnemyAFrame_Counter >= 0x1F
 @bra_D752_RTS:
-C - - - - - 0x01D762 07:D752: 60        RTS                       ;
+C - - - - - 0x01D762 07:D752: 60        RTS                            ;
 
-bra_D753:
-C - - - - - 0x01D763 07:D753: 68        PLA
-C - - - - - 0x01D764 07:D754: 68        PLA
-C - - - - - 0x01D765 07:D755: BD 3E 03  LDA vEnemyAPosXHigh,X
-C - - - - - 0x01D768 07:D758: 85 D7     STA ram_00D7
-C - - - - - 0x01D76A 07:D75A: 20 DA D9  JSR sub_D9DA
-C - - - - - 0x01D76D 07:D75D: 90 20     BCC bra_D77F_free_enemyA
-C - - - - - 0x01D76F 07:D75F: 20 9F D7  JSR sub_D79F
-C - - - - - 0x01D772 07:D762: B0 1B     BCS bra_D77F_free_enemyA
+bra_D753_death:
+C - - - - - 0x01D763 07:D753: 68        PLA                                ;
+C - - - - - 0x01D764 07:D754: 68        PLA                                ; double return (i.e. $A1C4 -> $A055)
+C - - - - - 0x01D765 07:D755: BD 3E 03  LDA vEnemyAPosXHigh,X              ;
+C - - - - - 0x01D768 07:D758: 85 D7     STA ram_00D7                       ; prepare an input parameter
+C - - - - - 0x01D76A 07:D75A: 20 DA D9  JSR sub_D9DA_screen_with_water_gap ;
+C - - - - - 0x01D76D 07:D75D: 90 20     BCC bra_D77F_free_enemyA           ; If the screen hasn't the water gap
+C - - - - - 0x01D76F 07:D75F: 20 9F D7  JSR sub_D79F_inc_diving_frame_     ;
+C - - - - - 0x01D772 07:D762: B0 1B     BCS bra_D77F_free_enemyA           ; If vEnemyAFrame_Counter >= 0x1F
+; In: Register A - the frame counter
 loc_D764:
-C D 2 - - - 0x01D774 07:D764: 48        PHA
-C - - - - - 0x01D775 07:D765: C9 01     CMP #$01
-C - - - - - 0x01D777 07:D767: D0 05     BNE bra_D76E
-C - - - - - 0x01D779 07:D769: A9 36     LDA #$36
-C - - - - - 0x01D77B 07:D76B: 20 20 C4  JSR sub_C420_add_sound_effect
-bra_D76E:
-C - - - - - 0x01D77E 07:D76E: 68        PLA
-C - - - - - 0x01D77F 07:D76F: 29 18     AND #$18
-C - - - - - 0x01D781 07:D771: 4A        LSR
-C - - - - - 0x01D782 07:D772: 4A        LSR
-C - - - - - 0x01D783 07:D773: 18        CLC
-C - - - - - 0x01D784 07:D774: 69 D8     ADC #$D8
-C - - - - - 0x01D786 07:D776: 85 01     STA ram_0001
-C - - - - - 0x01D788 07:D778: A9 40     LDA #$40
-C - - - - - 0x01D78A 07:D77A: 85 02     STA ram_0002
-C - - - - - 0x01D78C 07:D77C: 4C 33 CE  JMP loc_CE33_add_sprite_magic
+C D 2 - - - 0x01D774 07:D764: 48        PHA                                ; store the frame counter
+C - - - - - 0x01D775 07:D765: C9 01     CMP #$01                           ; CONSTANT - 1st frame
+C - - - - - 0x01D777 07:D767: D0 05     BNE @bra_D76E_skip                 ; If the frame counter != 0x01
+C - - - - - 0x01D779 07:D769: A9 36     LDA #$36                           ; diving sound
+C - - - - - 0x01D77B 07:D76B: 20 20 C4  JSR sub_C420_add_sound_effect      ;
+@bra_D76E_skip:
+C - - - - - 0x01D77E 07:D76E: 68        PLA                                ; retrieve the frame counter (see $D764)
+C - - - - - 0x01D77F 07:D76F: 29 18     AND #$18                           ;
+C - - - - - 0x01D781 07:D771: 4A        LSR                                ;
+C - - - - - 0x01D782 07:D772: 4A        LSR                                ; gets control bits
+C - - - - - 0x01D783 07:D773: 18        CLC                                ;
+C - - - - - 0x01D784 07:D774: 69 D8     ADC #$D8                           ; ~> sprite_magic2 (see v_sprite_magic2)
+C - - - - - 0x01D786 07:D776: 85 01     STA ram_0001                       ; 0xD8, 0xDA, 0xDC or 0xDE
+C - - - - - 0x01D788 07:D778: A9 40     LDA #$40                           ; ~> sprite_magic3 (see v_sprite_magic3)
+C - - - - - 0x01D78A 07:D77A: 85 02     STA ram_0002                       ; $8100, bank 05 (2 page)
+C - - - - - 0x01D78C 07:D77C: 4C 33 CE  JMP loc_CE33_add_sprite_magic      ;
 
 loc_D77F_free_enemyA:
 bra_D77F_free_enemyA:
@@ -3837,24 +3842,25 @@ C - - - - - 0x01D7AB 07:D79B: 8D 00 03  STA vEnemyA                    ; clear
 C - - - - - 0x01D7AE 07:D79E: 60        RTS                            ;
 
 ; In: Register X - the enemyA number
-sub_D79F:
-C - - - - - 0x01D7AF 07:D79F: FE 44 03  INC vEnemyAFrame_Counter,X
-C - - - - - 0x01D7B2 07:D7A2: BD 44 03  LDA vEnemyAFrame_Counter,X
-C - - - - - 0x01D7B5 07:D7A5: C9 1F     CMP #$1F
-C - - - - - 0x01D7B7 07:D7A7: 60        RTS
+sub_D79F_inc_diving_frame_:
+C - - - - - 0x01D7AF 07:D79F: FE 44 03  INC vEnemyAFrame_Counter,X     ;
+C - - - - - 0x01D7B2 07:D7A2: BD 44 03  LDA vEnemyAFrame_Counter,X     ;
+C - - - - - 0x01D7B5 07:D7A5: C9 1F     CMP #$1F                       ; CONSTANT - the last frame
+C - - - - - 0x01D7B7 07:D7A7: 60        RTS                            ;
 
-bra_D7A8:
-C - - - - - 0x01D7B8 07:D7A8: BD 2C 03  LDA ram_032C,X
-C - - - - - 0x01D7BB 07:D7AB: 29 07     AND #$07
-C - - - - - 0x01D7BD 07:D7AD: C9 07     CMP #$07
-C - - - - - 0x01D7BF 07:D7AF: F0 05     BEQ bra_D7B6
-C - - - - - 0x01D7C1 07:D7B1: DE 2C 03  DEC ram_032C,X
-C - - - - - 0x01D7C4 07:D7B4: D0 F2     BNE bra_D7A8
-bra_D7B6:
-C - - - - - 0x01D7C6 07:D7B6: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x01D7C9 07:D7B9: 29 E1     AND #$E1
-C - - - - - 0x01D7CB 07:D7BB: 9D 20 03  STA vEnemyAStatus,X
-C - - - - - 0x01D7CE 07:D7BE: 60        RTS
+sub_D7A8_correction_EnemyAPosY:
+@bra_D7A8_repeat:
+C - - - - - 0x01D7B8 07:D7A8: BD 2C 03  LDA vEnemyAPosY,X              ;
+C - - - - - 0x01D7BB 07:D7AB: 29 07     AND #$07                       ;
+C - - - - - 0x01D7BD 07:D7AD: C9 07     CMP #$07                       ;
+C - - - - - 0x01D7BF 07:D7AF: F0 05     BEQ @bra_D7B6_end              ; If Register A == 0x07
+C - - - - - 0x01D7C1 07:D7B1: DE 2C 03  DEC vEnemyAPosY,X              ;
+C - - - - - 0x01D7C4 07:D7B4: D0 F2     BNE @bra_D7A8_repeat           ; If vEnemyAPosY != 0x00
+@bra_D7B6_end:
+C - - - - - 0x01D7C6 07:D7B6: BD 20 03  LDA vEnemyAStatus,X            ;
+C - - - - - 0x01D7C9 07:D7B9: 29 E1     AND #$E1                       ;
+C - - - - - 0x01D7CB 07:D7BB: 9D 20 03  STA vEnemyAStatus,X            ; clear W,K,L,M flags (see vEnemyAStatus)
+C - - - - - 0x01D7CE 07:D7BE: 60        RTS                            ;
 
 ; Out: If flag Z = 1 then the enemy movement to the right is not allowed
 sub_D7BF_check_enemyA_movement_on_the_right:
@@ -3893,13 +3899,17 @@ C - - - - - 0x01D7F5 07:D7E5: 60        RTS
 - - - - - - 0x01D7FD 07:D7ED: 60        .byte $60
 - - - - - - 0x01D7FE 07:D7EE: A9        .byte $A9
 - - - - - - 0x01D7FF 07:D7EF: 01        .byte $01
-sub_D7F0:
-C - - - - - 0x01D800 07:D7F0: 18        CLC
-C - - - - - 0x01D801 07:D7F1: 7D 2C 03  ADC ram_032C,X
-C - - - - - 0x01D804 07:D7F4: 85 00     STA ram_0000
-C - - - - - 0x01D806 07:D7F6: 20 3F D9  JSR sub_D93F_init_short_enemyA_positions
-C - - - - - 0x01D809 07:D7F9: 4C E5 D2  JMP loc_D2E5_get_collision_value
 
+; In: Register A - PosY
+; Out: Register A - a collision value (0x0X), 0x00 - no collision (see 98C0, bank 01_2)
+sub_D7F0_enemyA_collision_by_shift_posY:
+C - - - - - 0x01D800 07:D7F0: 18        CLC                                      ;
+C - - - - - 0x01D801 07:D7F1: 7D 2C 03  ADC vEnemyAPosY,X                        ;
+C - - - - - 0x01D804 07:D7F4: 85 00     STA ram_0000                             ; <~ vEnemyAPosY + PosY
+C - - - - - 0x01D806 07:D7F6: 20 3F D9  JSR sub_D93F_init_short_enemyA_positions ;
+C - - - - - 0x01D809 07:D7F9: 4C E5 D2  JMP loc_D2E5_get_collision_value         ;
+
+loc_D7FC:
 C D 2 - - - 0x01D80C 07:D7FC: BD 74 03  LDA ram_0374,X
 C - - - - - 0x01D80F 07:D7FF: 38        SEC
 C - - - - - 0x01D810 07:D800: E9 10     SBC #$10
@@ -3958,7 +3968,7 @@ C - - - - - 0x01D86F 07:D85F: 68        PLA
 C - - - - - 0x01D870 07:D860: 68        PLA
 C - - - - - 0x01D871 07:D861: BD 7A 03  LDA ram_037A,X
 C - - - - - 0x01D874 07:D864: 85 D7     STA ram_00D7
-C - - - - - 0x01D876 07:D866: 20 DA D9  JSR sub_D9DA
+C - - - - - 0x01D876 07:D866: 20 DA D9  JSR sub_D9DA_screen_with_water_gap
 C - - - - - 0x01D879 07:D869: 90 08     BCC bra_D873
 C - - - - - 0x01D87B 07:D86B: 20 93 D8  JSR sub_D893
 C - - - - - 0x01D87E 07:D86E: B0 03     BCS bra_D873
@@ -4106,7 +4116,7 @@ C - - - - - 0x01D937 07:D927: 60        RTS
 sub_D937_init_absolute_enemyA_positions:
 C - - - - - 0x01D947 07:D937: A9 00     LDA #$00               ;
 ; In: Register X - the enemyA number
-; In: Register A - ChrPosY
+; In: Register A - PosY
 ; Out: $0000 - EnemyAPosY + PosY
 ; Out: $0001 - EnemyAPosXLow
 sub_D939_init_relative_enemyA_positions:
@@ -4232,58 +4242,62 @@ C - - - - - 0x01D9E4 07:D9D4: A9 00     LDA #$00
 C - - - - - 0x01D9E6 07:D9D6: 9D 80 03  STA ram_0380,X
 C - - - - - 0x01D9E9 07:D9D9: 60        RTS
 
-sub_D9DA:
-C - - - - - 0x01D9EA 07:D9DA: A5 46     LDA ram_0046
-C - - - - - 0x01D9EC 07:D9DC: C9 07     CMP #$07
-C - - - - - 0x01D9EE 07:D9DE: 90 08     BCC bra_D9E8
-C - - - - - 0x01D9F0 07:D9E0: C9 14     CMP #$14
-C - - - - - 0x01D9F2 07:D9E2: 90 06     BCC bra_D9EA
-C - - - - - 0x01D9F4 07:D9E4: C9 42     CMP #$42
-C - - - - - 0x01D9F6 07:D9E6: B0 04     BCS bra_D9EC
-bra_D9E8:
-C - - - - - 0x01D9F8 07:D9E8: 18        CLC
-C - - - - - 0x01D9F9 07:D9E9: 60        RTS
+; In: $00D7 - noScreen
+; Out: carry flag - 1, if the screen has the water gap, otherwise - 0.
+sub_D9DA_screen_with_water_gap:
+C - - - - - 0x01D9EA 07:D9DA: A5 46     LDA vNoSubLevel
+C - - - - - 0x01D9EC 07:D9DC: C9 07     CMP #$07                   ; CONSTANT - level 2 (1-3)
+C - - - - - 0x01D9EE 07:D9DE: 90 08     BCC bra_D9E8_return_false  ; If vNoSubLevel < 0x07
+C - - - - - 0x01D9F0 07:D9E0: C9 14     CMP #$14                   ; CONSTANT - the boss room from level 4.0
+C - - - - - 0x01D9F2 07:D9E2: 90 06     BCC bra_D9EA_return_true   ; If vNoSubLevel < 0x14
+C - - - - - 0x01D9F4 07:D9E4: C9 42     CMP #$42                   ; CONSTANT - level 4, map 1 (B2-D2)
+C - - - - - 0x01D9F6 07:D9E6: B0 04     BCS bra_D9EC               ; If vNoSubLevel >= 0x42
+bra_D9E8_return_false:
+C - - - - - 0x01D9F8 07:D9E8: 18        CLC                        ;
+C - - - - - 0x01D9F9 07:D9E9: 60        RTS                        ;
 
-bra_D9EA:
-C - - - - - 0x01D9FA 07:D9EA: 38        SEC
-C - - - - - 0x01D9FB 07:D9EB: 60        RTS
+bra_D9EA_return_true:
+C - - - - - 0x01D9FA 07:D9EA: 38        SEC                        ;
+C - - - - - 0x01D9FB 07:D9EB: 60        RTS                        ;
 
+; In: $00D7 - noScreen
 bra_D9EC:
-C - - - - - 0x01D9FC 07:D9EC: 38        SEC
-C - - - - - 0x01D9FD 07:D9ED: E9 42     SBC #$42
-C - - - - - 0x01D9FF 07:D9EF: 48        PHA
-C - - - - - 0x01DA00 07:D9F0: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1
-C - - - - - 0x01DA03 07:D9F3: 68        PLA
-C - - - - - 0x01DA04 07:D9F4: 0A        ASL
-C - - - - - 0x01DA05 07:D9F5: A8        TAY
-C - - - - - 0x01DA06 07:D9F6: B9 1A 96  LDA $961A,Y
-C - - - - - 0x01DA09 07:D9F9: 85 12     STA ram_0012
-C - - - - - 0x01DA0B 07:D9FB: B9 1B 96  LDA $961B,Y
-C - - - - - 0x01DA0E 07:D9FE: 85 13     STA ram_0013
-C - - - - - 0x01DA10 07:DA00: A0 00     LDY #$00
-bra_DA02:
-C - - - - - 0x01DA12 07:DA02: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01DA14 07:DA04: 10 05     BPL bra_DA0B
-C - - - - - 0x01DA16 07:DA06: 20 5D EF  JSR sub_EF5D_switch_variable_bank
-C - - - - - 0x01DA19 07:DA09: 18        CLC
-C - - - - - 0x01DA1A 07:DA0A: 60        RTS
+C - - - - - 0x01D9FC 07:D9EC: 38        SEC                                             ;
+C - - - - - 0x01D9FD 07:D9ED: E9 42     SBC #$42                                        ; A <~ vNoSubLevel - 0x42
+C - - - - - 0x01D9FF 07:D9EF: 48        PHA                                             ; store A
+C - - - - - 0x01DA00 07:D9F0: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1                   ;
+C - - - - - 0x01DA03 07:D9F3: 68        PLA                                             ; retrieve A (see $D9EF)
+C - - - - - 0x01DA04 07:D9F4: 0A        ASL                                             ; *2, because the address have 2 bytes
+C - - - - - 0x01DA05 07:D9F5: A8        TAY                                             ;
+C - - - - - 0x01DA06 07:D9F6: B9 1A 96  LDA tbl_water_gap_level4 + BANK02_OFFSET,Y      ;
+C - - - - - 0x01DA09 07:D9F9: 85 12     STA ram_0012                                    ;
+C - - - - - 0x01DA0B 07:D9FB: B9 1B 96  LDA tbl_water_gap_level4 + BANK02_OFFSET + 1,Y  ;
+C - - - - - 0x01DA0E 07:D9FE: 85 13     STA ram_0013                                    ;
+C - - - - - 0x01DA10 07:DA00: A0 00     LDY #$00                                        ; set loop counter
+bra_DA02_loop:
+C - - - - - 0x01DA12 07:DA02: B1 12     LDA (ram_0012),Y                                ;
+C - - - - - 0x01DA14 07:DA04: 10 05     BPL bra_DA0B_valid                              ; If the number of the screen >= 0x00
+C - - - - - 0x01DA16 07:DA06: 20 5D EF  JSR sub_EF5D_switch_variable_bank               ; restore page $8000-$9FFF
+C - - - - - 0x01DA19 07:DA09: 18        CLC                                             ; return false
+C - - - - - 0x01DA1A 07:DA0A: 60        RTS                                             ;
 
-bra_DA0B:
-C - - - - - 0x01DA1B 07:DA0B: C5 D7     CMP ram_00D7
-C - - - - - 0x01DA1D 07:DA0D: F0 03     BEQ bra_DA12
-C - - - - - 0x01DA1F 07:DA0F: C8        INY
-C - - - - - 0x01DA20 07:DA10: D0 F0     BNE bra_DA02
-bra_DA12:
-C - - - - - 0x01DA22 07:DA12: 20 5D EF  JSR sub_EF5D_switch_variable_bank
-C - - - - - 0x01DA25 07:DA15: 38        SEC
-C - - - - - 0x01DA26 07:DA16: 60        RTS
+; In: $00D7 - noScreen
+bra_DA0B_valid:
+C - - - - - 0x01DA1B 07:DA0B: C5 D7     CMP ram_00D7                                    ;
+C - - - - - 0x01DA1D 07:DA0D: F0 03     BEQ @bra_DA12_break                             ; If the screen value == input noScreen
+C - - - - - 0x01DA1F 07:DA0F: C8        INY                                             ; increment loop counter
+C - - - - - 0x01DA20 07:DA10: D0 F0     BNE bra_DA02_loop                               ; If Register Y != 0x00
+@bra_DA12_break:
+C - - - - - 0x01DA22 07:DA12: 20 5D EF  JSR sub_EF5D_switch_variable_bank               ; restore page $8000-$9FFF
+C - - - - - 0x01DA25 07:DA15: 38        SEC                                             ; return true
+C - - - - - 0x01DA26 07:DA16: 60        RTS                                             ;
 
 ; In: Register A - the enemyA status
 ; In: Register Y - enemy type A
 ; In: Register X - the enemyA number
 sub_DA17_add_enemy_score:
 C - - - - - 0x01DA27 07:DA17: 29 20     AND #$20                                ; CONSTANT - it's getting damage (see vEnemyAStatus)
-C - - - - - 0x01DA29 07:DA19: F0 CD     BEQ bra_D9E8                            ; If the enemy didn't get damage
+C - - - - - 0x01DA29 07:DA19: F0 CD     BEQ bra_D9E8_return_false               ; If the enemy didn't get damage
 C - - - - - 0x01DA2B 07:DA1B: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1           ;
 C - - - - - 0x01DA2E 07:DA1E: B9 E0 95  LDA tbl_enemy_score + BANK02_OFFSET,Y   ;
 C - - - - - 0x01DA31 07:DA21: A8        TAY                                     ; Y <~ Score value
@@ -5095,9 +5109,9 @@ C - - - - - 0x01DEF1 07:DEE1: 85 6F     STA vJumpCounter                       ;
 C - - - - - 0x01DEF3 07:DEE3: 4C 86 DE  JMP loc_DE86_jump_subroutine_bf2       ;
 
 loc_DEE6:
-C D 2 - - - 0x01DEF6 07:DEE6: A5 68     LDA ram_0068
+C D 2 - - - 0x01DEF6 07:DEE6: A5 68     LDA vNoScreen
 C - - - - - 0x01DEF8 07:DEE8: 85 D7     STA ram_00D7
-C - - - - - 0x01DEFA 07:DEEA: 20 DA D9  JSR sub_D9DA
+C - - - - - 0x01DEFA 07:DEEA: 20 DA D9  JSR sub_D9DA_screen_with_water_gap
 C - - - - - 0x01DEFD 07:DEED: 90 2D     BCC bra_DF1C
 C - - - - - 0x01DEFF 07:DEEF: 20 57 DF  JSR sub_DF57_get_current_character
 C - - - - - 0x01DF02 07:DEF2: D0 0A     BNE bra_DEFE
@@ -7621,28 +7635,28 @@ loc_EF1A_switch_bank_06_2:
 C D 3 - - - 0x01EF2A 07:EF1A: A9 07     LDA #$07              ;
 C - - - - - 0x01EF2C 07:EF1C: 8D 00 80  STA MMC3_Bank_select  ;
 C - - - - - 0x01EF2F 07:EF1F: A9 0D     LDA #$0D              ;
-C - - - - - 0x01EF31 07:EF21: 8D 01 80  STA MMC3_Bank_data    ; switch bank 06_2 in 0xA000-0BFFF
+C - - - - - 0x01EF31 07:EF21: 8D 01 80  STA MMC3_Bank_data    ; switch bank 06_2 in $A000-$BFFF
 C - - - - - 0x01EF34 07:EF24: 60        RTS                   ;
 
 sub_EF25_switch_bank_06_1:
 C - - - - - 0x01EF35 07:EF25: A9 07     LDA #$07             ;
 C - - - - - 0x01EF37 07:EF27: 8D 00 80  STA MMC3_Bank_select ;
 C - - - - - 0x01EF3A 07:EF2A: A9 0C     LDA #$0C             ;
-C - - - - - 0x01EF3C 07:EF2C: 8D 01 80  STA MMC3_Bank_data   ; switch bank 06_1 in 0xA000-0BFFF
+C - - - - - 0x01EF3C 07:EF2C: 8D 01 80  STA MMC3_Bank_data   ; switch bank 06_1 in $A000-$BFFF
 C - - - - - 0x01EF3F 07:EF2F: 60        RTS                  ;
 
 sub_EF30_switch_bank_3_p2:
 C - - - - - 0x01EF40 07:EF30: A9 07     LDA #$07             ;
 C - - - - - 0x01EF42 07:EF32: 8D 00 80  STA MMC3_Bank_select ;
 C - - - - - 0x01EF45 07:EF35: A9 07     LDA #$07             ;
-C - - - - - 0x01EF47 07:EF37: 8D 01 80  STA MMC3_Bank_data   ; switch bank 03 (page 2) in 0xA000-0BFFF
+C - - - - - 0x01EF47 07:EF37: 8D 01 80  STA MMC3_Bank_data   ; switch bank 03 (page 2) in $A000-$BFFF
 C - - - - - 0x01EF4A 07:EF3A: 60        RTS                  ;
 
 sub_EF3B_switch_bank_2_p1:
 C - - - - - 0x01EF4B 07:EF3B: A9 06     LDA #$06             ;
 C - - - - - 0x01EF4D 07:EF3D: 8D 00 80  STA MMC3_Bank_select ;
 C - - - - - 0x01EF50 07:EF40: A9 04     LDA #$04             ; 
-C - - - - - 0x01EF52 07:EF42: 8D 01 80  STA MMC3_Bank_data   ; switch bank 02 (page 1) in 0x8000-09FFF
+C - - - - - 0x01EF52 07:EF42: 8D 01 80  STA MMC3_Bank_data   ; switch bank 02 (page 1) in $8000-$9FFF
 C - - - - - 0x01EF55 07:EF45: 60        RTS                  ;
 
 sub_EF46_switch_bank_4_p1:
@@ -7656,7 +7670,7 @@ C D 3 - - - 0x01EF5F 07:EF4F: A9 06     LDA #$06               ;
 C - - - - - 0x01EF61 07:EF51: 8D 00 80  STA MMC3_Bank_select   ;
 C - - - - - 0x01EF64 07:EF54: A9 09     LDA #$09               ;
 bra_EF56_on_page1:
-C - - - - - 0x01EF66 07:EF56: 8D 01 80  STA MMC3_Bank_data     ; switch bank 04 (page 1 or 2) in 0x8000-09FFF
+C - - - - - 0x01EF66 07:EF56: 8D 01 80  STA MMC3_Bank_data     ; switch bank 04 (page 1 or 2) in $8000-$9FFF
 C - - - - - 0x01EF69 07:EF59: 8D B5 06  STA vBankData          ; assign 0x08 or 0x09
 C - - - - - 0x01EF6C 07:EF5C: 60        RTS                    ;
 
@@ -7665,7 +7679,7 @@ loc_EF5D_switch_variable_bank:
 C D 3 - - - 0x01EF6D 07:EF5D: A9 06     LDA #$06             ;
 C - - - - - 0x01EF6F 07:EF5F: 8D 00 80  STA MMC3_Bank_select ;
 C - - - - - 0x01EF72 07:EF62: AD B5 06  LDA vBankData        ;
-C - - - - - 0x01EF75 07:EF65: 8D 01 80  STA MMC3_Bank_data   ; switch vBankData (PRG) in 0x8000-09FFF
+C - - - - - 0x01EF75 07:EF65: 8D 01 80  STA MMC3_Bank_data   ; switch vBankData (PRG) in $8000-$9FFF
 C - - - - - 0x01EF78 07:EF68: 60        RTS                  ;
 
 sub_EF69:
@@ -9543,7 +9557,7 @@ C - - - - - 0x01FBEE 07:FBDE: A5 66     LDA vLowChrPosX
 C - - - - - 0x01FBF0 07:FBE0: 85 67     STA vTempLowChrPosX
 C - - - - - 0x01FBF2 07:FBE2: A5 68     LDA vNoScreen
 C - - - - - 0x01FBF4 07:FBE4: 85 69     STA vTempNoScreen
-C - - - - - 0x01FBF6 07:FBE6: A5 6A     LDA ram_006A
+C - - - - - 0x01FBF6 07:FBE6: A5 6A     LDA vScreenChrPosY
 C - - - - - 0x01FBF8 07:FBE8: 85 6B     STA ram_006B
 C - - - - - 0x01FBFA 07:FBEA: A5 64     LDA vScreenChrPosX
 C - - - - - 0x01FBFC 07:FBEC: 85 65     STA vTempScreenChrPosX
@@ -9562,7 +9576,7 @@ C - - - - - 0x01FC0D 07:FBFD: 85 27     STA vLowViewPortPosX
 C - - - - - 0x01FC0F 07:FBFF: A5 65     LDA vTempScreenChrPosX
 C - - - - - 0x01FC11 07:FC01: 85 64     STA vScreenChrPosX
 C - - - - - 0x01FC13 07:FC03: A5 6B     LDA ram_006B
-C - - - - - 0x01FC15 07:FC05: 85 6A     STA ram_006A
+C - - - - - 0x01FC15 07:FC05: 85 6A     STA vScreenChrPosY
 C - - - - - 0x01FC17 07:FC07: A5 69     LDA vTempNoScreen
 C - - - - - 0x01FC19 07:FC09: 85 68     STA vNoScreen
 C - - - - - 0x01FC1B 07:FC0B: A5 67     LDA vTempLowChrPosX

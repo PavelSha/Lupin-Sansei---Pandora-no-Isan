@@ -4,23 +4,25 @@
 .org $A000  ; for listing file
 ; 0x00E010-0x01000F
 
-.import loc_C420_add_sound_effect             ; bank FF
-.import sub_C420_add_sound_effect             ; bank FF
-.import loc_CE33_add_sprite_magic             ; bank FF
-.import sub_CE33_add_sprite_magic             ; bank FF
-.import sub_D0B8_change_stack_pointer_by_bits ; bank FF
-.import sub_D67B_out_of_sight                 ; bank FF
-.import sub_D6AC_out_of_screen                ; bank FF
-.import sub_D660_is_bomb_exploding            ; bank FF
-.import loc_D77F_free_enemyA                  ; bank FF
-.import sub_D6BD_try_change_enemyA_direction  ; bank FF
-.import loc_D741_enemyA_off_screen            ; bank FF
-.import sub_D725_enemyA_on_screen             ; bank FF
-.import loc_D989_add_enemyA_sprite_magic_v1   ; bank FF
-.import sub_D358_check_enemy_collision_by_Y   ; bank FF
-.import sub_D562_has_character_damage         ; bank FF
-.import sub_D5B6_have_intersect_bullet        ; bank FF
-.import sub_D606_have_intersect_sword         ; bank FF
+.import loc_C420_add_sound_effect              ; bank FF
+.import sub_C420_add_sound_effect              ; bank FF
+.import loc_CE33_add_sprite_magic              ; bank FF
+.import sub_CE33_add_sprite_magic              ; bank FF
+.import sub_D0B8_change_stack_pointer_by_bits  ; bank FF
+.import sub_D67B_out_of_sight                  ; bank FF
+.import sub_D6AC_out_of_screen                 ; bank FF
+.import sub_D660_is_bomb_exploding             ; bank FF
+.import loc_D77F_free_enemyA                   ; bank FF
+.import sub_D6BD_try_change_enemyA_direction   ; bank FF
+.import loc_D741_enemyA_off_screen             ; bank FF
+.import sub_D725_enemyA_on_screen              ; bank FF
+.import loc_D989_add_enemyA_sprite_magic_v1    ; bank FF
+.import sub_D358_check_enemy_collision_by_Y    ; bank FF
+.import sub_D562_has_character_damage          ; bank FF
+.import sub_D5B6_have_intersect_bullet         ; bank FF
+.import sub_D606_have_intersect_sword          ; bank FF
+.import sub_D7A8_correction_EnemyAPosY         ; bank FF
+.import sub_D347_check_enemyA_strong_collision ; bank FF
 
 ; Page 2
 sub_A000: ; from bank_FF
@@ -3015,7 +3017,7 @@ C - - - - - 0x00F29E 03:B28E: BD 56 03  LDA ram_0356,X
 C - - - - - 0x00F2A1 03:B291: C9 04     CMP #$04
 C - - - - - 0x00F2A3 03:B293: F0 0C     BEQ bra_B2A1
 bra_B295:
-C - - - - - 0x00F2A5 03:B295: 20 A8 D7  JSR $D7A8
+C - - - - - 0x00F2A5 03:B295: 20 A8 D7  JSR sub_D7A8_correction_EnemyAPosY
 C - - - - - 0x00F2A8 03:B298: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x00F2AB 03:B29B: 29 20     AND #$20
 C - - - - - 0x00F2AD 03:B29D: D0 32     BNE bra_B2D1
@@ -3722,18 +3724,18 @@ C - - - - - 0x00F727 03:B717: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
 C - - - - - 0x00F72A 03:B71A: F0 23     BEQ bra_B73F
 C - - - - - 0x00F72C 03:B71C: C9 02     CMP #$02
 C - - - - - 0x00F72E 03:B71E: F0 07     BEQ bra_B727
-C - - - - - 0x00F730 03:B720: 20 47 D3  JSR $D347
+C - - - - - 0x00F730 03:B720: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
 C - - - - - 0x00F733 03:B723: D0 0E     BNE bra_B733
 - - - - - - 0x00F735 03:B725: F0        .byte $F0   ; 
 - - - - - - 0x00F736 03:B726: 18        .byte $18   ; 
 bra_B727:
-C - - - - - 0x00F737 03:B727: 20 47 D3  JSR $D347
+C - - - - - 0x00F737 03:B727: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
 C - - - - - 0x00F73A 03:B72A: F0 13     BEQ bra_B73F
 C - - - - - 0x00F73C 03:B72C: BD 56 03  LDA ram_0356,X
 C - - - - - 0x00F73F 03:B72F: C9 04     CMP #$04
 C - - - - - 0x00F741 03:B731: F0 0C     BEQ bra_B73F
 bra_B733:
-C - - - - - 0x00F743 03:B733: 20 A8 D7  JSR $D7A8
+C - - - - - 0x00F743 03:B733: 20 A8 D7  JSR sub_D7A8_correction_EnemyAPosY
 C - - - - - 0x00F746 03:B736: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x00F749 03:B739: 29 20     AND #$20
 C - - - - - 0x00F74B 03:B73B: D0 29     BNE bra_B766
@@ -4228,18 +4230,18 @@ C - - - - - 0x00FA81 03:BA71: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
 C - - - - - 0x00FA84 03:BA74: F0 23     BEQ bra_BA99
 C - - - - - 0x00FA86 03:BA76: C9 02     CMP #$02
 C - - - - - 0x00FA88 03:BA78: F0 07     BEQ bra_BA81
-C - - - - - 0x00FA8A 03:BA7A: 20 47 D3  JSR $D347
+C - - - - - 0x00FA8A 03:BA7A: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
 C - - - - - 0x00FA8D 03:BA7D: D0 0E     BNE bra_BA8D
 - - - - - - 0x00FA8F 03:BA7F: F0        .byte $F0   ; 
 - - - - - - 0x00FA90 03:BA80: 18        .byte $18   ; 
 bra_BA81:
-C - - - - - 0x00FA91 03:BA81: 20 47 D3  JSR $D347
+C - - - - - 0x00FA91 03:BA81: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
 C - - - - - 0x00FA94 03:BA84: F0 13     BEQ bra_BA99
 C - - - - - 0x00FA96 03:BA86: BD 56 03  LDA ram_0356,X
 C - - - - - 0x00FA99 03:BA89: C9 04     CMP #$04
 C - - - - - 0x00FA9B 03:BA8B: F0 0C     BEQ bra_BA99
 bra_BA8D:
-C - - - - - 0x00FA9D 03:BA8D: 20 A8 D7  JSR $D7A8
+C - - - - - 0x00FA9D 03:BA8D: 20 A8 D7  JSR sub_D7A8_correction_EnemyAPosY
 C - - - - - 0x00FAA0 03:BA90: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x00FAA3 03:BA93: 29 20     AND #$20
 C - - - - - 0x00FAA5 03:BA95: D0 1D     BNE bra_BAB4

@@ -1985,8 +1985,15 @@ $D341##retrieve x (see D2E6)
 $D342##--NO-COMMENT--
 $D344##return a collision value
 $D346##--NO-COMMENT--
-$D347#sub_D347#
-$D350#bra_D350_skip#
+$D347#sub_D347_check_enemyA_strong_collision#--NO-COMMENT--
+$D349##CONSTANT - level 4 or level-racing
+$D34B##If v_no_level != 0x03
+$D34D##no collisions
+$D34F##--NO-COMMENT--
+$D350#bra_D350_skip#prepare an input parameter
+$D352##--NO-COMMENT--
+$D355##CONSTANT - a strong collision
+$D357##--NO-COMMENT--
 $D358#sub_D358_check_enemy_collision_by_Y#--NO-COMMENT--
 $D35B##--NO-COMMENT--
 $D36A#loc_D36A_short_left_right_collision#to sub_AD6E bank 06_2
@@ -2438,6 +2445,7 @@ $D728##~> sprite magic1
 $D72A##--NO-COMMENT--
 $D72C##--NO-COMMENT--
 $D72F##CONSTANT - death mark
+$D731##--NO-COMMENT--
 $D733##--NO-COMMENT--
 $D736##CONSTANT - the enemy can get damage
 $D738##--NO-COMMENT--
@@ -2451,11 +2459,32 @@ $D744##CONSTANT - the enemy can't get damage
 $D746##--NO-COMMENT--
 $D749##CONSTANT - death mark
 $D74B##If Register Y != 0xFF
+$D74D##--NO-COMMENT--
 $D750##If vEnemyAFrame_Counter >= 0x1F
 $D752#bra_D752_RTS#--NO-COMMENT--
-$D753#bra_D753#
-$D764#loc_D764#
-$D76E#bra_D76E#
+$D753#bra_D753_death#--NO-COMMENT--
+$D754##double return (i.e. $A1C4 -> $A055)
+$D755##--NO-COMMENT--
+$D758##prepare an input parameter
+$D75A##--NO-COMMENT--
+$D75D##If the screen hasn't the water gap
+$D75F##--NO-COMMENT--
+$D762##If vEnemyAFrame_Counter >= 0x1F
+$D764#loc_D764#store the frame counter
+$D765##CONSTANT - 1st frame
+$D767##If the frame counter != 0x01
+$D769##diving sound
+$D76B##--NO-COMMENT--
+$D76E#bra_D76E_skip#retrieve the frame counter (see $D764)
+$D76F##--NO-COMMENT--
+$D771##--NO-COMMENT--
+$D772##gets control bits
+$D773##--NO-COMMENT--
+$D774##~> sprite_magic2 (see v_sprite_magic2)
+$D776##0xD8, 0xDA, 0xDC or 0xDE
+$D778##~> sprite_magic3 (see v_sprite_magic3)
+$D77A##$8100, bank 05 (2 page)
+$D77C##--NO-COMMENT--
 $D77F#bra_D77F_free_enemyA#puts the enemyA number
 $D781##--NO-COMMENT--
 $D784##--NO-COMMENT--
@@ -2469,9 +2498,20 @@ $D797##If vEnemyACount != 0x00
 $D799#bra_D799_skip#--NO-COMMENT--
 $D79B##clear
 $D79E#bra_D79E_RTS#--NO-COMMENT--
-$D79F#sub_D79F#
-$D7A8#bra_D7A8#
-$D7B6#bra_D7B6#
+$D79F#sub_D79F_inc_diving_frame_#--NO-COMMENT--
+$D7A2##--NO-COMMENT--
+$D7A5##CONSTANT - the last frame
+$D7A7##--NO-COMMENT--
+$D7A8#bra_D7A8_repeat#--NO-COMMENT--
+$D7AB##--NO-COMMENT--
+$D7AD##--NO-COMMENT--
+$D7AF##If Register A == 0x07
+$D7B1##--NO-COMMENT--
+$D7B4##If vEnemyAPosY != 0x00
+$D7B6#bra_D7B6_end#--NO-COMMENT--
+$D7B9##--NO-COMMENT--
+$D7BB##clear W,K,L,M flags (see vEnemyAStatus)
+$D7BE##--NO-COMMENT--
 $D7BF#sub_D7BF_check_enemyA_movement_on_the_right#--NO-COMMENT--
 $D7C2##prepare an increment by X (+8)
 $D7C4##--NO-COMMENT--
@@ -2484,7 +2524,12 @@ $D7D2##CONSTANT - a strong collision
 $D7D4##--NO-COMMENT--
 $D7D5#sub_D7D5#
 $D7E5#bra_D7E5_RTS#
-$D7F0#sub_D7F0#
+$D7F0#sub_D7F0_enemyA_collision_by_shift_posY#--NO-COMMENT--
+$D7F1##--NO-COMMENT--
+$D7F4##<~ vEnemyAPosY + PosY
+$D7F6##--NO-COMMENT--
+$D7F9##--NO-COMMENT--
+$D7FC#loc_D7FC#
 $D81A#bra_D81A_RTS#
 $D84C#bra_D84C_RTS#
 $D85E#bra_D85E_RTS#
@@ -2549,13 +2594,41 @@ $D9BC##If vEnemyAFrame_Counter < 0x03
 $D9BE##--NO-COMMENT--
 $D9C0##reset a counter
 $D9C3#bra_D9C3_RTS#--NO-COMMENT--
-$D9DA#sub_D9DA#
-$D9E8#bra_D9E8#
-$D9EA#bra_D9EA#
-$D9EC#bra_D9EC#
-$DA02#bra_DA02#
-$DA0B#bra_DA0B#
-$DA12#bra_DA12#
+$D9DA#sub_D9DA_screen_with_water_gap#
+$D9DC##CONSTANT - level 2 (1-3)
+$D9DE##If vNoSubLevel < 0x07
+$D9E0##CONSTANT - the boss room from level 4.0
+$D9E2##If vNoSubLevel < 0x14
+$D9E4##CONSTANT - level 4, map 1 (B2-D2)
+$D9E6##If vNoSubLevel >= 0x42
+$D9E8#bra_D9E8_return_false#--NO-COMMENT--
+$D9E9##--NO-COMMENT--
+$D9EA#bra_D9EA_return_true#--NO-COMMENT--
+$D9EB##--NO-COMMENT--
+$D9EC#bra_D9EC#--NO-COMMENT--
+$D9ED##A <~ vNoSubLevel - 0x42
+$D9EF##store A
+$D9F0##--NO-COMMENT--
+$D9F3##retrieve A (see $D9EF)
+$D9F4##*2, because the address have 2 bytes
+$D9F5##--NO-COMMENT--
+$D9F6##--NO-COMMENT--
+$D9F9##--NO-COMMENT--
+$D9FB##--NO-COMMENT--
+$D9FE##--NO-COMMENT--
+$DA00##set loop counter
+$DA02#bra_DA02_loop#--NO-COMMENT--
+$DA04##If the number of the screen >= 0x00
+$DA06##restore page $8000-$9FFF
+$DA09##return false
+$DA0A##--NO-COMMENT--
+$DA0B#bra_DA0B_valid#--NO-COMMENT--
+$DA0D##If the screen value == input noScreen
+$DA0F##increment loop counter
+$DA10##If Register Y != 0x00
+$DA12#bra_DA12_break#restore page $8000-$9FFF
+$DA15##return true
+$DA16##--NO-COMMENT--
 $DA17#sub_DA17_add_enemy_score#CONSTANT - it's getting damage (see vEnemyAStatus)
 $DA19##If the enemy didn't get damage
 $DA1B##--NO-COMMENT--
@@ -3597,22 +3670,22 @@ $EF14##to sub_A015
 $EF1A#loc_EF1A_switch_bank_06_2#--NO-COMMENT--
 $EF1C##--NO-COMMENT--
 $EF1F##--NO-COMMENT--
-$EF21##switch bank 06_2 in 0xA000-0BFFF
+$EF21##switch bank 06_2 in $A000-$BFFF
 $EF24##--NO-COMMENT--
 $EF25#sub_EF25_switch_bank_06_1#--NO-COMMENT--
 $EF27##--NO-COMMENT--
 $EF2A##--NO-COMMENT--
-$EF2C##switch bank 06_1 in 0xA000-0BFFF
+$EF2C##switch bank 06_1 in $A000-$BFFF
 $EF2F##--NO-COMMENT--
 $EF30#sub_EF30_switch_bank_3_p2#--NO-COMMENT--
 $EF32##--NO-COMMENT--
 $EF35##--NO-COMMENT--
-$EF37##switch bank 03 (page 2) in 0xA000-0BFFF
+$EF37##switch bank 03 (page 2) in $A000-$BFFF
 $EF3A##--NO-COMMENT--
 $EF3B#sub_EF3B_switch_bank_2_p1#--NO-COMMENT--
 $EF3D##--NO-COMMENT--
 $EF40##--NO-COMMENT--
-$EF42##switch bank 02 (page 1) in 0x8000-09FFF
+$EF42##switch bank 02 (page 1) in $8000-$9FFF
 $EF45##--NO-COMMENT--
 $EF46#sub_EF46_switch_bank_4_p1#--NO-COMMENT--
 $EF48##--NO-COMMENT--
@@ -3621,13 +3694,13 @@ $EF4D##If Register A != 0x00
 $EF4F#sub_EF4F_switch_bank_4_p2#--NO-COMMENT--
 $EF51##--NO-COMMENT--
 $EF54##--NO-COMMENT--
-$EF56#bra_EF56_on_page1#switch bank 04 (page 1 or 2) in 0x8000-09FFF
+$EF56#bra_EF56_on_page1#switch bank 04 (page 1 or 2) in $8000-$9FFF
 $EF59##assign 0x08 or 0x09
 $EF5C##--NO-COMMENT--
 $EF5D#loc_EF5D_switch_variable_bank#--NO-COMMENT--
 $EF5F##--NO-COMMENT--
 $EF62##--NO-COMMENT--
-$EF65##switch vBankData (PRG) in 0x8000-09FFF
+$EF65##switch vBankData (PRG) in $8000-$9FFF
 $EF68##--NO-COMMENT--
 $EF69#sub_EF69#
 $EF6B##--NO-COMMENT--

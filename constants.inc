@@ -230,6 +230,7 @@ vJumpType                     = ram_006E
 ; 1 - high jump
 ; 2 - jumping off
 ; 3 - jump by side
+; 4 - jump off after the squatting (for enemies)
 vJumpCounter                  = ram_006F
 
 ; ram_0070 - vChrFrameIndex ???
