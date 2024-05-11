@@ -206,7 +206,7 @@ vScreenChrPosX                = ram_0064 ; The character's position along the X 
 vTempScreenChrPosX            = ram_0065
 vLowChrPosX                   = ram_0066 ; The character's position along the X axis relative to the level (with repeat) 
 vTempLowChrPosX               = ram_0067
-vNoScreen                     = ram_0068 ; The number of the level screen
+vNoScreen                     = ram_0068 ; The number of the level screen, vHighChrPosX
 vTempNoScreen                 = ram_0069
 vScreenChrPosY                = ram_006A ; The character's position along the Y axis relative to the screen (no repeat)
 vChrStatus                    = ram_006C ; A status of a character
@@ -247,8 +247,20 @@ vChrLandStatus                = ram_0079 ;
 vBulletCount                  = ram_007A ; 0x00 - 1 bullet, 0x01 - 2 bullets, 0x02 - 3 bullets and so on...
 vBulletPosX                   = ram_007B ; [0x7B-0x7F] on the screen, in pixel units
 vBulletPosY                   = ram_0080 ; [0x80-0x84] on the screen, in pixel units
-
+vBulletLowPosX                = ram_0085 ; [0x85-0x89] on the level, in pixel units (with repeat)
+vBulletHighPosX               = ram_008A ; [0x8A-0x8E] on the level, in screen units
 vBulletStatus                 = ram_008F ; [0x8F-0x93] , for a rifle, Lupin's pistol, Jigen's pistol
+; Byte: XYZW KLMN
+; X - the bullet is activated (1 - is activated, 0, isn't activated)
+; Y - the dictance (1 - short, 0 - long)
+; Z - ???
+; W - the direction (1 - left, 0 - right)
+; K - ???
+; L - ???
+; M - ???
+; N - start of the shot (1 - start, 0 - no start)
+
+vBulletCounter                = ram_0094 ; only for Lupin [0x94-0x98]
 
 vNonUsed                      = ram_009C
 

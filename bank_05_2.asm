@@ -384,14 +384,12 @@
 - D 0 - I - 0x0161B5 05:81A5: 8B        .byte $8B   ; 
 - D 0 - I - 0x0161B6 05:81A6: 4B        .byte $4B   ; <K>
 - D 0 - I - 0x0161B7 05:81A7: 8B        .byte $8B   ; 
-- D 0 - I - 0x0161B8 05:81A8: 81        .byte $81   ; 
-- D 0 - I - 0x0161B9 05:81A9: 83        .byte $83   ; 
-- D 0 - I - 0x0161BA 05:81AA: 81        .byte $81   ; 
-- D 0 - I - 0x0161BB 05:81AB: 83        .byte $83   ; 
-- D 0 - I - 0x0161BC 05:81AC: 86        .byte $86   ; 
-- D 0 - I - 0x0161BD 05:81AD: 83        .byte $83   ; 
-- D 0 - I - 0x0161BE 05:81AE: 8B        .byte $8B   ; 
-- D 0 - I - 0x0161BF 05:81AF: 83        .byte $83   ; 
+
+- D 0 - I - 0x0161B8 05:81A8: 81 83     .addr loc_bullet_right_frame_       ; CPU Address $8381
+- D 0 - I - 0x0161BA 05:81AA: 81 83     .addr loc_bullet_left_frame_        ; CPU Address $8381
+- D 0 - I - 0x0161BC 05:81AC: 86 83     .addr loc_start_bullet_right_frame_ ; CPU Address $8386
+- D 0 - I - 0x0161BE 05:81AE: 8B 83     .addr loc_start_bullet_left_frame_  ; CPU Address $838B
+
 - D 0 - I - 0x0161C0 05:81B0: 90        .byte $90   ; 
 - D 0 - I - 0x0161C1 05:81B1: 83        .byte $83   ; 
 - - - - - - 0x0161C2 05:81B2: 95        .byte $95   ; 
@@ -855,21 +853,20 @@
 - D 0 - I - 0x01638E 05:837E: 61        .byte $61   ; <a>
 - D 0 - I - 0x01638F 05:837F: 95        .byte $95   ; 
 - - - - - - 0x016390 05:8380: 00        .byte $00   ; 
-- D 0 - I - 0x016391 05:8381: 01        .byte $01   ; 
-- D 0 - I - 0x016392 05:8382: FC        .byte $FC   ; 
-- D 0 - I - 0x016393 05:8383: 00        .byte $00   ; 
-- D 0 - I - 0x016394 05:8384: 00        .byte $00   ; 
-- D 0 - I - 0x016395 05:8385: FC        .byte $FC   ; 
-- D 0 - I - 0x016396 05:8386: 01        .byte $01   ; 
-- D 0 - I - 0x016397 05:8387: FC        .byte $FC   ; 
-- D 0 - I - 0x016398 05:8388: 01        .byte $01   ; 
-- D 0 - I - 0x016399 05:8389: 00        .byte $00   ; 
-- D 0 - I - 0x01639A 05:838A: FC        .byte $FC   ; 
-- D 0 - I - 0x01639B 05:838B: 01        .byte $01   ; 
-- D 0 - I - 0x01639C 05:838C: FC        .byte $FC   ; 
-- D 0 - I - 0x01639D 05:838D: 01        .byte $01   ; 
-- D 0 - I - 0x01639E 05:838E: 40        .byte $40   ; 
-- D 0 - I - 0x01639F 05:838F: FC        .byte $FC   ; 
+
+loc_bullet_right_frame_:
+loc_bullet_left_frame_:
+- D 0 - I - 0x016391 05:8381: 01        .byte $01
+- D 0 - I - 0x016392 05:8382: FC        .byte $FC, $00, $00, $FC
+
+loc_start_bullet_right_frame_:
+- D 0 - I - 0x016396 05:8386: 01        .byte $01
+- D 0 - I - 0x016397 05:8387: FC        .byte $FC, $01, $00, $FC
+
+loc_start_bullet_left_frame_:
+- D 0 - I - 0x01639B 05:838B: 01        .byte $01
+- D 0 - I - 0x01639C 05:838C: FC        .byte $FC, $01, $40, $FC
+
 - D 0 - I - 0x0163A0 05:8390: 01        .byte $01   ; 
 - D 0 - I - 0x0163A1 05:8391: FD        .byte $FD   ; 
 - D 0 - I - 0x0163A2 05:8392: 02        .byte $02   ; 

@@ -5350,9 +5350,9 @@ C - - - - - 0x01E05E 07:E04E: 20 79 D0  JSR sub_D079_check_button_press ;
 C - - - - - 0x01E061 07:E051: F0 30     BEQ bra_E083_RTS                ; Go to the branch If the button 'B' isn't pressed (shot a gun)
 C - - - - - 0x01E063 07:E053: 24 79     BIT vChrLandStatus              ; 
 C - - - - - 0x01E065 07:E055: 10 2C     BPL bra_E083_RTS                ; If the character is in the air
-C - - - - - 0x01E067 07:E057: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01E069 07:E059: 29 02     AND #$02
-C - - - - - 0x01E06B 07:E05B: F0 0F     BEQ bra_E06C
+C - - - - - 0x01E067 07:E057: A5 5F     LDA vChrLiveStatus              ;
+C - - - - - 0x01E069 07:E059: 29 02     AND #$02                        ; CONSTANT - Goemon
+C - - - - - 0x01E06B 07:E05B: F0 0F     BEQ @bra_E06C_bullet            ; If the character isn't Goemon
 C - - - - - 0x01E06D 07:E05D: A5 78     LDA ram_0078
 C - - - - - 0x01E06F 07:E05F: D0 22     BNE bra_E083_RTS
 C - - - - - 0x01E071 07:E061: A9 0C     LDA #$0C
@@ -5360,24 +5360,24 @@ C - - - - - 0x01E073 07:E063: 20 20 C4  JSR sub_C420_add_sound_effect
 C - - - - - 0x01E076 07:E066: A9 08     LDA #$08
 C - - - - - 0x01E078 07:E068: 85 78     STA ram_0078
 C - - - - - 0x01E07A 07:E06A: D0 17     BNE bra_E083_RTS
-bra_E06C:
-C - - - - - 0x01E07C 07:E06C: A2 02     LDX #$02
-C - - - - - 0x01E07E 07:E06E: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01E080 07:E070: 6A        ROR
-C - - - - - 0x01E081 07:E071: B0 09     BCS bra_E07C
-C - - - - - 0x01E083 07:E073: AD 14 02  LDA vCurrentWeaponStatus
-C - - - - - 0x01E086 07:E076: C9 42     CMP #$42
-C - - - - - 0x01E088 07:E078: F0 0A     BEQ bra_E084
-C - - - - - 0x01E08A 07:E07A: A2 00     LDX #$00
-bra_E07C:
+@bra_E06C_bullet:
+C - - - - - 0x01E07C 07:E06C: A2 02     LDX #$02                        ; set loop counter (for Jigen)
+C - - - - - 0x01E07E 07:E06E: A5 5F     LDA vChrLiveStatus              ;
+C - - - - - 0x01E080 07:E070: 6A        ROR                             ;
+C - - - - - 0x01E081 07:E071: B0 09     BCS @bra_E07C_loop              ; If a current character is Jigen
+C - - - - - 0x01E083 07:E073: AD 14 02  LDA vCurrentWeaponStatus        ;
+C - - - - - 0x01E086 07:E076: C9 42     CMP #$42                        ; CONSTANT - 'the weapon is activated' + 'Using the artillery rifle'
+C - - - - - 0x01E088 07:E078: F0 0A     BEQ bra_E084_rifle              ; If the rifle is activated
+C - - - - - 0x01E08A 07:E07A: A2 00     LDX #$00                        ; set loop counter (for Lupin)
+@bra_E07C_loop:                                                         ; loop by x (1 or 3 times)
 C - - - - - 0x01E08C 07:E07C: B5 8F     LDA vBulletStatus,X
 C - - - - - 0x01E08E 07:E07E: 10 26     BPL bra_E0A6
-C - - - - - 0x01E090 07:E080: CA        DEX
-C - - - - - 0x01E091 07:E081: 10 F9     BPL bra_E07C
+C - - - - - 0x01E090 07:E080: CA        DEX                             ; decrements loop counter
+C - - - - - 0x01E091 07:E081: 10 F9     BPL @bra_E07C_loop              ; If Register X >= 0x00
 bra_E083_RTS:
 C - - - - - 0x01E093 07:E083: 60        RTS                             ;
 
-bra_E084:
+bra_E084_rifle:
 C - - - - - 0x01E094 07:E084: A5 73     LDA vRifleFireTime
 C - - - - - 0x01E096 07:E086: D0 FB     BNE bra_E083_RTS
 C - - - - - 0x01E098 07:E088: A9 30     LDA #$30
@@ -5400,173 +5400,184 @@ tbl_E0A1:
 - D 3 - - - 0x01E0B3 07:E0A3: 00        .byte $00
 - D 3 - - - 0x01E0B4 07:E0A4: 01        .byte $01
 - D 3 - - - 0x01E0B5 07:E0A5: 02        .byte $02
-bra_E0A6:
-C - - - - - 0x01E0B6 07:E0A6: A9 0B     LDA #$0B ; Lupin shoots (sound effect)
-C - - - - - 0x01E0B8 07:E0A8: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01E0BB 07:E0AB: A0 81     LDY #$81
-C - - - - - 0x01E0BD 07:E0AD: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01E0BF 07:E0AF: 6A        ROR
-C - - - - - 0x01E0C0 07:E0B0: B0 02     BCS bra_E0B4
-C - - - - - 0x01E0C2 07:E0B2: A0 C1     LDY #$C1
-bra_E0B4:
-C - - - - - 0x01E0C4 07:E0B4: 98        TYA
-C - - - - - 0x01E0C5 07:E0B5: 95 8F     STA vBulletStatus,X
-C - - - - - 0x01E0C7 07:E0B7: A9 15     LDA #$15
-sub_E0B9:
-C - - - - - 0x01E0C9 07:E0B9: 95 94     STA ram_0094,X
-C - - - - - 0x01E0CB 07:E0BB: B4 8F     LDY vBulletStatus,X
-C - - - - - 0x01E0CD 07:E0BD: A5 6C     LDA ram_006C
-C - - - - - 0x01E0CF 07:E0BF: 6A        ROR
-C - - - - - 0x01E0D0 07:E0C0: 98        TYA
-C - - - - - 0x01E0D1 07:E0C1: 90 02     BCC bra_E0C5
-C - - - - - 0x01E0D3 07:E0C3: 09 10     ORA #$10
-bra_E0C5:
-C - - - - - 0x01E0D5 07:E0C5: 95 8F     STA vBulletStatus,X
-C - - - - - 0x01E0D7 07:E0C7: 29 10     AND #$10
-C - - - - - 0x01E0D9 07:E0C9: D0 1A     BNE bra_E0E5
-C - - - - - 0x01E0DB 07:E0CB: A5 46     LDA ram_0046
-C - - - - - 0x01E0DD 07:E0CD: C9 19     CMP #$19
-C - - - - - 0x01E0DF 07:E0CF: D0 03     BNE bra_E0D4
-C - - - - - 0x01E0E1 07:E0D1: 4C 0A EC  JMP loc_EC0A
 
-bra_E0D4:
-C - - - - - 0x01E0E4 07:E0D4: 20 F6 E0  JSR sub_E0F6
-C - - - - - 0x01E0E7 07:E0D7: A5 66     LDA ram_0066
-C - - - - - 0x01E0E9 07:E0D9: 18        CLC
-C - - - - - 0x01E0EA 07:E0DA: 65 02     ADC ram_0002
-C - - - - - 0x01E0EC 07:E0DC: 95 85     STA ram_0085,X
-C - - - - - 0x01E0EE 07:E0DE: A5 68     LDA ram_0068
-C - - - - - 0x01E0F0 07:E0E0: 69 00     ADC #$00
-C - - - - - 0x01E0F2 07:E0E2: 95 8A     STA ram_008A,X
+bra_E0A6:
+C - - - - - 0x01E0B6 07:E0A6: A9 0B     LDA #$0B                            ; Lupin or Jigen shoots (sound effect)
+C - - - - - 0x01E0B8 07:E0A8: 20 20 C4  JSR sub_C420_add_sound_effect       ;
+C - - - - - 0x01E0BB 07:E0AB: A0 81     LDY #$81                            ; CONSTANT - the bullet is activated + start of the shot
+C - - - - - 0x01E0BD 07:E0AD: A5 5F     LDA vChrLiveStatus                  ;
+C - - - - - 0x01E0BF 07:E0AF: 6A        ROR                                 ;
+C - - - - - 0x01E0C0 07:E0B0: B0 02     BCS @bra_E0B4_assign                ; If a current character is Jigen
+C - - - - - 0x01E0C2 07:E0B2: A0 C1     LDY #$C1                            ; CONSTANT - the bullet is activated + start of the shot + short shot
+@bra_E0B4_assign:
+C - - - - - 0x01E0C4 07:E0B4: 98        TYA                                 ;
+C - - - - - 0x01E0C5 07:E0B5: 95 8F     STA vBulletStatus,X                 ;
+C - - - - - 0x01E0C7 07:E0B7: A9 15     LDA #$15                            ; Initializes a bullet counter
+; In: Register A - a start value for the counter
+sub_E0B9:
+C - - - - - 0x01E0C9 07:E0B9: 95 94     STA vBulletCounter,X                ;
+C - - - - - 0x01E0CB 07:E0BB: B4 8F     LDY vBulletStatus,X                 ;
+C - - - - - 0x01E0CD 07:E0BD: A5 6C     LDA vChrStatus                      ;
+C - - - - - 0x01E0CF 07:E0BF: 6A        ROR                                 ;
+C - - - - - 0x01E0D0 07:E0C0: 98        TYA                                 ;
+C - - - - - 0x01E0D1 07:E0C1: 90 02     BCC @bra_E0C5_skip                  ; If the character is looking to the right
+C - - - - - 0x01E0D3 07:E0C3: 09 10     ORA #$10                            ; CONSTANT - the left direction
+@bra_E0C5_skip:
+C - - - - - 0x01E0D5 07:E0C5: 95 8F     STA vBulletStatus,X                 ; updates the status
+C - - - - - 0x01E0D7 07:E0C7: 29 10     AND #$10                            ; CONSTANT - the left direction
+C - - - - - 0x01E0D9 07:E0C9: D0 1A     BNE bra_E0E5_left                   ; If the direction is on the left
+C - - - - - 0x01E0DB 07:E0CB: A5 46     LDA vNoSubLevel                     ;
+C - - - - - 0x01E0DD 07:E0CD: C9 19     CMP #$19                            ; CONSTANT - level racing
+C - - - - - 0x01E0DF 07:E0CF: D0 03     BNE bra_E0D4_right                  ; If vNoSubLevel != 0x19
+C - - - - - 0x01E0E1 07:E0D1: 4C 0A EC  JMP loc_EC0A_racing
+
+bra_E0D4_right:
+C - - - - - 0x01E0E4 07:E0D4: 20 F6 E0  JSR sub_E0F6_calc_bullet_positions  ;
+C - - - - - 0x01E0E7 07:E0D7: A5 66     LDA vLowChrPosX                     ;
+C - - - - - 0x01E0E9 07:E0D9: 18        CLC                                 ;
+C - - - - - 0x01E0EA 07:E0DA: 65 02     ADC ram_0002                        ;
+C - - - - - 0x01E0EC 07:E0DC: 95 85     STA vBulletLowPosX,X                ; <~ LowPosX + $0002
+C - - - - - 0x01E0EE 07:E0DE: A5 68     LDA vNoScreen                       ;
+C - - - - - 0x01E0F0 07:E0E0: 69 00     ADC #$00                            ;
+C - - - - - 0x01E0F2 07:E0E2: 95 8A     STA vBulletHighPosX,X               ; <~ HighPosX (+1 with overflow)
 C - - - - - 0x01E0F4 07:E0E4: 60        RTS
 
-bra_E0E5:
-C - - - - - 0x01E0F5 07:E0E5: 20 F6 E0  JSR sub_E0F6
-C - - - - - 0x01E0F8 07:E0E8: A5 66     LDA ram_0066
-C - - - - - 0x01E0FA 07:E0EA: 38        SEC
-C - - - - - 0x01E0FB 07:E0EB: E5 02     SBC ram_0002
-C - - - - - 0x01E0FD 07:E0ED: 95 85     STA ram_0085,X
-C - - - - - 0x01E0FF 07:E0EF: A5 68     LDA ram_0068
-C - - - - - 0x01E101 07:E0F1: E9 00     SBC #$00
-C - - - - - 0x01E103 07:E0F3: 95 8A     STA ram_008A,X
-C - - - - - 0x01E105 07:E0F5: 60        RTS
+bra_E0E5_left:
+C - - - - - 0x01E0F5 07:E0E5: 20 F6 E0  JSR sub_E0F6_calc_bullet_positions  ;
+C - - - - - 0x01E0F8 07:E0E8: A5 66     LDA vLowChrPosX                     ;
+C - - - - - 0x01E0FA 07:E0EA: 38        SEC                                 ;
+C - - - - - 0x01E0FB 07:E0EB: E5 02     SBC ram_0002                        ;
+C - - - - - 0x01E0FD 07:E0ED: 95 85     STA vBulletLowPosX,X                ; <~ LowPosX - $0002
+C - - - - - 0x01E0FF 07:E0EF: A5 68     LDA vNoScreen                       ;
+C - - - - - 0x01E101 07:E0F1: E9 00     SBC #$00                            ;
+C - - - - - 0x01E103 07:E0F3: 95 8A     STA vBulletHighPosX,X               ; <~ HighPosX - 0x01 (+1 with overflow)
+C - - - - - 0x01E105 07:E0F5: 60        RTS                                 ;
 
-sub_E0F6:
-C - - - - - 0x01E106 07:E0F6: A0 16     LDY #$16
-C - - - - - 0x01E108 07:E0F8: 24 6D     BIT vMovableChrStatus
-C - - - - - 0x01E10A 07:E0FA: 30 13     BMI bra_E10F
-C - - - - - 0x01E10C 07:E0FC: A0 10     LDY #$10
-C - - - - - 0x01E10E 07:E0FE: AD 14 02  LDA vCurrentWeaponStatus
-C - - - - - 0x01E111 07:E101: C9 42     CMP #$42
-C - - - - - 0x01E113 07:E103: F0 0A     BEQ bra_E10F
-C - - - - - 0x01E115 07:E105: A0 0F     LDY #$0F
-C - - - - - 0x01E117 07:E107: A5 6C     LDA ram_006C
-C - - - - - 0x01E119 07:E109: 29 02     AND #$02
-C - - - - - 0x01E11B 07:E10B: D0 02     BNE bra_E10F
-C - - - - - 0x01E11D 07:E10D: A0 17     LDY #$17
-bra_E10F:
-C - - - - - 0x01E11F 07:E10F: 84 02     STY ram_0002
-C - - - - - 0x01E121 07:E111: A5 6A     LDA ram_006A
-C - - - - - 0x01E123 07:E113: 38        SEC
-C - - - - - 0x01E124 07:E114: E5 02     SBC ram_0002
-C - - - - - 0x01E126 07:E116: 95 80     STA ram_0080,X
-C - - - - - 0x01E128 07:E118: A0 18     LDY #$18
-C - - - - - 0x01E12A 07:E11A: 24 6D     BIT vMovableChrStatus
-C - - - - - 0x01E12C 07:E11C: 70 11     BVS bra_E12F
-C - - - - - 0x01E12E 07:E11E: A0 16     LDY #$16
-C - - - - - 0x01E130 07:E120: 24 6D     BIT vMovableChrStatus
-C - - - - - 0x01E132 07:E122: 30 0B     BMI bra_E12F
-C - - - - - 0x01E134 07:E124: A0 14     LDY #$14
-C - - - - - 0x01E136 07:E126: AD 14 02  LDA vCurrentWeaponStatus
-C - - - - - 0x01E139 07:E129: C9 42     CMP #$42
-C - - - - - 0x01E13B 07:E12B: F0 02     BEQ bra_E12F
-C - - - - - 0x01E13D 07:E12D: A0 10     LDY #$10
-bra_E12F:
-C - - - - - 0x01E13F 07:E12F: 84 02     STY ram_0002
-C - - - - - 0x01E141 07:E131: 60        RTS
+; In: Register X - the number of the bullet
+; Out: Register Y - the offset by X
+sub_E0F6_calc_bullet_positions:
+C - - - - - 0x01E106 07:E0F6: A0 16     LDY #$16                             ; offset #1
+C - - - - - 0x01E108 07:E0F8: 24 6D     BIT vMovableChrStatus                ;
+C - - - - - 0x01E10A 07:E0FA: 30 13     BMI @bra_E10F_tmp_assign             ; If the character is moving in the water
+C - - - - - 0x01E10C 07:E0FC: A0 10     LDY #$10                             ; offset #2
+C - - - - - 0x01E10E 07:E0FE: AD 14 02  LDA vCurrentWeaponStatus             ;
+C - - - - - 0x01E111 07:E101: C9 42     CMP #$42                             ; CONSTANT - 'the weapon is activated' + 'Using the artillery rifle'
+C - - - - - 0x01E113 07:E103: F0 0A     BEQ @bra_E10F_tmp_assign             ; If the rifle is activated
+C - - - - - 0x01E115 07:E105: A0 0F     LDY #$0F                             ; offset #3
+C - - - - - 0x01E117 07:E107: A5 6C     LDA vChrStatus                       ;
+C - - - - - 0x01E119 07:E109: 29 02     AND #$02                             ; CONSTANT - the character is sitting
+C - - - - - 0x01E11B 07:E10B: D0 02     BNE @bra_E10F_tmp_assign             ; the character is sitting
+C - - - - - 0x01E11D 07:E10D: A0 17     LDY #$17                             ; offset #4
+@bra_E10F_tmp_assign:
+C - - - - - 0x01E11F 07:E10F: 84 02     STY ram_0002                         ;
+C - - - - - 0x01E121 07:E111: A5 6A     LDA vScreenChrPosY                   ;
+C - - - - - 0x01E123 07:E113: 38        SEC                                  ;
+C - - - - - 0x01E124 07:E114: E5 02     SBC ram_0002                         ;
+C - - - - - 0x01E126 07:E116: 95 80     STA vBulletPosY,X                    ; <~ ChrPosY - $0002
+C - - - - - 0x01E128 07:E118: A0 18     LDY #$18                             ; offset #1
+C - - - - - 0x01E12A 07:E11A: 24 6D     BIT vMovableChrStatus                ;
+C - - - - - 0x01E12C 07:E11C: 70 11     BVS @bra_E12F_assign                 ; If the character is moving in the balloon
+C - - - - - 0x01E12E 07:E11E: A0 16     LDY #$16                             ; offset #2
+C - - - - - 0x01E130 07:E120: 24 6D     BIT vMovableChrStatus                ;
+C - - - - - 0x01E132 07:E122: 30 0B     BMI @bra_E12F_assign                 ; If the character is moving in the water
+C - - - - - 0x01E134 07:E124: A0 14     LDY #$14                             ; offset #3
+C - - - - - 0x01E136 07:E126: AD 14 02  LDA vCurrentWeaponStatus             ;
+C - - - - - 0x01E139 07:E129: C9 42     CMP #$42                             ; CONSTANT - 'the weapon is activated' + 'Using the artillery rifle'
+C - - - - - 0x01E13B 07:E12B: F0 02     BEQ @bra_E12F_assign                 ; If the rifle is activated
+C - - - - - 0x01E13D 07:E12D: A0 10     LDY #$10                             ; offset #4
+@bra_E12F_assign:
+C - - - - - 0x01E13F 07:E12F: 84 02     STY ram_0002                         ;
+C - - - - - 0x01E141 07:E131: 60        RTS                                  ;
 
 ; In Register X - the number of the bullets
 loc_E132_bullets_subroutine:
-C D 3 - - - 0x01E142 07:E132: 86 10     STX vTempCounter10 ; set loop counter
-bra_E134_loop:                                             ; loop by vTempCounter10
-C - - - - - 0x01E144 07:E134: A6 10     LDX vTempCounter10 ;
-C - - - - - 0x01E146 07:E136: 20 3E E1  JSR sub_E13E
-C - - - - - 0x01E149 07:E139: C6 10     DEC vTempCounter10 ; decrement vTempCounter10
-C - - - - - 0x01E14B 07:E13B: 10 F7     BPL bra_E134_loop  ; In vTempCounter10 < 0xF0
+C D 3 - - - 0x01E142 07:E132: 86 10     STX vTempCounter10              ; set loop counter
+bra_E134_loop:                                                          ; loop by vTempCounter10
+C - - - - - 0x01E144 07:E134: A6 10     LDX vTempCounter10              ;
+C - - - - - 0x01E146 07:E136: 20 3E E1  JSR sub_E13E_bullet_subroutine
+C - - - - - 0x01E149 07:E139: C6 10     DEC vTempCounter10              ; decrement vTempCounter10
+C - - - - - 0x01E14B 07:E13B: 10 F7     BPL bra_E134_loop               ; In vTempCounter10 < 0xF0
 bra_E13D_RTS:
-C - - - - - 0x01E14D 07:E13D: 60        RTS                ;
+C - - - - - 0x01E14D 07:E13D: 60        RTS                             ;
 
-; In Register X - the number of the bullets
-sub_E13E:
-C - - - - - 0x01E14E 07:E13E: B5 8F     LDA vBulletStatus,X ;
-C - - - - - 0x01E150 07:E140: 10 FB     BPL bra_E13D_RTS    ; If Register A < 0xF0
-C - - - - - 0x01E152 07:E142: 29 10     AND #$10
-C - - - - - 0x01E154 07:E144: F0 06     BEQ bra_E14C
-C - - - - - 0x01E156 07:E146: 20 7A E1  JSR sub_E17A
-C - - - - - 0x01E159 07:E149: 4C 4F E1  JMP loc_E14F
+; In Register X - the number of the bullet
+sub_E13E_bullet_subroutine:
+C - - - - - 0x01E14E 07:E13E: B5 8F     LDA vBulletStatus,X              ;
+C - - - - - 0x01E150 07:E140: 10 FB     BPL bra_E13D_RTS                 ; If the bullet is not activated
+C - - - - - 0x01E152 07:E142: 29 10     AND #$10                         ; CONSTANT - the left direction
+C - - - - - 0x01E154 07:E144: F0 06     BEQ bra_E14C_right               ; If the direction is on the right
+C - - - - - 0x01E156 07:E146: 20 7A E1  JSR sub_E17A_move_left           ;
+C - - - - - 0x01E159 07:E149: 4C 4F E1  JMP loc_E14F_continue
 
-bra_E14C:
-C - - - - - 0x01E15C 07:E14C: 20 8B E1  JSR sub_E18B
-loc_E14F:
-C D 3 - - - 0x01E15F 07:E14F: 20 A8 E1  JSR sub_E1A8
-C - - - - - 0x01E162 07:E152: B0 E9     BCS bra_E13D_RTS
-C - - - - - 0x01E164 07:E154: A4 0A     LDY ram_000A
-C - - - - - 0x01E166 07:E156: B5 8F     LDA vBulletStatus,X
-C - - - - - 0x01E168 07:E158: 29 10     AND #$10
-C - - - - - 0x01E16A 07:E15A: F0 02     BEQ bra_E15E
-C - - - - - 0x01E16C 07:E15C: C8        INY
-C - - - - - 0x01E16D 07:E15D: C8        INY
-bra_E15E:
-C - - - - - 0x01E16E 07:E15E: C0 18     CPY #$18
-C - - - - - 0x01E170 07:E160: 90 03     BCC bra_E165
-C - - - - - 0x01E172 07:E162: 8A        TXA
-C - - - - - 0x01E173 07:E163: D0 D8     BNE bra_E13D_RTS
-bra_E165:
-C - - - - - 0x01E175 07:E165: 98        TYA
-C - - - - - 0x01E176 07:E166: 18        CLC
-C - - - - - 0x01E177 07:E167: 69 A8     ADC #$A8
-C - - - - - 0x01E179 07:E169: 85 01     STA ram_0001
-C - - - - - 0x01E17B 07:E16B: A9 40     LDA #$40
-C - - - - - 0x01E17D 07:E16D: 85 02     STA ram_0002
-C - - - - - 0x01E17F 07:E16F: B5 80     LDA ram_0080,X
-C - - - - - 0x01E181 07:E171: 85 00     STA ram_0000
-C - - - - - 0x01E183 07:E173: A5 03     LDA ram_0003
-C - - - - - 0x01E185 07:E175: 95 7B     STA ram_007B,X
-C - - - - - 0x01E187 07:E177: 4C 33 CE  JMP loc_CE33_add_sprite_magic
+bra_E14C_right:
+C - - - - - 0x01E15C 07:E14C: 20 8B E1  JSR sub_E18B_move_right          ;
+loc_E14F_continue:
+C D 3 - - - 0x01E15F 07:E14F: 20 A8 E1  JSR sub_E1A8_has_bullet_abort
+C - - - - - 0x01E162 07:E152: B0 E9     BCS bra_E13D_RTS                 ; If the bullet is destroyed
+C - - - - - 0x01E164 07:E154: A4 0A     LDY ram_000A                     ; initializes the frame offset
+C - - - - - 0x01E166 07:E156: B5 8F     LDA vBulletStatus,X              ;
+C - - - - - 0x01E168 07:E158: 29 10     AND #$10                         ; CONSTANT - the left direction
+C - - - - - 0x01E16A 07:E15A: F0 02     BEQ @bra_E15E_right              ; If the direction is on the right
+C - - - - - 0x01E16C 07:E15C: C8        INY                              ;
+C - - - - - 0x01E16D 07:E15D: C8        INY                              ; next the offset for the left frame
+@bra_E15E_right:
+C - - - - - 0x01E16E 07:E15E: C0 18     CPY #$18                         ; CONSTANT - Max offset
+C - - - - - 0x01E170 07:E160: 90 03     BCC @bra_E165_add                ; If Register Y < 0x18
+C - - - - - 0x01E172 07:E162: 8A        TXA                              ; A <~ the number of the bullet
+C - - - - - 0x01E173 07:E163: D0 D8     BNE bra_E13D_RTS                 ; If the bullet isn't last
+@bra_E165_add:
+C - - - - - 0x01E175 07:E165: 98        TYA                              ; A <~ the frame offset
+C - - - - - 0x01E176 07:E166: 18        CLC                              ;
+C - - - - - 0x01E177 07:E167: 69 A8     ADC #$A8                         ; + Y ~> sprite_magic2 (see v_sprite_magic2)
+C - - - - - 0x01E179 07:E169: 85 01     STA ram_0001                     ;
+C - - - - - 0x01E17B 07:E16B: A9 40     LDA #$40                         ; ~> sprite_magic3 (see v_sprite_magic3)
+C - - - - - 0x01E17D 07:E16D: 85 02     STA ram_0002                     ; $8100, bank 05 (2 page)
+C - - - - - 0x01E17F 07:E16F: B5 80     LDA vBulletPosY,X                ;
+C - - - - - 0x01E181 07:E171: 85 00     STA ram_0000                     ; ~> sprite_magic1 (see v_sprite_magic1)
+C - - - - - 0x01E183 07:E173: A5 03     LDA ram_0003                     ; sprite_magic4, assigned in $E1A8, $E20F
+C - - - - - 0x01E185 07:E175: 95 7B     STA vBulletPosX,X                ;
+C - - - - - 0x01E187 07:E177: 4C 33 CE  JMP loc_CE33_add_sprite_magic    ;
 
-sub_E17A:
-C - - - - - 0x01E18A 07:E17A: 20 9C E1  JSR sub_E19C
-C - - - - - 0x01E18D 07:E17D: B5 85     LDA ram_0085,X
-C - - - - - 0x01E18F 07:E17F: 38        SEC
-C - - - - - 0x01E190 07:E180: E5 02     SBC ram_0002
-C - - - - - 0x01E192 07:E182: 95 85     STA ram_0085,X
-C - - - - - 0x01E194 07:E184: B5 8A     LDA ram_008A,X
-C - - - - - 0x01E196 07:E186: E9 00     SBC #$00
-C - - - - - 0x01E198 07:E188: 95 8A     STA ram_008A,X
-C - - - - - 0x01E19A 07:E18A: 60        RTS
+sub_E17A_move_left:
+C - - - - - 0x01E18A 07:E17A: 20 9C E1  JSR sub_E19C_get_bullet_velocity   ;
+C - - - - - 0x01E18D 07:E17D: B5 85     LDA vBulletLowPosX,X               ;
+C - - - - - 0x01E18F 07:E17F: 38        SEC                                ;
+C - - - - - 0x01E190 07:E180: E5 02     SBC ram_0002                       ;
+C - - - - - 0x01E192 07:E182: 95 85     STA vBulletLowPosX,X               ; <~ LowPosX - $0002
+C - - - - - 0x01E194 07:E184: B5 8A     LDA vBulletHighPosX,X              ;
+C - - - - - 0x01E196 07:E186: E9 00     SBC #$00                           ;
+C - - - - - 0x01E198 07:E188: 95 8A     STA vBulletHighPosX,X              ; <~ HighPosX - 0x01 (+1 with overflow)
+C - - - - - 0x01E19A 07:E18A: 60        RTS                                ;
 
-sub_E18B:
-C - - - - - 0x01E19B 07:E18B: 20 9C E1  JSR sub_E19C
-C - - - - - 0x01E19E 07:E18E: B5 85     LDA ram_0085,X
-C - - - - - 0x01E1A0 07:E190: 18        CLC
-C - - - - - 0x01E1A1 07:E191: 65 02     ADC ram_0002
-C - - - - - 0x01E1A3 07:E193: 95 85     STA ram_0085,X
-C - - - - - 0x01E1A5 07:E195: B5 8A     LDA ram_008A,X
-C - - - - - 0x01E1A7 07:E197: 69 00     ADC #$00
-C - - - - - 0x01E1A9 07:E199: 95 8A     STA ram_008A,X
-C - - - - - 0x01E1AB 07:E19B: 60        RTS
+sub_E18B_move_right:
+C - - - - - 0x01E19B 07:E18B: 20 9C E1  JSR sub_E19C_get_bullet_velocity   ;
+C - - - - - 0x01E19E 07:E18E: B5 85     LDA vBulletLowPosX,X               ;
+C - - - - - 0x01E1A0 07:E190: 18        CLC                                ;
+C - - - - - 0x01E1A1 07:E191: 65 02     ADC ram_0002                       ;
+C - - - - - 0x01E1A3 07:E193: 95 85     STA vBulletLowPosX,X               ; <~ LowPosX + $0002
+C - - - - - 0x01E1A5 07:E195: B5 8A     LDA vBulletHighPosX,X              ;
+C - - - - - 0x01E1A7 07:E197: 69 00     ADC #$00                           ;
+C - - - - - 0x01E1A9 07:E199: 95 8A     STA vBulletHighPosX,X              ; <~ HighPosX (+1 with overflow)
+C - - - - - 0x01E1AB 07:E19B: 60        RTS                                ;
 
-sub_E19C:
-C - - - - - 0x01E1AC 07:E19C: A0 03     LDY #$03
-C - - - - - 0x01E1AE 07:E19E: B5 8F     LDA vBulletStatus,X
+; Out: $0002 - the velocity
+sub_E19C_get_bullet_velocity:
+C - - - - - 0x01E1AC 07:E19C: A0 03     LDY #$03                        ; Initializes a velocity
+C - - - - - 0x01E1AE 07:E19E: B5 8F     LDA vBulletStatus,X             ;
 C - - - - - 0x01E1B0 07:E1A0: 29 20     AND #$20
-C - - - - - 0x01E1B2 07:E1A2: F0 01     BEQ bra_E1A5
-- - - - - - 0x01E1B4 07:E1A4: 88        .byte $88
-bra_E1A5:
-C - - - - - 0x01E1B5 07:E1A5: 84 02     STY ram_0002
-C - - - - - 0x01E1B7 07:E1A7: 60        RTS
+C - - - - - 0x01E1B2 07:E1A2: F0 01     BEQ @bra_E1A5_skip
+C - - - - - 0x01E1B4 07:E1A4: 88        DEY
+@bra_E1A5_skip:
+C - - - - - 0x01E1B5 07:E1A5: 84 02     STY ram_0002                    ;
+C - - - - - 0x01E1B7 07:E1A7: 60        RTS                             ;
 
-sub_E1A8:
+; In Register X - the number of the bullet
+; Out: $0003 = vBulletLowPosX - vLowViewPortPosX
+; Out: $000A - the offset for the frame
+; Out: carry flag (analog return true or false):
+; 1, if ...
+; 0, ...
+sub_E1A8_has_bullet_abort:
 C - - - - - 0x01E1B8 07:E1A8: A0 00     LDY #$00
 C - - - - - 0x01E1BA 07:E1AA: B5 8F     LDA vBulletStatus,X
 C - - - - - 0x01E1BC 07:E1AC: 29 03     AND #$03
@@ -5618,22 +5629,22 @@ C - - - - - 0x01E210 07:E200: 20 14 E2  JSR sub_E214
 C - - - - - 0x01E213 07:E203: A0 08     LDY #$08
 C - - - - - 0x01E215 07:E205: 84 0A     STY ram_000A
 bra_E207:
-C - - - - - 0x01E217 07:E207: B5 85     LDA ram_0085,X
-C - - - - - 0x01E219 07:E209: 85 00     STA ram_0000
-C - - - - - 0x01E21B 07:E20B: B5 8A     LDA ram_008A,X
-C - - - - - 0x01E21D 07:E20D: 85 01     STA ram_0001
-C - - - - - 0x01E21F 07:E20F: 20 AC D6  JSR sub_D6AC_out_of_screen
-C - - - - - 0x01E222 07:E212: 90 06     BCC bra_E21A_skip
+C - - - - - 0x01E217 07:E207: B5 85     LDA vBulletLowPosX,X                 ;
+C - - - - - 0x01E219 07:E209: 85 00     STA ram_0000                         ; prepares X-position
+C - - - - - 0x01E21B 07:E20B: B5 8A     LDA vBulletHighPosX,X                ;
+C - - - - - 0x01E21D 07:E20D: 85 01     STA ram_0001                         ; prepares macro X-position
+C - - - - - 0x01E21F 07:E20F: 20 AC D6  JSR sub_D6AC_out_of_screen           ;
+C - - - - - 0x01E222 07:E212: 90 06     BCC bra_E21A_return_false            ; If the bullet is on the screen
 bra_E214:
 sub_E214:
-C - - - - - 0x01E224 07:E214: A9 00     LDA #$00
-C - - - - - 0x01E226 07:E216: 95 8F     STA vBulletStatus,X
-C - - - - - 0x01E228 07:E218: 38        SEC
-C - - - - - 0x01E229 07:E219: 60        RTS
+C - - - - - 0x01E224 07:E214: A9 00     LDA #$00                             ;
+C - - - - - 0x01E226 07:E216: 95 8F     STA vBulletStatus,X                  ; destroy the bullet, clears the status
+C - - - - - 0x01E228 07:E218: 38        SEC                                  ; return true
+C - - - - - 0x01E229 07:E219: 60        RTS                                  ;
 
-bra_E21A_skip:
-C - - - - - 0x01E22A 07:E21A: 18        CLC
-C - - - - - 0x01E22B 07:E21B: 60        RTS
+bra_E21A_return_false:
+C - - - - - 0x01E22A 07:E21A: 18        CLC                                  ; return false
+C - - - - - 0x01E22B 07:E21B: 60        RTS                                  ;
 
 loc_E21C:
 C D 3 - - - 0x01E22C 07:E21C: 20 8D E2  JSR sub_E28D
@@ -7176,7 +7187,7 @@ bra_EC05:
 C - - - - - 0x01EC15 07:EC05: A2 18     LDX #$18
 C - - - - - 0x01EC17 07:EC07: 4C 90 E9  JMP loc_E990
 
-loc_EC0A:
+loc_EC0A_racing:
 C D 3 - - - 0x01EC1A 07:EC0A: A5 6A     LDA ram_006A
 C - - - - - 0x01EC1C 07:EC0C: 18        CLC
 C - - - - - 0x01EC1D 07:EC0D: 65 77     ADC ram_0077

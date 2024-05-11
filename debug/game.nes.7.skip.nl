@@ -93,3 +93,6 @@ $D733##vEnemyAStatus, 0x40 flag
 $D736##vEnemyAStatus, 0x40 flag
 $D738##vEnemyAStatus, 0x40 flag
 $C971##Register X - ???
+$E1A0##vBulletStatus, Z flag
+$E1A2##vBulletStatus, Z flag
+$E1A4##vBulletStatus, Z flag
