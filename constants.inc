@@ -250,15 +250,14 @@ vBulletPosY                   = ram_0080 ; [0x80-0x84] on the screen, in pixel u
 vBulletLowPosX                = ram_0085 ; [0x85-0x89] on the level, in pixel units (with repeat)
 vBulletHighPosX               = ram_008A ; [0x8A-0x8E] on the level, in screen units
 vBulletStatus                 = ram_008F ; [0x8F-0x93] , for a rifle, Lupin's pistol, Jigen's pistol
-; Byte: XYZW KLMN
+; Byte: XYZW KLMM
 ; X - the bullet is activated (1 - is activated, 0, isn't activated)
 ; Y - the dictance (1 - short, 0 - long)
 ; Z - ???
 ; W - the direction (1 - left, 0 - right)
 ; K - ???
 ; L - ???
-; M - ???
-; N - start of the shot (1 - start, 0 - no start)
+; M - start of the shot (1,2,3 - start, 0 - no start), the value decrements with each rendering
 
 vBulletCounter                = ram_0094 ; only for Lupin [0x94-0x98]
 

@@ -3076,6 +3076,13 @@ tbl_checkpoints:
 - - - - - - 0x010F0E 04:8EFE: F0        .byte $F0   ; 
 - D 0 - I - 0x010F0F 04:8EFF: 42        .byte $42, $00, $70, $80   ; to level 4, map 1 (B2-D2) (0x71 - checkpoint)
 
+; 1 byte - XYZW HHHH
+; H - the screen number
+; Y - the floor (0x00 - a top floor, 0x01 - a bottom floor)
+; 2 byte - 
+; 3 byte - 
+; 4 byte - 
+; 5 byte - 
 tbl_ptr_corridors_level_1_0:
 - D 0 - I - 0x010F13 04:8F03: 4F        .byte $4F, $88, $06, $59, $80   ; 
 

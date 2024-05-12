@@ -81,9 +81,12 @@ $D648##vChrStatus, Y
 $D60C##vChrStatus, X, Y, Z, K
 $D60E##vChrStatus, X, Y, Z, K
 $D610##vChrStatus, X, Y, Z, K
-$D608##ram_0078, Goemon
+$D606##ram_0078, Goemon
 $D608##ram_0078, Goemon
 $D60A##ram_0078, Goemon
+$D60C##vChrStatus, X, Y
+$D60E##vChrStatus, X, Y
+$D610##vChrStatus, X, Y
 $DE67##vMovableChrStatus, 0x01 - flag
 $DE69##vMovableChrStatus, 0x01 - flag
 $DE6B##vMovableChrStatus, 0x01 - flag
@@ -96,3 +99,14 @@ $C971##Register X - ???
 $E1A0##vBulletStatus, Z flag
 $E1A2##vBulletStatus, Z flag
 $E1A4##vBulletStatus, Z flag
+$E1BF##vBulletStatus, L flag
+$E1C1##vBulletStatus, L flag
+$E1C3##vBulletStatus, L flag
+$E1C5##vBulletStatus, L flag
+$E1C7##vBulletStatus, L flag
+$E1C9##vBulletStatus, L flag
+$E1CB##vBulletStatus, L flag
+$E1CC##vBulletStatus, L flag
+$E1CE##vBulletStatus, L flag
+$F9C1##v_corridor_magic5
+$F9C3##v_corridor_magic5

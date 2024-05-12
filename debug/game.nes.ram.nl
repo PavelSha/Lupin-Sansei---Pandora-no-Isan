@@ -65,7 +65,10 @@ $0079#vChrLandStatus#
 $007A#vBulletCount#
 $007B#vBulletPosX#
 $0080#vBulletPosY#
+$0085#vBulletLowPosX#
+$008A#vBulletHighPosX#
 $008F#vBulletStatus#
+$0094#vBulletCounter#
 $009C#vNonUsed#
 $0099#vHiScore#
 $00A3#vNonUsed3#

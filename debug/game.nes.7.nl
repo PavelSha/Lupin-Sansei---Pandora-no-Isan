@@ -2279,7 +2279,7 @@ $D5C7##--NO-COMMENT--
 $D5C9##--NO-COMMENT--
 $D5CB##dimension hitbox - 1x4
 $D5CD##--NO-COMMENT--
-$D5D0##If the intersect isn't exist
+$D5D0##If the intersect doesn't exist
 $D5D2##the sound of hitting the target
 $D5D4##--NO-COMMENT--
 $D5D7##return true
@@ -2309,6 +2309,7 @@ $D602##return true
 $D603##--NO-COMMENT--
 $D604#bra_D604_clear_c_rts#return false
 $D605##--NO-COMMENT--
+$D606#sub_D606_have_intersect_sword#
 $D612##--NO-COMMENT--
 $D614##CONSTANT - the character is sitting
 $D616##the character isn't sitting
@@ -2330,7 +2331,7 @@ $D630##--NO-COMMENT--
 $D632##--NO-COMMENT--
 $D634##dimension hitbox - 12x36
 $D636##--NO-COMMENT--
-$D639##If the intersect isn't exist
+$D639##If the intersect doesn't exist
 $D63B##the sound of cutting an enemy with a sword
 $D63D##--NO-COMMENT--
 $D640##return true
@@ -2698,6 +2699,9 @@ $DB6F##If vCurrentWeaponStatus == 0x42
 $DB71##--NO-COMMENT--
 $DB73##--NO-COMMENT--
 $DB76##Go to the branch If the button 'Up' isn't pressed
+$DB78##--NO-COMMENT--
+$DB7B##If the current room is the room with boss
+$DB80##If the character isn't entering a corridor
 $DB84##CONSTANT - the character is entering a corridor
 $DB93#bra_DB93_skip#CONSTANT -  the character stands on the ground
 $DB95##--NO-COMMENT--
@@ -3134,43 +3138,201 @@ $E04E##--NO-COMMENT--
 $E051##Go to the branch If the button 'B' isn't pressed (shot a gun)
 $E053##--NO-COMMENT--
 $E055##If the character is in the air
-$E06C#bra_E06C#
-$E07C#bra_E07C#
+$E057##--NO-COMMENT--
+$E059##CONSTANT - Goemon
+$E05B##If the character isn't Goemon
+$E06C#bra_E06C_bullet#set loop counter (for Jigen)
+$E06E##--NO-COMMENT--
+$E070##--NO-COMMENT--
+$E071##If a current character is Jigen
+$E073##--NO-COMMENT--
+$E076##CONSTANT - 'the weapon is activated' + 'Using the artillery rifle'
+$E078##If the rifle is activated
+$E07A##set loop counter (for Lupin)
+$E07C#bra_E07C_loop#
+$E080##decrements loop counter
+$E081##If Register X >= 0x00
 $E083#bra_E083_RTS#--NO-COMMENT--
-$E084#bra_E084#
+$E084#bra_E084_rifle#
 $E093#bra_E093#
 $E0A1#tbl_E0A1#
-$E0A6#bra_E0A6#Lupin shoots (sound effect)
-$E0B4#bra_E0B4#
-$E0B9#sub_E0B9#
-$E0C5#bra_E0C5#
-$E0D4#bra_E0D4#
-$E0E5#bra_E0E5#
-$E0F6#sub_E0F6#
-$E10F#bra_E10F#
-$E12F#bra_E12F#
+$E0A6#bra_E0A6#Lupin or Jigen shoots (sound effect)
+$E0A8##--NO-COMMENT--
+$E0AB##CONSTANT - the bullet is activated + start of the shot
+$E0AD##--NO-COMMENT--
+$E0AF##--NO-COMMENT--
+$E0B0##If a current character is Jigen
+$E0B2##CONSTANT - the bullet is activated + start of the shot + short shot
+$E0B4#bra_E0B4_assign#--NO-COMMENT--
+$E0B5##--NO-COMMENT--
+$E0B7##Initializes a bullet counter
+$E0B9#sub_E0B9#--NO-COMMENT--
+$E0BB##--NO-COMMENT--
+$E0BD##--NO-COMMENT--
+$E0BF##--NO-COMMENT--
+$E0C0##--NO-COMMENT--
+$E0C1##If the character is looking to the right
+$E0C3##CONSTANT - the left direction
+$E0C5#bra_E0C5_skip#updates the status
+$E0C7##CONSTANT - the left direction
+$E0C9##If the direction is on the left
+$E0CB##--NO-COMMENT--
+$E0CD##CONSTANT - level racing
+$E0CF##If vNoSubLevel != 0x19
+$E0D4#bra_E0D4_right#--NO-COMMENT--
+$E0D7##--NO-COMMENT--
+$E0D9##--NO-COMMENT--
+$E0DA##--NO-COMMENT--
+$E0DC##<~ LowPosX + $0002
+$E0DE##--NO-COMMENT--
+$E0E0##--NO-COMMENT--
+$E0E2##<~ HighPosX (+1 with overflow)
+$E0E5#bra_E0E5_left#--NO-COMMENT--
+$E0E8##--NO-COMMENT--
+$E0EA##--NO-COMMENT--
+$E0EB##--NO-COMMENT--
+$E0ED##<~ LowPosX - $0002
+$E0EF##--NO-COMMENT--
+$E0F1##--NO-COMMENT--
+$E0F3##<~ HighPosX - 0x01 (+1 with overflow)
+$E0F5##--NO-COMMENT--
+$E0F6#sub_E0F6_calc_bullet_positions#offset #1
+$E0F8##--NO-COMMENT--
+$E0FA##If the character is moving in the water
+$E0FC##offset #2
+$E0FE##--NO-COMMENT--
+$E101##CONSTANT - 'the weapon is activated' + 'Using the artillery rifle'
+$E103##If the rifle is activated
+$E105##offset #3
+$E107##--NO-COMMENT--
+$E109##CONSTANT - the character is sitting
+$E10B##the character is sitting
+$E10D##offset #4
+$E10F#bra_E10F_tmp_assign#--NO-COMMENT--
+$E111##--NO-COMMENT--
+$E113##--NO-COMMENT--
+$E114##--NO-COMMENT--
+$E116##<~ ChrPosY - $0002
+$E118##offset #1
+$E11A##--NO-COMMENT--
+$E11C##If the character is moving in the balloon
+$E11E##offset #2
+$E120##--NO-COMMENT--
+$E122##If the character is moving in the water
+$E124##offset #3
+$E126##--NO-COMMENT--
+$E129##CONSTANT - 'the weapon is activated' + 'Using the artillery rifle'
+$E12B##If the rifle is activated
+$E12D##offset #4
+$E12F#bra_E12F_assign#--NO-COMMENT--
+$E131##--NO-COMMENT--
 $E132#loc_E132_bullets_subroutine#set loop counter
 $E134#bra_E134_loop#--NO-COMMENT--
 $E139##decrement vTempCounter10
 $E13B##In vTempCounter10 < 0xF0
 $E13D#bra_E13D_RTS#--NO-COMMENT--
-$E13E#sub_E13E#--NO-COMMENT--
-$E140##If Register A < 0xF0
-$E14C#bra_E14C#
-$E14F#loc_E14F#
-$E15E#bra_E15E#
-$E165#bra_E165#
-$E17A#sub_E17A#
-$E18B#sub_E18B#
-$E19C#sub_E19C#
-$E1A5#bra_E1A5#
-$E1A8#sub_E1A8#
-$E1BD#bra_E1BD#
-$E1D6#bra_E1D6#
-$E1E0#bra_E1E0#
-$E207#bra_E207#
-$E214#sub_E214#
-$E21A#bra_E21A_skip#
+$E13E#sub_E13E_bullet_subroutine#--NO-COMMENT--
+$E140##If the bullet is not activated
+$E142##CONSTANT - the left direction
+$E144##If the direction is on the right
+$E146##--NO-COMMENT--
+$E149##--NO-COMMENT--
+$E14C#bra_E14C_right#--NO-COMMENT--
+$E14F#loc_E14F_continue#--NO-COMMENT--
+$E152##If the bullet is destroyed
+$E154##initializes the frame offset
+$E156##--NO-COMMENT--
+$E158##CONSTANT - the left direction
+$E15A##If the direction is on the right
+$E15C##--NO-COMMENT--
+$E15D##next the offset for the left frame
+$E15E#bra_E15E_right#CONSTANT - Max offset
+$E160##If Register Y < 0x18
+$E162##A <~ the number of the bullet
+$E163##If the bullet isn't last
+$E165#bra_E165_add#A <~ the frame offset
+$E166##--NO-COMMENT--
+$E167##+ Y ~> sprite_magic2 (see v_sprite_magic2)
+$E169##--NO-COMMENT--
+$E16B##~> sprite_magic3 (see v_sprite_magic3)
+$E16D##$8100, bank 05 (2 page)
+$E16F##--NO-COMMENT--
+$E171##~> sprite_magic1 (see v_sprite_magic1)
+$E173##sprite_magic4, assigned in $E1A8, $E20F
+$E175##--NO-COMMENT--
+$E177##--NO-COMMENT--
+$E17A#sub_E17A_move_left#--NO-COMMENT--
+$E17D##--NO-COMMENT--
+$E17F##--NO-COMMENT--
+$E180##--NO-COMMENT--
+$E182##<~ LowPosX - $0002
+$E184##--NO-COMMENT--
+$E186##--NO-COMMENT--
+$E188##<~ HighPosX - 0x01 (+1 with overflow)
+$E18A##--NO-COMMENT--
+$E18B#sub_E18B_move_right#--NO-COMMENT--
+$E18E##--NO-COMMENT--
+$E190##--NO-COMMENT--
+$E191##--NO-COMMENT--
+$E193##<~ LowPosX + $0002
+$E195##--NO-COMMENT--
+$E197##--NO-COMMENT--
+$E199##<~ HighPosX (+1 with overflow)
+$E19B##--NO-COMMENT--
+$E19C#sub_E19C_get_bullet_velocity#Initializes a velocity
+$E19E##--NO-COMMENT--
+$E1A5#bra_E1A5_skip#--NO-COMMENT--
+$E1A7##--NO-COMMENT--
+$E1A8#sub_E1A8_has_bullet_abort#Frame - a simple shot
+$E1AA##--NO-COMMENT--
+$E1AC##CONSTANT - start of the shot
+$E1AE##If it isn't the start of the shot
+$E1B0##Fixes the status 'start of the shot'
+$E1B2##Frame - a rifle flash
+$E1B4##--NO-COMMENT--
+$E1B7##CONSTANT - 'the weapon is activated' + 'Using the artillery rifle'
+$E1B9##If the rifle is activated
+$E1BB##Frame - a start of the shot
+$E1BD#bra_E1BD_assign#--NO-COMMENT--
+$E1D0##--NO-COMMENT--
+$E1D2##If the bullet is off screen by Y-axis
+$E1D4##Always true
+$E1D6#bra_E1D6_skip#--NO-COMMENT--
+$E1D8##CONSTANT - the dictance
+$E1DA##If the dictance is long
+$E1DC##updates a bullet counter
+$E1DE##If the counter is timeout
+$E1E0#bra_E1E0_skip#A <~ the number of the bullet
+$E1E1##--NO-COMMENT--
+$E1E3##0x01 - odd numner, 0x00 - even number
+$E1E5##--NO-COMMENT--
+$E1E7##A <~ 0x00 or 0x01 (0 - even vNmiCounter, 1 - odd vNmiCounter)
+$E1E9##--NO-COMMENT--
+$E1EB##if the parity doesn't match
+$E1ED##--NO-COMMENT--
+$E1EF##prepares 1st input parameter
+$E1F1##--NO-COMMENT--
+$E1F3##prepares 2nd input parameter
+$E1F5##--NO-COMMENT--
+$E1F7##prepares 3rd input parameter
+$E1F9##--NO-COMMENT--
+$E1FC##CONSTANT - a strong collision
+$E1FE##If the strong collision doesn't exist
+$E200##--NO-COMMENT--
+$E203##Assigns the frame offset
+$E205##--NO-COMMENT--
+$E207#bra_E207_final_check#--NO-COMMENT--
+$E209##prepares X-position
+$E20B##--NO-COMMENT--
+$E20D##prepares macro X-position
+$E20F##--NO-COMMENT--
+$E212##If the bullet is on the screen
+$E214#sub_E214_abort#--NO-COMMENT--
+$E216##destroy the bullet, clears the status
+$E218##return true
+$E219##--NO-COMMENT--
+$E21A#bra_E21A_return_false#return false
+$E21B##--NO-COMMENT--
 $E21C#loc_E21C#
 $E225#bra_E225#
 $E22F#loc_E22F#
@@ -3509,7 +3671,7 @@ $EBDC#bra_EBDC_RTS#
 $EBDD#bra_EBDD#
 $EBF8#loc_EBF8#
 $EC05#bra_EC05#
-$EC0A#loc_EC0A#
+$EC0A#loc_EC0A_racing#
 $EC1F#loc_EC1F#
 $EC23#bra_EC23#
 $EC2B#bra_EC2B#
@@ -3770,7 +3932,7 @@ $F003##decrements loop counter
 $F004##If Register X < 0xF0
 $F006##set loop counter
 $F008#bra_F008_loop#--NO-COMMENT--
-$F00A##If lock 'Select a character' isn't exist
+$F00A##If lock 'Select a character' doesn't exist
 $F00C##--NO-COMMENT--
 $F00F##CONSTANT - The lift
 $F011##If vEnemyA == 0x0C
@@ -3781,7 +3943,7 @@ $F01A##clear
 $F01D##clear
 $F020##clear
 $F023#bra_F023_next_enemies#--NO-COMMENT--
-$F025##If lock 'Select a character' isn't exist
+$F025##If lock 'Select a character' doesn't exist
 $F027##--NO-COMMENT--
 $F02A##CONSTANT - The wall
 $F02C##If vEnemyB < 0x30
@@ -4313,12 +4475,25 @@ $F913#bra_F913_inc_next_set#3rd of 5 bytes
 $F914#bra_F914_inc_next_set#4th of 5 bytes
 $F915##5th of 5 bytes
 $F916##next the set of bytes
-$F91A#sub_F91A#
+$F91A#sub_F91A_has_entered_the_corridor#--NO-COMMENT--
+$F91B##store X
+$F91C##--NO-COMMENT--
 $F91F##1st of 5 bytes
-$F921#loc_F921_next_set#
-$F923##If Register A < 0xF0
-$F925#bra_F925#
-$F928#bra_F928_skip#
+$F921#loc_F921_next_set#--NO-COMMENT--
+$F923##If Register A < 0xF0 (waiting for 0xFF)
+$F925#bra_F925_fail#--NO-COMMENT--
+$F928#bra_F928_skip#--NO-COMMENT--
+$F92A##restores by the mask
+$F92C##--NO-COMMENT--
+$F92E##If the screen of the current corridor < vNoScreen
+$F930##If the screen of the current corridor != vNoScreen
+$F932##--NO-COMMENT--
+$F934##CONSTANT - a floor
+$F936##--NO-COMMENT--
+$F937##--NO-COMMENT--
+$F939##<~ 0x7F or 0xBF (top or bottom)
+$F93B##--NO-COMMENT--
+$F93D##If vScreenChrPosY != $00AD
 $F949#bra_F949_skip#
 $F94B##2nd of 5 bytes
 $F956#bra_F956_skip#
@@ -4328,11 +4503,25 @@ $F969##3rd of 5 bytes
 $F973#bra_F973_skip#
 $F983##4th of 5 bytes
 $F98F##CONSTANT - the room has already been visited
-$F9B4#bra_F9B4_skip#
+$F997##--NO-COMMENT--
+$F999##CONSTANT - an unique room (NPC, briefcase, boss)
+$F99B##If vCurrentUniqueRoom < 0x10
+$F99D##--NO-COMMENT--
+$F99F##If vCurrentUniqueRoom >= 0x20
+$F9B1##--NO-COMMENT--
+$F9B4#bra_F9B4_sublevel_corridor#--NO-COMMENT--
+$F9B6##clear
+$F9B8##--NO-COMMENT--
 $F9BB#bra_F9BB#4th of 5 bytes
-$F9C0#loc_F9C0#5th of 5 bytes
-$F9C9#loc_F9C9_safe_return#
-$F9CA##retrieve x
+$F9C0#loc_F9C0_return_true#5th of 5 bytes
+$F9C5##--NO-COMMENT--
+$F9C6##retrieve x (see $F91B)
+$F9C7##return true
+$F9C8##--NO-COMMENT--
+$F9C9#loc_F9C9_safe_return_false#--NO-COMMENT--
+$F9CA##retrieve x (see $F91B)
+$F9CB##return false
+$F9CC##--NO-COMMENT--
 $F9CD#sub_F9CD#
 $F9CE##store x
 $F9D9##1st of 5 bytes

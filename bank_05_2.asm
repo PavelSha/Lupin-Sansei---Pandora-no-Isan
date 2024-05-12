@@ -385,31 +385,22 @@
 - D 0 - I - 0x0161B6 05:81A6: 4B        .byte $4B   ; <K>
 - D 0 - I - 0x0161B7 05:81A7: 8B        .byte $8B   ; 
 
-- D 0 - I - 0x0161B8 05:81A8: 81 83     .addr loc_bullet_right_frame_       ; CPU Address $8381
-- D 0 - I - 0x0161BA 05:81AA: 81 83     .addr loc_bullet_left_frame_        ; CPU Address $8381
-- D 0 - I - 0x0161BC 05:81AC: 86 83     .addr loc_start_bullet_right_frame_ ; CPU Address $8386
-- D 0 - I - 0x0161BE 05:81AE: 8B 83     .addr loc_start_bullet_left_frame_  ; CPU Address $838B
+- D 0 - I - 0x0161B8 05:81A8: 81 83     .addr loc_bullet_right_frame_           ; CPU Address $8381
+- D 0 - I - 0x0161BA 05:81AA: 81 83     .addr loc_bullet_left_frame_            ; CPU Address $8381
+- D 0 - I - 0x0161BC 05:81AC: 86 83     .addr loc_start_bullet_right_frame_     ; CPU Address $8386
+- D 0 - I - 0x0161BE 05:81AE: 8B 83     .addr loc_start_bullet_left_frame_      ; CPU Address $838B
+- D 0 - I - 0x0161C0 05:81B0: 90 83     .addr loc_bullet_collision_right_frame_ ; CPU Address $8390
+- - - - - - 0x0161C2 05:81B2: 95 83     .addr loc_bullet_collision_left_frame_  ; CPU Address $8395
 
-- D 0 - I - 0x0161C0 05:81B0: 90        .byte $90   ; 
-- D 0 - I - 0x0161C1 05:81B1: 83        .byte $83   ; 
-- - - - - - 0x0161C2 05:81B2: 95        .byte $95   ; 
-- - - - - - 0x0161C3 05:81B3: 83        .byte $83   ; 
-- D 0 - I - 0x0161C4 05:81B4: 9A        .byte $9A   ; 
-- D 0 - I - 0x0161C5 05:81B5: 83        .byte $83   ; 
-- D 0 - I - 0x0161C6 05:81B6: 9F        .byte $9F   ; 
-- D 0 - I - 0x0161C7 05:81B7: 83        .byte $83   ; 
-- D 0 - I - 0x0161C8 05:81B8: A4        .byte $A4   ; 
-- D 0 - I - 0x0161C9 05:81B9: 83        .byte $83   ; 
-- D 0 - I - 0x0161CA 05:81BA: A9        .byte $A9   ; 
-- D 0 - I - 0x0161CB 05:81BB: 83        .byte $83   ; 
-- D 0 - I - 0x0161CC 05:81BC: AE        .byte $AE   ; 
-- D 0 - I - 0x0161CD 05:81BD: 83        .byte $83   ; 
-- D 0 - I - 0x0161CE 05:81BE: B3        .byte $B3   ; 
-- D 0 - I - 0x0161CF 05:81BF: 83        .byte $83   ; 
-- D 0 - I - 0x0161D0 05:81C0: B8        .byte $B8   ; 
-- D 0 - I - 0x0161D1 05:81C1: 83        .byte $83   ; 
-- D 0 - I - 0x0161D2 05:81C2: C1        .byte $C1   ; 
-- D 0 - I - 0x0161D3 05:81C3: 83        .byte $83   ; 
+- D 0 - I - 0x0161C4 05:81B4: 9A 83     .word $839A
+- D 0 - I - 0x0161C6 05:81B6: 9F 83     .word $839F
+- D 0 - I - 0x0161C8 05:81B8: A4 83     .word $83A4
+- D 0 - I - 0x0161CA 05:81BA: A9 83     .word $83A9
+- D 0 - I - 0x0161CC 05:81BC: AE 83     .word $83AE
+- D 0 - I - 0x0161CE 05:81BE: B3 83     .word $83B3
+- D 0 - I - 0x0161D0 05:81C0: B8 83     .addr loc_rifle_flash_right_frame_ ; CPU Address $83B8
+- D 0 - I - 0x0161D2 05:81C2: C1 83     .addr loc_rifle_flash_left_frame_  ; CPU Address $83C1
+
 - D 0 - I - 0x0161D4 05:81C4: CA        .byte $CA   ; 
 - D 0 - I - 0x0161D5 05:81C5: 83        .byte $83   ; 
 - D 0 - I - 0x0161D6 05:81C6: CA        .byte $CA   ; 
@@ -867,16 +858,14 @@ loc_start_bullet_left_frame_:
 - D 0 - I - 0x01639B 05:838B: 01        .byte $01
 - D 0 - I - 0x01639C 05:838C: FC        .byte $FC, $01, $40, $FC
 
-- D 0 - I - 0x0163A0 05:8390: 01        .byte $01   ; 
-- D 0 - I - 0x0163A1 05:8391: FD        .byte $FD   ; 
-- D 0 - I - 0x0163A2 05:8392: 02        .byte $02   ; 
-- D 0 - I - 0x0163A3 05:8393: 00        .byte $00   ; 
-- D 0 - I - 0x0163A4 05:8394: FA        .byte $FA   ; 
-- - - - - - 0x0163A5 05:8395: 01        .byte $01   ; 
-- - - - - - 0x0163A6 05:8396: FD        .byte $FD   ; 
-- - - - - - 0x0163A7 05:8397: 02        .byte $02   ; 
-- - - - - - 0x0163A8 05:8398: 40        .byte $40   ; 
-- - - - - - 0x0163A9 05:8399: FE        .byte $FE   ; 
+loc_bullet_collision_right_frame_:
+- D 0 - I - 0x0163A0 05:8390: 01        .byte $01
+- D 0 - I - 0x0163A1 05:8391: FD        .byte $FD, $02, $00, $FA
+
+loc_bullet_collision_left_frame_:
+- D - - - - 0x0163A5 05:8395: 01        .byte $01
+- D - - - - 0x0163A6 05:8396: FD        .byte $FD, $02, $40, $FE
+
 - D 0 - I - 0x0163AA 05:839A: 01        .byte $01   ; 
 - D 0 - I - 0x0163AB 05:839B: FC        .byte $FC   ; 
 - D 0 - I - 0x0163AC 05:839C: 22        .byte $22   ; 
@@ -907,24 +896,17 @@ loc_start_bullet_left_frame_:
 - D 0 - I - 0x0163C5 05:83B5: A8        .byte $A8   ; 
 - D 0 - I - 0x0163C6 05:83B6: 40        .byte $40   ; 
 - D 0 - I - 0x0163C7 05:83B7: FC        .byte $FC   ; 
-- D 0 - I - 0x0163C8 05:83B8: 02        .byte $02   ; 
-- D 0 - I - 0x0163C9 05:83B9: FC        .byte $FC   ; 
-- D 0 - I - 0x0163CA 05:83BA: 58        .byte $58   ; <X>
-- D 0 - I - 0x0163CB 05:83BB: 00        .byte $00   ; 
-- D 0 - I - 0x0163CC 05:83BC: F8        .byte $F8   ; 
-- D 0 - I - 0x0163CD 05:83BD: FC        .byte $FC   ; 
-- D 0 - I - 0x0163CE 05:83BE: 59        .byte $59   ; <Y>
-- D 0 - I - 0x0163CF 05:83BF: 00        .byte $00   ; 
-- D 0 - I - 0x0163D0 05:83C0: 00        .byte $00   ; 
-- D 0 - I - 0x0163D1 05:83C1: 02        .byte $02   ; 
-- D 0 - I - 0x0163D2 05:83C2: FC        .byte $FC   ; 
-- D 0 - I - 0x0163D3 05:83C3: 58        .byte $58   ; <X>
-- D 0 - I - 0x0163D4 05:83C4: 40        .byte $40   ; 
-- D 0 - I - 0x0163D5 05:83C5: 00        .byte $00   ; 
-- D 0 - I - 0x0163D6 05:83C6: FC        .byte $FC   ; 
-- D 0 - I - 0x0163D7 05:83C7: 59        .byte $59   ; <Y>
-- D 0 - I - 0x0163D8 05:83C8: 40        .byte $40   ; 
-- D 0 - I - 0x0163D9 05:83C9: F8        .byte $F8   ; 
+
+loc_rifle_flash_right_frame_:
+- D 0 - I - 0x0163C8 05:83B8: 02        .byte $02
+- D 0 - I - 0x0163C9 05:83B9: FC        .byte $FC, $58, $00, $F8
+- D 0 - I - 0x0163CD 05:83BD: FC        .byte $FC, $59, $00, $00
+
+loc_rifle_flash_left_frame_:
+- D 0 - I - 0x0163D1 05:83C1: 02        .byte $02
+- D 0 - I - 0x0163D2 05:83C2: FC        .byte $FC, $58, $40, $00
+- D 0 - I - 0x0163D6 05:83C6: FC        .byte $FC, $59, $40, $F8
+
 - D 0 - I - 0x0163DA 05:83CA: 01        .byte $01   ; 
 - D 0 - I - 0x0163DB 05:83CB: F8        .byte $F8   ; 
 - D 0 - I - 0x0163DC 05:83CC: B9        .byte $B9   ; 
