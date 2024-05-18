@@ -83,10 +83,10 @@ vLowCounter                   = ram_002C
 v_high_counter                = ram_002D
 vGameCounters                 = ram_002E ; [vCorridorCounter, the unknown counter1, 2, 3]
 vCorridorCounter              = ram_002E ; The counter starts when we enter the corridor
+vAnimationCounter             = ram_002F ; To animate the balloon and squeezing Lupine's legs on the jet-pack
 ; Also the counter starts when the character is flying after damage
-; ram_002F - the unknown counter1
-; ram_0030 - the unknown counter2
-; ram_0031 - the unknown counter3
+; ram_0030 - the unknown counter1
+; ram_0031 - the unknown counter2
 
 vResistantToDamageCounter     = ram_0032
 vLowCutsceneCounter           = ram_0033
@@ -98,6 +98,8 @@ vCutscenesMode                = ram_0037 ; 0xFF - Starting cutscenes are used (w
 vPauseStatus                  = ram_0038 ; 0x00 - no pause, 0x40 - pause
 
 ; ??? = ram_0039
+; XYZW KLMN
+; X - ????
 ; 0x00 - ???
 ; 0x80 - ??? (the character is arrested)
 ; 0x81 - ??? (the character is dying)
@@ -120,7 +122,7 @@ vSharedGameStatus             = ram_003B
 ; 0x03 - A screen with the message after boss
 ; 0x0B - A final scene
 ; 0x10 - Select the character
-; 0x20 - Not used
+; 0x20 - Death by fall
 ; 0x40 - Pause in the game
 ; 0x41 - Pause in the game (a screen with the message)
 ; 0x80 - Main menu
@@ -153,6 +155,7 @@ v_npc_message_status          = ram_0041
 ; C3 - npc said the message 
 
 ; ram_0042 - ???
+; 0x40 N - the Lupin's balloon is exploding
 ; 0x80 N - the character is looking to the left
 ; 0x00 N - the character is looking to the right
 

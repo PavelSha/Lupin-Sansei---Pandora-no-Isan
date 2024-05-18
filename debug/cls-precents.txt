@@ -7,3 +7,4 @@ Code precents (PRG not Logged):
 6 - 93.27 % (889 frame), 15 frames run (right)
 7 - 92.10 % (1052 frame), the enemy is appeared
 8 - 91.16 % (1419 frame), the shot and high jump
+8 - 90.12 % (2119 frame), more gameplay

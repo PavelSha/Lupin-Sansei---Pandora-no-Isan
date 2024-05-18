@@ -8,6 +8,14 @@ fU        = 0;
 fD        = 0;
 fL        = 0;
 fR        = 0;
+ofA       = 0;
+ofB       = 0;
+ofS       = 0;
+ofT       = 0;
+ofU       = 0;
+ofD       = 0;
+ofL       = 0;
+ofR       = 0;
 
 while (true) do
   value = memory.readbyte(no);
@@ -50,11 +58,25 @@ while (true) do
 	if bit.rshift(value, 7) % 2 == 1 then
 	  fR = 1;
 	end;
-    emu.print(string.format("addr:%04X, value: %02X, frame: %d - %d %d %d %d %d %d %d %d", no, value, emu.framecount(), fA, fB, fS, fT, fU, fD, fL, fR));
+	if ofA == fA and ofB == fB and ofS == fS and ofT == fT and ofU == fU and ofD == fD and ofL == fL and ofR == fR then
+      emu.print(string.format("addr:%04X, value: %02X, frame: %d - | | | | | | | |", no, value, emu.framecount()));
+	else
+      emu.print(string.format("addr:%04X, value: %02X, frame: %d - %d %d %d %d %d %d %d %d", no, value, emu.framecount(), fA, fB, fS, fT, fU, fD, fL, fR));
+	end
 
 	-- Execute screenshot
 	-- gui.savescreenshotas(string.format("snaps/%X-%d.png", no, emu.framecount()));
 
   end;
+
+  ofA = fA;
+  ofB = fB;
+  ofS = fS;
+  ofT = fT;
+  ofU = fU;
+  ofD = fD;
+  ofL = fL;
+  ofR = fR;
+
   emu.frameadvance();
 end;

@@ -2964,7 +2964,7 @@ C - - - - - 0x01B325 06:B315: B9 62 00  LDA ram_0062,Y
 C - - - - - 0x01B328 06:B318: 60        RTS
 
 sub_B319: ; from bank FF
-C - - - - - 0x01B329 06:B319: 20 4F EF  JSR $EF4F
+C - - - - - 0x01B329 06:B319: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2
 C - - - - - 0x01B32C 06:B31C: A0 FF     LDY #$FF
 C - - - - - 0x01B32E 06:B31E: A2 00     LDX #$00
 C - - - - - 0x01B330 06:B320: A5 5F     LDA vChrLiveStatus
@@ -2990,9 +2990,7 @@ C - - - - - 0x01B34C 06:B33C: 20 03 B3  JSR sub_B303
 bra_B33F:
 C - - - - - 0x01B34F 06:B33F: A6 61     LDX ram_0061
 C - - - - - 0x01B351 06:B341: F0 03     BEQ bra_B346
-- - - - - - 0x01B353 06:B343: 20        .byte $20   ; 
-- - - - - - 0x01B354 06:B344: 03        .byte $03   ; 
-- - - - - - 0x01B355 06:B345: B3        .byte $B3   ; 
+C - - - - - 0x01B353 06:B343: 20 03 B3  JSR sub_B303
 bra_B346:
 C - - - - - 0x01B356 06:B346: A9 00     LDA #$00
 C - - - - - 0x01B358 06:B348: 85 60     STA ram_0060
@@ -3633,7 +3631,7 @@ loc_B78D:
 C D 1 - - - 0x01B79D 06:B78D: 20 C3 B7  JSR sub_B7C3
 C - - - - - 0x01B7A0 06:B790: B9 A9 BC  LDA tbl_BCA9,Y
 C - - - - - 0x01B7A3 06:B793: 20 34 B2  JSR sub_B234_add_message
-C - - - - - 0x01B7A6 06:B796: 20 4F EF  JSR $EF4F
+C - - - - - 0x01B7A6 06:B796: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2
 C - - - - - 0x01B7A9 06:B799: A4 11     LDY ram_0011
 C - - - - - 0x01B7AB 06:B79B: A9 00     LDA #$00
 C - - - - - 0x01B7AD 06:B79D: 85 00     STA ram_0000

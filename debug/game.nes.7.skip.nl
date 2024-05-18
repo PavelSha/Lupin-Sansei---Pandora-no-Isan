@@ -36,7 +36,8 @@ $C0DD##ram_0039
 $C148##ram_0039
 $C14A##ram_0039
 $DF3B##ram_0039
-$DF17##ram_0039
+$DF15##ram_0039 - in the water room
+$DF17##ram_0039 - in the water room
 $F050##ram_03D4
 $F053##ram_03D5
 $F056##ram_03D6
@@ -54,8 +55,6 @@ $CEA9##sub_CE5A_render_character
 $CEAB##sub_CE5A_render_character
 $CECD##sub_CE5A_render_character
 $CECF##sub_CE5A_render_character
-$DC10##loc_E132_bullets_subroutine
-$E136##loc_E132_bullets_subroutine
 $F0B5##sub_F0A9_enemy_subroutine
 $EDBE##sub_EE53_enemies_subroutine
 $EE53##sub_EE53_enemies_subroutine
@@ -65,10 +64,14 @@ $DCEA##ram_0042
 $DCEC##ram_0042
 $E56D##ram_0042
 $CCF6##ram_0042
+$DC3D##ram_0042 - render balloon (the Lupin's balloon is exploding)
+$DC3F##ram_0042 - render balloon (the Lupin's balloon is exploding)
 $DC67##ram_0070
 $DC9C##ram_0070
 $DC9E##ram_0070
 $DCA6##ram_0070
+$DF46##ram_0070, water gap
+$DF48##ram_0070, water gap
 $DF5C##vChrStatus, X, L flags
 $DF5E##vChrStatus, X, L flags
 $DF60##vChrStatus, X, L flags
@@ -110,3 +113,4 @@ $E1CC##vBulletStatus, L flag
 $E1CE##vBulletStatus, L flag
 $F9C1##v_corridor_magic5
 $F9C3##v_corridor_magic5
+$DB7D##sub_F91A_has_entered_the_corridor
