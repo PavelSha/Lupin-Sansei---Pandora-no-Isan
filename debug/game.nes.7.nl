@@ -65,10 +65,10 @@ $C087##clear (see vChrLiveStatus)
 $C089##--NO-COMMENT--
 $C08C##bank 06_2
 $C08F##bank 06_2
-$C095#loc_C095#--NO-COMMENT--
+$C095#loc_C095_repeat_waiting_select_character#--NO-COMMENT--
 $C097##Branch If cutscenes are used
 $C099##--NO-COMMENT--
-$C09C#loc_C09C#
+$C09C#loc_C09C_restart_current_room#--NO-COMMENT--
 $C09F##--NO-COMMENT--
 $C0A2##--NO-COMMENT--
 $C0A4##--NO-COMMENT--
@@ -97,6 +97,8 @@ $C0D4##retrieve the high position of the character
 $C0D5##multiplicity of vHighViewPortPosX by 2 sets the nametable address (0x2000 or 0x2400)
 $C0D7##activate the right pattern table (0x1000)
 $C0D9##--NO-COMMENT--
+$C0DB##--NO-COMMENT--
+$C0DD##clear
 $C0DF##clear
 $C0E2##clear
 $C0E5##clear
@@ -125,10 +127,15 @@ $C11E##Initializes a time of a demo scene.
 $C120#bra_C120_wait#--NO-COMMENT--
 $C123##--NO-COMMENT--
 $C125##Branch If in game
+$C127##--NO-COMMENT--
+$C129##If vHighCutsceneCounter != 0x00
+$C12B##CONSTANT - to next character in demo
+$C12D##--NO-COMMENT--
 $C12F#bra_C12F_skip#--NO-COMMENT--
 $C132##If test mode is disabled
 $C142##to sub_BC48 (bank 06_2)
-$C148#bra_C148_skip#
+$C148#bra_C148_skip#--NO-COMMENT--
+$C14A##If the event is 'to select the character'
 $C14C##--NO-COMMENT--
 $C14E##CONSTANT - status 'Select the character'
 $C150##If vSharedGameStatus isn't contains 'Select the character'
@@ -137,34 +144,90 @@ $C154##CONSTANT - select a character (1)
 $C156##CONSTANT - 'the radio was using'
 $C158##--NO-COMMENT--
 $C15B##--NO-COMMENT--
-$C15E#bra_C15E#
-$C16F#bra_C16F#CONSTANT - no reason
-$C171##--NO-COMMENT--
-$C183#bra_C183_skip#
-$C18B#bra_C18B_skip#
+$C15E#bra_C15E_select_character_event#if the event is only 'to select the character'
+$C160##--NO-COMMENT--
+$C163##--NO-COMMENT--
+$C166##--NO-COMMENT--
+$C168##--NO-COMMENT--
+$C16A##If the event is 'to next level'
+$C16C##--NO-COMMENT--
+$C16F#bra_C16F_next_level#CONSTANT - no reason
+$C171##clear
+$C173##--NO-COMMENT--
+$C175##--NO-COMMENT--
+$C177##CONSTANT - the level 3
+$C179##If vNoLevel != 0x02
+$C183#bra_C183_skip#--NO-COMMENT--
+$C186##If vNoLevel < vLastLevel
+$C188##updates vLastLevel
+$C18B#bra_C18B_skip#--NO-COMMENT--
+$C18C##--NO-COMMENT--
+$C18F##assigned
+$C191##--NO-COMMENT--
 $C194#loc_C194#
-$C1AF#bra_C1AF#
-$C1B1#loc_C1B1#CONSTANT - no reason
+$C1AF#bra_C1AF_assign#
+$C1B1#loc_C1B1_character_and_room_initializaton#CONSTANT - no reason
 $C1B3##--NO-COMMENT--
 $C1B5##--NO-COMMENT--
 $C1B7##store a last value
 $C1B9##CONSTANT (see vChrLiveStatus)
 $C1BB##All characters are ready to play, Lupin is selected
-$C1C3#bra_C1C3#
+$C1BD##--NO-COMMENT--
+$C1C3#bra_C1C3_skip_initializaton#--NO-COMMENT--
+$C1C5##clear
+$C1C7##--NO-COMMENT--
 $C1CA#tbl_C1CA_checkpoint_on_start_levels#
-$C1CE#bra_C1CE#
+$C1CE#bra_C1CE_main_interrupt#--NO-COMMENT--
 $C1D0##Branch If in game
-$C1D5#bra_C1D5#
-$C1E9#bra_C1E9#
-$C1F2#bra_C1F2#CONSTANT - 'the character is fell or arrested'
+$C1D5#bra_C1D5#--NO-COMMENT--
+$C1D8##--NO-COMMENT--
+$C1DA##CONSTANT - Maximum permissible height value
+$C1DC##If vScreenChrPosY < 0xDF
+$C1DE##CONSTANT - Death by fall
+$C1E0##--NO-COMMENT--
+$C1E2##--NO-COMMENT--
+$C1E4##reset
+$C1E6##--NO-COMMENT--
+$C1E9#bra_C1E9_repeat#--NO-COMMENT--
+$C1EB##--NO-COMMENT--
+$C1ED##If vLowCounter < 0x40
+$C1EF##--NO-COMMENT--
+$C1F2#bra_C1F2_skip#CONSTANT - 'the character is fell or arrested'
 $C1F4##--NO-COMMENT--
+$C1F6##--NO-COMMENT--
 $C1F9##CONSTANT - select a character (2)
 $C1FB##--NO-COMMENT--
-$C20E#bra_C20E_skip#
-$C20F#bra_C20F#
-$C22C#bra_C22C_skip#
-$C232##to sub_B319 (bank 06_2)
-$C235#bra_C235_skip#
+$C1FD##--NO-COMMENT--
+$C200##Y <~ the character index
+$C201##mask #1 (falling)
+$C203##--NO-COMMENT--
+$C205##CONSTANT - to select the character (the character is dying)
+$C207##If vGameInterruptEvent == 0x81
+$C209##--NO-COMMENT--
+$C20C##mask #2 (arrest)
+$C20E#bra_C20E_skip#to preserve bits when shifted
+$C20F#bra_C20F_repeat#--NO-COMMENT--
+$C210##get a character status (see vChrLiveStatus)
+$C211##switch to current character
+$C212##If Register Y >= 0x00
+$C214##--NO-COMMENT--
+$C216##updates a status
+$C218##--NO-COMMENT--
+$C21A##If no one fell
+$C21C##--NO-COMMENT--
+$C21E##If the character didn't move in the water
+$C220##--NO-COMMENT--
+$C222##restores
+$C224##--NO-COMMENT--
+$C226##restores
+$C228##--NO-COMMENT--
+$C22A##restores
+$C22C#bra_C22C_skip#--NO-COMMENT--
+$C22E##CONSTANT - to select the character (the character is arrested)
+$C230##If vGameInterruptEvent == 0x80
+$C235#bra_C235_to_start#--NO-COMMENT--
+$C237##assigned
+$C239##--NO-COMMENT--
 $C23C#bra_C23C_skip#
 $C246#bra_C246_skip#
 $C251#bra_C251#
@@ -1275,7 +1338,7 @@ $CCE6##--NO-COMMENT--
 $CCE9#sub_CCE9_set_apparatus_counter#CONSTANT Hc:Lc = 08:XX - time of the breathing apparatus
 $CCEB##--NO-COMMENT--
 $CCEE##--NO-COMMENT--
-$CCEF#sub_CCEF#--NO-COMMENT--
+$CCEF#sub_CCEF_use_balloon#--NO-COMMENT--
 $CCF1##--NO-COMMENT--
 $CCF8##--NO-COMMENT--
 $CCFA##CONSTANT - the character is moving on the balloon
@@ -2471,7 +2534,7 @@ $D75A##--NO-COMMENT--
 $D75D##If the screen hasn't the water gap
 $D75F##--NO-COMMENT--
 $D762##If vEnemyAFrame_Counter >= 0x1F
-$D764#loc_D764#store the frame counter
+$D764#loc_D764_diving_render#store the frame counter
 $D765##CONSTANT - 1st frame
 $D767##If the frame counter != 0x01
 $D769##diving sound
@@ -2595,7 +2658,7 @@ $D9BC##If vEnemyAFrame_Counter < 0x03
 $D9BE##--NO-COMMENT--
 $D9C0##reset a counter
 $D9C3#bra_D9C3_RTS#--NO-COMMENT--
-$D9DA#sub_D9DA_screen_with_water_gap#
+$D9DA#sub_D9DA_screen_with_water_gap#--NO-COMMENT--
 $D9DC##CONSTANT - level 2 (1-3)
 $D9DE##If vNoSubLevel < 0x07
 $D9E0##CONSTANT - the boss room from level 4.0
@@ -2682,7 +2745,9 @@ $DB3A##--NO-COMMENT--
 $DB44#loc_DB44#prepare an input parameter
 $DB46##Check collisions in vScreenChrPosY + 4 and vScreenChrPosY - 4
 $DB49##If collisions exist
-$DB4B#loc_DB4B#
+$DB4B#loc_DB4B_jumping_off#prepare a jump counter
+$DB4D##prepare a jump type (CONSTANT - jumping off)
+$DB4F##--NO-COMMENT--
 $DB52#bra_DB52_collisions#--NO-COMMENT--
 $DB55##CONSTANT - The rifle is current and activated
 $DB57##If vCurrentWeaponStatus != 0x42
@@ -2764,23 +2829,39 @@ $DC09##--NO-COMMENT--
 $DC0A##If a current character isn't Jigen
 $DC0C##3 bullets
 $DC0E#bra_DC0E_skip#--NO-COMMENT--
+$DC10##--NO-COMMENT--
 $DC13#bra_DC13_rifle#--NO-COMMENT--
 $DC15##--NO-COMMENT--
 $DC16##--NO-COMMENT--
 $DC17##--NO-COMMENT--
 $DC19##increment the offset of the sprite address
-$DC1A#loc_DC1A#--NO-COMMENT--
+$DC1A#loc_DC1A_render_character_and_bullets#--NO-COMMENT--
 $DC1D##5 bullets
 $DC1F##--NO-COMMENT--
-$DC24#bra_DC24_balloon#
+$DC21##--NO-COMMENT--
+$DC24#bra_DC24_balloon#--NO-COMMENT--
 $DC26##--NO-COMMENT--
 $DC27##store x
-$DC33##--NO-COMMENT--
+$DC28##--NO-COMMENT--
+$DC2B##--NO-COMMENT--
+$DC2D##prepare an input parameter (for render)
+$DC2F##--NO-COMMENT--
+$DC31##prepare an input parameter (for render)
+$DC33##retrieve x (see DC27)
 $DC34##--NO-COMMENT--
 $DC35##--NO-COMMENT--
-$DC37##retrieve x + increment
-$DC3B#sub_DC3B#
-$DC4B#bra_DC4B_skip#
+$DC37##increment the offset of the sprite address
+$DC38##--NO-COMMENT--
+$DC3B#sub_DC3B_render_balloon#offset frame #1
+$DC41##offset frame #2
+$DC43##--NO-COMMENT--
+$DC45##--NO-COMMENT--
+$DC47##If vAnimationCounter >= 0x04
+$DC49##offset frame #3
+$DC4B#bra_DC4B_skip#--NO-COMMENT--
+$DC4C##--NO-COMMENT--
+$DC4E##increment the offset of the sprite address
+$DC4F##--NO-COMMENT--
 $DC52#loc_DC52_horiz_movement_subroutine#If the button 'Right' is pressed
 $DC54##--NO-COMMENT--
 $DC56##--NO-COMMENT--
@@ -2921,7 +3002,7 @@ $DD95##--NO-COMMENT--
 $DD97##If it was a jump down (using Down Button)
 $DD99##else it was a jump by side
 $DD9A#bra_DD9A_skip#--NO-COMMENT--
-$DD9D#loc_DD9D#--NO-COMMENT--
+$DD9D#loc_DD9D_assigned_jump_subroutine#--NO-COMMENT--
 $DD9F##--NO-COMMENT--
 $DDA1##--NO-COMMENT--
 $DDA3##CONSTANT - 'the character is jumping'
@@ -3000,6 +3081,7 @@ $DE39#bra_DE39_falling#--NO-COMMENT--
 $DE3B##!(WHY?), seems to be excessive
 $DE3D##CONSTANT - Maximum allowed Y-value on the screen
 $DE3F##If vScreenChrPosY < 0xDF
+$DE41##--NO-COMMENT--
 $DE44#bra_DE44_safe_falling#<~ vScreenChrPosY + 1, prepare an input parameter
 $DE46##--NO-COMMENT--
 $DE49##If collisions don't exist
@@ -3069,14 +3151,33 @@ $DEDD##If collisions don't exist
 $DEDF##CONSTANT - a maximum amplitude
 $DEE1##block the jump
 $DEE3#bra_DEE3_skip#--NO-COMMENT--
-$DEE6#loc_DEE6#
-$DEFE#bra_DEFE#
-$DF19#bra_DF19#
-$DF1C#bra_DF1C#--NO-COMMENT--
+$DEE6#loc_DEE6_dead_fallin#--NO-COMMENT--
+$DEE8##prepare an input parameter
+$DEEA##--NO-COMMENT--
+$DEED##If the screen has not the water gap
+$DEEF##--NO-COMMENT--
+$DEF2##If the current character isn't Lupin
+$DEF4##--NO-COMMENT--
+$DEF7##if vBreathingApparatusItem != 0x00
+$DEF9##--NO-COMMENT--
+$DEFC##If vHeliumBalloonItem != 0x00
+$DEFE#bra_DEFE_skip#--NO-COMMENT--
+$DF01##If the frame index < 0x1F
+$DF03##--NO-COMMENT--
+$DF06##If the current character isn't Lupin
+$DF08##--NO-COMMENT--
+$DF0B##if vBreathingApparatusItem == 0x00
+$DF0D##CONSTANT - the index of the breathing apparatus item
+$DF0F##--NO-COMMENT--
+$DF19#bra_DF19_skip#--NO-COMMENT--
+$DF1C#bra_DF1C_no_water#--NO-COMMENT--
 $DF1F##If the current character isn't Lupin
 $DF21##--NO-COMMENT--
 $DF24##If vHeliumBalloonItem == 0x00
-$DF26#bra_DF26#
+$DF26#bra_DF26_balloon#--NO-COMMENT--
+$DF29##--NO-COMMENT--
+$DF2C##--NO-COMMENT--
+$DF2E##prepares the offset of the sprite address
 $DF31#loc_DF31#CONSTANT - the character is arrested
 $DF33##--NO-COMMENT--
 $DF35##CONSTANT - The character got damage from Zenigata
@@ -3084,8 +3185,18 @@ $DF37##If vDamageStatus contains 0x20 flag
 $DF39##CONSTANT - the character is dying
 $DF3B#bra_DF3B_skip#
 $DF3D##--NO-COMMENT--
-$DF3E#sub_DF3E#
-$DF54#bra_DF54#
+$DF3E#sub_DF3E_update_render_params_for_gap#--NO-COMMENT--
+$DF40##~> sprite magic1
+$DF42##--NO-COMMENT--
+$DF44##~> sprite magic4
+$DF4A##!(BUG?), depends on character animation frame
+$DF4C##if vChrFrameIndex != 0x01
+$DF4E##store a frame index
+$DF4F##--NO-COMMENT--
+$DF51##initializes a counter
+$DF53##retrieve a frame index (see DF4E)
+$DF54#bra_DF54_skip_inititalize#CONSTANT - max value
+$DF56##--NO-COMMENT--
 $DF57#sub_DF57_get_current_character#--NO-COMMENT--
 $DF59##CONSTANT - the current selected character
 $DF5B##--NO-COMMENT--
@@ -3149,14 +3260,15 @@ $E073##--NO-COMMENT--
 $E076##CONSTANT - 'the weapon is activated' + 'Using the artillery rifle'
 $E078##If the rifle is activated
 $E07A##set loop counter (for Lupin)
-$E07C#bra_E07C_loop#
+$E07C#bra_E07C_loop#--NO-COMMENT--
+$E07E##If the current bullet isn't activated
 $E080##decrements loop counter
 $E081##If Register X >= 0x00
 $E083#bra_E083_RTS#--NO-COMMENT--
 $E084#bra_E084_rifle#
 $E093#bra_E093#
 $E0A1#tbl_E0A1#
-$E0A6#bra_E0A6#Lupin or Jigen shoots (sound effect)
+$E0A6#bra_E0A6_shot#Lupin or Jigen shoots (sound effect)
 $E0A8##--NO-COMMENT--
 $E0AB##CONSTANT - the bullet is activated + start of the shot
 $E0AD##--NO-COMMENT--
@@ -3187,6 +3299,7 @@ $E0DC##<~ LowPosX + $0002
 $E0DE##--NO-COMMENT--
 $E0E0##--NO-COMMENT--
 $E0E2##<~ HighPosX (+1 with overflow)
+$E0E4##--NO-COMMENT--
 $E0E5#bra_E0E5_left#--NO-COMMENT--
 $E0E8##--NO-COMMENT--
 $E0EA##--NO-COMMENT--
@@ -3228,6 +3341,7 @@ $E12F#bra_E12F_assign#--NO-COMMENT--
 $E131##--NO-COMMENT--
 $E132#loc_E132_bullets_subroutine#set loop counter
 $E134#bra_E134_loop#--NO-COMMENT--
+$E136##--NO-COMMENT--
 $E139##decrement vTempCounter10
 $E13B##In vTempCounter10 < 0xF0
 $E13D#bra_E13D_RTS#--NO-COMMENT--
@@ -3810,6 +3924,7 @@ $EE67##--NO-COMMENT--
 $EE6A##High address
 $EE6C##--NO-COMMENT--
 $EE6F#loc_EE6F_land_diver_enemy#--NO-COMMENT--
+$EE72##basic mechanics of enemy behavior
 $EE75##restore bank 06, page 2
 $EE7B##to sub_A003
 $EE84##to sub_A006
@@ -4546,25 +4661,26 @@ $FA76#bra_FA76#
 $FAA7#bra_FAA7#
 $FAAA#bra_FAAA#
 $FAAE#bra_FAAE#
-$FAC0#sub_FAC0#--NO-COMMENT--
+$FAC0#sub_FAC0_event_poll#--NO-COMMENT--
 $FAC2##clear
 $FAC4##CONSTANT - In the game
 $FAC6##CONSTANT - no message
 $FAC8##CONSTANT - no pause
 $FACA##--NO-COMMENT--
-$FACF##If ram_0039 == 0x00
+$FACD##--NO-COMMENT--
+$FACF##If vGameInterruptEvent isn't exist
 $FAD1##--NO-COMMENT--
-$FAD3##If ram_0039 == 0xE0
+$FAD3##If vGameInterruptEvent is 'to next level'
 $FAD5##--NO-COMMENT--
-$FAD7##If ram_0039 == 0xC0
+$FAD7##If vGameInterruptEvent is 'go into the corridor'
 $FAD9##--NO-COMMENT--
-$FADB##If ram_0039 == 0xC1
+$FADB##If vGameInterruptEvent is 'dive into the water'
 $FADD##--NO-COMMENT--
-$FADF##If ram_0039 == 0xC2
+$FADF##If vGameInterruptEvent is 'get out of the water'
 $FAE1##--NO-COMMENT--
-$FAE3##If ram_0039 == 0xC3
+$FAE3##If vGameInterruptEvent is 'leave the unique room'
 $FAE5##--NO-COMMENT--
-$FAE7##If ram_0039 == 0xC4
+$FAE7##If vGameInterruptEvent is 'to the cutscene of defeating the boss'
 $FAEC#loc_FAEC#--NO-COMMENT--
 $FAEF##--NO-COMMENT--
 $FAF2##~> vScreenChrPosY

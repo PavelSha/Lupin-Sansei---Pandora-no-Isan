@@ -3,6 +3,9 @@
 MMC3_Bank_select    = $8000 ; see https://www.nesdev.org/wiki/INES_Mapper_206
 MMC3_Bank_data      = $8001 ;
 Set_features        = $FFF6 ;
+; XYZW KLMN
+; X - Test mode (debug mode)
+; Y - Demo version (?)
 
 PPU_CTRL     = $2000
 PPU_MASK     = $2001
@@ -97,18 +100,16 @@ vCutscenesMode                = ram_0037 ; 0xFF - Starting cutscenes are used (w
 
 vPauseStatus                  = ram_0038 ; 0x00 - no pause, 0x40 - pause
 
-; ??? = ram_0039
-; XYZW KLMN
-; X - ????
-; 0x00 - ???
-; 0x80 - ??? (the character is arrested)
-; 0x81 - ??? (the character is dying)
-; 0xC0 - ??? (in corridor)
-; 0xC1 - ??? (in water)
-; 0xC2 - ???
-; 0xC3 - ??? (out corridor with briefcase)
-; 0xC4 - ???
-; 0xE0 - ???
+
+vGameInterruptEvent           = ram_0039
+; 0x80 - to select the character (the character is arrested) or to next character in demo
+; 0x81 - to select the character (the character is dying)
+; 0xC0 - go into the corridor (sub level or unique room)
+; 0xC1 - dive into the water
+; 0xC2 - get out of the water
+; 0xC3 - leave the unique room
+; 0xC4 - to the cutscene of defeating the boss
+; 0xE0 - to next level
 
 vDamageStatus                 = ram_003A
 ; 0x80 - The character isn't getting damage

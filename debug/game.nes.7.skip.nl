@@ -28,16 +28,6 @@ $EFB1##clear smth.
 $EFB2##clear smth.
 $C68E##Dissambling sub_C6DD_render_row, when vReasonCharacterChange == 'no reason'
 $C0C2##sub_EFFC_after_select_character - need dissasemling the parts
-$C09C##ram_0039
-$FAC0##ram_0039
-$FACD##ram_0039
-$C0DB##ram_0039
-$C0DD##ram_0039
-$C148##ram_0039
-$C14A##ram_0039
-$DF3B##ram_0039
-$DF15##ram_0039 - in the water room
-$DF17##ram_0039 - in the water room
 $F050##ram_03D4
 $F053##ram_03D5
 $F056##ram_03D6
@@ -114,3 +104,4 @@ $E1CE##vBulletStatus, L flag
 $F9C1##v_corridor_magic5
 $F9C3##v_corridor_magic5
 $DB7D##sub_F91A_has_entered_the_corridor
+$C232##sub_B319_hide_character_in_room

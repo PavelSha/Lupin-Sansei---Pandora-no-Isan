@@ -4,17 +4,18 @@
 .org $A000  ; for listing file
 ; 0x01A010-0x01C00F
 
-.import tbl_messages                             ; bank 04 (Page 2)
-.import tbl_ptr_rooms_with_NPCs                  ; bank 04 (Page 2)
-.import tbl_ptr_briefcases_outside               ; bank 04 (Page 2)
 .import tbl_copyright                            ; bank 04 (Page 1)
 .import tbl_main_menu_chr_banks                  ; bank 04 (Page 1)
 .import tbl_template_chr_banks1                  ; bank 04 (Page 1)
+.import tbl_messages                             ; bank 04 (Page 2)
+.import tbl_ptr_rooms_with_NPCs                  ; bank 04 (Page 2)
+.import tbl_ptr_briefcases_outside               ; bank 04 (Page 2)
 .import tbl_ptr_briefcases_indexes_on_the_level  ; bank 04 (Page 2)
 .import tbl_briefcases_positions                 ; bank 04 (Page 2)
 .import npc_portrait_sprites                     ; bank 04 (Page 2)
 .import npc_portrait_set                         ; bank 04 (Page 2)
 .import npc_sprite_set                           ; bank 04 (Page 2)
+.import tbl_ptr_prison_rooms                     ; bank 04 (Page 2)
 .import sub_C305_update_ppu_ctrl_with_no_nmi     ; bank FF
 .import sub_C313_screen_off                      ; bank FF
 .import sub_C31D_clear_ppu                       ; bank FF
@@ -57,6 +58,8 @@
 .import sub_D606_have_intersect_sword            ; bank FF
 .import sub_D7A8_correction_EnemyAPosY           ; bank FF
 .import sub_D347_check_enemyA_strong_collision   ; bank FF
+.import sub_FC3E_boss_defeated_status            ; bank FF
+.import sub_D064_generate_rng                    ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -69,6 +72,7 @@
 .export sub_B9DA_curscene_shared_routine
 .export sub_B18C_prepare_briefcases_by_index
 .export loc_B1FB_rifle
+.export sub_B319_hide_character_in_room
 
 tbl_A000:
 - D 1 - - - 0x01A010 06:A000: 00        .byte $00   ; 
@@ -337,7 +341,7 @@ C - - - - - 0x01A1AA 06:A19A: F0 02     BEQ bra_A19E
 C - - - - - 0x01A1AC 06:A19C: A0 00     LDY #$00
 bra_A19E:
 C - - - - - 0x01A1AE 06:A19E: 84 00     STY ram_0000
-C - - - - - 0x01A1B0 06:A1A0: 20 64 D0  JSR $D064
+C - - - - - 0x01A1B0 06:A1A0: 20 64 D0  JSR sub_D064_generate_rng
 C - - - - - 0x01A1B3 06:A1A3: 29 01     AND #$01
 C - - - - - 0x01A1B5 06:A1A5: 05 00     ORA ram_0000
 C - - - - - 0x01A1B7 06:A1A7: A8        TAY
@@ -978,7 +982,7 @@ bra_A5C4:
 C - - - - - 0x01A5D4 06:A5C4: A5 2C     LDA vLowCounter
 C - - - - - 0x01A5D6 06:A5C6: 29 3F     AND #$3F
 C - - - - - 0x01A5D8 06:A5C8: D0 2B     BNE bra_A5F5_RTS
-C - - - - - 0x01A5DA 06:A5CA: 20 64 D0  JSR $D064
+C - - - - - 0x01A5DA 06:A5CA: 20 64 D0  JSR sub_D064_generate_rng
 C - - - - - 0x01A5DD 06:A5CD: 6A        ROR
 C - - - - - 0x01A5DE 06:A5CE: 90 25     BCC bra_A5F5_RTS
 C - - - - - 0x01A5E0 06:A5D0: 29 07     AND #$07
@@ -1584,7 +1588,7 @@ C - - - - - 0x01A9C1 06:A9B1: 20 F0 A9  JSR sub_A9F0
 C - - - - - 0x01A9C4 06:A9B4: A5 2C     LDA vLowCounter
 C - - - - - 0x01A9C6 06:A9B6: 29 3F     AND #$3F
 C - - - - - 0x01A9C8 06:A9B8: D0 35     BNE bra_A9EF_RTS
-C - - - - - 0x01A9CA 06:A9BA: 20 64 D0  JSR $D064
+C - - - - - 0x01A9CA 06:A9BA: 20 64 D0  JSR sub_D064_generate_rng
 C - - - - - 0x01A9CD 06:A9BD: 6A        ROR
 C - - - - - 0x01A9CE 06:A9BE: B0 2F     BCS bra_A9EF_RTS
 C - - - - - 0x01A9D0 06:A9C0: 29 07     AND #$07
@@ -1788,7 +1792,7 @@ C - - - - - 0x01AB1D 06:AB0D: C9 40     CMP #$40
 C - - - - - 0x01AB1F 06:AB0F: B0 20     BCS bra_AB31_RTS
 C - - - - - 0x01AB21 06:AB11: C9 20     CMP #$20
 C - - - - - 0x01AB23 06:AB13: 90 1C     BCC bra_AB31_RTS
-C - - - - - 0x01AB25 06:AB15: 20 64 D0  JSR $D064
+C - - - - - 0x01AB25 06:AB15: 20 64 D0  JSR sub_D064_generate_rng
 C - - - - - 0x01AB28 06:AB18: 29 03     AND #$03
 C - - - - - 0x01AB2A 06:AB1A: D0 15     BNE bra_AB31_RTS
 C - - - - - 0x01AB2C 06:AB1C: BD 5C 03  LDA ram_035C,X
@@ -2050,7 +2054,7 @@ C - - - - - 0x01ACEE 06:ACDE: 29 20     AND #$20
 C - - - - - 0x01ACF0 06:ACE0: D0 1D     BNE bra_ACFF_RTS
 C - - - - - 0x01ACF2 06:ACE2: DE 86 03  DEC ram_0386,X
 C - - - - - 0x01ACF5 06:ACE5: D0 18     BNE bra_ACFF_RTS
-C - - - - - 0x01ACF7 06:ACE7: 20 64 D0  JSR $D064
+C - - - - - 0x01ACF7 06:ACE7: 20 64 D0  JSR sub_D064_generate_rng
 C - - - - - 0x01ACFA 06:ACEA: 29 03     AND #$03
 C - - - - - 0x01ACFC 06:ACEC: 0A        ASL
 C - - - - - 0x01ACFD 06:ACED: A8        TAY
@@ -2660,7 +2664,7 @@ C - - - - - 0x01B123 06:B113: 20 3B EF  JSR $EF3B
 C - - - - - 0x01B126 06:B116: A5 2C     LDA vLowCounter
 C - - - - - 0x01B128 06:B118: 29 3F     AND #$3F
 C - - - - - 0x01B12A 06:B11A: D0 F6     BNE bra_B112_RTS
-C - - - - - 0x01B12C 06:B11C: 20 64 D0  JSR $D064
+C - - - - - 0x01B12C 06:B11C: 20 64 D0  JSR sub_D064_generate_rng
 C - - - - - 0x01B12F 06:B11F: 29 A0     AND #$A0
 C - - - - - 0x01B131 06:B121: D0 EF     BNE bra_B112_RTS
 C - - - - - 0x01B133 06:B123: A9 08     LDA #$08
@@ -2679,7 +2683,7 @@ C - - - - - 0x01B148 06:B138: 29 1F     AND #$1F
 C - - - - - 0x01B14A 06:B13A: A8        TAY
 C - - - - - 0x01B14B 06:B13B: B9 A0 95  LDA $95A0,Y
 C - - - - - 0x01B14E 06:B13E: 20 59 B1  JSR sub_B159
-C - - - - - 0x01B151 06:B141: 20 64 D0  JSR $D064
+C - - - - - 0x01B151 06:B141: 20 64 D0  JSR sub_D064_generate_rng
 C - - - - - 0x01B154 06:B144: 29 1F     AND #$1F
 C - - - - - 0x01B156 06:B146: A8        TAY
 C - - - - - 0x01B157 06:B147: B9 C0 95  LDA $95C0,Y
@@ -2958,12 +2962,12 @@ C - - - - - 0x01B31C 06:B30C: A0 00     LDY #$00
 C - - - - - 0x01B31E 06:B30E: A5 BC     LDA v_tmp_target_room
 C - - - - - 0x01B320 06:B310: C5 60     CMP ram_0060
 C - - - - - 0x01B322 06:B312: F0 01     BEQ @bra_B315_skip
-- - - - - - 0x01B324 06:B314: C8        .byte $C8   ; 
+- - - - - - 0x01B324 06:B314: C8        INY
 @bra_B315_skip:
 C - - - - - 0x01B325 06:B315: B9 62 00  LDA ram_0062,Y
 C - - - - - 0x01B328 06:B318: 60        RTS
 
-sub_B319: ; from bank FF
+sub_B319_hide_character_in_room:
 C - - - - - 0x01B329 06:B319: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2
 C - - - - - 0x01B32C 06:B31C: A0 FF     LDY #$FF
 C - - - - - 0x01B32E 06:B31E: A2 00     LDX #$00
@@ -2998,19 +3002,19 @@ C - - - - - 0x01B35A 06:B34A: 85 61     STA ram_0061
 C - - - - - 0x01B35C 06:B34C: A5 5E     LDA v_no_level
 C - - - - - 0x01B35E 06:B34E: 0A        ASL
 C - - - - - 0x01B35F 06:B34F: A8        TAY
-C - - - - - 0x01B360 06:B350: B9 08 81  LDA $8108,Y
+C - - - - - 0x01B360 06:B350: B9 08 81  LDA tbl_ptr_prison_rooms,Y
 C - - - - - 0x01B363 06:B353: 85 12     STA ram_0012
-C - - - - - 0x01B365 06:B355: B9 09 81  LDA $8109,Y
+C - - - - - 0x01B365 06:B355: B9 09 81  LDA tbl_ptr_prison_rooms + 1,Y
 C - - - - - 0x01B368 06:B358: 85 13     STA ram_0013
 C - - - - - 0x01B36A 06:B35A: A0 00     LDY #$00
-C - - - - - 0x01B36C 06:B35C: A5 46     LDA ram_0046
-bra_B35E:
+C - - - - - 0x01B36C 06:B35C: A5 46     LDA vNoSubLevel
+bra_B35E_loop:
 C - - - - - 0x01B36E 06:B35E: D1 12     CMP (ram_0012),Y
 C - - - - - 0x01B370 06:B360: 90 05     BCC bra_B367
 C - - - - - 0x01B372 06:B362: C8        INY
 C - - - - - 0x01B373 06:B363: C8        INY
 C - - - - - 0x01B374 06:B364: C8        INY
-C - - - - - 0x01B375 06:B365: D0 F7     BNE bra_B35E
+C - - - - - 0x01B375 06:B365: D0 F7     BNE bra_B35E_loop
 bra_B367:
 C - - - - - 0x01B377 06:B367: C8        INY
 C - - - - - 0x01B378 06:B368: B1 12     LDA (ram_0012),Y
@@ -3024,7 +3028,7 @@ C - - - - - 0x01B385 06:B375: 85 00     STA ram_0000
 C - - - - - 0x01B387 06:B377: A9 02     LDA #$02
 C - - - - - 0x01B389 06:B379: 85 01     STA ram_0001
 bra_B37B:
-C - - - - - 0x01B38B 06:B37B: 20 64 D0  JSR $D064
+C - - - - - 0x01B38B 06:B37B: 20 64 D0  JSR sub_D064_generate_rng
 C - - - - - 0x01B38E 06:B37E: 29 3F     AND #$3F
 C - - - - - 0x01B390 06:B380: 4A        LSR
 bra_B381:
@@ -3036,7 +3040,7 @@ C - - - - - 0x01B398 06:B388: A8        TAY
 C - - - - - 0x01B399 06:B389: C8        INY
 C - - - - - 0x01B39A 06:B38A: B1 14     LDA (ram_0014),Y
 C - - - - - 0x01B39C 06:B38C: AA        TAX
-C - - - - - 0x01B39D 06:B38D: BD 00 05  LDA ram_0500,X
+C - - - - - 0x01B39D 06:B38D: BD 00 05  LDA vRooms,X
 C - - - - - 0x01B3A0 06:B390: 29 B4     AND #$B4
 C - - - - - 0x01B3A2 06:B392: C9 B0     CMP #$B0
 C - - - - - 0x01B3A4 06:B394: F0 04     BEQ bra_B39A_skip
@@ -3044,7 +3048,7 @@ C - - - - - 0x01B3A6 06:B396: C9 B4     CMP #$B4
 C - - - - - 0x01B3A8 06:B398: D0 E1     BNE bra_B37B
 bra_B39A_skip:
 C - - - - - 0x01B3AA 06:B39A: 29 1F     AND #$1F
-C - - - - - 0x01B3AC 06:B39C: 9D 00 05  STA ram_0500,X
+C - - - - - 0x01B3AC 06:B39C: 9D 00 05  STA vRooms,X
 C - - - - - 0x01B3AF 06:B39F: A4 11     LDY ram_0011
 C - - - - - 0x01B3B1 06:B3A1: 8A        TXA
 C - - - - - 0x01B3B2 06:B3A2: 99 60 00  STA ram_0060,Y
@@ -3092,7 +3096,7 @@ C - - - - - 0x01B3F6 06:B3E6: A5 C8     LDA vMessageInProgress
 C - - - - - 0x01B3F8 06:B3E8: D0 27     BNE bra_B411_skip               ; If vMessageInProgress != 0x00 (no message)
 C - - - - - 0x01B3FA 06:B3EA: 24 41     BIT v_npc_message_status
 C - - - - - 0x01B3FC 06:B3EC: 70 23     BVS bra_B411_skip
-C - - - - - 0x01B3FE 06:B3EE: 20 3E FC  JSR $FC3E                       ; to sub_FC3E (bank FF)
+C - - - - - 0x01B3FE 06:B3EE: 20 3E FC  JSR sub_FC3E_boss_defeated_status
 C - - - - - 0x01B401 06:B3F1: F0 0F     BEQ bra_B402_skip
 C - - - - - 0x01B403 06:B3F3: A9 03     LDA #BIT_BUTTON_B_OR_A
 C - - - - - 0x01B405 06:B3F5: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
@@ -3162,17 +3166,17 @@ tbl_rescue_character:
 - D 1 - - - 0x01B475 06:B465: 30        .byte $30   ; Jigen
 - D 1 - - - 0x01B476 06:B466: C0        .byte $C0   ; Goemon
 bra_B467:
-C - - - - - 0x01B477 06:B467: 20 3E FC  JSR $FC3E
+C - - - - - 0x01B477 06:B467: 20 3E FC  JSR sub_FC3E_boss_defeated_status
 C - - - - - 0x01B47A 06:B46A: F0 F7     BEQ bra_B463_RTS
 C - - - - - 0x01B47C 06:B46C: A5 C8     LDA ram_00C8
 C - - - - - 0x01B47E 06:B46E: D0 F3     BNE bra_B463_RTS
-C - - - - - 0x01B480 06:B470: A5 39     LDA ram_0039
+C - - - - - 0x01B480 06:B470: A5 39     LDA vGameInterruptEvent
 C - - - - - 0x01B482 06:B472: 30 EF     BMI bra_B463_RTS
 C - - - - - 0x01B484 06:B474: A9 03     LDA #BIT_BUTTON_B_OR_A
 C - - - - - 0x01B486 06:B476: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
 C - - - - - 0x01B489 06:B479: F0 E8     BEQ bra_B463_RTS
 C - - - - - 0x01B48B 06:B47B: A9 E0     LDA #$E0
-C - - - - - 0x01B48D 06:B47D: 85 39     STA ram_0039
+C - - - - - 0x01B48D 06:B47D: 85 39     STA vGameInterruptEvent
 C - - - - - 0x01B48F 06:B47F: 60        RTS
 
 sub_B480_plus_npc_msg_status:
@@ -3269,7 +3273,7 @@ C - - - - - 0x01B52E 06:B51E: BD 49 82  LDA npc_sprite_set,X
 C - - - - - 0x01B531 06:B521: 18        CLC
 C - - - - - 0x01B532 06:B522: 69 84     ADC #$84
 C - - - - - 0x01B534 06:B524: 85 01     STA ram_0001
-C - - - - - 0x01B536 06:B526: 20 3E FC  JSR $FC3E ; to sub_FC3E (bank_FF)
+C - - - - - 0x01B536 06:B526: 20 3E FC  JSR sub_FC3E_boss_defeated_status
 C - - - - - 0x01B539 06:B529: F0 0F     BEQ @bra_B53A_skip
 C - - - - - 0x01B53B 06:B52B: AD D7 03  LDA ram_03D7
 C - - - - - 0x01B53E 06:B52E: 6A        ROR
@@ -3906,7 +3910,7 @@ C - - - - - 0x01B99D 06:B98D: A8        TAY                                     
 C - - - - - 0x01B99E 06:B98E: 85 37     STA vCutscenesMode                         ; vCutscenesMode <~ 'In game'
 C - - - - - 0x01B9A0 06:B990: 85 B6     STA vCurrentUniqueRoom                     ; clear
 C - - - - - 0x01B9A2 06:B992: 85 B7     STA v_corridor_magic5                      ; clear
-C - - - - - 0x01B9A4 06:B994: 85 39     STA ram_0039
+C - - - - - 0x01B9A4 06:B994: 85 39     STA vGameInterruptEvent                    ; clear
 C - - - - - 0x01B9A6 06:B996: A6 AD     LDX vMainMenuGunYPos                       ;
 C - - - - - 0x01B9A8 06:B998: E0 9F     CPX #$9F                                   ; CONSTANT - The 'Continue' position
 C - - - - - 0x01B9AA 06:B99A: F0 07     BEQ @bra_B9A3_skip                         ; If select 'Continue' in the main menu

@@ -657,7 +657,7 @@ C - - - - - 0x00E37A 03:A36A: 60        RTS
 
 sub_A36B:
 C - - - - - 0x00E37B 03:A36B: A9 C4     LDA #$C4
-C - - - - - 0x00E37D 03:A36D: 85 39     STA ram_0039
+C - - - - - 0x00E37D 03:A36D: 85 39     STA vGameInterruptEvent
 C - - - - - 0x00E37F 03:A36F: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x00E382 03:A372: 8D D7 03  STA ram_03D7
 C - - - - - 0x00E385 03:A375: AD 32 03  LDA ram_0332
@@ -2440,7 +2440,7 @@ C - - - - - 0x00EEA2 03:AE92: D0 09     BNE bra_AE9D
 C - - - - - 0x00EEA4 03:AE94: AD 20 03  LDA vEnemyAStatus
 C - - - - - 0x00EEA7 03:AE97: D0 09     BNE bra_AEA2_RTS
 C - - - - - 0x00EEA9 03:AE99: A9 C4     LDA #$C4
-C - - - - - 0x00EEAB 03:AE9B: 85 39     STA ram_0039
+C - - - - - 0x00EEAB 03:AE9B: 85 39     STA vGameInterruptEvent
 bra_AE9D:
 C - - - - - 0x00EEAD 03:AE9D: A9 30     LDA #$30
 C - - - - - 0x00EEAF 03:AE9F: 8D 45 03  STA ram_0345
