@@ -387,6 +387,7 @@ vEnemyBAppearTimerHigh2       = ram_031E ; the high counter after which the same
 vEnemyBAppearTimerLow2        = ram_031F ; the low counter after which the same killed enemy (B) will appear in the same position
 vEnemyAStatus                 = ram_0320 ; see below
 ; 0x00 - None
+; 0x40 - the enemy can get damage (1 - true, 0 - false)
 ; 0x80 - The status is used
 
 ; Byte: 0YZW KLMN (template1, land diver)
@@ -396,13 +397,13 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; K - the stop
 ; W - squatting
 ; Z - the dying
-; Y - the enemy can get damage (1 - true, 0 - false)
+; Y - see above
 
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
 vEnemyAPosY                   = ram_032C ; see below
-vEnemyAPosY1                  = ram_032C ; The enemy position along the X axis relative to the level (no repeat)
-vEnemyAPosY2                  = ram_032D ; The enemy position along the X axis relative to the level (no repeat)
+vEnemyAPosY1                  = ram_032C ; The enemy position along the Y axis relative to the level (no repeat)
+vEnemyAPosY2                  = ram_032D ; The enemy position along the Y axis relative to the level (no repeat)
 
 vEnemyAScreenPosX             = ram_0332 ; see below
 vEnemyAScreenPosX1            = ram_0332 ; The enemy position along the X axis relative to the screen (no repeat)
@@ -429,8 +430,40 @@ vEnemyAJumpType2              = ram_0357 ; vJumpType analog for the enemy (the e
 
 vEnemyBStatus                 = ram_035C ; see below
 ; 0x00 - None
+; 0x40 - the enemy can get damage (1 - true, 0 - false)
+; 0x80 - The status is used
+
+; Byte: 0YZW KLMN (template2)
+; N - the direction (1 - on the left, 0 - on the right)
+; M - 
+; L - 
+; K - 
+; W - 
+; Z - 
+; Y - see above
+
 vEnemyBStatus1                = ram_035C
 vEnemyBStatus2                = ram_035D
+
+vEnemyBPosY                   = ram_0368 ; see below
+vEnemyBPosY1                  = ram_0368 ; The enemy position along the Y axis relative to the level (no repeat)
+vEnemyBPosY2                  = ram_0369 ; The enemy position along the Y axis relative to the level (no repeat)
+
+vEnemyBPosXLow                = ram_0374 ; see below
+vEnemyBPosXLow1               = ram_0374 ; The enemy position along the X axis relative to the level (with repeat)
+vEnemyBPosXLow2               = ram_0375 ; The enemy position along the X axis relative to the level (with repeat)
+vEnemyBPosXHigh               = ram_037A ; see below
+vEnemyBPosXHigh1              = ram_037A ; The enemy position along the X axis relative to the level (in screen unit)
+vEnemyBPosXHigh2              = ram_037B ; The enemy position along the X axis relative to the level (in screen unit)
+
+vEnemyBFrame_Counter          = ram_0380 ; see below
+vEnemyBFrame_Counter1         = ram_0380 ; The frame index (the enemy number = 1)
+vEnemyBFrame_Counter2         = ram_0381 ; The frame index (the enemy number = 2)
+
+vEnemyBJumpCounter            = ram_0386 ; see below
+vEnemyBJumpCounter1           = ram_0386 ; vJumpCounter analog for the enemy (the enemy number = 1)
+vEnemyBJumpCounter2           = ram_0387 ; vJumpCounter analog for the enemy (the enemy number = 2)
+
 vBombOnScreen                 = ram_0398 ; 0x00 - no exist, 0x01 - on screen
 v_briefcase_index             = ram_0398 ; [0399-039D]
 vBombStatus                   = ram_039E

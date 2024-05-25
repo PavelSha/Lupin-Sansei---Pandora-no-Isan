@@ -73,6 +73,8 @@
 .export sub_B18C_prepare_briefcases_by_index
 .export loc_B1FB_rifle
 .export sub_B319_hide_character_in_room
+.export tbl_ptr_enemy_t2_types_for_sprites
+.export tbl_ptr_enemy_t2_sprite_params_
 
 tbl_A000:
 - D 1 - - - 0x01A010 06:A000: 00        .byte $00   ; 
@@ -4707,40 +4709,24 @@ tbl_BCCF:
 - D 1 - - - 0x01BDD9 06:BDC9: 08        .byte $08   ; 
 - D 1 - - - 0x01BDDA 06:BDCA: C1        .byte $C1   ; 
 - D 1 - - - 0x01BDDB 06:BDCB: 18        .byte $18   ; 
-- D 1 - - - 0x01BDDC 06:BDCC: 23        .byte $23   ; 
-- D 1 - - - 0x01BDDD 06:BDCD: 0A        .byte $0A   ; 
-- D 1 - - - 0x01BDDE 06:BDCE: 1D        .byte $1D   ; 
-- D 1 - - - 0x01BDDF 06:BDCF: 21        .byte $21   ; 
-- D 1 - - - 0x01BDE0 06:BDD0: 34        .byte $34   ; <4>
-- D 1 - - - 0x01BDE1 06:BDD1: 22        .byte $22   ; 
-- D 1 - - - 0x01BDE2 06:BDD2: FF        .byte $FF   ; 
-- D 1 - - - 0x01BDE3 06:BDD3: 19        .byte $19   ; 
-- D 1 - - - 0x01BDE4 06:BDD4: 6A        .byte $6A   ; <j>
-- D 1 - - - 0x01BDE5 06:BDD5: C3        .byte $C3   ; 
-- D 1 - - - 0x01BDE6 06:BDD6: 0C        .byte $0C   ; 
-- D 1 - - - 0x01BDE7 06:BDD7: FF        .byte $FF   ; 
-- D 1 - - - 0x01BDE8 06:BDD8: 28        .byte $28   ; 
-- D 1 - - - 0x01BDE9 06:BDD9: 43        .byte $43   ; <C>
-- D 1 - - - 0x01BDEA 06:BDDA: FF        .byte $FF   ; 
-- D 1 - - - 0x01BDEB 06:BDDB: 12        .byte $12   ; 
-- D 1 - - - 0x01BDEC 06:BDDC: 28        .byte $28   ; 
-- D 1 - - - 0x01BDED 06:BDDD: 47        .byte $47   ; <G>
-- D 1 - - - 0x01BDEE 06:BDDE: FF        .byte $FF   ; 
-- D 1 - - - 0x01BDEF 06:BDDF: 19        .byte $19   ; 
-- D 1 - - - 0x01BDF0 06:BDE0: 28        .byte $28   ; 
-- D 1 - - - 0x01BDF1 06:BDE1: 47        .byte $47   ; <G>
-- D 1 - - - 0x01BDF2 06:BDE2: FF        .byte $FF   ; 
-- D 1 - - - 0x01BDF3 06:BDE3: 3E        .byte $3E   ; 
-- D 1 - - - 0x01BDF4 06:BDE4: 56        .byte $56   ; <V>
-- D 1 - - - 0x01BDF5 06:BDE5: 07        .byte $07   ; 
-- D 1 - - - 0x01BDF6 06:BDE6: FF        .byte $FF   ; 
-- D 1 - - - 0x01BDF7 06:BDE7: 19        .byte $19   ; 
-- D 1 - - - 0x01BDF8 06:BDE8: 7A        .byte $7A   ; <z>
-- D 1 - - - 0x01BDF9 06:BDE9: C3        .byte $C3   ; 
-- D 1 - - - 0x01BDFA 06:BDEA: 14        .byte $14   ; 
-- D 1 - - - 0x01BDFB 06:BDEB: FF        .byte $FF   ; 
-- D 1 - - - 0x01BDFC 06:BDEC: 4A        .byte $4A   ; <J>
-- D 1 - - - 0x01BDFD 06:BDED: C3        .byte $C3   ; 
+
+; Types: The bird with a bomb, The barrel, The barrel, Cobblestone, Potted snakes, The bird
+tbl_ptr_enemy_t2_types_for_sprites:
+- D 1 - - - 0x01BDDC 06:BDCC: 23        .byte $23, $0A, $1D, $21, $34, $22
+
+; 1 byte - the 1 number of ChrBank
+; 2 byte - the 2 number of ChrBank
+; 3 byte - see v_sprite_magic2
+; 4 byte - see v_sprite_magic3
+tbl_ptr_enemy_t2_sprite_params_:
+- D 1 - - - 0x01BDE2 06:BDD2: FF        .byte $FF, $19, $6A, $C3
+- D 1 - - - 0x01BDE6 06:BDD6: 0C        .byte $0C, $FF, $28, $43
+- D 1 - - - 0x01BDEA 06:BDDA: FF        .byte $FF, $12, $28, $47
+- D 1 - - - 0x01BDEE 06:BDDE: FF        .byte $FF, $19, $28, $47
+- D 1 - - - 0x01BDF2 06:BDE2: FF        .byte $FF, $3E, $56, $07
+- D 1 - - - 0x01BDF6 06:BDE6: FF        .byte $FF, $19, $7A, $C3
+- D 1 - - - 0x01BDFA 06:BDEA: 14        .byte $14, $FF, $4A, $C3
+
 - D 1 - - - 0x01BDFE 06:BDEE: 4C        .byte $4C   ; <L>
 - D 1 - - - 0x01BDFF 06:BDEF: 01        .byte $01   ; 
 - D 1 - - - 0x01BE00 06:BDF0: 94        .byte $94   ; 

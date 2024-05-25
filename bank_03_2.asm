@@ -23,6 +23,9 @@
 .import sub_D606_have_intersect_sword          ; bank FF
 .import sub_D7A8_correction_EnemyAPosY         ; bank FF
 .import sub_D347_check_enemyA_strong_collision ; bank FF
+.import sub_D84D_enemyB_off_screen             ; bank FF
+
+.export sub_A015_cat_or_snake_enemy
 
 ; Page 2
 sub_A000: ; from bank_FF
@@ -39,7 +42,7 @@ sub_A00F: ; from bank_FF
 C - - - - - 0x00E01F 03:A00F: 4C F0 B3  JMP loc_B3F0
 sub_A012: ; from bank_FF
 C - - - - - 0x00E022 03:A012: 4C 14 B8  JMP loc_B814
-sub_A015: ; from bank_FF
+sub_A015_cat_or_snake_enemy:
 C - - - - - 0x00E025 03:A015: 4C 5E BB  JMP loc_BB5E
 
 tbl_A018:
@@ -4539,7 +4542,7 @@ C - - - - - 0x00FC9C 03:BC8C: 4C 73 D8  JMP $D873
 bra_BC8F:
 C - - - - - 0x00FC9F 03:BC8F: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x00FCA2 03:BC92: 90 06     BCC bra_BC9A
-C - - - - - 0x00FCA4 03:BC94: 20 4D D8  JSR $D84D
+C - - - - - 0x00FCA4 03:BC94: 20 4D D8  JSR sub_D84D_enemyB_off_screen
 C - - - - - 0x00FCA7 03:BC97: 4C A0 BC  JMP loc_BCA0
 
 bra_BC9A:
