@@ -6,10 +6,10 @@ All rights reserved by モンキー・パンチ, NAMCO.
 -  Windows - run a command ***assemble.bat***
 -  Linux, MacOS - run a command ***assemble.sh*** (more information - [NES Games Disassembly](https://github.com/cyneprepou4uk/NES-Games-Disassembly))
 ## Statistics
--  Code Logger bytes - ***23.62%***
--  Data Logger bytes - ***61.97%***
--  Unknown bytes     - ***14.41%***
--  Code commented    - ***31.17%***
+-  Code Logger bytes - ***23.66%***
+-  Data Logger bytes - ***61.99%***
+-  Unknown bytes     - ***14.36%***
+-  Code commented    - ***32.20%***
 ## Documentation
 -  [bestiary](docs/ru/bestiary.md) - The list of all enemies in the game
 -  [maze1](docs/ru/maze1.txt), [maze2](docs/ru/maze2.txt), [maze3](docs/ru/maze3.txt), [maze4](docs/ru/maze4.txt) - The information of the mazes on the level 4

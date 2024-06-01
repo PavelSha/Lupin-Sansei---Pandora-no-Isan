@@ -449,6 +449,10 @@ vEnemyBPosY                   = ram_0368 ; see below
 vEnemyBPosY1                  = ram_0368 ; The enemy position along the Y axis relative to the level (no repeat)
 vEnemyBPosY2                  = ram_0369 ; The enemy position along the Y axis relative to the level (no repeat)
 
+vEnemyBScreenPosX             = ram_036E ; see below
+vEnemyBScreenPosX1            = ram_036E ; The enemy position along the X axis relative to the screen (no repeat)
+vEnemyBScreenPosX2            = ram_036F ; The enemy position along the X axis relative to the screen (no repeat)
+
 vEnemyBPosXLow                = ram_0374 ; see below
 vEnemyBPosXLow1               = ram_0374 ; The enemy position along the X axis relative to the level (with repeat)
 vEnemyBPosXLow2               = ram_0375 ; The enemy position along the X axis relative to the level (with repeat)
@@ -463,6 +467,10 @@ vEnemyBFrame_Counter2         = ram_0381 ; The frame index (the enemy number = 2
 vEnemyBJumpCounter            = ram_0386 ; see below
 vEnemyBJumpCounter1           = ram_0386 ; vJumpCounter analog for the enemy (the enemy number = 1)
 vEnemyBJumpCounter2           = ram_0387 ; vJumpCounter analog for the enemy (the enemy number = 2)
+
+vEnemyBJumpType               = ram_0392 ; see below
+vEnemyBJumpType1              = ram_0392 ; vJumpCounter analog for the enemy (the enemy number = 1)
+vEnemyBJumpType2              = ram_0393 ; vJumpCounter analog for the enemy (the enemy number = 2)
 
 vBombOnScreen                 = ram_0398 ; 0x00 - no exist, 0x01 - on screen
 v_briefcase_index             = ram_0398 ; [0399-039D]

@@ -14,7 +14,7 @@
 .import loc_D99F_add_flash_sprite                   ; bank FF
 .import sub_D660_is_bomb_exploding                  ; bank FF
 .import tbl_E35D_jump_posY_offset                   ; bank FF
-.import sub_D358_check_enemy_collision_by_Y         ; bank FF
+.import sub_D358_check_enemyA_collision_by_Y        ; bank FF
 .import tbl_E358_init_counter                       ; bank FF
 .import sub_D7BF_check_enemyA_movement_on_the_right ; bank FF
 .import sub_D7CA_check_enemyA_movement_on_the_left  ; bank FF
@@ -23,7 +23,7 @@
 .import sub_D064_generate_rng                       ; bank FF
 .import loc_D77F_free_enemyA                        ; bank FF
 .import sub_D6BD_try_change_enemyA_direction        ; bank FF
-.import sub_D9AE_inc_frame_counter                  ; bank FF
+.import sub_D9AE_inc_enemyA_frame_counter           ; bank FF
 .import loc_D741_enemyA_off_screen                  ; bank FF
 .import sub_D725_enemyA_on_screen                   ; bank FF
 .import loc_D989_add_enemyA_sprite_magic_v1         ; bank FF
@@ -33,6 +33,9 @@
 .import sub_D7A8_correction_EnemyAPosY              ; bank FF
 .import sub_D347_check_enemyA_strong_collision      ; bank FF
 .import sub_accumulator_shift_right_by_4            ; bank FF
+.import sub_D8CD_enemyB_collision_plus_one          ; bank FF
+.import sub_D8D1_enemyB_collision_minus_16          ; bank FF
+.import sub_D7D5_check_enemyA_collision_by_in_maze  ; bank FF
 
 .export sub_A000_land_diver_enemy
 
@@ -138,14 +141,14 @@ C - - - - - 0x01808A 06:A07A: A6 7A     LDX vBulletCount                    ; se
 C - - - - - 0x01808C 06:A07C: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet  ;
 C - - - - - 0x01808F 06:A07F: B0 0D     BCS bra_A08E_bullet_hit             ; If the intersect is exist
 C - - - - - 0x018091 06:A081: CA        DEX                                 ; decrement loop counter
-C - - - - - 0x018092 06:A082: 10 F8     BPL @bra_A07C_loop                  ; If Register >= 0x00
+C - - - - - 0x018092 06:A082: 10 F8     BPL @bra_A07C_loop                  ; If Register X >= 0x00
 bra_A084_no_intersect:
 C - - - - - 0x018094 06:A084: A6 1A     LDX vTempCounter1A                  ; !(WHY?), seems to be excessive
 C - - - - - 0x018096 06:A086: 20 62 D5  JSR sub_D562_has_character_damage   ;
 bra_A089_next:
 loc_A089_next:
 C D 1 - - - 0x018099 06:A089: C6 1A     DEC vTempCounter1A                  ; decrements loop counter
-C - - - - - 0x01809B 06:A08B: 10 C4     BPL bra_A051_loop                   ; If Register X >= 0
+C - - - - - 0x01809B 06:A08B: 10 C4     BPL bra_A051_loop                   ; If vTempCounter1A >= 0
 C - - - - - 0x01809D 06:A08D: 60        RTS                                 ;
 
 ; In: Register X - the number of the bullet
@@ -241,7 +244,7 @@ loc_A111_main:
 C - - - - - 0x018121 06:A111: BD 2C 03  LDA vEnemyAPosY,X                             ;
 C - - - - - 0x018124 06:A114: 85 00     STA ram_0000                                  ;
 C - - - - - 0x018126 06:A116: E6 00     INC ram_0000                                  ; prepare an input parameter (EnemyAPosY + 1)
-C - - - - - 0x018128 06:A118: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y       ; 
+C - - - - - 0x018128 06:A118: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y      ; 
 C - - - - - 0x01812B 06:A11B: D0 07     BNE bra_A124_skip                             ; If the collisions by Y-position exists
 C - - - - - 0x01812D 06:A11D: A9 1C     LDA #$1C                                      ; CONSTANT - a jump counter value
 C - - - - - 0x01812F 06:A11F: A0 02     LDY #$02                                      ; CONSTANT - jumping off, free fall
@@ -293,7 +296,7 @@ C - - - - - 0x018176 06:A166: 6A        ROR                                   ;
 C - - - - - 0x018177 06:A167: 90 0F     BCC bra_A178_skip                     ; If the enemy is looking to the right
 C - - - - - 0x018179 06:A169: 20 7E A1  JSR sub_A17E_try_movement_on_the_left ;
 loc_A16C_prepare_rendering_by_frame_:
-C D 1 - - - 0x01817C 06:A16C: 20 AE D9  JSR sub_D9AE_inc_frame_counter        ;
+C D 1 - - - 0x01817C 06:A16C: 20 AE D9  JSR sub_D9AE_inc_enemyA_frame_counter ;
 C - - - - - 0x01817F 06:A16F: BD 44 03  LDA vEnemyAFrame_Counter,X            ;
 C - - - - - 0x018182 06:A172: 0A        ASL                                   ;
 C - - - - - 0x018183 06:A173: 0A        ASL                                   ; *4
@@ -457,7 +460,7 @@ C - - - - - 0x018294 06:A284: 4C 30 A1  JMP loc_A130_prepare_rendering  ;
 bra_A287_skip:
 C - - - - - 0x018297 06:A287: 85 00     STA ram_0000                                 ;
 C - - - - - 0x018299 06:A289: E6 00     INC ram_0000                                 ; prepare an input parameter
-C - - - - - 0x01829B 06:A28B: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y      ;
+C - - - - - 0x01829B 06:A28B: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y     ;
 C - - - - - 0x01829E 06:A28E: F0 23     BEQ bra_A2B3_inc                             ; If the collisions by Y-position don't exist
 C - - - - - 0x0182A0 06:A290: C9 02     CMP #$02                                     ; CONSTANT - a weak collision
 C - - - - - 0x0182A2 06:A292: F0 07     BEQ bra_A29B_weak                            ; If the collision is weak
@@ -831,7 +834,7 @@ C - - - - - 0x01850C 06:A4FC: C9 05     CMP #$05
 C - - - - - 0x01850E 06:A4FE: 90 0B     BCC bra_A50B
 C - - - - - 0x018510 06:A500: C9 0C     CMP #$0C
 C - - - - - 0x018512 06:A502: B0 07     BCS bra_A50B
-C - - - - - 0x018514 06:A504: 20 CD D8  JSR $D8CD
+C - - - - - 0x018514 06:A504: 20 CD D8  JSR sub_D8CD_enemyB_collision_plus_one
 C - - - - - 0x018517 06:A507: F0 1E     BEQ bra_A527_RTS
 C - - - - - 0x018519 06:A509: D0 0D     BNE bra_A518
 bra_A50B:
@@ -840,7 +843,7 @@ C - - - - - 0x01851D 06:A50D: 90 04     BCC bra_A513
 C - - - - - 0x01851F 06:A50F: C9 0D     CMP #$0D
 C - - - - - 0x018521 06:A511: 90 14     BCC bra_A527_RTS
 bra_A513:
-C - - - - - 0x018523 06:A513: 20 D1 D8  JSR $D8D1
+C - - - - - 0x018523 06:A513: 20 D1 D8  JSR sub_D8D1_enemyB_collision_minus_16
 C - - - - - 0x018526 06:A516: F0 0F     BEQ bra_A527_RTS
 bra_A518:
 C - - - - - 0x018528 06:A518: 20 98 A5  JSR sub_A598
@@ -1389,7 +1392,7 @@ C - - - - - 0x0188AC 06:A89C: 90 05     BCC bra_A8A3
 bra_A8A3:
 C - - - - - 0x0188B3 06:A8A3: 85 00     STA ram_0000
 C - - - - - 0x0188B5 06:A8A5: E6 00     INC ram_0000
-C - - - - - 0x0188B7 06:A8A7: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
+C - - - - - 0x0188B7 06:A8A7: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y
 C - - - - - 0x0188BA 06:A8AA: F0 16     BEQ bra_A8C2
 C - - - - - 0x0188BC 06:A8AC: C9 02     CMP #$02
 C - - - - - 0x0188BE 06:A8AE: F0 07     BEQ bra_A8B7
@@ -3114,7 +3117,7 @@ C - - - - - 0x0193B3 06:B3A3: F0 C8     BEQ bra_B36D
 C - - - - - 0x0193B5 06:B3A5: BD 2C 03  LDA ram_032C,X
 C - - - - - 0x0193B8 06:B3A8: 85 00     STA ram_0000
 C - - - - - 0x0193BA 06:B3AA: E6 00     INC ram_0000
-C - - - - - 0x0193BC 06:B3AC: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
+C - - - - - 0x0193BC 06:B3AC: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y
 C - - - - - 0x0193BF 06:B3AF: D0 07     BNE bra_B3B8
 C - - - - - 0x0193C1 06:B3B1: A9 1C     LDA #$1C
 C - - - - - 0x0193C3 06:B3B3: A0 02     LDY #$02
@@ -3306,7 +3309,7 @@ C - - - - - 0x019506 06:B4F6: 6A        ROR
 C - - - - - 0x019507 06:B4F7: 90 0F     BCC bra_B508
 C - - - - - 0x019509 06:B4F9: 20 0E B5  JSR sub_B50E
 loc_B4FC:
-C D 1 - - - 0x01950C 06:B4FC: 20 AE D9  JSR sub_D9AE_inc_frame_counter
+C D 1 - - - 0x01950C 06:B4FC: 20 AE D9  JSR sub_D9AE_inc_enemyA_frame_counter
 C - - - - - 0x01950F 06:B4FF: BD 44 03  LDA ram_0344,X
 C - - - - - 0x019512 06:B502: 0A        ASL
 C - - - - - 0x019513 06:B503: 0A        ASL
@@ -3433,7 +3436,7 @@ C - - - - - 0x0195E5 06:B5D5: 4C 06 B4  JMP loc_B406
 bra_B5D8:
 C - - - - - 0x0195E8 06:B5D8: 85 00     STA ram_0000
 C - - - - - 0x0195EA 06:B5DA: E6 00     INC ram_0000
-C - - - - - 0x0195EC 06:B5DC: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
+C - - - - - 0x0195EC 06:B5DC: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y
 C - - - - - 0x0195EF 06:B5DF: F0 23     BEQ bra_B604
 C - - - - - 0x0195F1 06:B5E1: C9 02     CMP #$02
 C - - - - - 0x0195F3 06:B5E3: F0 07     BEQ bra_B5EC
@@ -3475,7 +3478,7 @@ bra_B625:
 C - - - - - 0x019635 06:B625: 4C 06 B4  JMP loc_B406
 
 bra_B628:
-C - - - - - 0x019638 06:B628: 20 D5 D7  JSR $D7D5 ; to sub_D7D5 (bank FF)
+C - - - - - 0x019638 06:B628: 20 D5 D7  JSR sub_D7D5_check_enemyA_collision_by_in_maze
 C - - - - - 0x01963B 06:B62B: D0 D7     BNE bra_B604
 C - - - - - 0x01963D 06:B62D: A9 18     LDA #$18
 C - - - - - 0x01963F 06:B62F: 9D 4A 03  STA ram_034A,X
@@ -3849,7 +3852,7 @@ C - - - - - 0x0198AB 06:B89B: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bit
 C - - - - - 0x0198BC 06:B8AC: BD 2C 03  LDA ram_032C,X
 C - - - - - 0x0198BF 06:B8AF: 85 00     STA ram_0000
 C - - - - - 0x0198C1 06:B8B1: E6 00     INC ram_0000
-C - - - - - 0x0198C3 06:B8B3: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
+C - - - - - 0x0198C3 06:B8B3: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y
 C - - - - - 0x0198C6 06:B8B6: D0 07     BNE bra_B8BF
 C - - - - - 0x0198C8 06:B8B8: A9 1C     LDA #$1C
 C - - - - - 0x0198CA 06:B8BA: A0 02     LDY #$02
@@ -3907,7 +3910,7 @@ C - - - - - 0x019926 06:B916: 6A        ROR
 C - - - - - 0x019927 06:B917: 90 0F     BCC bra_B928
 C - - - - - 0x019929 06:B919: 20 2E B9  JSR sub_B92E
 loc_B91C:
-C D 1 - - - 0x01992C 06:B91C: 20 AE D9  JSR sub_D9AE_inc_frame_counter
+C D 1 - - - 0x01992C 06:B91C: 20 AE D9  JSR sub_D9AE_inc_enemyA_frame_counter
 C - - - - - 0x01992F 06:B91F: BD 44 03  LDA ram_0344,X
 C - - - - - 0x019932 06:B922: 0A        ASL
 C - - - - - 0x019933 06:B923: 0A        ASL
@@ -4028,7 +4031,7 @@ C - - - - - 0x0199FF 06:B9EF: 4C E0 B8  JMP loc_B8E0
 bra_B9F2:
 C - - - - - 0x019A02 06:B9F2: 85 00     STA ram_0000
 C - - - - - 0x019A04 06:B9F4: E6 00     INC ram_0000
-C - - - - - 0x019A06 06:B9F6: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
+C - - - - - 0x019A06 06:B9F6: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y
 C - - - - - 0x019A09 06:B9F9: F0 23     BEQ bra_BA1E
 C - - - - - 0x019A0B 06:B9FB: C9 02     CMP #$02
 C - - - - - 0x019A0D 06:B9FD: F0 07     BEQ bra_BA06
@@ -4065,7 +4068,7 @@ bra_BA36:
 C - - - - - 0x019A46 06:BA36: 4C E0 B8  JMP loc_B8E0
 
 bra_BA39:
-C - - - - - 0x019A49 06:BA39: 20 D5 D7  JSR $D7D5
+C - - - - - 0x019A49 06:BA39: 20 D5 D7  JSR sub_D7D5_check_enemyA_collision_by_in_maze
 C - - - - - 0x019A4C 06:BA3C: D0 E0     BNE bra_BA1E
 C - - - - - 0x019A4E 06:BA3E: A9 18     LDA #$18
 C - - - - - 0x019A50 06:BA40: 9D 4A 03  STA ram_034A,X
@@ -4291,7 +4294,7 @@ C - - - - - 0x019BA3 06:BB93: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bit
 C - - - - - 0x019BB4 06:BBA4: BD 2C 03  LDA ram_032C,X
 C - - - - - 0x019BB7 06:BBA7: 85 00     STA ram_0000
 C - - - - - 0x019BB9 06:BBA9: E6 00     INC ram_0000
-C - - - - - 0x019BBB 06:BBAB: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
+C - - - - - 0x019BBB 06:BBAB: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y
 C - - - - - 0x019BBE 06:BBAE: D0 07     BNE bra_BBB7
 C - - - - - 0x019BC0 06:BBB0: A9 1C     LDA #$1C
 C - - - - - 0x019BC2 06:BBB2: A0 02     LDY #$02
@@ -4358,7 +4361,7 @@ C - - - - - 0x019C2B 06:BC1B: 6A        ROR
 C - - - - - 0x019C2C 06:BC1C: 90 06     BCC bra_BC24
 C - - - - - 0x019C2E 06:BC1E: 20 2A BC  JSR sub_BC2A
 loc_BC21:
-C D 1 - - - 0x019C31 06:BC21: 4C AE D9  JMP sub_D9AE_inc_frame_counter
+C D 1 - - - 0x019C31 06:BC21: 4C AE D9  JMP sub_D9AE_inc_enemyA_frame_counter
 
 bra_BC24:
 C - - - - - 0x019C34 06:BC24: 20 5A BC  JSR sub_BC5A
@@ -4457,7 +4460,7 @@ C - - - - - 0x019CD9 06:BCC9: 4C D1 BB  JMP loc_BBD1
 bra_BCCC:
 C - - - - - 0x019CDC 06:BCCC: 85 00     STA ram_0000
 C - - - - - 0x019CDE 06:BCCE: E6 00     INC ram_0000
-C - - - - - 0x019CE0 06:BCD0: 20 58 D3  JSR sub_D358_check_enemy_collision_by_Y
+C - - - - - 0x019CE0 06:BCD0: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y
 C - - - - - 0x019CE3 06:BCD3: F0 22     BEQ bra_BCF7
 C - - - - - 0x019CE5 06:BCD5: C9 02     CMP #$02
 C - - - - - 0x019CE7 06:BCD7: F0 07     BEQ bra_BCE0
