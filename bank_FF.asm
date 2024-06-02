@@ -99,6 +99,7 @@
 .export loc_D6F0_dec_EnemyAPosXLow
 .export loc_D7FC_dec_EnemyBPosXLow
 .export loc_D77F_free_enemyA
+.export loc_D873_free_enemyB
 .export sub_D6BD_try_change_enemyA_direction
 .export sub_D6DB_try_change_enemyB_direction
 .export sub_D9AE_inc_enemyA_frame_counter
@@ -4013,6 +4014,7 @@ C - - - - - 0x01D87B 07:D86B: 20 93 D8  JSR sub_D893_inc_diving_frameB_      ;
 C - - - - - 0x01D87E 07:D86E: B0 03     BCS bra_D873_free_enemyB             ; If vEnemyBFrame_Counter >= 0x1F
 C - - - - - 0x01D880 07:D870: 4C 64 D7  JMP loc_D764_diving_render           ;
 
+loc_D873_free_enemyB:
 bra_D873_free_enemyB:
 C D 2 - - - 0x01D883 07:D873: A6 1A     LDX vTempCounter1A             ; puts the enemyA number
 C - - - - - 0x01D885 07:D875: AC 01 03  LDY vEnemyB                    ;
@@ -4085,10 +4087,11 @@ C - - - - - 0x01D8E3 07:D8D3: 20 DB D8  JSR sub_D8DB_enemyB_collision_by_shift_p
 C - - - - - 0x01D8E6 07:D8D6: C9 01     CMP #$01                                     ; CONSTANT - a strong collision
 C - - - - - 0x01D8E8 07:D8D8: 60        RTS                                          ;
 
+; Out: Register A - a collision value (0x0X), 0x00 - no collision (see 98C0, bank 01_2)
 sub_D8D9_enemyB_collision_by_one:
 C - - - - - 0x01D8E9 07:D8D9: A9 01     LDA #$01                                    ; initializes PosY
 ; In: Register A - PosY
-; Out: Register A - a collision value (0x0X), 0x00 - no collision (see 98C0, bank 01_2)
+; Out: Register A - a collision value (0x0X), 0x00 - no collision
 sub_D8DB_enemyB_collision_by_shift_posY:
 C - - - - - 0x01D8EB 07:D8DB: 18        CLC                                         ;
 C - - - - - 0x01D8EC 07:D8DC: 7D 68 03  ADC vEnemyBPosY,X                           ;

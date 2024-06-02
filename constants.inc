@@ -430,16 +430,18 @@ vEnemyAJumpType2              = ram_0357 ; vJumpType analog for the enemy (the e
 
 vEnemyBStatus                 = ram_035C ; see below
 ; 0x00 - None
+; 0x01 - the direction (1 - on the left, 0 - on the right) 
+; 0x20 - the enemy is dying (1 - true, 0 - false)
 ; 0x40 - the enemy can get damage (1 - true, 0 - false)
-; 0x80 - The status is used
+; 0x80 - The status is used (1 - true, 0 - false)
 
-; Byte: 0YZW KLMN (template2)
-; N - the direction (1 - on the left, 0 - on the right)
-; M - 
-; L - 
-; K - 
-; W - 
-; Z - 
+; Byte: 0YZW KLMN (template2, cat or snake)
+; N - see above
+; M - the jump
+; L - ???
+; K - the stop
+; W - ???
+; Z - see above
 ; Y - see above
 
 vEnemyBStatus1                = ram_035C
@@ -530,7 +532,7 @@ v_sprite_magic1               = ram_06B7 ; Y-position, 0xF0 - a sprite doesn't e
 v_sprite_magic2               = ram_06B8 ; The offset by the address SS (see v_sprite_magic3)
 v_sprite_magic3               = ram_06B9
 ; SSBB XCOO
-; SS - the offset of the high address ($8000), i.e. $8000 + $SS00
+; SS - the offset of the high address ($8000), i.e. $8000 + 0%00SS0000
 ; BB - 0x00 - bank 05 (2 page), 0x01 - bank 02 (2 page), 0x1X - bank 05 (1 page)
 ; C  -  0x1 - usign next CHR-page size 1 Kb, 0x0 - using current CHR-page
 ; OO - the OAM-attributes

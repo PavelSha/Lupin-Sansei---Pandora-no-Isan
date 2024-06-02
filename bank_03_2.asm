@@ -13,6 +13,7 @@
 .import sub_D6AC_out_of_screen                       ; bank FF
 .import sub_D660_is_bomb_exploding                   ; bank FF
 .import loc_D77F_free_enemyA                         ; bank FF
+.import loc_D873_free_enemyB                         ; bank FF
 .import sub_D6BD_try_change_enemyA_direction         ; bank FF
 .import sub_D6DB_try_change_enemyB_direction         ; bank FF
 .import loc_D741_enemyA_off_screen                   ; bank FF
@@ -33,6 +34,7 @@
 .import loc_D7FC_dec_EnemyBPosXLow                   ; bank FF
 .import sub_D831_enemyB_on_screen                    ; bank FF
 .import sub_D9C4_inc_enemyB_frame_counter            ; bank FF
+.import sub_D064_generate_rng                        ; bank FF
 
 .export sub_A015_cat_or_snake_enemy
 
@@ -374,7 +376,7 @@ C - - - - - 0x00E178 03:A168: CE 50 03  DEC ram_0350
 C - - - - - 0x00E17B 03:A16B: F0 11     BEQ bra_A17E
 C - - - - - 0x00E17D 03:A16D: 88        DEY
 C - - - - - 0x00E17E 03:A16E: D0 F8     BNE bra_A168
-C - - - - - 0x00E180 03:A170: AD 5C 03  LDA ram_035C
+C - - - - - 0x00E180 03:A170: AD 5C 03  LDA vEnemyBStatus
 C - - - - - 0x00E183 03:A173: 30 03     BMI bra_A178
 C - - - - - 0x00E185 03:A175: 20 8C A4  JSR sub_A48C
 bra_A178:
@@ -407,7 +409,7 @@ C - - - - - 0x00E1AF 03:A19F: 85 B0     STA ram_00B0
 C - - - - - 0x00E1B1 03:A1A1: 60        RTS
 
 sub_A1A2:
-C - - - - - 0x00E1B2 03:A1A2: AD 5C 03  LDA ram_035C
+C - - - - - 0x00E1B2 03:A1A2: AD 5C 03  LDA vEnemyBStatus
 C - - - - - 0x00E1B5 03:A1A5: 30 E8     BMI bra_A18F
 C - - - - - 0x00E1B7 03:A1A7: A0 08     LDY #$08
 C - - - - - 0x00E1B9 03:A1A9: AD 20 03  LDA vEnemyAStatus
@@ -506,7 +508,7 @@ C - - - - - 0x00E25E 03:A24E: D0 B9     BNE bra_A209_RTS
 C - - - - - 0x00E260 03:A250: A5 12     LDA ram_0012
 C - - - - - 0x00E262 03:A252: 29 04     AND #$04
 C - - - - - 0x00E264 03:A254: D0 05     BNE bra_A25B
-C - - - - - 0x00E266 03:A256: AD 5C 03  LDA ram_035C
+C - - - - - 0x00E266 03:A256: AD 5C 03  LDA vEnemyBStatus
 C - - - - - 0x00E269 03:A259: 30 AE     BMI bra_A209_RTS
 bra_A25B:
 C - - - - - 0x00E26B 03:A25B: A0 20     LDY #$20
@@ -550,7 +552,7 @@ C - - - - - 0x00E2AB 03:A29B: F0 02     BEQ bra_A29F
 C - - - - - 0x00E2AD 03:A29D: A0 ED     LDY #$ED
 bra_A29F:
 C - - - - - 0x00E2AF 03:A29F: 09 C0     ORA #$C0
-C - - - - - 0x00E2B1 03:A2A1: 8D 5C 03  STA ram_035C
+C - - - - - 0x00E2B1 03:A2A1: 8D 5C 03  STA vEnemyBStatus
 C - - - - - 0x00E2B4 03:A2A4: 98        TYA
 C - - - - - 0x00E2B5 03:A2A5: 18        CLC
 C - - - - - 0x00E2B6 03:A2A6: 6D 38 03  ADC ram_0338
@@ -854,7 +856,7 @@ C - - - - - 0x00E4A3 03:A493: F0 02     BEQ bra_A497
 C - - - - - 0x00E4A5 03:A495: A0 F8     LDY #$F8
 bra_A497:
 C - - - - - 0x00E4A7 03:A497: 09 C0     ORA #$C0
-C - - - - - 0x00E4A9 03:A499: 8D 5C 03  STA ram_035C
+C - - - - - 0x00E4A9 03:A499: 8D 5C 03  STA vEnemyBStatus
 C - - - - - 0x00E4AC 03:A49C: 98        TYA
 C - - - - - 0x00E4AD 03:A49D: 18        CLC
 C - - - - - 0x00E4AE 03:A49E: 6D 38 03  ADC ram_0338
@@ -874,9 +876,9 @@ bra_A4BF_RTS:
 C - - - - - 0x00E4CF 03:A4BF: 60        RTS
 
 sub_A4C0:
-C - - - - - 0x00E4D0 03:A4C0: AD 5C 03  LDA ram_035C
+C - - - - - 0x00E4D0 03:A4C0: AD 5C 03  LDA vEnemyBStatus
 C - - - - - 0x00E4D3 03:A4C3: 10 FA     BPL bra_A4BF_RTS
-C - - - - - 0x00E4D5 03:A4C5: AD 5C 03  LDA ram_035C
+C - - - - - 0x00E4D5 03:A4C5: AD 5C 03  LDA vEnemyBStatus
 C - - - - - 0x00E4D8 03:A4C8: 6A        ROR
 C - - - - - 0x00E4D9 03:A4C9: 90 06     BCC bra_A4D1
 C - - - - - 0x00E4DB 03:A4CB: 20 32 A5  JSR sub_A532
@@ -896,7 +898,7 @@ C - - - - - 0x00E4F6 03:A4E6: 90 0A     BCC bra_A4F2
 C - - - - - 0x00E4F8 03:A4E8: AD 68 03  LDA ram_0368
 C - - - - - 0x00E4FB 03:A4EB: C9 DF     CMP #$DF
 C - - - - - 0x00E4FD 03:A4ED: 90 03     BCC bra_A4F2
-C - - - - - 0x00E4FF 03:A4EF: 4C 73 D8  JMP $D873
+C - - - - - 0x00E4FF 03:A4EF: 4C 73 D8  JMP loc_D873_free_enemyB
 
 bra_A4F2:
 C - - - - - 0x00E502 03:A4F2: EE 86 03  INC ram_0386
@@ -917,7 +919,7 @@ C - - - - - 0x00E51D 03:A50D: AD 7A 03  LDA ram_037A
 C - - - - - 0x00E520 03:A510: 85 01     STA ram_0001
 C - - - - - 0x00E522 03:A512: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x00E525 03:A515: 90 03     BCC bra_A51A
-C - - - - - 0x00E527 03:A517: 4C 73 D8  JMP $D873
+C - - - - - 0x00E527 03:A517: 4C 73 D8  JMP loc_D873_free_enemyB
 
 bra_A51A:
 C - - - - - 0x00E52A 03:A51A: AD 68 03  LDA ram_0368
@@ -1272,7 +1274,7 @@ C - - - - - 0x00E73A 03:A72A: A6 1A     LDX ram_001A
 C - - - - - 0x00E73C 03:A72C: 20 EC A7  JSR sub_A7EC
 C - - - - - 0x00E73F 03:A72F: AD 50 03  LDA ram_0350
 C - - - - - 0x00E742 03:A732: F0 4F     BEQ bra_A783
-C - - - - - 0x00E744 03:A734: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00E744 03:A734: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00E747 03:A737: C9 E0     CMP #$E0
 C - - - - - 0x00E749 03:A739: B0 48     BCS bra_A783
 C - - - - - 0x00E74B 03:A73B: C9 C0     CMP #$C0
@@ -1331,7 +1333,7 @@ C - - - - - 0x00E7A5 03:A795: 8A        TXA
 C - - - - - 0x00E7A6 03:A796: 48        PHA
 C - - - - - 0x00E7A7 03:A797: A2 05     LDX #$05
 bra_A799:
-C - - - - - 0x00E7A9 03:A799: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00E7A9 03:A799: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00E7AC 03:A79C: 10 06     BPL bra_A7A4
 C - - - - - 0x00E7AE 03:A79E: CA        DEX
 C - - - - - 0x00E7AF 03:A79F: 10 F8     BPL bra_A799
@@ -1349,7 +1351,7 @@ C - - - - - 0x00E7C0 03:A7B0: F0 02     BEQ bra_A7B4
 C - - - - - 0x00E7C2 03:A7B2: A0 E8     LDY #$E8
 bra_A7B4:
 C - - - - - 0x00E7C4 03:A7B4: 09 C0     ORA #$C0
-C - - - - - 0x00E7C6 03:A7B6: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x00E7C6 03:A7B6: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x00E7C9 03:A7B9: 98        TYA
 C - - - - - 0x00E7CA 03:A7BA: 18        CLC
 C - - - - - 0x00E7CB 03:A7BB: 6D 38 03  ADC ram_0338
@@ -1380,7 +1382,7 @@ bra_A7EB_RTS:
 C - - - - - 0x00E7FB 03:A7EB: 60        RTS
 
 sub_A7EC:
-C - - - - - 0x00E7FC 03:A7EC: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00E7FC 03:A7EC: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00E7FF 03:A7EF: 10 FA     BPL bra_A7EB_RTS
 C - - - - - 0x00E801 03:A7F1: 29 24     AND #$24
 C - - - - - 0x00E803 03:A7F3: C9 20     CMP #$20
@@ -1416,11 +1418,11 @@ C - - - - - 0x00E838 03:A828: BD 7A 03  LDA ram_037A,X
 C - - - - - 0x00E83B 03:A82B: 85 01     STA ram_0001
 C - - - - - 0x00E83D 03:A82D: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x00E840 03:A830: 90 03     BCC bra_A835
-C - - - - - 0x00E842 03:A832: 4C 73 D8  JMP $D873
+C - - - - - 0x00E842 03:A832: 4C 73 D8  JMP loc_D873_free_enemyB
 
 bra_A835:
 C - - - - - 0x00E845 03:A835: 20 31 D8  JSR sub_D831_enemyB_on_screen
-C - - - - - 0x00E848 03:A838: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00E848 03:A838: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00E84B 03:A83B: 29 20     AND #$20
 C - - - - - 0x00E84D 03:A83D: F0 03     BEQ bra_A842
 C - - - - - 0x00E84F 03:A83F: 4C 81 A8  JMP loc_A881
@@ -1432,7 +1434,7 @@ bra_A845:
 C - - - - - 0x00E855 03:A845: BD 68 03  LDA ram_0368,X
 C - - - - - 0x00E858 03:A848: C9 F0     CMP #$F0
 C - - - - - 0x00E85A 03:A84A: 90 03     BCC bra_A84F
-C - - - - - 0x00E85C 03:A84C: 4C 73 D8  JMP $D873
+C - - - - - 0x00E85C 03:A84C: 4C 73 D8  JMP loc_D873_free_enemyB
 
 bra_A84F:
 C - - - - - 0x00E85F 03:A84F: C9 C0     CMP #$C0
@@ -1455,7 +1457,7 @@ C - - - - - 0x00E87F 03:A86F: 4C 17 A8  JMP loc_A817
 
 sub_A872:
 C - - - - - 0x00E882 03:A872: A0 05     LDY #$05
-C - - - - - 0x00E884 03:A874: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00E884 03:A874: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00E887 03:A877: 6A        ROR
 C - - - - - 0x00E888 03:A878: 90 02     BCC bra_A87C
 C - - - - - 0x00E88A 03:A87A: A0 0B     LDY #$0B
@@ -1467,7 +1469,7 @@ C - - - - - 0x00E890 03:A880: 60        RTS
 loc_A881:
 C D 1 - - - 0x00E891 03:A881: DE 86 03  DEC ram_0386,X
 C - - - - - 0x00E894 03:A884: D0 03     BNE bra_A889
-C - - - - - 0x00E896 03:A886: 4C 73 D8  JMP $D873
+C - - - - - 0x00E896 03:A886: 4C 73 D8  JMP loc_D873_free_enemyB
 
 bra_A889:
 C - - - - - 0x00E899 03:A889: 4C 7D D9  JMP $D97D
@@ -1481,7 +1483,7 @@ C - - - - - 0x00E8A5 03:A895: 9D 68 03  STA ram_0368,X
 C - - - - - 0x00E8A8 03:A898: AD 20 03  LDA vEnemyAStatus
 C - - - - - 0x00E8AB 03:A89B: 29 01     AND #$01
 C - - - - - 0x00E8AD 03:A89D: 09 C0     ORA #$C0
-C - - - - - 0x00E8AF 03:A89F: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x00E8AF 03:A89F: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x00E8B2 03:A8A2: 6A        ROR
 C - - - - - 0x00E8B3 03:A8A3: 90 05     BCC bra_A8AA
 C - - - - - 0x00E8B5 03:A8A5: 98        TYA
@@ -1497,10 +1499,10 @@ C - - - - - 0x00E8C4 03:A8B4: 60        RTS
 
 sub_A8B5:
 C - - - - - 0x00E8C5 03:A8B5: 85 05     STA ram_0005
-C - - - - - 0x00E8C7 03:A8B7: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00E8C7 03:A8B7: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00E8CA 03:A8BA: 29 C1     AND #$C1
 C - - - - - 0x00E8CC 03:A8BC: 05 05     ORA ram_0005
-C - - - - - 0x00E8CE 03:A8BE: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x00E8CE 03:A8BE: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x00E8D1 03:A8C1: 60        RTS
 
 tbl_A8C2:
@@ -1755,7 +1757,7 @@ C - - - - - 0x00EA68 03:AA58: A6 1A     LDX ram_001A
 C - - - - - 0x00EA6A 03:AA5A: 20 04 AB  JSR sub_AB04
 C - - - - - 0x00EA6D 03:AA5D: AD 50 03  LDA ram_0350
 C - - - - - 0x00EA70 03:AA60: F0 1E     BEQ bra_AA80
-C - - - - - 0x00EA72 03:AA62: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00EA72 03:AA62: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00EA75 03:AA65: 10 19     BPL bra_AA80
 C - - - - - 0x00EA77 03:AA67: 29 20     AND #$20
 C - - - - - 0x00EA79 03:AA69: D0 15     BNE bra_AA80
@@ -1776,7 +1778,7 @@ C - - - - - 0x00EA94 03:AA84: 60        RTS
 sub_AA85:
 C - - - - - 0x00EA95 03:AA85: A2 02     LDX #$02
 bra_AA87:
-C - - - - - 0x00EA97 03:AA87: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00EA97 03:AA87: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00EA9A 03:AA8A: 10 07     BPL bra_AA93_RTS
 C - - - - - 0x00EA9C 03:AA8C: CA        DEX
 C - - - - - 0x00EA9D 03:AA8D: 10 F8     BPL bra_AA87
@@ -1795,7 +1797,7 @@ C - - - - - 0x00EAAB 03:AA9B: F0 02     BEQ bra_AA9F
 C - - - - - 0x00EAAD 03:AA9D: A0 F8     LDY #$F8
 bra_AA9F:
 C - - - - - 0x00EAAF 03:AA9F: 05 00     ORA ram_0000
-C - - - - - 0x00EAB1 03:AAA1: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x00EAB1 03:AAA1: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x00EAB4 03:AAA4: 98        TYA
 C - - - - - 0x00EAB5 03:AAA5: 18        CLC
 C - - - - - 0x00EAB6 03:AAA6: 6D 38 03  ADC ram_0338
@@ -1853,7 +1855,7 @@ bra_AB03_RTS:
 C - - - - - 0x00EB13 03:AB03: 60        RTS
 
 sub_AB04:
-C - - - - - 0x00EB14 03:AB04: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00EB14 03:AB04: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00EB17 03:AB07: 10 FA     BPL bra_AB03_RTS
 C - - - - - 0x00EB19 03:AB09: 29 22     AND #$22
 C - - - - - 0x00EB1B 03:AB0B: C9 20     CMP #$20
@@ -1868,7 +1870,7 @@ C - - - - - 0x00EB29 03:AB19: 20 6C A5  JSR sub_A56C
 C - - - - - 0x00EB2C 03:AB1C: BD 68 03  LDA ram_0368,X
 C - - - - - 0x00EB2F 03:AB1F: C9 F8     CMP #$F8
 C - - - - - 0x00EB31 03:AB21: 90 03     BCC bra_AB26
-C - - - - - 0x00EB33 03:AB23: 4C 73 D8  JMP $D873
+C - - - - - 0x00EB33 03:AB23: 4C 73 D8  JMP loc_D873_free_enemyB
 
 bra_AB26:
 C - - - - - 0x00EB36 03:AB26: C9 BF     CMP #$BF
@@ -1882,14 +1884,14 @@ C - - - - - 0x00EB42 03:AB32: BD 7A 03  LDA ram_037A,X
 C - - - - - 0x00EB45 03:AB35: 85 01     STA ram_0001
 C - - - - - 0x00EB47 03:AB37: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x00EB4A 03:AB3A: 90 03     BCC bra_AB3F
-C - - - - - 0x00EB4C 03:AB3C: 4C 73 D8  JMP $D873
+C - - - - - 0x00EB4C 03:AB3C: 4C 73 D8  JMP loc_D873_free_enemyB
 
 bra_AB3F:
 C - - - - - 0x00EB4F 03:AB3F: BD 68 03  LDA ram_0368,X
 C - - - - - 0x00EB52 03:AB42: 85 00     STA ram_0000
 C - - - - - 0x00EB54 03:AB44: A5 03     LDA ram_0003
 C - - - - - 0x00EB56 03:AB46: 9D 6E 03  STA ram_036E,X
-C - - - - - 0x00EB59 03:AB49: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00EB59 03:AB49: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00EB5C 03:AB4C: 29 20     AND #$20
 C - - - - - 0x00EB5E 03:AB4E: D0 63     BNE bra_ABB3
 C - - - - - 0x00EB60 03:AB50: A0 20     LDY #$20
@@ -1907,7 +1909,7 @@ bra_AB63:
 C - - - - - 0x00EB73 03:AB63: 4C 24 A5  JMP loc_A524
 
 sub_AB66:
-C - - - - - 0x00EB76 03:AB66: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00EB76 03:AB66: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00EB79 03:AB69: 6A        ROR
 C - - - - - 0x00EB7A 03:AB6A: 90 06     BCC bra_AB72
 C - - - - - 0x00EB7C 03:AB6C: 20 32 A5  JSR sub_A532
@@ -1942,10 +1944,10 @@ bra_AB9E:
 sub_AB9E:
 C - - - - - 0x00EBAE 03:AB9E: A9 0C     LDA #$0C
 C - - - - - 0x00EBB0 03:ABA0: 9D 86 03  STA ram_0386,X
-C - - - - - 0x00EBB3 03:ABA3: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00EBB3 03:ABA3: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00EBB6 03:ABA6: 29 C1     AND #$C1
 C - - - - - 0x00EBB8 03:ABA8: 09 20     ORA #$20
-C - - - - - 0x00EBBA 03:ABAA: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x00EBBA 03:ABAA: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x00EBBD 03:ABAD: A9 0F     LDA #$0F
 C - - - - - 0x00EBBF 03:ABAF: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
 C - - - - - 0x00EBC2 03:ABB2: 60        RTS
@@ -1953,7 +1955,7 @@ C - - - - - 0x00EBC2 03:ABB2: 60        RTS
 bra_ABB3:
 C - - - - - 0x00EBC3 03:ABB3: DE 86 03  DEC ram_0386,X
 C - - - - - 0x00EBC6 03:ABB6: D0 03     BNE bra_ABBB
-C - - - - - 0x00EBC8 03:ABB8: 4C 73 D8  JMP $D873
+C - - - - - 0x00EBC8 03:ABB8: 4C 73 D8  JMP loc_D873_free_enemyB
 
 bra_ABBB:
 C - - - - - 0x00EBCB 03:ABBB: BD 86 03  LDA ram_0386,X
@@ -2583,7 +2585,7 @@ C - - - - - 0x00EF93 03:AF83: F0 02     BEQ bra_AF87
 C - - - - - 0x00EF95 03:AF85: A2 F8     LDX #$F8
 bra_AF87:
 C - - - - - 0x00EF97 03:AF87: 05 00     ORA ram_0000
-C - - - - - 0x00EF99 03:AF89: 99 5C 03  STA ram_035C,Y
+C - - - - - 0x00EF99 03:AF89: 99 5C 03  STA vEnemyBStatus,Y
 C - - - - - 0x00EF9C 03:AF8C: 8A        TXA
 C - - - - - 0x00EF9D 03:AF8D: A6 1A     LDX ram_001A
 C - - - - - 0x00EF9F 03:AF8F: 18        CLC
@@ -2605,10 +2607,10 @@ C - - - - - 0x00EFBA 03:AFAA: 48        PHA
 C - - - - - 0x00EFBB 03:AFAB: A5 1A     LDA ram_001A
 C - - - - - 0x00EFBD 03:AFAD: 0A        ASL
 C - - - - - 0x00EFBE 03:AFAE: A8        TAY
-C - - - - - 0x00EFBF 03:AFAF: B9 5C 03  LDA ram_035C,Y
+C - - - - - 0x00EFBF 03:AFAF: B9 5C 03  LDA vEnemyBStatus,Y
 C - - - - - 0x00EFC2 03:AFB2: 10 06     BPL bra_AFBA
 C - - - - - 0x00EFC4 03:AFB4: C8        INY
-C - - - - - 0x00EFC5 03:AFB5: B9 5C 03  LDA ram_035C,Y
+C - - - - - 0x00EFC5 03:AFB5: B9 5C 03  LDA vEnemyBStatus,Y
 C - - - - - 0x00EFC8 03:AFB8: 30 22     BMI bra_AFDC
 bra_AFBA:
 C - - - - - 0x00EFCA 03:AFBA: A9 C0     LDA #$C0
@@ -2619,7 +2621,7 @@ C - - - - - 0x00EFD3 03:AFC3: 99 86 03  STA ram_0386,Y
 C - - - - - 0x00EFD6 03:AFC6: 20 64 D0  JSR $D064
 C - - - - - 0x00EFD9 03:AFC9: 29 03     AND #$03
 C - - - - - 0x00EFDB 03:AFCB: AA        TAX
-C - - - - - 0x00EFDC 03:AFCC: B9 5C 03  LDA ram_035C,Y
+C - - - - - 0x00EFDC 03:AFCC: B9 5C 03  LDA vEnemyBStatus,Y
 C - - - - - 0x00EFDF 03:AFCF: 6A        ROR
 C - - - - - 0x00EFE0 03:AFD0: 90 04     BCC bra_AFD6
 C - - - - - 0x00EFE2 03:AFD2: E8        INX
@@ -4387,32 +4389,31 @@ C - - - - - 0x00FB58 03:BB48: 05 05     ORA ram_0005
 C - - - - - 0x00FB5A 03:BB4A: 9D 20 03  STA vEnemyAStatus,X
 C - - - - - 0x00FB5D 03:BB4D: 60        RTS
 
-tbl_BB4E:
-- D 1 - - - 0x00FB5E 03:BB4E: 00        .byte $00   ; 
+tbl_BB4E_status_flags:
+- D 1 - - - 0x00FB5E 03:BB4E: 00        .byte $00   ; The enemy continuis to move.
 - D 1 - - - 0x00FB5F 03:BB4F: 00        .byte $00   ; 
 - D 1 - - - 0x00FB60 03:BB50: 00        .byte $00   ; 
-- D 1 - - - 0x00FB61 03:BB51: 02        .byte $02   ; 
+- D 1 - - - 0x00FB61 03:BB51: 02        .byte $02   ; The enemy is jumping.
 - D 1 - - - 0x00FB62 03:BB52: 02        .byte $02   ; 
 - D 1 - - - 0x00FB63 03:BB53: 08        .byte $08   ; 
 - D 1 - - - 0x00FB64 03:BB54: 08        .byte $08   ; 
 - D 1 - - - 0x00FB65 03:BB55: 08        .byte $08   ; 
-- D 1 - - - 0x00FB66 03:BB56: 00        .byte $00   ; 
+- D 1 - - - 0x00FB66 03:BB56: 00        .byte $00   ; The enemy continuis to move.
 - D 1 - - - 0x00FB67 03:BB57: 00        .byte $00   ; 
 - D 1 - - - 0x00FB68 03:BB58: 00        .byte $00   ; 
 - D 1 - - - 0x00FB69 03:BB59: 00        .byte $00   ; 
-- D 1 - - - 0x00FB6A 03:BB5A: 02        .byte $02   ; 
+- D 1 - - - 0x00FB6A 03:BB5A: 02        .byte $02   ; The enemy is jumping.
 - D 1 - - - 0x00FB6B 03:BB5B: 02        .byte $02   ; 
 - D 1 - - - 0x00FB6C 03:BB5C: 02        .byte $02   ; 
-- D 1 - - - 0x00FB6D 03:BB5D: 02        .byte $02   ; 
-
+- D 1 - - - 0x00FB6D 03:BB5D: 02        .byte $02   ;
 
 loc_BB5E_enemy:
 C D 1 - - - 0x00FB6E 03:BB5E: A2 01     LDX #$01                           ;
 C - - - - - 0x00FB70 03:BB60: 86 1A     STX vTempCounter1A                 ; set loop counter (the enemyB number)
 bra_BB62_loop:                                                             ; loop by vTempCounter1A (2 times)
-C - - - - - 0x00FB72 03:BB62: A6 1A     LDX vTempCounter1A
-C - - - - - 0x00FB74 03:BB64: 20 E2 BB  JSR sub_BBE2
-C - - - - - 0x00FB77 03:BB67: A6 1A     LDX vTempCounter1A
+C - - - - - 0x00FB72 03:BB62: A6 1A     LDX vTempCounter1A                 ; prepares an input parameter
+C - - - - - 0x00FB74 03:BB64: 20 E2 BB  JSR sub_BBE2_status_behavior       ;
+C - - - - - 0x00FB77 03:BB67: A6 1A     LDX vTempCounter1A                 ;
 C - - - - - 0x00FB79 03:BB69: BD 5C 03  LDA vEnemyBStatus,X                ;
 C - - - - - 0x00FB7C 03:BB6C: C9 E0     CMP #$E0                           ;
 C - - - - - 0x00FB7E 03:BB6E: B0 4C     BCS bra_BBBC_next                  ; If vEnemyBStatus >= 0xE0
@@ -4445,8 +4446,8 @@ C - - - - - 0x00FBB2 03:BBA2: F0 0B     BEQ bra_BBAF_check_bullets         ; If 
 C - - - - - 0x00FBB4 03:BBA4: 20 06 D6  JSR sub_D606_have_intersect_sword  ;
 C - - - - - 0x00FBB7 03:BBA7: 90 10     BCC bra_BBB9_no_intersect          ; If the intersect doesn't exist
 @bra_BBA9_bomb_hit:
-C - - - - - 0x00FBB9 03:BBA9: 20 CB BB  JSR sub_BBCB_hit
-C - - - - - 0x00FBBC 03:BBAC: 4C BC BB  JMP loc_BBBC_next
+C - - - - - 0x00FBB9 03:BBA9: 20 CB BB  JSR sub_BBCB_hit                   ;
+C - - - - - 0x00FBBC 03:BBAC: 4C BC BB  JMP loc_BBBC_next                  ;
 
 bra_BBAF_check_bullets:
 C - - - - - 0x00FBBF 03:BBAF: A6 7A     LDX vBulletCount                    ; set loop counter
@@ -4467,13 +4468,13 @@ C - - - - - 0x00FBD0 03:BBC0: 60        RTS                                 ;
 bra_BBC1_bullet_hit:
 C - - - - - 0x00FBD1 03:BBC1: A9 00     LDA #$00                            ;
 C - - - - - 0x00FBD3 03:BBC3: 95 8F     STA vBulletStatus,X                 ; clear
-C - - - - - 0x00FBD5 03:BBC5: 20 CB BB  JSR sub_BBCB_hit
+C - - - - - 0x00FBD5 03:BBC5: 20 CB BB  JSR sub_BBCB_hit                    ;
 C - - - - - 0x00FBD8 03:BBC8: 4C BC BB  JMP loc_BBBC_next                   ;
 
 sub_BBCB_hit:
 C - - - - - 0x00FBDB 03:BBCB: A6 1A     LDX vTempCounter1A             ;
-C - - - - - 0x00FBDD 03:BBCD: A9 22     LDA #$22
-C - - - - - 0x00FBDF 03:BBCF: 20 1C BE  JSR sub_BE1C
+C - - - - - 0x00FBDD 03:BBCD: A9 22     LDA #$22                       ; CONSTANT - the jump + the dying
+C - - - - - 0x00FBDF 03:BBCF: 20 1C BE  JSR sub_BE1C_change_substatus  ;
 C - - - - - 0x00FBE2 03:BBD2: A9 10     LDA #$10                       ; Initializes a jump counter
 C - - - - - 0x00FBE4 03:BBD4: 9D 86 03  STA vEnemyBJumpCounter,X       ;
 C - - - - - 0x00FBE7 03:BBD7: A9 03     LDA #$03                       ; CONSTANT - jump by side
@@ -4482,25 +4483,26 @@ C - - - - - 0x00FBEC 03:BBDC: A9 00     LDA #$00                       ;
 C - - - - - 0x00FBEE 03:BBDE: 9D 80 03  STA vEnemyBFrame_Counter,X     ; reset a counter
 C - - - - - 0x00FBF1 03:BBE1: 60        RTS                            ;
 
-sub_BBE2:
+; In: Register X - the enemyB number
+sub_BBE2_status_behavior:
 C - - - - - 0x00FBF2 03:BBE2: BD 5C 03  LDA vEnemyBStatus,X                       ;
 C - - - - - 0x00FBF5 03:BBE5: 10 D9     BPL bra_BBC0_RTS                          ; If the status isn't used
 C - - - - - 0x00FBF7 03:BBE7: BD 5C 03  LDA vEnemyBStatus,X                       ;
 C - - - - - 0x00FBFA 03:BBEA: 4A        LSR                                       ;
 C - - - - - 0x00FBFB 03:BBEB: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
 
-- D 1 - I - 0x00FBFE 03:BBEE: 42 BD     .addr loc_BD43 - 1 ; 0x02
-- - - - - - 0x00FC00 03:BBF0: 42 BC     .addr loc_BC43 - 1 ; 0x04
-- D 1 - I - 0x00FC02 03:BBF2: 42 BC     .addr loc_BC43 - 1 ; 0x08
-- D 1 - I - 0x00FC04 03:BBF4: FB BB     .addr loc_BBFC - 1 ; 0x10
-- - - - - - 0x00FC06 03:BBF6: C0 BD     .addr loc_BDC1 - 1 ; 0x20
-- D 1 - I - 0x00FC08 03:BBF8: 42 BC     .addr loc_BC43 - 1 ; 0x40
-- D 1 - I - 0x00FC0A 03:BBFA: 42 BC     .addr loc_BC43 - 1 ; 0x80
+- D 1 - I - 0x00FBFE 03:BBEE: 42 BD     .addr loc_BD43_jump - 1   ; 0x02
+- - - - - - 0x00FC00 03:BBF0: 42 BC     .addr loc_BC43_main - 1   ; 0x04
+- D 1 - I - 0x00FC02 03:BBF2: 42 BC     .addr loc_BC43_main - 1   ; 0x08
+- D 1 - I - 0x00FC04 03:BBF4: FB BB     .addr loc_BBFC - 1        ; 0x10
+- - - - - - 0x00FC06 03:BBF6: C0 BD     .addr loc_BDC1_dying - 1  ; 0x20
+- D 1 - I - 0x00FC08 03:BBF8: 42 BC     .addr loc_BC43_main - 1   ; 0x40
+- D 1 - I - 0x00FC0A 03:BBFA: 42 BC     .addr loc_BC43_main - 1   ; 0x80
 
 loc_BBFC:
-C - - - - - 0x00FC0C 03:BBFC: DE 86 03  DEC ram_0386,X
+C - - - - - 0x00FC0C 03:BBFC: DE 86 03  DEC vEnemyBJumpCounter,X
 C - - - - - 0x00FC0F 03:BBFF: F0 1A     BEQ bra_BC1B
-C - - - - - 0x00FC11 03:BC01: BD 86 03  LDA ram_0386,X
+C - - - - - 0x00FC11 03:BC01: BD 86 03  LDA vEnemyBJumpCounter,X
 C - - - - - 0x00FC14 03:BC04: C9 30     CMP #$30
 C - - - - - 0x00FC16 03:BC06: 90 03     BCC bra_BC0B
 C - - - - - 0x00FC18 03:BC08: 4C A7 BC  JMP loc_BCA7
@@ -4508,15 +4510,15 @@ C - - - - - 0x00FC18 03:BC08: 4C A7 BC  JMP loc_BCA7
 bra_BC0B:
 C - - - - - 0x00FC1B 03:BC0B: A0 0C     LDY #$0C
 C - - - - - 0x00FC1D 03:BC0D: C9 20     CMP #$20
-C - - - - - 0x00FC1F 03:BC0F: B0 6C     BCS bra_BC7D
+C - - - - - 0x00FC1F 03:BC0F: B0 6C     BCS bra_BC7D_prepare_rendering
 C - - - - - 0x00FC21 03:BC11: A0 10     LDY #$10
 C - - - - - 0x00FC23 03:BC13: C9 10     CMP #$10
-C - - - - - 0x00FC25 03:BC15: B0 66     BCS bra_BC7D
+C - - - - - 0x00FC25 03:BC15: B0 66     BCS bra_BC7D_prepare_rendering
 C - - - - - 0x00FC27 03:BC17: A0 14     LDY #$14
-C - - - - - 0x00FC29 03:BC19: D0 62     BNE bra_BC7D
+C - - - - - 0x00FC29 03:BC19: D0 62     BNE bra_BC7D_prepare_rendering
 bra_BC1B:
 C - - - - - 0x00FC2B 03:BC1B: A0 08     LDY #$08
-C - - - - - 0x00FC2D 03:BC1D: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00FC2D 03:BC1D: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00FC30 03:BC20: 6A        ROR
 C - - - - - 0x00FC31 03:BC21: A9 00     LDA #$00
 C - - - - - 0x00FC33 03:BC23: 90 04     BCC bra_BC29
@@ -4531,89 +4533,93 @@ C - - - - - 0x00FC40 03:BC30: 9D 74 03  STA ram_0374,X
 C - - - - - 0x00FC43 03:BC33: BD 7A 03  LDA ram_037A,X
 C - - - - - 0x00FC46 03:BC36: 65 00     ADC ram_0000
 C - - - - - 0x00FC48 03:BC38: 9D 7A 03  STA ram_037A,X
-C - - - - - 0x00FC4B 03:BC3B: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00FC4B 03:BC3B: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00FC4E 03:BC3E: 29 EF     AND #$EF
-C - - - - - 0x00FC50 03:BC40: 9D 5C 03  STA ram_035C,X
-loc_BC43:
-C - - - - - 0x00FC53 03:BC43: 20 D9 D8  JSR sub_D8D9_enemyB_collision_by_one
-C - - - - - 0x00FC56 03:BC46: D0 07     BNE bra_BC4F
-C - - - - - 0x00FC58 03:BC48: A9 10     LDA #$10
-C - - - - - 0x00FC5A 03:BC4A: A0 03     LDY #$03
-C - - - - - 0x00FC5C 03:BC4C: 4C 32 BD  JMP loc_BD32
+C - - - - - 0x00FC50 03:BC40: 9D 5C 03  STA vEnemyBStatus,X
+loc_BC43_main:
+C - - - - - 0x00FC53 03:BC43: 20 D9 D8  JSR sub_D8D9_enemyB_collision_by_one      ;
+C - - - - - 0x00FC56 03:BC46: D0 07     BNE bra_BC4F_skip                         ; If the collisions by Y-position exists
+C - - - - - 0x00FC58 03:BC48: A9 10     LDA #$10                                  ; CONSTANT - a jump counter value 
+C - - - - - 0x00FC5A 03:BC4A: A0 03     LDY #$03                                  ; CONSTANT - jumping off, free fall
+C - - - - - 0x00FC5C 03:BC4C: 4C 32 BD  JMP loc_BD32_activate_jump_status_ex
 
-bra_BC4F:
-C - - - - - 0x00FC5F 03:BC4F: 20 DC BD  JSR sub_BDDC
-C - - - - - 0x00FC62 03:BC52: BD 5C 03  LDA ram_035C,X
-C - - - - - 0x00FC65 03:BC55: 29 02     AND #$02
-C - - - - - 0x00FC67 03:BC57: F0 03     BEQ bra_BC5C
-C - - - - - 0x00FC69 03:BC59: 4C 2E BD  JMP loc_BD2E
+bra_BC4F_skip:
+C - - - - - 0x00FC5F 03:BC4F: 20 DC BD  JSR sub_BDDC_try_to_change_self   ;
+C - - - - - 0x00FC62 03:BC52: BD 5C 03  LDA vEnemyBStatus,X               ;
+C - - - - - 0x00FC65 03:BC55: 29 02     AND #$02                          ; CONSTANT - the jump
+C - - - - - 0x00FC67 03:BC57: F0 03     BEQ bra_BC5C_skip                 ; If vEnemyBStatus doesn't contain 0x02
+C - - - - - 0x00FC69 03:BC59: 4C 2E BD  JMP loc_BD2E_activate_jump_status
 
-bra_BC5C:
-C - - - - - 0x00FC6C 03:BC5C: BD 5C 03  LDA ram_035C,X
-C - - - - - 0x00FC6F 03:BC5F: 29 08     AND #$08
-C - - - - - 0x00FC71 03:BC61: F0 11     BEQ bra_BC74
-C - - - - - 0x00FC73 03:BC63: A9 00     LDA #$00
-C - - - - - 0x00FC75 03:BC65: 9D 80 03  STA ram_0380,X
-C - - - - - 0x00FC78 03:BC68: A0 0C     LDY #$0C
-C - - - - - 0x00FC7A 03:BC6A: A5 2C     LDA vLowCounter
-C - - - - - 0x00FC7C 03:BC6C: 29 10     AND #$10
-C - - - - - 0x00FC7E 03:BC6E: D0 0D     BNE bra_BC7D
-C - - - - - 0x00FC80 03:BC70: A0 10     LDY #$10
-C - - - - - 0x00FC82 03:BC72: D0 09     BNE bra_BC7D
-bra_BC74:
+bra_BC5C_skip:
+C - - - - - 0x00FC6C 03:BC5C: BD 5C 03  LDA vEnemyBStatus,X               ;
+C - - - - - 0x00FC6F 03:BC5F: 29 08     AND #$08                          ; CONSTANT - K flag (see vEnemyBStatus)
+C - - - - - 0x00FC71 03:BC61: F0 11     BEQ @bra_BC74_skip                ; If vEnemyBStatus doesn't contain 0x08
+C - - - - - 0x00FC73 03:BC63: A9 00     LDA #$00                          ;
+C - - - - - 0x00FC75 03:BC65: 9D 80 03  STA vEnemyBFrame_Counter,X        ; clear a frame counter
+C - - - - - 0x00FC78 03:BC68: A0 0C     LDY #$0C                          ; an input parameter - sprite_magic2 (a stop frame #1)
+C - - - - - 0x00FC7A 03:BC6A: A5 2C     LDA vLowCounter                   ;
+C - - - - - 0x00FC7C 03:BC6C: 29 10     AND #$10                          ; CONSTANT - every 16 counter values
+C - - - - - 0x00FC7E 03:BC6E: D0 0D     BNE bra_BC7D_prepare_rendering    ; If Register A == 0%XXX1XXXX
+C - - - - - 0x00FC80 03:BC70: A0 10     LDY #$10                          ; an input parameter - sprite_magic2 (a stop frame #2)
+C - - - - - 0x00FC82 03:BC72: D0 09     BNE bra_BC7D_prepare_rendering    ; Always true
+@bra_BC74_skip:
 C - - - - - 0x00FC84 03:BC74: 20 D6 BC  JSR sub_BCD6
-C - - - - - 0x00FC87 03:BC77: BD 80 03  LDA ram_0380,X
+C - - - - - 0x00FC87 03:BC77: BD 80 03  LDA vEnemyBFrame_Counter,X
 C - - - - - 0x00FC8A 03:BC7A: 0A        ASL
 C - - - - - 0x00FC8B 03:BC7B: 0A        ASL
 C - - - - - 0x00FC8C 03:BC7C: A8        TAY
-bra_BC7D:
-loc_BC7D:
-C D 1 - - - 0x00FC8D 03:BC7D: BD 74 03  LDA ram_0374,X
-C - - - - - 0x00FC90 03:BC80: 85 00     STA ram_0000
-C - - - - - 0x00FC92 03:BC82: BD 7A 03  LDA ram_037A,X
-C - - - - - 0x00FC95 03:BC85: 85 01     STA ram_0001
-C - - - - - 0x00FC97 03:BC87: 20 7B D6  JSR sub_D67B_out_of_sight
-C - - - - - 0x00FC9A 03:BC8A: 90 03     BCC bra_BC8F
-C - - - - - 0x00FC9C 03:BC8C: 4C 73 D8  JMP $D873
+; In: Register Y - sprite_magic2 (The offset by the address)
+loc_BC7D_prepare_rendering:
+bra_BC7D_prepare_rendering:
+C D 1 - - - 0x00FC8D 03:BC7D: BD 74 03  LDA vEnemyBPosXLow,X               ;
+C - - - - - 0x00FC90 03:BC80: 85 00     STA ram_0000                       ; prepares the 1st parameter
+C - - - - - 0x00FC92 03:BC82: BD 7A 03  LDA vEnemyBPosXHigh,X              ;
+C - - - - - 0x00FC95 03:BC85: 85 01     STA ram_0001                       ; prepares the 2nd parameter
+C - - - - - 0x00FC97 03:BC87: 20 7B D6  JSR sub_D67B_out_of_sight          ;
+C - - - - - 0x00FC9A 03:BC8A: 90 03     BCC bra_BC8F_skip                  ; If the enemy is visible
+C - - - - - 0x00FC9C 03:BC8C: 4C 73 D8  JMP loc_D873_free_enemyB           ;
 
-bra_BC8F:
-C - - - - - 0x00FC9F 03:BC8F: 20 AC D6  JSR sub_D6AC_out_of_screen
-C - - - - - 0x00FCA2 03:BC92: 90 06     BCC bra_BC9A
-C - - - - - 0x00FCA4 03:BC94: 20 4D D8  JSR sub_D84D_enemyB_off_screen
-C - - - - - 0x00FCA7 03:BC97: 4C A0 BC  JMP loc_BCA0
+; In: Register Y - sprite_magic2 (The offset by the address)
+bra_BC8F_skip:
+C - - - - - 0x00FC9F 03:BC8F: 20 AC D6  JSR sub_D6AC_out_of_screen         ;
+C - - - - - 0x00FCA2 03:BC92: 90 06     BCC bra_BC9A_skip                  ; If the enemy is on the screen
+C - - - - - 0x00FCA4 03:BC94: 20 4D D8  JSR sub_D84D_enemyB_off_screen     ;
+C - - - - - 0x00FCA7 03:BC97: 4C A0 BC  JMP loc_BCA0_render_entourage
 
-bra_BC9A:
-C - - - - - 0x00FCAA 03:BC9A: 20 31 D8  JSR sub_D831_enemyB_on_screen
-C - - - - - 0x00FCAD 03:BC9D: 20 C7 BC  JSR sub_BCC7
-loc_BCA0:
-C D 1 - - - 0x00FCB0 03:BCA0: AD 01 03  LDA ram_0301
-C - - - - - 0x00FCB3 03:BCA3: C9 34     CMP #$34
-C - - - - - 0x00FCB5 03:BCA5: D0 4D     BNE bra_BCF4_RTS
+; In: Register Y - sprite_magic2 (The offset by the address)
+bra_BC9A_skip:
+C - - - - - 0x00FCAA 03:BC9A: 20 31 D8  JSR sub_D831_enemyB_on_screen      ;
+C - - - - - 0x00FCAD 03:BC9D: 20 C7 BC  JSR sub_BCC7_add                   ;
+loc_BCA0_render_entourage:
+C D 1 - - - 0x00FCB0 03:BCA0: AD 01 03  LDA vEnemyB                        ;
+C - - - - - 0x00FCB3 03:BCA3: C9 34     CMP #$34                           ; CONSTANT - Potted snakes
+C - - - - - 0x00FCB5 03:BCA5: D0 4D     BNE bra_BCF4_RTS                   ; If vEnemyB != 0x34
 loc_BCA7:
 C D 1 - - - 0x00FCB7 03:BCA7: A0 18     LDY #$18
 C - - - - - 0x00FCB9 03:BCA9: BD 76 03  LDA ram_0376,X
 C - - - - - 0x00FCBC 03:BCAC: 85 00     STA ram_0000
 C - - - - - 0x00FCBE 03:BCAE: BD 7C 03  LDA ram_037C,X
 C - - - - - 0x00FCC1 03:BCB1: 85 01     STA ram_0001
-C - - - - - 0x00FCC3 03:BCB3: 20 7B D6  JSR sub_D67B_out_of_sight
-C - - - - - 0x00FCC6 03:BCB6: B0 3C     BCS bra_BCF4_RTS
-C - - - - - 0x00FCC8 03:BCB8: 20 AC D6  JSR sub_D6AC_out_of_screen
-C - - - - - 0x00FCCB 03:BCBB: B0 37     BCS bra_BCF4_RTS
+C - - - - - 0x00FCC3 03:BCB3: 20 7B D6  JSR sub_D67B_out_of_sight          ;
+C - - - - - 0x00FCC6 03:BCB6: B0 3C     BCS bra_BCF4_RTS                   ; If the enemy isn't visible
+C - - - - - 0x00FCC8 03:BCB8: 20 AC D6  JSR sub_D6AC_out_of_screen         ;
+C - - - - - 0x00FCCB 03:BCBB: B0 37     BCS bra_BCF4_RTS                   ; If the enemy isn't on the screen
 C - - - - - 0x00FCCD 03:BCBD: BD 6A 03  LDA ram_036A,X
 C - - - - - 0x00FCD0 03:BCC0: 85 00     STA ram_0000
 C - - - - - 0x00FCD2 03:BCC2: A5 03     LDA ram_0003
 C - - - - - 0x00FCD4 03:BCC4: 9D 70 03  STA ram_0370,X
-sub_BCC7:
-C - - - - - 0x00FCD7 03:BCC7: 98        TYA
-C - - - - - 0x00FCD8 03:BCC8: 18        CLC
-C - - - - - 0x00FCD9 03:BCC9: 6D 06 03  ADC ram_0306
-C - - - - - 0x00FCDC 03:BCCC: 85 01     STA ram_0001
-C - - - - - 0x00FCDE 03:BCCE: AD 07 03  LDA ram_0307
-C - - - - - 0x00FCE1 03:BCD1: 85 02     STA ram_0002
-C - - - - - 0x00FCE3 03:BCD3: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
+; In: Register Y - sprite_magic2 (The offset by the address)
+sub_BCC7_add:
+C - - - - - 0x00FCD7 03:BCC7: 98        TYA                              ;
+C - - - - - 0x00FCD8 03:BCC8: 18        CLC                              ;
+C - - - - - 0x00FCD9 03:BCC9: 6D 06 03  ADC vEnemyBSpriteMagic2          ; + Y ~> sprite_magic2
+C - - - - - 0x00FCDC 03:BCCC: 85 01     STA ram_0001                     ;
+C - - - - - 0x00FCDE 03:BCCE: AD 07 03  LDA vEnemyBSpriteMagic3          ; ~> sprite_magic3
+C - - - - - 0x00FCE1 03:BCD1: 85 02     STA ram_0002                     ;
+C - - - - - 0x00FCE3 03:BCD3: 4C 33 CE  JMP loc_CE33_add_sprite_magic    ; bank FF
 
 sub_BCD6:
-C - - - - - 0x00FCE6 03:BCD6: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00FCE6 03:BCD6: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00FCE9 03:BCD9: 6A        ROR
 C - - - - - 0x00FCEA 03:BCDA: 90 19     BCC bra_BCF5
 C - - - - - 0x00FCEC 03:BCDC: 20 FB BC  JSR sub_BCFB
@@ -4643,11 +4649,11 @@ C - - - - - 0x00FD14 03:BD04: F0 19     BEQ bra_BD1F_RTS
 C - - - - - 0x00FD16 03:BD06: 4C FC D7  JMP loc_D7FC_dec_EnemyBPosXLow
 
 bra_BD09:
-C - - - - - 0x00FD19 03:BD09: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00FD19 03:BD09: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00FD1C 03:BD0C: 29 20     AND #$20
 C - - - - - 0x00FD1E 03:BD0E: D0 0F     BNE bra_BD1F_RTS
 C - - - - - 0x00FD20 03:BD10: A9 02     LDA #$02
-C - - - - - 0x00FD22 03:BD12: 20 1C BE  JSR sub_BE1C
+C - - - - - 0x00FD22 03:BD12: 20 1C BE  JSR sub_BE1C_change_substatus
 C - - - - - 0x00FD25 03:BD15: A9 14     LDA #$14
 C - - - - - 0x00FD27 03:BD17: 9D 86 03  STA ram_0386,X
 C - - - - - 0x00FD2A 03:BD1A: A9 03     LDA #$03
@@ -4663,25 +4669,29 @@ C - - - - - 0x00FD37 03:BD27: 29 01     AND #$01
 C - - - - - 0x00FD39 03:BD29: F0 F4     BEQ bra_BD1F_RTS
 C - - - - - 0x00FD3B 03:BD2B: 4C 1B D8  JMP loc_D81B_inc_EnemyBPosXLow
 
-loc_BD2E:
+; In: Register X - the enemyB number
+loc_BD2E_activate_jump_status:
 C D 1 - - - 0x00FD3E 03:BD2E: A9 06     LDA #$06
 C - - - - - 0x00FD40 03:BD30: A0 03     LDY #$03
-loc_BD32:
-C D 1 - - - 0x00FD42 03:BD32: 9D 86 03  STA ram_0386,X
-C - - - - - 0x00FD45 03:BD35: 98        TYA
-C - - - - - 0x00FD46 03:BD36: 9D 92 03  STA ram_0392,X
-C - - - - - 0x00FD49 03:BD39: A9 02     LDA #$02
-C - - - - - 0x00FD4B 03:BD3B: 20 1C BE  JSR sub_BE1C
-C - - - - - 0x00FD4E 03:BD3E: A9 01     LDA #$01
-C - - - - - 0x00FD50 03:BD40: 9D 80 03  STA ram_0380,X
-loc_BD43:
+; In: Register A - a jump counter value
+; In: Register Y - a jump type
+; In: Register X - the enemyB number
+loc_BD32_activate_jump_status_ex:
+C D 1 - - - 0x00FD42 03:BD32: 9D 86 03  STA vEnemyBJumpCounter,X       ;
+C - - - - - 0x00FD45 03:BD35: 98        TYA                            ;
+C - - - - - 0x00FD46 03:BD36: 9D 92 03  STA vEnemyBJumpType,X          ;
+C - - - - - 0x00FD49 03:BD39: A9 02     LDA #$02                       ; CONSTANT - the jump
+C - - - - - 0x00FD4B 03:BD3B: 20 1C BE  JSR sub_BE1C_change_substatus  ;
+C - - - - - 0x00FD4E 03:BD3E: A9 01     LDA #$01                       ;
+C - - - - - 0x00FD50 03:BD40: 9D 80 03  STA vEnemyBFrame_Counter,X     ; reset a counter
+loc_BD43_jump:
 C - - - - - 0x00FD53 03:BD43: BD 68 03  LDA ram_0368,X
 C - - - - - 0x00FD56 03:BD46: C9 DF     CMP #$DF
 C - - - - - 0x00FD58 03:BD48: B0 1E     BCS bra_BD68
 C - - - - - 0x00FD5A 03:BD4A: BD 92 03  LDA ram_0392,X
 C - - - - - 0x00FD5D 03:BD4D: C9 03     CMP #$03
 C - - - - - 0x00FD5F 03:BD4F: D0 17     BNE bra_BD68
-C - - - - - 0x00FD61 03:BD51: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00FD61 03:BD51: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00FD64 03:BD54: 6A        ROR
 C - - - - - 0x00FD65 03:BD55: 90 0A     BCC bra_BD61
 C - - - - - 0x00FD67 03:BD57: 29 10     AND #$10
@@ -4714,15 +4724,15 @@ bra_BD7F:
 C - - - - - 0x00FD8F 03:BD7F: 9D 68 03  STA ram_0368,X
 C - - - - - 0x00FD92 03:BD82: BC 86 03  LDY ram_0386,X
 C - - - - - 0x00FD95 03:BD85: C0 18     CPY #$18
-C - - - - - 0x00FD97 03:BD87: 90 38     BCC bra_BDC1
+C - - - - - 0x00FD97 03:BD87: 90 38     BCC bra_BDC1_dying
 C - - - - - 0x00FD99 03:BD89: C9 EF     CMP #$EF
 C - - - - - 0x00FD9B 03:BD8B: 90 05     BCC bra_BD92
 C - - - - - 0x00FD9D 03:BD8D: A0 FF     LDY #$FF
-C - - - - - 0x00FD9F 03:BD8F: 4C 7D BC  JMP loc_BC7D
+C - - - - - 0x00FD9F 03:BD8F: 4C 7D BC  JMP loc_BC7D_prepare_rendering
 
 bra_BD92:
 C - - - - - 0x00FDA2 03:BD92: 20 D9 D8  JSR sub_D8D9_enemyB_collision_by_one
-C - - - - - 0x00FDA5 03:BD95: F0 2A     BEQ bra_BDC1
+C - - - - - 0x00FDA5 03:BD95: F0 2A     BEQ bra_BDC1_dying
 C - - - - - 0x00FDA7 03:BD97: C9 01     CMP #$01
 C - - - - - 0x00FDA9 03:BD99: F0 0D     BEQ bra_BDA8
 C - - - - - 0x00FDAB 03:BD9B: BD 68 03  LDA ram_0368,X
@@ -4730,87 +4740,90 @@ C - - - - - 0x00FDAE 03:BD9E: C9 BF     CMP #$BF
 C - - - - - 0x00FDB0 03:BDA0: B0 06     BCS bra_BDA8
 C - - - - - 0x00FDB2 03:BDA2: A5 2C     LDA vLowCounter
 C - - - - - 0x00FDB4 03:BDA4: 29 03     AND #$03
-C - - - - - 0x00FDB6 03:BDA6: D0 19     BNE bra_BDC1
+C - - - - - 0x00FDB6 03:BDA6: D0 19     BNE bra_BDC1_dying
 bra_BDA8:
-C - - - - - 0x00FDB8 03:BDA8: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00FDB8 03:BDA8: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00FDBB 03:BDAB: 29 20     AND #$20
-C - - - - - 0x00FDBD 03:BDAD: D0 12     BNE bra_BDC1
+C - - - - - 0x00FDBD 03:BDAD: D0 12     BNE bra_BDC1_dying
 C - - - - - 0x00FDBF 03:BDAF: 20 9C D8  JSR sub_D89C_correction_EnemyBPosY
 C - - - - - 0x00FDC2 03:BDB2: A9 00     LDA #$00
 C - - - - - 0x00FDC4 03:BDB4: 9D 86 03  STA ram_0386,X
 C - - - - - 0x00FDC7 03:BDB7: A9 02     LDA #$02
 C - - - - - 0x00FDC9 03:BDB9: 9D 80 03  STA ram_0380,X
 C - - - - - 0x00FDCC 03:BDBC: A0 08     LDY #$08
-C - - - - - 0x00FDCE 03:BDBE: 4C 7D BC  JMP loc_BC7D
+C - - - - - 0x00FDCE 03:BDBE: 4C 7D BC  JMP loc_BC7D_prepare_rendering
 
-bra_BDC1:
-loc_BDC1:
-C - - - - - 0x00FDD1 03:BDC1: FE 86 03  INC ram_0386,X
-C - - - - - 0x00FDD4 03:BDC4: A9 2F     LDA #$2F
-C - - - - - 0x00FDD6 03:BDC6: DD 86 03  CMP ram_0386,X
-C - - - - - 0x00FDD9 03:BDC9: B0 03     BCS bra_BDCE
-C - - - - - 0x00FDDB 03:BDCB: 9D 86 03  STA ram_0386,X
-bra_BDCE:
+loc_BDC1_dying:
+bra_BDC1_dying:
+C - - - - - 0x00FDD1 03:BDC1: FE 86 03  INC vEnemyBJumpCounter,X       ;
+C - - - - - 0x00FDD4 03:BDC4: A9 2F     LDA #$2F                       ; CONSTANT - a maximum jump value
+C - - - - - 0x00FDD6 03:BDC6: DD 86 03  CMP vEnemyBJumpCounter,X       ;
+C - - - - - 0x00FDD9 03:BDC9: B0 03     BCS @bra_BDCE_skip             ; If 0x2F >= jumpCounter, i.e. less than maximum
+C - - - - - 0x00FDDB 03:BDCB: 9D 86 03  STA vEnemyBJumpCounter,X       ;
+@bra_BDCE_skip:
 C - - - - - 0x00FDDE 03:BDCE: A0 08     LDY #$08
-C - - - - - 0x00FDE0 03:BDD0: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x00FDE0 03:BDD0: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00FDE3 03:BDD3: 29 20     AND #$20
-C - - - - - 0x00FDE5 03:BDD5: D0 02     BNE bra_BDD9
+C - - - - - 0x00FDE5 03:BDD5: D0 02     BNE @bra_BDD9_skip
 C - - - - - 0x00FDE7 03:BDD7: A0 04     LDY #$04
-bra_BDD9:
-C - - - - - 0x00FDE9 03:BDD9: 4C 7D BC  JMP loc_BC7D
+@bra_BDD9_skip:
+C - - - - - 0x00FDE9 03:BDD9: 4C 7D BC  JMP loc_BC7D_prepare_rendering
 
-sub_BDDC:
-C - - - - - 0x00FDEC 03:BDDC: BD 86 03  LDA ram_0386,X
-C - - - - - 0x00FDEF 03:BDDF: F0 0A     BEQ bra_BDEB
-C - - - - - 0x00FDF1 03:BDE1: DE 86 03  DEC ram_0386,X
-C - - - - - 0x00FDF4 03:BDE4: D0 42     BNE bra_BE28_RTS
-C - - - - - 0x00FDF6 03:BDE6: A9 00     LDA #$00
-C - - - - - 0x00FDF8 03:BDE8: 20 1C BE  JSR sub_BE1C
-bra_BDEB:
-C - - - - - 0x00FDFB 03:BDEB: 20 29 BE  JSR sub_BE29
-C - - - - - 0x00FDFE 03:BDEE: BD 80 03  LDA ram_0380,X
-C - - - - - 0x00FE01 03:BDF1: C9 01     CMP #$01
-C - - - - - 0x00FE03 03:BDF3: F0 33     BEQ bra_BE28_RTS
-C - - - - - 0x00FE05 03:BDF5: A5 2C     LDA vLowCounter
-C - - - - - 0x00FE07 03:BDF7: 29 3F     AND #$3F
-C - - - - - 0x00FE09 03:BDF9: D0 2D     BNE bra_BE28_RTS
-C - - - - - 0x00FE0B 03:BDFB: 20 64 D0  JSR $D064
-C - - - - - 0x00FE0E 03:BDFE: 6A        ROR
-C - - - - - 0x00FE0F 03:BDFF: B0 27     BCS bra_BE28_RTS
-C - - - - - 0x00FE11 03:BE01: 29 07     AND #$07
-C - - - - - 0x00FE13 03:BE03: AC 01 03  LDY ram_0301
-C - - - - - 0x00FE16 03:BE06: C0 34     CPY #$34
-C - - - - - 0x00FE18 03:BE08: D0 03     BNE bra_BE0D
-C - - - - - 0x00FE1A 03:BE0A: 18        CLC
-C - - - - - 0x00FE1B 03:BE0B: 69 08     ADC #$08
-bra_BE0D:
-C - - - - - 0x00FE1D 03:BE0D: A8        TAY
-C - - - - - 0x00FE1E 03:BE0E: B9 4E BB  LDA tbl_BB4E,Y
-C - - - - - 0x00FE21 03:BE11: C9 08     CMP #$08
-C - - - - - 0x00FE23 03:BE13: D0 07     BNE bra_BE1C
-C - - - - - 0x00FE25 03:BE15: 48        PHA
-C - - - - - 0x00FE26 03:BE16: A9 40     LDA #$40
-C - - - - - 0x00FE28 03:BE18: 9D 86 03  STA ram_0386,X
-C - - - - - 0x00FE2B 03:BE1B: 68        PLA
-bra_BE1C:
-sub_BE1C:
-C - - - - - 0x00FE2C 03:BE1C: 85 05     STA ram_0005
-C - - - - - 0x00FE2E 03:BE1E: BD 5C 03  LDA ram_035C,X
-C - - - - - 0x00FE31 03:BE21: 29 C1     AND #$C1
-C - - - - - 0x00FE33 03:BE23: 05 05     ORA ram_0005
-C - - - - - 0x00FE35 03:BE25: 9D 5C 03  STA ram_035C,X
+; In: Register X - the enemyB number
+sub_BDDC_try_to_change_self:
+C - - - - - 0x00FDEC 03:BDDC: BD 86 03  LDA vEnemyBJumpCounter,X          ;
+C - - - - - 0x00FDEF 03:BDDF: F0 0A     BEQ @bra_BDEB_skip                ; If jumpCounter == 0x00
+C - - - - - 0x00FDF1 03:BDE1: DE 86 03  DEC vEnemyBJumpCounter,X          ;
+C - - - - - 0x00FDF4 03:BDE4: D0 42     BNE bra_BE28_RTS                  ; If jumpCounter != 0x00
+C - - - - - 0x00FDF6 03:BDE6: A9 00     LDA #$00                          ; clear substatus
+C - - - - - 0x00FDF8 03:BDE8: 20 1C BE  JSR sub_BE1C_change_substatus     ;
+@bra_BDEB_skip:
+C - - - - - 0x00FDFB 03:BDEB: 20 29 BE  JSR sub_BE29_try_change_direction ;
+C - - - - - 0x00FDFE 03:BDEE: BD 80 03  LDA vEnemyBFrame_Counter,X        ;
+C - - - - - 0x00FE01 03:BDF1: C9 01     CMP #$01                          ;
+C - - - - - 0x00FE03 03:BDF3: F0 33     BEQ bra_BE28_RTS                  ; If frameCounter == 0x01
+C - - - - - 0x00FE05 03:BDF5: A5 2C     LDA vLowCounter                   ;
+C - - - - - 0x00FE07 03:BDF7: 29 3F     AND #$3F                          ;
+C - - - - - 0x00FE09 03:BDF9: D0 2D     BNE bra_BE28_RTS                  ; Branch if vLowCounter doesn't multiple of 64 (vLowCounter % 64 != 0)
+C - - - - - 0x00FE0B 03:BDFB: 20 64 D0  JSR sub_D064_generate_rng         ;
+C - - - - - 0x00FE0E 03:BDFE: 6A        ROR                               ;
+C - - - - - 0x00FE0F 03:BDFF: B0 27     BCS bra_BE28_RTS                  ; 50% chance branch
+C - - - - - 0x00FE11 03:BE01: 29 07     AND #$07                          ; A is {0x00, ... , 0x07}
+C - - - - - 0x00FE13 03:BE03: AC 01 03  LDY vEnemyB                       ;
+C - - - - - 0x00FE16 03:BE06: C0 34     CPY #$34                          ; CONSTANT - Potted snakes
+C - - - - - 0x00FE18 03:BE08: D0 03     BNE @bra_BE0D_skip                ; If vEnemyB != 0x34
+C - - - - - 0x00FE1A 03:BE0A: 18        CLC                               ;
+C - - - - - 0x00FE1B 03:BE0B: 69 08     ADC #$08                          ; A is {0x08, ... , 0x0F}
+@bra_BE0D_skip:
+C - - - - - 0x00FE1D 03:BE0D: A8        TAY                               ;
+C - - - - - 0x00FE1E 03:BE0E: B9 4E BB  LDA tbl_BB4E_status_flags,Y       ;
+C - - - - - 0x00FE21 03:BE11: C9 08     CMP #$08                          ; CONSTANT - K flag (see vEnemyBStatus)
+C - - - - - 0x00FE23 03:BE13: D0 07     BNE bra_BE1C_change_substatus     ; If a status != 0x08
+C - - - - - 0x00FE25 03:BE15: 48        PHA                               ; store A 
+C - - - - - 0x00FE26 03:BE16: A9 40     LDA #$40                          ; An initialize jump value for 'stop' 
+C - - - - - 0x00FE28 03:BE18: 9D 86 03  STA vEnemyBJumpCounter,X          ;
+C - - - - - 0x00FE2B 03:BE1B: 68        PLA                               ; retrieve A (see $BE15)
+; In: Register A - an new status
+sub_BE1C_change_substatus:
+bra_BE1C_change_substatus:
+C - - - - - 0x00FE2C 03:BE1C: 85 05     STA ram_0005            ;
+C - - - - - 0x00FE2E 03:BE1E: BD 5C 03  LDA vEnemyBStatus,X     ;
+C - - - - - 0x00FE31 03:BE21: 29 C1     AND #$C1                ;
+C - - - - - 0x00FE33 03:BE23: 05 05     ORA ram_0005            ;
+C - - - - - 0x00FE35 03:BE25: 9D 5C 03  STA vEnemyBStatus,X     ;
 bra_BE28_RTS:
-C - - - - - 0x00FE38 03:BE28: 60        RTS
+C - - - - - 0x00FE38 03:BE28: 60        RTS                     ;
 
-sub_BE29:
-C - - - - - 0x00FE39 03:BE29: A9 7F     LDA #$7F
-C - - - - - 0x00FE3B 03:BE2B: 20 DB D6  JSR sub_D6DB_try_change_enemyB_direction
-C - - - - - 0x00FE3E 03:BE2E: 84 05     STY ram_0005
-C - - - - - 0x00FE40 03:BE30: BD 5C 03  LDA ram_035C,X
-C - - - - - 0x00FE43 03:BE33: 29 FE     AND #$FE
-C - - - - - 0x00FE45 03:BE35: 05 05     ORA ram_0005
-C - - - - - 0x00FE47 03:BE37: 9D 5C 03  STA ram_035C,X
-C - - - - - 0x00FE4A 03:BE3A: 60        RTS
+; In: Register X - the enemyB number
+sub_BE29_try_change_direction:
+C - - - - - 0x00FE39 03:BE29: A9 7F     LDA #$7F                                 ; f(A) = 128, see $D6DB
+C - - - - - 0x00FE3B 03:BE2B: 20 DB D6  JSR sub_D6DB_try_change_enemyB_direction ;
+C - - - - - 0x00FE3E 03:BE2E: 84 05     STY ram_0005                             ; $0005 <~ 1, if the enemy is to the right of the character, 0 - otherwise
+C - - - - - 0x00FE40 03:BE30: BD 5C 03  LDA vEnemyBStatus,X                      ;
+C - - - - - 0x00FE43 03:BE33: 29 FE     AND #$FE                                 ; CONSTANT: N - the direction (see vEnemyBStatus)
+C - - - - - 0x00FE45 03:BE35: 05 05     ORA ram_0005                             ;
+C - - - - - 0x00FE47 03:BE37: 9D 5C 03  STA vEnemyBStatus,X                      ;
+C - - - - - 0x00FE4A 03:BE3A: 60        RTS                                      ;
 
 - - - - - - 0x00FE4B 03:BE3B: FC        .byte $FC   ; 
 - - - - - - 0x00FE4C 03:BE3C: A7        .byte $A7   ; 
