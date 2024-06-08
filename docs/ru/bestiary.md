@@ -15,7 +15,7 @@
 |0x0C|The lift| A |   | 3 |
 |0x0D|Sensor| B |   | 3 |
 |0x0E|Bat| B |   | 1 |
-|0x0F|Gray cat| B | [Серый кот](#враг-0F) | 1 |
+|0x0F|Gray cat| B | [Серый кот](#враг-0f) | 1 |
 |0x10|Nun| A |   | 2 |
 |0x11|Girl in red, in the castle| A |   | 1 |
 |0x12|Batterfly| B |   | 2 |
@@ -88,6 +88,6 @@
 ## Враг 0F
 Серый кот
 |Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|
 | ![Frame1](../images/enemy0F/frame1-r.png) | ![Frame2](../images/enemy0F/frame2-r.png) | ![Frame3](../images/enemy0F/frame3-r.png) | ![Frame4](../images/enemy0F/frame4-r.png) | ![Frame5](../images/enemy0F/frame5-r.png) |
 | ![Frame1](../images/enemy0F/frame1-l.png) | ![Frame2](../images/enemy0F/frame2-l.png) | ![Frame3](../images/enemy0F/frame3-l.png) | ![Frame4](../images/enemy0F/frame4-l.png) | ![Frame5](../images/enemy0F/frame5-l.png) |

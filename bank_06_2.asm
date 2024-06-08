@@ -74,7 +74,10 @@
 .export loc_B1FB_rifle
 .export sub_B319_hide_character_in_room
 .export tbl_ptr_enemy_t2_types_for_sprites
+.export tbl_ptr_enemy_t3_types_for_sprites
 .export tbl_ptr_enemy_t2_sprite_params_
+.export tbl_ptr_enemy_t3_sprite_params_
+.export tbl_ptr_enemy_t4_sprite_params_
 
 tbl_A000:
 - D 1 - - - 0x01A010 06:A000: 00        .byte $00   ; 
@@ -4518,197 +4521,57 @@ tbl_BCCF:
 - D 1 - - - 0x01BD1A 06:BD0A: 90        .byte $90   ; 
 - D 1 - - - 0x01BD1B 06:BD0B: 00        .byte $00   ; 
 - D 1 - - - 0x01BD1C 06:BD0C: 84        .byte $84   ; 
-- D 1 - - - 0x01BD1D 06:BD0D: 01        .byte $01   ; 
-- D 1 - - - 0x01BD1E 06:BD0E: 19        .byte $19   ; 
-- D 1 - - - 0x01BD1F 06:BD0F: 24        .byte $24   ; 
-- D 1 - - - 0x01BD20 06:BD10: 26        .byte $26   ; 
-- D 1 - - - 0x01BD21 06:BD11: 35        .byte $35   ; <5>
-- D 1 - - - 0x01BD22 06:BD12: 36        .byte $36   ; <6>
-- D 1 - - - 0x01BD23 06:BD13: 38        .byte $38   ; <8>
-- D 1 - - - 0x01BD24 06:BD14: 07        .byte $07   ; 
-- D 1 - - - 0x01BD25 06:BD15: 1F        .byte $1F   ; 
-- D 1 - - - 0x01BD26 06:BD16: 09        .byte $09   ; 
-- D 1 - - - 0x01BD27 06:BD17: 1A        .byte $1A   ; 
-- D 1 - - - 0x01BD28 06:BD18: 37        .byte $37   ; <7>
-- D 1 - - - 0x01BD29 06:BD19: 17        .byte $17   ; 
-- D 1 - - - 0x01BD2A 06:BD1A: 18        .byte $18   ; 
-- D 1 - - - 0x01BD2B 06:BD1B: 1C        .byte $1C   ; 
-- D 1 - - - 0x01BD2C 06:BD1C: 00        .byte $00   ; 
-- D 1 - - - 0x01BD2D 06:BD1D: 00        .byte $00   ; 
-- D 1 - - - 0x01BD2E 06:BD1E: 0C        .byte $0C   ; 
-- D 1 - - - 0x01BD2F 06:BD1F: FF        .byte $FF   ; 
-- D 1 - - - 0x01BD30 06:BD20: 32        .byte $32   ; <2>
-- D 1 - - - 0x01BD31 06:BD21: 42        .byte $42   ; <B>
-- D 1 - - - 0x01BD32 06:BD22: 52        .byte $52   ; <R>
-- D 1 - - - 0x01BD33 06:BD23: 4A        .byte $4A   ; <J>
-- D 1 - - - 0x01BD34 06:BD24: 80        .byte $80   ; 
-- D 1 - - - 0x01BD35 06:BD25: 00        .byte $00   ; 
-- D 1 - - - 0x01BD36 06:BD26: 10        .byte $10   ; 
-- D 1 - - - 0x01BD37 06:BD27: 12        .byte $12   ; 
-- D 1 - - - 0x01BD38 06:BD28: 60        .byte $60   ; 
-- D 1 - - - 0x01BD39 06:BD29: 82        .byte $82   ; 
-- D 1 - - - 0x01BD3A 06:BD2A: 14        .byte $14   ; 
-- D 1 - - - 0x01BD3B 06:BD2B: 00        .byte $00   ; 
-- D 1 - - - 0x01BD3C 06:BD2C: 00        .byte $00   ; 
-- D 1 - - - 0x01BD3D 06:BD2D: 02        .byte $02   ; 
-- D 1 - - - 0x01BD3E 06:BD2E: 19        .byte $19   ; 
-- D 1 - - - 0x01BD3F 06:BD2F: FF        .byte $FF   ; 
-- D 1 - - - 0x01BD40 06:BD30: 00        .byte $00   ; 
-- D 1 - - - 0x01BD41 06:BD31: 02        .byte $02   ; 
-- D 1 - - - 0x01BD42 06:BD32: 00        .byte $00   ; 
-- D 1 - - - 0x01BD43 06:BD33: 00        .byte $00   ; 
-- D 1 - - - 0x01BD44 06:BD34: 00        .byte $00   ; 
-- D 1 - - - 0x01BD45 06:BD35: 0A        .byte $0A   ; 
-- D 1 - - - 0x01BD46 06:BD36: 3E        .byte $3E   ; 
-- D 1 - - - 0x01BD47 06:BD37: FF        .byte $FF   ; 
-- D 1 - - - 0x01BD48 06:BD38: 1C        .byte $1C   ; 
-- D 1 - - - 0x01BD49 06:BD39: 02        .byte $02   ; 
-- D 1 - - - 0x01BD4A 06:BD3A: 00        .byte $00   ; 
-- D 1 - - - 0x01BD4B 06:BD3B: 00        .byte $00   ; 
-- D 1 - - - 0x01BD4C 06:BD3C: 80        .byte $80   ; 
-- D 1 - - - 0x01BD4D 06:BD3D: 00        .byte $00   ; 
-- D 1 - - - 0x01BD4E 06:BD3E: 18        .byte $18   ; 
-- D 1 - - - 0x01BD4F 06:BD3F: FF        .byte $FF   ; 
-- D 1 - - - 0x01BD50 06:BD40: 70        .byte $70   ; <p>
-- D 1 - - - 0x01BD51 06:BD41: 02        .byte $02   ; 
-- D 1 - - - 0x01BD52 06:BD42: 00        .byte $00   ; 
-- D 1 - - - 0x01BD53 06:BD43: 00        .byte $00   ; 
-- D 1 - - - 0x01BD54 06:BD44: 00        .byte $00   ; 
-- D 1 - - - 0x01BD55 06:BD45: 00        .byte $00   ; 
-- D 1 - - - 0x01BD56 06:BD46: 3E        .byte $3E   ; 
-- D 1 - - - 0x01BD57 06:BD47: FF        .byte $FF   ; 
-- D 1 - - - 0x01BD58 06:BD48: 90        .byte $90   ; 
-- D 1 - - - 0x01BD59 06:BD49: 02        .byte $02   ; 
-- D 1 - - - 0x01BD5A 06:BD4A: 00        .byte $00   ; 
-- D 1 - - - 0x01BD5B 06:BD4B: 00        .byte $00   ; 
-- D 1 - - - 0x01BD5C 06:BD4C: 80        .byte $80   ; 
-- D 1 - - - 0x01BD5D 06:BD4D: 00        .byte $00   ; 
-- D 1 - - - 0x01BD5E 06:BD4E: 3E        .byte $3E   ; 
-- D 1 - - - 0x01BD5F 06:BD4F: FF        .byte $FF   ; 
-- D 1 - - - 0x01BD60 06:BD50: B4        .byte $B4   ; 
-- D 1 - - - 0x01BD61 06:BD51: 02        .byte $02   ; 
-- D 1 - - - 0x01BD62 06:BD52: 00        .byte $00   ; 
-- D 1 - - - 0x01BD63 06:BD53: 00        .byte $00   ; 
-- D 1 - - - 0x01BD64 06:BD54: 00        .byte $00   ; 
-- D 1 - - - 0x01BD65 06:BD55: 00        .byte $00   ; 
-- D 1 - - - 0x01BD66 06:BD56: 04        .byte $04   ; 
-- D 1 - - - 0x01BD67 06:BD57: FF        .byte $FF   ; 
-- D 1 - - - 0x01BD68 06:BD58: 00        .byte $00   ; 
-- D 1 - - - 0x01BD69 06:BD59: 12        .byte $12   ; 
-- D 1 - - - 0x01BD6A 06:BD5A: 00        .byte $00   ; 
-- D 1 - - - 0x01BD6B 06:BD5B: 00        .byte $00   ; 
-- D 1 - - - 0x01BD6C 06:BD5C: 00        .byte $00   ; 
-- D 1 - - - 0x01BD6D 06:BD5D: 00        .byte $00   ; 
-- D 1 - - - 0x01BD6E 06:BD5E: FF        .byte $FF   ; 
-- D 1 - - - 0x01BD6F 06:BD5F: 15        .byte $15   ; 
-- D 1 - - - 0x01BD70 06:BD60: 5E        .byte $5E   ; 
-- D 1 - - - 0x01BD71 06:BD61: C0        .byte $C0   ; 
-- D 1 - - - 0x01BD72 06:BD62: 00        .byte $00   ; 
-- D 1 - - - 0x01BD73 06:BD63: 00        .byte $00   ; 
-- D 1 - - - 0x01BD74 06:BD64: 00        .byte $00   ; 
-- D 1 - - - 0x01BD75 06:BD65: 04        .byte $04   ; 
-- D 1 - - - 0x01BD76 06:BD66: FF        .byte $FF   ; 
-- D 1 - - - 0x01BD77 06:BD67: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BD78 06:BD68: 84        .byte $84   ; 
-- D 1 - - - 0x01BD79 06:BD69: 46        .byte $46   ; <F>
-- D 1 - - - 0x01BD7A 06:BD6A: 00        .byte $00   ; 
-- D 1 - - - 0x01BD7B 06:BD6B: 00        .byte $00   ; 
-- D 1 - - - 0x01BD7C 06:BD6C: 00        .byte $00   ; 
-- D 1 - - - 0x01BD7D 06:BD6D: 00        .byte $00   ; 
-- D 1 - - - 0x01BD7E 06:BD6E: 10        .byte $10   ; 
-- D 1 - - - 0x01BD7F 06:BD6F: 11        .byte $11   ; 
-- D 1 - - - 0x01BD80 06:BD70: 84        .byte $84   ; 
-- D 1 - - - 0x01BD81 06:BD71: 82        .byte $82   ; 
-- D 1 - - - 0x01BD82 06:BD72: 14        .byte $14   ; 
-- D 1 - - - 0x01BD83 06:BD73: 00        .byte $00   ; 
-- D 1 - - - 0x01BD84 06:BD74: 80        .byte $80   ; 
-- D 1 - - - 0x01BD85 06:BD75: 02        .byte $02   ; 
-- D 1 - - - 0x01BD86 06:BD76: 18        .byte $18   ; 
-- D 1 - - - 0x01BD87 06:BD77: FF        .byte $FF   ; 
-- D 1 - - - 0x01BD88 06:BD78: AC        .byte $AC   ; 
-- D 1 - - - 0x01BD89 06:BD79: 80        .byte $80   ; 
-- D 1 - - - 0x01BD8A 06:BD7A: 00        .byte $00   ; 
-- D 1 - - - 0x01BD8B 06:BD7B: 00        .byte $00   ; 
-- D 1 - - - 0x01BD8C 06:BD7C: 00        .byte $00   ; 
-- D 1 - - - 0x01BD8D 06:BD7D: 00        .byte $00   ; 
-- D 1 - - - 0x01BD8E 06:BD7E: 10        .byte $10   ; 
-- D 1 - - - 0x01BD8F 06:BD7F: FF        .byte $FF   ; 
-- D 1 - - - 0x01BD90 06:BD80: 2C        .byte $2C   ; 
-- D 1 - - - 0x01BD91 06:BD81: 82        .byte $82   ; 
-- D 1 - - - 0x01BD92 06:BD82: 14        .byte $14   ; 
-- D 1 - - - 0x01BD93 06:BD83: 4C        .byte $4C   ; <L>
-- D 1 - - - 0x01BD94 06:BD84: 00        .byte $00   ; 
-- D 1 - - - 0x01BD95 06:BD85: 00        .byte $00   ; 
-- D 1 - - - 0x01BD96 06:BD86: 10        .byte $10   ; 
-- D 1 - - - 0x01BD97 06:BD87: FF        .byte $FF   ; 
-- D 1 - - - 0x01BD98 06:BD88: 2C        .byte $2C   ; 
-- D 1 - - - 0x01BD99 06:BD89: 82        .byte $82   ; 
-- D 1 - - - 0x01BD9A 06:BD8A: 14        .byte $14   ; 
-- D 1 - - - 0x01BD9B 06:BD8B: 4C        .byte $4C   ; <L>
-- D 1 - - - 0x01BD9C 06:BD8C: 00        .byte $00   ; 
-- D 1 - - - 0x01BD9D 06:BD8D: 00        .byte $00   ; 
-- D 1 - - - 0x01BD9E 06:BD8E: FF        .byte $FF   ; 
-- D 1 - - - 0x01BD9F 06:BD8F: 16        .byte $16   ; 
-- D 1 - - - 0x01BDA0 06:BD90: 00        .byte $00   ; 
-- D 1 - - - 0x01BDA1 06:BD91: C6        .byte $C6   ; 
-- D 1 - - - 0x01BDA2 06:BD92: 00        .byte $00   ; 
-- D 1 - - - 0x01BDA3 06:BD93: 00        .byte $00   ; 
-- D 1 - - - 0x01BDA4 06:BD94: 00        .byte $00   ; 
-- D 1 - - - 0x01BDA5 06:BD95: 00        .byte $00   ; 
-- D 1 - - - 0x01BDA6 06:BD96: FF        .byte $FF   ; 
-- D 1 - - - 0x01BDA7 06:BD97: 16        .byte $16   ; 
-- D 1 - - - 0x01BDA8 06:BD98: 22        .byte $22   ; 
-- D 1 - - - 0x01BDA9 06:BD99: C6        .byte $C6   ; 
-- D 1 - - - 0x01BDAA 06:BD9A: 00        .byte $00   ; 
-- D 1 - - - 0x01BDAB 06:BD9B: 00        .byte $00   ; 
-- D 1 - - - 0x01BDAC 06:BD9C: 00        .byte $00   ; 
-- D 1 - - - 0x01BDAD 06:BD9D: 00        .byte $00   ; 
-- D 1 - - - 0x01BDAE 06:BD9E: C0        .byte $C0   ; 
-- D 1 - - - 0x01BDAF 06:BD9F: 0C        .byte $0C   ; 
-- D 1 - - - 0x01BDB0 06:BDA0: 00        .byte $00   ; 
-- D 1 - - - 0x01BDB1 06:BDA1: 08        .byte $08   ; 
-- D 1 - - - 0x01BDB2 06:BDA2: C1        .byte $C1   ; 
-- D 1 - - - 0x01BDB3 06:BDA3: 0C        .byte $0C   ; 
-- D 1 - - - 0x01BDB4 06:BDA4: 80        .byte $80   ; 
-- D 1 - - - 0x01BDB5 06:BDA5: 00        .byte $00   ; 
-- D 1 - - - 0x01BDB6 06:BDA6: C0        .byte $C0   ; 
-- D 1 - - - 0x01BDB7 06:BDA7: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BDB8 06:BDA8: 80        .byte $80   ; 
-- D 1 - - - 0x01BDB9 06:BDA9: 08        .byte $08   ; 
-- D 1 - - - 0x01BDBA 06:BDAA: C1        .byte $C1   ; 
-- D 1 - - - 0x01BDBB 06:BDAB: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BDBC 06:BDAC: 00        .byte $00   ; 
-- D 1 - - - 0x01BDBD 06:BDAD: 00        .byte $00   ; 
-- D 1 - - - 0x01BDBE 06:BDAE: C0        .byte $C0   ; 
-- D 1 - - - 0x01BDBF 06:BDAF: 14        .byte $14   ; 
-- D 1 - - - 0x01BDC0 06:BDB0: 00        .byte $00   ; 
-- D 1 - - - 0x01BDC1 06:BDB1: 08        .byte $08   ; 
-- D 1 - - - 0x01BDC2 06:BDB2: C1        .byte $C1   ; 
-- D 1 - - - 0x01BDC3 06:BDB3: 14        .byte $14   ; 
-- D 1 - - - 0x01BDC4 06:BDB4: 00        .byte $00   ; 
-- D 1 - - - 0x01BDC5 06:BDB5: 00        .byte $00   ; 
-- D 1 - - - 0x01BDC6 06:BDB6: C2        .byte $C2   ; 
-- D 1 - - - 0x01BDC7 06:BDB7: 10        .byte $10   ; 
-- D 1 - - - 0x01BDC8 06:BDB8: 00        .byte $00   ; 
-- D 1 - - - 0x01BDC9 06:BDB9: 08        .byte $08   ; 
-- D 1 - - - 0x01BDCA 06:BDBA: C2        .byte $C2   ; 
-- D 1 - - - 0x01BDCB 06:BDBB: 10        .byte $10   ; 
-- D 1 - - - 0x01BDCC 06:BDBC: 80        .byte $80   ; 
-- D 1 - - - 0x01BDCD 06:BDBD: 00        .byte $00   ; 
-- D 1 - - - 0x01BDCE 06:BDBE: C3        .byte $C3   ; 
-- D 1 - - - 0x01BDCF 06:BDBF: 10        .byte $10   ; 
-- D 1 - - - 0x01BDD0 06:BDC0: 80        .byte $80   ; 
-- D 1 - - - 0x01BDD1 06:BDC1: 08        .byte $08   ; 
-- D 1 - - - 0x01BDD2 06:BDC2: C3        .byte $C3   ; 
-- D 1 - - - 0x01BDD3 06:BDC3: 10        .byte $10   ; 
-- D 1 - - - 0x01BDD4 06:BDC4: 00        .byte $00   ; 
-- D 1 - - - 0x01BDD5 06:BDC5: 00        .byte $00   ; 
-- D 1 - - - 0x01BDD6 06:BDC6: C0        .byte $C0   ; 
-- D 1 - - - 0x01BDD7 06:BDC7: 18        .byte $18   ; 
-- D 1 - - - 0x01BDD8 06:BDC8: 00        .byte $00   ; 
-- D 1 - - - 0x01BDD9 06:BDC9: 08        .byte $08   ; 
-- D 1 - - - 0x01BDDA 06:BDCA: C1        .byte $C1   ; 
-- D 1 - - - 0x01BDDB 06:BDCB: 18        .byte $18   ; 
+
+; Types:
+; Cat with the gun, Karate-girl, Skeleton, Mummy, Egyptian with bow, Egyptian with a sword, Ninja upside down
+; Zenigata, Fly man, The fat sailor, Boy in green, Egyptian with a boomerung, Karate-boy,
+; Karate-boy in blue on the street, Knight in armor with a shield
+tbl_ptr_enemy_t3_types_for_sprites:
+- D 1 - - - 0x01BD1D 06:BD0D: 01        .byte $01, $19, $24, $26, $35, $36, $38, $07, $1F, $09, $1A, $37, $17, $18, $1C
+
+; 1 byte - ???
+; 2 byte - ???
+; 3 byte - the 1 number of ChrBank
+; 4 byte - the 2 number of ChrBank
+; 5 byte - see v_sprite_magic2
+; 6 byte - see v_sprite_magic3
+; 7 byte - ???
+; 8 byte - ???
+tbl_ptr_enemy_t3_sprite_params_:
+- D 1 - - - 0x01BD2C 06:BD1C: 00        .byte $00, $00, $0C, $FF, $32, $42, $52, $4A  ; Cat with the gun
+- D 1 - - - 0x01BD34 06:BD24: 80        .byte $80, $00, $10, $12, $60, $82, $14, $00  ; Karate-girl
+- D 1 - - - 0x01BD3C 06:BD2C: 00        .byte $00, $02, $19, $FF, $00, $02, $00, $00  ; Skeleton
+- D 1 - - - 0x01BD44 06:BD34: 00        .byte $00, $0A, $3E, $FF, $1C, $02, $00, $00  ; Mummy
+- D 1 - - - 0x01BD4C 06:BD3C: 80        .byte $80, $00, $18, $FF, $70, $02, $00, $00  ; Egyptian with bow
+- D 1 - - - 0x01BD54 06:BD44: 00        .byte $00, $00, $3E, $FF, $90, $02, $00, $00  ; Egyptian with a sword
+- D 1 - - - 0x01BD5C 06:BD4C: 80        .byte $80, $00, $3E, $FF, $B4, $02, $00, $00  ; Ninja upside down
+- D 1 - - - 0x01BD64 06:BD54: 00        .byte $00, $00, $04, $FF, $00, $12, $00, $00  ; Zenigata
+- D 1 - - - 0x01BD6C 06:BD5C: 00        .byte $00, $00, $FF, $15, $5E, $C0, $00, $00  ; Fly man
+- D 1 - - - 0x01BD74 06:BD64: 00        .byte $00, $04, $FF, $0E, $84, $46, $00, $00  ; The fat sailor
+- D 1 - - - 0x01BD7C 06:BD6C: 00        .byte $00, $00, $10, $11, $84, $82, $14, $00  ; Boy in green
+- D 1 - - - 0x01BD84 06:BD74: 80        .byte $80, $02, $18, $FF, $AC, $80, $00, $00  ; Egyptian with a boomerung
+- D 1 - - - 0x01BD8C 06:BD7C: 00        .byte $00, $00, $10, $FF, $2C, $82, $14, $4C  ; Karate-boy
+- D 1 - - - 0x01BD94 06:BD84: 00        .byte $00, $00, $10, $FF, $2C, $82, $14, $4C  ; Karate-boy in blue on the street
+- D 1 - - - 0x01BD9C 06:BD8C: 00        .byte $00, $00, $FF, $16, $00, $C6, $00, $00  ; Knight in armor with a shield
+- D 1 - - - 0x01BDA4 06:BD94: 00        .byte $00, $00, $FF, $16, $22, $C6, $00, $00  ; Others
+
+; 1 byte - ???
+; 2 byte - ???
+; 3 byte - ???
+; 4 byte - ???
+tbl_ptr_enemy_t4_sprite_params_:
+- D 1 - - - 0x01BDAC 06:BD9C: 00        .byte $00, $00, $C0, $0C   ; Gray land hat, right
+- D 1 - - - 0x01BDB0 06:BDA0: 00        .byte $00, $08, $C1, $0C   ; Gray land hat, left
+- D 1 - - - 0x01BDB4 06:BDA4: 80        .byte $80, $00, $C0, $0E   ; Black land hat, right
+- D 1 - - - 0x01BDB8 06:BDA8: 80        .byte $80, $08, $C1, $0E   ; Black land hat, left
+- D 1 - - - 0x01BDBC 06:BDAC: 00        .byte $00, $00, $C0, $14   ; Bat, right
+- D 1 - - - 0x01BDC0 06:BDB0: 00        .byte $00, $08, $C1, $14   ; Bat, left
+- D 1 - - - 0x01BDC4 06:BDB4: 00        .byte $00, $00, $C2, $10   ; Batterfly, right
+- D 1 - - - 0x01BDC8 06:BDB8: 00        .byte $00, $08, $C2, $10   ; Batterfly, left
+- D 1 - - - 0x01BDCC 06:BDBC: 80        .byte $80, $00, $C3, $10   ; Broned batterfly, right
+- D 1 - - - 0x01BDD0 06:BDC0: 80        .byte $80, $08, $C3, $10   ; Broned batterfly, left
+- D 1 - - - 0x01BDD4 06:BDC4: 00        .byte $00, $00, $C0, $18   ; Gargoyle, right
+- D 1 - - - 0x01BDD8 06:BDC8: 00        .byte $00, $08, $C1, $18   ; Gargoyle, left
 
 ; Types: The bird with a bomb, The barrel, The barrel, Cobblestone, Potted snakes, The bird
 tbl_ptr_enemy_t2_types_for_sprites:

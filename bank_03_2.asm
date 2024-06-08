@@ -35,6 +35,7 @@
 .import sub_D831_enemyB_on_screen                    ; bank FF
 .import sub_D9C4_inc_enemyB_frame_counter            ; bank FF
 .import sub_D064_generate_rng                        ; bank FF
+.import tbl_E35D_jump_posY_offset                    ; bank FF
 
 .export sub_A015_cat_or_snake_enemy
 
@@ -4536,19 +4537,20 @@ C - - - - - 0x00FC48 03:BC38: 9D 7A 03  STA ram_037A,X
 C - - - - - 0x00FC4B 03:BC3B: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x00FC4E 03:BC3E: 29 EF     AND #$EF
 C - - - - - 0x00FC50 03:BC40: 9D 5C 03  STA vEnemyBStatus,X
+; In: Register X - the enemyB number
 loc_BC43_main:
 C - - - - - 0x00FC53 03:BC43: 20 D9 D8  JSR sub_D8D9_enemyB_collision_by_one      ;
 C - - - - - 0x00FC56 03:BC46: D0 07     BNE bra_BC4F_skip                         ; If the collisions by Y-position exists
 C - - - - - 0x00FC58 03:BC48: A9 10     LDA #$10                                  ; CONSTANT - a jump counter value 
 C - - - - - 0x00FC5A 03:BC4A: A0 03     LDY #$03                                  ; CONSTANT - jumping off, free fall
-C - - - - - 0x00FC5C 03:BC4C: 4C 32 BD  JMP loc_BD32_activate_jump_status_ex
+C - - - - - 0x00FC5C 03:BC4C: 4C 32 BD  JMP loc_BD32_activate_jump_status_ex      ;
 
 bra_BC4F_skip:
 C - - - - - 0x00FC5F 03:BC4F: 20 DC BD  JSR sub_BDDC_try_to_change_self   ;
 C - - - - - 0x00FC62 03:BC52: BD 5C 03  LDA vEnemyBStatus,X               ;
 C - - - - - 0x00FC65 03:BC55: 29 02     AND #$02                          ; CONSTANT - the jump
 C - - - - - 0x00FC67 03:BC57: F0 03     BEQ bra_BC5C_skip                 ; If vEnemyBStatus doesn't contain 0x02
-C - - - - - 0x00FC69 03:BC59: 4C 2E BD  JMP loc_BD2E_activate_jump_status
+C - - - - - 0x00FC69 03:BC59: 4C 2E BD  JMP loc_BD2E_activate_jump_status ;
 
 bra_BC5C_skip:
 C - - - - - 0x00FC6C 03:BC5C: BD 5C 03  LDA vEnemyBStatus,X               ;
@@ -4563,11 +4565,11 @@ C - - - - - 0x00FC7E 03:BC6E: D0 0D     BNE bra_BC7D_prepare_rendering    ; If R
 C - - - - - 0x00FC80 03:BC70: A0 10     LDY #$10                          ; an input parameter - sprite_magic2 (a stop frame #2)
 C - - - - - 0x00FC82 03:BC72: D0 09     BNE bra_BC7D_prepare_rendering    ; Always true
 @bra_BC74_skip:
-C - - - - - 0x00FC84 03:BC74: 20 D6 BC  JSR sub_BCD6
-C - - - - - 0x00FC87 03:BC77: BD 80 03  LDA vEnemyBFrame_Counter,X
-C - - - - - 0x00FC8A 03:BC7A: 0A        ASL
-C - - - - - 0x00FC8B 03:BC7B: 0A        ASL
-C - - - - - 0x00FC8C 03:BC7C: A8        TAY
+C - - - - - 0x00FC84 03:BC74: 20 D6 BC  JSR sub_BCD6_movement             ;
+C - - - - - 0x00FC87 03:BC77: BD 80 03  LDA vEnemyBFrame_Counter,X        ;
+C - - - - - 0x00FC8A 03:BC7A: 0A        ASL                               ;
+C - - - - - 0x00FC8B 03:BC7B: 0A        ASL                               ; *4
+C - - - - - 0x00FC8C 03:BC7C: A8        TAY                               ; prepares the sprite_magic2 (The offset by the address)
 ; In: Register Y - sprite_magic2 (The offset by the address)
 loc_BC7D_prepare_rendering:
 bra_BC7D_prepare_rendering:
@@ -4618,156 +4620,160 @@ C - - - - - 0x00FCDE 03:BCCE: AD 07 03  LDA vEnemyBSpriteMagic3          ; ~> sp
 C - - - - - 0x00FCE1 03:BCD1: 85 02     STA ram_0002                     ;
 C - - - - - 0x00FCE3 03:BCD3: 4C 33 CE  JMP loc_CE33_add_sprite_magic    ; bank FF
 
-sub_BCD6:
-C - - - - - 0x00FCE6 03:BCD6: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x00FCE9 03:BCD9: 6A        ROR
-C - - - - - 0x00FCEA 03:BCDA: 90 19     BCC bra_BCF5
-C - - - - - 0x00FCEC 03:BCDC: 20 FB BC  JSR sub_BCFB
-loc_BCDF:
-C D 1 - - - 0x00FCEF 03:BCDF: A5 2C     LDA vLowCounter
-C - - - - - 0x00FCF1 03:BCE1: 29 07     AND #$07
-C - - - - - 0x00FCF3 03:BCE3: D0 0F     BNE bra_BCF4_RTS
-C - - - - - 0x00FCF5 03:BCE5: FE 80 03  INC ram_0380,X
-C - - - - - 0x00FCF8 03:BCE8: BD 80 03  LDA ram_0380,X
-C - - - - - 0x00FCFB 03:BCEB: C9 03     CMP #$03
-C - - - - - 0x00FCFD 03:BCED: 90 05     BCC bra_BCF4_RTS
-C - - - - - 0x00FCFF 03:BCEF: A9 00     LDA #$00
-C - - - - - 0x00FD01 03:BCF1: 9D 80 03  STA ram_0380,X
+sub_BCD6_movement:
+C - - - - - 0x00FCE6 03:BCD6: BD 5C 03  LDA vEnemyBStatus,X                    ;
+C - - - - - 0x00FCE9 03:BCD9: 6A        ROR                                    ;
+C - - - - - 0x00FCEA 03:BCDA: 90 19     BCC bra_BCF5_right                     ; If the enemy is looking to the right
+C - - - - - 0x00FCEC 03:BCDC: 20 FB BC  JSR sub_BCFB_try_movement_on_the_left  ;
+loc_BCDF_inc_enemyB_frame_counter:                                             ; analog sub_D9C4_inc_enemyB_frame_counter
+C D 1 - - - 0x00FCEF 03:BCDF: A5 2C     LDA vLowCounter                        ;
+C - - - - - 0x00FCF1 03:BCE1: 29 07     AND #$07                               ;
+C - - - - - 0x00FCF3 03:BCE3: D0 0F     BNE bra_BCF4_RTS                       ; Branch if vLowCounter doesn't multiple of 8 (vLowCounter % 8 != 0)
+C - - - - - 0x00FCF5 03:BCE5: FE 80 03  INC vEnemyBFrame_Counter,X             ;
+C - - - - - 0x00FCF8 03:BCE8: BD 80 03  LDA vEnemyBFrame_Counter,X             ;
+C - - - - - 0x00FCFB 03:BCEB: C9 03     CMP #$03                               ; CONSTANT - Max value
+C - - - - - 0x00FCFD 03:BCED: 90 05     BCC bra_BCF4_RTS                       ; If vEnemyBFrame_Counter < 0x03
+C - - - - - 0x00FCFF 03:BCEF: A9 00     LDA #$00                               ;
+C - - - - - 0x00FD01 03:BCF1: 9D 80 03  STA vEnemyBFrame_Counter,X             ; reset a counter
 bra_BCF4_RTS:
-C - - - - - 0x00FD04 03:BCF4: 60        RTS
+C - - - - - 0x00FD04 03:BCF4: 60        RTS                                    ;
 
-bra_BCF5:
-C - - - - - 0x00FD05 03:BCF5: 20 20 BD  JSR sub_BD20
-C - - - - - 0x00FD08 03:BCF8: 4C DF BC  JMP loc_BCDF
+bra_BCF5_right:
+C - - - - - 0x00FD05 03:BCF5: 20 20 BD  JSR sub_BD20_try_movement_on_the_right    ;
+C - - - - - 0x00FD08 03:BCF8: 4C DF BC  JMP loc_BCDF_inc_enemyB_frame_counter     ;
 
-sub_BCFB:
-C - - - - - 0x00FD0B 03:BCFB: 20 C2 D8  JSR sub_D8C2_check_enemyB_movement_on_the_left
-C - - - - - 0x00FD0E 03:BCFE: F0 09     BEQ bra_BD09
-C - - - - - 0x00FD10 03:BD00: A5 2C     LDA vLowCounter
-C - - - - - 0x00FD12 03:BD02: 29 01     AND #$01
-C - - - - - 0x00FD14 03:BD04: F0 19     BEQ bra_BD1F_RTS
-C - - - - - 0x00FD16 03:BD06: 4C FC D7  JMP loc_D7FC_dec_EnemyBPosXLow
+; In: Register X - the enemyB number
+sub_BCFB_try_movement_on_the_left:
+C - - - - - 0x00FD0B 03:BCFB: 20 C2 D8  JSR sub_D8C2_check_enemyB_movement_on_the_left   ;
+C - - - - - 0x00FD0E 03:BCFE: F0 09     BEQ bra_BD09_try_jump_over                       ; If the movement isn't allowed
+C - - - - - 0x00FD10 03:BD00: A5 2C     LDA vLowCounter                                  ;
+C - - - - - 0x00FD12 03:BD02: 29 01     AND #$01                                         ;
+C - - - - - 0x00FD14 03:BD04: F0 19     BEQ bra_BD1F_RTS                                 ; Branch if vLowCounter multiple of 2
+C - - - - - 0x00FD16 03:BD06: 4C FC D7  JMP loc_D7FC_dec_EnemyBPosXLow                   ;
 
-bra_BD09:
-C - - - - - 0x00FD19 03:BD09: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x00FD1C 03:BD0C: 29 20     AND #$20
-C - - - - - 0x00FD1E 03:BD0E: D0 0F     BNE bra_BD1F_RTS
-C - - - - - 0x00FD20 03:BD10: A9 02     LDA #$02
-C - - - - - 0x00FD22 03:BD12: 20 1C BE  JSR sub_BE1C_change_substatus
-C - - - - - 0x00FD25 03:BD15: A9 14     LDA #$14
-C - - - - - 0x00FD27 03:BD17: 9D 86 03  STA ram_0386,X
-C - - - - - 0x00FD2A 03:BD1A: A9 03     LDA #$03
-C - - - - - 0x00FD2C 03:BD1C: 9D 92 03  STA ram_0392,X
+; In: Register X - the enemyB number
+bra_BD09_try_jump_over:
+C - - - - - 0x00FD19 03:BD09: BD 5C 03  LDA vEnemyBStatus,X           ;
+C - - - - - 0x00FD1C 03:BD0C: 29 20     AND #$20                      ; CONSTANT - the dying
+C - - - - - 0x00FD1E 03:BD0E: D0 0F     BNE bra_BD1F_RTS              ; If the enemy is dying
+C - - - - - 0x00FD20 03:BD10: A9 02     LDA #$02                      ; CONSTANT - the jump
+C - - - - - 0x00FD22 03:BD12: 20 1C BE  JSR sub_BE1C_change_substatus ;
+C - - - - - 0x00FD25 03:BD15: A9 14     LDA #$14                      ; Initializes a jump counter
+C - - - - - 0x00FD27 03:BD17: 9D 86 03  STA vEnemyBJumpCounter,X      ;
+C - - - - - 0x00FD2A 03:BD1A: A9 03     LDA #$03                      ; CONSTANT - jump by side
+C - - - - - 0x00FD2C 03:BD1C: 9D 92 03  STA vEnemyBJumpType,X         ;
 bra_BD1F_RTS:
-C - - - - - 0x00FD2F 03:BD1F: 60        RTS
+C - - - - - 0x00FD2F 03:BD1F: 60        RTS                           ;
 
-sub_BD20:
-C - - - - - 0x00FD30 03:BD20: 20 B7 D8  JSR sub_D8B7_check_enemyB_movement_on_the_right
-C - - - - - 0x00FD33 03:BD23: F0 E4     BEQ bra_BD09
-C - - - - - 0x00FD35 03:BD25: A5 2C     LDA vLowCounter
-C - - - - - 0x00FD37 03:BD27: 29 01     AND #$01
-C - - - - - 0x00FD39 03:BD29: F0 F4     BEQ bra_BD1F_RTS
-C - - - - - 0x00FD3B 03:BD2B: 4C 1B D8  JMP loc_D81B_inc_EnemyBPosXLow
+; In: Register X - the enemyB number
+sub_BD20_try_movement_on_the_right:
+C - - - - - 0x00FD30 03:BD20: 20 B7 D8  JSR sub_D8B7_check_enemyB_movement_on_the_right  ;
+C - - - - - 0x00FD33 03:BD23: F0 E4     BEQ bra_BD09_try_jump_over                       ; If the movement isn't allowed
+C - - - - - 0x00FD35 03:BD25: A5 2C     LDA vLowCounter                                  ;
+C - - - - - 0x00FD37 03:BD27: 29 01     AND #$01                                         ;
+C - - - - - 0x00FD39 03:BD29: F0 F4     BEQ bra_BD1F_RTS                                 ; Branch if vLowCounter multiple of 2
+C - - - - - 0x00FD3B 03:BD2B: 4C 1B D8  JMP loc_D81B_inc_EnemyBPosXLow                   ;
 
 ; In: Register X - the enemyB number
 loc_BD2E_activate_jump_status:
-C D 1 - - - 0x00FD3E 03:BD2E: A9 06     LDA #$06
-C - - - - - 0x00FD40 03:BD30: A0 03     LDY #$03
+C D 1 - - - 0x00FD3E 03:BD2E: A9 06     LDA #$06                       ; Initializes a jump counter
+C - - - - - 0x00FD40 03:BD30: A0 03     LDY #$03                       ; Initializes a jump type
 ; In: Register A - a jump counter value
 ; In: Register Y - a jump type
 ; In: Register X - the enemyB number
 loc_BD32_activate_jump_status_ex:
-C D 1 - - - 0x00FD42 03:BD32: 9D 86 03  STA vEnemyBJumpCounter,X       ;
-C - - - - - 0x00FD45 03:BD35: 98        TYA                            ;
-C - - - - - 0x00FD46 03:BD36: 9D 92 03  STA vEnemyBJumpType,X          ;
-C - - - - - 0x00FD49 03:BD39: A9 02     LDA #$02                       ; CONSTANT - the jump
-C - - - - - 0x00FD4B 03:BD3B: 20 1C BE  JSR sub_BE1C_change_substatus  ;
-C - - - - - 0x00FD4E 03:BD3E: A9 01     LDA #$01                       ;
-C - - - - - 0x00FD50 03:BD40: 9D 80 03  STA vEnemyBFrame_Counter,X     ; reset a counter
+C D 1 - - - 0x00FD42 03:BD32: 9D 86 03  STA vEnemyBJumpCounter,X               ;
+C - - - - - 0x00FD45 03:BD35: 98        TYA                                    ;
+C - - - - - 0x00FD46 03:BD36: 9D 92 03  STA vEnemyBJumpType,X                  ;
+C - - - - - 0x00FD49 03:BD39: A9 02     LDA #$02                               ; CONSTANT - the jump
+C - - - - - 0x00FD4B 03:BD3B: 20 1C BE  JSR sub_BE1C_change_substatus          ;
+C - - - - - 0x00FD4E 03:BD3E: A9 01     LDA #$01                               ;
+C - - - - - 0x00FD50 03:BD40: 9D 80 03  STA vEnemyBFrame_Counter,X             ; reset a counter
 loc_BD43_jump:
-C - - - - - 0x00FD53 03:BD43: BD 68 03  LDA ram_0368,X
-C - - - - - 0x00FD56 03:BD46: C9 DF     CMP #$DF
-C - - - - - 0x00FD58 03:BD48: B0 1E     BCS bra_BD68
-C - - - - - 0x00FD5A 03:BD4A: BD 92 03  LDA ram_0392,X
-C - - - - - 0x00FD5D 03:BD4D: C9 03     CMP #$03
-C - - - - - 0x00FD5F 03:BD4F: D0 17     BNE bra_BD68
-C - - - - - 0x00FD61 03:BD51: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x00FD64 03:BD54: 6A        ROR
-C - - - - - 0x00FD65 03:BD55: 90 0A     BCC bra_BD61
-C - - - - - 0x00FD67 03:BD57: 29 10     AND #$10
-C - - - - - 0x00FD69 03:BD59: D0 0A     BNE bra_BD65
-bra_BD5B:
-C - - - - - 0x00FD6B 03:BD5B: 20 FB BC  JSR sub_BCFB
-C - - - - - 0x00FD6E 03:BD5E: 4C 68 BD  JMP loc_BD68
+C - - - - - 0x00FD53 03:BD43: BD 68 03  LDA vEnemyBPosY,X                      ;
+C - - - - - 0x00FD56 03:BD46: C9 DF     CMP #$DF                               ; CONSTANT - Maximum allowed Y-value on the screen
+C - - - - - 0x00FD58 03:BD48: B0 1E     BCS bra_BD68_skip                      ; If PosY >= 0xDF
+C - - - - - 0x00FD5A 03:BD4A: BD 92 03  LDA vEnemyBJumpType,X                  ;
+C - - - - - 0x00FD5D 03:BD4D: C9 03     CMP #$03                               ; CONSTANT - jump by side
+C - - - - - 0x00FD5F 03:BD4F: D0 17     BNE bra_BD68_skip                      ; If vEnemyAJumpType != 0x03
+C - - - - - 0x00FD61 03:BD51: BD 5C 03  LDA vEnemyBStatus,X                    ;
+C - - - - - 0x00FD64 03:BD54: 6A        ROR                                    ;
+C - - - - - 0x00FD65 03:BD55: 90 0A     BCC bra_BD61_right                     ; If the enemy is looking to the right
+C - - - - - 0x00FD67 03:BD57: 29 10     AND #$10                               ; CONSTANT - the dying + shift right
+C - - - - - 0x00FD69 03:BD59: D0 0A     BNE bra_BD65_invert                    ; If the enemy is dying
+bra_BD5B_invert:
+C - - - - - 0x00FD6B 03:BD5B: 20 FB BC  JSR sub_BCFB_try_movement_on_the_left  ;
+C - - - - - 0x00FD6E 03:BD5E: 4C 68 BD  JMP loc_BD68_continue                  ;
 
-bra_BD61:
-C - - - - - 0x00FD71 03:BD61: 29 10     AND #$10
-C - - - - - 0x00FD73 03:BD63: D0 F6     BNE bra_BD5B
-bra_BD65:
-C - - - - - 0x00FD75 03:BD65: 20 20 BD  JSR sub_BD20
-bra_BD68:
-loc_BD68:
-C D 1 - - - 0x00FD78 03:BD68: BC 86 03  LDY ram_0386,X
-C - - - - - 0x00FD7B 03:BD6B: B9 5D E3  LDA $E35D,Y
-C - - - - - 0x00FD7E 03:BD6E: 18        CLC
-C - - - - - 0x00FD7F 03:BD6F: 7D 68 03  ADC ram_0368,X
-C - - - - - 0x00FD82 03:BD72: C9 EF     CMP #$EF
-C - - - - - 0x00FD84 03:BD74: 90 09     BCC bra_BD7F
-C - - - - - 0x00FD86 03:BD76: A0 EF     LDY #$EF
-C - - - - - 0x00FD88 03:BD78: C9 F8     CMP #$F8
-C - - - - - 0x00FD8A 03:BD7A: 90 02     BCC bra_BD7E
-- - - - - - 0x00FD8C 03:BD7C: A0        .byte $A0   ; 
-- - - - - - 0x00FD8D 03:BD7D: 00        .byte $00   ; 
-bra_BD7E:
-C - - - - - 0x00FD8E 03:BD7E: 98        TYA
-bra_BD7F:
-C - - - - - 0x00FD8F 03:BD7F: 9D 68 03  STA ram_0368,X
-C - - - - - 0x00FD92 03:BD82: BC 86 03  LDY ram_0386,X
-C - - - - - 0x00FD95 03:BD85: C0 18     CPY #$18
-C - - - - - 0x00FD97 03:BD87: 90 38     BCC bra_BDC1_dying
-C - - - - - 0x00FD99 03:BD89: C9 EF     CMP #$EF
-C - - - - - 0x00FD9B 03:BD8B: 90 05     BCC bra_BD92
-C - - - - - 0x00FD9D 03:BD8D: A0 FF     LDY #$FF
-C - - - - - 0x00FD9F 03:BD8F: 4C 7D BC  JMP loc_BC7D_prepare_rendering
+; In: Register X - the enemyB number
+bra_BD61_right:
+C - - - - - 0x00FD71 03:BD61: 29 10     AND #$10                               ; CONSTANT - the dying + shift right
+C - - - - - 0x00FD73 03:BD63: D0 F6     BNE bra_BD5B_invert                    ; If the enemy is dying
+bra_BD65_invert:
+C - - - - - 0x00FD75 03:BD65: 20 20 BD  JSR sub_BD20_try_movement_on_the_right ;
+loc_BD68_continue:
+bra_BD68_skip:
+C D 1 - - - 0x00FD78 03:BD68: BC 86 03  LDY vEnemyBJumpCounter,X               ;
+C - - - - - 0x00FD7B 03:BD6B: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y        ; X = [0x00-0x2F]
+C - - - - - 0x00FD7E 03:BD6E: 18        CLC                                    ;
+C - - - - - 0x00FD7F 03:BD6F: 7D 68 03  ADC vEnemyBPosY,X                      ;
+C - - - - - 0x00FD82 03:BD72: C9 EF     CMP #$EF                               ; CONSTANT - Limit 1 for Y-position
+C - - - - - 0x00FD84 03:BD74: 90 09     BCC @bra_BD7F_skip                     ; If Register A < 0xEF
+C - - - - - 0x00FD86 03:BD76: A0 EF     LDY #$EF                               ; 0xEF -> vPosY
+C - - - - - 0x00FD88 03:BD78: C9 F8     CMP #$F8                               ; CONSTANT - Limit 2 for Y-position
+C - - - - - 0x00FD8A 03:BD7A: 90 02     BCC @bra_BD7E_skip                     ; If Register A < 0xF8
+C - - - - - 0x00FD8C 03:BD7C: A0 00     LDY #$00                               ; 0x00 -> vPosY
+@bra_BD7E_skip:
+C - - - - - 0x00FD8E 03:BD7E: 98        TYA                                    ; A <~ 0x00 or 0xEF
+@bra_BD7F_skip:
+C - - - - - 0x00FD8F 03:BD7F: 9D 68 03  STA vEnemyBPosY,X                      ; Resolves a new Y-position of the character after jumping
+C - - - - - 0x00FD92 03:BD82: BC 86 03  LDY vEnemyBJumpCounter,X               ;
+C - - - - - 0x00FD95 03:BD85: C0 18     CPY #$18                               ; CONSTANT - a maximum amplitude
+C - - - - - 0x00FD97 03:BD87: 90 38     BCC bra_BDC1_inc                       ; If vEnemyAJumpCounter < 0x18
+C - - - - - 0x00FD99 03:BD89: C9 EF     CMP #$EF                               ; CONSTANT - Maximum allowed Y-value on the screen
+C - - - - - 0x00FD9B 03:BD8B: 90 05     BCC bra_BD92_skip                      ; If vPosY < 0xEF
+C - - - - - 0x00FD9D 03:BD8D: A0 FF     LDY #$FF                               ; prepares the sprite_magic2 (The offset by the address), death mark
+C - - - - - 0x00FD9F 03:BD8F: 4C 7D BC  JMP loc_BC7D_prepare_rendering         ;
 
-bra_BD92:
-C - - - - - 0x00FDA2 03:BD92: 20 D9 D8  JSR sub_D8D9_enemyB_collision_by_one
-C - - - - - 0x00FDA5 03:BD95: F0 2A     BEQ bra_BDC1_dying
-C - - - - - 0x00FDA7 03:BD97: C9 01     CMP #$01
-C - - - - - 0x00FDA9 03:BD99: F0 0D     BEQ bra_BDA8
-C - - - - - 0x00FDAB 03:BD9B: BD 68 03  LDA ram_0368,X
-C - - - - - 0x00FDAE 03:BD9E: C9 BF     CMP #$BF
-C - - - - - 0x00FDB0 03:BDA0: B0 06     BCS bra_BDA8
-C - - - - - 0x00FDB2 03:BDA2: A5 2C     LDA vLowCounter
-C - - - - - 0x00FDB4 03:BDA4: 29 03     AND #$03
-C - - - - - 0x00FDB6 03:BDA6: D0 19     BNE bra_BDC1_dying
-bra_BDA8:
-C - - - - - 0x00FDB8 03:BDA8: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x00FDBB 03:BDAB: 29 20     AND #$20
-C - - - - - 0x00FDBD 03:BDAD: D0 12     BNE bra_BDC1_dying
-C - - - - - 0x00FDBF 03:BDAF: 20 9C D8  JSR sub_D89C_correction_EnemyBPosY
-C - - - - - 0x00FDC2 03:BDB2: A9 00     LDA #$00
-C - - - - - 0x00FDC4 03:BDB4: 9D 86 03  STA ram_0386,X
-C - - - - - 0x00FDC7 03:BDB7: A9 02     LDA #$02
-C - - - - - 0x00FDC9 03:BDB9: 9D 80 03  STA ram_0380,X
-C - - - - - 0x00FDCC 03:BDBC: A0 08     LDY #$08
-C - - - - - 0x00FDCE 03:BDBE: 4C 7D BC  JMP loc_BC7D_prepare_rendering
+; In: Register X - the enemyB number
+bra_BD92_skip:
+C - - - - - 0x00FDA2 03:BD92: 20 D9 D8  JSR sub_D8D9_enemyB_collision_by_one   ;
+C - - - - - 0x00FDA5 03:BD95: F0 2A     BEQ bra_BDC1_inc                       ; If the collisions by Y-position don't exist
+C - - - - - 0x00FDA7 03:BD97: C9 01     CMP #$01                               ; CONSTANT - a strong collision
+C - - - - - 0x00FDA9 03:BD99: F0 0D     BEQ @bra_BDA8_skip                     ; If the collision is strong
+C - - - - - 0x00FDAB 03:BD9B: BD 68 03  LDA vEnemyBPosY,X                      ;
+C - - - - - 0x00FDAE 03:BD9E: C9 BF     CMP #$BF                               ;
+C - - - - - 0x00FDB0 03:BDA0: B0 06     BCS @bra_BDA8_skip                     ; If PosY >= 0xBF
+C - - - - - 0x00FDB2 03:BDA2: A5 2C     LDA vLowCounter                        ;
+C - - - - - 0x00FDB4 03:BDA4: 29 03     AND #$03                               ;
+C - - - - - 0x00FDB6 03:BDA6: D0 19     BNE bra_BDC1_inc                       ; Branch if vLowCounter doesn't multiple of 4 (vLowCounter % 4 != 0)
+@bra_BDA8_skip:
+C - - - - - 0x00FDB8 03:BDA8: BD 5C 03  LDA vEnemyBStatus,X                    ;
+C - - - - - 0x00FDBB 03:BDAB: 29 20     AND #$20                               ; CONSTANT - the dying
+C - - - - - 0x00FDBD 03:BDAD: D0 12     BNE bra_BDC1_inc                       ; If the enemy is dying
+C - - - - - 0x00FDBF 03:BDAF: 20 9C D8  JSR sub_D89C_correction_EnemyBPosY     ;
+C - - - - - 0x00FDC2 03:BDB2: A9 00     LDA #$00                               ;
+C - - - - - 0x00FDC4 03:BDB4: 9D 86 03  STA vEnemyBJumpCounter,X               ; clear
+C - - - - - 0x00FDC7 03:BDB7: A9 02     LDA #$02                               ; CONSTANT - jump out frame
+C - - - - - 0x00FDC9 03:BDB9: 9D 80 03  STA vEnemyBFrame_Counter,X             ;
+C - - - - - 0x00FDCC 03:BDBC: A0 08     LDY #$08                               ;
+C - - - - - 0x00FDCE 03:BDBE: 4C 7D BC  JMP loc_BC7D_prepare_rendering         ; prepares the sprite_magic2 (The offset by the address), a jump out frame
 
 loc_BDC1_dying:
-bra_BDC1_dying:
+bra_BDC1_inc:
 C - - - - - 0x00FDD1 03:BDC1: FE 86 03  INC vEnemyBJumpCounter,X       ;
 C - - - - - 0x00FDD4 03:BDC4: A9 2F     LDA #$2F                       ; CONSTANT - a maximum jump value
 C - - - - - 0x00FDD6 03:BDC6: DD 86 03  CMP vEnemyBJumpCounter,X       ;
 C - - - - - 0x00FDD9 03:BDC9: B0 03     BCS @bra_BDCE_skip             ; If 0x2F >= jumpCounter, i.e. less than maximum
 C - - - - - 0x00FDDB 03:BDCB: 9D 86 03  STA vEnemyBJumpCounter,X       ;
 @bra_BDCE_skip:
-C - - - - - 0x00FDDE 03:BDCE: A0 08     LDY #$08
-C - - - - - 0x00FDE0 03:BDD0: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x00FDE3 03:BDD3: 29 20     AND #$20
-C - - - - - 0x00FDE5 03:BDD5: D0 02     BNE @bra_BDD9_skip
-C - - - - - 0x00FDE7 03:BDD7: A0 04     LDY #$04
+C - - - - - 0x00FDDE 03:BDCE: A0 08     LDY #$08                       ; an inpur parameter #1 (a jump out)
+C - - - - - 0x00FDE0 03:BDD0: BD 5C 03  LDA vEnemyBStatus,X            ;
+C - - - - - 0x00FDE3 03:BDD3: 29 20     AND #$20                       ; CONSTANT - the dying
+C - - - - - 0x00FDE5 03:BDD5: D0 02     BNE @bra_BDD9_skip             ; If the enemy is dying
+C - - - - - 0x00FDE7 03:BDD7: A0 04     LDY #$04                       ; an inpur parameter #2 (a jump)
 @bra_BDD9_skip:
-C - - - - - 0x00FDE9 03:BDD9: 4C 7D BC  JMP loc_BC7D_prepare_rendering
+C - - - - - 0x00FDE9 03:BDD9: 4C 7D BC  JMP loc_BC7D_prepare_rendering ; prepares the sprite_magic2 (The offset by the address)
 
 ; In: Register X - the enemyB number
 sub_BDDC_try_to_change_self:
@@ -4825,459 +4831,459 @@ C - - - - - 0x00FE45 03:BE35: 05 05     ORA ram_0005                            
 C - - - - - 0x00FE47 03:BE37: 9D 5C 03  STA vEnemyBStatus,X                      ;
 C - - - - - 0x00FE4A 03:BE3A: 60        RTS                                      ;
 
-- - - - - - 0x00FE4B 03:BE3B: FC        .byte $FC   ; 
-- - - - - - 0x00FE4C 03:BE3C: A7        .byte $A7   ; 
-- - - - - - 0x00FE4D 03:BE3D: C0        .byte $C0   ; 
-- - - - - - 0x00FE4E 03:BE3E: FD        .byte $FD   ; 
-- - - - - - 0x00FE4F 03:BE3F: 02        .byte $02   ; 
-- - - - - - 0x00FE50 03:BE40: FB        .byte $FB   ; 
-- - - - - - 0x00FE51 03:BE41: A6        .byte $A6   ; 
-- - - - - - 0x00FE52 03:BE42: C0        .byte $C0   ; 
-- - - - - - 0x00FE53 03:BE43: FC        .byte $FC   ; 
-- - - - - - 0x00FE54 03:BE44: FC        .byte $FC   ; 
-- - - - - - 0x00FE55 03:BE45: A7        .byte $A7   ; 
-- - - - - - 0x00FE56 03:BE46: 00        .byte $00   ; 
-- - - - - - 0x00FE57 03:BE47: 03        .byte $03   ; 
-- - - - - - 0x00FE58 03:BE48: 02        .byte $02   ; 
-- - - - - - 0x00FE59 03:BE49: F5        .byte $F5   ; 
-- - - - - - 0x00FE5A 03:BE4A: A6        .byte $A6   ; 
-- - - - - - 0x00FE5B 03:BE4B: 40        .byte $40   ; 
-- - - - - - 0x00FE5C 03:BE4C: FC        .byte $FC   ; 
-- - - - - - 0x00FE5D 03:BE4D: FC        .byte $FC   ; 
-- - - - - - 0x00FE5E 03:BE4E: A7        .byte $A7   ; 
-- - - - - - 0x00FE5F 03:BE4F: 40        .byte $40   ; 
-- - - - - - 0x00FE60 03:BE50: FD        .byte $FD   ; 
-- - - - - - 0x00FE61 03:BE51: 02        .byte $02   ; 
-- - - - - - 0x00FE62 03:BE52: FD        .byte $FD   ; 
-- - - - - - 0x00FE63 03:BE53: A6        .byte $A6   ; 
-- - - - - - 0x00FE64 03:BE54: 40        .byte $40   ; 
-- - - - - - 0x00FE65 03:BE55: FC        .byte $FC   ; 
-- - - - - - 0x00FE66 03:BE56: FC        .byte $FC   ; 
-- - - - - - 0x00FE67 03:BE57: A7        .byte $A7   ; 
-- - - - - - 0x00FE68 03:BE58: 80        .byte $80   ; 
-- - - - - - 0x00FE69 03:BE59: 03        .byte $03   ; 
-- - - - - - 0x00FE6A 03:BE5A: 02        .byte $02   ; 
-- - - - - - 0x00FE6B 03:BE5B: 03        .byte $03   ; 
-- - - - - - 0x00FE6C 03:BE5C: A6        .byte $A6   ; 
-- - - - - - 0x00FE6D 03:BE5D: 80        .byte $80   ; 
-- - - - - - 0x00FE6E 03:BE5E: FC        .byte $FC   ; 
-- - - - - - 0x00FE6F 03:BE5F: FC        .byte $FC   ; 
-- - - - - - 0x00FE70 03:BE60: A7        .byte $A7   ; 
-- - - - - - 0x00FE71 03:BE61: 80        .byte $80   ; 
-- - - - - - 0x00FE72 03:BE62: FB        .byte $FB   ; 
-- - - - - - 0x00FE73 03:BE63: 02        .byte $02   ; 
-- - - - - - 0x00FE74 03:BE64: FB        .byte $FB   ; 
-- - - - - - 0x00FE75 03:BE65: A6        .byte $A6   ; 
-- - - - - - 0x00FE76 03:BE66: 80        .byte $80   ; 
-- - - - - - 0x00FE77 03:BE67: FC        .byte $FC   ; 
-- - - - - - 0x00FE78 03:BE68: FC        .byte $FC   ; 
-- - - - - - 0x00FE79 03:BE69: A7        .byte $A7   ; 
-- - - - - - 0x00FE7A 03:BE6A: 40        .byte $40   ; 
-- - - - - - 0x00FE7B 03:BE6B: F5        .byte $F5   ; 
-- - - - - - 0x00FE7C 03:BE6C: 03        .byte $03   ; 
-- - - - - - 0x00FE7D 03:BE6D: E8        .byte $E8   ; 
-- - - - - - 0x00FE7E 03:BE6E: A4        .byte $A4   ; 
-- - - - - - 0x00FE7F 03:BE6F: 42        .byte $42   ; <B>
-- - - - - - 0x00FE80 03:BE70: 00        .byte $00   ; 
-- - - - - - 0x00FE81 03:BE71: E0        .byte $E0   ; 
-- - - - - - 0x00FE82 03:BE72: A6        .byte $A6   ; 
-- - - - - - 0x00FE83 03:BE73: 40        .byte $40   ; 
-- - - - - - 0x00FE84 03:BE74: 02        .byte $02   ; 
-- - - - - - 0x00FE85 03:BE75: E7        .byte $E7   ; 
-- - - - - - 0x00FE86 03:BE76: A7        .byte $A7   ; 
-- - - - - - 0x00FE87 03:BE77: 40        .byte $40   ; 
-- - - - - - 0x00FE88 03:BE78: 03        .byte $03   ; 
-- - - - - - 0x00FE89 03:BE79: 03        .byte $03   ; 
-- - - - - - 0x00FE8A 03:BE7A: E8        .byte $E8   ; 
-- - - - - - 0x00FE8B 03:BE7B: A4        .byte $A4   ; 
-- - - - - - 0x00FE8C 03:BE7C: 02        .byte $02   ; 
-- - - - - - 0x00FE8D 03:BE7D: F8        .byte $F8   ; 
-- - - - - - 0x00FE8E 03:BE7E: E0        .byte $E0   ; 
-- - - - - - 0x00FE8F 03:BE7F: A6        .byte $A6   ; 
-- - - - - - 0x00FE90 03:BE80: 00        .byte $00   ; 
-- - - - - - 0x00FE91 03:BE81: F6        .byte $F6   ; 
-- - - - - - 0x00FE92 03:BE82: E7        .byte $E7   ; 
-- - - - - - 0x00FE93 03:BE83: A7        .byte $A7   ; 
-- - - - - - 0x00FE94 03:BE84: 00        .byte $00   ; 
-- - - - - - 0x00FE95 03:BE85: F5        .byte $F5   ; 
-- - - - - - 0x00FE96 03:BE86: 04        .byte $04   ; 
-- - - - - - 0x00FE97 03:BE87: E0        .byte $E0   ; 
-- - - - - - 0x00FE98 03:BE88: A5        .byte $A5   ; 
-- - - - - - 0x00FE99 03:BE89: 42        .byte $42   ; <B>
-- - - - - - 0x00FE9A 03:BE8A: 02        .byte $02   ; 
-- - - - - - 0x00FE9B 03:BE8B: E8        .byte $E8   ; 
-- - - - - - 0x00FE9C 03:BE8C: AC        .byte $AC   ; 
-- - - - - - 0x00FE9D 03:BE8D: 42        .byte $42   ; <B>
-- - - - - - 0x00FE9E 03:BE8E: 00        .byte $00   ; 
-- - - - - - 0x00FE9F 03:BE8F: D4        .byte $D4   ; 
-- - - - - - 0x00FEA0 03:BE90: A6        .byte $A6   ; 
-- - - - - - 0x00FEA1 03:BE91: 40        .byte $40   ; 
-- - - - - - 0x00FEA2 03:BE92: 01        .byte $01   ; 
-- - - - - - 0x00FEA3 03:BE93: DB        .byte $DB   ; 
-- - - - - - 0x00FEA4 03:BE94: A7        .byte $A7   ; 
-- - - - - - 0x00FEA5 03:BE95: 40        .byte $40   ; 
-- - - - - - 0x00FEA6 03:BE96: 02        .byte $02   ; 
-- - - - - - 0x00FEA7 03:BE97: 04        .byte $04   ; 
-- - - - - - 0x00FEA8 03:BE98: E0        .byte $E0   ; 
-- - - - - - 0x00FEA9 03:BE99: A5        .byte $A5   ; 
-- - - - - - 0x00FEAA 03:BE9A: 02        .byte $02   ; 
-- - - - - - 0x00FEAB 03:BE9B: F6        .byte $F6   ; 
-- - - - - - 0x00FEAC 03:BE9C: E8        .byte $E8   ; 
-- - - - - - 0x00FEAD 03:BE9D: AC        .byte $AC   ; 
-- - - - - - 0x00FEAE 03:BE9E: 02        .byte $02   ; 
-- - - - - - 0x00FEAF 03:BE9F: F8        .byte $F8   ; 
-- - - - - - 0x00FEB0 03:BEA0: D4        .byte $D4   ; 
-- - - - - - 0x00FEB1 03:BEA1: A6        .byte $A6   ; 
-- - - - - - 0x00FEB2 03:BEA2: 00        .byte $00   ; 
-- - - - - - 0x00FEB3 03:BEA3: F7        .byte $F7   ; 
-- - - - - - 0x00FEB4 03:BEA4: DB        .byte $DB   ; 
-- - - - - - 0x00FEB5 03:BEA5: A7        .byte $A7   ; 
-- - - - - - 0x00FEB6 03:BEA6: 00        .byte $00   ; 
-- - - - - - 0x00FEB7 03:BEA7: F6        .byte $F6   ; 
-- - - - - - 0x00FEB8 03:BEA8: 01        .byte $01   ; 
-- - - - - - 0x00FEB9 03:BEA9: E8        .byte $E8   ; 
-- - - - - - 0x00FEBA 03:BEAA: A4        .byte $A4   ; 
-- - - - - - 0x00FEBB 03:BEAB: 42        .byte $42   ; <B>
-- - - - - - 0x00FEBC 03:BEAC: 00        .byte $00   ; 
-- - - - - - 0x00FEBD 03:BEAD: 01        .byte $01   ; 
-- - - - - - 0x00FEBE 03:BEAE: E8        .byte $E8   ; 
-- - - - - - 0x00FEBF 03:BEAF: A4        .byte $A4   ; 
-- - - - - - 0x00FEC0 03:BEB0: 02        .byte $02   ; 
-- - - - - - 0x00FEC1 03:BEB1: F8        .byte $F8   ; 
-- - - - - - 0x00FEC2 03:BEB2: 00        .byte $00   ; 
-- - - - - - 0x00FEC3 03:BEB3: 00        .byte $00   ; 
-- - - - - - 0x00FEC4 03:BEB4: 00        .byte $00   ; 
-- - - - - - 0x00FEC5 03:BEB5: 00        .byte $00   ; 
-- - - - - - 0x00FEC6 03:BEB6: 00        .byte $00   ; 
-- - - - - - 0x00FEC7 03:BEB7: 00        .byte $00   ; 
-- - - - - - 0x00FEC8 03:BEB8: 00        .byte $00   ; 
-- - - - - - 0x00FEC9 03:BEB9: 00        .byte $00   ; 
-- - - - - - 0x00FECA 03:BEBA: 00        .byte $00   ; 
-- - - - - - 0x00FECB 03:BEBB: 00        .byte $00   ; 
-- - - - - - 0x00FECC 03:BEBC: 00        .byte $00   ; 
-- - - - - - 0x00FECD 03:BEBD: 00        .byte $00   ; 
-- - - - - - 0x00FECE 03:BEBE: 00        .byte $00   ; 
-- - - - - - 0x00FECF 03:BEBF: 00        .byte $00   ; 
-- - - - - - 0x00FED0 03:BEC0: 00        .byte $00   ; 
-- - - - - - 0x00FED1 03:BEC1: 00        .byte $00   ; 
-- - - - - - 0x00FED2 03:BEC2: 00        .byte $00   ; 
-- - - - - - 0x00FED3 03:BEC3: 00        .byte $00   ; 
-- - - - - - 0x00FED4 03:BEC4: 00        .byte $00   ; 
-- - - - - - 0x00FED5 03:BEC5: 00        .byte $00   ; 
-- - - - - - 0x00FED6 03:BEC6: 00        .byte $00   ; 
-- - - - - - 0x00FED7 03:BEC7: 00        .byte $00   ; 
-- - - - - - 0x00FED8 03:BEC8: 00        .byte $00   ; 
-- - - - - - 0x00FED9 03:BEC9: 00        .byte $00   ; 
-- - - - - - 0x00FEDA 03:BECA: 00        .byte $00   ; 
-- - - - - - 0x00FEDB 03:BECB: 00        .byte $00   ; 
-- - - - - - 0x00FEDC 03:BECC: 00        .byte $00   ; 
-- - - - - - 0x00FEDD 03:BECD: 00        .byte $00   ; 
-- - - - - - 0x00FEDE 03:BECE: 00        .byte $00   ; 
-- - - - - - 0x00FEDF 03:BECF: 00        .byte $00   ; 
-- - - - - - 0x00FEE0 03:BED0: 00        .byte $00   ; 
-- - - - - - 0x00FEE1 03:BED1: 00        .byte $00   ; 
-- - - - - - 0x00FEE2 03:BED2: 00        .byte $00   ; 
-- - - - - - 0x00FEE3 03:BED3: 00        .byte $00   ; 
-- - - - - - 0x00FEE4 03:BED4: 00        .byte $00   ; 
-- - - - - - 0x00FEE5 03:BED5: 00        .byte $00   ; 
-- - - - - - 0x00FEE6 03:BED6: 00        .byte $00   ; 
-- - - - - - 0x00FEE7 03:BED7: 00        .byte $00   ; 
-- - - - - - 0x00FEE8 03:BED8: 00        .byte $00   ; 
-- - - - - - 0x00FEE9 03:BED9: 00        .byte $00   ; 
-- - - - - - 0x00FEEA 03:BEDA: 00        .byte $00   ; 
-- - - - - - 0x00FEEB 03:BEDB: 00        .byte $00   ; 
-- - - - - - 0x00FEEC 03:BEDC: 00        .byte $00   ; 
-- - - - - - 0x00FEED 03:BEDD: 00        .byte $00   ; 
-- - - - - - 0x00FEEE 03:BEDE: 00        .byte $00   ; 
-- - - - - - 0x00FEEF 03:BEDF: 00        .byte $00   ; 
-- - - - - - 0x00FEF0 03:BEE0: 00        .byte $00   ; 
-- - - - - - 0x00FEF1 03:BEE1: 00        .byte $00   ; 
-- - - - - - 0x00FEF2 03:BEE2: 00        .byte $00   ; 
-- - - - - - 0x00FEF3 03:BEE3: 00        .byte $00   ; 
-- - - - - - 0x00FEF4 03:BEE4: 00        .byte $00   ; 
-- - - - - - 0x00FEF5 03:BEE5: 00        .byte $00   ; 
-- - - - - - 0x00FEF6 03:BEE6: 00        .byte $00   ; 
-- - - - - - 0x00FEF7 03:BEE7: 00        .byte $00   ; 
-- - - - - - 0x00FEF8 03:BEE8: 00        .byte $00   ; 
-- - - - - - 0x00FEF9 03:BEE9: 00        .byte $00   ; 
-- - - - - - 0x00FEFA 03:BEEA: 00        .byte $00   ; 
-- - - - - - 0x00FEFB 03:BEEB: 00        .byte $00   ; 
-- - - - - - 0x00FEFC 03:BEEC: 00        .byte $00   ; 
-- - - - - - 0x00FEFD 03:BEED: 00        .byte $00   ; 
-- - - - - - 0x00FEFE 03:BEEE: 00        .byte $00   ; 
-- - - - - - 0x00FEFF 03:BEEF: 00        .byte $00   ; 
-- - - - - - 0x00FF00 03:BEF0: 00        .byte $00   ; 
-- - - - - - 0x00FF01 03:BEF1: 00        .byte $00   ; 
-- - - - - - 0x00FF02 03:BEF2: 00        .byte $00   ; 
-- - - - - - 0x00FF03 03:BEF3: 00        .byte $00   ; 
-- - - - - - 0x00FF04 03:BEF4: 00        .byte $00   ; 
-- - - - - - 0x00FF05 03:BEF5: 00        .byte $00   ; 
-- - - - - - 0x00FF06 03:BEF6: 00        .byte $00   ; 
-- - - - - - 0x00FF07 03:BEF7: 00        .byte $00   ; 
-- - - - - - 0x00FF08 03:BEF8: 00        .byte $00   ; 
-- - - - - - 0x00FF09 03:BEF9: 00        .byte $00   ; 
-- - - - - - 0x00FF0A 03:BEFA: 00        .byte $00   ; 
-- - - - - - 0x00FF0B 03:BEFB: 00        .byte $00   ; 
-- - - - - - 0x00FF0C 03:BEFC: 00        .byte $00   ; 
-- - - - - - 0x00FF0D 03:BEFD: 00        .byte $00   ; 
-- - - - - - 0x00FF0E 03:BEFE: 00        .byte $00   ; 
-- - - - - - 0x00FF0F 03:BEFF: 00        .byte $00   ; 
-- - - - - - 0x00FF10 03:BF00: 00        .byte $00   ; 
-- - - - - - 0x00FF11 03:BF01: 00        .byte $00   ; 
-- - - - - - 0x00FF12 03:BF02: 00        .byte $00   ; 
-- - - - - - 0x00FF13 03:BF03: 00        .byte $00   ; 
-- - - - - - 0x00FF14 03:BF04: 00        .byte $00   ; 
-- - - - - - 0x00FF15 03:BF05: 00        .byte $00   ; 
-- - - - - - 0x00FF16 03:BF06: 00        .byte $00   ; 
-- - - - - - 0x00FF17 03:BF07: 00        .byte $00   ; 
-- - - - - - 0x00FF18 03:BF08: 00        .byte $00   ; 
-- - - - - - 0x00FF19 03:BF09: 00        .byte $00   ; 
-- - - - - - 0x00FF1A 03:BF0A: 00        .byte $00   ; 
-- - - - - - 0x00FF1B 03:BF0B: 00        .byte $00   ; 
-- - - - - - 0x00FF1C 03:BF0C: 00        .byte $00   ; 
-- - - - - - 0x00FF1D 03:BF0D: 00        .byte $00   ; 
-- - - - - - 0x00FF1E 03:BF0E: 00        .byte $00   ; 
-- - - - - - 0x00FF1F 03:BF0F: 00        .byte $00   ; 
-- - - - - - 0x00FF20 03:BF10: 00        .byte $00   ; 
-- - - - - - 0x00FF21 03:BF11: 00        .byte $00   ; 
-- - - - - - 0x00FF22 03:BF12: 00        .byte $00   ; 
-- - - - - - 0x00FF23 03:BF13: 00        .byte $00   ; 
-- - - - - - 0x00FF24 03:BF14: 00        .byte $00   ; 
-- - - - - - 0x00FF25 03:BF15: 00        .byte $00   ; 
-- - - - - - 0x00FF26 03:BF16: 00        .byte $00   ; 
-- - - - - - 0x00FF27 03:BF17: 00        .byte $00   ; 
-- - - - - - 0x00FF28 03:BF18: 00        .byte $00   ; 
-- - - - - - 0x00FF29 03:BF19: 00        .byte $00   ; 
-- - - - - - 0x00FF2A 03:BF1A: 00        .byte $00   ; 
-- - - - - - 0x00FF2B 03:BF1B: 00        .byte $00   ; 
-- - - - - - 0x00FF2C 03:BF1C: 00        .byte $00   ; 
-- - - - - - 0x00FF2D 03:BF1D: 00        .byte $00   ; 
-- - - - - - 0x00FF2E 03:BF1E: 00        .byte $00   ; 
-- - - - - - 0x00FF2F 03:BF1F: 00        .byte $00   ; 
-- - - - - - 0x00FF30 03:BF20: 00        .byte $00   ; 
-- - - - - - 0x00FF31 03:BF21: 00        .byte $00   ; 
-- - - - - - 0x00FF32 03:BF22: 00        .byte $00   ; 
-- - - - - - 0x00FF33 03:BF23: 00        .byte $00   ; 
-- - - - - - 0x00FF34 03:BF24: 00        .byte $00   ; 
-- - - - - - 0x00FF35 03:BF25: 00        .byte $00   ; 
-- - - - - - 0x00FF36 03:BF26: 00        .byte $00   ; 
-- - - - - - 0x00FF37 03:BF27: 00        .byte $00   ; 
-- - - - - - 0x00FF38 03:BF28: 00        .byte $00   ; 
-- - - - - - 0x00FF39 03:BF29: 00        .byte $00   ; 
-- - - - - - 0x00FF3A 03:BF2A: 00        .byte $00   ; 
-- - - - - - 0x00FF3B 03:BF2B: 00        .byte $00   ; 
-- - - - - - 0x00FF3C 03:BF2C: 00        .byte $00   ; 
-- - - - - - 0x00FF3D 03:BF2D: 00        .byte $00   ; 
-- - - - - - 0x00FF3E 03:BF2E: 00        .byte $00   ; 
-- - - - - - 0x00FF3F 03:BF2F: 00        .byte $00   ; 
-- - - - - - 0x00FF40 03:BF30: 00        .byte $00   ; 
-- - - - - - 0x00FF41 03:BF31: 00        .byte $00   ; 
-- - - - - - 0x00FF42 03:BF32: 00        .byte $00   ; 
-- - - - - - 0x00FF43 03:BF33: 00        .byte $00   ; 
-- - - - - - 0x00FF44 03:BF34: 00        .byte $00   ; 
-- - - - - - 0x00FF45 03:BF35: 00        .byte $00   ; 
-- - - - - - 0x00FF46 03:BF36: 00        .byte $00   ; 
-- - - - - - 0x00FF47 03:BF37: 00        .byte $00   ; 
-- - - - - - 0x00FF48 03:BF38: 00        .byte $00   ; 
-- - - - - - 0x00FF49 03:BF39: 00        .byte $00   ; 
-- - - - - - 0x00FF4A 03:BF3A: 00        .byte $00   ; 
-- - - - - - 0x00FF4B 03:BF3B: 00        .byte $00   ; 
-- - - - - - 0x00FF4C 03:BF3C: 00        .byte $00   ; 
-- - - - - - 0x00FF4D 03:BF3D: 00        .byte $00   ; 
-- - - - - - 0x00FF4E 03:BF3E: 00        .byte $00   ; 
-- - - - - - 0x00FF4F 03:BF3F: 00        .byte $00   ; 
-- - - - - - 0x00FF50 03:BF40: 00        .byte $00   ; 
-- - - - - - 0x00FF51 03:BF41: 00        .byte $00   ; 
-- - - - - - 0x00FF52 03:BF42: 00        .byte $00   ; 
-- - - - - - 0x00FF53 03:BF43: 00        .byte $00   ; 
-- - - - - - 0x00FF54 03:BF44: 00        .byte $00   ; 
-- - - - - - 0x00FF55 03:BF45: 00        .byte $00   ; 
-- - - - - - 0x00FF56 03:BF46: 00        .byte $00   ; 
-- - - - - - 0x00FF57 03:BF47: 00        .byte $00   ; 
-- - - - - - 0x00FF58 03:BF48: 00        .byte $00   ; 
-- - - - - - 0x00FF59 03:BF49: 00        .byte $00   ; 
-- - - - - - 0x00FF5A 03:BF4A: 00        .byte $00   ; 
-- - - - - - 0x00FF5B 03:BF4B: 00        .byte $00   ; 
-- - - - - - 0x00FF5C 03:BF4C: 00        .byte $00   ; 
-- - - - - - 0x00FF5D 03:BF4D: 00        .byte $00   ; 
-- - - - - - 0x00FF5E 03:BF4E: 00        .byte $00   ; 
-- - - - - - 0x00FF5F 03:BF4F: 00        .byte $00   ; 
-- - - - - - 0x00FF60 03:BF50: 00        .byte $00   ; 
-- - - - - - 0x00FF61 03:BF51: 00        .byte $00   ; 
-- - - - - - 0x00FF62 03:BF52: 00        .byte $00   ; 
-- - - - - - 0x00FF63 03:BF53: 00        .byte $00   ; 
-- - - - - - 0x00FF64 03:BF54: 00        .byte $00   ; 
-- - - - - - 0x00FF65 03:BF55: 00        .byte $00   ; 
-- - - - - - 0x00FF66 03:BF56: 00        .byte $00   ; 
-- - - - - - 0x00FF67 03:BF57: 00        .byte $00   ; 
-- - - - - - 0x00FF68 03:BF58: 00        .byte $00   ; 
-- - - - - - 0x00FF69 03:BF59: 00        .byte $00   ; 
-- - - - - - 0x00FF6A 03:BF5A: 00        .byte $00   ; 
-- - - - - - 0x00FF6B 03:BF5B: 00        .byte $00   ; 
-- - - - - - 0x00FF6C 03:BF5C: 00        .byte $00   ; 
-- - - - - - 0x00FF6D 03:BF5D: 00        .byte $00   ; 
-- - - - - - 0x00FF6E 03:BF5E: 00        .byte $00   ; 
-- - - - - - 0x00FF6F 03:BF5F: 00        .byte $00   ; 
-- - - - - - 0x00FF70 03:BF60: 00        .byte $00   ; 
-- - - - - - 0x00FF71 03:BF61: 00        .byte $00   ; 
-- - - - - - 0x00FF72 03:BF62: 00        .byte $00   ; 
-- - - - - - 0x00FF73 03:BF63: 00        .byte $00   ; 
-- - - - - - 0x00FF74 03:BF64: 00        .byte $00   ; 
-- - - - - - 0x00FF75 03:BF65: 00        .byte $00   ; 
-- - - - - - 0x00FF76 03:BF66: 00        .byte $00   ; 
-- - - - - - 0x00FF77 03:BF67: 00        .byte $00   ; 
-- - - - - - 0x00FF78 03:BF68: 00        .byte $00   ; 
-- - - - - - 0x00FF79 03:BF69: 00        .byte $00   ; 
-- - - - - - 0x00FF7A 03:BF6A: 00        .byte $00   ; 
-- - - - - - 0x00FF7B 03:BF6B: 00        .byte $00   ; 
-- - - - - - 0x00FF7C 03:BF6C: 00        .byte $00   ; 
-- - - - - - 0x00FF7D 03:BF6D: 00        .byte $00   ; 
-- - - - - - 0x00FF7E 03:BF6E: 00        .byte $00   ; 
-- - - - - - 0x00FF7F 03:BF6F: 00        .byte $00   ; 
-- - - - - - 0x00FF80 03:BF70: 00        .byte $00   ; 
-- - - - - - 0x00FF81 03:BF71: 00        .byte $00   ; 
-- - - - - - 0x00FF82 03:BF72: 00        .byte $00   ; 
-- - - - - - 0x00FF83 03:BF73: 00        .byte $00   ; 
-- - - - - - 0x00FF84 03:BF74: 00        .byte $00   ; 
-- - - - - - 0x00FF85 03:BF75: 00        .byte $00   ; 
-- - - - - - 0x00FF86 03:BF76: 00        .byte $00   ; 
-- - - - - - 0x00FF87 03:BF77: 00        .byte $00   ; 
-- - - - - - 0x00FF88 03:BF78: 00        .byte $00   ; 
-- - - - - - 0x00FF89 03:BF79: 00        .byte $00   ; 
-- - - - - - 0x00FF8A 03:BF7A: 00        .byte $00   ; 
-- - - - - - 0x00FF8B 03:BF7B: 00        .byte $00   ; 
-- - - - - - 0x00FF8C 03:BF7C: 00        .byte $00   ; 
-- - - - - - 0x00FF8D 03:BF7D: 00        .byte $00   ; 
-- - - - - - 0x00FF8E 03:BF7E: 00        .byte $00   ; 
-- - - - - - 0x00FF8F 03:BF7F: 00        .byte $00   ; 
-- - - - - - 0x00FF90 03:BF80: 00        .byte $00   ; 
-- - - - - - 0x00FF91 03:BF81: 00        .byte $00   ; 
-- - - - - - 0x00FF92 03:BF82: 00        .byte $00   ; 
-- - - - - - 0x00FF93 03:BF83: 00        .byte $00   ; 
-- - - - - - 0x00FF94 03:BF84: 00        .byte $00   ; 
-- - - - - - 0x00FF95 03:BF85: 00        .byte $00   ; 
-- - - - - - 0x00FF96 03:BF86: 00        .byte $00   ; 
-- - - - - - 0x00FF97 03:BF87: 00        .byte $00   ; 
-- - - - - - 0x00FF98 03:BF88: 00        .byte $00   ; 
-- - - - - - 0x00FF99 03:BF89: 00        .byte $00   ; 
-- - - - - - 0x00FF9A 03:BF8A: 00        .byte $00   ; 
-- - - - - - 0x00FF9B 03:BF8B: 00        .byte $00   ; 
-- - - - - - 0x00FF9C 03:BF8C: 00        .byte $00   ; 
-- - - - - - 0x00FF9D 03:BF8D: 00        .byte $00   ; 
-- - - - - - 0x00FF9E 03:BF8E: 00        .byte $00   ; 
-- - - - - - 0x00FF9F 03:BF8F: 00        .byte $00   ; 
-- - - - - - 0x00FFA0 03:BF90: 00        .byte $00   ; 
-- - - - - - 0x00FFA1 03:BF91: 00        .byte $00   ; 
-- - - - - - 0x00FFA2 03:BF92: 00        .byte $00   ; 
-- - - - - - 0x00FFA3 03:BF93: 00        .byte $00   ; 
-- - - - - - 0x00FFA4 03:BF94: 00        .byte $00   ; 
-- - - - - - 0x00FFA5 03:BF95: 00        .byte $00   ; 
-- - - - - - 0x00FFA6 03:BF96: 00        .byte $00   ; 
-- - - - - - 0x00FFA7 03:BF97: 00        .byte $00   ; 
-- - - - - - 0x00FFA8 03:BF98: 00        .byte $00   ; 
-- - - - - - 0x00FFA9 03:BF99: 00        .byte $00   ; 
-- - - - - - 0x00FFAA 03:BF9A: 00        .byte $00   ; 
-- - - - - - 0x00FFAB 03:BF9B: 00        .byte $00   ; 
-- - - - - - 0x00FFAC 03:BF9C: 00        .byte $00   ; 
-- - - - - - 0x00FFAD 03:BF9D: 00        .byte $00   ; 
-- - - - - - 0x00FFAE 03:BF9E: 00        .byte $00   ; 
-- - - - - - 0x00FFAF 03:BF9F: 00        .byte $00   ; 
-- - - - - - 0x00FFB0 03:BFA0: 00        .byte $00   ; 
-- - - - - - 0x00FFB1 03:BFA1: 00        .byte $00   ; 
-- - - - - - 0x00FFB2 03:BFA2: 00        .byte $00   ; 
-- - - - - - 0x00FFB3 03:BFA3: 00        .byte $00   ; 
-- - - - - - 0x00FFB4 03:BFA4: 00        .byte $00   ; 
-- - - - - - 0x00FFB5 03:BFA5: 00        .byte $00   ; 
-- - - - - - 0x00FFB6 03:BFA6: 00        .byte $00   ; 
-- - - - - - 0x00FFB7 03:BFA7: 00        .byte $00   ; 
-- - - - - - 0x00FFB8 03:BFA8: 00        .byte $00   ; 
-- - - - - - 0x00FFB9 03:BFA9: 00        .byte $00   ; 
-- - - - - - 0x00FFBA 03:BFAA: 00        .byte $00   ; 
-- - - - - - 0x00FFBB 03:BFAB: 00        .byte $00   ; 
-- - - - - - 0x00FFBC 03:BFAC: 00        .byte $00   ; 
-- - - - - - 0x00FFBD 03:BFAD: 00        .byte $00   ; 
-- - - - - - 0x00FFBE 03:BFAE: 00        .byte $00   ; 
-- - - - - - 0x00FFBF 03:BFAF: 00        .byte $00   ; 
-- - - - - - 0x00FFC0 03:BFB0: 00        .byte $00   ; 
-- - - - - - 0x00FFC1 03:BFB1: 00        .byte $00   ; 
-- - - - - - 0x00FFC2 03:BFB2: 00        .byte $00   ; 
-- - - - - - 0x00FFC3 03:BFB3: 00        .byte $00   ; 
-- - - - - - 0x00FFC4 03:BFB4: 00        .byte $00   ; 
-- - - - - - 0x00FFC5 03:BFB5: 00        .byte $00   ; 
-- - - - - - 0x00FFC6 03:BFB6: 00        .byte $00   ; 
-- - - - - - 0x00FFC7 03:BFB7: 00        .byte $00   ; 
-- - - - - - 0x00FFC8 03:BFB8: 00        .byte $00   ; 
-- - - - - - 0x00FFC9 03:BFB9: 00        .byte $00   ; 
-- - - - - - 0x00FFCA 03:BFBA: 00        .byte $00   ; 
-- - - - - - 0x00FFCB 03:BFBB: 00        .byte $00   ; 
-- - - - - - 0x00FFCC 03:BFBC: 00        .byte $00   ; 
-- - - - - - 0x00FFCD 03:BFBD: 00        .byte $00   ; 
-- - - - - - 0x00FFCE 03:BFBE: 00        .byte $00   ; 
-- - - - - - 0x00FFCF 03:BFBF: 00        .byte $00   ; 
-- - - - - - 0x00FFD0 03:BFC0: 00        .byte $00   ; 
-- - - - - - 0x00FFD1 03:BFC1: 00        .byte $00   ; 
-- - - - - - 0x00FFD2 03:BFC2: 00        .byte $00   ; 
-- - - - - - 0x00FFD3 03:BFC3: 00        .byte $00   ; 
-- - - - - - 0x00FFD4 03:BFC4: 00        .byte $00   ; 
-- - - - - - 0x00FFD5 03:BFC5: 00        .byte $00   ; 
-- - - - - - 0x00FFD6 03:BFC6: 00        .byte $00   ; 
-- - - - - - 0x00FFD7 03:BFC7: 00        .byte $00   ; 
-- - - - - - 0x00FFD8 03:BFC8: 00        .byte $00   ; 
-- - - - - - 0x00FFD9 03:BFC9: 00        .byte $00   ; 
-- - - - - - 0x00FFDA 03:BFCA: 00        .byte $00   ; 
-- - - - - - 0x00FFDB 03:BFCB: 00        .byte $00   ; 
-- - - - - - 0x00FFDC 03:BFCC: 00        .byte $00   ; 
-- - - - - - 0x00FFDD 03:BFCD: 00        .byte $00   ; 
-- - - - - - 0x00FFDE 03:BFCE: 00        .byte $00   ; 
-- - - - - - 0x00FFDF 03:BFCF: 00        .byte $00   ; 
-- - - - - - 0x00FFE0 03:BFD0: 00        .byte $00   ; 
-- - - - - - 0x00FFE1 03:BFD1: 00        .byte $00   ; 
-- - - - - - 0x00FFE2 03:BFD2: 00        .byte $00   ; 
-- - - - - - 0x00FFE3 03:BFD3: 00        .byte $00   ; 
-- - - - - - 0x00FFE4 03:BFD4: 00        .byte $00   ; 
-- - - - - - 0x00FFE5 03:BFD5: 00        .byte $00   ; 
-- - - - - - 0x00FFE6 03:BFD6: 00        .byte $00   ; 
-- - - - - - 0x00FFE7 03:BFD7: 00        .byte $00   ; 
-- - - - - - 0x00FFE8 03:BFD8: 00        .byte $00   ; 
-- - - - - - 0x00FFE9 03:BFD9: 00        .byte $00   ; 
-- - - - - - 0x00FFEA 03:BFDA: 00        .byte $00   ; 
-- - - - - - 0x00FFEB 03:BFDB: 00        .byte $00   ; 
-- - - - - - 0x00FFEC 03:BFDC: 00        .byte $00   ; 
-- - - - - - 0x00FFED 03:BFDD: 00        .byte $00   ; 
-- - - - - - 0x00FFEE 03:BFDE: 00        .byte $00   ; 
-- - - - - - 0x00FFEF 03:BFDF: 00        .byte $00   ; 
-- - - - - - 0x00FFF0 03:BFE0: 00        .byte $00   ; 
-- - - - - - 0x00FFF1 03:BFE1: 00        .byte $00   ; 
-- - - - - - 0x00FFF2 03:BFE2: 00        .byte $00   ; 
-- - - - - - 0x00FFF3 03:BFE3: 00        .byte $00   ; 
-- - - - - - 0x00FFF4 03:BFE4: 00        .byte $00   ; 
-- - - - - - 0x00FFF5 03:BFE5: 00        .byte $00   ; 
-- - - - - - 0x00FFF6 03:BFE6: 00        .byte $00   ; 
-- - - - - - 0x00FFF7 03:BFE7: 00        .byte $00   ; 
-- - - - - - 0x00FFF8 03:BFE8: 00        .byte $00   ; 
-- - - - - - 0x00FFF9 03:BFE9: 00        .byte $00   ; 
-- - - - - - 0x00FFFA 03:BFEA: 00        .byte $00   ; 
-- - - - - - 0x00FFFB 03:BFEB: 00        .byte $00   ; 
-- - - - - - 0x00FFFC 03:BFEC: 00        .byte $00   ; 
-- - - - - - 0x00FFFD 03:BFED: 00        .byte $00   ; 
-- - - - - - 0x00FFFE 03:BFEE: 00        .byte $00   ; 
-- - - - - - 0x00FFFF 03:BFEF: 00        .byte $00   ; 
-- - - - - - 0x010000 03:BFF0: 00        .byte $00   ; 
-- - - - - - 0x010001 03:BFF1: 00        .byte $00   ; 
-- - - - - - 0x010002 03:BFF2: 00        .byte $00   ; 
-- - - - - - 0x010003 03:BFF3: 00        .byte $00   ; 
-- - - - - - 0x010004 03:BFF4: 00        .byte $00   ; 
-- - - - - - 0x010005 03:BFF5: 00        .byte $00   ; 
-- - - - - - 0x010006 03:BFF6: 00        .byte $00   ; 
-- - - - - - 0x010007 03:BFF7: 00        .byte $00   ; 
-- - - - - - 0x010008 03:BFF8: 00        .byte $00   ; 
-- - - - - - 0x010009 03:BFF9: 00        .byte $00   ; 
-- - - - - - 0x01000A 03:BFFA: 00        .byte $00   ; 
-- - - - - - 0x01000B 03:BFFB: 00        .byte $00   ; 
-- - - - - - 0x01000C 03:BFFC: 00        .byte $00   ; 
-- - - - - - 0x01000D 03:BFFD: 00        .byte $00   ; 
-- - - - - - 0x01000E 03:BFFE: 00        .byte $00   ; 
-- - - - - - 0x01000F 03:BFFF: 00        .byte $00   ; 
+- D - - - - 0x00FE4B 03:BE3B: FC        .byte $FC   ; 
+- D - - - - 0x00FE4C 03:BE3C: A7        .byte $A7   ; 
+- D - - - - 0x00FE4D 03:BE3D: C0        .byte $C0   ; 
+- D - - - - 0x00FE4E 03:BE3E: FD        .byte $FD   ; 
+- D - - - - 0x00FE4F 03:BE3F: 02        .byte $02   ; 
+- D - - - - 0x00FE50 03:BE40: FB        .byte $FB   ; 
+- D - - - - 0x00FE51 03:BE41: A6        .byte $A6   ; 
+- D - - - - 0x00FE52 03:BE42: C0        .byte $C0   ; 
+- D - - - - 0x00FE53 03:BE43: FC        .byte $FC   ; 
+- D - - - - 0x00FE54 03:BE44: FC        .byte $FC   ; 
+- D - - - - 0x00FE55 03:BE45: A7        .byte $A7   ; 
+- D - - - - 0x00FE56 03:BE46: 00        .byte $00   ; 
+- D - - - - 0x00FE57 03:BE47: 03        .byte $03   ; 
+- D - - - - 0x00FE58 03:BE48: 02        .byte $02   ; 
+- D - - - - 0x00FE59 03:BE49: F5        .byte $F5   ; 
+- D - - - - 0x00FE5A 03:BE4A: A6        .byte $A6   ; 
+- D - - - - 0x00FE5B 03:BE4B: 40        .byte $40   ; 
+- D - - - - 0x00FE5C 03:BE4C: FC        .byte $FC   ; 
+- D - - - - 0x00FE5D 03:BE4D: FC        .byte $FC   ; 
+- D - - - - 0x00FE5E 03:BE4E: A7        .byte $A7   ; 
+- D - - - - 0x00FE5F 03:BE4F: 40        .byte $40   ; 
+- D - - - - 0x00FE60 03:BE50: FD        .byte $FD   ; 
+- D - - - - 0x00FE61 03:BE51: 02        .byte $02   ; 
+- D - - - - 0x00FE62 03:BE52: FD        .byte $FD   ; 
+- D - - - - 0x00FE63 03:BE53: A6        .byte $A6   ; 
+- D - - - - 0x00FE64 03:BE54: 40        .byte $40   ; 
+- D - - - - 0x00FE65 03:BE55: FC        .byte $FC   ; 
+- D - - - - 0x00FE66 03:BE56: FC        .byte $FC   ; 
+- D - - - - 0x00FE67 03:BE57: A7        .byte $A7   ; 
+- D - - - - 0x00FE68 03:BE58: 80        .byte $80   ; 
+- D - - - - 0x00FE69 03:BE59: 03        .byte $03   ; 
+- D - - - - 0x00FE6A 03:BE5A: 02        .byte $02   ; 
+- D - - - - 0x00FE6B 03:BE5B: 03        .byte $03   ; 
+- D - - - - 0x00FE6C 03:BE5C: A6        .byte $A6   ; 
+- D - - - - 0x00FE6D 03:BE5D: 80        .byte $80   ; 
+- D - - - - 0x00FE6E 03:BE5E: FC        .byte $FC   ; 
+- D - - - - 0x00FE6F 03:BE5F: FC        .byte $FC   ; 
+- D - - - - 0x00FE70 03:BE60: A7        .byte $A7   ; 
+- D - - - - 0x00FE71 03:BE61: 80        .byte $80   ; 
+- D - - - - 0x00FE72 03:BE62: FB        .byte $FB   ; 
+- D - - - - 0x00FE73 03:BE63: 02        .byte $02   ; 
+- D - - - - 0x00FE74 03:BE64: FB        .byte $FB   ; 
+- D - - - - 0x00FE75 03:BE65: A6        .byte $A6   ; 
+- D - - - - 0x00FE76 03:BE66: 80        .byte $80   ; 
+- D - - - - 0x00FE77 03:BE67: FC        .byte $FC   ; 
+- D - - - - 0x00FE78 03:BE68: FC        .byte $FC   ; 
+- D - - - - 0x00FE79 03:BE69: A7        .byte $A7   ; 
+- D - - - - 0x00FE7A 03:BE6A: 40        .byte $40   ; 
+- D - - - - 0x00FE7B 03:BE6B: F5        .byte $F5   ; 
+- D - - - - 0x00FE7C 03:BE6C: 03        .byte $03   ; 
+- D - - - - 0x00FE7D 03:BE6D: E8        .byte $E8   ; 
+- D - - - - 0x00FE7E 03:BE6E: A4        .byte $A4   ; 
+- D - - - - 0x00FE7F 03:BE6F: 42        .byte $42   ; <B>
+- D - - - - 0x00FE80 03:BE70: 00        .byte $00   ; 
+- D - - - - 0x00FE81 03:BE71: E0        .byte $E0   ; 
+- D - - - - 0x00FE82 03:BE72: A6        .byte $A6   ; 
+- D - - - - 0x00FE83 03:BE73: 40        .byte $40   ; 
+- D - - - - 0x00FE84 03:BE74: 02        .byte $02   ; 
+- D - - - - 0x00FE85 03:BE75: E7        .byte $E7   ; 
+- D - - - - 0x00FE86 03:BE76: A7        .byte $A7   ; 
+- D - - - - 0x00FE87 03:BE77: 40        .byte $40   ; 
+- D - - - - 0x00FE88 03:BE78: 03        .byte $03   ; 
+- D - - - - 0x00FE89 03:BE79: 03        .byte $03   ; 
+- D - - - - 0x00FE8A 03:BE7A: E8        .byte $E8   ; 
+- D - - - - 0x00FE8B 03:BE7B: A4        .byte $A4   ; 
+- D - - - - 0x00FE8C 03:BE7C: 02        .byte $02   ; 
+- D - - - - 0x00FE8D 03:BE7D: F8        .byte $F8   ; 
+- D - - - - 0x00FE8E 03:BE7E: E0        .byte $E0   ; 
+- D - - - - 0x00FE8F 03:BE7F: A6        .byte $A6   ; 
+- D - - - - 0x00FE90 03:BE80: 00        .byte $00   ; 
+- D - - - - 0x00FE91 03:BE81: F6        .byte $F6   ; 
+- D - - - - 0x00FE92 03:BE82: E7        .byte $E7   ; 
+- D - - - - 0x00FE93 03:BE83: A7        .byte $A7   ; 
+- D - - - - 0x00FE94 03:BE84: 00        .byte $00   ; 
+- D - - - - 0x00FE95 03:BE85: F5        .byte $F5   ; 
+- D - - - - 0x00FE96 03:BE86: 04        .byte $04   ; 
+- D - - - - 0x00FE97 03:BE87: E0        .byte $E0   ; 
+- D - - - - 0x00FE98 03:BE88: A5        .byte $A5   ; 
+- D - - - - 0x00FE99 03:BE89: 42        .byte $42   ; <B>
+- D - - - - 0x00FE9A 03:BE8A: 02        .byte $02   ; 
+- D - - - - 0x00FE9B 03:BE8B: E8        .byte $E8   ; 
+- D - - - - 0x00FE9C 03:BE8C: AC        .byte $AC   ; 
+- D - - - - 0x00FE9D 03:BE8D: 42        .byte $42   ; <B>
+- D - - - - 0x00FE9E 03:BE8E: 00        .byte $00   ; 
+- D - - - - 0x00FE9F 03:BE8F: D4        .byte $D4   ; 
+- D - - - - 0x00FEA0 03:BE90: A6        .byte $A6   ; 
+- D - - - - 0x00FEA1 03:BE91: 40        .byte $40   ; 
+- D - - - - 0x00FEA2 03:BE92: 01        .byte $01   ; 
+- D - - - - 0x00FEA3 03:BE93: DB        .byte $DB   ; 
+- D - - - - 0x00FEA4 03:BE94: A7        .byte $A7   ; 
+- D - - - - 0x00FEA5 03:BE95: 40        .byte $40   ; 
+- D - - - - 0x00FEA6 03:BE96: 02        .byte $02   ; 
+- D - - - - 0x00FEA7 03:BE97: 04        .byte $04   ; 
+- D - - - - 0x00FEA8 03:BE98: E0        .byte $E0   ; 
+- D - - - - 0x00FEA9 03:BE99: A5        .byte $A5   ; 
+- D - - - - 0x00FEAA 03:BE9A: 02        .byte $02   ; 
+- D - - - - 0x00FEAB 03:BE9B: F6        .byte $F6   ; 
+- D - - - - 0x00FEAC 03:BE9C: E8        .byte $E8   ; 
+- D - - - - 0x00FEAD 03:BE9D: AC        .byte $AC   ; 
+- D - - - - 0x00FEAE 03:BE9E: 02        .byte $02   ; 
+- D - - - - 0x00FEAF 03:BE9F: F8        .byte $F8   ; 
+- D - - - - 0x00FEB0 03:BEA0: D4        .byte $D4   ; 
+- D - - - - 0x00FEB1 03:BEA1: A6        .byte $A6   ; 
+- D - - - - 0x00FEB2 03:BEA2: 00        .byte $00   ; 
+- D - - - - 0x00FEB3 03:BEA3: F7        .byte $F7   ; 
+- D - - - - 0x00FEB4 03:BEA4: DB        .byte $DB   ; 
+- D - - - - 0x00FEB5 03:BEA5: A7        .byte $A7   ; 
+- D - - - - 0x00FEB6 03:BEA6: 00        .byte $00   ; 
+- D - - - - 0x00FEB7 03:BEA7: F6        .byte $F6   ; 
+- D - - - - 0x00FEB8 03:BEA8: 01        .byte $01   ; 
+- D - - - - 0x00FEB9 03:BEA9: E8        .byte $E8   ; 
+- D - - - - 0x00FEBA 03:BEAA: A4        .byte $A4   ; 
+- D - - - - 0x00FEBB 03:BEAB: 42        .byte $42   ; <B>
+- D - - - - 0x00FEBC 03:BEAC: 00        .byte $00   ; 
+- D - - - - 0x00FEBD 03:BEAD: 01        .byte $01   ; 
+- D - - - - 0x00FEBE 03:BEAE: E8        .byte $E8   ; 
+- D - - - - 0x00FEBF 03:BEAF: A4        .byte $A4   ; 
+- D - - - - 0x00FEC0 03:BEB0: 02        .byte $02   ; 
+- D - - - - 0x00FEC1 03:BEB1: F8        .byte $F8   ; 
+- D - - - - 0x00FEC2 03:BEB2: 00        .byte $00   ; 
+- D - - - - 0x00FEC3 03:BEB3: 00        .byte $00   ; 
+- D - - - - 0x00FEC4 03:BEB4: 00        .byte $00   ; 
+- D - - - - 0x00FEC5 03:BEB5: 00        .byte $00   ; 
+- D - - - - 0x00FEC6 03:BEB6: 00        .byte $00   ; 
+- D - - - - 0x00FEC7 03:BEB7: 00        .byte $00   ; 
+- D - - - - 0x00FEC8 03:BEB8: 00        .byte $00   ; 
+- D - - - - 0x00FEC9 03:BEB9: 00        .byte $00   ; 
+- D - - - - 0x00FECA 03:BEBA: 00        .byte $00   ; 
+- D - - - - 0x00FECB 03:BEBB: 00        .byte $00   ; 
+- D - - - - 0x00FECC 03:BEBC: 00        .byte $00   ; 
+- D - - - - 0x00FECD 03:BEBD: 00        .byte $00   ; 
+- D - - - - 0x00FECE 03:BEBE: 00        .byte $00   ; 
+- D - - - - 0x00FECF 03:BEBF: 00        .byte $00   ; 
+- D - - - - 0x00FED0 03:BEC0: 00        .byte $00   ; 
+- D - - - - 0x00FED1 03:BEC1: 00        .byte $00   ; 
+- D - - - - 0x00FED2 03:BEC2: 00        .byte $00   ; 
+- D - - - - 0x00FED3 03:BEC3: 00        .byte $00   ; 
+- D - - - - 0x00FED4 03:BEC4: 00        .byte $00   ; 
+- D - - - - 0x00FED5 03:BEC5: 00        .byte $00   ; 
+- D - - - - 0x00FED6 03:BEC6: 00        .byte $00   ; 
+- D - - - - 0x00FED7 03:BEC7: 00        .byte $00   ; 
+- D - - - - 0x00FED8 03:BEC8: 00        .byte $00   ; 
+- D - - - - 0x00FED9 03:BEC9: 00        .byte $00   ; 
+- D - - - - 0x00FEDA 03:BECA: 00        .byte $00   ; 
+- D - - - - 0x00FEDB 03:BECB: 00        .byte $00   ; 
+- D - - - - 0x00FEDC 03:BECC: 00        .byte $00   ; 
+- D - - - - 0x00FEDD 03:BECD: 00        .byte $00   ; 
+- D - - - - 0x00FEDE 03:BECE: 00        .byte $00   ; 
+- D - - - - 0x00FEDF 03:BECF: 00        .byte $00   ; 
+- D - - - - 0x00FEE0 03:BED0: 00        .byte $00   ; 
+- D - - - - 0x00FEE1 03:BED1: 00        .byte $00   ; 
+- D - - - - 0x00FEE2 03:BED2: 00        .byte $00   ; 
+- D - - - - 0x00FEE3 03:BED3: 00        .byte $00   ; 
+- D - - - - 0x00FEE4 03:BED4: 00        .byte $00   ; 
+- D - - - - 0x00FEE5 03:BED5: 00        .byte $00   ; 
+- D - - - - 0x00FEE6 03:BED6: 00        .byte $00   ; 
+- D - - - - 0x00FEE7 03:BED7: 00        .byte $00   ; 
+- D - - - - 0x00FEE8 03:BED8: 00        .byte $00   ; 
+- D - - - - 0x00FEE9 03:BED9: 00        .byte $00   ; 
+- D - - - - 0x00FEEA 03:BEDA: 00        .byte $00   ; 
+- D - - - - 0x00FEEB 03:BEDB: 00        .byte $00   ; 
+- D - - - - 0x00FEEC 03:BEDC: 00        .byte $00   ; 
+- D - - - - 0x00FEED 03:BEDD: 00        .byte $00   ; 
+- D - - - - 0x00FEEE 03:BEDE: 00        .byte $00   ; 
+- D - - - - 0x00FEEF 03:BEDF: 00        .byte $00   ; 
+- D - - - - 0x00FEF0 03:BEE0: 00        .byte $00   ; 
+- D - - - - 0x00FEF1 03:BEE1: 00        .byte $00   ; 
+- D - - - - 0x00FEF2 03:BEE2: 00        .byte $00   ; 
+- D - - - - 0x00FEF3 03:BEE3: 00        .byte $00   ; 
+- D - - - - 0x00FEF4 03:BEE4: 00        .byte $00   ; 
+- D - - - - 0x00FEF5 03:BEE5: 00        .byte $00   ; 
+- D - - - - 0x00FEF6 03:BEE6: 00        .byte $00   ; 
+- D - - - - 0x00FEF7 03:BEE7: 00        .byte $00   ; 
+- D - - - - 0x00FEF8 03:BEE8: 00        .byte $00   ; 
+- D - - - - 0x00FEF9 03:BEE9: 00        .byte $00   ; 
+- D - - - - 0x00FEFA 03:BEEA: 00        .byte $00   ; 
+- D - - - - 0x00FEFB 03:BEEB: 00        .byte $00   ; 
+- D - - - - 0x00FEFC 03:BEEC: 00        .byte $00   ; 
+- D - - - - 0x00FEFD 03:BEED: 00        .byte $00   ; 
+- D - - - - 0x00FEFE 03:BEEE: 00        .byte $00   ; 
+- D - - - - 0x00FEFF 03:BEEF: 00        .byte $00   ; 
+- D - - - - 0x00FF00 03:BEF0: 00        .byte $00   ; 
+- D - - - - 0x00FF01 03:BEF1: 00        .byte $00   ; 
+- D - - - - 0x00FF02 03:BEF2: 00        .byte $00   ; 
+- D - - - - 0x00FF03 03:BEF3: 00        .byte $00   ; 
+- D - - - - 0x00FF04 03:BEF4: 00        .byte $00   ; 
+- D - - - - 0x00FF05 03:BEF5: 00        .byte $00   ; 
+- D - - - - 0x00FF06 03:BEF6: 00        .byte $00   ; 
+- D - - - - 0x00FF07 03:BEF7: 00        .byte $00   ; 
+- D - - - - 0x00FF08 03:BEF8: 00        .byte $00   ; 
+- D - - - - 0x00FF09 03:BEF9: 00        .byte $00   ; 
+- D - - - - 0x00FF0A 03:BEFA: 00        .byte $00   ; 
+- D - - - - 0x00FF0B 03:BEFB: 00        .byte $00   ; 
+- D - - - - 0x00FF0C 03:BEFC: 00        .byte $00   ; 
+- D - - - - 0x00FF0D 03:BEFD: 00        .byte $00   ; 
+- D - - - - 0x00FF0E 03:BEFE: 00        .byte $00   ; 
+- D - - - - 0x00FF0F 03:BEFF: 00        .byte $00   ; 
+- D - - - - 0x00FF10 03:BF00: 00        .byte $00   ; 
+- D - - - - 0x00FF11 03:BF01: 00        .byte $00   ; 
+- D - - - - 0x00FF12 03:BF02: 00        .byte $00   ; 
+- D - - - - 0x00FF13 03:BF03: 00        .byte $00   ; 
+- D - - - - 0x00FF14 03:BF04: 00        .byte $00   ; 
+- D - - - - 0x00FF15 03:BF05: 00        .byte $00   ; 
+- D - - - - 0x00FF16 03:BF06: 00        .byte $00   ; 
+- D - - - - 0x00FF17 03:BF07: 00        .byte $00   ; 
+- D - - - - 0x00FF18 03:BF08: 00        .byte $00   ; 
+- D - - - - 0x00FF19 03:BF09: 00        .byte $00   ; 
+- D - - - - 0x00FF1A 03:BF0A: 00        .byte $00   ; 
+- D - - - - 0x00FF1B 03:BF0B: 00        .byte $00   ; 
+- D - - - - 0x00FF1C 03:BF0C: 00        .byte $00   ; 
+- D - - - - 0x00FF1D 03:BF0D: 00        .byte $00   ; 
+- D - - - - 0x00FF1E 03:BF0E: 00        .byte $00   ; 
+- D - - - - 0x00FF1F 03:BF0F: 00        .byte $00   ; 
+- D - - - - 0x00FF20 03:BF10: 00        .byte $00   ; 
+- D - - - - 0x00FF21 03:BF11: 00        .byte $00   ; 
+- D - - - - 0x00FF22 03:BF12: 00        .byte $00   ; 
+- D - - - - 0x00FF23 03:BF13: 00        .byte $00   ; 
+- D - - - - 0x00FF24 03:BF14: 00        .byte $00   ; 
+- D - - - - 0x00FF25 03:BF15: 00        .byte $00   ; 
+- D - - - - 0x00FF26 03:BF16: 00        .byte $00   ; 
+- D - - - - 0x00FF27 03:BF17: 00        .byte $00   ; 
+- D - - - - 0x00FF28 03:BF18: 00        .byte $00   ; 
+- D - - - - 0x00FF29 03:BF19: 00        .byte $00   ; 
+- D - - - - 0x00FF2A 03:BF1A: 00        .byte $00   ; 
+- D - - - - 0x00FF2B 03:BF1B: 00        .byte $00   ; 
+- D - - - - 0x00FF2C 03:BF1C: 00        .byte $00   ; 
+- D - - - - 0x00FF2D 03:BF1D: 00        .byte $00   ; 
+- D - - - - 0x00FF2E 03:BF1E: 00        .byte $00   ; 
+- D - - - - 0x00FF2F 03:BF1F: 00        .byte $00   ; 
+- D - - - - 0x00FF30 03:BF20: 00        .byte $00   ; 
+- D - - - - 0x00FF31 03:BF21: 00        .byte $00   ; 
+- D - - - - 0x00FF32 03:BF22: 00        .byte $00   ; 
+- D - - - - 0x00FF33 03:BF23: 00        .byte $00   ; 
+- D - - - - 0x00FF34 03:BF24: 00        .byte $00   ; 
+- D - - - - 0x00FF35 03:BF25: 00        .byte $00   ; 
+- D - - - - 0x00FF36 03:BF26: 00        .byte $00   ; 
+- D - - - - 0x00FF37 03:BF27: 00        .byte $00   ; 
+- D - - - - 0x00FF38 03:BF28: 00        .byte $00   ; 
+- D - - - - 0x00FF39 03:BF29: 00        .byte $00   ; 
+- D - - - - 0x00FF3A 03:BF2A: 00        .byte $00   ; 
+- D - - - - 0x00FF3B 03:BF2B: 00        .byte $00   ; 
+- D - - - - 0x00FF3C 03:BF2C: 00        .byte $00   ; 
+- D - - - - 0x00FF3D 03:BF2D: 00        .byte $00   ; 
+- D - - - - 0x00FF3E 03:BF2E: 00        .byte $00   ; 
+- D - - - - 0x00FF3F 03:BF2F: 00        .byte $00   ; 
+- D - - - - 0x00FF40 03:BF30: 00        .byte $00   ; 
+- D - - - - 0x00FF41 03:BF31: 00        .byte $00   ; 
+- D - - - - 0x00FF42 03:BF32: 00        .byte $00   ; 
+- D - - - - 0x00FF43 03:BF33: 00        .byte $00   ; 
+- D - - - - 0x00FF44 03:BF34: 00        .byte $00   ; 
+- D - - - - 0x00FF45 03:BF35: 00        .byte $00   ; 
+- D - - - - 0x00FF46 03:BF36: 00        .byte $00   ; 
+- D - - - - 0x00FF47 03:BF37: 00        .byte $00   ; 
+- D - - - - 0x00FF48 03:BF38: 00        .byte $00   ; 
+- D - - - - 0x00FF49 03:BF39: 00        .byte $00   ; 
+- D - - - - 0x00FF4A 03:BF3A: 00        .byte $00   ; 
+- D - - - - 0x00FF4B 03:BF3B: 00        .byte $00   ; 
+- D - - - - 0x00FF4C 03:BF3C: 00        .byte $00   ; 
+- D - - - - 0x00FF4D 03:BF3D: 00        .byte $00   ; 
+- D - - - - 0x00FF4E 03:BF3E: 00        .byte $00   ; 
+- D - - - - 0x00FF4F 03:BF3F: 00        .byte $00   ; 
+- D - - - - 0x00FF50 03:BF40: 00        .byte $00   ; 
+- D - - - - 0x00FF51 03:BF41: 00        .byte $00   ; 
+- D - - - - 0x00FF52 03:BF42: 00        .byte $00   ; 
+- D - - - - 0x00FF53 03:BF43: 00        .byte $00   ; 
+- D - - - - 0x00FF54 03:BF44: 00        .byte $00   ; 
+- D - - - - 0x00FF55 03:BF45: 00        .byte $00   ; 
+- D - - - - 0x00FF56 03:BF46: 00        .byte $00   ; 
+- D - - - - 0x00FF57 03:BF47: 00        .byte $00   ; 
+- D - - - - 0x00FF58 03:BF48: 00        .byte $00   ; 
+- D - - - - 0x00FF59 03:BF49: 00        .byte $00   ; 
+- D - - - - 0x00FF5A 03:BF4A: 00        .byte $00   ; 
+- D - - - - 0x00FF5B 03:BF4B: 00        .byte $00   ; 
+- D - - - - 0x00FF5C 03:BF4C: 00        .byte $00   ; 
+- D - - - - 0x00FF5D 03:BF4D: 00        .byte $00   ; 
+- D - - - - 0x00FF5E 03:BF4E: 00        .byte $00   ; 
+- D - - - - 0x00FF5F 03:BF4F: 00        .byte $00   ; 
+- D - - - - 0x00FF60 03:BF50: 00        .byte $00   ; 
+- D - - - - 0x00FF61 03:BF51: 00        .byte $00   ; 
+- D - - - - 0x00FF62 03:BF52: 00        .byte $00   ; 
+- D - - - - 0x00FF63 03:BF53: 00        .byte $00   ; 
+- D - - - - 0x00FF64 03:BF54: 00        .byte $00   ; 
+- D - - - - 0x00FF65 03:BF55: 00        .byte $00   ; 
+- D - - - - 0x00FF66 03:BF56: 00        .byte $00   ; 
+- D - - - - 0x00FF67 03:BF57: 00        .byte $00   ; 
+- D - - - - 0x00FF68 03:BF58: 00        .byte $00   ; 
+- D - - - - 0x00FF69 03:BF59: 00        .byte $00   ; 
+- D - - - - 0x00FF6A 03:BF5A: 00        .byte $00   ; 
+- D - - - - 0x00FF6B 03:BF5B: 00        .byte $00   ; 
+- D - - - - 0x00FF6C 03:BF5C: 00        .byte $00   ; 
+- D - - - - 0x00FF6D 03:BF5D: 00        .byte $00   ; 
+- D - - - - 0x00FF6E 03:BF5E: 00        .byte $00   ; 
+- D - - - - 0x00FF6F 03:BF5F: 00        .byte $00   ; 
+- D - - - - 0x00FF70 03:BF60: 00        .byte $00   ; 
+- D - - - - 0x00FF71 03:BF61: 00        .byte $00   ; 
+- D - - - - 0x00FF72 03:BF62: 00        .byte $00   ; 
+- D - - - - 0x00FF73 03:BF63: 00        .byte $00   ; 
+- D - - - - 0x00FF74 03:BF64: 00        .byte $00   ; 
+- D - - - - 0x00FF75 03:BF65: 00        .byte $00   ; 
+- D - - - - 0x00FF76 03:BF66: 00        .byte $00   ; 
+- D - - - - 0x00FF77 03:BF67: 00        .byte $00   ; 
+- D - - - - 0x00FF78 03:BF68: 00        .byte $00   ; 
+- D - - - - 0x00FF79 03:BF69: 00        .byte $00   ; 
+- D - - - - 0x00FF7A 03:BF6A: 00        .byte $00   ; 
+- D - - - - 0x00FF7B 03:BF6B: 00        .byte $00   ; 
+- D - - - - 0x00FF7C 03:BF6C: 00        .byte $00   ; 
+- D - - - - 0x00FF7D 03:BF6D: 00        .byte $00   ; 
+- D - - - - 0x00FF7E 03:BF6E: 00        .byte $00   ; 
+- D - - - - 0x00FF7F 03:BF6F: 00        .byte $00   ; 
+- D - - - - 0x00FF80 03:BF70: 00        .byte $00   ; 
+- D - - - - 0x00FF81 03:BF71: 00        .byte $00   ; 
+- D - - - - 0x00FF82 03:BF72: 00        .byte $00   ; 
+- D - - - - 0x00FF83 03:BF73: 00        .byte $00   ; 
+- D - - - - 0x00FF84 03:BF74: 00        .byte $00   ; 
+- D - - - - 0x00FF85 03:BF75: 00        .byte $00   ; 
+- D - - - - 0x00FF86 03:BF76: 00        .byte $00   ; 
+- D - - - - 0x00FF87 03:BF77: 00        .byte $00   ; 
+- D - - - - 0x00FF88 03:BF78: 00        .byte $00   ; 
+- D - - - - 0x00FF89 03:BF79: 00        .byte $00   ; 
+- D - - - - 0x00FF8A 03:BF7A: 00        .byte $00   ; 
+- D - - - - 0x00FF8B 03:BF7B: 00        .byte $00   ; 
+- D - - - - 0x00FF8C 03:BF7C: 00        .byte $00   ; 
+- D - - - - 0x00FF8D 03:BF7D: 00        .byte $00   ; 
+- D - - - - 0x00FF8E 03:BF7E: 00        .byte $00   ; 
+- D - - - - 0x00FF8F 03:BF7F: 00        .byte $00   ; 
+- D - - - - 0x00FF90 03:BF80: 00        .byte $00   ; 
+- D - - - - 0x00FF91 03:BF81: 00        .byte $00   ; 
+- D - - - - 0x00FF92 03:BF82: 00        .byte $00   ; 
+- D - - - - 0x00FF93 03:BF83: 00        .byte $00   ; 
+- D - - - - 0x00FF94 03:BF84: 00        .byte $00   ; 
+- D - - - - 0x00FF95 03:BF85: 00        .byte $00   ; 
+- D - - - - 0x00FF96 03:BF86: 00        .byte $00   ; 
+- D - - - - 0x00FF97 03:BF87: 00        .byte $00   ; 
+- D - - - - 0x00FF98 03:BF88: 00        .byte $00   ; 
+- D - - - - 0x00FF99 03:BF89: 00        .byte $00   ; 
+- D - - - - 0x00FF9A 03:BF8A: 00        .byte $00   ; 
+- D - - - - 0x00FF9B 03:BF8B: 00        .byte $00   ; 
+- D - - - - 0x00FF9C 03:BF8C: 00        .byte $00   ; 
+- D - - - - 0x00FF9D 03:BF8D: 00        .byte $00   ; 
+- D - - - - 0x00FF9E 03:BF8E: 00        .byte $00   ; 
+- D - - - - 0x00FF9F 03:BF8F: 00        .byte $00   ; 
+- D - - - - 0x00FFA0 03:BF90: 00        .byte $00   ; 
+- D - - - - 0x00FFA1 03:BF91: 00        .byte $00   ; 
+- D - - - - 0x00FFA2 03:BF92: 00        .byte $00   ; 
+- D - - - - 0x00FFA3 03:BF93: 00        .byte $00   ; 
+- D - - - - 0x00FFA4 03:BF94: 00        .byte $00   ; 
+- D - - - - 0x00FFA5 03:BF95: 00        .byte $00   ; 
+- D - - - - 0x00FFA6 03:BF96: 00        .byte $00   ; 
+- D - - - - 0x00FFA7 03:BF97: 00        .byte $00   ; 
+- D - - - - 0x00FFA8 03:BF98: 00        .byte $00   ; 
+- D - - - - 0x00FFA9 03:BF99: 00        .byte $00   ; 
+- D - - - - 0x00FFAA 03:BF9A: 00        .byte $00   ; 
+- D - - - - 0x00FFAB 03:BF9B: 00        .byte $00   ; 
+- D - - - - 0x00FFAC 03:BF9C: 00        .byte $00   ; 
+- D - - - - 0x00FFAD 03:BF9D: 00        .byte $00   ; 
+- D - - - - 0x00FFAE 03:BF9E: 00        .byte $00   ; 
+- D - - - - 0x00FFAF 03:BF9F: 00        .byte $00   ; 
+- D - - - - 0x00FFB0 03:BFA0: 00        .byte $00   ; 
+- D - - - - 0x00FFB1 03:BFA1: 00        .byte $00   ; 
+- D - - - - 0x00FFB2 03:BFA2: 00        .byte $00   ; 
+- D - - - - 0x00FFB3 03:BFA3: 00        .byte $00   ; 
+- D - - - - 0x00FFB4 03:BFA4: 00        .byte $00   ; 
+- D - - - - 0x00FFB5 03:BFA5: 00        .byte $00   ; 
+- D - - - - 0x00FFB6 03:BFA6: 00        .byte $00   ; 
+- D - - - - 0x00FFB7 03:BFA7: 00        .byte $00   ; 
+- D - - - - 0x00FFB8 03:BFA8: 00        .byte $00   ; 
+- D - - - - 0x00FFB9 03:BFA9: 00        .byte $00   ; 
+- D - - - - 0x00FFBA 03:BFAA: 00        .byte $00   ; 
+- D - - - - 0x00FFBB 03:BFAB: 00        .byte $00   ; 
+- D - - - - 0x00FFBC 03:BFAC: 00        .byte $00   ; 
+- D - - - - 0x00FFBD 03:BFAD: 00        .byte $00   ; 
+- D - - - - 0x00FFBE 03:BFAE: 00        .byte $00   ; 
+- D - - - - 0x00FFBF 03:BFAF: 00        .byte $00   ; 
+- D - - - - 0x00FFC0 03:BFB0: 00        .byte $00   ; 
+- D - - - - 0x00FFC1 03:BFB1: 00        .byte $00   ; 
+- D - - - - 0x00FFC2 03:BFB2: 00        .byte $00   ; 
+- D - - - - 0x00FFC3 03:BFB3: 00        .byte $00   ; 
+- D - - - - 0x00FFC4 03:BFB4: 00        .byte $00   ; 
+- D - - - - 0x00FFC5 03:BFB5: 00        .byte $00   ; 
+- D - - - - 0x00FFC6 03:BFB6: 00        .byte $00   ; 
+- D - - - - 0x00FFC7 03:BFB7: 00        .byte $00   ; 
+- D - - - - 0x00FFC8 03:BFB8: 00        .byte $00   ; 
+- D - - - - 0x00FFC9 03:BFB9: 00        .byte $00   ; 
+- D - - - - 0x00FFCA 03:BFBA: 00        .byte $00   ; 
+- D - - - - 0x00FFCB 03:BFBB: 00        .byte $00   ; 
+- D - - - - 0x00FFCC 03:BFBC: 00        .byte $00   ; 
+- D - - - - 0x00FFCD 03:BFBD: 00        .byte $00   ; 
+- D - - - - 0x00FFCE 03:BFBE: 00        .byte $00   ; 
+- D - - - - 0x00FFCF 03:BFBF: 00        .byte $00   ; 
+- D - - - - 0x00FFD0 03:BFC0: 00        .byte $00   ; 
+- D - - - - 0x00FFD1 03:BFC1: 00        .byte $00   ; 
+- D - - - - 0x00FFD2 03:BFC2: 00        .byte $00   ; 
+- D - - - - 0x00FFD3 03:BFC3: 00        .byte $00   ; 
+- D - - - - 0x00FFD4 03:BFC4: 00        .byte $00   ; 
+- D - - - - 0x00FFD5 03:BFC5: 00        .byte $00   ; 
+- D - - - - 0x00FFD6 03:BFC6: 00        .byte $00   ; 
+- D - - - - 0x00FFD7 03:BFC7: 00        .byte $00   ; 
+- D - - - - 0x00FFD8 03:BFC8: 00        .byte $00   ; 
+- D - - - - 0x00FFD9 03:BFC9: 00        .byte $00   ; 
+- D - - - - 0x00FFDA 03:BFCA: 00        .byte $00   ; 
+- D - - - - 0x00FFDB 03:BFCB: 00        .byte $00   ; 
+- D - - - - 0x00FFDC 03:BFCC: 00        .byte $00   ; 
+- D - - - - 0x00FFDD 03:BFCD: 00        .byte $00   ; 
+- D - - - - 0x00FFDE 03:BFCE: 00        .byte $00   ; 
+- D - - - - 0x00FFDF 03:BFCF: 00        .byte $00   ; 
+- D - - - - 0x00FFE0 03:BFD0: 00        .byte $00   ; 
+- D - - - - 0x00FFE1 03:BFD1: 00        .byte $00   ; 
+- D - - - - 0x00FFE2 03:BFD2: 00        .byte $00   ; 
+- D - - - - 0x00FFE3 03:BFD3: 00        .byte $00   ; 
+- D - - - - 0x00FFE4 03:BFD4: 00        .byte $00   ; 
+- D - - - - 0x00FFE5 03:BFD5: 00        .byte $00   ; 
+- D - - - - 0x00FFE6 03:BFD6: 00        .byte $00   ; 
+- D - - - - 0x00FFE7 03:BFD7: 00        .byte $00   ; 
+- D - - - - 0x00FFE8 03:BFD8: 00        .byte $00   ; 
+- D - - - - 0x00FFE9 03:BFD9: 00        .byte $00   ; 
+- D - - - - 0x00FFEA 03:BFDA: 00        .byte $00   ; 
+- D - - - - 0x00FFEB 03:BFDB: 00        .byte $00   ; 
+- D - - - - 0x00FFEC 03:BFDC: 00        .byte $00   ; 
+- D - - - - 0x00FFED 03:BFDD: 00        .byte $00   ; 
+- D - - - - 0x00FFEE 03:BFDE: 00        .byte $00   ; 
+- D - - - - 0x00FFEF 03:BFDF: 00        .byte $00   ; 
+- D - - - - 0x00FFF0 03:BFE0: 00        .byte $00   ; 
+- D - - - - 0x00FFF1 03:BFE1: 00        .byte $00   ; 
+- D - - - - 0x00FFF2 03:BFE2: 00        .byte $00   ; 
+- D - - - - 0x00FFF3 03:BFE3: 00        .byte $00   ; 
+- D - - - - 0x00FFF4 03:BFE4: 00        .byte $00   ; 
+- D - - - - 0x00FFF5 03:BFE5: 00        .byte $00   ; 
+- D - - - - 0x00FFF6 03:BFE6: 00        .byte $00   ; 
+- D - - - - 0x00FFF7 03:BFE7: 00        .byte $00   ; 
+- D - - - - 0x00FFF8 03:BFE8: 00        .byte $00   ; 
+- D - - - - 0x00FFF9 03:BFE9: 00        .byte $00   ; 
+- D - - - - 0x00FFFA 03:BFEA: 00        .byte $00   ; 
+- D - - - - 0x00FFFB 03:BFEB: 00        .byte $00   ; 
+- D - - - - 0x00FFFC 03:BFEC: 00        .byte $00   ; 
+- D - - - - 0x00FFFD 03:BFED: 00        .byte $00   ; 
+- D - - - - 0x00FFFE 03:BFEE: 00        .byte $00   ; 
+- D - - - - 0x00FFFF 03:BFEF: 00        .byte $00   ; 
+- D - - - - 0x010000 03:BFF0: 00        .byte $00   ; 
+- D - - - - 0x010001 03:BFF1: 00        .byte $00   ; 
+- D - - - - 0x010002 03:BFF2: 00        .byte $00   ; 
+- D - - - - 0x010003 03:BFF3: 00        .byte $00   ; 
+- D - - - - 0x010004 03:BFF4: 00        .byte $00   ; 
+- D - - - - 0x010005 03:BFF5: 00        .byte $00   ; 
+- D - - - - 0x010006 03:BFF6: 00        .byte $00   ; 
+- D - - - - 0x010007 03:BFF7: 00        .byte $00   ; 
+- D - - - - 0x010008 03:BFF8: 00        .byte $00   ; 
+- D - - - - 0x010009 03:BFF9: 00        .byte $00   ; 
+- D - - - - 0x01000A 03:BFFA: 00        .byte $00   ; 
+- D - - - - 0x01000B 03:BFFB: 00        .byte $00   ; 
+- D - - - - 0x01000C 03:BFFC: 00        .byte $00   ; 
+- D - - - - 0x01000D 03:BFFD: 00        .byte $00   ; 
+- D - - - - 0x01000E 03:BFFE: 00        .byte $00   ; 
+- D - - - - 0x01000F 03:BFFF: 00        .byte $00   ; 
 
 .out .sprintf("Free bytes in bank 03_2: 0x%X [%d]", ($C000 - *), ($C000 - *))
 

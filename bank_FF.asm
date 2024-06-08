@@ -46,7 +46,10 @@
 .import loc_B1FB_rifle                       ; bank 06 (Page 2)
 .import sub_B319_hide_character_in_room      ; bank 06 (Page 2)
 .import tbl_ptr_enemy_t2_types_for_sprites   ; bank 06 (Page 2)
+.import tbl_ptr_enemy_t3_types_for_sprites   ; bank 06 (Page 2)
 .import tbl_ptr_enemy_t2_sprite_params_      ; bank 06 (Page 2)
+.import tbl_ptr_enemy_t3_sprite_params_      ; bank 06 (Page 2)
+.import tbl_ptr_enemy_t4_sprite_params_      ; bank 06 (Page 2)
 
 .export sub_accumulator_shift_right_by_4
 .export sub_C305_update_ppu_ctrl_with_no_nmi
@@ -8433,151 +8436,161 @@ C - - - - - 0x01F3AC 07:F39C: A5 02     LDA ram_0002                 ;
 C - - - - - 0x01F3AE 07:F39E: 9D 68 03  STA vEnemyBPosY,X            ; store Y-position
 C - - - - - 0x01F3B1 07:F3A1: 60        RTS                          ;
 
-loc_F3A2_enemy:
-C - - J - - 0x01F3B2 07:F3A2: 20 72 F3  JSR sub_F372_start_enemyA_appearance
-C - - - - - 0x01F3B5 07:F3A5: 20 59 F3  JSR sub_F359_prepare_enemyA_start_status
+; Template 2
+; In: $0000 - macro X-position
+; In: $0001 - X-position
+; In: $0002 - Y-position
+; In: $000B - the direction of appearance (0x00 - right, 0x01 - left)
+; In: $000C - ??? ($000A or 0x80 + $000A)
+loc_F3A2_enemy_appearance_t3:
+C - - J - - 0x01F3B2 07:F3A2: 20 72 F3  JSR sub_F372_start_enemyA_appearance        ;
+C - - - - - 0x01F3B5 07:F3A5: 20 59 F3  JSR sub_F359_prepare_enemyA_start_status    ;
 C - - - - - 0x01F3B8 07:F3A8: A9 0F     LDA #$0F
 C - - - - - 0x01F3BA 07:F3AA: 85 11     STA v_cache_reg_y
-C - - - - - 0x01F3BC 07:F3AC: A0 00     LDY #$00
-C - - - - - 0x01F3BE 07:F3AE: AD 00 03  LDA ram_0300
-bra_F3B1:
-C - - - - - 0x01F3C1 07:F3B1: D9 0D BD  CMP $BD0D,Y
-C - - - - - 0x01F3C4 07:F3B4: F0 05     BEQ @bra_F3BB_skip
-C - - - - - 0x01F3C6 07:F3B6: C8        INY
-C - - - - - 0x01F3C7 07:F3B7: C0 0F     CPY #$0F
-C - - - - - 0x01F3C9 07:F3B9: D0 F6     BNE bra_F3B1
+C - - - - - 0x01F3BC 07:F3AC: A0 00     LDY #$00                                    ; set loop counter
+C - - - - - 0x01F3BE 07:F3AE: AD 00 03  LDA vEnemyA                                 ;
+@bra_F3B1_loop:                                                                     ; loop by y (15 times)
+C - - - - - 0x01F3C1 07:F3B1: D9 0D BD  CMP tbl_ptr_enemy_t3_types_for_sprites,Y    ;
+C - - - - - 0x01F3C4 07:F3B4: F0 05     BEQ @bra_F3BB_skip                          ; If vEnemyA == the current type in the table
+C - - - - - 0x01F3C6 07:F3B6: C8        INY                                         ; increment loop counter
+C - - - - - 0x01F3C7 07:F3B7: C0 0F     CPY #$0F                                    ;
+C - - - - - 0x01F3C9 07:F3B9: D0 F6     BNE @bra_F3B1_loop                          ; If Register Y != 0x0F
 @bra_F3BB_skip:
-C - - - - - 0x01F3CB 07:F3BB: 98        TYA
-C - - - - - 0x01F3CC 07:F3BC: 0A        ASL
-C - - - - - 0x01F3CD 07:F3BD: 0A        ASL
-C - - - - - 0x01F3CE 07:F3BE: 0A        ASL
-C - - - - - 0x01F3CF 07:F3BF: A8        TAY
-C - - - - - 0x01F3D0 07:F3C0: A9 00     LDA #$00
-C - - - - - 0x01F3D2 07:F3C2: 9D 44 03  STA ram_0344,X
+C - - - - - 0x01F3CB 07:F3BB: 98        TYA                                         ;
+C - - - - - 0x01F3CC 07:F3BC: 0A        ASL                                         ;
+C - - - - - 0x01F3CD 07:F3BD: 0A        ASL                                         ;
+C - - - - - 0x01F3CE 07:F3BE: 0A        ASL                                         ; *8, because the set of 8th bytes
+C - - - - - 0x01F3CF 07:F3BF: A8        TAY                                         ;
+C - - - - - 0x01F3D0 07:F3C0: A9 00     LDA #$00                                    ;
+C - - - - - 0x01F3D2 07:F3C2: 9D 44 03  STA vEnemyAFrame_Counter,X                  ; reset a frame counter
 C - - - - - 0x01F3D5 07:F3C5: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x01F3D8 07:F3C8: 9D 22 03  STA ram_0322,X
 C - - - - - 0x01F3DB 07:F3CB: 9D 24 03  STA ram_0324,X
-C - - - - - 0x01F3DE 07:F3CE: B9 1C BD  LDA $BD1C,Y
+C - - - - - 0x01F3DE 07:F3CE: B9 1C BD  LDA tbl_ptr_enemy_t3_sprite_params_,Y
 C - - - - - 0x01F3E1 07:F3D1: 9D 26 03  STA ram_0326,X
-C - - - - - 0x01F3E4 07:F3D4: B9 1D BD  LDA $BD1D,Y
+C - - - - - 0x01F3E4 07:F3D4: B9 1D BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 1,Y
 C - - - - - 0x01F3E7 07:F3D7: 9D 50 03  STA ram_0350,X
-C - - - - - 0x01F3EA 07:F3DA: B9 1E BD  LDA $BD1E,Y
-C - - - - - 0x01F3ED 07:F3DD: 30 03     BMI bra_F3E2
-C - - - - - 0x01F3EF 07:F3DF: 8D B3 06  STA ram_06B3
-bra_F3E2:
-C - - - - - 0x01F3F2 07:F3E2: B9 1F BD  LDA $BD1F,Y
-C - - - - - 0x01F3F5 07:F3E5: 30 03     BMI bra_F3EA
-C - - - - - 0x01F3F7 07:F3E7: 8D B4 06  STA ram_06B4
-bra_F3EA:
-C - - - - - 0x01F3FA 07:F3EA: B9 20 BD  LDA $BD20,Y
-C - - - - - 0x01F3FD 07:F3ED: 8D 02 03  STA ram_0302
-C - - - - - 0x01F400 07:F3F0: B9 21 BD  LDA $BD21,Y
-C - - - - - 0x01F403 07:F3F3: 8D 03 03  STA ram_0303
-C - - - - - 0x01F406 07:F3F6: B9 22 BD  LDA $BD22,Y
+C - - - - - 0x01F3EA 07:F3DA: B9 1E BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 2,Y   ; CONSTANT for CHR ROM
+C - - - - - 0x01F3ED 07:F3DD: 30 03     BMI @bra_F3E2_skip                          ; If CHR ROM is 0%1XXXXXXX, i.e. not used
+C - - - - - 0x01F3EF 07:F3DF: 8D B3 06  STA vCacheChrBankSelect + 4                 ;
+@bra_F3E2_skip:
+C - - - - - 0x01F3F2 07:F3E2: B9 1F BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 3,Y   ; CONSTANT for CHR ROM
+C - - - - - 0x01F3F5 07:F3E5: 30 03     BMI @bra_F3EA_skip                          ; If CHR ROM is 0%1XXXXXXX, i.e. not used
+C - - - - - 0x01F3F7 07:F3E7: 8D B4 06  STA vCacheChrBankSelect + 5                 ;
+@bra_F3EA_skip:
+C - - - - - 0x01F3FA 07:F3EA: B9 20 BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 4,Y   ; the offset for sprite_magic2
+C - - - - - 0x01F3FD 07:F3ED: 8D 02 03  STA vEnemyASpriteMagic2                     ;
+C - - - - - 0x01F400 07:F3F0: B9 21 BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 5,Y   ; <~ sprite_magic3 (see v_sprite_magic3)
+C - - - - - 0x01F403 07:F3F3: 8D 03 03  STA vEnemyASpriteMagic3                     ;
+C - - - - - 0x01F406 07:F3F6: B9 22 BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 6,Y
 C - - - - - 0x01F409 07:F3F9: 8D 04 03  STA ram_0304
-C - - - - - 0x01F40C 07:F3FC: B9 23 BD  LDA $BD23,Y
+C - - - - - 0x01F40C 07:F3FC: B9 23 BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 7,Y
 C - - - - - 0x01F40F 07:F3FF: 8D 05 03  STA ram_0305
-C - - - - - 0x01F412 07:F402: AD 00 03  LDA ram_0300
-C - - - - - 0x01F415 07:F405: C9 01     CMP #$01
-C - - - - - 0x01F417 07:F407: D0 09     BNE bra_F412
+C - - - - - 0x01F412 07:F402: AD 00 03  LDA vEnemyA                                 ;
+C - - - - - 0x01F415 07:F405: C9 01     CMP #$01                                    ; CONSTANT - Cat with the gun
+C - - - - - 0x01F417 07:F407: D0 09     BNE @bra_F412_skip                          ; If vEnemyA != 0x01
 C - - - - - 0x01F419 07:F409: A5 0C     LDA ram_000C
 C - - - - - 0x01F41B 07:F40B: 29 80     AND #$80
 C - - - - - 0x01F41D 07:F40D: 9D 26 03  STA ram_0326,X
-C - - - - - 0x01F420 07:F410: D0 15     BNE bra_F427
-bra_F412:
-C - - - - - 0x01F422 07:F412: C9 38     CMP #$38
-C - - - - - 0x01F424 07:F414: F0 09     BEQ bra_F41F
-C - - - - - 0x01F426 07:F416: C9 1C     CMP #$1C
-C - - - - - 0x01F428 07:F418: D0 10     BNE bra_F42A
+C - - - - - 0x01F420 07:F410: D0 15     BNE bra_F427_finish
+@bra_F412_skip:
+C - - - - - 0x01F422 07:F412: C9 38     CMP #$38                                    ; CONSTANT - Ninja upside down
+C - - - - - 0x01F424 07:F414: F0 09     BEQ @bra_F41F_ninja                         ; If vEnemyA == 0x38
+C - - - - - 0x01F426 07:F416: C9 1C     CMP #$1C                                    ; CONSTANT - Knight in armor with a shield
+C - - - - - 0x01F428 07:F418: D0 10     BNE bra_F42A_prepare_jump                   ; If vEnemyA != 0x1C
 C - - - - - 0x01F42A 07:F41A: A9 30     LDA #$30
-C - - - - - 0x01F42C 07:F41C: 9D 4A 03  STA ram_034A,X
-bra_F41F:
+C - - - - - 0x01F42C 07:F41C: 9D 4A 03  STA vEnemyAJumpCounter,X
+@bra_F41F_ninja:
 C - - - - - 0x01F42F 07:F41F: BD 20 03  LDA vEnemyAStatus,X
 C - - - - - 0x01F432 07:F422: 09 08     ORA #$08
 C - - - - - 0x01F434 07:F424: 9D 20 03  STA vEnemyAStatus,X
-bra_F427:
+bra_F427_finish:
 C - - - - - 0x01F437 07:F427: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA
 
-bra_F42A:
-C - - - - - 0x01F43A 07:F42A: A0 00     LDY #$00
-C - - - - - 0x01F43C 07:F42C: A5 0B     LDA ram_000B
-C - - - - - 0x01F43E 07:F42E: 6A        ROR
-C - - - - - 0x01F43F 07:F42F: 90 02     BCC bra_F433
-C - - - - - 0x01F441 07:F431: A0 08     LDY #$08
-bra_F433:
-C - - - - - 0x01F443 07:F433: 98        TYA
-C - - - - - 0x01F444 07:F434: 9D 56 03  STA ram_0356,X
-C - - - - - 0x01F447 07:F437: A9 10     LDA #$10
-C - - - - - 0x01F449 07:F439: 9D 4A 03  STA ram_034A,X
-C - - - - - 0x01F44C 07:F43C: D0 E9     BNE bra_F427
+; In: $000B - the direction of appearance (0x00 - right, 0x01 - left)
+bra_F42A_prepare_jump:
+C - - - - - 0x01F43A 07:F42A: A0 00     LDY #$00                                    ; a jump type #1
+C - - - - - 0x01F43C 07:F42C: A5 0B     LDA ram_000B                                ;
+C - - - - - 0x01F43E 07:F42E: 6A        ROR                                         ;
+C - - - - - 0x01F43F 07:F42F: 90 02     BCC @bra_F433_right                         ; if $000B == 0x00 (the right direction)
+C - - - - - 0x01F441 07:F431: A0 08     LDY #$08                                    ; a jump type #2
+@bra_F433_right:
+C - - - - - 0x01F443 07:F433: 98        TYA                                         ;
+C - - - - - 0x01F444 07:F434: 9D 56 03  STA vEnemyAJumpType,X                       ; initializes a jump type
+C - - - - - 0x01F447 07:F437: A9 10     LDA #$10                                    ; 
+C - - - - - 0x01F449 07:F439: 9D 4A 03  STA vEnemyAJumpCounter,X                    ; initializes a jump counter
+C - - - - - 0x01F44C 07:F43C: D0 E9     BNE bra_F427_finish                         ; Always true
 
-C - - J - - 0x01F44E 07:F43E: 20 8A F3  JSR sub_F38A_start_enemyB_appearance
-C - - - - - 0x01F451 07:F441: A0 00     LDY #$00
-C - - - - - 0x01F453 07:F443: AD 01 03  LDA ram_0301
-C - - - - - 0x01F456 07:F446: C9 02     CMP #$02
-C - - - - - 0x01F458 07:F448: F0 1A     BEQ @bra_F464_skip
-C - - - - - 0x01F45A 07:F44A: A0 08     LDY #$08
-C - - - - - 0x01F45C 07:F44C: C9 03     CMP #$03
-C - - - - - 0x01F45E 07:F44E: F0 14     BEQ @bra_F464_skip
-C - - - - - 0x01F460 07:F450: A0 10     LDY #$10
-C - - - - - 0x01F462 07:F452: C9 0E     CMP #$0E
-C - - - - - 0x01F464 07:F454: F0 0E     BEQ @bra_F464_skip
-C - - - - - 0x01F466 07:F456: A0 18     LDY #$18
-C - - - - - 0x01F468 07:F458: C9 12     CMP #$12
-C - - - - - 0x01F46A 07:F45A: F0 08     BEQ @bra_F464_skip
-C - - - - - 0x01F46C 07:F45C: A0 20     LDY #$20
-C - - - - - 0x01F46E 07:F45E: C9 13     CMP #$13
-C - - - - - 0x01F470 07:F460: F0 02     BEQ @bra_F464_skip
-C - - - - - 0x01F472 07:F462: A0 28     LDY #$28
+; Template 4
+; In: $000B - the direction of appearance (0x00 - right, 0x01 - left)
+loc_F43E_enemy_appearance_t4:
+C - - J - - 0x01F44E 07:F43E: 20 8A F3  JSR sub_F38A_start_enemyB_appearance        ;
+C - - - - - 0x01F451 07:F441: A0 00     LDY #$00                                    ; params #1
+C - - - - - 0x01F453 07:F443: AD 01 03  LDA vEnemyB                                 ;
+C - - - - - 0x01F456 07:F446: C9 02     CMP #$02                                    ; CONSTANT - Gray land hat
+C - - - - - 0x01F458 07:F448: F0 1A     BEQ @bra_F464_skip                          ; If vEnemyB == 0x02
+C - - - - - 0x01F45A 07:F44A: A0 08     LDY #$08                                    ; params #2
+C - - - - - 0x01F45C 07:F44C: C9 03     CMP #$03                                    ; CONSTANT - Black land hat
+C - - - - - 0x01F45E 07:F44E: F0 14     BEQ @bra_F464_skip                          ; If vEnemyB == 0x03
+C - - - - - 0x01F460 07:F450: A0 10     LDY #$10                                    ; params #3
+C - - - - - 0x01F462 07:F452: C9 0E     CMP #$0E                                    ; CONSTANT - Bat
+C - - - - - 0x01F464 07:F454: F0 0E     BEQ @bra_F464_skip                          ; If vEnemyB == 0x0E
+C - - - - - 0x01F466 07:F456: A0 18     LDY #$18                                    ; params #4
+C - - - - - 0x01F468 07:F458: C9 12     CMP #$12                                    ; CONSTANT - Batterfly
+C - - - - - 0x01F46A 07:F45A: F0 08     BEQ @bra_F464_skip                          ; If vEnemyB == 0x12
+C - - - - - 0x01F46C 07:F45C: A0 20     LDY #$20                                    ; params #5
+C - - - - - 0x01F46E 07:F45E: C9 13     CMP #$13                                    ; CONSTANT - Broned batterfly
+C - - - - - 0x01F470 07:F460: F0 02     BEQ @bra_F464_skip                          ; If vEnemyB == 0x13
+C - - - - - 0x01F472 07:F462: A0 28     LDY #$28                                    ; params #6
 @bra_F464_skip:
-C - - - - - 0x01F474 07:F464: A5 0B     LDA ram_000B
-C - - - - - 0x01F476 07:F466: 6A        ROR
-C - - - - - 0x01F477 07:F467: 90 05     BCC bra_F46E
-C - - - - - 0x01F479 07:F469: 98        TYA
-C - - - - - 0x01F47A 07:F46A: 18        CLC
-C - - - - - 0x01F47B 07:F46B: 69 04     ADC #$04
-C - - - - - 0x01F47D 07:F46D: A8        TAY
-bra_F46E:
-C - - - - - 0x01F47E 07:F46E: B9 9C BD  LDA $BD9C,Y
+C - - - - - 0x01F474 07:F464: A5 0B     LDA ram_000B                                ;
+C - - - - - 0x01F476 07:F466: 6A        ROR                                         ;
+C - - - - - 0x01F477 07:F467: 90 05     BCC @bra_F46E_right                         ; if $000B == 0x00 (the right direction)
+C - - - - - 0x01F479 07:F469: 98        TYA                                         ;
+C - - - - - 0x01F47A 07:F46A: 18        CLC                                         ;
+C - - - - - 0x01F47B 07:F46B: 69 04     ADC #$04                                    ; an offset on 4 bytes for the left direction
+C - - - - - 0x01F47D 07:F46D: A8        TAY                                         ;
+@bra_F46E_right:
+C - - - - - 0x01F47E 07:F46E: B9 9C BD  LDA tbl_ptr_enemy_t4_sprite_params_,Y
 C - - - - - 0x01F481 07:F471: 9D 62 03  STA ram_0362,X
 C - - - - - 0x01F484 07:F474: A9 00     LDA #$00
 C - - - - - 0x01F486 07:F476: 9D 80 03  STA ram_0380,X
 C - - - - - 0x01F489 07:F479: A9 40     LDA #$40
 C - - - - - 0x01F48B 07:F47B: 9D 86 03  STA ram_0386,X
-C - - - - - 0x01F48E 07:F47E: B9 9D BD  LDA $BD9D,Y
-C - - - - - 0x01F491 07:F481: 9D 92 03  STA ram_0392,X
-C - - - - - 0x01F494 07:F484: B9 9E BD  LDA $BD9E,Y
+C - - - - - 0x01F48E 07:F47E: B9 9D BD  LDA tbl_ptr_enemy_t4_sprite_params_ + 1,Y
+C - - - - - 0x01F491 07:F481: 9D 92 03  STA vEnemyBJumpType,X
+C - - - - - 0x01F494 07:F484: B9 9E BD  LDA tbl_ptr_enemy_t4_sprite_params_ + 2,Y
 C - - - - - 0x01F497 07:F487: 9D 5C 03  STA vEnemyBStatus,X
-C - - - - - 0x01F49A 07:F48A: B9 9F BD  LDA $BD9F,Y
-C - - - - - 0x01F49D 07:F48D: AC 01 03  LDY ram_0301
-C - - - - - 0x01F4A0 07:F490: C0 03     CPY #$03
-C - - - - - 0x01F4A2 07:F492: F0 09     BEQ bra_F49D
+C - - - - - 0x01F49A 07:F48A: B9 9F BD  LDA tbl_ptr_enemy_t4_sprite_params_ + 3,Y
+C - - - - - 0x01F49D 07:F48D: AC 01 03  LDY vEnemyB                                 ;
+C - - - - - 0x01F4A0 07:F490: C0 03     CPY #$03                                    ; CONSTANT - Black land hat
+C - - - - - 0x01F4A2 07:F492: F0 09     BEQ @bra_F49D_black_hat                     ; If vEnemyB == 0x03
 C - - - - - 0x01F4A4 07:F494: C0 27     CPY #$27
 C - - - - - 0x01F4A6 07:F496: F0 1E     BEQ bra_F4B6
-C - - - - - 0x01F4A8 07:F498: 8D B3 06  STA ram_06B3
+C - - - - - 0x01F4A8 07:F498: 8D B3 06  STA vCacheChrBankSelect + 4
 C - - - - - 0x01F4AB 07:F49B: D0 03     BNE bra_F4A0
-bra_F49D:
-C - - - - - 0x01F4AD 07:F49D: 8D B4 06  STA ram_06B4
+@bra_F49D_black_hat:
+C - - - - - 0x01F4AD 07:F49D: 8D B4 06  STA vCacheChrBankSelect + 5
 bra_F4A0:
 C - - - - - 0x01F4B0 07:F4A0: A9 00     LDA #$00
-C - - - - - 0x01F4B2 07:F4A2: 8D 06 03  STA ram_0306
+C - - - - - 0x01F4B2 07:F4A2: 8D 06 03  STA vEnemyBSpriteMagic2
 C - - - - - 0x01F4B5 07:F4A5: A0 43     LDY #$43
-C - - - - - 0x01F4B7 07:F4A7: AD 01 03  LDA ram_0301
-C - - - - - 0x01F4BA 07:F4AA: C9 03     CMP #$03
-C - - - - - 0x01F4BC 07:F4AC: D0 02     BNE bra_F4B0
+C - - - - - 0x01F4B7 07:F4A7: AD 01 03  LDA vEnemyB                                 ;
+C - - - - - 0x01F4BA 07:F4AA: C9 03     CMP #$03                                    ; CONSTANT - Black land hat
+C - - - - - 0x01F4BC 07:F4AC: D0 02     BNE @bra_F4B0_skip                          ; If vEnemyB != 0x03
 C - - - - - 0x01F4BE 07:F4AE: A0 47     LDY #$47
-bra_F4B0:
-C - - - - - 0x01F4C0 07:F4B0: 8C 07 03  STY ram_0307
+@bra_F4B0_skip:
+C - - - - - 0x01F4C0 07:F4B0: 8C 07 03  STY vEnemyBSpriteMagic3
 C - - - - - 0x01F4C3 07:F4B3: 4C 20 F8  JMP loc_F820_finish_creating_enemyB
 
 bra_F4B6:
-C - - - - - 0x01F4C6 07:F4B6: 8D B4 06  STA ram_06B4
+C - - - - - 0x01F4C6 07:F4B6: 8D B4 06  STA vCacheChrBankSelect + 5
 C - - - - - 0x01F4C9 07:F4B9: A9 02     LDA #$02
 C - - - - - 0x01F4CB 07:F4BB: 9D 8C 03  STA ram_038C,X
 C - - - - - 0x01F4CE 07:F4BE: A9 30     LDA #$30
-C - - - - - 0x01F4D0 07:F4C0: 8D 06 03  STA ram_0306
+C - - - - - 0x01F4D0 07:F4C0: 8D 06 03  STA vEnemyBSpriteMagic2
 C - - - - - 0x01F4D3 07:F4C3: A9 07     LDA #$07
-C - - - - - 0x01F4D5 07:F4C5: 8D 07 03  STA ram_0307
+C - - - - - 0x01F4D5 07:F4C5: 8D 07 03  STA vEnemyBSpriteMagic3
 C - - - - - 0x01F4D8 07:F4C8: 4C 20 F8  JMP loc_F820_finish_creating_enemyB
 
 ; In: $0000 - macro X-position
@@ -8699,7 +8712,7 @@ C - - J - - 0x01F5A0 07:F590: 20 8A F3  JSR sub_F38A_start_enemyB_appearance    
 C - - - - - 0x01F5A3 07:F593: 20 60 F3  JSR sub_F360_prepare_enemyB_start_status    ;
 C - - - - - 0x01F5A6 07:F596: A0 00     LDY #$00                                    ; set loop counter
 C - - - - - 0x01F5A8 07:F598: AD 01 03  LDA vEnemyB                                 ;
-@bra_F59B_loop:                                                                     ; loop by y (6 iimes)
+@bra_F59B_loop:                                                                     ; loop by y (6 times)
 C - - - - - 0x01F5AB 07:F59B: D9 CC BD  CMP tbl_ptr_enemy_t2_types_for_sprites,Y    ;
 C - - - - - 0x01F5AE 07:F59E: F0 05     BEQ @bra_F5A5_skip                          ; If vEnemyB == the current type in the table
 C - - - - - 0x01F5B0 07:F5A0: C8        INY                                         ; increment loop counter
@@ -8784,6 +8797,7 @@ C - - - - - 0x01F63D 07:F62D: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01F640 07:F630: 9D 5E 03  STA ram_035E,X
 C - - - - - 0x01F643 07:F633: 60        RTS
 
+loc_F634_trap_appearance:
 C - - J - - 0x01F644 07:F634: 20 39 F3  JSR sub_F339
 C - - - - - 0x01F647 07:F637: 20 8A F3  JSR sub_F38A_start_enemyB_appearance
 C - - - - - 0x01F64A 07:F63A: A9 C0     LDA #$C0
@@ -8809,6 +8823,8 @@ bra_F664:
 C - - - - - 0x01F674 07:F664: 8C B4 06  STY ram_06B4
 C - - - - - 0x01F677 07:F667: 4C 20 F8  JMP loc_F820_finish_creating_enemyB
 
+; Template 5
+loc_F66A_enemy_appearance_t5:
 C - - J - - 0x01F67A 07:F66A: 20 72 F3  JSR sub_F372_start_enemyA_appearance
 C - - - - - 0x01F67D 07:F66D: A0 D0     LDY #$D0
 C - - - - - 0x01F67F 07:F66F: A5 0B     LDA ram_000B
@@ -9104,64 +9120,64 @@ loc_enemy_RTS:
 C - - J - - 0x01F897 07:F887: 60        RTS                           ;
 
 tbl_F888_enemy_appearance:
-- - - - - - 0x01F898 07:F888: 87 F8     .addr loc_enemy_RTS ; Nobody  (0x00)
-- D 3 - - - 0x01F89A 07:F88A: A2 F3     .addr loc_F3A2_enemy ; Cat with the gun
-- D 3 - - - 0x01F89C 07:F88C: 3E F4     .word $F43E ; Gray Land hat
-- D 3 - - - 0x01F89E 07:F88E: 3E F4     .word $F43E ; Black Land hat
-- D 3 - - - 0x01F8A0 07:F890: CB F4     .addr loc_F3A2_land_diver_enemy ; Land Diver
-- D 3 - - - 0x01F8A2 07:F892: CB F4     .addr loc_F3A2_land_diver_enemy ; Land Diver
-- D 3 - - - 0x01F8A4 07:F894: CB F4     .addr loc_F3A2_land_diver_enemy ; Land Diver
-- D 3 - - - 0x01F8A6 07:F896: A2 F3     .addr loc_F3A2_enemy ; Zenigata
-- D 3 - - - 0x01F8A8 07:F898: 3D F5     .addr loc_F53D_bazooka_enemy ; Shooter with bazooka
-- D 3 - - - 0x01F8AA 07:F89A: A2 F3     .addr loc_F3A2_enemy ; The fat sailor
-- D 3 - - - 0x01F8AC 07:F89C: 90 F5     .addr loc_F590_enemy_appearance_t2 ; The barrel
-- D 3 - - - 0x01F8AE 07:F89E: 6A F6     .word $F66A ; Jumping sailor
-- D 3 - - - 0x01F8B0 07:F8A0: AB F6     .word $F6AB ; The lift
-- D 3 - - - 0x01F8B2 07:F8A2: 34 F6     .word $F634 ; Sensor
-- D 3 - - - 0x01F8B4 07:F8A4: 3E F4     .word $F43E ; Bat
-- D 3 - - - 0x01F8B6 07:F8A6: 90 F5     .addr loc_F590_enemy_appearance_t2 ; Gray cat
-- D 3 - - - 0x01F8B8 07:F8A8: 6A F6     .word $F66A ; Nun (0x10)
-- D 3 - - - 0x01F8BA 07:F8AA: A2 F3     .addr loc_F3A2_enemy ; Girl in red, in the castle
-- D 3 - - - 0x01F8BC 07:F8AC: 3E F4     .word $F43E ; Batterfly
-- D 3 - - - 0x01F8BE 07:F8AE: 3E F4     .word $F43E ; Broned batterfly
-- D 3 - - - 0x01F8C0 07:F8B0: 3D F5     .addr loc_F53D_bazooka_enemy ; Shooter with bazooka
-- D 3 - - - 0x01F8C2 07:F8B2: 34 F6     .word $F634 ; Sensor
-- D 3 - - - 0x01F8C4 07:F8B4: 90 F5     .addr loc_F590_enemy_appearance_t2 ; Black cat
-- D 3 - - - 0x01F8C6 07:F8B6: A2 F3     .addr loc_F3A2_enemy ; Karate-boy
-- D 3 - - - 0x01F8C8 07:F8B8: A2 F3     .addr loc_F3A2_enemy ; Karate-boy in blue on the street
-- D 3 - - - 0x01F8CA 07:F8BA: A2 F3     .addr loc_F3A2_enemy ; Karate-girl
-- D 3 - - - 0x01F8CC 07:F8BC: A2 F3     .addr loc_F3A2_enemy ; Boy in green
-- D 3 - - - 0x01F8CE 07:F8BE: A2 F3     .addr loc_F3A2_enemy ; Girl with sword
-- D 3 - - - 0x01F8D0 07:F8C0: A2 F3     .addr loc_F3A2_enemy ; Knight in armor with a shield
-- D 3 - - - 0x01F8D2 07:F8C2: 90 F5     .addr loc_F590_enemy_appearance_t2 ; The barrel
-- D 3 - - - 0x01F8D4 07:F8C4: 34 F6     .word $F634 ; Sensor
-- D 3 - - - 0x01F8D6 07:F8C6: A2 F3     .addr loc_F3A2_enemy ; Fly man
-- D 3 - - - 0x01F8D8 07:F8C8: 3D F5     .addr loc_F53D_bazooka_enemy ; Shooter with bazooka (0x20)
-- D 3 - - - 0x01F8DA 07:F8CA: 90 F5     .addr loc_F590_enemy_appearance_t2 ; Cobblestone
-- D 3 - - - 0x01F8DC 07:F8CC: 90 F5     .addr loc_F590_enemy_appearance_t2 ; The bird
-- D 3 - - - 0x01F8DE 07:F8CE: 90 F5     .addr loc_F590_enemy_appearance_t2 ; The bird with a bomb
-- D 3 - - - 0x01F8E0 07:F8D0: A2 F3     .addr loc_F3A2_enemy ; Skeleton
-- D 3 - - - 0x01F8E2 07:F8D2: 62 F7     .word $F762 ; Diver
-- D 3 - - - 0x01F8E4 07:F8D4: A2 F3     .addr loc_F3A2_enemy ; Mummy
-- D 3 - - - 0x01F8E6 07:F8D6: 3E F4     .word $F43E ; Gargoyle
-- D 3 - - - 0x01F8E8 07:F8D8: 81 F7     .word $F781 ; Boss
-- - - - - - 0x01F8EA 07:F8DA: 87 F8     .addr loc_enemy_RTS ; ???
-- D 3 - - - 0x01F8EC 07:F8DC: 7D F7     .word $F77D ; Boss
-- - - - - - 0x01F8EE 07:F8DE: 87 F8     .addr loc_enemy_RTS ; ???
-- D 3 - - - 0x01F8F0 07:F8E0: 79 F7     .word $F779 ; Boss
-- - - - - - 0x01F8F2 07:F8E2: 87 F8     .addr loc_enemy_RTS ; ???
-- D 3 - - - 0x01F8F4 07:F8E4: 75 F7     .word $F775 ; Boss
-- - - - - - 0x01F8F6 07:F8E6: 87 F8     .addr loc_enemy_RTS ; ???
-- D 3 - - - 0x01F8F8 07:F8E8: E7 F6     .word $F6E7 ; Wall
-- D 3 - - - 0x01F8FA 07:F8EA: E7 F6     .word $F6E7 ; Wall
-- D 3 - - - 0x01F8FC 07:F8EC: E7 F6     .word $F6E7 ; Breaking platform
-- D 3 - - - 0x01F8FE 07:F8EE: 34 F6     .word $F634 ; Blade trap
-- D 3 - - - 0x01F900 07:F8F0: 90 F5     .addr loc_F590_enemy_appearance_t2 ; Potted snakes
-- D 3 - - - 0x01F902 07:F8F2: A2 F3     .addr loc_F3A2_enemy ; Egyptian with bow
-- D 3 - - - 0x01F904 07:F8F4: A2 F3     .addr loc_F3A2_enemy ; Egyptian with a sword
-- D 3 - - - 0x01F906 07:F8F6: A2 F3     .addr loc_F3A2_enemy ; Egyptian with a boomerung
-- D 3 - - - 0x01F908 07:F8F8: A2 F3     .addr loc_F3A2_enemy ; Ninja upside down
-- D 3 - - - 0x01F90A 07:F8FA: 34 F6     .word $F634 ; Sensor
+- - - - - - 0x01F898 07:F888: 87 F8     .addr loc_enemy_RTS                 ; Nobody  (0x00)
+- D 3 - - - 0x01F89A 07:F88A: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Cat with the gun
+- D 3 - - - 0x01F89C 07:F88C: 3E F4     .addr loc_F43E_enemy_appearance_t4  ; Gray Land hat
+- D 3 - - - 0x01F89E 07:F88E: 3E F4     .addr loc_F43E_enemy_appearance_t4  ; Black Land hat
+- D 3 - - - 0x01F8A0 07:F890: CB F4     .addr loc_F3A2_land_diver_enemy     ; Land Diver
+- D 3 - - - 0x01F8A2 07:F892: CB F4     .addr loc_F3A2_land_diver_enemy     ; Land Diver
+- D 3 - - - 0x01F8A4 07:F894: CB F4     .addr loc_F3A2_land_diver_enemy     ; Land Diver
+- D 3 - - - 0x01F8A6 07:F896: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Zenigata
+- D 3 - - - 0x01F8A8 07:F898: 3D F5     .addr loc_F53D_bazooka_enemy        ; Shooter with bazooka
+- D 3 - - - 0x01F8AA 07:F89A: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; The fat sailor
+- D 3 - - - 0x01F8AC 07:F89C: 90 F5     .addr loc_F590_enemy_appearance_t2  ; The barrel
+- D 3 - - - 0x01F8AE 07:F89E: 6A F6     .addr loc_F66A_enemy_appearance_t5  ; Jumping sailor
+- D 3 - - - 0x01F8B0 07:F8A0: AB F6     .word $F6AB                         ; The lift
+- D 3 - - - 0x01F8B2 07:F8A2: 34 F6     .addr loc_F634_trap_appearance      ; Sensor
+- D 3 - - - 0x01F8B4 07:F8A4: 3E F4     .addr loc_F43E_enemy_appearance_t4  ; Bat
+- D 3 - - - 0x01F8B6 07:F8A6: 90 F5     .addr loc_F590_enemy_appearance_t2  ; Gray cat
+- D 3 - - - 0x01F8B8 07:F8A8: 6A F6     .addr loc_F66A_enemy_appearance_t5  ; Nun (0x10)
+- D 3 - - - 0x01F8BA 07:F8AA: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Girl in red, in the castle
+- D 3 - - - 0x01F8BC 07:F8AC: 3E F4     .addr loc_F43E_enemy_appearance_t4  ; Batterfly
+- D 3 - - - 0x01F8BE 07:F8AE: 3E F4     .addr loc_F43E_enemy_appearance_t4  ; Broned batterfly
+- D 3 - - - 0x01F8C0 07:F8B0: 3D F5     .addr loc_F53D_bazooka_enemy        ; Shooter with bazooka
+- D 3 - - - 0x01F8C2 07:F8B2: 34 F6     .addr loc_F634_trap_appearance      ; Sensor
+- D 3 - - - 0x01F8C4 07:F8B4: 90 F5     .addr loc_F590_enemy_appearance_t2  ; Black cat
+- D 3 - - - 0x01F8C6 07:F8B6: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Karate-boy
+- D 3 - - - 0x01F8C8 07:F8B8: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Karate-boy in blue on the street
+- D 3 - - - 0x01F8CA 07:F8BA: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Karate-girl
+- D 3 - - - 0x01F8CC 07:F8BC: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Boy in green
+- D 3 - - - 0x01F8CE 07:F8BE: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Girl with sword
+- D 3 - - - 0x01F8D0 07:F8C0: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Knight in armor with a shield
+- D 3 - - - 0x01F8D2 07:F8C2: 90 F5     .addr loc_F590_enemy_appearance_t2  ; The barrel
+- D 3 - - - 0x01F8D4 07:F8C4: 34 F6     .addr loc_F634_trap_appearance      ; Sensor
+- D 3 - - - 0x01F8D6 07:F8C6: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Fly man
+- D 3 - - - 0x01F8D8 07:F8C8: 3D F5     .addr loc_F53D_bazooka_enemy        ; Shooter with bazooka (0x20)
+- D 3 - - - 0x01F8DA 07:F8CA: 90 F5     .addr loc_F590_enemy_appearance_t2  ; Cobblestone
+- D 3 - - - 0x01F8DC 07:F8CC: 90 F5     .addr loc_F590_enemy_appearance_t2  ; The bird
+- D 3 - - - 0x01F8DE 07:F8CE: 90 F5     .addr loc_F590_enemy_appearance_t2  ; The bird with a bomb
+- D 3 - - - 0x01F8E0 07:F8D0: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Skeleton
+- D 3 - - - 0x01F8E2 07:F8D2: 62 F7     .word $F762                         ; Diver
+- D 3 - - - 0x01F8E4 07:F8D4: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Mummy
+- D 3 - - - 0x01F8E6 07:F8D6: 3E F4     .addr loc_F43E_enemy_appearance_t4  ; Gargoyle
+- D 3 - - - 0x01F8E8 07:F8D8: 81 F7     .word $F781                         ; Boss
+- - - - - - 0x01F8EA 07:F8DA: 87 F8     .addr loc_enemy_RTS                 ; ???
+- D 3 - - - 0x01F8EC 07:F8DC: 7D F7     .word $F77D                         ; Boss
+- - - - - - 0x01F8EE 07:F8DE: 87 F8     .addr loc_enemy_RTS                 ; ???
+- D 3 - - - 0x01F8F0 07:F8E0: 79 F7     .word $F779                         ; Boss
+- - - - - - 0x01F8F2 07:F8E2: 87 F8     .addr loc_enemy_RTS                 ; ???
+- D 3 - - - 0x01F8F4 07:F8E4: 75 F7     .word $F775                         ; Boss
+- - - - - - 0x01F8F6 07:F8E6: 87 F8     .addr loc_enemy_RTS                 ; ???
+- D 3 - - - 0x01F8F8 07:F8E8: E7 F6     .word $F6E7                         ; Wall
+- D 3 - - - 0x01F8FA 07:F8EA: E7 F6     .word $F6E7                         ; Wall
+- D 3 - - - 0x01F8FC 07:F8EC: E7 F6     .word $F6E7                         ; Breaking platform
+- D 3 - - - 0x01F8FE 07:F8EE: 34 F6     .addr loc_F634_trap_appearance      ; Blade trap
+- D 3 - - - 0x01F900 07:F8F0: 90 F5     .addr loc_F590_enemy_appearance_t2  ; Potted snakes
+- D 3 - - - 0x01F902 07:F8F2: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Egyptian with bow
+- D 3 - - - 0x01F904 07:F8F4: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Egyptian with a sword
+- D 3 - - - 0x01F906 07:F8F6: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Egyptian with a boomerung
+- D 3 - - - 0x01F908 07:F8F8: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Ninja upside down
+- D 3 - - - 0x01F90A 07:F8FA: 34 F6     .addr loc_F634_trap_appearance      ; Sensor
 
 tbl_F8FC_enemies:
 - D 3 - - - 0x01F90C 07:F8FC: 02        .byte $02 ; Gray land hat

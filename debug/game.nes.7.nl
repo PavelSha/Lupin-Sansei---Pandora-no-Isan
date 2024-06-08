@@ -2057,7 +2057,7 @@ $D350#bra_D350_skip#prepare an input parameter
 $D352##--NO-COMMENT--
 $D355##CONSTANT - a strong collision
 $D357##--NO-COMMENT--
-$D358#sub_D358_check_enemy_collision_by_Y#--NO-COMMENT--
+$D358#sub_D358_check_enemyA_collision_by_Y#--NO-COMMENT--
 $D35B##--NO-COMMENT--
 $D36A#loc_D36A_short_left_right_collision#to sub_AD6E bank 06_2
 $D36D##--NO-COMMENT--
@@ -2109,7 +2109,7 @@ $D3C5##If vEnemyB != 0x31
 $D3C7#bra_D3C7#set loop counter
 $D3C9#bra_D3C9_loop#
 $D3EA#bra_D3EA#
-$D3EE#bra_D3EE#decrement loop counter
+$D3EE#bra_D3EE_next#decrement loop counter
 $D3EF##If Register Y < 0xF0
 $D3F1#bra_D3F1_return#retrieve A ($D3B5)
 $D3F2##--NO-COMMENT--
@@ -2479,7 +2479,17 @@ $D6D4##--NO-COMMENT--
 $D6D7##If [Hc:Lc] > [He:Le]
 $D6D9##--NO-COMMENT--
 $D6DA#bra_D6DA_RTS#--NO-COMMENT--
-$D6EF#bra_D6EF_RTS#
+$D6DB#sub_D6DB_try_change_enemyB_direction#--NO-COMMENT--
+$D6DD##Branch if vLowCounter doesn't multiple of f(A) (vLowCounter % f(A) != 0)
+$D6DF##--NO-COMMENT--
+$D6E1##--NO-COMMENT--
+$D6E3##--NO-COMMENT--
+$D6E4##--NO-COMMENT--
+$D6E7##--NO-COMMENT--
+$D6E9##--NO-COMMENT--
+$D6EC##If [Hc:Lc] > [He:Le]
+$D6EE##--NO-COMMENT--
+$D6EF#bra_D6EF_RTS#--NO-COMMENT--
 $D6F0#loc_D6F0_dec_EnemyAPosXLow#--NO-COMMENT--
 $D6F3##--NO-COMMENT--
 $D6F4##CONSTANT - The enemy should be visible in its entirety on the left
@@ -2562,7 +2572,7 @@ $D797##If vEnemyACount != 0x00
 $D799#bra_D799_skip#--NO-COMMENT--
 $D79B##clear
 $D79E#bra_D79E_RTS#--NO-COMMENT--
-$D79F#sub_D79F_inc_diving_frame_#--NO-COMMENT--
+$D79F#sub_D79F_inc_diving_frameA_#--NO-COMMENT--
 $D7A2##--NO-COMMENT--
 $D7A5##CONSTANT - the last frame
 $D7A7##--NO-COMMENT--
@@ -2572,7 +2582,7 @@ $D7AD##--NO-COMMENT--
 $D7AF##If Register A == 0x07
 $D7B1##--NO-COMMENT--
 $D7B4##If vEnemyAPosY != 0x00
-$D7B6#bra_D7B6_end#--NO-COMMENT--
+$D7B6#bra_D7B6_reset#--NO-COMMENT--
 $D7B9##--NO-COMMENT--
 $D7BB##clear W,K,L,M flags (see vEnemyAStatus)
 $D7BE##--NO-COMMENT--
@@ -2586,29 +2596,138 @@ $D7CD##prepare an increment by X (-8)
 $D7CF##--NO-COMMENT--
 $D7D2##CONSTANT - a strong collision
 $D7D4##--NO-COMMENT--
-$D7D5#sub_D7D5#
-$D7E5#bra_D7E5_RTS#
+$D7D5#sub_D7D5_check_enemyA_collision_by_in_maze#--NO-COMMENT--
+$D7D7##CONSTANT - level 4 or level-racing
+$D7D9##If vNoLevel != 0x03
+$D7DB##initializes the offset by Y (-31)
+$D7DD##--NO-COMMENT--
+$D7E0##--NO-COMMENT--
+$D7E3##CONSTANT - a strong collision
+$D7E5#bra_D7E5_RTS#--NO-COMMENT--
+$D7E6##not used ???
+$D7E8##not used ???
+$D7EB##not used ???
+$D7ED##not used ???
+$D7EE##not used ???
 $D7F0#sub_D7F0_enemyA_collision_by_shift_posY#--NO-COMMENT--
 $D7F1##--NO-COMMENT--
 $D7F4##<~ vEnemyAPosY + PosY
 $D7F6##--NO-COMMENT--
 $D7F9##--NO-COMMENT--
-$D7FC#loc_D7FC#
-$D81A#bra_D81A_RTS#
-$D84C#bra_D84C_RTS#
-$D85E#bra_D85E_RTS#
-$D85F#bra_D85F#
-$D873#bra_D873#
-$D87E#sub_D87E#
-$D883#loc_D883#
-$D88D#bra_D88D#
-$D892#bra_D892_RTS#
-$D893#sub_D893#
-$D8A8#sub_D8A8#
-$D8B6#bra_D8B6_RTS#
-$D8D3#bra_D8D3#
-$D8DB#sub_D8DB#
+$D7FC#loc_D7FC_dec_EnemyBPosXLow#--NO-COMMENT--
+$D7FF##--NO-COMMENT--
+$D800##CONSTANT - The enemy should be visible in its entirety on the left
+$D802##--NO-COMMENT--
+$D805##--NO-COMMENT--
+$D807##Branch If the enemy reach the beginning of the room
+$D809##--NO-COMMENT--
+$D80C##--NO-COMMENT--
+$D80D##--NO-COMMENT--
+$D80F##--NO-COMMENT--
+$D812##--NO-COMMENT--
+$D815##decrement vEnemyBPosXHigh, if vEnemyBPosXLow changed a sign
+$D817##--NO-COMMENT--
+$D81A#bra_D81A_RTS#--NO-COMMENT--
+$D81B#loc_D81B_inc_EnemyBPosXLow#--NO-COMMENT--
+$D81E##--NO-COMMENT--
+$D81F##CONSTANT - The enemy should be visible in its entirety on the right
+$D821##--NO-COMMENT--
+$D824##--NO-COMMENT--
+$D826##Branch If the enemy reach the end of the room
+$D828##--NO-COMMENT--
+$D82B##If the enemy doesn't move from one screen to another
+$D82D##--NO-COMMENT--
+$D830##--NO-COMMENT--
+$D831#sub_D831_enemyB_on_screen#--NO-COMMENT--
+$D834##~> sprite magic1
+$D836##--NO-COMMENT--
+$D838##--NO-COMMENT--
+$D83B##CONSTANT - death mark
+$D83D##--NO-COMMENT--
+$D83F##--NO-COMMENT--
+$D842##CONSTANT - the enemy can get damage
+$D844##--NO-COMMENT--
+$D847##--NO-COMMENT--
+$D848##if the direction is 'on the right'
+$D84A##--NO-COMMENT--
+$D84B##next the offset for the left frame
+$D84C#bra_D84C_RTS#--NO-COMMENT--
+$D84D#sub_D84D_enemyB_off_screen#--NO-COMMENT--
+$D850##CONSTANT - the enemy can't get damage
+$D852##--NO-COMMENT--
+$D855##CONSTANT - death mark
+$D857##If Register Y != 0xFF
+$D859##--NO-COMMENT--
+$D85C##If vEnemyBFrame_Counter >= 0x1F
+$D85E#bra_D85E_RTS#--NO-COMMENT--
+$D85F#bra_D85F_death#
+$D861##--NO-COMMENT--
+$D864##prepare an input parameter
+$D866##--NO-COMMENT--
+$D869##If the screen hasn't the water gap
+$D86B##--NO-COMMENT--
+$D86E##If vEnemyBFrame_Counter >= 0x1F
+$D870##--NO-COMMENT--
+$D873#bra_D873_free_enemyB#puts the enemyA number
+$D875##--NO-COMMENT--
+$D878##--NO-COMMENT--
+$D87B##--NO-COMMENT--
+$D87E#sub_D87E_free_enemyB_while_creating#--NO-COMMENT--
+$D880##clear a status
+$D883#loc_D883_dec_enemyB_counter#--NO-COMMENT--
+$D886##If vEnemyBCount == 0x00
+$D888##--NO-COMMENT--
+$D88B##If vEnemyBCount != 0x00
+$D88D#bra_D88D_skip#--NO-COMMENT--
+$D88F##clear
+$D892#bra_D892_RTS#--NO-COMMENT--
+$D893#sub_D893_inc_diving_frameB_#--NO-COMMENT--
+$D896##--NO-COMMENT--
+$D899##CONSTANT - the last frame
+$D89B##--NO-COMMENT--
+$D89C#sub_D89C_correction_EnemyBPosY#--NO-COMMENT--
+$D89F##--NO-COMMENT--
+$D8A2##--NO-COMMENT--
+$D8A4##clear W,K,L,M flags (see vEnemyBStatus)
+$D8A7##--NO-COMMENT--
+$D8A8#bra_D8A8_repeat#--NO-COMMENT--
+$D8AB##--NO-COMMENT--
+$D8AD##--NO-COMMENT--
+$D8AF##If Register A == 0x07
+$D8B1##--NO-COMMENT--
+$D8B4##If vEnemyBPosY != 0x00
+$D8B6#bra_D8B6_RTS#--NO-COMMENT--
+$D8B7#sub_D8B7_check_enemyB_movement_on_the_right#--NO-COMMENT--
+$D8BA##prepare an increment by X (+8)
+$D8BC##--NO-COMMENT--
+$D8BF##CONSTANT - a strong collision
+$D8C1##--NO-COMMENT--
+$D8C2#sub_D8C2_check_enemyB_movement_on_the_left#--NO-COMMENT--
+$D8C5##prepare an increment by X (-8)
+$D8C7##--NO-COMMENT--
+$D8CA##CONSTANT - a strong collision
+$D8CC##--NO-COMMENT--
+$D8CD#sub_D8CD_enemyB_collision_plus_one#prepare an input parameter (+1)
+$D8CF##Always true
+$D8D1#sub_D8D1_enemyB_collision_minus_16#prepare an input parameter (-16)
+$D8D3#bra_D8D3_skip#--NO-COMMENT--
+$D8D6##CONSTANT - a strong collision
+$D8D8##--NO-COMMENT--
+$D8D9#sub_D8D9_enemyB_collision_by_one#initializes PosY
+$D8DB#sub_D8DB_enemyB_collision_by_shift_posY#--NO-COMMENT--
+$D8DC##--NO-COMMENT--
+$D8DF##<~ vEnemyBPosY + PosY
+$D8E1##--NO-COMMENT--
+$D8E4##--NO-COMMENT--
+$D8E7##not used ???
+$D8EA##not used ???
+$D8EB##not used ???
+$D8ED##not used ???
+$D8F0##not used ???
+$D8F2##not used ???
+$D8F4#sub_D8F4#
 $D905#bra_D905_RTS#
+$D913#loc_D913#
 $D91F#sub_D91F#
 $D937#sub_D937_init_absolute_enemyA_positions#--NO-COMMENT--
 $D939#sub_D939_init_relative_enemyA_positions#--NO-COMMENT--
@@ -2619,8 +2738,22 @@ $D942##--NO-COMMENT--
 $D944##--NO-COMMENT--
 $D947##--NO-COMMENT--
 $D949##--NO-COMMENT--
-$D94A#sub_D94A#
-$D952#sub_D952#
+$D94A#sub_D94A_init_absolute_enemyB_positions#--NO-COMMENT--
+$D94C##--NO-COMMENT--
+$D94D##--NO-COMMENT--
+$D950##--NO-COMMENT--
+$D952#sub_D952_init_short_enemyB_positions#--NO-COMMENT--
+$D955##--NO-COMMENT--
+$D957##--NO-COMMENT--
+$D95A##--NO-COMMENT--
+$D95C##--NO-COMMENT--
+$D95D##not used ???
+$D960##not used ???
+$D962##not used ???
+$D965##not used ???
+$D967##not used ???
+$D96A##not used ???
+$D96C##not used ???
 $D96D#sub_D96D_init_absolute_chr_positions#--NO-COMMENT--
 $D96F#sub_D96F_init_relative_chr_positions#--NO-COMMENT--
 $D970##--NO-COMMENT--
@@ -2630,13 +2763,14 @@ $D976##--NO-COMMENT--
 $D978##--NO-COMMENT--
 $D97A##--NO-COMMENT--
 $D97C##--NO-COMMENT--
+$D97D#loc_D97D#
 $D989#loc_D989_add_enemyA_sprite_magic_v1#--NO-COMMENT--
 $D98C##CONSTANT - a jump moment when the sound is activated
 $D98E##If vEnemyAJumpCounter != 0x1F
 $D990##CONSTANT - the enemy got a damage
 $D992##--NO-COMMENT--
 $D995#bra_D995_no_sound#Y -> sprite_magic2
-$D996#loc_D996#~> sprite_magic2 (see v_sprite_magic2)
+$D996#loc_D996_adding#~> sprite_magic2 (see v_sprite_magic2)
 $D998##--NO-COMMENT--
 $D99A##~> sprite_magic3 (see v_sprite_magic3)
 $D99C##--NO-COMMENT--
@@ -2648,7 +2782,7 @@ $D9A5##<~ (0xD0, 0xD2, 0xD4, 0xD6)
 $D9A7##~> sprite_magic3 (see v_sprite_magic3)
 $D9A9##--NO-COMMENT--
 $D9AB##--NO-COMMENT--
-$D9AE#sub_D9AE_inc_frame_counter#--NO-COMMENT--
+$D9AE#sub_D9AE_inc_enemyA_frame_counter#--NO-COMMENT--
 $D9B0##--NO-COMMENT--
 $D9B2##Branch if vLowCounter doesn't multiple of 8 (vLowCounter % 8 != 0)
 $D9B4##--NO-COMMENT--
@@ -2658,6 +2792,16 @@ $D9BC##If vEnemyAFrame_Counter < 0x03
 $D9BE##--NO-COMMENT--
 $D9C0##reset a counter
 $D9C3#bra_D9C3_RTS#--NO-COMMENT--
+$D9C4#sub_D9C4_inc_enemyB_frame_counter#--NO-COMMENT--
+$D9C6##--NO-COMMENT--
+$D9C8##Branch if vLowCounter doesn't multiple of 8 (vLowCounter % 8 != 0)
+$D9CA##--NO-COMMENT--
+$D9CD##--NO-COMMENT--
+$D9D0##CONSTANT - Max value
+$D9D2##If vEnemyBFrame_Counter < 0x03
+$D9D4##--NO-COMMENT--
+$D9D6##reset a counter
+$D9D9##--NO-COMMENT--
 $D9DA#sub_D9DA_screen_with_water_gap#--NO-COMMENT--
 $D9DC##CONSTANT - level 2 (1-3)
 $D9DE##If vNoSubLevel < 0x07
@@ -3943,7 +4087,9 @@ $EEF0##to sub_A009
 $EEF9##to sub_A00C
 $EF02##to sub_A00F
 $EF0B##to sub_A012
-$EF14##to sub_A015
+$EF11#loc_EF11_cat_or_snake#--NO-COMMENT--
+$EF14##basic mechanics of enemy behavior
+$EF17##restore bank 06, page 2
 $EF1A#loc_EF1A_switch_bank_06_2#--NO-COMMENT--
 $EF1C##--NO-COMMENT--
 $EF1F##--NO-COMMENT--
@@ -4340,14 +4486,41 @@ $F336##--NO-COMMENT--
 $F339#sub_F339#
 $F346#bra_F346#
 $F358#bra_F358_RTS#
-$F359#sub_F359#
-$F360#sub_F360#
-$F367#sub_F367#
-$F370#bra_F370#
-$F372#sub_F372#
-$F37A#sub_F37A#
-$F38A#sub_F38A#
-$F392#sub_F392#
+$F359#sub_F359_prepare_enemyA_start_status#--NO-COMMENT--
+$F35C##--NO-COMMENT--
+$F35F##--NO-COMMENT--
+$F360#sub_F360_prepare_enemyB_start_status#--NO-COMMENT--
+$F363##--NO-COMMENT--
+$F366##--NO-COMMENT--
+$F367#sub_F367_prepare_start_status#CONSTANT - the start status (Y - see vEnemyBStatus)
+$F369##--NO-COMMENT--
+$F36B##--NO-COMMENT--
+$F36C##if $000B == 0x00 (the right direction)
+$F36E##CONSTANT - the start status (Y, N - see vEnemyBStatus)
+$F370#bra_F370_skip#--NO-COMMENT--
+$F371##--NO-COMMENT--
+$F372#sub_F372_start_enemyA_appearance#X <~ 1
+$F374##--NO-COMMENT--
+$F377##If vEnemyAStatus < 0xF0, i.e. vEnemyAStatus2 is used
+$F379##X <~ 0
+$F37A#sub_F37A_assign_enemyA_position#--NO-COMMENT--
+$F37C##store macro X-position
+$F37F##--NO-COMMENT--
+$F381##store X-position
+$F384##--NO-COMMENT--
+$F386##store Y-position
+$F389##--NO-COMMENT--
+$F38A#sub_F38A_start_enemyB_appearance#X <~ 1
+$F38C##--NO-COMMENT--
+$F38F##If vEnemyBStatus < 0xF0, i.e. vEnemyBStatus2 is used
+$F391##X <~ 0
+$F392#sub_F392_assign_enemyB_position#--NO-COMMENT--
+$F394##store macro X-position
+$F397##--NO-COMMENT--
+$F399##store X-position
+$F39C##--NO-COMMENT--
+$F39E##store Y-position
+$F3A1##--NO-COMMENT--
 $F3A2#loc_F3A2_enemy#
 $F3B1#bra_F3B1#
 $F3BB#bra_F3BB_skip#
@@ -4394,7 +4567,7 @@ $F501##store Y-position
 $F504##--NO-COMMENT--
 $F506##initializes a jump counter
 $F509##--NO-COMMENT--
-$F50B##reset a counter
+$F50B##reset a frame counter
 $F50E##--NO-COMMENT--
 $F511##CONSTANT - Land Diver from level 2
 $F513##If vEnemyA == 0x05
@@ -4421,16 +4594,54 @@ $F55D#bra_F55D#
 $F57A#bra_F57A#
 $F57E#bra_F57E#
 $F580#bra_F580#
-$F59B#bra_F59B#
-$F5A5#bra_F5A5#
-$F5B9#bra_F5B9#
-$F5C1#bra_F5C1_skip#
-$F5E3#bra_F5E3#
-$F5EB#bra_F5EB#
-$F5F7#bra_F5F7#
-$F602#bra_F602#
-$F605#bra_F605#
-$F61B#loc_F61B#
+$F590#loc_F590_enemy_appearance_t2#--NO-COMMENT--
+$F593##--NO-COMMENT--
+$F596##set loop counter
+$F598##--NO-COMMENT--
+$F59B#bra_F59B_loop#--NO-COMMENT--
+$F59E##If vEnemyB == the current type in the table
+$F5A0##increment loop counter
+$F5A1##--NO-COMMENT--
+$F5A3##If Register Y != 0x06
+$F5A5#bra_F5A5_skip#--NO-COMMENT--
+$F5A6##--NO-COMMENT--
+$F5A7##*4, because the set of 4th bytes
+$F5A8##--NO-COMMENT--
+$F5A9##--NO-COMMENT--
+$F5AB##reset a frame counter
+$F5AE##clear
+$F5B1##CONSTANT for CHR ROM
+$F5B4##If CHR ROM is 0%1XXXXXXX, i.e. not used
+$F5B6##--NO-COMMENT--
+$F5B9#bra_F5B9_skip#CONSTANT for CHR ROM
+$F5BC##If CHR ROM is 0%1XXXXXXX, i.e. not used
+$F5BE##--NO-COMMENT--
+$F5C1#bra_F5C1_skip#the offset for sprite_magic2 (Bank 05, Page 2, $8100 + $00C0)
+$F5C4##--NO-COMMENT--
+$F5C7##<~ sprite_magic3 (see v_sprite_magic3)
+$F5CA##--NO-COMMENT--
+$F5CD##--NO-COMMENT--
+$F5D0##CONSTANT - The bird
+$F5D2##--NO-COMMENT--
+$F5D4##CONSTANT - The bird with a bomb
+$F5D6##--NO-COMMENT--
+$F5D8##CONSTANT - Cobblestone
+$F5DA##--NO-COMMENT--
+$F5DC##CONSTANT - Potted snakes
+$F5DE##--NO-COMMENT--
+$F5E0##--NO-COMMENT--
+$F5E3#bra_F5E3_bird#--NO-COMMENT--
+$F5E5##--NO-COMMENT--
+$F5E6##if $000B == 0x00 (the right direction)
+$F5E8##--NO-COMMENT--
+$F5EB#bra_F5EB_bombing_bird#
+$F5F7#bra_F5F7_cobblestone#
+$F5FD##--NO-COMMENT--
+$F5FF##--NO-COMMENT--
+$F600##if $000B == 0x00 (the right direction)
+$F602#bra_F602_skip#--NO-COMMENT--
+$F605#bra_F605_potted_snakes#
+$F61B#bra_F61B_cancel_creating#
 $F621#sub_F621#
 $F664#bra_F664#
 $F676#bra_F676#
@@ -4534,7 +4745,7 @@ $F8BA##Karate-girl
 $F8BC##Boy in green
 $F8BE##Girl with sword
 $F8C0##Knight in armor with a shield
-$F8C2##???
+$F8C2##The barrel
 $F8C4##Sensor
 $F8C6##Fly man
 $F8C8##Shooter with bazooka (0x20)
@@ -4802,7 +5013,7 @@ $FCEC##Karate-girl (level 2) (0x19) Type A
 $FCEE##Boy in green (level 2) (0x1A) Type A
 $FCF0##Girl with sword (level 1) (0x1B) Type A
 $FCF2##Knight in armor with a shield (level 1) (0x1C) Type A
-$FCF4##??? (0x1D)
+$FCF4##The barrel (0x1D)
 $FCF6##Sensor (level 1) (0x1E) Type B
 $FCF8##Fly man (0x1F) (level 1) Type A
 $FCFA##Shooter with bazooka (level 1) (0x20) Type A
@@ -4821,8 +5032,8 @@ $FD12##Boss (level 3) (0x2C) Type A
 $FD14##??? (0x2D)
 $FD16##Boss (level 4) (0x2E) Type A
 $FD18##??? (0x2F)
-$FD1A##??? (0x30)
-$FD1C##??? (0x31)
+$FD1A##Wall (0x30)
+$FD1C##Wall (0x31)
 $FD1E##Breaking platform (level 4) (0x32) Type B
 $FD20##Blade trap (level 4) (0x33) Type B
 $FD22##Potted snakes (level 4) (0x34)  Type B

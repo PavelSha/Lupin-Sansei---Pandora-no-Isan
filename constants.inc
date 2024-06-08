@@ -235,6 +235,10 @@ vJumpType                     = ram_006E
 ; 2 - jumping off
 ; 3 - jump by side
 ; 4 - jump off after the squatting (for enemies)
+; For fly man:
+; 0x00 - 0x07 - the right fly direction
+; 0x08 - 0x0F - the left fly direction
+
 vJumpCounter                  = ram_006F
 
 ; ram_0070 - vChrFrameIndex ???
