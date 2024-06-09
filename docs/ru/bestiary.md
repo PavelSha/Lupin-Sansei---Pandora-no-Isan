@@ -31,7 +31,7 @@
 |0x1C|Knight in armor with a shield| A |   | 1 |
 |0x1D|The barrel| B |   | 2 |
 |0x1E|Sensor| B |   | 1 |
-|0x1F|Fly man| A |   | 1 |
+|0x1F|Fly man| A | [Летающий человек](#враг-1f) | 1 |
 |0x20|Shooter with bazooka| A |   | 1 |
 |0x21|Cobblestone| B |   |4, racing|
 |0x22|The bird| B |   |racing|
@@ -91,3 +91,10 @@
 |---|---|---|---|---|
 | ![Frame1](../images/enemy0F/frame1-r.png) | ![Frame2](../images/enemy0F/frame2-r.png) | ![Frame3](../images/enemy0F/frame3-r.png) | ![Frame4](../images/enemy0F/frame4-r.png) | ![Frame5](../images/enemy0F/frame5-r.png) |
 | ![Frame1](../images/enemy0F/frame1-l.png) | ![Frame2](../images/enemy0F/frame2-l.png) | ![Frame3](../images/enemy0F/frame3-l.png) | ![Frame4](../images/enemy0F/frame4-l.png) | ![Frame5](../images/enemy0F/frame5-l.png) |
+
+## Враг 1F
+Летающий человек
+|Кадр 1|Кадр 2|Кадр 3|
+|---|---|---|
+| ![Frame1](../images/enemy1F/frame1-r.png) | ![Frame2](../images/enemy1F/frame2-r.png) | ![Frame3](../images/enemy1F/frame3-r.png) |
+| ![Frame1](../images/enemy1F/frame1-l.png) | ![Frame2](../images/enemy1F/frame2-l.png) | ![Frame3](../images/enemy1F/frame3-l.png) |

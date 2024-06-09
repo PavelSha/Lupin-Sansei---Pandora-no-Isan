@@ -14,6 +14,7 @@
 .import tbl_enemy_score                      ; bank 02 (Page 1)
 .import tbl_water_gap_level4                 ; bank 02 (Page 1)
 
+.import sub_A012_knight                      ; bank 03 (Page 2)
 .import sub_A015_cat_or_snake_enemy          ; bank 03 (Page 2)
 
 .import tbl_ptr_checkpoints                  ; bank 04 (Page 1)
@@ -33,6 +34,9 @@
 .import tbl_ptr_checkpoints_on_the_level     ; bank 04 (Page 2)
 
 .import sub_A000_land_diver_enemy            ; bank 06 (Page 1)
+.import sub_A009_bazooka_man                 ; bank 06 (Page 1)
+.import sub_A012_fly_man                     ; bank 06 (Page 1)
+.import sub_A015_shooter                     ; bank 06 (Page 1)
 .import loc_B234_add_message                 ; bank 06 (Page 2)
 .import sub_B234_add_message                 ; bank 06 (Page 2)
 .import loc_B255_display_message_by_letter   ; bank 06 (Page 2)
@@ -98,8 +102,12 @@
 .export sub_D7CA_check_enemyA_movement_on_the_left
 .export sub_D8C2_check_enemyB_movement_on_the_left
 .export loc_D70F_inc_EnemyAPosXLow
+.export sub_D71C_inc_EnemyAPosXLow_unsafe
+.export loc_D71C_inc_EnemyAPosXLow_unsafe
 .export loc_D81B_inc_EnemyBPosXLow
 .export loc_D6F0_dec_EnemyAPosXLow
+.export sub_D6FD_dec_EnemyAPosXLow_unsafe
+.export loc_D6FD_dec_EnemyAPosXLow_unsafe
 .export loc_D7FC_dec_EnemyBPosXLow
 .export loc_D77F_free_enemyA
 .export loc_D873_free_enemyB
@@ -117,6 +125,7 @@
 .export sub_D8D9_enemyB_collision_by_one
 .export sub_D8CD_enemyB_collision_plus_one
 .export sub_D8D1_enemyB_collision_minus_16
+.export tbl_fly_man_track_offset
 
 BANK02_OFFSET = -8192
 
@@ -3771,6 +3780,9 @@ C - - - - - 0x01D704 07:D6F4: E9 10     SBC #$10                        ; CONSTA
 C - - - - - 0x01D706 07:D6F6: BD 3E 03  LDA vEnemyAPosXHigh,X           ;
 C - - - - - 0x01D709 07:D6F9: E9 00     SBC #$00                        ;
 C - - - - - 0x01D70B 07:D6FB: 90 11     BCC bra_D70E_RTS                ; Branch If the enemy reach the beginning of the room
+; In: Register X - the enemyA number
+sub_D6FD_dec_EnemyAPosXLow_unsafe:
+loc_D6FD_dec_EnemyAPosXLow_unsafe:
 C D 2 - - - 0x01D70D 07:D6FD: BD 38 03  LDA vEnemyAPosXLow,X            ;
 C - - - - - 0x01D710 07:D700: 38        SEC                             ;
 C - - - - - 0x01D711 07:D701: E9 01     SBC #$01                        ;
@@ -3789,6 +3801,9 @@ C - - - - - 0x01D723 07:D713: E9 F0     SBC #$F0                        ; CONSTA
 C - - - - - 0x01D725 07:D715: BD 3E 03  LDA vEnemyAPosXHigh,X           ;
 C - - - - - 0x01D728 07:D718: E5 4A     SBC vNearCurrentRoomLength      ;
 C - - - - - 0x01D72A 07:D71A: B0 F2     BCS bra_D70E_RTS                ; Branch If the enemy reach the end of the room
+; In: Register X - the enemyA number
+sub_D71C_inc_EnemyAPosXLow_unsafe:
+loc_D71C_inc_EnemyAPosXLow_unsafe:
 C D 2 - - - 0x01D72C 07:D71C: FE 38 03  INC vEnemyAPosXLow,X            ;
 C - - - - - 0x01D72F 07:D71F: D0 ED     BNE bra_D70E_RTS                ; If the enemy doesn't move from one screen to another
 C - - - - - 0x01D731 07:D721: FE 3E 03  INC vEnemyAPosXHigh,X           ;
@@ -4470,38 +4485,25 @@ tbl_DAC5:
 - D 2 - - - 0x01DAE1 07:DAD1: 0C        .byte $0C
 - - - - - - 0x01DAE2 07:DAD2: 0C        .byte $0C
 - D 2 - - - 0x01DAE3 07:DAD3: 0E        .byte $0E
-- D 2 - - - 0x01DAE4 07:DAD4: FE        .byte $FE
-- D 2 - - - 0x01DAE5 07:DAD5: 00        .byte $00
-- D 2 - - - 0x01DAE6 07:DAD6: FE        .byte $FE
-- D 2 - - - 0x01DAE7 07:DAD7: 01        .byte $01
-- D 2 - - - 0x01DAE8 07:DAD8: FE        .byte $FE
-- D 2 - - - 0x01DAE9 07:DAD9: 02        .byte $02
-- D 2 - - - 0x01DAEA 07:DADA: FF        .byte $FF
-- D 2 - - - 0x01DAEB 07:DADB: 02        .byte $02
-- D 2 - - - 0x01DAEC 07:DADC: 00        .byte $00
-- D 2 - - - 0x01DAED 07:DADD: 02        .byte $02
-- D 2 - - - 0x01DAEE 07:DADE: 01        .byte $01
-- D 2 - - - 0x01DAEF 07:DADF: 02        .byte $02
-- D 2 - - - 0x01DAF0 07:DAE0: 02        .byte $02
-- D 2 - - - 0x01DAF1 07:DAE1: 02        .byte $02
-- D 2 - - - 0x01DAF2 07:DAE2: 02        .byte $02
-- D 2 - - - 0x01DAF3 07:DAE3: 01        .byte $01
-- D 2 - - - 0x01DAF4 07:DAE4: 02        .byte $02
-- D 2 - - - 0x01DAF5 07:DAE5: 00        .byte $00
-- D 2 - - - 0x01DAF6 07:DAE6: 02        .byte $02
-- D 2 - - - 0x01DAF7 07:DAE7: FF        .byte $FF
-- D 2 - - - 0x01DAF8 07:DAE8: 02        .byte $02
-- D 2 - - - 0x01DAF9 07:DAE9: FE        .byte $FE
-- D 2 - - - 0x01DAFA 07:DAEA: 01        .byte $01
-- D 2 - - - 0x01DAFB 07:DAEB: FE        .byte $FE
-- D 2 - - - 0x01DAFC 07:DAEC: 00        .byte $00
-- D 2 - - - 0x01DAFD 07:DAED: FE        .byte $FE
-- D 2 - - - 0x01DAFE 07:DAEE: FF        .byte $FF
-- D 2 - - - 0x01DAFF 07:DAEF: FE        .byte $FE
-- D 2 - - - 0x01DB00 07:DAF0: FE        .byte $FE
-- D 2 - - - 0x01DB01 07:DAF1: FE        .byte $FE
-- D 2 - - - 0x01DB02 07:DAF2: FE        .byte $FE
-- D 2 - - - 0x01DB03 07:DAF3: FF        .byte $FF
+
+tbl_fly_man_track_offset:
+- D 2 - - - 0x01DAE4 07:DAD4: FE        .byte $FE, $00
+- D 2 - - - 0x01DAE6 07:DAD6: FE        .byte $FE, $01
+- D 2 - - - 0x01DAE8 07:DAD8: FE        .byte $FE, $02
+- D 2 - - - 0x01DAEA 07:DADA: FF        .byte $FF, $02
+- D 2 - - - 0x01DAEC 07:DADC: 00        .byte $00, $02
+- D 2 - - - 0x01DAEE 07:DADE: 01        .byte $01, $02
+- D 2 - - - 0x01DAF0 07:DAE0: 02        .byte $02, $02
+- D 2 - - - 0x01DAF2 07:DAE2: 02        .byte $02, $01
+- D 2 - - - 0x01DAF4 07:DAE4: 02        .byte $02, $00
+- D 2 - - - 0x01DAF6 07:DAE6: 02        .byte $02, $FF
+- D 2 - - - 0x01DAF8 07:DAE8: 02        .byte $02, $FE
+- D 2 - - - 0x01DAFA 07:DAEA: 01        .byte $01, $FE
+- D 2 - - - 0x01DAFC 07:DAEC: 00        .byte $00, $FE
+- D 2 - - - 0x01DAFE 07:DAEE: FF        .byte $FF, $FE
+- D 2 - - - 0x01DB00 07:DAF0: FE        .byte $FE, $FE
+- D 2 - - - 0x01DB02 07:DAF2: FE        .byte $FE, $FF
+
 sub_DAF4_character_subroutine:
 C - - - - - 0x01DB04 07:DAF4: 20 A6 E2  JSR sub_E2A6_test_feature_smth
 C - - - - - 0x01DB07 07:DAF7: A9 00     LDA #$00                          ; 
@@ -7623,7 +7625,7 @@ C - - - - - 0x01EE7C 07:EE6C: 6C 00 00  JMP (ram_0000)             ;
 
 loc_EE6F_land_diver_enemy:
 C - - J - - 0x01EE7F 07:EE6F: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
-C - - - - - 0x01EE82 07:EE72: 20 00 A0  JSR sub_A000_land_diver_enemy   ; basic mechanics of enemy behavior 
+C - - - - - 0x01EE82 07:EE72: 20 00 A0  JSR sub_A000_land_diver_enemy   ; basic mechanics of enemy behavior
 C - - - - - 0x01EE85 07:EE75: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 C - - J - - 0x01EE88 07:EE78: 20 25 EF  JSR sub_EF25_switch_bank_06_1
@@ -7634,9 +7636,10 @@ C - - J - - 0x01EE91 07:EE81: 20 25 EF  JSR sub_EF25_switch_bank_06_1
 C - - - - - 0x01EE94 07:EE84: 20 06 A0  JSR $A006 ; to sub_A006
 C - - - - - 0x01EE97 07:EE87: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
 
-C - - J - - 0x01EE9A 07:EE8A: 20 25 EF  JSR sub_EF25_switch_bank_06_1
-C - - - - - 0x01EE9D 07:EE8D: 20 09 A0  JSR $A009 ; to sub_A009
-C - - - - - 0x01EEA0 07:EE90: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_EE8A_bazooka_man:
+C - - J - - 0x01EE9A 07:EE8A: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
+C - - - - - 0x01EE9D 07:EE8D: 20 09 A0  JSR sub_A009_bazooka_man        ; basic mechanics of enemy behavior
+C - - - - - 0x01EEA0 07:EE90: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 C - - J - - 0x01EEA3 07:EE93: 20 25 EF  JSR sub_EF25_switch_bank_06_1
 C - - - - - 0x01EEA6 07:EE96: 20 0C A0  JSR $A00C ; to sub_A00C
@@ -7646,13 +7649,15 @@ C - - J - - 0x01EEAC 07:EE9C: 20 25 EF  JSR sub_EF25_switch_bank_06_1
 C - - - - - 0x01EEAF 07:EE9F: 20 0F A0  JSR $A00F ; to sub_A00F
 C - - - - - 0x01EEB2 07:EEA2: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
 
-C - - J - - 0x01EEB5 07:EEA5: 20 25 EF  JSR sub_EF25_switch_bank_06_1
-C - - - - - 0x01EEB8 07:EEA8: 20 12 A0  JSR $A012 ; to sub_A012
-C - - - - - 0x01EEBB 07:EEAB: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_EEA5_fly_man:
+C - - J - - 0x01EEB5 07:EEA5: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
+C - - - - - 0x01EEB8 07:EEA8: 20 12 A0  JSR sub_A012_fly_man            ; basic mechanics of enemy behavior
+C - - - - - 0x01EEBB 07:EEAB: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
-C - - J - - 0x01EEBE 07:EEAE: 20 25 EF  JSR sub_EF25_switch_bank_06_1
-C - - - - - 0x01EEC1 07:EEB1: 20 15 A0  JSR $A015 ; to sub_A015
-C - - - - - 0x01EEC4 07:EEB4: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_EEAE_shooter:
+C - - J - - 0x01EEBE 07:EEAE: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
+C - - - - - 0x01EEC1 07:EEB1: 20 15 A0  JSR sub_A015_shooter            ; basic mechanics of enemy behavior
+C - - - - - 0x01EEC4 07:EEB4: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 C - - J - - 0x01EEC7 07:EEB7: 20 25 EF  JSR sub_EF25_switch_bank_06_1
 C - - - - - 0x01EECA 07:EEBA: 20 18 A0  JSR $A018 ; to sub_A018
@@ -7690,9 +7695,10 @@ C - - J - - 0x01EF0F 07:EEFF: 20 30 EF  JSR sub_EF30_switch_bank_3_p2
 C - - - - - 0x01EF12 07:EF02: 20 0F A0  JSR $A00F ; to sub_A00F
 C - - - - - 0x01EF15 07:EF05: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
 
-C - - J - - 0x01EF18 07:EF08: 20 30 EF  JSR sub_EF30_switch_bank_3_p2
-C - - - - - 0x01EF1B 07:EF0B: 20 12 A0  JSR $A012 ; to sub_A012
-C - - - - - 0x01EF1E 07:EF0E: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_EF08_knight:
+C - - J - - 0x01EF18 07:EF08: 20 30 EF  JSR sub_EF30_switch_bank_3_p2   ;
+C - - - - - 0x01EF1B 07:EF0B: 20 12 A0  JSR sub_A012_knight             ; basic mechanics of enemy behavior
+C - - - - - 0x01EF1E 07:EF0E: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 loc_EF11_cat_or_snake:
 C - - J - - 0x01EF21 07:EF11: 20 30 EF  JSR sub_EF30_switch_bank_3_p2    ;
@@ -9798,38 +9804,38 @@ C - - - - - 0x01FCC7 07:FCB7: 4C 5D EF  JMP loc_EF5D_switch_variable_bank
 
 tbl_FCBA_enemies:
 - D 3 - - - 0x01FCCA 07:FCBA: 87 F8     .addr loc_enemy_RTS             ; Nobody  (0x00)
-- D 3 - - - 0x01FCCC 07:FCBC: AE EE     .word $EEAE                     ; Cat with the gun (level 3) (0x01) Type A
+- D 3 - - - 0x01FCCC 07:FCBC: AE EE     .addr loc_EEAE_shooter          ; Cat with the gun (level 3) (0x01) Type A
 - D 3 - - - 0x01FCCE 07:FCBE: 78 EE     .word $EE78                     ; Gray Land hat (level 3) (0x02) Type B
 - D 3 - - - 0x01FCD0 07:FCC0: 78 EE     .word $EE78                     ; Black Land hat (level 3) (0x03) Type B
 - D 3 - - - 0x01FCD2 07:FCC2: 6F EE     .addr loc_EE6F_land_diver_enemy ; Land Diver (level 3) (0x04)
 - D 3 - - - 0x01FCD4 07:FCC4: 6F EE     .addr loc_EE6F_land_diver_enemy ; Land Diver (level 2) (0x05) Type A
 - D 3 - - - 0x01FCD6 07:FCC6: 6F EE     .addr loc_EE6F_land_diver_enemy ; Land Diver (level 1)  (0x06) Type A
 - D 3 - - - 0x01FCD8 07:FCC8: B7 EE     .word $EEB7                     ; Zenigata (0x07) Type A
-- D 3 - - - 0x01FCDA 07:FCCA: 8A EE     .word $EE8A                     ; Shooter with bazooka (level 3) (0x08) Type A
+- D 3 - - - 0x01FCDA 07:FCCA: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 3) (0x08) Type A
 - D 3 - - - 0x01FCDC 07:FCCC: C0 EE     .word $EEC0                     ; The fat sailor (level 3) (0x09) Type A
 - D 3 - - - 0x01FCDE 07:FCCE: 81 EE     .word $EE81                     ; The barrel (level 3) (0x0A) Type B
 - D 3 - - - 0x01FCE0 07:FCD0: 28 A0     .word $A028                     ; Jumping sailor (level 3) (0x0B) Type A
 - D 3 - - - 0x01FCE2 07:FCD2: 08 AD     .word $AD08                     ; The lift (level 3) (0x0C) Type A
 - D 3 - - - 0x01FCE4 07:FCD4: 93 EE     .word $EE93                     ; Sensor (level 3) (0x0D) Type B
 - D 3 - - - 0x01FCE6 07:FCD6: 78 EE     .word $EE78                     ; Bat (level 1) (0x0E) Type B
-- D 3 - - - 0x01FCE8 07:FCD8: 11 EF     .word loc_EF11_cat_or_snake     ; Gray cat (level 1) (0x0F) Type B
+- D 3 - - - 0x01FCE8 07:FCD8: 11 EF     .addr loc_EF11_cat_or_snake     ; Gray cat (level 1) (0x0F) Type B
 - D 3 - - - 0x01FCEA 07:FCDA: 28 A0     .word $A028                     ; Nun (level 2) (0x10) Type A
 - D 3 - - - 0x01FCEC 07:FCDC: FF EE     .word $EEFF                     ; Girl in red, in the castle (level 1) (0x11) Type A
 - D 3 - - - 0x01FCEE 07:FCDE: 78 EE     .word $EE78                     ; Batterfly (level 2) (0x12) Type B
 - D 3 - - - 0x01FCF0 07:FCE0: 78 EE     .word $EE78                     ; Broned batterfly (level 2) (0x13) Type B
-- D 3 - - - 0x01FCF2 07:FCE2: 8A EE     .word $EE8A                     ; Shooter with bazooka (level 2) (0x14) Type A
+- D 3 - - - 0x01FCF2 07:FCE2: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 2) (0x14) Type A
 - D 3 - - - 0x01FCF4 07:FCE4: 93 EE     .word $EE93                     ; Sensor (level 2) (0x15) Type B
-- D 3 - - - 0x01FCF6 07:FCE6: 11 EF     .word loc_EF11_cat_or_snake     ; Black cat (level 1) (0x16) Type B
+- D 3 - - - 0x01FCF6 07:FCE6: 11 EF     .addr loc_EF11_cat_or_snake     ; Black cat (level 1) (0x16) Type B
 - D 3 - - - 0x01FCF8 07:FCE8: 68 A6     .word $A668                     ; Karate-boy  (level 2) (0x17) Type A
 - D 3 - - - 0x01FCFA 07:FCEA: 68 A6     .word $A668                     ; Karate-boy in blue on the street (level 2) (0x18) Type A
-- D 3 - - - 0x01FCFC 07:FCEC: AE EE     .word $EEAE                     ; Karate-girl (level 2) (0x19) Type A
+- D 3 - - - 0x01FCFC 07:FCEC: AE EE     .addr loc_EEAE_shooter          ; Karate-girl (level 2) (0x19) Type A
 - D 3 - - - 0x01FCFE 07:FCEE: 09 A3     .word $A309                     ; Boy in green (level 2) (0x1A) Type A
 - D 3 - - - 0x01FD00 07:FCF0: FF EE     .word $EEFF                     ; Girl with sword (level 1) (0x1B) Type A
-- D 3 - - - 0x01FD02 07:FCF2: 08 EF     .word $EF08                     ; Knight in armor with a shield (level 1) (0x1C) Type A
+- D 3 - - - 0x01FD02 07:FCF2: 08 EF     .addr loc_EF08_knight           ; Knight in armor with a shield (level 1) (0x1C) Type A
 - D 3 - - - 0x01FD04 07:FCF4: 81 EE     .word $EE81                     ; The barrel (0x1D)
 - D 3 - - - 0x01FD06 07:FCF6: 93 EE     .word $EE93                     ; Sensor (level 1) (0x1E) Type B
-- D 3 - - - 0x01FD08 07:FCF8: A5 EE     .word $EEA5                     ; Fly man (0x1F) (level 1) Type A
-- D 3 - - - 0x01FD0A 07:FCFA: 8A EE     .word $EE8A                     ; Shooter with bazooka (level 1) (0x20) Type A
+- D 3 - - - 0x01FD08 07:FCF8: A5 EE     .addr loc_EEA5_fly_man          ; Fly man (0x1F) (level 1) Type A
+- D 3 - - - 0x01FD0A 07:FCFA: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 1) (0x20) Type A
 - D 3 - - - 0x01FD0C 07:FCFC: 81 EE     .word $EE81                     ; Cobblestone (level-racing, level 4) (0x21) Type B
 - D 3 - - - 0x01FD0E 07:FCFE: 0A AC     .word $AC0A                     ; The bird (level-racing) (0x22) Type B
 - D 3 - - - 0x01FD10 07:FD00: 02 AA     .word $AA02                     ; The bird with a bomb (level-racing) (0x23) Type B
@@ -9849,11 +9855,11 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD2C 07:FD1C: 34 AE     .word $AE34                     ; Wall (0x31)
 - D 3 - - - 0x01FD2E 07:FD1E: 34 AE     .word $AE34                     ; Breaking platform (level 4) (0x32) Type B
 - D 3 - - - 0x01FD30 07:FD20: C9 EE     .word $EEC9                     ; Blade trap (level 4) (0x33) Type B
-- D 3 - - - 0x01FD32 07:FD22: 11 EF     .word loc_EF11_cat_or_snake     ; Potted snakes (level 4) (0x34)  Type B
-- D 3 - - - 0x01FD34 07:FD24: AE EE     .word $EEAE                     ; Egyptian with bow (level 4) (0x35) Type A
+- D 3 - - - 0x01FD32 07:FD22: 11 EF     .addr loc_EF11_cat_or_snake     ; Potted snakes (level 4) (0x34)  Type B
+- D 3 - - - 0x01FD34 07:FD24: AE EE     .addr loc_EEAE_shooter          ; Egyptian with bow (level 4) (0x35) Type A
 - D 3 - - - 0x01FD36 07:FD26: FF EE     .word $EEFF                     ; Egyptian with a sword (level 4) (0x36) Type A
-- D 3 - - - 0x01FD38 07:FD28: AE EE     .word $EEAE                     ; Egyptian with a boomerung (level 4) (0x37) Type A
-- D 3 - - - 0x01FD3A 07:FD2A: AE EE     .word $EEAE                     ; Ninja upside down (level 4) (0x38) Type A
+- D 3 - - - 0x01FD38 07:FD28: AE EE     .addr loc_EEAE_shooter          ; Egyptian with a boomerung (level 4) (0x37) Type A
+- D 3 - - - 0x01FD3A 07:FD2A: AE EE     .addr loc_EEAE_shooter          ; Ninja upside down (level 4) (0x38) Type A
 - D 3 - - - 0x01FD3C 07:FD2C: 93 EE     .word $EE93                     ; Sensor (level 4) (0x39) Type B
 
 - - - - - - 0x01FD3E 07:FD2E: A9        .byte $A9

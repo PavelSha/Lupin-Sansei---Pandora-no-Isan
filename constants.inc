@@ -403,6 +403,12 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; Z - the dying
 ; Y - see above
 
+; Byte: 0YZ0 00MN (fly man)
+; N - see above
+; M - the jump
+; Z - see above
+; Y - see above
+
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
 vEnemyAPosY                   = ram_032C ; see below

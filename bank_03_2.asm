@@ -37,6 +37,7 @@
 .import sub_D064_generate_rng                        ; bank FF
 .import tbl_E35D_jump_posY_offset                    ; bank FF
 
+.export sub_A012_knight
 .export sub_A015_cat_or_snake_enemy
 
 ; Page 2
@@ -52,7 +53,7 @@ sub_A00C: ; from bank_FF
 C - - - - - 0x00E01C 03:A00C: 4C FB AF  JMP loc_AFFB
 sub_A00F: ; from bank_FF
 C - - - - - 0x00E01F 03:A00F: 4C F0 B3  JMP loc_B3F0
-sub_A012: ; from bank_FF
+sub_A012_knight:
 C - - - - - 0x00E022 03:A012: 4C 14 B8  JMP loc_B814
 sub_A015_cat_or_snake_enemy:
 C - - - - - 0x00E025 03:A015: 4C 5E BB  JMP loc_BB5E_enemy
@@ -4726,7 +4727,7 @@ C - - - - - 0x00FD8C 03:BD7C: A0 00     LDY #$00                               ;
 @bra_BD7E_skip:
 C - - - - - 0x00FD8E 03:BD7E: 98        TYA                                    ; A <~ 0x00 or 0xEF
 @bra_BD7F_skip:
-C - - - - - 0x00FD8F 03:BD7F: 9D 68 03  STA vEnemyBPosY,X                      ; Resolves a new Y-position of the character after jumping
+C - - - - - 0x00FD8F 03:BD7F: 9D 68 03  STA vEnemyBPosY,X                      ; Resolves a new Y-position of the enemy after jumping
 C - - - - - 0x00FD92 03:BD82: BC 86 03  LDY vEnemyBJumpCounter,X               ;
 C - - - - - 0x00FD95 03:BD85: C0 18     CPY #$18                               ; CONSTANT - a maximum amplitude
 C - - - - - 0x00FD97 03:BD87: 90 38     BCC bra_BDC1_inc                       ; If vEnemyAJumpCounter < 0x18
