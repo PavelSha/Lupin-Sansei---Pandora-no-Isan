@@ -37,6 +37,7 @@
 .import sub_A009_bazooka_man                 ; bank 06 (Page 1)
 .import sub_A012_fly_man                     ; bank 06 (Page 1)
 .import sub_A015_shooter                     ; bank 06 (Page 1)
+.import sub_A018_Zenigata                    ; bank 06 (Page 1)
 .import loc_B234_add_message                 ; bank 06 (Page 2)
 .import sub_B234_add_message                 ; bank 06 (Page 2)
 .import loc_B255_display_message_by_letter   ; bank 06 (Page 2)
@@ -126,6 +127,7 @@
 .export sub_D8CD_enemyB_collision_plus_one
 .export sub_D8D1_enemyB_collision_minus_16
 .export tbl_fly_man_track_offset
+.export sub_D397_right_collision_by_inc_posX
 
 BANK02_OFFSET = -8192
 
@@ -4486,6 +4488,8 @@ tbl_DAC5:
 - - - - - - 0x01DAE2 07:DAD2: 0C        .byte $0C
 - D 2 - - - 0x01DAE3 07:DAD3: 0E        .byte $0E
 
+; 1st - the offset by position Y
+; 2nd - the offset by position X
 tbl_fly_man_track_offset:
 - D 2 - - - 0x01DAE4 07:DAD4: FE        .byte $FE, $00
 - D 2 - - - 0x01DAE6 07:DAD6: FE        .byte $FE, $01
@@ -7659,9 +7663,10 @@ C - - J - - 0x01EEBE 07:EEAE: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
 C - - - - - 0x01EEC1 07:EEB1: 20 15 A0  JSR sub_A015_shooter            ; basic mechanics of enemy behavior
 C - - - - - 0x01EEC4 07:EEB4: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
-C - - J - - 0x01EEC7 07:EEB7: 20 25 EF  JSR sub_EF25_switch_bank_06_1
-C - - - - - 0x01EECA 07:EEBA: 20 18 A0  JSR $A018 ; to sub_A018
-C - - - - - 0x01EECD 07:EEBD: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_EEB7_Zenigata:
+C - - J - - 0x01EEC7 07:EEB7: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
+C - - - - - 0x01EECA 07:EEBA: 20 18 A0  JSR sub_A018_Zenigata           ; basic mechanics of enemy behavior
+C - - - - - 0x01EECD 07:EEBD: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 C - - J - - 0x01EED0 07:EEC0: 20 25 EF  JSR sub_EF25_switch_bank_06_1
 C - - - - - 0x01EED3 07:EEC3: 20 1B A0  JSR $A01B ; to sub_A01B
@@ -9810,7 +9815,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FCD2 07:FCC2: 6F EE     .addr loc_EE6F_land_diver_enemy ; Land Diver (level 3) (0x04)
 - D 3 - - - 0x01FCD4 07:FCC4: 6F EE     .addr loc_EE6F_land_diver_enemy ; Land Diver (level 2) (0x05) Type A
 - D 3 - - - 0x01FCD6 07:FCC6: 6F EE     .addr loc_EE6F_land_diver_enemy ; Land Diver (level 1)  (0x06) Type A
-- D 3 - - - 0x01FCD8 07:FCC8: B7 EE     .word $EEB7                     ; Zenigata (0x07) Type A
+- D 3 - - - 0x01FCD8 07:FCC8: B7 EE     .addr loc_EEB7_Zenigata         ; Zenigata (0x07) Type A
 - D 3 - - - 0x01FCDA 07:FCCA: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 3) (0x08) Type A
 - D 3 - - - 0x01FCDC 07:FCCC: C0 EE     .word $EEC0                     ; The fat sailor (level 3) (0x09) Type A
 - D 3 - - - 0x01FCDE 07:FCCE: 81 EE     .word $EE81                     ; The barrel (level 3) (0x0A) Type B

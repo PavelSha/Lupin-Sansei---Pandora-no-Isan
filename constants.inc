@@ -411,9 +411,17 @@ vEnemyAStatus                 = ram_0320 ; see below
 
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
+vEnemyAProjectileStatus       = ram_0322 ; $0322-$0325
+
+vEnemyAVelocity               = ram_0326
+vEnemyAVelocity1              = ram_0326
+vEnemyAVelocity2              = ram_0327
+vEnemyAProjectileVelocity     = ram_0328 ; $0328-$032B
+
 vEnemyAPosY                   = ram_032C ; see below
 vEnemyAPosY1                  = ram_032C ; The enemy position along the Y axis relative to the level (no repeat)
 vEnemyAPosY2                  = ram_032D ; The enemy position along the Y axis relative to the level (no repeat)
+vEnemyAProjectilePosY         = ram_032E ; $032E-$0331
 
 vEnemyAScreenPosX             = ram_0332 ; see below
 vEnemyAScreenPosX1            = ram_0332 ; The enemy position along the X axis relative to the screen (no repeat)
@@ -422,17 +430,21 @@ vEnemyAScreenPosX2            = ram_0333 ; The enemy position along the X axis r
 vEnemyAPosXLow                = ram_0338 ; see below
 vEnemyAPosXLow1               = ram_0338 ; The enemy position along the X axis relative to the level (with repeat)
 vEnemyAPosXLow2               = ram_0339 ; The enemy position along the X axis relative to the level (with repeat)
+vEnemyAProjectilePosXLow      = ram_033A ; $033A-$033D
+
 vEnemyAPosXHigh               = ram_033E ; see below
 vEnemyAPosXHigh1              = ram_033E ; The enemy position along the X axis relative to the level (in screen unit)
 vEnemyAPosXHigh2              = ram_033F ; The enemy position along the X axis relative to the level (in screen unit)
+vEnemyAProjectilePosXHigh     = ram_0340 ; $0340-$0343
+
+vEnemyAFrame_Counter           = ram_0344 ; see below
+vEnemyAFrame_Counter1          = ram_0344 ; The frame index (the enemy number = 1)
+vEnemyAFrame_Counter2          = ram_0345 ; The frame index (the enemy number = 2)
+vEnemyAProjectileFrame_Counter = ram_0346 ; $0346-$0349
 
 vEnemyAJumpCounter            = ram_034A ; see below
 vEnemyAJumpCounter1           = ram_034A ; vJumpCounter analog for the enemy (the enemy number = 1)
 vEnemyAJumpCounter2           = ram_034B ; vJumpCounter analog for the enemy (the enemy number = 2)
-
-vEnemyAFrame_Counter          = ram_0344 ; see below
-vEnemyAFrame_Counter1         = ram_0344 ; The frame index (the enemy number = 1)
-vEnemyAFrame_Counter2         = ram_0345 ; The frame index (the enemy number = 2)
 
 vEnemyAJumpType               = ram_0356 ; see below
 vEnemyAJumpType1              = ram_0356 ; vJumpType analog for the enemy (the enemy number = 1)
