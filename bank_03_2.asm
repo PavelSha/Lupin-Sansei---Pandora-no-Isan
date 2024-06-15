@@ -21,6 +21,7 @@
 .import loc_D989_add_enemyA_sprite_magic_v1          ; bank FF
 .import sub_D358_check_enemyA_collision_by_Y         ; bank FF
 .import sub_D562_has_character_damage                ; bank FF
+.import loc_D562_has_character_damage                ; bank FF
 .import sub_D5B6_have_intersect_bullet               ; bank FF
 .import sub_D606_have_intersect_sword                ; bank FF
 .import sub_D7A8_correction_EnemyAPosY               ; bank FF
@@ -848,7 +849,7 @@ bra_A486:
 C - - - - - 0x00E496 03:A486: CA        DEX
 C - - - - - 0x00E497 03:A487: 10 EF     BPL bra_A478
 bra_A489:
-C - - - - - 0x00E499 03:A489: 4C 62 D5  JMP sub_D562_has_character_damage
+C - - - - - 0x00E499 03:A489: 4C 62 D5  JMP loc_D562_has_character_damage
 
 sub_A48C:
 C - - - - - 0x00E49C 03:A48C: A0 08     LDY #$08

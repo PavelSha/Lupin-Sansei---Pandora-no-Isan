@@ -9,7 +9,7 @@ All rights reserved by モンキー・パンチ, NAMCO.
 -  Code Logger bytes - ***23.74%***
 -  Data Logger bytes - ***62.52%***
 -  Unknown bytes     - ***13.74%***
--  Code commented    - ***36.25%***
+-  Code commented    - ***37.02%***
 ## Documentation
 -  [bestiary](docs/ru/bestiary.md) - The list of all enemies in the game
 -  [maze1](docs/ru/maze1.txt), [maze2](docs/ru/maze2.txt), [maze3](docs/ru/maze3.txt), [maze4](docs/ru/maze4.txt) - The information of the mazes on the level 4

@@ -4556,9 +4556,9 @@ tbl_ptr_enemy_t3_sprite_params_:
 - D 1 - - - 0x01BDA4 06:BD94: 00        .byte $00, $00, $FF, $16, $22, $C6, $00, $00  ; Others
 
 ; 1 byte - ???
-; 2 byte - ???
-; 3 byte - ???
-; 4 byte - ???
+; 2 byte - the starting jump type
+; 3 byte - the starting status
+; 4 byte - the 1 number of ChrBank
 tbl_ptr_enemy_t4_sprite_params_:
 - D 1 - - - 0x01BDAC 06:BD9C: 00        .byte $00, $00, $C0, $0C   ; Gray land hat, right
 - D 1 - - - 0x01BDB0 06:BDA0: 00        .byte $00, $08, $C1, $0C   ; Gray land hat, left
