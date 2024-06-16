@@ -121,7 +121,7 @@
 .export loc_D883_dec_enemyB_counter
 .export sub_D6BD_try_change_enemyA_direction
 .export sub_D6DB_try_change_enemyB_direction
-.export sub_D6DF_change_enemyB_direction
+.export sub_D6DF_check_enemyB_direction
 .export sub_D9AE_inc_enemyA_frame_counter
 .export loc_D9AE_inc_enemyA_frame_counter
 .export sub_D9C4_inc_enemyB_frame_counter
@@ -131,7 +131,7 @@
 .export sub_D725_enemyA_on_screen
 .export sub_D831_enemyB_on_screen
 .export loc_D989_add_enemyA_sprite_magic_v1
-.export loc_D97D_add_enemyB_sprite_magic_v1
+.export loc_D97D_add_flash_sprite_magic
 .export sub_D7A8_correction_EnemyAPosY
 .export sub_D89C_correction_EnemyBPosY
 .export sub_D8A8_correction2_EnemyBPosY
@@ -143,7 +143,7 @@
 .export sub_D8CD_enemyB_collision_plus_one
 .export sub_D8D1_enemyB_collision_minus_16
 .export sub_D8DB_enemyB_collision_by_shift_posY
-.export tbl_fly_man_track_offset
+.export tbl_flying_track_offset
 .export sub_D397_right_collision_by_inc_posX
 .export loc_D397_right_collision_by_inc_posX
 .export sub_D3AD_left_collision_by_inc_posX
@@ -3792,7 +3792,7 @@ C - - - - - 0x01D6EB 07:D6DB: 25 2C     AND vLowCounter            ;
 C - - - - - 0x01D6ED 07:D6DD: D0 E7     BNE bra_D6C6_clear_c_rts   ; Branch if vLowCounter doesn't multiple of f(A) (vLowCounter % f(A) != 0)
 ; In: Register X - the enemyB number
 ; Out: Register Y - 1, if the enemy is to the right of the character, 0 - otherwise.
-sub_D6DF_change_enemyB_direction:
+sub_D6DF_check_enemyB_direction:
 C - - - - - 0x01D6EF 07:D6DF: A0 00     LDY #$00                   ;
 C - - - - - 0x01D6F1 07:D6E1: A5 66     LDA vLowChrPosX            ;
 C - - - - - 0x01D6F3 07:D6E3: 38        SEC                        ;
@@ -4284,13 +4284,13 @@ C - - - - - 0x01D988 07:D978: A5 68     LDA vNoScreen       ;
 C - - - - - 0x01D98A 07:D97A: 85 4D     STA vCacheNoScreen  ;
 C - - - - - 0x01D98C 07:D97C: 60        RTS                 ;
 
-loc_D97D_add_enemyB_sprite_magic_v1:
-C D 2 - - - 0x01D98D 07:D97D: BD 86 03  LDA vEnemyBJumpCounter,X
-C - - - - - 0x01D990 07:D980: 29 0C     AND #$0C
-C - - - - - 0x01D992 07:D982: 4A        LSR
-C - - - - - 0x01D993 07:D983: 18        CLC
-C - - - - - 0x01D994 07:D984: 69 D0     ADC #$D0
-C - - - - - 0x01D996 07:D986: 4C 96 D9  JMP loc_D996_adding
+loc_D97D_add_flash_sprite_magic:
+C D 2 - - - 0x01D98D 07:D97D: BD 86 03  LDA vEnemyBJumpCounter,X      ;
+C - - - - - 0x01D990 07:D980: 29 0C     AND #$0C                      ; filters (a mask)
+C - - - - - 0x01D992 07:D982: 4A        LSR                           ;
+C - - - - - 0x01D993 07:D983: 18        CLC                           ;
+C - - - - - 0x01D994 07:D984: 69 D0     ADC #$D0                      ; A <~ (0xD0, 0xD2, 0xD4, 0xD6)
+C - - - - - 0x01D996 07:D986: 4C 96 D9  JMP loc_D996_adding           ;
 
 ; In: Register Y - sprite_magic2 (The offset by the address)
 loc_D989_add_enemyA_sprite_magic_v1:
@@ -4528,7 +4528,7 @@ tbl_DAC5:
 
 ; 1st - the offset by position Y
 ; 2nd - the offset by position X
-tbl_fly_man_track_offset:
+tbl_flying_track_offset:
 - D 2 - - - 0x01DAE4 07:DAD4: FE        .byte $FE, $00
 - D 2 - - - 0x01DAE6 07:DAD6: FE        .byte $FE, $01
 - D 2 - - - 0x01DAE8 07:DAD8: FE        .byte $FE, $02
@@ -8626,9 +8626,9 @@ C - - - - - 0x01F4AB 07:F49B: D0 03     BNE @bra_F4A0_skip                      
 @bra_F49D_black_hat:
 C - - - - - 0x01F4AD 07:F49D: 8D B4 06  STA vCacheChrBankSelect + 5                 ; <~ CONSTANT for CHR ROM
 @bra_F4A0_skip:
-C - - - - - 0x01F4B0 07:F4A0: A9 00     LDA #$00                                    ; the offset for sprite_magic2
+C - - - - - 0x01F4B0 07:F4A0: A9 00     LDA #$00                                    ; the offset for sprite_magic2 (Offset: $0000)
 C - - - - - 0x01F4B2 07:F4A2: 8D 06 03  STA vEnemyBSpriteMagic2                     ;
-C - - - - - 0x01F4B5 07:F4A5: A0 43     LDY #$43                                    ; for sprite_magic3 (see v_sprite_magic3)
+C - - - - - 0x01F4B5 07:F4A5: A0 43     LDY #$43                                    ; for sprite_magic3 (see v_sprite_magic3) (Bank 05, Page 2, $8100)
 C - - - - - 0x01F4B7 07:F4A7: AD 01 03  LDA vEnemyB                                 ;
 C - - - - - 0x01F4BA 07:F4AA: C9 03     CMP #$03                                    ; CONSTANT - Black land hat
 C - - - - - 0x01F4BC 07:F4AC: D0 02     BNE @bra_F4B0_skip                          ; If vEnemyB != 0x03
@@ -8642,7 +8642,7 @@ bra_F4B6_gargoyle:
 C - - - - - 0x01F4C6 07:F4B6: 8D B4 06  STA vCacheChrBankSelect + 5                 ;
 C - - - - - 0x01F4C9 07:F4B9: A9 02     LDA #$02
 C - - - - - 0x01F4CB 07:F4BB: 9D 8C 03  STA ram_038C,X
-C - - - - - 0x01F4CE 07:F4BE: A9 30     LDA #$30                                    ; the offset for sprite_magic2 (Bank 05, Page 2, $8100 + $00C0)
+C - - - - - 0x01F4CE 07:F4BE: A9 30     LDA #$30                                    ; the offset for sprite_magic2
 C - - - - - 0x01F4D0 07:F4C0: 8D 06 03  STA vEnemyBSpriteMagic2                     ;
 C - - - - - 0x01F4D3 07:F4C3: A9 07     LDA #$07                                    ;
 C - - - - - 0x01F4D5 07:F4C5: 8D 07 03  STA vEnemyBSpriteMagic3                     ; <~ sprite_magic3 (see v_sprite_magic3)

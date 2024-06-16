@@ -472,6 +472,11 @@ vEnemyBStatus                 = ram_035C ; see below
 ; Z - see above
 ; Y - see above
 
+; Byte: 0YZ0 000N (bat)
+; N - see above
+; Z - see above
+; Y - see above
+
 vEnemyBStatus1                = ram_035C
 vEnemyBStatus2                = ram_035D
 

@@ -14,7 +14,7 @@
 |0x0B|Jumping sailor| B |   | 3 |
 |0x0C|The lift| A |   | 3 |
 |0x0D|Sensor| B |   | 3 |
-|0x0E|Bat| B |   | 1 |
+|0x0E|Bat| B | [Летучая мышь](#враг-0e) | 1 |
 |0x0F|Gray cat| B | [Серый кот](#враг-0f) | 1 |
 |0x10|Nun| A |   | 2 |
 |0x11|Girl in red, in the castle| A |   | 1 |
@@ -84,6 +84,13 @@
 <!---
 </div>
 -->
+
+## Враг 0E
+Летучая мышь
+|Кадр 1|Кадр 2|Кадр 3|
+|---|---|---|
+| ![Frame1](../images/enemy0E/frame1-r.png) | ![Frame2](../images/enemy0E/frame2-r.png) | ![Frame3](../images/enemy0E/frame3-r.png) |
+| ![Frame1](../images/enemy0E/frame1-l.png) | ![Frame2](../images/enemy0E/frame2-l.png) | ![Frame3](../images/enemy0E/frame3-l.png) |
 
 ## Враг 0F
 Серый кот
