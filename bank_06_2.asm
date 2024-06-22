@@ -2509,7 +2509,7 @@ C - - - - - 0x01B007 06:AFF7: 60        RTS
 ; in: Register X - the number of the briefcase
 sub_AFF8:
 C - - - - - 0x01B008 06:AFF8: BD 9E 03  LDA v_item_on_screen,X ;
-C - - - - - 0x01B00B 06:AFFB: 10 F1     BPL bra_AFEE_RTS       ; If the briefcase item >= 0x00 && the briefcase item < 0xF0
+C - - - - - 0x01B00B 06:AFFB: 10 F1     BPL bra_AFEE_RTS       ; If the briefcase item >= 0x00 && the briefcase item < 0x80
 C - - - - - 0x01B00D 06:AFFD: A0 00     LDY #$00
 C - - - - - 0x01B00F 06:AFFF: 29 10     AND #$10
 C - - - - - 0x01B011 06:B001: F0 2B     BEQ bra_B02E
@@ -2602,7 +2602,7 @@ sub_B09A: ; from bank FF
 C - - - - - 0x01B0AA 06:B09A: A2 05     LDX #$05               ; set loop counter
 @bra_B09C_loop:                                                ; loop by x
 C - - - - - 0x01B0AC 06:B09C: BD 9E 03  LDA v_item_on_screen,X ;
-C - - - - - 0x01B0AF 06:B09F: 10 04     BPL bra_B0A5           ; If v_item_on_screen < 0xF0
+C - - - - - 0x01B0AF 06:B09F: 10 04     BPL bra_B0A5           ; If v_item_on_screen < 0x80
 C - - - - - 0x01B0B1 06:B0A1: CA        DEX                    ; decrement loop counter
 C - - - - - 0x01B0B2 06:B0A2: D0 F8     BNE @bra_B09C_loop     ; If register X != 0x00
 bra_B0A4_RTS:
@@ -3691,7 +3691,7 @@ C - - - - - 0x01B7F7 06:B7E7: A2 05     LDX #$05                         ; set l
 C - - - - - 0x01B7F9 06:B7E9: BD CF BC  LDA tbl_BCCF,X
 C - - - - - 0x01B7FC 06:B7EC: 9D AF 06  STA vCacheChrBankSelect,X
 C - - - - - 0x01B7FF 06:B7EF: CA        DEX                       ; decrement x
-C - - - - - 0x01B800 06:B7F0: 10 F7     BPL @bra_B7E9_loop        ; In Register X >= 0x00 && X < 0xF0
+C - - - - - 0x01B800 06:B7F0: 10 F7     BPL @bra_B7E9_loop        ; In Register X >= 0x00 && X < 0x80
 C - - - - - 0x01B802 06:B7F2: 20 BA BA  JSR sub_BABA
 C - - - - - 0x01B805 06:B7F5: A9 5E     LDA #$5E
 C - - - - - 0x01B807 06:B7F7: 18        CLC
@@ -3835,13 +3835,13 @@ C - - - - - 0x01B8FC 06:B8EC: A2 05     LDX #$05                                
 C - - - - - 0x01B8FE 06:B8EE: BD BE 80  LDA tbl_main_menu_chr_banks,X              ;
 C - - - - - 0x01B901 06:B8F1: 9D AF 06  STA vCacheChrBankSelect,X                  ;
 C - - - - - 0x01B904 06:B8F4: CA        DEX                                        ; decrements loop counter
-C - - - - - 0x01B905 06:B8F5: 10 F7     BPL @bra_B8EE_repeat                       ; If Register X < 0xF0
+C - - - - - 0x01B905 06:B8F5: 10 F7     BPL @bra_B8EE_repeat                       ; If Register X < 0x80
 C - - - - - 0x01B907 06:B8F7: A2 1F     LDX #$1F                                   ; set loop counter
 @bra_B8F9_loop:                                                                    ; loop by x
 C - - - - - 0x01B909 06:B8F9: BD C4 80  LDA tbl_main_menu_palette,X                ;
 C - - - - - 0x01B90C 06:B8FC: 9D 00 06  STA vCachePalette,X                        ;
 C - - - - - 0x01B90F 06:B8FF: CA        DEX                                        ; decrements loop counter
-C - - - - - 0x01B910 06:B900: 10 F7     BPL @bra_B8F9_loop                         ; If Register X < 0xF0
+C - - - - - 0x01B910 06:B900: 10 F7     BPL @bra_B8F9_loop                         ; If Register X < 0x80
 C - - - - - 0x01B912 06:B902: A9 E4     LDA #$E4                                   ;
 C - - - - - 0x01B914 06:B904: 85 12     STA ram_0012                               ; Low address
 C - - - - - 0x01B916 06:B906: A9 80     LDA #$80                                   ;
@@ -3858,7 +3858,7 @@ bra_B918_loop:                                                                  
 C - - - - - 0x01B928 06:B918: A5 00     LDA ram_0000                               ; assigned as the parameter of the function
 C - - - - - 0x01B92A 06:B91A: 20 86 D0  JSR sub_D086_render_14_15_16_17_18_v1      ;
 C - - - - - 0x01B92D 06:B91D: C6 00     DEC ram_0000                               ; decrement 0x00
-C - - - - - 0x01B92F 06:B91F: 10 F7     BPL bra_B918_loop                          ; If $0000 < 0xF0
+C - - - - - 0x01B92F 06:B91F: 10 F7     BPL bra_B918_loop                          ; If $0000 < 0x80
 C - - - - - 0x01B931 06:B921: A9 20     LDA #$20                                   ;
 C - - - - - 0x01B933 06:B923: 8D 06 20  STA PPU_ADDRESS                            ;
 C - - - - - 0x01B936 06:B926: A9 84     LDA #$84                                   ;
@@ -3980,7 +3980,7 @@ C - - - - - 0x01B9FB 06:B9EB: A2 05     LDX #$05                         ; set l
 C - - - - - 0x01B9FD 06:B9ED: BD 14 80  LDA tbl_template_chr_banks1,X    ;
 C - - - - - 0x01BA00 06:B9F0: 9D AF 06  STA vCacheChrBankSelect,X        ; 
 C - - - - - 0x01BA03 06:B9F3: CA        DEX                              ; decrements loop counter
-C - - - - - 0x01BA04 06:B9F4: 10 F7     BPL @bra_B9ED_loop               ; If Register X < 0xF0
+C - - - - - 0x01BA04 06:B9F4: 10 F7     BPL @bra_B9ED_loop               ; If Register X < 0x80
 C - - - - - 0x01BA06 06:B9F6: A5 24     LDA vMenuDemoIndex
 C - - - - - 0x01BA08 06:B9F8: D0 32     BNE @bra_BA2C_skip
 C - - - - - 0x01BA0A 06:B9FA: A2 36     LDX #$36

@@ -477,6 +477,12 @@ vEnemyBStatus                 = ram_035C ; see below
 ; Z - see above
 ; Y - see above
 
+; Byte: 0YZ0 00MN (gargoyle)
+; N - see above
+; M - overdrive mode
+; Z - see above
+; Y - see above
+
 vEnemyBStatus1                = ram_035C
 vEnemyBStatus2                = ram_035D
 
@@ -502,6 +508,10 @@ vEnemyBFrame_Counter2         = ram_0381 ; The frame index (the enemy number = 2
 vEnemyBJumpCounter            = ram_0386 ; see below
 vEnemyBJumpCounter1           = ram_0386 ; vJumpCounter analog for the enemy (the enemy number = 1)
 vEnemyBJumpCounter2           = ram_0387 ; vJumpCounter analog for the enemy (the enemy number = 2)
+
+vEnemyBHealthPoints           = ram_038C ; Only for the gargoyle
+vEnemyBHealthPoints1          = ram_038C ; Only for the gargoyle
+vEnemyBHealthPoints2          = ram_038D ; Only for the gargoyle
 
 vEnemyBJumpType               = ram_0392 ; see below
 vEnemyBJumpType1              = ram_0392 ; vJumpCounter analog for the enemy (the enemy number = 1)

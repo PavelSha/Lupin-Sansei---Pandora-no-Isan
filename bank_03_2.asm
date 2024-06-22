@@ -4464,7 +4464,7 @@ C - - - - - 0x00FBC9 03:BBB9: 20 62 D5  JSR sub_D562_has_character_damage   ;
 bra_BBBC_next:
 loc_BBBC_next:
 C D 1 - - - 0x00FBCC 03:BBBC: C6 1A     DEC vTempCounter1A                  ; decrements loop counter
-C - - - - - 0x00FBCE 03:BBBE: 10 A2     BPL bra_BB62_loop                   ; If vTempCounter1A >= 0
+C - - - - - 0x00FBCE 03:BBBE: 10 A2     BPL bra_BB62_loop                   ; If vTempCounter1A >= 0x00
 bra_BBC0_RTS:
 C - - - - - 0x00FBD0 03:BBC0: 60        RTS                                 ;
 

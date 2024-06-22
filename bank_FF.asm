@@ -1049,13 +1049,13 @@ C - - - - - 0x01C64B 07:C63B: A2 05     LDX #$05                           ; set
 C - - - - - 0x01C64D 07:C63D: BD 14 80  LDA tbl_template_chr_banks1,X      ;
 C - - - - - 0x01C650 07:C640: 9D AF 06  STA vCacheChrBankSelect,X          ; set CHR ROMs
 C - - - - - 0x01C653 07:C643: CA        DEX                                ; decrements loop counter
-C - - - - - 0x01C654 07:C644: 10 F7     BPL @bra_C63D_loop                 ; If Register X < 0xF0
+C - - - - - 0x01C654 07:C644: 10 F7     BPL @bra_C63D_loop                 ; If Register X < 0x80
 C - - - - - 0x01C656 07:C646: A2 17     LDX #$17                           ; set loop counter
 @bra_C648_repeat:                                                          ; loop by x
 C - - - - - 0x01C658 07:C648: BD 7A 81  LDA tbl_character_select_palette,X ;
 C - - - - - 0x01C65B 07:C64B: 9D 00 06  STA vCachePalette,X                ; 4 bg palette + 2 sprite palette (for a gun)
 C - - - - - 0x01C65E 07:C64E: CA        DEX                                ; decrements loop counter
-C - - - - - 0x01C65F 07:C64F: 10 F7     BPL @bra_C648_repeat               ; If Register X < 0xF0
+C - - - - - 0x01C65F 07:C64F: 10 F7     BPL @bra_C648_repeat               ; If Register X < 0x80
 C - - - - - 0x01C661 07:C651: 60        RTS                                ;
 
 sub_C652_display_character_portraits:
@@ -1069,7 +1069,7 @@ bra_C65E_loop:                                                                  
 C - - - - - 0x01C66E 07:C65E: A5 1A     LDA vTempCounter1A                      ; prepares an input parameter
 C - - - - - 0x01C670 07:C660: 20 5C C8  JSR sub_C85C_display_character_portrait ;
 C - - - - - 0x01C673 07:C663: C6 1A     DEC vTempCounter1A                      ; decrement loop counter
-C - - - - - 0x01C675 07:C665: 10 F7     BPL bra_C65E_loop                       ; If Register X < 0xF0
+C - - - - - 0x01C675 07:C665: 10 F7     BPL bra_C65E_loop                       ; If Register X < 0x80
 C - - - - - 0x01C677 07:C667: 60        RTS                                     ;
 
 ; Params:
@@ -1080,7 +1080,7 @@ bra_C668_loop:                                                                ; 
 C - - - - - 0x01C678 07:C668: A5 00     LDA ram_0000                          ; counter as parameter
 C - - - - - 0x01C67A 07:C66A: 20 86 D0  JSR sub_D086_render_14_15_16_17_18_v1 ;
 C - - - - - 0x01C67D 07:C66D: C6 00     DEC ram_0000                          ; decrement $0000
-C - - - - - 0x01C67F 07:C66F: 10 F7     BPL bra_C668_loop                     ; In $0000 >= 0x00 && $0000 < 0xF0
+C - - - - - 0x01C67F 07:C66F: 10 F7     BPL bra_C668_loop                     ; In $0000 >= 0x00 && $0000 < 0x80
 C - - - - - 0x01C681 07:C671: 60        RTS                                   ;
 
 sub_C672_wait_character_select:
@@ -1382,7 +1382,7 @@ C - - - - - 0x01C859 07:C849: A5 5F     LDA vChrLiveStatus    ;
 C - - - - - 0x01C85B 07:C84B: 4A        LSR                   ;
 C - - - - - 0x01C85C 07:C84C: 4A        LSR                   ;
 C - - - - - 0x01C85D 07:C84D: CA        DEX                   ; decrement loop counter
-C - - - - - 0x01C85E 07:C84E: 10 FB     BPL @bra_C84B_loop    ; If Register X < 0xF0
+C - - - - - 0x01C85E 07:C84E: 10 FB     BPL @bra_C84B_loop    ; If Register X < 0x80
 C - - - - - 0x01C860 07:C850: 29 03     AND #$03              ;
 C - - - - - 0x01C862 07:C852: 60        RTS                   ;
 
@@ -1416,7 +1416,7 @@ C - - - - - 0x01C88A 07:C87A: A5 17     LDA ram_0017                          ;
 C - - - - - 0x01C88C 07:C87C: 69 00     ADC #$00                              ;
 C - - - - - 0x01C88E 07:C87E: 85 17     STA ram_0017                          ; shift high ROM-address value by Carry flag
 C - - - - - 0x01C890 07:C880: C6 0F     DEC ram_000F                          ; decrement loop counter
-C - - - - - 0x01C892 07:C882: 10 DF     BPL bra_C863_loop                     ; If $000F < 0xF0
+C - - - - - 0x01C892 07:C882: 10 DF     BPL bra_C863_loop                     ; If $000F < 0x80
 C - - - - - 0x01C894 07:C884: 60        RTS                                   ;
 
 sub_C885_try_interrupt_mode:
@@ -1473,7 +1473,7 @@ C - - - - - 0x01C8E6 07:C8D6: BD E2 C8  LDA tbl_C8E2_symbols,X ;
 C - - - - - 0x01C8E9 07:C8D9: DD 00 01  CMP ram_0100,X         ;
 C - - - - - 0x01C8EC 07:C8DC: D0 0E     BNE bra_C8EC_skip      ; branch If [0x0100-0x0108] isn't Yoshikawa
 C - - - - - 0x01C8EE 07:C8DE: CA        DEX                    ; decrement x
-C - - - - - 0x01C8EF 07:C8DF: 10 F5     BPL bra_C8D6_loop      ; In Register X >= 0x00 && X < 0xF0
+C - - - - - 0x01C8EF 07:C8DF: 10 F5     BPL bra_C8D6_loop      ; In Register X >= 0x00 && X < 0x80
 C - - - - - 0x01C8F1 07:C8E1: 60        RTS                    ;
 
 tbl_C8E2_symbols:
@@ -1494,7 +1494,7 @@ C - - - - - 0x01C8FC 07:C8EC: A2 09     LDX #$09                 ; set loop coun
 C - - - - - 0x01C8FE 07:C8EE: BD E2 C8  LDA tbl_C8E2_symbols,X   ;
 C - - - - - 0x01C901 07:C8F1: 9D 00 01  STA ram_0100,X           ; set Yoshikawa
 C - - - - - 0x01C904 07:C8F4: CA        DEX                      ; decrement x
-C - - - - - 0x01C905 07:C8F5: 10 F7     BPL @bra_C8EE_loop       ; In Register X >= 0x00 && X < 0xF0
+C - - - - - 0x01C905 07:C8F5: 10 F7     BPL @bra_C8EE_loop       ; In Register X >= 0x00 && X < 0x80
 C - - - - - 0x01C907 07:C8F7: A9 00     LDA #$00                 ; CONSTANT - The menu
 C - - - - - 0x01C909 07:C8F9: 85 24     STA vMenuDemoIndex       ;
 C - - - - - 0x01C90B 07:C8FB: A2 99     LDX #$99                 ; next [0x0099-0x009F] in 0
@@ -1593,7 +1593,7 @@ C - - - - - 0x01C987 07:C977: A2 02     LDX #$02                               ;
 @bra_C979_loop:                                                                ; loop by x (3 times)
 C - - - - - 0x01C989 07:C979: 95 A7     STA vEnemyScore + 1,X                  ; clear (A = 0)
 C - - - - - 0x01C98B 07:C97B: CA        DEX                                    ; decrement loop counter
-C - - - - - 0x01C98C 07:C97C: 10 FB     BPL @bra_C979_loop                     ; If Register X < 0xF0
+C - - - - - 0x01C98C 07:C97C: 10 FB     BPL @bra_C979_loop                     ; If Register X < 0x80
 C - - - - - 0x01C98E 07:C97E: A2 05     LDX #$05                               ; set loop counter
 bra_C980_loop:                                                                 ; loop by x
 C - - - - - 0x01C990 07:C980: B5 A7     LDA vEnemyScore + 1,X                  ;
@@ -1610,7 +1610,7 @@ C - - - - - 0x01C99E 07:C98E: 4C 85 C9  JMP loc_C985_next                      ;
 bra_C991_store_score:
 C - - - - - 0x01C9A1 07:C991: 95 56     STA vScore,X                           ;
 C - - - - - 0x01C9A3 07:C993: CA        DEX                                    ; decrement loop counter
-C - - - - - 0x01C9A4 07:C994: 10 EA     BPL bra_C980_loop                      ; If Register X < 0xF0
+C - - - - - 0x01C9A4 07:C994: 10 EA     BPL bra_C980_loop                      ; If Register X < 0x80
 C - - - - - 0x01C9A6 07:C996: A2 00     LDX #$00                               ; set loop counter
 bra_C998_loop:                                                                 ; loop by x
 C - - - - - 0x01C9A8 07:C998: B5 56     LDA vScore,X                           ;
@@ -1722,7 +1722,7 @@ bra_CA41_loop:
 sub_CA41_fill_ppu_addr_data_cache:
 C - - - - - 0x01CA51 07:CA41: 9D 7B 06  STA vPpuAddrDataCache,X ;
 C - - - - - 0x01CA54 07:CA44: CA        DEX                     ; decrement x
-C - - - - - 0x01CA55 07:CA45: 10 FA     BPL bra_CA41_loop       ; In Register X >= 0x00 && X < 0xF0
+C - - - - - 0x01CA55 07:CA45: 10 FA     BPL bra_CA41_loop       ; In Register X >= 0x00 && X < 0x80
 C - - - - - 0x01CA57 07:CA47: 60        RTS                     ;
 
 loc_CA48_prepare_icon_items:
@@ -1733,7 +1733,7 @@ C - - - - - 0x01CA5D 07:CA4D: F0 03     BEQ @bra_CA52_skip    ; If Register A ==
 C - - - - - 0x01CA5F 07:CA4F: DE 0A 02  DEC vItemsBlinkTime,X ;
 @bra_CA52_skip:
 C - - - - - 0x01CA62 07:CA52: CA        DEX                 ; decrement x
-C - - - - - 0x01CA63 07:CA53: 10 F5     BPL @bra_CA4A_loop  ; Branch If Register X < 0xF0
+C - - - - - 0x01CA63 07:CA53: 10 F5     BPL @bra_CA4A_loop  ; Branch If Register X < 0x80
 C - - - - - 0x01CA65 07:CA55: A2 31     LDX #$31                           ; the number of PpuAddrDataCache bytes
 C - - - - - 0x01CA67 07:CA57: 20 3F CA  JSR sub_CA3F_clear_inventory_panel ;
 C - - - - - 0x01CA6A 07:CA5A: A2 00     LDX #$00                           ;
@@ -1784,7 +1784,7 @@ C - - - - - 0x01CAC4 07:CAB4: B9 EF CA  LDA tbl_CAEC_items + 3,Y     ;
 C - - - - - 0x01CAC7 07:CAB7: 9D 95 06  STA vPpuAddrDataCache + 26,X ; ppu data (tile number)
 @bra_CABA_skip:
 C - - - - - 0x01CACA 07:CABA: C6 1A     DEC v_loc_CA48_counter       ; decrement CA48_counter
-C - - - - - 0x01CACC 07:CABC: 10 C5     BPL @bra_CA83_loop           ; Branch If decrement CA48 < 0xF0
+C - - - - - 0x01CACC 07:CABC: 10 C5     BPL @bra_CA83_loop           ; Branch If decrement CA48 < 0x80
 C - - - - - 0x01CACE 07:CABE: A9 00     LDA #$00                     ; 
 C - - - - - 0x01CAD0 07:CAC0: 8D AD 06  STA vPpuAddrDataCache + 50   ; mark for the end of the cache
 C - - - - - 0x01CAD3 07:CAC3: 60        RTS                          ;  
@@ -2298,7 +2298,7 @@ C - - - - - 0x01CE13 07:CE03: A2 04     LDX #$04                    ; set loop c
 C - - - - - 0x01CE15 07:CE05: BD 00 02  LDA v_items,X               ;
 C - - - - - 0x01CE18 07:CE08: D0 08     BNE bra_CE12_RTS            ; If some item is exist
 C - - - - - 0x01CE1A 07:CE0A: CA        DEX                         ; decrement loop counter
-C - - - - - 0x01CE1B 07:CE0B: 10 F8     BPL @bra_CE05_loop          ; If Register X < 0xF0
+C - - - - - 0x01CE1B 07:CE0B: 10 F8     BPL @bra_CE05_loop          ; If Register X < 0x80
 C - - - - - 0x01CE1D 07:CE0D: A9 80     LDA #$80                    ; CONSTANT - the weapons are not exist
 C - - - - - 0x01CE1F 07:CE0F: 8D 14 02  STA vCurrentWeaponStatus    ;
 bra_CE12_RTS:
@@ -2397,7 +2397,7 @@ bra_CE99_loop:                                                       ; loop by v
 C D 2 - - - 0x01CEA9 07:CE99: A9 00     LDA #$00                     ;
 C - - - - - 0x01CEAB 07:CE9B: 85 04     STA ram_0004                 ; clear
 C - - - - - 0x01CEAD 07:CE9D: B1 02     LDA (ram_0002),Y             ; 1 of 4
-C - - - - - 0x01CEAF 07:CE9F: 10 02     BPL @bra_CEA3_skip           ; If Register A < 0xF0
+C - - - - - 0x01CEAF 07:CE9F: 10 02     BPL @bra_CEA3_skip           ; If Register A < 0x80
 C - - - - - 0x01CEB1 07:CEA1: C6 04     DEC ram_0004                 ; 0x00 -> 0xFF (The position may be negative!)
 @bra_CEA3_skip:
 C - - - - - 0x01CEB3 07:CEA3: 18        CLC                          ;
@@ -2417,7 +2417,7 @@ C - - - - - 0x01CECD 07:CEBD: C8        INY                          ; Changes t
 C - - - - - 0x01CECE 07:CEBE: A9 00     LDA #$00                     ;
 C - - - - - 0x01CED0 07:CEC0: 85 04     STA ram_0004                 ; clear
 C - - - - - 0x01CED2 07:CEC2: B1 02     LDA (ram_0002),Y             ; 4 of 4
-C - - - - - 0x01CED4 07:CEC4: 10 02     BPL @bra_CEC8_skip           ; If Register A < 0xF0
+C - - - - - 0x01CED4 07:CEC4: 10 02     BPL @bra_CEC8_skip           ; If Register A < 0x80
 C - - - - - 0x01CED6 07:CEC6: C6 04     DEC ram_0004                 ; 0x00 -> 0xFF (The position may be negative!)
 @bra_CEC8_skip:
 C - - - - - 0x01CED8 07:CEC8: 18        CLC                          ;
@@ -2536,7 +2536,7 @@ bra_CF76_repeat:
 C - - - - - 0x01CF86 07:CF76: A9 00     LDA #$00                   ;
 C - - - - - 0x01CF88 07:CF78: 85 04     STA ram_0004               ; clear
 C - - - - - 0x01CF8A 07:CF7A: B1 02     LDA (ram_0002),Y           ; 1 of 4
-C - - - - - 0x01CF8C 07:CF7C: 10 02     BPL @bra_CF80_skip         ; If Register A < 0xF0
+C - - - - - 0x01CF8C 07:CF7C: 10 02     BPL @bra_CF80_skip         ; If Register A < 0x80
 C - - - - - 0x01CF8E 07:CF7E: C6 04     DEC ram_0004               ; 0x00 -> 0xFF (The position may be negative!)
 @bra_CF80_skip:
 C - - - - - 0x01CF90 07:CF80: 18        CLC                        ;
@@ -2557,7 +2557,7 @@ C - - - - - 0x01CFAC 07:CF9C: C8        INY                        ; Changes to 
 C - - - - - 0x01CFAD 07:CF9D: A9 00     LDA #$00                   ;
 C - - - - - 0x01CFAF 07:CF9F: 85 04     STA ram_0004               ; clear
 C - - - - - 0x01CFB1 07:CFA1: B1 02     LDA (ram_0002),Y           ; 4 of 4
-C - - - - - 0x01CFB3 07:CFA3: 10 02     BPL bra_CFA7_skip          ; If Register A < 0xF0
+C - - - - - 0x01CFB3 07:CFA3: 10 02     BPL bra_CFA7_skip          ; If Register A < 0x80
 C - - - - - 0x01CFB5 07:CFA5: C6 04     DEC ram_0004               ; 0x00 -> 0xFF (The position may be negative!)
 bra_CFA7_skip:
 C - - - - - 0x01CFB7 07:CFA7: 18        CLC                        ;
@@ -3059,7 +3059,7 @@ C - - - - - 0x01D2EA 07:D2DA: A0 3F     LDY #$3F                                
 C - - - - - 0x01D2EC 07:D2DC: B1 02     LDA (ram_0002),Y                                ;
 C - - - - - 0x01D2EE 07:D2DE: 99 33 06  STA vPpuBufferData,Y                            ; store a tile number X
 C - - - - - 0x01D2F1 07:D2E1: 88        DEY                                             ; decrement loop counter
-C - - - - - 0x01D2F2 07:D2E2: 10 F8     BPL @bra_D2DC_loop                              ; If Register Y < 0xF0
+C - - - - - 0x01D2F2 07:D2E2: 10 F8     BPL @bra_D2DC_loop                              ; If Register Y < 0x80
 C - - - - - 0x01D2F4 07:D2E4: 60        RTS                                             ;
 
 ; In: $0000 - PosY (in pixel units, e.g. vScreenChrPosY)
@@ -3281,7 +3281,7 @@ C - - - - - 0x01D3FA 07:D3EA: C9 04     CMP #$04
 C - - - - - 0x01D3FC 07:D3EC: 90 05     BCC bra_D3F3_collision
 @bra_D3EE_next:
 C - - - - - 0x01D3FE 07:D3EE: 88        DEY                       ; decrement loop counter
-C - - - - - 0x01D3FF 07:D3EF: 10 D8     BPL @bra_D3C9_loop        ; If Register Y < 0xF0
+C - - - - - 0x01D3FF 07:D3EF: 10 D8     BPL @bra_D3C9_loop        ; If Register Y < 0x80
 bra_D3F1_return:
 C - - - - - 0x01D401 07:D3F1: 68        PLA                       ; retrieve A ($D3B5)
 C - - - - - 0x01D402 07:D3F2: 60        RTS                       ;
@@ -3349,7 +3349,7 @@ C - - - - - 0x01D458 07:D448: A0 0F     LDY #$0F                                
 C - - - - - 0x01D45A 07:D44A: B1 00     LDA (ram_0000),Y                         ;
 C - - - - - 0x01D45C 07:D44C: 99 00 06  STA vCachePalette,Y                      ;
 C - - - - - 0x01D45F 07:D44F: 88        DEY                                      ; decrement y
-C - - - - - 0x01D460 07:D450: 10 F8     BPL @bra_D44A_loop                       ; In Register Y >= 0x00 && Y < 0xF0
+C - - - - - 0x01D460 07:D450: 10 F8     BPL @bra_D44A_loop                       ; In Register Y >= 0x00 && Y < 0x80
 C - - - - - 0x01D462 07:D452: 60        RTS                                      ;
 
 sub_D453_prepare_gaming_environment:
@@ -3382,7 +3382,7 @@ C - - - - - 0x01D490 07:D480: A0 05     LDY #$05                                
 C - - - - - 0x01D492 07:D482: B1 02     LDA (ram_0002),Y                                ; 
 C - - - - - 0x01D494 07:D484: 99 AF 06  STA vCacheChrBankSelect,Y                       ; prepares a cache for all CHR banks
 C - - - - - 0x01D497 07:D487: 88        DEY                                             ; decrement y
-C - - - - - 0x01D498 07:D488: 10 F8     BPL @bra_D482_loop                              ; If Register Y < 0xF0
+C - - - - - 0x01D498 07:D488: 10 F8     BPL @bra_D482_loop                              ; If Register Y < 0x80
 C - - - - - 0x01D49A 07:D48A: E6 4B     INC vHighViewPortPosX                           ;
 C - - - - - 0x01D49C 07:D48C: E6 4B     INC vHighViewPortPosX                           ; scrolls forward 2 screens from the end 
 C - - - - - 0x01D49E 07:D48E: A5 27     LDA vLowViewPortPosX                            ;
@@ -4134,9 +4134,11 @@ C - - - - - 0x01D8D7 07:D8C7: 20 AD D3  JSR sub_D3AD_left_collision_by_inc_posX 
 C - - - - - 0x01D8DA 07:D8CA: C9 01     CMP #$01                                    ; CONSTANT - a strong collision
 C - - - - - 0x01D8DC 07:D8CC: 60        RTS                                         ;
 
+; Out: If flag Z = 1 then the enemy downward movement is not allowed
 sub_D8CD_enemyB_collision_plus_one:
 C - - - - - 0x01D8DD 07:D8CD: A9 01     LDA #$01                                     ; prepare an input parameter (+1)
 C - - - - - 0x01D8DF 07:D8CF: D0 02     BNE bra_D8D3_skip                            ; Always true
+; Out: If flag Z = 1 then the enemy upward movement is not allowed
 sub_D8D1_enemyB_collision_minus_16:
 C - - - - - 0x01D8E1 07:D8D1: A9 F0     LDA #$F0                                     ; prepare an input parameter (-16)
 bra_D8D3_skip:
@@ -5597,7 +5599,7 @@ bra_E134_loop:                                                          ; loop b
 C - - - - - 0x01E144 07:E134: A6 10     LDX vTempCounter10              ;
 C - - - - - 0x01E146 07:E136: 20 3E E1  JSR sub_E13E_bullet_subroutine  ;
 C - - - - - 0x01E149 07:E139: C6 10     DEC vTempCounter10              ; decrement vTempCounter10
-C - - - - - 0x01E14B 07:E13B: 10 F7     BPL bra_E134_loop               ; In vTempCounter10 < 0xF0
+C - - - - - 0x01E14B 07:E13B: 10 F7     BPL bra_E134_loop               ; In vTempCounter10 < 0x80
 bra_E13D_RTS:
 C - - - - - 0x01E14D 07:E13D: 60        RTS                             ;
 
@@ -7805,7 +7807,7 @@ C - - - - - 0x01EF78 07:EF68: 60        RTS                  ;
 sub_EF69:
 C - - - - - 0x01EF79 07:EF69: A2 00     LDX #$00
 C - - - - - 0x01EF7B 07:EF6B: AD 9E 03  LDA v_item_on_screen ;
-C - - - - - 0x01EF7E 07:EF6E: 10 0A     BPL bra_EF7A_RTS     ; If v_item_on_screen >= 0x00 && v_item_on_screen < 0xF0
+C - - - - - 0x01EF7E 07:EF6E: 10 0A     BPL bra_EF7A_RTS     ; If v_item_on_screen >= 0x00 && v_item_on_screen < 0x80
 C - - - - - 0x01EF80 07:EF70: AD 98 03  LDA ram_0398
 C - - - - - 0x01EF83 07:EF73: C9 01     CMP #$01
 C - - - - - 0x01EF85 07:EF75: D0 03     BNE bra_EF7A_RTS
@@ -7822,7 +7824,7 @@ C - - - - - 0x01EF8F 07:EF7F: F0 02     BEQ @bra_EF83_skip      ; If counterX ==
 C - - - - - 0x01EF91 07:EF81: D6 2E     DEC vGameCounters,X     ;
 @bra_EF83_skip:
 C - - - - - 0x01EF93 07:EF83: CA        DEX                     ; decrement x
-C - - - - - 0x01EF94 07:EF84: 10 F7     BPL @bra_EF7D_loop      ; If Register X < 0xF0
+C - - - - - 0x01EF94 07:EF84: 10 F7     BPL @bra_EF7D_loop      ; If Register X < 0x80
 sub_EF86_increment_counter:                                     
 C - - - - - 0x01EF96 07:EF86: E6 2C     INC vLowCounter       ;
 C - - - - - 0x01EF98 07:EF88: D0 02     BNE @bra_EF8C_RTS       ; If vLowCounter != 0
@@ -7842,7 +7844,7 @@ C - - - - - 0x01EFA8 07:EF98: A2 09     LDX #$09                          ; set 
 @bra_clear_loop:                                                          ; loop by x
 C - - - - - 0x01EFAA 07:EF9A: 9D 00 02  STA ram_0200,X                    ; 0x0209-0x02FF in 0
 C - - - - - 0x01EFAD 07:EF9D: CA        DEX                               ; decrements loop counter
-C - - - - - 0x01EFAE 07:EF9E: 10 FA     BPL @bra_clear_loop               ; If Register X < 0xF0
+C - - - - - 0x01EFAE 07:EF9E: 10 FA     BPL @bra_clear_loop               ; If Register X < 0x80
 C - - - - - 0x01EFB0 07:EFA0: A9 00     LDA #$00                          ;
 C - - - - - 0x01EFB2 07:EFA2: 8D 14 02  STA vCurrentWeaponStatus          ; clear
 sub_EFA5:
@@ -7899,7 +7901,7 @@ C - - - - - 0x01F00E 07:EFFE: A9 00     LDA #$00                            ; se
 @bra_F000_loop:                                                             ; loop by x (10 times)
 C - - - - - 0x01F010 07:F000: 9D 0A 02  STA v_items + 10,X                  ; clear items
 C - - - - - 0x01F013 07:F003: CA        DEX                                 ; decrements loop counter
-C - - - - - 0x01F014 07:F004: 10 FA     BPL @bra_F000_loop                  ; If Register X < 0xF0
+C - - - - - 0x01F014 07:F004: 10 FA     BPL @bra_F000_loop                  ; If Register X < 0x80
 C - - - - - 0x01F016 07:F006: A2 05     LDX #$05                            ; set loop counter
 bra_F008_loop:                                                              ; loop by x (6 times)
 C - - - - - 0x01F018 07:F008: A4 3C     LDY vGameLocks                      ;
@@ -7929,7 +7931,7 @@ C - - - - - 0x01F047 07:F037: 8D 0B 03  STA vEnemyBCount                    ; cl
 C - - - - - 0x01F04A 07:F03A: 8D 01 03  STA vEnemyB                         ; clear
 bra_F03D_skip:
 C - - - - - 0x01F04D 07:F03D: CA        DEX                                 ; decrements loop counter
-C - - - - - 0x01F04E 07:F03E: 10 C8     BPL bra_F008_loop                   ; If Register X < 0xF0 (a loop condition)
+C - - - - - 0x01F04E 07:F03E: 10 C8     BPL bra_F008_loop                   ; If Register X < 0x80 (a loop condition)
 C - - - - - 0x01F050 07:F040: A5 3C     LDA vGameLocks                      ;
 C - - - - - 0x01F052 07:F042: 09 40     ORA #$40                            ; CONSTANT - the process, after 'Select a character', but before the game itself
 C - - - - - 0x01F054 07:F044: 85 3C     STA vGameLocks                      ;
@@ -7938,7 +7940,7 @@ C - - - - - 0x01F058 07:F048: A2 05     LDX #$05                            ; se
 @bra_F04A_clear_loop:                                                       ; loop by x (5 times)
 C - - - - - 0x01F05A 07:F04A: 9D 9E 03  STA v_item_on_screen,X              ; clear
 C - - - - - 0x01F05D 07:F04D: CA        DEX                                 ; decrements loop counter
-C - - - - - 0x01F05E 07:F04E: 10 FA     BPL @bra_F04A_clear_loop            ; If Register X < 0xF0 (a loop condition)
+C - - - - - 0x01F05E 07:F04E: 10 FA     BPL @bra_F04A_clear_loop            ; If Register X < 0x80 (a loop condition)
 C - - - - - 0x01F060 07:F050: 8D D4 03  STA ram_03D4
 C - - - - - 0x01F063 07:F053: 8D D5 03  STA ram_03D5
 C - - - - - 0x01F066 07:F056: 8D D6 03  STA ram_03D6
@@ -7949,7 +7951,7 @@ C - - - - - 0x01F06D 07:F05D: 9D 18 03  STA vEnemyAAppearTimerHigh1,X       ; re
 C - - - - - 0x01F070 07:F060: 9D 1C 03  STA vEnemyAAppearTimerHigh2,X       ; reset the counters
 C - - - - - 0x01F073 07:F063: 9D 15 02  STA vApparatusLowCounter,X
 C - - - - - 0x01F076 07:F066: CA        DEX                                 ; decrements loop counter
-C - - - - - 0x01F077 07:F067: 10 F4     BPL @bra_F05D_loop                  ; If Register X < 0xF0 (a loop condition)
+C - - - - - 0x01F077 07:F067: 10 F4     BPL @bra_F05D_loop                  ; If Register X < 0x80 (a loop condition)
 C - - - - - 0x01F079 07:F069: 20 75 F0  JSR sub_F075_clear_bullet_status    ;
 C - - - - - 0x01F07C 07:F06C: A9 00     LDA #$00                            ;
 C - - - - - 0x01F07E 07:F06E: 8D 14 03  STA vEnemyTimerLow1                 ; clear a low part
@@ -7962,7 +7964,7 @@ C - - - - - 0x01F087 07:F077: A2 04     LDX #$04            ; set loop counter
 @bra_F079_loop:                                             ; loop by x
 C - - - - - 0x01F089 07:F079: 95 8F     STA vBulletStatus,X ;
 C - - - - - 0x01F08B 07:F07B: CA        DEX                 ; decrement x
-C - - - - - 0x01F08C 07:F07C: 10 FB     BPL @bra_F079_loop  ; If Register A < 0xF0
+C - - - - - 0x01F08C 07:F07C: 10 FB     BPL @bra_F079_loop  ; If Register A < 0x80
 C - - - - - 0x01F08E 07:F07E: 60        RTS                 ;
 
 sub_F07F_prepare_enemy_subroutine:
@@ -8013,7 +8015,7 @@ C - - - - - 0x01F0CC 07:F0BC: A5 0A     LDA ram_000A                    ; type o
 C - - - - - 0x01F0CE 07:F0BE: D9 FC F8  CMP tbl_F8FC_enemies,Y          ;
 C - - - - - 0x01F0D1 07:F0C1: F0 04     BEQ @bra_F0C7_skip              ; If enemy = the current enemy in the table
 C - - - - - 0x01F0D3 07:F0C3: 88        DEY                             ; decrement loop counter
-C - - - - - 0x01F0D4 07:F0C4: 10 F8     BPL @bra_F0BE_loop              ; If Register Y <= 0xF0
+C - - - - - 0x01F0D4 07:F0C4: 10 F8     BPL @bra_F0BE_loop              ; If Register Y <= 0x80
 C - - - - - 0x01F0D6 07:F0C6: CA        DEX                             ; 0x01 -> 0x00, type A
 @bra_F0C7_skip:
 ; In: $0000 - macro X-position (in screen units)
@@ -8076,7 +8078,7 @@ C - - - - - 0x01F13C 07:F12C: FE 18 03  INC vEnemyAppearTimersHigh,X       ;
 @bra_F12F_skip:
 C - - - - - 0x01F13F 07:F12F: CA        DEX                                ; decrement loop counter
 C - - - - - 0x01F140 07:F130: CA        DEX                                ; decrement loop counter
-C - - - - - 0x01F141 07:F131: 10 F4     BPL @bra_F127_loop                 ; If Register X >= 0 && X < 0xF0
+C - - - - - 0x01F141 07:F131: 10 F4     BPL @bra_F127_loop                 ; If Register X >= 0 && X < 0x80
 C - - - - - 0x01F143 07:F133: EE 16 03  INC vZenigataTimerLow1             ;
 C - - - - - 0x01F146 07:F136: D0 0D     BNE bra_F145_RTS                   ; If a counter is overflow
 C - - - - - 0x01F148 07:F138: EE 17 03  INC vZenigataTimerHigh1            ;  
@@ -8455,7 +8457,7 @@ C - - - - - 0x01F381 07:F371: 60        RTS                     ;
 sub_F372_start_enemyA_appearance:
 C - - - - - 0x01F382 07:F372: A2 01     LDX #$01                     ; X <~ 1
 C - - - - - 0x01F384 07:F374: BD 20 03  LDA vEnemyAStatus,X          ;
-C - - - - - 0x01F387 07:F377: 10 01     BPL @bra_F37A_skip           ; If vEnemyAStatus < 0xF0, i.e. vEnemyAStatus2 is used
+C - - - - - 0x01F387 07:F377: 10 01     BPL @bra_F37A_skip           ; If vEnemyAStatus < 0x80, i.e. vEnemyAStatus2 isn't used
 C - - - - - 0x01F389 07:F379: CA        DEX                          ; X <~ 0
 ; In: Register X - the enemyA number
 @bra_F37A_skip:
@@ -8474,7 +8476,7 @@ C - - - - - 0x01F399 07:F389: 60        RTS                          ;
 sub_F38A_start_enemyB_appearance:
 C - - - - - 0x01F39A 07:F38A: A2 01     LDX #$01                     ; X <~ 1
 C - - - - - 0x01F39C 07:F38C: BD 5C 03  LDA vEnemyBStatus,X          ;
-C - - - - - 0x01F39F 07:F38F: 10 01     BPL @bra_F392_skip           ; If vEnemyBStatus < 0xF0, i.e. vEnemyBStatus2 is used
+C - - - - - 0x01F39F 07:F38F: 10 01     BPL @bra_F392_skip           ; If vEnemyBStatus < 0x80, i.e. vEnemyBStatus2 isn't used
 C - - - - - 0x01F3A1 07:F391: CA        DEX                          ; X <~ 0
 ; In: Register X - the enemyB number
 @bra_F392_skip:
@@ -8640,12 +8642,12 @@ C - - - - - 0x01F4C3 07:F4B3: 4C 20 F8  JMP loc_F820_finish_creating_enemyB     
 ; In; Register A - CONSTANT for CHR ROM
 bra_F4B6_gargoyle:
 C - - - - - 0x01F4C6 07:F4B6: 8D B4 06  STA vCacheChrBankSelect + 5                 ;
-C - - - - - 0x01F4C9 07:F4B9: A9 02     LDA #$02
-C - - - - - 0x01F4CB 07:F4BB: 9D 8C 03  STA ram_038C,X
-C - - - - - 0x01F4CE 07:F4BE: A9 30     LDA #$30                                    ; the offset for sprite_magic2
+C - - - - - 0x01F4C9 07:F4B9: A9 02     LDA #$02                                    ;
+C - - - - - 0x01F4CB 07:F4BB: 9D 8C 03  STA vEnemyBHealthPoints,X                   ; initializes the health points
+C - - - - - 0x01F4CE 07:F4BE: A9 30     LDA #$30                                    ; the offset for sprite_magic2 (Offset: $0030)
 C - - - - - 0x01F4D0 07:F4C0: 8D 06 03  STA vEnemyBSpriteMagic2                     ;
 C - - - - - 0x01F4D3 07:F4C3: A9 07     LDA #$07                                    ;
-C - - - - - 0x01F4D5 07:F4C5: 8D 07 03  STA vEnemyBSpriteMagic3                     ; <~ sprite_magic3 (see v_sprite_magic3)
+C - - - - - 0x01F4D5 07:F4C5: 8D 07 03  STA vEnemyBSpriteMagic3                     ; <~ sprite_magic3 (see v_sprite_magic3) (Bank 05, Page 2, $8000)
 C - - - - - 0x01F4D8 07:F4C8: 4C 20 F8  JMP loc_F820_finish_creating_enemyB         ;
 
 ; In: $0000 - macro X-position
@@ -8655,7 +8657,7 @@ C - - - - - 0x01F4D8 07:F4C8: 4C 20 F8  JMP loc_F820_finish_creating_enemyB     
 loc_F3A2_land_diver_enemy:
 C - - J - - 0x01F4DB 07:F4CB: A2 01     LDX #$01                            ; X <~ 1
 C - - - - - 0x01F4DD 07:F4CD: BD 20 03  LDA vEnemyAStatus,X                 ;
-C - - - - - 0x01F4E0 07:F4D0: 10 01     BPL @bra_F4D3_skip                  ; If vEnemyAStatus2 < 0xF0
+C - - - - - 0x01F4E0 07:F4D0: 10 01     BPL @bra_F4D3_skip                  ; If vEnemyAStatus2 < 0x80
 C - - - - - 0x01F4E2 07:F4D2: CA        DEX                                 ; X <~ 0
 @bra_F4D3_skip:
 C - - - - - 0x01F4E3 07:F4D3: A5 0B     LDA ram_000B                        ;
@@ -8712,50 +8714,53 @@ C - - - - - 0x01F545 07:F535: A9 0C     LDA #$0C                            ; th
 C - - - - - 0x01F547 07:F537: 8D 02 03  STA vEnemyASpriteMagic2             ;
 C - - - - - 0x01F54A 07:F53A: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA ;
 
+; In: $0000 - macro X-position
+; In: $0001 - X-position
 loc_F53D_bazooka_enemy:
-C - - J - - 0x01F54D 07:F53D: A2 01     LDX #$01
-C - - - - - 0x01F54F 07:F53F: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x01F552 07:F542: 30 06     BMI bra_F54A
-C - - - - - 0x01F554 07:F544: CA        DEX
-C - - - - - 0x01F555 07:F545: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x01F558 07:F548: 10 13     BPL bra_F55D
-bra_F54A:
-C - - - - - 0x01F55A 07:F54A: A5 00     LDA ram_0000
-C - - - - - 0x01F55C 07:F54C: 38        SEC
-C - - - - - 0x01F55D 07:F54D: FD 3E 03  SBC ram_033E,X
-C - - - - - 0x01F560 07:F550: A5 01     LDA ram_0001
-C - - - - - 0x01F562 07:F552: FD 38 03  SBC ram_0338,X
-C - - - - - 0x01F565 07:F555: D0 06     BNE bra_F55D
-- - - - - - 0x01F567 07:F557: 20 8F D7  JSR sub_D78F_dec_enemyA_counter
-- - - - - - 0x01F56A 07:F55A: 68        PLA
-- - - - - - 0x01F56B 07:F55B: 68        PLA
-- - - - - - 0x01F56C 07:F55C: 60        RTS
+C - - J - - 0x01F54D 07:F53D: A2 01     LDX #$01                            ; X <~ 1
+C - - - - - 0x01F54F 07:F53F: BD 20 03  LDA vEnemyAStatus,X                 ;
+C - - - - - 0x01F552 07:F542: 30 06     BMI @bra_F54A_check_position        ; If vEnemyAStatus2 is used
+C - - - - - 0x01F554 07:F544: CA        DEX                                 ; X <~ 0
+C - - - - - 0x01F555 07:F545: BD 20 03  LDA vEnemyAStatus,X                 ;
+C - - - - - 0x01F558 07:F548: 10 13     BPL bra_F55D_continue               ; If vEnemyAStatus < 0x80, i.e. vEnemyAStatus2 isn't used
+@bra_F54A_check_position:
+C - - - - - 0x01F55A 07:F54A: A5 00     LDA ram_0000                        ;
+C - - - - - 0x01F55C 07:F54C: 38        SEC                                 ;
+C - - - - - 0x01F55D 07:F54D: FD 3E 03  SBC vEnemyAPosXHigh,X               ;
+C - - - - - 0x01F560 07:F550: A5 01     LDA ram_0001                        ;
+C - - - - - 0x01F562 07:F552: FD 38 03  SBC vEnemyAPosXLow,X                ;
+C - - - - - 0x01F565 07:F555: D0 06     BNE bra_F55D_continue               ; If [$0000:$0001] != [He:Le]
+C - - - - - 0x01F567 07:F557: 20 8F D7  JSR sub_D78F_dec_enemyA_counter     ; !(UNUSED), not used
+C - - - - - 0x01F56A 07:F55A: 68        PLA                                 ; !(UNUSED), not used
+C - - - - - 0x01F56B 07:F55B: 68        PLA                                 ; !(UNUSED), not used
+C - - - - - 0x01F56C 07:F55C: 60        RTS                                 ; !(UNUSED), not used
 
-bra_F55D:
-C - - - - - 0x01F56D 07:F55D: 20 72 F3  JSR sub_F372_start_enemyA_appearance
-C - - - - - 0x01F570 07:F560: 20 59 F3  JSR sub_F359_prepare_enemyA_start_status
-C - - - - - 0x01F573 07:F563: A9 00     LDA #$00
-C - - - - - 0x01F575 07:F565: 9D 22 03  STA ram_0322,X
-C - - - - - 0x01F578 07:F568: 9D 24 03  STA ram_0324,X
-C - - - - - 0x01F57B 07:F56B: AD 00 03  LDA ram_0300
-C - - - - - 0x01F57E 07:F56E: C9 08     CMP #$08
-C - - - - - 0x01F580 07:F570: F0 0C     BEQ bra_F57E
-C - - - - - 0x01F582 07:F572: C9 20     CMP #$20
-C - - - - - 0x01F584 07:F574: F0 04     BEQ bra_F57A
-C - - - - - 0x01F586 07:F576: A9 11     LDA #$11
-C - - - - - 0x01F588 07:F578: D0 06     BNE bra_F580
-bra_F57A:
-C - - - - - 0x01F58A 07:F57A: A9 15     LDA #$15
-C - - - - - 0x01F58C 07:F57C: D0 02     BNE bra_F580
-bra_F57E:
-C - - - - - 0x01F58E 07:F57E: A9 0D     LDA #$0D
-bra_F580:
-C - - - - - 0x01F590 07:F580: 8D B4 06  STA ram_06B4
-C - - - - - 0x01F593 07:F583: A9 46     LDA #$46
-C - - - - - 0x01F595 07:F585: 8D 03 03  STA ram_0303
-C - - - - - 0x01F598 07:F588: A9 70     LDA #$70
-C - - - - - 0x01F59A 07:F58A: 8D 02 03  STA ram_0302
-C - - - - - 0x01F59D 07:F58D: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA
+; In: Register X - the enemyA number
+bra_F55D_continue:
+C - - - - - 0x01F56D 07:F55D: 20 72 F3  JSR sub_F372_start_enemyA_appearance      ;
+C - - - - - 0x01F570 07:F560: 20 59 F3  JSR sub_F359_prepare_enemyA_start_status  ;
+C - - - - - 0x01F573 07:F563: A9 00     LDA #$00                                  ;
+C - - - - - 0x01F575 07:F565: 9D 22 03  STA vEnemyAProjectileStatus,X             ; reset a status
+C - - - - - 0x01F578 07:F568: 9D 24 03  STA vEnemyAProjectileStatus + 2,X         ; reset a status
+C - - - - - 0x01F57B 07:F56B: AD 00 03  LDA vEnemyA                               ;
+C - - - - - 0x01F57E 07:F56E: C9 08     CMP #$08                                  ; CONSTANT - Shooter with bazooka (level 3)
+C - - - - - 0x01F580 07:F570: F0 0C     BEQ @bra_F57E_skip                        ; If vEnemyA == 0x08
+C - - - - - 0x01F582 07:F572: C9 20     CMP #$20                                  ; CONSTANT - Shooter with bazooka (level 1)
+C - - - - - 0x01F584 07:F574: F0 04     BEQ @bra_F57A_skip                        ; If vEnemyA == 0x20
+C - - - - - 0x01F586 07:F576: A9 11     LDA #$11                                  ; CONSTANT for CHR ROM #1
+C - - - - - 0x01F588 07:F578: D0 06     BNE @bra_F580_skip                        ; Always true
+@bra_F57A_skip:
+C - - - - - 0x01F58A 07:F57A: A9 15     LDA #$15                                  ; CONSTANT for CHR ROM #2
+C - - - - - 0x01F58C 07:F57C: D0 02     BNE @bra_F580_skip                        ; Always true
+@bra_F57E_skip:
+C - - - - - 0x01F58E 07:F57E: A9 0D     LDA #$0D                                  ; CONSTANT for CHR ROM #3
+@bra_F580_skip:
+C - - - - - 0x01F590 07:F580: 8D B4 06  STA vCacheChrBankSelect + 5               ;
+C - - - - - 0x01F593 07:F583: A9 46     LDA #$46                                  ; <~ sprite_magic3 (see v_sprite_magic3)
+C - - - - - 0x01F595 07:F585: 8D 03 03  STA vEnemyASpriteMagic3                   ;
+C - - - - - 0x01F598 07:F588: A9 70     LDA #$70                                  ; the offset for sprite_magic2
+C - - - - - 0x01F59A 07:F58A: 8D 02 03  STA vEnemyASpriteMagic2                   ;
+C - - - - - 0x01F59D 07:F58D: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA       ;
 
 ; Template 2
 ; In: $0000 - macro X-position
@@ -8946,6 +8951,8 @@ C - - - - - 0x01F6EC 07:F6DC: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA
 - D 3 - - - 0x01F6F4 07:F6E4: 44        .byte $44
 - D 3 - - - 0x01F6F5 07:F6E5: 0D        .byte $0D
 - D 3 - - - 0x01F6F6 07:F6E6: A4        .byte $A4
+
+loc_F6E7_wall_or_platform_appearance:
 C - - J - - 0x01F6F7 07:F6E7: 20 39 F3  JSR sub_F339
 C - - - - - 0x01F6FA 07:F6EA: 24 3C     BIT vGameLocks
 C - - - - - 0x01F6FC 07:F6EC: 30 5F     BMI bra_F74D
@@ -9017,6 +9024,7 @@ C - - - - - 0x01F76A 07:F75A: A9 00     LDA #$00
 C - - - - - 0x01F76C 07:F75C: 9D 80 03  STA ram_0380,X
 C - - - - - 0x01F76F 07:F75F: 4C 20 F8  JMP loc_F820_finish_creating_enemyB
 
+loc_F762_diver_appearance:
 C - - J - - 0x01F772 07:F762: 20 8A F3  JSR sub_F38A_start_enemyB_appearance
 C - - - - - 0x01F775 07:F765: 20 60 F3  JSR sub_F360_prepare_enemyB_start_status
 C - - - - - 0x01F778 07:F768: A9 00     LDA #$00
@@ -9120,7 +9128,7 @@ C - - - - - 0x01F839 07:F829: A0 02     LDY #$02                         ; set l
 C - - - - - 0x01F83B 07:F82B: B1 12     LDA (ram_0012),Y                 ;
 C - - - - - 0x01F83D 07:F82D: 99 1D 06  STA vCachePalette + 29,Y         ; set palette (3 colors)
 C - - - - - 0x01F840 07:F830: 88        DEY                              ; decrement loop counter
-C - - - - - 0x01F841 07:F831: 10 F8     BPL @bra_F82B_loop               ; If Register Y < 0xF0
+C - - - - - 0x01F841 07:F831: 10 F8     BPL @bra_F82B_loop               ; If Register Y < 0x80
 C - - - - - 0x01F843 07:F833: 8A        TXA                              ;
 C - - - - - 0x01F844 07:F834: 0A        ASL                              ;
 C - - - - - 0x01F845 07:F835: 0A        ASL                              ;
@@ -9144,7 +9152,7 @@ C - - - - - 0x01F863 07:F853: A0 02     LDY #$02                         ; set l
 C - - - - - 0x01F865 07:F855: B1 12     LDA (ram_0012),Y                 ;
 C - - - - - 0x01F867 07:F857: 99 19 06  STA vCachePalette + 25,Y         ; set palette (3 colors)
 C - - - - - 0x01F86A 07:F85A: 88        DEY                              ; decrement loop counter
-C - - - - - 0x01F86B 07:F85B: 10 F8     BPL @bra_F855_loop               ; If Register Y < 0xF0
+C - - - - - 0x01F86B 07:F85B: 10 F8     BPL @bra_F855_loop               ; If Register Y < 0x80
 C - - - - - 0x01F86D 07:F85D: 8A        TXA                              ;
 C - - - - - 0x01F86E 07:F85E: 0A        ASL                              ;
 C - - - - - 0x01F86F 07:F85F: 0A        ASL                              ;
@@ -9175,64 +9183,64 @@ loc_enemy_RTS:
 C - - J - - 0x01F897 07:F887: 60        RTS                           ;
 
 tbl_F888_enemy_appearance:
-- - - - - - 0x01F898 07:F888: 87 F8     .addr loc_enemy_RTS                 ; Nobody  (0x00)
-- D 3 - - - 0x01F89A 07:F88A: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Cat with the gun
-- D 3 - - - 0x01F89C 07:F88C: 3E F4     .addr loc_F43E_enemy_appearance_t4  ; Gray Land hat
-- D 3 - - - 0x01F89E 07:F88E: 3E F4     .addr loc_F43E_enemy_appearance_t4  ; Black Land hat
-- D 3 - - - 0x01F8A0 07:F890: CB F4     .addr loc_F3A2_land_diver_enemy     ; Land Diver
-- D 3 - - - 0x01F8A2 07:F892: CB F4     .addr loc_F3A2_land_diver_enemy     ; Land Diver
-- D 3 - - - 0x01F8A4 07:F894: CB F4     .addr loc_F3A2_land_diver_enemy     ; Land Diver
-- D 3 - - - 0x01F8A6 07:F896: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Zenigata
-- D 3 - - - 0x01F8A8 07:F898: 3D F5     .addr loc_F53D_bazooka_enemy        ; Shooter with bazooka
-- D 3 - - - 0x01F8AA 07:F89A: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; The fat sailor
-- D 3 - - - 0x01F8AC 07:F89C: 90 F5     .addr loc_F590_enemy_appearance_t2  ; The barrel
-- D 3 - - - 0x01F8AE 07:F89E: 6A F6     .addr loc_F66A_enemy_appearance_t5  ; Jumping sailor
-- D 3 - - - 0x01F8B0 07:F8A0: AB F6     .word $F6AB                         ; The lift
-- D 3 - - - 0x01F8B2 07:F8A2: 34 F6     .addr loc_F634_trap_appearance      ; Sensor
-- D 3 - - - 0x01F8B4 07:F8A4: 3E F4     .addr loc_F43E_enemy_appearance_t4  ; Bat
-- D 3 - - - 0x01F8B6 07:F8A6: 90 F5     .addr loc_F590_enemy_appearance_t2  ; Gray cat
-- D 3 - - - 0x01F8B8 07:F8A8: 6A F6     .addr loc_F66A_enemy_appearance_t5  ; Nun (0x10)
-- D 3 - - - 0x01F8BA 07:F8AA: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Girl in red, in the castle
-- D 3 - - - 0x01F8BC 07:F8AC: 3E F4     .addr loc_F43E_enemy_appearance_t4  ; Batterfly
-- D 3 - - - 0x01F8BE 07:F8AE: 3E F4     .addr loc_F43E_enemy_appearance_t4  ; Broned batterfly
-- D 3 - - - 0x01F8C0 07:F8B0: 3D F5     .addr loc_F53D_bazooka_enemy        ; Shooter with bazooka
-- D 3 - - - 0x01F8C2 07:F8B2: 34 F6     .addr loc_F634_trap_appearance      ; Sensor
-- D 3 - - - 0x01F8C4 07:F8B4: 90 F5     .addr loc_F590_enemy_appearance_t2  ; Black cat
-- D 3 - - - 0x01F8C6 07:F8B6: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Karate-boy
-- D 3 - - - 0x01F8C8 07:F8B8: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Karate-boy in blue on the street
-- D 3 - - - 0x01F8CA 07:F8BA: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Karate-girl
-- D 3 - - - 0x01F8CC 07:F8BC: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Boy in green
-- D 3 - - - 0x01F8CE 07:F8BE: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Girl with sword
-- D 3 - - - 0x01F8D0 07:F8C0: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Knight in armor with a shield
-- D 3 - - - 0x01F8D2 07:F8C2: 90 F5     .addr loc_F590_enemy_appearance_t2  ; The barrel
-- D 3 - - - 0x01F8D4 07:F8C4: 34 F6     .addr loc_F634_trap_appearance      ; Sensor
-- D 3 - - - 0x01F8D6 07:F8C6: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Fly man
-- D 3 - - - 0x01F8D8 07:F8C8: 3D F5     .addr loc_F53D_bazooka_enemy        ; Shooter with bazooka (0x20)
-- D 3 - - - 0x01F8DA 07:F8CA: 90 F5     .addr loc_F590_enemy_appearance_t2  ; Cobblestone
-- D 3 - - - 0x01F8DC 07:F8CC: 90 F5     .addr loc_F590_enemy_appearance_t2  ; The bird
-- D 3 - - - 0x01F8DE 07:F8CE: 90 F5     .addr loc_F590_enemy_appearance_t2  ; The bird with a bomb
-- D 3 - - - 0x01F8E0 07:F8D0: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Skeleton
-- D 3 - - - 0x01F8E2 07:F8D2: 62 F7     .word $F762                         ; Diver
-- D 3 - - - 0x01F8E4 07:F8D4: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Mummy
-- D 3 - - - 0x01F8E6 07:F8D6: 3E F4     .addr loc_F43E_enemy_appearance_t4  ; Gargoyle
-- D 3 - - - 0x01F8E8 07:F8D8: 81 F7     .word $F781                         ; Boss
-- - - - - - 0x01F8EA 07:F8DA: 87 F8     .addr loc_enemy_RTS                 ; ???
-- D 3 - - - 0x01F8EC 07:F8DC: 7D F7     .word $F77D                         ; Boss
-- - - - - - 0x01F8EE 07:F8DE: 87 F8     .addr loc_enemy_RTS                 ; ???
-- D 3 - - - 0x01F8F0 07:F8E0: 79 F7     .word $F779                         ; Boss
-- - - - - - 0x01F8F2 07:F8E2: 87 F8     .addr loc_enemy_RTS                 ; ???
-- D 3 - - - 0x01F8F4 07:F8E4: 75 F7     .word $F775                         ; Boss
-- - - - - - 0x01F8F6 07:F8E6: 87 F8     .addr loc_enemy_RTS                 ; ???
-- D 3 - - - 0x01F8F8 07:F8E8: E7 F6     .word $F6E7                         ; Wall
-- D 3 - - - 0x01F8FA 07:F8EA: E7 F6     .word $F6E7                         ; Wall
-- D 3 - - - 0x01F8FC 07:F8EC: E7 F6     .word $F6E7                         ; Breaking platform
-- D 3 - - - 0x01F8FE 07:F8EE: 34 F6     .addr loc_F634_trap_appearance      ; Blade trap
-- D 3 - - - 0x01F900 07:F8F0: 90 F5     .addr loc_F590_enemy_appearance_t2  ; Potted snakes
-- D 3 - - - 0x01F902 07:F8F2: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Egyptian with bow
-- D 3 - - - 0x01F904 07:F8F4: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Egyptian with a sword
-- D 3 - - - 0x01F906 07:F8F6: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Egyptian with a boomerung
-- D 3 - - - 0x01F908 07:F8F8: A2 F3     .addr loc_F3A2_enemy_appearance_t3  ; Ninja upside down
-- D 3 - - - 0x01F90A 07:F8FA: 34 F6     .addr loc_F634_trap_appearance      ; Sensor
+- - - - - - 0x01F898 07:F888: 87 F8     .addr loc_enemy_RTS                         ; Nobody  (0x00)
+- D 3 - - - 0x01F89A 07:F88A: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Cat with the gun
+- D 3 - - - 0x01F89C 07:F88C: 3E F4     .addr loc_F43E_enemy_appearance_t4          ; Gray Land hat
+- D 3 - - - 0x01F89E 07:F88E: 3E F4     .addr loc_F43E_enemy_appearance_t4          ; Black Land hat
+- D 3 - - - 0x01F8A0 07:F890: CB F4     .addr loc_F3A2_land_diver_enemy             ; Land Diver
+- D 3 - - - 0x01F8A2 07:F892: CB F4     .addr loc_F3A2_land_diver_enemy             ; Land Diver
+- D 3 - - - 0x01F8A4 07:F894: CB F4     .addr loc_F3A2_land_diver_enemy             ; Land Diver
+- D 3 - - - 0x01F8A6 07:F896: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Zenigata
+- D 3 - - - 0x01F8A8 07:F898: 3D F5     .addr loc_F53D_bazooka_enemy                ; Shooter with bazooka
+- D 3 - - - 0x01F8AA 07:F89A: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; The fat sailor
+- D 3 - - - 0x01F8AC 07:F89C: 90 F5     .addr loc_F590_enemy_appearance_t2          ; The barrel
+- D 3 - - - 0x01F8AE 07:F89E: 6A F6     .addr loc_F66A_enemy_appearance_t5          ; Jumping sailor
+- D 3 - - - 0x01F8B0 07:F8A0: AB F6     .word $F6AB                                 ; The lift
+- D 3 - - - 0x01F8B2 07:F8A2: 34 F6     .addr loc_F634_trap_appearance              ; Sensor
+- D 3 - - - 0x01F8B4 07:F8A4: 3E F4     .addr loc_F43E_enemy_appearance_t4          ; Bat
+- D 3 - - - 0x01F8B6 07:F8A6: 90 F5     .addr loc_F590_enemy_appearance_t2          ; Gray cat
+- D 3 - - - 0x01F8B8 07:F8A8: 6A F6     .addr loc_F66A_enemy_appearance_t5          ; Nun (0x10)
+- D 3 - - - 0x01F8BA 07:F8AA: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Girl in red, in the castle
+- D 3 - - - 0x01F8BC 07:F8AC: 3E F4     .addr loc_F43E_enemy_appearance_t4          ; Batterfly
+- D 3 - - - 0x01F8BE 07:F8AE: 3E F4     .addr loc_F43E_enemy_appearance_t4          ; Broned batterfly
+- D 3 - - - 0x01F8C0 07:F8B0: 3D F5     .addr loc_F53D_bazooka_enemy                ; Shooter with bazooka
+- D 3 - - - 0x01F8C2 07:F8B2: 34 F6     .addr loc_F634_trap_appearance              ; Sensor
+- D 3 - - - 0x01F8C4 07:F8B4: 90 F5     .addr loc_F590_enemy_appearance_t2          ; Black cat
+- D 3 - - - 0x01F8C6 07:F8B6: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Karate-boy
+- D 3 - - - 0x01F8C8 07:F8B8: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Karate-boy in blue on the street
+- D 3 - - - 0x01F8CA 07:F8BA: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Karate-girl
+- D 3 - - - 0x01F8CC 07:F8BC: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Boy in green
+- D 3 - - - 0x01F8CE 07:F8BE: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Girl with sword
+- D 3 - - - 0x01F8D0 07:F8C0: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Knight in armor with a shield
+- D 3 - - - 0x01F8D2 07:F8C2: 90 F5     .addr loc_F590_enemy_appearance_t2          ; The barrel
+- D 3 - - - 0x01F8D4 07:F8C4: 34 F6     .addr loc_F634_trap_appearance              ; Sensor
+- D 3 - - - 0x01F8D6 07:F8C6: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Fly man
+- D 3 - - - 0x01F8D8 07:F8C8: 3D F5     .addr loc_F53D_bazooka_enemy                ; Shooter with bazooka (0x20)
+- D 3 - - - 0x01F8DA 07:F8CA: 90 F5     .addr loc_F590_enemy_appearance_t2          ; Cobblestone
+- D 3 - - - 0x01F8DC 07:F8CC: 90 F5     .addr loc_F590_enemy_appearance_t2          ; The bird
+- D 3 - - - 0x01F8DE 07:F8CE: 90 F5     .addr loc_F590_enemy_appearance_t2          ; The bird with a bomb
+- D 3 - - - 0x01F8E0 07:F8D0: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Skeleton
+- D 3 - - - 0x01F8E2 07:F8D2: 62 F7     .addr loc_F762_diver_appearance             ; Diver
+- D 3 - - - 0x01F8E4 07:F8D4: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Mummy
+- D 3 - - - 0x01F8E6 07:F8D6: 3E F4     .addr loc_F43E_enemy_appearance_t4          ; Gargoyle
+- D 3 - - - 0x01F8E8 07:F8D8: 81 F7     .word $F781                                 ; Boss
+- - - - - - 0x01F8EA 07:F8DA: 87 F8     .addr loc_enemy_RTS                         ; ???
+- D 3 - - - 0x01F8EC 07:F8DC: 7D F7     .word $F77D                                 ; Boss
+- - - - - - 0x01F8EE 07:F8DE: 87 F8     .addr loc_enemy_RTS                         ; ???
+- D 3 - - - 0x01F8F0 07:F8E0: 79 F7     .word $F779                                 ; Boss
+- - - - - - 0x01F8F2 07:F8E2: 87 F8     .addr loc_enemy_RTS                         ; ???
+- D 3 - - - 0x01F8F4 07:F8E4: 75 F7     .word $F775                                 ; Boss
+- - - - - - 0x01F8F6 07:F8E6: 87 F8     .addr loc_enemy_RTS                         ; ???
+- D 3 - - - 0x01F8F8 07:F8E8: E7 F6     .addr loc_F6E7_wall_or_platform_appearance  ; Wall
+- D 3 - - - 0x01F8FA 07:F8EA: E7 F6     .addr loc_F6E7_wall_or_platform_appearance  ; Wall
+- D 3 - - - 0x01F8FC 07:F8EC: E7 F6     .addr loc_F6E7_wall_or_platform_appearance  ; Breaking platform
+- D 3 - - - 0x01F8FE 07:F8EE: 34 F6     .addr loc_F634_trap_appearance              ; Blade trap
+- D 3 - - - 0x01F900 07:F8F0: 90 F5     .addr loc_F590_enemy_appearance_t2          ; Potted snakes
+- D 3 - - - 0x01F902 07:F8F2: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Egyptian with bow
+- D 3 - - - 0x01F904 07:F8F4: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Egyptian with a sword
+- D 3 - - - 0x01F906 07:F8F6: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Egyptian with a boomerung
+- D 3 - - - 0x01F908 07:F8F8: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Ninja upside down
+- D 3 - - - 0x01F90A 07:F8FA: 34 F6     .addr loc_F634_trap_appearance              ; Sensor
 
 tbl_F8FC_enemies:
 - D 3 - - - 0x01F90C 07:F8FC: 02        .byte $02 ; Gray land hat
@@ -9276,7 +9284,7 @@ C - - - - - 0x01F92C 07:F91C: 20 46 EF  JSR sub_EF46_switch_bank_4_p1  ;
 C - - - - - 0x01F92F 07:F91F: A0 00     LDY #$00                       ; 1st of 5 bytes
 loc_F921_next_set:
 C D 3 - - - 0x01F931 07:F921: B1 BD     LDA (vCorridorAddr),Y          ;
-C - - - - - 0x01F933 07:F923: 10 03     BPL bra_F928_skip              ; If Register A < 0xF0 (waiting for 0xFF)
+C - - - - - 0x01F933 07:F923: 10 03     BPL bra_F928_skip              ; If Register A < 0x80 (waiting for 0xFF)
 bra_F925_fail:
 C - - - - - 0x01F935 07:F925: 4C C9 F9  JMP loc_F9C9_safe_return_false ;
 

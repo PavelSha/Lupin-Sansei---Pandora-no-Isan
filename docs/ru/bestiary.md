@@ -39,7 +39,7 @@
 |0x24|Skeleton| A |   | 4 |
 |0x25|Diver| B |   |   |
 |0x26|Mummy| A |   | 4 |
-|0x27|Gargoyle| B |   | 4 |
+|0x27|Gargoyle| B | [Гаргулья](#враг-27) | 4 |
 |0x28|Boss| A |   | 1 |
 |0x29| ? |   |   |   |
 |0x2A|Boss| A |   | 2 |
@@ -105,3 +105,10 @@
 |---|---|---|
 | ![Frame1](../images/enemy1F/frame1-r.png) | ![Frame2](../images/enemy1F/frame2-r.png) | ![Frame3](../images/enemy1F/frame3-r.png) |
 | ![Frame1](../images/enemy1F/frame1-l.png) | ![Frame2](../images/enemy1F/frame2-l.png) | ![Frame3](../images/enemy1F/frame3-l.png) |
+
+## Враг 27
+Гаргулья
+|Кадр 1|Кадр 2|Кадр 3|
+|---|---|---|
+| ![Frame1](../images/enemy27/frame1-r.png) | ![Frame2](../images/enemy27/frame2-r.png) | ![Frame3](../images/enemy27/frame3-r.png) |
+| ![Frame1](../images/enemy27/frame1-l.png) | ![Frame2](../images/enemy27/frame2-l.png) | ![Frame3](../images/enemy27/frame3-l.png) |

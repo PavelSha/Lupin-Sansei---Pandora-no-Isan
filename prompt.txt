@@ -16,7 +16,7 @@
 ; BEQ bra_XXX ; If Register Y == 0x1A
 
 ; LDA *
-; BPL bra_XXX ; If Register A < 0xF0
+; BPL bra_XXX ; If Register A < 0x80
 
 ; INX
 ; BNE bra_XXX ; If Register X != 0
@@ -37,4 +37,4 @@
 ; BEQ bra_XXX ; If Register A == 0x00
 
 ; DEX
-; BPL bra_XXX ; If Register X < 0xF0
+; BPL bra_XXX ; If Register X < 0x80

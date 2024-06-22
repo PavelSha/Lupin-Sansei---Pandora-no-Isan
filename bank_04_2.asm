@@ -509,7 +509,7 @@ tbl_ptr_enemies:
 - D 0 - - - 0x012430 04:8420: 90 85     .addr deadlock
 - D 0 - - - 0x012432 04:8422: 90 85     .addr deadlock
 - D 0 - - - 0x012434 04:8424: 90 85     .addr deadlock
-- D 0 - - - 0x012436 04:8426: C6 8E     .word $8EC6 ; Level 4, map 1 (B2-D2)
+- D 0 - - - 0x012436 04:8426: C6 8E     .addr tbl_enemies_level4_map1_b2_d2; CPU address $8EC6
 - D 0 - - - 0x012438 04:8428: D7 8E     .word $8ED7 ; level 4, map 1 (C0-C2)
 - D 0 - - - 0x01243A 04:842A: 90 85     .addr deadlock ; 
 - D 0 - - - 0x01243C 04:842C: E8 8E     .word $8EE8 ; level 4, map 1 (B1-B3)
@@ -1283,7 +1283,7 @@ deadlock:
 - D 0 - I - 0x012ED1 04:8EC1: 22        .byte $22, $F8, $38, $21   ; 
 - D 0 - I - 0x012ED5 04:8EC5: FF        .byte $FF   ; 
 
-; Level 4, map 1 (B2-D2)
+tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x012ED6 04:8EC6: 00        .byte $00, $28, $BF, $36   ; Egyptian with a sword
 - D 0 - I - 0x012EDA 04:8ECA: 00        .byte $00, $C0, $BF, $36   ;
 - D 0 - I - 0x012EDE 04:8ECE: 01        .byte $01, $18, $BF, $36   ;
