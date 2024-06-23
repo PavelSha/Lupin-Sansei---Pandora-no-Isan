@@ -4566,6 +4566,7 @@ C - - - - - 0x00FC7C 03:BC6C: 29 10     AND #$10                          ; CONS
 C - - - - - 0x00FC7E 03:BC6E: D0 0D     BNE bra_BC7D_prepare_rendering    ; If Register A == 0%XXX1XXXX
 C - - - - - 0x00FC80 03:BC70: A0 10     LDY #$10                          ; an input parameter - sprite_magic2 (a stop frame #2)
 C - - - - - 0x00FC82 03:BC72: D0 09     BNE bra_BC7D_prepare_rendering    ; Always true
+
 @bra_BC74_skip:
 C - - - - - 0x00FC84 03:BC74: 20 D6 BC  JSR sub_BCD6_movement             ;
 C - - - - - 0x00FC87 03:BC77: BD 80 03  LDA vEnemyBFrame_Counter,X        ;

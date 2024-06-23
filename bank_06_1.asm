@@ -390,6 +390,7 @@ C - - - - - 0x0181D6 06:A1C6: BD 20 03  LDA vEnemyAStatus,X            ;
 C - - - - - 0x0181D9 06:A1C9: 09 02     ORA #$02                       ; CONSTANT - a jump status
 C - - - - - 0x0181DB 06:A1CB: 9D 20 03  STA vEnemyAStatus,X            ;
 C - - - - - 0x0181DE 06:A1CE: D0 61     BNE bra_A231_jump              ; Always true
+
 @bra_A1D0_skip:
 C - - - - - 0x0181E0 06:A1D0: BD 38 03  LDA vEnemyAPosXLow,X           ;
 C - - - - - 0x0181E3 06:A1D3: 85 00     STA ram_0000                   ; prepares the 1st parameter
@@ -504,6 +505,7 @@ C - - - - - 0x0182A2 06:A292: F0 07     BEQ bra_A29B_weak                       
 C - - - - - 0x0182A4 06:A294: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision   ;
 C - - - - - 0x0182A7 06:A297: D0 0E     BNE bra_A2A7_landing                         ; If the strong collision is exist
 C - - - - - 0x0182A9 06:A299: F0 18     BEQ bra_A2B3_inc                             ; Always true
+
 bra_A29B_weak:
 C - - - - - 0x0182AB 06:A29B: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision   ;
 C - - - - - 0x0182AE 06:A29E: F0 13     BEQ bra_A2B3_inc                             ; If the strong collision doesn't exist
@@ -516,6 +518,7 @@ C - - - - - 0x0182BA 06:A2AA: BD 20 03  LDA vEnemyAStatus,X                     
 C - - - - - 0x0182BD 06:A2AD: 29 20     AND #$20                                     ; CONSTANT - the dying
 C - - - - - 0x0182BF 06:A2AF: D0 1D     BNE bra_A2CE_start_dying                     ; If the enemy is dying
 C - - - - - 0x0182C1 06:A2B1: F0 0A     BEQ bra_A2BD_clear                           ; Always true
+
 bra_A2B3_inc:
 C - - - - - 0x0182C3 06:A2B3: FE 4A 03  INC vEnemyAJumpCounter,X                     ;
 C - - - - - 0x0182C6 06:A2B6: A9 2F     LDA #$2F                                     ; CONSTANT - a maximum jump value
@@ -578,11 +581,13 @@ C - - - - - 0x018324 06:A314: C9 10     CMP #$10                          ;
 C - - - - - 0x018326 06:A316: F0 04     BEQ @bra_A31C_skip                ; If the enemy is going to jump
 C - - - - - 0x018328 06:A318: A9 18     LDA #$18                          ; An initialize jump value for 'stop' 
 C - - - - - 0x01832A 06:A31A: D0 02     BNE @bra_A31E_skip                ; Always true
+
 @bra_A31C_skip:
 C - - - - - 0x01832C 06:A31C: A9 20     LDA #$20                          ; An initialize jump value for 'squatting' 
 @bra_A31E_skip:
 C - - - - - 0x01832E 06:A31E: 9D 4A 03  STA vEnemyAJumpCounter,X          ;
 C - - - - - 0x018331 06:A321: D0 02     BNE bra_A325_change_substatus_ex  ; Always true
+
 ; In: Register A - an new status
 sub_A323_change_substatus:
 C - - - - - 0x018333 06:A323: 85 05     STA ram_0005                      ;
@@ -830,6 +835,7 @@ C - - - - - 0x0184D8 06:A4C8: B0 07     BCS @bra_A4D1_skip                      
 C - - - - - 0x0184DA 06:A4CA: 20 B7 D8  JSR sub_D8B7_check_enemyB_movement_on_the_right  ;
 C - - - - - 0x0184DD 06:A4CD: F0 2A     BEQ bra_A4F9_skip                                ; If the movement to the right is not allowed
 C - - - - - 0x0184DF 06:A4CF: D0 09     BNE @bra_A4DA_calculate_position                 ; Always true
+
 @bra_A4D1_skip:
 C - - - - - 0x0184E1 06:A4D1: C9 09     CMP #$09                                         ;
 C - - - - - 0x0184E3 06:A4D3: 90 24     BCC bra_A4F9_skip                                ; If the offset index < 0x09
@@ -860,6 +866,7 @@ C - - - - - 0x018512 06:A502: B0 07     BCS @bra_A50B_skip                      
 C - - - - - 0x018514 06:A504: 20 CD D8  JSR sub_D8CD_enemyB_collision_plus_one           ;
 C - - - - - 0x018517 06:A507: F0 1E     BEQ bra_A527_RTS                                 ; If downward movement is not allowed
 C - - - - - 0x018519 06:A509: D0 0D     BNE bra_A518_inc_posY                            ; Always true
+
 @bra_A50B_skip:
 C - - - - - 0x01851B 06:A50B: C9 04     CMP #$04                                         ;
 C - - - - - 0x01851D 06:A50D: 90 04     BCC @bra_A513_skip                               ; If the offset index < 0x04
@@ -902,6 +909,7 @@ C - - - - - 0x018560 06:A550: C0 01     CPY #$01                             ; 1
 C - - - - - 0x018562 06:A552: D0 1B     BNE @bra_A56F_assign_new_values      ; If Register Y != 0x01
 C - - - - - 0x018564 06:A554: A9 08     LDA #$08                             ; new jump type #2
 C - - - - - 0x018566 06:A556: D0 17     BNE @bra_A56F_assign_new_values      ; Always true
+
 @bra_A558_skip:
 C - - - - - 0x018568 06:A558: BD 68 03  LDA vEnemyBPosY,X                    ;
 C - - - - - 0x01856B 06:A55B: C9 BF     CMP #$BF                             ;
@@ -1577,6 +1585,7 @@ C - - - - - 0x0189AF 06:A99F: F0 06     BEQ @bra_A9A7_skip                 ; If 
 C - - - - - 0x0189B1 06:A9A1: A9 01     LDA #$01                           ; <~ hitBoxH (#1)
 C - - - - - 0x0189B3 06:A9A3: A0 02     LDY #$02                           ; <~ hitBoxW (#1)
 C - - - - - 0x0189B5 06:A9A5: D0 04     BNE @bra_A9AB_skip                 ; Always true
+
 @bra_A9A7_skip:
 C - - - - - 0x0189B7 06:A9A7: A9 08     LDA #$08                           ; <~ hitBoxH (#2)
 C - - - - - 0x0189B9 06:A9A9: A0 06     LDY #$06                           ; <~ hitBoxW (#2)
@@ -1777,6 +1786,7 @@ C - - - - - 0x018AFA 06:AAEA: 69 AC     ADC #$AC                        ;
 C - - - - - 0x018AFC 06:AAEC: 85 01     STA ram_0001                    ; Y + 0xAC ~> sprite_magic2
 C - - - - - 0x018AFE 06:AAEE: A9 80     LDA #$80                        ; prepares the sprite_magic3 #3
 C - - - - - 0x018B00 06:AAF0: D0 F1     BNE bra_AAE3_add                ; Always true
+
 loc_AAF2_try_to_move_along_parabola:
 C D 1 - - - 0x018B02 06:AAF2: A9 0C     LDA #$0C                        ;
 C - - - - - 0x018B04 06:AAF4: 9D 4A 03  STA vEnemyAJumpCounter,X        ; Initializes a jump counter
@@ -2722,6 +2732,7 @@ C - - - - - 0x019117 06:B107: C9 03     CMP #$03                                
 C - - - - - 0x019119 06:B109: D0 1D     BNE @bra_B128_pop                        ; If jumpType != 0%XXXXX011, i.e. jumpType != 0x03 and jumpType != 0x0B
 C - - - - - 0x01911B 06:B10B: A9 02     LDA #$02                                 ; CONSTANT - the projectile number offset
 C - - - - - 0x01911D 06:B10D: D0 02     BNE @bra_B111_skip                       ; Always true
+
 C - - - - - 0x01911F 06:B10F: A9 00     LDA #$00                                 ; !(UNUSED), not used
 @bra_B111_skip:
 C - - - - - 0x019121 06:B111: 18        CLC                                      ;

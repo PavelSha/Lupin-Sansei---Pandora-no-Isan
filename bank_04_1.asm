@@ -17,6 +17,7 @@
 .export tbl_character_select_palette
 .export tbl_ptr_checkpoints_on_the_level
 .export tbl_ptr_enemy_palette
+.export tbl_road_hills
 
 ; see $C5B2
 - - - - - - 0x010010 04:8000: 7B 9D     .addr loc_main_menu_gunshot_f1 ; frame 1
@@ -1231,36 +1232,19 @@ tbl_roof_pitches:
 - D 0 - - - 0x010664 04:8654: F2        .byte $F2   ; 
 - D 0 - - - 0x010665 04:8655: 18        .byte $18   ; 
 - D 0 - - - 0x010666 04:8656: F0        .byte $F0   ; 
-- D 0 - - - 0x010667 04:8657: 17        .byte $17   ; 
-- D 0 - - - 0x010668 04:8658: 30        .byte $30   ; <0>
-- D 0 - - - 0x010669 04:8659: 70        .byte $70   ; <p>
-- D 0 - - - 0x01066A 04:865A: 19        .byte $19   ; 
-- D 0 - - - 0x01066B 04:865B: B0        .byte $B0   ; 
-- D 0 - - - 0x01066C 04:865C: F0        .byte $F0   ; 
-- D 0 - - - 0x01066D 04:865D: 1A        .byte $1A   ; 
-- D 0 - - - 0x01066E 04:865E: 20        .byte $20   ; 
-- D 0 - - - 0x01066F 04:865F: 50        .byte $50   ; <P>
-- D 0 - - - 0x010670 04:8660: 1A        .byte $1A   ; 
-- D 0 - - - 0x010671 04:8661: C0        .byte $C0   ; 
-- D 0 - - - 0x010672 04:8662: F0        .byte $F0   ; 
-- D 0 - - - 0x010673 04:8663: 1B        .byte $1B   ; 
-- D 0 - - - 0x010674 04:8664: 30        .byte $30   ; <0>
-- D 0 - - - 0x010675 04:8665: 60        .byte $60   ; 
-- D 0 - - - 0x010676 04:8666: 1C        .byte $1C   ; 
-- D 0 - - - 0x010677 04:8667: B0        .byte $B0   ; 
-- D 0 - - - 0x010678 04:8668: F0        .byte $F0   ; 
-- D 0 - - - 0x010679 04:8669: 1D        .byte $1D   ; 
-- D 0 - - - 0x01067A 04:866A: 20        .byte $20   ; 
-- D 0 - - - 0x01067B 04:866B: 70        .byte $70   ; <p>
-- D 0 - - - 0x01067C 04:866C: 1F        .byte $1F   ; 
-- D 0 - - - 0x01067D 04:866D: B0        .byte $B0   ; 
-- D 0 - - - 0x01067E 04:866E: F0        .byte $F0   ; 
-- D 0 - - - 0x01067F 04:866F: 20        .byte $20   ; 
-- D 0 - - - 0x010680 04:8670: 20        .byte $20   ; 
-- D 0 - - - 0x010681 04:8671: 50        .byte $50   ; <P>
-- D 0 - - - 0x010682 04:8672: 20        .byte $20   ; 
-- D 0 - - - 0x010683 04:8673: C0        .byte $C0   ; 
-- D 0 - - - 0x010684 04:8674: F0        .byte $F0   ; 
+
+; 1 byte - ascent, HighPosX 
+; 2 byte - ascent, start LowPosX
+; 3 byte - ascent, end LowPosX
+; 4 byte - descent, HighPosX
+; 5 byte - descent, start LowPosX
+; 6 byte - descent, end LowPosX
+tbl_road_hills:
+- D 0 - - - 0x010667 04:8657: 17        .byte $17, $30, $70, $19, $B0, $F0
+- D 0 - - - 0x01066D 04:865D: 1A        .byte $1A, $20, $50, $1A, $C0, $F0
+- D 0 - - - 0x010673 04:8663: 1B        .byte $1B, $30, $60, $1C, $B0, $F0
+- D 0 - - - 0x010679 04:8669: 1D        .byte $1D, $20, $70, $1F, $B0, $F0
+- D 0 - - - 0x01067F 04:866F: 20        .byte $20, $20, $50, $20, $C0, $F0
 
 tbl_ptr_checkpoints_on_the_level1:
 - D 0 - I - 0x010685 04:8675: 1A        .byte $1A

@@ -2789,6 +2789,7 @@ C - - - - - 0x01B1F6 06:B1E6: B9 19 02  LDA vArrayWhiteBriefcase,Y              
 C - - - - - 0x01B1F9 06:B1E9: 30 04     BMI @bra_B1EF_no_exist                              ; Go to branch, if the briefcase item is collected
 C - - - - - 0x01B1FB 06:B1EB: A9 C0     LDA #$C0                                            ; CONSTANT: The item is in the briefcase, i.e. it's hidden
 C - - - - - 0x01B1FD 06:B1ED: D0 02     BNE @bra_B1F1_skip                                  ; Always true
+
 @bra_B1EF_no_exist:
 C - - - - - 0x01B1FF 06:B1EF: A9 00     LDA #$00                                            ; CONSTANT: the item is collected
 @bra_B1F1_skip:
