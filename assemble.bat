@@ -71,74 +71,74 @@ start /wait lua53 preparations.lua
 :: -l = create listing file
 :: -g = create debug file
 if %fast_assembly% equ 1 (
-    ca65 -U copy_bank_00_1.asm
-    ca65 -U copy_bank_00_2.asm
-    ca65 -U copy_bank_01_1.asm
-    ca65 -U copy_bank_01_2.asm
-    ca65 -U copy_bank_02_1.asm
-    ca65 -U copy_bank_02_2.asm
-    ca65 -U copy_bank_03_1.asm
-    ca65 -U copy_bank_03_2.asm
-    ca65 -U copy_bank_04_1.asm
-    ca65 -U copy_bank_04_2.asm
-    ca65 -U copy_bank_05_1.asm
-    ca65 -U copy_bank_05_2.asm
-    ca65 -U copy_bank_06_1.asm
-    ca65 -U copy_bank_06_2.asm
-    ca65 -U copy_bank_FF.asm
+    ca65 -U src\copy_bank_00_1.asm
+    ca65 -U src\copy_bank_00_2.asm
+    ca65 -U src\copy_bank_01_1.asm
+    ca65 -U src\copy_bank_01_2.asm
+    ca65 -U src\copy_bank_02_1.asm
+    ca65 -U src\copy_bank_02_2.asm
+    ca65 -U src\copy_bank_03_1.asm
+    ca65 -U src\copy_bank_03_2.asm
+    ca65 -U src\copy_bank_04_1.asm
+    ca65 -U src\copy_bank_04_2.asm
+    ca65 -U src\copy_bank_05_1.asm
+    ca65 -U src\copy_bank_05_2.asm
+    ca65 -U src\copy_bank_06_1.asm
+    ca65 -U src\copy_bank_06_2.asm
+    ca65 -U src\copy_bank_FF.asm
 ) else (
-    ca65 -U -l copy_bank_00_1.lst   -g copy_bank_00_1.asm
-    ca65 -U -l copy_bank_00_2.lst   -g copy_bank_00_2.asm
-    ca65 -U -l copy_bank_01_1.lst   -g copy_bank_01_1.asm
-    ca65 -U -l copy_bank_01_2.lst   -g copy_bank_01_2.asm
-    ca65 -U -l copy_bank_02_1.lst   -g copy_bank_02_1.asm
-    ca65 -U -l copy_bank_02_2.lst   -g copy_bank_02_2.asm
-    ca65 -U -l copy_bank_03_1.lst   -g copy_bank_03_1.asm
-    ca65 -U -l copy_bank_03_2.lst   -g copy_bank_03_2.asm
-    ca65 -U -l copy_bank_04_1.lst   -g copy_bank_04_1.asm
-    ca65 -U -l copy_bank_04_2.lst   -g copy_bank_04_2.asm
-    ca65 -U -l copy_bank_05_1.lst   -g copy_bank_05_1.asm
-    ca65 -U -l copy_bank_05_2.lst   -g copy_bank_05_2.asm
-    ca65 -U -l copy_bank_06_1.lst   -g copy_bank_06_1.asm
-    ca65 -U -l copy_bank_06_2.lst   -g copy_bank_06_2.asm
-    ca65 -U -l copy_bank_FF.lst     -g copy_bank_FF.asm
+    ca65 -U -l src\copy_bank_00_1.lst   -g src\copy_bank_00_1.asm
+    ca65 -U -l src\copy_bank_00_2.lst   -g src\copy_bank_00_2.asm
+    ca65 -U -l src\copy_bank_01_1.lst   -g src\copy_bank_01_1.asm
+    ca65 -U -l src\copy_bank_01_2.lst   -g src\copy_bank_01_2.asm
+    ca65 -U -l src\copy_bank_02_1.lst   -g src\copy_bank_02_1.asm
+    ca65 -U -l src\copy_bank_02_2.lst   -g src\copy_bank_02_2.asm
+    ca65 -U -l src\copy_bank_03_1.lst   -g src\copy_bank_03_1.asm
+    ca65 -U -l src\copy_bank_03_2.lst   -g src\copy_bank_03_2.asm
+    ca65 -U -l src\copy_bank_04_1.lst   -g src\copy_bank_04_1.asm
+    ca65 -U -l src\copy_bank_04_2.lst   -g src\copy_bank_04_2.asm
+    ca65 -U -l src\copy_bank_05_1.lst   -g src\copy_bank_05_1.asm
+    ca65 -U -l src\copy_bank_05_2.lst   -g src\copy_bank_05_2.asm
+    ca65 -U -l src\copy_bank_06_1.lst   -g src\copy_bank_06_1.asm
+    ca65 -U -l src\copy_bank_06_2.lst   -g src\copy_bank_06_2.asm
+    ca65 -U -l src\copy_bank_FF.lst     -g src\copy_bank_FF.asm
 )
 
 :: assemble code into binaries
 if %fast_assembly% equ 1 (
     ld65 -C ld65.cfg -o PRG_ROM.bin ^
-        copy_bank_00_1.o ^
-        copy_bank_00_2.o ^
-        copy_bank_01_1.o ^
-        copy_bank_01_2.o ^
-        copy_bank_02_1.o ^
-        copy_bank_02_2.o ^
-        copy_bank_03_1.o ^
-        copy_bank_03_2.o ^
-        copy_bank_04_1.o ^
-        copy_bank_04_2.o ^
-        copy_bank_05_1.o ^
-        copy_bank_05_2.o ^
-        copy_bank_06_1.o ^
-        copy_bank_06_2.o ^
-        copy_bank_FF.o
+        src\copy_bank_00_1.o ^
+        src\copy_bank_00_2.o ^
+        src\copy_bank_01_1.o ^
+        src\copy_bank_01_2.o ^
+        src\copy_bank_02_1.o ^
+        src\copy_bank_02_2.o ^
+        src\copy_bank_03_1.o ^
+        src\copy_bank_03_2.o ^
+        src\copy_bank_04_1.o ^
+        src\copy_bank_04_2.o ^
+        src\copy_bank_05_1.o ^
+        src\copy_bank_05_2.o ^
+        src\copy_bank_06_1.o ^
+        src\copy_bank_06_2.o ^
+        src\copy_bank_FF.o
 ) else (
     ld65 -C ld65.cfg -o PRG_ROM.bin --dbgfile %debug_name% ^
-        copy_bank_00_1.o ^
-        copy_bank_00_2.o ^
-        copy_bank_01_1.o ^
-        copy_bank_01_2.o ^
-        copy_bank_02_1.o ^
-        copy_bank_02_2.o ^
-        copy_bank_03_1.o ^
-        copy_bank_03_2.o ^
-        copy_bank_04_1.o ^
-        copy_bank_04_2.o ^
-        copy_bank_05_1.o ^
-        copy_bank_05_2.o ^
-        copy_bank_06_1.o ^
-        copy_bank_06_2.o ^
-        copy_bank_FF.o
+        src\copy_bank_00_1.o ^
+        src\copy_bank_00_2.o ^
+        src\copy_bank_01_1.o ^
+        src\copy_bank_01_2.o ^
+        src\copy_bank_02_1.o ^
+        src\copy_bank_02_2.o ^
+        src\copy_bank_03_1.o ^
+        src\copy_bank_03_2.o ^
+        src\copy_bank_04_1.o ^
+        src\copy_bank_04_2.o ^
+        src\copy_bank_05_1.o ^
+        src\copy_bank_05_2.o ^
+        src\copy_bank_06_1.o ^
+        src\copy_bank_06_2.o ^
+        src\copy_bank_FF.o
 )
 
 :: join header, PRG and CHR (if exists) into a single ROM file
@@ -146,11 +146,11 @@ copy /B header.bin + PRG_ROM.bin + CHR_ROM.chr %file_name%.nes > nul
 
 :: join listing files into a single file
 if %fast_assembly% equ 0 (
-    copy /A copy_*.lst %listing_name% > nul
+    copy /A src\copy_*.lst %listing_name% > nul
 )
 
 :: delete leftover garbage and copies
-del *.o + PRG_ROM.bin + copy_*
+del src\*.o + PRG_ROM.bin + src\copy_*
 
 :: final messages and stuff
 echo.

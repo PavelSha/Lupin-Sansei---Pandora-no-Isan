@@ -19,199 +19,199 @@
 ; 4 byte - the high address of the track
 tbl_sound_row_mini:     
 - - - - - - 0x008010 02:8000: 54        .byte $54, $00           ; 0x00 start screen track1
-                                        .addr loc_track0         ; CPU Address $A184
+                                        .addr loc_track0         ; CPU Address $8184
 - D 0 - I - 0x008014 02:8004: 69        .byte $69, $01           ; 0x01 start screen track2
-                                        .addr loc_track1         ; CPU Address $A1B1
+                                        .addr loc_track1         ; CPU Address $81B1
 - D 0 - I - 0x008018 02:8008: 7E        .byte $7E, $02           ; 0x02 start screen track3
-                                        .addr loc_track2         ; CPU Address $A1D4
+                                        .addr loc_track2         ; CPU Address $81D4
 - D 0 - I - 0x00801C 02:800C: 93        .byte $93, $03           ; 0x03 start screen track4
-                                        .addr loc_track3         ; CPU Address $A1F7
+                                        .addr loc_track3         ; CPU Address $81F7
 - D 0 - I - 0x008020 02:8010: 54        .byte $54, $00           ; 0x04
-                                        .addr loc_track4         ; CPU Address $A21C
+                                        .addr loc_track4         ; CPU Address $821C
 - D 0 - I - 0x008024 02:8014: 69        .byte $69, $01           ; 0x05
-                                        .addr loc_track5         ; CPU Address $A281
+                                        .addr loc_track5         ; CPU Address $8281
 - D 0 - I - 0x008028 02:8018: 54        .byte $54, $00           ; 0x06
-                                        .addr loc_track6         ; CPU Address $A2F7
+                                        .addr loc_track6         ; CPU Address $82F7
 - D 0 - I - 0x00802C 02:801C: 7E        .byte $7E, $02           ; 0x07
-                                        .addr loc_track7         ; CPU Address $A35A
+                                        .addr loc_track7         ; CPU Address $835A
 - D 0 - I - 0x008030 02:8020: 54        .byte $54, $00           ; 0x08
-                                        .addr loc_track8         ; CPU Address $A3B1
+                                        .addr loc_track8         ; CPU Address $83B1
 - D 0 - I - 0x008034 02:8024: 7E        .byte $7E, $02           ; 0x09
-                                        .addr loc_track9         ; CPU Address $A894
+                                        .addr loc_track9         ; CPU Address $8894
 - - - - - - 0x008038 02:8028: 3F        .byte $3F, $03           ; 0x0A - blank
-                                        .addr loc_trackA         ; CPU Address $A4BD
+                                        .addr loc_trackA         ; CPU Address $84BD
 - D 0 - I - 0x00803C 02:802C: 3F        .byte $3F, $03           ; 0x0B - 3rd sound row
-                                        .addr loc_trackB         ; CPU Address $A4BE
+                                        .addr loc_trackB         ; CPU Address $84BE
 - D 0 - I - 0x008040 02:8030: 3F        .byte $3F, $03           ; 0x0C
-                                        .addr loc_trackC         ; CPU Address $A4C7
+                                        .addr loc_trackC         ; CPU Address $84C7
 - D 0 - I - 0x008044 02:8034: 2A        .byte $2A, $01           ; 0x0D
-                                        .addr loc_trackD         ; CPU Address $A4D4
+                                        .addr loc_trackD         ; CPU Address $84D4
 - D 0 - I - 0x008048 02:8038: 00        .byte $00, $01           ; 0x0E
-                                        .addr loc_trackE         ; CPU Address $A4DD
+                                        .addr loc_trackE         ; CPU Address $84DD
 - D 0 - I - 0x00804C 02:803C: 3F        .byte $3F, $03           ; 0x0F
-                                        .addr loc_trackF         ; CPU Address $A4EA
+                                        .addr loc_trackF         ; CPU Address $84EA
 - D 0 - I - 0x008050 02:8040: 2A        .byte $2A, $01           ; 0x10
-                                        .addr loc_track10        ; CPU Address $A4F5
+                                        .addr loc_track10        ; CPU Address $84F5
 - D 0 - I - 0x008054 02:8044: 2A        .byte $2A, $01           ; 0x11
-                                        .addr loc_track11        ; CPU Address $A4FC
+                                        .addr loc_track11        ; CPU Address $84FC
 - D 0 - I - 0x008058 02:8048: 15        .byte $15, $01           ; 0x12
-                                        .addr loc_track12        ; CPU Address $A509
+                                        .addr loc_track12        ; CPU Address $8509
 - D 0 - I - 0x00805C 02:804C: 2A        .byte $2A, $01           ; 0x13
-                                        .addr loc_track13        ; CPU Address $A514
+                                        .addr loc_track13        ; CPU Address $8514
 - D 0 - I - 0x008060 02:8050: 2A        .byte $2A, $01           ; 0x14
-                                        .addr loc_track14        ; CPU Address $A529
+                                        .addr loc_track14        ; CPU Address $8529
 - D 0 - I - 0x008064 02:8054: 2A        .byte $2A, $01           ; 0x15
-                                        .addr loc_track15        ; CPU Address $A53A
+                                        .addr loc_track15        ; CPU Address $853A
 - D 0 - I - 0x008068 02:8058: 3F        .byte $3F, $03           ; 0x16
-                                        .addr loc_track16        ; CPU Address $A541
+                                        .addr loc_track16        ; CPU Address $8541
 - D 0 - I - 0x00806C 02:805C: 3F        .byte $3F, $03           ; 0x17
-                                        .addr loc_track17        ; CPU Address $A548
+                                        .addr loc_track17        ; CPU Address $8548
 - D 0 - I - 0x008070 02:8060: 2A        .byte $2A, $01           ; 0x18
-                                        .addr loc_track18        ; CPU Address $A553
+                                        .addr loc_track18        ; CPU Address $8553
 - D 0 - I - 0x008074 02:8064: 3F        .byte $3F, $03           ; 0x19
-                                        .addr loc_track19        ; CPU Address $A562
+                                        .addr loc_track19        ; CPU Address $8562
 - D 0 - I - 0x008078 02:8068: 3F        .byte $3F, $03           ; 0x1A
-                                        .addr loc_track1A        ; CPU Address $A56D
+                                        .addr loc_track1A        ; CPU Address $856D
 - D 0 - I - 0x00807C 02:806C: 54        .byte $54, $00           ; 0x1B
-                                        .addr loc_track1B        ; CPU Address $A583
+                                        .addr loc_track1B        ; CPU Address $8583
 - D 0 - I - 0x008080 02:8070: 7E        .byte $7E, $02           ; 0x1C
-                                        .addr loc_track1C        ; CPU Address $A5E0
+                                        .addr loc_track1C        ; CPU Address $85E0
 - D 0 - I - 0x008084 02:8074: 54        .byte $54, $00           ; 0x1D
-                                        .addr loc_track1D        ; CPU Address $A617
+                                        .addr loc_track1D        ; CPU Address $8617
 - D 0 - I - 0x008088 02:8078: 7E        .byte $7E, $02           ; 0x1E
-                                        .addr loc_track1E        ; CPU Address $A64C
+                                        .addr loc_track1E        ; CPU Address $864C
 - D 0 - I - 0x00808C 02:807C: 54        .byte $54, $00           ; 0x1F
-                                        .addr loc_track1F        ; CPU Address $A6B1
+                                        .addr loc_track1F        ; CPU Address $86B1
 - D 0 - I - 0x008090 02:8080: 7E        .byte $7E, $02           ; 0x20
-                                        .addr loc_track20        ; CPU Address $A6D2
+                                        .addr loc_track20        ; CPU Address $86D2
 - D 0 - I - 0x008094 02:8084: 2A        .byte $2A, $01           ; 0x21
-                                        .addr loc_track21        ; CPU Address $A578
+                                        .addr loc_track21        ; CPU Address $8578
 - D 0 - I - 0x008098 02:8088: 54        .byte $54, $00           ; 0x22
-                                        .addr loc_track22        ; CPU Address $A6EB
+                                        .addr loc_track22        ; CPU Address $86EB
 - D 0 - I - 0x00809C 02:808C: 7E        .byte $7E, $02           ; 0x23
-                                        .addr loc_track23        ; CPU Address $A776
+                                        .addr loc_track23        ; CPU Address $8776
 - D 0 - I - 0x0080A0 02:8090: 54        .byte $54, $00           ; 0x24
-                                        .addr loc_track24        ; CPU Address $A7B1
+                                        .addr loc_track24        ; CPU Address $87B1
 - D 0 - I - 0x0080A4 02:8094: 7E        .byte $7E, $02           ; 0x25
-                                        .addr loc_track25        ; CPU Address $A7D2
+                                        .addr loc_track25        ; CPU Address $87D2
 - - - - - - 0x0080A8 02:8098: 3F        .byte $3F, $03           ; 0x26 - blank
-                                        .addr loc_track26        ; CPU Address $A8F7
+                                        .addr loc_track26        ; CPU Address $88F7
 - - - - - - 0x0080AC 02:809C: 2A        .byte $2A, $01           ; 0x27 - blank
-                                        .addr loc_track27        ; CPU Address $A8F8
+                                        .addr loc_track27        ; CPU Address $88F8
 - D 0 - I - 0x0080B0 02:80A0: 3F        .byte $3F, $03           ; 0x28
-                                        .addr loc_track28        ; CPU Address $A8F9
+                                        .addr loc_track28        ; CPU Address $88F9
 - D 0 - I - 0x0080B4 02:80A4: 2A        .byte $2A, $01           ; 0x29
-                                        .addr loc_track29        ; CPU Address $A900
+                                        .addr loc_track29        ; CPU Address $8900
 - D 0 - I - 0x0080B8 02:80A8: 2A        .byte $2A, $01           ; 0x2A
-                                        .addr loc_track2A        ; CPU Address $A909
+                                        .addr loc_track2A        ; CPU Address $8909
 - - - - - - 0x0080BC 02:80AC: 2A        .byte $2A, $01           ; 0x2B - blank
-                                        .addr loc_track2B        ; CPU Address $A91A
+                                        .addr loc_track2B        ; CPU Address $891A
 - D 0 - I - 0x0080C0 02:80B0: 3F        .byte $3F, $03           ; 0x2C
-                                        .addr loc_track2C        ; CPU Address $A91B
+                                        .addr loc_track2C        ; CPU Address $891B
 - D 0 - I - 0x0080C4 02:80B4: 3F        .byte $3F, $03           ; 0x2D
-                                        .addr loc_track2D        ; CPU Address $A926
+                                        .addr loc_track2D        ; CPU Address $8926
 - - - - - - 0x0080C8 02:80B8: 3F        .byte $3F, $03           ; 0x2E - blank
-                                        .addr loc_track2E        ; CPU Address $A92F
+                                        .addr loc_track2E        ; CPU Address $892F
 - - - - - - 0x0080CC 02:80BC: 3F        .byte $3F, $03           ; 0x2F - blank
-                                        .addr loc_track2F        ; CPU Address $A930
+                                        .addr loc_track2F        ; CPU Address $8930
 - D 0 - I - 0x0080D0 02:80C0: 2A        .byte $2A, $01           ; 0x30
-                                        .addr loc_track30        ; CPU Address $A931
+                                        .addr loc_track30        ; CPU Address $8931
 - D 0 - I - 0x0080D4 02:80C4: 3F        .byte $3F, $03           ; 0x31
-                                        .addr loc_track31        ; CPU Address $A940
+                                        .addr loc_track31        ; CPU Address $8940
 - D 0 - I - 0x0080D8 02:80C8: 3F        .byte $3F, $03           ; 0x32
-                                        .addr loc_track32        ; CPU Address $A947
+                                        .addr loc_track32        ; CPU Address $8947
 - - - - - - 0x0080DC 02:80CC: 3F        .byte $3F, $03           ; 0x33 - blank
-                                        .addr loc_track33        ; CPU Address $A957
+                                        .addr loc_track33        ; CPU Address $8957
 - D 0 - I - 0x0080E0 02:80D0: 2A        .byte $2A, $01           ; 0x34
-                                        .addr loc_track34        ; CPU Address $A958
+                                        .addr loc_track34        ; CPU Address $8958
 - D 0 - I - 0x0080E4 02:80D4: 2A        .byte $2A, $01           ; 0x35
-                                        .addr loc_track35        ; CPU Address $A95F
+                                        .addr loc_track35        ; CPU Address $895F
 - D 0 - I - 0x0080E8 02:80D8: 3F        .byte $3F, $03           ; 0x36
-                                        .addr loc_track36        ; CPU Address $A96C
+                                        .addr loc_track36        ; CPU Address $896C
 - D 0 - I - 0x0080EC 02:80DC: 2A        .byte $2A, $01           ; 0x37
-                                        .addr loc_track37        ; CPU Address $A977
+                                        .addr loc_track37        ; CPU Address $8977
 - - - - - - 0x0080F0 02:80E0: 2A        .byte $2A, $01           ; 0x38 - blank
-                                        .addr loc_track38        ; CPU Address $A982
+                                        .addr loc_track38        ; CPU Address $8982
 - D 0 - I - 0x0080F4 02:80E4: 7E        .byte $7E, $02           ; 0x39
-                                        .addr loc_track39        ; CPU Address $A7F1
+                                        .addr loc_track39        ; CPU Address $87F1
 - D 0 - I - 0x0080F8 02:80E8: 69        .byte $69, $01           ; 0x3A
-                                        .addr loc_track3A        ; CPU Address $A829
+                                        .addr loc_track3A        ; CPU Address $8829
 - D 0 - I - 0x0080FC 02:80EC: 69        .byte $69, $01           ; 0x3B
-                                        .addr loc_track3B        ; CPU Address $A436
+                                        .addr loc_track3B        ; CPU Address $8436
 - - - - - - 0x008100 02:80F0: 2A        .byte $2A, $01           ; 0x3C - blank
-                                        .addr loc_track3C        ; CPU Address $A983
+                                        .addr loc_track3C        ; CPU Address $8983
 - D 0 - I - 0x008104 02:80F4: 3F        .byte $3F, $03           ; 0x3D
-                                        .addr loc_track3D        ; CPU Address $A984
+                                        .addr loc_track3D        ; CPU Address $8984
 - - - - - - 0x008108 02:80F8: 2A        .byte $2A, $01           ; 0x3E - blank
-                                        .addr loc_track3E        ; CPU Address $A98D
+                                        .addr loc_track3E        ; CPU Address $898D
 - D 0 - I - 0x00810C 02:80FC: 2A        .byte $2A, $01           ; 0x3F
-                                        .addr loc_track3F        ; CPU Address $A98E
+                                        .addr loc_track3F        ; CPU Address $898E
 - D 0 - I - 0x008110 02:8100: 2A        .byte $2A, $01           ; 0x40
-                                        .addr loc_track40        ; CPU Address $A995
+                                        .addr loc_track40        ; CPU Address $8995
 - D 0 - I - 0x008114 02:8104: 3F        .byte $3F, $03           ; 0x41
-                                        .addr loc_track41        ; CPU Address $A99C
+                                        .addr loc_track41        ; CPU Address $899C
 - - - - - - 0x008118 02:8108: 2A        .byte $2A, $01           ; 0x42 - blank
-                                        .addr loc_track42        ; CPU Address $A9A7
+                                        .addr loc_track42        ; CPU Address $89A7
 - D 0 - I - 0x00811C 02:810C: 69        .byte $69, $01           ; 0x43
-                                        .addr loc_track43        ; CPU Address $A9A8
+                                        .addr loc_track43        ; CPU Address $89A8
 - D 0 - I - 0x008120 02:8110: 69        .byte $69, $01           ; 0x44
-                                        .addr loc_track44        ; CPU Address $AA0D
+                                        .addr loc_track44        ; CPU Address $8A0D
 - D 0 - I - 0x008124 02:8114: 69        .byte $69, $01           ; 0x45
-                                        .addr loc_track45        ; CPU Address $AAA8
+                                        .addr loc_track45        ; CPU Address $8AA8
 - D 0 - I - 0x008128 02:8118: 69        .byte $69, $01           ; 0x46
-                                        .addr loc_track46        ; CPU Address $AAC7
+                                        .addr loc_track46        ; CPU Address $8AC7
 - D 0 - I - 0x00812C 02:811C: 69        .byte $69, $01           ; 0x47
-                                        .addr loc_track47        ; CPU Address $AB3C
+                                        .addr loc_track47        ; CPU Address $8B3C
 - D 0 - I - 0x008130 02:8120: 93        .byte $93, $03           ; 0x48
-                                        .addr loc_track48        ; CPU Address $AB5F
+                                        .addr loc_track48        ; CPU Address $8B5F
 - D 0 - I - 0x008134 02:8124: 93        .byte $93, $03           ; 0x49
-                                        .addr loc_track49        ; CPU Address $AB83
+                                        .addr loc_track49        ; CPU Address $8B83
 - D 0 - I - 0x008138 02:8128: 93        .byte $93, $03           ; 0x4A
-                                        .addr loc_track4A        ; CPU Address $AB92
+                                        .addr loc_track4A        ; CPU Address $8B92
 - D 0 - I - 0x00813C 02:812C: 93        .byte $93, $03           ; 0x4B
-                                        .addr loc_track4B        ; CPU Address $AB9B
+                                        .addr loc_track4B        ; CPU Address $8B9B
 - D 0 - I - 0x008140 02:8130: 93        .byte $93, $03           ; 0x4C
-                                        .addr loc_track4C        ; CPU Address $ABB2
+                                        .addr loc_track4C        ; CPU Address $8BB2
 - D 0 - I - 0x008144 02:8134: 93        .byte $93, $03           ; 0x4D
-                                        .addr loc_track4D        ; CPU Address $ABC9
+                                        .addr loc_track4D        ; CPU Address $8BC9
 - D 0 - I - 0x008148 02:8138: 93        .byte $93, $03           ; 0x4E
-                                        .addr loc_track4E        ; CPU Address $ABE0
+                                        .addr loc_track4E        ; CPU Address $8BE0
 - D 0 - I - 0x00814C 02:813C: 93        .byte $93, $03           ; 0x4F
-                                        .addr loc_track4F        ; CPU Address $ABEF
+                                        .addr loc_track4F        ; CPU Address $8BEF
 - D 0 - I - 0x008150 02:8140: 2A        .byte $2A, $01           ; 0x50 - typing sound
-                                        .addr loc_track50        ; CPU Address $ABFE
+                                        .addr loc_track50        ; CPU Address $8BFE
 - D 0 - I - 0x008154 02:8144: 2A        .byte $2A, $01           ; 0x51
-                                        .addr loc_track51        ; CPU Address $AC07
+                                        .addr loc_track51        ; CPU Address $8C07
 - D 0 - I - 0x008158 02:8148: 3F        .byte $3F, $03           ; 0x52
-                                        .addr loc_track52        ; CPU Address $AC16
+                                        .addr loc_track52        ; CPU Address $8C16
 - - - - - - 0x00815C 02:814C: 00        .byte $00, $00           ; 0x53
-                                        .addr loc_track53        ; CPU Address $AC21
+                                        .addr loc_track53        ; CPU Address $8C21
 - - - - - - 0x008160 02:8150: 2A        .byte $2A, $02           ; 0x54
-                                        .addr loc_track54        ; CPU Address $AC36
+                                        .addr loc_track54        ; CPU Address $8C36
 - D 0 - I - 0x008164 02:8154: 54        .byte $54, $00           ; 0x55
-                                        .addr loc_track55        ; CPU Address $AC4F
+                                        .addr loc_track55        ; CPU Address $8C4F
 - D 0 - I - 0x008168 02:8158: 69        .byte $69, $01           ; 0x56
-                                        .addr loc_track56        ; CPU Address $AC88
+                                        .addr loc_track56        ; CPU Address $8C88
 - D 0 - I - 0x00816C 02:815C: 7E        .byte $7E, $02           ; 0x57
-                                        .addr loc_track57        ; CPU Address $ACC1
+                                        .addr loc_track57        ; CPU Address $8CC1
 - - - - - - 0x008170 02:8160: 54        .byte $54, $00           ; 0x58 - blank
-                                        .addr loc_track58        ; CPU Address $ACD8
+                                        .addr loc_track58        ; CPU Address $8CD8
 - - - - - - 0x008174 02:8164: 69        .byte $69, $01           ; 0x59 - blank
-                                        .addr loc_track59        ; CPU Address $ACD9
+                                        .addr loc_track59        ; CPU Address $8CD9
 - - - - - - 0x008178 02:8168: 7E        .byte $7E, $02           ; 0x5A - blank
-                                        .addr loc_track5A        ; CPU Address $ACDA
+                                        .addr loc_track5A        ; CPU Address $8CDA
 - D 0 - I - 0x00817C 02:816C: 54        .byte $54, $00           ; 0x5B
-                                        .addr loc_track5B        ; CPU Address $ACF5
+                                        .addr loc_track5B        ; CPU Address $8CF5
 - D 0 - I - 0x008180 02:8170: 69        .byte $69, $01           ; 0x5C
-                                        .addr loc_track5C        ; CPU Address $AD2A
+                                        .addr loc_track5C        ; CPU Address $8D2A
 - D 0 - I - 0x008184 02:8174: 7E        .byte $7E, $02           ; 0x5D
-                                        .addr loc_track5D        ; CPU Address $AD33
+                                        .addr loc_track5D        ; CPU Address $8D33
 - D 0 - I - 0x008188 02:8178: 93        .byte $93, $03           ; 0x5E
-                                        .addr loc_track5E        ; CPU Address $AD5A
+                                        .addr loc_track5E        ; CPU Address $8D5A
 - D 0 - I - 0x00818C 02:817C: 2A        .byte $2A, $01           ; 0x5F
-                                        .addr loc_track5F        ; CPU Address $ACDB
+                                        .addr loc_track5F        ; CPU Address $8CDB
 - D 0 - I - 0x008190 02:8180: 2A        .byte $2A, $01           ; 0x60
-                                        .addr loc_track60        ; CPU Address $ACEA
+                                        .addr loc_track60        ; CPU Address $8CEA
 
 loc_track0:
 - D 0 - I - 0x008194 02:8184: 06        .byte $06   ; 

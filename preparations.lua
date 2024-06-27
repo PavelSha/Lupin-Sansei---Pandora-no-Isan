@@ -27,7 +27,7 @@ local game_file_name = "_lupin.nes"
 
 -- name of your file with RAM variables,
 -- in order to create .nl file for FCEUX
-local ram_nl_file_name = "copy_bank_ram.inc"
+local ram_nl_file_name = "src/copy_bank_ram.inc"
 
 -- regular expression to remove unnecessary for
 -- ca65 assembler text on the left from my disassembler.
@@ -122,7 +122,7 @@ for _, f in ipairs(files_list) do
     print("Working on "..f.." file...")
     
     -- open next file and check for errors
-    local file, err = io.open(f, "r")
+    local file, err = io.open("src/"..f, "r")
     if err ~= nil then PrintError(err) end
     
     -- read all text and close the file
@@ -136,7 +136,7 @@ for _, f in ipairs(files_list) do
     ReplaceSymbols()
     
     -- create a copy of the file and check for errors
-    local file, err = io.open("copy_"..f, "w+")
+    local file, err = io.open("src/copy_"..f, "w+")
     if err ~= nil then PrintError(err) end
     
     -- paste polished text into the copy and close the file
