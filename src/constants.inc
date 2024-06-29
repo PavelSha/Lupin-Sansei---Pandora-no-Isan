@@ -213,6 +213,7 @@ vTempLowChrPosX               = ram_0067
 vNoScreen                     = ram_0068 ; The number of the level screen, vHighChrPosX
 vTempNoScreen                 = ram_0069
 vScreenChrPosY                = ram_006A ; The character's position along the Y axis relative to the screen (no repeat)
+vTempScreenChrPosY            = ram_006B
 vChrStatus                    = ram_006C ; A status of a character
 ; Byte: XYZW KLMN
 ; N - the character is looking to the right/left (1 - left, 0 - right)
@@ -297,7 +298,7 @@ vCurrentUniqueRoom            = ram_00B6
 ; UU - 0x01 for an unique room (NPC, briefcase, boss), else 0x00
 ; RR - 0x01 - NPC room (use with UU), 0x02 - briefcase room (use with UU), 0x03 - room with the room
 
-v_corridor_magic5             = ram_00B7
+vCorridorMagic5               = ram_00B7
 ; 0x80 - secondary list, else main list
 ; For main list and briefcase rooms - 5th-byte index in the briefcase indexes table
 v_corridor_magic5_cache       = ram_00B8
@@ -531,6 +532,10 @@ v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, 039E - scree
 ; 0xE0 - disallow briefcase
 
 vBriefcaseHitCount            = ram_03A5 ; number of shots the briefcase must receive before it collapses {$03A5, $03A6, $03A7, $03A8, $03A9}
+
+vItemPosY                     = ram_03AA ; [03AB-03AF] The item position in th water along the X axis relative to the screen (no repeat)
+vItemPosXLow                  = ram_03B6 ; [03B7-03BB] The item position in th water along the X axis relative to the level (with repeat)
+vItemPosXHigh                 = ram_03BC ; [03BD-03C1] The item position in th water along the X axis relative to the level (in screen unit)
 
 v_sound_counter               = ram_0406
 vSoundRowB_0                  = ram_0410 ; ???

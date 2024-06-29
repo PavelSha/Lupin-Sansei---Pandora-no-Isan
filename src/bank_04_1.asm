@@ -18,6 +18,7 @@
 .export tbl_ptr_checkpoints_on_the_level
 .export tbl_ptr_enemy_palette
 .export tbl_road_hills
+.export tbl_checkpoint_after_death
 
 ; see $C5B2
 - - - - - - 0x010010 04:8000: 7B 9D     .addr loc_main_menu_gunshot_f1 ; frame 1
@@ -642,258 +643,135 @@ tbl_ptr_destructible_walls:
 - D 0 - - - 0x0103CB 04:83BB: 9C        .byte $9C   ; 
 - D 0 - - - 0x0103CC 04:83BC: B7        .byte $B7   ; 
 - D 0 - - - 0x0103CD 04:83BD: 9C        .byte $9C   ; 
-- D 0 - - - 0x0103CE 04:83BE: AF        .byte $AF   ; 
-- D 0 - - - 0x0103CF 04:83BF: 9A        .byte $9A   ; 
-- - - - - - 0x0103D0 04:83C0: 08        .byte $08   ; 
-- - - - - - 0x0103D1 04:83C1: 8F        .byte $8F   ; 
-- - - - - - 0x0103D2 04:83C2: 08        .byte $08   ; 
-- - - - - - 0x0103D3 04:83C3: 8F        .byte $8F   ; 
-- D 0 - - - 0x0103D4 04:83C4: C7        .byte $C7   ; 
-- D 0 - - - 0x0103D5 04:83C5: 9A        .byte $9A   ; 
-- - - - - - 0x0103D6 04:83C6: D3        .byte $D3   ; 
-- - - - - - 0x0103D7 04:83C7: 9A        .byte $9A   ; 
-- D 0 - - - 0x0103D8 04:83C8: DF        .byte $DF   ; 
-- D 0 - - - 0x0103D9 04:83C9: 9A        .byte $9A   ; 
-- D 0 - - - 0x0103DA 04:83CA: E8        .byte $E8   ; 
-- D 0 - - - 0x0103DB 04:83CB: 9A        .byte $9A   ; 
-- - - - - - 0x0103DC 04:83CC: 00        .byte $00   ; 
-- - - - - - 0x0103DD 04:83CD: 9B        .byte $9B   ; 
-- - - - - - 0x0103DE 04:83CE: 0F        .byte $0F   ; 
-- - - - - - 0x0103DF 04:83CF: 9B        .byte $9B   ; 
-- D 0 - - - 0x0103E0 04:83D0: 1B        .byte $1B   ; 
-- D 0 - - - 0x0103E1 04:83D1: 9B        .byte $9B   ; 
-- - - - - - 0x0103E2 04:83D2: 2A        .byte $2A   ; 
-- - - - - - 0x0103E3 04:83D3: 9B        .byte $9B   ; 
-- D 0 - - - 0x0103E4 04:83D4: 36        .byte $36   ; <6>
-- D 0 - - - 0x0103E5 04:83D5: 9B        .byte $9B   ; 
-- D 0 - - - 0x0103E6 04:83D6: 2A        .byte $2A   ; 
-- D 0 - - - 0x0103E7 04:83D7: 9B        .byte $9B   ; 
-- D 0 - - - 0x0103E8 04:83D8: 2A        .byte $2A   ; 
-- D 0 - - - 0x0103E9 04:83D9: 9B        .byte $9B   ; 
-- D 0 - - - 0x0103EA 04:83DA: 42        .byte $42   ; <B>
-- D 0 - - - 0x0103EB 04:83DB: 9B        .byte $9B   ; 
-- - - - - - 0x0103EC 04:83DC: 4E        .byte $4E   ; <N>
-- - - - - - 0x0103ED 04:83DD: 9B        .byte $9B   ; 
-- - - - - - 0x0103EE 04:83DE: 5D        .byte $5D   ; 
-- - - - - - 0x0103EF 04:83DF: 9B        .byte $9B   ; 
-- D 0 - - - 0x0103F0 04:83E0: 63        .byte $63   ; <c>
-- D 0 - - - 0x0103F1 04:83E1: 9B        .byte $9B   ; 
-- - - - - - 0x0103F2 04:83E2: 69        .byte $69   ; <i>
-- - - - - - 0x0103F3 04:83E3: 9B        .byte $9B   ; 
-- - - - - - 0x0103F4 04:83E4: 6F        .byte $6F   ; <o>
-- - - - - - 0x0103F5 04:83E5: 9B        .byte $9B   ; 
-- - - - - - 0x0103F6 04:83E6: 8A        .byte $8A   ; 
-- - - - - - 0x0103F7 04:83E7: 9B        .byte $9B   ; 
-- - - - - - 0x0103F8 04:83E8: 08        .byte $08   ; 
-- - - - - - 0x0103F9 04:83E9: 8F        .byte $8F   ; 
-- - - - - - 0x0103FA 04:83EA: 08        .byte $08   ; 
-- - - - - - 0x0103FB 04:83EB: 8F        .byte $8F   ; 
-- - - - - - 0x0103FC 04:83EC: 08        .byte $08   ; 
-- - - - - - 0x0103FD 04:83ED: 8F        .byte $8F   ; 
-- - - - - - 0x0103FE 04:83EE: 08        .byte $08   ; 
-- - - - - - 0x0103FF 04:83EF: 8F        .byte $8F   ; 
-- D 0 - - - 0x010400 04:83F0: 75        .byte $75   ; <u>
-- D 0 - - - 0x010401 04:83F1: 9B        .byte $9B   ; 
-- - - - - - 0x010402 04:83F2: 8A        .byte $8A   ; 
-- - - - - - 0x010403 04:83F3: 9B        .byte $9B   ; 
-- - - - - - 0x010404 04:83F4: 8A        .byte $8A   ; 
-- - - - - - 0x010405 04:83F5: 9B        .byte $9B   ; 
-- - - - - - 0x010406 04:83F6: 8A        .byte $8A   ; 
-- - - - - - 0x010407 04:83F7: 9B        .byte $9B   ; 
-- - - - - - 0x010408 04:83F8: 8A        .byte $8A   ; 
-- - - - - - 0x010409 04:83F9: 9B        .byte $9B   ; 
-- - - - - - 0x01040A 04:83FA: 8A        .byte $8A   ; 
-- - - - - - 0x01040B 04:83FB: 9B        .byte $9B   ; 
-- D 0 - - - 0x01040C 04:83FC: 8A        .byte $8A   ; 
-- D 0 - - - 0x01040D 04:83FD: 9B        .byte $9B   ; 
-- - - - - - 0x01040E 04:83FE: 8A        .byte $8A   ; 
-- - - - - - 0x01040F 04:83FF: 9B        .byte $9B   ; 
-- - - - - - 0x010410 04:8400: 8A        .byte $8A   ; 
-- - - - - - 0x010411 04:8401: 9B        .byte $9B   ; 
-- - - - - - 0x010412 04:8402: 8A        .byte $8A   ; 
-- - - - - - 0x010413 04:8403: 9B        .byte $9B   ; 
-- - - - - - 0x010414 04:8404: 8A        .byte $8A   ; 
-- - - - - - 0x010415 04:8405: 9B        .byte $9B   ; 
-- - - - - - 0x010416 04:8406: 08        .byte $08   ; 
-- - - - - - 0x010417 04:8407: 8F        .byte $8F   ; 
-- - - - - - 0x010418 04:8408: 08        .byte $08   ; 
-- - - - - - 0x010419 04:8409: 8F        .byte $8F   ; 
-- - - - - - 0x01041A 04:840A: 08        .byte $08   ; 
-- - - - - - 0x01041B 04:840B: 8F        .byte $8F   ; 
-- - - - - - 0x01041C 04:840C: 08        .byte $08   ; 
-- - - - - - 0x01041D 04:840D: 8F        .byte $8F   ; 
-- - - - - - 0x01041E 04:840E: 08        .byte $08   ; 
-- - - - - - 0x01041F 04:840F: 8F        .byte $8F   ; 
-- - - - - - 0x010420 04:8410: 08        .byte $08   ; 
-- - - - - - 0x010421 04:8411: 8F        .byte $8F   ; 
-- - - - - - 0x010422 04:8412: 08        .byte $08   ; 
-- - - - - - 0x010423 04:8413: 8F        .byte $8F   ; 
-- - - - - - 0x010424 04:8414: 08        .byte $08   ; 
-- - - - - - 0x010425 04:8415: 8F        .byte $8F   ; 
-- - - - - - 0x010426 04:8416: 08        .byte $08   ; 
-- - - - - - 0x010427 04:8417: 8F        .byte $8F   ; 
-- - - - - - 0x010428 04:8418: 08        .byte $08   ; 
-- - - - - - 0x010429 04:8419: 8F        .byte $8F   ; 
-- - - - - - 0x01042A 04:841A: 08        .byte $08   ; 
-- - - - - - 0x01042B 04:841B: 8F        .byte $8F   ; 
-- - - - - - 0x01042C 04:841C: 08        .byte $08   ; 
-- - - - - - 0x01042D 04:841D: 8F        .byte $8F   ; 
-- - - - - - 0x01042E 04:841E: 08        .byte $08   ; 
-- - - - - - 0x01042F 04:841F: 8F        .byte $8F   ; 
-- - - - - - 0x010430 04:8420: 08        .byte $08   ; 
-- - - - - - 0x010431 04:8421: 8F        .byte $8F   ; 
-- - - - - - 0x010432 04:8422: 08        .byte $08   ; 
-- - - - - - 0x010433 04:8423: 8F        .byte $8F   ; 
-- - - - - - 0x010434 04:8424: 08        .byte $08   ; 
-- - - - - - 0x010435 04:8425: 8F        .byte $8F   ; 
-- - - - - - 0x010436 04:8426: 08        .byte $08   ; 
-- - - - - - 0x010437 04:8427: 8F        .byte $8F   ; 
-- - - - - - 0x010438 04:8428: 08        .byte $08   ; 
-- - - - - - 0x010439 04:8429: 8F        .byte $8F   ; 
-- - - - - - 0x01043A 04:842A: 08        .byte $08   ; 
-- - - - - - 0x01043B 04:842B: 8F        .byte $8F   ; 
-- - - - - - 0x01043C 04:842C: 08        .byte $08   ; 
-- - - - - - 0x01043D 04:842D: 8F        .byte $8F   ; 
-- - - - - - 0x01043E 04:842E: 08        .byte $08   ; 
-- - - - - - 0x01043F 04:842F: 8F        .byte $8F   ; 
-- - - - - - 0x010440 04:8430: 08        .byte $08   ; 
-- - - - - - 0x010441 04:8431: 8F        .byte $8F   ; 
-- - - - - - 0x010442 04:8432: 08        .byte $08   ; 
-- - - - - - 0x010443 04:8433: 8F        .byte $8F   ; 
-- - - - - - 0x010444 04:8434: 08        .byte $08   ; 
-- - - - - - 0x010445 04:8435: 8F        .byte $8F   ; 
-- - - - - - 0x010446 04:8436: 08        .byte $08   ; 
-- - - - - - 0x010447 04:8437: 8F        .byte $8F   ; 
-- - - - - - 0x010448 04:8438: 08        .byte $08   ; 
-- - - - - - 0x010449 04:8439: 8F        .byte $8F   ; 
-- - - - - - 0x01044A 04:843A: 08        .byte $08   ; 
-- - - - - - 0x01044B 04:843B: 8F        .byte $8F   ; 
-- - - - - - 0x01044C 04:843C: 08        .byte $08   ; 
-- - - - - - 0x01044D 04:843D: 8F        .byte $8F   ; 
-- - - - - - 0x01044E 04:843E: 08        .byte $08   ; 
-- - - - - - 0x01044F 04:843F: 8F        .byte $8F   ; 
-- - - - - - 0x010450 04:8440: 08        .byte $08   ; 
-- - - - - - 0x010451 04:8441: 8F        .byte $8F   ; 
-- D 0 - - - 0x010452 04:8442: 8A        .byte $8A   ; 
-- D 0 - - - 0x010453 04:8443: 9B        .byte $9B   ; 
-- - - - - - 0x010454 04:8444: 8A        .byte $8A   ; 
-- - - - - - 0x010455 04:8445: 9B        .byte $9B   ; 
-- - - - - - 0x010456 04:8446: 8A        .byte $8A   ; 
-- - - - - - 0x010457 04:8447: 9B        .byte $9B   ; 
-- - - - - - 0x010458 04:8448: 8A        .byte $8A   ; 
-- - - - - - 0x010459 04:8449: 9B        .byte $9B   ; 
-- - - - - - 0x01045A 04:844A: 8A        .byte $8A   ; 
-- - - - - - 0x01045B 04:844B: 9B        .byte $9B   ; 
-- D 0 - - - 0x01045C 04:844C: 8A        .byte $8A   ; 
-- D 0 - - - 0x01045D 04:844D: 9B        .byte $9B   ; 
-- - - - - - 0x01045E 04:844E: 8A        .byte $8A   ; 
-- - - - - - 0x01045F 04:844F: 9B        .byte $9B   ; 
-- - - - - - 0x010460 04:8450: 8A        .byte $8A   ; 
-- - - - - - 0x010461 04:8451: 9B        .byte $9B   ; 
-- - - - - - 0x010462 04:8452: 8A        .byte $8A   ; 
-- - - - - - 0x010463 04:8453: 9B        .byte $9B   ; 
-- - - - - - 0x010464 04:8454: 8A        .byte $8A   ; 
-- - - - - - 0x010465 04:8455: 9B        .byte $9B   ; 
-- - - - - - 0x010466 04:8456: 8A        .byte $8A   ; 
-- - - - - - 0x010467 04:8457: 9B        .byte $9B   ; 
-- - - - - - 0x010468 04:8458: 8A        .byte $8A   ; 
-- - - - - - 0x010469 04:8459: 9B        .byte $9B   ; 
-- - - - - - 0x01046A 04:845A: 8A        .byte $8A   ; 
-- - - - - - 0x01046B 04:845B: 9B        .byte $9B   ; 
-- - - - - - 0x01046C 04:845C: 8A        .byte $8A   ; 
-- - - - - - 0x01046D 04:845D: 9B        .byte $9B   ; 
-- - - - - - 0x01046E 04:845E: 8A        .byte $8A   ; 
-- - - - - - 0x01046F 04:845F: 9B        .byte $9B   ; 
-- - - - - - 0x010470 04:8460: 8A        .byte $8A   ; 
-- - - - - - 0x010471 04:8461: 9B        .byte $9B   ; 
-- - - - - - 0x010472 04:8462: 8A        .byte $8A   ; 
-- - - - - - 0x010473 04:8463: 9B        .byte $9B   ; 
-- - - - - - 0x010474 04:8464: 8A        .byte $8A   ; 
-- - - - - - 0x010475 04:8465: 9B        .byte $9B   ; 
-- - - - - - 0x010476 04:8466: 8A        .byte $8A   ; 
-- - - - - - 0x010477 04:8467: 9B        .byte $9B   ; 
-- - - - - - 0x010478 04:8468: 8A        .byte $8A   ; 
-- - - - - - 0x010479 04:8469: 9B        .byte $9B   ; 
-- - - - - - 0x01047A 04:846A: 8A        .byte $8A   ; 
-- - - - - - 0x01047B 04:846B: 9B        .byte $9B   ; 
-- - - - - - 0x01047C 04:846C: 8A        .byte $8A   ; 
-- - - - - - 0x01047D 04:846D: 9B        .byte $9B   ; 
-- - - - - - 0x01047E 04:846E: 8A        .byte $8A   ; 
-- - - - - - 0x01047F 04:846F: 9B        .byte $9B   ; 
-- - - - - - 0x010480 04:8470: 8A        .byte $8A   ; 
-- - - - - - 0x010481 04:8471: 9B        .byte $9B   ; 
-- - - - - - 0x010482 04:8472: 8A        .byte $8A   ; 
-- - - - - - 0x010483 04:8473: 9B        .byte $9B   ; 
-- D 0 - - - 0x010484 04:8474: 8A        .byte $8A   ; 
-- D 0 - - - 0x010485 04:8475: 9B        .byte $9B   ; 
-- - - - - - 0x010486 04:8476: 8A        .byte $8A   ; 
-- - - - - - 0x010487 04:8477: 9B        .byte $9B   ; 
-- - - - - - 0x010488 04:8478: 8A        .byte $8A   ; 
-- - - - - - 0x010489 04:8479: 9B        .byte $9B   ; 
-- - - - - - 0x01048A 04:847A: 8A        .byte $8A   ; 
-- - - - - - 0x01048B 04:847B: 9B        .byte $9B   ; 
-- - - - - - 0x01048C 04:847C: 8A        .byte $8A   ; 
-- - - - - - 0x01048D 04:847D: 9B        .byte $9B   ; 
-- - - - - - 0x01048E 04:847E: 8A        .byte $8A   ; 
-- - - - - - 0x01048F 04:847F: 9B        .byte $9B   ; 
-- - - - - - 0x010490 04:8480: 8A        .byte $8A   ; 
-- - - - - - 0x010491 04:8481: 9B        .byte $9B   ; 
-- - - - - - 0x010492 04:8482: 8A        .byte $8A   ; 
-- - - - - - 0x010493 04:8483: 9B        .byte $9B   ; 
-- - - - - - 0x010494 04:8484: 8A        .byte $8A   ; 
-- - - - - - 0x010495 04:8485: 9B        .byte $9B   ; 
-- - - - - - 0x010496 04:8486: 8A        .byte $8A   ; 
-- - - - - - 0x010497 04:8487: 9B        .byte $9B   ; 
-- - - - - - 0x010498 04:8488: 8A        .byte $8A   ; 
-- - - - - - 0x010499 04:8489: 9B        .byte $9B   ; 
-- - - - - - 0x01049A 04:848A: 8A        .byte $8A   ; 
-- - - - - - 0x01049B 04:848B: 9B        .byte $9B   ; 
-- D 0 - - - 0x01049C 04:848C: 8A        .byte $8A   ; 
-- D 0 - - - 0x01049D 04:848D: 9B        .byte $9B   ; 
-- D 0 - - - 0x01049E 04:848E: 8A        .byte $8A   ; 
-- D 0 - - - 0x01049F 04:848F: 9B        .byte $9B   ; 
-- - - - - - 0x0104A0 04:8490: 8A        .byte $8A   ; 
-- - - - - - 0x0104A1 04:8491: 9B        .byte $9B   ; 
-- - - - - - 0x0104A2 04:8492: 8A        .byte $8A   ; 
-- - - - - - 0x0104A3 04:8493: 9B        .byte $9B   ; 
-- - - - - - 0x0104A4 04:8494: 8A        .byte $8A   ; 
-- - - - - - 0x0104A5 04:8495: 9B        .byte $9B   ; 
-- - - - - - 0x0104A6 04:8496: 8A        .byte $8A   ; 
-- - - - - - 0x0104A7 04:8497: 9B        .byte $9B   ; 
-- - - - - - 0x0104A8 04:8498: 8A        .byte $8A   ; 
-- - - - - - 0x0104A9 04:8499: 9B        .byte $9B   ; 
-- - - - - - 0x0104AA 04:849A: 8A        .byte $8A   ; 
-- - - - - - 0x0104AB 04:849B: 9B        .byte $9B   ; 
-- - - - - - 0x0104AC 04:849C: 8A        .byte $8A   ; 
-- - - - - - 0x0104AD 04:849D: 9B        .byte $9B   ; 
-- - - - - - 0x0104AE 04:849E: 8A        .byte $8A   ; 
-- - - - - - 0x0104AF 04:849F: 9B        .byte $9B   ; 
-- - - - - - 0x0104B0 04:84A0: 8A        .byte $8A   ; 
-- - - - - - 0x0104B1 04:84A1: 9B        .byte $9B   ; 
-- - - - - - 0x0104B2 04:84A2: 8A        .byte $8A   ; 
-- - - - - - 0x0104B3 04:84A3: 9B        .byte $9B   ; 
-- - - - - - 0x0104B4 04:84A4: 8A        .byte $8A   ; 
-- - - - - - 0x0104B5 04:84A5: 9B        .byte $9B   ; 
-- - - - - - 0x0104B6 04:84A6: 8A        .byte $8A   ; 
-- - - - - - 0x0104B7 04:84A7: 9B        .byte $9B   ; 
-- - - - - - 0x0104B8 04:84A8: 8A        .byte $8A   ; 
-- - - - - - 0x0104B9 04:84A9: 9B        .byte $9B   ; 
-- - - - - - 0x0104BA 04:84AA: 8A        .byte $8A   ; 
-- - - - - - 0x0104BB 04:84AB: 9B        .byte $9B   ; 
-- - - - - - 0x0104BC 04:84AC: 8A        .byte $8A   ; 
-- - - - - - 0x0104BD 04:84AD: 9B        .byte $9B   ; 
-- - - - - - 0x0104BE 04:84AE: 8A        .byte $8A   ; 
-- - - - - - 0x0104BF 04:84AF: 9B        .byte $9B   ; 
-- - - - - - 0x0104C0 04:84B0: 8A        .byte $8A   ; 
-- - - - - - 0x0104C1 04:84B1: 9B        .byte $9B   ; 
-- - - - - - 0x0104C2 04:84B2: 8A        .byte $8A   ; 
-- - - - - - 0x0104C3 04:84B3: 9B        .byte $9B   ; 
-- - - - - - 0x0104C4 04:84B4: 8A        .byte $8A   ; 
-- - - - - - 0x0104C5 04:84B5: 9B        .byte $9B   ; 
-- - - - - - 0x0104C6 04:84B6: 8A        .byte $8A   ; 
-- - - - - - 0x0104C7 04:84B7: 9B        .byte $9B   ; 
-- - - - - - 0x0104C8 04:84B8: 8A        .byte $8A   ; 
-- - - - - - 0x0104C9 04:84B9: 9B        .byte $9B   ; 
+
+tbl_checkpoint_after_death:
+- D 0 - - - 0x0103CE 04:83BE: AF 9A     .addr loc_checkpoint_after_death_level_1_0      ; CPU address $9AAF
+- D - - - - 0x0103D0 04:83C0: 08 8F     .addr deadlock                                  ; CPU address $8F08
+- D - - - - 0x0103D2 04:83C2: 08 8F     .addr deadlock
+- D 0 - - - 0x0103D4 04:83C4: C7 9A     .addr loc_checkpoint_after_death_level_1_1      ; CPU address $9AC7
+- D - - - - 0x0103D6 04:83C6: D3 9A     .addr loc_checkpoint_after_death_level_1_2      ; CPU address $9AD3
+- D 0 - - - 0x0103D8 04:83C8: DF 9A     .addr loc_checkpoint_after_death_level_1_3      ; CPU address $9ADF
+- D 0 - - - 0x0103DA 04:83CA: E8 9A     .addr loc_checkpoint_after_death_level2_outside ; CPU address $9AE8
+- D - - - - 0x0103DC 04:83CC: 00 9B     .addr loc_checkpoint_after_death_level2_d1_d3   ; CPU address $9B00
+- D - - - - 0x0103DE 04:83CE: 0F 9B     .addr loc_checkpoint_after_death_level2_d2      ; CPU address $9B0F
+- D 0 - - - 0x0103E0 04:83D0: 1B 9B     .addr loc_checkpoint_after_death_level2_d4_d5   ; CPU address $9B1B
+- D - - - - 0x0103E2 04:83D2: 2A 9B     .addr loc_checkpoint_after_death_level2_d6_d8   ; CPU address $9B2A
+- D 0 - - - 0x0103E4 04:83D4: 36 9B     .addr loc_checkpoint_after_death_level2_d7      ; CPU address $9B36
+- D 0 - - - 0x0103E6 04:83D6: 2A 9B     .addr loc_checkpoint_after_death_level2_d9_d10  ; CPU address $9B2A
+- D 0 - - - 0x0103E8 04:83D8: 2A 9B     .addr loc_checkpoint_after_death_level2_d11_d13 ; CPU address $9B2A
+- D 0 - - - 0x0103EA 04:83DA: 42 9B     .addr loc_checkpoint_after_death_level2_d12     ; CPU address $9B42
+- D - - - - 0x0103EC 04:83DC: 4E 9B     .addr loc_checkpoint_after_death_level3_0       ; CPU address $9B4E
+- D - - - - 0x0103EE 04:83DE: 5D 9B     .addr loc_checkpoint_after_death_level3_1       ; CPU address $9B5D
+- D 0 - - - 0x0103F0 04:83E0: 63 9B     .addr loc_checkpoint_after_death_level3_2       ; CPU address $9B63
+- D - - - - 0x0103F2 04:83E2: 69 9B     .addr loc_checkpoint_after_death_level3_3       ; CPU address $9B69
+- D - - - - 0x0103F4 04:83E4: 6F 9B     .addr loc_checkpoint_after_death_level3_4       ; CPU address $9B6F
+- D - - - - 0x0103F6 04:83E6: 8A 9B     .addr loc_checkpoint_after_death_one            ; CPU address $9B8A
+- D - - - - 0x0103F8 04:83E8: 08 8F     .addr deadlock
+- D - - - - 0x0103FA 04:83EA: 08 8F     .addr deadlock
+- D - - - - 0x0103FC 04:83EC: 08 8F     .addr deadlock
+- D - - - - 0x0103FE 04:83EE: 08 8F     .addr deadlock
+- D 0 - - - 0x010400 04:83F0: 75 9B     .word loc_checkpoint_after_death_level_racing   ; CPU address $9B75
+- D - - - - 0x010402 04:83F2: 8A 9B     .addr loc_checkpoint_after_death_one            ; CPU address $9B8A
+- D - - - - 0x010404 04:83F4: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010406 04:83F6: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010408 04:83F8: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01040A 04:83FA: 8A 9B     .addr loc_checkpoint_after_death_one
+- D 0 - - - 0x01040C 04:83FC: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01040E 04:83FE: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010410 04:8400: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010412 04:8402: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010414 04:8404: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010416 04:8406: 08 8F     .addr deadlock
+- D - - - - 0x010418 04:8408: 08 8F     .addr deadlock
+- D - - - - 0x01041A 04:840A: 08 8F     .addr deadlock
+- D - - - - 0x01041C 04:840C: 08 8F     .addr deadlock
+- D - - - - 0x01041E 04:840E: 08 8F     .addr deadlock
+- D - - - - 0x010420 04:8410: 08 8F     .addr deadlock
+- D - - - - 0x010422 04:8412: 08 8F     .addr deadlock
+- D - - - - 0x010424 04:8414: 08 8F     .addr deadlock
+- D - - - - 0x010426 04:8416: 08 8F     .addr deadlock
+- D - - - - 0x010428 04:8418: 08 8F     .addr deadlock
+- D - - - - 0x01042A 04:841A: 08 8F     .addr deadlock
+- D - - - - 0x01042C 04:841C: 08 8F     .addr deadlock
+- D - - - - 0x01042E 04:841E: 08 8F     .addr deadlock
+- D - - - - 0x010430 04:8420: 08 8F     .addr deadlock
+- D - - - - 0x010432 04:8422: 08 8F     .addr deadlock
+- D - - - - 0x010434 04:8424: 08 8F     .addr deadlock
+- D - - - - 0x010436 04:8426: 08 8F     .addr deadlock
+- D - - - - 0x010438 04:8428: 08 8F     .addr deadlock
+- D - - - - 0x01043A 04:842A: 08 8F     .addr deadlock
+- D - - - - 0x01043C 04:842C: 08 8F     .addr deadlock
+- D - - - - 0x01043E 04:842E: 08 8F     .addr deadlock
+- D - - - - 0x010440 04:8430: 08 8F     .addr deadlock
+- D - - - - 0x010442 04:8432: 08 8F     .addr deadlock
+- D - - - - 0x010444 04:8434: 08 8F     .addr deadlock
+- D - - - - 0x010446 04:8436: 08 8F     .addr deadlock
+- D - - - - 0x010448 04:8438: 08 8F     .addr deadlock
+- D - - - - 0x01044A 04:843A: 08 8F     .addr deadlock
+- D - - - - 0x01044C 04:843C: 08 8F     .addr deadlock
+- D - - - - 0x01044E 04:843E: 08 8F     .addr deadlock
+- D - - - - 0x010450 04:8440: 08 8F     .addr deadlock
+- D 0 - - - 0x010452 04:8442: 8A 9B     .addr loc_checkpoint_after_death_one ; CPU Address $9B8A
+- D - - - - 0x010454 04:8444: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010456 04:8446: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010458 04:8448: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01045A 04:844A: 8A 9B     .addr loc_checkpoint_after_death_one
+- D 0 - - - 0x01045C 04:844C: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01045E 04:844E: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010460 04:8450: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010462 04:8452: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010464 04:8454: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010466 04:8456: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010468 04:8458: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01046A 04:845A: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01046C 04:845C: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01046E 04:845E: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010470 04:8460: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010472 04:8462: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010474 04:8464: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010476 04:8466: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010478 04:8468: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01047A 04:846A: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01047C 04:846C: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01047E 04:846E: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010480 04:8470: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010482 04:8472: 8A 9B     .addr loc_checkpoint_after_death_one
+- D 0 - - - 0x010484 04:8474: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010486 04:8476: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010488 04:8478: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01048A 04:847A: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01048C 04:847C: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01048E 04:847E: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010490 04:8480: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010492 04:8482: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010494 04:8484: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010496 04:8486: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x010498 04:8488: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x01049A 04:848A: 8A 9B     .addr loc_checkpoint_after_death_one
+- D 0 - - - 0x01049C 04:848C: 8A 9B     .addr loc_checkpoint_after_death_one
+- D 0 - - - 0x01049E 04:848E: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104A0 04:8490: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104A2 04:8492: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104A4 04:8494: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104A6 04:8496: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104A8 04:8498: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104AA 04:849A: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104AC 04:849C: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104AE 04:849E: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104B0 04:84A0: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104B2 04:84A2: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104B4 04:84A4: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104B6 04:84A6: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104B8 04:84A8: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104BA 04:84AA: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104BC 04:84AC: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104BE 04:84AE: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104C0 04:84B0: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104C2 04:84B2: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104C4 04:84B4: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104C6 04:84B6: 8A 9B     .addr loc_checkpoint_after_death_one
+- D - - - - 0x0104C8 04:84B8: 8A 9B     .addr loc_checkpoint_after_death_one
+
 - - - - - - 0x0104CA 04:84BA: 0E        .byte $0E   ; 
 - - - - - - 0x0104CB 04:84BB: 0F        .byte $0F   ; 
 - - - - - - 0x0104CC 04:84BC: 0F        .byte $0F   ; 
@@ -4827,228 +4705,122 @@ tbl_ptr_destructible_walls_level3_4:
 - D 0 - I - 0x011ABD 04:9AAD: 41        .byte $41   ; <A>
 - - - - - - 0x011ABE 04:9AAE: FF        .byte $FF   ; 
 
-- D 0 - I - 0x011ABF 04:9AAF: 00        .byte $00   ; 
-- D 0 - I - 0x011AC0 04:9AB0: 28        .byte $28   ; 
-- D 0 - I - 0x011AC1 04:9AB1: 02        .byte $02   ; 
-- - - - - - 0x011AC2 04:9AB2: 7F        .byte $7F   ; 
-- D 0 - I - 0x011AC3 04:9AB3: 38        .byte $38   ; <8>
-- D 0 - I - 0x011AC4 04:9AB4: 04        .byte $04   ; 
-- - - - - - 0x011AC5 04:9AB5: 7F        .byte $7F   ; 
-- D 0 - I - 0x011AC6 04:9AB6: 38        .byte $38   ; <8>
-- D 0 - I - 0x011AC7 04:9AB7: 06        .byte $06   ; 
-- D 0 - I - 0x011AC8 04:9AB8: BF        .byte $BF   ; 
-- D 0 - I - 0x011AC9 04:9AB9: 28        .byte $28   ; 
-- D 0 - I - 0x011ACA 04:9ABA: 08        .byte $08   ; 
-- - - - - - 0x011ACB 04:9ABB: BF        .byte $BF   ; 
-- D 0 - I - 0x011ACC 04:9ABC: 38        .byte $38   ; <8>
-- D 0 - I - 0x011ACD 04:9ABD: 0A        .byte $0A   ; 
-- D 0 - I - 0x011ACE 04:9ABE: BF        .byte $BF   ; 
-- D 0 - I - 0x011ACF 04:9ABF: 30        .byte $30   ; <0>
-- D 0 - I - 0x011AD0 04:9AC0: 0C        .byte $0C   ; 
-- D 0 - I - 0x011AD1 04:9AC1: AF        .byte $AF   ; 
-- D 0 - I - 0x011AD2 04:9AC2: 38        .byte $38   ; <8>
-- D 0 - I - 0x011AD3 04:9AC3: 0E        .byte $0E   ; 
-- - - - - - 0x011AD4 04:9AC4: BF        .byte $BF   ; 
-- - - - - - 0x011AD5 04:9AC5: FF        .byte $FF   ; 
-- - - - - - 0x011AD6 04:9AC6: FF        .byte $FF   ; 
-- D 0 - I - 0x011AD7 04:9AC7: 00        .byte $00   ; 
-- D 0 - I - 0x011AD8 04:9AC8: 38        .byte $38   ; <8>
-- D 0 - I - 0x011AD9 04:9AC9: 02        .byte $02   ; 
-- - - - - - 0x011ADA 04:9ACA: BF        .byte $BF   ; 
-- - - - - - 0x011ADB 04:9ACB: 38        .byte $38   ; <8>
-- - - - - - 0x011ADC 04:9ACC: 04        .byte $04   ; 
-- - - - - - 0x011ADD 04:9ACD: BF        .byte $BF   ; 
-- - - - - - 0x011ADE 04:9ACE: 28        .byte $28   ; 
-- - - - - - 0x011ADF 04:9ACF: 06        .byte $06   ; 
-- - - - - - 0x011AE0 04:9AD0: BF        .byte $BF   ; 
-- - - - - - 0x011AE1 04:9AD1: FF        .byte $FF   ; 
-- - - - - - 0x011AE2 04:9AD2: FF        .byte $FF   ; 
-- - - - - - 0x011AE3 04:9AD3: 80        .byte $80   ; 
-- - - - - - 0x011AE4 04:9AD4: D8        .byte $D8   ; 
-- - - - - - 0x011AE5 04:9AD5: 06        .byte $06   ; 
-- - - - - - 0x011AE6 04:9AD6: BF        .byte $BF   ; 
-- - - - - - 0x011AE7 04:9AD7: C8        .byte $C8   ; 
-- - - - - - 0x011AE8 04:9AD8: 04        .byte $04   ; 
-- - - - - - 0x011AE9 04:9AD9: BF        .byte $BF   ; 
-- - - - - - 0x011AEA 04:9ADA: D0        .byte $D0   ; 
-- - - - - - 0x011AEB 04:9ADB: 02        .byte $02   ; 
-- - - - - - 0x011AEC 04:9ADC: BF        .byte $BF   ; 
-- - - - - - 0x011AED 04:9ADD: 00        .byte $00   ; 
-- - - - - - 0x011AEE 04:9ADE: 00        .byte $00   ; 
-- D 0 - I - 0x011AEF 04:9ADF: 00        .byte $00   ; 
-- D 0 - I - 0x011AF0 04:9AE0: 38        .byte $38   ; <8>
-- D 0 - I - 0x011AF1 04:9AE1: 02        .byte $02   ; 
-- D 0 - I - 0x011AF2 04:9AE2: BF        .byte $BF   ; 
-- D 0 - I - 0x011AF3 04:9AE3: 38        .byte $38   ; <8>
-- D 0 - I - 0x011AF4 04:9AE4: 04        .byte $04   ; 
-- D 0 - I - 0x011AF5 04:9AE5: BF        .byte $BF   ; 
-- D 0 - I - 0x011AF6 04:9AE6: FF        .byte $FF   ; 
-- D 0 - I - 0x011AF7 04:9AE7: FF        .byte $FF   ; 
-- D 0 - I - 0x011AF8 04:9AE8: 00        .byte $00   ; 
-- D 0 - I - 0x011AF9 04:9AE9: 38        .byte $38   ; <8>
-- D 0 - I - 0x011AFA 04:9AEA: 02        .byte $02   ; 
-- - - - - - 0x011AFB 04:9AEB: BF        .byte $BF   ; 
-- D 0 - I - 0x011AFC 04:9AEC: 38        .byte $38   ; <8>
-- D 0 - I - 0x011AFD 04:9AED: 04        .byte $04   ; 
-- - - - - - 0x011AFE 04:9AEE: BF        .byte $BF   ; 
-- D 0 - I - 0x011AFF 04:9AEF: 38        .byte $38   ; <8>
-- D 0 - I - 0x011B00 04:9AF0: 06        .byte $06   ; 
-- D 0 - I - 0x011B01 04:9AF1: BF        .byte $BF   ; 
-- D 0 - I - 0x011B02 04:9AF2: 38        .byte $38   ; <8>
-- D 0 - I - 0x011B03 04:9AF3: 08        .byte $08   ; 
-- - - - - - 0x011B04 04:9AF4: BF        .byte $BF   ; 
-- - - - - - 0x011B05 04:9AF5: 38        .byte $38   ; <8>
-- - - - - - 0x011B06 04:9AF6: 0A        .byte $0A   ; 
-- - - - - - 0x011B07 04:9AF7: BF        .byte $BF   ; 
-- - - - - - 0x011B08 04:9AF8: 38        .byte $38   ; <8>
-- - - - - - 0x011B09 04:9AF9: 0C        .byte $0C   ; 
-- - - - - - 0x011B0A 04:9AFA: BF        .byte $BF   ; 
-- - - - - - 0x011B0B 04:9AFB: 38        .byte $38   ; <8>
-- - - - - - 0x011B0C 04:9AFC: 0E        .byte $0E   ; 
-- - - - - - 0x011B0D 04:9AFD: BF        .byte $BF   ; 
-- - - - - - 0x011B0E 04:9AFE: FF        .byte $FF   ; 
-- - - - - - 0x011B0F 04:9AFF: FF        .byte $FF   ; 
-- - - - - - 0x011B10 04:9B00: 00        .byte $00   ; 
-- - - - - - 0x011B11 04:9B01: 80        .byte $80   ; 
-- - - - - - 0x011B12 04:9B02: 02        .byte $02   ; 
-- - - - - - 0x011B13 04:9B03: BF        .byte $BF   ; 
-- - - - - - 0x011B14 04:9B04: 80        .byte $80   ; 
-- - - - - - 0x011B15 04:9B05: 04        .byte $04   ; 
-- - - - - - 0x011B16 04:9B06: BF        .byte $BF   ; 
-- - - - - - 0x011B17 04:9B07: 80        .byte $80   ; 
-- - - - - - 0x011B18 04:9B08: 06        .byte $06   ; 
-- - - - - - 0x011B19 04:9B09: BF        .byte $BF   ; 
-- - - - - - 0x011B1A 04:9B0A: 50        .byte $50   ; <P>
-- - - - - - 0x011B1B 04:9B0B: 07        .byte $07   ; 
-- - - - - - 0x011B1C 04:9B0C: BF        .byte $BF   ; 
-- - - - - - 0x011B1D 04:9B0D: FF        .byte $FF   ; 
-- - - - - - 0x011B1E 04:9B0E: FF        .byte $FF   ; 
-- - - - - - 0x011B1F 04:9B0F: 00        .byte $00   ; 
-- - - - - - 0x011B20 04:9B10: 80        .byte $80   ; 
-- - - - - - 0x011B21 04:9B11: 02        .byte $02   ; 
-- - - - - - 0x011B22 04:9B12: BF        .byte $BF   ; 
-- - - - - - 0x011B23 04:9B13: 38        .byte $38   ; <8>
-- - - - - - 0x011B24 04:9B14: 04        .byte $04   ; 
-- - - - - - 0x011B25 04:9B15: BF        .byte $BF   ; 
-- - - - - - 0x011B26 04:9B16: 38        .byte $38   ; <8>
-- - - - - - 0x011B27 04:9B17: 06        .byte $06   ; 
-- - - - - - 0x011B28 04:9B18: BF        .byte $BF   ; 
-- - - - - - 0x011B29 04:9B19: FF        .byte $FF   ; 
-- - - - - - 0x011B2A 04:9B1A: FF        .byte $FF   ; 
-- D 0 - I - 0x011B2B 04:9B1B: 00        .byte $00   ; 
-- D 0 - I - 0x011B2C 04:9B1C: 78        .byte $78   ; <x>
-- D 0 - I - 0x011B2D 04:9B1D: 02        .byte $02   ; 
-- - - - - - 0x011B2E 04:9B1E: BF        .byte $BF   ; 
-- - - - - - 0x011B2F 04:9B1F: 88        .byte $88   ; 
-- - - - - - 0x011B30 04:9B20: 04        .byte $04   ; 
-- - - - - - 0x011B31 04:9B21: BF        .byte $BF   ; 
-- - - - - - 0x011B32 04:9B22: 78        .byte $78   ; <x>
-- - - - - - 0x011B33 04:9B23: 06        .byte $06   ; 
-- - - - - - 0x011B34 04:9B24: BF        .byte $BF   ; 
-- - - - - - 0x011B35 04:9B25: 50        .byte $50   ; <P>
-- - - - - - 0x011B36 04:9B26: 07        .byte $07   ; 
-- - - - - - 0x011B37 04:9B27: BF        .byte $BF   ; 
-- - - - - - 0x011B38 04:9B28: FF        .byte $FF   ; 
-- - - - - - 0x011B39 04:9B29: FF        .byte $FF   ; 
-- D 0 - I - 0x011B3A 04:9B2A: 00        .byte $00   ; 
-- D 0 - I - 0x011B3B 04:9B2B: 80        .byte $80   ; 
-- D 0 - I - 0x011B3C 04:9B2C: 02        .byte $02   ; 
-- D 0 - I - 0x011B3D 04:9B2D: BF        .byte $BF   ; 
-- D 0 - I - 0x011B3E 04:9B2E: 80        .byte $80   ; 
-- D 0 - I - 0x011B3F 04:9B2F: 04        .byte $04   ; 
-- - - - - - 0x011B40 04:9B30: BF        .byte $BF   ; 
-- - - - - - 0x011B41 04:9B31: 80        .byte $80   ; 
-- - - - - - 0x011B42 04:9B32: 06        .byte $06   ; 
-- - - - - - 0x011B43 04:9B33: BF        .byte $BF   ; 
-- - - - - - 0x011B44 04:9B34: FF        .byte $FF   ; 
-- - - - - - 0x011B45 04:9B35: FF        .byte $FF   ; 
-- D 0 - I - 0x011B46 04:9B36: 00        .byte $00   ; 
-- D 0 - I - 0x011B47 04:9B37: 38        .byte $38   ; <8>
-- D 0 - I - 0x011B48 04:9B38: 02        .byte $02   ; 
-- - - - - - 0x011B49 04:9B39: BF        .byte $BF   ; 
-- - - - - - 0x011B4A 04:9B3A: 38        .byte $38   ; <8>
-- - - - - - 0x011B4B 04:9B3B: 04        .byte $04   ; 
-- - - - - - 0x011B4C 04:9B3C: A7        .byte $A7   ; 
-- - - - - - 0x011B4D 04:9B3D: 38        .byte $38   ; <8>
-- - - - - - 0x011B4E 04:9B3E: 06        .byte $06   ; 
-- - - - - - 0x011B4F 04:9B3F: BF        .byte $BF   ; 
-- - - - - - 0x011B50 04:9B40: FF        .byte $FF   ; 
-- - - - - - 0x011B51 04:9B41: FF        .byte $FF   ; 
-- D 0 - I - 0x011B52 04:9B42: 00        .byte $00   ; 
-- D 0 - I - 0x011B53 04:9B43: 48        .byte $48   ; <H>
-- D 0 - I - 0x011B54 04:9B44: 02        .byte $02   ; 
-- - - - - - 0x011B55 04:9B45: BF        .byte $BF   ; 
-- - - - - - 0x011B56 04:9B46: 38        .byte $38   ; <8>
-- - - - - - 0x011B57 04:9B47: 04        .byte $04   ; 
-- - - - - - 0x011B58 04:9B48: BF        .byte $BF   ; 
-- - - - - - 0x011B59 04:9B49: 38        .byte $38   ; <8>
-- - - - - - 0x011B5A 04:9B4A: 06        .byte $06   ; 
-- - - - - - 0x011B5B 04:9B4B: BF        .byte $BF   ; 
-- - - - - - 0x011B5C 04:9B4C: FF        .byte $FF   ; 
-- - - - - - 0x011B5D 04:9B4D: FF        .byte $FF   ; 
-- - - - - - 0x011B5E 04:9B4E: 00        .byte $00   ; 
-- - - - - - 0x011B5F 04:9B4F: 48        .byte $48   ; <H>
-- - - - - - 0x011B60 04:9B50: 04        .byte $04   ; 
-- - - - - - 0x011B61 04:9B51: BF        .byte $BF   ; 
-- - - - - - 0x011B62 04:9B52: 40        .byte $40   ; 
-- - - - - - 0x011B63 04:9B53: 06        .byte $06   ; 
-- - - - - - 0x011B64 04:9B54: 9F        .byte $9F   ; 
-- - - - - - 0x011B65 04:9B55: 48        .byte $48   ; <H>
-- - - - - - 0x011B66 04:9B56: 08        .byte $08   ; 
-- - - - - - 0x011B67 04:9B57: BF        .byte $BF   ; 
-- - - - - - 0x011B68 04:9B58: 38        .byte $38   ; <8>
-- - - - - - 0x011B69 04:9B59: 0C        .byte $0C   ; 
-- - - - - - 0x011B6A 04:9B5A: BF        .byte $BF   ; 
-- - - - - - 0x011B6B 04:9B5B: FF        .byte $FF   ; 
-- - - - - - 0x011B6C 04:9B5C: FF        .byte $FF   ; 
-- - - - - - 0x011B6D 04:9B5D: 00        .byte $00   ; 
-- - - - - - 0x011B6E 04:9B5E: 38        .byte $38   ; <8>
-- - - - - - 0x011B6F 04:9B5F: 04        .byte $04   ; 
-- - - - - - 0x011B70 04:9B60: BF        .byte $BF   ; 
-- - - - - - 0x011B71 04:9B61: FF        .byte $FF   ; 
-- - - - - - 0x011B72 04:9B62: FF        .byte $FF   ; 
-- D 0 - I - 0x011B73 04:9B63: 80        .byte $80   ; 
-- D 0 - I - 0x011B74 04:9B64: C8        .byte $C8   ; 
-- D 0 - I - 0x011B75 04:9B65: 03        .byte $03   ; 
-- - - - - - 0x011B76 04:9B66: BF        .byte $BF   ; 
-- - - - - - 0x011B77 04:9B67: 00        .byte $00   ; 
-- - - - - - 0x011B78 04:9B68: 00        .byte $00   ; 
-- - - - - - 0x011B79 04:9B69: 00        .byte $00   ; 
-- - - - - - 0x011B7A 04:9B6A: 38        .byte $38   ; <8>
-- - - - - - 0x011B7B 04:9B6B: 04        .byte $04   ; 
-- - - - - - 0x011B7C 04:9B6C: A7        .byte $A7   ; 
-- - - - - - 0x011B7D 04:9B6D: FF        .byte $FF   ; 
-- - - - - - 0x011B7E 04:9B6E: FF        .byte $FF   ; 
-- - - - - - 0x011B7F 04:9B6F: 80        .byte $80   ; 
-- - - - - - 0x011B80 04:9B70: D0        .byte $D0   ; 
-- - - - - - 0x011B81 04:9B71: 04        .byte $04   ; 
-- - - - - - 0x011B82 04:9B72: BF        .byte $BF   ; 
-- - - - - - 0x011B83 04:9B73: 00        .byte $00   ; 
-- - - - - - 0x011B84 04:9B74: 00        .byte $00   ; 
-- D 0 - I - 0x011B85 04:9B75: 00        .byte $00   ; 
-- D 0 - I - 0x011B86 04:9B76: 40        .byte $40   ; 
-- D 0 - I - 0x011B87 04:9B77: 05        .byte $05   ; 
-- - - - - - 0x011B88 04:9B78: C7        .byte $C7   ; 
-- - - - - - 0x011B89 04:9B79: 40        .byte $40   ; 
-- - - - - - 0x011B8A 04:9B7A: 0A        .byte $0A   ; 
-- - - - - - 0x011B8B 04:9B7B: C7        .byte $C7   ; 
-- - - - - - 0x011B8C 04:9B7C: 30        .byte $30   ; <0>
-- - - - - - 0x011B8D 04:9B7D: 0F        .byte $0F   ; 
-- - - - - - 0x011B8E 04:9B7E: C7        .byte $C7   ; 
-- - - - - - 0x011B8F 04:9B7F: 30        .byte $30   ; <0>
-- - - - - - 0x011B90 04:9B80: 12        .byte $12   ; 
-- - - - - - 0x011B91 04:9B81: C7        .byte $C7   ; 
-- - - - - - 0x011B92 04:9B82: 30        .byte $30   ; <0>
-- - - - - - 0x011B93 04:9B83: 17        .byte $17   ; 
-- - - - - - 0x011B94 04:9B84: C7        .byte $C7   ; 
-- - - - - - 0x011B95 04:9B85: 30        .byte $30   ; <0>
-- - - - - - 0x011B96 04:9B86: 1D        .byte $1D   ; 
-- - - - - - 0x011B97 04:9B87: C7        .byte $C7   ; 
-- - - - - - 0x011B98 04:9B88: FF        .byte $FF   ; 
-- - - - - - 0x011B99 04:9B89: FF        .byte $FF   ; 
-- D 0 - I - 0x011B9A 04:9B8A: 00        .byte $00   ; 
-- D 0 - I - 0x011B9B 04:9B8B: FF        .byte $FF   ; 
-- D 0 - I - 0x011B9C 04:9B8C: FF        .byte $FF   ; 
+; 1 byte (1 row) - 0x00 - left to right direction, 0x80 - right to left direction
+; 1 byte (next row) - posY
+; 2 byte - LowPosX
+; 3 byte - HighPosX
+loc_checkpoint_after_death_level_1_0:
+- D 0 - I - 0x011ABF 04:9AAF: 00        .byte $00, $28, $02
+- D - - - - 0x011AC2 04:9AB2: 7F        .byte $7F, $38, $04
+- D - - - - 0x011AC5 04:9AB5: 7F        .byte $7F, $38, $06
+- D 0 - I - 0x011AC8 04:9AB8: BF        .byte $BF, $28, $08
+- D - - - - 0x011ACB 04:9ABB: BF        .byte $BF, $38, $0A
+- D 0 - I - 0x011ACE 04:9ABE: BF        .byte $BF, $30, $0C
+- D 0 - I - 0x011AD1 04:9AC1: AF        .byte $AF, $38, $0E
+- D - - - - 0x011AD4 04:9AC4: BF        .byte $BF, $FF, $FF
+
+loc_checkpoint_after_death_level_1_1:
+- D 0 - I - 0x011AD7 04:9AC7: 00        .byte $00, $38, $02
+- D - - - - 0x011ADA 04:9ACA: BF        .byte $BF, $38, $04
+- D - - - - 0x011ADD 04:9ACD: BF        .byte $BF, $28, $06
+- D - - - - 0x011AE0 04:9AD0: BF        .byte $BF, $FF, $FF
+
+loc_checkpoint_after_death_level_1_2:
+- D - - - - 0x011AE3 04:9AD3: 80        .byte $80, $D8, $06
+- D - - - - 0x011AE6 04:9AD6: BF        .byte $BF, $C8, $04
+- D - - - - 0x011AE9 04:9AD9: BF        .byte $BF, $D0, $02
+- D - - - - 0x011AEC 04:9ADC: BF        .byte $BF, $00, $00
+
+loc_checkpoint_after_death_level_1_3:
+- D 0 - I - 0x011AEF 04:9ADF: 00        .byte $00, $38, $02
+- D 0 - I - 0x011AF2 04:9AE2: BF        .byte $BF, $38, $04
+- D 0 - I - 0x011AF5 04:9AE5: BF        .byte $BF, $FF, $FF
+
+loc_checkpoint_after_death_level2_outside:
+- D 0 - I - 0x011AF8 04:9AE8: 00        .byte $00, $38, $02
+- D - - - - 0x011AFB 04:9AEB: BF        .byte $BF, $38, $04
+- D - - - - 0x011AFE 04:9AEE: BF        .byte $BF, $38, $06
+- D 0 - I - 0x011B01 04:9AF1: BF        .byte $BF, $38, $08
+- D - - - - 0x011B04 04:9AF4: BF        .byte $BF, $38, $0A
+- D - - - - 0x011B07 04:9AF7: BF        .byte $BF, $38, $0C
+- D - - - - 0x011B0A 04:9AFA: BF        .byte $BF, $38, $0E
+- D - - - - 0x011B0D 04:9AFD: BF        .byte $BF, $FF, $FF
+
+loc_checkpoint_after_death_level2_d1_d3:
+- D - - - - 0x011B10 04:9B00: 00        .byte $00, $80, $02
+- D - - - - 0x011B13 04:9B03: BF        .byte $BF, $80, $04
+- D - - - - 0x011B16 04:9B06: BF        .byte $BF, $80, $06
+- D - - - - 0x011B19 04:9B09: BF        .byte $BF, $50, $07
+- D - - - - 0x011B1C 04:9B0C: BF        .byte $BF, $FF, $FF
+
+loc_checkpoint_after_death_level2_d2:
+- D - - - - 0x011B1F 04:9B0F: 00        .byte $00, $80, $02
+- D - - - - 0x011B22 04:9B12: BF        .byte $BF, $38, $04
+- D - - - - 0x011B25 04:9B15: BF        .byte $BF, $38, $06
+- D - - - - 0x011B28 04:9B18: BF        .byte $BF, $FF, $FF
+
+loc_checkpoint_after_death_level2_d4_d5:
+- D 0 - I - 0x011B2B 04:9B1B: 00        .byte $00, $78, $02
+- D - - - - 0x011B2E 04:9B1E: BF        .byte $BF, $88, $04
+- D - - - - 0x011B31 04:9B21: BF        .byte $BF, $78, $06
+- D - - - - 0x011B34 04:9B24: BF        .byte $BF, $50, $07
+- D - - - - 0x011B37 04:9B27: BF        .byte $BF, $FF, $FF
+
+loc_checkpoint_after_death_level2_d6_d8:
+loc_checkpoint_after_death_level2_d9_d10:
+loc_checkpoint_after_death_level2_d11_d13:
+- D 0 - I - 0x011B3A 04:9B2A: 00        .byte $00, $80, $02
+- D 0 - I - 0x011B3D 04:9B2D: BF        .byte $BF, $80, $04
+- D - - - - 0x011B40 04:9B30: BF        .byte $BF, $80, $06
+- D - - - - 0x011B43 04:9B33: BF        .byte $BF, $FF, $FF
+
+loc_checkpoint_after_death_level2_d7:
+- D 0 - I - 0x011B46 04:9B36: 00        .byte $00, $38, $02
+- D - - - - 0x011B49 04:9B39: BF        .byte $BF, $38, $04
+- D - - - - 0x011B4C 04:9B3C: A7        .byte $A7, $38, $06
+- D - - - - 0x011B4F 04:9B3F: BF        .byte $BF, $FF, $FF
+
+loc_checkpoint_after_death_level2_d12:
+- D 0 - I - 0x011B52 04:9B42: 00        .byte $00, $48, $02
+- D - - - - 0x011B55 04:9B45: BF        .byte $BF, $38, $04
+- D - - - - 0x011B58 04:9B48: BF        .byte $BF, $38, $06
+- D - - - - 0x011B5B 04:9B4B: BF        .byte $BF, $FF, $FF
+
+loc_checkpoint_after_death_level3_0:
+- D - - - - 0x011B5E 04:9B4E: 00        .byte $00, $48, $04
+- D - - - - 0x011B61 04:9B51: BF        .byte $BF, $40, $06
+- D - - - - 0x011B64 04:9B54: 9F        .byte $9F, $48, $08
+- D - - - - 0x011B67 04:9B57: BF        .byte $BF, $38, $0C
+- D - - - - 0x011B6A 04:9B5A: BF        .byte $BF, $FF, $FF
+
+loc_checkpoint_after_death_level3_1:
+- D - - - - 0x011B6D 04:9B5D: 00        .byte $00, $38, $04
+- D - - - - 0x011B70 04:9B60: BF        .byte $BF, $FF, $FF
+
+loc_checkpoint_after_death_level3_2:
+- D 0 - I - 0x011B73 04:9B63: 80        .byte $80, $C8, $03
+- D - - - - 0x011B76 04:9B66: BF        .byte $BF, $00, $00
+
+loc_checkpoint_after_death_level3_3:
+- D - - - - 0x011B79 04:9B69: 00        .byte $00, $38, $04
+- D - - - - 0x011B7C 04:9B6C: A7        .byte $A7, $FF, $FF
+
+loc_checkpoint_after_death_level3_4:
+- D - - - - 0x011B7F 04:9B6F: 80        .byte $80, $D0, $04
+- D - - - - 0x011B82 04:9B72: BF        .byte $BF, $00, $00
+
+loc_checkpoint_after_death_level_racing:
+- D 0 - I - 0x011B85 04:9B75: 00        .byte $00, $40, $05
+- D - - - - 0x011B88 04:9B78: C7        .byte $C7, $40, $0A
+- D - - - - 0x011B8B 04:9B7B: C7        .byte $C7, $30, $0F
+- D - - - - 0x011B8E 04:9B7E: C7        .byte $C7, $30, $12
+- D - - - - 0x011B91 04:9B81: C7        .byte $C7, $30, $17
+- D - - - - 0x011B94 04:9B84: C7        .byte $C7, $30, $1D
+- D - - - - 0x011B97 04:9B87: C7        .byte $C7, $FF, $FF
+
+loc_checkpoint_after_death_one:
+- D 0 - I - 0x011B9A 04:9B8A: 00        .byte $00, $FF, $FF
+
 - D 0 - I - 0x011B9D 04:9B8D: 0A        .byte $0A   ; 
 - D 0 - I - 0x011B9E 04:9B8E: 05        .byte $05   ; 
 - D 0 - I - 0x011B9F 04:9B8F: 00        .byte $00   ; 

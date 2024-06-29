@@ -4,7 +4,7 @@ Python 3.7.4
 
 import re
 
-ASM_FOLDER_PATH = "C:\\Lupin Sansei - Pandora no Isan\\"
+ASM_FOLDER_PATH = "C:\\Lupin Sansei - Pandora no Isan\\src\\"
 ASM_FF_FILE = "bank_FF.asm"
 ASM_00_1_FILE = "bank_00_1.asm"
 ASM_00_2_FILE = "bank_00_2.asm"

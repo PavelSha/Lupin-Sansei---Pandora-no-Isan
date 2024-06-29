@@ -4,7 +4,7 @@ Python 3.7.4
 
 import re
 
-ASM_FOLDER_PATH = "C:\\Lupin Sansei - Pandora no Isan\\"
+ASM_FOLDER_PATH = "C:\\Lupin Sansei - Pandora no Isan\\src\\"
 NL_FOLDER_PATH  = "C:\\Lupin Sansei - Pandora no Isan\\debug\\"
 ASM_FILE1 = "bank_FF.asm"
 ASM_FILE2 = "constants.inc"

@@ -4,62 +4,69 @@
 .org $A000  ; for listing file
 ; 0x01A010-0x01C00F
 
-.import tbl_copyright                            ; bank 04 (Page 1)
-.import tbl_main_menu_chr_banks                  ; bank 04 (Page 1)
-.import tbl_template_chr_banks1                  ; bank 04 (Page 1)
-.import tbl_messages                             ; bank 04 (Page 2)
-.import tbl_ptr_rooms_with_NPCs                  ; bank 04 (Page 2)
-.import tbl_ptr_briefcases_outside               ; bank 04 (Page 2)
-.import tbl_ptr_briefcases_indexes_on_the_level  ; bank 04 (Page 2)
-.import tbl_briefcases_positions                 ; bank 04 (Page 2)
-.import npc_portrait_sprites                     ; bank 04 (Page 2)
-.import npc_portrait_set                         ; bank 04 (Page 2)
-.import npc_sprite_set                           ; bank 04 (Page 2)
-.import tbl_ptr_prison_rooms                     ; bank 04 (Page 2)
-.import sub_C305_update_ppu_ctrl_with_no_nmi     ; bank FF
-.import sub_C313_screen_off                      ; bank FF
-.import sub_C31D_clear_ppu                       ; bank FF
-.import sub_C358_clear_OAM                       ; bank FF
-.import loc_C371_update_palette                  ; bank FF
-.import loc_C402_clear_sound_parts               ; bank FF
-.import sub_C402_clear_sound_parts               ; bank FF
-.import sub_C420_add_sound_effect                ; bank FF
-.import loc_C420_add_sound_effect                ; bank FF
-.import sub_C4F5_selectAllChrBanks               ; bank FF
-.import sub_C904_clear_score                     ; bank FF
-.import loc_CE33_add_sprite_magic                ; bank FF
-.import sub_CE33_add_sprite_magic                ; bank FF
-.import sub_D073_invert_sign                     ; bank FF
-.import sub_D079_check_button_press              ; bank FF
-.import sub_D086_render_14_15_16_17_18_v1        ; bank FF
-.import sub_EF46_switch_bank_4_p1                ; bank FF
-.import loc_EF4F_switch_bank_4_p2                ; bank FF
-.import sub_EF4F_switch_bank_4_p2                ; bank FF
-.import sub_F2D6_try_put_briefcase               ; bank FF
-.import tbl_C1CA_checkpoint_on_start_levels      ; bank FF
-.import sub_CE5A_render_character                ; bank FF
-.import sub_C91C_display_menu_score              ; bank FF
-.import sub_C51E_update_ppu_and_screen           ; bank FF
-.import loc_C046_repeat_starting_mode            ; bank FF
-.import sub_D2E5_get_collision_value             ; bank FF
-.import sub_D0B8_change_stack_pointer_by_bits    ; bank FF
-.import sub_D67B_out_of_sight                    ; bank FF
-.import sub_D6AC_out_of_screen                   ; bank FF
-.import loc_D99F_add_flash_sprite                ; bank FF
-.import sub_D660_is_bomb_exploding               ; bank FF
-.import loc_D77F_free_enemyA                     ; bank FF
-.import sub_D6BD_try_change_enemyA_direction     ; bank FF
-.import loc_D741_enemyA_off_screen               ; bank FF
-.import sub_D725_enemyA_on_screen                ; bank FF
-.import loc_D989_add_enemyA_sprite_magic_v1      ; bank FF
-.import sub_D358_check_enemyA_collision_by_Y     ; bank FF
-.import sub_D562_has_character_damage            ; bank FF
-.import sub_D5B6_have_intersect_bullet           ; bank FF
-.import sub_D606_have_intersect_sword            ; bank FF
-.import sub_D7A8_correction_EnemyAPosY           ; bank FF
-.import sub_D347_check_enemyA_strong_collision   ; bank FF
-.import sub_FC3E_boss_defeated_status            ; bank FF
-.import sub_D064_generate_rng                    ; bank FF
+.import tbl_copyright                                  ; bank 04 (Page 1)
+.import tbl_main_menu_chr_banks                        ; bank 04 (Page 1)
+.import tbl_template_chr_banks1                        ; bank 04 (Page 1)
+.import tbl_messages                                   ; bank 04 (Page 2)
+.import tbl_ptr_rooms_with_NPCs                        ; bank 04 (Page 2)
+.import tbl_ptr_briefcases_outside                     ; bank 04 (Page 2)
+.import tbl_ptr_briefcases_indexes_on_the_level        ; bank 04 (Page 2)
+.import tbl_briefcases_positions                       ; bank 04 (Page 2)
+.import npc_portrait_sprites                           ; bank 04 (Page 2)
+.import npc_portrait_set                               ; bank 04 (Page 2)
+.import npc_sprite_set                                 ; bank 04 (Page 2)
+.import tbl_ptr_prison_rooms                           ; bank 04 (Page 2)
+.import sub_C305_update_ppu_ctrl_with_no_nmi           ; bank FF
+.import sub_C313_screen_off                            ; bank FF
+.import sub_C31D_clear_ppu                             ; bank FF
+.import sub_C358_clear_OAM                             ; bank FF
+.import loc_C371_update_palette                        ; bank FF
+.import loc_C402_clear_sound_parts                     ; bank FF
+.import sub_C402_clear_sound_parts                     ; bank FF
+.import sub_C420_add_sound_effect                      ; bank FF
+.import loc_C420_add_sound_effect                      ; bank FF
+.import sub_C4F5_selectAllChrBanks                     ; bank FF
+.import sub_C904_clear_score                           ; bank FF
+.import loc_CE33_add_sprite_magic                      ; bank FF
+.import sub_CE33_add_sprite_magic                      ; bank FF
+.import sub_D073_invert_sign                           ; bank FF
+.import sub_D079_check_button_press                    ; bank FF
+.import sub_D086_render_14_15_16_17_18_v1              ; bank FF
+.import sub_EF46_switch_bank_4_p1                      ; bank FF
+.import loc_EF4F_switch_bank_4_p2                      ; bank FF
+.import sub_EF4F_switch_bank_4_p2                      ; bank FF
+.import sub_EF3B_switch_bank_2_p1                      ; bank FF
+.import sub_F2D6_try_put_briefcase                     ; bank FF
+.import tbl_C1CA_checkpoint_on_start_levels            ; bank FF
+.import sub_CE5A_render_character                      ; bank FF
+.import sub_C91C_display_menu_score                    ; bank FF
+.import sub_C51E_update_ppu_and_screen                 ; bank FF
+.import loc_C046_repeat_starting_mode                  ; bank FF
+.import sub_D2E5_get_collision_value                   ; bank FF
+.import sub_D0B8_change_stack_pointer_by_bits          ; bank FF
+.import sub_D67B_out_of_sight                          ; bank FF
+.import sub_D6AC_out_of_screen                         ; bank FF
+.import loc_D99F_add_flash_sprite                      ; bank FF
+.import sub_D660_is_bomb_exploding                     ; bank FF
+.import loc_D77F_free_enemyA                           ; bank FF
+.import sub_D6BD_try_change_enemyA_direction           ; bank FF
+.import loc_D741_enemyA_off_screen                     ; bank FF
+.import sub_D725_enemyA_on_screen                      ; bank FF
+.import loc_D989_add_enemyA_sprite_magic_v1            ; bank FF
+.import sub_D358_check_enemyA_collision_by_Y           ; bank FF
+.import sub_D562_has_character_damage                  ; bank FF
+.import sub_D5B6_have_intersect_bullet                 ; bank FF
+.import sub_D606_have_intersect_sword                  ; bank FF
+.import sub_D7A8_correction_EnemyAPosY                 ; bank FF
+.import sub_D347_check_enemyA_strong_collision         ; bank FF
+.import sub_FC3E_boss_defeated_status                  ; bank FF
+.import sub_D064_generate_rng                          ; bank FF
+.import sub_CDEE_prepare_activable_items_after_damage  ; bank FF
+.import sub_DF63_update_character_status               ; bank FF
+.import loc_DBC2_before_rendering                      ; bank FF
+.import sub_DCB1_try_move_on_the_left                  ; bank FF
+.import sub_DCE5_try_move_on_the_right                 ; bank FF
+.import sub_DCF1_reset_velocity                        ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -2428,7 +2435,7 @@ C - - - - - 0x01AF78 06:AF68: D0 02     BNE @bra_AF6C_skip
 C - - - - - 0x01AF7A 06:AF6A: A0 10     LDY #$10
 @bra_AF6C_skip:
 C - - - - - 0x01AF7C 06:AF6C: 84 AF     STY ram_00AF
-C - - - - - 0x01AF7E 06:AF6E: BD AA 03  LDA ram_03AA,X
+C - - - - - 0x01AF7E 06:AF6E: BD AA 03  LDA vItemPosY,X
 C - - - - - 0x01AF81 06:AF71: 38        SEC
 C - - - - - 0x01AF82 06:AF72: E9 04     SBC #$04
 C - - - - - 0x01AF84 06:AF74: 85 AD     STA ram_00AD
@@ -2538,16 +2545,16 @@ C - - - - - 0x01B03A 06:B02A: 18        CLC
 C - - - - - 0x01B03B 06:B02B: 69 06     ADC #$06
 C - - - - - 0x01B03D 06:B02D: A8        TAY
 bra_B02E:
-C - - - - - 0x01B03E 06:B02E: BD B6 03  LDA ram_03B6,X
+C - - - - - 0x01B03E 06:B02E: BD B6 03  LDA vItemPosXLow,X
 C - - - - - 0x01B041 06:B031: 85 00     STA ram_0000
-C - - - - - 0x01B043 06:B033: BD BC 03  LDA ram_03BC,X
+C - - - - - 0x01B043 06:B033: BD BC 03  LDA vItemPosXHigh,X
 C - - - - - 0x01B046 06:B036: 85 01     STA ram_0001
 C - - - - - 0x01B048 06:B038: 20 AC D6  JSR sub_D6AC_out_of_screen
 C - - - - - 0x01B04B 06:B03B: 90 03     BCC bra_B040
 C - - - - - 0x01B04D 06:B03D: 4C EF AF  JMP loc_AFEF
 
 bra_B040:
-C - - - - - 0x01B050 06:B040: BD AA 03  LDA ram_03AA,X
+C - - - - - 0x01B050 06:B040: BD AA 03  LDA vItemPosY,X
 C - - - - - 0x01B053 06:B043: 85 00     STA ram_0000
 C - - - - - 0x01B055 06:B045: A5 03     LDA ram_0003
 C - - - - - 0x01B057 06:B047: 9D B0 03  STA ram_03B0,X
@@ -2609,63 +2616,63 @@ bra_B0A4_RTS:
 C - - - - - 0x01B0B4 06:B0A4: 60        RTS                    ;
 
 bra_B0A5:
-C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA vMovableChrStatus                ;
-C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113                         ; If 'the character is moving in the water'
-C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2        ; bank FF
-C - - - - - 0x01B0BC 06:B0AC: A0 00     LDY #$00                             ;
-C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA vNoSubLevel                      ;
-C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ @bra_B0BE_skip                   ; If vNoSubLevel == level 1.0
-C - - - - - 0x01B0C2 06:B0B2: A0 02     LDY #$02                             ;
-C - - - - - 0x01B0C4 06:B0B4: C9 06     CMP #$06                             ; CONSTANT - level 2 (outside)
-C - - - - - 0x01B0C6 06:B0B6: F0 06     BEQ @bra_B0BE_skip                   ; If vNoSubLevel == level 2 (outside)
-C - - - - - 0x01B0C8 06:B0B8: A0 04     LDY #$04                             ;
-C - - - - - 0x01B0CA 06:B0BA: C9 0F     CMP #$0F                             ; CONSTANT - level 3.0
-C - - - - - 0x01B0CC 06:B0BC: D0 E6     BNE bra_B0A4_RTS                     ; If vNoSubLevel != level 3.0
+C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA vMovableChrStatus                    ;
+C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113_try_generate_item_in_water  ; If 'the character is moving in the water'
+C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2            ; bank FF
+C - - - - - 0x01B0BC 06:B0AC: A0 00     LDY #$00                                 ;
+C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA vNoSubLevel                          ;
+C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ @bra_B0BE_skip                       ; If vNoSubLevel == level 1.0
+C - - - - - 0x01B0C2 06:B0B2: A0 02     LDY #$02                                 ;
+C - - - - - 0x01B0C4 06:B0B4: C9 06     CMP #$06                                 ; CONSTANT - level 2 (outside)
+C - - - - - 0x01B0C6 06:B0B6: F0 06     BEQ @bra_B0BE_skip                       ; If vNoSubLevel == level 2 (outside)
+C - - - - - 0x01B0C8 06:B0B8: A0 04     LDY #$04                                 ;
+C - - - - - 0x01B0CA 06:B0BA: C9 0F     CMP #$0F                                 ; CONSTANT - level 3.0
+C - - - - - 0x01B0CC 06:B0BC: D0 E6     BNE bra_B0A4_RTS                         ; If vNoSubLevel != level 3.0
 @bra_B0BE_skip:
-C - - - - - 0x01B0CE 06:B0BE: B9 9E 84  LDA tbl_ptr_briefcases_outside,Y     ; 
-C - - - - - 0x01B0D1 06:B0C1: 85 12     STA ram_0012                         ; Low address
-C - - - - - 0x01B0D3 06:B0C3: B9 9F 84  LDA tbl_ptr_briefcases_outside + 1,Y ;
-C - - - - - 0x01B0D6 06:B0C6: 85 13     STA ram_0013                         ; High address
-C - - - - - 0x01B0D8 06:B0C8: A9 01     LDA #$01                             ; CONSTANT - left-to-right direction
-C - - - - - 0x01B0DA 06:B0CA: 20 D6 F2  JSR sub_F2D6_try_put_briefcase       ; bank FF
-C - - - - - 0x01B0DD 06:B0CD: 90 D5     BCC bra_B0A4_RTS                     ; If a briefcase doesn't put
-C - - - - - 0x01B0DF 06:B0CF: A4 0A     LDY ram_000A                         ; load index of a briefcase
-C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA vArrayWhiteBriefcase,Y           ; load an item (inside a briefcase)
-C - - - - - 0x01B0E4 06:B0D4: 30 CE     BMI bra_B0A4_RTS                     ; If the item is got
-C - - - - - 0x01B0E6 06:B0D6: A0 05     LDY #$05                             ; set loop counter
-bra_B0D8_loop:                                                               ; loop by y (5 times)
+C - - - - - 0x01B0CE 06:B0BE: B9 9E 84  LDA tbl_ptr_briefcases_outside,Y         ; 
+C - - - - - 0x01B0D1 06:B0C1: 85 12     STA ram_0012                             ; Low address
+C - - - - - 0x01B0D3 06:B0C3: B9 9F 84  LDA tbl_ptr_briefcases_outside + 1,Y     ;
+C - - - - - 0x01B0D6 06:B0C6: 85 13     STA ram_0013                             ; High address
+C - - - - - 0x01B0D8 06:B0C8: A9 01     LDA #$01                                 ; CONSTANT - left-to-right direction
+C - - - - - 0x01B0DA 06:B0CA: 20 D6 F2  JSR sub_F2D6_try_put_briefcase           ; bank FF
+C - - - - - 0x01B0DD 06:B0CD: 90 D5     BCC bra_B0A4_RTS                         ; If a briefcase doesn't put
+C - - - - - 0x01B0DF 06:B0CF: A4 0A     LDY ram_000A                             ; load index of a briefcase
+C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA vArrayWhiteBriefcase,Y               ; load an item (inside a briefcase)
+C - - - - - 0x01B0E4 06:B0D4: 30 CE     BMI bra_B0A4_RTS                         ; If the item is got
+C - - - - - 0x01B0E6 06:B0D6: A0 05     LDY #$05                                 ; set loop counter
+bra_B0D8_loop:                                                                   ; loop by y (5 times)
 C - - - - - 0x01B0E8 06:B0D8: B9 9E 03  LDA v_item_on_screen,Y
 C - - - - - 0x01B0EB 06:B0DB: 10 14     BPL bra_B0F1
-C - - - - - 0x01B0ED 06:B0DD: B9 B6 03  LDA ram_03B6,Y
+C - - - - - 0x01B0ED 06:B0DD: B9 B6 03  LDA vItemPosXLow,Y
 C - - - - - 0x01B0F0 06:B0E0: 38        SEC
 C - - - - - 0x01B0F1 06:B0E1: E5 01     SBC ram_0001
-C - - - - - 0x01B0F3 06:B0E3: B9 BC 03  LDA ram_03BC,Y
+C - - - - - 0x01B0F3 06:B0E3: B9 BC 03  LDA vItemPosXHigh,Y
 C - - - - - 0x01B0F6 06:B0E6: E5 00     SBC ram_0000
 C - - - - - 0x01B0F8 06:B0E8: D0 07     BNE bra_B0F1
-C - - - - - 0x01B0FA 06:B0EA: B9 AA 03  LDA ram_03AA,Y
+C - - - - - 0x01B0FA 06:B0EA: B9 AA 03  LDA vItemPosY,Y
 C - - - - - 0x01B0FD 06:B0ED: C5 02     CMP ram_0002
 C - - - - - 0x01B0FF 06:B0EF: F0 B3     BEQ bra_B0A4_RTS
 bra_B0F1:
 C - - - - - 0x01B101 06:B0F1: 88        DEY
-C - - - - - 0x01B102 06:B0F2: D0 E4     BNE bra_B0D8_loop                    ; If register Y > 0
-C - - - - - 0x01B104 06:B0F4: A9 C0     LDA #$C0                             ; CONSTANT: The item is in the briefcase, i.e. it's hidden
+C - - - - - 0x01B102 06:B0F2: D0 E4     BNE bra_B0D8_loop                        ; If register Y != 0
+C - - - - - 0x01B104 06:B0F4: A9 C0     LDA #$C0                                 ; CONSTANT: The item is in the briefcase, i.e. it's hidden
 C - - - - - 0x01B106 06:B0F6: 9D 9E 03  STA v_item_on_screen,X
 C - - - - - 0x01B109 06:B0F9: A9 03     LDA #$03
 loc_B0FB:
 C D 1 - - - 0x01B10B 06:B0FB: 9D A4 03  STA vBriefcaseHitCount - 1,X
 C - - - - - 0x01B10E 06:B0FE: A5 00     LDA ram_0000
-C - - - - - 0x01B110 06:B100: 9D BC 03  STA ram_03BC,X
+C - - - - - 0x01B110 06:B100: 9D BC 03  STA vItemPosXHigh,X
 C - - - - - 0x01B113 06:B103: A5 01     LDA ram_0001
-C - - - - - 0x01B115 06:B105: 9D B6 03  STA ram_03B6,X
+C - - - - - 0x01B115 06:B105: 9D B6 03  STA vItemPosXLow,X
 C - - - - - 0x01B118 06:B108: A5 02     LDA ram_0002
-C - - - - - 0x01B11A 06:B10A: 9D AA 03  STA ram_03AA,X
+C - - - - - 0x01B11A 06:B10A: 9D AA 03  STA vItemPosY,X
 C - - - - - 0x01B11D 06:B10D: A5 0A     LDA ram_000A
 C - - - - - 0x01B11F 06:B10F: 9D 98 03  STA v_briefcase_index,X ; load index of a briefcase
 bra_B112_RTS:
 C - - - - - 0x01B122 06:B112: 60        RTS
 
-bra_B113:
-C - - - - - 0x01B123 06:B113: 20 3B EF  JSR $EF3B
+bra_B113_try_generate_item_in_water:
+C - - - - - 0x01B123 06:B113: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1
 C - - - - - 0x01B126 06:B116: A5 2C     LDA vLowCounter
 C - - - - - 0x01B128 06:B118: 29 3F     AND #$3F
 C - - - - - 0x01B12A 06:B11A: D0 F6     BNE bra_B112_RTS
@@ -2678,9 +2685,9 @@ C - - - - - 0x01B137 06:B127: 10 02     BPL bra_B12B
 C - - - - - 0x01B139 06:B129: A9 F8     LDA #$F8
 bra_B12B:
 C - - - - - 0x01B13B 06:B12B: 18        CLC
-C - - - - - 0x01B13C 06:B12C: 65 27     ADC ram_0027
+C - - - - - 0x01B13C 06:B12C: 65 27     ADC vLowViewPortPosX
 C - - - - - 0x01B13E 06:B12E: 85 01     STA ram_0001
-C - - - - - 0x01B140 06:B130: A5 4B     LDA ram_004B
+C - - - - - 0x01B140 06:B130: A5 4B     LDA vHighViewPortPosX
 C - - - - - 0x01B142 06:B132: 69 00     ADC #$00
 C - - - - - 0x01B144 06:B134: 85 00     STA ram_0000
 C - - - - - 0x01B146 06:B136: A5 35     LDA vEnemyRNGValue
@@ -2694,7 +2701,7 @@ C - - - - - 0x01B156 06:B146: A8        TAY
 C - - - - - 0x01B157 06:B147: B9 C0 95  LDA $95C0,Y
 C - - - - - 0x01B15A 06:B14A: 85 02     STA ram_0002
 C - - - - - 0x01B15C 06:B14C: A9 D0     LDA #$D0
-C - - - - - 0x01B15E 06:B14E: 9D 9E 03  STA ram_039E,X
+C - - - - - 0x01B15E 06:B14E: 9D 9E 03  STA v_item_on_screen,X
 C - - - - - 0x01B161 06:B151: A9 00     LDA #$00
 C - - - - - 0x01B163 06:B153: 9D C8 03  STA ram_03C8,X
 C - - - - - 0x01B166 06:B156: 4C FB B0  JMP loc_B0FB
@@ -2723,9 +2730,9 @@ C - - - - - 0x01B188 06:B178: 85 13     STA ram_0013
 C - - - - - 0x01B18A 06:B17A: A0 00     LDY #$00
 C - - - - - 0x01B18C 06:B17C: A5 0A     LDA ram_000A
 C - - - - - 0x01B18E 06:B17E: C9 08     CMP #$08
-C - - - - - 0x01B190 06:B180: F0 01     BEQ bra_B183
+C - - - - - 0x01B190 06:B180: F0 01     BEQ @bra_B183_skip
 C - - - - - 0x01B192 06:B182: C8        INY
-bra_B183:
+@bra_B183_skip:
 C - - - - - 0x01B193 06:B183: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01B195 06:B185: 25 0B     AND ram_000B
 C - - - - - 0x01B197 06:B187: F0 02     BEQ bra_B18B_RTS
@@ -2754,12 +2761,12 @@ C - - - - - 0x01B1B6 06:B1A6: A8        TAY                                     
 C - - - - - 0x01B1B7 06:B1A7: A2 05     LDX #$05                                            ; set loop counter
 bra_B1A9_loop:                                                                              ; loop by x (5 times)
 C - - - - - 0x01B1B9 06:B1A9: B9 36 81  LDA tbl_briefcases_positions,Y                      ;
-C - - - - - 0x01B1BC 06:B1AC: 9D AA 03  STA ram_03AA,X                                      ; store Y-position
+C - - - - - 0x01B1BC 06:B1AC: 9D AA 03  STA vItemPosY,X                                     ; store Y-position
 C - - - - - 0x01B1BF 06:B1AF: C8        INY                                                 ; 2 of 2
 C - - - - - 0x01B1C0 06:B1B0: B9 36 81  LDA tbl_briefcases_positions,Y                      ;
-C - - - - - 0x01B1C3 06:B1B3: 9D B6 03  STA ram_03B6,X                                      ; store X-position
+C - - - - - 0x01B1C3 06:B1B3: 9D B6 03  STA vItemPosXLow,X                                  ; store X-position
 C - - - - - 0x01B1C6 06:B1B6: A9 00     LDA #$00
-C - - - - - 0x01B1C8 06:B1B8: 9D BC 03  STA ram_03BC,X
+C - - - - - 0x01B1C8 06:B1B8: 9D BC 03  STA vItemPosXHigh,X
 C - - - - - 0x01B1CB 06:B1BB: A9 03     LDA #$03                                            ; CONSTANT - 3 shots
 C - - - - - 0x01B1CD 06:B1BD: 9D A4 03  STA vBriefcaseHitCount - 1,X                        ;
 C - - - - - 0x01B1D0 06:B1C0: C8        INY                                                 ; 1 of 2 again
@@ -2772,12 +2779,12 @@ C - - - - - 0x01B1D8 06:B1C8: B9 2E 81  LDA tbl_ptr_briefcases_indexes_on_the_le
 C - - - - - 0x01B1DB 06:B1CB: 85 12     STA ram_0012                                        ; Low address
 C - - - - - 0x01B1DD 06:B1CD: B9 2F 81  LDA tbl_ptr_briefcases_indexes_on_the_level + 1,Y   ;
 C - - - - - 0x01B1E0 06:B1D0: 85 13     STA ram_0013                                        ; High address
-C - - - - - 0x01B1E2 06:B1D2: A5 B7     LDA v_corridor_magic5                               ;
+C - - - - - 0x01B1E2 06:B1D2: A5 B7     LDA vCorridorMagic5                                 ;
 C - - - - - 0x01B1E4 06:B1D4: 0A        ASL                                                 ;
 C - - - - - 0x01B1E5 06:B1D5: 0A        ASL                                                 ;
 C - - - - - 0x01B1E6 06:B1D6: 18        CLC                                                 ;
-C - - - - - 0x01B1E7 06:B1D7: 65 B7     ADC v_corridor_magic5                               ; *5, total briefcases is 5
-C - - - - - 0x01B1E9 06:B1D9: A8        TAY                                                 ; Y <~ v_corridor_magic5 * 5
+C - - - - - 0x01B1E7 06:B1D7: 65 B7     ADC vCorridorMagic5                                 ; *5, total briefcases is 5
+C - - - - - 0x01B1E9 06:B1D9: A8        TAY                                                 ; Y <~ vCorridorMagic5 * 5
 C - - - - - 0x01B1EA 06:B1DA: A2 05     LDX #$05                                            ; set loop counter
 @bra_B1DC_loop:                                                                             ; loop by x (5 times)
 C - - - - - 0x01B1EC 06:B1DC: 84 11     STY vTempCounter11                                  ; caches y
@@ -2805,25 +2812,25 @@ C D 1 - - - 0x01B20B 06:B1FB: C6 73     DEC vRifleFireTime
 C - - - - - 0x01B20D 06:B1FD: D0 0F     BNE bra_B20E_skip
 C - - - - - 0x01B20F 06:B1FF: C6 72     DEC vRifleShotCount
 C - - - - - 0x01B211 06:B201: D0 03     BNE bra_B206_skip
-C - - - - - 0x01B213 06:B203: 20 EE CD  JSR $CDEE
+C - - - - - 0x01B213 06:B203: 20 EE CD  JSR sub_CDEE_prepare_activable_items_after_damage
 bra_B206_skip:
-C - - - - - 0x01B216 06:B206: 20 63 DF  JSR $DF63
+C - - - - - 0x01B216 06:B206: 20 63 DF  JSR sub_DF63_update_character_status
 C - - - - - 0x01B219 06:B209: A2 00     LDX #$00
-C - - - - - 0x01B21B 06:B20B: 4C C2 DB  JMP $DBC2
+C - - - - - 0x01B21B 06:B20B: 4C C2 DB  JMP loc_DBC2_before_rendering
 
 bra_B20E_skip:
 C - - - - - 0x01B21E 06:B20E: A5 73     LDA vRifleFireTime
 C - - - - - 0x01B220 06:B210: C9 20     CMP #$20
 C - - - - - 0x01B222 06:B212: 90 F2     BCC bra_B206_skip
-C - - - - - 0x01B224 06:B214: 20 F1 DC  JSR $DCF1
+C - - - - - 0x01B224 06:B214: 20 F1 DC  JSR sub_DCF1_reset_velocity
 C - - - - - 0x01B227 06:B217: A5 6C     LDA ram_006C
 C - - - - - 0x01B229 06:B219: 6A        ROR
 C - - - - - 0x01B22A 06:B21A: 90 06     BCC bra_B222_skip
-C - - - - - 0x01B22C 06:B21C: 20 E5 DC  JSR $DCE5
+C - - - - - 0x01B22C 06:B21C: 20 E5 DC  JSR sub_DCE5_try_move_on_the_right
 C - - - - - 0x01B22F 06:B21F: 4C 25 B2  JMP loc_B225
 
 bra_B222_skip:
-C - - - - - 0x01B232 06:B222: 20 B1 DC  JSR $DCB1
+C - - - - - 0x01B232 06:B222: 20 B1 DC  JSR sub_DCB1_try_move_on_the_left
 loc_B225:
 C D 1 - - - 0x01B235 06:B225: A2 10     LDX #$10
 C - - - - - 0x01B237 06:B227: A5 73     LDA vRifleFireTime
@@ -2832,7 +2839,7 @@ C - - - - - 0x01B23B 06:B22B: C9 08     CMP #$08
 C - - - - - 0x01B23D 06:B22D: B0 02     BCS bra_B231
 C - - - - - 0x01B23F 06:B22F: A2 14     LDX #$14
 bra_B231:
-C - - - - - 0x01B241 06:B231: 4C C2 DB  JMP $DBC2
+C - - - - - 0x01B241 06:B231: 4C C2 DB  JMP loc_DBC2_before_rendering
 
 ; In: Register A - a message number
 loc_B234_add_message:
@@ -3915,7 +3922,7 @@ C - - - - - 0x01B99B 06:B98B: A9 00     LDA #$00                                
 C - - - - - 0x01B99D 06:B98D: A8        TAY                                        ;
 C - - - - - 0x01B99E 06:B98E: 85 37     STA vCutscenesMode                         ; vCutscenesMode <~ 'In game'
 C - - - - - 0x01B9A0 06:B990: 85 B6     STA vCurrentUniqueRoom                     ; clear
-C - - - - - 0x01B9A2 06:B992: 85 B7     STA v_corridor_magic5                      ; clear
+C - - - - - 0x01B9A2 06:B992: 85 B7     STA vCorridorMagic5                        ; clear
 C - - - - - 0x01B9A4 06:B994: 85 39     STA vGameInterruptEvent                    ; clear
 C - - - - - 0x01B9A6 06:B996: A6 AD     LDX vMainMenuGunYPos                       ;
 C - - - - - 0x01B9A8 06:B998: E0 9F     CPX #$9F                                   ; CONSTANT - The 'Continue' position
