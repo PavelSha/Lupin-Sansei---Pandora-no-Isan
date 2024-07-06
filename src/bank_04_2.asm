@@ -443,26 +443,26 @@ npc_portrait_sprites: ; 12 bytes
 
 ; Templates for a generation of enemies 
 tbl_ptr_enemies:
-- D 0 - - - 0x0123B2 04:83A2: A4 84     .addr tbl_enemies_level1_0; CPU address 84A4
-- - - - - - 0x0123B4 04:83A4: 90 85     .addr deadlock ; CPU address $8590
-- - - - - - 0x0123B6 04:83A6: 90 85     .addr deadlock
-- D 0 - - - 0x0123B8 04:83A8: 91 85     .word $8591 ; Level 1.1
-- D 0 - - - 0x0123BA 04:83AA: E2 85     .word $85E2 ; Level 1.2
-- D 0 - - - 0x0123BC 04:83AC: 53 86     .word $8653 ; Level 1.3
-- D 0 - - - 0x0123BE 04:83AE: BC 86     .word $86BC ; Level 2 (outside)
-- D 0 - - - 0x0123C0 04:83B0: A1 87     .word $87A1 ; Level 2 (1-3)
-- D 0 - - - 0x0123C2 04:83B2: 1A 88     .word $881A ; Level 2 (2)
-- D 0 - - - 0x0123C4 04:83B4: 8B 88     .word $888B ; Level 2 (4-5)
-- D 0 - - - 0x0123C6 04:83B6: 08 89     .word $8908 ; Level 2 (6-8)
-- D 0 - - - 0x0123C8 04:83B8: 95 89     .word $8995 ; Level 2 (7)
-- D 0 - - - 0x0123CA 04:83BA: 1A 8A     .word $8A1A ; Level 2 (9-10)
-- D 0 - - - 0x0123CC 04:83BC: 9F 8A     .word $8A9F ; Level 2 (11-13)
-- D 0 - - - 0x0123CE 04:83BE: 2C 8B     .word $8B2C ; Level 2 (12)
-- D 0 - - - 0x0123D0 04:83C0: C5 8B     .word $8BC5 ; level 3.0
-- D 0 - - - 0x0123D2 04:83C2: 69 8C     .word $8C69 ; level 3.1
-- D 0 - - - 0x0123D4 04:83C4: CA 8C     .word $8CCA ; level 3.2
-- D 0 - - - 0x0123D6 04:83C6: 37 8D     .word $8D37 ; level 3.3
-- D 0 - - - 0x0123D8 04:83C8: BC 8D     .word $8DBC ; level 3.4
+- D 0 - - - 0x0123B2 04:83A2: A4 84     .addr tbl_enemies_level1_0       ; CPU address $84A4
+- D - - - - 0x0123B4 04:83A4: 90 85     .addr deadlock                   ; CPU address $8590
+- D - - - - 0x0123B6 04:83A6: 90 85     .addr deadlock
+- D 0 - - - 0x0123B8 04:83A8: 91 85     .addr tbl_enemies_level1_1       ; CPU address $8591
+- D 0 - - - 0x0123BA 04:83AA: E2 85     .addr tbl_enemies_level1_2       ; CPU address $85E2
+- D 0 - - - 0x0123BC 04:83AC: 53 86     .addr tbl_enemies_level1_3       ; CPU address $8653
+- D 0 - - - 0x0123BE 04:83AE: BC 86     .addr tbl_enemies_level2_outside ; CPU address $86BC
+- D 0 - - - 0x0123C0 04:83B0: A1 87     .addr tbl_enemies_level2_d1_d3   ; CPU address $87A1
+- D 0 - - - 0x0123C2 04:83B2: 1A 88     .addr tbl_enemies_level2_d2      ; CPU address $881A
+- D 0 - - - 0x0123C4 04:83B4: 8B 88     .addr tbl_enemies_level2_d4_d5   ; CPU address $888B
+- D 0 - - - 0x0123C6 04:83B6: 08 89     .addr tbl_enemies_level2_d6_d8   ; CPU address $8908
+- D 0 - - - 0x0123C8 04:83B8: 95 89     .addr tbl_enemies_level2_d7      ; CPU address $8995
+- D 0 - - - 0x0123CA 04:83BA: 1A 8A     .addr tbl_enemies_level2_d9_d13  ; CPU address $8A1A
+- D 0 - - - 0x0123CC 04:83BC: 9F 8A     .addr tbl_enemies_level2_d11_d13 ; CPU address $8A9F
+- D 0 - - - 0x0123CE 04:83BE: 2C 8B     .addr tbl_enemies_level2_d12     ; CPU address $8B2C
+- D 0 - - - 0x0123D0 04:83C0: C5 8B     .addr tbl_enemies_level3_0       ; CPU address $8BC5
+- D 0 - - - 0x0123D2 04:83C2: 69 8C     .addr tbl_enemies_level3_1       ; CPU address $8C69
+- D 0 - - - 0x0123D4 04:83C4: CA 8C     .addr tbl_enemies_level3_2       ; CPU address $8CCA
+- D 0 - - - 0x0123D6 04:83C6: 37 8D     .addr tbl_enemies_level3_3       ; CPU address $8D37
+- D 0 - - - 0x0123D8 04:83C8: BC 8D     .addr tbl_enemies_level3_4       ; CPU address $8DBC
 - D 0 - - - 0x0123DA 04:83CA: 90 85     .addr deadlock
 - - - - - - 0x0123DC 04:83CC: 90 85     .addr deadlock
 - - - - - - 0x0123DE 04:83CE: 90 85     .addr deadlock
@@ -645,7 +645,7 @@ tbl_enemies_level1_0:
 deadlock:
 - D 0 - I - 0x0125A0 04:8590: FF        .byte $FF   ;
 
-; Level 1.1 
+tbl_enemies_level1_1:
 - D 0 - I - 0x0125A1 04:8591: 01        .byte $01, $18, $AF, $11 ; Girl in red, in the castle
 - D 0 - I - 0x0125A5 04:8595: 01        .byte $01, $C8, $6F, $11 ; 
 - D 0 - I - 0x0125A9 04:8599: 02        .byte $02, $30, $7F, $11 ; 
@@ -668,7 +668,7 @@ deadlock:
 - D 0 - I - 0x0125ED 04:85DD: 07        .byte $07, $A8, $BF, $11 ; Girl in red, in the castle
 - D 0 - I - 0x0125F1 04:85E1: FF        .byte $FF ;
 
-; Level 1.2
+tbl_enemies_level1_2:
 - D 0 - I - 0x0125F2 04:85E2: 00        .byte $00, $28, $3F, $0E   ; Bat
 - D 0 - I - 0x0125F6 04:85E6: 00        .byte $00, $60, $BF, $1B   ; Girl with sword
 - D 0 - I - 0x0125FA 04:85EA: 00        .byte $00, $80, $3F, $0E   ; Bat
@@ -699,7 +699,7 @@ deadlock:
 - D 0 - I - 0x01265E 04:864E: 06        .byte $06, $A0, $7F, $1C   ; 
 - D 0 - I - 0x012662 04:8652: FF        .byte $FF   ;
 
-; Level 1.3 
+tbl_enemies_level1_3:
 - D 0 - I - 0x012663 04:8653: 01        .byte $01, $28, $DF, $06   ; Land Diver
 - D 0 - I - 0x012667 04:8657: 01        .byte $01, $80, $DF, $06   ; 
 - D 0 - I - 0x01266B 04:865B: 01        .byte $01, $D8, $DF, $06   ; 
@@ -728,7 +728,7 @@ deadlock:
 - D 0 - I - 0x0126C7 04:86B7: 07        .byte $07, $40, $6F, $1E   ; Sensor
 - D 0 - I - 0x0126CB 04:86BB: FF        .byte $FF   ;
 
-; Level 2 (outside) 
+tbl_enemies_level2_outside:
 - D 0 - I - 0x0126CC 04:86BC: 01        .byte $01, $18, $BF, $17   ; Karate-boy
 - D 0 - I - 0x0126D0 04:86C0: 01        .byte $01, $80, $77, $17   ; 
 - D 0 - I - 0x0126D4 04:86C4: 01        .byte $01, $D0, $BF, $17   ; 
@@ -788,7 +788,7 @@ deadlock:
 - D 0 - I - 0x0127AC 04:879C: 0F        .byte $0F, $C0, $3F, $12   ; Batterfly
 - D 0 - I - 0x0127B0 04:87A0: FF        .byte $FF   ; 
 
-; Level 2 (1-3)
+tbl_enemies_level2_d1_d3:
 - D 0 - I - 0x0127B1 04:87A1: 00        .byte $00, $68, $7F, $17   ; Karate-boy
 - D 0 - I - 0x0127B5 04:87A5: 00        .byte $00, $A8, $BF, $17   ; 
 - D 0 - I - 0x0127B9 04:87A9: 01        .byte $01, $28, $BF, $17   ; 
@@ -821,7 +821,7 @@ deadlock:
 - D 0 - I - 0x012825 04:8815: 07        .byte $07, $E0, $9F, $17   ; 
 - D 0 - I - 0x012829 04:8819: FF        .byte $FF   ;
 
-; Level 2 (2)
+tbl_enemies_level2_d2:
 - D 0 - I - 0x01282A 04:881A: 00        .byte $00, $68, $7F, $19   ; Karate-girl
 - D 0 - I - 0x01282E 04:881E: 00        .byte $00, $A8, $BF, $19   ; 
 - D 0 - I - 0x012832 04:8822: 01 38     .byte $01, $38, $DF, $05   ; Land Diver
@@ -852,7 +852,7 @@ deadlock:
 - D 0 - I - 0x012896 04:8886: 07        .byte $07, $D8, $DF, $05   ; Land Diver
 - D 0 - I - 0x01289A 04:888A: FF        .byte $FF   ;
 
-; Level 2 (4-5) 
+tbl_enemies_level2_d4_d5:
 - D 0 - I - 0x01289B 04:888B: 00        .byte $00, $48, $DF, $05   ; Land Diver
 - D 0 - I - 0x01289F 04:888F: 00        .byte $00, $C0, $DF, $05   ; 
 - D 0 - I - 0x0128A3 04:8893: 01        .byte $01, $30, $7F, $18   ; Karate-boy in blue on the street
@@ -886,7 +886,7 @@ deadlock:
 - D 0 - I - 0x012913 04:8903: 07        .byte $07, $D8, $DF, $05   ; 
 - D 0 - I - 0x012917 04:8907: FF        .byte $FF   ; 
 
-; Level 2 (6-8)
+tbl_enemies_level2_d6_d8:
 - D 0 - I - 0x012918 04:8908: 00        .byte $00, $80, $DF, $05   ; Land Diver
 - D 0 - I - 0x01291C 04:890C: 00        .byte $00, $90, $3F, $1D   ; The barrel
 - D 0 - I - 0x012920 04:8910: 00        .byte $00, $C8, $DF, $05   ; Land Diver
@@ -924,7 +924,7 @@ deadlock:
 - D 0 - I - 0x0129A0 04:8990: 07        .byte $07, $C0, $BF, $19   ; 
 - D 0 - I - 0x0129A4 04:8994: FF        .byte $FF   ; 
 
-; Level 2 (7)
+tbl_enemies_level2_d7:
 - D 0 - I - 0x0129A5 04:8995: 00        .byte $00, $70, $7F, $19   ; Karate-girl
 - D 0 - I - 0x0129A9 04:8999: 00        .byte $00, $C0, $BF, $19   ; 
 - D 0 - I - 0x0129AD 04:899D: 01        .byte $01, $48, $7F, $19   ; 
@@ -960,7 +960,7 @@ deadlock:
 - D 0 - I - 0x012A25 04:8A15: 07        .byte $07, $D0, $7F, $18   ; 
 - D 0 - I - 0x012A29 04:8A19: FF        .byte $FF   ; 
 
-; Level 2 (9-10)
+tbl_enemies_level2_d9_d13:
 - D 0 - I - 0x012A2A 04:8A1A: 00        .byte $00, $50, $3F, $1D   ; The barrel
 - D 0 - I - 0x012A2E 04:8A1E: 00        .byte $00, $78, $DF, $05   ; Land Diver
 - D 0 - I - 0x012A32 04:8A22: 00        .byte $00, $C8, $DF, $05   ; 
@@ -996,7 +996,7 @@ deadlock:
 - D 0 - I - 0x012AAA 04:8A9A: 07        .byte $07, $A8, $BF, $18   ; Karate-boy in blue on the street
 - D 0 - I - 0x012AAE 04:8A9E: FF        .byte $FF   ; 
 
-; Level 2 (11-13)
+tbl_enemies_level2_d11_d13:
 - D 0 - I - 0x012AAF 04:8A9F: 00        .byte $00, $48, $3F, $13   ; Broned batterfly
 - D 0 - I - 0x012AB3 04:8AA3: 00        .byte $00, $68, $DF, $05   ; Land Diver
 - D 0 - I - 0x012AB7 04:8AA7: 00        .byte $00, $C8, $DF, $05   ; 
@@ -1034,7 +1034,7 @@ deadlock:
 - D 0 - I - 0x012B37 04:8B27: 07        .byte $07, $A8, $BF, $18   ; Karate-boy in blue on the street
 - D 0 - I - 0x012B3B 04:8B2B: FF        .byte $FF   ; 
 
-; Level 2 (12)
+tbl_enemies_level2_d12:
 - D 0 - I - 0x012B3C 04:8B2C: 00        .byte $00, $20, $7F, $17   ; Karate-boy
 - D 0 - I - 0x012B40 04:8B30: 00        .byte $00, $88, $BF, $17   ; 
 - D 0 - I - 0x012B44 04:8B34: 01        .byte $01, $38, $7F, $17   ; 
@@ -1075,7 +1075,7 @@ deadlock:
 - D 0 - I - 0x012BD0 04:8BC0: 07        .byte $07, $E8, $8F, $19   ; Karate-girl
 - D 0 - I - 0x012BD4 04:8BC4: FF        .byte $FF   ; 
 
-; level 3.0
+tbl_enemies_level3_0:
 - D 0 - I - 0x012BD5 04:8BC5: 01        .byte $01, $48, $BF, $01   ; Cat with the gun
 - D 0 - I - 0x012BD9 04:8BC9: 01        .byte $01, $A8, $A7, $01   ; 
 - D 0 - I - 0x012BDD 04:8BCD: 02        .byte $02, $48, $7F, $01   ; 
@@ -1118,7 +1118,7 @@ deadlock:
 - D 0 - I - 0x012C71 04:8C61: 0F        .byte $0F, $70, $BF, $01   ; 
 - D 0 - I - 0x012C75 04:8C65: 0F        .byte $0F, $B0, $BF, $01   ; 
 
-; level 3.1
+tbl_enemies_level3_1:
 - D 0 - I - 0x012C79 04:8C69: 01        .byte $01, $18, $BF, $01   ; Cat with the gun
 - D 0 - I - 0x012C7D 04:8C6D: 01        .byte $01, $70, $7F, $01   ; 
 - D 0 - I - 0x012C81 04:8C71: 01        .byte $01, $D8, $AF, $01   ; 
@@ -1145,7 +1145,7 @@ deadlock:
 - D 0 - I - 0x012CD5 04:8CC5: 07        .byte $07, $C8, $3F, $0A   ; The barrel
 - D 0 - I - 0x012CD9 04:8CC9: FF        .byte $FF   ; 
 
-; level 3.2
+tbl_enemies_level3_2:
 - D 0 - I - 0x012CDA 04:8CCA: 00        .byte $00, $28, $DF, $04   ; Land Diver
 - D 0 - I - 0x012CDE 04:8CCE: 00        .byte $00, $80, $DF, $04   ; 
 - D 0 - I - 0x012CE2 04:8CD2: 00        .byte $00, $D8, $DF, $04   ; 
@@ -1175,7 +1175,7 @@ deadlock:
 - D 0 - I - 0x012D42 04:8D32: 06        .byte $06, $D8, $DF, $04   ; 
 - D 0 - I - 0x012D46 04:8D36: FF        .byte $FF   ; 
 
-; level 3.3
+tbl_enemies_level3_3:
 - D 0 - I - 0x012D47 04:8D37: 01        .byte $01, $18, $7F, $01   ; Cat with the gun
 - D 0 - I - 0x012D4B 04:8D3B: 01        .byte $01, $A0, $3F, $03   ; Black Land hat
 - D 0 - I - 0x012D4F 04:8D3F: 01        .byte $01, $B0, $AF, $01   ; Cat with the gun
@@ -1211,7 +1211,7 @@ deadlock:
 - D 0 - I - 0x012DC7 04:8DB7: 07        .byte $07, $B8, $3F, $0A   ; The barrel
 - D 0 - I - 0x012DCB 04:8DBB: FF        .byte $FF   ; 
 
-; level 3.4
+tbl_enemies_level3_4:
 - D 0 - I - 0x012DCC 04:8DBC: 00        .byte $00, $18, $7F, $81   ; Cat with the gun
 - D 0 - I - 0x012DD0 04:8DC0: 00        .byte $00, $24, $AF, $0D   ; Sensor
 - D 0 - I - 0x012DD4 04:8DC4: 00        .byte $00, $58, $A7, $81   ; Cat with the gun

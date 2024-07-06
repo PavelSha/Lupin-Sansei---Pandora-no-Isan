@@ -8740,7 +8740,7 @@ C - - - - - 0x01F53B 07:F52B: A9 42     LDA #$42                            ; <~
 C - - - - - 0x01F53D 07:F52D: 8D 03 03  STA vEnemyASpriteMagic3             ;
 C - - - - - 0x01F540 07:F530: A9 2A     LDA #$2A                            ; Enemy pops up (sound effect)
 C - - - - - 0x01F542 07:F532: 20 20 C4  JSR sub_C420_add_sound_effect       ;
-C - - - - - 0x01F545 07:F535: A9 0C     LDA #$0C                            ; the offset for sprite_magic2 (Bank 05, Page 2, $8100 + $00C0)
+C - - - - - 0x01F545 07:F535: A9 0C     LDA #$0C                            ; the offset for sprite_magic2 (Bank 05, Page 2, $8100 + $000C)
 C - - - - - 0x01F547 07:F537: 8D 02 03  STA vEnemyASpriteMagic2             ;
 C - - - - - 0x01F54A 07:F53A: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA ;
 
@@ -8790,7 +8790,7 @@ C - - - - - 0x01F58E 07:F57E: A9 0D     LDA #$0D                                
 C - - - - - 0x01F590 07:F580: 8D B4 06  STA vCacheChrBankSelect + 5               ;
 C - - - - - 0x01F593 07:F583: A9 46     LDA #$46                                  ; <~ sprite_magic3 (see v_sprite_magic3)
 C - - - - - 0x01F595 07:F585: 8D 03 03  STA vEnemyASpriteMagic3                   ;
-C - - - - - 0x01F598 07:F588: A9 70     LDA #$70                                  ; the offset for sprite_magic2
+C - - - - - 0x01F598 07:F588: A9 70     LDA #$70                                  ; the offset for sprite_magic2 (Bank 05, Page 2, $8100 + $0070)
 C - - - - - 0x01F59A 07:F58A: 8D 02 03  STA vEnemyASpriteMagic2                   ;
 C - - - - - 0x01F59D 07:F58D: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA       ;
 

@@ -32,7 +32,7 @@
 |0x1D|The barrel| B |   | 2 |
 |0x1E|Sensor| B |   | 1 |
 |0x1F|Fly man| A | [Летающий человек](#враг-1f) | 1 |
-|0x20|Shooter with bazooka| A |   | 1 |
+|0x20|Shooter with bazooka| A | [Стрелок из базуки](#враг-20) | 1 |
 |0x21|Cobblestone| B |   |4, racing|
 |0x22|The bird| B |   |racing|
 |0x23|The bird with a bomb| B |   |racing|
@@ -105,6 +105,13 @@
 |---|---|---|
 | ![Frame1](../images/enemy1F/frame1-r.png) | ![Frame2](../images/enemy1F/frame2-r.png) | ![Frame3](../images/enemy1F/frame3-r.png) |
 | ![Frame1](../images/enemy1F/frame1-l.png) | ![Frame2](../images/enemy1F/frame2-l.png) | ![Frame3](../images/enemy1F/frame3-l.png) |
+
+## Враг 20
+Стрелок из базуки, версия 1
+|Кадр 1|Кадр 2|Кадр 3|
+|---|---|---|
+| ![Frame1](../images/enemy20/frame1-r.png) | ![Frame2](../images/enemy20/frame2-r.png) | ![Frame3](../images/enemy20/frame3-r.png) |
+| ![Frame1](../images/enemy20/frame1-l.png) | ![Frame2](../images/enemy20/frame2-l.png) | ![Frame3](../images/enemy20/frame3-l.png) |
 
 ## Враг 27
 Гаргулья

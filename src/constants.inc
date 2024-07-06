@@ -415,6 +415,12 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; L - using vJumpCounter
 ; K - ???
 
+; Byte: 0YZ0 00MN (bazooka man)
+; N - see above
+; M - the jump after damage
+; Z - the dying
+; Y - see above
+
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
 vEnemyAProjectileStatus       = ram_0322 ; $0322-$0325
@@ -448,7 +454,7 @@ vEnemyAFrame_Counter1          = ram_0344 ; The frame index (the enemy number = 
 vEnemyAFrame_Counter2          = ram_0345 ; The frame index (the enemy number = 2)
 vEnemyAProjectileFrame_Counter = ram_0346 ; $0346-$0349
 
-vEnemyAJumpCounter            = ram_034A ; see below
+vEnemyAJumpCounter            = ram_034A ; see below (* bazooka man)
 vEnemyAJumpCounter1           = ram_034A ; vJumpCounter analog for the enemy (the enemy number = 1)
 vEnemyAJumpCounter2           = ram_034B ; vJumpCounter analog for the enemy (the enemy number = 2)
 vEnemyAProjectileJumpCounter  = ram_034C ; $034C-$034F
