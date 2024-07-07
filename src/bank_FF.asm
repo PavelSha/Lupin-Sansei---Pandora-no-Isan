@@ -14,6 +14,7 @@
 .import tbl_enemy_score                      ; bank 02 (Page 1)
 .import tbl_water_gap_level4                 ; bank 02 (Page 1)
 
+.import sub_A00F_swordtail                   ; bank 03 (Page 2)
 .import sub_A012_knight                      ; bank 03 (Page 2)
 .import sub_A015_cat_or_snake_enemy          ; bank 03 (Page 2)
 
@@ -7763,9 +7764,10 @@ C - - J - - 0x01EF06 07:EEF6: 20 30 EF  JSR sub_EF30_switch_bank_3_p2
 C - - - - - 0x01EF09 07:EEF9: 20 0C A0  JSR $A00C ; to sub_A00C
 C - - - - - 0x01EF0C 07:EEFC: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
 
-C - - J - - 0x01EF0F 07:EEFF: 20 30 EF  JSR sub_EF30_switch_bank_3_p2
-C - - - - - 0x01EF12 07:EF02: 20 0F A0  JSR $A00F ; to sub_A00F
-C - - - - - 0x01EF15 07:EF05: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_EEFF_swordtail:
+C - - J - - 0x01EF0F 07:EEFF: 20 30 EF  JSR sub_EF30_switch_bank_3_p2   ;
+C - - - - - 0x01EF12 07:EF02: 20 0F A0  JSR sub_A00F_swordtail          ; basic mechanics of enemy behavior
+C - - - - - 0x01EF15 07:EF05: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 loc_EF08_knight:
 C - - J - - 0x01EF18 07:EF08: 20 30 EF  JSR sub_EF30_switch_bank_3_p2   ;
@@ -9914,7 +9916,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FCE6 07:FCD6: 78 EE     .addr loc_EE78_soar_enemy       ; Bat (level 1) (0x0E) Type B
 - D 3 - - - 0x01FCE8 07:FCD8: 11 EF     .addr loc_EF11_cat_or_snake     ; Gray cat (level 1) (0x0F) Type B
 - D 3 - - - 0x01FCEA 07:FCDA: 28 A0     .word $A028                     ; Nun (level 2) (0x10) Type A
-- D 3 - - - 0x01FCEC 07:FCDC: FF EE     .word $EEFF                     ; Girl in red, in the castle (level 1) (0x11) Type A
+- D 3 - - - 0x01FCEC 07:FCDC: FF EE     .addr loc_EEFF_swordtail        ; Girl in red, in the castle (level 1) (0x11) Type A
 - D 3 - - - 0x01FCEE 07:FCDE: 78 EE     .addr loc_EE78_soar_enemy       ; Batterfly (level 2) (0x12) Type B
 - D 3 - - - 0x01FCF0 07:FCE0: 78 EE     .addr loc_EE78_soar_enemy       ; Broned batterfly (level 2) (0x13) Type B
 - D 3 - - - 0x01FCF2 07:FCE2: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 2) (0x14) Type A
@@ -9924,7 +9926,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FCFA 07:FCEA: 68 A6     .word $A668                     ; Karate-boy in blue on the street (level 2) (0x18) Type A
 - D 3 - - - 0x01FCFC 07:FCEC: AE EE     .addr loc_EEAE_shooter          ; Karate-girl (level 2) (0x19) Type A
 - D 3 - - - 0x01FCFE 07:FCEE: 09 A3     .word $A309                     ; Boy in green (level 2) (0x1A) Type A
-- D 3 - - - 0x01FD00 07:FCF0: FF EE     .word $EEFF                     ; Girl with sword (level 1) (0x1B) Type A
+- D 3 - - - 0x01FD00 07:FCF0: FF EE     .addr loc_EEFF_swordtail        ; Girl with sword (level 1) (0x1B) Type A
 - D 3 - - - 0x01FD02 07:FCF2: 08 EF     .addr loc_EF08_knight           ; Knight in armor with a shield (level 1) (0x1C) Type A
 - D 3 - - - 0x01FD04 07:FCF4: 81 EE     .word $EE81                     ; The barrel (0x1D)
 - D 3 - - - 0x01FD06 07:FCF6: 93 EE     .word $EE93                     ; Sensor (level 1) (0x1E) Type B
@@ -9951,7 +9953,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD30 07:FD20: C9 EE     .word $EEC9                     ; Blade trap (level 4) (0x33) Type B
 - D 3 - - - 0x01FD32 07:FD22: 11 EF     .addr loc_EF11_cat_or_snake     ; Potted snakes (level 4) (0x34)  Type B
 - D 3 - - - 0x01FD34 07:FD24: AE EE     .addr loc_EEAE_shooter          ; Egyptian with bow (level 4) (0x35) Type A
-- D 3 - - - 0x01FD36 07:FD26: FF EE     .word $EEFF                     ; Egyptian with a sword (level 4) (0x36) Type A
+- D 3 - - - 0x01FD36 07:FD26: FF EE     .addr loc_EEFF_swordtail        ; Egyptian with a sword (level 4) (0x36) Type A
 - D 3 - - - 0x01FD38 07:FD28: AE EE     .addr loc_EEAE_shooter          ; Egyptian with a boomerung (level 4) (0x37) Type A
 - D 3 - - - 0x01FD3A 07:FD2A: AE EE     .addr loc_EEAE_shooter          ; Ninja upside down (level 4) (0x38) Type A
 - D 3 - - - 0x01FD3C 07:FD2C: 93 EE     .word $EE93                     ; Sensor (level 4) (0x39) Type B

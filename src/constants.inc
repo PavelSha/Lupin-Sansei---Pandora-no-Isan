@@ -421,6 +421,13 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; Z - the dying
 ; Y - see above
 
+; Byte: 0YZ0 K0MN (girl in red)
+; N - see above
+; M - the jump after damage
+; K - close contact
+; Z - the dying
+; Y - see above
+
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
 vEnemyAProjectileStatus       = ram_0322 ; $0322-$0325
