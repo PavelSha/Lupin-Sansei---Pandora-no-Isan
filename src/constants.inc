@@ -421,10 +421,12 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; Z - the dying
 ; Y - see above
 
-; Byte: 0YZ0 K0MN (girl in red)
+; Byte: 0YZW KLMN (girl in red, egyptian with a sword)
 ; N - see above
-; M - the jump after damage
+; M - the jump
+; K - close contact, extra (for an egyptian with a sword)
 ; K - close contact
+; W - squatting
 ; Z - the dying
 ; Y - see above
 

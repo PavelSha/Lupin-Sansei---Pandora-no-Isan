@@ -4,70 +4,70 @@
 .org $A000  ; for listing file
 ; 0x018010-0x01A00F
 
-.import loc_CE33_add_sprite_magic                   ; bank FF
-.import sub_CE33_add_sprite_magic                   ; bank FF
-.import loc_C420_add_sound_effect                   ; bank FF
-.import sub_C420_add_sound_effect                   ; bank FF
-.import sub_D0B8_change_stack_pointer_by_bits       ; bank FF
-.import sub_D67B_out_of_sight                       ; bank FF
-.import sub_D6AC_out_of_screen                      ; bank FF
-.import loc_D99F_add_flash_sprite                   ; bank FF
-.import sub_D660_is_bomb_exploding                  ; bank FF
-.import tbl_E35D_jump_posY_offset                   ; bank FF
-.import sub_D358_check_enemyA_collision_by_Y        ; bank FF
-.import tbl_E358_init_counter                       ; bank FF
-.import sub_D7BF_check_enemyA_movement_on_the_right ; bank FF
-.import sub_D8B7_check_enemyB_movement_on_the_right ; bank FF
-.import sub_D7CA_check_enemyA_movement_on_the_left  ; bank FF
-.import sub_D8C2_check_enemyB_movement_on_the_left  ; bank FF
-.import sub_D70F_inc_EnemyAPosXLow                  ; bank FF
-.import loc_D70F_inc_EnemyAPosXLow                  ; bank FF
-.import sub_D71C_inc_EnemyAPosXLow_unsafe           ; bank FF
-.import loc_D71C_inc_EnemyAPosXLow_unsafe           ; bank FF
-.import loc_D828_short_inc_EnemyBPosXLow            ; bank FF
-.import sub_D9C4_inc_enemyB_frame_counter           ; bank FF
-.import loc_D6F0_dec_EnemyAPosXLow                  ; bank FF
-.import sub_D6F0_dec_EnemyAPosXLow                  ; bank FF
-.import loc_D6FD_dec_EnemyAPosXLow_unsafe           ; bank FF
-.import sub_D6FD_dec_EnemyAPosXLow_unsafe           ; bank FF
-.import loc_D809_short_dec_EnemyBPosXLow            ; bank FF
-.import sub_D064_generate_rng                       ; bank FF
-.import loc_D77F_free_enemyA                        ; bank FF
-.import loc_D873_free_enemyB                        ; bank FF
-.import loc_D883_dec_enemyB_counter                 ; bank FF
-.import sub_D6BD_try_change_enemyA_direction        ; bank FF
-.import sub_D6DF_check_enemyB_direction             ; bank FF
-.import sub_D9AE_inc_enemyA_frame_counter           ; bank FF
-.import loc_D9AE_inc_enemyA_frame_counter           ; bank FF
-.import loc_D741_enemyA_off_screen                  ; bank FF
-.import loc_D84D_enemyB_off_screen                  ; bank FF
-.import sub_D725_enemyA_on_screen                   ; bank FF
-.import sub_D831_enemyB_on_screen                   ; bank FF
-.import loc_D989_add_enemyA_sprite_magic_v1         ; bank FF
-.import loc_D97D_add_flash_sprite_magic             ; bank FF
-.import sub_D562_has_character_damage               ; bank FF
-.import sub_D5B6_have_intersect_bullet              ; bank FF
-.import sub_D606_have_intersect_sword               ; bank FF
-.import sub_D7A8_correction_EnemyAPosY              ; bank FF
-.import sub_D347_check_enemyA_strong_collision      ; bank FF
-.import sub_accumulator_shift_right_by_4            ; bank FF
-.import sub_D8CD_enemyB_collision_plus_one          ; bank FF
-.import sub_D8D1_enemyB_collision_minus_16          ; bank FF
-.import sub_D7D5_check_enemyA_collision_by_in_maze  ; bank FF
-.import sub_D8DB_enemyB_collision_by_shift_posY     ; bank FF
-.import sub_D8A8_correction2_EnemyBPosY             ; bank FF
-.import sub_E332_correction2_ScreenChrPosY          ; bank FF
-.import tbl_flying_track_offset                     ; bank FF
-.import sub_D937_init_absolute_enemyA_positions     ; bank FF
-.import sub_D94A_init_absolute_enemyB_positions     ; bank FF
-.import sub_D952_init_short_enemyB_positions        ; bank FF
-.import loc_D952_init_short_enemyB_positions        ; bank FF
-.import sub_D397_right_collision_by_inc_posX        ; bank FF
-.import sub_D3AD_left_collision_by_inc_posX         ; bank FF
-.import loc_D3AD_left_collision_by_inc_posX         ; bank FF
-.import sub_D642_have_intersect_with_character      ; bank FF
-.import sub_D073_invert_sign                        ; bank FF
-.import loc_CDAC_decrement_counters_ex              ; bank FF
+.import loc_CE33_add_sprite_magic                     ; bank FF
+.import sub_CE33_add_sprite_magic                     ; bank FF
+.import loc_C420_add_sound_effect                     ; bank FF
+.import sub_C420_add_sound_effect                     ; bank FF
+.import sub_D0B8_change_stack_pointer_by_bits         ; bank FF
+.import sub_D67B_out_of_sight                         ; bank FF
+.import sub_D6AC_out_of_screen                        ; bank FF
+.import loc_D99F_add_flash_sprite                     ; bank FF
+.import sub_D660_is_bomb_exploding                    ; bank FF
+.import tbl_E35D_jump_posY_offset                     ; bank FF
+.import sub_D358_check_enemyA_collision_by_Y          ; bank FF
+.import tbl_E358_init_counter                         ; bank FF
+.import sub_D7BF_check_enemyA_movement_on_the_right   ; bank FF
+.import sub_D8B7_check_enemyB_movement_on_the_right   ; bank FF
+.import sub_D7CA_check_enemyA_movement_on_the_left    ; bank FF
+.import sub_D8C2_check_enemyB_movement_on_the_left    ; bank FF
+.import sub_D70F_inc_EnemyAPosXLow                    ; bank FF
+.import loc_D70F_inc_EnemyAPosXLow                    ; bank FF
+.import sub_D71C_inc_EnemyAPosXLow_unsafe             ; bank FF
+.import loc_D71C_inc_EnemyAPosXLow_unsafe             ; bank FF
+.import loc_D828_short_inc_EnemyBPosXLow              ; bank FF
+.import sub_D9C4_inc_enemyB_frame_counter             ; bank FF
+.import loc_D6F0_dec_EnemyAPosXLow                    ; bank FF
+.import sub_D6F0_dec_EnemyAPosXLow                    ; bank FF
+.import loc_D6FD_dec_EnemyAPosXLow_unsafe             ; bank FF
+.import sub_D6FD_dec_EnemyAPosXLow_unsafe             ; bank FF
+.import loc_D809_short_dec_EnemyBPosXLow              ; bank FF
+.import sub_D064_generate_rng                         ; bank FF
+.import loc_D77F_free_enemyA                          ; bank FF
+.import loc_D873_free_enemyB                          ; bank FF
+.import loc_D883_dec_enemyB_counter                   ; bank FF
+.import sub_D6BD_try_change_enemyA_direction          ; bank FF
+.import sub_D6DF_check_enemyB_direction               ; bank FF
+.import sub_D9AE_inc_enemyA_frame_counter             ; bank FF
+.import loc_D9AE_inc_enemyA_frame_counter             ; bank FF
+.import loc_D741_enemyA_off_screen                    ; bank FF
+.import loc_D84D_enemyB_off_screen                    ; bank FF
+.import sub_D725_enemyA_on_screen                     ; bank FF
+.import sub_D831_enemyB_on_screen                     ; bank FF
+.import loc_D989_add_enemyA_sprite_magic_v1           ; bank FF
+.import loc_D97D_add_flash_sprite_magic               ; bank FF
+.import sub_D562_has_character_damage                 ; bank FF
+.import sub_D5B6_have_intersect_bullet                ; bank FF
+.import sub_D606_have_intersect_sword                 ; bank FF
+.import sub_D7A8_correction_EnemyAPosY                ; bank FF
+.import sub_D347_check_landing_enemyA                 ; bank FF
+.import sub_accumulator_shift_right_by_4              ; bank FF
+.import sub_D8CD_enemyB_collision_plus_one            ; bank FF
+.import sub_D8D1_enemyB_collision_minus_16            ; bank FF
+.import sub_D7D5_check_enemyA_collision_by_Y_in_maze  ; bank FF
+.import sub_D8DB_enemyB_collision_by_shift_posY       ; bank FF
+.import sub_D8A8_correction2_EnemyBPosY               ; bank FF
+.import sub_E332_generate_jump_type                   ; bank FF
+.import tbl_flying_track_offset                       ; bank FF
+.import sub_D937_init_absolute_enemyA_positions       ; bank FF
+.import sub_D94A_init_absolute_enemyB_positions       ; bank FF
+.import sub_D952_init_short_enemyB_positions          ; bank FF
+.import loc_D952_init_short_enemyB_positions          ; bank FF
+.import sub_D397_right_collision_by_inc_posX          ; bank FF
+.import sub_D3AD_left_collision_by_inc_posX           ; bank FF
+.import loc_D3AD_left_collision_by_inc_posX           ; bank FF
+.import sub_D642_have_intersect_with_character        ; bank FF
+.import sub_D073_invert_sign                          ; bank FF
+.import loc_CDAC_decrement_counters_ex                ; bank FF
 
 .export sub_A000_land_diver_enemy
 .export sub_A003_soar_enemy
@@ -292,7 +292,7 @@ bra_A124_skip:
 C - - - - - 0x018134 06:A124: 20 EC A2  JSR sub_A2EC_try_to_change_self ;
 C - - - - - 0x018137 06:A127: BD 20 03  LDA vEnemyAStatus,X             ;
 C - - - - - 0x01813A 06:A12A: 29 08     AND #$08                        ; CONSTANT - the stop
-C - - - - - 0x01813C 06:A12C: F0 35     BEQ bra_A163                    ; If vEnemyAStatus doesn't contain 0x08
+C - - - - - 0x01813C 06:A12C: F0 35     BEQ bra_A163_skip               ; If vEnemyAStatus doesn't contain 0x08
 C - - - - - 0x01813E 06:A12E: A0 08     LDY #$08                        ; an input parameter - sprite_magic2 (a stop frame)
 ; In: Register Y - sprite_magic2 (The offset by the address)
 loc_A130_prepare_rendering:
@@ -327,7 +327,7 @@ C - - - - - 0x01816E 06:A15E: 85 02     STA ram_0002                  ;
 C - - - - - 0x018170 06:A160: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 ; In: Register X - the enemyA number
-bra_A163:
+bra_A163_skip:
 C - - - - - 0x018173 06:A163: BD 20 03  LDA vEnemyAStatus,X                   ;
 C - - - - - 0x018176 06:A166: 6A        ROR                                   ;
 C - - - - - 0x018177 06:A167: 90 0F     BCC bra_A178_skip                     ; If the enemy is looking to the right
@@ -484,7 +484,7 @@ C - - - - - 0x018281 06:A271: A0 00     LDY #$00                        ; 0x00 -
 @bra_A273_skip:
 C - - - - - 0x018283 06:A273: 98        TYA                             ; A <~ 0x00 or 0xDF
 @bra_A274_skip:
-C - - - - - 0x018284 06:A274: 9D 2C 03  STA vEnemyAPosY,X               ; Resolves a new Y-position of the character after jumping
+C - - - - - 0x018284 06:A274: 9D 2C 03  STA vEnemyAPosY,X               ; Resolves a new Y-position of the enemy after jumping
 C - - - - - 0x018287 06:A277: BC 4A 03  LDY vEnemyAJumpCounter,X        ;
 C - - - - - 0x01828A 06:A27A: C0 18     CPY #$18                        ; CONSTANT - a maximum amplitude
 C - - - - - 0x01828C 06:A27C: 90 35     BCC bra_A2B3_inc                ; If vEnemyAJumpCounter < 0x18
@@ -499,16 +499,16 @@ bra_A287_skip:
 C - - - - - 0x018297 06:A287: 85 00     STA ram_0000                                 ;
 C - - - - - 0x018299 06:A289: E6 00     INC ram_0000                                 ; prepare an input parameter
 C - - - - - 0x01829B 06:A28B: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y     ;
-C - - - - - 0x01829E 06:A28E: F0 23     BEQ bra_A2B3_inc                             ; If the collisions by Y-position don't exist
+C - - - - - 0x01829E 06:A28E: F0 23     BEQ bra_A2B3_inc                             ; If the collisions by Y-position doesn't exist
 C - - - - - 0x0182A0 06:A290: C9 02     CMP #$02                                     ; CONSTANT - a weak collision
 C - - - - - 0x0182A2 06:A292: F0 07     BEQ bra_A29B_weak                            ; If the collision is weak
-C - - - - - 0x0182A4 06:A294: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision   ;
-C - - - - - 0x0182A7 06:A297: D0 0E     BNE bra_A2A7_landing                         ; If the strong collision is exist
+C - - - - - 0x0182A4 06:A294: 20 47 D3  JSR sub_D347_check_landing_enemyA            ;
+C - - - - - 0x0182A7 06:A297: D0 0E     BNE bra_A2A7_landing                         ; If the landing is allow
 C - - - - - 0x0182A9 06:A299: F0 18     BEQ bra_A2B3_inc                             ; Always true
 
 bra_A29B_weak:
-C - - - - - 0x0182AB 06:A29B: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision   ;
-C - - - - - 0x0182AE 06:A29E: F0 13     BEQ bra_A2B3_inc                             ; If the strong collision doesn't exist
+C - - - - - 0x0182AB 06:A29B: 20 47 D3  JSR sub_D347_check_landing_enemyA            ;
+C - - - - - 0x0182AE 06:A29E: F0 13     BEQ bra_A2B3_inc                             ; If the landing is disallow
 C - - - - - 0x0182B0 06:A2A0: BD 56 03  LDA vEnemyAJumpType,X                        ;
 C - - - - - 0x0182B3 06:A2A3: C9 04     CMP #$04                                     ; CONSTANT - jump off after the squatting
 C - - - - - 0x0182B5 06:A2A5: F0 0C     BEQ bra_A2B3_inc                             ; If the enemyA jumping off
@@ -1432,13 +1432,13 @@ C - - - - - 0x0188B7 06:A8A7: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y
 C - - - - - 0x0188BA 06:A8AA: F0 16     BEQ bra_A8C2_inc                                 ; If the collisions by Y-position don't exist
 C - - - - - 0x0188BC 06:A8AC: C9 02     CMP #$02                                         ; CONSTANT - a weak collision
 C - - - - - 0x0188BE 06:A8AE: F0 07     BEQ @bra_A8B7_weak                               ; If the collision is weak
-C - - - - - 0x0188C0 06:A8B0: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision       ;
-C - - - - - 0x0188C3 06:A8B3: D0 07     BNE @bra_A8BC_landing                            ; If the strong collision is exist
+C - - - - - 0x0188C0 06:A8B0: 20 47 D3  JSR sub_D347_check_landing_enemyA                ;
+C - - - - - 0x0188C3 06:A8B3: D0 07     BNE @bra_A8BC_landing                            ; If the landing is allow
 C - - - - - 0x0188C5 06:A8B5: F0 0B     BEQ bra_A8C2_inc                                 ; Always true
 
 @bra_A8B7_weak:
-C - - - - - 0x0188C7 06:A8B7: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision   ;
-C - - - - - 0x0188CA 06:A8BA: F0 06     BEQ bra_A8C2_inc                             ; If the strong collision doesn't exist
+C - - - - - 0x0188C7 06:A8B7: 20 47 D3  JSR sub_D347_check_landing_enemyA            ;
+C - - - - - 0x0188CA 06:A8BA: F0 06     BEQ bra_A8C2_inc                             ; If the landing is disallow
 @bra_A8BC_landing:
 C - - - - - 0x0188CC 06:A8BC: 20 A8 D7  JSR sub_D7A8_correction_EnemyAPosY           ;
 C - - - - - 0x0188CF 06:A8BF: 4C D4 A8  JMP loc_A8D4_start_dying                     ;
@@ -3421,7 +3421,7 @@ C - - - - - 0x01956F 06:B55F: A0 14     LDY #$14
 C - - - - - 0x019571 06:B561: 4C 06 B4  JMP loc_B406
 
 bra_B564:
-C - - - - - 0x019574 06:B564: 20 3E E3  JSR sub_E332_correction2_ScreenChrPosY
+C - - - - - 0x019574 06:B564: 20 3E E3  JSR sub_E332_generate_jump_type
 C - - - - - 0x019577 06:B567: BC 2C 03  LDY ram_032C,X
 C - - - - - 0x01957A 06:B56A: C0 BF     CPY #$BF
 C - - - - - 0x01957C 06:B56C: 90 06     BCC bra_B574
@@ -3492,12 +3492,12 @@ C - - - - - 0x0195EC 06:B5DC: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y
 C - - - - - 0x0195EF 06:B5DF: F0 23     BEQ bra_B604
 C - - - - - 0x0195F1 06:B5E1: C9 02     CMP #$02
 C - - - - - 0x0195F3 06:B5E3: F0 07     BEQ bra_B5EC
-C - - - - - 0x0195F5 06:B5E5: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
+C - - - - - 0x0195F5 06:B5E5: 20 47 D3  JSR sub_D347_check_landing_enemyA
 C - - - - - 0x0195F8 06:B5E8: D0 0E     BNE bra_B5F8
 - - - - - - 0x0195FA 06:B5EA: F0        .byte $F0   ; 
 - - - - - - 0x0195FB 06:B5EB: 18        .byte $18   ; 
 bra_B5EC:
-C - - - - - 0x0195FC 06:B5EC: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
+C - - - - - 0x0195FC 06:B5EC: 20 47 D3  JSR sub_D347_check_landing_enemyA
 C - - - - - 0x0195FF 06:B5EF: F0 13     BEQ bra_B604
 C - - - - - 0x019601 06:B5F1: BD 56 03  LDA ram_0356,X
 C - - - - - 0x019604 06:B5F4: C9 04     CMP #$04
@@ -3530,7 +3530,7 @@ bra_B625:
 C - - - - - 0x019635 06:B625: 4C 06 B4  JMP loc_B406
 
 bra_B628:
-C - - - - - 0x019638 06:B628: 20 D5 D7  JSR sub_D7D5_check_enemyA_collision_by_in_maze
+C - - - - - 0x019638 06:B628: 20 D5 D7  JSR sub_D7D5_check_enemyA_collision_by_Y_in_maze
 C - - - - - 0x01963B 06:B62B: D0 D7     BNE bra_B604
 C - - - - - 0x01963D 06:B62D: A9 18     LDA #$18
 C - - - - - 0x01963F 06:B62F: 9D 4A 03  STA ram_034A,X
@@ -4021,7 +4021,7 @@ C - - - - - 0x019989 06:B979: A0 18     LDY #$18
 C - - - - - 0x01998B 06:B97B: 4C E0 B8  JMP loc_B8E0
 
 bra_B97E:
-C - - - - - 0x01998E 06:B97E: 20 3E E3  JSR sub_E332_correction2_ScreenChrPosY
+C - - - - - 0x01998E 06:B97E: 20 3E E3  JSR sub_E332_generate_jump_type
 C - - - - - 0x019991 06:B981: BC 2C 03  LDY ram_032C,X
 C - - - - - 0x019994 06:B984: C0 BF     CPY #$BF
 C - - - - - 0x019996 06:B986: 90 06     BCC bra_B98E
@@ -4092,12 +4092,12 @@ C - - - - - 0x019A06 06:B9F6: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y
 C - - - - - 0x019A09 06:B9F9: F0 23     BEQ bra_BA1E
 C - - - - - 0x019A0B 06:B9FB: C9 02     CMP #$02
 C - - - - - 0x019A0D 06:B9FD: F0 07     BEQ bra_BA06
-C - - - - - 0x019A0F 06:B9FF: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
+C - - - - - 0x019A0F 06:B9FF: 20 47 D3  JSR sub_D347_check_landing_enemyA
 C - - - - - 0x019A12 06:BA02: D0 0E     BNE bra_BA12
 - - - - - - 0x019A14 06:BA04: F0        .byte $F0   ; 
 - - - - - - 0x019A15 06:BA05: 18        .byte $18   ; 
 bra_BA06:
-C - - - - - 0x019A16 06:BA06: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
+C - - - - - 0x019A16 06:BA06: 20 47 D3  JSR sub_D347_check_landing_enemyA
 C - - - - - 0x019A19 06:BA09: F0 13     BEQ bra_BA1E
 C - - - - - 0x019A1B 06:BA0B: BD 56 03  LDA ram_0356,X
 C - - - - - 0x019A1E 06:BA0E: C9 04     CMP #$04
@@ -4125,7 +4125,7 @@ bra_BA36:
 C - - - - - 0x019A46 06:BA36: 4C E0 B8  JMP loc_B8E0
 
 bra_BA39:
-C - - - - - 0x019A49 06:BA39: 20 D5 D7  JSR sub_D7D5_check_enemyA_collision_by_in_maze
+C - - - - - 0x019A49 06:BA39: 20 D5 D7  JSR sub_D7D5_check_enemyA_collision_by_Y_in_maze
 C - - - - - 0x019A4C 06:BA3C: D0 E0     BNE bra_BA1E
 C - - - - - 0x019A4E 06:BA3E: A9 18     LDA #$18
 C - - - - - 0x019A50 06:BA40: 9D 4A 03  STA ram_034A,X
@@ -4524,12 +4524,12 @@ C - - - - - 0x019CE0 06:BCD0: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y
 C - - - - - 0x019CE3 06:BCD3: F0 22     BEQ bra_BCF7
 C - - - - - 0x019CE5 06:BCD5: C9 02     CMP #$02
 C - - - - - 0x019CE7 06:BCD7: F0 07     BEQ bra_BCE0
-C - - - - - 0x019CE9 06:BCD9: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
+C - - - - - 0x019CE9 06:BCD9: 20 47 D3  JSR sub_D347_check_landing_enemyA
 C - - - - - 0x019CEC 06:BCDC: D0 0D     BNE bra_BCEB
 - - - - - - 0x019CEE 06:BCDE: F0        .byte $F0   ; 
 - - - - - - 0x019CEF 06:BCDF: 17        .byte $17   ; 
 bra_BCE0:
-C - - - - - 0x019CF0 06:BCE0: 20 47 D3  JSR sub_D347_check_enemyA_strong_collision
+C - - - - - 0x019CF0 06:BCE0: 20 47 D3  JSR sub_D347_check_landing_enemyA
 C - - - - - 0x019CF3 06:BCE3: F0 12     BEQ bra_BCF7
 C - - - - - 0x019CF5 06:BCE5: 20 64 D0  JSR sub_D064_generate_rng
 C - - - - - 0x019CF8 06:BCE8: 6A        ROR

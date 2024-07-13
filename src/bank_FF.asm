@@ -101,9 +101,9 @@
 .export loc_D562_has_character_damage
 .export sub_D5B6_have_intersect_bullet
 .export sub_D606_have_intersect_sword
-.export sub_D347_check_enemyA_strong_collision
+.export sub_D347_check_landing_enemyA
 .export sub_D358_check_enemyA_collision_by_Y
-.export sub_D7D5_check_enemyA_collision_by_in_maze
+.export sub_D7D5_check_enemyA_collision_by_Y_in_maze
 .export sub_D7BF_check_enemyA_movement_on_the_right
 .export sub_D8B7_check_enemyB_movement_on_the_right
 .export sub_D7CA_check_enemyA_movement_on_the_left
@@ -139,7 +139,7 @@
 .export sub_D7A8_correction_EnemyAPosY
 .export sub_D89C_correction_EnemyBPosY
 .export sub_D8A8_correction2_EnemyBPosY
-.export sub_E332_correction2_ScreenChrPosY
+.export sub_E332_generate_jump_type
 .export sub_D937_init_absolute_enemyA_positions
 .export sub_D94A_init_absolute_enemyB_positions
 .export sub_D952_init_short_enemyB_positions
@@ -3153,8 +3153,8 @@ C - - - - - 0x01D352 07:D342: A5 04     LDA ram_0004                            
 C - - - - - 0x01D354 07:D344: 29 0F     AND #$0F                                        ; return a collision value
 C - - - - - 0x01D356 07:D346: 60        RTS                                             ;
 
-; Out: If flag Z = 1 then there is the strong collision
-sub_D347_check_enemyA_strong_collision:
+; Out: If flag Z = 0 then the landing is allow, 1 - otherwise.
+sub_D347_check_landing_enemyA:
 C - - - - - 0x01D357 07:D347: A5 5E     LDA v_no_level                                  ;
 C - - - - - 0x01D359 07:D349: C9 03     CMP #$03                                        ; CONSTANT - level 4 or level-racing
 C - - - - - 0x01D35B 07:D34B: D0 03     BNE bra_D350_skip                               ; If v_no_level != 0x03
@@ -3980,7 +3980,7 @@ C - - - - - 0x01D7E2 07:D7D2: C9 01     CMP #$01                                
 C - - - - - 0x01D7E4 07:D7D4: 60        RTS                                         ;
 
 ; Out: If flag Z = 1 then there is the strong collision
-sub_D7D5_check_enemyA_collision_by_in_maze:
+sub_D7D5_check_enemyA_collision_by_Y_in_maze:
 C - - - - - 0x01D7E5 07:D7D5: A5 5E     LDA v_no_level                              ;
 C - - - - - 0x01D7E7 07:D7D7: C9 03     CMP #$03                                    ; CONSTANT - level 4 or level-racing
 C - - - - - 0x01D7E9 07:D7D9: D0 0A     BNE bra_D7E5_RTS                            ; If vNoLevel != 0x03
@@ -5948,6 +5948,7 @@ C - - - - - 0x01E33B 07:E32B: BD B6 E3  LDA tbl_E3B5_colors + 1,X    ;
 C - - - - - 0x01E33E 07:E32E: 8D 0A 06  STA vCachePalette + 10       ; 
 C - - - - - 0x01E341 07:E331: 60        RTS                          ;
 
+; Out: Register A - a jump type
 sub_E332_correction_ScreenChrPosY:
 @bra_E332_repeat:
 C - - - - - 0x01E342 07:E332: A5 6A     LDA vScreenChrPosY           ;
@@ -5956,15 +5957,16 @@ C - - - - - 0x01E346 07:E336: C9 07     CMP #$07                     ;
 C - - - - - 0x01E348 07:E338: F0 04     BEQ bra_E33E_generate        ; If Register A == 0x07
 C - - - - - 0x01E34A 07:E33A: C6 6A     DEC vScreenChrPosY           ;
 C - - - - - 0x01E34C 07:E33C: D0 F4     BNE @bra_E332_repeat         ; If vScreenChrPosY != 0x00
-sub_E332_correction2_ScreenChrPosY:
+; Out: Register A - a jump type
+sub_E332_generate_jump_type:
 bra_E33E_generate:
 C - - - - - 0x01E34E 07:E33E: 20 64 D0  JSR sub_D064_generate_rng    ; generates a random value
 C - - - - - 0x01E351 07:E341: 29 0F     AND #$0F                     ;
 C - - - - - 0x01E353 07:E343: A8        TAY                          ;
-C - - - - - 0x01E354 07:E344: B9 48 E3  LDA tbl_E348_unknown,Y       ;
+C - - - - - 0x01E354 07:E344: B9 48 E3  LDA tbl_E348_counter_index,Y ;
 C - - - - - 0x01E357 07:E347: 60        RTS                          ;
 
-tbl_E348_unknown:
+tbl_E348_counter_index:
 - D 3 - - - 0x01E358 07:E348: 00        .byte $00, $01, $02, $03
 - D 3 - - - 0x01E35C 07:E34C: 04        .byte $04, $00, $01, $02
 - D 3 - - - 0x01E360 07:E350: 03        .byte $03, $04, $00, $01
