@@ -424,7 +424,7 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; Byte: 0YZW KLMN (girl in red, egyptian with a sword)
 ; N - see above
 ; M - the jump
-; K - close contact, extra (for an egyptian with a sword)
+; L - close contact, extra (for an egyptian with a sword)
 ; K - close contact
 ; W - squatting
 ; Z - the dying
@@ -434,6 +434,7 @@ vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
 vEnemyAProjectileStatus       = ram_0322 ; $0322-$0325
 
+vEnemyASwordFrame_            = ram_0326
 vEnemyAVelocity               = ram_0326
 vEnemyAVelocity1              = ram_0326
 vEnemyAVelocity2              = ram_0327
@@ -595,7 +596,7 @@ v_sprite_magic1               = ram_06B7 ; Y-position, 0xF0 - a sprite doesn't e
 v_sprite_magic2               = ram_06B8 ; The offset by the address SS (see v_sprite_magic3)
 v_sprite_magic3               = ram_06B9
 ; SSBB XCOO
-; SS - the offset of the high address ($8000), i.e. $8000 + 0%00SS0000
+; SS - the offset of the high address ($8000), i.e. $8000 + 0%000000SS
 ; BB - 0x00 - bank 05 (2 page), 0x01 - bank 02 (2 page), 0x1X - bank 05 (1 page)
 ; C  -  0x1 - usign next CHR-page size 1 Kb, 0x0 - using current CHR-page
 ; OO - the OAM-attributes
@@ -638,7 +639,6 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 
 ; TODO list:
 ; tbl_demo_btn_pressed - dissabling
-; преобразовать банк 02 по адресу 0х8000 (1 страница)
 ; проверить, почему используется 7 строк вместо 8 для таблицы атрибутов (уровень 2.0, внутренний)
 ; индексы в одной из таблиц доходят до 0x70, хотя используются до 0x9F, почему так?
 ; Game Genie коды - исправление пробелов

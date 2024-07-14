@@ -17,7 +17,7 @@
 |0x0E|Bat| B | [Летучая мышь](#враг-0e) | 1 |
 |0x0F|Gray cat| B | [Серый кот](#враг-0f) | 1 |
 |0x10|Nun| A |   | 2 |
-|0x11|Girl in red, in the castle| A |   | 1 |
+|0x11|Girl in red, in the castle| A | [Девушка в красном](#враг-11) | 1 |
 |0x12|Batterfly| B |   | 2 |
 |0x13|Broned batterfly| B |   | 2 |
 |0x14|Shooter with bazooka| A |   | 2 |
@@ -98,6 +98,13 @@
 |---|---|---|---|---|
 | ![Frame1](../images/enemy0F/frame1-r.png) | ![Frame2](../images/enemy0F/frame2-r.png) | ![Frame3](../images/enemy0F/frame3-r.png) | ![Frame4](../images/enemy0F/frame4-r.png) | ![Frame5](../images/enemy0F/frame5-r.png) |
 | ![Frame1](../images/enemy0F/frame1-l.png) | ![Frame2](../images/enemy0F/frame2-l.png) | ![Frame3](../images/enemy0F/frame3-l.png) | ![Frame4](../images/enemy0F/frame4-l.png) | ![Frame5](../images/enemy0F/frame5-l.png) |
+
+## Враг 11
+Девушка в красном
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|Кадр 9|Кадр 10|
+|---|---|---|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemy11/frame1-r.png) | ![Frame2](../images/enemy11/frame2-r.png) | ![Frame3](../images/enemy11/frame3-r.png) | ![Frame4](../images/enemy11/frame4-r.png) | ![Frame5](../images/enemy11/frame5-r.png) | ![Frame6](../images/enemy11/frame6-r.png) | ![Frame7](../images/enemy11/frame7-r.png) | ![Frame8](../images/enemy11/frame8-r.png) | ![Frame9](../images/enemy11/frame9-r.png) | ![Frame10](../images/enemy11/frame10-r.png) |
+| ![Frame1](../images/enemy11/frame1-l.png) | ![Frame2](../images/enemy11/frame2-l.png) | ![Frame3](../images/enemy11/frame3-l.png) | ![Frame4](../images/enemy11/frame4-l.png) | ![Frame5](../images/enemy11/frame5-l.png) | ![Frame6](../images/enemy11/frame6-l.png) | ![Frame7](../images/enemy11/frame7-l.png) | ![Frame8](../images/enemy11/frame8-l.png) | ![Frame9](../images/enemy11/frame9-l.png) | ![Frame10](../images/enemy11/frame10-l.png) |
 
 ## Враг 1F
 Летающий человек

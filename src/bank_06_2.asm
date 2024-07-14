@@ -67,6 +67,7 @@
 .import sub_DCB1_try_move_on_the_left                  ; bank FF
 .import sub_DCE5_try_move_on_the_right                 ; bank FF
 .import sub_DCF1_reset_velocity                        ; bank FF
+.import sub_E332_generate_jump_type                    ; bank FF
 
 .export loc_B234_add_message
 .export sub_B234_add_message
@@ -837,7 +838,7 @@ C - - - - - 0x01A4BE 06:A4AE: A0 14     LDY #$14
 C - - - - - 0x01A4C0 06:A4B0: 4C 02 A4  JMP loc_A402
 
 bra_A4B3:
-C - - - - - 0x01A4C3 06:A4B3: 20 3E E3  JSR $E33E
+C - - - - - 0x01A4C3 06:A4B3: 20 3E E3  JSR sub_E332_generate_jump_type
 C - - - - - 0x01A4C6 06:A4B6: BC 2C 03  LDY ram_032C,X
 C - - - - - 0x01A4C9 06:A4B9: C0 BF     CPY #$BF
 C - - - - - 0x01A4CB 06:A4BB: 90 06     BCC bra_A4C3
@@ -1454,7 +1455,7 @@ C - - - - - 0x01A8B2 06:A8A2: D0 05     BNE bra_A8A9
 C - - - - - 0x01A8B4 06:A8A4: A9 32     LDA #$32
 C - - - - - 0x01A8B6 06:A8A6: 20 20 C4  JSR sub_C420_add_sound_effect
 bra_A8A9:
-C - - - - - 0x01A8B9 06:A8A9: 20 3E E3  JSR $E33E
+C - - - - - 0x01A8B9 06:A8A9: 20 3E E3  JSR sub_E332_generate_jump_type
 C - - - - - 0x01A8BC 06:A8AC: BC 2C 03  LDY ram_032C,X
 C - - - - - 0x01A8BF 06:A8AF: C0 BF     CPY #$BF
 C - - - - - 0x01A8C1 06:A8B1: 90 06     BCC bra_A8B9

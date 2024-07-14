@@ -180,7 +180,7 @@ C - - - - - 0x01808F 06:A07F: B0 0D     BCS bra_A08E_bullet_hit             ; If
 C - - - - - 0x018091 06:A081: CA        DEX                                 ; decrement loop counter
 C - - - - - 0x018092 06:A082: 10 F8     BPL @bra_A07C_loop                  ; If Register X >= 0x00
 bra_A084_no_intersect:
-C - - - - - 0x018094 06:A084: A6 1A     LDX vTempCounter1A                  ; !(WHY?), seems to be excessive
+C - - - - - 0x018094 06:A084: A6 1A     LDX vTempCounter1A                  ; X <~ the enemyA number
 C - - - - - 0x018096 06:A086: 20 62 D5  JSR sub_D562_has_character_damage   ;
 bra_A089_next:
 loc_A089_next:

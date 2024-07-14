@@ -819,7 +819,7 @@ C - - - - - 0x01C4A7 07:C497: 84 23     STY vDemoBtnPrsdIndex           ; store 
 C - - - - - 0x01C4A9 07:C499: C6 22     DEC vDemoBtnPrsdCounter         ; decrement a counter
 C - - - - - 0x01C4AB 07:C49B: A5 2C     LDA vLowCounter                 ;
 C - - - - - 0x01C4AD 07:C49D: 29 0F     AND #$0F                        ;
-C - - - - - 0x01C4AF 07:C49F: D0 06     BNE bra_C4A7_read_io_controller ; Branch if vLowCounter does multiple of 16
+C - - - - - 0x01C4AF 07:C49F: D0 06     BNE bra_C4A7_read_io_controller ; Branch if vLowCounter doesn't multiple of 16
 C - - - - - 0x01C4B1 07:C4A1: A9 02     LDA #BIT_BUTTON_B               ;
 C - - - - - 0x01C4B3 07:C4A3: 45 1C     EOR vBtnPressedInGame           ; addes a shot every 16th frame unless otherwise specified
 C - - - - - 0x01C4B5 07:C4A5: 85 1C     STA vBtnPressedInGame           ;
