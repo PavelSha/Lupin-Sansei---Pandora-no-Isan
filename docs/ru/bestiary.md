@@ -27,7 +27,7 @@
 |0x18|Karate-boy in blue on the street| A |   | 2 |
 |0x19|Karate-girl| A |   | 2 |
 |0x1A|Boy in green| A |   | 2 |
-|0x1B|Girl with sword| A |   | 1 |
+|0x1B|Girl with sword| A | [Девушка в красном, с мечом](#враг-1b) | 1 |
 |0x1C|Knight in armor with a shield| A |   | 1 |
 |0x1D|The barrel| B |   | 2 |
 |0x1E|Sensor| B |   | 1 |
@@ -54,7 +54,7 @@
 |0x33|Blade trap| B |   | 4 |
 |0x34|Potted snakes| B |   | 4 |
 |0x35|Egyptian with bow| A |   | 4 |
-|0x36|Egyptian with a sword| A | ![Egyptian with a sword](../images/bestiary-36.png)  | 4 |
+|0x36|Egyptian with a sword| A | [Египтянин с мечом](#враг-36)  | 4 |
 |0x37|Egyptian with a boomerung| A |   | 4 |
 |0x38|Ninja upside down| A |   | 4 |
 |0x39|Sensor| B |   | 4 |
@@ -101,10 +101,17 @@
 
 ## Враг 11
 Девушка в красном
-|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|Кадр 9|Кадр 10|
-|---|---|---|---|---|---|---|---|---|---|
-| ![Frame1](../images/enemy11/frame1-r.png) | ![Frame2](../images/enemy11/frame2-r.png) | ![Frame3](../images/enemy11/frame3-r.png) | ![Frame4](../images/enemy11/frame4-r.png) | ![Frame5](../images/enemy11/frame5-r.png) | ![Frame6](../images/enemy11/frame6-r.png) | ![Frame7](../images/enemy11/frame7-r.png) | ![Frame8](../images/enemy11/frame8-r.png) | ![Frame9](../images/enemy11/frame9-r.png) | ![Frame10](../images/enemy11/frame10-r.png) |
-| ![Frame1](../images/enemy11/frame1-l.png) | ![Frame2](../images/enemy11/frame2-l.png) | ![Frame3](../images/enemy11/frame3-l.png) | ![Frame4](../images/enemy11/frame4-l.png) | ![Frame5](../images/enemy11/frame5-l.png) | ![Frame6](../images/enemy11/frame6-l.png) | ![Frame7](../images/enemy11/frame7-l.png) | ![Frame8](../images/enemy11/frame8-l.png) | ![Frame9](../images/enemy11/frame9-l.png) | ![Frame10](../images/enemy11/frame10-l.png) |
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|
+|---|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemy11/frame1-r.png) | ![Frame2](../images/enemy11/frame2-r.png) | ![Frame3](../images/enemy11/frame3-r.png) | ![Frame4](../images/enemy11/frame4-r.png) | ![Frame5](../images/enemy11/frame5-r.png) | ![Frame6](../images/enemy11/frame6-r.png) | ![Frame7](../images/enemy11/frame7-r.png) | ![Frame8](../images/enemy11/frame8-r.png) |
+| ![Frame1](../images/enemy11/frame1-l.png) | ![Frame2](../images/enemy11/frame2-l.png) | ![Frame3](../images/enemy11/frame3-l.png) | ![Frame4](../images/enemy11/frame4-l.png) | ![Frame5](../images/enemy11/frame5-l.png) | ![Frame6](../images/enemy11/frame6-l.png) | ![Frame7](../images/enemy11/frame7-l.png) | ![Frame8](../images/enemy11/frame8-l.png) |
+
+## Враг 1B
+Девушка в красном, с мечом
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|Кадр 9|
+|---|---|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemy11/frame1-r.png) | ![Frame2](../images/enemy11/frame2-r.png) | ![Frame3](../images/enemy11/frame3-r.png) | ![Frame4](../images/enemy11/frame4-r.png) | ![Frame5](../images/enemy11/frame5-r.png) | ![Frame6](../images/enemy11/frame6-r.png) | ![Frame7](../images/enemy11/frame7-r.png) | ![Frame9](../images/enemy11/frame9-r.png) | ![Frame10](../images/enemy11/frame10-r.png) |
+| ![Frame1](../images/enemy11/frame1-l.png) | ![Frame2](../images/enemy11/frame2-l.png) | ![Frame3](../images/enemy11/frame3-l.png) | ![Frame4](../images/enemy11/frame4-l.png) | ![Frame5](../images/enemy11/frame5-l.png) | ![Frame6](../images/enemy11/frame6-l.png) | ![Frame7](../images/enemy11/frame7-l.png) | ![Frame9](../images/enemy11/frame9-l.png) | ![Frame10](../images/enemy11/frame10-l.png) |
 
 ## Враг 1F
 Летающий человек
@@ -126,3 +133,10 @@
 |---|---|---|
 | ![Frame1](../images/enemy27/frame1-r.png) | ![Frame2](../images/enemy27/frame2-r.png) | ![Frame3](../images/enemy27/frame3-r.png) |
 | ![Frame1](../images/enemy27/frame1-l.png) | ![Frame2](../images/enemy27/frame2-l.png) | ![Frame3](../images/enemy27/frame3-l.png) |
+
+## Враг 36
+Египтянин с мечом
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|Кадр 9|
+|---|---|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemy36/frame1-r.png) | ![Frame2](../images/enemy36/frame2-r.png) | ![Frame3](../images/enemy36/frame3-r.png) | ![Frame4](../images/enemy36/frame4-r.png) | ![Frame5](../images/enemy36/frame5-r.png) | ![Frame6](../images/enemy36/frame6-r.png) | ![Frame7](../images/enemy36/frame7-r.png) | ![Frame8](../images/enemy36/frame8-r.png) | ![Frame9](../images/enemy36/frame9-r.png) |
+| ![Frame1](../images/enemy36/frame1-l.png) | ![Frame2](../images/enemy36/frame2-l.png) | ![Frame3](../images/enemy36/frame3-l.png) | ![Frame4](../images/enemy36/frame4-l.png) | ![Frame5](../images/enemy36/frame5-l.png) | ![Frame6](../images/enemy36/frame6-l.png) | ![Frame7](../images/enemy36/frame7-l.png) | ![Frame8](../images/enemy36/frame8-l.png) | ![Frame9](../images/enemy36/frame9-l.png) |

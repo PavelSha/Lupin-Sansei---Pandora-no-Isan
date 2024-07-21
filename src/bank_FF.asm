@@ -726,22 +726,22 @@ C - - - - - 0x01C411 07:C401: 60        RTS              ;
 
 loc_C402_clear_sound_parts:
 sub_C402_clear_sound_parts:
-C D 2 - - - 0x01C412 07:C402: A9 FF     LDA #$FF            ;
-C - - - - - 0x01C414 07:C404: 85 FD     STA vSoundRoomIndex ; set the fake index
-C - - - - - 0x01C416 07:C406: A0 00     LDY #$00            ; set loop counter
-C - - - - - 0x01C418 07:C408: 8C 07 04  STY ram_0407        ; clear
-C - - - - - 0x01C41B 07:C40B: 8C 15 40  STY APU_STATUS      ; clear
-C - - - - - 0x01C41E 07:C40E: 8C 00 04  STY ram_0400        ; clear
+C D 2 - - - 0x01C412 07:C402: A9 FF     LDA #$FF              ;
+C - - - - - 0x01C414 07:C404: 85 FD     STA vSoundRoomIndex   ; set the fake index
+C - - - - - 0x01C416 07:C406: A0 00     LDY #$00              ; set loop counter
+C - - - - - 0x01C418 07:C408: 8C 07 04  STY ram_0407          ; clear
+C - - - - - 0x01C41B 07:C40B: 8C 15 40  STY APU_STATUS        ; clear
+C - - - - - 0x01C41E 07:C40E: 8C 00 04  STY ram_0400          ; clear
 @bra_C411_loop:
-C - - - - - 0x01C421 07:C411: A9 FF     LDA #$FF            ;
-C - - - - - 0x01C423 07:C413: 99 10 04  STA vSoundRowB_0,Y  ;
-C - - - - - 0x01C426 07:C416: 98        TYA                 ;
-C - - - - - 0x01C427 07:C417: 18        CLC                 ; 
-C - - - - - 0x01C428 07:C418: 69 15     ADC #$15            ; CONSTANT: Sound row step
-C - - - - - 0x01C42A 07:C41A: A8        TAY                 ;
-C - - - - - 0x01C42B 07:C41B: C9 A8     CMP #$A8            ; 8 iterations for sound row
-C - - - - - 0x01C42D 07:C41D: D0 F2     BNE @bra_C411_loop  ; If Register A != 0xA8
-C - - - - - 0x01C42F 07:C41F: 60        RTS                 ;
+C - - - - - 0x01C421 07:C411: A9 FF     LDA #$FF              ;
+C - - - - - 0x01C423 07:C413: 99 10 04  STA vSoundRowIndex,Y  ;
+C - - - - - 0x01C426 07:C416: 98        TYA                   ;
+C - - - - - 0x01C427 07:C417: 18        CLC                   ; 
+C - - - - - 0x01C428 07:C418: 69 15     ADC #$15              ; CONSTANT: Sound row step
+C - - - - - 0x01C42A 07:C41A: A8        TAY                   ;
+C - - - - - 0x01C42B 07:C41B: C9 A8     CMP #$A8              ; 8 iterations for sound row
+C - - - - - 0x01C42D 07:C41D: D0 F2     BNE @bra_C411_loop    ; If Register A != 0xA8
+C - - - - - 0x01C42F 07:C41F: 60        RTS                   ;
 
 ; Params:
 ; Register A - ???
@@ -778,8 +778,8 @@ C - - - - - 0x01C45E 07:C44E: 9D 12 04  STA vSoundRowB_2,X            ;
 C - - - - - 0x01C461 07:C451: C8        INY                           ; to 4 byte of 4
 C - - - - - 0x01C462 07:C452: B1 12     LDA (ram_0012),Y              ;
 C - - - - - 0x01C464 07:C454: 9D 13 04  STA vSoundRowB_3,X            ;
-C - - - - - 0x01C467 07:C457: A9 00     LDA #$00
-C - - - - - 0x01C469 07:C459: 9D 10 04  STA vSoundRowB_0,X
+C - - - - - 0x01C467 07:C457: A9 00     LDA #$00                      ;
+C - - - - - 0x01C469 07:C459: 9D 10 04  STA vSoundRowIndex,X          ; reset an index
 C - - - - - 0x01C46C 07:C45C: A9 06     LDA #$06                      ;
 C - - - - - 0x01C46E 07:C45E: 8D 00 80  STA MMC3_Bank_select          ;
 C - - - - - 0x01C471 07:C461: AD B5 06  LDA vBankData                 ;
