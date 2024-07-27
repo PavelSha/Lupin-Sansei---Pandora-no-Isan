@@ -430,9 +430,22 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; Z - the dying
 ; Y - see above
 
+; Byte: 0YZW KLMN (knight in armor)
+; N - see above
+; M - the jump
+; L - close contact (with a sword)
+; K - the hiding
+; W - squatting
+; Z - the dying
+; Y - see above
+
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
 vEnemyAProjectileStatus       = ram_0322 ; $0322-$0325
+
+vEnemyASwordStatus            = ram_0326
+; 0x80 - the sword is used, below
+; 0x81 - the sword is used, above
 
 vEnemyASwordFrame_            = ram_0326
 vEnemyAVelocity               = ram_0326
