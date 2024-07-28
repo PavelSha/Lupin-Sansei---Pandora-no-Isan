@@ -610,7 +610,7 @@ v_sprite_magic1               = ram_06B7 ; Y-position, 0xF0 - a sprite doesn't e
 v_sprite_magic2               = ram_06B8 ; The offset by the address SS (see v_sprite_magic3)
 v_sprite_magic3               = ram_06B9
 ; SSBB XCOO
-; SS - the offset of the high address ($8000), i.e. $8000 + 0%000000SS
+; SS - the offset of the high address ($8000), i.e. $8000 + 0%00SS0000
 ; BB - 0x00 - bank 05 (2 page), 0x01 - bank 02 (2 page), 0x1X - bank 05 (1 page)
 ; C  -  0x1 - usign next CHR-page size 1 Kb, 0x0 - using current CHR-page
 ; OO - the OAM-attributes

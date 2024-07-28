@@ -22,13 +22,13 @@
 |0x13|Broned batterfly| B |   | 2 |
 |0x14|Shooter with bazooka| A |   | 2 |
 |0x15|Sensor| B |   | 2 |
-|0x16|Black cat| B |   | 1 |
+|0x16|Black cat| B | [Чёрный кот](#враг-16) | 1 |
 |0x17|Karate-boy| A |   | 2 |
 |0x18|Karate-boy in blue on the street| A |   | 2 |
 |0x19|Karate-girl| A |   | 2 |
 |0x1A|Boy in green| A |   | 2 |
 |0x1B|Girl with sword| A | [Девушка в красном, с мечом](#враг-1b) | 1 |
-|0x1C|Knight in armor with a shield| A |   | 1 |
+|0x1C|Knight in armor with a shield| A | [Рыцарь в доспехах](#враг-1c) | 1 |
 |0x1D|The barrel| B |   | 2 |
 |0x1E|Sensor| B |   | 1 |
 |0x1F|Fly man| A | [Летающий человек](#враг-1f) | 1 |
@@ -106,12 +106,26 @@
 | ![Frame1](../images/enemy11/frame1-r.png) | ![Frame2](../images/enemy11/frame2-r.png) | ![Frame3](../images/enemy11/frame3-r.png) | ![Frame4](../images/enemy11/frame4-r.png) | ![Frame5](../images/enemy11/frame5-r.png) | ![Frame6](../images/enemy11/frame6-r.png) | ![Frame7](../images/enemy11/frame7-r.png) | ![Frame8](../images/enemy11/frame8-r.png) |
 | ![Frame1](../images/enemy11/frame1-l.png) | ![Frame2](../images/enemy11/frame2-l.png) | ![Frame3](../images/enemy11/frame3-l.png) | ![Frame4](../images/enemy11/frame4-l.png) | ![Frame5](../images/enemy11/frame5-l.png) | ![Frame6](../images/enemy11/frame6-l.png) | ![Frame7](../images/enemy11/frame7-l.png) | ![Frame8](../images/enemy11/frame8-l.png) |
 
+## Враг 16
+Чёрный кот
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|
+|---|---|---|---|---|
+| ![Frame1](../images/enemy16/frame1-r.png) | ![Frame2](../images/enemy16/frame2-r.png) | ![Frame3](../images/enemy16/frame3-r.png) | ![Frame4](../images/enemy16/frame4-r.png) | ![Frame5](../images/enemy16/frame5-r.png) |
+| ![Frame1](../images/enemy16/frame1-l.png) | ![Frame2](../images/enemy16/frame2-l.png) | ![Frame3](../images/enemy16/frame3-l.png) | ![Frame4](../images/enemy16/frame4-l.png) | ![Frame5](../images/enemy16/frame5-l.png) |
+
 ## Враг 1B
 Девушка в красном, с мечом
 |Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|Кадр 9|
 |---|---|---|---|---|---|---|---|---|
 | ![Frame1](../images/enemy11/frame1-r.png) | ![Frame2](../images/enemy11/frame2-r.png) | ![Frame3](../images/enemy11/frame3-r.png) | ![Frame4](../images/enemy11/frame4-r.png) | ![Frame5](../images/enemy11/frame5-r.png) | ![Frame6](../images/enemy11/frame6-r.png) | ![Frame7](../images/enemy11/frame7-r.png) | ![Frame9](../images/enemy11/frame9-r.png) | ![Frame10](../images/enemy11/frame10-r.png) |
 | ![Frame1](../images/enemy11/frame1-l.png) | ![Frame2](../images/enemy11/frame2-l.png) | ![Frame3](../images/enemy11/frame3-l.png) | ![Frame4](../images/enemy11/frame4-l.png) | ![Frame5](../images/enemy11/frame5-l.png) | ![Frame6](../images/enemy11/frame6-l.png) | ![Frame7](../images/enemy11/frame7-l.png) | ![Frame9](../images/enemy11/frame9-l.png) | ![Frame10](../images/enemy11/frame10-l.png) |
+
+## Враг 1С
+Рыцарь в доспехах
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|Кадр 9|
+|---|---|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemy1С/frame1-r.png) | ![Frame2](../images/enemy1С/frame2-r.png) | ![Frame3](../images/enemy1С/frame3-r.png) | ![Frame4](../images/enemy1С/frame4-r.png) | ![Frame5](../images/enemy1С/frame5-r.png) | ![Frame6](../images/enemy1С/frame6-r.png) | ![Frame7](../images/enemy1С/frame7-r.png) | ![Frame8](../images/enemy1С/frame8-r.png) | ![Frame9](../images/enemy1С/frame9.png) |
+| ![Frame1](../images/enemy1С/frame1-l.png) | ![Frame2](../images/enemy1С/frame2-l.png) | ![Frame3](../images/enemy1С/frame3-l.png) | ![Frame4](../images/enemy1С/frame4-l.png) | ![Frame5](../images/enemy1С/frame5-l.png) | ![Frame6](../images/enemy1С/frame6-l.png) | ![Frame7](../images/enemy1С/frame7-l.png) | ![Frame8](../images/enemy1С/frame8-l.png) |  |
 
 ## Враг 1F
 Летающий человек
