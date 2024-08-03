@@ -124,8 +124,8 @@
 Рыцарь в доспехах
 |Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|Кадр 9|
 |---|---|---|---|---|---|---|---|---|
-| ![Frame1](../images/enemy1С/frame1-r.png) | ![Frame2](../images/enemy1С/frame2-r.png) | ![Frame3](../images/enemy1С/frame3-r.png) | ![Frame4](../images/enemy1С/frame4-r.png) | ![Frame5](../images/enemy1С/frame5-r.png) | ![Frame6](../images/enemy1С/frame6-r.png) | ![Frame7](../images/enemy1С/frame7-r.png) | ![Frame8](../images/enemy1С/frame8-r.png) | ![Frame9](../images/enemy1С/frame9.png) |
-| ![Frame1](../images/enemy1С/frame1-l.png) | ![Frame2](../images/enemy1С/frame2-l.png) | ![Frame3](../images/enemy1С/frame3-l.png) | ![Frame4](../images/enemy1С/frame4-l.png) | ![Frame5](../images/enemy1С/frame5-l.png) | ![Frame6](../images/enemy1С/frame6-l.png) | ![Frame7](../images/enemy1С/frame7-l.png) | ![Frame8](../images/enemy1С/frame8-l.png) |  |
+| ![Frame1](../images/enemy1C/frame1-r.png) | ![Frame2](../images/enemy1C/frame2-r.png) | ![Frame3](../images/enemy1C/frame3-r.png) | ![Frame4](../images/enemy1C/frame4-r.png) | ![Frame5](../images/enemy1C/frame5-r.png) | ![Frame6](../images/enemy1C/frame6-r.png) | ![Frame7](../images/enemy1C/frame7-r.png) | ![Frame8](../images/enemy1C/frame8-r.png) | ![Frame9](../images/enemy1C/frame9.png) |
+| ![Frame1](../images/enemy1C/frame1-l.png) | ![Frame2](../images/enemy1C/frame2-l.png) | ![Frame3](../images/enemy1C/frame3-l.png) | ![Frame4](../images/enemy1C/frame4-l.png) | ![Frame5](../images/enemy1C/frame5-l.png) | ![Frame6](../images/enemy1C/frame6-l.png) | ![Frame7](../images/enemy1C/frame7-l.png) | ![Frame8](../images/enemy1C/frame8-l.png) |  |
 
 ## Враг 1F
 Летающий человек

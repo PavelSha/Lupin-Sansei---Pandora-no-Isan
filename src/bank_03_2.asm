@@ -3273,7 +3273,7 @@ C - - - - - 0x00F44B 03:B43B: F0 13     BEQ bra_B450_no_intersect           ; If
 C - - - - - 0x00F44D 03:B43D: A6 7A     LDX vBulletCount                    ; set loop counter
 bra_B43F_loop:                                                              ; loop by x
 C - - - - - 0x00F44F 03:B43F: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet  ;
-C - - - - - 0x00F452 03:B442: 90 09     BCC @bra_B44D_next                  ; If the intersect isn't exist
+C - - - - - 0x00F452 03:B442: 90 09     BCC @bra_B44D_next                  ; If the intersect doesn't exist
 C - - - - - 0x00F454 03:B444: A9 10     LDA #$10                            ; The sound of a bullet hitting an armored enemy
 C - - - - - 0x00F456 03:B446: 20 20 C4  JSR sub_C420_add_sound_effect       ; bank FF
 C - - - - - 0x00F459 03:B449: A9 00     LDA #$00                            ;

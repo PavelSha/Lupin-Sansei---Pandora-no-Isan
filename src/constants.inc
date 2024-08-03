@@ -439,6 +439,28 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; Z - the dying
 ; Y - see above
 
+; Cat with the knift
+; 0x02 - jump
+; 0x04 - close contact
+; 0x08 - stop
+; 0x10 - squatting
+; Cat with the the gun
+; 0x02 - jump
+; 0x0C - shot
+; 0x08 - stop
+; 0x10 - squatting
+; Karate-girl
+; 0x02 - jump
+; 0x08 - kneel down
+; 0x0C - shot
+; 0x10 - squatting
+; Egyptian with bow/boomerung 
+; 0x02 - jump
+; 0x0C - shot
+; 0x10 - squatting
+; Ninja upside down
+; 0x08
+
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
 vEnemyAProjectileStatus       = ram_0322 ; $0322-$0325
