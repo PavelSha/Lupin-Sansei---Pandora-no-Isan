@@ -84,6 +84,10 @@
 <!---
 </div>
 -->
+<!---
+Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-->
 
 ## Враг 0E
 Летучая мышь
@@ -91,6 +95,10 @@
 |---|---|---|
 | ![Frame1](../images/enemy0E/frame1-r.png) | ![Frame2](../images/enemy0E/frame2-r.png) | ![Frame3](../images/enemy0E/frame3-r.png) |
 | ![Frame1](../images/enemy0E/frame1-l.png) | ![Frame2](../images/enemy0E/frame2-l.png) | ![Frame3](../images/enemy0E/frame3-l.png) |
+<!---
+Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-->
 
 ## Враг 0F
 Серый кот
@@ -98,6 +106,10 @@
 |---|---|---|---|---|
 | ![Frame1](../images/enemy0F/frame1-r.png) | ![Frame2](../images/enemy0F/frame2-r.png) | ![Frame3](../images/enemy0F/frame3-r.png) | ![Frame4](../images/enemy0F/frame4-r.png) | ![Frame5](../images/enemy0F/frame5-r.png) |
 | ![Frame1](../images/enemy0F/frame1-l.png) | ![Frame2](../images/enemy0F/frame2-l.png) | ![Frame3](../images/enemy0F/frame3-l.png) | ![Frame4](../images/enemy0F/frame4-l.png) | ![Frame5](../images/enemy0F/frame5-l.png) |
+<!---
+Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-->
 
 ## Враг 11
 Девушка в красном
@@ -105,6 +117,10 @@
 |---|---|---|---|---|---|---|---|
 | ![Frame1](../images/enemy11/frame1-r.png) | ![Frame2](../images/enemy11/frame2-r.png) | ![Frame3](../images/enemy11/frame3-r.png) | ![Frame4](../images/enemy11/frame4-r.png) | ![Frame5](../images/enemy11/frame5-r.png) | ![Frame6](../images/enemy11/frame6-r.png) | ![Frame7](../images/enemy11/frame7-r.png) | ![Frame8](../images/enemy11/frame8-r.png) |
 | ![Frame1](../images/enemy11/frame1-l.png) | ![Frame2](../images/enemy11/frame2-l.png) | ![Frame3](../images/enemy11/frame3-l.png) | ![Frame4](../images/enemy11/frame4-l.png) | ![Frame5](../images/enemy11/frame5-l.png) | ![Frame6](../images/enemy11/frame6-l.png) | ![Frame7](../images/enemy11/frame7-l.png) | ![Frame8](../images/enemy11/frame8-l.png) |
+<!---
+Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-->
 
 ## Враг 16
 Чёрный кот
@@ -112,6 +128,10 @@
 |---|---|---|---|---|
 | ![Frame1](../images/enemy16/frame1-r.png) | ![Frame2](../images/enemy16/frame2-r.png) | ![Frame3](../images/enemy16/frame3-r.png) | ![Frame4](../images/enemy16/frame4-r.png) | ![Frame5](../images/enemy16/frame5-r.png) |
 | ![Frame1](../images/enemy16/frame1-l.png) | ![Frame2](../images/enemy16/frame2-l.png) | ![Frame3](../images/enemy16/frame3-l.png) | ![Frame4](../images/enemy16/frame4-l.png) | ![Frame5](../images/enemy16/frame5-l.png) |
+<!---
+Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-->
 
 ## Враг 1B
 Девушка в красном, с мечом
@@ -119,6 +139,10 @@
 |---|---|---|---|---|---|---|---|---|
 | ![Frame1](../images/enemy11/frame1-r.png) | ![Frame2](../images/enemy11/frame2-r.png) | ![Frame3](../images/enemy11/frame3-r.png) | ![Frame4](../images/enemy11/frame4-r.png) | ![Frame5](../images/enemy11/frame5-r.png) | ![Frame6](../images/enemy11/frame6-r.png) | ![Frame7](../images/enemy11/frame7-r.png) | ![Frame9](../images/enemy11/frame9-r.png) | ![Frame10](../images/enemy11/frame10-r.png) |
 | ![Frame1](../images/enemy11/frame1-l.png) | ![Frame2](../images/enemy11/frame2-l.png) | ![Frame3](../images/enemy11/frame3-l.png) | ![Frame4](../images/enemy11/frame4-l.png) | ![Frame5](../images/enemy11/frame5-l.png) | ![Frame6](../images/enemy11/frame6-l.png) | ![Frame7](../images/enemy11/frame7-l.png) | ![Frame9](../images/enemy11/frame9-l.png) | ![Frame10](../images/enemy11/frame10-l.png) |
+<!---
+Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-->
 
 ## Враг 1С
 Рыцарь в доспехах
@@ -126,6 +150,16 @@
 |---|---|---|---|---|---|---|---|---|
 | ![Frame1](../images/enemy1C/frame1-r.png) | ![Frame2](../images/enemy1C/frame2-r.png) | ![Frame3](../images/enemy1C/frame3-r.png) | ![Frame4](../images/enemy1C/frame4-r.png) | ![Frame5](../images/enemy1C/frame5-r.png) | ![Frame6](../images/enemy1C/frame6-r.png) | ![Frame7](../images/enemy1C/frame7-r.png) | ![Frame8](../images/enemy1C/frame8-r.png) | ![Frame9](../images/enemy1C/frame9.png) |
 | ![Frame1](../images/enemy1C/frame1-l.png) | ![Frame2](../images/enemy1C/frame2-l.png) | ![Frame3](../images/enemy1C/frame3-l.png) | ![Frame4](../images/enemy1C/frame4-l.png) | ![Frame5](../images/enemy1C/frame5-l.png) | ![Frame6](../images/enemy1C/frame6-l.png) | ![Frame7](../images/enemy1C/frame7-l.png) | ![Frame8](../images/enemy1C/frame8-l.png) |  |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (0x00 - вправо, 0x01 - влево)
+-  ***M*** - флаг прыжка, например через препятствие (0x00 - не прыгает, 0x01 - прягает)
+-  ***L*** - флаг ближнего контакта, атака мечом (0x00 - неактивно, 0x01 - активно)
+-  ***K*** - флаг скрытия "в стене" (0x00 - неактивно, 0x01 - активно)
+-  ***W*** - флаг приседания перед прыжком (0x00 - неактивно, 0x01 - активно)
+-  ***Z*** - флаг умирания врага (0x00 - неактивно, 0x01 - активно)
+-  ***Y*** - флаг получения урона врагом (0x00 - не получает урон, 0x01 - получает)
+-  ***X*** - общий флаг активности статусов (0x00 - статусы не используются, 0x01 - используются)
 
 ## Враг 1F
 Летающий человек
@@ -133,6 +167,10 @@
 |---|---|---|
 | ![Frame1](../images/enemy1F/frame1-r.png) | ![Frame2](../images/enemy1F/frame2-r.png) | ![Frame3](../images/enemy1F/frame3-r.png) |
 | ![Frame1](../images/enemy1F/frame1-l.png) | ![Frame2](../images/enemy1F/frame2-l.png) | ![Frame3](../images/enemy1F/frame3-l.png) |
+<!---
+Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-->
 
 ## Враг 20
 Стрелок из базуки, версия 1
@@ -140,6 +178,10 @@
 |---|---|---|
 | ![Frame1](../images/enemy20/frame1-r.png) | ![Frame2](../images/enemy20/frame2-r.png) | ![Frame3](../images/enemy20/frame3-r.png) |
 | ![Frame1](../images/enemy20/frame1-l.png) | ![Frame2](../images/enemy20/frame2-l.png) | ![Frame3](../images/enemy20/frame3-l.png) |
+<!---
+Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-->
 
 ## Враг 27
 Гаргулья
@@ -147,6 +189,10 @@
 |---|---|---|
 | ![Frame1](../images/enemy27/frame1-r.png) | ![Frame2](../images/enemy27/frame2-r.png) | ![Frame3](../images/enemy27/frame3-r.png) |
 | ![Frame1](../images/enemy27/frame1-l.png) | ![Frame2](../images/enemy27/frame2-l.png) | ![Frame3](../images/enemy27/frame3-l.png) |
+<!---
+Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-->
 
 ## Враг 36
 Египтянин с мечом
@@ -154,3 +200,7 @@
 |---|---|---|---|---|---|---|---|---|
 | ![Frame1](../images/enemy36/frame1-r.png) | ![Frame2](../images/enemy36/frame2-r.png) | ![Frame3](../images/enemy36/frame3-r.png) | ![Frame4](../images/enemy36/frame4-r.png) | ![Frame5](../images/enemy36/frame5-r.png) | ![Frame6](../images/enemy36/frame6-r.png) | ![Frame7](../images/enemy36/frame7-r.png) | ![Frame8](../images/enemy36/frame8-r.png) | ![Frame9](../images/enemy36/frame9-r.png) |
 | ![Frame1](../images/enemy36/frame1-l.png) | ![Frame2](../images/enemy36/frame2-l.png) | ![Frame3](../images/enemy36/frame3-l.png) | ![Frame4](../images/enemy36/frame4-l.png) | ![Frame5](../images/enemy36/frame5-l.png) | ![Frame6](../images/enemy36/frame6-l.png) | ![Frame7](../images/enemy36/frame7-l.png) | ![Frame8](../images/enemy36/frame8-l.png) | ![Frame9](../images/enemy36/frame9-l.png) |
+<!---
+Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-->

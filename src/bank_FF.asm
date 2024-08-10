@@ -821,7 +821,7 @@ C - - - - - 0x01C4AB 07:C49B: A5 2C     LDA vLowCounter                 ;
 C - - - - - 0x01C4AD 07:C49D: 29 0F     AND #$0F                        ;
 C - - - - - 0x01C4AF 07:C49F: D0 06     BNE bra_C4A7_read_io_controller ; Branch if vLowCounter doesn't multiple of 16
 C - - - - - 0x01C4B1 07:C4A1: A9 02     LDA #BIT_BUTTON_B               ;
-C - - - - - 0x01C4B3 07:C4A3: 45 1C     EOR vBtnPressedInGame           ; addes a shot every 16th frame unless otherwise specified
+C - - - - - 0x01C4B3 07:C4A3: 45 1C     EOR vBtnPressedInGame           ; addes a shoot every 16th frame unless otherwise specified
 C - - - - - 0x01C4B5 07:C4A5: 85 1C     STA vBtnPressedInGame           ;
 bra_C4A7_read_io_controller:
 sub_C4A7_read_io_controller:
@@ -8524,7 +8524,7 @@ C - - - - - 0x01F3B1 07:F3A1: 60        RTS                          ;
 ; In: $0001 - X-position
 ; In: $0002 - Y-position
 ; In: $000B - the direction of appearance (0x00 - right, 0x01 - left)
-; In: $000C - ??? ($000A or 0x80 + $000A)
+; In: $000C - For 0x80 - with the projectile
 loc_F3A2_enemy_appearance_t3:
 C - - J - - 0x01F3B2 07:F3A2: 20 72 F3  JSR sub_F372_start_enemyA_appearance        ;
 C - - - - - 0x01F3B5 07:F3A5: 20 59 F3  JSR sub_F359_prepare_enemyA_start_status    ;
@@ -8549,8 +8549,8 @@ C - - - - - 0x01F3D2 07:F3C2: 9D 44 03  STA vEnemyAFrame_Counter,X              
 C - - - - - 0x01F3D5 07:F3C5: 9D 4A 03  STA ram_034A,X
 C - - - - - 0x01F3D8 07:F3C8: 9D 22 03  STA ram_0322,X
 C - - - - - 0x01F3DB 07:F3CB: 9D 24 03  STA ram_0324,X
-C - - - - - 0x01F3DE 07:F3CE: B9 1C BD  LDA tbl_ptr_enemy_t3_sprite_params_,Y
-C - - - - - 0x01F3E1 07:F3D1: 9D 26 03  STA ram_0326,X
+C - - - - - 0x01F3DE 07:F3CE: B9 1C BD  LDA tbl_ptr_enemy_t3_sprite_params_,Y       ;
+C - - - - - 0x01F3E1 07:F3D1: 9D 26 03  STA vEnemyAProjectileIsUsed,X               ;
 C - - - - - 0x01F3E4 07:F3D4: B9 1D BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 1,Y
 C - - - - - 0x01F3E7 07:F3D7: 9D 50 03  STA ram_0350,X
 C - - - - - 0x01F3EA 07:F3DA: B9 1E BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 2,Y   ; CONSTANT for CHR ROM
@@ -8565,17 +8565,17 @@ C - - - - - 0x01F3FA 07:F3EA: B9 20 BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 4,
 C - - - - - 0x01F3FD 07:F3ED: 8D 02 03  STA vEnemyASpriteMagic2                     ;
 C - - - - - 0x01F400 07:F3F0: B9 21 BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 5,Y   ; <~ sprite_magic3 (see v_sprite_magic3)
 C - - - - - 0x01F403 07:F3F3: 8D 03 03  STA vEnemyASpriteMagic3                     ;
-C - - - - - 0x01F406 07:F3F6: B9 22 BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 6,Y
-C - - - - - 0x01F409 07:F3F9: 8D 04 03  STA ram_0304
-C - - - - - 0x01F40C 07:F3FC: B9 23 BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 7,Y
-C - - - - - 0x01F40F 07:F3FF: 8D 05 03  STA ram_0305
+C - - - - - 0x01F406 07:F3F6: B9 22 BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 6,Y   ;
+C - - - - - 0x01F409 07:F3F9: 8D 04 03  STA vEnemyASpriteMagic2Ex1                  ;
+C - - - - - 0x01F40C 07:F3FC: B9 23 BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 7,Y   ;
+C - - - - - 0x01F40F 07:F3FF: 8D 05 03  STA vEnemyASpriteMagic2Ex2                  ;
 C - - - - - 0x01F412 07:F402: AD 00 03  LDA vEnemyA                                 ;
 C - - - - - 0x01F415 07:F405: C9 01     CMP #$01                                    ; CONSTANT - Cat with the gun
 C - - - - - 0x01F417 07:F407: D0 09     BNE @bra_F412_skip                          ; If vEnemyA != 0x01
-C - - - - - 0x01F419 07:F409: A5 0C     LDA ram_000C
-C - - - - - 0x01F41B 07:F40B: 29 80     AND #$80
-C - - - - - 0x01F41D 07:F40D: 9D 26 03  STA ram_0326,X
-C - - - - - 0x01F420 07:F410: D0 15     BNE bra_F427_finish
+C - - - - - 0x01F419 07:F409: A5 0C     LDA ram_000C                                ;
+C - - - - - 0x01F41B 07:F40B: 29 80     AND #$80                                    ; CONSTANT - the projectile is used
+C - - - - - 0x01F41D 07:F40D: 9D 26 03  STA vEnemyAProjectileIsUsed,X               ;
+C - - - - - 0x01F420 07:F410: D0 15     BNE bra_F427_finish                         ; If the projectile is used
 @bra_F412_skip:
 C - - - - - 0x01F422 07:F412: C9 38     CMP #$38                                    ; CONSTANT - Ninja upside down
 C - - - - - 0x01F424 07:F414: F0 09     BEQ @bra_F41F_ninja                         ; If vEnemyA == 0x38
@@ -10272,17 +10272,16 @@ bra_FEAD:
 loc_FEC2:
 - - - - - - 0x01FED2 07:FEC2: B9 E0 FF  LDA tbl_FFE0,Y
 - - - - - - 0x01FED5 07:FEC5: 5D F7 00  EOR a: ram_00F7,X
-- - - - - - 0x01FED8 07:FEC8: D0 10     BNE bra_FEDA
+- - - - - - 0x01FED8 07:FEC8: D0 10     BNE @bra_FEDA_fail
 - - - - - - 0x01FEDA 07:FECA: B9 E1 FF  LDA tbl_FFE0 + 1,Y
 - - - - - - 0x01FEDD 07:FECD: 5D F6 00  EOR a: ram_00F6,X
-- - - - - - 0x01FEE0 07:FED0: D0 08     BNE bra_FEDA
+- - - - - - 0x01FEE0 07:FED0: D0 08     BNE @bra_FEDA_fail
 - - - - - - 0x01FEE2 07:FED2: B9 E2 FF  LDA tbl_FFE0 + 2,Y
 - - - - - - 0x01FEE5 07:FED5: 5D F5 00  EOR a: ram_00F5,X
 - - - - - - 0x01FEE8 07:FED8: F0 47     BEQ bra_FF21_RTS
-bra_FEDA:
-- - - - - - 0x01FEEA 07:FEDA: 6C        .byte $6C
-- - - - - - 0x01FEEB 07:FEDB: FC        .byte $FC
-- - - - - - 0x01FEEC 07:FEDC: FF        .byte $FF
+@bra_FEDA_fail:
+- - - - - - 0x01FEEA 07:FEDA: 6C FC FF  JMP ($FFFC)
+
 sub_FEDD:
 - - - - - - 0x01FEED 07:FEDD: A9 00     LDA #$00
 - - - - - - 0x01FEEF 07:FEDF: 9D F8 00  STA a: ram_00F8,X
@@ -10484,9 +10483,8 @@ tbl_FFA0:
 - - - - - - 0x01FFEF 07:FFDF: DF        .byte $DF
 tbl_FFE0:
 - - - - - - 0x01FFF0 07:FFE0: 05        .byte $05, $29, $F7
-- - - - - - 0x01FFF3 07:FFE3: 02        .byte $02
-- - - - - - 0x01FFF4 07:FFE4: 9A        .byte $9A
-- - - - - - 0x01FFF5 07:FFE5: C9        .byte $C9
+- - - - - - 0x01FFF3 07:FFE3: 02        .byte $02, $9A, $C9
+
 - - - - - - 0x01FFF6 07:FFE6: FF        .byte $FF
 - - - - - - 0x01FFF7 07:FFE7: FF        .byte $FF
 - - - - - - 0x01FFF8 07:FFE8: FF        .byte $FF

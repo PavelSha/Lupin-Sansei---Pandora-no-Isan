@@ -266,7 +266,7 @@ vBulletStatus                 = ram_008F ; [0x8F-0x93] , for a rifle, Lupin's pi
 ; W - the direction (1 - left, 0 - right)
 ; K - ???
 ; L - ???
-; M - start of the shot (1,2,3 - start, 0 - no start), the value decrements with each rendering
+; M - start of the shoot (1,2,3 - start, 0 - no start), the value decrements with each rendering
 
 vBulletCounter                = ram_0094 ; only for Lupin [0x94-0x98]
 
@@ -355,14 +355,14 @@ vApparatusHighCounter = ram_0216
 
 vArrayWhiteBriefcase           = ram_0219
 ; flag 0x80 - the item is got (see BIT_USING_WHITE_BRIEFCASE)
-vEnemies                       = ram_0300
-; see docs (Bestiary)
 
+vEnemies                      = ram_0300 ; see docs (Bestiary)
 vEnemyA                       = ram_0300
 vEnemyB                       = ram_0301
 vEnemyASpriteMagic2           = ram_0302 ; see v_sprite_magic2
 vEnemyASpriteMagic3           = ram_0303 ; see v_sprite_magic3
-
+vEnemyASpriteMagic2Ex1        = ram_0304 ; see v_sprite_magic2
+vEnemyASpriteMagic2Ex2        = ram_0305 ; see v_sprite_magic2
 vEnemyBSpriteMagic2           = ram_0306 ; see v_sprite_magic2
 vEnemyBSpriteMagic3           = ram_0307 ; see v_sprite_magic3
 
@@ -430,15 +430,6 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; Z - the dying
 ; Y - see above
 
-; Byte: 0YZW KLMN (knight in armor)
-; N - see above
-; M - the jump
-; L - close contact (with a sword)
-; K - the hiding
-; W - squatting
-; Z - the dying
-; Y - see above
-
 ; Cat with the knift
 ; 0x02 - jump
 ; 0x04 - close contact
@@ -446,17 +437,17 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; 0x10 - squatting
 ; Cat with the the gun
 ; 0x02 - jump
-; 0x0C - shot
+; 0x0C - shoot
 ; 0x08 - stop
 ; 0x10 - squatting
 ; Karate-girl
 ; 0x02 - jump
 ; 0x08 - kneel down
-; 0x0C - shot
+; 0x0C - shoot
 ; 0x10 - squatting
 ; Egyptian with bow/boomerung 
 ; 0x02 - jump
-; 0x0C - shot
+; 0x0C - shoot
 ; 0x10 - squatting
 ; Ninja upside down
 ; 0x08
@@ -469,6 +460,7 @@ vEnemyASwordStatus            = ram_0326
 ; 0x80 - the sword is used, below
 ; 0x81 - the sword is used, above
 
+vEnemyAProjectileIsUsed       = ram_0326
 vEnemyASwordFrame_            = ram_0326
 vEnemyAVelocity               = ram_0326
 vEnemyAVelocity1              = ram_0326

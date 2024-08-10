@@ -296,9 +296,9 @@ C - - - - - 0x01A14F 06:A13F: 4C 89 D9  JMP loc_D989_add_enemyA_sprite_magic_v1
 bra_A142:
 C - - - - - 0x01A152 06:A142: 98        TYA
 C - - - - - 0x01A153 06:A143: 18        CLC
-C - - - - - 0x01A154 06:A144: 6D 02 03  ADC ram_0302
+C - - - - - 0x01A154 06:A144: 6D 02 03  ADC vEnemyASpriteMagic2
 C - - - - - 0x01A157 06:A147: 85 01     STA ram_0001
-C - - - - - 0x01A159 06:A149: AD 03 03  LDA ram_0303
+C - - - - - 0x01A159 06:A149: AD 03 03  LDA vEnemyASpriteMagic3
 C - - - - - 0x01A15C 06:A14C: 85 02     STA ram_0002
 C - - - - - 0x01A15E 06:A14E: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
@@ -745,9 +745,9 @@ C - - - - - 0x01A433 06:A423: 4C 89 D9  JMP loc_D989_add_enemyA_sprite_magic_v1
 bra_A426:
 C - - - - - 0x01A436 06:A426: 98        TYA
 C - - - - - 0x01A437 06:A427: 18        CLC
-C - - - - - 0x01A438 06:A428: 6D 02 03  ADC ram_0302
+C - - - - - 0x01A438 06:A428: 6D 02 03  ADC vEnemyASpriteMagic2
 C - - - - - 0x01A43B 06:A42B: 85 01     STA ram_0001
-C - - - - - 0x01A43D 06:A42D: AD 03 03  LDA ram_0303
+C - - - - - 0x01A43D 06:A42D: AD 03 03  LDA vEnemyASpriteMagic3
 C - - - - - 0x01A440 06:A430: 85 02     STA ram_0002
 C - - - - - 0x01A442 06:A432: 20 33 CE  JSR sub_CE33_add_sprite_magic ; bank FF
 C - - - - - 0x01A445 06:A435: 98        TYA
@@ -758,7 +758,7 @@ C - - - - - 0x01A44C 06:A43C: 18        CLC
 C - - - - - 0x01A44D 06:A43D: 69 04     ADC #$04
 bra_A43F:
 C - - - - - 0x01A44F 06:A43F: 18        CLC
-C - - - - - 0x01A450 06:A440: 6D 04 03  ADC ram_0304
+C - - - - - 0x01A450 06:A440: 6D 04 03  ADC vEnemyASpriteMagic2Ex1
 C - - - - - 0x01A453 06:A443: 85 01     STA ram_0001
 C - - - - - 0x01A455 06:A445: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
@@ -1356,18 +1356,18 @@ C - - - - - 0x01A803 06:A7F3: C9 02     CMP #$02
 C - - - - - 0x01A805 06:A7F5: D0 0F     BNE bra_A806
 C - - - - - 0x01A807 06:A7F7: 98        TYA
 C - - - - - 0x01A808 06:A7F8: 18        CLC
-C - - - - - 0x01A809 06:A7F9: 6D 05 03  ADC ram_0305
+C - - - - - 0x01A809 06:A7F9: 6D 05 03  ADC vEnemyASpriteMagic2Ex2
 C - - - - - 0x01A80C 06:A7FC: 85 01     STA ram_0001
-C - - - - - 0x01A80E 06:A7FE: AD 03 03  LDA ram_0303
+C - - - - - 0x01A80E 06:A7FE: AD 03 03  LDA vEnemyASpriteMagic3
 C - - - - - 0x01A811 06:A801: 85 02     STA ram_0002
 C - - - - - 0x01A813 06:A803: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 bra_A806:
 C - - - - - 0x01A816 06:A806: 98        TYA
 C - - - - - 0x01A817 06:A807: 18        CLC
-C - - - - - 0x01A818 06:A808: 6D 02 03  ADC ram_0302
+C - - - - - 0x01A818 06:A808: 6D 02 03  ADC vEnemyASpriteMagic2
 C - - - - - 0x01A81B 06:A80B: 85 01     STA ram_0001
-C - - - - - 0x01A81D 06:A80D: AD 03 03  LDA ram_0303
+C - - - - - 0x01A81D 06:A80D: AD 03 03  LDA vEnemyASpriteMagic3
 C - - - - - 0x01A820 06:A810: 85 02     STA ram_0002
 C - - - - - 0x01A822 06:A812: 20 33 CE  JSR sub_CE33_add_sprite_magic ; bank FF
 C - - - - - 0x01A825 06:A815: BD 20 03  LDA vEnemyAStatus,X
@@ -1382,7 +1382,7 @@ C - - - - - 0x01A835 06:A825: C8        INY
 bra_A826:
 C - - - - - 0x01A836 06:A826: 98        TYA
 C - - - - - 0x01A837 06:A827: 18        CLC
-C - - - - - 0x01A838 06:A828: 6D 04 03  ADC ram_0304
+C - - - - - 0x01A838 06:A828: 6D 04 03  ADC vEnemyASpriteMagic2Ex1
 C - - - - - 0x01A83B 06:A82B: 85 01     STA ram_0001
 C - - - - - 0x01A83D 06:A82D: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
@@ -2117,9 +2117,9 @@ C - - - - - 0x01AD40 06:AD30: BD 2C 03  LDA ram_032C,X
 C - - - - - 0x01AD43 06:AD33: 85 00     STA ram_0000
 C - - - - - 0x01AD45 06:AD35: A5 03     LDA ram_0003
 C - - - - - 0x01AD47 06:AD37: 9D 32 03  STA ram_0332,X
-C - - - - - 0x01AD4A 06:AD3A: AD 02 03  LDA ram_0302
+C - - - - - 0x01AD4A 06:AD3A: AD 02 03  LDA vEnemyASpriteMagic2
 C - - - - - 0x01AD4D 06:AD3D: 85 01     STA ram_0001
-C - - - - - 0x01AD4F 06:AD3F: AD 03 03  LDA ram_0303
+C - - - - - 0x01AD4F 06:AD3F: AD 03 03  LDA vEnemyASpriteMagic3
 C - - - - - 0x01AD52 06:AD42: 85 02     STA ram_0002
 C - - - - - 0x01AD54 06:AD44: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
@@ -2768,7 +2768,7 @@ C - - - - - 0x01B1C0 06:B1B0: B9 36 81  LDA tbl_briefcases_positions,Y          
 C - - - - - 0x01B1C3 06:B1B3: 9D B6 03  STA vItemPosXLow,X                                  ; store X-position
 C - - - - - 0x01B1C6 06:B1B6: A9 00     LDA #$00
 C - - - - - 0x01B1C8 06:B1B8: 9D BC 03  STA vItemPosXHigh,X
-C - - - - - 0x01B1CB 06:B1BB: A9 03     LDA #$03                                            ; CONSTANT - 3 shots
+C - - - - - 0x01B1CB 06:B1BB: A9 03     LDA #$03                                            ; CONSTANT - 3 shoots
 C - - - - - 0x01B1CD 06:B1BD: 9D A4 03  STA vBriefcaseHitCount - 1,X                        ;
 C - - - - - 0x01B1D0 06:B1C0: C8        INY                                                 ; 1 of 2 again
 C - - - - - 0x01B1D1 06:B1C1: CA        DEX                                                 ; decrement loop counter
@@ -4538,14 +4538,14 @@ tbl_BCCF:
 tbl_ptr_enemy_t3_types_for_sprites:
 - D 1 - - - 0x01BD1D 06:BD0D: 01        .byte $01, $19, $24, $26, $35, $36, $38, $07, $1F, $09, $1A, $37, $17, $18, $1C
 
-; 1 byte - ???
+; 1 byte - 0x80 - the projectile is used, 0x00 - it isn't used
 ; 2 byte - ???
 ; 3 byte - the 1 number of ChrBank
 ; 4 byte - the 2 number of ChrBank
 ; 5 byte - see v_sprite_magic2
 ; 6 byte - see v_sprite_magic3
-; 7 byte - ???
-; 8 byte - ???
+; 7 byte - extra1, analog 5th byte
+; 8 byte - extra2, analog 5th byte
 tbl_ptr_enemy_t3_sprite_params_:
 - D 1 - - - 0x01BD2C 06:BD1C: 00        .byte $00, $00, $0C, $FF, $32, $42, $52, $4A  ; Cat with the gun
 - D 1 - - - 0x01BD34 06:BD24: 80        .byte $80, $00, $10, $12, $60, $82, $14, $00  ; Karate-girl
