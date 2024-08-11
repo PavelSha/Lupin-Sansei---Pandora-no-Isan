@@ -10165,12 +10165,13 @@ tbl_FCBA_enemies:
 - - - - - - 0x01FE08 07:FDF8: FF        .byte $FF
 - - - - - - 0x01FE09 07:FDF9: FF        .byte $FF
 - - - - - - 0x01FE0A 07:FDFA: FF        .byte $FF
+
 sub_FDFB_crc_test:
 C - - - - - 0x01FE0B 07:FDFB: BA        TSX
 C - - - - - 0x01FE0C 07:FDFC: A9 00     LDA #$00
-C - - - - - 0x01FE0E 07:FDFE: 9D F8 00  STA a: ram_00F8,X
-bra_FE01:
-C - - - - - 0x01FE11 07:FE01: BC F8 00  LDY a: ram_00F8,X
+C - - - - - 0x01FE0E 07:FDFE: 9D F8 00  STA a: vCrcBankData,X
+@bra_FE01_loop:                                                    ; loop by bank datas (64 times)
+C - - - - - 0x01FE11 07:FE01: BC F8 00  LDY a: vCrcBankData,X
 C - - - - - 0x01FE14 07:FE04: B9 A0 FF  LDA tbl_FFA0,Y
 C - - - - - 0x01FE17 07:FE07: 9D F9 00  STA a: ram_00F9,X
 C - - - - - 0x01FE1A 07:FE0A: 48        PHA                ; store A
@@ -10191,60 +10192,60 @@ C - - - - - 0x01FE31 07:FE21: 68        PLA                ; retrieve a (from 0x
 C - - - - - 0x01FE32 07:FE22: 49 FF     EOR #$FF
 C - - - - - 0x01FE34 07:FE24: DD F9 00  CMP a: ram_00F9,X
 C - - - - - 0x01FE37 07:FE27: D0 3E     BNE bra_FE67_RTS
-- - - - - - 0x01FE39 07:FE29: A9 3F     LDA #$3F
-- - - - - - 0x01FE3B 07:FE2B: 20 29 FF  JSR sub_FF29
-- - - - - - 0x01FE3E 07:FE2E: B0 D1     BCS bra_FE01
+- - - - - - 0x01FE39 07:FE29: A9 3F     LDA #$3F                         ; CONSTANT - max bank data value
+- - - - - - 0x01FE3B 07:FE2B: 20 29 FF  JSR sub_FF29_next_bank_data      ;
+- - - - - - 0x01FE3E 07:FE2E: B0 D1     BCS @bra_FE01_loop               ; If the next bank exists
 - - - - - - 0x01FE40 07:FE30: 20 46 FE  JSR sub_FE46
 - - - - - - 0x01FE43 07:FE33: 20 46 FE  JSR sub_FE46
-- - - - - - 0x01FE46 07:FE36: A9 05     LDA #$05
+- - - - - - 0x01FE46 07:FE36: A9 05     LDA #$05           ; CONSTANT - red color
 - - - - - - 0x01FE48 07:FE38: 20 30 FF  JSR sub_FF30
 - - - - - - 0x01FE4B 07:FE3B: 20 72 FE  JSR sub_FE72
-- - - - - - 0x01FE4E 07:FE3E: A9 2A     LDA #$2A
+- - - - - - 0x01FE4E 07:FE3E: A9 2A     LDA #$2A           ; CONSTANT - green color
 - - - - - - 0x01FE50 07:FE40: 20 30 FF  JSR sub_FF30
 - - - - - - 0x01FE53 07:FE43: 20 DD FE  JSR sub_FEDD
 sub_FE46:
-- - - - - - 0x01FE56 07:FE46: A9 00     LDA #$00
-- - - - - - 0x01FE58 07:FE48: 8D 01 20  STA PPU_MASK
-bra_FE4B:
-- - - - - - 0x01FE5B 07:FE4B: AC 02 20  LDY PPU_STATUS
-- - - - - - 0x01FE5E 07:FE4E: 10 FB     BPL bra_FE4B
+- - - - - - 0x01FE56 07:FE46: A9 00     LDA #$00                       ;
+- - - - - - 0x01FE58 07:FE48: 8D 01 20  STA PPU_MASK                   ; disables all rendering
+@bra_FE4B_wait_til_vblank:
+- - - - - - 0x01FE5B 07:FE4B: AC 02 20  LDY PPU_STATUS                 ; wait for vblank
+- - - - - - 0x01FE5E 07:FE4E: 10 FB     BPL @bra_FE4B_wait_til_vblank  ;
 sub_FE50:
 - - - - - - 0x01FE60 07:FE50: 18        CLC
-- - - - - - 0x01FE61 07:FE51: 7D F5 00  ADC a: ram_00F5,X
-- - - - - - 0x01FE64 07:FE54: 9D F5 00  STA a: ram_00F5,X
+- - - - - - 0x01FE61 07:FE51: 7D F5 00  ADC a: vCrcChecksumLowValue,X
+- - - - - - 0x01FE64 07:FE54: 9D F5 00  STA a: vCrcChecksumLowValue,X
 - - - - - - 0x01FE67 07:FE57: A9 00     LDA #$00
-- - - - - - 0x01FE69 07:FE59: 7D F6 00  ADC a: ram_00F6,X
-- - - - - - 0x01FE6C 07:FE5C: 9D F6 00  STA a: ram_00F6,X
+- - - - - - 0x01FE69 07:FE59: 7D F6 00  ADC a: vCrcChecksumMiddleValue,X
+- - - - - - 0x01FE6C 07:FE5C: 9D F6 00  STA a: vCrcChecksumMiddleValue,X
 - - - - - - 0x01FE6F 07:FE5F: A9 00     LDA #$00
-- - - - - - 0x01FE71 07:FE61: 7D F7 00  ADC a: ram_00F7,X
-- - - - - - 0x01FE74 07:FE64: 9D F7 00  STA a: ram_00F7,X
+- - - - - - 0x01FE71 07:FE61: 7D F7 00  ADC a: vCrcChecksumHighValue,X
+- - - - - - 0x01FE74 07:FE64: 9D F7 00  STA a: vCrcChecksumHighValue,X
 bra_FE67_RTS:
 C - - - - - 0x01FE77 07:FE67: 60        RTS
 
 sub_FE68:
 - - - - - - 0x01FE78 07:FE68: 8D 00 80  STA MMC3_Bank_select
-- - - - - - 0x01FE7B 07:FE6B: BD F8 00  LDA a: ram_00F8,X
+- - - - - - 0x01FE7B 07:FE6B: BD F8 00  LDA a: vCrcBankData,X
 - - - - - - 0x01FE7E 07:FE6E: 8D 01 80  STA MMC3_Bank_data
 - - - - - - 0x01FE81 07:FE71: 60        RTS
 
 sub_FE72:
-- - - - - - 0x01FE82 07:FE72: A9 AD     LDA #$AD
-- - - - - - 0x01FE84 07:FE74: 9D F1 00  STA a: ram_00F1,X
-- - - - - - 0x01FE87 07:FE77: A9 60     LDA #$60
-- - - - - - 0x01FE89 07:FE79: 9D F4 00  STA a: ram_00F4,X
+- - - - - - 0x01FE82 07:FE72: A9 AD     LDA #$AD                   ; CONSTANT - LDA absolute opcode
+- - - - - - 0x01FE84 07:FE74: 9D F1 00  STA a: ram_00F1,X          ;
+- - - - - - 0x01FE87 07:FE77: A9 60     LDA #$60                   ; CONSTANT - RTS opcode
+- - - - - - 0x01FE89 07:FE79: 9D F4 00  STA a: ram_00F4,X          ; 
 - - - - - - 0x01FE8C 07:FE7C: A9 00     LDA #$00
-- - - - - - 0x01FE8E 07:FE7E: 9D F8 00  STA a: ram_00F8,X
+- - - - - - 0x01FE8E 07:FE7E: 9D F8 00  STA a: vCrcBankData,X
 bra_FE81:
 - - - - - - 0x01FE91 07:FE81: A9 06     LDA #$06
 - - - - - - 0x01FE93 07:FE83: 20 68 FE  JSR sub_FE68
 bra_FE86:
-- - - - - - 0x01FE96 07:FE86: BD F8 00  LDA a: ram_00F8,X
+- - - - - - 0x01FE96 07:FE86: BD F8 00  LDA a: vCrcBankData,X
 - - - - - - 0x01FE99 07:FE89: C9 0F     CMP #$0F
-- - - - - - 0x01FE9B 07:FE8B: F0 20     BEQ bra_FEAD
-- - - - - - 0x01FE9D 07:FE8D: AD A9 FE  LDA $FEA9
-- - - - - - 0x01FEA0 07:FE90: 48        PHA
-- - - - - - 0x01FEA1 07:FE91: AD A8 FE  LDA $FEA8
-- - - - - - 0x01FEA4 07:FE94: 48        PHA
+- - - - - - 0x01FE9B 07:FE8B: F0 20     BEQ bra_FEAD_skip
+- - - - - - 0x01FE9D 07:FE8D: AD A9 FE  LDA loc_FEAA - 1           ;
+- - - - - - 0x01FEA0 07:FE90: 48        PHA                        ;
+- - - - - - 0x01FEA1 07:FE91: AD A8 FE  LDA loc_FEAA - 2           ;
+- - - - - - 0x01FEA4 07:FE94: 48        PHA                        ; goings to go by stack pointer lo loc_FEAA
 - - - - - - 0x01FEA5 07:FE95: BD F3 00  LDA a: ram_00F3,X
 - - - - - - 0x01FEA8 07:FE98: 29 1F     AND #$1F
 - - - - - - 0x01FEAA 07:FE9A: 09 80     ORA #$80
@@ -10258,37 +10259,39 @@ bra_FE86:
 - - - - - - 0x01FEB7 07:FEA7: 60        RTS
 
 - - - - - - 0x01FEB8 07:FEA8: A9 FE     LDA #$FE
+
+loc_FEAA:
 - - - - - - 0x01FEBA 07:FEAA: 20 50 FE  JSR sub_FE50
-bra_FEAD:
+bra_FEAD_skip:
 - - - - - - 0x01FEBD 07:FEAD: 20 18 FF  JSR sub_FF18
 - - - - - - 0x01FEC0 07:FEB0: 90 D4     BCC bra_FE86
 - - - - - - 0x01FEC2 07:FEB2: 20 22 FF  JSR sub_FF22
 - - - - - - 0x01FEC5 07:FEB5: 29 1F     AND #$1F
 - - - - - - 0x01FEC7 07:FEB7: D0 CD     BNE bra_FE86
 - - - - - - 0x01FEC9 07:FEB9: A9 0F     LDA #$0F
-- - - - - - 0x01FECB 07:FEBB: 20 29 FF  JSR sub_FF29
+- - - - - - 0x01FECB 07:FEBB: 20 29 FF  JSR sub_FF29_next_bank_data
 - - - - - - 0x01FECE 07:FEBE: B0 C1     BCS bra_FE81
 - - - - - - 0x01FED0 07:FEC0: A0 00     LDY #$00
 loc_FEC2:
 - - - - - - 0x01FED2 07:FEC2: B9 E0 FF  LDA tbl_FFE0,Y
-- - - - - - 0x01FED5 07:FEC5: 5D F7 00  EOR a: ram_00F7,X
+- - - - - - 0x01FED5 07:FEC5: 5D F7 00  EOR a: vCrcChecksumHighValue,X
 - - - - - - 0x01FED8 07:FEC8: D0 10     BNE @bra_FEDA_fail
 - - - - - - 0x01FEDA 07:FECA: B9 E1 FF  LDA tbl_FFE0 + 1,Y
-- - - - - - 0x01FEDD 07:FECD: 5D F6 00  EOR a: ram_00F6,X
+- - - - - - 0x01FEDD 07:FECD: 5D F6 00  EOR a: vCrcChecksumMiddleValue,X
 - - - - - - 0x01FEE0 07:FED0: D0 08     BNE @bra_FEDA_fail
 - - - - - - 0x01FEE2 07:FED2: B9 E2 FF  LDA tbl_FFE0 + 2,Y
-- - - - - - 0x01FEE5 07:FED5: 5D F5 00  EOR a: ram_00F5,X
+- - - - - - 0x01FEE5 07:FED5: 5D F5 00  EOR a: vCrcChecksumLowValue,X
 - - - - - - 0x01FEE8 07:FED8: F0 47     BEQ bra_FF21_RTS
 @bra_FEDA_fail:
-- - - - - - 0x01FEEA 07:FEDA: 6C FC FF  JMP ($FFFC)
+C - - - - - 0x01FEEA 07:FEDA: 6C FC FF  JMP ($FFFC)                 ; to vec_C000_RESET
 
 sub_FEDD:
 - - - - - - 0x01FEED 07:FEDD: A9 00     LDA #$00
-- - - - - - 0x01FEEF 07:FEDF: 9D F8 00  STA a: ram_00F8,X
-bra_FEE2:
+- - - - - - 0x01FEEF 07:FEDF: 9D F8 00  STA a: vCrcBankData,X
+@bra_FEE2_loop:
 - - - - - - 0x01FEF2 07:FEE2: A9 02     LDA #$02
 - - - - - - 0x01FEF4 07:FEE4: 20 68 FE  JSR sub_FE68
-bra_FEE7:
+@bra_FEE7:
 - - - - - - 0x01FEF7 07:FEE7: BD F3 00  LDA a: ram_00F3,X
 - - - - - - 0x01FEFA 07:FEEA: 29 03     AND #$03
 - - - - - - 0x01FEFC 07:FEEC: 09 10     ORA #$10
@@ -10299,13 +10302,13 @@ bra_FEE7:
 - - - - - - 0x01FF0A 07:FEFA: AD 07 20  LDA PPU_DATA
 - - - - - - 0x01FF0D 07:FEFD: 20 50 FE  JSR sub_FE50
 - - - - - - 0x01FF10 07:FF00: 20 18 FF  JSR sub_FF18
-- - - - - - 0x01FF13 07:FF03: 90 E2     BCC bra_FEE7
+- - - - - - 0x01FF13 07:FF03: 90 E2     BCC @bra_FEE7
 - - - - - - 0x01FF15 07:FF05: 20 22 FF  JSR sub_FF22
 - - - - - - 0x01FF18 07:FF08: 29 03     AND #$03
-- - - - - - 0x01FF1A 07:FF0A: D0 DB     BNE bra_FEE7
+- - - - - - 0x01FF1A 07:FF0A: D0 DB     BNE @bra_FEE7
 - - - - - - 0x01FF1C 07:FF0C: A9 3F     LDA #$3F
-- - - - - - 0x01FF1E 07:FF0E: 20 29 FF  JSR sub_FF29
-- - - - - - 0x01FF21 07:FF11: B0 CF     BCS bra_FEE2
+- - - - - - 0x01FF1E 07:FF0E: 20 29 FF  JSR sub_FF29_next_bank_data
+- - - - - - 0x01FF21 07:FF11: B0 CF     BCS @bra_FEE2_loop
 - - - - - - 0x01FF23 07:FF13: A0 03     LDY #$03
 - - - - - - 0x01FF25 07:FF15: 4C C2 FE  JMP loc_FEC2
 
@@ -10322,35 +10325,38 @@ sub_FF22:
 - - - - - - 0x01FF35 07:FF25: BD F3 00  LDA a: ram_00F3,X
 - - - - - - 0x01FF38 07:FF28: 60        RTS
 
-sub_FF29:
-- - - - - - 0x01FF39 07:FF29: FE F8 00  INC a: ram_00F8,X
-- - - - - - 0x01FF3C 07:FF2C: DD F8 00  CMP a: ram_00F8,X
-- - - - - - 0x01FF3F 07:FF2F: 60        RTS
+; In: Register A - max value
+; Out: carry flag, 1 - if a new vCrcBankData <= max value, 0 - otherwise.
+sub_FF29_next_bank_data:
+C - - - - - 0x01FF39 07:FF29: FE F8 00  INC a: vCrcBankData,X   ;
+C - - - - - 0x01FF3C 07:FF2C: DD F8 00  CMP a: vCrcBankData,X   ;
+C - - - - - 0x01FF3F 07:FF2F: 60        RTS                     ;
 
+; In: Register A - a color of the palette
 sub_FF30:
-- - - - - - 0x01FF40 07:FF30: 20 55 FF  JSR sub_FF55
-- - - - - - 0x01FF43 07:FF33: A0 20     LDY #$20
-@bra_FF35_loop:
-- - - - - - 0x01FF45 07:FF35: 8D 07 20  STA PPU_DATA
-- - - - - - 0x01FF48 07:FF38: 88        DEY
-- - - - - - 0x01FF49 07:FF39: D0 FA     BNE @bra_FF35_loop
-- - - - - - 0x01FF4B 07:FF3B: 20 55 FF  JSR sub_FF55
-- - - - - - 0x01FF4E 07:FF3E: 8C 06 20  STY PPU_ADDRESS
-- - - - - - 0x01FF51 07:FF41: 8C 06 20  STY PPU_ADDRESS
+C - - - - - 0x01FF40 07:FF30: 20 55 FF  JSR sub_FF55_set_palette_address  ;
+C - - - - - 0x01FF43 07:FF33: A0 20     LDY #$20                          ; set loop counter (y)
+@bra_FF35_loop:                                                           ; loop by y
+C - - - - - 0x01FF45 07:FF35: 8D 07 20  STA PPU_DATA                      ; [$3F00-$3F1F] in Register A
+C - - - - - 0x01FF48 07:FF38: 88        DEY                               ; decrement loop counter (y)
+C - - - - - 0x01FF49 07:FF39: D0 FA     BNE @bra_FF35_loop                ; If Register Y != 0
+C - - - - - 0x01FF4B 07:FF3B: 20 55 FF  JSR sub_FF55_set_palette_address  ;
+C - - - - - 0x01FF4E 07:FF3E: 8C 06 20  STY PPU_ADDRESS                   ;
+C - - - - - 0x01FF51 07:FF41: 8C 06 20  STY PPU_ADDRESS                   ; see https://www.nesdev.org/wiki/PPU_registers#Palette_corruption
 - - - - - - 0x01FF54 07:FF44: 98        TYA
-- - - - - - 0x01FF55 07:FF45: 9D F5 00  STA a: ram_00F5,X
-- - - - - - 0x01FF58 07:FF48: 9D F6 00  STA a: ram_00F6,X
-- - - - - - 0x01FF5B 07:FF4B: 9D F7 00  STA a: ram_00F7,X
+- - - - - - 0x01FF55 07:FF45: 9D F5 00  STA a: vCrcChecksumLowValue,X
+- - - - - - 0x01FF58 07:FF48: 9D F6 00  STA a: vCrcChecksumMiddleValue,X
+- - - - - - 0x01FF5B 07:FF4B: 9D F7 00  STA a: vCrcChecksumHighValue,X
 - - - - - - 0x01FF5E 07:FF4E: 9D F3 00  STA a: ram_00F3,X
 - - - - - - 0x01FF61 07:FF51: 9D F2 00  STA a: ram_00F2,X
 - - - - - - 0x01FF64 07:FF54: 60        RTS
 
-sub_FF55:
-- - - - - - 0x01FF65 07:FF55: A0 3F     LDY #$3F
-- - - - - - 0x01FF67 07:FF57: 8C 06 20  STY PPU_ADDRESS
-- - - - - - 0x01FF6A 07:FF5A: A0 00     LDY #$00
-- - - - - - 0x01FF6C 07:FF5C: 8C 06 20  STY PPU_ADDRESS
-- - - - - - 0x01FF6F 07:FF5F: 60        RTS
+sub_FF55_set_palette_address:
+C - - - - - 0x01FF65 07:FF55: A0 3F     LDY #$3F          ;
+C - - - - - 0x01FF67 07:FF57: 8C 06 20  STY PPU_ADDRESS   ;
+C - - - - - 0x01FF6A 07:FF5A: A0 00     LDY #$00          ;
+C - - - - - 0x01FF6C 07:FF5C: 8C 06 20  STY PPU_ADDRESS   ; PPU address is 0x3F00
+C - - - - - 0x01FF6F 07:FF5F: 60        RTS               ;
 
 - - - - - - 0x01FF70 07:FF60: 43        .byte $43
 - - - - - - 0x01FF71 07:FF61: 6F        .byte $6F
@@ -10416,71 +10422,13 @@ sub_FF55:
 - - - - - - 0x01FFAD 07:FF9D: 2E        .byte $2E
 - - - - - - 0x01FFAE 07:FF9E: 2E        .byte $2E
 - - - - - - 0x01FFAF 07:FF9F: 20        .byte $20
+
 tbl_FFA0:
-- D 3 - - - 0x01FFB0 07:FFA0: 48        .byte $48
-- - - - - - 0x01FFB1 07:FFA1: 41        .byte $41
-- - - - - - 0x01FFB2 07:FFA2: 52        .byte $52
-- - - - - - 0x01FFB3 07:FFA3: 55        .byte $55
-- - - - - - 0x01FFB4 07:FFA4: 48        .byte $48
-- - - - - - 0x01FFB5 07:FFA5: 49        .byte $49
-- - - - - - 0x01FFB6 07:FFA6: 53        .byte $53
-- - - - - - 0x01FFB7 07:FFA7: 41        .byte $41
-- - - - - - 0x01FFB8 07:FFA8: 2E        .byte $2E
-- - - - - - 0x01FFB9 07:FFA9: 55        .byte $55
-- - - - - - 0x01FFBA 07:FFAA: 44        .byte $44
-- - - - - - 0x01FFBB 07:FFAB: 41        .byte $41
-- - - - - - 0x01FFBC 07:FFAC: 47        .byte $47
-- - - - - - 0x01FFBD 07:FFAD: 41        .byte $41
-- - - - - - 0x01FFBE 07:FFAE: 57        .byte $57
-- - - - - - 0x01FFBF 07:FFAF: 41        .byte $41
-- - - - - - 0x01FFC0 07:FFB0: 20        .byte $20
-- - - - - - 0x01FFC1 07:FFB1: 26        .byte $26
-- - - - - - 0x01FFC2 07:FFB2: 20        .byte $20
-- - - - - - 0x01FFC3 07:FFB3: 20        .byte $20
-- - - - - - 0x01FFC4 07:FFB4: 4B        .byte $4B
-- - - - - - 0x01FFC5 07:FFB5: 55        .byte $55
-- - - - - - 0x01FFC6 07:FFB6: 4D        .byte $4D
-- - - - - - 0x01FFC7 07:FFB7: 49        .byte $49
-- - - - - - 0x01FFC8 07:FFB8: 2E        .byte $2E
-- - - - - - 0x01FFC9 07:FFB9: 48        .byte $48
-- - - - - - 0x01FFCA 07:FFBA: 41        .byte $41
-- - - - - - 0x01FFCB 07:FFBB: 4E        .byte $4E
-- - - - - - 0x01FFCC 07:FFBC: 41        .byte $41
-- - - - - - 0x01FFCD 07:FFBD: 4F        .byte $4F
-- - - - - - 0x01FFCE 07:FFBE: 4B        .byte $4B
-- - - - - - 0x01FFCF 07:FFBF: 41        .byte $41
-- - - - - - 0x01FFD0 07:FFC0: B7        .byte $B7
-- - - - - - 0x01FFD1 07:FFC1: BE        .byte $BE
-- - - - - - 0x01FFD2 07:FFC2: AD        .byte $AD
-- - - - - - 0x01FFD3 07:FFC3: AA        .byte $AA
-- - - - - - 0x01FFD4 07:FFC4: B7        .byte $B7
-- - - - - - 0x01FFD5 07:FFC5: B6        .byte $B6
-- - - - - - 0x01FFD6 07:FFC6: AC        .byte $AC
-- - - - - - 0x01FFD7 07:FFC7: BE        .byte $BE
-- - - - - - 0x01FFD8 07:FFC8: D1        .byte $D1
-- - - - - - 0x01FFD9 07:FFC9: AA        .byte $AA
-- - - - - - 0x01FFDA 07:FFCA: BB        .byte $BB
-- - - - - - 0x01FFDB 07:FFCB: BE        .byte $BE
-- - - - - - 0x01FFDC 07:FFCC: B8        .byte $B8
-- - - - - - 0x01FFDD 07:FFCD: BE        .byte $BE
-- - - - - - 0x01FFDE 07:FFCE: A8        .byte $A8
-- - - - - - 0x01FFDF 07:FFCF: BE        .byte $BE
-- - - - - - 0x01FFE0 07:FFD0: DF        .byte $DF
-- - - - - - 0x01FFE1 07:FFD1: D9        .byte $D9
-- - - - - - 0x01FFE2 07:FFD2: DF        .byte $DF
-- - - - - - 0x01FFE3 07:FFD3: B4        .byte $B4
-- - - - - - 0x01FFE4 07:FFD4: AA        .byte $AA
-- - - - - - 0x01FFE5 07:FFD5: B2        .byte $B2
-- - - - - - 0x01FFE6 07:FFD6: B6        .byte $B6
-- - - - - - 0x01FFE7 07:FFD7: D1        .byte $D1
-- - - - - - 0x01FFE8 07:FFD8: B7        .byte $B7
-- - - - - - 0x01FFE9 07:FFD9: BE        .byte $BE
-- - - - - - 0x01FFEA 07:FFDA: B1        .byte $B1
-- - - - - - 0x01FFEB 07:FFDB: BE        .byte $BE
-- - - - - - 0x01FFEC 07:FFDC: B0        .byte $B0
-- - - - - - 0x01FFED 07:FFDD: B4        .byte $B4
-- - - - - - 0x01FFEE 07:FFDE: BE        .byte $BE
-- - - - - - 0x01FFEF 07:FFDF: DF        .byte $DF
+- D 3 - - - 0x01FFB0 07:FFA0: 48        .byte $48, $41, $52, $55, $48, $49, $53, $41, $2E, $55, $44, $41, $47, $41, $57, $41
+- - - - - - 0x01FFC0 07:FFB0: 20        .byte $20, $26, $20, $20, $4B, $55, $4D, $49, $2E, $48, $41, $4E, $41, $4F, $4B, $41
+- - - - - - 0x01FFD0 07:FFC0: B7        .byte $B7, $BE, $AD, $AA, $B7, $B6, $AC, $BE, $D1, $AA, $BB, $BE, $B8, $BE, $A8, $BE
+- - - - - - 0x01FFE0 07:FFD0: DF        .byte $DF, $D9, $DF, $B4, $AA, $B2, $B6, $D1, $B7, $BE, $B1, $BE, $B0, $B4, $BE, $DF
+
 tbl_FFE0:
 - - - - - - 0x01FFF0 07:FFE0: 05        .byte $05, $29, $F7
 - - - - - - 0x01FFF3 07:FFE3: 02        .byte $02, $9A, $C9
@@ -10495,6 +10443,7 @@ tbl_FFE0:
 - - - - - - 0x01FFFD 07:FFED: FF        .byte $FF
 - - - - - - 0x01FFFE 07:FFEE: FF        .byte $FF
 - - - - - - 0x01FFFF 07:FFEF: FF        .byte $FF
+
 sub_FFF0_update_sounds:
 C - - - - - 0x020000 07:FFF0: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1       ;
 C - - - - - 0x020003 07:FFF3: 4C 80 AD  JMP loc_AD80_activate_sound_manager

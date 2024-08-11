@@ -330,6 +330,12 @@ vTempChrLiveStatus            = ram_00D4
 vTmpEnemyStartingPosXHigh     = ram_00D4
 vTmpEnemyStartingPosXLow      = ram_00D5
 vReasonCharacterChange        = ram_00D6
+
+vCrcChecksumLowValue          = ram_00F5
+vCrcChecksumMiddleValue       = ram_00F6
+vCrcChecksumHighValue         = ram_00F7
+vCrcBankData                  = ram_00F8
+
 ; 0x00 - no reason
 ; 0x40 - the character is fell or arrested
 ; 0x80 - the radio was using
