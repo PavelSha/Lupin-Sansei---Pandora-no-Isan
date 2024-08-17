@@ -3576,6 +3576,7 @@ C - - - - - 0x00F63E 03:B62E: 4C EE B5  JMP loc_B5EE_prepare_sword_rendering    
 bra_B631_RTS:
 C - - - - - 0x00F641 03:B631: 60        RTS                                     ;
 
+; In: Register X - the enemyA number
 loc_B632_try_movements:
 C D 1 - - - 0x00F642 03:B632: BD 20 03  LDA vEnemyAStatus,X                      ;
 C - - - - - 0x00F645 03:B635: 6A        ROR                                      ;
@@ -3717,7 +3718,7 @@ C - - - - - 0x00F720 03:B710: 4C 9E B5  JMP loc_B59E_prepare_rendering          
 ; In: $0000 - EnemyAPosY
 bra_B713_skip:
 C - - - - - 0x00F723 03:B713: 85 00     STA ram_0000                                 ;
-C - - - - - 0x00F725 03:B715: E6 00     INC ram_0000                                 ;
+C - - - - - 0x00F725 03:B715: E6 00     INC ram_0000                                 ; prepare an input parameter (EnemyAPosY + 1)
 C - - - - - 0x00F727 03:B717: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y     ;
 C - - - - - 0x00F72A 03:B71A: F0 23     BEQ bra_B73F_inc                             ; If the collisions by Y-position doesn't exist
 C - - - - - 0x00F72C 03:B71C: C9 02     CMP #$02                                     ; CONSTANT - a weak collision
