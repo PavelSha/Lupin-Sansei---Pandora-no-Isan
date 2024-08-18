@@ -456,8 +456,8 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; 0x0C - shoot
 ; 0x10 - squatting
 ; Ninja upside down
-; 0x08 - full-length shooting
-; 0x0C - shooting while sitting
+; 0x04 - kneel down
+; 0x08 - shoot
 
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321

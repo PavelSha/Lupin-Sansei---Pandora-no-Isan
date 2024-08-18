@@ -8,8 +8,8 @@ All rights reserved by モンキー・パンチ, NAMCO.
 ## Statistics
 -  Code Logger bytes - ***24.75%***
 -  Data Logger bytes - ***62.28%***
--  Unknown bytes     - ***12.97%***
--  Code commented    - ***48.36%***
+-  Unknown bytes     - ***12.96%***
+-  Code commented    - ***49.83%***
 ## Documentation
 -  [bestiary](docs/ru/bestiary.md) - The list of all enemies in the game
 -  [maze1](docs/ru/maze1.txt), [maze2](docs/ru/maze2.txt), [maze3](docs/ru/maze3.txt), [maze4](docs/ru/maze4.txt) - The information of the mazes on the level 4
@@ -19,6 +19,6 @@ All rights reserved by モンキー・パンチ, NAMCO.
 -  [banks](docs/ru/banks.md) - This is the information on PRG ROM banks.
 -  [audio tracks](docs/ru/banks.md) - All audio tracks from the game.
 ## Resources
--  Lupin Sansei - Pandora no Isan (J) `9d21fe96`
+-  Lupin Sansei - Pandora no Isan (J), `9d21fe96` (CRC32)
 -  [BZK 6502 Disassembler](https://github.com/cyneprepou4uk/BZK-6502-Disassembler) - the main tool for creating disassembly source code.
 -  [FCEUX](https://fceux.com/web/home.html) - the Famicom emulator, debugger, PPU and name tables viewer, trace logger, recording movies tool, autohotkey (Tool-Assisted Speedrun) tool.
