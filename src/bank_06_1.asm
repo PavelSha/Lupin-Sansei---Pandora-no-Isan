@@ -2866,15 +2866,15 @@ tbl_B1C4_status_flags:
 - D 1 - - - 0x0191F3 06:B1E3: 08        .byte $08   ; 
 
 loc_B1E4_enemy:
-C D 1 - - - 0x0191F4 06:B1E4: 20 EA B1  JSR sub_B1EA_main
-C - - - - - 0x0191F7 06:B1E7: 4C 73 A9  JMP loc_A973_projectile
+C D 1 - - - 0x0191F4 06:B1E4: 20 EA B1  JSR sub_B1EA_main          ;
+C - - - - - 0x0191F7 06:B1E7: 4C 73 A9  JMP loc_A973_projectile    ;
 
 sub_B1EA_main:
 C - - - - - 0x0191FA 06:B1EA: A2 01     LDX #$01                               ;
 C - - - - - 0x0191FC 06:B1EC: 86 1A     STX vTempCounter1A                     ; set loop counter (the enemyA number)
 bra_B1EE_loop:                                                                 ; loop by vTempCounter1A (2 times)
 C - - - - - 0x0191FE 06:B1EE: A6 1A     LDX vTempCounter1A                     ; prepares an input parameter
-C - - - - - 0x019200 06:B1F0: 20 56 B3  JSR sub_B356_status_behavior
+C - - - - - 0x019200 06:B1F0: 20 56 B3  JSR sub_B356_status_behavior           ;
 C - - - - - 0x019203 06:B1F3: A6 1A     LDX vTempCounter1A                     ; X <~ the enemyA number
 C - - - - - 0x019205 06:B1F5: BD 20 03  LDA vEnemyAStatus,X                    ;
 C - - - - - 0x019208 06:B1F8: C9 E0     CMP #$E0                               ;
@@ -2883,17 +2883,17 @@ C - - - - - 0x01920C 06:B1FC: C9 C0     CMP #$C0                               ;
 C - - - - - 0x01920E 06:B1FE: 90 4F     BCC bra_B24F_next                      ; If vEnemyAStatus < 0xC0 else only 0xCX or 0xDX
 C - - - - - 0x019210 06:B200: 20 F5 B2  JSR sub_B2F5_prepare_hitbox            ;
 C - - - - - 0x019213 06:B203: 20 60 D6  JSR sub_D660_is_bomb_exploding         ;
-C - - - - - 0x019216 06:B206: B0 0B     BCS bra_B213
-C - - - - - 0x019218 06:B208: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01921A 06:B20A: 29 02     AND #$02
-C - - - - - 0x01921C 06:B20C: F0 0B     BEQ bra_B219
-C - - - - - 0x01921E 06:B20E: 20 06 D6  JSR sub_D606_have_intersect_sword
-C - - - - - 0x019221 06:B211: 90 34     BCC bra_B247_skip
-bra_B213:
-C - - - - - 0x019223 06:B213: 20 5E B2  JSR sub_B25E_hit
-C - - - - - 0x019226 06:B216: 4C 4F B2  JMP loc_B24F_next
+C - - - - - 0x019216 06:B206: B0 0B     BCS @bra_B213_bomb_hit                 ; If the bomb is exploding
+C - - - - - 0x019218 06:B208: A5 5F     LDA vChrLiveStatus                     ;
+C - - - - - 0x01921A 06:B20A: 29 02     AND #$02                               ; CONSTANT - Goemon
+C - - - - - 0x01921C 06:B20C: F0 0B     BEQ bra_B219_check_bullets             ; If the character isn't Goemon
+C - - - - - 0x01921E 06:B20E: 20 06 D6  JSR sub_D606_have_intersect_sword      ;
+C - - - - - 0x019221 06:B211: 90 34     BCC bra_B247_skip                      ; If the intersect doesn't exist
+@bra_B213_bomb_hit:
+C - - - - - 0x019223 06:B213: 20 5E B2  JSR sub_B25E_hit                       ;
+C - - - - - 0x019226 06:B216: 4C 4F B2  JMP loc_B24F_next                      ;
 
-bra_B219:
+bra_B219_check_bullets:
 C - - - - - 0x019229 06:B219: A6 7A     LDX vBulletCount                       ; set loop counter
 @bra_B21B_loop:                                                                ; loop by x
 C - - - - - 0x01922B 06:B21B: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet     ;
@@ -3141,38 +3141,38 @@ C - - - - - 0x0193D0 06:B3C0: D0 03     BNE bra_B3C5_shoot                   ; I
 C - - - - - 0x0193D2 06:B3C2: 4C F3 B4  JMP loc_B4F3_try_movements           ;
 
 bra_B3C5_shoot:
-C - - - - - 0x0193D5 06:B3C5: A0 04     LDY #$04
+C - - - - - 0x0193D5 06:B3C5: A0 04     LDY #$04                        ; the offset value #1
 C - - - - - 0x0193D7 06:B3C7: AD 00 03  LDA vEnemyA                     ;
 C - - - - - 0x0193DA 06:B3CA: C9 01     CMP #$01                        ; CONSTANT - Cat with the gun
 C - - - - - 0x0193DC 06:B3CC: F0 38     BEQ bra_B406_prepare_rendering  ; If vEnemyA == 0x01
-C - - - - - 0x0193DE 06:B3CE: A0 00     LDY #$00
+C - - - - - 0x0193DE 06:B3CE: A0 00     LDY #$00                        ; the offset value #2
 C - - - - - 0x0193E0 06:B3D0: C9 37     CMP #$37                        ; CONSTANT - Egyptian with a boomerung
 C - - - - - 0x0193E2 06:B3D2: F0 32     BEQ bra_B406_prepare_rendering  ; If vEnemyA == 0x37
 C - - - - - 0x0193E4 06:B3D4: C9 35     CMP #$35                        ; CONSTANT - Egyptian with bow
 C - - - - - 0x0193E6 06:B3D6: D0 1A     BNE bra_B3F2_skip               ; If vEnemyA != 0x35
-C - - - - - 0x0193E8 06:B3D8: A0 18     LDY #$18
-C - - - - - 0x0193EA 06:B3DA: BD 4A 03  LDA vEnemyAJumpCounter,X
-C - - - - - 0x0193ED 06:B3DD: C9 38     CMP #$38
+C - - - - - 0x0193E8 06:B3D8: A0 18     LDY #$18                        ; the offset value #3
+C - - - - - 0x0193EA 06:B3DA: BD 4A 03  LDA vEnemyAJumpCounter,X        ;
+C - - - - - 0x0193ED 06:B3DD: C9 38     CMP #$38                        ; CONSTANT - bow shot, start
 C - - - - - 0x0193EF 06:B3DF: B0 25     BCS bra_B406_prepare_rendering  ; If EnemyAJumpCounter >= 0x38
-C - - - - - 0x0193F1 06:B3E1: A0 00     LDY #$00
-C - - - - - 0x0193F3 06:B3E3: C9 30     CMP #$30
+C - - - - - 0x0193F1 06:B3E1: A0 00     LDY #$00                        ; the offset value #4
+C - - - - - 0x0193F3 06:B3E3: C9 30     CMP #$30                        ; CONSTANT - bow shot, after starting
 C - - - - - 0x0193F5 06:B3E5: B0 1F     BCS bra_B406_prepare_rendering  ; If EnemyAJumpCounter >= 0x30
-C - - - - - 0x0193F7 06:B3E7: A0 1C     LDY #$1C
-C - - - - - 0x0193F9 06:B3E9: C9 28     CMP #$28
+C - - - - - 0x0193F7 06:B3E7: A0 1C     LDY #$1C                        ; the offset value #5
+C - - - - - 0x0193F9 06:B3E9: C9 28     CMP #$28                        ; CONSTANT - bow shot, before ending
 C - - - - - 0x0193FB 06:B3EB: B0 19     BCS bra_B406_prepare_rendering  ; If EnemyAJumpCounter >= 0x28
-C - - - - - 0x0193FD 06:B3ED: A0 00     LDY #$00
+C - - - - - 0x0193FD 06:B3ED: A0 00     LDY #$00                        ; the offset value #6
 C - - - - - 0x0193FF 06:B3EF: 4C 06 B4  JMP loc_B406_prepare_rendering  ;
 
 bra_B3F2_skip:
-C - - - - - 0x019402 06:B3F2: A0 20     LDY #$20
+C - - - - - 0x019402 06:B3F2: A0 20     LDY #$20                          ; the offset value #7
 C - - - - - 0x019404 06:B3F4: BD 20 03  LDA vEnemyAStatus,X               ;
 C - - - - - 0x019407 06:B3F7: 29 04     AND #$04                          ; CONSTANT - 'close contact' status or part of 'shot' status
 C - - - - - 0x019409 06:B3F9: F0 0B     BEQ bra_B406_prepare_rendering    ; If L status isn't activated (see vEnemyAStatus)
-C - - - - - 0x01940B 06:B3FB: A0 1C     LDY #$1C
-C - - - - - 0x01940D 06:B3FD: BD 4A 03  LDA vEnemyAJumpCounter,X
-C - - - - - 0x019410 06:B400: C9 28     CMP #$28
-C - - - - - 0x019412 06:B402: 90 02     BCC bra_B406_prepare_rendering
-C - - - - - 0x019414 06:B404: A0 18     LDY #$18
+C - - - - - 0x01940B 06:B3FB: A0 1C     LDY #$1C                          ; the offset value #8
+C - - - - - 0x01940D 06:B3FD: BD 4A 03  LDA vEnemyAJumpCounter,X          ;
+C - - - - - 0x019410 06:B400: C9 28     CMP #$28                          ; CONSTANT - projectile throw
+C - - - - - 0x019412 06:B402: 90 02     BCC bra_B406_prepare_rendering    ; If EnemyAJumpCounter < 0x28
+C - - - - - 0x019414 06:B404: A0 18     LDY #$18                          ; the offset value #9
 ; In: Register Y - sprite_magic2 (The offset by the address)
 loc_B406_prepare_rendering:
 bra_B406_prepare_rendering:
@@ -3474,7 +3474,7 @@ C - - - - - 0x0195F1 06:B5E1: C9 02     CMP #$02                                
 C - - - - - 0x0195F3 06:B5E3: F0 07     BEQ bra_B5EC_weak                            ; If the collision is weak
 C - - - - - 0x0195F5 06:B5E5: 20 47 D3  JSR sub_D347_check_landing_enemyA            ;
 C - - - - - 0x0195F8 06:B5E8: D0 0E     BNE bra_B5F8_landing                         ; If the landing is allow
-- - - - - - 0x0195FA 06:B5EA: F0 18     BEQ bra_B604_inc                             ; Always true
+C - - - - - 0x0195FA 06:B5EA: F0 18     BEQ bra_B604_inc                             ; Always true
 
 bra_B5EC_weak:
 C - - - - - 0x0195FC 06:B5EC: 20 47 D3  JSR sub_D347_check_landing_enemyA            ;

@@ -8546,13 +8546,13 @@ C - - - - - 0x01F3CE 07:F3BE: 0A        ASL                                     
 C - - - - - 0x01F3CF 07:F3BF: A8        TAY                                         ;
 C - - - - - 0x01F3D0 07:F3C0: A9 00     LDA #$00                                    ;
 C - - - - - 0x01F3D2 07:F3C2: 9D 44 03  STA vEnemyAFrame_Counter,X                  ; reset a frame counter
-C - - - - - 0x01F3D5 07:F3C5: 9D 4A 03  STA ram_034A,X
-C - - - - - 0x01F3D8 07:F3C8: 9D 22 03  STA ram_0322,X
-C - - - - - 0x01F3DB 07:F3CB: 9D 24 03  STA ram_0324,X
+C - - - - - 0x01F3D5 07:F3C5: 9D 4A 03  STA vEnemyAJumpCounter,X                    ; clear
+C - - - - - 0x01F3D8 07:F3C8: 9D 22 03  STA vEnemyAProjectileStatus,X               ; clear
+C - - - - - 0x01F3DB 07:F3CB: 9D 24 03  STA ram_0324,X                              ; !(UNUSED), not used
 C - - - - - 0x01F3DE 07:F3CE: B9 1C BD  LDA tbl_ptr_enemy_t3_sprite_params_,Y       ;
 C - - - - - 0x01F3E1 07:F3D1: 9D 26 03  STA vEnemyAProjectileIsUsed,X               ;
-C - - - - - 0x01F3E4 07:F3D4: B9 1D BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 1,Y
-C - - - - - 0x01F3E7 07:F3D7: 9D 50 03  STA ram_0350,X
+C - - - - - 0x01F3E4 07:F3D4: B9 1D BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 1,Y   ;
+C - - - - - 0x01F3E7 07:F3D7: 9D 50 03  STA vEnemyAHealthPoints,X                   ; set enemy HP
 C - - - - - 0x01F3EA 07:F3DA: B9 1E BD  LDA tbl_ptr_enemy_t3_sprite_params_ + 2,Y   ; CONSTANT for CHR ROM
 C - - - - - 0x01F3ED 07:F3DD: 30 03     BMI @bra_F3E2_skip                          ; If CHR ROM is 0%1XXXXXXX, i.e. not used
 C - - - - - 0x01F3EF 07:F3DF: 8D B3 06  STA vCacheChrBankSelect + 4                 ;
@@ -8581,14 +8581,14 @@ C - - - - - 0x01F422 07:F412: C9 38     CMP #$38                                
 C - - - - - 0x01F424 07:F414: F0 09     BEQ @bra_F41F_ninja                         ; If vEnemyA == 0x38
 C - - - - - 0x01F426 07:F416: C9 1C     CMP #$1C                                    ; CONSTANT - Knight in armor with a shield
 C - - - - - 0x01F428 07:F418: D0 10     BNE bra_F42A_prepare_jump                   ; If vEnemyA != 0x1C
-C - - - - - 0x01F42A 07:F41A: A9 30     LDA #$30
-C - - - - - 0x01F42C 07:F41C: 9D 4A 03  STA vEnemyAJumpCounter,X
+C - - - - - 0x01F42A 07:F41A: A9 30     LDA #$30                                    ;
+C - - - - - 0x01F42C 07:F41C: 9D 4A 03  STA vEnemyAJumpCounter,X                    ; Initializes a jump status by default
 @bra_F41F_ninja:
-C - - - - - 0x01F42F 07:F41F: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x01F432 07:F422: 09 08     ORA #$08
-C - - - - - 0x01F434 07:F424: 9D 20 03  STA vEnemyAStatus,X
+C - - - - - 0x01F42F 07:F41F: BD 20 03  LDA vEnemyAStatus,X                         ;
+C - - - - - 0x01F432 07:F422: 09 08     ORA #$08                                    ; CONSTANT - 'shoot' status
+C - - - - - 0x01F434 07:F424: 9D 20 03  STA vEnemyAStatus,X                         ; set 'shoot' status by default
 bra_F427_finish:
-C - - - - - 0x01F437 07:F427: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA
+C - - - - - 0x01F437 07:F427: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA         ;
 
 ; In: $000B - the direction of appearance (0x00 - right, 0x01 - left)
 bra_F42A_prepare_jump:

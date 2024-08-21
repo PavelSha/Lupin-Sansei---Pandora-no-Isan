@@ -4539,7 +4539,7 @@ tbl_ptr_enemy_t3_types_for_sprites:
 - D 1 - - - 0x01BD1D 06:BD0D: 01        .byte $01, $19, $24, $26, $35, $36, $38, $07, $1F, $09, $1A, $37, $17, $18, $1C
 
 ; 1 byte - 0x80 - the projectile is used, 0x00 - it isn't used
-; 2 byte - ???
+; 2 byte - health points (0x00 - 1HP)
 ; 3 byte - the 1 number of ChrBank
 ; 4 byte - the 2 number of ChrBank
 ; 5 byte - see v_sprite_magic2
