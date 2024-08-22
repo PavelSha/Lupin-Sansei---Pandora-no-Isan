@@ -56,7 +56,7 @@
 |0x35|Egyptian with bow| A |   | 4 |
 |0x36|Egyptian with a sword| A | [Египтянин с мечом](#враг-36)  | 4 |
 |0x37|Egyptian with a boomerung| A |   | 4 |
-|0x38|Ninja upside down| A |   | 4 |
+|0x38|Ninja upside down| A | [Ниндзя сверху](#враг-38) | 4 |
 |0x39|Sensor| B |   | 4 |
 
 ## Враг 06
@@ -204,3 +204,20 @@
 Статусы
 ![DescriptionBits](../images/descriptionBits.jpg)
 -->
+
+## Враг 38
+Ниндзя сверху
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|
+|---|---|---|---|---|
+| ![Frame1](../images/enemy38/frame1-r.png) | ![Frame2](../images/enemy38/frame2-r.png) | ![Frame3](../images/enemy38/frame3-r.png) | ![Frame4](../images/enemy38/frame4-r.png) | ![Frame5](../images/enemy38/frame5-r.png) |
+| ![Frame1](../images/enemy38/frame1-l.png) | ![Frame2](../images/enemy38/frame2-l.png) | ![Frame3](../images/enemy38/frame3-l.png) | ![Frame4](../images/enemy38/frame4-l.png) | ![Frame5](../images/enemy38/frame5-l.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг прыжка, например через препятствие (**_0x00_** - не прыгает, **_0x01_** - прягает)
+-  ***L*** - флаг наклона (**_0x00_** - не наклоняется, **_0x01_** - наклоняется)
+-  ***K*** - флаг выстрела (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***W*** - не используется
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)

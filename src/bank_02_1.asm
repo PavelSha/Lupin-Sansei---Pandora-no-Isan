@@ -219,7 +219,7 @@ loc_track0:
 - D 0 - I - 0x00819A 02:818A: 32        .byte $32, $01
 - D 0 - I - 0x00819C 02:818C: 35        .byte $35, $01
 - D 0 - I - 0x00819E 02:818E: 32        .byte $32, $03
-- D 0 - I - 0x0081A0 02:8190: A0        .byte $A0, $0F
+- D 0 - I - 0x0081A0 02:8190: A0        .byte $A0, $0F  ; Changes the volume: 0x02 -> 0x0F
 - D 0 - I - 0x0081A2 02:8192: 37        .byte $37, $0A
 - D 0 - I - 0x0081A4 02:8194: 35        .byte $35, $03
 - D 0 - I - 0x0081A6 02:8196: 37        .byte $37, $03
@@ -227,7 +227,7 @@ loc_track0:
 - D 0 - I - 0x0081AA 02:819A: 30        .byte $30, $03
 - D 0 - I - 0x0081AC 02:819C: 29        .byte $29, $03
 - D 0 - I - 0x0081AE 02:819E: 27        .byte $27, $10
-- D 0 - I - 0x0081B0 02:81A0: A0        .byte $A0, $02
+- D 0 - I - 0x0081B0 02:81A0: A0        .byte $A0, $02  ; Changes the volume: 0x0F -> 0x02
 - D 0 - I - 0x0081B2 02:81A2: 33        .byte $33, $01
 - D 0 - I - 0x0081B4 02:81A4: 33        .byte $33, $01
 - D 0 - I - 0x0081B6 02:81A6: 33        .byte $33, $01
@@ -2130,14 +2130,15 @@ C - - - - - 0x008EFF 02:AEEF: 9D 10 04  STA vSoundRowIndex,X                ; as
 bra_AEF2_stop:
 C - - - - - 0x008F02 02:AEF2: 4C 38 AE  JMP loc_AE38_next_sound_pair
 
+; In: Register A - ???
 loc_AEF5:
-C D 1 - - - 0x008F05 02:AEF5: D0 0F     BNE bra_AF06
+C D 1 - - - 0x008F05 02:AEF5: D0 0F     BNE bra_AF06               ; If Register A != 0xA0
 C - - - - - 0x008F07 02:AEF7: 2C 03 04  BIT ram_0403
 C - - - - - 0x008F0A 02:AEFA: 30 13     BMI bra_AF0F_triangle
 C - - - - - 0x008F0C 02:AEFC: BD 16 04  LDA vSoundRowB_6,X
 C - - - - - 0x008F0F 02:AEFF: 29 C0     AND #$C0
 C - - - - - 0x008F11 02:AF01: 11 FE     ORA (ram_00FE),Y
-C - - - - - 0x008F13 02:AF03: 4C 23 AF  JMP loc_AF23
+C - - - - - 0x008F13 02:AF03: 4C 23 AF  JMP loc_AF23_continue
 
 bra_AF06:
 C - - - - - 0x008F16 02:AF06: C9 A1     CMP #$A1
@@ -2155,8 +2156,8 @@ C - - - - - 0x008F29 02:AF19: B0 08     BCS bra_AF23
 C - - - - - 0x008F2B 02:AF1B: BD 16 04  LDA vSoundRowB_6,X
 C - - - - - 0x008F2E 02:AF1E: 29 1F     AND #$1F
 C - - - - - 0x008F30 02:AF20: 0D 04 04  ORA ram_0404
+loc_AF23_continue:
 bra_AF23:
-loc_AF23:
 C D 1 - - - 0x008F33 02:AF23: 9D 16 04  STA vSoundRowB_6,X
 C - - - - - 0x008F36 02:AF26: 4C 38 AE  JMP loc_AE38_next_sound_pair
 
@@ -2415,31 +2416,34 @@ C - - - - - 0x009098 02:B088: 60        RTS
 
 sub_B089:
 C - - - - - 0x009099 02:B089: 20 61 B0  JSR sub_B061
+; In; Register Y - apu channel
+; Out: Register Y - 0x00 (pulse1), 0x04 (pulse2), 0x08 (triangle), 0x0C (noise)
 sub_B08C:
-C - - - - - 0x00909C 02:B08C: C0 02     CPY #$02
-C - - - - - 0x00909E 02:B08E: F0 15     BEQ bra_B0A5_skip ; If Register Y == 0x02
+C - - - - - 0x00909C 02:B08C: C0 02     CPY #$02                         ; CONSTANT - the triangle channel
+C - - - - - 0x00909E 02:B08E: F0 15     BEQ bra_B0A5_triangle            ; If Register Y == 0x02
 C - - - - - 0x0090A0 02:B090: BD 1B 04  LDA vSoundRowB_B,X
-C - - - - - 0x0090A3 02:B093: D0 2B     BNE bra_B0C0_skip ; If Register A != 0x00
-C - - - - - 0x0090A5 02:B095: 20 AB B0  JSR sub_B0AB
+C - - - - - 0x0090A3 02:B093: D0 2B     BNE bra_B0C0_skip                ; If Register A != 0x00
+C - - - - - 0x0090A5 02:B095: 20 AB B0  JSR sub_B0AB_get_channel_offset  ;
 C - - - - - 0x0090A8 02:B098: BD 16 04  LDA vSoundRowB_6,X
-C - - - - - 0x0090AB 02:B09B: 29 10     AND #$10
-C - - - - - 0x0090AD 02:B09D: 0A        ASL
+C - - - - - 0x0090AB 02:B09B: 29 10     AND #$10                         ; CONSTANT - constant volume (C) https://www.nesdev.org/wiki/APU (#Pulse #Noise)
+C - - - - - 0x0090AD 02:B09D: 0A        ASL                              ; to envelope loop / length counter halt (L)
 C - - - - - 0x0090AE 02:B09E: 1D 16 04  ORA vSoundRowB_6,X
 C - - - - - 0x0090B1 02:B0A1: 99 00 40  STA $4000,Y
 C - - - - - 0x0090B4 02:B0A4: 60        RTS
 
-bra_B0A5_skip:
+bra_B0A5_triangle:
 C - - - - - 0x0090B5 02:B0A5: BD 16 04  LDA vSoundRowB_6,X
 C - - - - - 0x0090B8 02:B0A8: 8D 08 40  STA TRI_LINEAR
-sub_B0AB:
-C - - - - - 0x0090BB 02:B0AB: 48        PHA
-C - - - - - 0x0090BC 02:B0AC: AD 02 04  LDA vCurrentApuChannel
-C - - - - - 0x0090BF 02:B0AF: 0A        ASL
-C - - - - - 0x0090C0 02:B0B0: 0A        ASL
-C - - - - - 0x0090C1 02:B0B1: A8        TAY
-C - - - - - 0x0090C2 02:B0B2: 68        PLA
+; Out: Register Y - 0x00 (pulse1), 0x04 (pulse2), 0x08 (triangle), 0x0C (noise)
+sub_B0AB_get_channel_offset:
+C - - - - - 0x0090BB 02:B0AB: 48        PHA                      ; store A
+C - - - - - 0x0090BC 02:B0AC: AD 02 04  LDA vCurrentApuChannel   ;
+C - - - - - 0x0090BF 02:B0AF: 0A        ASL                      ;
+C - - - - - 0x0090C0 02:B0B0: 0A        ASL                      ; *4
+C - - - - - 0x0090C1 02:B0B1: A8        TAY                      ;
+C - - - - - 0x0090C2 02:B0B2: 68        PLA                      ; retrieve A (see $B0AB)
 bra_B0B3_RTS:
-C - - - - - 0x0090C3 02:B0B3: 60        RTS
+C - - - - - 0x0090C3 02:B0B3: 60        RTS                      ;
 
 sub_B0B4:
 C - - - - - 0x0090C4 02:B0B4: 20 61 B0  JSR sub_B061
@@ -2477,7 +2481,7 @@ C - - - - - 0x0090FC 02:B0EC: BD 16 04  LDA vSoundRowB_6,X
 C - - - - - 0x0090FF 02:B0EF: 29 C0     AND #$C0
 C - - - - - 0x009101 02:B0F1: 09 30     ORA #$30
 C - - - - - 0x009103 02:B0F3: 19 BA B2  ORA tbl_B2BA,Y
-C - - - - - 0x009106 02:B0F6: 20 AB B0  JSR sub_B0AB
+C - - - - - 0x009106 02:B0F6: 20 AB B0  JSR sub_B0AB_get_channel_offset
 C - - - - - 0x009109 02:B0F9: 99 00 40  STA $4000,Y
 C - - - - - 0x00910C 02:B0FC: 60        RTS
 
@@ -2539,7 +2543,7 @@ C - - - - - 0x00916F 02:B15F: A8        TAY
 C - - - - - 0x009170 02:B160: B9 AA B1  LDA tbl_B1AA,Y
 C - - - - - 0x009173 02:B163: 18        CLC
 C - - - - - 0x009174 02:B164: 7D 21 04  ADC vSoundRowB_H,X
-C - - - - - 0x009177 02:B167: 20 AB B0  JSR sub_B0AB
+C - - - - - 0x009177 02:B167: 20 AB B0  JSR sub_B0AB_get_channel_offset
 C - - - - - 0x00917A 02:B16A: 99 02 40  STA $4002,Y
 bra_B16D_RTS:
 C - - - - - 0x00917D 02:B16D: 60        RTS
