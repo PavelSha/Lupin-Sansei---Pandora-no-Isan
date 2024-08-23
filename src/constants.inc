@@ -396,7 +396,7 @@ vEnemyAAppearTimerHigh2       = ram_031C ; the high counter after which the same
 vEnemyAAppearTimerLow2        = ram_031D ; the low counter after which the same killed enemy (A) will appear in the same position
 vEnemyBAppearTimerHigh2       = ram_031E ; the high counter after which the same killed enemy (B) will appear in the same position
 vEnemyBAppearTimerLow2        = ram_031F ; the low counter after which the same killed enemy (B) will appear in the same position
-vEnemyAStatus                 = ram_0320 ; see below
+vEnemyAStatus                 = ram_0320 ; see below and docs (Bestiary)
 ; 0x00 - None
 ; 0x40 - the enemy can get damage (1 - true, 0 - false)
 ; 0x80 - The status is used
@@ -420,12 +420,6 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; M - moving along a parabola
 ; L - using vJumpCounter
 ; K - ???
-
-; Byte: 0YZ0 00MN (bazooka man)
-; N - see above
-; M - the jump after damage
-; Z - the dying
-; Y - see above
 
 ; Byte: 0YZW KLMN (girl in red, egyptian with a sword)
 ; N - see above
@@ -451,13 +445,10 @@ vEnemyAStatus                 = ram_0320 ; see below
 ; 0x08 - kneel down
 ; 0x0C - shoot
 ; 0x10 - squatting
-; Egyptian with bow/boomerung 
+; Egyptian with bow
 ; 0x02 - jump
 ; 0x0C - shoot
 ; 0x10 - squatting
-; Ninja upside down
-; 0x04 - kneel down
-; 0x08 - shoot
 
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
@@ -591,16 +582,17 @@ vItemPosY                     = ram_03AA ; [03AB-03AF] The item position in th w
 vItemPosXLow                  = ram_03B6 ; [03B7-03BB] The item position in th water along the X axis relative to the level (with repeat)
 vItemPosXHigh                 = ram_03BC ; [03BD-03C1] The item position in th water along the X axis relative to the level (in screen unit)
 
+vApuChannelProcessed          = ram_0401 ; 0x01 - pulse 1, 0x02 - pulse 2, 0x04 - triangle, 0x08 - noise
 vCurrentApuChannel            = ram_0402 ; apu channel (0x00 - pulse 1, 0x01 - pulse 2, 0x02 - triangle, 0x03 - noise) for each sound row
 v_sound_counter               = ram_0406
 vSoundRowIndex                = ram_0410 ; sound pair index
 vSoundRowB_1                  = ram_0411 ; ?? apu channel (0x00 - pulse 1, 0x01 - pulse 2, 0x02 - triangle, 0x03 - noise)
 vSoundRowB_2                  = ram_0412 ; low address of the current track
 vSoundRowB_3                  = ram_0413 ; high address of the current track
-vSoundRowB_4                  = ram_0414 ; ???
-vSoundRowB_5                  = ram_0415 ; ???
+vSoundRowFPPValue             = ram_0414 ; ppu frames per sound pair (FPP) in the sound track
+vSoundRowFPPCounter           = ram_0415 ; ppu frames per sound pair (FPP) counter, i.e. counter for number of frames per sound instruction
 vSoundRowB_6                  = ram_0416 ; ???
-vSoundRowB_7                  = ram_0417 ; ???
+vSoundRowFPPLength            = ram_0417 ; length of sound row, affects FPP (see vSoundRowFPPCounter)
 vSoundRowB_8                  = ram_0418 ; ???
 vSoundRowMarkCacheNoReplay    = ram_0419 ; ???
 vSoundRowCacheNoReplay        = ram_041A ; the cache number of replays

@@ -213,28 +213,36 @@ tbl_sound_row_mini:
 - D 0 - I - 0x008190 02:8180: 2A        .byte $2A, $01           ; 0x60
                                         .addr loc_track60        ; CPU Address $8CEA
 
+; Header
+; 1 byte - ppu frames per sound pair (0x00 - 0x0F)
+; 2 byte - ???
+; 3 byte - volume
+; 4 byte - ???
+; Sound pair
+; 1 byte - OOOONNNN, O - octave, N - notes (0x00 - C, 0x01 - C#, ..., 0x0B - B)
+; 2 byte - length of the sound pair
 loc_track0:
 - D 0 - I - 0x008194 02:8184: 06        .byte $06, $03, $02, $00
-- D 0 - I - 0x008198 02:8188: 32        .byte $32, $01
-- D 0 - I - 0x00819A 02:818A: 32        .byte $32, $01
-- D 0 - I - 0x00819C 02:818C: 35        .byte $35, $01
-- D 0 - I - 0x00819E 02:818E: 32        .byte $32, $03
+- D 0 - I - 0x008198 02:8188: 32        .byte $32, $01  ; 3 octave, D, 1*6 frames
+- D 0 - I - 0x00819A 02:818A: 32        .byte $32, $01  ; 3 octave, D, 1*6 frames
+- D 0 - I - 0x00819C 02:818C: 35        .byte $35, $01  ; 3 octave, F, 1*6 frames
+- D 0 - I - 0x00819E 02:818E: 32        .byte $32, $03  ; 3 octave, D, 3*6 frames
 - D 0 - I - 0x0081A0 02:8190: A0        .byte $A0, $0F  ; Changes the volume: 0x02 -> 0x0F
-- D 0 - I - 0x0081A2 02:8192: 37        .byte $37, $0A
-- D 0 - I - 0x0081A4 02:8194: 35        .byte $35, $03
-- D 0 - I - 0x0081A6 02:8196: 37        .byte $37, $03
-- D 0 - I - 0x0081A8 02:8198: 32        .byte $32, $0A
-- D 0 - I - 0x0081AA 02:819A: 30        .byte $30, $03
-- D 0 - I - 0x0081AC 02:819C: 29        .byte $29, $03
-- D 0 - I - 0x0081AE 02:819E: 27        .byte $27, $10
+- D 0 - I - 0x0081A2 02:8192: 37        .byte $37, $0A  ; 3 octave, G, 10*6 frames
+- D 0 - I - 0x0081A4 02:8194: 35        .byte $35, $03  ; 3 octave, F, 3*6 frames
+- D 0 - I - 0x0081A6 02:8196: 37        .byte $37, $03  ; 3 octave, F, 3*6 frames
+- D 0 - I - 0x0081A8 02:8198: 32        .byte $32, $0A  ; 3 octave, D, 10*6 frames
+- D 0 - I - 0x0081AA 02:819A: 30        .byte $30, $03  ; 3 octave, C, 3*6 frames
+- D 0 - I - 0x0081AC 02:819C: 29        .byte $29, $03  ; 2 octave, A, 3*6 frames
+- D 0 - I - 0x0081AE 02:819E: 27        .byte $27, $10  ; 2 octave, G, 16*6 frames
 - D 0 - I - 0x0081B0 02:81A0: A0        .byte $A0, $02  ; Changes the volume: 0x0F -> 0x02
-- D 0 - I - 0x0081B2 02:81A2: 33        .byte $33, $01
-- D 0 - I - 0x0081B4 02:81A4: 33        .byte $33, $01
-- D 0 - I - 0x0081B6 02:81A6: 33        .byte $33, $01
-- D 0 - I - 0x0081B8 02:81A8: 35        .byte $35, $02
-- D 0 - I - 0x0081BA 02:81AA: 35        .byte $35, $02
-- D 0 - I - 0x0081BC 02:81AC: 35        .byte $35, $01
-- D 0 - I - 0x0081BE 02:81AE: 37        .byte $37, $03
+- D 0 - I - 0x0081B2 02:81A2: 33        .byte $33, $01  ; 3 octave, D#, 1*6 frames
+- D 0 - I - 0x0081B4 02:81A4: 33        .byte $33, $01  ; 3 octave, D#, 1*6 frames
+- D 0 - I - 0x0081B6 02:81A6: 33        .byte $33, $01  ; 3 octave, D#, 1*6 frames
+- D 0 - I - 0x0081B8 02:81A8: 35        .byte $35, $02  ; 3 octave, F, 2*6 frames
+- D 0 - I - 0x0081BA 02:81AA: 35        .byte $35, $02  ; 3 octave, F, 2*6 frames
+- D 0 - I - 0x0081BC 02:81AC: 35        .byte $35, $01  ; 3 octave, F, 1*6 frames
+- D 0 - I - 0x0081BE 02:81AE: 37        .byte $37, $03  ; 3 octave, G, 3*6 frames
 - D 0 - I - 0x0081C0 02:81B0: FF        .byte $FF
 
 loc_track1:
@@ -1924,8 +1932,8 @@ loc_track5E:
 
 .org $AD80
 loc_AD80_activate_sound_manager:
-C D 1 - - - 0x008D90 02:AD80: A9 00     LDA #$00
-C - - - - - 0x008D92 02:AD82: 8D 01 04  STA ram_0401
+C D 1 - - - 0x008D90 02:AD80: A9 00     LDA #$00                  ;
+C - - - - - 0x008D92 02:AD82: 8D 01 04  STA vApuChannelProcessed  ; clears all channels
 C - - - - - 0x008D95 02:AD85: EE 06 04  INC v_sound_counter
 ; Sound row in 21 bytes each, starts with vSoundRowIndex
 ; 00 - 0th sound row
@@ -1937,18 +1945,18 @@ C - - - - - 0x008D95 02:AD85: EE 06 04  INC v_sound_counter
 ; 7E - 6th sound row
 ; 93 - 7th sound row
 ; X = {00,15,2A,3F,54,69,7E,93} , in the end - A8
-bra_AD88_repeat:
-C - - - - - 0x008D98 02:AD88: AA        TAX
-C - - - - - 0x008D99 02:AD89: BD 11 04  LDA vSoundRowB_1,X      ;
-C - - - - - 0x008D9C 02:AD8C: 29 03     AND #$03                ;
-C - - - - - 0x008D9E 02:AD8E: 8D 02 04  STA vCurrentApuChannel  ; puts the apu channel (0x00, 0x01, 0x02 or 0x03)
-C - - - - - 0x008DA1 02:AD91: A8        TAY                     ; 0x00, 0x01, 0x02 or 0x03
+bra_AD88_loop:                                                   ; loop by sound rows (8 times)
+C - - - - - 0x008D98 02:AD88: AA        TAX                      ; x <~ sound row offset
+C - - - - - 0x008D99 02:AD89: BD 11 04  LDA vSoundRowB_1,X       ;
+C - - - - - 0x008D9C 02:AD8C: 29 03     AND #$03                 ;
+C - - - - - 0x008D9E 02:AD8E: 8D 02 04  STA vCurrentApuChannel   ; puts the apu channel (0x00, 0x01, 0x02 or 0x03)
+C - - - - - 0x008DA1 02:AD91: A8        TAY                      ; 0x00, 0x01, 0x02 or 0x03
 C - - - - - 0x008DA2 02:AD92: B9 A6 B1  LDA tbl_B1A6,Y
 C - - - - - 0x008DA5 02:AD95: 8D 03 04  STA ram_0403
-C - - - - - 0x008DA8 02:AD98: BD 10 04  LDA vSoundRowIndex,X
-C - - - - - 0x008DAB 02:AD9B: F0 5C     BEQ bra_ADF9_start      ; If Register A == 0x00
-C - - - - - 0x008DAD 02:AD9D: C9 FF     CMP #$FF
-C - - - - - 0x008DAF 02:AD9F: F0 4F     BEQ bra_ADF0_next_row   ; If Register A == 0xFF
+C - - - - - 0x008DA8 02:AD98: BD 10 04  LDA vSoundRowIndex,X     ;
+C - - - - - 0x008DAB 02:AD9B: F0 5C     BEQ bra_ADF9_init        ; If SoundRowIndex == 0x00
+C - - - - - 0x008DAD 02:AD9D: C9 FF     CMP #$FF                 ; CONSTANT - the sound row isn't activated
+C - - - - - 0x008DAF 02:AD9F: F0 4F     BEQ bra_ADF0_next_row    ; If SoundRowIndex == 0xFF
 C - - - - - 0x008DB1 02:ADA1: 20 3F B1  JSR sub_B13F
 C - - - - - 0x008DB4 02:ADA4: 20 B4 B0  JSR sub_B0B4
 C - - - - - 0x008DB7 02:ADA7: FE 1D 04  INC vSoundRowB_D,X
@@ -1958,57 +1966,57 @@ C - - - - - 0x008DC0 02:ADB0: 90 06     BCC bra_ADB8_skip
 C - - - - - 0x008DC2 02:ADB2: BD 1C 04  LDA vSoundRowB_C,X
 C - - - - - 0x008DC5 02:ADB5: 9D 1D 04  STA vSoundRowB_D,X
 bra_ADB8_skip:
-C - - - - - 0x008DC8 02:ADB8: DE 15 04  DEC vSoundRowB_5,X
+C - - - - - 0x008DC8 02:ADB8: DE 15 04  DEC vSoundRowFPPCounter,X
 C - - - - - 0x008DCB 02:ADBB: 10 18     BPL bra_ADD5_skip
-C - - - - - 0x008DCD 02:ADBD: BD 14 04  LDA vSoundRowB_4,X
-C - - - - - 0x008DD0 02:ADC0: 29 0F     AND #$0F
-C - - - - - 0x008DD2 02:ADC2: 9D 15 04  STA vSoundRowB_5,X
+C - - - - - 0x008DCD 02:ADBD: BD 14 04  LDA vSoundRowFPPValue,X           ;
+C - - - - - 0x008DD0 02:ADC0: 29 0F     AND #$0F                          ; CONSTANT - Max value (0x0F)
+C - - - - - 0x008DD2 02:ADC2: 9D 15 04  STA vSoundRowFPPCounter,X         ; Initializes a counter again
 C - - - - - 0x008DD5 02:ADC5: 20 FD B0  JSR sub_B0FD
 C - - - - - 0x008DD8 02:ADC8: BD 24 04  LDA vSoundRowB_K,X
 C - - - - - 0x008DDB 02:ADCB: F0 03     BEQ bra_ADD0_skip
 C - - - - - 0x008DDD 02:ADCD: DE 24 04  DEC vSoundRowB_K,X
 bra_ADD0_skip:
-C - - - - - 0x008DE0 02:ADD0: DE 17 04  DEC vSoundRowB_7,X
-C - - - - - 0x008DE3 02:ADD3: F0 06     BEQ bra_ADDB_skip
+C - - - - - 0x008DE0 02:ADD0: DE 17 04  DEC vSoundRowFPPLength,X          ;
+C - - - - - 0x008DE3 02:ADD3: F0 06     BEQ bra_ADDB_skip                 ; If the length == 0x00
 bra_ADD5_skip:
 C - - - - - 0x008DE5 02:ADD5: 20 89 B0  JSR sub_B089
-C - - - - - 0x008DE8 02:ADD8: 4C E4 AD  JMP loc_ADE4
+C - - - - - 0x008DE8 02:ADD8: 4C E4 AD  JMP loc_ADE4_mark_current_channel ;
 
 bra_ADDB_skip:
 loc_ADDB:
 C D 1 - - - 0x008DEB 02:ADDB: BD 23 04  LDA vSoundRowB_J,X
 C - - - - - 0x008DEE 02:ADDE: 9D 24 04  STA vSoundRowB_K,X
 C - - - - - 0x008DF1 02:ADE1: 20 38 AE  JSR sub_AE38
-loc_ADE4:
-C D 1 - - - 0x008DF4 02:ADE4: AC 02 04  LDY vCurrentApuChannel
-C - - - - - 0x008DF7 02:ADE7: B9 9E B1  LDA tbl_apu_channels,Y
-C - - - - - 0x008DFA 02:ADEA: 0D 01 04  ORA ram_0401
-C - - - - - 0x008DFD 02:ADED: 8D 01 04  STA ram_0401
+loc_ADE4_mark_current_channel:
+C D 1 - - - 0x008DF4 02:ADE4: AC 02 04  LDY vCurrentApuChannel     ;
+C - - - - - 0x008DF7 02:ADE7: B9 9E B1  LDA tbl_apu_channels,Y     ;
+C - - - - - 0x008DFA 02:ADEA: 0D 01 04  ORA vApuChannelProcessed   ;
+C - - - - - 0x008DFD 02:ADED: 8D 01 04  STA vApuChannelProcessed   ; the current channel is processed
 bra_ADF0_next_row:
-C - - - - - 0x008E00 02:ADF0: 8A        TXA
-C - - - - - 0x008E01 02:ADF1: 18        CLC
-C - - - - - 0x008E02 02:ADF2: 69 15     ADC #$15             ; CONSTANT: Sound row step, step for X
-C - - - - - 0x008E04 02:ADF4: C9 A8     CMP #$A8             ; $15+$15+$15+$15+$15+$15+$15+$15=$A8, 8 iterations for sound row
-C - - - - - 0x008E06 02:ADF6: D0 90     BNE bra_AD88_repeat  ; If Register A != 0xA8
-C - - - - - 0x008E08 02:ADF8: 60        RTS
+C - - - - - 0x008E00 02:ADF0: 8A        TXA                        ; a <~ sound row offset
+C - - - - - 0x008E01 02:ADF1: 18        CLC                        ;
+C - - - - - 0x008E02 02:ADF2: 69 15     ADC #$15                   ; CONSTANT: Sound row step, step for X
+C - - - - - 0x008E04 02:ADF4: C9 A8     CMP #$A8                   ; $15+$15+$15+$15+$15+$15+$15+$15=$A8, 8 iterations for sound row
+C - - - - - 0x008E06 02:ADF6: D0 90     BNE bra_AD88_loop          ; If Register A != 0xA8
+C - - - - - 0x008E08 02:ADF8: 60        RTS                        ;
 
-bra_ADF9_start:
-C - - - - - 0x008E09 02:ADF9: BD 12 04  LDA vSoundRowB_2,X   ;
-C - - - - - 0x008E0C 02:ADFC: 85 FE     STA ram_00FE         ; Low address (the current track)
-C - - - - - 0x008E0E 02:ADFE: BD 13 04  LDA vSoundRowB_3,X   ;
-C - - - - - 0x008E11 02:AE01: 85 FF     STA ram_00FF         ; High address  (the current track)
-C - - - - - 0x008E13 02:AE03: A0 00     LDY #$00         ; to 1 byte of N
-C - - - - - 0x008E15 02:AE05: B1 FE     LDA (ram_00FE),Y
-C - - - - - 0x008E17 02:AE07: 29 0F     AND #$0F
-C - - - - - 0x008E19 02:AE09: 9D 14 04  STA vSoundRowB_4,X
-C - - - - - 0x008E1C 02:AE0C: 9D 15 04  STA vSoundRowB_5,X
-C - - - - - 0x008E1F 02:AE0F: C8        INY              ; to 2 byte of N
+bra_ADF9_init:
+C - - - - - 0x008E09 02:ADF9: BD 12 04  LDA vSoundRowB_2,X              ;
+C - - - - - 0x008E0C 02:ADFC: 85 FE     STA ram_00FE                    ; Low address (the current track)
+C - - - - - 0x008E0E 02:ADFE: BD 13 04  LDA vSoundRowB_3,X              ;
+C - - - - - 0x008E11 02:AE01: 85 FF     STA ram_00FF                    ; High address  (the current track)
+C - - - - - 0x008E13 02:AE03: A0 00     LDY #$00                        ; to 1 byte of N
+C - - - - - 0x008E15 02:AE05: B1 FE     LDA (ram_00FE),Y                ;
+C - - - - - 0x008E17 02:AE07: 29 0F     AND #$0F                        ; CONSTANT - Max value (0x0F)
+C - - - - - 0x008E19 02:AE09: 9D 14 04  STA vSoundRowFPPValue,X         ; set the control value
+C - - - - - 0x008E1C 02:AE0C: 9D 15 04  STA vSoundRowFPPCounter,X       ; set the counter
+C - - - - - 0x008E1F 02:AE0F: C8        INY                             ; to 2 byte of N
 C - - - - - 0x008E20 02:AE10: 20 6F B0  JSR sub_B06F
-C - - - - - 0x008E23 02:AE13: C8        INY              ; to 3 byte of N
+C - - - - - 0x008E23 02:AE13: C8        INY                             ; to 3 byte of N
 C - - - - - 0x008E24 02:AE14: B1 FE     LDA (ram_00FE),Y
 C - - - - - 0x008E26 02:AE16: 0D 04 04  ORA ram_0404
 C - - - - - 0x008E29 02:AE19: 9D 16 04  STA vSoundRowB_6,X
-C - - - - - 0x008E2C 02:AE1C: C8        INY              ; to 4 byte of N
+C - - - - - 0x008E2C 02:AE1C: C8        INY                             ; to 4 byte of N
 C - - - - - 0x008E2D 02:AE1D: B1 FE     LDA (ram_00FE),Y
 C - - - - - 0x008E2F 02:AE1F: 9D 18 04  STA vSoundRowB_8,X
 C - - - - - 0x008E32 02:AE22: A9 00     LDA #$00
@@ -2291,6 +2299,7 @@ bra_AF4D:
 - - - - - - 0x008FC5 02:AFB5: 38        .byte $38   ; <8>
 - - - - - - 0x008FC6 02:AFB6: AE        .byte $AE   ; 
 
+; In: Register A - ??
 loc_AFB7:
 C D 1 - - - 0x008FC7 02:AFB7: 2C 03 04  BIT ram_0403
 C - - - - - 0x008FCA 02:AFBA: 70 7F     BVS bra_B03B_noise ; If 6th bit is set
@@ -2303,17 +2312,16 @@ C - - - - - 0x008FD3 02:AFC3: 4C 49 B0  JMP loc_B049
 bra_AFC6:
 C - - - - - 0x008FD6 02:AFC6: 0A        ASL
 C - - - - - 0x008FD7 02:AFC7: A8        TAY
-C - - - - - 0x008FD8 02:AFC8: BD 14 04  LDA vSoundRowB_4,X
+C - - - - - 0x008FD8 02:AFC8: BD 14 04  LDA vSoundRowFPPValue,X
 C - - - - - 0x008FDB 02:AFCB: 10 05     BPL bra_AFD2_skip
-- - - - - - 0x008FDD 02:AFCD: 98        .byte $98   ; 
-- - - - - - 0x008FDE 02:AFCE: 18        .byte $18   ; 
-- - - - - - 0x008FDF 02:AFCF: 69        .byte $69   ; <i>
-- - - - - - 0x008FE0 02:AFD0: 18        .byte $18   ; 
-- - - - - - 0x008FE1 02:AFD1: A8        .byte $A8   ; 
+- - - - - - 0x008FDD 02:AFCD: 98        TYA
+- - - - - - 0x008FDE 02:AFCE: 18        CLC
+- - - - - - 0x008FDF 02:AFCF: 69 18     ADC #$18
+- - - - - - 0x008FE1 02:AFD1: A8        TAY
 bra_AFD2_skip:
-C - - - - - 0x008FE2 02:AFD2: B9 6E B1  LDA tbl_B16E,Y
+C - - - - - 0x008FE2 02:AFD2: B9 6E B1  LDA tbl_B16E_period_by_notes,Y
 C - - - - - 0x008FE5 02:AFD5: 8D 04 04  STA ram_0404
-C - - - - - 0x008FE8 02:AFD8: B9 6F B1  LDA tbl_B16E + 1,Y
+C - - - - - 0x008FE8 02:AFD8: B9 6F B1  LDA tbl_B16E_period_by_notes + 1,Y
 C - - - - - 0x008FEB 02:AFDB: 8D 05 04  STA ram_0405
 C - - - - - 0x008FEE 02:AFDE: 68        PLA
 C - - - - - 0x008FEF 02:AFDF: 29 F0     AND #$F0
@@ -2323,15 +2331,15 @@ C - - - - - 0x008FF4 02:AFE4: 4A        LSR
 C - - - - - 0x008FF5 02:AFE5: 4A        LSR
 C - - - - - 0x008FF6 02:AFE6: 4A        LSR
 C - - - - - 0x008FF7 02:AFE7: A8        TAY
-bra_AFE8_repeat:
+bra_AFE8_loop:
 C - - - - - 0x008FF8 02:AFE8: 4E 05 04  LSR ram_0405
 C - - - - - 0x008FFB 02:AFEB: 6E 04 04  ROR ram_0404
 C - - - - - 0x008FFE 02:AFEE: 88        DEY
-C - - - - - 0x008FFF 02:AFEF: D0 F7     BNE bra_AFE8_repeat ; If Register Y != 0
+C - - - - - 0x008FFF 02:AFEF: D0 F7     BNE bra_AFE8_loop ; If Register Y != 0
 bra_AFF1:
 C - - - - - 0x009001 02:AFF1: A0 01     LDY #$01 ; to 2 byte of N
 C - - - - - 0x009003 02:AFF3: B1 FE     LDA (ram_00FE),Y
-C - - - - - 0x009005 02:AFF5: 9D 17 04  STA vSoundRowB_7,X
+C - - - - - 0x009005 02:AFF5: 9D 17 04  STA vSoundRowFPPLength,X
 C - - - - - 0x009008 02:AFF8: A9 00     LDA #$00
 C - - - - - 0x00900A 02:AFFA: 9D 1D 04  STA vSoundRowB_D,X
 C - - - - - 0x00900D 02:AFFD: 20 61 B0  JSR sub_B061
@@ -2347,7 +2355,7 @@ C - - - - - 0x009024 02:B014: 20 8C B0  JSR sub_B08C
 C - - - - - 0x009027 02:B017: BD 18 04  LDA vSoundRowB_8,X
 C - - - - - 0x00902A 02:B01A: 99 01 40  STA $4001,Y    ; assign a length counter (pulse channel)
 C - - - - - 0x00902D 02:B01D: 68        PLA
-C - - - - - 0x00902E 02:B01E: 99 02 40  STA $4002,Y    ; assign a evelope (pulse channel)
+C - - - - - 0x00902E 02:B01E: 99 02 40  STA $4002,Y    ; assign a timer low (pulse channel)
 C - - - - - 0x009031 02:B021: C9 02     CMP #$02
 C - - - - - 0x009033 02:B023: 90 08     BCC bra_B02D ; If Register A < 0x02
 C - - - - - 0x009035 02:B025: C9 FE     CMP #$FE
@@ -2361,7 +2369,7 @@ C - - - - - 0x00903F 02:B02F: 9D 21 04  STA vSoundRowB_H,X
 C - - - - - 0x009042 02:B032: 68        PLA
 C - - - - - 0x009043 02:B033: 29 07     AND #$07
 C - - - - - 0x009045 02:B035: 09 08     ORA #$08
-C - - - - - 0x009047 02:B037: 99 03 40  STA $4003,Y ; assign a sweep (pulse channel)
+C - - - - - 0x009047 02:B037: 99 03 40  STA $4003,Y ; assign a timer high (pulse channel)
 C - - - - - 0x00904A 02:B03A: 60        RTS
 
 bra_B03B_noise:
@@ -2376,7 +2384,7 @@ C D 1 - - - 0x009059 02:B049: 68        PLA
 bra_B04A:
 C - - - - - 0x00905A 02:B04A: A0 01     LDY #$01
 C - - - - - 0x00905C 02:B04C: B1 FE     LDA (ram_00FE),Y
-C - - - - - 0x00905E 02:B04E: 9D 17 04  STA vSoundRowB_7,X
+C - - - - - 0x00905E 02:B04E: 9D 17 04  STA vSoundRowFPPLength,X
 loc_B051:
 C D 1 - - - 0x009061 02:B051: 20 61 B0  JSR sub_B061
 C - - - - - 0x009064 02:B054: B9 A2 B1  LDA tbl_B1A2,Y
@@ -2385,11 +2393,12 @@ C - - - - - 0x00906A 02:B05A: 8D 15 40  STA APU_STATUS
 C - - - - - 0x00906D 02:B05D: 8D 00 04  STA ram_0400
 C - - - - - 0x009070 02:B060: 60        RTS
 
+; Out: Register Y - 0x00 - pulse 1, 0x01 - pulse 2, 0x02 - triangle, 0x03 - noise
 sub_B061:
-C - - - - - 0x009071 02:B061: AC 02 04  LDY vCurrentApuChannel
-C - - - - - 0x009074 02:B064: B9 9E B1  LDA tbl_apu_channels,Y
-C - - - - - 0x009077 02:B067: 2C 01 04  BIT ram_0401
-C - - - - - 0x00907A 02:B06A: F0 02     BEQ bra_B06E_RTS ; If Register A AND ram_0401 == 0
+C - - - - - 0x009071 02:B061: AC 02 04  LDY vCurrentApuChannel     ;
+C - - - - - 0x009074 02:B064: B9 9E B1  LDA tbl_apu_channels,Y     ;
+C - - - - - 0x009077 02:B067: 2C 01 04  BIT vApuChannelProcessed   ;
+C - - - - - 0x00907A 02:B06A: F0 02     BEQ bra_B06E_RTS           ; If the current channel isn't processed
 C - - - - - 0x00907C 02:B06C: 68        PLA
 C - - - - - 0x00907D 02:B06D: 68        PLA
 bra_B06E_RTS:
@@ -2501,19 +2510,11 @@ C - - - - - 0x00912A 02:B11A: 29 10     AND #$10
 C - - - - - 0x00912C 02:B11C: F0 12     BEQ bra_B130_RTS
 C - - - - - 0x00912E 02:B11E: BD 1E 04  LDA vSoundRowB_E,X
 C - - - - - 0x009131 02:B121: 30 0E     BMI bra_B131
-- - - - - - 0x009133 02:B123: DE        .byte $DE   ; 
-- - - - - - 0x009134 02:B124: 1E        .byte $1E   ; 
-- - - - - - 0x009135 02:B125: 04        .byte $04   ; 
-- - - - - - 0x009136 02:B126: AD        .byte $AD   ; 
-- - - - - - 0x009137 02:B127: 04        .byte $04   ; 
-- - - - - - 0x009138 02:B128: 04        .byte $04   ; 
-- - - - - - 0x009139 02:B129: C9        .byte $C9   ; 
-- - - - - - 0x00913A 02:B12A: 1F        .byte $1F   ; 
-- - - - - - 0x00913B 02:B12B: F0        .byte $F0   ; 
-- - - - - - 0x00913C 02:B12C: 03        .byte $03   ; 
-- - - - - - 0x00913D 02:B12D: FE        .byte $FE   ; 
-- - - - - - 0x00913E 02:B12E: 16        .byte $16   ; 
-- - - - - - 0x00913F 02:B12F: 04        .byte $04   ; 
+- - - - - - 0x009133 02:B123: DE 1E 04  DEC vSoundRowB_E,X
+- - - - - - 0x009136 02:B126: AD 04 04  LDA ram_0404
+- - - - - - 0x009139 02:B129: C9 1F     CMP #$1F
+- - - - - - 0x00913B 02:B12B: F0 03     BEQ bra_B130_RTS
+- - - - - - 0x00913D 02:B12D: FE 16 04  INC vSoundRowB_6,X
 bra_B130_RTS:
 C - - - - - 0x009140 02:B130: 60        RTS
 
@@ -2548,55 +2549,33 @@ C - - - - - 0x00917A 02:B16A: 99 02 40  STA $4002,Y
 bra_B16D_RTS:
 C - - - - - 0x00917D 02:B16D: 60        RTS
 
-tbl_B16E:
-- D 1 - - - 0x00917E 02:B16E: AE        .byte $AE
-                                        .byte $06
-- D 1 - - - 0x009180 02:B170: 4E        .byte $4E   ; <N>
-- D 1 - - - 0x009181 02:B171: 06        .byte $06   ; 
-- D 1 - - - 0x009182 02:B172: F4        .byte $F4   ; 
-- D 1 - - - 0x009183 02:B173: 05        .byte $05   ; 
-- D 1 - - - 0x009184 02:B174: 9E        .byte $9E   ; 
-- D 1 - - - 0x009185 02:B175: 05        .byte $05   ; 
-- D 1 - - - 0x009186 02:B176: 4D        .byte $4D   ; <M>
-- D 1 - - - 0x009187 02:B177: 05        .byte $05   ; 
-- D 1 - - - 0x009188 02:B178: 01        .byte $01   ; 
-- D 1 - - - 0x009189 02:B179: 05        .byte $05   ; 
-- D 1 - - - 0x00918A 02:B17A: B9        .byte $B9   ; 
-- D 1 - - - 0x00918B 02:B17B: 04        .byte $04   ; 
-- D 1 - - - 0x00918C 02:B17C: 75        .byte $75   ; <u>
-- D 1 - - - 0x00918D 02:B17D: 04        .byte $04   ; 
-- D 1 - - - 0x00918E 02:B17E: 35        .byte $35   ; <5>
-- D 1 - - - 0x00918F 02:B17F: 04        .byte $04   ; 
-- D 1 - - - 0x009190 02:B180: F9        .byte $F9   ; 
-- D 1 - - - 0x009191 02:B181: 03        .byte $03   ; 
-- D 1 - - - 0x009192 02:B182: C0        .byte $C0   ; 
-- D 1 - - - 0x009193 02:B183: 03        .byte $03   ; 
-- D 1 - - - 0x009194 02:B184: 8A        .byte $8A   ; 
-- D 1 - - - 0x009195 02:B185: 03        .byte $03   ; 
-- - - - - - 0x009196 02:B186: 7E        .byte $7E   ; 
-- - - - - - 0x009197 02:B187: 06        .byte $06   ; 
-- - - - - - 0x009198 02:B188: 21        .byte $21   ; 
-- - - - - - 0x009199 02:B189: 06        .byte $06   ; 
-- - - - - - 0x00919A 02:B18A: C9        .byte $C9   ; 
-- - - - - - 0x00919B 02:B18B: 05        .byte $05   ; 
-- - - - - - 0x00919C 02:B18C: 76        .byte $76   ; <v>
-- - - - - - 0x00919D 02:B18D: 05        .byte $05   ; 
-- - - - - - 0x00919E 02:B18E: 27        .byte $27   ; 
-- - - - - - 0x00919F 02:B18F: 05        .byte $05   ; 
-- - - - - - 0x0091A0 02:B190: DD        .byte $DD   ; 
-- - - - - - 0x0091A1 02:B191: 04        .byte $04   ; 
-- - - - - - 0x0091A2 02:B192: 96        .byte $96   ; 
-- - - - - - 0x0091A3 02:B193: 04        .byte $04   ; 
-- - - - - - 0x0091A4 02:B194: 55        .byte $55   ; <U>
-- - - - - - 0x0091A5 02:B195: 04        .byte $04   ; 
-- - - - - - 0x0091A6 02:B196: 17        .byte $17   ; 
-- - - - - - 0x0091A7 02:B197: 04        .byte $04   ; 
-- - - - - - 0x0091A8 02:B198: DD        .byte $DD   ; 
-- - - - - - 0x0091A9 02:B199: 03        .byte $03   ; 
-- - - - - - 0x0091AA 02:B19A: A5        .byte $A5   ; 
-- - - - - - 0x0091AB 02:B19B: 03        .byte $03   ; 
-- - - - - - 0x0091AC 02:B19C: 71        .byte $71   ; <q>
-- - - - - - 0x0091AD 02:B19D: 03        .byte $03   ; 
+; see https://www.nesdev.org/wiki/APU_period_table
+tbl_B16E_period_by_notes:
+- D 1 - - - 0x00917E 02:B16E: AE        .byte $AE, $06   ; C
+- D 1 - - - 0x009180 02:B170: 4E        .byte $4E, $06   ; C#
+- D 1 - - - 0x009182 02:B172: F4        .byte $F4, $05   ; D
+- D 1 - - - 0x009184 02:B174: 9E        .byte $9E, $05   ; D#
+- D 1 - - - 0x009186 02:B176: 4D        .byte $4D, $05   ; E
+- D 1 - - - 0x009188 02:B178: 01        .byte $01, $05   ; F
+- D 1 - - - 0x00918A 02:B17A: B9        .byte $B9, $04   ; F#
+- D 1 - - - 0x00918C 02:B17C: 75        .byte $75, $04   ; G
+- D 1 - - - 0x00918E 02:B17E: 35        .byte $35, $04   ; G#
+- D 1 - - - 0x009190 02:B180: F9        .byte $F9, $03   ; A
+- D 1 - - - 0x009192 02:B182: C0        .byte $C0, $03   ; A#
+- D 1 - - - 0x009194 02:B184: 8A        .byte $8A, $03   ; B
+- - - - - - 0x009196 02:B186: 7E        .byte $7E, $06   ; 
+- - - - - - 0x009198 02:B188: 21        .byte $21, $06   ; 
+- - - - - - 0x00919A 02:B18A: C9        .byte $C9, $05   ; 
+- - - - - - 0x00919C 02:B18C: 76        .byte $76, $05   ; 
+- - - - - - 0x00919E 02:B18E: 27        .byte $27, $05   ; 
+- - - - - - 0x0091A0 02:B190: DD        .byte $DD, $04   ; 
+- - - - - - 0x0091A2 02:B192: 96        .byte $96, $04   ; 
+- - - - - - 0x0091A4 02:B194: 55        .byte $55, $04   ; 
+- - - - - - 0x0091A6 02:B196: 17        .byte $17, $04   ; 
+- - - - - - 0x0091A8 02:B198: DD        .byte $DD, $03   ; 
+- - - - - - 0x0091AA 02:B19A: A5        .byte $A5, $03   ; 
+- - - - - - 0x0091AC 02:B19C: 71        .byte $71, $03   ; 
+
 tbl_apu_channels:
 - D 1 - - - 0x0091AE 02:B19E: 01        .byte $01   ; Flag: pulse channel 1
 - D 1 - - - 0x0091AF 02:B19F: 02        .byte $02   ; Flag: pulse channel 2
