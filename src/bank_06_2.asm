@@ -4266,8 +4266,8 @@ bra_BBBD_skip:
 loc_BBBD_add_room_sound:
 C D 1 - - - 0x01BBCD 06:BBBD: C5 FD     CMP vSoundRoomIndex         ;
 C - - - - - 0x01BBCF 06:BBBF: D0 07     BNE bra_BBC8_add_room_sound ; If Register A != vSoundRoomIndex
-C - - - - - 0x01BBD1 06:BBC1: AD 00 04  LDA ram_0400
-C - - - - - 0x01BBD4 06:BBC4: 8D 15 40  STA APU_STATUS
+C - - - - - 0x01BBD1 06:BBC1: AD 00 04  LDA vApuChannelStatus       ; !(WHY?), seems to be excessive
+C - - - - - 0x01BBD4 06:BBC4: 8D 15 40  STA APU_STATUS              ; !(WHY?), seems to be excessive
 C - - - - - 0x01BBD7 06:BBC7: 60        RTS                         ;
 
 ; in: Register A - the sound index

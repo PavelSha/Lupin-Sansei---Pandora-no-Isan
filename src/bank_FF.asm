@@ -731,7 +731,7 @@ C - - - - - 0x01C414 07:C404: 85 FD     STA vSoundRoomIndex   ; set the fake ind
 C - - - - - 0x01C416 07:C406: A0 00     LDY #$00              ; set loop counter
 C - - - - - 0x01C418 07:C408: 8C 07 04  STY ram_0407          ; clear
 C - - - - - 0x01C41B 07:C40B: 8C 15 40  STY APU_STATUS        ; clear
-C - - - - - 0x01C41E 07:C40E: 8C 00 04  STY ram_0400          ; clear
+C - - - - - 0x01C41E 07:C40E: 8C 00 04  STY vApuChannelStatus ; clear
 @bra_C411_loop:
 C - - - - - 0x01C421 07:C411: A9 FF     LDA #$FF              ;
 C - - - - - 0x01C423 07:C413: 99 10 04  STA vSoundRowIndex,Y  ;

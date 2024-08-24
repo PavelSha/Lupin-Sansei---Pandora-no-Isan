@@ -440,11 +440,6 @@ vEnemyAStatus                 = ram_0320 ; see below and docs (Bestiary)
 ; 0x0C - shoot
 ; 0x08 - stop
 ; 0x10 - squatting
-; Karate-girl
-; 0x02 - jump
-; 0x08 - kneel down
-; 0x0C - shoot
-; 0x10 - squatting
 ; Egyptian with bow
 ; 0x02 - jump
 ; 0x0C - shoot
@@ -582,6 +577,7 @@ vItemPosY                     = ram_03AA ; [03AB-03AF] The item position in th w
 vItemPosXLow                  = ram_03B6 ; [03B7-03BB] The item position in th water along the X axis relative to the level (with repeat)
 vItemPosXHigh                 = ram_03BC ; [03BD-03C1] The item position in th water along the X axis relative to the level (in screen unit)
 
+vApuChannelStatus             = ram_0400 ; Secondary status flag for adjusting APU_STATUS during sound and music processing
 vApuChannelProcessed          = ram_0401 ; 0x01 - pulse 1, 0x02 - pulse 2, 0x04 - triangle, 0x08 - noise
 vCurrentApuChannel            = ram_0402 ; apu channel (0x00 - pulse 1, 0x01 - pulse 2, 0x02 - triangle, 0x03 - noise) for each sound row
 v_sound_counter               = ram_0406
@@ -593,7 +589,7 @@ vSoundRowFPPValue             = ram_0414 ; ppu frames per sound pair (FPP) in th
 vSoundRowFPPCounter           = ram_0415 ; ppu frames per sound pair (FPP) counter, i.e. counter for number of frames per sound instruction
 vSoundRowB_6                  = ram_0416 ; ???
 vSoundRowFPPLength            = ram_0417 ; length of sound row, affects FPP (see vSoundRowFPPCounter)
-vSoundRowB_8                  = ram_0418 ; ???
+vSoundRowSweep                = ram_0418
 vSoundRowMarkCacheNoReplay    = ram_0419 ; ???
 vSoundRowCacheNoReplay        = ram_041A ; the cache number of replays
 vSoundRowB_B                  = ram_041B ; ???
