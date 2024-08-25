@@ -213,12 +213,12 @@ tbl_sound_row_mini:
 - D 0 - I - 0x008190 02:8180: 2A        .byte $2A, $01           ; 0x60
                                         .addr loc_track60        ; CPU Address $8CEA
 
-; Header
-; 1 byte - ppu frames per sound pair (0x00 - 0x0F)
+; -- Header --
+; 1 byte - ppu frames per sound pair, FPP (0x00 - 0x0F)
 ; 2 byte - ???
 ; 3 byte - volume
 ; 4 byte - sweep by default (only for pulse channel), otherwise - 0x00
-; Sound pair
+; -- Sound pair --
 ; 1 byte - sound command:
 ;   FD - the special mark
 ;     2 byte - sound row index  
@@ -228,8 +228,12 @@ tbl_sound_row_mini:
 ;     2 byte:
 ;       If 2 byte != 0x00 then sound row index
 ;       else the sound row index will be used from the special mark (see sound command - FD)
-;   A1 - set sweep(only for pulse channel)
+;   A0 - set volume (only for pulse and noise channels)
+;     2 byte - new volume value
+;   A1 - set sweep (only for pulse channel)
 ;     2 byte - new sweep value
+;   A3 - shaking effect for next sound rows (only for pulse channel)
+;     2 byte - RVVVCCCC, R - need restore after using effect, VVV - value for the table of the spread, C * 2 - length in FPP utits for skip effect
 ;   If the sound command < 0xA0
 ;     For pulse channel: OOOONNNN, O - octave, N - notes (0x00 - C, 0x01 - C#, ..., 0x0B - B)
 ;     For noise channel: 0000PPPP, P - time period (0x00, 0x01, ..., 0x0F)
@@ -260,40 +264,40 @@ loc_track0:
 
 loc_track1:
 - D 0 - I - 0x0081C1 02:81B1: 06        .byte $06, $00, $0F, $00
-- D 0 - I - 0x0081C5 02:81B5: 1F        .byte $1F, $06
-- D 0 - I - 0x0081C7 02:81B7: 1A        .byte $1A, $03
-- D 0 - I - 0x0081C9 02:81B9: 19        .byte $19, $03
-- D 0 - I - 0x0081CB 02:81BB: A0        .byte $A0, $03
-- D 0 - I - 0x0081CD 02:81BD: 1A        .byte $1A, $0A
-- D 0 - I - 0x0081CF 02:81BF: A0        .byte $A0, $0F
-- D 0 - I - 0x0081D1 02:81C1: B2        .byte $B2, $03
-- D 0 - I - 0x0081D3 02:81C3: A0        .byte $A0, $01
-- D 0 - I - 0x0081D5 02:81C5: 27        .byte $27, $01
-- D 0 - I - 0x0081D7 02:81C7: 27        .byte $27, $01
-- D 0 - I - 0x0081D9 02:81C9: 27        .byte $27, $01
-- D 0 - I - 0x0081DB 02:81CB: 29        .byte $29, $02
-- D 0 - I - 0x0081DD 02:81CD: 29        .byte $29, $02
-- D 0 - I - 0x0081DF 02:81CF: 29        .byte $29, $01
-- D 0 - I - 0x0081E1 02:81D1: 2A        .byte $2A, $03
+- D 0 - I - 0x0081C5 02:81B5: 1F        .byte $1F, $06  ; mute, 6*6 frames
+- D 0 - I - 0x0081C7 02:81B7: 1A        .byte $1A, $03  ; 1 octave, A#, 3*6 frames
+- D 0 - I - 0x0081C9 02:81B9: 19        .byte $19, $03  ; 1 octave, A, 3*6 frames
+- D 0 - I - 0x0081CB 02:81BB: A0        .byte $A0, $03  ; Changes the volume: 0x0F -> 0x03
+- D 0 - I - 0x0081CD 02:81BD: 1A        .byte $1A, $0A  ; 1 octave, A#, 10*6 frames
+- D 0 - I - 0x0081CF 02:81BF: A0        .byte $A0, $0F  ; Changes the volume: 0x03 -> 0x0F
+- D 0 - I - 0x0081D1 02:81C1: B2        .byte $B2, $03  ; Replay 2 times starts with 3 sound pair ($81B7)
+- D 0 - I - 0x0081D3 02:81C3: A0        .byte $A0, $01  ; Changes the volume: 0x0F -> 0x01
+- D 0 - I - 0x0081D5 02:81C5: 27        .byte $27, $01  ; 2 octave, G, 1*6 frames
+- D 0 - I - 0x0081D7 02:81C7: 27        .byte $27, $01  ; 2 octave, G, 1*6 frames
+- D 0 - I - 0x0081D9 02:81C9: 27        .byte $27, $01  ; 2 octave, G, 1*6 frames
+- D 0 - I - 0x0081DB 02:81CB: 29        .byte $29, $02  ; 2 octave, A, 2*6 frames
+- D 0 - I - 0x0081DD 02:81CD: 29        .byte $29, $02  ; 2 octave, A, 2*6 frames
+- D 0 - I - 0x0081DF 02:81CF: 29        .byte $29, $01  ; 2 octave, A, 1*6 frames
+- D 0 - I - 0x0081E1 02:81D1: 2A        .byte $2A, $03  ; 2 octave, A#, 3*6 frames
 - D 0 - I - 0x0081E3 02:81D3: FF        .byte $FF
 
 loc_track2:
 - D 0 - I - 0x0081E4 02:81D4: 06        .byte $06, $7F, $00, $00
-- D 0 - I - 0x0081E8 02:81D8: 1F        .byte $1F, $06
-- D 0 - I - 0x0081EA 02:81DA: 27        .byte $27, $03
-- D 0 - I - 0x0081EC 02:81DC: 25        .byte $25, $03
+- D 0 - I - 0x0081E8 02:81D8: 1F        .byte $1F, $06  ; mute, 6*6 frames
+- D 0 - I - 0x0081EA 02:81DA: 27        .byte $27, $03  ; 2 octave, G, 3*6 frames
+- D 0 - I - 0x0081EC 02:81DC: 25        .byte $25, $03  ; 2 octave, F, 3*6 frames
 - D 0 - I - 0x0081EE 02:81DE: A2        .byte $A2, $20
-- D 0 - I - 0x0081F0 02:81E0: 27        .byte $27, $0A
+- D 0 - I - 0x0081F0 02:81E0: 27        .byte $27, $0A  ; 2 octave, G, 10*6 frames
 - D 0 - I - 0x0081F2 02:81E2: A2        .byte $A2, $7F
-- D 0 - I - 0x0081F4 02:81E4: B2        .byte $B2, $03
+- D 0 - I - 0x0081F4 02:81E4: B2        .byte $B2, $03  ; Replay 2 times starts with 3 sound pair ($81DA)
 - D 0 - I - 0x0081F6 02:81E6: A2        .byte $A2, $10
-- D 0 - I - 0x0081F8 02:81E8: 23        .byte $23, $01
-- D 0 - I - 0x0081FA 02:81EA: 25        .byte $25, $01
-- D 0 - I - 0x0081FC 02:81EC: 23        .byte $23, $01
-- D 0 - I - 0x0081FE 02:81EE: 25        .byte $25, $02
-- D 0 - I - 0x008200 02:81F0: 25        .byte $25, $02
-- D 0 - I - 0x008202 02:81F2: 25        .byte $25, $01
-- D 0 - I - 0x008204 02:81F4: 27        .byte $27, $03
+- D 0 - I - 0x0081F8 02:81E8: 23        .byte $23, $01  ; 2 octave, D#, 1*6 frames
+- D 0 - I - 0x0081FA 02:81EA: 25        .byte $25, $01  ; 2 octave, F, 1*6 frames
+- D 0 - I - 0x0081FC 02:81EC: 23        .byte $23, $01  ; 2 octave, D#, 1*6 frames
+- D 0 - I - 0x0081FE 02:81EE: 25        .byte $25, $02  ; 2 octave, F, 2*6 frames
+- D 0 - I - 0x008200 02:81F0: 25        .byte $25, $02  ; 2 octave, F, 2*6 frames
+- D 0 - I - 0x008202 02:81F2: 25        .byte $25, $01  ; 2 octave, F, 1*6 frames
+- D 0 - I - 0x008204 02:81F4: 27        .byte $27, $03  ; 2 octave, G, 3*6 frames
 - D 0 - I - 0x008206 02:81F6: FF        .byte $FF
 
 loc_track3:
@@ -430,7 +434,7 @@ loc_track5:
 
 loc_track6:
 - D 0 - I - 0x008307 02:82F7: 05        .byte $05, $01, $0F, $00
-- D 0 - I - 0x00830B 02:82FB: A3        .byte $A3, $21
+- D 0 - I - 0x00830B 02:82FB: A3        .byte $A3, $21 ; shaking effect, skip - 1*5 frames for each rows
 - D 0 - I - 0x00830D 02:82FD: 37        .byte $37, $01
 - D 0 - I - 0x00830F 02:82FF: 38        .byte $38, $01
 - D 0 - I - 0x008311 02:8301: 39        .byte $39, $0C
@@ -594,7 +598,7 @@ loc_track8:
 
 loc_track3B:
 - D 0 - I - 0x008446 02:8436: 04        .byte $04, $02, $02, $00
-- D 0 - I - 0x00844A 02:843A: A3        .byte $A3, $60
+- D 0 - I - 0x00844A 02:843A: A3        .byte $A3, $60 ; shaking effect, without skip
 - D 0 - I - 0x00844C 02:843C: 27        .byte $27, $02
 - D 0 - I - 0x00844E 02:843E: 1F        .byte $1F, $02
 - D 0 - I - 0x008450 02:8440: 27        .byte $27, $02
@@ -706,7 +710,7 @@ loc_track10:
 
 loc_track11:
 - D 0 - I - 0x00850C 02:84FC: 06        .byte $06, $02, $0F, $00
-- D 0 - I - 0x008510 02:8500: A3        .byte $A3, $10
+- D 0 - I - 0x008510 02:8500: A3        .byte $A3, $10 ; shaking effect, without skip
 - D 0 - I - 0x008512 02:8502: 30        .byte $30, $02
 - D - - - - 0x008514 02:8504: 37        .byte $37, $01
 - D - - - - 0x008516 02:8506: 40        .byte $40, $06
@@ -733,7 +737,7 @@ loc_track13:
 
 loc_track14:
 - D 0 - I - 0x008539 02:8529: 02        .byte $02, $01, $02, $00
-- D 0 - I - 0x00853D 02:852D: A3        .byte $A3, $20
+- D 0 - I - 0x00853D 02:852D: A3        .byte $A3, $20 ; shaking effect, without skip
 - D 0 - I - 0x00853F 02:852F: 30        .byte $30, $01
 - D 0 - I - 0x008541 02:8531: 34        .byte $34, $01
 - D 0 - I - 0x008543 02:8533: 30        .byte $30, $01
@@ -790,7 +794,7 @@ loc_track21:
 
 loc_track1B:
 - D 0 - I - 0x008593 02:8583: 04        .byte $04, $02, $0A, $00
-- D 0 - I - 0x008597 02:8587: A3        .byte $A3, $10
+- D 0 - I - 0x008597 02:8587: A3        .byte $A3, $10 ; shaking effect, without skip
 - D 0 - I - 0x008599 02:8589: 2B        .byte $2B, $06
 - D 0 - I - 0x00859B 02:858B: 29        .byte $29, $06
 - D 0 - I - 0x00859D 02:858D: 2B        .byte $2B, $06
@@ -868,7 +872,7 @@ loc_track1C:
 loc_track1D:
 - D 0 - I - 0x008627 02:8617: 03        .byte $03, $02, $0F, $00
 - D 0 - I - 0x00862B 02:861B: FD        .byte $FD, $FE
-- D 0 - I - 0x00862D 02:861D: A3        .byte $A3, $10
+- D 0 - I - 0x00862D 02:861D: A3        .byte $A3, $10 ; shaking effect, without skip
 - D 0 - I - 0x00862F 02:861F: 20        .byte $20, $14
 - D 0 - I - 0x008631 02:8621: 22        .byte $22, $04
 - D 0 - I - 0x008633 02:8623: 23        .byte $23, $04
@@ -947,7 +951,7 @@ loc_track1E:
 
 loc_track1F:
 - D 0 - I - 0x0086C1 02:86B1: 0A        .byte $0A, $02, $1F, $00
-- D 0 - I - 0x0086C5 02:86B5: A3        .byte $A3, $20
+- D 0 - I - 0x0086C5 02:86B5: A3        .byte $A3, $20 ; shaking effect, without skip
 - D 0 - I - 0x0086C7 02:86B7: EF        .byte $EF, $01
 - D 0 - I - 0x0086C9 02:86B9: FD        .byte $FD, $FE
 - D 0 - I - 0x0086CB 02:86BB: 25        .byte $25, $01
@@ -979,7 +983,7 @@ loc_track20:
 
 loc_track22:
 - D 0 - I - 0x0086FB 02:86EB: 05        .byte $05, $02, $0F, $00
-- D 0 - I - 0x0086FF 02:86EF: A3        .byte $A3, $10
+- D 0 - I - 0x0086FF 02:86EF: A3        .byte $A3, $10 ; shaking effect, without skip
 - D 0 - I - 0x008701 02:86F1: 25        .byte $25, $02
 - D 0 - I - 0x008703 02:86F3: 29        .byte $29, $02
 - D 0 - I - 0x008705 02:86F5: 34        .byte $34, $04
@@ -1081,7 +1085,7 @@ loc_track23:
 
 loc_track24:
 - D 0 - I - 0x0087C1 02:87B1: 06        .byte $06, $02, $0F, $00
-- D 0 - I - 0x0087C5 02:87B5: A3        .byte $A3, $10
+- D 0 - I - 0x0087C5 02:87B5: A3        .byte $A3, $10 ; shaking effect, without skip
 - D 0 - I - 0x0087C7 02:87B7: 35        .byte $35, $0C
 - D 0 - I - 0x0087C9 02:87B9: 34        .byte $34, $02
 - D 0 - I - 0x0087CB 02:87BB: 35        .byte $35, $02
@@ -1301,7 +1305,7 @@ loc_track2F:
 loc_track30:
 - D 0 - I - 0x008941 02:8931: 01        .byte $01, $02, $1F, $83
 - D 0 - I - 0x008945 02:8935: EF        .byte $EF, $02
-- D 0 - I - 0x008947 02:8937: A3        .byte $A3, $20
+- D 0 - I - 0x008947 02:8937: A3        .byte $A3, $20 ; shaking effect, without skip
 - D 0 - I - 0x008949 02:8939: FD        .byte $FD, $FE
 - D 0 - I - 0x00894B 02:893B: 20        .byte $20, $02
 - D 0 - I - 0x00894D 02:893D: BF        .byte $BF, $00
@@ -1390,7 +1394,7 @@ loc_track42:
 
 loc_track43:
 - D 0 - I - 0x0089B8 02:89A8: 04        .byte $04, $02, $0A, $00
-- D 0 - I - 0x0089BC 02:89AC: A3        .byte $A3, $10
+- D 0 - I - 0x0089BC 02:89AC: A3        .byte $A3, $10 ; shaking effect, without skip
 - D 0 - I - 0x0089BE 02:89AE: 24        .byte $24, $06
 - D 0 - I - 0x0089C0 02:89B0: 24        .byte $24, $06
 - D 0 - I - 0x0089C2 02:89B2: 24        .byte $24, $06
@@ -1730,7 +1734,7 @@ loc_track52:
 
 loc_track53:
 - D - - - - 0x008C31 02:8C21: 07        .byte $07, $01, $0F, $00
-- D - - - - 0x008C35 02:8C25: A3        .byte $A3, $10
+- D - - - - 0x008C35 02:8C25: A3        .byte $A3, $10 ; shaking effect, without skip
 - D - - - - 0x008C37 02:8C27: 30        .byte $30, $06
 - D - - - - 0x008C39 02:8C29: 32        .byte $32, $02
 - D - - - - 0x008C3B 02:8C2B: 30        .byte $30, $04
@@ -1756,7 +1760,7 @@ loc_track54:
 
 loc_track55:
 - D 0 - I - 0x008C5F 02:8C4F: 03        .byte $03, $02, $1C, $00
-- D 0 - I - 0x008C63 02:8C53: A3        .byte $A3, $21
+- D 0 - I - 0x008C63 02:8C53: A3        .byte $A3, $21 ; shaking effect, skip - 1*3 frames for each rows
 - D 0 - I - 0x008C65 02:8C55: 1F        .byte $1F, $04
 - D 0 - I - 0x008C67 02:8C57: 25        .byte $25, $04
 - D 0 - I - 0x008C69 02:8C59: 27        .byte $27, $04
@@ -1958,18 +1962,18 @@ C - - - - - 0x008D95 02:AD85: EE 06 04  INC v_sound_counter
 ; 7E - 6th sound row
 ; 93 - 7th sound row
 ; X = {00,15,2A,3F,54,69,7E,93} , in the end - A8
-bra_AD88_loop:                                                   ; loop by sound rows (8 times)
-C - - - - - 0x008D98 02:AD88: AA        TAX                      ; x <~ sound row offset
-C - - - - - 0x008D99 02:AD89: BD 11 04  LDA vSoundRowB_1,X       ;
-C - - - - - 0x008D9C 02:AD8C: 29 03     AND #$03                 ;
-C - - - - - 0x008D9E 02:AD8E: 8D 02 04  STA vCurrentApuChannel   ; puts the apu channel (0x00, 0x01, 0x02 or 0x03)
-C - - - - - 0x008DA1 02:AD91: A8        TAY                      ; 0x00, 0x01, 0x02 or 0x03
-C - - - - - 0x008DA2 02:AD92: B9 A6 B1  LDA tbl_B1A6,Y
-C - - - - - 0x008DA5 02:AD95: 8D 03 04  STA ram_0403
-C - - - - - 0x008DA8 02:AD98: BD 10 04  LDA vSoundRowIndex,X     ;
-C - - - - - 0x008DAB 02:AD9B: F0 5C     BEQ bra_ADF9_init        ; If SoundRowIndex == 0x00
-C - - - - - 0x008DAD 02:AD9D: C9 FF     CMP #$FF                 ; CONSTANT - the sound row isn't activated
-C - - - - - 0x008DAF 02:AD9F: F0 4F     BEQ bra_ADF0_next_row    ; If SoundRowIndex == 0xFF
+bra_AD88_loop:                                                             ; loop by sound rows (8 times)
+C - - - - - 0x008D98 02:AD88: AA        TAX                                ; x <~ sound row offset
+C - - - - - 0x008D99 02:AD89: BD 11 04  LDA vSoundRowB_1,X                 ;
+C - - - - - 0x008D9C 02:AD8C: 29 03     AND #$03                           ;
+C - - - - - 0x008D9E 02:AD8E: 8D 02 04  STA vCurrentApuChannel             ; puts the apu channel (0x00, 0x01, 0x02 or 0x03)
+C - - - - - 0x008DA1 02:AD91: A8        TAY                                ; 0x00, 0x01, 0x02 or 0x03
+C - - - - - 0x008DA2 02:AD92: B9 A6 B1  LDA tbl_B1A6_apu_channels_flags,Y  ; puts the apu channel flags (0x00, 0x01, 0x82 or 0x43)
+C - - - - - 0x008DA5 02:AD95: 8D 03 04  STA vCurrentApuChannelFlag         ;
+C - - - - - 0x008DA8 02:AD98: BD 10 04  LDA vSoundRowIndex,X               ;
+C - - - - - 0x008DAB 02:AD9B: F0 5C     BEQ bra_ADF9_init                  ; If SoundRowIndex == 0x00
+C - - - - - 0x008DAD 02:AD9D: C9 FF     CMP #$FF                           ; CONSTANT - the sound row isn't activated
+C - - - - - 0x008DAF 02:AD9F: F0 4F     BEQ bra_ADF0_next_row              ; If SoundRowIndex == 0xFF
 C - - - - - 0x008DB1 02:ADA1: 20 3F B1  JSR sub_B13F
 C - - - - - 0x008DB4 02:ADA4: 20 B4 B0  JSR sub_B0B4
 C - - - - - 0x008DB7 02:ADA7: FE 1D 04  INC vSoundRowB_D,X
@@ -1981,24 +1985,24 @@ C - - - - - 0x008DC5 02:ADB5: 9D 1D 04  STA vSoundRowB_D,X
 bra_ADB8_skip:
 C - - - - - 0x008DC8 02:ADB8: DE 15 04  DEC vSoundRowFPPCounter,X
 C - - - - - 0x008DCB 02:ADBB: 10 18     BPL bra_ADD5_skip
-C - - - - - 0x008DCD 02:ADBD: BD 14 04  LDA vSoundRowFPPValue,X           ;
-C - - - - - 0x008DD0 02:ADC0: 29 0F     AND #$0F                          ; CONSTANT - Max value (0x0F)
-C - - - - - 0x008DD2 02:ADC2: 9D 15 04  STA vSoundRowFPPCounter,X         ; Initializes a counter again
+C - - - - - 0x008DCD 02:ADBD: BD 14 04  LDA vSoundRowFPPValue,X            ;
+C - - - - - 0x008DD0 02:ADC0: 29 0F     AND #$0F                           ; CONSTANT - Max value (0x0F)
+C - - - - - 0x008DD2 02:ADC2: 9D 15 04  STA vSoundRowFPPCounter,X          ; Initializes a counter again
 C - - - - - 0x008DD5 02:ADC5: 20 FD B0  JSR sub_B0FD
-C - - - - - 0x008DD8 02:ADC8: BD 24 04  LDA vSoundRowB_K,X
-C - - - - - 0x008DDB 02:ADCB: F0 03     BEQ bra_ADD0_skip
-C - - - - - 0x008DDD 02:ADCD: DE 24 04  DEC vSoundRowB_K,X
-bra_ADD0_skip:
-C - - - - - 0x008DE0 02:ADD0: DE 17 04  DEC vSoundRowFPPLength,X          ;
-C - - - - - 0x008DE3 02:ADD3: F0 06     BEQ bra_ADDB_skip                 ; If the length == 0x00
+C - - - - - 0x008DD8 02:ADC8: BD 24 04  LDA vSoundRowShakingEfCounter,X    ;
+C - - - - - 0x008DDB 02:ADCB: F0 03     BEQ @bra_ADD0_skip                 ; If the counter == 0x00
+C - - - - - 0x008DDD 02:ADCD: DE 24 04  DEC vSoundRowShakingEfCounter,X    ;
+@bra_ADD0_skip:
+C - - - - - 0x008DE0 02:ADD0: DE 17 04  DEC vSoundRowFPPLength,X           ;
+C - - - - - 0x008DE3 02:ADD3: F0 06     BEQ bra_ADDB_skip                  ; If the length == 0x00
 bra_ADD5_skip:
 C - - - - - 0x008DE5 02:ADD5: 20 89 B0  JSR sub_B089
-C - - - - - 0x008DE8 02:ADD8: 4C E4 AD  JMP loc_ADE4_mark_current_channel ;
+C - - - - - 0x008DE8 02:ADD8: 4C E4 AD  JMP loc_ADE4_mark_current_channel  ;
 
 bra_ADDB_skip:
 loc_ADDB:
-C D 1 - - - 0x008DEB 02:ADDB: BD 23 04  LDA vSoundRowB_J,X
-C - - - - - 0x008DEE 02:ADDE: 9D 24 04  STA vSoundRowB_K,X
+C D 1 - - - 0x008DEB 02:ADDB: BD 23 04  LDA vSoundRowShakingEfValue,X      ;
+C - - - - - 0x008DEE 02:ADDE: 9D 24 04  STA vSoundRowShakingEfCounter,X    ; restore from the sound track
 C - - - - - 0x008DF1 02:ADE1: 20 38 AE  JSR sub_AE38_execute_sound_pair
 loc_ADE4_mark_current_channel:
 C D 1 - - - 0x008DF4 02:ADE4: AC 02 04  LDY vCurrentApuChannel     ;
@@ -2013,23 +2017,24 @@ C - - - - - 0x008E04 02:ADF4: C9 A8     CMP #$A8                   ; $15+$15+$15
 C - - - - - 0x008E06 02:ADF6: D0 90     BNE bra_AD88_loop          ; If Register A != 0xA8
 C - - - - - 0x008E08 02:ADF8: 60        RTS                        ;
 
+loc_ADF9:
 bra_ADF9_init:
 C - - - - - 0x008E09 02:ADF9: BD 12 04  LDA vSoundRowB_2,X              ;
 C - - - - - 0x008E0C 02:ADFC: 85 FE     STA ram_00FE                    ; Low address (the current track)
 C - - - - - 0x008E0E 02:ADFE: BD 13 04  LDA vSoundRowB_3,X              ;
 C - - - - - 0x008E11 02:AE01: 85 FF     STA ram_00FF                    ; High address  (the current track)
-C - - - - - 0x008E13 02:AE03: A0 00     LDY #$00                        ; to 1 byte of N
+C - - - - - 0x008E13 02:AE03: A0 00     LDY #$00                        ; to 1 byte of 4
 C - - - - - 0x008E15 02:AE05: B1 FE     LDA (ram_00FE),Y                ;
 C - - - - - 0x008E17 02:AE07: 29 0F     AND #$0F                        ; CONSTANT - Max value (0x0F)
 C - - - - - 0x008E19 02:AE09: 9D 14 04  STA vSoundRowFPPValue,X         ; set the control value
 C - - - - - 0x008E1C 02:AE0C: 9D 15 04  STA vSoundRowFPPCounter,X       ; set the counter
-C - - - - - 0x008E1F 02:AE0F: C8        INY                             ; to 2 byte of N
+C - - - - - 0x008E1F 02:AE0F: C8        INY                             ; to 2 byte of 4
 C - - - - - 0x008E20 02:AE10: 20 6F B0  JSR sub_B06F
-C - - - - - 0x008E23 02:AE13: C8        INY                             ; to 3 byte of N
+C - - - - - 0x008E23 02:AE13: C8        INY                             ; to 3 byte of 4
 C - - - - - 0x008E24 02:AE14: B1 FE     LDA (ram_00FE),Y
 C - - - - - 0x008E26 02:AE16: 0D 04 04  ORA ram_0404
 C - - - - - 0x008E29 02:AE19: 9D 16 04  STA vSoundRowB_6,X
-C - - - - - 0x008E2C 02:AE1C: C8        INY                             ; to 4 byte of N
+C - - - - - 0x008E2C 02:AE1C: C8        INY                             ; to 4 byte of 4
 C - - - - - 0x008E2D 02:AE1D: B1 FE     LDA (ram_00FE),Y
 C - - - - - 0x008E2F 02:AE1F: 9D 18 04  STA vSoundRowSweep,X
 C - - - - - 0x008E32 02:AE22: A9 00     LDA #$00
@@ -2043,7 +2048,8 @@ C - - - - - 0x008E45 02:AE35: 4C DB AD  JMP loc_ADDB
 
 sub_AE38_execute_sound_pair:
 loc_AE38_next_sound_pair:
-C D 1 - - - 0x008E48 02:AE38: A0 00     LDY #$00       ; to 1 byte of N
+bra_AE38_next_sound_pair:
+C D 1 - - - 0x008E48 02:AE38: A0 00     LDY #$00       ; to 1 byte of 2
 C - - - - - 0x008E4A 02:AE3A: 84 FF     STY ram_00FF
 C - - - - - 0x008E4C 02:AE3C: BD 10 04  LDA vSoundRowIndex,X
 C - - - - - 0x008E4F 02:AE3F: 0A        ASL
@@ -2073,6 +2079,7 @@ C - - - - - 0x008E7C 02:AE6C: 4C F5 AE  JMP loc_AEF5
 bra_AE6F:
 C - - - - - 0x008E7F 02:AE6F: 4C B7 AF  JMP loc_AFB7
 
+; In: Register A - the sound command
 bra_AE72:
 C - - - - - 0x008E82 02:AE72: C9 FD     CMP #$FD
 C - - - - - 0x008E84 02:AE74: D0 09     BNE bra_AE7F
@@ -2087,6 +2094,7 @@ C - - - - - 0x008E91 02:AE81: D0 F9     BNE bra_AE7C_repeat
 C - - - - - 0x008E93 02:AE83: 9D 10 04  STA vSoundRowIndex,X
 C - - - - - 0x008E96 02:AE86: 4C 51 B0  JMP loc_B051_skip_channel
 
+; In: Register A - the sound command
 bra_AE89:
 C - - - - - 0x008E99 02:AE89: 29 0F     AND #$0F
 C - - - - - 0x008E9B 02:AE8B: 49 FF     EOR #$FF
@@ -2094,11 +2102,11 @@ C - - - - - 0x008E9D 02:AE8D: 18        CLC
 C - - - - - 0x008E9E 02:AE8E: 69 01     ADC #$01
 C - - - - - 0x008EA0 02:AE90: 4C 95 AE  JMP loc_AE95
 
+; In: Register A - the sound command
 bra_AE93:
-- - - - - - 0x008EA3 02:AE93: 29        .byte $29   ; 
-- - - - - - 0x008EA4 02:AE94: 0F        .byte $0F   ; 
+- - - - - - 0x008EA3 02:AE93: 29 0F     AND #$0F
 loc_AE95:
-C D 1 - - - 0x008EA5 02:AE95: 2C 03 04  BIT ram_0403
+C D 1 - - - 0x008EA5 02:AE95: 2C 03 04  BIT vCurrentApuChannelFlag
 C - - - - - 0x008EA8 02:AE98: 30 0B     BMI @bra_AEA5_triangle
 C - - - - - 0x008EAA 02:AE9A: 9D 1E 04  STA vSoundRowB_E,X
 C - - - - - 0x008EAD 02:AE9D: B1 FE     LDA (ram_00FE),Y
@@ -2107,10 +2115,11 @@ C - - - - - 0x008EB2 02:AEA2: 9D 20 04  STA vSoundRowB_G,X
 @bra_AEA5_triangle:
 C - - - - - 0x008EB5 02:AEA5: 4C 38 AE  JMP loc_AE38_next_sound_pair
 
+; In: Register A - the sound command
 bra_AEA8:
 C - - - - - 0x008EB8 02:AEA8: 29 0F     AND #$0F
 C - - - - - 0x008EBA 02:AEAA: 8D 04 04  STA ram_0404
-C - - - - - 0x008EBD 02:AEAD: 2C 03 04  BIT ram_0403
+C - - - - - 0x008EBD 02:AEAD: 2C 03 04  BIT vCurrentApuChannelFlag
 C - - - - - 0x008EC0 02:AEB0: 30 12     BMI @bra_AEC4_next
 C - - - - - 0x008EC2 02:AEB2: BD 16 04  LDA vSoundRowB_6,X
 C - - - - - 0x008EC5 02:AEB5: 29 10     AND #$10
@@ -2122,7 +2131,7 @@ C - - - - - 0x008ED1 02:AEC1: 9D 1B 04  STA vSoundRowB_B,X
 @bra_AEC4_next:
 C - - - - - 0x008ED4 02:AEC4: 4C 38 AE  JMP loc_AE38_next_sound_pair
 
-; In: Register A - the first element of the sound pair
+; In: Register A - the sound command
 bra_AEC7_replay:
 C - - - - - 0x008ED7 02:AEC7: 29 0F     AND #$0F                            ; filters (a mask) for the number of replays
 C - - - - - 0x008ED9 02:AEC9: F0 1D     BEQ bra_AEE8_done                   ; If the number of replays == 0x00
@@ -2154,7 +2163,7 @@ C - - - - - 0x008F02 02:AEF2: 4C 38 AE  JMP loc_AE38_next_sound_pair
 ; In: Register A - the sound command
 loc_AEF5:
 C D 1 - - - 0x008F05 02:AEF5: D0 0F     BNE bra_AF06_skip               ; If the sound command != 0xA0
-C - - - - - 0x008F07 02:AEF7: 2C 03 04  BIT ram_0403
+C - - - - - 0x008F07 02:AEF7: 2C 03 04  BIT vCurrentApuChannelFlag
 C - - - - - 0x008F0A 02:AEFA: 30 13     BMI bra_AF0F_triangle
 C - - - - - 0x008F0C 02:AEFC: BD 16 04  LDA vSoundRowB_6,X
 C - - - - - 0x008F0F 02:AEFF: 29 C0     AND #$C0
@@ -2163,165 +2172,112 @@ C - - - - - 0x008F13 02:AF03: 4C 23 AF  JMP loc_AF23_continue
 
 ; In: Register A - the sound command
 bra_AF06_skip:
-C - - - - - 0x008F16 02:AF06: C9 A1     CMP #$A1
+C - - - - - 0x008F16 02:AF06: C9 A1     CMP #$A1                        ; CONSTANT - a set for the sweep
 C - - - - - 0x008F18 02:AF08: D0 08     BNE bra_AF12_skip               ; If the sound command != 0xA1
-C - - - - - 0x008F1A 02:AF0A: B1 FE     LDA (ram_00FE),Y
+C - - - - - 0x008F1A 02:AF0A: B1 FE     LDA (ram_00FE),Y                ; to 2 byte of 2 (second of the sound pair)
 C - - - - - 0x008F1C 02:AF0C: 9D 18 04  STA vSoundRowSweep,X
 bra_AF0F_triangle:
 C - - - - - 0x008F1F 02:AF0F: 4C 38 AE  JMP loc_AE38_next_sound_pair
 
 bra_AF12_skip:
 C - - - - - 0x008F22 02:AF12: C9 A2     CMP #$A2
-C - - - - - 0x008F24 02:AF14: D0 13     BNE bra_AF29
+C - - - - - 0x008F24 02:AF14: D0 13     BNE bra_AF29_skip               ; If the sound command != 0xA2
 C - - - - - 0x008F26 02:AF16: 20 6F B0  JSR sub_B06F
-C - - - - - 0x008F29 02:AF19: B0 08     BCS bra_AF23
+C - - - - - 0x008F29 02:AF19: B0 08     BCS bra_AF23_skip
 C - - - - - 0x008F2B 02:AF1B: BD 16 04  LDA vSoundRowB_6,X
 C - - - - - 0x008F2E 02:AF1E: 29 1F     AND #$1F
 C - - - - - 0x008F30 02:AF20: 0D 04 04  ORA ram_0404
 loc_AF23_continue:
-bra_AF23:
+bra_AF23_skip:
 C D 1 - - - 0x008F33 02:AF23: 9D 16 04  STA vSoundRowB_6,X
 C - - - - - 0x008F36 02:AF26: 4C 38 AE  JMP loc_AE38_next_sound_pair
 
-bra_AF29:
-C - - - - - 0x008F39 02:AF29: C9 A3     CMP #$A3
-C - - - - - 0x008F3B 02:AF2B: D0 1C     BNE bra_AF49
-C - - - - - 0x008F3D 02:AF2D: B1 FE     LDA (ram_00FE),Y
-C - - - - - 0x008F3F 02:AF2F: 30 1C     BMI bra_AF4D
-C - - - - - 0x008F41 02:AF31: 48        PHA
-C - - - - - 0x008F42 02:AF32: 29 0F     AND #$0F
-C - - - - - 0x008F44 02:AF34: 0A        ASL
-C - - - - - 0x008F45 02:AF35: 9D 23 04  STA vSoundRowB_J,X
-C - - - - - 0x008F48 02:AF38: 9D 24 04  STA vSoundRowB_K,X
-C - - - - - 0x008F4B 02:AF3B: 68        PLA
-C - - - - - 0x008F4C 02:AF3C: 29 70     AND #$70
-C - - - - - 0x008F4E 02:AF3E: 0D 02 04  ORA vCurrentApuChannel
-C - - - - - 0x008F51 02:AF41: 09 80     ORA #$80
+bra_AF29_skip:
+C - - - - - 0x008F39 02:AF29: C9 A3     CMP #$A3                        ; CONSTANT - shaking effect
+C - - - - - 0x008F3B 02:AF2B: D0 1C     BNE bra_AF49_skip               ; If the sound command != 0xA3
+C - - - - - 0x008F3D 02:AF2D: B1 FE     LDA (ram_00FE),Y                ;
+C - - - - - 0x008F3F 02:AF2F: 30 1C     BMI bra_AF4D_restore            ; If the second element of the sound pair >= 0x80 (is negative)
+C - - - - - 0x008F41 02:AF31: 48        PHA                             ; store second of the sound pair
+C - - - - - 0x008F42 02:AF32: 29 0F     AND #$0F                        ; the mask for the skip
+C - - - - - 0x008F44 02:AF34: 0A        ASL                             ; *2
+C - - - - - 0x008F45 02:AF35: 9D 23 04  STA vSoundRowShakingEfValue,X   ; initializes
+C - - - - - 0x008F48 02:AF38: 9D 24 04  STA vSoundRowShakingEfCounter,X ; initializes
+C - - - - - 0x008F4B 02:AF3B: 68        PLA                             ; retrieve second of the sound pair (see $AF31)
+C - - - - - 0x008F4C 02:AF3C: 29 70     AND #$70                        ; the mask for the table of spread
+C - - - - - 0x008F4E 02:AF3E: 0D 02 04  ORA vCurrentApuChannel          ;
+C - - - - - 0x008F51 02:AF41: 09 80     ORA #$80                        ; CONSTANT - using shaking effect
 C - - - - - 0x008F53 02:AF43: 9D 11 04  STA vSoundRowB_1,X
-C - - - - - 0x008F56 02:AF46: 4C 38 AE  JMP loc_AE38_next_sound_pair
+C - - - - - 0x008F56 02:AF46: 4C 38 AE  JMP loc_AE38_next_sound_pair    ;
 
-bra_AF49:
-- - - - - - 0x008F59 02:AF49: C9        .byte $C9   ; 
-- - - - - - 0x008F5A 02:AF4A: A4        .byte $A4   ; 
-- - - - - - 0x008F5B 02:AF4B: D0        .byte $D0   ; 
-- - - - - - 0x008F5C 02:AF4C: 0B        .byte $0B   ; 
-bra_AF4D:
-- - - - - - 0x008F5D 02:AF4D: BD        .byte $BD   ; 
-- - - - - - 0x008F5E 02:AF4E: 11        .byte $11   ; 
-- - - - - - 0x008F5F 02:AF4F: 04        .byte $04   ; 
-- - - - - - 0x008F60 02:AF50: 29        .byte $29   ; 
-- - - - - - 0x008F61 02:AF51: 03        .byte $03   ; 
-- - - - - - 0x008F62 02:AF52: 9D        .byte $9D   ; 
-- - - - - - 0x008F63 02:AF53: 11        .byte $11   ; 
-- - - - - - 0x008F64 02:AF54: 04        .byte $04   ; 
-- - - - - - 0x008F65 02:AF55: 4C        .byte $4C   ; <L>
-- - - - - - 0x008F66 02:AF56: 38        .byte $38   ; <8>
-- - - - - - 0x008F67 02:AF57: AE        .byte $AE   ; 
-- - - - - - 0x008F68 02:AF58: C9        .byte $C9   ; 
-- - - - - - 0x008F69 02:AF59: A5        .byte $A5   ; 
-- - - - - - 0x008F6A 02:AF5A: D0        .byte $D0   ; 
-- - - - - - 0x008F6B 02:AF5B: 08        .byte $08   ; 
-- - - - - - 0x008F6C 02:AF5C: B1        .byte $B1   ; 
-- - - - - - 0x008F6D 02:AF5D: FE        .byte $FE   ; 
-- - - - - - 0x008F6E 02:AF5E: 8D        .byte $8D   ; 
-- - - - - - 0x008F6F 02:AF5F: 07        .byte $07   ; 
-- - - - - - 0x008F70 02:AF60: 04        .byte $04   ; 
-- - - - - - 0x008F71 02:AF61: 4C        .byte $4C   ; <L>
-- - - - - - 0x008F72 02:AF62: 38        .byte $38   ; <8>
-- - - - - - 0x008F73 02:AF63: AE        .byte $AE   ; 
-- - - - - - 0x008F74 02:AF64: C9        .byte $C9   ; 
-- - - - - - 0x008F75 02:AF65: AD        .byte $AD   ; 
-- - - - - - 0x008F76 02:AF66: D0        .byte $D0   ; 
-- - - - - - 0x008F77 02:AF67: 26        .byte $26   ; 
-- - - - - - 0x008F78 02:AF68: B1        .byte $B1   ; 
-- - - - - - 0x008F79 02:AF69: FE        .byte $FE   ; 
-- - - - - - 0x008F7A 02:AF6A: 48        .byte $48   ; <H>
-- - - - - - 0x008F7B 02:AF6B: A9        .byte $A9   ; 
-- - - - - - 0x008F7C 02:AF6C: 00        .byte $00   ; 
-- - - - - - 0x008F7D 02:AF6D: 85        .byte $85   ; 
-- - - - - - 0x008F7E 02:AF6E: FF        .byte $FF   ; 
-- - - - - - 0x008F7F 02:AF6F: BD        .byte $BD   ; 
-- - - - - - 0x008F80 02:AF70: 10        .byte $10   ; 
-- - - - - - 0x008F81 02:AF71: 04        .byte $04   ; 
-- - - - - - 0x008F82 02:AF72: 0A        .byte $0A   ; 
-- - - - - - 0x008F83 02:AF73: 26        .byte $26   ; 
-- - - - - - 0x008F84 02:AF74: FF        .byte $FF   ; 
-- - - - - - 0x008F85 02:AF75: 7D        .byte $7D   ; 
-- - - - - - 0x008F86 02:AF76: 12        .byte $12   ; 
-- - - - - - 0x008F87 02:AF77: 04        .byte $04   ; 
-- - - - - - 0x008F88 02:AF78: 9D        .byte $9D   ; 
-- - - - - - 0x008F89 02:AF79: 12        .byte $12   ; 
-- - - - - - 0x008F8A 02:AF7A: 04        .byte $04   ; 
-- - - - - - 0x008F8B 02:AF7B: BD        .byte $BD   ; 
-- - - - - - 0x008F8C 02:AF7C: 13        .byte $13   ; 
-- - - - - - 0x008F8D 02:AF7D: 04        .byte $04   ; 
-- - - - - - 0x008F8E 02:AF7E: 65        .byte $65   ; <e>
-- - - - - - 0x008F8F 02:AF7F: FF        .byte $FF   ; 
-- - - - - - 0x008F90 02:AF80: 9D        .byte $9D   ; 
-- - - - - - 0x008F91 02:AF81: 13        .byte $13   ; 
-- - - - - - 0x008F92 02:AF82: 04        .byte $04   ; 
-- - - - - - 0x008F93 02:AF83: A9        .byte $A9   ; 
-- - - - - - 0x008F94 02:AF84: 00        .byte $00   ; 
-- - - - - - 0x008F95 02:AF85: 9D        .byte $9D   ; 
-- - - - - - 0x008F96 02:AF86: 10        .byte $10   ; 
-- - - - - - 0x008F97 02:AF87: 04        .byte $04   ; 
-- - - - - - 0x008F98 02:AF88: 68        .byte $68   ; <h>
-- - - - - - 0x008F99 02:AF89: D0        .byte $D0   ; 
-- - - - - - 0x008F9A 02:AF8A: 10        .byte $10   ; 
-- - - - - - 0x008F9B 02:AF8B: 4C        .byte $4C   ; <L>
-- - - - - - 0x008F9C 02:AF8C: F9        .byte $F9   ; 
-- - - - - - 0x008F9D 02:AF8D: AD        .byte $AD   ; 
-- - - - - - 0x008F9E 02:AF8E: C9        .byte $C9   ; 
-- - - - - - 0x008F9F 02:AF8F: AE        .byte $AE   ; 
-- - - - - - 0x008FA0 02:AF90: D0        .byte $D0   ; 
-- - - - - - 0x008FA1 02:AF91: 0C        .byte $0C   ; 
-- - - - - - 0x008FA2 02:AF92: 1E        .byte $1E   ; 
-- - - - - - 0x008FA3 02:AF93: 14        .byte $14   ; 
-- - - - - - 0x008FA4 02:AF94: 04        .byte $04   ; 
-- - - - - - 0x008FA5 02:AF95: B1        .byte $B1   ; 
-- - - - - - 0x008FA6 02:AF96: FE        .byte $FE   ; 
-- - - - - - 0x008FA7 02:AF97: 0A        .byte $0A   ; 
-- - - - - - 0x008FA8 02:AF98: 7E        .byte $7E   ; 
-- - - - - - 0x008FA9 02:AF99: 14        .byte $14   ; 
-- - - - - - 0x008FAA 02:AF9A: 04        .byte $04   ; 
-- - - - - - 0x008FAB 02:AF9B: 4C        .byte $4C   ; <L>
-- - - - - - 0x008FAC 02:AF9C: 38        .byte $38   ; <8>
-- - - - - - 0x008FAD 02:AF9D: AE        .byte $AE   ; 
-- - - - - - 0x008FAE 02:AF9E: C9        .byte $C9   ; 
-- - - - - - 0x008FAF 02:AF9F: AF        .byte $AF   ; 
-- - - - - - 0x008FB0 02:AFA0: D0        .byte $D0   ; 
-- - - - - - 0x008FB1 02:AFA1: 12        .byte $12   ; 
-- - - - - - 0x008FB2 02:AFA2: B1        .byte $B1   ; 
-- - - - - - 0x008FB3 02:AFA3: FE        .byte $FE   ; 
-- - - - - - 0x008FB4 02:AFA4: 29        .byte $29   ; 
-- - - - - - 0x008FB5 02:AFA5: 0F        .byte $0F   ; 
-- - - - - - 0x008FB6 02:AFA6: 9D        .byte $9D   ; 
-- - - - - - 0x008FB7 02:AFA7: 15        .byte $15   ; 
-- - - - - - 0x008FB8 02:AFA8: 04        .byte $04   ; 
-- - - - - - 0x008FB9 02:AFA9: BD        .byte $BD   ; 
-- - - - - - 0x008FBA 02:AFAA: 14        .byte $14   ; 
-- - - - - - 0x008FBB 02:AFAB: 04        .byte $04   ; 
-- - - - - - 0x008FBC 02:AFAC: 29        .byte $29   ; 
-- - - - - - 0x008FBD 02:AFAD: F0        .byte $F0   ; 
-- - - - - - 0x008FBE 02:AFAE: 1D        .byte $1D   ; 
-- - - - - - 0x008FBF 02:AFAF: 15        .byte $15   ; 
-- - - - - - 0x008FC0 02:AFB0: 04        .byte $04   ; 
-- - - - - - 0x008FC1 02:AFB1: 9D        .byte $9D   ; 
-- - - - - - 0x008FC2 02:AFB2: 14        .byte $14   ; 
-- - - - - - 0x008FC3 02:AFB3: 04        .byte $04   ; 
-- - - - - - 0x008FC4 02:AFB4: 4C        .byte $4C   ; <L>
-- - - - - - 0x008FC5 02:AFB5: 38        .byte $38   ; <8>
-- - - - - - 0x008FC6 02:AFB6: AE        .byte $AE   ; 
+bra_AF49_skip:
+C - - - - - 0x008F59 02:AF49: C9 A4     CMP #$A4                       ; !(UNUSED)
+C - - - - - 0x008F5B 02:AF4B: D0 0B     BNE bra_AF58                   ; !(UNUSED)
+bra_AF4D_restore:
+C - - - - - 0x008F5D 02:AF4D: BD 11 04  LDA vSoundRowB_1,X             ; !(UNUSED)
+C - - - - - 0x008F60 02:AF50: 29 03     AND #$03                       ; !(UNUSED)
+C - - - - - 0x008F62 02:AF52: 9D 11 04  STA vSoundRowB_1,X             ; !(UNUSED)
+C - - - - - 0x008F65 02:AF55: 4C 38 AE  JMP loc_AE38_next_sound_pair   ; !(UNUSED)
+
+bra_AF58:
+C - - - - - 0x008F68 02:AF58: C9 A5     CMP #$A5                       ; !(UNUSED)
+C - - - - - 0x008F6A 02:AF5A: D0 08     BNE bra_AF64                   ; !(UNUSED)
+C - - - - - 0x008F6C 02:AF5C: B1 FE     LDA (ram_00FE),Y               ; !(UNUSED)
+C - - - - - 0x008F6E 02:AF5E: 8D 07 04  STA ram_0407                   ; !(UNUSED)
+C - - - - - 0x008F71 02:AF61: 4C 38 AE  JMP loc_AE38_next_sound_pair   ; !(UNUSED)
+
+bra_AF64:
+C - - - - - 0x008F74 02:AF64: C9 AD     CMP #$AD                       ; !(UNUSED)
+C - - - - - 0x008F76 02:AF66: D0 26     BNE bra_AF8E                   ; !(UNUSED)
+C - - - - - 0x008F78 02:AF68: B1 FE     LDA (ram_00FE),Y               ; !(UNUSED)
+C - - - - - 0x008F7A 02:AF6A: 48        PHA                            ; !(UNUSED)
+C - - - - - 0x008F7B 02:AF6B: A9 00     LDA #$00                       ; !(UNUSED)
+C - - - - - 0x008F7D 02:AF6D: 85 FF     STA ram_00FF                   ; !(UNUSED)
+C - - - - - 0x008F7F 02:AF6F: BD 10 04  LDA vSoundRowIndex,X           ; !(UNUSED)
+C - - - - - 0x008F82 02:AF72: 0A        ASL                            ; !(UNUSED)
+C - - - - - 0x008F83 02:AF73: 26 FF     ROL ram_00FF                   ; !(UNUSED)
+C - - - - - 0x008F85 02:AF75: 7D 12 04  ADC vSoundRowB_2,X             ; !(UNUSED)
+C - - - - - 0x008F88 02:AF78: 9D 12 04  STA vSoundRowB_2,X             ; !(UNUSED)
+C - - - - - 0x008F8B 02:AF7B: BD 13 04  LDA vSoundRowB_3,X             ; !(UNUSED)
+C - - - - - 0x008F8E 02:AF7E: 65 FF     ADC ram_00FF                   ; !(UNUSED)
+C - - - - - 0x008F90 02:AF80: 9D 13 04  STA vSoundRowB_3,X             ; !(UNUSED)
+C - - - - - 0x008F93 02:AF83: A9 00     LDA #$00                       ; !(UNUSED)
+C - - - - - 0x008F95 02:AF85: 9D 10 04  STA vSoundRowIndex,X           ; !(UNUSED)
+C - - - - - 0x008F98 02:AF88: 68        PLA                            ; !(UNUSED)
+C - - - - - 0x008F99 02:AF89: D0 10     BNE bra_AF9B                   ; !(UNUSED)
+C - - - - - 0x008F9B 02:AF8B: 4C F9 AD  JMP loc_ADF9                   ; !(UNUSED)
+
+bra_AF8E:
+C - - - - - 0x008F9E 02:AF8E: C9 AE     CMP #$AE                       ; !(UNUSED)
+C - - - - - 0x008FA0 02:AF90: D0 0C     BNE bra_AF9E                   ; !(UNUSED)
+C - - - - - 0x008FA2 02:AF92: 1E 14 04  ASL vSoundRowFPPValue,X        ; !(UNUSED)
+C - - - - - 0x008FA5 02:AF95: B1 FE     LDA (ram_00FE),Y               ; !(UNUSED)
+C - - - - - 0x008FA7 02:AF97: 0A        ASL                            ; !(UNUSED)
+C - - - - - 0x008FA8 02:AF98: 7E 14 04  ROR vSoundRowFPPValue,X        ; !(UNUSED)
+bra_AF9B:
+C - - - - - 0x008FAB 02:AF9B: 4C 38 AE  JMP loc_AE38_next_sound_pair   ; !(UNUSED)
+
+bra_AF9E:
+C - - - - - 0x008FAE 02:AF9E: C9 AF     CMP #$AF                       ; !(UNUSED)
+C - - - - - 0x008FB0 02:AFA0: D0 12     BNE @bra_AFB4_skip             ; !(UNUSED)
+C - - - - - 0x008FB2 02:AFA2: B1 FE     LDA (ram_00FE),Y               ; !(UNUSED)
+C - - - - - 0x008FB4 02:AFA4: 29 0F     AND #$0F                       ; !(UNUSED)
+C - - - - - 0x008FB6 02:AFA6: 9D 15 04  STA vSoundRowFPPCounter,X      ; !(UNUSED)
+C - - - - - 0x008FB9 02:AFA9: BD 14 04  LDA vSoundRowFPPValue,X        ; !(UNUSED)
+C - - - - - 0x008FBC 02:AFAC: 29 F0     AND #$F0                       ; !(UNUSED)
+C - - - - - 0x008FBE 02:AFAE: 1D 15 04  ORA vSoundRowFPPCounter,X      ; !(UNUSED)
+C - - - - - 0x008FC1 02:AFB1: 9D 14 04  STA vSoundRowFPPValue,X        ; !(UNUSED)
+@bra_AFB4_skip:
+C - - - - - 0x008FC4 02:AFB4: 4C 38 AE  JMP loc_AE38_next_sound_pair   ; !(UNUSED)
 
 ; In: Register A - the sound command
 loc_AFB7:
-C D 1 - - - 0x008FC7 02:AFB7: 2C 03 04  BIT ram_0403
-C - - - - - 0x008FCA 02:AFBA: 70 7F     BVS bra_B03B_noise  ; If 6th bit is set
-C - - - - - 0x008FCC 02:AFBC: 48        PHA                 ; store the sound command
-C - - - - - 0x008FCD 02:AFBD: 29 0F     AND #$0F                   ; the mask for the note
-C - - - - - 0x008FCF 02:AFBF: C9 0C     CMP #$0C                   ; CONSTANT - Max value (less than 0x0C)
-C - - - - - 0x008FD1 02:AFC1: 90 03     BCC bra_AFC6_play_note     ; If the note < 0x0C
-C - - - - - 0x008FD3 02:AFC3: 4C 49 B0  JMP loc_B049_mute_channel  ;
+C D 1 - - - 0x008FC7 02:AFB7: 2C 03 04  BIT vCurrentApuChannelFlag  ;
+C - - - - - 0x008FCA 02:AFBA: 70 7F     BVS bra_B03B_noise          ; If the current channel is noise
+C - - - - - 0x008FCC 02:AFBC: 48        PHA                         ; store the sound command
+C - - - - - 0x008FCD 02:AFBD: 29 0F     AND #$0F                    ; the mask for the note
+C - - - - - 0x008FCF 02:AFBF: C9 0C     CMP #$0C                    ; CONSTANT - Max value (less than 0x0C)
+C - - - - - 0x008FD1 02:AFC1: 90 03     BCC bra_AFC6_play_note      ; If the note < 0x0C
+C - - - - - 0x008FD3 02:AFC3: 4C 49 B0  JMP loc_B049_mute_channel   ;
 
 ; In: Register A - the note (0x00, 0x01, ..., 0x0B)
 bra_AFC6_play_note:
@@ -2354,7 +2310,7 @@ C - - - - - 0x008FFF 02:AFEF: D0 F7     BNE @bra_AFE8_loop                      
 ; In: $0404 - timer low or noise period low
 ; In: $0405 - timer high or noise period high
 bra_AFF1_set_internal_channel_params_:
-C - - - - - 0x009001 02:AFF1: A0 01     LDY #$01                                  ; to 2 byte of N (second of the sound pair)
+C - - - - - 0x009001 02:AFF1: A0 01     LDY #$01                                  ; to 2 byte of 2 (second of the sound pair)
 C - - - - - 0x009003 02:AFF3: B1 FE     LDA (ram_00FE),Y                          ;
 C - - - - - 0x009005 02:AFF5: 9D 17 04  STA vSoundRowFPPLength,X                  ;
 C - - - - - 0x009008 02:AFF8: A9 00     LDA #$00
@@ -2402,7 +2358,7 @@ loc_B049_mute_channel:
 C D 1 - - - 0x009059 02:B049: 68        PLA                                    ; retrieve the sound command (see $AFBC)
 ; In: Register A - the sound command
 bra_B04A_mute_noise:
-C - - - - - 0x00905A 02:B04A: A0 01     LDY #$01                               ; to 2 byte of N (second of the sound pair)
+C - - - - - 0x00905A 02:B04A: A0 01     LDY #$01                               ; to 2 byte of 2 (second of the sound pair)
 C - - - - - 0x00905C 02:B04C: B1 FE     LDA (ram_00FE),Y                       ;
 C - - - - - 0x00905E 02:B04E: 9D 17 04  STA vSoundRowFPPLength,X               ;
 loc_B051_skip_channel:
@@ -2424,8 +2380,11 @@ C - - - - - 0x00907D 02:B06D: 68        PLA                        ; double retu
 bra_B06E_RTS:
 C - - - - - 0x00907E 02:B06E: 60        RTS                        ;
 
+; Out: the carry status (analog return true or false)
+; 1, if the triangle linear counter is set
+; 0, otherwise.
 sub_B06F:
-C - - - - - 0x00907F 02:B06F: 2C 03 04  BIT ram_0403
+C - - - - - 0x00907F 02:B06F: 2C 03 04  BIT vCurrentApuChannelFlag
 C - - - - - 0x009082 02:B072: 30 0C     BMI bra_B080_triangle
 C - - - - - 0x009084 02:B074: B1 FE     LDA (ram_00FE),Y
 C - - - - - 0x009086 02:B076: 6A        ROR
@@ -2515,7 +2474,7 @@ C - - - - - 0x009109 02:B0F9: 99 00 40  STA $4000,Y
 C - - - - - 0x00910C 02:B0FC: 60        RTS
 
 sub_B0FD:
-C - - - - - 0x00910D 02:B0FD: 2C 03 04  BIT ram_0403
+C - - - - - 0x00910D 02:B0FD: 2C 03 04  BIT vCurrentApuChannelFlag
 C - - - - - 0x009110 02:B100: 30 2E     BMI bra_B130_RTS
 C - - - - - 0x009112 02:B102: BD 1E 04  LDA vSoundRowB_E,X
 C - - - - - 0x009115 02:B105: F0 29     BEQ bra_B130_RTS
@@ -2548,9 +2507,9 @@ C - - - - - 0x00914E 02:B13E: 60        RTS
 
 sub_B13F:
 C - - - - - 0x00914F 02:B13F: 20 61 B0  JSR sub_B061_prepare_current_channel
-C - - - - - 0x009152 02:B142: 2C 03 04  BIT ram_0403
-C - - - - - 0x009155 02:B145: 70 26     BVS bra_B16D_RTS
-C - - - - - 0x009157 02:B147: BD 24 04  LDA vSoundRowB_K,X
+C - - - - - 0x009152 02:B142: 2C 03 04  BIT vCurrentApuChannelFlag            ;
+C - - - - - 0x009155 02:B145: 70 26     BVS bra_B16D_RTS                      ; If the current channel is noise
+C - - - - - 0x009157 02:B147: BD 24 04  LDA vSoundRowShakingEfCounter,X
 C - - - - - 0x00915A 02:B14A: D0 21     BNE bra_B16D_RTS
 C - - - - - 0x00915C 02:B14C: AD 06 04  LDA v_sound_counter
 C - - - - - 0x00915F 02:B14F: 29 0F     AND #$0F
@@ -2561,13 +2520,13 @@ C - - - - - 0x009169 02:B159: 29 70     AND #$70
 C - - - - - 0x00916B 02:B15B: 18        CLC
 C - - - - - 0x00916C 02:B15C: 6D 04 04  ADC ram_0404
 C - - - - - 0x00916F 02:B15F: A8        TAY
-C - - - - - 0x009170 02:B160: B9 AA B1  LDA tbl_B1AA,Y
+C - - - - - 0x009170 02:B160: B9 AA B1  LDA tbl_B1AA_shaking_spread,Y
 C - - - - - 0x009173 02:B163: 18        CLC
 C - - - - - 0x009174 02:B164: 7D 21 04  ADC vSoundRowB_H,X
 C - - - - - 0x009177 02:B167: 20 AB B0  JSR sub_B0AB_get_channel_offset
 C - - - - - 0x00917A 02:B16A: 99 02 40  STA $4002,Y
 bra_B16D_RTS:
-C - - - - - 0x00917D 02:B16D: 60        RTS
+C - - - - - 0x00917D 02:B16D: 60        RTS                                   ;
 
 ; see https://www.nesdev.org/wiki/APU_period_table
 tbl_B16E_period_by_notes:
@@ -2601,129 +2560,28 @@ tbl_apu_channels:
 - D 1 - - - 0x0091AF 02:B19F: 02        .byte $02   ; Flag: pulse channel 2
 - D 1 - - - 0x0091B0 02:B1A0: 04        .byte $04   ; Flag: triangle channel
 - D 1 - - - 0x0091B1 02:B1A1: 08        .byte $08   ; Flag: noise channel
+
 tbl_B1A2_skip_apu_channel:
 - D 1 - - - 0x0091B2 02:B1A2: 0E        .byte $0E   ; Skip pulse channel 1
 - D 1 - - - 0x0091B3 02:B1A3: 0D        .byte $0D   ; Skip pulse channel 2
 - D 1 - - - 0x0091B4 02:B1A4: 0B        .byte $0B   ; Skip triangle channel
 - D 1 - - - 0x0091B5 02:B1A5: 07        .byte $07   ; Skip noise channel
-tbl_B1A6:
-- D 1 - - - 0x0091B6 02:B1A6: 00        .byte $00   ; 
-- D 1 - - - 0x0091B7 02:B1A7: 01        .byte $01   ; 
-- D 1 - - - 0x0091B8 02:B1A8: 82        .byte $82   ; 
-- D 1 - - - 0x0091B9 02:B1A9: 43        .byte $43   ; <C>
-tbl_B1AA:
-- - - - - - 0x0091BA 02:B1AA: 00        .byte $00   ; 
-- - - - - - 0x0091BB 02:B1AB: 00        .byte $00   ; 
-- - - - - - 0x0091BC 02:B1AC: 01        .byte $01   ; 
-- - - - - - 0x0091BD 02:B1AD: 01        .byte $01   ; 
-- - - - - - 0x0091BE 02:B1AE: 00        .byte $00   ; 
-- - - - - - 0x0091BF 02:B1AF: 00        .byte $00   ; 
-- - - - - - 0x0091C0 02:B1B0: FF        .byte $FF   ; 
-- - - - - - 0x0091C1 02:B1B1: FF        .byte $FF   ; 
-- - - - - - 0x0091C2 02:B1B2: 00        .byte $00   ; 
-- - - - - - 0x0091C3 02:B1B3: 00        .byte $00   ; 
-- - - - - - 0x0091C4 02:B1B4: 01        .byte $01   ; 
-- - - - - - 0x0091C5 02:B1B5: 01        .byte $01   ; 
-- - - - - - 0x0091C6 02:B1B6: 00        .byte $00   ; 
-- - - - - - 0x0091C7 02:B1B7: 00        .byte $00   ; 
-- - - - - - 0x0091C8 02:B1B8: FF        .byte $FF   ; 
-- - - - - - 0x0091C9 02:B1B9: FF        .byte $FF   ; 
-- D 1 - - - 0x0091CA 02:B1BA: 00        .byte $00   ; 
-- D 1 - - - 0x0091CB 02:B1BB: 00        .byte $00   ; 
-- D 1 - - - 0x0091CC 02:B1BC: 00        .byte $00   ; 
-- D 1 - - - 0x0091CD 02:B1BD: 00        .byte $00   ; 
-- D 1 - - - 0x0091CE 02:B1BE: 01        .byte $01   ; 
-- D 1 - - - 0x0091CF 02:B1BF: 01        .byte $01   ; 
-- D 1 - - - 0x0091D0 02:B1C0: 01        .byte $01   ; 
-- D 1 - - - 0x0091D1 02:B1C1: 01        .byte $01   ; 
-- D 1 - - - 0x0091D2 02:B1C2: 00        .byte $00   ; 
-- D 1 - - - 0x0091D3 02:B1C3: 00        .byte $00   ; 
-- D 1 - - - 0x0091D4 02:B1C4: 00        .byte $00   ; 
-- D 1 - - - 0x0091D5 02:B1C5: 00        .byte $00   ; 
-- D 1 - - - 0x0091D6 02:B1C6: FF        .byte $FF   ; 
-- D 1 - - - 0x0091D7 02:B1C7: FF        .byte $FF   ; 
-- D 1 - - - 0x0091D8 02:B1C8: FF        .byte $FF   ; 
-- D 1 - - - 0x0091D9 02:B1C9: FF        .byte $FF   ; 
-- D 1 - - - 0x0091DA 02:B1CA: 00        .byte $00   ; 
-- D 1 - - - 0x0091DB 02:B1CB: 01        .byte $01   ; 
-- D 1 - - - 0x0091DC 02:B1CC: 02        .byte $02   ; 
-- D 1 - - - 0x0091DD 02:B1CD: 01        .byte $01   ; 
-- D 1 - - - 0x0091DE 02:B1CE: 00        .byte $00   ; 
-- D 1 - - - 0x0091DF 02:B1CF: FF        .byte $FF   ; 
-- D 1 - - - 0x0091E0 02:B1D0: FE        .byte $FE   ; 
-- D 1 - - - 0x0091E1 02:B1D1: FF        .byte $FF   ; 
-- D 1 - - - 0x0091E2 02:B1D2: 00        .byte $00   ; 
-- D 1 - - - 0x0091E3 02:B1D3: 01        .byte $01   ; 
-- D 1 - - - 0x0091E4 02:B1D4: 02        .byte $02   ; 
-- D 1 - - - 0x0091E5 02:B1D5: 01        .byte $01   ; 
-- D 1 - - - 0x0091E6 02:B1D6: 00        .byte $00   ; 
-- D 1 - - - 0x0091E7 02:B1D7: FF        .byte $FF   ; 
-- D 1 - - - 0x0091E8 02:B1D8: FE        .byte $FE   ; 
-- D 1 - - - 0x0091E9 02:B1D9: FF        .byte $FF   ; 
-- - - - - - 0x0091EA 02:B1DA: 00        .byte $00   ; 
-- - - - - - 0x0091EB 02:B1DB: 00        .byte $00   ; 
-- - - - - - 0x0091EC 02:B1DC: 01        .byte $01   ; 
-- - - - - - 0x0091ED 02:B1DD: 01        .byte $01   ; 
-- - - - - - 0x0091EE 02:B1DE: 02        .byte $02   ; 
-- - - - - - 0x0091EF 02:B1DF: 02        .byte $02   ; 
-- - - - - - 0x0091F0 02:B1E0: 01        .byte $01   ; 
-- - - - - - 0x0091F1 02:B1E1: 01        .byte $01   ; 
-- - - - - - 0x0091F2 02:B1E2: 00        .byte $00   ; 
-- - - - - - 0x0091F3 02:B1E3: 00        .byte $00   ; 
-- - - - - - 0x0091F4 02:B1E4: FF        .byte $FF   ; 
-- - - - - - 0x0091F5 02:B1E5: FF        .byte $FF   ; 
-- - - - - - 0x0091F6 02:B1E6: FE        .byte $FE   ; 
-- - - - - - 0x0091F7 02:B1E7: FE        .byte $FE   ; 
-- - - - - - 0x0091F8 02:B1E8: FF        .byte $FF   ; 
-- - - - - - 0x0091F9 02:B1E9: FF        .byte $FF   ; 
-- - - - - - 0x0091FA 02:B1EA: FF        .byte $FF   ; 
-- - - - - - 0x0091FB 02:B1EB: FF        .byte $FF   ; 
-- - - - - - 0x0091FC 02:B1EC: FF        .byte $FF   ; 
-- - - - - - 0x0091FD 02:B1ED: FF        .byte $FF   ; 
-- - - - - - 0x0091FE 02:B1EE: FF        .byte $FF   ; 
-- - - - - - 0x0091FF 02:B1EF: FF        .byte $FF   ; 
-- - - - - - 0x009200 02:B1F0: FF        .byte $FF   ; 
-- - - - - - 0x009201 02:B1F1: FF        .byte $FF   ; 
-- - - - - - 0x009202 02:B1F2: FF        .byte $FF   ; 
-- - - - - - 0x009203 02:B1F3: FF        .byte $FF   ; 
-- - - - - - 0x009204 02:B1F4: FF        .byte $FF   ; 
-- - - - - - 0x009205 02:B1F5: FF        .byte $FF   ; 
-- - - - - - 0x009206 02:B1F6: FF        .byte $FF   ; 
-- - - - - - 0x009207 02:B1F7: FF        .byte $FF   ; 
-- - - - - - 0x009208 02:B1F8: FF        .byte $FF   ; 
-- - - - - - 0x009209 02:B1F9: FF        .byte $FF   ; 
-- - - - - - 0x00920A 02:B1FA: FE        .byte $FE   ; 
-- - - - - - 0x00920B 02:B1FB: FE        .byte $FE   ; 
-- - - - - - 0x00920C 02:B1FC: FE        .byte $FE   ; 
-- - - - - - 0x00920D 02:B1FD: FE        .byte $FE   ; 
-- - - - - - 0x00920E 02:B1FE: FE        .byte $FE   ; 
-- - - - - - 0x00920F 02:B1FF: FE        .byte $FE   ; 
-- - - - - - 0x009210 02:B200: FE        .byte $FE   ; 
-- - - - - - 0x009211 02:B201: FE        .byte $FE   ; 
-- - - - - - 0x009212 02:B202: FE        .byte $FE   ; 
-- - - - - - 0x009213 02:B203: FE        .byte $FE   ; 
-- - - - - - 0x009214 02:B204: FE        .byte $FE   ; 
-- - - - - - 0x009215 02:B205: FE        .byte $FE   ; 
-- - - - - - 0x009216 02:B206: FE        .byte $FE   ; 
-- - - - - - 0x009217 02:B207: FE        .byte $FE   ; 
-- - - - - - 0x009218 02:B208: FE        .byte $FE   ; 
-- - - - - - 0x009219 02:B209: FE        .byte $FE   ; 
-- D 1 - - - 0x00921A 02:B20A: 01        .byte $01   ; 
-- D 1 - - - 0x00921B 02:B20B: 01        .byte $01   ; 
-- D 1 - - - 0x00921C 02:B20C: 01        .byte $01   ; 
-- D 1 - - - 0x00921D 02:B20D: 01        .byte $01   ; 
-- D 1 - - - 0x00921E 02:B20E: 01        .byte $01   ; 
-- D 1 - - - 0x00921F 02:B20F: 01        .byte $01   ; 
-- D 1 - - - 0x009220 02:B210: 01        .byte $01   ; 
-- D 1 - - - 0x009221 02:B211: 01        .byte $01   ; 
-- D 1 - - - 0x009222 02:B212: 01        .byte $01   ; 
-- D 1 - - - 0x009223 02:B213: 01        .byte $01   ; 
-- D 1 - - - 0x009224 02:B214: 01        .byte $01   ; 
-- D 1 - - - 0x009225 02:B215: 01        .byte $01   ; 
-- D 1 - - - 0x009226 02:B216: 01        .byte $01   ; 
-- D 1 - - - 0x009227 02:B217: 01        .byte $01   ; 
-- D 1 - - - 0x009228 02:B218: 01        .byte $01   ; 
-- D 1 - - - 0x009229 02:B219: 01        .byte $01   ; 
+
+tbl_B1A6_apu_channels_flags:
+- D 1 - - - 0x0091B6 02:B1A6: 00        .byte $00   ; pulse channel 1
+- D 1 - - - 0x0091B7 02:B1A7: 01        .byte $01   ; pulse channel 2
+- D 1 - - - 0x0091B8 02:B1A8: 82        .byte $82   ; triangle channel
+- D 1 - - - 0x0091B9 02:B1A9: 43        .byte $43   ; noise channel
+
+tbl_B1AA_shaking_spread:
+- D - - - - 0x0091BA 02:B1AA: 00        .byte $00, $00, $01, $01, $00, $00, $FF, $FF, $00, $00, $01, $01, $00, $00, $FF, $FF
+- D 1 - - - 0x0091CA 02:B1BA: 00        .byte $00, $00, $00, $00, $01, $01, $01, $01, $00, $00, $00, $00, $FF, $FF, $FF, $FF
+- D 1 - - - 0x0091DA 02:B1CA: 00        .byte $00, $01, $02, $01, $00, $FF, $FE, $FF, $00, $01, $02, $01, $00, $FF, $FE, $FF
+- D - - - - 0x0091EA 02:B1DA: 00        .byte $00, $00, $01, $01, $02, $02, $01, $01, $00, $00, $FF, $FF, $FE, $FE, $FF, $FF
+- D - - - - 0x0091FA 02:B1EA: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x00920A 02:B1FA: FE        .byte $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE
+- D 1 - - - 0x00921A 02:B20A: 01        .byte $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
+
 tbl_B21A:
 - - - - - - 0x00922A 02:B21A: 02        .byte $02   ; 
 - - - - - - 0x00922B 02:B21B: 02        .byte $02   ; 

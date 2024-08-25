@@ -580,6 +580,7 @@ vItemPosXHigh                 = ram_03BC ; [03BD-03C1] The item position in th w
 vApuChannelStatus             = ram_0400 ; Secondary status flag for adjusting APU_STATUS during sound and music processing
 vApuChannelProcessed          = ram_0401 ; 0x01 - pulse 1, 0x02 - pulse 2, 0x04 - triangle, 0x08 - noise
 vCurrentApuChannel            = ram_0402 ; apu channel (0x00 - pulse 1, 0x01 - pulse 2, 0x02 - triangle, 0x03 - noise) for each sound row
+vCurrentApuChannelFlag        = ram_0403 ; apu channel flags (0x00 - pulse 1, 0x01 - pulse 2, 0x82 - triangle, 0x43 - noise)
 v_sound_counter               = ram_0406
 vSoundRowIndex                = ram_0410 ; sound pair index
 vSoundRowB_1                  = ram_0411 ; ?? apu channel (0x00 - pulse 1, 0x01 - pulse 2, 0x02 - triangle, 0x03 - noise)
@@ -600,8 +601,8 @@ vSoundRowB_F                  = ram_041F ; ???
 vSoundRowB_G                  = ram_0420 ; ???
 vSoundRowB_H                  = ram_0421 ; ???
 vSoundRowMarkForReplay        = ram_0422 ; sound pair index for replays
-vSoundRowB_J                  = ram_0423 ; ???
-vSoundRowB_K                  = ram_0424 ; ???
+vSoundRowShakingEfValue       = ram_0423 ; shaking effect value in the sound track
+vSoundRowShakingEfCounter     = ram_0424 ; counter to skip shaking effect
 vRooms                        = ram_0500
 ; flag 0x80 - the room has already been visited
 
