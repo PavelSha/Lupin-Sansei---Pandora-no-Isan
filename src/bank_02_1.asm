@@ -222,6 +222,9 @@ tbl_sound_row_mini:
 ; 1 byte - sound command:
 ;   FD - the special mark
 ;     2 byte - sound row index  
+;   CX, where X = 0,1,2,3,...,0x0F - volume changes
+;     X - the direction of distributions (see tbl_B21A_direction_of_distributions)
+;     2 byte - length in FPP utits for next sound rows
 ;   B0 - go to the sound row
 ;     2 byte - sound row index
 ;   BX, where X = 1,2,3,...,0x0F - go to the sound row X times
@@ -1976,13 +1979,13 @@ C - - - - - 0x008DAD 02:AD9D: C9 FF     CMP #$FF                           ; CON
 C - - - - - 0x008DAF 02:AD9F: F0 4F     BEQ bra_ADF0_next_row              ; If SoundRowIndex == 0xFF
 C - - - - - 0x008DB1 02:ADA1: 20 3F B1  JSR sub_B13F
 C - - - - - 0x008DB4 02:ADA4: 20 B4 B0  JSR sub_B0B4
-C - - - - - 0x008DB7 02:ADA7: FE 1D 04  INC vSoundRowB_D,X
-C - - - - - 0x008DBA 02:ADAA: BD 1D 04  LDA vSoundRowB_D,X
-C - - - - - 0x008DBD 02:ADAD: DD 1C 04  CMP vSoundRowB_C,X
-C - - - - - 0x008DC0 02:ADB0: 90 06     BCC bra_ADB8_skip
-C - - - - - 0x008DC2 02:ADB2: BD 1C 04  LDA vSoundRowB_C,X
-C - - - - - 0x008DC5 02:ADB5: 9D 1D 04  STA vSoundRowB_D,X
-bra_ADB8_skip:
+C - - - - - 0x008DB7 02:ADA7: FE 1D 04  INC vSoundRowVolumeChCounter,X     ; the constant increase with further adjustments
+C - - - - - 0x008DBA 02:ADAA: BD 1D 04  LDA vSoundRowVolumeChCounter,X     ;
+C - - - - - 0x008DBD 02:ADAD: DD 1C 04  CMP vSoundRowVolumeChLength,X      ;
+C - - - - - 0x008DC0 02:ADB0: 90 06     BCC @bra_ADB8_skip                 ; If the counter < the length
+C - - - - - 0x008DC2 02:ADB2: BD 1C 04  LDA vSoundRowVolumeChLength,X      ;
+C - - - - - 0x008DC5 02:ADB5: 9D 1D 04  STA vSoundRowVolumeChCounter,X     ; reset the counter to the length
+@bra_ADB8_skip:
 C - - - - - 0x008DC8 02:ADB8: DE 15 04  DEC vSoundRowFPPCounter,X
 C - - - - - 0x008DCB 02:ADBB: 10 18     BPL bra_ADD5_skip
 C - - - - - 0x008DCD 02:ADBD: BD 14 04  LDA vSoundRowFPPValue,X            ;
@@ -2040,10 +2043,10 @@ C - - - - - 0x008E2F 02:AE1F: 9D 18 04  STA vSoundRowSweep,X
 C - - - - - 0x008E32 02:AE22: A9 00     LDA #$00
 C - - - - - 0x008E34 02:AE24: 9D 19 04  STA vSoundRowMarkCacheNoReplay,X
 C - - - - - 0x008E37 02:AE27: 9D 1A 04  STA vSoundRowCacheNoReplay,X
-C - - - - - 0x008E3A 02:AE2A: 9D 1B 04  STA vSoundRowB_B,X
+C - - - - - 0x008E3A 02:AE2A: 9D 1B 04  STA vSoundRowVolumeDirection,X  ; clear for the sound row
 C - - - - - 0x008E3D 02:AE2D: 9D 1E 04  STA vSoundRowB_E,X
-C - - - - - 0x008E40 02:AE30: A9 02     LDA #$02         ; CONSTANT - ???
-C - - - - - 0x008E42 02:AE32: 9D 10 04  STA vSoundRowIndex,X
+C - - - - - 0x008E40 02:AE30: A9 02     LDA #$02                        ; CONSTANT - index of the first secord row (the sound header has 4 bytes)
+C - - - - - 0x008E42 02:AE32: 9D 10 04  STA vSoundRowIndex,X            ;
 C - - - - - 0x008E45 02:AE35: 4C DB AD  JMP loc_ADDB
 
 sub_AE38_execute_sound_pair:
@@ -2063,17 +2066,17 @@ C - - - - - 0x008E5E 02:AE4E: B1 FE     LDA (ram_00FE),Y      ; A <~ sound comma
 C - - - - - 0x008E60 02:AE50: FE 10 04  INC vSoundRowIndex,X
 C - - - - - 0x008E63 02:AE53: C8        INY
 C - - - - - 0x008E64 02:AE54: C9 F0     CMP #$F0     
-C - - - - - 0x008E66 02:AE56: B0 1A     BCS bra_AE72          ; If the sound command >= 0xF0
+C - - - - - 0x008E66 02:AE56: B0 1A     BCS bra_AE72            ; If the sound command >= 0xF0
 C - - - - - 0x008E68 02:AE58: C9 E0     CMP #$E0
-C - - - - - 0x008E6A 02:AE5A: B0 2D     BCS bra_AE89          ; If the sound command >= 0xE0
+C - - - - - 0x008E6A 02:AE5A: B0 2D     BCS bra_AE89            ; If the sound command >= 0xE0
 C - - - - - 0x008E6C 02:AE5C: C9 D0     CMP #$D0
-C - - - - - 0x008E6E 02:AE5E: B0 33     BCS bra_AE93          ; If the sound command >= 0xD0
+C - - - - - 0x008E6E 02:AE5E: B0 33     BCS bra_AE93            ; If the sound command >= 0xD0
 C - - - - - 0x008E70 02:AE60: C9 C0     CMP #$C0
-C - - - - - 0x008E72 02:AE62: B0 44     BCS bra_AEA8          ; If the sound command >= 0xC0
+C - - - - - 0x008E72 02:AE62: B0 44     BCS bra_AEA8_Cx_command ; If the sound command >= 0xC0
 C - - - - - 0x008E74 02:AE64: C9 B0     CMP #$B0
-C - - - - - 0x008E76 02:AE66: B0 5F     BCS bra_AEC7_replay   ; If the sound command >= 0xB0
+C - - - - - 0x008E76 02:AE66: B0 5F     BCS bra_AEC7_replay     ; If the sound command >= 0xB0
 C - - - - - 0x008E78 02:AE68: C9 A0     CMP #$A0
-C - - - - - 0x008E7A 02:AE6A: 90 03     BCC bra_AE6F          ; If the sound command < 0xA0
+C - - - - - 0x008E7A 02:AE6A: 90 03     BCC bra_AE6F            ; If the sound command < 0xA0
 C - - - - - 0x008E7C 02:AE6C: 4C F5 AE  JMP loc_AEF5
 
 bra_AE6F:
@@ -2116,20 +2119,20 @@ C - - - - - 0x008EB2 02:AEA2: 9D 20 04  STA vSoundRowB_G,X
 C - - - - - 0x008EB5 02:AEA5: 4C 38 AE  JMP loc_AE38_next_sound_pair
 
 ; In: Register A - the sound command
-bra_AEA8:
-C - - - - - 0x008EB8 02:AEA8: 29 0F     AND #$0F
-C - - - - - 0x008EBA 02:AEAA: 8D 04 04  STA ram_0404
-C - - - - - 0x008EBD 02:AEAD: 2C 03 04  BIT vCurrentApuChannelFlag
-C - - - - - 0x008EC0 02:AEB0: 30 12     BMI @bra_AEC4_next
+bra_AEA8_Cx_command:
+C - - - - - 0x008EB8 02:AEA8: 29 0F     AND #$0F                        ;
+C - - - - - 0x008EBA 02:AEAA: 8D 04 04  STA vSoundRowTempValue1         ; <~ the direction
+C - - - - - 0x008EBD 02:AEAD: 2C 03 04  BIT vCurrentApuChannelFlag      ;
+C - - - - - 0x008EC0 02:AEB0: 30 12     BMI @bra_AEC4_next              ; If the current channel is triangle
 C - - - - - 0x008EC2 02:AEB2: BD 16 04  LDA vSoundRowB_6,X
 C - - - - - 0x008EC5 02:AEB5: 29 10     AND #$10
 C - - - - - 0x008EC7 02:AEB7: F0 0B     BEQ @bra_AEC4_next
-C - - - - - 0x008EC9 02:AEB9: B1 FE     LDA (ram_00FE),Y
-C - - - - - 0x008ECB 02:AEBB: 9D 1C 04  STA vSoundRowB_C,X
-C - - - - - 0x008ECE 02:AEBE: AD 04 04  LDA ram_0404
-C - - - - - 0x008ED1 02:AEC1: 9D 1B 04  STA vSoundRowB_B,X
+C - - - - - 0x008EC9 02:AEB9: B1 FE     LDA (ram_00FE),Y                ; to 2 byte of 2 (second of the sound pair)
+C - - - - - 0x008ECB 02:AEBB: 9D 1C 04  STA vSoundRowVolumeChLength,X   ;
+C - - - - - 0x008ECE 02:AEBE: AD 04 04  LDA vSoundRowTempValue1         ;
+C - - - - - 0x008ED1 02:AEC1: 9D 1B 04  STA vSoundRowVolumeDirection,X  ; <~ {0x00, 0x01, ..., 0x0F}, for {0x0A, ..., 0x0F} - this is not implemented
 @bra_AEC4_next:
-C - - - - - 0x008ED4 02:AEC4: 4C 38 AE  JMP loc_AE38_next_sound_pair
+C - - - - - 0x008ED4 02:AEC4: 4C 38 AE  JMP loc_AE38_next_sound_pair    ;
 
 ; In: Register A - the sound command
 bra_AEC7_replay:
@@ -2313,8 +2316,8 @@ bra_AFF1_set_internal_channel_params_:
 C - - - - - 0x009001 02:AFF1: A0 01     LDY #$01                                  ; to 2 byte of 2 (second of the sound pair)
 C - - - - - 0x009003 02:AFF3: B1 FE     LDA (ram_00FE),Y                          ;
 C - - - - - 0x009005 02:AFF5: 9D 17 04  STA vSoundRowFPPLength,X                  ;
-C - - - - - 0x009008 02:AFF8: A9 00     LDA #$00
-C - - - - - 0x00900A 02:AFFA: 9D 1D 04  STA vSoundRowB_D,X
+C - - - - - 0x009008 02:AFF8: A9 00     LDA #$00                                  ;
+C - - - - - 0x00900A 02:AFFA: 9D 1D 04  STA vSoundRowVolumeChCounter,X            ; reset to 0x00 for next sound row
 C - - - - - 0x00900D 02:AFFD: 20 61 B0  JSR sub_B061_prepare_current_channel      ;
 C - - - - - 0x009010 02:B000: B9 9E B1  LDA tbl_apu_channels,Y                    ;
 C - - - - - 0x009013 02:B003: 0D 00 04  ORA vApuChannelStatus                     ; enables the current channel
@@ -2374,10 +2377,10 @@ sub_B061_prepare_current_channel:
 C - - - - - 0x009071 02:B061: AC 02 04  LDY vCurrentApuChannel     ;
 C - - - - - 0x009074 02:B064: B9 9E B1  LDA tbl_apu_channels,Y     ;
 C - - - - - 0x009077 02:B067: 2C 01 04  BIT vApuChannelProcessed   ;
-C - - - - - 0x00907A 02:B06A: F0 02     BEQ bra_B06E_RTS           ; If the current channel isn't processed
+C - - - - - 0x00907A 02:B06A: F0 02     BEQ @bra_B06E_RTS          ; If the current channel isn't processed
 C - - - - - 0x00907C 02:B06C: 68        PLA                        ;
 C - - - - - 0x00907D 02:B06D: 68        PLA                        ; double return (i.e. from sub_AE38_execute_sound_pair)
-bra_B06E_RTS:
+@bra_B06E_RTS:
 C - - - - - 0x00907E 02:B06E: 60        RTS                        ;
 
 ; Out: the carry status (analog return true or false)
@@ -2409,8 +2412,8 @@ C - - - - - 0x009099 02:B089: 20 61 B0  JSR sub_B061_prepare_current_channel
 sub_B08C:
 C - - - - - 0x00909C 02:B08C: C0 02     CPY #$02                         ; CONSTANT - the triangle channel
 C - - - - - 0x00909E 02:B08E: F0 15     BEQ bra_B0A5_triangle            ; If the channel == 0x02
-C - - - - - 0x0090A0 02:B090: BD 1B 04  LDA vSoundRowB_B,X
-C - - - - - 0x0090A3 02:B093: D0 2B     BNE bra_B0C0_skip                ; If Register A != 0x00
+C - - - - - 0x0090A0 02:B090: BD 1B 04  LDA vSoundRowVolumeDirection,X   ;
+C - - - - - 0x0090A3 02:B093: D0 2B     BNE bra_B0C0_skip                ; If the direction != 0x00
 C - - - - - 0x0090A5 02:B095: 20 AB B0  JSR sub_B0AB_get_channel_offset  ;
 C - - - - - 0x0090A8 02:B098: BD 16 04  LDA vSoundRowB_6,X
 C - - - - - 0x0090AB 02:B09B: 29 10     AND #$10                         ; CONSTANT - constant volume (C) https://www.nesdev.org/wiki/APU (#Pulse #Noise)
@@ -2434,44 +2437,46 @@ bra_B0B3_RTS:
 C - - - - - 0x0090C3 02:B0B3: 60        RTS                      ;
 
 sub_B0B4:
-C - - - - - 0x0090C4 02:B0B4: 20 61 B0  JSR sub_B061_prepare_current_channel
-C - - - - - 0x0090C7 02:B0B7: C0 02     CPY #$02
-C - - - - - 0x0090C9 02:B0B9: F0 F8     BEQ bra_B0B3_RTS
-C - - - - - 0x0090CB 02:B0BB: BD 1B 04  LDA vSoundRowB_B,X
-C - - - - - 0x0090CE 02:B0BE: F0 F3     BEQ bra_B0B3_RTS
+C - - - - - 0x0090C4 02:B0B4: 20 61 B0  JSR sub_B061_prepare_current_channel  ;
+C - - - - - 0x0090C7 02:B0B7: C0 02     CPY #$02                              ; CONSTANT - the triangle channel
+C - - - - - 0x0090C9 02:B0B9: F0 F8     BEQ bra_B0B3_RTS                      ; If the channel == 0x02
+C - - - - - 0x0090CB 02:B0BB: BD 1B 04  LDA vSoundRowVolumeDirection,X        ;
+C - - - - - 0x0090CE 02:B0BE: F0 F3     BEQ bra_B0B3_RTS                      ; If the direction == 0x00
+; In: Register A - 
 bra_B0C0_skip:
-C - - - - - 0x0090D0 02:B0C0: 0A        ASL
-C - - - - - 0x0090D1 02:B0C1: 0A        ASL
-C - - - - - 0x0090D2 02:B0C2: 0A        ASL
-C - - - - - 0x0090D3 02:B0C3: 0A        ASL
-C - - - - - 0x0090D4 02:B0C4: 48        PHA
-C - - - - - 0x0090D5 02:B0C5: A9 00     LDA #$00
-C - - - - - 0x0090D7 02:B0C7: 8D 04 04  STA ram_0404
-C - - - - - 0x0090DA 02:B0CA: BD 1D 04  LDA vSoundRowB_D,X
-C - - - - - 0x0090DD 02:B0CD: A0 03     LDY #$03
-bra_B0CF:
-C - - - - - 0x0090DF 02:B0CF: 0A        ASL
-C - - - - - 0x0090E0 02:B0D0: DD 1C 04  CMP vSoundRowB_C,X
-C - - - - - 0x0090E3 02:B0D3: 90 03     BCC bra_B0D8
-C - - - - - 0x0090E5 02:B0D5: FD 1C 04  SBC vSoundRowB_C,X
-bra_B0D8:
-C - - - - - 0x0090E8 02:B0D8: 2E 04 04  ROL ram_0404
-C - - - - - 0x0090EB 02:B0DB: 88        DEY
-C - - - - - 0x0090EC 02:B0DC: 10 F1     BPL bra_B0CF
-C - - - - - 0x0090EE 02:B0DE: 68        PLA
-C - - - - - 0x0090EF 02:B0DF: 0D 04 04  ORA ram_0404
+C - - - - - 0x0090D0 02:B0C0: 0A        ASL                                   ;
+C - - - - - 0x0090D1 02:B0C1: 0A        ASL                                   ;
+C - - - - - 0x0090D2 02:B0C2: 0A        ASL                                   ;
+C - - - - - 0x0090D3 02:B0C3: 0A        ASL                                   ; puts in high half-byte
+C - - - - - 0x0090D4 02:B0C4: 48        PHA                                   ; store the direction, one of {0x00, 0x10, 0x20, ..., 0x90}
+C - - - - - 0x0090D5 02:B0C5: A9 00     LDA #$00                              ;
+C - - - - - 0x0090D7 02:B0C7: 8D 04 04  STA vSoundRowTempValue1               ; prepares a temp value
+C - - - - - 0x0090DA 02:B0CA: BD 1D 04  LDA vSoundRowVolumeChCounter,X        ; distributes the counter between 0x00 and vSoundRowVolumeChLength
+C - - - - - 0x0090DD 02:B0CD: A0 03     LDY #$03                              ; set loop counter
+@bra_B0CF_loop:                                                               ; loop by y (4 times)
+C - - - - - 0x0090DF 02:B0CF: 0A        ASL                                   ; *2
+C - - - - - 0x0090E0 02:B0D0: DD 1C 04  CMP vSoundRowVolumeChLength,X         ;
+C - - - - - 0x0090E3 02:B0D3: 90 03     BCC @bra_B0D8                         ; If the current value < vSoundRowVolumeChLength
+C - - - - - 0x0090E5 02:B0D5: FD 1C 04  SBC vSoundRowVolumeChLength,X         ; resolves the current value for the range [0x00, vSoundRowVolumeChLength]
+@bra_B0D8:
+C - - - - - 0x0090E8 02:B0D8: 2E 04 04  ROL vSoundRowTempValue1               ; +1, if the carry flag is set
+C - - - - - 0x0090EB 02:B0DB: 88        DEY                                   ; decrement loop counter
+C - - - - - 0x0090EC 02:B0DC: 10 F1     BPL @bra_B0CF_loop                    ; If Register Y >= 0x00
+C - - - - - 0x0090EE 02:B0DE: 68        PLA                                   ; retrieve the direction (see $B0C4)
+C - - - - - 0x0090EF 02:B0DF: 0D 04 04  ORA vSoundRowTempValue1               ; + one of {0x00, 0x01, ... , 0x0F}
 C - - - - - 0x0090F2 02:B0E2: A8        TAY
 C - - - - - 0x0090F3 02:B0E3: BD 16 04  LDA vSoundRowB_6,X
 C - - - - - 0x0090F6 02:B0E6: 29 0F     AND #$0F
-C - - - - - 0x0090F8 02:B0E8: 19 1A B2  ORA tbl_B21A,Y
+C - - - - - 0x0090F8 02:B0E8: 19 1A B2  ORA tbl_B21A_direction_of_distributions,Y
 C - - - - - 0x0090FB 02:B0EB: A8        TAY
 C - - - - - 0x0090FC 02:B0EC: BD 16 04  LDA vSoundRowB_6,X
-C - - - - - 0x0090FF 02:B0EF: 29 C0     AND #$C0
-C - - - - - 0x009101 02:B0F1: 09 30     ORA #$30
-C - - - - - 0x009103 02:B0F3: 19 BA B2  ORA tbl_B2BA,Y
-C - - - - - 0x009106 02:B0F6: 20 AB B0  JSR sub_B0AB_get_channel_offset
+C - - - - - 0x0090FF 02:B0EF: 29 C0     AND #$C0                              ; the mask for the duty
+C - - - - - 0x009101 02:B0F1: 09 30     ORA #$30                              ; CONSTANT - constant volume (C) + envelope loop / length counter halt (L)
+                                                                              ; see https://www.nesdev.org/wiki/APU (#Pulse #Noise)
+C - - - - - 0x009103 02:B0F3: 19 BA B2  ORA tbl_B2BA_volumes,Y
+C - - - - - 0x009106 02:B0F6: 20 AB B0  JSR sub_B0AB_get_channel_offset       ;
 C - - - - - 0x009109 02:B0F9: 99 00 40  STA $4000,Y
-C - - - - - 0x00910C 02:B0FC: 60        RTS
+C - - - - - 0x00910C 02:B0FC: 60        RTS                                   ;
 
 sub_B0FD:
 C - - - - - 0x00910D 02:B0FD: 2C 03 04  BIT vCurrentApuChannelFlag
@@ -2582,424 +2587,36 @@ tbl_B1AA_shaking_spread:
 - D - - - - 0x00920A 02:B1FA: FE        .byte $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $FE
 - D 1 - - - 0x00921A 02:B20A: 01        .byte $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
 
-tbl_B21A:
-- - - - - - 0x00922A 02:B21A: 02        .byte $02   ; 
-- - - - - - 0x00922B 02:B21B: 02        .byte $02   ; 
-- - - - - - 0x00922C 02:B21C: 02        .byte $02   ; 
-- - - - - - 0x00922D 02:B21D: 02        .byte $02   ; 
-- - - - - - 0x00922E 02:B21E: 02        .byte $02   ; 
-- - - - - - 0x00922F 02:B21F: 02        .byte $02   ; 
-- - - - - - 0x009230 02:B220: 02        .byte $02   ; 
-- - - - - - 0x009231 02:B221: 02        .byte $02   ; 
-- - - - - - 0x009232 02:B222: 02        .byte $02   ; 
-- - - - - - 0x009233 02:B223: 02        .byte $02   ; 
-- - - - - - 0x009234 02:B224: 02        .byte $02   ; 
-- - - - - - 0x009235 02:B225: 02        .byte $02   ; 
-- - - - - - 0x009236 02:B226: 02        .byte $02   ; 
-- - - - - - 0x009237 02:B227: 02        .byte $02   ; 
-- - - - - - 0x009238 02:B228: 02        .byte $02   ; 
-- - - - - - 0x009239 02:B229: 02        .byte $02   ; 
-- - - - - - 0x00923A 02:B22A: F0        .byte $F0   ; 
-- - - - - - 0x00923B 02:B22B: E0        .byte $E0   ; 
-- - - - - - 0x00923C 02:B22C: D0        .byte $D0   ; 
-- - - - - - 0x00923D 02:B22D: C0        .byte $C0   ; 
-- - - - - - 0x00923E 02:B22E: B0        .byte $B0   ; 
-- - - - - - 0x00923F 02:B22F: A0        .byte $A0   ; 
-- - - - - - 0x009240 02:B230: 90        .byte $90   ; 
-- - - - - - 0x009241 02:B231: 80        .byte $80   ; 
-- - - - - - 0x009242 02:B232: 70        .byte $70   ; <p>
-- - - - - - 0x009243 02:B233: 60        .byte $60   ; 
-- - - - - - 0x009244 02:B234: 50        .byte $50   ; <P>
-- - - - - - 0x009245 02:B235: 40        .byte $40   ; 
-- - - - - - 0x009246 02:B236: 30        .byte $30   ; <0>
-- - - - - - 0x009247 02:B237: 20        .byte $20   ; 
-- - - - - - 0x009248 02:B238: 10        .byte $10   ; 
-- - - - - - 0x009249 02:B239: 00        .byte $00   ; 
-- - - - - - 0x00924A 02:B23A: 00        .byte $00   ; 
-- - - - - - 0x00924B 02:B23B: 10        .byte $10   ; 
-- - - - - - 0x00924C 02:B23C: 20        .byte $20   ; 
-- - - - - - 0x00924D 02:B23D: 30        .byte $30   ; <0>
-- - - - - - 0x00924E 02:B23E: 40        .byte $40   ; 
-- - - - - - 0x00924F 02:B23F: 50        .byte $50   ; <P>
-- - - - - - 0x009250 02:B240: 60        .byte $60   ; 
-- - - - - - 0x009251 02:B241: 70        .byte $70   ; <p>
-- - - - - - 0x009252 02:B242: 80        .byte $80   ; 
-- - - - - - 0x009253 02:B243: 90        .byte $90   ; 
-- - - - - - 0x009254 02:B244: A0        .byte $A0   ; 
-- - - - - - 0x009255 02:B245: B0        .byte $B0   ; 
-- - - - - - 0x009256 02:B246: C0        .byte $C0   ; 
-- - - - - - 0x009257 02:B247: D0        .byte $D0   ; 
-- - - - - - 0x009258 02:B248: E0        .byte $E0   ; 
-- - - - - - 0x009259 02:B249: F0        .byte $F0   ; 
-- - - - - - 0x00925A 02:B24A: F0        .byte $F0   ; 
-- - - - - - 0x00925B 02:B24B: E0        .byte $E0   ; 
-- - - - - - 0x00925C 02:B24C: D0        .byte $D0   ; 
-- - - - - - 0x00925D 02:B24D: C0        .byte $C0   ; 
-- - - - - - 0x00925E 02:B24E: B0        .byte $B0   ; 
-- - - - - - 0x00925F 02:B24F: A0        .byte $A0   ; 
-- - - - - - 0x009260 02:B250: 90        .byte $90   ; 
-- - - - - - 0x009261 02:B251: 80        .byte $80   ; 
-- - - - - - 0x009262 02:B252: 80        .byte $80   ; 
-- - - - - - 0x009263 02:B253: 90        .byte $90   ; 
-- - - - - - 0x009264 02:B254: A0        .byte $A0   ; 
-- - - - - - 0x009265 02:B255: B0        .byte $B0   ; 
-- - - - - - 0x009266 02:B256: C0        .byte $C0   ; 
-- - - - - - 0x009267 02:B257: D0        .byte $D0   ; 
-- - - - - - 0x009268 02:B258: E0        .byte $E0   ; 
-- - - - - - 0x009269 02:B259: F0        .byte $F0   ; 
-- - - - - - 0x00926A 02:B25A: 80        .byte $80   ; 
-- - - - - - 0x00926B 02:B25B: 90        .byte $90   ; 
-- - - - - - 0x00926C 02:B25C: A0        .byte $A0   ; 
-- - - - - - 0x00926D 02:B25D: B0        .byte $B0   ; 
-- - - - - - 0x00926E 02:B25E: C0        .byte $C0   ; 
-- - - - - - 0x00926F 02:B25F: D0        .byte $D0   ; 
-- - - - - - 0x009270 02:B260: E0        .byte $E0   ; 
-- - - - - - 0x009271 02:B261: F0        .byte $F0   ; 
-- - - - - - 0x009272 02:B262: F0        .byte $F0   ; 
-- - - - - - 0x009273 02:B263: E0        .byte $E0   ; 
-- - - - - - 0x009274 02:B264: D0        .byte $D0   ; 
-- - - - - - 0x009275 02:B265: C0        .byte $C0   ; 
-- - - - - - 0x009276 02:B266: B0        .byte $B0   ; 
-- - - - - - 0x009277 02:B267: A0        .byte $A0   ; 
-- - - - - - 0x009278 02:B268: 90        .byte $90   ; 
-- - - - - - 0x009279 02:B269: 80        .byte $80   ; 
-- - - - - - 0x00927A 02:B26A: F0        .byte $F0   ; 
-- - - - - - 0x00927B 02:B26B: D0        .byte $D0   ; 
-- - - - - - 0x00927C 02:B26C: B0        .byte $B0   ; 
-- - - - - - 0x00927D 02:B26D: 90        .byte $90   ; 
-- - - - - - 0x00927E 02:B26E: 70        .byte $70   ; <p>
-- - - - - - 0x00927F 02:B26F: 50        .byte $50   ; <P>
-- - - - - - 0x009280 02:B270: 30        .byte $30   ; <0>
-- - - - - - 0x009281 02:B271: 10        .byte $10   ; 
-- - - - - - 0x009282 02:B272: E0        .byte $E0   ; 
-- - - - - - 0x009283 02:B273: C0        .byte $C0   ; 
-- - - - - - 0x009284 02:B274: A0        .byte $A0   ; 
-- - - - - - 0x009285 02:B275: 80        .byte $80   ; 
-- - - - - - 0x009286 02:B276: 60        .byte $60   ; 
-- - - - - - 0x009287 02:B277: 40        .byte $40   ; 
-- - - - - - 0x009288 02:B278: 20        .byte $20   ; 
-- - - - - - 0x009289 02:B279: 00        .byte $00   ; 
-- - - - - - 0x00928A 02:B27A: F0        .byte $F0   ; 
-- - - - - - 0x00928B 02:B27B: E0        .byte $E0   ; 
-- - - - - - 0x00928C 02:B27C: D0        .byte $D0   ; 
-- - - - - - 0x00928D 02:B27D: C0        .byte $C0   ; 
-- - - - - - 0x00928E 02:B27E: C0        .byte $C0   ; 
-- - - - - - 0x00928F 02:B27F: D0        .byte $D0   ; 
-- - - - - - 0x009290 02:B280: E0        .byte $E0   ; 
-- - - - - - 0x009291 02:B281: D0        .byte $D0   ; 
-- - - - - - 0x009292 02:B282: C0        .byte $C0   ; 
-- - - - - - 0x009293 02:B283: A0        .byte $A0   ; 
-- - - - - - 0x009294 02:B284: 80        .byte $80   ; 
-- - - - - - 0x009295 02:B285: 60        .byte $60   ; 
-- - - - - - 0x009296 02:B286: 40        .byte $40   ; 
-- - - - - - 0x009297 02:B287: 20        .byte $20   ; 
-- - - - - - 0x009298 02:B288: 10        .byte $10   ; 
-- - - - - - 0x009299 02:B289: 00        .byte $00   ; 
-- - - - - - 0x00929A 02:B28A: F0        .byte $F0   ; 
-- - - - - - 0x00929B 02:B28B: D0        .byte $D0   ; 
-- - - - - - 0x00929C 02:B28C: B0        .byte $B0   ; 
-- - - - - - 0x00929D 02:B28D: 90        .byte $90   ; 
-- - - - - - 0x00929E 02:B28E: A0        .byte $A0   ; 
-- - - - - - 0x00929F 02:B28F: B0        .byte $B0   ; 
-- - - - - - 0x0092A0 02:B290: 90        .byte $90   ; 
-- - - - - - 0x0092A1 02:B291: 70        .byte $70   ; <p>
-- - - - - - 0x0092A2 02:B292: 60        .byte $60   ; 
-- - - - - - 0x0092A3 02:B293: 50        .byte $50   ; <P>
-- - - - - - 0x0092A4 02:B294: 40        .byte $40   ; 
-- - - - - - 0x0092A5 02:B295: 30        .byte $30   ; <0>
-- - - - - - 0x0092A6 02:B296: 20        .byte $20   ; 
-- - - - - - 0x0092A7 02:B297: 10        .byte $10   ; 
-- - - - - - 0x0092A8 02:B298: 10        .byte $10   ; 
-- - - - - - 0x0092A9 02:B299: 00        .byte $00   ; 
-- - - - - - 0x0092AA 02:B29A: 40        .byte $40   ; 
-- - - - - - 0x0092AB 02:B29B: 40        .byte $40   ; 
-- - - - - - 0x0092AC 02:B29C: 40        .byte $40   ; 
-- - - - - - 0x0092AD 02:B29D: 40        .byte $40   ; 
-- - - - - - 0x0092AE 02:B29E: 40        .byte $40   ; 
-- - - - - - 0x0092AF 02:B29F: 40        .byte $40   ; 
-- - - - - - 0x0092B0 02:B2A0: 40        .byte $40   ; 
-- - - - - - 0x0092B1 02:B2A1: 60        .byte $60   ; 
-- - - - - - 0x0092B2 02:B2A2: 60        .byte $60   ; 
-- - - - - - 0x0092B3 02:B2A3: 70        .byte $70   ; <p>
-- - - - - - 0x0092B4 02:B2A4: 80        .byte $80   ; 
-- - - - - - 0x0092B5 02:B2A5: A0        .byte $A0   ; 
-- - - - - - 0x0092B6 02:B2A6: C0        .byte $C0   ; 
-- - - - - - 0x0092B7 02:B2A7: F0        .byte $F0   ; 
-- - - - - - 0x0092B8 02:B2A8: B0        .byte $B0   ; 
-- - - - - - 0x0092B9 02:B2A9: 80        .byte $80   ; 
-- D 1 - - - 0x0092BA 02:B2AA: F0        .byte $F0   ; 
-- D 1 - - - 0x0092BB 02:B2AB: F0        .byte $F0   ; 
-- - - - - - 0x0092BC 02:B2AC: A0        .byte $A0   ; 
-- D 1 - - - 0x0092BD 02:B2AD: 80        .byte $80   ; 
-- D 1 - - - 0x0092BE 02:B2AE: F0        .byte $F0   ; 
-- - - - - - 0x0092BF 02:B2AF: F0        .byte $F0   ; 
-- D 1 - - - 0x0092C0 02:B2B0: A0        .byte $A0   ; 
-- - - - - - 0x0092C1 02:B2B1: 80        .byte $80   ; 
-- D 1 - - - 0x0092C2 02:B2B2: 70        .byte $70   ; <p>
-- D 1 - - - 0x0092C3 02:B2B3: 70        .byte $70   ; <p>
-- - - - - - 0x0092C4 02:B2B4: 60        .byte $60   ; 
-- D 1 - - - 0x0092C5 02:B2B5: 60        .byte $60   ; 
-- D 1 - - - 0x0092C6 02:B2B6: 50        .byte $50   ; <P>
-- - - - - - 0x0092C7 02:B2B7: 50        .byte $50   ; <P>
-- D 1 - - - 0x0092C8 02:B2B8: 40        .byte $40   ; 
-- - - - - - 0x0092C9 02:B2B9: 20        .byte $20   ; 
-tbl_B2BA:
-- - - - - - 0x0092CA 02:B2BA: 00        .byte $00   ; 
-- - - - - - 0x0092CB 02:B2BB: 00        .byte $00   ; 
-- - - - - - 0x0092CC 02:B2BC: 00        .byte $00   ; 
-- - - - - - 0x0092CD 02:B2BD: 00        .byte $00   ; 
-- - - - - - 0x0092CE 02:B2BE: 00        .byte $00   ; 
-- - - - - - 0x0092CF 02:B2BF: 00        .byte $00   ; 
-- - - - - - 0x0092D0 02:B2C0: 00        .byte $00   ; 
-- - - - - - 0x0092D1 02:B2C1: 00        .byte $00   ; 
-- - - - - - 0x0092D2 02:B2C2: 00        .byte $00   ; 
-- - - - - - 0x0092D3 02:B2C3: 00        .byte $00   ; 
-- - - - - - 0x0092D4 02:B2C4: 00        .byte $00   ; 
-- - - - - - 0x0092D5 02:B2C5: 00        .byte $00   ; 
-- - - - - - 0x0092D6 02:B2C6: 00        .byte $00   ; 
-- - - - - - 0x0092D7 02:B2C7: 00        .byte $00   ; 
-- - - - - - 0x0092D8 02:B2C8: 00        .byte $00   ; 
-- - - - - - 0x0092D9 02:B2C9: 00        .byte $00   ; 
-- - - - - - 0x0092DA 02:B2CA: 00        .byte $00   ; 
-- - - - - - 0x0092DB 02:B2CB: 00        .byte $00   ; 
-- - - - - - 0x0092DC 02:B2CC: 00        .byte $00   ; 
-- - - - - - 0x0092DD 02:B2CD: 00        .byte $00   ; 
-- - - - - - 0x0092DE 02:B2CE: 00        .byte $00   ; 
-- - - - - - 0x0092DF 02:B2CF: 00        .byte $00   ; 
-- - - - - - 0x0092E0 02:B2D0: 00        .byte $00   ; 
-- - - - - - 0x0092E1 02:B2D1: 00        .byte $00   ; 
-- - - - - - 0x0092E2 02:B2D2: 01        .byte $01   ; 
-- - - - - - 0x0092E3 02:B2D3: 01        .byte $01   ; 
-- - - - - - 0x0092E4 02:B2D4: 01        .byte $01   ; 
-- - - - - - 0x0092E5 02:B2D5: 01        .byte $01   ; 
-- - - - - - 0x0092E6 02:B2D6: 01        .byte $01   ; 
-- - - - - - 0x0092E7 02:B2D7: 01        .byte $01   ; 
-- - - - - - 0x0092E8 02:B2D8: 01        .byte $01   ; 
-- - - - - - 0x0092E9 02:B2D9: 01        .byte $01   ; 
-- - - - - - 0x0092EA 02:B2DA: 00        .byte $00   ; 
-- - - - - - 0x0092EB 02:B2DB: 00        .byte $00   ; 
-- - - - - - 0x0092EC 02:B2DC: 00        .byte $00   ; 
-- - - - - - 0x0092ED 02:B2DD: 00        .byte $00   ; 
-- - - - - - 0x0092EE 02:B2DE: 01        .byte $01   ; 
-- - - - - - 0x0092EF 02:B2DF: 01        .byte $01   ; 
-- - - - - - 0x0092F0 02:B2E0: 01        .byte $01   ; 
-- - - - - - 0x0092F1 02:B2E1: 01        .byte $01   ; 
-- - - - - - 0x0092F2 02:B2E2: 01        .byte $01   ; 
-- - - - - - 0x0092F3 02:B2E3: 01        .byte $01   ; 
-- - - - - - 0x0092F4 02:B2E4: 01        .byte $01   ; 
-- - - - - - 0x0092F5 02:B2E5: 01        .byte $01   ; 
-- - - - - - 0x0092F6 02:B2E6: 02        .byte $02   ; 
-- - - - - - 0x0092F7 02:B2E7: 02        .byte $02   ; 
-- - - - - - 0x0092F8 02:B2E8: 02        .byte $02   ; 
-- - - - - - 0x0092F9 02:B2E9: 02        .byte $02   ; 
-- - - - - - 0x0092FA 02:B2EA: 00        .byte $00   ; 
-- - - - - - 0x0092FB 02:B2EB: 00        .byte $00   ; 
-- - - - - - 0x0092FC 02:B2EC: 00        .byte $00   ; 
-- - - - - - 0x0092FD 02:B2ED: 01        .byte $01   ; 
-- - - - - - 0x0092FE 02:B2EE: 01        .byte $01   ; 
-- - - - - - 0x0092FF 02:B2EF: 01        .byte $01   ; 
-- - - - - - 0x009300 02:B2F0: 01        .byte $01   ; 
-- - - - - - 0x009301 02:B2F1: 01        .byte $01   ; 
-- - - - - - 0x009302 02:B2F2: 02        .byte $02   ; 
-- - - - - - 0x009303 02:B2F3: 02        .byte $02   ; 
-- - - - - - 0x009304 02:B2F4: 02        .byte $02   ; 
-- - - - - - 0x009305 02:B2F5: 02        .byte $02   ; 
-- - - - - - 0x009306 02:B2F6: 02        .byte $02   ; 
-- - - - - - 0x009307 02:B2F7: 03        .byte $03   ; 
-- - - - - - 0x009308 02:B2F8: 03        .byte $03   ; 
-- - - - - - 0x009309 02:B2F9: 03        .byte $03   ; 
-- - - - - - 0x00930A 02:B2FA: 00        .byte $00   ; 
-- - - - - - 0x00930B 02:B2FB: 00        .byte $00   ; 
-- - - - - - 0x00930C 02:B2FC: 01        .byte $01   ; 
-- - - - - - 0x00930D 02:B2FD: 01        .byte $01   ; 
-- - - - - - 0x00930E 02:B2FE: 01        .byte $01   ; 
-- - - - - - 0x00930F 02:B2FF: 01        .byte $01   ; 
-- - - - - - 0x009310 02:B300: 02        .byte $02   ; 
-- - - - - - 0x009311 02:B301: 02        .byte $02   ; 
-- - - - - - 0x009312 02:B302: 02        .byte $02   ; 
-- - - - - - 0x009313 02:B303: 02        .byte $02   ; 
-- - - - - - 0x009314 02:B304: 03        .byte $03   ; 
-- - - - - - 0x009315 02:B305: 03        .byte $03   ; 
-- - - - - - 0x009316 02:B306: 03        .byte $03   ; 
-- - - - - - 0x009317 02:B307: 03        .byte $03   ; 
-- - - - - - 0x009318 02:B308: 04        .byte $04   ; 
-- D 1 - - - 0x009319 02:B309: 04        .byte $04   ; 
-- - - - - - 0x00931A 02:B30A: 00        .byte $00   ; 
-- - - - - - 0x00931B 02:B30B: 00        .byte $00   ; 
-- - - - - - 0x00931C 02:B30C: 01        .byte $01   ; 
-- - - - - - 0x00931D 02:B30D: 01        .byte $01   ; 
-- - - - - - 0x00931E 02:B30E: 01        .byte $01   ; 
-- - - - - - 0x00931F 02:B30F: 02        .byte $02   ; 
-- - - - - - 0x009320 02:B310: 02        .byte $02   ; 
-- - - - - - 0x009321 02:B311: 02        .byte $02   ; 
-- - - - - - 0x009322 02:B312: 03        .byte $03   ; 
-- - - - - - 0x009323 02:B313: 03        .byte $03   ; 
-- - - - - - 0x009324 02:B314: 03        .byte $03   ; 
-- - - - - - 0x009325 02:B315: 04        .byte $04   ; 
-- - - - - - 0x009326 02:B316: 04        .byte $04   ; 
-- - - - - - 0x009327 02:B317: 04        .byte $04   ; 
-- - - - - - 0x009328 02:B318: 05        .byte $05   ; 
-- D 1 - - - 0x009329 02:B319: 05        .byte $05   ; 
-- - - - - - 0x00932A 02:B31A: 00        .byte $00   ; 
-- - - - - - 0x00932B 02:B31B: 00        .byte $00   ; 
-- - - - - - 0x00932C 02:B31C: 01        .byte $01   ; 
-- - - - - - 0x00932D 02:B31D: 01        .byte $01   ; 
-- - - - - - 0x00932E 02:B31E: 02        .byte $02   ; 
-- - - - - - 0x00932F 02:B31F: 02        .byte $02   ; 
-- - - - - - 0x009330 02:B320: 02        .byte $02   ; 
-- - - - - - 0x009331 02:B321: 03        .byte $03   ; 
-- - - - - - 0x009332 02:B322: 03        .byte $03   ; 
-- - - - - - 0x009333 02:B323: 04        .byte $04   ; 
-- - - - - - 0x009334 02:B324: 04        .byte $04   ; 
-- - - - - - 0x009335 02:B325: 04        .byte $04   ; 
-- - - - - - 0x009336 02:B326: 05        .byte $05   ; 
-- - - - - - 0x009337 02:B327: 05        .byte $05   ; 
-- - - - - - 0x009338 02:B328: 06        .byte $06   ; 
-- D 1 - - - 0x009339 02:B329: 06        .byte $06   ; 
-- - - - - - 0x00933A 02:B32A: 00        .byte $00   ; 
-- - - - - - 0x00933B 02:B32B: 00        .byte $00   ; 
-- - - - - - 0x00933C 02:B32C: 01        .byte $01   ; 
-- - - - - - 0x00933D 02:B32D: 01        .byte $01   ; 
-- - - - - - 0x00933E 02:B32E: 02        .byte $02   ; 
-- - - - - - 0x00933F 02:B32F: 02        .byte $02   ; 
-- - - - - - 0x009340 02:B330: 03        .byte $03   ; 
-- - - - - - 0x009341 02:B331: 03        .byte $03   ; 
-- - - - - - 0x009342 02:B332: 04        .byte $04   ; 
-- - - - - - 0x009343 02:B333: 04        .byte $04   ; 
-- - - - - - 0x009344 02:B334: 05        .byte $05   ; 
-- - - - - - 0x009345 02:B335: 05        .byte $05   ; 
-- - - - - - 0x009346 02:B336: 06        .byte $06   ; 
-- - - - - - 0x009347 02:B337: 06        .byte $06   ; 
-- - - - - - 0x009348 02:B338: 07        .byte $07   ; 
-- D 1 - - - 0x009349 02:B339: 07        .byte $07   ; 
-- - - - - - 0x00934A 02:B33A: 00        .byte $00   ; 
-- - - - - - 0x00934B 02:B33B: 01        .byte $01   ; 
-- - - - - - 0x00934C 02:B33C: 01        .byte $01   ; 
-- - - - - - 0x00934D 02:B33D: 02        .byte $02   ; 
-- - - - - - 0x00934E 02:B33E: 02        .byte $02   ; 
-- - - - - - 0x00934F 02:B33F: 03        .byte $03   ; 
-- - - - - - 0x009350 02:B340: 03        .byte $03   ; 
-- - - - - - 0x009351 02:B341: 04        .byte $04   ; 
-- - - - - - 0x009352 02:B342: 04        .byte $04   ; 
-- - - - - - 0x009353 02:B343: 05        .byte $05   ; 
-- - - - - - 0x009354 02:B344: 05        .byte $05   ; 
-- - - - - - 0x009355 02:B345: 06        .byte $06   ; 
-- - - - - - 0x009356 02:B346: 06        .byte $06   ; 
-- - - - - - 0x009357 02:B347: 07        .byte $07   ; 
-- - - - - - 0x009358 02:B348: 07        .byte $07   ; 
-- D 1 - - - 0x009359 02:B349: 08        .byte $08   ; 
-- - - - - - 0x00935A 02:B34A: 00        .byte $00   ; 
-- - - - - - 0x00935B 02:B34B: 01        .byte $01   ; 
-- - - - - - 0x00935C 02:B34C: 01        .byte $01   ; 
-- - - - - - 0x00935D 02:B34D: 02        .byte $02   ; 
-- - - - - - 0x00935E 02:B34E: 02        .byte $02   ; 
-- - - - - - 0x00935F 02:B34F: 03        .byte $03   ; 
-- - - - - - 0x009360 02:B350: 04        .byte $04   ; 
-- - - - - - 0x009361 02:B351: 04        .byte $04   ; 
-- - - - - - 0x009362 02:B352: 05        .byte $05   ; 
-- - - - - - 0x009363 02:B353: 05        .byte $05   ; 
-- - - - - - 0x009364 02:B354: 06        .byte $06   ; 
-- - - - - - 0x009365 02:B355: 07        .byte $07   ; 
-- - - - - - 0x009366 02:B356: 07        .byte $07   ; 
-- - - - - - 0x009367 02:B357: 08        .byte $08   ; 
-- - - - - - 0x009368 02:B358: 08        .byte $08   ; 
-- - - - - - 0x009369 02:B359: 09        .byte $09   ; 
-- - - - - - 0x00936A 02:B35A: 00        .byte $00   ; 
-- - - - - - 0x00936B 02:B35B: 01        .byte $01   ; 
-- - - - - - 0x00936C 02:B35C: 01        .byte $01   ; 
-- - - - - - 0x00936D 02:B35D: 02        .byte $02   ; 
-- - - - - - 0x00936E 02:B35E: 03        .byte $03   ; 
-- - - - - - 0x00936F 02:B35F: 03        .byte $03   ; 
-- - - - - - 0x009370 02:B360: 04        .byte $04   ; 
-- - - - - - 0x009371 02:B361: 05        .byte $05   ; 
-- - - - - - 0x009372 02:B362: 05        .byte $05   ; 
-- - - - - - 0x009373 02:B363: 06        .byte $06   ; 
-- - - - - - 0x009374 02:B364: 07        .byte $07   ; 
-- - - - - - 0x009375 02:B365: 07        .byte $07   ; 
-- - - - - - 0x009376 02:B366: 08        .byte $08   ; 
-- - - - - - 0x009377 02:B367: 09        .byte $09   ; 
-- - - - - - 0x009378 02:B368: 09        .byte $09   ; 
-- D 1 - - - 0x009379 02:B369: 0A        .byte $0A   ; 
-- - - - - - 0x00937A 02:B36A: 00        .byte $00   ; 
-- - - - - - 0x00937B 02:B36B: 01        .byte $01   ; 
-- - - - - - 0x00937C 02:B36C: 01        .byte $01   ; 
-- - - - - - 0x00937D 02:B36D: 02        .byte $02   ; 
-- - - - - - 0x00937E 02:B36E: 03        .byte $03   ; 
-- - - - - - 0x00937F 02:B36F: 04        .byte $04   ; 
-- - - - - - 0x009380 02:B370: 04        .byte $04   ; 
-- - - - - - 0x009381 02:B371: 05        .byte $05   ; 
-- - - - - - 0x009382 02:B372: 06        .byte $06   ; 
-- - - - - - 0x009383 02:B373: 07        .byte $07   ; 
-- - - - - - 0x009384 02:B374: 07        .byte $07   ; 
-- - - - - - 0x009385 02:B375: 08        .byte $08   ; 
-- - - - - - 0x009386 02:B376: 09        .byte $09   ; 
-- - - - - - 0x009387 02:B377: 0A        .byte $0A   ; 
-- - - - - - 0x009388 02:B378: 0A        .byte $0A   ; 
-- - - - - - 0x009389 02:B379: 0B        .byte $0B   ; 
-- - - - - - 0x00938A 02:B37A: 00        .byte $00   ; 
-- - - - - - 0x00938B 02:B37B: 01        .byte $01   ; 
-- - - - - - 0x00938C 02:B37C: 02        .byte $02   ; 
-- - - - - - 0x00938D 02:B37D: 02        .byte $02   ; 
-- - - - - - 0x00938E 02:B37E: 03        .byte $03   ; 
-- - - - - - 0x00938F 02:B37F: 04        .byte $04   ; 
-- - - - - - 0x009390 02:B380: 05        .byte $05   ; 
-- - - - - - 0x009391 02:B381: 06        .byte $06   ; 
-- - - - - - 0x009392 02:B382: 06        .byte $06   ; 
-- - - - - - 0x009393 02:B383: 07        .byte $07   ; 
-- - - - - - 0x009394 02:B384: 08        .byte $08   ; 
-- - - - - - 0x009395 02:B385: 09        .byte $09   ; 
-- - - - - - 0x009396 02:B386: 0A        .byte $0A   ; 
-- - - - - - 0x009397 02:B387: 0A        .byte $0A   ; 
-- - - - - - 0x009398 02:B388: 0B        .byte $0B   ; 
-- - - - - - 0x009399 02:B389: 0C        .byte $0C   ; 
-- - - - - - 0x00939A 02:B38A: 00        .byte $00   ; 
-- - - - - - 0x00939B 02:B38B: 01        .byte $01   ; 
-- - - - - - 0x00939C 02:B38C: 02        .byte $02   ; 
-- - - - - - 0x00939D 02:B38D: 03        .byte $03   ; 
-- - - - - - 0x00939E 02:B38E: 03        .byte $03   ; 
-- - - - - - 0x00939F 02:B38F: 04        .byte $04   ; 
-- - - - - - 0x0093A0 02:B390: 05        .byte $05   ; 
-- - - - - - 0x0093A1 02:B391: 06        .byte $06   ; 
-- - - - - - 0x0093A2 02:B392: 07        .byte $07   ; 
-- - - - - - 0x0093A3 02:B393: 08        .byte $08   ; 
-- - - - - - 0x0093A4 02:B394: 09        .byte $09   ; 
-- - - - - - 0x0093A5 02:B395: 0A        .byte $0A   ; 
-- - - - - - 0x0093A6 02:B396: 0A        .byte $0A   ; 
-- - - - - - 0x0093A7 02:B397: 0B        .byte $0B   ; 
-- - - - - - 0x0093A8 02:B398: 0C        .byte $0C   ; 
-- - - - - - 0x0093A9 02:B399: 0D        .byte $0D   ; 
-- - - - - - 0x0093AA 02:B39A: 00        .byte $00   ; 
-- - - - - - 0x0093AB 02:B39B: 01        .byte $01   ; 
-- - - - - - 0x0093AC 02:B39C: 02        .byte $02   ; 
-- - - - - - 0x0093AD 02:B39D: 03        .byte $03   ; 
-- - - - - - 0x0093AE 02:B39E: 04        .byte $04   ; 
-- - - - - - 0x0093AF 02:B39F: 05        .byte $05   ; 
-- - - - - - 0x0093B0 02:B3A0: 06        .byte $06   ; 
-- - - - - - 0x0093B1 02:B3A1: 07        .byte $07   ; 
-- - - - - - 0x0093B2 02:B3A2: 07        .byte $07   ; 
-- - - - - - 0x0093B3 02:B3A3: 08        .byte $08   ; 
-- - - - - - 0x0093B4 02:B3A4: 09        .byte $09   ; 
-- - - - - - 0x0093B5 02:B3A5: 0A        .byte $0A   ; 
-- - - - - - 0x0093B6 02:B3A6: 0B        .byte $0B   ; 
-- - - - - - 0x0093B7 02:B3A7: 0C        .byte $0C   ; 
-- - - - - - 0x0093B8 02:B3A8: 0D        .byte $0D   ; 
-- - - - - - 0x0093B9 02:B3A9: 0E        .byte $0E   ; 
-- - - - - - 0x0093BA 02:B3AA: 00        .byte $00   ; 
-- - - - - - 0x0093BB 02:B3AB: 01        .byte $01   ; 
-- - - - - - 0x0093BC 02:B3AC: 02        .byte $02   ; 
-- - - - - - 0x0093BD 02:B3AD: 03        .byte $03   ; 
-- - - - - - 0x0093BE 02:B3AE: 04        .byte $04   ; 
-- - - - - - 0x0093BF 02:B3AF: 05        .byte $05   ; 
-- - - - - - 0x0093C0 02:B3B0: 06        .byte $06   ; 
-- - - - - - 0x0093C1 02:B3B1: 07        .byte $07   ; 
-- - - - - - 0x0093C2 02:B3B2: 08        .byte $08   ; 
-- - - - - - 0x0093C3 02:B3B3: 09        .byte $09   ; 
-- - - - - - 0x0093C4 02:B3B4: 0A        .byte $0A   ; 
-- - - - - - 0x0093C5 02:B3B5: 0B        .byte $0B   ; 
-- - - - - - 0x0093C6 02:B3B6: 0C        .byte $0C   ; 
-- - - - - - 0x0093C7 02:B3B7: 0D        .byte $0D   ; 
-- - - - - - 0x0093C8 02:B3B8: 0E        .byte $0E   ; 
-- D 1 - - - 0x0093C9 02:B3B9: 0F        .byte $0F   ; 
+tbl_B21A_direction_of_distributions:
+- D - - - - 0x00922A 02:B21A: 02        .byte $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02
+- D - - - - 0x00923A 02:B22A: F0        .byte $F0, $E0, $D0, $C0, $B0, $A0, $90, $80, $70, $60, $50, $40, $30, $20, $10, $00
+- D - - - - 0x00924A 02:B23A: 00        .byte $00, $10, $20, $30, $40, $50, $60, $70, $80, $90, $A0, $B0, $C0, $D0, $E0, $F0
+- D - - - - 0x00925A 02:B24A: F0        .byte $F0, $E0, $D0, $C0, $B0, $A0, $90, $80, $80, $90, $A0, $B0, $C0, $D0, $E0, $F0
+- D - - - - 0x00926A 02:B25A: 80        .byte $80, $90, $A0, $B0, $C0, $D0, $E0, $F0, $F0, $E0, $D0, $C0, $B0, $A0, $90, $80
+- D - - - - 0x00927A 02:B26A: F0        .byte $F0, $D0, $B0, $90, $70, $50, $30, $10, $E0, $C0, $A0, $80, $60, $40, $20, $00
+- D - - - - 0x00928A 02:B27A: F0        .byte $F0, $E0, $D0, $C0, $C0, $D0, $E0, $D0, $C0, $A0, $80, $60, $40, $20, $10, $00
+- D - - - - 0x00929A 02:B28A: F0        .byte $F0, $D0, $B0, $90, $A0, $B0, $90, $70, $60, $50, $40, $30, $20, $10, $10, $00
+- D - - - - 0x0092AA 02:B29A: 40        .byte $40, $40, $40, $40, $40, $40, $40, $60, $60, $70, $80, $A0, $C0, $F0, $B0, $80
+- D 1 - - - 0x0092BA 02:B2AA: F0        .byte $F0, $F0, $A0, $80, $F0, $F0, $A0, $80, $70, $70, $60, $60, $50, $50, $40, $20
+
+tbl_B2BA_volumes:
+- D - - - - 0x0092CA 02:B2BA: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+- D - - - - 0x0092DA 02:B2CA: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $01, $01, $01
+- D - - - - 0x0092EA 02:B2DA: 00        .byte $00, $00, $00, $00, $01, $01, $01, $01, $01, $01, $01, $01, $02, $02, $02, $02
+- D - - - - 0x0092FA 02:B2EA: 00        .byte $00, $00, $00, $01, $01, $01, $01, $01, $02, $02, $02, $02, $02, $03, $03, $03
+- D - - - - 0x00930A 02:B2FA: 00        .byte $00, $00, $01, $01, $01, $01, $02, $02, $02, $02, $03, $03, $03, $03, $04, $04
+- D - - - - 0x00931A 02:B30A: 00        .byte $00, $00, $01, $01, $01, $02, $02, $02, $03, $03, $03, $04, $04, $04, $05, $05
+- D - - - - 0x00932A 02:B31A: 00        .byte $00, $00, $01, $01, $02, $02, $02, $03, $03, $04, $04, $04, $05, $05, $06, $06
+- D - - - - 0x00933A 02:B32A: 00        .byte $00, $00, $01, $01, $02, $02, $03, $03, $04, $04, $05, $05, $06, $06, $07, $07
+- D - - - - 0x00934A 02:B33A: 00        .byte $00, $01, $01, $02, $02, $03, $03, $04, $04, $05, $05, $06, $06, $07, $07, $08
+- D - - - - 0x00935A 02:B34A: 00        .byte $00, $01, $01, $02, $02, $03, $04, $04, $05, $05, $06, $07, $07, $08, $08, $09
+- D - - - - 0x00936A 02:B35A: 00        .byte $00, $01, $01, $02, $03, $03, $04, $05, $05, $06, $07, $07, $08, $09, $09, $0A
+- D - - - - 0x00937A 02:B36A: 00        .byte $00, $01, $01, $02, $03, $04, $04, $05, $06, $07, $07, $08, $09, $0A, $0A, $0B
+- D - - - - 0x00938A 02:B37A: 00        .byte $00, $01, $02, $02, $03, $04, $05, $06, $06, $07, $08, $09, $0A, $0A, $0B, $0C
+- D - - - - 0x00939A 02:B38A: 00        .byte $00, $01, $02, $03, $03, $04, $05, $06, $07, $08, $09, $0A, $0A, $0B, $0C, $0D
+- D - - - - 0x0093AA 02:B39A: 00        .byte $00, $01, $02, $03, $04, $05, $06, $07, $07, $08, $09, $0A, $0B, $0C, $0D, $0E
+- D - - - - 0x0093BA 02:B3AA: 00        .byte $00, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F
+
 - - - - - - 0x0093CA 02:B3BA: 87        .byte $87   ; 
 - - - - - - 0x0093CB 02:B3BB: 00        .byte $00   ; 
 - - - - - - 0x0093CC 02:B3BC: FF        .byte $FF   ; 

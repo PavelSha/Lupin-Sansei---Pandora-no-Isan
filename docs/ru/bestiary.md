@@ -1,7 +1,7 @@
 |Идентификатор|Имя|Тип|Подробнее|Уровень|
 |---|---|---|---|---|
 |0x00| - | - | - | - |
-|0x01|Cat with the gun| A |   | 3 |
+|0x01|Cat with the gun| A | [Большой кот](#враг-01) | 3 |
 |0x02|Gray land hat| B |   | 3 |
 |0x03|Black land hat| B |   | 3 |
 |0x04|Land Diver| A |   | 3 |
@@ -58,6 +58,35 @@
 |0x37|Egyptian with a boomerung| A | [Египтянин с бумерангом](#враг-37) | 4 |
 |0x38|Ninja upside down| A | [Ниндзя сверху](#враг-38) | 4 |
 |0x39|Sensor| B |   | 4 |
+|0x81|Cat with the knife| A | [Большой кот](#враг-01) | 3 |
+
+## Враг 01
+Большой кот
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|
+|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/01/frame1-r.png) | ![Frame2](../images/enemies/01/frame2-r.png) | ![Frame3](../images/enemies/01/frame3-r.png) | ![Frame4](../images/enemies/01/frame4-r.png) | ![Frame5](../images/enemies/01/frame5-r.png) | ![Frame6](../images/enemies/01/frame6-r.png) |
+| ![Frame1](../images/enemies/01/frame1-l.png) | ![Frame2](../images/enemies/01/frame2-l.png) | ![Frame3](../images/enemies/01/frame3-l.png) | ![Frame4](../images/enemies/01/frame4-l.png) | ![Frame5](../images/enemies/01/frame5-l.png) | ![Frame6](../images/enemies/01/frame6-l.png) |
+
+|Кадр 1|Кадр 2|
+|---|---|
+| ![Frame1](../images/enemies/01/frame7-r.png) | ![Frame2](../images/enemies/01/frame8-r.png) |
+| ![Frame1](../images/enemies/01/frame7-l.png) | ![Frame2](../images/enemies/01/frame8-l.png) |
+
+|Кадр 1|Кадр 2|
+|---|---|
+| ![Frame1](../images/enemies/01/frame9-r.png) | ![Frame2](../images/enemies/01/frame10-r.png) |
+| ![Frame1](../images/enemies/01/frame9-l.png) | ![Frame2](../images/enemies/01/frame10-l.png) |
+### Статусы 
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг прыжка, например через препятствие (**_0x00_** - не прыгает, **_0x01_** - прыгает)
+-  ***L*** - (_если использует нож_) флаг ближнего контакта (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***L*** - (_если использует пистолет_) используется совместно с ***K***, флаг выстрела (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***K*** - флаг остановки (**_0x00_** - не остановился, **_0x01_** - остановился)
+-  ***W*** - флаг приседания перед прыжком (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 
 ## Враг 06
 Земной водолаз, версия 1
