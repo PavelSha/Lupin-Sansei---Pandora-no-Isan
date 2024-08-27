@@ -771,13 +771,13 @@ C - - - - - 0x01C452 07:C442: B1 12     LDA (ram_0012),Y              ;
 C - - - - - 0x01C454 07:C444: AA        TAX                           ;
 C - - - - - 0x01C455 07:C445: C8        INY                           ; to 2 byte of 4
 C - - - - - 0x01C456 07:C446: B1 12     LDA (ram_0012),Y              ;
-C - - - - - 0x01C458 07:C448: 9D 11 04  STA vSoundRowB_1,X            ;
+C - - - - - 0x01C458 07:C448: 9D 11 04  STA vSoundRowComplexChannel,X ;
 C - - - - - 0x01C45B 07:C44B: C8        INY                           ; to 3 byte of 4
 C - - - - - 0x01C45C 07:C44C: B1 12     LDA (ram_0012),Y              ;
-C - - - - - 0x01C45E 07:C44E: 9D 12 04  STA vSoundRowB_2,X            ;
+C - - - - - 0x01C45E 07:C44E: 9D 12 04  STA vSoundRowTrackLow,X       ;
 C - - - - - 0x01C461 07:C451: C8        INY                           ; to 4 byte of 4
 C - - - - - 0x01C462 07:C452: B1 12     LDA (ram_0012),Y              ;
-C - - - - - 0x01C464 07:C454: 9D 13 04  STA vSoundRowB_3,X            ;
+C - - - - - 0x01C464 07:C454: 9D 13 04  STA vSoundRowTrackHigh,X      ;
 C - - - - - 0x01C467 07:C457: A9 00     LDA #$00                      ;
 C - - - - - 0x01C469 07:C459: 9D 10 04  STA vSoundRowIndex,X          ; reset an index
 C - - - - - 0x01C46C 07:C45C: A9 06     LDA #$06                      ;

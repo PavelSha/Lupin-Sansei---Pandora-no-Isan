@@ -430,16 +430,6 @@ vEnemyAStatus                 = ram_0320 ; see below and docs (Bestiary)
 ; Z - the dying
 ; Y - see above
 
-; Cat with the knift
-; 0x02 - jump
-; 0x04 - close contact
-; 0x08 - stop
-; 0x10 - squatting
-; Cat with the the gun
-; 0x02 - jump
-; 0x0C - shoot
-; 0x08 - stop
-; 0x10 - squatting
 ; Egyptian with bow
 ; 0x02 - jump
 ; 0x0C - shoot
@@ -581,30 +571,35 @@ vApuChannelStatus             = ram_0400 ; Secondary status flag for adjusting A
 vApuChannelProcessed          = ram_0401 ; 0x01 - pulse 1, 0x02 - pulse 2, 0x04 - triangle, 0x08 - noise
 vCurrentApuChannel            = ram_0402 ; apu channel (0x00 - pulse 1, 0x01 - pulse 2, 0x02 - triangle, 0x03 - noise) for each sound row
 vCurrentApuChannelFlag        = ram_0403 ; apu channel flags (0x00 - pulse 1, 0x01 - pulse 2, 0x82 - triangle, 0x43 - noise)
-vSoundRowTempValue1           = ram_0404
+vSoundTempValue1              = ram_0404
+vSoundTempValue2              = ram_0405
 v_sound_counter               = ram_0406
-vSoundRowIndex                = ram_0410 ; sound pair index
-vSoundRowB_1                  = ram_0411 ; ?? apu channel (0x00 - pulse 1, 0x01 - pulse 2, 0x02 - triangle, 0x03 - noise)
-vSoundRowB_2                  = ram_0412 ; low address of the current track
-vSoundRowB_3                  = ram_0413 ; high address of the current track
-vSoundRowFPPValue             = ram_0414 ; ppu frames per sound pair (FPP) in the sound track
-vSoundRowFPPCounter           = ram_0415 ; ppu frames per sound pair (FPP) counter, i.e. counter for number of frames per sound instruction
-vSoundRowB_6                  = ram_0416 ; ???
-vSoundRowFPPLength            = ram_0417 ; length of sound row, affects FPP (see vSoundRowFPPCounter)
-vSoundRowSweep                = ram_0418
-vSoundRowMarkCacheNoReplay    = ram_0419 ; ???
-vSoundRowCacheNoReplay        = ram_041A ; the cache number of replays
-vSoundRowVolumeDirection      = ram_041B ; It's the direction of distributions for the volume changes
-vSoundRowVolumeChLength       = ram_041C ; length in FPP (see vSoundRowFPPCounter) utits for next sound rows, feature 'volume changes'
-                                         ; Note: vSoundRowVolumeChLength is not cleared (may be bugs)
-vSoundRowVolumeChCounter      = ram_041D ; the counter between 0x00 and vSoundRowVolumeChLength
-vSoundRowB_E                  = ram_041E ; ???
-vSoundRowB_F                  = ram_041F ; ???
-vSoundRowB_G                  = ram_0420 ; ???
-vSoundRowB_H                  = ram_0421 ; ???
-vSoundRowMarkForReplay        = ram_0422 ; sound pair index for replays
-vSoundRowShakingEfValue       = ram_0423 ; shaking effect value in the sound track
-vSoundRowShakingEfCounter     = ram_0424 ; counter to skip shaking effect
+vSoundRowIndex                 = ram_0410 ; sound pair index
+vSoundRowComplexChannel        = ram_0411
+; SVVV 00CC
+; S - 1 if the shaking effect is used
+; V - the shaking effect index in tbl_B1AA_shaking_spread (Bank 2, Page 1)
+; C - apu channel for the sound track (0x00 - pulse 1, 0x01 - pulse 2, 0x02 - triangle, 0x03 - noise)
+vSoundRowTrackLow              = ram_0412 ; low address of the current track
+vSoundRowTrackHigh             = ram_0413 ; high address of the current track
+vSoundRowFPPValue              = ram_0414 ; ppu frames per sound pair (FPP) in the sound track
+vSoundRowFPPCounter            = ram_0415 ; ppu frames per sound pair (FPP) counter, i.e. counter for number of frames per sound instruction
+vSoundRowMainChannelByte       = ram_0416 ; the current value for $4000 (pulse 1), $4004 (pulse 1), $4008 (triangle) or $400C (noise)
+vSoundRowFPPLength             = ram_0417 ; length of sound row, affects FPP (see vSoundRowFPPCounter)
+vSoundRowSweep                 = ram_0418
+vSoundRowMarkCacheNoReplay     = ram_0419 ; the sound row index for the replays
+vSoundRowCacheNoReplay         = ram_041A ; the cache number of replays
+vSoundRowVolumeDirection       = ram_041B ; It's the direction of distributions for the volume changes
+vSoundRowVolumeChLength        = ram_041C ; length in FPP (see vSoundRowFPPCounter) utits for next sound rows, feature 'volume changes'
+                                          ; Note: vSoundRowVolumeChLength is not cleared (may be bugs)
+vSoundRowVolumeChCounter       = ram_041D ; the counter between 0x00 and vSoundRowVolumeChLength
+vSoundRowVolumeIterCount       = ram_041E ; The count of the changes is for the constant volume change (0x0X - increasing or 0xFX - decreasing)
+vSoundRowVolumeIterStep        = ram_041F ; the constant step of changing the volume in the sound row
+vSoundRowVolumeIterCurrentStep = ram_0420 ; the current step of changing the volume in the sound row
+vSoundRowTimerCorrection       = ram_0421 ; the correction when the timer value < 0x02 or >= 0xFE
+vSoundRowMarkForReplay         = ram_0422 ; sound pair index for replays
+vSoundRowShakingEfValue        = ram_0423 ; shaking effect value in the sound track
+vSoundRowShakingEfCounter      = ram_0424 ; counter to skip shaking effect
 vRooms                        = ram_0500
 ; flag 0x80 - the room has already been visited
 
