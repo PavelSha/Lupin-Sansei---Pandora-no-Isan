@@ -421,20 +421,6 @@ vEnemyAStatus                 = ram_0320 ; see below and docs (Bestiary)
 ; L - using vJumpCounter
 ; K - ???
 
-; Byte: 0YZW KLMN (girl in red, egyptian with a sword)
-; N - see above
-; M - the jump
-; L - close contact, extra (for an egyptian with a sword)
-; K - close contact
-; W - squatting
-; Z - the dying
-; Y - see above
-
-; Egyptian with bow
-; 0x02 - jump
-; 0x0C - shoot
-; 0x10 - squatting
-
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
 vEnemyAProjectileStatus       = ram_0322 ; $0322-$0325
@@ -487,7 +473,7 @@ vEnemyAJumpType               = ram_0356 ; see below
 vEnemyAJumpType1              = ram_0356 ; vJumpType analog for the enemy (the enemy number = 1)
 vEnemyAJumpType2              = ram_0357 ; vJumpType analog for the enemy (the enemy number = 2)
 
-vEnemyBStatus                 = ram_035C ; see below
+vEnemyBStatus                 = ram_035C ; see below and docs (Bestiary)
 ; 0x00 - None
 ; 0x01 - the direction (1 - on the left, 0 - on the right) 
 ; 0x20 - the enemy is dying (1 - true, 0 - false)
@@ -500,17 +486,6 @@ vEnemyBStatus                 = ram_035C ; see below
 ; L - ???
 ; K - the stop
 ; W - ???
-; Z - see above
-; Y - see above
-
-; Byte: 0YZ0 000N (bat)
-; N - see above
-; Z - see above
-; Y - see above
-
-; Byte: 0YZ0 00MN (gargoyle)
-; N - see above
-; M - overdrive mode
 ; Z - see above
 ; Y - see above
 
@@ -573,7 +548,7 @@ vCurrentApuChannel            = ram_0402 ; apu channel (0x00 - pulse 1, 0x01 - p
 vCurrentApuChannelFlag        = ram_0403 ; apu channel flags (0x00 - pulse 1, 0x01 - pulse 2, 0x82 - triangle, 0x43 - noise)
 vSoundTempValue1              = ram_0404
 vSoundTempValue2              = ram_0405
-v_sound_counter               = ram_0406
+vSoundCounter                 = ram_0406
 vSoundRowIndex                 = ram_0410 ; sound pair index
 vSoundRowComplexChannel        = ram_0411
 ; SVVV 00CC
@@ -670,3 +645,4 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; Баги - перейти в комнату 0x78, перейти на экран с двумя стенами и сменить персонажа. Стена сменится на стенообразного персонажа
 ; vNoSubLevel -> vNoRoom
 ; JSR $AD6E ; to sub_AD6E bank 06_2 - проверить записи
+; 0x008B91 - лишние байты музыки
