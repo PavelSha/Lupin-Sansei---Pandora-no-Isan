@@ -272,7 +272,7 @@
 ## Враг 35
 Египтянин с луком
 |Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|
-|---|---|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|
 | ![Frame1](../images/enemies/35/frame1-r.png) | ![Frame2](../images/enemies/35/frame2-r.png) | ![Frame3](../images/enemies/35/frame3-r.png) | ![Frame4](../images/enemies/35/frame4-r.png) | ![Frame5](../images/enemies/35/frame5-r.png) | ![Frame6](../images/enemies/35/frame6-r.png) | ![Frame7](../images/enemies/35/frame7-r.png) | ![Frame8](../images/enemies/35/frame8-r.png) |
 | ![Frame1](../images/enemies/35/frame1-l.png) | ![Frame2](../images/enemies/35/frame2-l.png) | ![Frame3](../images/enemies/35/frame3-l.png) | ![Frame4](../images/enemies/35/frame4-l.png) | ![Frame5](../images/enemies/35/frame5-l.png) | ![Frame6](../images/enemies/35/frame6-l.png) | ![Frame7](../images/enemies/35/frame7-l.png) | ![Frame8](../images/enemies/35/frame8-l.png) |
 ### Статусы
