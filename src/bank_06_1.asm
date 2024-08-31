@@ -3235,7 +3235,7 @@ C - - - - - 0x019474 06:B464: 65 04     ADC ram_0004                    ; + Y ~>
 C - - - - - 0x019476 06:B466: 85 01     STA ram_0001                    ;
 C - - - - - 0x019478 06:B468: BD 20 03  LDA vEnemyAStatus,X             ;
 C - - - - - 0x01947B 06:B46B: 29 10     AND #$10                        ; CONSTANT - 'squatting' status
-C - - - - - 0x01947D 06:B46D: F0 15     BEQ bra_B484_add_sprite         ; If 'squatting' status is activated
+C - - - - - 0x01947D 06:B46D: F0 15     BEQ bra_B484_add_sprite         ; If 'squatting' status isn't activated
 C - - - - - 0x01947F 06:B46F: A5 00     LDA ram_0000                    ;
 C - - - - - 0x019481 06:B471: 18        CLC                             ;
 C - - - - - 0x019482 06:B472: 69 05     ADC #$05                        ;

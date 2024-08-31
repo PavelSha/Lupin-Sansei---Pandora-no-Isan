@@ -1485,7 +1485,7 @@ C - - - - - 0x00E894 03:A884: D0 03     BNE bra_A889
 C - - - - - 0x00E896 03:A886: 4C 73 D8  JMP loc_D873_free_enemyB
 
 bra_A889:
-C - - - - - 0x00E899 03:A889: 4C 7D D9  JMP $D97D
+C - - - - - 0x00E899 03:A889: 4C 7D D9  JMP loc_D97D_add_flash_sprite_magic
 
 sub_A88C:
 C - - - - - 0x00E89C 03:A88C: BD 92 03  LDA ram_0392,X
@@ -3127,7 +3127,7 @@ C - - - - - 0x00F32E 03:B31E: 4C 7F D7  JMP loc_D77F_free_enemyA               ;
 
 bra_B321:
 C - - - - - 0x00F331 03:B321: BD 4A 03  LDA ram_034A,X
-C - - - - - 0x00F334 03:B324: 20 5F D0  JSR $D05F
+C - - - - - 0x00F334 03:B324: 20 5F D0  JSR sub_accumulator_shift_right_by_4
 C - - - - - 0x00F337 03:B327: A8        TAY
 C - - - - - 0x00F338 03:B328: B9 2E B3  LDA tbl_B32E,Y
 C - - - - - 0x00F33B 03:B32B: A8        TAY

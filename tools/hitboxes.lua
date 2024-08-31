@@ -8,6 +8,9 @@ function drawEnemyHB(x, y, w, h)
   gui.box(x, y + MENU_OFFSET, x + w - 1, y + h - 1 + MENU_OFFSET, nil, COLOR);
 end;
 
+function is4bit(byte) return bit.rshift(byte, 4) % 2 == 1 end;
+function is7bit(byte) return bit.rshift(byte, 7) % 2 == 1 end;
+
 function proccesEnemyA(type, status, px, py, pstatus)
   if type == 0 or bit.rshift(status, 7) % 2 == 0 then
     return
@@ -15,30 +18,38 @@ function proccesEnemyA(type, status, px, py, pstatus)
   local isLeft = (status % 2 == 1);
   if type == 0x35 then
     -- Egyptian with bow
-    if bit.rshift(status, 4) % 2 == 1 then
+    if is4bit(status) then
       -- squatting
       drawEnemyHB(px, py - 0x18, 0x04, 0x18);
     else
       drawEnemyHB(px, py - 0x20, 0x04, 0x20);
-   end
+  end
+  elseif type == 0x10 then
+    -- Nun
+    if is4bit(status) then
+      -- squatting
+      drawEnemyHB(px, py - 0x1C, 0x06, 0x1C);
+    else
+      drawEnemyHB(px, py - 0x20, 0x06, 0x20);
+  end
   elseif type == 0x37 then
     -- Egyptian with a boomerung
-    if bit.rshift(status, 4) % 2 == 1 then
+    if is4bit(status) then
       -- squatting
       drawEnemyHB(px, py - 0x18, 0x04, 0x18);
     else
       drawEnemyHB(px, py - 0x20, 0x04, 0x20);
     end
-    if bit.rshift(pstatus, 7) % 2 == 1 then
+    if is7bit(status) then
       if isLeft then
-        if bit.rshift(status, 4) % 2 == 1 then
+        if is4bit(status) then
           -- squatting
           drawEnemyHB(px - 4, py - 8 - 0x10, 0x04, 0x10);
         else
           drawEnemyHB(px - 4, py - 16 - 0x10, 0x04, 0x10);
         end
       else
-        if bit.rshift(status, 4) % 2 == 1 then
+        if is4bit(status) then
           -- squatting
           drawEnemyHB(px + 4, py - 8 - 0x10, 0x04, 0x10);
         else
