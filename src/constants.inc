@@ -465,9 +465,9 @@ vEnemyAJumpCounter1           = ram_034A ; vJumpCounter analog for the enemy (th
 vEnemyAJumpCounter2           = ram_034B ; vJumpCounter analog for the enemy (the enemy number = 2)
 vEnemyAProjectileJumpCounter  = ram_034C ; $034C-$034F
 
-vEnemyAHealthPoints           = ram_0350 ; Only for the egyptian with a boomerung
-vEnemyAHealthPoints1          = ram_0350 ; Only for the egyptian with a boomerung
-vEnemyAHealthPoints2          = ram_0351 ; Only for the egyptian with a boomerung
+vEnemyAHealthPoints           = ram_0350 ; Only for the egyptian with a boomerung, nun
+vEnemyAHealthPoints1          = ram_0350 ; Only for the egyptian with a boomerung, nun
+vEnemyAHealthPoints2          = ram_0351 ; Only for the egyptian with a boomerung, nun
 
 vEnemyAJumpType               = ram_0356 ; see below
 vEnemyAJumpType1              = ram_0356 ; vJumpType analog for the enemy (the enemy number = 1)
@@ -646,3 +646,4 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; vNoSubLevel -> vNoRoom
 ; JSR $AD6E ; to sub_AD6E bank 06_2 - проверить записи
 ; 0x008B91 - лишние байты музыки
+; удалить лишние директивы .export/.import

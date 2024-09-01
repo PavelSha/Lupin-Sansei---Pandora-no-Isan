@@ -42,7 +42,7 @@
 .import sub_A012_fly_man                     ; bank 06 (Page 1)
 .import sub_A015_shooter                     ; bank 06 (Page 1)
 .import sub_A018_Zenigata                    ; bank 06 (Page 1)
-.import sub_A028_jumper                      ; bank 06 (Page 1)
+.import loc_A028_jumper                      ; bank 06 (Page 1)
 .import loc_B234_add_message                 ; bank 06 (Page 2)
 .import sub_B234_add_message                 ; bank 06 (Page 2)
 .import loc_B255_display_message_by_letter   ; bank 06 (Page 2)
@@ -8930,17 +8930,17 @@ C - - - - - 0x01F677 07:F667: 4C 20 F8  JMP loc_F820_finish_creating_enemyB
 ; Template 5
 ; In: $000B - the direction of appearance (0x00 - right, 0x01 - left)
 loc_F66A_enemy_appearance_t5:
-C - - J - - 0x01F67A 07:F66A: 20 72 F3  JSR sub_F372_start_enemyA_appearance
-C - - - - - 0x01F67D 07:F66D: A0 D0     LDY #$D0
-C - - - - - 0x01F67F 07:F66F: A5 0B     LDA ram_000B
-C - - - - - 0x01F681 07:F671: 6A        ROR
-C - - - - - 0x01F682 07:F672: 90 02     BCC @bra_F676_skip                ; if $000B == 0x00 (the right direction)
-C - - - - - 0x01F684 07:F674: A0 D1     LDY #$D1
+C - - J - - 0x01F67A 07:F66A: 20 72 F3  JSR sub_F372_start_enemyA_appearance   ;
+C - - - - - 0x01F67D 07:F66D: A0 D0     LDY #$D0                               ; CONSTANT - the start status (Y + 'squatting' - see vEnemyAStatus)
+C - - - - - 0x01F67F 07:F66F: A5 0B     LDA ram_000B                           ;
+C - - - - - 0x01F681 07:F671: 6A        ROR                                    ;
+C - - - - - 0x01F682 07:F672: 90 02     BCC @bra_F676_skip                     ; if $000B == 0x00 (the right direction)
+C - - - - - 0x01F684 07:F674: A0 D1     LDY #$D1                               ; CONSTANT - the start status (Y + 'squatting' + 'direction' - see vEnemyAStatus)
 @bra_F676_skip:
-C - - - - - 0x01F686 07:F676: 98        TYA
-C - - - - - 0x01F687 07:F677: 9D 20 03  STA vEnemyAStatus,X
-C - - - - - 0x01F68A 07:F67A: A9 10     LDA #$10
-C - - - - - 0x01F68C 07:F67C: 9D 4A 03  STA vEnemyAJumpCounter,X
+C - - - - - 0x01F686 07:F676: 98        TYA                                    ;
+C - - - - - 0x01F687 07:F677: 9D 20 03  STA vEnemyAStatus,X                    ; Initializes a status (0xD0 or 0xD1)
+C - - - - - 0x01F68A 07:F67A: A9 10     LDA #$10                               ;
+C - - - - - 0x01F68C 07:F67C: 9D 4A 03  STA vEnemyAJumpCounter,X               ; initializes a jump counter 
 C - - - - - 0x01F68F 07:F67F: AD 00 03  LDA vEnemyA                            ;
 C - - - - - 0x01F692 07:F682: C9 10     CMP #$10                               ; CONSTANT - Nun
 C - - - - - 0x01F694 07:F684: F0 0E     BEQ @bra_F694_nun                      ; If EnemyA == 0x10
@@ -8952,15 +8952,15 @@ C - - - - - 0x01F6A0 07:F690: A9 0D     LDA #$0D                               ;
 C - - - - - 0x01F6A2 07:F692: D0 11     BNE @bra_F6A5_skip                     ; Always true
 
 @bra_F694_nun:
-C - - - - - 0x01F6A4 07:F694: A9 02     LDA #$02
-C - - - - - 0x01F6A6 07:F696: 9D 50 03  STA ram_0350,X
+C - - - - - 0x01F6A4 07:F694: A9 02     LDA #$02                               ;
+C - - - - - 0x01F6A6 07:F696: 9D 50 03  STA vEnemyAHealthPoints,X              ; Enemy HP <~ 2 points
 C - - - - - 0x01F6A9 07:F699: A9 00     LDA #$00                               ; the offset for sprite_magic2 (Bank 05, Page 2, $8200 + $0000)
 C - - - - - 0x01F6AB 07:F69B: 8D 02 03  STA vEnemyASpriteMagic2                ;
 C - - - - - 0x01F6AE 07:F69E: A9 86     LDA #$86                               ; <~ sprite_magic3 (see v_sprite_magic3)
 C - - - - - 0x01F6B0 07:F6A0: 8D 03 03  STA vEnemyASpriteMagic3                ;
 C - - - - - 0x01F6B3 07:F6A3: A9 11     LDA #$11                               ; CONSTANT for CHR ROM #2
 @bra_F6A5_skip:
-C - - - - - 0x01F6B5 07:F6A5: 8D B4 06  STA vCacheChrBankSelect + 5
+C - - - - - 0x01F6B5 07:F6A5: 8D B4 06  STA vCacheChrBankSelect + 5            ;
 C - - - - - 0x01F6B8 07:F6A8: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA    ;
 
 loc_F6AB_lift:
@@ -9930,22 +9930,22 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FCDA 07:FCCA: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 3) (0x08) Type A
 - D 3 - - - 0x01FCDC 07:FCCC: C0 EE     .word $EEC0                     ; The fat sailor (level 3) (0x09) Type A
 - D 3 - - - 0x01FCDE 07:FCCE: 81 EE     .word $EE81                     ; The barrel (level 3) (0x0A) Type B
-- D 3 - - - 0x01FCE0 07:FCD0: 28 A0     .word sub_A028_jumper           ; Jumping sailor (level 3) (0x0B) Type A
-- D 3 - - - 0x01FCE2 07:FCD2: 08 AD     .word $AD08                     ; The lift (level 3) (0x0C) Type A
+- D 3 - - - 0x01FCE0 07:FCD0: 28 A0     .addr loc_A028_jumper           ; Jumping sailor (level 3) (0x0B) Type A
+- D 3 - - - 0x01FCE2 07:FCD2: 08 AD     .addr loc_AD08_lift             ; The lift (level 3) (0x0C) Type A
 - D 3 - - - 0x01FCE4 07:FCD4: 93 EE     .word $EE93                     ; Sensor (level 3) (0x0D) Type B
 - D 3 - - - 0x01FCE6 07:FCD6: 78 EE     .addr loc_EE78_soar_enemy       ; Bat (level 1) (0x0E) Type B
 - D 3 - - - 0x01FCE8 07:FCD8: 11 EF     .addr loc_EF11_cat_or_snake     ; Gray cat (level 1) (0x0F) Type B
-- D 3 - - - 0x01FCEA 07:FCDA: 28 A0     .word sub_A028_jumper           ; Nun (level 2) (0x10) Type A
+- D 3 - - - 0x01FCEA 07:FCDA: 28 A0     .addr loc_A028_jumper           ; Nun (level 2) (0x10) Type A
 - D 3 - - - 0x01FCEC 07:FCDC: FF EE     .addr loc_EEFF_swordtail        ; Girl in red, in the castle (level 1) (0x11) Type A
 - D 3 - - - 0x01FCEE 07:FCDE: 78 EE     .addr loc_EE78_soar_enemy       ; Batterfly (level 2) (0x12) Type B
 - D 3 - - - 0x01FCF0 07:FCE0: 78 EE     .addr loc_EE78_soar_enemy       ; Broned batterfly (level 2) (0x13) Type B
 - D 3 - - - 0x01FCF2 07:FCE2: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 2) (0x14) Type A
 - D 3 - - - 0x01FCF4 07:FCE4: 93 EE     .word $EE93                     ; Sensor (level 2) (0x15) Type B
 - D 3 - - - 0x01FCF6 07:FCE6: 11 EF     .addr loc_EF11_cat_or_snake     ; Black cat (level 1) (0x16) Type B
-- D 3 - - - 0x01FCF8 07:FCE8: 68 A6     .word $A668                     ; Karate-boy  (level 2) (0x17) Type A
-- D 3 - - - 0x01FCFA 07:FCEA: 68 A6     .word $A668                     ; Karate-boy in blue on the street (level 2) (0x18) Type A
+- D 3 - - - 0x01FCF8 07:FCE8: 68 A6     .addr loc_A668_karate_boy       ; Karate-boy  (level 2) (0x17) Type A
+- D 3 - - - 0x01FCFA 07:FCEA: 68 A6     .addr loc_A668_karate_boy       ; Karate-boy in blue on the street (level 2) (0x18) Type A
 - D 3 - - - 0x01FCFC 07:FCEC: AE EE     .addr loc_EEAE_shooter          ; Karate-girl (level 2) (0x19) Type A
-- D 3 - - - 0x01FCFE 07:FCEE: 09 A3     .word $A309                     ; Boy in green (level 2) (0x1A) Type A
+- D 3 - - - 0x01FCFE 07:FCEE: 09 A3     .addr loc_A309_green_boy        ; Boy in green (level 2) (0x1A) Type A
 - D 3 - - - 0x01FD00 07:FCF0: FF EE     .addr loc_EEFF_swordtail        ; Girl with sword (level 1) (0x1B) Type A
 - D 3 - - - 0x01FD02 07:FCF2: 08 EF     .addr loc_EF08_knight           ; Knight in armor with a shield (level 1) (0x1C) Type A
 - D 3 - - - 0x01FD04 07:FCF4: 81 EE     .word $EE81                     ; The barrel (0x1D)
@@ -9967,9 +9967,9 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD24 07:FD14: 87 F8     .addr loc_enemy_RTS             ; ??? (0x2D)
 - D 3 - - - 0x01FD26 07:FD16: ED EE     .word $EEED                     ; Boss (level 4) (0x2E) Type A
 - D 3 - - - 0x01FD28 07:FD18: 87 F8     .addr loc_enemy_RTS             ; ??? (0x2F)
-- D 3 - - - 0x01FD2A 07:FD1A: 34 AE     .word $AE34                     ; Wall (0x30)
-- D 3 - - - 0x01FD2C 07:FD1C: 34 AE     .word $AE34                     ; Wall (0x31)
-- D 3 - - - 0x01FD2E 07:FD1E: 34 AE     .word $AE34                     ; Breaking platform (level 4) (0x32) Type B
+- D 3 - - - 0x01FD2A 07:FD1A: 34 AE     .addr loc_AE34_platform         ; Wall (0x30)
+- D 3 - - - 0x01FD2C 07:FD1C: 34 AE     .addr loc_AE34_platform         ; Wall (0x31)
+- D 3 - - - 0x01FD2E 07:FD1E: 34 AE     .addr loc_AE34_platform         ; Breaking platform (level 4) (0x32) Type B
 - D 3 - - - 0x01FD30 07:FD20: C9 EE     .word $EEC9                     ; Blade trap (level 4) (0x33) Type B
 - D 3 - - - 0x01FD32 07:FD22: 11 EF     .addr loc_EF11_cat_or_snake     ; Potted snakes (level 4) (0x34)  Type B
 - D 3 - - - 0x01FD34 07:FD24: AE EE     .addr loc_EEAE_shooter          ; Egyptian with bow (level 4) (0x35) Type A

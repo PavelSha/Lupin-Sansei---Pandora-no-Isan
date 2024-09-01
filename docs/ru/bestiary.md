@@ -11,12 +11,12 @@
 |0x08|Shooter with bazooka| A |   | 3 |
 |0x09|The fat sailor| A |   | 3 |
 |0x0A|The barrel| B |   | 3 |
-|0x0B|Jumping sailor| B |   | 3 |
+|0x0B|Jumping sailor| B | [Прыгающий моряк](#враг-0b) | 3 |
 |0x0C|The lift| A |   | 3 |
 |0x0D|Sensor| B |   | 3 |
 |0x0E|Bat| B | [Летучая мышь](#враг-0e) | 1 |
 |0x0F|Gray cat| B | [Серый кот](#враг-0f) | 1 |
-|0x10|Nun| A |   | 2 |
+|0x10|Nun| A | [Монашка](#враг-10) | 2 |
 |0x11|Girl in red, in the castle| A | [Девушка в красном](#враг-11) | 1 |
 |0x12|Batterfly| B |   | 2 |
 |0x13|Broned batterfly| B |   | 2 |
@@ -118,6 +118,23 @@
 ![DescriptionBits](../images/descriptionBits.jpg)
 -->
 
+## Враг 0B
+Прыгающий моряк
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|
+|---|---|---|---|---|
+| ![Frame1](../images/enemies/0B/frame1-r.png) | ![Frame2](../images/enemies/0B/frame2-r.png) | ![Frame3](../images/enemies/0B/frame3-r.png) | ![Frame4](../images/enemies/0B/frame4-r.png) | ![Frame5](../images/enemies/0B/frame5-r.png) |
+| ![Frame1](../images/enemies/0B/frame1-l.png) | ![Frame2](../images/enemies/0B/frame2-l.png) | ![Frame3](../images/enemies/0B/frame3-l.png) | ![Frame4](../images/enemies/0B/frame4-l.png) | ![Frame5](../images/enemies/0B/frame5-l.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг прыжка (**_0x00_** - не прыгает, **_0x01_** - прыгает)
+-  ***L*** - _не используется_
+-  ***K*** - флаг ожидания приседания (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***W*** - флаг приседания перед прыжком (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
+
 ## Враг 0E
 Летучая мышь
 |Кадр 1|Кадр 2|Кадр 3|
@@ -145,6 +162,23 @@
 Статусы
 ![DescriptionBits](../images/descriptionBits.jpg)
 -->
+
+## Враг 10
+Монашка
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|
+|---|---|---|---|---|
+| ![Frame1](../images/enemies/10/frame1-r.png) | ![Frame2](../images/enemies/10/frame2-r.png) | ![Frame3](../images/enemies/10/frame3-r.png) | ![Frame4](../images/enemies/10/frame4-r.png) | ![Frame5](../images/enemies/10/frame5-r.png) |
+| ![Frame1](../images/enemies/10/frame1-l.png) | ![Frame2](../images/enemies/10/frame2-l.png) | ![Frame3](../images/enemies/10/frame3-l.png) | ![Frame4](../images/enemies/10/frame4-l.png) | ![Frame5](../images/enemies/10/frame5-l.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг прыжка (**_0x00_** - не прыгает, **_0x01_** - прыгает)
+-  ***L*** - _не используется_
+-  ***K*** - флаг ожидания приседания (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***W*** - флаг приседания перед прыжком (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 
 ## Враг 11
 Девушка в красном
