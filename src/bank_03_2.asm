@@ -3979,7 +3979,7 @@ C - - - - - 0x00F8DE 03:B8CE: D0 0B     BNE bra_B8DB_assign_hitbox   ; Always tr
 sub_B8D0_prepare_hitbox:
 C - - - - - 0x00F8E0 03:B8D0: A0 00     LDY #$00                     ; the offset value #5
 C - - - - - 0x00F8E2 03:B8D2: BD 20 03  LDA vEnemyAStatus,X          ;
-C - - - - - 0x00F8E5 03:B8D5: 29 10     AND #$10                     ; CONSTANT - 'squatting' statuc
+C - - - - - 0x00F8E5 03:B8D5: 29 10     AND #$10                     ; CONSTANT - 'squatting' status
 C - - - - - 0x00F8E7 03:B8D7: F0 02     BEQ bra_B8DB_assign_hitbox   ; If the enemy isn't squatting
 C - - - - - 0x00F8E9 03:B8D9: A0 04     LDY #$04                     ; the offset value #6
 ; In: Register Y - the hitbox offset
