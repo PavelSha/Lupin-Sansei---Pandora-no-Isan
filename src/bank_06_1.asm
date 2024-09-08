@@ -196,6 +196,7 @@ C - - - - - 0x0180A0 06:A090: 95 8F     STA vBulletStatus,X       ; clear
 C - - - - - 0x0180A2 06:A092: 20 98 A0  JSR sub_A098_hit          ;
 C - - - - - 0x0180A5 06:A095: 4C 89 A0  JMP loc_A089_next         ;
 
+; In: Register X - the enemyA number
 sub_A098_hit:
 C - - - - - 0x0180A8 06:A098: A6 1A     LDX vTempCounter1A             ;
 C - - - - - 0x0180AA 06:A09A: A9 22     LDA #$22                       ; CONSTANT - the jump + the dying
@@ -589,10 +590,10 @@ C - - - - - 0x01832C 06:A31C: A9 20     LDA #$20                          ; An i
 C - - - - - 0x01832E 06:A31E: 9D 4A 03  STA vEnemyAJumpCounter,X          ;
 C - - - - - 0x018331 06:A321: D0 02     BNE bra_A325_change_substatus_ex  ; Always true
 
-; In: Register A - an new status
+; In: Register A - a new status
 sub_A323_change_substatus:
 C - - - - - 0x018333 06:A323: 85 05     STA ram_0005                      ;
-; In: $0005 - an new status
+; In: $0005 - a new status
 bra_A325_change_substatus_ex:
 C - - - - - 0x018335 06:A325: BD 20 03  LDA vEnemyAStatus,X               ;
 C - - - - - 0x018338 06:A328: 29 C1     AND #$C1                          ;
@@ -1484,7 +1485,7 @@ sub_A8F2_update_projectile:
 C - - - - - 0x018902 06:A8F2: A0 02     LDY #$02                      ; set loop counter
 C - - - - - 0x018904 06:A8F4: BD 4A 03  LDA vEnemyAJumpCounter,X      ;
 bra_A8F7_loop:                                                        ; loop by y (3 times)
-C - - - - - 0x018907 06:A8F7: D9 7F A7  CMP tbl_A77F_shoot_time,Y      ;
+C - - - - - 0x018907 06:A8F7: D9 7F A7  CMP tbl_A77F_shoot_time,Y     ;
 C - - - - - 0x01890A 06:A8FA: D0 10     BNE bra_A90C_next             ; If JumpCounter != a shoot time
 C - - - - - 0x01890C 06:A8FC: A9 17     LDA #$17                      ; a shoot sound (for bazooka man)
 C - - - - - 0x01890E 06:A8FE: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF

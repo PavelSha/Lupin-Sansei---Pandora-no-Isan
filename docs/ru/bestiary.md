@@ -24,9 +24,9 @@
 |0x15|Sensor| B |   | 2 |
 |0x16|Black cat| B | [Чёрный кот](#враг-16) | 1 |
 |0x17|Karate-boy| A |   | 2 |
-|0x18|Karate-boy in blue on the street| A |   | 2 |
+|0x18|Street karate-boy| A |   | 2 |
 |0x19|Karate-girl| A | [Каратистка](#враг-19) | 2 |
-|0x1A|Boy in green| A |   | 2 |
+|0x1A|Boy in green| A | [Парень в зелёном](#враг-1a) | 2 |
 |0x1B|Girl with sword| A | [Девушка в красном, с мечом](#враг-1b) | 1 |
 |0x1C|Knight in armor with a shield| A | [Рыцарь в доспехах](#враг-1c) | 1 |
 |0x1D|The barrel| B |   | 2 |
@@ -225,6 +225,28 @@
 -  ***M*** - флаг прыжка, например через препятствие (**_0x00_** - не прыгает, **_0x01_** - прыгает)
 -  ***L*** - используется совместно с ***K***, флаг выстрела (**_0x00_** - неактивно, **_0x01_** - активно)
 -  ***K*** - флаг уклонения от выстрелов (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***W*** - флаг приседания перед прыжком (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
+
+## Враг 1A
+Парень в зелёном
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|Кадр 9|Кадр 10|
+|---|---|---|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/1A/frame1-r.png) | ![Frame2](../images/enemies/1A/frame2-r.png) | ![Frame3](../images/enemies/1A/frame3-r.png) | ![Frame4](../images/enemies/1A/frame4-r.png) | ![Frame5](../images/enemies/1A/frame5-r.png) | ![Frame6](../images/enemies/1A/frame6-r.png) | ![Frame7](../images/enemies/1A/frame7-r.png) | ![Frame8](../images/enemies/1A/frame8-r.png) | ![Frame9](../images/enemies/1A/frame9-r.png) | ![Frame10](../images/enemies/1A/frame10-r.png) |
+| ![Frame1](../images/enemies/1A/frame1-l.png) | ![Frame2](../images/enemies/1A/frame2-l.png) | ![Frame3](../images/enemies/1A/frame3-l.png) | ![Frame4](../images/enemies/1A/frame4-l.png) | ![Frame5](../images/enemies/1A/frame5-l.png) | ![Frame6](../images/enemies/1A/frame6-l.png) | ![Frame7](../images/enemies/1A/frame7-l.png) | ![Frame8](../images/enemies/1A/frame8-l.png) | ![Frame9](../images/enemies/1A/frame9-l.png) | ![Frame10](../images/enemies/1A/frame10-l.png) |
+
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|
+|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/19/frame1-r-b.png) | ![Frame2](../images/enemies/19/frame2-r-b.png) | ![Frame3](../images/enemies/19/frame3-r-b.png) | ![Frame4](../images/enemies/19/frame4-r-b.png) | ![Frame5](../images/enemies/19/frame5-r-b.png) | ![Frame6](../images/enemies/19/frame6-r-b.png) |
+| ![Frame1](../images/enemies/19/frame1-l-b.png) | ![Frame2](../images/enemies/19/frame2-l-b.png) | ![Frame3](../images/enemies/19/frame3-l-b.png) | ![Frame4](../images/enemies/19/frame4-l-b.png) | ![Frame5](../images/enemies/19/frame5-l-b.png) | ![Frame6](../images/enemies/19/frame6-l-b.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг прыжка, например через препятствие (**_0x00_** - не прыгает, **_0x01_** - прыгает)
+-  ***L*** - флаг использования дополнительного оружия, нунчаки (**_0x00_** - не используется, **_0x01_** - используется)
+-  ***K*** - флаг ближнего контакта (**_0x00_** - неактивно, **_0x01_** - активно)
 -  ***W*** - флаг приседания перед прыжком (**_0x00_** - неактивно, **_0x01_** - активно)
 -  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
 -  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)

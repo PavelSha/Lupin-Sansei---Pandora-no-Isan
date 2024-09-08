@@ -9261,7 +9261,7 @@ tbl_F888_enemy_appearance:
 - D 3 - - - 0x01F8C2 07:F8B2: 34 F6     .addr loc_F634_trap_appearance              ; Sensor
 - D 3 - - - 0x01F8C4 07:F8B4: 90 F5     .addr loc_F590_enemy_appearance_t2          ; Black cat
 - D 3 - - - 0x01F8C6 07:F8B6: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Karate-boy
-- D 3 - - - 0x01F8C8 07:F8B8: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Karate-boy in blue on the street
+- D 3 - - - 0x01F8C8 07:F8B8: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Street karate-boy
 - D 3 - - - 0x01F8CA 07:F8BA: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Karate-girl
 - D 3 - - - 0x01F8CC 07:F8BC: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Boy in green
 - D 3 - - - 0x01F8CE 07:F8BE: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Girl with sword
@@ -9943,7 +9943,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FCF4 07:FCE4: 93 EE     .word $EE93                     ; Sensor (level 2) (0x15) Type B
 - D 3 - - - 0x01FCF6 07:FCE6: 11 EF     .addr loc_EF11_cat_or_snake     ; Black cat (level 1) (0x16) Type B
 - D 3 - - - 0x01FCF8 07:FCE8: 68 A6     .addr loc_A668_karate_boy       ; Karate-boy  (level 2) (0x17) Type A
-- D 3 - - - 0x01FCFA 07:FCEA: 68 A6     .addr loc_A668_karate_boy       ; Karate-boy in blue on the street (level 2) (0x18) Type A
+- D 3 - - - 0x01FCFA 07:FCEA: 68 A6     .addr loc_A668_karate_boy       ; Street karate-boy (level 2) (0x18) Type A
 - D 3 - - - 0x01FCFC 07:FCEC: AE EE     .addr loc_EEAE_shooter          ; Karate-girl (level 2) (0x19) Type A
 - D 3 - - - 0x01FCFE 07:FCEE: 09 A3     .addr loc_A309_green_boy        ; Boy in green (level 2) (0x1A) Type A
 - D 3 - - - 0x01FD00 07:FCF0: FF EE     .addr loc_EEFF_swordtail        ; Girl with sword (level 1) (0x1B) Type A

@@ -754,7 +754,7 @@ tbl_enemies_level2_outside:
 - D 0 - I - 0x012724 04:8714: 08        .byte $08, $28, $87, $10   ; 
 - D 0 - I - 0x012728 04:8718: 08        .byte $08, $88, $BF, $10   ; 
 - D 0 - I - 0x01272C 04:871C: 08        .byte $08, $C8, $87, $10   ; 
-- D 0 - I - 0x012730 04:8720: 09        .byte $09, $48, $AF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012730 04:8720: 09        .byte $09, $48, $AF, $18   ; Street karate-boy
 - D 0 - I - 0x012734 04:8724: 09        .byte $09, $98, $87, $18   ; 
 - D 0 - I - 0x012738 04:8728: 09        .byte $09, $D8, $BF, $18   ; 
 - D 0 - I - 0x01273C 04:872C: 0A        .byte $0A, $48, $87, $18   ; 
@@ -829,13 +829,13 @@ tbl_enemies_level2_d2:
 - D 0 - I - 0x01283A 04:882A: 02        .byte $02, $38, $7F, $17   ; Karate-boy
 - D 0 - I - 0x01283E 04:882E: 02        .byte $02, $98, $BF, $17   ; 
 - D 0 - I - 0x012842 04:8832: 02        .byte $02, $D0, $7F, $17   ; 
-- D 0 - I - 0x012846 04:8836: 03 18     .byte $03, $18, $AF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012846 04:8836: 03 18     .byte $03, $18, $AF, $18   ; Street karate-boy
 - D 0 - I - 0x01284A 04:883A: 03 80     .byte $03, $80, $7F, $18   ;
 - D 0 - I - 0x01284E 04:883E: 04 28     .byte $04, $28, $BF, $18   ;
 - D 0 - I - 0x012852 04:8842: 04        .byte $04, $3C, $A7, $15   ; Sensor
-- D 0 - I - 0x012856 04:8846: 04        .byte $04, $78, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012856 04:8846: 04        .byte $04, $78, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x01285A 04:884A: 04        .byte $04, $B4, $6F, $15   ; Sensor
-- D 0 - I - 0x01285E 04:884E: 04        .byte $04, $C8, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x01285E 04:884E: 04        .byte $04, $C8, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x012862 04:8852: 05        .byte $05, $48, $7F, $19   ; Karate-girl
 - D 0 - I - 0x012866 04:8856: 05        .byte $05, $5C, $AF, $15   ; Sensor
 - D 0 - I - 0x01286A 04:885A: 05        .byte $05, $88, $BF, $19   ; Karate-girl
@@ -855,26 +855,26 @@ tbl_enemies_level2_d2:
 tbl_enemies_level2_d4_d5:
 - D 0 - I - 0x01289B 04:888B: 00        .byte $00, $48, $DF, $05   ; Land Diver
 - D 0 - I - 0x01289F 04:888F: 00        .byte $00, $C0, $DF, $05   ; 
-- D 0 - I - 0x0128A3 04:8893: 01        .byte $01, $30, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x0128A3 04:8893: 01        .byte $01, $30, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x0128A7 04:8897: 01        .byte $01, $A8, $BF, $18   ; 
 - D 0 - I - 0x0128AB 04:889B: 01        .byte $01, $B8, $3F, $1D   ; The barrel
-- D 0 - I - 0x0128AF 04:889F: 02        .byte $02, $28, $AF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x0128AF 04:889F: 02        .byte $02, $28, $AF, $18   ; Street karate-boy
 - D 0 - I - 0x0128B3 04:88A3: 02        .byte $02, $58, $3F, $1D   ; The barrel
-- D 0 - I - 0x0128B7 04:88A7: 02        .byte $02, $78, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x0128B7 04:88A7: 02        .byte $02, $78, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x0128BB 04:88AB: 02        .byte $02, $B8, $BF, $18   ; 
 - D 0 - I - 0x0128BF 04:88AF: 02        .byte $02, $F0, $3F, $1D   ; The barrel
-- D 0 - I - 0x0128C3 04:88B3: 03        .byte $03, $48, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x0128C3 04:88B3: 03        .byte $03, $48, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x0128C7 04:88B7: 03        .byte $03, $78, $3F, $1D   ; The barrel
-- D 0 - I - 0x0128CB 04:88BB: 03        .byte $03, $80, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x0128CB 04:88BB: 03        .byte $03, $80, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x0128CF 04:88BF: 03        .byte $03, $E8, $3F, $1D   ; The barrel
-- D 0 - I - 0x0128D3 04:88C3: 04        .byte $04, $48, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x0128D3 04:88C3: 04        .byte $04, $48, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x0128D7 04:88C7: 04        .byte $04, $58, $3F, $1D   ; The barrel
-- D 0 - I - 0x0128DB 04:88CB: 04        .byte $04, $68, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x0128DB 04:88CB: 04        .byte $04, $68, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x0128DF 04:88CF: 04        .byte $04, $B8, $3F, $1D   ; The barrel
-- D 0 - I - 0x0128E3 04:88D3: 04        .byte $04, $D8, $5F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x0128E3 04:88D3: 04        .byte $04, $D8, $5F, $18   ; Street karate-boy
 - D 0 - I - 0x0128E7 04:88D7: 05        .byte $05, $18, $AF, $18   ;
 - D 0 - I - 0x0128EB 04:88DB: 05        .byte $05, $38, $3F, $1D   ; The barrel
-- D 0 - I - 0x0128EF 04:88DF: 05        .byte $05, $58, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x0128EF 04:88DF: 05        .byte $05, $58, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x0128F3 04:88E3: 05        .byte $05, $88, $BF, $18   ; 
 - D 0 - I - 0x0128F7 04:88E7: 05        .byte $05, $C8, $3F, $1D   ; The barrel
 - D 0 - I - 0x0128FB 04:88EB: 06        .byte $06, $18, $DF, $05   ; Land Diver
@@ -949,14 +949,14 @@ tbl_enemies_level2_d7:
 - D 0 - I - 0x0129F9 04:89E9: 05        .byte $05, $50, $7F, $17   ; Karate-boy
 - D 0 - I - 0x0129FD 04:89ED: 05        .byte $05, $94, $AF, $15   ; Sensor
 - D 0 - I - 0x012A01 04:89F1: 05        .byte $05, $C8, $9F, $19   ; Karate-girl
-- D 0 - I - 0x012A05 04:89F5: 06        .byte $06, $48, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A05 04:89F5: 06        .byte $06, $48, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012A09 04:89F9: 06        .byte $06, $70, $3F, $12   ; Batterfly
-- D 0 - I - 0x012A0D 04:89FD: 06        .byte $06, $88, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A0D 04:89FD: 06        .byte $06, $88, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x012A11 04:8A01: 06        .byte $06, $C8, $7F, $18   ; 
 - D 0 - I - 0x012A15 04:8A05: 06        .byte $06, $D8, $3F, $12   ; Batterfly
-- D 0 - I - 0x012A19 04:8A09: 07        .byte $07, $40, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A19 04:8A09: 07        .byte $07, $40, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012A1D 04:8A0D: 07        .byte $07, $68, $3F, $12   ; Batterfly
-- D 0 - I - 0x012A21 04:8A11: 07        .byte $07, $88, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A21 04:8A11: 07        .byte $07, $88, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x012A25 04:8A15: 07        .byte $07, $D0, $7F, $18   ; 
 - D 0 - I - 0x012A29 04:8A19: FF        .byte $FF   ; 
 
@@ -968,70 +968,70 @@ tbl_enemies_level2_d9_d13:
 - D 0 - I - 0x012A3A 04:8A2A: 01        .byte $01, $80, $DF, $05   ; 
 - D 0 - I - 0x012A3E 04:8A2E: 01        .byte $01, $C0, $3F, $1D   ; The barrel
 - D 0 - I - 0x012A42 04:8A32: 01        .byte $01, $D8, $DF, $05   ; Land Diver
-- D 0 - I - 0x012A46 04:8A36: 02        .byte $02, $38, $A7, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A46 04:8A36: 02        .byte $02, $38, $A7, $18   ; Street karate-boy
 - D 0 - I - 0x012A4A 04:8A3A: 02        .byte $02, $58, $67, $18   ; 
 - D 0 - I - 0x012A4E 04:8A3E: 02        .byte $02, $90, $3F, $1D   ; The barrel
-- D 0 - I - 0x012A52 04:8A42: 02        .byte $02, $C8, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A52 04:8A42: 02        .byte $02, $C8, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x012A56 04:8A46: 02        .byte $02, $D0, $3F, $1D   ; The barrel
-- D 0 - I - 0x012A5A 04:8A4A: 03        .byte $03, $28, $A7, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A5A 04:8A4A: 03        .byte $03, $28, $A7, $18   ; Street karate-boy
 - D 0 - I - 0x012A5E 04:8A4E: 03        .byte $03, $38, $3F, $1D   ; The barrel
-- D 0 - I - 0x012A62 04:8A52: 03        .byte $03, $50, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A62 04:8A52: 03        .byte $03, $50, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012A66 04:8A56: 03        .byte $03, $88, $3F, $1D   ; The barrel
-- D 0 - I - 0x012A6A 04:8A5A: 03        .byte $03, $A8, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A6A 04:8A5A: 03        .byte $03, $A8, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x012A6E 04:8A5E: 04        .byte $04, $28, $3F, $1D   ; The barrel
-- D 0 - I - 0x012A72 04:8A62: 04        .byte $04, $38, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A72 04:8A62: 04        .byte $04, $38, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012A76 04:8A66: 04        .byte $04, $58, $BF, $18   ; 
 - D 0 - I - 0x012A7A 04:8A6A: 04        .byte $04, $A8, $3F, $1D   ; The barrel
-- D 0 - I - 0x012A7E 04:8A6E: 04        .byte $04, $C8, $9F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A7E 04:8A6E: 04        .byte $04, $C8, $9F, $18   ; Street karate-boy
 - D 0 - I - 0x012A82 04:8A72: 05        .byte $05, $38, $7F, $18   ; 
 - D 0 - I - 0x012A86 04:8A76: 05        .byte $05, $88, $BF, $18   ; 
 - D 0 - I - 0x012A8A 04:8A7A: 05        .byte $05, $A8, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012A8E 04:8A7E: 05        .byte $05, $D8, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A8E 04:8A7E: 05        .byte $05, $D8, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012A92 04:8A82: 06        .byte $06, $20, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012A96 04:8A86: 06        .byte $06, $58, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A96 04:8A86: 06        .byte $06, $58, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012A9A 04:8A8A: 06        .byte $06, $B8, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012A9E 04:8A8E: 06        .byte $06, $C8, $AF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012A9E 04:8A8E: 06        .byte $06, $C8, $AF, $18   ; Street karate-boy
 - D 0 - I - 0x012AA2 04:8A92: 07        .byte $07, $48, $7F, $18   ; 
 - D 0 - I - 0x012AA6 04:8A96: 07        .byte $07, $78, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012AAA 04:8A9A: 07        .byte $07, $A8, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012AAA 04:8A9A: 07        .byte $07, $A8, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x012AAE 04:8A9E: FF        .byte $FF   ; 
 
 tbl_enemies_level2_d11_d13:
 - D 0 - I - 0x012AAF 04:8A9F: 00        .byte $00, $48, $3F, $13   ; Broned batterfly
 - D 0 - I - 0x012AB3 04:8AA3: 00        .byte $00, $68, $DF, $05   ; Land Diver
 - D 0 - I - 0x012AB7 04:8AA7: 00        .byte $00, $C8, $DF, $05   ; 
-- D 0 - I - 0x012ABB 04:8AAB: 01        .byte $01, $38, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012ABB 04:8AAB: 01        .byte $01, $38, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012ABF 04:8AAF: 01        .byte $01, $80, $BF, $18   ; 
 - D 0 - I - 0x012AC3 04:8AB3: 01        .byte $01, $90, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012AC7 04:8AB7: 01        .byte $01, $D8, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012AC7 04:8AB7: 01        .byte $01, $D8, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012ACB 04:8ABB: 02        .byte $02, $28, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012ACF 04:8ABF: 02        .byte $02, $38, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012ACF 04:8ABF: 02        .byte $02, $38, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x012AD3 04:8AC3: 02        .byte $02, $58, $7F, $18   ; 
 - D 0 - I - 0x012AD7 04:8AC7: 02        .byte $02, $B8, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012ADB 04:8ACB: 02        .byte $02, $D8, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012ADB 04:8ACB: 02        .byte $02, $D8, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x012ADF 04:8ACF: 03        .byte $03, $38, $7F, $18   ; 
 - D 0 - I - 0x012AE3 04:8AD3: 03        .byte $03, $48, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012AE7 04:8AD7: 03        .byte $03, $80, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012AE7 04:8AD7: 03        .byte $03, $80, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x012AEB 04:8ADB: 03        .byte $03, $B8, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012AEF 04:8ADF: 03        .byte $03, $D8, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012AEF 04:8ADF: 03        .byte $03, $D8, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012AF3 04:8AE3: 04        .byte $04, $38, $A7, $18   ; 
 - D 0 - I - 0x012AF7 04:8AE7: 04        .byte $04, $48, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012AFB 04:8AEB: 04        .byte $04, $58, $67, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012AFB 04:8AEB: 04        .byte $04, $58, $67, $18   ; Street karate-boy
 - D 0 - I - 0x012AFF 04:8AEF: 04        .byte $04, $C0, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012B03 04:8AF3: 04        .byte $04, $D8, $8F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012B03 04:8AF3: 04        .byte $04, $D8, $8F, $18   ; Street karate-boy
 - D 0 - I - 0x012B07 04:8AF7: 05        .byte $05, $28, $A7, $18   ; 
 - D 0 - I - 0x012B0B 04:8AFB: 05        .byte $05, $38, $3F, $13   ; Broned batterfly
 - D 0 - I - 0x012B0F 04:8AFF: 05        .byte $05, $80, $3F, $13   ;
-- D 0 - I - 0x012B13 04:8B03: 05        .byte $05, $98, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012B13 04:8B03: 05        .byte $05, $98, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x012B17 04:8B07: 05        .byte $05, $C8, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012B1B 04:8B0B: 05        .byte $05, $D8, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012B1B 04:8B0B: 05        .byte $05, $D8, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012B1F 04:8B0F: 06        .byte $06, $38, $BF, $18   ; 
 - D 0 - I - 0x012B23 04:8B13: 06        .byte $06, $48, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012B27 04:8B17: 06        .byte $06, $58, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012B27 04:8B17: 06        .byte $06, $58, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012B2B 04:8B1B: 06        .byte $06, $C8, $AF, $18   ; 
 - D 0 - I - 0x012B2F 04:8B1F: 07        .byte $07, $48, $7F, $18   ; 
 - D 0 - I - 0x012B33 04:8B23: 07        .byte $07, $98, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012B37 04:8B27: 07        .byte $07, $A8, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012B37 04:8B27: 07        .byte $07, $A8, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x012B3B 04:8B2B: FF        .byte $FF   ; 
 
 tbl_enemies_level2_d12:
@@ -1043,21 +1043,21 @@ tbl_enemies_level2_d12:
 - D 0 - I - 0x012B50 04:8B40: 01        .byte $01, $B8, $3F, $13   ; Broned batterfly
 - D 0 - I - 0x012B54 04:8B44: 01        .byte $01, $C8, $9F, $17   ; Karate-boy
 - D 0 - I - 0x012B58 04:8B48: 02        .byte $02, $28, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012B5C 04:8B4C: 02        .byte $02, $38, $67, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012B5C 04:8B4C: 02        .byte $02, $38, $67, $18   ; Street karate-boy
 - D 0 - I - 0x012B60 04:8B50: 02        .byte $02, $78, $BF, $18   ; 
 - D 0 - I - 0x012B64 04:8B54: 02        .byte $02, $88, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012B68 04:8B58: 02        .byte $02, $C8, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012B68 04:8B58: 02        .byte $02, $C8, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012B6C 04:8B5C: 02        .byte $02, $D8, $3F, $13   ; Broned batterfly
-- D 0 - I - 0x012B70 04:8B60: 03        .byte $03, $38, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012B70 04:8B60: 03        .byte $03, $38, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x012B74 04:8B64: 03        .byte $03, $54, $6F, $15   ; Sensor
-- D 0 - I - 0x012B78 04:8B68: 03        .byte $03, $58, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012B78 04:8B68: 03        .byte $03, $58, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012B7C 04:8B6C: 03        .byte $03, $94, $AF, $15   ; Sensor
-- D 0 - I - 0x012B80 04:8B70: 03        .byte $03, $C8, $9F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012B80 04:8B70: 03        .byte $03, $C8, $9F, $18   ; Street karate-boy
 - D 0 - I - 0x012B84 04:8B74: 04        .byte $04, $38, $7F, $18   ; 
 - D 0 - I - 0x012B88 04:8B78: 04        .byte $04, $3C, $6F, $15   ; Sensor
-- D 0 - I - 0x012B8C 04:8B7C: 04        .byte $04, $88, $BF, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012B8C 04:8B7C: 04        .byte $04, $88, $BF, $18   ; Street karate-boy
 - D 0 - I - 0x012B90 04:8B80: 04        .byte $04, $B0, $AF, $15   ; Sensor
-- D 0 - I - 0x012B94 04:8B84: 04        .byte $04, $D8, $7F, $18   ; Karate-boy in blue on the street
+- D 0 - I - 0x012B94 04:8B84: 04        .byte $04, $D8, $7F, $18   ; Street karate-boy
 - D 0 - I - 0x012B98 04:8B88: 05        .byte $05, $1C, $AF, $15   ; Sensor
 - D 0 - I - 0x012B9C 04:8B8C: 05        .byte $05, $38, $A7, $19   ; Karate-girl
 - D 0 - I - 0x012BA0 04:8B90: 05        .byte $05, $68, $7F, $19   ; 

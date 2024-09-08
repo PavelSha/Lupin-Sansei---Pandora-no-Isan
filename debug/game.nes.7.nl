@@ -4740,7 +4740,7 @@ $F8B0##Shooter with bazooka
 $F8B2##Sensor
 $F8B4##Black cat
 $F8B6##Karate-boy
-$F8B8##Karate-boy in blue on the street
+$F8B8##Street karate-boy
 $F8BA##Karate-girl
 $F8BC##Boy in green
 $F8BE##Girl with sword
