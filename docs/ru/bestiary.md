@@ -23,8 +23,8 @@
 |0x14|Shooter with bazooka| A |   | 2 |
 |0x15|Sensor| B |   | 2 |
 |0x16|Black cat| B | [Чёрный кот](#враг-16) | 1 |
-|0x17|Karate-boy| A |   | 2 |
-|0x18|Street karate-boy| A |   | 2 |
+|0x17|Karate-boy| A | [Каратист](#враг-17) | 2 |
+|0x18|Street karate-boy| A | [Уличный каратист](#враг-18) | 2 |
 |0x19|Karate-girl| A | [Каратистка](#враг-19) | 2 |
 |0x1A|Boy in green| A | [Парень в зелёном](#враг-1a) | 2 |
 |0x1B|Girl with sword| A | [Девушка в красном, с мечом](#враг-1b) | 1 |
@@ -208,12 +208,61 @@
 ![DescriptionBits](../images/descriptionBits.jpg)
 -->
 
+## Враг 17
+Каратист
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|
+|---|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/17/frame1-r.png) | ![Frame2](../images/enemies/17/frame2-r.png) | ![Frame3](../images/enemies/17/frame3-r.png) | ![Frame4](../images/enemies/17/frame4-r.png) | ![Frame5](../images/enemies/17/frame5-r.png) | ![Frame6](../images/enemies/17/frame6-r.png) | ![Frame7](../images/enemies/17/frame7-r.png) | ![Frame8](../images/enemies/17/frame8-r.png) |
+| ![Frame1](../images/enemies/17/frame1-l.png) | ![Frame2](../images/enemies/17/frame2-l.png) | ![Frame3](../images/enemies/17/frame3-l.png) | ![Frame4](../images/enemies/17/frame4-l.png) | ![Frame5](../images/enemies/17/frame5-l.png) | ![Frame6](../images/enemies/17/frame6-l.png) | ![Frame7](../images/enemies/17/frame7-l.png) | ![Frame8](../images/enemies/17/frame8-l.png) |
+
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|
+|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/19/frame1-r-b.png) | ![Frame2](../images/enemies/19/frame2-r-b.png) | ![Frame3](../images/enemies/19/frame3-r-b.png) | ![Frame4](../images/enemies/19/frame4-r-b.png) | ![Frame5](../images/enemies/19/frame5-r-b.png) | ![Frame6](../images/enemies/19/frame6-r-b.png) |
+| ![Frame1](../images/enemies/19/frame1-l-b.png) | ![Frame2](../images/enemies/19/frame2-l-b.png) | ![Frame3](../images/enemies/19/frame3-l-b.png) | ![Frame4](../images/enemies/19/frame4-l-b.png) | ![Frame5](../images/enemies/19/frame5-l-b.png) | ![Frame6](../images/enemies/19/frame6-l-b.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг прыжка, например через препятствие (**_0x00_** - не прыгает, **_0x01_** - прыгает)
+-  ***L*** - используется совместно с ***K***, флаг выстрела (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***K*** - флаг ближнего контакта (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***W*** - флаг приседания перед прыжком (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
+
+## Враг 18
+Уличный каратист
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|
+|---|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/17/frame1-r.png) | ![Frame2](../images/enemies/17/frame2-r.png) | ![Frame3](../images/enemies/17/frame3-r.png) | ![Frame4](../images/enemies/17/frame4-r.png) | ![Frame5](../images/enemies/17/frame5-r.png) | ![Frame6](../images/enemies/17/frame6-r.png) | ![Frame7](../images/enemies/17/frame7-r.png) | ![Frame8](../images/enemies/17/frame8-r.png) |
+| ![Frame1](../images/enemies/17/frame1-l.png) | ![Frame2](../images/enemies/17/frame2-l.png) | ![Frame3](../images/enemies/17/frame3-l.png) | ![Frame4](../images/enemies/17/frame4-l.png) | ![Frame5](../images/enemies/17/frame5-l.png) | ![Frame6](../images/enemies/17/frame6-l.png) | ![Frame7](../images/enemies/17/frame7-l.png) | ![Frame8](../images/enemies/17/frame8-l.png) |
+
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|
+|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/19/frame1-r-b.png) | ![Frame2](../images/enemies/19/frame2-r-b.png) | ![Frame3](../images/enemies/19/frame3-r-b.png) | ![Frame4](../images/enemies/19/frame4-r-b.png) | ![Frame5](../images/enemies/19/frame5-r-b.png) | ![Frame6](../images/enemies/19/frame6-r-b.png) |
+| ![Frame1](../images/enemies/19/frame1-l-b.png) | ![Frame2](../images/enemies/19/frame2-l-b.png) | ![Frame3](../images/enemies/19/frame3-l-b.png) | ![Frame4](../images/enemies/19/frame4-l-b.png) | ![Frame5](../images/enemies/19/frame5-l-b.png) | ![Frame6](../images/enemies/19/frame6-l-b.png) |
+
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|
+|---|---|---|---|---|
+| ![Frame1](../images/enemies/18/frame1-r.png) | ![Frame2](../images/enemies/18/frame2-r.png) | ![Frame3](../images/enemies/18/frame3-r.png) | ![Frame4](../images/enemies/18/frame4-r.png) | ![Frame5](../images/enemies/18/frame5-r.png) |
+| ![Frame1](../images/enemies/18/frame1-l.png) | ![Frame2](../images/enemies/18/frame2-l.png) | ![Frame3](../images/enemies/18/frame3-l.png) | ![Frame4](../images/enemies/18/frame4-l.png) | ![Frame5](../images/enemies/18/frame5-l.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг прыжка, например через препятствие (**_0x00_** - не прыгает, **_0x01_** - прыгает)
+-  ***L*** - флаг вращения во время прыжка (**_0x00_** - сальто, **_0x01_** - обычный прыжок)
+-  ***K*** - флаг ближнего контакта (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***W*** - флаг приседания перед прыжком (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
+
 ## Враг 19
 Каратистка
 |Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|Кадр 9|
 |---|---|---|---|---|---|---|---|---|
-| ![Frame1](../images/enemies/19/frame1-r.png) | ![Frame2](../images/enemies/19/frame2-r.png) | ![Frame3](../images/enemies/19/frame3-r.png) | ![Frame4](../images/enemies/19/frame4-r.png) | ![Frame5](../images/enemies/19/frame5-r.png) | ![Frame6](../images/enemies/19/frame6-r.png) | ![Frame7](../images/enemies/19/frame7-r.png) | ![Frame9](../images/enemies/19/frame8-r.png) | ![Frame10](../images/enemies/19/frame9-r.png) |
-| ![Frame1](../images/enemies/19/frame1-l.png) | ![Frame2](../images/enemies/19/frame2-l.png) | ![Frame3](../images/enemies/19/frame3-l.png) | ![Frame4](../images/enemies/19/frame4-l.png) | ![Frame5](../images/enemies/19/frame5-l.png) | ![Frame6](../images/enemies/19/frame6-l.png) | ![Frame7](../images/enemies/19/frame7-l.png) | ![Frame9](../images/enemies/19/frame8-l.png) | ![Frame10](../images/enemies/19/frame9-l.png) |
+| ![Frame1](../images/enemies/19/frame1-r.png) | ![Frame2](../images/enemies/19/frame2-r.png) | ![Frame3](../images/enemies/19/frame3-r.png) | ![Frame4](../images/enemies/19/frame4-r.png) | ![Frame5](../images/enemies/19/frame5-r.png) | ![Frame6](../images/enemies/19/frame6-r.png) | ![Frame7](../images/enemies/19/frame7-r.png) | ![Frame8](../images/enemies/19/frame8-r.png) | ![Frame9](../images/enemies/19/frame9-r.png) |
+| ![Frame1](../images/enemies/19/frame1-l.png) | ![Frame2](../images/enemies/19/frame2-l.png) | ![Frame3](../images/enemies/19/frame3-l.png) | ![Frame4](../images/enemies/19/frame4-l.png) | ![Frame5](../images/enemies/19/frame5-l.png) | ![Frame6](../images/enemies/19/frame6-l.png) | ![Frame7](../images/enemies/19/frame7-l.png) | ![Frame8](../images/enemies/19/frame8-l.png) | ![Frame9](../images/enemies/19/frame9-l.png) |
 
 |Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|
 |---|---|---|---|---|---|

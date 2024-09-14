@@ -9954,7 +9954,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD0A 07:FCFA: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 1) (0x20) Type A
 - D 3 - - - 0x01FD0C 07:FCFC: 81 EE     .word $EE81                     ; Cobblestone (level-racing, level 4) (0x21) Type B
 - D 3 - - - 0x01FD0E 07:FCFE: 0A AC     .word $AC0A                     ; The bird (level-racing) (0x22) Type B
-- D 3 - - - 0x01FD10 07:FD00: 02 AA     .word $AA02                     ; The bird with a bomb (level-racing) (0x23) Type B
+- D 3 - - - 0x01FD10 07:FD00: 02 AA     .addr loc_AA02_bomb_bird        ; The bird with a bomb (level-racing) (0x23) Type B
 - D 3 - - - 0x01FD12 07:FD02: F6 EE     .word $EEF6                     ; Skeleton (level 4) (0x24) Type A
 - D 3 - - - 0x01FD14 07:FD04: 9C EE     .word $EE9C                     ; Diver (0x25) Type B
 - D 3 - - - 0x01FD16 07:FD06: F6 EE     .word $EEF6                     ; Mummy (0x26) (level 4) Type A
