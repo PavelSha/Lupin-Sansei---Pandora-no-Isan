@@ -9,7 +9,7 @@
 |0x06|Land Diver| A | [Земной водолаз](#враг-06) | 1 |
 |0x07|Zenigata| A |   |All|
 |0x08|Shooter with bazooka| A |   | 3 |
-|0x09|The fat sailor| A |   | 3 |
+|0x09|The fat sailor| A | [Полный моряк](#враг-09) | 3 |
 |0x0A|The barrel| B |   | 3 |
 |0x0B|Jumping sailor| B | [Прыгающий моряк](#враг-0b) | 3 |
 |0x0C|The lift| A |   | 3 |
@@ -117,6 +117,23 @@
 Статусы
 ![DescriptionBits](../images/descriptionBits.jpg)
 -->
+
+## Враг 09
+Полный моряк
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|
+|---|---|---|---|---|
+| ![Frame1](../images/enemies/09/frame1-r.png) | ![Frame2](../images/enemies/09/frame2-r.png) | ![Frame3](../images/enemies/09/frame3-r.png) | ![Frame4](../images/enemies/09/frame4-r.png) | ![Frame5](../images/enemies/09/frame5-r.png) |
+| ![Frame1](../images/enemies/09/frame1-l.png) | ![Frame2](../images/enemies/09/frame2-l.png) | ![Frame3](../images/enemies/09/frame3-l.png) | ![Frame4](../images/enemies/09/frame4-l.png) | ![Frame5](../images/enemies/09/frame5-l.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг обычного прыжка и прыжка через препятствие (**_0x00_** - не прыгает, **_0x01_** - прыгает)
+-  ***L*** - флаг ускоренного режима (**_0x00_** - режим не активирован, **_0x01_** - режим активирован)
+-  ***K*** - флаг остановки (**_0x00_** - не остановился, **_0x01_** - остановился)
+-  ***W*** - _не используется_
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 
 ## Враг 0B
 Прыгающий моряк

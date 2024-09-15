@@ -656,7 +656,7 @@ C - - - - - 0x01A3CA 06:A3BA: 60        RTS                          ;
 sub_A3BB_status_behavior:
 C - - - - - 0x01A3CB 06:A3BB: BD 20 03  LDA vEnemyAStatus,X                       ;
 C - - - - - 0x01A3CE 06:A3BE: 10 FA     BPL bra_A3BA_RTS                          ; If the status isn't used
-C - - - - - 0x01A3D0 06:A3C0: BD 20 03  LDA vEnemyAStatus,X                       ;
+C - - - - - 0x01A3D0 06:A3C0: BD 20 03  LDA vEnemyAStatus,X                       ; !(WHY?)
 C - - - - - 0x01A3D3 06:A3C3: 4A        LSR                                       ;
 C - - - - - 0x01A3D4 06:A3C4: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
 

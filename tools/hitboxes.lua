@@ -33,6 +33,9 @@ function proccesEnemyA(type, status, px, py, pstatus)
     else
       drawEnemyHB(px, py - 0x20, 0x06, 0x20);
     end
+  elseif type == 0x09 then
+    -- Fat sailor
+    drawEnemyHB(px, py - 0x1E, 0x08, 0x1E);
   elseif type == 0x0B then
     -- Jumping sailor
     if is4bit(status) then

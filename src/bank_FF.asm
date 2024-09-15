@@ -7746,9 +7746,10 @@ C - - J - - 0x01EEC7 07:EEB7: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
 C - - - - - 0x01EECA 07:EEBA: 20 18 A0  JSR sub_A018_Zenigata           ; basic mechanics of enemy behavior
 C - - - - - 0x01EECD 07:EEBD: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
-C - - J - - 0x01EED0 07:EEC0: 20 25 EF  JSR sub_EF25_switch_bank_06_1
-C - - - - - 0x01EED3 07:EEC3: 20 1B A0  JSR $A01B ; to sub_A01B
-C - - - - - 0x01EED6 07:EEC6: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_EEC0_fat_sailor:
+C - - J - - 0x01EED0 07:EEC0: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
+C - - - - - 0x01EED3 07:EEC3: 20 1B A0  JSR sub_A01B_fat_sailor         ; basic mechanics of enemy behavior
+C - - - - - 0x01EED6 07:EEC6: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 C - - J - - 0x01EED9 07:EEC9: 20 25 EF  JSR sub_EF25_switch_bank_06_1
 C - - - - - 0x01EEDC 07:EECC: 20 1E A0  JSR $A01E ; to sub_A01E
@@ -9928,7 +9929,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FCD6 07:FCC6: 6F EE     .addr loc_EE6F_land_diver_enemy ; Land Diver (level 1)  (0x06) Type A
 - D 3 - - - 0x01FCD8 07:FCC8: B7 EE     .addr loc_EEB7_Zenigata         ; Zenigata (0x07) Type A
 - D 3 - - - 0x01FCDA 07:FCCA: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 3) (0x08) Type A
-- D 3 - - - 0x01FCDC 07:FCCC: C0 EE     .word $EEC0                     ; The fat sailor (level 3) (0x09) Type A
+- D 3 - - - 0x01FCDC 07:FCCC: C0 EE     .addr loc_EEC0_fat_sailor       ; The fat sailor (level 3) (0x09) Type A
 - D 3 - - - 0x01FCDE 07:FCCE: 81 EE     .word $EE81                     ; The barrel (level 3) (0x0A) Type B
 - D 3 - - - 0x01FCE0 07:FCD0: 28 A0     .addr loc_A028_jumper           ; Jumping sailor (level 3) (0x0B) Type A
 - D 3 - - - 0x01FCE2 07:FCD2: 08 AD     .addr loc_AD08_lift             ; The lift (level 3) (0x0C) Type A

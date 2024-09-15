@@ -599,7 +599,7 @@ v_sprite_magic3               = ram_06B9
 ; SS - the offset of the high address ($8000), i.e. $8000 + $(0%000000SS 0%00000000)
 ; BB - 0x00 - bank 05 (2 page), 0x01 - bank 02 (2 page), 0x1X - bank 05 (1 page)
 ; C  -  0x1 - usign next CHR-page size 1 Kb, 0x0 - using current CHR-page
-; OO - the OAM-attributes
+; OO - OAM-attributes
 v_sprite_magic4               = ram_06BA ; X-position
 vShiftSpriteMagic             = ram_06F7 ; The pack is using 1,2,3,4 sprite magic
 vStartOAM                     = ram_0700
