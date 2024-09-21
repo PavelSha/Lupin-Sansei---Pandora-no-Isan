@@ -7755,21 +7755,25 @@ C - - J - - 0x01EED9 07:EEC9: 20 25 EF  JSR sub_EF25_switch_bank_06_1
 C - - - - - 0x01EEDC 07:EECC: 20 1E A0  JSR $A01E ; to sub_A01E
 C - - - - - 0x01EEDF 07:EECF: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
 
-C - - J - - 0x01EEE2 07:EED2: 20 30 EF  JSR sub_EF30_switch_bank_3_p2
-C - - - - - 0x01EEE5 07:EED5: 20 00 A0  JSR $A000 ; to sub_A000
-C - - - - - 0x01EEE8 07:EED8: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_boss_hulk:
+C - - J - - 0x01EEE2 07:EED2: 20 30 EF  JSR sub_EF30_switch_bank_3_p2   ;
+C - - - - - 0x01EEE5 07:EED5: 20 00 A0  JSR sub_A000_boss1              ; basic mechanics of enemy behavior
+C - - - - - 0x01EEE8 07:EED8: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
-C - - J - - 0x01EEEB 07:EEDB: 20 30 EF  JSR sub_EF30_switch_bank_3_p2
-C - - - - - 0x01EEEE 07:EEDE: 20 03 A0  JSR $A003 ; to sub_A003
-C - - - - - 0x01EEF1 07:EEE1: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_boss_kim:
+C - - J - - 0x01EEEB 07:EEDB: 20 30 EF  JSR sub_EF30_switch_bank_3_p2   ;
+C - - - - - 0x01EEEE 07:EEDE: 20 03 A0  JSR sub_A003_boss2              ; basic mechanics of enemy behavior
+C - - - - - 0x01EEF1 07:EEE1: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
-C - - J - - 0x01EEF4 07:EEE4: 20 30 EF  JSR sub_EF30_switch_bank_3_p2
-C - - - - - 0x01EEF7 07:EEE7: 20 06 A0  JSR $A006 ; to sub_A006
-C - - - - - 0x01EEFA 07:EEEA: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_boss_raid:
+C - - J - - 0x01EEF4 07:EEE4: 20 30 EF  JSR sub_EF30_switch_bank_3_p2   ;
+C - - - - - 0x01EEF7 07:EEE7: 20 06 A0  JSR sub_A006_boss3              ; basic mechanics of enemy behavior
+C - - - - - 0x01EEFA 07:EEEA: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
-C - - J - - 0x01EEFD 07:EEED: 20 30 EF  JSR sub_EF30_switch_bank_3_p2
-C - - - - - 0x01EF00 07:EEF0: 20 09 A0  JSR $A009 ; to sub_A009
-C - - - - - 0x01EF03 07:EEF3: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_final_boss:
+C - - J - - 0x01EEFD 07:EEED: 20 30 EF  JSR sub_EF30_switch_bank_3_p2   ;
+C - - - - - 0x01EF00 07:EEF0: 20 09 A0  JSR sub_A009_boss4              ; basic mechanics of enemy behavior
+C - - - - - 0x01EF03 07:EEF3: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 C - - J - - 0x01EF06 07:EEF6: 20 30 EF  JSR sub_EF30_switch_bank_3_p2
 C - - - - - 0x01EF09 07:EEF9: 20 0C A0  JSR $A00C ; to sub_A00C
@@ -9960,13 +9964,13 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD14 07:FD04: 9C EE     .word $EE9C                     ; Diver (0x25) Type B
 - D 3 - - - 0x01FD16 07:FD06: F6 EE     .word $EEF6                     ; Mummy (0x26) (level 4) Type A
 - D 3 - - - 0x01FD18 07:FD08: 78 EE     .addr loc_EE78_soar_enemy       ; Gargoyle (0x27) (level 4) Type B
-- D 3 - - - 0x01FD1A 07:FD0A: D2 EE     .word $EED2                     ; Boss (level 1) (0x28) Type A
+- D 3 - - - 0x01FD1A 07:FD0A: D2 EE     .addr loc_boss_hulk             ; Boss (level 1) (0x28) Type A
 - D 3 - - - 0x01FD1C 07:FD0C: 87 F8     .addr loc_enemy_RTS             ; ??? (0x29)
-- D 3 - - - 0x01FD1E 07:FD0E: DB EE     .word $EEDB                     ; Boss (level 2) (0x2A) Type A
+- D 3 - - - 0x01FD1E 07:FD0E: DB EE     .addr loc_boss_kim              ; Boss (level 2) (0x2A) Type A
 - D 3 - - - 0x01FD20 07:FD10: 87 F8     .addr loc_enemy_RTS             ; ??? (0x2B)
-- D 3 - - - 0x01FD22 07:FD12: E4 EE     .word $EEE4                     ; Boss (level 3) (0x2C) Type A
+- D 3 - - - 0x01FD22 07:FD12: E4 EE     .addr loc_boss_raid             ; Boss (level 3) (0x2C) Type A
 - D 3 - - - 0x01FD24 07:FD14: 87 F8     .addr loc_enemy_RTS             ; ??? (0x2D)
-- D 3 - - - 0x01FD26 07:FD16: ED EE     .word $EEED                     ; Boss (level 4) (0x2E) Type A
+- D 3 - - - 0x01FD26 07:FD16: ED EE     .addr loc_final_boss            ; Boss (level 4) (0x2E) Type A
 - D 3 - - - 0x01FD28 07:FD18: 87 F8     .addr loc_enemy_RTS             ; ??? (0x2F)
 - D 3 - - - 0x01FD2A 07:FD1A: 34 AE     .addr loc_AE34_platform         ; Wall (0x30)
 - D 3 - - - 0x01FD2C 07:FD1C: 34 AE     .addr loc_AE34_platform         ; Wall (0x31)

@@ -492,6 +492,8 @@ vEnemyBStatus                 = ram_035C ; see below and docs (Bestiary)
 vEnemyBStatus1                = ram_035C
 vEnemyBStatus2                = ram_035D
 
+vEnemyBThrowingPower          = ram_0362 ; For Hulk
+
 vEnemyBPosY                   = ram_0368 ; see below
 vEnemyBPosY1                  = ram_0368 ; The enemy position along the Y axis relative to the level (no repeat)
 vEnemyBPosY2                  = ram_0369 ; The enemy position along the Y axis relative to the level (no repeat)

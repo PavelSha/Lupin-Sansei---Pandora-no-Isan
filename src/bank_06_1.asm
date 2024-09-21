@@ -710,7 +710,7 @@ C - - - - - 0x0183F9 06:A3E9: F0 1C     BEQ bra_A407_default_dying         ; If 
 C - - - - - 0x0183FB 06:A3EB: A0 00     LDY #$00                           ; a jump type #1
 C - - - - - 0x0183FD 06:A3ED: BD 5C 03  LDA vEnemyBStatus,X                ;
 C - - - - - 0x018400 06:A3F0: 6A        ROR                                ;
-C - - - - - 0x018401 06:A3F1: B0 02     BCS @bra_A3F5_left                 ; If the enemy is looking to the right
+C - - - - - 0x018401 06:A3F1: B0 02     BCS @bra_A3F5_left                 ; If the enemy is looking to the left
 C - - - - - 0x018403 06:A3F3: A0 08     LDY #$08                           ; a jump type #2
 @bra_A3F5_left:
 C - - - - - 0x018405 06:A3F5: 98        TYA                                ;
