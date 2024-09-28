@@ -3665,7 +3665,7 @@ C - - - - - 0x01B818 06:B808: A9 10     LDA #$10
 C - - - - - 0x01B81A 06:B80A: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01B81C 06:B80C: 60        RTS
 
-C - - - - - 0x01B81D 06:B80D: 20 2F C6  JSR $C62F
+C - - - - - 0x01B81D 06:B80D: 20 2F C6  JSR sub_C62F_init_character_select
 C - - - - - 0x01B820 06:B810: A9 39     LDA #$39
 C - - - - - 0x01B822 06:B812: 18        CLC
 C - - - - - 0x01B823 06:B813: 69 23     ADC #$23
@@ -3675,8 +3675,8 @@ C - - - - - 0x01B829 06:B819: 69 00     ADC #$00
 C - - - - - 0x01B82B 06:B81B: 85 13     STA ram_0013
 C - - - - - 0x01B82D 06:B81D: A9 02     LDA #$02
 C - - - - - 0x01B82F 06:B81F: 85 00     STA ram_0000
-C - - - - - 0x01B831 06:B821: 20 68 C6  JSR $C668
-C - - - - - 0x01B834 06:B824: 20 52 C6  JSR $C652
+C - - - - - 0x01B831 06:B821: 20 68 C6  JSR sub_C668_render_14_15_16_17_18_loop
+C - - - - - 0x01B834 06:B824: 20 52 C6  JSR sub_C652_display_character_portraits
 C - - - - - 0x01B837 06:B827: A9 21     LDA #$21
 C - - - - - 0x01B839 06:B829: 8D 06 20  STA PPU_ADDRESS
 C - - - - - 0x01B83C 06:B82C: A9 94     LDA #$94
@@ -3731,11 +3731,11 @@ C - - - - - 0x01B895 06:B885: 0A        ASL
 C - - - - - 0x01B896 06:B886: A8        TAY
 C - - - - - 0x01B897 06:B887: AD 2C 03  LDA ram_032C
 C - - - - - 0x01B89A 06:B88A: 18        CLC
-C - - - - - 0x01B89B 06:B88B: 79 D4 DA  ADC $DAD4,Y
+C - - - - - 0x01B89B 06:B88B: 79 D4 DA  ADC tbl_flying_track_offset,Y
 C - - - - - 0x01B89E 06:B88E: 8D 2C 03  STA ram_032C
 C - - - - - 0x01B8A1 06:B891: A9 00     LDA #$00
 C - - - - - 0x01B8A3 06:B893: 85 02     STA ram_0002
-C - - - - - 0x01B8A5 06:B895: B9 D5 DA  LDA $DAD5,Y
+C - - - - - 0x01B8A5 06:B895: B9 D5 DA  LDA tbl_flying_track_offset + 1,Y
 C - - - - - 0x01B8A8 06:B898: 10 02     BPL bra_B89C
 C - - - - - 0x01B8AA 06:B89A: C6 02     DEC ram_0002
 bra_B89C:

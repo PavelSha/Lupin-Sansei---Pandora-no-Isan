@@ -165,6 +165,9 @@
 .export sub_DCB1_try_move_on_the_left
 .export sub_DCE5_try_move_on_the_right
 .export sub_DCF1_reset_velocity
+.export sub_C652_display_character_portraits
+.export sub_C62F_init_character_select
+.export sub_C668_render_14_15_16_17_18_loop
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI ; disable interrupts

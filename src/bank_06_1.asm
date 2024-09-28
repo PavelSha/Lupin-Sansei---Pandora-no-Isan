@@ -1670,7 +1670,7 @@ C - - - - - 0x018A26 06:AA16: 85 00     STA ram_0000                  ;
 C - - - - - 0x018A28 06:AA18: 90 07     BCC bra_AA21_RTS              ; If enemyAVelocity is even
 C - - - - - 0x018A2A 06:AA1A: A5 2C     LDA vLowCounter               ;
 C - - - - - 0x018A2C 06:AA1C: 6A        ROR                           ;
-C - - - - - 0x018A2D 06:AA1D: 90 02     BCC bra_AA21_RTS              ; Branch if vLowCounter multiple of 2 (50% chance)
+C - - - - - 0x018A2D 06:AA1D: 90 02     BCC bra_AA21_RTS              ; Branch if vLowCounter multiples of 2 (50% chance)
 C - - - - - 0x018A2F 06:AA1F: E6 00     INC ram_0000                  ;
 bra_AA21_RTS:
 C - - - - - 0x018A31 06:AA21: 60        RTS                           ;
