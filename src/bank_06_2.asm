@@ -3239,14 +3239,14 @@ C - - - - - 0x01B532 06:B522: 69 84     ADC #$84
 C - - - - - 0x01B534 06:B524: 85 01     STA ram_0001
 C - - - - - 0x01B536 06:B526: 20 3E FC  JSR sub_FC3E_boss_defeated_status
 C - - - - - 0x01B539 06:B529: F0 0F     BEQ @bra_B53A_skip
-C - - - - - 0x01B53B 06:B52B: AD D7 03  LDA ram_03D7
+C - - - - - 0x01B53B 06:B52B: AD D7 03  LDA vCacheBossStatus
 C - - - - - 0x01B53E 06:B52E: 6A        ROR
 C - - - - - 0x01B53F 06:B52F: 90 04     BCC @bra_B535_skip
 C - - - - - 0x01B541 06:B531: E6 01     INC ram_0001
 C - - - - - 0x01B543 06:B533: E6 01     INC ram_0001
 @bra_B535_skip:
-C - - - - - 0x01B545 06:B535: AD D8 03  LDA ram_03D8      ;
-C - - - - - 0x01B548 06:B538: D0 02     BNE @bra_B53C_skip ; If Register A != 0x00
+C - - - - - 0x01B545 06:B535: AD D8 03  LDA vCacheBossScreenPosX      ;
+C - - - - - 0x01B548 06:B538: D0 02     BNE @bra_B53C_skip            ; If Register A != 0x00
 @bra_B53A_skip:
 C - - - - - 0x01B54A 06:B53A: A9 80     LDA #$80     ; ~> sprite_magic4 (X pos)
 @bra_B53C_skip:

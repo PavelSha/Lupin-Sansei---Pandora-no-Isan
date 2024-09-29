@@ -91,6 +91,8 @@ vAnimationCounter             = ram_002F ; To animate the balloon and squeezing 
 ; ram_0030 - the unknown counter1
 ; ram_0031 - the unknown counter2
 
+vPostAttackCounter            = ram_0030 ; e.g. for the boss of level 1
+
 vResistantToDamageCounter     = ram_0032
 vLowCutsceneCounter           = ram_0033
 vHighCutsceneCounter          = ram_0034 ; Only for a demo (the message scenes are not included)
@@ -543,6 +545,9 @@ vBriefcaseHitCount            = ram_03A5 ; number of shots the briefcase must re
 vItemPosY                     = ram_03AA ; [03AB-03AF] The item position in th water along the X axis relative to the screen (no repeat)
 vItemPosXLow                  = ram_03B6 ; [03B7-03BB] The item position in th water along the X axis relative to the level (with repeat)
 vItemPosXHigh                 = ram_03BC ; [03BD-03C1] The item position in th water along the X axis relative to the level (in screen unit)
+
+vCacheBossStatus              = ram_03D7 ; the cache is used after defeating the boss
+vCacheBossScreenPosX          = ram_03D8 ; the cache is used after defeating the boss
 
 vApuChannelStatus             = ram_0400 ; Secondary status flag for adjusting APU_STATUS during sound and music processing
 vApuChannelProcessed          = ram_0401 ; 0x01 - pulse 1, 0x02 - pulse 2, 0x04 - triangle, 0x08 - noise

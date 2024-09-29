@@ -168,6 +168,7 @@
 .export sub_C652_display_character_portraits
 .export sub_C62F_init_character_select
 .export sub_C668_render_14_15_16_17_18_loop
+.export sub_C960_add_score2
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI ; disable interrupts
@@ -551,7 +552,7 @@ C - - - - - 0x01C2D6 07:C2C6: 90 FA     BCC bra_C2C2
 C - - - - - 0x01C2D8 07:C2C8: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C2DB 07:C2CB: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C2DE 07:C2CE: A9 30     LDA #$30
-C - - - - - 0x01C2E0 07:C2D0: 20 60 C9  JSR sub_C960
+C - - - - - 0x01C2E0 07:C2D0: 20 60 C9  JSR sub_C960_add_score2
 C - - - - - 0x01C2E3 07:C2D3: 20 0D B8  JSR $B80D
 C - - - - - 0x01C2E6 07:C2D6: 20 F4 C3  JSR sub_C3F4_set_OAM_address
 C - - - - - 0x01C2E9 07:C2D9: 20 0F C3  JSR sub_C30F_screen_on
@@ -1593,7 +1594,7 @@ C - - - - - 0x01C96E 07:C95E: F0 17     BEQ bra_C977                           ;
 
 ; In: Register A - score value 0xVV, V - a digit (0x65 - 6500 Score)
 ; In: Register X - ???
-sub_C960:
+sub_C960_add_score2:
 C - - - - - 0x01C970 07:C960: 48        PHA                                    ;
 C - - - - - 0x01C971 07:C961: A5 37     LDA vCutscenesMode                     ;
 C - - - - - 0x01C973 07:C963: 30 E0     BMI bra_C945_exit                      ; Branch If cutscenes are used
