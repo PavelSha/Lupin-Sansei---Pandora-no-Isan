@@ -9090,87 +9090,85 @@ C - - - - - 0x01F77F 07:F76F: 8D B3 06  STA vCacheChrBankSelect + 4
 C - - - - - 0x01F782 07:F772: 4C 20 F8  JMP loc_F820_finish_creating_enemyB
 
 loc_F775_boss4:
-C - - J - - 0x01F785 07:F775: A0 0C     LDY #$0C
-C - - - - - 0x01F787 07:F777: D0 0A     BNE bra_F783
+C - - J - - 0x01F785 07:F775: A0 0C     LDY #$0C                                     ; the offset value #1
+C - - - - - 0x01F787 07:F777: D0 0A     BNE bra_F783_start                           ; Always true
 
 loc_F779_boss3:
-C - - J - - 0x01F789 07:F779: A0 08     LDY #$08
-C - - - - - 0x01F78B 07:F77B: D0 06     BNE bra_F783
+C - - J - - 0x01F789 07:F779: A0 08     LDY #$08                                     ; the offset value #2
+C - - - - - 0x01F78B 07:F77B: D0 06     BNE bra_F783_start                           ; Always true
 
 loc_F77D_boss2:
-C - - J - - 0x01F78D 07:F77D: A0 04     LDY #$04
-C - - - - - 0x01F78F 07:F77F: D0 02     BNE bra_F783
+C - - J - - 0x01F78D 07:F77D: A0 04     LDY #$04                                     ; the offset value #3
+C - - - - - 0x01F78F 07:F77F: D0 02     BNE bra_F783_start                           ; Always true
 
 loc_F781_boss1:
-C - - J - - 0x01F791 07:F781: A0 00     LDY #$00
-bra_F783:
-C - - - - - 0x01F793 07:F783: A5 3C     LDA vGameLocks
-C - - - - - 0x01F795 07:F785: 29 20     AND #$20
-C - - - - - 0x01F797 07:F787: D0 0D     BNE bra_F796
-C - - - - - 0x01F799 07:F789: 24 3C     BIT vGameLocks
-C - - - - - 0x01F79B 07:F78B: 30 34     BMI bra_F7C1
-C - - - - - 0x01F79D 07:F78D: B9 F5 BC  LDA $BCF5,Y
-C - - - - - 0x01F7A0 07:F790: 8D 50 03  STA ram_0350
-C - - - - - 0x01F7A3 07:F793: 8D 51 03  STA ram_0351
-bra_F796:
-C - - - - - 0x01F7A6 07:F796: AD 00 03  LDA ram_0300
-C - - - - - 0x01F7A9 07:F799: C9 2E     CMP #$2E
-C - - - - - 0x01F7AB 07:F79B: D0 06     BNE bra_F7A3
+C - - J - - 0x01F791 07:F781: A0 00     LDY #$00                                     ; the offset value #4
+bra_F783_start:
+C - - - - - 0x01F793 07:F783: A5 3C     LDA vGameLocks                               ;
+C - - - - - 0x01F795 07:F785: 29 20     AND #$20                                     ; CONSTANT - after a fall and after 'Select a character'
+C - - - - - 0x01F797 07:F787: D0 0D     BNE @bra_F796_skip                           ; If the player is reselected after dying
+C - - - - - 0x01F799 07:F789: 24 3C     BIT vGameLocks                               ;
+C - - - - - 0x01F79B 07:F78B: 30 34     BMI bra_F7C1_skip                            ; If lock 'Select a character' exists
+C - - - - - 0x01F79D 07:F78D: B9 F5 BC  LDA tbl_ptr_boss_sprite_params_,Y            ;
+C - - - - - 0x01F7A0 07:F790: 8D 50 03  STA vEnemyAHealthPoints1                     ; set enemy HP
+C - - - - - 0x01F7A3 07:F793: 8D 51 03  STA vEnemyAHealthPoints2                     ; set enemy HP
+@bra_F796_skip:
+C - - - - - 0x01F7A6 07:F796: AD 00 03  LDA vEnemyA                                  ;
+C - - - - - 0x01F7A9 07:F799: C9 2E     CMP #$2E                                     ; CONSTANT - boss, level 4
+C - - - - - 0x01F7AB 07:F79B: D0 06     BNE bra_F7A3_skip                            ; If vEnemyA != 0x2E
 C - - - - - 0x01F7AD 07:F79D: 20 E0 F7  JSR sub_F7E0
-C - - - - - 0x01F7B0 07:F7A0: 4C C1 F7  JMP loc_F7C1
+C - - - - - 0x01F7B0 07:F7A0: 4C C1 F7  JMP loc_F7C1_continue                        ;
 
-bra_F7A3:
-C - - - - - 0x01F7B3 07:F7A3: A9 BF     LDA #$BF
-C - - - - - 0x01F7B5 07:F7A5: 8D 2C 03  STA ram_032C
-C - - - - - 0x01F7B8 07:F7A8: A9 81     LDA #$81
-C - - - - - 0x01F7BA 07:F7AA: 8D 20 03  STA vEnemyAStatus
-C - - - - - 0x01F7BD 07:F7AD: A9 A0     LDA #$A0
-C - - - - - 0x01F7BF 07:F7AF: 8D 38 03  STA ram_0338
-C - - - - - 0x01F7C2 07:F7B2: A9 00     LDA #$00
-C - - - - - 0x01F7C4 07:F7B4: 8D 3E 03  STA ram_033E
-C - - - - - 0x01F7C7 07:F7B7: A9 00     LDA #$00
-C - - - - - 0x01F7C9 07:F7B9: 8D 44 03  STA ram_0344
-C - - - - - 0x01F7CC 07:F7BC: A9 20     LDA #$20
-C - - - - - 0x01F7CE 07:F7BE: 8D 4A 03  STA vEnemyAJumpCounter
-bra_F7C1:
-loc_F7C1:
-C D 3 - - - 0x01F7D1 07:F7C1: B9 F6 BC  LDA $BCF6,Y
-C - - - - - 0x01F7D4 07:F7C4: 8D B3 06  STA vCacheChrBankSelect + 4
-C - - - - - 0x01F7D7 07:F7C7: B9 F7 BC  LDA $BCF7,Y
-C - - - - - 0x01F7DA 07:F7CA: 8D B4 06  STA vCacheChrBankSelect + 5
-C - - - - - 0x01F7DD 07:F7CD: B9 F8 BC  LDA $BCF8,Y
-C - - - - - 0x01F7E0 07:F7D0: 8D 02 03  STA ram_0302
-C - - - - - 0x01F7E3 07:F7D3: 20 4A F8  JSR sub_F84A_finish_creating_enemyA
-C - - - - - 0x01F7E6 07:F7D6: AC 00 03  LDY ram_0300
-C - - - - - 0x01F7E9 07:F7D9: C8        INY
-C - - - - - 0x01F7EA 07:F7DA: 8C 01 03  STY ram_0301
-C - - - - - 0x01F7ED 07:F7DD: 4C 20 F8  JMP loc_F820_finish_creating_enemyB
+bra_F7A3_skip:
+C - - - - - 0x01F7B3 07:F7A3: A9 BF     LDA #$BF                                     ;
+C - - - - - 0x01F7B5 07:F7A5: 8D 2C 03  STA vEnemyAPosY                              ; Initializes the Y-position
+C - - - - - 0x01F7B8 07:F7A8: A9 81     LDA #$81                                     ; CONSTANT - the status is used + the left direction
+C - - - - - 0x01F7BA 07:F7AA: 8D 20 03  STA vEnemyAStatus                            ;
+C - - - - - 0x01F7BD 07:F7AD: A9 A0     LDA #$A0                                     ;
+C - - - - - 0x01F7BF 07:F7AF: 8D 38 03  STA vEnemyAPosXLow                           ;
+C - - - - - 0x01F7C2 07:F7B2: A9 00     LDA #$00                                     ;
+C - - - - - 0x01F7C4 07:F7B4: 8D 3E 03  STA vEnemyAPosXHigh                          ; Initializes the X-position (Hi:Lo)
+C - - - - - 0x01F7C7 07:F7B7: A9 00     LDA #$00                                     ;
+C - - - - - 0x01F7C9 07:F7B9: 8D 44 03  STA vEnemyAFrame_Counter                     ; reset a frame counter
+C - - - - - 0x01F7CC 07:F7BC: A9 20     LDA #$20                                     ;
+C - - - - - 0x01F7CE 07:F7BE: 8D 4A 03  STA vEnemyAJumpCounter                       ; Initializes a counter for 'the approach'
+bra_F7C1_skip:
+loc_F7C1_continue:
+C D 3 - - - 0x01F7D1 07:F7C1: B9 F6 BC  LDA tbl_ptr_boss_sprite_params_ + 1,Y        ; CONSTANT for CHR ROM
+C - - - - - 0x01F7D4 07:F7C4: 8D B3 06  STA vCacheChrBankSelect + 4                  ;
+C - - - - - 0x01F7D7 07:F7C7: B9 F7 BC  LDA tbl_ptr_boss_sprite_params_ + 2,Y        ; CONSTANT for CHR ROM
+C - - - - - 0x01F7DA 07:F7CA: 8D B4 06  STA vCacheChrBankSelect + 5                  ;
+C - - - - - 0x01F7DD 07:F7CD: B9 F8 BC  LDA tbl_ptr_boss_sprite_params_ + 3,Y        ; the offset for sprite_magic2
+C - - - - - 0x01F7E0 07:F7D0: 8D 02 03  STA vEnemyASpriteMagic2                      ;
+C - - - - - 0x01F7E3 07:F7D3: 20 4A F8  JSR sub_F84A_finish_creating_enemyA          ;
+C - - - - - 0x01F7E6 07:F7D6: AC 00 03  LDY vEnemyA                                  ;
+C - - - - - 0x01F7E9 07:F7D9: C8        INY                                          ;
+C - - - - - 0x01F7EA 07:F7DA: 8C 01 03  STY vEnemyB                                  ; <~ {0x29, 0x2B, 0x2D, 0x2F}
+C - - - - - 0x01F7ED 07:F7DD: 4C 20 F8  JMP loc_F820_finish_creating_enemyB          ;
 
 sub_F7E0:
 C - - - - - 0x01F7F0 07:F7E0: A2 01     LDX #$01
 C - - - - - 0x01F7F2 07:F7E2: A0 00     LDY #$00
-bra_F7E4:
+@bra_F7E4_loop:
 C - - - - - 0x01F7F4 07:F7E4: A9 7F     LDA #$7F
 C - - - - - 0x01F7F6 07:F7E6: 9D 2C 03  STA ram_032C,X
 C - - - - - 0x01F7F9 07:F7E9: A5 3C     LDA vGameLocks
 C - - - - - 0x01F7FB 07:F7EB: 29 20     AND #$20
-C - - - - - 0x01F7FD 07:F7ED: F0 05     BEQ bra_F7F4
-- - - - - - 0x01F7FF 07:F7EF: BD        .byte $BD
-- - - - - - 0x01F800 07:F7F0: 50        .byte $50
-- - - - - - 0x01F801 07:F7F1: 03        .byte $03
-- - - - - - 0x01F802 07:F7F2: F0        .byte $F0
-- - - - - - 0x01F803 07:F7F3: 12        .byte $12
-bra_F7F4:
+C - - - - - 0x01F7FD 07:F7ED: F0 05     BEQ @bra_F7F4_skip
+- - - - - - 0x01F7FF 07:F7EF: BD 50 03  LDA vEnemyAHealthPoints,X
+- - - - - - 0x01F802 07:F7F2: F0 12     BEQ @bra_F806_skip
+@bra_F7F4_skip:
 C - - - - - 0x01F804 07:F7F4: B9 05 BD  LDA $BD05,Y
 C - - - - - 0x01F807 07:F7F7: 9D 20 03  STA vEnemyAStatus,X
 C - - - - - 0x01F80A 07:F7FA: B9 06 BD  LDA $BD06,Y
-C - - - - - 0x01F80D 07:F7FD: 9D 44 03  STA ram_0344,X
+C - - - - - 0x01F80D 07:F7FD: 9D 44 03  STA vEnemyAFrame_Counter,X
 C - - - - - 0x01F810 07:F800: B9 07 BD  LDA $BD07,Y
 C - - - - - 0x01F813 07:F803: 9D 26 03  STA ram_0326,X
+@bra_F806_skip:
 C - - - - - 0x01F816 07:F806: B9 08 BD  LDA $BD08,Y
-C - - - - - 0x01F819 07:F809: 9D 38 03  STA ram_0338,X
+C - - - - - 0x01F819 07:F809: 9D 38 03  STA vEnemyAPosXLow,X
 C - - - - - 0x01F81C 07:F80C: A9 00     LDA #$00
-C - - - - - 0x01F81E 07:F80E: 9D 3E 03  STA ram_033E,X
+C - - - - - 0x01F81E 07:F80E: 9D 3E 03  STA vEnemyAPosXHigh,X
 C - - - - - 0x01F821 07:F811: A9 20     LDA #$20
 C - - - - - 0x01F823 07:F813: 9D 4A 03  STA vEnemyAJumpCounter,X
 C - - - - - 0x01F826 07:F816: C8        INY
@@ -9178,7 +9176,7 @@ C - - - - - 0x01F827 07:F817: C8        INY
 C - - - - - 0x01F828 07:F818: C8        INY
 C - - - - - 0x01F829 07:F819: C8        INY
 C - - - - - 0x01F82A 07:F81A: CA        DEX
-C - - - - - 0x01F82B 07:F81B: 10 C7     BPL bra_F7E4
+C - - - - - 0x01F82B 07:F81B: 10 C7     BPL @bra_F7E4_loop
 C - - - - - 0x01F82D 07:F81D: A0 0C     LDY #$0C
 C - - - - - 0x01F82F 07:F81F: 60        RTS
 

@@ -92,6 +92,7 @@
 .export tbl_ptr_enemy_t2_sprite_params_
 .export tbl_ptr_enemy_t3_sprite_params_
 .export tbl_ptr_enemy_t4_sprite_params_
+.export tbl_ptr_boss_sprite_params_
 
 ; 1 byte - position Y
 ; 2 byte - position X
@@ -4456,30 +4457,19 @@ tbl_BCCF:
 - D 1 - I - 0x01BD02 06:BCF2: 10        .byte $10   ; 
 - D 1 - I - 0x01BD03 06:BCF3: 10        .byte $10   ; 
 - D 1 - I - 0x01BD04 06:BCF4: 10        .byte $10   ; 
-- D 1 - - - 0x01BD05 06:BCF5: 14        .byte $14   ; 
-- D 1 - - - 0x01BD06 06:BCF6: 17        .byte $17   ; 
-- D 1 - - - 0x01BD07 06:BCF7: 17        .byte $17   ; 
-- D 1 - - - 0x01BD08 06:BCF8: 00        .byte $00   ; 
-- D 1 - - - 0x01BD09 06:BCF9: 20        .byte $20   ; 
-- D 1 - - - 0x01BD0A 06:BCFA: 13        .byte $13   ; 
-- D 1 - - - 0x01BD0B 06:BCFB: 13        .byte $13   ; 
-- D 1 - - - 0x01BD0C 06:BCFC: 3C        .byte $3C   ; 
-- D 1 - - - 0x01BD0D 06:BCFD: 20        .byte $20   ; 
-- D 1 - - - 0x01BD0E 06:BCFE: 0F        .byte $0F   ; 
-- D 1 - - - 0x01BD0F 06:BCFF: 0F        .byte $0F   ; 
-- D 1 - - - 0x01BD10 06:BD00: 70        .byte $70   ; <p>
-- D 1 - - - 0x01BD11 06:BD01: 20        .byte $20   ; 
-- D 1 - - - 0x01BD12 06:BD02: 3F        .byte $3F   ; 
-- D 1 - - - 0x01BD13 06:BD03: 3F        .byte $3F   ; 
-- D 1 - - - 0x01BD14 06:BD04: 94        .byte $94   ; 
-- D 1 - - - 0x01BD15 06:BD05: 89        .byte $89   ; 
-- D 1 - - - 0x01BD16 06:BD06: 90        .byte $90   ; 
-- D 1 - - - 0x01BD17 06:BD07: 08        .byte $08   ; 
-- D 1 - - - 0x01BD18 06:BD08: BC        .byte $BC   ; 
-- D 1 - - - 0x01BD19 06:BD09: 88        .byte $88   ; 
-- D 1 - - - 0x01BD1A 06:BD0A: 90        .byte $90   ; 
-- D 1 - - - 0x01BD1B 06:BD0B: 00        .byte $00   ; 
-- D 1 - - - 0x01BD1C 06:BD0C: 84        .byte $84   ; 
+
+; 1 byte - health points
+; 2 byte - the 1 number of ChrBank
+; 3 byte - the 2 number of ChrBank
+; 4 byte - see v_sprite_magic2
+tbl_ptr_boss_sprite_params_:
+- D 1 - - - 0x01BD05 06:BCF5: 14        .byte $14, $17, $17, $00   ; 
+- D 1 - - - 0x01BD09 06:BCF9: 20        .byte $20, $13, $13, $3C   ; 
+- D 1 - - - 0x01BD0D 06:BCFD: 20        .byte $20, $0F, $0F, $70   ;
+- D 1 - - - 0x01BD11 06:BD01: 20        .byte $20, $3F, $3F, $94   ; 
+
+- D 1 - - - 0x01BD15 06:BD05: 89        .byte $89, $90, $08, $BC   ; 
+- D 1 - - - 0x01BD19 06:BD09: 88        .byte $88, $90, $00, $84   ; 
 
 ; Types:
 ; Cat with the gun, Karate-girl, Skeleton, Mummy, Egyptian with bow, Egyptian with a sword, Ninja upside down

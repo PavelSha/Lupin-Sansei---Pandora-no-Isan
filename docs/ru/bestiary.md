@@ -40,13 +40,13 @@
 |0x25|Diver| B |   |   |
 |0x26|Mummy| A |   | 4 |
 |0x27|Gargoyle| B | [Гаргулья](#враг-27) | 4 |
-|0x28|Boss| A |   | 1 |
-|0x29| ? |   |   |   |
-|0x2A|Boss| A |   | 2 |
+|0x28|Boss1| A | [Халк](#враг-28) | 1 |
+|0x29| - | - | - | - |
+|0x2A|Boss2| A |   | 2 |
 |0x2B| ? |   |   |   |
-|0x2C|Boss| A |   | 3 |
+|0x2C|Boss3| A |   | 3 |
 |0x2D| ? |   |   |   |
-|0x2E|Boss| A |   | 4 |
+|0x2E|Boss4| A |   | 4 |
 |0x2F| ? |   |   |   |
 |0x30|Wall| B |   | 4 |
 |0x31|Wall| B |   | 4 |
@@ -389,6 +389,32 @@
 -  ***W*** - _не используется_
 -  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
 -  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
+
+## Враг 28
+Халк
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|
+|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/28/frame1-r.png) | ![Frame2](../images/enemies/28/frame2-r.png) | ![Frame3](../images/enemies/28/frame3-r.png) | ![Frame4](../images/enemies/28/frame4-r.png) | ![Frame5](../images/enemies/28/frame5-r.png) | ![Frame6](../images/enemies/28/frame6-r.png) |
+| ![Frame1](../images/enemies/28/frame1-l.png) | ![Frame2](../images/enemies/28/frame2-l.png) | ![Frame3](../images/enemies/28/frame3-l.png) | ![Frame4](../images/enemies/28/frame4-l.png) | ![Frame5](../images/enemies/28/frame5-l.png) | ![Frame6](../images/enemies/28/frame6-l.png) |
+
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|
+|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/28/frame7-r.png) | ![Frame2](../images/enemies/28/frame8-r.png) | ![Frame3](../images/enemies/28/frame9-r.png) | ![Frame4](../images/enemies/28/frame10-r.png) | ![Frame5](../images/enemies/28/frame11-r.png) | ![Frame6](../images/enemies/28/frame12-r.png) | ![Frame7](../images/enemies/28/frame13-r.png) |
+| ![Frame1](../images/enemies/28/frame7-l.png) | ![Frame2](../images/enemies/28/frame8-l.png) | ![Frame3](../images/enemies/28/frame9-l.png) | ![Frame4](../images/enemies/28/frame10-l.png) | ![Frame5](../images/enemies/28/frame11-l.png) | ![Frame6](../images/enemies/28/frame12-l.png) | ![Frame7](../images/enemies/28/frame13-l.png) |
+
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|
+|---|---|---|---|
+| ![Frame1](../images/enemies/28/frame14.png) | ![Frame2](../images/enemies/28/frame15.png) | ![Frame3](../images/enemies/28/frame16.png) | ![Frame4](../images/enemies/28/frame17.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг блокирования пули после выстрела (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***L*** - флаг броска снаряда (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***K*** - флаг остановки босса (**_0x00_** - не остановился, **_0x01_** - остановился)
+-  ***W*** - флаг получения урона (**_0x00_** - не получает урон, **_0x01_** - получает урон)
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - флаг отхода назад (**_0x00_** - не отходит, **_0x01_** - отходит)
 -  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 
 ## Враг 35

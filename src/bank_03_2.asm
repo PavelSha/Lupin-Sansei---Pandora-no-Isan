@@ -133,23 +133,23 @@ tbl_A10E_status_and_counter:
 - D 1 - - - 0x00E12C 03:A11C: 04        .byte $04, $20   ; throw
 
 loc_A11E_boss:
-C D 1 - - - 0x00E12E 03:A11E: A2 00     LDX #$00
-C - - - - - 0x00E130 03:A120: 86 1A     STX vTempCounter1A
-C - - - - - 0x00E132 03:A122: 20 EC A1  JSR sub_A1EC_status_behavior
-C - - - - - 0x00E135 03:A125: A6 1A     LDX vTempCounter1A
-C - - - - - 0x00E137 03:A127: BD 50 03  LDA vEnemyAHealthPoints,X
-C - - - - - 0x00E13A 03:A12A: F0 23     BEQ bra_A14F
-C - - - - - 0x00E13C 03:A12C: 20 CD A1  JSR sub_A1CD_prepare_hitbox
-C - - - - - 0x00E13F 03:A12F: 20 60 D6  JSR sub_D660_is_bomb_exploding
-C - - - - - 0x00E142 03:A132: B0 0B     BCS bra_A13F
+C D 1 - - - 0x00E12E 03:A11E: A2 00     LDX #$00                          ;
+C - - - - - 0x00E130 03:A120: 86 1A     STX vTempCounter1A                ; !(WHY?), the boss is always one
+C - - - - - 0x00E132 03:A122: 20 EC A1  JSR sub_A1EC_status_behavior      ;
+C - - - - - 0x00E135 03:A125: A6 1A     LDX vTempCounter1A                ;
+C - - - - - 0x00E137 03:A127: BD 50 03  LDA vEnemyAHealthPoints,X         ;
+C - - - - - 0x00E13A 03:A12A: F0 23     BEQ bra_A14F_skip                 ; If HPoints == 0x00
+C - - - - - 0x00E13C 03:A12C: 20 CD A1  JSR sub_A1CD_prepare_hitbox       ;
+C - - - - - 0x00E13F 03:A12F: 20 60 D6  JSR sub_D660_is_bomb_exploding    ;
+C - - - - - 0x00E142 03:A132: B0 0B     BCS @bra_A13F_bomb_hit            ; If the bomb is exploding
 C - - - - - 0x00E144 03:A134: A5 5F     LDA vChrLiveStatus                ;
 C - - - - - 0x00E146 03:A136: 29 02     AND #$02                          ; CONSTANT - Goemon
 C - - - - - 0x00E148 03:A138: F0 0B     BEQ bra_A145_check_bullets        ; If the character isn't Goemon
-C - - - - - 0x00E14A 03:A13A: 20 06 D6  JSR sub_D606_have_intersect_sword
-C - - - - - 0x00E14D 03:A13D: 90 10     BCC bra_A14F
-bra_A13F:
-C - - - - - 0x00E14F 03:A13F: 20 5C A1  JSR sub_A15C
-C - - - - - 0x00E152 03:A142: 4C 4F A1  JMP loc_A14F
+C - - - - - 0x00E14A 03:A13A: 20 06 D6  JSR sub_D606_have_intersect_sword ;
+C - - - - - 0x00E14D 03:A13D: 90 10     BCC bra_A14F_skip                 ; If the intersect doesn't exist
+@bra_A13F_bomb_hit:
+C - - - - - 0x00E14F 03:A13F: 20 5C A1  JSR sub_A15C_hit                  ;
+C - - - - - 0x00E152 03:A142: 4C 4F A1  JMP loc_A14F_continue             ;
 
 bra_A145_check_bullets:
 C - - - - - 0x00E155 03:A145: A6 7A     LDX vBulletCount                      ; set loop counter
@@ -158,17 +158,17 @@ C - - - - - 0x00E157 03:A147: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet    ;
 C - - - - - 0x00E15A 03:A14A: B0 06     BCS bra_A152_bullet_hit               ; If the intersect is exist
 C - - - - - 0x00E15C 03:A14C: CA        DEX                                   ; decrement loop counter
 C - - - - - 0x00E15D 03:A14D: 10 F8     BPL @bra_A147_loop                    ; If Register X >= 0x00
-bra_A14F:
-loc_A14F:
-C D 1 - - - 0x00E15F 03:A14F: 4C 5C A4  JMP loc_A45C
+bra_A14F_skip:
+loc_A14F_continue:
+C D 1 - - - 0x00E15F 03:A14F: 4C 5C A4  JMP loc_A45C_continue                ;
 
 bra_A152_bullet_hit:
-C - - - - - 0x00E162 03:A152: A9 00     LDA #$00
-C - - - - - 0x00E164 03:A154: 95 8F     STA vBulletStatus,X
-C - - - - - 0x00E166 03:A156: 20 5C A1  JSR sub_A15C
-C - - - - - 0x00E169 03:A159: 4C 4F A1  JMP loc_A14F
+C - - - - - 0x00E162 03:A152: A9 00     LDA #$00                             ;
+C - - - - - 0x00E164 03:A154: 95 8F     STA vBulletStatus,X                  ; clear
+C - - - - - 0x00E166 03:A156: 20 5C A1  JSR sub_A15C_hit                     ;
+C - - - - - 0x00E169 03:A159: 4C 4F A1  JMP loc_A14F_continue                ;
 
-sub_A15C:
+sub_A15C_hit:
 C - - - - - 0x00E16C 03:A15C: A6 1A     LDX vTempCounter1A                   ; !(WHY?), seems to be excessive
 C - - - - - 0x00E16E 03:A15E: AD 20 03  LDA vEnemyAStatus                    ;
 C - - - - - 0x00E171 03:A161: 29 30     AND #$30                             ; CONSTANT - 'dying' + 'get damage' status
@@ -260,11 +260,11 @@ bra_A1EB_RTS:
 C - - - - - 0x00E1FB 03:A1EB: 60        RTS                          ;
 
 sub_A1EC_status_behavior:
-C - - - - - 0x00E1FC 03:A1EC: AD 20 03  LDA vEnemyAStatus
-C - - - - - 0x00E1FF 03:A1EF: 10 FA     BPL bra_A1EB_RTS
-C - - - - - 0x00E201 03:A1F1: 20 E3 A2  JSR sub_A2E3_try_to_change_self
-C - - - - - 0x00E204 03:A1F4: AD 20 03  LDA vEnemyAStatus
-C - - - - - 0x00E207 03:A1F7: 4A        LSR
+C - - - - - 0x00E1FC 03:A1EC: AD 20 03  LDA vEnemyAStatus                         ;
+C - - - - - 0x00E1FF 03:A1EF: 10 FA     BPL bra_A1EB_RTS                          ; If the status isn't used
+C - - - - - 0x00E201 03:A1F1: 20 E3 A2  JSR sub_A2E3_try_to_change_self           ;
+C - - - - - 0x00E204 03:A1F4: AD 20 03  LDA vEnemyAStatus                         ;
+C - - - - - 0x00E207 03:A1F7: 4A        LSR                                       ;
 C - - - - - 0x00E208 03:A1F8: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
 
 - D 1 - I - 0x00E20B 03:A1FB: 18 A2     .addr loc_A219_main - 1        ; 0x02
@@ -657,15 +657,15 @@ C - - - - - 0x00E464 03:A454: B0 E4     BCS bra_A43A_change_direction           
 C - - - - - 0x00E466 03:A456: 20 40 A4  JSR sub_A440_try_to_move_to_left         ;
 C - - - - - 0x00E469 03:A459: 4C 30 A4  JMP loc_A430_prepare_rendering_by_frame_ ;
 
-loc_A45C:
+loc_A45C_continue:
 C D 1 - - - 0x00E46C 03:A45C: AD 50 03  LDA vEnemyAHealthPoints               ;
 C - - - - - 0x00E46F 03:A45F: F0 5E     BEQ bra_A4BF_RTS                      ; If HPoints == 0x00
 C - - - - - 0x00E471 03:A461: AD 20 03  LDA vEnemyAStatus                     ;
 C - - - - - 0x00E474 03:A464: 10 59     BPL bra_A4BF_RTS                      ; If the status isn't used
-C - - - - - 0x00E476 03:A466: A2 00     LDX #$00
-C - - - - - 0x00E478 03:A468: 86 1A     STX vTempCounter1A
-C - - - - - 0x00E47A 03:A46A: 20 C0 A4  JSR sub_A4C0
-C - - - - - 0x00E47D 03:A46D: 20 A2 A1  JSR sub_A1A2_prepare_hitbox2
+C - - - - - 0x00E476 03:A466: A2 00     LDX #$00                              ;
+C - - - - - 0x00E478 03:A468: 86 1A     STX vTempCounter1A                    ; !(WHY?), the projectile is always one
+C - - - - - 0x00E47A 03:A46A: 20 C0 A4  JSR sub_A4C0_try_to_move_projectile   ;
+C - - - - - 0x00E47D 03:A46D: 20 A2 A1  JSR sub_A1A2_prepare_hitbox2          ;
 C - - - - - 0x00E480 03:A470: A5 5F     LDA vChrLiveStatus                    ;
 C - - - - - 0x00E482 03:A472: 29 02     AND #$02                              ; CONSTANT - Goemon
 C - - - - - 0x00E484 03:A474: D0 13     BNE bra_A489_skip                     ; If the character is Goemon
@@ -710,7 +710,7 @@ C - - - - - 0x00E4CC 03:A4BC: 8D 62 03  STA vEnemyBThrowingPower         ;
 bra_A4BF_RTS:
 C - - - - - 0x00E4CF 03:A4BF: 60        RTS                              ;
 
-sub_A4C0:
+sub_A4C0_try_to_move_projectile:
 C - - - - - 0x00E4D0 03:A4C0: AD 5C 03  LDA vEnemyBStatus                      ;
 C - - - - - 0x00E4D3 03:A4C3: 10 FA     BPL bra_A4BF_RTS                       ; If the status isn't used
 C - - - - - 0x00E4D5 03:A4C5: AD 5C 03  LDA vEnemyBStatus                      ;
