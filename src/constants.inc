@@ -493,8 +493,17 @@ vEnemyBStatus                 = ram_035C ; see below and docs (Bestiary)
 
 vEnemyBStatus1                = ram_035C
 vEnemyBStatus2                = ram_035D
+vEnemyBStatus3                = ram_035E ; For Kim
+vEnemyBStatus4                = ram_035F ; For Kim
+vEnemyBStatus5                = ram_0360 ; For Kim
+vEnemyBStatus6                = ram_0361 ; For Kim
 
 vEnemyBThrowingPower          = ram_0362 ; For Hulk
+vButterflyRebound             = ram_0362 ; For Kim
+; 0x05 - there was no rebound (the right direction)
+; 0x0B - there was no rebound (the left direction)
+; 0x03 - there was a rebound (the right direction)
+; 0x0D - there was a rebound (the left direction)
 
 vEnemyBPosY                   = ram_0368 ; see below
 vEnemyBPosY1                  = ram_0368 ; The enemy position along the Y axis relative to the level (no repeat)
@@ -526,6 +535,8 @@ vEnemyBHealthPoints2          = ram_038D ; Only for the gargoyle
 vEnemyBJumpType               = ram_0392 ; see below
 vEnemyBJumpType1              = ram_0392 ; vJumpCounter analog for the enemy (the enemy number = 1)
 vEnemyBJumpType2              = ram_0393 ; vJumpCounter analog for the enemy (the enemy number = 2)
+
+vButterflyCircularFlightCounter = ram_0392 ; For Kim
 
 vBombOnScreen                 = ram_0398 ; 0x00 - no exist, 0x01 - on screen
 v_briefcase_index             = ram_0398 ; [0399-039D]
