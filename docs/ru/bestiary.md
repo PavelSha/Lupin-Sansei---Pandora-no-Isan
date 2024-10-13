@@ -42,7 +42,7 @@
 |0x27|Gargoyle| B | [Гаргулья](#враг-27) | 4 |
 |0x28|Boss1| A | [Халк](#враг-28) | 1 |
 |0x29| - | - | - | - |
-|0x2A|Boss2| A |   | 2 |
+|0x2A|Boss2| A | [Ким](#враг-2a) | 2 |
 |0x2B| ? |   |   |   |
 |0x2C|Boss3| A |   | 3 |
 |0x2D| ? |   |   |   |
@@ -415,6 +415,39 @@
 -  ***W*** - флаг получения урона (**_0x00_** - не получает урон, **_0x01_** - получает урон)
 -  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
 -  ***Y*** - флаг отхода назад (**_0x00_** - не отходит, **_0x01_** - отходит)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
+
+## Враг 2A
+Ким
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|Кадр 9|Кадр 10|
+|---|---|---|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/2A/frame1-r.png) | ![Frame2](../images/enemies/2A/frame2-r.png) | ![Frame3](../images/enemies/2A/frame3-r.png) | ![Frame4](../images/enemies/2A/frame4-r.png) | ![Frame5](../images/enemies/2A/frame5-r.png) | ![Frame6](../images/enemies/2A/frame6-r.png) | ![Frame7](../images/enemies/2A/frame7-r.png) | ![Frame8](../images/enemies/2A/frame8-r.png) | ![Frame9](../images/enemies/2A/frame9-r.png) | ![Frame10](../images/enemies/2A/frame10-r.png) |
+| ![Frame1](../images/enemies/2A/frame1-l.png) | ![Frame2](../images/enemies/2A/frame2-l.png) | ![Frame3](../images/enemies/2A/frame3-l.png) | ![Frame4](../images/enemies/2A/frame4-l.png) | ![Frame5](../images/enemies/2A/frame5-l.png) | ![Frame6](../images/enemies/2A/frame6-l.png) | ![Frame7](../images/enemies/2A/frame7-l.png) | ![Frame8](../images/enemies/2A/frame8-l.png) | ![Frame9](../images/enemies/2A/frame9-l.png) | ![Frame10](../images/enemies/2A/frame10-l.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - _не используется_
+-  ***L*** - флаг броска бабочки (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***K*** - флаг остановки босса (**_0x00_** - не остановился, **_0x01_** - остановился)
+-  ***W*** - флаг получения урона (**_0x00_** - не получает урон, **_0x01_** - получает урон)
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - _не используется_
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
+
+Бабочка Кима
+|Кадр 1|Кадр 2|Кадр 3|
+|---|---|---|
+| ![Frame1](../images/enemies/2A/frame11-r.png) | ![Frame2](../images/enemies/2A/frame12-r.png) | ![Frame3](../images/enemies/2A/frame13-r.png) |
+| ![Frame1](../images/enemies/2A/frame11-l.png) | ![Frame2](../images/enemies/2A/frame12-l.png) | ![Frame3](../images/enemies/2A/frame13-l.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - _не используется_
+-  ***L*** - флаг типа полета (**_0x00_** - круговое движение, **_0x01_** - движение по прямой)
+-  ***K*** - _не используется_
+-  ***W*** - _не используется_
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - _не используется_
 -  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 
 ## Враг 35
