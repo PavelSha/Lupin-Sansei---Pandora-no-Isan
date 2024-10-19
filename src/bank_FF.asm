@@ -169,6 +169,8 @@
 .export sub_C62F_init_character_select
 .export sub_C668_render_14_15_16_17_18_loop
 .export sub_C960_add_score2
+.export loc_DA7C_add_sprite_magic_in_05_p1
+.export sub_DA28_get_explode_sprite_magic2
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI ; disable interrupts
@@ -4445,18 +4447,21 @@ C - - - - - 0x01DA34 07:DA24: 60        RTS                                     
 bra_DA25_add_score:
 C - - - - - 0x01DA35 07:DA25: 4C 47 C9  JMP loc_C947_add_score                  ;
 
-bra_DA28:
-sub_DA28:
-C - - - - - 0x01DA38 07:DA28: D9 C0 DA  CMP tbl_DAC0,Y
-C - - - - - 0x01DA3B 07:DA2B: B0 03     BCS bra_DA30
-C - - - - - 0x01DA3D 07:DA2D: C8        INY
-C - - - - - 0x01DA3E 07:DA2E: D0 F8     BNE bra_DA28
-bra_DA30:
-C - - - - - 0x01DA40 07:DA30: B9 C5 DA  LDA tbl_DAC5,Y
-C - - - - - 0x01DA43 07:DA33: 18        CLC
-C - - - - - 0x01DA44 07:DA34: 69 74     ADC #$74
-C - - - - - 0x01DA46 07:DA36: A8        TAY
-C - - - - - 0x01DA47 07:DA37: 60        RTS
+; In: Register Y - a start index
+; In: Register A - the counter value
+; Out: Register Y - sprite_magic2
+sub_DA28_get_explode_sprite_magic2:
+@bra_DA28_loop:
+C - - - - - 0x01DA38 07:DA28: D9 C0 DA  CMP tbl_DAC0_counter_values,Y  ;
+C - - - - - 0x01DA3B 07:DA2B: B0 03     BCS bra_DA30_found             ; If the target value >= value from the table
+C - - - - - 0x01DA3D 07:DA2D: C8        INY                            ; increment loop counter
+C - - - - - 0x01DA3E 07:DA2E: D0 F8     BNE @bra_DA28_loop             ; If Register Y != 0x00
+bra_DA30_found:
+C - - - - - 0x01DA40 07:DA30: B9 C5 DA  LDA tbl_DAC5_offsets,Y         ;
+C - - - - - 0x01DA43 07:DA33: 18        CLC                            ;
+C - - - - - 0x01DA44 07:DA34: 69 74     ADC #$74                       ;
+C - - - - - 0x01DA46 07:DA36: A8        TAY                            ; Y <~ 0x74 + offset
+C - - - - - 0x01DA47 07:DA37: 60        RTS                            ;
 
 ; in: Register X - ???
 loc_DA38:
@@ -4491,10 +4496,12 @@ C - - - - - 0x01DA82 07:DA72: BD AA 03  LDA vItemPosY,X
 C - - - - - 0x01DA85 07:DA75: 85 00     STA ram_0000
 C - - - - - 0x01DA87 07:DA77: A5 03     LDA ram_0003
 C - - - - - 0x01DA89 07:DA79: 9D B0 03  STA ram_03B0,X
-C D 2 - - - 0x01DA8C 07:DA7C: 84 01     STY ram_0001
-C - - - - - 0x01DA8E 07:DA7E: A9 60     LDA #$60
-C - - - - - 0x01DA90 07:DA80: 85 02     STA ram_0002
-C - - - - - 0x01DA92 07:DA82: 4C 33 CE  JMP loc_CE33_add_sprite_magic
+; In: Register Y - sprite_magic2 (The offset by the address)
+loc_DA7C_add_sprite_magic_in_05_p1:
+C D 2 - - - 0x01DA8C 07:DA7C: 84 01     STY ram_0001                  ;
+C - - - - - 0x01DA8E 07:DA7E: A9 60     LDA #$60                      ; ~> sprite_magic3
+C - - - - - 0x01DA90 07:DA80: 85 02     STA ram_0002                  ;
+C - - - - - 0x01DA92 07:DA82: 4C 33 CE  JMP loc_CE33_add_sprite_magic ;
 
 bra_DA85:
 C - - - - - 0x01DA95 07:DA85: 20 9F DA  JSR sub_DA9F
@@ -4532,31 +4539,16 @@ C - - - - - 0x01DAC3 07:DAB3: 48        PHA
 C - - - - - 0x01DAC4 07:DAB4: 20 90 DA  JSR sub_DA90
 C - - - - - 0x01DAC7 07:DAB7: 68        PLA
 C - - - - - 0x01DAC8 07:DAB8: A0 00     LDY #$00
-C - - - - - 0x01DACA 07:DABA: 20 28 DA  JSR sub_DA28
+C - - - - - 0x01DACA 07:DABA: 20 28 DA  JSR sub_DA28_get_explode_sprite_magic2
 C - - - - - 0x01DACD 07:DABD: 4C 60 DA  JMP loc_DA60
 
-tbl_DAC0:
-- D 2 - - - 0x01DAD0 07:DAC0: 0E        .byte $0E
-- D 2 - - - 0x01DAD1 07:DAC1: 0C        .byte $0C
-- D 2 - - - 0x01DAD2 07:DAC2: 08        .byte $08
-- D 2 - - - 0x01DAD3 07:DAC3: 04        .byte $04
-- D 2 - - - 0x01DAD4 07:DAC4: 00        .byte $00
-tbl_DAC5:
-- D 2 - - - 0x01DAD5 07:DAC5: 00        .byte $00
-- D 2 - - - 0x01DAD6 07:DAC6: 02        .byte $02
-- D 2 - - - 0x01DAD7 07:DAC7: 04        .byte $04
-- D 2 - - - 0x01DAD8 07:DAC8: 06        .byte $06
-- D 2 - - - 0x01DAD9 07:DAC9: 08        .byte $08
-- D 2 - - - 0x01DADA 07:DACA: 08        .byte $08
-- D 2 - - - 0x01DADB 07:DACB: 08        .byte $08
-- D 2 - - - 0x01DADC 07:DACC: 04        .byte $04
-- D 2 - - - 0x01DADD 07:DACD: 04        .byte $04
-- D 2 - - - 0x01DADE 07:DACE: 00        .byte $00
-- D 2 - - - 0x01DADF 07:DACF: 0A        .byte $0A
-- - - - - - 0x01DAE0 07:DAD0: 0A        .byte $0A
-- D 2 - - - 0x01DAE1 07:DAD1: 0C        .byte $0C
-- - - - - - 0x01DAE2 07:DAD2: 0C        .byte $0C
-- D 2 - - - 0x01DAE3 07:DAD3: 0E        .byte $0E
+tbl_DAC0_counter_values:
+- D 2 - - - 0x01DAD0 07:DAC0: 0E        .byte $0E, $0C, $08, $04, $00
+
+tbl_DAC5_offsets:
+- D 2 - - - 0x01DAD5 07:DAC5: 00        .byte $00, $02, $04, $06, $08  ; offsets #1
+- D 2 - - - 0x01DADA 07:DACA: 08        .byte $08, $08, $04, $04, $00  ; counter values for bra_ABBB (3 bank, 2 page)
+- D 2 - - - 0x01DADF 07:DACF: 0A        .byte $0A, $0A, $0C, $0C, $0E  ; offsets #2
 
 ; 1st - the offset by position Y
 ; 2nd - the offset by position X
@@ -7315,7 +7307,7 @@ C - - - - - 0x01EBEC 07:EBDC: 60        RTS
 
 bra_EBDD:
 C - - - - - 0x01EBED 07:EBDD: A0 00     LDY #$00
-C - - - - - 0x01EBEF 07:EBDF: 20 28 DA  JSR sub_DA28
+C - - - - - 0x01EBEF 07:EBDF: 20 28 DA  JSR sub_DA28_get_explode_sprite_magic2
 C - - - - - 0x01EBF2 07:EBE2: 84 01     STY ram_0001
 C - - - - - 0x01EBF4 07:EBE4: A9 08     LDA #$08
 C - - - - - 0x01EBF6 07:EBE6: 8D B2 06  STA vCacheChrBankSelect + 3
