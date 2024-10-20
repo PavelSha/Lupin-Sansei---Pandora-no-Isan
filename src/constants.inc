@@ -500,6 +500,7 @@ vEnemyBStatus6                = ram_0361 ; For Kim
 
 vEnemyBThrowingPower          = ram_0362 ; For Hulk
 vButterflyRebound             = ram_0362 ; For Kim
+vEnemyBThrowingDirection      = ram_0362 ; For Raid
 ; 0x05 - there was no rebound (the right direction)
 ; 0x0B - there was no rebound (the left direction)
 ; 0x03 - there was a rebound (the right direction)

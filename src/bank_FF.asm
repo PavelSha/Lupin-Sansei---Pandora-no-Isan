@@ -9277,13 +9277,13 @@ tbl_F888_enemy_appearance:
 - D 3 - - - 0x01F8E4 07:F8D4: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Mummy
 - D 3 - - - 0x01F8E6 07:F8D6: 3E F4     .addr loc_F43E_enemy_appearance_t4          ; Gargoyle
 - D 3 - - - 0x01F8E8 07:F8D8: 81 F7     .addr loc_F781_boss1                        ; Boss
-- D - - - - 0x01F8EA 07:F8DA: 87 F8     .addr loc_enemy_RTS                         ; ???
+- D - - - - 0x01F8EA 07:F8DA: 87 F8     .addr loc_enemy_RTS                         ;
 - D 3 - - - 0x01F8EC 07:F8DC: 7D F7     .addr loc_F77D_boss2                        ; Boss
-- D - - - - 0x01F8EE 07:F8DE: 87 F8     .addr loc_enemy_RTS                         ; ???
+- D - - - - 0x01F8EE 07:F8DE: 87 F8     .addr loc_enemy_RTS                         ;
 - D 3 - - - 0x01F8F0 07:F8E0: 79 F7     .addr loc_F779_boss3                        ; Boss
-- D - - - - 0x01F8F2 07:F8E2: 87 F8     .addr loc_enemy_RTS                         ; ???
+- D - - - - 0x01F8F2 07:F8E2: 87 F8     .addr loc_enemy_RTS                         ;
 - D 3 - - - 0x01F8F4 07:F8E4: 75 F7     .addr loc_F775_boss4                        ; Boss
-- D - - - - 0x01F8F6 07:F8E6: 87 F8     .addr loc_enemy_RTS                         ; ???
+- D - - - - 0x01F8F6 07:F8E6: 87 F8     .addr loc_enemy_RTS                         ;
 - D 3 - - - 0x01F8F8 07:F8E8: E7 F6     .addr loc_F6E7_wall_or_platform_appearance  ; Wall
 - D 3 - - - 0x01F8FA 07:F8EA: E7 F6     .addr loc_F6E7_wall_or_platform_appearance  ; Wall
 - D 3 - - - 0x01F8FC 07:F8EC: E7 F6     .addr loc_F6E7_wall_or_platform_appearance  ; Breaking platform
@@ -9959,13 +9959,13 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD16 07:FD06: F6 EE     .word $EEF6                     ; Mummy (0x26) (level 4) Type A
 - D 3 - - - 0x01FD18 07:FD08: 78 EE     .addr loc_EE78_soar_enemy       ; Gargoyle (0x27) (level 4) Type B
 - D 3 - - - 0x01FD1A 07:FD0A: D2 EE     .addr loc_boss_hulk             ; Boss (level 1) (0x28) Type A
-- D 3 - - - 0x01FD1C 07:FD0C: 87 F8     .addr loc_enemy_RTS             ; ??? (0x29)
+- D 3 - - - 0x01FD1C 07:FD0C: 87 F8     .addr loc_enemy_RTS             ;
 - D 3 - - - 0x01FD1E 07:FD0E: DB EE     .addr loc_boss_kim              ; Boss (level 2) (0x2A) Type A
-- D 3 - - - 0x01FD20 07:FD10: 87 F8     .addr loc_enemy_RTS             ; ??? (0x2B)
+- D 3 - - - 0x01FD20 07:FD10: 87 F8     .addr loc_enemy_RTS             ;
 - D 3 - - - 0x01FD22 07:FD12: E4 EE     .addr loc_boss_raid             ; Boss (level 3) (0x2C) Type A
-- D 3 - - - 0x01FD24 07:FD14: 87 F8     .addr loc_enemy_RTS             ; ??? (0x2D)
+- D 3 - - - 0x01FD24 07:FD14: 87 F8     .addr loc_enemy_RTS             ;
 - D 3 - - - 0x01FD26 07:FD16: ED EE     .addr loc_final_boss            ; Boss (level 4) (0x2E) Type A
-- D 3 - - - 0x01FD28 07:FD18: 87 F8     .addr loc_enemy_RTS             ; ??? (0x2F)
+- D 3 - - - 0x01FD28 07:FD18: 87 F8     .addr loc_enemy_RTS             ;
 - D 3 - - - 0x01FD2A 07:FD1A: 34 AE     .addr loc_AE34_platform         ; Wall (0x30)
 - D 3 - - - 0x01FD2C 07:FD1C: 34 AE     .addr loc_AE34_platform         ; Wall (0x31)
 - D 3 - - - 0x01FD2E 07:FD1E: 34 AE     .addr loc_AE34_platform         ; Breaking platform (level 4) (0x32) Type B
