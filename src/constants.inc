@@ -493,18 +493,18 @@ vEnemyBStatus                 = ram_035C ; see below and docs (Bestiary)
 
 vEnemyBStatus1                = ram_035C
 vEnemyBStatus2                = ram_035D
-vEnemyBStatus3                = ram_035E ; For Kim
-vEnemyBStatus4                = ram_035F ; For Kim
+vEnemyBStatus3                = ram_035E ; For Kim and last boss
+vEnemyBStatus4                = ram_035F ; For Kim and last boss
 vEnemyBStatus5                = ram_0360 ; For Kim
 vEnemyBStatus6                = ram_0361 ; For Kim
 
 vEnemyBThrowingPower          = ram_0362 ; For Hulk
 vButterflyRebound             = ram_0362 ; For Kim
-vEnemyBThrowingDirection      = ram_0362 ; For Raid
 ; 0x05 - there was no rebound (the right direction)
 ; 0x0B - there was no rebound (the left direction)
 ; 0x03 - there was a rebound (the right direction)
 ; 0x0D - there was a rebound (the left direction)
+vEnemyBThrowingDirection      = ram_0362 ; For Raid and the last boss
 
 vEnemyBPosY                   = ram_0368 ; see below
 vEnemyBPosY1                  = ram_0368 ; The enemy position along the Y axis relative to the level (no repeat)

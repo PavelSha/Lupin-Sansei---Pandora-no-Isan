@@ -7719,8 +7719,9 @@ C - - J - - 0x01EE9A 07:EE8A: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
 C - - - - - 0x01EE9D 07:EE8D: 20 09 A0  JSR sub_A009_bazooka_man        ; basic mechanics of enemy behavior
 C - - - - - 0x01EEA0 07:EE90: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
+loc_EE93_sensor:
 C - - J - - 0x01EEA3 07:EE93: 20 25 EF  JSR sub_EF25_switch_bank_06_1
-C - - - - - 0x01EEA6 07:EE96: 20 0C A0  JSR $A00C ; to sub_A00C
+C - - - - - 0x01EEA6 07:EE96: 20 0C A0  JSR sub_A00C_sensor             ; to sub_A00C
 C - - - - - 0x01EEA9 07:EE99: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
 
 C - - J - - 0x01EEAC 07:EE9C: 20 25 EF  JSR sub_EF25_switch_bank_06_1
@@ -9931,7 +9932,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FCDE 07:FCCE: 81 EE     .word $EE81                     ; The barrel (level 3) (0x0A) Type B
 - D 3 - - - 0x01FCE0 07:FCD0: 28 A0     .addr loc_A028_jumper           ; Jumping sailor (level 3) (0x0B) Type A
 - D 3 - - - 0x01FCE2 07:FCD2: 08 AD     .addr loc_AD08_lift             ; The lift (level 3) (0x0C) Type A
-- D 3 - - - 0x01FCE4 07:FCD4: 93 EE     .word $EE93                     ; Sensor (level 3) (0x0D) Type B
+- D 3 - - - 0x01FCE4 07:FCD4: 93 EE     .addr loc_EE93_sensor           ; Sensor (level 3) (0x0D) Type B
 - D 3 - - - 0x01FCE6 07:FCD6: 78 EE     .addr loc_EE78_soar_enemy       ; Bat (level 1) (0x0E) Type B
 - D 3 - - - 0x01FCE8 07:FCD8: 11 EF     .addr loc_EF11_cat_or_snake     ; Gray cat (level 1) (0x0F) Type B
 - D 3 - - - 0x01FCEA 07:FCDA: 28 A0     .addr loc_A028_jumper           ; Nun (level 2) (0x10) Type A
@@ -9939,7 +9940,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FCEE 07:FCDE: 78 EE     .addr loc_EE78_soar_enemy       ; Batterfly (level 2) (0x12) Type B
 - D 3 - - - 0x01FCF0 07:FCE0: 78 EE     .addr loc_EE78_soar_enemy       ; Broned batterfly (level 2) (0x13) Type B
 - D 3 - - - 0x01FCF2 07:FCE2: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 2) (0x14) Type A
-- D 3 - - - 0x01FCF4 07:FCE4: 93 EE     .word $EE93                     ; Sensor (level 2) (0x15) Type B
+- D 3 - - - 0x01FCF4 07:FCE4: 93 EE     .addr loc_EE93_sensor           ; Sensor (level 2) (0x15) Type B
 - D 3 - - - 0x01FCF6 07:FCE6: 11 EF     .addr loc_EF11_cat_or_snake     ; Black cat (level 1) (0x16) Type B
 - D 3 - - - 0x01FCF8 07:FCE8: 68 A6     .addr loc_A668_karate_boy       ; Karate-boy  (level 2) (0x17) Type A
 - D 3 - - - 0x01FCFA 07:FCEA: 68 A6     .addr loc_A668_karate_boy       ; Street karate-boy (level 2) (0x18) Type A
@@ -9948,7 +9949,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD00 07:FCF0: FF EE     .addr loc_EEFF_swordtail        ; Girl with sword (level 1) (0x1B) Type A
 - D 3 - - - 0x01FD02 07:FCF2: 08 EF     .addr loc_EF08_knight           ; Knight in armor with a shield (level 1) (0x1C) Type A
 - D 3 - - - 0x01FD04 07:FCF4: 81 EE     .word $EE81                     ; The barrel (0x1D)
-- D 3 - - - 0x01FD06 07:FCF6: 93 EE     .word $EE93                     ; Sensor (level 1) (0x1E) Type B
+- D 3 - - - 0x01FD06 07:FCF6: 93 EE     .addr loc_EE93_sensor           ; Sensor (level 1) (0x1E) Type B
 - D 3 - - - 0x01FD08 07:FCF8: A5 EE     .addr loc_EEA5_fly_man          ; Fly man (0x1F) (level 1) Type A
 - D 3 - - - 0x01FD0A 07:FCFA: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 1) (0x20) Type A
 - D 3 - - - 0x01FD0C 07:FCFC: 81 EE     .word $EE81                     ; Cobblestone (level-racing, level 4) (0x21) Type B
@@ -9975,7 +9976,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD36 07:FD26: FF EE     .addr loc_EEFF_swordtail        ; Egyptian with a sword (level 4) (0x36) Type A
 - D 3 - - - 0x01FD38 07:FD28: AE EE     .addr loc_EEAE_shooter          ; Egyptian with a boomerung (level 4) (0x37) Type A
 - D 3 - - - 0x01FD3A 07:FD2A: AE EE     .addr loc_EEAE_shooter          ; Ninja upside down (level 4) (0x38) Type A
-- D 3 - - - 0x01FD3C 07:FD2C: 93 EE     .word $EE93                     ; Sensor (level 4) (0x39) Type B
+- D 3 - - - 0x01FD3C 07:FD2C: 93 EE     .addr loc_EE93_sensor           ; Sensor (level 4) (0x39) Type B
 
 - - - - - - 0x01FD3E 07:FD2E: A9        .byte $A9
 - - - - - - 0x01FD3F 07:FD2F: 06        .byte $06
