@@ -897,7 +897,7 @@ C - - - - - 0x00E655 03:A645: 20 4B A6  JSR sub_A64B_hit                     ;
 C - - - - - 0x00E658 03:A648: 4C 3E A6  JMP loc_A63E_continue                ;
 
 sub_A64B_hit:
-C - - - - - 0x00E65B 03:A64B: A6 1A     LDX vTempCounter1A                   ; !(WHY?), seems to be excessive
+C - - - - - 0x00E65B 03:A64B: A6 1A     LDX vTempCounter1A                   ;
 C - - - - - 0x00E65D 03:A64D: AD 20 03  LDA vEnemyAStatus                    ;
 C - - - - - 0x00E660 03:A650: 29 30     AND #$30                             ; CONSTANT - 'dying' + 'get damage' status
 C - - - - - 0x00E662 03:A652: D0 26     BNE bra_A67A_RTS                     ; If 'dying' or 'get damage' status is activated
@@ -1744,192 +1744,55 @@ C - - - - - 0x00EBCE 03:ABBE: A0 0A     LDY #$0A                                
 C - - - - - 0x00EBD0 03:ABC0: 20 28 DA  JSR sub_DA28_get_explode_sprite_magic2    ;
 C - - - - - 0x00EBD3 03:ABC3: 4C 7C DA  JMP loc_DA7C_add_sprite_magic_in_05_p1    ;
 
-- D 1 - I - 0x00EBD6 03:ABC6: 05        .byte $05   ; 
-- D 1 - I - 0x00EBD7 03:ABC7: 04        .byte $04   ; 
-- D 1 - I - 0x00EBD8 03:ABC8: 03        .byte $03   ; 
-- D 1 - I - 0x00EBD9 03:ABC9: 01        .byte $01   ; 
-- D 1 - I - 0x00EBDA 03:ABCA: 00        .byte $00   ; 
-- D 1 - I - 0x00EBDB 03:ABCB: 0F        .byte $0F   ; 
-- D 1 - I - 0x00EBDC 03:ABCC: 0D        .byte $0D   ; 
-- D 1 - I - 0x00EBDD 03:ABCD: 0C        .byte $0C   ; 
-- D 1 - I - 0x00EBDE 03:ABCE: 0B        .byte $0B   ; 
-- D 1 - I - 0x00EBDF 03:ABCF: 0C        .byte $0C   ; 
-- D 1 - I - 0x00EBE0 03:ABD0: 0D        .byte $0D   ; 
-- D 1 - I - 0x00EBE1 03:ABD1: 0F        .byte $0F   ; 
-- D 1 - I - 0x00EBE2 03:ABD2: 00        .byte $00   ; 
-- D 1 - I - 0x00EBE3 03:ABD3: 01        .byte $01   ; 
-- D 1 - I - 0x00EBE4 03:ABD4: 03        .byte $03   ; 
-- D 1 - I - 0x00EBE5 03:ABD5: 04        .byte $04   ; 
-- D 1 - I - 0x00EBE6 03:ABD6: 44        .byte $44   ; <D>
-- D 1 - I - 0x00EBE7 03:ABD7: 04        .byte $04   ; 
-- D 1 - I - 0x00EBE8 03:ABD8: 04        .byte $04   ; 
-- D 1 - I - 0x00EBE9 03:ABD9: 04        .byte $04   ; 
-- D 1 - I - 0x00EBEA 03:ABDA: 06        .byte $06   ; 
-- D 1 - I - 0x00EBEB 03:ABDB: 04        .byte $04   ; 
-- D 1 - I - 0x00EBEC 03:ABDC: 04        .byte $04   ; 
-- D 1 - I - 0x00EBED 03:ABDD: 04        .byte $04   ; 
-- D 1 - I - 0x00EBEE 03:ABDE: 44        .byte $44   ; <D>
-- D 1 - I - 0x00EBEF 03:ABDF: 04        .byte $04   ; 
-- D 1 - I - 0x00EBF0 03:ABE0: 04        .byte $04   ; 
-- D 1 - I - 0x00EBF1 03:ABE1: 04        .byte $04   ; 
-- D 1 - I - 0x00EBF2 03:ABE2: 06        .byte $06   ; 
-- D 1 - I - 0x00EBF3 03:ABE3: 04        .byte $04   ; 
-- D 1 - I - 0x00EBF4 03:ABE4: 04        .byte $04   ; 
-- D 1 - I - 0x00EBF5 03:ABE5: 04        .byte $04   ; 
+; offset index
+- D 1 - I - 0x00EBD6 03:ABC6: 05        .byte $05, $04, $03, $01, $00, $0F, $0D, $0C   ; 
+- D 1 - I - 0x00EBDE 03:ABCE: 0B        .byte $0B, $0C, $0D, $0F, $00, $01, $03, $04   ; 
+
+; jump counters
+- D 1 - I - 0x00EBE6 03:ABD6: 44        .byte $44, $04, $04, $04, $06, $04, $04, $04   ; 
+- D 1 - I - 0x00EBEE 03:ABDE: 44        .byte $44, $04, $04, $04, $06, $04, $04, $04   ; 
+
 tbl_ABE6:
-- D 1 - - - 0x00EBF6 03:ABE6: 34        .byte $34   ; <4>
-- D 1 - - - 0x00EBF7 03:ABE7: 0C        .byte $0C   ; 
-- D 1 - - - 0x00EBF8 03:ABE8: 2C        .byte $2C   ; 
-- D 1 - - - 0x00EBF9 03:ABE9: 14        .byte $14   ; 
-- D 1 - - - 0x00EBFA 03:ABEA: 34        .byte $34   ; <4>
-- D 1 - - - 0x00EBFB 03:ABEB: 08        .byte $08   ; 
-- D 1 - - - 0x00EBFC 03:ABEC: 2C        .byte $2C   ; 
-- D 1 - - - 0x00EBFD 03:ABED: 14        .byte $14   ; 
-- D 1 - - - 0x00EBFE 03:ABEE: 34        .byte $34   ; <4>
-- D 1 - - - 0x00EBFF 03:ABEF: 04        .byte $04   ; 
-- D 1 - - - 0x00EC00 03:ABF0: 2C        .byte $2C   ; 
-- D 1 - - - 0x00EC01 03:ABF1: 14        .byte $14   ; 
-- D 1 - - - 0x00EC02 03:ABF2: 34        .byte $34   ; <4>
-- D 1 - - - 0x00EC03 03:ABF3: 00        .byte $00   ; 
-- D 1 - - - 0x00EC04 03:ABF4: 2C        .byte $2C   ; 
-- D 1 - - - 0x00EC05 03:ABF5: 14        .byte $14   ; 
-- D 1 - - - 0x00EC06 03:ABF6: 34        .byte $34   ; <4>
-- D 1 - - - 0x00EC07 03:ABF7: 00        .byte $00   ; 
-- D 1 - - - 0x00EC08 03:ABF8: 2C        .byte $2C   ; 
-- D 1 - - - 0x00EC09 03:ABF9: 18        .byte $18   ; 
-- D 1 - - - 0x00EC0A 03:ABFA: 34        .byte $34   ; <4>
-- D 1 - - - 0x00EC0B 03:ABFB: 00        .byte $00   ; 
-- D 1 - - - 0x00EC0C 03:ABFC: 2C        .byte $2C   ; 
-- D 1 - - - 0x00EC0D 03:ABFD: 1C        .byte $1C   ; 
-- D 1 - - - 0x00EC0E 03:ABFE: 34        .byte $34   ; <4>
-- D 1 - - - 0x00EC0F 03:ABFF: 00        .byte $00   ; 
-- D 1 - - - 0x00EC10 03:AC00: 20        .byte $20   ; 
-- D 1 - - - 0x00EC11 03:AC01: 14        .byte $14   ; 
-- D 1 - - - 0x00EC12 03:AC02: 34        .byte $34   ; <4>
-- D 1 - - - 0x00EC13 03:AC03: 00        .byte $00   ; 
-- D 1 - - - 0x00EC14 03:AC04: 24        .byte $24   ; 
-- D 1 - - - 0x00EC15 03:AC05: 14        .byte $14   ; 
-- D 1 - - - 0x00EC16 03:AC06: 34        .byte $34   ; <4>
-- D 1 - - - 0x00EC17 03:AC07: 00        .byte $00   ; 
-- D 1 - - - 0x00EC18 03:AC08: 28        .byte $28   ; 
-- D 1 - - - 0x00EC19 03:AC09: 14        .byte $14   ; 
-- - - - - - 0x00EC1A 03:AC0A: FF        .byte $FF   ; 
-- - - - - - 0x00EC1B 03:AC0B: 00        .byte $00   ; 
-- - - - - - 0x00EC1C 03:AC0C: 30        .byte $30   ; <0>
-- - - - - - 0x00EC1D 03:AC0D: 1C        .byte $1C   ; 
-- - - - - - 0x00EC1E 03:AC0E: FF        .byte $FF   ; 
-- - - - - - 0x00EC1F 03:AC0F: 00        .byte $00   ; 
-- - - - - - 0x00EC20 03:AC10: 30        .byte $30   ; <0>
-- - - - - - 0x00EC21 03:AC11: 18        .byte $18   ; 
-- - - - - - 0x00EC22 03:AC12: FF        .byte $FF   ; 
-- - - - - - 0x00EC23 03:AC13: 00        .byte $00   ; 
-- - - - - - 0x00EC24 03:AC14: 30        .byte $30   ; <0>
-- - - - - - 0x00EC25 03:AC15: 14        .byte $14   ; 
-- D 1 - - - 0x00EC26 03:AC16: 34        .byte $34   ; <4>
-- D 1 - - - 0x00EC27 03:AC17: 10        .byte $10   ; 
-- D 1 - - - 0x00EC28 03:AC18: 2C        .byte $2C   ; 
-- D 1 - - - 0x00EC29 03:AC19: 14        .byte $14   ; 
-- D 1 - - - 0x00EC2A 03:AC1A: 38        .byte $38   ; <8>
-- D 1 - - - 0x00EC2B 03:AC1B: 10        .byte $10   ; 
-- D 1 - - - 0x00EC2C 03:AC1C: 2C        .byte $2C   ; 
-- D 1 - - - 0x00EC2D 03:AC1D: 14        .byte $14   ; 
-- D 1 - - - 0x00EC2E 03:AC1E: 3C        .byte $3C   ; 
-- D 1 - - - 0x00EC2F 03:AC1F: 10        .byte $10   ; 
-- D 1 - - - 0x00EC30 03:AC20: 2C        .byte $2C   ; 
-- D 1 - - - 0x00EC31 03:AC21: 14        .byte $14   ; 
-- D 1 - - - 0x00EC32 03:AC22: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC33 03:AC23: 44        .byte $44   ; <D>
-- D 1 - - - 0x00EC34 03:AC24: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC35 03:AC25: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC36 03:AC26: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC37 03:AC27: 48        .byte $48   ; <H>
-- D 1 - - - 0x00EC38 03:AC28: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC39 03:AC29: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC3A 03:AC2A: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC3B 03:AC2B: 4C        .byte $4C   ; <L>
-- D 1 - - - 0x00EC3C 03:AC2C: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC3D 03:AC2D: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC3E 03:AC2E: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC3F 03:AC2F: 50        .byte $50   ; <P>
-- D 1 - - - 0x00EC40 03:AC30: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC41 03:AC31: FF        .byte $FF   ; 
+- D 1 - - - 0x00EBF6 03:ABE6: 34        .byte $34, $0C, $2C, $14   ; 
+- D 1 - - - 0x00EBFA 03:ABEA: 34        .byte $34, $08, $2C, $14   ; 
+- D 1 - - - 0x00EBFE 03:ABEE: 34        .byte $34, $04, $2C, $14   ; 
+- D 1 - - - 0x00EC02 03:ABF2: 34        .byte $34, $00, $2C, $14   ; 
+- D 1 - - - 0x00EC06 03:ABF6: 34        .byte $34, $00, $2C, $18   ; 
+- D 1 - - - 0x00EC0A 03:ABFA: 34        .byte $34, $00, $2C, $1C   ; 
+- D 1 - - - 0x00EC0E 03:ABFE: 34        .byte $34, $00, $20, $14   ; 
+- D 1 - - - 0x00EC12 03:AC02: 34        .byte $34, $00, $24, $14   ; 
+- D 1 - - - 0x00EC16 03:AC06: 34        .byte $34, $00, $28, $14   ; 
+- D - - - - 0x00EC1A 03:AC0A: FF        .byte $FF, $00, $30, $1C   ; 
+- D - - - - 0x00EC1E 03:AC0E: FF        .byte $FF, $00, $30, $18   ; 
+- D - - - - 0x00EC22 03:AC12: FF        .byte $FF, $00, $30, $14   ; 
+- D 1 - - - 0x00EC26 03:AC16: 34        .byte $34, $10, $2C, $14   ; 
+- D 1 - - - 0x00EC2A 03:AC1A: 38        .byte $38, $10, $2C, $14   ; 
+- D 1 - - - 0x00EC2E 03:AC1E: 3C        .byte $3C, $10, $2C, $14   ; 
+- D 1 - - - 0x00EC32 03:AC22: FF        .byte $FF, $44, $FF, $FF   ; 
+- D 1 - - - 0x00EC36 03:AC26: FF        .byte $FF, $48, $FF, $FF   ; 
+- D 1 - - - 0x00EC3A 03:AC2A: FF        .byte $FF, $4C, $FF, $FF   ; 
+- D 1 - - - 0x00EC3E 03:AC2E: FF        .byte $FF, $50, $FF, $FF   ; 
+
 tbl_AC32:
-- D 1 - - - 0x00EC42 03:AC32: 0C        .byte $0C   ; 
-- D 1 - - - 0x00EC43 03:AC33: 00        .byte $00   ; 
-- D 1 - - - 0x00EC44 03:AC34: 0C        .byte $0C   ; 
-- D 1 - - - 0x00EC45 03:AC35: 0C        .byte $0C   ; 
-- D 1 - - - 0x00EC46 03:AC36: 08        .byte $08   ; 
-- D 1 - - - 0x00EC47 03:AC37: 00        .byte $00   ; 
-- D 1 - - - 0x00EC48 03:AC38: 08        .byte $08   ; 
-- D 1 - - - 0x00EC49 03:AC39: 08        .byte $08   ; 
-- D 1 - - - 0x00EC4A 03:AC3A: 04        .byte $04   ; 
-- D 1 - - - 0x00EC4B 03:AC3B: 00        .byte $00   ; 
-- D 1 - - - 0x00EC4C 03:AC3C: 04        .byte $04   ; 
-- D 1 - - - 0x00EC4D 03:AC3D: 04        .byte $04   ; 
-- D 1 - - - 0x00EC4E 03:AC3E: 00        .byte $00   ; 
-- D 1 - - - 0x00EC4F 03:AC3F: 00        .byte $00   ; 
-- D 1 - - - 0x00EC50 03:AC40: 00        .byte $00   ; 
-- D 1 - - - 0x00EC51 03:AC41: 00        .byte $00   ; 
-- D 1 - - - 0x00EC52 03:AC42: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC53 03:AC43: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC54 03:AC44: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC55 03:AC45: FF        .byte $FF   ; 
-- D 1 - - - 0x00EC56 03:AC46: 00        .byte $00   ; 
-- D 1 - - - 0x00EC57 03:AC47: 00        .byte $00   ; 
-- D 1 - - - 0x00EC58 03:AC48: 00        .byte $00   ; 
-- D 1 - - - 0x00EC59 03:AC49: 00        .byte $00   ; 
-- D 1 - - - 0x00EC5A 03:AC4A: 00        .byte $00   ; 
-- D 1 - - - 0x00EC5B 03:AC4B: 00        .byte $00   ; 
-- D 1 - - - 0x00EC5C 03:AC4C: 00        .byte $00   ; 
-- D 1 - - - 0x00EC5D 03:AC4D: 00        .byte $00   ; 
-- D 1 - - - 0x00EC5E 03:AC4E: 00        .byte $00   ; 
-- D 1 - - - 0x00EC5F 03:AC4F: 00        .byte $00   ; 
-- D 1 - - - 0x00EC60 03:AC50: 00        .byte $00   ; 
-- D 1 - - - 0x00EC61 03:AC51: 00        .byte $00   ; 
-- D 1 - - - 0x00EC62 03:AC52: 00        .byte $00   ; 
-- D 1 - - - 0x00EC63 03:AC53: 00        .byte $00   ; 
-- D 1 - - - 0x00EC64 03:AC54: 00        .byte $00   ; 
-- D 1 - - - 0x00EC65 03:AC55: 00        .byte $00   ; 
-- - - - - - 0x00EC66 03:AC56: 00        .byte $00   ; 
-- - - - - - 0x00EC67 03:AC57: 00        .byte $00   ; 
-- - - - - - 0x00EC68 03:AC58: 00        .byte $00   ; 
-- - - - - - 0x00EC69 03:AC59: 00        .byte $00   ; 
-- - - - - - 0x00EC6A 03:AC5A: 00        .byte $00   ; 
-- - - - - - 0x00EC6B 03:AC5B: 00        .byte $00   ; 
-- - - - - - 0x00EC6C 03:AC5C: 00        .byte $00   ; 
-- - - - - - 0x00EC6D 03:AC5D: 00        .byte $00   ; 
-- - - - - - 0x00EC6E 03:AC5E: 00        .byte $00   ; 
-- - - - - - 0x00EC6F 03:AC5F: 00        .byte $00   ; 
-- - - - - - 0x00EC70 03:AC60: 00        .byte $00   ; 
-- - - - - - 0x00EC71 03:AC61: 00        .byte $00   ; 
-- D 1 - - - 0x00EC72 03:AC62: 04        .byte $04   ; 
-- D 1 - - - 0x00EC73 03:AC63: 00        .byte $00   ; 
-- D 1 - - - 0x00EC74 03:AC64: 04        .byte $04   ; 
-- D 1 - - - 0x00EC75 03:AC65: 04        .byte $04   ; 
-- D 1 - - - 0x00EC76 03:AC66: 04        .byte $04   ; 
-- D 1 - - - 0x00EC77 03:AC67: 00        .byte $00   ; 
-- D 1 - - - 0x00EC78 03:AC68: 04        .byte $04   ; 
-- D 1 - - - 0x00EC79 03:AC69: 04        .byte $04   ; 
-- D 1 - - - 0x00EC7A 03:AC6A: 04        .byte $04   ; 
-- D 1 - - - 0x00EC7B 03:AC6B: 00        .byte $00   ; 
-- D 1 - - - 0x00EC7C 03:AC6C: 04        .byte $04   ; 
-- D 1 - - - 0x00EC7D 03:AC6D: 04        .byte $04   ; 
-- D 1 - - - 0x00EC7E 03:AC6E: 00        .byte $00   ; 
-- D 1 - - - 0x00EC7F 03:AC6F: 00        .byte $00   ; 
-- D 1 - - - 0x00EC80 03:AC70: 00        .byte $00   ; 
-- D 1 - - - 0x00EC81 03:AC71: 00        .byte $00   ; 
-- D 1 - - - 0x00EC82 03:AC72: 00        .byte $00   ; 
-- D 1 - - - 0x00EC83 03:AC73: 00        .byte $00   ; 
-- D 1 - - - 0x00EC84 03:AC74: 00        .byte $00   ; 
-- D 1 - - - 0x00EC85 03:AC75: 00        .byte $00   ; 
-- D 1 - - - 0x00EC86 03:AC76: 00        .byte $00   ; 
-- D 1 - - - 0x00EC87 03:AC77: 00        .byte $00   ; 
-- D 1 - - - 0x00EC88 03:AC78: 00        .byte $00   ; 
-- D 1 - - - 0x00EC89 03:AC79: 00        .byte $00   ; 
-- D 1 - - - 0x00EC8A 03:AC7A: 00        .byte $00   ; 
-- D 1 - - - 0x00EC8B 03:AC7B: 00        .byte $00   ; 
-- D 1 - - - 0x00EC8C 03:AC7C: 00        .byte $00   ; 
-- D 1 - - - 0x00EC8D 03:AC7D: 00        .byte $00   ; 
+- D 1 - - - 0x00EC42 03:AC32: 0C        .byte $0C, $00, $0C, $0C   ; 
+- D 1 - - - 0x00EC46 03:AC36: 08        .byte $08, $00, $08, $08   ; 
+- D 1 - - - 0x00EC4A 03:AC3A: 04        .byte $04, $00, $04, $04   ; 
+- D 1 - - - 0x00EC4E 03:AC3E: 00        .byte $00, $00, $00, $00   ; 
+- D 1 - - - 0x00EC52 03:AC42: FF        .byte $FF, $FF, $FF, $FF   ; 
+- D 1 - - - 0x00EC56 03:AC46: 00        .byte $00, $00, $00, $00   ; 
+- D 1 - - - 0x00EC5A 03:AC4A: 00        .byte $00, $00, $00, $00   ; 
+- D 1 - - - 0x00EC5E 03:AC4E: 00        .byte $00, $00, $00, $00   ; 
+- D 1 - - - 0x00EC62 03:AC52: 00        .byte $00, $00, $00, $00   ; 
+- D - - - - 0x00EC66 03:AC56: 00        .byte $00, $00, $00, $00   ; 
+- D - - - - 0x00EC6A 03:AC5A: 00        .byte $00, $00, $00, $00   ; 
+- D - - - - 0x00EC6E 03:AC5E: 00        .byte $00, $00, $00, $00   ; 
+- D 1 - - - 0x00EC72 03:AC62: 04        .byte $04, $00, $04, $04   ; 
+- D 1 - - - 0x00EC76 03:AC66: 04        .byte $04, $00, $04, $04   ; 
+- D 1 - - - 0x00EC7A 03:AC6A: 04        .byte $04, $00, $04, $04   ; 
+- D 1 - - - 0x00EC7E 03:AC6E: 00        .byte $00, $00, $00, $00   ; 
+- D 1 - - - 0x00EC82 03:AC72: 00        .byte $00, $00, $00, $00   ; 
+- D 1 - - - 0x00EC86 03:AC76: 00        .byte $00, $00, $00, $00   ; 
+- D 1 - - - 0x00EC8A 03:AC7A: 00        .byte $00, $00, $00, $00   ; 
 
 tbl_AC7E_hitboxes:
 - D 1 - - - 0x00EC8E 03:AC7E: 00        .byte $00, $00, $2C, $04
@@ -1943,7 +1806,7 @@ C D 1 - - - 0x00ECA2 03:AC92: A2 01     LDX #$01
 C - - - - - 0x00ECA4 03:AC94: 86 1A     STX vTempCounter1A
 bra_AC96:
 C - - - - - 0x00ECA6 03:AC96: A6 1A     LDX vTempCounter1A
-C - - - - - 0x00ECA8 03:AC98: 20 70 AD  JSR sub_AD70
+C - - - - - 0x00ECA8 03:AC98: 20 70 AD  JSR sub_AD70_status_behavior
 C - - - - - 0x00ECAB 03:AC9B: A6 1A     LDX vTempCounter1A
 C - - - - - 0x00ECAD 03:AC9D: BD 50 03  LDA ram_0350,X
 C - - - - - 0x00ECB0 03:ACA0: F0 4B     BEQ bra_ACED
@@ -2000,33 +1863,33 @@ C - - - - - 0x00ED08 03:ACF8: 20 FE AC  JSR sub_ACFE
 C - - - - - 0x00ED0B 03:ACFB: 4C ED AC  JMP loc_ACED
 
 sub_ACFE:
-C - - - - - 0x00ED0E 03:ACFE: A6 1A     LDX vTempCounter1A
-C - - - - - 0x00ED10 03:AD00: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x00ED13 03:AD03: 29 30     AND #$30
-C - - - - - 0x00ED15 03:AD05: D0 68     BNE bra_AD6F_RTS
-C - - - - - 0x00ED17 03:AD07: 20 5B A3  JSR sub_A35B_get_damage_points
-bra_AD0A:
-C - - - - - 0x00ED1A 03:AD0A: DE 50 03  DEC ram_0350,X
-C - - - - - 0x00ED1D 03:AD0D: D0 03     BNE bra_AD12
+C - - - - - 0x00ED0E 03:ACFE: A6 1A     LDX vTempCounter1A                 ;
+C - - - - - 0x00ED10 03:AD00: BD 20 03  LDA vEnemyAStatus,X                ;
+C - - - - - 0x00ED13 03:AD03: 29 30     AND #$30                           ; CONSTANT - 'dying' + 'get damage' status
+C - - - - - 0x00ED15 03:AD05: D0 68     BNE bra_AD6F_RTS                   ; If 'dying' or 'get damage' status is activated
+C - - - - - 0x00ED17 03:AD07: 20 5B A3  JSR sub_A35B_get_damage_points     ;
+bra_AD0A_repeat:
+C - - - - - 0x00ED1A 03:AD0A: DE 50 03  DEC vEnemyAHealthPoints,X          ;
+C - - - - - 0x00ED1D 03:AD0D: D0 03     BNE bra_AD12_skip                  ; If HPoints != 0x00
 C - - - - - 0x00ED1F 03:AD0F: 4C 25 AD  JMP loc_AD25
 
-bra_AD12:
-C - - - - - 0x00ED22 03:AD12: 88        DEY
-C - - - - - 0x00ED23 03:AD13: D0 F5     BNE bra_AD0A
-C - - - - - 0x00ED25 03:AD15: A9 10     LDA #$10
-C - - - - - 0x00ED27 03:AD17: 20 19 A3  JSR sub_A319_change_substatus
-C - - - - - 0x00ED2A 03:AD1A: A9 20     LDA #$20
-C - - - - - 0x00ED2C 03:AD1C: 9D 44 03  STA ram_0344,X
-C - - - - - 0x00ED2F 03:AD1F: 20 A9 AF  JSR sub_AFA9_throw
-C - - - - - 0x00ED32 03:AD22: 4C 78 A1  JMP loc_A178_get_damage
+bra_AD12_skip:
+C - - - - - 0x00ED22 03:AD12: 88        DEY                                ;
+C - - - - - 0x00ED23 03:AD13: D0 F5     BNE bra_AD0A_repeat                ; If Register Y != 0x00
+C - - - - - 0x00ED25 03:AD15: A9 10     LDA #$10                           ; CONSTANT - 'get damage' status
+C - - - - - 0x00ED27 03:AD17: 20 19 A3  JSR sub_A319_change_substatus      ;
+C - - - - - 0x00ED2A 03:AD1A: A9 20     LDA #$20                           ; CONSTANT - The sub counter value for the destroying in air
+C - - - - - 0x00ED2C 03:AD1C: 9D 44 03  STA vEnemyASpecSubCounter,X        ;
+C - - - - - 0x00ED2F 03:AD1F: 20 A9 AF  JSR sub_AFA9_throw                 ;
+C - - - - - 0x00ED32 03:AD22: 4C 78 A1  JMP loc_A178_get_damage            ;
 
 loc_AD25:
 C D 1 - - - 0x00ED35 03:AD25: A9 30     LDA #$30
-C - - - - - 0x00ED37 03:AD27: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
+C - - - - - 0x00ED37 03:AD27: 20 20 C4  JSR sub_C420_add_sound_effect      ; bank FF
 C - - - - - 0x00ED3A 03:AD2A: A9 40     LDA #$40
 C - - - - - 0x00ED3C 03:AD2C: 9D 4A 03  STA ram_034A,X
-C - - - - - 0x00ED3F 03:AD2F: A9 02     LDA #$02
-C - - - - - 0x00ED41 03:AD31: 4C 19 A3  JMP loc_A319_change_substatus
+C - - - - - 0x00ED3F 03:AD2F: A9 02     LDA #$02                           ; CONSTANT - 'falling' status
+C - - - - - 0x00ED41 03:AD31: 4C 19 A3  JMP loc_A319_change_substatus      ;
 
 sub_AD34:
 C - - - - - 0x00ED44 03:AD34: A0 0C     LDY #$0C
@@ -2062,78 +1925,83 @@ C - - - - - 0x00ED7D 03:AD6D: 85 B0     STA vEnemyHitBoxW
 bra_AD6F_RTS:
 C - - - - - 0x00ED7F 03:AD6F: 60        RTS
 
-sub_AD70:
-C - - - - - 0x00ED80 03:AD70: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x00ED83 03:AD73: 10 FA     BPL bra_AD6F_RTS
-C - - - - - 0x00ED85 03:AD75: BD 44 03  LDA ram_0344,X
-C - - - - - 0x00ED88 03:AD78: F0 03     BEQ bra_AD7D
-C - - - - - 0x00ED8A 03:AD7A: DE 44 03  DEC ram_0344,X
-bra_AD7D:
-C - - - - - 0x00ED8D 03:AD7D: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x00ED90 03:AD80: 4A        LSR
+; In: Register X - the enemyA number
+sub_AD70_status_behavior:
+C - - - - - 0x00ED80 03:AD70: BD 20 03  LDA vEnemyAStatus,X                       ;
+C - - - - - 0x00ED83 03:AD73: 10 FA     BPL bra_AD6F_RTS                          ; If the status isn't used
+C - - - - - 0x00ED85 03:AD75: BD 44 03  LDA vEnemyASpecSubCounter,X               ;
+C - - - - - 0x00ED88 03:AD78: F0 03     BEQ @bra_AD7D_skip                        ; If vSubCounter == 0x00
+C - - - - - 0x00ED8A 03:AD7A: DE 44 03  DEC vEnemyASpecSubCounter,X               ;
+@bra_AD7D_skip:
+C - - - - - 0x00ED8D 03:AD7D: BD 20 03  LDA vEnemyAStatus,X                       ;
+C - - - - - 0x00ED90 03:AD80: 4A        LSR                                       ;
 C - - - - - 0x00ED91 03:AD81: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
 
-- D 1 - I - 0x00ED94 03:AD84: 91 AD     .word loc_AD92 - 1 ; 0x02
-- D 1 - I - 0x00ED96 03:AD86: ED AD     .word loc_ADEE - 1 ; 0x04
-- D 1 - I - 0x00ED98 03:AD88: 03 AE     .word loc_AE04 - 1 ; 0x08
-- D 1 - I - 0x00ED9A 03:AD8A: 2B AE     .word loc_AE2C_get_damage - 1 ; 0x10
-- D 1 - I - 0x00ED9C 03:AD8C: 86 AE     .word loc_AE87_dying - 1 ; 0x20
-- D - - - - 0x00ED9E 03:AD8E: D5 AD     .word loc_ADD6 - 1 ; 0x40
-- D 1 - I - 0x00EDA0 03:AD90: D5 AD     .word loc_ADD6 - 1 ; 0x80
+- D 1 - I - 0x00ED94 03:AD84: 91 AD     .word loc_AD92_falling - 1      ; 0x02
+- D 1 - I - 0x00ED96 03:AD86: ED AD     .word loc_ADEE_sword_strike - 1 ; 0x04
+- D 1 - I - 0x00ED98 03:AD88: 03 AE     .word loc_AE04_waiting - 1      ; 0x08
+- D 1 - I - 0x00ED9A 03:AD8A: 2B AE     .word loc_AE2C_get_damage - 1   ; 0x10
+- D 1 - I - 0x00ED9C 03:AD8C: 86 AE     .word loc_AE87_dying - 1        ; 0x20
+- D - - - - 0x00ED9E 03:AD8E: D5 AD     .word loc_ADD6_main - 1         ; 0x40
+- D 1 - I - 0x00EDA0 03:AD90: D5 AD     .word loc_ADD6_main - 1         ; 0x80
 
-loc_AD92:
-C - - - - - 0x00EDA2 03:AD92: BD 4A 03  LDA ram_034A,X
-C - - - - - 0x00EDA5 03:AD95: F0 17     BEQ bra_ADAE
-C - - - - - 0x00EDA7 03:AD97: DE 4A 03  DEC ram_034A,X
-C - - - - - 0x00EDAA 03:AD9A: D0 03     BNE bra_AD9E + 1
-C - - - - - 0x00EDAC 03:AD9C: A9 40     LDA #$40
-bra_AD9E:
-C - - - - - 0x00EDAE 03:AD9E: 9D 44 03  STA ram_0344,X
+; In: Register X - the enemyA number
+loc_AD92_falling:
+C - - - - - 0x00EDA2 03:AD92: BD 4A 03  LDA vEnemyAJumpCounter,X          ;
+C - - - - - 0x00EDA5 03:AD95: F0 17     BEQ bra_ADAE_skip                 ; If vJumpCounter == 0x00
+C - - - - - 0x00EDA7 03:AD97: DE 4A 03  DEC vEnemyAJumpCounter,X          ;
+C - - - - - 0x00EDAA 03:AD9A: D0 03     BNE @bra_AD9E_skip + 1            ; !(WHY?), probably, here it has to bra_ADA1_skip
+C - - - - - 0x00EDAC 03:AD9C: A9 40     LDA #$40                          ; CONSTANT - pause before falling, after dying in air
+@bra_AD9E_skip:
+C - - - - - 0x00EDAE 03:AD9E: 9D 44 03  STA vEnemyASpecSubCounter,X
 C - - - - - 0x00EDB1 03:ADA1: A0 0D     LDY #$0D
-C - - - - - 0x00EDB3 03:ADA3: BD 4A 03  LDA ram_034A,X
-C - - - - - 0x00EDB6 03:ADA6: C9 20     CMP #$20
-C - - - - - 0x00EDB8 03:ADA8: B0 41     BCS bra_ADEB
+C - - - - - 0x00EDB3 03:ADA3: BD 4A 03  LDA vEnemyAJumpCounter,X          ;
+C - - - - - 0x00EDB6 03:ADA6: C9 20     CMP #$20                          ; CONSTANT - The counter value for the dying in air
+C - - - - - 0x00EDB8 03:ADA8: B0 41     BCS bra_ADEB_assigned             ; If JumpCounter >= 0x20
 C - - - - - 0x00EDBA 03:ADAA: A0 0E     LDY #$0E
-C - - - - - 0x00EDBC 03:ADAC: D0 3D     BNE bra_ADEB
-bra_ADAE:
+C - - - - - 0x00EDBC 03:ADAC: D0 3D     BNE bra_ADEB_assigned             ; Always true
+
+; In: Register X - the enemyA number
+bra_ADAE_skip:
 C - - - - - 0x00EDBE 03:ADAE: A0 0F     LDY #$0F
-C - - - - - 0x00EDC0 03:ADB0: BD 44 03  LDA ram_0344,X
-C - - - - - 0x00EDC3 03:ADB3: F0 05     BEQ bra_ADBA
-C - - - - - 0x00EDC5 03:ADB5: DE 44 03  DEC ram_0344,X
-C - - - - - 0x00EDC8 03:ADB8: D0 31     BNE bra_ADEB
-bra_ADBA:
-C - - - - - 0x00EDCA 03:ADBA: A5 2C     LDA vLowCounter
-C - - - - - 0x00EDCC 03:ADBC: 29 01     AND #$01
-C - - - - - 0x00EDCE 03:ADBE: D0 2B     BNE bra_ADEB
-C - - - - - 0x00EDD0 03:ADC0: FE 2C 03  INC ram_032C,X
-C - - - - - 0x00EDD3 03:ADC3: BD 2C 03  LDA ram_032C,X
-C - - - - - 0x00EDD6 03:ADC6: C9 BF     CMP #$BF
-C - - - - - 0x00EDD8 03:ADC8: 90 21     BCC bra_ADEB
-C - - - - - 0x00EDDA 03:ADCA: A9 20     LDA #$20
-C - - - - - 0x00EDDC 03:ADCC: 20 19 A3  JSR sub_A319_change_substatus
-C - - - - - 0x00EDDF 03:ADCF: A9 60     LDA #$60
-C - - - - - 0x00EDE1 03:ADD1: 9D 44 03  STA ram_0344,X
-C - - - - - 0x00EDE4 03:ADD4: D0 15     BNE bra_ADEB
-loc_ADD6:
-C - - - - - 0x00EDE6 03:ADD6: 20 D9 AE  JSR sub_AED9
-C - - - - - 0x00EDE9 03:ADD9: A0 03     LDY #$03
-C - - - - - 0x00EDEB 03:ADDB: A5 2C     LDA vLowCounter
-C - - - - - 0x00EDED 03:ADDD: 29 18     AND #$18
-C - - - - - 0x00EDEF 03:ADDF: F0 0A     BEQ bra_ADEB
-C - - - - - 0x00EDF1 03:ADE1: C9 18     CMP #$18
-C - - - - - 0x00EDF3 03:ADE3: F0 06     BEQ bra_ADEB
-C - - - - - 0x00EDF5 03:ADE5: C8        INY
-C - - - - - 0x00EDF6 03:ADE6: C9 08     CMP #$08
-C - - - - - 0x00EDF8 03:ADE8: F0 01     BEQ bra_ADEB
-C - - - - - 0x00EDFA 03:ADEA: C8        INY
-bra_ADEB:
+C - - - - - 0x00EDC0 03:ADB0: BD 44 03  LDA vEnemyASpecSubCounter,X       ;
+C - - - - - 0x00EDC3 03:ADB3: F0 05     BEQ @bra_ADBA_falling             ; If vSubCounter == 0x00
+C - - - - - 0x00EDC5 03:ADB5: DE 44 03  DEC vEnemyASpecSubCounter,X       ;
+C - - - - - 0x00EDC8 03:ADB8: D0 31     BNE bra_ADEB_assigned             ; If vSubCounter != 0x00
+@bra_ADBA_falling:
+C - - - - - 0x00EDCA 03:ADBA: A5 2C     LDA vLowCounter                   ;
+C - - - - - 0x00EDCC 03:ADBC: 29 01     AND #$01                          ;
+C - - - - - 0x00EDCE 03:ADBE: D0 2B     BNE bra_ADEB_assigned             ; Branch if vLowCounter doesn't multiple of 2
+C - - - - - 0x00EDD0 03:ADC0: FE 2C 03  INC vEnemyAPosY,X                 ; the falling by posY
+C - - - - - 0x00EDD3 03:ADC3: BD 2C 03  LDA vEnemyAPosY,X                 ;
+C - - - - - 0x00EDD6 03:ADC6: C9 BF     CMP #$BF                          ; CONSTANT - Lower boundary of the first floor
+C - - - - - 0x00EDD8 03:ADC8: 90 21     BCC bra_ADEB_assigned             ; If vEnemyPosY < 0xBF
+C - - - - - 0x00EDDA 03:ADCA: A9 20     LDA #$20                          ; CONSTANT - 'the dying' status
+C - - - - - 0x00EDDC 03:ADCC: 20 19 A3  JSR sub_A319_change_substatus     ;
+C - - - - - 0x00EDDF 03:ADCF: A9 60     LDA #$60                          ; CONSTANT - The sub counter value for the dying
+C - - - - - 0x00EDE1 03:ADD1: 9D 44 03  STA vEnemyASpecSubCounter,X       ;
+C - - - - - 0x00EDE4 03:ADD4: D0 15     BNE bra_ADEB_assigned             ; Always true
+
+loc_ADD6_main:
+C - - - - - 0x00EDE6 03:ADD6: 20 D9 AE  JSR sub_AED9_execute_fly_or_throw
+C - - - - - 0x00EDE9 03:ADD9: A0 03     LDY #$03                          ; prepares the sprite_magic2 (The offset by the address), the flying animation
+C - - - - - 0x00EDEB 03:ADDB: A5 2C     LDA vLowCounter                   ;
+C - - - - - 0x00EDED 03:ADDD: 29 18     AND #$18                          ;
+C - - - - - 0x00EDEF 03:ADDF: F0 0A     BEQ bra_ADEB_assigned             ; Branch every 8 (or 16) times after 8 (or 16)
+C - - - - - 0x00EDF1 03:ADE1: C9 18     CMP #$18                          ;
+C - - - - - 0x00EDF3 03:ADE3: F0 06     BEQ bra_ADEB_assigned             ; If neither 8 nor 16
+C - - - - - 0x00EDF5 03:ADE5: C8        INY                               ; sprite_magic2 <~ 0x04
+C - - - - - 0x00EDF6 03:ADE6: C9 08     CMP #$08                          ;
+C - - - - - 0x00EDF8 03:ADE8: F0 01     BEQ bra_ADEB_assigned             ; If neither 8
+C - - - - - 0x00EDFA 03:ADEA: C8        INY                               ; sprite_magic2 <~ 0x05
+bra_ADEB_assigned:
 C - - - - - 0x00EDFB 03:ADEB: 4C 47 AE  JMP loc_AE47_prepare_rendering
 
-loc_ADEE:
-C - - - - - 0x00EDFE 03:ADEE: 20 D9 AE  JSR sub_AED9
+loc_ADEE_sword_strike:
+C - - - - - 0x00EDFE 03:ADEE: 20 D9 AE  JSR sub_AED9_execute_fly_or_throw
 C - - - - - 0x00EE01 03:ADF1: A0 08     LDY #$08
-C - - - - - 0x00EE03 03:ADF3: BD 44 03  LDA ram_0344,X
-C - - - - - 0x00EE06 03:ADF6: F0 4A     BEQ bra_AE42
+C - - - - - 0x00EE03 03:ADF3: BD 44 03  LDA vEnemyASpecSubCounter,X
+C - - - - - 0x00EE06 03:ADF6: F0 4A     BEQ bra_AE42_reset
 C - - - - - 0x00EE08 03:ADF8: C9 08     CMP #$08
 C - - - - - 0x00EE0A 03:ADFA: 90 4B     BCC bra_AE47_prepare_rendering
 C - - - - - 0x00EE0C 03:ADFC: 88        DEY
@@ -2141,25 +2009,25 @@ C - - - - - 0x00EE0D 03:ADFD: C9 10     CMP #$10
 C - - - - - 0x00EE0F 03:ADFF: 90 46     BCC bra_AE47_prepare_rendering
 C - - - - - 0x00EE11 03:AE01: 88        DEY
 C - - - - - 0x00EE12 03:AE02: D0 43     BNE bra_AE47_prepare_rendering
-loc_AE04:
-C - - - - - 0x00EE14 03:AE04: A0 00     LDY #$00
-C - - - - - 0x00EE16 03:AE06: BD 26 03  LDA ram_0326,X
-C - - - - - 0x00EE19 03:AE09: F0 0D     BEQ bra_AE18
-C - - - - - 0x00EE1B 03:AE0B: BD 44 03  LDA ram_0344,X
-C - - - - - 0x00EE1E 03:AE0E: D0 37     BNE bra_AE47_prepare_rendering
-C - - - - - 0x00EE20 03:AE10: DE 44 03  DEC ram_0344,X
-C - - - - - 0x00EE23 03:AE13: DE 26 03  DEC ram_0326,X
-C - - - - - 0x00EE26 03:AE16: D0 2F     BNE bra_AE47_prepare_rendering
-bra_AE18:
-C - - - - - 0x00EE28 03:AE18: A0 02     LDY #$02
-C - - - - - 0x00EE2A 03:AE1A: BD 44 03  LDA ram_0344,X
-C - - - - - 0x00EE2D 03:AE1D: F0 23     BEQ bra_AE42
-C - - - - - 0x00EE2F 03:AE1F: C9 10     CMP #$10
-C - - - - - 0x00EE31 03:AE21: 90 24     BCC bra_AE47_prepare_rendering
-C - - - - - 0x00EE33 03:AE23: 88        DEY
-C - - - - - 0x00EE34 03:AE24: C9 20     CMP #$20
-C - - - - - 0x00EE36 03:AE26: 90 1F     BCC bra_AE47_prepare_rendering
-C - - - - - 0x00EE38 03:AE28: 88        DEY
+loc_AE04_waiting:
+C - - - - - 0x00EE14 03:AE04: A0 00     LDY #$00                               ; the offset value, squatting #1
+C - - - - - 0x00EE16 03:AE06: BD 26 03  LDA vEnemyAWaitCounter,X               ;
+C - - - - - 0x00EE19 03:AE09: F0 0D     BEQ @bra_AE18_last                     ; If vWaitCounter == 0x00
+C - - - - - 0x00EE1B 03:AE0B: BD 44 03  LDA vEnemyASpecSubCounter,X            ;
+C - - - - - 0x00EE1E 03:AE0E: D0 37     BNE bra_AE47_prepare_rendering         ; If vSubCounter != 0x00
+C - - - - - 0x00EE20 03:AE10: DE 44 03  DEC vEnemyASpecSubCounter,X            ; <~ 0xFF (next loop)
+C - - - - - 0x00EE23 03:AE13: DE 26 03  DEC vEnemyAWaitCounter,X               ; update the wait counter
+C - - - - - 0x00EE26 03:AE16: D0 2F     BNE bra_AE47_prepare_rendering         ; If vWaitCounter != 0x00
+@bra_AE18_last:
+C - - - - - 0x00EE28 03:AE18: A0 02     LDY #$02                               ; the offset value, squatting #3
+C - - - - - 0x00EE2A 03:AE1A: BD 44 03  LDA vEnemyASpecSubCounter,X            ; reassign or clear
+C - - - - - 0x00EE2D 03:AE1D: F0 23     BEQ bra_AE42_reset                     ; If vSubCounter == 0x00
+C - - - - - 0x00EE2F 03:AE1F: C9 10     CMP #$10                               ;
+C - - - - - 0x00EE31 03:AE21: 90 24     BCC bra_AE47_prepare_rendering         ; If vSubCounter < 0x10
+C - - - - - 0x00EE33 03:AE23: 88        DEY                                    ; the offset value, squatting #2
+C - - - - - 0x00EE34 03:AE24: C9 20     CMP #$20                               ;
+C - - - - - 0x00EE36 03:AE26: 90 1F     BCC bra_AE47_prepare_rendering         ; If vSubCounter < 0x20
+C - - - - - 0x00EE38 03:AE28: 88        DEY                                    ; the offset value, squatting #1
 C - - - - - 0x00EE39 03:AE29: 4C 47 AE  JMP loc_AE47_prepare_rendering
 
 ; In Register X - the enemyA number
@@ -2174,53 +2042,54 @@ bra_AE38_left:
 C - - - - - 0x00EE48 03:AE38: 20 03 A4  JSR sub_A403_try_to_inc_EnemyAPosXLow
 loc_AE3B_continue:
 C D 1 - - - 0x00EE4B 03:AE3B: A0 0C     LDY #$0C
-C - - - - - 0x00EE4D 03:AE3D: BD 44 03  LDA ram_0344,X
+C - - - - - 0x00EE4D 03:AE3D: BD 44 03  LDA vEnemyASpecSubCounter,X
 C - - - - - 0x00EE50 03:AE40: D0 05     BNE bra_AE47_prepare_rendering
-bra_AE42:
+bra_AE42_reset:
 C - - - - - 0x00EE52 03:AE42: A9 00     LDA #$00
 C - - - - - 0x00EE54 03:AE44: 20 19 A3  JSR sub_A319_change_substatus
+; In: Register Y - sprite_magic2 (The offset by the address)
 bra_AE47_prepare_rendering:
 loc_AE47_prepare_rendering:
-C D 1 - - - 0x00EE57 03:AE47: BD 38 03  LDA ram_0338,X
-C - - - - - 0x00EE5A 03:AE4A: 85 00     STA ram_0000
-C - - - - - 0x00EE5C 03:AE4C: BD 3E 03  LDA ram_033E,X
-C - - - - - 0x00EE5F 03:AE4F: 85 01     STA ram_0001
-C - - - - - 0x00EE61 03:AE51: 20 AC D6  JSR sub_D6AC_out_of_screen
-C - - - - - 0x00EE64 03:AE54: A5 03     LDA ram_0003
-C - - - - - 0x00EE66 03:AE56: 9D 32 03  STA ram_0332,X
+C D 1 - - - 0x00EE57 03:AE47: BD 38 03  LDA vEnemyAPosXLow,X                   ;
+C - - - - - 0x00EE5A 03:AE4A: 85 00     STA ram_0000                           ; prepares the 1st parameter
+C - - - - - 0x00EE5C 03:AE4C: BD 3E 03  LDA vEnemyAPosXHigh,X                  ;
+C - - - - - 0x00EE5F 03:AE4F: 85 01     STA ram_0001                           ; prepares the 2nd parameter
+C - - - - - 0x00EE61 03:AE51: 20 AC D6  JSR sub_D6AC_out_of_screen             ;
+C - - - - - 0x00EE64 03:AE54: A5 03     LDA ram_0003                           ; from sub_D6AC_out_of_screen
+C - - - - - 0x00EE66 03:AE56: 9D 32 03  STA vEnemyAScreenPosX,X                ; see analog sub_D725_enemyA_on_screen
 C - - - - - 0x00EE69 03:AE59: 98        TYA
 C - - - - - 0x00EE6A 03:AE5A: 0A        ASL
 C - - - - - 0x00EE6B 03:AE5B: 0A        ASL
 C - - - - - 0x00EE6C 03:AE5C: 85 05     STA ram_0005
-C - - - - - 0x00EE6E 03:AE5E: A9 04     LDA #$04
-C - - - - - 0x00EE70 03:AE60: 85 06     STA ram_0006
-bra_AE62:
+C - - - - - 0x00EE6E 03:AE5E: A9 04     LDA #$04                               ;
+C - - - - - 0x00EE70 03:AE60: 85 06     STA ram_0006                           ; set loop counter
+@bra_AE62_loop:                                                                ; loop by $0006
 C - - - - - 0x00EE72 03:AE62: A4 05     LDY ram_0005
 C - - - - - 0x00EE74 03:AE64: B9 32 AC  LDA tbl_AC32,Y
 C - - - - - 0x00EE77 03:AE67: 18        CLC
-C - - - - - 0x00EE78 03:AE68: 7D 2C 03  ADC ram_032C,X
+C - - - - - 0x00EE78 03:AE68: 7D 2C 03  ADC vEnemyAPosY,X
 C - - - - - 0x00EE7B 03:AE6B: 85 00     STA ram_0000
 C - - - - - 0x00EE7D 03:AE6D: B9 E6 AB  LDA tbl_ABE6,Y
 C - - - - - 0x00EE80 03:AE70: C9 FF     CMP #$FF
-C - - - - - 0x00EE82 03:AE72: F0 0C     BEQ bra_AE80
+C - - - - - 0x00EE82 03:AE72: F0 0C     BEQ @bra_AE80_next
 C - - - - - 0x00EE84 03:AE74: A8        TAY
-C - - - - - 0x00EE85 03:AE75: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x00EE88 03:AE78: 6A        ROR
-C - - - - - 0x00EE89 03:AE79: 90 02     BCC bra_AE7D
+C - - - - - 0x00EE85 03:AE75: BD 20 03  LDA vEnemyAStatus,X                    ;
+C - - - - - 0x00EE88 03:AE78: 6A        ROR                                    ;
+C - - - - - 0x00EE89 03:AE79: 90 02     BCC @bra_AE7D_right                    ; If the enemy is looking to the right
 C - - - - - 0x00EE8B 03:AE7B: C8        INY
 C - - - - - 0x00EE8C 03:AE7C: C8        INY
-bra_AE7D:
+@bra_AE7D_right:
 C - - - - - 0x00EE8D 03:AE7D: 20 24 A5  JSR sub_A524_prepare_rendering_ex
-bra_AE80:
+@bra_AE80_next:
 C - - - - - 0x00EE90 03:AE80: E6 05     INC ram_0005
-C - - - - - 0x00EE92 03:AE82: C6 06     DEC ram_0006
-C - - - - - 0x00EE94 03:AE84: D0 DC     BNE bra_AE62
+C - - - - - 0x00EE92 03:AE82: C6 06     DEC ram_0006                           ; decrement loop counter
+C - - - - - 0x00EE94 03:AE84: D0 DC     BNE @bra_AE62_loop                     ; If $0006 != 0x00
 C - - - - - 0x00EE96 03:AE86: 60        RTS
 
 ; In Register X - the enemyA number
 loc_AE87_dying:
-C - - - - - 0x00EE97 03:AE87: BD 44 03  LDA vEnemyAFrame_Counter,X     ;
-C - - - - - 0x00EE9A 03:AE8A: D0 17     BNE bra_AEA3_change_frame_     ; If vFrameCounter != 0x00
+C - - - - - 0x00EE97 03:AE87: BD 44 03  LDA vEnemyASpecSubCounter,X    ;
+C - - - - - 0x00EE9A 03:AE8A: D0 17     BNE bra_AEA3_change_frame_     ; If vSubCounter != 0x00
 C - - - - - 0x00EE9C 03:AE8C: 9D 20 03  STA vEnemyAStatus,X
 C - - - - - 0x00EE9F 03:AE8F: AD 21 03  LDA vEnemyAStatus + 1
 C - - - - - 0x00EEA2 03:AE92: D0 09     BNE bra_AE9D
@@ -2230,13 +2099,13 @@ C - - - - - 0x00EEA9 03:AE99: A9 C4     LDA #$C4                       ; CONSTAN
 C - - - - - 0x00EEAB 03:AE9B: 85 39     STA vGameInterruptEvent        ;
 bra_AE9D:
 C - - - - - 0x00EEAD 03:AE9D: A9 30     LDA #$30
-C - - - - - 0x00EEAF 03:AE9F: 8D 45 03  STA vEnemyAFrame_Counter + 1
+C - - - - - 0x00EEAF 03:AE9F: 8D 45 03  STA vEnemyASpecSubCounter + 1
 bra_AEA2_RTS:
 C - - - - - 0x00EEB2 03:AEA2: 60        RTS
 
 bra_AEA3_change_frame_:
-C - - - - - 0x00EEB3 03:AEA3: DE 44 03  DEC vEnemyAFrame_Counter,X     ;
-C - - - - - 0x00EEB6 03:AEA6: BD 44 03  LDA vEnemyAFrame_Counter,X     ;
+C - - - - - 0x00EEB3 03:AEA3: DE 44 03  DEC vEnemyASpecSubCounter,X    ;
+C - - - - - 0x00EEB6 03:AEA6: BD 44 03  LDA vEnemyASpecSubCounter,X    ;
 C - - - - - 0x00EEB9 03:AEA9: A0 10     LDY #$10                       ; prepares the sprite_magic2 (The offset by the address), death frame
 C - - - - - 0x00EEBB 03:AEAB: C9 20     CMP #$20                       ;
 C - - - - - 0x00EEBD 03:AEAD: B0 06     BCS @bra_AEB5_skip             ; If vFrameCounter >= 0x20
@@ -2260,14 +2129,14 @@ C - - - - - 0x00EED9 03:AEC9: B0 0B     BCS bra_AED6_throw             ; Branch 
 C - - - - - 0x00EEDB 03:AECB: A9 04     LDA #$04                       ; CONSTANT - 'sword strike' status
 C - - - - - 0x00EEDD 03:AECD: 20 19 A3  JSR sub_A319_change_substatus  ;
 C - - - - - 0x00EEE0 03:AED0: A9 30     LDA #$30                       ; CONSTANT - frames for 'sword strike'
-C - - - - - 0x00EEE2 03:AED2: 9D 44 03  STA vEnemyAFrame_Counter,X     ;
+C - - - - - 0x00EEE2 03:AED2: 9D 44 03  STA vEnemyASpecSubCounter,X    ;
 @bra_AED5_RTS:
 C - - - - - 0x00EEE5 03:AED5: 60        RTS                            ;
 
 bra_AED6_throw:
 C - - - - - 0x00EEE6 03:AED6: 4C A9 AF  JMP loc_AFA9_throw
 
-sub_AED9:
+sub_AED9_execute_fly_or_throw:
 C - - - - - 0x00EEE9 03:AED9: A5 2B     LDA v_nmi_counter
 C - - - - - 0x00EEEB 03:AEDB: 29 01     AND #$01
 C - - - - - 0x00EEED 03:AEDD: D0 D9     BNE bra_AEB8

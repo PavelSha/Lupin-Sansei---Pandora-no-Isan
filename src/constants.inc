@@ -431,6 +431,8 @@ vEnemyASwordStatus            = ram_0326
 ; 0x80 - the sword is used, below
 ; 0x81 - the sword is used, above
 
+vEnemyAWaitCounter            = ram_0326 ; For last boss, counter value * 256 frames before starting the flying
+
 vEnemyAProjectileIsUsed       = ram_0326
 vEnemyASwordFrame_            = ram_0326
 vEnemyAVelocity               = ram_0326
@@ -461,6 +463,8 @@ vEnemyAFrame_Counter           = ram_0344 ; see below
 vEnemyAFrame_Counter1          = ram_0344 ; The frame index (the enemy number = 1)
 vEnemyAFrame_Counter2          = ram_0345 ; The frame index (the enemy number = 2)
 vEnemyAProjectileFrame_Counter = ram_0346 ; $0346-$0349
+
+vEnemyASpecSubCounter         = ram_0344 ; for last boss
 
 vEnemyAJumpCounter            = ram_034A ; see below (* bazooka man)
 vEnemyAJumpCounter1           = ram_034A ; vJumpCounter analog for the enemy (the enemy number = 1)

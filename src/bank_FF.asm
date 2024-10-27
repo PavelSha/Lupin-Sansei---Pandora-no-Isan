@@ -9151,14 +9151,14 @@ C - - - - - 0x01F7FD 07:F7ED: F0 05     BEQ @bra_F7F4_skip
 - - - - - - 0x01F7FF 07:F7EF: BD 50 03  LDA vEnemyAHealthPoints,X
 - - - - - - 0x01F802 07:F7F2: F0 12     BEQ @bra_F806_skip
 @bra_F7F4_skip:
-C - - - - - 0x01F804 07:F7F4: B9 05 BD  LDA $BD05,Y
+C - - - - - 0x01F804 07:F7F4: B9 05 BD  LDA tbl_ptr_last_boss_params_,Y
 C - - - - - 0x01F807 07:F7F7: 9D 20 03  STA vEnemyAStatus,X
-C - - - - - 0x01F80A 07:F7FA: B9 06 BD  LDA $BD06,Y
-C - - - - - 0x01F80D 07:F7FD: 9D 44 03  STA vEnemyAFrame_Counter,X
-C - - - - - 0x01F810 07:F800: B9 07 BD  LDA $BD07,Y
-C - - - - - 0x01F813 07:F803: 9D 26 03  STA ram_0326,X
+C - - - - - 0x01F80A 07:F7FA: B9 06 BD  LDA tbl_ptr_last_boss_params_ + 1,Y
+C - - - - - 0x01F80D 07:F7FD: 9D 44 03  STA vEnemyASpecSubCounter,X
+C - - - - - 0x01F810 07:F800: B9 07 BD  LDA tbl_ptr_last_boss_params_ + 2,Y
+C - - - - - 0x01F813 07:F803: 9D 26 03  STA vEnemyAWaitCounter,X
 @bra_F806_skip:
-C - - - - - 0x01F816 07:F806: B9 08 BD  LDA $BD08,Y
+C - - - - - 0x01F816 07:F806: B9 08 BD  LDA tbl_ptr_last_boss_params_ + 3,Y
 C - - - - - 0x01F819 07:F809: 9D 38 03  STA vEnemyAPosXLow,X
 C - - - - - 0x01F81C 07:F80C: A9 00     LDA #$00
 C - - - - - 0x01F81E 07:F80E: 9D 3E 03  STA vEnemyAPosXHigh,X
