@@ -465,6 +465,8 @@ vEnemyAFrame_Counter2          = ram_0345 ; The frame index (the enemy number = 
 vEnemyAProjectileFrame_Counter = ram_0346 ; $0346-$0349
 
 vEnemyASpecSubCounter         = ram_0344 ; for last boss
+vEnemyASpecSubCounter1        = ram_0344 ; for last boss
+vEnemyASpecSubCounter2        = ram_0345 ; for last boss
 
 vEnemyAJumpCounter            = ram_034A ; see below (* bazooka man)
 vEnemyAJumpCounter1           = ram_034A ; vJumpCounter analog for the enemy (the enemy number = 1)
