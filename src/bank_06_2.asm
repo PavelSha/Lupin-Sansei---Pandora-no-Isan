@@ -4469,10 +4469,10 @@ tbl_ptr_boss_sprite_params_:
 - D 1 - - - 0x01BD0D 06:BCFD: 20        .byte $20, $0F, $0F, $70   ;
 - D 1 - - - 0x01BD11 06:BD01: 20        .byte $20, $3F, $3F, $94   ; 
 
-; 1 byte - ???
-; 2 byte - ???
-; 3 byte - ???
-; 4 byte - ???
+; 1 byte - a start status
+; 2 byte - low value for the wait counter
+; 3 byte - high value for the wait counter
+; 4 byte - position X
 tbl_ptr_last_boss_params_:
 - D 1 - - - 0x01BD15 06:BD05: 89        .byte $89, $90, $08, $BC   ; 
 - D 1 - - - 0x01BD19 06:BD09: 88        .byte $88, $90, $00, $84   ; 

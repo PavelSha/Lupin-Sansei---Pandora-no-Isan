@@ -46,7 +46,7 @@
 |0x2B| - | - | - | - |
 |0x2C|Boss3| A | [Рейд](#враг-2c) | 3 |
 |0x2D| - | - | - | - |
-|0x2E|Boss4| A |   | 4 |
+|0x2E|Boss4| A | [Финальный босс](#враг-2e) | 4 |
 |0x2F| - | - | - | - |
 |0x30|Wall| B |   | 4 |
 |0x31|Wall| B |   | 4 |
@@ -483,6 +483,37 @@
 -  ***K*** - _не используется_
 -  ***W*** - _не используется_
 -  ***Z*** - флаг разрушения снаряда (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - _не используется_
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
+
+## Враг 2E
+Финальный босс
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|
+|---|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/2E/frame1-r.png) | ![Frame2](../images/enemies/2E/frame2-r.png) | ![Frame3](../images/enemies/2E/frame3-r.png) | ![Frame4](../images/enemies/2E/frame4-r.png) | ![Frame5](../images/enemies/2E/frame5-r.png) | ![Frame6](../images/enemies/2E/frame6-r.png) | ![Frame7](../images/enemies/2E/frame7-r.png) | ![Frame8](../images/enemies/2E/frame8-r.png) |
+| ![Frame1](../images/enemies/2E/frame1-l.png) | ![Frame2](../images/enemies/2E/frame2-l.png) | ![Frame3](../images/enemies/2E/frame3-l.png) | ![Frame4](../images/enemies/2E/frame4-l.png) | ![Frame5](../images/enemies/2E/frame5-l.png) | ![Frame6](../images/enemies/2E/frame6-l.png) | ![Frame7](../images/enemies/2E/frame7-l.png) | ![Frame8](../images/enemies/2E/frame8-l.png) |
+
+|Кадр 9|Кадр 10|Кадр 11|Кадр 12|Кадр 13|Кадр 14|Кадр 15|Кадр 16|
+|---|---|---|---|---|---|---|---|
+| ![Frame9](../images/enemies/2E/frame9-r.png) | ![Frame10](../images/enemies/2E/frame10-r.png) | ![Frame11](../images/enemies/2E/frame11-r.png) | ![Frame12](../images/enemies/2E/frame12-r.png) | ![Frame13](../images/enemies/2E/frame13-r.png) | ![Frame14](../images/enemies/2E/frame14-r.png) | ![Frame15](../images/enemies/2E/frame15-r.png) | ![Frame16](../images/enemies/2E/frame16-r.png) |
+| ![Frame9](../images/enemies/2E/frame9-l.png) | ![Frame10](../images/enemies/2E/frame10-l.png) | ![Frame11](../images/enemies/2E/frame11-l.png) | ![Frame12](../images/enemies/2E/frame12-l.png) | ![Frame13](../images/enemies/2E/frame13-l.png) | ![Frame14](../images/enemies/2E/frame14-l.png) | ![Frame15](../images/enemies/2E/frame15-l.png) | ![Frame16](../images/enemies/2E/frame16-l.png) |
+
+|Кадр 17|Кадр 18|Кадр 19|Кадр 20|
+|---|---|---|---|
+| ![Frame17](../images/enemies/2E/frame19-r.png) | ![Frame18](../images/enemies/2E/frame20-r.png) | ![Frame19](../images/enemies/2E/frame21-r.png) | ![Frame20](../images/enemies/2E/frame22-r.png) |
+| ![Frame17](../images/enemies/2E/frame19-l.png) | ![Frame18](../images/enemies/2E/frame20-l.png) | ![Frame19](../images/enemies/2E/frame21-l.png) | ![Frame20](../images/enemies/2E/frame22-l.png) |
+
+|Кадр 1|Кадр 2|
+|---|---|
+| ![Frame1](../images/enemies/2E/frame17.png) | ![Frame2](../images/enemies/2E/frame18.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг падения после получения финального урона (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***L*** - флаг атаки мечом (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***K*** - флаг ожидания перед началом боя (**_0x00_** - нет ожидания, **_0x01_** - есть ожидание)
+-  ***W*** - флаг получения урона (**_0x00_** - не получает урон, **_0x01_** - получает урон)
+-  ***Z*** - флаг умирания врага (на земле) (**_0x00_** - неактивно, **_0x01_** - активно)
 -  ***Y*** - _не используется_
 -  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 

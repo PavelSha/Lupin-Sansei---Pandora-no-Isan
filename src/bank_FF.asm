@@ -9109,7 +9109,7 @@ C - - - - - 0x01F7A3 07:F793: 8D 51 03  STA vEnemyAHealthPoints2                
 C - - - - - 0x01F7A6 07:F796: AD 00 03  LDA vEnemyA                                  ;
 C - - - - - 0x01F7A9 07:F799: C9 2E     CMP #$2E                                     ; CONSTANT - boss, level 4
 C - - - - - 0x01F7AB 07:F79B: D0 06     BNE bra_F7A3_skip                            ; If vEnemyA != 0x2E
-C - - - - - 0x01F7AD 07:F79D: 20 E0 F7  JSR sub_F7E0
+C - - - - - 0x01F7AD 07:F79D: 20 E0 F7  JSR sub_F7E0_last_boss                       ;
 C - - - - - 0x01F7B0 07:F7A0: 4C C1 F7  JMP loc_F7C1_continue                        ;
 
 bra_F7A3_skip:
@@ -9139,39 +9139,39 @@ C - - - - - 0x01F7E9 07:F7D9: C8        INY                                     
 C - - - - - 0x01F7EA 07:F7DA: 8C 01 03  STY vEnemyB                                  ; <~ {0x29, 0x2B, 0x2D, 0x2F}
 C - - - - - 0x01F7ED 07:F7DD: 4C 20 F8  JMP loc_F820_finish_creating_enemyB          ;
 
-sub_F7E0:
-C - - - - - 0x01F7F0 07:F7E0: A2 01     LDX #$01
-C - - - - - 0x01F7F2 07:F7E2: A0 00     LDY #$00
-@bra_F7E4_loop:
-C - - - - - 0x01F7F4 07:F7E4: A9 7F     LDA #$7F
-C - - - - - 0x01F7F6 07:F7E6: 9D 2C 03  STA ram_032C,X
-C - - - - - 0x01F7F9 07:F7E9: A5 3C     LDA vGameLocks
-C - - - - - 0x01F7FB 07:F7EB: 29 20     AND #$20
-C - - - - - 0x01F7FD 07:F7ED: F0 05     BEQ @bra_F7F4_skip
-- - - - - - 0x01F7FF 07:F7EF: BD 50 03  LDA vEnemyAHealthPoints,X
-- - - - - - 0x01F802 07:F7F2: F0 12     BEQ @bra_F806_skip
+sub_F7E0_last_boss:
+C - - - - - 0x01F7F0 07:F7E0: A2 01     LDX #$01                             ; set loop counter
+C - - - - - 0x01F7F2 07:F7E2: A0 00     LDY #$00                             ; Initializes for the table
+@bra_F7E4_loop:                                                              ; loop by x
+C - - - - - 0x01F7F4 07:F7E4: A9 7F     LDA #$7F                             ;
+C - - - - - 0x01F7F6 07:F7E6: 9D 2C 03  STA vEnemyAPosY,X                    ; initializes position Y
+C - - - - - 0x01F7F9 07:F7E9: A5 3C     LDA vGameLocks                       ;
+C - - - - - 0x01F7FB 07:F7EB: 29 20     AND #$20                             ; CONSTANT - after a fall and after 'Select a character'
+C - - - - - 0x01F7FD 07:F7ED: F0 05     BEQ @bra_F7F4_skip                   ; If the player isn't reselected after dying
+- - - - - - 0x01F7FF 07:F7EF: BD 50 03  LDA vEnemyAHealthPoints,X            ;
+- - - - - - 0x01F802 07:F7F2: F0 12     BEQ @bra_F806_skip                   ; If HPoint == 0x00
 @bra_F7F4_skip:
-C - - - - - 0x01F804 07:F7F4: B9 05 BD  LDA tbl_ptr_last_boss_params_,Y
-C - - - - - 0x01F807 07:F7F7: 9D 20 03  STA vEnemyAStatus,X
-C - - - - - 0x01F80A 07:F7FA: B9 06 BD  LDA tbl_ptr_last_boss_params_ + 1,Y
-C - - - - - 0x01F80D 07:F7FD: 9D 44 03  STA vEnemyASpecSubCounter,X
-C - - - - - 0x01F810 07:F800: B9 07 BD  LDA tbl_ptr_last_boss_params_ + 2,Y
-C - - - - - 0x01F813 07:F803: 9D 26 03  STA vEnemyAWaitCounter,X
+C - - - - - 0x01F804 07:F7F4: B9 05 BD  LDA tbl_ptr_last_boss_params_,Y      ;
+C - - - - - 0x01F807 07:F7F7: 9D 20 03  STA vEnemyAStatus,X                  ; initializes the status
+C - - - - - 0x01F80A 07:F7FA: B9 06 BD  LDA tbl_ptr_last_boss_params_ + 1,Y  ;
+C - - - - - 0x01F80D 07:F7FD: 9D 44 03  STA vEnemyASpecSubCounter,X          ;
+C - - - - - 0x01F810 07:F800: B9 07 BD  LDA tbl_ptr_last_boss_params_ + 2,Y  ;
+C - - - - - 0x01F813 07:F803: 9D 26 03  STA vEnemyAWaitCounter,X             ; initializes the waiting time
 @bra_F806_skip:
-C - - - - - 0x01F816 07:F806: B9 08 BD  LDA tbl_ptr_last_boss_params_ + 3,Y
-C - - - - - 0x01F819 07:F809: 9D 38 03  STA vEnemyAPosXLow,X
-C - - - - - 0x01F81C 07:F80C: A9 00     LDA #$00
-C - - - - - 0x01F81E 07:F80E: 9D 3E 03  STA vEnemyAPosXHigh,X
-C - - - - - 0x01F821 07:F811: A9 20     LDA #$20
-C - - - - - 0x01F823 07:F813: 9D 4A 03  STA vEnemyAJumpCounter,X
-C - - - - - 0x01F826 07:F816: C8        INY
-C - - - - - 0x01F827 07:F817: C8        INY
-C - - - - - 0x01F828 07:F818: C8        INY
-C - - - - - 0x01F829 07:F819: C8        INY
-C - - - - - 0x01F82A 07:F81A: CA        DEX
-C - - - - - 0x01F82B 07:F81B: 10 C7     BPL @bra_F7E4_loop
-C - - - - - 0x01F82D 07:F81D: A0 0C     LDY #$0C
-C - - - - - 0x01F82F 07:F81F: 60        RTS
+C - - - - - 0x01F816 07:F806: B9 08 BD  LDA tbl_ptr_last_boss_params_ + 3,Y  ;
+C - - - - - 0x01F819 07:F809: 9D 38 03  STA vEnemyAPosXLow,X                 ; initializes position X
+C - - - - - 0x01F81C 07:F80C: A9 00     LDA #$00                             ;
+C - - - - - 0x01F81E 07:F80E: 9D 3E 03  STA vEnemyAPosXHigh,X                ; the room has one screen
+C - - - - - 0x01F821 07:F811: A9 20     LDA #$20                             ;
+C - - - - - 0x01F823 07:F813: 9D 4A 03  STA vEnemyAJumpCounter,X             ; initializes the jump counter for the flying
+C - - - - - 0x01F826 07:F816: C8        INY                                  ;
+C - - - - - 0x01F827 07:F817: C8        INY                                  ;
+C - - - - - 0x01F828 07:F818: C8        INY                                  ;
+C - - - - - 0x01F829 07:F819: C8        INY                                  ; +4, bacause the table contains 4 bytes in one row
+C - - - - - 0x01F82A 07:F81A: CA        DEX                                  ; decrement loop counter
+C - - - - - 0x01F82B 07:F81B: 10 C7     BPL @bra_F7E4_loop                   ; If Register X >= 0x00
+C - - - - - 0x01F82D 07:F81D: A0 0C     LDY #$0C                             ; restore Register Y (see $F775)
+C - - - - - 0x01F82F 07:F81F: 60        RTS                                  ;
 
 loc_F820_finish_creating_enemyB:
 C D 3 - - - 0x01F830 07:F820: 20 46 EF  JSR sub_EF46_switch_bank_4_p1    ;
