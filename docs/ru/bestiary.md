@@ -7,7 +7,7 @@
 |0x04|Land Diver| A |   | 3 |
 |0x05|Land Diver| A |   | 2 |
 |0x06|Land Diver| A | [Земной водолаз](#враг-06) | 1 |
-|0x07|Zenigata| A |   |All|
+|0x07|Zenigata| A | [Зенигата](#враг-07) |All|
 |0x08|Shooter with bazooka| A |   | 3 |
 |0x09|The fat sailor| A | [Полный моряк](#враг-09) | 3 |
 |0x0A|The barrel| B |   | 3 |
@@ -51,7 +51,7 @@
 |0x30|Wall| B |   | 4 |
 |0x31|Wall| B |   | 4 |
 |0x32|Breaking platform| B |   | 4 |
-|0x33|Blade trap| B |   | 4 |
+|0x33|Blade trap| B | [Ловушка с лезвием](#враг-33) | 4 |
 |0x34|Potted snakes| B |   | 4 |
 |0x35|Egyptian with bow| A | [Египтянин с луком](#враг-35) | 4 |
 |0x36|Egyptian with a sword| A | [Египтянин с мечом](#враг-36) | 4 |
@@ -117,6 +117,23 @@
 Статусы
 ![DescriptionBits](../images/descriptionBits.jpg)
 -->
+
+## Враг 07
+Зенигата
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|
+|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/07/frame1-r.png) | ![Frame2](../images/enemies/07/frame2-r.png) | ![Frame3](../images/enemies/07/frame3-r.png) | ![Frame4](../images/enemies/07/frame4-r.png) | ![Frame5](../images/enemies/07/frame5-r.png) | ![Frame6](../images/enemies/07/frame6-r.png) | ![Frame7](../images/enemies/07/frame7-r.png) |
+| ![Frame1](../images/enemies/07/frame1-l.png) | ![Frame2](../images/enemies/07/frame2-l.png) | ![Frame3](../images/enemies/07/frame3-l.png) | ![Frame4](../images/enemies/07/frame4-l.png) | ![Frame5](../images/enemies/07/frame5-l.png) | ![Frame6](../images/enemies/07/frame6-l.png) | ![Frame7](../images/enemies/07/frame7-l.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг обычного прыжка и прыжка через препятствие (**_0x00_** - не прыгает, **_0x01_** - прыгает)
+-  ***L*** - флаг броска снаряда (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***K*** - флаг остановки (**_0x00_** - не остановился, **_0x01_** - остановился)
+-  ***W*** - флаг приседания перед прыжком (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - _не используется_
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 
 ## Враг 09
 Полный моряк
@@ -516,6 +533,12 @@
 -  ***Z*** - флаг умирания врага (на земле) (**_0x00_** - неактивно, **_0x01_** - активно)
 -  ***Y*** - _не используется_
 -  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
+
+## Враг 33
+Ловушка с лезвием
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|
+|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/33/frame1.png) | ![Frame2](../images/enemies/33/frame2.png) | ![Frame3](../images/enemies/33/frame3.png) | ![Frame4](../images/enemies/33/frame4.png) | ![Frame5](../images/enemies/33/frame5.png) | ![Frame6](../images/enemies/33/frame6.png) |
 
 ## Враг 35
 Египтянин с луком

@@ -640,9 +640,6 @@ v_OAM_3_2b               = ram_0709 ; 2nd byte
 v_OAM_3_3b               = ram_070A ; 3rd byte
 v_OAM_3_4b               = ram_070B ; 4th byte
 
-; Unknown:
-; 0x0042 - 0 - left, 0x80 - right in 1st level
-
 ; Byte join regex: "\s\s\s;\s.*\n.*\$" -> ", $"
 
 ; Last mini:

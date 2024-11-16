@@ -7710,9 +7710,10 @@ C - - J - - 0x01EE88 07:EE78: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
 C - - - - - 0x01EE8B 07:EE7B: 20 03 A0  JSR sub_A003_soar_enemy         ; basic mechanics of enemy behavior
 C - - - - - 0x01EE8E 07:EE7E: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
-C - - J - - 0x01EE91 07:EE81: 20 25 EF  JSR sub_EF25_switch_bank_06_1
-C - - - - - 0x01EE94 07:EE84: 20 06 A0  JSR $A006 ; to sub_A006
-C - - - - - 0x01EE97 07:EE87: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_EE81_barrel_or_stone:
+C - - J - - 0x01EE91 07:EE81: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
+C - - - - - 0x01EE94 07:EE84: 20 06 A0  JSR sub_A006_barrel_or_stone    ; basic mechanics of enemy behavior
+C - - - - - 0x01EE97 07:EE87: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 loc_EE8A_bazooka_man:
 C - - J - - 0x01EE9A 07:EE8A: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
@@ -7748,9 +7749,10 @@ C - - J - - 0x01EED0 07:EEC0: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
 C - - - - - 0x01EED3 07:EEC3: 20 1B A0  JSR sub_A01B_fat_sailor         ; basic mechanics of enemy behavior
 C - - - - - 0x01EED6 07:EEC6: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
-C - - J - - 0x01EED9 07:EEC9: 20 25 EF  JSR sub_EF25_switch_bank_06_1
-C - - - - - 0x01EEDC 07:EECC: 20 1E A0  JSR $A01E ; to sub_A01E
-C - - - - - 0x01EEDF 07:EECF: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_EEC9_blade_trap:
+C - - J - - 0x01EED9 07:EEC9: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
+C - - - - - 0x01EEDC 07:EECC: 20 1E A0  JSR sub_A01E_blade_trap         ; basic mechanics of enemy behavior
+C - - - - - 0x01EEDF 07:EECF: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 loc_boss_hulk:
 C - - J - - 0x01EEE2 07:EED2: 20 30 EF  JSR sub_EF30_switch_bank_3_p2   ;
@@ -9929,7 +9931,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FCD8 07:FCC8: B7 EE     .addr loc_EEB7_Zenigata         ; Zenigata (0x07) Type A
 - D 3 - - - 0x01FCDA 07:FCCA: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 3) (0x08) Type A
 - D 3 - - - 0x01FCDC 07:FCCC: C0 EE     .addr loc_EEC0_fat_sailor       ; The fat sailor (level 3) (0x09) Type A
-- D 3 - - - 0x01FCDE 07:FCCE: 81 EE     .word $EE81                     ; The barrel (level 3) (0x0A) Type B
+- D 3 - - - 0x01FCDE 07:FCCE: 81 EE     .addr loc_EE81_barrel_or_stone  ; The barrel (level 3) (0x0A) Type B
 - D 3 - - - 0x01FCE0 07:FCD0: 28 A0     .addr loc_A028_jumper           ; Jumping sailor (level 3) (0x0B) Type A
 - D 3 - - - 0x01FCE2 07:FCD2: 08 AD     .addr loc_AD08_lift             ; The lift (level 3) (0x0C) Type A
 - D 3 - - - 0x01FCE4 07:FCD4: 93 EE     .addr loc_EE93_sensor           ; Sensor (level 3) (0x0D) Type B
@@ -9948,11 +9950,11 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FCFE 07:FCEE: 09 A3     .addr loc_A309_green_boy        ; Boy in green (level 2) (0x1A) Type A
 - D 3 - - - 0x01FD00 07:FCF0: FF EE     .addr loc_EEFF_swordtail        ; Girl with sword (level 1) (0x1B) Type A
 - D 3 - - - 0x01FD02 07:FCF2: 08 EF     .addr loc_EF08_knight           ; Knight in armor with a shield (level 1) (0x1C) Type A
-- D 3 - - - 0x01FD04 07:FCF4: 81 EE     .word $EE81                     ; The barrel (0x1D)
+- D 3 - - - 0x01FD04 07:FCF4: 81 EE     .addr loc_EE81_barrel_or_stone  ; The barrel (0x1D)
 - D 3 - - - 0x01FD06 07:FCF6: 93 EE     .addr loc_EE93_sensor           ; Sensor (level 1) (0x1E) Type B
 - D 3 - - - 0x01FD08 07:FCF8: A5 EE     .addr loc_EEA5_fly_man          ; Fly man (0x1F) (level 1) Type A
 - D 3 - - - 0x01FD0A 07:FCFA: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 1) (0x20) Type A
-- D 3 - - - 0x01FD0C 07:FCFC: 81 EE     .word $EE81                     ; Cobblestone (level-racing, level 4) (0x21) Type B
+- D 3 - - - 0x01FD0C 07:FCFC: 81 EE     .addr loc_EE81_barrel_or_stone  ; Cobblestone (level-racing, level 4) (0x21) Type B
 - D 3 - - - 0x01FD0E 07:FCFE: 0A AC     .word $AC0A                     ; The bird (level-racing) (0x22) Type B
 - D 3 - - - 0x01FD10 07:FD00: 02 AA     .addr loc_AA02_bomb_bird        ; The bird with a bomb (level-racing) (0x23) Type B
 - D 3 - - - 0x01FD12 07:FD02: F6 EE     .word $EEF6                     ; Skeleton (level 4) (0x24) Type A
@@ -9970,7 +9972,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD2A 07:FD1A: 34 AE     .addr loc_AE34_platform         ; Wall (0x30)
 - D 3 - - - 0x01FD2C 07:FD1C: 34 AE     .addr loc_AE34_platform         ; Wall (0x31)
 - D 3 - - - 0x01FD2E 07:FD1E: 34 AE     .addr loc_AE34_platform         ; Breaking platform (level 4) (0x32) Type B
-- D 3 - - - 0x01FD30 07:FD20: C9 EE     .word $EEC9                     ; Blade trap (level 4) (0x33) Type B
+- D 3 - - - 0x01FD30 07:FD20: C9 EE     .addr loc_EEC9_blade_trap       ; Blade trap (level 4) (0x33) Type B
 - D 3 - - - 0x01FD32 07:FD22: 11 EF     .addr loc_EF11_cat_or_snake     ; Potted snakes (level 4) (0x34)  Type B
 - D 3 - - - 0x01FD34 07:FD24: AE EE     .addr loc_EEAE_shooter          ; Egyptian with bow (level 4) (0x35) Type A
 - D 3 - - - 0x01FD36 07:FD26: FF EE     .addr loc_EEFF_swordtail        ; Egyptian with a sword (level 4) (0x36) Type A
