@@ -73,6 +73,7 @@
 .export sub_A003_soar_enemy
 .export sub_A006_barrel_or_stone
 .export sub_A009_bazooka_man
+.export sub_A00C_sensor
 .export sub_A012_fly_man
 .export sub_A015_shooter
 .export sub_A018_Zenigata
@@ -86,13 +87,13 @@ sub_A003_soar_enemy:
 C - - - - - 0x018013 06:A003: 4C 66 A3  JMP loc_A366_enemy
 
 sub_A006_barrel_or_stone:
-C - - - - - 0x018016 06:A006: 4C B3 A5  JMP loc_A5B3_enemy
+C - - - - - 0x018016 06:A006: 4C B3 A5  JMP loc_A5B3_enemy    ;
 
 sub_A009_bazooka_man:
 C - - - - - 0x018019 06:A009: 4C 82 A7  JMP loc_A782_enemy
 
-sub_A00C: ; from bank_FF
-C - - - - - 0x01801C 06:A00C: 4C 3B AC  JMP loc_AC3B
+sub_A00C_sensor:
+C - - - - - 0x01801C 06:A00C: 4C 3B AC  JMP loc_AC3B_sensor
 
 sub_A00F: ; from bank_FF
 C - - - - - 0x01801F 06:A00F: 4C 09 AE  JMP loc_AE09
@@ -959,7 +960,9 @@ C - - - - - 0x0185AB 06:A59B: BC 92 03  LDY vEnemyBJumpType,X     ;
 C - - - - - 0x0185AE 06:A59E: B1 00     LDA (ram_0000),Y          ;
 C - - - - - 0x0185B0 06:A5A0: 60        RTS                       ;
 
-tbl_A5A1:
+; 1 byte - the jump counter before the collision
+; 2 byte - the jump counter after the collision
+tbl_A5A1_jump_counters:
 - D - - - - 0x0185B1 06:A5A1: 18        .byte $18, $18   ; 
 - D 1 - - - 0x0185B3 06:A5A3: 1A        .byte $1A, $17   ; 
 - D 1 - - - 0x0185B5 06:A5A5: 1D        .byte $1D, $16   ; 
@@ -970,65 +973,66 @@ tbl_A5A1:
 - D 1 - - - 0x0185BF 06:A5AF: 2C        .byte $2C, $0C   ; 
 - D 1 - - - 0x0185C1 06:A5B1: 2F        .byte $2F, $0A   ; 
 
+; The barrel, the cobblestone
 loc_A5B3_enemy:
-C D 1 - - - 0x0185C3 06:A5B3: A2 01     LDX #$01
-C - - - - - 0x0185C5 06:A5B5: 86 1A     STX vTempCounter1A
+C D 1 - - - 0x0185C3 06:A5B3: A2 01     LDX #$01                             ;
+C - - - - - 0x0185C5 06:A5B5: 86 1A     STX vTempCounter1A                   ; set loop counter (the enemyB number)
 bra_A5B7_loop:
-C - - - - - 0x0185C7 06:A5B7: A6 1A     LDX vTempCounter1A
-C - - - - - 0x0185C9 06:A5B9: 20 1A A6  JSR sub_A61A_status_behavior
-C - - - - - 0x0185CC 06:A5BC: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x0185CF 06:A5BF: C9 E0     CMP #$E0
-C - - - - - 0x0185D1 06:A5C1: B0 40     BCS bra_A603_next
-C - - - - - 0x0185D3 06:A5C3: C9 C0     CMP #$C0
-C - - - - - 0x0185D5 06:A5C5: 90 3C     BCC bra_A603_next
-C - - - - - 0x0185D7 06:A5C7: BD 68 03  LDA ram_0368,X
-C - - - - - 0x0185DA 06:A5CA: 18        CLC
-C - - - - - 0x0185DB 06:A5CB: 69 06     ADC #$06
-C - - - - - 0x0185DD 06:A5CD: 85 AD     STA ram_00AD
-C - - - - - 0x0185DF 06:A5CF: BD 6E 03  LDA ram_036E,X
-C - - - - - 0x0185E2 06:A5D2: 85 AE     STA ram_00AE
-C - - - - - 0x0185E4 06:A5D4: A9 0C     LDA #$0C
-C - - - - - 0x0185E6 06:A5D6: 85 AF     STA ram_00AF
-C - - - - - 0x0185E8 06:A5D8: A9 06     LDA #$06
-C - - - - - 0x0185EA 06:A5DA: 85 B0     STA ram_00B0
-C - - - - - 0x0185EC 06:A5DC: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x0185EE 06:A5DE: 29 02     AND #$02
-C - - - - - 0x0185F0 06:A5E0: F0 0B     BEQ bra_A5ED
-C - - - - - 0x0185F2 06:A5E2: 20 06 D6  JSR sub_D606_have_intersect_sword
-C - - - - - 0x0185F5 06:A5E5: 90 19     BCC bra_A600
-C - - - - - 0x0185F7 06:A5E7: 20 08 A6  JSR sub_A608
-C - - - - - 0x0185FA 06:A5EA: 4C 03 A6  JMP loc_A603_next
+C - - - - - 0x0185C7 06:A5B7: A6 1A     LDX vTempCounter1A                   ; prepares an input parameter
+C - - - - - 0x0185C9 06:A5B9: 20 1A A6  JSR sub_A61A_status_behavior         ;
+C - - - - - 0x0185CC 06:A5BC: BD 5C 03  LDA vEnemyBStatus,X                  ;
+C - - - - - 0x0185CF 06:A5BF: C9 E0     CMP #$E0                             ;
+C - - - - - 0x0185D1 06:A5C1: B0 40     BCS bra_A603_next                    ; If vEnemyAStatus >= 0xE0
+C - - - - - 0x0185D3 06:A5C3: C9 C0     CMP #$C0                             ;
+C - - - - - 0x0185D5 06:A5C5: 90 3C     BCC bra_A603_next                    ; If vEnemyAStatus < 0xC0 else only 0xCX or 0xDX
+C - - - - - 0x0185D7 06:A5C7: BD 68 03  LDA vEnemyBPosY,X                    ;
+C - - - - - 0x0185DA 06:A5CA: 18        CLC                                  ;
+C - - - - - 0x0185DB 06:A5CB: 69 06     ADC #$06                             ;
+C - - - - - 0x0185DD 06:A5CD: 85 AD     STA vEnemyHitBoxY                    ; <~ posY + 0x06
+C - - - - - 0x0185DF 06:A5CF: BD 6E 03  LDA vEnemyBScreenPosX,X              ;
+C - - - - - 0x0185E2 06:A5D2: 85 AE     STA vEnemyHitBoxX                    ; <~ posX
+C - - - - - 0x0185E4 06:A5D4: A9 0C     LDA #$0C                             ;
+C - - - - - 0x0185E6 06:A5D6: 85 AF     STA vEnemyHitBoxH                    ; <~ hitBoxH
+C - - - - - 0x0185E8 06:A5D8: A9 06     LDA #$06                             ;
+C - - - - - 0x0185EA 06:A5DA: 85 B0     STA vEnemyHitBoxW                    ; <~ hitBoxW
+C - - - - - 0x0185EC 06:A5DC: A5 5F     LDA vChrLiveStatus                   ;
+C - - - - - 0x0185EE 06:A5DE: 29 02     AND #$02                             ; CONSTANT - Goemon
+C - - - - - 0x0185F0 06:A5E0: F0 0B     BEQ bra_A5ED_check_bullets           ; If the character isn't Goemon
+C - - - - - 0x0185F2 06:A5E2: 20 06 D6  JSR sub_D606_have_intersect_sword    ;
+C - - - - - 0x0185F5 06:A5E5: 90 19     BCC bra_A600_no_intersect            ; If the intersect doesn't exist
+C - - - - - 0x0185F7 06:A5E7: 20 08 A6  JSR sub_A608_hit                     ;
+C - - - - - 0x0185FA 06:A5EA: 4C 03 A6  JMP loc_A603_next                    ;
 
-bra_A5ED:
-C - - - - - 0x0185FD 06:A5ED: A6 7A     LDX vBulletCount
-bra_A5EF:
-C - - - - - 0x0185FF 06:A5EF: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
-C - - - - - 0x018602 06:A5F2: 90 09     BCC bra_A5FD
-C - - - - - 0x018604 06:A5F4: A9 10     LDA #$10
-C - - - - - 0x018606 06:A5F6: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
-C - - - - - 0x018609 06:A5F9: A9 00     LDA #$00
-C - - - - - 0x01860B 06:A5FB: 95 8F     STA vBulletStatus,X
-bra_A5FD:
-C - - - - - 0x01860D 06:A5FD: CA        DEX
-C - - - - - 0x01860E 06:A5FE: 10 EF     BPL bra_A5EF
-bra_A600:
-C - - - - - 0x018610 06:A600: 20 62 D5  JSR sub_D562_has_character_damage
+bra_A5ED_check_bullets:
+C - - - - - 0x0185FD 06:A5ED: A6 7A     LDX vBulletCount                     ; set loop counter
+bra_A5EF_loop:                                                               ; loop by x
+C - - - - - 0x0185FF 06:A5EF: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet   ;
+C - - - - - 0x018602 06:A5F2: 90 09     BCC @bra_A5FD_no_hit                 ; If the intersect isn't exist
+C - - - - - 0x018604 06:A5F4: A9 10     LDA #$10                             ; The sound of a bullet hitting an armored enemy
+C - - - - - 0x018606 06:A5F6: 20 20 C4  JSR sub_C420_add_sound_effect        ; bank FF
+C - - - - - 0x018609 06:A5F9: A9 00     LDA #$00                             ;
+C - - - - - 0x01860B 06:A5FB: 95 8F     STA vBulletStatus,X                  ; clear
+@bra_A5FD_no_hit:
+C - - - - - 0x01860D 06:A5FD: CA        DEX                                  ; decrement loop counter
+C - - - - - 0x01860E 06:A5FE: 10 EF     BPL bra_A5EF_loop                    ; If Register X >= 0x00
+bra_A600_no_intersect:
+C - - - - - 0x018610 06:A600: 20 62 D5  JSR sub_D562_has_character_damage    ;
 bra_A603_next:
 loc_A603_next:
-C D 1 - - - 0x018613 06:A603: C6 1A     DEC vTempCounter1A
-C - - - - - 0x018615 06:A605: 10 B0     BPL bra_A5B7_loop
+C D 1 - - - 0x018613 06:A603: C6 1A     DEC vTempCounter1A                   ; decrements loop counter
+C - - - - - 0x018615 06:A605: 10 B0     BPL bra_A5B7_loop                    ; If vTempCounter1A >= 0x00
 bra_A607_RTS:
-C - - - - - 0x018617 06:A607: 60        RTS
+C - - - - - 0x018617 06:A607: 60        RTS                                  ;
 
-sub_A608:
-C - - - - - 0x018618 06:A608: A6 1A     LDX vTempCounter1A
-C - - - - - 0x01861A 06:A60A: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x01861D 06:A60D: 29 C0     AND #$C0
-C - - - - - 0x01861F 06:A60F: 09 20     ORA #$20
-C - - - - - 0x018621 06:A611: 9D 5C 03  STA vEnemyBStatus,X
-C - - - - - 0x018624 06:A614: A9 08     LDA #$08
-C - - - - - 0x018626 06:A616: 9D 86 03  STA vEnemyBJumpCounter,X
-C - - - - - 0x018629 06:A619: 60        RTS
+sub_A608_hit:
+C - - - - - 0x018618 06:A608: A6 1A     LDX vTempCounter1A             ; X <~ the enemyB number
+C - - - - - 0x01861A 06:A60A: BD 5C 03  LDA vEnemyBStatus,X            ;            
+C - - - - - 0x01861D 06:A60D: 29 C0     AND #$C0                       ; clear substate
+C - - - - - 0x01861F 06:A60F: 09 20     ORA #$20                       ; CONSTANT - 'the dying' status
+C - - - - - 0x018621 06:A611: 9D 5C 03  STA vEnemyBStatus,X            ;
+C - - - - - 0x018624 06:A614: A9 08     LDA #$08                       ;
+C - - - - - 0x018626 06:A616: 9D 86 03  STA vEnemyBJumpCounter,X       ; Initializes a jump counter (flashing)
+C - - - - - 0x018629 06:A619: 60        RTS                            ;
 
 ; In: Register X - the enemyB number
 sub_A61A_status_behavior:
@@ -1047,15 +1051,15 @@ C - - - - - 0x018630 06:A620: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bit
 
 ; In: Register X - the enemyB number
 loc_A631_main:
-C - - - - - 0x018641 06:A631: A9 09     LDA #$09
-C - - - - - 0x018643 06:A633: 20 DB D8  JSR sub_D8DB_enemyB_collision_by_shift_posY
-C - - - - - 0x018646 06:A636: D0 49     BNE bra_A681
-C - - - - - 0x018648 06:A638: BD 80 03  LDA vEnemyBFrame_Counter,X
-C - - - - - 0x01864B 06:A63B: 29 03     AND #$03
-C - - - - - 0x01864D 06:A63D: 9D 80 03  STA vEnemyBFrame_Counter,X
-C - - - - - 0x018650 06:A640: A9 1C     LDA #$1C
-C - - - - - 0x018652 06:A642: A0 03     LDY #$03
-C - - - - - 0x018654 06:A644: 4C CE A6  JMP loc_A6CE
+C - - - - - 0x018641 06:A631: A9 09     LDA #$09                                     ; prepare an input parameter (+9)
+C - - - - - 0x018643 06:A633: 20 DB D8  JSR sub_D8DB_enemyB_collision_by_shift_posY  ;
+C - - - - - 0x018646 06:A636: D0 49     BNE bra_A681_collision                       ; If the collision by posY exists
+C - - - - - 0x018648 06:A638: BD 80 03  LDA vEnemyBFrame_Counter,X                   ;
+C - - - - - 0x01864B 06:A63B: 29 03     AND #$03                                     ; filters by 0%000000XX
+C - - - - - 0x01864D 06:A63D: 9D 80 03  STA vEnemyBFrame_Counter,X                   ;
+C - - - - - 0x018650 06:A640: A9 1C     LDA #$1C                                     ; CONSTANT - a jump counter value
+C - - - - - 0x018652 06:A642: A0 03     LDY #$03                                     ; CONSTANT - jump by side
+C - - - - - 0x018654 06:A644: 4C CE A6  JMP loc_A6CE_activate_jump_status            ;
 
 ; In: Register X - the enemyB number
 loc_A647_prepare_rendering:
@@ -1089,44 +1093,45 @@ C - - - - - 0x018689 06:A679: AD 07 03  LDA vEnemyBSpriteMagic3       ; ~> sprit
 C - - - - - 0x01868C 06:A67C: 85 02     STA ram_0002                  ;
 C - - - - - 0x01868E 06:A67E: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
-bra_A681:
-C - - - - - 0x018691 06:A681: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x018694 06:A684: 6A        ROR
-C - - - - - 0x018695 06:A685: 90 28     BCC bra_A6AF
-C - - - - - 0x018697 06:A687: 20 B5 A6  JSR sub_A6B5
-loc_A68A:
-C D 1 - - - 0x01869A 06:A68A: 20 90 A6  JSR sub_A690
-C - - - - - 0x01869D 06:A68D: 4C 47 A6  JMP loc_A647_prepare_rendering
+bra_A681_collision:
+C - - - - - 0x018691 06:A681: BD 5C 03  LDA vEnemyBStatus,X                      ;
+C - - - - - 0x018694 06:A684: 6A        ROR                                      ;
+C - - - - - 0x018695 06:A685: 90 28     BCC bra_A6AF_right                       ; If the enemy is looking to the right
+C - - - - - 0x018697 06:A687: 20 B5 A6  JSR sub_A6B5_try_movement_on_the_left    ;
+loc_A68A_continue:
+C D 1 - - - 0x01869A 06:A68A: 20 90 A6  JSR sub_A690_update_moving               ;
+C - - - - - 0x01869D 06:A68D: 4C 47 A6  JMP loc_A647_prepare_rendering           ;
 
-sub_A690:
-C - - - - - 0x0186A0 06:A690: A5 2C     LDA vLowCounter
-C - - - - - 0x0186A2 06:A692: 29 0F     AND #$0F
-C - - - - - 0x0186A4 06:A694: D0 05     BNE bra_A69B
-C - - - - - 0x0186A6 06:A696: A9 37     LDA #$37
+sub_A690_update_moving:
+C - - - - - 0x0186A0 06:A690: A5 2C     LDA vLowCounter               ;
+C - - - - - 0x0186A2 06:A692: 29 0F     AND #$0F                      ;
+C - - - - - 0x0186A4 06:A694: D0 05     BNE @bra_A69B_skip            ; Branch if vLowCounter doesn't multiple of 16 (93.75% chance)
+C - - - - - 0x0186A6 06:A696: A9 37     LDA #$37                      ; CONSTANT - The sound of a barrel moving
 C - - - - - 0x0186A8 06:A698: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
-bra_A69B:
-C - - - - - 0x0186AB 06:A69B: A5 2C     LDA vLowCounter
-C - - - - - 0x0186AD 06:A69D: 29 03     AND #$03
-C - - - - - 0x0186AF 06:A69F: D0 0D     BNE bra_A6AE_RTS
-C - - - - - 0x0186B1 06:A6A1: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x0186B4 06:A6A4: 6A        ROR
-C - - - - - 0x0186B5 06:A6A5: B0 04     BCS bra_A6AB
-C - - - - - 0x0186B7 06:A6A7: FE 80 03  INC vEnemyBFrame_Counter,X
-C - - - - - 0x0186BA 06:A6AA: 60        RTS
+@bra_A69B_skip:
+C - - - - - 0x0186AB 06:A69B: A5 2C     LDA vLowCounter               ;
+C - - - - - 0x0186AD 06:A69D: 29 03     AND #$03                      ;
+C - - - - - 0x0186AF 06:A69F: D0 0D     BNE bra_A6AE_RTS              ; Branch if vLowCounter doesn't multiple of 4 (75% chance)
+C - - - - - 0x0186B1 06:A6A1: BD 5C 03  LDA vEnemyBStatus,X           ;
+C - - - - - 0x0186B4 06:A6A4: 6A        ROR                           ;
+C - - - - - 0x0186B5 06:A6A5: B0 04     BCS bra_A6AB_left             ; If the enemy is looking to the left
+C - - - - - 0x0186B7 06:A6A7: FE 80 03  INC vEnemyBFrame_Counter,X    ; direct updating
+C - - - - - 0x0186BA 06:A6AA: 60        RTS                           ;
 
-bra_A6AB:
-C - - - - - 0x0186BB 06:A6AB: DE 80 03  DEC vEnemyBFrame_Counter,X
+bra_A6AB_left:
+C - - - - - 0x0186BB 06:A6AB: DE 80 03  DEC vEnemyBFrame_Counter,X    ; reverse updating
 bra_A6AE_RTS:
-C - - - - - 0x0186BE 06:A6AE: 60        RTS
+C - - - - - 0x0186BE 06:A6AE: 60        RTS                           ;
 
-bra_A6AF:
-C - - - - - 0x0186BF 06:A6AF: 20 C6 A6  JSR sub_A6C6
-C - - - - - 0x0186C2 06:A6B2: 4C 8A A6  JMP loc_A68A
+bra_A6AF_right:
+C - - - - - 0x0186BF 06:A6AF: 20 C6 A6  JSR sub_A6C6_try_movement_on_the_right   ;
+C - - - - - 0x0186C2 06:A6B2: 4C 8A A6  JMP loc_A68A_continue                    ;
 
-sub_A6B5:
-C - - - - - 0x0186C5 06:A6B5: 20 C2 D8  JSR sub_D8C2_check_enemyB_movement_on_the_left
-C - - - - - 0x0186C8 06:A6B8: F0 03     BEQ bra_A6BD_change_direction
-C - - - - - 0x0186CA 06:A6BA: 4C 09 D8  JMP loc_D809_short_dec_EnemyBPosXLow
+; In: Register X - the enemyB number
+sub_A6B5_try_movement_on_the_left:
+C - - - - - 0x0186C5 06:A6B5: 20 C2 D8  JSR sub_D8C2_check_enemyB_movement_on_the_left      ;
+C - - - - - 0x0186C8 06:A6B8: F0 03     BEQ bra_A6BD_change_direction                       ; If the movement isn't allowed
+C - - - - - 0x0186CA 06:A6BA: 4C 09 D8  JMP loc_D809_short_dec_EnemyBPosXLow                ;
 
 ; In: Register X - the enemyB number
 bra_A6BD_change_direction:
@@ -1135,79 +1140,84 @@ C - - - - - 0x0186D0 06:A6C0: 49 01     EOR #$01                ;
 C - - - - - 0x0186D2 06:A6C2: 9D 5C 03  STA vEnemyBStatus,X     ;
 C - - - - - 0x0186D5 06:A6C5: 60        RTS                     ;
 
-sub_A6C6:
-C - - - - - 0x0186D6 06:A6C6: 20 B7 D8  JSR sub_D8B7_check_enemyB_movement_on_the_right
-C - - - - - 0x0186D9 06:A6C9: F0 F2     BEQ bra_A6BD_change_direction
-C - - - - - 0x0186DB 06:A6CB: 4C 28 D8  JMP loc_D828_short_inc_EnemyBPosXLow
+; In: Register X - the enemyB number
+sub_A6C6_try_movement_on_the_right:
+C - - - - - 0x0186D6 06:A6C6: 20 B7 D8  JSR sub_D8B7_check_enemyB_movement_on_the_right     ;
+C - - - - - 0x0186D9 06:A6C9: F0 F2     BEQ bra_A6BD_change_direction                       ; If the movement isn't allowed
+C - - - - - 0x0186DB 06:A6CB: 4C 28 D8  JMP loc_D828_short_inc_EnemyBPosXLow                ;
 
-loc_A6CE:
-C D 1 - - - 0x0186DE 06:A6CE: 9D 86 03  STA vEnemyBJumpCounter,X
-C - - - - - 0x0186E1 06:A6D1: 98        TYA
-C - - - - - 0x0186E2 06:A6D2: 9D 92 03  STA vEnemyBJumpType,X
-C - - - - - 0x0186E5 06:A6D5: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x0186E8 06:A6D8: 29 FD     AND #$FD
-C - - - - - 0x0186EA 06:A6DA: 09 02     ORA #$02
-C - - - - - 0x0186EC 06:A6DC: 9D 5C 03  STA vEnemyBStatus,X
+; In: Register X - the enemyB number
+; In: Register A - a jump counter
+; In: Register Y - a jump type
+loc_A6CE_activate_jump_status:
+C D 1 - - - 0x0186DE 06:A6CE: 9D 86 03  STA vEnemyBJumpCounter,X                         ;
+C - - - - - 0x0186E1 06:A6D1: 98        TYA                                              ;
+C - - - - - 0x0186E2 06:A6D2: 9D 92 03  STA vEnemyBJumpType,X                            ;
+C - - - - - 0x0186E5 06:A6D5: BD 5C 03  LDA vEnemyBStatus,X                              ;
+C - - - - - 0x0186E8 06:A6D8: 29 FD     AND #$FD                                         ; reset 'jump' status
+C - - - - - 0x0186EA 06:A6DA: 09 02     ORA #$02                                         ; CONSTANT - the 'jump' status
+C - - - - - 0x0186EC 06:A6DC: 9D 5C 03  STA vEnemyBStatus,X                              ;
+; In: Register X - the enemyB number
 loc_A6DF_jump:
-C - - - - - 0x0186EF 06:A6DF: BD 68 03  LDA ram_0368,X
-C - - - - - 0x0186F2 06:A6E2: C9 D7     CMP #$D7
-C - - - - - 0x0186F4 06:A6E4: B0 0F     BCS bra_A6F5
-C - - - - - 0x0186F6 06:A6E6: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x0186F9 06:A6E9: 6A        ROR
-C - - - - - 0x0186FA 06:A6EA: 90 06     BCC bra_A6F2
-C - - - - - 0x0186FC 06:A6EC: 20 B5 A6  JSR sub_A6B5
-C - - - - - 0x0186FF 06:A6EF: 4C F5 A6  JMP loc_A6F5
+C - - - - - 0x0186EF 06:A6DF: BD 68 03  LDA vEnemyBPosY,X                                ;
+C - - - - - 0x0186F2 06:A6E2: C9 D7     CMP #$D7                                         ; CONSTANT - Maximum allowed Y-value for the barrel (or stone)
+C - - - - - 0x0186F4 06:A6E4: B0 0F     BCS bra_A6F5_skip                                ; If PosY >= 0xD7
+C - - - - - 0x0186F6 06:A6E6: BD 5C 03  LDA vEnemyBStatus,X                              ;
+C - - - - - 0x0186F9 06:A6E9: 6A        ROR                                              ;
+C - - - - - 0x0186FA 06:A6EA: 90 06     BCC bra_A6F2_right                               ; If the enemy is looking to the right
+C - - - - - 0x0186FC 06:A6EC: 20 B5 A6  JSR sub_A6B5_try_movement_on_the_left            ;
+C - - - - - 0x0186FF 06:A6EF: 4C F5 A6  JMP loc_A6F5_continue                            ;
 
-bra_A6F2:
-C - - - - - 0x018702 06:A6F2: 20 C6 A6  JSR sub_A6C6
-bra_A6F5:
-loc_A6F5:
-C D 1 - - - 0x018705 06:A6F5: BC 86 03  LDY vEnemyBJumpCounter,X
-C - - - - - 0x018708 06:A6F8: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y
-C - - - - - 0x01870B 06:A6FB: 18        CLC
-C - - - - - 0x01870C 06:A6FC: 7D 68 03  ADC ram_0368,X
-C - - - - - 0x01870F 06:A6FF: C9 D7     CMP #$D7
-C - - - - - 0x018711 06:A701: 90 02     BCC bra_A705
-C - - - - - 0x018713 06:A703: A9 D7     LDA #$D7
-bra_A705:
-C - - - - - 0x018715 06:A705: 9D 68 03  STA ram_0368,X
-C - - - - - 0x018718 06:A708: BC 86 03  LDY vEnemyBJumpCounter,X
-C - - - - - 0x01871B 06:A70B: C0 18     CPY #$18
-C - - - - - 0x01871D 06:A70D: 90 33     BCC bra_A742
-C - - - - - 0x01871F 06:A70F: C9 D7     CMP #$D7
-C - - - - - 0x018721 06:A711: 90 05     BCC bra_A718
-C - - - - - 0x018723 06:A713: A0 FF     LDY #$FF
-C - - - - - 0x018725 06:A715: 4C 47 A6  JMP loc_A647_prepare_rendering
+bra_A6F2_right:
+C - - - - - 0x018702 06:A6F2: 20 C6 A6  JSR sub_A6C6_try_movement_on_the_right           ;
+bra_A6F5_skip:
+loc_A6F5_continue:
+C D 1 - - - 0x018705 06:A6F5: BC 86 03  LDY vEnemyBJumpCounter,X                         ;
+C - - - - - 0x018708 06:A6F8: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y                  ; Y = [0x00-0x2F]
+C - - - - - 0x01870B 06:A6FB: 18        CLC                                              ;
+C - - - - - 0x01870C 06:A6FC: 7D 68 03  ADC vEnemyBPosY,X                                ;
+C - - - - - 0x01870F 06:A6FF: C9 D7     CMP #$D7                                         ; CONSTANT - Maximum allowed Y-value for the barrel (or stone)
+C - - - - - 0x018711 06:A701: 90 02     BCC @bra_A705_skip                               ; If Register A < 0xD7
+C - - - - - 0x018713 06:A703: A9 D7     LDA #$D7                                         ; 0xD7 -> EnemyPosY
+@bra_A705_skip:
+C - - - - - 0x018715 06:A705: 9D 68 03  STA vEnemyBPosY,X                                ;
+C - - - - - 0x018718 06:A708: BC 86 03  LDY vEnemyBJumpCounter,X                         ;
+C - - - - - 0x01871B 06:A70B: C0 18     CPY #$18                                         ; CONSTANT - a maximum amplitude
+C - - - - - 0x01871D 06:A70D: 90 33     BCC bra_A742_inc                                 ; If vJumpCounter < 0x18
+C - - - - - 0x01871F 06:A70F: C9 D7     CMP #$D7                                         ; CONSTANT - Maximum allowed Y-value for the barrel (or stone)
+C - - - - - 0x018721 06:A711: 90 05     BCC bra_A718_skip                                ; If EnemyPosY < 0xD7
+C - - - - - 0x018723 06:A713: A0 FF     LDY #$FF                                         ; prepares the sprite_magic2 (The offset by the address), death mark
+C - - - - - 0x018725 06:A715: 4C 47 A6  JMP loc_A647_prepare_rendering                   ;
 
-bra_A718:
-C - - - - - 0x018728 06:A718: A9 09     LDA #$09
-C - - - - - 0x01872A 06:A71A: 20 DB D8  JSR sub_D8DB_enemyB_collision_by_shift_posY
-C - - - - - 0x01872D 06:A71D: F0 23     BEQ bra_A742
-C - - - - - 0x01872F 06:A71F: 20 A8 D8  JSR sub_D8A8_correction2_EnemyBPosY
-C - - - - - 0x018732 06:A722: A0 10     LDY #$10
-C - - - - - 0x018734 06:A724: BD 86 03  LDA vEnemyBJumpCounter,X
-bra_A727_repeat:
-C - - - - - 0x018737 06:A727: D9 A1 A5  CMP tbl_A5A1,Y
-C - - - - - 0x01873A 06:A72A: B0 04     BCS bra_A730
-C - - - - - 0x01873C 06:A72C: 88        DEY
-C - - - - - 0x01873D 06:A72D: 88        DEY
-C - - - - - 0x01873E 06:A72E: D0 F7     BNE bra_A727_repeat
-bra_A730:
-C - - - - - 0x018740 06:A730: B9 A2 A5  LDA tbl_A5A1 + 1,Y
-C - - - - - 0x018743 06:A733: 9D 86 03  STA vEnemyBJumpCounter,X
-C - - - - - 0x018746 06:A736: C9 18     CMP #$18
-C - - - - - 0x018748 06:A738: D0 08     BNE bra_A742
-C - - - - - 0x01874A 06:A73A: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x01874D 06:A73D: 29 E1     AND #$E1
-C - - - - - 0x01874F 06:A73F: 9D 5C 03  STA vEnemyBStatus,X
-bra_A742:
-C - - - - - 0x018752 06:A742: FE 86 03  INC vEnemyBJumpCounter,X
-C - - - - - 0x018755 06:A745: A9 2F     LDA #$2F
-C - - - - - 0x018757 06:A747: DD 86 03  CMP vEnemyBJumpCounter,X
-C - - - - - 0x01875A 06:A74A: B0 03     BCS bra_A74F
-C - - - - - 0x01875C 06:A74C: 9D 86 03  STA vEnemyBJumpCounter,X
-bra_A74F:
-C - - - - - 0x01875F 06:A74F: 4C 47 A6  JMP loc_A647_prepare_rendering
+bra_A718_skip:
+C - - - - - 0x018728 06:A718: A9 09     LDA #$09                                     ; prepare an input parameter (+9)
+C - - - - - 0x01872A 06:A71A: 20 DB D8  JSR sub_D8DB_enemyB_collision_by_shift_posY  ;
+C - - - - - 0x01872D 06:A71D: F0 23     BEQ bra_A742_inc                             ; If the collision by posY doesn't exist
+C - - - - - 0x01872F 06:A71F: 20 A8 D8  JSR sub_D8A8_correction2_EnemyBPosY          ;
+C - - - - - 0x018732 06:A722: A0 10     LDY #$10                                     ; set loop counter
+C - - - - - 0x018734 06:A724: BD 86 03  LDA vEnemyBJumpCounter,X                     ; prepare the old jump counter
+@bra_A727_repeat:
+C - - - - - 0x018737 06:A727: D9 A1 A5  CMP tbl_A5A1_jump_counters,Y                 ;
+C - - - - - 0x01873A 06:A72A: B0 04     BCS @bra_A730_break                          ; If vJumpCounter >= first value in the table
+C - - - - - 0x01873C 06:A72C: 88        DEY                                          ; descrement loop counter
+C - - - - - 0x01873D 06:A72D: 88        DEY                                          ; descrement loop counter
+C - - - - - 0x01873E 06:A72E: D0 F7     BNE @bra_A727_repeat                         ; While Register Y != 0x00
+@bra_A730_break:
+C - - - - - 0x018740 06:A730: B9 A2 A5  LDA tbl_A5A1_jump_counters + 1,Y             ; load the new jump counter
+C - - - - - 0x018743 06:A733: 9D 86 03  STA vEnemyBJumpCounter,X                     ;
+C - - - - - 0x018746 06:A736: C9 18     CMP #$18                                     ; CONSTANT - a maximum amplitude
+C - - - - - 0x018748 06:A738: D0 08     BNE bra_A742_inc                             ; If vJumpCounter != 0x18
+C - - - - - 0x01874A 06:A73A: BD 5C 03  LDA vEnemyBStatus,X                          ;
+C - - - - - 0x01874D 06:A73D: 29 E1     AND #$E1                                     ; clear substate
+C - - - - - 0x01874F 06:A73F: 9D 5C 03  STA vEnemyBStatus,X                          ;
+bra_A742_inc:
+C - - - - - 0x018752 06:A742: FE 86 03  INC vEnemyBJumpCounter,X                  ;
+C - - - - - 0x018755 06:A745: A9 2F     LDA #$2F                                  ; CONSTANT - a maximum jump value
+C - - - - - 0x018757 06:A747: DD 86 03  CMP vEnemyBJumpCounter,X                  ;
+C - - - - - 0x01875A 06:A74A: B0 03     BCS @bra_A74F_skip                        ; If vEnemyAJumpCounter <= 0x2F, i.e. less than maximum
+C - - - - - 0x01875C 06:A74C: 9D 86 03  STA vEnemyBJumpCounter,X                  ; reassign
+@bra_A74F_skip:
+C - - - - - 0x01875F 06:A74F: 4C 47 A6  JMP loc_A647_prepare_rendering            ;
 
 loc_A752_dying:
 C D 1 - - - 0x018762 06:A752: DE 86 03  DEC vEnemyBJumpCounter,X             ;
@@ -1425,6 +1435,7 @@ C - - - - - 0x0188AA 06:A89A: C9 DF     CMP #$DF                                
 C - - - - - 0x0188AC 06:A89C: 90 05     BCC @bra_A8A3_skip                               ; If EnemyPosY < 0xDF
 C - - - - - 0x0188AE 06:A89E: A0 FF     LDY #$FF                                         ; prepares the sprite_magic2 (The offset by the address), death mark
 C - - - - - 0x0188B0 06:A8A0: 4C 11 A8  JMP loc_A811_prepare_rendering                   ;
+
 @bra_A8A3_skip:
 C - - - - - 0x0188B3 06:A8A3: 85 00     STA ram_0000                                     ;
 C - - - - - 0x0188B5 06:A8A5: E6 00     INC ram_0000                                     ; prepare an input parameter
@@ -1998,7 +2009,7 @@ C - - - - - 0x018C47 06:AC37: 9D 4A 03  STA ram_034A,X
 bra_AC3A_RTS:
 C - - - - - 0x018C4A 06:AC3A: 60        RTS
 
-loc_AC3B:
+loc_AC3B_sensor:
 C D 1 - - - 0x018C4B 06:AC3B: 20 80 AC  JSR sub_AC80
 C - - - - - 0x018C4E 06:AC3E: 24 D1     BIT vGogglesActive
 C - - - - - 0x018C50 06:AC40: 50 33     BVC bra_AC75
@@ -2939,14 +2950,14 @@ C - - - - - 0x01926E 06:B25E: A6 1A     LDX vTempCounter1A             ; X <~ th
 C - - - - - 0x019270 06:B260: AD 00 03  LDA vEnemyA                    ;
 C - - - - - 0x019273 06:B263: C9 37     CMP #$37                       ; CONSTANT - Egyptian with a boomerung
 C - - - - - 0x019275 06:B265: D0 21     BNE @bra_B288_skip             ; If EnemyA != 0x37
-C - - - - - 0x019277 06:B267: A0 04     LDY #$04                       ; the jump counter value #1
+C - - - - - 0x019277 06:B267: A0 04     LDY #$04                       ; the damage point #1
 C - - - - - 0x019279 06:B269: AD 14 02  LDA vCurrentWeaponStatus       ;
 C - - - - - 0x01927C 06:B26C: C9 41     CMP #$41                       ; CONSTANT - 'the weapon is activated' + 'Using the bomb'
 C - - - - - 0x01927E 06:B26E: F0 08     BEQ @bra_B278_skip             ; If the character isn't using the bomb
-C - - - - - 0x019280 06:B270: A0 02     LDY #$02                       ; the jump counter value #2
+C - - - - - 0x019280 06:B270: A0 02     LDY #$02                       ; the damage point #2
 C - - - - - 0x019282 06:B272: C9 42     CMP #$42                       ; CONSTANT - 'the weapon is activated' + 'Using the artillery rifle'
 C - - - - - 0x019284 06:B274: F0 02     BEQ @bra_B278_skip             ; If the character isn't using the artillery rifle
-C - - - - - 0x019286 06:B276: A0 01     LDY #$01                       ; the jump counter value #3
+C - - - - - 0x019286 06:B276: A0 01     LDY #$01                       ; the damage point #3
 @bra_B278_skip:
 C - - - - - 0x019288 06:B278: DE 50 03  DEC vEnemyAHealthPoints,X      ;
 C - - - - - 0x01928B 06:B27B: F0 0B     BEQ @bra_B288_skip             ; If the health points is zero
@@ -2962,14 +2973,14 @@ C - - - - - 0x01929D 06:B28D: A9 03     LDA #$03                       ; CONSTAN
 C - - - - - 0x01929F 06:B28F: 9D 56 03  STA vEnemyAJumpType,X          ;
 C - - - - - 0x0192A2 06:B292: A9 00     LDA #$00                       ;
 C - - - - - 0x0192A4 06:B294: 9D 44 03  STA vEnemyAFrame_Counter,X     ; reset a counter
-C - - - - - 0x0192A7 06:B297: A0 10     LDY #$10                       ; the jump counter value #4
+C - - - - - 0x0192A7 06:B297: A0 10     LDY #$10                       ; the jump counter value #1
 C - - - - - 0x0192A9 06:B299: AD 00 03  LDA vEnemyA                    ;
 C - - - - - 0x0192AC 06:B29C: C9 38     CMP #$38                       ; CONSTANT - Ninja upside down
 C - - - - - 0x0192AE 06:B29E: D0 0A     BNE @bra_B2AA_skip             ; If EnemyA != 0x38
 C - - - - - 0x0192B0 06:B2A0: BD 2C 03  LDA vEnemyAPosY,X              ;
 C - - - - - 0x0192B3 06:B2A3: 69 0B     ADC #$0B                       ;
 C - - - - - 0x0192B5 06:B2A5: 9D 2C 03  STA vEnemyAPosY,X              ; PosY <~ PosY + 0x0B (the small landing)
-C - - - - - 0x0192B8 06:B2A8: A0 18     LDY #$18                       ; the jump counter value #5
+C - - - - - 0x0192B8 06:B2A8: A0 18     LDY #$18                       ; the jump counter value #2
 @bra_B2AA_skip:
 C - - - - - 0x0192BA 06:B2AA: 98        TYA                            ;
 C - - - - - 0x0192BB 06:B2AB: 9D 4A 03  STA vEnemyAJumpCounter,X       ; Initializes a jump counter

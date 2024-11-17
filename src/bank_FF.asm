@@ -7774,9 +7774,10 @@ C - - J - - 0x01EEFD 07:EEED: 20 30 EF  JSR sub_EF30_switch_bank_3_p2   ;
 C - - - - - 0x01EF00 07:EEF0: 20 09 A0  JSR sub_A009_boss4              ; basic mechanics of enemy behavior
 C - - - - - 0x01EF03 07:EEF3: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
-C - - J - - 0x01EF06 07:EEF6: 20 30 EF  JSR sub_EF30_switch_bank_3_p2
-C - - - - - 0x01EF09 07:EEF9: 20 0C A0  JSR $A00C ; to sub_A00C
-C - - - - - 0x01EF0C 07:EEFC: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_EEF6_undead:
+C - - J - - 0x01EF06 07:EEF6: 20 30 EF  JSR sub_EF30_switch_bank_3_p2   ;
+C - - - - - 0x01EF09 07:EEF9: 20 0C A0  JSR sub_A00C_undead             ; basic mechanics of enemy behavior
+C - - - - - 0x01EF0C 07:EEFC: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 loc_EEFF_swordtail:
 C - - J - - 0x01EF0F 07:EEFF: 20 30 EF  JSR sub_EF30_switch_bank_3_p2   ;
@@ -9957,9 +9958,9 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD0C 07:FCFC: 81 EE     .addr loc_EE81_barrel_or_stone  ; Cobblestone (level-racing, level 4) (0x21) Type B
 - D 3 - - - 0x01FD0E 07:FCFE: 0A AC     .word $AC0A                     ; The bird (level-racing) (0x22) Type B
 - D 3 - - - 0x01FD10 07:FD00: 02 AA     .addr loc_AA02_bomb_bird        ; The bird with a bomb (level-racing) (0x23) Type B
-- D 3 - - - 0x01FD12 07:FD02: F6 EE     .word $EEF6                     ; Skeleton (level 4) (0x24) Type A
+- D 3 - - - 0x01FD12 07:FD02: F6 EE     .addr loc_EEF6_undead           ; Skeleton (level 4) (0x24) Type A
 - D 3 - - - 0x01FD14 07:FD04: 9C EE     .word $EE9C                     ; Diver (0x25) Type B
-- D 3 - - - 0x01FD16 07:FD06: F6 EE     .word $EEF6                     ; Mummy (0x26) (level 4) Type A
+- D 3 - - - 0x01FD16 07:FD06: F6 EE     .addr loc_EEF6_undead           ; Mummy (0x26) (level 4) Type A
 - D 3 - - - 0x01FD18 07:FD08: 78 EE     .addr loc_EE78_soar_enemy       ; Gargoyle (0x27) (level 4) Type B
 - D 3 - - - 0x01FD1A 07:FD0A: D2 EE     .addr loc_boss_hulk             ; Boss (level 1) (0x28) Type A
 - D 3 - - - 0x01FD1C 07:FD0C: 87 F8     .addr loc_enemy_RTS             ;
