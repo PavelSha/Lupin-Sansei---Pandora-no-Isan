@@ -437,6 +437,8 @@ vEnemyAProjectileIsUsed       = ram_0326
 vEnemyASwordFrame_            = ram_0326
 vEnemyAVelocity               = ram_0326
 vEnemyAVelocity1              = ram_0326
+vEnemyARecoverCounter         = ram_0326 ; it's a recover from damage (e.g. skeleton)
+; 0xFF - it's not used
 vEnemyAVelocity2              = ram_0327
 vEnemyAProjectileVelocity     = ram_0328 ; $0328-$032B
 
@@ -669,3 +671,4 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; JSR $AD6E ; to sub_AD6E bank 06_2 - проверить записи
 ; 0x008B91 - лишние байты музыки
 ; удалить лишние директивы .export/.import
+; 03:B360 - баг с остановкой врага

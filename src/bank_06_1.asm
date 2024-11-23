@@ -2953,10 +2953,10 @@ C - - - - - 0x019275 06:B265: D0 21     BNE @bra_B288_skip             ; If Enem
 C - - - - - 0x019277 06:B267: A0 04     LDY #$04                       ; the damage point #1
 C - - - - - 0x019279 06:B269: AD 14 02  LDA vCurrentWeaponStatus       ;
 C - - - - - 0x01927C 06:B26C: C9 41     CMP #$41                       ; CONSTANT - 'the weapon is activated' + 'Using the bomb'
-C - - - - - 0x01927E 06:B26E: F0 08     BEQ @bra_B278_skip             ; If the character isn't using the bomb
+C - - - - - 0x01927E 06:B26E: F0 08     BEQ @bra_B278_skip             ; If the character is using the bomb
 C - - - - - 0x019280 06:B270: A0 02     LDY #$02                       ; the damage point #2
 C - - - - - 0x019282 06:B272: C9 42     CMP #$42                       ; CONSTANT - 'the weapon is activated' + 'Using the artillery rifle'
-C - - - - - 0x019284 06:B274: F0 02     BEQ @bra_B278_skip             ; If the character isn't using the artillery rifle
+C - - - - - 0x019284 06:B274: F0 02     BEQ @bra_B278_skip             ; If the character is using the artillery rifle
 C - - - - - 0x019286 06:B276: A0 01     LDY #$01                       ; the damage point #3
 @bra_B278_skip:
 C - - - - - 0x019288 06:B278: DE 50 03  DEC vEnemyAHealthPoints,X      ;
