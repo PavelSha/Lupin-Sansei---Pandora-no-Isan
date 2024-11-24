@@ -4134,7 +4134,7 @@ C - - - - - 0x019A36 06:BA26: B0 03     BCS bra_BA2B_skip                       
 bra_BA28_clear:
 C - - - - - 0x019A38 06:BA28: 9D 4A 03  STA vEnemyAJumpCounter,X                     ; reassign
 bra_BA2B_skip:
-C - - - - - 0x019A3B 06:BA2B: A0 18     LDY #$18                                     ; an input parameter - sprite_magic2 (a jump  with damage frame)
+C - - - - - 0x019A3B 06:BA2B: A0 18     LDY #$18                                     ; an input parameter - sprite_magic2 (a jump with damage frame)
 C - - - - - 0x019A3D 06:BA2D: BD 20 03  LDA vEnemyAStatus,X                          ;
 C - - - - - 0x019A40 06:BA30: 29 20     AND #$20                                     ; CONSTANT - the dying
 C - - - - - 0x019A42 06:BA32: D0 02     BNE @bra_BA36_skip                           ; If the enemy is dying

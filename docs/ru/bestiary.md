@@ -36,9 +36,9 @@
 |0x21|Cobblestone| B | [Булыжник](#враг-21) |4, racing|
 |0x22|The bird| B |   |racing|
 |0x23|The bird with a bomb| B |   |racing|
-|0x24|Skeleton| A |   | 4 |
+|0x24|Skeleton| A | [Скелет](#враг-24) | 4 |
 |0x25|Diver| B |   |   |
-|0x26|Mummy| A |   | 4 |
+|0x26|Mummy| A | [Мумия](#враг-26) | 4 |
 |0x27|Gargoyle| B | [Гаргулья](#враг-27) | 4 |
 |0x28|Boss1| A | [Халк](#враг-28) | 1 |
 |0x29| - | - | - | - |
@@ -422,6 +422,44 @@
 | ![Frame1](../images/enemies/21/frame1.png) | ![Frame2](../images/enemies/21/frame2.png) | ![Frame3](../images/enemies/21/frame3.png) | ![Frame4](../images/enemies/21/frame4.png) |
 ### Статусы
 Аналогично [красной бочке](#враг-0a).
+
+## Враг 24
+Скелет
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|
+|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/24/frame1-r.png) | ![Frame2](../images/enemies/24/frame2-r.png) | ![Frame3](../images/enemies/24/frame3-r.png) | ![Frame4](../images/enemies/24/frame4-r.png) | ![Frame5](../images/enemies/24/frame5-r.png) | ![Frame6](../images/enemies/24/frame6-r.png) |
+| ![Frame1](../images/enemies/24/frame1-l.png) | ![Frame2](../images/enemies/24/frame2-l.png) | ![Frame3](../images/enemies/24/frame3-l.png) | ![Frame4](../images/enemies/24/frame4-l.png) | ![Frame5](../images/enemies/24/frame5-l.png) | ![Frame6](../images/enemies/24/frame6-l.png) |
+
+|Кадр 1|Кадр 2|
+|---|---|
+| ![Frame1](../images/enemies/24/frame7.png) | ![Frame2](../images/enemies/24/frame8.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг прыжка, например через препятствие (**_0x00_** - не прыгает, **_0x01_** - прыгает)
+-  ***L*** - _не используется_
+-  ***K*** - флаг остановки (**_0x00_** - не остановился, **_0x01_** - остановился)
+-  ***W*** - флаг приседания перед прыжком (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
+
+## Враг 26
+Мумия
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|
+|---|---|---|---|---|
+| ![Frame1](../images/enemies/26/frame1-r.png) | ![Frame2](../images/enemies/26/frame2-r.png) | ![Frame3](../images/enemies/26/frame3-r.png) | ![Frame4](../images/enemies/26/frame4-r.png) | ![Frame5](../images/enemies/26/frame5-r.png) |
+| ![Frame1](../images/enemies/26/frame1-l.png) | ![Frame2](../images/enemies/26/frame2-l.png) | ![Frame3](../images/enemies/26/frame3-l.png) | ![Frame4](../images/enemies/26/frame4-l.png) | ![Frame5](../images/enemies/26/frame5-l.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг прыжка, например через препятствие (**_0x00_** - не прыгает, **_0x01_** - прыгает)
+-  ***L*** - флаг красной подсветки (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***K*** - флаг остановки (**_0x00_** - не остановился, **_0x01_** - остановился)
+-  ***W*** - флаг приседания перед прыжком (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 
 ## Враг 27
 Гаргулья
