@@ -325,7 +325,10 @@ v_low_vram_msg_address        = ram_00CB
 v_hign_vram_msg_address       = ram_00CC
 v_low_msg_ppu_address         = ram_00CF ; This temporary address for the message on the screen
 v_high_msg_ppu_address        = ram_00D0
-vGogglesActive                = ram_00D1 ; 0x80 - active, 0x00 - deactive
+vGogglesActive                = ram_00D1
+; 0x80 - active
+; 0x40 - projectiles are falling
+; 0x00 - deactive
 vGogglesLowCounter            = ram_00D2
 vGogglesHighCounter           = ram_00D3
 vTempChrLiveStatus            = ram_00D4
@@ -358,10 +361,12 @@ vCurrentWeaponStatus          = ram_0214 ; Only the active items
 ; 0x00000010 - Using the artillery rifle
 ; 0x00000011 - Using the jet-pack
 ; 0x00000100 - Using the infrared goggles
-vApparatusLowCounter  = ram_0215 ; Breathing or flying
-vApparatusHighCounter = ram_0216
+vApparatusLowCounter          = ram_0215 ; Breathing or flying
+vApparatusHighCounter         = ram_0216
+vSensorActiveLowCounter       = ram_0217
+vSensorActiveHighCounter      = ram_0218
 
-vArrayWhiteBriefcase           = ram_0219
+vArrayWhiteBriefcase          = ram_0219
 ; flag 0x80 - the item is got (see BIT_USING_WHITE_BRIEFCASE)
 
 vEnemies                      = ram_0300 ; see docs (Bestiary)
@@ -517,25 +522,32 @@ vEnemyBThrowingDirection      = ram_0362 ; For Raid and the last boss
 vEnemyBPosY                   = ram_0368 ; see below
 vEnemyBPosY1                  = ram_0368 ; The enemy position along the Y axis relative to the level (no repeat)
 vEnemyBPosY2                  = ram_0369 ; The enemy position along the Y axis relative to the level (no repeat)
+vEnemyBProjectilePosY         = ram_036A ; $036A-$036D
 
 vEnemyBScreenPosX             = ram_036E ; see below
 vEnemyBScreenPosX1            = ram_036E ; The enemy position along the X axis relative to the screen (no repeat)
 vEnemyBScreenPosX2            = ram_036F ; The enemy position along the X axis relative to the screen (no repeat)
+vEnemyBProjectileScreenPosY   = ram_0370 ; $0370-$0373
 
 vEnemyBPosXLow                = ram_0374 ; see below
 vEnemyBPosXLow1               = ram_0374 ; The enemy position along the X axis relative to the level (with repeat)
 vEnemyBPosXLow2               = ram_0375 ; The enemy position along the X axis relative to the level (with repeat)
+vEnemyBProjectilePosXLow      = ram_0376 ; $0376-$0379
+
 vEnemyBPosXHigh               = ram_037A ; see below
 vEnemyBPosXHigh1              = ram_037A ; The enemy position along the X axis relative to the level (in screen unit)
 vEnemyBPosXHigh2              = ram_037B ; The enemy position along the X axis relative to the level (in screen unit)
+vEnemyBProjectilePosXHigh     = ram_037C ; $037C-$037F
 
 vEnemyBFrame_Counter          = ram_0380 ; see below
 vEnemyBFrame_Counter1         = ram_0380 ; The frame index (the enemy number = 1)
 vEnemyBFrame_Counter2         = ram_0381 ; The frame index (the enemy number = 2)
+vEnemyBProjectileFrame_Counter = ram_0382 ; $0382-$0385
 
 vEnemyBJumpCounter            = ram_0386 ; see below
 vEnemyBJumpCounter1           = ram_0386 ; vJumpCounter analog for the enemy (the enemy number = 1)
 vEnemyBJumpCounter2           = ram_0387 ; vJumpCounter analog for the enemy (the enemy number = 2)
+vEnemyBProjectileJumpCounter  = ram_0388 ; $0388-$038B
 
 vEnemyBHealthPoints           = ram_038C ; Only for the gargoyle
 vEnemyBHealthPoints1          = ram_038C ; Only for the gargoyle

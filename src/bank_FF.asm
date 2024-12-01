@@ -141,6 +141,7 @@
 .export sub_D831_enemyB_on_screen
 .export loc_D989_add_enemyA_sprite_magic_v1
 .export loc_D97D_add_flash_sprite_magic
+.export loc_D980_add_flash_sprite_magic_ex
 .export sub_D7A8_correction_EnemyAPosY
 .export sub_D89C_correction_EnemyBPosY
 .export sub_D8A8_correction2_EnemyBPosY
@@ -4103,14 +4104,15 @@ C - - - - - 0x01D880 07:D870: 4C 64 D7  JMP loc_D764_diving_render           ;
 
 loc_D873_free_enemyB:
 bra_D873_free_enemyB:
-C D 2 - - - 0x01D883 07:D873: A6 1A     LDX vTempCounter1A             ; puts the enemyA number
+C D 2 - - - 0x01D883 07:D873: A6 1A     LDX vTempCounter1A             ; puts the enemyB number
 C - - - - - 0x01D885 07:D875: AC 01 03  LDY vEnemyB                    ;
 C - - - - - 0x01D888 07:D878: BD 5C 03  LDA vEnemyBStatus,X            ;
 C - - - - - 0x01D88B 07:D87B: 20 17 DA  JSR sub_DA17_add_enemy_score   ;
+; In: Register X - the enemyB number
 loc_D87E_free_enemyB_while_creating:
 sub_D87E_free_enemyB_while_creating:
 C D 2 - - - 0x01D88E 07:D87E: A9 00     LDA #$00                       ;
-C - - - - - 0x01D890 07:D880: 9D 5C 03  STA vEnemyBStatus,X            ; clear a status
+C - - - - - 0x01D890 07:D880: 9D 5C 03  STA vEnemyBStatus,X
 sub_D883_dec_enemyB_counter:
 loc_D883_dec_enemyB_counter:
 C D 2 - - - 0x01D893 07:D883: AD 0B 03  LDA vEnemyBCount               ;
@@ -4320,6 +4322,8 @@ C - - - - - 0x01D98C 07:D97C: 60        RTS                 ;
 
 loc_D97D_add_flash_sprite_magic:
 C D 2 - - - 0x01D98D 07:D97D: BD 86 03  LDA vEnemyBJumpCounter,X      ;
+; In: Register A - the jump counter
+loc_D980_add_flash_sprite_magic_ex:
 C - - - - - 0x01D990 07:D980: 29 0C     AND #$0C                      ; filters (a mask)
 C - - - - - 0x01D992 07:D982: 4A        LSR                           ;
 C - - - - - 0x01D993 07:D983: 18        CLC                           ;
