@@ -264,8 +264,7 @@
 - D - - - - 0x01617A 05:816A: 99 88     .addr loc_jumping_sailer_right_frame_5   ; CPU Address $8899
 - D 0 - I - 0x01617C 05:816C: AA 88     .addr loc_jumping_sailer_left_frame_5    ; CPU Address $88AA
 
-- D 0 - I - 0x01617E 05:816E: BB        .byte $BB   ; 
-- D 0 - I - 0x01617F 05:816F: 88        .byte $88   ; 
+- D 0 - I - 0x01617E 05:816E: BB 88     .addr loc_sensor_frame_  ; CPU Address $88BB
 
 - D 0 - I - 0x016180 05:8170: C0 88     .addr loc_bazookaman_right_frame_1  ; CPU Address $88C0
 - D 0 - I - 0x016182 05:8172: D9 88     .addr loc_bazookaman_left_frame_1   ; CPU Address $88D9
@@ -294,22 +293,14 @@
 - D 0 - I - 0x0161A4 05:8194: DA 8A     .addr loc_fat_sailor_right_frame_5  ; CPU Address $8ADA
 - D 0 - I - 0x0161A6 05:8196: F7 8A     .addr loc_fat_sailor_left_frame_5   ; CPU Address $8AF7
 
-- D 0 - I - 0x0161A8 05:8198: 14        .byte $14   ; 
-- D 0 - I - 0x0161A9 05:8199: 8B        .byte $8B   ; 
-- D 0 - I - 0x0161AA 05:819A: 1D        .byte $1D   ; 
-- D 0 - I - 0x0161AB 05:819B: 8B        .byte $8B   ; 
-- D 0 - I - 0x0161AC 05:819C: 26        .byte $26   ; 
-- D 0 - I - 0x0161AD 05:819D: 8B        .byte $8B   ; 
-- D 0 - I - 0x0161AE 05:819E: 2B        .byte $2B   ; 
-- D 0 - I - 0x0161AF 05:819F: 8B        .byte $8B   ; 
-- D 0 - I - 0x0161B0 05:81A0: 34        .byte $34   ; <4>
-- D 0 - I - 0x0161B1 05:81A1: 8B        .byte $8B   ; 
-- D 0 - I - 0x0161B2 05:81A2: 3D        .byte $3D   ; 
-- D 0 - I - 0x0161B3 05:81A3: 8B        .byte $8B   ; 
-- D 0 - I - 0x0161B4 05:81A4: 46        .byte $46   ; <F>
-- D 0 - I - 0x0161B5 05:81A5: 8B        .byte $8B   ; 
-- D 0 - I - 0x0161B6 05:81A6: 4B        .byte $4B   ; <K>
-- D 0 - I - 0x0161B7 05:81A7: 8B        .byte $8B   ; 
+- D 0 - I - 0x0161A8 05:8198: 14 8B     .addr loc_sensor_projectile_frame_1  ; CPU Address $8B14
+- D 0 - I - 0x0161AA 05:819A: 1D 8B     .addr loc_sensor_projectile_frame_2  ; CPU Address $8B1D
+- D 0 - I - 0x0161AC 05:819C: 26 8B     .addr loc_sensor_projectile_frame_3  ; CPU Address $8B26
+- D 0 - I - 0x0161AE 05:819E: 2B 8B     .addr loc_sensor_projectile_frame_4  ; CPU Address $8B2B
+- D 0 - I - 0x0161B0 05:81A0: 34 8B     .addr loc_sensor_projectile_frame_5  ; CPU Address $8B34
+- D 0 - I - 0x0161B2 05:81A2: 3D 8B     .addr loc_sensor_projectile_frame_6  ; CPU Address $8B3D
+- D 0 - I - 0x0161B4 05:81A4: 46 8B     .addr loc_sensor_projectile_frame_7  ; CPU Address $8B46
+- D 0 - I - 0x0161B6 05:81A6: 4B 8B     .addr loc_sensor_projectile_frame_8  ; CPU Address $8B4B
 
 - D 0 - I - 0x0161B8 05:81A8: 81 83     .addr loc_bullet_right_frame_           ; CPU Address $8381
 - D 0 - I - 0x0161BA 05:81AA: 81 83     .addr loc_bullet_left_frame_            ; CPU Address $8381
@@ -1295,11 +1286,9 @@ loc_jumping_sailer_left_frame_5:
 - D 0 - I - 0x0168C3 05:88B3: F9        .byte $F9, $9D, $40, $00
 - D 0 - I - 0x0168C7 05:88B7: F9        .byte $F9, $9F, $40, $F8
 
-- D 0 - I - 0x0168CB 05:88BB: 01        .byte $01   ; 
-- D 0 - I - 0x0168CC 05:88BC: F8        .byte $F8   ; 
-- D 0 - I - 0x0168CD 05:88BD: AD        .byte $AD   ; 
-- D 0 - I - 0x0168CE 05:88BE: 00        .byte $00   ; 
-- D 0 - I - 0x0168CF 05:88BF: FC        .byte $FC   ; 
+loc_sensor_frame_:
+- D 0 - I - 0x0168CB 05:88BB: 01        .byte $01
+- D 0 - I - 0x0168CC 05:88BC: F8        .byte $F8, $AD, $00, $FC
 
 loc_bazookaman_right_frame_1:
 - D 0 - I - 0x0168D0 05:88C0: 06        .byte $06
@@ -1528,70 +1517,43 @@ loc_fat_sailor_left_frame_5:
 - D 0 - I - 0x016B1C 05:8B0C: F9        .byte $F9, $A9, $00, $FC
 - D 0 - I - 0x016B20 05:8B10: F9        .byte $F9, $AA, $00, $04
 
-- D 0 - I - 0x016B24 05:8B14: 02        .byte $02   ; 
-- D 0 - I - 0x016B25 05:8B15: F8        .byte $F8   ; 
-- D 0 - I - 0x016B26 05:8B16: B3        .byte $B3   ; 
-- D 0 - I - 0x016B27 05:8B17: 00        .byte $00   ; 
-- D 0 - I - 0x016B28 05:8B18: FC        .byte $FC   ; 
-- D 0 - I - 0x016B29 05:8B19: 00        .byte $00   ; 
-- D 0 - I - 0x016B2A 05:8B1A: B4        .byte $B4   ; 
-- D 0 - I - 0x016B2B 05:8B1B: 00        .byte $00   ; 
-- D 0 - I - 0x016B2C 05:8B1C: FC        .byte $FC   ; 
-- D 0 - I - 0x016B2D 05:8B1D: 02        .byte $02   ; 
-- D 0 - I - 0x016B2E 05:8B1E: F8        .byte $F8   ; 
-- D 0 - I - 0x016B2F 05:8B1F: B5        .byte $B5   ; 
-- D 0 - I - 0x016B30 05:8B20: 00        .byte $00   ; 
-- D 0 - I - 0x016B31 05:8B21: FC        .byte $FC   ; 
-- D 0 - I - 0x016B32 05:8B22: 00        .byte $00   ; 
-- D 0 - I - 0x016B33 05:8B23: B6        .byte $B6   ; 
-- D 0 - I - 0x016B34 05:8B24: 00        .byte $00   ; 
-- D 0 - I - 0x016B35 05:8B25: FC        .byte $FC   ; 
-- D 0 - I - 0x016B36 05:8B26: 01        .byte $01   ; 
-- D 0 - I - 0x016B37 05:8B27: FC        .byte $FC   ; 
-- D 0 - I - 0x016B38 05:8B28: B7        .byte $B7   ; 
-- D 0 - I - 0x016B39 05:8B29: 00        .byte $00   ; 
-- D 0 - I - 0x016B3A 05:8B2A: FC        .byte $FC   ; 
-- D 0 - I - 0x016B3B 05:8B2B: 02        .byte $02   ; 
-- D 0 - I - 0x016B3C 05:8B2C: F8        .byte $F8   ; 
-- D 0 - I - 0x016B3D 05:8B2D: B6        .byte $B6   ; 
-- D 0 - I - 0x016B3E 05:8B2E: 80        .byte $80   ; 
-- D 0 - I - 0x016B3F 05:8B2F: FC        .byte $FC   ; 
-- D 0 - I - 0x016B40 05:8B30: 00        .byte $00   ; 
-- D 0 - I - 0x016B41 05:8B31: B5        .byte $B5   ; 
-- D 0 - I - 0x016B42 05:8B32: 80        .byte $80   ; 
-- D 0 - I - 0x016B43 05:8B33: FC        .byte $FC   ; 
-- D 0 - I - 0x016B44 05:8B34: 02        .byte $02   ; 
-- D 0 - I - 0x016B45 05:8B35: F8        .byte $F8   ; 
-- D 0 - I - 0x016B46 05:8B36: B4        .byte $B4   ; 
-- D 0 - I - 0x016B47 05:8B37: 80        .byte $80   ; 
-- D 0 - I - 0x016B48 05:8B38: FC        .byte $FC   ; 
-- D 0 - I - 0x016B49 05:8B39: 00        .byte $00   ; 
-- D 0 - I - 0x016B4A 05:8B3A: B3        .byte $B3   ; 
-- D 0 - I - 0x016B4B 05:8B3B: 80        .byte $80   ; 
-- D 0 - I - 0x016B4C 05:8B3C: FC        .byte $FC   ; 
-- D 0 - I - 0x016B4D 05:8B3D: 02        .byte $02   ; 
-- D 0 - I - 0x016B4E 05:8B3E: F8        .byte $F8   ; 
-- D 0 - I - 0x016B4F 05:8B3F: AE        .byte $AE   ; 
-- D 0 - I - 0x016B50 05:8B40: 00        .byte $00   ; 
-- D 0 - I - 0x016B51 05:8B41: FC        .byte $FC   ; 
-- D 0 - I - 0x016B52 05:8B42: 00        .byte $00   ; 
-- D 0 - I - 0x016B53 05:8B43: B0        .byte $B0   ; 
-- D 0 - I - 0x016B54 05:8B44: 00        .byte $00   ; 
-- D 0 - I - 0x016B55 05:8B45: FC        .byte $FC   ; 
-- D 0 - I - 0x016B56 05:8B46: 01        .byte $01   ; 
-- D 0 - I - 0x016B57 05:8B47: FC        .byte $FC   ; 
-- D 0 - I - 0x016B58 05:8B48: AF        .byte $AF   ; 
-- D 0 - I - 0x016B59 05:8B49: 00        .byte $00   ; 
-- D 0 - I - 0x016B5A 05:8B4A: FC        .byte $FC   ; 
-- D 0 - I - 0x016B5B 05:8B4B: 02        .byte $02   ; 
-- D 0 - I - 0x016B5C 05:8B4C: F8        .byte $F8   ; 
-- D 0 - I - 0x016B5D 05:8B4D: B0        .byte $B0   ; 
-- D 0 - I - 0x016B5E 05:8B4E: 80        .byte $80   ; 
-- D 0 - I - 0x016B5F 05:8B4F: FC        .byte $FC   ; 
-- D 0 - I - 0x016B60 05:8B50: 00        .byte $00   ; 
-- D 0 - I - 0x016B61 05:8B51: AE        .byte $AE   ; 
-- D 0 - I - 0x016B62 05:8B52: 80        .byte $80   ; 
-- D 0 - I - 0x016B63 05:8B53: FC        .byte $FC   ; 
+loc_sensor_projectile_frame_1:
+- D 0 - I - 0x016B24 05:8B14: 02        .byte $02
+- D 0 - I - 0x016B25 05:8B15: F8        .byte $F8, $B3, $00, $FC
+- D 0 - I - 0x016B29 05:8B19: 00        .byte $00, $B4, $00, $FC
+
+loc_sensor_projectile_frame_2:
+- D 0 - I - 0x016B2D 05:8B1D: 02        .byte $02
+- D 0 - I - 0x016B2E 05:8B1E: F8        .byte $F8, $B5, $00, $FC
+- D 0 - I - 0x016B32 05:8B22: 00        .byte $00, $B6, $00, $FC
+
+loc_sensor_projectile_frame_3:
+- D 0 - I - 0x016B36 05:8B26: 01        .byte $01
+- D 0 - I - 0x016B37 05:8B27: FC        .byte $FC, $B7, $00, $FC
+
+loc_sensor_projectile_frame_4:
+- D 0 - I - 0x016B3B 05:8B2B: 02        .byte $02
+- D 0 - I - 0x016B3C 05:8B2C: F8        .byte $F8, $B6, $80, $FC
+- D 0 - I - 0x016B40 05:8B30: 00        .byte $00, $B5, $80, $FC
+
+loc_sensor_projectile_frame_5:
+- D 0 - I - 0x016B44 05:8B34: 02        .byte $02
+- D 0 - I - 0x016B45 05:8B35: F8        .byte $F8, $B4, $80, $FC
+- D 0 - I - 0x016B49 05:8B39: 00        .byte $00, $B3, $80, $FC
+
+loc_sensor_projectile_frame_6:
+- D 0 - I - 0x016B4D 05:8B3D: 02        .byte $02
+- D 0 - I - 0x016B4E 05:8B3E: F8        .byte $F8, $AE, $00, $FC
+- D 0 - I - 0x016B52 05:8B42: 00        .byte $00, $B0, $00, $FC
+
+loc_sensor_projectile_frame_7:
+- D 0 - I - 0x016B56 05:8B46: 01        .byte $01
+- D 0 - I - 0x016B57 05:8B47: FC        .byte $FC, $AF, $00, $FC
+
+loc_sensor_projectile_frame_8:
+- D 0 - I - 0x016B5B 05:8B4B: 02        .byte $02
+- D 0 - I - 0x016B5C 05:8B4C: F8        .byte $F8, $B0, $80, $FC
+- D 0 - I - 0x016B60 05:8B50: 00        .byte $00, $AE, $80, $FC
 
 loc_nun_right_frame_1:
 - D 0 - I - 0x016B64 05:8B54: 06        .byte $06

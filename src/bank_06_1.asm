@@ -2010,49 +2010,49 @@ bra_AC3A_RTS:
 C - - - - - 0x018C4A 06:AC3A: 60        RTS
 
 loc_AC3B_sensor:
-C D 1 - - - 0x018C4B 06:AC3B: 20 80 AC  JSR sub_AC80
-C - - - - - 0x018C4E 06:AC3E: 24 D1     BIT vGogglesActive            ; 
-C - - - - - 0x018C50 06:AC40: 50 33     BVC @bra_AC75_skip            ; If projectiles aren't falling
-C - - - - - 0x018C52 06:AC42: A5 2C     LDA vLowCounter               ;
-C - - - - - 0x018C54 06:AC44: 29 03     AND #$03                      ; A <~ {0x00, 0x01, 0x02, 0x03}
-C - - - - - 0x018C56 06:AC46: A8        TAY                           ; Y <~ the projectile number
-C - - - - - 0x018C57 06:AC47: B9 5E 03  LDA vEnemyBStatus + 2,Y       ;
-C - - - - - 0x018C5A 06:AC4A: 30 29     BMI @bra_AC75_skip            ; If the projectile status is used
-C - - - - - 0x018C5C 06:AC4C: A9 29     LDA #$29                      ; the sound of falling projectile
-C - - - - - 0x018C5E 06:AC4E: 20 20 C4  JSR sub_C420_add_sound_effect ; bank FF
-C - - - - - 0x018C61 06:AC51: A9 C2     LDA #$C2
-C - - - - - 0x018C63 06:AC53: 99 5E 03  STA vEnemyBStatus + 2,Y
-C - - - - - 0x018C66 06:AC56: 20 64 D0  JSR sub_D064_generate_rng
-C - - - - - 0x018C69 06:AC59: 18        CLC
-C - - - - - 0x018C6A 06:AC5A: 65 27     ADC vLowViewPortPosX
-C - - - - - 0x018C6C 06:AC5C: 99 76 03  STA vEnemyBProjectilePosXLow,Y
-C - - - - - 0x018C6F 06:AC5F: A5 4B     LDA vHighViewPortPosX
-C - - - - - 0x018C71 06:AC61: 69 00     ADC #$00
-C - - - - - 0x018C73 06:AC63: 99 7C 03  STA vEnemyBProjectilePosXHigh,Y
-C - - - - - 0x018C76 06:AC66: A9 30     LDA #$30
-C - - - - - 0x018C78 06:AC68: 99 6A 03  STA vEnemyBProjectilePosY,Y
-C - - - - - 0x018C7B 06:AC6B: A9 00     LDA #$00
-C - - - - - 0x018C7D 06:AC6D: 99 82 03  STA vEnemyBProjectileFrame_Counter,Y
-C - - - - - 0x018C80 06:AC70: A9 18     LDA #$18
-C - - - - - 0x018C82 06:AC72: 99 88 03  STA vEnemyBProjectileJumpCounter,Y
+C D 1 - - - 0x018C4B 06:AC3B: 20 80 AC  JSR sub_AC80_render_and_activate_each  ;
+C - - - - - 0x018C4E 06:AC3E: 24 D1     BIT vGogglesActive                     ; 
+C - - - - - 0x018C50 06:AC40: 50 33     BVC @bra_AC75_skip                     ; If projectiles aren't falling
+C - - - - - 0x018C52 06:AC42: A5 2C     LDA vLowCounter                        ;
+C - - - - - 0x018C54 06:AC44: 29 03     AND #$03                               ; A <~ {0x00, 0x01, 0x02, 0x03}
+C - - - - - 0x018C56 06:AC46: A8        TAY                                    ; Y <~ the projectile number
+C - - - - - 0x018C57 06:AC47: B9 5E 03  LDA vEnemyBStatus + 2,Y                ;
+C - - - - - 0x018C5A 06:AC4A: 30 29     BMI @bra_AC75_skip                     ; If the projectile status is used
+C - - - - - 0x018C5C 06:AC4C: A9 29     LDA #$29                               ; the sound of falling projectile
+C - - - - - 0x018C5E 06:AC4E: 20 20 C4  JSR sub_C420_add_sound_effect          ; bank FF
+C - - - - - 0x018C61 06:AC51: A9 C2     LDA #$C2                               ; CONSTANT - substatuses + 'the falling'
+C - - - - - 0x018C63 06:AC53: 99 5E 03  STA vEnemyBStatus + 2,Y                ;
+C - - - - - 0x018C66 06:AC56: 20 64 D0  JSR sub_D064_generate_rng              ;
+C - - - - - 0x018C69 06:AC59: 18        CLC                                    ;
+C - - - - - 0x018C6A 06:AC5A: 65 27     ADC vLowViewPortPosX                   ;
+C - - - - - 0x018C6C 06:AC5C: 99 76 03  STA vEnemyBProjectilePosXLow,Y         ; <~ LowPosX + RNG value
+C - - - - - 0x018C6F 06:AC5F: A5 4B     LDA vHighViewPortPosX                  ;
+C - - - - - 0x018C71 06:AC61: 69 00     ADC #$00                               ;
+C - - - - - 0x018C73 06:AC63: 99 7C 03  STA vEnemyBProjectilePosXHigh,Y        ; <~ HighPosX (+1 with overflow)
+C - - - - - 0x018C76 06:AC66: A9 30     LDA #$30                               ;
+C - - - - - 0x018C78 06:AC68: 99 6A 03  STA vEnemyBProjectilePosY,Y            ; initialize Y-position
+C - - - - - 0x018C7B 06:AC6B: A9 00     LDA #$00                               ;
+C - - - - - 0x018C7D 06:AC6D: 99 82 03  STA vEnemyBProjectileFrame_Counter,Y   ; reset a counter
+C - - - - - 0x018C80 06:AC70: A9 18     LDA #$18                               ; CONSTANT - a maximum amplitude
+C - - - - - 0x018C82 06:AC72: 99 88 03  STA vEnemyBProjectileJumpCounter,Y     ;
 @bra_AC75_skip:
 C - - - - - 0x018C85 06:AC75: AD 01 03  LDA vEnemyB                            ;
 C - - - - - 0x018C88 06:AC78: F0 03     BEQ bra_AC7D_not_found                 ; If the sensors don't found
-C - - - - - 0x018C8A 06:AC7A: 4C 00 AD  JMP loc_AD00_projectile
+C - - - - - 0x018C8A 06:AC7A: 4C 00 AD  JMP loc_AD00_projectile                ;
 
 bra_AC7D_not_found:
-C - - - - - 0x018C8D 06:AC7D: 4C 51 AD  JMP loc_AD51_deactivate
+C - - - - - 0x018C8D 06:AC7D: 4C 51 AD  JMP loc_AD51_deactivate                ;
 
-sub_AC80:
-C - - - - - 0x018C90 06:AC80: A2 01     LDX #$01
-C - - - - - 0x018C92 06:AC82: 86 1A     STX vTempCounter1A
-@bra_AC84_loop:
-C - - - - - 0x018C94 06:AC84: A6 1A     LDX vTempCounter1A
-C - - - - - 0x018C96 06:AC86: 20 98 AC  JSR sub_AC98
-C - - - - - 0x018C99 06:AC89: C6 1A     DEC vTempCounter1A
-C - - - - - 0x018C9B 06:AC8B: 10 F7     BPL @bra_AC84_loop
+sub_AC80_render_and_activate_each:
+C - - - - - 0x018C90 06:AC80: A2 01     LDX #$01                               ;
+C - - - - - 0x018C92 06:AC82: 86 1A     STX vTempCounter1A                     ; set loop counter
+@bra_AC84_loop:                                                                ; loop by vTempCounter1A (2 times)
+C - - - - - 0x018C94 06:AC84: A6 1A     LDX vTempCounter1A                     ; prepare an input parameter
+C - - - - - 0x018C96 06:AC86: 20 98 AC  JSR sub_AC98_render_and_activate       ;
+C - - - - - 0x018C99 06:AC89: C6 1A     DEC vTempCounter1A                     ; decrement loop counter
+C - - - - - 0x018C9B 06:AC8B: 10 F7     BPL @bra_AC84_loop                     ; If Register X >= 0x00
 bra_AC8D_RTS:
-C - - - - - 0x018C9D 06:AC8D: 60        RTS
+C - - - - - 0x018C9D 06:AC8D: 60        RTS                                    ;
 
 bra_AC8E_free_enemyB_while_creating:
 C - - - - - 0x018C9E 06:AC8E: A6 1A     LDX vTempCounter1A                ; puts the enemyB number
@@ -2061,7 +2061,7 @@ C - - - - - 0x018CA2 06:AC92: 9D 5C 03  STA vEnemyBStatus,X               ; clea
 C - - - - - 0x018CA5 06:AC95: 4C 83 D8  JMP loc_D883_dec_enemyB_counter   ;
 
 ; In: Register X - the enemyB number
-sub_AC98:
+sub_AC98_render_and_activate:
 C - - - - - 0x018CA8 06:AC98: BD 5C 03  LDA vEnemyBStatus,X                        ;
 C - - - - - 0x018CAB 06:AC9B: 10 F0     BPL bra_AC8D_RTS                           ; If the status isn't used
 C - - - - - 0x018CAD 06:AC9D: BD 74 03  LDA vEnemyBPosXLow,X                       ;
@@ -2101,7 +2101,7 @@ C - - - - - 0x018CF8 06:ACE8: 90 15     BCC bra_ACFF_RTS                        
 C - - - - - 0x018CFA 06:ACEA: A0 03     LDY #$03                                   ; set loop counter (projectiles)
 C - - - - - 0x018CFC 06:ACEC: A9 00     LDA #$00                                   ; CONSTANT - a clear value
 @bra_ACEE_loop:                                                                    ; loop by y
-C - - - - - 0x018CFE 06:ACEE: 99 5E 03  STA vEnemyBStatus + 2,Y
+C - - - - - 0x018CFE 06:ACEE: 99 5E 03  STA vEnemyBStatus + 2,Y                    ;
 C - - - - - 0x018D01 06:ACF1: 88        DEY                                        ; decrement loop counter
 C - - - - - 0x018D02 06:ACF2: 10 FA     BPL @bra_ACEE_loop                         ; If Register Y >= 0x00
 C - - - - - 0x018D04 06:ACF4: A9 02     LDA #$02                                   ;
@@ -2116,35 +2116,35 @@ loc_AD00_projectile:
 C D 1 - - - 0x018D10 06:AD00: A2 03     LDX #$03                            ;
 C - - - - - 0x018D12 06:AD02: 86 1A     STX vTempCounter1A                  ; set loop counter
 bra_AD04_loop:                                                              ; loop by vTempCounter1A (4 times)
-C - - - - - 0x018D14 06:AD04: A6 1A     LDX vTempCounter1A
-C - - - - - 0x018D16 06:AD06: 20 77 AD  JSR sub_AD77_status_behavior
+C - - - - - 0x018D14 06:AD04: A6 1A     LDX vTempCounter1A                  ; prepare an inpur parameter
+C - - - - - 0x018D16 06:AD06: 20 77 AD  JSR sub_AD77_status_behavior        ;
 C - - - - - 0x018D19 06:AD09: BD 5E 03  LDA vEnemyBStatus + 2,X             ;
 C - - - - - 0x018D1C 06:AD0C: C9 E0     CMP #$E0                            ;
 C - - - - - 0x018D1E 06:AD0E: B0 33     BCS bra_AD43_next                   ; If vEnemyBStatus >= 0xE0
 C - - - - - 0x018D20 06:AD10: C9 C0     CMP #$C0                            ;
 C - - - - - 0x018D22 06:AD12: 90 2F     BCC bra_AD43_next                   ; If vEnemyBStatus < 0xC0 else only 0xCX or 0xDX
-C - - - - - 0x018D24 06:AD14: BD 6A 03  LDA vEnemyBProjectilePosY,X
-C - - - - - 0x018D27 06:AD17: 18        CLC
-C - - - - - 0x018D28 06:AD18: 69 06     ADC #$06
-C - - - - - 0x018D2A 06:AD1A: 85 AD     STA ram_00AD
-C - - - - - 0x018D2C 06:AD1C: BD 70 03  LDA vEnemyBProjectileScreenPosY,X
-C - - - - - 0x018D2F 06:AD1F: 85 AE     STA ram_00AE
-C - - - - - 0x018D31 06:AD21: A9 0C     LDA #$0C
-C - - - - - 0x018D33 06:AD23: 85 AF     STA ram_00AF
-C - - - - - 0x018D35 06:AD25: A9 04     LDA #$04
-C - - - - - 0x018D37 06:AD27: 85 B0     STA ram_00B0
-C - - - - - 0x018D39 06:AD29: AD 14 02  LDA vCurrentWeaponStatus
-C - - - - - 0x018D3C 06:AD2C: C9 49     CMP #$49
-C - - - - - 0x018D3E 06:AD2E: D0 0B     BNE bra_AD3B
-C - - - - - 0x018D40 06:AD30: 20 06 D6  JSR sub_D606_have_intersect_sword
-C - - - - - 0x018D43 06:AD33: 90 06     BCC bra_AD3B
-C - - - - - 0x018D45 06:AD35: 20 5D AD  JSR sub_AD5D
-C - - - - - 0x018D48 06:AD38: 4C 43 AD  JMP loc_AD43_next
+C - - - - - 0x018D24 06:AD14: BD 6A 03  LDA vEnemyBProjectilePosY,X         ;
+C - - - - - 0x018D27 06:AD17: 18        CLC                                 ;
+C - - - - - 0x018D28 06:AD18: 69 06     ADC #$06                            ;
+C - - - - - 0x018D2A 06:AD1A: 85 AD     STA vEnemyHitBoxY                   ; <~ projectile posY + 0x06
+C - - - - - 0x018D2C 06:AD1C: BD 70 03  LDA vEnemyBProjectileScreenPosY,X   ;
+C - - - - - 0x018D2F 06:AD1F: 85 AE     STA vEnemyHitBoxX                   ; <~ projectile screen posX
+C - - - - - 0x018D31 06:AD21: A9 0C     LDA #$0C                            ;
+C - - - - - 0x018D33 06:AD23: 85 AF     STA vEnemyHitBoxH                   ; <~ hitBoxH
+C - - - - - 0x018D35 06:AD25: A9 04     LDA #$04                            ;
+C - - - - - 0x018D37 06:AD27: 85 B0     STA vEnemyHitBoxW                   ; <~ hitBoxW
+C - - - - - 0x018D39 06:AD29: AD 14 02  LDA vCurrentWeaponStatus            ;
+C - - - - - 0x018D3C 06:AD2C: C9 49     CMP #$49                            ; !(BUG?), CONSTANT - 'the weapon is activated' + 'The unknown Goemon's weapon'
+C - - - - - 0x018D3E 06:AD2E: D0 0B     BNE bra_AD3B_continue               ; If the character isn't using the unknown weapon
+C - - - - - 0x018D40 06:AD30: 20 06 D6  JSR sub_D606_have_intersect_sword   ;
+C - - - - - 0x018D43 06:AD33: 90 06     BCC bra_AD3B_continue               ; If the intersect doesn't exist
+C - - - - - 0x018D45 06:AD35: 20 5D AD  JSR sub_AD5D_hit                    ;
+C - - - - - 0x018D48 06:AD38: 4C 43 AD  JMP loc_AD43_next                   ;
 
-bra_AD3B:
-C - - - - - 0x018D4B 06:AD3B: 20 62 D5  JSR sub_D562_has_character_damage
-C - - - - - 0x018D4E 06:AD3E: 90 03     BCC bra_AD43_next
-C - - - - - 0x018D50 06:AD40: 20 6F AD  JSR sub_AD6F_free_projectile
+bra_AD3B_continue:
+C - - - - - 0x018D4B 06:AD3B: 20 62 D5  JSR sub_D562_has_character_damage   ;
+C - - - - - 0x018D4E 06:AD3E: 90 03     BCC bra_AD43_next                   ; if the character didn't get damage
+C - - - - - 0x018D50 06:AD40: 20 6F AD  JSR sub_AD6F_free_projectile        ;
 bra_AD43_next:
 loc_AD43_next:
 C - - - - - 0x018D53 06:AD43: C6 1A     DEC vTempCounter1A               ; decrements loop counter
@@ -2163,15 +2163,15 @@ bra_AD58_update_counter:
 C - - - - - 0x018D68 06:AD58: A0 02     LDY #$02                             ; CONSTANT - the counter offset for vSensorActiveCounter
 C - - - - - 0x018D6A 06:AD5A: 4C AC CD  JMP loc_CDAC_decrement_counters_ex   ;
 
-sub_AD5D:
-C - - - - - 0x018D6D 06:AD5D: A6 1A     LDX vTempCounter1A
-C - - - - - 0x018D6F 06:AD5F: BD 5E 03  LDA vEnemyBStatus + 2,X
-C - - - - - 0x018D72 06:AD62: 29 C0     AND #$C0
-C - - - - - 0x018D74 06:AD64: 09 20     ORA #$20
-C - - - - - 0x018D76 06:AD66: 9D 5E 03  STA vEnemyBStatus + 2,X
-C - - - - - 0x018D79 06:AD69: A9 08     LDA #$08
-C - - - - - 0x018D7B 06:AD6B: 9D 88 03  STA vEnemyBProjectileJumpCounter,X
-C - - - - - 0x018D7E 06:AD6E: 60        RTS
+sub_AD5D_hit:
+C - - - - - 0x018D6D 06:AD5D: A6 1A     LDX vTempCounter1A                  ; X <~ the projectile number
+C - - - - - 0x018D6F 06:AD5F: BD 5E 03  LDA vEnemyBStatus + 2,X             ;
+C - - - - - 0x018D72 06:AD62: 29 C0     AND #$C0                            ; clear substate
+C - - - - - 0x018D74 06:AD64: 09 20     ORA #$20                            ; CONSTANT - 'the dying' status
+C - - - - - 0x018D76 06:AD66: 9D 5E 03  STA vEnemyBStatus + 2,X             ;
+C - - - - - 0x018D79 06:AD69: A9 08     LDA #$08                            ;
+C - - - - - 0x018D7B 06:AD6B: 9D 88 03  STA vEnemyBProjectileJumpCounter,X  ; Initializes a jump counter for 'the dying' status
+C - - - - - 0x018D7E 06:AD6E: 60        RTS                                 ;
 
 bra_AD6F_free_projectile:
 sub_AD6F_free_projectile:
@@ -2182,12 +2182,13 @@ C - - - - - 0x018D83 06:AD73: 9D 5E 03  STA vEnemyBStatus + 2,X   ; clear
 bra_AD76_RTS:
 C - - - - - 0x018D86 06:AD76: 60        RTS                       ;
 
+; In: Register X - the projectile number
 sub_AD77_status_behavior:
-C - - - - - 0x018D87 06:AD77: BD 5E 03  LDA vEnemyBStatus + 2,X
-C - - - - - 0x018D8A 06:AD7A: 10 FA     BPL bra_AD76_RTS
-C - - - - - 0x018D8C 06:AD7C: 4A        LSR
-C - - - - - 0x018D8D 06:AD7D: 4A        LSR
-C - - - - - 0x018D8E 06:AD7E: 90 03     BCC bra_AD83_prepare_rendering
+C - - - - - 0x018D87 06:AD77: BD 5E 03  LDA vEnemyBStatus + 2,X         ;
+C - - - - - 0x018D8A 06:AD7A: 10 FA     BPL bra_AD76_RTS                ; If the status isn't used
+C - - - - - 0x018D8C 06:AD7C: 4A        LSR                             ;
+C - - - - - 0x018D8D 06:AD7D: 4A        LSR                             ;
+C - - - - - 0x018D8E 06:AD7E: 90 03     BCC bra_AD83_prepare_rendering  ; If 'the falling' status isn't activated
 C - - - - - 0x018D90 06:AD80: 4C B3 AD  JMP loc_ADB3_falling            ;
 
 ; In: Register X - the projectile number

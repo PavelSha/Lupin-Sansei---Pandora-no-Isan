@@ -7725,9 +7725,9 @@ C - - - - - 0x01EE9D 07:EE8D: 20 09 A0  JSR sub_A009_bazooka_man        ; basic 
 C - - - - - 0x01EEA0 07:EE90: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 loc_EE93_sensor:
-C - - J - - 0x01EEA3 07:EE93: 20 25 EF  JSR sub_EF25_switch_bank_06_1
+C - - J - - 0x01EEA3 07:EE93: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
 C - - - - - 0x01EEA6 07:EE96: 20 0C A0  JSR sub_A00C_sensor             ; to sub_A00C
-C - - - - - 0x01EEA9 07:EE99: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+C - - - - - 0x01EEA9 07:EE99: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 C - - J - - 0x01EEAC 07:EE9C: 20 25 EF  JSR sub_EF25_switch_bank_06_1
 C - - - - - 0x01EEAF 07:EE9F: 20 0F A0  JSR $A00F ; to sub_A00F
@@ -8454,25 +8454,27 @@ C - - - - - 0x01F341 07:F331: BD 89 F8  LDA tbl_F888_enemy_appearance + 1,X   ;
 C - - - - - 0x01F344 07:F334: 85 15     STA ram_0015                          ; High address
 C - - - - - 0x01F346 07:F336: 6C 14 00  JMP (ram_0014)                        ;
 
-sub_F339:
-C - - - - - 0x01F349 07:F339: A2 01     LDX #$01
-C - - - - - 0x01F34B 07:F33B: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x01F34E 07:F33E: 30 06     BMI bra_F346
-C - - - - - 0x01F350 07:F340: CA        DEX
-C - - - - - 0x01F351 07:F341: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x01F354 07:F344: 10 12     BPL bra_F358_RTS
-bra_F346:
-C - - - - - 0x01F356 07:F346: A5 00     LDA ram_0000
-C - - - - - 0x01F358 07:F348: 38        SEC
-C - - - - - 0x01F359 07:F349: FD 7A 03  SBC ram_037A,X
-C - - - - - 0x01F35C 07:F34C: A5 01     LDA ram_0001
-C - - - - - 0x01F35E 07:F34E: FD 74 03  SBC ram_0374,X
-C - - - - - 0x01F361 07:F351: D0 05     BNE bra_F358_RTS
-C - - - - - 0x01F363 07:F353: 20 83 D8  JSR sub_D883_dec_enemyB_counter
-C - - - - - 0x01F366 07:F356: 68        PLA
-C - - - - - 0x01F367 07:F357: 68        PLA
-bra_F358_RTS:
-C - - - - - 0x01F368 07:F358: 60        RTS
+; In: $0000 - macro X-position
+; In: $0001 - X-position
+sub_F339_check_position:
+C - - - - - 0x01F349 07:F339: A2 01     LDX #$01                           ; CONSTANT - second enemy
+C - - - - - 0x01F34B 07:F33B: BD 5C 03  LDA vEnemyBStatus,X                ;
+C - - - - - 0x01F34E 07:F33E: 30 06     BMI @bra_F346_skip                 ; If the status is used
+C - - - - - 0x01F350 07:F340: CA        DEX                                ; X <~ 0 (first enemy)
+C - - - - - 0x01F351 07:F341: BD 5C 03  LDA vEnemyBStatus,X                ;
+C - - - - - 0x01F354 07:F344: 10 12     BPL @bra_F358_RTS                  ; If the status isn't used
+@bra_F346_skip:
+C - - - - - 0x01F356 07:F346: A5 00     LDA ram_0000                       ;
+C - - - - - 0x01F358 07:F348: 38        SEC                                ;
+C - - - - - 0x01F359 07:F349: FD 7A 03  SBC vEnemyBPosXHigh,X              ;
+C - - - - - 0x01F35C 07:F34C: A5 01     LDA ram_0001                       ;
+C - - - - - 0x01F35E 07:F34E: FD 74 03  SBC vEnemyBPosXLow,X               ;
+C - - - - - 0x01F361 07:F351: D0 05     BNE @bra_F358_RTS                  ; If [$0000:$0001] != [He:Le]
+C - - - - - 0x01F363 07:F353: 20 83 D8  JSR sub_D883_dec_enemyB_counter    ;
+C - - - - - 0x01F366 07:F356: 68        PLA                                ;
+C - - - - - 0x01F367 07:F357: 68        PLA                                ; double return (i.e. $F634 -> $F108)
+@bra_F358_RTS:
+C - - - - - 0x01F368 07:F358: 60        RTS                                ;
 
 ; In: $000B - the direction of appearance (0x00 - right, 0x01 - left)
 sub_F359_prepare_enemyA_start_status:
@@ -8902,39 +8904,41 @@ C - - - - - 0x01F62F 07:F61F: 68        PLA
 C - - - - - 0x01F630 07:F620: 60        RTS
 
 sub_F621:
-C - - - - - 0x01F631 07:F621: BD 74 03  LDA ram_0374,X
-C - - - - - 0x01F634 07:F624: 9D 76 03  STA ram_0376,X
-C - - - - - 0x01F637 07:F627: BD 7A 03  LDA ram_037A,X
-C - - - - - 0x01F63A 07:F62A: 9D 7C 03  STA ram_037C,X
+C - - - - - 0x01F631 07:F621: BD 74 03  LDA vEnemyBPosXLow,X
+C - - - - - 0x01F634 07:F624: 9D 76 03  STA vEnemyBProjectilePosXLow,X
+C - - - - - 0x01F637 07:F627: BD 7A 03  LDA vEnemyBPosXHigh,X
+C - - - - - 0x01F63A 07:F62A: 9D 7C 03  STA vEnemyBProjectilePosXHigh,X
 C - - - - - 0x01F63D 07:F62D: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x01F640 07:F630: 9D 5E 03  STA ram_035E,X
+C - - - - - 0x01F640 07:F630: 9D 5E 03  STA vEnemyBStatus + 2,X
 C - - - - - 0x01F643 07:F633: 60        RTS
 
+; In: $0000 - macro X-position
+; In: $0001 - X-position
 loc_F634_trap_appearance:
-C - - J - - 0x01F644 07:F634: 20 39 F3  JSR sub_F339
-C - - - - - 0x01F647 07:F637: 20 8A F3  JSR sub_F38A_start_enemyB_appearance
-C - - - - - 0x01F64A 07:F63A: A9 C0     LDA #$C0
-C - - - - - 0x01F64C 07:F63C: 9D 5C 03  STA vEnemyBStatus,X
-C - - - - - 0x01F64F 07:F63F: A0 0E     LDY #$0E
-C - - - - - 0x01F651 07:F641: AD 01 03  LDA ram_0301
-C - - - - - 0x01F654 07:F644: C9 0D     CMP #$0D
-C - - - - - 0x01F656 07:F646: F0 1C     BEQ bra_F664
-C - - - - - 0x01F658 07:F648: A0 19     LDY #$19
-C - - - - - 0x01F65A 07:F64A: C9 39     CMP #$39
-C - - - - - 0x01F65C 07:F64C: F0 16     BEQ bra_F664
-C - - - - - 0x01F65E 07:F64E: A0 12     LDY #$12
-C - - - - - 0x01F660 07:F650: C9 15     CMP #$15
-C - - - - - 0x01F662 07:F652: F0 10     BEQ bra_F664
-C - - - - - 0x01F664 07:F654: A0 16     LDY #$16
-C - - - - - 0x01F666 07:F656: C9 1E     CMP #$1E
-C - - - - - 0x01F668 07:F658: F0 0A     BEQ bra_F664
-C - - - - - 0x01F66A 07:F65A: 20 60 F3  JSR sub_F360_prepare_enemyB_start_status
-C - - - - - 0x01F66D 07:F65D: A9 00     LDA #$00
-C - - - - - 0x01F66F 07:F65F: 9D 86 03  STA ram_0386,X
-C - - - - - 0x01F672 07:F662: A0 18     LDY #$18
-bra_F664:
-C - - - - - 0x01F674 07:F664: 8C B4 06  STY vCacheChrBankSelect + 5
-C - - - - - 0x01F677 07:F667: 4C 20 F8  JMP loc_F820_finish_creating_enemyB
+C - - J - - 0x01F644 07:F634: 20 39 F3  JSR sub_F339_check_position                ;
+C - - - - - 0x01F647 07:F637: 20 8A F3  JSR sub_F38A_start_enemyB_appearance       ;
+C - - - - - 0x01F64A 07:F63A: A9 C0     LDA #$C0                                   ;
+C - - - - - 0x01F64C 07:F63C: 9D 5C 03  STA vEnemyBStatus,X                        ; initializes a default status
+C - - - - - 0x01F64F 07:F63F: A0 0E     LDY #$0E                                   ; CONSTANT for CHR ROM #1
+C - - - - - 0x01F651 07:F641: AD 01 03  LDA vEnemyB                                ;
+C - - - - - 0x01F654 07:F644: C9 0D     CMP #$0D                                   ; CONSTANT - Sensor (3 level)
+C - - - - - 0x01F656 07:F646: F0 1C     BEQ @bra_F664_skip                         ; If EnemyB == 0x0D
+C - - - - - 0x01F658 07:F648: A0 19     LDY #$19                                   ; CONSTANT for CHR ROM #2
+C - - - - - 0x01F65A 07:F64A: C9 39     CMP #$39                                   ; CONSTANT - Sensor (4 level)
+C - - - - - 0x01F65C 07:F64C: F0 16     BEQ @bra_F664_skip                         ; If EnemyB == 0x39
+C - - - - - 0x01F65E 07:F64E: A0 12     LDY #$12                                   ; CONSTANT for CHR ROM #3
+C - - - - - 0x01F660 07:F650: C9 15     CMP #$15                                   ; CONSTANT - Sensor (2 level)
+C - - - - - 0x01F662 07:F652: F0 10     BEQ @bra_F664_skip                         ; If EnemyB == 0x15
+C - - - - - 0x01F664 07:F654: A0 16     LDY #$16                                   ; CONSTANT for CHR ROM #4
+C - - - - - 0x01F666 07:F656: C9 1E     CMP #$1E                                   ; CONSTANT - Sensor (1 level)
+C - - - - - 0x01F668 07:F658: F0 0A     BEQ @bra_F664_skip                         ; If EnemyB == 0x1E
+C - - - - - 0x01F66A 07:F65A: 20 60 F3  JSR sub_F360_prepare_enemyB_start_status   ;
+C - - - - - 0x01F66D 07:F65D: A9 00     LDA #$00                                   ;
+C - - - - - 0x01F66F 07:F65F: 9D 86 03  STA vEnemyBJumpCounter,X                   ; Initializes a jump counter
+C - - - - - 0x01F672 07:F662: A0 18     LDY #$18                                   ; CONSTANT for CHR ROM #5
+@bra_F664_skip:
+C - - - - - 0x01F674 07:F664: 8C B4 06  STY vCacheChrBankSelect + 5                ;
+C - - - - - 0x01F677 07:F667: 4C 20 F8  JMP loc_F820_finish_creating_enemyB        ;
 
 ; Template 5
 ; In: $000B - the direction of appearance (0x00 - right, 0x01 - left)
@@ -9009,7 +9013,7 @@ C - - - - - 0x01F6EC 07:F6DC: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA
 - D 3 - - - 0x01F6F6 07:F6E6: A4        .byte $A4
 
 loc_F6E7_wall_or_platform_appearance:
-C - - J - - 0x01F6F7 07:F6E7: 20 39 F3  JSR sub_F339
+C - - J - - 0x01F6F7 07:F6E7: 20 39 F3  JSR sub_F339_check_position
 C - - - - - 0x01F6FA 07:F6EA: 24 3C     BIT vGameLocks
 C - - - - - 0x01F6FC 07:F6EC: 30 5F     BMI bra_F74D
 C - - - - - 0x01F6FE 07:F6EE: AD 01 03  LDA ram_0301
