@@ -185,7 +185,7 @@
 -  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
 -  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 
-## Враг 15
+## Враг 0D
 Сенсор
 |Кадр 1|
 |---|
@@ -204,7 +204,7 @@
 Снаряд при активации сенсора
 |Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|
 |---|---|---|---|---|---|---|---|
-| ![Frame1](../images/enemies/15/frame1-1.png) | ![Frame2](../images/enemies/15/frame1-2.png) | ![Frame3](../images/enemies/15/frame1-1.png) | ![Frame4](../images/enemies/15/frame1-4.png) | ![Frame5](../images/enemies/15/frame1-5.png) | ![Frame6](../images/enemies/15/frame1-6.png) | ![Frame7](../images/enemies/15/frame1-7.png) | ![Frame8](../images/enemies/15/frame1-8.png) |
+| ![Frame1](../images/enemies/0D/frame1-1.png) | ![Frame2](../images/enemies/0D/frame1-2.png) | ![Frame3](../images/enemies/0D/frame1-3.png) | ![Frame4](../images/enemies/0D/frame1-4.png) | ![Frame5](../images/enemies/0D/frame1-5.png) | ![Frame6](../images/enemies/0D/frame1-6.png) | ![Frame7](../images/enemies/0D/frame1-7.png) | ![Frame8](../images/enemies/0D/frame1-8.png) |
 ### Статусы
 ![DescriptionBits](../images/descriptionBits.jpg)
 -  ***N*** - _не используется_
@@ -289,7 +289,7 @@
 Снаряд при активации сенсора
 |Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|
 |---|---|---|---|---|---|---|---|
-| ![Frame1](../images/enemies/15/frame1-1.png) | ![Frame2](../images/enemies/15/frame1-2.png) | ![Frame3](../images/enemies/15/frame1-1.png) | ![Frame4](../images/enemies/15/frame1-4.png) | ![Frame5](../images/enemies/15/frame1-5.png) | ![Frame6](../images/enemies/15/frame1-6.png) | ![Frame7](../images/enemies/15/frame1-7.png) | ![Frame8](../images/enemies/15/frame1-8.png) |
+| ![Frame1](../images/enemies/15/frame1-1.png) | ![Frame2](../images/enemies/15/frame1-2.png) | ![Frame3](../images/enemies/15/frame1-3.png) | ![Frame4](../images/enemies/15/frame1-4.png) | ![Frame5](../images/enemies/15/frame1-5.png) | ![Frame6](../images/enemies/15/frame1-6.png) | ![Frame7](../images/enemies/15/frame1-7.png) | ![Frame8](../images/enemies/15/frame1-8.png) |
 ### Статусы
 Аналогично [снаряду при активации сенсора](#враг-0d).
 
@@ -444,7 +444,7 @@
 Снаряд при активации сенсора
 |Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|
 |---|---|---|---|---|---|---|---|
-| ![Frame1](../images/enemies/1E/frame1-1.png) | ![Frame2](../images/enemies/1E/frame1-2.png) | ![Frame3](../images/enemies/1E/frame1-1.png) | ![Frame4](../images/enemies/1E/frame1-4.png) | ![Frame5](../images/enemies/1E/frame1-5.png) | ![Frame6](../images/enemies/1E/frame1-6.png) | ![Frame7](../images/enemies/1E/frame1-7.png) | ![Frame8](../images/enemies/1E/frame1-8.png) |
+| ![Frame1](../images/enemies/1E/frame1-1.png) | ![Frame2](../images/enemies/1E/frame1-2.png) | ![Frame3](../images/enemies/1E/frame1-3.png) | ![Frame4](../images/enemies/1E/frame1-4.png) | ![Frame5](../images/enemies/1E/frame1-5.png) | ![Frame6](../images/enemies/1E/frame1-6.png) | ![Frame7](../images/enemies/1E/frame1-7.png) | ![Frame8](../images/enemies/1E/frame1-8.png) |
 ### Статусы
 Аналогично [снаряду при активации сенсора](#враг-0d).
 
@@ -754,6 +754,6 @@
 Снаряд при активации сенсора
 |Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|Кадр 8|
 |---|---|---|---|---|---|---|---|
-| ![Frame1](../images/enemies/39/frame1-1.png) | ![Frame2](../images/enemies/39/frame1-2.png) | ![Frame3](../images/enemies/39/frame1-1.png) | ![Frame4](../images/enemies/39/frame1-4.png) | ![Frame5](../images/enemies/39/frame1-5.png) | ![Frame6](../images/enemies/39/frame1-6.png) | ![Frame7](../images/enemies/39/frame1-7.png) | ![Frame8](../images/enemies/39/frame1-8.png) |
+| ![Frame1](../images/enemies/39/frame1-1.png) | ![Frame2](../images/enemies/39/frame1-2.png) | ![Frame3](../images/enemies/39/frame1-3.png) | ![Frame4](../images/enemies/39/frame1-4.png) | ![Frame5](../images/enemies/39/frame1-5.png) | ![Frame6](../images/enemies/39/frame1-6.png) | ![Frame7](../images/enemies/39/frame1-7.png) | ![Frame8](../images/enemies/39/frame1-8.png) |
 ### Статусы
 Аналогично [снаряду при активации сенсора](#враг-0d).

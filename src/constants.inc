@@ -41,7 +41,6 @@ INFRARED_GOGGLES_IN_WHITE_BRIEFCASE    = $04
 BREATHING_APPARATUS_IN_WHITE_BRIEFCASE = $05
 HELIUM_BALLOON_IN_WHITE_BRIEFCASE      = $06
 BULLET_PROOF_VEST_IN_WHITE_BRIEFCASE   = $07
-BIT_USING_WHITE_BRIEFCASE             = %10000000
 
 ; Variables
 
@@ -367,7 +366,8 @@ vSensorActiveLowCounter       = ram_0217
 vSensorActiveHighCounter      = ram_0218
 
 vArrayWhiteBriefcase          = ram_0219
-; flag 0x80 - the item is got (see BIT_USING_WHITE_BRIEFCASE)
+; flag 0x80 - the item is got
+; 0%0000XXXX - the offset for sprite_magic2
 
 vEnemies                      = ram_0300 ; see docs (Bestiary)
 vEnemyA                       = ram_0300
@@ -565,18 +565,23 @@ vBombStatus                   = ram_039E
 ; 0x00 - none
 ; 0xC2 - a bomb is laying on screen
 ; 0xC0 - a bomb is exploding
-v_item_on_screen              = ram_039E ; [039F-03A3] - briefcase, 039E - screen
-; 0%10000000 - ???
+vItemStatus                   = ram_039E ; [039F-03A3] - briefcase, 039E - screen
 ; For briefcase:
-; 0xC0 - allow briefcase
+; 0x10 - the briefcase is hidden (0x01 - hidden, 0x00 - visible)
+; 0x40 - the briefcase can get damage (0x01 - can, 0x00 - can not)
+; 0x80 - The status is used (1 - true, 0 - false)
+
 ; 0xD0 - self item
 ; 0xE0 - disallow briefcase
 
 vBriefcaseHitCount            = ram_03A5 ; number of shots the briefcase must receive before it collapses {$03A5, $03A6, $03A7, $03A8, $03A9}
 
-vItemPosY                     = ram_03AA ; [03AB-03AF] The item position in th water along the X axis relative to the screen (no repeat)
-vItemPosXLow                  = ram_03B6 ; [03B7-03BB] The item position in th water along the X axis relative to the level (with repeat)
-vItemPosXHigh                 = ram_03BC ; [03BD-03C1] The item position in th water along the X axis relative to the level (in screen unit)
+vItemPosY                     = ram_03AA ; [$03AB-$03AF] The item position in th water along the X axis relative to the screen (no repeat)
+vItemScreenPosX               = ram_03B0 ; [$03B1-$03B5] The item or briefcase position along the X axis relative to the screen (no repeat)
+vItemPosXLow                  = ram_03B6 ; [$03B7-$03BB] The item position in th water along the X axis relative to the level (with repeat)
+vItemPosXHigh                 = ram_03BC ; [$03BD-$03C1] The item position in th water along the X axis relative to the level (in screen unit)
+
+vItemJumpCounter              = ram_03C8 ; [$03C9-$03CD]
 
 vCacheBossStatus              = ram_03D7 ; the cache is used after defeating the boss
 vCacheBossScreenPosX          = ram_03D8 ; the cache is used after defeating the boss

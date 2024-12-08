@@ -6,10 +6,10 @@ All rights reserved by モンキー・パンチ, NAMCO.
 -  Windows - run a command ***assemble.bat***
 -  Linux, MacOS - run a command ***assemble.sh*** (more information - [NES Games Disassembly](https://github.com/cyneprepou4uk/NES-Games-Disassembly))
 ## Statistic
--  Code Logger bytes - ***27.51%***
--  Data Logger bytes - ***60.16%***
--  Unknown bytes     - ***12.33%***
--  Code commented    - ***76.25%***
+-  Code Logger bytes - ***27.61%***
+-  Data Logger bytes - ***60.03%***
+-  Unknown bytes     - ***12.37%***
+-  Code commented    - ***76.86%***
 ## Documentation (in Russian)
 -  [bestiary](docs/ru/bestiary.md) - The list of all enemies in the game
 -  [maze1](docs/ru/maze1.txt), [maze2](docs/ru/maze2.txt), [maze3](docs/ru/maze3.txt), [maze4](docs/ru/maze4.txt) - The information of the mazes on the level 4
@@ -19,6 +19,9 @@ All rights reserved by モンキー・パンチ, NAMCO.
 -  [banks](docs/ru/banks.md) - This is the information on PRG ROM banks.
 -  [audio tracks](docs/ru/banks.md) - All audio tracks from the game.
 ## Resources
--  Lupin Sansei - Pandora no Isan (J), `9d21fe96` (CRC32)
+-  Lupin Sansei - Pandora no Isan (J) [!]
+***CRC32***: D994D5FF
+***MD5***: 76FDF7F6623C9486360ADF5D6762D7DB
+***SHA-1***: B633CC515C6A913D5A65A230E0698446331869A5
 -  [BZK 6502 Disassembler](https://github.com/cyneprepou4uk/BZK-6502-Disassembler) - the main tool for creating disassembly source code.
 -  [FCEUX](https://fceux.com/web/home.html) - the Famicom emulator, debugger, PPU and name tables viewer, trace logger, recording movies tool, autohotkey (Tool-Assisted Speedrun) tool.

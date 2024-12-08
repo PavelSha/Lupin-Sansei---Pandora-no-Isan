@@ -2373,162 +2373,165 @@ C - - - - - 0x01AF5A 06:AF4A: 4C A9 AE  JMP loc_AEA9
 sub_AF4D: ; from bank FF
 C - - - - - 0x01AF5D 06:AF4D: A2 05     LDX #$05                        ; the number of the briefcases
 C - - - - - 0x01AF5F 06:AF4F: 86 1A     STX vTempCounter1A              ; set loop counter
-bra_AF51_loop:                                                          ; loop by vTempCounter1A
-C - - - - - 0x01AF61 06:AF51: A6 1A     LDX vTempCounter1A              ;
+bra_AF51_loop:                                                          ; loop by vTempCounter1A (5 times)
+C - - - - - 0x01AF61 06:AF51: A6 1A     LDX vTempCounter1A              ; X <~ the item or briefcases number
 C - - - - - 0x01AF63 06:AF53: 20 F8 AF  JSR sub_AFF8
-C - - - - - 0x01AF66 06:AF56: BD 9E 03  LDA v_item_on_screen,X          ;
+C - - - - - 0x01AF66 06:AF56: BD 9E 03  LDA vItemStatus,X               ;
 C - - - - - 0x01AF69 06:AF59: C9 E0     CMP #$E0                        ;
-C - - - - - 0x01AF6B 06:AF5B: B0 69     BCS bra_AFC6_loop_continue      ; If v_item_on_screen >= 0xE0
+C - - - - - 0x01AF6B 06:AF5B: B0 69     BCS bra_AFC6_next               ; If vItemStatus >= 0xE0
 C - - - - - 0x01AF6D 06:AF5D: C9 C0     CMP #$C0                        ;   
-C - - - - - 0x01AF6F 06:AF5F: 90 65     BCC bra_AFC6_loop_continue      ; If v_item_on_screen < 0xC0
-C - - - - - 0x01AF71 06:AF61: A0 08     LDY #$08
-C - - - - - 0x01AF73 06:AF63: BD 9E 03  LDA v_item_on_screen,X
-C - - - - - 0x01AF76 06:AF66: 29 10     AND #$10
-C - - - - - 0x01AF78 06:AF68: D0 02     BNE @bra_AF6C_skip
-C - - - - - 0x01AF7A 06:AF6A: A0 10     LDY #$10
+C - - - - - 0x01AF6F 06:AF5F: 90 65     BCC bra_AFC6_next               ; If vItemStatus < 0xC0 else only 0xCX or 0xDX
+C - - - - - 0x01AF71 06:AF61: A0 08     LDY #$08                        ; hitBoxH value #1
+C - - - - - 0x01AF73 06:AF63: BD 9E 03  LDA vItemStatus,X               ;
+C - - - - - 0x01AF76 06:AF66: 29 10     AND #$10                        ; CONSTANT - the briefcase is hidden
+C - - - - - 0x01AF78 06:AF68: D0 02     BNE @bra_AF6C_skip              ; If the briefcase is hidden
+C - - - - - 0x01AF7A 06:AF6A: A0 10     LDY #$10                        ; hitBoxH value #2
 @bra_AF6C_skip:
-C - - - - - 0x01AF7C 06:AF6C: 84 AF     STY ram_00AF
-C - - - - - 0x01AF7E 06:AF6E: BD AA 03  LDA vItemPosY,X
-C - - - - - 0x01AF81 06:AF71: 38        SEC
-C - - - - - 0x01AF82 06:AF72: E9 04     SBC #$04
-C - - - - - 0x01AF84 06:AF74: 85 AD     STA ram_00AD
-C - - - - - 0x01AF86 06:AF76: BD B0 03  LDA ram_03B0,X
-C - - - - - 0x01AF89 06:AF79: 85 AE     STA ram_00AE
-C - - - - - 0x01AF8B 06:AF7B: A9 02     LDA #$02
-C - - - - - 0x01AF8D 06:AF7D: 85 B0     STA ram_00B0
+C - - - - - 0x01AF7C 06:AF6C: 84 AF     STY vEnemyHitBoxH               ; <~ hitBoxH
+C - - - - - 0x01AF7E 06:AF6E: BD AA 03  LDA vItemPosY,X                 ;
+C - - - - - 0x01AF81 06:AF71: 38        SEC                             ;
+C - - - - - 0x01AF82 06:AF72: E9 04     SBC #$04                        ;
+C - - - - - 0x01AF84 06:AF74: 85 AD     STA vEnemyHitBoxY               ; <~ posY - 0x04
+C - - - - - 0x01AF86 06:AF76: BD B0 03  LDA vItemScreenPosX,X           ;
+C - - - - - 0x01AF89 06:AF79: 85 AE     STA vEnemyHitBoxX               ; <~ posX
+C - - - - - 0x01AF8B 06:AF7B: A9 02     LDA #$02                        ;
+C - - - - - 0x01AF8D 06:AF7D: 85 B0     STA vEnemyHitBoxW               ; <~ hitBoxW
 C - - - - - 0x01AF8F 06:AF7F: BD 9E 03  LDA ram_039E,X
 C - - - - - 0x01AF92 06:AF82: 29 10     AND #$10
 C - - - - - 0x01AF94 06:AF84: F0 25     BEQ bra_AFAB
-C - - - - - 0x01AF96 06:AF86: BD C8 03  LDA ram_03C8,X
-C - - - - - 0x01AF99 06:AF89: D0 3B     BNE bra_AFC6_loop_continue
-C - - - - - 0x01AF9B 06:AF8B: 20 42 D6  JSR sub_D642_have_intersect_with_character
-C - - - - - 0x01AF9E 06:AF8E: 90 36     BCC bra_AFC6_loop_continue
+C - - - - - 0x01AF96 06:AF86: BD C8 03  LDA vItemJumpCounter,X
+C - - - - - 0x01AF99 06:AF89: D0 3B     BNE bra_AFC6_next
+C - - - - - 0x01AF9B 06:AF8B: 20 42 D6  JSR sub_D642_have_intersect_with_character  ;
+C - - - - - 0x01AF9E 06:AF8E: 90 36     BCC bra_AFC6_next                           ; If the character hasn't damage
 C - - - - - 0x01AFA0 06:AF90: BC 98 03  LDY v_briefcase_index,X
-C - - - - - 0x01AFA3 06:AF93: A5 6D     LDA vMovableChrStatus
-C - - - - - 0x01AFA5 06:AF95: 30 0B     BMI bra_AFA2
+C - - - - - 0x01AFA3 06:AF93: A5 6D     LDA vMovableChrStatus                       ;
+C - - - - - 0x01AFA5 06:AF95: 30 0B     BMI @bra_AFA2_skip                          ; If the character is moving in the water
 C - - - - - 0x01AFA7 06:AF97: B9 19 02  LDA vArrayWhiteBriefcase,Y
 C - - - - - 0x01AFAA 06:AF9A: 48        PHA
-C - - - - - 0x01AFAB 06:AF9B: 09 80     ORA #BIT_USING_WHITE_BRIEFCASE
-C - - - - - 0x01AFAD 06:AF9D: 99 19 02  STA vArrayWhiteBriefcase,Y ; The white briefcase taken
+C - - - - - 0x01AFAB 06:AF9B: 09 80     ORA #$80
+C - - - - - 0x01AFAD 06:AF9D: 99 19 02  STA vArrayWhiteBriefcase,Y                  ; The white briefcase taken
 C - - - - - 0x01AFB0 06:AFA0: 68        PLA
 C - - - - - 0x01AFB1 06:AFA1: A8        TAY
-bra_AFA2:
+@bra_AFA2_skip:
 C - - - - - 0x01AFB2 06:AFA2: 20 67 B0  JSR sub_B067
-C - - - - - 0x01AFB5 06:AFA5: 20 EF AF  JSR sub_AFEF
-C - - - - - 0x01AFB8 06:AFA8: 4C C6 AF  JMP loc_AFC6_loop_continue
+C - - - - - 0x01AFB5 06:AFA5: 20 EF AF  JSR sub_AFEF_free_item
+C - - - - - 0x01AFB8 06:AFA8: 4C C6 AF  JMP loc_AFC6_next
 
 bra_AFAB:
-C - - - - - 0x01AFBB 06:AFAB: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01AFBD 06:AFAD: 29 02     AND #$02
-C - - - - - 0x01AFBF 06:AFAF: F0 0B     BEQ bra_AFBC
-C - - - - - 0x01AFC1 06:AFB1: 20 06 D6  JSR sub_D606_have_intersect_sword
-C - - - - - 0x01AFC4 06:AFB4: 90 10     BCC bra_AFC6_loop_continue
-C - - - - - 0x01AFC6 06:AFB6: 20 D5 AF  JSR sub_AFD5
-C - - - - - 0x01AFC9 06:AFB9: 4C C6 AF  JMP loc_AFC6_loop_continue
+C - - - - - 0x01AFBB 06:AFAB: A5 5F     LDA vChrLiveStatus                 ;
+C - - - - - 0x01AFBD 06:AFAD: 29 02     AND #$02                           ; CONSTANT - Goemon
+C - - - - - 0x01AFBF 06:AFAF: F0 0B     BEQ bra_AFBC_check_bullets         ; If the character isn't Goemon
+C - - - - - 0x01AFC1 06:AFB1: 20 06 D6  JSR sub_D606_have_intersect_sword  ;
+C - - - - - 0x01AFC4 06:AFB4: 90 10     BCC bra_AFC6_next                  ; If the intersect doesn't exist
+C - - - - - 0x01AFC6 06:AFB6: 20 D5 AF  JSR sub_AFD5_hit
+C - - - - - 0x01AFC9 06:AFB9: 4C C6 AF  JMP loc_AFC6_next                  ;
 
-bra_AFBC:
-C - - - - - 0x01AFCC 06:AFBC: A6 7A     LDX vBulletCount
-bra_AFBE_repeat:
-C - - - - - 0x01AFCE 06:AFBE: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
-C - - - - - 0x01AFD1 06:AFC1: B0 08     BCS bra_AFCB
-C - - - - - 0x01AFD3 06:AFC3: CA        DEX
-C - - - - - 0x01AFD4 06:AFC4: 10 F8     BPL bra_AFBE_repeat
-bra_AFC6_loop_continue:
-loc_AFC6_loop_continue:
+bra_AFBC_check_bullets:
+C - - - - - 0x01AFCC 06:AFBC: A6 7A     LDX vBulletCount                    ; set loop counter
+@bra_AFBE_loop:                                                             ; loop by x
+C - - - - - 0x01AFCE 06:AFBE: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet  ;
+C - - - - - 0x01AFD1 06:AFC1: B0 08     BCS bra_AFCB_bullet_hit             ; If the intersect is exist
+C - - - - - 0x01AFD3 06:AFC3: CA        DEX                                 ; decrement loop counter
+C - - - - - 0x01AFD4 06:AFC4: 10 F8     BPL @bra_AFBE_loop                  ; If Register X >= 0x00
+bra_AFC6_next:
+loc_AFC6_next:
 C D 1 - - - 0x01AFD6 06:AFC6: C6 1A     DEC vTempCounter1A               ; decrement vTempCounter1A
 C - - - - - 0x01AFD8 06:AFC8: D0 87     BNE bra_AF51_loop                ; If vTempCounter1A != 0
 C - - - - - 0x01AFDA 06:AFCA: 60        RTS                              ;
 
-bra_AFCB:
-C - - - - - 0x01AFDB 06:AFCB: A9 00     LDA #$00
-C - - - - - 0x01AFDD 06:AFCD: 95 8F     STA vBulletStatus,X
-C - - - - - 0x01AFDF 06:AFCF: 20 D5 AF  JSR sub_AFD5
-C - - - - - 0x01AFE2 06:AFD2: 4C C6 AF  JMP loc_AFC6_loop_continue
+bra_AFCB_bullet_hit:
+C - - - - - 0x01AFDB 06:AFCB: A9 00     LDA #$00                  ;
+C - - - - - 0x01AFDD 06:AFCD: 95 8F     STA vBulletStatus,X       ; clear
+C - - - - - 0x01AFDF 06:AFCF: 20 D5 AF  JSR sub_AFD5_hit
+C - - - - - 0x01AFE2 06:AFD2: 4C C6 AF  JMP loc_AFC6_next         ;
 
-sub_AFD5:
-C - - - - - 0x01AFE5 06:AFD5: A6 1A     LDX vTempCounter1A
-C - - - - - 0x01AFE7 06:AFD7: DE A4 03  DEC vBriefcaseHitCount - 1,X
-C - - - - - 0x01AFEA 06:AFDA: D0 12     BNE bra_AFEE_RTS
-C - - - - - 0x01AFEC 06:AFDC: BD 9E 03  LDA v_item_on_screen,X
-C - - - - - 0x01AFEF 06:AFDF: 09 10     ORA #$10
-C - - - - - 0x01AFF1 06:AFE1: 9D 9E 03  STA v_item_on_screen,X
-C - - - - - 0x01AFF4 06:AFE4: A9 10     LDA #$10
-C - - - - - 0x01AFF6 06:AFE6: 9D C8 03  STA ram_03C8,X
-C - - - - - 0x01AFF9 06:AFE9: A9 14     LDA #$14
-C - - - - - 0x01AFFB 06:AFEB: 20 20 C4  JSR sub_C420_add_sound_effect
+sub_AFD5_hit:
+C - - - - - 0x01AFE5 06:AFD5: A6 1A     LDX vTempCounter1A             ; X <~ the item or briefcases number
+C - - - - - 0x01AFE7 06:AFD7: DE A4 03  DEC vBriefcaseHitCount - 1,X   ;
+C - - - - - 0x01AFEA 06:AFDA: D0 12     BNE bra_AFEE_RTS               ; If the hit count > 0x00
+C - - - - - 0x01AFEC 06:AFDC: BD 9E 03  LDA vItemStatus,X              ;
+C - - - - - 0x01AFEF 06:AFDF: 09 10     ORA #$10                       ; CONSTANT - the briefcase is hidden
+C - - - - - 0x01AFF1 06:AFE1: 9D 9E 03  STA vItemStatus,X              ;
+C - - - - - 0x01AFF4 06:AFE4: A9 10     LDA #$10                       ; CONSTANT - a jump counter value for the destroying
+C - - - - - 0x01AFF6 06:AFE6: 9D C8 03  STA vItemJumpCounter,X         ;
+C - - - - - 0x01AFF9 06:AFE9: A9 14     LDA #$14                       ; the sound of destroying the briefcase
+C - - - - - 0x01AFFB 06:AFEB: 20 20 C4  JSR sub_C420_add_sound_effect  ; bank FF
 bra_AFEE_RTS:
 C - - - - - 0x01AFFE 06:AFEE: 60        RTS
 
-sub_AFEF:
-loc_AFEF:
-C D 1 - - - 0x01AFFF 06:AFEF: A9 00     LDA #$00
-C - - - - - 0x01B001 06:AFF1: 9D 9E 03  STA v_item_on_screen,X ; A character picked up an item.
+sub_AFEF_free_item:
+loc_AFEF_free_item:
+C D 1 - - - 0x01AFFF 06:AFEF: A9 00     LDA #$00                  ;
+C - - - - - 0x01B001 06:AFF1: 9D 9E 03  STA vItemStatus,X         ; clear the current briefcase item
 C - - - - - 0x01B004 06:AFF4: 9D 98 03  STA v_briefcase_index,X
-C - - - - - 0x01B007 06:AFF7: 60        RTS
+C - - - - - 0x01B007 06:AFF7: 60        RTS                       ;
 
 ; in: Register X - the number of the briefcase
 sub_AFF8:
-C - - - - - 0x01B008 06:AFF8: BD 9E 03  LDA v_item_on_screen,X ;
-C - - - - - 0x01B00B 06:AFFB: 10 F1     BPL bra_AFEE_RTS       ; If the briefcase item >= 0x00 && the briefcase item < 0x80
-C - - - - - 0x01B00D 06:AFFD: A0 00     LDY #$00
-C - - - - - 0x01B00F 06:AFFF: 29 10     AND #$10
-C - - - - - 0x01B011 06:B001: F0 2B     BEQ bra_B02E
-C - - - - - 0x01B013 06:B003: BD C8 03  LDA ram_03C8,X
-C - - - - - 0x01B016 06:B006: F0 0D     BEQ bra_B015
-C - - - - - 0x01B018 06:B008: DE C8 03  DEC ram_03C8,X
-C - - - - - 0x01B01B 06:B00B: A0 02     LDY #$02
-C - - - - - 0x01B01D 06:B00D: C9 08     CMP #$08
-C - - - - - 0x01B01F 06:B00F: B0 1D     BCS bra_B02E
-C - - - - - 0x01B021 06:B011: A0 04     LDY #$04
-C - - - - - 0x01B023 06:B013: D0 19     BNE bra_B02E
-bra_B015:
-C - - - - - 0x01B025 06:B015: A5 6D     LDA vMovableChrStatus
-C - - - - - 0x01B027 06:B017: 10 03     BPL bra_B01C
-C - - - - - 0x01B029 06:B019: 20 57 B0  JSR sub_B057
-bra_B01C:
-C - - - - - 0x01B02C 06:B01C: BD 98 03  LDA v_briefcase_index,X
-C - - - - - 0x01B02F 06:B01F: A4 6D     LDY vMovableChrStatus
-C - - - - - 0x01B031 06:B021: 30 06     BMI bra_B029
-C - - - - - 0x01B033 06:B023: A8        TAY
-C - - - - - 0x01B034 06:B024: B9 19 02  LDA vArrayWhiteBriefcase,Y
-C - - - - - 0x01B037 06:B027: 29 0F     AND #$0F
-bra_B029:
-C - - - - - 0x01B039 06:B029: 0A        ASL
-C - - - - - 0x01B03A 06:B02A: 18        CLC
-C - - - - - 0x01B03B 06:B02B: 69 06     ADC #$06
-C - - - - - 0x01B03D 06:B02D: A8        TAY
-bra_B02E:
-C - - - - - 0x01B03E 06:B02E: BD B6 03  LDA vItemPosXLow,X
-C - - - - - 0x01B041 06:B031: 85 00     STA ram_0000
-C - - - - - 0x01B043 06:B033: BD BC 03  LDA vItemPosXHigh,X
-C - - - - - 0x01B046 06:B036: 85 01     STA ram_0001
-C - - - - - 0x01B048 06:B038: 20 AC D6  JSR sub_D6AC_out_of_screen
-C - - - - - 0x01B04B 06:B03B: 90 03     BCC bra_B040
-C - - - - - 0x01B04D 06:B03D: 4C EF AF  JMP loc_AFEF
+C - - - - - 0x01B008 06:AFF8: BD 9E 03  LDA vItemStatus,X                  ;
+C - - - - - 0x01B00B 06:AFFB: 10 F1     BPL bra_AFEE_RTS                   ; If the current briefcase item isn't used
+C - - - - - 0x01B00D 06:AFFD: A0 00     LDY #$00                           ; the offset value #1
+C - - - - - 0x01B00F 06:AFFF: 29 10     AND #$10                           ; CONSTANT - the briefcase is hidden
+C - - - - - 0x01B011 06:B001: F0 2B     BEQ bra_B02E_prepare_rendering     ; If the briefcase isn't hidden
+C - - - - - 0x01B013 06:B003: BD C8 03  LDA vItemJumpCounter,X             ;
+C - - - - - 0x01B016 06:B006: F0 0D     BEQ bra_B015_skip                  ; If vJumpCounter == 0x00
+C - - - - - 0x01B018 06:B008: DE C8 03  DEC vItemJumpCounter,X             ; updates a jump counter
+C - - - - - 0x01B01B 06:B00B: A0 02     LDY #$02                           ; the offset value #2
+C - - - - - 0x01B01D 06:B00D: C9 08     CMP #$08                           ; CONSTANT - for the exploding animation
+C - - - - - 0x01B01F 06:B00F: B0 1D     BCS bra_B02E_prepare_rendering     ; If vJumpCounter >= 0x08
+C - - - - - 0x01B021 06:B011: A0 04     LDY #$04                           ; the offset value #3
+C - - - - - 0x01B023 06:B013: D0 19     BNE bra_B02E_prepare_rendering     ; Always true
 
-bra_B040:
-C - - - - - 0x01B050 06:B040: BD AA 03  LDA vItemPosY,X
-C - - - - - 0x01B053 06:B043: 85 00     STA ram_0000
-C - - - - - 0x01B055 06:B045: A5 03     LDA ram_0003
-C - - - - - 0x01B057 06:B047: 9D B0 03  STA ram_03B0,X
-C - - - - - 0x01B05A 06:B04A: 98        TYA
-C - - - - - 0x01B05B 06:B04B: 18        CLC
-C - - - - - 0x01B05C 06:B04C: 69 5C     ADC #$5C
-C - - - - - 0x01B05E 06:B04E: 85 01     STA ram_0001
-C - - - - - 0x01B060 06:B050: A9 60     LDA #$60
-C - - - - - 0x01B062 06:B052: 85 02     STA ram_0002
+bra_B015_skip:
+C - - - - - 0x01B025 06:B015: A5 6D     LDA vMovableChrStatus              ;
+C - - - - - 0x01B027 06:B017: 10 03     BPL @bra_B01C_skip                 ; If the character doesn't move in the water
+C - - - - - 0x01B029 06:B019: 20 57 B0  JSR sub_B057_try_to_move
+@bra_B01C_skip:
+C - - - - - 0x01B02C 06:B01C: BD 98 03  LDA v_briefcase_index,X            ;
+C - - - - - 0x01B02F 06:B01F: A4 6D     LDY vMovableChrStatus              ;
+C - - - - - 0x01B031 06:B021: 30 06     BMI @bra_B029_skip                 ; If the character moves in the water
+C - - - - - 0x01B033 06:B023: A8        TAY                                ;
+C - - - - - 0x01B034 06:B024: B9 19 02  LDA vArrayWhiteBriefcase,Y         ;
+C - - - - - 0x01B037 06:B027: 29 0F     AND #$0F                           ; filters by the mask (for the offset)
+; In: Register A - the encrypted offset
+@bra_B029_skip:
+C - - - - - 0x01B039 06:B029: 0A        ASL                           ;
+C - - - - - 0x01B03A 06:B02A: 18        CLC                           ;
+C - - - - - 0x01B03B 06:B02B: 69 06     ADC #$06                      ;
+C - - - - - 0x01B03D 06:B02D: A8        TAY                           ; Y <~ 2*A + 0x06
+; In: Register Y - sprite_magic2 (The offset by the address)
+bra_B02E_prepare_rendering:
+C - - - - - 0x01B03E 06:B02E: BD B6 03  LDA vItemPosXLow,X            ;
+C - - - - - 0x01B041 06:B031: 85 00     STA ram_0000                  ; prepares the 1st parameter
+C - - - - - 0x01B043 06:B033: BD BC 03  LDA vItemPosXHigh,X           ;
+C - - - - - 0x01B046 06:B036: 85 01     STA ram_0001                  ; prepares the 2nd parameter
+C - - - - - 0x01B048 06:B038: 20 AC D6  JSR sub_D6AC_out_of_screen    ;
+C - - - - - 0x01B04B 06:B03B: 90 03     BCC bra_B040_skip             ; If the item is on the screen
+C - - - - - 0x01B04D 06:B03D: 4C EF AF  JMP loc_AFEF_free_item
+
+bra_B040_skip:
+C - - - - - 0x01B050 06:B040: BD AA 03  LDA vItemPosY,X               ;
+C - - - - - 0x01B053 06:B043: 85 00     STA ram_0000                  ; ~> sprite magic1
+C - - - - - 0x01B055 06:B045: A5 03     LDA ram_0003                  ; from sub_D6AC_out_of_screen
+C - - - - - 0x01B057 06:B047: 9D B0 03  STA vItemScreenPosX,X         ;
+C - - - - - 0x01B05A 06:B04A: 98        TYA                           ;
+C - - - - - 0x01B05B 06:B04B: 18        CLC                           ;
+C - - - - - 0x01B05C 06:B04C: 69 5C     ADC #$5C                      ;
+C - - - - - 0x01B05E 06:B04E: 85 01     STA ram_0001                  ; Y + 0x5C ~> sprite_magic2
+C - - - - - 0x01B060 06:B050: A9 60     LDA #$60                      ;
+C - - - - - 0x01B062 06:B052: 85 02     STA ram_0002                  ; ~> sprite_magic3
 C - - - - - 0x01B064 06:B054: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
-sub_B057:
-C - - - - - 0x01B067 06:B057: A5 2C     LDA vLowCounter
-C - - - - - 0x01B069 06:B059: 29 03     AND #$03
-C - - - - - 0x01B06B 06:B05B: D0 47     BNE bra_B0A4_RTS
+sub_B057_try_to_move:
+C - - - - - 0x01B067 06:B057: A5 2C     LDA vLowCounter                            ;
+C - - - - - 0x01B069 06:B059: 29 03     AND #$03                                   ;
+C - - - - - 0x01B06B 06:B05B: D0 47     BNE bra_B0A4_RTS                           ; Branch if vLowCounter doesn't multiple of 4 (75% chance)
 C - - - - - 0x01B06D 06:B05D: 24 3F     BIT ram_003F
-C - - - - - 0x01B06F 06:B05F: 30 03     BMI bra_B064
-C - - - - - 0x01B071 06:B061: 4C 13 D9  JMP $D913
+C - - - - - 0x01B06F 06:B05F: 30 03     BMI bra_B064_left
+C - - - - - 0x01B071 06:B061: 4C 13 D9  JMP loc_D913_short_inc_ItemPosXLow         ;
 
-bra_B064:
-C - - - - - 0x01B074 06:B064: 4C F4 D8  JMP $D8F4
+bra_B064_left:
+C - - - - - 0x01B074 06:B064: 4C F4 D8  JMP loc_D8F4_short_dec_ItemPosXLow_unsafe  ;
 
 sub_B067:
 C - - - - - 0x01B077 06:B067: A5 6D     LDA vMovableChrStatus
@@ -2561,8 +2564,8 @@ C - - - - - 0x01B0A9 06:B099: 60        RTS
 sub_B09A: ; from bank FF
 C - - - - - 0x01B0AA 06:B09A: A2 05     LDX #$05               ; set loop counter
 @bra_B09C_loop:                                                ; loop by x
-C - - - - - 0x01B0AC 06:B09C: BD 9E 03  LDA v_item_on_screen,X ;
-C - - - - - 0x01B0AF 06:B09F: 10 04     BPL bra_B0A5           ; If v_item_on_screen < 0x80
+C - - - - - 0x01B0AC 06:B09C: BD 9E 03  LDA vItemStatus,X      ;
+C - - - - - 0x01B0AF 06:B09F: 10 04     BPL bra_B0A5           ; If vItemStatus < 0x80
 C - - - - - 0x01B0B1 06:B0A1: CA        DEX                    ; decrement loop counter
 C - - - - - 0x01B0B2 06:B0A2: D0 F8     BNE @bra_B09C_loop     ; If register X != 0x00
 bra_B0A4_RTS:
@@ -2594,7 +2597,7 @@ C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA vArrayWhiteBriefcase,Y              
 C - - - - - 0x01B0E4 06:B0D4: 30 CE     BMI bra_B0A4_RTS                         ; If the item is got
 C - - - - - 0x01B0E6 06:B0D6: A0 05     LDY #$05                                 ; set loop counter
 bra_B0D8_loop:                                                                   ; loop by y (5 times)
-C - - - - - 0x01B0E8 06:B0D8: B9 9E 03  LDA v_item_on_screen,Y
+C - - - - - 0x01B0E8 06:B0D8: B9 9E 03  LDA vItemStatus,Y
 C - - - - - 0x01B0EB 06:B0DB: 10 14     BPL bra_B0F1
 C - - - - - 0x01B0ED 06:B0DD: B9 B6 03  LDA vItemPosXLow,Y
 C - - - - - 0x01B0F0 06:B0E0: 38        SEC
@@ -2609,7 +2612,7 @@ bra_B0F1:
 C - - - - - 0x01B101 06:B0F1: 88        DEY
 C - - - - - 0x01B102 06:B0F2: D0 E4     BNE bra_B0D8_loop                        ; If register Y != 0
 C - - - - - 0x01B104 06:B0F4: A9 C0     LDA #$C0                                 ; CONSTANT: The item is in the briefcase, i.e. it's hidden
-C - - - - - 0x01B106 06:B0F6: 9D 9E 03  STA v_item_on_screen,X
+C - - - - - 0x01B106 06:B0F6: 9D 9E 03  STA vItemStatus,X
 C - - - - - 0x01B109 06:B0F9: A9 03     LDA #$03
 loc_B0FB:
 C D 1 - - - 0x01B10B 06:B0FB: 9D A4 03  STA vBriefcaseHitCount - 1,X
@@ -2654,9 +2657,9 @@ C - - - - - 0x01B156 06:B146: A8        TAY
 C - - - - - 0x01B157 06:B147: B9 C0 95  LDA $95C0,Y
 C - - - - - 0x01B15A 06:B14A: 85 02     STA ram_0002
 C - - - - - 0x01B15C 06:B14C: A9 D0     LDA #$D0
-C - - - - - 0x01B15E 06:B14E: 9D 9E 03  STA v_item_on_screen,X
+C - - - - - 0x01B15E 06:B14E: 9D 9E 03  STA vItemStatus,X
 C - - - - - 0x01B161 06:B151: A9 00     LDA #$00
-C - - - - - 0x01B163 06:B153: 9D C8 03  STA ram_03C8,X
+C - - - - - 0x01B163 06:B153: 9D C8 03  STA vItemJumpCounter,X
 C - - - - - 0x01B166 06:B156: 4C FB B0  JMP loc_B0FB
 
 sub_B159:
@@ -2753,7 +2756,7 @@ C - - - - - 0x01B1FD 06:B1ED: D0 02     BNE @bra_B1F1_skip                      
 @bra_B1EF_no_exist:
 C - - - - - 0x01B1FF 06:B1EF: A9 00     LDA #$00                                            ; CONSTANT: the item is collected
 @bra_B1F1_skip:
-C - - - - - 0x01B201 06:B1F1: 9D 9E 03  STA v_item_on_screen,X                              ; prepare memory for render briefcase
+C - - - - - 0x01B201 06:B1F1: 9D 9E 03  STA vItemStatus,X                                   ; prepare memory for render briefcase
 C - - - - - 0x01B204 06:B1F4: A4 11     LDY vTempCounter11                                  ; restore y from the cache
 C - - - - - 0x01B206 06:B1F6: C8        INY                                                 ; increments the index
 C - - - - - 0x01B207 06:B1F7: CA        DEX                                                 ; decrement loop counter

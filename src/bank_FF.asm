@@ -172,6 +172,8 @@
 .export sub_C960_add_score2
 .export loc_DA7C_add_sprite_magic_in_05_p1
 .export sub_DA28_get_explode_sprite_magic2
+.export loc_D913_short_inc_ItemPosXLow
+.export loc_D8F4_short_dec_ItemPosXLow_unsafe
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI ; disable interrupts
@@ -4192,22 +4194,26 @@ C - - - - - 0x01D8EF 07:D8DF: 85 00     STA ram_0000                            
 C - - - - - 0x01D8F1 07:D8E1: 20 52 D9  JSR sub_D952_init_short_enemyB_positions    ;
 C - - - - - 0x01D8F4 07:D8E4: 4C E5 D2  JMP loc_D2E5_get_collision_value            ;
 
-C - - - - - 0x01D8F7 07:D8E7: BD B6 03  LDA vItemPosXLow,X    ; not used ???
-C - - - - - 0x01D8FA 07:D8EA: 38        SEC                   ; not used ???
-C - - - - - 0x01D8FB 07:D8EB: E9 10     SBC #$10              ; not used ???
-C - - - - - 0x01D8FD 07:D8ED: BD BC 03  LDA vItemPosXHigh,X   ; not used ???
-C - - - - - 0x01D900 07:D8F0: E9 00     SBC #$00              ; not used ???
-C - - - - - 0x01D902 07:D8F2: 90 11     BCC bra_D905_RTS      ; not used ???
-sub_D8F4:
-C D 2 - - - 0x01D904 07:D8F4: BD B6 03  LDA vItemPosXLow,X
-C - - - - - 0x01D907 07:D8F7: 38        SEC
-C - - - - - 0x01D908 07:D8F8: E9 01     SBC #$01
-C - - - - - 0x01D90A 07:D8FA: 9D B6 03  STA vItemPosXLow,X
-C - - - - - 0x01D90D 07:D8FD: BD BC 03  LDA vItemPosXHigh,X
-C - - - - - 0x01D910 07:D900: E9 00     SBC #$00
-C - - - - - 0x01D912 07:D902: 9D BC 03  STA vItemPosXHigh,X
+; In: Register X - the item number
+sub_D8E7_short_dec_ItemPosXLow:
+C - - - - - 0x01D8F7 07:D8E7: BD B6 03  LDA vItemPosXLow,X       ; !(UNUSED)
+C - - - - - 0x01D8FA 07:D8EA: 38        SEC                      ; !(UNUSED)
+C - - - - - 0x01D8FB 07:D8EB: E9 10     SBC #$10                 ; !(UNUSED), CONSTANT - The item should be visible in its entirety on the left
+C - - - - - 0x01D8FD 07:D8ED: BD BC 03  LDA vItemPosXHigh,X      ; !(UNUSED)
+C - - - - - 0x01D900 07:D8F0: E9 00     SBC #$00                 ; !(UNUSED)
+C - - - - - 0x01D902 07:D8F2: 90 11     BCC bra_D905_RTS         ; !(UNUSED), Branch If the enemy reach the beginning of the room
+; In: Register X - the item number
+loc_D8F4_short_dec_ItemPosXLow_unsafe:
+sub_D8F4_short_dec_ItemPosXLow_unsafe:
+C D 2 - - - 0x01D904 07:D8F4: BD B6 03  LDA vItemPosXLow,X       ;
+C - - - - - 0x01D907 07:D8F7: 38        SEC                      ;
+C - - - - - 0x01D908 07:D8F8: E9 01     SBC #$01                 ;
+C - - - - - 0x01D90A 07:D8FA: 9D B6 03  STA vItemPosXLow,X       ;
+C - - - - - 0x01D90D 07:D8FD: BD BC 03  LDA vItemPosXHigh,X      ;
+C - - - - - 0x01D910 07:D900: E9 00     SBC #$00                 ; decrement vItemPosXHigh, if vEnemyAPosXLow changed a sign
+C - - - - - 0x01D912 07:D902: 9D BC 03  STA vItemPosXHigh,X      ;
 bra_D905_RTS:
-C - - - - - 0x01D915 07:D905: 60        RTS
+C - - - - - 0x01D915 07:D905: 60        RTS                      ;
 
 - - - - - - 0x01D916 07:D906: BD        .byte $BD
 - - - - - - 0x01D917 07:D907: B6        .byte $B6
@@ -4222,19 +4228,23 @@ C - - - - - 0x01D915 07:D905: 60        RTS
 - - - - - - 0x01D920 07:D910: 4A        .byte $4A
 - - - - - - 0x01D921 07:D911: B0        .byte $B0
 - - - - - - 0x01D922 07:D912: F2        .byte $F2
-loc_D913:
-C D 2 - - - 0x01D923 07:D913: FE B6 03  INC vItemPosXLow,X
-C - - - - - 0x01D926 07:D916: D0 ED     BNE bra_D905_RTS
-C - - - - - 0x01D928 07:D918: FE BC 03  INC vItemPosXHigh,X
-C - - - - - 0x01D92B 07:D91B: 60        RTS
+
+; In: Register X - the item number
+loc_D913_short_inc_ItemPosXLow:
+C D 2 - - - 0x01D923 07:D913: FE B6 03  INC vItemPosXLow,X       ;
+C - - - - - 0x01D926 07:D916: D0 ED     BNE bra_D905_RTS         ; If the item doesn't move from one screen to another
+C - - - - - 0x01D928 07:D918: FE BC 03  INC vItemPosXHigh,X      ;
+C - - - - - 0x01D92B 07:D91B: 60        RTS                      ;
 
 - - - - - - 0x01D92C 07:D91C: 20        .byte $20
 - - - - - - 0x01D92D 07:D91D: 28        .byte $28
 - - - - - - 0x01D92E 07:D91E: D9        .byte $D9
+
+; in: Register X - the number of the briefcase
 sub_D91F:
-C - - - - - 0x01D92F 07:D91F: BD 9E 03  LDA ram_039E,X
+C - - - - - 0x01D92F 07:D91F: BD 9E 03  LDA vItemStatus,X
 C - - - - - 0x01D932 07:D922: 29 E1     AND #$E1
-C - - - - - 0x01D934 07:D924: 9D 9E 03  STA ram_039E,X
+C - - - - - 0x01D934 07:D924: 9D 9E 03  STA vItemStatus,X
 C - - - - - 0x01D937 07:D927: 60        RTS
 
 - - - - - - 0x01D938 07:D928: BD        .byte $BD
@@ -4469,7 +4479,7 @@ C - - - - - 0x01DA47 07:DA37: 60        RTS                            ;
 
 ; in: Register X - ???
 loc_DA38:
-C D 2 - - - 0x01DA48 07:DA38: BD 9E 03  LDA v_item_on_screen,X
+C D 2 - - - 0x01DA48 07:DA38: BD 9E 03  LDA vItemStatus,X
 C - - - - - 0x01DA4B 07:DA3B: 29 02     AND #$02
 C - - - - - 0x01DA4D 07:DA3D: F0 6C     BEQ bra_DAAB
 C - - - - - 0x01DA4F 07:DA3F: DE C8 03  DEC ram_03C8,X
@@ -7852,8 +7862,8 @@ C - - - - - 0x01EF78 07:EF68: 60        RTS                  ;
 
 sub_EF69:
 C - - - - - 0x01EF79 07:EF69: A2 00     LDX #$00
-C - - - - - 0x01EF7B 07:EF6B: AD 9E 03  LDA v_item_on_screen ;
-C - - - - - 0x01EF7E 07:EF6E: 10 0A     BPL bra_EF7A_RTS     ; If v_item_on_screen >= 0x00 && v_item_on_screen < 0x80
+C - - - - - 0x01EF7B 07:EF6B: AD 9E 03  LDA vItemStatus      ;
+C - - - - - 0x01EF7E 07:EF6E: 10 0A     BPL bra_EF7A_RTS     ; If vItemStatus >= 0x00 && vItemStatus < 0x80
 C - - - - - 0x01EF80 07:EF70: AD 98 03  LDA ram_0398
 C - - - - - 0x01EF83 07:EF73: C9 01     CMP #$01
 C - - - - - 0x01EF85 07:EF75: D0 03     BNE bra_EF7A_RTS
@@ -7887,8 +7897,8 @@ C - - - - - 0x01EFA5 07:EF95: 60        RTS                      ;
 sub_EF96:
 C - - - - - 0x01EFA6 07:EF96: A9 00     LDA #$00                          ; a clear value
 C - - - - - 0x01EFA8 07:EF98: A2 09     LDX #$09                          ; set loop counter
-@bra_clear_loop:                                                          ; loop by x
-C - - - - - 0x01EFAA 07:EF9A: 9D 00 02  STA ram_0200,X                    ; 0x0209-0x02FF in 0
+@bra_clear_loop:                                                          ; loop by x (10 times)
+C - - - - - 0x01EFAA 07:EF9A: 9D 00 02  STA v_items,X                     ; 0x0200-0x0209 in 0
 C - - - - - 0x01EFAD 07:EF9D: CA        DEX                               ; decrements loop counter
 C - - - - - 0x01EFAE 07:EF9E: 10 FA     BPL @bra_clear_loop               ; If Register X < 0x80
 C - - - - - 0x01EFB0 07:EFA0: A9 00     LDA #$00                          ;
@@ -7984,7 +7994,7 @@ C - - - - - 0x01F054 07:F044: 85 3C     STA vGameLocks                      ;
 C - - - - - 0x01F056 07:F046: A9 00     LDA #$00                            ; set assigning value
 C - - - - - 0x01F058 07:F048: A2 05     LDX #$05                            ; set loop counter
 @bra_F04A_clear_loop:                                                       ; loop by x (5 times)
-C - - - - - 0x01F05A 07:F04A: 9D 9E 03  STA v_item_on_screen,X              ; clear
+C - - - - - 0x01F05A 07:F04A: 9D 9E 03  STA vItemStatus,X                   ; clear
 C - - - - - 0x01F05D 07:F04D: CA        DEX                                 ; decrements loop counter
 C - - - - - 0x01F05E 07:F04E: 10 FA     BPL @bra_F04A_clear_loop            ; If Register X < 0x80 (a loop condition)
 C - - - - - 0x01F060 07:F050: 8D D4 03  STA ram_03D4

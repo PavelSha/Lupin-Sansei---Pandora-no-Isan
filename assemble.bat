@@ -22,7 +22,7 @@ set "file_size=196624"
 :: SHA-1 checksum of the original ROM, used for checking if
 :: my disassembly is correct, but doesn't affect assembling.
 :: lowercase is allowed
-set "sha1_original=E5E5488C92114B7FA29DDBE6D3D3D7C101F0C4A7"
+set "sha1_original=B633CC515C6A913D5A65A230E0698446331869A5"
 
 :: set to 0 if you want to create debug and listing files.
 :: this can slow down assembling a little bit, but these

@@ -27,7 +27,7 @@ codeUncommentedCounter = 0
 dataCounter = 0
 unknownCounter = 0
 
-def resolveOneStat(asmNameFile):
+def resolveOneStat(asmNameFile, useLog=False, logCounter=10):
     global allCounter
     global codeCounter
     global codeCommentedCounter
@@ -46,6 +46,9 @@ def resolveOneStat(asmNameFile):
                         codeCommentedCounter += 1
                     else:
                         codeUncommentedCounter += 1
+                        if useLog and logCounter > 0:
+                            logCounter -= 1
+                            print("Line: " + line)
                 elif re.search("^.\\sD\\s.\\s.\\s.\\s.\\s", line):
                     dataCounter += 1
                 else:
@@ -61,7 +64,7 @@ def resolveStats():
     global dataCounter
     global unknownCounter
 
-    resolveOneStat(ASM_FF_FILE)
+    resolveOneStat(ASM_FF_FILE, True)
     resolveOneStat(ASM_00_1_FILE)
     resolveOneStat(ASM_00_2_FILE)
     resolveOneStat(ASM_01_1_FILE)

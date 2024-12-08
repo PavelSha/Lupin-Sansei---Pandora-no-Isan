@@ -93,7 +93,7 @@ sub_A009_bazooka_man:
 C - - - - - 0x018019 06:A009: 4C 82 A7  JMP loc_A782_enemy
 
 sub_A00C_sensor:
-C - - - - - 0x01801C 06:A00C: 4C 3B AC  JMP loc_AC3B_sensor
+C - - - - - 0x01801C 06:A00C: 4C 3B AC  JMP loc_AC3B_sensor   ;
 
 sub_A00F: ; from bank_FF
 C - - - - - 0x01801F 06:A00F: 4C 09 AE  JMP loc_AE09
