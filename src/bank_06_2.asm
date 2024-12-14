@@ -94,6 +94,7 @@
 .export tbl_ptr_enemy_t4_sprite_params_
 .export tbl_ptr_boss_sprite_params_
 .export tbl_ptr_last_boss_params_
+.export tbl_ptr_walls
 
 ; 1 byte - position Y
 ; 2 byte - position X
@@ -1598,7 +1599,7 @@ C - - - - - 0x01AA14 06:AA04: 86 1A     STX vTempCounter1A
 bra_AA06:
 C - - - - - 0x01AA16 06:AA06: A6 1A     LDX vTempCounter1A
 C - - - - - 0x01AA18 06:AA08: 20 69 AA  JSR sub_AA69
-C - - - - - 0x01AA1B 06:AA0B: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AA1B 06:AA0B: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AA1E 06:AA0E: C9 E0     CMP #$E0
 C - - - - - 0x01AA20 06:AA10: B0 34     BCS bra_AA46
 C - - - - - 0x01AA22 06:AA12: C9 C0     CMP #$C0
@@ -1642,17 +1643,17 @@ C - - - - - 0x01AA64 06:AA54: 4C 46 AA  JMP loc_AA46
 
 sub_AA57:
 C - - - - - 0x01AA67 06:AA57: A6 1A     LDX vTempCounter1A
-C - - - - - 0x01AA69 06:AA59: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AA69 06:AA59: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AA6C 06:AA5C: 29 C1     AND #$C1
 C - - - - - 0x01AA6E 06:AA5E: 09 20     ORA #$20
-C - - - - - 0x01AA70 06:AA60: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x01AA70 06:AA60: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x01AA73 06:AA63: A9 08     LDA #$08
 C - - - - - 0x01AA75 06:AA65: 9D 86 03  STA ram_0386,X
 bra_AA68_RTS:
 C - - - - - 0x01AA78 06:AA68: 60        RTS
 
 sub_AA69:
-C - - - - - 0x01AA79 06:AA69: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AA79 06:AA69: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AA7C 06:AA6C: 10 FA     BPL bra_AA68_RTS
 C - - - - - 0x01AA7E 06:AA6E: 29 20     AND #$20
 C - - - - - 0x01AA80 06:AA70: D0 06     BNE bra_AA78
@@ -1674,7 +1675,7 @@ C - - - - - 0x01AA9F 06:AA8F: 4C 4D D8  JMP loc_D84D_enemyB_off_screen
 
 bra_AA92:
 C - - - - - 0x01AAA2 06:AA92: 20 31 D8  JSR sub_D831_enemyB_on_screen
-C - - - - - 0x01AAA5 06:AA95: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AAA5 06:AA95: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AAA8 06:AA98: 29 20     AND #$20
 C - - - - - 0x01AAAA 06:AA9A: F0 03     BEQ bra_AA9F
 C - - - - - 0x01AAAC 06:AA9C: 4C AE AA  JMP loc_AAAE
@@ -1699,7 +1700,7 @@ C - - - - - 0x01AAC6 06:AAB6: 4C 7D D9  JMP loc_D97D_add_flash_sprite_magic
 
 sub_AAB9:
 C - - - - - 0x01AAC9 06:AAB9: 20 DF AA  JSR sub_AADF
-C - - - - - 0x01AACC 06:AABC: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AACC 06:AABC: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AACF 06:AABF: 29 02     AND #$02
 C - - - - - 0x01AAD1 06:AAC1: F0 03     BEQ bra_AAC6
 C - - - - - 0x01AAD3 06:AAC3: 20 DF AA  JSR sub_AADF
@@ -1722,7 +1723,7 @@ C - - - - - 0x01AAED 06:AADD: A8        TAY
 C - - - - - 0x01AAEE 06:AADE: 60        RTS
 
 sub_AADF:
-C - - - - - 0x01AAEF 06:AADF: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AAEF 06:AADF: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AAF2 06:AAE2: 6A        ROR
 C - - - - - 0x01AAF3 06:AAE3: 90 08     BCC bra_AAED
 C - - - - - 0x01AAF5 06:AAE5: A5 2C     LDA vLowCounter
@@ -1738,7 +1739,7 @@ bra_AAED:
 - - - - - - 0x01AB01 06:AAF1: 28        .byte $28   ; 
 - - - - - - 0x01AB02 06:AAF2: D8        .byte $D8   ; 
 sub_AAF3:
-C - - - - - 0x01AB03 06:AAF3: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AB03 06:AAF3: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AB06 06:AAF6: 29 F2     AND #$F2
 C - - - - - 0x01AB08 06:AAF8: C9 C0     CMP #$C0
 C - - - - - 0x01AB0A 06:AAFA: D0 35     BNE bra_AB31_RTS
@@ -1757,9 +1758,9 @@ C - - - - - 0x01AB23 06:AB13: 90 1C     BCC bra_AB31_RTS
 C - - - - - 0x01AB25 06:AB15: 20 64 D0  JSR sub_D064_generate_rng
 C - - - - - 0x01AB28 06:AB18: 29 03     AND #$03
 C - - - - - 0x01AB2A 06:AB1A: D0 15     BNE bra_AB31_RTS
-C - - - - - 0x01AB2C 06:AB1C: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AB2C 06:AB1C: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AB2F 06:AB1F: 09 02     ORA #$02
-C - - - - - 0x01AB31 06:AB21: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x01AB31 06:AB21: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x01AB34 06:AB24: 9D 5E 03  STA ram_035E,X
 C - - - - - 0x01AB37 06:AB27: A9 18     LDA #$18
 C - - - - - 0x01AB39 06:AB29: 9D 88 03  STA ram_0388,X
@@ -1777,7 +1778,7 @@ C - - - - - 0x01AB46 06:AB36: A6 1A     LDX vTempCounter1A
 C - - - - - 0x01AB48 06:AB38: BD 5A 03  LDA ram_035A,X
 C - - - - - 0x01AB4B 06:AB3B: 10 23     BPL bra_AB60
 C - - - - - 0x01AB4D 06:AB3D: 20 83 AB  JSR sub_AB83
-C - - - - - 0x01AB50 06:AB40: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AB50 06:AB40: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AB53 06:AB43: C9 E0     CMP #$E0
 C - - - - - 0x01AB55 06:AB45: B0 19     BCS bra_AB60
 C - - - - - 0x01AB57 06:AB47: C9 C0     CMP #$C0
@@ -1802,21 +1803,21 @@ C - - - - - 0x01AB78 06:AB68: 60        RTS
 loc_AB69:
 C D 1 - - - 0x01AB79 06:AB69: A6 1A     LDX vTempCounter1A
 C - - - - - 0x01AB7B 06:AB6B: A9 00     LDA #$00
-C - - - - - 0x01AB7D 06:AB6D: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x01AB7D 06:AB6D: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x01AB80 06:AB70: 60        RTS
 
 sub_AB71:
 C - - - - - 0x01AB81 06:AB71: A6 1A     LDX vTempCounter1A
-C - - - - - 0x01AB83 06:AB73: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AB83 06:AB73: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AB86 06:AB76: 29 C0     AND #$C0
 C - - - - - 0x01AB88 06:AB78: 09 20     ORA #$20
-C - - - - - 0x01AB8A 06:AB7A: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x01AB8A 06:AB7A: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x01AB8D 06:AB7D: A9 08     LDA #$08
 C - - - - - 0x01AB8F 06:AB7F: 9D 86 03  STA ram_0386,X
 C - - - - - 0x01AB92 06:AB82: 60        RTS
 
 sub_AB83:
-C - - - - - 0x01AB93 06:AB83: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AB93 06:AB83: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AB96 06:AB86: 10 E0     BPL bra_AB68_RTS
 C - - - - - 0x01AB98 06:AB88: 4A        LSR
 C - - - - - 0x01AB99 06:AB89: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
@@ -1846,7 +1847,7 @@ C - - - - - 0x01ABC6 06:ABB6: 4C 4D D8  JMP loc_D84D_enemyB_off_screen
 
 bra_ABB9:
 C - - - - - 0x01ABC9 06:ABB9: 20 31 D8  JSR sub_D831_enemyB_on_screen
-C - - - - - 0x01ABCC 06:ABBC: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01ABCC 06:ABBC: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01ABCF 06:ABBF: 29 20     AND #$20
 C - - - - - 0x01ABD1 06:ABC1: D0 03     BNE bra_ABC6
 C - - - - - 0x01ABD3 06:ABC3: 4C 9F AA  JMP loc_AA9F
@@ -1891,7 +1892,7 @@ C - - - - - 0x01AC1C 06:AC0C: 86 1A     STX vTempCounter1A
 bra_AC0E:
 C - - - - - 0x01AC1E 06:AC0E: A6 1A     LDX vTempCounter1A
 C - - - - - 0x01AC20 06:AC10: 20 5D AC  JSR sub_AC5D
-C - - - - - 0x01AC23 06:AC13: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AC23 06:AC13: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AC26 06:AC16: C9 E0     CMP #$E0
 C - - - - - 0x01AC28 06:AC18: B0 34     BCS bra_AC4E
 C - - - - - 0x01AC2A 06:AC1A: C9 C0     CMP #$C0
@@ -1935,7 +1936,7 @@ C - - - - - 0x01AC67 06:AC57: 20 57 AA  JSR sub_AA57
 C - - - - - 0x01AC6A 06:AC5A: 4C 4E AC  JMP loc_AC4E
 
 sub_AC5D:
-C - - - - - 0x01AC6D 06:AC5D: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AC6D 06:AC5D: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AC70 06:AC60: 10 F0     BPL bra_AC52_RTS
 C - - - - - 0x01AC72 06:AC62: 29 20     AND #$20
 C - - - - - 0x01AC74 06:AC64: D0 06     BNE bra_AC6C
@@ -1957,7 +1958,7 @@ C - - - - - 0x01AC93 06:AC83: 4C 4D D8  JMP sub_D84D_enemyB_off_screen
 
 bra_AC86:
 C - - - - - 0x01AC96 06:AC86: 20 31 D8  JSR sub_D831_enemyB_on_screen
-C - - - - - 0x01AC99 06:AC89: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AC99 06:AC89: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AC9C 06:AC8C: 29 20     AND #$20
 C - - - - - 0x01AC9E 06:AC8E: D0 08     BNE bra_AC98
 C - - - - - 0x01ACA0 06:AC90: 20 C6 AA  JSR sub_AAC6
@@ -1988,7 +1989,7 @@ C - - - - - 0x01ACC6 06:ACB6: FE 68 03  INC ram_0368,X
 bra_ACB9:
 loc_ACB9:
 C D 1 - - - 0x01ACC9 06:ACB9: A0 00     LDY #$00
-C - - - - - 0x01ACCB 06:ACBB: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01ACCB 06:ACBB: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01ACCE 06:ACBE: 29 0C     AND #$0C
 C - - - - - 0x01ACD0 06:ACC0: C9 04     CMP #$04
 C - - - - - 0x01ACD2 06:ACC2: F0 11     BEQ bra_ACD5
@@ -2011,21 +2012,21 @@ bra_ACDA_RTS:
 C - - - - - 0x01ACEA 06:ACDA: 60        RTS
 
 sub_ACDB:
-C - - - - - 0x01ACEB 06:ACDB: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01ACEB 06:ACDB: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01ACEE 06:ACDE: 29 20     AND #$20
 C - - - - - 0x01ACF0 06:ACE0: D0 1D     BNE bra_ACFF_RTS
-C - - - - - 0x01ACF2 06:ACE2: DE 86 03  DEC ram_0386,X
+C - - - - - 0x01ACF2 06:ACE2: DE 86 03  DEC vEnemyBJumpCounter,X
 C - - - - - 0x01ACF5 06:ACE5: D0 18     BNE bra_ACFF_RTS
 C - - - - - 0x01ACF7 06:ACE7: 20 64 D0  JSR sub_D064_generate_rng
 C - - - - - 0x01ACFA 06:ACEA: 29 03     AND #$03
 C - - - - - 0x01ACFC 06:ACEC: 0A        ASL
 C - - - - - 0x01ACFD 06:ACED: A8        TAY
-C - - - - - 0x01ACFE 06:ACEE: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01ACFE 06:ACEE: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AD01 06:ACF1: 29 C1     AND #$C1
 C - - - - - 0x01AD03 06:ACF3: 19 00 AD  ORA tbl_AD00,Y
-C - - - - - 0x01AD06 06:ACF6: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x01AD06 06:ACF6: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x01AD09 06:ACF9: B9 01 AD  LDA tbl_AD01,Y
-C - - - - - 0x01AD0C 06:ACFC: 9D 86 03  STA ram_0386,X
+C - - - - - 0x01AD0C 06:ACFC: 9D 86 03  STA vEnemyBJumpCounter,X
 bra_ACFF_RTS:
 C - - - - - 0x01AD0F 06:ACFF: 60        RTS
 
@@ -2043,11 +2044,11 @@ tbl_AD01:
 loc_AD08_lift:
 C - - J - - 0x01AD18 06:AD08: A2 01     LDX #$01
 C - - - - - 0x01AD1A 06:AD0A: 86 1A     STX vTempCounter1A
-bra_AD0C:
+@bra_AD0C_loop:
 C - - - - - 0x01AD1C 06:AD0C: A6 1A     LDX vTempCounter1A
 C - - - - - 0x01AD1E 06:AD0E: 20 16 AD  JSR sub_AD16
 C - - - - - 0x01AD21 06:AD11: C6 1A     DEC vTempCounter1A
-C - - - - - 0x01AD23 06:AD13: 10 F7     BPL bra_AD0C
+C - - - - - 0x01AD23 06:AD13: 10 F7     BPL @bra_AD0C_loop
 bra_AD15_RTS:
 C - - - - - 0x01AD25 06:AD15: 60        RTS
 
@@ -2157,12 +2158,12 @@ bra_ADCD_RTS:
 C - - - - - 0x01ADDD 06:ADCD: 60        RTS                         ;
 
 bra_ADCE:
-C - - - - - 0x01ADDE 06:ADCE: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01ADDE 06:ADCE: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01ADE1 06:ADD1: 29 10     AND #$10
 C - - - - - 0x01ADE3 06:ADD3: D0 0D     BNE bra_ADE2
-C - - - - - 0x01ADE5 06:ADD5: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01ADE5 06:ADD5: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01ADE8 06:ADD8: 09 10     ORA #$10
-C - - - - - 0x01ADEA 06:ADDA: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x01ADEA 06:ADDA: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x01ADED 06:ADDD: A9 70     LDA #$70
 C - - - - - 0x01ADEF 06:ADDF: 9D 86 03  STA ram_0386,X
 bra_ADE2:
@@ -2189,7 +2190,7 @@ C D 1 - - - 0x01AE0D 06:ADFD: 8A        TXA
 C - - - - - 0x01AE0E 06:ADFE: 48        PHA
 C - - - - - 0x01AE0F 06:ADFF: A2 01     LDX #$01
 bra_AE01:
-C - - - - - 0x01AE11 06:AE01: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AE11 06:AE01: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AE14 06:AE04: 10 28     BPL bra_AE2E
 C - - - - - 0x01AE16 06:AE06: 29 40     AND #$40
 C - - - - - 0x01AE18 06:AE08: F0 24     BEQ bra_AE2E
@@ -2219,63 +2220,61 @@ C - - - - - 0x01AE41 06:AE31: 4C C5 AD  JMP loc_ADC5
 loc_AE34_platform:
 C - - J - - 0x01AE44 06:AE34: A2 01     LDX #$01
 C - - - - - 0x01AE46 06:AE36: 86 1A     STX vTempCounter1A
-bra_AE38:
+bra_AE38_loop:
 C - - - - - 0x01AE48 06:AE38: A6 1A     LDX vTempCounter1A
 C - - - - - 0x01AE4A 06:AE3A: 20 95 AE  JSR sub_AE95
-C - - - - - 0x01AE4D 06:AE3D: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AE4D 06:AE3D: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AE50 06:AE40: C9 E0     CMP #$E0
-C - - - - - 0x01AE52 06:AE42: B0 3C     BCS bra_AE80
+C - - - - - 0x01AE52 06:AE42: B0 3C     BCS bra_AE80_next
 C - - - - - 0x01AE54 06:AE44: C9 C0     CMP #$C0
-C - - - - - 0x01AE56 06:AE46: 90 38     BCC bra_AE80
-C - - - - - 0x01AE58 06:AE48: AD 01 03  LDA ram_0301
-C - - - - - 0x01AE5B 06:AE4B: C9 32     CMP #$32
-C - - - - - 0x01AE5D 06:AE4D: F0 31     BEQ bra_AE80
-C - - - - - 0x01AE5F 06:AE4F: BD 68 03  LDA ram_0368,X
-C - - - - - 0x01AE62 06:AE52: 85 AD     STA ram_00AD
-C - - - - - 0x01AE64 06:AE54: BD 6E 03  LDA ram_036E,X
-C - - - - - 0x01AE67 06:AE57: 85 AE     STA ram_00AE
-C - - - - - 0x01AE69 06:AE59: A9 30     LDA #$30
-C - - - - - 0x01AE6B 06:AE5B: 85 AF     STA ram_00AF
-C - - - - - 0x01AE6D 06:AE5D: A9 04     LDA #$04
-C - - - - - 0x01AE6F 06:AE5F: 85 B0     STA ram_00B0
-C - - - - - 0x01AE71 06:AE61: 20 60 D6  JSR sub_D660_is_bomb_exploding
-C - - - - - 0x01AE74 06:AE64: 90 06     BCC bra_AE6C
-C - - - - - 0x01AE76 06:AE66: 20 85 AE  JSR sub_AE85
-C - - - - - 0x01AE79 06:AE69: 4C 80 AE  JMP loc_AE80
+C - - - - - 0x01AE56 06:AE46: 90 38     BCC bra_AE80_next
+C - - - - - 0x01AE58 06:AE48: AD 01 03  LDA vEnemyB                      ;
+C - - - - - 0x01AE5B 06:AE4B: C9 32     CMP #$32                         ; CONSTANT - Breaking platform
+C - - - - - 0x01AE5D 06:AE4D: F0 31     BEQ bra_AE80_next                ; If vEnemyB == 0x32
+C - - - - - 0x01AE5F 06:AE4F: BD 68 03  LDA vEnemyBPosY,X
+C - - - - - 0x01AE62 06:AE52: 85 AD     STA vEnemyHitBoxY
+C - - - - - 0x01AE64 06:AE54: BD 6E 03  LDA vEnemyBScreenPosX,X
+C - - - - - 0x01AE67 06:AE57: 85 AE     STA vEnemyHitBoxX
+C - - - - - 0x01AE69 06:AE59: A9 30     LDA #$30                         ;
+C - - - - - 0x01AE6B 06:AE5B: 85 AF     STA vEnemyHitBoxH                ; <~ hitBoxH
+C - - - - - 0x01AE6D 06:AE5D: A9 04     LDA #$04                         ;
+C - - - - - 0x01AE6F 06:AE5F: 85 B0     STA vEnemyHitBoxW                ; <~ hitBoxW
+C - - - - - 0x01AE71 06:AE61: 20 60 D6  JSR sub_D660_is_bomb_exploding   ;
+C - - - - - 0x01AE74 06:AE64: 90 06     BCC bra_AE6C_continue            ; If the bomb isn't exploding
+C - - - - - 0x01AE76 06:AE66: 20 85 AE  JSR sub_AE85_bomb_hit
+C - - - - - 0x01AE79 06:AE69: 4C 80 AE  JMP loc_AE80_next
 
-bra_AE6C:
-C - - - - - 0x01AE7C 06:AE6C: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01AE7E 06:AE6E: 29 02     AND #$02
-C - - - - - 0x01AE80 06:AE70: D0 0E     BNE bra_AE80
-C - - - - - 0x01AE82 06:AE72: A6 7A     LDX vBulletCount
-bra_AE74:
-C - - - - - 0x01AE84 06:AE74: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet
-C - - - - - 0x01AE87 06:AE77: 90 04     BCC bra_AE7D
-- - - - - - 0x01AE89 06:AE79: A9        .byte $A9   ; 
-- - - - - - 0x01AE8A 06:AE7A: 00        .byte $00   ; 
-- - - - - - 0x01AE8B 06:AE7B: 95        .byte $95   ; 
-- - - - - - 0x01AE8C 06:AE7C: 8F        .byte $8F   ; 
-bra_AE7D:
-C - - - - - 0x01AE8D 06:AE7D: CA        DEX
-C - - - - - 0x01AE8E 06:AE7E: 10 F4     BPL bra_AE74
-bra_AE80:
-loc_AE80:
-C D 1 - - - 0x01AE90 06:AE80: C6 1A     DEC vTempCounter1A
-C - - - - - 0x01AE92 06:AE82: 10 B4     BPL bra_AE38
-C - - - - - 0x01AE94 06:AE84: 60        RTS
+bra_AE6C_continue:
+C - - - - - 0x01AE7C 06:AE6C: A5 5F     LDA vChrLiveStatus                  ;
+C - - - - - 0x01AE7E 06:AE6E: 29 02     AND #$02                            ; CONSTANT - Goemon
+C - - - - - 0x01AE80 06:AE70: D0 0E     BNE bra_AE80_next                   ; If the character is Goemon
+C - - - - - 0x01AE82 06:AE72: A6 7A     LDX vBulletCount                    ; set loop counter
+@bra_AE74_loop:                                                             ; loop by x
+C - - - - - 0x01AE84 06:AE74: 20 B6 D5  JSR sub_D5B6_have_intersect_bullet  ;
+C - - - - - 0x01AE87 06:AE77: 90 04     BCC @bra_AE7D_no_hit                ; If the intersect isn't exist
+C - - - - - 0x01AE89 06:AE79: A9 00     LDA #$00                            ;
+C - - - - - 0x01AE8B 06:AE7B: 95 8F     STA vBulletStatus,X                 ; clear
+@bra_AE7D_no_hit:
+C - - - - - 0x01AE8D 06:AE7D: CA        DEX                                 ; decrement loop counter
+C - - - - - 0x01AE8E 06:AE7E: 10 F4     BPL @bra_AE74_loop                  ; If Register X >= 0x00
+bra_AE80_next:
+loc_AE80_next:
+C D 1 - - - 0x01AE90 06:AE80: C6 1A     DEC vTempCounter1A                  ; decrements loop counter
+C - - - - - 0x01AE92 06:AE82: 10 B4     BPL bra_AE38_loop                   ; If vTempCounter1A >= 0x00
+C - - - - - 0x01AE94 06:AE84: 60        RTS                                 ;
 
-sub_AE85:
-C - - - - - 0x01AE95 06:AE85: A6 1A     LDX vTempCounter1A
-C - - - - - 0x01AE97 06:AE87: A9 00     LDA #$00
-C - - - - - 0x01AE99 06:AE89: 9D 5C 03  STA ram_035C,X
-C - - - - - 0x01AE9C 06:AE8C: BC 62 03  LDY ram_0362,X
+sub_AE85_bomb_hit:
+C - - - - - 0x01AE95 06:AE85: A6 1A     LDX vTempCounter1A             ; X <~ the enemyB number
+C - - - - - 0x01AE97 06:AE87: A9 00     LDA #$00                       ;
+C - - - - - 0x01AE99 06:AE89: 9D 5C 03  STA vEnemyBStatus,X            ; free enemyB
+C - - - - - 0x01AE9C 06:AE8C: BC 62 03  LDY vEnemyBWallIndex,X
 C - - - - - 0x01AE9F 06:AE8F: A9 FF     LDA #$FF
-C - - - - - 0x01AEA1 06:AE91: 99 C0 05  STA ram_05C0,Y
+C - - - - - 0x01AEA1 06:AE91: 99 C0 05  STA vWalls,Y
 bra_AE94_RTS:
 C - - - - - 0x01AEA4 06:AE94: 60        RTS
 
 sub_AE95:
-C - - - - - 0x01AEA5 06:AE95: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AEA5 06:AE95: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AEA8 06:AE98: 10 FA     BPL bra_AE94_RTS
 C - - - - - 0x01AEAA 06:AE9A: 29 12     AND #$12
 C - - - - - 0x01AEAC 06:AE9C: D0 46     BNE bra_AEE4
@@ -2304,9 +2303,9 @@ C - - - - - 0x01AED3 06:AEC3: BD 68 03  LDA ram_0368,X
 C - - - - - 0x01AED6 06:AEC6: 85 00     STA ram_0000
 C - - - - - 0x01AED8 06:AEC8: A5 03     LDA ram_0003
 C - - - - - 0x01AEDA 06:AECA: 9D 6E 03  STA ram_036E,X
-C - - - - - 0x01AEDD 06:AECD: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AEDD 06:AECD: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AEE0 06:AED0: 09 40     ORA #$40
-C - - - - - 0x01AEE2 06:AED2: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x01AEE2 06:AED2: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x01AEE5 06:AED5: 98        TYA
 C - - - - - 0x01AEE6 06:AED6: 18        CLC
 C - - - - - 0x01AEE7 06:AED7: 6D 06 03  ADC ram_0306
@@ -2316,13 +2315,13 @@ C - - - - - 0x01AEEF 06:AEDF: 85 02     STA ram_0002
 C - - - - - 0x01AEF1 06:AEE1: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 bra_AEE4:
-C - - - - - 0x01AEF4 06:AEE4: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AEF4 06:AEE4: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AEF7 06:AEE7: 29 10     AND #$10
 C - - - - - 0x01AEF9 06:AEE9: D0 2B     BNE bra_AF16
 C - - - - - 0x01AEFB 06:AEEB: A5 2C     LDA vLowCounter
 C - - - - - 0x01AEFD 06:AEED: 29 03     AND #$03
 C - - - - - 0x01AEFF 06:AEEF: D0 0E     BNE bra_AEFF
-C - - - - - 0x01AF01 06:AEF1: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AF01 06:AEF1: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AF04 06:AEF4: 6A        ROR
 C - - - - - 0x01AF05 06:AEF5: 90 05     BCC bra_AEFC
 C - - - - - 0x01AF07 06:AEF7: FE 68 03  INC ram_0368,X
@@ -2334,9 +2333,9 @@ C - - - - - 0x01AF0F 06:AEFF: FE 80 03  INC ram_0380,X
 C - - - - - 0x01AF12 06:AF02: 10 0D     BPL bra_AF11
 C - - - - - 0x01AF14 06:AF04: A9 00     LDA #$00
 C - - - - - 0x01AF16 06:AF06: 9D 80 03  STA ram_0380,X
-C - - - - - 0x01AF19 06:AF09: BD 5C 03  LDA ram_035C,X
+C - - - - - 0x01AF19 06:AF09: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01AF1C 06:AF0C: 49 01     EOR #$01
-C - - - - - 0x01AF1E 06:AF0E: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x01AF1E 06:AF0E: 9D 5C 03  STA vEnemyBStatus,X
 bra_AF11:
 C - - - - - 0x01AF21 06:AF11: A0 04     LDY #$04
 C - - - - - 0x01AF23 06:AF13: 4C A9 AE  JMP loc_AEA9
@@ -2366,7 +2365,7 @@ C - - - - - 0x01AF4E 06:AF3E: BD 68 03  LDA ram_0368,X
 C - - - - - 0x01AF51 06:AF41: C9 DF     CMP #$DF
 C - - - - - 0x01AF53 06:AF43: 90 05     BCC bra_AF4A
 C - - - - - 0x01AF55 06:AF45: A9 00     LDA #$00
-C - - - - - 0x01AF57 06:AF47: 9D 5C 03  STA ram_035C,X
+C - - - - - 0x01AF57 06:AF47: 9D 5C 03  STA vEnemyBStatus,X
 bra_AF4A:
 C - - - - - 0x01AF5A 06:AF4A: 4C A9 AE  JMP loc_AEA9
 
@@ -4513,7 +4512,7 @@ tbl_ptr_enemy_t3_sprite_params_:
 - D 1 - - - 0x01BD9C 06:BD8C: 00        .byte $00, $00, $FF, $16, $00, $C6, $00, $00  ; Knight in armor with a shield
 - D 1 - - - 0x01BDA4 06:BD94: 00        .byte $00, $00, $FF, $16, $22, $C6, $00, $00  ; Others
 
-; 1 byte - ???
+; 1 byte - the soar flags (see vEnemyBSoarFlags)
 ; 2 byte - the starting jump type
 ; 3 byte - the starting status
 ; 4 byte - the 1 number of ChrBank
@@ -4548,262 +4547,76 @@ tbl_ptr_enemy_t2_sprite_params_:
 - D 1 - - - 0x01BDF6 06:BDE6: FF        .byte $FF, $19, $7A, $C3
 - D 1 - - - 0x01BDFA 06:BDEA: 14        .byte $14, $FF, $4A, $C3
 
-- D 1 - - - 0x01BDFE 06:BDEE: 4C        .byte $4C   ; <L>
-- D 1 - - - 0x01BDFF 06:BDEF: 01        .byte $01   ; 
-- D 1 - - - 0x01BE00 06:BDF0: 94        .byte $94   ; 
-- D 1 - - - 0x01BE01 06:BDF1: 00        .byte $00   ; 
-- D 1 - - - 0x01BE02 06:BDF2: 51        .byte $51   ; <Q>
-- - - - - - 0x01BE03 06:BDF3: 04        .byte $04   ; 
-- - - - - - 0x01BE04 06:BDF4: 34        .byte $34   ; <4>
-- - - - - - 0x01BE05 06:BDF5: 00        .byte $00   ; 
-- D 1 - - - 0x01BE06 06:BDF6: 51        .byte $51   ; <Q>
-- - - - - - 0x01BE07 06:BDF7: 04        .byte $04   ; 
-- - - - - - 0x01BE08 06:BDF8: C4        .byte $C4   ; 
-- - - - - - 0x01BE09 06:BDF9: 01        .byte $01   ; 
-- D 1 - - - 0x01BE0A 06:BDFA: 58        .byte $58   ; <X>
-- - - - - - 0x01BE0B 06:BDFB: 01        .byte $01   ; 
-- - - - - - 0x01BE0C 06:BDFC: 34        .byte $34   ; <4>
-- - - - - - 0x01BE0D 06:BDFD: 00        .byte $00   ; 
-- D 1 - - - 0x01BE0E 06:BDFE: 58        .byte $58   ; <X>
-- - - - - - 0x01BE0F 06:BDFF: 01        .byte $01   ; 
-- - - - - - 0x01BE10 06:BE00: C4        .byte $C4   ; 
-- - - - - - 0x01BE11 06:BE01: 01        .byte $01   ; 
-- D 1 - - - 0x01BE12 06:BE02: 5C        .byte $5C   ; 
-- D 1 - - - 0x01BE13 06:BE03: 04        .byte $04   ; 
-- D 1 - - - 0x01BE14 06:BE04: B4        .byte $B4   ; 
-- D 1 - - - 0x01BE15 06:BE05: 00        .byte $00   ; 
-- D 1 - - - 0x01BE16 06:BE06: 64        .byte $64   ; <d>
-- D 1 - - - 0x01BE17 06:BE07: 02        .byte $02   ; 
-- - - - - - 0x01BE18 06:BE08: 94        .byte $94   ; 
-- - - - - - 0x01BE19 06:BE09: 00        .byte $00   ; 
-- D 1 - - - 0x01BE1A 06:BE0A: 67        .byte $67   ; <g>
-- D 1 - - - 0x01BE1B 06:BE0B: 03        .byte $03   ; 
-- D 1 - - - 0x01BE1C 06:BE0C: 94        .byte $94   ; 
-- D 1 - - - 0x01BE1D 06:BE0D: 00        .byte $00   ; 
-- D 1 - - - 0x01BE1E 06:BE0E: 67        .byte $67   ; <g>
-- - - - - - 0x01BE1F 06:BE0F: 05        .byte $05   ; 
-- - - - - - 0x01BE20 06:BE10: 94        .byte $94   ; 
-- - - - - - 0x01BE21 06:BE11: 01        .byte $01   ; 
-- D 1 - - - 0x01BE22 06:BE12: 78        .byte $78   ; <x>
-- D 1 - - - 0x01BE23 06:BE13: 03        .byte $03   ; 
-- D 1 - - - 0x01BE24 06:BE14: 34        .byte $34   ; <4>
-- D 1 - - - 0x01BE25 06:BE15: 00        .byte $00   ; 
-- D 1 - - - 0x01BE26 06:BE16: 67        .byte $67   ; <g>
-- - - - - - 0x01BE27 06:BE17: 03        .byte $03   ; 
-- - - - - - 0x01BE28 06:BE18: C4        .byte $C4   ; 
-- - - - - - 0x01BE29 06:BE19: 01        .byte $01   ; 
-- D 1 - - - 0x01BE2A 06:BE1A: 61        .byte $61   ; <a>
-- - - - - - 0x01BE2B 06:BE1B: 03        .byte $03   ; 
-- - - - - - 0x01BE2C 06:BE1C: 01        .byte $01   ; 
-- - - - - - 0x01BE2D 06:BE1D: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BE2E 06:BE1E: 3A        .byte $3A   ; 
-- - - - - - 0x01BE2F 06:BE1F: 00        .byte $00   ; 
-- - - - - - 0x01BE30 06:BE20: 5B        .byte $5B   ; 
-- - - - - - 0x01BE31 06:BE21: 5B        .byte $5B   ; 
-- D 1 - - - 0x01BE32 06:BE22: 5B        .byte $5B   ; 
-- - - - - - 0x01BE33 06:BE23: 12        .byte $12   ; 
-- - - - - - 0x01BE34 06:BE24: 5B        .byte $5B   ; 
-- - - - - - 0x01BE35 06:BE25: 5B        .byte $5B   ; 
-- D 1 - - - 0x01BE36 06:BE26: 5B        .byte $5B   ; 
-- - - - - - 0x01BE37 06:BE27: 5B        .byte $5B   ; 
-- - - - - - 0x01BE38 06:BE28: 5B        .byte $5B   ; 
-- - - - - - 0x01BE39 06:BE29: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BE3A 06:BE2A: 3A        .byte $3A   ; 
-- - - - - - 0x01BE3B 06:BE2B: 00        .byte $00   ; 
-- - - - - - 0x01BE3C 06:BE2C: 01        .byte $01   ; 
-- - - - - - 0x01BE3D 06:BE2D: 02        .byte $02   ; 
-- D 1 - - - 0x01BE3E 06:BE2E: 01        .byte $01   ; 
-- - - - - - 0x01BE3F 06:BE2F: 12        .byte $12   ; 
-- - - - - - 0x01BE40 06:BE30: 01        .byte $01   ; 
-- - - - - - 0x01BE41 06:BE31: 02        .byte $02   ; 
-- D 1 - - - 0x01BE42 06:BE32: 01        .byte $01   ; 
-- - - - - - 0x01BE43 06:BE33: 02        .byte $02   ; 
-- - - - - - 0x01BE44 06:BE34: 01        .byte $01   ; 
-- - - - - - 0x01BE45 06:BE35: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BE46 06:BE36: 3A        .byte $3A   ; 
-- - - - - - 0x01BE47 06:BE37: 00        .byte $00   ; 
-- - - - - - 0x01BE48 06:BE38: 02        .byte $02   ; 
-- - - - - - 0x01BE49 06:BE39: 01        .byte $01   ; 
-- D 1 - - - 0x01BE4A 06:BE3A: 02        .byte $02   ; 
-- - - - - - 0x01BE4B 06:BE3B: 2C        .byte $2C   ; 
-- - - - - - 0x01BE4C 06:BE3C: 02        .byte $02   ; 
-- - - - - - 0x01BE4D 06:BE3D: 01        .byte $01   ; 
-- D 1 - - - 0x01BE4E 06:BE3E: 02        .byte $02   ; 
-- - - - - - 0x01BE4F 06:BE3F: 01        .byte $01   ; 
-- - - - - - 0x01BE50 06:BE40: 02        .byte $02   ; 
-- - - - - - 0x01BE51 06:BE41: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BE52 06:BE42: 3A        .byte $3A   ; 
-- - - - - - 0x01BE53 06:BE43: 00        .byte $00   ; 
-- - - - - - 0x01BE54 06:BE44: 5B        .byte $5B   ; 
-- - - - - - 0x01BE55 06:BE45: 5B        .byte $5B   ; 
-- D 1 - - - 0x01BE56 06:BE46: 5B        .byte $5B   ; 
-- - - - - - 0x01BE57 06:BE47: 5B        .byte $5B   ; 
-- - - - - - 0x01BE58 06:BE48: 5B        .byte $5B   ; 
-- - - - - - 0x01BE59 06:BE49: 5B        .byte $5B   ; 
-- D 1 - - - 0x01BE5A 06:BE4A: 5B        .byte $5B   ; 
-- - - - - - 0x01BE5B 06:BE4B: 5B        .byte $5B   ; 
-- - - - - - 0x01BE5C 06:BE4C: 5B        .byte $5B   ; 
-- - - - - - 0x01BE5D 06:BE4D: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BE5E 06:BE4E: 3A        .byte $3A   ; 
-- - - - - - 0x01BE5F 06:BE4F: 00        .byte $00   ; 
-- - - - - - 0x01BE60 06:BE50: 6B        .byte $6B   ; <k>
-- - - - - - 0x01BE61 06:BE51: 6B        .byte $6B   ; <k>
-- D 1 - - - 0x01BE62 06:BE52: 6B        .byte $6B   ; <k>
-- - - - - - 0x01BE63 06:BE53: 6B        .byte $6B   ; <k>
-- - - - - - 0x01BE64 06:BE54: 6B        .byte $6B   ; <k>
-- - - - - - 0x01BE65 06:BE55: 71        .byte $71   ; <q>
-- D 1 - - - 0x01BE66 06:BE56: 74        .byte $74   ; <t>
-- - - - - - 0x01BE67 06:BE57: 74        .byte $74   ; <t>
-- - - - - - 0x01BE68 06:BE58: 75        .byte $75   ; <u>
-- - - - - - 0x01BE69 06:BE59: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BE6A 06:BE5A: 3A        .byte $3A   ; 
-- - - - - - 0x01BE6B 06:BE5B: 00        .byte $00   ; 
-- - - - - - 0x01BE6C 06:BE5C: 6B        .byte $6B   ; <k>
-- - - - - - 0x01BE6D 06:BE5D: 6B        .byte $6B   ; <k>
-- D 1 - - - 0x01BE6E 06:BE5E: 6C        .byte $6C   ; <l>
-- - - - - - 0x01BE6F 06:BE5F: 6D        .byte $6D   ; <m>
-- - - - - - 0x01BE70 06:BE60: 6B        .byte $6B   ; <k>
-- - - - - - 0x01BE71 06:BE61: 72        .byte $72   ; <r>
-- D 1 - - - 0x01BE72 06:BE62: 1C        .byte $1C   ; 
-- - - - - - 0x01BE73 06:BE63: 1D        .byte $1D   ; 
-- - - - - - 0x01BE74 06:BE64: 1D        .byte $1D   ; 
-- - - - - - 0x01BE75 06:BE65: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BE76 06:BE66: 3A        .byte $3A   ; 
-- - - - - - 0x01BE77 06:BE67: 00        .byte $00   ; 
-- - - - - - 0x01BE78 06:BE68: 6B        .byte $6B   ; <k>
-- - - - - - 0x01BE79 06:BE69: 6B        .byte $6B   ; <k>
-- D 1 - - - 0x01BE7A 06:BE6A: 6C        .byte $6C   ; <l>
-- - - - - - 0x01BE7B 06:BE6B: 6E        .byte $6E   ; <n>
-- - - - - - 0x01BE7C 06:BE6C: 6B        .byte $6B   ; <k>
-- - - - - - 0x01BE7D 06:BE6D: 72        .byte $72   ; <r>
-- D 1 - - - 0x01BE7E 06:BE6E: 1E        .byte $1E   ; 
-- - - - - - 0x01BE7F 06:BE6F: 1F        .byte $1F   ; 
-- - - - - - 0x01BE80 06:BE70: 1F        .byte $1F   ; 
-- - - - - - 0x01BE81 06:BE71: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BE82 06:BE72: 3A        .byte $3A   ; 
-- - - - - - 0x01BE83 06:BE73: 00        .byte $00   ; 
-- - - - - - 0x01BE84 06:BE74: 6B        .byte $6B   ; <k>
-- - - - - - 0x01BE85 06:BE75: 6B        .byte $6B   ; <k>
-- D 1 - - - 0x01BE86 06:BE76: 6F        .byte $6F   ; <o>
-- - - - - - 0x01BE87 06:BE77: 70        .byte $70   ; <p>
-- - - - - - 0x01BE88 06:BE78: 6B        .byte $6B   ; <k>
-- - - - - - 0x01BE89 06:BE79: 73        .byte $73   ; <s>
-- D 1 - - - 0x01BE8A 06:BE7A: 76        .byte $76   ; <v>
-- - - - - - 0x01BE8B 06:BE7B: 76        .byte $76   ; <v>
-- - - - - - 0x01BE8C 06:BE7C: 77        .byte $77   ; <w>
-- - - - - - 0x01BE8D 06:BE7D: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BE8E 06:BE7E: 3A        .byte $3A   ; 
-- - - - - - 0x01BE8F 06:BE7F: 00        .byte $00   ; 
-- - - - - - 0x01BE90 06:BE80: 94        .byte $94   ; 
-- - - - - - 0x01BE91 06:BE81: 96        .byte $96   ; 
-- D 1 - - - 0x01BE92 06:BE82: 9E        .byte $9E   ; 
-- - - - - - 0x01BE93 06:BE83: 83        .byte $83   ; 
-- - - - - - 0x01BE94 06:BE84: 78        .byte $78   ; <x>
-- - - - - - 0x01BE95 06:BE85: 79        .byte $79   ; <y>
-- D 1 - - - 0x01BE96 06:BE86: 7A        .byte $7A   ; <z>
-- - - - - - 0x01BE97 06:BE87: 81        .byte $81   ; 
-- - - - - - 0x01BE98 06:BE88: 82        .byte $82   ; 
-- - - - - - 0x01BE99 06:BE89: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BE9A 06:BE8A: 3A        .byte $3A   ; 
-- - - - - - 0x01BE9B 06:BE8B: 00        .byte $00   ; 
-- - - - - - 0x01BE9C 06:BE8C: 95        .byte $95   ; 
-- - - - - - 0x01BE9D 06:BE8D: 97        .byte $97   ; 
-- D 1 - - - 0x01BE9E 06:BE8E: 9F        .byte $9F   ; 
-- - - - - - 0x01BE9F 06:BE8F: 72        .byte $72   ; <r>
-- - - - - - 0x01BEA0 06:BE90: 7B        .byte $7B   ; 
-- - - - - - 0x01BEA1 06:BE91: 7C        .byte $7C   ; 
-- D 1 - - - 0x01BEA2 06:BE92: 7D        .byte $7D   ; 
-- - - - - - 0x01BEA3 06:BE93: 81        .byte $81   ; 
-- - - - - - 0x01BEA4 06:BE94: 82        .byte $82   ; 
-- - - - - - 0x01BEA5 06:BE95: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BEA6 06:BE96: 3A        .byte $3A   ; 
-- - - - - - 0x01BEA7 06:BE97: 00        .byte $00   ; 
-- - - - - - 0x01BEA8 06:BE98: 98        .byte $98   ; 
-- - - - - - 0x01BEA9 06:BE99: 9A        .byte $9A   ; 
-- D 1 - - - 0x01BEAA 06:BE9A: A0        .byte $A0   ; 
-- - - - - - 0x01BEAB 06:BE9B: 84        .byte $84   ; 
-- - - - - - 0x01BEAC 06:BE9C: 7E        .byte $7E   ; 
-- - - - - - 0x01BEAD 06:BE9D: 7F        .byte $7F   ; 
-- D 1 - - - 0x01BEAE 06:BE9E: 80        .byte $80   ; 
-- - - - - - 0x01BEAF 06:BE9F: 81        .byte $81   ; 
-- - - - - - 0x01BEB0 06:BEA0: 82        .byte $82   ; 
-- - - - - - 0x01BEB1 06:BEA1: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BEB2 06:BEA2: 3A        .byte $3A   ; 
-- - - - - - 0x01BEB3 06:BEA3: 00        .byte $00   ; 
-- - - - - - 0x01BEB4 06:BEA4: 99        .byte $99   ; 
-- - - - - - 0x01BEB5 06:BEA5: 9B        .byte $9B   ; 
-- D 1 - - - 0x01BEB6 06:BEA6: 85        .byte $85   ; 
-- - - - - - 0x01BEB7 06:BEA7: 2E        .byte $2E   ; 
-- - - - - - 0x01BEB8 06:BEA8: 2E        .byte $2E   ; 
-- - - - - - 0x01BEB9 06:BEA9: 88        .byte $88   ; 
-- D 1 - - - 0x01BEBA 06:BEAA: 89        .byte $89   ; 
-- - - - - - 0x01BEBB 06:BEAB: 8A        .byte $8A   ; 
-- - - - - - 0x01BEBC 06:BEAC: 8B        .byte $8B   ; 
-- - - - - - 0x01BEBD 06:BEAD: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BEBE 06:BEAE: 3A        .byte $3A   ; 
-- - - - - - 0x01BEBF 06:BEAF: 00        .byte $00   ; 
-- - - - - - 0x01BEC0 06:BEB0: 95        .byte $95   ; 
-- - - - - - 0x01BEC1 06:BEB1: 97        .byte $97   ; 
-- D 1 - - - 0x01BEC2 06:BEB2: 86        .byte $86   ; 
-- - - - - - 0x01BEC3 06:BEB3: 2E        .byte $2E   ; 
-- - - - - - 0x01BEC4 06:BEB4: 2E        .byte $2E   ; 
-- - - - - - 0x01BEC5 06:BEB5: 8C        .byte $8C   ; 
-- D 1 - - - 0x01BEC6 06:BEB6: 8D        .byte $8D   ; 
-- - - - - - 0x01BEC7 06:BEB7: 8D        .byte $8D   ; 
-- - - - - - 0x01BEC8 06:BEB8: 8E        .byte $8E   ; 
-- - - - - - 0x01BEC9 06:BEB9: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BECA 06:BEBA: 3A        .byte $3A   ; 
-- - - - - - 0x01BECB 06:BEBB: 00        .byte $00   ; 
-- - - - - - 0x01BECC 06:BEBC: 98        .byte $98   ; 
-- - - - - - 0x01BECD 06:BEBD: 9A        .byte $9A   ; 
-- D 1 - - - 0x01BECE 06:BEBE: 86        .byte $86   ; 
-- - - - - - 0x01BECF 06:BEBF: 2E        .byte $2E   ; 
-- - - - - - 0x01BED0 06:BEC0: 92        .byte $92   ; 
-- - - - - - 0x01BED1 06:BEC1: 8C        .byte $8C   ; 
-- D 1 - - - 0x01BED2 06:BEC2: 8D        .byte $8D   ; 
-- - - - - - 0x01BED3 06:BEC3: 8D        .byte $8D   ; 
-- - - - - - 0x01BED4 06:BEC4: 8E        .byte $8E   ; 
-- - - - - - 0x01BED5 06:BEC5: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BED6 06:BEC6: 3A        .byte $3A   ; 
-- - - - - - 0x01BED7 06:BEC7: 00        .byte $00   ; 
-- - - - - - 0x01BED8 06:BEC8: 99        .byte $99   ; 
-- - - - - - 0x01BED9 06:BEC9: 9B        .byte $9B   ; 
-- D 1 - - - 0x01BEDA 06:BECA: 86        .byte $86   ; 
-- - - - - - 0x01BEDB 06:BECB: 2E        .byte $2E   ; 
-- - - - - - 0x01BEDC 06:BECC: 93        .byte $93   ; 
-- - - - - - 0x01BEDD 06:BECD: 8C        .byte $8C   ; 
-- D 1 - - - 0x01BEDE 06:BECE: 8D        .byte $8D   ; 
-- - - - - - 0x01BEDF 06:BECF: 8D        .byte $8D   ; 
-- - - - - - 0x01BEE0 06:BED0: 8E        .byte $8E   ; 
-- - - - - - 0x01BEE1 06:BED1: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BEE2 06:BED2: 3A        .byte $3A   ; 
-- - - - - - 0x01BEE3 06:BED3: 00        .byte $00   ; 
-- - - - - - 0x01BEE4 06:BED4: 95        .byte $95   ; 
-- - - - - - 0x01BEE5 06:BED5: 97        .byte $97   ; 
-- D 1 - - - 0x01BEE6 06:BED6: 86        .byte $86   ; 
-- - - - - - 0x01BEE7 06:BED7: 2E        .byte $2E   ; 
-- - - - - - 0x01BEE8 06:BED8: 2E        .byte $2E   ; 
-- - - - - - 0x01BEE9 06:BED9: 8C        .byte $8C   ; 
-- D 1 - - - 0x01BEEA 06:BEDA: 8D        .byte $8D   ; 
-- - - - - - 0x01BEEB 06:BEDB: 8D        .byte $8D   ; 
-- - - - - - 0x01BEEC 06:BEDC: 8E        .byte $8E   ; 
-- - - - - - 0x01BEED 06:BEDD: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BEEE 06:BEDE: 3A        .byte $3A   ; 
-- - - - - - 0x01BEEF 06:BEDF: 00        .byte $00   ; 
-- - - - - - 0x01BEF0 06:BEE0: 98        .byte $98   ; 
-- - - - - - 0x01BEF1 06:BEE1: 9A        .byte $9A   ; 
-- D 1 - - - 0x01BEF2 06:BEE2: 87        .byte $87   ; 
-- - - - - - 0x01BEF3 06:BEE3: 2E        .byte $2E   ; 
-- - - - - - 0x01BEF4 06:BEE4: 2E        .byte $2E   ; 
-- - - - - - 0x01BEF5 06:BEE5: 8F        .byte $8F   ; 
-- D 1 - - - 0x01BEF6 06:BEE6: 90        .byte $90   ; 
-- - - - - - 0x01BEF7 06:BEE7: 90        .byte $90   ; 
-- - - - - - 0x01BEF8 06:BEE8: 91        .byte $91   ; 
-- - - - - - 0x01BEF9 06:BEE9: 0E        .byte $0E   ; 
-- D 1 - - - 0x01BEFA 06:BEEA: 3A        .byte $3A   ; 
-- - - - - - 0x01BEFB 06:BEEB: 00        .byte $00   ; 
-- - - - - - 0x01BEFC 06:BEEC: 99        .byte $99   ; 
-- - - - - - 0x01BEFD 06:BEED: 9B        .byte $9B   ; 
+; 1 byte - the room number
+; 2 byte - the macro X-position
+; 3 byte - the X-position
+; 4 byte - the enemyB number
+tbl_ptr_walls:
+- D 1 - - - 0x01BDFE 06:BDEE: 4C        .byte $4C, $01, $94, $00   ; level 4, map 2 (F0-F6)
+- D 1 - - - 0x01BE02 06:BDF2: 51        .byte $51, $04, $34, $00
+- D 1 - - - 0x01BE06 06:BDF6: 51        .byte $51, $04, $C4, $01
+- D 1 - - - 0x01BE0A 06:BDFA: 58        .byte $58, $01, $34, $00
+- D 1 - - - 0x01BE0E 06:BDFE: 58        .byte $58, $01, $C4, $01
+- D 1 - - - 0x01BE12 06:BE02: 5C        .byte $5C, $04, $B4, $00   ; level 4, map 3 (C1-C6)
+- D 1 - - - 0x01BE16 06:BE06: 64        .byte $64, $02, $94, $00
+- D 1 - - - 0x01BE1A 06:BE0A: 67        .byte $67, $03, $94, $00   ; level 4, map 4 (A0-J0)
+- D 1 - - - 0x01BE1E 06:BE0E: 67        .byte $67, $05, $94, $01
+- D 1 - - - 0x01BE22 06:BE12: 78        .byte $78, $03, $34, $00   ; level 4, map 4 (D6-H6)
+- D 1 - - - 0x01BE26 06:BE16: 67        .byte $67, $03, $C4, $01
+- D 1 - - - 0x01BE2A 06:BE1A: 61        .byte $61, $03, $01, $0E
+- D 1 - - - 0x01BE2E 06:BE1E: 3A        .byte $3A, $00, $5B, $5B
+- D 1 - - - 0x01BE32 06:BE22: 5B        .byte $5B, $12, $5B, $5B
+- D 1 - - - 0x01BE36 06:BE26: 5B        .byte $5B, $5B, $5B, $0E
+- D 1 - - - 0x01BE3A 06:BE2A: 3A        .byte $3A, $00, $01, $02
+- D 1 - - - 0x01BE3E 06:BE2E: 01        .byte $01, $12, $01, $02
+- D 1 - - - 0x01BE42 06:BE32: 01        .byte $01, $02, $01, $0E
+- D 1 - - - 0x01BE46 06:BE36: 3A        .byte $3A, $00, $02, $01
+- D 1 - - - 0x01BE4A 06:BE3A: 02        .byte $02, $2C, $02, $01
+- D 1 - - - 0x01BE4E 06:BE3E: 02        .byte $02, $01, $02, $0E
+- D 1 - - - 0x01BE52 06:BE42: 3A        .byte $3A, $00, $5B, $5B
+- D 1 - - - 0x01BE56 06:BE46: 5B        .byte $5B, $5B, $5B, $5B
+- D 1 - - - 0x01BE5A 06:BE4A: 5B        .byte $5B, $5B, $5B, $0E
+- D 1 - - - 0x01BE5E 06:BE4E: 3A        .byte $3A, $00, $6B, $6B
+- D 1 - - - 0x01BE62 06:BE52: 6B        .byte $6B, $6B, $6B, $71
+- D 1 - - - 0x01BE66 06:BE56: 74        .byte $74, $74, $75, $0E
+- D 1 - - - 0x01BE6A 06:BE5A: 3A        .byte $3A, $00, $6B, $6B
+- D 1 - - - 0x01BE6E 06:BE5E: 6C        .byte $6C, $6D, $6B, $72
+- D 1 - - - 0x01BE72 06:BE62: 1C        .byte $1C, $1D, $1D, $0E
+- D 1 - - - 0x01BE76 06:BE66: 3A        .byte $3A, $00, $6B, $6B
+- D 1 - - - 0x01BE7A 06:BE6A: 6C        .byte $6C, $6E, $6B, $72
+- D 1 - - - 0x01BE7E 06:BE6E: 1E        .byte $1E, $1F, $1F, $0E
+- D 1 - - - 0x01BE82 06:BE72: 3A        .byte $3A, $00, $6B, $6B
+- D 1 - - - 0x01BE86 06:BE76: 6F        .byte $6F, $70, $6B, $73
+- D 1 - - - 0x01BE8A 06:BE7A: 76        .byte $76, $76, $77, $0E
+- D 1 - - - 0x01BE8E 06:BE7E: 3A        .byte $3A, $00, $94, $96
+- D 1 - - - 0x01BE92 06:BE82: 9E        .byte $9E, $83, $78, $79
+- D 1 - - - 0x01BE96 06:BE86: 7A        .byte $7A, $81, $82, $0E
+- D 1 - - - 0x01BE9A 06:BE8A: 3A        .byte $3A, $00, $95, $97
+- D 1 - - - 0x01BE9E 06:BE8E: 9F        .byte $9F, $72, $7B, $7C
+- D 1 - - - 0x01BEA2 06:BE92: 7D        .byte $7D, $81, $82, $0E
+- D 1 - - - 0x01BEA6 06:BE96: 3A        .byte $3A, $00, $98, $9A
+- D 1 - - - 0x01BEAA 06:BE9A: A0        .byte $A0, $84, $7E, $7F
+- D 1 - - - 0x01BEAE 06:BE9E: 80        .byte $80, $81, $82, $0E
+- D 1 - - - 0x01BEB2 06:BEA2: 3A        .byte $3A, $00, $99, $9B
+- D 1 - - - 0x01BEB6 06:BEA6: 85        .byte $85, $2E, $2E, $88
+- D 1 - - - 0x01BEBA 06:BEAA: 89        .byte $89, $8A, $8B, $0E
+- D 1 - - - 0x01BEBE 06:BEAE: 3A        .byte $3A, $00, $95, $97
+- D 1 - - - 0x01BEC2 06:BEB2: 86        .byte $86, $2E, $2E, $8C
+- D 1 - - - 0x01BEC6 06:BEB6: 8D        .byte $8D, $8D, $8E, $0E
+- D 1 - - - 0x01BECA 06:BEBA: 3A        .byte $3A, $00, $98, $9A
+- D 1 - - - 0x01BECE 06:BEBE: 86        .byte $86, $2E, $92, $8C
+- D 1 - - - 0x01BED2 06:BEC2: 8D        .byte $8D, $8D, $8E, $0E
+- D 1 - - - 0x01BED6 06:BEC6: 3A        .byte $3A, $00, $99, $9B
+- D 1 - - - 0x01BEDA 06:BECA: 86        .byte $86, $2E, $93, $8C
+- D 1 - - - 0x01BEDE 06:BECE: 8D        .byte $8D, $8D, $8E, $0E
+- D 1 - - - 0x01BEE2 06:BED2: 3A        .byte $3A, $00, $95, $97
+- D 1 - - - 0x01BEE6 06:BED6: 86        .byte $86, $2E, $2E, $8C
+- D 1 - - - 0x01BEEA 06:BEDA: 8D        .byte $8D, $8D, $8E, $0E
+- D 1 - - - 0x01BEEE 06:BEDE: 3A        .byte $3A, $00, $98, $9A
+- D 1 - - - 0x01BEF2 06:BEE2: 87        .byte $87, $2E, $2E, $8F
+- D 1 - - - 0x01BEF6 06:BEE6: 90        .byte $90, $90, $91, $0E
+- D 1 - - - 0x01BEFA 06:BEEA: 3A        .byte $3A, $00, $99, $9B
+
 - - - - - - 0x01BEFE 06:BEEE: A1        .byte $A1   ; 
 - - - - - - 0x01BEFF 06:BEEF: 83        .byte $83   ; 
 - - - - - - 0x01BF00 06:BEF0: 78        .byte $78   ; <x>

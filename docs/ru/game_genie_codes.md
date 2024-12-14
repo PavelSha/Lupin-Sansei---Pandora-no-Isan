@@ -18,6 +18,12 @@ OXXYKLSX + POXYSLKK
 
 ...
 
+### Уровень 4, карта 4 (D6-H6)
+
+OXXYKLSX + ANXYSLKK
+
+...
+
 ## Отключение метаплиток заднего фона
 
 OXESLZOU + OXOIZZOU + PEOILZTA + PEESGZTA

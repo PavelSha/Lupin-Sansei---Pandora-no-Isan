@@ -4114,7 +4114,7 @@ C - - - - - 0x01D88B 07:D87B: 20 17 DA  JSR sub_DA17_add_enemy_score   ;
 loc_D87E_free_enemyB_while_creating:
 sub_D87E_free_enemyB_while_creating:
 C D 2 - - - 0x01D88E 07:D87E: A9 00     LDA #$00                       ;
-C - - - - - 0x01D890 07:D880: 9D 5C 03  STA vEnemyBStatus,X
+C - - - - - 0x01D890 07:D880: 9D 5C 03  STA vEnemyBStatus,X            ; free
 sub_D883_dec_enemyB_counter:
 loc_D883_dec_enemyB_counter:
 C D 2 - - - 0x01D893 07:D883: AD 0B 03  LDA vEnemyBCount               ;
@@ -8666,8 +8666,8 @@ C - - - - - 0x01F47A 07:F46A: 18        CLC                                     
 C - - - - - 0x01F47B 07:F46B: 69 04     ADC #$04                                    ; an offset on 4 bytes for the left direction
 C - - - - - 0x01F47D 07:F46D: A8        TAY                                         ;
 @bra_F46E_right:
-C - - - - - 0x01F47E 07:F46E: B9 9C BD  LDA tbl_ptr_enemy_t4_sprite_params_,Y
-C - - - - - 0x01F481 07:F471: 9D 62 03  STA ram_0362,X
+C - - - - - 0x01F47E 07:F46E: B9 9C BD  LDA tbl_ptr_enemy_t4_sprite_params_,Y       ;
+C - - - - - 0x01F481 07:F471: 9D 62 03  STA vEnemyBSoarFlags,X                      ;
 C - - - - - 0x01F484 07:F474: A9 00     LDA #$00                                    ;
 C - - - - - 0x01F486 07:F476: 9D 80 03  STA vEnemyBFrame_Counter,X                  ; Initializes a frame counter
 C - - - - - 0x01F489 07:F479: A9 40     LDA #$40                                    ;
@@ -8906,12 +8906,13 @@ C - - - - - 0x01F623 07:F613: A9 40     LDA #$40
 C - - - - - 0x01F625 07:F615: 9D 86 03  STA ram_0386,X
 C - - - - - 0x01F628 07:F618: 4C 20 F8  JMP loc_F820_finish_creating_enemyB
 
-loc_F61B:
+; In: Register X - the enemyB number
+loc_F61B_cancel_creating:
 bra_F61B_cancel_creating:
-C D 3 - - - 0x01F62B 07:F61B: 20 7E D8  JSR sub_D87E_free_enemyB_while_creating
-C - - - - - 0x01F62E 07:F61E: 68        PLA
-C - - - - - 0x01F62F 07:F61F: 68        PLA
-C - - - - - 0x01F630 07:F620: 60        RTS
+C D 3 - - - 0x01F62B 07:F61B: 20 7E D8  JSR sub_D87E_free_enemyB_while_creating  ;
+C - - - - - 0x01F62E 07:F61E: 68        PLA                                      ;
+C - - - - - 0x01F62F 07:F61F: 68        PLA                                      ; double return (i.e. $F6E7 -> $F108)
+C - - - - - 0x01F630 07:F620: 60        RTS                                      ;
 
 sub_F621:
 C - - - - - 0x01F631 07:F621: BD 74 03  LDA vEnemyBPosXLow,X
@@ -9004,13 +9005,13 @@ C - - - - - 0x01F6D0 07:F6C0: 20 7A F3  JSR sub_F37A_assign_enemyA_position
 C - - - - - 0x01F6D3 07:F6C3: A9 C0     LDA #$C0
 C - - - - - 0x01F6D5 07:F6C5: 9D 20 03  STA vEnemyAStatus,X
 C - - - - - 0x01F6D8 07:F6C8: A9 30     LDA #$30
-C - - - - - 0x01F6DA 07:F6CA: 8D 02 03  STA ram_0302
+C - - - - - 0x01F6DA 07:F6CA: 8D 02 03  STA vEnemyASpriteMagic2
 C - - - - - 0x01F6DD 07:F6CD: A9 46     LDA #$46
-C - - - - - 0x01F6DF 07:F6CF: 8D 03 03  STA ram_0303
+C - - - - - 0x01F6DF 07:F6CF: 8D 03 03  STA vEnemyASpriteMagic3
 C - - - - - 0x01F6E2 07:F6D2: A9 0D     LDA #$0D
 C - - - - - 0x01F6E4 07:F6D4: 8D B4 06  STA vCacheChrBankSelect + 5
 C - - - - - 0x01F6E7 07:F6D7: A9 00     LDA #$00
-C - - - - - 0x01F6E9 07:F6D9: 9D 44 03  STA ram_0344,X
+C - - - - - 0x01F6E9 07:F6D9: 9D 44 03  STA vEnemyAFrame_Counter,X
 C - - - - - 0x01F6EC 07:F6DC: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA
 
 - D 3 - - - 0x01F6EF 07:F6DF: 05        .byte $05
@@ -9022,77 +9023,83 @@ C - - - - - 0x01F6EC 07:F6DC: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA
 - D 3 - - - 0x01F6F5 07:F6E5: 0D        .byte $0D
 - D 3 - - - 0x01F6F6 07:F6E6: A4        .byte $A4
 
+; In: $0000 - macro X-position
+; In: $0001 - X-position
 loc_F6E7_wall_or_platform_appearance:
 C - - J - - 0x01F6F7 07:F6E7: 20 39 F3  JSR sub_F339_check_position
-C - - - - - 0x01F6FA 07:F6EA: 24 3C     BIT vGameLocks
-C - - - - - 0x01F6FC 07:F6EC: 30 5F     BMI bra_F74D
-C - - - - - 0x01F6FE 07:F6EE: AD 01 03  LDA ram_0301
-C - - - - - 0x01F701 07:F6F1: C9 32     CMP #$32
-C - - - - - 0x01F703 07:F6F3: D0 14     BNE bra_F709
-C - - - - - 0x01F705 07:F6F5: A2 01     LDX #$01
-bra_F6F7:
+C - - - - - 0x01F6FA 07:F6EA: 24 3C     BIT vGameLocks                   ;
+C - - - - - 0x01F6FC 07:F6EC: 30 5F     BMI bra_F74D                     ; If lock 'Select a character' exists
+C - - - - - 0x01F6FE 07:F6EE: AD 01 03  LDA vEnemyB                      ;
+C - - - - - 0x01F701 07:F6F1: C9 32     CMP #$32                         ; CONSTANT - Breaking platform
+C - - - - - 0x01F703 07:F6F3: D0 14     BNE bra_F709_skip                ; If the enemy isn't the 'breaking platform'
+C - - - - - 0x01F705 07:F6F5: A2 01     LDX #$01                         ; set loop counter
+@bra_F6F7_loop:                                                          ; loop by x (2 times)
 C - - - - - 0x01F707 07:F6F7: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01F70A 07:F6FA: 10 06     BPL bra_F702
 C - - - - - 0x01F70C 07:F6FC: CA        DEX
-C - - - - - 0x01F70D 07:F6FD: 10 F8     BPL bra_F6F7
-- - - - - - 0x01F70F 07:F6FF: 4C        .byte $4C
-- - - - - - 0x01F710 07:F700: 83        .byte $83
-- - - - - - 0x01F711 07:F701: D8        .byte $D8
+C - - - - - 0x01F70D 07:F6FD: 10 F8     BPL @bra_F6F7_loop
+C - - - - - 0x01F70F 07:F6FF: 4C 83 D8  JMP loc_D883_dec_enemyB_counter  ;
+
 bra_F702:
 C - - - - - 0x01F712 07:F702: A9 C2     LDA #$C2
 C - - - - - 0x01F714 07:F704: 9D 5C 03  STA vEnemyBStatus,X
-C - - - - - 0x01F717 07:F707: D0 3F     BNE bra_F748
-bra_F709:
-C - - - - - 0x01F719 07:F709: A9 00     LDA #$00
-C - - - - - 0x01F71B 07:F70B: A8        TAY
-C - - - - - 0x01F71C 07:F70C: 0A        ASL
-C - - - - - 0x01F71D 07:F70D: 0A        ASL
-C - - - - - 0x01F71E 07:F70E: AA        TAX
-bra_F70F:
-C - - - - - 0x01F71F 07:F70F: A5 46     LDA vNoSubLevel
-C - - - - - 0x01F721 07:F711: DD EE BD  CMP $BDEE,X
-C - - - - - 0x01F724 07:F714: D0 16     BNE bra_F72C
-C - - - - - 0x01F726 07:F716: A5 00     LDA ram_0000
-C - - - - - 0x01F728 07:F718: DD EF BD  CMP $BDEF,X
-C - - - - - 0x01F72B 07:F71B: D0 0F     BNE bra_F72C
-C - - - - - 0x01F72D 07:F71D: A5 01     LDA ram_0001
-C - - - - - 0x01F72F 07:F71F: DD F0 BD  CMP $BDF0,X
-C - - - - - 0x01F732 07:F722: D0 08     BNE bra_F72C
-C - - - - - 0x01F734 07:F724: B9 C0 05  LDA ram_05C0,Y
-C - - - - - 0x01F737 07:F727: 10 0A     BPL bra_F733
-C - - - - - 0x01F739 07:F729: 4C 1B F6  JMP loc_F61B
+C - - - - - 0x01F717 07:F707: D0 3F     BNE bra_F748                     ; Always true
 
-bra_F72C:
-C - - - - - 0x01F73C 07:F72C: E8        INX
-C - - - - - 0x01F73D 07:F72D: E8        INX
-C - - - - - 0x01F73E 07:F72E: E8        INX
-C - - - - - 0x01F73F 07:F72F: E8        INX
-C - - - - - 0x01F740 07:F730: C8        INY
-C - - - - - 0x01F741 07:F731: D0 DC     BNE bra_F70F
-bra_F733:
-C - - - - - 0x01F743 07:F733: BD F1 BD  LDA $BDF1,X
-C - - - - - 0x01F746 07:F736: AA        TAX
-C - - - - - 0x01F747 07:F737: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x01F74A 07:F73A: 10 03     BPL bra_F73F
-C - - - - - 0x01F74C 07:F73C: 4C 83 D8  JMP loc_D883_dec_enemyB_counter
+; In: $0000 - macro X-position
+; In: $0001 - X-position
+bra_F709_skip:
+C - - - - - 0x01F719 07:F709: A9 00     LDA #$00                         ;
+C - - - - - 0x01F71B 07:F70B: A8        TAY                              ; set loop counter
+C - - - - - 0x01F71C 07:F70C: 0A        ASL                              ;
+C - - - - - 0x01F71D 07:F70D: 0A        ASL                              ; *4, because the set of 4th bytes
+C - - - - - 0x01F71E 07:F70E: AA        TAX                              ; prepares an index of the table
+bra_F70F_loop:                                                           ; loop by y (4 * 64 times)
+C - - - - - 0x01F71F 07:F70F: A5 46     LDA vNoSubLevel                  ;
+C - - - - - 0x01F721 07:F711: DD EE BD  CMP tbl_ptr_walls,X              ;
+C - - - - - 0x01F724 07:F714: D0 16     BNE bra_F72C_next                ; If the current wall != the wall of the table
+C - - - - - 0x01F726 07:F716: A5 00     LDA ram_0000                     ;
+C - - - - - 0x01F728 07:F718: DD EF BD  CMP tbl_ptr_walls + 1,X          ;
+C - - - - - 0x01F72B 07:F71B: D0 0F     BNE bra_F72C_next                ; If the macro X-position of the current wall != the macro X-position of the table
+C - - - - - 0x01F72D 07:F71D: A5 01     LDA ram_0001                     ;
+C - - - - - 0x01F72F 07:F71F: DD F0 BD  CMP tbl_ptr_walls + 2,X          ;
+C - - - - - 0x01F732 07:F722: D0 08     BNE bra_F72C_next                ; If the X-position of the current wall != the X-position of the table
+C - - - - - 0x01F734 07:F724: B9 C0 05  LDA vWalls,Y                     ;
+C - - - - - 0x01F737 07:F727: 10 0A     BPL bra_F733_not_broken          ; If the wall isn't broken
+C - - - - - 0x01F739 07:F729: 4C 1B F6  JMP loc_F61B_cancel_creating     ; !(BUG?), Register X should be the enemyB number
 
-bra_F73F:
-C - - - - - 0x01F74F 07:F73F: A9 C0     LDA #$C0
-C - - - - - 0x01F751 07:F741: 9D 5C 03  STA vEnemyBStatus,X
-C - - - - - 0x01F754 07:F744: 98        TYA
-C - - - - - 0x01F755 07:F745: 9D 62 03  STA ram_0362,X
+bra_F72C_next:
+C - - - - - 0x01F73C 07:F72C: E8        INX                              ;
+C - - - - - 0x01F73D 07:F72D: E8        INX                              ;
+C - - - - - 0x01F73E 07:F72E: E8        INX                              ;
+C - - - - - 0x01F73F 07:F72F: E8        INX                              ;
+C - - - - - 0x01F740 07:F730: C8        INY                              ; increments loop counter
+C - - - - - 0x01F741 07:F731: D0 DC     BNE bra_F70F_loop                ; If Register Y != 0x00
+bra_F733_not_broken:
+C - - - - - 0x01F743 07:F733: BD F1 BD  LDA tbl_ptr_walls + 3,X          ;
+C - - - - - 0x01F746 07:F736: AA        TAX                              ; X <~ the enemyB number
+C - - - - - 0x01F747 07:F737: BD 5C 03  LDA vEnemyBStatus,X              ;
+C - - - - - 0x01F74A 07:F73A: 10 03     BPL bra_F73F_not_created         ; If the wall isn't created
+C - - - - - 0x01F74C 07:F73C: 4C 83 D8  JMP loc_D883_dec_enemyB_counter  ;
+
+; In: Register Y - an index of the wall
+bra_F73F_not_created:
+C - - - - - 0x01F74F 07:F73F: A9 C0     LDA #$C0                               ;
+C - - - - - 0x01F751 07:F741: 9D 5C 03  STA vEnemyBStatus,X                    ; initializes a default status
+C - - - - - 0x01F754 07:F744: 98        TYA                                    ;
+C - - - - - 0x01F755 07:F745: 9D 62 03  STA vEnemyBWallIndex,X                 ; initializes a wall index
 bra_F748:
-C - - - - - 0x01F758 07:F748: 20 92 F3  JSR sub_F392_assign_enemyB_position
-C - - - - - 0x01F75B 07:F74B: A9 3C     LDA #$3C
+C - - - - - 0x01F758 07:F748: 20 92 F3  JSR sub_F392_assign_enemyB_position    ;
+C - - - - - 0x01F75B 07:F74B: A9 3C     LDA #$3C                               ; the offset for sprite_magic2 (Offset: $003C)
+; In: Register A - the offset for sprite_magic2
 bra_F74D:
-C - - - - - 0x01F75D 07:F74D: 8D 06 03  STA ram_0306
-C - - - - - 0x01F760 07:F750: A9 07     LDA #$07
-C - - - - - 0x01F762 07:F752: 8D 07 03  STA ram_0307
-C - - - - - 0x01F765 07:F755: A9 18     LDA #$18
-C - - - - - 0x01F767 07:F757: 8D B4 06  STA vCacheChrBankSelect + 5
-C - - - - - 0x01F76A 07:F75A: A9 00     LDA #$00
-C - - - - - 0x01F76C 07:F75C: 9D 80 03  STA ram_0380,X
-C - - - - - 0x01F76F 07:F75F: 4C 20 F8  JMP loc_F820_finish_creating_enemyB
+C - - - - - 0x01F75D 07:F74D: 8D 06 03  STA vEnemyBSpriteMagic2                ;
+C - - - - - 0x01F760 07:F750: A9 07     LDA #$07                               ;
+C - - - - - 0x01F762 07:F752: 8D 07 03  STA vEnemyBSpriteMagic3                ; <~ sprite_magic3 (see v_sprite_magic3) (Bank 05, Page 2, $8000)
+C - - - - - 0x01F765 07:F755: A9 18     LDA #$18                               ;
+C - - - - - 0x01F767 07:F757: 8D B4 06  STA vCacheChrBankSelect + 5            ; <~ CONSTANT for CHR ROM
+C - - - - - 0x01F76A 07:F75A: A9 00     LDA #$00                               ;
+C - - - - - 0x01F76C 07:F75C: 9D 80 03  STA vEnemyBFrame_Counter,X             ; reset a counter
+C - - - - - 0x01F76F 07:F75F: 4C 20 F8  JMP loc_F820_finish_creating_enemyB    ;
 
 loc_F762_diver_appearance:
 C - - J - - 0x01F772 07:F762: 20 8A F3  JSR sub_F38A_start_enemyB_appearance
@@ -9101,7 +9108,7 @@ C - - - - - 0x01F778 07:F768: A9 00     LDA #$00
 C - - - - - 0x01F77A 07:F76A: 9D 80 03  STA ram_0380,X
 C - - - - - 0x01F77D 07:F76D: A9 06     LDA #$06
 C - - - - - 0x01F77F 07:F76F: 8D B3 06  STA vCacheChrBankSelect + 4
-C - - - - - 0x01F782 07:F772: 4C 20 F8  JMP loc_F820_finish_creating_enemyB
+C - - - - - 0x01F782 07:F772: 4C 20 F8  JMP loc_F820_finish_creating_enemyB       ;
 
 loc_F775_boss4:
 C - - J - - 0x01F785 07:F775: A0 0C     LDY #$0C                                     ; the offset value #1

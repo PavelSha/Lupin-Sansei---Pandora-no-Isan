@@ -58,21 +58,21 @@
 
 ; Page 2
 sub_A000_boss1:
-C - - - - - 0x00E010 03:A000: 4C 1E A1  JMP loc_A11E_boss
+C - - - - - 0x00E010 03:A000: 4C 1E A1  JMP loc_A11E_boss   ;
 sub_A003_boss2:
-C - - - - - 0x00E013 03:A003: 4C 04 A6  JMP loc_A604_boss
+C - - - - - 0x00E013 03:A003: 4C 04 A6  JMP loc_A604_boss   ;
 sub_A006_boss3:
-C - - - - - 0x00E016 03:A006: 4C E0 A8  JMP loc_A8E0_boss
+C - - - - - 0x00E016 03:A006: 4C E0 A8  JMP loc_A8E0_boss   ;
 sub_A009_boss4:
-C - - - - - 0x00E019 03:A009: 4C 92 AC  JMP loc_AC92_boss
+C - - - - - 0x00E019 03:A009: 4C 92 AC  JMP loc_AC92_boss   ;
 sub_A00C_undead:
-C - - - - - 0x00E01C 03:A00C: 4C FB AF  JMP loc_AFFB_enemy
+C - - - - - 0x00E01C 03:A00C: 4C FB AF  JMP loc_AFFB_enemy  ;
 sub_A00F_swordtail:
-C - - - - - 0x00E01F 03:A00F: 4C F0 B3  JMP loc_B3F0_enemy
+C - - - - - 0x00E01F 03:A00F: 4C F0 B3  JMP loc_B3F0_enemy  ;
 sub_A012_knight:
-C - - - - - 0x00E022 03:A012: 4C 14 B8  JMP loc_B814_enemy
+C - - - - - 0x00E022 03:A012: 4C 14 B8  JMP loc_B814_enemy  ;
 sub_A015_cat_or_snake_enemy:
-C - - - - - 0x00E025 03:A015: 4C 5E BB  JMP loc_BB5E_enemy
+C - - - - - 0x00E025 03:A015: 4C 5E BB  JMP loc_BB5E_enemy  ;
 
 tbl_A018_hitboxes:
 - D 1 - - - 0x00E028 03:A018: 00        .byte $00, $00, $30, $06  ; the enemy himself 
@@ -4034,7 +4034,7 @@ tbl_BB4E_status_flags:
 - D 1 - - - 0x00FB60 03:BB50: 00        .byte $00   ; 
 - D 1 - - - 0x00FB61 03:BB51: 02        .byte $02   ; The enemy is jumping.
 - D 1 - - - 0x00FB62 03:BB52: 02        .byte $02   ; 
-- D 1 - - - 0x00FB63 03:BB53: 08        .byte $08   ; 
+- D 1 - - - 0x00FB63 03:BB53: 08        .byte $08   ; The enemy is stopping.
 - D 1 - - - 0x00FB64 03:BB54: 08        .byte $08   ; 
 - D 1 - - - 0x00FB65 03:BB55: 08        .byte $08   ; 
 ; Potted snakes
@@ -4131,51 +4131,52 @@ C - - - - - 0x00FBF7 03:BBE7: BD 5C 03  LDA vEnemyBStatus,X                     
 C - - - - - 0x00FBFA 03:BBEA: 4A        LSR                                       ;
 C - - - - - 0x00FBFB 03:BBEB: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bits ; bank_FF
 
-- D 1 - I - 0x00FBFE 03:BBEE: 42 BD     .addr loc_BD43_jump - 1   ; 0x02
-- D - - - - 0x00FC00 03:BBF0: 42 BC     .addr loc_BC43_main - 1   ; 0x04
-- D 1 - I - 0x00FC02 03:BBF2: 42 BC     .addr loc_BC43_main - 1   ; 0x08
-- D 1 - I - 0x00FC04 03:BBF4: FB BB     .addr loc_BBFC - 1        ; 0x10
-- D - - - - 0x00FC06 03:BBF6: C0 BD     .addr loc_BDC1_dying - 1  ; 0x20
-- D 1 - I - 0x00FC08 03:BBF8: 42 BC     .addr loc_BC43_main - 1   ; 0x40
-- D 1 - I - 0x00FC0A 03:BBFA: 42 BC     .addr loc_BC43_main - 1   ; 0x80
+- D 1 - I - 0x00FBFE 03:BBEE: 42 BD     .addr loc_BD43_jump - 1          ; 0x02
+- D - - - - 0x00FC00 03:BBF0: 42 BC     .addr loc_BC43_main - 1          ; 0x04
+- D 1 - I - 0x00FC02 03:BBF2: 42 BC     .addr loc_BC43_main - 1          ; 0x08
+- D 1 - I - 0x00FC04 03:BBF4: FB BB     .addr loc_BBFC_crawling_out - 1  ; 0x10
+- D - - - - 0x00FC06 03:BBF6: C0 BD     .addr loc_BDC1_dying - 1         ; 0x20
+- D 1 - I - 0x00FC08 03:BBF8: 42 BC     .addr loc_BC43_main - 1          ; 0x40
+- D 1 - I - 0x00FC0A 03:BBFA: 42 BC     .addr loc_BC43_main - 1          ; 0x80
 
-loc_BBFC:
-C - - - - - 0x00FC0C 03:BBFC: DE 86 03  DEC vEnemyBJumpCounter,X
-C - - - - - 0x00FC0F 03:BBFF: F0 1A     BEQ bra_BC1B
-C - - - - - 0x00FC11 03:BC01: BD 86 03  LDA vEnemyBJumpCounter,X
-C - - - - - 0x00FC14 03:BC04: C9 30     CMP #$30
-C - - - - - 0x00FC16 03:BC06: 90 03     BCC bra_BC0B
-C - - - - - 0x00FC18 03:BC08: 4C A7 BC  JMP loc_BCA7
+loc_BBFC_crawling_out:
+C - - - - - 0x00FC0C 03:BBFC: DE 86 03  DEC vEnemyBJumpCounter,X             ;
+C - - - - - 0x00FC0F 03:BBFF: F0 1A     BEQ bra_BC1B_complete                ; If vJumpCounter == 0x00
+C - - - - - 0x00FC11 03:BC01: BD 86 03  LDA vEnemyBJumpCounter,X             ;
+C - - - - - 0x00FC14 03:BC04: C9 30     CMP #$30                             ; CONSTANT - 'crawling out' time
+C - - - - - 0x00FC16 03:BC06: 90 03     BCC bra_BC0B_crawling_out_rendering  ; If vJumpCounter < 0x30
+C - - - - - 0x00FC18 03:BC08: 4C A7 BC  JMP loc_BCA7_render_entourage_ex     ;
 
-bra_BC0B:
-C - - - - - 0x00FC1B 03:BC0B: A0 0C     LDY #$0C
-C - - - - - 0x00FC1D 03:BC0D: C9 20     CMP #$20
-C - - - - - 0x00FC1F 03:BC0F: B0 6C     BCS bra_BC7D_prepare_rendering
-C - - - - - 0x00FC21 03:BC11: A0 10     LDY #$10
-C - - - - - 0x00FC23 03:BC13: C9 10     CMP #$10
-C - - - - - 0x00FC25 03:BC15: B0 66     BCS bra_BC7D_prepare_rendering
-C - - - - - 0x00FC27 03:BC17: A0 14     LDY #$14
-C - - - - - 0x00FC29 03:BC19: D0 62     BNE bra_BC7D_prepare_rendering
-bra_BC1B:
-C - - - - - 0x00FC2B 03:BC1B: A0 08     LDY #$08
-C - - - - - 0x00FC2D 03:BC1D: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x00FC30 03:BC20: 6A        ROR
-C - - - - - 0x00FC31 03:BC21: A9 00     LDA #$00
-C - - - - - 0x00FC33 03:BC23: 90 04     BCC bra_BC29
-C - - - - - 0x00FC35 03:BC25: A0 F8     LDY #$F8
-C - - - - - 0x00FC37 03:BC27: A9 FF     LDA #$FF
-bra_BC29:
-C - - - - - 0x00FC39 03:BC29: 85 00     STA ram_0000
-C - - - - - 0x00FC3B 03:BC2B: 98        TYA
-C - - - - - 0x00FC3C 03:BC2C: 18        CLC
-C - - - - - 0x00FC3D 03:BC2D: 7D 74 03  ADC ram_0374,X
-C - - - - - 0x00FC40 03:BC30: 9D 74 03  STA ram_0374,X
-C - - - - - 0x00FC43 03:BC33: BD 7A 03  LDA ram_037A,X
-C - - - - - 0x00FC46 03:BC36: 65 00     ADC ram_0000
-C - - - - - 0x00FC48 03:BC38: 9D 7A 03  STA ram_037A,X
-C - - - - - 0x00FC4B 03:BC3B: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x00FC4E 03:BC3E: 29 EF     AND #$EF
-C - - - - - 0x00FC50 03:BC40: 9D 5C 03  STA vEnemyBStatus,X
+bra_BC0B_crawling_out_rendering:
+C - - - - - 0x00FC1B 03:BC0B: A0 0C     LDY #$0C                          ; the offset value #1
+C - - - - - 0x00FC1D 03:BC0D: C9 20     CMP #$20                          ; CONSTANT - 1/3 crawling out
+C - - - - - 0x00FC1F 03:BC0F: B0 6C     BCS bra_BC7D_prepare_rendering    ; If vJumpCounter >= 0x20
+C - - - - - 0x00FC21 03:BC11: A0 10     LDY #$10                          ; the offset value #2
+C - - - - - 0x00FC23 03:BC13: C9 10     CMP #$10                          ; CONSTANT - 2/3 crawling out
+C - - - - - 0x00FC25 03:BC15: B0 66     BCS bra_BC7D_prepare_rendering    ; If vJumpCounter >= 0x10
+C - - - - - 0x00FC27 03:BC17: A0 14     LDY #$14                          ; the offset value #3
+C - - - - - 0x00FC29 03:BC19: D0 62     BNE bra_BC7D_prepare_rendering    ; Always true
+
+bra_BC1B_complete:
+C - - - - - 0x00FC2B 03:BC1B: A0 08     LDY #$08                         ; the offset value #1 by LowPosX (+8)
+C - - - - - 0x00FC2D 03:BC1D: BD 5C 03  LDA vEnemyBStatus,X              ;
+C - - - - - 0x00FC30 03:BC20: 6A        ROR                              ;
+C - - - - - 0x00FC31 03:BC21: A9 00     LDA #$00                         ; the offset value #1 by HighPosX
+C - - - - - 0x00FC33 03:BC23: 90 04     BCC @bra_BC29_right              ; If the enemy is looking to the right
+C - - - - - 0x00FC35 03:BC25: A0 F8     LDY #$F8                         ; the offset value #2 by LowPosX (-8)
+C - - - - - 0x00FC37 03:BC27: A9 FF     LDA #$FF                         ; the offset value #2 by HighPosX
+@bra_BC29_right:
+C - - - - - 0x00FC39 03:BC29: 85 00     STA ram_0000                     ; $0000 <~ offset by HighPosX
+C - - - - - 0x00FC3B 03:BC2B: 98        TYA                              ; A <~ offset by LowPosX
+C - - - - - 0x00FC3C 03:BC2C: 18        CLC                              ;
+C - - - - - 0x00FC3D 03:BC2D: 7D 74 03  ADC vEnemyBPosXLow,X             ;
+C - - - - - 0x00FC40 03:BC30: 9D 74 03  STA vEnemyBPosXLow,X             ; <~ posX + offset
+C - - - - - 0x00FC43 03:BC33: BD 7A 03  LDA vEnemyBPosXHigh,X            ;
+C - - - - - 0x00FC46 03:BC36: 65 00     ADC ram_0000                     ;
+C - - - - - 0x00FC48 03:BC38: 9D 7A 03  STA vEnemyBPosXHigh,X            ; changed PosXHigh (+1 or -1), if PosXLow was overflow
+C - - - - - 0x00FC4B 03:BC3B: BD 5C 03  LDA vEnemyBStatus,X              ;
+C - - - - - 0x00FC4E 03:BC3E: 29 EF     AND #$EF                         ; CONSTANT: W - 'crawling out' status (see vEnemyBStatus)
+C - - - - - 0x00FC50 03:BC40: 9D 5C 03  STA vEnemyBStatus,X              ;
 ; In: Register X - the enemyB number
 loc_BC43_main:
 C - - - - - 0x00FC53 03:BC43: 20 D9 D8  JSR sub_D8D9_enemyB_collision_by_one      ;
@@ -4193,8 +4194,8 @@ C - - - - - 0x00FC69 03:BC59: 4C 2E BD  JMP loc_BD2E_activate_jump_status ;
 
 bra_BC5C_skip:
 C - - - - - 0x00FC6C 03:BC5C: BD 5C 03  LDA vEnemyBStatus,X               ;
-C - - - - - 0x00FC6F 03:BC5F: 29 08     AND #$08                          ; CONSTANT - K flag (see vEnemyBStatus)
-C - - - - - 0x00FC71 03:BC61: F0 11     BEQ @bra_BC74_skip                ; If vEnemyBStatus doesn't contain 0x08
+C - - - - - 0x00FC6F 03:BC5F: 29 08     AND #$08                          ; CONSTANT - 'stop' status
+C - - - - - 0x00FC71 03:BC61: F0 11     BEQ @bra_BC74_skip                ; If 'stop' status isn't activated
 C - - - - - 0x00FC73 03:BC63: A9 00     LDA #$00                          ;
 C - - - - - 0x00FC75 03:BC65: 9D 80 03  STA vEnemyBFrame_Counter,X        ; clear a frame counter
 C - - - - - 0x00FC78 03:BC68: A0 0C     LDY #$0C                          ; an input parameter - sprite_magic2 (a stop frame #1)
@@ -4226,7 +4227,7 @@ bra_BC8F_skip:
 C - - - - - 0x00FC9F 03:BC8F: 20 AC D6  JSR sub_D6AC_out_of_screen         ;
 C - - - - - 0x00FCA2 03:BC92: 90 06     BCC bra_BC9A_skip                  ; If the enemy is on the screen
 C - - - - - 0x00FCA4 03:BC94: 20 4D D8  JSR sub_D84D_enemyB_off_screen     ;
-C - - - - - 0x00FCA7 03:BC97: 4C A0 BC  JMP loc_BCA0_render_entourage
+C - - - - - 0x00FCA7 03:BC97: 4C A0 BC  JMP loc_BCA0_render_entourage      ;
 
 ; In: Register Y - sprite_magic2 (The offset by the address)
 bra_BC9A_skip:
@@ -4236,20 +4237,20 @@ loc_BCA0_render_entourage:
 C D 1 - - - 0x00FCB0 03:BCA0: AD 01 03  LDA vEnemyB                        ;
 C - - - - - 0x00FCB3 03:BCA3: C9 34     CMP #$34                           ; CONSTANT - Potted snakes
 C - - - - - 0x00FCB5 03:BCA5: D0 4D     BNE bra_BCF4_RTS                   ; If vEnemyB != 0x34
-loc_BCA7:
-C D 1 - - - 0x00FCB7 03:BCA7: A0 18     LDY #$18
-C - - - - - 0x00FCB9 03:BCA9: BD 76 03  LDA ram_0376,X
-C - - - - - 0x00FCBC 03:BCAC: 85 00     STA ram_0000
-C - - - - - 0x00FCBE 03:BCAE: BD 7C 03  LDA ram_037C,X
-C - - - - - 0x00FCC1 03:BCB1: 85 01     STA ram_0001
+loc_BCA7_render_entourage_ex:
+C D 1 - - - 0x00FCB7 03:BCA7: A0 18     LDY #$18                           ; an input parameter - sprite_magic2 (an entourage frame)
+C - - - - - 0x00FCB9 03:BCA9: BD 76 03  LDA vEnemyBProjectilePosXLow,X     ;
+C - - - - - 0x00FCBC 03:BCAC: 85 00     STA ram_0000                       ; prepares the 1st parameter
+C - - - - - 0x00FCBE 03:BCAE: BD 7C 03  LDA vEnemyBProjectilePosXHigh,X    ;
+C - - - - - 0x00FCC1 03:BCB1: 85 01     STA ram_0001                       ; prepares the 2nd parameter
 C - - - - - 0x00FCC3 03:BCB3: 20 7B D6  JSR sub_D67B_out_of_sight          ;
 C - - - - - 0x00FCC6 03:BCB6: B0 3C     BCS bra_BCF4_RTS                   ; If the enemy isn't visible
 C - - - - - 0x00FCC8 03:BCB8: 20 AC D6  JSR sub_D6AC_out_of_screen         ;
 C - - - - - 0x00FCCB 03:BCBB: B0 37     BCS bra_BCF4_RTS                   ; If the enemy isn't on the screen
-C - - - - - 0x00FCCD 03:BCBD: BD 6A 03  LDA ram_036A,X
-C - - - - - 0x00FCD0 03:BCC0: 85 00     STA ram_0000
-C - - - - - 0x00FCD2 03:BCC2: A5 03     LDA ram_0003
-C - - - - - 0x00FCD4 03:BCC4: 9D 70 03  STA ram_0370,X
+C - - - - - 0x00FCCD 03:BCBD: BD 6A 03  LDA vEnemyBProjectilePosY,X        ;
+C - - - - - 0x00FCD0 03:BCC0: 85 00     STA ram_0000                       ; ~> sprite magic1
+C - - - - - 0x00FCD2 03:BCC2: A5 03     LDA ram_0003                       ; from sub_D6AC_out_of_screen
+C - - - - - 0x00FCD4 03:BCC4: 9D 70 03  STA vEnemyBProjectileScreenPosY,X  ;
 ; In: Register Y - sprite_magic2 (The offset by the address)
 sub_BCC7_add:
 C - - - - - 0x00FCD7 03:BCC7: 98        TYA                              ;

@@ -692,8 +692,8 @@ bra_A3C4_bullet_hit:
 C - - - - - 0x0183D4 06:A3C4: A9 00     LDA #$00                            ;
 C - - - - - 0x0183D6 06:A3C6: 95 8F     STA vBulletStatus,X                 ; clear
 C - - - - - 0x0183D8 06:A3C8: A6 1A     LDX vTempCounter1A                  ;
-C - - - - - 0x0183DA 06:A3CA: BD 62 03  LDA ram_0362,X
-C - - - - - 0x0183DD 06:A3CD: 30 06     BMI bra_A3D5_bulletproof
+C - - - - - 0x0183DA 06:A3CA: BD 62 03  LDA vEnemyBSoarFlags,X              ;
+C - - - - - 0x0183DD 06:A3CD: 30 06     BMI bra_A3D5_bulletproof            ; If the enemy is armored
 C - - - - - 0x0183DF 06:A3CF: 20 DD A3  JSR sub_A3DD_hit                    ;
 C - - - - - 0x0183E2 06:A3D2: 4C BF A3  JMP loc_A3BF_next                   ;
 

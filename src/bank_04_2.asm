@@ -1993,7 +1993,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x0137CE 04:97BE: 02        .byte $02, $18, $BF, $24   ; Skeleton
 - D 0 - I - 0x0137D2 04:97C2: 02        .byte $02, $A8, $BF, $24   ; 
 - D 0 - I - 0x0137D6 04:97C6: 03        .byte $03, $34, $BF, $31   ; Wall
-- D 0 - I - 0x0137DA 04:97CA: 03        .byte $03, $C4, $BF, $31   ;
+- D 0 - I - 0x0137DA 04:97CA: 03        .byte $03, $C4, $BF, $31   ; !(BUG?) - the wall will not appear
 - D 0 - I - 0x0137DE 04:97CE: FF        .byte $FF   ; 
 
 ; level 4, map 4 (G3-G6)

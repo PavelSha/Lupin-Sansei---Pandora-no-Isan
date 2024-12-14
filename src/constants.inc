@@ -500,7 +500,7 @@ vEnemyBStatus                 = ram_035C ; see below and docs (Bestiary)
 ; M - the jump
 ; L - ???
 ; K - the stop
-; W - ???
+; W - crawling out (for snake)
 ; Z - see above
 ; Y - see above
 
@@ -518,6 +518,9 @@ vButterflyRebound             = ram_0362 ; For Kim
 ; 0x03 - there was a rebound (the right direction)
 ; 0x0D - there was a rebound (the left direction)
 vEnemyBThrowingDirection      = ram_0362 ; For Raid and the last boss
+vEnemyBWallIndex              = ram_0362 ; For wall - the index of the table 'tbl_ptr_walls'
+vEnemyBSoarFlags              = ram_0362 ; For soar enemies
+; 0x80 - the enemy is armored
 
 vEnemyBPosY                   = ram_0368 ; see below
 vEnemyBPosY1                  = ram_0368 ; The enemy position along the Y axis relative to the level (no repeat)
@@ -619,8 +622,11 @@ vSoundRowTimerCorrection       = ram_0421 ; the correction when the timer value 
 vSoundRowMarkForReplay         = ram_0422 ; sound pair index for replays
 vSoundRowShakingEfValue        = ram_0423 ; shaking effect value in the sound track
 vSoundRowShakingEfCounter      = ram_0424 ; counter to skip shaking effect
-vRooms                        = ram_0500
+vRooms                         = ram_0500
 ; flag 0x80 - the room has already been visited
+
+vWalls                         = ram_05C0 ; [$05C0-05FF]
+; flag 0xF0 - the wall has already been destroyed
 
 vCachePalette                 = ram_0600 ; [ram_0600 - ram_061F]
 vLowPpuAddress                = ram_0630
