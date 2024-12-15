@@ -104,6 +104,7 @@
 .export sub_D606_have_intersect_sword
 .export sub_D347_check_landing_enemyA
 .export sub_D358_check_enemyA_collision_by_Y
+.export sub_D35E_check_enemyB_collision_by_Y
 .export sub_D7D5_check_enemyA_collision_by_Y_in_maze
 .export sub_D7BF_check_enemyA_movement_on_the_right
 .export sub_D8B7_check_enemyB_movement_on_the_right
@@ -3187,12 +3188,12 @@ sub_D358_check_enemyA_collision_by_Y:
 C - - - - - 0x01D368 07:D358: 20 3F D9  JSR sub_D93F_init_short_enemyA_positions ;
 C - - - - - 0x01D36B 07:D35B: 4C 70 D3  JMP loc_D370_left_right_collision        ;
 
-- - - - - - 0x01D36E 07:D35E: 20        .byte $20
-- - - - - - 0x01D36F 07:D35F: 52        .byte $52
-- - - - - - 0x01D370 07:D360: D9        .byte $D9
-- - - - - - 0x01D371 07:D361: 4C        .byte $4C
-- - - - - - 0x01D372 07:D362: 70        .byte $70
-- - - - - - 0x01D373 07:D363: D3        .byte $D3
+; In: $0000 - EnemyAPosY
+; Out: Register A - a strong collision or left + right collision value
+sub_D35E_check_enemyB_collision_by_Y:
+C - - - - - 0x01D36E 07:D35E: 20 52 D9  JSR sub_D952_init_short_enemyB_positions ;
+C - - - - - 0x01D371 07:D361: 4C 70 D3  JMP loc_D370_left_right_collision        ;
+
 - - - - - - 0x01D374 07:D364: 20        .byte $20
 - - - - - - 0x01D375 07:D365: 62        .byte $62
 - - - - - - 0x01D376 07:D366: D9        .byte $D9
@@ -3269,6 +3270,8 @@ C - - - - - 0x01D3BA 07:D3AA: 4C E5 D2  JMP loc_D2E5_get_collision_value ;
 ; In: Register A - increment by x
 ; In: $0000 - ChrPosY (in vScreenChrPosY units)
 ; In: $0001 - vLowChrPosX
+; Out: Zero flag - ???, !(BUG?) for the water room
+; Out: Register A - 0x00 - no collisions, 0x01 - a strong collision
 sub_D3AD_left_collision_by_inc_posX:
 loc_D3AD_left_collision_by_inc_posX:
 C D 2 - - - 0x01D3BD 07:D3AD: 20 9F D3  JSR sub_D39F_collision_by_increment_posX  ;
@@ -3291,8 +3294,8 @@ C - - - - - 0x01D3D5 07:D3C5: D0 2A     BNE bra_D3F1_return          ; If vEnemy
 @bra_D3C7:
 C - - - - - 0x01D3D7 07:D3C7: A0 01     LDY #$01                     ; set loop counter
 @bra_D3C9_loop:                                                      ; loop by y (2 times)
-C - - - - - 0x01D3D9 07:D3C9: B9 5C 03  LDA vEnemyBStatus,Y
-C - - - - - 0x01D3DC 07:D3CC: 10 20     BPL @bra_D3EE_next
+C - - - - - 0x01D3D9 07:D3C9: B9 5C 03  LDA vEnemyBStatus,Y          ;
+C - - - - - 0x01D3DC 07:D3CC: 10 20     BPL @bra_D3EE_next           ; If the status isn't used
 C - - - - - 0x01D3DE 07:D3CE: A5 00     LDA ram_0000
 C - - - - - 0x01D3E0 07:D3D0: C9 8F     CMP #$8F
 C - - - - - 0x01D3E2 07:D3D2: 90 1A     BCC @bra_D3EE_next
@@ -7739,9 +7742,10 @@ C - - J - - 0x01EEA3 07:EE93: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
 C - - - - - 0x01EEA6 07:EE96: 20 0C A0  JSR sub_A00C_sensor             ; to sub_A00C
 C - - - - - 0x01EEA9 07:EE99: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
-C - - J - - 0x01EEAC 07:EE9C: 20 25 EF  JSR sub_EF25_switch_bank_06_1
-C - - - - - 0x01EEAF 07:EE9F: 20 0F A0  JSR $A00F ; to sub_A00F
-C - - - - - 0x01EEB2 07:EEA2: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2
+loc_EE9C_diver:
+C - - J - - 0x01EEAC 07:EE9C: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
+C - - - - - 0x01EEAF 07:EE9F: 20 0F A0  JSR sub_A00F_diver              ; to sub_A00F
+C - - - - - 0x01EEB2 07:EEA2: 4C 1A EF  JMP loc_EF1A_switch_bank_06_2   ; restore bank 06, page 2
 
 loc_EEA5_fly_man:
 C - - J - - 0x01EEB5 07:EEA5: 20 25 EF  JSR sub_EF25_switch_bank_06_1   ;
@@ -7907,11 +7911,11 @@ sub_EFA5:
 C - - - - - 0x01EFB5 07:EFA5: 20 8D EF  JSR sub_EF8D_clear_Zenigata_timer ;
 C - - - - - 0x01EFB8 07:EFA8: 85 60     STA ram_0060
 C - - - - - 0x01EFBA 07:EFAA: 85 61     STA ram_0061
-C - - - - - 0x01EFBC 07:EFAC: A2 0F     LDX #$0F
-@bra_EFAE_repeat:
-C - - - - - 0x01EFBE 07:EFAE: 9D C0 05  STA ram_05C0,X
-C - - - - - 0x01EFC1 07:EFB1: CA        DEX
-C - - - - - 0x01EFC2 07:EFB2: 10 FA     BPL @bra_EFAE_repeat
+C - - - - - 0x01EFBC 07:EFAC: A2 0F     LDX #$0F                                   ; set loop counter
+@bra_EFAE_loop:                                                                    ; loop by x (16 times)
+C - - - - - 0x01EFBE 07:EFAE: 9D C0 05  STA vWalls,X                               ; clear, the walls are destructible again
+C - - - - - 0x01EFC1 07:EFB1: CA        DEX                                        ; decrement loop counter
+C - - - - - 0x01EFC2 07:EFB2: 10 FA     BPL @bra_EFAE_loop                         ; If Register X >= 0x00
 C - - - - - 0x01EFC4 07:EFB4: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2              ;
 C - - - - - 0x01EFC7 07:EFB7: A5 5E     LDA v_no_level                             ;
 C - - - - - 0x01EFC9 07:EFB9: 85 00     STA ram_0000                               ;
@@ -9510,9 +9514,9 @@ C - - - - - 0x01FA17 07:FA07: 85 C3     STA ram_00C3
 C - - - - - 0x01FA19 07:FA09: C8        INY ; 4th of 5 bytes
 C - - - - - 0x01FA1A 07:FA0A: B1 BF     LDA (vDestrWallAddr),Y
 C - - - - - 0x01FA1C 07:FA0C: AA        TAX
-C - - - - - 0x01FA1D 07:FA0D: BD 00 05  LDA ram_0500,X
+C - - - - - 0x01FA1D 07:FA0D: BD 00 05  LDA vRooms,X
 C - - - - - 0x01FA20 07:FA10: 29 BF     AND #$BF
-C - - - - - 0x01FA22 07:FA12: 9D 00 05  STA ram_0500,X
+C - - - - - 0x01FA22 07:FA12: 9D 00 05  STA vRooms,X
 C - - - - - 0x01FA25 07:FA15: C8        INY ; 5th of 5 bytes
 C - - - - - 0x01FA26 07:FA16: B1 BF     LDA (vDestrWallAddr),Y
 C - - - - - 0x01FA28 07:FA18: 85 C1     STA ram_00C1
@@ -9984,7 +9988,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD0E 07:FCFE: 0A AC     .word $AC0A                     ; The bird (level-racing) (0x22) Type B
 - D 3 - - - 0x01FD10 07:FD00: 02 AA     .addr loc_AA02_bomb_bird        ; The bird with a bomb (level-racing) (0x23) Type B
 - D 3 - - - 0x01FD12 07:FD02: F6 EE     .addr loc_EEF6_undead           ; Skeleton (level 4) (0x24) Type A
-- D 3 - - - 0x01FD14 07:FD04: 9C EE     .word $EE9C                     ; Diver (0x25) Type B
+- D 3 - - - 0x01FD14 07:FD04: 9C EE     .addr loc_EE9C_diver            ; Diver (0x25) Type B
 - D 3 - - - 0x01FD16 07:FD06: F6 EE     .addr loc_EEF6_undead           ; Mummy (0x26) (level 4) Type A
 - D 3 - - - 0x01FD18 07:FD08: 78 EE     .addr loc_EE78_soar_enemy       ; Gargoyle (0x27) (level 4) Type B
 - D 3 - - - 0x01FD1A 07:FD0A: D2 EE     .addr loc_boss_hulk             ; Boss (level 1) (0x28) Type A

@@ -1684,9 +1684,9 @@ bra_AA9F:
 loc_AA9F:
 C D 1 - - - 0x01AAAF 06:AA9F: 98        TYA
 C - - - - - 0x01AAB0 06:AAA0: 18        CLC
-C - - - - - 0x01AAB1 06:AAA1: 6D 06 03  ADC ram_0306
+C - - - - - 0x01AAB1 06:AAA1: 6D 06 03  ADC vEnemyBSpriteMagic2
 C - - - - - 0x01AAB4 06:AAA4: 85 01     STA ram_0001
-C - - - - - 0x01AAB6 06:AAA6: AD 07 03  LDA ram_0307
+C - - - - - 0x01AAB6 06:AAA6: AD 07 03  LDA vEnemyBSpriteMagic3
 C - - - - - 0x01AAB9 06:AAA9: 85 02     STA ram_0002
 C - - - - - 0x01AABB 06:AAAB: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
@@ -2308,9 +2308,9 @@ C - - - - - 0x01AEE0 06:AED0: 09 40     ORA #$40
 C - - - - - 0x01AEE2 06:AED2: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x01AEE5 06:AED5: 98        TYA
 C - - - - - 0x01AEE6 06:AED6: 18        CLC
-C - - - - - 0x01AEE7 06:AED7: 6D 06 03  ADC ram_0306
+C - - - - - 0x01AEE7 06:AED7: 6D 06 03  ADC vEnemyBSpriteMagic2
 C - - - - - 0x01AEEA 06:AEDA: 85 01     STA ram_0001
-C - - - - - 0x01AEEC 06:AEDC: AD 07 03  LDA ram_0307
+C - - - - - 0x01AEEC 06:AEDC: AD 07 03  LDA vEnemyBSpriteMagic3
 C - - - - - 0x01AEEF 06:AEDF: 85 02     STA ram_0002
 C - - - - - 0x01AEF1 06:AEE1: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
@@ -2919,10 +2919,11 @@ C D 1 - - - 0x01B30C 06:B2FC: AD 07 20  LDA PPU_DATA ; Increments address
 C - - - - - 0x01B30F 06:B2FF: AD 07 20  LDA PPU_DATA ; Increments address
 C - - - - - 0x01B312 06:B302: 60        RTS
 
+; In: Register X - a room number
 sub_B303:
-C - - - - - 0x01B313 06:B303: BD 00 05  LDA ram_0500,X
+C - - - - - 0x01B313 06:B303: BD 00 05  LDA vRooms,X
 C - - - - - 0x01B316 06:B306: 09 B0     ORA #$B0
-C - - - - - 0x01B318 06:B308: 9D 00 05  STA ram_0500,X
+C - - - - - 0x01B318 06:B308: 9D 00 05  STA vRooms,X
 C - - - - - 0x01B31B 06:B30B: 60        RTS
 
 sub_B30C:
@@ -3361,7 +3362,7 @@ C - - - - - 0x01B5EB 06:B5DB: D0 02     BNE bra_B5DF
 loc_npc_type7:
 C - - J - - 0x01B5ED 06:B5DD: A2 32     LDX #$32
 bra_B5DF:
-C - - - - - 0x01B5EF 06:B5DF: BD 00 05  LDA ram_0500,X
+C - - - - - 0x01B5EF 06:B5DF: BD 00 05  LDA vRooms,X
 C - - - - - 0x01B5F2 06:B5E2: 29 08     AND #$08
 C - - - - - 0x01B5F4 06:B5E4: F0 CE     BEQ loc_npc_type0
 C - - - - - 0x01B5F6 06:B5E6: E0 4B     CPX #$4B
@@ -3372,9 +3373,9 @@ C - - - - - 0x01B5FF 06:B5EF: 8D 6D 05  STA ram_056D
 bra_B5F2:
 loc_npc_type10:
 C - - J - - 0x01B602 06:B5F2: A6 BC     LDX v_tmp_target_room
-C - - - - - 0x01B604 06:B5F4: BD 00 05  LDA ram_0500,X
+C - - - - - 0x01B604 06:B5F4: BD 00 05  LDA vRooms,X
 C - - - - - 0x01B607 06:B5F7: 09 08     ORA #$08
-C - - - - - 0x01B609 06:B5F9: 9D 00 05  STA ram_0500,X
+C - - - - - 0x01B609 06:B5F9: 9D 00 05  STA vRooms,X
 C - - - - - 0x01B60C 06:B5FC: D0 B5     BNE loc_npc_type1
 sub_B5FE:
 C - - - - - 0x01B60E 06:B5FE: A5 30     LDA ram_0030

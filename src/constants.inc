@@ -626,7 +626,7 @@ vRooms                         = ram_0500
 ; flag 0x80 - the room has already been visited
 
 vWalls                         = ram_05C0 ; [$05C0-05FF]
-; flag 0xF0 - the wall has already been destroyed
+; flag 0xFF - the wall has already been destroyed
 
 vCachePalette                 = ram_0600 ; [ram_0600 - ram_061F]
 vLowPpuAddress                = ram_0630
