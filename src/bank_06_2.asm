@@ -240,7 +240,7 @@ C - - - - - 0x01A105 06:A0F5: 85 B0     STA vEnemyHitBoxW            ; <~ hitBox
 bra_A0F7_RTS:
 C - - - - - 0x01A107 06:A0F7: 60        RTS                          ;
 
-; In: Register X - the number of the bullet
+; In: Register X - the enemyA number
 sub_A0F8_status_behavior:
 C - - - - - 0x01A108 06:A0F8: BD 20 03  LDA vEnemyAStatus,X                       ;
 C - - - - - 0x01A10B 06:A0FB: 10 FA     BPL bra_A0F7_RTS                          ; If the status isn't used
@@ -2042,29 +2042,30 @@ tbl_AD01:
 - - - - - - 0x01AD17 06:AD07: 40        .byte $40   ; 
 
 loc_AD08_lift:
-C - - J - - 0x01AD18 06:AD08: A2 01     LDX #$01
-C - - - - - 0x01AD1A 06:AD0A: 86 1A     STX vTempCounter1A
+C - - J - - 0x01AD18 06:AD08: A2 01     LDX #$01                       ;
+C - - - - - 0x01AD1A 06:AD0A: 86 1A     STX vTempCounter1A             ; set loop counter (the enemyA number)
 @bra_AD0C_loop:
-C - - - - - 0x01AD1C 06:AD0C: A6 1A     LDX vTempCounter1A
-C - - - - - 0x01AD1E 06:AD0E: 20 16 AD  JSR sub_AD16
-C - - - - - 0x01AD21 06:AD11: C6 1A     DEC vTempCounter1A
-C - - - - - 0x01AD23 06:AD13: 10 F7     BPL @bra_AD0C_loop
+C - - - - - 0x01AD1C 06:AD0C: A6 1A     LDX vTempCounter1A             ; prepares the input parameter
+C - - - - - 0x01AD1E 06:AD0E: 20 16 AD  JSR sub_AD16_status_behavior
+C - - - - - 0x01AD21 06:AD11: C6 1A     DEC vTempCounter1A             ; decrement loop counter
+C - - - - - 0x01AD23 06:AD13: 10 F7     BPL @bra_AD0C_loop             ; If vTempCounter1A >= 0x00
 bra_AD15_RTS:
-C - - - - - 0x01AD25 06:AD15: 60        RTS
+C - - - - - 0x01AD25 06:AD15: 60        RTS                            ;
 
-sub_AD16:
-C - - - - - 0x01AD26 06:AD16: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x01AD29 06:AD19: 10 FA     BPL bra_AD15_RTS
+; In: Register X - the enemyA number
+sub_AD16_status_behavior
+C - - - - - 0x01AD26 06:AD16: BD 20 03  LDA vEnemyAStatus,X                       ;
+C - - - - - 0x01AD29 06:AD19: 10 FA     BPL bra_AD15_RTS                          ; If the status isn't used
 C - - - - - 0x01AD2B 06:AD1B: 20 47 AD  JSR sub_AD47
-C - - - - - 0x01AD2E 06:AD1E: BD 38 03  LDA vEnemyAPosXLow,X
-C - - - - - 0x01AD31 06:AD21: 85 00     STA ram_0000
-C - - - - - 0x01AD33 06:AD23: BD 3E 03  LDA vEnemyAPosXHigh,X
-C - - - - - 0x01AD36 06:AD26: 85 01     STA ram_0001
-C - - - - - 0x01AD38 06:AD28: 20 AC D6  JSR sub_D6AC_out_of_screen
-C - - - - - 0x01AD3B 06:AD2B: 90 03     BCC bra_AD30
-C - - - - - 0x01AD3D 06:AD2D: 4C 8A D7  JMP loc_D78A_free_enemyA_while_creating
+C - - - - - 0x01AD2E 06:AD1E: BD 38 03  LDA vEnemyAPosXLow,X                      ;
+C - - - - - 0x01AD31 06:AD21: 85 00     STA ram_0000                              ; prepares the 1st parameter
+C - - - - - 0x01AD33 06:AD23: BD 3E 03  LDA vEnemyAPosXHigh,X                     ;
+C - - - - - 0x01AD36 06:AD26: 85 01     STA ram_0001                              ; prepares the 2nd parameter
+C - - - - - 0x01AD38 06:AD28: 20 AC D6  JSR sub_D6AC_out_of_screen                ;
+C - - - - - 0x01AD3B 06:AD2B: 90 03     BCC bra_AD30_skip                         ; If the enemy is on the screen
+C - - - - - 0x01AD3D 06:AD2D: 4C 8A D7  JMP loc_D78A_free_enemyA_while_creating   ;
 
-bra_AD30:
+bra_AD30_skip:
 C - - - - - 0x01AD40 06:AD30: BD 2C 03  LDA vEnemyAPosY,X
 C - - - - - 0x01AD43 06:AD33: 85 00     STA ram_0000
 C - - - - - 0x01AD45 06:AD35: A5 03     LDA ram_0003
@@ -2128,17 +2129,17 @@ C - - - - - 0x01ADAB 06:AD9B: 69 04     ADC #$04
 bra_AD9D:
 C - - - - - 0x01ADAD 06:AD9D: A8        TAY
 C - - - - - 0x01ADAE 06:AD9E: B9 DF F6  LDA $F6DF,Y
-C - - - - - 0x01ADB1 06:ADA1: C5 68     CMP ram_0068
+C - - - - - 0x01ADB1 06:ADA1: C5 68     CMP vNoScreen
 C - - - - - 0x01ADB3 06:ADA3: D0 1D     BNE bra_ADC2_skip
 C - - - - - 0x01ADB5 06:ADA5: B9 E0 F6  LDA $F6E0,Y
 C - - - - - 0x01ADB8 06:ADA8: 38        SEC
-C - - - - - 0x01ADB9 06:ADA9: E5 66     SBC ram_0066
+C - - - - - 0x01ADB9 06:ADA9: E5 66     SBC vLowChrPosX
 C - - - - - 0x01ADBB 06:ADAB: B0 03     BCS bra_ADB0
 C - - - - - 0x01ADBD 06:ADAD: 20 73 D0  JSR sub_D073_invert_sign
 bra_ADB0:
 C - - - - - 0x01ADC0 06:ADB0: C9 14     CMP #$14
 C - - - - - 0x01ADC2 06:ADB2: B0 0E     BCS bra_ADC2_skip
-C - - - - - 0x01ADC4 06:ADB4: A5 6A     LDA ram_006A
+C - - - - - 0x01ADC4 06:ADB4: A5 6A     LDA vScreenChrPosY
 C - - - - - 0x01ADC6 06:ADB6: 38        SEC
 C - - - - - 0x01ADC7 06:ADB7: FD 2C 03  SBC vEnemyAPosY,X
 C - - - - - 0x01ADCA 06:ADBA: C9 05     CMP #$05

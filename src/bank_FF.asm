@@ -9105,13 +9105,16 @@ C - - - - - 0x01F76A 07:F75A: A9 00     LDA #$00                               ;
 C - - - - - 0x01F76C 07:F75C: 9D 80 03  STA vEnemyBFrame_Counter,X             ; reset a counter
 C - - - - - 0x01F76F 07:F75F: 4C 20 F8  JMP loc_F820_finish_creating_enemyB    ;
 
+; In: $0000 - macro X-position
+; In: $0001 - X-position
+; In: $0002 - Y-position
 loc_F762_diver_appearance:
-C - - J - - 0x01F772 07:F762: 20 8A F3  JSR sub_F38A_start_enemyB_appearance
-C - - - - - 0x01F775 07:F765: 20 60 F3  JSR sub_F360_prepare_enemyB_start_status
-C - - - - - 0x01F778 07:F768: A9 00     LDA #$00
-C - - - - - 0x01F77A 07:F76A: 9D 80 03  STA ram_0380,X
-C - - - - - 0x01F77D 07:F76D: A9 06     LDA #$06
-C - - - - - 0x01F77F 07:F76F: 8D B3 06  STA vCacheChrBankSelect + 4
+C - - J - - 0x01F772 07:F762: 20 8A F3  JSR sub_F38A_start_enemyB_appearance      ;
+C - - - - - 0x01F775 07:F765: 20 60 F3  JSR sub_F360_prepare_enemyB_start_status  ;
+C - - - - - 0x01F778 07:F768: A9 00     LDA #$00                                  ;
+C - - - - - 0x01F77A 07:F76A: 9D 80 03  STA vEnemyBFrame_Counter,X                ; reset a counter
+C - - - - - 0x01F77D 07:F76D: A9 06     LDA #$06                                  ; CONSTANT for CHR ROM
+C - - - - - 0x01F77F 07:F76F: 8D B3 06  STA vCacheChrBankSelect + 4               ;
 C - - - - - 0x01F782 07:F772: 4C 20 F8  JMP loc_F820_finish_creating_enemyB       ;
 
 loc_F775_boss4:

@@ -487,6 +487,7 @@ vEnemyAHealthPoints2          = ram_0351 ; Only for the egyptian with a boomerun
 vEnemyAJumpType               = ram_0356 ; see below
 vEnemyAJumpType1              = ram_0356 ; vJumpType analog for the enemy (the enemy number = 1)
 vEnemyAJumpType2              = ram_0357 ; vJumpType analog for the enemy (the enemy number = 2)
+vEnemyAProjectileJumpType     = ram_0358 ; $0358-$035B
 
 vEnemyBStatus                 = ram_035C ; see below and docs (Bestiary)
 ; 0x00 - None
