@@ -6,6 +6,7 @@ _listing.txt
 z_debug.txt
 z_listing.asm
 snaps/
+assets/*.chr
 debug/last-mini.log
 debug/last-mini-*.log
 debug/last.log

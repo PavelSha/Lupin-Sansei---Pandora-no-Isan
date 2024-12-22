@@ -10,8 +10,8 @@ fi
 Return
 
 # :: join header, PRG and CHR (if exists) into a single ROM file
-if [ -f "CHR_ROM.chr" ]; then
-    cat header.bin PRG_ROM.bin CHR_ROM.chr > ${NES_OUTPUT_SIMPLE_NAME}.nes
+if [ -f "/assets/CHR_ROM.chr" ]; then
+    cat header.bin PRG_ROM.bin /assets/CHR_ROM.chr > ${NES_OUTPUT_SIMPLE_NAME}.nes
 else
     cat header.bin PRG_ROM.bin > ${NES_OUTPUT_SIMPLE_NAME}.nes
 fi

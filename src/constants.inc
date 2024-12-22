@@ -507,6 +507,7 @@ vEnemyBStatus                 = ram_035C ; see below and docs (Bestiary)
 
 vEnemyBStatus1                = ram_035C
 vEnemyBStatus2                = ram_035D
+vEnemyBBombStatus             = ram_035E ; For the bird with the bomb
 vEnemyBStatus3                = ram_035E ; For Kim and last boss
 vEnemyBStatus4                = ram_035F ; For Kim and last boss
 vEnemyBStatus5                = ram_0360 ; For Kim

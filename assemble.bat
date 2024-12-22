@@ -142,7 +142,7 @@ if %fast_assembly% equ 1 (
 )
 
 :: join header, PRG and CHR (if exists) into a single ROM file
-copy /B header.bin + PRG_ROM.bin + CHR_ROM.chr %file_name%.nes > nul
+copy /B header.bin + PRG_ROM.bin + assets\CHR_ROM.chr %file_name%.nes > nul
 
 :: join listing files into a single file
 if %fast_assembly% equ 0 (

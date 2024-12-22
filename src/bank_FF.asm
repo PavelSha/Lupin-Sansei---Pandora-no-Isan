@@ -116,6 +116,7 @@
 .export loc_D71C_inc_EnemyAPosXLow_unsafe
 .export loc_D81B_inc_EnemyBPosXLow
 .export loc_D828_short_inc_EnemyBPosXLow
+.export sub_D828_short_inc_EnemyBPosXLow
 .export sub_D6F0_dec_EnemyAPosXLow
 .export loc_D6F0_dec_EnemyAPosXLow
 .export sub_D6FD_dec_EnemyAPosXLow_unsafe
@@ -4056,6 +4057,7 @@ C - - - - - 0x01D834 07:D824: E5 4A     SBC vNearCurrentRoomLength      ;
 C - - - - - 0x01D836 07:D826: B0 F2     BCS bra_D81A_RTS                ; Branch If the enemy reach the end of the room
 ; In: Register X - the enemyB number
 loc_D828_short_inc_EnemyBPosXLow:
+sub_D828_short_inc_EnemyBPosXLow:
 C D 2 - - - 0x01D838 07:D828: FE 74 03  INC vEnemyBPosXLow,X            ;
 C - - - - - 0x01D83B 07:D82B: D0 ED     BNE bra_D81A_RTS                ; If the enemy doesn't move from one screen to another
 C - - - - - 0x01D83D 07:D82D: FE 7A 03  INC vEnemyBPosXHigh,X           ;
@@ -9988,7 +9990,7 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD08 07:FCF8: A5 EE     .addr loc_EEA5_fly_man          ; Fly man (0x1F) (level 1) Type A
 - D 3 - - - 0x01FD0A 07:FCFA: 8A EE     .addr loc_EE8A_bazooka_man      ; Shooter with bazooka (level 1) (0x20) Type A
 - D 3 - - - 0x01FD0C 07:FCFC: 81 EE     .addr loc_EE81_barrel_or_stone  ; Cobblestone (level-racing, level 4) (0x21) Type B
-- D 3 - - - 0x01FD0E 07:FCFE: 0A AC     .word $AC0A                     ; The bird (level-racing) (0x22) Type B
+- D 3 - - - 0x01FD0E 07:FCFE: 0A AC     .addr loc_AC0A_bird             ; The bird (level-racing) (0x22) Type B
 - D 3 - - - 0x01FD10 07:FD00: 02 AA     .addr loc_AA02_bomb_bird        ; The bird with a bomb (level-racing) (0x23) Type B
 - D 3 - - - 0x01FD12 07:FD02: F6 EE     .addr loc_EEF6_undead           ; Skeleton (level 4) (0x24) Type A
 - D 3 - - - 0x01FD14 07:FD04: 9C EE     .addr loc_EE9C_diver            ; Diver (0x25) Type B

@@ -1841,7 +1841,7 @@ bra_AB2E_right:
 C - - - - - 0x018B3E 06:AB2E: 20 FD A9  JSR sub_A9FD_move_enemyA_right  ;
 loc_AB31_continue:
 C D 1 - - - 0x018B41 06:AB31: BC 4A 03  LDY vEnemyAJumpCounter,X        ;
-C - - - - - 0x018B44 06:AB34: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y ; X = [0x00-0x2F]
+C - - - - - 0x018B44 06:AB34: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y ; Y = [0x00-0x2F]
 C - - - - - 0x018B47 06:AB37: 18        CLC                             ;
 C - - - - - 0x018B48 06:AB38: 7D 2C 03  ADC vEnemyAPosY,X               ;
 C - - - - - 0x018B4B 06:AB3B: C9 F8     CMP #$F8                        ; CONSTANT - Limit for Y-position
@@ -2485,7 +2485,7 @@ C - - - - - 0x018FBA 06:AFAA: 4C 73 A9  JMP loc_A973_projectile            ;
 
 sub_AFAD_main:
 C - - - - - 0x018FBD 06:AFAD: A2 01     LDX #$01                           ;
-C - - - - - 0x018FBF 06:AFAF: 86 1A     STX vTempCounter1A                 ; set loop counter (the enemyB number)
+C - - - - - 0x018FBF 06:AFAF: 86 1A     STX vTempCounter1A                 ; set loop counter (the enemyA number)
 bra_AFB1_loop:                                                             ; loop by vTempCounter1A (2 times)
 C - - - - - 0x018FC1 06:AFB1: A6 1A     LDX vTempCounter1A                 ; prepares an input parameter
 C - - - - - 0x018FC3 06:AFB3: 20 26 B0  JSR sub_B026_status_behavior       ;
