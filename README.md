@@ -2,6 +2,11 @@
 This is try to disassembly Famicom game "Lupin Sansei - Pandora no Isan".
 The repo was created for educational purposes.
 All rights reserved by モンキー・パンチ, NAMCO.
+## Pre-Building
+Building requires the file ``CHR_ROM.chr`` that should be located in the project directory ``assets``.
+``CHR_ROM.chr`` is the part of the original file ``Lupin Sansei - Pandora no Isan (J) [!].nes`` (see below) than is started with ***131088-th*** (***0x020010***) byte and have a length - ***65536*** bytes.
+If you have Python you can execute ``tools/prebuild.py`` script where is 1st argument - the full path to the original file, 2nd argument - the path to the project directory ``assets``.
+Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "c:\Lupin Sansei - Pandora no Isan\assets\\"``
 ## Building
 -  Windows - run a command ***assemble.bat***
 -  Linux, MacOS - run a command ***assemble.sh*** (more information - [NES Games Disassembly](https://github.com/cyneprepou4uk/NES-Games-Disassembly))
