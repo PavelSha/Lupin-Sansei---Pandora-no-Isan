@@ -85,6 +85,7 @@ vLowCounter                   = ram_002C
 v_high_counter                = ram_002D
 vGameCounters                 = ram_002E ; [vCorridorCounter, the unknown counter1, 2, 3]
 vCorridorCounter              = ram_002E ; The counter starts when we enter the corridor
+vJetPackRiseCounter           = ram_002E
 vAnimationCounter             = ram_002F ; To animate the balloon and squeezing Lupine's legs on the jet-pack
 ; Also the counter starts when the character is flying after damage
 ; ram_0030 - the unknown counter1
@@ -700,3 +701,4 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; 0x008B91 - лишние байты музыки
 ; удалить лишние директивы .export/.import
 ; 03:B360 - баг с остановкой врага
+; FF:CC5F - не слышен полностью звук активации радио (баг?)
