@@ -572,6 +572,7 @@ vBombOnScreen                 = ram_0398 ; 0x00 - no exist, 0x01 - on screen
 v_briefcase_index             = ram_0398 ; [0399-039D]
 vBombStatus                   = ram_039E
 ; 0x00 - none
+; 0x02 - waiting for the explosion
 ; 0xC2 - a bomb is laying on screen
 ; 0xC0 - a bomb is exploding
 vItemStatus                   = ram_039E ; [039F-03A3] - briefcase, 039E - screen
@@ -635,6 +636,7 @@ vWalls                         = ram_05C0 ; [$05C0-05FF]
 ; flag 0xFF - the wall has already been destroyed
 
 vCachePalette                 = ram_0600 ; [ram_0600 - ram_061F]
+vTempCachePalette             = ram_0620 ; [ram_0620 - ram_062B], for the bomb explosion animation
 vLowPpuAddress                = ram_0630
 vHighPpuAddress               = ram_0631
 v_ppu_buffer_count            = ram_0632

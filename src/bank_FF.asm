@@ -162,7 +162,7 @@
 .export loc_D3AD_left_collision_by_inc_posX
 .export sub_D642_have_intersect_with_character
 .export loc_CDAC_decrement_counters_ex
-.export sub_CDEE_prepare_activable_items_after_damage
+.export sub_CDEE_deactivate_activable_items_after_damage
 .export sub_DF63_update_character_status
 .export loc_DBC2_before_rendering
 .export sub_DCB1_try_move_on_the_left
@@ -176,6 +176,8 @@
 .export sub_DA28_get_explode_sprite_magic2
 .export loc_D913_short_inc_ItemPosXLow
 .export loc_D8F4_short_dec_ItemPosXLow_unsafe
+.export loc_C924_display_menu_score_ex
+.export sub_C924_display_menu_score_ex
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI ; disable interrupts
@@ -302,7 +304,7 @@ C - - - - - 0x01C0FD 07:C0ED: 20 57 DF  JSR sub_DF57_get_current_character      
 C - - - - - 0x01C100 07:C0F0: 8D B2 06  STA vCacheChrBankSelect + 3             ;
 C - - - - - 0x01C103 07:C0F3: EE B2 06  INC vCacheChrBankSelect + 3             ;
 C - - - - - 0x01C106 07:C0F6: 20 F8 E2  JSR sub_E2F8_set_character_palette      ;
-C - - - - - 0x01C109 07:C0F9: 20 F3 CD  JSR sub_CDF3_prepare_activable_items    ;
+C - - - - - 0x01C109 07:C0F9: 20 F3 CD  JSR sub_CDF3_deactivate_activable_items ;
 C - - - - - 0x01C10C 07:C0FC: 20 ED C2  JSR sub_C2ED_prepare_character_in_water ;
 C - - - - - 0x01C10F 07:C0FF: 20 A4 BB  JSR sub_BBA4_play_background_music      ;
 C - - - - - 0x01C112 07:C102: 20 14 FC  JSR sub_FC14_prepare_boss               ;
@@ -1554,6 +1556,10 @@ C - - - - - 0x01C92C 07:C91C: A9 80     LDA #$80                ;
 C - - - - - 0x01C92E 07:C91E: 85 08     STA ram_0008            ; $0008 <~ 0x80
 C - - - - - 0x01C930 07:C920: A9 80     LDA #$80                ;
 C - - - - - 0x01C932 07:C922: 85 09     STA ram_0009            ; $0009 <~ 0x80
+; In: $0008 - ???
+; In: $0009 - ???
+loc_C924_display_menu_score_ex:
+sub_C924_display_menu_score_ex:
 C D 2 - - - 0x01C934 07:C924: A9 00     LDA #$00                ;
 C - - - - - 0x01C936 07:C926: 85 07     STA ram_0007            ; $0007 <~ 0x00
 C - - - - - 0x01C938 07:C928: A0 07     LDY #$07                ; set loop counter
@@ -1577,8 +1583,8 @@ C - - - - - 0x01C952 07:C942: D0 E6     BNE @bra_C92A_loop      ; If Register Y 
 C - - - - - 0x01C954 07:C944: 60        RTS                     ;
 
 bra_C945_exit:
-C - - - - - 0x01C955 07:C945: 68        PLA                                    ; retrieve A (see $C947 or $C960)
-C - - - - - 0x01C956 07:C946: 60        RTS                                    ;
+C - - - - - 0x01C955 07:C945: 68        PLA                     ; retrieve A (see $C947 or $C960)
+C - - - - - 0x01C956 07:C946: 60        RTS                     ;
 
 ; In: Register A - score value 0xVV, V - a digit (0x65 - 650 Score)
 ; In: Register X - the enemyA number
@@ -2074,34 +2080,34 @@ tbl_CC46_item_handlers:
 loc_CC58_radio:
 C - - J - - 0x01CC68 07:CC58: A9 10     LDA #$10
 C - - - - - 0x01CC6A 07:CC5A: 85 3B     STA vSharedGameStatus
-C - - - - - 0x01CC6C 07:CC5C: 20 F3 CD  JSR sub_CDF3_prepare_activable_items
-C - - - - - 0x01CC6F 07:CC5F: A9 11     LDA #$11                              ; CONSTANT - the sound when the radio is activated
-C - - - - - 0x01CC71 07:CC61: 20 20 C4  JSR sub_C420_add_sound_effect         ;
-C - - - - - 0x01CC74 07:CC64: 18        CLC                                   ; return false
-C - - - - - 0x01CC75 07:CC65: 60        RTS                                   ;
+C - - - - - 0x01CC6C 07:CC5C: 20 F3 CD  JSR sub_CDF3_deactivate_activable_items ;
+C - - - - - 0x01CC6F 07:CC5F: A9 11     LDA #$11                                ; CONSTANT - the sound when the radio is activated
+C - - - - - 0x01CC71 07:CC61: 20 20 C4  JSR sub_C420_add_sound_effect           ;
+C - - - - - 0x01CC74 07:CC64: 18        CLC                                     ; return false
+C - - - - - 0x01CC75 07:CC65: 60        RTS                                     ;
 
 bra_CC66_return_true:
 C - - - - - 0x01CC76 07:CC66: 38        SEC    ; return true
 C - - - - - 0x01CC77 07:CC67: 60        RTS    ;
 
 loc_CC68_bomb:
-C - - J - - 0x01CC78 07:CC68: A5 6C     LDA ram_006C
-C - - - - - 0x01CC7A 07:CC6A: 29 10     AND #$10
-C - - - - - 0x01CC7C 07:CC6C: D0 F8     BNE bra_CC66_return_true
-C - - - - - 0x01CC7E 07:CC6E: A0 0B     LDY #$0B
-@bra_CC70_loop:
-C - - - - - 0x01CC80 07:CC70: B9 04 06  LDA vCachePalette + 4,Y
-C - - - - - 0x01CC83 07:CC73: 99 20 06  STA ram_0620,Y
-C - - - - - 0x01CC86 07:CC76: 88        DEY
-C - - - - - 0x01CC87 07:CC77: 10 F7     BPL @bra_CC70_loop
-C - - - - - 0x01CC89 07:CC79: A0 00     LDY #$00
-C - - - - - 0x01CC8B 07:CC7B: A5 6C     LDA vChrStatus        ;
-C - - - - - 0x01CC8D 07:CC7D: 6A        ROR                   ;
-C - - - - - 0x01CC8E 07:CC7E: 90 02     BCC @bra_CC82_right   ; If the character is looking to the right
-C - - - - - 0x01CC90 07:CC80: A0 06     LDY #$06 ; 2nd row
+C - - J - - 0x01CC78 07:CC68: A5 6C     LDA vChrStatus                 ;
+C - - - - - 0x01CC7A 07:CC6A: 29 10     AND #$10                       ; CONSTANT - 'the character is jumping'
+C - - - - - 0x01CC7C 07:CC6C: D0 F8     BNE bra_CC66_return_true       ; If the character is jumping
+C - - - - - 0x01CC7E 07:CC6E: A0 0B     LDY #$0B                       ; set loop counter
+@bra_CC70_loop:                                                        ; loop by y (12 times)
+C - - - - - 0x01CC80 07:CC70: B9 04 06  LDA vCachePalette + 4,Y        ;
+C - - - - - 0x01CC83 07:CC73: 99 20 06  STA vTempCachePalette,Y        ; caches
+C - - - - - 0x01CC86 07:CC76: 88        DEY                            ; decrement loop counter
+C - - - - - 0x01CC87 07:CC77: 10 F7     BPL @bra_CC70_loop             ; If Register Y >= 0x00
+C - - - - - 0x01CC89 07:CC79: A0 00     LDY #$00                       ; CONSTANT - 1st row
+C - - - - - 0x01CC8B 07:CC7B: A5 6C     LDA vChrStatus                 ;
+C - - - - - 0x01CC8D 07:CC7D: 6A        ROR                            ;
+C - - - - - 0x01CC8E 07:CC7E: 90 02     BCC @bra_CC82_right            ; If the character is looking to the right
+C - - - - - 0x01CC90 07:CC80: A0 06     LDY #$06                       ; CONSTANT - 2nd row
 @bra_CC82_right:
-C - - - - - 0x01CC92 07:CC82: 20 1C CD  JSR sub_CD1C
-C - - - - - 0x01CC95 07:CC85: 4C 49 CD  JMP loc_CD49
+C - - - - - 0x01CC92 07:CC82: 20 1C CD  JSR sub_CD1C_init_bom_params_  ;
+C - - - - - 0x01CC95 07:CC85: 4C 49 CD  JMP loc_CD49_activate_weapon   ;
 
 loc_CC88_artillery_rifle:
 C - - J - - 0x01CC98 07:CC88: 20 75 F0  JSR sub_F075_clear_bullet_status
@@ -2111,7 +2117,7 @@ C - - - - - 0x01CC9F 07:CC8F: A9 05     LDA #$05
 C - - - - - 0x01CCA1 07:CC91: 85 72     STA vRifleShotCount
 C - - - - - 0x01CCA3 07:CC93: A9 07     LDA #$07
 C - - - - - 0x01CCA5 07:CC95: 8D B2 06  STA vCacheChrBankSelect + 3
-C - - - - - 0x01CCA8 07:CC98: 4C 49 CD  JMP loc_CD49
+C - - - - - 0x01CCA8 07:CC98: 4C 49 CD  JMP loc_CD49_activate_weapon
 
 loc_CC9B_jet_pack:
 C - - J - - 0x01CCAB 07:CC9B: A9 20     LDA #$20
@@ -2122,7 +2128,7 @@ C - - - - - 0x01CCB3 07:CCA3: A9 07     LDA #$07
 C - - - - - 0x01CCB5 07:CCA5: 8D B2 06  STA vCacheChrBankSelect + 3
 C - - - - - 0x01CCB8 07:CCA8: A9 04     LDA #$04
 C - - - - - 0x01CCBA 07:CCAA: 8D 16 02  STA vApparatusHighCounter
-C - - - - - 0x01CCBD 07:CCAD: 4C 49 CD  JMP loc_CD49
+C - - - - - 0x01CCBD 07:CCAD: 4C 49 CD  JMP loc_CD49_activate_weapon
 
 loc_CCB0_infrared_goggles:
 C - - J - - 0x01CCC0 07:CCB0: 24 D1     BIT vGogglesActive
@@ -2195,34 +2201,35 @@ C - - - - - 0x01CD26 07:CD16: A9 20     LDA #$20              ; Initializing the
 C - - - - - 0x01CD28 07:CD18: 9D 0A 02  STA vItemsBlinkTime,X ;
 C - - - - - 0x01CD2B 07:CD1B: 60        RTS                   ;
 
-sub_CD1C:
-C - - - - - 0x01CD2C 07:CD1C: B9 53 CD  LDA tbl_CD53,Y
-C - - - - - 0x01CD2F 07:CD1F: 8D 98 03  STA vBombOnScreen
-C - - - - - 0x01CD32 07:CD22: B9 54 CD  LDA tbl_CD53 + 1,Y
-C - - - - - 0x01CD35 07:CD25: 8D 9E 03  STA vBombStatus
-C - - - - - 0x01CD38 07:CD28: A5 6A     LDA vScreenChrPosY
-C - - - - - 0x01CD3A 07:CD2A: 18        CLC
-C - - - - - 0x01CD3B 07:CD2B: 79 55 CD  ADC tbl_CD53 + 2,Y
-C - - - - - 0x01CD3E 07:CD2E: 8D AA 03  STA vItemPosY
-C - - - - - 0x01CD41 07:CD31: A5 66     LDA vLowChrPosX
-C - - - - - 0x01CD43 07:CD33: 18        CLC
-C - - - - - 0x01CD44 07:CD34: 79 56 CD  ADC tbl_CD53 + 3,Y
-C - - - - - 0x01CD47 07:CD37: 8D B6 03  STA vItemPosXLow
-C - - - - - 0x01CD4A 07:CD3A: A5 68     LDA vNoScreen
-C - - - - - 0x01CD4C 07:CD3C: 79 57 CD  ADC tbl_CD53 + 4,Y
-C - - - - - 0x01CD4F 07:CD3F: 8D BC 03  STA vItemPosXHigh
-C - - - - - 0x01CD52 07:CD42: B9 58 CD  LDA tbl_CD53 + 5,Y
-C - - - - - 0x01CD55 07:CD45: 8D C8 03  STA ram_03C8
-C - - - - - 0x01CD58 07:CD48: 60        RTS
+; In: Register Y - 0x00 or 0x06, the bobm info offset (see tbl_CD53_bomb_info)
+sub_CD1C_init_bom_params_:
+C - - - - - 0x01CD2C 07:CD1C: B9 53 CD  LDA tbl_CD53_bomb_info,Y       ;
+C - - - - - 0x01CD2F 07:CD1F: 8D 98 03  STA vBombOnScreen              ;
+C - - - - - 0x01CD32 07:CD22: B9 54 CD  LDA tbl_CD53_bomb_info + 1,Y   ;
+C - - - - - 0x01CD35 07:CD25: 8D 9E 03  STA vBombStatus                ;
+C - - - - - 0x01CD38 07:CD28: A5 6A     LDA vScreenChrPosY             ;
+C - - - - - 0x01CD3A 07:CD2A: 18        CLC                            ;
+C - - - - - 0x01CD3B 07:CD2B: 79 55 CD  ADC tbl_CD53_bomb_info + 2,Y   ;
+C - - - - - 0x01CD3E 07:CD2E: 8D AA 03  STA vItemPosY                  ; <~ ChrPosY + offset
+C - - - - - 0x01CD41 07:CD31: A5 66     LDA vLowChrPosX                ;
+C - - - - - 0x01CD43 07:CD33: 18        CLC                            ;
+C - - - - - 0x01CD44 07:CD34: 79 56 CD  ADC tbl_CD53_bomb_info + 3,Y   ;
+C - - - - - 0x01CD47 07:CD37: 8D B6 03  STA vItemPosXLow               ; <~ ChrPosX + offset (low value)
+C - - - - - 0x01CD4A 07:CD3A: A5 68     LDA vNoScreen                  ;
+C - - - - - 0x01CD4C 07:CD3C: 79 57 CD  ADC tbl_CD53_bomb_info + 4,Y   ;
+C - - - - - 0x01CD4F 07:CD3F: 8D BC 03  STA vItemPosXHigh              ; <~ ChrPosX + offset (high, value +1 with overflow)
+C - - - - - 0x01CD52 07:CD42: B9 58 CD  LDA tbl_CD53_bomb_info + 5,Y   ;
+C - - - - - 0x01CD55 07:CD45: 8D C8 03  STA vItemJumpCounter           ; Initializes a bomn jump counter
+C - - - - - 0x01CD58 07:CD48: 60        RTS                            ;
 
-loc_CD49:
-C D 2 - - - 0x01CD59 07:CD49: AD 14 02  LDA vCurrentWeaponStatus
-C - - - - - 0x01CD5C 07:CD4C: 09 40     ORA #$40
-C - - - - - 0x01CD5E 07:CD4E: 8D 14 02  STA vCurrentWeaponStatus
-C - - - - - 0x01CD61 07:CD51: 18        CLC
-C - - - - - 0x01CD62 07:CD52: 60        RTS
+loc_CD49_activate_weapon:
+C D 2 - - - 0x01CD59 07:CD49: AD 14 02  LDA vCurrentWeaponStatus   ;
+C - - - - - 0x01CD5C 07:CD4C: 09 40     ORA #$40                   ; CONSTANT - the weapon is activated
+C - - - - - 0x01CD5E 07:CD4E: 8D 14 02  STA vCurrentWeaponStatus   ;
+C - - - - - 0x01CD61 07:CD51: 18        CLC                        ; return false
+C - - - - - 0x01CD62 07:CD52: 60        RTS                        ;
 
-tbl_CD53:
+tbl_CD53_bomb_info:
 - D 2 - - - 0x01CD63 07:CD53: 01        .byte $01, $C2, $00, $0C, $00, $40   ; a bomb is on the right
 - D 2 - - - 0x01CD69 07:CD59: 01        .byte $01, $C2, $00, $F4, $FF, $40   ; a bomb is on the left
 
@@ -2320,11 +2327,11 @@ bra_CDDD:
 bra_CDED_RTS:
 C - - - - - 0x01CDFD 07:CDED: 60        RTS ;
 
-sub_CDEE_prepare_activable_items_after_damage:
+sub_CDEE_deactivate_activable_items_after_damage:
 C - - - - - 0x01CDFE 07:CDEE: A9 01     LDA #$01                    ; CONSTANT for CHR ROM (Frames: Lupin is died)
 C - - - - - 0x01CE00 07:CDF0: 8D B2 06  STA vCacheChrBankSelect + 3 ;
-sub_CDF3_prepare_activable_items:
-loc_CDF3_prepare_activable_items:
+sub_CDF3_deactivate_activable_items:
+loc_CDF3_deactivate_activable_items:
 C D 2 - - - 0x01CE03 07:CDF3: AD 14 02  LDA vCurrentWeaponStatus    ;
 C - - - - - 0x01CE06 07:CDF6: 29 BF     AND #$BF                    ;
 C - - - - - 0x01CE08 07:CDF8: 8D 14 02  STA vCurrentWeaponStatus    ; we make weapon inactive
@@ -3555,26 +3562,26 @@ C - - - - - 0x01D57C 07:D56C: 18        CLC                           ; return f
 C - - - - - 0x01D57D 07:D56D: 60        RTS                           ; 
 
 bra_D56E_skip:
-C - - - - - 0x01D57E 07:D56E: A5 3A     LDA vDamageStatus                                 ;
-C - - - - - 0x01D580 07:D570: 30 FA     BMI bra_D56C_return_false                         ; If the character isn't getting damage
-C - - - - - 0x01D582 07:D572: 20 42 D6  JSR sub_D642_have_intersect_with_character        ;
-C - - - - - 0x01D585 07:D575: 90 F5     BCC bra_D56C_return_false                         ;
-C - - - - - 0x01D587 07:D577: A5 46     LDA vNoSubLevel                                   ;
-C - - - - - 0x01D589 07:D579: C9 19     CMP #$19                                          ; CONSTANT - level racing
-C - - - - - 0x01D58B 07:D57B: F0 1E     BEQ @bra_D59B_skip                                ; If vNoSubLevel is the level racing
-C - - - - - 0x01D58D 07:D57D: 20 57 DF  JSR sub_DF57_get_current_character                ;
-C - - - - - 0x01D590 07:D580: D0 19     BNE @bra_D59B_skip                                ; If the current character isn't Lupin
-C - - - - - 0x01D592 07:D582: A9 60     LDA #$60                                          ; CONSTANT - time of the flying after getting damage
-C - - - - - 0x01D594 07:D584: 85 2E     STA vCorridorCounter                              ;
-C - - - - - 0x01D596 07:D586: A5 6D     LDA vMovableChrStatus                             ;
-C - - - - - 0x01D598 07:D588: 30 11     BMI @bra_D59B_skip                                ; If 'the character is moving in the water'
-C - - - - - 0x01D59A 07:D58A: 20 EE CD  JSR sub_CDEE_prepare_activable_items_after_damage ;
-C - - - - - 0x01D59D 07:D58D: AD 07 02  LDA v_bullet_proof_vest_item                      ;
-C - - - - - 0x01D5A0 07:D590: F0 09     BEQ @bra_D59B_skip                                ; If vBulletProofVestItem = 0x00
-C - - - - - 0x01D5A2 07:D592: A5 3A     LDA vDamageStatus                                 ;
-C - - - - - 0x01D5A4 07:D594: 09 40     ORA #$40                                          ; CONSTANT - The character got damage with a non-zero bullet proof vest item
-C - - - - - 0x01D5A6 07:D596: 85 3A     STA vDamageStatus                                 ;
-C - - - - - 0x01D5A8 07:D598: 20 0D CD  JSR sub_CD0D_use_bullet_proof_vest                ;
+C - - - - - 0x01D57E 07:D56E: A5 3A     LDA vDamageStatus                                    ;
+C - - - - - 0x01D580 07:D570: 30 FA     BMI bra_D56C_return_false                            ; If the character isn't getting damage
+C - - - - - 0x01D582 07:D572: 20 42 D6  JSR sub_D642_have_intersect_with_character           ;
+C - - - - - 0x01D585 07:D575: 90 F5     BCC bra_D56C_return_false                            ;
+C - - - - - 0x01D587 07:D577: A5 46     LDA vNoSubLevel                                      ;
+C - - - - - 0x01D589 07:D579: C9 19     CMP #$19                                             ; CONSTANT - level racing
+C - - - - - 0x01D58B 07:D57B: F0 1E     BEQ @bra_D59B_skip                                   ; If vNoSubLevel is the level racing
+C - - - - - 0x01D58D 07:D57D: 20 57 DF  JSR sub_DF57_get_current_character                   ;
+C - - - - - 0x01D590 07:D580: D0 19     BNE @bra_D59B_skip                                   ; If the current character isn't Lupin
+C - - - - - 0x01D592 07:D582: A9 60     LDA #$60                                             ; CONSTANT - time of the flying after getting damage
+C - - - - - 0x01D594 07:D584: 85 2E     STA vCorridorCounter                                 ;
+C - - - - - 0x01D596 07:D586: A5 6D     LDA vMovableChrStatus                                ;
+C - - - - - 0x01D598 07:D588: 30 11     BMI @bra_D59B_skip                                   ; If 'the character is moving in the water'
+C - - - - - 0x01D59A 07:D58A: 20 EE CD  JSR sub_CDEE_deactivate_activable_items_after_damage ;
+C - - - - - 0x01D59D 07:D58D: AD 07 02  LDA v_bullet_proof_vest_item                         ;
+C - - - - - 0x01D5A0 07:D590: F0 09     BEQ @bra_D59B_skip                                   ; If vBulletProofVestItem = 0x00
+C - - - - - 0x01D5A2 07:D592: A5 3A     LDA vDamageStatus                                    ;
+C - - - - - 0x01D5A4 07:D594: 09 40     ORA #$40                                             ; CONSTANT - The character got damage with a non-zero bullet proof vest item
+C - - - - - 0x01D5A6 07:D596: 85 3A     STA vDamageStatus                                    ;
+C - - - - - 0x01D5A8 07:D598: 20 0D CD  JSR sub_CD0D_use_bullet_proof_vest                   ;
 @bra_D59B_skip:
 C - - - - - 0x01D5AB 07:D59B: A5 6C     LDA vChrStatus                       ;
 C - - - - - 0x01D5AD 07:D59D: 29 81     AND #$81                             ; clear Y Z W K L M flags (see vChrStatus)
@@ -4252,12 +4259,12 @@ C - - - - - 0x01D92B 07:D91B: 60        RTS                      ;
 - - - - - - 0x01D92D 07:D91D: 28        .byte $28
 - - - - - - 0x01D92E 07:D91E: D9        .byte $D9
 
-; in: Register X - the number of the briefcase
-sub_D91F:
-C - - - - - 0x01D92F 07:D91F: BD 9E 03  LDA vItemStatus,X
-C - - - - - 0x01D932 07:D922: 29 E1     AND #$E1
-C - - - - - 0x01D934 07:D924: 9D 9E 03  STA vItemStatus,X
-C - - - - - 0x01D937 07:D927: 60        RTS
+; In: Register X - 0x00 (an index for the bomb)
+sub_D91F_clear_substate:
+C - - - - - 0x01D92F 07:D91F: BD 9E 03  LDA vItemStatus,X        ;
+C - - - - - 0x01D932 07:D922: 29 E1     AND #$E1                 ; clear substate
+C - - - - - 0x01D934 07:D924: 9D 9E 03  STA vItemStatus,X        ;
+C - - - - - 0x01D937 07:D927: 60        RTS                      ;
 
 - - - - - - 0x01D938 07:D928: BD        .byte $BD
 - - - - - - 0x01D939 07:D929: AA        .byte $AA
@@ -4489,84 +4496,91 @@ C - - - - - 0x01DA44 07:DA34: 69 74     ADC #$74                       ;
 C - - - - - 0x01DA46 07:DA36: A8        TAY                            ; Y <~ 0x74 + offset
 C - - - - - 0x01DA47 07:DA37: 60        RTS                            ;
 
-; in: Register X - ???
-loc_DA38:
-C D 2 - - - 0x01DA48 07:DA38: BD 9E 03  LDA vItemStatus,X
-C - - - - - 0x01DA4B 07:DA3B: 29 02     AND #$02
-C - - - - - 0x01DA4D 07:DA3D: F0 6C     BEQ bra_DAAB
-C - - - - - 0x01DA4F 07:DA3F: DE C8 03  DEC ram_03C8,X
-C - - - - - 0x01DA52 07:DA42: D0 1A     BNE bra_DA5E
-C - - - - - 0x01DA54 07:DA44: AD 31 06  LDA ram_0631
-C - - - - - 0x01DA57 07:DA47: F0 05     BEQ bra_DA4E
-- - - - - - 0x01DA59 07:DA49: FE C8 03  INC ram_03C8,X
-- - - - - - 0x01DA5C 07:DA4C: D0 10     BNE bra_DA5E
-bra_DA4E:
-C - - - - - 0x01DA5E 07:DA4E: 20 CD F9  JSR sub_F9CD
-C - - - - - 0x01DA61 07:DA51: 20 1F D9  JSR sub_D91F
-C - - - - - 0x01DA64 07:DA54: A9 10     LDA #$10
-C - - - - - 0x01DA66 07:DA56: 9D C8 03  STA ram_03C8,X
-C - - - - - 0x01DA69 07:DA59: A9 0F     LDA #$0F
-C - - - - - 0x01DA6B 07:DA5B: 20 20 C4  JSR sub_C420_add_sound_effect
-bra_DA5E:
+; In: Register X - 0x00 (an index for the bomb)
+loc_DA38_status_behavior:
+C D 2 - - - 0x01DA48 07:DA38: BD 9E 03  LDA vItemStatus,X                ;
+C - - - - - 0x01DA4B 07:DA3B: 29 02     AND #$02                         ; CONSTANT - 'waiting for the explosion' status
+C - - - - - 0x01DA4D 07:DA3D: F0 6C     BEQ bra_DAAB_exploding           ; If 'waiting for the explosion' status status isn't activated
+C - - - - - 0x01DA4F 07:DA3F: DE C8 03  DEC vItemJumpCounter,X           ; updates the counter before exploding
+C - - - - - 0x01DA52 07:DA42: D0 1A     BNE bra_DA5E_render              ; If vJumpCounter != 0x00
+C - - - - - 0x01DA54 07:DA44: AD 31 06  LDA vHighPpuAddress              ;
+C - - - - - 0x01DA57 07:DA47: F0 05     BEQ bra_DA4E_start_explode       ; If main render mode is used (see sub_D11B_shared_render)
+C - - - - - 0x01DA59 07:DA49: FE C8 03  INC vItemJumpCounter,X           ;
+C - - - - - 0x01DA5C 07:DA4C: D0 10     BNE bra_DA5E_render              ; Always true (vJumpCounter == 1)
+
+bra_DA4E_start_explode:
+C - - - - - 0x01DA5E 07:DA4E: 20 CD F9  JSR sub_F9CD_try_to_destroy_wall
+C - - - - - 0x01DA61 07:DA51: 20 1F D9  JSR sub_D91F_clear_substate      ;
+C - - - - - 0x01DA64 07:DA54: A9 10     LDA #$10                         ;
+C - - - - - 0x01DA66 07:DA56: 9D C8 03  STA vItemJumpCounter,X           ; Initializes a jump counter for the explode
+C - - - - - 0x01DA69 07:DA59: A9 0F     LDA #$0F                         ; CONSTANT - the exploding sound
+C - - - - - 0x01DA6B 07:DA5B: 20 20 C4  JSR sub_C420_add_sound_effect    ;
+bra_DA5E_render:
 C - - - - - 0x01DA6E 07:DA5E: A0 64     LDY #$64
-loc_DA60:
-C D 2 - - - 0x01DA70 07:DA60: BD B6 03  LDA vItemPosXLow,X
-C - - - - - 0x01DA73 07:DA63: 85 00     STA ram_0000
-C - - - - - 0x01DA75 07:DA65: BD BC 03  LDA vItemPosXHigh,X
-C - - - - - 0x01DA78 07:DA68: 85 01     STA ram_0001
-C - - - - - 0x01DA7A 07:DA6A: 20 AC D6  JSR sub_D6AC_out_of_screen
-C - - - - - 0x01DA7D 07:DA6D: 90 03     BCC bra_DA72
-- - - - - - 0x01DA7F 07:DA6F: 4C 88 DA  JMP loc_DA88
-bra_DA72:
-C - - - - - 0x01DA82 07:DA72: BD AA 03  LDA vItemPosY,X
-C - - - - - 0x01DA85 07:DA75: 85 00     STA ram_0000
-C - - - - - 0x01DA87 07:DA77: A5 03     LDA ram_0003
-C - - - - - 0x01DA89 07:DA79: 9D B0 03  STA ram_03B0,X
+; In: Register X - 0x00 (an index for the bomb)
+; In: Register Y - sprite_magic2 (The offset by the address)
+loc_DA60_prepare_rendering:
+C D 2 - - - 0x01DA70 07:DA60: BD B6 03  LDA vItemPosXLow,X               ;
+C - - - - - 0x01DA73 07:DA63: 85 00     STA ram_0000                     ; prepares the 1st parameter
+C - - - - - 0x01DA75 07:DA65: BD BC 03  LDA vItemPosXHigh,X              ;
+C - - - - - 0x01DA78 07:DA68: 85 01     STA ram_0001                     ; prepares the 2nd parameter
+C - - - - - 0x01DA7A 07:DA6A: 20 AC D6  JSR sub_D6AC_out_of_screen       ;
+C - - - - - 0x01DA7D 07:DA6D: 90 03     BCC bra_DA72_skip                ; If the item is on the screen
+C - - - - - 0x01DA7F 07:DA6F: 4C 88 DA  JMP loc_DA88_clear               ;
+
+bra_DA72_skip:
+C - - - - - 0x01DA82 07:DA72: BD AA 03  LDA vItemPosY,X                  ;
+C - - - - - 0x01DA85 07:DA75: 85 00     STA ram_0000                     ; ~> sprite magic1
+C - - - - - 0x01DA87 07:DA77: A5 03     LDA ram_0003                     ; from sub_D6AC_out_of_screen
+C - - - - - 0x01DA89 07:DA79: 9D B0 03  STA vItemScreenPosX,X            ;
 ; In: Register Y - sprite_magic2 (The offset by the address)
 loc_DA7C_add_sprite_magic_in_05_p1:
-C D 2 - - - 0x01DA8C 07:DA7C: 84 01     STY ram_0001                  ;
-C - - - - - 0x01DA8E 07:DA7E: A9 60     LDA #$60                      ; ~> sprite_magic3
-C - - - - - 0x01DA90 07:DA80: 85 02     STA ram_0002                  ;
-C - - - - - 0x01DA92 07:DA82: 4C 33 CE  JMP loc_CE33_add_sprite_magic ;
+C D 2 - - - 0x01DA8C 07:DA7C: 84 01     STY ram_0001                     ;
+C - - - - - 0x01DA8E 07:DA7E: A9 60     LDA #$60                         ; ~> sprite_magic3
+C - - - - - 0x01DA90 07:DA80: 85 02     STA ram_0002                     ;
+C - - - - - 0x01DA92 07:DA82: 4C 33 CE  JMP loc_CE33_add_sprite_magic    ;
 
-bra_DA85:
-C - - - - - 0x01DA95 07:DA85: 20 9F DA  JSR sub_DA9F
-loc_DA88:
-C - - - - - 0x01DA98 07:DA88: A9 00     LDA #$00
-C - - - - - 0x01DA9A 07:DA8A: 9D 9E 03  STA ram_039E,X
-C - - - - - 0x01DA9D 07:DA8D: 4C F3 CD  JMP loc_CDF3_prepare_activable_items
+bra_DA85_finish_exploding:
+C - - - - - 0x01DA95 07:DA85: 20 9F DA  JSR sub_DA9F_restore_palette    ;
+; In: Register X - 0x00 (an index for the bomb)
+loc_DA88_clear:
+C - - - - - 0x01DA98 07:DA88: A9 00     LDA #$00                                ;
+C - - - - - 0x01DA9A 07:DA8A: 9D 9E 03  STA vItemStatus,X                       ; clear
+C - - - - - 0x01DA9D 07:DA8D: 4C F3 CD  JMP loc_CDF3_deactivate_activable_items ;
 
-sub_DA90:
-C - - - - - 0x01DAA0 07:DA90: 29 04     AND #$04
-C - - - - - 0x01DAA2 07:DA92: F0 0B     BEQ bra_DA9F
-C - - - - - 0x01DAA4 07:DA94: A0 0B     LDY #$0B
-C - - - - - 0x01DAA6 07:DA96: A9 30     LDA #$30
-bra_DA98:
-C - - - - - 0x01DAA8 07:DA98: 99 04 06  STA ram_0604,Y
-C - - - - - 0x01DAAB 07:DA9B: 88        DEY
-C - - - - - 0x01DAAC 07:DA9C: 10 FA     BPL bra_DA98
-C - - - - - 0x01DAAE 07:DA9E: 60        RTS
+; In: Register A - vItemJumpCounter for the bomb
+sub_DA90_try_to_render_flash:
+C - - - - - 0x01DAA0 07:DA90: 29 04     AND #$04                       ;
+C - - - - - 0x01DAA2 07:DA92: F0 0B     BEQ bra_DA9F_restore_palette   ; Branch every 4 times after 4 (after updating vItemJumpCounter)
+C - - - - - 0x01DAA4 07:DA94: A0 0B     LDY #$0B                       ; set loop counter
+C - - - - - 0x01DAA6 07:DA96: A9 30     LDA #$30                       ; CONSTANT - white color (lightning flash effect)
+@bra_DA98_loop:
+C - - - - - 0x01DAA8 07:DA98: 99 04 06  STA vCachePalette + 4,Y        ; <~ 0x30
+C - - - - - 0x01DAAB 07:DA9B: 88        DEY                            ; decrement loop counter
+C - - - - - 0x01DAAC 07:DA9C: 10 FA     BPL @bra_DA98_loop             ; If Register Y >= 0x00
+C - - - - - 0x01DAAE 07:DA9E: 60        RTS                            ;
 
-bra_DA9F:
-sub_DA9F:
-C - - - - - 0x01DAAF 07:DA9F: A0 0B     LDY #$0B
-bra_DAA1:
-C - - - - - 0x01DAB1 07:DAA1: B9 20 06  LDA ram_0620,Y
-C - - - - - 0x01DAB4 07:DAA4: 99 04 06  STA vCachePalette + 4,Y
-C - - - - - 0x01DAB7 07:DAA7: 88        DEY
-C - - - - - 0x01DAB8 07:DAA8: 10 F7     BPL bra_DAA1
-C - - - - - 0x01DABA 07:DAAA: 60        RTS
+bra_DA9F_restore_palette:
+sub_DA9F_restore_palette:
+C - - - - - 0x01DAAF 07:DA9F: A0 0B     LDY #$0B                       ; set loop counter
+@bra_DAA1_loop:
+C - - - - - 0x01DAB1 07:DAA1: B9 20 06  LDA vTempCachePalette,Y        ;
+C - - - - - 0x01DAB4 07:DAA4: 99 04 06  STA vCachePalette + 4,Y        ; restore from the cache
+C - - - - - 0x01DAB7 07:DAA7: 88        DEY                            ; decrement loop counter
+C - - - - - 0x01DAB8 07:DAA8: 10 F7     BPL @bra_DAA1_loop             ; If Register Y >= 0x00
+C - - - - - 0x01DABA 07:DAAA: 60        RTS                            ;
 
-bra_DAAB:
-C - - - - - 0x01DABB 07:DAAB: DE C8 03  DEC ram_03C8,X
-C - - - - - 0x01DABE 07:DAAE: F0 D5     BEQ bra_DA85
-C - - - - - 0x01DAC0 07:DAB0: BD C8 03  LDA ram_03C8,X
-C - - - - - 0x01DAC3 07:DAB3: 48        PHA
-C - - - - - 0x01DAC4 07:DAB4: 20 90 DA  JSR sub_DA90
-C - - - - - 0x01DAC7 07:DAB7: 68        PLA
-C - - - - - 0x01DAC8 07:DAB8: A0 00     LDY #$00
-C - - - - - 0x01DACA 07:DABA: 20 28 DA  JSR sub_DA28_get_explode_sprite_magic2
-C - - - - - 0x01DACD 07:DABD: 4C 60 DA  JMP loc_DA60
+; In: Register X - 0x00 (an index for the bomb)
+bra_DAAB_exploding:
+C - - - - - 0x01DABB 07:DAAB: DE C8 03  DEC vItemJumpCounter,X                  ;
+C - - - - - 0x01DABE 07:DAAE: F0 D5     BEQ bra_DA85_finish_exploding           ; If vJumpCounter == 0x00
+C - - - - - 0x01DAC0 07:DAB0: BD C8 03  LDA vItemJumpCounter,X                  ;
+C - - - - - 0x01DAC3 07:DAB3: 48        PHA                                     ; store vJumpCounter
+C - - - - - 0x01DAC4 07:DAB4: 20 90 DA  JSR sub_DA90_try_to_render_flash        ;
+C - - - - - 0x01DAC7 07:DAB7: 68        PLA                                     ; retrieve vJumpCounter (see $DAB3)
+C - - - - - 0x01DAC8 07:DAB8: A0 00     LDY #$00                                ; prepare an input parameter (a start index)
+C - - - - - 0x01DACA 07:DABA: 20 28 DA  JSR sub_DA28_get_explode_sprite_magic2  ;
+C - - - - - 0x01DACD 07:DABD: 4C 60 DA  JMP loc_DA60_prepare_rendering          ;
 
 tbl_DAC0_counter_values:
 - D 2 - - - 0x01DAD0 07:DAC0: 0E        .byte $0E, $0C, $08, $04, $00
@@ -5292,7 +5306,7 @@ C - - - - - 0x01DF2F 07:DF1F: D0 10     BNE bra_DF31_dead                       
 C - - - - - 0x01DF31 07:DF21: AD 06 02  LDA v_helium_balloon_item                ;
 C - - - - - 0x01DF34 07:DF24: F0 0B     BEQ bra_DF31_dead                        ; If vHeliumBalloonItem == 0x00
 bra_DF26_balloon:
-C - - - - - 0x01DF36 07:DF26: 20 F3 CD  JSR sub_CDF3_prepare_activable_items     ;
+C - - - - - 0x01DF36 07:DF26: 20 F3 CD  JSR sub_CDF3_deactivate_activable_items  ;
 C - - - - - 0x01DF39 07:DF29: 20 EF CC  JSR sub_CCEF_use_balloon                 ;
 C - - - - - 0x01DF3C 07:DF2C: A2 00     LDX #$00                                 ;
 C - - - - - 0x01DF3E 07:DF2E: 4C C2 DB  JMP loc_DBC2_before_rendering            ; prepares the offset of the sprite address
@@ -5402,6 +5416,7 @@ C - - - - - 0x01DFC0 07:DFB0: 20 2F FA  JSR sub_FA2F
 loc_DFB3:
 C - - - - - 0x01DFC3 07:DFB3: A9 02     LDA #$02
 C - - - - - 0x01DFC5 07:DFB5: D0 05     BNE bra_DFBC
+
 loc_DFB7:
 C - - - - - 0x01DFC7 07:DFB7: 20 2F FA  JSR sub_FA2F
 loc_DFBA:
@@ -6453,7 +6468,7 @@ C - - - - - 0x01E63E 07:E62E: 29 08     AND #$08
 C - - - - - 0x01E640 07:E630: F0 06     BEQ bra_E638_continue
 bra_E632_stop_jet_pack:
 loc_E632_stop_jet_pack:
-C D 3 - - - 0x01E642 07:E632: 20 EE CD  JSR sub_CDEE_prepare_activable_items_after_damage
+C D 3 - - - 0x01E642 07:E632: 20 EE CD  JSR sub_CDEE_deactivate_activable_items_after_damage
 C - - - - - 0x01E645 07:E635: 4C 4B DB  JMP loc_DB4B_jumping_off
 
 bra_E638_continue:
@@ -7718,7 +7733,7 @@ C - - - - - 0x01EE5D 07:EE4D: 20 3C C5  JSR sub_C53C_resolve_start_status ;
 C - - - - - 0x01EE60 07:EE50: 4C D5 ED  JMP loc_EDD5_nmi_skip             ;
 
 sub_EE53_enemies_subroutine:
-C - - - - - 0x01EE63 07:EE53: 20 69 EF  JSR sub_EF69
+C - - - - - 0x01EE63 07:EE53: 20 69 EF  JSR sub_EF69_bomb_handler
 C - - - - - 0x01EE66 07:EE56: A2 00     LDX #$00                   ; assign type A
 C - - - - - 0x01EE68 07:EE58: 20 5D EE  JSR sub_EE5D_enemy_handler ;
 C - - - - - 0x01EE6B 07:EE5B: A2 01     LDX #$01                   ; assign type B
@@ -7880,17 +7895,17 @@ C - - - - - 0x01EF72 07:EF62: AD B5 06  LDA vBankData        ;
 C - - - - - 0x01EF75 07:EF65: 8D 01 80  STA MMC3_Bank_data   ; switch vBankData (PRG) in $8000-$9FFF
 C - - - - - 0x01EF78 07:EF68: 60        RTS                  ;
 
-sub_EF69:
-C - - - - - 0x01EF79 07:EF69: A2 00     LDX #$00
-C - - - - - 0x01EF7B 07:EF6B: AD 9E 03  LDA vItemStatus      ;
-C - - - - - 0x01EF7E 07:EF6E: 10 0A     BPL bra_EF7A_RTS     ; If vItemStatus >= 0x00 && vItemStatus < 0x80
-C - - - - - 0x01EF80 07:EF70: AD 98 03  LDA ram_0398
-C - - - - - 0x01EF83 07:EF73: C9 01     CMP #$01
-C - - - - - 0x01EF85 07:EF75: D0 03     BNE bra_EF7A_RTS
-C - - - - - 0x01EF87 07:EF77: 4C 38 DA  JMP loc_DA38
+sub_EF69_bomb_handler:
+C - - - - - 0x01EF79 07:EF69: A2 00     LDX #$00                     ; CONSTANT - an index for the bomb
+C - - - - - 0x01EF7B 07:EF6B: AD 9E 03  LDA vBombStatus              ;
+C - - - - - 0x01EF7E 07:EF6E: 10 0A     BPL bra_EF7A_RTS             ; If the status isn't used
+C - - - - - 0x01EF80 07:EF70: AD 98 03  LDA vBombOnScreen            ;
+C - - - - - 0x01EF83 07:EF73: C9 01     CMP #$01                     ; CONSTANT - the bomb is on the screen
+C - - - - - 0x01EF85 07:EF75: D0 03     BNE bra_EF7A_RTS             ; If the bomb isn't on the screen
+C - - - - - 0x01EF87 07:EF77: 4C 38 DA  JMP loc_DA38_status_behavior
 
 bra_EF7A_RTS:
-C - - - - - 0x01EF8A 07:EF7A: 60        RTS                  ;
+C - - - - - 0x01EF8A 07:EF7A: 60        RTS                          ;
 
 sub_EF7B_shift_all_counters:
 C - - - - - 0x01EF8B 07:EF7B: A2 04     LDX #$04                ; set loop counter (5 times)
@@ -9497,7 +9512,7 @@ C - - - - - 0x01F9DA 07:F9CA: AA        TAX     ; retrieve x (see $F91B)
 C - - - - - 0x01F9DB 07:F9CB: 18        CLC     ; return false
 C - - - - - 0x01F9DC 07:F9CC: 60        RTS     ;
 
-sub_F9CD:
+sub_F9CD_try_to_destroy_wall:
 C - - - - - 0x01F9DD 07:F9CD: 8A        TXA
 C - - - - - 0x01F9DE 07:F9CE: 48        PHA ; store x
 C - - - - - 0x01F9DF 07:F9CF: BD AA 03  LDA vItemPosY,X
@@ -9591,23 +9606,23 @@ C - - - - - 0x01FA6F 07:FA5F: 6A        ROR
 C - - - - - 0x01FA70 07:FA60: 90 02     BCC bra_FA64_skip
 C - - - - - 0x01FA72 07:FA62: A2 A6     LDX #$A6
 bra_FA64_skip:
-C - - - - - 0x01FA74 07:FA64: 8E 31 06  STX ram_0631
+C - - - - - 0x01FA74 07:FA64: 8E 31 06  STX vHighPpuAddress
 C - - - - - 0x01FA77 07:FA67: 68        PLA
 C - - - - - 0x01FA78 07:FA68: 29 40     AND #$40
 C - - - - - 0x01FA7A 07:FA6A: F0 03     BEQ bra_FA6F
-C - - - - - 0x01FA7C 07:FA6C: EE 31 06  INC ram_0631
+C - - - - - 0x01FA7C 07:FA6C: EE 31 06  INC vHighPpuAddress
 bra_FA6F:
 C - - - - - 0x01FA7F 07:FA6F: A9 00     LDA #$00
-C - - - - - 0x01FA81 07:FA71: 8D 30 06  STA ram_0630
+C - - - - - 0x01FA81 07:FA71: 8D 30 06  STA vLowPpuAddress
 C - - - - - 0x01FA84 07:FA74: A6 54     LDX ram_0054
 bra_FA76:
-C - - - - - 0x01FA86 07:FA76: AD 30 06  LDA ram_0630
+C - - - - - 0x01FA86 07:FA76: AD 30 06  LDA vLowPpuAddress
 C - - - - - 0x01FA89 07:FA79: 38        SEC
 C - - - - - 0x01FA8A 07:FA7A: E9 20     SBC #$20
-C - - - - - 0x01FA8C 07:FA7C: 8D 30 06  STA ram_0630
-C - - - - - 0x01FA8F 07:FA7F: AD 31 06  LDA ram_0631
+C - - - - - 0x01FA8C 07:FA7C: 8D 30 06  STA vLowPpuAddress
+C - - - - - 0x01FA8F 07:FA7F: AD 31 06  LDA vHighPpuAddress
 C - - - - - 0x01FA92 07:FA82: E9 00     SBC #$00
-C - - - - - 0x01FA94 07:FA84: 8D 31 06  STA ram_0631
+C - - - - - 0x01FA94 07:FA84: 8D 31 06  STA vHighPpuAddress
 C - - - - - 0x01FA97 07:FA87: CA        DEX
 C - - - - - 0x01FA98 07:FA88: D0 EC     BNE bra_FA76
 C - - - - - 0x01FA9A 07:FA8A: C8        INY
@@ -9615,9 +9630,9 @@ C - - - - - 0x01FA9B 07:FA8B: B1 BD     LDA (vCorridorAddr),Y
 C - - - - - 0x01FA9D 07:FA8D: 4A        LSR
 C - - - - - 0x01FA9E 07:FA8E: 4A        LSR
 C - - - - - 0x01FA9F 07:FA8F: 4A        LSR
-C - - - - - 0x01FAA0 07:FA90: 0D 30 06  ORA ram_0630
-C - - - - - 0x01FAA3 07:FA93: 8D 30 06  STA ram_0630
-C - - - - - 0x01FAA6 07:FA96: CE 30 06  DEC ram_0630
+C - - - - - 0x01FAA0 07:FA90: 0D 30 06  ORA vLowPpuAddress
+C - - - - - 0x01FAA3 07:FA93: 8D 30 06  STA vLowPpuAddress
+C - - - - - 0x01FAA6 07:FA96: CE 30 06  DEC vLowPpuAddress
 C - - - - - 0x01FAA9 07:FA99: A5 C3     LDA ram_00C3
 C - - - - - 0x01FAAB 07:FA9B: C9 03     CMP #$03
 C - - - - - 0x01FAAD 07:FA9D: F0 08     BEQ bra_FAA7
@@ -9626,20 +9641,20 @@ C - - - - - 0x01FAB1 07:FAA1: F0 04     BEQ bra_FAA7
 C - - - - - 0x01FAB3 07:FAA3: C9 07     CMP #$07
 C - - - - - 0x01FAB5 07:FAA5: D0 03     BNE bra_FAAA
 bra_FAA7:
-C - - - - - 0x01FAB7 07:FAA7: CE 30 06  DEC ram_0630
+C - - - - - 0x01FAB7 07:FAA7: CE 30 06  DEC vLowPpuAddress
 bra_FAAA:
 C - - - - - 0x01FABA 07:FAAA: A0 02     LDY #$02
 C - - - - - 0x01FABC 07:FAAC: A2 00     LDX #$00
 bra_FAAE:
 C - - - - - 0x01FABE 07:FAAE: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01FAC0 07:FAB0: 9D 33 06  STA ram_0633,X
+C - - - - - 0x01FAC0 07:FAB0: 9D 33 06  STA vPpuBufferData,X
 C - - - - - 0x01FAC3 07:FAB3: C8        INY
 C - - - - - 0x01FAC4 07:FAB4: E8        INX
 C - - - - - 0x01FAC5 07:FAB5: EC 32 06  CPX v_ppu_buffer_count
 C - - - - - 0x01FAC8 07:FAB8: D0 F4     BNE bra_FAAE
-C - - - - - 0x01FACA 07:FABA: A9 0D     LDA #$0D
-C - - - - - 0x01FACC 07:FABC: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01FACF 07:FABF: 60        RTS
+C - - - - - 0x01FACA 07:FABA: A9 0D     LDA #$0D                         ; CONSTANT - sound of the opening and closing door
+C - - - - - 0x01FACC 07:FABC: 20 20 C4  JSR sub_C420_add_sound_effect    ;
+C - - - - - 0x01FACF 07:FABF: 60        RTS                              ;
 
 sub_FAC0_event_poll:
 C - - - - - 0x01FAD0 07:FAC0: A9 00     LDA #$00                         ;
