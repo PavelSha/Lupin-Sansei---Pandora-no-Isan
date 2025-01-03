@@ -1358,6 +1358,7 @@ C - - - - - 0x01C80A 07:C7FA: 85 00     STA ram_0000                            
 C - - - - - 0x01C80C 07:C7FC: A9 10     LDA #$10                                      ; ~> sprite_magic4 (X pos)
 C - - - - - 0x01C80E 07:C7FE: A0 02     LDY #$02                                      ; tile 'Gun'
 C - - - - - 0x01C810 07:C800: 20 32 C8  JSR sub_C832_add_sprite_magic                 ;
+loc_C803:
 bra_C803_skip:
 C D 2 - - - 0x01C813 07:C803: A9 4F     LDA #$4F                                      ; Y-position for Lupin
 C - - - - - 0x01C815 07:C805: 85 00     STA ram_0000                                  ;
@@ -2783,7 +2784,7 @@ C - - - - - 0x01D0EA 07:D0DA: 86 01     STX ram_0001             ; low ppu addre
 C - - - - - 0x01D0EC 07:D0DC: A5 26     LDA vPpuCtrlSettings     ;
 C - - - - - 0x01D0EE 07:D0DE: 09 04     ORA #$04                 ; set vertical increment per CPU read/write of PPUDATA (increment 32)
 C - - - - - 0x01D0F0 07:D0E0: 8D 00 20  STA PPU_CTRL             ;
-C - - - - - 0x01D0F3 07:D0E3: AD 32 06  LDA v_ppu_buffer_count   ;
+C - - - - - 0x01D0F3 07:D0E3: AD 32 06  LDA vPpuBufferCount      ;
 C - - - - - 0x01D0F6 07:D0E6: 85 02     STA ram_0002             ; ppu buffer count -> $0002
 C - - - - - 0x01D0F8 07:D0E8: A2 00     LDX #$00                 ;
 loc_D0EA_loop:
@@ -2791,14 +2792,14 @@ C D 2 - - - 0x01D0FA 07:D0EA: A5 00     LDA ram_0000             ;
 C - - - - - 0x01D0FC 07:D0EC: 8D 06 20  STA PPU_ADDRESS          ;
 C - - - - - 0x01D0FF 07:D0EF: A5 01     LDA ram_0001             ;
 C - - - - - 0x01D101 07:D0F1: 8D 06 20  STA PPU_ADDRESS          ; PPU address by ($0000)
-C - - - - - 0x01D104 07:D0F4: A4 54     LDY ram_0054
+C - - - - - 0x01D104 07:D0F4: A4 54     LDY vPpuBufferInitValue  ; set loop counter
 @bra_D0F6_loop:
 C - - - - - 0x01D106 07:D0F6: BD 33 06  LDA vPpuBufferData,X     ;
 C - - - - - 0x01D109 07:D0F9: 8D 07 20  STA PPU_DATA             ;
-C - - - - - 0x01D10C 07:D0FC: E8        INX                      ;
+C - - - - - 0x01D10C 07:D0FC: E8        INX                      ; next data
 C - - - - - 0x01D10D 07:D0FD: C6 02     DEC ram_0002             ; decrement count
 C - - - - - 0x01D10F 07:D0FF: F0 4D     BEQ bra_D14E_clear       ; If count == 0x00
-C - - - - - 0x01D111 07:D101: 88        DEY                      ; increment y
+C - - - - - 0x01D111 07:D101: 88        DEY                      ; increment loop counter
 C - - - - - 0x01D112 07:D102: D0 F2     BNE @bra_D0F6_loop       ; If Register Y != 0
 C - - - - - 0x01D114 07:D104: A5 01     LDA ram_0001
 C - - - - - 0x01D116 07:D106: 29 1F     AND #$1F
@@ -2828,7 +2829,7 @@ C - - - - - 0x01D134 07:D124: 30 AD     BMI bra_D0D3_alternative_mode ;
 C - - - - - 0x01D136 07:D126: AE 30 06  LDX vLowPpuAddress            ;
 C - - - - - 0x01D139 07:D129: 8D 06 20  STA PPU_ADDRESS               ; writes high byte
 C - - - - - 0x01D13C 07:D12C: 8E 06 20  STX PPU_ADDRESS               ; writes low byte
-C - - - - - 0x01D13F 07:D12F: AD 32 06  LDA v_ppu_buffer_count        ;
+C - - - - - 0x01D13F 07:D12F: AD 32 06  LDA vPpuBufferCount           ;
 C - - - - - 0x01D142 07:D132: 10 0B     BPL @bra_D13F_skip            ; If positive value - a horiz inrement, else a vert increment
 C - - - - - 0x01D144 07:D134: 48        PHA                           ; store count
 C - - - - - 0x01D145 07:D135: A5 26     LDA vPpuCtrlSettings          ;
@@ -2979,7 +2980,7 @@ C D 2 - - - 0x01D213 07:D203: A5 4D     LDA vCacheNoScreen                      
 C - - - - - 0x01D215 07:D205: C5 49     CMP vCurrentRoomLength                          ;
 C - - - - - 0x01D217 07:D207: B0 EF     BCS bra_D1F8_RTS                                ; If vCacheNoScreen >= vCurrentRoomLength (outside of the room)
 C - - - - - 0x01D219 07:D209: A9 98     LDA #$98                                        ;
-C - - - - - 0x01D21B 07:D20B: 8D 32 06  STA v_ppu_buffer_count                          ; init count (v_ppu_buffer_count <~ 0x98)
+C - - - - - 0x01D21B 07:D20B: 8D 32 06  STA vPpuBufferCount                             ; init count (vPpuBufferCount <~ 0x98)
 C - - - - - 0x01D21E 07:D20E: A2 20     LDX #$20                                        ;
 C - - - - - 0x01D220 07:D210: A5 4D     LDA vCacheNoScreen                              ;
 C - - - - - 0x01D222 07:D212: 6A        ROR                                             ;
@@ -3082,7 +3083,7 @@ C - - - - - 0x01D2BE 07:D2AE: A2 2C     LDX #$2C                                
 C - - - - - 0x01D2C0 07:D2B0: 8E 05 06  STX vCachePalette + 5                           ; a shared background color, 2nd bg palette
 bra_D2B3_skip:
 C - - - - - 0x01D2C3 07:D2B3: A9 38     LDA #$38                                        ;
-C - - - - - 0x01D2C5 07:D2B5: 8D 32 06  STA v_ppu_buffer_count                          ; init count (v_ppu_buffer_count <~ 0x38)
+C - - - - - 0x01D2C5 07:D2B5: 8D 32 06  STA vPpuBufferCount                             ; init count (vPpuBufferCount <~ 0x38)
 C - - - - - 0x01D2C8 07:D2B8: A9 C8     LDA #$C8                                        ;
 C - - - - - 0x01D2CA 07:D2BA: 8D 30 06  STA vLowPpuAddress                              ; vLowPpuAddress <~ 0xC8
 C - - - - - 0x01D2CD 07:D2BD: A2 23     LDX #$23                                        ;
@@ -9594,7 +9595,7 @@ C - - - - - 0x01FA57 07:FA47: B9 93 83  LDA $8393,Y
 C - - - - - 0x01FA5A 07:FA4A: 85 13     STA ram_0013
 C - - - - - 0x01FA5C 07:FA4C: A0 00     LDY #$00
 C - - - - - 0x01FA5E 07:FA4E: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01FA60 07:FA50: 8D 32 06  STA v_ppu_buffer_count
+C - - - - - 0x01FA60 07:FA50: 8D 32 06  STA vPpuBufferCount
 C - - - - - 0x01FA63 07:FA53: C8        INY
 C - - - - - 0x01FA64 07:FA54: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01FA66 07:FA56: 85 54     STA ram_0054
@@ -9650,7 +9651,7 @@ C - - - - - 0x01FABE 07:FAAE: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01FAC0 07:FAB0: 9D 33 06  STA vPpuBufferData,X
 C - - - - - 0x01FAC3 07:FAB3: C8        INY
 C - - - - - 0x01FAC4 07:FAB4: E8        INX
-C - - - - - 0x01FAC5 07:FAB5: EC 32 06  CPX v_ppu_buffer_count
+C - - - - - 0x01FAC5 07:FAB5: EC 32 06  CPX vPpuBufferCount
 C - - - - - 0x01FAC8 07:FAB8: D0 F4     BNE bra_FAAE
 C - - - - - 0x01FACA 07:FABA: A9 0D     LDA #$0D                         ; CONSTANT - sound of the opening and closing door
 C - - - - - 0x01FACC 07:FABC: 20 20 C4  JSR sub_C420_add_sound_effect    ;

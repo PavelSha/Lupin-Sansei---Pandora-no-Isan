@@ -12,8 +12,8 @@
 .import tbl_ptr_briefcases_outside                        ; bank 04 (Page 2)
 .import tbl_ptr_briefcases_indexes_on_the_level           ; bank 04 (Page 2)
 .import tbl_briefcases_positions                          ; bank 04 (Page 2)
-.import npc_portrait_sprites                              ; bank 04 (Page 2)
-.import npc_portrait_set                                  ; bank 04 (Page 2)
+.import tbl_npc_portrait_sprites                          ; bank 04 (Page 2)
+.import tbl_npc_portrait_set                              ; bank 04 (Page 2)
 .import npc_sprite_set                                    ; bank 04 (Page 2)
 .import tbl_ptr_prison_rooms                              ; bank 04 (Page 2)
 .import sub_C305_update_ppu_ctrl_with_no_nmi              ; bank FF
@@ -2898,7 +2898,7 @@ C - - - - - 0x01B2B9 06:B2A9: 8D 30 06  STA vLowPpuAddress
 C - - - - - 0x01B2BC 06:B2AC: A5 D0     LDA v_high_msg_ppu_address
 C - - - - - 0x01B2BE 06:B2AE: 8D 31 06  STA vHighPpuAddress
 C - - - - - 0x01B2C1 06:B2B1: A9 82     LDA #$82
-C - - - - - 0x01B2C3 06:B2B3: 8D 32 06  STA v_ppu_buffer_count
+C - - - - - 0x01B2C3 06:B2B3: 8D 32 06  STA vPpuBufferCount
 C - - - - - 0x01B2C6 06:B2B6: E6 CF     INC v_low_msg_ppu_address
 C - - - - - 0x01B2C8 06:B2B8: A9 50     LDA #$50                      ; typing sound
 C - - - - - 0x01B2CA 06:B2BA: 4C 20 C4  JMP loc_C420_add_sound_effect
@@ -3182,7 +3182,7 @@ C - - - - - 0x01B497 06:B487: 85 41     STA v_npc_message_status
 C - - - - - 0x01B499 06:B489: 60        RTS
 
 ; Params:
-; ram_0012-ram_0013 - tbl_ptr_roomsX_X_with_NPCs
+; In: [$0012,$0013] - tbl_ptr_roomsX_X_with_NPCs
 ; Register Y (0x0X) - npc_message_status
 sub_B48A:
 C - - - - - 0x01B49A 06:B48A: A9 00     LDA #$00
@@ -3192,50 +3192,52 @@ C - - - - - 0x01B4A0 06:B490: F0 06     BEQ bra_B498_skip
 C - - - - - 0x01B4A2 06:B492: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01B4A4 06:B494: 29 03     AND #$03
 C - - - - - 0x01B4A6 06:B496: 85 00     STA ram_0000
+; In: Register Y (0x0X) - npc_message_status
+; In: $0000 - the index offset
 bra_B498_skip:
 sub_B498:
 C - - - - - 0x01B4A8 06:B498: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01B4AA 06:B49A: 18        CLC
-C - - - - - 0x01B4AB 06:B49B: 65 00     ADC ram_0000
-C - - - - - 0x01B4AD 06:B49D: 85 00     STA ram_0000
-C - - - - - 0x01B4AF 06:B49F: 0A        ASL
-C - - - - - 0x01B4B0 06:B4A0: 0A        ASL
-C - - - - - 0x01B4B1 06:B4A1: 18        CLC
-C - - - - - 0x01B4B2 06:B4A2: 65 00     ADC ram_0000
-C - - - - - 0x01B4B4 06:B4A4: AA        TAX
-C - - - - - 0x01B4B5 06:B4A5: BD 69 81  LDA npc_portrait_set + 1,X
+C - - - - - 0x01B4AB 06:B49B: 65 00     ADC ram_0000                    ; A <~ an index of tbl_npc_portrait_set
+C - - - - - 0x01B4AD 06:B49D: 85 00     STA ram_0000                    ;
+C - - - - - 0x01B4AF 06:B49F: 0A        ASL                             ;
+C - - - - - 0x01B4B0 06:B4A0: 0A        ASL                             ;
+C - - - - - 0x01B4B1 06:B4A1: 18        CLC                             ;
+C - - - - - 0x01B4B2 06:B4A2: 65 00     ADC ram_0000                    ;
+C - - - - - 0x01B4B4 06:B4A4: AA        TAX                             ; X <~ 5 * A, because the set of 5th bytes
+C - - - - - 0x01B4B5 06:B4A5: BD 69 81  LDA tbl_npc_portrait_set + 1,X
 C - - - - - 0x01B4B8 06:B4A8: 8D 0D 06  STA vCachePalette + 13
-C - - - - - 0x01B4BB 06:B4AB: BD 6A 81  LDA npc_portrait_set + 2,X
+C - - - - - 0x01B4BB 06:B4AB: BD 6A 81  LDA tbl_npc_portrait_set + 2,X
 C - - - - - 0x01B4BE 06:B4AE: 8D 0E 06  STA vCachePalette + 14
-C - - - - - 0x01B4C1 06:B4B1: BD 6B 81  LDA npc_portrait_set + 3,X
+C - - - - - 0x01B4C1 06:B4B1: BD 6B 81  LDA tbl_npc_portrait_set + 3,X
 C - - - - - 0x01B4C4 06:B4B4: 8D 0F 06  STA vCachePalette + 15
-C - - - - - 0x01B4C7 06:B4B7: BD 6C 81  LDA npc_portrait_set + 4,X
+C - - - - - 0x01B4C7 06:B4B7: BD 6C 81  LDA tbl_npc_portrait_set + 4,X
 C - - - - - 0x01B4CA 06:B4BA: 8D B6 06  STA vChrBankData
-C - - - - - 0x01B4CD 06:B4BD: BD 68 81  LDA npc_portrait_set,X
-C - - - - - 0x01B4D0 06:B4C0: 0A        ASL
-C - - - - - 0x01B4D1 06:B4C1: 0A        ASL
-C - - - - - 0x01B4D2 06:B4C2: 85 00     STA ram_0000
-C - - - - - 0x01B4D4 06:B4C4: 0A        ASL
-C - - - - - 0x01B4D5 06:B4C5: 18        CLC
-C - - - - - 0x01B4D6 06:B4C6: 65 00     ADC ram_0000
-C - - - - - 0x01B4D8 06:B4C8: AA        TAX
-C - - - - - 0x01B4D9 06:B4C9: A0 00     LDY #$00
-@bra_B4CB_loop:
-C - - - - - 0x01B4DB 06:B4CB: BD 2A 83  LDA npc_portrait_sprites,X
-C - - - - - 0x01B4DE 06:B4CE: 99 33 06  STA ram_0633,Y
-C - - - - - 0x01B4E1 06:B4D1: E8        INX
-C - - - - - 0x01B4E2 06:B4D2: C8        INY
-C - - - - - 0x01B4E3 06:B4D3: C0 0C     CPY #$0C ; CONSTANT - the number of the sprites
-C - - - - - 0x01B4E5 06:B4D5: D0 F4     BNE @bra_B4CB_loop
-C - - - - - 0x01B4E7 06:B4D7: A9 04     LDA #$04
-C - - - - - 0x01B4E9 06:B4D9: 85 54     STA ram_0054
-C - - - - - 0x01B4EB 06:B4DB: A9 A0     LDA #$A0
-C - - - - - 0x01B4ED 06:B4DD: 8D 31 06  STA vHighPpuAddress
-C - - - - - 0x01B4F0 06:B4E0: A9 63     LDA #$63
-C - - - - - 0x01B4F2 06:B4E2: 8D 30 06  STA vLowPpuAddress
-C - - - - - 0x01B4F5 06:B4E5: A9 0C     LDA #$0C
-C - - - - - 0x01B4F7 06:B4E7: 8D 32 06  STA v_ppu_buffer_count
-C - - - - - 0x01B4FA 06:B4EA: 60        RTS
+C - - - - - 0x01B4CD 06:B4BD: BD 68 81  LDA tbl_npc_portrait_set,X      ; A <~ NPC Model
+C - - - - - 0x01B4D0 06:B4C0: 0A        ASL                             ;
+C - - - - - 0x01B4D1 06:B4C1: 0A        ASL                             ;
+C - - - - - 0x01B4D2 06:B4C2: 85 00     STA ram_0000                    ;
+C - - - - - 0x01B4D4 06:B4C4: 0A        ASL                             ;
+C - - - - - 0x01B4D5 06:B4C5: 18        CLC                             ;
+C - - - - - 0x01B4D6 06:B4C6: 65 00     ADC ram_0000                    ;
+C - - - - - 0x01B4D8 06:B4C8: AA        TAX                             ; X <~ 12 * A
+C - - - - - 0x01B4D9 06:B4C9: A0 00     LDY #$00                        ; set loop counter
+@bra_B4CB_loop:                                                         ; loop by y (12 times)
+C - - - - - 0x01B4DB 06:B4CB: BD 2A 83  LDA tbl_npc_portrait_sprites,X  ;
+C - - - - - 0x01B4DE 06:B4CE: 99 33 06  STA vPpuBufferData,Y            ; store a tile number X
+C - - - - - 0x01B4E1 06:B4D1: E8        INX                             ; next data
+C - - - - - 0x01B4E2 06:B4D2: C8        INY                             ; decrement loop counter
+C - - - - - 0x01B4E3 06:B4D3: C0 0C     CPY #$0C                        ; CONSTANT - the number of the sprites
+C - - - - - 0x01B4E5 06:B4D5: D0 F4     BNE @bra_B4CB_loop              ; If Register Y != 0x0C
+C - - - - - 0x01B4E7 06:B4D7: A9 04     LDA #$04                        ;
+C - - - - - 0x01B4E9 06:B4D9: 85 54     STA vPpuBufferInitValue         ; set an initialization value
+C - - - - - 0x01B4EB 06:B4DB: A9 A0     LDA #$A0                        ;
+C - - - - - 0x01B4ED 06:B4DD: 8D 31 06  STA vHighPpuAddress             ;
+C - - - - - 0x01B4F0 06:B4E0: A9 63     LDA #$63                        ;
+C - - - - - 0x01B4F2 06:B4E2: 8D 30 06  STA vLowPpuAddress              ; PPU Address <~ $A063 (3 mode)
+C - - - - - 0x01B4F5 06:B4E5: A9 0C     LDA #$0C                        ;
+C - - - - - 0x01B4F7 06:B4E7: 8D 32 06  STA vPpuBufferCount             ; init count (12 tiles)
+C - - - - - 0x01B4FA 06:B4EA: 60        RTS                             ;
 
 ; Params:
 ; ram_0012-ram_0013 - tbl_ptr_roomsX_X_with_NPCs
@@ -3310,7 +3312,7 @@ loc_B56D:
 sub_B56D:
 C D 1 - - - 0x01B57D 06:B56D: A9 01     LDA #$01
 C - - - - - 0x01B57F 06:B56F: A2 14     LDX #$14
-C - - - - - 0x01B581 06:B571: 8E 32 06  STX v_ppu_buffer_count
+C - - - - - 0x01B581 06:B571: 8E 32 06  STX vPpuBufferCount
 @bra_B574_loop:
 C - - - - - 0x01B584 06:B574: 9D 33 06  STA vPpuBufferData,X
 C - - - - - 0x01B587 06:B577: CA        DEX
@@ -3353,6 +3355,7 @@ loc_npc_type3:
 C - - - - - 0x01B5C1 06:B5B1: C8        INY
 loc_npc_type2:
 C - - - - - 0x01B5C2 06:B5B2: C8        INY
+bra_B5B3_npc_type1:
 loc_npc_type1:
 C D 1 - - - 0x01B5C3 06:B5B3: C8        INY
 loc_npc_type0:
@@ -3366,7 +3369,7 @@ C - - - - - 0x01B5CB 06:B5BB: CE 08 02  DEC v_ruby_ring
 loc_npc_type4:
 C - - J - - 0x01B5CE 06:B5BE: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01B5D0 06:B5C0: 29 03     AND #$03 ; Get the current selected character
-C - - - - - 0x01B5D2 06:B5C2: F0 EF     BEQ loc_npc_type1 ; If the character is Lupin
+C - - - - - 0x01B5D2 06:B5C2: F0 EF     BEQ bra_B5B3_npc_type1 ; If the character is Lupin
 C - - - - - 0x01B5D4 06:B5C4: C9 01     CMP #$01
 C - - - - - 0x01B5D6 06:B5C6: F0 EA     BEQ loc_npc_type2 ; If the character is Jugen
 C - - - - - 0x01B5D8 06:B5C8: D0 E7     BNE loc_npc_type3 ; If the character is Goemon
@@ -3399,7 +3402,8 @@ C - - J - - 0x01B602 06:B5F2: A6 BC     LDX v_tmp_target_room
 C - - - - - 0x01B604 06:B5F4: BD 00 05  LDA vRooms,X
 C - - - - - 0x01B607 06:B5F7: 09 08     ORA #$08
 C - - - - - 0x01B609 06:B5F9: 9D 00 05  STA vRooms,X
-C - - - - - 0x01B60C 06:B5FC: D0 B5     BNE loc_npc_type1
+C - - - - - 0x01B60C 06:B5FC: D0 B5     BNE bra_B5B3_npc_type1
+
 sub_B5FE:
 C - - - - - 0x01B60E 06:B5FE: A5 30     LDA ram_0030
 C - - - - - 0x01B610 06:B600: F0 06     BEQ bra_B608_skip
@@ -3449,8 +3453,7 @@ C - - - - - 0x01B61C 06:B60C: 20 C1 D0  JSR $D0C1
 C - - - - - 0x01B643 06:B633: A9 7B     LDA #$7B
 C - - - - - 0x01B645 06:B635: 2C F6 FF  BIT Set_features
 C - - - - - 0x01B648 06:B638: 70 02     BVS bra_B63C
-- - - - - - 0x01B64A 06:B63A: A9        .byte $A9   ; 
-- - - - - - 0x01B64B 06:B63B: 7D        .byte $7D   ; 
+- - - - - - 0x01B64A 06:B63A: A9 7D     LDA #$7D
 bra_B63C:
 C - - - - - 0x01B64C 06:B63C: 20 34 B2  JSR sub_B234_add_message
 C - - - - - 0x01B64F 06:B63F: E6 D8     INC ram_00D8
@@ -3470,29 +3473,29 @@ C - - - - - 0x01B668 06:B658: F0 03     BEQ bra_B65D
 C - - - - - 0x01B66A 06:B65A: 4C A4 B7  JMP loc_B7A4
 
 bra_B65D:
-C - - - - - 0x01B66D 06:B65D: A9 55     LDA #$55
-C - - - - - 0x01B66F 06:B65F: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01B672 06:B662: A9 56     LDA #$56
-C - - - - - 0x01B674 06:B664: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01B677 06:B667: A9 57     LDA #$57
-C - - - - - 0x01B679 06:B669: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01B67C 06:B66C: A9 5F     LDA #$5F
-C - - - - - 0x01B67E 06:B66E: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01B681 06:B671: A9 60     LDA #$60
-C - - - - - 0x01B683 06:B673: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01B686 06:B676: A0 00     LDY #$00
-C - - - - - 0x01B688 06:B678: A9 21     LDA #$21
-C - - - - - 0x01B68A 06:B67A: 8D 31 06  STA vHighPpuAddress
-C - - - - - 0x01B68D 06:B67D: A9 D2     LDA #$D2
-C - - - - - 0x01B68F 06:B67F: 8D 30 06  STA vLowPpuAddress
-bra_B682_loop:
-C - - - - - 0x01B692 06:B682: B9 C0 BC  LDA tbl_BCC0,Y
-C - - - - - 0x01B695 06:B685: 99 33 06  STA vPpuBufferData,Y
-C - - - - - 0x01B698 06:B688: C8        INY
-C - - - - - 0x01B699 06:B689: C0 04     CPY #$04
-C - - - - - 0x01B69B 06:B68B: D0 F5     BNE bra_B682_loop
-C - - - - - 0x01B69D 06:B68D: A9 04     LDA #$04
-C - - - - - 0x01B69F 06:B68F: 8D 32 06  STA v_ppu_buffer_count
+C - - - - - 0x01B66D 06:B65D: A9 55     LDA #$55                       ; CONSTANT - opening a treasure chest (melody #1)
+C - - - - - 0x01B66F 06:B65F: 20 20 C4  JSR sub_C420_add_sound_effect  ;
+C - - - - - 0x01B672 06:B662: A9 56     LDA #$56                       ; CONSTANT - opening a treasure chest (melody #2)
+C - - - - - 0x01B674 06:B664: 20 20 C4  JSR sub_C420_add_sound_effect  ;
+C - - - - - 0x01B677 06:B667: A9 57     LDA #$57                       ; CONSTANT - opening a treasure chest (melody #3)
+C - - - - - 0x01B679 06:B669: 20 20 C4  JSR sub_C420_add_sound_effect  ;
+C - - - - - 0x01B67C 06:B66C: A9 5F     LDA #$5F                       ; CONSTANT - opening a treasure chest (sound)
+C - - - - - 0x01B67E 06:B66E: 20 20 C4  JSR sub_C420_add_sound_effect  ;
+C - - - - - 0x01B681 06:B671: A9 60     LDA #$60                       ; CONSTANT - the Phoenix flight (sound)
+C - - - - - 0x01B683 06:B673: 20 20 C4  JSR sub_C420_add_sound_effect  ; !(BUG?), conflict with track5F
+C - - - - - 0x01B686 06:B676: A0 00     LDY #$00                       ; set loop counter
+C - - - - - 0x01B688 06:B678: A9 21     LDA #$21                       ;
+C - - - - - 0x01B68A 06:B67A: 8D 31 06  STA vHighPpuAddress            ;
+C - - - - - 0x01B68D 06:B67D: A9 D2     LDA #$D2                       ;
+C - - - - - 0x01B68F 06:B67F: 8D 30 06  STA vLowPpuAddress             ; PPU Address <~ $21D2 (1 mode)
+@bra_B682_loop:                                                        ; loop by y (4 times)
+C - - - - - 0x01B692 06:B682: B9 C0 BC  LDA tbl_BCC0_chest_lid,Y       ;
+C - - - - - 0x01B695 06:B685: 99 33 06  STA vPpuBufferData,Y           ; fill a buffer for rendering
+C - - - - - 0x01B698 06:B688: C8        INY                            ; increment loop counter
+C - - - - - 0x01B699 06:B689: C0 04     CPY #$04                       ;
+C - - - - - 0x01B69B 06:B68B: D0 F5     BNE @bra_B682_loop             ; If Register Y != 0x04
+C - - - - - 0x01B69D 06:B68D: A9 04     LDA #$04                       ;
+C - - - - - 0x01B69F 06:B68F: 8D 32 06  STA vPpuBufferCount            ; init count (4 tiles)
 C - - - - - 0x01B6A2 06:B692: A9 02     LDA #$02
 C - - - - - 0x01B6A4 06:B694: 8D 44 03  STA ram_0344
 C - - - - - 0x01B6A7 06:B697: A9 A0     LDA #$A0
@@ -3509,14 +3512,14 @@ C - - - - - 0x01B6C0 06:B6B0: 4C 72 B7  JMP loc_B772
 
 C - - - - - 0x01B6C3 06:B6B3: A5 C8     LDA ram_00C8
 C - - - - - 0x01B6C5 06:B6B5: D0 38     BNE bra_B6EF_RTS
-C - - - - - 0x01B6C7 06:B6B7: A9 5B     LDA #$5B
-C - - - - - 0x01B6C9 06:B6B9: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01B6CC 06:B6BC: A9 5C     LDA #$5C
-C - - - - - 0x01B6CE 06:B6BE: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01B6D1 06:B6C1: A9 5D     LDA #$5D
-C - - - - - 0x01B6D3 06:B6C3: 20 20 C4  JSR sub_C420_add_sound_effect
-C - - - - - 0x01B6D6 06:B6C6: A9 5E     LDA #$5E
-C - - - - - 0x01B6D8 06:B6C8: 20 20 C4  JSR sub_C420_add_sound_effect
+C - - - - - 0x01B6C7 06:B6B7: A9 5B     LDA #$5B                       ; CONSTANT - Saving Clarissa (melody #1)
+C - - - - - 0x01B6C9 06:B6B9: 20 20 C4  JSR sub_C420_add_sound_effect  ;
+C - - - - - 0x01B6CC 06:B6BC: A9 5C     LDA #$5C                       ; CONSTANT - Saving Clarissa (melody #2)
+C - - - - - 0x01B6CE 06:B6BE: 20 20 C4  JSR sub_C420_add_sound_effect  ;
+C - - - - - 0x01B6D1 06:B6C1: A9 5D     LDA #$5D                       ; CONSTANT - Saving Clarissa (melody #3)
+C - - - - - 0x01B6D3 06:B6C3: 20 20 C4  JSR sub_C420_add_sound_effect  ;
+C - - - - - 0x01B6D6 06:B6C6: A9 5E     LDA #$5E                       ; CONSTANT - Saving Clarissa (melody #4)
+C - - - - - 0x01B6D8 06:B6C8: 20 20 C4  JSR sub_C420_add_sound_effect  ;
 C - - - - - 0x01B6DB 06:B6CB: A5 5F     LDA vChrLiveStatus
 C - - - - - 0x01B6DD 06:B6CD: 29 03     AND #$03
 C - - - - - 0x01B6DF 06:B6CF: A8        TAY
@@ -3611,21 +3614,21 @@ C - - - - - 0x01B780 06:B770: 85 30     STA ram_0030
 loc_B772:
 C D 1 - - - 0x01B782 06:B772: E6 D8     INC ram_00D8
 C - - - - - 0x01B784 06:B774: D0 2E     BNE bra_B7A4
-C - - - - - 0x01B786 06:B776: A2 07     LDX #$07
-bra_B778:
-C - - - - - 0x01B788 06:B778: BD C7 BC  LDA tbl_BCC7,X
-C - - - - - 0x01B78B 06:B77B: 9D 18 06  STA ram_0618,X
-C - - - - - 0x01B78E 06:B77E: CA        DEX
-C - - - - - 0x01B78F 06:B77F: D0 F7     BNE bra_B778
+C - - - - - 0x01B786 06:B776: A2 07     LDX #$07                     ; set loop counter
+@bra_B778_loop:                                                      ; loop by x (7 times)
+C - - - - - 0x01B788 06:B778: BD C7 BC  LDA tbl_BCC7_palettes,X      ;
+C - - - - - 0x01B78B 06:B77B: 9D 18 06  STA vCachePalette + 24,X     ; set 3rd and 4th sprite palettes
+C - - - - - 0x01B78E 06:B77E: CA        DEX                          ; decrement loop counter
+C - - - - - 0x01B78F 06:B77F: D0 F7     BNE @bra_B778_loop           ; If Register X != 0x00
 C - - - - - 0x01B791 06:B781: A9 04     LDA #$04
-C - - - - - 0x01B793 06:B783: 8D B3 06  STA ram_06B3
+C - - - - - 0x01B793 06:B783: 8D B3 06  STA vCacheChrBankSelect + 4
 C - - - - - 0x01B796 06:B786: A9 05     LDA #$05
-C - - - - - 0x01B798 06:B788: 8D B4 06  STA ram_06B4
+C - - - - - 0x01B798 06:B788: 8D B4 06  STA vCacheChrBankSelect + 5
 C - - - - - 0x01B79B 06:B78B: A9 00     LDA #$00
 bra_B78D:
 loc_B78D:
 C D 1 - - - 0x01B79D 06:B78D: 20 C3 B7  JSR sub_B7C3
-C - - - - - 0x01B7A0 06:B790: B9 A9 BC  LDA tbl_BCA9,Y
+C - - - - - 0x01B7A0 06:B790: B9 A9 BC  LDA tbl_BCA8 + 1,Y
 C - - - - - 0x01B7A3 06:B793: 20 34 B2  JSR sub_B234_add_message
 C - - - - - 0x01B7A6 06:B796: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2
 C - - - - - 0x01B7A9 06:B799: A4 11     LDY ram_0011
@@ -3652,14 +3655,19 @@ C - - - - - 0x01B7CC 06:B7BC: A9 20     LDA #$20
 C - - - - - 0x01B7CE 06:B7BE: 85 02     STA ram_0002
 C - - - - - 0x01B7D0 06:B7C0: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
+; In: Register A - ???
+; Out: Register Y - 
+; Out: $0011 - 
+; Out: $0012 - 
+; Out: $0013 - 
 sub_B7C3:
 C - - - - - 0x01B7D3 06:B7C3: 85 00     STA ram_0000
-C - - - - - 0x01B7D5 06:B7C5: A9 A8     LDA #$A8
-C - - - - - 0x01B7D7 06:B7C7: 85 12     STA ram_0012
-C - - - - - 0x01B7D9 06:B7C9: A9 BC     LDA #$BC
-C - - - - - 0x01B7DB 06:B7CB: 85 13     STA ram_0013
-C - - - - - 0x01B7DD 06:B7CD: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01B7DF 06:B7CF: 29 03     AND #$03
+C - - - - - 0x01B7D5 06:B7C5: A9 A8     LDA #$A8             ;
+C - - - - - 0x01B7D7 06:B7C7: 85 12     STA ram_0012         ;
+C - - - - - 0x01B7D9 06:B7C9: A9 BC     LDA #$BC             ;
+C - - - - - 0x01B7DB 06:B7CB: 85 13     STA ram_0013         ; ($0012-$0013) -> $BCA8 (see tbl_BCA8)
+C - - - - - 0x01B7DD 06:B7CD: A5 5F     LDA vChrLiveStatus   ;
+C - - - - - 0x01B7DF 06:B7CF: 29 03     AND #$03             ; CONSTANT - the current selected character
 C - - - - - 0x01B7E1 06:B7D1: 0A        ASL
 C - - - - - 0x01B7E2 06:B7D2: 0A        ASL
 C - - - - - 0x01B7E3 06:B7D3: 0A        ASL
@@ -4402,8 +4410,9 @@ tbl_BC88:
 - D 1 - - - 0x01BCB5 06:BCA5: 25        .byte $25   ; 
 - D 1 - - - 0x01BCB6 06:BCA6: 15        .byte $15   ; 
 - D 1 - - - 0x01BCB7 06:BCA7: 05        .byte $05   ; 
+
+tbl_BCA8:
 - D 1 - I - 0x01BCB8 06:BCA8: 27        .byte $27   ; 
-tbl_BCA9:
 - D 1 - - - 0x01BCB9 06:BCA9: 63        .byte $63   ; <c>
 - D 1 - I - 0x01BCBA 06:BCAA: 2A        .byte $2A   ; 
 - D 1 - - - 0x01BCBB 06:BCAB: 64        .byte $64   ; <d>
@@ -4427,24 +4436,22 @@ tbl_BCA9:
 - D 1 - - - 0x01BCCD 06:BCBD: 6F        .byte $6F   ; <o>
 - D 1 - I - 0x01BCCE 06:BCBE: 29        .byte $29   ; 
 - D 1 - - - 0x01BCCF 06:BCBF: 70        .byte $70   ; <p>
-tbl_BCC0:
+
+tbl_BCC0_chest_lid:
 - D 1 - - - 0x01BCD0 06:BCC0: C0        .byte $C0   ; 
 - D 1 - - - 0x01BCD1 06:BCC1: C1        .byte $C1   ; 
 - D 1 - - - 0x01BCD2 06:BCC2: C1        .byte $C1   ; 
 - D 1 - - - 0x01BCD3 06:BCC3: FE        .byte $FE   ; 
+
 tbl_BCC4:
 - D 1 - - - 0x01BCD4 06:BCC4: 67        .byte $67   ; <g>
 - D 1 - - - 0x01BCD5 06:BCC5: 6C        .byte $6C   ; <l>
 - D 1 - - - 0x01BCD6 06:BCC6: 71        .byte $71   ; <q>
-tbl_BCC7:
-- - - - - - 0x01BCD7 06:BCC7: 0F        .byte $0F   ; 
-- D 1 - - - 0x01BCD8 06:BCC8: 27        .byte $27   ; 
-- D 1 - - - 0x01BCD9 06:BCC9: 17        .byte $17   ; 
-- D 1 - - - 0x01BCDA 06:BCCA: 07        .byte $07   ; 
-- D 1 - - - 0x01BCDB 06:BCCB: 0F        .byte $0F   ; 
-- D 1 - - - 0x01BCDC 06:BCCC: 16        .byte $16   ; 
-- D 1 - - - 0x01BCDD 06:BCCD: 11        .byte $11   ; 
-- D 1 - - - 0x01BCDE 06:BCCE: 1A        .byte $1A   ; 
+
+tbl_BCC7_palettes:
+- D - - - - 0x01BCD7 06:BCC7: 0F        .byte $0F, $27, $17, $07   ; sprites, 3rd palette
+- D 1 - - - 0x01BCDB 06:BCCB: 0F        .byte $0F, $16, $11, $1A   ; sprites, 4th palette
+
 tbl_BCCF:
 - D 1 - - - 0x01BCDF 06:BCCF: 12        .byte $12   ; 
 - D 1 - - - 0x01BCE0 06:BCD0: 00        .byte $00   ; 

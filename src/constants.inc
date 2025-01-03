@@ -193,6 +193,7 @@ vHighBackgroundScreenInfo     = ram_004F
 
 vTempValue50                  = ram_0050
 vTempValue51                  = ram_0051
+vPpuBufferInitValue           = ram_0054
 
 vScore                        = ram_0056 ; [0x56-0x5C]
 
@@ -639,7 +640,7 @@ vCachePalette                 = ram_0600 ; [ram_0600 - ram_061F]
 vTempCachePalette             = ram_0620 ; [ram_0620 - ram_062B], for the bomb explosion animation
 vLowPpuAddress                = ram_0630
 vHighPpuAddress               = ram_0631
-v_ppu_buffer_count            = ram_0632
+vPpuBufferCount               = ram_0632
 vPpuBufferData                = ram_0633
 vPpuAddrDataCache             = ram_067B ; [ram_067B - ram_06AC]
 ; 1st - count (N)
