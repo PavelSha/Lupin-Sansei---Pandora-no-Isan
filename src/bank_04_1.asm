@@ -19,6 +19,7 @@
 .export tbl_ptr_enemy_palette
 .export tbl_road_hills
 .export tbl_checkpoint_after_death
+.export tbl_clarissa_colors
 
 ; see $C5B2
 - - - - - - 0x010010 04:8000: 7B 9D     .addr loc_main_menu_gunshot_f1 ; frame 1
@@ -46,22 +47,12 @@ tbl_template_chr_banks1:
 - D 0 - - - 0x010028 04:8018: 32        .byte $32   ; Tiles: portraits
 - D 0 - - - 0x010029 04:8019: 33        .byte $33   ; Tiles: portraits of the main characters
 
-- D 0 - - - 0x01002A 04:801A: 0F        .byte $0F   ; 
-- D 0 - - - 0x01002B 04:801B: 20        .byte $20   ; 
-- D 0 - - - 0x01002C 04:801C: 20        .byte $20   ; 
-- D 0 - - - 0x01002D 04:801D: 20        .byte $20   ; 
-- D 0 - - - 0x01002E 04:801E: 0F        .byte $0F   ; 
-- D 0 - - - 0x01002F 04:801F: 36        .byte $36   ; <6>
-- D 0 - - - 0x010030 04:8020: 21        .byte $21   ; 
-- D 0 - - - 0x010031 04:8021: 20        .byte $20   ; 
-- D 0 - - - 0x010032 04:8022: 0F        .byte $0F   ; 
-- D 0 - - - 0x010033 04:8023: 36        .byte $36   ; <6>
-- D 0 - - - 0x010034 04:8024: 17        .byte $17   ; 
-- D 0 - - - 0x010035 04:8025: 07        .byte $07   ; 
-- D 0 - - - 0x010036 04:8026: 0F        .byte $0F   ; 
-- D 0 - - - 0x010037 04:8027: 36        .byte $36   ; <6>
-- D 0 - - - 0x010038 04:8028: 17        .byte $17   ; 
-- D 0 - - - 0x010039 04:8029: 20        .byte $20   ; 
+; Palettes for Clarissa in the cutscenes
+tbl_clarissa_colors:
+- D 0 - - - 0x01002A 04:801A: 0F        .byte $0F, $20, $20, $20   ; 
+- D 0 - - - 0x01002E 04:801E: 0F        .byte $0F, $36, $21, $20   ; 
+- D 0 - - - 0x010032 04:8022: 0F        .byte $0F, $36, $17, $07   ; 
+- D 0 - - - 0x010036 04:8026: 0F        .byte $0F, $36, $17, $20   ; 
 
 ; Address of the frames (a list tiles)
 tbl_copyright:
@@ -1153,70 +1144,14 @@ tbl_ptr_checkpoints_on_the_level4:
 - D 0 - I - 0x010698 04:8688: 14        .byte $14
 
 loc_tbl_attrs_select_character:
-- D 0 - I - 0x010699 04:8689: 00        .byte $00   ; 
-- D 0 - I - 0x01069A 04:868A: 00        .byte $00   ; 
-- D 0 - I - 0x01069B 04:868B: 00        .byte $00   ; 
-- D 0 - I - 0x01069C 04:868C: 00        .byte $00   ; 
-- D 0 - I - 0x01069D 04:868D: 00        .byte $00   ; 
-- D 0 - I - 0x01069E 04:868E: 00        .byte $00   ; 
-- D 0 - I - 0x01069F 04:868F: 00        .byte $00   ; 
-- D 0 - I - 0x0106A0 04:8690: 00        .byte $00   ; 
-- D 0 - I - 0x0106A1 04:8691: 00        .byte $00   ; 
-- D 0 - I - 0x0106A2 04:8692: 50        .byte $50   ; <P>
-- D 0 - I - 0x0106A3 04:8693: 00        .byte $00   ; 
-- D 0 - I - 0x0106A4 04:8694: 00        .byte $00   ; 
-- D 0 - I - 0x0106A5 04:8695: 00        .byte $00   ; 
-- D 0 - I - 0x0106A6 04:8696: 00        .byte $00   ; 
-- D 0 - I - 0x0106A7 04:8697: 00        .byte $00   ; 
-- D 0 - I - 0x0106A8 04:8698: 00        .byte $00   ; 
-- D 0 - I - 0x0106A9 04:8699: 00        .byte $00   ; 
-- D 0 - I - 0x0106AA 04:869A: 05        .byte $05   ; 
-- D 0 - I - 0x0106AB 04:869B: 00        .byte $00   ; 
-- D 0 - I - 0x0106AC 04:869C: 00        .byte $00   ; 
-- D 0 - I - 0x0106AD 04:869D: 00        .byte $00   ; 
-- D 0 - I - 0x0106AE 04:869E: 00        .byte $00   ; 
-- D 0 - I - 0x0106AF 04:869F: 00        .byte $00   ; 
-- D 0 - I - 0x0106B0 04:86A0: 00        .byte $00   ; 
-- D 0 - I - 0x0106B1 04:86A1: 00        .byte $00   ; 
-- D 0 - I - 0x0106B2 04:86A2: A0        .byte $A0   ; 
-- D 0 - I - 0x0106B3 04:86A3: 00        .byte $00   ; 
-- D 0 - I - 0x0106B4 04:86A4: 00        .byte $00   ; 
-- D 0 - I - 0x0106B5 04:86A5: 00        .byte $00   ; 
-- D 0 - I - 0x0106B6 04:86A6: 00        .byte $00   ; 
-- D 0 - I - 0x0106B7 04:86A7: 00        .byte $00   ; 
-- D 0 - I - 0x0106B8 04:86A8: 00        .byte $00   ; 
-- D 0 - I - 0x0106B9 04:86A9: 00        .byte $00   ; 
-- D 0 - I - 0x0106BA 04:86AA: 0A        .byte $0A   ; 
-- D 0 - I - 0x0106BB 04:86AB: 00        .byte $00   ; 
-- D 0 - I - 0x0106BC 04:86AC: 00        .byte $00   ; 
-- D 0 - I - 0x0106BD 04:86AD: 00        .byte $00   ; 
-- D 0 - I - 0x0106BE 04:86AE: 00        .byte $00   ; 
-- D 0 - I - 0x0106BF 04:86AF: 00        .byte $00   ; 
-- D 0 - I - 0x0106C0 04:86B0: 00        .byte $00   ; 
-- D 0 - I - 0x0106C1 04:86B1: 00        .byte $00   ; 
-- D 0 - I - 0x0106C2 04:86B2: F0        .byte $F0   ; 
-- D 0 - I - 0x0106C3 04:86B3: 00        .byte $00   ; 
-- D 0 - I - 0x0106C4 04:86B4: 00        .byte $00   ; 
-- D 0 - I - 0x0106C5 04:86B5: 00        .byte $00   ; 
-- D 0 - I - 0x0106C6 04:86B6: 00        .byte $00   ; 
-- D 0 - I - 0x0106C7 04:86B7: 00        .byte $00   ; 
-- D 0 - I - 0x0106C8 04:86B8: 00        .byte $00   ; 
-- D 0 - I - 0x0106C9 04:86B9: 00        .byte $00   ; 
-- D 0 - I - 0x0106CA 04:86BA: 0F        .byte $0F   ; 
-- D 0 - I - 0x0106CB 04:86BB: 00        .byte $00   ; 
-- D 0 - I - 0x0106CC 04:86BC: 00        .byte $00   ; 
-- D 0 - I - 0x0106CD 04:86BD: 00        .byte $00   ; 
-- D 0 - I - 0x0106CE 04:86BE: 00        .byte $00   ; 
-- D 0 - I - 0x0106CF 04:86BF: 00        .byte $00   ; 
-- D 0 - I - 0x0106D0 04:86C0: 00        .byte $00   ; 
-- D 0 - I - 0x0106D1 04:86C1: 00        .byte $00   ; 
-- D 0 - I - 0x0106D2 04:86C2: 00        .byte $00   ; 
-- D 0 - I - 0x0106D3 04:86C3: 00        .byte $00   ; 
-- D 0 - I - 0x0106D4 04:86C4: 00        .byte $00   ; 
-- D 0 - I - 0x0106D5 04:86C5: 00        .byte $00   ; 
-- D 0 - I - 0x0106D6 04:86C6: 00        .byte $00   ; 
-- D 0 - I - 0x0106D7 04:86C7: 00        .byte $00   ; 
-- D 0 - I - 0x0106D8 04:86C8: 00        .byte $00   ; 
+- D 0 - I - 0x010699 04:8689: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00
+- D 0 - I - 0x0106A1 04:8691: 00        .byte $00, $50, $00, $00, $00, $00, $00, $00
+- D 0 - I - 0x0106A9 04:8699: 00        .byte $00, $05, $00, $00, $00, $00, $00, $00
+- D 0 - I - 0x0106B1 04:86A1: 00        .byte $00, $A0, $00, $00, $00, $00, $00, $00
+- D 0 - I - 0x0106B9 04:86A9: 00        .byte $00, $0A, $00, $00, $00, $00, $00, $00
+- D 0 - I - 0x0106C1 04:86B1: 00        .byte $00, $F0, $00, $00, $00, $00, $00, $00
+- D 0 - I - 0x0106C9 04:86B9: 00        .byte $00, $0F, $00, $00, $00, $00, $00, $00
+- D 0 - I - 0x0106D1 04:86C1: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00
 
 ; Please select your character
 loc_tile_select_character1:

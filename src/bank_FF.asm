@@ -90,6 +90,7 @@
 .export loc_C046_repeat_starting_mode
 .export sub_D2E5_get_collision_value
 .export sub_D0B8_change_stack_pointer_by_bits
+.export sub_D0C1_change_stack_pointer
 .export sub_D67B_out_of_sight
 .export sub_D6AC_out_of_screen
 .export loc_D99F_add_flash_sprite
@@ -507,7 +508,7 @@ C - - - - - 0x01C269 07:C259: 85 24     STA vMenuDemoIndex
 loc_C25B:
 C - - - - - 0x01C26B 07:C25B: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C26E 07:C25E: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
-C - - - - - 0x01C271 07:C261: 20 0D B8  JSR $B80D
+C - - - - - 0x01C271 07:C261: 20 0D B8  JSR sub_B80D_init_final_score_screen       ;
 C - - - - - 0x01C274 07:C264: A9 00     LDA #$00
 C - - - - - 0x01C276 07:C266: 85 27     STA ram_0027
 C - - - - - 0x01C278 07:C268: 85 30     STA ram_0030
@@ -554,22 +555,22 @@ C - - - - - 0x01C2C7 07:C2B7: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C2C9 07:C2B9: 20 F4 C3  JSR sub_C3F4_set_OAM_address
 C - - - - - 0x01C2CC 07:C2BC: 20 0F C3  JSR sub_C30F_screen_on
 C - - - - - 0x01C2CF 07:C2BF: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
-bra_C2C2:
+bra_C2C2_wait:
 C - - - - - 0x01C2D2 07:C2C2: A5 D8     LDA ram_00D8
 C - - - - - 0x01C2D4 07:C2C4: C9 0C     CMP #$0C
-C - - - - - 0x01C2D6 07:C2C6: 90 FA     BCC bra_C2C2
+C - - - - - 0x01C2D6 07:C2C6: 90 FA     BCC bra_C2C2_wait
 C - - - - - 0x01C2D8 07:C2C8: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C2DB 07:C2CB: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C2DE 07:C2CE: A9 30     LDA #$30
 C - - - - - 0x01C2E0 07:C2D0: 20 60 C9  JSR sub_C960_add_score2
-C - - - - - 0x01C2E3 07:C2D3: 20 0D B8  JSR $B80D
+C - - - - - 0x01C2E3 07:C2D3: 20 0D B8  JSR sub_B80D_init_final_score_screen      ;
 C - - - - - 0x01C2E6 07:C2D6: 20 F4 C3  JSR sub_C3F4_set_OAM_address
 C - - - - - 0x01C2E9 07:C2D9: 20 0F C3  JSR sub_C30F_screen_on
 C - - - - - 0x01C2EC 07:C2DC: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
-bra_C2DF:
+bra_C2DF_wait:
 C - - - - - 0x01C2EF 07:C2DF: A5 D8     LDA ram_00D8
 C - - - - - 0x01C2F1 07:C2E1: C9 0E     CMP #$0E
-C - - - - - 0x01C2F3 07:C2E3: 90 FA     BCC bra_C2DF
+C - - - - - 0x01C2F3 07:C2E3: 90 FA     BCC bra_C2DF_wait
 C - - - - - 0x01C2F5 07:C2E5: A9 00     LDA #$00
 C - - - - - 0x01C2F7 07:C2E7: 8D 09 01  STA v_last_level
 C - - - - - 0x01C2FA 07:C2EA: 4C 00 C0  JMP vec_C000_RESET
@@ -1557,8 +1558,8 @@ C - - - - - 0x01C92C 07:C91C: A9 80     LDA #$80                ;
 C - - - - - 0x01C92E 07:C91E: 85 08     STA ram_0008            ; $0008 <~ 0x80
 C - - - - - 0x01C930 07:C920: A9 80     LDA #$80                ;
 C - - - - - 0x01C932 07:C922: 85 09     STA ram_0009            ; $0009 <~ 0x80
-; In: $0008 - ???
-; In: $0009 - ???
+; In: $0008 - a tile number for blank
+; In: $0009 - a tile number '0'
 loc_C924_display_menu_score_ex:
 sub_C924_display_menu_score_ex:
 C D 2 - - - 0x01C934 07:C924: A9 00     LDA #$00                ;
@@ -9697,10 +9698,10 @@ bra_FAFF:
 C - - - - - 0x01FB0F 07:FAFF: A4 5E     LDY v_no_level
 C - - - - - 0x01FB11 07:FB01: C0 03     CPY #$03
 C - - - - - 0x01FB13 07:FB03: F0 1A     BEQ bra_FB1F
-C - - - - - 0x01FB15 07:FB05: A5 46     LDA ram_0046
+C - - - - - 0x01FB15 07:FB05: A5 46     LDA vNoSubLevel
 C - - - - - 0x01FB17 07:FB07: 38        SEC
 C - - - - - 0x01FB18 07:FB08: E9 05     SBC #$05
-C - - - - - 0x01FB1A 07:FB0A: 85 46     STA ram_0046
+C - - - - - 0x01FB1A 07:FB0A: 85 46     STA vNoSubLevel
 C - - - - - 0x01FB1C 07:FB0C: B9 2F FB  LDA tbl_FB2F,Y
 C - - - - - 0x01FB1F 07:FB0F: 85 B7     STA ram_00B7
 C - - - - - 0x01FB21 07:FB11: 20 C7 C6  JSR sub_C6C7_update_room_with_message

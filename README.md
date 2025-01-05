@@ -11,10 +11,10 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 -  Windows - run a command ***assemble.bat***
 -  Linux, MacOS - run a command ***assemble.sh*** (more information - [NES Games Disassembly](https://github.com/cyneprepou4uk/NES-Games-Disassembly))
 ## Statistic
--  Code Logger bytes - ***27.97%***
--  Data Logger bytes - ***60.10%***
--  Unknown bytes     - ***11.94%***
--  Code commented    - ***82.79%***
+-  Code Logger bytes - ***28.02%***
+-  Data Logger bytes - ***60.03%***
+-  Unknown bytes     - ***11.95%***
+-  Code commented    - ***83.19%***
 ## Documentation (in Russian)
 -  [bestiary](docs/ru/bestiary.md) - The list of all enemies in the game
 -  [maze1](docs/ru/maze1.txt), [maze2](docs/ru/maze2.txt), [maze3](docs/ru/maze3.txt), [maze4](docs/ru/maze4.txt) - The information of the mazes on the level 4
@@ -22,7 +22,7 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 -  [Game Genie Codes](docs/ru/game_genie_codes.md) - It's the list of some Game Genie Codes.
 -  [background metatiles](docs/ru/background_metatiles.md) - The list of all metatiles of the background.
 -  [banks](docs/ru/banks.md) - This is the information on PRG ROM banks.
--  [audio tracks](docs/ru/banks.md) - All audio tracks from the game.
+-  [audio tracks](docs/ru/audio_tracks.md) - All audio tracks from the game.
 ## Resources
 -  Lupin Sansei - Pandora no Isan (J) [!]
 
