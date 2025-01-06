@@ -159,6 +159,9 @@ vFlowingOffset                = ram_003F ; by X-position in the water
 v_npc_message_status          = ram_0041
 ; 83 - npc is saying the message 
 ; C3 - npc said the message 
+; 0x40 - ??
+; 0x80 - ??
+; 0x0X - 
 
 ; ram_0042 - ???
 ; 0x40 N - the Lupin's balloon is exploding
@@ -339,6 +342,7 @@ vTempChrLiveStatus            = ram_00D4
 vTmpEnemyStartingPosXHigh     = ram_00D4
 vTmpEnemyStartingPosXLow      = ram_00D5
 vReasonCharacterChange        = ram_00D6
+vFinalSceneNo                 = ram_00D8
 
 vCrcChecksumLowValue          = ram_00F5
 vCrcChecksumMiddleValue       = ram_00F6
@@ -597,6 +601,13 @@ vItemJumpCounter              = ram_03C8 ; [$03C9-$03CD]
 vCacheBossStatus              = ram_03D7 ; the cache is used after defeating the boss
 vCacheBossScreenPosX          = ram_03D8 ; the cache is used after defeating the boss
 
+vBubbleStatus                 = ram_03D4 ; [$03D4-$03D6]
+; 0xC0 - the bubble is used
+vBubbleScreenPosY             = ram_03D7 ; [$03D7-$03D9]
+vBubblePosXLow                = ram_03DD ; [$03DD-$03DF]
+vBubblePosXHigh               = ram_03E0 ; [$03E0-$03E2]
+vBubbleJumpCounter            = ram_03E3 ; [$03E3-$03E5]
+
 vApuChannelStatus             = ram_0400 ; Secondary status flag for adjusting APU_STATUS during sound and music processing
 vApuChannelProcessed          = ram_0401 ; 0x01 - pulse 1, 0x02 - pulse 2, 0x04 - triangle, 0x08 - noise
 vCurrentApuChannel            = ram_0402 ; apu channel (0x00 - pulse 1, 0x01 - pulse 2, 0x02 - triangle, 0x03 - noise) for each sound row
@@ -705,3 +716,4 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; удалить лишние директивы .export/.import
 ; 03:B360 - баг с остановкой врага
 ; FF:CC5F - не слышен полностью звук активации радио (баг?)
+; 0x01FB2F - проверить изображения по константе CHR

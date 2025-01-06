@@ -512,7 +512,7 @@ C - - - - - 0x01C271 07:C261: 20 0D B8  JSR sub_B80D_init_final_score_screen    
 C - - - - - 0x01C274 07:C264: A9 00     LDA #$00
 C - - - - - 0x01C276 07:C266: 85 27     STA ram_0027
 C - - - - - 0x01C278 07:C268: 85 30     STA ram_0030
-C - - - - - 0x01C27A 07:C26A: 8D 31 06  STA ram_0631
+C - - - - - 0x01C27A 07:C26A: 8D 31 06  STA vHighPpuAddress
 C - - - - - 0x01C27D 07:C26D: 8D 7B 06  STA vPpuAddrDataCache ; put empty cache
 C - - - - - 0x01C280 07:C270: 85 C8     STA ram_00C8
 C - - - - - 0x01C282 07:C272: A9 90     LDA #$90
@@ -520,14 +520,14 @@ C - - - - - 0x01C284 07:C274: 85 26     STA vPpuCtrlSettings
 C - - - - - 0x01C286 07:C276: A9 93     LDA #$93
 C - - - - - 0x01C288 07:C278: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C28A 07:C27A: A9 0F     LDA #$0F
-C - - - - - 0x01C28C 07:C27C: 85 D8     STA ram_00D8
+C - - - - - 0x01C28C 07:C27C: 85 D8     STA vFinalSceneNo
 C - - - - - 0x01C28E 07:C27E: 20 F4 C3  JSR sub_C3F4_set_OAM_address
 C - - - - - 0x01C291 07:C281: 20 0F C3  JSR sub_C30F_screen_on
 C - - - - - 0x01C294 07:C284: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
-bra_C287:
-C - - - - - 0x01C297 07:C287: A5 D8     LDA ram_00D8
+@bra_C287_wait:
+C - - - - - 0x01C297 07:C287: A5 D8     LDA vFinalSceneNo
 C - - - - - 0x01C299 07:C289: C9 11     CMP #$11
-C - - - - - 0x01C29B 07:C28B: 90 FA     BCC bra_C287
+C - - - - - 0x01C29B 07:C28B: 90 FA     BCC @bra_C287_wait
 loc_C28D:
 C D 2 - - - 0x01C29D 07:C28D: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C2A0 07:C290: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
@@ -542,11 +542,11 @@ C - - - - - 0x01C2B1 07:C2A1: 85 24     STA vMenuDemoIndex ;
 @bra_C2A3_skip:
 C - - - - - 0x01C2B3 07:C2A3: 4C 46 C0  JMP loc_C046_repeat_starting_mode ;
 
-bra_C2A6:
 loc_C2A6:
-C D 2 - - - 0x01C2B6 07:C2A6: A5 D8     LDA ram_00D8
+@bra_C2A6_wait:
+C D 2 - - - 0x01C2B6 07:C2A6: A5 D8     LDA vFinalSceneNo
 C - - - - - 0x01C2B8 07:C2A8: C9 0A     CMP #$0A
-C - - - - - 0x01C2BA 07:C2AA: 90 FA     BCC bra_C2A6
+C - - - - - 0x01C2BA 07:C2AA: 90 FA     BCC @bra_C2A6_wait
 C - - - - - 0x01C2BC 07:C2AC: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
 C - - - - - 0x01C2BF 07:C2AF: 20 13 C3  JSR sub_C313_screen_off
 C - - - - - 0x01C2C2 07:C2B2: 20 DB B7  JSR $B7DB
@@ -556,7 +556,7 @@ C - - - - - 0x01C2C9 07:C2B9: 20 F4 C3  JSR sub_C3F4_set_OAM_address
 C - - - - - 0x01C2CC 07:C2BC: 20 0F C3  JSR sub_C30F_screen_on
 C - - - - - 0x01C2CF 07:C2BF: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 bra_C2C2_wait:
-C - - - - - 0x01C2D2 07:C2C2: A5 D8     LDA ram_00D8
+C - - - - - 0x01C2D2 07:C2C2: A5 D8     LDA vFinalSceneNo
 C - - - - - 0x01C2D4 07:C2C4: C9 0C     CMP #$0C
 C - - - - - 0x01C2D6 07:C2C6: 90 FA     BCC bra_C2C2_wait
 C - - - - - 0x01C2D8 07:C2C8: 20 13 C3  JSR sub_C313_screen_off
@@ -568,7 +568,7 @@ C - - - - - 0x01C2E6 07:C2D6: 20 F4 C3  JSR sub_C3F4_set_OAM_address
 C - - - - - 0x01C2E9 07:C2D9: 20 0F C3  JSR sub_C30F_screen_on
 C - - - - - 0x01C2EC 07:C2DC: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
 bra_C2DF_wait:
-C - - - - - 0x01C2EF 07:C2DF: A5 D8     LDA ram_00D8
+C - - - - - 0x01C2EF 07:C2DF: A5 D8     LDA vFinalSceneNo
 C - - - - - 0x01C2F1 07:C2E1: C9 0E     CMP #$0E
 C - - - - - 0x01C2F3 07:C2E3: 90 FA     BCC bra_C2DF_wait
 C - - - - - 0x01C2F5 07:C2E5: A9 00     LDA #$00
@@ -4651,16 +4651,16 @@ C - - - - - 0x01DB3C 07:DB2C: 29 7F     AND #$7F                             ;
 C - - - - - 0x01DB3E 07:DB2E: 20 5F D0  JSR sub_accumulator_shift_right_by_4 ; Register A <~ { 0x00, 0x01, 0x02, ..., 0x07 }
 C - - - - - 0x01DB41 07:DB31: 20 C1 D0  JSR sub_D0C1_change_stack_pointer    ;
 
-- D 2 - I - 0x01DB44 07:DB34: 43 DB     .addr loc_DB44 - 1                     ; default
-- D 2 - I - 0x01DB46 07:DB36: A6 DD     .addr loc_DDA7 - 1                     ; jumping
-- D 2 - I - 0x01DB48 07:DB38: 8C DF     .addr loc_DF8D - 1
-- D 2 - I - 0x01DB4A 07:DB3A: A8 DE     .addr loc_DEA9_died_subroutine_bf2 - 1 ;
-- - - - - - 0x01DB4C 07:DB3C: 39 E0     .addr loc_E03A - 1
-- - - - - - 0x01DB4E 07:DB3E: 43 DB     .addr loc_DB44 - 1
-- - - - - - 0x01DB50 07:DB40: 43 DB     .addr loc_DB44 - 1
-- - - - - - 0x01DB52 07:DB42: 43 DB     .addr loc_DB44 - 1
+- D 2 - I - 0x01DB44 07:DB34: 43 DB     .addr loc_DB44_main - 1                ; default
+- D 2 - I - 0x01DB46 07:DB36: A6 DD     .addr loc_DDA7 - 1                     ; jumping (vChrStatus - 0x10)
+- D 2 - I - 0x01DB48 07:DB38: 8C DF     .addr loc_DF8D_enter_corridor - 1      ; vChrStatus - 0x20
+- D 2 - I - 0x01DB4A 07:DB3A: A8 DE     .addr loc_DEA9_died_subroutine_bf2 - 1 ; vChrStatus - 0x40
+- D - - - - 0x01DB4C 07:DB3C: 39 E0     .addr loc_E03A - 1                     ; vChrStatus - 0x80
+- D - - - - 0x01DB4E 07:DB3E: 43 DB     .addr loc_DB44_main - 1
+- D - - - - 0x01DB50 07:DB40: 43 DB     .addr loc_DB44_main - 1
+- D - - - - 0x01DB52 07:DB42: 43 DB     .addr loc_DB44_main - 1
 
-loc_DB44:
+loc_DB44_main:
 C - - - - - 0x01DB54 07:DB44: A9 00     LDA #$00                                  ; prepare an input parameter
 C - - - - - 0x01DB56 07:DB46: 20 AB E5  JSR sub_E5AB_short_collision_by_increment ; Check collisions in vScreenChrPosY + 4 and vScreenChrPosY - 4
 C - - - - - 0x01DB59 07:DB49: D0 07     BNE bra_DB52_collisions                   ; If collisions exist
@@ -4701,7 +4701,7 @@ C - - - - - 0x01DB98 07:DB88: A9 00     LDA #$00
 C - - - - - 0x01DB9A 07:DB8A: 85 70     STA ram_0070
 C - - - - - 0x01DB9C 07:DB8C: A9 40     LDA #$40
 C - - - - - 0x01DB9E 07:DB8E: 85 2E     STA vCorridorCounter
-C - - - - - 0x01DBA0 07:DB90: 4C 8D DF  JMP loc_DF8D
+C - - - - - 0x01DBA0 07:DB90: 4C 8D DF  JMP loc_DF8D_enter_corridor
 
 bra_DB93_skip:
 C - - - - - 0x01DBA3 07:DB93: A9 80     LDA #$80                               ; CONSTANT -  the character stands on the ground
@@ -5210,7 +5210,7 @@ C - - - - - 0x01DE88 07:DE78: 85 2E     STA vCorridorCounter                    
 C - - - - - 0x01DE8A 07:DE7A: A5 6C     LDA vChrStatus                              ;
 C - - - - - 0x01DE8C 07:DE7C: 09 20     ORA #$20                                    ; CONSTANT - the character is died
 C - - - - - 0x01DE8E 07:DE7E: 85 6C     STA vChrStatus                              ;
-C - - - - - 0x01DE90 07:DE80: 4C A9 DE  JMP loc_DEA9_died_subroutine_bf2
+C - - - - - 0x01DE90 07:DE80: 4C A9 DE  JMP loc_DEA9_died_subroutine_bf2            ;
 
 bra_DE83_jump_subroutine_before_bf2:
 C - - - - - 0x01DE93 07:DE83: 20 5C DF  JSR sub_DF5C
@@ -5390,17 +5390,17 @@ C - - - - - 0x01DF9A 07:DF8A: E6 71     INC vVelocity                      ; vVe
 bra_DF8C_RTS:
 C - - - - - 0x01DF9C 07:DF8C: 60        RTS                                ;
 
-loc_DF8D:
-C D 2 - - - 0x01DF9D 07:DF8D: A5 2E     LDA vCorridorCounter
-C - - - - - 0x01DF9F 07:DF8F: 29 07     AND #$07
-C - - - - - 0x01DFA1 07:DF91: F0 03     BEQ bra_DF96
+loc_DF8D_enter_corridor:
+C D 2 - - - 0x01DF9D 07:DF8D: A5 2E     LDA vCorridorCounter              ;
+C - - - - - 0x01DF9F 07:DF8F: 29 07     AND #$07                          ;
+C - - - - - 0x01DFA1 07:DF91: F0 03     BEQ bra_DF96_next_step            ; Branch if vCorridorCounter multiple of 8 (vLowCounter % 8 == 0, 12.5% chance)
 C - - - - - 0x01DFA3 07:DF93: 4C 13 E0  JMP loc_E013
 
-bra_DF96:
+bra_DF96_next_step:
 C - - - - - 0x01DFA6 07:DF96: A5 2E     LDA vCorridorCounter
 C - - - - - 0x01DFA8 07:DF98: 4A        LSR
 C - - - - - 0x01DFA9 07:DF99: 4A        LSR
-C - - - - - 0x01DFAA 07:DF9A: 4A        LSR
+C - - - - - 0x01DFAA 07:DF9A: 4A        LSR                               ; A <~ {0x08, 0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00}
 C - - - - - 0x01DFAB 07:DF9B: 20 C1 D0  JSR sub_D0C1_change_stack_pointer
 
 - D 2 - I - 0x01DFAE 07:DF9E: D0 DF     .addr loc_DFD1 - 1
@@ -5438,9 +5438,9 @@ C - - - - - 0x01DFDE 07:DFCE: 4C 0D E0  JMP loc_E00D
 
 loc_DFD1:
 C - - - - - 0x01DFE1 07:DFD1: 20 27 FA  JSR sub_FA27
-C - - - - - 0x01DFE4 07:DFD4: A5 6C     LDA ram_006C
+C - - - - - 0x01DFE4 07:DFD4: A5 6C     LDA vChrStatus
 C - - - - - 0x01DFE6 07:DFD6: 29 DF     AND #$DF
-C - - - - - 0x01DFE8 07:DFD8: 85 6C     STA ram_006C
+C - - - - - 0x01DFE8 07:DFD8: 85 6C     STA vChrStatus
 C - - - - - 0x01DFEA 07:DFDA: A2 00     LDX #$00
 C - - - - - 0x01DFEC 07:DFDC: 4C C2 DB  JMP loc_DBC2_before_rendering
 
@@ -5461,25 +5461,25 @@ C - - - - - 0x01E003 07:DFF3: A4 C5     LDY ram_00C5
 C - - - - - 0x01E005 07:DFF5: 30 16     BMI bra_E00D
 C - - - - - 0x01E007 07:DFF7: C0 09     CPY #$09
 C - - - - - 0x01E009 07:DFF9: B0 12     BCS bra_E00D
-bra_DFFB:
+@bra_DFFB_loop:
 C - - - - - 0x01E00B 07:DFFB: 20 67 B0  JSR $B067
 C - - - - - 0x01E00E 07:DFFE: C6 B7     DEC ram_00B7
-C - - - - - 0x01E010 07:E000: 10 F9     BPL bra_DFFB
+C - - - - - 0x01E010 07:E000: 10 F9     BPL @bra_DFFB_loop
 C - - - - - 0x01E012 07:E002: 4C 0D E0  JMP loc_E00D
 
 loc_E005:
-C D 3 - - - 0x01E015 07:E005: A5 6C     LDA ram_006C
+C D 3 - - - 0x01E015 07:E005: A5 6C     LDA vChrStatus
 C - - - - - 0x01E017 07:E007: 29 7F     AND #$7F
-C - - - - - 0x01E019 07:E009: 85 6C     STA ram_006C
+C - - - - - 0x01E019 07:E009: 85 6C     STA vChrStatus
 C - - - - - 0x01E01B 07:E00B: D0 06     BNE bra_E013
 bra_E00D:
 loc_E00D:
-C D 3 - - - 0x01E01D 07:E00D: A5 6C     LDA ram_006C
+C D 3 - - - 0x01E01D 07:E00D: A5 6C     LDA vChrStatus
 C - - - - - 0x01E01F 07:E00F: 09 80     ORA #$80
-C - - - - - 0x01E021 07:E011: 85 6C     STA ram_006C
+C - - - - - 0x01E021 07:E011: 85 6C     STA vChrStatus
 bra_E013:
 loc_E013:
-C D 3 - - - 0x01E023 07:E013: A5 6C     LDA ram_006C
+C D 3 - - - 0x01E023 07:E013: A5 6C     LDA vChrStatus
 C - - - - - 0x01E025 07:E015: 30 08     BMI bra_E01F
 C - - - - - 0x01E027 07:E017: A4 70     LDY ram_0070
 C - - - - - 0x01E029 07:E019: BE 36 E0  LDX tbl_E036,Y
@@ -5876,7 +5876,7 @@ C - - - - - 0x01E27A 07:E26A: E9 03     SBC #$03
 C - - - - - 0x01E27C 07:E26C: 0A        ASL
 C - - - - - 0x01E27D 07:E26D: 0A        ASL
 C - - - - - 0x01E27E 07:E26E: AA        TAX
-C - - - - - 0x01E27F 07:E26F: A5 6C     LDA ram_006C
+C - - - - - 0x01E27F 07:E26F: A5 6C     LDA vChrStatus
 C - - - - - 0x01E281 07:E271: 6A        ROR
 C - - - - - 0x01E282 07:E272: 90 02     BCC bra_E276
 C - - - - - 0x01E284 07:E274: E8        INX
@@ -6166,33 +6166,35 @@ C - - - - - 0x01E465 07:E455: A5 2E     LDA vCorridorCounter
 C - - - - - 0x01E467 07:E457: D0 EB     BNE bra_E444_skip
 C - - - - - 0x01E469 07:E459: 4C 31 DF  JMP loc_DF31
 
-bra_E45C:
-C - - - - - 0x01E46C 07:E45C: A9 00     LDA #$00
-C - - - - - 0x01E46E 07:E45E: 9D D4 03  STA ram_03D4,X
+; In: Register X - the bubble number
+bra_E45C_free_bubble:
+C - - - - - 0x01E46C 07:E45C: A9 00     LDA #$00              ;
+C - - - - - 0x01E46E 07:E45E: 9D D4 03  STA vBubbleStatus,X   ; clear a status
 bra_E461_RTS:
-C - - - - - 0x01E471 07:E461: 60        RTS
+C - - - - - 0x01E471 07:E461: 60        RTS                   ;
 
-bra_E462:
-C - - - - - 0x01E472 07:E462: A9 00     LDA #$00
-C - - - - - 0x01E474 07:E464: 8D D5 03  STA ram_03D5
-C - - - - - 0x01E477 07:E467: 8D D6 03  STA ram_03D6
+bra_E462_dispose:
+C - - - - - 0x01E472 07:E462: A9 00     LDA #$00                ;
+C - - - - - 0x01E474 07:E464: 8D D5 03  STA vBubbleStatus + 1   ; clears a status for 2nd bubble
+C - - - - - 0x01E477 07:E467: 8D D6 03  STA vBubbleStatus + 2   ; clears a status for 3rd bubble
 C - - - - - 0x01E47A 07:E46A: F0 2B     BEQ bra_E497
+
 sub_E46C:
 C - - - - - 0x01E47C 07:E46C: A2 00     LDX #$00
 C - - - - - 0x01E47E 07:E46E: AD 15 02  LDA vApparatusLowCounter
 C - - - - - 0x01E481 07:E471: 29 1F     AND #$1F
-C - - - - - 0x01E483 07:E473: F0 13     BEQ bra_E488
+C - - - - - 0x01E483 07:E473: F0 13     BEQ @bra_E488_add
 C - - - - - 0x01E485 07:E475: AC 16 02  LDY vApparatusHighCounter
 C - - - - - 0x01E488 07:E478: C0 02     CPY #$02
-C - - - - - 0x01E48A 07:E47A: B0 E6     BCS bra_E462
+C - - - - - 0x01E48A 07:E47A: B0 E6     BCS bra_E462_dispose
 C - - - - - 0x01E48C 07:E47C: A2 01     LDX #$01
 C - - - - - 0x01E48E 07:E47E: C9 08     CMP #$08
-C - - - - - 0x01E490 07:E480: F0 06     BEQ bra_E488
+C - - - - - 0x01E490 07:E480: F0 06     BEQ @bra_E488_add
 C - - - - - 0x01E492 07:E482: C9 10     CMP #$10
 C - - - - - 0x01E494 07:E484: D0 05     BNE bra_E48B
 C - - - - - 0x01E496 07:E486: A2 02     LDX #$02
-bra_E488:
-C - - - - - 0x01E498 07:E488: 20 E4 E4  JSR sub_E4E4
+@bra_E488_add:
+C - - - - - 0x01E498 07:E488: 20 E4 E4  JSR sub_E4E4_add_bubble
 bra_E48B:
 sub_E48B:
 C - - - - - 0x01E49B 07:E48B: A2 02     LDX #$02
@@ -6200,30 +6202,31 @@ C - - - - - 0x01E49D 07:E48D: 20 97 E4  JSR sub_E497
 C - - - - - 0x01E4A0 07:E490: A2 01     LDX #$01
 C - - - - - 0x01E4A2 07:E492: 20 97 E4  JSR sub_E497
 C - - - - - 0x01E4A5 07:E495: A2 00     LDX #$00
+; In: Register X - the bubble number
 bra_E497:
 sub_E497:
-C - - - - - 0x01E4A7 07:E497: BD D4 03  LDA ram_03D4,X
-C - - - - - 0x01E4AA 07:E49A: 10 C5     BPL bra_E461_RTS
-C - - - - - 0x01E4AC 07:E49C: DE D7 03  DEC ram_03D7,X
-C - - - - - 0x01E4AF 07:E49F: BD D7 03  LDA ram_03D7,X
+C - - - - - 0x01E4A7 07:E497: BD D4 03  LDA vBubbleStatus,X                ;
+C - - - - - 0x01E4AA 07:E49A: 10 C5     BPL bra_E461_RTS                   ; If the status isn't used
+C - - - - - 0x01E4AC 07:E49C: DE D7 03  DEC vBubbleScreenPosY,X
+C - - - - - 0x01E4AF 07:E49F: BD D7 03  LDA vBubbleScreenPosY,X
 C - - - - - 0x01E4B2 07:E4A2: C9 48     CMP #$48
-C - - - - - 0x01E4B4 07:E4A4: 90 B6     BCC bra_E45C
-C - - - - - 0x01E4B6 07:E4A6: FE E3 03  INC ram_03E3,X
-C - - - - - 0x01E4B9 07:E4A9: BD E3 03  LDA ram_03E3,X
+C - - - - - 0x01E4B4 07:E4A4: 90 B6     BCC bra_E45C_free_bubble
+C - - - - - 0x01E4B6 07:E4A6: FE E3 03  INC vBubbleJumpCounter,X
+C - - - - - 0x01E4B9 07:E4A9: BD E3 03  LDA vBubbleJumpCounter,X
 C - - - - - 0x01E4BC 07:E4AC: C9 38     CMP #$38
-C - - - - - 0x01E4BE 07:E4AE: B0 AC     BCS bra_E45C
-C - - - - - 0x01E4C0 07:E4B0: BD DD 03  LDA ram_03DD,X
+C - - - - - 0x01E4BE 07:E4AE: B0 AC     BCS bra_E45C_free_bubble
+C - - - - - 0x01E4C0 07:E4B0: BD DD 03  LDA vBubblePosXLow,X
 C - - - - - 0x01E4C3 07:E4B3: 85 00     STA ram_0000
-C - - - - - 0x01E4C5 07:E4B5: BD E0 03  LDA ram_03E0,X
+C - - - - - 0x01E4C5 07:E4B5: BD E0 03  LDA vBubblePosXHigh,X
 C - - - - - 0x01E4C8 07:E4B8: 85 01     STA ram_0001
 C - - - - - 0x01E4CA 07:E4BA: 20 AC D6  JSR sub_D6AC_out_of_screen
-C - - - - - 0x01E4CD 07:E4BD: B0 9D     BCS bra_E45C
-C - - - - - 0x01E4CF 07:E4BF: BD D7 03  LDA ram_03D7,X
+C - - - - - 0x01E4CD 07:E4BD: B0 9D     BCS bra_E45C_free_bubble
+C - - - - - 0x01E4CF 07:E4BF: BD D7 03  LDA vBubbleScreenPosY,X
 C - - - - - 0x01E4D2 07:E4C2: 85 00     STA ram_0000
 C - - - - - 0x01E4D4 07:E4C4: A5 03     LDA ram_0003
 C - - - - - 0x01E4D6 07:E4C6: 85 01     STA ram_0001
 C - - - - - 0x01E4D8 07:E4C8: A9 04     LDA #$04
-C - - - - - 0x01E4DA 07:E4CA: BC E3 03  LDY ram_03E3,X
+C - - - - - 0x01E4DA 07:E4CA: BC E3 03  LDY vBubbleJumpCounter,X
 C - - - - - 0x01E4DD 07:E4CD: C0 10     CPY #$10
 C - - - - - 0x01E4DF 07:E4CF: B0 08     BCS bra_E4D9
 C - - - - - 0x01E4E1 07:E4D1: A9 02     LDA #$02
@@ -6238,36 +6241,37 @@ C - - - - - 0x01E4ED 07:E4DD: A9 40     LDA #$40
 C - - - - - 0x01E4EF 07:E4DF: 85 45     STA vCharacterRenderData
 C - - - - - 0x01E4F1 07:E4E1: 4C 5A CE  JMP loc_CE5A_render_character
 
-sub_E4E4:
-C - - - - - 0x01E4F4 07:E4E4: A0 00     LDY #$00
-C - - - - - 0x01E4F6 07:E4E6: A5 6C     LDA ram_006C
-C - - - - - 0x01E4F8 07:E4E8: 6A        ROR
-C - - - - - 0x01E4F9 07:E4E9: 90 02     BCC bra_E4ED
-C - - - - - 0x01E4FB 07:E4EB: A0 02     LDY #$02
-bra_E4ED:
-C - - - - - 0x01E4FD 07:E4ED: A5 6A     LDA ram_006A
-C - - - - - 0x01E4FF 07:E4EF: 18        CLC
-C - - - - - 0x01E500 07:E4F0: 69 E4     ADC #$E4
-C - - - - - 0x01E502 07:E4F2: 9D D7 03  STA ram_03D7,X
-C - - - - - 0x01E505 07:E4F5: A5 66     LDA ram_0066
-C - - - - - 0x01E507 07:E4F7: 18        CLC
-C - - - - - 0x01E508 07:E4F8: 79 11 E5  ADC tbl_E511,Y
-C - - - - - 0x01E50B 07:E4FB: 9D DD 03  STA ram_03DD,X
-C - - - - - 0x01E50E 07:E4FE: A5 68     LDA ram_0068
-C - - - - - 0x01E510 07:E500: 79 12 E5  ADC tbl_E512,Y
-C - - - - - 0x01E513 07:E503: 9D E0 03  STA ram_03E0,X
-C - - - - - 0x01E516 07:E506: A9 C0     LDA #$C0
-C - - - - - 0x01E518 07:E508: 9D D4 03  STA ram_03D4,X
-C - - - - - 0x01E51B 07:E50B: A9 00     LDA #$00
-C - - - - - 0x01E51D 07:E50D: 9D E3 03  STA ram_03E3,X
-C - - - - - 0x01E520 07:E510: 60        RTS
+; In: Register X - the bubble number
+sub_E4E4_add_bubble:
+C - - - - - 0x01E4F4 07:E4E4: A0 00     LDY #$00                        ; CONSTANT - an offset in tbl_E511_posX_offsets (a right direction)
+C - - - - - 0x01E4F6 07:E4E6: A5 6C     LDA vChrStatus                  ;
+C - - - - - 0x01E4F8 07:E4E8: 6A        ROR                             ;
+C - - - - - 0x01E4F9 07:E4E9: 90 02     BCC @bra_E4ED_right             ; If the character is looking to the right
+C - - - - - 0x01E4FB 07:E4EB: A0 02     LDY #$02                        ; CONSTANT - an offset in tbl_E511_posX_offsets (a left direction)
+@bra_E4ED_right:
+C - - - - - 0x01E4FD 07:E4ED: A5 6A     LDA vScreenChrPosY              ;
+C - - - - - 0x01E4FF 07:E4EF: 18        CLC                             ;
+C - - - - - 0x01E500 07:E4F0: 69 E4     ADC #$E4                        ;
+C - - - - - 0x01E502 07:E4F2: 9D D7 03  STA vBubbleScreenPosY,X         ; <~ ChrPosY - 28
+C - - - - - 0x01E505 07:E4F5: A5 66     LDA vLowChrPosX                 ;
+C - - - - - 0x01E507 07:E4F7: 18        CLC                             ;
+C - - - - - 0x01E508 07:E4F8: 79 11 E5  ADC tbl_E511_posX_offsets,Y     ;
+C - - - - - 0x01E50B 07:E4FB: 9D DD 03  STA vBubblePosXLow,X            ; <~ ChrPosX + offset (low value)
+C - - - - - 0x01E50E 07:E4FE: A5 68     LDA vNoScreen                   ;
+C - - - - - 0x01E510 07:E500: 79 12 E5  ADC tbl_E511_posX_offsets + 1,Y ;
+C - - - - - 0x01E513 07:E503: 9D E0 03  STA vBubblePosXHigh,X           ; <~ ChrPosX + offset (high value, maybe the overflow)
+C - - - - - 0x01E516 07:E506: A9 C0     LDA #$C0                        ;
+C - - - - - 0x01E518 07:E508: 9D D4 03  STA vBubbleStatus,X             ; initializes a default status
+C - - - - - 0x01E51B 07:E50B: A9 00     LDA #$00                        ;
+C - - - - - 0x01E51D 07:E50D: 9D E3 03  STA vBubbleJumpCounter,X        ;
+C - - - - - 0x01E520 07:E510: 60        RTS                             ;
 
-tbl_E511:
-- D 3 - - - 0x01E521 07:E511: 0C        .byte $0C
-tbl_E512:
-- D 3 - - - 0x01E522 07:E512: 00        .byte $00
-- D 3 - - - 0x01E523 07:E513: F4        .byte $F4
-- D 3 - - - 0x01E524 07:E514: FF        .byte $FF
+; 1 byte - the offset by low value
+; 2 byte - the offset by high value
+tbl_E511_posX_offsets:
+- D 3 - - - 0x01E521 07:E511: 0C        .byte $0C, $00
+- D 3 - - - 0x01E523 07:E513: F4        .byte $F4, $FF
+
 sub_E515:
 C - - - - - 0x01E525 07:E515: 20 F3 E5  JSR sub_E5F3_check_water_movement_on_the_right
 C - - - - - 0x01E528 07:E518: F0 15     BEQ bra_E52F
@@ -8034,9 +8038,9 @@ C - - - - - 0x01F058 07:F048: A2 05     LDX #$05                            ; se
 C - - - - - 0x01F05A 07:F04A: 9D 9E 03  STA vItemStatus,X                   ; clear
 C - - - - - 0x01F05D 07:F04D: CA        DEX                                 ; decrements loop counter
 C - - - - - 0x01F05E 07:F04E: 10 FA     BPL @bra_F04A_clear_loop            ; If Register X < 0x80 (a loop condition)
-C - - - - - 0x01F060 07:F050: 8D D4 03  STA ram_03D4
-C - - - - - 0x01F063 07:F053: 8D D5 03  STA ram_03D5
-C - - - - - 0x01F066 07:F056: 8D D6 03  STA ram_03D6
+C - - - - - 0x01F060 07:F050: 8D D4 03  STA vBubbleStatus                   ; clears a status for 1st bubble
+C - - - - - 0x01F063 07:F053: 8D D5 03  STA vBubbleStatus + 1               ; clears a status for 2nd bubble
+C - - - - - 0x01F066 07:F056: 8D D6 03  STA vBubbleStatus + 2               ; clears a status for 3rd bubble
 C - - - - - 0x01F069 07:F059: 85 D1     STA vGogglesActive                  ; reset the infrared goggles
 C - - - - - 0x01F06B 07:F05B: A2 03     LDX #$03                            ; set loop counter
 @bra_F05D_loop:                                                             ; loop by x (4 times)
@@ -9695,9 +9699,9 @@ C - - - - - 0x01FB0C 07:FAFC: 84 6A     STY vScreenChrPosY                      
 C - - - - - 0x01FB0E 07:FAFE: 60        RTS                                         ;
 
 bra_FAFF:
-C - - - - - 0x01FB0F 07:FAFF: A4 5E     LDY v_no_level
-C - - - - - 0x01FB11 07:FB01: C0 03     CPY #$03
-C - - - - - 0x01FB13 07:FB03: F0 1A     BEQ bra_FB1F
+C - - - - - 0x01FB0F 07:FAFF: A4 5E     LDY v_no_level               ;
+C - - - - - 0x01FB11 07:FB01: C0 03     CPY #$03                     ; CONSTANT - the level 4
+C - - - - - 0x01FB13 07:FB03: F0 1A     BEQ bra_FB1F_last_level      ; If vNoLevel == 0x03
 C - - - - - 0x01FB15 07:FB05: A5 46     LDA vNoSubLevel
 C - - - - - 0x01FB17 07:FB07: 38        SEC
 C - - - - - 0x01FB18 07:FB08: E9 05     SBC #$05
@@ -9708,19 +9712,19 @@ C - - - - - 0x01FB21 07:FB11: 20 C7 C6  JSR sub_C6C7_update_room_with_message
 C - - - - - 0x01FB24 07:FB14: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01FB26 07:FB16: 09 02     ORA #$02
 C - - - - - 0x01FB28 07:FB18: 85 3B     STA vSharedGameStatus
-loc_FB1A:
+loc_FB1A_continue:
 C D 3 - - - 0x01FB2A 07:FB1A: A9 40     LDA #$40
 C - - - - - 0x01FB2C 07:FB1C: 85 41     STA v_npc_message_status
 C - - - - - 0x01FB2E 07:FB1E: 60        RTS
 
-bra_FB1F:
-C - - - - - 0x01FB2F 07:FB1F: A9 32     LDA #$32
+bra_FB1F_last_level:
+C - - - - - 0x01FB2F 07:FB1F: A9 32     LDA #$32                     ; assigns CHR Bank data (???)
 C - - - - - 0x01FB31 07:FB21: 8D B6 06  STA vChrBankData
-C - - - - - 0x01FB34 07:FB24: A9 0B     LDA #$0B
-C - - - - - 0x01FB36 07:FB26: 85 3B     STA vSharedGameStatus
-C - - - - - 0x01FB38 07:FB28: A9 00     LDA #$00
-C - - - - - 0x01FB3A 07:FB2A: 85 D8     STA ram_00D8
-C - - - - - 0x01FB3C 07:FB2C: 4C 1A FB  JMP loc_FB1A
+C - - - - - 0x01FB34 07:FB24: A9 0B     LDA #$0B                     ; CONSTANT - A final scene
+C - - - - - 0x01FB36 07:FB26: 85 3B     STA vSharedGameStatus        ;
+C - - - - - 0x01FB38 07:FB28: A9 00     LDA #$00                     ; CONSTANT - an initialize value
+C - - - - - 0x01FB3A 07:FB2A: 85 D8     STA vFinalSceneNo            ;
+C - - - - - 0x01FB3C 07:FB2C: 4C 1A FB  JMP loc_FB1A_continue
 
 tbl_FB2F:
 - D 3 - - - 0x01FB3F 07:FB2F: 03        .byte $03

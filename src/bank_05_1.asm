@@ -17,8 +17,8 @@
 - D 0 - I - 0x014022 05:8012: AF 87     .word $87AF ; Daisuke Jigen is descending (left) (or Lupin)
 - D 0 - I - 0x014024 05:8014: 08 87     .word $8708 ; Daisuke Jigen is sitting (right) (or Lupin)
 - D 0 - I - 0x014026 05:8016: 21 87     .word $8721 ; Daisuke Jigen is sitting (left) (or Lupin)
-- - - - - - 0x014028 05:8018: D6 86     .word $86D6 ; Broken
-- - - - - - 0x01402A 05:801A: EF 86     .word $86EF ; Broken
+- D - - - - 0x014028 05:8018: D6 86     .word $86D6 ; Broken
+- D - - - - 0x01402A 05:801A: EF 86     .word $86EF ; Broken
 - D 0 - I - 0x01402C 05:801C: 3A 87     .word $873A ; Daisuke Jigen is falling (right) (or Lupin)
 - D 0 - I - 0x01402E 05:801E: 53 87     .word $8753 ; Daisuke Jigen is falling (left) (or Lupin)
 - D 0 - I - 0x014030 05:8020: 6C 87     .word $876C ; Daisuke Jigen is lying (right) (or Lupin)

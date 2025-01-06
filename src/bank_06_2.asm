@@ -2574,8 +2574,7 @@ C - - - - - 0x01B093 06:B083: 18        CLC
 C - - - - - 0x01B094 06:B084: 69 01     ADC #$01
 C - - - - - 0x01B096 06:B086: C9 FF     CMP #$FF
 C - - - - - 0x01B098 06:B088: 90 02     BCC @bra_B08C_skip
-- - - - - - 0x01B09A 06:B08A: A9        .byte $A9   ; 
-- - - - - - 0x01B09B 06:B08B: FF        .byte $FF   ; 
+- - - - - - 0x01B09A 06:B08A: A9 FF     LDA #$FF
 @bra_B08C_skip:
 C - - - - - 0x01B09C 06:B08C: 99 00 02  STA v_items,Y
 C - - - - - 0x01B09F 06:B08F: A9 20     LDA #$20
@@ -2802,7 +2801,7 @@ C - - - - - 0x01B21E 06:B20E: A5 73     LDA vRifleFireTime
 C - - - - - 0x01B220 06:B210: C9 20     CMP #$20
 C - - - - - 0x01B222 06:B212: 90 F2     BCC bra_B206_skip
 C - - - - - 0x01B224 06:B214: 20 F1 DC  JSR sub_DCF1_reset_velocity
-C - - - - - 0x01B227 06:B217: A5 6C     LDA ram_006C
+C - - - - - 0x01B227 06:B217: A5 6C     LDA vChrStatus
 C - - - - - 0x01B229 06:B219: 6A        ROR
 C - - - - - 0x01B22A 06:B21A: 90 06     BCC bra_B222_skip
 C - - - - - 0x01B22C 06:B21C: 20 E5 DC  JSR sub_DCE5_try_move_on_the_right
@@ -3172,11 +3171,13 @@ C - - - - - 0x01B48B 06:B47B: A9 E0     LDA #$E0
 C - - - - - 0x01B48D 06:B47D: 85 39     STA vGameInterruptEvent
 C - - - - - 0x01B48F 06:B47F: 60        RTS
 
+; In: Register A - an adding value
 sub_B480_plus_npc_msg_status:
 C - - - - - 0x01B490 06:B480: 05 41     ORA v_npc_message_status
 C - - - - - 0x01B492 06:B482: 85 41     STA v_npc_message_status
 C - - - - - 0x01B494 06:B484: 60        RTS
 
+; In: Register A - a subtrahend value
 sub_B485_minus_npc_msg_status:
 C - - - - - 0x01B495 06:B485: 25 41     AND v_npc_message_status
 C - - - - - 0x01B497 06:B487: 85 41     STA v_npc_message_status
@@ -3412,7 +3413,7 @@ C - - - - - 0x01B612 06:B602: 20 6D B5  JSR sub_B56D
 C - - - - - 0x01B615 06:B605: 4C A4 B7  JMP loc_B7A4
 
 bra_B608_skip:
-C - - - - - 0x01B618 06:B608: A5 D8     LDA ram_00D8
+C - - - - - 0x01B618 06:B608: A5 D8     LDA vFinalSceneNo
 C - - - - - 0x01B61A 06:B60A: 29 1F     AND #$1F
 C - - - - - 0x01B61C 06:B60C: 20 C1 D0  JSR sub_D0C1_change_stack_pointer
 
@@ -3442,7 +3443,7 @@ C - - - - - 0x01B648 06:B638: 70 02     BVS bra_B63C
 - - - - - - 0x01B64A 06:B63A: A9 7D     LDA #$7D
 bra_B63C:
 C - - - - - 0x01B64C 06:B63C: 20 34 B2  JSR sub_B234_add_message
-C - - - - - 0x01B64F 06:B63F: E6 D8     INC ram_00D8
+C - - - - - 0x01B64F 06:B63F: E6 D8     INC vFinalSceneNo
 C - - - - - 0x01B651 06:B641: D0 0D     BNE bra_B650
 loc_B643:
 C - - - - - 0x01B653 06:B643: A5 C8     LDA ram_00C8
@@ -3450,7 +3451,7 @@ C - - - - - 0x01B655 06:B645: D0 09     BNE bra_B650
 C - - - - - 0x01B657 06:B647: A9 03     LDA #BIT_BUTTON_B_OR_A
 C - - - - - 0x01B659 06:B649: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
 C - - - - - 0x01B65C 06:B64C: F0 02     BEQ bra_B650
-C - - - - - 0x01B65E 06:B64E: E6 D8     INC ram_00D8
+C - - - - - 0x01B65E 06:B64E: E6 D8     INC vFinalSceneNo
 bra_B650:
 C - - - - - 0x01B660 06:B650: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
 C - - - - - 0x01B663 06:B653: 4C 03 C8  JMP $C803
@@ -3520,7 +3521,7 @@ C - - - - - 0x01B6E7 06:B6D7: D0 16     BNE bra_B6EF_RTS
 C - - - - - 0x01B6E9 06:B6D9: A9 7C     LDA #$7C
 bra_B6DB:
 C - - - - - 0x01B6EB 06:B6DB: 20 34 B2  JSR sub_B234_add_message
-C - - - - - 0x01B6EE 06:B6DE: E6 D8     INC ram_00D8
+C - - - - - 0x01B6EE 06:B6DE: E6 D8     INC vFinalSceneNo
 C - - - - - 0x01B6F0 06:B6E0: 60        RTS
 
 loc_B6E1:
@@ -3532,7 +3533,7 @@ C - - - - - 0x01B6FA 06:B6EA: D0 01     BNE bra_B6ED
 C - - - - - 0x01B6FC 06:B6EC: 60        RTS
 
 bra_B6ED:
-C - - - - - 0x01B6FD 06:B6ED: E6 D8     INC ram_00D8
+C - - - - - 0x01B6FD 06:B6ED: E6 D8     INC vFinalSceneNo
 bra_B6EF_RTS:
 loc_B6EF_RTS:
 C - - - - - 0x01B6FF 06:B6EF: 60        RTS
@@ -3612,7 +3613,7 @@ loc_B76E:
 C - - - - - 0x01B77E 06:B76E: A9 05     LDA #$05
 C - - - - - 0x01B780 06:B770: 85 30     STA ram_0030
 loc_B772:
-C D 1 - - - 0x01B782 06:B772: E6 D8     INC ram_00D8
+C D 1 - - - 0x01B782 06:B772: E6 D8     INC vFinalSceneNo
 C - - - - - 0x01B784 06:B774: D0 2E     BNE bra_B7A4
 loc_B776:
 C - - - - - 0x01B786 06:B776: A2 07     LDX #$07                     ; set loop counter
@@ -3637,7 +3638,7 @@ C - - - - - 0x01B7A9 06:B799: A4 11     LDY ram_0011                            
 C - - - - - 0x01B7AB 06:B79B: A9 00     LDA #$00                                           ;
 C - - - - - 0x01B7AD 06:B79D: 85 00     STA ram_0000                                       ; prepare 2nd parameter
 C - - - - - 0x01B7AF 06:B79F: 20 98 B4  JSR sub_B498_prepare_npc_portrait_render_params_ex ;
-C - - - - - 0x01B7B2 06:B7A2: E6 D8     INC ram_00D8
+C - - - - - 0x01B7B2 06:B7A2: E6 D8     INC vFinalSceneNo
 bra_B7A4:
 loc_B7A4:
 C D 1 - - - 0x01B7B4 06:B7A4: A9 BF     LDA #$BF
@@ -3981,9 +3982,9 @@ C - - - - - 0x01BA04 06:B9F4: 10 F7     BPL @bra_B9ED_loop               ; If Re
 C - - - - - 0x01BA06 06:B9F6: A5 24     LDA vMenuDemoIndex
 C - - - - - 0x01BA08 06:B9F8: D0 32     BNE @bra_BA2C_skip
 C - - - - - 0x01BA0A 06:B9FA: A2 36     LDX #$36
-C - - - - - 0x01BA0C 06:B9FC: 8E B3 06  STX ram_06B3
+C - - - - - 0x01BA0C 06:B9FC: 8E B3 06  STX vCacheChrBankSelect + 4
 C - - - - - 0x01BA0F 06:B9FF: E8        INX
-C - - - - - 0x01BA10 06:BA00: 8E B4 06  STX ram_06B4
+C - - - - - 0x01BA10 06:BA00: 8E B4 06  STX vCacheChrBankSelect + 5
 C - - - - - 0x01BA13 06:BA03: AD 02 20  LDA PPU_STATUS      ; Read PPU status to reset the high/low latch
 C - - - - - 0x01BA16 06:BA06: A9 23     LDA #$23            ;
 C - - - - - 0x01BA18 06:BA08: 8D 06 20  STA PPU_ADDRESS     ;
@@ -4009,13 +4010,13 @@ C - - - - - 0x01BA41 06:BA31: 0A        ASL
 C - - - - - 0x01BA42 06:BA32: 0A        ASL
 C - - - - - 0x01BA43 06:BA33: AA        TAX
 C - - - - - 0x01BA44 06:BA34: A0 04     LDY #$04
-bra_BA36:
+bra_BA36_loop:
 C - - - - - 0x01BA46 06:BA36: BD 42 80  LDA $8042,X
 C - - - - - 0x01BA49 06:BA39: 99 00 06  STA vCachePalette,Y
 C - - - - - 0x01BA4C 06:BA3C: E8        INX
 C - - - - - 0x01BA4D 06:BA3D: C8        INY
 C - - - - - 0x01BA4E 06:BA3E: C0 08     CPY #$08
-C - - - - - 0x01BA50 06:BA40: D0 F4     BNE bra_BA36
+C - - - - - 0x01BA50 06:BA40: D0 F4     BNE bra_BA36_loop
 C - - - - - 0x01BA52 06:BA42: A5 24     LDA vMenuDemoIndex
 C - - - - - 0x01BA54 06:BA44: 0A        ASL
 C - - - - - 0x01BA55 06:BA45: 0A        ASL
