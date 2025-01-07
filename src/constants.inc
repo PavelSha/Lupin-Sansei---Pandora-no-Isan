@@ -32,6 +32,8 @@ BIT_BUTTON_Up_OR_Down    = %00110000 ; 0x30
 BIT_BUTTON_Left          = %01000000 ; 0x40
 BIT_BUTTON_Right         = %10000000 ; 0x80
 BIT_BUTTON_Left_OR_Right = %11000000 ; 0xC0
+BIT_BUTTON_Arrows        = %11110000 ; 0xF0
+BIT_BUTTON_Arrows_OR_A   = %11110001 ; 0xF1
 
 RADIO_IN_WHITE_BRIEFCASE               = $00
 BOMB_IN_WHITE_BRIEFCASE                = $01
@@ -86,6 +88,7 @@ v_high_counter                = ram_002D
 vGameCounters                 = ram_002E ; [vCorridorCounter, the unknown counter1, 2, 3]
 vCorridorCounter              = ram_002E ; The counter starts when we enter the corridor
 vJetPackRiseCounter           = ram_002E
+vCarExplosionCounter          = ram_002E
 vAnimationCounter             = ram_002F ; To animate the balloon and squeezing Lupine's legs on the jet-pack
 ; Also the counter starts when the character is flying after damage
 ; ram_0030 - the unknown counter1
@@ -229,10 +232,17 @@ vChrStatus                    = ram_006C ; A status of a character
 ; M - the character is/isn't sitting (1 - sitting, 0 - no sitting)
 ; L - ??
 ; K - the character is dying  (1 - dying, 0 - no dying)
-; W - the character is/isn't jumping (1 - jumping, 0 - no jumping)
-; Z - the character is entering a corridor or hiding place or died (1 - entering, 0 - no entering)
-; Y - ??
-; X - ??
+; XYZW - the action:
+; 0x01 = the character is jumping
+; 0x02 = the character is entering a corridor or hiding place or died
+vCarStatus                    = ram_006C ; A status of a car with character
+; Byte: XYZW KLMN
+; N - ???
+; M - ???
+; L - ???
+; K - ???
+; XYZW - the action:
+; 0x01 = the car with character is jumping
 vMovableChrStatus             = ram_006D
 ; Byte: XYZW KLMN
 ; Z - the character is moving on the roof pitch (1 - moving, 0 - no moving)
@@ -717,3 +727,4 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; 03:B360 - баг с остановкой врага
 ; FF:CC5F - не слышен полностью звук активации радио (баг?)
 ; 0x01FB2F - проверить изображения по константе CHR
+; vCharacterRenderData - for rendering bubbles
