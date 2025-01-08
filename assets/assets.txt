@@ -1,1 +1,11 @@
 CHR_ROM.chr 131088 65536
+audio_track00.bin 33172 45
+audio_track01.bin 33217 35
+audio_track02.bin 33252 35
+audio_track03.bin 33287 37
+audio_track04.bin 33324 101
+audio_track05.bin 33425 118
+audio_track06.bin 33543 99
+audio_track07.bin 33642 87
+audio_track08.bin 33729 133
+audio_track09.bin 34980 99

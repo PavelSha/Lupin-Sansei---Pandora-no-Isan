@@ -33,6 +33,7 @@ BIT_BUTTON_Left          = %01000000 ; 0x40
 BIT_BUTTON_Right         = %10000000 ; 0x80
 BIT_BUTTON_Left_OR_Right = %11000000 ; 0xC0
 BIT_BUTTON_Arrows        = %11110000 ; 0xF0
+BIT_BUTTON_NOT_Arrows    = %00001111 ; 0x0F
 BIT_BUTTON_Arrows_OR_A   = %11110001 ; 0xF1
 
 RADIO_IN_WHITE_BRIEFCASE               = $00
@@ -89,6 +90,7 @@ vGameCounters                 = ram_002E ; [vCorridorCounter, the unknown counte
 vCorridorCounter              = ram_002E ; The counter starts when we enter the corridor
 vJetPackRiseCounter           = ram_002E
 vCarExplosionCounter          = ram_002E
+vIntoPyramid_Counter          = ram_002E
 vAnimationCounter             = ram_002F ; To animate the balloon and squeezing Lupine's legs on the jet-pack
 ; Also the counter starts when the character is flying after damage
 ; ram_0030 - the unknown counter1
@@ -240,9 +242,11 @@ vCarStatus                    = ram_006C ; A status of a car with character
 ; N - ???
 ; M - ???
 ; L - ???
-; K - ???
+; K - the car with character is destroying  (1 - destroying, 0 - not destroying)
 ; XYZW - the action:
-; 0x01 = the car with character is jumping
+; 0x01 - the car with character is jumping
+; ....
+; 0x07 - entry into the pyramid
 vMovableChrStatus             = ram_006D
 ; Byte: XYZW KLMN
 ; Z - the character is moving on the roof pitch (1 - moving, 0 - no moving)
@@ -261,14 +265,13 @@ vJumpType                     = ram_006E
 
 vJumpCounter                  = ram_006F
 
-; ram_0070 - vChrFrameIndex ???
-
+vChrFrame_Counter             = ram_0070
 vVelocity                     = ram_0071 ; 0x04 - min, 0x0C - max
 
 
 vRifleShotCount               = ram_0072 ; A number of rifle shots
 vRifleFireTime                = ram_0073 ; The time it takes for a rifle to fire
-vChrLandStatus                = ram_0079 ;
+vChrLandStatus                = ram_0079 ; To give Lupin and Jigen a chance to shoot
 ; 0x00 - the character is in the air
 ; 0x80 - the character stands on the ground
 
