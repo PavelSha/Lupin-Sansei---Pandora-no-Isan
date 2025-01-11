@@ -3,7 +3,7 @@ This is try to disassembly Famicom game "Lupin Sansei - Pandora no Isan".
 The repo was created for educational purposes.
 All rights reserved by モンキー・パンチ, NAMCO.
 ## Pre-Building
-Building requires the assets files (graphics data - ``CHR_ROM.chr`` and audio data - audio_track**.bin) that should be located in the project directory ``assets``.
+Building requires the assets files (graphics data - ``CHR_ROM.chr`` and audio data - ``audio_track**.bin``) that should be located in the project directory ``assets``.
 For that purpose ``assets.txt`` file exists in the project directory ``assets`` which contains a list of assets, their offset in original file ``Lupin Sansei - Pandora no Isan (J) [!].nes`` (see below) and their length.
 Example, ``CHR_ROM.chr`` is the part of the original file than is started with ***131088-th*** (***0x020010***) byte and have a length - ***65536*** bytes.
 If you have Python you can execute ``tools/prebuild.py`` script where is 1st argument - the full path to the original file, 2nd argument - the path to the project directory ``assets``.
@@ -12,10 +12,10 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 -  Windows - run a command ***assemble.bat***
 -  Linux, MacOS - run a command ***assemble.sh*** (more information - [NES Games Disassembly](https://github.com/cyneprepou4uk/NES-Games-Disassembly))
 ## Statistic
--  Code Logger bytes - ***28.21%***
--  Data Logger bytes - ***59.78%***
--  Unknown bytes     - ***12.01%***
--  Code commented    - ***84.49%***
+-  Code Logger bytes - ***28.35%***
+-  Data Logger bytes - ***59.62%***
+-  Unknown bytes     - ***12.03%***
+-  Code commented    - ***85.11%***
 ## Documentation (in Russian)
 -  [bestiary](docs/ru/bestiary.md) - The list of all enemies in the game
 -  [maze1](docs/ru/maze1.txt), [maze2](docs/ru/maze2.txt), [maze3](docs/ru/maze3.txt), [maze4](docs/ru/maze4.txt) - The information of the mazes on the level 4

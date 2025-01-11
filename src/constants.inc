@@ -90,6 +90,7 @@ vGameCounters                 = ram_002E ; [vCorridorCounter, the unknown counte
 vCorridorCounter              = ram_002E ; The counter starts when we enter the corridor
 vJetPackRiseCounter           = ram_002E
 vCarExplosionCounter          = ram_002E
+vCarLandingCounter            = ram_002E
 vIntoPyramid_Counter          = ram_002E
 vAnimationCounter             = ram_002F ; To animate the balloon and squeezing Lupine's legs on the jet-pack
 ; Also the counter starts when the character is flying after damage
@@ -109,6 +110,8 @@ vPauseStatus                  = ram_0038 ; 0x00 - no pause, 0x40 - pause
 
 
 vGameInterruptEvent           = ram_0039
+; Byte: XYZW KLMN
+; X - ???
 ; 0x80 - to select the character (the character is arrested) or to next character in demo
 ; 0x81 - to select the character (the character is dying)
 ; 0xC0 - go into the corridor (sub level or unique room)
@@ -246,6 +249,10 @@ vCarStatus                    = ram_006C ; A status of a car with character
 ; XYZW - the action:
 ; 0x01 - the car with character is jumping
 ; ....
+; 0x03 - the strong collision
+; 0x04 - the car is landing
+; 0x05 - the water collision
+; ....
 ; 0x07 - entry into the pyramid
 vMovableChrStatus             = ram_006D
 ; Byte: XYZW KLMN
@@ -270,8 +277,10 @@ vVelocity                     = ram_0071 ; 0x04 - min, 0x0C - max
 
 
 vRifleShotCount               = ram_0072 ; A number of rifle shots
+vCarWheelsFrame_Offset        = ram_0072 ; 
 vRifleFireTime                = ram_0073 ; The time it takes for a rifle to fire
-vChrLandStatus                = ram_0079 ; To give Lupin and Jigen a chance to shoot
+vBulletPosOffsetY             = ram_0077
+vChrLandStatus                = ram_0079 ; To give Lupin and Jigen a chance to shoot (TODO)
 ; 0x00 - the character is in the air
 ; 0x80 - the character stands on the ground
 
@@ -731,3 +740,4 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; FF:CC5F - не слышен полностью звук активации радио (баг?)
 ; 0x01FB2F - проверить изображения по константе CHR
 ; vCharacterRenderData - for rendering bubbles
+; vChrLandStatus - rename
