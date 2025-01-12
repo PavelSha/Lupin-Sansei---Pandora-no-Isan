@@ -243,7 +243,7 @@ vChrStatus                    = ram_006C ; A status of a character
 vCarStatus                    = ram_006C ; A status of a car with character
 ; Byte: XYZW KLMN
 ; N - ???
-; M - ???
+; M - the car is inside the road hill  (1 - is, 0 - is not)
 ; L - ???
 ; K - the car with character is destroying  (1 - destroying, 0 - not destroying)
 ; XYZW - the action:
@@ -275,11 +275,16 @@ vJumpCounter                  = ram_006F
 vChrFrame_Counter             = ram_0070
 vVelocity                     = ram_0071 ; 0x04 - min, 0x0C - max
 
-
+vCarRenderParams_             = ram_0072 ; [0x72-0x77]
 vRifleShotCount               = ram_0072 ; A number of rifle shots
-vCarWheelsFrame_Offset        = ram_0072 ; 
+vCarWheelsFrame_Offset        = ram_0072
 vRifleFireTime                = ram_0073 ; The time it takes for a rifle to fire
+vCarFrame_Offset              = ram_0073
+vCarRenderOffsetY             = ram_0074
+vCarChrRenderOffsetY          = ram_0075
+vCarChrFrame_Offset           = ram_0076
 vBulletPosOffsetY             = ram_0077
+vSwordPosition                = ram_0078 ; For Goemon, {0x00, 0x01, 0x02, ..., 0x08}
 vChrLandStatus                = ram_0079 ; To give Lupin and Jigen a chance to shoot (TODO)
 ; 0x00 - the character is in the air
 ; 0x80 - the character stands on the ground

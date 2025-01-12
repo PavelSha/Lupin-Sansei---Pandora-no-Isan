@@ -30,3 +30,14 @@ audio_track1C.bin 34288 55
 audio_track1D.bin 34343 53
 audio_track1E.bin 34396 101
 audio_track1F.bin 34497 33
+audio_track20.bin 34530 25
+audio_track21.bin 34184 11
+audio_track22.bin 34555 139
+audio_track23.bin 34694 59
+audio_track24.bin 34753 33
+audio_track25.bin 34786 31
+audio_track28.bin 35081 7
+audio_track29.bin 35088 9
+audio_track2A.bin 35097 17
+audio_track2C.bin 35115 11
+audio_track2D.bin 35126 9

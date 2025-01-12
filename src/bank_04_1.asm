@@ -20,6 +20,7 @@
 .export tbl_road_hills
 .export tbl_checkpoint_after_death
 .export tbl_clarissa_colors
+.export tbl_car_render_offsets
 
 ; see $C5B2
 - - - - - - 0x010010 04:8000: 7B 9D     .addr loc_main_menu_gunshot_f1 ; frame 1
@@ -1054,11 +1055,12 @@ tbl_roof_pitches:
 - D 0 - - - 0x010635 04:8625: FF        .byte $FF, $FF   ; 
 
 ; For level-racing
+tbl_car_render_offsets:
 ; 1 byte - the frame offset of the car wheels
-; 2 byte - ???
-; 3 byte - ???
-; 4 byte - ???
-; 5 byte - ???
+; 2 byte - the frame offset of the car
+; 3 byte - the display Y-position offset of the car
+; 4 byte - the display Y-position offset of the character (in the car)
+; 5 byte - the frame offset of the character (in the car)
 ; 6 byte - the offset of the bullet Y-position
 - D 0 - - - 0x010637 04:8627: 00        .byte $00, $10, $FE, $F0, $18, $EE   ; 
 - D 0 - - - 0x01063D 04:862D: 02        .byte $02, $10, $FE, $F0, $18, $EE   ; 
