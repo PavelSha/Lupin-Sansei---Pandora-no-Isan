@@ -281,73 +281,7 @@ loc_track8:
 .incbin "../assets/audio_track08.bin"
 
 loc_track3B:
-- D 0 - I - 0x008446 02:8436: 04        .byte $04, $02, $02, $00
-- D 0 - I - 0x00844A 02:843A: A3        .byte $A3, $60  ; shaking effect, without skip
-- D 0 - I - 0x00844C 02:843C: 27        .byte $27, $02
-- D 0 - I - 0x00844E 02:843E: 1F        .byte $1F, $02  ; mute, 2*4 frames
-- D 0 - I - 0x008450 02:8440: 27        .byte $27, $02
-- D 0 - I - 0x008452 02:8442: 25        .byte $25, $02
-- D 0 - I - 0x008454 02:8444: 1F        .byte $1F, $02  ; mute, 2*4 frames
-- D 0 - I - 0x008456 02:8446: 25        .byte $25, $02
-- D 0 - I - 0x008458 02:8448: 27        .byte $27, $04
-- D 0 - I - 0x00845A 02:844A: 1F        .byte $1F, $02  ; mute, 2*4 frames
-- D 0 - I - 0x00845C 02:844C: 23        .byte $23, $06
-- D 0 - I - 0x00845E 02:844E: 25        .byte $25, $04
-- D 0 - I - 0x008460 02:8450: 27        .byte $27, $04
-- D 0 - I - 0x008462 02:8452: A0        .byte $A0, $0A
-- D 0 - I - 0x008464 02:8454: 2A        .byte $2A, $06
-- D 0 - I - 0x008466 02:8456: 28        .byte $28, $06
-- D 0 - I - 0x008468 02:8458: 27        .byte $27, $06
-- D 0 - I - 0x00846A 02:845A: 25        .byte $25, $06
-- D 0 - I - 0x00846C 02:845C: 23        .byte $23, $04
-- D 0 - I - 0x00846E 02:845E: 25        .byte $25, $04
-- D 0 - I - 0x008470 02:8460: A0        .byte $A0, $02
-- D 0 - I - 0x008472 02:8462: 27        .byte $27, $02
-- D 0 - I - 0x008474 02:8464: 1F        .byte $1F, $02  ; mute, 2*4 frames
-- D 0 - I - 0x008476 02:8466: 27        .byte $27, $02
-- D 0 - I - 0x008478 02:8468: 25        .byte $25, $02
-- D 0 - I - 0x00847A 02:846A: 1F        .byte $1F, $02  ; mute, 2*4 frames
-- D 0 - I - 0x00847C 02:846C: 25        .byte $25, $02
-- D 0 - I - 0x00847E 02:846E: 27        .byte $27, $04
-- D 0 - I - 0x008480 02:8470: 1F        .byte $1F, $02  ; mute, 2*4 frames
-- D 0 - I - 0x008482 02:8472: 23        .byte $23, $06
-- D 0 - I - 0x008484 02:8474: 25        .byte $25, $04
-- D 0 - I - 0x008486 02:8476: 27        .byte $27, $04
-- D 0 - I - 0x008488 02:8478: A0        .byte $A0, $0A
-- D 0 - I - 0x00848A 02:847A: 25        .byte $25, $0E
-- D 0 - I - 0x00848C 02:847C: 27        .byte $27, $12
-- D 0 - I - 0x00848E 02:847E: A0        .byte $A0, $02
-- D 0 - I - 0x008490 02:8480: B1        .byte $B1, $02  ; Replay 1 time starts with 2 sound row ($843A)
-- D 0 - I - 0x008492 02:8482: FD        .byte $FD, $FE  ; the mark for replay
-- D 0 - I - 0x008494 02:8484: 33        .byte $33, $02
-- D 0 - I - 0x008496 02:8486: 32        .byte $32, $02
-- D 0 - I - 0x008498 02:8488: 30        .byte $30, $02
-- D 0 - I - 0x00849A 02:848A: 33        .byte $33, $04
-- D 0 - I - 0x00849C 02:848C: 32        .byte $32, $02
-- D 0 - I - 0x00849E 02:848E: 30        .byte $30, $04
-- D 0 - I - 0x0084A0 02:8490: 33        .byte $33, $02
-- D 0 - I - 0x0084A2 02:8492: 32        .byte $32, $02
-- D 0 - I - 0x0084A4 02:8494: 30        .byte $30, $02
-- D 0 - I - 0x0084A6 02:8496: 35        .byte $35, $04
-- D 0 - I - 0x0084A8 02:8498: 33        .byte $33, $02
-- D 0 - I - 0x0084AA 02:849A: 32        .byte $32, $02
-- D 0 - I - 0x0084AC 02:849C: 30        .byte $30, $02
-- D 0 - I - 0x0084AE 02:849E: B1        .byte $B1, $00  ; Replay 1 time starts with the special mark ($8482)
-- D 0 - I - 0x0084B0 02:84A0: 33        .byte $33, $02
-- D 0 - I - 0x0084B2 02:84A2: 32        .byte $32, $02
-- D 0 - I - 0x0084B4 02:84A4: 30        .byte $30, $02
-- D 0 - I - 0x0084B6 02:84A6: 33        .byte $33, $04
-- D 0 - I - 0x0084B8 02:84A8: 32        .byte $32, $02
-- D 0 - I - 0x0084BA 02:84AA: A0        .byte $A0, $0F
-- D 0 - I - 0x0084BC 02:84AC: 30        .byte $30, $0C
-- D 0 - I - 0x0084BE 02:84AE: 30        .byte $30, $02
-- D 0 - I - 0x0084C0 02:84B0: 32        .byte $32, $02
-- D 0 - I - 0x0084C2 02:84B2: 33        .byte $33, $02
-- D 0 - I - 0x0084C4 02:84B4: 35        .byte $35, $02
-- D 0 - I - 0x0084C6 02:84B6: 37        .byte $37, $20
-- D 0 - I - 0x0084C8 02:84B8: A0        .byte $A0, $02
-- D 0 - I - 0x0084CA 02:84BA: B0        .byte $B0, $02  ; Replay always starts with 2 sound row ($843A)
-- D - - - - 0x0084CC 02:84BC: FF        .byte $FF
+.incbin "../assets/audio_track3B.bin"
 
 loc_trackA:
 - D - - - - 0x0084CD 02:84BD: FF        .byte $FF
@@ -434,88 +368,10 @@ loc_track25:
 .incbin "../assets/audio_track25.bin"
 
 loc_track39:
-- D 0 - I - 0x008801 02:87F1: 25        .byte $25, $10, $00, $00
-- D 0 - I - 0x008805 02:87F5: FD        .byte $FD, $FE  ; the mark for replay
-- D 0 - I - 0x008807 02:87F7: 27        .byte $27, $02
-- D 0 - I - 0x008809 02:87F9: BF        .byte $BF, $00  ; Replay 16 times starts with the special mark ($87F5)
-- D 0 - I - 0x00880B 02:87FB: FD        .byte $FD, $FE  ; the mark for replay
-- D 0 - I - 0x00880D 02:87FD: 25        .byte $25, $02
-- D 0 - I - 0x00880F 02:87FF: BF        .byte $BF, $00  ; Replay 16 times starts with the special mark ($87FB)
-- D 0 - I - 0x008811 02:8801: FD        .byte $FD, $FE  ; the mark for replay
-- D 0 - I - 0x008813 02:8803: 27        .byte $27, $02
-- D 0 - I - 0x008815 02:8805: BF        .byte $BF, $00  ; Replay 16 times starts with the special mark ($8801)
-- D 0 - I - 0x008817 02:8807: FD        .byte $FD, $FE  ; the mark for replay
-- D 0 - I - 0x008819 02:8809: 25        .byte $25, $02
-- D 0 - I - 0x00881B 02:880B: BF        .byte $BF, $00  ; Replay 16 times starts with the special mark ($8807)
-- D 0 - I - 0x00881D 02:880D: FD        .byte $FD, $FE  ; the mark for replay
-- D 0 - I - 0x00881F 02:880F: 23        .byte $23, $02
-- D 0 - I - 0x008821 02:8811: 33        .byte $33, $02
-- D 0 - I - 0x008823 02:8813: B3        .byte $B3, $00  ; Replay 3 times starts with the special mark ($880D)
-- D 0 - I - 0x008825 02:8815: FD        .byte $FD, $FE  ; the mark for replay
-- D 0 - I - 0x008827 02:8817: 25        .byte $25, $02
-- D 0 - I - 0x008829 02:8819: 35        .byte $35, $02
-- D 0 - I - 0x00882B 02:881B: B3        .byte $B3, $00  ; Replay 3 times starts with the special mark ($8815)
-- D 0 - I - 0x00882D 02:881D: FD        .byte $FD, $FE  ; the mark for replay
-- D 0 - I - 0x00882F 02:881F: 27        .byte $27, $02
-- D 0 - I - 0x008831 02:8821: 37        .byte $37, $02
-- D 0 - I - 0x008833 02:8823: B7        .byte $B7, $00  ; Replay 7 times starts with the special mark ($881D)
-- D 0 - I - 0x008835 02:8825: B1        .byte $B1, $0E  ; Replay 1 time starts with 14 sound row ($880D)
-- D 0 - I - 0x008837 02:8827: B0        .byte $B0, $02  ; Replay always starts with 2 sound row ($87F5)
+.incbin "../assets/audio_track39.bin"
 
 loc_track3A:
-- D 0 - I - 0x008839 02:8829: 05        .byte $05, $00, $02, $00
-- D 0 - I - 0x00883D 02:882D: 1F        .byte $1F, $02  ; mute, 2*5 frames
-- D 0 - I - 0x00883F 02:882F: 29        .byte $29, $02
-- D 0 - I - 0x008841 02:8831: 39        .byte $39, $01
-- D 0 - I - 0x008843 02:8833: 39        .byte $39, $01
-- D 0 - I - 0x008845 02:8835: B7        .byte $B7, $03  ; Replay 7 times starts with 3 sound row ($882F)
-- D 0 - I - 0x008847 02:8837: 27        .byte $27, $02
-- D 0 - I - 0x008849 02:8839: 37        .byte $37, $01
-- D 0 - I - 0x00884B 02:883B: 37        .byte $37, $01
-- D 0 - I - 0x00884D 02:883D: B6        .byte $B6, $07  ; Replay 6 times starts with 7 sound row ($8837)
-- D 0 - I - 0x00884F 02:883F: A0        .byte $A0, $0F
-- D 0 - I - 0x008851 02:8841: 27        .byte $27, $01
-- D 0 - I - 0x008853 02:8843: 29        .byte $29, $01
-- D 0 - I - 0x008855 02:8845: 27        .byte $27, $01
-- D 0 - I - 0x008857 02:8847: 29        .byte $29, $01
-- D 0 - I - 0x008859 02:8849: 32        .byte $32, $0C
-- D 0 - I - 0x00885B 02:884B: B1        .byte $B1, $0C  ; Replay 1 time starts with 12 sound row ($8841)
-- D 0 - I - 0x00885D 02:884D: 29        .byte $29, $01
-- D 0 - I - 0x00885F 02:884F: 2B        .byte $2B, $01
-- D 0 - I - 0x008861 02:8851: 29        .byte $29, $01
-- D 0 - I - 0x008863 02:8853: 2B        .byte $2B, $01
-- D 0 - I - 0x008865 02:8855: 32        .byte $32, $10
-- D 0 - I - 0x008867 02:8857: 19        .byte $19, $01
-- D 0 - I - 0x008869 02:8859: 20        .byte $20, $01
-- D 0 - I - 0x00886B 02:885B: 22        .byte $22, $01
-- D 0 - I - 0x00886D 02:885D: 24        .byte $24, $01
-- D 0 - I - 0x00886F 02:885F: 20        .byte $20, $01
-- D 0 - I - 0x008871 02:8861: 22        .byte $22, $01
-- D 0 - I - 0x008873 02:8863: 24        .byte $24, $01
-- D 0 - I - 0x008875 02:8865: 27        .byte $27, $01
-- D 0 - I - 0x008877 02:8867: 24        .byte $24, $01
-- D 0 - I - 0x008879 02:8869: 27        .byte $27, $01
-- D 0 - I - 0x00887B 02:886B: 29        .byte $29, $01
-- D 0 - I - 0x00887D 02:886D: 30        .byte $30, $01
-- D 0 - I - 0x00887F 02:886F: 27        .byte $27, $01
-- D 0 - I - 0x008881 02:8871: 29        .byte $29, $01
-- D 0 - I - 0x008883 02:8873: 30        .byte $30, $01
-- D 0 - I - 0x008885 02:8875: 32        .byte $32, $01
-- D 0 - I - 0x008887 02:8877: A0        .byte $A0, $02
-- D 0 - I - 0x008889 02:8879: 34        .byte $34, $02
-- D 0 - I - 0x00888B 02:887B: 44        .byte $44, $01
-- D 0 - I - 0x00888D 02:887D: 44        .byte $44, $01
-- D 0 - I - 0x00888F 02:887F: B7        .byte $B7, $27  ; Replay 7 times starts with 39 sound row ($8877)
-- D 0 - I - 0x008891 02:8881: A0        .byte $A0, $0F
-- D 0 - I - 0x008893 02:8883: 37        .byte $37, $02
-- D 0 - I - 0x008895 02:8885: 34        .byte $34, $02
-- D 0 - I - 0x008897 02:8887: 32        .byte $32, $02
-- D 0 - I - 0x008899 02:8889: 30        .byte $30, $06
-- D 0 - I - 0x00889B 02:888B: 29        .byte $29, $04
-- D 0 - I - 0x00889D 02:888D: 27        .byte $27, $0E
-- D 0 - I - 0x00889F 02:888F: A0        .byte $A0, $02
-- D 0 - I - 0x0088A1 02:8891: B0        .byte $B0, $02  ; Replay always starts with 2 sound row ($882D)
-- D - - - - 0x0088A3 02:8893: FF        .byte $FF
+.incbin "../assets/audio_track3A.bin"
 
 loc_track9:
 .incbin "../assets/audio_track09.bin"
@@ -551,27 +407,13 @@ loc_track2F:
 - D - - - - 0x008940 02:8930: FF        .byte $FF
 
 loc_track30:
-- D 0 - I - 0x008941 02:8931: 01        .byte $01, $02, $1F, $83
-- D 0 - I - 0x008945 02:8935: EF        .byte $EF, $02
-- D 0 - I - 0x008947 02:8937: A3        .byte $A3, $20  ; shaking effect, without skip
-- D 0 - I - 0x008949 02:8939: FD        .byte $FD, $FE  ; the mark for replay
-- D 0 - I - 0x00894B 02:893B: 20        .byte $20, $02
-- D 0 - I - 0x00894D 02:893D: BF        .byte $BF, $00  ; Replay 16 times starts with the special mark ($8939)
-- D 0 - I - 0x00894F 02:893F: FF        .byte $FF
+.incbin "../assets/audio_track30.bin"
 
 loc_track31:
-- D 0 - I - 0x008950 02:8940: 32        .byte $32, $00, $03, $00
-- D 0 - I - 0x008954 02:8944: 04        .byte $04, $01
-- D 0 - I - 0x008956 02:8946: FF        .byte $FF
+.incbin "../assets/audio_track31.bin"
 
 loc_track32:
-- D 0 - I - 0x008957 02:8947: 30        .byte $30, $00, $01, $00
-- D 0 - I - 0x00895B 02:894B: FD        .byte $FD, $FE  ; the mark for replay
-- D 0 - I - 0x00895D 02:894D: 04        .byte $04, $02
-- D 0 - I - 0x00895F 02:894F: 03        .byte $03, $02
-- D 0 - I - 0x008961 02:8951: B2        .byte $B2, $00  ; Replay 2 times starts with the special mark ($894B)
-- D 0 - I - 0x008963 02:8953: 09        .byte $09, $05
-- D 0 - I - 0x008965 02:8955: FF        .byte $FF
+.incbin "../assets/audio_track32.bin"
 
 - D - - - - 0x008966 02:8956: FF        .byte $FF
 
@@ -579,31 +421,16 @@ loc_track33:
 - D - - - - 0x008967 02:8957: FF        .byte $FF
 
 loc_track34:
-- D 0 - I - 0x008968 02:8958: 01        .byte $01, $01, $01, $8C
-- D 0 - I - 0x00896C 02:895C: 16        .byte $16, $04
-- D 0 - I - 0x00896E 02:895E: FF        .byte $FF
+.incbin "../assets/audio_track34.bin"
 
 loc_track35:
-- D 0 - I - 0x00896F 02:895F: 02        .byte $02, $02, $17, $00
-- D 0 - I - 0x008973 02:8963: 40        .byte $40, $01
-- D 0 - I - 0x008975 02:8965: 50        .byte $50, $01
-- D 0 - I - 0x008977 02:8967: 60        .byte $60, $01
-- D 0 - I - 0x008979 02:8969: 65        .byte $65, $01
-- D 0 - I - 0x00897B 02:896B: FF        .byte $FF
+.incbin "../assets/audio_track35.bin"
 
 loc_track36:
-- D 0 - I - 0x00897C 02:896C: 30        .byte $30, $00, $05, $00
-- D 0 - I - 0x008980 02:8970: 09        .byte $09, $01
-- D 0 - I - 0x008982 02:8972: 05        .byte $05, $05
-- D 0 - I - 0x008984 02:8974: 09        .byte $09, $30
-- D 0 - I - 0x008986 02:8976: FF        .byte $FF
+.incbin "../assets/audio_track36.bin"
 
 loc_track37:
-- D 0 - I - 0x008987 02:8977: 00        .byte $00, $01, $00, $81
-- D 0 - I - 0x00898B 02:897B: 20        .byte $20, $03
-- D 0 - I - 0x00898D 02:897D: 27        .byte $27, $01
-- D 0 - I - 0x00898F 02:897F: 25        .byte $25, $02
-- D 0 - I - 0x008991 02:8981: FF        .byte $FF
+.incbin "../assets/audio_track37.bin"
 
 loc_track38:
 - D - - - - 0x008992 02:8982: FF        .byte $FF
@@ -612,10 +439,7 @@ loc_track3C:
 - D - - - - 0x008993 02:8983: FF        .byte $FF
 
 loc_track3D:
-- D 0 - I - 0x008994 02:8984: 30        .byte $30, $00, $02, $00
-- D 0 - I - 0x008998 02:8988: 06        .byte $06, $01
-- D 0 - I - 0x00899A 02:898A: 0E        .byte $0E, $03
-- D 0 - I - 0x00899C 02:898C: FF        .byte $FF
+.incbin "../assets/audio_track3D.bin"
 
 loc_track3E:
 - D - - - - 0x00899D 02:898D: FF        .byte $FF

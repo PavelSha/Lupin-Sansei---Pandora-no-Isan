@@ -41,3 +41,15 @@ audio_track29.bin 35088 9
 audio_track2A.bin 35097 17
 audio_track2C.bin 35115 11
 audio_track2D.bin 35126 9
+audio_track30.bin 35137 15
+audio_track31.bin 35152 7
+audio_track32.bin 35159 15
+audio_track34.bin 35176 7
+audio_track35.bin 35183 13
+audio_track36.bin 35196 11
+audio_track37.bin 35207 11
+audio_track39.bin 34817 56
+audio_track3A.bin 34873 107
+audio_track3B.bin 33862 135
+audio_track3D.bin 35220 9
+audio_track3F.bin 35230 7

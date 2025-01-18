@@ -242,7 +242,7 @@ vChrStatus                    = ram_006C ; A status of a character
 ; 0x02 = the character is entering a corridor or hiding place or died
 vCarStatus                    = ram_006C ; A status of a car with character
 ; Byte: XYZW KLMN
-; N - ???
+; N - unused, the car with character is always looking to the right
 ; M - the car is inside the road hill  (1 - is, 0 - is not)
 ; L - ???
 ; K - the car with character is destroying  (1 - destroying, 0 - not destroying)
@@ -286,6 +286,8 @@ vCarChrFrame_Offset           = ram_0076
 vBulletPosOffsetY             = ram_0077
 vSwordPosition                = ram_0078 ; For Goemon, {0x00, 0x01, 0x02, ..., 0x08}
 vChrLandStatus                = ram_0079 ; To give Lupin and Jigen a chance to shoot (TODO)
+; Byte: XYZW KLMM
+; X - the character is allowed the hit (1 - he can, 0 - he cann't)
 ; 0x00 - the character is in the air
 ; 0x80 - the character stands on the ground
 
@@ -746,3 +748,4 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; 0x01FB2F - проверить изображения по константе CHR
 ; vCharacterRenderData - for rendering bubbles
 ; vChrLandStatus - rename
+; vLowCounter - составить список вероятностей
