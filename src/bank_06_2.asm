@@ -2786,38 +2786,38 @@ C - - - - - 0x01B208 06:B1F8: D0 E2     BNE @bra_B1DC_loop                      
 C - - - - - 0x01B20A 06:B1FA: 60        RTS                                                 ;
 
 loc_B1FB_rifle:
-C D 1 - - - 0x01B20B 06:B1FB: C6 73     DEC vRifleFireTime
-C - - - - - 0x01B20D 06:B1FD: D0 0F     BNE bra_B20E_skip
-C - - - - - 0x01B20F 06:B1FF: C6 72     DEC vRifleShotCount
-C - - - - - 0x01B211 06:B201: D0 03     BNE bra_B206_skip
-C - - - - - 0x01B213 06:B203: 20 EE CD  JSR sub_CDEE_deactivate_activable_items_after_damage
+C D 1 - - - 0x01B20B 06:B1FB: C6 73     DEC vRifleFireCounter                                ; updates a counter
+C - - - - - 0x01B20D 06:B1FD: D0 0F     BNE bra_B20E_skip                                    ; If the counter > 0x00
+C - - - - - 0x01B20F 06:B1FF: C6 72     DEC vRifleShotCount                                  ; updates a shot count
+C - - - - - 0x01B211 06:B201: D0 03     BNE bra_B206_skip                                    ; If the counter > 0x00
+C - - - - - 0x01B213 06:B203: 20 EE CD  JSR sub_CDEE_deactivate_activable_items_after_damage ;
 bra_B206_skip:
-C - - - - - 0x01B216 06:B206: 20 63 DF  JSR sub_DF63_update_character_status
-C - - - - - 0x01B219 06:B209: A2 00     LDX #$00
-C - - - - - 0x01B21B 06:B20B: 4C C2 DB  JMP loc_DBC2_before_rendering
+C - - - - - 0x01B216 06:B206: 20 63 DF  JSR sub_DF63_update_character_status                 ;
+C - - - - - 0x01B219 06:B209: A2 00     LDX #$00                                             ; prepares the offset of the sprite address (the frame with rifle by default)
+C - - - - - 0x01B21B 06:B20B: 4C C2 DB  JMP loc_DBC2_before_rendering                        ;
 
 bra_B20E_skip:
-C - - - - - 0x01B21E 06:B20E: A5 73     LDA vRifleFireTime
-C - - - - - 0x01B220 06:B210: C9 20     CMP #$20
-C - - - - - 0x01B222 06:B212: 90 F2     BCC bra_B206_skip
-C - - - - - 0x01B224 06:B214: 20 F1 DC  JSR sub_DCF1_reset_velocity
-C - - - - - 0x01B227 06:B217: A5 6C     LDA vChrStatus
-C - - - - - 0x01B229 06:B219: 6A        ROR
-C - - - - - 0x01B22A 06:B21A: 90 06     BCC bra_B222_skip
-C - - - - - 0x01B22C 06:B21C: 20 E5 DC  JSR sub_DCE5_try_move_on_the_right
-C - - - - - 0x01B22F 06:B21F: 4C 25 B2  JMP loc_B225
+C - - - - - 0x01B21E 06:B20E: A5 73     LDA vRifleFireCounter                ;
+C - - - - - 0x01B220 06:B210: C9 20     CMP #$20                             ; CONSTANT - after weapon recoiling
+C - - - - - 0x01B222 06:B212: 90 F2     BCC bra_B206_skip                    ; If the counter value < 0x20
+C - - - - - 0x01B224 06:B214: 20 F1 DC  JSR sub_DCF1_reset_velocity          ;
+C - - - - - 0x01B227 06:B217: A5 6C     LDA vChrStatus                       ;
+C - - - - - 0x01B229 06:B219: 6A        ROR                                  ;
+C - - - - - 0x01B22A 06:B21A: 90 06     BCC bra_B222_right                   ; If the character is looking to the right
+C - - - - - 0x01B22C 06:B21C: 20 E5 DC  JSR sub_DCE5_try_move_on_the_right   ;
+C - - - - - 0x01B22F 06:B21F: 4C 25 B2  JMP loc_B225_continue                ;
 
-bra_B222_skip:
-C - - - - - 0x01B232 06:B222: 20 B1 DC  JSR sub_DCB1_try_move_on_the_left
-loc_B225:
-C D 1 - - - 0x01B235 06:B225: A2 10     LDX #$10
-C - - - - - 0x01B237 06:B227: A5 73     LDA vRifleFireTime
-C - - - - - 0x01B239 06:B229: 29 0F     AND #$0F
-C - - - - - 0x01B23B 06:B22B: C9 08     CMP #$08
-C - - - - - 0x01B23D 06:B22D: B0 02     BCS bra_B231
-C - - - - - 0x01B23F 06:B22F: A2 14     LDX #$14
-bra_B231:
-C - - - - - 0x01B241 06:B231: 4C C2 DB  JMP loc_DBC2_before_rendering
+bra_B222_right:
+C - - - - - 0x01B232 06:B222: 20 B1 DC  JSR sub_DCB1_try_move_on_the_left    ;
+loc_B225_continue:
+C D 1 - - - 0x01B235 06:B225: A2 10     LDX #$10                             ; prepares the offset of the sprite address (the shot frame #1)
+C - - - - - 0x01B237 06:B227: A5 73     LDA vRifleFireCounter                ; A <~ {0x20, 0x21, ..., 0x2F}
+C - - - - - 0x01B239 06:B229: 29 0F     AND #$0F                             ; filters by mask
+C - - - - - 0x01B23B 06:B22B: C9 08     CMP #$08                             ; CONSTANT - 'weapon recoil' value (1 of 2 frames)
+C - - - - - 0x01B23D 06:B22D: B0 02     BCS @bra_B231_skip                   ; If second half of byte >= 0x08
+C - - - - - 0x01B23F 06:B22F: A2 14     LDX #$14                             ; prepares the offset of the sprite address (the shot frame #2)
+@bra_B231_skip:
+C - - - - - 0x01B241 06:B231: 4C C2 DB  JMP loc_DBC2_before_rendering        ;
 
 ; In: Register A - a message number
 loc_B234_add_message:

@@ -244,7 +244,7 @@ vCarStatus                    = ram_006C ; A status of a car with character
 ; Byte: XYZW KLMN
 ; N - unused, the car with character is always looking to the right
 ; M - the car is inside the road hill  (1 - is, 0 - is not)
-; L - ???
+; L - unused
 ; K - the car with character is destroying  (1 - destroying, 0 - not destroying)
 ; XYZW - the action:
 ; 0x01 - the car with character is jumping
@@ -273,12 +273,14 @@ vJumpType                     = ram_006E
 vJumpCounter                  = ram_006F
 
 vChrFrame_Counter             = ram_0070
-vVelocity                     = ram_0071 ; 0x04 - min, 0x0C - max
+vVelocity                     = ram_0071
+; By default: 0x04 - min, 0x0C - max
+; Level-racing: 0x00 - min, 0x10 - max, 0x06 - default
 
 vCarRenderParams_             = ram_0072 ; [0x72-0x77]
 vRifleShotCount               = ram_0072 ; A number of rifle shots
 vCarWheelsFrame_Offset        = ram_0072
-vRifleFireTime                = ram_0073 ; The time it takes for a rifle to fire
+vRifleFireCounter             = ram_0073 ; The time it takes for a rifle to fire
 vCarFrame_Offset              = ram_0073
 vCarRenderOffsetY             = ram_0074
 vCarChrRenderOffsetY          = ram_0075
@@ -303,10 +305,10 @@ vBulletStatus                 = ram_008F ; [0x8F-0x93] , for a rifle, Lupin's pi
 ; Z - ???
 ; W - the direction (1 - left, 0 - right)
 ; K - ???
-; L - ???
+; L - the vBulletOffsetOrCounter indication (1 - the offset, 0 - the counter)
 ; M - start of the shoot (1,2,3 - start, 0 - no start), the value decrements with each rendering
 
-vBulletCounter                = ram_0094 ; only for Lupin [0x94-0x98]
+vBulletOffsetOrCounter        = ram_0094 ; only for Lupin [0x94-0x98]
 
 vNonUsed                      = ram_009C
 
@@ -749,3 +751,4 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; vCharacterRenderData - for rendering bubbles
 ; vChrLandStatus - rename
 ; vLowCounter - составить список вероятностей
+; C - - - - - 0x01B213 06:B203: 20 EE CD  JSR sub_CDEE_deactivate_activable_items_after_damage - переименовать
