@@ -111,7 +111,7 @@ vPauseStatus                  = ram_0038 ; 0x00 - no pause, 0x40 - pause
 
 vGameInterruptEvent           = ram_0039
 ; Byte: XYZW KLMN
-; X - ???
+; X - the game interrupt is exist (1 - exist, 0 - no exist)
 ; 0x80 - to select the character (the character is arrested) or to next character in demo
 ; 0x81 - to select the character (the character is dying)
 ; 0xC0 - go into the corridor (sub level or unique room)
@@ -232,12 +232,13 @@ vTempNoScreen                 = ram_0069
 vScreenChrPosY                = ram_006A ; The character's position along the Y axis relative to the screen (no repeat)
 vTempScreenChrPosY            = ram_006B
 vChrStatus                    = ram_006C ; A status of a character
-; Byte: XYZW KLMN
+; Byte: XAAA KLMN
 ; N - the character is looking to the right/left (1 - left, 0 - right)
 ; M - the character is/isn't sitting (1 - sitting, 0 - no sitting)
 ; L - ??
 ; K - the character is dying  (1 - dying, 0 - no dying)
-; XYZW - the action:
+; X - the character can hide in the room (1 - can, 0 - cann't)
+; AAA - the action:
 ; 0x01 = the character is jumping
 ; 0x02 = the character is entering a corridor or hiding place or died
 vCarStatus                    = ram_006C ; A status of a car with character
@@ -351,7 +352,14 @@ vHighCorridorAddr             = ram_00BE ; high address
 vDestrWallAddr                = ram_00BF ; low address  (address to table tbl_ptr_destructible_walls)
 vHighDestrWallAddr            = ram_00C0 ; high address
 
-vCheckpoint                   = ram_00C4 ; see docs (Rooms), i.e. (0x00 - level 1.0, 0x06 - level 2 outside, 0x19 - level racing etc.)
+vDisplayRoomType              = ram_00C3 ; for the rooms and the destructible walls
+vCheckpoint                   = ram_00C4 ; see docs (Rooms)
+; 0x00 - level 1.0 or the room is empty
+; ...
+; 0x06 - level 2 outside
+; ...
+; 0x19 - level racing and etc.
+; 0xFF - exit from the unique room
 
 vMessageInProgress            = ram_00C8
 ; 0x00 - no message
