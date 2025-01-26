@@ -352,6 +352,8 @@ vHighCorridorAddr             = ram_00BE ; high address
 vDestrWallAddr                = ram_00BF ; low address  (address to table tbl_ptr_destructible_walls)
 vHighDestrWallAddr            = ram_00C0 ; high address
 
+vCurrentCorridorOffset       =  ram_00C1 ; the offset for 1 of 5 bytes (e.g. see tbl_ptr_corridors_level_1_0)
+
 vDisplayRoomType              = ram_00C3 ; for the rooms and the destructible walls
 vCheckpoint                   = ram_00C4 ; see docs (Rooms)
 ; 0x00 - level 1.0 or the room is empty

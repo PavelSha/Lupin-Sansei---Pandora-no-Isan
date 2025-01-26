@@ -2823,13 +2823,19 @@ tbl_checkpoints:
 - D 0 - I - 0x010F0F 04:8EFF: 42        .byte $42, $00, $70, $80   ; to level 4, map 1 (B2-D2) (0x71 - checkpoint)
 
 ; 1 byte - XYZW HHHH
-; H - the screen number
-; Y - the floor (0x00 - a top floor, 0x01 - a bottom floor)
-; 2 byte - 
-; 3 byte:
-; low-order nibble - the display room type {0x00 - 0x0F}
-; 4 byte - 
-; 5 byte - 
+;   H - the screen number
+;   X - ???
+;   Y - the floor (0x00 - a top floor, 0x01 - a bottom floor)
+;   Z - the type of door width (0x00 - M-size, 0x01 - X-size)
+; 2 byte - The door's position along the X axis relative to the level
+; 3 byte: - XYZW TTTT
+;   X - ???
+;   Y - ???
+;   Z - ???
+;   W - ???
+;   T (low-order nibble) - the display room type {0x00 - 0x0F}
+; 4 byte - ???
+; 5 byte - ???
 tbl_ptr_corridors_level_1_0:
 - D 0 - I - 0x010F13 04:8F03: 4F        .byte $4F, $88, $06, $59, $80
 
@@ -3662,7 +3668,7 @@ tbl_ptr_corridors_level_with_NPC_4:
 ; 2 byte -
 ; 3 byte - the display room type {0x00 - 0x0F}
 ; 4 byte -
-; 5 byte -
+; 5 byte - the offset in tbl_ptr_corridors for the corridor with the wall (1 of 5 bytes)
 tbl_ptr_destructible_walls_level1_2:
 - D 0 - I - 0x011A3E 04:9A2E: 80        .byte $80, $02, $08, $10, $0F
 - D 0 - I - 0x011A43 04:9A33: FF        .byte $FF
@@ -3844,9 +3850,10 @@ loc_checkpoint_after_death_level_racing:
 loc_checkpoint_after_death_one:
 - D 0 - I - 0x011B9A 04:9B8A: 00        .byte $00, $FF, $FF
 
+; 1 byte - vPpuBufferCount
+; 2 byte - vPpuBufferInitValue
 loc_closed_room_type1:
-- D 0 - I - 0x011B9D 04:9B8D: 0A        .byte $0A   ; 
-- D 0 - I - 0x011B9E 04:9B8E: 05        .byte $05   ; 
+- D 0 - I - 0x011B9D 04:9B8D: 0A        .byte $0A, $05
 - D 0 - I - 0x011B9F 04:9B8F: 00        .byte $00   ; 
 - D 0 - I - 0x011BA0 04:9B90: 00        .byte $00   ; 
 - D 0 - I - 0x011BA1 04:9B91: 00        .byte $00   ; 
@@ -3859,8 +3866,7 @@ loc_closed_room_type1:
 - D 0 - I - 0x011BA8 04:9B98: F9        .byte $F9   ; 
 
 loc_open_room_type1:
-- D 0 - I - 0x011BA9 04:9B99: 0A        .byte $0A   ; 
-- D 0 - I - 0x011BAA 04:9B9A: 05        .byte $05   ; 
+- D 0 - I - 0x011BA9 04:9B99: 0A        .byte $0A, $05
 - D 0 - I - 0x011BAB 04:9B9B: C3        .byte $C3   ; 
 - D 0 - I - 0x011BAC 04:9B9C: C3        .byte $C3   ; 
 - D 0 - I - 0x011BAD 04:9B9D: C5        .byte $C5   ; 
@@ -3873,8 +3879,7 @@ loc_open_room_type1:
 - D 0 - I - 0x011BB4 04:9BA4: C4        .byte $C4   ; 
 
 loc_closed_room_type2:
-- D 0 - I - 0x011BB5 04:9BA5: 0C        .byte $0C   ; 
-- D 0 - I - 0x011BB6 04:9BA6: 06        .byte $06   ; 
+- D 0 - I - 0x011BB5 04:9BA5: 0C        .byte $0C, $06
 - D 0 - I - 0x011BB7 04:9BA7: 00        .byte $00   ; 
 - D 0 - I - 0x011BB8 04:9BA8: 00        .byte $00   ; 
 - D 0 - I - 0x011BB9 04:9BA9: 00        .byte $00   ; 
@@ -3889,8 +3894,7 @@ loc_closed_room_type2:
 - D 0 - I - 0x011BC2 04:9BB2: 00        .byte $00   ; 
 
 loc_open_room_type2:
-- D 0 - I - 0x011BC3 04:9BB3: 0C        .byte $0C   ; 
-- D 0 - I - 0x011BC4 04:9BB4: 06        .byte $06   ; 
+- D 0 - I - 0x011BC3 04:9BB3: 0C        .byte $0C, $06
 - D 0 - I - 0x011BC5 04:9BB5: 84        .byte $84   ; 
 - D 0 - I - 0x011BC6 04:9BB6: 85        .byte $85   ; 
 - D 0 - I - 0x011BC7 04:9BB7: 85        .byte $85   ; 
@@ -3905,8 +3909,7 @@ loc_open_room_type2:
 - D 0 - I - 0x011BD0 04:9BC0: 87        .byte $87   ; 
 
 loc_closed_room_type3:
-- D 0 - I - 0x011BD1 04:9BC1: 14        .byte $14   ; 
-- D 0 - I - 0x011BD2 04:9BC2: 05        .byte $05   ; 
+- D 0 - I - 0x011BD1 04:9BC1: 14        .byte $14, $05
 - D 0 - I - 0x011BD3 04:9BC3: 92        .byte $92   ; 
 - D 0 - I - 0x011BD4 04:9BC4: 92        .byte $92   ; 
 - D 0 - I - 0x011BD5 04:9BC5: 93        .byte $93   ; 
@@ -3929,8 +3932,7 @@ loc_closed_room_type3:
 - D 0 - I - 0x011BE6 04:9BD6: 90        .byte $90   ; 
 
 loc_open_room_type3:
-- D 0 - I - 0x011BE7 04:9BD7: 14        .byte $14   ; 
-- D 0 - I - 0x011BE8 04:9BD8: 05        .byte $05   ; 
+- D 0 - I - 0x011BE7 04:9BD7: 14        .byte $14, $05
 - D 0 - I - 0x011BE9 04:9BD9: 90        .byte $90   ; 
 - D 0 - I - 0x011BEA 04:9BDA: 90        .byte $90   ; 
 - D 0 - I - 0x011BEB 04:9BDB: 90        .byte $90   ; 
@@ -3953,8 +3955,7 @@ loc_open_room_type3:
 - D 0 - I - 0x011BFC 04:9BEC: 92        .byte $92   ; 
 
 loc_closed_room_type4:
-- D 0 - I - 0x011BFD 04:9BED: 0A        .byte $0A   ; 
-- D 0 - I - 0x011BFE 04:9BEE: 05        .byte $05   ; 
+- D 0 - I - 0x011BFD 04:9BED: 0A        .byte $0A, $05
 - D 0 - I - 0x011BFF 04:9BEF: 00        .byte $00   ; 
 - D 0 - I - 0x011C00 04:9BF0: 00        .byte $00   ; 
 - D 0 - I - 0x011C01 04:9BF1: 00        .byte $00   ; 
@@ -3967,8 +3968,7 @@ loc_closed_room_type4:
 - D 0 - I - 0x011C08 04:9BF8: F0        .byte $F0   ; 
 
 loc_open_room_type4:
-- D 0 - I - 0x011C09 04:9BF9: 0A        .byte $0A   ; 
-- D 0 - I - 0x011C0A 04:9BFA: 05        .byte $05   ; 
+- D 0 - I - 0x011C09 04:9BF9: 0A        .byte $0A, $05
 - D 0 - I - 0x011C0B 04:9BFB: C0        .byte $C0   ; 
 - D 0 - I - 0x011C0C 04:9BFC: C1        .byte $C1   ; 
 - D 0 - I - 0x011C0D 04:9BFD: CC        .byte $CC   ; 
@@ -3981,8 +3981,7 @@ loc_open_room_type4:
 - D 0 - I - 0x011C14 04:9C04: C7        .byte $C7   ; 
 
 loc_closed_room_type5:
-- D 0 - I - 0x011C15 04:9C05: 08        .byte $08   ; 
-- D 0 - I - 0x011C16 04:9C06: 04        .byte $04   ; 
+- D 0 - I - 0x011C15 04:9C05: 08        .byte $08, $04
 - D 0 - I - 0x011C17 04:9C07: 00        .byte $00   ; 
 - D 0 - I - 0x011C18 04:9C08: 00        .byte $00   ; 
 - D 0 - I - 0x011C19 04:9C09: 00        .byte $00   ; 
@@ -3993,8 +3992,7 @@ loc_closed_room_type5:
 - D 0 - I - 0x011C1E 04:9C0E: F5        .byte $F5   ; 
 
 loc_open_room_type5:
-- D - - - - 0x011C1F 04:9C0F: 08        .byte $08   ; 
-- D - - - - 0x011C20 04:9C10: 04        .byte $04   ; 
+- D - - - - 0x011C1F 04:9C0F: 08        .byte $08, $04
 - D - - - - 0x011C21 04:9C11: F7        .byte $F7   ; 
 - D - - - - 0x011C22 04:9C12: F7        .byte $F7   ; 
 - D - - - - 0x011C23 04:9C13: F7        .byte $F7   ; 
@@ -4005,8 +4003,7 @@ loc_open_room_type5:
 - D - - - - 0x011C28 04:9C18: F7        .byte $F7   ; 
 
 loc_closed_room_type6:
-- D 0 - I - 0x011C29 04:9C19: 0A        .byte $0A   ; 
-- D 0 - I - 0x011C2A 04:9C1A: 05        .byte $05   ; 
+- D 0 - I - 0x011C29 04:9C19: 0A        .byte $0A, $05
 - D 0 - I - 0x011C2B 04:9C1B: EC        .byte $EC   ; 
 - D 0 - I - 0x011C2C 04:9C1C: ED        .byte $ED   ; 
 - D 0 - I - 0x011C2D 04:9C1D: F0        .byte $F0   ; 
@@ -4019,8 +4016,7 @@ loc_closed_room_type6:
 - D 0 - I - 0x011C34 04:9C24: F3        .byte $F3   ; 
 
 loc_open_room_type6:
-- D 0 - I - 0x011C35 04:9C25: 0A        .byte $0A   ; 
-- D 0 - I - 0x011C36 04:9C26: 05        .byte $05   ; 
+- D 0 - I - 0x011C35 04:9C25: 0A        .byte $0A, $05
 - D 0 - I - 0x011C37 04:9C27: E8        .byte $E8   ; 
 - D 0 - I - 0x011C38 04:9C28: E9        .byte $E9   ; 
 - D 0 - I - 0x011C39 04:9C29: EA        .byte $EA   ; 
@@ -4033,7 +4029,7 @@ loc_open_room_type6:
 - D 0 - I - 0x011C40 04:9C30: E9        .byte $E9   ; 
 
 loc_closed_room_type7:
-- D 0 - I - 0x011C41 04:9C31: 18        .byte $18, $06   ; 
+- D 0 - I - 0x011C41 04:9C31: 18        .byte $18, $06
 - D 0 - I - 0x011C43 04:9C33: A1        .byte $A1   ; 
 - D 0 - I - 0x011C44 04:9C34: A5        .byte $A5   ; 
 - D 0 - I - 0x011C45 04:9C35: A5        .byte $A5   ; 
@@ -4060,7 +4056,7 @@ loc_closed_room_type7:
 - D 0 - I - 0x011C5A 04:9C4A: A5        .byte $A5   ; 
 
 loc_open_room_type7:
-- D 0 - I - 0x011C5B 04:9C4B: 18        .byte $18, $06   ; 
+- D 0 - I - 0x011C5B 04:9C4B: 18        .byte $18, $06
 - D 0 - I - 0x011C5D 04:9C4D: 0E        .byte $0E   ; 
 - D 0 - I - 0x011C5E 04:9C4E: 12        .byte $12   ; 
 - D 0 - I - 0x011C5F 04:9C4F: 12        .byte $12   ; 
@@ -4087,8 +4083,7 @@ loc_open_room_type7:
 - D 0 - I - 0x011C74 04:9C64: 14        .byte $14   ; 
 
 loc_closed_room_type8:
-- D 0 - I - 0x011C75 04:9C65: 08        .byte $08   ; 
-- D 0 - I - 0x011C76 04:9C66: 04        .byte $04   ; 
+- D 0 - I - 0x011C75 04:9C65: 08        .byte $08, $04
 - D 0 - I - 0x011C77 04:9C67: 8E        .byte $8E   ; 
 - D 0 - I - 0x011C78 04:9C68: 8E        .byte $8E   ; 
 - D 0 - I - 0x011C79 04:9C69: 8E        .byte $8E   ; 
@@ -4099,8 +4094,7 @@ loc_closed_room_type8:
 - D 0 - I - 0x011C7E 04:9C6E: 00        .byte $00   ; 
 
 loc_open_room_type8:
-- D - - - - 0x011C7F 04:9C6F: 08        .byte $08   ; 
-- D - - - - 0x011C80 04:9C70: 04        .byte $04   ; 
+- D - - - - 0x011C7F 04:9C6F: 08        .byte $08, $04
 - D - - - - 0x011C81 04:9C71: 8C        .byte $8C   ; 
 - D - - - - 0x011C82 04:9C72: 8C        .byte $8C   ; 
 - D - - - - 0x011C83 04:9C73: 8C        .byte $8C   ; 
@@ -4111,8 +4105,7 @@ loc_open_room_type8:
 - D - - - - 0x011C88 04:9C78: 8C        .byte $8C   ; 
 
 loc_closed_room_type9:
-- D 0 - I - 0x011C89 04:9C79: 08        .byte $08   ; 
-- D 0 - I - 0x011C8A 04:9C7A: 04        .byte $04   ; 
+- D 0 - I - 0x011C89 04:9C79: 08        .byte $08, $04
 - D 0 - I - 0x011C8B 04:9C7B: 00        .byte $00   ; 
 - D 0 - I - 0x011C8C 04:9C7C: 00        .byte $00   ; 
 - D 0 - I - 0x011C8D 04:9C7D: 00        .byte $00   ; 
@@ -4123,8 +4116,7 @@ loc_closed_room_type9:
 - D 0 - I - 0x011C92 04:9C82: 00        .byte $00   ; 
 
 loc_open_room_type9:
-- D - - - - 0x011C93 04:9C83: 08        .byte $08   ; 
-- D - - - - 0x011C94 04:9C84: 04        .byte $04   ; 
+- D - - - - 0x011C93 04:9C83: 08        .byte $08, $04
 - D - - - - 0x011C95 04:9C85: F7        .byte $F7   ; 
 - D - - - - 0x011C96 04:9C86: F7        .byte $F7   ; 
 - D - - - - 0x011C97 04:9C87: F7        .byte $F7   ; 
@@ -4135,8 +4127,7 @@ loc_open_room_type9:
 - D - - - - 0x011C9C 04:9C8C: F7        .byte $F7   ; 
 
 loc_closed_room_type10:
-- D 0 - I - 0x011C9D 04:9C8D: 08        .byte $08   ; 
-- D 0 - I - 0x011C9E 04:9C8E: 04        .byte $04   ; 
+- D 0 - I - 0x011C9D 04:9C8D: 08        .byte $08, $04
 - D 0 - I - 0x011C9F 04:9C8F: 00        .byte $00   ; 
 - D 0 - I - 0x011CA0 04:9C90: 00        .byte $00   ; 
 - D 0 - I - 0x011CA1 04:9C91: 00        .byte $00   ; 
@@ -4147,8 +4138,7 @@ loc_closed_room_type10:
 - D 0 - I - 0x011CA6 04:9C96: 00        .byte $00   ; 
 
 loc_open_room_type10:
-- D - - - - 0x011CA7 04:9C97: 08        .byte $08   ; 
-- D - - - - 0x011CA8 04:9C98: 04        .byte $04   ; 
+- D - - - - 0x011CA7 04:9C97: 08        .byte $08, $04
 - D - - - - 0x011CA9 04:9C99: FC        .byte $FC   ; 
 - D - - - - 0x011CAA 04:9C9A: FC        .byte $FC   ; 
 - D - - - - 0x011CAB 04:9C9B: FC        .byte $FC   ; 
@@ -4159,8 +4149,7 @@ loc_open_room_type10:
 - D - - - - 0x011CB0 04:9CA0: FC        .byte $FC   ; 
 
 loc_closed_room_type11:
-- D 0 - I - 0x011CB1 04:9CA1: 14        .byte $14   ; 
-- D 0 - I - 0x011CB2 04:9CA2: 05        .byte $05   ; 
+- D 0 - I - 0x011CB1 04:9CA1: 14        .byte $14, $05
 - D 0 - I - 0x011CB3 04:9CA3: AE        .byte $AE   ; 
 - D 0 - I - 0x011CB4 04:9CA4: CD        .byte $CD   ; 
 - D 0 - I - 0x011CB5 04:9CA5: B1        .byte $B1   ; 
@@ -4183,8 +4172,7 @@ loc_closed_room_type11:
 - D 0 - I - 0x011CC6 04:9CB6: B0        .byte $B0   ; 
 
 loc_open_room_type11:
-- D 0 - I - 0x011CC7 04:9CB7: 14        .byte $14   ; 
-- D 0 - I - 0x011CC8 04:9CB8: 05        .byte $05   ; 
+- D 0 - I - 0x011CC7 04:9CB7: 14        .byte $14, $05
 - D 0 - I - 0x011CC9 04:9CB9: D0        .byte $D0   ; 
 - D 0 - I - 0x011CCA 04:9CBA: CE        .byte $CE   ; 
 - D 0 - I - 0x011CCB 04:9CBB: CF        .byte $CF   ; 
@@ -4207,7 +4195,7 @@ loc_open_room_type11:
 - D 0 - I - 0x011CDC 04:9CCC: B1        .byte $B1   ; 
 
 tbl_enemy_palette:
-- - - - - - 0x011CDD 04:9CCD: 00        .byte $00, $00, $00   ; Nobody
+- D - - - - 0x011CDD 04:9CCD: 00        .byte $00, $00, $00   ; Nobody
 - D 0 - I - 0x011CE0 04:9CD0: 20        .byte $20, $17, $0F   ; 
 - D 0 - I - 0x011CE3 04:9CD3: 10        .byte $10, $05, $0F   ; 
 - D 0 - I - 0x011CE6 04:9CD6: 10        .byte $10, $05, $0F   ; 

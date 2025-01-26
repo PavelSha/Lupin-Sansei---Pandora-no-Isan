@@ -5399,39 +5399,40 @@ C - - - - - 0x01DFA1 07:DF91: F0 03     BEQ bra_DF96_next_step            ; Bran
 C - - - - - 0x01DFA3 07:DF93: 4C 13 E0  JMP loc_E013
 
 bra_DF96_next_step:
-C - - - - - 0x01DFA6 07:DF96: A5 2E     LDA vCorridorCounter
-C - - - - - 0x01DFA8 07:DF98: 4A        LSR
-C - - - - - 0x01DFA9 07:DF99: 4A        LSR
+C - - - - - 0x01DFA6 07:DF96: A5 2E     LDA vCorridorCounter              ;
+C - - - - - 0x01DFA8 07:DF98: 4A        LSR                               ;
+C - - - - - 0x01DFA9 07:DF99: 4A        LSR                               ;
 C - - - - - 0x01DFAA 07:DF9A: 4A        LSR                               ; A <~ {0x08, 0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00}
-C - - - - - 0x01DFAB 07:DF9B: 20 C1 D0  JSR sub_D0C1_change_stack_pointer
+C - - - - - 0x01DFAB 07:DF9B: 20 C1 D0  JSR sub_D0C1_change_stack_pointer ;
 
 - D 2 - I - 0x01DFAE 07:DF9E: D0 DF     .addr loc_DFD1 - 1                 ; 0x00 end
-- D 2 - I - 0x01DFB0 07:DFA0: B2 DF     .addr loc_DFB3 - 1                 ; 0x01
-- D 2 - I - 0x01DFB2 07:DFA2: AF DF     .addr loc_DFB0 - 1                 ; 0x02
+- D 2 - I - 0x01DFB0 07:DFA0: B2 DF     .addr loc_DFB3_close_continue - 1  ; 0x01
+- D 2 - I - 0x01DFB2 07:DFA2: AF DF     .addr loc_DFB0_close - 1           ; 0x02
 - D 2 - I - 0x01DFB4 07:DFA4: DE DF     .addr loc_DFDF - 1                 ; 0x03
 - D 2 - I - 0x01DFB6 07:DFA6: 0C E0     .addr loc_E00D_allow_to_hide - 1   ; 0x04
 - D 2 - I - 0x01DFB8 07:DFA8: EE DF     .addr loc_DFEF - 1                 ; 0x05
 - D 2 - I - 0x01DFBA 07:DFAA: CA DF     .addr loc_DFCB - 1                 ; 0x06
-- D 2 - I - 0x01DFBC 07:DFAC: B9 DF     .addr loc_DFBA - 1                 ; 0x07
-- D 2 - I - 0x01DFBE 07:DFAE: B6 DF     .addr loc_DFB7 - 1                 ; 0x08 start
+- D 2 - I - 0x01DFBC 07:DFAC: B9 DF     .addr loc_DFBA_open_continue - 1   ; 0x07
+- D 2 - I - 0x01DFBE 07:DFAE: B6 DF     .addr loc_DFB7_open - 1            ; 0x08 start
 
-loc_DFB0:
-C - - - - - 0x01DFC0 07:DFB0: 20 2F FA  JSR sub_FA2F
-loc_DFB3:
-C - - - - - 0x01DFC3 07:DFB3: A9 02     LDA #$02
-C - - - - - 0x01DFC5 07:DFB5: D0 05     BNE bra_DFBC
+loc_DFB0_close:
+C - - - - - 0x01DFC0 07:DFB0: 20 2F FA  JSR sub_FA2F_opening_or_closing  ;
+loc_DFB3_close_continue:
+C - - - - - 0x01DFC3 07:DFB3: A9 02     LDA #$02                         ; CONSTANT - the adding for closing
+C - - - - - 0x01DFC5 07:DFB5: D0 05     BNE bra_DFBC_continue            ; Always true
 
-loc_DFB7:
-C - - - - - 0x01DFC7 07:DFB7: 20 2F FA  JSR sub_FA2F
-loc_DFBA:
-C - - - - - 0x01DFCA 07:DFBA: A9 00     LDA #$00
-bra_DFBC:
-C - - - - - 0x01DFCC 07:DFBC: 85 00     STA ram_0000
-C - - - - - 0x01DFCE 07:DFBE: E6 70     INC vChrFrame_Counter
-C - - - - - 0x01DFD0 07:DFC0: A5 70     LDA vChrFrame_Counter
-C - - - - - 0x01DFD2 07:DFC2: 29 01     AND #$01
-C - - - - - 0x01DFD4 07:DFC4: 05 00     ORA ram_0000
-C - - - - - 0x01DFD6 07:DFC6: 85 70     STA vChrFrame_Counter
+loc_DFB7_open:
+C - - - - - 0x01DFC7 07:DFB7: 20 2F FA  JSR sub_FA2F_opening_or_closing  ;
+loc_DFBA_open_continue:
+C - - - - - 0x01DFCA 07:DFBA: A9 00     LDA #$00                         ; CONSTANT - the adding for opening
+; In: Register A - the adding
+bra_DFBC_continue:
+C - - - - - 0x01DFCC 07:DFBC: 85 00     STA ram_0000                   ; set the adding
+C - - - - - 0x01DFCE 07:DFBE: E6 70     INC vChrFrame_Counter          ; update for the toggle
+C - - - - - 0x01DFD0 07:DFC0: A5 70     LDA vChrFrame_Counter          ;
+C - - - - - 0x01DFD2 07:DFC2: 29 01     AND #$01                       ; A <~ 0x00 or 0x01
+C - - - - - 0x01DFD4 07:DFC4: 05 00     ORA ram_0000                   ;
+C - - - - - 0x01DFD6 07:DFC6: 85 70     STA vChrFrame_Counter          ; <~ 0x00 or 0x01 (opening), 0x02 or 0x03 (closing)
 C - - - - - 0x01DFD8 07:DFC8: 4C 05 E0  JMP loc_E005_disallow_to_hide
 
 loc_DFCB:
@@ -9433,24 +9434,24 @@ C - - - - - 0x01F947 07:F937: 69 7F     ADC #$7F                       ;
 C - - - - - 0x01F949 07:F939: 85 AD     STA ram_00AD                   ; <~ 0x7F or 0xBF (top or bottom)
 C - - - - - 0x01F94B 07:F93B: C5 6A     CMP vScreenChrPosY             ;
 C - - - - - 0x01F94D 07:F93D: D0 D3     BNE bra_F912_inc_next_set      ; If vScreenChrPosY != $00AD
-C - - - - - 0x01F94F 07:F93F: A2 08     LDX #$08
-C - - - - - 0x01F951 07:F941: A5 00     LDA ram_0000
-C - - - - - 0x01F953 07:F943: 29 20     AND #$20
-C - - - - - 0x01F955 07:F945: F0 02     BEQ @bra_F949_skip
-C - - - - - 0x01F957 07:F947: A2 0C     LDX #$0C
+C - - - - - 0x01F94F 07:F93F: A2 08     LDX #$08                       ; CONSTANT - allowable tolerance for a door #1
+C - - - - - 0x01F951 07:F941: A5 00     LDA ram_0000                   ;
+C - - - - - 0x01F953 07:F943: 29 20     AND #$20                       ; CONSTANT - the type of door width
+C - - - - - 0x01F955 07:F945: F0 02     BEQ @bra_F949_skip             ; If the type of door width has M-size
+C - - - - - 0x01F957 07:F947: A2 0C     LDX #$0C                       ; CONSTANT - allowable tolerance for a door #2
 @bra_F949_skip:
-C - - - - - 0x01F959 07:F949: 86 01     STX ram_0001
+C - - - - - 0x01F959 07:F949: 86 01     STX ram_0001                   ; set an allowable tolerance
 C - - - - - 0x01F95B 07:F94B: C8        INY                            ; 2nd of 5 bytes
-C - - - - - 0x01F95C 07:F94C: B1 BD     LDA (vCorridorAddr),Y
-C - - - - - 0x01F95E 07:F94E: 38        SEC
-C - - - - - 0x01F95F 07:F94F: E5 66     SBC vLowChrPosX
-C - - - - - 0x01F961 07:F951: B0 03     BCS @bra_F956_skip
-C - - - - - 0x01F963 07:F953: 20 73 D0  JSR sub_D073_invert_sign
+C - - - - - 0x01F95C 07:F94C: B1 BD     LDA (vCorridorAddr),Y          ;
+C - - - - - 0x01F95E 07:F94E: 38        SEC                            ;
+C - - - - - 0x01F95F 07:F94F: E5 66     SBC vLowChrPosX                ; A <~ corridorPosX - vLowChrPosX
+C - - - - - 0x01F961 07:F951: B0 03     BCS @bra_F956_skip             ; If vLowChrPosX <= corridorPosX
+C - - - - - 0x01F963 07:F953: 20 73 D0  JSR sub_D073_invert_sign       ;
 @bra_F956_skip:
-C - - - - - 0x01F966 07:F956: 84 C1     STY ram_00C1
-C - - - - - 0x01F968 07:F958: C6 C1     DEC ram_00C1
-C - - - - - 0x01F96A 07:F95A: C5 01     CMP ram_0001
-C - - - - - 0x01F96C 07:F95C: B0 B5     BCS bra_F913_inc_next_set
+C - - - - - 0x01F966 07:F956: 84 C1     STY vCurrentCorridorOffset     ;
+C - - - - - 0x01F968 07:F958: C6 C1     DEC vCurrentCorridorOffset     ; set offset (1 of 5 bytes)
+C - - - - - 0x01F96A 07:F95A: C5 01     CMP ram_0001                   ;
+C - - - - - 0x01F96C 07:F95C: B0 B5     BCS bra_F913_inc_next_set      ; If |corridorPosX - vLowChrPosX| >= tolerance
 C - - - - - 0x01F96E 07:F95E: C8        INY                            ; 3rd of 5 bytes
 C - - - - - 0x01F96F 07:F95F: B1 BD     LDA (vCorridorAddr),Y
 C - - - - - 0x01F971 07:F961: 85 C6     STA ram_00C6
@@ -9562,10 +9563,10 @@ C - - - - - 0x01FA1C 07:FA0C: AA        TAX
 C - - - - - 0x01FA1D 07:FA0D: BD 00 05  LDA vRooms,X
 C - - - - - 0x01FA20 07:FA10: 29 BF     AND #$BF
 C - - - - - 0x01FA22 07:FA12: 9D 00 05  STA vRooms,X
-C - - - - - 0x01FA25 07:FA15: C8        INY ; 5th of 5 bytes
-C - - - - - 0x01FA26 07:FA16: B1 BF     LDA (vDestrWallAddr),Y
-C - - - - - 0x01FA28 07:FA18: 85 C1     STA ram_00C1
-C - - - - - 0x01FA2A 07:FA1A: 20 2F FA  JSR sub_FA2F
+C - - - - - 0x01FA25 07:FA15: C8        INY                         ; 5th of 5 bytes
+C - - - - - 0x01FA26 07:FA16: B1 BF     LDA (vDestrWallAddr),Y      ;
+C - - - - - 0x01FA28 07:FA18: 85 C1     STA vCurrentCorridorOffset  ; vCorridorAddr offset
+C - - - - - 0x01FA2A 07:FA1A: 20 2F FA  JSR sub_FA2F_opening_or_closing
 C - - - - - 0x01FA2D 07:FA1D: 68        PLA
 C - - - - - 0x01FA2E 07:FA1E: AA        TAX
 C - - - - - 0x01FA2F 07:FA1F: 60        RTS
@@ -9585,84 +9586,84 @@ C - - - - - 0x01FA39 07:FA29: 30 FB     BMI bra_FA26_RTS
 C - - - - - 0x01FA3B 07:FA2B: A9 02     LDA #$02              ; CONSTANT - the offset for the open doors
 C - - - - - 0x01FA3D 07:FA2D: D0 02     BNE bra_FA31_skip     ; Always true
 
-sub_FA2F:
-C - - - - - 0x01FA3F 07:FA2F: A9 00     LDA #$00                      ; CONSTANT - the offset for the closed doors
+sub_FA2F_opening_or_closing:
+C - - - - - 0x01FA3F 07:FA2F: A9 00     LDA #$00                         ; CONSTANT - the offset for the closed doors
 bra_FA31_skip:
-C - - - - - 0x01FA41 07:FA31: 85 12     STA ram_0012                  ; store 0x00 or 0x02
-C - - - - - 0x01FA43 07:FA33: A4 C3     LDY vDisplayRoomType          ;
-C - - - - - 0x01FA45 07:FA35: F0 EF     BEQ bra_FA26_RTS              ; If the room type is 0x00
-C - - - - - 0x01FA47 07:FA37: 20 46 EF  JSR sub_EF46_switch_bank_4_p1 ;
-C - - - - - 0x01FA4A 07:FA3A: 88        DEY                           ;
-C - - - - - 0x01FA4B 07:FA3B: 98        TYA                           ; 
-C - - - - - 0x01FA4C 07:FA3C: 0A        ASL                           ; *2, because the addresses have 2 bytes
-C - - - - - 0x01FA4D 07:FA3D: 0A        ASL                           ; *2, because that is 2 addresses
-C - - - - - 0x01FA4E 07:FA3E: 18        CLC                           ;
-C - - - - - 0x01FA4F 07:FA3F: 65 12     ADC ram_0012                  ;
-C - - - - - 0x01FA51 07:FA41: A8        TAY                           ; A <~ 4 * (type - 1) or A <~ 4 * (type - 1) + 2
-C - - - - - 0x01FA52 07:FA42: B9 92 83  LDA tbl_room_types,Y          ;
-C - - - - - 0x01FA55 07:FA45: 85 12     STA ram_0012                  ; Low address
-C - - - - - 0x01FA57 07:FA47: B9 93 83  LDA tbl_room_types + 1,Y      ;
-C - - - - - 0x01FA5A 07:FA4A: 85 13     STA ram_0013                  ; High address
-C - - - - - 0x01FA5C 07:FA4C: A0 00     LDY #$00
-C - - - - - 0x01FA5E 07:FA4E: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01FA60 07:FA50: 8D 32 06  STA vPpuBufferCount
-C - - - - - 0x01FA63 07:FA53: C8        INY
-C - - - - - 0x01FA64 07:FA54: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01FA66 07:FA56: 85 54     STA ram_0054
-C - - - - - 0x01FA68 07:FA58: A4 C1     LDY ram_00C1
-C - - - - - 0x01FA6A 07:FA5A: B1 BD     LDA (vCorridorAddr),Y
-C - - - - - 0x01FA6C 07:FA5C: 48        PHA
-C - - - - - 0x01FA6D 07:FA5D: A2 A2     LDX #$A2
-C - - - - - 0x01FA6F 07:FA5F: 6A        ROR
-C - - - - - 0x01FA70 07:FA60: 90 02     BCC bra_FA64_skip
-C - - - - - 0x01FA72 07:FA62: A2 A6     LDX #$A6
+C - - - - - 0x01FA41 07:FA31: 85 12     STA ram_0012                     ; store 0x00 or 0x02
+C - - - - - 0x01FA43 07:FA33: A4 C3     LDY vDisplayRoomType             ;
+C - - - - - 0x01FA45 07:FA35: F0 EF     BEQ bra_FA26_RTS                 ; If the room type is 0x00
+C - - - - - 0x01FA47 07:FA37: 20 46 EF  JSR sub_EF46_switch_bank_4_p1    ;
+C - - - - - 0x01FA4A 07:FA3A: 88        DEY                              ;
+C - - - - - 0x01FA4B 07:FA3B: 98        TYA                              ; 
+C - - - - - 0x01FA4C 07:FA3C: 0A        ASL                              ; *2, because the addresses have 2 bytes
+C - - - - - 0x01FA4D 07:FA3D: 0A        ASL                              ; *2, because that is 2 addresses
+C - - - - - 0x01FA4E 07:FA3E: 18        CLC                              ;
+C - - - - - 0x01FA4F 07:FA3F: 65 12     ADC ram_0012                     ;
+C - - - - - 0x01FA51 07:FA41: A8        TAY                              ; A <~ 4 * (type - 1) or A <~ 4 * (type - 1) + 2
+C - - - - - 0x01FA52 07:FA42: B9 92 83  LDA tbl_room_types,Y             ;
+C - - - - - 0x01FA55 07:FA45: 85 12     STA ram_0012                     ; Low address
+C - - - - - 0x01FA57 07:FA47: B9 93 83  LDA tbl_room_types + 1,Y         ;
+C - - - - - 0x01FA5A 07:FA4A: 85 13     STA ram_0013                     ; High address
+C - - - - - 0x01FA5C 07:FA4C: A0 00     LDY #$00                         ; 1 of 2 bytes
+C - - - - - 0x01FA5E 07:FA4E: B1 12     LDA (ram_0012),Y                 ;
+C - - - - - 0x01FA60 07:FA50: 8D 32 06  STA vPpuBufferCount              ; init count
+C - - - - - 0x01FA63 07:FA53: C8        INY                              ; 2 of 2 bytes
+C - - - - - 0x01FA64 07:FA54: B1 12     LDA (ram_0012),Y                 ;
+C - - - - - 0x01FA66 07:FA56: 85 54     STA vPpuBufferInitValue          ; set an initialization value
+C - - - - - 0x01FA68 07:FA58: A4 C1     LDY vCurrentCorridorOffset       ;
+C - - - - - 0x01FA6A 07:FA5A: B1 BD     LDA (vCorridorAddr),Y            ; 1 of 5 bytes (e.g. see tbl_ptr_corridors_level_1_0)
+C - - - - - 0x01FA6C 07:FA5C: 48        PHA                              ; deposit 1st byte
+C - - - - - 0x01FA6D 07:FA5D: A2 A2     LDX #$A2                         ; CONSTANT - PPU address $22XX (3 mode)
+C - - - - - 0x01FA6F 07:FA5F: 6A        ROR                              ;
+C - - - - - 0x01FA70 07:FA60: 90 02     BCC bra_FA64_skip                ; If the screen number is even
+C - - - - - 0x01FA72 07:FA62: A2 A6     LDX #$A6                         ; CONSTANT - PPU address $26XX (3 mode)
 bra_FA64_skip:
-C - - - - - 0x01FA74 07:FA64: 8E 31 06  STX vHighPpuAddress
-C - - - - - 0x01FA77 07:FA67: 68        PLA
-C - - - - - 0x01FA78 07:FA68: 29 40     AND #$40
-C - - - - - 0x01FA7A 07:FA6A: F0 03     BEQ bra_FA6F
-C - - - - - 0x01FA7C 07:FA6C: EE 31 06  INC vHighPpuAddress
-bra_FA6F:
-C - - - - - 0x01FA7F 07:FA6F: A9 00     LDA #$00
-C - - - - - 0x01FA81 07:FA71: 8D 30 06  STA vLowPpuAddress
-C - - - - - 0x01FA84 07:FA74: A6 54     LDX ram_0054
-@bra_FA76_loop:
-C - - - - - 0x01FA86 07:FA76: AD 30 06  LDA vLowPpuAddress
-C - - - - - 0x01FA89 07:FA79: 38        SEC
-C - - - - - 0x01FA8A 07:FA7A: E9 20     SBC #$20
-C - - - - - 0x01FA8C 07:FA7C: 8D 30 06  STA vLowPpuAddress
-C - - - - - 0x01FA8F 07:FA7F: AD 31 06  LDA vHighPpuAddress
-C - - - - - 0x01FA92 07:FA82: E9 00     SBC #$00
-C - - - - - 0x01FA94 07:FA84: 8D 31 06  STA vHighPpuAddress
-C - - - - - 0x01FA97 07:FA87: CA        DEX
-C - - - - - 0x01FA98 07:FA88: D0 EC     BNE @bra_FA76_loop
-C - - - - - 0x01FA9A 07:FA8A: C8        INY
-C - - - - - 0x01FA9B 07:FA8B: B1 BD     LDA (vCorridorAddr),Y
-C - - - - - 0x01FA9D 07:FA8D: 4A        LSR
-C - - - - - 0x01FA9E 07:FA8E: 4A        LSR
-C - - - - - 0x01FA9F 07:FA8F: 4A        LSR
-C - - - - - 0x01FAA0 07:FA90: 0D 30 06  ORA vLowPpuAddress
-C - - - - - 0x01FAA3 07:FA93: 8D 30 06  STA vLowPpuAddress
-C - - - - - 0x01FAA6 07:FA96: CE 30 06  DEC vLowPpuAddress
-C - - - - - 0x01FAA9 07:FA99: A5 C3     LDA vDisplayRoomType
-C - - - - - 0x01FAAB 07:FA9B: C9 03     CMP #$03
-C - - - - - 0x01FAAD 07:FA9D: F0 08     BEQ bra_FAA7
-C - - - - - 0x01FAAF 07:FA9F: C9 0B     CMP #$0B
-C - - - - - 0x01FAB1 07:FAA1: F0 04     BEQ bra_FAA7
-C - - - - - 0x01FAB3 07:FAA3: C9 07     CMP #$07
-C - - - - - 0x01FAB5 07:FAA5: D0 03     BNE bra_FAAA
-bra_FAA7:
-C - - - - - 0x01FAB7 07:FAA7: CE 30 06  DEC vLowPpuAddress
-bra_FAAA:
-C - - - - - 0x01FABA 07:FAAA: A0 02     LDY #$02
-C - - - - - 0x01FABC 07:FAAC: A2 00     LDX #$00
+C - - - - - 0x01FA74 07:FA64: 8E 31 06  STX vHighPpuAddress              ;
+C - - - - - 0x01FA77 07:FA67: 68        PLA                              ; retrieve 1st byte (see $FA5C)
+C - - - - - 0x01FA78 07:FA68: 29 40     AND #$40                         ; CONSTANT - the floor (top or bottom)
+C - - - - - 0x01FA7A 07:FA6A: F0 03     BEQ @bra_FA6F_is_top             ; If the floor is top
+C - - - - - 0x01FA7C 07:FA6C: EE 31 06  INC vHighPpuAddress              ; PPU address $23XX or $27XX
+@bra_FA6F_is_top:
+C - - - - - 0x01FA7F 07:FA6F: A9 00     LDA #$00                         ;
+C - - - - - 0x01FA81 07:FA71: 8D 30 06  STA vLowPpuAddress               ; PPU address $XX00
+C - - - - - 0x01FA84 07:FA74: A6 54     LDX vPpuBufferInitValue          ; set loop counter
+@bra_FA76_loop:                                                          ; loop by x
+C - - - - - 0x01FA86 07:FA76: AD 30 06  LDA vLowPpuAddress               ;
+C - - - - - 0x01FA89 07:FA79: 38        SEC                              ;
+C - - - - - 0x01FA8A 07:FA7A: E9 20     SBC #$20                         ;
+C - - - - - 0x01FA8C 07:FA7C: 8D 30 06  STA vLowPpuAddress               ; vLowPpuAddress <~ vLowPpuAddress - 0x20
+C - - - - - 0x01FA8F 07:FA7F: AD 31 06  LDA vHighPpuAddress              ;
+C - - - - - 0x01FA92 07:FA82: E9 00     SBC #$00                         ;
+C - - - - - 0x01FA94 07:FA84: 8D 31 06  STA vHighPpuAddress              ; decrement vHighPpuAddress, if vHighPpuAddress changed a sign
+C - - - - - 0x01FA97 07:FA87: CA        DEX                              ; decrement loop counter
+C - - - - - 0x01FA98 07:FA88: D0 EC     BNE @bra_FA76_loop               ; If Register X != 0x00
+C - - - - - 0x01FA9A 07:FA8A: C8        INY                              ; 2 of 5 bytes (e.g. see tbl_ptr_corridors_level_1_0)
+C - - - - - 0x01FA9B 07:FA8B: B1 BD     LDA (vCorridorAddr),Y            ;
+C - - - - - 0x01FA9D 07:FA8D: 4A        LSR                              ;
+C - - - - - 0x01FA9E 07:FA8E: 4A        LSR                              ;
+C - - - - - 0x01FA9F 07:FA8F: 4A        LSR                              ; /8
+C - - - - - 0x01FAA0 07:FA90: 0D 30 06  ORA vLowPpuAddress               ;
+C - - - - - 0x01FAA3 07:FA93: 8D 30 06  STA vLowPpuAddress               ;
+C - - - - - 0x01FAA6 07:FA96: CE 30 06  DEC vLowPpuAddress               ; vLowPpuAddress <~ vLowPpuAddress + {0x00, 0x01, ..., 0x1F} - 1
+C - - - - - 0x01FAA9 07:FA99: A5 C3     LDA vDisplayRoomType             ;
+C - - - - - 0x01FAAB 07:FA9B: C9 03     CMP #$03                         ;
+C - - - - - 0x01FAAD 07:FA9D: F0 08     BEQ @bra_FAA7_dec                ; If the room type == 0x03
+C - - - - - 0x01FAAF 07:FA9F: C9 0B     CMP #$0B                         ;
+C - - - - - 0x01FAB1 07:FAA1: F0 04     BEQ @bra_FAA7_dec                ; If the room type == 0x0B
+C - - - - - 0x01FAB3 07:FAA3: C9 07     CMP #$07                         ;
+C - - - - - 0x01FAB5 07:FAA5: D0 03     BNE @bra_FAAA_skip               ; If the room type != 0x03
+@bra_FAA7_dec:
+C - - - - - 0x01FAB7 07:FAA7: CE 30 06  DEC vLowPpuAddress               ;
+@bra_FAAA_skip:
+C - - - - - 0x01FABA 07:FAAA: A0 02     LDY #$02                         ; a starting index of data
+C - - - - - 0x01FABC 07:FAAC: A2 00     LDX #$00                         ; set loop counter
 @bra_FAAE_loop:
-C - - - - - 0x01FABE 07:FAAE: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01FAC0 07:FAB0: 9D 33 06  STA vPpuBufferData,X
-C - - - - - 0x01FAC3 07:FAB3: C8        INY
-C - - - - - 0x01FAC4 07:FAB4: E8        INX
-C - - - - - 0x01FAC5 07:FAB5: EC 32 06  CPX vPpuBufferCount
-C - - - - - 0x01FAC8 07:FAB8: D0 F4     BNE @bra_FAAE_loop
+C - - - - - 0x01FABE 07:FAAE: B1 12     LDA (ram_0012),Y                 ;
+C - - - - - 0x01FAC0 07:FAB0: 9D 33 06  STA vPpuBufferData,X             ; fill a buffer for rendering
+C - - - - - 0x01FAC3 07:FAB3: C8        INY                              ; next data
+C - - - - - 0x01FAC4 07:FAB4: E8        INX                              ; increment loop counter
+C - - - - - 0x01FAC5 07:FAB5: EC 32 06  CPX vPpuBufferCount              ;
+C - - - - - 0x01FAC8 07:FAB8: D0 F4     BNE @bra_FAAE_loop               ; If Register X != vPpuBufferCount
 C - - - - - 0x01FACA 07:FABA: A9 0D     LDA #$0D                         ; CONSTANT - sound of the opening and closing door
 C - - - - - 0x01FACC 07:FABC: 20 20 C4  JSR sub_C420_add_sound_effect    ;
 C - - - - - 0x01FACF 07:FABF: 60        RTS                              ;
