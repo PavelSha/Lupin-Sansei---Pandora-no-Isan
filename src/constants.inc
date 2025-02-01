@@ -52,6 +52,7 @@ vTempCounterC                 = ram_000C
 vTempCounter10                = ram_0010
 v_cache_reg_y                 = ram_0011
 vTempCounter11                = ram_0011 ; Intermediate counter
+vCacheRam_11                  = ram_0011 ;
 v_temp_check_buttons          = ram_0012 ; There is a variable that stores the checked state of the button
 vTempCounter12                = ram_0012
 vCacheRam12                   = ram_0012 ;
@@ -339,20 +340,23 @@ vCurrentUniqueRoom            = ram_00B6
 ; UU - 0x01 for an unique room (NPC, briefcase, boss), else 0x00
 ; RR - 0x01 - NPC room (use with UU), 0x02 - briefcase room (use with UU), 0x03 - room with the room
 
-vCorridorMagic5               = ram_00B7
-; 0x80 - secondary list, else main list
+vRoomExtraInfo                = ram_00B7
+; If it is the NPC room - the NPX index in tbl_ptr_roomsX_with_NPC
+; If it is the room with briefcases - the table index in tbl_briefcases_indexes_on_the_levelX
+; If it is the broken wall - the number + 1 of items in a wall
+; If it is the checkpoint - 0x80 for secondary list, else main list
 ; For main list and briefcase rooms - 5th-byte index in the briefcase indexes table
-v_corridor_magic5_cache       = ram_00B8
+vRoomExtraInfoCache           = ram_00B8
 
 vCheckpointAddr               = ram_00BA ; low address (address to table tbl_ptr_checkpoints_on_the_level)
 vHignCheckpointAddr           = ram_00BB ; high address
-v_tmp_target_room             = ram_00BC
+vRoomCurrentIndex             = ram_00BC ; For using with vRooms
 vCorridorAddr                 = ram_00BD ; low address (address to table tbl_ptr_corridors)
 vHighCorridorAddr             = ram_00BE ; high address
 vDestrWallAddr                = ram_00BF ; low address  (address to table tbl_ptr_destructible_walls)
 vHighDestrWallAddr            = ram_00C0 ; high address
 
-vCurrentCorridorOffset       =  ram_00C1 ; the offset for 1 of 5 bytes (e.g. see tbl_ptr_corridors_level_1_0)
+vCurrentCorridorOffset        = ram_00C1 ; the offset for 1 of 5 bytes (e.g. see tbl_ptr_corridors_level_1_0)
 
 vDisplayRoomType              = ram_00C3 ; for the rooms and the destructible walls
 vCheckpoint                   = ram_00C4 ; see docs (Rooms)
@@ -362,6 +366,13 @@ vCheckpoint                   = ram_00C4 ; see docs (Rooms)
 ; ...
 ; 0x19 - level racing and etc.
 ; 0xFF - exit from the unique room
+
+vRoomAttrubute                = ram_00C5
+; BYTE: XYZW KLMN
+; X - the room has already been visited
+vDoorAttribute                = ram_00C6
+; BYTE: XYZW KLMN
+; X - to allow to leave the door open (1  - allow, 0 - disallow)
 
 vMessageInProgress            = ram_00C8
 ; 0x00 - no message
@@ -416,8 +427,12 @@ vSensorActiveLowCounter       = ram_0217
 vSensorActiveHighCounter      = ram_0218
 
 vArrayWhiteBriefcase          = ram_0219
-; flag 0x80 - the item is got
-; 0%0000XXXX - the offset for sprite_magic2
+; Byte: XYZW KKKK
+; X - the item is got (1 - got, 0 - no got)
+; Y - ???
+; Z - ???
+; W - ???
+; K - the item number
 
 vEnemies                      = ram_0300 ; see docs (Bestiary)
 vEnemyA                       = ram_0300
@@ -615,7 +630,8 @@ vEnemyBJumpType2              = ram_0393 ; vJumpCounter analog for the enemy (th
 vButterflyCircularFlightCounter = ram_0392 ; For Kim
 
 vBombOnScreen                 = ram_0398 ; 0x00 - no exist, 0x01 - on screen
-v_briefcase_index             = ram_0398 ; [0399-039D]
+v_briefcase_index             = ram_0398 ; [0399-039D] in vArrayWhiteBriefcase
+; 0x00 - it is not used
 vBombStatus                   = ram_039E
 ; 0x00 - none
 ; 0x02 - waiting for the explosion
@@ -682,8 +698,7 @@ vSoundRowTimerCorrection       = ram_0421 ; the correction when the timer value 
 vSoundRowMarkForReplay         = ram_0422 ; sound pair index for replays
 vSoundRowShakingEfValue        = ram_0423 ; shaking effect value in the sound track
 vSoundRowShakingEfCounter      = ram_0424 ; counter to skip shaking effect
-vRooms                         = ram_0500
-; flag 0x80 - the room has already been visited
+vRooms                         = ram_0500 ; the array of vRoomAttrubute
 
 vWalls                         = ram_05C0 ; [$05C0-05FF]
 ; flag 0xFF - the wall has already been destroyed

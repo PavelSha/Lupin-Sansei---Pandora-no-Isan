@@ -1765,12 +1765,12 @@ tbl_checkpoints:
 - - - - - - 0x0109A7 04:8997: 17        .byte $17, $00, $00, $40   ; 
 - - - - - - 0x0109AB 04:899B: 18        .byte $18, $00, $00, $40   ; 
 - D 0 - I - 0x0109AF 04:899F: 19        .byte $19, $00, $00, $40   ; 
-- D 0 - I - 0x0109B3 04:89A3: 1A        .byte $1A, $00, $00, $18   ; to NPC or briefcase room (level 1)
+- D 0 - I - 0x0109B3 04:89A3: 1A        .byte $1A, $00, $00, $18   ; to NPC (level 1)
 - D 0 - I - 0x0109B7 04:89A7: 1B        .byte $1B, $00, $00, $20   ; 
 - D 0 - I - 0x0109BB 04:89AB: 1C        .byte $1C, $00, $00, $28   ; 
 - D 0 - I - 0x0109BF 04:89AF: 1D        .byte $1D, $00, $00, $10   ; 
 - D 0 - I - 0x0109C3 04:89B3: 1E        .byte $1E, $00, $00, $20   ; 
-- D 0 - I - 0x0109C7 04:89B7: 1F        .byte $1F, $00, $00, $18   ; 
+- D 0 - I - 0x0109C7 04:89B7: 1F        .byte $1F, $00, $00, $18   ; to briefcase room (level 1)
 - D 0 - I - 0x0109CB 04:89BB: 20        .byte $20, $00, $00, $20   ; 
 - D 0 - I - 0x0109CF 04:89BF: 21        .byte $21, $00, $00, $28   ; 
 - D 0 - I - 0x0109D3 04:89C3: 22        .byte $22, $00, $00, $10   ; 
@@ -2834,8 +2834,10 @@ tbl_checkpoints:
 ;   Z - ???
 ;   W - ???
 ;   T (low-order nibble) - the display room type {0x00 - 0x0F}
-; 4 byte - ???
-; 5 byte - ???
+; 4 byte
+;   If it is the checkpoint - ???
+;   If it is the unique room - the room number
+; 5 byte: see vRoomExtraInfo
 tbl_ptr_corridors_level_1_0:
 - D 0 - I - 0x010F13 04:8F03: 4F        .byte $4F, $88, $06, $59, $80
 

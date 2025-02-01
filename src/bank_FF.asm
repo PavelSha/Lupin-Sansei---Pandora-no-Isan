@@ -1896,18 +1896,22 @@ tbl_CB20_item_offset_x:
 - - - - - - 0x01CB37 07:CB27: D0        .byte $D0 ; Bullet proof vest
 - - - - - - 0x01CB38 07:CB28: E0        .byte $E0 ; Ruby ring
 
-sub_CB29:
-C - - - - - 0x01CB39 07:CB29: AD 14 02  LDA vCurrentWeaponStatus
-C - - - - - 0x01CB3C 07:CB2C: F0 08     BEQ bra_CB36
-C - - - - - 0x01CB3E 07:CB2E: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01CB40 07:CB30: 29 03     AND #$03
-C - - - - - 0x01CB42 07:CB32: F0 02     BEQ bra_CB36
-- - - - - - 0x01CB44 07:CB34: 38        .byte $38
-- - - - - - 0x01CB45 07:CB35: 60        .byte $60
-bra_CB36:
-C - - - - - 0x01CB46 07:CB36: 18        CLC
+; Out: carry flag (analog return true or false):
+; 1, the current item is prohibited
+; 0, otherwise.
+sub_CB29_current_item_is_prohibited:
+C - - - - - 0x01CB39 07:CB29: AD 14 02  LDA vCurrentWeaponStatus    ;
+C - - - - - 0x01CB3C 07:CB2C: F0 08     BEQ bra_CB36_return_false   ; If the current item is the radio
+C - - - - - 0x01CB3E 07:CB2E: A5 5F     LDA vChrLiveStatus          ;
+C - - - - - 0x01CB40 07:CB30: 29 03     AND #$03                    ;
+C - - - - - 0x01CB42 07:CB32: F0 02     BEQ bra_CB36_return_false   ; If the character is Lupin
+- - - - - - 0x01CB44 07:CB34: 38        SEC                         ; return true
+- - - - - - 0x01CB45 07:CB35: 60        RTS                         ;
+
+bra_CB36_return_false:
+C - - - - - 0x01CB46 07:CB36: 18        CLC                         ; return false
 bra_CB37_RTS:
-C - - - - - 0x01CB47 07:CB37: 60        RTS
+C - - - - - 0x01CB47 07:CB37: 60        RTS                         ;
 
 sub_CB38:
 C - - - - - 0x01CB48 07:CB38: A5 3B     LDA vSharedGameStatus
@@ -2002,26 +2006,26 @@ bra_CBD8_RTS:
 C - - - - - 0x01CBE8 07:CBD8: 60        RTS                                       ;
 
 sub_CBD9_try_use_current_item:
-C - - - - - 0x01CBE9 07:CBD9: 2C 14 02  BIT vCurrentWeaponStatus        ;
-C - - - - - 0x01CBEC 07:CBDC: 30 4B     BMI bra_CC29_RTS                ; If the weapons are not exist
-C - - - - - 0x01CBEE 07:CBDE: 70 49     BVS bra_CC29_RTS                ; If the weapon is activated
+C - - - - - 0x01CBE9 07:CBD9: 2C 14 02  BIT vCurrentWeaponStatus                ;
+C - - - - - 0x01CBEC 07:CBDC: 30 4B     BMI bra_CC29_RTS                        ; If the weapons are not exist
+C - - - - - 0x01CBEE 07:CBDE: 70 49     BVS bra_CC29_RTS                        ; If the weapon is activated
 C - - - - - 0x01CBF0 07:CBE0: A5 6D     LDA vMovableChrStatus
 C - - - - - 0x01CBF2 07:CBE2: 29 FE     AND #$FE
 C - - - - - 0x01CBF4 07:CBE4: D0 43     BNE bra_CC29_RTS
-C - - - - - 0x01CBF6 07:CBE6: A5 6C     LDA vChrStatus
-C - - - - - 0x01CBF8 07:CBE8: 29 28     AND #$28
-C - - - - - 0x01CBFA 07:CBEA: D0 3D     BNE bra_CC29_RTS
-C - - - - - 0x01CBFC 07:CBEC: A9 04     LDA #BIT_BUTTON_SELECT
-C - - - - - 0x01CBFE 07:CBEE: 20 79 D0  JSR sub_D079_check_button_press ;
-C - - - - - 0x01CC01 07:CBF1: F0 36     BEQ bra_CC29_RTS                ; Go to the branch If the button 'Select' isn't pressed
-C - - - - - 0x01CC03 07:CBF3: 20 29 CB  JSR sub_CB29
-C - - - - - 0x01CC06 07:CBF6: B0 31     BCS bra_CC29_RTS
+C - - - - - 0x01CBF6 07:CBE6: A5 6C     LDA vChrStatus                          ;
+C - - - - - 0x01CBF8 07:CBE8: 29 28     AND #$28                                ; CONSTANT - the character is dying or entering a corridor
+C - - - - - 0x01CBFA 07:CBEA: D0 3D     BNE bra_CC29_RTS                        ; If the character is dying or entering a corridor
+C - - - - - 0x01CBFC 07:CBEC: A9 04     LDA #BIT_BUTTON_SELECT                  ;
+C - - - - - 0x01CBFE 07:CBEE: 20 79 D0  JSR sub_D079_check_button_press         ;
+C - - - - - 0x01CC01 07:CBF1: F0 36     BEQ bra_CC29_RTS                        ; Go to the branch If the button 'Select' isn't pressed
+C - - - - - 0x01CC03 07:CBF3: 20 29 CB  JSR sub_CB29_current_item_is_prohibited ;
+C - - - - - 0x01CC06 07:CBF6: B0 31     BCS bra_CC29_RTS                        ; If the current item is prohibited
 C - - - - - 0x01CC08 07:CBF8: 20 2A CC  JSR sub_CC2A
 C - - - - - 0x01CC0B 07:CBFB: B0 2C     BCS bra_CC29_RTS
-C - - - - - 0x01CC0D 07:CBFD: AD 14 02  LDA vCurrentWeaponStatus        ;
-C - - - - - 0x01CC10 07:CC00: 29 0F     AND #$0F                        ;
-C - - - - - 0x01CC12 07:CC02: AA        TAX                             ; Prepare 'the index of the item'
-C - - - - - 0x01CC13 07:CC03: 4C 13 CD  JMP loc_CD13_use_item           ;
+C - - - - - 0x01CC0D 07:CBFD: AD 14 02  LDA vCurrentWeaponStatus                ;
+C - - - - - 0x01CC10 07:CC00: 29 0F     AND #$0F                                ;
+C - - - - - 0x01CC12 07:CC02: AA        TAX                                     ; Prepare 'the index of the item'
+C - - - - - 0x01CC13 07:CC03: 4C 13 CD  JMP loc_CD13_use_item                   ;
 
 ; In: Register X - the number of the item
 ; Out: Register X - next activatable item or 0x80
@@ -3495,8 +3499,8 @@ C - - - - - 0x01D506 07:D4F6: 10 FB     BPL bra_D4F3_wait                       
 C - - - - - 0x01D508 07:D4F8: 4C 71 C3  JMP loc_C371_update_palette                     ;
 
 sub_D4FB_render_empty_message_bar:
-C - - - - - 0x01D50B 07:D4FB: A5 B7     LDA vCorridorMagic5
-C - - - - - 0x01D50D 07:D4FD: 85 B8     STA v_corridor_magic5_cache
+C - - - - - 0x01D50B 07:D4FB: A5 B7     LDA vRoomExtraInfo                 ;
+C - - - - - 0x01D50D 07:D4FD: 85 B8     STA vRoomExtraInfoCache            ; see $B3D6, 6 bank, 2 page
 C - - - - - 0x01D50F 07:D4FF: AD 02 20  LDA PPU_STATUS                     ; read PPU status to reset the high/low latch
 C - - - - - 0x01D512 07:D502: A9 20     LDA #$20                           ; 
 C - - - - - 0x01D514 07:D504: 8D 06 20  STA PPU_ADDRESS                    ;
@@ -5405,19 +5409,19 @@ C - - - - - 0x01DFA9 07:DF99: 4A        LSR                               ;
 C - - - - - 0x01DFAA 07:DF9A: 4A        LSR                               ; A <~ {0x08, 0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00}
 C - - - - - 0x01DFAB 07:DF9B: 20 C1 D0  JSR sub_D0C1_change_stack_pointer ;
 
-- D 2 - I - 0x01DFAE 07:DF9E: D0 DF     .addr loc_DFD1 - 1                 ; 0x00 end
-- D 2 - I - 0x01DFB0 07:DFA0: B2 DF     .addr loc_DFB3_close_continue - 1  ; 0x01
-- D 2 - I - 0x01DFB2 07:DFA2: AF DF     .addr loc_DFB0_close - 1           ; 0x02
-- D 2 - I - 0x01DFB4 07:DFA4: DE DF     .addr loc_DFDF - 1                 ; 0x03
-- D 2 - I - 0x01DFB6 07:DFA6: 0C E0     .addr loc_E00D_allow_to_hide - 1   ; 0x04
-- D 2 - I - 0x01DFB8 07:DFA8: EE DF     .addr loc_DFEF - 1                 ; 0x05
-- D 2 - I - 0x01DFBA 07:DFAA: CA DF     .addr loc_DFCB - 1                 ; 0x06
-- D 2 - I - 0x01DFBC 07:DFAC: B9 DF     .addr loc_DFBA_open_continue - 1   ; 0x07
-- D 2 - I - 0x01DFBE 07:DFAE: B6 DF     .addr loc_DFB7_open - 1            ; 0x08 start
+- D 2 - I - 0x01DFAE 07:DF9E: D0 DF     .addr loc_DFD1_close_again - 1           ; 0x00 the door is closing again
+- D 2 - I - 0x01DFB0 07:DFA0: B2 DF     .addr loc_DFB3_open_again_continue - 1   ; 0x01 the door is opening again
+- D 2 - I - 0x01DFB2 07:DFA2: AF DF     .addr loc_DFB0_open_again - 1            ; 0x02 the door starts opening again
+- D 2 - I - 0x01DFB4 07:DFA4: DE DF     .addr loc_DFDF - 1                       ; 0x03
+- D 2 - I - 0x01DFB6 07:DFA6: 0C E0     .addr loc_E00D_allow_to_hide - 1         ; 0x04
+- D 2 - I - 0x01DFB8 07:DFA8: EE DF     .addr loc_DFEF_try_to_take_item_out - 1  ; 0x05
+- D 2 - I - 0x01DFBA 07:DFAA: CA DF     .addr loc_DFCB_close - 1                 ; 0x06 the door is closing
+- D 2 - I - 0x01DFBC 07:DFAC: B9 DF     .addr loc_DFBA_open_continue - 1         ; 0x07 the door is opening
+- D 2 - I - 0x01DFBE 07:DFAE: B6 DF     .addr loc_DFB7_open - 1                  ; 0x08 the door starts opening
 
-loc_DFB0_close:
+loc_DFB0_open_again:
 C - - - - - 0x01DFC0 07:DFB0: 20 2F FA  JSR sub_FA2F_opening_or_closing  ;
-loc_DFB3_close_continue:
+loc_DFB3_open_again_continue:
 C - - - - - 0x01DFC3 07:DFB3: A9 02     LDA #$02                         ; CONSTANT - the adding for closing
 C - - - - - 0x01DFC5 07:DFB5: D0 05     BNE bra_DFBC_continue            ; Always true
 
@@ -5435,17 +5439,17 @@ C - - - - - 0x01DFD4 07:DFC4: 05 00     ORA ram_0000                   ;
 C - - - - - 0x01DFD6 07:DFC6: 85 70     STA vChrFrame_Counter          ; <~ 0x00 or 0x01 (opening), 0x02 or 0x03 (closing)
 C - - - - - 0x01DFD8 07:DFC8: 4C 05 E0  JMP loc_E005_disallow_to_hide
 
-loc_DFCB:
-C - - - - - 0x01DFDB 07:DFCB: 20 27 FA  JSR sub_FA27
-C - - - - - 0x01DFDE 07:DFCE: 4C 0D E0  JMP loc_E00D_allow_to_hide
+loc_DFCB_close:
+C - - - - - 0x01DFDB 07:DFCB: 20 27 FA  JSR sub_FA27_try_to_close
+C - - - - - 0x01DFDE 07:DFCE: 4C 0D E0  JMP loc_E00D_allow_to_hide     ;
 
-loc_DFD1:
-C - - - - - 0x01DFE1 07:DFD1: 20 27 FA  JSR sub_FA27
-C - - - - - 0x01DFE4 07:DFD4: A5 6C     LDA vChrStatus
-C - - - - - 0x01DFE6 07:DFD6: 29 DF     AND #$DF
-C - - - - - 0x01DFE8 07:DFD8: 85 6C     STA vChrStatus
-C - - - - - 0x01DFEA 07:DFDA: A2 00     LDX #$00
-C - - - - - 0x01DFEC 07:DFDC: 4C C2 DB  JMP loc_DBC2_before_rendering
+loc_DFD1_close_again:
+C - - - - - 0x01DFE1 07:DFD1: 20 27 FA  JSR sub_FA27_try_to_close
+C - - - - - 0x01DFE4 07:DFD4: A5 6C     LDA vChrStatus                 ;
+C - - - - - 0x01DFE6 07:DFD6: 29 DF     AND #$DF                       ; CONSTANT - all except 'the character is entering a corridor or hiding place or died'
+C - - - - - 0x01DFE8 07:DFD8: 85 6C     STA vChrStatus                 ;
+C - - - - - 0x01DFEA 07:DFDA: A2 00     LDX #$00                       ;
+C - - - - - 0x01DFEC 07:DFDC: 4C C2 DB  JMP loc_DBC2_before_rendering  ; prepares the offset of the sprite address
 
 loc_DFDF:
 C - - - - - 0x01DFEF 07:DFDF: A5 C4     LDA vCheckpoint                   ;
@@ -5458,18 +5462,18 @@ C - - - - - 0x01DFF9 07:DFE9: A2 C3     LDX #$C3                          ; CONS
 C - - - - - 0x01DFFB 07:DFEB: 86 39     STX vGameInterruptEvent           ; <~ 0xC0 or 0xC3
 C - - - - - 0x01DFFD 07:DFED: D0 1E     BNE bra_E00D_allow_to_hide        ; Always true
 
-loc_DFEF:
-C - - - - - 0x01DFFF 07:DFEF: A5 C4     LDA vCheckpoint
-C - - - - - 0x01E001 07:DFF1: D0 1A     BNE bra_E00D_allow_to_hide
-C - - - - - 0x01E003 07:DFF3: A4 C5     LDY ram_00C5
-C - - - - - 0x01E005 07:DFF5: 30 16     BMI bra_E00D_allow_to_hide
+loc_DFEF_try_to_take_item_out:
+C - - - - - 0x01DFFF 07:DFEF: A5 C4     LDA vCheckpoint                   ;
+C - - - - - 0x01E001 07:DFF1: D0 1A     BNE bra_E00D_allow_to_hide        ; If the room isn't empty
+C - - - - - 0x01E003 07:DFF3: A4 C5     LDY vRoomAttrubute                ;
+C - - - - - 0x01E005 07:DFF5: 30 16     BMI bra_E00D_allow_to_hide        ; If the room has already been visited
 C - - - - - 0x01E007 07:DFF7: C0 09     CPY #$09
 C - - - - - 0x01E009 07:DFF9: B0 12     BCS bra_E00D_allow_to_hide
 @bra_DFFB_loop:
-C - - - - - 0x01E00B 07:DFFB: 20 67 B0  JSR $B067
-C - - - - - 0x01E00E 07:DFFE: C6 B7     DEC ram_00B7
-C - - - - - 0x01E010 07:E000: 10 F9     BPL @bra_DFFB_loop
-C - - - - - 0x01E012 07:E002: 4C 0D E0  JMP loc_E00D_allow_to_hide
+C - - - - - 0x01E00B 07:DFFB: 20 67 B0  JSR sub_B067_take_item_out        ;
+C - - - - - 0x01E00E 07:DFFE: C6 B7     DEC vRoomExtraInfo                ; decrement the number of the items
+C - - - - - 0x01E010 07:E000: 10 F9     BPL @bra_DFFB_loop                ; If the number of the items >= 0x00
+C - - - - - 0x01E012 07:E002: 4C 0D E0  JMP loc_E00D_allow_to_hide        ;
 
 loc_E005_disallow_to_hide:
 C D 3 - - - 0x01E015 07:E005: A5 6C     LDA vChrStatus                   ;
@@ -5483,11 +5487,11 @@ C - - - - - 0x01E01F 07:E00F: 09 80     ORA #$80                         ; CONST
 C - - - - - 0x01E021 07:E011: 85 6C     STA vChrStatus                   ;
 bra_E013_skip:
 loc_E013:
-C D 3 - - - 0x01E023 07:E013: A5 6C     LDA vChrStatus
-C - - - - - 0x01E025 07:E015: 30 08     BMI bra_E01F_try_to_hiding
-C - - - - - 0x01E027 07:E017: A4 70     LDY vChrFrame_Counter
-C - - - - - 0x01E029 07:E019: BE 36 E0  LDX tbl_E036_frame_,Y
-C - - - - - 0x01E02C 07:E01C: 4C C2 DB  JMP loc_DBC2_before_rendering
+C D 3 - - - 0x01E023 07:E013: A5 6C     LDA vChrStatus                   ;
+C - - - - - 0x01E025 07:E015: 30 08     BMI bra_E01F_try_to_hiding       ; If the character can hide in the room
+C - - - - - 0x01E027 07:E017: A4 70     LDY vChrFrame_Counter            ;
+C - - - - - 0x01E029 07:E019: BE 36 E0  LDX tbl_E036_frame_,Y            ;
+C - - - - - 0x01E02C 07:E01C: 4C C2 DB  JMP loc_DBC2_before_rendering    ; prepares the offset of the sprite address
 
 bra_E01F_try_to_hiding:
 C - - - - - 0x01E02F 07:E01F: A5 39     LDA vGameInterruptEvent          ;
@@ -9454,7 +9458,7 @@ C - - - - - 0x01F96A 07:F95A: C5 01     CMP ram_0001                   ;
 C - - - - - 0x01F96C 07:F95C: B0 B5     BCS bra_F913_inc_next_set      ; If |corridorPosX - vLowChrPosX| >= tolerance
 C - - - - - 0x01F96E 07:F95E: C8        INY                            ; 3rd of 5 bytes
 C - - - - - 0x01F96F 07:F95F: B1 BD     LDA (vCorridorAddr),Y
-C - - - - - 0x01F971 07:F961: 85 C6     STA ram_00C6
+C - - - - - 0x01F971 07:F961: 85 C6     STA vDoorAttribute
 C - - - - - 0x01F973 07:F963: 10 0E     BPL @bra_F973_skip
 C - - - - - 0x01F975 07:F965: C8        INY                            ; 4th of 5 bytes
 C - - - - - 0x01F976 07:F966: B1 BD     LDA (vCorridorAddr),Y
@@ -9471,51 +9475,51 @@ C - - - - - 0x01F987 07:F977: 29 0F     AND #$0F
 C - - - - - 0x01F989 07:F979: 85 C3     STA vDisplayRoomType
 C - - - - - 0x01F98B 07:F97B: 24 00     BIT ram_0000
 C - - - - - 0x01F98D 07:F97D: 50 3C     BVC bra_F9BB
-C - - - - - 0x01F98F 07:F97F: A9 00     LDA #$00
-C - - - - - 0x01F991 07:F981: 85 C4     STA vCheckpoint
+C - - - - - 0x01F98F 07:F97F: A9 00     LDA #$00                       ; CONSTANT - the room is empty
+C - - - - - 0x01F991 07:F981: 85 C4     STA vCheckpoint                ;
 C - - - - - 0x01F993 07:F983: C8        INY                            ; 4th of 5 bytes
-C - - - - - 0x01F994 07:F984: B1 BD     LDA (vCorridorAddr),Y
-C - - - - - 0x01F996 07:F986: AA        TAX
-C - - - - - 0x01F997 07:F987: BD 00 05  LDA vRooms,X
-C - - - - - 0x01F99A 07:F98A: 85 C5     STA ram_00C5
-C - - - - - 0x01F99C 07:F98C: 86 BC     STX v_tmp_target_room
+C - - - - - 0x01F994 07:F984: B1 BD     LDA (vCorridorAddr),Y          ;
+C - - - - - 0x01F996 07:F986: AA        TAX                            ;
+C - - - - - 0x01F997 07:F987: BD 00 05  LDA vRooms,X                   ;
+C - - - - - 0x01F99A 07:F98A: 85 C5     STA vRoomAttrubute             ;
+C - - - - - 0x01F99C 07:F98C: 86 BC     STX vRoomCurrentIndex          ;
 C - - - - - 0x01F99E 07:F98E: 48        PHA
 C - - - - - 0x01F99F 07:F98F: 09 80     ORA #$80                       ; CONSTANT - the room has already been visited
 C - - - - - 0x01F9A1 07:F991: 9D 00 05  STA vRooms,X
 C - - - - - 0x01F9A4 07:F994: 68        PLA
 C - - - - - 0x01F9A5 07:F995: 29 3F     AND #$3F
-C - - - - - 0x01F9A7 07:F997: 85 B6     STA vCurrentUniqueRoom                ;
-C - - - - - 0x01F9A9 07:F999: C9 10     CMP #$10                              ; CONSTANT - an unique room (NPC, briefcase, boss)
-C - - - - - 0x01F9AB 07:F99B: 90 17     BCC @bra_F9B4_sublevel_corridor       ; If vCurrentUniqueRoom < 0x10
-C - - - - - 0x01F9AD 07:F99D: C9 20     CMP #$20                              ;
-C - - - - - 0x01F9AF 07:F99F: B0 13     BCS @bra_F9B4_sublevel_corridor       ; If vCurrentUniqueRoom >= 0x20
+C - - - - - 0x01F9A7 07:F997: 85 B6     STA vCurrentUniqueRoom             ;
+C - - - - - 0x01F9A9 07:F999: C9 10     CMP #$10                           ; CONSTANT - an unique room (NPC, briefcase, boss)
+C - - - - - 0x01F9AB 07:F99B: 90 17     BCC @bra_F9B4_sublevel_corridor    ; If vCurrentUniqueRoom < 0x10
+C - - - - - 0x01F9AD 07:F99D: C9 20     CMP #$20                           ;
+C - - - - - 0x01F9AF 07:F99F: B0 13     BCS @bra_F9B4_sublevel_corridor    ; If vCurrentUniqueRoom >= 0x20
 C - - - - - 0x01F9B1 07:F9A1: 84 11     STY v_cache_reg_y
 C - - - - - 0x01F9B3 07:F9A3: 29 07     AND #$07
 C - - - - - 0x01F9B5 07:F9A5: 85 B9     STA ram_00B9
 C - - - - - 0x01F9B7 07:F9A7: A8        TAY
 C - - - - - 0x01F9B8 07:F9A8: B1 BA     LDA (vCheckpointAddr),Y
 C - - - - - 0x01F9BA 07:F9AA: 85 C4     STA vCheckpoint
-C - - - - - 0x01F9BC 07:F9AC: 20 DA FB  JSR sub_FBDA_store_room_params_       ;
+C - - - - - 0x01F9BC 07:F9AC: 20 DA FB  JSR sub_FBDA_store_room_params_    ;
 C - - - - - 0x01F9BF 07:F9AF: A4 11     LDY v_cache_reg_y
-C - - - - - 0x01F9C1 07:F9B1: 4C C0 F9  JMP loc_F9C0_return_true              ;
+C - - - - - 0x01F9C1 07:F9B1: 4C C0 F9  JMP loc_F9C0_return_true           ;
 
 @bra_F9B4_sublevel_corridor:
-C - - - - - 0x01F9C4 07:F9B4: A9 00     LDA #$00                              ;
-C - - - - - 0x01F9C6 07:F9B6: 85 B6     STA vCurrentUniqueRoom                ; clear
-C - - - - - 0x01F9C8 07:F9B8: 4C C0 F9  JMP loc_F9C0_return_true              ;
+C - - - - - 0x01F9C4 07:F9B4: A9 00     LDA #$00                           ;
+C - - - - - 0x01F9C6 07:F9B6: 85 B6     STA vCurrentUniqueRoom             ; clear
+C - - - - - 0x01F9C8 07:F9B8: 4C C0 F9  JMP loc_F9C0_return_true           ;
 
 bra_F9BB:
-C - - - - - 0x01F9CB 07:F9BB: C8        INY                                   ; 4th of 5 bytes
+C - - - - - 0x01F9CB 07:F9BB: C8        INY                                ; 4th of 5 bytes
 C - - - - - 0x01F9CC 07:F9BC: B1 BD     LDA (vCorridorAddr),Y
 C - - - - - 0x01F9CE 07:F9BE: 85 C4     STA vCheckpoint
 loc_F9C0_return_true:
-C D 3 - - - 0x01F9D0 07:F9C0: C8        INY                       ; 5th of 5 bytes
-C - - - - - 0x01F9D1 07:F9C1: B1 BD     LDA (vCorridorAddr),Y
-C - - - - - 0x01F9D3 07:F9C3: 85 B7     STA vCorridorMagic5
-C - - - - - 0x01F9D5 07:F9C5: 68        PLA                       ;
-C - - - - - 0x01F9D6 07:F9C6: AA        TAX                       ; retrieve x (see $F91B)
-C - - - - - 0x01F9D7 07:F9C7: 38        SEC                       ; return true
-C - - - - - 0x01F9D8 07:F9C8: 60        RTS                       ;
+C D 3 - - - 0x01F9D0 07:F9C0: C8        INY                                ; 5th of 5 bytes
+C - - - - - 0x01F9D1 07:F9C1: B1 BD     LDA (vCorridorAddr),Y              ;
+C - - - - - 0x01F9D3 07:F9C3: 85 B7     STA vRoomExtraInfo                 ;
+C - - - - - 0x01F9D5 07:F9C5: 68        PLA                                ;
+C - - - - - 0x01F9D6 07:F9C6: AA        TAX                                ; retrieve x (see $F91B)
+C - - - - - 0x01F9D7 07:F9C7: 38        SEC                                ; return true
+C - - - - - 0x01F9D8 07:F9C8: 60        RTS                                ;
 
 bra_F9C9_safe_return:
 loc_F9C9_safe_return_false:
@@ -9580,9 +9584,9 @@ C - - - - - 0x01FA34 07:FA24: D0 B5     BNE bra_F9DB_next_set
 bra_FA26_RTS:
 C - - - - - 0x01FA36 07:FA26: 60        RTS
 
-sub_FA27:
-C - - - - - 0x01FA37 07:FA27: A5 C6     LDA ram_00C6
-C - - - - - 0x01FA39 07:FA29: 30 FB     BMI bra_FA26_RTS
+sub_FA27_try_to_close:
+C - - - - - 0x01FA37 07:FA27: A5 C6     LDA vDoorAttribute    ;
+C - - - - - 0x01FA39 07:FA29: 30 FB     BMI bra_FA26_RTS      ; If we let you to leave the door open
 C - - - - - 0x01FA3B 07:FA2B: A9 02     LDA #$02              ; CONSTANT - the offset for the open doors
 C - - - - - 0x01FA3D 07:FA2D: D0 02     BNE bra_FA31_skip     ; Always true
 
@@ -9713,7 +9717,7 @@ C - - - - - 0x01FB17 07:FB07: 38        SEC
 C - - - - - 0x01FB18 07:FB08: E9 05     SBC #$05
 C - - - - - 0x01FB1A 07:FB0A: 85 46     STA vNoSubLevel
 C - - - - - 0x01FB1C 07:FB0C: B9 2F FB  LDA tbl_FB2F,Y
-C - - - - - 0x01FB1F 07:FB0F: 85 B7     STA ram_00B7
+C - - - - - 0x01FB1F 07:FB0F: 85 B7     STA vRoomExtraInfo
 C - - - - - 0x01FB21 07:FB11: 20 C7 C6  JSR sub_C6C7_update_room_with_message
 C - - - - - 0x01FB24 07:FB14: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01FB26 07:FB16: 09 02     ORA #$02
@@ -9749,7 +9753,7 @@ C - - - - - 0x01FB4E 07:FB3E: 4C EC FA  JMP loc_FAEC_start_of_level             
 
 loc_FB41:
 C D 3 - - - 0x01FB51 07:FB41: A9 00     LDA #$00                                 ;
-C - - - - - 0x01FB53 07:FB43: 85 B7     STA vCorridorMagic5                      ; clear
+C - - - - - 0x01FB53 07:FB43: 85 B7     STA vRoomExtraInfo                       ; clear
 C - - - - - 0x01FB55 07:FB45: A5 46     LDA vNoSubLevel                          ;
 C - - - - - 0x01FB57 07:FB47: 0A        ASL                                      ; *2, because the addresses have 2 bytes
 C - - - - - 0x01FB58 07:FB48: A8        TAY                                      ;
@@ -9812,7 +9816,7 @@ C - - - - - 0x01FBA9 07:FB99: 60        RTS                ;
 
 sub_FB9A_prepare_position_by_checkpoint:
 C - - - - - 0x01FBAA 07:FB9A: A9 01     LDA #$01                     ; CONSTANT - an offset for the secondary list
-C - - - - - 0x01FBAC 07:FB9C: 24 B7     BIT vCorridorMagic5          ; 
+C - - - - - 0x01FBAC 07:FB9C: 24 B7     BIT vRoomExtraInfo           ; 
 C - - - - - 0x01FBAE 07:FB9E: 30 02     BMI @bra_FBA2_skip           ; If the secondary list is used
 C - - - - - 0x01FBB0 07:FBA0: A9 00     LDA #$00                     ; CONSTANT - an offset for the main list
 @bra_FBA2_skip:
@@ -9991,7 +9995,7 @@ C - - - - - 0x01FCB8 07:FCA8: B9 25 95  LDA $9525,Y
 C - - - - - 0x01FCBB 07:FCAB: 85 13     STA ram_0013
 C - - - - - 0x01FCBD 07:FCAD: A4 68     LDY vNoScreen
 C - - - - - 0x01FCBF 07:FCAF: A9 00     LDA #$00
-C - - - - - 0x01FCC1 07:FCB1: 85 B7     STA vCorridorMagic5
+C - - - - - 0x01FCC1 07:FCB1: 85 B7     STA vRoomExtraInfo
 C - - - - - 0x01FCC3 07:FCB3: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01FCC5 07:FCB5: 85 C4     STA vCheckpoint
 C - - - - - 0x01FCC7 07:FCB7: 4C 5D EF  JMP loc_EF5D_switch_variable_bank
