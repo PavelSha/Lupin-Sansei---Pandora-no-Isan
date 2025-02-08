@@ -396,10 +396,13 @@ vTmpEnemyStartingPosXLow      = ram_00D5
 vReasonCharacterChange        = ram_00D6
 vFinalSceneNo                 = ram_00D8
 
+vCrcLowAddress                = ram_00F2
+vCrcHighAddress               = ram_00F3
 vCrcChecksumLowValue          = ram_00F5
 vCrcChecksumMiddleValue       = ram_00F6
 vCrcChecksumHighValue         = ram_00F7
 vCrcBankData                  = ram_00F8
+vCurrentDeviceData            = ram_00F9
 
 ; 0x00 - no reason
 ; 0x40 - the character is fell or arrested

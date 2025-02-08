@@ -181,44 +181,44 @@
 .export sub_C924_display_menu_score_ex
 
 vec_C000_RESET:
-C D 2 - - - 0x01C010 07:C000: 78        SEI ; disable interrupts
-C - - - - - 0x01C011 07:C001: D8        CLD ; disable decimal mode (NES chip 2A03 doesn't use decimal mode)
-C - - - - - 0x01C012 07:C002: A9 00     LDA #$00             ;
-C - - - - - 0x01C014 07:C004: 8D 00 20  STA PPU_CTRL         ; clear ppu
-C - - - - - 0x01C017 07:C007: 8D 01 20  STA PPU_MASK         ; clear ppu
-C - - - - - 0x01C01A 07:C00A: 85 26     STA vPpuCtrlSettings ; clear ppu
+C D 2 - - - 0x01C010 07:C000: 78        SEI                                   ; disable interrupts
+C - - - - - 0x01C011 07:C001: D8        CLD                                   ; disable decimal mode (NES chip 2A03 doesn't use decimal mode)
+C - - - - - 0x01C012 07:C002: A9 00     LDA #$00                              ;
+C - - - - - 0x01C014 07:C004: 8D 00 20  STA PPU_CTRL                          ; clear ppu
+C - - - - - 0x01C017 07:C007: 8D 01 20  STA PPU_MASK                          ; clear ppu
+C - - - - - 0x01C01A 07:C00A: 85 26     STA vPpuCtrlSettings                  ; clear ppu
 @bra_C00C_wait_til_vblank:
-C - - - - - 0x01C01C 07:C00C: AD 02 20  LDA PPU_STATUS                ; wait for vblank (1 time)
-C - - - - - 0x01C01F 07:C00F: 10 FB     BPL @bra_C00C_wait_til_vblank ;
+C - - - - - 0x01C01C 07:C00C: AD 02 20  LDA PPU_STATUS                        ; wait for vblank (1 time)
+C - - - - - 0x01C01F 07:C00F: 10 FB     BPL @bra_C00C_wait_til_vblank         ;
 @bra_C011_wait_til_vblank:
-C - - - - - 0x01C021 07:C011: AD 02 20  LDA PPU_STATUS                ; wait for vblank (2 time)
-C - - - - - 0x01C024 07:C014: 10 FB     BPL @bra_C011_wait_til_vblank ;
-C - - - - - 0x01C026 07:C016: A2 FF     LDX #$FF                      ; 
-C - - - - - 0x01C028 07:C018: 9A        TXS                           ; set a stack pointer
-C - - - - - 0x01C029 07:C019: A9 00     LDA #$00                     ;    
-C - - - - - 0x01C02B 07:C01B: AA        TAX                          ; set loop counter
-@bra_C01C_memset_zero:                                               ; loop by x
-C - - - - - 0x01C02C 07:C01C: 9D 00 02  STA ram_0200,X               ; [0x0200-0x02FF] in 0
-C - - - - - 0x01C02F 07:C01F: 9D 00 03  STA ram_0300,X               ; [0x0300-0x03FF] in 0
-C - - - - - 0x01C032 07:C022: 9D 00 04  STA ram_0400,X               ; [0x0400-0x04FF] in 0
-C - - - - - 0x01C035 07:C025: 9D 00 05  STA ram_0500,X               ; [0x0500-0x05FF] in 0
-C - - - - - 0x01C038 07:C028: 9D 00 06  STA vCachePalette,X          ; [0x0600-0x06FF] in 0
-C - - - - - 0x01C03B 07:C02B: 9D 00 07  STA vStartOAM,X              ; [0x0700-0x07FF] in 0
-C - - - - - 0x01C03E 07:C02E: E8        INX                          ; increment counter x
-C - - - - - 0x01C03F 07:C02F: D0 EB     BNE @bra_C01C_memset_zero    ;
-@bra_C031_loop:                                                      ; loop by x
-C - - - - - 0x01C041 07:C031: 95 00     STA ram_0000,X               ; [0x0000-0x0098] in 0
-C - - - - - 0x01C043 07:C033: E8        INX                          ; increment counter x
-C - - - - - 0x01C044 07:C034: E0 99     CPX #$99                     ;
-C - - - - - 0x01C046 07:C036: 90 F9     BCC @bra_C031_loop           ; If Register X < 0x99
-C - - - - - 0x01C048 07:C038: A2 A7     LDX #$A7                     ; set loop counter
-@bra_C03A_loop:                                                      ; loop by x
-C - - - - - 0x01C04A 07:C03A: 95 00     STA ram_0000,X               ; [0x00A7-0x00FF] in 0
-C - - - - - 0x01C04C 07:C03C: E8        INX                          ; increments loop counter
-C - - - - - 0x01C04D 07:C03D: D0 FB     BNE @bra_C03A_loop           ; If Register X != 0
-C - - - - - 0x01C04F 07:C03F: 20 FB FD  JSR sub_FDFB_crc_test        ;
-C - - - - - 0x01C052 07:C042: A9 FF     LDA #$FF                     ; CONSTANT - Cutscene
-C - - - - - 0x01C054 07:C044: 85 37     STA vCutscenesMode           ; assign a value
+C - - - - - 0x01C021 07:C011: AD 02 20  LDA PPU_STATUS                        ; wait for vblank (2 time)
+C - - - - - 0x01C024 07:C014: 10 FB     BPL @bra_C011_wait_til_vblank         ;
+C - - - - - 0x01C026 07:C016: A2 FF     LDX #$FF                              ; 
+C - - - - - 0x01C028 07:C018: 9A        TXS                                   ; set a stack pointer
+C - - - - - 0x01C029 07:C019: A9 00     LDA #$00                              ;    
+C - - - - - 0x01C02B 07:C01B: AA        TAX                                   ; set loop counter
+@bra_C01C_memset_zero:                                                        ; loop by x
+C - - - - - 0x01C02C 07:C01C: 9D 00 02  STA ram_0200,X                        ; [0x0200-0x02FF] in 0
+C - - - - - 0x01C02F 07:C01F: 9D 00 03  STA ram_0300,X                        ; [0x0300-0x03FF] in 0
+C - - - - - 0x01C032 07:C022: 9D 00 04  STA ram_0400,X                        ; [0x0400-0x04FF] in 0
+C - - - - - 0x01C035 07:C025: 9D 00 05  STA ram_0500,X                        ; [0x0500-0x05FF] in 0
+C - - - - - 0x01C038 07:C028: 9D 00 06  STA vCachePalette,X                   ; [0x0600-0x06FF] in 0
+C - - - - - 0x01C03B 07:C02B: 9D 00 07  STA vStartOAM,X                       ; [0x0700-0x07FF] in 0
+C - - - - - 0x01C03E 07:C02E: E8        INX                                   ; increment counter x
+C - - - - - 0x01C03F 07:C02F: D0 EB     BNE @bra_C01C_memset_zero             ;
+@bra_C031_loop:                                                               ; loop by x
+C - - - - - 0x01C041 07:C031: 95 00     STA ram_0000,X                        ; [0x0000-0x0098] in 0
+C - - - - - 0x01C043 07:C033: E8        INX                                   ; increment counter x
+C - - - - - 0x01C044 07:C034: E0 99     CPX #$99                              ;
+C - - - - - 0x01C046 07:C036: 90 F9     BCC @bra_C031_loop                    ; If Register X < 0x99
+C - - - - - 0x01C048 07:C038: A2 A7     LDX #$A7                              ; set loop counter
+@bra_C03A_loop:                                                               ; loop by x
+C - - - - - 0x01C04A 07:C03A: 95 00     STA ram_0000,X                        ; [0x00A7-0x00FF] in 0
+C - - - - - 0x01C04C 07:C03C: E8        INX                                   ; increments loop counter
+C - - - - - 0x01C04D 07:C03D: D0 FB     BNE @bra_C03A_loop                    ; If Register X != 0
+C - - - - - 0x01C04F 07:C03F: 20 FB FD  JSR sub_FDFB_crc_test                 ;
+C - - - - - 0x01C052 07:C042: A9 FF     LDA #$FF                              ; CONSTANT - Cutscene
+C - - - - - 0x01C054 07:C044: 85 37     STA vCutscenesMode                    ; assign a value
 loc_C046_repeat_starting_mode:                                                ; Main menu or cutscene with a message.
 C D 2 - - - 0x01C056 07:C046: A9 07     LDA #$07                              ;
 C - - - - - 0x01C058 07:C048: 8D 00 80  STA MMC3_Bank_select                  ;
@@ -10266,164 +10266,182 @@ tbl_FCBA_enemies:
 - - - - - - 0x01FE09 07:FDF9: FF        .byte $FF
 - - - - - - 0x01FE0A 07:FDFA: FF        .byte $FF
 
+; There are a series of the Namco games, made by the same programmers Haruhisa Udagawa and Kumi Hanaoka, that contains the same self-test for the data integrity.
+; To enable any of these tests you need a special device that should be plugged into the expansion port. The operation of that device is very simple.
+; It should accept the data bit from the data input port and return it back inverted to the output data port.
+; The device consists of 4-bit shift register, working as some sort of the FIFO buffer. The input bits are goes to the input and then shifted to te output after a 4 cycles.
+; At the game's boot, it tries to send some special data to the device.
+; (*) If the data output doesn't match the data input inverted, then the game continues the normal operation.
+; (**) But if all data (usually 32, rarely 64 bytes) is matches, self-tests will be performed.
+; The program calculates 24-bit partial checksums for the PRG (excluding the last 8K) and the CHR data, summing only every 15th byte, and comparing it against the etalon.
+; Before testing of the PRG data, the background color turns red, before testing of the CHR data, it turns green.
+; If any of these tests are failed, the program will jump directly to the reset routine.
+; It means, one of these tests will be performed infinitely, but until the special device is plugged in, or until the test are passed.
+; Normally, you'll see the red to green flash just before the game's boot. Or the static red screen if the PRG data is bad, or the flashing red to green screen if CHR data isn't good.
+; Using this Game Genie code you can skip tests for the special device presence and jump straight to the integrity tests.
 sub_FDFB_crc_test:
-C - - - - - 0x01FE0B 07:FDFB: BA        TSX
-C - - - - - 0x01FE0C 07:FDFC: A9 00     LDA #$00
-C - - - - - 0x01FE0E 07:FDFE: 9D F8 00  STA a: vCrcBankData,X
-@bra_FE01_loop:                                                    ; loop by bank datas (64 times)
-C - - - - - 0x01FE11 07:FE01: BC F8 00  LDY a: vCrcBankData,X
-C - - - - - 0x01FE14 07:FE04: B9 A0 FF  LDA tbl_FFA0,Y
-C - - - - - 0x01FE17 07:FE07: 9D F9 00  STA a: ram_00F9,X
-C - - - - - 0x01FE1A 07:FE0A: 48        PHA                ; store A
-C - - - - - 0x01FE1B 07:FE0B: A0 0C     LDY #$0C           ; set loop counter
-@bra_FE0D_loop:                                            ; loop by x
-C - - - - - 0x01FE1D 07:FE0D: 3E F9 00  ROL a: ram_00F9,X
-C - - - - - 0x01FE20 07:FE10: 08        PHP                ; store control flags
-C - - - - - 0x01FE21 07:FE11: AD 17 40  LDA JOY2
-C - - - - - 0x01FE24 07:FE14: 4A        LSR
-C - - - - - 0x01FE25 07:FE15: 28        PLP                ; retrieve control flags (from 0xFE10)
-C - - - - - 0x01FE26 07:FE16: 2A        ROL
-C - - - - - 0x01FE27 07:FE17: 8D 16 40  STA JOY1
-C - - - - - 0x01FE2A 07:FE1A: 29 08     AND #$08
-C - - - - - 0x01FE2C 07:FE1C: C9 01     CMP #$01
-C - - - - - 0x01FE2E 07:FE1E: 88        DEY                ; decrement y
-C - - - - - 0x01FE2F 07:FE1F: D0 EC     BNE @bra_FE0D_loop ; If Register Y != 0
-C - - - - - 0x01FE31 07:FE21: 68        PLA                ; retrieve a (from 0xFE0A)
-C - - - - - 0x01FE32 07:FE22: 49 FF     EOR #$FF
-C - - - - - 0x01FE34 07:FE24: DD F9 00  CMP a: ram_00F9,X
-C - - - - - 0x01FE37 07:FE27: D0 3E     BNE bra_FE67_RTS
-- - - - - - 0x01FE39 07:FE29: A9 3F     LDA #$3F                         ; CONSTANT - max bank data value
-- - - - - - 0x01FE3B 07:FE2B: 20 29 FF  JSR sub_FF29_next_bank_data      ;
-- - - - - - 0x01FE3E 07:FE2E: B0 D1     BCS @bra_FE01_loop               ; If the next bank exists
-- - - - - - 0x01FE40 07:FE30: 20 46 FE  JSR sub_FE46
-- - - - - - 0x01FE43 07:FE33: 20 46 FE  JSR sub_FE46
-- - - - - - 0x01FE46 07:FE36: A9 05     LDA #$05           ; CONSTANT - red color
-- - - - - - 0x01FE48 07:FE38: 20 30 FF  JSR sub_FF30
-- - - - - - 0x01FE4B 07:FE3B: 20 72 FE  JSR sub_FE72
-- - - - - - 0x01FE4E 07:FE3E: A9 2A     LDA #$2A           ; CONSTANT - green color
-- - - - - - 0x01FE50 07:FE40: 20 30 FF  JSR sub_FF30
-- - - - - - 0x01FE53 07:FE43: 20 DD FE  JSR sub_FEDD
-sub_FE46:
-- - - - - - 0x01FE56 07:FE46: A9 00     LDA #$00                       ;
-- - - - - - 0x01FE58 07:FE48: 8D 01 20  STA PPU_MASK                   ; disables all rendering
+C - - - - - 0x01FE0B 07:FDFB: BA        TSX                               ; X <~ 0xFD (Stack: $01FD)
+C - - - - - 0x01FE0C 07:FDFC: A9 00     LDA #$00                          ;
+C - - - - - 0x01FE0E 07:FDFE: 9D F8 00  STA a: vCrcBankData,X             ; set loop counter
+@bra_FE01_loop:                                                           ; loop by bank datas (64 times)
+C - - - - - 0x01FE11 07:FE01: BC F8 00  LDY a: vCrcBankData,X             ;
+C - - - - - 0x01FE14 07:FE04: B9 A0 FF  LDA tbl_FFA0_data_for_device,Y    ; see above (**)
+C - - - - - 0x01FE17 07:FE07: 9D F9 00  STA a: vCurrentDeviceData,X       ;
+C - - - - - 0x01FE1A 07:FE0A: 48        PHA                               ; store A
+C - - - - - 0x01FE1B 07:FE0B: A0 0C     LDY #$0C                          ; set loop counter
+@bra_FE0D_loop:                                                           ; loop by x (12 times)
+C - - - - - 0x01FE1D 07:FE0D: 3E F9 00  ROL a: vCurrentDeviceData,X       ;
+C - - - - - 0x01FE20 07:FE10: 08        PHP                               ; store control flags
+C - - - - - 0x01FE21 07:FE11: AD 17 40  LDA JOY2                          ; put data from the device
+C - - - - - 0x01FE24 07:FE14: 4A        LSR                               ;
+C - - - - - 0x01FE25 07:FE15: 28        PLP                               ; retrieve control flags (see $FE10)
+C - - - - - 0x01FE26 07:FE16: 2A        ROL                               ; put data from the device + carry flag (may be)
+C - - - - - 0x01FE27 07:FE17: 8D 16 40  STA JOY1                          ;
+C - - - - - 0x01FE2A 07:FE1A: 29 08     AND #$08                          ; A <~ 0x08 or 0x00
+C - - - - - 0x01FE2C 07:FE1C: C9 01     CMP #$01                          ; carry set 1 for A = 0x08 or carry set 0 for A = 0x00
+C - - - - - 0x01FE2E 07:FE1E: 88        DEY                               ; decrement y
+C - - - - - 0x01FE2F 07:FE1F: D0 EC     BNE @bra_FE0D_loop                ; If Register Y != 0
+C - - - - - 0x01FE31 07:FE21: 68        PLA                               ; retrieve a (see $FE0A)
+C - - - - - 0x01FE32 07:FE22: 49 FF     EOR #$FF                          ; see above (*)
+C - - - - - 0x01FE34 07:FE24: DD F9 00  CMP a: vCurrentDeviceData,X       ;
+C - - - - - 0x01FE37 07:FE27: D0 3E     BNE bra_FE67_RTS                  ; If the tests were not running
+C - - - - - 0x01FE39 07:FE29: A9 3F     LDA #$3F                          ; CONSTANT - max bank data value
+C - - - - - 0x01FE3B 07:FE2B: 20 29 FF  JSR sub_FF29_next_bank_data       ;
+C - - - - - 0x01FE3E 07:FE2E: B0 D1     BCS @bra_FE01_loop                ; If the next bank exists
+C - - - - - 0x01FE40 07:FE30: 20 46 FE  JSR sub_FE46_prepare_vram_        ;
+C - - - - - 0x01FE43 07:FE33: 20 46 FE  JSR sub_FE46_prepare_vram_        ;
+C - - - - - 0x01FE46 07:FE36: A9 05     LDA #$05                          ; CONSTANT - red color
+C - - - - - 0x01FE48 07:FE38: 20 30 FF  JSR sub_FF30_prepare_test         ;
+C - - - - - 0x01FE4B 07:FE3B: 20 72 FE  JSR sub_FE72_PRG_test             ;
+C - - - - - 0x01FE4E 07:FE3E: A9 2A     LDA #$2A                          ; CONSTANT - green color
+C - - - - - 0x01FE50 07:FE40: 20 30 FF  JSR sub_FF30_prepare_test         ;
+C - - - - - 0x01FE53 07:FE43: 20 DD FE  JSR sub_FEDD_CHR_test             ;
+sub_FE46_prepare_vram_:
+C - - - - - 0x01FE56 07:FE46: A9 00     LDA #$00                          ;
+C - - - - - 0x01FE58 07:FE48: 8D 01 20  STA PPU_MASK                      ; disables all rendering
 @bra_FE4B_wait_til_vblank:
-- - - - - - 0x01FE5B 07:FE4B: AC 02 20  LDY PPU_STATUS                 ; wait for vblank
-- - - - - - 0x01FE5E 07:FE4E: 10 FB     BPL @bra_FE4B_wait_til_vblank  ;
-sub_FE50:
-- - - - - - 0x01FE60 07:FE50: 18        CLC
-- - - - - - 0x01FE61 07:FE51: 7D F5 00  ADC a: vCrcChecksumLowValue,X
-- - - - - - 0x01FE64 07:FE54: 9D F5 00  STA a: vCrcChecksumLowValue,X
-- - - - - - 0x01FE67 07:FE57: A9 00     LDA #$00
-- - - - - - 0x01FE69 07:FE59: 7D F6 00  ADC a: vCrcChecksumMiddleValue,X
-- - - - - - 0x01FE6C 07:FE5C: 9D F6 00  STA a: vCrcChecksumMiddleValue,X
-- - - - - - 0x01FE6F 07:FE5F: A9 00     LDA #$00
-- - - - - - 0x01FE71 07:FE61: 7D F7 00  ADC a: vCrcChecksumHighValue,X
-- - - - - - 0x01FE74 07:FE64: 9D F7 00  STA a: vCrcChecksumHighValue,X
+C - - - - - 0x01FE5B 07:FE4B: AC 02 20  LDY PPU_STATUS                    ; wait for vblank
+C - - - - - 0x01FE5E 07:FE4E: 10 FB     BPL @bra_FE4B_wait_til_vblank     ;
+; In: Register A - an adding value
+sub_FE50_add_to_checksum:
+C - - - - - 0x01FE60 07:FE50: 18        CLC                               ;
+C - - - - - 0x01FE61 07:FE51: 7D F5 00  ADC a: vCrcChecksumLowValue,X     ;
+C - - - - - 0x01FE64 07:FE54: 9D F5 00  STA a: vCrcChecksumLowValue,X     ;
+C - - - - - 0x01FE67 07:FE57: A9 00     LDA #$00                          ;
+C - - - - - 0x01FE69 07:FE59: 7D F6 00  ADC a: vCrcChecksumMiddleValue,X  ; value +1 with overflow
+C - - - - - 0x01FE6C 07:FE5C: 9D F6 00  STA a: vCrcChecksumMiddleValue,X  ;
+C - - - - - 0x01FE6F 07:FE5F: A9 00     LDA #$00                          ;
+C - - - - - 0x01FE71 07:FE61: 7D F7 00  ADC a: vCrcChecksumHighValue,X    ; value +1 with overflow
+C - - - - - 0x01FE74 07:FE64: 9D F7 00  STA a: vCrcChecksumHighValue,X    ;
 bra_FE67_RTS:
-C - - - - - 0x01FE77 07:FE67: 60        RTS
+C - - - - - 0x01FE77 07:FE67: 60        RTS                               ;
 
-sub_FE68:
-- - - - - - 0x01FE78 07:FE68: 8D 00 80  STA MMC3_Bank_select
-- - - - - - 0x01FE7B 07:FE6B: BD F8 00  LDA a: vCrcBankData,X
-- - - - - - 0x01FE7E 07:FE6E: 8D 01 80  STA MMC3_Bank_data
-- - - - - - 0x01FE81 07:FE71: 60        RTS
+; In: Register A - 0x02 (CHR bank) or 0x06 (PRG bank)
+sub_FE68_select_back:
+C - - - - - 0x01FE78 07:FE68: 8D 00 80  STA MMC3_Bank_select     ;
+C - - - - - 0x01FE7B 07:FE6B: BD F8 00  LDA a: vCrcBankData,X    ;
+C - - - - - 0x01FE7E 07:FE6E: 8D 01 80  STA MMC3_Bank_data       ;
+C - - - - - 0x01FE81 07:FE71: 60        RTS                      ;
 
-sub_FE72:
-- - - - - - 0x01FE82 07:FE72: A9 AD     LDA #$AD                   ; CONSTANT - LDA absolute opcode
-- - - - - - 0x01FE84 07:FE74: 9D F1 00  STA a: ram_00F1,X          ;
-- - - - - - 0x01FE87 07:FE77: A9 60     LDA #$60                   ; CONSTANT - RTS opcode
-- - - - - - 0x01FE89 07:FE79: 9D F4 00  STA a: ram_00F4,X          ; 
-- - - - - - 0x01FE8C 07:FE7C: A9 00     LDA #$00
-- - - - - - 0x01FE8E 07:FE7E: 9D F8 00  STA a: vCrcBankData,X
-bra_FE81:
-- - - - - - 0x01FE91 07:FE81: A9 06     LDA #$06
-- - - - - - 0x01FE93 07:FE83: 20 68 FE  JSR sub_FE68
-bra_FE86:
-- - - - - - 0x01FE96 07:FE86: BD F8 00  LDA a: vCrcBankData,X
-- - - - - - 0x01FE99 07:FE89: C9 0F     CMP #$0F
-- - - - - - 0x01FE9B 07:FE8B: F0 20     BEQ bra_FEAD_skip
-- - - - - - 0x01FE9D 07:FE8D: AD A9 FE  LDA loc_FEAA - 1           ;
-- - - - - - 0x01FEA0 07:FE90: 48        PHA                        ;
-- - - - - - 0x01FEA1 07:FE91: AD A8 FE  LDA loc_FEAA - 2           ;
-- - - - - - 0x01FEA4 07:FE94: 48        PHA                        ; goings to go by stack pointer lo loc_FEAA
-- - - - - - 0x01FEA5 07:FE95: BD F3 00  LDA a: ram_00F3,X
-- - - - - - 0x01FEA8 07:FE98: 29 1F     AND #$1F
-- - - - - - 0x01FEAA 07:FE9A: 09 80     ORA #$80
-- - - - - - 0x01FEAC 07:FE9C: 9D F3 00  STA a: ram_00F3,X
-- - - - - - 0x01FEAF 07:FE9F: A9 01     LDA #$01
-- - - - - - 0x01FEB1 07:FEA1: 48        PHA
-- - - - - - 0x01FEB2 07:FEA2: 8A        TXA
-- - - - - - 0x01FEB3 07:FEA3: 38        SEC
-- - - - - - 0x01FEB4 07:FEA4: E9 10     SBC #$10
-- - - - - - 0x01FEB6 07:FEA6: 48        PHA
-- - - - - - 0x01FEB7 07:FEA7: 60        RTS
+; In: Register X - 0xFD
+sub_FE72_PRG_test:
+C - - - - - 0x01FE82 07:FE72: A9 AD     LDA #$AD                   ; CONSTANT - LDA absolute opcode
+C - - - - - 0x01FE84 07:FE74: 9D F1 00  STA a: $F1,X               ; ~> 0x01EE
+C - - - - - 0x01FE87 07:FE77: A9 60     LDA #$60                   ; CONSTANT - RTS opcode
+C - - - - - 0x01FE89 07:FE79: 9D F4 00  STA a: $F4,X               ; ~> 0x01F1
+C - - - - - 0x01FE8C 07:FE7C: A9 00     LDA #$00                   ;
+C - - - - - 0x01FE8E 07:FE7E: 9D F8 00  STA a: vCrcBankData,X      ; reset
+bra_FE81_loop:
+C - - - - - 0x01FE91 07:FE81: A9 06     LDA #$06                   ; CONSTANT - PRG bank
+C - - - - - 0x01FE93 07:FE83: 20 68 FE  JSR sub_FE68_select_back   ;
+bra_FE86_repeat:
+C - - - - - 0x01FE96 07:FE86: BD F8 00  LDA a: vCrcBankData,X      ;
+C - - - - - 0x01FE99 07:FE89: C9 0F     CMP #$0F                   ;
+C - - - - - 0x01FE9B 07:FE8B: F0 20     BEQ bra_FEAD_skip          ; If the bank data == 0x0F (for PRG bank)
+C - - - - - 0x01FE9D 07:FE8D: AD A9 FE  LDA loc_FEAA - 1           ;
+C - - - - - 0x01FEA0 07:FE90: 48        PHA                        ;
+C - - - - - 0x01FEA1 07:FE91: AD A8 FE  LDA loc_FEAA - 2           ;
+C - - - - - 0x01FEA4 07:FE94: 48        PHA                        ; goings to go by stack pointer lo loc_FEAA
+C - - - - - 0x01FEA5 07:FE95: BD F3 00  LDA a: vCrcHighAddress,X   ;
+C - - - - - 0x01FEA8 07:FE98: 29 1F     AND #$1F                   ;
+C - - - - - 0x01FEAA 07:FE9A: 09 80     ORA #$80                   ;
+C - - - - - 0x01FEAC 07:FE9C: 9D F3 00  STA a: vCrcHighAddress,X   ; filters by mask 0%X00XXXXX
+C - - - - - 0x01FEAF 07:FE9F: A9 01     LDA #$01                   ;
+C - - - - - 0x01FEB1 07:FEA1: 48        PHA                        ;
+C - - - - - 0x01FEB2 07:FEA2: 8A        TXA                        ; A <~ 0xFD
+C - - - - - 0x01FEB3 07:FEA3: 38        SEC                        ;
+C - - - - - 0x01FEB4 07:FEA4: E9 10     SBC #$10                   ; A <~ 0xED
+C - - - - - 0x01FEB6 07:FEA6: 48        PHA                        ;
+C - - - - - 0x01FEB7 07:FEA7: 60        RTS                        ; go to $01ED and then #FEAA
 
-- - - - - - 0x01FEB8 07:FEA8: A9 FE     LDA #$FE
+C - - - - - 0x01FEB8 07:FEA8: A9 FE     LDA #$FE                   ; !(UNUSED)
 
 loc_FEAA:
-- - - - - - 0x01FEBA 07:FEAA: 20 50 FE  JSR sub_FE50
+C - - - - - 0x01FEBA 07:FEAA: 20 50 FE  JSR sub_FE50_add_to_checksum      ;
 bra_FEAD_skip:
-- - - - - - 0x01FEBD 07:FEAD: 20 18 FF  JSR sub_FF18
-- - - - - - 0x01FEC0 07:FEB0: 90 D4     BCC bra_FE86
-- - - - - - 0x01FEC2 07:FEB2: 20 22 FF  JSR sub_FF22
-- - - - - - 0x01FEC5 07:FEB5: 29 1F     AND #$1F
-- - - - - - 0x01FEC7 07:FEB7: D0 CD     BNE bra_FE86
-- - - - - - 0x01FEC9 07:FEB9: A9 0F     LDA #$0F
-- - - - - - 0x01FECB 07:FEBB: 20 29 FF  JSR sub_FF29_next_bank_data
-- - - - - - 0x01FECE 07:FEBE: B0 C1     BCS bra_FE81
-- - - - - - 0x01FED0 07:FEC0: A0 00     LDY #$00
-loc_FEC2:
-- - - - - - 0x01FED2 07:FEC2: B9 E0 FF  LDA tbl_FFE0,Y
-- - - - - - 0x01FED5 07:FEC5: 5D F7 00  EOR a: vCrcChecksumHighValue,X
-- - - - - - 0x01FED8 07:FEC8: D0 10     BNE @bra_FEDA_fail
-- - - - - - 0x01FEDA 07:FECA: B9 E1 FF  LDA tbl_FFE0 + 1,Y
-- - - - - - 0x01FEDD 07:FECD: 5D F6 00  EOR a: vCrcChecksumMiddleValue,X
-- - - - - - 0x01FEE0 07:FED0: D0 08     BNE @bra_FEDA_fail
-- - - - - - 0x01FEE2 07:FED2: B9 E2 FF  LDA tbl_FFE0 + 2,Y
-- - - - - - 0x01FEE5 07:FED5: 5D F5 00  EOR a: vCrcChecksumLowValue,X
-- - - - - - 0x01FEE8 07:FED8: F0 47     BEQ bra_FF21_RTS
+C - - - - - 0x01FEBD 07:FEAD: 20 18 FF  JSR sub_FF18_inc_low              ;
+C - - - - - 0x01FEC0 07:FEB0: 90 D4     BCC bra_FE86_repeat               ; If carry flag is 0 after increments
+C - - - - - 0x01FEC2 07:FEB2: 20 22 FF  JSR sub_FF22_inc_high             ;
+C - - - - - 0x01FEC5 07:FEB5: 29 1F     AND #$1F                          ;
+C - - - - - 0x01FEC7 07:FEB7: D0 CD     BNE bra_FE86_repeat               ; If the high counter < 0x20
+C - - - - - 0x01FEC9 07:FEB9: A9 0F     LDA #$0F                          ; CONSTANT - missing value
+C - - - - - 0x01FECB 07:FEBB: 20 29 FF  JSR sub_FF29_next_bank_data       ;
+C - - - - - 0x01FECE 07:FEBE: B0 C1     BCS bra_FE81_loop                 ; If the next bank exists
+C - - - - - 0x01FED0 07:FEC0: A0 00     LDY #$00                          ; prepare an input parameter
+; In: Register X - 0xFD
+; In: Register Y - 0x00 (1 etalon, CHR bank) or 0x03 (2 etalon, PRG bank)
+loc_FEC2_check_checksum:
+C - - - - - 0x01FED2 07:FEC2: B9 E0 FF  LDA tbl_FFE0_etalon,Y             ;
+C - - - - - 0x01FED5 07:FEC5: 5D F7 00  EOR a: vCrcChecksumHighValue,X    ;
+C - - - - - 0x01FED8 07:FEC8: D0 10     BNE @bra_FEDA_fail                ; If the high value didn't match
+C - - - - - 0x01FEDA 07:FECA: B9 E1 FF  LDA tbl_FFE0_etalon + 1,Y         ;
+C - - - - - 0x01FEDD 07:FECD: 5D F6 00  EOR a: vCrcChecksumMiddleValue,X  ;
+C - - - - - 0x01FEE0 07:FED0: D0 08     BNE @bra_FEDA_fail                ; If the middle value didn't match
+C - - - - - 0x01FEE2 07:FED2: B9 E2 FF  LDA tbl_FFE0_etalon + 2,Y         ;
+C - - - - - 0x01FEE5 07:FED5: 5D F5 00  EOR a: vCrcChecksumLowValue,X     ;
+C - - - - - 0x01FEE8 07:FED8: F0 47     BEQ bra_FF21_RTS                  ; If the low value matched
 @bra_FEDA_fail:
-C - - - - - 0x01FEEA 07:FEDA: 6C FC FF  JMP ($FFFC)                 ; to vec_C000_RESET
+C - - - - - 0x01FEEA 07:FEDA: 6C FC FF  JMP ($FFFC)                       ; to vec_C000_RESET
 
-sub_FEDD:
-- - - - - - 0x01FEED 07:FEDD: A9 00     LDA #$00
-- - - - - - 0x01FEEF 07:FEDF: 9D F8 00  STA a: vCrcBankData,X
+sub_FEDD_CHR_test:
+C - - - - - 0x01FEED 07:FEDD: A9 00     LDA #$00                   ;
+C - - - - - 0x01FEEF 07:FEDF: 9D F8 00  STA a: vCrcBankData,X      ; reset
 @bra_FEE2_loop:
-- - - - - - 0x01FEF2 07:FEE2: A9 02     LDA #$02
-- - - - - - 0x01FEF4 07:FEE4: 20 68 FE  JSR sub_FE68
-@bra_FEE7:
-- - - - - - 0x01FEF7 07:FEE7: BD F3 00  LDA a: ram_00F3,X
-- - - - - - 0x01FEFA 07:FEEA: 29 03     AND #$03
-- - - - - - 0x01FEFC 07:FEEC: 09 10     ORA #$10
-- - - - - - 0x01FEFE 07:FEEE: 8D 06 20  STA PPU_ADDRESS
-- - - - - - 0x01FF01 07:FEF1: BD F2 00  LDA a: ram_00F2,X
-- - - - - - 0x01FF04 07:FEF4: 8D 06 20  STA PPU_ADDRESS
-- - - - - - 0x01FF07 07:FEF7: AD 07 20  LDA PPU_DATA
-- - - - - - 0x01FF0A 07:FEFA: AD 07 20  LDA PPU_DATA
-- - - - - - 0x01FF0D 07:FEFD: 20 50 FE  JSR sub_FE50
-- - - - - - 0x01FF10 07:FF00: 20 18 FF  JSR sub_FF18
-- - - - - - 0x01FF13 07:FF03: 90 E2     BCC @bra_FEE7
-- - - - - - 0x01FF15 07:FF05: 20 22 FF  JSR sub_FF22
-- - - - - - 0x01FF18 07:FF08: 29 03     AND #$03
-- - - - - - 0x01FF1A 07:FF0A: D0 DB     BNE @bra_FEE7
-- - - - - - 0x01FF1C 07:FF0C: A9 3F     LDA #$3F
-- - - - - - 0x01FF1E 07:FF0E: 20 29 FF  JSR sub_FF29_next_bank_data
-- - - - - - 0x01FF21 07:FF11: B0 CF     BCS @bra_FEE2_loop
-- - - - - - 0x01FF23 07:FF13: A0 03     LDY #$03
-- - - - - - 0x01FF25 07:FF15: 4C C2 FE  JMP loc_FEC2
+C - - - - - 0x01FEF2 07:FEE2: A9 02     LDA #$02                   ; CONSTANT - CHR bank (the second pattern table)
+C - - - - - 0x01FEF4 07:FEE4: 20 68 FE  JSR sub_FE68_select_back   ;
+@bra_FEE7_repeat:
+C - - - - - 0x01FEF7 07:FEE7: BD F3 00  LDA a: vCrcHighAddress,X      ;
+C - - - - - 0x01FEFA 07:FEEA: 29 03     AND #$03                      ;
+C - - - - - 0x01FEFC 07:FEEC: 09 10     ORA #$10                      ; A <~ {0x10, 0x11, 0x12, 0x13}
+C - - - - - 0x01FEFE 07:FEEE: 8D 06 20  STA PPU_ADDRESS               ;
+C - - - - - 0x01FF01 07:FEF1: BD F2 00  LDA a: vCrcLowAddress,X       ;
+C - - - - - 0x01FF04 07:FEF4: 8D 06 20  STA PPU_ADDRESS               ; PPU address is $1YXX (e.g. $1000, $101F, $103E, ...), i.e. the second pattern table
+C - - - - - 0x01FF07 07:FEF7: AD 07 20  LDA PPU_DATA                  ;
+C - - - - - 0x01FF0A 07:FEFA: AD 07 20  LDA PPU_DATA                  ; see https://www.nesdev.org/wiki/PPU_registers#The_PPUDATA_read_buffer
+C - - - - - 0x01FF0D 07:FEFD: 20 50 FE  JSR sub_FE50_add_to_checksum  ;
+C - - - - - 0x01FF10 07:FF00: 20 18 FF  JSR sub_FF18_inc_low          ;
+C - - - - - 0x01FF13 07:FF03: 90 E2     BCC @bra_FEE7_repeat          ; If carry flag is 0 after increments
+C - - - - - 0x01FF15 07:FF05: 20 22 FF  JSR sub_FF22_inc_high         ;
+C - - - - - 0x01FF18 07:FF08: 29 03     AND #$03                      ; CONSTANT only $10XX, $11XX, $12XX and $13XX addresses
+C - - - - - 0x01FF1A 07:FF0A: D0 DB     BNE @bra_FEE7_repeat          ; Branch if the high value doesn't multiple of 4 (a: vCrcHighAddress,X % 4 != 0)
+C - - - - - 0x01FF1C 07:FF0C: A9 3F     LDA #$3F                      ; CONSTANT - max bank data value
+C - - - - - 0x01FF1E 07:FF0E: 20 29 FF  JSR sub_FF29_next_bank_data   ;
+C - - - - - 0x01FF21 07:FF11: B0 CF     BCS @bra_FEE2_loop            ; If the next bank exists
+C - - - - - 0x01FF23 07:FF13: A0 03     LDY #$03                      ; prepare an input parameter
+C - - - - - 0x01FF25 07:FF15: 4C C2 FE  JMP loc_FEC2_check_checksum   ;
 
-sub_FF18:
-- - - - - - 0x01FF28 07:FF18: 18        CLC
-- - - - - - 0x01FF29 07:FF19: A9 1F     LDA #$1F
-- - - - - - 0x01FF2B 07:FF1B: 7D F2 00  ADC a: ram_00F2,X
-- - - - - - 0x01FF2E 07:FF1E: 9D F2 00  STA a: ram_00F2,X
+sub_FF18_inc_low:
+C - - - - - 0x01FF28 07:FF18: 18        CLC                       ;
+C - - - - - 0x01FF29 07:FF19: A9 1F     LDA #$1F                  ; CONSTANT - step to check
+C - - - - - 0x01FF2B 07:FF1B: 7D F2 00  ADC a: vCrcLowAddress,X   ;
+C - - - - - 0x01FF2E 07:FF1E: 9D F2 00  STA a: vCrcLowAddress,X   ;
 bra_FF21_RTS:
-- - - - - - 0x01FF31 07:FF21: 60        RTS
+C - - - - - 0x01FF31 07:FF21: 60        RTS                       ;
 
-sub_FF22:
-- - - - - - 0x01FF32 07:FF22: FE F3 00  INC a: ram_00F3,X
-- - - - - - 0x01FF35 07:FF25: BD F3 00  LDA a: ram_00F3,X
-- - - - - - 0x01FF38 07:FF28: 60        RTS
+sub_FF22_inc_high:
+C - - - - - 0x01FF32 07:FF22: FE F3 00  INC a: vCrcHighAddress,X  ;
+C - - - - - 0x01FF35 07:FF25: BD F3 00  LDA a: vCrcHighAddress,X  ;
+C - - - - - 0x01FF38 07:FF28: 60        RTS                       ;
 
 ; In: Register A - max value
 ; Out: carry flag, 1 - if a new vCrcBankData <= max value, 0 - otherwise.
@@ -10432,8 +10450,9 @@ C - - - - - 0x01FF39 07:FF29: FE F8 00  INC a: vCrcBankData,X   ;
 C - - - - - 0x01FF3C 07:FF2C: DD F8 00  CMP a: vCrcBankData,X   ;
 C - - - - - 0x01FF3F 07:FF2F: 60        RTS                     ;
 
+; In: Register X - 0xFD
 ; In: Register A - a color of the palette
-sub_FF30:
+sub_FF30_prepare_test:
 C - - - - - 0x01FF40 07:FF30: 20 55 FF  JSR sub_FF55_set_palette_address  ;
 C - - - - - 0x01FF43 07:FF33: A0 20     LDY #$20                          ; set loop counter (y)
 @bra_FF35_loop:                                                           ; loop by y
@@ -10443,13 +10462,13 @@ C - - - - - 0x01FF49 07:FF39: D0 FA     BNE @bra_FF35_loop                ; If R
 C - - - - - 0x01FF4B 07:FF3B: 20 55 FF  JSR sub_FF55_set_palette_address  ;
 C - - - - - 0x01FF4E 07:FF3E: 8C 06 20  STY PPU_ADDRESS                   ;
 C - - - - - 0x01FF51 07:FF41: 8C 06 20  STY PPU_ADDRESS                   ; see https://www.nesdev.org/wiki/PPU_registers#Palette_corruption
-- - - - - - 0x01FF54 07:FF44: 98        TYA
-- - - - - - 0x01FF55 07:FF45: 9D F5 00  STA a: vCrcChecksumLowValue,X
-- - - - - - 0x01FF58 07:FF48: 9D F6 00  STA a: vCrcChecksumMiddleValue,X
-- - - - - - 0x01FF5B 07:FF4B: 9D F7 00  STA a: vCrcChecksumHighValue,X
-- - - - - - 0x01FF5E 07:FF4E: 9D F3 00  STA a: ram_00F3,X
-- - - - - - 0x01FF61 07:FF51: 9D F2 00  STA a: ram_00F2,X
-- - - - - - 0x01FF64 07:FF54: 60        RTS
+C - - - - - 0x01FF54 07:FF44: 98        TYA                               ; A <~ 0
+C - - - - - 0x01FF55 07:FF45: 9D F5 00  STA a: vCrcChecksumLowValue,X     ; clear
+C - - - - - 0x01FF58 07:FF48: 9D F6 00  STA a: vCrcChecksumMiddleValue,X  ; clear
+C - - - - - 0x01FF5B 07:FF4B: 9D F7 00  STA a: vCrcChecksumHighValue,X    ; clear
+C - - - - - 0x01FF5E 07:FF4E: 9D F3 00  STA a: vCrcHighAddress,X          ; clear
+C - - - - - 0x01FF61 07:FF51: 9D F2 00  STA a: vCrcLowAddress,X           ; clear
+C - - - - - 0x01FF64 07:FF54: 60        RTS                               ;
 
 sub_FF55_set_palette_address:
 C - - - - - 0x01FF65 07:FF55: A0 3F     LDY #$3F          ;
@@ -10523,42 +10542,35 @@ C - - - - - 0x01FF6F 07:FF5F: 60        RTS               ;
 - - - - - - 0x01FFAE 07:FF9E: 2E        .byte $2E
 - - - - - - 0x01FFAF 07:FF9F: 20        .byte $20
 
-tbl_FFA0:
+tbl_FFA0_data_for_device:
 - D 3 - - - 0x01FFB0 07:FFA0: 48        .byte $48, $41, $52, $55, $48, $49, $53, $41, $2E, $55, $44, $41, $47, $41, $57, $41
-- - - - - - 0x01FFC0 07:FFB0: 20        .byte $20, $26, $20, $20, $4B, $55, $4D, $49, $2E, $48, $41, $4E, $41, $4F, $4B, $41
-- - - - - - 0x01FFD0 07:FFC0: B7        .byte $B7, $BE, $AD, $AA, $B7, $B6, $AC, $BE, $D1, $AA, $BB, $BE, $B8, $BE, $A8, $BE
-- - - - - - 0x01FFE0 07:FFD0: DF        .byte $DF, $D9, $DF, $B4, $AA, $B2, $B6, $D1, $B7, $BE, $B1, $BE, $B0, $B4, $BE, $DF
+- D - - - - 0x01FFC0 07:FFB0: 20        .byte $20, $26, $20, $20, $4B, $55, $4D, $49, $2E, $48, $41, $4E, $41, $4F, $4B, $41
+- D - - - - 0x01FFD0 07:FFC0: B7        .byte $B7, $BE, $AD, $AA, $B7, $B6, $AC, $BE, $D1, $AA, $BB, $BE, $B8, $BE, $A8, $BE
+- D - - - - 0x01FFE0 07:FFD0: DF        .byte $DF, $D9, $DF, $B4, $AA, $B2, $B6, $D1, $B7, $BE, $B1, $BE, $B0, $B4, $BE, $DF
 
-tbl_FFE0:
-- - - - - - 0x01FFF0 07:FFE0: 05        .byte $05, $29, $F7
-- - - - - - 0x01FFF3 07:FFE3: 02        .byte $02, $9A, $C9
+tbl_FFE0_etalon:
+- D - - - - 0x01FFF0 07:FFE0: 05        .byte $05, $29, $F7
+- D - - - - 0x01FFF3 07:FFE3: 02        .byte $02, $9A, $C9
 
-- - - - - - 0x01FFF6 07:FFE6: FF        .byte $FF
-- - - - - - 0x01FFF7 07:FFE7: FF        .byte $FF
-- - - - - - 0x01FFF8 07:FFE8: FF        .byte $FF
-- - - - - - 0x01FFF9 07:FFE9: FF        .byte $FF
-- - - - - - 0x01FFFA 07:FFEA: FF        .byte $FF
-- - - - - - 0x01FFFB 07:FFEB: FF        .byte $FF
-- - - - - - 0x01FFFC 07:FFEC: FF        .byte $FF
-- - - - - - 0x01FFFD 07:FFED: FF        .byte $FF
-- - - - - - 0x01FFFE 07:FFEE: FF        .byte $FF
-- - - - - - 0x01FFFF 07:FFEF: FF        .byte $FF
+; reserve
+- D - - - - 0x01FFF6 07:FFE6: FF        .byte $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x01FFFB 07:FFEB: FF        .byte $FF, $FF, $FF, $FF, $FF
 
 sub_FFF0_update_sounds:
 C - - - - - 0x020000 07:FFF0: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1       ;
-C - - - - - 0x020003 07:FFF3: 4C 80 AD  JMP loc_AD80_activate_sound_manager
+C - - - - - 0x020003 07:FFF3: 4C 80 AD  JMP loc_AD80_activate_sound_manager ;
 
 - D 3 - - - 0x020006 07:FFF6: FF        .byte %11111111   ; The set of the features
-- - - - - - 0x020007 07:FFF7: 00        .byte $00   ; not used ???
-- - - - - - 0x020008 07:FFF8: 00        .byte $00   ; not used ???
-- - - - - - 0x020009 07:FFF9: 00        .byte $00   ; not used ???
+- D - - - - 0x020007 07:FFF7: 00        .byte $00   ; not used ???
+- D - - - - 0x020008 07:FFF8: 00        .byte $00   ; not used ???
+- D - - - - 0x020009 07:FFF9: 00        .byte $00   ; not used ???
 
 .out .sprintf("Free bytes in bank FF:   0x%X [%d]", ($FFFA - *), ($FFFA - *))
 
 .segment "VECTORS"
 - D 3 - - - 0x02000A 07:FFFA: 4E ED     .word vec_ED4E_NMI
 - D 3 - - - 0x02000C 07:FFFC: 00 C0     .word vec_C000_RESET
-- - - - - - 0x02000E 07:FFFE: 07 EE     .word vec_C000_IRQ
+- D - - - - 0x02000E 07:FFFE: 07 EE     .word vec_C000_IRQ
 
 
 
