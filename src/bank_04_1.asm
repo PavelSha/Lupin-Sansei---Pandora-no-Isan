@@ -20,6 +20,7 @@
 .export tbl_road_hills
 .export tbl_checkpoint_after_death
 .export tbl_clarissa_colors
+.export tbl_menu_npc_colors
 .export tbl_car_render_offsets
 .export tbl_room_types
 
@@ -83,128 +84,92 @@ tbl_copyright:
 - D 0 - - - 0x010050 04:8040: 55        .byte $55   ; V
 - D 0 - - - 0x010051 04:8041: 5C        .byte $5C   ; .
 
-- D 0 - - - 0x010052 04:8042: 0F        .byte $0F   ; 
-- D 0 - - - 0x010053 04:8043: 36        .byte $36   ; <6>
-- D 0 - - - 0x010054 04:8044: 21        .byte $21   ; 
-- D 0 - - - 0x010055 04:8045: 20        .byte $20   ; 
-- D 0 - - - 0x010056 04:8046: 0F        .byte $0F   ; 
-- D 0 - - - 0x010057 04:8047: 20        .byte $20   ; 
-- D 0 - - - 0x010058 04:8048: 36        .byte $36   ; <6>
-- D 0 - - - 0x010059 04:8049: 2A        .byte $2A   ; 
-- D 0 - - - 0x01005A 04:804A: 0F        .byte $0F   ; 
-- D 0 - - - 0x01005B 04:804B: 11        .byte $11   ; 
-- D 0 - - - 0x01005C 04:804C: 36        .byte $36   ; <6>
-- D 0 - - - 0x01005D 04:804D: 00        .byte $00   ; 
-- D 0 - - - 0x01005E 04:804E: 0F        .byte $0F   ; 
-- D 0 - - - 0x01005F 04:804F: 20        .byte $20   ; 
-- D 0 - - - 0x010060 04:8050: 36        .byte $36   ; <6>
-- D 0 - - - 0x010061 04:8051: 10        .byte $10   ; 
-- D 0 - - - 0x010062 04:8052: 0F        .byte $0F   ; 
-- D 0 - - - 0x010063 04:8053: 20        .byte $20   ; 
-- D 0 - - - 0x010064 04:8054: 36        .byte $36   ; <6>
-- D 0 - - - 0x010065 04:8055: 06        .byte $06   ; 
-- D 0 - - - 0x010066 04:8056: 0F        .byte $0F   ; 
-- D 0 - - - 0x010067 04:8057: 1A        .byte $1A   ; 
-- D 0 - - - 0x010068 04:8058: 37        .byte $37   ; <7>
-- D 0 - - - 0x010069 04:8059: 26        .byte $26   ; 
-- D 0 - - - 0x01006A 04:805A: 0F        .byte $0F   ; 
-- D 0 - - - 0x01006B 04:805B: 20        .byte $20   ; 
-- D 0 - - - 0x01006C 04:805C: 37        .byte $37   ; <7>
-- D 0 - - - 0x01006D 04:805D: 17        .byte $17   ; 
-- D 0 - I - 0x01006E 04:805E: 8C        .byte $8C   ; 
-- D 0 - I - 0x01006F 04:805F: 20        .byte $20   ; 
-- D 0 - I - 0x010070 04:8060: F9        .byte $F9   ; 
-- D 0 - I - 0x010071 04:8061: 86        .byte $86   ; 
+tbl_menu_npc_colors:
+- D 0 - - - 0x010052 04:8042: 0F        .byte $0F, $36, $21, $20
+- D 0 - - - 0x010056 04:8046: 0F        .byte $0F, $20, $36, $2A   ; Lupin
+- D 0 - - - 0x01005A 04:804A: 0F        .byte $0F, $11, $36, $00   ; Jigen
+- D 0 - - - 0x01005E 04:804E: 0F        .byte $0F, $20, $36, $10   ; Goemon
+- D 0 - - - 0x010062 04:8052: 0F        .byte $0F, $20, $36, $06   ; Zenigata
+- D 0 - - - 0x010066 04:8056: 0F        .byte $0F, $1A, $37, $26   ; Fujiko
+- D 0 - - - 0x01006A 04:805A: 0F        .byte $0F, $20, $37, $17   ; Clarisse
+
+; Clarisse (First cutscene)
+- D 0 - I - 0x01006E 04:805E: 8C        .byte $8C, $20   ; PPU address - $208C
+- D 0 - I - 0x010070 04:8060: F9        .byte $F9, $86   ; CPU address - $86F9
 - D 0 - I - 0x010072 04:8062: 09        .byte $09   ; 
 - D 0 - I - 0x010073 04:8063: 08        .byte $08   ; 
-- D 0 - I - 0x010074 04:8064: CB        .byte $CB   ; 
-- D 0 - I - 0x010075 04:8065: 23        .byte $23   ; 
-- D 0 - I - 0x010076 04:8066: 89        .byte $89   ; 
-- D 0 - I - 0x010077 04:8067: 87        .byte $87   ; 
+- D 0 - I - 0x010074 04:8064: CB        .byte $CB, $23   ; PPU address - $23CB
+- D 0 - I - 0x010076 04:8066: 89        .byte $89, $87   ; CPU address - $8789
 - D 0 - I - 0x010078 04:8068: 03        .byte $03   ; 
 - D 0 - I - 0x010079 04:8069: 02        .byte $02   ; 
-- D 0 - I - 0x01007A 04:806A: C4        .byte $C4   ; 
-- D 0 - I - 0x01007B 04:806B: 20        .byte $20   ; 
-- D 0 - I - 0x01007C 04:806C: 41        .byte $41   ; <A>
-- D 0 - I - 0x01007D 04:806D: 87        .byte $87   ; 
+
+; Lupin
+- D 0 - I - 0x01007A 04:806A: C4        .byte $C4, $20   ; PPU address - $20C4
+- D 0 - I - 0x01007C 04:806C: 41        .byte $41, $87   ; CPU address - $8741
 - D 0 - I - 0x01007E 04:806E: 04        .byte $04   ; 
 - D 0 - I - 0x01007F 04:806F: 03        .byte $03   ; 
-- D 0 - I - 0x010080 04:8070: C9        .byte $C9   ; 
-- D 0 - I - 0x010081 04:8071: 23        .byte $23   ; 
-- D 0 - I - 0x010082 04:8072: 8F        .byte $8F   ; 
-- D 0 - I - 0x010083 04:8073: 87        .byte $87   ; 
+- D 0 - I - 0x010080 04:8070: C9        .byte $C9, $23   ; PPU address - $23C9
+- D 0 - I - 0x010082 04:8072: 8F        .byte $8F, $87   ; CPU address - $878F
 - D 0 - I - 0x010084 04:8074: 02        .byte $02   ; 
 - D 0 - I - 0x010085 04:8075: 01        .byte $01   ; 
-- D 0 - I - 0x010086 04:8076: 50        .byte $50   ; <P>
-- D 0 - I - 0x010087 04:8077: 21        .byte $21   ; 
-- D 0 - I - 0x010088 04:8078: 4D        .byte $4D   ; <M>
-- D 0 - I - 0x010089 04:8079: 87        .byte $87   ; 
+
+; Jigen
+- D 0 - I - 0x010086 04:8076: 50        .byte $50, $21   ; PPU address - $2150
+- D 0 - I - 0x010088 04:8078: 4D        .byte $4D, $87   ; CPU address - $874D
 - D 0 - I - 0x01008A 04:807A: 04        .byte $04   ; 
 - D 0 - I - 0x01008B 04:807B: 03        .byte $03   ; 
-- D 0 - I - 0x01008C 04:807C: D4        .byte $D4   ; 
-- D 0 - I - 0x01008D 04:807D: 23        .byte $23   ; 
-- D 0 - I - 0x01008E 04:807E: 91        .byte $91   ; 
-- D 0 - I - 0x01008F 04:807F: 87        .byte $87   ; 
+- D 0 - I - 0x01008C 04:807C: D4        .byte $D4, $23   ; PPU address - $23D4
+- D 0 - I - 0x01008E 04:807E: 91        .byte $91, $87   ; CPU address - $8791
 - D 0 - I - 0x010090 04:8080: 02        .byte $02   ; 
 - D 0 - I - 0x010091 04:8081: 01        .byte $01   ; 
-- D 0 - I - 0x010092 04:8082: 16        .byte $16   ; 
-- D 0 - I - 0x010093 04:8083: 22        .byte $22   ; 
-- D 0 - I - 0x010094 04:8084: 59        .byte $59   ; <Y>
-- D 0 - I - 0x010095 04:8085: 87        .byte $87   ; 
+
+; Goemon
+- D 0 - I - 0x010092 04:8082: 16        .byte $16, $22   ; PPU address - $2216
+- D 0 - I - 0x010094 04:8084: 59        .byte $59, $87   ; CPU address - $8759
 - D 0 - I - 0x010096 04:8086: 04        .byte $04   ; 
 - D 0 - I - 0x010097 04:8087: 03        .byte $03   ; 
-- D 0 - I - 0x010098 04:8088: E5        .byte $E5   ; 
-- D 0 - I - 0x010099 04:8089: 23        .byte $23   ; 
-- D 0 - I - 0x01009A 04:808A: 93        .byte $93   ; 
-- D 0 - I - 0x01009B 04:808B: 87        .byte $87   ; 
+- D 0 - I - 0x010098 04:8088: E5        .byte $E5, $23   ; PPU address - $23E5
+- D 0 - I - 0x01009A 04:808A: 93        .byte $93, $87   ; CPU address - $8793
 - D 0 - I - 0x01009C 04:808C: 01        .byte $01   ; 
 - D 0 - I - 0x01009D 04:808D: 02        .byte $02   ; 
-- D 0 - I - 0x01009E 04:808E: 5A        .byte $5A   ; <Z>
-- D 0 - I - 0x01009F 04:808F: 20        .byte $20   ; 
-- D 0 - I - 0x0100A0 04:8090: 65        .byte $65   ; <e>
-- D 0 - I - 0x0100A1 04:8091: 87        .byte $87   ; 
+
+; Zenigata
+- D 0 - I - 0x01009E 04:808E: 5A        .byte $5A, $20   ; PPU address - $205A
+- D 0 - I - 0x0100A0 04:8090: 65        .byte $65, $87   ; CPU address - $8765
 - D 0 - I - 0x0100A2 04:8092: 04        .byte $04   ; 
 - D 0 - I - 0x0100A3 04:8093: 03        .byte $03   ; 
-- D 0 - I - 0x0100A4 04:8094: C6        .byte $C6   ; 
-- D 0 - I - 0x0100A5 04:8095: 23        .byte $23   ; 
-- D 0 - I - 0x0100A6 04:8096: 95        .byte $95   ; 
-- D 0 - I - 0x0100A7 04:8097: 87        .byte $87   ; 
+- D 0 - I - 0x0100A4 04:8094: C6        .byte $C6, $23   ; PPU address - $23C6
+- D 0 - I - 0x0100A6 04:8096: 95        .byte $95, $87   ; CPU address - $8795
 - D 0 - I - 0x0100A8 04:8098: 02        .byte $02   ; 
 - D 0 - I - 0x0100A9 04:8099: 02        .byte $02   ; 
-- D 0 - I - 0x0100AA 04:809A: 82        .byte $82   ; 
-- D 0 - I - 0x0100AB 04:809B: 21        .byte $21   ; 
-- D 0 - I - 0x0100AC 04:809C: 71        .byte $71   ; <q>
-- D 0 - I - 0x0100AD 04:809D: 87        .byte $87   ; 
+
+; Fujiko
+- D 0 - I - 0x0100AA 04:809A: 82        .byte $82, $21   ; PPU address - $2182
+- D 0 - I - 0x0100AC 04:809C: 71        .byte $71, $87   ; CPU address - $8771
 - D 0 - I - 0x0100AE 04:809E: 04        .byte $04   ; 
 - D 0 - I - 0x0100AF 04:809F: 03        .byte $03   ; 
-- D 0 - I - 0x0100B0 04:80A0: D8        .byte $D8   ; 
-- D 0 - I - 0x0100B1 04:80A1: 23        .byte $23   ; 
-- D 0 - I - 0x0100B2 04:80A2: 99        .byte $99   ; 
-- D 0 - I - 0x0100B3 04:80A3: 87        .byte $87   ; 
+- D 0 - I - 0x0100B0 04:80A0: D8        .byte $D8, $23   ; PPU address - $23D8
+- D 0 - I - 0x0100B2 04:80A2: 99        .byte $99, $87   ; CPU address - $8799
 - D 0 - I - 0x0100B4 04:80A4: 01        .byte $01   ; 
 - D 0 - I - 0x0100B5 04:80A5: 02        .byte $02   ; 
-- D 0 - I - 0x0100B6 04:80A6: 96        .byte $96   ; 
-- D 0 - I - 0x0100B7 04:80A7: 22        .byte $22   ; 
-- D 0 - I - 0x0100B8 04:80A8: 7D        .byte $7D   ; 
-- D 0 - I - 0x0100B9 04:80A9: 87        .byte $87   ; 
+
+; Clarisse
+- D 0 - I - 0x0100B6 04:80A6: 96        .byte $96, $22   ; PPU address - $2296
+- D 0 - I - 0x0100B8 04:80A8: 7D        .byte $7D, $87   ; CPU address - $877D
 - D 0 - I - 0x0100BA 04:80AA: 04        .byte $04   ; 
 - D 0 - I - 0x0100BB 04:80AB: 03        .byte $03   ; 
-- D 0 - I - 0x0100BC 04:80AC: ED        .byte $ED   ; 
-- D 0 - I - 0x0100BD 04:80AD: 23        .byte $23   ; 
-- D 0 - I - 0x0100BE 04:80AE: 9B        .byte $9B   ; 
-- D 0 - I - 0x0100BF 04:80AF: 87        .byte $87   ; 
+- D 0 - I - 0x0100BC 04:80AC: ED        .byte $ED, $23   ; PPU address - $23ED
+- D 0 - I - 0x0100BE 04:80AE: 9B        .byte $9B, $87   ; CPU address - $879B
 - D 0 - I - 0x0100C0 04:80B0: 01        .byte $01   ; 
 - D 0 - I - 0x0100C1 04:80B1: 02        .byte $02   ; 
-- D 0 - I - 0x0100C2 04:80B2: 8C        .byte $8C   ; 
-- D 0 - I - 0x0100C3 04:80B3: 20        .byte $20   ; 
-- D 0 - I - 0x0100C4 04:80B4: 9D        .byte $9D   ; 
-- D 0 - I - 0x0100C5 04:80B5: 87        .byte $87   ; 
+
+; Clarisse (Last cutscene)
+- D 0 - I - 0x0100C2 04:80B2: 8C        .byte $8C, $20   ; PPU address - $208C
+- D 0 - I - 0x0100C4 04:80B4: 9D        .byte $9D, $87   ; CPU address - $879D
 - D 0 - I - 0x0100C6 04:80B6: 09        .byte $09   ; 
 - D 0 - I - 0x0100C7 04:80B7: 08        .byte $08   ; 
-- D 0 - I - 0x0100C8 04:80B8: CB        .byte $CB   ; 
-- D 0 - I - 0x0100C9 04:80B9: 23        .byte $23   ; 
-- D 0 - I - 0x0100CA 04:80BA: E5        .byte $E5   ; 
-- D 0 - I - 0x0100CB 04:80BB: 87        .byte $87   ; 
+- D 0 - I - 0x0100C8 04:80B8: CB        .byte $CB, $23   ; PPU address - $23CB
+- D 0 - I - 0x0100CA 04:80BA: E5        .byte $E5, $87   ; CPU address - $87E5
 - D 0 - I - 0x0100CC 04:80BC: 03        .byte $03   ; 
 - D 0 - I - 0x0100CD 04:80BD: 02        .byte $02   ; 
 

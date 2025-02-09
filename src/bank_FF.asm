@@ -295,7 +295,7 @@ C - - - - - 0x01C0E7 07:C0D7: 09 08     ORA #$08                                
 C - - - - - 0x01C0E9 07:C0D9: 85 26     STA vPpuCtrlSettings                    ;
 C - - - - - 0x01C0EB 07:C0DB: A9 00     LDA #$00                                ;
 C - - - - - 0x01C0ED 07:C0DD: 85 39     STA vGameInterruptEvent                 ; clear
-C - - - - - 0x01C0EF 07:C0DF: 8D 31 06  STA vHighPpuAddress                     ; clear
+C - - - - - 0x01C0EF 07:C0DF: 8D 31 06  STA vHighPpuAddress                     ; clear, 2nd mode
 C - - - - - 0x01C0F2 07:C0E2: 8D 7B 06  STA vPpuAddrDataCache                   ; clear
 C - - - - - 0x01C0F5 07:C0E5: 85 19     STA vRenderActive                       ; clear
 C - - - - - 0x01C0F7 07:C0E7: A5 3A     LDA vDamageStatus                       ;
@@ -319,31 +319,31 @@ C - - - - - 0x01C123 07:C113: D0 03     BNE bra_C118_skip                       
 C - - - - - 0x01C125 07:C115: 4C A6 C2  JMP loc_C2A6
 
 bra_C118_skip:
-C - - - - - 0x01C128 07:C118: A9 FF     LDA #$FF                    ;
-C - - - - - 0x01C12A 07:C11A: 85 33     STA vLowCutsceneCounter     ; Initializes a counter.
-C - - - - - 0x01C12C 07:C11C: A9 02     LDA #$02                    ;
-C - - - - - 0x01C12E 07:C11E: 85 34     STA vHighCutsceneCounter    ; Initializes a time of a demo scene.
+C - - - - - 0x01C128 07:C118: A9 FF     LDA #$FF                      ;
+C - - - - - 0x01C12A 07:C11A: 85 33     STA vLowCutsceneCounter       ; Initializes a counter.
+C - - - - - 0x01C12C 07:C11C: A9 02     LDA #$02                      ;
+C - - - - - 0x01C12E 07:C11E: 85 34     STA vHighCutsceneCounter      ; Initializes a time of a demo scene.
 bra_C120_wait:
-C - - - - - 0x01C130 07:C120: 20 64 D0  JSR sub_D064_generate_rng   ;
-C - - - - - 0x01C133 07:C123: A5 37     LDA vCutscenesMode          ;
-C - - - - - 0x01C135 07:C125: 10 08     BPL @bra_C12F_skip          ; Branch If in game
-C - - - - - 0x01C137 07:C127: A5 34     LDA vHighCutsceneCounter    ;
-C - - - - - 0x01C139 07:C129: D0 04     BNE @bra_C12F_skip          ; If vHighCutsceneCounter != 0x00
-C - - - - - 0x01C13B 07:C12B: A9 80     LDA #$80                    ; CONSTANT - to next character in demo
-C - - - - - 0x01C13D 07:C12D: 85 39     STA vGameInterruptEvent     ;
+C - - - - - 0x01C130 07:C120: 20 64 D0  JSR sub_D064_generate_rng     ;
+C - - - - - 0x01C133 07:C123: A5 37     LDA vCutscenesMode            ;
+C - - - - - 0x01C135 07:C125: 10 08     BPL @bra_C12F_skip            ; Branch If in game
+C - - - - - 0x01C137 07:C127: A5 34     LDA vHighCutsceneCounter      ;
+C - - - - - 0x01C139 07:C129: D0 04     BNE @bra_C12F_skip            ; If vHighCutsceneCounter != 0x00
+C - - - - - 0x01C13B 07:C12B: A9 80     LDA #$80                      ; CONSTANT - to next character in demo
+C - - - - - 0x01C13D 07:C12D: 85 39     STA vGameInterruptEvent       ;
 @bra_C12F_skip:
-C - - - - - 0x01C13F 07:C12F: AD F6 FF  LDA Set_features            ;
-C - - - - - 0x01C142 07:C132: 30 14     BMI bra_C148_skip           ; If test mode is disabled
+C - - - - - 0x01C13F 07:C12F: AD F6 FF  LDA Set_features              ;
+C - - - - - 0x01C142 07:C132: 30 14     BMI bra_C148_skip             ; If test mode is disabled
 ; Only for test mode
-- - - - - - 0x01C144 07:C134: A5 1F     LDA v_player2_btn_pressed
-- - - - - - 0x01C146 07:C136: 29 02     AND #$02
-- - - - - - 0x01C148 07:C138: F0 0E     BEQ bra_C148_skip
-- - - - - - 0x01C14A 07:C13A: 45 20     EOR v_last_p2_btn_pressed
-- - - - - - 0x01C14C 07:C13C: 29 02     AND #$02
-- - - - - - 0x01C14E 07:C13E: F0 08     BEQ bra_C148_skip
-- - - - - - 0x01C150 07:C140: 85 20     STA v_last_p2_btn_pressed
-- - - - - - 0x01C152 07:C142: 20 48 BC  JSR $BC48 ; to sub_BC48 (bank 06_2)
-- - - - - - 0x01C155 07:C145: 4C 94 C1  JMP loc_C194
+C - - - - - 0x01C144 07:C134: A5 1F     LDA v_player2_btn_pressed     ;
+C - - - - - 0x01C146 07:C136: 29 02     AND #BIT_BUTTON_B             ;
+C - - - - - 0x01C148 07:C138: F0 0E     BEQ bra_C148_skip             ; Go to the branch If the button 'B' doesn't press
+C - - - - - 0x01C14A 07:C13A: 45 20     EOR v_last_p2_btn_pressed     ;
+C - - - - - 0x01C14C 07:C13C: 29 02     AND #BIT_BUTTON_B             ; avoid looping
+C - - - - - 0x01C14E 07:C13E: F0 08     BEQ bra_C148_skip             ; If v_player2_btn_pressed = v_last_p2_btn_pressed
+C - - - - - 0x01C150 07:C140: 85 20     STA v_last_p2_btn_pressed     ; <~ #BIT_BUTTON_B
+C - - - - - 0x01C152 07:C142: 20 48 BC  JSR sub_BC48_next_room        ;
+C - - - - - 0x01C155 07:C145: 4C 94 C1  JMP loc_C194_update_level_no  ;
 
 bra_C148_skip:
 C - - - - - 0x01C158 07:C148: 24 39     BIT vGameInterruptEvent             ; 
@@ -388,39 +388,40 @@ C - - - - - 0x01C19F 07:C18F: 85 C4     STA vCheckpoint                         
 C - - - - - 0x01C1A1 07:C191: 4C B1 C1  JMP loc_C1B1_character_and_room_initializaton ;
 
 ; Only for test mode
-loc_C194:
-C - - - - - 0x01C1A4 07:C194: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
-C - - - - - 0x01C1A7 07:C197: 20 13 C3  JSR sub_C313_screen_off
-C - - - - - 0x01C1AA 07:C19A: A2 00     LDX #$00
-C - - - - - 0x01C1AC 07:C19C: A5 C4     LDA vCheckpoint
-C - - - - - 0x01C1AE 07:C19E: F0 0F     BEQ @bra_C1AF_assign
-C - - - - - 0x01C1B0 07:C1A0: E8        INX
-C - - - - - 0x01C1B1 07:C1A1: C9 06     CMP #$06
-C - - - - - 0x01C1B3 07:C1A3: F0 0A     BEQ @bra_C1AF_assign
-C - - - - - 0x01C1B5 07:C1A5: E8        INX
-C - - - - - 0x01C1B6 07:C1A6: C9 0F     CMP #$0F
-C - - - - - 0x01C1B8 07:C1A8: F0 05     BEQ @bra_C1AF_assign
-C - - - - - 0x01C1BA 07:C1AA: E8        INX
-C - - - - - 0x01C1BB 07:C1AB: C9 19     CMP #$19
-C - - - - - 0x01C1BD 07:C1AD: D0 14     BNE bra_C1C3_skip_initializaton
+loc_C194_update_level_no:
+C - - - - - 0x01C1A4 07:C194: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi   ;
+C - - - - - 0x01C1A7 07:C197: 20 13 C3  JSR sub_C313_screen_off                    ;
+C - - - - - 0x01C1AA 07:C19A: A2 00     LDX #$00                                   ; X <~ 0
+C - - - - - 0x01C1AC 07:C19C: A5 C4     LDA vCheckpoint                            ;
+C - - - - - 0x01C1AE 07:C19E: F0 0F     BEQ @bra_C1AF_assign                       ; If vCheckpoint == 0x00
+C - - - - - 0x01C1B0 07:C1A0: E8        INX                                        ; X <~ 1
+C - - - - - 0x01C1B1 07:C1A1: C9 06     CMP #$06                                   ; CONSTANT - level 2 (outside)
+C - - - - - 0x01C1B3 07:C1A3: F0 0A     BEQ @bra_C1AF_assign                       ; If vCheckpoint == 0x06
+C - - - - - 0x01C1B5 07:C1A5: E8        INX                                        ; X <~ 2
+C - - - - - 0x01C1B6 07:C1A6: C9 0F     CMP #$0F                                   ; CONSTANT - level 3.0
+C - - - - - 0x01C1B8 07:C1A8: F0 05     BEQ @bra_C1AF_assign                       ; If vCheckpoint == 0x0F
+C - - - - - 0x01C1BA 07:C1AA: E8        INX                                        ; X <~ 3
+C - - - - - 0x01C1BB 07:C1AB: C9 19     CMP #$19                                   ; CONSTANT - level racing
+C - - - - - 0x01C1BD 07:C1AD: D0 14     BNE bra_C1C3_skip_initializaton            ; If vCheckpoint != 0x19
+; In: Register X - a new level number
 @bra_C1AF_assign:
-C - - - - - 0x01C1BF 07:C1AF: 86 5E     STX v_no_level
+C - - - - - 0x01C1BF 07:C1AF: 86 5E     STX v_no_level                             ;
 loc_C1B1_character_and_room_initializaton:
-C D 2 - - - 0x01C1C1 07:C1B1: A9 00     LDA #$00                           ; CONSTANT - no reason
-C - - - - - 0x01C1C3 07:C1B3: 85 D6     STA vReasonCharacterChange         ; 
-C - - - - - 0x01C1C5 07:C1B5: A5 5F     LDA vChrLiveStatus                 ;
-C - - - - - 0x01C1C7 07:C1B7: 85 D4     STA vTempChrLiveStatus             ; store a last value
-C - - - - - 0x01C1C9 07:C1B9: A9 FC     LDA #$FC                           ; CONSTANT (see vChrLiveStatus)
-C - - - - - 0x01C1CB 07:C1BB: 85 5F     STA vChrLiveStatus                 ; All characters are ready to play, Lupin is selected
-C - - - - - 0x01C1CD 07:C1BD: 20 72 C6  JSR sub_C672_wait_character_select ;
+C D 2 - - - 0x01C1C1 07:C1B1: A9 00     LDA #$00                                   ; CONSTANT - no reason
+C - - - - - 0x01C1C3 07:C1B3: 85 D6     STA vReasonCharacterChange                 ; 
+C - - - - - 0x01C1C5 07:C1B5: A5 5F     LDA vChrLiveStatus                         ;
+C - - - - - 0x01C1C7 07:C1B7: 85 D4     STA vTempChrLiveStatus                     ; store a last value
+C - - - - - 0x01C1C9 07:C1B9: A9 FC     LDA #$FC                                   ; CONSTANT (see vChrLiveStatus)
+C - - - - - 0x01C1CB 07:C1BB: 85 5F     STA vChrLiveStatus                         ; All characters are ready to play, Lupin is selected
+C - - - - - 0x01C1CD 07:C1BD: 20 72 C6  JSR sub_C672_wait_character_select         ;
 C - - - - - 0x01C1D0 07:C1C0: 20 A5 EF  JSR sub_EFA5
 bra_C1C3_skip_initializaton:
-C - - - - - 0x01C1D3 07:C1C3: A2 00     LDX #$00                           ;
-C - - - - - 0x01C1D5 07:C1C5: 86 B6     STX vCurrentUniqueRoom             ; clear
-C - - - - - 0x01C1D7 07:C1C7: 4C 9C C0  JMP loc_C09C_restart_current_room  ;
+C - - - - - 0x01C1D3 07:C1C3: A2 00     LDX #$00                                   ;
+C - - - - - 0x01C1D5 07:C1C5: 86 B6     STX vCurrentUniqueRoom                     ; clear
+C - - - - - 0x01C1D7 07:C1C7: 4C 9C C0  JMP loc_C09C_restart_current_room          ;
 
 tbl_C1CA_checkpoint_on_start_levels:
-- - - - - - 0x01C1DA 07:C1CA: 00        .byte $00
+- D - - - - 0x01C1DA 07:C1CA: 00        .byte $00
 - D 2 - - - 0x01C1DB 07:C1CB: 06        .byte $06
 - D 2 - - - 0x01C1DC 07:C1CC: 0F        .byte $0F
 - D 2 - - - 0x01C1DD 07:C1CD: 19        .byte $19
@@ -431,53 +432,53 @@ C - - - - - 0x01C1E0 07:C1D0: 10 03     BPL bra_C1D5             ; Branch If in 
 C - - - - - 0x01C1E2 07:C1D2: 4C 8D C2  JMP loc_C28D
 
 bra_C1D5:
-C - - - - - 0x01C1E5 07:C1D5: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi ;
-C - - - - - 0x01C1E8 07:C1D8: A5 6A     LDA vScreenChrPosY                       ;
-C - - - - - 0x01C1EA 07:C1DA: C9 DF     CMP #$DF                                 ; CONSTANT - Maximum permissible height value
-C - - - - - 0x01C1EC 07:C1DC: 90 14     BCC @bra_C1F2_skip                       ; If vScreenChrPosY < 0xDF
-C - - - - - 0x01C1EE 07:C1DE: A9 20     LDA #$20                                 ; CONSTANT - Death by fall
-C - - - - - 0x01C1F0 07:C1E0: 85 3B     STA vSharedGameStatus                    ;
-C - - - - - 0x01C1F2 07:C1E2: A9 00     LDA #$00                                 ;
-C - - - - - 0x01C1F4 07:C1E4: 85 2C     STA vLowCounter                          ; reset
-C - - - - - 0x01C1F6 07:C1E6: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi    ;
+C - - - - - 0x01C1E5 07:C1D5: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi     ;
+C - - - - - 0x01C1E8 07:C1D8: A5 6A     LDA vScreenChrPosY                           ;
+C - - - - - 0x01C1EA 07:C1DA: C9 DF     CMP #$DF                                     ; CONSTANT - Maximum permissible height value
+C - - - - - 0x01C1EC 07:C1DC: 90 14     BCC @bra_C1F2_skip                           ; If vScreenChrPosY < 0xDF
+C - - - - - 0x01C1EE 07:C1DE: A9 20     LDA #$20                                     ; CONSTANT - Death by fall
+C - - - - - 0x01C1F0 07:C1E0: 85 3B     STA vSharedGameStatus                        ;
+C - - - - - 0x01C1F2 07:C1E2: A9 00     LDA #$00                                     ;
+C - - - - - 0x01C1F4 07:C1E4: 85 2C     STA vLowCounter                              ; reset
+C - - - - - 0x01C1F6 07:C1E6: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi        ;
 @bra_C1E9_repeat:
-C - - - - - 0x01C1F9 07:C1E9: A5 2C     LDA vLowCounter                          ;
-C - - - - - 0x01C1FB 07:C1EB: C9 40     CMP #$40                                 ;
-C - - - - - 0x01C1FD 07:C1ED: 90 FA     BCC @bra_C1E9_repeat                     ; If vLowCounter < 0x40
-C - - - - - 0x01C1FF 07:C1EF: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi ;
+C - - - - - 0x01C1F9 07:C1E9: A5 2C     LDA vLowCounter                              ;
+C - - - - - 0x01C1FB 07:C1EB: C9 40     CMP #$40                                     ;
+C - - - - - 0x01C1FD 07:C1ED: 90 FA     BCC @bra_C1E9_repeat                         ; If vLowCounter < 0x40
+C - - - - - 0x01C1FF 07:C1EF: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi     ;
 @bra_C1F2_skip:
-C - - - - - 0x01C202 07:C1F2: A9 40     LDA #$40                                 ; CONSTANT - 'the character is fell or arrested'
-C - - - - - 0x01C204 07:C1F4: 85 D6     STA vReasonCharacterChange               ;
-C - - - - - 0x01C206 07:C1F6: 20 8D EF  JSR sub_EF8D_clear_Zenigata_timer        ;
-C - - - - - 0x01C209 07:C1F9: A9 A0     LDA #$A0                                 ; CONSTANT - select a character (2)
-C - - - - - 0x01C20B 07:C1FB: 85 3C     STA vGameLocks                           ;
-C - - - - - 0x01C20D 07:C1FD: 20 57 DF  JSR sub_DF57_get_current_character       ;
-C - - - - - 0x01C210 07:C200: A8        TAY                                      ; Y <~ the character index
-C - - - - - 0x01C211 07:C201: A9 FD     LDA #$FD                                 ; mask #1 (falling)
-C - - - - - 0x01C213 07:C203: A6 39     LDX vGameInterruptEvent                  ;
-C - - - - - 0x01C215 07:C205: E0 81     CPX #$81                                 ; CONSTANT - to select the character (the character is dying)
-C - - - - - 0x01C217 07:C207: F0 05     BEQ @bra_C20E_skip                       ; If vGameInterruptEvent == 0x81
-C - - - - - 0x01C219 07:C209: 20 8D EF  JSR sub_EF8D_clear_Zenigata_timer        ;
-C - - - - - 0x01C21C 07:C20C: A9 FC     LDA #$FC                                 ; mask #2 (arrest)
+C - - - - - 0x01C202 07:C1F2: A9 40     LDA #$40                                     ; CONSTANT - 'the character is fell or arrested'
+C - - - - - 0x01C204 07:C1F4: 85 D6     STA vReasonCharacterChange                   ;
+C - - - - - 0x01C206 07:C1F6: 20 8D EF  JSR sub_EF8D_clear_Zenigata_timer            ;
+C - - - - - 0x01C209 07:C1F9: A9 A0     LDA #$A0                                     ; CONSTANT - select a character (2)
+C - - - - - 0x01C20B 07:C1FB: 85 3C     STA vGameLocks                               ;
+C - - - - - 0x01C20D 07:C1FD: 20 57 DF  JSR sub_DF57_get_current_character           ;
+C - - - - - 0x01C210 07:C200: A8        TAY                                          ; Y <~ the character index
+C - - - - - 0x01C211 07:C201: A9 FD     LDA #$FD                                     ; mask #1 (falling)
+C - - - - - 0x01C213 07:C203: A6 39     LDX vGameInterruptEvent                      ;
+C - - - - - 0x01C215 07:C205: E0 81     CPX #$81                                     ; CONSTANT - to select the character (the character is dying)
+C - - - - - 0x01C217 07:C207: F0 05     BEQ @bra_C20E_skip                           ; If vGameInterruptEvent == 0x81
+C - - - - - 0x01C219 07:C209: 20 8D EF  JSR sub_EF8D_clear_Zenigata_timer            ;
+C - - - - - 0x01C21C 07:C20C: A9 FC     LDA #$FC                                     ; mask #2 (arrest)
 @bra_C20E_skip:
-C - - - - - 0x01C21E 07:C20E: 38        SEC                                      ; to preserve bits when shifted
+C - - - - - 0x01C21E 07:C20E: 38        SEC                                          ; to preserve bits when shifted
 @bra_C20F_repeat:
-C - - - - - 0x01C21F 07:C20F: 2A        ROL                                      ;
-C - - - - - 0x01C220 07:C210: 2A        ROL                                      ; get a character status (see vChrLiveStatus)
-C - - - - - 0x01C221 07:C211: 88        DEY                                      ; switch to current character
-C - - - - - 0x01C222 07:C212: 10 FB     BPL @bra_C20F_repeat                     ; If Register Y >= 0x00
-C - - - - - 0x01C224 07:C214: 25 5F     AND vChrLiveStatus                       ;
-C - - - - - 0x01C226 07:C216: 85 5F     STA vChrLiveStatus                       ; updates a status
-C - - - - - 0x01C228 07:C218: 29 A8     AND #$A8                                 ;
-C - - - - - 0x01C22A 07:C21A: F0 20     BEQ bra_C23C_skip                        ; If no one fell
-C - - - - - 0x01C22C 07:C21C: 24 6D     BIT vMovableChrStatus                    ;
-C - - - - - 0x01C22E 07:C21E: 10 0C     BPL bra_C22C_skip                        ; If the character didn't move in the water
-C - - - - - 0x01C230 07:C220: A5 47     LDA vTempNoSubLevel                      ;
-C - - - - - 0x01C232 07:C222: 85 46     STA vNoSubLevel                          ; restores
-C - - - - - 0x01C234 07:C224: A5 67     LDA vTempLowChrPosX                      ;
-C - - - - - 0x01C236 07:C226: 85 66     STA vLowChrPosX                          ; restores
-C - - - - - 0x01C238 07:C228: A5 69     LDA vTempNoScreen                        ;
-C - - - - - 0x01C23A 07:C22A: 85 68     STA vNoScreen                            ; restores
+C - - - - - 0x01C21F 07:C20F: 2A        ROL                                          ;
+C - - - - - 0x01C220 07:C210: 2A        ROL                                          ; get a character status (see vChrLiveStatus)
+C - - - - - 0x01C221 07:C211: 88        DEY                                          ; switch to current character
+C - - - - - 0x01C222 07:C212: 10 FB     BPL @bra_C20F_repeat                         ; If Register Y >= 0x00
+C - - - - - 0x01C224 07:C214: 25 5F     AND vChrLiveStatus                           ;
+C - - - - - 0x01C226 07:C216: 85 5F     STA vChrLiveStatus                           ; updates a status
+C - - - - - 0x01C228 07:C218: 29 A8     AND #$A8                                     ;
+C - - - - - 0x01C22A 07:C21A: F0 20     BEQ bra_C23C_skip                            ; If no one fell
+C - - - - - 0x01C22C 07:C21C: 24 6D     BIT vMovableChrStatus                        ;
+C - - - - - 0x01C22E 07:C21E: 10 0C     BPL bra_C22C_skip                            ; If the character didn't move in the water
+C - - - - - 0x01C230 07:C220: A5 47     LDA vTempNoSubLevel                          ;
+C - - - - - 0x01C232 07:C222: 85 46     STA vNoSubLevel                              ; restores
+C - - - - - 0x01C234 07:C224: A5 67     LDA vTempLowChrPosX                          ;
+C - - - - - 0x01C236 07:C226: 85 66     STA vLowChrPosX                              ; restores
+C - - - - - 0x01C238 07:C228: A5 69     LDA vTempNoScreen                            ;
+C - - - - - 0x01C23A 07:C22A: 85 68     STA vNoScreen                                ; restores
 bra_C22C_skip:
 C - - - - - 0x01C23C 07:C22C: A5 39     LDA vGameInterruptEvent                      ;
 C - - - - - 0x01C23E 07:C22E: C9 80     CMP #$80                                     ; CONSTANT - to select the character (the character is arrested)
@@ -494,20 +495,20 @@ C - - - - - 0x01C24E 07:C23E: CD 09 01  CMP v_last_level
 C - - - - - 0x01C251 07:C241: 90 03     BCC bra_C246_skip
 C - - - - - 0x01C253 07:C243: 8D 09 01  STA v_last_level
 bra_C246_skip:
-C - - - - - 0x01C256 07:C246: A9 20     LDA #$20
-C - - - - - 0x01C258 07:C248: 85 3B     STA vSharedGameStatus
+C - - - - - 0x01C256 07:C246: A9 20     LDA #$20                                  ; CONSTANT - Death by fall
+C - - - - - 0x01C258 07:C248: 85 3B     STA vSharedGameStatus                     ;
 C - - - - - 0x01C25A 07:C24A: A9 00     LDA #$00
 C - - - - - 0x01C25C 07:C24C: 85 2C     STA vLowCounter
-C - - - - - 0x01C25E 07:C24E: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
-bra_C251:
+C - - - - - 0x01C25E 07:C24E: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi     ;
+@bra_C251_wait:
 C - - - - - 0x01C261 07:C251: A5 2C     LDA vLowCounter
 C - - - - - 0x01C263 07:C253: C9 40     CMP #$40
-C - - - - - 0x01C265 07:C255: 90 FA     BCC bra_C251
+C - - - - - 0x01C265 07:C255: 90 FA     BCC @bra_C251_wait
 C - - - - - 0x01C267 07:C257: A9 06     LDA #$06
 C - - - - - 0x01C269 07:C259: 85 24     STA vMenuDemoIndex
 loc_C25B:
-C - - - - - 0x01C26B 07:C25B: 20 13 C3  JSR sub_C313_screen_off
-C - - - - - 0x01C26E 07:C25E: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
+C - - - - - 0x01C26B 07:C25B: 20 13 C3  JSR sub_C313_screen_off                    ;
+C - - - - - 0x01C26E 07:C25E: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi   ;
 C - - - - - 0x01C271 07:C261: 20 0D B8  JSR sub_B80D_init_final_score_screen       ;
 C - - - - - 0x01C274 07:C264: A9 00     LDA #$00
 C - - - - - 0x01C276 07:C266: 85 27     STA ram_0027
@@ -521,59 +522,59 @@ C - - - - - 0x01C286 07:C276: A9 93     LDA #$93
 C - - - - - 0x01C288 07:C278: 85 3B     STA vSharedGameStatus
 C - - - - - 0x01C28A 07:C27A: A9 0F     LDA #$0F
 C - - - - - 0x01C28C 07:C27C: 85 D8     STA vFinalSceneNo
-C - - - - - 0x01C28E 07:C27E: 20 F4 C3  JSR sub_C3F4_set_OAM_address
-C - - - - - 0x01C291 07:C281: 20 0F C3  JSR sub_C30F_screen_on
-C - - - - - 0x01C294 07:C284: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
+C - - - - - 0x01C28E 07:C27E: 20 F4 C3  JSR sub_C3F4_set_OAM_address              ;
+C - - - - - 0x01C291 07:C281: 20 0F C3  JSR sub_C30F_screen_on                    ;
+C - - - - - 0x01C294 07:C284: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi     ;
 @bra_C287_wait:
 C - - - - - 0x01C297 07:C287: A5 D8     LDA vFinalSceneNo
 C - - - - - 0x01C299 07:C289: C9 11     CMP #$11
 C - - - - - 0x01C29B 07:C28B: 90 FA     BCC @bra_C287_wait
 loc_C28D:
-C D 2 - - - 0x01C29D 07:C28D: 20 13 C3  JSR sub_C313_screen_off
-C - - - - - 0x01C2A0 07:C290: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
+C D 2 - - - 0x01C29D 07:C28D: 20 13 C3  JSR sub_C313_screen_off                   ;
+C - - - - - 0x01C2A0 07:C290: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi  ;
 C - - - - - 0x01C2A3 07:C293: E6 24     INC vMenuDemoIndex
 C - - - - - 0x01C2A5 07:C295: A5 24     LDA vMenuDemoIndex
-C - - - - - 0x01C2A7 07:C297: C9 07     CMP #$07           ; CONSTANT - Stop demo
-C - - - - - 0x01C2A9 07:C299: 90 08     BCC @bra_C2A3_skip ; If vMenuDemoIndex < 0x07
-C - - - - - 0x01C2AB 07:C29B: A9 FF     LDA #$FF           ; CONSTANT - Cutscene
-C - - - - - 0x01C2AD 07:C29D: 85 37     STA vCutscenesMode ;
-C - - - - - 0x01C2AF 07:C29F: A9 00     LDA #$00           ; CONSTANT - The menu
-C - - - - - 0x01C2B1 07:C2A1: 85 24     STA vMenuDemoIndex ;
+C - - - - - 0x01C2A7 07:C297: C9 07     CMP #$07                                  ; CONSTANT - Stop demo
+C - - - - - 0x01C2A9 07:C299: 90 08     BCC @bra_C2A3_skip                        ; If vMenuDemoIndex < 0x07
+C - - - - - 0x01C2AB 07:C29B: A9 FF     LDA #$FF                                  ; CONSTANT - Cutscene
+C - - - - - 0x01C2AD 07:C29D: 85 37     STA vCutscenesMode                        ;
+C - - - - - 0x01C2AF 07:C29F: A9 00     LDA #$00                                  ; CONSTANT - 'The menu' index
+C - - - - - 0x01C2B1 07:C2A1: 85 24     STA vMenuDemoIndex                        ;
 @bra_C2A3_skip:
-C - - - - - 0x01C2B3 07:C2A3: 4C 46 C0  JMP loc_C046_repeat_starting_mode ;
+C - - - - - 0x01C2B3 07:C2A3: 4C 46 C0  JMP loc_C046_repeat_starting_mode         ;
 
 loc_C2A6:
 @bra_C2A6_wait:
 C D 2 - - - 0x01C2B6 07:C2A6: A5 D8     LDA vFinalSceneNo
 C - - - - - 0x01C2B8 07:C2A8: C9 0A     CMP #$0A
 C - - - - - 0x01C2BA 07:C2AA: 90 FA     BCC @bra_C2A6_wait
-C - - - - - 0x01C2BC 07:C2AC: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
-C - - - - - 0x01C2BF 07:C2AF: 20 13 C3  JSR sub_C313_screen_off
-C - - - - - 0x01C2C2 07:C2B2: 20 DB B7  JSR $B7DB
-C - - - - - 0x01C2C5 07:C2B5: A9 93     LDA #$93
-C - - - - - 0x01C2C7 07:C2B7: 85 3B     STA vSharedGameStatus
-C - - - - - 0x01C2C9 07:C2B9: 20 F4 C3  JSR sub_C3F4_set_OAM_address
-C - - - - - 0x01C2CC 07:C2BC: 20 0F C3  JSR sub_C30F_screen_on
-C - - - - - 0x01C2CF 07:C2BF: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
-bra_C2C2_wait:
+C - - - - - 0x01C2BC 07:C2AC: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi  ;
+C - - - - - 0x01C2BF 07:C2AF: 20 13 C3  JSR sub_C313_screen_off                   ;
+C - - - - - 0x01C2C2 07:C2B2: 20 DB B7  JSR $B7DB                                 ; bank 06, page 2
+C - - - - - 0x01C2C5 07:C2B5: A9 93     LDA #$93                                  ; CONSTANT - Last cutscene (with Clarisse Cagliostro)
+C - - - - - 0x01C2C7 07:C2B7: 85 3B     STA vSharedGameStatus                     ;
+C - - - - - 0x01C2C9 07:C2B9: 20 F4 C3  JSR sub_C3F4_set_OAM_address              ;
+C - - - - - 0x01C2CC 07:C2BC: 20 0F C3  JSR sub_C30F_screen_on                    ;
+C - - - - - 0x01C2CF 07:C2BF: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi     ;
+@bra_C2C2_wait:
 C - - - - - 0x01C2D2 07:C2C2: A5 D8     LDA vFinalSceneNo
 C - - - - - 0x01C2D4 07:C2C4: C9 0C     CMP #$0C
-C - - - - - 0x01C2D6 07:C2C6: 90 FA     BCC bra_C2C2_wait
-C - - - - - 0x01C2D8 07:C2C8: 20 13 C3  JSR sub_C313_screen_off
-C - - - - - 0x01C2DB 07:C2CB: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi
-C - - - - - 0x01C2DE 07:C2CE: A9 30     LDA #$30
-C - - - - - 0x01C2E0 07:C2D0: 20 60 C9  JSR sub_C960_add_score2
+C - - - - - 0x01C2D6 07:C2C6: 90 FA     BCC @bra_C2C2_wait
+C - - - - - 0x01C2D8 07:C2C8: 20 13 C3  JSR sub_C313_screen_off                   ;
+C - - - - - 0x01C2DB 07:C2CB: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi  ;
+C - - - - - 0x01C2DE 07:C2CE: A9 30     LDA #$30                                  ; CONSTANT - 3000 Score
+C - - - - - 0x01C2E0 07:C2D0: 20 60 C9  JSR sub_C960_add_score2                   ;
 C - - - - - 0x01C2E3 07:C2D3: 20 0D B8  JSR sub_B80D_init_final_score_screen      ;
-C - - - - - 0x01C2E6 07:C2D6: 20 F4 C3  JSR sub_C3F4_set_OAM_address
-C - - - - - 0x01C2E9 07:C2D9: 20 0F C3  JSR sub_C30F_screen_on
-C - - - - - 0x01C2EC 07:C2DC: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi
-bra_C2DF_wait:
+C - - - - - 0x01C2E6 07:C2D6: 20 F4 C3  JSR sub_C3F4_set_OAM_address              ;
+C - - - - - 0x01C2E9 07:C2D9: 20 0F C3  JSR sub_C30F_screen_on                    ;
+C - - - - - 0x01C2EC 07:C2DC: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi     ;
+@bra_C2DF_wait:
 C - - - - - 0x01C2EF 07:C2DF: A5 D8     LDA vFinalSceneNo
 C - - - - - 0x01C2F1 07:C2E1: C9 0E     CMP #$0E
-C - - - - - 0x01C2F3 07:C2E3: 90 FA     BCC bra_C2DF_wait
-C - - - - - 0x01C2F5 07:C2E5: A9 00     LDA #$00
-C - - - - - 0x01C2F7 07:C2E7: 8D 09 01  STA v_last_level
-C - - - - - 0x01C2FA 07:C2EA: 4C 00 C0  JMP vec_C000_RESET
+C - - - - - 0x01C2F3 07:C2E3: 90 FA     BCC @bra_C2DF_wait
+C - - - - - 0x01C2F5 07:C2E5: A9 00     LDA #$00                                  ;
+C - - - - - 0x01C2F7 07:C2E7: 8D 09 01  STA v_last_level                          ; clear
+C - - - - - 0x01C2FA 07:C2EA: 4C 00 C0  JMP vec_C000_RESET                        ; restart a game
 
 sub_C2ED_prepare_character_in_water:
 C - - - - - 0x01C2FD 07:C2ED: A5 46     LDA vNoSubLevel                        ;
@@ -1608,7 +1609,6 @@ C - - - - - 0x01C96C 07:C95C: 85 AA     STA vEnemyScore + 4                    ;
 C - - - - - 0x01C96E 07:C95E: F0 17     BEQ bra_C977                           ; Always true
 
 ; In: Register A - score value 0xVV, V - a digit (0x65 - 6500 Score)
-; In: Register X - ???
 sub_C960_add_score2:
 C - - - - - 0x01C970 07:C960: 48        PHA                                    ;
 C - - - - - 0x01C971 07:C961: A5 37     LDA vCutscenesMode                     ;
@@ -1620,8 +1620,8 @@ C - - - - - 0x01C979 07:C969: 85 AB     STA vEnemyScore + 5                    ;
 C - - - - - 0x01C97B 07:C96B: 68        PLA                                    ; retrieve A (see $C966)
 C - - - - - 0x01C97C 07:C96C: 20 5F D0  JSR sub_accumulator_shift_right_by_4   ;
 C - - - - - 0x01C97F 07:C96F: 85 AA     STA vEnemyScore + 4                    ; ~> 5th digit of 7
-C - - - - - 0x01C981 07:C971: 8A        TXA
-C - - - - - 0x01C982 07:C972: 48        PHA                                    ; store A
+C - - - - - 0x01C981 07:C971: 8A        TXA                                    ;
+C - - - - - 0x01C982 07:C972: 48        PHA                                    ; diposit X
 C - - - - - 0x01C983 07:C973: A9 00     LDA #$00                               ;
 C - - - - - 0x01C985 07:C975: 85 AC     STA vEnemyScore + 6                    ; clear 7th digit of 7
 bra_C977:
@@ -1665,8 +1665,8 @@ C - - - - - 0x01C9BB 07:C9AB: E8        INX                                    ;
 C - - - - - 0x01C9BC 07:C9AC: E0 07     CPX #$07                               ;
 C - - - - - 0x01C9BE 07:C9AE: 90 F7     BCC @bra_C9A7_loop                     ; If Register X < 0x07
 bra_C9B0_exit:
-C - - - - - 0x01C9C0 07:C9B0: 68        PLA                                    ; retrieve A (see $C959 or $C972)
-C - - - - - 0x01C9C1 07:C9B1: AA        TAX                                    ; X <~ the enemyA number
+C - - - - - 0x01C9C0 07:C9B0: 68        PLA                                    ;
+C - - - - - 0x01C9C1 07:C9B1: AA        TAX                                    ; retrieve X (see $C959 or $C972)
 bra_C9B2_RTS:
 C - - - - - 0x01C9C2 07:C9B2: 60        RTS                                    ;
 
@@ -9674,7 +9674,7 @@ C - - - - - 0x01FACF 07:FABF: 60        RTS                              ;
 
 sub_FAC0_event_poll:
 C - - - - - 0x01FAD0 07:FAC0: A9 00     LDA #$00                         ;
-C - - - - - 0x01FAD2 07:FAC2: 85 41     STA v_npc_message_status         ; clear
+C - - - - - 0x01FAD2 07:FAC2: 85 41     STA vNPCMessageStatus            ; clear
 C - - - - - 0x01FAD4 07:FAC4: 85 3B     STA vSharedGameStatus            ; CONSTANT - In the game
 C - - - - - 0x01FAD6 07:FAC6: 85 C8     STA vMessageInProgress           ; CONSTANT - no message
 C - - - - - 0x01FAD8 07:FAC8: 85 38     STA vPauseStatus                 ; CONSTANT - no pause
@@ -9724,7 +9724,7 @@ C - - - - - 0x01FB26 07:FB16: 09 02     ORA #$02
 C - - - - - 0x01FB28 07:FB18: 85 3B     STA vSharedGameStatus
 loc_FB1A_continue:
 C D 3 - - - 0x01FB2A 07:FB1A: A9 40     LDA #$40
-C - - - - - 0x01FB2C 07:FB1C: 85 41     STA v_npc_message_status
+C - - - - - 0x01FB2C 07:FB1C: 85 41     STA vNPCMessageStatus
 C - - - - - 0x01FB2E 07:FB1E: 60        RTS
 
 bra_FB1F_last_level:

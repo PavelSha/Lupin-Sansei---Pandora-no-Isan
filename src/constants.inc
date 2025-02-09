@@ -165,7 +165,7 @@ vCharacterSelectionCounter    = ram_003D ; If 0x00 - no selection else selection
 vDrowningRate                 = ram_003E
 vFlowingOffset                = ram_003F ; by X-position in the water
 
-v_npc_message_status          = ram_0041
+vNPCMessageStatus             = ram_0041
 ; 83 - npc is saying the message 
 ; C3 - npc said the message 
 ; 0x40 - ??
