@@ -80,6 +80,7 @@ vMenuDemoIndex                = ram_0024
 ; 0x06 - Clarisse demo
 ; 0x07 - Stop demo
 
+vGameplayDemoCounter          = ram_0025
 vPpuCtrlSettings              = ram_0026 ; This is a last actual ppu controller flags.
 vLowViewPortPosX              = ram_0027 ; a horizontal scroll, in level it's the position of the viewport along the x-axis relative to the level (may repeat, with scrolling)
 vTempLowViewPortPosX          = ram_0028

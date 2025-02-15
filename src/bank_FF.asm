@@ -179,6 +179,7 @@
 .export loc_D8F4_short_dec_ItemPosXLow_unsafe
 .export loc_C924_display_menu_score_ex
 .export sub_C924_display_menu_score_ex
+.export loc_C28D_next_menu_demo
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI                                   ; disable interrupts
@@ -427,11 +428,11 @@ tbl_C1CA_checkpoint_on_start_levels:
 - D 2 - - - 0x01C1DD 07:C1CD: 19        .byte $19
 
 bra_C1CE_main_interrupt:
-C - - - - - 0x01C1DE 07:C1CE: A5 37     LDA vCutscenesMode       ;
-C - - - - - 0x01C1E0 07:C1D0: 10 03     BPL bra_C1D5             ; Branch If in game
-C - - - - - 0x01C1E2 07:C1D2: 4C 8D C2  JMP loc_C28D
+C - - - - - 0x01C1DE 07:C1CE: A5 37     LDA vCutscenesMode           ;
+C - - - - - 0x01C1E0 07:C1D0: 10 03     BPL bra_C1D5_skip            ; Branch If in game
+C - - - - - 0x01C1E2 07:C1D2: 4C 8D C2  JMP loc_C28D_next_menu_demo  ;
 
-bra_C1D5:
+bra_C1D5_skip:
 C - - - - - 0x01C1E5 07:C1D5: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi     ;
 C - - - - - 0x01C1E8 07:C1D8: A5 6A     LDA vScreenChrPosY                           ;
 C - - - - - 0x01C1EA 07:C1DA: C9 DF     CMP #$DF                                     ; CONSTANT - Maximum permissible height value
@@ -444,7 +445,7 @@ C - - - - - 0x01C1F6 07:C1E6: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi   
 @bra_C1E9_repeat:
 C - - - - - 0x01C1F9 07:C1E9: A5 2C     LDA vLowCounter                              ;
 C - - - - - 0x01C1FB 07:C1EB: C9 40     CMP #$40                                     ;
-C - - - - - 0x01C1FD 07:C1ED: 90 FA     BCC @bra_C1E9_repeat                         ; If vLowCounter < 0x40
+C - - - - - 0x01C1FD 07:C1ED: 90 FA     BCC @bra_C1E9_repeat                         ; If vLowCounter < 0x40 (waiting 64 frames)
 C - - - - - 0x01C1FF 07:C1EF: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi     ;
 @bra_C1F2_skip:
 C - - - - - 0x01C202 07:C1F2: A9 40     LDA #$40                                     ; CONSTANT - 'the character is fell or arrested'
@@ -470,7 +471,7 @@ C - - - - - 0x01C222 07:C212: 10 FB     BPL @bra_C20F_repeat                    
 C - - - - - 0x01C224 07:C214: 25 5F     AND vChrLiveStatus                           ;
 C - - - - - 0x01C226 07:C216: 85 5F     STA vChrLiveStatus                           ; updates a status
 C - - - - - 0x01C228 07:C218: 29 A8     AND #$A8                                     ;
-C - - - - - 0x01C22A 07:C21A: F0 20     BEQ bra_C23C_skip                            ; If no one fell
+C - - - - - 0x01C22A 07:C21A: F0 20     BEQ bra_C23C_all                             ; If all are fell or arrested
 C - - - - - 0x01C22C 07:C21C: 24 6D     BIT vMovableChrStatus                        ;
 C - - - - - 0x01C22E 07:C21E: 10 0C     BPL bra_C22C_skip                            ; If the character didn't move in the water
 C - - - - - 0x01C230 07:C220: A5 47     LDA vTempNoSubLevel                          ;
@@ -489,37 +490,37 @@ C - - - - - 0x01C245 07:C235: A5 46     LDA vNoSubLevel                         
 C - - - - - 0x01C247 07:C237: 85 C4     STA vCheckpoint                              ; assigned
 C - - - - - 0x01C249 07:C239: 4C 95 C0  JMP loc_C095_repeat_waiting_select_character ;
 
-bra_C23C_skip:
-C - - - - - 0x01C24C 07:C23C: A5 5E     LDA v_no_level
-C - - - - - 0x01C24E 07:C23E: CD 09 01  CMP v_last_level
-C - - - - - 0x01C251 07:C241: 90 03     BCC bra_C246_skip
-C - - - - - 0x01C253 07:C243: 8D 09 01  STA v_last_level
-bra_C246_skip:
+bra_C23C_all:
+C - - - - - 0x01C24C 07:C23C: A5 5E     LDA v_no_level                            ;
+C - - - - - 0x01C24E 07:C23E: CD 09 01  CMP v_last_level                          ;
+C - - - - - 0x01C251 07:C241: 90 03     BCC @bra_C246_skip                        ; If vNoLevel < vLastLevel
+C - - - - - 0x01C253 07:C243: 8D 09 01  STA v_last_level                          ; updates
+@bra_C246_skip:
 C - - - - - 0x01C256 07:C246: A9 20     LDA #$20                                  ; CONSTANT - Death by fall
 C - - - - - 0x01C258 07:C248: 85 3B     STA vSharedGameStatus                     ;
-C - - - - - 0x01C25A 07:C24A: A9 00     LDA #$00
-C - - - - - 0x01C25C 07:C24C: 85 2C     STA vLowCounter
+C - - - - - 0x01C25A 07:C24A: A9 00     LDA #$00                                  ;
+C - - - - - 0x01C25C 07:C24C: 85 2C     STA vLowCounter                           ; reset
 C - - - - - 0x01C25E 07:C24E: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi     ;
-@bra_C251_wait:
-C - - - - - 0x01C261 07:C251: A5 2C     LDA vLowCounter
-C - - - - - 0x01C263 07:C253: C9 40     CMP #$40
-C - - - - - 0x01C265 07:C255: 90 FA     BCC @bra_C251_wait
-C - - - - - 0x01C267 07:C257: A9 06     LDA #$06
-C - - - - - 0x01C269 07:C259: 85 24     STA vMenuDemoIndex
+@bra_C251_repeat:
+C - - - - - 0x01C261 07:C251: A5 2C     LDA vLowCounter                           ;
+C - - - - - 0x01C263 07:C253: C9 40     CMP #$40                                  ;
+C - - - - - 0x01C265 07:C255: 90 FA     BCC @bra_C251_repeat                      ; If vLowCounter < 0x40 (waiting 64 frames)
+C - - - - - 0x01C267 07:C257: A9 06     LDA #$06                                  ; CONSTANT - fake index for the below code
+C - - - - - 0x01C269 07:C259: 85 24     STA vMenuDemoIndex                        ;
 loc_C25B:
-C - - - - - 0x01C26B 07:C25B: 20 13 C3  JSR sub_C313_screen_off                    ;
-C - - - - - 0x01C26E 07:C25E: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi   ;
-C - - - - - 0x01C271 07:C261: 20 0D B8  JSR sub_B80D_init_final_score_screen       ;
-C - - - - - 0x01C274 07:C264: A9 00     LDA #$00
+C - - - - - 0x01C26B 07:C25B: 20 13 C3  JSR sub_C313_screen_off                   ;
+C - - - - - 0x01C26E 07:C25E: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi  ;
+C - - - - - 0x01C271 07:C261: 20 0D B8  JSR sub_B80D_init_final_score_screen      ;
+C - - - - - 0x01C274 07:C264: A9 00     LDA #$00                                  ;
 C - - - - - 0x01C276 07:C266: 85 27     STA ram_0027
 C - - - - - 0x01C278 07:C268: 85 30     STA ram_0030
-C - - - - - 0x01C27A 07:C26A: 8D 31 06  STA vHighPpuAddress
-C - - - - - 0x01C27D 07:C26D: 8D 7B 06  STA vPpuAddrDataCache ; put empty cache
-C - - - - - 0x01C280 07:C270: 85 C8     STA ram_00C8
-C - - - - - 0x01C282 07:C272: A9 90     LDA #$90
-C - - - - - 0x01C284 07:C274: 85 26     STA vPpuCtrlSettings
-C - - - - - 0x01C286 07:C276: A9 93     LDA #$93
-C - - - - - 0x01C288 07:C278: 85 3B     STA vSharedGameStatus
+C - - - - - 0x01C27A 07:C26A: 8D 31 06  STA vHighPpuAddress                       ; clear, 2nd mode
+C - - - - - 0x01C27D 07:C26D: 8D 7B 06  STA vPpuAddrDataCache                     ; put empty cache
+C - - - - - 0x01C280 07:C270: 85 C8     STA vMessageInProgress                    ; clear
+C - - - - - 0x01C282 07:C272: A9 90     LDA #$90                                  ; CONSTANT - Generate an NMI at the start of the vblank + Background pattern table address: $1000
+C - - - - - 0x01C284 07:C274: 85 26     STA vPpuCtrlSettings                      ;
+C - - - - - 0x01C286 07:C276: A9 93     LDA #$93                                  ; CONSTANT - Last cutscene (with Clarisse Cagliostro)
+C - - - - - 0x01C288 07:C278: 85 3B     STA vSharedGameStatus                     ;
 C - - - - - 0x01C28A 07:C27A: A9 0F     LDA #$0F
 C - - - - - 0x01C28C 07:C27C: 85 D8     STA vFinalSceneNo
 C - - - - - 0x01C28E 07:C27E: 20 F4 C3  JSR sub_C3F4_set_OAM_address              ;
@@ -529,11 +530,11 @@ C - - - - - 0x01C294 07:C284: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi   
 C - - - - - 0x01C297 07:C287: A5 D8     LDA vFinalSceneNo
 C - - - - - 0x01C299 07:C289: C9 11     CMP #$11
 C - - - - - 0x01C29B 07:C28B: 90 FA     BCC @bra_C287_wait
-loc_C28D:
+loc_C28D_next_menu_demo:
 C D 2 - - - 0x01C29D 07:C28D: 20 13 C3  JSR sub_C313_screen_off                   ;
 C - - - - - 0x01C2A0 07:C290: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi  ;
-C - - - - - 0x01C2A3 07:C293: E6 24     INC vMenuDemoIndex
-C - - - - - 0x01C2A5 07:C295: A5 24     LDA vMenuDemoIndex
+C - - - - - 0x01C2A3 07:C293: E6 24     INC vMenuDemoIndex                        ;
+C - - - - - 0x01C2A5 07:C295: A5 24     LDA vMenuDemoIndex                        ;
 C - - - - - 0x01C2A7 07:C297: C9 07     CMP #$07                                  ; CONSTANT - Stop demo
 C - - - - - 0x01C2A9 07:C299: 90 08     BCC @bra_C2A3_skip                        ; If vMenuDemoIndex < 0x07
 C - - - - - 0x01C2AB 07:C29B: A9 FF     LDA #$FF                                  ; CONSTANT - Cutscene
@@ -550,7 +551,7 @@ C - - - - - 0x01C2B8 07:C2A8: C9 0A     CMP #$0A
 C - - - - - 0x01C2BA 07:C2AA: 90 FA     BCC @bra_C2A6_wait
 C - - - - - 0x01C2BC 07:C2AC: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi  ;
 C - - - - - 0x01C2BF 07:C2AF: 20 13 C3  JSR sub_C313_screen_off                   ;
-C - - - - - 0x01C2C2 07:C2B2: 20 DB B7  JSR $B7DB                                 ; bank 06, page 2
+C - - - - - 0x01C2C2 07:C2B2: 20 DB B7  JSR sub_B7DB_prepare_last_cutscene        ; bank 06, page 2
 C - - - - - 0x01C2C5 07:C2B5: A9 93     LDA #$93                                  ; CONSTANT - Last cutscene (with Clarisse Cagliostro)
 C - - - - - 0x01C2C7 07:C2B7: 85 3B     STA vSharedGameStatus                     ;
 C - - - - - 0x01C2C9 07:C2B9: 20 F4 C3  JSR sub_C3F4_set_OAM_address              ;
@@ -1177,26 +1178,27 @@ C - - - - - 0x01C6EA 07:C6DA: 86 3B     STX vSharedGameStatus                   
 C - - - - - 0x01C6EC 07:C6DC: 60        RTS                                        ;
 
 sub_C6DD_render_row:
-C - - - - - 0x01C6ED 07:C6DD: A5 D6     LDA vReasonCharacterChange ;
-C - - - - - 0x01C6EF 07:C6DF: F0 4B     BEQ bra_C72C_skip          ; If vReasonCharacterChange == 'no reason'
+C - - - - - 0x01C6ED 07:C6DD: A5 D6     LDA vReasonCharacterChange  ;
+C - - - - - 0x01C6EF 07:C6DF: F0 4B     BEQ bra_C72C_skip           ; If vReasonCharacterChange == 'no reason'
 C - - - - - 0x01C6F1 07:C6E1: A5 1A     LDA vTempRowNumber1A
 C - - - - - 0x01C6F3 07:C6E3: 29 02     AND #$02
-C - - - - - 0x01C6F5 07:C6E5: D0 01     BNE bra_C6E8
+C - - - - - 0x01C6F5 07:C6E5: D0 01     BNE bra_C6E8_render
 C - - - - - 0x01C6F7 07:C6E7: 60        RTS
 
-bra_C6E8:
-C - - - - - 0x01C6F8 07:C6E8: A5 1A     LDA ram_001A
-C - - - - - 0x01C6FA 07:C6EA: 0A        ASL
-C - - - - - 0x01C6FB 07:C6EB: A8        TAY
-C - - - - - 0x01C6FC 07:C6EC: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01C6FE 07:C6EE: 85 D4     STA vTempChrLiveStatus
-C - - - - - 0x01C700 07:C6F0: 20 7B C7  JSR sub_C77B_can_character_play
+; In: Register Y - {0x02, 0x03, 0x06, 0x07, 0x0A, 0x0B}
+bra_C6E8_render:
+C - - - - - 0x01C6F8 07:C6E8: A5 1A     LDA vTempRowNumber1A             ;
+C - - - - - 0x01C6FA 07:C6EA: 0A        ASL                              ;
+C - - - - - 0x01C6FB 07:C6EB: A8        TAY                              ; Y <~ row / 2 {0x04, 0x06, 0x0C, 0x0E, 0x14, 0x16}
+C - - - - - 0x01C6FC 07:C6EC: A5 5F     LDA vChrLiveStatus               ;
+C - - - - - 0x01C6FE 07:C6EE: 85 D4     STA vTempChrLiveStatus           ;
+C - - - - - 0x01C700 07:C6F0: 20 7B C7  JSR sub_C77B_can_character_play  ;
 C - - - - - 0x01C703 07:C6F3: F0 07     BEQ bra_C6FC
-C - - - - - 0x01C705 07:C6F5: 88        DEY
-C - - - - - 0x01C706 07:C6F6: 88        DEY
-C - - - - - 0x01C707 07:C6F7: 88        DEY
-C - - - - - 0x01C708 07:C6F8: 88        DEY
-C - - - - - 0x01C709 07:C6F9: 4C 1F C7  JMP loc_C71F
+C - - - - - 0x01C705 07:C6F5: 88        DEY                              ;
+C - - - - - 0x01C706 07:C6F6: 88        DEY                              ;
+C - - - - - 0x01C707 07:C6F7: 88        DEY                              ;
+C - - - - - 0x01C708 07:C6F8: 88        DEY                              ; Y <~ row / 2 {0x00, 0x02, 0x08, 0x0A, 0x10, 0x12}
+C - - - - - 0x01C709 07:C6F9: 4C 1F C7  JMP loc_C71F_continue
 
 bra_C6FC:
 C - - - - - 0x01C70C 07:C6FC: A5 D6     LDA vReasonCharacterChange ;
@@ -1214,27 +1216,27 @@ C - - - - - 0x01C71F 07:C70F: 88        DEY
 C - - - - - 0x01C720 07:C710: 88        DEY
 C - - - - - 0x01C721 07:C711: 88        DEY
 bra_C712:
-C - - - - - 0x01C722 07:C712: B9 78 94  LDA $9478,Y
-C - - - - - 0x01C725 07:C715: 85 02     STA ram_0002
-C - - - - - 0x01C727 07:C717: B9 79 94  LDA $9479,Y
-C - - - - - 0x01C72A 07:C71A: 85 03     STA ram_0003
-C - - - - - 0x01C72C 07:C71C: 4C 54 C7  JMP loc_C754_render_02_03
+C - - - - - 0x01C722 07:C712: B9 78 94  LDA tbl_select_characters_dialog_losing,Y      ;
+C - - - - - 0x01C725 07:C715: 85 02     STA ram_0002                                   ; Low address
+C - - - - - 0x01C727 07:C717: B9 79 94  LDA tbl_select_characters_dialog_losing + 1,Y  ;
+C - - - - - 0x01C72A 07:C71A: 85 03     STA ram_0003                                   ; High address
+C - - - - - 0x01C72C 07:C71C: 4C 54 C7  JMP loc_C754_render_02_03                      ;
 
 bra_C71F_skip:
-loc_C71F:
-C D 2 - - - 0x01C72F 07:C71F: B9 60 94  LDA $9460,Y
-C - - - - - 0x01C732 07:C722: 85 02     STA ram_0002
-C - - - - - 0x01C734 07:C724: B9 61 94  LDA $9461,Y
-C - - - - - 0x01C737 07:C727: 85 03     STA ram_0003
-C - - - - - 0x01C739 07:C729: 4C 54 C7  JMP loc_C754_render_02_03
+loc_C71F_continue:
+C D 2 - - - 0x01C72F 07:C71F: B9 60 94  LDA tbl_select_characters_dialog_radio,Y       ;
+C - - - - - 0x01C732 07:C722: 85 02     STA ram_0002                                   ; Low address
+C - - - - - 0x01C734 07:C724: B9 61 94  LDA tbl_select_characters_dialog_radio + 1,Y   ;
+C - - - - - 0x01C737 07:C727: 85 03     STA ram_0003                                   ; High address
+C - - - - - 0x01C739 07:C729: 4C 54 C7  JMP loc_C754_render_02_03                      ;
 
 bra_C72C_skip:
-C - - - - - 0x01C73C 07:C72C: A5 1A     LDA vTempRowNumber1A             ;
-C - - - - - 0x01C73E 07:C72E: 29 02     AND #$02                         ;
-C - - - - - 0x01C740 07:C730: D0 06     BNE bra_C738_internal_render_row ; Branch If vTempRowNumber1A = 0x02, 0x03, 0x06, 0x07, 0x0A, 0x0B
-C - - - - - 0x01C742 07:C732: 20 7B C7  JSR sub_C77B_can_character_play  ; For 0x08, 0x09 - Lupin; 0x04, 0x05 - Jigen; 0x00, 0x01 - Goemon
-C - - - - - 0x01C745 07:C735: D0 01     BNE bra_C738_internal_render_row ; If character is fell or arrested
-C - - - - - 0x01C747 07:C737: 60        RTS                              ;
+C - - - - - 0x01C73C 07:C72C: A5 1A     LDA vTempRowNumber1A              ;
+C - - - - - 0x01C73E 07:C72E: 29 02     AND #$02                          ;
+C - - - - - 0x01C740 07:C730: D0 06     BNE bra_C738_internal_render_row  ; Branch If vTempRowNumber1A = 0x02, 0x03, 0x06, 0x07, 0x0A, 0x0B
+C - - - - - 0x01C742 07:C732: 20 7B C7  JSR sub_C77B_can_character_play   ; For 0x08, 0x09 - Lupin; 0x04, 0x05 - Jigen; 0x00, 0x01 - Goemon
+C - - - - - 0x01C745 07:C735: D0 01     BNE bra_C738_internal_render_row  ; If character is fell or arrested
+C - - - - - 0x01C747 07:C737: 60        RTS                               ;
 
 bra_C738_internal_render_row:
 C - - - - - 0x01C748 07:C738: A5 5E     LDA v_no_level                                          ;
@@ -1254,6 +1256,8 @@ C - - - - - 0x01C75A 07:C74A: B9 00 94  LDA tbl_select_characters_dialog,Y      
 C - - - - - 0x01C75D 07:C74D: 85 02     STA ram_0002                                            ; low address
 C - - - - - 0x01C75F 07:C74F: B9 01 94  LDA tbl_select_characters_dialog + 1,Y                  ;
 C - - - - - 0x01C762 07:C752: 85 03     STA ram_0003                                            ; high address
+; In: Register $0002 - Low address for ppu buffer data
+; In: Register $0003 - High address for ppu buffer data
 loc_C754_render_02_03:
 C D 2 - - - 0x01C764 07:C754: A0 13     LDY #$13                              ; set loop counter
 @bra_C756_loop:                                                               ; loop by y (14 times)

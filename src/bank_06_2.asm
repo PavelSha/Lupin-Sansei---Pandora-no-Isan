@@ -91,6 +91,7 @@
 .export sub_B80D_init_final_score_screen
 .export sub_B067_take_item_out
 .export sub_BC48_next_room
+.export sub_B7DB_prepare_last_cutscene
 .export tbl_ptr_enemy_t2_types_for_sprites
 .export tbl_ptr_enemy_t3_types_for_sprites
 .export tbl_ptr_enemy_t2_sprite_params_
@@ -3684,9 +3685,9 @@ C - - - - - 0x01B7E7 06:B7D7: A8        TAY                  ; Y <~ an index of 
 C - - - - - 0x01B7E8 06:B7D8: 84 11     STY ram_0011         ;
 C - - - - - 0x01B7EA 06:B7DA: 60        RTS                  ;
 
-sub_B7DB:
-C - - - - - 0x01B7EB 06:B7DB: 20 02 C4  JSR sub_C402_clear_sound_parts
-C - - - - - 0x01B7EE 06:B7DE: 20 1D C3  JSR sub_C31D_clear_ppu
+sub_B7DB_prepare_last_cutscene:
+C - - - - - 0x01B7EB 06:B7DB: 20 02 C4  JSR sub_C402_clear_sound_parts              ;
+C - - - - - 0x01B7EE 06:B7DE: 20 1D C3  JSR sub_C31D_clear_ppu                      ;
 C - - - - - 0x01B7F1 06:B7E1: 20 58 C3  JSR sub_C358_clear_OAM                      ;
 C - - - - - 0x01B7F4 06:B7E4: 20 46 EF  JSR sub_EF46_switch_bank_4_p1               ;
 C - - - - - 0x01B7F7 06:B7E7: A2 05     LDX #$05                                    ; set loop counter
@@ -3696,18 +3697,18 @@ C - - - - - 0x01B7FC 06:B7EC: 9D AF 06  STA vCacheChrBankSelect,X               
 C - - - - - 0x01B7FF 06:B7EF: CA        DEX                                         ; decrement x
 C - - - - - 0x01B800 06:B7F0: 10 F7     BPL @bra_B7E9_loop                          ; In Register X >= 0x00 && X < 0x80
 C - - - - - 0x01B802 06:B7F2: 20 BA BA  JSR sub_BABA_set_palette_for_clarissa       ;
-C - - - - - 0x01B805 06:B7F5: A9 5E     LDA #$5E
-C - - - - - 0x01B807 06:B7F7: 18        CLC
-C - - - - - 0x01B808 06:B7F8: 69 54     ADC #$54
-C - - - - - 0x01B80A 06:B7FA: 85 12     STA ram_0012
-C - - - - - 0x01B80C 06:B7FC: A9 80     LDA #$80
-C - - - - - 0x01B80E 06:B7FE: 69 00     ADC #$00
-C - - - - - 0x01B810 06:B800: 85 13     STA ram_0013
-C - - - - - 0x01B812 06:B802: AD 02 20  LDA PPU_STATUS
-C - - - - - 0x01B815 06:B805: 20 CB BA  JSR sub_BACB
-C - - - - - 0x01B818 06:B808: A9 10     LDA #$10
-C - - - - - 0x01B81A 06:B80A: 85 26     STA vPpuCtrlSettings
-C - - - - - 0x01B81C 06:B80C: 60        RTS
+C - - - - - 0x01B805 06:B7F5: A9 5E     LDA #$5E                                    ;
+C - - - - - 0x01B807 06:B7F7: 18        CLC                                         ;
+C - - - - - 0x01B808 06:B7F8: 69 54     ADC #$54                                    ;
+C - - - - - 0x01B80A 06:B7FA: 85 12     STA ram_0012                                ; Low address
+C - - - - - 0x01B80C 06:B7FC: A9 80     LDA #$80                                    ;
+C - - - - - 0x01B80E 06:B7FE: 69 00     ADC #$00                                    ;
+C - - - - - 0x01B810 06:B800: 85 13     STA ram_0013                                ; High address ($80B2 in the bank 04_1)
+C - - - - - 0x01B812 06:B802: AD 02 20  LDA PPU_STATUS                              ; Read PPU status to reset the high/low latch
+C - - - - - 0x01B815 06:B805: 20 CB BA  JSR sub_BACB_fill_ppu                       ;
+C - - - - - 0x01B818 06:B808: A9 10     LDA #$10                                    ; CONSTANT - Background pattern table address: $1000
+C - - - - - 0x01B81A 06:B80A: 85 26     STA vPpuCtrlSettings                        ;
+C - - - - - 0x01B81C 06:B80C: 60        RTS                                         ;
 
 sub_B80D_init_final_score_screen:
 C - - - - - 0x01B81D 06:B80D: 20 2F C6  JSR sub_C62F_init_character_select        ;
@@ -3717,7 +3718,7 @@ C - - - - - 0x01B823 06:B813: 69 23     ADC #$23                                
 C - - - - - 0x01B825 06:B815: 85 12     STA ram_0012                              ; Low address
 C - - - - - 0x01B827 06:B817: A9 81     LDA #$81                                  ;
 C - - - - - 0x01B829 06:B819: 69 00     ADC #$00                                  ;
-C - - - - - 0x01B82B 06:B81B: 85 13     STA ram_0013                              ; High address (0x815C in the bank 04_1)
+C - - - - - 0x01B82B 06:B81B: 85 13     STA ram_0013                              ; High address ($815C in the bank 04_1)
 C - - - - - 0x01B82D 06:B81D: A9 02     LDA #$02                                  ;
 C - - - - - 0x01B82F 06:B81F: 85 00     STA ram_0000                              ; prepare an input parameter (loop counter)
 C - - - - - 0x01B831 06:B821: 20 68 C6  JSR sub_C668_render_14_15_16_17_18_loop   ;
@@ -3849,7 +3850,7 @@ C - - - - - 0x01B910 06:B900: 10 F7     BPL @bra_B8F9_loop                      
 C - - - - - 0x01B912 06:B902: A9 E4     LDA #$E4                                   ;
 C - - - - - 0x01B914 06:B904: 85 12     STA ram_0012                               ; Low address
 C - - - - - 0x01B916 06:B906: A9 80     LDA #$80                                   ;
-C - - - - - 0x01B918 06:B908: 85 13     STA ram_0013                               ; High address (0x80E4 in the bank 04_1)
+C - - - - - 0x01B918 06:B908: 85 13     STA ram_0013                               ; High address ($80E4 in the bank 04_1)
 C - - - - - 0x01B91A 06:B90A: A9 00     LDA #$00                                   ; CONSTANT - no reason
 C - - - - - 0x01B91C 06:B90C: 85 D6     STA vReasonCharacterChange                 ;
 C - - - - - 0x01B91E 06:B90E: A2 0F     LDX #$0F                                   ;
@@ -3941,16 +3942,10 @@ C - - - - - 0x01B9C4 06:B9B4: A9 10     LDA #$10                                
 C - - - - - 0x01B9C6 06:B9B6: 85 3B     STA vSharedGameStatus                      ;
 C - - - - - 0x01B9C8 06:B9B8: 60        RTS                                        ;
 
-tbl_B9B9:
-- D 1 - - - 0x01B9C9 06:B9B9: 00        .byte $00   ; 
-- D 1 - - - 0x01B9CA 06:B9BA: 42        .byte $42   ; <B>
-- D 1 - - - 0x01B9CB 06:B9BB: 06        .byte $06   ; 
-- D 1 - - - 0x01B9CC 06:B9BC: 10        .byte $10   ; 
-- D 1 - - - 0x01B9CD 06:B9BD: 0F        .byte $0F   ; 
-- D 1 - - - 0x01B9CE 06:B9BE: 07        .byte $07   ; 
-- D 1 - - - 0x01B9CF 06:B9BF: 19        .byte $19   ; 
-- D 1 - - - 0x01B9D0 06:B9C0: 03        .byte $03   ; 
-tbl_B9C1:
+tbl_B9B9_checkpoints:
+- D 1 - - - 0x01B9C9 06:B9B9: 00        .byte $00, $42, $06, $10, $0F, $07, $19, $03
+
+tbl_B9C1_levels:
 - D 1 - - - 0x01B9D1 06:B9C1: 00        .byte $00   ; 
 - D 1 - - - 0x01B9D2 06:B9C2: 03        .byte $03   ; 
 - D 1 - - - 0x01B9D3 06:B9C3: 01        .byte $01   ; 
@@ -3971,73 +3966,73 @@ C - - - - - 0x01B9E7 06:B9D7: 4C 02 C4  JMP loc_C402_clear_sound_parts          
 
 sub_B9DA_curscene_shared_routine:
 C - - - - - 0x01B9EA 06:B9DA: A5 37     LDA vCutscenesMode     ;
-C - - - - - 0x01B9EC 06:B9DC: 30 01     BMI bra_B9DF           ; Branch If cutscenes are used
+C - - - - - 0x01B9EC 06:B9DC: 30 01     BMI bra_B9DF_used      ; Branch If cutscenes are used
 C - - - - - 0x01B9EE 06:B9DE: 60        RTS                    ;
 
-bra_B9DF:
-C - - - - - 0x01B9EF 06:B9DF: 20 02 C4  JSR sub_C402_clear_sound_parts        ;
-C - - - - - 0x01B9F2 06:B9E2: 20 1D C3  JSR sub_C31D_clear_ppu                ;
-C - - - - - 0x01B9F5 06:B9E5: 20 58 C3  JSR sub_C358_clear_OAM                ;
-C - - - - - 0x01B9F8 06:B9E8: 20 46 EF  JSR sub_EF46_switch_bank_4_p1         ;
-C - - - - - 0x01B9FB 06:B9EB: A2 05     LDX #$05                              ; set loop counter
-@bra_B9ED_loop:                                                               ; loop by x
-C - - - - - 0x01B9FD 06:B9ED: BD 14 80  LDA tbl_template_chr_banks1,X         ;
-C - - - - - 0x01BA00 06:B9F0: 9D AF 06  STA vCacheChrBankSelect,X             ; 
-C - - - - - 0x01BA03 06:B9F3: CA        DEX                                   ; decrements loop counter
-C - - - - - 0x01BA04 06:B9F4: 10 F7     BPL @bra_B9ED_loop                    ; If Register X < 0x80
-C - - - - - 0x01BA06 06:B9F6: A5 24     LDA vMenuDemoIndex                    ;
-C - - - - - 0x01BA08 06:B9F8: D0 32     BNE @bra_BA2C_skip                    ; If vMenuDemoIndex > 0
-C - - - - - 0x01BA0A 06:B9FA: A2 36     LDX #$36                              ; CONSTANT for CHR ROM
-C - - - - - 0x01BA0C 06:B9FC: 8E B3 06  STX vCacheChrBankSelect + 4           ;
-C - - - - - 0x01BA0F 06:B9FF: E8        INX                                   ; CONSTANT for CHR ROM
-C - - - - - 0x01BA10 06:BA00: 8E B4 06  STX vCacheChrBankSelect + 5           ;
-C - - - - - 0x01BA13 06:BA03: AD 02 20  LDA PPU_STATUS                        ; Read PPU status to reset the high/low latch
-C - - - - - 0x01BA16 06:BA06: A9 23     LDA #$23                              ;
-C - - - - - 0x01BA18 06:BA08: 8D 06 20  STA PPU_ADDRESS                       ;
-C - - - - - 0x01BA1B 06:BA0B: A9 64     LDA #$64                              ;
-C - - - - - 0x01BA1D 06:BA0D: 8D 06 20  STA PPU_ADDRESS                       ; PPU address is 0x2364
-C - - - - - 0x01BA20 06:BA10: A2 00     LDX #$00                              ; set loop counter
-@bra_BA12_loop:                                                               ; loop by x
-C - - - - - 0x01BA22 06:BA12: BD 2A 80  LDA tbl_copyright,X                   ;
-C - - - - - 0x01BA25 06:BA15: 8D 07 20  STA PPU_DATA                          ;
-C - - - - - 0x01BA28 06:BA18: E8        INX                                   ; increments loop counter
-C - - - - - 0x01BA29 06:BA19: E0 18     CPX #$18                              ; CONSTANT - 18 tiles 
-C - - - - - 0x01BA2B 06:BA1B: D0 F5     BNE @bra_BA12_loop                    ; If Register X != 0x18
-C - - - - - 0x01BA2D 06:BA1D: A9 23     LDA #$23                              ;
-C - - - - - 0x01BA2F 06:BA1F: 8D 06 20  STA PPU_ADDRESS                       ;
-C - - - - - 0x01BA32 06:BA22: A9 4B     LDA #$4B                              ;
-C - - - - - 0x01BA34 06:BA24: 8D 06 20  STA PPU_ADDRESS                       ; PPU address is 0x234B
-C - - - - - 0x01BA37 06:BA27: A9 7F     LDA #$7F                              ;
-C - - - - - 0x01BA39 06:BA29: 8D 07 20  STA PPU_DATA                          ; The part of the sign (the part of the copyright)
+bra_B9DF_used:
+C - - - - - 0x01B9EF 06:B9DF: 20 02 C4  JSR sub_C402_clear_sound_parts           ;
+C - - - - - 0x01B9F2 06:B9E2: 20 1D C3  JSR sub_C31D_clear_ppu                   ;
+C - - - - - 0x01B9F5 06:B9E5: 20 58 C3  JSR sub_C358_clear_OAM                   ;
+C - - - - - 0x01B9F8 06:B9E8: 20 46 EF  JSR sub_EF46_switch_bank_4_p1            ;
+C - - - - - 0x01B9FB 06:B9EB: A2 05     LDX #$05                                 ; set loop counter
+@bra_B9ED_loop:                                                                  ; loop by x
+C - - - - - 0x01B9FD 06:B9ED: BD 14 80  LDA tbl_template_chr_banks1,X            ;
+C - - - - - 0x01BA00 06:B9F0: 9D AF 06  STA vCacheChrBankSelect,X                ; 
+C - - - - - 0x01BA03 06:B9F3: CA        DEX                                      ; decrements loop counter
+C - - - - - 0x01BA04 06:B9F4: 10 F7     BPL @bra_B9ED_loop                       ; If Register X < 0x80
+C - - - - - 0x01BA06 06:B9F6: A5 24     LDA vMenuDemoIndex                       ;
+C - - - - - 0x01BA08 06:B9F8: D0 32     BNE @bra_BA2C_skip                       ; If vMenuDemoIndex > 0
+C - - - - - 0x01BA0A 06:B9FA: A2 36     LDX #$36                                 ; CONSTANT for CHR ROM
+C - - - - - 0x01BA0C 06:B9FC: 8E B3 06  STX vCacheChrBankSelect + 4              ;
+C - - - - - 0x01BA0F 06:B9FF: E8        INX                                      ; CONSTANT for CHR ROM
+C - - - - - 0x01BA10 06:BA00: 8E B4 06  STX vCacheChrBankSelect + 5              ;
+C - - - - - 0x01BA13 06:BA03: AD 02 20  LDA PPU_STATUS                           ; Read PPU status to reset the high/low latch
+C - - - - - 0x01BA16 06:BA06: A9 23     LDA #$23                                 ;
+C - - - - - 0x01BA18 06:BA08: 8D 06 20  STA PPU_ADDRESS                          ;
+C - - - - - 0x01BA1B 06:BA0B: A9 64     LDA #$64                                 ;
+C - - - - - 0x01BA1D 06:BA0D: 8D 06 20  STA PPU_ADDRESS                          ; PPU address is 0x2364
+C - - - - - 0x01BA20 06:BA10: A2 00     LDX #$00                                 ; set loop counter
+@bra_BA12_loop:                                                                  ; loop by x
+C - - - - - 0x01BA22 06:BA12: BD 2A 80  LDA tbl_copyright,X                      ;
+C - - - - - 0x01BA25 06:BA15: 8D 07 20  STA PPU_DATA                             ;
+C - - - - - 0x01BA28 06:BA18: E8        INX                                      ; increments loop counter
+C - - - - - 0x01BA29 06:BA19: E0 18     CPX #$18                                 ; CONSTANT - 18 tiles 
+C - - - - - 0x01BA2B 06:BA1B: D0 F5     BNE @bra_BA12_loop                       ; If Register X != 0x18
+C - - - - - 0x01BA2D 06:BA1D: A9 23     LDA #$23                                 ;
+C - - - - - 0x01BA2F 06:BA1F: 8D 06 20  STA PPU_ADDRESS                          ;
+C - - - - - 0x01BA32 06:BA22: A9 4B     LDA #$4B                                 ;
+C - - - - - 0x01BA34 06:BA24: 8D 06 20  STA PPU_ADDRESS                          ; PPU address is 0x234B
+C - - - - - 0x01BA37 06:BA27: A9 7F     LDA #$7F                                 ;
+C - - - - - 0x01BA39 06:BA29: 8D 07 20  STA PPU_DATA                             ; The part of the sign (the part of the copyright)
 @bra_BA2C_skip:
-C - - - - - 0x01BA3C 06:BA2C: 20 BA BA  JSR sub_BABA_set_palette_for_clarissa ;
-C - - - - - 0x01BA3F 06:BA2F: A5 24     LDA vMenuDemoIndex                    ;
-C - - - - - 0x01BA41 06:BA31: 0A        ASL                                   ;
-C - - - - - 0x01BA42 06:BA32: 0A        ASL                                   ; *4, because a pallete contains 4 colors
-C - - - - - 0x01BA43 06:BA33: AA        TAX                                   ; prepare an address offset
-C - - - - - 0x01BA44 06:BA34: A0 04     LDY #$04                              ; set loop counter
+C - - - - - 0x01BA3C 06:BA2C: 20 BA BA  JSR sub_BABA_set_palette_for_clarissa    ;
+C - - - - - 0x01BA3F 06:BA2F: A5 24     LDA vMenuDemoIndex                       ;
+C - - - - - 0x01BA41 06:BA31: 0A        ASL                                      ;
+C - - - - - 0x01BA42 06:BA32: 0A        ASL                                      ; *4, because a pallete contains 4 colors
+C - - - - - 0x01BA43 06:BA33: AA        TAX                                      ; prepare an address offset
+C - - - - - 0x01BA44 06:BA34: A0 04     LDY #$04                                 ; set loop counter
 @bra_BA36_loop:
-C - - - - - 0x01BA46 06:BA36: BD 42 80  LDA tbl_menu_npc_colors,X             ;
-C - - - - - 0x01BA49 06:BA39: 99 00 06  STA vCachePalette,Y                   ;
-C - - - - - 0x01BA4C 06:BA3C: E8        INX                                   ; next color
-C - - - - - 0x01BA4D 06:BA3D: C8        INY                                   ; increment loop counter
-C - - - - - 0x01BA4E 06:BA3E: C0 08     CPY #$08                              ;
-C - - - - - 0x01BA50 06:BA40: D0 F4     BNE @bra_BA36_loop                    ; If Register Y != 0x08
-C - - - - - 0x01BA52 06:BA42: A5 24     LDA vMenuDemoIndex
-C - - - - - 0x01BA54 06:BA44: 0A        ASL
-C - - - - - 0x01BA55 06:BA45: 0A        ASL
-C - - - - - 0x01BA56 06:BA46: 85 12     STA ram_0012
-C - - - - - 0x01BA58 06:BA48: 0A        ASL
-C - - - - - 0x01BA59 06:BA49: 18        CLC
-C - - - - - 0x01BA5A 06:BA4A: 65 12     ADC ram_0012
-C - - - - - 0x01BA5C 06:BA4C: 18        CLC
-C - - - - - 0x01BA5D 06:BA4D: 69 5E     ADC #$5E
-C - - - - - 0x01BA5F 06:BA4F: 85 12     STA ram_0012                          ; Low address <~ 0x5E + vMenuDemoIndex * 12
-C - - - - - 0x01BA61 06:BA51: A9 80     LDA #$80
-C - - - - - 0x01BA63 06:BA53: 69 00     ADC #$00
-C - - - - - 0x01BA65 06:BA55: 85 13     STA ram_0013
-C - - - - - 0x01BA67 06:BA57: AD 02 20  LDA PPU_STATUS
-C - - - - - 0x01BA6A 06:BA5A: 20 CB BA  JSR sub_BACB
+C - - - - - 0x01BA46 06:BA36: BD 42 80  LDA tbl_menu_npc_colors,X                ;
+C - - - - - 0x01BA49 06:BA39: 99 00 06  STA vCachePalette,Y                      ;
+C - - - - - 0x01BA4C 06:BA3C: E8        INX                                      ; next color
+C - - - - - 0x01BA4D 06:BA3D: C8        INY                                      ; increment loop counter
+C - - - - - 0x01BA4E 06:BA3E: C0 08     CPY #$08                                 ;
+C - - - - - 0x01BA50 06:BA40: D0 F4     BNE @bra_BA36_loop                       ; If Register Y != 0x08
+C - - - - - 0x01BA52 06:BA42: A5 24     LDA vMenuDemoIndex                       ;
+C - - - - - 0x01BA54 06:BA44: 0A        ASL                                      ;
+C - - - - - 0x01BA55 06:BA45: 0A        ASL                                      ;
+C - - - - - 0x01BA56 06:BA46: 85 12     STA ram_0012                             ;
+C - - - - - 0x01BA58 06:BA48: 0A        ASL                                      ;
+C - - - - - 0x01BA59 06:BA49: 18        CLC                                      ;
+C - - - - - 0x01BA5A 06:BA4A: 65 12     ADC ram_0012                             ;
+C - - - - - 0x01BA5C 06:BA4C: 18        CLC                                      ;
+C - - - - - 0x01BA5D 06:BA4D: 69 5E     ADC #$5E                                 ;
+C - - - - - 0x01BA5F 06:BA4F: 85 12     STA ram_0012                             ; Low address <~ 0x5E + vMenuDemoIndex * 12
+C - - - - - 0x01BA61 06:BA51: A9 80     LDA #$80                                 ;
+C - - - - - 0x01BA63 06:BA53: 69 00     ADC #$00                                 ;
+C - - - - - 0x01BA65 06:BA55: 85 13     STA ram_0013                             ; High address ({$805E, $806A, $8076, $8082, $808E, $809A, $80A6} in the bank 04_1)
+C - - - - - 0x01BA67 06:BA57: AD 02 20  LDA PPU_STATUS                           ; Read PPU status to reset the high/low latch
+C - - - - - 0x01BA6A 06:BA5A: 20 CB BA  JSR sub_BACB_fill_ppu                    ;
 C - - - - - 0x01BA6D 06:BA5D: A9 91     LDA #$91                                 ; CONSTANT - First cutscene (with Clarisse Cagliostro)
 C - - - - - 0x01BA6F 06:BA5F: 85 3B     STA vSharedGameStatus                    ;
 C - - - - - 0x01BA71 06:BA61: A9 00     LDA #$00                                 ;
@@ -4056,39 +4051,39 @@ C - - - - - 0x01BA8A 06:BA7A: A5 3D     LDA vStartStatus                        
 C - - - - - 0x01BA8C 06:BA7C: 10 FC     BPL @bra_BA7A_wait_menu                  ; If Register A != 0b1XXXXXXX
 C - - - - - 0x01BA8E 06:BA7E: 20 13 C3  JSR sub_C313_screen_off                  ;
 C - - - - - 0x01BA91 06:BA81: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi ;
-C - - - - - 0x01BA94 06:BA84: A6 24     LDX vMenuDemoIndex
-C - - - - - 0x01BA96 06:BA86: F0 24     BEQ bra_BAAC
-C - - - - - 0x01BA98 06:BA88: E0 04     CPX #$04
-C - - - - - 0x01BA9A 06:BA8A: B0 29     BCS bra_BAB5
-C - - - - - 0x01BA9C 06:BA8C: CA        DEX
-C - - - - - 0x01BA9D 06:BA8D: 8A        TXA
-C - - - - - 0x01BA9E 06:BA8E: 05 5F     ORA vChrLiveStatus
-C - - - - - 0x01BAA0 06:BA90: 85 5F     STA vChrLiveStatus
-C - - - - - 0x01BAA2 06:BA92: A5 25     LDA ram_0025
-C - - - - - 0x01BAA4 06:BA94: 29 07     AND #$07
-C - - - - - 0x01BAA6 06:BA96: A8        TAY
-C - - - - - 0x01BAA7 06:BA97: B9 B9 B9  LDA tbl_B9B9,Y
-C - - - - - 0x01BAAA 06:BA9A: 85 C4     STA vCheckpoint
-C - - - - - 0x01BAAC 06:BA9C: B9 C1 B9  LDA tbl_B9C1,Y
-C - - - - - 0x01BAAF 06:BA9F: 85 5E     STA v_no_level
+C - - - - - 0x01BA94 06:BA84: A6 24     LDX vMenuDemoIndex                       ;
+C - - - - - 0x01BA96 06:BA86: F0 24     BEQ bra_BAAC_first_cutscene              ; If vMenuDemoIndex == 0x00
+C - - - - - 0x01BA98 06:BA88: E0 04     CPX #$04                                 ;
+C - - - - - 0x01BA9A 06:BA8A: B0 29     BCS bra_BAB5_skip_gameplay               ; If vMenuDemoIndex >= 0x04
+C - - - - - 0x01BA9C 06:BA8C: CA        DEX                                      ;
+C - - - - - 0x01BA9D 06:BA8D: 8A        TXA                                      ;
+C - - - - - 0x01BA9E 06:BA8E: 05 5F     ORA vChrLiveStatus                       ; 
+C - - - - - 0x01BAA0 06:BA90: 85 5F     STA vChrLiveStatus                       ; <~ 0xFC + {0x00, 0x01, 0x02}, reset was in $C087
+C - - - - - 0x01BAA2 06:BA92: A5 25     LDA vGameplayDemoCounter                 ;
+C - - - - - 0x01BAA4 06:BA94: 29 07     AND #$07                                 ;
+C - - - - - 0x01BAA6 06:BA96: A8        TAY                                      ; Y <~ {0x00, 0x01, 0x02, ..., 0x07}
+C - - - - - 0x01BAA7 06:BA97: B9 B9 B9  LDA tbl_B9B9_checkpoints,Y               ;
+C - - - - - 0x01BAAA 06:BA9A: 85 C4     STA vCheckpoint                          ;
+C - - - - - 0x01BAAC 06:BA9C: B9 C1 B9  LDA tbl_B9C1_levels,Y                    ;
+C - - - - - 0x01BAAF 06:BA9F: 85 5E     STA v_no_level                           ;
 C - - - - - 0x01BAB1 06:BAA1: A9 00     LDA #$00                                 ;
 C - - - - - 0x01BAB3 06:BAA3: 85 22     STA vDemoBtnPrsdCounter                  ; clear counter 
 C - - - - - 0x01BAB5 06:BAA5: 85 23     STA vDemoBtnPrsdIndex                    ; clear index
 C - - - - - 0x01BAB7 06:BAA7: 85 B6     STA vCurrentUniqueRoom                   ; clear
-C - - - - - 0x01BAB9 06:BAA9: E6 25     INC ram_0025
-C - - - - - 0x01BABB 06:BAAB: 60        RTS
+C - - - - - 0x01BAB9 06:BAA9: E6 25     INC vGameplayDemoCounter                 ;
+C - - - - - 0x01BABB 06:BAAB: 60        RTS                                      ;
 
-bra_BAAC:
-C - - - - - 0x01BABC 06:BAAC: A9 00     LDA #$00 ; CONSTANT - In game
-C - - - - - 0x01BABE 06:BAAE: 85 37     STA vCutscenesMode
-C - - - - - 0x01BAC0 06:BAB0: 68        PLA
-C - - - - - 0x01BAC1 06:BAB1: 68        PLA
+bra_BAAC_first_cutscene:
+C - - - - - 0x01BABC 06:BAAC: A9 00     LDA #$00                                 ; CONSTANT - In game
+C - - - - - 0x01BABE 06:BAAE: 85 37     STA vCutscenesMode                       ;
+C - - - - - 0x01BAC0 06:BAB0: 68        PLA                                      ;
+C - - - - - 0x01BAC1 06:BAB1: 68        PLA                                      ; double return, code after sub_B9DA_curscene_shared_routine will be skipped
 C - - - - - 0x01BAC2 06:BAB2: 4C 46 C0  JMP loc_C046_repeat_starting_mode        ;
 
-bra_BAB5:
-C - - - - - 0x01BAC5 06:BAB5: 68        PLA
-C - - - - - 0x01BAC6 06:BAB6: 68        PLA
-C - - - - - 0x01BAC7 06:BAB7: 4C 8D C2  JMP $C28D
+bra_BAB5_skip_gameplay:
+C - - - - - 0x01BAC5 06:BAB5: 68        PLA                                      ; 
+C - - - - - 0x01BAC6 06:BAB6: 68        PLA                                      ; double return, code after sub_B9DA_curscene_shared_routine will be skipped
+C - - - - - 0x01BAC7 06:BAB7: 4C 8D C2  JMP loc_C28D_next_menu_demo              ;
 
 sub_BABA_set_palette_for_clarissa:
 C - - - - - 0x01BACA 06:BABA: A2 0F     LDX #$0F                   ; set loop counter
@@ -4101,38 +4096,40 @@ C - - - - - 0x01BAD5 06:BAC5: A9 0F     LDA #$0F                   ; CONSTANT - 
 C - - - - - 0x01BAD7 06:BAC7: 8D 10 06  STA vCachePalette + 16     ;
 C - - - - - 0x01BADA 06:BACA: 60        RTS                        ;
 
-sub_BACB:
+; In: $0012 - Source address for the parameters (Low value)
+; In: $0013 - Source address for the parameters (High value)
+sub_BACB_fill_ppu:
 C - - - - - 0x01BADB 06:BACB: A0 00     LDY #$00                       ; prepare an input parameter
 C - - - - - 0x01BADD 06:BACD: 20 05 BB  JSR sub_BB05_prepare_00_to_05  ;
 C - - - - - 0x01BAE0 06:BAD0: 84 11     STY vCacheRam_11               ; put the new offset (the old offset + 0x06)
-C - - - - - 0x01BAE2 06:BAD2: A0 00     LDY #$00
+C - - - - - 0x01BAE2 06:BAD2: A0 00     LDY #$00                       ; prepare an input parameter
 loc_BAD4_repeat:
 C D 1 - - - 0x01BAE4 06:BAD4: 20 12 BB  JSR sub_BB12_store_ppu_data    ;
-C - - - - - 0x01BAE7 06:BAD7: F0 10     BEQ bra_BAE9
-C - - - - - 0x01BAE9 06:BAD9: A5 00     LDA ram_0000
-C - - - - - 0x01BAEB 06:BADB: 18        CLC
-C - - - - - 0x01BAEC 06:BADC: 69 20     ADC #$20
-C - - - - - 0x01BAEE 06:BADE: 85 00     STA ram_0000
-C - - - - - 0x01BAF0 06:BAE0: A5 01     LDA ram_0001
-C - - - - - 0x01BAF2 06:BAE2: 69 00     ADC #$00
-C - - - - - 0x01BAF4 06:BAE4: 85 01     STA ram_0001
-C - - - - - 0x01BAF6 06:BAE6: 4C D4 BA  JMP loc_BAD4_repeat
+C - - - - - 0x01BAE7 06:BAD7: F0 10     BEQ bra_BAE9_attributes        ; If the loop counters == 0x00
+C - - - - - 0x01BAE9 06:BAD9: A5 00     LDA ram_0000                   ;
+C - - - - - 0x01BAEB 06:BADB: 18        CLC                            ;
+C - - - - - 0x01BAEC 06:BADC: 69 20     ADC #$20                       ; CONSTANT - in one row contains 32 tiles
+C - - - - - 0x01BAEE 06:BADE: 85 00     STA ram_0000                   ; $0000 <~ $0000 + 0x20
+C - - - - - 0x01BAF0 06:BAE0: A5 01     LDA ram_0001                   ;
+C - - - - - 0x01BAF2 06:BAE2: 69 00     ADC #$00                       ;
+C - - - - - 0x01BAF4 06:BAE4: 85 01     STA ram_0001                   ; value +1 with overflow
+C - - - - - 0x01BAF6 06:BAE6: 4C D4 BA  JMP loc_BAD4_repeat            ;
 
-bra_BAE9:
+bra_BAE9_attributes:
 C - - - - - 0x01BAF9 06:BAE9: A4 11     LDY vCacheRam_11               ; load the new offset (the old offset + 0x06)
 C - - - - - 0x01BAFB 06:BAEB: 20 05 BB  JSR sub_BB05_prepare_00_to_05  ;
-C - - - - - 0x01BAFE 06:BAEE: A0 00     LDY #$00
-loc_BAF0:
+C - - - - - 0x01BAFE 06:BAEE: A0 00     LDY #$00                       ; prepare an input parameter
+loc_BAF0_repeat:
 C D 1 - - - 0x01BB00 06:BAF0: 20 12 BB  JSR sub_BB12_store_ppu_data    ;
-C - - - - - 0x01BB03 06:BAF3: F0 34     BEQ bra_BB29_RTS
-C - - - - - 0x01BB05 06:BAF5: A5 00     LDA ram_0000
-C - - - - - 0x01BB07 06:BAF7: 18        CLC
-C - - - - - 0x01BB08 06:BAF8: 69 08     ADC #$08
-C - - - - - 0x01BB0A 06:BAFA: 85 00     STA ram_0000
-C - - - - - 0x01BB0C 06:BAFC: A5 01     LDA ram_0001
-C - - - - - 0x01BB0E 06:BAFE: 69 00     ADC #$00
-C - - - - - 0x01BB10 06:BB00: 85 01     STA ram_0001
-C - - - - - 0x01BB12 06:BB02: 4C F0 BA  JMP loc_BAF0
+C - - - - - 0x01BB03 06:BAF3: F0 34     BEQ bra_BB29_RTS               ; If the loop counters == 0x00
+C - - - - - 0x01BB05 06:BAF5: A5 00     LDA ram_0000                   ;
+C - - - - - 0x01BB07 06:BAF7: 18        CLC                            ;
+C - - - - - 0x01BB08 06:BAF8: 69 08     ADC #$08                       ; CONSTANT - in one row contains 8 attributes
+C - - - - - 0x01BB0A 06:BAFA: 85 00     STA ram_0000                   ; $0000 <~ $0000 + 0x08
+C - - - - - 0x01BB0C 06:BAFC: A5 01     LDA ram_0001                   ;
+C - - - - - 0x01BB0E 06:BAFE: 69 00     ADC #$00                       ;
+C - - - - - 0x01BB10 06:BB00: 85 01     STA ram_0001                   ; value +1 with overflow
+C - - - - - 0x01BB12 06:BB02: 4C F0 BA  JMP loc_BAF0_repeat            ;
 
 ; In: $0012 - Source address for the parameters (Low value)
 ; In: $0013 - Source address for the parameters (High value)
@@ -4148,6 +4145,7 @@ C - - - - - 0x01BB1D 06:BB0D: E0 06     CPX #$06            ;
 C - - - - - 0x01BB1F 06:BB0F: D0 F6     BNE @bra_BB07_loop  ; If Register X != 0x06
 C - - - - - 0x01BB21 06:BB11: 60        RTS                 ;
 
+; In: Register Y - the offset by the source address
 ; In: $0000 - PPU address (Low value)
 ; In: $0001 - PPU address (High value)
 ; In: $0002 - Source address for data (Low value)

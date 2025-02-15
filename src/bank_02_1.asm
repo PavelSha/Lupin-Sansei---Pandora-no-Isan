@@ -7,6 +7,8 @@
 
 .export loc_AD80_activate_sound_manager
 .export tbl_select_characters_dialog
+.export tbl_select_characters_dialog_radio
+.export tbl_select_characters_dialog_losing
 .export tbl_enemy_score
 .export tbl_water_gap_level4
 
@@ -1319,104 +1321,82 @@ tbl_B2BA_volumes:
 
 .org $9400
 tbl_select_characters_dialog:
-- - - - - - 0x009410 02:9400: E9 9A     .word $9AE9 ; $BAE9
-- - - - - - 0x009412 02:9402: E9 9A     .word $9AE9 ; $BAE9
-- D 0 - - - 0x009414 02:9404: FD 9A     .word $9AFD ; $BAFD
-- D 0 - - - 0x009416 02:9406: 11 9B     .word $9B11 ; $BB11
-- - - - - - 0x009418 02:9408: E9 9A     .word $9AE9 ; $BAE9
-- - - - - - 0x00941A 02:940A: E9 9A     .word $9AE9 ; $BAE9
-- D 0 - - - 0x00941C 02:940C: 25 9B     .word $9B25 ; $BB25
-- D 0 - - - 0x00941E 02:940E: 39 9B     .word $9B39 ; $BB39
-- - - - - - 0x009420 02:9410: E9 9A     .word $9AE9 ; $BAE9
-- - - - - - 0x009422 02:9412: E9 9A     .word $9AE9 ; $BAE9
-- D 0 - - - 0x009424 02:9414: 4D 9B     .word $9B4D ; $BB4D
-- D 0 - - - 0x009426 02:9416: 61 9B     .word $9B61 ; $BB61
-- D 0 - - - 0x009428 02:9418: E9 9A     .word $9AE9 ; $BAE9
-- D 0 - - - 0x00942A 02:941A: 75 9B     .word $9B75 ; $BB75
-- D 0 - - - 0x00942C 02:941C: 89 9B     .word $9B89 ; $BB89
-- D 0 - - - 0x00942E 02:941E: 9D 9B     .word $9B9D ; $BB9D
-- - - - - - 0x009430 02:9420: B1 9B     .word $9BB1 ; $BBB1
-- - - - - - 0x009432 02:9422: C5 9B     .word $9BC5 ; $BBC5
-- D 0 - - - 0x009434 02:9424: D9 9B     .word $9BD9 ; $BBD9
-- D 0 - - - 0x009436 02:9426: ED 9B     .word $9BED ; $BBED
-- - - - - - 0x009438 02:9428: 01 9C     .word $9C01 ; $BC01
-- - - - - - 0x00943A 02:942A: 15 9C     .word $9C15 ; $BC15
-- D 0 - - - 0x00943C 02:942C: 29 9C     .word $9C29 ; $BC29
-- D 0 - - - 0x00943E 02:942E: 3D 9C     .word $9C3D ; $BC3D
-- - - - - - 0x009440 02:9430: E9 9A     .word $9AE9 ; $BAE9
-- - - - - - 0x009442 02:9432: 75 9B     .word $9B75 ; $BB75
-- D 0 - - - 0x009444 02:9434: 51 9C     .word $9C51 ; $BC51
-- D 0 - - - 0x009446 02:9436: 65 9C     .word $9C65 ; $BC65
-- - - - - - 0x009448 02:9438: B1 9B     .word $9BB1 ; $BBB1
-- - - - - - 0x00944A 02:943A: C5 9B     .word $9BC5 ; $BBC5
-- D 0 - - - 0x00944C 02:943C: E9 9A     .word $9AE9 ; $BAE9
-- D 0 - - - 0x00944E 02:943E: 79 9C     .word $9C79 ; $BC79
-- - - - - - 0x009450 02:9440: 01 9C     .word $9C01 ; $BC01
-- - - - - - 0x009452 02:9442: 15 9C     .word $9C15 ; $BC15
-- D 0 - - - 0x009454 02:9444: 8D 9C     .word $9C8D ; $BC8D
-- D 0 - - - 0x009456 02:9446: A1 9C     .word $9CA1 ; $BCA1
-- - - - - - 0x009458 02:9448: E9 9A     .word $9AE9 ; $BAE9
-- - - - - - 0x00945A 02:944A: 75 9B     .word $9B75 ; $BB75
-- D 0 - - - 0x00945C 02:944C: B5 9C     .word $9CB5 ; $BCB5
-- D 0 - - - 0x00945E 02:944E: C9 9C     .word $9CC9 ; $BCC9
-- - - - - - 0x009460 02:9450: B1 9B     .word $9BB1 ; $BBB1
-- - - - - - 0x009462 02:9452: C5 9B     .word $9BC5 ; $BBC5
-- D 0 - - - 0x009464 02:9454: DD 9C     .word $9CDD ; $BCDD
-- D 0 - - - 0x009466 02:9456: F1 9C     .word $9CF1 ; $BCF1
-- - - - - - 0x009468 02:9458: 01 9C     .word $9C01 ; $BC01
-- - - - - - 0x00946A 02:945A: 15 9C     .word $9C15 ; $BC15
-- D 0 - - - 0x00946C 02:945C: 05 9D     .word $9D05 ; $BD05
-- D 0 - - - 0x00946E 02:945E: 19 9D     .word $9D19 ; $BD19
+- - - - - - 0x009410 02:9400: E9 9A     .word $9AE9
+- - - - - - 0x009412 02:9402: E9 9A     .word $9AE9
+- D 0 - - - 0x009414 02:9404: FD 9A     .word $9AFD
+- D 0 - - - 0x009416 02:9406: 11 9B     .word $9B11
+- - - - - - 0x009418 02:9408: E9 9A     .word $9AE9
+- - - - - - 0x00941A 02:940A: E9 9A     .word $9AE9
+- D 0 - - - 0x00941C 02:940C: 25 9B     .word $9B25
+- D 0 - - - 0x00941E 02:940E: 39 9B     .word $9B39
+- - - - - - 0x009420 02:9410: E9 9A     .word $9AE9
+- - - - - - 0x009422 02:9412: E9 9A     .word $9AE9
+- D 0 - - - 0x009424 02:9414: 4D 9B     .word $9B4D
+- D 0 - - - 0x009426 02:9416: 61 9B     .word $9B61
+- D 0 - - - 0x009428 02:9418: E9 9A     .word $9AE9
+- D 0 - - - 0x00942A 02:941A: 75 9B     .word $9B75
+- D 0 - - - 0x00942C 02:941C: 89 9B     .word $9B89
+- D 0 - - - 0x00942E 02:941E: 9D 9B     .word $9B9D
+- - - - - - 0x009430 02:9420: B1 9B     .word $9BB1
+- - - - - - 0x009432 02:9422: C5 9B     .word $9BC5
+- D 0 - - - 0x009434 02:9424: D9 9B     .word $9BD9
+- D 0 - - - 0x009436 02:9426: ED 9B     .word $9BED
+- - - - - - 0x009438 02:9428: 01 9C     .word $9C01
+- - - - - - 0x00943A 02:942A: 15 9C     .word $9C15
+- D 0 - - - 0x00943C 02:942C: 29 9C     .word $9C29
+- D 0 - - - 0x00943E 02:942E: 3D 9C     .word $9C3D
+- - - - - - 0x009440 02:9430: E9 9A     .word $9AE9
+- - - - - - 0x009442 02:9432: 75 9B     .word $9B75
+- D 0 - - - 0x009444 02:9434: 51 9C     .word $9C51
+- D 0 - - - 0x009446 02:9436: 65 9C     .word $9C65
+- - - - - - 0x009448 02:9438: B1 9B     .word $9BB1
+- - - - - - 0x00944A 02:943A: C5 9B     .word $9BC5
+- D 0 - - - 0x00944C 02:943C: E9 9A     .word $9AE9
+- D 0 - - - 0x00944E 02:943E: 79 9C     .word $9C79
+- - - - - - 0x009450 02:9440: 01 9C     .word $9C01
+- - - - - - 0x009452 02:9442: 15 9C     .word $9C15
+- D 0 - - - 0x009454 02:9444: 8D 9C     .word $9C8D
+- D 0 - - - 0x009456 02:9446: A1 9C     .word $9CA1
+- - - - - - 0x009458 02:9448: E9 9A     .word $9AE9
+- - - - - - 0x00945A 02:944A: 75 9B     .word $9B75
+- D 0 - - - 0x00945C 02:944C: B5 9C     .word $9CB5
+- D 0 - - - 0x00945E 02:944E: C9 9C     .word $9CC9
+- - - - - - 0x009460 02:9450: B1 9B     .word $9BB1
+- - - - - - 0x009462 02:9452: C5 9B     .word $9BC5
+- D 0 - - - 0x009464 02:9454: DD 9C     .word $9CDD
+- D 0 - - - 0x009466 02:9456: F1 9C     .word $9CF1
+- - - - - - 0x009468 02:9458: 01 9C     .word $9C01
+- - - - - - 0x00946A 02:945A: 15 9C     .word $9C15
+- D 0 - - - 0x00946C 02:945C: 05 9D     .word $9D05
+- D 0 - - - 0x00946E 02:945E: 19 9D     .word $9D19
 
-- D 0 - - - 0x009470 02:9460: 2D        .byte $2D   ; 
-- D 0 - - - 0x009471 02:9461: 9D        .byte $9D   ; 
-- D 0 - - - 0x009472 02:9462: 41        .byte $41   ; <A>
-- D 0 - - - 0x009473 02:9463: 9D        .byte $9D   ; 
-- D 0 - - - 0x009474 02:9464: 55        .byte $55   ; <U>
-- D 0 - - - 0x009475 02:9465: 9D        .byte $9D   ; 
-- D 0 - - - 0x009476 02:9466: 69        .byte $69   ; <i>
-- D 0 - - - 0x009477 02:9467: 9D        .byte $9D   ; 
-- D 0 - - - 0x009478 02:9468: 7D        .byte $7D   ; 
-- D 0 - - - 0x009479 02:9469: 9D        .byte $9D   ; 
-- D 0 - - - 0x00947A 02:946A: 91        .byte $91   ; 
-- D 0 - - - 0x00947B 02:946B: 9D        .byte $9D   ; 
-- D 0 - - - 0x00947C 02:946C: A5        .byte $A5   ; 
-- D 0 - - - 0x00947D 02:946D: 9D        .byte $9D   ; 
-- D 0 - - - 0x00947E 02:946E: B9        .byte $B9   ; 
-- D 0 - - - 0x00947F 02:946F: 9D        .byte $9D   ; 
-- D 0 - - - 0x009480 02:9470: E9        .byte $E9   ; 
-- D 0 - - - 0x009481 02:9471: 9A        .byte $9A   ; 
-- D 0 - - - 0x009482 02:9472: CD        .byte $CD   ; 
-- D 0 - - - 0x009483 02:9473: 9D        .byte $9D   ; 
-- D 0 - - - 0x009484 02:9474: E1        .byte $E1   ; 
-- D 0 - - - 0x009485 02:9475: 9D        .byte $9D   ; 
-- D 0 - - - 0x009486 02:9476: F5        .byte $F5   ; 
-- D 0 - - - 0x009487 02:9477: 9D        .byte $9D   ; 
+tbl_select_characters_dialog_radio:
+- D 0 - - - 0x009470 02:9460: 2D 9D     .addr loc_radio_dialog1  ; CPU Address $9D2D
+- D 0 - - - 0x009472 02:9462: 41 9D     .addr loc_radio_dialog2  ; CPU Address $9D41
+- D 0 - - - 0x009474 02:9464: 55 9D     .addr loc_radio_dialog3  ; CPU Address $9D55
+- D 0 - - - 0x009476 02:9466: 69 9D     .addr loc_radio_dialog4  ; CPU Address $9D69
+- D 0 - - - 0x009478 02:9468: 7D 9D     .addr loc_radio_dialog5  ; CPU Address $9D7D
+- D 0 - - - 0x00947A 02:946A: 91 9D     .addr loc_radio_dialog6  ; CPU Address $9D91
+- D 0 - - - 0x00947C 02:946C: A5 9D     .addr loc_radio_dialog7  ; CPU Address $9DA5
+- D 0 - - - 0x00947E 02:946E: B9 9D     .addr loc_radio_dialog8  ; CPU Address $9DB9
+- D 0 - - - 0x009480 02:9470: E9 9A     .addr loc_radio_dialog9  ; CPU Address $9AE9
+- D 0 - - - 0x009482 02:9472: CD 9D     .addr loc_radio_dialog10 ; CPU Address $9DCD
+- D 0 - - - 0x009484 02:9474: E1 9D     .addr loc_radio_dialog11 ; CPU Address $9DE1
+- D 0 - - - 0x009486 02:9476: F5 9D     .addr loc_radio_dialog12 ; CPU Address $9DF5
 
-- D 0 - - - 0x009488 02:9478: 09        .byte $09   ; 
-- D 0 - - - 0x009489 02:9479: 9E        .byte $9E   ; 
-- D 0 - - - 0x00948A 02:947A: 1D        .byte $1D   ; 
-- D 0 - - - 0x00948B 02:947B: 9E        .byte $9E   ; 
-- D 0 - - - 0x00948C 02:947C: 31        .byte $31   ; <1>
-- D 0 - - - 0x00948D 02:947D: 9E        .byte $9E   ; 
-- D 0 - - - 0x00948E 02:947E: 45        .byte $45   ; <E>
-- D 0 - - - 0x00948F 02:947F: 9E        .byte $9E   ; 
-- D 0 - - - 0x009490 02:9480: 59        .byte $59   ; <Y>
-- D 0 - - - 0x009491 02:9481: 9E        .byte $9E   ; 
-- D 0 - - - 0x009492 02:9482: 6D        .byte $6D   ; <m>
-- D 0 - - - 0x009493 02:9483: 9E        .byte $9E   ; 
-- D 0 - - - 0x009494 02:9484: 81        .byte $81   ; 
-- D 0 - - - 0x009495 02:9485: 9E        .byte $9E   ; 
-- D 0 - - - 0x009496 02:9486: 95        .byte $95   ; 
-- D 0 - - - 0x009497 02:9487: 9E        .byte $9E   ; 
-- D 0 - - - 0x009498 02:9488: E9        .byte $E9   ; 
-- D 0 - - - 0x009499 02:9489: 9A        .byte $9A   ; 
-- D 0 - - - 0x00949A 02:948A: A9        .byte $A9   ; 
-- D 0 - - - 0x00949B 02:948B: 9E        .byte $9E   ; 
-- D 0 - - - 0x00949C 02:948C: BD        .byte $BD   ; 
-- D 0 - - - 0x00949D 02:948D: 9E        .byte $9E   ; 
-- D 0 - - - 0x00949E 02:948E: D1        .byte $D1   ; 
-- D 0 - - - 0x00949F 02:948F: 9E        .byte $9E   ; 
+tbl_select_characters_dialog_losing:
+- D 0 - - - 0x009488 02:9478: 09 9E     .addr loc_losing_dialog1  ; CPU Address $9E09
+- D 0 - - - 0x00948A 02:947A: 1D 9E     .addr loc_losing_dialog2  ; CPU Address $9E1D
+- D 0 - - - 0x00948C 02:947C: 31 9E     .addr loc_losing_dialog3  ; CPU Address $9E31
+- D 0 - - - 0x00948E 02:947E: 45 9E     .addr loc_losing_dialog4  ; CPU Address $9E45
+- D 0 - - - 0x009490 02:9480: 59 9E     .addr loc_losing_dialog5  ; CPU Address $9E59
+- D 0 - - - 0x009492 02:9482: 6D 9E     .addr loc_losing_dialog6  ; CPU Address $9E6D
+- D 0 - - - 0x009494 02:9484: 81 9E     .addr loc_losing_dialog7  ; CPU Address $9E81
+- D 0 - - - 0x009496 02:9486: 95 9E     .addr loc_losing_dialog8  ; CPU Address $9E95
+- D 0 - - - 0x009498 02:9488: E9 9A     .addr loc_losing_dialog9  ; CPU Address $9AE9
+- D 0 - - - 0x00949A 02:948A: A9 9E     .addr loc_losing_dialog10 ; CPU Address $9EA9
+- D 0 - - - 0x00949C 02:948C: BD 9E     .addr loc_losing_dialog11 ; CPU Address $9EBD
+- D 0 - - - 0x00949E 02:948E: D1 9E     .addr loc_losing_dialog12 ; CPU Address $9ED1
 
 - D 0 - - - 0x0094A0 02:9490: E7 99     .word $99E7
 
@@ -2567,6 +2547,9 @@ loc_no_gap:
 - - - - - - 0x009AF6 02:9AE6: 3C        .byte $3C   ; 
 - - - - - - 0x009AF7 02:9AE7: 3D        .byte $3D   ; 
 - D 0 - I - 0x009AF8 02:9AE8: 3E        .byte $3E   ; 
+
+loc_radio_dialog9:
+loc_losing_dialog9:
 - D 0 - I - 0x009AF9 02:9AE9: 00        .byte $00   ; 
 - D 0 - I - 0x009AFA 02:9AEA: 00        .byte $00   ; 
 - D 0 - I - 0x009AFB 02:9AEB: 00        .byte $00   ; 
@@ -3107,6 +3090,7 @@ loc_no_gap:
 - D 0 - I - 0x009D12 02:9D02: 12        .byte $12   ; 
 - D 0 - I - 0x009D13 02:9D03: 32        .byte $32   ; <2>
 - D 0 - I - 0x009D14 02:9D04: 60        .byte $60   ; 
+
 - D 0 - I - 0x009D15 02:9D05: 7F        .byte $7F   ; 
 - D 0 - I - 0x009D16 02:9D06: 00        .byte $00   ; 
 - D 0 - I - 0x009D17 02:9D07: 7E        .byte $7E   ; 
@@ -3127,6 +3111,7 @@ loc_no_gap:
 - D 0 - I - 0x009D26 02:9D16: 00        .byte $00   ; 
 - D 0 - I - 0x009D27 02:9D17: 00        .byte $00   ; 
 - D 0 - I - 0x009D28 02:9D18: 00        .byte $00   ; 
+
 - D 0 - I - 0x009D29 02:9D19: 05        .byte $05   ; 
 - D 0 - I - 0x009D2A 02:9D1A: 6C        .byte $6C   ; <l>
 - D 0 - I - 0x009D2B 02:9D1B: 0B        .byte $0B   ; 
@@ -3147,6 +3132,8 @@ loc_no_gap:
 - D 0 - I - 0x009D3A 02:9D2A: 11        .byte $11   ; 
 - D 0 - I - 0x009D3B 02:9D2B: 15        .byte $15   ; 
 - D 0 - I - 0x009D3C 02:9D2C: 60        .byte $60   ; 
+
+loc_radio_dialog1:
 - D 0 - I - 0x009D3D 02:9D2D: 00        .byte $00   ; 
 - D 0 - I - 0x009D3E 02:9D2E: 00        .byte $00   ; 
 - D 0 - I - 0x009D3F 02:9D2F: 00        .byte $00   ; 
@@ -3167,6 +3154,8 @@ loc_no_gap:
 - D 0 - I - 0x009D4E 02:9D3E: 00        .byte $00   ; 
 - D 0 - I - 0x009D4F 02:9D3F: 00        .byte $00   ; 
 - D 0 - I - 0x009D50 02:9D40: 00        .byte $00   ; 
+
+loc_radio_dialog2:
 - D 0 - I - 0x009D51 02:9D41: 14        .byte $14   ; 
 - D 0 - I - 0x009D52 02:9D42: 25        .byte $25   ; 
 - D 0 - I - 0x009D53 02:9D43: 38        .byte $38   ; <8>
@@ -3187,6 +3176,8 @@ loc_no_gap:
 - D 0 - I - 0x009D62 02:9D52: 00        .byte $00   ; 
 - D 0 - I - 0x009D63 02:9D53: 00        .byte $00   ; 
 - D 0 - I - 0x009D64 02:9D54: 00        .byte $00   ; 
+
+loc_radio_dialog3:
 - D 0 - I - 0x009D65 02:9D55: 00        .byte $00   ; 
 - D 0 - I - 0x009D66 02:9D56: 00        .byte $00   ; 
 - D 0 - I - 0x009D67 02:9D57: 00        .byte $00   ; 
@@ -3207,6 +3198,8 @@ loc_no_gap:
 - D 0 - I - 0x009D76 02:9D66: 00        .byte $00   ; 
 - D 0 - I - 0x009D77 02:9D67: 00        .byte $00   ; 
 - D 0 - I - 0x009D78 02:9D68: 00        .byte $00   ; 
+
+loc_radio_dialog4:
 - D 0 - I - 0x009D79 02:9D69: 10        .byte $10   ; 
 - D 0 - I - 0x009D7A 02:9D6A: 23        .byte $23   ; 
 - D 0 - I - 0x009D7B 02:9D6B: 62        .byte $62   ; <b>
@@ -3227,6 +3220,8 @@ loc_no_gap:
 - D 0 - I - 0x009D8A 02:9D7A: 00        .byte $00   ; 
 - D 0 - I - 0x009D8B 02:9D7B: 00        .byte $00   ; 
 - D 0 - I - 0x009D8C 02:9D7C: 00        .byte $00   ; 
+
+loc_radio_dialog5:
 - D 0 - I - 0x009D8D 02:9D7D: 00        .byte $00   ; 
 - D 0 - I - 0x009D8E 02:9D7E: 00        .byte $00   ; 
 - D 0 - I - 0x009D8F 02:9D7F: 7E        .byte $7E   ; 
@@ -3247,6 +3242,8 @@ loc_no_gap:
 - D 0 - I - 0x009D9E 02:9D8E: 00        .byte $00   ; 
 - D 0 - I - 0x009D9F 02:9D8F: 00        .byte $00   ; 
 - D 0 - I - 0x009DA0 02:9D90: 00        .byte $00   ; 
+
+loc_radio_dialog6:
 - D 0 - I - 0x009DA1 02:9D91: 1D        .byte $1D   ; 
 - D 0 - I - 0x009DA2 02:9D92: 29        .byte $29   ; 
 - D 0 - I - 0x009DA3 02:9D93: 0F        .byte $0F   ; 
@@ -3267,6 +3264,8 @@ loc_no_gap:
 - D 0 - I - 0x009DB2 02:9DA2: 00        .byte $00   ; 
 - D 0 - I - 0x009DB3 02:9DA3: 00        .byte $00   ; 
 - D 0 - I - 0x009DB4 02:9DA4: 00        .byte $00   ; 
+
+loc_radio_dialog7:
 - D 0 - I - 0x009DB5 02:9DA5: 00        .byte $00   ; 
 - D 0 - I - 0x009DB6 02:9DA6: 00        .byte $00   ; 
 - D 0 - I - 0x009DB7 02:9DA7: 00        .byte $00   ; 
@@ -3287,6 +3286,8 @@ loc_no_gap:
 - D 0 - I - 0x009DC6 02:9DB6: 00        .byte $00   ; 
 - D 0 - I - 0x009DC7 02:9DB7: 00        .byte $00   ; 
 - D 0 - I - 0x009DC8 02:9DB8: 00        .byte $00   ; 
+
+loc_radio_dialog8:
 - D 0 - I - 0x009DC9 02:9DB9: 15        .byte $15   ; 
 - D 0 - I - 0x009DCA 02:9DBA: 29        .byte $29   ; 
 - D 0 - I - 0x009DCB 02:9DBB: 37        .byte $37   ; <7>
@@ -3307,6 +3308,8 @@ loc_no_gap:
 - D 0 - I - 0x009DDA 02:9DCA: 00        .byte $00   ; 
 - D 0 - I - 0x009DDB 02:9DCB: 00        .byte $00   ; 
 - D 0 - I - 0x009DDC 02:9DCC: 00        .byte $00   ; 
+
+loc_radio_dialog10:
 - D 0 - I - 0x009DDD 02:9DCD: 31        .byte $31   ; <1>
 - D 0 - I - 0x009DDE 02:9DCE: 1A        .byte $1A   ; 
 - D 0 - I - 0x009DDF 02:9DCF: 17        .byte $17   ; 
@@ -3327,6 +3330,8 @@ loc_no_gap:
 - D 0 - I - 0x009DEE 02:9DDE: 00        .byte $00   ; 
 - D 0 - I - 0x009DEF 02:9DDF: 00        .byte $00   ; 
 - D 0 - I - 0x009DF0 02:9DE0: 00        .byte $00   ; 
+
+loc_radio_dialog11:
 - D 0 - I - 0x009DF1 02:9DE1: 00        .byte $00   ; 
 - D 0 - I - 0x009DF2 02:9DE2: 00        .byte $00   ; 
 - D 0 - I - 0x009DF3 02:9DE3: 00        .byte $00   ; 
@@ -3347,6 +3352,8 @@ loc_no_gap:
 - D 0 - I - 0x009E02 02:9DF2: 00        .byte $00   ; 
 - D 0 - I - 0x009E03 02:9DF3: 00        .byte $00   ; 
 - D 0 - I - 0x009E04 02:9DF4: 00        .byte $00   ; 
+
+loc_radio_dialog12:
 - D 0 - I - 0x009E05 02:9DF5: 12        .byte $12   ; 
 - D 0 - I - 0x009E06 02:9DF6: 2A        .byte $2A   ; 
 - D 0 - I - 0x009E07 02:9DF7: 36        .byte $36   ; <6>
@@ -3367,6 +3374,8 @@ loc_no_gap:
 - D 0 - I - 0x009E16 02:9E06: 00        .byte $00   ; 
 - D 0 - I - 0x009E17 02:9E07: 00        .byte $00   ; 
 - D 0 - I - 0x009E18 02:9E08: 00        .byte $00   ; 
+
+loc_losing_dialog1:
 - D 0 - I - 0x009E19 02:9E09: 7E        .byte $7E   ; 
 - D 0 - I - 0x009E1A 02:9E0A: 00        .byte $00   ; 
 - D 0 - I - 0x009E1B 02:9E0B: 00        .byte $00   ; 
@@ -3387,6 +3396,8 @@ loc_no_gap:
 - D 0 - I - 0x009E2A 02:9E1A: 00        .byte $00   ; 
 - D 0 - I - 0x009E2B 02:9E1B: 00        .byte $00   ; 
 - D 0 - I - 0x009E2C 02:9E1C: 00        .byte $00   ; 
+
+loc_losing_dialog2:
 - D 0 - I - 0x009E2D 02:9E1D: 34        .byte $34   ; <4>
 - D 0 - I - 0x009E2E 02:9E1E: 25        .byte $25   ; 
 - D 0 - I - 0x009E2F 02:9E1F: 2A        .byte $2A   ; 
@@ -3407,6 +3418,8 @@ loc_no_gap:
 - D 0 - I - 0x009E3E 02:9E2E: 00        .byte $00   ; 
 - D 0 - I - 0x009E3F 02:9E2F: 00        .byte $00   ; 
 - D 0 - I - 0x009E40 02:9E30: 00        .byte $00   ; 
+
+loc_losing_dialog3:
 - D 0 - I - 0x009E41 02:9E31: 00        .byte $00   ; 
 - D 0 - I - 0x009E42 02:9E32: 00        .byte $00   ; 
 - D 0 - I - 0x009E43 02:9E33: 00        .byte $00   ; 
@@ -3427,6 +3440,8 @@ loc_no_gap:
 - D 0 - I - 0x009E52 02:9E42: 00        .byte $00   ; 
 - D 0 - I - 0x009E53 02:9E43: 00        .byte $00   ; 
 - D 0 - I - 0x009E54 02:9E44: 00        .byte $00   ; 
+
+loc_losing_dialog4:
 - D 0 - I - 0x009E55 02:9E45: 30        .byte $30   ; <0>
 - D 0 - I - 0x009E56 02:9E46: 63        .byte $63   ; <c>
 - D 0 - I - 0x009E57 02:9E47: 1F        .byte $1F   ; 
@@ -3447,6 +3462,8 @@ loc_no_gap:
 - D 0 - I - 0x009E66 02:9E56: 00        .byte $00   ; 
 - D 0 - I - 0x009E67 02:9E57: 00        .byte $00   ; 
 - D 0 - I - 0x009E68 02:9E58: 00        .byte $00   ; 
+
+loc_losing_dialog5:
 - D 0 - I - 0x009E69 02:9E59: 00        .byte $00   ; 
 - D 0 - I - 0x009E6A 02:9E5A: 00        .byte $00   ; 
 - D 0 - I - 0x009E6B 02:9E5B: 00        .byte $00   ; 
@@ -3467,6 +3484,8 @@ loc_no_gap:
 - D 0 - I - 0x009E7A 02:9E6A: 00        .byte $00   ; 
 - D 0 - I - 0x009E7B 02:9E6B: 00        .byte $00   ; 
 - D 0 - I - 0x009E7C 02:9E6C: 00        .byte $00   ; 
+
+loc_losing_dialog6:
 - D 0 - I - 0x009E7D 02:9E6D: 35        .byte $35   ; <5>
 - D 0 - I - 0x009E7E 02:9E6E: 3E        .byte $3E   ; 
 - D 0 - I - 0x009E7F 02:9E6F: 12        .byte $12   ; 
@@ -3487,6 +3506,8 @@ loc_no_gap:
 - D 0 - I - 0x009E8E 02:9E7E: 00        .byte $00   ; 
 - D 0 - I - 0x009E8F 02:9E7F: 00        .byte $00   ; 
 - D 0 - I - 0x009E90 02:9E80: 00        .byte $00   ; 
+
+loc_losing_dialog7:
 - D 0 - I - 0x009E91 02:9E81: 00        .byte $00   ; 
 - D 0 - I - 0x009E92 02:9E82: 7E        .byte $7E   ; 
 - D 0 - I - 0x009E93 02:9E83: 7E        .byte $7E   ; 
@@ -3507,6 +3528,8 @@ loc_no_gap:
 - D 0 - I - 0x009EA2 02:9E92: 00        .byte $00   ; 
 - D 0 - I - 0x009EA3 02:9E93: 00        .byte $00   ; 
 - D 0 - I - 0x009EA4 02:9E94: 00        .byte $00   ; 
+
+loc_losing_dialog8:
 - D 0 - I - 0x009EA5 02:9E95: 12        .byte $12   ; 
 - D 0 - I - 0x009EA6 02:9E96: 37        .byte $37   ; <7>
 - D 0 - I - 0x009EA7 02:9E97: 2A        .byte $2A   ; 
@@ -3527,6 +3550,8 @@ loc_no_gap:
 - D 0 - I - 0x009EB6 02:9EA6: 00        .byte $00   ; 
 - D 0 - I - 0x009EB7 02:9EA7: 00        .byte $00   ; 
 - D 0 - I - 0x009EB8 02:9EA8: 00        .byte $00   ; 
+
+loc_losing_dialog10:
 - D 0 - I - 0x009EB9 02:9EA9: 32        .byte $32   ; <2>
 - D 0 - I - 0x009EBA 02:9EAA: 3F        .byte $3F   ; 
 - D 0 - I - 0x009EBB 02:9EAB: 30        .byte $30   ; <0>
@@ -3547,6 +3572,8 @@ loc_no_gap:
 - D 0 - I - 0x009ECA 02:9EBA: 00        .byte $00   ; 
 - D 0 - I - 0x009ECB 02:9EBB: 00        .byte $00   ; 
 - D 0 - I - 0x009ECC 02:9EBC: 00        .byte $00   ; 
+
+loc_losing_dialog11:
 - D 0 - I - 0x009ECD 02:9EBD: 00        .byte $00   ; 
 - D 0 - I - 0x009ECE 02:9EBE: 00        .byte $00   ; 
 - D 0 - I - 0x009ECF 02:9EBF: 00        .byte $00   ; 
@@ -3567,6 +3594,8 @@ loc_no_gap:
 - D 0 - I - 0x009EDE 02:9ECE: 00        .byte $00   ; 
 - D 0 - I - 0x009EDF 02:9ECF: 00        .byte $00   ; 
 - D 0 - I - 0x009EE0 02:9ED0: 00        .byte $00   ; 
+
+loc_losing_dialog12:
 - D 0 - I - 0x009EE1 02:9ED1: 32        .byte $32   ; <2>
 - D 0 - I - 0x009EE2 02:9ED2: 3F        .byte $3F   ; 
 - D 0 - I - 0x009EE3 02:9ED3: 30        .byte $30   ; <0>
@@ -3587,6 +3616,7 @@ loc_no_gap:
 - D 0 - I - 0x009EF2 02:9EE2: 00        .byte $00   ; 
 - D 0 - I - 0x009EF3 02:9EE3: 00        .byte $00   ; 
 - D 0 - I - 0x009EF4 02:9EE4: 00        .byte $00   ; 
+
 - - - - - - 0x009EF5 02:9EE5: 77        .byte $77   ; <w>
 - - - - - - 0x009EF6 02:9EE6: 77        .byte $77   ; <w>
 - - - - - - 0x009EF7 02:9EE7: 3F        .byte $3F   ; 
