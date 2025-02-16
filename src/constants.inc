@@ -396,6 +396,37 @@ vTmpEnemyStartingPosXHigh     = ram_00D4
 vTmpEnemyStartingPosXLow      = ram_00D5
 vReasonCharacterChange        = ram_00D6
 vFinalSceneNo                 = ram_00D8
+; 0x00 - a starting value (after killing the last boss)
+
+; temp
+;0x00 - C...
+;0x01 - B7A2,
+;message1 (need button click)
+;0x02 - B772
+;0x03 - B772
+;0x04 - B7A2, 
+;message2
+;0x05 - B772, 
+;animation
+;0x06 - B772
+;0x07 - B7A2,
+;message3 (need button click)
+;0x08 - B772
+;0x09 - B772 
+;message4 (need button click)
+;0x0A - B772
+;0x0B - B6DE
+;clarissa message (need button click)
+;0x0C - B6ED
+;0x0D - B6DE
+;The End (need button click)
+;0x0E - B6ED
+;
+;0x0A
+;0x0C
+;0x0E
+;0x0F
+;0x11
 
 vCrcLowAddress                = ram_00F2
 vCrcHighAddress               = ram_00F3
@@ -516,6 +547,7 @@ vEnemyARecoverCounter         = ram_0326 ; it's a recover from damage (e.g. skel
 vEnemyAVelocity2              = ram_0327
 vEnemyAProjectileVelocity     = ram_0328 ; $0328-$032B
 
+vPhenixPosY                   = ram_032C ; see below
 vEnemyAPosY                   = ram_032C ; see below
 vEnemyAPosY1                  = ram_032C ; The enemy position along the Y axis relative to the level (no repeat)
 vEnemyAPosY2                  = ram_032D ; The enemy position along the Y axis relative to the level (no repeat)
@@ -525,16 +557,19 @@ vEnemyAScreenPosX             = ram_0332 ; see below
 vEnemyAScreenPosX1            = ram_0332 ; The enemy position along the X axis relative to the screen (no repeat)
 vEnemyAScreenPosX2            = ram_0333 ; The enemy position along the X axis relative to the screen (no repeat)
 
+vPhenixPosXLow                = ram_0338 ; see below
 vEnemyAPosXLow                = ram_0338 ; see below
 vEnemyAPosXLow1               = ram_0338 ; The enemy position along the X axis relative to the level (with repeat)
 vEnemyAPosXLow2               = ram_0339 ; The enemy position along the X axis relative to the level (with repeat)
 vEnemyAProjectilePosXLow      = ram_033A ; $033A-$033D
 
+vPhenixPosXHigh               = ram_033E ; see below
 vEnemyAPosXHigh               = ram_033E ; see below
 vEnemyAPosXHigh1              = ram_033E ; The enemy position along the X axis relative to the level (in screen unit)
 vEnemyAPosXHigh2              = ram_033F ; The enemy position along the X axis relative to the level (in screen unit)
 vEnemyAProjectilePosXHigh     = ram_0340 ; $0340-$0343
 
+vPhenixFrame_Counter           = ram_0344 ; see below
 vEnemyAFrame_Counter           = ram_0344 ; see below
 vEnemyAFrame_Counter1          = ram_0344 ; The frame index (the enemy number = 1)
 vEnemyAFrame_Counter2          = ram_0345 ; The frame index (the enemy number = 2)
@@ -544,6 +579,7 @@ vEnemyASpecSubCounter         = ram_0344 ; for last boss
 vEnemyASpecSubCounter1        = ram_0344 ; for last boss
 vEnemyASpecSubCounter2        = ram_0345 ; for last boss
 
+vPhenixJumpCounter            = ram_034A ; see below
 vEnemyAJumpCounter            = ram_034A ; see below (* bazooka man)
 vEnemyAJumpCounter1           = ram_034A ; vJumpCounter analog for the enemy (the enemy number = 1)
 vEnemyAJumpCounter2           = ram_034B ; vJumpCounter analog for the enemy (the enemy number = 2)
@@ -553,6 +589,7 @@ vEnemyAHealthPoints           = ram_0350 ; Only for the egyptian with a boomerun
 vEnemyAHealthPoints1          = ram_0350 ; Only for the egyptian with a boomerung, nun
 vEnemyAHealthPoints2          = ram_0351 ; Only for the egyptian with a boomerung, nun
 
+vPhenixJumpType               = ram_0356 ; see below
 vEnemyAJumpType               = ram_0356 ; see below
 vEnemyAJumpType1              = ram_0356 ; vJumpType analog for the enemy (the enemy number = 1)
 vEnemyAJumpType2              = ram_0357 ; vJumpType analog for the enemy (the enemy number = 2)

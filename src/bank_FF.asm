@@ -9736,7 +9736,7 @@ C - - - - - 0x01FB2F 07:FB1F: A9 32     LDA #$32                     ; assigns C
 C - - - - - 0x01FB31 07:FB21: 8D B6 06  STA vChrBankData
 C - - - - - 0x01FB34 07:FB24: A9 0B     LDA #$0B                     ; CONSTANT - A final scene
 C - - - - - 0x01FB36 07:FB26: 85 3B     STA vSharedGameStatus        ;
-C - - - - - 0x01FB38 07:FB28: A9 00     LDA #$00                     ; CONSTANT - an initialize value
+C - - - - - 0x01FB38 07:FB28: A9 00     LDA #$00                     ; CONSTANT - a starting value
 C - - - - - 0x01FB3A 07:FB2A: 85 D8     STA vFinalSceneNo            ;
 C - - - - - 0x01FB3C 07:FB2C: 4C 1A FB  JMP loc_FB1A_continue
 
