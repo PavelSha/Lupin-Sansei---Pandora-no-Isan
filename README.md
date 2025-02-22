@@ -14,10 +14,11 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 ## Statistic
 -  Code Logger bytes - ***29.86%***
 -  Data Logger bytes - ***58.60%***
--  Unknown bytes     - ***11.55%***
--  Code commented    - ***90.54%***
+-  Unknown bytes     - ***11.54%***
+-  Code commented    - ***91.51%***
 ## Documentation (in Russian)
 -  [terminology](docs/ru/terminology.md) - Basic terminology
+-  [code review](docs/ru/code_review.md) - The document contains an analyze a some pieces of code
 -  [bestiary](docs/ru/bestiary.md) - The list of all enemies in the game
 -  [maze1](docs/ru/maze1.txt), [maze2](docs/ru/maze2.txt), [maze3](docs/ru/maze3.txt), [maze4](docs/ru/maze4.txt) - The information of the mazes on the level 4
 -  [rooms](docs/ru/rooms.md) - The list of all rooms in the game. The game level can be thought of as a large room.

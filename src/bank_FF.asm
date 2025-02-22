@@ -180,6 +180,7 @@
 .export loc_C924_display_menu_score_ex
 .export sub_C924_display_menu_score_ex
 .export loc_C28D_next_menu_demo
+.export loc_C803_render_each_character_in_the_end
 
 vec_C000_RESET:
 C D 2 - - - 0x01C010 07:C000: 78        SEI                                   ; disable interrupts
@@ -244,7 +245,7 @@ C - - - - - 0x01C07F 07:C06F: 8E B6 06  STX vChrBankData                      ; 
 C - - - - - 0x01C082 07:C072: 86 C8     STX vMessageInProgress                ; clear
 C - - - - - 0x01C084 07:C074: 86 2E     STX vCorridorCounter                  ; clear
 C - - - - - 0x01C086 07:C076: 86 2F     STX vAnimationCounter                 ; clear
-C - - - - - 0x01C088 07:C078: 86 30     STX ram_0030                          ; clear
+C - - - - - 0x01C088 07:C078: 86 30     STX vClearMessageCounter              ; clear
 C - - - - - 0x01C08A 07:C07A: 86 31     STX ram_0031                          ; clear
 C - - - - - 0x01C08C 07:C07C: 86 32     STX vResistantToDamageCounter         ; clear
 C - - - - - 0x01C08E 07:C07E: 86 33     STX vLowCutsceneCounter               ; clear
@@ -317,7 +318,7 @@ C - - - - - 0x01C11C 07:C10C: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi   
 C - - - - - 0x01C11F 07:C10F: A5 3B     LDA vSharedGameStatus                   ;
 C - - - - - 0x01C121 07:C111: C9 0B     CMP #$0B                                ; CONSTANT - A final scene
 C - - - - - 0x01C123 07:C113: D0 03     BNE bra_C118_skip                       ; If vSharedGameStatus != 0x0B
-C - - - - - 0x01C125 07:C115: 4C A6 C2  JMP loc_C2A6
+C - - - - - 0x01C125 07:C115: 4C A6 C2  JMP loc_C2A6_final_process              ;
 
 bra_C118_skip:
 C - - - - - 0x01C128 07:C118: A9 FF     LDA #$FF                      ;
@@ -368,15 +369,15 @@ C - - - - - 0x01C17A 07:C16A: F0 03     BEQ bra_C16F_next_level                 
 C - - - - - 0x01C17C 07:C16C: 4C 9C C0  JMP loc_C09C_restart_current_room           ;
 
 bra_C16F_next_level:
-C - - - - - 0x01C17F 07:C16F: A9 00     LDA #$00                   ; CONSTANT - no reason
-C - - - - - 0x01C181 07:C171: 85 D6     STA vReasonCharacterChange ; clear
-C - - - - - 0x01C183 07:C173: E6 5E     INC v_no_level             ;
-C - - - - - 0x01C185 07:C175: A5 5E     LDA v_no_level             ;
-C - - - - - 0x01C187 07:C177: C9 02     CMP #$02                   ; CONSTANT - the level 3
-C - - - - - 0x01C189 07:C179: D0 08     BNE @bra_C183_skip         ; If vNoLevel != 0x02
-C - - - - - 0x01C18B 07:C17B: 2C F6 FF  BIT Set_features
-C - - - - - 0x01C18E 07:C17E: 70 03     BVS @bra_C183_skip
-- - - - - - 0x01C190 07:C180: 4C 5B C2  JMP loc_C25B
+C - - - - - 0x01C17F 07:C16F: A9 00     LDA #$00                    ; CONSTANT - no reason
+C - - - - - 0x01C181 07:C171: 85 D6     STA vReasonCharacterChange  ; clear
+C - - - - - 0x01C183 07:C173: E6 5E     INC v_no_level              ;
+C - - - - - 0x01C185 07:C175: A5 5E     LDA v_no_level              ;
+C - - - - - 0x01C187 07:C177: C9 02     CMP #$02                    ; CONSTANT - the level 3
+C - - - - - 0x01C189 07:C179: D0 08     BNE @bra_C183_skip          ; If vNoLevel != 0x02
+C - - - - - 0x01C18B 07:C17B: 2C F6 FF  BIT Set_features            ;
+C - - - - - 0x01C18E 07:C17E: 70 03     BVS @bra_C183_skip          ; If it is full game version
+C - - - - - 0x01C190 07:C180: 4C 5B C2  JMP loc_C25B_the_short_end  ;
 
 @bra_C183_skip:
 C - - - - - 0x01C193 07:C183: CD 09 01  CMP v_last_level                              ;
@@ -507,13 +508,13 @@ C - - - - - 0x01C263 07:C253: C9 40     CMP #$40                                
 C - - - - - 0x01C265 07:C255: 90 FA     BCC @bra_C251_repeat                      ; If vLowCounter < 0x40 (waiting 64 frames)
 C - - - - - 0x01C267 07:C257: A9 06     LDA #$06                                  ; CONSTANT - fake index for the below code
 C - - - - - 0x01C269 07:C259: 85 24     STA vMenuDemoIndex                        ;
-loc_C25B:
+loc_C25B_the_short_end:
 C - - - - - 0x01C26B 07:C25B: 20 13 C3  JSR sub_C313_screen_off                   ;
 C - - - - - 0x01C26E 07:C25E: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi  ;
 C - - - - - 0x01C271 07:C261: 20 0D B8  JSR sub_B80D_init_final_score_screen      ;
 C - - - - - 0x01C274 07:C264: A9 00     LDA #$00                                  ;
 C - - - - - 0x01C276 07:C266: 85 27     STA ram_0027
-C - - - - - 0x01C278 07:C268: 85 30     STA ram_0030
+C - - - - - 0x01C278 07:C268: 85 30     STA vClearMessageCounter                  ; clear
 C - - - - - 0x01C27A 07:C26A: 8D 31 06  STA vHighPpuAddress                       ; clear, 2nd mode
 C - - - - - 0x01C27D 07:C26D: 8D 7B 06  STA vPpuAddrDataCache                     ; put empty cache
 C - - - - - 0x01C280 07:C270: 85 C8     STA vMessageInProgress                    ; clear
@@ -521,15 +522,15 @@ C - - - - - 0x01C282 07:C272: A9 90     LDA #$90                                
 C - - - - - 0x01C284 07:C274: 85 26     STA vPpuCtrlSettings                      ;
 C - - - - - 0x01C286 07:C276: A9 93     LDA #$93                                  ; CONSTANT - Last cutscene (with Clarisse Cagliostro)
 C - - - - - 0x01C288 07:C278: 85 3B     STA vSharedGameStatus                     ;
-C - - - - - 0x01C28A 07:C27A: A9 0F     LDA #$0F
-C - - - - - 0x01C28C 07:C27C: 85 D8     STA vFinalSceneNo
+C - - - - - 0x01C28A 07:C27A: A9 0F     LDA #$0F                                  ; CONSTANT - Game Over Scene
+C - - - - - 0x01C28C 07:C27C: 85 D8     STA vFinalSceneNo                         ;
 C - - - - - 0x01C28E 07:C27E: 20 F4 C3  JSR sub_C3F4_set_OAM_address              ;
 C - - - - - 0x01C291 07:C281: 20 0F C3  JSR sub_C30F_screen_on                    ;
 C - - - - - 0x01C294 07:C284: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi     ;
 @bra_C287_wait:
-C - - - - - 0x01C297 07:C287: A5 D8     LDA vFinalSceneNo
-C - - - - - 0x01C299 07:C289: C9 11     CMP #$11
-C - - - - - 0x01C29B 07:C28B: 90 FA     BCC @bra_C287_wait
+C - - - - - 0x01C297 07:C287: A5 D8     LDA vFinalSceneNo                         ;
+C - - - - - 0x01C299 07:C289: C9 11     CMP #$11                                  ; CONSTANT - After waiting for pressing in game over 
+C - - - - - 0x01C29B 07:C28B: 90 FA     BCC @bra_C287_wait                        ; If vSceneNo < 0x11
 loc_C28D_next_menu_demo:
 C D 2 - - - 0x01C29D 07:C28D: 20 13 C3  JSR sub_C313_screen_off                   ;
 C - - - - - 0x01C2A0 07:C290: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi  ;
@@ -544,11 +545,11 @@ C - - - - - 0x01C2B1 07:C2A1: 85 24     STA vMenuDemoIndex                      
 @bra_C2A3_skip:
 C - - - - - 0x01C2B3 07:C2A3: 4C 46 C0  JMP loc_C046_repeat_starting_mode         ;
 
-loc_C2A6:
+loc_C2A6_final_process:
 @bra_C2A6_wait:
-C D 2 - - - 0x01C2B6 07:C2A6: A5 D8     LDA vFinalSceneNo
-C - - - - - 0x01C2B8 07:C2A8: C9 0A     CMP #$0A
-C - - - - - 0x01C2BA 07:C2AA: 90 FA     BCC @bra_C2A6_wait
+C D 2 - - - 0x01C2B6 07:C2A6: A5 D8     LDA vFinalSceneNo                         ;
+C - - - - - 0x01C2B8 07:C2A8: C9 0A     CMP #$0A                                  ; CONSTANT - Last cutscene (with Clarisse Cagliostro)
+C - - - - - 0x01C2BA 07:C2AA: 90 FA     BCC @bra_C2A6_wait                        ; If vSceneNo < 0x0A
 C - - - - - 0x01C2BC 07:C2AC: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi  ;
 C - - - - - 0x01C2BF 07:C2AF: 20 13 C3  JSR sub_C313_screen_off                   ;
 C - - - - - 0x01C2C2 07:C2B2: 20 DB B7  JSR sub_B7DB_prepare_last_cutscene        ; bank 06, page 2
@@ -558,9 +559,9 @@ C - - - - - 0x01C2C9 07:C2B9: 20 F4 C3  JSR sub_C3F4_set_OAM_address            
 C - - - - - 0x01C2CC 07:C2BC: 20 0F C3  JSR sub_C30F_screen_on                    ;
 C - - - - - 0x01C2CF 07:C2BF: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi     ;
 @bra_C2C2_wait:
-C - - - - - 0x01C2D2 07:C2C2: A5 D8     LDA vFinalSceneNo
-C - - - - - 0x01C2D4 07:C2C4: C9 0C     CMP #$0C
-C - - - - - 0x01C2D6 07:C2C6: 90 FA     BCC @bra_C2C2_wait
+C - - - - - 0x01C2D2 07:C2C2: A5 D8     LDA vFinalSceneNo                         ;
+C - - - - - 0x01C2D4 07:C2C4: C9 0C     CMP #$0C                                  ; CONSTANT - The end and Hi-Score
+C - - - - - 0x01C2D6 07:C2C6: 90 FA     BCC @bra_C2C2_wait                        ; If vSceneNo < 0x0C
 C - - - - - 0x01C2D8 07:C2C8: 20 13 C3  JSR sub_C313_screen_off                   ;
 C - - - - - 0x01C2DB 07:C2CB: 20 05 C3  JSR sub_C305_update_ppu_ctrl_with_no_nmi  ;
 C - - - - - 0x01C2DE 07:C2CE: A9 30     LDA #$30                                  ; CONSTANT - 3000 Score
@@ -570,9 +571,9 @@ C - - - - - 0x01C2E6 07:C2D6: 20 F4 C3  JSR sub_C3F4_set_OAM_address            
 C - - - - - 0x01C2E9 07:C2D9: 20 0F C3  JSR sub_C30F_screen_on                    ;
 C - - - - - 0x01C2EC 07:C2DC: 20 FF C2  JSR sub_C2FF_update_ppu_ctrl_with_nmi     ;
 @bra_C2DF_wait:
-C - - - - - 0x01C2EF 07:C2DF: A5 D8     LDA vFinalSceneNo
-C - - - - - 0x01C2F1 07:C2E1: C9 0E     CMP #$0E
-C - - - - - 0x01C2F3 07:C2E3: 90 FA     BCC @bra_C2DF_wait
+C - - - - - 0x01C2EF 07:C2DF: A5 D8     LDA vFinalSceneNo                         ;
+C - - - - - 0x01C2F1 07:C2E1: C9 0E     CMP #$0E                                  ; CONSTANT - the button 'B' or 'A' is pressed after finishing a game
+C - - - - - 0x01C2F3 07:C2E3: 90 FA     BCC @bra_C2DF_wait                        ; If vSceneNo < 0x0E
 C - - - - - 0x01C2F5 07:C2E5: A9 00     LDA #$00                                  ;
 C - - - - - 0x01C2F7 07:C2E7: 8D 09 01  STA v_last_level                          ; clear
 C - - - - - 0x01C2FA 07:C2EA: 4C 00 C0  JMP vec_C000_RESET                        ; restart a game
@@ -1129,7 +1130,7 @@ C - - - - - 0x01C697 07:C687: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1           
 C - - - - - 0x01C69A 07:C68A: A9 0B     LDA #$0B                                   ; CONSTANT - the number of rows containing message symbols
 C - - - - - 0x01C69C 07:C68C: 85 1A     STA vTempRowNumber1A                       ; set loop counter
 bra_C68E_loop:                                                                     ; loop by vTempRowNumber1A
-C - - - - - 0x01C69E 07:C68E: 20 DD C6  JSR sub_C6DD_render_row
+C - - - - - 0x01C69E 07:C68E: 20 DD C6  JSR sub_C6DD_render_row                    ;
 C - - - - - 0x01C6A1 07:C691: C6 1A     DEC vTempRowNumber1A                       ; decrement loop counter
 C - - - - - 0x01C6A3 07:C693: 10 F9     BPL bra_C68E_loop                          ; If vTempRowNumber1A >= 0x00
 C - - - - - 0x01C6A5 07:C695: A9 00     LDA #$00                                   ;
@@ -1180,12 +1181,12 @@ C - - - - - 0x01C6EC 07:C6DC: 60        RTS                                     
 sub_C6DD_render_row:
 C - - - - - 0x01C6ED 07:C6DD: A5 D6     LDA vReasonCharacterChange  ;
 C - - - - - 0x01C6EF 07:C6DF: F0 4B     BEQ bra_C72C_skip           ; If vReasonCharacterChange == 'no reason'
-C - - - - - 0x01C6F1 07:C6E1: A5 1A     LDA vTempRowNumber1A
-C - - - - - 0x01C6F3 07:C6E3: 29 02     AND #$02
-C - - - - - 0x01C6F5 07:C6E5: D0 01     BNE bra_C6E8_render
-C - - - - - 0x01C6F7 07:C6E7: 60        RTS
+C - - - - - 0x01C6F1 07:C6E1: A5 1A     LDA vTempRowNumber1A        ;
+C - - - - - 0x01C6F3 07:C6E3: 29 02     AND #$02                    ;
+C - - - - - 0x01C6F5 07:C6E5: D0 01     BNE bra_C6E8_render         ; Branch every 2 times after 2
+C - - - - - 0x01C6F7 07:C6E7: 60        RTS                         ;
 
-; In: Register Y - {0x02, 0x03, 0x06, 0x07, 0x0A, 0x0B}
+; In: vTempRowNumber1A - {0x02, 0x03, 0x06, 0x07, 0x0A, 0x0B}
 bra_C6E8_render:
 C - - - - - 0x01C6F8 07:C6E8: A5 1A     LDA vTempRowNumber1A             ;
 C - - - - - 0x01C6FA 07:C6EA: 0A        ASL                              ;
@@ -1193,40 +1194,41 @@ C - - - - - 0x01C6FB 07:C6EB: A8        TAY                              ; Y <~ 
 C - - - - - 0x01C6FC 07:C6EC: A5 5F     LDA vChrLiveStatus               ;
 C - - - - - 0x01C6FE 07:C6EE: 85 D4     STA vTempChrLiveStatus           ;
 C - - - - - 0x01C700 07:C6F0: 20 7B C7  JSR sub_C77B_can_character_play  ;
-C - - - - - 0x01C703 07:C6F3: F0 07     BEQ bra_C6FC
+C - - - - - 0x01C703 07:C6F3: F0 07     BEQ bra_C6FC_no_death            ; If character isn't fell and arrested
 C - - - - - 0x01C705 07:C6F5: 88        DEY                              ;
 C - - - - - 0x01C706 07:C6F6: 88        DEY                              ;
 C - - - - - 0x01C707 07:C6F7: 88        DEY                              ;
 C - - - - - 0x01C708 07:C6F8: 88        DEY                              ; Y <~ row / 2 {0x00, 0x02, 0x08, 0x0A, 0x10, 0x12}
-C - - - - - 0x01C709 07:C6F9: 4C 1F C7  JMP loc_C71F_continue
+C - - - - - 0x01C709 07:C6F9: 4C 1F C7  JMP loc_C71F_continue            ;
 
-bra_C6FC:
-C - - - - - 0x01C70C 07:C6FC: A5 D6     LDA vReasonCharacterChange ;
-C - - - - - 0x01C70E 07:C6FE: 10 1F     BPL bra_C71F_skip          ; If vReasonCharacterChange != 'the radio was using'
-C - - - - - 0x01C710 07:C700: A5 5F     LDA vChrLiveStatus         ;
-C - - - - - 0x01C712 07:C702: 29 03     AND #$03                   ;
-C - - - - - 0x01C714 07:C704: 85 00     STA ram_0000               ; $0000 <- the current selected character
-C - - - - - 0x01C716 07:C706: A5 1A     LDA ram_001A
-C - - - - - 0x01C718 07:C708: 4A        LSR
-C - - - - - 0x01C719 07:C709: 4A        LSR
-C - - - - - 0x01C71A 07:C70A: C5 00     CMP ram_0000
-C - - - - - 0x01C71C 07:C70C: D0 04     BNE bra_C712
-C - - - - - 0x01C71E 07:C70E: 88        DEY
-C - - - - - 0x01C71F 07:C70F: 88        DEY
-C - - - - - 0x01C720 07:C710: 88        DEY
-C - - - - - 0x01C721 07:C711: 88        DEY
-bra_C712:
-C - - - - - 0x01C722 07:C712: B9 78 94  LDA tbl_select_characters_dialog_losing,Y      ;
+; In: vTempRowNumber1A - {0x02, 0x03, 0x06, 0x07, 0x0A, 0x0B}
+bra_C6FC_no_death:
+C - - - - - 0x01C70C 07:C6FC: A5 D6     LDA vReasonCharacterChange                     ;
+C - - - - - 0x01C70E 07:C6FE: 10 1F     BPL bra_C71F_skip                              ; If vReasonCharacterChange != 'the radio was using'
+C - - - - - 0x01C710 07:C700: A5 5F     LDA vChrLiveStatus                             ;
+C - - - - - 0x01C712 07:C702: 29 03     AND #$03                                       ;
+C - - - - - 0x01C714 07:C704: 85 00     STA ram_0000                                   ; $0000 <- the current selected character
+C - - - - - 0x01C716 07:C706: A5 1A     LDA vTempRowNumber1A                           ;
+C - - - - - 0x01C718 07:C708: 4A        LSR                                            ;
+C - - - - - 0x01C719 07:C709: 4A        LSR                                            ; A <~ {0x00, 0x01, 0x02}
+C - - - - - 0x01C71A 07:C70A: C5 00     CMP ram_0000                                   ;
+C - - - - - 0x01C71C 07:C70C: D0 04     BNE @bra_C712_skip                             ; If the current row doesn't contain the current character 
+C - - - - - 0x01C71E 07:C70E: 88        DEY                                            ;
+C - - - - - 0x01C71F 07:C70F: 88        DEY                                            ;
+C - - - - - 0x01C720 07:C710: 88        DEY                                            ;
+C - - - - - 0x01C721 07:C711: 88        DEY                                            ; Y <~ row / 2 {0x00, 0x02, 0x08, 0x0A, 0x10, 0x12}
+@bra_C712_skip:
+C - - - - - 0x01C722 07:C712: B9 78 94  LDA tbl_select_characters_dialog_radio,Y       ;
 C - - - - - 0x01C725 07:C715: 85 02     STA ram_0002                                   ; Low address
-C - - - - - 0x01C727 07:C717: B9 79 94  LDA tbl_select_characters_dialog_losing + 1,Y  ;
+C - - - - - 0x01C727 07:C717: B9 79 94  LDA tbl_select_characters_dialog_radio + 1,Y   ;
 C - - - - - 0x01C72A 07:C71A: 85 03     STA ram_0003                                   ; High address
 C - - - - - 0x01C72C 07:C71C: 4C 54 C7  JMP loc_C754_render_02_03                      ;
 
 bra_C71F_skip:
 loc_C71F_continue:
-C D 2 - - - 0x01C72F 07:C71F: B9 60 94  LDA tbl_select_characters_dialog_radio,Y       ;
+C D 2 - - - 0x01C72F 07:C71F: B9 60 94  LDA tbl_select_characters_dialog_losing,Y      ;
 C - - - - - 0x01C732 07:C722: 85 02     STA ram_0002                                   ; Low address
-C - - - - - 0x01C734 07:C724: B9 61 94  LDA tbl_select_characters_dialog_radio + 1,Y   ;
+C - - - - - 0x01C734 07:C724: B9 61 94  LDA tbl_select_characters_dialog_losing + 1,Y  ;
 C - - - - - 0x01C737 07:C727: 85 03     STA ram_0003                                   ; High address
 C - - - - - 0x01C739 07:C729: 4C 54 C7  JMP loc_C754_render_02_03                      ;
 
@@ -1364,7 +1366,7 @@ C - - - - - 0x01C80A 07:C7FA: 85 00     STA ram_0000                            
 C - - - - - 0x01C80C 07:C7FC: A9 10     LDA #$10                                      ; ~> sprite_magic4 (X pos)
 C - - - - - 0x01C80E 07:C7FE: A0 02     LDY #$02                                      ; tile 'Gun'
 C - - - - - 0x01C810 07:C800: 20 32 C8  JSR sub_C832_add_sprite_magic                 ;
-loc_C803:
+loc_C803_render_each_character_in_the_end:
 bra_C803_skip:
 C D 2 - - - 0x01C813 07:C803: A9 4F     LDA #$4F                                      ; Y-position for Lupin
 C - - - - - 0x01C815 07:C805: 85 00     STA ram_0000                                  ;
@@ -7717,7 +7719,7 @@ C - - - - - 0x01EE1A 07:EE0A: 8D 00 80  STA MMC3_Bank_select          ; switch b
 C - - - - - 0x01EE1D 07:EE0D: D0 F3     BNE bra_EE02_nmi_finish       ; Always true
 
 bra_EE0F_nmi_last_cutscene:
-C - - - - - 0x01EE1F 07:EE0F: 20 FE B5  JSR $B5FE ; to sub_B5FE (bank 06_2)
+C - - - - - 0x01EE1F 07:EE0F: 20 FE B5  JSR sub_B5FE_final_scene_handler      ;
 C - - - - - 0x01EE22 07:EE12: 20 6C C4  JSR sub_C46C_simulate_presses_in_demo ;
 bra_EE15_skip:
 C - - - - - 0x01EE25 07:EE15: 20 7B EF  JSR sub_EF7B_shift_all_counters       ;

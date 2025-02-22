@@ -4,8 +4,8 @@ MMC3_Bank_select    = $8000 ; see https://www.nesdev.org/wiki/INES_Mapper_206
 MMC3_Bank_data      = $8001 ;
 Set_features        = $FFF6 ;
 ; XYZW KLMN
-; X - Test mode (debug mode)
-; Y - Demo version (?)
+; X - Release or debug mode (1 - release, 0 - debug)
+; Y - Full or demo version (1 - full, 0 - demo)
 
 PPU_CTRL     = $2000
 PPU_MASK     = $2001
@@ -100,6 +100,7 @@ vAnimationCounter             = ram_002F ; To animate the balloon and squeezing 
 ; ram_0031 - the unknown counter2
 
 vPostAttackCounter            = ram_0030 ; e.g. for the boss of level 1
+vClearMessageCounter          = ram_0030
 
 vResistantToDamageCounter     = ram_0032
 vLowCutsceneCounter           = ram_0033
@@ -397,36 +398,7 @@ vTmpEnemyStartingPosXLow      = ram_00D5
 vReasonCharacterChange        = ram_00D6
 vFinalSceneNo                 = ram_00D8
 ; 0x00 - a starting value (after killing the last boss)
-
-; temp
-;0x00 - C...
-;0x01 - B7A2,
-;message1 (need button click)
-;0x02 - B772
-;0x03 - B772
-;0x04 - B7A2, 
-;message2
-;0x05 - B772, 
-;animation
-;0x06 - B772
-;0x07 - B7A2,
-;message3 (need button click)
-;0x08 - B772
-;0x09 - B772 
-;message4 (need button click)
-;0x0A - B772
-;0x0B - B6DE
-;clarissa message (need button click)
-;0x0C - B6ED
-;0x0D - B6DE
-;The End (need button click)
-;0x0E - B6ED
-;
-;0x0A
-;0x0C
-;0x0E
-;0x0F
-;0x11
+; see $B60F, 06 bank, 2 page
 
 vCrcLowAddress                = ram_00F2
 vCrcHighAddress               = ram_00F3

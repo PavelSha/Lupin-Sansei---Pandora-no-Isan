@@ -92,6 +92,7 @@
 .export sub_B067_take_item_out
 .export sub_BC48_next_room
 .export sub_B7DB_prepare_last_cutscene
+.export sub_B5FE_final_scene_handler
 .export tbl_ptr_enemy_t2_types_for_sprites
 .export tbl_ptr_enemy_t3_types_for_sprites
 .export tbl_ptr_enemy_t2_sprite_params_
@@ -2943,9 +2944,9 @@ C - - - - - 0x01B2FE 06:B2EE: 4C FC B2  JMP @loc_B2FC_skip
 - - - - - - 0x01B306 06:B2F6: 8D 06 20  STA PPU_ADDRESS ; not used ???
 - - - - - - 0x01B309 06:B2F9: 8C 06 20  STY PPU_ADDRESS ; not used ???
 @loc_B2FC_skip:
-C D 1 - - - 0x01B30C 06:B2FC: AD 07 20  LDA PPU_DATA ; Increments address
-C - - - - - 0x01B30F 06:B2FF: AD 07 20  LDA PPU_DATA ; Increments address
-C - - - - - 0x01B312 06:B302: 60        RTS
+C D 1 - - - 0x01B30C 06:B2FC: AD 07 20  LDA PPU_DATA    ; Increments address
+C - - - - - 0x01B30F 06:B2FF: AD 07 20  LDA PPU_DATA    ; Increments address
+C - - - - - 0x01B312 06:B302: 60        RTS             ;
 
 ; In: Register X - a room number
 sub_B303:
@@ -3110,16 +3111,16 @@ bra_B408:
 C - - - - - 0x01B418 06:B408: A9 40     LDA #$40
 C - - - - - 0x01B41A 06:B40A: 20 80 B4  JSR sub_B480_plus_npc_msg_status
 C - - - - - 0x01B41D 06:B40D: A9 04     LDA #$04
-C - - - - - 0x01B41F 06:B40F: 85 30     STA ram_0030
+C - - - - - 0x01B41F 06:B40F: 85 30     STA vClearMessageCounter
 bra_B411_skip:
 C - - - - - 0x01B421 06:B411: A5 C8     LDA ram_00C8
 C - - - - - 0x01B423 06:B413: D0 4E     BNE bra_B463_RTS
 C - - - - - 0x01B425 06:B415: 24 41     BIT vNPCMessageStatus
 C - - - - - 0x01B427 06:B417: 30 4E     BMI bra_B467_finish_level
 C - - - - - 0x01B429 06:B419: 50 48     BVC bra_B463_RTS
-C - - - - - 0x01B42B 06:B41B: A5 30     LDA ram_0030
+C - - - - - 0x01B42B 06:B41B: A5 30     LDA vClearMessageCounter
 C - - - - - 0x01B42D 06:B41D: F0 03     BEQ bra_B422_skip
-C - - - - - 0x01B42F 06:B41F: 4C 6D B5  JMP loc_B56D_clear_npc_message
+C - - - - - 0x01B42F 06:B41F: 4C 6D B5  JMP loc_B56D_clear_npc_message      ;
 
 bra_B422_skip:
 C - - - - - 0x01B432 06:B422: A9 BF     LDA #$BF
@@ -3327,7 +3328,7 @@ C - - - - - 0x01B587 06:B577: CA        DEX                               ; decr
 C - - - - - 0x01B588 06:B578: 10 FA     BPL @bra_B574_loop                ; If Register Y >= 0x00
 C - - - - - 0x01B58A 06:B57A: A9 20     LDA #$20                          ;
 C - - - - - 0x01B58C 06:B57C: 8D 31 06  STA vHighPpuAddress               ;
-C - - - - - 0x01B58F 06:B57F: A4 30     LDY ram_0030
+C - - - - - 0x01B58F 06:B57F: A4 30     LDY vClearMessageCounter          ;
 C - - - - - 0x01B591 06:B581: B9 87 B5  LDA tbl_B587_part_address - 1,Y   ; here Y - {0x04, 0x03, 0x02, 0x01}
 C - - - - - 0x01B594 06:B584: 8D 30 06  STA vLowPpuAddress                ; PPU Address <~ {$2068, $2088, $20A8, $20C8} (3 mode)
 C - - - - - 0x01B597 06:B587: 60        RTS                               ;
@@ -3348,17 +3349,17 @@ C - - - - - 0x01B5A6 06:B596: 85 03     STA ram_0003 ; High address
 C - - - - - 0x01B5A8 06:B598: 6C 02 00  JMP (ram_0002)
 
 tbl_npc_types:
-- D 1 - - - 0x01B5AB 06:B59B: B4 B5     .addr loc_npc_type0; CPU address $B5B4
-- - - - - - 0x01B5AD 06:B59D: B3 B5     .addr loc_npc_type1; CPU address $B5B3
-- - - - - - 0x01B5AF 06:B59F: B2 B5     .addr loc_npc_type2; CPU address $B5B2
-- - - - - - 0x01B5B1 06:B5A1: B1 B5     .addr loc_npc_type3; CPU address $B5B1
-- D 1 - - - 0x01B5B3 06:B5A3: BE B5     .addr loc_npc_type4; CPU address $B5BE
-- D 1 - - - 0x01B5B5 06:B5A5: B6 B5     .addr loc_npc_type5; CPU address $B5B6
-- D 1 - - - 0x01B5B7 06:B5A7: CA B5     .addr loc_npc_type6; CPU address $B5CA
-- D 1 - - - 0x01B5B9 06:B5A9: DD B5     .addr loc_npc_type7; CPU address $B5DD
-- D 1 - - - 0x01B5BB 06:B5AB: D9 B5     .addr loc_npc_type8; CPU address $B5D9
-- D 1 - - - 0x01B5BD 06:B5AD: D5 B5     .addr loc_npc_type9; CPU address $B5D5
-- D 1 - - - 0x01B5BF 06:B5AF: F2 B5     .addr loc_npc_type10; CPU address $B5F2
+- D 1 - - - 0x01B5AB 06:B59B: B4 B5     .addr loc_npc_type0  ; CPU address $B5B4
+- D - - - - 0x01B5AD 06:B59D: B3 B5     .addr loc_npc_type1  ; CPU address $B5B3
+- D - - - - 0x01B5AF 06:B59F: B2 B5     .addr loc_npc_type2  ; CPU address $B5B2
+- D - - - - 0x01B5B1 06:B5A1: B1 B5     .addr loc_npc_type3  ; CPU address $B5B1
+- D 1 - - - 0x01B5B3 06:B5A3: BE B5     .addr loc_npc_type4  ; CPU address $B5BE
+- D 1 - - - 0x01B5B5 06:B5A5: B6 B5     .addr loc_npc_type5  ; CPU address $B5B6
+- D 1 - - - 0x01B5B7 06:B5A7: CA B5     .addr loc_npc_type6  ; CPU address $B5CA
+- D 1 - - - 0x01B5B9 06:B5A9: DD B5     .addr loc_npc_type7  ; CPU address $B5DD
+- D 1 - - - 0x01B5BB 06:B5AB: D9 B5     .addr loc_npc_type8  ; CPU address $B5D9
+- D 1 - - - 0x01B5BD 06:B5AD: D5 B5     .addr loc_npc_type9  ; CPU address $B5D5
+- D 1 - - - 0x01B5BF 06:B5AF: F2 B5     .addr loc_npc_type10 ; CPU address $B5F2
 
 loc_npc_type3:
 C - - - - - 0x01B5C1 06:B5B1: C8        INY
@@ -3413,62 +3414,63 @@ C - - - - - 0x01B607 06:B5F7: 09 08     ORA #$08
 C - - - - - 0x01B609 06:B5F9: 9D 00 05  STA vRooms,X
 C - - - - - 0x01B60C 06:B5FC: D0 B5     BNE bra_B5B3_npc_type1
 
-sub_B5FE:
-C - - - - - 0x01B60E 06:B5FE: A5 30     LDA ram_0030
-C - - - - - 0x01B610 06:B600: F0 06     BEQ bra_B608_skip
-C - - - - - 0x01B612 06:B602: 20 6D B5  JSR sub_B56D_clear_npc_message
-C - - - - - 0x01B615 06:B605: 4C A4 B7  JMP loc_B7A4_render_Clarissa_and_Fujiko
+sub_B5FE_final_scene_handler:
+C - - - - - 0x01B60E 06:B5FE: A5 30     LDA vClearMessageCounter                 ;
+C - - - - - 0x01B610 06:B600: F0 06     BEQ bra_B608_skip                        ; If the message panel is ready for typing
+C - - - - - 0x01B612 06:B602: 20 6D B5  JSR sub_B56D_clear_npc_message           ;
+C - - - - - 0x01B615 06:B605: 4C A4 B7  JMP loc_B7A4_render_Clarissa_and_Fujiko  ;
 
 bra_B608_skip:
 C - - - - - 0x01B618 06:B608: A5 D8     LDA vFinalSceneNo                  ;
 C - - - - - 0x01B61A 06:B60A: 29 1F     AND #$1F                           ; filters by a mask
 C - - - - - 0x01B61C 06:B60C: 20 C1 D0  JSR sub_D0C1_change_stack_pointer  ;
 
-- D 1 - I - 0x01B61F 06:B60F: 75 B7     .addr loc_B776 - 1                       ; 0x00
-- D 1 - I - 0x01B621 06:B611: 62 B7     .addr loc_B763 - 1                       ; 0x01
-- D 1 - I - 0x01B623 06:B613: 6D B7     .addr loc_B76E_prepare_next_message - 1  ; 0x02
-- D 1 - I - 0x01B625 06:B615: 5E B7     .addr loc_B75F_add_2nd_message - 1       ; 0x03
-- D 1 - I - 0x01B627 06:B617: 55 B6     .addr loc_B656 - 1                       ; 0x04
-- D 1 - I - 0x01B629 06:B619: FE B6     .addr loc_B6FF - 1                       ; 0x05
-- D 1 - I - 0x01B62B 06:B61B: F4 B6     .addr loc_B6F5_add_3rd_message - 1       ; 0x06
-- D 1 - I - 0x01B62D 06:B61D: 62 B7     .addr loc_B763 - 1                       ; 0x07
-- D 1 - I - 0x01B62F 06:B61F: EF B6     .addr loc_B6F0_add_4th_message - 1       ; 0x08
-- D 1 - I - 0x01B631 06:B621: 50 B7     .addr loc_B751 - 1                       ; 0x09
-- D 1 - I - 0x01B633 06:B623: B2 B6     .addr loc_B6B3 - 1                       ; 0x0A
-- D 1 - I - 0x01B635 06:B625: E0 B6     .addr loc_B6E1 - 1                       ; 0x0B
-- D 1 - I - 0x01B637 06:B627: D4 B6     .addr loc_B6D5 - 1                       ; 0x0C
-- D 1 - I - 0x01B639 06:B629: E0 B6     .addr loc_B6E1 - 1                       ; 0x0D
-- D - - - - 0x01B63B 06:B62B: EE B6     .addr loc_B6EF_RTS - 1                   ; 0x0E
-- D 1 - I - 0x01B63D 06:B62D: 32 B6     .addr loc_B633 - 1                       ; 0x0F
-- D 1 - I - 0x01B63F 06:B62F: 42 B6     .addr loc_B643 - 1                       ; 0x10
-- D - - - - 0x01B641 06:B631: EE B6     .addr loc_B6EF_RTS - 1                   ; 0x11
+- D 1 - I - 0x01B61F 06:B60F: 75 B7     .addr loc_B776_begin_and_add_1st_message - 1          ; 0x00
+- D 1 - I - 0x01B621 06:B611: 62 B7     .addr loc_B763_waiting_for_pressing_with_clearing - 1 ; 0x01
+- D 1 - I - 0x01B623 06:B613: 6D B7     .addr loc_B76E_prepare_next_message - 1               ; 0x02
+- D 1 - I - 0x01B625 06:B615: 5E B7     .addr loc_B75F_add_2nd_message - 1                    ; 0x03
+- D 1 - I - 0x01B627 06:B617: 55 B6     .addr loc_B656_open_treasure - 1                      ; 0x04
+- D 1 - I - 0x01B629 06:B619: FE B6     .addr loc_B6FF_phoenix_is_flighting - 1               ; 0x05
+- D 1 - I - 0x01B62B 06:B61B: F4 B6     .addr loc_B6F5_add_3rd_message - 1                    ; 0x06
+- D 1 - I - 0x01B62D 06:B61D: 62 B7     .addr loc_B763_waiting_for_pressing_with_clearing - 1 ; 0x07
+- D 1 - I - 0x01B62F 06:B61F: EF B6     .addr loc_B6F0_add_4th_message - 1                    ; 0x08
+- D 1 - I - 0x01B631 06:B621: 50 B7     .addr loc_B751_4th_message_in_progress - 1            ; 0x09
+- D 1 - I - 0x01B633 06:B623: B2 B6     .addr loc_B6B3_last_cutscene_with_Clarissa - 1        ; 0x0A
+- D 1 - I - 0x01B635 06:B625: E0 B6     .addr loc_B6E1_waiting_for_pressing_in_dialog - 1     ; 0x0B
+- D 1 - I - 0x01B637 06:B627: D4 B6     .addr loc_B6D5_go_to_the_end_and_hiscore - 1          ; 0x0C
+- D 1 - I - 0x01B639 06:B629: E0 B6     .addr loc_B6E1_waiting_for_pressing_in_dialog - 1     ; 0x0D
+- D - - - - 0x01B63B 06:B62B: EE B6     .addr loc_B6EF_RTS - 1                                ; 0x0E
+- D 1 - I - 0x01B63D 06:B62D: 32 B6     .addr loc_B633_add_game_over_message - 1              ; 0x0F
+- D 1 - I - 0x01B63F 06:B62F: 42 B6     .addr loc_B643_waiting_for_pressing_in_game_over - 1  ; 0x10
+- D - - - - 0x01B641 06:B631: EE B6     .addr loc_B6EF_RTS - 1                                ; 0x11
 
-loc_B633:
-C - - - - - 0x01B643 06:B633: A9 7B     LDA #$7B
-C - - - - - 0x01B645 06:B635: 2C F6 FF  BIT Set_features
-C - - - - - 0x01B648 06:B638: 70 02     BVS bra_B63C
-- - - - - - 0x01B64A 06:B63A: A9 7D     LDA #$7D
-bra_B63C:
-C - - - - - 0x01B64C 06:B63C: 20 34 B2  JSR sub_B234_add_message
-C - - - - - 0x01B64F 06:B63F: E6 D8     INC vFinalSceneNo
-C - - - - - 0x01B651 06:B641: D0 0D     BNE bra_B650
-loc_B643:
-C - - - - - 0x01B653 06:B643: A5 C8     LDA ram_00C8
-C - - - - - 0x01B655 06:B645: D0 09     BNE bra_B650
-C - - - - - 0x01B657 06:B647: A9 03     LDA #BIT_BUTTON_B_OR_A
-C - - - - - 0x01B659 06:B649: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
-C - - - - - 0x01B65C 06:B64C: F0 02     BEQ bra_B650
-C - - - - - 0x01B65E 06:B64E: E6 D8     INC vFinalSceneNo
-bra_B650:
-C - - - - - 0x01B660 06:B650: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks
-C - - - - - 0x01B663 06:B653: 4C 03 C8  JMP $C803
+loc_B633_add_game_over_message:
+C - - - - - 0x01B643 06:B633: A9 7B     LDA #$7B                       ; CONSTANT - the message number #7B (game over)
+C - - - - - 0x01B645 06:B635: 2C F6 FF  BIT Set_features               ;
+C - - - - - 0x01B648 06:B638: 70 02     BVS @bra_B63C_full             ; If it is full game version
+C - - - - - 0x01B64A 06:B63A: A9 7D     LDA #$7D                       ; CONSTANT - the message number #7D (to be continued)
+@bra_B63C_full:
+C - - - - - 0x01B64C 06:B63C: 20 34 B2  JSR sub_B234_add_message       ;
+C - - - - - 0x01B64F 06:B63F: E6 D8     INC vFinalSceneNo              ; next a scene
+C - - - - - 0x01B651 06:B641: D0 0D     BNE bra_B650_render_in_the_end ; Always true (vSceneNo > 0)
 
-loc_B656:
-C - - - - - 0x01B666 06:B656: A5 C8     LDA ram_00C8
-C - - - - - 0x01B668 06:B658: F0 03     BEQ bra_B65D
-C - - - - - 0x01B66A 06:B65A: 4C A4 B7  JMP loc_B7A4_render_Clarissa_and_Fujiko
+loc_B643_waiting_for_pressing_in_game_over:
+C - - - - - 0x01B653 06:B643: A5 C8     LDA vMessageInProgress                        ;
+C - - - - - 0x01B655 06:B645: D0 09     BNE bra_B650_render_in_the_end                ; If the message is typing
+C - - - - - 0x01B657 06:B647: A9 03     LDA #BIT_BUTTON_B_OR_A                        ;
+C - - - - - 0x01B659 06:B649: 20 79 D0  JSR sub_D079_check_button_press               ; bank FF
+C - - - - - 0x01B65C 06:B64C: F0 02     BEQ bra_B650_render_in_the_end                ; Go to the branch If the buttons 'A' or 'B' aren't pressed
+C - - - - - 0x01B65E 06:B64E: E6 D8     INC vFinalSceneNo                             ; next a scene
+bra_B650_render_in_the_end:
+C - - - - - 0x01B660 06:B650: 20 F5 C4  JSR sub_C4F5_selectAllChrBanks                ;
+C - - - - - 0x01B663 06:B653: 4C 03 C8  JMP loc_C803_render_each_character_in_the_end ;
 
-bra_B65D:
+loc_B656_open_treasure:
+C - - - - - 0x01B666 06:B656: A5 C8     LDA vMessageInProgress                   ;
+C - - - - - 0x01B668 06:B658: F0 03     BEQ bra_B65D_skip                        ; If the message isn't typing
+C - - - - - 0x01B66A 06:B65A: 4C A4 B7  JMP loc_B7A4_render_Clarissa_and_Fujiko  ;
+
+bra_B65D_skip:
 C - - - - - 0x01B66D 06:B65D: A9 55     LDA #$55                       ; CONSTANT - opening a treasure chest (melody #1)
 C - - - - - 0x01B66F 06:B65F: 20 20 C4  JSR sub_C420_add_sound_effect  ;
 C - - - - - 0x01B672 06:B662: A9 56     LDA #$56                       ; CONSTANT - opening a treasure chest (melody #2)
@@ -3492,23 +3494,23 @@ C - - - - - 0x01B699 06:B689: C0 04     CPY #$04                       ;
 C - - - - - 0x01B69B 06:B68B: D0 F5     BNE @bra_B682_loop             ; If Register Y != 0x04
 C - - - - - 0x01B69D 06:B68D: A9 04     LDA #$04                       ;
 C - - - - - 0x01B69F 06:B68F: 8D 32 06  STA vPpuBufferCount            ; init count (4 tiles)
-C - - - - - 0x01B6A2 06:B692: A9 02     LDA #$02
-C - - - - - 0x01B6A4 06:B694: 8D 44 03  STA vPhenixFrame_Counter
-C - - - - - 0x01B6A7 06:B697: A9 A0     LDA #$A0
-C - - - - - 0x01B6A9 06:B699: 8D 38 03  STA vPhenixPosXLow
-C - - - - - 0x01B6AC 06:B69C: A9 00     LDA #$00
-C - - - - - 0x01B6AE 06:B69E: 8D 3E 03  STA vPhenixPosXHigh
-C - - - - - 0x01B6B1 06:B6A1: A9 80     LDA #$80
-C - - - - - 0x01B6B3 06:B6A3: 8D 2C 03  STA vPhenixPosY
-C - - - - - 0x01B6B6 06:B6A6: A9 00     LDA #$00
-C - - - - - 0x01B6B8 06:B6A8: 8D 56 03  STA vPhenixJumpType
-C - - - - - 0x01B6BB 06:B6AB: A9 10     LDA #$10
-C - - - - - 0x01B6BD 06:B6AD: 8D 4A 03  STA vPhenixJumpCounter
-C - - - - - 0x01B6C0 06:B6B0: 4C 72 B7  JMP loc_B772_next_final_scene
+C - - - - - 0x01B6A2 06:B692: A9 02     LDA #$02                       ;
+C - - - - - 0x01B6A4 06:B694: 8D 44 03  STA vPhenixFrame_Counter       ; initializes a starting frame counter
+C - - - - - 0x01B6A7 06:B697: A9 A0     LDA #$A0                       ;
+C - - - - - 0x01B6A9 06:B699: 8D 38 03  STA vPhenixPosXLow             ; initializes a starting low X-position
+C - - - - - 0x01B6AC 06:B69C: A9 00     LDA #$00                       ;
+C - - - - - 0x01B6AE 06:B69E: 8D 3E 03  STA vPhenixPosXHigh            ; initializes a starting high X-position
+C - - - - - 0x01B6B1 06:B6A1: A9 80     LDA #$80                       ;
+C - - - - - 0x01B6B3 06:B6A3: 8D 2C 03  STA vPhenixPosY                ; initializes a starting Y-position
+C - - - - - 0x01B6B6 06:B6A6: A9 00     LDA #$00                       ;
+C - - - - - 0x01B6B8 06:B6A8: 8D 56 03  STA vPhenixJumpType            ; initializes a starting jump type
+C - - - - - 0x01B6BB 06:B6AB: A9 10     LDA #$10                       ;
+C - - - - - 0x01B6BD 06:B6AD: 8D 4A 03  STA vPhenixJumpCounter         ; initializes a starting jump counter
+C - - - - - 0x01B6C0 06:B6B0: 4C 72 B7  JMP loc_B772_next_final_scene  ;
 
-loc_B6B3:
-C - - - - - 0x01B6C3 06:B6B3: A5 C8     LDA ram_00C8
-C - - - - - 0x01B6C5 06:B6B5: D0 38     BNE bra_B6EF_RTS
+loc_B6B3_last_cutscene_with_Clarissa:
+C - - - - - 0x01B6C3 06:B6B3: A5 C8     LDA vMessageInProgress         ;
+C - - - - - 0x01B6C5 06:B6B5: D0 38     BNE bra_B6EF_RTS               ; If the message is typing
 C - - - - - 0x01B6C7 06:B6B7: A9 5B     LDA #$5B                       ; CONSTANT - Saving Clarissa (melody #1)
 C - - - - - 0x01B6C9 06:B6B9: 20 20 C4  JSR sub_C420_add_sound_effect  ;
 C - - - - - 0x01B6CC 06:B6BC: A9 5C     LDA #$5C                       ; CONSTANT - Saving Clarissa (melody #2)
@@ -3517,33 +3519,34 @@ C - - - - - 0x01B6D1 06:B6C1: A9 5D     LDA #$5D                       ; CONSTAN
 C - - - - - 0x01B6D3 06:B6C3: 20 20 C4  JSR sub_C420_add_sound_effect  ;
 C - - - - - 0x01B6D6 06:B6C6: A9 5E     LDA #$5E                       ; CONSTANT - Saving Clarissa (melody #4)
 C - - - - - 0x01B6D8 06:B6C8: 20 20 C4  JSR sub_C420_add_sound_effect  ;
-C - - - - - 0x01B6DB 06:B6CB: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01B6DD 06:B6CD: 29 03     AND #$03
-C - - - - - 0x01B6DF 06:B6CF: A8        TAY
-C - - - - - 0x01B6E0 06:B6D0: B9 C4 BC  LDA tbl_BCC4,Y
-C - - - - - 0x01B6E3 06:B6D3: D0 06     BNE bra_B6DB
-loc_B6D5:
-C - - - - - 0x01B6E5 06:B6D5: A5 C8     LDA ram_00C8
-C - - - - - 0x01B6E7 06:B6D7: D0 16     BNE bra_B6EF_RTS
-C - - - - - 0x01B6E9 06:B6D9: A9 7C     LDA #$7C
-bra_B6DB:
-C - - - - - 0x01B6EB 06:B6DB: 20 34 B2  JSR sub_B234_add_message
-C - - - - - 0x01B6EE 06:B6DE: E6 D8     INC vFinalSceneNo
-C - - - - - 0x01B6F0 06:B6E0: 60        RTS
+C - - - - - 0x01B6DB 06:B6CB: A5 5F     LDA vChrLiveStatus             ;
+C - - - - - 0x01B6DD 06:B6CD: 29 03     AND #$03                       ;
+C - - - - - 0x01B6DF 06:B6CF: A8        TAY                            ; Y <~ 0x00 (Lupin), 0x01 (Jigen), 0x10 (Goemon)
+C - - - - - 0x01B6E0 06:B6D0: B9 C4 BC  LDA tbl_BCC4_messages,Y        ; prepare an input parameter
+C - - - - - 0x01B6E3 06:B6D3: D0 06     BNE bra_B6DB_add               ; Always true
 
-loc_B6E1:
-C - - - - - 0x01B6F1 06:B6E1: A5 C8     LDA ram_00C8
-C - - - - - 0x01B6F3 06:B6E3: D0 0A     BNE bra_B6EF_RTS
-C - - - - - 0x01B6F5 06:B6E5: A9 03     LDA #BIT_BUTTON_B_OR_A
+loc_B6D5_go_to_the_end_and_hiscore:
+C - - - - - 0x01B6E5 06:B6D5: A5 C8     LDA vMessageInProgress         ;
+C - - - - - 0x01B6E7 06:B6D7: D0 16     BNE bra_B6EF_RTS               ; If the message is typing
+C - - - - - 0x01B6E9 06:B6D9: A9 7C     LDA #$7C                       ; CONSTANT - the message number #7C (the end)
+bra_B6DB_add:
+C - - - - - 0x01B6EB 06:B6DB: 20 34 B2  JSR sub_B234_add_message       ;
+C - - - - - 0x01B6EE 06:B6DE: E6 D8     INC vFinalSceneNo              ; next a scene
+C - - - - - 0x01B6F0 06:B6E0: 60        RTS                            ;
+
+loc_B6E1_waiting_for_pressing_in_dialog:
+C - - - - - 0x01B6F1 06:B6E1: A5 C8     LDA vMessageInProgress          ;
+C - - - - - 0x01B6F3 06:B6E3: D0 0A     BNE bra_B6EF_RTS                ; If the message is typing
+C - - - - - 0x01B6F5 06:B6E5: A9 03     LDA #BIT_BUTTON_B_OR_A          ;
 C - - - - - 0x01B6F7 06:B6E7: 20 79 D0  JSR sub_D079_check_button_press ; bank FF
-C - - - - - 0x01B6FA 06:B6EA: D0 01     BNE bra_B6ED
-C - - - - - 0x01B6FC 06:B6EC: 60        RTS
+C - - - - - 0x01B6FA 06:B6EA: D0 01     BNE bra_B6ED_next_scene         ; Go to the branch If the buttons 'A' or 'B' are pressed
+C - - - - - 0x01B6FC 06:B6EC: 60        RTS                             ;
 
-bra_B6ED:
-C - - - - - 0x01B6FD 06:B6ED: E6 D8     INC vFinalSceneNo
+bra_B6ED_next_scene:
+C - - - - - 0x01B6FD 06:B6ED: E6 D8     INC vFinalSceneNo               ;
 bra_B6EF_RTS:
 loc_B6EF_RTS:
-C - - - - - 0x01B6FF 06:B6EF: 60        RTS
+C - - - - - 0x01B6FF 06:B6EF: 60        RTS                             ;
 
 loc_B6F0_add_4th_message:
 C - - - - - 0x01B700 06:B6F0: A9 06     LDA #$06                       ; CONSTANT - 4th message
@@ -3555,52 +3558,52 @@ C - - - - - 0x01B707 06:B6F7: 20 AC B8  JSR sub_B8AC_change_palette    ;
 C - - - - - 0x01B70A 06:B6FA: A9 04     LDA #$04                       ; CONSTANT - 3rd message
 C - - - - - 0x01B70C 06:B6FC: 4C 8D B7  JMP loc_B78D_add_final_message ;
 
-loc_B6FF:
-C - - - - - 0x01B70F 06:B6FF: A5 2C     LDA vLowCounter                ;
-C - - - - - 0x01B711 06:B701: 29 7F     AND #$7F                       ;
-C - - - - - 0x01B713 06:B703: D0 05     BNE @bra_B70A_skip_sound       ; Branch if vLowCounter doesn't multiple of 128  (99.22% chance)
-C - - - - - 0x01B715 06:B705: A9 60     LDA #$60                       ; CONSTANT - the Phoenix flight (sound)
-C - - - - - 0x01B717 06:B707: 20 20 C4  JSR sub_C420_add_sound_effect  ;
+loc_B6FF_phoenix_is_flighting:
+C - - - - - 0x01B70F 06:B6FF: A5 2C     LDA vLowCounter                          ;
+C - - - - - 0x01B711 06:B701: 29 7F     AND #$7F                                 ;
+C - - - - - 0x01B713 06:B703: D0 05     BNE @bra_B70A_skip_sound                 ; Branch if vLowCounter doesn't multiple of 128  (99.22% chance)
+C - - - - - 0x01B715 06:B705: A9 60     LDA #$60                                 ; CONSTANT - the Phoenix flight (sound)
+C - - - - - 0x01B717 06:B707: 20 20 C4  JSR sub_C420_add_sound_effect            ;
 @bra_B70A_skip_sound:
-C - - - - - 0x01B71A 06:B70A: A5 2C     LDA vLowCounter                ;
-C - - - - - 0x01B71C 06:B70C: 29 03     AND #$03                       ;
-C - - - - - 0x01B71E 06:B70E: 0A        ASL                            ;
-C - - - - - 0x01B71F 06:B70F: 0A        ASL                            ;
-C - - - - - 0x01B720 06:B710: 0A        ASL                            ;
-C - - - - - 0x01B721 06:B711: A8        TAY                            ; Y <~ 0x00, 0x08, 0x10, 0x18
-C - - - - - 0x01B722 06:B712: 20 AC B8  JSR sub_B8AC_change_palette    ;
-C - - - - - 0x01B725 06:B715: 20 4D B8  JSR sub_B84D
-C - - - - - 0x01B728 06:B718: A5 2C     LDA vLowCounter
-C - - - - - 0x01B72A 06:B71A: 29 03     AND #$03
-C - - - - - 0x01B72C 06:B71C: D0 03     BNE bra_B721
-C - - - - - 0x01B72E 06:B71E: 20 80 B8  JSR sub_B880_execute_fly_phenix
-bra_B721:
-C - - - - - 0x01B731 06:B721: A9 07     LDA #$07
-C - - - - - 0x01B733 06:B723: 25 2C     AND vLowCounter
-C - - - - - 0x01B735 06:B725: D0 0F     BNE bra_B736
-C - - - - - 0x01B737 06:B727: EE 44 03  INC vPhenixFrame_Counter
-C - - - - - 0x01B73A 06:B72A: AD 44 03  LDA vPhenixFrame_Counter
-C - - - - - 0x01B73D 06:B72D: C9 03     CMP #$03
-C - - - - - 0x01B73F 06:B72F: 90 05     BCC bra_B736
-C - - - - - 0x01B741 06:B731: A9 00     LDA #$00
-C - - - - - 0x01B743 06:B733: 8D 44 03  STA vPhenixFrame_Counter
-bra_B736:
-C - - - - - 0x01B746 06:B736: AD 2C 03  LDA vPhenixPosY
-C - - - - - 0x01B749 06:B739: 85 00     STA ram_0000
-C - - - - - 0x01B74B 06:B73B: AD 38 03  LDA vPhenixPosXLow
-C - - - - - 0x01B74E 06:B73E: 85 03     STA ram_0003
-C - - - - - 0x01B750 06:B740: AD 44 03  LDA vPhenixFrame_Counter
-C - - - - - 0x01B753 06:B743: 0A        ASL
-C - - - - - 0x01B754 06:B744: 18        CLC
-C - - - - - 0x01B755 06:B745: 69 04     ADC #$04
-C - - - - - 0x01B757 06:B747: 20 B7 B7  JSR sub_B7B7_add_sprite
-C - - - - - 0x01B75A 06:B74A: AD 3E 03  LDA vPhenixPosXHigh
-C - - - - - 0x01B75D 06:B74D: F0 55     BEQ bra_B7A4_render_Clarissa_and_Fujiko
+C - - - - - 0x01B71A 06:B70A: A5 2C     LDA vLowCounter                          ;
+C - - - - - 0x01B71C 06:B70C: 29 03     AND #$03                                 ;
+C - - - - - 0x01B71E 06:B70E: 0A        ASL                                      ;
+C - - - - - 0x01B71F 06:B70F: 0A        ASL                                      ;
+C - - - - - 0x01B720 06:B710: 0A        ASL                                      ;
+C - - - - - 0x01B721 06:B711: A8        TAY                                      ; Y <~ 0x00, 0x08, 0x10, 0x18
+C - - - - - 0x01B722 06:B712: 20 AC B8  JSR sub_B8AC_change_palette              ;
+C - - - - - 0x01B725 06:B715: 20 4D B8  JSR sub_B84D_update_jump_params_         ;
+C - - - - - 0x01B728 06:B718: A5 2C     LDA vLowCounter                          ;
+C - - - - - 0x01B72A 06:B71A: 29 03     AND #$03                                 ;
+C - - - - - 0x01B72C 06:B71C: D0 03     BNE @bra_B721_skip                       ; Branch if vLowCounter doesn't multiple of 4 (75% chance)
+C - - - - - 0x01B72E 06:B71E: 20 80 B8  JSR sub_B880_execute_fly_phenix          ;
+@bra_B721_skip:
+C - - - - - 0x01B731 06:B721: A9 07     LDA #$07                                 ;
+C - - - - - 0x01B733 06:B723: 25 2C     AND vLowCounter                          ;
+C - - - - - 0x01B735 06:B725: D0 0F     BNE @bra_B736_prepare_rendering          ; Branch if vLowCounter doesn't multiple of 8 (87.5% chance)
+C - - - - - 0x01B737 06:B727: EE 44 03  INC vPhenixFrame_Counter                 ; prepare a next frame
+C - - - - - 0x01B73A 06:B72A: AD 44 03  LDA vPhenixFrame_Counter                 ;
+C - - - - - 0x01B73D 06:B72D: C9 03     CMP #$03                                 ; CONSTANT - the number of the frames
+C - - - - - 0x01B73F 06:B72F: 90 05     BCC @bra_B736_prepare_rendering          ; If vFrameCounter < 0x03
+C - - - - - 0x01B741 06:B731: A9 00     LDA #$00                                 ; CONSTANT - 1st frame
+C - - - - - 0x01B743 06:B733: 8D 44 03  STA vPhenixFrame_Counter                 ; reassign
+@bra_B736_prepare_rendering:
+C - - - - - 0x01B746 06:B736: AD 2C 03  LDA vPhenixPosY                          ;
+C - - - - - 0x01B749 06:B739: 85 00     STA ram_0000                             ; ~> sprite_magic1, Y-position
+C - - - - - 0x01B74B 06:B73B: AD 38 03  LDA vPhenixPosXLow                       ;
+C - - - - - 0x01B74E 06:B73E: 85 03     STA ram_0003                             ; ~> sprite_magic4, X-position
+C - - - - - 0x01B750 06:B740: AD 44 03  LDA vPhenixFrame_Counter                 ;
+C - - - - - 0x01B753 06:B743: 0A        ASL                                      ;
+C - - - - - 0x01B754 06:B744: 18        CLC                                      ;
+C - - - - - 0x01B755 06:B745: 69 04     ADC #$04                                 ; prepare an input parameter, A <~ 2 * vFrameCounter + 0x04
+C - - - - - 0x01B757 06:B747: 20 B7 B7  JSR sub_B7B7_add_sprite                  ;
+C - - - - - 0x01B75A 06:B74A: AD 3E 03  LDA vPhenixPosXHigh                      ;
+C - - - - - 0x01B75D 06:B74D: F0 55     BEQ bra_B7A4_render_Clarissa_and_Fujiko  ; If the high X-position == 0x00
 C - - - - - 0x01B75F 06:B74F: D0 1D     BNE bra_B76E_prepare_next_message        ; Always true
 
-loc_B751:
-C - - - - - 0x01B761 06:B751: A5 C8     LDA ram_00C8
-C - - - - - 0x01B763 06:B753: D0 4F     BNE bra_B7A4_render_Clarissa_and_Fujiko
+loc_B751_4th_message_in_progress:
+C - - - - - 0x01B761 06:B751: A5 C8     LDA vMessageInProgress                   ;
+C - - - - - 0x01B763 06:B753: D0 4F     BNE bra_B7A4_render_Clarissa_and_Fujiko  ; If the message is typing
 C - - - - - 0x01B765 06:B755: A9 03     LDA #BIT_BUTTON_B_OR_A                   ;
 C - - - - - 0x01B767 06:B757: 20 79 D0  JSR sub_D079_check_button_press          ; bank FF
 C - - - - - 0x01B76A 06:B75A: F0 48     BEQ bra_B7A4_render_Clarissa_and_Fujiko  ; Go to the branch If the buttons 'A' or 'B' aren't pressed
@@ -3610,32 +3613,32 @@ loc_B75F_add_2nd_message:
 C - - - - - 0x01B76F 06:B75F: A9 02     LDA #$02                        ; CONSTANT - 2nd message
 C - - - - - 0x01B771 06:B761: D0 2A     BNE bra_B78D_add_final_message  ; Always true
 
-loc_B763:
-C - - - - - 0x01B773 06:B763: A5 C8     LDA ram_00C8
-C - - - - - 0x01B775 06:B765: D0 3D     BNE bra_B7A4_render_Clarissa_and_Fujiko
+loc_B763_waiting_for_pressing_with_clearing:
+C - - - - - 0x01B773 06:B763: A5 C8     LDA vMessageInProgress                   ;
+C - - - - - 0x01B775 06:B765: D0 3D     BNE bra_B7A4_render_Clarissa_and_Fujiko  ; If the message is typing
 C - - - - - 0x01B777 06:B767: A9 03     LDA #BIT_BUTTON_B_OR_A                   ;
 C - - - - - 0x01B779 06:B769: 20 79 D0  JSR sub_D079_check_button_press          ; bank FF
 C - - - - - 0x01B77C 06:B76C: F0 36     BEQ bra_B7A4_render_Clarissa_and_Fujiko  ; Go to the branch If the buttons 'A' or 'B' aren't pressed
 bra_B76E_prepare_next_message:
 loc_B76E_prepare_next_message:
-C - - - - - 0x01B77E 06:B76E: A9 05     LDA #$05
-C - - - - - 0x01B780 06:B770: 85 30     STA ram_0030
+C - - - - - 0x01B77E 06:B76E: A9 05     LDA #$05                                 ; CONSTANT - 4 rows for typing a message
+C - - - - - 0x01B780 06:B770: 85 30     STA vClearMessageCounter                 ;
 loc_B772_next_final_scene:
 C D 1 - - - 0x01B782 06:B772: E6 D8     INC vFinalSceneNo                        ;
 C - - - - - 0x01B784 06:B774: D0 2E     BNE bra_B7A4_render_Clarissa_and_Fujiko  ; Here always true
 
-loc_B776:
-C - - - - - 0x01B786 06:B776: A2 07     LDX #$07                     ; set loop counter
-@bra_B778_loop:                                                      ; loop by x (7 times)
-C - - - - - 0x01B788 06:B778: BD C7 BC  LDA tbl_BCC7_palettes,X      ;
-C - - - - - 0x01B78B 06:B77B: 9D 18 06  STA vCachePalette + 24,X     ; set 3rd and 4th sprite palettes
-C - - - - - 0x01B78E 06:B77E: CA        DEX                          ; decrement loop counter
-C - - - - - 0x01B78F 06:B77F: D0 F7     BNE @bra_B778_loop           ; If Register X != 0x00
-C - - - - - 0x01B791 06:B781: A9 04     LDA #$04                     ; CONSTANT for CHR ROM
-C - - - - - 0x01B793 06:B783: 8D B3 06  STA vCacheChrBankSelect + 4  ;
-C - - - - - 0x01B796 06:B786: A9 05     LDA #$05                     ; CONSTANT for CHR ROM
-C - - - - - 0x01B798 06:B788: 8D B4 06  STA vCacheChrBankSelect + 5  ;
-C - - - - - 0x01B79B 06:B78B: A9 00     LDA #$00                     ; CONSTANT - 1st message
+loc_B776_begin_and_add_1st_message:
+C - - - - - 0x01B786 06:B776: A2 07     LDX #$07                                           ; set loop counter
+@bra_B778_loop:                                                                            ; loop by x (7 times)
+C - - - - - 0x01B788 06:B778: BD C7 BC  LDA tbl_BCC7_palettes,X                            ;
+C - - - - - 0x01B78B 06:B77B: 9D 18 06  STA vCachePalette + 24,X                           ; set 3rd and 4th sprite palettes
+C - - - - - 0x01B78E 06:B77E: CA        DEX                                                ; decrement loop counter
+C - - - - - 0x01B78F 06:B77F: D0 F7     BNE @bra_B778_loop                                 ; If Register X != 0x00
+C - - - - - 0x01B791 06:B781: A9 04     LDA #$04                                           ; CONSTANT for CHR ROM
+C - - - - - 0x01B793 06:B783: 8D B3 06  STA vCacheChrBankSelect + 4                        ;
+C - - - - - 0x01B796 06:B786: A9 05     LDA #$05                                           ; CONSTANT for CHR ROM
+C - - - - - 0x01B798 06:B788: 8D B4 06  STA vCacheChrBankSelect + 5                        ;
+C - - - - - 0x01B79B 06:B78B: A9 00     LDA #$00                                           ; CONSTANT - 1st message
 ; In: Register A - a table index (in tbl_BCA8_final_dialogs)
 bra_B78D_add_final_message:
 loc_B78D_add_final_message:
@@ -3744,56 +3747,56 @@ C - - - - - 0x01B855 06:B845: 8D 06 20  STA PPU_ADDRESS                         
 C - - - - - 0x01B858 06:B848: A2 56     LDX #$56                                  ; CONSTANT - Score
 C - - - - - 0x01B85A 06:B84A: 4C 24 C9  JMP loc_C924_display_menu_score_ex        ;
 
-sub_B84D:
-C - - - - - 0x01B85D 06:B84D: A9 D5     LDA #$D5
-C - - - - - 0x01B85F 06:B84F: 85 00     STA ram_0000
-C - - - - - 0x01B861 06:B851: A9 BC     LDA #$BC
-C - - - - - 0x01B863 06:B853: 85 01     STA ram_0001
-C - - - - - 0x01B865 06:B855: CE 4A 03  DEC vPhenixJumpCounter
-C - - - - - 0x01B868 06:B858: D0 14     BNE bra_B86E
-C - - - - - 0x01B86A 06:B85A: EE 56 03  INC vPhenixJumpType
-C - - - - - 0x01B86D 06:B85D: AD 56 03  LDA vPhenixJumpType
-C - - - - - 0x01B870 06:B860: 29 0F     AND #$0F
-C - - - - - 0x01B872 06:B862: 8D 56 03  STA vPhenixJumpType
-C - - - - - 0x01B875 06:B865: 18        CLC
-C - - - - - 0x01B876 06:B866: 69 10     ADC #$10
-C - - - - - 0x01B878 06:B868: A8        TAY
-C - - - - - 0x01B879 06:B869: B1 00     LDA (ram_0000),Y
-C - - - - - 0x01B87B 06:B86B: 8D 4A 03  STA vPhenixJumpCounter
-bra_B86E:
-C - - - - - 0x01B87E 06:B86E: A9 30     LDA #$30
-C - - - - - 0x01B880 06:B870: CD 2C 03  CMP vPhenixPosY
-C - - - - - 0x01B883 06:B873: B0 07     BCS bra_B87C
-C - - - - - 0x01B885 06:B875: A9 BF     LDA #$BF
-C - - - - - 0x01B887 06:B877: CD 2C 03  CMP vPhenixPosY
-C - - - - - 0x01B88A 06:B87A: B0 03     BCS bra_B87F_RTS
-bra_B87C:
-- - - - - - 0x01B88C 06:B87C: 8D 2C 03  STA vPhenixPosY
-bra_B87F_RTS:
-C - - - - - 0x01B88F 06:B87F: 60        RTS
+sub_B84D_update_jump_params_:
+C - - - - - 0x01B85D 06:B84D: A9 D5     LDA #$D5                   ;
+C - - - - - 0x01B85F 06:B84F: 85 00     STA ram_0000               ;
+C - - - - - 0x01B861 06:B851: A9 BC     LDA #$BC                   ;
+C - - - - - 0x01B863 06:B853: 85 01     STA ram_0001               ; (ram_0000),0 = $BCD5
+C - - - - - 0x01B865 06:B855: CE 4A 03  DEC vPhenixJumpCounter     ;
+C - - - - - 0x01B868 06:B858: D0 14     BNE @bra_B86E_skip         ; If vJumpCounter != 0x00
+C - - - - - 0x01B86A 06:B85A: EE 56 03  INC vPhenixJumpType        ; set next jump type
+C - - - - - 0x01B86D 06:B85D: AD 56 03  LDA vPhenixJumpType        ;
+C - - - - - 0x01B870 06:B860: 29 0F     AND #$0F                   ;
+C - - - - - 0x01B872 06:B862: 8D 56 03  STA vPhenixJumpType        ; adjusts by mask
+C - - - - - 0x01B875 06:B865: 18        CLC                        ;
+C - - - - - 0x01B876 06:B866: 69 10     ADC #$10                   ; see $BCD5 + 0x10
+C - - - - - 0x01B878 06:B868: A8        TAY                        ;
+C - - - - - 0x01B879 06:B869: B1 00     LDA (ram_0000),Y           ;
+C - - - - - 0x01B87B 06:B86B: 8D 4A 03  STA vPhenixJumpCounter     ; assign an new counter
+@bra_B86E_skip:
+C - - - - - 0x01B87E 06:B86E: A9 30     LDA #$30                   ;
+C - - - - - 0x01B880 06:B870: CD 2C 03  CMP vPhenixPosY            ;
+C - - - - - 0x01B883 06:B873: B0 07     BCS @bra_B87C_assign       ; If 0x30 >= vPosY
+C - - - - - 0x01B885 06:B875: A9 BF     LDA #$BF                   ;
+C - - - - - 0x01B887 06:B877: CD 2C 03  CMP vPhenixPosY            ;
+C - - - - - 0x01B88A 06:B87A: B0 03     BCS @bra_B87F_RTS          ; If 0xBF >= vPosY
+@bra_B87C_assign:
+- - - - - - 0x01B88C 06:B87C: 8D 2C 03  STA vPhenixPosY            ; <~ 0x30 or 0xBF
+@bra_B87F_RTS:
+C - - - - - 0x01B88F 06:B87F: 60        RTS                        ;
 
 sub_B880_execute_fly_phenix:
-C - - - - - 0x01B890 06:B880: AC 56 03  LDY vPhenixJumpType
-C - - - - - 0x01B893 06:B883: B1 00     LDA (ram_0000),Y
-C - - - - - 0x01B895 06:B885: 0A        ASL
-C - - - - - 0x01B896 06:B886: A8        TAY
-C - - - - - 0x01B897 06:B887: AD 2C 03  LDA vPhenixPosY
-C - - - - - 0x01B89A 06:B88A: 18        CLC
-C - - - - - 0x01B89B 06:B88B: 79 D4 DA  ADC tbl_flying_track_offset,Y
-C - - - - - 0x01B89E 06:B88E: 8D 2C 03  STA ram_032C
-C - - - - - 0x01B8A1 06:B891: A9 00     LDA #$00
-C - - - - - 0x01B8A3 06:B893: 85 02     STA ram_0002
-C - - - - - 0x01B8A5 06:B895: B9 D5 DA  LDA tbl_flying_track_offset + 1,Y
-C - - - - - 0x01B8A8 06:B898: 10 02     BPL bra_B89C
-C - - - - - 0x01B8AA 06:B89A: C6 02     DEC ram_0002
-bra_B89C:
-C - - - - - 0x01B8AC 06:B89C: 18        CLC
-C - - - - - 0x01B8AD 06:B89D: 6D 38 03  ADC vPhenixPosXLow
-C - - - - - 0x01B8B0 06:B8A0: 8D 38 03  STA vPhenixPosXLow
-C - - - - - 0x01B8B3 06:B8A3: AD 3E 03  LDA vPhenixPosXHigh
-C - - - - - 0x01B8B6 06:B8A6: 65 02     ADC ram_0002
-C - - - - - 0x01B8B8 06:B8A8: 8D 3E 03  STA vPhenixPosXHigh
-C - - - - - 0x01B8BB 06:B8AB: 60        RTS
+C - - - - - 0x01B890 06:B880: AC 56 03  LDY vPhenixJumpType                ; vJumpType is {0x00, 0x01, ..., 0x0F}
+C - - - - - 0x01B893 06:B883: B1 00     LDA (ram_0000),Y                   ;
+C - - - - - 0x01B895 06:B885: 0A        ASL                                ; *2, because the set contains 2 bytes
+C - - - - - 0x01B896 06:B886: A8        TAY                                ;
+C - - - - - 0x01B897 06:B887: AD 2C 03  LDA vPhenixPosY                    ;
+C - - - - - 0x01B89A 06:B88A: 18        CLC                                ;
+C - - - - - 0x01B89B 06:B88B: 79 D4 DA  ADC tbl_flying_track_offset,Y      ;
+C - - - - - 0x01B89E 06:B88E: 8D 2C 03  STA vPhenixPosY                    ; <~ posY + offset
+C - - - - - 0x01B8A1 06:B891: A9 00     LDA #$00                           ;
+C - - - - - 0x01B8A3 06:B893: 85 02     STA ram_0002                       ; $0002 = 0x00
+C - - - - - 0x01B8A5 06:B895: B9 D5 DA  LDA tbl_flying_track_offset + 1,Y  ;
+C - - - - - 0x01B8A8 06:B898: 10 02     BPL @bra_B89C_skip                 ; If the offset >= 0x00
+C - - - - - 0x01B8AA 06:B89A: C6 02     DEC ram_0002                       ; $0002 = 0xFF, i.e. -1
+@bra_B89C_skip:
+C - - - - - 0x01B8AC 06:B89C: 18        CLC                                ;
+C - - - - - 0x01B8AD 06:B89D: 6D 38 03  ADC vPhenixPosXLow                 ;
+C - - - - - 0x01B8B0 06:B8A0: 8D 38 03  STA vPhenixPosXLow                 ; <~ posX + offset
+C - - - - - 0x01B8B3 06:B8A3: AD 3E 03  LDA vPhenixPosXHigh                ;
+C - - - - - 0x01B8B6 06:B8A6: 65 02     ADC ram_0002                       ;
+C - - - - - 0x01B8B8 06:B8A8: 8D 3E 03  STA vPhenixPosXHigh                ; changed PosXHigh (+1 or -1), if PosXLow was overflow
+C - - - - - 0x01B8BB 06:B8AB: 60        RTS                                ;
 
 ; In: Register Y - the table offset (0x00, 0x08, 0x10, 0x18)
 sub_B8AC_change_palette:
@@ -4401,10 +4404,10 @@ tbl_BCC0_chest_lid:
 - D 1 - - - 0x01BCD2 06:BCC2: C1        .byte $C1   ; 
 - D 1 - - - 0x01BCD3 06:BCC3: FE        .byte $FE   ; 
 
-tbl_BCC4:
-- D 1 - - - 0x01BCD4 06:BCC4: 67        .byte $67   ; <g>
-- D 1 - - - 0x01BCD5 06:BCC5: 6C        .byte $6C   ; <l>
-- D 1 - - - 0x01BCD6 06:BCC6: 71        .byte $71   ; <q>
+tbl_BCC4_messages:
+- D 1 - - - 0x01BCD4 06:BCC4: 67        .byte $67   ; Lupin
+- D 1 - - - 0x01BCD5 06:BCC5: 6C        .byte $6C   ; Jigen
+- D 1 - - - 0x01BCD6 06:BCC6: 71        .byte $71   ; Goemon
 
 tbl_BCC7_palettes:
 - D - - - - 0x01BCD7 06:BCC7: 0F        .byte $0F, $27, $17, $07   ; sprites, 3rd palette
@@ -4429,6 +4432,7 @@ tbl_BCCF_clarissa_is_saved_chr_banks:
 - D 1 - I - 0x01BCF2 06:BCE2: 01        .byte $01   ; 
 - D 1 - I - 0x01BCF3 06:BCE3: 03        .byte $03   ; 
 - D 1 - I - 0x01BCF4 06:BCE4: 04        .byte $04   ; 
+
 - D 1 - I - 0x01BCF5 06:BCE5: 20        .byte $20   ; 
 - D 1 - I - 0x01BCF6 06:BCE6: 08        .byte $08   ; 
 - D 1 - I - 0x01BCF7 06:BCE7: 08        .byte $08   ; 

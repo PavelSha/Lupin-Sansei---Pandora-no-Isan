@@ -1370,33 +1370,33 @@ tbl_select_characters_dialog:
 - D 0 - - - 0x00946C 02:945C: 05 9D     .word $9D05
 - D 0 - - - 0x00946E 02:945E: 19 9D     .word $9D19
 
-tbl_select_characters_dialog_radio:
-- D 0 - - - 0x009470 02:9460: 2D 9D     .addr loc_radio_dialog1  ; CPU Address $9D2D
-- D 0 - - - 0x009472 02:9462: 41 9D     .addr loc_radio_dialog2  ; CPU Address $9D41
-- D 0 - - - 0x009474 02:9464: 55 9D     .addr loc_radio_dialog3  ; CPU Address $9D55
-- D 0 - - - 0x009476 02:9466: 69 9D     .addr loc_radio_dialog4  ; CPU Address $9D69
-- D 0 - - - 0x009478 02:9468: 7D 9D     .addr loc_radio_dialog5  ; CPU Address $9D7D
-- D 0 - - - 0x00947A 02:946A: 91 9D     .addr loc_radio_dialog6  ; CPU Address $9D91
-- D 0 - - - 0x00947C 02:946C: A5 9D     .addr loc_radio_dialog7  ; CPU Address $9DA5
-- D 0 - - - 0x00947E 02:946E: B9 9D     .addr loc_radio_dialog8  ; CPU Address $9DB9
-- D 0 - - - 0x009480 02:9470: E9 9A     .addr loc_radio_dialog9  ; CPU Address $9AE9
-- D 0 - - - 0x009482 02:9472: CD 9D     .addr loc_radio_dialog10 ; CPU Address $9DCD
-- D 0 - - - 0x009484 02:9474: E1 9D     .addr loc_radio_dialog11 ; CPU Address $9DE1
-- D 0 - - - 0x009486 02:9476: F5 9D     .addr loc_radio_dialog12 ; CPU Address $9DF5
-
 tbl_select_characters_dialog_losing:
-- D 0 - - - 0x009488 02:9478: 09 9E     .addr loc_losing_dialog1  ; CPU Address $9E09
-- D 0 - - - 0x00948A 02:947A: 1D 9E     .addr loc_losing_dialog2  ; CPU Address $9E1D
-- D 0 - - - 0x00948C 02:947C: 31 9E     .addr loc_losing_dialog3  ; CPU Address $9E31
-- D 0 - - - 0x00948E 02:947E: 45 9E     .addr loc_losing_dialog4  ; CPU Address $9E45
-- D 0 - - - 0x009490 02:9480: 59 9E     .addr loc_losing_dialog5  ; CPU Address $9E59
-- D 0 - - - 0x009492 02:9482: 6D 9E     .addr loc_losing_dialog6  ; CPU Address $9E6D
-- D 0 - - - 0x009494 02:9484: 81 9E     .addr loc_losing_dialog7  ; CPU Address $9E81
-- D 0 - - - 0x009496 02:9486: 95 9E     .addr loc_losing_dialog8  ; CPU Address $9E95
-- D 0 - - - 0x009498 02:9488: E9 9A     .addr loc_losing_dialog9  ; CPU Address $9AE9
-- D 0 - - - 0x00949A 02:948A: A9 9E     .addr loc_losing_dialog10 ; CPU Address $9EA9
-- D 0 - - - 0x00949C 02:948C: BD 9E     .addr loc_losing_dialog11 ; CPU Address $9EBD
-- D 0 - - - 0x00949E 02:948E: D1 9E     .addr loc_losing_dialog12 ; CPU Address $9ED1
+- D 0 - - - 0x009470 02:9460: 2D 9D     .addr loc_losing_dialog1  ; CPU Address $9D2D
+- D 0 - - - 0x009472 02:9462: 41 9D     .addr loc_losing_dialog2  ; CPU Address $9D41
+- D 0 - - - 0x009474 02:9464: 55 9D     .addr loc_losing_dialog3  ; CPU Address $9D55
+- D 0 - - - 0x009476 02:9466: 69 9D     .addr loc_losing_dialog4  ; CPU Address $9D69
+- D 0 - - - 0x009478 02:9468: 7D 9D     .addr loc_losing_dialog5  ; CPU Address $9D7D
+- D 0 - - - 0x00947A 02:946A: 91 9D     .addr loc_losing_dialog6  ; CPU Address $9D91
+- D 0 - - - 0x00947C 02:946C: A5 9D     .addr loc_losing_dialog7  ; CPU Address $9DA5
+- D 0 - - - 0x00947E 02:946E: B9 9D     .addr loc_losing_dialog8  ; CPU Address $9DB9
+- D 0 - - - 0x009480 02:9470: E9 9A     .addr loc_losing_dialog9  ; CPU Address $9AE9
+- D 0 - - - 0x009482 02:9472: CD 9D     .addr loc_losing_dialog10 ; CPU Address $9DCD
+- D 0 - - - 0x009484 02:9474: E1 9D     .addr loc_losing_dialog11 ; CPU Address $9DE1
+- D 0 - - - 0x009486 02:9476: F5 9D     .addr loc_losing_dialog12 ; CPU Address $9DF5
+
+tbl_select_characters_dialog_radio:
+- D 0 - - - 0x009488 02:9478: 09 9E     .addr loc_radio_dialog1  ; CPU Address $9E09
+- D 0 - - - 0x00948A 02:947A: 1D 9E     .addr loc_radio_dialog2  ; CPU Address $9E1D
+- D 0 - - - 0x00948C 02:947C: 31 9E     .addr loc_radio_dialog3  ; CPU Address $9E31
+- D 0 - - - 0x00948E 02:947E: 45 9E     .addr loc_radio_dialog4  ; CPU Address $9E45
+- D 0 - - - 0x009490 02:9480: 59 9E     .addr loc_radio_dialog5  ; CPU Address $9E59
+- D 0 - - - 0x009492 02:9482: 6D 9E     .addr loc_radio_dialog6  ; CPU Address $9E6D
+- D 0 - - - 0x009494 02:9484: 81 9E     .addr loc_radio_dialog7  ; CPU Address $9E81
+- D 0 - - - 0x009496 02:9486: 95 9E     .addr loc_radio_dialog8  ; CPU Address $9E95
+- D 0 - - - 0x009498 02:9488: E9 9A     .addr loc_radio_dialog9  ; CPU Address $9AE9
+- D 0 - - - 0x00949A 02:948A: A9 9E     .addr loc_radio_dialog10 ; CPU Address $9EA9
+- D 0 - - - 0x00949C 02:948C: BD 9E     .addr loc_radio_dialog11 ; CPU Address $9EBD
+- D 0 - - - 0x00949E 02:948E: D1 9E     .addr loc_radio_dialog12 ; CPU Address $9ED1
 
 - D 0 - - - 0x0094A0 02:9490: E7 99     .word $99E7
 
@@ -2548,8 +2548,8 @@ loc_no_gap:
 - - - - - - 0x009AF7 02:9AE7: 3D        .byte $3D   ; 
 - D 0 - I - 0x009AF8 02:9AE8: 3E        .byte $3E   ; 
 
-loc_radio_dialog9:
 loc_losing_dialog9:
+loc_radio_dialog9:
 - D 0 - I - 0x009AF9 02:9AE9: 00        .byte $00   ; 
 - D 0 - I - 0x009AFA 02:9AEA: 00        .byte $00   ; 
 - D 0 - I - 0x009AFB 02:9AEB: 00        .byte $00   ; 
@@ -3133,7 +3133,7 @@ loc_losing_dialog9:
 - D 0 - I - 0x009D3B 02:9D2B: 15        .byte $15   ; 
 - D 0 - I - 0x009D3C 02:9D2C: 60        .byte $60   ; 
 
-loc_radio_dialog1:
+loc_losing_dialog1:
 - D 0 - I - 0x009D3D 02:9D2D: 00        .byte $00   ; 
 - D 0 - I - 0x009D3E 02:9D2E: 00        .byte $00   ; 
 - D 0 - I - 0x009D3F 02:9D2F: 00        .byte $00   ; 
@@ -3155,7 +3155,7 @@ loc_radio_dialog1:
 - D 0 - I - 0x009D4F 02:9D3F: 00        .byte $00   ; 
 - D 0 - I - 0x009D50 02:9D40: 00        .byte $00   ; 
 
-loc_radio_dialog2:
+loc_losing_dialog2:
 - D 0 - I - 0x009D51 02:9D41: 14        .byte $14   ; 
 - D 0 - I - 0x009D52 02:9D42: 25        .byte $25   ; 
 - D 0 - I - 0x009D53 02:9D43: 38        .byte $38   ; <8>
@@ -3177,7 +3177,7 @@ loc_radio_dialog2:
 - D 0 - I - 0x009D63 02:9D53: 00        .byte $00   ; 
 - D 0 - I - 0x009D64 02:9D54: 00        .byte $00   ; 
 
-loc_radio_dialog3:
+loc_losing_dialog3:
 - D 0 - I - 0x009D65 02:9D55: 00        .byte $00   ; 
 - D 0 - I - 0x009D66 02:9D56: 00        .byte $00   ; 
 - D 0 - I - 0x009D67 02:9D57: 00        .byte $00   ; 
@@ -3199,7 +3199,7 @@ loc_radio_dialog3:
 - D 0 - I - 0x009D77 02:9D67: 00        .byte $00   ; 
 - D 0 - I - 0x009D78 02:9D68: 00        .byte $00   ; 
 
-loc_radio_dialog4:
+loc_losing_dialog4:
 - D 0 - I - 0x009D79 02:9D69: 10        .byte $10   ; 
 - D 0 - I - 0x009D7A 02:9D6A: 23        .byte $23   ; 
 - D 0 - I - 0x009D7B 02:9D6B: 62        .byte $62   ; <b>
@@ -3221,7 +3221,7 @@ loc_radio_dialog4:
 - D 0 - I - 0x009D8B 02:9D7B: 00        .byte $00   ; 
 - D 0 - I - 0x009D8C 02:9D7C: 00        .byte $00   ; 
 
-loc_radio_dialog5:
+loc_losing_dialog5:
 - D 0 - I - 0x009D8D 02:9D7D: 00        .byte $00   ; 
 - D 0 - I - 0x009D8E 02:9D7E: 00        .byte $00   ; 
 - D 0 - I - 0x009D8F 02:9D7F: 7E        .byte $7E   ; 
@@ -3243,7 +3243,7 @@ loc_radio_dialog5:
 - D 0 - I - 0x009D9F 02:9D8F: 00        .byte $00   ; 
 - D 0 - I - 0x009DA0 02:9D90: 00        .byte $00   ; 
 
-loc_radio_dialog6:
+loc_losing_dialog6:
 - D 0 - I - 0x009DA1 02:9D91: 1D        .byte $1D   ; 
 - D 0 - I - 0x009DA2 02:9D92: 29        .byte $29   ; 
 - D 0 - I - 0x009DA3 02:9D93: 0F        .byte $0F   ; 
@@ -3265,7 +3265,7 @@ loc_radio_dialog6:
 - D 0 - I - 0x009DB3 02:9DA3: 00        .byte $00   ; 
 - D 0 - I - 0x009DB4 02:9DA4: 00        .byte $00   ; 
 
-loc_radio_dialog7:
+loc_losing_dialog7:
 - D 0 - I - 0x009DB5 02:9DA5: 00        .byte $00   ; 
 - D 0 - I - 0x009DB6 02:9DA6: 00        .byte $00   ; 
 - D 0 - I - 0x009DB7 02:9DA7: 00        .byte $00   ; 
@@ -3287,7 +3287,7 @@ loc_radio_dialog7:
 - D 0 - I - 0x009DC7 02:9DB7: 00        .byte $00   ; 
 - D 0 - I - 0x009DC8 02:9DB8: 00        .byte $00   ; 
 
-loc_radio_dialog8:
+loc_losing_dialog8:
 - D 0 - I - 0x009DC9 02:9DB9: 15        .byte $15   ; 
 - D 0 - I - 0x009DCA 02:9DBA: 29        .byte $29   ; 
 - D 0 - I - 0x009DCB 02:9DBB: 37        .byte $37   ; <7>
@@ -3309,7 +3309,7 @@ loc_radio_dialog8:
 - D 0 - I - 0x009DDB 02:9DCB: 00        .byte $00   ; 
 - D 0 - I - 0x009DDC 02:9DCC: 00        .byte $00   ; 
 
-loc_radio_dialog10:
+loc_losing_dialog10:
 - D 0 - I - 0x009DDD 02:9DCD: 31        .byte $31   ; <1>
 - D 0 - I - 0x009DDE 02:9DCE: 1A        .byte $1A   ; 
 - D 0 - I - 0x009DDF 02:9DCF: 17        .byte $17   ; 
@@ -3331,7 +3331,7 @@ loc_radio_dialog10:
 - D 0 - I - 0x009DEF 02:9DDF: 00        .byte $00   ; 
 - D 0 - I - 0x009DF0 02:9DE0: 00        .byte $00   ; 
 
-loc_radio_dialog11:
+loc_losing_dialog11:
 - D 0 - I - 0x009DF1 02:9DE1: 00        .byte $00   ; 
 - D 0 - I - 0x009DF2 02:9DE2: 00        .byte $00   ; 
 - D 0 - I - 0x009DF3 02:9DE3: 00        .byte $00   ; 
@@ -3353,7 +3353,7 @@ loc_radio_dialog11:
 - D 0 - I - 0x009E03 02:9DF3: 00        .byte $00   ; 
 - D 0 - I - 0x009E04 02:9DF4: 00        .byte $00   ; 
 
-loc_radio_dialog12:
+loc_losing_dialog12:
 - D 0 - I - 0x009E05 02:9DF5: 12        .byte $12   ; 
 - D 0 - I - 0x009E06 02:9DF6: 2A        .byte $2A   ; 
 - D 0 - I - 0x009E07 02:9DF7: 36        .byte $36   ; <6>
@@ -3375,7 +3375,7 @@ loc_radio_dialog12:
 - D 0 - I - 0x009E17 02:9E07: 00        .byte $00   ; 
 - D 0 - I - 0x009E18 02:9E08: 00        .byte $00   ; 
 
-loc_losing_dialog1:
+loc_radio_dialog1:
 - D 0 - I - 0x009E19 02:9E09: 7E        .byte $7E   ; 
 - D 0 - I - 0x009E1A 02:9E0A: 00        .byte $00   ; 
 - D 0 - I - 0x009E1B 02:9E0B: 00        .byte $00   ; 
@@ -3397,7 +3397,7 @@ loc_losing_dialog1:
 - D 0 - I - 0x009E2B 02:9E1B: 00        .byte $00   ; 
 - D 0 - I - 0x009E2C 02:9E1C: 00        .byte $00   ; 
 
-loc_losing_dialog2:
+loc_radio_dialog2:
 - D 0 - I - 0x009E2D 02:9E1D: 34        .byte $34   ; <4>
 - D 0 - I - 0x009E2E 02:9E1E: 25        .byte $25   ; 
 - D 0 - I - 0x009E2F 02:9E1F: 2A        .byte $2A   ; 
@@ -3419,7 +3419,7 @@ loc_losing_dialog2:
 - D 0 - I - 0x009E3F 02:9E2F: 00        .byte $00   ; 
 - D 0 - I - 0x009E40 02:9E30: 00        .byte $00   ; 
 
-loc_losing_dialog3:
+loc_radio_dialog3:
 - D 0 - I - 0x009E41 02:9E31: 00        .byte $00   ; 
 - D 0 - I - 0x009E42 02:9E32: 00        .byte $00   ; 
 - D 0 - I - 0x009E43 02:9E33: 00        .byte $00   ; 
@@ -3441,7 +3441,7 @@ loc_losing_dialog3:
 - D 0 - I - 0x009E53 02:9E43: 00        .byte $00   ; 
 - D 0 - I - 0x009E54 02:9E44: 00        .byte $00   ; 
 
-loc_losing_dialog4:
+loc_radio_dialog4:
 - D 0 - I - 0x009E55 02:9E45: 30        .byte $30   ; <0>
 - D 0 - I - 0x009E56 02:9E46: 63        .byte $63   ; <c>
 - D 0 - I - 0x009E57 02:9E47: 1F        .byte $1F   ; 
@@ -3463,7 +3463,7 @@ loc_losing_dialog4:
 - D 0 - I - 0x009E67 02:9E57: 00        .byte $00   ; 
 - D 0 - I - 0x009E68 02:9E58: 00        .byte $00   ; 
 
-loc_losing_dialog5:
+loc_radio_dialog5:
 - D 0 - I - 0x009E69 02:9E59: 00        .byte $00   ; 
 - D 0 - I - 0x009E6A 02:9E5A: 00        .byte $00   ; 
 - D 0 - I - 0x009E6B 02:9E5B: 00        .byte $00   ; 
@@ -3485,7 +3485,7 @@ loc_losing_dialog5:
 - D 0 - I - 0x009E7B 02:9E6B: 00        .byte $00   ; 
 - D 0 - I - 0x009E7C 02:9E6C: 00        .byte $00   ; 
 
-loc_losing_dialog6:
+loc_radio_dialog6:
 - D 0 - I - 0x009E7D 02:9E6D: 35        .byte $35   ; <5>
 - D 0 - I - 0x009E7E 02:9E6E: 3E        .byte $3E   ; 
 - D 0 - I - 0x009E7F 02:9E6F: 12        .byte $12   ; 
@@ -3507,7 +3507,7 @@ loc_losing_dialog6:
 - D 0 - I - 0x009E8F 02:9E7F: 00        .byte $00   ; 
 - D 0 - I - 0x009E90 02:9E80: 00        .byte $00   ; 
 
-loc_losing_dialog7:
+loc_radio_dialog7:
 - D 0 - I - 0x009E91 02:9E81: 00        .byte $00   ; 
 - D 0 - I - 0x009E92 02:9E82: 7E        .byte $7E   ; 
 - D 0 - I - 0x009E93 02:9E83: 7E        .byte $7E   ; 
@@ -3529,7 +3529,7 @@ loc_losing_dialog7:
 - D 0 - I - 0x009EA3 02:9E93: 00        .byte $00   ; 
 - D 0 - I - 0x009EA4 02:9E94: 00        .byte $00   ; 
 
-loc_losing_dialog8:
+loc_radio_dialog8:
 - D 0 - I - 0x009EA5 02:9E95: 12        .byte $12   ; 
 - D 0 - I - 0x009EA6 02:9E96: 37        .byte $37   ; <7>
 - D 0 - I - 0x009EA7 02:9E97: 2A        .byte $2A   ; 
@@ -3551,7 +3551,7 @@ loc_losing_dialog8:
 - D 0 - I - 0x009EB7 02:9EA7: 00        .byte $00   ; 
 - D 0 - I - 0x009EB8 02:9EA8: 00        .byte $00   ; 
 
-loc_losing_dialog10:
+loc_radio_dialog10:
 - D 0 - I - 0x009EB9 02:9EA9: 32        .byte $32   ; <2>
 - D 0 - I - 0x009EBA 02:9EAA: 3F        .byte $3F   ; 
 - D 0 - I - 0x009EBB 02:9EAB: 30        .byte $30   ; <0>
@@ -3573,7 +3573,7 @@ loc_losing_dialog10:
 - D 0 - I - 0x009ECB 02:9EBB: 00        .byte $00   ; 
 - D 0 - I - 0x009ECC 02:9EBC: 00        .byte $00   ; 
 
-loc_losing_dialog11:
+loc_radio_dialog11:
 - D 0 - I - 0x009ECD 02:9EBD: 00        .byte $00   ; 
 - D 0 - I - 0x009ECE 02:9EBE: 00        .byte $00   ; 
 - D 0 - I - 0x009ECF 02:9EBF: 00        .byte $00   ; 
@@ -3595,7 +3595,7 @@ loc_losing_dialog11:
 - D 0 - I - 0x009EDF 02:9ECF: 00        .byte $00   ; 
 - D 0 - I - 0x009EE0 02:9ED0: 00        .byte $00   ; 
 
-loc_losing_dialog12:
+loc_radio_dialog12:
 - D 0 - I - 0x009EE1 02:9ED1: 32        .byte $32   ; <2>
 - D 0 - I - 0x009EE2 02:9ED2: 3F        .byte $3F   ; 
 - D 0 - I - 0x009EE3 02:9ED3: 30        .byte $30   ; <0>
