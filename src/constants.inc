@@ -53,7 +53,7 @@ vTempCounter10                = ram_0010
 v_cache_reg_y                 = ram_0011
 vTempCounter11                = ram_0011 ; Intermediate counter
 vCacheRam_11                  = ram_0011 ;
-v_temp_check_buttons          = ram_0012 ; There is a variable that stores the checked state of the button
+v_temp_check_buttons          = ram_0012 ; This is a variable that stores the checked state of the button
 vTempCounter12                = ram_0012
 vCacheRam12                   = ram_0012 ;
 vCacheRam_12                  = ram_0012 ;
@@ -260,6 +260,8 @@ vCarStatus                    = ram_006C ; A status of a car with character
 ; 0x07 - entry into the pyramid
 vMovableChrStatus             = ram_006D
 ; Byte: XYZW KLMN
+; N - the character is moving on the lift (1 - moving, 0 - no moving)
+; ...
 ; Z - the character is moving on the roof pitch (1 - moving, 0 - no moving)
 ; Y - the character is moving on the balloon (1 - moving, 0 - no moving)
 ; X - the character is moving in the water (1 - moving, 0 - no moving)
@@ -268,7 +270,7 @@ vJumpType                     = ram_006E
 ; 0 - simple jump
 ; 1 - high jump
 ; 2 - jumping off
-; 3 - jump by side
+; 3 - jump by side (or stand on the lift)
 ; 4 - jump off after the squatting (for enemies)
 ; For fly man:
 ; 0x00 - 0x07 - the right fly direction
@@ -421,13 +423,15 @@ v_bullet_proof_vest_item      = ram_0207
 v_ruby_ring                   = ram_0208
 vItemsBlinkTime               = ram_020A ; 0x020A-0x0212
 vCurrentWeaponStatus          = ram_0214 ; Only the active items
-; 0x10000000 - the weapons are not exist
-; 0x01000000 - the weapon is activated
-; 0x00000000 - Using the radio
-; 0x00000001 - Using the bomb
-; 0x00000010 - Using the artillery rifle
-; 0x00000011 - Using the jet-pack
-; 0x00000100 - Using the infrared goggles
+; Byte: XYZW KKKK
+; X - the weapons are not exist
+; Y - the weapon is activated
+; K - the current item:
+; 0x0000 - Using the radio
+; 0x0001 - Using the bomb
+; 0x0010 - Using the artillery rifle
+; 0x0011 - Using the jet-pack
+; 0x0100 - Using the infrared goggles
 vApparatusLowCounter          = ram_0215 ; Breathing or flying
 vApparatusHighCounter         = ram_0216
 vSensorActiveLowCounter       = ram_0217
@@ -500,6 +504,11 @@ vEnemyAStatus                 = ram_0320 ; see below and docs (Bestiary)
 ; L - using vJumpCounter
 ; K - ???
 
+; Byte: 0YZW KLMN (lift)
+; N - vertical direction (0x00 - up, 0x01 - down)
+; ...
+; Y - the character can stand on the lift (0x00 - can not, 0x01 - can)
+
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
 vEnemyAProjectileStatus       = ram_0322 ; $0322-$0325
@@ -541,6 +550,7 @@ vEnemyAPosXHigh1              = ram_033E ; The enemy position along the X axis r
 vEnemyAPosXHigh2              = ram_033F ; The enemy position along the X axis relative to the level (in screen unit)
 vEnemyAProjectilePosXHigh     = ram_0340 ; $0340-$0343
 
+vLiftCounter                   = ram_0344 ; range: [0x00, 0x7F], for $0345-$0346
 vPhenixFrame_Counter           = ram_0344 ; see below
 vEnemyAFrame_Counter           = ram_0344 ; see below
 vEnemyAFrame_Counter1          = ram_0344 ; The frame index (the enemy number = 1)

@@ -2073,7 +2073,7 @@ C - - J - - 0x01AD18 06:AD08: A2 01     LDX #$01                       ;
 C - - - - - 0x01AD1A 06:AD0A: 86 1A     STX vTempCounter1A             ; set loop counter (the enemyA number)
 @bra_AD0C_loop:
 C - - - - - 0x01AD1C 06:AD0C: A6 1A     LDX vTempCounter1A             ; prepares the input parameter
-C - - - - - 0x01AD1E 06:AD0E: 20 16 AD  JSR sub_AD16_status_behavior
+C - - - - - 0x01AD1E 06:AD0E: 20 16 AD  JSR sub_AD16_status_behavior   ;
 C - - - - - 0x01AD21 06:AD11: C6 1A     DEC vTempCounter1A             ; decrement loop counter
 C - - - - - 0x01AD23 06:AD13: 10 F7     BPL @bra_AD0C_loop             ; If vTempCounter1A >= 0x00
 bra_AD15_RTS:
@@ -2083,47 +2083,48 @@ C - - - - - 0x01AD25 06:AD15: 60        RTS                            ;
 sub_AD16_status_behavior:
 C - - - - - 0x01AD26 06:AD16: BD 20 03  LDA vEnemyAStatus,X                       ;
 C - - - - - 0x01AD29 06:AD19: 10 FA     BPL bra_AD15_RTS                          ; If the status isn't used
-C - - - - - 0x01AD2B 06:AD1B: 20 47 AD  JSR sub_AD47
+C - - - - - 0x01AD2B 06:AD1B: 20 47 AD  JSR sub_AD47_update_internal_params_      ;
 C - - - - - 0x01AD2E 06:AD1E: BD 38 03  LDA vEnemyAPosXLow,X                      ;
 C - - - - - 0x01AD31 06:AD21: 85 00     STA ram_0000                              ; prepares the 1st parameter
 C - - - - - 0x01AD33 06:AD23: BD 3E 03  LDA vEnemyAPosXHigh,X                     ;
 C - - - - - 0x01AD36 06:AD26: 85 01     STA ram_0001                              ; prepares the 2nd parameter
 C - - - - - 0x01AD38 06:AD28: 20 AC D6  JSR sub_D6AC_out_of_screen                ;
-C - - - - - 0x01AD3B 06:AD2B: 90 03     BCC bra_AD30_skip                         ; If the enemy is on the screen
+C - - - - - 0x01AD3B 06:AD2B: 90 03     BCC bra_AD30_prepare_rendering            ; If the enemy is on the screen
 C - - - - - 0x01AD3D 06:AD2D: 4C 8A D7  JMP loc_D78A_free_enemyA_while_creating   ;
 
-bra_AD30_skip:
-C - - - - - 0x01AD40 06:AD30: BD 2C 03  LDA vEnemyAPosY,X
-C - - - - - 0x01AD43 06:AD33: 85 00     STA ram_0000
-C - - - - - 0x01AD45 06:AD35: A5 03     LDA ram_0003
-C - - - - - 0x01AD47 06:AD37: 9D 32 03  STA vEnemyAScreenPosX,X
-C - - - - - 0x01AD4A 06:AD3A: AD 02 03  LDA vEnemyASpriteMagic2
-C - - - - - 0x01AD4D 06:AD3D: 85 01     STA ram_0001
-C - - - - - 0x01AD4F 06:AD3F: AD 03 03  LDA vEnemyASpriteMagic3
-C - - - - - 0x01AD52 06:AD42: 85 02     STA ram_0002
+; In: Register X - the enemyA number
+bra_AD30_prepare_rendering:
+C - - - - - 0x01AD40 06:AD30: BD 2C 03  LDA vEnemyAPosY,X             ;
+C - - - - - 0x01AD43 06:AD33: 85 00     STA ram_0000                  ; ~> sprite magic1
+C - - - - - 0x01AD45 06:AD35: A5 03     LDA ram_0003                  ; from sub_D6AC_out_of_screen
+C - - - - - 0x01AD47 06:AD37: 9D 32 03  STA vEnemyAScreenPosX,X       ;
+C - - - - - 0x01AD4A 06:AD3A: AD 02 03  LDA vEnemyASpriteMagic2       ;
+C - - - - - 0x01AD4D 06:AD3D: 85 01     STA ram_0001                  ; ~> sprite_magic2
+C - - - - - 0x01AD4F 06:AD3F: AD 03 03  LDA vEnemyASpriteMagic3       ;
+C - - - - - 0x01AD52 06:AD42: 85 02     STA ram_0002                  ; ~> sprite_magic3
 C - - - - - 0x01AD54 06:AD44: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
-sub_AD47:
-C - - - - - 0x01AD57 06:AD47: A5 2C     LDA vLowCounter
-C - - - - - 0x01AD59 06:AD49: 29 03     AND #$03
-C - - - - - 0x01AD5B 06:AD4B: D0 0E     BNE bra_AD5B
-C - - - - - 0x01AD5D 06:AD4D: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x01AD60 06:AD50: 6A        ROR
-C - - - - - 0x01AD61 06:AD51: 90 05     BCC bra_AD58
-C - - - - - 0x01AD63 06:AD53: FE 2C 03  INC vEnemyAPosY,X
-C - - - - - 0x01AD66 06:AD56: D0 03     BNE bra_AD5B
-bra_AD58:
-C - - - - - 0x01AD68 06:AD58: DE 2C 03  DEC vEnemyAPosY,X
-bra_AD5B:
-C - - - - - 0x01AD6B 06:AD5B: FE 44 03  INC vEnemyAFrame_Counter,X
-C - - - - - 0x01AD6E 06:AD5E: 10 0D     BPL bra_AD6D_RTS
-C - - - - - 0x01AD70 06:AD60: A9 00     LDA #$00
-C - - - - - 0x01AD72 06:AD62: 9D 44 03  STA vEnemyAFrame_Counter,X
-C - - - - - 0x01AD75 06:AD65: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x01AD78 06:AD68: 49 01     EOR #$01
-C - - - - - 0x01AD7A 06:AD6A: 9D 20 03  STA vEnemyAStatus,X
-bra_AD6D_RTS:
-C - - - - - 0x01AD7D 06:AD6D: 60        RTS
+sub_AD47_update_internal_params_:
+C - - - - - 0x01AD57 06:AD47: A5 2C     LDA vLowCounter             ;
+C - - - - - 0x01AD59 06:AD49: 29 03     AND #$03                    ;
+C - - - - - 0x01AD5B 06:AD4B: D0 0E     BNE @bra_AD5B_update        ; Branch if vLowCounter doesn't multiple of 4 (75% chance)
+C - - - - - 0x01AD5D 06:AD4D: BD 20 03  LDA vEnemyAStatus,X         ;
+C - - - - - 0x01AD60 06:AD50: 6A        ROR                         ;
+C - - - - - 0x01AD61 06:AD51: 90 05     BCC @bra_AD58_up            ; If the lift vertical direction is up
+C - - - - - 0x01AD63 06:AD53: FE 2C 03  INC vEnemyAPosY,X           ; the lift moves down
+C - - - - - 0x01AD66 06:AD56: D0 03     BNE @bra_AD5B_update        ; If new Y-position != 0x00
+@bra_AD58_up:
+C - - - - - 0x01AD68 06:AD58: DE 2C 03  DEC vEnemyAPosY,X           ; the lift moves up
+@bra_AD5B_update:
+C - - - - - 0x01AD6B 06:AD5B: FE 44 03  INC vLiftCounter,X          ;
+C - - - - - 0x01AD6E 06:AD5E: 10 0D     BPL @bra_AD6D_RTS           ; If vLiftCounter < 0x80 (as signed value)
+C - - - - - 0x01AD70 06:AD60: A9 00     LDA #$00                    ;
+C - - - - - 0x01AD72 06:AD62: 9D 44 03  STA vLiftCounter,X          ; reset
+C - - - - - 0x01AD75 06:AD65: BD 20 03  LDA vEnemyAStatus,X         ;
+C - - - - - 0x01AD78 06:AD68: 49 01     EOR #$01                    ; changes the vertical direction
+C - - - - - 0x01AD7A 06:AD6A: 9D 20 03  STA vEnemyAStatus,X         ;
+@bra_AD6D_RTS:
+C - - - - - 0x01AD7D 06:AD6D: 60        RTS                         ;
 
 sub_AD6E: ; from bank FF
 C - - - - - 0x01AD7E 06:AD6E: AD 01 03  LDA vEnemyB                    ;
@@ -2135,57 +2136,57 @@ bra_AD78_skip:
 C - - - - - 0x01AD88 06:AD78: A5 46     LDA vNoSubLevel                ;
 C - - - - - 0x01AD8A 06:AD7A: C9 0F     CMP #$0F                       ; CONSTANT - level 3.0
 C - - - - - 0x01AD8C 06:AD7C: D0 4F     BNE bra_ADCD_RTS               ; If vNoSubLevel != 0x0F
-C - - - - - 0x01AD8E 06:AD7E: 8A        TXA
-C - - - - - 0x01AD8F 06:AD7F: 48        PHA
-C - - - - - 0x01AD90 06:AD80: A2 01     LDX #$01
-bra_AD82_loop:
+C - - - - - 0x01AD8E 06:AD7E: 8A        TXA                            ;
+C - - - - - 0x01AD8F 06:AD7F: 48        PHA                            ; diposot x
+C - - - - - 0x01AD90 06:AD80: A2 01     LDX #$01                       ; set loop counter (the lift number)
+bra_AD82_loop:                                                         ; loop by x (2 times)
 C - - - - - 0x01AD92 06:AD82: AD 00 03  LDA vEnemyA                    ;
 C - - - - - 0x01AD95 06:AD85: C9 0C     CMP #$0C                       ; CONSTANT - 'The lift'
-C - - - - - 0x01AD97 06:AD87: D0 39     BNE bra_ADC2_skip              ; If vEnemyA != 0x0C
-C - - - - - 0x01AD99 06:AD89: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x01AD9C 06:AD8C: 10 34     BPL bra_ADC2_skip
-C - - - - - 0x01AD9E 06:AD8E: 29 40     AND #$40
-C - - - - - 0x01ADA0 06:AD90: F0 30     BEQ bra_ADC2_skip
-C - - - - - 0x01ADA2 06:AD92: 8A        TXA
-C - - - - - 0x01ADA3 06:AD93: 0A        ASL
-C - - - - - 0x01ADA4 06:AD94: A4 4B     LDY ram_004B
-C - - - - - 0x01ADA6 06:AD96: C0 0C     CPY #$0C
-C - - - - - 0x01ADA8 06:AD98: 90 03     BCC bra_AD9D
-C - - - - - 0x01ADAA 06:AD9A: 18        CLC
-C - - - - - 0x01ADAB 06:AD9B: 69 04     ADC #$04
-bra_AD9D:
-C - - - - - 0x01ADAD 06:AD9D: A8        TAY
-C - - - - - 0x01ADAE 06:AD9E: B9 DF F6  LDA $F6DF,Y
-C - - - - - 0x01ADB1 06:ADA1: C5 68     CMP vNoScreen
-C - - - - - 0x01ADB3 06:ADA3: D0 1D     BNE bra_ADC2_skip
-C - - - - - 0x01ADB5 06:ADA5: B9 E0 F6  LDA $F6E0,Y
-C - - - - - 0x01ADB8 06:ADA8: 38        SEC
-C - - - - - 0x01ADB9 06:ADA9: E5 66     SBC vLowChrPosX
-C - - - - - 0x01ADBB 06:ADAB: B0 03     BCS bra_ADB0
-C - - - - - 0x01ADBD 06:ADAD: 20 73 D0  JSR sub_D073_invert_sign
-bra_ADB0:
-C - - - - - 0x01ADC0 06:ADB0: C9 14     CMP #$14
-C - - - - - 0x01ADC2 06:ADB2: B0 0E     BCS bra_ADC2_skip
-C - - - - - 0x01ADC4 06:ADB4: A5 6A     LDA vScreenChrPosY
-C - - - - - 0x01ADC6 06:ADB6: 38        SEC
-C - - - - - 0x01ADC7 06:ADB7: FD 2C 03  SBC vEnemyAPosY,X
-C - - - - - 0x01ADCA 06:ADBA: C9 05     CMP #$05
-C - - - - - 0x01ADCC 06:ADBC: 90 29     BCC bra_ADE7
-C - - - - - 0x01ADCE 06:ADBE: C9 FF     CMP #$FF
-C - - - - - 0x01ADD0 06:ADC0: B0 25     BCS bra_ADE7
-bra_ADC2_skip:
-C - - - - - 0x01ADD2 06:ADC2: CA        DEX
-C - - - - - 0x01ADD3 06:ADC3: 10 BD     BPL bra_AD82_loop
-loc_ADC5:
-C D 1 - - - 0x01ADD5 06:ADC5: A5 6D     LDA vMovableChrStatus
-C - - - - - 0x01ADD7 06:ADC7: 29 FE     AND #$FE
-C - - - - - 0x01ADD9 06:ADC9: 85 6D     STA vMovableChrStatus
-C - - - - - 0x01ADDB 06:ADCB: 68        PLA
-C - - - - - 0x01ADDC 06:ADCC: AA        TAX
+C - - - - - 0x01AD97 06:AD87: D0 39     BNE bra_ADC2_next              ; If vEnemyA != 0x0C
+C - - - - - 0x01AD99 06:AD89: BD 20 03  LDA vEnemyAStatus,X            ;
+C - - - - - 0x01AD9C 06:AD8C: 10 34     BPL bra_ADC2_next              ; If the status isn't used
+C - - - - - 0x01AD9E 06:AD8E: 29 40     AND #$40                       ; CONSTANT - 'the character can stand on the lift'
+C - - - - - 0x01ADA0 06:AD90: F0 30     BEQ bra_ADC2_next              ; If the character cann't stand on the lift
+C - - - - - 0x01ADA2 06:AD92: 8A        TXA                            ;
+C - - - - - 0x01ADA3 06:AD93: 0A        ASL                            ; *2, because the X-position contains 2 bytes (high and low values)
+C - - - - - 0x01ADA4 06:AD94: A4 4B     LDY vHighViewPortPosX          ;
+C - - - - - 0x01ADA6 06:AD96: C0 0C     CPY #$0C                       ;
+C - - - - - 0x01ADA8 06:AD98: 90 03     BCC @bra_AD9D_skip             ; If high viewport X-position < 0x0C (1 pair lifts)
+C - - - - - 0x01ADAA 06:AD9A: 18        CLC                            ;
+C - - - - - 0x01ADAB 06:AD9B: 69 04     ADC #$04                       ; shifts for 2 pair lifts
+@bra_AD9D_skip:
+C - - - - - 0x01ADAD 06:AD9D: A8        TAY                            ;
+C - - - - - 0x01ADAE 06:AD9E: B9 DF F6  LDA tbl_lift_positions,Y       ;
+C - - - - - 0x01ADB1 06:ADA1: C5 68     CMP vNoScreen                  ;
+C - - - - - 0x01ADB3 06:ADA3: D0 1D     BNE bra_ADC2_next              ; If the current lift high value != the screen number
+C - - - - - 0x01ADB5 06:ADA5: B9 E0 F6  LDA tbl_lift_positions + 1,Y   ;
+C - - - - - 0x01ADB8 06:ADA8: 38        SEC                            ;
+C - - - - - 0x01ADB9 06:ADA9: E5 66     SBC vLowChrPosX                ; A <~ vLowLiftPosX  - vLowChrPosX
+C - - - - - 0x01ADBB 06:ADAB: B0 03     BCS @bra_ADB0_skip             ; If vLowChrPosX <= vLowLiftPosX
+C - - - - - 0x01ADBD 06:ADAD: 20 73 D0  JSR sub_D073_invert_sign       ;
+@bra_ADB0_skip:
+C - - - - - 0x01ADC0 06:ADB0: C9 14     CMP #$14                       ; a lift tolerance
+C - - - - - 0x01ADC2 06:ADB2: B0 0E     BCS bra_ADC2_next              ; If |vLowLiftPosX - vLowChrPosX| >= 0x14
+C - - - - - 0x01ADC4 06:ADB4: A5 6A     LDA vScreenChrPosY             ;
+C - - - - - 0x01ADC6 06:ADB6: 38        SEC                            ;
+C - - - - - 0x01ADC7 06:ADB7: FD 2C 03  SBC vEnemyAPosY,X              ; A <~ vScreenChrPosY - vLiftPosY
+C - - - - - 0x01ADCA 06:ADBA: C9 05     CMP #$05                       ;
+C - - - - - 0x01ADCC 06:ADBC: 90 29     BCC bra_ADE7_nearly            ; If vScreenChrPosY - vLiftPosY < 0x05
+C - - - - - 0x01ADCE 06:ADBE: C9 FF     CMP #$FF                       ;
+C - - - - - 0x01ADD0 06:ADC0: B0 25     BCS bra_ADE7_nearly            ; if vScreenChrPosY - vLiftPosY >= 0xFF
+bra_ADC2_next:
+C - - - - - 0x01ADD2 06:ADC2: CA        DEX                            ; decrement loop counter
+C - - - - - 0x01ADD3 06:ADC3: 10 BD     BPL bra_AD82_loop              ; If Register X >= 0x00
+loc_ADC5_reset_status:
+C D 1 - - - 0x01ADD5 06:ADC5: A5 6D     LDA vMovableChrStatus          ;
+C - - - - - 0x01ADD7 06:ADC7: 29 FE     AND #$FE                       ; CONSTANT - all except 'the character is moving on the lift'
+C - - - - - 0x01ADD9 06:ADC9: 85 6D     STA vMovableChrStatus          ;
+C - - - - - 0x01ADDB 06:ADCB: 68        PLA                            ;
+C - - - - - 0x01ADDC 06:ADCC: AA        TAX                            ; retrieve x (see $AD7E or $ADFD)
 bra_ADCD_RTS:
-C - - - - - 0x01ADDD 06:ADCD: 60        RTS                         ;
+C - - - - - 0x01ADDD 06:ADCD: 60        RTS                            ;
 
-bra_ADCE:
+bra_ADCE_nearly:
 C - - - - - 0x01ADDE 06:ADCE: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01ADE1 06:ADD1: 29 10     AND #$10
 C - - - - - 0x01ADE3 06:ADD3: D0 0D     BNE bra_ADE2
@@ -2193,57 +2194,58 @@ C - - - - - 0x01ADE5 06:ADD5: BD 5C 03  LDA vEnemyBStatus,X
 C - - - - - 0x01ADE8 06:ADD8: 09 10     ORA #$10
 C - - - - - 0x01ADEA 06:ADDA: 9D 5C 03  STA vEnemyBStatus,X
 C - - - - - 0x01ADED 06:ADDD: A9 70     LDA #$70
-C - - - - - 0x01ADEF 06:ADDF: 9D 86 03  STA ram_0386,X
+C - - - - - 0x01ADEF 06:ADDF: 9D 86 03  STA vEnemyBJumpCounter,X
 bra_ADE2:
-C - - - - - 0x01ADF2 06:ADE2: BD 68 03  LDA ram_0368,X
-C - - - - - 0x01ADF5 06:ADE5: D0 03     BNE bra_ADEA
-bra_ADE7:
-C - - - - - 0x01ADF7 06:ADE7: BD 2C 03  LDA vEnemyAPosY,X
-bra_ADEA:
-C - - - - - 0x01ADFA 06:ADEA: 85 6A     STA ram_006A
-C - - - - - 0x01ADFC 06:ADEC: 68        PLA
-C - - - - - 0x01ADFD 06:ADED: AA        TAX
-C - - - - - 0x01ADFE 06:ADEE: 68        PLA
-C - - - - - 0x01ADFF 06:ADEF: 68        PLA
-C - - - - - 0x01AE00 06:ADF0: A5 6D     LDA vMovableChrStatus
-C - - - - - 0x01AE02 06:ADF2: 09 01     ORA #$01
-C - - - - - 0x01AE04 06:ADF4: 85 6D     STA vMovableChrStatus
-C - - - - - 0x01AE06 06:ADF6: A9 03     LDA #$03
-C - - - - - 0x01AE08 06:ADF8: 85 6E     STA vJumpType
-C - - - - - 0x01AE0A 06:ADFA: A9 02     LDA #$02
-C - - - - - 0x01AE0C 06:ADFC: 60        RTS
+C - - - - - 0x01ADF2 06:ADE2: BD 68 03  LDA vEnemyBPosY,X
+C - - - - - 0x01ADF5 06:ADE5: D0 03     BNE bra_ADEA_stand_on
+bra_ADE7_nearly:
+C - - - - - 0x01ADF7 06:ADE7: BD 2C 03  LDA vEnemyAPosY,X           ;
+; In: Register A - a new Y-position
+bra_ADEA_stand_on:
+C - - - - - 0x01ADFA 06:ADEA: 85 6A     STA vScreenChrPosY          ; corrects Y-position by a the lift or the platform
+C - - - - - 0x01ADFC 06:ADEC: 68        PLA                         ;
+C - - - - - 0x01ADFD 06:ADED: AA        TAX                         ; retrieve x (see $AD7E or $ADFD)
+C - - - - - 0x01ADFE 06:ADEE: 68        PLA                         ;
+C - - - - - 0x01ADFF 06:ADEF: 68        PLA                         ; double return from short_left_right_collision (i.e. $D36D -> $DB49)
+C - - - - - 0x01AE00 06:ADF0: A5 6D     LDA vMovableChrStatus       ;
+C - - - - - 0x01AE02 06:ADF2: 09 01     ORA #$01                    ; CONSTANT - the character is moving on the lift
+C - - - - - 0x01AE04 06:ADF4: 85 6D     STA vMovableChrStatus       ;
+C - - - - - 0x01AE06 06:ADF6: A9 03     LDA #$03                    ; CONSTANT - stand on the lift
+C - - - - - 0x01AE08 06:ADF8: 85 6E     STA vJumpType               ;
+C - - - - - 0x01AE0A 06:ADFA: A9 02     LDA #$02                    ; CONSTANT - a lift collision
+C - - - - - 0x01AE0C 06:ADFC: 60        RTS                         ;
 
 loc_ADFD_breaking_platform:
-C D 1 - - - 0x01AE0D 06:ADFD: 8A        TXA
-C - - - - - 0x01AE0E 06:ADFE: 48        PHA
-C - - - - - 0x01AE0F 06:ADFF: A2 01     LDX #$01
-bra_AE01:
-C - - - - - 0x01AE11 06:AE01: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x01AE14 06:AE04: 10 28     BPL bra_AE2E
+C D 1 - - - 0x01AE0D 06:ADFD: 8A        TXA                         ;
+C - - - - - 0x01AE0E 06:ADFE: 48        PHA                         ; diposot x
+C - - - - - 0x01AE0F 06:ADFF: A2 01     LDX #$01                    ; set loop counter
+bra_AE01_loop:                                                      ; loop by x
+C - - - - - 0x01AE11 06:AE01: BD 5C 03  LDA vEnemyBStatus,X         ;
+C - - - - - 0x01AE14 06:AE04: 10 28     BPL bra_AE2E_next           ; If the status isn't used
 C - - - - - 0x01AE16 06:AE06: 29 40     AND #$40
-C - - - - - 0x01AE18 06:AE08: F0 24     BEQ bra_AE2E
-C - - - - - 0x01AE1A 06:AE0A: BD 7A 03  LDA ram_037A,X
-C - - - - - 0x01AE1D 06:AE0D: C5 68     CMP ram_0068
-C - - - - - 0x01AE1F 06:AE0F: D0 1D     BNE bra_AE2E
-C - - - - - 0x01AE21 06:AE11: BD 74 03  LDA ram_0374,X
-C - - - - - 0x01AE24 06:AE14: 38        SEC
-C - - - - - 0x01AE25 06:AE15: E5 66     SBC ram_0066
-C - - - - - 0x01AE27 06:AE17: B0 03     BCS bra_AE1C
-C - - - - - 0x01AE29 06:AE19: 20 73 D0  JSR sub_D073_invert_sign
-bra_AE1C:
-C - - - - - 0x01AE2C 06:AE1C: C9 0C     CMP #$0C
-C - - - - - 0x01AE2E 06:AE1E: B0 0E     BCS bra_AE2E
-C - - - - - 0x01AE30 06:AE20: A5 6A     LDA ram_006A
-C - - - - - 0x01AE32 06:AE22: 38        SEC
-C - - - - - 0x01AE33 06:AE23: FD 68 03  SBC ram_0368,X
-C - - - - - 0x01AE36 06:AE26: C9 05     CMP #$05
-C - - - - - 0x01AE38 06:AE28: 90 A4     BCC bra_ADCE
-C - - - - - 0x01AE3A 06:AE2A: C9 FF     CMP #$FF
-C - - - - - 0x01AE3C 06:AE2C: B0 A0     BCS bra_ADCE
-bra_AE2E:
-C - - - - - 0x01AE3E 06:AE2E: CA        DEX
-C - - - - - 0x01AE3F 06:AE2F: 10 D0     BPL bra_AE01
-C - - - - - 0x01AE41 06:AE31: 4C C5 AD  JMP loc_ADC5
+C - - - - - 0x01AE18 06:AE08: F0 24     BEQ bra_AE2E_next
+C - - - - - 0x01AE1A 06:AE0A: BD 7A 03  LDA vEnemyBPosXHigh,X       ;
+C - - - - - 0x01AE1D 06:AE0D: C5 68     CMP vNoScreen               ;
+C - - - - - 0x01AE1F 06:AE0F: D0 1D     BNE bra_AE2E_next           ; If vEnemyBPosXHigh != the screen number
+C - - - - - 0x01AE21 06:AE11: BD 74 03  LDA vEnemyBPosXLow,X        ;
+C - - - - - 0x01AE24 06:AE14: 38        SEC                         ;
+C - - - - - 0x01AE25 06:AE15: E5 66     SBC vLowChrPosX             ; A <~ vEnemyBPosXLow  - vLowChrPosX
+C - - - - - 0x01AE27 06:AE17: B0 03     BCS @bra_AE1C_skip          ; If vLowChrPosX <= vEnemyBPosXLow
+C - - - - - 0x01AE29 06:AE19: 20 73 D0  JSR sub_D073_invert_sign    ;
+@bra_AE1C_skip:
+C - - - - - 0x01AE2C 06:AE1C: C9 0C     CMP #$0C                    ; a platform tolerance
+C - - - - - 0x01AE2E 06:AE1E: B0 0E     BCS bra_AE2E_next           ; If |vEnemyBPosXLow - vLowChrPosX| >= 0x0C
+C - - - - - 0x01AE30 06:AE20: A5 6A     LDA vScreenChrPosY          ;
+C - - - - - 0x01AE32 06:AE22: 38        SEC                         ;
+C - - - - - 0x01AE33 06:AE23: FD 68 03  SBC vEnemyBPosY,X           ; A <~ vScreenChrPosY - vEnemyBPosY
+C - - - - - 0x01AE36 06:AE26: C9 05     CMP #$05                    ;
+C - - - - - 0x01AE38 06:AE28: 90 A4     BCC bra_ADCE_nearly         ; If vScreenChrPosY - vEnemyBPosY < 0x05
+C - - - - - 0x01AE3A 06:AE2A: C9 FF     CMP #$FF                    ;
+C - - - - - 0x01AE3C 06:AE2C: B0 A0     BCS bra_ADCE_nearly         ; if vScreenChrPosY - vEnemyBPosY >= 0xFF
+bra_AE2E_next:
+C - - - - - 0x01AE3E 06:AE2E: CA        DEX                         ; decrement loop counter
+C - - - - - 0x01AE3F 06:AE2F: 10 D0     BPL bra_AE01_loop           ; If Register X >= 0x00
+C - - - - - 0x01AE41 06:AE31: 4C C5 AD  JMP loc_ADC5_reset_status   ;
 
 loc_AE34_platform:
 C - - J - - 0x01AE44 06:AE34: A2 01     LDX #$01

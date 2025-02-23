@@ -157,6 +157,7 @@
 .export sub_D8D1_enemyB_collision_minus_16
 .export sub_D8DB_enemyB_collision_by_shift_posY
 .export tbl_flying_track_offset
+.export tbl_lift_positions
 .export sub_D397_right_collision_by_inc_posX
 .export loc_D397_right_collision_by_inc_posX
 .export sub_D3AD_left_collision_by_inc_posX
@@ -1919,58 +1920,56 @@ C - - - - - 0x01CB46 07:CB36: 18        CLC                         ; return fal
 bra_CB37_RTS:
 C - - - - - 0x01CB47 07:CB37: 60        RTS                         ;
 
-sub_CB38:
-C - - - - - 0x01CB48 07:CB38: A5 3B     LDA vSharedGameStatus
-C - - - - - 0x01CB4A 07:CB3A: 6A        ROR
-C - - - - - 0x01CB4B 07:CB3B: B0 FA     BCS bra_CB37_RTS
-C - - - - - 0x01CB4D 07:CB3D: 24 6D     BIT vMovableChrStatus
-C - - - - - 0x01CB4F 07:CB3F: 30 F6     BMI bra_CB37_RTS
-C - - - - - 0x01CB51 07:CB41: 70 F4     BVS bra_CB37_RTS
-C - - - - - 0x01CB53 07:CB43: 2C 14 02  BIT vCurrentWeaponStatus
-C - - - - - 0x01CB56 07:CB46: 30 EF     BMI bra_CB37_RTS
-C - - - - - 0x01CB58 07:CB48: 70 42     BVS bra_CB8C
-C - - - - - 0x01CB5A 07:CB4A: AD 14 02  LDA vCurrentWeaponStatus
-C - - - - - 0x01CB5D 07:CB4D: 29 07     AND #$07
-C - - - - - 0x01CB5F 07:CB4F: AA        TAX
-C - - - - - 0x01CB60 07:CB50: A9 05     LDA #$05
-C - - - - - 0x01CB62 07:CB52: 85 14     STA ram_0014
-C - - - - - 0x01CB64 07:CB54: A9 C0     LDA #BIT_BUTTON_Left_OR_Right
-C - - - - - 0x01CB66 07:CB56: 20 79 D0  JSR sub_D079_check_button_press
-C - - - - - 0x01CB69 07:CB59: F0 31     BEQ bra_CB8C
-C - - - - - 0x01CB6B 07:CB5B: C9 40     CMP #$40
-C - - - - - 0x01CB6D 07:CB5D: D0 11     BNE bra_CB70
-bra_CB5F:
-C - - - - - 0x01CB6F 07:CB5F: CA        DEX
-C - - - - - 0x01CB70 07:CB60: 10 02     BPL bra_CB64
-C - - - - - 0x01CB72 07:CB62: A2 04     LDX #$04
-bra_CB64:
-C - - - - - 0x01CB74 07:CB64: BD 00 02  LDA v_items,X
-C - - - - - 0x01CB77 07:CB67: D0 17     BNE bra_CB80
-C - - - - - 0x01CB79 07:CB69: C6 12     DEC ram_0012
-C - - - - - 0x01CB7B 07:CB6B: D0 F2     BNE bra_CB5F
-- - - - - - 0x01CB7D 07:CB6D: 4C        .byte $4C
-- - - - - - 0x01CB7E 07:CB6E: 8C        .byte $8C
-- - - - - - 0x01CB7F 07:CB6F: CB        .byte $CB
-bra_CB70:
-C - - - - - 0x01CB80 07:CB70: E8        INX
-C - - - - - 0x01CB81 07:CB71: E0 05     CPX #$05
-C - - - - - 0x01CB83 07:CB73: D0 02     BNE bra_CB77
-C - - - - - 0x01CB85 07:CB75: A2 00     LDX #$00
-bra_CB77:
-C - - - - - 0x01CB87 07:CB77: BD 00 02  LDA v_items,X
-C - - - - - 0x01CB8A 07:CB7A: D0 04     BNE bra_CB80
-- - - - - - 0x01CB8C 07:CB7C: C6        .byte $C6
-- - - - - - 0x01CB8D 07:CB7D: 12        .byte $12
-- - - - - - 0x01CB8E 07:CB7E: D0        .byte $D0
-- - - - - - 0x01CB8F 07:CB7F: F0        .byte $F0
-bra_CB80:
-C - - - - - 0x01CB90 07:CB80: 86 00     STX ram_0000
-C - - - - - 0x01CB92 07:CB82: AD 14 02  LDA vCurrentWeaponStatus
-C - - - - - 0x01CB95 07:CB85: 29 F0     AND #$F0
-C - - - - - 0x01CB97 07:CB87: 05 00     ORA ram_0000
-C - - - - - 0x01CB99 07:CB89: 8D 14 02  STA vCurrentWeaponStatus
-bra_CB8C:
+sub_CB38_pause_handler:
+C - - - - - 0x01CB48 07:CB38: A5 3B     LDA vSharedGameStatus                   ;
+C - - - - - 0x01CB4A 07:CB3A: 6A        ROR                                     ;
+C - - - - - 0x01CB4B 07:CB3B: B0 FA     BCS bra_CB37_RTS                        ; If A screen isn with the message
+C - - - - - 0x01CB4D 07:CB3D: 24 6D     BIT vMovableChrStatus                   ;
+C - - - - - 0x01CB4F 07:CB3F: 30 F6     BMI bra_CB37_RTS                        ; If the character is moving in the water
+C - - - - - 0x01CB51 07:CB41: 70 F4     BVS bra_CB37_RTS                        ; If the character is moving on the balloon
+C - - - - - 0x01CB53 07:CB43: 2C 14 02  BIT vCurrentWeaponStatus                ;
+C - - - - - 0x01CB56 07:CB46: 30 EF     BMI bra_CB37_RTS                        ; If the weapons are not exist
+C - - - - - 0x01CB58 07:CB48: 70 42     BVS bra_CB8C_render_frame_current_item  ; If the weapon is activated
+C - - - - - 0x01CB5A 07:CB4A: AD 14 02  LDA vCurrentWeaponStatus                ;
+C - - - - - 0x01CB5D 07:CB4D: 29 07     AND #$07                                ;
+C - - - - - 0x01CB5F 07:CB4F: AA        TAX                                     ; X <~ the item number
+C - - - - - 0x01CB60 07:CB50: A9 05     LDA #$05                                ; !(UNUSED)
+C - - - - - 0x01CB62 07:CB52: 85 14     STA ram_0014                            ; !(UNUSED)
+C - - - - - 0x01CB64 07:CB54: A9 C0     LDA #BIT_BUTTON_Left_OR_Right           ;
+C - - - - - 0x01CB66 07:CB56: 20 79 D0  JSR sub_D079_check_button_press         ;
+C - - - - - 0x01CB69 07:CB59: F0 31     BEQ bra_CB8C_render_frame_current_item  ; Go to the branch If the buttons 'Left' or 'Right' aren't pressed
+C - - - - - 0x01CB6B 07:CB5B: C9 40     CMP #BIT_BUTTON_Left                    ;
+C - - - - - 0x01CB6D 07:CB5D: D0 11     BNE bra_CB70_right                      ; Go to the branch If the buttons 'Right' is pressed
+bra_CB5F_left:
+C - - - - - 0x01CB6F 07:CB5F: CA        DEX                                     ; previous item
+C - - - - - 0x01CB70 07:CB60: 10 02     BPL @bra_CB64_skip                      ; If the previous item >= 0x00
+C - - - - - 0x01CB72 07:CB62: A2 04     LDX #$04                                ; CONSTANT - Max allow index
+@bra_CB64_skip:
+C - - - - - 0x01CB74 07:CB64: BD 00 02  LDA v_items,X                           ;
+C - - - - - 0x01CB77 07:CB67: D0 17     BNE bra_CB80_found                      ; If the number of the current item > 0
+C - - - - - 0x01CB79 07:CB69: C6 12     DEC v_temp_check_buttons                ; some finite number (at the start - 0xC0)
+C - - - - - 0x01CB7B 07:CB6B: D0 F2     BNE bra_CB5F_left                       ; If vTempCheckButtons > 0x00
+- - - - - - 0x01CB7D 07:CB6D: 4C 8C CB  JMP loc_CB8C_render_frame_current_item  ;
+
+bra_CB70_right:
+C - - - - - 0x01CB80 07:CB70: E8        INX                                     ; next item
+C - - - - - 0x01CB81 07:CB71: E0 05     CPX #$05                                ;
+C - - - - - 0x01CB83 07:CB73: D0 02     BNE bra_CB77_skip                       ; If the new index != 0x05
+C - - - - - 0x01CB85 07:CB75: A2 00     LDX #$00                                ; CONSTANT - Min allow value
+bra_CB77_skip:
+C - - - - - 0x01CB87 07:CB77: BD 00 02  LDA v_items,X                           ;
+C - - - - - 0x01CB8A 07:CB7A: D0 04     BNE bra_CB80_found                      ; If the number of the current item > 0
+- - - - - - 0x01CB8C 07:CB7C: C6 12     DEC v_temp_check_buttons                ; some finite number (at the start - 0xC0)
+- - - - - - 0x01CB8E 07:CB7E: D0 F0     BNE bra_CB70_right                      ; If vTempCheckButtons > 0x00
+bra_CB80_found:
+C - - - - - 0x01CB90 07:CB80: 86 00     STX ram_0000                            ;
+C - - - - - 0x01CB92 07:CB82: AD 14 02  LDA vCurrentWeaponStatus                ;
+C - - - - - 0x01CB95 07:CB85: 29 F0     AND #$F0                                ;
+C - - - - - 0x01CB97 07:CB87: 05 00     ORA ram_0000                            ;
+C - - - - - 0x01CB99 07:CB89: 8D 14 02  STA vCurrentWeaponStatus                ; reassigns the current item
+bra_CB8C_render_frame_current_item:
 sub_CB8C_render_frame_current_item:
+loc_CB8C_render_frame_current_item:
 C - - - - - 0x01CB9C 07:CB8C: A5 6D     LDA vMovableChrStatus                     ;
 C - - - - - 0x01CB9E 07:CB8E: 30 48     BMI bra_CBD8_RTS                          ; If 'the character is moving in the water'
 C - - - - - 0x01CBA0 07:CB90: A5 5F     LDA vChrLiveStatus                        ;
@@ -2015,9 +2014,9 @@ sub_CBD9_try_use_current_item:
 C - - - - - 0x01CBE9 07:CBD9: 2C 14 02  BIT vCurrentWeaponStatus                ;
 C - - - - - 0x01CBEC 07:CBDC: 30 4B     BMI bra_CC29_RTS                        ; If the weapons are not exist
 C - - - - - 0x01CBEE 07:CBDE: 70 49     BVS bra_CC29_RTS                        ; If the weapon is activated
-C - - - - - 0x01CBF0 07:CBE0: A5 6D     LDA vMovableChrStatus
-C - - - - - 0x01CBF2 07:CBE2: 29 FE     AND #$FE
-C - - - - - 0x01CBF4 07:CBE4: D0 43     BNE bra_CC29_RTS
+C - - - - - 0x01CBF0 07:CBE0: A5 6D     LDA vMovableChrStatus                   ;
+C - - - - - 0x01CBF2 07:CBE2: 29 FE     AND #$FE                                ; CONSTANT - all except 'the character is moving on the lift'
+C - - - - - 0x01CBF4 07:CBE4: D0 43     BNE bra_CC29_RTS                        ; If some movement (except the lift) is exist
 C - - - - - 0x01CBF6 07:CBE6: A5 6C     LDA vChrStatus                          ;
 C - - - - - 0x01CBF8 07:CBE8: 29 28     AND #$28                                ; CONSTANT - the character is dying or entering a corridor
 C - - - - - 0x01CBFA 07:CBEA: D0 3D     BNE bra_CC29_RTS                        ; If the character is dying or entering a corridor
@@ -6396,7 +6395,7 @@ C - - - - - 0x01E5B8 07:E5A8: C9 01     CMP #$01                                
 C - - - - - 0x01E5BA 07:E5AA: 60        RTS                                       ;
 
 ; In: Register A - an increment by Y-position
-; Out: Register A - a strong collision or left + right collision value
+; Out: Register A - a strong collision or left + right collision value (0x02 for the lift)
 ; Out: 0x0000 - vScreenChrPosY with increment
 sub_E5AB_short_collision_by_increment:
 C - - - - - 0x01E5BB 07:E5AB: 18        CLC                                     ;
@@ -7683,12 +7682,12 @@ C - - - - - 0x01EDDC 07:EDCC: 20 8C CB  JSR sub_CB8C_render_frame_current_item  
 C - - - - - 0x01EDDF 07:EDCF: 20 D9 CB  JSR sub_CBD9_try_use_current_item        ;
 C - - - - - 0x01EDE2 07:EDD2: 20 5F CD  JSR sub_CD5F_try_reset_goggles           ;
 loc_EDD5_nmi_skip:
-C D 3 - - - 0x01EDE5 07:EDD5: 20 7B EF  JSR sub_EF7B_shift_all_counters       ;
-C - - - - - 0x01EDE8 07:EDD8: 4C E1 ED  JMP loc_EDE1_nmi_skip                 ;
+C D 3 - - - 0x01EDE5 07:EDD5: 20 7B EF  JSR sub_EF7B_shift_all_counters          ;
+C - - - - - 0x01EDE8 07:EDD8: 4C E1 ED  JMP loc_EDE1_nmi_skip                    ;
 
 bra_EDDB_pause:
 C - - - - - 0x01EDEB 07:EDDB: 20 86 EF  JSR sub_EF86_increment_counter        ;
-C - - - - - 0x01EDEE 07:EDDE: 20 38 CB  JSR sub_CB38
+C - - - - - 0x01EDEE 07:EDDE: 20 38 CB  JSR sub_CB38_pause_handler            ;
 loc_EDE1_nmi_skip:
 C D 3 - - - 0x01EDF1 07:EDE1: 20 6C C4  JSR sub_C46C_simulate_presses_in_demo ;
 C - - - - - 0x01EDF4 07:EDE4: 20 85 C8  JSR sub_C885_try_interrupt_mode       ;
@@ -9071,14 +9070,13 @@ C - - - - - 0x01F6E7 07:F6D7: A9 00     LDA #$00
 C - - - - - 0x01F6E9 07:F6D9: 9D 44 03  STA vEnemyAFrame_Counter,X
 C - - - - - 0x01F6EC 07:F6DC: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA
 
-- D 3 - - - 0x01F6EF 07:F6DF: 05        .byte $05
-- D 3 - - - 0x01F6F0 07:F6E0: C4        .byte $C4
-- D 3 - - - 0x01F6F1 07:F6E1: 06        .byte $06
-- D 3 - - - 0x01F6F2 07:F6E2: 14        .byte $14
-- D 3 - - - 0x01F6F3 07:F6E3: 0D        .byte $0D
-- D 3 - - - 0x01F6F4 07:F6E4: 44        .byte $44
-- D 3 - - - 0x01F6F5 07:F6E5: 0D        .byte $0D
-- D 3 - - - 0x01F6F6 07:F6E6: A4        .byte $A4
+; 1 byte - high X-position (the screen number)
+; 2 byte - low X-position
+tbl_lift_positions:
+- D 3 - - - 0x01F6EF 07:F6DF: 05        .byte $05, $C4
+- D 3 - - - 0x01F6F1 07:F6E1: 06        .byte $06, $14
+- D 3 - - - 0x01F6F3 07:F6E3: 0D        .byte $0D, $44
+- D 3 - - - 0x01F6F5 07:F6E5: 0D        .byte $0D, $A4
 
 ; In: $0000 - macro X-position
 ; In: $0001 - X-position
@@ -9860,39 +9858,39 @@ C - - - - - 0x01FBE9 07:FBD9: 60        RTS                          ;
 
 ; Fill the stack before entering the room
 sub_FBDA_store_room_params_:
-C - - - - - 0x01FBEA 07:FBDA: A5 46     LDA vNoSubLevel
-C - - - - - 0x01FBEC 07:FBDC: 85 47     STA vTempNoSubLevel
-C - - - - - 0x01FBEE 07:FBDE: A5 66     LDA vLowChrPosX
-C - - - - - 0x01FBF0 07:FBE0: 85 67     STA vTempLowChrPosX
-C - - - - - 0x01FBF2 07:FBE2: A5 68     LDA vNoScreen
-C - - - - - 0x01FBF4 07:FBE4: 85 69     STA vTempNoScreen
-C - - - - - 0x01FBF6 07:FBE6: A5 6A     LDA vScreenChrPosY
-C - - - - - 0x01FBF8 07:FBE8: 85 6B     STA vTempScreenChrPosY
-C - - - - - 0x01FBFA 07:FBEA: A5 64     LDA vScreenChrPosX
-C - - - - - 0x01FBFC 07:FBEC: 85 65     STA vTempScreenChrPosX
-C - - - - - 0x01FBFE 07:FBEE: A5 4B     LDA vHighViewPortPosX
-C - - - - - 0x01FC00 07:FBF0: 85 4C     STA vTempHighViewPortPosX
-C - - - - - 0x01FC02 07:FBF2: A5 27     LDA vLowViewPortPosX
-C - - - - - 0x01FC04 07:FBF4: 85 28     STA vTempLowViewPortPosX
-C - - - - - 0x01FC06 07:FBF6: 60        RTS
+C - - - - - 0x01FBEA 07:FBDA: A5 46     LDA vNoSubLevel           ;
+C - - - - - 0x01FBEC 07:FBDC: 85 47     STA vTempNoSubLevel       ;
+C - - - - - 0x01FBEE 07:FBDE: A5 66     LDA vLowChrPosX           ;
+C - - - - - 0x01FBF0 07:FBE0: 85 67     STA vTempLowChrPosX       ;
+C - - - - - 0x01FBF2 07:FBE2: A5 68     LDA vNoScreen             ;
+C - - - - - 0x01FBF4 07:FBE4: 85 69     STA vTempNoScreen         ;
+C - - - - - 0x01FBF6 07:FBE6: A5 6A     LDA vScreenChrPosY        ;
+C - - - - - 0x01FBF8 07:FBE8: 85 6B     STA vTempScreenChrPosY    ;
+C - - - - - 0x01FBFA 07:FBEA: A5 64     LDA vScreenChrPosX        ;
+C - - - - - 0x01FBFC 07:FBEC: 85 65     STA vTempScreenChrPosX    ;
+C - - - - - 0x01FBFE 07:FBEE: A5 4B     LDA vHighViewPortPosX     ;
+C - - - - - 0x01FC00 07:FBF0: 85 4C     STA vTempHighViewPortPosX ;
+C - - - - - 0x01FC02 07:FBF2: A5 27     LDA vLowViewPortPosX      ;
+C - - - - - 0x01FC04 07:FBF4: 85 28     STA vTempLowViewPortPosX  ;
+C - - - - - 0x01FC06 07:FBF6: 60        RTS                       ;
 
 ; Release the stack after leaving the room
 loc_FBF7_restore_room_params_:
-C D 3 - - - 0x01FC07 07:FBF7: A5 4C     LDA vTempHighViewPortPosX
-C - - - - - 0x01FC09 07:FBF9: 85 4B     STA vHighViewPortPosX
-C - - - - - 0x01FC0B 07:FBFB: A5 28     LDA vTempLowViewPortPosX
-C - - - - - 0x01FC0D 07:FBFD: 85 27     STA vLowViewPortPosX
-C - - - - - 0x01FC0F 07:FBFF: A5 65     LDA vTempScreenChrPosX
-C - - - - - 0x01FC11 07:FC01: 85 64     STA vScreenChrPosX
-C - - - - - 0x01FC13 07:FC03: A5 6B     LDA vTempScreenChrPosY
-C - - - - - 0x01FC15 07:FC05: 85 6A     STA vScreenChrPosY
-C - - - - - 0x01FC17 07:FC07: A5 69     LDA vTempNoScreen
-C - - - - - 0x01FC19 07:FC09: 85 68     STA vNoScreen
-C - - - - - 0x01FC1B 07:FC0B: A5 67     LDA vTempLowChrPosX
-C - - - - - 0x01FC1D 07:FC0D: 85 66     STA vLowChrPosX
-C - - - - - 0x01FC1F 07:FC0F: A5 47     LDA vTempNoSubLevel
-C - - - - - 0x01FC21 07:FC11: 85 46     STA vNoSubLevel
-C - - - - - 0x01FC23 07:FC13: 60        RTS
+C D 3 - - - 0x01FC07 07:FBF7: A5 4C     LDA vTempHighViewPortPosX ;
+C - - - - - 0x01FC09 07:FBF9: 85 4B     STA vHighViewPortPosX     ;
+C - - - - - 0x01FC0B 07:FBFB: A5 28     LDA vTempLowViewPortPosX  ;
+C - - - - - 0x01FC0D 07:FBFD: 85 27     STA vLowViewPortPosX      ;
+C - - - - - 0x01FC0F 07:FBFF: A5 65     LDA vTempScreenChrPosX    ;
+C - - - - - 0x01FC11 07:FC01: 85 64     STA vScreenChrPosX        ;
+C - - - - - 0x01FC13 07:FC03: A5 6B     LDA vTempScreenChrPosY    ;
+C - - - - - 0x01FC15 07:FC05: 85 6A     STA vScreenChrPosY        ;
+C - - - - - 0x01FC17 07:FC07: A5 69     LDA vTempNoScreen         ;
+C - - - - - 0x01FC19 07:FC09: 85 68     STA vNoScreen             ;
+C - - - - - 0x01FC1B 07:FC0B: A5 67     LDA vTempLowChrPosX       ;
+C - - - - - 0x01FC1D 07:FC0D: 85 66     STA vLowChrPosX           ;
+C - - - - - 0x01FC1F 07:FC0F: A5 47     LDA vTempNoSubLevel       ;
+C - - - - - 0x01FC21 07:FC11: 85 46     STA vNoSubLevel           ;
+C - - - - - 0x01FC23 07:FC13: 60        RTS                       ;
 
 sub_FC14_prepare_boss:
 C - - - - - 0x01FC24 07:FC14: 20 28 FC  JSR sub_FC28_in_room_with_boss  ;
