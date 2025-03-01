@@ -11,6 +11,7 @@
 .export tbl_select_characters_dialog_losing
 .export tbl_enemy_score
 .export tbl_water_gap_level4
+.export tbl_water_y_position
 
 ; See doc - audio_tracks.md
 
@@ -1570,38 +1571,9 @@ tbl_select_characters_dialog_radio:
 - D 0 - - - 0x0095CE 02:95BE: 04        .byte $04   ; 
 - D 0 - - - 0x0095CF 02:95BF: 03        .byte $03   ; 
 
-- D 0 - - - 0x0095D0 02:95C0: 5F        .byte $5F   ; 
-- D 0 - - - 0x0095D1 02:95C1: 67        .byte $67   ; <g>
-- D 0 - - - 0x0095D2 02:95C2: 6F        .byte $6F   ; <o>
-- D 0 - - - 0x0095D3 02:95C3: 77        .byte $77   ; <w>
-- D 0 - - - 0x0095D4 02:95C4: 7F        .byte $7F   ; 
-- D 0 - - - 0x0095D5 02:95C5: 87        .byte $87   ; 
-- D 0 - - - 0x0095D6 02:95C6: 8F        .byte $8F   ; 
-- D 0 - - - 0x0095D7 02:95C7: 97        .byte $97   ; 
-- D 0 - - - 0x0095D8 02:95C8: 9F        .byte $9F   ; 
-- D 0 - - - 0x0095D9 02:95C9: A7        .byte $A7   ; 
-- D 0 - - - 0x0095DA 02:95CA: AF        .byte $AF   ; 
-- D 0 - - - 0x0095DB 02:95CB: B7        .byte $B7   ; 
-- D 0 - - - 0x0095DC 02:95CC: BF        .byte $BF   ; 
-- D 0 - - - 0x0095DD 02:95CD: 67        .byte $67   ; <g>
-- D 0 - - - 0x0095DE 02:95CE: 5F        .byte $5F   ; 
-- D 0 - - - 0x0095DF 02:95CF: 67        .byte $67   ; <g>
-- D 0 - - - 0x0095E0 02:95D0: 6F        .byte $6F   ; <o>
-- D 0 - - - 0x0095E1 02:95D1: 77        .byte $77   ; <w>
-- D 0 - - - 0x0095E2 02:95D2: 7F        .byte $7F   ; 
-- D 0 - - - 0x0095E3 02:95D3: 87        .byte $87   ; 
-- D 0 - - - 0x0095E4 02:95D4: 8F        .byte $8F   ; 
-- D 0 - - - 0x0095E5 02:95D5: 97        .byte $97   ; 
-- D 0 - - - 0x0095E6 02:95D6: 9F        .byte $9F   ; 
-- D 0 - - - 0x0095E7 02:95D7: A7        .byte $A7   ; 
-- D 0 - - - 0x0095E8 02:95D8: AF        .byte $AF   ; 
-- D 0 - - - 0x0095E9 02:95D9: B7        .byte $B7   ; 
-- D 0 - - - 0x0095EA 02:95DA: BF        .byte $BF   ; 
-- D 0 - - - 0x0095EB 02:95DB: 67        .byte $67   ; <g>
-- D 0 - - - 0x0095EC 02:95DC: 5F        .byte $5F   ; 
-- D 0 - - - 0x0095ED 02:95DD: 67        .byte $67   ; <g>
-- D 0 - - - 0x0095EE 02:95DE: 6F        .byte $6F   ; <o>
-- D 0 - - - 0x0095EF 02:95DF: 77        .byte $77   ; <w>
+tbl_water_y_position:
+- D 0 - - - 0x0095D0 02:95C0: 5F        .byte $5F, $67, $6F, $77, $7F, $87, $8F, $97, $9F, $A7, $AF, $B7, $BF, $67, $5F, $67
+- D 0 - - - 0x0095E0 02:95D0: 6F        .byte $6F, $77, $7F, $87, $8F, $97, $9F, $A7, $AF, $B7, $BF, $67, $5F, $67, $6F, $77
 
 ; see docs (Bestiary)
 tbl_enemy_score:
@@ -1901,32 +1873,12 @@ loc_no_gap:
 - D 0 - I - 0x00984D 02:983D: F0        .byte $F0, $01, $3C, $00, $FF, $16   ; 
 - - - - - - 0x009853 02:9843: FF        .byte $FF   ; 
 
-- D 0 - I - 0x009854 02:9844: F0        .byte $F0   ; 
-- D 0 - I - 0x009855 02:9845: 01        .byte $01   ; 
-- D 0 - I - 0x009856 02:9846: 3D        .byte $3D   ; 
-- D 0 - I - 0x009857 02:9847: 00        .byte $00   ; 
-- D 0 - I - 0x009858 02:9848: FF        .byte $FF   ; 
-- D 0 - I - 0x009859 02:9849: 17        .byte $17   ; 
-- D 0 - I - 0x00985A 02:984A: F0        .byte $F0   ; 
-- D 0 - I - 0x00985B 02:984B: 02        .byte $02   ; 
-- D 0 - I - 0x00985C 02:984C: 3D        .byte $3D   ; 
-- D 0 - I - 0x00985D 02:984D: 01        .byte $01   ; 
-- D 0 - I - 0x00985E 02:984E: FF        .byte $FF   ; 
-- D 0 - I - 0x00985F 02:984F: 17        .byte $17   ; 
+- D 0 - I - 0x009854 02:9844: F0        .byte $F0, $01, $3D, $00, $FF, $17   ; 
+- D 0 - I - 0x00985A 02:984A: F0        .byte $F0, $02, $3D, $01, $FF, $17   ; 
 - D 0 - I - 0x009860 02:9850: FF        .byte $FF   ; 
 
-- D 0 - I - 0x009861 02:9851: 80        .byte $80   ; 
-- D 0 - I - 0x009862 02:9852: 01        .byte $01   ; 
-- D 0 - I - 0x009863 02:9853: 3D        .byte $3D   ; 
-- D 0 - I - 0x009864 02:9854: 00        .byte $00   ; 
-- D 0 - I - 0x009865 02:9855: FF        .byte $FF   ; 
-- D 0 - I - 0x009866 02:9856: 18        .byte $18   ; 
-- D 0 - I - 0x009867 02:9857: F0        .byte $F0   ; 
-- D 0 - I - 0x009868 02:9858: 01        .byte $01   ; 
-- D 0 - I - 0x009869 02:9859: 3D        .byte $3D   ; 
-- D 0 - I - 0x00986A 02:985A: 01        .byte $01   ; 
-- D 0 - I - 0x00986B 02:985B: FF        .byte $FF   ; 
-- D 0 - I - 0x00986C 02:985C: 18        .byte $18   ; 
+- D 0 - I - 0x009861 02:9851: 80        .byte $80, $01, $3D, $00, $FF, $18   ; 
+- D 0 - I - 0x009867 02:9857: F0        .byte $F0, $01, $3D, $01, $FF, $18   ; 
 - D 0 - I - 0x00986D 02:985D: FF        .byte $FF   ; 
 
 - D 0 - I - 0x00986E 02:985E: C0        .byte $C0   ; 
@@ -2341,12 +2293,7 @@ loc_no_gap:
 - D 0 - I - 0x0099EE 02:99DE: 3C        .byte $3C   ; 
 - - - - - - 0x0099EF 02:99DF: FF        .byte $FF   ; 
 
-- D 0 - I - 0x0099F0 02:99E0: F0        .byte $F0   ; 
-- D 0 - I - 0x0099F1 02:99E1: 01        .byte $01   ; 
-- D 0 - I - 0x0099F2 02:99E2: 3C        .byte $3C   ; 
-- D 0 - I - 0x0099F3 02:99E3: 00        .byte $00   ; 
-- D 0 - I - 0x0099F4 02:99E4: FF        .byte $FF   ; 
-- D 0 - I - 0x0099F5 02:99E5: 3D        .byte $3D   ; 
+- D 0 - I - 0x0099F0 02:99E0: F0        .byte $F0, $01, $3C, $00, $FF, $3D   ; 
 - - - - - - 0x0099F6 02:99E6: FF        .byte $FF   ; 
 
 - D 0 - I - 0x0099F7 02:99E7: FF        .byte $FF, $3E   ; 
@@ -2421,6 +2368,7 @@ loc_no_gap:
 - - - - - - 0x009A78 02:9A68: C5        .byte $C5   ; 
 - - - - - - 0x009A79 02:9A69: 00        .byte $00   ; 
 - - - - - - 0x009A7A 02:9A6A: C6        .byte $C6   ; 
+
 - D 0 - I - 0x009A7B 02:9A6B: C7        .byte $C7   ; 
 - - - - - - 0x009A7C 02:9A6C: 00        .byte $00   ; 
 - - - - - - 0x009A7D 02:9A6D: C8        .byte $C8   ; 

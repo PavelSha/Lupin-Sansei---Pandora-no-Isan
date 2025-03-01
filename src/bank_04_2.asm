@@ -461,10 +461,10 @@ tbl_ptr_enemies:
 - D 0 - - - 0x0123D6 04:83C6: 37 8D     .addr tbl_enemies_level3_3       ; CPU address $8D37
 - D 0 - - - 0x0123D8 04:83C8: BC 8D     .addr tbl_enemies_level3_4       ; CPU address $8DBC
 - D 0 - - - 0x0123DA 04:83CA: 90 85     .addr deadlock
-- - - - - - 0x0123DC 04:83CC: 90 85     .addr deadlock
-- - - - - - 0x0123DE 04:83CE: 90 85     .addr deadlock
-- - - - - - 0x0123E0 04:83D0: 90 85     .addr deadlock
-- - - - - - 0x0123E2 04:83D2: 90 85     .addr deadlock
+- D - - - - 0x0123DC 04:83CC: 90 85     .addr deadlock
+- D - - - - 0x0123DE 04:83CE: 90 85     .addr deadlock
+- D - - - - 0x0123E0 04:83D0: 90 85     .addr deadlock
+- D - - - - 0x0123E2 04:83D2: 90 85     .addr deadlock
 - D 0 - - - 0x0123E4 04:83D4: 41 8E     .word $8E41 ; level racing
 - D 0 - - - 0x0123E6 04:83D6: 90 85     .addr deadlock
 - D 0 - - - 0x0123E8 04:83D8: 90 85     .addr deadlock

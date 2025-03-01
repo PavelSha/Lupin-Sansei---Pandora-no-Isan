@@ -166,7 +166,7 @@ vCharacterSelectionCounter    = ram_003D ; If 0x00 - no selection else selection
 
 vDrowningRate                 = ram_003E
 vFlowingOffset                = ram_003F ; by X-position in the water
-
+vWaterRoomIndex               = ram_0040
 vNPCMessageStatus             = ram_0041
 ; 83 - npc is saying the message 
 ; C3 - npc said the message 
@@ -369,6 +369,7 @@ vCheckpoint                   = ram_00C4 ; see docs (Rooms)
 ; 0x06 - level 2 outside
 ; ...
 ; 0x19 - level racing and etc.
+; 0xD8 - level 3.0 (from water)
 ; 0xFF - exit from the unique room
 
 vRoomAttrubute                = ram_00C5
@@ -592,6 +593,15 @@ vEnemyBStatus                 = ram_035C ; see below and docs (Bestiary)
 ; W - crawling out (for snake)
 ; Z - see above
 ; Y - see above
+
+; Byte: 0YZW KLMN (Breaking platform)
+; N - the vertical direction (0 - up, 1 - down)
+; M - movable object (0 - non movable, 1 - movable)
+; L - 
+; K - 
+; W - the moving mode (0 - up and down, 1 - only down)
+; Z - the destroy
+; Y - the character can stand on the platform (0x00 - can not, 0x01 - can)
 
 vEnemyBStatus1                = ram_035C
 vEnemyBStatus2                = ram_035D

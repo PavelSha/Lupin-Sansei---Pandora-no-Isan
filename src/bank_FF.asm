@@ -9744,6 +9744,7 @@ tbl_FB2F:
 - D 3 - - - 0x01FB3F 07:FB2F: 03        .byte $03
 - D 3 - - - 0x01FB40 07:FB30: 09        .byte $09
 - D 3 - - - 0x01FB41 07:FB31: 04        .byte $04
+
 bra_FB32:
 C - - - - - 0x01FB42 07:FB32: 20 47 FC  JSR sub_FC47
 C - - - - - 0x01FB45 07:FB35: 4C C7 C6  JMP loc_C6C7_update_room_with_message ;
@@ -9978,7 +9979,7 @@ C - - - - - 0x01FC94 07:FC84: B1 12     LDA (ram_0012),Y              ;
 C - - - - - 0x01FC96 07:FC86: 85 3F     STA vFlowingOffset            ;
 C - - - - - 0x01FC98 07:FC88: C8        INY                           ; 6 of 6 bytes
 C - - - - - 0x01FC99 07:FC89: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01FC9B 07:FC8B: 85 40     STA ram_0040
+C - - - - - 0x01FC9B 07:FC8B: 85 40     STA vWaterRoomIndex
 C - - - - - 0x01FC9D 07:FC8D: A9 00     LDA #$00
 C - - - - - 0x01FC9F 07:FC8F: 85 27     STA vLowViewPortPosX
 C - - - - - 0x01FCA1 07:FC91: A9 80     LDA #$80
@@ -9990,7 +9991,7 @@ C - - - - - 0x01FCAB 07:FC9B: 60        RTS
 
 sub_FC9C:
 C - - - - - 0x01FCAC 07:FC9C: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1
-C - - - - - 0x01FCAF 07:FC9F: A5 40     LDA ram_0040
+C - - - - - 0x01FCAF 07:FC9F: A5 40     LDA vWaterRoomIndex
 C - - - - - 0x01FCB1 07:FCA1: 0A        ASL
 C - - - - - 0x01FCB2 07:FCA2: A8        TAY
 C - - - - - 0x01FCB3 07:FCA3: B9 24 95  LDA $9524,Y
