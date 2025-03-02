@@ -12,6 +12,10 @@
 .export tbl_enemy_score
 .export tbl_water_gap_level4
 .export tbl_water_y_position
+.export tbl_water_rooms_props_in
+.export tbl_water_rooms_props_out
+.export tbl_water_random_items
+.export loc_tbl_water_item_bits
 
 ; See doc - audio_tracks.md
 
@@ -1399,177 +1403,151 @@ tbl_select_characters_dialog_radio:
 - D 0 - - - 0x00949C 02:948C: BD 9E     .addr loc_radio_dialog11 ; CPU Address $9EBD
 - D 0 - - - 0x00949E 02:948E: D1 9E     .addr loc_radio_dialog12 ; CPU Address $9ED1
 
-- D 0 - - - 0x0094A0 02:9490: E7 99     .word $99E7
+loc_tbl_water_item_bits:
+- D 0 - - - 0x0094A0 02:9490: E7 99     .addr tbl_water_item_bits
 
-- D 0 - - - 0x0094A2 02:9492: EB 96     .word $96EB
-- D 0 - - - 0x0094A4 02:9494: 05 97     .word $9705
-- D 0 - - - 0x0094A6 02:9496: 19 97     .word $9719
-- D 0 - - - 0x0094A8 02:9498: 33 97     .word $9733
-- D 0 - - - 0x0094AA 02:949A: 3B 97     .word $973B
-- D 0 - - - 0x0094AC 02:949C: 55 97     .word $9755
-- D 0 - - - 0x0094AE 02:949E: 63 97     .word $9763
-- D 0 - - - 0x0094B0 02:94A0: 77 97     .word $9777
-- D 0 - - - 0x0094B2 02:94A2: 8B 97     .word $978B
-- D 0 - - - 0x0094B4 02:94A4: F9 97     .word $97F9
-- D 0 - - - 0x0094B6 02:94A6: 07 98     .word $9807
-- D 0 - - - 0x0094B8 02:94A8: 15 98     .word $9815
-- D 0 - - - 0x0094BA 02:94AA: 23 98     .word $9823
-- D 0 - - - 0x0094BC 02:94AC: 03 97     .word $9703
-- D 0 - - - 0x0094BE 02:94AE: 03 97     .word $9703
-- - - - - - 0x0094C0 02:94B0: 03 97     .word $9703
-- - - - - - 0x0094C2 02:94B2: 03 97     .word $9703
-- D 0 - - - 0x0094C4 02:94B4: 03 97     .word $9703
-- D 0 - - - 0x0094C6 02:94B6: 03 97     .word $9703
-- - - - - - 0x0094C8 02:94B8: 03 97     .word $9703
-- D 0 - - - 0x0094CA 02:94BA: 3D 98     .word $983D
-- D 0 - - - 0x0094CC 02:94BC: 44 98     .word $9844
-- D 0 - - - 0x0094CE 02:94BE: 03 97     .word $9703
-- - - - - - 0x0094D0 02:94C0: 03 97     .word $9703
-- - - - - - 0x0094D2 02:94C2: 03 97     .word $9703
-- D 0 - - - 0x0094D4 02:94C4: 51 98     .word $9851
-- D 0 - - - 0x0094D6 02:94C6: 03 97     .word $9703
-- - - - - - 0x0094D8 02:94C8: 03 97     .word $9703
-- D 0 - - - 0x0094DA 02:94CA: 5E 98     .word $985E
-- D 0 - - - 0x0094DC 02:94CC: 65 98     .word $9865
-- D 0 - - - 0x0094DE 02:94CE: 03 97     .word $9703
-- - - - - - 0x0094E0 02:94D0: 03 97     .word $9703
-- - - - - - 0x0094E2 02:94D2: 03 97     .word $9703
-- D 0 - - - 0x0094E4 02:94D4: 03 97     .word $9703
-- D 0 - - - 0x0094E6 02:94D6: 72 98     .word $9872
-- - - - - - 0x0094E8 02:94D8: 03 97     .word $9703
-- - - - - - 0x0094EA 02:94DA: 03 97     .word $9703
-- - - - - - 0x0094EC 02:94DC: 03 97     .word $9703
-- D 0 - - - 0x0094EE 02:94DE: 7F 98     .word $987F
-- D 0 - - - 0x0094F0 02:94E0: 86 98     .word $9886
-- D 0 - - - 0x0094F2 02:94E2: 8D 98     .word $988D
-- - - - - - 0x0094F4 02:94E4: 03 97     .word $9703
-- - - - - - 0x0094F6 02:94E6: 03 97     .word $9703
-- - - - - - 0x0094F8 02:94E8: 03 97     .word $9703
-- D 0 - - - 0x0094FA 02:94EA: 94 98     .word $9894
-- D 0 - - - 0x0094FC 02:94EC: 9B 98     .word $989B
-- D 0 - - - 0x0094FE 02:94EE: A8 98     .word $98A8
-- D 0 - - - 0x009500 02:94F0: C1 98     .word $98C1
-- D 0 - - - 0x009502 02:94F2: D4 98     .word $98D4
-- D 0 - - - 0x009504 02:94F4: E1 98     .word $98E1
-- D 0 - - - 0x009506 02:94F6: EE 98     .word $98EE
-- D 0 - - - 0x009508 02:94F8: FB 98     .word $98FB
-- D 0 - - - 0x00950A 02:94FA: 20 99     .word $9920
-- D 0 - - - 0x00950C 02:94FC: 2D 99     .word $992D
-- D 0 - - - 0x00950E 02:94FE: 4C 99     .word $994C
-- D 0 - - - 0x009510 02:9500: 65 99     .word $9965
-- - - - - - 0x009512 02:9502: 03 97     .word $9703
-- - - - - - 0x009514 02:9504: 7E 99     .word $997E
-- - - - - - 0x009516 02:9506: 03 97     .word $9703
-- - - - - - 0x009518 02:9508: 03 97     .word $9703
-- D 0 - - - 0x00951A 02:950A: 85 99     .word $9985
-- - - - - - 0x00951C 02:950C: 03 97     .word $9703
-- D 0 - - - 0x00951E 02:950E: 8C 99     .word $998C
-- D 0 - - - 0x009520 02:9510: 9F 99     .word $999F
-- D 0 - - - 0x009522 02:9512: B8 99     .word $99B8
-- D 0 - - - 0x009524 02:9514: C5 99     .word $99C5
-- D 0 - - - 0x009526 02:9516: CC 99     .word $99CC
-- D 0 - - - 0x009528 02:9518: D9 99     .word $99D9
-- - - - - - 0x00952A 02:951A: 03 97     .word $9703
-- - - - - - 0x00952C 02:951C: 03 97     .word $9703
-- D 0 - - - 0x00952E 02:951E: E0 99     .word $99E0
-- - - - - - 0x009530 02:9520: 03 97     .word $9703
-- - - - - - 0x009532 02:9522: 03 97     .word $9703
+tbl_water_rooms_props_in:
+- D 0 - - - 0x0094A2 02:9492: EB 96     .addr loc_lvl2_water_room1_props_in   ; CPU address $96EB
+- D 0 - - - 0x0094A4 02:9494: 05 97     .addr loc_lvl2_water_room2_props_in   ; CPU address $9705
+- D 0 - - - 0x0094A6 02:9496: 19 97     .addr loc_lvl2_water_room3_props_in   ; CPU address $9719
+- D 0 - - - 0x0094A8 02:9498: 33 97     .addr loc_lvl2_water_room4_props_in   ; CPU address $9733
+- D 0 - - - 0x0094AA 02:949A: 3B 97     .addr loc_lvl2_water_room5_props_in   ; CPU address $973B
+- D 0 - - - 0x0094AC 02:949C: 55 97     .addr loc_lvl2_water_room6_props_in   ; CPU address $9755
+- D 0 - - - 0x0094AE 02:949E: 63 97     .addr loc_lvl2_water_room7_props_in   ; CPU address $9763
+- D 0 - - - 0x0094B0 02:94A0: 77 97     .addr loc_lvl2_water_room8_props_in   ; CPU address $9777
+- D 0 - - - 0x0094B2 02:94A2: 8B 97     .addr loc_lvl3_water_room1_props_in   ; CPU address $978B
+- D 0 - - - 0x0094B4 02:94A4: F9 97     .addr loc_lvl3_water_room2_props_in   ; CPU address $97F9
+- D 0 - - - 0x0094B6 02:94A6: 07 98     .addr loc_lvl3_water_room3_props_in   ; CPU address $9807
+- D 0 - - - 0x0094B8 02:94A8: 15 98     .addr loc_lvl3_water_room4_props_in   ; CPU address $9815
+- D 0 - - - 0x0094BA 02:94AA: 23 98     .addr loc_lvl3_water_room5_props_in   ; CPU address $9823
+- D 0 - - - 0x0094BC 02:94AC: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D 0 - - - 0x0094BE 02:94AE: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x0094C0 02:94B0: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x0094C2 02:94B2: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D 0 - - - 0x0094C4 02:94B4: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D 0 - - - 0x0094C6 02:94B6: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x0094C8 02:94B8: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D 0 - - - 0x0094CA 02:94BA: 3D 98     .addr loc_lvl4_water_room1_props_in   ; CPU address $983D
+- D 0 - - - 0x0094CC 02:94BC: 44 98     .addr loc_lvl4_water_room2_props_in   ; CPU address $9844
+- D 0 - - - 0x0094CE 02:94BE: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x0094D0 02:94C0: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x0094D2 02:94C2: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D 0 - - - 0x0094D4 02:94C4: 51 98     .addr loc_lvl4_water_room3_props_in   ; CPU address $9851
+- D 0 - - - 0x0094D6 02:94C6: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x0094D8 02:94C8: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D 0 - - - 0x0094DA 02:94CA: 5E 98     .addr loc_lvl4_water_room4_props_in   ; CPU address $985E
+- D 0 - - - 0x0094DC 02:94CC: 65 98     .addr loc_lvl4_water_room5_props_in   ; CPU address $9865
+- D 0 - - - 0x0094DE 02:94CE: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x0094E0 02:94D0: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x0094E2 02:94D2: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D 0 - - - 0x0094E4 02:94D4: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D 0 - - - 0x0094E6 02:94D6: 72 98     .addr loc_lvl4_water_room6_props_in   ; CPU address $9872
+- D - - - - 0x0094E8 02:94D8: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x0094EA 02:94DA: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x0094EC 02:94DC: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D 0 - - - 0x0094EE 02:94DE: 7F 98     .addr loc_lvl4_water_room7_props_in   ; CPU address $987F
+- D 0 - - - 0x0094F0 02:94E0: 86 98     .addr loc_lvl4_water_room8_props_in   ; CPU address $9886
+- D 0 - - - 0x0094F2 02:94E2: 8D 98     .addr loc_lvl4_water_room9_props_in   ; CPU address $988D
+- D - - - - 0x0094F4 02:94E4: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x0094F6 02:94E6: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x0094F8 02:94E8: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D 0 - - - 0x0094FA 02:94EA: 94 98     .addr loc_lvl4_water_room10_props_in  ; CPU address $9894
+- D 0 - - - 0x0094FC 02:94EC: 9B 98     .addr loc_lvl4_water_room11_props_in  ; CPU address $989B
+- D 0 - - - 0x0094FE 02:94EE: A8 98     .addr loc_lvl4_water_room12_props_in  ; CPU address $98A8
+- D 0 - - - 0x009500 02:94F0: C1 98     .addr loc_lvl4_water_room13_props_in  ; CPU address $98C1
+- D 0 - - - 0x009502 02:94F2: D4 98     .addr loc_lvl4_water_room14_props_in  ; CPU address $98D4
+- D 0 - - - 0x009504 02:94F4: E1 98     .addr loc_lvl4_water_room15_props_in  ; CPU address $98E1
+- D 0 - - - 0x009506 02:94F6: EE 98     .addr loc_lvl4_water_room16_props_in  ; CPU address $98EE
+- D 0 - - - 0x009508 02:94F8: FB 98     .addr loc_lvl4_water_room17_props_in  ; CPU address $98FB
+- D 0 - - - 0x00950A 02:94FA: 20 99     .addr loc_lvl4_water_room18_props_in  ; CPU address $9920
+- D 0 - - - 0x00950C 02:94FC: 2D 99     .addr loc_lvl4_water_room19_props_in  ; CPU address $992D
+- D 0 - - - 0x00950E 02:94FE: 4C 99     .addr loc_lvl4_water_room20_props_in  ; CPU address $994C
+- D 0 - - - 0x009510 02:9500: 65 99     .addr loc_lvl4_water_room21_props_in  ; CPU address $9965
+- D - - - - 0x009512 02:9502: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x009514 02:9504: 7E 99     .addr loc_lvl4_water_room22_props_in  ; CPU address $997E
+- D - - - - 0x009516 02:9506: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x009518 02:9508: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D 0 - - - 0x00951A 02:950A: 85 99     .addr loc_lvl4_water_room23_props_in  ; CPU address $9985
+- D - - - - 0x00951C 02:950C: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D 0 - - - 0x00951E 02:950E: 8C 99     .addr loc_lvl4_water_room24_props_in  ; CPU address $998C
+- D 0 - - - 0x009520 02:9510: 9F 99     .addr loc_lvl4_water_room25_props_in  ; CPU address $999F
+- D 0 - - - 0x009522 02:9512: B8 99     .addr loc_lvl4_water_room26_props_in  ; CPU address $99B8
+- D 0 - - - 0x009524 02:9514: C5 99     .addr loc_lvl4_water_room27_props_in  ; CPU address $99C5
+- D 0 - - - 0x009526 02:9516: CC 99     .addr loc_lvl4_water_room28_props_in  ; CPU address $99CC
+- D 0 - - - 0x009528 02:9518: D9 99     .addr loc_lvl4_water_room29_props_in  ; CPU address $99D9
+- D - - - - 0x00952A 02:951A: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x00952C 02:951C: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D 0 - - - 0x00952E 02:951E: E0 99     .addr loc_lvl4_water_room30_props_in  ; CPU address $99E0
+- D - - - - 0x009530 02:9520: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
+- D - - - - 0x009532 02:9522: 03 97     .addr loc_water_empty_room_props_in   ; CPU address $9703
 
-- D 0 - - - 0x009534 02:9524: 63 9A     .word $9A63
-- - - - - - 0x009536 02:9526: 67 9A     .word $9A67
-- D 0 - - - 0x009538 02:9528: 6B 9A     .word $9A6B
-- D 0 - - - 0x00953A 02:952A: 71 9A     .word $9A71
-- D 0 - - - 0x00953C 02:952C: 72 9A     .word $9A72
-- D 0 - - - 0x00953E 02:952E: 77 9A     .word $9A77
-- D 0 - - - 0x009540 02:9530: 79 9A     .word $9A79
-- D 0 - - - 0x009542 02:9532: 7C 9A     .word $9A7C
-- D 0 - - - 0x009544 02:9534: 7F 9A     .word $9A7F
-- D 0 - - - 0x009546 02:9536: 82 9A     .word $9A82
-- - - - - - 0x009548 02:9538: 83 9A     .word $9A83
-- - - - - - 0x00954A 02:953A: 84 9A     .word $9A84
-- - - - - - 0x00954C 02:953C: 85 9A     .word $9A85
-- D 0 - - - 0x00954E 02:953E: 86 9A     .word $9A86
-- - - - - - 0x009550 02:9540: 89 9A     .word $9A89
-- - - - - - 0x009552 02:9542: 8A 9A     .word $9A8A
-- D 0 - - - 0x009554 02:9544: 8B 9A     .word $9A8B
-- - - - - - 0x009556 02:9546: 91 9A     .word $9A91
-- - - - - - 0x009558 02:9548: 94 9A     .word $9A94
-- - - - - - 0x00955A 02:954A: 97 9A     .word $9A97
-- - - - - - 0x00955C 02:954C: 99 9A     .word $9A99
-- - - - - - 0x00955E 02:954E: 9B 9A     .word $9A9B
-- - - - - - 0x009560 02:9550: A2 9A     .word $9AA2
-- - - - - - 0x009562 02:9552: A3 9A     .word $9AA3
-- D 0 - - - 0x009564 02:9554: A5 9A     .word $9AA5
-- - - - - - 0x009566 02:9556: A7 9A     .word $9AA7
-- D 0 - - - 0x009568 02:9558: A8 9A     .word $9AA8
-- - - - - - 0x00956A 02:955A: A9 9A     .word $9AA9
-- - - - - - 0x00956C 02:955C: AA 9A     .word $9AAA
-- - - - - - 0x00956E 02:955E: AC 9A     .word $9AAC
-- - - - - - 0x009570 02:9560: AD 9A     .word $9AAD
-- - - - - - 0x009572 02:9562: AE 9A     .word $9AAE
-- - - - - - 0x009574 02:9564: AF 9A     .word $9AAF
-- - - - - - 0x009576 02:9566: B0 9A     .word $9AB0
-- - - - - - 0x009578 02:9568: B2 9A     .word $9AB2
-- D 0 - - - 0x00957A 02:956A: B4 9A     .word $9AB4
-- D 0 - - - 0x00957C 02:956C: B6 9A     .word $9AB6
-- - - - - - 0x00957E 02:956E: B8 9A     .word $9AB8
-- D 0 - - - 0x009580 02:9570: B9 9A     .word $9AB9
-- D 0 - - - 0x009582 02:9572: BB 9A     .word $9ABB
-- - - - - - 0x009584 02:9574: BE 9A     .word $9ABE
-- D 0 - - - 0x009586 02:9576: C0 9A     .word $9AC0
-- - - - - - 0x009588 02:9578: C7 9A     .word $9AC7
-- D 0 - - - 0x00958A 02:957A: CA 9A     .word $9ACA
-- - - - - - 0x00958C 02:957C: CE 9A     .word $9ACE
-- D 0 - - - 0x00958E 02:957E: D1 9A     .word $9AD1
-- - - - - - 0x009590 02:9580: D5 9A     .word $9AD5
-- D 0 - - - 0x009592 02:9582: D7 9A     .word $9AD7
-- - - - - - 0x009594 02:9584: D9 9A     .word $9AD9
-- - - - - - 0x009596 02:9586: DA 9A     .word $9ADA
-- - - - - - 0x009598 02:9588: DB 9A     .word $9ADB
-- - - - - - 0x00959A 02:958A: DC 9A     .word $9ADC
-- - - - - - 0x00959C 02:958C: DD 9A     .word $9ADD
-- - - - - - 0x00959E 02:958E: DE 9A     .word $9ADE
-- - - - - - 0x0095A0 02:9590: DF 9A     .word $9ADF
-- - - - - - 0x0095A2 02:9592: E1 9A     .word $9AE1
-- - - - - - 0x0095A4 02:9594: E2 9A     .word $9AE2
-- - - - - - 0x0095A6 02:9596: E3 9A     .word $9AE3
-- - - - - - 0x0095A8 02:9598: E4 9A     .word $9AE4
-- D 0 - - - 0x0095AA 02:959A: E5 9A     .word $9AE5
-- - - - - - 0x0095AC 02:959C: E7 9A     .word $9AE7
-- D 0 - - - 0x0095AE 02:959E: E8 9A     .word $9AE8
+tbl_water_rooms_props_out:
+- D 0 - - - 0x009534 02:9524: 63 9A     .addr loc_water_room1_props_out  ; CPU address $9A63
+- D - - - - 0x009536 02:9526: 67 9A     .addr loc_water_room2_props_out  ; CPU address $9A67
+- D 0 - - - 0x009538 02:9528: 6B 9A     .addr loc_water_room3_props_out  ; CPU address $9A6B
+- D 0 - - - 0x00953A 02:952A: 71 9A     .addr loc_water_room4_props_out  ; CPU address $9A71
+- D 0 - - - 0x00953C 02:952C: 72 9A     .addr loc_water_room5_props_out  ; CPU address $9A72
+- D 0 - - - 0x00953E 02:952E: 77 9A     .addr loc_water_room6_props_out  ; CPU address $9A77
+- D 0 - - - 0x009540 02:9530: 79 9A     .addr loc_water_room7_props_out  ; CPU address $9A79
+- D 0 - - - 0x009542 02:9532: 7C 9A     .addr loc_water_room8_props_out  ; CPU address $9A7C
+- D 0 - - - 0x009544 02:9534: 7F 9A     .addr loc_water_room9_props_out  ; CPU address $9A7F
+- D 0 - - - 0x009546 02:9536: 82 9A     .addr loc_water_room10_props_out ; CPU address $9A82
+- D - - - - 0x009548 02:9538: 83 9A     .addr loc_water_room11_props_out ; CPU address $9A83
+- D - - - - 0x00954A 02:953A: 84 9A     .addr loc_water_room12_props_out ; CPU address $9A84
+- D - - - - 0x00954C 02:953C: 85 9A     .addr loc_water_room13_props_out ; CPU address $9A85
+- D 0 - - - 0x00954E 02:953E: 86 9A     .addr loc_water_room14_props_out ; CPU address $9A86
+- D - - - - 0x009550 02:9540: 89 9A     .addr loc_water_room15_props_out ; CPU address $9A89
+- D - - - - 0x009552 02:9542: 8A 9A     .addr loc_water_room16_props_out ; CPU address $9A8A
+- D 0 - - - 0x009554 02:9544: 8B 9A     .addr loc_water_room17_props_out ; CPU address $9A8B
+- D - - - - 0x009556 02:9546: 91 9A     .addr loc_water_room18_props_out ; CPU address $9A91
+- D - - - - 0x009558 02:9548: 94 9A     .addr loc_water_room19_props_out ; CPU address $9A94
+- D - - - - 0x00955A 02:954A: 97 9A     .addr loc_water_room20_props_out ; CPU address $9A97
+- D - - - - 0x00955C 02:954C: 99 9A     .addr loc_water_room21_props_out ; CPU address $9A99
+- D - - - - 0x00955E 02:954E: 9B 9A     .addr loc_water_room22_props_out ; CPU address $9A9B
+- D - - - - 0x009560 02:9550: A2 9A     .addr loc_water_room23_props_out ; CPU address $9AA2
+- D - - - - 0x009562 02:9552: A3 9A     .addr loc_water_room24_props_out ; CPU address $9AA3
+- D 0 - - - 0x009564 02:9554: A5 9A     .addr loc_water_room25_props_out ; CPU address $9AA5
+- D - - - - 0x009566 02:9556: A7 9A     .addr loc_water_room26_props_out ; CPU address $9AA7
+- D 0 - - - 0x009568 02:9558: A8 9A     .addr loc_water_room27_props_out ; CPU address $9AA8
+- D - - - - 0x00956A 02:955A: A9 9A     .addr loc_water_room28_props_out ; CPU address $9AA9
+- D - - - - 0x00956C 02:955C: AA 9A     .addr loc_water_room29_props_out ; CPU address $9AAA
+- D - - - - 0x00956E 02:955E: AC 9A     .addr loc_water_room30_props_out ; CPU address $9AAC
+- D - - - - 0x009570 02:9560: AD 9A     .addr loc_water_room31_props_out ; CPU address $9AAD
+- D - - - - 0x009572 02:9562: AE 9A     .addr loc_water_room32_props_out ; CPU address $9AAE
+- D - - - - 0x009574 02:9564: AF 9A     .addr loc_water_room33_props_out ; CPU address $9AAF
+- D - - - - 0x009576 02:9566: B0 9A     .addr loc_water_room34_props_out ; CPU address $9AB0
+- D - - - - 0x009578 02:9568: B2 9A     .addr loc_water_room35_props_out ; CPU address $9AB2
+- D 0 - - - 0x00957A 02:956A: B4 9A     .addr loc_water_room36_props_out ; CPU address $9AB4
+- D 0 - - - 0x00957C 02:956C: B6 9A     .addr loc_water_room37_props_out ; CPU address $9AB6
+- D - - - - 0x00957E 02:956E: B8 9A     .addr loc_water_room38_props_out ; CPU address $9AB8
+- D 0 - - - 0x009580 02:9570: B9 9A     .addr loc_water_room39_props_out ; CPU address $9AB9
+- D 0 - - - 0x009582 02:9572: BB 9A     .addr loc_water_room40_props_out ; CPU address $9ABB
+- D - - - - 0x009584 02:9574: BE 9A     .addr loc_water_room41_props_out ; CPU address $9ABE
+- D 0 - - - 0x009586 02:9576: C0 9A     .addr loc_water_room42_props_out ; CPU address $9AC0
+- D - - - - 0x009588 02:9578: C7 9A     .addr loc_water_room43_props_out ; CPU address $9AC7
+- D 0 - - - 0x00958A 02:957A: CA 9A     .addr loc_water_room44_props_out ; CPU address $9ACA
+- D - - - - 0x00958C 02:957C: CE 9A     .addr loc_water_room45_props_out ; CPU address $9ACE
+- D 0 - - - 0x00958E 02:957E: D1 9A     .addr loc_water_room46_props_out ; CPU address $9AD1
+- D - - - - 0x009590 02:9580: D5 9A     .addr loc_water_room47_props_out ; CPU address $9AD5
+- D 0 - - - 0x009592 02:9582: D7 9A     .addr loc_water_room48_props_out ; CPU address $9AD7
+- D - - - - 0x009594 02:9584: D9 9A     .addr loc_water_room49_props_out ; CPU address $9AD9
+- D - - - - 0x009596 02:9586: DA 9A     .addr loc_water_room50_props_out ; CPU address $9ADA
+- D - - - - 0x009598 02:9588: DB 9A     .addr loc_water_room51_props_out ; CPU address $9ADB
+- D - - - - 0x00959A 02:958A: DC 9A     .addr loc_water_room52_props_out ; CPU address $9ADC
+- D - - - - 0x00959C 02:958C: DD 9A     .addr loc_water_room53_props_out ; CPU address $9ADD
+- D - - - - 0x00959E 02:958E: DE 9A     .addr loc_water_room54_props_out ; CPU address $9ADE
+- D - - - - 0x0095A0 02:9590: DF 9A     .addr loc_water_room55_props_out ; CPU address $9ADF
+- D - - - - 0x0095A2 02:9592: E1 9A     .addr loc_water_room56_props_out ; CPU address $9AE1
+- D - - - - 0x0095A4 02:9594: E2 9A     .addr loc_water_room57_props_out ; CPU address $9AE2
+- D - - - - 0x0095A6 02:9596: E3 9A     .addr loc_water_room58_props_out ; CPU address $9AE3
+- D - - - - 0x0095A8 02:9598: E4 9A     .addr loc_water_room59_props_out ; CPU address $9AE4
+- D 0 - - - 0x0095AA 02:959A: E5 9A     .addr loc_water_room60_props_out ; CPU address $9AE5
+- D - - - - 0x0095AC 02:959C: E7 9A     .addr loc_water_room61_props_out ; CPU address $9AE7
+- D 0 - - - 0x0095AE 02:959E: E8 9A     .addr loc_water_room62_props_out ; CPU address $9AE8
 
-- D 0 - - - 0x0095B0 02:95A0: 08        .byte $08   ; 
-- D 0 - - - 0x0095B1 02:95A1: 08        .byte $08   ; 
-- D 0 - - - 0x0095B2 02:95A2: 08        .byte $08   ; 
-- D 0 - - - 0x0095B3 02:95A3: 07        .byte $07   ; 
-- D 0 - - - 0x0095B4 02:95A4: 07        .byte $07   ; 
-- D 0 - - - 0x0095B5 02:95A5: 07        .byte $07   ; 
-- D 0 - - - 0x0095B6 02:95A6: 06        .byte $06   ; 
-- D 0 - - - 0x0095B7 02:95A7: 06        .byte $06   ; 
-- D 0 - - - 0x0095B8 02:95A8: 06        .byte $06   ; 
-- D 0 - - - 0x0095B9 02:95A9: 05        .byte $05   ; 
-- D 0 - - - 0x0095BA 02:95AA: 05        .byte $05   ; 
-- D 0 - - - 0x0095BB 02:95AB: 05        .byte $05   ; 
-- D 0 - - - 0x0095BC 02:95AC: 04        .byte $04   ; 
-- D 0 - - - 0x0095BD 02:95AD: 04        .byte $04   ; 
-- D 0 - - - 0x0095BE 02:95AE: 04        .byte $04   ; 
-- D 0 - - - 0x0095BF 02:95AF: 03        .byte $03   ; 
-- D 0 - - - 0x0095C0 02:95B0: 03        .byte $03   ; 
-- D 0 - - - 0x0095C1 02:95B1: 03        .byte $03   ; 
-- D 0 - - - 0x0095C2 02:95B2: 02        .byte $02   ; 
-- D 0 - - - 0x0095C3 02:95B3: 02        .byte $02   ; 
-- D 0 - - - 0x0095C4 02:95B4: 02        .byte $02   ; 
-- D 0 - - - 0x0095C5 02:95B5: 01        .byte $01   ; 
-- D 0 - - - 0x0095C6 02:95B6: 01        .byte $01   ; 
-- D 0 - - - 0x0095C7 02:95B7: 01        .byte $01   ; 
-- D 0 - - - 0x0095C8 02:95B8: 00        .byte $00   ; 
-- D 0 - - - 0x0095C9 02:95B9: 00        .byte $00   ; 
-- D 0 - - - 0x0095CA 02:95BA: 00        .byte $00   ; 
-- D 0 - - - 0x0095CB 02:95BB: 07        .byte $07   ; 
-- D 0 - - - 0x0095CC 02:95BC: 06        .byte $06   ; 
-- D 0 - - - 0x0095CD 02:95BD: 05        .byte $05   ; 
-- D 0 - - - 0x0095CE 02:95BE: 04        .byte $04   ; 
-- D 0 - - - 0x0095CF 02:95BF: 03        .byte $03   ; 
+tbl_water_random_items:
+- D 0 - - - 0x0095B0 02:95A0: 08        .byte $08, $08, $08, $07, $07, $07, $06, $06, $06, $05, $05, $05, $04, $04, $04, $03
+- D 0 - - - 0x0095C0 02:95B0: 03        .byte $03, $03, $02, $02, $02, $01, $01, $01, $00, $00, $00, $07, $06, $05, $04, $03
 
 tbl_water_y_position:
 - D 0 - - - 0x0095D0 02:95C0: 5F        .byte $5F, $67, $6F, $77, $7F, $87, $8F, $97, $9F, $A7, $AF, $B7, $BF, $67, $5F, $67
@@ -1791,710 +1769,512 @@ loc_no_gap:
 - D 0 - I - 0x0096F9 02:96E9: 00        .byte $00
 - D 0 - I - 0x0096FA 02:96EA: FF        .byte $FF
 
+; 1, 2 byte - the water gap position [Hw:Lw]
+; 3 byte - the room number
+; 4 byte - the character X-position (high value)
+; 5 byte - the flowing offset
+; 6 byte - the water room index
+loc_lvl2_water_room1_props_in:
 - D 0 - I - 0x0096FB 02:96EB: F0        .byte $F0, $01, $30, $00, $01, $00
 - D 0 - I - 0x009701 02:96F1: 40        .byte $40, $02, $30, $01, $01, $00
 - D 0 - I - 0x009707 02:96F7: F0        .byte $F0, $03, $30, $02, $01, $00
 - D 0 - I - 0x00970D 02:96FD: 40        .byte $40, $50, $30, $03, $01, $00
 
+loc_water_empty_room_props_in:
 - D 0 - I - 0x009713 02:9703: FF        .byte $FF, $FF
 
-- D 0 - I - 0x009715 02:9705: 40        .byte $40, $02, $31, $00, $FF, $01   ; 
-- D 0 - I - 0x00971B 02:970B: F0        .byte $F0, $03, $31, $01, $FF, $01   ; 
-- D 0 - I - 0x009721 02:9711: F0        .byte $F0, $06, $31, $03, $FF, $01   ; 
-- - - - - - 0x009727 02:9717: FF        .byte $FF, $FF   ; 
+loc_lvl2_water_room2_props_in:
+- D 0 - I - 0x009715 02:9705: 40        .byte $40, $02, $31, $00, $FF, $01
+- D 0 - I - 0x00971B 02:970B: F0        .byte $F0, $03, $31, $01, $FF, $01
+- D 0 - I - 0x009721 02:9711: F0        .byte $F0, $06, $31, $03, $FF, $01
+- D - - - - 0x009727 02:9717: FF        .byte $FF, $FF
 
-- D 0 - I - 0x009729 02:9719: 40        .byte $40, $01, $32, $00, $01, $02   ; 
-- D 0 - I - 0x00972F 02:971F: F0        .byte $F0, $03, $32, $02, $01, $02   ; 
-- D 0 - I - 0x009735 02:9725: F0        .byte $F0, $05, $32, $04, $01, $02   ; 
-- D 0 - I - 0x00973B 02:972B: 40        .byte $40, $06, $32, $05, $01, $02   ; 
-- - - - - - 0x009741 02:9731: FF        .byte $FF, $FF   ; 
+loc_lvl2_water_room3_props_in:
+- D 0 - I - 0x009729 02:9719: 40        .byte $40, $01, $32, $00, $01, $02
+- D 0 - I - 0x00972F 02:971F: F0        .byte $F0, $03, $32, $02, $01, $02
+- D 0 - I - 0x009735 02:9725: F0        .byte $F0, $05, $32, $04, $01, $02
+- D 0 - I - 0x00973B 02:972B: 40        .byte $40, $06, $32, $05, $01, $02
+- D - - - - 0x009741 02:9731: FF        .byte $FF, $FF
 
-- D 0 - I - 0x009743 02:9733: 00        .byte $00, $04, $36, $00, $01, $03   ; 
-- - - - - - 0x009749 02:9739: FF        .byte $FF, $FF   ; 
+loc_lvl2_water_room4_props_in:
+- D 0 - I - 0x009743 02:9733: 00        .byte $00, $04, $36, $00, $01, $03
+- D - - - - 0x009749 02:9739: FF        .byte $FF, $FF
 
-- D 0 - I - 0x00974B 02:973B: 00        .byte $00, $02, $37, $00, $FF, $04   ; 
-- D 0 - I - 0x009751 02:9741: 20        .byte $20, $03, $37, $01, $FF, $04   ; 
-- D 0 - I - 0x009757 02:9747: 00        .byte $00, $04, $37, $02, $FF, $04   ; 
-- D 0 - I - 0x00975D 02:974D: 00        .byte $00, $08, $37, $04, $FF, $04   ; 
-- - - - - - 0x009763 02:9753: FF        .byte $FF, $FF   ; 
+loc_lvl2_water_room5_props_in:
+- D 0 - I - 0x00974B 02:973B: 00        .byte $00, $02, $37, $00, $FF, $04
+- D 0 - I - 0x009751 02:9741: 20        .byte $20, $03, $37, $01, $FF, $04
+- D 0 - I - 0x009757 02:9747: 00        .byte $00, $04, $37, $02, $FF, $04
+- D 0 - I - 0x00975D 02:974D: 00        .byte $00, $08, $37, $04, $FF, $04
+- D - - - - 0x009763 02:9753: FF        .byte $FF, $FF
 
-- D 0 - I - 0x009765 02:9755: 00        .byte $00, $04, $38, $00, $01, $05   ; 
-- D 0 - I - 0x00976B 02:975B: 00        .byte $00, $06, $38, $01, $01, $05   ; 
-- - - - - - 0x009771 02:9761: FF        .byte $FF, $FF   ; 
+loc_lvl2_water_room6_props_in:
+- D 0 - I - 0x009765 02:9755: 00        .byte $00, $04, $38, $00, $01, $05
+- D 0 - I - 0x00976B 02:975B: 00        .byte $00, $06, $38, $01, $01, $05
+- D - - - - 0x009771 02:9761: FF        .byte $FF, $FF
 
-- D 0 - I - 0x009773 02:9763: 00        .byte $00, $02, $39, $00, $FF, $06   ; 
-- D 0 - I - 0x009779 02:9769: 00        .byte $00, $04, $39, $01, $FF, $06   ; 
-- D 0 - I - 0x00977F 02:976F: 00        .byte $00, $06, $39, $02, $FF, $06   ; 
-- - - - - - 0x009785 02:9775: FF        .byte $FF, $FF   ; 
+loc_lvl2_water_room7_props_in:
+- D 0 - I - 0x009773 02:9763: 00        .byte $00, $02, $39, $00, $FF, $06
+- D 0 - I - 0x009779 02:9769: 00        .byte $00, $04, $39, $01, $FF, $06
+- D 0 - I - 0x00977F 02:976F: 00        .byte $00, $06, $39, $02, $FF, $06
+- D - - - - 0x009785 02:9775: FF        .byte $FF, $FF
 
-- D 0 - I - 0x009787 02:9777: 20        .byte $20, $02, $39, $00, $01, $07   ; 
-- D 0 - I - 0x00978D 02:977D: 00        .byte $00, $03, $39, $01, $01, $07   ; 
-- D 0 - I - 0x009793 02:9783: 00        .byte $00, $05, $39, $02, $01, $07   ; 
-- - - - - - 0x009799 02:9789: FF        .byte $FF, $FF   ; 
+loc_lvl2_water_room8_props_in:
+- D 0 - I - 0x009787 02:9777: 20        .byte $20, $02, $39, $00, $01, $07
+- D 0 - I - 0x00978D 02:977D: 00        .byte $00, $03, $39, $01, $01, $07
+- D 0 - I - 0x009793 02:9783: 00        .byte $00, $05, $39, $02, $01, $07
+- D - - - - 0x009799 02:9789: FF        .byte $FF, $FF
 
-- D 0 - I - 0x00979B 02:978B: 30        .byte $30, $02, $26, $00, $01, $08   ; 
-- D 0 - I - 0x0097A1 02:9791: F0        .byte $F0, $02, $26, $01, $01, $08   ; 
-- D 0 - I - 0x0097A7 02:9797: 90        .byte $90, $03, $26, $02, $01, $08   ; 
-- D 0 - I - 0x0097AD 02:979D: E0        .byte $E0, $04, $24, $00, $01, $09   ; 
-- D 0 - I - 0x0097B3 02:97A3: 30        .byte $30, $05, $24, $00, $01, $0A   ; 
-- D 0 - I - 0x0097B9 02:97A9: A0        .byte $A0, $05, $24, $00, $01, $0B   ; 
-- D 0 - I - 0x0097BF 02:97AF: 30        .byte $30, $06, $24, $00, $01, $0C   ; 
-- D 0 - I - 0x0097C5 02:97B5: 20        .byte $20, $07, $26, $00, $01, $0D   ; 
-- D 0 - I - 0x0097CB 02:97BB: F0        .byte $F0, $07, $26, $01, $01, $0D   ; 
-- D 0 - I - 0x0097D1 02:97C1: 60        .byte $60, $09, $26, $02, $01, $0D   ; 
-- D 0 - I - 0x0097D7 02:97C7: 90        .byte $90, $09, $24, $00, $01, $0E   ; 
-- D 0 - I - 0x0097DD 02:97CD: E0        .byte $E0, $09, $24, $00, $01, $0F   ; 
-- D 0 - I - 0x0097E3 02:97D3: B0        .byte $B0, $0A, $29, $00, $01, $10   ; 
-- D 0 - I - 0x0097E9 02:97D9: 90        .byte $90, $0B, $29, $01, $01, $10   ; 
-- D 0 - I - 0x0097EF 02:97DF: 30        .byte $30, $0C, $29, $02, $01, $10   ; 
-- D 0 - I - 0x0097F5 02:97E5: D0        .byte $D0, $0C, $29, $03, $01, $10   ; 
-- D 0 - I - 0x0097FB 02:97EB: E0        .byte $E0, $0D, $29, $04, $01, $10   ; 
-- D 0 - I - 0x009801 02:97F1: F0        .byte $F0, $0E, $29, $05, $01, $10   ; 
-- - - - - - 0x009807 02:97F7: FF        .byte $FF, $FF   ; 
+loc_lvl3_water_room1_props_in:
+- D 0 - I - 0x00979B 02:978B: 30        .byte $30, $02, $26, $00, $01, $08
+- D 0 - I - 0x0097A1 02:9791: F0        .byte $F0, $02, $26, $01, $01, $08
+- D 0 - I - 0x0097A7 02:9797: 90        .byte $90, $03, $26, $02, $01, $08
+- D 0 - I - 0x0097AD 02:979D: E0        .byte $E0, $04, $24, $00, $01, $09
+- D 0 - I - 0x0097B3 02:97A3: 30        .byte $30, $05, $24, $00, $01, $0A
+- D 0 - I - 0x0097B9 02:97A9: A0        .byte $A0, $05, $24, $00, $01, $0B
+- D 0 - I - 0x0097BF 02:97AF: 30        .byte $30, $06, $24, $00, $01, $0C
+- D 0 - I - 0x0097C5 02:97B5: 20        .byte $20, $07, $26, $00, $01, $0D
+- D 0 - I - 0x0097CB 02:97BB: F0        .byte $F0, $07, $26, $01, $01, $0D
+- D 0 - I - 0x0097D1 02:97C1: 60        .byte $60, $09, $26, $02, $01, $0D
+- D 0 - I - 0x0097D7 02:97C7: 90        .byte $90, $09, $24, $00, $01, $0E
+- D 0 - I - 0x0097DD 02:97CD: E0        .byte $E0, $09, $24, $00, $01, $0F
+- D 0 - I - 0x0097E3 02:97D3: B0        .byte $B0, $0A, $29, $00, $01, $10
+- D 0 - I - 0x0097E9 02:97D9: 90        .byte $90, $0B, $29, $01, $01, $10
+- D 0 - I - 0x0097EF 02:97DF: 30        .byte $30, $0C, $29, $02, $01, $10
+- D 0 - I - 0x0097F5 02:97E5: D0        .byte $D0, $0C, $29, $03, $01, $10
+- D 0 - I - 0x0097FB 02:97EB: E0        .byte $E0, $0D, $29, $04, $01, $10
+- D 0 - I - 0x009801 02:97F1: F0        .byte $F0, $0E, $29, $05, $01, $10
+- D - - - - 0x009807 02:97F7: FF        .byte $FF, $FF
 
-- D 0 - I - 0x009809 02:97F9: C0        .byte $C0, $04, $2C, $00, $FF, $11   ; 
-- - - - - - 0x00980F 02:97FF: 60        .byte $60, $06, $2C, $02, $FF, $11   ; 
-- - - - - - 0x009815 02:9805: FF        .byte $FF, $FF   ; 
+loc_lvl3_water_room2_props_in:
+- D 0 - I - 0x009809 02:97F9: C0        .byte $C0, $04, $2C, $00, $FF, $11
+- D - - - - 0x00980F 02:97FF: 60        .byte $60, $06, $2C, $02, $FF, $11
+- D - - - - 0x009815 02:9805: FF        .byte $FF, $FF
 
-- D 0 - I - 0x009817 02:9807: C0        .byte $C0, $01, $2C, $00, $01, $12   ; 
-- D 0 - I - 0x00981D 02:980D: 60        .byte $60, $03, $2C, $02, $01, $12   ; 
-- - - - - - 0x009823 02:9813: FF        .byte $FF, $FF   ; 
+loc_lvl3_water_room3_props_in:
+- D 0 - I - 0x009817 02:9807: C0        .byte $C0, $01, $2C, $00, $01, $12
+- D 0 - I - 0x00981D 02:980D: 60        .byte $60, $03, $2C, $02, $01, $12
+- D - - - - 0x009823 02:9813: FF        .byte $FF, $FF
 
-- D 0 - I - 0x009825 02:9815: 60        .byte $60, $01, $2B, $01, $FF, $13   ; 
-- D 0 - I - 0x00982B 02:981B: C0        .byte $C0, $06, $2B, $01, $FF, $14   ; 
-- - - - - - 0x009831 02:9821: FF        .byte $FF, $FF   ; 
+loc_lvl3_water_room4_props_in:
+- D 0 - I - 0x009825 02:9815: 60        .byte $60, $01, $2B, $01, $FF, $13
+- D 0 - I - 0x00982B 02:981B: C0        .byte $C0, $06, $2B, $01, $FF, $14
+- D - - - - 0x009831 02:9821: FF        .byte $FF, $FF
 
-- D 0 - I - 0x009833 02:9823: C0        .byte $C0, $00, $2D, $00, $01, $15   ; 
-- D 0 - I - 0x009839 02:9829: C0        .byte $C0, $02, $2D, $02, $01, $15   ; 
-- D 0 - I - 0x00983F 02:982F: C0        .byte $C0, $03, $2D, $03, $01, $15   ; 
-- D 0 - I - 0x009845 02:9835: 60        .byte $60, $06, $2D, $06, $01, $15   ; 
-- - - - - - 0x00984B 02:983B: FF        .byte $FF, $FF   ; 
+loc_lvl3_water_room5_props_in:
+- D 0 - I - 0x009833 02:9823: C0        .byte $C0, $00, $2D, $00, $01, $15
+- D 0 - I - 0x009839 02:9829: C0        .byte $C0, $02, $2D, $02, $01, $15
+- D 0 - I - 0x00983F 02:982F: C0        .byte $C0, $03, $2D, $03, $01, $15
+- D 0 - I - 0x009845 02:9835: 60        .byte $60, $06, $2D, $06, $01, $15
+- D - - - - 0x00984B 02:983B: FF        .byte $FF, $FF
 
-- D 0 - I - 0x00984D 02:983D: F0        .byte $F0, $01, $3C, $00, $FF, $16   ; 
-- - - - - - 0x009853 02:9843: FF        .byte $FF   ; 
+loc_lvl4_water_room1_props_in:
+- D 0 - I - 0x00984D 02:983D: F0        .byte $F0, $01, $3C, $00, $FF, $16
+- D - - - - 0x009853 02:9843: FF        .byte $FF
 
-- D 0 - I - 0x009854 02:9844: F0        .byte $F0, $01, $3D, $00, $FF, $17   ; 
-- D 0 - I - 0x00985A 02:984A: F0        .byte $F0, $02, $3D, $01, $FF, $17   ; 
-- D 0 - I - 0x009860 02:9850: FF        .byte $FF   ; 
+loc_lvl4_water_room2_props_in:
+- D 0 - I - 0x009854 02:9844: F0        .byte $F0, $01, $3D, $00, $FF, $17
+- D 0 - I - 0x00985A 02:984A: F0        .byte $F0, $02, $3D, $01, $FF, $17
+- D 0 - I - 0x009860 02:9850: FF        .byte $FF
 
-- D 0 - I - 0x009861 02:9851: 80        .byte $80, $01, $3D, $00, $FF, $18   ; 
-- D 0 - I - 0x009867 02:9857: F0        .byte $F0, $01, $3D, $01, $FF, $18   ; 
-- D 0 - I - 0x00986D 02:985D: FF        .byte $FF   ; 
+loc_lvl4_water_room3_props_in:
+- D 0 - I - 0x009861 02:9851: 80        .byte $80, $01, $3D, $00, $FF, $18
+- D 0 - I - 0x009867 02:9857: F0        .byte $F0, $01, $3D, $01, $FF, $18
+- D 0 - I - 0x00986D 02:985D: FF        .byte $FF
 
-- D 0 - I - 0x00986E 02:985E: C0        .byte $C0   ; 
-- D 0 - I - 0x00986F 02:985F: 00        .byte $00   ; 
-- D 0 - I - 0x009870 02:9860: 3C        .byte $3C   ; 
-- D 0 - I - 0x009871 02:9861: 00        .byte $00   ; 
-- D 0 - I - 0x009872 02:9862: 01        .byte $01   ; 
-- D 0 - I - 0x009873 02:9863: 19        .byte $19   ; 
-- D 0 - I - 0x009874 02:9864: FF        .byte $FF   ; 
+loc_lvl4_water_room4_props_in:
+- D 0 - I - 0x00986E 02:985E: C0        .byte $C0, $00, $3C, $00, $01, $19
+- D 0 - I - 0x009874 02:9864: FF        .byte $FF
 
-- D 0 - I - 0x009875 02:9865: C0        .byte $C0   ; 
-- D 0 - I - 0x009876 02:9866: 00        .byte $00   ; 
-- D 0 - I - 0x009877 02:9867: 3C        .byte $3C   ; 
-- D 0 - I - 0x009878 02:9868: 00        .byte $00   ; 
-- D 0 - I - 0x009879 02:9869: FF        .byte $FF   ; 
-- D 0 - I - 0x00987A 02:986A: 1A        .byte $1A   ; 
-- D 0 - I - 0x00987B 02:986B: F0        .byte $F0   ; 
-- D 0 - I - 0x00987C 02:986C: 02        .byte $02   ; 
-- D 0 - I - 0x00987D 02:986D: 3C        .byte $3C   ; 
-- D 0 - I - 0x00987E 02:986E: 00        .byte $00   ; 
-- D 0 - I - 0x00987F 02:986F: 01        .byte $01   ; 
-- D 0 - I - 0x009880 02:9870: 1B        .byte $1B   ; 
-- D 0 - I - 0x009881 02:9871: FF        .byte $FF   ; 
+loc_lvl4_water_room5_props_in:
+- D 0 - I - 0x009875 02:9865: C0        .byte $C0, $00, $3C, $00, $FF, $1A
+- D 0 - I - 0x00987B 02:986B: F0        .byte $F0, $02, $3C, $00, $01, $1B
+- D 0 - I - 0x009881 02:9871: FF        .byte $FF
 
-- D 0 - I - 0x009882 02:9872: 80        .byte $80   ; 
-- D 0 - I - 0x009883 02:9873: 01        .byte $01   ; 
-- D 0 - I - 0x009884 02:9874: 3D        .byte $3D   ; 
-- D 0 - I - 0x009885 02:9875: 00        .byte $00   ; 
-- D 0 - I - 0x009886 02:9876: 01        .byte $01   ; 
-- D 0 - I - 0x009887 02:9877: 1C        .byte $1C   ; 
-- D 0 - I - 0x009888 02:9878: F0        .byte $F0   ; 
-- D 0 - I - 0x009889 02:9879: 01        .byte $01   ; 
-- D 0 - I - 0x00988A 02:987A: 3D        .byte $3D   ; 
-- D 0 - I - 0x00988B 02:987B: 01        .byte $01   ; 
-- D 0 - I - 0x00988C 02:987C: 01        .byte $01   ; 
-- D 0 - I - 0x00988D 02:987D: 1C        .byte $1C   ; 
-- D 0 - I - 0x00988E 02:987E: FF        .byte $FF   ; 
+loc_lvl4_water_room6_props_in:
+- D 0 - I - 0x009882 02:9872: 80        .byte $80, $01, $3D, $00, $01, $1C
+- D 0 - I - 0x009888 02:9878: F0        .byte $F0, $01, $3D, $01, $01, $1C
+- D 0 - I - 0x00988E 02:987E: FF        .byte $FF
 
-- D 0 - I - 0x00988F 02:987F: C0        .byte $C0   ; 
-- D 0 - I - 0x009890 02:9880: 00        .byte $00   ; 
-- D 0 - I - 0x009891 02:9881: 3C        .byte $3C   ; 
-- D 0 - I - 0x009892 02:9882: 00        .byte $00   ; 
-- D 0 - I - 0x009893 02:9883: 01        .byte $01   ; 
-- D 0 - I - 0x009894 02:9884: 1D        .byte $1D   ; 
-- D 0 - I - 0x009895 02:9885: FF        .byte $FF   ; 
+loc_lvl4_water_room7_props_in:
+- D 0 - I - 0x00988F 02:987F: C0        .byte $C0, $00, $3C, $00, $01, $1D
+- D 0 - I - 0x009895 02:9885: FF        .byte $FF
 
-- D 0 - I - 0x009896 02:9886: C0        .byte $C0   ; 
-- D 0 - I - 0x009897 02:9887: 00        .byte $00   ; 
-- D 0 - I - 0x009898 02:9888: 3C        .byte $3C   ; 
-- D 0 - I - 0x009899 02:9889: 00        .byte $00   ; 
-- D 0 - I - 0x00989A 02:988A: 00        .byte $00   ; 
-- D 0 - I - 0x00989B 02:988B: 1E        .byte $1E   ; 
-- - - - - - 0x00989C 02:988C: FF        .byte $FF   ; 
+loc_lvl4_water_room8_props_in:
+- D 0 - I - 0x009896 02:9886: C0        .byte $C0, $00, $3C, $00, $00, $1E
+- D - - - - 0x00989C 02:988C: FF        .byte $FF
 
-- D 0 - I - 0x00989D 02:988D: F0        .byte $F0   ; 
-- D 0 - I - 0x00989E 02:988E: 02        .byte $02   ; 
-- D 0 - I - 0x00989F 02:988F: 3C        .byte $3C   ; 
-- D 0 - I - 0x0098A0 02:9890: 00        .byte $00   ; 
-- D 0 - I - 0x0098A1 02:9891: 01        .byte $01   ; 
-- D 0 - I - 0x0098A2 02:9892: 1F        .byte $1F   ; 
-- - - - - - 0x0098A3 02:9893: FF        .byte $FF   ; 
+loc_lvl4_water_room9_props_in:
+- D 0 - I - 0x00989D 02:988D: F0        .byte $F0, $02, $3C, $00, $01, $1F
+- D - - - - 0x0098A3 02:9893: FF        .byte $FF
 
-- D 0 - I - 0x0098A4 02:9894: F0        .byte $F0   ; 
-- D 0 - I - 0x0098A5 02:9895: 04        .byte $04   ; 
-- D 0 - I - 0x0098A6 02:9896: 3C        .byte $3C   ; 
-- D 0 - I - 0x0098A7 02:9897: 00        .byte $00   ; 
-- D 0 - I - 0x0098A8 02:9898: FF        .byte $FF   ; 
-- D 0 - I - 0x0098A9 02:9899: 20        .byte $20   ; 
-- - - - - - 0x0098AA 02:989A: FF        .byte $FF   ; 
+loc_lvl4_water_room10_props_in:
+- D 0 - I - 0x0098A4 02:9894: F0        .byte $F0, $04, $3C, $00, $FF, $20
+- D - - - - 0x0098AA 02:989A: FF        .byte $FF
 
-- D 0 - I - 0x0098AB 02:989B: F0        .byte $F0   ; 
-- D 0 - I - 0x0098AC 02:989C: 02        .byte $02   ; 
-- - - - - - 0x0098AD 02:989D: 3D        .byte $3D   ; 
-- - - - - - 0x0098AE 02:989E: 00        .byte $00   ; 
-- - - - - - 0x0098AF 02:989F: 01        .byte $01   ; 
-- - - - - - 0x0098B0 02:98A0: 21        .byte $21   ; 
-- D 0 - I - 0x0098B1 02:98A1: F0        .byte $F0   ; 
-- D 0 - I - 0x0098B2 02:98A2: 03        .byte $03   ; 
-- D 0 - I - 0x0098B3 02:98A3: 3D        .byte $3D   ; 
-- D 0 - I - 0x0098B4 02:98A4: 01        .byte $01   ; 
-- D 0 - I - 0x0098B5 02:98A5: 01        .byte $01   ; 
-- D 0 - I - 0x0098B6 02:98A6: 21        .byte $21   ; 
-- - - - - - 0x0098B7 02:98A7: FF        .byte $FF   ; 
+loc_lvl4_water_room11_props_in:
+- D 0 - I - 0x0098AB 02:989B: F0        .byte $F0, $02, $3D, $00, $01, $21
+- D 0 - I - 0x0098B1 02:98A1: F0        .byte $F0, $03, $3D, $01, $01, $21
+- D - - - - 0x0098B7 02:98A7: FF        .byte $FF
 
-- D 0 - I - 0x0098B8 02:98A8: F8        .byte $F8   ; 
-- D 0 - I - 0x0098B9 02:98A9: 01        .byte $01   ; 
-- D 0 - I - 0x0098BA 02:98AA: 3D        .byte $3D   ; 
-- D 0 - I - 0x0098BB 02:98AB: 00        .byte $00   ; 
-- D 0 - I - 0x0098BC 02:98AC: FF        .byte $FF   ; 
-- D 0 - I - 0x0098BD 02:98AD: 22        .byte $22   ; 
-- D 0 - I - 0x0098BE 02:98AE: F8        .byte $F8   ; 
-- D 0 - I - 0x0098BF 02:98AF: 02        .byte $02   ; 
-- D 0 - I - 0x0098C0 02:98B0: 3D        .byte $3D   ; 
-- D 0 - I - 0x0098C1 02:98B1: 01        .byte $01   ; 
-- D 0 - I - 0x0098C2 02:98B2: FF        .byte $FF   ; 
-- D 0 - I - 0x0098C3 02:98B3: 22        .byte $22   ; 
-- D 0 - I - 0x0098C4 02:98B4: 80        .byte $80   ; 
-- D 0 - I - 0x0098C5 02:98B5: 05        .byte $05   ; 
-- D 0 - I - 0x0098C6 02:98B6: 3D        .byte $3D   ; 
-- D 0 - I - 0x0098C7 02:98B7: 00        .byte $00   ; 
-- D 0 - I - 0x0098C8 02:98B8: FF        .byte $FF   ; 
-- D 0 - I - 0x0098C9 02:98B9: 23        .byte $23   ; 
-- D 0 - I - 0x0098CA 02:98BA: F0        .byte $F0   ; 
-- D 0 - I - 0x0098CB 02:98BB: 05        .byte $05   ; 
-- D 0 - I - 0x0098CC 02:98BC: 3D        .byte $3D   ; 
-- D 0 - I - 0x0098CD 02:98BD: 01        .byte $01   ; 
-- D 0 - I - 0x0098CE 02:98BE: FF        .byte $FF   ; 
-- D 0 - I - 0x0098CF 02:98BF: 23        .byte $23   ; 
-- - - - - - 0x0098D0 02:98C0: FF        .byte $FF   ; 
+loc_lvl4_water_room12_props_in:
+- D 0 - I - 0x0098B8 02:98A8: F8        .byte $F8, $01, $3D, $00, $FF, $22
+- D 0 - I - 0x0098BE 02:98AE: F8        .byte $F8, $02, $3D, $01, $FF, $22
+- D 0 - I - 0x0098C4 02:98B4: 80        .byte $80, $05, $3D, $00, $FF, $23
+- D 0 - I - 0x0098CA 02:98BA: F0        .byte $F0, $05, $3D, $01, $FF, $23
+- D - - - - 0x0098D0 02:98C0: FF        .byte $FF
 
-- D 0 - I - 0x0098D1 02:98C1: 80        .byte $80   ; 
-- D 0 - I - 0x0098D2 02:98C2: 04        .byte $04   ; 
-- D 0 - I - 0x0098D3 02:98C3: 3D        .byte $3D   ; 
-- D 0 - I - 0x0098D4 02:98C4: 00        .byte $00   ; 
-- D 0 - I - 0x0098D5 02:98C5: 01        .byte $01   ; 
-- D 0 - I - 0x0098D6 02:98C6: 24        .byte $24   ; 
-- D 0 - I - 0x0098D7 02:98C7: F0        .byte $F0   ; 
-- D 0 - I - 0x0098D8 02:98C8: 04        .byte $04   ; 
-- D 0 - I - 0x0098D9 02:98C9: 3D        .byte $3D   ; 
-- D 0 - I - 0x0098DA 02:98CA: 01        .byte $01   ; 
-- D 0 - I - 0x0098DB 02:98CB: 01        .byte $01   ; 
-- D 0 - I - 0x0098DC 02:98CC: 24        .byte $24   ; 
-- D 0 - I - 0x0098DD 02:98CD: F0        .byte $F0   ; 
-- D 0 - I - 0x0098DE 02:98CE: 05        .byte $05   ; 
-- D 0 - I - 0x0098DF 02:98CF: 3C        .byte $3C   ; 
-- D 0 - I - 0x0098E0 02:98D0: 00        .byte $00   ; 
-- D 0 - I - 0x0098E1 02:98D1: 01        .byte $01   ; 
-- D 0 - I - 0x0098E2 02:98D2: 25        .byte $25   ; 
-- - - - - - 0x0098E3 02:98D3: FF        .byte $FF   ; 
+loc_lvl4_water_room13_props_in:
+- D 0 - I - 0x0098D1 02:98C1: 80        .byte $80, $04, $3D, $00, $01, $24
+- D 0 - I - 0x0098D7 02:98C7: F0        .byte $F0, $04, $3D, $01, $01, $24
+- D 0 - I - 0x0098DD 02:98CD: F0        .byte $F0, $05, $3C, $00, $01, $25
+- D - - - - 0x0098E3 02:98D3: FF        .byte $FF
 
-- D 0 - I - 0x0098E4 02:98D4: F0        .byte $F0   ; 
-- D 0 - I - 0x0098E5 02:98D5: 05        .byte $05   ; 
-- D 0 - I - 0x0098E6 02:98D6: 3D        .byte $3D   ; 
-- D 0 - I - 0x0098E7 02:98D7: 00        .byte $00   ; 
-- D 0 - I - 0x0098E8 02:98D8: 01        .byte $01   ; 
-- D 0 - I - 0x0098E9 02:98D9: 26        .byte $26   ; 
-- D 0 - I - 0x0098EA 02:98DA: F0        .byte $F0   ; 
-- D 0 - I - 0x0098EB 02:98DB: 06        .byte $06   ; 
-- D 0 - I - 0x0098EC 02:98DC: 3D        .byte $3D   ; 
-- D 0 - I - 0x0098ED 02:98DD: 01        .byte $01   ; 
-- D 0 - I - 0x0098EE 02:98DE: 01        .byte $01   ; 
-- D 0 - I - 0x0098EF 02:98DF: 26        .byte $26   ; 
-- - - - - - 0x0098F0 02:98E0: FF        .byte $FF   ; 
+loc_lvl4_water_room14_props_in:
+- D 0 - I - 0x0098E4 02:98D4: F0        .byte $F0, $05, $3D, $00, $01, $26
+- D 0 - I - 0x0098EA 02:98DA: F0        .byte $F0, $06, $3D, $01, $01, $26
+- D - - - - 0x0098F0 02:98E0: FF        .byte $FF
 
-- D 0 - I - 0x0098F1 02:98E1: F0        .byte $F0   ; 
-- D 0 - I - 0x0098F2 02:98E2: 04        .byte $04   ; 
-- D 0 - I - 0x0098F3 02:98E3: 3E        .byte $3E   ; 
-- D 0 - I - 0x0098F4 02:98E4: 00        .byte $00   ; 
-- D 0 - I - 0x0098F5 02:98E5: 01        .byte $01   ; 
-- D 0 - I - 0x0098F6 02:98E6: 27        .byte $27   ; 
-- D 0 - I - 0x0098F7 02:98E7: F0        .byte $F0   ; 
-- D 0 - I - 0x0098F8 02:98E8: 05        .byte $05   ; 
-- D 0 - I - 0x0098F9 02:98E9: 3E        .byte $3E   ; 
-- D 0 - I - 0x0098FA 02:98EA: 02        .byte $02   ; 
-- D 0 - I - 0x0098FB 02:98EB: 01        .byte $01   ; 
-- D 0 - I - 0x0098FC 02:98EC: 27        .byte $27   ; 
-- - - - - - 0x0098FD 02:98ED: FF        .byte $FF   ; 
+loc_lvl4_water_room15_props_in:
+- D 0 - I - 0x0098F1 02:98E1: F0        .byte $F0, $04, $3E, $00, $01, $27
+- D 0 - I - 0x0098F7 02:98E7: F0        .byte $F0, $05, $3E, $02, $01, $27
+- D - - - - 0x0098FD 02:98ED: FF        .byte $FF
 
-- D 0 - I - 0x0098FE 02:98EE: F0        .byte $F0   ; 
-- D 0 - I - 0x0098FF 02:98EF: 01        .byte $01   ; 
-- - - - - - 0x009900 02:98F0: 3D        .byte $3D   ; 
-- - - - - - 0x009901 02:98F1: 00        .byte $00   ; 
-- - - - - - 0x009902 02:98F2: FF        .byte $FF   ; 
-- - - - - - 0x009903 02:98F3: 28        .byte $28   ; 
-- D 0 - I - 0x009904 02:98F4: F0        .byte $F0   ; 
-- D 0 - I - 0x009905 02:98F5: 02        .byte $02   ; 
-- D 0 - I - 0x009906 02:98F6: 3D        .byte $3D   ; 
-- D 0 - I - 0x009907 02:98F7: 01        .byte $01   ; 
-- D 0 - I - 0x009908 02:98F8: FF        .byte $FF   ; 
-- D 0 - I - 0x009909 02:98F9: 28        .byte $28   ; 
-- - - - - - 0x00990A 02:98FA: FF        .byte $FF   ; 
+loc_lvl4_water_room16_props_in:
+- D 0 - I - 0x0098FE 02:98EE: F0        .byte $F0, $01, $3D, $00, $FF, $28
+- D 0 - I - 0x009904 02:98F4: F0        .byte $F0, $02, $3D, $01, $FF, $28
+- D - - - - 0x00990A 02:98FA: FF        .byte $FF
 
-- D 0 - I - 0x00990B 02:98FB: F0        .byte $F0   ; 
-- D 0 - I - 0x00990C 02:98FC: 02        .byte $02   ; 
-- D 0 - I - 0x00990D 02:98FD: 3F        .byte $3F   ; 
-- D 0 - I - 0x00990E 02:98FE: 00        .byte $00   ; 
-- D 0 - I - 0x00990F 02:98FF: 01        .byte $01   ; 
-- D 0 - I - 0x009910 02:9900: 29        .byte $29   ; 
-- D 0 - I - 0x009911 02:9901: F0        .byte $F0   ; 
-- D 0 - I - 0x009912 02:9902: 03        .byte $03   ; 
-- D 0 - I - 0x009913 02:9903: 3F        .byte $3F   ; 
-- D 0 - I - 0x009914 02:9904: 01        .byte $01   ; 
-- D 0 - I - 0x009915 02:9905: 01        .byte $01   ; 
-- D 0 - I - 0x009916 02:9906: 29        .byte $29   ; 
-- D 0 - I - 0x009917 02:9907: 80        .byte $80   ; 
-- D 0 - I - 0x009918 02:9908: 05        .byte $05   ; 
-- D 0 - I - 0x009919 02:9909: 3F        .byte $3F   ; 
-- D 0 - I - 0x00991A 02:990A: 03        .byte $03   ; 
-- D 0 - I - 0x00991B 02:990B: 01        .byte $01   ; 
-- D 0 - I - 0x00991C 02:990C: 29        .byte $29   ; 
-- D 0 - I - 0x00991D 02:990D: F0        .byte $F0   ; 
-- D 0 - I - 0x00991E 02:990E: 05        .byte $05   ; 
-- D 0 - I - 0x00991F 02:990F: 3F        .byte $3F   ; 
-- D 0 - I - 0x009920 02:9910: 04        .byte $04   ; 
-- D 0 - I - 0x009921 02:9911: 01        .byte $01   ; 
-- D 0 - I - 0x009922 02:9912: 29        .byte $29   ; 
-- D 0 - I - 0x009923 02:9913: 80        .byte $80   ; 
-- D 0 - I - 0x009924 02:9914: 06        .byte $06   ; 
-- D 0 - I - 0x009925 02:9915: 3F        .byte $3F   ; 
-- D 0 - I - 0x009926 02:9916: 05        .byte $05   ; 
-- D 0 - I - 0x009927 02:9917: 01        .byte $01   ; 
-- D 0 - I - 0x009928 02:9918: 29        .byte $29   ; 
-- D 0 - I - 0x009929 02:9919: F0        .byte $F0   ; 
-- D 0 - I - 0x00992A 02:991A: 06        .byte $06   ; 
-- D 0 - I - 0x00992B 02:991B: 3F        .byte $3F   ; 
-- D 0 - I - 0x00992C 02:991C: 06        .byte $06   ; 
-- D 0 - I - 0x00992D 02:991D: 01        .byte $01   ; 
-- D 0 - I - 0x00992E 02:991E: 29        .byte $29   ; 
-- - - - - - 0x00992F 02:991F: FF        .byte $FF   ; 
+loc_lvl4_water_room17_props_in:
+- D 0 - I - 0x00990B 02:98FB: F0        .byte $F0, $02, $3F, $00, $01, $29
+- D 0 - I - 0x009911 02:9901: F0        .byte $F0, $03, $3F, $01, $01, $29
+- D 0 - I - 0x009917 02:9907: 80        .byte $80, $05, $3F, $03, $01, $29
+- D 0 - I - 0x00991D 02:990D: F0        .byte $F0, $05, $3F, $04, $01, $29
+- D 0 - I - 0x009923 02:9913: 80        .byte $80, $06, $3F, $05, $01, $29
+- D 0 - I - 0x009929 02:9919: F0        .byte $F0, $06, $3F, $06, $01, $29
+- D - - - - 0x00992F 02:991F: FF        .byte $FF
 
-- D 0 - I - 0x009930 02:9920: F0        .byte $F0   ; 
-- D 0 - I - 0x009931 02:9921: 05        .byte $05   ; 
-- D 0 - I - 0x009932 02:9922: 3E        .byte $3E   ; 
-- D 0 - I - 0x009933 02:9923: 00        .byte $00   ; 
-- D 0 - I - 0x009934 02:9924: FF        .byte $FF   ; 
-- D 0 - I - 0x009935 02:9925: 2A        .byte $2A   ; 
-- D 0 - I - 0x009936 02:9926: F0        .byte $F0   ; 
-- D 0 - I - 0x009937 02:9927: 07        .byte $07   ; 
-- D 0 - I - 0x009938 02:9928: 3E        .byte $3E   ; 
-- D 0 - I - 0x009939 02:9929: 02        .byte $02   ; 
-- D 0 - I - 0x00993A 02:992A: FF        .byte $FF   ; 
-- D 0 - I - 0x00993B 02:992B: 2A        .byte $2A   ; 
-- - - - - - 0x00993C 02:992C: FF        .byte $FF   ; 
+loc_lvl4_water_room18_props_in:
+- D 0 - I - 0x009930 02:9920: F0        .byte $F0, $05, $3E, $00, $FF, $2A
+- D 0 - I - 0x009936 02:9926: F0        .byte $F0, $07, $3E, $02, $FF, $2A
+- D - - - - 0x00993C 02:992C: FF        .byte $FF
 
-- D 0 - I - 0x00993D 02:992D: F0        .byte $F0   ; 
-- D 0 - I - 0x00993E 02:992E: 02        .byte $02   ; 
-- D 0 - I - 0x00993F 02:992F: 40        .byte $40   ; 
-- D 0 - I - 0x009940 02:9930: 00        .byte $00   ; 
-- D 0 - I - 0x009941 02:9931: 01        .byte $01   ; 
-- D 0 - I - 0x009942 02:9932: 2B        .byte $2B   ; 
-- D 0 - I - 0x009943 02:9933: F0        .byte $F0   ; 
-- D 0 - I - 0x009944 02:9934: 03        .byte $03   ; 
-- D 0 - I - 0x009945 02:9935: 40        .byte $40   ; 
-- D 0 - I - 0x009946 02:9936: 01        .byte $01   ; 
-- D 0 - I - 0x009947 02:9937: 01        .byte $01   ; 
-- D 0 - I - 0x009948 02:9938: 2B        .byte $2B   ; 
-- D 0 - I - 0x009949 02:9939: F0        .byte $F0   ; 
-- D 0 - I - 0x00994A 02:993A: 04        .byte $04   ; 
-- D 0 - I - 0x00994B 02:993B: 40        .byte $40   ; 
-- D 0 - I - 0x00994C 02:993C: 03        .byte $03   ; 
-- D 0 - I - 0x00994D 02:993D: 01        .byte $01   ; 
-- D 0 - I - 0x00994E 02:993E: 2B        .byte $2B   ; 
-- D 0 - I - 0x00994F 02:993F: F0        .byte $F0   ; 
-- D 0 - I - 0x009950 02:9940: 07        .byte $07   ; 
-- D 0 - I - 0x009951 02:9941: 3E        .byte $3E   ; 
-- D 0 - I - 0x009952 02:9942: 00        .byte $00   ; 
-- D 0 - I - 0x009953 02:9943: 01        .byte $01   ; 
-- D 0 - I - 0x009954 02:9944: 2C        .byte $2C   ; 
-- D 0 - I - 0x009955 02:9945: F0        .byte $F0   ; 
-- D 0 - I - 0x009956 02:9946: 08        .byte $08   ; 
-- D 0 - I - 0x009957 02:9947: 3E        .byte $3E   ; 
-- D 0 - I - 0x009958 02:9948: 02        .byte $02   ; 
-- D 0 - I - 0x009959 02:9949: 01        .byte $01   ; 
-- D 0 - I - 0x00995A 02:994A: 2C        .byte $2C   ; 
-- - - - - - 0x00995B 02:994B: FF        .byte $FF   ; 
+loc_lvl4_water_room19_props_in:
+- D 0 - I - 0x00993D 02:992D: F0        .byte $F0, $02, $40, $00, $01, $2B
+- D 0 - I - 0x009943 02:9933: F0        .byte $F0, $03, $40, $01, $01, $2B
+- D 0 - I - 0x009949 02:9939: F0        .byte $F0, $04, $40, $03, $01, $2B
+- D 0 - I - 0x00994F 02:993F: F0        .byte $F0, $07, $3E, $00, $01, $2C
+- D 0 - I - 0x009955 02:9945: F0        .byte $F0, $08, $3E, $02, $01, $2C
+- D - - - - 0x00995B 02:994B: FF        .byte $FF
 
-- D 0 - I - 0x00995C 02:994C: 80        .byte $80   ; 
-- D 0 - I - 0x00995D 02:994D: 03        .byte $03   ; 
-- - - - - - 0x00995E 02:994E: 41        .byte $41   ; <A>
-- - - - - - 0x00995F 02:994F: 00        .byte $00   ; 
-- - - - - - 0x009960 02:9950: FF        .byte $FF   ; 
-- - - - - - 0x009961 02:9951: 2D        .byte $2D   ; 
-- D 0 - I - 0x009962 02:9952: F0        .byte $F0   ; 
-- D 0 - I - 0x009963 02:9953: 03        .byte $03   ; 
-- D 0 - I - 0x009964 02:9954: 41        .byte $41   ; <A>
-- D 0 - I - 0x009965 02:9955: 01        .byte $01   ; 
-- D 0 - I - 0x009966 02:9956: FF        .byte $FF   ; 
-- D 0 - I - 0x009967 02:9957: 2D        .byte $2D   ; 
-- D 0 - I - 0x009968 02:9958: F0        .byte $F0   ; 
-- D 0 - I - 0x009969 02:9959: 04        .byte $04   ; 
-- D 0 - I - 0x00996A 02:995A: 41        .byte $41   ; <A>
-- D 0 - I - 0x00996B 02:995B: 02        .byte $02   ; 
-- D 0 - I - 0x00996C 02:995C: FF        .byte $FF   ; 
-- D 0 - I - 0x00996D 02:995D: 2D        .byte $2D   ; 
-- D 0 - I - 0x00996E 02:995E: F0        .byte $F0   ; 
-- D 0 - I - 0x00996F 02:995F: 05        .byte $05   ; 
-- D 0 - I - 0x009970 02:9960: 41        .byte $41   ; <A>
-- D 0 - I - 0x009971 02:9961: 03        .byte $03   ; 
-- D 0 - I - 0x009972 02:9962: FF        .byte $FF   ; 
-- D 0 - I - 0x009973 02:9963: 2D        .byte $2D   ; 
-- - - - - - 0x009974 02:9964: FF        .byte $FF   ; 
+loc_lvl4_water_room20_props_in:
+- D 0 - I - 0x00995C 02:994C: 80        .byte $80, $03, $41, $00, $FF, $2D
+- D 0 - I - 0x009962 02:9952: F0        .byte $F0, $03, $41, $01, $FF, $2D
+- D 0 - I - 0x009968 02:9958: F0        .byte $F0, $04, $41, $02, $FF, $2D
+- D 0 - I - 0x00996E 02:995E: F0        .byte $F0, $05, $41, $03, $FF, $2D
+- D - - - - 0x009974 02:9964: FF        .byte $FF
 
-- D 0 - I - 0x009975 02:9965: F0        .byte $F0   ; 
-- D 0 - I - 0x009976 02:9966: 01        .byte $01   ; 
-- - - - - - 0x009977 02:9967: 3D        .byte $3D   ; 
-- - - - - - 0x009978 02:9968: 00        .byte $00   ; 
-- - - - - - 0x009979 02:9969: 01        .byte $01   ; 
-- - - - - - 0x00997A 02:996A: 2E        .byte $2E   ; 
-- D 0 - I - 0x00997B 02:996B: F0        .byte $F0   ; 
-- D 0 - I - 0x00997C 02:996C: 02        .byte $02   ; 
-- D 0 - I - 0x00997D 02:996D: 3D        .byte $3D   ; 
-- D 0 - I - 0x00997E 02:996E: 01        .byte $01   ; 
-- D 0 - I - 0x00997F 02:996F: 01        .byte $01   ; 
-- D 0 - I - 0x009980 02:9970: 2E        .byte $2E   ; 
-- D 0 - I - 0x009981 02:9971: F0        .byte $F0   ; 
-- D 0 - I - 0x009982 02:9972: 04        .byte $04   ; 
-- D 0 - I - 0x009983 02:9973: 3D        .byte $3D   ; 
-- D 0 - I - 0x009984 02:9974: 00        .byte $00   ; 
-- D 0 - I - 0x009985 02:9975: FF        .byte $FF   ; 
-- D 0 - I - 0x009986 02:9976: 2F        .byte $2F   ; 
-- D 0 - I - 0x009987 02:9977: F0        .byte $F0   ; 
-- D 0 - I - 0x009988 02:9978: 05        .byte $05   ; 
-- D 0 - I - 0x009989 02:9979: 3D        .byte $3D   ; 
-- D 0 - I - 0x00998A 02:997A: 01        .byte $01   ; 
-- D 0 - I - 0x00998B 02:997B: FF        .byte $FF   ; 
-- D 0 - I - 0x00998C 02:997C: 2F        .byte $2F   ; 
-- - - - - - 0x00998D 02:997D: FF        .byte $FF   ; 
+loc_lvl4_water_room21_props_in:
+- D 0 - I - 0x009975 02:9965: F0        .byte $F0, $01, $3D, $00, $01, $2E
+- D 0 - I - 0x00997B 02:996B: F0        .byte $F0, $02, $3D, $01, $01, $2E
+- D 0 - I - 0x009981 02:9971: F0        .byte $F0, $04, $3D, $00, $FF, $2F
+- D 0 - I - 0x009987 02:9977: F0        .byte $F0, $05, $3D, $01, $FF, $2F
+- D - - - - 0x00998D 02:997D: FF        .byte $FF
 
-- - - - - - 0x00998E 02:997E: F0        .byte $F0   ; 
-- - - - - - 0x00998F 02:997F: 04        .byte $04   ; 
-- - - - - - 0x009990 02:9980: 3C        .byte $3C   ; 
-- - - - - - 0x009991 02:9981: 00        .byte $00   ; 
-- - - - - - 0x009992 02:9982: FF        .byte $FF   ; 
-- - - - - - 0x009993 02:9983: 30        .byte $30   ; <0>
-- - - - - - 0x009994 02:9984: FF        .byte $FF   ; 
+loc_lvl4_water_room22_props_in:
+- D - - - - 0x00998E 02:997E: F0        .byte $F0, $04, $3C, $00, $FF, $30
+- D - - - - 0x009994 02:9984: FF        .byte $FF
 
-- D 0 - I - 0x009995 02:9985: C0        .byte $C0   ; 
-- D 0 - I - 0x009996 02:9986: 00        .byte $00   ; 
-- D 0 - I - 0x009997 02:9987: 3C        .byte $3C   ; 
-- D 0 - I - 0x009998 02:9988: 00        .byte $00   ; 
-- D 0 - I - 0x009999 02:9989: FF        .byte $FF   ; 
-- D 0 - I - 0x00999A 02:998A: 31        .byte $31   ; <1>
-- - - - - - 0x00999B 02:998B: FF        .byte $FF   ; 
+loc_lvl4_water_room23_props_in:
+- D 0 - I - 0x009995 02:9985: C0        .byte $C0, $00, $3C, $00, $FF, $31
+- D - - - - 0x00999B 02:998B: FF        .byte $FF
 
-- D 0 - I - 0x00999C 02:998C: F0        .byte $F0   ; 
-- D 0 - I - 0x00999D 02:998D: 02        .byte $02   ; 
-- D 0 - I - 0x00999E 02:998E: 3C        .byte $3C   ; 
-- D 0 - I - 0x00999F 02:998F: 00        .byte $00   ; 
-- D 0 - I - 0x0099A0 02:9990: FF        .byte $FF   ; 
-- D 0 - I - 0x0099A1 02:9991: 32        .byte $32   ; <2>
-- D 0 - I - 0x0099A2 02:9992: F0        .byte $F0   ; 
-- D 0 - I - 0x0099A3 02:9993: 04        .byte $04   ; 
-- D 0 - I - 0x0099A4 02:9994: 3C        .byte $3C   ; 
-- D 0 - I - 0x0099A5 02:9995: 00        .byte $00   ; 
-- D 0 - I - 0x0099A6 02:9996: 01        .byte $01   ; 
-- D 0 - I - 0x0099A7 02:9997: 33        .byte $33   ; <3>
-- D 0 - I - 0x0099A8 02:9998: F0        .byte $F0   ; 
-- D 0 - I - 0x0099A9 02:9999: 07        .byte $07   ; 
-- D 0 - I - 0x0099AA 02:999A: 3C        .byte $3C   ; 
-- D 0 - I - 0x0099AB 02:999B: 00        .byte $00   ; 
-- D 0 - I - 0x0099AC 02:999C: 01        .byte $01   ; 
-- D 0 - I - 0x0099AD 02:999D: 34        .byte $34   ; <4>
-- - - - - - 0x0099AE 02:999E: FF        .byte $FF   ; 
+loc_lvl4_water_room24_props_in:
+- D 0 - I - 0x00999C 02:998C: F0        .byte $F0, $02, $3C, $00, $FF, $32
+- D 0 - I - 0x0099A2 02:9992: F0        .byte $F0, $04, $3C, $00, $01, $33
+- D 0 - I - 0x0099A8 02:9998: F0        .byte $F0, $07, $3C, $00, $01, $34
+- D - - - - 0x0099AE 02:999E: FF        .byte $FF
 
-- D 0 - I - 0x0099AF 02:999F: C0        .byte $C0   ; 
-- D 0 - I - 0x0099B0 02:99A0: 01        .byte $01   ; 
-- - - - - - 0x0099B1 02:99A1: 3C        .byte $3C   ; 
-- - - - - - 0x0099B2 02:99A2: 00        .byte $00   ; 
-- - - - - - 0x0099B3 02:99A3: 01        .byte $01   ; 
-- - - - - - 0x0099B4 02:99A4: 35        .byte $35   ; <5>
-- D 0 - I - 0x0099B5 02:99A5: F0        .byte $F0   ; 
-- D 0 - I - 0x0099B6 02:99A6: 03        .byte $03   ; 
-- D 0 - I - 0x0099B7 02:99A7: 3D        .byte $3D   ; 
-- D 0 - I - 0x0099B8 02:99A8: 00        .byte $00   ; 
-- D 0 - I - 0x0099B9 02:99A9: FF        .byte $FF   ; 
-- D 0 - I - 0x0099BA 02:99AA: 36        .byte $36   ; <6>
-- D 0 - I - 0x0099BB 02:99AB: F0        .byte $F0   ; 
-- D 0 - I - 0x0099BC 02:99AC: 04        .byte $04   ; 
-- D 0 - I - 0x0099BD 02:99AD: 3D        .byte $3D   ; 
-- D 0 - I - 0x0099BE 02:99AE: 01        .byte $01   ; 
-- D 0 - I - 0x0099BF 02:99AF: FF        .byte $FF   ; 
-- D 0 - I - 0x0099C0 02:99B0: 36        .byte $36   ; <6>
-- D 0 - I - 0x0099C1 02:99B1: F0        .byte $F0   ; 
-- D 0 - I - 0x0099C2 02:99B2: 07        .byte $07   ; 
-- D 0 - I - 0x0099C3 02:99B3: 3C        .byte $3C   ; 
-- D 0 - I - 0x0099C4 02:99B4: 00        .byte $00   ; 
-- D 0 - I - 0x0099C5 02:99B5: FF        .byte $FF   ; 
-- D 0 - I - 0x0099C6 02:99B6: 37        .byte $37   ; <7>
-- - - - - - 0x0099C7 02:99B7: FF        .byte $FF   ; 
+loc_lvl4_water_room25_props_in:
+- D 0 - I - 0x0099AF 02:999F: C0        .byte $C0, $01, $3C, $00, $01, $35
+- D 0 - I - 0x0099B5 02:99A5: F0        .byte $F0, $03, $3D, $00, $FF, $36
+- D 0 - I - 0x0099BB 02:99AB: F0        .byte $F0, $04, $3D, $01, $FF, $36
+- D 0 - I - 0x0099C1 02:99B1: F0        .byte $F0, $07, $3C, $00, $FF, $37
+- D - - - - 0x0099C7 02:99B7: FF        .byte $FF
 
-- D 0 - I - 0x0099C8 02:99B8: F0        .byte $F0   ; 
-- D 0 - I - 0x0099C9 02:99B9: 02        .byte $02   ; 
-- D 0 - I - 0x0099CA 02:99BA: 3C        .byte $3C   ; 
-- D 0 - I - 0x0099CB 02:99BB: 00        .byte $00   ; 
-- D 0 - I - 0x0099CC 02:99BC: FF        .byte $FF   ; 
-- D 0 - I - 0x0099CD 02:99BD: 38        .byte $38   ; <8>
-- D 0 - I - 0x0099CE 02:99BE: F0        .byte $F0   ; 
-- D 0 - I - 0x0099CF 02:99BF: 04        .byte $04   ; 
-- D 0 - I - 0x0099D0 02:99C0: 3C        .byte $3C   ; 
-- D 0 - I - 0x0099D1 02:99C1: 00        .byte $00   ; 
-- D 0 - I - 0x0099D2 02:99C2: 01        .byte $01   ; 
-- D 0 - I - 0x0099D3 02:99C3: 39        .byte $39   ; <9>
-- - - - - - 0x0099D4 02:99C4: FF        .byte $FF   ; 
+loc_lvl4_water_room26_props_in:
+- D 0 - I - 0x0099C8 02:99B8: F0        .byte $F0, $02, $3C, $00, $FF, $38
+- D 0 - I - 0x0099CE 02:99BE: F0        .byte $F0, $04, $3C, $00, $01, $39
+- D - - - - 0x0099D4 02:99C4: FF        .byte $FF
 
-- D 0 - I - 0x0099D5 02:99C5: F0        .byte $F0   ; 
-- D 0 - I - 0x0099D6 02:99C6: 01        .byte $01   ; 
-- D 0 - I - 0x0099D7 02:99C7: 3C        .byte $3C   ; 
-- D 0 - I - 0x0099D8 02:99C8: 00        .byte $00   ; 
-- D 0 - I - 0x0099D9 02:99C9: 01        .byte $01   ; 
-- D 0 - I - 0x0099DA 02:99CA: 3A        .byte $3A   ; 
-- - - - - - 0x0099DB 02:99CB: FF        .byte $FF   ; 
+loc_lvl4_water_room27_props_in:
+- D 0 - I - 0x0099D5 02:99C5: F0        .byte $F0, $01, $3C, $00, $01, $3A
+- D - - - - 0x0099DB 02:99CB: FF        .byte $FF
 
-- D 0 - I - 0x0099DC 02:99CC: 80        .byte $80   ; 
-- D 0 - I - 0x0099DD 02:99CD: 04        .byte $04   ; 
-- D 0 - I - 0x0099DE 02:99CE: 3D        .byte $3D   ; 
-- D 0 - I - 0x0099DF 02:99CF: 00        .byte $00   ; 
-- D 0 - I - 0x0099E0 02:99D0: FF        .byte $FF   ; 
-- D 0 - I - 0x0099E1 02:99D1: 3B        .byte $3B   ; 
-- D 0 - I - 0x0099E2 02:99D2: F0        .byte $F0   ; 
-- D 0 - I - 0x0099E3 02:99D3: 04        .byte $04   ; 
-- D 0 - I - 0x0099E4 02:99D4: 3D        .byte $3D   ; 
-- D 0 - I - 0x0099E5 02:99D5: 01        .byte $01   ; 
-- D 0 - I - 0x0099E6 02:99D6: FF        .byte $FF   ; 
-- D 0 - I - 0x0099E7 02:99D7: 3B        .byte $3B   ; 
-- - - - - - 0x0099E8 02:99D8: FF        .byte $FF   ; 
+loc_lvl4_water_room28_props_in:
+- D 0 - I - 0x0099DC 02:99CC: 80        .byte $80, $04, $3D, $00, $FF, $3B
+- D 0 - I - 0x0099E2 02:99D2: F0        .byte $F0, $04, $3D, $01, $FF, $3B
+- D - - - - 0x0099E8 02:99D8: FF        .byte $FF
 
-- D 0 - I - 0x0099E9 02:99D9: F0        .byte $F0   ; 
-- D 0 - I - 0x0099EA 02:99DA: 01        .byte $01   ; 
-- D 0 - I - 0x0099EB 02:99DB: 3C        .byte $3C   ; 
-- D 0 - I - 0x0099EC 02:99DC: 00        .byte $00   ; 
-- D 0 - I - 0x0099ED 02:99DD: 01        .byte $01   ; 
-- D 0 - I - 0x0099EE 02:99DE: 3C        .byte $3C   ; 
-- - - - - - 0x0099EF 02:99DF: FF        .byte $FF   ; 
+loc_lvl4_water_room29_props_in:
+- D 0 - I - 0x0099E9 02:99D9: F0        .byte $F0, $01, $3C, $00, $01, $3C
+- D - - - - 0x0099EF 02:99DF: FF        .byte $FF
 
-- D 0 - I - 0x0099F0 02:99E0: F0        .byte $F0, $01, $3C, $00, $FF, $3D   ; 
-- - - - - - 0x0099F6 02:99E6: FF        .byte $FF   ; 
+loc_lvl4_water_room30_props_in:
+- D 0 - I - 0x0099F0 02:99E0: F0        .byte $F0, $01, $3C, $00, $FF, $3D
+- D - - - - 0x0099F6 02:99E6: FF        .byte $FF
 
-- D 0 - I - 0x0099F7 02:99E7: FF        .byte $FF, $3E   ; 
-- D 0 - I - 0x0099F9 02:99E9: FE        .byte $FE, $DF   ; 
-- D 0 - I - 0x0099FB 02:99EB: FF        .byte $FF, $6E   ; <n>
-- D 0 - I - 0x0099FD 02:99ED: FF        .byte $FF, $E9   ; 
-- D 0 - I - 0x0099FF 02:99EF: FF        .byte $FF, $DE   ; 
-- - - - - - 0x009A01 02:99F1: FF        .byte $FF, $E9   ; 
-- - - - - - 0x009A03 02:99F3: FE        .byte $FE, $DE   ; 
-- - - - - - 0x009A05 02:99F5: FF        .byte $FF, $B7   ; 
-- D 0 - I - 0x009A07 02:99F7: FF        .byte $FF, $DA   ; 
-- - - - - - 0x009A09 02:99F9: FE        .byte $FE, $F7   ; 
-- - - - - - 0x009A0B 02:99FB: FE        .byte $FE, $FE   ; 
-- - - - - - 0x009A0D 02:99FD: FE        .byte $FE, $D7   ; 
-- - - - - - 0x009A0F 02:99FF: FF        .byte $FF, $EB   ; 
-- D 0 - I - 0x009A11 02:9A01: FF        .byte $FF, $75   ; <u>
-- - - - - - 0x009A13 02:9A03: FE        .byte $FE, $AF   ; 
-- - - - - - 0x009A15 02:9A05: FF        .byte $FF, $F4   ; 
-- - - - - - 0x009A17 02:9A07: FE        .byte $FE, $EA   ; 
-- - - - - - 0x009A19 02:9A09: FE        .byte $FE, $EA   ; 
-- D 0 - I - 0x009A1B 02:9A0B: FF        .byte $FF, $A6   ; 
-- - - - - - 0x009A1D 02:9A0D: FE        .byte $FE, $7E   ; 
-- - - - - - 0x009A1F 02:9A0F: FE        .byte $FE, $B9   ; 
-- D 0 - I - 0x009A21 02:9A11: FE        .byte $FE, $A7   ; 
-- - - - - - 0x009A23 02:9A13: FF        .byte $FF, $6A   ; <j>
-- - - - - - 0x009A25 02:9A15: FE        .byte $FE, $7A   ; <z>
-- D 0 - I - 0x009A27 02:9A17: FF        .byte $FF, $AB   ; 
-- - - - - - 0x009A29 02:9A19: FE        .byte $FE, $EE   ; 
-- - - - - - 0x009A2B 02:9A1B: FF        .byte $FF, $2E   ; 
-- D 0 - I - 0x009A2D 02:9A1D: FF        .byte $FF, $17   ; 
-- - - - - - 0x009A2F 02:9A1F: FE        .byte $FE, $EA   ; 
-- D 0 - I - 0x009A31 02:9A21: FF        .byte $FF, $37   ; <7>
-- - - - - - 0x009A33 02:9A23: FE        .byte $FE, $9F   ; 
-- - - - - - 0x009A35 02:9A25: FE        .byte $FE, $7E   ; 
-- - - - - - 0x009A37 02:9A27: FE        .byte $FE, $EB   ; 
-- - - - - - 0x009A39 02:9A29: FE        .byte $FE, $7B   ; 
-- - - - - - 0x009A3B 02:9A2B: FE        .byte $FE, $EE   ; 
-- D 0 - I - 0x009A3D 02:9A2D: FE        .byte $FE, $BB   ; 
-- - - - - - 0x009A3F 02:9A2F: FF        .byte $FF, $2E   ; 
-- - - - - - 0x009A41 02:9A31: FF        .byte $FF, $5D   ; 
-- D 0 - I - 0x009A43 02:9A33: FE        .byte $FE, $B7   ; 
-- - - - - - 0x009A45 02:9A35: FF        .byte $FF, $6A   ; <j>
-- - - - - - 0x009A47 02:9A37: FE        .byte $FE, $AB   ; 
-- D 0 - I - 0x009A49 02:9A39: FF        .byte $FF, $AE   ; 
-- - - - - - 0x009A4B 02:9A3B: FF        .byte $FF, $AB   ; 
-- D 0 - I - 0x009A4D 02:9A3D: FE        .byte $FE, $AE   ; 
-- D 0 - I - 0x009A4F 02:9A3F: FF        .byte $FF, $AE   ; 
-- - - - - - 0x009A51 02:9A41: FF        .byte $FF, $AB   ; 
-- - - - - - 0x009A53 02:9A43: FE        .byte $FE, $AF   ; 
-- - - - - - 0x009A55 02:9A45: FF        .byte $FF, $BA   ; 
-- - - - - - 0x009A57 02:9A47: FF        .byte $FF, $57   ; <W>
-- - - - - - 0x009A59 02:9A49: FF        .byte $FF, $5B   ; 
-- - - - - - 0x009A5B 02:9A4B: FE        .byte $FE, $5F   ; 
-- - - - - - 0x009A5D 02:9A4D: FF        .byte $FF, $76   ; <v>
-- - - - - - 0x009A5F 02:9A4F: FE        .byte $FE, $5F   ; 
-- - - - - - 0x009A61 02:9A51: FF        .byte $FF, $7A   ; <z>
-- - - - - - 0x009A63 02:9A53: FE        .byte $FE, $BB   ; 
-- - - - - - 0x009A65 02:9A55: FF        .byte $FF, $7A   ; <z>
-- - - - - - 0x009A67 02:9A57: FF        .byte $FF, $75   ; <u>
-- - - - - - 0x009A69 02:9A59: FE        .byte $FE, $5F   ; 
-- - - - - - 0x009A6B 02:9A5B: FF        .byte $FF, $BA   ; 
-- D 0 - I - 0x009A6D 02:9A5D: FE        .byte $FE, $77   ; <w>
-- - - - - - 0x009A6F 02:9A5F: FF        .byte $FF, $BA   ; 
-- - - - - - 0x009A71 02:9A61: FF        .byte $FF, $73   ; <s>
+; 1 byte - for the ruby ring (0xFF - disallow, 0xFE - allow)
+; 2 byte - for everything else (1 - disallow, 0 - allow)
+tbl_water_item_bits:
+- D 0 - I - 0x0099F7 02:99E7: FF        .byte $FF, $3E
+- D 0 - I - 0x0099F9 02:99E9: FE        .byte $FE, $DF
+- D 0 - I - 0x0099FB 02:99EB: FF        .byte $FF, $6E
+- D 0 - I - 0x0099FD 02:99ED: FF        .byte $FF, $E9
+- D 0 - I - 0x0099FF 02:99EF: FF        .byte $FF, $DE
+- D - - - - 0x009A01 02:99F1: FF        .byte $FF, $E9
+- D - - - - 0x009A03 02:99F3: FE        .byte $FE, $DE
+- D - - - - 0x009A05 02:99F5: FF        .byte $FF, $B7
+- D 0 - I - 0x009A07 02:99F7: FF        .byte $FF, $DA
+- D - - - - 0x009A09 02:99F9: FE        .byte $FE, $F7
+- D - - - - 0x009A0B 02:99FB: FE        .byte $FE, $FE
+- D - - - - 0x009A0D 02:99FD: FE        .byte $FE, $D7
+- D - - - - 0x009A0F 02:99FF: FF        .byte $FF, $EB
+- D 0 - I - 0x009A11 02:9A01: FF        .byte $FF, $75
+- D - - - - 0x009A13 02:9A03: FE        .byte $FE, $AF
+- D - - - - 0x009A15 02:9A05: FF        .byte $FF, $F4
+- D - - - - 0x009A17 02:9A07: FE        .byte $FE, $EA
+- D - - - - 0x009A19 02:9A09: FE        .byte $FE, $EA
+- D 0 - I - 0x009A1B 02:9A0B: FF        .byte $FF, $A6
+- D - - - - 0x009A1D 02:9A0D: FE        .byte $FE, $7E
+- D - - - - 0x009A1F 02:9A0F: FE        .byte $FE, $B9
+- D 0 - I - 0x009A21 02:9A11: FE        .byte $FE, $A7
+- D - - - - 0x009A23 02:9A13: FF        .byte $FF, $6A
+- D - - - - 0x009A25 02:9A15: FE        .byte $FE, $7A
+- D 0 - I - 0x009A27 02:9A17: FF        .byte $FF, $AB
+- D - - - - 0x009A29 02:9A19: FE        .byte $FE, $EE
+- D - - - - 0x009A2B 02:9A1B: FF        .byte $FF, $2E
+- D 0 - I - 0x009A2D 02:9A1D: FF        .byte $FF, $17
+- D - - - - 0x009A2F 02:9A1F: FE        .byte $FE, $EA
+- D 0 - I - 0x009A31 02:9A21: FF        .byte $FF, $37
+- D - - - - 0x009A33 02:9A23: FE        .byte $FE, $9F
+- D - - - - 0x009A35 02:9A25: FE        .byte $FE, $7E
+- D - - - - 0x009A37 02:9A27: FE        .byte $FE, $EB
+- D - - - - 0x009A39 02:9A29: FE        .byte $FE, $7B
+- D - - - - 0x009A3B 02:9A2B: FE        .byte $FE, $EE
+- D 0 - I - 0x009A3D 02:9A2D: FE        .byte $FE, $BB
+- D - - - - 0x009A3F 02:9A2F: FF        .byte $FF, $2E
+- D - - - - 0x009A41 02:9A31: FF        .byte $FF, $5D
+- D 0 - I - 0x009A43 02:9A33: FE        .byte $FE, $B7
+- D - - - - 0x009A45 02:9A35: FF        .byte $FF, $6A
+- D - - - - 0x009A47 02:9A37: FE        .byte $FE, $AB
+- D 0 - I - 0x009A49 02:9A39: FF        .byte $FF, $AE
+- D - - - - 0x009A4B 02:9A3B: FF        .byte $FF, $AB
+- D 0 - I - 0x009A4D 02:9A3D: FE        .byte $FE, $AE
+- D 0 - I - 0x009A4F 02:9A3F: FF        .byte $FF, $AE
+- D - - - - 0x009A51 02:9A41: FF        .byte $FF, $AB
+- D - - - - 0x009A53 02:9A43: FE        .byte $FE, $AF
+- D - - - - 0x009A55 02:9A45: FF        .byte $FF, $BA
+- D - - - - 0x009A57 02:9A47: FF        .byte $FF, $57
+- D - - - - 0x009A59 02:9A49: FF        .byte $FF, $5B
+- D - - - - 0x009A5B 02:9A4B: FE        .byte $FE, $5F
+- D - - - - 0x009A5D 02:9A4D: FF        .byte $FF, $76
+- D - - - - 0x009A5F 02:9A4F: FE        .byte $FE, $5F
+- D - - - - 0x009A61 02:9A51: FF        .byte $FF, $7A
+- D - - - - 0x009A63 02:9A53: FE        .byte $FE, $BB
+- D - - - - 0x009A65 02:9A55: FF        .byte $FF, $7A
+- D - - - - 0x009A67 02:9A57: FF        .byte $FF, $75
+- D - - - - 0x009A69 02:9A59: FE        .byte $FE, $5F
+- D - - - - 0x009A6B 02:9A5B: FF        .byte $FF, $BA
+- D 0 - I - 0x009A6D 02:9A5D: FE        .byte $FE, $77
+- D - - - - 0x009A6F 02:9A5F: FF        .byte $FF, $BA
+- D - - - - 0x009A71 02:9A61: FF        .byte $FF, $73
 
-- D 0 - I - 0x009A73 02:9A63: C0        .byte $C0   ; 
-- D 0 - I - 0x009A74 02:9A64: C1        .byte $C1   ; 
-- - - - - - 0x009A75 02:9A65: C2        .byte $C2   ; 
-- D 0 - I - 0x009A76 02:9A66: C3        .byte $C3   ; 
+; checkpoints by the screens
+loc_water_room1_props_out:
+- D 0 - I - 0x009A73 02:9A63: C0        .byte $C0, $C1, $C2, $C3
 
-- - - - - - 0x009A77 02:9A67: C4        .byte $C4   ; 
-- - - - - - 0x009A78 02:9A68: C5        .byte $C5   ; 
-- - - - - - 0x009A79 02:9A69: 00        .byte $00   ; 
-- - - - - - 0x009A7A 02:9A6A: C6        .byte $C6   ; 
+loc_water_room2_props_out:
+- D - - - - 0x009A77 02:9A67: C4        .byte $C4, $C5, $00, $C6
 
-- D 0 - I - 0x009A7B 02:9A6B: C7        .byte $C7   ; 
-- - - - - - 0x009A7C 02:9A6C: 00        .byte $00   ; 
-- - - - - - 0x009A7D 02:9A6D: C8        .byte $C8   ; 
-- - - - - - 0x009A7E 02:9A6E: 00        .byte $00   ; 
-- - - - - - 0x009A7F 02:9A6F: C9        .byte $C9   ; 
-- - - - - - 0x009A80 02:9A70: CA        .byte $CA   ; 
-- D 0 - I - 0x009A81 02:9A71: CB        .byte $CB   ; 
-- D 0 - I - 0x009A82 02:9A72: CC        .byte $CC   ; 
-- - - - - - 0x009A83 02:9A73: CD        .byte $CD   ; 
-- D 0 - I - 0x009A84 02:9A74: CE        .byte $CE   ; 
-- - - - - - 0x009A85 02:9A75: 00        .byte $00   ; 
-- - - - - - 0x009A86 02:9A76: CF        .byte $CF   ; 
-- D 0 - I - 0x009A87 02:9A77: D0        .byte $D0   ; 
-- - - - - - 0x009A88 02:9A78: D1        .byte $D1   ; 
-- D 0 - I - 0x009A89 02:9A79: D2        .byte $D2   ; 
-- - - - - - 0x009A8A 02:9A7A: D3        .byte $D3   ; 
-- - - - - - 0x009A8B 02:9A7B: D4        .byte $D4   ; 
-- D 0 - I - 0x009A8C 02:9A7C: D5        .byte $D5   ; 
-- - - - - - 0x009A8D 02:9A7D: D6        .byte $D6   ; 
-- - - - - - 0x009A8E 02:9A7E: D7        .byte $D7   ; 
-- - - - - - 0x009A8F 02:9A7F: D8        .byte $D8   ; 
-- - - - - - 0x009A90 02:9A80: D9        .byte $D9   ; 
-- D 0 - I - 0x009A91 02:9A81: DA        .byte $DA   ; 
-- D 0 - I - 0x009A92 02:9A82: DB        .byte $DB   ; 
-- - - - - - 0x009A93 02:9A83: DC        .byte $DC   ; 
-- - - - - - 0x009A94 02:9A84: DD        .byte $DD   ; 
-- - - - - - 0x009A95 02:9A85: DE        .byte $DE   ; 
-- D 0 - I - 0x009A96 02:9A86: DF        .byte $DF   ; 
-- D 0 - I - 0x009A97 02:9A87: E0        .byte $E0   ; 
-- D 0 - I - 0x009A98 02:9A88: E1        .byte $E1   ; 
-- - - - - - 0x009A99 02:9A89: E2        .byte $E2   ; 
-- - - - - - 0x009A9A 02:9A8A: E3        .byte $E3   ; 
-- - - - - - 0x009A9B 02:9A8B: E4        .byte $E4   ; 
-- - - - - - 0x009A9C 02:9A8C: E5        .byte $E5   ; 
-- - - - - - 0x009A9D 02:9A8D: E6        .byte $E6   ; 
-- D 0 - I - 0x009A9E 02:9A8E: E7        .byte $E7   ; 
-- - - - - - 0x009A9F 02:9A8F: E8        .byte $E8   ; 
-- D 0 - I - 0x009AA0 02:9A90: E9        .byte $E9   ; 
-- - - - - - 0x009AA1 02:9A91: EA        .byte $EA   ; 
-- - - - - - 0x009AA2 02:9A92: 00        .byte $00   ; 
-- - - - - - 0x009AA3 02:9A93: EB        .byte $EB   ; 
-- - - - - - 0x009AA4 02:9A94: EC        .byte $EC   ; 
-- - - - - - 0x009AA5 02:9A95: 00        .byte $00   ; 
-- - - - - - 0x009AA6 02:9A96: ED        .byte $ED   ; 
-- - - - - - 0x009AA7 02:9A97: 00        .byte $00   ; 
-- - - - - - 0x009AA8 02:9A98: EE        .byte $EE   ; 
-- - - - - - 0x009AA9 02:9A99: 00        .byte $00   ; 
-- - - - - - 0x009AAA 02:9A9A: EF        .byte $EF   ; 
-- - - - - - 0x009AAB 02:9A9B: F0        .byte $F0   ; 
-- - - - - - 0x009AAC 02:9A9C: 00        .byte $00   ; 
-- - - - - - 0x009AAD 02:9A9D: F1        .byte $F1   ; 
-- - - - - - 0x009AAE 02:9A9E: F2        .byte $F2   ; 
-- - - - - - 0x009AAF 02:9A9F: 00        .byte $00   ; 
-- - - - - - 0x009AB0 02:9AA0: 00        .byte $00   ; 
-- - - - - - 0x009AB1 02:9AA1: F3        .byte $F3   ; 
-- - - - - - 0x009AB2 02:9AA2: A4        .byte $A4   ; 
-- - - - - - 0x009AB3 02:9AA3: A5        .byte $A5   ; 
-- - - - - - 0x009AB4 02:9AA4: A6        .byte $A6   ; 
-- D 0 - I - 0x009AB5 02:9AA5: A7        .byte $A7   ; 
-- - - - - - 0x009AB6 02:9AA6: A8        .byte $A8   ; 
-- - - - - - 0x009AB7 02:9AA7: A9        .byte $A9   ; 
-- D 0 - I - 0x009AB8 02:9AA8: AA        .byte $AA   ; 
-- - - - - - 0x009AB9 02:9AA9: AB        .byte $AB   ; 
-- - - - - - 0x009ABA 02:9AAA: AC        .byte $AC   ; 
-- - - - - - 0x009ABB 02:9AAB: AD        .byte $AD   ; 
-- - - - - - 0x009ABC 02:9AAC: AE        .byte $AE   ; 
-- - - - - - 0x009ABD 02:9AAD: AF        .byte $AF   ; 
-- - - - - - 0x009ABE 02:9AAE: B0        .byte $B0   ; 
-- - - - - - 0x009ABF 02:9AAF: B1        .byte $B1   ; 
-- - - - - - 0x009AC0 02:9AB0: B2        .byte $B2   ; 
-- - - - - - 0x009AC1 02:9AB1: B3        .byte $B3   ; 
-- - - - - - 0x009AC2 02:9AB2: B4        .byte $B4   ; 
-- - - - - - 0x009AC3 02:9AB3: B5        .byte $B5   ; 
-- - - - - - 0x009AC4 02:9AB4: B6        .byte $B6   ; 
-- D 0 - I - 0x009AC5 02:9AB5: B7        .byte $B7   ; 
-- D 0 - I - 0x009AC6 02:9AB6: B8        .byte $B8   ; 
-- D 0 - I - 0x009AC7 02:9AB7: B9        .byte $B9   ; 
-- - - - - - 0x009AC8 02:9AB8: BA        .byte $BA   ; 
-- - - - - - 0x009AC9 02:9AB9: BB        .byte $BB   ; 
-- D 0 - I - 0x009ACA 02:9ABA: BC        .byte $BC   ; 
-- - - - - - 0x009ACB 02:9ABB: BD        .byte $BD   ; 
-- - - - - - 0x009ACC 02:9ABC: 00        .byte $00   ; 
-- D 0 - I - 0x009ACD 02:9ABD: BE        .byte $BE   ; 
-- - - - - - 0x009ACE 02:9ABE: BF        .byte $BF   ; 
-- - - - - - 0x009ACF 02:9ABF: F4        .byte $F4   ; 
-- - - - - - 0x009AD0 02:9AC0: F5        .byte $F5   ; 
-- D 0 - I - 0x009AD1 02:9AC1: F6        .byte $F6   ; 
-- - - - - - 0x009AD2 02:9AC2: 00        .byte $00   ; 
-- D 0 - I - 0x009AD3 02:9AC3: F7        .byte $F7   ; 
-- D 0 - I - 0x009AD4 02:9AC4: F8        .byte $F8   ; 
-- D 0 - I - 0x009AD5 02:9AC5: F9        .byte $F9   ; 
-- D 0 - I - 0x009AD6 02:9AC6: FA        .byte $FA   ; 
-- - - - - - 0x009AD7 02:9AC7: FB        .byte $FB   ; 
-- - - - - - 0x009AD8 02:9AC8: 00        .byte $00   ; 
-- - - - - - 0x009AD9 02:9AC9: FC        .byte $FC   ; 
-- D 0 - I - 0x009ADA 02:9ACA: FD        .byte $FD   ; 
-- - - - - - 0x009ADB 02:9ACB: FE        .byte $FE   ; 
-- - - - - - 0x009ADC 02:9ACC: 00        .byte $00   ; 
-- - - - - - 0x009ADD 02:9ACD: 24        .byte $24   ; 
-- - - - - - 0x009ADE 02:9ACE: 25        .byte $25   ; 
-- - - - - - 0x009ADF 02:9ACF: 00        .byte $00   ; 
-- - - - - - 0x009AE0 02:9AD0: 26        .byte $26   ; 
-- D 0 - I - 0x009AE1 02:9AD1: 27        .byte $27   ; 
-- - - - - - 0x009AE2 02:9AD2: 28        .byte $28   ; 
-- D 0 - I - 0x009AE3 02:9AD3: 29        .byte $29   ; 
-- - - - - - 0x009AE4 02:9AD4: 2A        .byte $2A   ; 
-- - - - - - 0x009AE5 02:9AD5: 2B        .byte $2B   ; 
-- - - - - - 0x009AE6 02:9AD6: 2C        .byte $2C   ; 
-- D 0 - I - 0x009AE7 02:9AD7: 2D        .byte $2D   ; 
-- - - - - - 0x009AE8 02:9AD8: 2E        .byte $2E   ; 
-- - - - - - 0x009AE9 02:9AD9: 2F        .byte $2F   ; 
-- - - - - - 0x009AEA 02:9ADA: 30        .byte $30   ; <0>
-- - - - - - 0x009AEB 02:9ADB: 31        .byte $31   ; <1>
-- - - - - - 0x009AEC 02:9ADC: 32        .byte $32   ; <2>
-- - - - - - 0x009AED 02:9ADD: 33        .byte $33   ; <3>
-- - - - - - 0x009AEE 02:9ADE: 34        .byte $34   ; <4>
-- - - - - - 0x009AEF 02:9ADF: 35        .byte $35   ; <5>
-- - - - - - 0x009AF0 02:9AE0: 36        .byte $36   ; <6>
-- - - - - - 0x009AF1 02:9AE1: 37        .byte $37   ; <7>
-- - - - - - 0x009AF2 02:9AE2: 38        .byte $38   ; <8>
-- - - - - - 0x009AF3 02:9AE3: 39        .byte $39   ; <9>
-- - - - - - 0x009AF4 02:9AE4: 3A        .byte $3A   ; 
-- D 0 - I - 0x009AF5 02:9AE5: 3B        .byte $3B   ; 
-- - - - - - 0x009AF6 02:9AE6: 3C        .byte $3C   ; 
-- - - - - - 0x009AF7 02:9AE7: 3D        .byte $3D   ; 
-- D 0 - I - 0x009AF8 02:9AE8: 3E        .byte $3E   ; 
+loc_water_room3_props_out:
+- D 0 - I - 0x009A7B 02:9A6B: C7        .byte $C7, $00, $C8, $00, $C9, $CA
+
+loc_water_room4_props_out:
+- D 0 - I - 0x009A81 02:9A71: CB        .byte $CB
+
+loc_water_room5_props_out:
+- D 0 - I - 0x009A82 02:9A72: CC        .byte $CC, $CD, $CE, $00, $CF
+
+loc_water_room6_props_out:
+- D 0 - I - 0x009A87 02:9A77: D0        .byte $D0, $D1
+
+loc_water_room7_props_out:
+- D 0 - I - 0x009A89 02:9A79: D2        .byte $D2, $D3, $D4
+
+loc_water_room8_props_out:
+- D 0 - I - 0x009A8C 02:9A7C: D5        .byte $D5, $D6, $D7
+
+loc_water_room9_props_out:
+- D - - - - 0x009A8F 02:9A7F: D8        .byte $D8, $D9, $DA
+
+loc_water_room10_props_out:
+- D 0 - I - 0x009A92 02:9A82: DB        .byte $DB
+
+loc_water_room11_props_out:
+- D - - - - 0x009A93 02:9A83: DC        .byte $DC
+
+loc_water_room12_props_out:
+- D - - - - 0x009A94 02:9A84: DD        .byte $DD
+
+loc_water_room13_props_out:
+- D - - - - 0x009A95 02:9A85: DE        .byte $DE
+
+loc_water_room14_props_out:
+- D 0 - I - 0x009A96 02:9A86: DF        .byte $DF, $E0, $E1
+
+loc_water_room15_props_out:
+- D - - - - 0x009A99 02:9A89: E2        .byte $E2
+
+loc_water_room16_props_out:
+- D - - - - 0x009A9A 02:9A8A: E3        .byte $E3
+
+loc_water_room17_props_out:
+- D - - - - 0x009A9B 02:9A8B: E4        .byte $E4, $E5, $E6, $E7, $E8, $E9
+
+loc_water_room18_props_out:
+- D - - - - 0x009AA1 02:9A91: EA        .byte $EA, $00, $EB
+
+loc_water_room19_props_out:
+- D - - - - 0x009AA4 02:9A94: EC        .byte $EC, $00, $ED
+
+loc_water_room20_props_out:
+- D - - - - 0x009AA7 02:9A97: 00        .byte $00, $EE
+
+loc_water_room21_props_out:
+- D - - - - 0x009AA9 02:9A99: 00        .byte $00, $EF
+
+loc_water_room22_props_out:
+- D - - - - 0x009AAB 02:9A9B: F0        .byte $F0, $00, $F1, $F2, $00, $00, $F3
+
+loc_water_room23_props_out:
+- D - - - - 0x009AB2 02:9AA2: A4        .byte $A4
+
+loc_water_room24_props_out:
+- D - - - - 0x009AB3 02:9AA3: A5        .byte $A5, $A6
+
+loc_water_room25_props_out:
+- D 0 - I - 0x009AB5 02:9AA5: A7        .byte $A7, $A8
+
+loc_water_room26_props_out:
+- D - - - - 0x009AB7 02:9AA7: A9        .byte $A9
+
+loc_water_room27_props_out:
+- D 0 - I - 0x009AB8 02:9AA8: AA        .byte $AA
+
+loc_water_room28_props_out:
+- D - - - - 0x009AB9 02:9AA9: AB        .byte $AB
+
+loc_water_room29_props_out:
+- D - - - - 0x009ABA 02:9AAA: AC        .byte $AC, $AD
+
+loc_water_room30_props_out:
+- D - - - - 0x009ABC 02:9AAC: AE        .byte $AE
+
+loc_water_room31_props_out:
+- D - - - - 0x009ABD 02:9AAD: AF        .byte $AF
+
+loc_water_room32_props_out:
+- D - - - - 0x009ABE 02:9AAE: B0        .byte $B0
+
+loc_water_room33_props_out:
+- D - - - - 0x009ABF 02:9AAF: B1        .byte $B1
+
+loc_water_room34_props_out:
+- D - - - - 0x009AC0 02:9AB0: B2        .byte $B2, $B3
+
+loc_water_room35_props_out:
+- D - - - - 0x009AC2 02:9AB2: B4        .byte $B4, $B5
+
+loc_water_room36_props_out:
+- D - - - - 0x009AC4 02:9AB4: B6        .byte $B6, $B7
+
+loc_water_room37_props_out:
+- D 0 - I - 0x009AC6 02:9AB6: B8        .byte $B8, $B9
+
+loc_water_room38_props_out:
+- D - - - - 0x009AC8 02:9AB8: BA        .byte $BA
+
+loc_water_room39_props_out:
+- D - - - - 0x009AC9 02:9AB9: BB        .byte $BB, $BC
+
+loc_water_room40_props_out:
+- D - - - - 0x009ACB 02:9ABB: BD        .byte $BD, $00, $BE
+
+loc_water_room41_props_out:
+- D - - - - 0x009ACE 02:9ABE: BF        .byte $BF, $F4
+
+loc_water_room42_props_out:
+- D - - - - 0x009AD0 02:9AC0: F5        .byte $F5, $F6, $00, $F7, $F8, $F9, $FA
+
+loc_water_room43_props_out:
+- D - - - - 0x009AD7 02:9AC7: FB        .byte $FB, $00, $FC
+
+loc_water_room44_props_out:
+- D 0 - I - 0x009ADA 02:9ACA: FD        .byte $FD, $FE, $00, $24
+
+loc_water_room45_props_out:
+- D - - - - 0x009ADE 02:9ACE: 25        .byte $25, $00, $26
+
+loc_water_room46_props_out:
+- D 0 - I - 0x009AE1 02:9AD1: 27        .byte $27, $28, $29, $2A
+
+loc_water_room47_props_out:
+- D - - - - 0x009AE5 02:9AD5: 2B        .byte $2B, $2C
+
+loc_water_room48_props_out:
+- D 0 - I - 0x009AE7 02:9AD7: 2D        .byte $2D, $2E
+
+loc_water_room49_props_out:
+- D - - - - 0x009AE9 02:9AD9: 2F        .byte $2F
+
+loc_water_room50_props_out:
+- D - - - - 0x009AEA 02:9ADA: 30        .byte $30
+
+loc_water_room51_props_out:
+- D - - - - 0x009AEB 02:9ADB: 31        .byte $31
+
+loc_water_room52_props_out:
+- D - - - - 0x009AEC 02:9ADC: 32        .byte $32
+
+loc_water_room53_props_out:
+- D - - - - 0x009AED 02:9ADD: 33        .byte $33
+
+loc_water_room54_props_out:
+- D - - - - 0x009AEE 02:9ADE: 34        .byte $34
+
+loc_water_room55_props_out:
+- D - - - - 0x009AEF 02:9ADF: 35        .byte $35, $36
+
+loc_water_room56_props_out:
+- D - - - - 0x009AF1 02:9AE1: 37        .byte $37
+
+loc_water_room57_props_out:
+- D - - - - 0x009AF2 02:9AE2: 38        .byte $38
+
+loc_water_room58_props_out:
+- D - - - - 0x009AF3 02:9AE3: 39        .byte $39
+
+loc_water_room59_props_out:
+- D - - - - 0x009AF4 02:9AE4: 3A        .byte $3A
+
+loc_water_room60_props_out:
+- D 0 - I - 0x009AF5 02:9AE5: 3B        .byte $3B, $3C
+
+loc_water_room61_props_out:
+- D - - - - 0x009AF7 02:9AE7: 3D        .byte $3D
+
+loc_water_room62_props_out:
+- D 0 - I - 0x009AF8 02:9AE8: 3E        .byte $3E
 
 loc_losing_dialog9:
 loc_radio_dialog9:

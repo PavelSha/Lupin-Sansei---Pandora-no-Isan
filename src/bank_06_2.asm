@@ -2676,24 +2676,24 @@ C - - - - - 0x01B126 06:B116: A5 2C     LDA vLowCounter                    ;
 C - - - - - 0x01B128 06:B118: 29 3F     AND #$3F                           ;
 C - - - - - 0x01B12A 06:B11A: D0 F6     BNE bra_B112_RTS                   ; Branch if vLowCounter doesn't multiple of 64 (vLowCounter % 64 != 0) (98.44% chance)
 C - - - - - 0x01B12C 06:B11C: 20 64 D0  JSR sub_D064_generate_rng          ;
-C - - - - - 0x01B12F 06:B11F: 29 A0     AND #$A0
-C - - - - - 0x01B131 06:B121: D0 EF     BNE bra_B112_RTS
-C - - - - - 0x01B133 06:B123: A9 08     LDA #$08
+C - - - - - 0x01B12F 06:B11F: 29 A0     AND #$A0                           ;
+C - - - - - 0x01B131 06:B121: D0 EF     BNE bra_B112_RTS                   ; If RNG Value == 0%10XXXXXX or 0%01XXXXXX or 0%11XXXXXX
+C - - - - - 0x01B133 06:B123: A9 08     LDA #$08                           ; CONSTANT - the offset value #1 (+8)
 C - - - - - 0x01B135 06:B125: A4 3F     LDY vFlowingOffset                 ;
 C - - - - - 0x01B137 06:B127: 10 02     BPL @bra_B12B_positive             ; If the flowing offset >= 0x00
-C - - - - - 0x01B139 06:B129: A9 F8     LDA #$F8
+C - - - - - 0x01B139 06:B129: A9 F8     LDA #$F8                           ; CONSTANT - the offset value #2 (-8)
 @bra_B12B_positive:
-C - - - - - 0x01B13B 06:B12B: 18        CLC
-C - - - - - 0x01B13C 06:B12C: 65 27     ADC vLowViewPortPosX
-C - - - - - 0x01B13E 06:B12E: 85 01     STA ram_0001
-C - - - - - 0x01B140 06:B130: A5 4B     LDA vHighViewPortPosX
-C - - - - - 0x01B142 06:B132: 69 00     ADC #$00
-C - - - - - 0x01B144 06:B134: 85 00     STA ram_0000
-C - - - - - 0x01B146 06:B136: A5 35     LDA vEnemyRNGValue
-C - - - - - 0x01B148 06:B138: 29 1F     AND #$1F
-C - - - - - 0x01B14A 06:B13A: A8        TAY
-C - - - - - 0x01B14B 06:B13B: B9 A0 95  LDA $95A0,Y
-C - - - - - 0x01B14E 06:B13E: 20 59 B1  JSR sub_B159
+C - - - - - 0x01B13B 06:B12B: 18        CLC                                ;
+C - - - - - 0x01B13C 06:B12C: 65 27     ADC vLowViewPortPosX               ;
+C - - - - - 0x01B13E 06:B12E: 85 01     STA ram_0001                       ; prepare an input parameter (vPosX + 0x08 or vPosX - 0x08)
+C - - - - - 0x01B140 06:B130: A5 4B     LDA vHighViewPortPosX              ;
+C - - - - - 0x01B142 06:B132: 69 00     ADC #$00                           ; +1, if the overflow happened
+C - - - - - 0x01B144 06:B134: 85 00     STA ram_0000                       ; prepare an input parameter
+C - - - - - 0x01B146 06:B136: A5 35     LDA vEnemyRNGValue                 ;
+C - - - - - 0x01B148 06:B138: 29 1F     AND #$1F                           ;
+C - - - - - 0x01B14A 06:B13A: A8        TAY                                ; Y <~ {0x00, 0x01, ..., 0x1F}
+C - - - - - 0x01B14B 06:B13B: B9 A0 95  LDA tbl_water_random_items,Y       ;
+C - - - - - 0x01B14E 06:B13E: 20 59 B1  JSR sub_B159_check_availability    ;
 C - - - - - 0x01B151 06:B141: 20 64 D0  JSR sub_D064_generate_rng          ;
 C - - - - - 0x01B154 06:B144: 29 1F     AND #$1F                           ;
 C - - - - - 0x01B156 06:B146: A8        TAY                                ; Y <~ {0x00, 0x01, ..., 0x1F}
@@ -2701,45 +2701,52 @@ C - - - - - 0x01B157 06:B147: B9 C0 95  LDA tbl_water_y_position,Y         ;
 C - - - - - 0x01B15A 06:B14A: 85 02     STA ram_0002                       ; prepare an input parameter
 C - - - - - 0x01B15C 06:B14C: A9 D0     LDA #$D0                           ; CONSTANT - the status by default + the briefcase is hidden
 C - - - - - 0x01B15E 06:B14E: 9D 9E 03  STA vItemStatus,X                  ;
-C - - - - - 0x01B161 06:B151: A9 00     LDA #$00
-C - - - - - 0x01B163 06:B153: 9D C8 03  STA vItemJumpCounter,X
+C - - - - - 0x01B161 06:B151: A9 00     LDA #$00                           ;
+C - - - - - 0x01B163 06:B153: 9D C8 03  STA vItemJumpCounter,X             ; clear, because the briefcase destroying isn't exist
 C - - - - - 0x01B166 06:B156: 4C FB B0  JMP loc_B0FB_create
 
-; In: Register A - [0x00-0x08]
-sub_B159:
-C - - - - - 0x01B169 06:B159: 85 0A     STA ram_000A
-C - - - - - 0x01B16B 06:B15B: A8        TAY
-C - - - - - 0x01B16C 06:B15C: A9 01     LDA #$01
-C - - - - - 0x01B16E 06:B15E: C0 08     CPY #$08
-C - - - - - 0x01B170 06:B160: F0 06     BEQ bra_B168
+; In: Register A - item number [0x00-0x08]
+sub_B159_check_availability:
+C - - - - - 0x01B169 06:B159: 85 0A     STA ram_000A                    ;
+C - - - - - 0x01B16B 06:B15B: A8        TAY                             ; prepare loop counter
+C - - - - - 0x01B16C 06:B15C: A9 01     LDA #$01                        ;
+C - - - - - 0x01B16E 06:B15E: C0 08     CPY #$08                        ; CONSTANT - the ruby ring
+C - - - - - 0x01B170 06:B160: F0 06     BEQ bra_B168_resolved           ; If the item number == 0x08
 bra_B162_repeat:
-C - - - - - 0x01B172 06:B162: 88        DEY
-C - - - - - 0x01B173 06:B163: 30 03     BMI bra_B168
-C - - - - - 0x01B175 06:B165: 0A        ASL
-C - - - - - 0x01B176 06:B166: D0 FA     BNE bra_B162_repeat
-bra_B168:
-C - - - - - 0x01B178 06:B168: 85 0B     STA ram_000B
-C - - - - - 0x01B17A 06:B16A: A5 40     LDA vWaterRoomIndex
-C - - - - - 0x01B17C 06:B16C: 0A        ASL
-C - - - - - 0x01B17D 06:B16D: 18        CLC
-C - - - - - 0x01B17E 06:B16E: 6D 90 94  ADC $9490
-C - - - - - 0x01B181 06:B171: 85 12     STA ram_0012
-C - - - - - 0x01B183 06:B173: AD 91 94  LDA $9490 + 1
-C - - - - - 0x01B186 06:B176: 69 00     ADC #$00
-C - - - - - 0x01B188 06:B178: 85 13     STA ram_0013
-C - - - - - 0x01B18A 06:B17A: A0 00     LDY #$00
-C - - - - - 0x01B18C 06:B17C: A5 0A     LDA ram_000A
-C - - - - - 0x01B18E 06:B17E: C9 08     CMP #$08
-C - - - - - 0x01B190 06:B180: F0 01     BEQ @bra_B183_skip
-C - - - - - 0x01B192 06:B182: C8        INY
+C - - - - - 0x01B172 06:B162: 88        DEY                             ; decrement item number
+C - - - - - 0x01B173 06:B163: 30 03     BMI bra_B168_resolved           ; If Register Y < 0x00
+C - - - - - 0x01B175 06:B165: 0A        ASL                             ; next bit for current item
+C - - - - - 0x01B176 06:B166: D0 FA     BNE bra_B162_repeat             ; Always true (Maximum 8 times)
+bra_B168_resolved:
+C - - - - - 0x01B178 06:B168: 85 0B     STA ram_000B                    ; <~ 0%00000001 for radio
+                                                                        ;    0%00000010 for bomb
+                                                                        ;    0%00000100 for artillery rifle
+                                                                        ;    0%00001000 for jet pack
+                                                                        ;    0%00010000 for infrared goggles
+                                                                        ;    0%00100010 for breathing apparatus
+                                                                        ;    0%01000000 for helium balloon
+                                                                        ;    0%10000000 for bullet proof vest
+C - - - - - 0x01B17A 06:B16A: A5 40     LDA vWaterRoomIndex             ;
+C - - - - - 0x01B17C 06:B16C: 0A        ASL                             ; *2, because the table contains 2 bytes
+C - - - - - 0x01B17D 06:B16D: 18        CLC                             ;
+C - - - - - 0x01B17E 06:B16E: 6D 90 94  ADC loc_tbl_water_item_bits     ;
+C - - - - - 0x01B181 06:B171: 85 12     STA ram_0012                    ; Low address
+C - - - - - 0x01B183 06:B173: AD 91 94  LDA loc_tbl_water_item_bits + 1 ;
+C - - - - - 0x01B186 06:B176: 69 00     ADC #$00                        ;
+C - - - - - 0x01B188 06:B178: 85 13     STA ram_0013                    ; High address
+C - - - - - 0x01B18A 06:B17A: A0 00     LDY #$00                        ; 1 of 2
+C - - - - - 0x01B18C 06:B17C: A5 0A     LDA ram_000A                    ;
+C - - - - - 0x01B18E 06:B17E: C9 08     CMP #$08                        ; CONSTANT - the ruby ring
+C - - - - - 0x01B190 06:B180: F0 01     BEQ @bra_B183_skip              ; If the item number == 0x08
+C - - - - - 0x01B192 06:B182: C8        INY                             ; 2 of 2
 @bra_B183_skip:
-C - - - - - 0x01B193 06:B183: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01B195 06:B185: 25 0B     AND ram_000B
-C - - - - - 0x01B197 06:B187: F0 02     BEQ bra_B18B_RTS
-C - - - - - 0x01B199 06:B189: 68        PLA                  ;
-C - - - - - 0x01B19A 06:B18A: 68        PLA                  ; double return to $EDC9
+C - - - - - 0x01B193 06:B183: B1 12     LDA (ram_0012),Y                ;
+C - - - - - 0x01B195 06:B185: 25 0B     AND ram_000B                    ;
+C - - - - - 0x01B197 06:B187: F0 02     BEQ bra_B18B_RTS                ; If the item is allowed
+C - - - - - 0x01B199 06:B189: 68        PLA                             ;
+C - - - - - 0x01B19A 06:B18A: 68        PLA                             ; double return to $EDC9
 bra_B18B_RTS:
-C - - - - - 0x01B19B 06:B18B: 60        RTS                  ;
+C - - - - - 0x01B19B 06:B18B: 60        RTS                             ;
 
 sub_B18C_prepare_briefcases_by_index:
 C - - - - - 0x01B19C 06:B18C: A5 46     LDA vNoSubLevel                                     ;

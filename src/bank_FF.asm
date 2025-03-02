@@ -9690,9 +9690,9 @@ C - - - - - 0x01FAE3 07:FAD3: F0 17     BEQ bra_FAEC_skip                ; If vG
 C - - - - - 0x01FAE5 07:FAD5: C9 C0     CMP #$C0                         ;
 C - - - - - 0x01FAE7 07:FAD7: F0 13     BEQ bra_FAEC_skip                ; If vGameInterruptEvent is 'go into the corridor'
 C - - - - - 0x01FAE9 07:FAD9: C9 C1     CMP #$C1                         ;
-C - - - - - 0x01FAEB 07:FADB: F0 55     BEQ bra_FB32                     ; If vGameInterruptEvent is 'dive into the water'
+C - - - - - 0x01FAEB 07:FADB: F0 55     BEQ bra_FB32_start_diving        ; If vGameInterruptEvent is 'dive into the water'
 C - - - - - 0x01FAED 07:FADD: C9 C2     CMP #$C2                         ;
-C - - - - - 0x01FAEF 07:FADF: F0 5A     BEQ bra_FB3B                     ; If vGameInterruptEvent is 'get out of the water'
+C - - - - - 0x01FAEF 07:FADF: F0 5A     BEQ bra_FB3B_get_out             ; If vGameInterruptEvent is 'get out of the water'
 C - - - - - 0x01FAF1 07:FAE1: C9 C3     CMP #$C3                         ;
 C - - - - - 0x01FAF3 07:FAE3: F0 53     BEQ bra_FB38_restore             ; If vGameInterruptEvent is 'leave the unique room'
 C - - - - - 0x01FAF5 07:FAE5: C9 C4     CMP #$C4                         ;
@@ -9745,15 +9745,15 @@ tbl_FB2F:
 - D 3 - - - 0x01FB40 07:FB30: 09        .byte $09
 - D 3 - - - 0x01FB41 07:FB31: 04        .byte $04
 
-bra_FB32:
-C - - - - - 0x01FB42 07:FB32: 20 47 FC  JSR sub_FC47
-C - - - - - 0x01FB45 07:FB35: 4C C7 C6  JMP loc_C6C7_update_room_with_message ;
+bra_FB32_start_diving:
+C - - - - - 0x01FB42 07:FB32: 20 47 FC  JSR sub_FC47_init_diving                 ;
+C - - - - - 0x01FB45 07:FB35: 4C C7 C6  JMP loc_C6C7_update_room_with_message    ;
 
 bra_FB38_restore:
 C - - - - - 0x01FB48 07:FB38: 4C F7 FB  JMP loc_FBF7_restore_room_params_        ;
 
-bra_FB3B:
-C - - - - - 0x01FB4B 07:FB3B: 20 9C FC  JSR sub_FC9C
+bra_FB3B_get_out:
+C - - - - - 0x01FB4B 07:FB3B: 20 9C FC  JSR sub_FC9C_finish_diving               ;
 C - - - - - 0x01FB4E 07:FB3E: 4C EC FA  JMP loc_FAEC_start_of_level              ;
 
 loc_FB41:
@@ -9935,75 +9935,75 @@ tbl_FC43_enemy_boss:
 - D 3 - - - 0x01FC55 07:FC45: 2C        .byte $2C   ; Boss (level 3)
 - D 3 - - - 0x01FC56 07:FC46: 2E        .byte $2E   ; Boss (level 4)
 
-sub_FC47:
-C - - - - - 0x01FC57 07:FC47: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1 ;
-C - - - - - 0x01FC5A 07:FC4A: A5 46     LDA vNoSubLevel               ;
-C - - - - - 0x01FC5C 07:FC4C: C9 42     CMP #$42                      ; CONSTANT - level 4, map 1 (B2-D2)
-C - - - - - 0x01FC5E 07:FC4E: 90 03     BCC @bra_FC53_skip            ; If vNoSubLevel < 0x42
-C - - - - - 0x01FC60 07:FC50: 38        SEC                           ;
-C - - - - - 0x01FC61 07:FC51: E9 2E     SBC #$2E                      ; A <~ vNoSubLevel - 0x2E
+sub_FC47_init_diving:
+C - - - - - 0x01FC57 07:FC47: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1      ;
+C - - - - - 0x01FC5A 07:FC4A: A5 46     LDA vNoSubLevel                    ;
+C - - - - - 0x01FC5C 07:FC4C: C9 42     CMP #$42                           ; CONSTANT - level 4, map 1 (B2-D2)
+C - - - - - 0x01FC5E 07:FC4E: 90 03     BCC @bra_FC53_skip                 ; If vNoSubLevel < 0x42
+C - - - - - 0x01FC60 07:FC50: 38        SEC                                ;
+C - - - - - 0x01FC61 07:FC51: E9 2E     SBC #$2E                           ; A <~ vNoSubLevel - 0x2E
 @bra_FC53_skip:
-C - - - - - 0x01FC63 07:FC53: 38        SEC                           ;
-C - - - - - 0x01FC64 07:FC54: E9 07     SBC #$07                      ; A <~ A - 7
-C - - - - - 0x01FC66 07:FC56: 0A        ASL                           ; *2, because the addresses have 2 bytes
-C - - - - - 0x01FC67 07:FC57: A8        TAY                           ;
-C - - - - - 0x01FC68 07:FC58: B9 92 94  LDA $9492,Y
-C - - - - - 0x01FC6B 07:FC5B: 85 12     STA ram_0012
-C - - - - - 0x01FC6D 07:FC5D: B9 93 94  LDA $9493,Y
-C - - - - - 0x01FC70 07:FC60: 85 13     STA ram_0013
-C - - - - - 0x01FC72 07:FC62: A0 00     LDY #$00                      ; set loop counter
-@bra_FC64_loop:                                                       ; loop by y
-C - - - - - 0x01FC74 07:FC64: B1 12     LDA (ram_0012),Y              ;
-C - - - - - 0x01FC76 07:FC66: 38        SEC                           ;
-C - - - - - 0x01FC77 07:FC67: E5 66     SBC vLowChrPosX               ;
-C - - - - - 0x01FC79 07:FC69: C8        INY                           ; 2 of 6 bytes
-C - - - - - 0x01FC7A 07:FC6A: B1 12     LDA (ram_0012),Y              ;
-C - - - - - 0x01FC7C 07:FC6C: E5 68     SBC vNoScreen                 ;
-C - - - - - 0x01FC7E 07:FC6E: B0 07     BCS @bra_FC77_break           ; If [Hc:Lc] <= [Hw:Lw] (the water gap position is to the right of the character)
-C - - - - - 0x01FC80 07:FC70: C8        INY                           ; 3 of 6 bytes
-C - - - - - 0x01FC81 07:FC71: C8        INY                           ; 4 of 6 bytes
-C - - - - - 0x01FC82 07:FC72: C8        INY                           ; 5 of 6 bytes
-C - - - - - 0x01FC83 07:FC73: C8        INY                           ; 6 of 6 bytes
-C - - - - - 0x01FC84 07:FC74: C8        INY                           ; next 1 of 6 bytes
-C - - - - - 0x01FC85 07:FC75: D0 ED     BNE @bra_FC64_loop            ; If Register Y != 0x00
+C - - - - - 0x01FC63 07:FC53: 38        SEC                                ;
+C - - - - - 0x01FC64 07:FC54: E9 07     SBC #$07                           ; A <~ A - 7
+C - - - - - 0x01FC66 07:FC56: 0A        ASL                                ; *2, because the addresses have 2 bytes
+C - - - - - 0x01FC67 07:FC57: A8        TAY                                ;
+C - - - - - 0x01FC68 07:FC58: B9 92 94  LDA tbl_water_rooms_props_in,Y     ;
+C - - - - - 0x01FC6B 07:FC5B: 85 12     STA ram_0012                       ; Low address
+C - - - - - 0x01FC6D 07:FC5D: B9 93 94  LDA tbl_water_rooms_props_in + 1,Y ;
+C - - - - - 0x01FC70 07:FC60: 85 13     STA ram_0013                       ; High address
+C - - - - - 0x01FC72 07:FC62: A0 00     LDY #$00                           ; set loop counter
+@bra_FC64_loop:                                                            ; loop by y
+C - - - - - 0x01FC74 07:FC64: B1 12     LDA (ram_0012),Y                   ;
+C - - - - - 0x01FC76 07:FC66: 38        SEC                                ;
+C - - - - - 0x01FC77 07:FC67: E5 66     SBC vLowChrPosX                    ;
+C - - - - - 0x01FC79 07:FC69: C8        INY                                ; 2 of 6 bytes
+C - - - - - 0x01FC7A 07:FC6A: B1 12     LDA (ram_0012),Y                   ;
+C - - - - - 0x01FC7C 07:FC6C: E5 68     SBC vNoScreen                      ;
+C - - - - - 0x01FC7E 07:FC6E: B0 07     BCS @bra_FC77_break                ; If [Hc:Lc] <= [Hw:Lw] (the water gap position is to the right of the character)
+C - - - - - 0x01FC80 07:FC70: C8        INY                                ; 3 of 6 bytes
+C - - - - - 0x01FC81 07:FC71: C8        INY                                ; 4 of 6 bytes
+C - - - - - 0x01FC82 07:FC72: C8        INY                                ; 5 of 6 bytes
+C - - - - - 0x01FC83 07:FC73: C8        INY                                ; 6 of 6 bytes
+C - - - - - 0x01FC84 07:FC74: C8        INY                                ; next 1 of 6 bytes
+C - - - - - 0x01FC85 07:FC75: D0 ED     BNE @bra_FC64_loop                 ; If Register Y != 0x00
 @bra_FC77_break:
-C - - - - - 0x01FC87 07:FC77: C8        INY                           ; 3 of 6 bytes
-C - - - - - 0x01FC88 07:FC78: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01FC8A 07:FC7A: 85 46     STA vNoSubLevel
-C - - - - - 0x01FC8C 07:FC7C: C8        INY                           ; 4 of 6 bytes
-C - - - - - 0x01FC8D 07:FC7D: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01FC8F 07:FC7F: 85 4B     STA vHighViewPortPosX
-C - - - - - 0x01FC91 07:FC81: 85 68     STA vNoScreen
-C - - - - - 0x01FC93 07:FC83: C8        INY                           ; 5 of 6 bytes
-C - - - - - 0x01FC94 07:FC84: B1 12     LDA (ram_0012),Y              ;
-C - - - - - 0x01FC96 07:FC86: 85 3F     STA vFlowingOffset            ;
-C - - - - - 0x01FC98 07:FC88: C8        INY                           ; 6 of 6 bytes
-C - - - - - 0x01FC99 07:FC89: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01FC9B 07:FC8B: 85 40     STA vWaterRoomIndex
-C - - - - - 0x01FC9D 07:FC8D: A9 00     LDA #$00
-C - - - - - 0x01FC9F 07:FC8F: 85 27     STA vLowViewPortPosX
-C - - - - - 0x01FCA1 07:FC91: A9 80     LDA #$80
-C - - - - - 0x01FCA3 07:FC93: 85 64     STA vScreenChrPosX
-C - - - - - 0x01FCA5 07:FC95: 85 66     STA vLowChrPosX
-C - - - - - 0x01FCA7 07:FC97: A9 60     LDA #$60
-C - - - - - 0x01FCA9 07:FC99: 85 6A     STA vScreenChrPosY
-C - - - - - 0x01FCAB 07:FC9B: 60        RTS
+C - - - - - 0x01FC87 07:FC77: C8        INY                                ; 3 of 6 bytes
+C - - - - - 0x01FC88 07:FC78: B1 12     LDA (ram_0012),Y                   ;
+C - - - - - 0x01FC8A 07:FC7A: 85 46     STA vNoSubLevel                    ;
+C - - - - - 0x01FC8C 07:FC7C: C8        INY                                ; 4 of 6 bytes
+C - - - - - 0x01FC8D 07:FC7D: B1 12     LDA (ram_0012),Y                   ;
+C - - - - - 0x01FC8F 07:FC7F: 85 4B     STA vHighViewPortPosX              ; reset viewport X-position (high value)
+C - - - - - 0x01FC91 07:FC81: 85 68     STA vNoScreen                      ;
+C - - - - - 0x01FC93 07:FC83: C8        INY                                ; 5 of 6 bytes
+C - - - - - 0x01FC94 07:FC84: B1 12     LDA (ram_0012),Y                   ;
+C - - - - - 0x01FC96 07:FC86: 85 3F     STA vFlowingOffset                 ;
+C - - - - - 0x01FC98 07:FC88: C8        INY                                ; 6 of 6 bytes
+C - - - - - 0x01FC99 07:FC89: B1 12     LDA (ram_0012),Y                   ;
+C - - - - - 0x01FC9B 07:FC8B: 85 40     STA vWaterRoomIndex                ;
+C - - - - - 0x01FC9D 07:FC8D: A9 00     LDA #$00                           ;
+C - - - - - 0x01FC9F 07:FC8F: 85 27     STA vLowViewPortPosX               ; reset viewport X-position (low value)
+C - - - - - 0x01FCA1 07:FC91: A9 80     LDA #$80                           ; CONSTANT - the center of the screen
+C - - - - - 0x01FCA3 07:FC93: 85 64     STA vScreenChrPosX                 ;
+C - - - - - 0x01FCA5 07:FC95: 85 66     STA vLowChrPosX                    ;
+C - - - - - 0x01FCA7 07:FC97: A9 60     LDA #$60                           ; CONSTANT - a starting value of the character in the water
+C - - - - - 0x01FCA9 07:FC99: 85 6A     STA vScreenChrPosY                 ;
+C - - - - - 0x01FCAB 07:FC9B: 60        RTS                                ;
 
-sub_FC9C:
-C - - - - - 0x01FCAC 07:FC9C: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1
-C - - - - - 0x01FCAF 07:FC9F: A5 40     LDA vWaterRoomIndex
-C - - - - - 0x01FCB1 07:FCA1: 0A        ASL
-C - - - - - 0x01FCB2 07:FCA2: A8        TAY
-C - - - - - 0x01FCB3 07:FCA3: B9 24 95  LDA $9524,Y
-C - - - - - 0x01FCB6 07:FCA6: 85 12     STA ram_0012
-C - - - - - 0x01FCB8 07:FCA8: B9 25 95  LDA $9525,Y
-C - - - - - 0x01FCBB 07:FCAB: 85 13     STA ram_0013
-C - - - - - 0x01FCBD 07:FCAD: A4 68     LDY vNoScreen
-C - - - - - 0x01FCBF 07:FCAF: A9 00     LDA #$00
-C - - - - - 0x01FCC1 07:FCB1: 85 B7     STA vRoomExtraInfo
-C - - - - - 0x01FCC3 07:FCB3: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01FCC5 07:FCB5: 85 C4     STA vCheckpoint
-C - - - - - 0x01FCC7 07:FCB7: 4C 5D EF  JMP loc_EF5D_switch_variable_bank
+sub_FC9C_finish_diving:
+C - - - - - 0x01FCAC 07:FC9C: 20 3B EF  JSR sub_EF3B_switch_bank_2_p1         ;
+C - - - - - 0x01FCAF 07:FC9F: A5 40     LDA vWaterRoomIndex                   ;
+C - - - - - 0x01FCB1 07:FCA1: 0A        ASL                                   ; *2, because the addresses have 2 bytes
+C - - - - - 0x01FCB2 07:FCA2: A8        TAY                                   ;
+C - - - - - 0x01FCB3 07:FCA3: B9 24 95  LDA tbl_water_rooms_props_out,Y       ;
+C - - - - - 0x01FCB6 07:FCA6: 85 12     STA ram_0012                          ;
+C - - - - - 0x01FCB8 07:FCA8: B9 25 95  LDA tbl_water_rooms_props_out + 1,Y   ;
+C - - - - - 0x01FCBB 07:FCAB: 85 13     STA ram_0013                          ;
+C - - - - - 0x01FCBD 07:FCAD: A4 68     LDY vNoScreen                         ;
+C - - - - - 0x01FCBF 07:FCAF: A9 00     LDA #$00                              ;
+C - - - - - 0x01FCC1 07:FCB1: 85 B7     STA vRoomExtraInfo                    ; reset
+C - - - - - 0x01FCC3 07:FCB3: B1 12     LDA (ram_0012),Y                      ;
+C - - - - - 0x01FCC5 07:FCB5: 85 C4     STA vCheckpoint                       ; assigns the checkpoint
+C - - - - - 0x01FCC7 07:FCB7: 4C 5D EF  JMP loc_EF5D_switch_variable_bank     ; restore page $8000-$9FFF
 
 tbl_FCBA_enemies:
 - D 3 - - - 0x01FCCA 07:FCBA: 87 F8     .addr loc_enemy_RTS             ; Nobody  (0x00)
