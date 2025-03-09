@@ -93,6 +93,8 @@
 .export sub_BC48_next_room
 .export sub_B7DB_prepare_last_cutscene
 .export sub_B5FE_final_scene_handler
+.export sub_B09A_try_to_create_item
+.export sub_AF4D_briefcase_or_item_handler
 .export tbl_ptr_enemy_t2_types_for_sprites
 .export tbl_ptr_enemy_t3_types_for_sprites
 .export tbl_ptr_enemy_t2_sprite_params_
@@ -2406,12 +2408,12 @@ C - - - - - 0x01AF57 06:AF47: 9D 5C 03  STA vEnemyBStatus,X               ; clea
 @bra_AF4A_rendering:
 C - - - - - 0x01AF5A 06:AF4A: 4C A9 AE  JMP loc_AEA9_prepare_rendering    ;
 
-sub_AF4D: ; from bank FF
+sub_AF4D_briefcase_or_item_handler:
 C - - - - - 0x01AF5D 06:AF4D: A2 05     LDX #$05                                    ; the number of the briefcases
 C - - - - - 0x01AF5F 06:AF4F: 86 1A     STX vTempCounter1A                          ; set loop counter
 bra_AF51_loop:                                                                      ; loop by vTempCounter1A (5 times)
 C - - - - - 0x01AF61 06:AF51: A6 1A     LDX vTempCounter1A                          ; X <~ the item or briefcases number
-C - - - - - 0x01AF63 06:AF53: 20 F8 AF  JSR sub_AFF8
+C - - - - - 0x01AF63 06:AF53: 20 F8 AF  JSR sub_AFF8_render                         ;
 C - - - - - 0x01AF66 06:AF56: BD 9E 03  LDA vItemStatus,X                           ;
 C - - - - - 0x01AF69 06:AF59: C9 E0     CMP #$E0                                    ;
 C - - - - - 0x01AF6B 06:AF5B: B0 69     BCS bra_AFC6_next                           ; If vItemStatus >= 0xE0
@@ -2435,8 +2437,8 @@ C - - - - - 0x01AF8D 06:AF7D: 85 B0     STA vEnemyHitBoxW                       
 C - - - - - 0x01AF8F 06:AF7F: BD 9E 03  LDA vItemStatus,X                           ;
 C - - - - - 0x01AF92 06:AF82: 29 10     AND #$10                                    ; CONSTANT - the briefcase is hidden
 C - - - - - 0x01AF94 06:AF84: F0 25     BEQ bra_AFAB_is_visible                     ; If the briefcase is visible
-C - - - - - 0x01AF96 06:AF86: BD C8 03  LDA vItemJumpCounter,X
-C - - - - - 0x01AF99 06:AF89: D0 3B     BNE bra_AFC6_next
+C - - - - - 0x01AF96 06:AF86: BD C8 03  LDA vItemJumpCounter,X                      ;
+C - - - - - 0x01AF99 06:AF89: D0 3B     BNE bra_AFC6_next                           ; If the briefcase is exploding
 C - - - - - 0x01AF9B 06:AF8B: 20 42 D6  JSR sub_D642_have_intersect_with_character  ;
 C - - - - - 0x01AF9E 06:AF8E: 90 36     BCC bra_AFC6_next                           ; If the character hasn't damage
 C - - - - - 0x01AFA0 06:AF90: BC 98 03  LDY v_briefcase_index,X                     ;
@@ -2495,7 +2497,7 @@ C - - - - - 0x01AFFB 06:AFEB: 20 20 C4  JSR sub_C420_add_sound_effect  ; bank FF
 bra_AFEE_RTS:
 C - - - - - 0x01AFFE 06:AFEE: 60        RTS                            ;
 
-; In: Register X - the item number
+; In: Register X - the item or briefcase number
 sub_AFEF_free_item:
 loc_AFEF_free_item:
 C D 1 - - - 0x01AFFF 06:AFEF: A9 00     LDA #$00                  ;
@@ -2504,9 +2506,9 @@ C - - - - - 0x01B004 06:AFF4: 9D 98 03  STA v_briefcase_index,X   ; clear an ind
 C - - - - - 0x01B007 06:AFF7: 60        RTS                       ;
 
 ; in: Register X - the number of the briefcase
-sub_AFF8:
+sub_AFF8_render:
 C - - - - - 0x01B008 06:AFF8: BD 9E 03  LDA vItemStatus,X                  ;
-C - - - - - 0x01B00B 06:AFFB: 10 F1     BPL bra_AFEE_RTS                   ; If the current briefcase item isn't used
+C - - - - - 0x01B00B 06:AFFB: 10 F1     BPL bra_AFEE_RTS                   ; If the current briefcase or item isn't used
 C - - - - - 0x01B00D 06:AFFD: A0 00     LDY #$00                           ; the offset value #1
 C - - - - - 0x01B00F 06:AFFF: 29 10     AND #$10                           ; CONSTANT - the briefcase is hidden
 C - - - - - 0x01B011 06:B001: F0 2B     BEQ bra_B02E_prepare_rendering     ; If the briefcase isn't hidden
@@ -2522,7 +2524,7 @@ C - - - - - 0x01B023 06:B013: D0 19     BNE bra_B02E_prepare_rendering     ; Alw
 bra_B015_skip:
 C - - - - - 0x01B025 06:B015: A5 6D     LDA vMovableChrStatus              ;
 C - - - - - 0x01B027 06:B017: 10 03     BPL @bra_B01C_skip                 ; If the character doesn't move in the water
-C - - - - - 0x01B029 06:B019: 20 57 B0  JSR sub_B057_try_to_move
+C - - - - - 0x01B029 06:B019: 20 57 B0  JSR sub_B057_try_to_move_in_water  ;
 @bra_B01C_skip:
 C - - - - - 0x01B02C 06:B01C: BD 98 03  LDA v_briefcase_index,X            ;
 C - - - - - 0x01B02F 06:B01F: A4 6D     LDY vMovableChrStatus              ;
@@ -2544,7 +2546,7 @@ C - - - - - 0x01B043 06:B033: BD BC 03  LDA vItemPosXHigh,X           ;
 C - - - - - 0x01B046 06:B036: 85 01     STA ram_0001                  ; prepares the 2nd parameter
 C - - - - - 0x01B048 06:B038: 20 AC D6  JSR sub_D6AC_out_of_screen    ;
 C - - - - - 0x01B04B 06:B03B: 90 03     BCC bra_B040_skip             ; If the item is on the screen
-C - - - - - 0x01B04D 06:B03D: 4C EF AF  JMP loc_AFEF_free_item
+C - - - - - 0x01B04D 06:B03D: 4C EF AF  JMP loc_AFEF_free_item        ;
 
 bra_B040_skip:
 C - - - - - 0x01B050 06:B040: BD AA 03  LDA vItemPosY,X               ;
@@ -2559,12 +2561,12 @@ C - - - - - 0x01B060 06:B050: A9 60     LDA #$60                      ;
 C - - - - - 0x01B062 06:B052: 85 02     STA ram_0002                  ; ~> sprite_magic3
 C - - - - - 0x01B064 06:B054: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
-sub_B057_try_to_move:
+sub_B057_try_to_move_in_water:
 C - - - - - 0x01B067 06:B057: A5 2C     LDA vLowCounter                            ;
 C - - - - - 0x01B069 06:B059: 29 03     AND #$03                                   ;
 C - - - - - 0x01B06B 06:B05B: D0 47     BNE bra_B0A4_RTS                           ; Branch if vLowCounter doesn't multiple of 4 (75% chance)
-C - - - - - 0x01B06D 06:B05D: 24 3F     BIT ram_003F
-C - - - - - 0x01B06F 06:B05F: 30 03     BMI bra_B064_left
+C - - - - - 0x01B06D 06:B05D: 24 3F     BIT vFlowingOffset                         ;
+C - - - - - 0x01B06F 06:B05F: 30 03     BMI bra_B064_left                          ; If vFlowingOffset < 0x00
 C - - - - - 0x01B071 06:B061: 4C 13 D9  JMP loc_D913_short_inc_ItemPosXLow         ;
 
 bra_B064_left:
@@ -2598,17 +2600,18 @@ C - - - - - 0x01B0A4 06:B094: A9 18     LDA #$18                          ; CONS
 C - - - - - 0x01B0A6 06:B096: 20 20 C4  JSR sub_C420_add_sound_effect     ;
 C - - - - - 0x01B0A9 06:B099: 60        RTS                               ;
 
-sub_B09A: ; from bank FF
-C - - - - - 0x01B0AA 06:B09A: A2 05     LDX #$05               ; set loop counter
-@bra_B09C_loop:                                                ; loop by x
-C - - - - - 0x01B0AC 06:B09C: BD 9E 03  LDA vItemStatus,X      ;
-C - - - - - 0x01B0AF 06:B09F: 10 04     BPL bra_B0A5           ; If vItemStatus < 0x80
-C - - - - - 0x01B0B1 06:B0A1: CA        DEX                    ; decrement loop counter
-C - - - - - 0x01B0B2 06:B0A2: D0 F8     BNE @bra_B09C_loop     ; If Register X != 0x00
+sub_B09A_try_to_create_item:
+C - - - - - 0x01B0AA 06:B09A: A2 05     LDX #$05                       ; set loop counter
+@bra_B09C_loop:                                                        ; loop by x
+C - - - - - 0x01B0AC 06:B09C: BD 9E 03  LDA vItemStatus,X              ;
+C - - - - - 0x01B0AF 06:B09F: 10 04     BPL bra_B0A5_for_current_item  ; If the current briefcase or item isn't used
+C - - - - - 0x01B0B1 06:B0A1: CA        DEX                            ; decrement loop counter
+C - - - - - 0x01B0B2 06:B0A2: D0 F8     BNE @bra_B09C_loop             ; If Register X != 0x00
 bra_B0A4_RTS:
-C - - - - - 0x01B0B4 06:B0A4: 60        RTS                    ;
+C - - - - - 0x01B0B4 06:B0A4: 60        RTS                            ;
 
-bra_B0A5:
+; In: Register X - an item number
+bra_B0A5_for_current_item:
 C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA vMovableChrStatus                    ;
 C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113_try_generate_item_in_water  ; If 'the character is moving in the water'
 C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2            ; bank FF
@@ -2634,23 +2637,23 @@ C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA vArrayWhiteBriefcase,Y              
 C - - - - - 0x01B0E4 06:B0D4: 30 CE     BMI bra_B0A4_RTS                         ; If the item is got
 C - - - - - 0x01B0E6 06:B0D6: A0 05     LDY #$05                                 ; set loop counter
 bra_B0D8_loop:                                                                   ; loop by y (5 times)
-C - - - - - 0x01B0E8 06:B0D8: B9 9E 03  LDA vItemStatus,Y
-C - - - - - 0x01B0EB 06:B0DB: 10 14     BPL bra_B0F1
-C - - - - - 0x01B0ED 06:B0DD: B9 B6 03  LDA vItemPosXLow,Y
-C - - - - - 0x01B0F0 06:B0E0: 38        SEC
-C - - - - - 0x01B0F1 06:B0E1: E5 01     SBC ram_0001
-C - - - - - 0x01B0F3 06:B0E3: B9 BC 03  LDA vItemPosXHigh,Y
-C - - - - - 0x01B0F6 06:B0E6: E5 00     SBC ram_0000
-C - - - - - 0x01B0F8 06:B0E8: D0 07     BNE bra_B0F1
-C - - - - - 0x01B0FA 06:B0EA: B9 AA 03  LDA vItemPosY,Y
-C - - - - - 0x01B0FD 06:B0ED: C5 02     CMP ram_0002
-C - - - - - 0x01B0FF 06:B0EF: F0 B3     BEQ bra_B0A4_RTS
-bra_B0F1:
-C - - - - - 0x01B101 06:B0F1: 88        DEY
+C - - - - - 0x01B0E8 06:B0D8: B9 9E 03  LDA vItemStatus,Y                        ;
+C - - - - - 0x01B0EB 06:B0DB: 10 14     BPL @bra_B0F1_next                       ; If the current briefcase or item isn't used
+C - - - - - 0x01B0ED 06:B0DD: B9 B6 03  LDA vItemPosXLow,Y                       ;
+C - - - - - 0x01B0F0 06:B0E0: 38        SEC                                      ;
+C - - - - - 0x01B0F1 06:B0E1: E5 01     SBC ram_0001                             ;
+C - - - - - 0x01B0F3 06:B0E3: B9 BC 03  LDA vItemPosXHigh,Y                      ;
+C - - - - - 0x01B0F6 06:B0E6: E5 00     SBC ram_0000                             ;
+C - - - - - 0x01B0F8 06:B0E8: D0 07     BNE @bra_B0F1_next                       ; If [H:L] briefcase != [H:L] table value
+C - - - - - 0x01B0FA 06:B0EA: B9 AA 03  LDA vItemPosY,Y                          ;
+C - - - - - 0x01B0FD 06:B0ED: C5 02     CMP ram_0002                             ;
+C - - - - - 0x01B0FF 06:B0EF: F0 B3     BEQ bra_B0A4_RTS                         ; If briefcase Y-position == Y-position of the table
+@bra_B0F1_next:
+C - - - - - 0x01B101 06:B0F1: 88        DEY                                      ; decrement loop counter
 C - - - - - 0x01B102 06:B0F2: D0 E4     BNE bra_B0D8_loop                        ; If register Y != 0
 C - - - - - 0x01B104 06:B0F4: A9 C0     LDA #$C0                                 ; CONSTANT: The item is in the briefcase, i.e. it's hidden
-C - - - - - 0x01B106 06:B0F6: 9D 9E 03  STA vItemStatus,X
-C - - - - - 0x01B109 06:B0F9: A9 03     LDA #$03
+C - - - - - 0x01B106 06:B0F6: 9D 9E 03  STA vItemStatus,X                        ;
+C - - - - - 0x01B109 06:B0F9: A9 03     LDA #$03                                 ; CONSTANT - It is the hit count for the briefcase
 ; In: Register X - an item/briefcase number (X > 1)
 ; In: Register A - a hit count for the briefcase (0, if the briefcase isn't exist)
 ; In: $0000 - item X-position (high value)
@@ -2658,15 +2661,15 @@ C - - - - - 0x01B109 06:B0F9: A9 03     LDA #$03
 ; In: $0002 - item Y-position
 ; In: $000A - an briefcase index (or an item number for the water level)
 loc_B0FB_create:
-C D 1 - - - 0x01B10B 06:B0FB: 9D A4 03  STA vBriefcaseHitCount - 1,X
-C - - - - - 0x01B10E 06:B0FE: A5 00     LDA ram_0000
-C - - - - - 0x01B110 06:B100: 9D BC 03  STA vItemPosXHigh,X
-C - - - - - 0x01B113 06:B103: A5 01     LDA ram_0001
-C - - - - - 0x01B115 06:B105: 9D B6 03  STA vItemPosXLow,X
-C - - - - - 0x01B118 06:B108: A5 02     LDA ram_0002
-C - - - - - 0x01B11A 06:B10A: 9D AA 03  STA vItemPosY,X
-C - - - - - 0x01B11D 06:B10D: A5 0A     LDA ram_000A
-C - - - - - 0x01B11F 06:B10F: 9D 98 03  STA v_briefcase_index,X        ; load index of a briefcase
+C D 1 - - - 0x01B10B 06:B0FB: 9D A4 03  STA vBriefcaseHitCount - 1,X   ;
+C - - - - - 0x01B10E 06:B0FE: A5 00     LDA ram_0000                   ;
+C - - - - - 0x01B110 06:B100: 9D BC 03  STA vItemPosXHigh,X            ; Initializes a X-position (high value)
+C - - - - - 0x01B113 06:B103: A5 01     LDA ram_0001                   ;
+C - - - - - 0x01B115 06:B105: 9D B6 03  STA vItemPosXLow,X             ; Initializes a X-position (low value)
+C - - - - - 0x01B118 06:B108: A5 02     LDA ram_0002                   ;
+C - - - - - 0x01B11A 06:B10A: 9D AA 03  STA vItemPosY,X                ; Initializes a Y-position
+C - - - - - 0x01B11D 06:B10D: A5 0A     LDA ram_000A                   ;
+C - - - - - 0x01B11F 06:B10F: 9D 98 03  STA v_briefcase_index,X        ; store index of a briefcase (or an item number for the water level)
 bra_B112_RTS:
 C - - - - - 0x01B122 06:B112: 60        RTS                            ;
 
@@ -2703,7 +2706,7 @@ C - - - - - 0x01B15C 06:B14C: A9 D0     LDA #$D0                           ; CON
 C - - - - - 0x01B15E 06:B14E: 9D 9E 03  STA vItemStatus,X                  ;
 C - - - - - 0x01B161 06:B151: A9 00     LDA #$00                           ;
 C - - - - - 0x01B163 06:B153: 9D C8 03  STA vItemJumpCounter,X             ; clear, because the briefcase destroying isn't exist
-C - - - - - 0x01B166 06:B156: 4C FB B0  JMP loc_B0FB_create
+C - - - - - 0x01B166 06:B156: 4C FB B0  JMP loc_B0FB_create                ;
 
 ; In: Register A - item number [0x00-0x08]
 sub_B159_check_availability:
@@ -2751,7 +2754,7 @@ C - - - - - 0x01B19B 06:B18B: 60        RTS                             ;
 sub_B18C_prepare_briefcases_by_index:
 C - - - - - 0x01B19C 06:B18C: A5 46     LDA vNoSubLevel                                     ;
 C - - - - - 0x01B19E 06:B18E: C9 1F     CMP #$1F                                            ; CONSTANT - a briefcase room on level 1.0
-C - - - - - 0x01B1A0 06:B190: 90 F9     BCC bra_B18B_RTS                                    ; If vNoSubLevel < 0x1A
+C - - - - - 0x01B1A0 06:B190: 90 F9     BCC bra_B18B_RTS                                    ; If vNoSubLevel < 0x1F
 C - - - - - 0x01B1A2 06:B192: C9 24     CMP #$24                                            ; CONSTANT - a room - level 3.0 (water level)
 C - - - - - 0x01B1A4 06:B194: B0 F5     BCS bra_B18B_RTS                                    ; If vNoSubLevel >= 0x24
 C - - - - - 0x01B1A6 06:B196: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2                       ;
@@ -2772,8 +2775,8 @@ C - - - - - 0x01B1BC 06:B1AC: 9D AA 03  STA vItemPosY,X                         
 C - - - - - 0x01B1BF 06:B1AF: C8        INY                                                 ; 2 of 2
 C - - - - - 0x01B1C0 06:B1B0: B9 36 81  LDA tbl_briefcases_positions,Y                      ;
 C - - - - - 0x01B1C3 06:B1B3: 9D B6 03  STA vItemPosXLow,X                                  ; store X-position
-C - - - - - 0x01B1C6 06:B1B6: A9 00     LDA #$00
-C - - - - - 0x01B1C8 06:B1B8: 9D BC 03  STA vItemPosXHigh,X
+C - - - - - 0x01B1C6 06:B1B6: A9 00     LDA #$00                                            ;
+C - - - - - 0x01B1C8 06:B1B8: 9D BC 03  STA vItemPosXHigh,X                                 ; Initializes zero because the unique room contains always one screen
 C - - - - - 0x01B1CB 06:B1BB: A9 03     LDA #$03                                            ; CONSTANT - 3 shoots
 C - - - - - 0x01B1CD 06:B1BD: 9D A4 03  STA vBriefcaseHitCount - 1,X                        ;
 C - - - - - 0x01B1D0 06:B1C0: C8        INY                                                 ; 1 of 2 again
@@ -2857,10 +2860,10 @@ C - - - - - 0x01B248 06:B238: 68        PLA                           ; restore 
 C - - - - - 0x01B249 06:B239: 0A        ASL                           ; *2
 C - - - - - 0x01B24A 06:B23A: A8        TAY                           ;
 C - - - - - 0x01B24B 06:B23B: B9 00 80  LDA tbl_messages,Y            ; Load messages (low address)
-C - - - - - 0x01B24E 06:B23E: 85 CB     STA v_low_vram_msg_address    ; Store a low address
+C - - - - - 0x01B24E 06:B23E: 85 CB     STA vLowVram_MsgAddress       ; Store a low address
 C - - - - - 0x01B250 06:B240: B9 01 80  LDA tbl_messages + 1,Y        ; Load messages (high address)
 C - - - - - 0x01B253 06:B243: 29 1F     AND #$1F                      ;
-C - - - - - 0x01B255 06:B245: 85 CC     STA v_hign_vram_msg_address   ; Store a high address
+C - - - - - 0x01B255 06:B245: 85 CC     STA vHignVram_MsgAddress      ; Store a high address
 C - - - - - 0x01B257 06:B247: A9 80     LDA #$80                      ; CONSTANT - the message is typing
 C - - - - - 0x01B259 06:B249: 85 C8     STA vMessageInProgress        ;
 C - - - - - 0x01B25B 06:B24B: A9 00     LDA #$00                      ;
@@ -2869,107 +2872,109 @@ C - - - - - 0x01B25F 06:B24F: 85 C9     STA v_letter_offset           ; in 0
 C - - - - - 0x01B261 06:B251: 60        RTS                           ;
 
 bra_B252_return:
-C - - - - - 0x01B262 06:B252: 4C 71 C3  JMP loc_C371_update_palette
+C - - - - - 0x01B262 06:B252: 4C 71 C3  JMP loc_C371_update_palette   ;
 
 loc_B255_display_message_by_letter:
-C D 1 - - - 0x01B265 06:B255: A5 C8     LDA vMessageInProgress ;
-C - - - - - 0x01B267 06:B257: F0 F9     BEQ bra_B252_return    ; If vMessageInProgress == 0x00
-C - - - - - 0x01B269 06:B259: E6 CA     INC vMessageCounter    ; increments vMessageCounter
-C - - - - - 0x01B26B 06:B25B: A5 CA     LDA vMessageCounter    ;
-C - - - - - 0x01B26D 06:B25D: 29 03     AND #$03               ; set the frequency of displaying the letter
-C - - - - - 0x01B26F 06:B25F: D0 F1     BNE bra_B252_return    ; If Register A == 0x00
-C - - - - - 0x01B271 06:B261: 20 BE B2  JSR sub_B2BE_switch_messages_ppu_banks
-C - - - - - 0x01B274 06:B264: A4 C9     LDY v_letter_offset
-C - - - - - 0x01B276 06:B266: 20 DB B2  JSR sub_B2DB_prepare_letter_address
-loc_B269:
-C D 1 - - - 0x01B279 06:B269: C9 FC     CMP #$FC
-C - - - - - 0x01B27B 06:B26B: 90 1E     BCC bra_B28B_skip
-C - - - - - 0x01B27D 06:B26D: C9 FE     CMP #$FE ; CONSTANT - Tile 'A new paragraph'.
-C - - - - - 0x01B27F 06:B26F: D0 15     BNE bra_B286_finish ; If letter isn't a new paragraph
-C - - - - - 0x01B281 06:B271: C8        INY
-C - - - - - 0x01B282 06:B272: AD 07 20  LDA PPU_DATA ; Increments address
-C - - - - - 0x01B285 06:B275: 85 CF     STA v_low_msg_ppu_address
-C - - - - - 0x01B287 06:B277: C8        INY
-C - - - - - 0x01B288 06:B278: AD 07 20  LDA PPU_DATA ; Increments address
-C - - - - - 0x01B28B 06:B27B: 85 D0     STA v_high_msg_ppu_address
-C - - - - - 0x01B28D 06:B27D: C8        INY
-C - - - - - 0x01B28E 06:B27E: 84 C9     STY v_letter_offset
-C - - - - - 0x01B290 06:B280: AD 07 20  LDA PPU_DATA ; Increments address
-C - - - - - 0x01B293 06:B283: 4C 69 B2  JMP loc_B269
+C D 1 - - - 0x01B265 06:B255: A5 C8     LDA vMessageInProgress                 ;
+C - - - - - 0x01B267 06:B257: F0 F9     BEQ bra_B252_return                    ; If the message isn't typing
+C - - - - - 0x01B269 06:B259: E6 CA     INC vMessageCounter                    ; increments vMessageCounter
+C - - - - - 0x01B26B 06:B25B: A5 CA     LDA vMessageCounter                    ;
+C - - - - - 0x01B26D 06:B25D: 29 03     AND #$03                               ; set the frequency of displaying the letter
+C - - - - - 0x01B26F 06:B25F: D0 F1     BNE bra_B252_return                    ; If Register A == 0x00
+C - - - - - 0x01B271 06:B261: 20 BE B2  JSR sub_B2BE_switch_messages_ppu_banks ;
+C - - - - - 0x01B274 06:B264: A4 C9     LDY v_letter_offset                    ; prepare an input parameter
+C - - - - - 0x01B276 06:B266: 20 DB B2  JSR sub_B2DB_prepare_letter_address    ;
+; In: Register A - a letter number (aka a tile number)
+; In: Register Y - a letter offset
+loc_B269_repeat:
+C D 1 - - - 0x01B279 06:B269: C9 FC     CMP #$FC                               ; CONSTANT - 0xFC, 0xFD, 0xFD, 0xFE are spec letters
+C - - - - - 0x01B27B 06:B26B: 90 1E     BCC bra_B28B_simple_letter             ; If the letter number < 0xFC
+C - - - - - 0x01B27D 06:B26D: C9 FE     CMP #$FE                               ; CONSTANT - Tile 'A new paragraph'.
+C - - - - - 0x01B27F 06:B26F: D0 15     BNE bra_B286_finish                    ; If letter isn't a new paragraph
+C - - - - - 0x01B281 06:B271: C8        INY                                    ;
+C - - - - - 0x01B282 06:B272: AD 07 20  LDA PPU_DATA                           ; 
+C - - - - - 0x01B285 06:B275: 85 CF     STA v_low_msg_ppu_address              ; retrieve low value of PPU-address
+C - - - - - 0x01B287 06:B277: C8        INY                                    ;
+C - - - - - 0x01B288 06:B278: AD 07 20  LDA PPU_DATA                           ; Increments address
+C - - - - - 0x01B28B 06:B27B: 85 D0     STA v_high_msg_ppu_address             ; retrieve high value of PPU-address
+C - - - - - 0x01B28D 06:B27D: C8        INY                                    ;
+C - - - - - 0x01B28E 06:B27E: 84 C9     STY v_letter_offset                    ; <~ v_letter_offset + 3
+C - - - - - 0x01B290 06:B280: AD 07 20  LDA PPU_DATA                           ; Increments address
+C - - - - - 0x01B293 06:B283: 4C 69 B2  JMP loc_B269_repeat                    ;
 
 bra_B286_finish:
 C - - - - - 0x01B296 06:B286: A9 00     LDA #$00               ; CONSTANT - the message is typed
 C - - - - - 0x01B298 06:B288: 85 C8     STA vMessageInProgress ;
-C - - - - - 0x01B29A 06:B28A: 60        RTS
+C - - - - - 0x01B29A 06:B28A: 60        RTS                    ;
 
-; Params:
-; Register A - tile (a number)
-bra_B28B_skip:
-C - - - - - 0x01B29B 06:B28B: E6 C9     INC v_letter_offset
-C - - - - - 0x01B29D 06:B28D: D0 02     BNE @bra_B291_skip
-- - - - - - 0x01B29F 06:B28F: E6        .byte $E6   ; 
-- - - - - - 0x01B2A0 06:B290: C8        .byte $C8   ; 
+; In: Register A - tile (a number)
+bra_B28B_simple_letter:
+C - - - - - 0x01B29B 06:B28B: E6 C9     INC v_letter_offset           ; updates the offset
+C - - - - - 0x01B29D 06:B28D: D0 02     BNE @bra_B291_skip            ; If the new offset != 0x00
+C - - - - - 0x01B29F 06:B28F: E6 C8     INC vMessageInProgress        ; !(UNUSED), not used
 @bra_B291_skip:
-C - - - - - 0x01B2A1 06:B291: A2 00     LDX #$00
-C - - - - - 0x01B2A3 06:B293: C9 80     CMP #$80
-C - - - - - 0x01B2A5 06:B295: 90 0A     BCC bra_B2A1_skip ; If Register A >= 0x80
-C - - - - - 0x01B2A7 06:B297: A2 7E     LDX #$7E
-C - - - - - 0x01B2A9 06:B299: C9 C0     CMP #$C0
-C - - - - - 0x01B2AB 06:B29B: 90 02     BCC bra_B29F_skip ; If Register A >= 0xC0
-C - - - - - 0x01B2AD 06:B29D: A2 7F     LDX #$7F
-bra_B29F_skip:
-C - - - - - 0x01B2AF 06:B29F: 29 3F     AND #$3F
+C - - - - - 0x01B2A1 06:B291: A2 00     LDX #$00                      ; CONSTANT - the tile number for blank
+C - - - - - 0x01B2A3 06:B293: C9 80     CMP #$80                      ; CONSTANT - latin and japan letters
+C - - - - - 0x01B2A5 06:B295: 90 0A     BCC bra_B2A1_skip             ; If Register A < 0x80
+C - - - - - 0x01B2A7 06:B297: A2 7E     LDX #$7E                      ; CONSTANT - tile, U+030F in Unicode
+C - - - - - 0x01B2A9 06:B299: C9 C0     CMP #$C0                      ; CONSTANT - latin and japan letters
+C - - - - - 0x01B2AB 06:B29B: 90 02     BCC @bra_B29F_only_japan      ; If Register A < 0xC0
+C - - - - - 0x01B2AD 06:B29D: A2 7F     LDX #$7F                      ; CONSTANT - tile, U+030A in Unicode
+@bra_B29F_only_japan:
+C - - - - - 0x01B2AF 06:B29F: 29 3F     AND #$3F                      ; filters by mask
 bra_B2A1_skip:
-C - - - - - 0x01B2B1 06:B2A1: 8E 33 06  STX vPpuBufferData
-C - - - - - 0x01B2B4 06:B2A4: 8D 34 06  STA ram_0634
-C - - - - - 0x01B2B7 06:B2A7: A5 CF     LDA v_low_msg_ppu_address
-C - - - - - 0x01B2B9 06:B2A9: 8D 30 06  STA vLowPpuAddress
-C - - - - - 0x01B2BC 06:B2AC: A5 D0     LDA v_high_msg_ppu_address
-C - - - - - 0x01B2BE 06:B2AE: 8D 31 06  STA vHighPpuAddress
-C - - - - - 0x01B2C1 06:B2B1: A9 82     LDA #$82
-C - - - - - 0x01B2C3 06:B2B3: 8D 32 06  STA vPpuBufferCount
-C - - - - - 0x01B2C6 06:B2B6: E6 CF     INC v_low_msg_ppu_address
+C - - - - - 0x01B2B1 06:B2A1: 8E 33 06  STX vPpuBufferData            ; <~ {0x00, 0x7E, 0x7F}
+C - - - - - 0x01B2B4 06:B2A4: 8D 34 06  STA vNonUsed634               ;
+C - - - - - 0x01B2B7 06:B2A7: A5 CF     LDA v_low_msg_ppu_address     ;
+C - - - - - 0x01B2B9 06:B2A9: 8D 30 06  STA vLowPpuAddress            ; <~ low value, 1 mode
+C - - - - - 0x01B2BC 06:B2AC: A5 D0     LDA v_high_msg_ppu_address    ;
+C - - - - - 0x01B2BE 06:B2AE: 8D 31 06  STA vHighPpuAddress           ; <~ high value, 1 mode
+C - - - - - 0x01B2C1 06:B2B1: A9 82     LDA #$82                      ; CONSTANT - a vertical increment + 2 tiles
+C - - - - - 0x01B2C3 06:B2B3: 8D 32 06  STA vPpuBufferCount           ;
+C - - - - - 0x01B2C6 06:B2B6: E6 CF     INC v_low_msg_ppu_address     ; next a low value of the address
 C - - - - - 0x01B2C8 06:B2B8: A9 50     LDA #$50                      ; typing sound
-C - - - - - 0x01B2CA 06:B2BA: 4C 20 C4  JMP loc_C420_add_sound_effect
+C - - - - - 0x01B2CA 06:B2BA: 4C 20 C4  JMP loc_C420_add_sound_effect ;
 
-- - - - - - 0x01B2CD 06:B2BD: 60        .byte $60   ; 
+C - - - - - 0x01B2CD 06:B2BD: 60        RTS                           ;
 
 sub_B2BE_switch_messages_ppu_banks:
-C - - - - - 0x01B2CE 06:B2BE: A2 00     LDX #$00
-C - - - - - 0x01B2D0 06:B2C0: A9 1A     LDA #$1A
-C - - - - - 0x01B2D2 06:B2C2: 8E 00 80  STX MMC3_Bank_select
-C - - - - - 0x01B2D5 06:B2C5: 8D 01 80  STA MMC3_Bank_data ; Select 2 KB CHR bank at PPU $0000-$07FF (first half of the left pattern table)
-C - - - - - 0x01B2D8 06:B2C8: E8        INX
-C - - - - - 0x01B2D9 06:B2C9: A9 1C     LDA #$1C
-C - - - - - 0x01B2DB 06:B2CB: 8E 00 80  STX MMC3_Bank_select
-C - - - - - 0x01B2DE 06:B2CE: 8D 01 80  STA MMC3_Bank_data ; Select 2 KB CHR bank at PPU $0800-$0FFF (second half of the left pattern table)
-C - - - - - 0x01B2E1 06:B2D1: E8        INX
-C - - - - - 0x01B2E2 06:B2D2: A9 1E     LDA #$1E
-C - - - - - 0x01B2E4 06:B2D4: 8E 00 80  STX MMC3_Bank_select
-C - - - - - 0x01B2E7 06:B2D7: 8D 01 80  STA MMC3_Bank_data ; Select 1 KB CHR bank at PPU $1000-$13FF (first quarter of the right pattern table)
-C - - - - - 0x01B2EA 06:B2DA: 60        RTS
+C - - - - - 0x01B2CE 06:B2BE: A2 00     LDX #$00              ;
+C - - - - - 0x01B2D0 06:B2C0: A9 1A     LDA #$1A              ;
+C - - - - - 0x01B2D2 06:B2C2: 8E 00 80  STX MMC3_Bank_select  ;
+C - - - - - 0x01B2D5 06:B2C5: 8D 01 80  STA MMC3_Bank_data    ; Select 2 KB CHR bank at PPU $0000-$07FF (first half of the left pattern table)
+C - - - - - 0x01B2D8 06:B2C8: E8        INX                   ;
+C - - - - - 0x01B2D9 06:B2C9: A9 1C     LDA #$1C              ;
+C - - - - - 0x01B2DB 06:B2CB: 8E 00 80  STX MMC3_Bank_select  ;
+C - - - - - 0x01B2DE 06:B2CE: 8D 01 80  STA MMC3_Bank_data    ; Select 2 KB CHR bank at PPU $0800-$0FFF (second half of the left pattern table)
+C - - - - - 0x01B2E1 06:B2D1: E8        INX                   ;
+C - - - - - 0x01B2E2 06:B2D2: A9 1E     LDA #$1E              ;
+C - - - - - 0x01B2E4 06:B2D4: 8E 00 80  STX MMC3_Bank_select  ;
+C - - - - - 0x01B2E7 06:B2D7: 8D 01 80  STA MMC3_Bank_data    ; Select 1 KB CHR bank at PPU $1000-$13FF (first quarter of the right pattern table)
+C - - - - - 0x01B2EA 06:B2DA: 60        RTS                   ;
 
+; In; Register Y - a letter offset
 sub_B2DB_prepare_letter_address:
-C - - - - - 0x01B2EB 06:B2DB: AD 02 20  LDA PPU_STATUS ; ; Reset PPU Address
-C - - - - - 0x01B2EE 06:B2DE: 98        TYA
-C - - - - - 0x01B2EF 06:B2DF: 18        CLC
-C - - - - - 0x01B2F0 06:B2E0: 65 CB     ADC v_low_vram_msg_address
-C - - - - - 0x01B2F2 06:B2E2: 48        PHA
-C - - - - - 0x01B2F3 06:B2E3: A5 CC     LDA v_hign_vram_msg_address
-C - - - - - 0x01B2F5 06:B2E5: 69 00     ADC #$00
-C - - - - - 0x01B2F7 06:B2E7: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01B2FA 06:B2EA: 68        PLA
-C - - - - - 0x01B2FB 06:B2EB: 8D 06 20  STA PPU_ADDRESS
-C - - - - - 0x01B2FE 06:B2EE: 4C FC B2  JMP @loc_B2FC_skip
+C - - - - - 0x01B2EB 06:B2DB: AD 02 20  LDA PPU_STATUS           ; Reset PPU Address
+C - - - - - 0x01B2EE 06:B2DE: 98        TYA                      ;
+C - - - - - 0x01B2EF 06:B2DF: 18        CLC                      ;
+C - - - - - 0x01B2F0 06:B2E0: 65 CB     ADC vLowVram_MsgAddress  ;
+C - - - - - 0x01B2F2 06:B2E2: 48        PHA                      ; diposit low-value + an offset
+C - - - - - 0x01B2F3 06:B2E3: A5 CC     LDA vHignVram_MsgAddress ;
+C - - - - - 0x01B2F5 06:B2E5: 69 00     ADC #$00                 ;
+C - - - - - 0x01B2F7 06:B2E7: 8D 06 20  STA PPU_ADDRESS          ; <~ high value (+1 with overflow)
+C - - - - - 0x01B2FA 06:B2EA: 68        PLA                      ; retrieve low-value + an offset (see $B2E2)
+C - - - - - 0x01B2FB 06:B2EB: 8D 06 20  STA PPU_ADDRESS          ; <~ low value
+C - - - - - 0x01B2FE 06:B2EE: 4C FC B2  JMP loc_B2FC_skip        ;
 
-- - - - - - 0x01B301 06:B2F1: AD 02 20  LDA PPU_STATUS ; not used ???
-- - - - - - 0x01B304 06:B2F4: A9 00     LDA #$00  ; not used ???
-- - - - - - 0x01B306 06:B2F6: 8D 06 20  STA PPU_ADDRESS ; not used ???
-- - - - - - 0x01B309 06:B2F9: 8C 06 20  STY PPU_ADDRESS ; not used ???
-@loc_B2FC_skip:
-C D 1 - - - 0x01B30C 06:B2FC: AD 07 20  LDA PPU_DATA    ; Increments address
-C - - - - - 0x01B30F 06:B2FF: AD 07 20  LDA PPU_DATA    ; Increments address
-C - - - - - 0x01B312 06:B302: 60        RTS             ;
+- - - - - - 0x01B301 06:B2F1: AD 02 20  LDA PPU_STATUS           ; !(UNUSED), not used
+- - - - - - 0x01B304 06:B2F4: A9 00     LDA #$00                 ; !(UNUSED), not used
+- - - - - - 0x01B306 06:B2F6: 8D 06 20  STA PPU_ADDRESS          ; !(UNUSED), not used
+- - - - - - 0x01B309 06:B2F9: 8C 06 20  STY PPU_ADDRESS          ; !(UNUSED), not used
+
+loc_B2FC_skip:
+C D 1 - - - 0x01B30C 06:B2FC: AD 07 20  LDA PPU_DATA             ;
+C - - - - - 0x01B30F 06:B2FF: AD 07 20  LDA PPU_DATA             ; see https://www.nesdev.org/wiki/PPU_registers#The_PPUDATA_read_buffer
+C - - - - - 0x01B312 06:B302: 60        RTS                      ;
 
 ; In: Register X - a room number
 sub_B303:
@@ -2989,25 +2994,25 @@ C - - - - - 0x01B325 06:B315: B9 62 00  LDA ram_0062,Y
 C - - - - - 0x01B328 06:B318: 60        RTS
 
 sub_B319_hide_character_in_room:
-C - - - - - 0x01B329 06:B319: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2
+C - - - - - 0x01B329 06:B319: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ;
 C - - - - - 0x01B32C 06:B31C: A0 FF     LDY #$FF
-C - - - - - 0x01B32E 06:B31E: A2 00     LDX #$00
+C - - - - - 0x01B32E 06:B31E: A2 00     LDX #$00                      ; set loop counter
 C - - - - - 0x01B330 06:B320: A5 5F     LDA vChrLiveStatus
-bra_B322:
+bra_B322_loop:
 C - - - - - 0x01B332 06:B322: 4A        LSR
 C - - - - - 0x01B333 06:B323: 4A        LSR
 C - - - - - 0x01B334 06:B324: 48        PHA
-C - - - - - 0x01B335 06:B325: 29 03     AND #$03
-C - - - - - 0x01B337 06:B327: C9 01     CMP #$01
+C - - - - - 0x01B335 06:B325: 29 03     AND #$03                      ;
+C - - - - - 0x01B337 06:B327: C9 01     CMP #$01                      ; CONSTANT - the character is arrested
 C - - - - - 0x01B339 06:B329: D0 05     BNE bra_B330_skip
 C - - - - - 0x01B33B 06:B32B: C8        INY
 C - - - - - 0x01B33C 06:B32C: 8A        TXA
 C - - - - - 0x01B33D 06:B32D: 99 62 00  STA ram_0062,Y
 bra_B330_skip:
 C - - - - - 0x01B340 06:B330: 68        PLA
-C - - - - - 0x01B341 06:B331: E8        INX
-C - - - - - 0x01B342 06:B332: E0 03     CPX #$03
-C - - - - - 0x01B344 06:B334: D0 EC     BNE bra_B322
+C - - - - - 0x01B341 06:B331: E8        INX                           ; decrement loop counter
+C - - - - - 0x01B342 06:B332: E0 03     CPX #$03                      ;
+C - - - - - 0x01B344 06:B334: D0 EC     BNE bra_B322_loop             ; If Register X != 0x03
 C - - - - - 0x01B346 06:B336: 84 11     STY ram_0011
 C - - - - - 0x01B348 06:B338: A6 60     LDX ram_0060
 C - - - - - 0x01B34A 06:B33A: F0 03     BEQ bra_B33F
@@ -3020,23 +3025,24 @@ bra_B346:
 C - - - - - 0x01B356 06:B346: A9 00     LDA #$00
 C - - - - - 0x01B358 06:B348: 85 60     STA ram_0060
 C - - - - - 0x01B35A 06:B34A: 85 61     STA ram_0061
-C - - - - - 0x01B35C 06:B34C: A5 5E     LDA v_no_level
-C - - - - - 0x01B35E 06:B34E: 0A        ASL
-C - - - - - 0x01B35F 06:B34F: A8        TAY
-C - - - - - 0x01B360 06:B350: B9 08 81  LDA tbl_ptr_prison_rooms,Y
-C - - - - - 0x01B363 06:B353: 85 12     STA ram_0012
-C - - - - - 0x01B365 06:B355: B9 09 81  LDA tbl_ptr_prison_rooms + 1,Y
-C - - - - - 0x01B368 06:B358: 85 13     STA ram_0013
-C - - - - - 0x01B36A 06:B35A: A0 00     LDY #$00
-C - - - - - 0x01B36C 06:B35C: A5 46     LDA vNoSubLevel
+C - - - - - 0x01B35C 06:B34C: A5 5E     LDA v_no_level                  ;
+C - - - - - 0x01B35E 06:B34E: 0A        ASL                             ; *2, because the table contains addresses
+C - - - - - 0x01B35F 06:B34F: A8        TAY                             ;
+C - - - - - 0x01B360 06:B350: B9 08 81  LDA tbl_ptr_prison_rooms,Y      ;
+C - - - - - 0x01B363 06:B353: 85 12     STA ram_0012                    ; Low address
+C - - - - - 0x01B365 06:B355: B9 09 81  LDA tbl_ptr_prison_rooms + 1,Y  ;
+C - - - - - 0x01B368 06:B358: 85 13     STA ram_0013                    ; High address
+C - - - - - 0x01B36A 06:B35A: A0 00     LDY #$00                        ; set loop counter
+C - - - - - 0x01B36C 06:B35C: A5 46     LDA vNoSubLevel                 ;
+; In: Register A - room number
 bra_B35E_loop:
-C - - - - - 0x01B36E 06:B35E: D1 12     CMP (ram_0012),Y
-C - - - - - 0x01B370 06:B360: 90 05     BCC bra_B367
-C - - - - - 0x01B372 06:B362: C8        INY
-C - - - - - 0x01B373 06:B363: C8        INY
-C - - - - - 0x01B374 06:B364: C8        INY
-C - - - - - 0x01B375 06:B365: D0 F7     BNE bra_B35E_loop
-bra_B367:
+C - - - - - 0x01B36E 06:B35E: D1 12     CMP (ram_0012),Y                ;
+C - - - - - 0x01B370 06:B360: 90 05     BCC bra_B367_found              ; If the room of the table < vNoSubLevel
+C - - - - - 0x01B372 06:B362: C8        INY                             ; 2 of 3
+C - - - - - 0x01B373 06:B363: C8        INY                             ; 3 of 3
+C - - - - - 0x01B374 06:B364: C8        INY                             ; 1 of 3
+C - - - - - 0x01B375 06:B365: D0 F7     BNE bra_B35E_loop               ; If Register Y != 0x00
+bra_B367_found:
 C - - - - - 0x01B377 06:B367: C8        INY
 C - - - - - 0x01B378 06:B368: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01B37A 06:B36A: 85 14     STA ram_0014
@@ -3136,7 +3142,7 @@ C - - - - - 0x01B41A 06:B40A: 20 80 B4  JSR sub_B480_plus_npc_msg_status
 C - - - - - 0x01B41D 06:B40D: A9 04     LDA #$04
 C - - - - - 0x01B41F 06:B40F: 85 30     STA vClearMessageCounter
 bra_B411_skip:
-C - - - - - 0x01B421 06:B411: A5 C8     LDA ram_00C8
+C - - - - - 0x01B421 06:B411: A5 C8     LDA vMessageInProgress
 C - - - - - 0x01B423 06:B413: D0 4E     BNE bra_B463_RTS
 C - - - - - 0x01B425 06:B415: 24 41     BIT vNPCMessageStatus
 C - - - - - 0x01B427 06:B417: 30 4E     BMI bra_B467_finish_level

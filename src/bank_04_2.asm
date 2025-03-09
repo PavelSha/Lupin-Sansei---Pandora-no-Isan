@@ -2561,6 +2561,8 @@ tbl_briefcases_on_the_level4:
 - D 0 - I - 0x013CD2 04:9CC2: 05        .byte $05   ; 
 - D 0 - I - 0x013CD3 04:9CC3: 07        .byte $07   ; 
 
+; 1 byte - room number
+; 2-3 bytes - ???
 tbl_ptr_prison_rooms1:
 - D 0 - I - 0x013CD4 04:9CC4: 04        .byte $04
 - D 0 - I - 0x013CD5 04:9CC5: FD 9C     .word $9CFD

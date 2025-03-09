@@ -385,8 +385,8 @@ vMessageInProgress            = ram_00C8
 
 v_letter_offset               = ram_00C9
 vMessageCounter               = ram_00CA
-v_low_vram_msg_address        = ram_00CB
-v_hign_vram_msg_address       = ram_00CC
+vLowVram_MsgAddress           = ram_00CB
+vHignVram_MsgAddress          = ram_00CC
 v_low_msg_ppu_address         = ram_00CF ; This temporary address for the message on the screen
 v_high_msg_ppu_address        = ram_00D0
 vGogglesActive                = ram_00D1
@@ -742,6 +742,7 @@ vLowPpuAddress                = ram_0630
 vHighPpuAddress               = ram_0631
 vPpuBufferCount               = ram_0632
 vPpuBufferData                = ram_0633
+vNonUsed634                   = ram_0634
 vPpuAddrDataCache             = ram_067B ; [ram_067B - ram_06AC]
 ; 1st - count (N)
 ; 2nd + 3rd - ppu address

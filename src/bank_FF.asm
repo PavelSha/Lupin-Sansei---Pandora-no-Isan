@@ -2841,7 +2841,7 @@ C - - - - - 0x01D136 07:D126: AE 30 06  LDX vLowPpuAddress            ;
 C - - - - - 0x01D139 07:D129: 8D 06 20  STA PPU_ADDRESS               ; writes high byte
 C - - - - - 0x01D13C 07:D12C: 8E 06 20  STX PPU_ADDRESS               ; writes low byte
 C - - - - - 0x01D13F 07:D12F: AD 32 06  LDA vPpuBufferCount           ;
-C - - - - - 0x01D142 07:D132: 10 0B     BPL @bra_D13F_skip            ; If positive value - a horiz inrement, else a vert increment
+C - - - - - 0x01D142 07:D132: 10 0B     BPL @bra_D13F_skip            ; If positive value - a horiz increment, else a vert increment
 C - - - - - 0x01D144 07:D134: 48        PHA                           ; store count
 C - - - - - 0x01D145 07:D135: A5 26     LDA vPpuCtrlSettings          ;
 C - - - - - 0x01D147 07:D137: 09 04     ORA #$04                      ; vertical increment per CPU read/write of PPUDATA (increment 32)
@@ -7676,8 +7676,8 @@ C - - - - - 0x01EDCE 07:EDBE: 20 53 EE  JSR sub_EE53_enemies_subroutine
 C - - - - - 0x01EDD1 07:EDC1: A5 3B     LDA vSharedGameStatus                    ;
 C - - - - - 0x01EDD3 07:EDC3: 6A        ROR                                      ;
 C - - - - - 0x01EDD4 07:EDC4: B0 55     BCS bra_EE1B_skip                        ; Branch if 'A screen with the message'
-C - - - - - 0x01EDD6 07:EDC6: 20 9A B0  JSR $B09A                                ; to sub_B09A bank 06_2
-C - - - - - 0x01EDD9 07:EDC9: 20 4D AF  JSR $AF4D                                ; to sub_AF4D bank 06_2
+C - - - - - 0x01EDD6 07:EDC6: 20 9A B0  JSR sub_B09A_try_to_create_item          ; to bank 06_2
+C - - - - - 0x01EDD9 07:EDC9: 20 4D AF  JSR sub_AF4D_briefcase_or_item_handler   ; to bank 06_2
 C - - - - - 0x01EDDC 07:EDCC: 20 8C CB  JSR sub_CB8C_render_frame_current_item   ;
 C - - - - - 0x01EDDF 07:EDCF: 20 D9 CB  JSR sub_CBD9_try_use_current_item        ;
 C - - - - - 0x01EDE2 07:EDD2: 20 5F CD  JSR sub_CD5F_try_reset_goggles           ;
