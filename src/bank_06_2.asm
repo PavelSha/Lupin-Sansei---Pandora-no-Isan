@@ -14,7 +14,7 @@
 .import tbl_briefcases_positions                          ; bank 04 (Page 2)
 .import tbl_npc_portrait_sprites                          ; bank 04 (Page 2)
 .import tbl_npc_portrait_set                              ; bank 04 (Page 2)
-.import npc_sprite_set                                    ; bank 04 (Page 2)
+.import tbl_npc_sprite_set                                ; bank 04 (Page 2)
 .import tbl_ptr_prison_rooms                              ; bank 04 (Page 2)
 .import sub_C305_update_ppu_ctrl_with_no_nmi              ; bank FF
 .import sub_C313_screen_off                               ; bank FF
@@ -2977,54 +2977,55 @@ C - - - - - 0x01B30F 06:B2FF: AD 07 20  LDA PPU_DATA             ; see https://w
 C - - - - - 0x01B312 06:B302: 60        RTS                      ;
 
 ; In: Register X - a room number
-sub_B303:
+sub_B303_reset_prison_room:
 C - - - - - 0x01B313 06:B303: BD 00 05  LDA vRooms,X
 C - - - - - 0x01B316 06:B306: 09 B0     ORA #$B0
 C - - - - - 0x01B318 06:B308: 9D 00 05  STA vRooms,X
 C - - - - - 0x01B31B 06:B30B: 60        RTS
 
-sub_B30C:
-C - - - - - 0x01B31C 06:B30C: A0 00     LDY #$00
-C - - - - - 0x01B31E 06:B30E: A5 BC     LDA vRoomCurrentIndex
-C - - - - - 0x01B320 06:B310: C5 60     CMP ram_0060
-C - - - - - 0x01B322 06:B312: F0 01     BEQ @bra_B315_skip
-- - - - - - 0x01B324 06:B314: C8        INY
+; Out; 0x00 - Lupin, 0x01 - Jigen, 0x02 - Goemon
+sub_B30C_get_arrested_character:
+C - - - - - 0x01B31C 06:B30C: A0 00     LDY #$00                ; Y <~ 1 of 2
+C - - - - - 0x01B31E 06:B30E: A5 BC     LDA vRoomCurrentIndex   ;
+C - - - - - 0x01B320 06:B310: C5 60     CMP vRoomWithPrisoner1  ;
+C - - - - - 0x01B322 06:B312: F0 01     BEQ @bra_B315_skip      ; If the room indexes is equal
+- - - - - - 0x01B324 06:B314: C8        INY                     ; Y <~ 2 of 2
 @bra_B315_skip:
-C - - - - - 0x01B325 06:B315: B9 62 00  LDA ram_0062,Y
-C - - - - - 0x01B328 06:B318: 60        RTS
+C - - - - - 0x01B325 06:B315: B9 62 00  LDA vPrisoners,Y        ;
+C - - - - - 0x01B328 06:B318: 60        RTS                     ;
 
 sub_B319_hide_character_in_room:
-C - - - - - 0x01B329 06:B319: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ;
-C - - - - - 0x01B32C 06:B31C: A0 FF     LDY #$FF
-C - - - - - 0x01B32E 06:B31E: A2 00     LDX #$00                      ; set loop counter
-C - - - - - 0x01B330 06:B320: A5 5F     LDA vChrLiveStatus
-bra_B322_loop:
-C - - - - - 0x01B332 06:B322: 4A        LSR
-C - - - - - 0x01B333 06:B323: 4A        LSR
-C - - - - - 0x01B334 06:B324: 48        PHA
-C - - - - - 0x01B335 06:B325: 29 03     AND #$03                      ;
-C - - - - - 0x01B337 06:B327: C9 01     CMP #$01                      ; CONSTANT - the character is arrested
-C - - - - - 0x01B339 06:B329: D0 05     BNE bra_B330_skip
-C - - - - - 0x01B33B 06:B32B: C8        INY
-C - - - - - 0x01B33C 06:B32C: 8A        TXA
-C - - - - - 0x01B33D 06:B32D: 99 62 00  STA ram_0062,Y
+C - - - - - 0x01B329 06:B319: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2   ;
+C - - - - - 0x01B32C 06:B31C: A0 FF     LDY #$FF                        ; initial an index (-1)
+C - - - - - 0x01B32E 06:B31E: A2 00     LDX #$00                        ; set loop counter
+C - - - - - 0x01B330 06:B320: A5 5F     LDA vChrLiveStatus              ;
+bra_B322_loop:                                                          ; loop by x (3 times)
+C - - - - - 0x01B332 06:B322: 4A        LSR                             ;
+C - - - - - 0x01B333 06:B323: 4A        LSR                             ; 
+C - - - - - 0x01B334 06:B324: 48        PHA                             ; diposit vChrLiveStatus
+C - - - - - 0x01B335 06:B325: 29 03     AND #$03                        ;
+C - - - - - 0x01B337 06:B327: C9 01     CMP #$01                        ; CONSTANT - the character is arrested
+C - - - - - 0x01B339 06:B329: D0 05     BNE bra_B330_skip               ; If the current character isn't arrested
+C - - - - - 0x01B33B 06:B32B: C8        INY                             ; Y <~ 0x00 or 0x01
+C - - - - - 0x01B33C 06:B32C: 8A        TXA                             ;
+C - - - - - 0x01B33D 06:B32D: 99 62 00  STA vPrisoners,Y                ; <~ {0x00, 0x01, 0x02}
 bra_B330_skip:
-C - - - - - 0x01B340 06:B330: 68        PLA
-C - - - - - 0x01B341 06:B331: E8        INX                           ; decrement loop counter
-C - - - - - 0x01B342 06:B332: E0 03     CPX #$03                      ;
-C - - - - - 0x01B344 06:B334: D0 EC     BNE bra_B322_loop             ; If Register X != 0x03
-C - - - - - 0x01B346 06:B336: 84 11     STY ram_0011
-C - - - - - 0x01B348 06:B338: A6 60     LDX ram_0060
-C - - - - - 0x01B34A 06:B33A: F0 03     BEQ bra_B33F
-C - - - - - 0x01B34C 06:B33C: 20 03 B3  JSR sub_B303
-bra_B33F:
-C - - - - - 0x01B34F 06:B33F: A6 61     LDX ram_0061
-C - - - - - 0x01B351 06:B341: F0 03     BEQ bra_B346
-C - - - - - 0x01B353 06:B343: 20 03 B3  JSR sub_B303
-bra_B346:
-C - - - - - 0x01B356 06:B346: A9 00     LDA #$00
-C - - - - - 0x01B358 06:B348: 85 60     STA ram_0060
-C - - - - - 0x01B35A 06:B34A: 85 61     STA ram_0061
+C - - - - - 0x01B340 06:B330: 68        PLA                             ; retrieve vChrLiveStatus (see $B324)
+C - - - - - 0x01B341 06:B331: E8        INX                             ; increment loop counter
+C - - - - - 0x01B342 06:B332: E0 03     CPX #$03                        ;
+C - - - - - 0x01B344 06:B334: D0 EC     BNE bra_B322_loop               ; If Register X != 0x03
+C - - - - - 0x01B346 06:B336: 84 11     STY v_cache_reg_y
+C - - - - - 0x01B348 06:B338: A6 60     LDX vRoomWithPrisoner1          ;
+C - - - - - 0x01B34A 06:B33A: F0 03     BEQ @bra_B33F_no_exist          ; If the room isn't exist
+C - - - - - 0x01B34C 06:B33C: 20 03 B3  JSR sub_B303_reset_prison_room
+@bra_B33F_no_exist:
+C - - - - - 0x01B34F 06:B33F: A6 61     LDX vRoomWithPrisoner2          ;
+C - - - - - 0x01B351 06:B341: F0 03     BEQ @bra_B346_no_exist          ; If the room isn't exist
+C - - - - - 0x01B353 06:B343: 20 03 B3  JSR sub_B303_reset_prison_room
+@bra_B346_no_exist:
+C - - - - - 0x01B356 06:B346: A9 00     LDA #$00                        ;
+C - - - - - 0x01B358 06:B348: 85 60     STA vRoomWithPrisoner1          ; clear
+C - - - - - 0x01B35A 06:B34A: 85 61     STA vRoomWithPrisoner2          ; clear
 C - - - - - 0x01B35C 06:B34C: A5 5E     LDA v_no_level                  ;
 C - - - - - 0x01B35E 06:B34E: 0A        ASL                             ; *2, because the table contains addresses
 C - - - - - 0x01B35F 06:B34F: A8        TAY                             ;
@@ -3076,37 +3077,36 @@ C - - - - - 0x01B3A8 06:B398: D0 E1     BNE bra_B37B
 bra_B39A_skip:
 C - - - - - 0x01B3AA 06:B39A: 29 1F     AND #$1F
 C - - - - - 0x01B3AC 06:B39C: 9D 00 05  STA vRooms,X
-C - - - - - 0x01B3AF 06:B39F: A4 11     LDY ram_0011
+C - - - - - 0x01B3AF 06:B39F: A4 11     LDY v_cache_reg_y
 C - - - - - 0x01B3B1 06:B3A1: 8A        TXA
-C - - - - - 0x01B3B2 06:B3A2: 99 60 00  STA ram_0060,Y
-C - - - - - 0x01B3B5 06:B3A5: C6 11     DEC ram_0011
+C - - - - - 0x01B3B2 06:B3A2: 99 60 00  STA vRoomWithPrisoners,Y
+C - - - - - 0x01B3B5 06:B3A5: C6 11     DEC v_cache_reg_y
 C - - - - - 0x01B3B7 06:B3A7: 10 D2     BPL bra_B37B
 C - - - - - 0x01B3B9 06:B3A9: 60        RTS
 
 sub_B3AA:
-C - - - - - 0x01B3BA 06:B3AA: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ; bank FF
-C - - - - - 0x01B3BD 06:B3AD: A5 5E     LDA v_no_level
-C - - - - - 0x01B3BF 06:B3AF: 0A        ASL
-C - - - - - 0x01B3C0 06:B3B0: A8        TAY
-C - - - - - 0x01B3C1 06:B3B1: B9 00 81  LDA tbl_ptr_rooms_with_NPCs,Y
-C - - - - - 0x01B3C4 06:B3B4: 85 14     STA ram_0014
-C - - - - - 0x01B3C6 06:B3B6: B9 01 81  LDA tbl_ptr_rooms_with_NPCs + 1,Y
-C - - - - - 0x01B3C9 06:B3B9: 85 15     STA ram_0015
-C - - - - - 0x01B3CB 06:B3BB: A5 B9     LDA ram_00B9
-C - - - - - 0x01B3CD 06:B3BD: 29 03     AND #$03
-C - - - - - 0x01B3CF 06:B3BF: D0 15     BNE bra_B3D6_skip
-C - - - - - 0x01B3D1 06:B3C1: 20 0C B3  JSR sub_B30C
-C - - - - - 0x01B3D4 06:B3C4: 0A        ASL
-C - - - - - 0x01B3D5 06:B3C5: A8        TAY
-C - - - - - 0x01B3D6 06:B3C6: B9 10 81  LDA $8110,Y
-C - - - - - 0x01B3D9 06:B3C9: 85 12     STA ram_0012
-C - - - - - 0x01B3DB 06:B3CB: B9 11 81  LDA $8111,Y
-C - - - - - 0x01B3DE 06:B3CE: 85 13     STA ram_0013
+C - - - - - 0x01B3BA 06:B3AA: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2       ; bank FF
+C - - - - - 0x01B3BD 06:B3AD: A5 5E     LDA v_no_level                      ;
+C - - - - - 0x01B3BF 06:B3AF: 0A        ASL                                 ; *2, because the address have 2 bytes
+C - - - - - 0x01B3C0 06:B3B0: A8        TAY                                 ;
+C - - - - - 0x01B3C1 06:B3B1: B9 00 81  LDA tbl_ptr_rooms_with_NPCs,Y       ;
+C - - - - - 0x01B3C4 06:B3B4: 85 14     STA ram_0014                        ; Low address
+C - - - - - 0x01B3C6 06:B3B6: B9 01 81  LDA tbl_ptr_rooms_with_NPCs + 1,Y   ;
+C - - - - - 0x01B3C9 06:B3B9: 85 15     STA ram_0015                        ; High address
+C - - - - - 0x01B3CB 06:B3BB: A5 B9     LDA vCurUniqueRoomShort             ;
+C - - - - - 0x01B3CD 06:B3BD: 29 03     AND #$03                            ;
+C - - - - - 0x01B3CF 06:B3BF: D0 15     BNE bra_B3D6_skip                   ; If it isn't the room with the arrested character
+C - - - - - 0x01B3D1 06:B3C1: 20 0C B3  JSR sub_B30C_get_arrested_character ;
+C - - - - - 0x01B3D4 06:B3C4: 0A        ASL                                 ; *2, because the address have 2 bytes
+C - - - - - 0x01B3D5 06:B3C5: A8        TAY                                 ;
+C - - - - - 0x01B3D6 06:B3C6: B9 10 81  LDA tbl_portrait_prisoners,Y        ;
+C - - - - - 0x01B3D9 06:B3C9: 85 12     STA ram_0012                        ; Low address
+C - - - - - 0x01B3DB 06:B3CB: B9 11 81  LDA tbl_portrait_prisoners + 1,Y    ;
+C - - - - - 0x01B3DE 06:B3CE: 85 13     STA ram_0013                        ; High address
 C - - - - - 0x01B3E0 06:B3D0: 20 49 B5  JSR sub_B549
-C - - - - - 0x01B3E3 06:B3D3: 4C E3 B3  JMP loc_B3E3
+C - - - - - 0x01B3E3 06:B3D3: 4C E3 B3  JMP loc_B3E3_continue
 
-; Params:
-; ram_0014-ram_0015 - tbl_ptr_roomsX_with_NPCs
+; In: [$0014-$0015] - tbl_ptr_roomsX_with_NPCs
 bra_B3D6_skip:
 C - - - - - 0x01B3E6 06:B3D6: A5 B8     LDA vRoomExtraInfoCache                  ; puts the index of NPC (every level)
 C - - - - - 0x01B3E8 06:B3D8: 0A        ASL                                      ;
@@ -3116,44 +3116,44 @@ C - - - - - 0x01B3EC 06:B3DC: 85 12     STA ram_0012                            
 C - - - - - 0x01B3EE 06:B3DE: C8        INY                                      ;
 C - - - - - 0x01B3EF 06:B3DF: B1 14     LDA (ram_0014),Y                         ;
 C - - - - - 0x01B3F1 06:B3E1: 85 13     STA ram_0013                             ; low address - tbl_ptr_roomsX_X_with_NPCs
-loc_B3E3:
-C D 1 - - - 0x01B3F3 06:B3E3: 20 EB B4  JSR sub_B4EB_prepare_npc_sprite_in_room
+loc_B3E3_continue:
+C D 1 - - - 0x01B3F3 06:B3E3: 20 EB B4  JSR sub_B4EB_add_npc_sprite_in_room      ;
 C - - - - - 0x01B3F6 06:B3E6: A5 C8     LDA vMessageInProgress                   ;
-C - - - - - 0x01B3F8 06:B3E8: D0 27     BNE bra_B411_skip                        ; If vMessageInProgress != 0x00 (no message)
-C - - - - - 0x01B3FA 06:B3EA: 24 41     BIT vNPCMessageStatus
-C - - - - - 0x01B3FC 06:B3EC: 70 23     BVS bra_B411_skip
+C - - - - - 0x01B3F8 06:B3E8: D0 27     BNE bra_B411_skip                        ; If the message is typing
+C - - - - - 0x01B3FA 06:B3EA: 24 41     BIT vNPCMessageStatus                    ;
+C - - - - - 0x01B3FC 06:B3EC: 70 23     BVS bra_B411_skip                        ; If the message have been clearing
 C - - - - - 0x01B3FE 06:B3EE: 20 3E FC  JSR sub_FC3E_boss_defeated_status        ;
 C - - - - - 0x01B401 06:B3F1: F0 0F     BEQ bra_B402_skip                        ; If The boss isn't defeated
 C - - - - - 0x01B403 06:B3F3: A9 03     LDA #BIT_BUTTON_B_OR_A                   ;
 C - - - - - 0x01B405 06:B3F5: 20 79 D0  JSR sub_D079_check_button_press          ; bank FF
 C - - - - - 0x01B408 06:B3F8: F0 17     BEQ bra_B411_skip                        ; Go to the branch If the buttons 'A' or 'B' aren't pressed
-C - - - - - 0x01B40A 06:B3FA: A5 41     LDA vNPCMessageStatus
-C - - - - - 0x01B40C 06:B3FC: C9 06     CMP #$06
-C - - - - - 0x01B40E 06:B3FE: 90 08     BCC bra_B408
+C - - - - - 0x01B40A 06:B3FA: A5 41     LDA vNPCMessageStatus                    ;
+C - - - - - 0x01B40C 06:B3FC: C9 06     CMP #$06                                 ; CONSTANT - 2nd message, scene with the boss
+C - - - - - 0x01B40E 06:B3FE: 90 08     BCC bra_B408_start_clear                 ; If the 2nd message wasn't appearing
 C - - - - - 0x01B410 06:B400: B0 65     BCS bra_B467_finish_level                ; Always true
 
 bra_B402_skip:
-C - - - - - 0x01B412 06:B402: A9 60     LDA #$60
-C - - - - - 0x01B414 06:B404: C5 64     CMP vScreenChrPosX
-C - - - - - 0x01B416 06:B406: B0 09     BCS bra_B411_skip
-bra_B408:
-C - - - - - 0x01B418 06:B408: A9 40     LDA #$40
-C - - - - - 0x01B41A 06:B40A: 20 80 B4  JSR sub_B480_plus_npc_msg_status
-C - - - - - 0x01B41D 06:B40D: A9 04     LDA #$04
-C - - - - - 0x01B41F 06:B40F: 85 30     STA vClearMessageCounter
+C - - - - - 0x01B412 06:B402: A9 60     LDA #$60                                 ; CONSTANT - the starting position of the message display
+C - - - - - 0x01B414 06:B404: C5 64     CMP vScreenChrPosX                       ;
+C - - - - - 0x01B416 06:B406: B0 09     BCS bra_B411_skip                        ; If vScreenChrPosX <= 0x60
+bra_B408_start_clear:
+C - - - - - 0x01B418 06:B408: A9 40     LDA #$40                                 ; CONSTANT - the message is clearing
+C - - - - - 0x01B41A 06:B40A: 20 80 B4  JSR sub_B480_plus_npc_msg_status         ;
+C - - - - - 0x01B41D 06:B40D: A9 04     LDA #$04                                 ; CONSTANT - clearing time
+C - - - - - 0x01B41F 06:B40F: 85 30     STA vClearMessageCounter                 ;
 bra_B411_skip:
-C - - - - - 0x01B421 06:B411: A5 C8     LDA vMessageInProgress
-C - - - - - 0x01B423 06:B413: D0 4E     BNE bra_B463_RTS
-C - - - - - 0x01B425 06:B415: 24 41     BIT vNPCMessageStatus
-C - - - - - 0x01B427 06:B417: 30 4E     BMI bra_B467_finish_level
-C - - - - - 0x01B429 06:B419: 50 48     BVC bra_B463_RTS
-C - - - - - 0x01B42B 06:B41B: A5 30     LDA vClearMessageCounter
-C - - - - - 0x01B42D 06:B41D: F0 03     BEQ bra_B422_skip
-C - - - - - 0x01B42F 06:B41F: 4C 6D B5  JMP loc_B56D_clear_npc_message      ;
+C - - - - - 0x01B421 06:B411: A5 C8     LDA vMessageInProgress                   ;
+C - - - - - 0x01B423 06:B413: D0 4E     BNE bra_B463_RTS                         ; If the message is typing
+C - - - - - 0x01B425 06:B415: 24 41     BIT vNPCMessageStatus                    ;
+C - - - - - 0x01B427 06:B417: 30 4E     BMI bra_B467_finish_level                ; If the message was appearing
+C - - - - - 0x01B429 06:B419: 50 48     BVC bra_B463_RTS                         ; If the message haven't been clearing
+C - - - - - 0x01B42B 06:B41B: A5 30     LDA vClearMessageCounter                 ;
+C - - - - - 0x01B42D 06:B41D: F0 03     BEQ bra_B422_finish_clear                ; If time is up
+C - - - - - 0x01B42F 06:B41F: 4C 6D B5  JMP loc_B56D_clear_npc_message           ;
 
-bra_B422_skip:
-C - - - - - 0x01B432 06:B422: A9 BF     LDA #$BF
-C - - - - - 0x01B434 06:B424: 20 85 B4  JSR sub_B485_minus_npc_msg_status
+bra_B422_finish_clear:
+C - - - - - 0x01B432 06:B422: A9 BF     LDA #$BF                                ; CONSTANT - All except 'the message is clearing'
+C - - - - - 0x01B434 06:B424: 20 85 B4  JSR sub_B485_minus_npc_msg_status       ;
 C - - - - - 0x01B437 06:B427: A5 41     LDA vNPCMessageStatus
 C - - - - - 0x01B439 06:B429: 29 0F     AND #$0F
 C - - - - - 0x01B43B 06:B42B: A8        TAY
@@ -3169,18 +3169,18 @@ C - - - - - 0x01B44D 06:B43D: E6 41     INC vNPCMessageStatus
 C - - - - - 0x01B44F 06:B43F: B1 12     LDA (ram_0012),Y
 C - - - - - 0x01B451 06:B441: 48        PHA
 C - - - - - 0x01B452 06:B442: 30 1B     BMI bra_B45F_skip
-C - - - - - 0x01B454 06:B444: A9 80     LDA #$80
-C - - - - - 0x01B456 06:B446: 20 80 B4  JSR sub_B480_plus_npc_msg_status
-C - - - - - 0x01B459 06:B449: A5 B9     LDA ram_00B9
-C - - - - - 0x01B45B 06:B44B: 29 03     AND #$03
-C - - - - - 0x01B45D 06:B44D: D0 10     BNE bra_B45F_skip
-C - - - - - 0x01B45F 06:B44F: 20 0C B3  JSR sub_B30C
-C - - - - - 0x01B462 06:B452: AA        TAX
-C - - - - - 0x01B463 06:B453: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01B465 06:B455: 1D 64 B4  ORA tbl_rescue_character,X
-C - - - - - 0x01B468 06:B458: 85 5F     STA vChrLiveStatus
-C - - - - - 0x01B46A 06:B45A: B6 60     LDX ram_0060,Y
-C - - - - - 0x01B46C 06:B45C: 20 03 B3  JSR sub_B303
+C - - - - - 0x01B454 06:B444: A9 80     LDA #$80                                         ; CONSTANT - the message was appearing
+C - - - - - 0x01B456 06:B446: 20 80 B4  JSR sub_B480_plus_npc_msg_status                 ;
+C - - - - - 0x01B459 06:B449: A5 B9     LDA vCurUniqueRoomShort                          ;
+C - - - - - 0x01B45B 06:B44B: 29 03     AND #$03                                         ;
+C - - - - - 0x01B45D 06:B44D: D0 10     BNE bra_B45F_skip                                ; If it isn't the room with the arrested character
+C - - - - - 0x01B45F 06:B44F: 20 0C B3  JSR sub_B30C_get_arrested_character              ;
+C - - - - - 0x01B462 06:B452: AA        TAX                                              ;
+C - - - - - 0x01B463 06:B453: A5 5F     LDA vChrLiveStatus                               ;
+C - - - - - 0x01B465 06:B455: 1D 64 B4  ORA tbl_rescue_mask,X                            ; 
+C - - - - - 0x01B468 06:B458: 85 5F     STA vChrLiveStatus                               ; reset 'fall' and 'arrest' flags
+C - - - - - 0x01B46A 06:B45A: B6 60     LDX vRoomWithPrisoners,Y
+C - - - - - 0x01B46C 06:B45C: 20 03 B3  JSR sub_B303_reset_prison_room
 bra_B45F_skip:
 C - - - - - 0x01B46F 06:B45F: 68        PLA
 C - - - - - 0x01B470 06:B460: 4C 34 B2  JMP loc_B234_add_message
@@ -3188,10 +3188,10 @@ C - - - - - 0x01B470 06:B460: 4C 34 B2  JMP loc_B234_add_message
 bra_B463_RTS:
 C - - - - - 0x01B473 06:B463: 60        RTS
 
-tbl_rescue_character:
-- D 1 - - - 0x01B474 06:B464: 0C        .byte $0C   ; Lupin
-- D 1 - - - 0x01B475 06:B465: 30        .byte $30   ; Jigen
-- D 1 - - - 0x01B476 06:B466: C0        .byte $C0   ; Goemon
+tbl_rescue_mask:
+- D 1 - - - 0x01B474 06:B464: 0C        .byte %00001100   ; Lupin
+- D 1 - - - 0x01B475 06:B465: 30        .byte %00110000   ; Jigen
+- D 1 - - - 0x01B476 06:B466: C0        .byte %11000000   ; Goemon
 
 bra_B467_finish_level:
 C - - - - - 0x01B477 06:B467: 20 3E FC  JSR sub_FC3E_boss_defeated_status  ;
@@ -3209,15 +3209,15 @@ C - - - - - 0x01B48F 06:B47F: 60        RTS                                ;
 
 ; In: Register A - an adding value
 sub_B480_plus_npc_msg_status:
-C - - - - - 0x01B490 06:B480: 05 41     ORA vNPCMessageStatus
-C - - - - - 0x01B492 06:B482: 85 41     STA vNPCMessageStatus
-C - - - - - 0x01B494 06:B484: 60        RTS
+C - - - - - 0x01B490 06:B480: 05 41     ORA vNPCMessageStatus   ;
+C - - - - - 0x01B492 06:B482: 85 41     STA vNPCMessageStatus   ;
+C - - - - - 0x01B494 06:B484: 60        RTS                     ;
 
 ; In: Register A - a subtrahend value
 sub_B485_minus_npc_msg_status:
-C - - - - - 0x01B495 06:B485: 25 41     AND vNPCMessageStatus
-C - - - - - 0x01B497 06:B487: 85 41     STA vNPCMessageStatus
-C - - - - - 0x01B499 06:B489: 60        RTS
+C - - - - - 0x01B495 06:B485: 25 41     AND vNPCMessageStatus   ;
+C - - - - - 0x01B497 06:B487: 85 41     STA vNPCMessageStatus   ;
+C - - - - - 0x01B499 06:B489: 60        RTS                     ;
 
 ; In: [$0012,$0013] - the address where an index of tbl_npc_portrait_set is contained
 ; In: Register Y (0x0X) - npc_message_status
@@ -3277,63 +3277,63 @@ C - - - - - 0x01B4F5 06:B4E5: A9 0C     LDA #$0C                        ;
 C - - - - - 0x01B4F7 06:B4E7: 8D 32 06  STA vPpuBufferCount             ; init count (12 tiles)
 C - - - - - 0x01B4FA 06:B4EA: 60        RTS                             ;
 
-; Params:
-; ram_0012-ram_0013 - tbl_ptr_roomsX_X_with_NPCs
-sub_B4EB_prepare_npc_sprite_in_room:
-C - - - - - 0x01B4FB 06:B4EB: A0 00     LDY #$00
-C - - - - - 0x01B4FD 06:B4ED: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01B4FF 06:B4EF: 85 00     STA ram_0000 ; 1 of NPC bytes
-C - - - - - 0x01B501 06:B4F1: 0A        ASL
-C - - - - - 0x01B502 06:B4F2: 0A        ASL
-C - - - - - 0x01B503 06:B4F3: 18        CLC
-C - - - - - 0x01B504 06:B4F4: 65 00     ADC ram_0000
-C - - - - - 0x01B506 06:B4F6: AA        TAX
-C - - - - - 0x01B507 06:B4F7: BD 4A 82  LDA npc_sprite_set + 1,X
-C - - - - - 0x01B50A 06:B4FA: 8D 19 06  STA vCachePalette + 25
-C - - - - - 0x01B50D 06:B4FD: 8D 1D 06  STA vCachePalette + 29
-C - - - - - 0x01B510 06:B500: BD 4B 82  LDA npc_sprite_set + 2,X
-C - - - - - 0x01B513 06:B503: 8D 1A 06  STA vCachePalette + 26
-C - - - - - 0x01B516 06:B506: 8D 1E 06  STA vCachePalette + 30
-C - - - - - 0x01B519 06:B509: BD 4C 82  LDA npc_sprite_set + 3,X
-C - - - - - 0x01B51C 06:B50C: 8D 1B 06  STA vCachePalette + 27
-C - - - - - 0x01B51F 06:B50F: 8D 1F 06  STA vCachePalette + 31
-C - - - - - 0x01B522 06:B512: BD 4D 82  LDA npc_sprite_set + 4,X
-C - - - - - 0x01B525 06:B515: 8D B3 06  STA vCacheChrBankSelect + 4
-C - - - - - 0x01B528 06:B518: 8D B4 06  STA vCacheChrBankSelect + 5
-C - - - - - 0x01B52B 06:B51B: EE B4 06  INC vCacheChrBankSelect + 5
-C - - - - - 0x01B52E 06:B51E: BD 49 82  LDA npc_sprite_set,X
-C - - - - - 0x01B531 06:B521: 18        CLC
-C - - - - - 0x01B532 06:B522: 69 84     ADC #$84
-C - - - - - 0x01B534 06:B524: 85 01     STA ram_0001
-C - - - - - 0x01B536 06:B526: 20 3E FC  JSR sub_FC3E_boss_defeated_status
-C - - - - - 0x01B539 06:B529: F0 0F     BEQ @bra_B53A_skip
-C - - - - - 0x01B53B 06:B52B: AD D7 03  LDA vCacheBossStatus
-C - - - - - 0x01B53E 06:B52E: 6A        ROR
-C - - - - - 0x01B53F 06:B52F: 90 04     BCC @bra_B535_skip
-C - - - - - 0x01B541 06:B531: E6 01     INC ram_0001
-C - - - - - 0x01B543 06:B533: E6 01     INC ram_0001
+; In: [$0012-$0013] - tbl_ptr_roomsX_X_with_NPCs
+sub_B4EB_add_npc_sprite_in_room:
+C - - - - - 0x01B4FB 06:B4EB: A0 00     LDY #$00                           ;
+C - - - - - 0x01B4FD 06:B4ED: B1 12     LDA (ram_0012),Y                   ; A <~ The model of the NP-character
+C - - - - - 0x01B4FF 06:B4EF: 85 00     STA ram_0000                       ; 1 of NPC bytes
+C - - - - - 0x01B501 06:B4F1: 0A        ASL                                ;
+C - - - - - 0x01B502 06:B4F2: 0A        ASL                                ;
+C - - - - - 0x01B503 06:B4F3: 18        CLC                                ;
+C - - - - - 0x01B504 06:B4F4: 65 00     ADC ram_0000                       ; *5, because the table contains 5 bytes in a row
+C - - - - - 0x01B506 06:B4F6: AA        TAX                                ;
+C - - - - - 0x01B507 06:B4F7: BD 4A 82  LDA tbl_npc_sprite_set + 1,X       ;
+C - - - - - 0x01B50A 06:B4FA: 8D 19 06  STA vCachePalette + 25             ;
+C - - - - - 0x01B50D 06:B4FD: 8D 1D 06  STA vCachePalette + 29             ;
+C - - - - - 0x01B510 06:B500: BD 4B 82  LDA tbl_npc_sprite_set + 2,X       ;
+C - - - - - 0x01B513 06:B503: 8D 1A 06  STA vCachePalette + 26             ;
+C - - - - - 0x01B516 06:B506: 8D 1E 06  STA vCachePalette + 30             ;
+C - - - - - 0x01B519 06:B509: BD 4C 82  LDA tbl_npc_sprite_set + 3,X       ;
+C - - - - - 0x01B51C 06:B50C: 8D 1B 06  STA vCachePalette + 27             ;
+C - - - - - 0x01B51F 06:B50F: 8D 1F 06  STA vCachePalette + 31             ;
+C - - - - - 0x01B522 06:B512: BD 4D 82  LDA tbl_npc_sprite_set + 4,X       ;
+C - - - - - 0x01B525 06:B515: 8D B3 06  STA vCacheChrBankSelect + 4        ;
+C - - - - - 0x01B528 06:B518: 8D B4 06  STA vCacheChrBankSelect + 5        ;
+C - - - - - 0x01B52B 06:B51B: EE B4 06  INC vCacheChrBankSelect + 5        ;
+C - - - - - 0x01B52E 06:B51E: BD 49 82  LDA tbl_npc_sprite_set,X           ;
+C - - - - - 0x01B531 06:B521: 18        CLC                                ;
+C - - - - - 0x01B532 06:B522: 69 84     ADC #$84                           ;
+C - - - - - 0x01B534 06:B524: 85 01     STA ram_0001                       ; 0x84 + the offset -> sprite_magic2
+C - - - - - 0x01B536 06:B526: 20 3E FC  JSR sub_FC3E_boss_defeated_status  ;
+C - - - - - 0x01B539 06:B529: F0 0F     BEQ @bra_B53A_skip                 ; If The boss isn't defeated
+C - - - - - 0x01B53B 06:B52B: AD D7 03  LDA vCacheBossStatus               ;
+C - - - - - 0x01B53E 06:B52E: 6A        ROR                                ;
+C - - - - - 0x01B53F 06:B52F: 90 04     BCC @bra_B535_skip                 ; If the enemy is looking to the right
+C - - - - - 0x01B541 06:B531: E6 01     INC ram_0001                       ;
+C - - - - - 0x01B543 06:B533: E6 01     INC ram_0001                       ; +2 for the left frame
 @bra_B535_skip:
-C - - - - - 0x01B545 06:B535: AD D8 03  LDA vCacheBossScreenPosX      ;
-C - - - - - 0x01B548 06:B538: D0 02     BNE @bra_B53C_skip            ; If Register A != 0x00
+C - - - - - 0x01B545 06:B535: AD D8 03  LDA vCacheBossScreenPosX           ;
+C - - - - - 0x01B548 06:B538: D0 02     BNE @bra_B53C_skip                 ; If Register A != 0x00
 @bra_B53A_skip:
-C - - - - - 0x01B54A 06:B53A: A9 80     LDA #$80                      ; ~> sprite_magic4 (X pos)
+C - - - - - 0x01B54A 06:B53A: A9 80     LDA #$80                           ; ~> sprite_magic4 (X pos)
 @bra_B53C_skip:
-C - - - - - 0x01B54C 06:B53C: 85 03     STA ram_0003
-C - - - - - 0x01B54E 06:B53E: A9 BF     LDA #$BF                      ; ~> sprite_magic1 (Y pos)
-C - - - - - 0x01B550 06:B540: 85 00     STA ram_0000
-C - - - - - 0x01B552 06:B542: A9 62     LDA #$62                      ; ~> sprite_magic3 (attributes)
-C - - - - - 0x01B554 06:B544: 85 02     STA ram_0002                  ;
-C - - - - - 0x01B556 06:B546: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
+C - - - - - 0x01B54C 06:B53C: 85 03     STA ram_0003                       ;
+C - - - - - 0x01B54E 06:B53E: A9 BF     LDA #$BF                           ; ~> sprite_magic1 (Y pos)
+C - - - - - 0x01B550 06:B540: 85 00     STA ram_0000                       ;
+C - - - - - 0x01B552 06:B542: A9 62     LDA #$62                           ; ~> sprite_magic3 (attributes)
+C - - - - - 0x01B554 06:B544: 85 02     STA ram_0002                       ;
+C - - - - - 0x01B556 06:B546: 4C 33 CE  JMP loc_CE33_add_sprite_magic      ; bank FF
 
 sub_B549:
 C - - - - - 0x01B559 06:B549: A9 04     LDA #$04
-C - - - - - 0x01B55B 06:B54B: 24 41     BIT vNPCMessageStatus
-C - - - - - 0x01B55D 06:B54D: 30 08     BMI bra_B557
+C - - - - - 0x01B55B 06:B54B: 24 41     BIT vNPCMessageStatus            ;
+C - - - - - 0x01B55D 06:B54D: 30 08     BMI @bra_B557_skip               ; If the message was appearing
 C - - - - - 0x01B55F 06:B54F: A9 02     LDA #$02
 C - - - - - 0x01B561 06:B551: A4 30     LDY ram_0030
-C - - - - - 0x01B563 06:B553: D0 02     BNE bra_B557
+C - - - - - 0x01B563 06:B553: D0 02     BNE @bra_B557_skip
 C - - - - - 0x01B565 06:B555: A9 00     LDA #$00
-bra_B557:
+; In: Register A - the offset value
+@bra_B557_skip:
 C - - - - - 0x01B567 06:B557: 18        CLC
 C - - - - - 0x01B568 06:B558: 69 BA     ADC #$BA
 C - - - - - 0x01B56A 06:B55A: AA        TAX
@@ -3341,10 +3341,10 @@ C - - - - - 0x01B56B 06:B55B: A9 80     LDA #$80
 C - - - - - 0x01B56D 06:B55D: 85 01     STA ram_0001
 C - - - - - 0x01B56F 06:B55F: A9 BF     LDA #$BF
 C - - - - - 0x01B571 06:B561: 85 00     STA ram_0000
-C - - - - - 0x01B573 06:B563: A9 62     LDA #$62
-C - - - - - 0x01B575 06:B565: 85 45     STA vCharacterRenderData
-C - - - - - 0x01B577 06:B567: 20 5A CE  JSR sub_CE5A_render_character
-C - - - - - 0x01B57A 06:B56A: 4C 4F EF  JMP loc_EF4F_switch_bank_4_p2
+C - - - - - 0x01B573 06:B563: A9 62     LDA #$62                         ; AAA = 2, LLL = 3, ?? = 0x00 (see vCharacterRenderData)
+C - - - - - 0x01B575 06:B565: 85 45     STA vCharacterRenderData         ;
+C - - - - - 0x01B577 06:B567: 20 5A CE  JSR sub_CE5A_render_character    ;
+C - - - - - 0x01B57A 06:B56A: 4C 4F EF  JMP loc_EF4F_switch_bank_4_p2    ;
 
 loc_B56D_clear_npc_message:
 sub_B56D_clear_npc_message:
@@ -3368,13 +3368,14 @@ tbl_B587_part_address:
 - D 1 - - - 0x01B59A 06:B58A: 88        .byte $88
 - D 1 - - - 0x01B59B 06:B58B: 68        .byte $68
 
+; In: Register A - npc type index
 sub_B58C:
-C - - - - - 0x01B59C 06:B58C: 0A        ASL
-C - - - - - 0x01B59D 06:B58D: AA        TAX
-C - - - - - 0x01B59E 06:B58E: BD 9B B5  LDA tbl_npc_types,X
-C - - - - - 0x01B5A1 06:B591: 85 02     STA ram_0002 ; Low address
-C - - - - - 0x01B5A3 06:B593: BD 9C B5  LDA tbl_npc_types + 1,X
-C - - - - - 0x01B5A6 06:B596: 85 03     STA ram_0003 ; High address
+C - - - - - 0x01B59C 06:B58C: 0A        ASL                      ; *2, because the address contains 2 bytes
+C - - - - - 0x01B59D 06:B58D: AA        TAX                      ;
+C - - - - - 0x01B59E 06:B58E: BD 9B B5  LDA tbl_npc_types,X      ;
+C - - - - - 0x01B5A1 06:B591: 85 02     STA ram_0002             ; Low address
+C - - - - - 0x01B5A3 06:B593: BD 9C B5  LDA tbl_npc_types + 1,X  ;
+C - - - - - 0x01B5A6 06:B596: 85 03     STA ram_0003             ; High address
 C - - - - - 0x01B5A8 06:B598: 6C 02 00  JMP (ram_0002)
 
 tbl_npc_types:

@@ -257,7 +257,7 @@ C - - - - - 0x01C097 07:C087: 85 5F     STA vChrLiveStatus                    ; 
 C - - - - - 0x01C099 07:C089: 20 D4 C8  JSR sub_C8D4_check_Yoshikawa          ;
 C - - - - - 0x01C09C 07:C08C: 20 C7 B8  JSR sub_B8C7_main_menu_shared_routine ; bank 06_2
 C - - - - - 0x01C09F 07:C08F: 20 DA B9  JSR sub_B9DA_curscene_shared_routine  ; bank 06_2
-C - - - - - 0x01C0A2 07:C092: 20 96 EF  JSR sub_EF96
+C - - - - - 0x01C0A2 07:C092: 20 96 EF  JSR sub_EF96_initialize               ;
 loc_C095_repeat_waiting_select_character:
 C D 2 - - - 0x01C0A5 07:C095: A5 37     LDA vCutscenesMode                    ;
 C - - - - - 0x01C0A7 07:C097: 30 03     BMI bra_C09C_skip                     ; Branch If cutscenes are used
@@ -7950,19 +7950,19 @@ C - - - - - 0x01EF9F 07:EF8F: 8D 16 03  STA vZenigataTimerLow1   ;
 C - - - - - 0x01EFA2 07:EF92: 8D 17 03  STA vZenigataTimerHigh1  ;
 C - - - - - 0x01EFA5 07:EF95: 60        RTS                      ;
 
-sub_EF96:
-C - - - - - 0x01EFA6 07:EF96: A9 00     LDA #$00                          ; a clear value
-C - - - - - 0x01EFA8 07:EF98: A2 09     LDX #$09                          ; set loop counter
-@bra_clear_loop:                                                          ; loop by x (10 times)
-C - - - - - 0x01EFAA 07:EF9A: 9D 00 02  STA v_items,X                     ; 0x0200-0x0209 in 0
-C - - - - - 0x01EFAD 07:EF9D: CA        DEX                               ; decrements loop counter
-C - - - - - 0x01EFAE 07:EF9E: 10 FA     BPL @bra_clear_loop               ; If Register X < 0x80
-C - - - - - 0x01EFB0 07:EFA0: A9 00     LDA #$00                          ;
-C - - - - - 0x01EFB2 07:EFA2: 8D 14 02  STA vCurrentWeaponStatus          ; clear
+sub_EF96_initialize:
+C - - - - - 0x01EFA6 07:EF96: A9 00     LDA #$00                                   ; a clear value
+C - - - - - 0x01EFA8 07:EF98: A2 09     LDX #$09                                   ; set loop counter
+@bra_clear_loop:                                                                   ; loop by x (10 times)
+C - - - - - 0x01EFAA 07:EF9A: 9D 00 02  STA v_items,X                              ; 0x0200-0x0209 in 0
+C - - - - - 0x01EFAD 07:EF9D: CA        DEX                                        ; decrements loop counter
+C - - - - - 0x01EFAE 07:EF9E: 10 FA     BPL @bra_clear_loop                        ; If Register X < 0x80
+C - - - - - 0x01EFB0 07:EFA0: A9 00     LDA #$00                                   ;
+C - - - - - 0x01EFB2 07:EFA2: 8D 14 02  STA vCurrentWeaponStatus                   ; clear
 sub_EFA5:
-C - - - - - 0x01EFB5 07:EFA5: 20 8D EF  JSR sub_EF8D_clear_Zenigata_timer ;
-C - - - - - 0x01EFB8 07:EFA8: 85 60     STA ram_0060
-C - - - - - 0x01EFBA 07:EFAA: 85 61     STA ram_0061
+C - - - - - 0x01EFB5 07:EFA5: 20 8D EF  JSR sub_EF8D_clear_Zenigata_timer          ;
+C - - - - - 0x01EFB8 07:EFA8: 85 60     STA vRoomWithPrisoner1                     ; clear
+C - - - - - 0x01EFBA 07:EFAA: 85 61     STA vRoomWithPrisoner2                     ; clear
 C - - - - - 0x01EFBC 07:EFAC: A2 0F     LDX #$0F                                   ; set loop counter
 @bra_EFAE_loop:                                                                    ; loop by x (16 times)
 C - - - - - 0x01EFBE 07:EFAE: 9D C0 05  STA vWalls,X                               ; clear, the walls are destructible again
@@ -9498,8 +9498,8 @@ C - - - - - 0x01F9AB 07:F99B: 90 17     BCC @bra_F9B4_sublevel_corridor    ; If 
 C - - - - - 0x01F9AD 07:F99D: C9 20     CMP #$20                           ;
 C - - - - - 0x01F9AF 07:F99F: B0 13     BCS @bra_F9B4_sublevel_corridor    ; If vCurrentUniqueRoom >= 0x20
 C - - - - - 0x01F9B1 07:F9A1: 84 11     STY v_cache_reg_y
-C - - - - - 0x01F9B3 07:F9A3: 29 07     AND #$07
-C - - - - - 0x01F9B5 07:F9A5: 85 B9     STA ram_00B9
+C - - - - - 0x01F9B3 07:F9A3: 29 07     AND #$07                           ; filters by mask
+C - - - - - 0x01F9B5 07:F9A5: 85 B9     STA vCurUniqueRoomShort            ;
 C - - - - - 0x01F9B7 07:F9A7: A8        TAY
 C - - - - - 0x01F9B8 07:F9A8: B1 BA     LDA (vCheckpointAddr),Y
 C - - - - - 0x01F9BA 07:F9AA: 85 C4     STA vCheckpoint
@@ -9726,19 +9726,19 @@ C - - - - - 0x01FB21 07:FB11: 20 C7 C6  JSR sub_C6C7_update_room_with_message
 C - - - - - 0x01FB24 07:FB14: A5 3B     LDA vSharedGameStatus
 C - - - - - 0x01FB26 07:FB16: 09 02     ORA #$02
 C - - - - - 0x01FB28 07:FB18: 85 3B     STA vSharedGameStatus
-loc_FB1A_continue:
-C D 3 - - - 0x01FB2A 07:FB1A: A9 40     LDA #$40
-C - - - - - 0x01FB2C 07:FB1C: 85 41     STA vNPCMessageStatus
-C - - - - - 0x01FB2E 07:FB1E: 60        RTS
+loc_FB1A_initial_clear:
+C D 3 - - - 0x01FB2A 07:FB1A: A9 40     LDA #$40                              ; CONSTANT - the message is clearing
+C - - - - - 0x01FB2C 07:FB1C: 85 41     STA vNPCMessageStatus                 ;
+C - - - - - 0x01FB2E 07:FB1E: 60        RTS                                   ;
 
 bra_FB1F_last_level:
 C - - - - - 0x01FB2F 07:FB1F: A9 32     LDA #$32                     ; assigns CHR Bank data (???)
-C - - - - - 0x01FB31 07:FB21: 8D B6 06  STA vChrBankData
+C - - - - - 0x01FB31 07:FB21: 8D B6 06  STA vChrBankData             ;
 C - - - - - 0x01FB34 07:FB24: A9 0B     LDA #$0B                     ; CONSTANT - A final scene
 C - - - - - 0x01FB36 07:FB26: 85 3B     STA vSharedGameStatus        ;
 C - - - - - 0x01FB38 07:FB28: A9 00     LDA #$00                     ; CONSTANT - a starting value
 C - - - - - 0x01FB3A 07:FB2A: 85 D8     STA vFinalSceneNo            ;
-C - - - - - 0x01FB3C 07:FB2C: 4C 1A FB  JMP loc_FB1A_continue
+C - - - - - 0x01FB3C 07:FB2C: 4C 1A FB  JMP loc_FB1A_initial_clear   ;
 
 tbl_FB2F:
 - D 3 - - - 0x01FB3F 07:FB2F: 03        .byte $03

@@ -15,8 +15,9 @@
 .export tbl_briefcases_positions
 .export tbl_npc_portrait_sprites
 .export tbl_npc_portrait_set
-.export npc_sprite_set
+.export tbl_npc_sprite_set
 .export tbl_ptr_prison_rooms
+.export tbl_portrait_prisoners
 
 ; The addresses are in the vram
 tbl_messages:
@@ -256,14 +257,15 @@ tbl_ptr_rooms_with_NPCs:
 - D 0 - - - 0x012116 04:8106: FA 9D     .addr tbl_ptr_rooms4_with_NPCs ; Level 4 CPU address $9DFA 
 
 tbl_ptr_prison_rooms:
-- D 0 - - - 0x012118 04:8108: C4 9C     .addr tbl_ptr_prison_rooms1 ; Level 1 CPU address 9CC4
-- D 0 - - - 0x01211A 04:810A: CD 9C     .word tbl_ptr_prison_rooms2 ; Level 2 CPU address 9CCD
-- D 0 - - - 0x01211C 04:810C: E5 9C     .word tbl_ptr_prison_rooms3 ; Level 3 CPU address 9CE5
-- D 0 - - - 0x01211E 04:810E: F1 9C     .word tbl_ptr_prison_rooms4 ; Level 4 CPU address 9CF1
+- D 0 - - - 0x012118 04:8108: C4 9C     .addr tbl_ptr_prison_rooms1 ; Level 1 CPU address $9CC4
+- D 0 - - - 0x01211A 04:810A: CD 9C     .word tbl_ptr_prison_rooms2 ; Level 2 CPU address $9CCD
+- D 0 - - - 0x01211C 04:810C: E5 9C     .word tbl_ptr_prison_rooms3 ; Level 3 CPU address $9CE5
+- D 0 - - - 0x01211E 04:810E: F1 9C     .word tbl_ptr_prison_rooms4 ; Level 4 CPU address $9CF1
 
-- D 0 - - - 0x012120 04:8110: 32        .byte $32, $9E   ; 
-- D 0 - - - 0x012122 04:8112: 35        .byte $35, $9E   ; 
-- D 0 - - - 0x012124 04:8114: 38        .byte $38, $9E   ; 
+tbl_portrait_prisoners:
+- D 0 - - - 0x012120 04:8110: 32        .addr tbl_portrait_demo_indexes      ; CPU address $9E32
+- D 0 - - - 0x012122 04:8112: 35        .addr tbl_portrait_demo_indexes + 3  ; CPU address $9E35
+- D 0 - - - 0x012124 04:8114: 38        .addr tbl_portrait_demo_indexes + 6  ; CPU address $9E38
 
 number_of_rooms_on_the_level:
 - D 0 - - - 0x012126 04:8116: 1F        .byte $1F                     ; CPU address $8116 (level 1)
@@ -376,10 +378,10 @@ tbl_npc_portrait_set:
 - D - - - - 0x01224F 04:823F: 04        .byte $04, $20, $37, $17, $32 ; Clarisse
 - D 0 - - - 0x012254 04:8244: 05        .byte $05, $20, $36, $06, $32 ; Zenigata
 
-npc_sprite_set:
-; 1 byte - index of tiles (?)
+tbl_npc_sprite_set:
+; 1 byte - the offset by the address (see sprite_magic2)
 ; 2, 3, 4 - palette
-; 5 byte - ChrBankSelect
+; 5 byte - ChrBankSelect (and +1 for the other ChrBankSelect)
 - D 0 - - - 0x012259 04:8249: 02        .byte $02, $36, $06, $20, $0A ; Count Lazare de Cagliostro
 - - - - - - 0x01225E 04:824E: 02        .byte $02, $36, $0F, $17, $0A
 - D 0 - - - 0x012263 04:8253: 04        .byte $04, $36, $16, $11, $0A

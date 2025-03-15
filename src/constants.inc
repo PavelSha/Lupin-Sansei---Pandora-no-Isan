@@ -168,11 +168,10 @@ vDrowningRate                 = ram_003E
 vFlowingOffset                = ram_003F ; by X-position in the water
 vWaterRoomIndex               = ram_0040 ; [0x00-0x3D]
 vNPCMessageStatus             = ram_0041
-; 83 - npc is saying the message 
-; C3 - npc said the message 
-; 0x40 - ??
-; 0x80 - ??
-; 0x0X - 
+; Byte: XYZW KKKK
+; Y - the message is clearing
+; X - the message was appearing
+; K - 0x00, 0x03 (1st message), 0x06 (2nd message, scene with the boss)
 
 ; ram_0042 - ???
 ; 0x40 N - the Lupin's balloon is exploding
@@ -226,6 +225,11 @@ vChrLiveStatus                = ram_005F
 ; W - Jigen arrested (0 - true)
 ; K - Lupin fell (0 - true)
 ; L - Lupin arrested (0 - true)
+vRoomWithPrisoners            = ram_0060 ; [$0060-$0061]
+; 0x00 - no exist
+vRoomWithPrisoner1            = ram_0060
+vRoomWithPrisoner2            = ram_0061
+vPrisoners                    = ram_0062 ; [$0062-$0063], 0x00 - Lupin, 0x01 - Jigen, 0x02 - Goemon
 vScreenChrPosX                = ram_0064 ; The character's position along the X axis relative to the screen (no repeat)
 vTempScreenChrPosX            = ram_0065
 vLowChrPosX                   = ram_0066 ; The character's position along the X axis relative to the level (with repeat) 
@@ -342,7 +346,7 @@ vTmpHitBoxW                   = ram_00B4 ; width, in pixel units
 vCurrentUniqueRoom            = ram_00B6
 ; Byte: 00UU 00RR
 ; UU - 0x01 for an unique room (NPC, briefcase, boss), else 0x00
-; RR - 0x01 - NPC room (use with UU), 0x02 - briefcase room (use with UU), 0x03 - room with the room
+; RR - 0x01 - NPC room (use with UU), 0x02 - briefcase room (use with UU), 0x03 - room with the boss
 
 vRoomExtraInfo                = ram_00B7
 ; If it is the NPC room - the NPX index in tbl_ptr_roomsX_with_NPC
@@ -351,6 +355,8 @@ vRoomExtraInfo                = ram_00B7
 ; If it is the checkpoint - 0x80 for secondary list, else main list
 ; For main list and briefcase rooms - 5th-byte index in the briefcase indexes table
 vRoomExtraInfoCache           = ram_00B8
+vCurUniqueRoomShort           = ram_00B9
+; 0x00 - the room with the arrested character, 0x01 - NPC room (use with UU), 0x02 - briefcase room (use with UU), 0x03 - room with the boss
 
 vCheckpointAddr               = ram_00BA ; low address (address to table tbl_ptr_checkpoints_on_the_level)
 vHignCheckpointAddr           = ram_00BB ; high address
