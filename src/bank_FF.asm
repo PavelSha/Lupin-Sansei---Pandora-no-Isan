@@ -7718,15 +7718,15 @@ C - - - - - 0x01EE1A 07:EE0A: 8D 00 80  STA MMC3_Bank_select          ; switch b
 C - - - - - 0x01EE1D 07:EE0D: D0 F3     BNE bra_EE02_nmi_finish       ; Always true
 
 bra_EE0F_nmi_last_cutscene:
-C - - - - - 0x01EE1F 07:EE0F: 20 FE B5  JSR sub_B5FE_final_scene_handler      ;
-C - - - - - 0x01EE22 07:EE12: 20 6C C4  JSR sub_C46C_simulate_presses_in_demo ;
+C - - - - - 0x01EE1F 07:EE0F: 20 FE B5  JSR sub_B5FE_final_scene_handler       ;
+C - - - - - 0x01EE22 07:EE12: 20 6C C4  JSR sub_C46C_simulate_presses_in_demo  ;
 bra_EE15_skip:
-C - - - - - 0x01EE25 07:EE15: 20 7B EF  JSR sub_EF7B_shift_all_counters       ;
-C - - - - - 0x01EE28 07:EE18: 4C E7 ED  JMP loc_EDE7_nmi_prefinish            ;
+C - - - - - 0x01EE25 07:EE15: 20 7B EF  JSR sub_EF7B_shift_all_counters        ;
+C - - - - - 0x01EE28 07:EE18: 4C E7 ED  JMP loc_EDE7_nmi_prefinish             ;
 
 bra_EE1B_skip:
-C - - - - - 0x01EE2B 07:EE1B: 20 AA B3  JSR $B3AA ; to sub_B3AA (bank 06_2)
-C - - - - - 0x01EE2E 07:EE1E: 4C D5 ED  JMP loc_EDD5_nmi_skip                 ;
+C - - - - - 0x01EE2B 07:EE1B: 20 AA B3  JSR sub_B3AA_room_with_NPC_or_prisoner ;
+C - - - - - 0x01EE2E 07:EE1E: 4C D5 ED  JMP loc_EDD5_nmi_skip                  ;
 
 loc_EE21_nmi_select_character:
 C D 3 - - - 0x01EE31 07:EE21: A5 19     LDA vRenderActive                        ;
@@ -7983,7 +7983,7 @@ C - - - - - 0x01EFD8 07:EFC8: BD 18 81  LDA tbl_ptr_rooms_on_the_level + 1,X    
 C - - - - - 0x01EFDB 07:EFCB: 85 13     STA ram_0013                               ; High address
 @bra_room_loop:                                                                    ; loop by y
 C - - - - - 0x01EFDD 07:EFCD: B1 12     LDA (ram_0012),Y                           ;
-C - - - - - 0x01EFDF 07:EFCF: 99 00 05  STA vRooms,Y                               ; a room ROM-value
+C - - - - - 0x01EFDF 07:EFCF: 99 00 05  STA vRooms,Y                               ; <~ attributes (see vRoomAttrubute)
 C - - - - - 0x01EFE2 07:EFD2: 88        DEY                                        ; decrements loop counter
 C - - - - - 0x01EFE3 07:EFD3: D0 F8     BNE @bra_room_loop                         ; If Register Y != 0
  ; Fill memory the white briefcases from ROM  (Register X - level number)
@@ -9568,9 +9568,9 @@ C - - - - - 0x01FA17 07:FA07: 85 C3     STA vDisplayRoomType        ;
 C - - - - - 0x01FA19 07:FA09: C8        INY                         ; 4th of 5 bytes
 C - - - - - 0x01FA1A 07:FA0A: B1 BF     LDA (vDestrWallAddr),Y
 C - - - - - 0x01FA1C 07:FA0C: AA        TAX
-C - - - - - 0x01FA1D 07:FA0D: BD 00 05  LDA vRooms,X
-C - - - - - 0x01FA20 07:FA10: 29 BF     AND #$BF
-C - - - - - 0x01FA22 07:FA12: 9D 00 05  STA vRooms,X
+C - - - - - 0x01FA1D 07:FA0D: BD 00 05  LDA vRooms,X                ;
+C - - - - - 0x01FA20 07:FA10: 29 BF     AND #$BF                    ; CONSTANT - all except 'it is possible to enter the room' flag
+C - - - - - 0x01FA22 07:FA12: 9D 00 05  STA vRooms,X                ;
 C - - - - - 0x01FA25 07:FA15: C8        INY                         ; 5th of 5 bytes
 C - - - - - 0x01FA26 07:FA16: B1 BF     LDA (vDestrWallAddr),Y      ;
 C - - - - - 0x01FA28 07:FA18: 85 C1     STA vCurrentCorridorOffset  ; vCorridorAddr offset

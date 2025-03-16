@@ -217,8 +217,8 @@ v_no_level                    = ram_005E ; It is a number of a level than it sta
 ; 0x02 - level 3
 ; 0x03 - level 4 + racing
 vChrLiveStatus                = ram_005F
-; Byte: XYZW KLMN
-; MN - the current selected character (0x00 - Lupin, 0x01 - Jigen, 0x10 - Goemon)
+; Byte: XYZW KLMM
+; MM - the current selected character (0x00 - Lupin, 0x01 - Jigen, 0x10 - Goemon)
 ; X - Goemon fell (0 - true)
 ; Y - Goemon arrested (0 - true)
 ; Z - Jigen fell (0 - true)
@@ -381,6 +381,9 @@ vCheckpoint                   = ram_00C4 ; see docs (Rooms)
 vRoomAttrubute                = ram_00C5
 ; BYTE: XYZW KLMN
 ; X - the room has already been visited
+; Y - it is possible to enter the room (0 - possible, 1 - impossible)
+; K - the room for walkthrough already been visited (Lian, Yi, San, Suu) (0 - haven't, 1 - have)
+; L - the room can used as a prison room (0 - possible, 1 - impossible)
 vDoorAttribute                = ram_00C6
 ; BYTE: XYZW KLMN
 ; X - to allow to leave the door open (1  - allow, 0 - disallow)

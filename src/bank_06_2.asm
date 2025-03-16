@@ -95,6 +95,7 @@
 .export sub_B5FE_final_scene_handler
 .export sub_B09A_try_to_create_item
 .export sub_AF4D_briefcase_or_item_handler
+.export sub_B3AA_room_with_NPC_or_prisoner
 .export tbl_ptr_enemy_t2_types_for_sprites
 .export tbl_ptr_enemy_t3_types_for_sprites
 .export tbl_ptr_enemy_t2_sprite_params_
@@ -2854,9 +2855,9 @@ C - - - - - 0x01B241 06:B231: 4C C2 DB  JMP loc_DBC2_before_rendering        ;
 ; In: Register A - a message number
 loc_B234_add_message:
 sub_B234_add_message:
-C D 1 - - - 0x01B244 06:B234: 48        PHA                           ; store a
+C D 1 - - - 0x01B244 06:B234: 48        PHA                           ; diposit a message number
 C - - - - - 0x01B245 06:B235: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2 ; bank FF
-C - - - - - 0x01B248 06:B238: 68        PLA                           ; restore a
+C - - - - - 0x01B248 06:B238: 68        PLA                           ; restore a message number
 C - - - - - 0x01B249 06:B239: 0A        ASL                           ; *2
 C - - - - - 0x01B24A 06:B23A: A8        TAY                           ;
 C - - - - - 0x01B24B 06:B23B: B9 00 80  LDA tbl_messages,Y            ; Load messages (low address)
@@ -2978,10 +2979,10 @@ C - - - - - 0x01B312 06:B302: 60        RTS                      ;
 
 ; In: Register X - a room number
 sub_B303_reset_prison_room:
-C - - - - - 0x01B313 06:B303: BD 00 05  LDA vRooms,X
-C - - - - - 0x01B316 06:B306: 09 B0     ORA #$B0
-C - - - - - 0x01B318 06:B308: 9D 00 05  STA vRooms,X
-C - - - - - 0x01B31B 06:B30B: 60        RTS
+C - - - - - 0x01B313 06:B303: BD 00 05  LDA vRooms,X             ;
+C - - - - - 0x01B316 06:B306: 09 B0     ORA #$B0                 ; CONSTANT - 'the room has already been visited' + 'it is impossible to enter the room'
+C - - - - - 0x01B318 06:B308: 9D 00 05  STA vRooms,X             ;
+C - - - - - 0x01B31B 06:B30B: 60        RTS                      ;
 
 ; Out; 0x00 - Lupin, 0x01 - Jigen, 0x02 - Goemon
 sub_B30C_get_arrested_character:
@@ -3014,14 +3015,14 @@ C - - - - - 0x01B340 06:B330: 68        PLA                             ; retrie
 C - - - - - 0x01B341 06:B331: E8        INX                             ; increment loop counter
 C - - - - - 0x01B342 06:B332: E0 03     CPX #$03                        ;
 C - - - - - 0x01B344 06:B334: D0 EC     BNE bra_B322_loop               ; If Register X != 0x03
-C - - - - - 0x01B346 06:B336: 84 11     STY v_cache_reg_y
+C - - - - - 0x01B346 06:B336: 84 11     STY v_cache_reg_y               ; diposit the number of the prisoners
 C - - - - - 0x01B348 06:B338: A6 60     LDX vRoomWithPrisoner1          ;
 C - - - - - 0x01B34A 06:B33A: F0 03     BEQ @bra_B33F_no_exist          ; If the room isn't exist
-C - - - - - 0x01B34C 06:B33C: 20 03 B3  JSR sub_B303_reset_prison_room
+C - - - - - 0x01B34C 06:B33C: 20 03 B3  JSR sub_B303_reset_prison_room  ;
 @bra_B33F_no_exist:
 C - - - - - 0x01B34F 06:B33F: A6 61     LDX vRoomWithPrisoner2          ;
 C - - - - - 0x01B351 06:B341: F0 03     BEQ @bra_B346_no_exist          ; If the room isn't exist
-C - - - - - 0x01B353 06:B343: 20 03 B3  JSR sub_B303_reset_prison_room
+C - - - - - 0x01B353 06:B343: 20 03 B3  JSR sub_B303_reset_prison_room  ;
 @bra_B346_no_exist:
 C - - - - - 0x01B356 06:B346: A9 00     LDA #$00                        ;
 C - - - - - 0x01B358 06:B348: 85 60     STA vRoomWithPrisoner1          ; clear
@@ -3044,47 +3045,47 @@ C - - - - - 0x01B373 06:B363: C8        INY                             ; 3 of 3
 C - - - - - 0x01B374 06:B364: C8        INY                             ; 1 of 3
 C - - - - - 0x01B375 06:B365: D0 F7     BNE bra_B35E_loop               ; If Register Y != 0x00
 bra_B367_found:
-C - - - - - 0x01B377 06:B367: C8        INY
-C - - - - - 0x01B378 06:B368: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01B37A 06:B36A: 85 14     STA ram_0014
-C - - - - - 0x01B37C 06:B36C: C8        INY
-C - - - - - 0x01B37D 06:B36D: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01B37F 06:B36F: 85 15     STA ram_0015
-C - - - - - 0x01B381 06:B371: A0 00     LDY #$00
-C - - - - - 0x01B383 06:B373: B1 14     LDA (ram_0014),Y
-C - - - - - 0x01B385 06:B375: 85 00     STA ram_0000
+C - - - - - 0x01B377 06:B367: C8        INY                             ; 2 of 3
+C - - - - - 0x01B378 06:B368: B1 12     LDA (ram_0012),Y                ;
+C - - - - - 0x01B37A 06:B36A: 85 14     STA ram_0014                    ; Low address
+C - - - - - 0x01B37C 06:B36C: C8        INY                             ; 3 of 3
+C - - - - - 0x01B37D 06:B36D: B1 12     LDA (ram_0012),Y                ;
+C - - - - - 0x01B37F 06:B36F: 85 15     STA ram_0015                    ; High address
+C - - - - - 0x01B381 06:B371: A0 00     LDY #$00                        ; 1 of N
+C - - - - - 0x01B383 06:B373: B1 14     LDA (ram_0014),Y                ;
+C - - - - - 0x01B385 06:B375: 85 00     STA ram_0000                    ; <~ the number of the prison rooms
 C - - - - - 0x01B387 06:B377: A9 02     LDA #$02
 C - - - - - 0x01B389 06:B379: 85 01     STA ram_0001
-bra_B37B:
-C - - - - - 0x01B38B 06:B37B: 20 64 D0  JSR sub_D064_generate_rng
-C - - - - - 0x01B38E 06:B37E: 29 3F     AND #$3F
-C - - - - - 0x01B390 06:B380: 4A        LSR
-bra_B381:
-C - - - - - 0x01B391 06:B381: 38        SEC
-C - - - - - 0x01B392 06:B382: E5 00     SBC ram_0000
-C - - - - - 0x01B394 06:B384: B0 FB     BCS bra_B381
-C - - - - - 0x01B396 06:B386: 65 00     ADC ram_0000
-C - - - - - 0x01B398 06:B388: A8        TAY
-C - - - - - 0x01B399 06:B389: C8        INY
-C - - - - - 0x01B39A 06:B38A: B1 14     LDA (ram_0014),Y
-C - - - - - 0x01B39C 06:B38C: AA        TAX
-C - - - - - 0x01B39D 06:B38D: BD 00 05  LDA vRooms,X
-C - - - - - 0x01B3A0 06:B390: 29 B4     AND #$B4
-C - - - - - 0x01B3A2 06:B392: C9 B0     CMP #$B0
-C - - - - - 0x01B3A4 06:B394: F0 04     BEQ bra_B39A_skip
-C - - - - - 0x01B3A6 06:B396: C9 B4     CMP #$B4
-C - - - - - 0x01B3A8 06:B398: D0 E1     BNE bra_B37B
+bra_B37B_repeat:
+C - - - - - 0x01B38B 06:B37B: 20 64 D0  JSR sub_D064_generate_rng       ;
+C - - - - - 0x01B38E 06:B37E: 29 3F     AND #$3F                        ;
+C - - - - - 0x01B390 06:B380: 4A        LSR                             ; A <~ (0x00, 0x01, ..., 0x1F)
+@bra_B381_loop:
+C - - - - - 0x01B391 06:B381: 38        SEC                             ;
+C - - - - - 0x01B392 06:B382: E5 00     SBC ram_0000                    ;
+C - - - - - 0x01B394 06:B384: B0 FB     BCS @bra_B381_loop              ; If Register A - the number of the prison rooms >= 0
+C - - - - - 0x01B396 06:B386: 65 00     ADC ram_0000                    ; corrects an index
+C - - - - - 0x01B398 06:B388: A8        TAY                             ;
+C - - - - - 0x01B399 06:B389: C8        INY                             ; 2 (or 3 or 4 or ...) of N (the room indexes)
+C - - - - - 0x01B39A 06:B38A: B1 14     LDA (ram_0014),Y                ; <~ prison room index
+C - - - - - 0x01B39C 06:B38C: AA        TAX                             ;
+C - - - - - 0x01B39D 06:B38D: BD 00 05  LDA vRooms,X                    ;
+C - - - - - 0x01B3A0 06:B390: 29 B4     AND #$B4                        ; filters by flags
+C - - - - - 0x01B3A2 06:B392: C9 B0     CMP #$B0                        ; CONSTANT - see X,Y flags for vRoomAttrubute
+C - - - - - 0x01B3A4 06:B394: F0 04     BEQ bra_B39A_skip               ; If the room can used as a prison room
+C - - - - - 0x01B3A6 06:B396: C9 B4     CMP #$B4                        ; CONSTANT - see X,Y,L flags for vRoomAttrubute
+C - - - - - 0x01B3A8 06:B398: D0 E1     BNE bra_B37B_repeat             ; If the room cann't used as a prison room
 bra_B39A_skip:
-C - - - - - 0x01B3AA 06:B39A: 29 1F     AND #$1F
-C - - - - - 0x01B3AC 06:B39C: 9D 00 05  STA vRooms,X
-C - - - - - 0x01B3AF 06:B39F: A4 11     LDY v_cache_reg_y
-C - - - - - 0x01B3B1 06:B3A1: 8A        TXA
-C - - - - - 0x01B3B2 06:B3A2: 99 60 00  STA vRoomWithPrisoners,Y
-C - - - - - 0x01B3B5 06:B3A5: C6 11     DEC v_cache_reg_y
-C - - - - - 0x01B3B7 06:B3A7: 10 D2     BPL bra_B37B
-C - - - - - 0x01B3B9 06:B3A9: 60        RTS
+C - - - - - 0x01B3AA 06:B39A: 29 1F     AND #$1F                        ; reset X,Y flags for vRoomAttrubute
+C - - - - - 0x01B3AC 06:B39C: 9D 00 05  STA vRooms,X                    ;
+C - - - - - 0x01B3AF 06:B39F: A4 11     LDY v_cache_reg_y               ; retrieve the number of the prisoners (see $B336)
+C - - - - - 0x01B3B1 06:B3A1: 8A        TXA                             ;
+C - - - - - 0x01B3B2 06:B3A2: 99 60 00  STA vRoomWithPrisoners,Y        ; assigns a room index
+C - - - - - 0x01B3B5 06:B3A5: C6 11     DEC v_cache_reg_y               ;
+C - - - - - 0x01B3B7 06:B3A7: 10 D2     BPL bra_B37B_repeat             ; If a non-arrested prisoner is exist
+C - - - - - 0x01B3B9 06:B3A9: 60        RTS                             ;
 
-sub_B3AA:
+sub_B3AA_room_with_NPC_or_prisoner:
 C - - - - - 0x01B3BA 06:B3AA: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2       ; bank FF
 C - - - - - 0x01B3BD 06:B3AD: A5 5E     LDA v_no_level                      ;
 C - - - - - 0x01B3BF 06:B3AF: 0A        ASL                                 ; *2, because the address have 2 bytes
@@ -3103,8 +3104,8 @@ C - - - - - 0x01B3D6 06:B3C6: B9 10 81  LDA tbl_portrait_prisoners,Y        ;
 C - - - - - 0x01B3D9 06:B3C9: 85 12     STA ram_0012                        ; Low address
 C - - - - - 0x01B3DB 06:B3CB: B9 11 81  LDA tbl_portrait_prisoners + 1,Y    ;
 C - - - - - 0x01B3DE 06:B3CE: 85 13     STA ram_0013                        ; High address
-C - - - - - 0x01B3E0 06:B3D0: 20 49 B5  JSR sub_B549
-C - - - - - 0x01B3E3 06:B3D3: 4C E3 B3  JMP loc_B3E3_continue
+C - - - - - 0x01B3E0 06:B3D0: 20 49 B5  JSR sub_B549_render_prisoner        ;
+C - - - - - 0x01B3E3 06:B3D3: 4C E3 B3  JMP loc_B3E3_continue               ;
 
 ; In: [$0014-$0015] - tbl_ptr_roomsX_with_NPCs
 bra_B3D6_skip:
@@ -3152,23 +3153,23 @@ C - - - - - 0x01B42D 06:B41D: F0 03     BEQ bra_B422_finish_clear               
 C - - - - - 0x01B42F 06:B41F: 4C 6D B5  JMP loc_B56D_clear_npc_message           ;
 
 bra_B422_finish_clear:
-C - - - - - 0x01B432 06:B422: A9 BF     LDA #$BF                                ; CONSTANT - All except 'the message is clearing'
-C - - - - - 0x01B434 06:B424: 20 85 B4  JSR sub_B485_minus_npc_msg_status       ;
-C - - - - - 0x01B437 06:B427: A5 41     LDA vNPCMessageStatus
-C - - - - - 0x01B439 06:B429: 29 0F     AND #$0F
-C - - - - - 0x01B43B 06:B42B: A8        TAY
-C - - - - - 0x01B43C 06:B42C: 84 11     STY v_cache_reg_y
-C - - - - - 0x01B43E 06:B42E: 20 8A B4  JSR sub_B48A_prepare_npc_portrait_render_params_
-C - - - - - 0x01B441 06:B431: A4 11     LDY v_cache_reg_y
+C - - - - - 0x01B432 06:B422: A9 BF     LDA #$BF                                         ; CONSTANT - All except 'the message is clearing'
+C - - - - - 0x01B434 06:B424: 20 85 B4  JSR sub_B485_minus_npc_msg_status                ;
+C - - - - - 0x01B437 06:B427: A5 41     LDA vNPCMessageStatus                            ;
+C - - - - - 0x01B439 06:B429: 29 0F     AND #$0F                                         ; filters by mask
+C - - - - - 0x01B43B 06:B42B: A8        TAY                                              ;
+C - - - - - 0x01B43C 06:B42C: 84 11     STY v_cache_reg_y                                ; diposit K flag for vNpcMessageStatus
+C - - - - - 0x01B43E 06:B42E: 20 8A B4  JSR sub_B48A_prepare_npc_portrait_render_params_ ;
+C - - - - - 0x01B441 06:B431: A4 11     LDY v_cache_reg_y                                ; retrieves K flag for vNpcMessageStatus
 C - - - - - 0x01B443 06:B433: C8        INY                                              ; 2 of NPC bytes
-C - - - - - 0x01B444 06:B434: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01B446 06:B436: 20 8C B5  JSR sub_B58C                                     ; 3,4,... of NPC bytes
-C - - - - - 0x01B449 06:B439: E6 41     INC vNPCMessageStatus
-C - - - - - 0x01B44B 06:B43B: E6 41     INC vNPCMessageStatus
-C - - - - - 0x01B44D 06:B43D: E6 41     INC vNPCMessageStatus
-C - - - - - 0x01B44F 06:B43F: B1 12     LDA (ram_0012),Y
-C - - - - - 0x01B451 06:B441: 48        PHA
-C - - - - - 0x01B452 06:B442: 30 1B     BMI bra_B45F_skip
+C - - - - - 0x01B444 06:B434: B1 12     LDA (ram_0012),Y                                 ; <~ npc type index {0x00, 0x01, ..., 0x0A}
+C - - - - - 0x01B446 06:B436: 20 8C B5  JSR sub_B58C_resolve_npc_type                    ; 3,4,... of NPC bytes
+C - - - - - 0x01B449 06:B439: E6 41     INC vNPCMessageStatus                            ;
+C - - - - - 0x01B44B 06:B43B: E6 41     INC vNPCMessageStatus                            ;
+C - - - - - 0x01B44D 06:B43D: E6 41     INC vNPCMessageStatus                            ; K flag for vNpcMessageStatus <~ 0x03 or 0x06
+C - - - - - 0x01B44F 06:B43F: B1 12     LDA (ram_0012),Y                                 ; <~ a message number
+C - - - - - 0x01B451 06:B441: 48        PHA                                              ; diposit a message number
+C - - - - - 0x01B452 06:B442: 30 1B     BMI bra_B45F_skip                                ; If a message number < 0x00
 C - - - - - 0x01B454 06:B444: A9 80     LDA #$80                                         ; CONSTANT - the message was appearing
 C - - - - - 0x01B456 06:B446: 20 80 B4  JSR sub_B480_plus_npc_msg_status                 ;
 C - - - - - 0x01B459 06:B449: A5 B9     LDA vCurUniqueRoomShort                          ;
@@ -3179,14 +3180,14 @@ C - - - - - 0x01B462 06:B452: AA        TAX                                     
 C - - - - - 0x01B463 06:B453: A5 5F     LDA vChrLiveStatus                               ;
 C - - - - - 0x01B465 06:B455: 1D 64 B4  ORA tbl_rescue_mask,X                            ; 
 C - - - - - 0x01B468 06:B458: 85 5F     STA vChrLiveStatus                               ; reset 'fall' and 'arrest' flags
-C - - - - - 0x01B46A 06:B45A: B6 60     LDX vRoomWithPrisoners,Y
-C - - - - - 0x01B46C 06:B45C: 20 03 B3  JSR sub_B303_reset_prison_room
+C - - - - - 0x01B46A 06:B45A: B6 60     LDX vRoomWithPrisoners,Y                         ; prepare an input parameter
+C - - - - - 0x01B46C 06:B45C: 20 03 B3  JSR sub_B303_reset_prison_room                   ;
 bra_B45F_skip:
-C - - - - - 0x01B46F 06:B45F: 68        PLA
-C - - - - - 0x01B470 06:B460: 4C 34 B2  JMP loc_B234_add_message
+C - - - - - 0x01B46F 06:B45F: 68        PLA                                              ; retrieve a message number (see $B441)
+C - - - - - 0x01B470 06:B460: 4C 34 B2  JMP loc_B234_add_message                         ;
 
 bra_B463_RTS:
-C - - - - - 0x01B473 06:B463: 60        RTS
+C - - - - - 0x01B473 06:B463: 60        RTS                                              ;
 
 tbl_rescue_mask:
 - D 1 - - - 0x01B474 06:B464: 0C        .byte %00001100   ; Lupin
@@ -3220,15 +3221,15 @@ C - - - - - 0x01B497 06:B487: 85 41     STA vNPCMessageStatus   ;
 C - - - - - 0x01B499 06:B489: 60        RTS                     ;
 
 ; In: [$0012,$0013] - the address where an index of tbl_npc_portrait_set is contained
-; In: Register Y (0x0X) - npc_message_status
+; In: Register Y vNPCMessageStatus, K flag
 sub_B48A_prepare_npc_portrait_render_params_:
-C - - - - - 0x01B49A 06:B48A: A9 00     LDA #$00
-C - - - - - 0x01B49C 06:B48C: 85 00     STA ram_0000
-C - - - - - 0x01B49E 06:B48E: C0 00     CPY #$00
-C - - - - - 0x01B4A0 06:B490: F0 06     BEQ bra_B498_skip
-C - - - - - 0x01B4A2 06:B492: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01B4A4 06:B494: 29 03     AND #$03
-C - - - - - 0x01B4A6 06:B496: 85 00     STA ram_0000
+C - - - - - 0x01B49A 06:B48A: A9 00     LDA #$00                        ;
+C - - - - - 0x01B49C 06:B48C: 85 00     STA ram_0000                    ; <~ 0x00 (Lupin)
+C - - - - - 0x01B49E 06:B48E: C0 00     CPY #$00                        ;
+C - - - - - 0x01B4A0 06:B490: F0 06     BEQ bra_B498_skip               ; If npc_message_status == 0x00
+C - - - - - 0x01B4A2 06:B492: A5 5F     LDA vChrLiveStatus              ;
+C - - - - - 0x01B4A4 06:B494: 29 03     AND #$03                        ;
+C - - - - - 0x01B4A6 06:B496: 85 00     STA ram_0000                    ; <~ {0x00 - Lupin, 0x01 - Jigen, 0x10 - Goemon}
 ; In: [$0012,$0013] - the address where an index of tbl_npc_portrait_set is contained
 ; In: Register Y - an offset for [$0012,$0013]
 ; In: $0000 - the index offset for tbl_npc_portrait_set
@@ -3324,23 +3325,23 @@ C - - - - - 0x01B552 06:B542: A9 62     LDA #$62                           ; ~> 
 C - - - - - 0x01B554 06:B544: 85 02     STA ram_0002                       ;
 C - - - - - 0x01B556 06:B546: 4C 33 CE  JMP loc_CE33_add_sprite_magic      ; bank FF
 
-sub_B549:
-C - - - - - 0x01B559 06:B549: A9 04     LDA #$04
+sub_B549_render_prisoner:
+C - - - - - 0x01B559 06:B549: A9 04     LDA #$04                         ; CONSTANT - the character is freed
 C - - - - - 0x01B55B 06:B54B: 24 41     BIT vNPCMessageStatus            ;
 C - - - - - 0x01B55D 06:B54D: 30 08     BMI @bra_B557_skip               ; If the message was appearing
-C - - - - - 0x01B55F 06:B54F: A9 02     LDA #$02
-C - - - - - 0x01B561 06:B551: A4 30     LDY ram_0030
-C - - - - - 0x01B563 06:B553: D0 02     BNE @bra_B557_skip
-C - - - - - 0x01B565 06:B555: A9 00     LDA #$00
+C - - - - - 0x01B55F 06:B54F: A9 02     LDA #$02                         ; CONSTANT - the character is freed partly
+C - - - - - 0x01B561 06:B551: A4 30     LDY vClearMessageCounter         ;
+C - - - - - 0x01B563 06:B553: D0 02     BNE @bra_B557_skip               ; If the clear message time isn't up
+C - - - - - 0x01B565 06:B555: A9 00     LDA #$00                         ; CONSTANT - the character isn't freed
 ; In: Register A - the offset value
 @bra_B557_skip:
-C - - - - - 0x01B567 06:B557: 18        CLC
-C - - - - - 0x01B568 06:B558: 69 BA     ADC #$BA
-C - - - - - 0x01B56A 06:B55A: AA        TAX
-C - - - - - 0x01B56B 06:B55B: A9 80     LDA #$80
-C - - - - - 0x01B56D 06:B55D: 85 01     STA ram_0001
-C - - - - - 0x01B56F 06:B55F: A9 BF     LDA #$BF
-C - - - - - 0x01B571 06:B561: 85 00     STA ram_0000
+C - - - - - 0x01B567 06:B557: 18        CLC                              ;
+C - - - - - 0x01B568 06:B558: 69 BA     ADC #$BA                         ;
+C - - - - - 0x01B56A 06:B55A: AA        TAX                              ; prepare the offset of the sprite address (0xBA or 0xBC)
+C - - - - - 0x01B56B 06:B55B: A9 80     LDA #$80                         ;
+C - - - - - 0x01B56D 06:B55D: 85 01     STA ram_0001                     ; prepare a X-position
+C - - - - - 0x01B56F 06:B55F: A9 BF     LDA #$BF                         ;
+C - - - - - 0x01B571 06:B561: 85 00     STA ram_0000                     ; prepare a Y-position
 C - - - - - 0x01B573 06:B563: A9 62     LDA #$62                         ; AAA = 2, LLL = 3, ?? = 0x00 (see vCharacterRenderData)
 C - - - - - 0x01B575 06:B565: 85 45     STA vCharacterRenderData         ;
 C - - - - - 0x01B577 06:B567: 20 5A CE  JSR sub_CE5A_render_character    ;
@@ -3369,80 +3370,105 @@ tbl_B587_part_address:
 - D 1 - - - 0x01B59B 06:B58B: 68        .byte $68
 
 ; In: Register A - npc type index
-sub_B58C:
+sub_B58C_resolve_npc_type:
 C - - - - - 0x01B59C 06:B58C: 0A        ASL                      ; *2, because the address contains 2 bytes
 C - - - - - 0x01B59D 06:B58D: AA        TAX                      ;
 C - - - - - 0x01B59E 06:B58E: BD 9B B5  LDA tbl_npc_types,X      ;
 C - - - - - 0x01B5A1 06:B591: 85 02     STA ram_0002             ; Low address
 C - - - - - 0x01B5A3 06:B593: BD 9C B5  LDA tbl_npc_types + 1,X  ;
 C - - - - - 0x01B5A6 06:B596: 85 03     STA ram_0003             ; High address
-C - - - - - 0x01B5A8 06:B598: 6C 02 00  JMP (ram_0002)
+C - - - - - 0x01B5A8 06:B598: 6C 02 00  JMP (ram_0002)           ;
 
 tbl_npc_types:
 - D 1 - - - 0x01B5AB 06:B59B: B4 B5     .addr loc_npc_type0  ; CPU address $B5B4
+                                                             ; Y + 1 
 - D - - - - 0x01B5AD 06:B59D: B3 B5     .addr loc_npc_type1  ; CPU address $B5B3
+                                                             ; Y + 2
 - D - - - - 0x01B5AF 06:B59F: B2 B5     .addr loc_npc_type2  ; CPU address $B5B2
+                                                             ; Y + 3
 - D - - - - 0x01B5B1 06:B5A1: B1 B5     .addr loc_npc_type3  ; CPU address $B5B1
+                                                             ; Y + 4
 - D 1 - - - 0x01B5B3 06:B5A3: BE B5     .addr loc_npc_type4  ; CPU address $B5BE
+                                                             ; Y + 2 for Lupin
+															 ; Y + 3 for Jigen
+															 ; Y + 4 for Goemon
 - D 1 - - - 0x01B5B5 06:B5A5: B6 B5     .addr loc_npc_type5  ; CPU address $B5B6
+                                                             ; Y + 1, if ring is 0
+                                                             ; Y + 2 and ring - 1 for Lupin
+                                                             ; Y + 3 and ring - 1 for Jigen
+                                                             ; Y + 4 and ring - 1 for Goemon
 - D 1 - - - 0x01B5B7 06:B5A7: CA B5     .addr loc_npc_type6  ; CPU address $B5CA
+                                                             ; Y + 1, if ring is 0
+                                                             ; Y + 2 and ring - 1
 - D 1 - - - 0x01B5B9 06:B5A9: DD B5     .addr loc_npc_type7  ; CPU address $B5DD
+                                                             ; Y + 2, if the room with Lian already been visited
+                                                             ; Y + 1, otherwise
 - D 1 - - - 0x01B5BB 06:B5AB: D9 B5     .addr loc_npc_type8  ; CPU address $B5D9
+                                                             ; Y + 2, if the room with San already been visited
+                                                             ; Y + 1, otherwise
 - D 1 - - - 0x01B5BD 06:B5AD: D5 B5     .addr loc_npc_type9  ; CPU address $B5D5
+                                                             ; Y + 2, if the room with Suu already been visited
+                                                             ; Y + 1, otherwise
 - D 1 - - - 0x01B5BF 06:B5AF: F2 B5     .addr loc_npc_type10 ; CPU address $B5F2
+                                                             ; Y + 2, if the room with Yi already been visited
+                                                             ; Y + 1, otherwise
 
 loc_npc_type3:
-C - - - - - 0x01B5C1 06:B5B1: C8        INY
+C - - - - - 0x01B5C1 06:B5B1: C8        INY                    ;
 loc_npc_type2:
-C - - - - - 0x01B5C2 06:B5B2: C8        INY
+C - - - - - 0x01B5C2 06:B5B2: C8        INY                    ;
 bra_B5B3_npc_type1:
 loc_npc_type1:
-C D 1 - - - 0x01B5C3 06:B5B3: C8        INY
+C D 1 - - - 0x01B5C3 06:B5B3: C8        INY                    ;
 loc_npc_type0:
-C - - - - - 0x01B5C4 06:B5B4: C8        INY
-C - - - - - 0x01B5C5 06:B5B5: 60        RTS
+C - - - - - 0x01B5C4 06:B5B4: C8        INY                    ;
+C - - - - - 0x01B5C5 06:B5B5: 60        RTS                    ;
 
 loc_npc_type5:
-C - - J - - 0x01B5C6 06:B5B6: AD 08 02  LDA v_ruby_ring
-C - - - - - 0x01B5C9 06:B5B9: F0 F9     BEQ loc_npc_type0
-C - - - - - 0x01B5CB 06:B5BB: CE 08 02  DEC v_ruby_ring
+C - - J - - 0x01B5C6 06:B5B6: AD 08 02  LDA v_ruby_ring        ;
+C - - - - - 0x01B5C9 06:B5B9: F0 F9     BEQ loc_npc_type0      ; If the number of the rings is 0x00
+C - - - - - 0x01B5CB 06:B5BB: CE 08 02  DEC v_ruby_ring        ; the ring is used
 loc_npc_type4:
-C - - J - - 0x01B5CE 06:B5BE: A5 5F     LDA vChrLiveStatus
-C - - - - - 0x01B5D0 06:B5C0: 29 03     AND #$03 ; Get the current selected character
+C - - J - - 0x01B5CE 06:B5BE: A5 5F     LDA vChrLiveStatus     ;
+C - - - - - 0x01B5D0 06:B5C0: 29 03     AND #$03               ; Get the current selected character
 C - - - - - 0x01B5D2 06:B5C2: F0 EF     BEQ bra_B5B3_npc_type1 ; If the character is Lupin
-C - - - - - 0x01B5D4 06:B5C4: C9 01     CMP #$01
-C - - - - - 0x01B5D6 06:B5C6: F0 EA     BEQ loc_npc_type2 ; If the character is Jugen
-C - - - - - 0x01B5D8 06:B5C8: D0 E7     BNE loc_npc_type3 ; If the character is Goemon
+C - - - - - 0x01B5D4 06:B5C4: C9 01     CMP #$01               ; CONSTANT - Jigen
+C - - - - - 0x01B5D6 06:B5C6: F0 EA     BEQ loc_npc_type2      ; If the character is Jugen
+C - - - - - 0x01B5D8 06:B5C8: D0 E7     BNE loc_npc_type3      ; If the character is Goemon, always true
+
 loc_npc_type6:
-C - - J - - 0x01B5DA 06:B5CA: AD 08 02  LDA v_ruby_ring
-C - - - - - 0x01B5DD 06:B5CD: F0 E5     BEQ loc_npc_type0
-C - - - - - 0x01B5DF 06:B5CF: CE 08 02  DEC v_ruby_ring
-C - - - - - 0x01B5E2 06:B5D2: 4C B3 B5  JMP loc_npc_type1
+C - - J - - 0x01B5DA 06:B5CA: AD 08 02  LDA v_ruby_ring        ;
+C - - - - - 0x01B5DD 06:B5CD: F0 E5     BEQ loc_npc_type0      ; If the number of the rings is 0x00
+C - - - - - 0x01B5DF 06:B5CF: CE 08 02  DEC v_ruby_ring        ; the ring is used
+C - - - - - 0x01B5E2 06:B5D2: 4C B3 B5  JMP loc_npc_type1      ;
 
 loc_npc_type9:
-C - - J - - 0x01B5E5 06:B5D5: A2 4B     LDX #$4B
-C - - - - - 0x01B5E7 06:B5D7: D0 06     BNE bra_B5DF
+C - - J - - 0x01B5E5 06:B5D5: A2 4B     LDX #$4B               ; CONSTANT - The room with San
+C - - - - - 0x01B5E7 06:B5D7: D0 06     BNE bra_B5DF_skip      ; Always true
+
 loc_npc_type8:
-C - - J - - 0x01B5E9 06:B5D9: A2 44     LDX #$44
-C - - - - - 0x01B5EB 06:B5DB: D0 02     BNE bra_B5DF
+C - - J - - 0x01B5E9 06:B5D9: A2 44     LDX #$44               ; CONSTANT - The room with Lian
+C - - - - - 0x01B5EB 06:B5DB: D0 02     BNE bra_B5DF_skip      ; Always true
+
 loc_npc_type7:
-C - - J - - 0x01B5ED 06:B5DD: A2 32     LDX #$32
-bra_B5DF:
-C - - - - - 0x01B5EF 06:B5DF: BD 00 05  LDA vRooms,X
-C - - - - - 0x01B5F2 06:B5E2: 29 08     AND #$08
-C - - - - - 0x01B5F4 06:B5E4: F0 CE     BEQ loc_npc_type0
-C - - - - - 0x01B5F6 06:B5E6: E0 4B     CPX #$4B
-C - - - - - 0x01B5F8 06:B5E8: D0 08     BNE bra_B5F2
-C - - - - - 0x01B5FA 06:B5EA: AD 6D 05  LDA ram_056D
-C - - - - - 0x01B5FD 06:B5ED: 29 1F     AND #$1F
-C - - - - - 0x01B5FF 06:B5EF: 8D 6D 05  STA ram_056D
-bra_B5F2:
+C - - J - - 0x01B5ED 06:B5DD: A2 32     LDX #$32               ; CONSTANT - The room with Yi
+; In: Register X - the room index
+bra_B5DF_skip:
+C - - - - - 0x01B5EF 06:B5DF: BD 00 05  LDA vRooms,X           ;
+C - - - - - 0x01B5F2 06:B5E2: 29 08     AND #$08               ; CONSTANT - the room for walkthrough already been visited
+C - - - - - 0x01B5F4 06:B5E4: F0 CE     BEQ loc_npc_type0      ; If the room for walkthrough haven't been visited
+C - - - - - 0x01B5F6 06:B5E6: E0 4B     CPX #$4B               ; CONSTANT - The room with San
+C - - - - - 0x01B5F8 06:B5E8: D0 08     BNE @bra_B5F2_skip     ; If Register X != 0x4B
+C - - - - - 0x01B5FA 06:B5EA: AD 6D 05  LDA vRooms + 109       ;
+C - - - - - 0x01B5FD 06:B5ED: 29 1F     AND #$1F               ; 
+C - - - - - 0x01B5FF 06:B5EF: 8D 6D 05  STA vRooms + 109       ; The room with Kim (0x6D) is now available
+@bra_B5F2_skip:
 loc_npc_type10:
-C - - J - - 0x01B602 06:B5F2: A6 BC     LDX vRoomCurrentIndex
-C - - - - - 0x01B604 06:B5F4: BD 00 05  LDA vRooms,X
-C - - - - - 0x01B607 06:B5F7: 09 08     ORA #$08
-C - - - - - 0x01B609 06:B5F9: 9D 00 05  STA vRooms,X
-C - - - - - 0x01B60C 06:B5FC: D0 B5     BNE bra_B5B3_npc_type1
+C - - J - - 0x01B602 06:B5F2: A6 BC     LDX vRoomCurrentIndex  ;
+C - - - - - 0x01B604 06:B5F4: BD 00 05  LDA vRooms,X           ;
+C - - - - - 0x01B607 06:B5F7: 09 08     ORA #$08               ; CONSTANT - the room for walkthrough already been visited
+C - - - - - 0x01B609 06:B5F9: 9D 00 05  STA vRooms,X           ;
+C - - - - - 0x01B60C 06:B5FC: D0 B5     BNE bra_B5B3_npc_type1 ; Always true
 
 sub_B5FE_final_scene_handler:
 C - - - - - 0x01B60E 06:B5FE: A5 30     LDA vClearMessageCounter                 ;
@@ -4211,7 +4237,7 @@ C - - - - - 0x01BB3D 06:BB2D: 50 62     BVC bra_BB91_RTS                     ; I
 C - - - - - 0x01BB3F 06:BB2F: A5 B1     LDA v_start_level                    ;
 C - - - - - 0x01BB41 06:BB31: D0 5E     BNE bra_BB91_RTS                     ; Go to the branch If start level is activated
 C - - - - - 0x01BB43 06:BB33: A5 1C     LDA vBtnPressedInGame                ;
-C - - - - - 0x01BB45 06:BB35: F0 56     BEQ bra_BB8D                         ; Go to the branch If the any buttons aren't pressed
+C - - - - - 0x01BB45 06:BB35: F0 56     BEQ bra_BB8D_reset_lock              ; Go to the branch If the any buttons aren't pressed
 C - - - - - 0x01BB47 06:BB37: A5 B3     LDA v_lock_secret_hits               ;
 C - - - - - 0x01BB49 06:BB39: D0 56     BNE bra_BB91_RTS                     ; Go to the branch If the some buttons is pressing
 C - - - - - 0x01BB4B 06:BB3B: A5 B2     LDA v_count_secret_hits              ;
@@ -4242,25 +4268,25 @@ C - - - - - 0x01BB7D 06:BB6D: F0 18     BEQ bra_BB87_reset                   ; G
 bra_BB6F:
 C - - - - - 0x01BB7F 06:BB6F: E6 B2     INC v_count_secret_hits
 C - - - - - 0x01BB81 06:BB71: E6 B3     INC v_lock_secret_hits
-C - - - - - 0x01BB83 06:BB73: A5 B2     LDA v_count_secret_hits
-C - - - - - 0x01BB85 06:BB75: C9 06     CMP #$06                             ; The count of the buttons is in the secret combination
-C - - - - - 0x01BB87 06:BB77: D0 18     BNE bra_BB91_RTS
+C - - - - - 0x01BB83 06:BB73: A5 B2     LDA v_count_secret_hits              ;
+C - - - - - 0x01BB85 06:BB75: C9 06     CMP #$06                             ; CONSTANT - The number of the buttons is in the secret combination
+C - - - - - 0x01BB87 06:BB77: D0 18     BNE bra_BB91_RTS                     ; If the number of secret hits != 0x06
 C - - - - - 0x01BB89 06:BB79: A2 01     LDX #$01                             ; It's 1 secret combination
 C - - - - - 0x01BB8B 06:BB7B: A5 B4     LDA v_offset_in_secret_codes
-C - - - - - 0x01BB8D 06:BB7D: F0 06     BEQ bra_BB85
+C - - - - - 0x01BB8D 06:BB7D: F0 06     BEQ bra_BB85_assign
 C - - - - - 0x01BB8F 06:BB7F: E8        INX                                  ; If it's 2 secret combination
 C - - - - - 0x01BB90 06:BB80: C9 06     CMP #$06
-C - - - - - 0x01BB92 06:BB82: F0 01     BEQ bra_BB85
+C - - - - - 0x01BB92 06:BB82: F0 01     BEQ bra_BB85_assign
 C - - - - - 0x01BB94 06:BB84: E8        INX                                  ; If it's 3 secret combination
-bra_BB85:
-C - - - - - 0x01BB95 06:BB85: 86 B1     STX v_start_level
+bra_BB85_assign:
+C - - - - - 0x01BB95 06:BB85: 86 B1     STX v_start_level                    ;
 bra_BB87_reset:
-C - - - - - 0x01BB97 06:BB87: A9 00     LDA #$00
-C - - - - - 0x01BB99 06:BB89: 85 B2     STA v_count_secret_hits
-C - - - - - 0x01BB9B 06:BB8B: 85 B4     STA v_offset_in_secret_codes
-bra_BB8D:
-C - - - - - 0x01BB9D 06:BB8D: A9 00     LDA #$00
-C - - - - - 0x01BB9F 06:BB8F: 85 B3     STA v_lock_secret_hits
+C - - - - - 0x01BB97 06:BB87: A9 00     LDA #$00                             ;
+C - - - - - 0x01BB99 06:BB89: 85 B2     STA v_count_secret_hits              ;
+C - - - - - 0x01BB9B 06:BB8B: 85 B4     STA v_offset_in_secret_codes         ;
+bra_BB8D_reset_lock:
+C - - - - - 0x01BB9D 06:BB8D: A9 00     LDA #$00                             ;
+C - - - - - 0x01BB9F 06:BB8F: 85 B3     STA v_lock_secret_hits               ;
 bra_BB91_RTS:
 C - - - - - 0x01BBA1 06:BB91: 60        RTS                                  ;
 
