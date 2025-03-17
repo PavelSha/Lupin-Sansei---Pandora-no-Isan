@@ -15,7 +15,7 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 -  Code Logger bytes - ***30.10%***
 -  Data Logger bytes - ***58.90%***
 -  Unknown bytes     - ***11.00%***
--  Code commented    - ***95.87%***
+-  Code commented    - ***96.32%***
 ## Documentation (in Russian)
 -  [terminology](docs/ru/terminology.md) - Basic terminology
 -  [code review](docs/ru/code_review.md) - The document contains an analyze a some pieces of code

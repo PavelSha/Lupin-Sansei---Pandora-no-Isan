@@ -166,6 +166,7 @@ vCharacterSelectionCounter    = ram_003D ; If 0x00 - no selection else selection
 
 vDrowningRate                 = ram_003E
 vFlowingOffset                = ram_003F ; by X-position in the water
+vFlyingOffset                 = ram_003F ; by X-position in the air
 vWaterRoomIndex               = ram_0040 ; [0x00-0x3D]
 vNPCMessageStatus             = ram_0041
 ; Byte: XYZW KKKK
@@ -173,10 +174,10 @@ vNPCMessageStatus             = ram_0041
 ; X - the message was appearing
 ; K - 0x00, 0x03 (1st message), 0x06 (2nd message, scene with the boss)
 
-; ram_0042 - ???
-; 0x40 N - the Lupin's balloon is exploding
-; 0x80 N - the character is looking to the left
-; 0x00 N - the character is looking to the right
+vChrDirectMovement            = ram_0042
+; Byte: XY00 0000
+; X - the horizontal direction (0 - right, 1 - left)
+; Y - falling from a balloon (0 - no falling, 1 - falling)
 
 
 vCurrentNumberSprite          = ram_0043
