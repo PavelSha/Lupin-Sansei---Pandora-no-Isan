@@ -4,70 +4,70 @@
 .org $A000  ; for listing file
 ; 0x01A010-0x01C00F
 
-.import tbl_copyright                                     ; bank 04 (Page 1)
-.import tbl_main_menu_chr_banks                           ; bank 04 (Page 1)
-.import tbl_template_chr_banks1                           ; bank 04 (Page 1)
-.import tbl_messages                                      ; bank 04 (Page 2)
-.import tbl_ptr_rooms_with_NPCs                           ; bank 04 (Page 2)
-.import tbl_ptr_briefcases_outside                        ; bank 04 (Page 2)
-.import tbl_ptr_briefcases_indexes_on_the_level           ; bank 04 (Page 2)
-.import tbl_briefcases_positions                          ; bank 04 (Page 2)
-.import tbl_npc_portrait_sprites                          ; bank 04 (Page 2)
-.import tbl_npc_portrait_set                              ; bank 04 (Page 2)
-.import tbl_npc_sprite_set                                ; bank 04 (Page 2)
-.import tbl_ptr_prison_rooms                              ; bank 04 (Page 2)
-.import sub_C305_update_ppu_ctrl_with_no_nmi              ; bank FF
-.import sub_C313_screen_off                               ; bank FF
-.import sub_C31D_clear_ppu                                ; bank FF
-.import sub_C358_clear_OAM                                ; bank FF
-.import loc_C371_update_palette                           ; bank FF
-.import loc_C402_clear_sound_parts                        ; bank FF
-.import sub_C402_clear_sound_parts                        ; bank FF
-.import sub_C420_add_sound_effect                         ; bank FF
-.import loc_C420_add_sound_effect                         ; bank FF
-.import sub_C4F5_selectAllChrBanks                        ; bank FF
-.import sub_C904_clear_score                              ; bank FF
-.import loc_CE33_add_sprite_magic                         ; bank FF
-.import sub_CE33_add_sprite_magic                         ; bank FF
-.import sub_D073_invert_sign                              ; bank FF
-.import sub_D079_check_button_press                       ; bank FF
-.import sub_D086_render_14_15_16_17_18_v1                 ; bank FF
-.import sub_EF46_switch_bank_4_p1                         ; bank FF
-.import loc_EF4F_switch_bank_4_p2                         ; bank FF
-.import sub_EF4F_switch_bank_4_p2                         ; bank FF
-.import sub_EF3B_switch_bank_2_p1                         ; bank FF
-.import sub_F2D6_try_put_briefcase                        ; bank FF
-.import tbl_C1CA_checkpoint_on_start_levels               ; bank FF
-.import sub_CE5A_render_character                         ; bank FF
-.import sub_C91C_display_menu_score                       ; bank FF
-.import sub_C51E_update_ppu_and_screen                    ; bank FF
-.import loc_C046_repeat_starting_mode                     ; bank FF
-.import sub_D2E5_get_collision_value                      ; bank FF
-.import sub_D0B8_change_stack_pointer_by_bits             ; bank FF
-.import sub_D67B_out_of_sight                             ; bank FF
-.import sub_D6AC_out_of_screen                            ; bank FF
-.import loc_D99F_add_flash_sprite                         ; bank FF
-.import sub_D660_is_bomb_exploding                        ; bank FF
-.import loc_D77F_free_enemyA                              ; bank FF
-.import sub_D6BD_try_change_enemyA_direction              ; bank FF
-.import loc_D741_enemyA_off_screen                        ; bank FF
-.import sub_D725_enemyA_on_screen                         ; bank FF
-.import loc_D989_add_enemyA_sprite_magic_v1               ; bank FF
-.import sub_D358_check_enemyA_collision_by_Y              ; bank FF
-.import sub_D562_has_character_damage                     ; bank FF
-.import sub_D5B6_have_intersect_bullet                    ; bank FF
-.import sub_D606_have_intersect_sword                     ; bank FF
-.import sub_D7A8_correction_EnemyAPosY                    ; bank FF
-.import sub_D347_check_landing_enemyA                     ; bank FF
-.import sub_FC3E_boss_defeated_status                     ; bank FF
-.import sub_D064_generate_rng                             ; bank FF
-.import sub_CDEE_deactivate_activable_items_after_damage  ; bank FF
-.import sub_DF63_update_character_status                  ; bank FF
-.import loc_DBC2_before_rendering                         ; bank FF
-.import sub_DCB1_try_move_on_the_left                     ; bank FF
-.import sub_DCE5_try_move_on_the_right                    ; bank FF
-.import sub_DCF1_reset_velocity                           ; bank FF
-.import sub_E332_generate_jump_type                       ; bank FF
+.import tbl_copyright                                  ; bank 04 (Page 1)
+.import tbl_main_menu_chr_banks                        ; bank 04 (Page 1)
+.import tbl_template_chr_banks1                        ; bank 04 (Page 1)
+.import tbl_messages                                   ; bank 04 (Page 2)
+.import tbl_ptr_rooms_with_NPCs                        ; bank 04 (Page 2)
+.import tbl_ptr_briefcases_outside                     ; bank 04 (Page 2)
+.import tbl_ptr_briefcases_indexes_on_the_level        ; bank 04 (Page 2)
+.import tbl_briefcases_positions                       ; bank 04 (Page 2)
+.import tbl_npc_portrait_sprites                       ; bank 04 (Page 2)
+.import tbl_npc_portrait_set                           ; bank 04 (Page 2)
+.import tbl_npc_sprite_set                             ; bank 04 (Page 2)
+.import tbl_ptr_prison_rooms                           ; bank 04 (Page 2)
+.import sub_C305_update_ppu_ctrl_with_no_nmi           ; bank FF
+.import sub_C313_screen_off                            ; bank FF
+.import sub_C31D_clear_ppu                             ; bank FF
+.import sub_C358_clear_OAM                             ; bank FF
+.import loc_C371_update_palette                        ; bank FF
+.import loc_C402_clear_sound_parts                     ; bank FF
+.import sub_C402_clear_sound_parts                     ; bank FF
+.import sub_C420_add_sound_effect                      ; bank FF
+.import loc_C420_add_sound_effect                      ; bank FF
+.import sub_C4F5_selectAllChrBanks                     ; bank FF
+.import sub_C904_clear_score                           ; bank FF
+.import loc_CE33_add_sprite_magic                      ; bank FF
+.import sub_CE33_add_sprite_magic                      ; bank FF
+.import sub_D073_invert_sign                           ; bank FF
+.import sub_D079_check_button_press                    ; bank FF
+.import sub_D086_render_14_15_16_17_18_v1              ; bank FF
+.import sub_EF46_switch_bank_4_p1                      ; bank FF
+.import loc_EF4F_switch_bank_4_p2                      ; bank FF
+.import sub_EF4F_switch_bank_4_p2                      ; bank FF
+.import sub_EF3B_switch_bank_2_p1                      ; bank FF
+.import sub_F2D6_try_put_briefcase                     ; bank FF
+.import tbl_C1CA_checkpoint_on_start_levels            ; bank FF
+.import sub_CE5A_render_character                      ; bank FF
+.import sub_C91C_display_menu_score                    ; bank FF
+.import sub_C51E_update_ppu_and_screen                 ; bank FF
+.import loc_C046_repeat_starting_mode                  ; bank FF
+.import sub_D2E5_get_collision_value                   ; bank FF
+.import sub_D0B8_change_stack_pointer_by_bits          ; bank FF
+.import sub_D67B_out_of_sight                          ; bank FF
+.import sub_D6AC_out_of_screen                         ; bank FF
+.import loc_D99F_add_flash_sprite                      ; bank FF
+.import sub_D660_is_bomb_exploding                     ; bank FF
+.import loc_D77F_free_enemyA                           ; bank FF
+.import sub_D6BD_try_change_enemyA_direction           ; bank FF
+.import loc_D741_enemyA_off_screen                     ; bank FF
+.import sub_D725_enemyA_on_screen                      ; bank FF
+.import loc_D989_add_enemyA_sprite_magic_v1            ; bank FF
+.import sub_D358_check_enemyA_collision_by_Y           ; bank FF
+.import sub_D562_has_character_damage                  ; bank FF
+.import sub_D5B6_have_intersect_bullet                 ; bank FF
+.import sub_D606_have_intersect_sword                  ; bank FF
+.import sub_D7A8_correction_EnemyAPosY                 ; bank FF
+.import sub_D347_check_landing_enemyA                  ; bank FF
+.import sub_FC3E_boss_defeated_status                  ; bank FF
+.import sub_D064_generate_rng                          ; bank FF
+.import sub_CDEE_deactivate_activable_items            ; bank FF
+.import sub_DF63_update_character_status               ; bank FF
+.import loc_DBC2_before_rendering                      ; bank FF
+.import sub_DCB1_try_move_on_the_left                  ; bank FF
+.import sub_DCE5_try_move_on_the_right                 ; bank FF
+.import sub_DCF1_reset_velocity                        ; bank FF
+.import sub_E332_generate_jump_type                    ; bank FF
 
 .export loc_A028_jumper
 .export loc_A309_green_boy
@@ -2819,15 +2819,15 @@ C - - - - - 0x01B208 06:B1F8: D0 E2     BNE @bra_B1DC_loop                      
 C - - - - - 0x01B20A 06:B1FA: 60        RTS                                                 ;
 
 loc_B1FB_rifle:
-C D 1 - - - 0x01B20B 06:B1FB: C6 73     DEC vRifleFireCounter                                ; updates a counter
-C - - - - - 0x01B20D 06:B1FD: D0 0F     BNE bra_B20E_skip                                    ; If the counter > 0x00
-C - - - - - 0x01B20F 06:B1FF: C6 72     DEC vRifleShotCount                                  ; updates a shot count
-C - - - - - 0x01B211 06:B201: D0 03     BNE bra_B206_skip                                    ; If the counter > 0x00
-C - - - - - 0x01B213 06:B203: 20 EE CD  JSR sub_CDEE_deactivate_activable_items_after_damage ;
+C D 1 - - - 0x01B20B 06:B1FB: C6 73     DEC vRifleFireCounter                     ; updates a counter
+C - - - - - 0x01B20D 06:B1FD: D0 0F     BNE bra_B20E_skip                         ; If the counter > 0x00
+C - - - - - 0x01B20F 06:B1FF: C6 72     DEC vRifleShotCount                       ; updates a shot count
+C - - - - - 0x01B211 06:B201: D0 03     BNE bra_B206_skip                         ; If the counter > 0x00
+C - - - - - 0x01B213 06:B203: 20 EE CD  JSR sub_CDEE_deactivate_activable_items   ;
 bra_B206_skip:
-C - - - - - 0x01B216 06:B206: 20 63 DF  JSR sub_DF63_update_character_status                 ;
-C - - - - - 0x01B219 06:B209: A2 00     LDX #$00                                             ; prepares the offset of the sprite address (the frame with rifle by default)
-C - - - - - 0x01B21B 06:B20B: 4C C2 DB  JMP loc_DBC2_before_rendering                        ;
+C - - - - - 0x01B216 06:B206: 20 63 DF  JSR sub_DF63_update_character_status      ;
+C - - - - - 0x01B219 06:B209: A2 00     LDX #$00                                  ; prepares the offset of the sprite address (the frame with rifle by default)
+C - - - - - 0x01B21B 06:B20B: 4C C2 DB  JMP loc_DBC2_before_rendering             ;
 
 bra_B20E_skip:
 C - - - - - 0x01B21E 06:B20E: A5 73     LDA vRifleFireCounter                ;

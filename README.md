@@ -12,10 +12,10 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 -  Windows - run a command ***assemble.bat***
 -  Linux, MacOS - run a command ***assemble.sh*** (more information - [NES Games Disassembly](https://github.com/cyneprepou4uk/NES-Games-Disassembly))
 ## Statistic
--  Code Logger bytes - ***30.10%***
--  Data Logger bytes - ***58.90%***
--  Unknown bytes     - ***11.00%***
--  Code commented    - ***96.32%***
+-  Code Logger bytes - ***30.11%***
+-  Data Logger bytes - ***58.93%***
+-  Unknown bytes     - ***10.96%***
+-  Code commented    - ***97.56%***
 ## Documentation (in Russian)
 -  [terminology](docs/ru/terminology.md) - Basic terminology
 -  [code review](docs/ru/code_review.md) - The document contains an analyze a some pieces of code
@@ -23,7 +23,6 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 -  [maze1](docs/ru/maze1.txt), [maze2](docs/ru/maze2.txt), [maze3](docs/ru/maze3.txt), [maze4](docs/ru/maze4.txt) - The information of the mazes on the level 4
 -  [rooms](docs/ru/rooms.md) - The list of all rooms in the game. The game level can be thought of as a large room.
 -  [Game Genie Codes](docs/ru/game_genie_codes.md) - It's the list of some Game Genie Codes.
--  [background metatiles](docs/ru/background_metatiles.md) - The list of all metatiles of the background.
 -  [banks](docs/ru/banks.md) - This is the information on PRG ROM banks.
 -  [audio tracks](docs/ru/audio_tracks.md) - All audio tracks from the game.
 ## Resources

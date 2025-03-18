@@ -94,7 +94,9 @@ vJetPackRiseCounter           = ram_002E
 vCarExplosionCounter          = ram_002E
 vCarLandingCounter            = ram_002E
 vIntoPyramid_Counter          = ram_002E
-vAnimationCounter             = ram_002F ; To animate the balloon and squeezing Lupine's legs on the jet-pack
+vWaterDashCounter             = ram_002E
+vWaterDeathCounter            = ram_002E
+vAnimationCounter             = ram_002F ; To animate the balloon and squeezing Lupin's legs on the jet-pack
 ; Also the counter starts when the character is flying after damage
 ; ram_0030 - the unknown counter1
 ; ram_0031 - the unknown counter2
@@ -178,6 +180,7 @@ vChrDirectMovement            = ram_0042
 ; Byte: XY00 0000
 ; X - the horizontal direction (0 - right, 1 - left)
 ; Y - falling from a balloon (0 - no falling, 1 - falling)
+; Y - in process changing the vertical direction on the jet-pack (0 - in procees, 1 - outside the process)
 
 
 vCurrentNumberSprite          = ram_0043
@@ -298,11 +301,9 @@ vCarChrRenderOffsetY          = ram_0075
 vCarChrFrame_Offset           = ram_0076
 vBulletPosOffsetY             = ram_0077
 vSwordPosition                = ram_0078 ; For Goemon, {0x00, 0x01, 0x02, ..., 0x08}
-vChrLandStatus                = ram_0079 ; To give Lupin and Jigen a chance to shoot (TODO)
-; Byte: XYZW KLMM
+vChrAllowedStatus             = ram_0079 ; To give Lupin and Jigen a chance to shoot
+; Byte: X000 0000
 ; X - the character is allowed the hit (1 - he can, 0 - he cann't)
-; 0x00 - the character is in the air
-; 0x80 - the character stands on the ground
 
 vBulletCount                  = ram_007A ; 0x00 - 1 bullet, 0x01 - 2 bullets, 0x02 - 3 bullets and so on...
 vBulletPosX                   = ram_007B ; [0x7B-0x7F] on the screen, in pixel units
