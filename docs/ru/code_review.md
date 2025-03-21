@@ -15,13 +15,13 @@ sub_D0C1_change_stack_pointer:
   INY
   INY
   PLA
-  STA ram_0012
+  STA $0012
   PLA
-  STA ram_0013
-  LDA (ram_0012),Y
+  STA $0013
+  LDA ($0012),Y
   PHA
   DEY
-  LDA (ram_0012),Y
+  LDA ($0012),Y
   PHA
   RTS
 ```
@@ -44,6 +44,7 @@ JSR sub_D0C1_change_stack_pointer
 Будет выполнять очень похожий механизм на языке JavaScript:
 
 ```js
+// RegA - значение регистра-аккумулятора (регистр А)
 switch(RegA) {
   case 0:
     fn_loc_00();
@@ -69,5 +70,40 @@ switch(RegA) {
   case 7:
     fn_loc_07();
     break;
+}
+```
+
+# Генерация случайных чисел (RNG)
+
+Следующая функция используется в качестве генератора случайны чисел.
+По сути, это функция ***5 * seed + 19*** на множестве значений байта, где seed постоянно заменяется по предыдыщему вычисленному случайному числу.
+
+```js
+/**
+ * Смотри: ROM address - 0x01D074, bank FF - $D064
+ * @return {Number} Случайное число из множества {0, 1, 2, ..., 255 }
+ */
+let rngSeed;
+function fn_D064_generate_rng()
+{
+   // LDA vEnemyRNGValue
+   // STA $0012
+   let _ = rngSeed;
+
+   // ASL
+   // ASL
+   // CLC
+   // $0012
+   _ = 5 * _;
+
+   // CLC
+   // ADC #$13
+   _ = _ + 0x13;
+
+   // STA vEnemyRNGValue
+   rngSeed = _ & 0xFF;
+
+   // RTS
+   return rngSeed;
 }
 ```

@@ -499,19 +499,19 @@ tbl_ptr_enemies:
 - D 0 - - - 0x012430 04:8420: 90 85     .addr deadlock
 - D 0 - - - 0x012432 04:8422: 90 85     .addr deadlock
 - D 0 - - - 0x012434 04:8424: 90 85     .addr deadlock
-- D 0 - - - 0x012436 04:8426: C6 8E     .addr tbl_enemies_level4_map1_b2_d2; CPU address $8EC6
-- D 0 - - - 0x012438 04:8428: D7 8E     .word $8ED7 ; level 4, map 1 (C0-C2)
-- D 0 - - - 0x01243A 04:842A: 90 85     .addr deadlock ; 
-- D 0 - - - 0x01243C 04:842C: E8 8E     .word $8EE8 ; level 4, map 1 (B1-B3)
-- D 0 - - - 0x01243E 04:842E: ED 8E     .word $8EED ; level 4, map 1 (A3-D3)
-- D 0 - - - 0x012440 04:8430: FE 8E     .word $8EFE ; level 4, map 1 (D0-D3)
-- D 0 - - - 0x012442 04:8432: 1F 8F     .word $8F1F ; level 4, map 1 (A0-D0)
-- D 0 - - - 0x012444 04:8434: 34 8F     .word $8F34 ; level 4, map 1 (A0-A3)
-- D 0 - - - 0x012446 04:8436: 49 8F     .word $8F49 ; level 4, map 2 (A0-A6)
-- D 0 - - - 0x012448 04:8438: 62 8F     .word $8F62 ; level 4, map 2 (A6-F6)
-- D 0 - - - 0x01244A 04:843A: 97 8F     .word $8F97 ; level 4, map 2 (F0-F6)
-- D 0 - - - 0x01244C 04:843C: C8 8F     .word $8FC8 ; level 4, map 2 (A0-F0)
-- D 0 - - - 0x01244E 04:843E: 05 90     .word $9005 ; level 4, map 2 (B1-B5)
+- D 0 - - - 0x012436 04:8426: C6 8E     .addr tbl_enemies_level4_map1_b2_d2 ; CPU address $8EC6
+- D 0 - - - 0x012438 04:8428: D7 8E     .addr tbl_enemies_level4_map1_c0_c2 ; CPU address $8ED7
+- D 0 - - - 0x01243A 04:842A: 90 85     .addr deadlock
+- D 0 - - - 0x01243C 04:842C: E8 8E     .addr tbl_enemies_level4_map2_b1_b3 ; CPU address $8EE8
+- D 0 - - - 0x01243E 04:842E: ED 8E     .addr tbl_enemies_level4_map2_a3_d3 ; CPU address $8EED
+- D 0 - - - 0x012440 04:8430: FE 8E     .addr tbl_enemies_level4_map2_d0_d3 ; CPU address $8EFE
+- D 0 - - - 0x012442 04:8432: 1F 8F     .addr tbl_enemies_level4_map2_a0_d0 ; CPU address $8F1F
+- D 0 - - - 0x012444 04:8434: 34 8F     .addr tbl_enemies_level4_map2_a0_a3 ; CPU address $8F34
+- D 0 - - - 0x012446 04:8436: 49 8F     .addr tbl_enemies_level4_map2_a0_a6 ; CPU address $8F49
+- D 0 - - - 0x012448 04:8438: 62 8F     .addr tbl_enemies_level4_map2_a6_f6 ; CPU address $8F62
+- D 0 - - - 0x01244A 04:843A: 97 8F     .addr tbl_enemies_level4_map2_f0_f6 ; CPU address $8F97
+- D 0 - - - 0x01244C 04:843C: C8 8F     .addr tbl_enemies_level4_map2_a0_f0 ; CPU address $8FC8
+- D 0 - - - 0x01244E 04:843E: 05 90     .addr tbl_enemies_level4_map2_b1_b5 ; CPU address $9005
 - D 0 - - - 0x012450 04:8440: 90 85     .addr deadlock
 - D 0 - - - 0x012452 04:8442: 26 90     .word $9026 ; level 4, map 2 (B5-E5)
 - D 0 - - - 0x012454 04:8444: 53 90     .word $9053 ; level 4, map 2 (E0-E6)
@@ -536,27 +536,27 @@ tbl_ptr_enemies:
 - D 0 - - - 0x01247A 04:846A: 8E 92     .word $928E ; level 4, map 3 (A0-A7)
 - D 0 - - - 0x01247C 04:846C: DF 92     .word $92DF ; level 4, map 3 (A7-H7)
 - D 0 - - - 0x01247E 04:846E: 34 93     .word $9334 ; level 4, map 3 (H0-H7)
-- D 0 - - - 0x012480 04:8470: 89 93     .word $9389 ; level 4, map 4 (A0-J0)
-- D 0 - - - 0x012482 04:8472: FE 93     .word $93FE ; level 4, map 4 (A0-A9)
-- D 0 - - - 0x012484 04:8474: 5F 94     .word $945F ; level 4, map 4 (A9-J9)
-- D 0 - - - 0x012486 04:8476: CC 94     .word $94CC ; level 4, map 4 (J0-J9)
-- D 0 - - - 0x012488 04:8478: 2D 95     .word $952D ; level 4, map 4 (B1-I1)
-- D 0 - - - 0x01248A 04:847A: 72 95     .word $9572 ; level 4, map 4 (B1-B8)
-- D 0 - - - 0x01248C 04:847C: AF 95     .word $95AF ; level 4, map 4 (B8-E8)
-- D 0 - - - 0x01248E 04:847E: CC 95     .word $95CC ; level 4, map 4 (G8-J8)
-- D 0 - - - 0x012490 04:8480: F9 95     .word $95F9 ; level 4, map 4 (I6-I8)
-- D 0 - - - 0x012492 04:8482: 12 96     .word $9612 ; level 4, map 4 (I1-I3)
-- D 0 - - - 0x012494 04:8484: 3B 96     .word $963B ; level 4, map 4 (G2-I2)
-- D 0 - - - 0x012496 04:8486: 4C 96     .word $964C ; level 4, map 4 (C2-E2)
-- D 0 - - - 0x012498 04:8488: 69 96     .word $9669 ; level 4, map 4 (C1-C9)
-- D 0 - - - 0x01249A 04:848A: B2 96     .word $96B2 ; level 4, map 4 (A7-I7)
-- D 0 - - - 0x01249C 04:848C: FF 96     .word $96FF ; level 4, map 4 (H2-H7)
-- D 0 - - - 0x01249E 04:848E: 40 97     .word $9740 ; level 4, map 4 (D3-G3)
-- D 0 - - - 0x0124A0 04:8490: 69 97     .word $9769 ; level 4, map 4 (D2-D7)
-- D 0 - - - 0x0124A2 04:8492: A6 97     .word $97A6 ; level 4, map 4 (D6-H6)
-- D 0 - - - 0x0124A4 04:8494: CF 97     .word $97CF ; level 4, map 4 (G3-G6)
-- D 0 - - - 0x0124A6 04:8496: 00 98     .word $9800 ; level 4, map 4 (E4-G4)
-- D 0 - - - 0x0124A8 04:8498: 19 98     .word $9819 ; level 4, map 4 (E3-E5)
+- D 0 - - - 0x012480 04:8470: 89 93     .addr tbl_enemies_level4_map4_a0_j0 ; CPU address $9389
+- D 0 - - - 0x012482 04:8472: FE 93     .addr tbl_enemies_level4_map4_a0_a9 ; CPU address $93FE
+- D 0 - - - 0x012484 04:8474: 5F 94     .addr tbl_enemies_level4_map4_a9_j9 ; CPU address $945F
+- D 0 - - - 0x012486 04:8476: CC 94     .addr tbl_enemies_level4_map4_j0_j9 ; CPU address $94CC
+- D 0 - - - 0x012488 04:8478: 2D 95     .addr tbl_enemies_level4_map4_b1_i1 ; CPU address $952D
+- D 0 - - - 0x01248A 04:847A: 72 95     .addr tbl_enemies_level4_map4_b1_b8 ; CPU address $9572
+- D 0 - - - 0x01248C 04:847C: AF 95     .addr tbl_enemies_level4_map4_b8_e8 ; CPU address $95AF
+- D 0 - - - 0x01248E 04:847E: CC 95     .addr tbl_enemies_level4_map4_g8_j8 ; CPU address $95CC
+- D 0 - - - 0x012490 04:8480: F9 95     .addr tbl_enemies_level4_map4_i6_i8 ; CPU address $95F9
+- D 0 - - - 0x012492 04:8482: 12 96     .addr tbl_enemies_level4_map4_i1_i3 ; CPU address $9612
+- D 0 - - - 0x012494 04:8484: 3B 96     .addr tbl_enemies_level4_map4_g2_i2 ; CPU address $963B
+- D 0 - - - 0x012496 04:8486: 4C 96     .addr tbl_enemies_level4_map4_c2_e2 ; CPU address $964C
+- D 0 - - - 0x012498 04:8488: 69 96     .addr tbl_enemies_level4_map4_c1_c9 ; CPU address $9669
+- D 0 - - - 0x01249A 04:848A: B2 96     .addr tbl_enemies_level4_map4_a7_i7 ; CPU address $96B2
+- D 0 - - - 0x01249C 04:848C: FF 96     .addr tbl_enemies_level4_map4_h2_h7 ; CPU address $96FF
+- D 0 - - - 0x01249E 04:848E: 40 97     .addr tbl_enemies_level4_map4_d3_g3 ; CPU address $9740
+- D 0 - - - 0x0124A0 04:8490: 69 97     .addr tbl_enemies_level4_map4_d2_d7 ; CPU address $9769
+- D 0 - - - 0x0124A2 04:8492: A6 97     .addr tbl_enemies_level4_map4_d6_h6 ; CPU address $97A6
+- D 0 - - - 0x0124A4 04:8494: CF 97     .addr tbl_enemies_level4_map4_g3_g6 ; CPU address $97CF
+- D 0 - - - 0x0124A6 04:8496: 00 98     .addr tbl_enemies_level4_map4_e4_g4 ; CPU address $9800
+- D 0 - - - 0x0124A8 04:8498: 19 98     .addr tbl_enemies_level4_map4_e3_e5 ; CPU address $9819
 - D 0 - - - 0x0124AA 04:849A: 90 85     .addr deadlock
 - D 0 - - - 0x0124AC 04:849C: 90 85     .addr deadlock
 
@@ -1280,25 +1280,25 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x012EE2 04:8ED2: 01        .byte $01, $B8, $BF, $36   ;
 - D 0 - I - 0x012EE6 04:8ED6: FF        .byte $FF   ; 
 
-; level 4, map 1 (C0-C2)
+tbl_enemies_level4_map1_c0_c2:
 - D 0 - I - 0x012EE7 04:8ED7: 00        .byte $00, $38, $BF, $36   ; Egyptian with a sword
 - D 0 - I - 0x012EEB 04:8EDB: 00        .byte $00, $C0, $BF, $36   ;
 - D 0 - I - 0x012EEF 04:8EDF: 01        .byte $01, $50, $BF, $36   ;
 - D 0 - I - 0x012EF3 04:8EE3: 01        .byte $01, $C0, $BF, $36   ;
 - D 0 - I - 0x012EF7 04:8EE7: FF        .byte $FF   ; 
 
-; level 4, map 1 (B1-B3)
+tbl_enemies_level4_map2_b1_b3:
 - D 0 - I - 0x012EF8 04:8EE8: 01        .byte $01, $80, $BF, $33   ; Blade trap
 - D 0 - I - 0x012EFC 04:8EEC: FF        .byte $FF   ; 
 
-; level 4, map 1 (A3-D3)
+tbl_enemies_level4_map2_a3_d3:
 - D 0 - I - 0x012EFD 04:8EED: 00        .byte $00, $98, $BF, $24   ; Skeleton
 - D 0 - I - 0x012F01 04:8EF1: 00        .byte $00, $A8, $5F, $21   ; Cobblestone
 - D 0 - I - 0x012F05 04:8EF5: 00        .byte $00, $F8, $BF, $24   ; Skeleton
 - D 0 - I - 0x012F09 04:8EF9: 02        .byte $02, $08, $BF, $36   ; Egyptian with a sword
 - D 0 - I - 0x012F0D 04:8EFD: FF        .byte $FF   ; 
 
-; level 4, map 1 (D0-D3)
+tbl_enemies_level4_map2_d0_d3:
 - D 0 - I - 0x012F0E 04:8EFE: 00        .byte $00, $D8, $BF, $36   ; Egyptian with a sword
 - D 0 - I - 0x012F12 04:8F02: 01        .byte $01, $78, $BF, $24   ; Skeleton
 - D 0 - I - 0x012F16 04:8F06: 01        .byte $01, $88, $4F, $21   ; Cobblestone
@@ -1309,7 +1309,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x012F2A 04:8F1A: 03        .byte $03, $48, $BF, $36   ;
 - D 0 - I - 0x012F2E 04:8F1E: FF        .byte $FF   ; 
 
-; level 4, map 1 (A0-D0)
+tbl_enemies_level4_map2_a0_d0:
 - D 0 - I - 0x012F2F 04:8F1F: 00        .byte $00, $E8, $BF, $36   ; Egyptian with a sword
 - D 0 - I - 0x012F33 04:8F23: 01        .byte $01, $78, $BF, $24   ; Skeleton
 - D 0 - I - 0x012F37 04:8F27: 02        .byte $02, $08, $BF, $36   ; Egyptian with a sword
@@ -1317,7 +1317,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x012F3F 04:8F2F: 03        .byte $03, $08, $BF, $24   ; Skeleton
 - D 0 - I - 0x012F43 04:8F33: FF        .byte $FF   ; 
 
-; level 4, map 1 (A0-A3)
+tbl_enemies_level4_map2_a0_a3:
 - D 0 - I - 0x012F44 04:8F34: 00        .byte $00, $38, $BF, $36   ; Egyptian with a sword
 - D 0 - I - 0x012F48 04:8F38: 00        .byte $00, $68, $BF, $36   ;
 - D 0 - I - 0x012F4C 04:8F3C: 01        .byte $01, $08, $BF, $24   ; Skeleton
@@ -1325,7 +1325,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x012F54 04:8F44: 03        .byte $03, $08, $BF, $36   ; Egyptian with a sword
 - D 0 - I - 0x012F58 04:8F48: FF        .byte $FF   ; 
 
-; level 4, map 2 (A0-A6)
+tbl_enemies_level4_map2_a0_a6:
 - D 0 - I - 0x012F59 04:8F49: 00        .byte $00, $38, $BF, $36   ; Egyptian with a sword
 - D 0 - I - 0x012F5D 04:8F4D: 00        .byte $00, $B8, $BF, $36   ;
 - D 0 - I - 0x012F61 04:8F51: 03        .byte $03, $48, $8F, $24   ; Skeleton
@@ -1334,7 +1334,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x012F6D 04:8F5D: 04        .byte $04, $D8, $BF, $36   ;
 - D 0 - I - 0x012F71 04:8F61: FF        .byte $FF   ; 
 
-; level 4, map 2 (A6-F6)
+tbl_enemies_level4_map2_a6_f6:
 - D 0 - I - 0x012F72 04:8F62: 00        .byte $00, $D8, $BF, $36   ; Egyptian with a sword
 - D 0 - I - 0x012F76 04:8F66: 01        .byte $01, $28, $8F, $36   ;
 - D 0 - I - 0x012F7A 04:8F6A: 01        .byte $01, $A8, $BF, $36   ;
@@ -1350,7 +1350,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x012FA2 04:8F92: 05        .byte $05, $38, $BF, $36   ; Egyptian with a sword
 - D 0 - I - 0x012FA6 04:8F96: FF        .byte $FF   ; 
 
-; level 4, map 2 (F0-F6)
+tbl_enemies_level4_map2_f0_f6:
 - D 0 - I - 0x012FA7 04:8F97: 00        .byte $00, $D8, $BF, $36   ; Egyptian with a sword
 - D 0 - I - 0x012FAB 04:8F9B: 01        .byte $01, $28, $8F, $36   ;
 - D 0 - I - 0x012FAF 04:8F9F: 01        .byte $01, $94, $BF, $30   ; Wall
@@ -1365,7 +1365,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x012FD3 04:8FC3: 05        .byte $05, $58, $BF, $26   ; 
 - D 0 - I - 0x012FD7 04:8FC7: FF        .byte $FF   ; 
 
-; level 4, map 2 (A0-F0)
+tbl_enemies_level4_map2_a0_f0:
 - D 0 - I - 0x012FD8 04:8FC8: 00        .byte $00, $A8, $3F, $21   ; Cobblestone
 - D 0 - I - 0x012FDC 04:8FCC: 00        .byte $00, $D8, $7F, $26   ; Mummy
 - D 0 - I - 0x012FE0 04:8FD0: 01        .byte $01, $18, $BF, $26   ; 
@@ -1383,7 +1383,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x013010 04:9000: 04        .byte $04, $F8, $BF, $24   ; Skeleton
 - D 0 - I - 0x013014 04:9004: FF        .byte $FF   ; 
 
-; level 4, map 2 (B1-B5)
+tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x013015 04:9005: 01        .byte $01, $08, $BF, $24   ; Skeleton
 - D 0 - I - 0x013019 04:9009: 01        .byte $01, $28, $3F, $21   ; Cobblestone
 - D 0 - I - 0x01301D 04:900D: 02        .byte $02, $18, $BF, $26   ; Mummy
@@ -1663,7 +1663,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x013394 04:9384: 06        .byte $06, $98, $7F, $35   ;
 - D 0 - I - 0x013398 04:9388: FF        .byte $FF   ; 
 
-; level 4, map 4 (A0-J0)
+tbl_enemies_level4_map4_a0_j0:
 - D 0 - I - 0x013399 04:9389: 00        .byte $00, $68, $BF, $35   ; Egyptian with bow
 - D 0 - I - 0x01339D 04:938D: 00        .byte $00, $88, $3F, $27   ; Gargoyle
 - D 0 - I - 0x0133A1 04:9391: 00        .byte $00, $D8, $7F, $35   ; Egyptian with bow
@@ -1695,7 +1695,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x013409 04:93F9: 09        .byte $09, $30, $BF, $33   ; Blade trap
 - D 0 - I - 0x01340D 04:93FD: FF        .byte $FF   ; 
 
-; level 4, map 4 (A0-A9)
+tbl_enemies_level4_map4_a0_a9:
 - D 0 - I - 0x01340E 04:93FE: 00        .byte $00, $D8, $6F, $37   ; Egyptian with a boomerung
 - D 0 - I - 0x013412 04:9402: 01        .byte $01, $08, $BF, $37   ;
 - D 0 - I - 0x013416 04:9406: 01        .byte $01, $18, $8F, $37   ;
@@ -1722,7 +1722,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x01346A 04:945A: 00        .byte $00, $A4, $BF, $34   ; Potted snakes (broken ???)
 - D 0 - I - 0x01346E 04:945E: FF        .byte $FF   ; 
 
-; level 4, map 4 (A9-J9)
+tbl_enemies_level4_map4_a9_j9:
 - D 0 - I - 0x01346F 04:945F: 00        .byte $00, $A4, $BF, $34   ; Potted snakes
 - D 0 - I - 0x013473 04:9463: 00        .byte $00, $D8, $7F, $35   ; Egyptian with bow
 - D 0 - I - 0x013477 04:9467: 01        .byte $01, $18, $8F, $35   ;
@@ -1752,7 +1752,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x0134D7 04:94C7: 08        .byte $08, $E8, $8F, $35   ; Egyptian with bow
 - D 0 - I - 0x0134DB 04:94CB: FF        .byte $FF   ; 
 
-; level 4, map 4 (J0-J9)
+tbl_enemies_level4_map4_j0_j9:
 - D 0 - I - 0x0134DC 04:94CC: 00        .byte $00, $D8, $7F, $35   ; Egyptian with bow
 - D 0 - I - 0x0134E0 04:94D0: 01        .byte $01, $40, $8F, $35   ;
 - D 0 - I - 0x0134E4 04:94D4: 01        .byte $01, $78, $BF, $35   ;
@@ -1779,7 +1779,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x013538 04:9528: 08        .byte $08, $F8, $BF, $35   ; Egyptian with bow
 - D 0 - I - 0x01353C 04:952C: FF        .byte $FF   ; 
 
-; level 4, map 4 (B1-I1)
+tbl_enemies_level4_map4_b1_i1:
 - D 0 - I - 0x01353D 04:952D: 00        .byte $00, $B8, $BF, $37   ; Egyptian with a boomerung
 - D 0 - I - 0x013541 04:9531: 01        .byte $01, $08, $BF, $37   ;
 - D 0 - I - 0x013545 04:9535: 01        .byte $01, $78, $4F, $27   ; Gargoyle
@@ -1799,7 +1799,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x01357D 04:956D: 07        .byte $07, $28, $7F, $26   ; 
 - D 0 - I - 0x013581 04:9571: FF        .byte $FF   ; 
 
-; level 4, map 4 (B1-B8)
+tbl_enemies_level4_map4_b1_b8:
 - D 0 - I - 0x013582 04:9572: 00        .byte $00, $D8, $BF, $24   ; Skeleton
 - D 0 - I - 0x013586 04:9576: 01        .byte $01, $98, $3F, $27   ; Gargoyle
 - D 0 - I - 0x01358A 04:957A: 02        .byte $02, $18, $3F, $27   ; 
@@ -1817,7 +1817,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x0135BA 04:95AA: 07        .byte $07, $38, $7F, $35   ; Egyptian with bow
 - D 0 - I - 0x0135BE 04:95AE: FF        .byte $FF   ; 
 
-; level 4, map 4 (B8-E8)
+tbl_enemies_level4_map4_b8_e8:
 - D 0 - I - 0x0135BF 04:95AF: 00        .byte $00, $D8, $7F, $26   ; Mummy
 - D 0 - I - 0x0135C3 04:95B3: 01        .byte $01, $08, $BF, $26   ; 
 - D 0 - I - 0x0135C7 04:95B7: 01        .byte $01, $28, $3F, $27   ; Gargoyle 
@@ -1827,7 +1827,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x0135D7 04:95C7: 02        .byte $02, $48, $BF, $26   ; Mummy
 - D 0 - I - 0x0135DB 04:95CB: FF        .byte $FF   ; 
 
-; level 4, map 4 (G8-J8)
+tbl_enemies_level4_map4_g8_j8:
 - D 0 - I - 0x0135DC 04:95CC: 00        .byte $00, $B8, $BF, $37   ; Egyptian with a boomerung
 - D 0 - I - 0x0135E0 04:95D0: 00        .byte $00, $E8, $4F, $27   ; Gargoyle
 - D 0 - I - 0x0135E4 04:95D4: 01        .byte $01, $B8, $7F, $37   ; Egyptian with a boomerung
@@ -1841,7 +1841,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x013604 04:95F4: 03        .byte $03, $F0, $BF, $33   ; Blade trap
 - D 0 - I - 0x013608 04:95F8: FF        .byte $FF   ; 
 
-; level 4, map 4 (I6-I8)
+tbl_enemies_level4_map4_i6_i8:
 - D 0 - I - 0x013609 04:95F9: 00        .byte $00, $98, $B7, $37   ; Egyptian with a boomerung
 - D 0 - I - 0x01360D 04:95FD: 01        .byte $01, $08, $BF, $37   ;
 - D 0 - I - 0x013611 04:9601: 01        .byte $01, $28, $4F, $27   ; Gargoyle
@@ -1850,7 +1850,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x01361D 04:960D: 02        .byte $02, $58, $4F, $27   ; Gargoyle
 - D 0 - I - 0x013621 04:9611: FF        .byte $FF   ; 
 
-; level 4, map 4 (I1-I3)
+tbl_enemies_level4_map4_i1_i3:
 - D 0 - I - 0x013622 04:9612: 00        .byte $00, $98, $7F, $35   ; Egyptian with bow
 - D 0 - I - 0x013626 04:9616: 00        .byte $00, $D0, $3F, $27   ; Gargoyle
 - D 0 - I - 0x01362A 04:961A: 01        .byte $01, $28, $BF, $35   ; Egyptian with bow
@@ -1863,14 +1863,14 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x013646 04:9636: 03        .byte $03, $68, $BF, $37   ;
 - D 0 - I - 0x01364A 04:963A: FF        .byte $FF   ; 
 
-; level 4, map 4 (G2-I2)
+tbl_enemies_level4_map4_g2_i2:
 - D 0 - I - 0x01364B 04:963B: 01        .byte $01, $70, $BF, $33   ; Blade trap
 - D 0 - I - 0x01364F 04:963F: 01        .byte $01, $D8, $7F, $35   ; Egyptian with bow
 - D 0 - I - 0x013653 04:9643: 02        .byte $02, $28, $6F, $35   ;
 - D 0 - I - 0x013657 04:9647: 02        .byte $02, $58, $BF, $35   ;
 - D 0 - I - 0x01365B 04:964B: FF        .byte $FF   ; 
 
-; level 4, map 4 (C2-E2)
+tbl_enemies_level4_map4_c2_e2:
 - D 0 - I - 0x01365C 04:964C: 00        .byte $00, $A8, $7F, $37   ; Egyptian with a boomerung
 - D 0 - I - 0x013660 04:9650: 00        .byte $00, $F8, $BF, $37   ;
 - D 0 - I - 0x013664 04:9654: 01        .byte $01, $18, $4F, $27   ; Gargoyle
@@ -1880,7 +1880,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x013674 04:9664: 02        .byte $02, $68, $BF, $37   ;
 - D 0 - I - 0x013678 04:9668: FF        .byte $FF   ; 
 
-; level 4, map 4 (C1-C9)
+tbl_enemies_level4_map4_c1_c9:
 - D 0 - I - 0x013679 04:9669: 00        .byte $00, $70, $BF, $33   ; Blade trap
 - D 0 - I - 0x01367D 04:966D: 01        .byte $01, $10, $BF, $33   ;
 - D 0 - I - 0x013681 04:9671: 01        .byte $01, $48, $8F, $37   ; Egyptian with a boomerung
@@ -1901,7 +1901,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x0136BD 04:96AD: 06        .byte $06, $F0, $BF, $33   ; Blade trap
 - D 0 - I - 0x0136C1 04:96B1: FF        .byte $FF   ; 
 
-; level 4, map 4 (A7-I7)
+tbl_enemies_level4_map4_a7_i7:
 - D 0 - I - 0x0136C2 04:96B2: 00        .byte $00, $70, $BF, $33   ; Blade trap
 - D 0 - I - 0x0136C6 04:96B6: 01        .byte $01, $38, $BF, $33   ;
 - D 0 - I - 0x0136CA 04:96BA: 01        .byte $01, $A8, $7F, $38   ; Ninja upside down
@@ -1923,7 +1923,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x01370A 04:96FA: 06        .byte $06, $F0, $BF, $33   ; Blade trap
 - D 0 - I - 0x01370E 04:96FE: FF        .byte $FF   ; 
 
-; level 4, map 4 (H2-H7)
+tbl_enemies_level4_map4_h2_h7:
 - D 0 - I - 0x01370F 04:96FF: 00        .byte $00, $98, $BF, $35   ; Egyptian with bow
 - D 0 - I - 0x013713 04:9703: 01        .byte $01, $08, $BF, $37   ; Egyptian with a boomerung
 - D 0 - I - 0x013717 04:9707: 01        .byte $01, $28, $5F, $27   ; Gargoyle
@@ -1942,7 +1942,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x01374B 04:973B: 05        .byte $05, $48, $BF, $26   ; Mummy
 - D 0 - I - 0x01374F 04:973F: FF        .byte $FF   ; 
 
-; level 4, map 4 (D3-G3)
+tbl_enemies_level4_map4_d3_g3:
 - D 0 - I - 0x013750 04:9740: 00        .byte $00, $C8, $BF, $27   ; Gargoyle
 - D 0 - I - 0x013754 04:9744: 00        .byte $00, $FC, $AF, $39   ; Sensor
 - D 0 - I - 0x013758 04:9748: 01        .byte $01, $44, $7F, $39   ;
@@ -1955,7 +1955,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x013774 04:9764: 03        .byte $03, $28, $7F, $37   ; Egyptian with a boomerung
 - D 0 - I - 0x013778 04:9768: FF        .byte $FF   ; 
 
-; level 4, map 4 (D2-D7)
+tbl_enemies_level4_map4_d2_d7:
 - D 0 - I - 0x013779 04:9769: 00        .byte $00, $70, $BF, $33   ; Blade trap
 - D 0 - I - 0x01377D 04:976D: 01        .byte $01, $10, $BF, $33   ;
 - D 0 - I - 0x013781 04:9771: 01        .byte $01, $50, $8F, $35   ; Egyptian with bow
@@ -1973,7 +1973,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x0137B1 04:97A1: 03        .byte $03, $D4, $A7, $39   ; Sensor
 - D 0 - I - 0x0137B5 04:97A5: FF        .byte $FF   ; 
 
-; level 4, map 4 (D6-H6)
+tbl_enemies_level4_map4_d6_h6:
 - D 0 - I - 0x0137B6 04:97A6: 00        .byte $00, $58, $BF, $37   ; Egyptian with a boomerung
 - D 0 - I - 0x0137BA 04:97AA: 00        .byte $00, $68, $5F, $27   ; Gargoyle
 - D 0 - I - 0x0137BE 04:97AE: 00        .byte $00, $B8, $5F, $27   ; 
@@ -1986,7 +1986,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x0137DA 04:97CA: 03        .byte $03, $C4, $BF, $31   ; !(BUG?) - the wall will not appear
 - D 0 - I - 0x0137DE 04:97CE: FF        .byte $FF   ; 
 
-; level 4, map 4 (G3-G6)
+tbl_enemies_level4_map4_g3_g6:
 - D 0 - I - 0x0137DF 04:97CF: 00        .byte $00, $A4, $BF, $37   ; Egyptian with a boomerung
 - D 0 - I - 0x0137E3 04:97D3: 01        .byte $01, $08, $BF, $37   ;
 - D 0 - I - 0x0137E7 04:97D7: 01        .byte $01, $3C, $7F, $39   ; Sensor
@@ -2001,7 +2001,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x01380B 04:97FB: 03        .byte $03, $64, $A7, $39   ; Sensor
 - D 0 - I - 0x01380F 04:97FF: FF        .byte $FF   ; 
 
-; level 4, map 4 (E4-G4)
+tbl_enemies_level4_map4_e4_g4:
 - D 0 - I - 0x013810 04:9800: 00        .byte $00, $28, $BF, $26   ; Mummy
 - D 0 - I - 0x013814 04:9804: 01        .byte $01, $18, $BF, $37   ; Egyptian with a boomerung
 - D 0 - I - 0x013818 04:9808: 01        .byte $01, $34, $AF, $39   ; Sensor
@@ -2010,7 +2010,7 @@ tbl_enemies_level4_map1_b2_d2:
 - D 0 - I - 0x013824 04:9814: 01        .byte $01, $A8, $BF, $37   ;
 - D 0 - I - 0x013828 04:9818: FF        .byte $FF   ; 
 
-; level 4, map 4 (E3-E5)
+tbl_enemies_level4_map4_e3_e5:
 - D 0 - I - 0x013829 04:9819: 01        .byte $01, $08, $BF, $37   ; Egyptian with a boomerung
 - D 0 - I - 0x01382D 04:981D: 01        .byte $01, $38, $4F, $21   ; Cobblestone
 - D 0 - I - 0x013831 04:9821: 01        .byte $01, $58, $BF, $37   ; Egyptian with a boomerung
