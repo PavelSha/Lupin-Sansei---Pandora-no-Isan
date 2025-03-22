@@ -3497,10 +3497,10 @@ tbl_ptr_corridors_level_with_NPC_4:
 - D 0 - I - 0x011A3C 04:9A2C: 00        .byte $00   ; 
 - D 0 - I - 0x011A3D 04:9A2D: FF        .byte $FF   ; 
 
-; 1 byte -
-; 2 byte -
+; 1 byte - X-position (low value)
+; 2 byte - Y-position (high value)
 ; 3 byte - the display room type {0x00 - 0x0F}
-; 4 byte -
+; 4 byte - the room number
 ; 5 byte - the offset in tbl_ptr_corridors for the corridor with the wall (1 of 5 bytes)
 tbl_ptr_destructible_walls_level1_2:
 - D 0 - I - 0x011A3E 04:9A2E: 80        .byte $80, $02, $08, $10, $0F

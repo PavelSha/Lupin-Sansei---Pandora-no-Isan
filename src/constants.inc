@@ -252,6 +252,7 @@ vChrStatus                    = ram_006C ; A status of a character
 ; AAA - the action:
 ; 0x01 = the character is jumping
 ; 0x02 = the character is entering a corridor or hiding place or died
+; 0x04 = Goemon's unknown technique !(UNUSED)
 vCarStatus                    = ram_006C ; A status of a car with character
 ; Byte: XYZW KLMN
 ; N - unused, the car with character is always looking to the right
