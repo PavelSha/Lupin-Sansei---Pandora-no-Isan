@@ -165,7 +165,7 @@
 .export sub_D642_have_intersect_with_character
 .export loc_CDAC_decrement_counters_ex
 .export sub_CDEE_deactivate_activable_items
-.export sub_DF63_update_character_status
+.export sub_DF63_update_left_right_direction
 .export loc_DBC2_before_rendering
 .export sub_DCB1_try_move_on_the_left
 .export sub_DCE5_try_move_on_the_right
@@ -1898,10 +1898,10 @@ tbl_CB20_item_offset_x:
 - D 2 - - - 0x01CB32 07:CB22: 38        .byte $38 ; Artillery Rifle
 - D 2 - - - 0x01CB33 07:CB23: 48        .byte $48 ; Jet-pack
 - D 2 - - - 0x01CB34 07:CB24: 58        .byte $58 ; Infrared Goggles
-- - - - - - 0x01CB35 07:CB25: B0        .byte $B0 ; Breathing apparatus
-- - - - - - 0x01CB36 07:CB26: C0        .byte $C0 ; Helium balloon
-- - - - - - 0x01CB37 07:CB27: D0        .byte $D0 ; Bullet proof vest
-- - - - - - 0x01CB38 07:CB28: E0        .byte $E0 ; Ruby ring
+- D - - - - 0x01CB35 07:CB25: B0        .byte $B0 ; Breathing apparatus
+- D - - - - 0x01CB36 07:CB26: C0        .byte $C0 ; Helium balloon
+- D - - - - 0x01CB37 07:CB27: D0        .byte $D0 ; Bullet proof vest
+- D - - - - 0x01CB38 07:CB28: E0        .byte $E0 ; Ruby ring
 
 ; Out: carry flag (analog return true or false):
 ; 1, the current item is prohibited
@@ -3704,7 +3704,7 @@ C - - - - - 0x01D651 07:D641: 60        RTS                                    ;
 
 sub_D642_have_intersect_with_character:
 C - - - - - 0x01D652 07:D642: A0 18     LDY #$18                               ; hitBoxH #1
-C - - - - - 0x01D654 07:D644: A5 6C     LDA vChrStatus
+C - - - - - 0x01D654 07:D644: A5 6C     LDA vChrStatus                         ;
 C - - - - - 0x01D656 07:D646: 29 42     AND #$42                               ; CONSTANT - the character is sitting
                                                                                ; 0x40 - Goemon's unknown technique !(UNUSED)
 C - - - - - 0x01D658 07:D648: F0 02     BEQ @bra_D64C_skip                     ; If the character isn't sitting
@@ -4520,7 +4520,7 @@ C - - - - - 0x01DA66 07:DA56: 9D C8 03  STA vItemJumpCounter,X           ; Initi
 C - - - - - 0x01DA69 07:DA59: A9 0F     LDA #$0F                         ; CONSTANT - the exploding sound
 C - - - - - 0x01DA6B 07:DA5B: 20 20 C4  JSR sub_C420_add_sound_effect    ;
 bra_DA5E_render:
-C - - - - - 0x01DA6E 07:DA5E: A0 64     LDY #$64
+C - - - - - 0x01DA6E 07:DA5E: A0 64     LDY #$64                         ; prepare an input parameter (an index for the exploding)
 ; In: Register X - 0x00 (an index for the bomb)
 ; In: Register Y - sprite_magic2 (The offset by the address)
 loc_DA60_prepare_rendering:
@@ -4615,7 +4615,7 @@ tbl_flying_track_offset:
 - D 2 - - - 0x01DB02 07:DAF2: FE        .byte $FE, $FF
 
 sub_DAF4_character_subroutine:
-C - - - - - 0x01DB04 07:DAF4: 20 A6 E2  JSR sub_E2A6_test_feature_smth
+C - - - - - 0x01DB04 07:DAF4: 20 A6 E2  JSR sub_E2A6_test_feature_smth    ;
 C - - - - - 0x01DB07 07:DAF7: A9 00     LDA #$00                          ; 
 C - - - - - 0x01DB09 07:DAF9: 85 48     STA vScrollDirection              ; none (see vScrollDirection)
 C - - - - - 0x01DB0B 07:DAFB: 85 79     STA vChrAllowedStatus             ; set 'the character isn't allowed the hit'
@@ -4727,13 +4727,13 @@ C - - - - - 0x01DBC0 07:DBB0: A2 00     LDX #$00                             ;
 C - - - - - 0x01DBC2 07:DBB2: F0 0B     BEQ bra_DBBF_skip                    ; Always true
 
 bra_DBB4_down:
-C - - - - - 0x01DBC4 07:DBB4: A5 6C     LDA vChrStatus                       ;
-C - - - - - 0x01DBC6 07:DBB6: 09 02     ORA #$02                             ; CONSTANT - the character is sitting
-C - - - - - 0x01DBC8 07:DBB8: 85 6C     STA vChrStatus                       ; 
-C - - - - - 0x01DBCA 07:DBBA: 20 63 DF  JSR sub_DF63_update_character_status ;
-C - - - - - 0x01DBCD 07:DBBD: A2 14     LDX #$14                             ; the offset of the sprite address
+C - - - - - 0x01DBC4 07:DBB4: A5 6C     LDA vChrStatus                           ;
+C - - - - - 0x01DBC6 07:DBB6: 09 02     ORA #$02                                 ; CONSTANT - the character is sitting
+C - - - - - 0x01DBC8 07:DBB8: 85 6C     STA vChrStatus                           ; 
+C - - - - - 0x01DBCA 07:DBBA: 20 63 DF  JSR sub_DF63_update_left_right_direction ;
+C - - - - - 0x01DBCD 07:DBBD: A2 14     LDX #$14                                 ; the offset of the sprite address
 bra_DBBF_skip:
-C - - - - - 0x01DBCF 07:DBBF: 20 F1 DC  JSR sub_DCF1_reset_velocity          ;
+C - - - - - 0x01DBCF 07:DBBF: 20 F1 DC  JSR sub_DCF1_reset_velocity              ;
 ; in: Register X - the offset of the sprite address
 loc_DBC2_before_rendering:
 C D 2 - - - 0x01DBD2 07:DBC2: A5 6C     LDA vChrStatus                               ;
@@ -4845,7 +4845,7 @@ loc_DC61_after_moving:
 C D 2 - - - 0x01DC71 07:DC61: 20 82 DC  JSR sub_DC82_try_inc_velocity       ;
 C - - - - - 0x01DC74 07:DC64: 20 96 DC  JSR sub_DC96_try_change_frame_index ;
 loc_DC67_after_moving_without_velocity:
-C D 2 - - - 0x01DC77 07:DC67: A4 70     LDY vChrFrame_Counter
+C D 2 - - - 0x01DC77 07:DC67: A4 70     LDY vChrFrame_Counter               ;
 C - - - - - 0x01DC79 07:DC69: BE 6F DC  LDX tbl_DC6F_movement_frames_,Y     ; prepares the offset of the sprite address
 C - - - - - 0x01DC7C 07:DC6C: 4C C2 DB  JMP loc_DBC2_before_rendering       ;
 
@@ -4891,8 +4891,8 @@ C - - - - - 0x01DCA6 07:DC96: A9 07     LDA #$07               ; f(A) = 8, see $
 sub_DC98_try_change_frame_index_ex:
 C - - - - - 0x01DCA8 07:DC98: 25 2C     AND vLowCounter        ;
 C - - - - - 0x01DCAA 07:DC9A: D0 F9     BNE bra_DC95_RTS       ; Branch if vLowCounter doesn't multiple of f(A) (vLowCounter % f(A) != 0)
-C - - - - - 0x01DCAC 07:DC9C: E6 70     INC vChrFrame_Counter
-C - - - - - 0x01DCAE 07:DC9E: A5 70     LDA vChrFrame_Counter
+C - - - - - 0x01DCAC 07:DC9C: E6 70     INC vChrFrame_Counter  ; updates the frame counter
+C - - - - - 0x01DCAE 07:DC9E: A5 70     LDA vChrFrame_Counter  ;
 C - - - - - 0x01DCB0 07:DCA0: C9 03     CMP #$03               ; CONSTANT - Max value
 C - - - - - 0x01DCB2 07:DCA2: 90 04     BCC bra_DCA8_RTS       ; If the counter < 0x03
 C - - - - - 0x01DCB4 07:DCA4: A9 00     LDA #$00               ;
@@ -5015,41 +5015,34 @@ C - - - - - 0x01DD59 07:DD49: 20 AD D3  JSR sub_D3AD_left_collision_by_inc_posX 
 C - - - - - 0x01DD5C 07:DD4C: C9 01     CMP #$01                                 ; 
 C - - - - - 0x01DD5E 07:DD4E: 60        RTS                                      ;
 
-sub_DD4F:
+; Out: If flag Z = 1 then the strong collision is exist
+sub_DD4F_check_strong_from_above:
 C - - - - - 0x01DD5F 07:DD4F: A5 5E     LDA v_no_level                           ;
 C - - - - - 0x01DD61 07:DD51: C9 03     CMP #$03                                 ; CONSTANT - level 4 + racing
 C - - - - - 0x01DD63 07:DD53: D0 26     BNE bra_DD7B_RTS                         ; If vNoLevel != 0x03
-C - - - - - 0x01DD65 07:DD55: A9 E0     LDA #$E0
-C - - - - - 0x01DD67 07:DD57: 4C 7E DD  JMP loc_DD7E_check_strong_collision_ex
+C - - - - - 0x01DD65 07:DD55: A9 E0     LDA #$E0                                 ; prepare ChrPosY (-32), a character with jet-pack height = 32
+C - - - - - 0x01DD67 07:DD57: 4C 7E DD  JMP loc_DD7E_check_strong_collision_ex   ;
 
-sub_DD5A:
+; Out: If flag Z = 1 then the strong collision is exist
+sub_DD5A_check_strong_from_below:
 C - - - - - 0x01DD6A 07:DD5A: A5 5E     LDA v_no_level                           ;
 C - - - - - 0x01DD6C 07:DD5C: C9 03     CMP #$03                                 ; CONSTANT - level 4 + racing
 C - - - - - 0x01DD6E 07:DD5E: D0 1B     BNE bra_DD7B_RTS                         ; If vNoLevel != 0x03
-C - - - - - 0x01DD70 07:DD60: A9 E1     LDA #$E1
-C - - - - - 0x01DD72 07:DD62: 20 7E DD  JSR sub_DD7E_check_strong_collision_ex
-C - - - - - 0x01DD75 07:DD65: A9 01     LDA #$01
-C - - - - - 0x01DD77 07:DD67: 4C 7E DD  JMP loc_DD7E_check_strong_collision_ex
+C - - - - - 0x01DD70 07:DD60: A9 E1     LDA #$E1                                 ; !(WHY?) prepare ChrPosY (-31), a character with jet-pack height = 32
+C - - - - - 0x01DD72 07:DD62: 20 7E DD  JSR sub_DD7E_check_strong_collision_ex   ; !(WHY?)
+C - - - - - 0x01DD75 07:DD65: A9 01     LDA #$01                                 ; prepare ChrPosY (+1), a character with jet-pack height = 32
+C - - - - - 0x01DD77 07:DD67: 4C 7E DD  JMP loc_DD7E_check_strong_collision_ex   ;
 
-- - - - - - 0x01DD7A 07:DD6A: 20        .byte $20
-- - - - - - 0x01DD7B 07:DD6B: 6F        .byte $6F
-- - - - - - 0x01DD7C 07:DD6C: D9        .byte $D9
-- - - - - - 0x01DD7D 07:DD6D: 20        .byte $20
-- - - - - - 0x01DD7E 07:DD6E: E5        .byte $E5
-- - - - - - 0x01DD7F 07:DD6F: D2        .byte $D2
-- - - - - - 0x01DD80 07:DD70: C9        .byte $C9
-- - - - - - 0x01DD81 07:DD71: 01        .byte $01
-- - - - - - 0x01DD82 07:DD72: 60        .byte $60
-- - - - - - 0x01DD83 07:DD73: 20        .byte $20
-- - - - - - 0x01DD84 07:DD74: 6F        .byte $6F
-- - - - - - 0x01DD85 07:DD75: D9        .byte $D9
-- - - - - - 0x01DD86 07:DD76: 20        .byte $20
-- - - - - - 0x01DD87 07:DD77: 6A        .byte $6A
-- - - - - - 0x01DD88 07:DD78: D3        .byte $D3
-- - - - - - 0x01DD89 07:DD79: C9        .byte $C9
-- - - - - - 0x01DD8A 07:DD7A: 01        .byte $01
+C - - - - - 0x01DD7A 07:DD6A: 20 6F D9  JSR sub_D96F_init_relative_chr_positions ; !(UNUSED)
+C - - - - - 0x01DD7D 07:DD6D: 20 E5 D2  JSR sub_D2E5_get_collision_value         ; !(UNUSED)
+C - - - - - 0x01DD80 07:DD70: C9 01     CMP #$01                                 ; !(UNUSED), CONSTANT - a strong collision
+C - - - - - 0x01DD82 07:DD72: 60        RTS                                      ; !(UNUSED)
+
+C - - - - - 0x01DD83 07:DD73: 20 6F D9  JSR sub_D96F_init_relative_chr_positions ; !(UNUSED)
+C - - - - - 0x01DD86 07:DD76: 20 6A D3  JSR sub_D36A_short_left_right_collision  ; !(UNUSED)
+C - - - - - 0x01DD89 07:DD79: C9 01     CMP #$01                                 ; !(UNUSED), CONSTANT - a strong collision
 bra_DD7B_RTS:
-C - - - - - 0x01DD8B 07:DD7B: 60        RTS
+C - - - - - 0x01DD8B 07:DD7B: 60        RTS                                      ;
 
 ; Out: If flag Z = 1 then there is the strong collision
 sub_DD7C_check_strong_collision_minus_7:
@@ -5126,7 +5119,7 @@ C - - - - - 0x01DDF8 07:DDE8: 24 1C     BIT vBtnPressedInGame              ;
 C - - - - - 0x01DDFA 07:DDEA: 10 03     BPL bra_DDEF_skip                  ; If the button 'Right' isn't pressed
 C - - - - - 0x01DDFC 07:DDEC: 20 80 DF  JSR sub_DF80_slow_down_velocity    ;
 bra_DDEF_skip:
-C - - - - - 0x01DDFF 07:DDEF: 4C 06 DE  JMP loc_DE06_after_horiz_moving
+C - - - - - 0x01DDFF 07:DDEF: 4C 06 DE  JMP loc_DE06_after_horiz_moving    ;
 
 bra_DDF2_right:
 C - - - - - 0x01DE02 07:DDF2: 29 04     AND #$04                           ;
@@ -5187,21 +5180,21 @@ C - - - - - 0x01DE5B 07:DE4B: C9 02     CMP #$02                                
 C - - - - - 0x01DE5D 07:DE4D: F0 07     BEQ @bra_DE56_weak                          ; If the weak collision doesn't exist
 C - - - - - 0x01DE5F 07:DE4F: 20 7C DD  JSR sub_DD7C_check_strong_collision_minus_7 ;
 C - - - - - 0x01DE62 07:DE52: F0 32     BEQ bra_DE86_jump_subroutine_bf2            ; If collisions exist
-C - - - - - 0x01DE64 07:DE54: D0 11     BNE bra_DE67                                ; Always true
+C - - - - - 0x01DE64 07:DE54: D0 11     BNE bra_DE67_continue                       ; Always true
 
 @bra_DE56_weak:
 C - - - - - 0x01DE66 07:DE56: 20 7C DD  JSR sub_DD7C_check_strong_collision_minus_7 ;
 C - - - - - 0x01DE69 07:DE59: F0 2B     BEQ bra_DE86_jump_subroutine_bf2            ; If collisions exist
 C - - - - - 0x01DE6B 07:DE5B: A5 6E     LDA vJumpType                               ;
 C - - - - - 0x01DE6D 07:DE5D: C9 02     CMP #$02                                    ; CONSTANT - jumping off
-C - - - - - 0x01DE6F 07:DE5F: D0 06     BNE bra_DE67                                ; If vJumpType != 0x02
+C - - - - - 0x01DE6F 07:DE5F: D0 06     BNE bra_DE67_continue                       ; If vJumpType != 0x02
 C - - - - - 0x01DE71 07:DE61: A5 1C     LDA vBtnPressedInGame                       ;
 C - - - - - 0x01DE73 07:DE63: 29 20     AND #BIT_BUTTON_Down                        ;
 C - - - - - 0x01DE75 07:DE65: D0 1F     BNE bra_DE86_jump_subroutine_bf2            ; If the button 'Down' is pressed
-bra_DE67:
-C - - - - - 0x01DE77 07:DE67: A5 6D     LDA vMovableChrStatus
-C - - - - - 0x01DE79 07:DE69: 29 01     AND #$01
-C - - - - - 0x01DE7B 07:DE6B: D0 03     BNE @bra_DE70_skip
+bra_DE67_continue:
+C - - - - - 0x01DE77 07:DE67: A5 6D     LDA vMovableChrStatus                       ;
+C - - - - - 0x01DE79 07:DE69: 29 01     AND #$01                                    ; CONSTANT - the character is moving on the lift
+C - - - - - 0x01DE7B 07:DE6B: D0 03     BNE @bra_DE70_skip                          ; If the character is moving on the lift
 C - - - - - 0x01DE7D 07:DE6D: 20 32 E3  JSR sub_E332_correction_ScreenChrPosY       ;
 @bra_DE70_skip:
 C - - - - - 0x01DE80 07:DE70: A5 6C     LDA vChrStatus                              ;
@@ -5215,16 +5208,16 @@ C - - - - - 0x01DE8E 07:DE7E: 85 6C     STA vChrStatus                          
 C - - - - - 0x01DE90 07:DE80: 4C A9 DE  JMP loc_DEA9_died_subroutine_bf2            ;
 
 bra_DE83_jump_subroutine_before_bf2:
-C - - - - - 0x01DE93 07:DE83: 20 5C DF  JSR sub_DF5C
+C - - - - - 0x01DE93 07:DE83: 20 5C DF  JSR sub_DF5C_reset_action_and_death ;
 ; in: Register X - the offset of the sprite address
 bra_DE86_jump_subroutine_bf2:
 loc_DE86_jump_subroutine_bf2:
-C D 2 - - - 0x01DE96 07:DE86: A5 6F     LDA vJumpCounter              ;
-C - - - - - 0x01DE98 07:DE88: C9 18     CMP #$18                      ; CONSTANT - a maximum amplitude
-C - - - - - 0x01DE9A 07:DE8A: 90 08     BCC bra_DE94_skip             ; If vJumpCounter < 0x18
-C - - - - - 0x01DE9C 07:DE8C: 20 8A E7  JSR sub_E78A_has_roof_pitch   ;
-C - - - - - 0x01DE9F 07:DE8F: 90 03     BCC bra_DE94_skip             ; If it has not a roof pitch
-C - - - - - 0x01DEA1 07:DE91: 20 5C DF  JSR sub_DF5C
+C D 2 - - - 0x01DE96 07:DE86: A5 6F     LDA vJumpCounter                    ;
+C - - - - - 0x01DE98 07:DE88: C9 18     CMP #$18                            ; CONSTANT - a maximum amplitude
+C - - - - - 0x01DE9A 07:DE8A: 90 08     BCC bra_DE94_skip                   ; If vJumpCounter < 0x18
+C - - - - - 0x01DE9C 07:DE8C: 20 8A E7  JSR sub_E78A_has_roof_pitch         ;
+C - - - - - 0x01DE9F 07:DE8F: 90 03     BCC bra_DE94_skip                   ; If it has not a roof pitch
+C - - - - - 0x01DEA1 07:DE91: 20 5C DF  JSR sub_DF5C_reset_action_and_death ;
 bra_DE94_skip:
 C - - - - - 0x01DEA4 07:DE94: E6 6F     INC vJumpCounter              ;
 C - - - - - 0x01DEA6 07:DE96: A9 2F     LDA #$2F                      ; CONSTANT - a maximum jump value
@@ -5258,7 +5251,7 @@ C - - - - - 0x01DED3 07:DEC3: 4C CF DE  JMP loc_DECF_before_rendering ;
 bra_DEC6_skip:
 C - - - - - 0x01DED6 07:DEC6: A5 2E     LDA vCorridorCounter          ;
 C - - - - - 0x01DED8 07:DEC8: D0 03     BNE @bra_DECD_skip            ; If vCorridorCounter != 0x00
-C - - - - - 0x01DEDA 07:DECA: 20 31 DF  JSR sub_DF31_finish_dying
+C - - - - - 0x01DEDA 07:DECA: 20 31 DF  JSR sub_DF31_finish_dying     ;
 @bra_DECD_skip:
 C - - - - - 0x01DEDD 07:DECD: A2 20     LDX #$20                      ; prepares the offset of the sprite address (the character is died)
 ; in: Register X - the offset of the sprite address
@@ -5335,14 +5328,14 @@ C - - - - - 0x01DF4E 07:DF3E: A5 6A     LDA vScreenChrPosY             ;
 C - - - - - 0x01DF50 07:DF40: 85 00     STA ram_0000                   ; ~> sprite magic1
 C - - - - - 0x01DF52 07:DF42: A5 64     LDA vScreenChrPosX             ;
 C - - - - - 0x01DF54 07:DF44: 85 03     STA ram_0003                   ; ~> sprite magic4
-C - - - - - 0x01DF56 07:DF46: E6 70     INC vChrFrame_Counter
-C - - - - - 0x01DF58 07:DF48: A5 70     LDA vChrFrame_Counter
+C - - - - - 0x01DF56 07:DF46: E6 70     INC vChrFrame_Counter          ; updates the frame counter
+C - - - - - 0x01DF58 07:DF48: A5 70     LDA vChrFrame_Counter          ;
 C - - - - - 0x01DF5A 07:DF4A: C9 01     CMP #$01                       ; !(BUG?), depends on character animation frame
 C - - - - - 0x01DF5C 07:DF4C: D0 06     BNE @bra_DF54_skip_inititalize ; if vChrFrameIndex != 0x01
 C - - - - - 0x01DF5E 07:DF4E: 48        PHA                            ; store a frame index
 C - - - - - 0x01DF5F 07:DF4F: A9 20     LDA #$20                       ;
 C - - - - - 0x01DF61 07:DF51: 85 32     STA vResistantToDamageCounter  ; initializes a counter
-C - - - - - 0x01DF63 07:DF53: 68        PLA                            ; retrieve a frame index (see DF4E)
+C - - - - - 0x01DF63 07:DF53: 68        PLA                            ; retrieve a frame index (see $DF4E)
 @bra_DF54_skip_inititalize:
 C - - - - - 0x01DF64 07:DF54: C9 1F     CMP #$1F                       ; CONSTANT - max value
 C - - - - - 0x01DF66 07:DF56: 60        RTS                            ;
@@ -5353,13 +5346,13 @@ C - - - - - 0x01DF67 07:DF57: A5 5F     LDA vChrLiveStatus ;
 C - - - - - 0x01DF69 07:DF59: 29 03     AND #$03           ; CONSTANT - the current selected character
 C - - - - - 0x01DF6B 07:DF5B: 60        RTS                ; 
 
-sub_DF5C:
-C - - - - - 0x01DF6C 07:DF5C: A5 6C     LDA vChrStatus
-C - - - - - 0x01DF6E 07:DF5E: 29 87     AND #$87
-C - - - - - 0x01DF70 07:DF60: 85 6C     STA vChrStatus
-C - - - - - 0x01DF72 07:DF62: 60        RTS
+sub_DF5C_reset_action_and_death:
+C - - - - - 0x01DF6C 07:DF5C: A5 6C     LDA vChrStatus     ;
+C - - - - - 0x01DF6E 07:DF5E: 29 87     AND #$87           ; CONSTANT - all except 'the action' and 'the death'
+C - - - - - 0x01DF70 07:DF60: 85 6C     STA vChrStatus     ;
+C - - - - - 0x01DF72 07:DF62: 60        RTS                ;
 
-sub_DF63_update_character_status:
+sub_DF63_update_left_right_direction:
 C - - - - - 0x01DF73 07:DF63: A5 1C     LDA vBtnPressedInGame           ;
 C - - - - - 0x01DF75 07:DF65: 29 C0     AND #BIT_BUTTON_Left_OR_Right   ;
 C - - - - - 0x01DF77 07:DF67: F0 23     BEQ bra_DF8C_RTS                ; If the button 'Left' or 'Right' isn't pressed
@@ -5375,7 +5368,7 @@ C - - - - - 0x01DF83 07:DF73: 29 FE     AND #$FE                        ; resets
 C - - - - - 0x01DF85 07:DF75: 85 6C     STA vChrStatus                  ; 
 C - - - - - 0x01DF87 07:DF77: 60        RTS                             ;
 
-sub_DF78:
+sub_DF78_idle_slowdown:
 C - - - - - 0x01DF88 07:DF78: A9 03     LDA #$03                           ; f(A) = 4, see $DF82
 C - - - - - 0x01DF8A 07:DF7A: D0 06     BNE bra_DF82_slow_down_velocity_ex ;
 C - - - - - 0x01DF8C 07:DF7C: A9 00     LDA #$00                           ; f(A) = 1, see $DF82
@@ -5433,14 +5426,14 @@ C - - - - - 0x01DFD0 07:DFC0: A5 70     LDA vChrFrame_Counter          ;
 C - - - - - 0x01DFD2 07:DFC2: 29 01     AND #$01                       ; A <~ 0x00 or 0x01
 C - - - - - 0x01DFD4 07:DFC4: 05 00     ORA ram_0000                   ;
 C - - - - - 0x01DFD6 07:DFC6: 85 70     STA vChrFrame_Counter          ; <~ 0x00 or 0x01 (opening), 0x02 or 0x03 (closing)
-C - - - - - 0x01DFD8 07:DFC8: 4C 05 E0  JMP loc_E005_disallow_to_hide
+C - - - - - 0x01DFD8 07:DFC8: 4C 05 E0  JMP loc_E005_disallow_to_hide  ;
 
 loc_DFCB_close:
-C - - - - - 0x01DFDB 07:DFCB: 20 27 FA  JSR sub_FA27_try_to_close
+C - - - - - 0x01DFDB 07:DFCB: 20 27 FA  JSR sub_FA27_try_to_close      ;
 C - - - - - 0x01DFDE 07:DFCE: 4C 0D E0  JMP loc_E00D_allow_to_hide     ;
 
 loc_DFD1_close_again:
-C - - - - - 0x01DFE1 07:DFD1: 20 27 FA  JSR sub_FA27_try_to_close
+C - - - - - 0x01DFE1 07:DFD1: 20 27 FA  JSR sub_FA27_try_to_close      ;
 C - - - - - 0x01DFE4 07:DFD4: A5 6C     LDA vChrStatus                 ;
 C - - - - - 0x01DFE6 07:DFD6: 29 DF     AND #$DF                       ; CONSTANT - all except 'the character is entering a corridor or hiding place or died'
 C - - - - - 0x01DFE8 07:DFD8: 85 6C     STA vChrStatus                 ;
@@ -5463,8 +5456,8 @@ C - - - - - 0x01DFFF 07:DFEF: A5 C4     LDA vCheckpoint                   ;
 C - - - - - 0x01E001 07:DFF1: D0 1A     BNE bra_E00D_allow_to_hide        ; If the room isn't empty
 C - - - - - 0x01E003 07:DFF3: A4 C5     LDY vRoomAttrubute                ;
 C - - - - - 0x01E005 07:DFF5: 30 16     BMI bra_E00D_allow_to_hide        ; If the room has already been visited
-C - - - - - 0x01E007 07:DFF7: C0 09     CPY #$09
-C - - - - - 0x01E009 07:DFF9: B0 12     BCS bra_E00D_allow_to_hide
+C - - - - - 0x01E007 07:DFF7: C0 09     CPY #$09                          ; CONSTANT - 'the room for walkthrough already been visited' + 'the room can used as a prison room'
+C - - - - - 0x01E009 07:DFF9: B0 12     BCS bra_E00D_allow_to_hide        ; If vRoomAttrubute >= 0x09
 @bra_DFFB_loop:
 C - - - - - 0x01E00B 07:DFFB: 20 67 B0  JSR sub_B067_take_item_out        ;
 C - - - - - 0x01E00E 07:DFFE: C6 B7     DEC vRoomExtraInfo                ; decrement the number of the items
@@ -5475,7 +5468,8 @@ loc_E005_disallow_to_hide:
 C D 3 - - - 0x01E015 07:E005: A5 6C     LDA vChrStatus                   ;
 C - - - - - 0x01E017 07:E007: 29 7F     AND #$7F                         ; CONSTANT - the character cann't hide in the room
 C - - - - - 0x01E019 07:E009: 85 6C     STA vChrStatus                   ;
-C - - - - - 0x01E01B 07:E00B: D0 06     BNE bra_E013_skip
+C - - - - - 0x01E01B 07:E00B: D0 06     BNE bra_E013_skip                ; Always true
+
 bra_E00D_allow_to_hide:
 loc_E00D_allow_to_hide:
 C D 3 - - - 0x01E01D 07:E00D: A5 6C     LDA vChrStatus                   ;
@@ -5744,9 +5738,9 @@ C - - - - - 0x01E1AB 07:E19B: 60        RTS                                ;
 sub_E19C_get_bullet_velocity:
 C - - - - - 0x01E1AC 07:E19C: A0 03     LDY #$03                        ; Initializes a velocity
 C - - - - - 0x01E1AE 07:E19E: B5 8F     LDA vBulletStatus,X             ;
-C - - - - - 0x01E1B0 07:E1A0: 29 20     AND #$20
-C - - - - - 0x01E1B2 07:E1A2: F0 01     BEQ @bra_E1A5_skip
-C - - - - - 0x01E1B4 07:E1A4: 88        DEY
+C - - - - - 0x01E1B0 07:E1A0: 29 20     AND #$20                        ; CONSTANT - slow mode
+C - - - - - 0x01E1B2 07:E1A2: F0 01     BEQ @bra_E1A5_skip              ; If the slow mode isn't activated
+C - - - - - 0x01E1B4 07:E1A4: 88        DEY                             ; Y <~ 0x02
 @bra_E1A5_skip:
 C - - - - - 0x01E1B5 07:E1A5: 84 02     STY ram_0002                    ;
 C - - - - - 0x01E1B7 07:E1A7: 60        RTS                             ;
@@ -5755,8 +5749,8 @@ C - - - - - 0x01E1B7 07:E1A7: 60        RTS                             ;
 ; Out: $0003 = vBulletLowPosX - vLowViewPortPosX
 ; Out: $000A - the frame offset
 ; Out: carry flag (analog return true or false):
-; 1, if ...
-; 0, ...
+; 1, if the abort has occurred
+; 0, otherwise
 sub_E1A8_has_bullet_abort:
 C - - - - - 0x01E1B8 07:E1A8: A0 00     LDY #$00                             ; Frame - a simple shot
 C - - - - - 0x01E1BA 07:E1AA: B5 8F     LDA vBulletStatus,X                  ;
@@ -5773,12 +5767,12 @@ C - - - - - 0x01E1CD 07:E1BD: 84 0A     STY ram_000A                         ;
 C - - - - - 0x01E1CF 07:E1BF: B5 8F     LDA vBulletStatus,X                  ;
 C - - - - - 0x01E1D1 07:E1C1: 29 04     AND #$04                             ; CONSTANT - 'the vBulletOffsetOrCounter indication'
 C - - - - - 0x01E1D3 07:E1C3: F0 11     BEQ @bra_E1D6_as_counter             ; If vBulletOffsetOrCounter is the counter
-C - - - - - 0x01E1D5 07:E1C5: C0 00     CPY #$00
-C - - - - - 0x01E1D7 07:E1C7: D0 3E     BNE bra_E207_final_check
-C - - - - - 0x01E1D9 07:E1C9: B5 80     LDA vBulletPosY,X
-C - - - - - 0x01E1DB 07:E1CB: 18        CLC
-C - - - - - 0x01E1DC 07:E1CC: 75 94     ADC vBulletOffsetOrCounter,X
-C - - - - - 0x01E1DE 07:E1CE: 95 80     STA vBulletPosY,X
+C - - - - - 0x01E1D5 07:E1C5: C0 00     CPY #$00                             ;
+C - - - - - 0x01E1D7 07:E1C7: D0 3E     BNE bra_E207_final_check             ; If the frame is a simple shot
+C - - - - - 0x01E1D9 07:E1C9: B5 80     LDA vBulletPosY,X                    ;
+C - - - - - 0x01E1DB 07:E1CB: 18        CLC                                  ;
+C - - - - - 0x01E1DC 07:E1CC: 75 94     ADC vBulletOffsetOrCounter,X         ;
+C - - - - - 0x01E1DE 07:E1CE: 95 80     STA vBulletPosY,X                    ; PosY <~ PosY + the offset
 C - - - - - 0x01E1E0 07:E1D0: C9 F0     CMP #$F0                             ;
 C - - - - - 0x01E1E2 07:E1D2: B0 40     BCS bra_E214_abort                   ; If the bullet is off screen by Y-axis
 C - - - - - 0x01E1E4 07:E1D4: 90 31     BCC bra_E207_final_check             ; Always true
@@ -5921,54 +5915,56 @@ C - - - - - 0x01E2A6 07:E296: C6 78     DEC vSwordPosition    ; updates the posi
 @bra_E298_RTS:
 C - - - - - 0x01E2A8 07:E298: 60        RTS                   ;
 
-sub_E299:
-- - - - - - 0x01E2A9 07:E299: 85 12     STA ram_0012
-- - - - - - 0x01E2AB 07:E29B: A5 1F     LDA ram_001F
-- - - - - - 0x01E2AD 07:E29D: 25 12     AND ram_0012
-- - - - - - 0x01E2AF 07:E29F: F0 04     BEQ bra_E2A5_RTS
-- - - - - - 0x01E2B1 07:E2A1: 45 20     EOR ram_0020
-- - - - - - 0x01E2B3 07:E2A3: 25 12     AND ram_0012
-bra_E2A5_RTS:
-- - - - - - 0x01E2B5 07:E2A5: 60        RTS
+; In: Register A - a button state
+; Out: Z == 1, if if the button for player 2 isn't pressed
+sub_E299_check_button_press:
+C - - - - - 0x01E2A9 07:E299: 85 12     STA ram_0012                 ;
+C - - - - - 0x01E2AB 07:E29B: A5 1F     LDA v_player2_btn_pressed    ;
+C - - - - - 0x01E2AD 07:E29D: 25 12     AND ram_0012                 ;
+C - - - - - 0x01E2AF 07:E29F: F0 04     BEQ @bra_E2A5_RTS            ; If the button does not match the expected result
+C - - - - - 0x01E2B1 07:E2A1: 45 20     EOR v_last_p2_btn_pressed    ; The double click protection
+C - - - - - 0x01E2B3 07:E2A3: 25 12     AND ram_0012                 ;
+@bra_E2A5_RTS:
+C - - - - - 0x01E2B5 07:E2A5: 60        RTS                          ;
 
 sub_E2A6_test_feature_smth:
-C - - - - - 0x01E2B6 07:E2A6: AD F6 FF  LDA Set_features       ;
-C - - - - - 0x01E2B9 07:E2A9: 30 4C     BMI bra_E2F7_RTS       ; If test mode is disabled
-C - - - - - 0x01E2BB 07:E2AB: A5 3B     LDA vSharedGameStatus  ;
-C - - - - - 0x01E2BD 07:E2AD: 6A        ROR                    ;
-C - - - - - 0x01E2BE 07:E2AE: B0 47     BCS bra_E2F7_RTS       ; Branch if 'A screen with the message'
-- - - - - - 0x01E2C0 07:E2B0: A9 80     LDA #$80
-- - - - - - 0x01E2C2 07:E2B2: 20 99 E2  JSR sub_E299
-- - - - - - 0x01E2C5 07:E2B5: F0 0F     BEQ bra_E2C6
-- - - - - - 0x01E2C7 07:E2B7: EE 09 02  INC ram_0209
-- - - - - - 0x01E2CA 07:E2BA: AD 09 02  LDA ram_0209
-- - - - - - 0x01E2CD 07:E2BD: C9 09     CMP #$09
-- - - - - - 0x01E2CF 07:E2BF: 90 05     BCC bra_E2C6
-- - - - - - 0x01E2D1 07:E2C1: A9 00     LDA #$00
-- - - - - - 0x01E2D3 07:E2C3: 8D 09 02  STA ram_0209
-bra_E2C6:
-- - - - - - 0x01E2D6 07:E2C6: A9 01     LDA #$01
-- - - - - - 0x01E2D8 07:E2C8: 20 99 E2  JSR sub_E299
-- - - - - - 0x01E2DB 07:E2CB: F0 12     BEQ bra_E2DF
-- - - - - - 0x01E2DD 07:E2CD: AE 09 02  LDX ram_0209
-- - - - - - 0x01E2E0 07:E2D0: FE 00 02  INC ram_0200,X
-- - - - - - 0x01E2E3 07:E2D3: E0 05     CPX #$05
-- - - - - - 0x01E2E5 07:E2D5: B0 08     BCS bra_E2DF
-- - - - - - 0x01E2E7 07:E2D7: AD 14 02  LDA ram_0214
-- - - - - - 0x01E2EA 07:E2DA: 29 7F     AND #$7F
-- - - - - - 0x01E2EC 07:E2DC: 8D 14 02  STA ram_0214
-bra_E2DF:
-- - - - - - 0x01E2EF 07:E2DF: A9 27     LDA #$27
-- - - - - - 0x01E2F1 07:E2E1: 8D EC 07  STA ram_07EC
-- - - - - - 0x01E2F4 07:E2E4: A9 3F     LDA #$3F
-- - - - - - 0x01E2F6 07:E2E6: 8D ED 07  STA ram_07ED
-- - - - - - 0x01E2F9 07:E2E9: A9 00     LDA #$00
-- - - - - - 0x01E2FB 07:E2EB: 8D EE 07  STA ram_07EE
-- - - - - - 0x01E2FE 07:E2EE: AE 09 02  LDX ram_0209
-- - - - - - 0x01E301 07:E2F1: BD 20 CB  LDA tbl_CB20_item_offset_x,X
-- - - - - - 0x01E304 07:E2F4: 8D EF 07  STA ram_07EF
+C - - - - - 0x01E2B6 07:E2A6: AD F6 FF  LDA Set_features                ;
+C - - - - - 0x01E2B9 07:E2A9: 30 4C     BMI bra_E2F7_RTS                ; If test mode is disabled
+C - - - - - 0x01E2BB 07:E2AB: A5 3B     LDA vSharedGameStatus           ;
+C - - - - - 0x01E2BD 07:E2AD: 6A        ROR                             ;
+C - - - - - 0x01E2BE 07:E2AE: B0 47     BCS bra_E2F7_RTS                ; Branch if 'A screen with the message'
+C - - - - - 0x01E2C0 07:E2B0: A9 80     LDA #BIT_BUTTON_Right           ;
+C - - - - - 0x01E2C2 07:E2B2: 20 99 E2  JSR sub_E299_check_button_press ;
+C - - - - - 0x01E2C5 07:E2B5: F0 0F     BEQ @bra_E2C6_skip              ; Go to the branch If the button 'Right' isn't pressed
+C - - - - - 0x01E2C7 07:E2B7: EE 09 02  INC vTestSelectedItem           ; next selected item
+C - - - - - 0x01E2CA 07:E2BA: AD 09 02  LDA vTestSelectedItem           ;
+C - - - - - 0x01E2CD 07:E2BD: C9 09     CMP #$09                        ; CONSTANT - Max allow value-1
+C - - - - - 0x01E2CF 07:E2BF: 90 05     BCC @bra_E2C6_skip              ; If vTestSelectedItem < 0x09
+C - - - - - 0x01E2D1 07:E2C1: A9 00     LDA #$00                        ;
+C - - - - - 0x01E2D3 07:E2C3: 8D 09 02  STA vTestSelectedItem           ; reset to the radio
+@bra_E2C6_skip:
+C - - - - - 0x01E2D6 07:E2C6: A9 01     LDA #BIT_BUTTON_A               ;
+C - - - - - 0x01E2D8 07:E2C8: 20 99 E2  JSR sub_E299_check_button_press ;
+C - - - - - 0x01E2DB 07:E2CB: F0 12     BEQ bra_E2DF_set_render_params_ ; Go to the branch If the button 'A' isn't pressed
+C - - - - - 0x01E2DD 07:E2CD: AE 09 02  LDX vTestSelectedItem           ;
+C - - - - - 0x01E2E0 07:E2D0: FE 00 02  INC v_items,X                   ; +1 for the selected item
+C - - - - - 0x01E2E3 07:E2D3: E0 05     CPX #$05                        ; CONSTANT - the breathing apparatus
+C - - - - - 0x01E2E5 07:E2D5: B0 08     BCS bra_E2DF_set_render_params_ ; If the selected item index >= 0x05
+C - - - - - 0x01E2E7 07:E2D7: AD 14 02  LDA vCurrentWeaponStatus        ;
+C - - - - - 0x01E2EA 07:E2DA: 29 7F     AND #$7F                        ; CONSTANT - all except 'the weapons are not exist'
+C - - - - - 0x01E2EC 07:E2DC: 8D 14 02  STA vCurrentWeaponStatus        ; the selected item is exist
+bra_E2DF_set_render_params_:
+C - - - - - 0x01E2EF 07:E2DF: A9 27     LDA #$27                        ; CONSTANT - the Y-position of the selected item
+C - - - - - 0x01E2F1 07:E2E1: 8D EC 07  STA vStartOAM + 236             ;
+C - - - - - 0x01E2F4 07:E2E4: A9 3F     LDA #$3F                        ; CONSTANT - a white square
+C - - - - - 0x01E2F6 07:E2E6: 8D ED 07  STA vStartOAM + 237             ;
+C - - - - - 0x01E2F9 07:E2E9: A9 00     LDA #$00                        ; CONSTANT - the attributes of the sprite
+C - - - - - 0x01E2FB 07:E2EB: 8D EE 07  STA vStartOAM + 238             ;
+C - - - - - 0x01E2FE 07:E2EE: AE 09 02  LDX vTestSelectedItem           ;
+C - - - - - 0x01E301 07:E2F1: BD 20 CB  LDA tbl_CB20_item_offset_x,X    ;
+C - - - - - 0x01E304 07:E2F4: 8D EF 07  STA vStartOAM + 239             ; <~ X-position
 bra_E2F7_RTS:
-C - - - - - 0x01E307 07:E2F7: 60        RTS                ;
+C - - - - - 0x01E307 07:E2F7: 60        RTS                             ;
 
 sub_E2F8_set_character_palette:
 C - - - - - 0x01E308 07:E2F8: A5 5F     LDA vChrLiveStatus       ;
@@ -6086,34 +6082,34 @@ C - - - - - 0x01E3D3 07:E3C3: F0 03     BEQ bra_E3C8_skip         ; If the chara
 C - - - - - 0x01E3D5 07:E3C5: 4C 4A E4  JMP loc_E44A_damage       ;
 
 bra_E3C8_skip:
-C - - - - - 0x01E3D8 07:E3C8: A9 80     LDA #$80                              ; CONSTANT - the character is allowed the hit
-C - - - - - 0x01E3DA 07:E3CA: 85 79     STA vChrAllowedStatus                 ;
-C - - - - - 0x01E3DC 07:E3CC: 20 63 DF  JSR sub_DF63_update_character_status
-C - - - - - 0x01E3DF 07:E3CF: A6 2E     LDX vWaterDashCounter                 ;
-C - - - - - 0x01E3E1 07:E3D1: D0 0F     BNE @bra_E3E2_dash                    ; If the dash time isn't up
-C - - - - - 0x01E3E3 07:E3D3: A9 01     LDA #BIT_BUTTON_A                     ; CONSTANT - the "underwater" jump
-C - - - - - 0x01E3E5 07:E3D5: 20 79 D0  JSR sub_D079_check_button_press       ;
-C - - - - - 0x01E3E8 07:E3D8: F0 38     BEQ bra_E412_skip                     ; Go to the branch If the button 'A' isn't pressed
-C - - - - - 0x01E3EA 07:E3DA: A9 09     LDA #$09                              ;
-C - - - - - 0x01E3EC 07:E3DC: 85 71     STA vVelocity                         ; initializes a velocity for a dash in the water
-C - - - - - 0x01E3EE 07:E3DE: A2 18     LDX #$18                              ;
-C - - - - - 0x01E3F0 07:E3E0: 86 2E     STX vWaterDashCounter                 ; initializes a dash counter
+C - - - - - 0x01E3D8 07:E3C8: A9 80     LDA #$80                                 ; CONSTANT - the character is allowed the hit
+C - - - - - 0x01E3DA 07:E3CA: 85 79     STA vChrAllowedStatus                    ;
+C - - - - - 0x01E3DC 07:E3CC: 20 63 DF  JSR sub_DF63_update_left_right_direction ;
+C - - - - - 0x01E3DF 07:E3CF: A6 2E     LDX vWaterDashCounter                    ;
+C - - - - - 0x01E3E1 07:E3D1: D0 0F     BNE @bra_E3E2_dash                       ; If the dash time isn't up
+C - - - - - 0x01E3E3 07:E3D3: A9 01     LDA #BIT_BUTTON_A                        ; CONSTANT - the "underwater" jump
+C - - - - - 0x01E3E5 07:E3D5: 20 79 D0  JSR sub_D079_check_button_press          ;
+C - - - - - 0x01E3E8 07:E3D8: F0 38     BEQ bra_E412_skip                        ; Go to the branch If the button 'A' isn't pressed
+C - - - - - 0x01E3EA 07:E3DA: A9 09     LDA #$09                                 ;
+C - - - - - 0x01E3EC 07:E3DC: 85 71     STA vVelocity                            ; initializes a velocity for a dash in the water
+C - - - - - 0x01E3EE 07:E3DE: A2 18     LDX #$18                                 ;
+C - - - - - 0x01E3F0 07:E3E0: 86 2E     STX vWaterDashCounter                    ; initializes a dash counter
 @bra_E3E2_dash:
-C - - - - - 0x01E3F2 07:E3E2: E0 08     CPX #$08                              ;
-C - - - - - 0x01E3F4 07:E3E4: B0 02     BCS @bra_E3E8_skip                    ; If the dash counter >= 0x08
-C - - - - - 0x01E3F6 07:E3E6: C6 71     DEC vVelocity                         ; the dash is slow downing
+C - - - - - 0x01E3F2 07:E3E2: E0 08     CPX #$08                                 ;
+C - - - - - 0x01E3F4 07:E3E4: B0 02     BCS @bra_E3E8_skip                       ; If the dash counter >= 0x08
+C - - - - - 0x01E3F6 07:E3E6: C6 71     DEC vVelocity                            ; the dash is slow downing
 @bra_E3E8_skip:
-C - - - - - 0x01E3F8 07:E3E8: A5 1C     LDA vBtnPressedInGame                 ;
-C - - - - - 0x01E3FA 07:E3EA: 29 80     AND #BIT_BUTTON_Right                 ;
-C - - - - - 0x01E3FC 07:E3EC: F0 06     BEQ bra_E3F4_skip                     ; Go to the branch If the button 'Right' isn't pressed
-C - - - - - 0x01E3FE 07:E3EE: 20 15 E5  JSR sub_E515_try_to_move_on_the_right
-C - - - - - 0x01E401 07:E3F1: 4C FD E3  JMP loc_E3FD_continue                 ;
+C - - - - - 0x01E3F8 07:E3E8: A5 1C     LDA vBtnPressedInGame                    ;
+C - - - - - 0x01E3FA 07:E3EA: 29 80     AND #BIT_BUTTON_Right                    ;
+C - - - - - 0x01E3FC 07:E3EC: F0 06     BEQ bra_E3F4_skip                        ; Go to the branch If the button 'Right' isn't pressed
+C - - - - - 0x01E3FE 07:E3EE: 20 15 E5  JSR sub_E515_try_to_move_on_the_right    ;
+C - - - - - 0x01E401 07:E3F1: 4C FD E3  JMP loc_E3FD_continue                    ;
 
 bra_E3F4_skip:
 C - - - - - 0x01E404 07:E3F4: A5 1C     LDA vBtnPressedInGame                 ;
 C - - - - - 0x01E406 07:E3F6: 29 40     AND #BIT_BUTTON_Left                  ;
 C - - - - - 0x01E408 07:E3F8: F0 03     BEQ @bra_E3FD_skip                    ; If the button 'Left' isn't pressed
-C - - - - - 0x01E40A 07:E3FA: 20 1F E5  JSR sub_E51F_try_to_move_on_the_left
+C - - - - - 0x01E40A 07:E3FA: 20 1F E5  JSR sub_E51F_try_to_move_on_the_left  ;
 @bra_E3FD_skip:
 loc_E3FD_continue:
 C D 3 - - - 0x01E40D 07:E3FD: A5 1C     LDA vBtnPressedInGame      ;
@@ -6183,7 +6179,7 @@ bra_E462_dispose:
 C - - - - - 0x01E472 07:E462: A9 00     LDA #$00                              ;
 C - - - - - 0x01E474 07:E464: 8D D5 03  STA vBubbleStatus + 1                 ; clears a status for 2nd bubble
 C - - - - - 0x01E477 07:E467: 8D D6 03  STA vBubbleStatus + 2                 ; clears a status for 3rd bubble
-C - - - - - 0x01E47A 07:E46A: F0 2B     BEQ bra_E497_update_and_render_bubble
+C - - - - - 0x01E47A 07:E46A: F0 2B     BEQ bra_E497_update_and_render_bubble ; Always true
 
 sub_E46C_bubble_handler:
 C - - - - - 0x01E47C 07:E46C: A2 00     LDX #$00                                   ; CONSTANT - 1st bubble
@@ -6282,7 +6278,7 @@ sub_E515_try_to_move_on_the_right:
 C - - - - - 0x01E525 07:E515: 20 F3 E5  JSR sub_E5F3_check_water_movement_on_the_right  ;
 C - - - - - 0x01E528 07:E518: F0 15     BEQ bra_E52F_collision                          ; If the collision exists
 C - - - - - 0x01E52A 07:E51A: A9 00     LDA #$00                                        ; CONSTANT - the right direction
-C - - - - - 0x01E52C 07:E51C: 4C 26 E5  JMP loc_E526_continue
+C - - - - - 0x01E52C 07:E51C: 4C 26 E5  JMP loc_E526_continue                           ;
 
 sub_E51F_try_to_move_on_the_left:
 C - - - - - 0x01E52F 07:E51F: 20 E8 E5  JSR sub_E5E8_check_water_movement_on_the_left   ;
@@ -6291,14 +6287,14 @@ C - - - - - 0x01E534 07:E524: A9 80     LDA #$80                                
 loc_E526_continue:
 C D 3 - - - 0x01E536 07:E526: 85 42     STA vChrDirectMovement                          ;
 C - - - - - 0x01E538 07:E528: 20 34 E5  JSR sub_E534_change_posX_by_velocity            ;
-C - - - - - 0x01E53B 07:E52B: A9 80     LDA #$80
-C - - - - - 0x01E53D 07:E52D: D0 02     BNE bra_E531_continue
+C - - - - - 0x01E53B 07:E52B: A9 80     LDA #$80                                        ; the unknown value #1
+C - - - - - 0x01E53D 07:E52D: D0 02     BNE bra_E531_continue                           ; Always true
 
 bra_E52F_collision:
-C - - - - - 0x01E53F 07:E52F: A9 00     LDA #$00
+C - - - - - 0x01E53F 07:E52F: A9 00     LDA #$00                                        ; the unknown value #2
 bra_E531_continue:
-C - - - - - 0x01E541 07:E531: 85 55     STA ram_0055
-C - - - - - 0x01E543 07:E533: 60        RTS
+C - - - - - 0x01E541 07:E531: 85 55     STA vNonUsed55                                  ; <~ 0x00 or 0x55
+C - - - - - 0x01E543 07:E533: 60        RTS                                             ;
 
 loc_E534_change_posX_by_velocity:
 sub_E534_change_posX_by_velocity:
@@ -6339,7 +6335,7 @@ C - - - - - 0x01E577 07:E567: 29 20     AND #$20                       ;
 C - - - - - 0x01E579 07:E569: F0 02     BEQ @bra_E56D_skip             ; Branch If the character isn't moving on the roof pitch
 C - - - - - 0x01E57B 07:E56B: E6 6A     INC vScreenChrPosY             ;
 @bra_E56D_skip:
-C - - - - - 0x01E57D 07:E56D: A5 42     LDA vChrDirectMovement
+C - - - - - 0x01E57D 07:E56D: A5 42     LDA vChrDirectMovement         ;
 C - - - - - 0x01E57F 07:E56F: 30 03     BMI bra_E574_skip              ; If the character is looking to the left
 C - - - - - 0x01E581 07:E571: 4C FA DC  JMP loc_DCFA_inc_LowChrPosX    ;
 
@@ -6438,7 +6434,7 @@ sub_E5E8_check_water_movement_on_the_left:
 C - - - - - 0x01E5F8 07:E5E8: 20 1A E6  JSR sub_E61A_init_chr_positions_minus4      ; $0000 <~ ChrPosY - 4
 C - - - - - 0x01E5FB 07:E5EB: A9 F8     LDA #$F8                                    ; prepare an increment by X (-8)
 C - - - - - 0x01E5FD 07:E5ED: 20 AD D3  JSR sub_D3AD_left_collision_by_inc_posX     ;
-C - - - - - 0x01E600 07:E5F0: 4C FB E5  JMP loc_E5FB_continue
+C - - - - - 0x01E600 07:E5F0: 4C FB E5  JMP loc_E5FB_continue                       ;
 
 ; Out: If flag Z = 1 then the movement is not allowed
 sub_E5F3_check_water_movement_on_the_right:
@@ -6505,7 +6501,7 @@ C - - - - - 0x01E665 07:E655: 85 79     STA vChrAllowedStatus           ;
 C - - - - - 0x01E667 07:E657: 20 83 E7  JSR sub_E783_stop_falling       ;
 C - - - - - 0x01E66A 07:E65A: A5 1C     LDA vBtnPressedInGame           ;
 C - - - - - 0x01E66C 07:E65C: 29 C0     AND #BIT_BUTTON_Left_OR_Right   ;
-C - - - - - 0x01E66E 07:E65E: F0 31     BEQ bra_E691                    ; If the buttons 'Left' or 'Right' aren't pressed
+C - - - - - 0x01E66E 07:E65E: F0 31     BEQ bra_E691_idle               ; If the buttons 'Left' or 'Right' aren't pressed
 C - - - - - 0x01E670 07:E660: C9 80     CMP #BIT_BUTTON_Right           ;
 C - - - - - 0x01E672 07:E662: F0 07     BEQ bra_E66B_left               ; If the button 'Right' isn't pressed
 C - - - - - 0x01E674 07:E664: A5 6C     LDA vChrStatus                  ;
@@ -6518,38 +6514,38 @@ C - - - - - 0x01E67B 07:E66B: A5 6C     LDA vChrStatus                  ;
 C - - - - - 0x01E67D 07:E66D: 6A        ROR                             ;
 C - - - - - 0x01E67E 07:E66E: B0 0E     BCS bra_E67E_invert             ; If the character is looking to the left
 bra_E670_continue:
-C - - - - - 0x01E680 07:E670: A5 2C     LDA vLowCounter
-C - - - - - 0x01E682 07:E672: 29 07     AND #$07
-C - - - - - 0x01E684 07:E674: D0 1E     BNE bra_E694_skip
-C - - - - - 0x01E686 07:E676: A2 0C     LDX #$0C
-C - - - - - 0x01E688 07:E678: 20 8A DC  JSR sub_DC8A_inc_velocity
-C - - - - - 0x01E68B 07:E67B: 4C 94 E6  JMP loc_E694_continue
+C - - - - - 0x01E680 07:E670: A5 2C     LDA vLowCounter                 ;
+C - - - - - 0x01E682 07:E672: 29 07     AND #$07                        ;
+C - - - - - 0x01E684 07:E674: D0 1E     BNE bra_E694_skip               ; Branch if vLowCounter doesn't multiple of 8 (vLowCounter % 8 != 0) (87.5% chance)
+C - - - - - 0x01E686 07:E676: A2 0C     LDX #$0C                        ; CONSTANT - Max value on the jet-pack
+C - - - - - 0x01E688 07:E678: 20 8A DC  JSR sub_DC8A_inc_velocity       ;
+C - - - - - 0x01E68B 07:E67B: 4C 94 E6  JMP loc_E694_continue           ;
 
 bra_E67E_invert:
-C - - - - - 0x01E68E 07:E67E: 20 78 E7  JSR sub_E778_turn_aroung        ;
-C - - - - - 0x01E691 07:E681: 20 80 DF  JSR sub_DF80_slow_down_velocity
-C - - - - - 0x01E694 07:E684: A5 71     LDA vVelocity
-C - - - - - 0x01E696 07:E686: D0 0C     BNE bra_E694_skip
+C - - - - - 0x01E68E 07:E67E: 20 78 E7  JSR sub_E778_turn_around        ;
+C - - - - - 0x01E691 07:E681: 20 80 DF  JSR sub_DF80_slow_down_velocity ;
+C - - - - - 0x01E694 07:E684: A5 71     LDA vVelocity                   ;
+C - - - - - 0x01E696 07:E686: D0 0C     BNE bra_E694_skip               ; If the velocity != 0x00
 C - - - - - 0x01E698 07:E688: A5 6C     LDA vChrStatus                  ;
 C - - - - - 0x01E69A 07:E68A: 49 01     EOR #$01                        ; changes the direction (left or right)
 C - - - - - 0x01E69C 07:E68C: 85 6C     STA vChrStatus                  ;
-C - - - - - 0x01E69E 07:E68E: 4C 94 E6  JMP loc_E694_continue
+C - - - - - 0x01E69E 07:E68E: 4C 94 E6  JMP loc_E694_continue           ;
 
-bra_E691:
-C - - - - - 0x01E6A1 07:E691: 20 78 DF  JSR sub_DF78
+bra_E691_idle:
+C - - - - - 0x01E6A1 07:E691: 20 78 DF  JSR sub_DF78_idle_slowdown      ;
 bra_E694_skip:
 loc_E694_continue:
 C D 3 - - - 0x01E6A4 07:E694: 20 1D E7  JSR sub_E71D_try_to_move_in_the_air          ;
-C - - - - - 0x01E6A7 07:E697: 20 41 E7  JSR sub_E741
+C - - - - - 0x01E6A7 07:E697: 20 41 E7  JSR sub_E741_try_to_move_up_or_down          ;
 C - - - - - 0x01E6AA 07:E69A: A2 0C     LDX #$0C                                     ; prepare the offset of the sprite address #1
-C - - - - - 0x01E6AC 07:E69C: A5 2F     LDA vAnimationCounter
-C - - - - - 0x01E6AE 07:E69E: D0 19     BNE bra_E6B9_assigned
+C - - - - - 0x01E6AC 07:E69C: A5 2F     LDA vAnimationCounter                        ;
+C - - - - - 0x01E6AE 07:E69E: D0 19     BNE bra_E6B9_assigned                        ; If the time of the squeezing legs isn't up
 C - - - - - 0x01E6B0 07:E6A0: A2 04     LDX #$04                                     ; prepare the offset of the sprite address #2
 C - - - - - 0x01E6B2 07:E6A2: A9 20     LDA #BIT_BUTTON_Down                         ;
 C - - - - - 0x01E6B4 07:E6A4: 20 79 D0  JSR sub_D079_check_button_press              ;
 C - - - - - 0x01E6B7 07:E6A7: F0 04     BEQ @bra_E6AD_skip                           ; Go to the branch If the button 'Down' isn't pressed
-C - - - - - 0x01E6B9 07:E6A9: A9 08     LDA #$08
-C - - - - - 0x01E6BB 07:E6AB: 85 2F     STA vAnimationCounter
+C - - - - - 0x01E6B9 07:E6A9: A9 08     LDA #$08                                     ;
+C - - - - - 0x01E6BB 07:E6AB: 85 2F     STA vAnimationCounter                        ; Initializes a counter
 @bra_E6AD_skip:
 C - - - - - 0x01E6BD 07:E6AD: A5 1C     LDA vBtnPressedInGame                        ;
 C - - - - - 0x01E6BF 07:E6AF: 29 20     AND #BIT_BUTTON_Down                         ;
@@ -6648,44 +6644,44 @@ C - - - - - 0x01E74B 07:E73B: 18        CLC                                     
 C - - - - - 0x01E74C 07:E73C: 65 3F     ADC vFlyingOffset                        ; prepare a velocity + an offset
 C - - - - - 0x01E74E 07:E73E: 4C 36 E5  JMP loc_E536_change_posX_by_velocity_ex  ;
 
-sub_E741:
-C - - - - - 0x01E751 07:E741: A2 01     LDX #$01
-C - - - - - 0x01E753 07:E743: A5 1C     LDA vBtnPressedInGame
-C - - - - - 0x01E755 07:E745: 29 30     AND #BIT_BUTTON_Up_OR_Down
-C - - - - - 0x01E757 07:E747: F0 19     BEQ bra_E762
-C - - - - - 0x01E759 07:E749: CA        DEX
-C - - - - - 0x01E75A 07:E74A: C9 10     CMP #$10
-C - - - - - 0x01E75C 07:E74C: F0 14     BEQ bra_E762
-C - - - - - 0x01E75E 07:E74E: 20 5A DD  JSR sub_DD5A
-C - - - - - 0x01E761 07:E751: F0 0E     BEQ bra_E761_RTS
-C - - - - - 0x01E763 07:E753: A5 2C     LDA vLowCounter
-C - - - - - 0x01E765 07:E755: 29 01     AND #$01
-C - - - - - 0x01E767 07:E757: D0 08     BNE bra_E761_RTS
-C - - - - - 0x01E769 07:E759: A5 6A     LDA vScreenChrPosY
-C - - - - - 0x01E76B 07:E75B: C9 BF     CMP #$BF
-C - - - - - 0x01E76D 07:E75D: B0 02     BCS bra_E761_RTS
-C - - - - - 0x01E76F 07:E75F: E6 6A     INC vScreenChrPosY
+sub_E741_try_to_move_up_or_down:
+C - - - - - 0x01E751 07:E741: A2 01     LDX #$01                             ; f(A) = 2, see $E763 (50% chance)
+C - - - - - 0x01E753 07:E743: A5 1C     LDA vBtnPressedInGame                ;
+C - - - - - 0x01E755 07:E745: 29 30     AND #BIT_BUTTON_Up_OR_Down           ;
+C - - - - - 0x01E757 07:E747: F0 19     BEQ bra_E762_rising                  ; If the button 'Up' or 'Down' isn't pressed
+C - - - - - 0x01E759 07:E749: CA        DEX                                  ; f(A) = 1, see $E763 (0% chance)
+C - - - - - 0x01E75A 07:E74A: C9 10     CMP #BIT_BUTTON_Up                   ;
+C - - - - - 0x01E75C 07:E74C: F0 14     BEQ bra_E762_rising                  ; If the button 'Up' is pressed
+C - - - - - 0x01E75E 07:E74E: 20 5A DD  JSR sub_DD5A_check_strong_from_below ;
+C - - - - - 0x01E761 07:E751: F0 0E     BEQ bra_E761_RTS                     ; If the strong collision is exist
+C - - - - - 0x01E763 07:E753: A5 2C     LDA vLowCounter                      ;
+C - - - - - 0x01E765 07:E755: 29 01     AND #$01                             ;
+C - - - - - 0x01E767 07:E757: D0 08     BNE bra_E761_RTS                     ; Branch if vLowCounter doesn't multiple of 2 (vLowCounter % 2 != 0) (50% chance)
+C - - - - - 0x01E769 07:E759: A5 6A     LDA vScreenChrPosY                   ;
+C - - - - - 0x01E76B 07:E75B: C9 BF     CMP #$BF                             ; CONSTANT - Max Y-position value
+C - - - - - 0x01E76D 07:E75D: B0 02     BCS bra_E761_RTS                     ; If vScreenChrPosY >= 0xBF
+C - - - - - 0x01E76F 07:E75F: E6 6A     INC vScreenChrPosY                   ; moves down
 bra_E761_RTS:
-C - - - - - 0x01E771 07:E761: 60        RTS
+C - - - - - 0x01E771 07:E761: 60        RTS                                  ;
 
-bra_E762:
-C - - - - - 0x01E772 07:E762: 8A        TXA
-C - - - - - 0x01E773 07:E763: 25 2C     AND vLowCounter
-C - - - - - 0x01E775 07:E765: D0 FA     BNE bra_E761_RTS
-C - - - - - 0x01E777 07:E767: 20 4F DD  JSR sub_DD4F
-C - - - - - 0x01E77A 07:E76A: F0 F5     BEQ bra_E761_RTS
-C - - - - - 0x01E77C 07:E76C: A9 4F     LDA #$4F
-C - - - - - 0x01E77E 07:E76E: C5 6A     CMP vScreenChrPosY
-C - - - - - 0x01E780 07:E770: 90 03     BCC bra_E775
-C - - - - - 0x01E782 07:E772: 85 6A     STA vScreenChrPosY
-C - - - - - 0x01E784 07:E774: 60        RTS
+bra_E762_rising:
+C - - - - - 0x01E772 07:E762: 8A        TXA                                  ;
+C - - - - - 0x01E773 07:E763: 25 2C     AND vLowCounter                      ;
+C - - - - - 0x01E775 07:E765: D0 FA     BNE bra_E761_RTS                     ; Branch if vLowCounter doesn't multiple of f(A) (vLowCounter % f(A) != 0)
+C - - - - - 0x01E777 07:E767: 20 4F DD  JSR sub_DD4F_check_strong_from_above ;
+C - - - - - 0x01E77A 07:E76A: F0 F5     BEQ bra_E761_RTS                     ; If the strong collision is exist
+C - - - - - 0x01E77C 07:E76C: A9 4F     LDA #$4F                             ; CONSTANT - Min Y-position value
+C - - - - - 0x01E77E 07:E76E: C5 6A     CMP vScreenChrPosY                   ;
+C - - - - - 0x01E780 07:E770: 90 03     BCC bra_E775_decrement               ; If 0x4F < vScreenChrPosY
+C - - - - - 0x01E782 07:E772: 85 6A     STA vScreenChrPosY                   ; <~ 0x4F, assigns the min value
+C - - - - - 0x01E784 07:E774: 60        RTS                                  ;
 
-bra_E775:
-C - - - - - 0x01E785 07:E775: C6 6A     DEC vScreenChrPosY
-C - - - - - 0x01E787 07:E777: 60        RTS
+bra_E775_decrement:
+C - - - - - 0x01E785 07:E775: C6 6A     DEC vScreenChrPosY                   ; moves up
+C - - - - - 0x01E787 07:E777: 60        RTS                                  ;
 
 sub_E778_start_falling:
-sub_E778_turn_aroung:
+sub_E778_turn_around:
 C - - - - - 0x01E788 07:E778: A5 42     LDA vChrDirectMovement   ;
 C - - - - - 0x01E78A 07:E77A: 09 40     ORA #$40                 ; CONSTANT - 'in process changing the vertical direction on the jet-pack' or 'falling from a balloon'
 C - - - - - 0x01E78C 07:E77C: 85 42     STA vChrDirectMovement   ;
@@ -6829,7 +6825,7 @@ C - - - - - 0x01E870 07:E860: A9 80     LDA #$80                             ; C
 C - - - - - 0x01E872 07:E862: 85 79     STA vChrAllowedStatus                ;
 C - - - - - 0x01E874 07:E864: A5 1C     LDA vBtnPressedInGame                ;
 C - - - - - 0x01E876 07:E866: 29 C0     AND #BIT_BUTTON_Left_OR_Right        ;
-C - - - - - 0x01E878 07:E868: F0 26     BEQ bra_E890_skip                    ; If the button 'Left' or 'Right' isn't pressed
+C - - - - - 0x01E878 07:E868: F0 26     BEQ bra_E890_idle                    ; If the button 'Left' or 'Right' isn't pressed
 C - - - - - 0x01E87A 07:E86A: C9 80     CMP #BIT_BUTTON_Right                ;
 C - - - - - 0x01E87C 07:E86C: F0 0A     BEQ bra_E878_right                   ; If the button 'Right' isn't pressed
 C - - - - - 0x01E87E 07:E86E: A5 6C     LDA vChrStatus                       ;
@@ -6853,8 +6849,8 @@ C - - - - - 0x01E898 07:E888: A2 04     LDX #$04                             ; C
 C - - - - - 0x01E89A 07:E88A: 20 8A DC  JSR sub_DC8A_inc_velocity            ;
 C - - - - - 0x01E89D 07:E88D: 4C 93 E8  JMP loc_E893_continue                ;
 
-bra_E890_skip:
-C - - - - - 0x01E8A0 07:E890: 20 78 DF  JSR sub_DF78
+bra_E890_idle:
+C - - - - - 0x01E8A0 07:E890: 20 78 DF  JSR sub_DF78_idle_slowdown           ;
 bra_E893_non_increment:
 loc_E893_continue:
 C D 3 - - - 0x01E8A3 07:E893: 20 1D E7  JSR sub_E71D_try_to_move_in_the_air     ;
@@ -6882,8 +6878,8 @@ C - - - - - 0x01E8CB 07:E8BB: F0 10     BEQ bra_E8CD_start_falling              
 C - - - - - 0x01E8CD 07:E8BD: 4C D5 E8  JMP loc_E8D5_continue                   ;
 
 bra_E8C0_falling:
-C - - - - - 0x01E8D0 07:E8C0: A5 2F     LDA vAnimationCounter
-C - - - - - 0x01E8D2 07:E8C2: D0 11     BNE bra_E8D5_skip
+C - - - - - 0x01E8D0 07:E8C0: A5 2F     LDA vAnimationCounter                 ;
+C - - - - - 0x01E8D2 07:E8C2: D0 11     BNE bra_E8D5_skip                     ; If the time the balloon exploding isn't up
 bra_E8C4_damage:
 C - - - - - 0x01E8D4 07:E8C4: A5 6D     LDA vMovableChrStatus                 ;
 C - - - - - 0x01E8D6 07:E8C6: 29 BF     AND #$BF                              ; CONSTANT - all except 'the character is moving on the balloon'
@@ -7154,7 +7150,7 @@ C - - - - - 0x01EA96 07:EA86: 90 10     BCC bra_EA98_1_of_2           ; If the v
 bra_EA8B_3_of_4:
 C - - - - - 0x01EA9B 07:EA8B: A9 03     LDA #$03                      ; CONSTANT - 75% chance
 C - - - - - 0x01EA9D 07:EA8D: 25 2C     AND vLowCounter               ;
-C - - - - - 0x01EA9F 07:EA8F: F0 11     BEQ bra_EAA2_RTS              ; Branch if vLowCounter multiple of 4 (vLowCounter % 4 != 0)
+C - - - - - 0x01EA9F 07:EA8F: F0 11     BEQ bra_EAA2_RTS              ; Branch if vLowCounter multiple of 4 (vLowCounter % 4 == 0)
 bra_EA91_inc_LowChrPosX:
 sub_EA91_inc_LowChrPosX:
 loc_EA91_inc_LowChrPosX:
@@ -7172,7 +7168,7 @@ bra_EA9C_1_of_4:
 C - - - - - 0x01EAAC 07:EA9C: A9 03     LDA #$03                      ; f(A) = 4, see $EA9E (25% chance)
 bra_EA9E_continue:
 C - - - - - 0x01EAAE 07:EA9E: 25 2C     AND vLowCounter               ;
-C - - - - - 0x01EAB0 07:EAA0: F0 EF     BEQ bra_EA91_inc_LowChrPosX   ; Branch if vLowCounter multiple of f(A) (vLowCounter % f(A) != 0)
+C - - - - - 0x01EAB0 07:EAA0: F0 EF     BEQ bra_EA91_inc_LowChrPosX   ; Branch if vLowCounter multiple of f(A) (vLowCounter % f(A) == 0)
 bra_EAA2_RTS:
 C - - - - - 0x01EAB2 07:EAA2: 60        RTS                           ;
 
@@ -8241,42 +8237,42 @@ bra_F188_skip:
 C - - - - - 0x01F198 07:F188: 4C E7 F0  JMP loc_F0E7_try_to_appear_ex         ;
 
 bra_F18B_Zenigata_appearance:
-C - - - - - 0x01F19B 07:F18B: 20 FE BB  JSR sub_BBFE_is_unique_room ;
-C - - - - - 0x01F19E 07:F18E: B0 B5     BCS bra_F145_RTS            ; If the last function returned true
-C - - - - - 0x01F1A0 07:F190: AD 0A 03  LDA vEnemyACount            ;
-C - - - - - 0x01F1A3 07:F193: D0 B0     BNE bra_F145_RTS            ; If vEnemyACount != 0
-C - - - - - 0x01F1A5 07:F195: AD 0B 03  LDA vEnemyBCount            ;
-C - - - - - 0x01F1A8 07:F198: D0 AB     BNE bra_F145_RTS            ; If vEnemyBCount != 0
-C - - - - - 0x01F1AA 07:F19A: 24 D1     BIT vGogglesActive          ;
-C - - - - - 0x01F1AC 07:F19C: 30 A7     BMI bra_F145_RTS            ; If the infrared goggles is activated
-C - - - - - 0x01F1AE 07:F19E: A9 AF     LDA #$AF
-C - - - - - 0x01F1B0 07:F1A0: 85 02     STA ram_0002
-C - - - - - 0x01F1B2 07:F1A2: A0 10     LDY #$10
-C - - - - - 0x01F1B4 07:F1A4: A5 6C     LDA vChrStatus              ;
-C - - - - - 0x01F1B6 07:F1A6: 29 01     AND #$01                    ; CONSTANT - the character is looking to the right/left
-C - - - - - 0x01F1B8 07:F1A8: 49 01     EOR #$01                    ; changes the direction (left or right)
-C - - - - - 0x01F1BA 07:F1AA: 85 0B     STA ram_000B                ; prepares an input parameter
-C - - - - - 0x01F1BC 07:F1AC: 6A        ROR
-C - - - - - 0x01F1BD 07:F1AD: 90 02     BCC @bra_F1B1_right
-C - - - - - 0x01F1BF 07:F1AF: A0 F0     LDY #$F0
+C - - - - - 0x01F19B 07:F18B: 20 FE BB  JSR sub_BBFE_is_unique_room   ;
+C - - - - - 0x01F19E 07:F18E: B0 B5     BCS bra_F145_RTS              ; If the last function returned true
+C - - - - - 0x01F1A0 07:F190: AD 0A 03  LDA vEnemyACount              ;
+C - - - - - 0x01F1A3 07:F193: D0 B0     BNE bra_F145_RTS              ; If vEnemyACount isn't empty
+C - - - - - 0x01F1A5 07:F195: AD 0B 03  LDA vEnemyBCount              ;
+C - - - - - 0x01F1A8 07:F198: D0 AB     BNE bra_F145_RTS              ; If vEnemyBCount isn't empty
+C - - - - - 0x01F1AA 07:F19A: 24 D1     BIT vGogglesActive            ;
+C - - - - - 0x01F1AC 07:F19C: 30 A7     BMI bra_F145_RTS              ; If the infrared goggles is activated
+C - - - - - 0x01F1AE 07:F19E: A9 AF     LDA #$AF                      ; CONSTANT - starting Y-position
+C - - - - - 0x01F1B0 07:F1A0: 85 02     STA ram_0002                  ;
+C - - - - - 0x01F1B2 07:F1A2: A0 10     LDY #$10                      ; the offset value #1 (+10)
+C - - - - - 0x01F1B4 07:F1A4: A5 6C     LDA vChrStatus                ;
+C - - - - - 0x01F1B6 07:F1A6: 29 01     AND #$01                      ; CONSTANT - the character is looking to the right/left
+C - - - - - 0x01F1B8 07:F1A8: 49 01     EOR #$01                      ; changes the direction (left or right)
+C - - - - - 0x01F1BA 07:F1AA: 85 0B     STA ram_000B                  ; prepares an input parameter
+C - - - - - 0x01F1BC 07:F1AC: 6A        ROR                           ;
+C - - - - - 0x01F1BD 07:F1AD: 90 02     BCC @bra_F1B1_right           ; If the character is looking to the right
+C - - - - - 0x01F1BF 07:F1AF: A0 F0     LDY #$F0                      ; the offset value #2 (-10)
 @bra_F1B1_right:
-C - - - - - 0x01F1C1 07:F1B1: 98        TYA
-C - - - - - 0x01F1C2 07:F1B2: 18        CLC
-C - - - - - 0x01F1C3 07:F1B3: 65 27     ADC vLowViewPortPosX
-C - - - - - 0x01F1C5 07:F1B5: 85 01     STA ram_0001
-C - - - - - 0x01F1C7 07:F1B7: A5 4B     LDA vHighViewPortPosX
-C - - - - - 0x01F1C9 07:F1B9: 69 00     ADC #$00
-C - - - - - 0x01F1CB 07:F1BB: 85 00     STA ram_0000
+C - - - - - 0x01F1C1 07:F1B1: 98        TYA                           ;
+C - - - - - 0x01F1C2 07:F1B2: 18        CLC                           ;
+C - - - - - 0x01F1C3 07:F1B3: 65 27     ADC vLowViewPortPosX          ;
+C - - - - - 0x01F1C5 07:F1B5: 85 01     STA ram_0001                  ; X-position <~ vLowViewPortPosX + 10 or vLowViewPortPosX - 10
+C - - - - - 0x01F1C7 07:F1B7: A5 4B     LDA vHighViewPortPosX         ;
+C - - - - - 0x01F1C9 07:F1B9: 69 00     ADC #$00                      ;
+C - - - - - 0x01F1CB 07:F1BB: 85 00     STA ram_0000                  ; macro X-position <~ vHighViewPortPosX (+1 with overflow)
 C - - - - - 0x01F1CD 07:F1BD: 20 95 F2  JSR sub_F295_check_collision  ;
 C - - - - - 0x01F1D0 07:F1C0: B0 83     BCS bra_F145_RTS              ; if the collision exists
 C - - - - - 0x01F1D2 07:F1C2: A9 07     LDA #$07                      ; CONSTANT - Zenigata
 C - - - - - 0x01F1D4 07:F1C4: 85 0A     STA ram_000A                  ;
-C - - - - - 0x01F1D6 07:F1C6: CE 17 03  DEC vZenigataTimerHigh1
-C - - - - - 0x01F1D9 07:F1C9: CE 17 03  DEC vZenigataTimerHigh1
+C - - - - - 0x01F1D6 07:F1C6: CE 17 03  DEC vZenigataTimerHigh1       ;
+C - - - - - 0x01F1D9 07:F1C9: CE 17 03  DEC vZenigataTimerHigh1       ; double resets a high value of the timer
 C - - - - - 0x01F1DC 07:F1CC: A0 08     LDY #$08                      ; CONSTANT - low X-position offset (+8)
 C - - - - - 0x01F1DE 07:F1CE: A5 6C     LDA vChrStatus                ;
 C - - - - - 0x01F1E0 07:F1D0: 29 01     AND #$01                      ; CONSTANT - the character is looking to the right/left
-C - - - - - 0x01F1E2 07:F1D2: F0 04     BEQ @bra_F1D8_right
+C - - - - - 0x01F1E2 07:F1D2: F0 04     BEQ @bra_F1D8_right           ; If the character is looking to the right
 C - - - - - 0x01F1E4 07:F1D4: A9 FF     LDA #$FF                      ; CONSTANT - high X-position offset (-1)
 C - - - - - 0x01F1E6 07:F1D6: A0 F8     LDY #$F8                      ; CONSTANT - low X-position offset (-8)
 @bra_F1D8_right:
@@ -8284,10 +8280,10 @@ C - - - - - 0x01F1E8 07:F1D8: 85 12     STA ram_0012                  ; <~ , 0x0
 C - - - - - 0x01F1EA 07:F1DA: 98        TYA                           ;
 C - - - - - 0x01F1EB 07:F1DB: 18        CLC                           ;
 C - - - - - 0x01F1EC 07:F1DC: 65 01     ADC ram_0001                  ;
-C - - - - - 0x01F1EE 07:F1DE: 85 01     STA ram_0001                  ; $0001 <~ $0001 + 8 or $0001 - 8
+C - - - - - 0x01F1EE 07:F1DE: 85 01     STA ram_0001                  ; X-position <~ X-position + 8 or X-position - 8
 C - - - - - 0x01F1F0 07:F1E0: A5 00     LDA ram_0000                  ;
 C - - - - - 0x01F1F2 07:F1E2: 65 12     ADC ram_0012                  ;
-C - - - - - 0x01F1F4 07:F1E4: 85 00     STA ram_0000                  ; $0000 <~ $0000 + 0 or $0000 - 1 (+1 with overflow)
+C - - - - - 0x01F1F4 07:F1E4: 85 00     STA ram_0000                  ; macro X-position <~ macro X-position + 0 or macro X-position - 1 (+1 with overflow)
 C - - - - - 0x01F1F6 07:F1E6: A2 00     LDX #$00                      ; CONSTANT - enemy type A
 C - - - - - 0x01F1F8 07:F1E8: 4C E7 F0  JMP loc_F0E7_try_to_appear_ex ;
 
@@ -8952,31 +8948,33 @@ C - - - - - 0x01F5F5 07:F5E5: 6A        ROR                                     
 C - - - - - 0x01F5F6 07:F5E6: 90 33     BCC bra_F61B_cancel_creating                ; if $000B == 0x00 (the right direction)
 C - - - - - 0x01F5F8 07:F5E8: 4C 20 F8  JMP loc_F820_finish_creating_enemyB         ;
 
+; In: Register X - the enemyB number
 bra_F5EB_bombing_bird:
-C - - - - - 0x01F5FB 07:F5EB: 20 21 F6  JSR sub_F621
-C - - - - - 0x01F5FE 07:F5EE: BD 68 03  LDA ram_0368,X
-C - - - - - 0x01F601 07:F5F1: 18        CLC
-C - - - - - 0x01F602 07:F5F2: 69 08     ADC #$08
-C - - - - - 0x01F604 07:F5F4: 9D 6A 03  STA ram_036A,X
+C - - - - - 0x01F5FB 07:F5EB: 20 21 F6  JSR sub_F621_set_projectile_params_         ;
+C - - - - - 0x01F5FE 07:F5EE: BD 68 03  LDA vEnemyBPosY,X                           ;
+C - - - - - 0x01F601 07:F5F1: 18        CLC                                         ;
+C - - - - - 0x01F602 07:F5F2: 69 08     ADC #$08                                    ;
+C - - - - - 0x01F604 07:F5F4: 9D 6A 03  STA vEnemyBProjectilePosY,X                 ; bomb Y-position <~ enemy Y-position + 8
 bra_F5F7_cobblestone:
-C - - - - - 0x01F607 07:F5F7: A5 46     LDA vNoSubLevel
-C - - - - - 0x01F609 07:F5F9: C9 19     CMP #$19
-C - - - - - 0x01F60B 07:F5FB: D0 05     BNE bra_F602_skip
+C - - - - - 0x01F607 07:F5F7: A5 46     LDA vNoSubLevel                             ;
+C - - - - - 0x01F609 07:F5F9: C9 19     CMP #$19                                    ; CONSTANT - level racing
+C - - - - - 0x01F60B 07:F5FB: D0 05     BNE bra_F602_skip                           ; If vNoSubLevel != 0x19
 C - - - - - 0x01F60D 07:F5FD: A5 0B     LDA ram_000B                                ;
 C - - - - - 0x01F60F 07:F5FF: 6A        ROR                                         ;
 C - - - - - 0x01F610 07:F600: 90 19     BCC bra_F61B_cancel_creating                ; if $000B == 0x00 (the right direction)
 bra_F602_skip:
 C - - - - - 0x01F612 07:F602: 4C 20 F8  JMP loc_F820_finish_creating_enemyB         ;
 
+; In: Register X - the enemyB number
 bra_F605_potted_snakes:
-C - - - - - 0x01F615 07:F605: 20 21 F6  JSR sub_F621
-C - - - - - 0x01F618 07:F608: 09 10     ORA #$10
-C - - - - - 0x01F61A 07:F60A: 9D 5C 03  STA vEnemyBStatus,X
-C - - - - - 0x01F61D 07:F60D: BD 68 03  LDA ram_0368,X
-C - - - - - 0x01F620 07:F610: 9D 6A 03  STA ram_036A,X
-C - - - - - 0x01F623 07:F613: A9 40     LDA #$40
-C - - - - - 0x01F625 07:F615: 9D 86 03  STA ram_0386,X
-C - - - - - 0x01F628 07:F618: 4C 20 F8  JMP loc_F820_finish_creating_enemyB
+C - - - - - 0x01F615 07:F605: 20 21 F6  JSR sub_F621_set_projectile_params_   ;
+C - - - - - 0x01F618 07:F608: 09 10     ORA #$10                              ; CONSTANT - crawling out
+C - - - - - 0x01F61A 07:F60A: 9D 5C 03  STA vEnemyBStatus,X                   ;
+C - - - - - 0x01F61D 07:F60D: BD 68 03  LDA vEnemyBPosY,X                     ;
+C - - - - - 0x01F620 07:F610: 9D 6A 03  STA vEnemyBProjectilePosY,X           ; bomb Y-position <~ enemy Y-position
+C - - - - - 0x01F623 07:F613: A9 40     LDA #$40                              ;
+C - - - - - 0x01F625 07:F615: 9D 86 03  STA vEnemyBJumpCounter,X              ; Initializes a counter of the crawling out
+C - - - - - 0x01F628 07:F618: 4C 20 F8  JMP loc_F820_finish_creating_enemyB   ;
 
 ; In: Register X - the enemyB number
 loc_F61B_cancel_creating:
@@ -8986,14 +8984,15 @@ C - - - - - 0x01F62E 07:F61E: 68        PLA                                     
 C - - - - - 0x01F62F 07:F61F: 68        PLA                                      ; double return (i.e. $F6E7 -> $F108)
 C - - - - - 0x01F630 07:F620: 60        RTS                                      ;
 
-sub_F621:
-C - - - - - 0x01F631 07:F621: BD 74 03  LDA vEnemyBPosXLow,X
-C - - - - - 0x01F634 07:F624: 9D 76 03  STA vEnemyBProjectilePosXLow,X
-C - - - - - 0x01F637 07:F627: BD 7A 03  LDA vEnemyBPosXHigh,X
-C - - - - - 0x01F63A 07:F62A: 9D 7C 03  STA vEnemyBProjectilePosXHigh,X
-C - - - - - 0x01F63D 07:F62D: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x01F640 07:F630: 9D 5E 03  STA vEnemyBStatus + 2,X
-C - - - - - 0x01F643 07:F633: 60        RTS
+; In: Register X - the enemyB number
+sub_F621_set_projectile_params_:
+C - - - - - 0x01F631 07:F621: BD 74 03  LDA vEnemyBPosXLow,X              ;
+C - - - - - 0x01F634 07:F624: 9D 76 03  STA vEnemyBProjectilePosXLow,X    ;
+C - - - - - 0x01F637 07:F627: BD 7A 03  LDA vEnemyBPosXHigh,X             ;
+C - - - - - 0x01F63A 07:F62A: 9D 7C 03  STA vEnemyBProjectilePosXHigh,X   ;
+C - - - - - 0x01F63D 07:F62D: BD 5C 03  LDA vEnemyBStatus,X               ;
+C - - - - - 0x01F640 07:F630: 9D 5E 03  STA vEnemyBBombStatus,X           ; for potted snakes this value is unused
+C - - - - - 0x01F643 07:F633: 60        RTS                               ;
 
 ; In: $0000 - macro X-position
 ; In: $0001 - X-position

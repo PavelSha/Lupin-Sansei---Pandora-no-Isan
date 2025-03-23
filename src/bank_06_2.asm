@@ -62,7 +62,7 @@
 .import sub_FC3E_boss_defeated_status                  ; bank FF
 .import sub_D064_generate_rng                          ; bank FF
 .import sub_CDEE_deactivate_activable_items            ; bank FF
-.import sub_DF63_update_character_status               ; bank FF
+.import sub_DF63_update_left_right_direction           ; bank FF
 .import loc_DBC2_before_rendering                      ; bank FF
 .import sub_DCB1_try_move_on_the_left                  ; bank FF
 .import sub_DCE5_try_move_on_the_right                 ; bank FF
@@ -2825,7 +2825,7 @@ C - - - - - 0x01B20F 06:B1FF: C6 72     DEC vRifleShotCount                     
 C - - - - - 0x01B211 06:B201: D0 03     BNE bra_B206_skip                         ; If the counter > 0x00
 C - - - - - 0x01B213 06:B203: 20 EE CD  JSR sub_CDEE_deactivate_activable_items   ;
 bra_B206_skip:
-C - - - - - 0x01B216 06:B206: 20 63 DF  JSR sub_DF63_update_character_status      ;
+C - - - - - 0x01B216 06:B206: 20 63 DF  JSR sub_DF63_update_left_right_direction  ;
 C - - - - - 0x01B219 06:B209: A2 00     LDX #$00                                  ; prepares the offset of the sprite address (the frame with rifle by default)
 C - - - - - 0x01B21B 06:B20B: 4C C2 DB  JMP loc_DBC2_before_rendering             ;
 

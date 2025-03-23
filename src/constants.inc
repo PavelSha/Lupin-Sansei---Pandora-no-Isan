@@ -3,7 +3,7 @@
 MMC3_Bank_select    = $8000 ; see https://www.nesdev.org/wiki/INES_Mapper_206
 MMC3_Bank_data      = $8001 ;
 Set_features        = $FFF6 ;
-; XYZW KLMN
+; XY00 0000
 ; X - Release or debug mode (1 - release, 0 - debug)
 ; Y - Full or demo version (1 - full, 0 - demo)
 
@@ -212,6 +212,7 @@ vTempValue50                  = ram_0050
 vTempValue51                  = ram_0051
 vPpuBufferInitValue           = ram_0054
 
+vNonUsed55                    = ram_0055
 vScore                        = ram_0056 ; [0x56-0x5C]
 
 vNonUsed2                     = ram_005D
@@ -315,7 +316,7 @@ vBulletStatus                 = ram_008F ; [0x8F-0x93] , for a rifle, Lupin's pi
 ; Byte: XYZW KLMM
 ; X - the bullet is activated (1 - is activated, 0, isn't activated)
 ; Y - the dictance (1 - short, 0 - long)
-; Z - ???
+; Z - slow mode (1 - is activated, 0, isn't activated)
 ; W - the direction (1 - left, 0 - right)
 ; K - ???
 ; L - the vBulletOffsetOrCounter indication (1 - the offset, 0 - the counter)
@@ -434,9 +435,10 @@ v_breathing_apparatus_item    = ram_0205
 v_helium_balloon_item         = ram_0206
 v_bullet_proof_vest_item      = ram_0207
 v_ruby_ring                   = ram_0208
+vTestSelectedItem             = ram_0209
 vItemsBlinkTime               = ram_020A ; 0x020A-0x0212
 vCurrentWeaponStatus          = ram_0214 ; Only the active items
-; Byte: XYZW KKKK
+; Byte: XY00 KKKK
 ; X - the weapons are not exist
 ; Y - the weapon is activated
 ; K - the current item:
