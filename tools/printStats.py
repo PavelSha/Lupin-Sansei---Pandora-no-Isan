@@ -53,6 +53,8 @@ def resolveOneStat(asmNameFile, useLog=False, logCounter=10):
                     dataCounter += 1
                 else:
                     unknownCounter += 1
+#            else:
+#                print("Unknown line: " + line)
     finally:
         asmFile.close()
 
@@ -64,7 +66,7 @@ def resolveStats():
     global dataCounter
     global unknownCounter
 
-    resolveOneStat(ASM_FF_FILE, True)
+    resolveOneStat(ASM_FF_FILE)
     resolveOneStat(ASM_00_1_FILE)
     resolveOneStat(ASM_00_2_FILE)
     resolveOneStat(ASM_01_1_FILE)

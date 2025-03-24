@@ -26,7 +26,7 @@
 .export tbl_enemies_after_waiting
 
 ; see $C5B2
-- - - - - - 0x010010 04:8000: 7B 9D     .addr loc_main_menu_gunshot_f1 ; frame 1
+- D - - - - 0x010010 04:8000: 7B 9D     .addr loc_main_menu_gunshot_f1 ; frame 1
 - D 0 - - - 0x010012 04:8002: 9B 9D     .addr loc_main_menu_gunshot_f2 ; frame 2
 - D 0 - - - 0x010014 04:8004: BE 9D     .addr loc_main_menu_gunshot_f3 ; frame 3
 - D 0 - - - 0x010016 04:8006: D9 9D     .addr loc_main_menu_gunshot_f4 ; frame 4
@@ -2656,18 +2656,17 @@ tbl_checkpoints:
 ; 1 byte - XYZW HHHH
 ;   H - the screen number
 ;   X - ???
-;   Y - the floor (0x00 - a top floor, 0x01 - a bottom floor)
+;   Y - the floor (0 - a top floor, 1 - a bottom floor)
 ;   Z - the type of door width (0x00 - M-size, 0x01 - X-size)
 ; 2 byte - The door's position along the X axis relative to the level
 ; 3 byte: - XYZW TTTT
-;   X - ???
-;   Y - ???
+;   X - to allow to leave the door open (1  - allow, 0 - disallow, for destructible walls)
+;   Y - a checkpoint or unique room (0 - a checkpoint, 1 - an unique room)
 ;   Z - ???
 ;   W - ???
 ;   T (low-order nibble) - the display room type {0x00 - 0x0F}
 ; 4 byte
-;   If it is the checkpoint - ???
-;   If it is the unique room - the room number
+;   the room number (for a checkpoint and an unique room)
 ; 5 byte: see vRoomExtraInfo
 tbl_ptr_corridors_level_1_0:
 - D 0 - I - 0x010F13 04:8F03: 4F        .byte $4F, $88, $06, $59, $80

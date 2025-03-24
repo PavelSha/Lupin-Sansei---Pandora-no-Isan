@@ -552,11 +552,11 @@ C - - - - - 0x00E3DB 03:A3CB: B0 02     BCS bra_A3CF_assign                ; If 
 C - - - - - 0x00E3DD 03:A3CD: A0 00     LDY #$00                           ; the offset value #4
 ; In: Register A - the table offset
 bra_A3CF_assign:
-C - - - - - 0x00E3DF 03:A3CF: 84 11     STY ram_0011                       ; $0011 <~ {0x00, 0x10, 0x20, 0x30}
+C - - - - - 0x00E3DF 03:A3CF: 84 11     STY vCacheRam_11                   ; $0011 <~ {0x00, 0x10, 0x20, 0x30}
 C - - - - - 0x00E3E1 03:A3D1: 20 64 D0  JSR sub_D064_generate_rng          ;
 C - - - - - 0x00E3E4 03:A3D4: 29 0F     AND #$0F                           ;
 C - - - - - 0x00E3E6 03:A3D6: 18        CLC                                ;
-C - - - - - 0x00E3E7 03:A3D7: 65 11     ADC ram_0011                       ;
+C - - - - - 0x00E3E7 03:A3D7: 65 11     ADC vCacheRam_11                   ;
 C - - - - - 0x00E3E9 03:A3D9: 85 00     STA ram_0000                       ; $0000 <~ {0x00, 0x01, ..., 0x3F}
 C - - - - - 0x00E3EB 03:A3DB: A4 5E     LDY v_no_level                     ;
 C - - - - - 0x00E3ED 03:A3DD: B9 42 A0  LDA tbl_A042_index_offsets,Y       ; A <~ the offset
@@ -1466,13 +1466,13 @@ C - - - - - 0x00E9F9 03:A9E9: 6A        ROR                                    ;
 C - - - - - 0x00E9FA 03:A9EA: 90 02     BCC @bra_A9EE_right                    ; If the enemy is looking to the right
 C - - - - - 0x00E9FC 03:A9EC: A0 04     LDY #$04                               ; the start index #2
 @bra_A9EE_right:
-C - - - - - 0x00E9FE 03:A9EE: 84 11     STY ram_0011                           ; <~ 0x00 or 0x04
+C - - - - - 0x00E9FE 03:A9EE: 84 11     STY vCacheRam_11                       ; <~ 0x00 or 0x04
 C - - - - - 0x00EA00 03:A9F0: A5 2C     LDA vLowCounter                        ;
 C - - - - - 0x00EA02 03:A9F2: 29 0C     AND #$0C                               ;
 C - - - - - 0x00EA04 03:A9F4: 4A        LSR                                    ;
 C - - - - - 0x00EA05 03:A9F5: 4A        LSR                                    ; A = {0x00, 0x01, 0x02, 0x03} 
 C - - - - - 0x00EA06 03:A9F6: 18        CLC                                    ;
-C - - - - - 0x00EA07 03:A9F7: 65 11     ADC ram_0011                           ;
+C - - - - - 0x00EA07 03:A9F7: 65 11     ADC vCacheRam_11                       ;
 C - - - - - 0x00EA09 03:A9F9: A8        TAY                                    ; Y = {0x00, 0x01, ..., 0x07}
 bra_A9FA_assign:
 C - - - - - 0x00EA0A 03:A9FA: B9 D0 A8  LDA tbl_A8D0_offsets,Y                 ;

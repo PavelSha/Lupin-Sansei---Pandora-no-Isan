@@ -2798,7 +2798,7 @@ C - - - - - 0x01B1E7 06:B1D7: 65 B7     ADC vRoomExtraInfo                      
 C - - - - - 0x01B1E9 06:B1D9: A8        TAY                                                 ; Y <~ vRoomExtraInfo * 5
 C - - - - - 0x01B1EA 06:B1DA: A2 05     LDX #$05                                            ; set loop counter
 @bra_B1DC_loop:                                                                             ; loop by x (5 times)
-C - - - - - 0x01B1EC 06:B1DC: 84 11     STY vTempCounter11                                  ; caches y
+C - - - - - 0x01B1EC 06:B1DC: 84 11     STY vCacheRam_11                                    ; caches y
 C - - - - - 0x01B1EE 06:B1DE: B1 12     LDA (ram_0012),Y                                    ;
 C - - - - - 0x01B1F0 06:B1E0: 9D 98 03  STA v_briefcase_index,X                             ;
 C - - - - - 0x01B1F3 06:B1E3: F0 0A     BEQ @bra_B1EF_no_exist                              ; If the index == 0x00
@@ -2812,7 +2812,7 @@ C - - - - - 0x01B1FD 06:B1ED: D0 02     BNE @bra_B1F1_skip                      
 C - - - - - 0x01B1FF 06:B1EF: A9 00     LDA #$00                                            ; CONSTANT: the item is collected
 @bra_B1F1_skip:
 C - - - - - 0x01B201 06:B1F1: 9D 9E 03  STA vItemStatus,X                                   ; prepare memory for render briefcase
-C - - - - - 0x01B204 06:B1F4: A4 11     LDY vTempCounter11                                  ; restore y from the cache
+C - - - - - 0x01B204 06:B1F4: A4 11     LDY vCacheRam_11                                    ; restore y from the cache
 C - - - - - 0x01B206 06:B1F6: C8        INY                                                 ; increments the index
 C - - - - - 0x01B207 06:B1F7: CA        DEX                                                 ; decrement loop counter
 C - - - - - 0x01B208 06:B1F8: D0 E2     BNE @bra_B1DC_loop                                  ; If Register X != 0
@@ -3015,7 +3015,7 @@ C - - - - - 0x01B340 06:B330: 68        PLA                             ; retrie
 C - - - - - 0x01B341 06:B331: E8        INX                             ; increment loop counter
 C - - - - - 0x01B342 06:B332: E0 03     CPX #$03                        ;
 C - - - - - 0x01B344 06:B334: D0 EC     BNE bra_B322_loop               ; If Register X != 0x03
-C - - - - - 0x01B346 06:B336: 84 11     STY v_cache_reg_y               ; diposit the number of the prisoners
+C - - - - - 0x01B346 06:B336: 84 11     STY vCacheRam_11                ; diposit the number of the prisoners
 C - - - - - 0x01B348 06:B338: A6 60     LDX vRoomWithPrisoner1          ;
 C - - - - - 0x01B34A 06:B33A: F0 03     BEQ @bra_B33F_no_exist          ; If the room isn't exist
 C - - - - - 0x01B34C 06:B33C: 20 03 B3  JSR sub_B303_reset_prison_room  ;
@@ -3054,8 +3054,8 @@ C - - - - - 0x01B37F 06:B36F: 85 15     STA ram_0015                    ; High a
 C - - - - - 0x01B381 06:B371: A0 00     LDY #$00                        ; 1 of N
 C - - - - - 0x01B383 06:B373: B1 14     LDA (ram_0014),Y                ;
 C - - - - - 0x01B385 06:B375: 85 00     STA ram_0000                    ; <~ the number of the prison rooms
-C - - - - - 0x01B387 06:B377: A9 02     LDA #$02
-C - - - - - 0x01B389 06:B379: 85 01     STA ram_0001
+C - - - - - 0x01B387 06:B377: A9 02     LDA #$02                        ; !(UNUSED)
+C - - - - - 0x01B389 06:B379: 85 01     STA ram_0001                    ; !(UNUSED)
 bra_B37B_repeat:
 C - - - - - 0x01B38B 06:B37B: 20 64 D0  JSR sub_D064_generate_rng       ;
 C - - - - - 0x01B38E 06:B37E: 29 3F     AND #$3F                        ;
@@ -3078,10 +3078,10 @@ C - - - - - 0x01B3A8 06:B398: D0 E1     BNE bra_B37B_repeat             ; If the
 bra_B39A_skip:
 C - - - - - 0x01B3AA 06:B39A: 29 1F     AND #$1F                        ; reset X,Y flags for vRoomAttrubute
 C - - - - - 0x01B3AC 06:B39C: 9D 00 05  STA vRooms,X                    ;
-C - - - - - 0x01B3AF 06:B39F: A4 11     LDY v_cache_reg_y               ; retrieve the number of the prisoners (see $B336)
+C - - - - - 0x01B3AF 06:B39F: A4 11     LDY vCacheRam_11                ; retrieve the number of the prisoners (see $B336)
 C - - - - - 0x01B3B1 06:B3A1: 8A        TXA                             ;
 C - - - - - 0x01B3B2 06:B3A2: 99 60 00  STA vRoomWithPrisoners,Y        ; assigns a room index
-C - - - - - 0x01B3B5 06:B3A5: C6 11     DEC v_cache_reg_y               ;
+C - - - - - 0x01B3B5 06:B3A5: C6 11     DEC vCacheRam_11                ;
 C - - - - - 0x01B3B7 06:B3A7: 10 D2     BPL bra_B37B_repeat             ; If a non-arrested prisoner is exist
 C - - - - - 0x01B3B9 06:B3A9: 60        RTS                             ;
 
@@ -3158,9 +3158,9 @@ C - - - - - 0x01B434 06:B424: 20 85 B4  JSR sub_B485_minus_npc_msg_status       
 C - - - - - 0x01B437 06:B427: A5 41     LDA vNPCMessageStatus                            ;
 C - - - - - 0x01B439 06:B429: 29 0F     AND #$0F                                         ; filters by mask
 C - - - - - 0x01B43B 06:B42B: A8        TAY                                              ;
-C - - - - - 0x01B43C 06:B42C: 84 11     STY v_cache_reg_y                                ; diposit K flag for vNpcMessageStatus
+C - - - - - 0x01B43C 06:B42C: 84 11     STY vCacheRam_11                                 ; diposit K flag for vNpcMessageStatus
 C - - - - - 0x01B43E 06:B42E: 20 8A B4  JSR sub_B48A_prepare_npc_portrait_render_params_ ;
-C - - - - - 0x01B441 06:B431: A4 11     LDY v_cache_reg_y                                ; retrieves K flag for vNpcMessageStatus
+C - - - - - 0x01B441 06:B431: A4 11     LDY vCacheRam_11                                 ; retrieves K flag for vNpcMessageStatus
 C - - - - - 0x01B443 06:B433: C8        INY                                              ; 2 of NPC bytes
 C - - - - - 0x01B444 06:B434: B1 12     LDA (ram_0012),Y                                 ; <~ npc type index {0x00, 0x01, ..., 0x0A}
 C - - - - - 0x01B446 06:B436: 20 8C B5  JSR sub_B58C_resolve_npc_type                    ; 3,4,... of NPC bytes
@@ -3702,7 +3702,7 @@ C D 1 - - - 0x01B79D 06:B78D: 20 C3 B7  JSR sub_B7C3_get_final_dialog_info      
 C - - - - - 0x01B7A0 06:B790: B9 A9 BC  LDA tbl_BCA8_final_dialogs + 1,Y                   ; prepare an input parameter (a message number)
 C - - - - - 0x01B7A3 06:B793: 20 34 B2  JSR sub_B234_add_message                           ;
 C - - - - - 0x01B7A6 06:B796: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2                      ;
-C - - - - - 0x01B7A9 06:B799: A4 11     LDY ram_0011                                       ; prepare 1st parameter
+C - - - - - 0x01B7A9 06:B799: A4 11     LDY vCacheRam_11                                   ; prepare 1st parameter
 C - - - - - 0x01B7AB 06:B79B: A9 00     LDA #$00                                           ;
 C - - - - - 0x01B7AD 06:B79D: 85 00     STA ram_0000                                       ; prepare 2nd parameter
 C - - - - - 0x01B7AF 06:B79F: 20 98 B4  JSR sub_B498_prepare_npc_portrait_render_params_ex ;
@@ -3745,7 +3745,7 @@ C - - - - - 0x01B7E3 06:B7D3: 0A        ASL                  ; *8, because 8 byt
 C - - - - - 0x01B7E4 06:B7D4: 18        CLC                  ;
 C - - - - - 0x01B7E5 06:B7D5: 65 00     ADC ram_0000         ;
 C - - - - - 0x01B7E7 06:B7D7: A8        TAY                  ; Y <~ an index of n-th byte
-C - - - - - 0x01B7E8 06:B7D8: 84 11     STY ram_0011         ;
+C - - - - - 0x01B7E8 06:B7D8: 84 11     STY vCacheRam_11     ;
 C - - - - - 0x01B7EA 06:B7DA: 60        RTS                  ;
 
 sub_B7DB_prepare_last_cutscene:
@@ -3942,7 +3942,7 @@ C - - - - - 0x01B94F 06:B93F: A9 80     LDA #$80                                
 C - - - - - 0x01B951 06:B941: 85 3B     STA vSharedGameStatus                      ;
 C - - - - - 0x01B953 06:B943: A9 00     LDA #$00                                   ;
 C - - - - - 0x01B955 06:B945: 85 B1     STA v_start_level                          ; clear
-C - - - - - 0x01B957 06:B947: 85 B2     STA v_count_secret_hits                    ; clear
+C - - - - - 0x01B957 06:B947: 85 B2     STA vSecretHitIndex                        ; clear
 C - - - - - 0x01B959 06:B949: 85 B3     STA v_lock_secret_hits                     ; clear
 C - - - - - 0x01B95B 06:B94B: 85 B4     STA v_offset_in_secret_codes               ; clear
 C - - - - - 0x01B95D 06:B94D: 85 2C     STA vLowCounter                            ; clear
@@ -4240,49 +4240,52 @@ C - - - - - 0x01BB43 06:BB33: A5 1C     LDA vBtnPressedInGame                ;
 C - - - - - 0x01BB45 06:BB35: F0 56     BEQ bra_BB8D_reset_lock              ; Go to the branch If the any buttons aren't pressed
 C - - - - - 0x01BB47 06:BB37: A5 B3     LDA v_lock_secret_hits               ;
 C - - - - - 0x01BB49 06:BB39: D0 56     BNE bra_BB91_RTS                     ; Go to the branch If the some buttons is pressing
-C - - - - - 0x01BB4B 06:BB3B: A5 B2     LDA v_count_secret_hits              ;
-C - - - - - 0x01BB4D 06:BB3D: D0 24     BNE bra_BB63_skip                    ; Go to the branch If some secret button is pressed
+C - - - - - 0x01BB4B 06:BB3B: A5 B2     LDA vSecretHitIndex                  ;
+C - - - - - 0x01BB4D 06:BB3D: D0 24     BNE bra_BB63_non_first_hit           ; Go to the branch If vSecretHitIndex > 0x00
 C - - - - - 0x01BB4F 06:BB3F: AD 92 BB  LDA tbl_BB92_stage_select_codes      ; BIT_BUTTON_Up, on the main title screen
 C - - - - - 0x01BB52 06:BB42: 20 79 D0  JSR sub_D079_check_button_press      ;
-C - - - - - 0x01BB55 06:BB45: D0 28     BNE bra_BB6F                         ; Go to the branch If the button 'Up' is pressed
+C - - - - - 0x01BB55 06:BB45: D0 28     BNE bra_BB6F_success_hit             ; Go to the branch If the button 'Up' is pressed
 C - - - - - 0x01BB57 06:BB47: AD 98 BB  LDA tbl_BB92_stage_select_codes + 6  ; BIT_BUTTON_Left, on the main title screen
 C - - - - - 0x01BB5A 06:BB4A: 20 79 D0  JSR sub_D079_check_button_press      ;
 C - - - - - 0x01BB5D 06:BB4D: F0 06     BEQ @bra_BB55_skip                   ; Go to the branch If the button 'Left' isn't pressed
 C - - - - - 0x01BB5F 06:BB4F: A9 06     LDA #$06                             ; The offset in the table secret code -> level 3
-C - - - - - 0x01BB61 06:BB51: 85 B4     STA v_offset_in_secret_codes
-C - - - - - 0x01BB63 06:BB53: D0 1A     BNE bra_BB6F
+C - - - - - 0x01BB61 06:BB51: 85 B4     STA v_offset_in_secret_codes         ; Initializes the offset for 2 secret combination
+C - - - - - 0x01BB63 06:BB53: D0 1A     BNE bra_BB6F_success_hit             ; Always true
+
 @bra_BB55_skip:
 C - - - - - 0x01BB65 06:BB55: AD 9E BB  LDA tbl_BB92_stage_select_codes + 12 ; BIT_BUTTON_Down, on the main title screen
 C - - - - - 0x01BB68 06:BB58: 20 79 D0  JSR sub_D079_check_button_press      ;
 C - - - - - 0x01BB6B 06:BB5B: F0 2A     BEQ bra_BB87_reset                   ; Go to the branch If the button 'Down' isn't pressed
 C - - - - - 0x01BB6D 06:BB5D: A9 0C     LDA #$0C                             ; The offset in the table secret code -> level 4
-C - - - - - 0x01BB6F 06:BB5F: 85 B4     STA v_offset_in_secret_codes
-C - - - - - 0x01BB71 06:BB61: D0 0C     BNE bra_BB6F
-bra_BB63_skip:
-C - - - - - 0x01BB73 06:BB63: 18        CLC
-C - - - - - 0x01BB74 06:BB64: 65 B4     ADC v_offset_in_secret_codes
-C - - - - - 0x01BB76 06:BB66: A8        TAY
-C - - - - - 0x01BB77 06:BB67: B9 92 BB  LDA tbl_BB92_stage_select_codes,Y
+C - - - - - 0x01BB6F 06:BB5F: 85 B4     STA v_offset_in_secret_codes         ; Initializes the offset for 2 secret combination
+C - - - - - 0x01BB71 06:BB61: D0 0C     BNE bra_BB6F_success_hit             ; Always true
+
+; In: Register A - a secret hit index
+bra_BB63_non_first_hit:
+C - - - - - 0x01BB73 06:BB63: 18        CLC                                  ;
+C - - - - - 0x01BB74 06:BB64: 65 B4     ADC v_offset_in_secret_codes         ;
+C - - - - - 0x01BB76 06:BB66: A8        TAY                                  ; Y <~ the offset + a hit offset
+C - - - - - 0x01BB77 06:BB67: B9 92 BB  LDA tbl_BB92_stage_select_codes,Y    ;
 C - - - - - 0x01BB7A 06:BB6A: 20 79 D0  JSR sub_D079_check_button_press      ; bank FF
 C - - - - - 0x01BB7D 06:BB6D: F0 18     BEQ bra_BB87_reset                   ; Go to the branch If the secret button isn't pressed
-bra_BB6F:
-C - - - - - 0x01BB7F 06:BB6F: E6 B2     INC v_count_secret_hits
-C - - - - - 0x01BB81 06:BB71: E6 B3     INC v_lock_secret_hits
-C - - - - - 0x01BB83 06:BB73: A5 B2     LDA v_count_secret_hits              ;
+bra_BB6F_success_hit:
+C - - - - - 0x01BB7F 06:BB6F: E6 B2     INC vSecretHitIndex                  ; next secret hit (n-th of 6)
+C - - - - - 0x01BB81 06:BB71: E6 B3     INC v_lock_secret_hits               ; locks the buttons temporary
+C - - - - - 0x01BB83 06:BB73: A5 B2     LDA vSecretHitIndex                  ;
 C - - - - - 0x01BB85 06:BB75: C9 06     CMP #$06                             ; CONSTANT - The number of the buttons is in the secret combination
 C - - - - - 0x01BB87 06:BB77: D0 18     BNE bra_BB91_RTS                     ; If the number of secret hits != 0x06
-C - - - - - 0x01BB89 06:BB79: A2 01     LDX #$01                             ; It's 1 secret combination
-C - - - - - 0x01BB8B 06:BB7B: A5 B4     LDA v_offset_in_secret_codes
-C - - - - - 0x01BB8D 06:BB7D: F0 06     BEQ bra_BB85_assign
-C - - - - - 0x01BB8F 06:BB7F: E8        INX                                  ; If it's 2 secret combination
-C - - - - - 0x01BB90 06:BB80: C9 06     CMP #$06
-C - - - - - 0x01BB92 06:BB82: F0 01     BEQ bra_BB85_assign
-C - - - - - 0x01BB94 06:BB84: E8        INX                                  ; If it's 3 secret combination
+C - - - - - 0x01BB89 06:BB79: A2 01     LDX #$01                             ; CONSTANT - level 2.0
+C - - - - - 0x01BB8B 06:BB7B: A5 B4     LDA v_offset_in_secret_codes         ;
+C - - - - - 0x01BB8D 06:BB7D: F0 06     BEQ bra_BB85_assign                  ; If the 1st secret combination was entered successfully
+C - - - - - 0x01BB8F 06:BB7F: E8        INX                                  ; X <~ 2, level 3.0
+C - - - - - 0x01BB90 06:BB80: C9 06     CMP #$06                             ;
+C - - - - - 0x01BB92 06:BB82: F0 01     BEQ bra_BB85_assign                  ; If the 2nd secret combination was entered successfully
+C - - - - - 0x01BB94 06:BB84: E8        INX                                  ; X <~ 3, level 4.0
 bra_BB85_assign:
 C - - - - - 0x01BB95 06:BB85: 86 B1     STX v_start_level                    ;
 bra_BB87_reset:
 C - - - - - 0x01BB97 06:BB87: A9 00     LDA #$00                             ;
-C - - - - - 0x01BB99 06:BB89: 85 B2     STA v_count_secret_hits              ;
+C - - - - - 0x01BB99 06:BB89: 85 B2     STA vSecretHitIndex                  ;
 C - - - - - 0x01BB9B 06:BB8B: 85 B4     STA v_offset_in_secret_codes         ;
 bra_BB8D_reset_lock:
 C - - - - - 0x01BB9D 06:BB8D: A9 00     LDA #$00                             ;

@@ -2744,7 +2744,7 @@ tbl_portrait_demo_indexes:
 - D 0 - I - 0x013E44 04:9E34: 2A        .byte $2A   ; Fujiko Mine
 - D 0 - I - 0x013E45 04:9E35: 28        .byte $28   ; Jigen
 - D 0 - I - 0x013E46 04:9E36: 00        .byte $00   ; 
-- D 0 - I - 0x013E47 04:9E37: 2B        .byte $2B   ; Clarisse Cagliostr
+- D 0 - I - 0x013E47 04:9E37: 2B        .byte $2B   ; Clarisse Cagliostro
 - D 0 - I - 0x013E48 04:9E38: 29        .byte $29   ; Goemon
 - D 0 - I - 0x013E49 04:9E39: 00        .byte $00   ; 
 - D 0 - I - 0x013E4A 04:9E3A: 2C        .byte $2C   ; Zenigata

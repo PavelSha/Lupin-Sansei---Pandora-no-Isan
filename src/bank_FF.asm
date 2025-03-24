@@ -905,7 +905,7 @@ C - - - - - 0x01C513 07:C503: 60        RTS                       ;
 ; In: Register A - %BBBAAAAA (B - for bank data)
 ; Out: Register A - high part of the address (0x8X or 0x9X)
 sub_C504_switch_prg_8000:
-C - - - - - 0x01C514 07:C504: 84 11     STY v_cache_reg_y                    ;
+C - - - - - 0x01C514 07:C504: 84 11     STY vCacheRam_11                     ;
 C - - - - - 0x01C516 07:C506: 48        PHA                                  ; store A
 C - - - - - 0x01C517 07:C507: 20 5E D0  JSR sub_accumulator_shift_right_by_5 ;
 C - - - - - 0x01C51A 07:C50A: A8        TAY                                  ; a new bank data
@@ -916,7 +916,7 @@ C - - - - - 0x01C523 07:C513: 8C B5 06  STY vBankData                        ;
 C - - - - - 0x01C526 07:C516: 68        PLA                                  ; retrieve A ($C506)
 C - - - - - 0x01C527 07:C517: 29 1F     AND #$1F                             ;
 C - - - - - 0x01C529 07:C519: 09 80     ORA #$80                             ;
-C - - - - - 0x01C52B 07:C51B: A4 11     LDY v_cache_reg_y                    ;
+C - - - - - 0x01C52B 07:C51B: A4 11     LDY vCacheRam_11                     ;
 C - - - - - 0x01C52D 07:C51D: 60        RTS                                  ;
 
 sub_C51E_update_ppu_and_screen:
@@ -2445,15 +2445,15 @@ loc_CE99_render_goemon_hand:
 bra_CE99_loop:                                                       ; loop by v_CE5A_counter
 C D 2 - - - 0x01CEA9 07:CE99: A9 00     LDA #$00                     ;
 C - - - - - 0x01CEAB 07:CE9B: 85 04     STA ram_0004                 ; clear
-C - - - - - 0x01CEAD 07:CE9D: B1 02     LDA (ram_0002),Y             ; 1 of 4
+C - - - - - 0x01CEAD 07:CE9D: B1 02     LDA (ram_0002),Y             ; 1 of 4 (Y-position)
 C - - - - - 0x01CEAF 07:CE9F: 10 02     BPL @bra_CEA3_skip           ; If Register A < 0x80
 C - - - - - 0x01CEB1 07:CEA1: C6 04     DEC ram_0004                 ; 0x00 -> 0xFF (The position may be negative!)
 @bra_CEA3_skip:
 C - - - - - 0x01CEB3 07:CEA3: 18        CLC                          ;
 C - - - - - 0x01CEB4 07:CEA4: 65 00     ADC ram_0000                 ;
 C - - - - - 0x01CEB6 07:CEA6: 9D 00 07  STA vStartOAM,X              ; set Y-position
-C - - - - - 0x01CEB9 07:CEA9: A5 04     LDA ram_0004
-C - - - - - 0x01CEBB 07:CEAB: 65 08     ADC ram_0008
+C - - - - - 0x01CEB9 07:CEA9: A5 04     LDA ram_0004                 ; $0004 is {0x00, 0xFF}, for 0xFF the overflow should be (it's the correction for negative Y-position)
+C - - - - - 0x01CEBB 07:CEAB: 65 08     ADC ram_0008                 ;
 C - - - - - 0x01CEBD 07:CEAD: D0 40     BNE bra_CEEF_blank           ; If Register A != 0x00 (it is an unacceptable sprite)
 C - - - - - 0x01CEBF 07:CEAF: C8        INY                          ; Changes to the second byte (Tile index number)
 C - - - - - 0x01CEC0 07:CEB0: B1 02     LDA (ram_0002),Y             ; 2 of 4
@@ -2472,8 +2472,8 @@ C - - - - - 0x01CED6 07:CEC6: C6 04     DEC ram_0004                 ; 0x00 -> 0
 C - - - - - 0x01CED8 07:CEC8: 18        CLC                          ;
 C - - - - - 0x01CED9 07:CEC9: 65 01     ADC ram_0001                 ;
 C - - - - - 0x01CEDB 07:CECB: 85 06     STA ram_0006                 ; store X-position temporarily
-C - - - - - 0x01CEDD 07:CECD: A5 04     LDA ram_0004
-C - - - - - 0x01CEDF 07:CECF: 65 09     ADC ram_0009
+C - - - - - 0x01CEDD 07:CECD: A5 04     LDA ram_0004                 ; $0004 is {0x00, 0xFF}, for 0xFF the overflow should be (it's the correction for negative X-position)
+C - - - - - 0x01CEDF 07:CECF: 65 09     ADC ram_0009                 ;
 C - - - - - 0x01CEE1 07:CED1: D0 1F     BNE bra_CEF2_blank           ; If Register A != 0x00 (it is an unacceptable sprite)
 C - - - - - 0x01CEE3 07:CED3: A5 06     LDA ram_0006                 ;
 C - - - - - 0x01CEE5 07:CED5: C9 F9     CMP #$F9                     ;
@@ -3048,7 +3048,7 @@ C - - - - - 0x01D286 07:D276: 85 06     STA ram_0006                            
 C - - - - - 0x01D288 07:D278: A5 07     LDA ram_0007                                    ;
 C - - - - - 0x01D28A 07:D27A: 65 51     ADC vTempValue51                                ; 0xBBBAAAAA = vTempValue51 + ram_0007
 C - - - - - 0x01D28C 07:D27C: 20 04 C5  JSR sub_C504_switch_prg_8000                    ; switch to the bank with ppu datas
-                                                                                        ; v_cache_reg_y <~ the position in index array
+                                                                                        ; vCacheRam_11 <~ the position in index array
 C - - - - - 0x01D28F 07:D27F: 85 07     STA ram_0007                                    ; puts a high address of ppu datas
 C - - - - - 0x01D291 07:D281: A0 00     LDY #$00                                        ; using first pair of quartet
 C - - - - - 0x01D293 07:D283: A5 27     LDA vLowViewPortPosX                            ;
@@ -3064,7 +3064,7 @@ C - - - - - 0x01D2A1 07:D291: E8        INX                                     
 C - - - - - 0x01D2A2 07:D292: B1 06     LDA (ram_0006),Y                                ;
 C - - - - - 0x01D2A4 07:D294: 9D 33 06  STA vPpuBufferData,X                            ; store a tile number 2
 C - - - - - 0x01D2A7 07:D297: E8        INX                                             ; increment loop counter
-C - - - - - 0x01D2A8 07:D298: A4 11     LDY v_cache_reg_y                               ; restores the position in index array
+C - - - - - 0x01D2A8 07:D298: A4 11     LDY vCacheRam_11                                ; restores the position in index array
 C - - - - - 0x01D2AA 07:D29A: C8        INY                                             ; increment the position in index array
 C - - - - - 0x01D2AB 07:D29B: E0 18     CPX #$18                                        ;
 C - - - - - 0x01D2AD 07:D29D: 90 BE     BCC bra_D25D_loop                               ; If Register X < 0x18
@@ -3342,11 +3342,11 @@ C - - - - - 0x01D406 07:D3F6: 60        RTS                       ;
 
 ; There PRG-bank switching happens 
 ; Out: the CPU-address in [$004E-#004F]
-; Out: Register Y - v_cache_reg_y
+; Out: Register Y - vCacheRam_11
 sub_D3F7_get_background_screen_info_address:
 C - - - - - 0x01D407 07:D3F7: A9 00     LDA #$00                         ; switch prg: bank 00 (page 1)
 C - - - - - 0x01D409 07:D3F9: 20 04 C5  JSR sub_C504_switch_prg_8000     ;
-C - - - - - 0x01D40C 07:D3FC: 98        TYA                              ; v_cache_reg_y to A
+C - - - - - 0x01D40C 07:D3FC: 98        TYA                              ; vCacheRam_11 to A
 C - - - - - 0x01D40D 07:D3FD: 48        PHA                              ; store a
 C - - - - - 0x01D40E 07:D3FE: A5 46     LDA vNoSubLevel                  ;
 C - - - - - 0x01D410 07:D400: 0A        ASL                              ; *2
@@ -8625,8 +8625,8 @@ C - - - - - 0x01F3B1 07:F3A1: 60        RTS                          ;
 loc_F3A2_enemy_appearance_t3:
 C - - J - - 0x01F3B2 07:F3A2: 20 72 F3  JSR sub_F372_start_enemyA_appearance        ;
 C - - - - - 0x01F3B5 07:F3A5: 20 59 F3  JSR sub_F359_prepare_enemyA_start_status    ;
-C - - - - - 0x01F3B8 07:F3A8: A9 0F     LDA #$0F
-C - - - - - 0x01F3BA 07:F3AA: 85 11     STA v_cache_reg_y
+C - - - - - 0x01F3B8 07:F3A8: A9 0F     LDA #$0F                                    ;
+C - - - - - 0x01F3BA 07:F3AA: 85 11     STA vNonUsed11                              ;
 C - - - - - 0x01F3BC 07:F3AC: A0 00     LDY #$00                                    ; set loop counter
 C - - - - - 0x01F3BE 07:F3AE: AD 00 03  LDA vEnemyA                                 ;
 @bra_F3B1_loop:                                                                     ; loop by y (15 times)
@@ -9058,32 +9058,35 @@ C - - - - - 0x01F6B3 07:F6A3: A9 11     LDA #$11                               ;
 C - - - - - 0x01F6B5 07:F6A5: 8D B4 06  STA vCacheChrBankSelect + 5            ;
 C - - - - - 0x01F6B8 07:F6A8: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA    ;
 
+; In: $0001 - X-position
+; In: Register X - the enemyA number
 loc_F6AB_lift:
-C - - J - - 0x01F6BB 07:F6AB: A2 00     LDX #$00
-C - - - - - 0x01F6BD 07:F6AD: A5 01     LDA ram_0001
-C - - - - - 0x01F6BF 07:F6AF: C9 C4     CMP #$C4
-C - - - - - 0x01F6C1 07:F6B1: F0 05     BEQ bra_F6B8
-C - - - - - 0x01F6C3 07:F6B3: C9 44     CMP #$44
-C - - - - - 0x01F6C5 07:F6B5: F0 01     BEQ bra_F6B8
-C - - - - - 0x01F6C7 07:F6B7: E8        INX
-bra_F6B8:
-C - - - - - 0x01F6C8 07:F6B8: BD 20 03  LDA vEnemyAStatus,X
-C - - - - - 0x01F6CB 07:F6BB: 10 03     BPL bra_F6C0
-C - - - - - 0x01F6CD 07:F6BD: 4C 8F D7  JMP loc_D78F_dec_enemyA_counter
+C - - J - - 0x01F6BB 07:F6AB: A2 00     LDX #$00                        ; <~ the enemyA number
+C - - - - - 0x01F6BD 07:F6AD: A5 01     LDA ram_0001                    ;
+C - - - - - 0x01F6BF 07:F6AF: C9 C4     CMP #$C4                        ; CONSTANT - 1st lift
+C - - - - - 0x01F6C1 07:F6B1: F0 05     BEQ @bra_F6B8_one               ; If the lift is first
+C - - - - - 0x01F6C3 07:F6B3: C9 44     CMP #$44                        ; CONSTANT - 2nd lift
+C - - - - - 0x01F6C5 07:F6B5: F0 01     BEQ @bra_F6B8_one               ; If the lift is second
+C - - - - - 0x01F6C7 07:F6B7: E8        INX                             ; the enemyA number <~ 1
+@bra_F6B8_one:
+C - - - - - 0x01F6C8 07:F6B8: BD 20 03  LDA vEnemyAStatus,X             ;
+C - - - - - 0x01F6CB 07:F6BB: 10 03     BPL bra_F6C0_lift_appearance    ; If the status isn't used
+C - - - - - 0x01F6CD 07:F6BD: 4C 8F D7  JMP loc_D78F_dec_enemyA_counter ;
 
-bra_F6C0:
-C - - - - - 0x01F6D0 07:F6C0: 20 7A F3  JSR sub_F37A_assign_enemyA_position
-C - - - - - 0x01F6D3 07:F6C3: A9 C0     LDA #$C0
-C - - - - - 0x01F6D5 07:F6C5: 9D 20 03  STA vEnemyAStatus,X
-C - - - - - 0x01F6D8 07:F6C8: A9 30     LDA #$30
-C - - - - - 0x01F6DA 07:F6CA: 8D 02 03  STA vEnemyASpriteMagic2
-C - - - - - 0x01F6DD 07:F6CD: A9 46     LDA #$46
-C - - - - - 0x01F6DF 07:F6CF: 8D 03 03  STA vEnemyASpriteMagic3
-C - - - - - 0x01F6E2 07:F6D2: A9 0D     LDA #$0D
-C - - - - - 0x01F6E4 07:F6D4: 8D B4 06  STA vCacheChrBankSelect + 5
-C - - - - - 0x01F6E7 07:F6D7: A9 00     LDA #$00
-C - - - - - 0x01F6E9 07:F6D9: 9D 44 03  STA vEnemyAFrame_Counter,X
-C - - - - - 0x01F6EC 07:F6DC: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA
+; In: Register X - the enemyA number
+bra_F6C0_lift_appearance:
+C - - - - - 0x01F6D0 07:F6C0: 20 7A F3  JSR sub_F37A_assign_enemyA_position   ;
+C - - - - - 0x01F6D3 07:F6C3: A9 C0     LDA #$C0                              ; CONSTANT - default status
+C - - - - - 0x01F6D5 07:F6C5: 9D 20 03  STA vEnemyAStatus,X                   ;
+C - - - - - 0x01F6D8 07:F6C8: A9 30     LDA #$30                              ; the offset for sprite_magic2 (Bank 05, Page 2, $8100 + $0030)
+C - - - - - 0x01F6DA 07:F6CA: 8D 02 03  STA vEnemyASpriteMagic2               ;
+C - - - - - 0x01F6DD 07:F6CD: A9 46     LDA #$46                              ; <~ sprite_magic3 (see v_sprite_magic3)
+C - - - - - 0x01F6DF 07:F6CF: 8D 03 03  STA vEnemyASpriteMagic3               ;
+C - - - - - 0x01F6E2 07:F6D2: A9 0D     LDA #$0D                              ; CONSTANT for CHR ROM #2
+C - - - - - 0x01F6E4 07:F6D4: 8D B4 06  STA vCacheChrBankSelect + 5           ;
+C - - - - - 0x01F6E7 07:F6D7: A9 00     LDA #$00                              ;
+C - - - - - 0x01F6E9 07:F6D9: 9D 44 03  STA vEnemyAFrame_Counter,X            ; reset a frame counter
+C - - - - - 0x01F6EC 07:F6DC: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA   ;
 
 ; 1 byte - high X-position (the screen number)
 ; 2 byte - low X-position
@@ -9096,7 +9099,7 @@ tbl_lift_positions:
 ; In: $0000 - macro X-position
 ; In: $0001 - X-position
 loc_F6E7_wall_or_platform_appearance:
-C - - J - - 0x01F6F7 07:F6E7: 20 39 F3  JSR sub_F339_check_position
+C - - J - - 0x01F6F7 07:F6E7: 20 39 F3  JSR sub_F339_check_position      ;
 C - - - - - 0x01F6FA 07:F6EA: 24 3C     BIT vGameLocks                   ;
 C - - - - - 0x01F6FC 07:F6EC: 30 5F     BMI bra_F74D                     ; If lock 'Select a character' exists
 C - - - - - 0x01F6FE 07:F6EE: AD 01 03  LDA vEnemyB                      ;
@@ -9104,15 +9107,15 @@ C - - - - - 0x01F701 07:F6F1: C9 32     CMP #$32                         ; CONST
 C - - - - - 0x01F703 07:F6F3: D0 14     BNE bra_F709_skip                ; If the enemy isn't the 'breaking platform'
 C - - - - - 0x01F705 07:F6F5: A2 01     LDX #$01                         ; set loop counter
 @bra_F6F7_loop:                                                          ; loop by x (2 times)
-C - - - - - 0x01F707 07:F6F7: BD 5C 03  LDA vEnemyBStatus,X
-C - - - - - 0x01F70A 07:F6FA: 10 06     BPL bra_F702
-C - - - - - 0x01F70C 07:F6FC: CA        DEX
-C - - - - - 0x01F70D 07:F6FD: 10 F8     BPL @bra_F6F7_loop
+C - - - - - 0x01F707 07:F6F7: BD 5C 03  LDA vEnemyBStatus,X              ;
+C - - - - - 0x01F70A 07:F6FA: 10 06     BPL bra_F702_platform_appearance ; If the status isn't used
+C - - - - - 0x01F70C 07:F6FC: CA        DEX                              ; decrement loop counter
+C - - - - - 0x01F70D 07:F6FD: 10 F8     BPL @bra_F6F7_loop               ; If Register X >= 0x00
 C - - - - - 0x01F70F 07:F6FF: 4C 83 D8  JMP loc_D883_dec_enemyB_counter  ;
 
-bra_F702:
-C - - - - - 0x01F712 07:F702: A9 C2     LDA #$C2
-C - - - - - 0x01F714 07:F704: 9D 5C 03  STA vEnemyBStatus,X
+bra_F702_platform_appearance:
+C - - - - - 0x01F712 07:F702: A9 C2     LDA #$C2                         ; CONSTANT - default status + 'movable object'
+C - - - - - 0x01F714 07:F704: 9D 5C 03  STA vEnemyBStatus,X              ;
 C - - - - - 0x01F717 07:F707: D0 3F     BNE bra_F748                     ; Always true
 
 ; In: $0000 - macro X-position
@@ -9422,14 +9425,14 @@ tbl_F8FC_enemies:
 - D 3 - - - 0x01F921 07:F911: 39        .byte $39 ; Sensor
 
 bra_F912_inc_next_set:
-C - - - - - 0x01F922 07:F912: C8        INY ; 2nd of 5 bytes
+C - - - - - 0x01F922 07:F912: C8        INY                   ; 2nd of 5 bytes
 bra_F913_inc_next_set:
-C - - - - - 0x01F923 07:F913: C8        INY ; 3rd of 5 bytes
+C - - - - - 0x01F923 07:F913: C8        INY                   ; 3rd of 5 bytes
 bra_F914_inc_next_set:
-C - - - - - 0x01F924 07:F914: C8        INY ; 4th of 5 bytes
-C - - - - - 0x01F925 07:F915: C8        INY ; 5th of 5 bytes
-C - - - - - 0x01F926 07:F916: C8        INY ; next the set of bytes
-C - - - - - 0x01F927 07:F917: 4C 21 F9  JMP loc_F921_next_set
+C - - - - - 0x01F924 07:F914: C8        INY                   ; 4th of 5 bytes
+C - - - - - 0x01F925 07:F915: C8        INY                   ; 5th of 5 bytes
+C - - - - - 0x01F926 07:F916: C8        INY                   ; next the set of bytes
+C - - - - - 0x01F927 07:F917: 4C 21 F9  JMP loc_F921_next_set ;
 
 ; Return the carry status (analog return true or false)
 sub_F91A_has_entered_the_corridor:
@@ -9445,81 +9448,81 @@ C - - - - - 0x01F935 07:F925: 4C C9 F9  JMP loc_F9C9_safe_return_false ;
 
 ; In: Register A - 1 corridor byte (see bank 04, page 1, $8F03)
 bra_F928_skip:
-C - - - - - 0x01F938 07:F928: 85 00     STA ram_0000                   ;
-C - - - - - 0x01F93A 07:F92A: 29 0F     AND #$0F                       ; restores by the mask
-C - - - - - 0x01F93C 07:F92C: C5 68     CMP vNoScreen                  ;
-C - - - - - 0x01F93E 07:F92E: 90 E2     BCC bra_F912_inc_next_set      ; If the screen of the current corridor < vNoScreen
-C - - - - - 0x01F940 07:F930: D0 F3     BNE bra_F925_fail              ; If the screen of the current corridor != vNoScreen
-C - - - - - 0x01F942 07:F932: A5 00     LDA ram_0000                   ;
-C - - - - - 0x01F944 07:F934: 29 40     AND #$40                       ; CONSTANT - a floor
-C - - - - - 0x01F946 07:F936: 18        CLC                            ;
-C - - - - - 0x01F947 07:F937: 69 7F     ADC #$7F                       ;
-C - - - - - 0x01F949 07:F939: 85 AD     STA ram_00AD                   ; <~ 0x7F or 0xBF (top or bottom)
-C - - - - - 0x01F94B 07:F93B: C5 6A     CMP vScreenChrPosY             ;
-C - - - - - 0x01F94D 07:F93D: D0 D3     BNE bra_F912_inc_next_set      ; If vScreenChrPosY != $00AD
-C - - - - - 0x01F94F 07:F93F: A2 08     LDX #$08                       ; CONSTANT - allowable tolerance for a door #1
-C - - - - - 0x01F951 07:F941: A5 00     LDA ram_0000                   ;
-C - - - - - 0x01F953 07:F943: 29 20     AND #$20                       ; CONSTANT - the type of door width
-C - - - - - 0x01F955 07:F945: F0 02     BEQ @bra_F949_skip             ; If the type of door width has M-size
-C - - - - - 0x01F957 07:F947: A2 0C     LDX #$0C                       ; CONSTANT - allowable tolerance for a door #2
+C - - - - - 0x01F938 07:F928: 85 00     STA ram_0000                       ;
+C - - - - - 0x01F93A 07:F92A: 29 0F     AND #$0F                           ; restores by the mask
+C - - - - - 0x01F93C 07:F92C: C5 68     CMP vNoScreen                      ;
+C - - - - - 0x01F93E 07:F92E: 90 E2     BCC bra_F912_inc_next_set          ; If the screen of the current corridor < vNoScreen
+C - - - - - 0x01F940 07:F930: D0 F3     BNE bra_F925_fail                  ; If the screen of the current corridor != vNoScreen
+C - - - - - 0x01F942 07:F932: A5 00     LDA ram_0000                       ;
+C - - - - - 0x01F944 07:F934: 29 40     AND #$40                           ; CONSTANT - a floor
+C - - - - - 0x01F946 07:F936: 18        CLC                                ;
+C - - - - - 0x01F947 07:F937: 69 7F     ADC #$7F                           ;
+C - - - - - 0x01F949 07:F939: 85 AD     STA vNonUsedAD                     ; <~ 0x7F or 0xBF (top or bottom)
+C - - - - - 0x01F94B 07:F93B: C5 6A     CMP vScreenChrPosY                 ;
+C - - - - - 0x01F94D 07:F93D: D0 D3     BNE bra_F912_inc_next_set          ; If vScreenChrPosY != $00AD
+C - - - - - 0x01F94F 07:F93F: A2 08     LDX #$08                           ; CONSTANT - allowable tolerance for a door #1
+C - - - - - 0x01F951 07:F941: A5 00     LDA ram_0000                       ;
+C - - - - - 0x01F953 07:F943: 29 20     AND #$20                           ; CONSTANT - the type of door width
+C - - - - - 0x01F955 07:F945: F0 02     BEQ @bra_F949_skip                 ; If the type of door width has M-size
+C - - - - - 0x01F957 07:F947: A2 0C     LDX #$0C                           ; CONSTANT - allowable tolerance for a door #2
 @bra_F949_skip:
-C - - - - - 0x01F959 07:F949: 86 01     STX ram_0001                   ; set an allowable tolerance
-C - - - - - 0x01F95B 07:F94B: C8        INY                            ; 2nd of 5 bytes
-C - - - - - 0x01F95C 07:F94C: B1 BD     LDA (vCorridorAddr),Y          ;
-C - - - - - 0x01F95E 07:F94E: 38        SEC                            ;
-C - - - - - 0x01F95F 07:F94F: E5 66     SBC vLowChrPosX                ; A <~ corridorPosX - vLowChrPosX
-C - - - - - 0x01F961 07:F951: B0 03     BCS @bra_F956_skip             ; If vLowChrPosX <= corridorPosX
-C - - - - - 0x01F963 07:F953: 20 73 D0  JSR sub_D073_invert_sign       ;
+C - - - - - 0x01F959 07:F949: 86 01     STX ram_0001                       ; set an allowable tolerance
+C - - - - - 0x01F95B 07:F94B: C8        INY                                ; 2nd of 5 bytes
+C - - - - - 0x01F95C 07:F94C: B1 BD     LDA (vCorridorAddr),Y              ;
+C - - - - - 0x01F95E 07:F94E: 38        SEC                                ;
+C - - - - - 0x01F95F 07:F94F: E5 66     SBC vLowChrPosX                    ; A <~ corridorPosX - vLowChrPosX
+C - - - - - 0x01F961 07:F951: B0 03     BCS @bra_F956_skip                 ; If vLowChrPosX <= corridorPosX
+C - - - - - 0x01F963 07:F953: 20 73 D0  JSR sub_D073_invert_sign           ;
 @bra_F956_skip:
-C - - - - - 0x01F966 07:F956: 84 C1     STY vCurrentCorridorOffset     ;
-C - - - - - 0x01F968 07:F958: C6 C1     DEC vCurrentCorridorOffset     ; set offset (1 of 5 bytes)
-C - - - - - 0x01F96A 07:F95A: C5 01     CMP ram_0001                   ;
-C - - - - - 0x01F96C 07:F95C: B0 B5     BCS bra_F913_inc_next_set      ; If |corridorPosX - vLowChrPosX| >= tolerance
-C - - - - - 0x01F96E 07:F95E: C8        INY                            ; 3rd of 5 bytes
-C - - - - - 0x01F96F 07:F95F: B1 BD     LDA (vCorridorAddr),Y
-C - - - - - 0x01F971 07:F961: 85 C6     STA vDoorAttribute
-C - - - - - 0x01F973 07:F963: 10 0E     BPL @bra_F973_skip
-C - - - - - 0x01F975 07:F965: C8        INY                            ; 4th of 5 bytes
-C - - - - - 0x01F976 07:F966: B1 BD     LDA (vCorridorAddr),Y
-C - - - - - 0x01F978 07:F968: AA        TAX
-C - - - - - 0x01F979 07:F969: 88        DEY                            ; 3rd of 5 bytes
-C - - - - - 0x01F97A 07:F96A: BD 00 05  LDA vRooms,X
-C - - - - - 0x01F97D 07:F96D: 85 B5     STA ram_00B5
-C - - - - - 0x01F97F 07:F96F: 29 40     AND #$40
-C - - - - - 0x01F981 07:F971: D0 A1     BNE bra_F914_inc_next_set
+C - - - - - 0x01F966 07:F956: 84 C1     STY vCurrentCorridorOffset         ;
+C - - - - - 0x01F968 07:F958: C6 C1     DEC vCurrentCorridorOffset         ; set offset (1 of 5 bytes)
+C - - - - - 0x01F96A 07:F95A: C5 01     CMP ram_0001                       ;
+C - - - - - 0x01F96C 07:F95C: B0 B5     BCS bra_F913_inc_next_set          ; If |corridorPosX - vLowChrPosX| >= tolerance
+C - - - - - 0x01F96E 07:F95E: C8        INY                                ; 3rd of 5 bytes
+C - - - - - 0x01F96F 07:F95F: B1 BD     LDA (vCorridorAddr),Y              ;
+C - - - - - 0x01F971 07:F961: 85 C6     STA vDoorAttribute                 ;
+C - - - - - 0x01F973 07:F963: 10 0E     BPL @bra_F973_skip                 ; If it to allow to leave the door open (the door isn't destructible wall)
+C - - - - - 0x01F975 07:F965: C8        INY                                ; 4th of 5 bytes
+C - - - - - 0x01F976 07:F966: B1 BD     LDA (vCorridorAddr),Y              ;
+C - - - - - 0x01F978 07:F968: AA        TAX                                ; X <~ the room index
+C - - - - - 0x01F979 07:F969: 88        DEY                                ; 3rd of 5 bytes
+C - - - - - 0x01F97A 07:F96A: BD 00 05  LDA vRooms,X                       ;
+C - - - - - 0x01F97D 07:F96D: 85 B5     STA vNonUsedB5                     ;
+C - - - - - 0x01F97F 07:F96F: 29 40     AND #$40                           ; CONSTANT - it is possible to enter the room
+C - - - - - 0x01F981 07:F971: D0 A1     BNE bra_F914_inc_next_set          ; If it is impossible to enter the room
 @bra_F973_skip:
-C - - - - - 0x01F983 07:F973: B1 BD     LDA (vCorridorAddr),Y
-C - - - - - 0x01F985 07:F975: 85 00     STA ram_0000
-C - - - - - 0x01F987 07:F977: 29 0F     AND #$0F
-C - - - - - 0x01F989 07:F979: 85 C3     STA vDisplayRoomType
-C - - - - - 0x01F98B 07:F97B: 24 00     BIT ram_0000
-C - - - - - 0x01F98D 07:F97D: 50 3C     BVC bra_F9BB
-C - - - - - 0x01F98F 07:F97F: A9 00     LDA #$00                       ; CONSTANT - the room is empty
-C - - - - - 0x01F991 07:F981: 85 C4     STA vCheckpoint                ;
-C - - - - - 0x01F993 07:F983: C8        INY                            ; 4th of 5 bytes
-C - - - - - 0x01F994 07:F984: B1 BD     LDA (vCorridorAddr),Y          ;
-C - - - - - 0x01F996 07:F986: AA        TAX                            ;
-C - - - - - 0x01F997 07:F987: BD 00 05  LDA vRooms,X                   ;
-C - - - - - 0x01F99A 07:F98A: 85 C5     STA vRoomAttrubute             ;
-C - - - - - 0x01F99C 07:F98C: 86 BC     STX vRoomCurrentIndex          ;
-C - - - - - 0x01F99E 07:F98E: 48        PHA
-C - - - - - 0x01F99F 07:F98F: 09 80     ORA #$80                       ; CONSTANT - the room has already been visited
-C - - - - - 0x01F9A1 07:F991: 9D 00 05  STA vRooms,X
-C - - - - - 0x01F9A4 07:F994: 68        PLA
-C - - - - - 0x01F9A5 07:F995: 29 3F     AND #$3F
+C - - - - - 0x01F983 07:F973: B1 BD     LDA (vCorridorAddr),Y              ;
+C - - - - - 0x01F985 07:F975: 85 00     STA ram_0000                       ;
+C - - - - - 0x01F987 07:F977: 29 0F     AND #$0F                           ;
+C - - - - - 0x01F989 07:F979: 85 C3     STA vDisplayRoomType               ;
+C - - - - - 0x01F98B 07:F97B: 24 00     BIT ram_0000                       ;
+C - - - - - 0x01F98D 07:F97D: 50 3C     BVC bra_F9BB_is_checkpoint         ; If 3rd of 5 bytes marks as 'a checkpoint'
+C - - - - - 0x01F98F 07:F97F: A9 00     LDA #$00                           ; CONSTANT - the room is empty
+C - - - - - 0x01F991 07:F981: 85 C4     STA vCheckpoint                    ;
+C - - - - - 0x01F993 07:F983: C8        INY                                ; 4th of 5 bytes
+C - - - - - 0x01F994 07:F984: B1 BD     LDA (vCorridorAddr),Y              ;
+C - - - - - 0x01F996 07:F986: AA        TAX                                ;
+C - - - - - 0x01F997 07:F987: BD 00 05  LDA vRooms,X                       ;
+C - - - - - 0x01F99A 07:F98A: 85 C5     STA vRoomAttrubute                 ;
+C - - - - - 0x01F99C 07:F98C: 86 BC     STX vRoomCurrentIndex              ;
+C - - - - - 0x01F99E 07:F98E: 48        PHA                                ; diposit vRoomAttrubute ($F98E)
+C - - - - - 0x01F99F 07:F98F: 09 80     ORA #$80                           ; CONSTANT - the room has already been visited
+C - - - - - 0x01F9A1 07:F991: 9D 00 05  STA vRooms,X                       ;
+C - - - - - 0x01F9A4 07:F994: 68        PLA                                ; retrieve vRoomAttrubute (see $F98E)
+C - - - - - 0x01F9A5 07:F995: 29 3F     AND #$3F                           ; filters by mask
 C - - - - - 0x01F9A7 07:F997: 85 B6     STA vCurrentUniqueRoom             ;
 C - - - - - 0x01F9A9 07:F999: C9 10     CMP #$10                           ; CONSTANT - an unique room (NPC, briefcase, boss)
 C - - - - - 0x01F9AB 07:F99B: 90 17     BCC @bra_F9B4_sublevel_corridor    ; If vCurrentUniqueRoom < 0x10
 C - - - - - 0x01F9AD 07:F99D: C9 20     CMP #$20                           ;
 C - - - - - 0x01F9AF 07:F99F: B0 13     BCS @bra_F9B4_sublevel_corridor    ; If vCurrentUniqueRoom >= 0x20
-C - - - - - 0x01F9B1 07:F9A1: 84 11     STY v_cache_reg_y
+C - - - - - 0x01F9B1 07:F9A1: 84 11     STY vCacheRam_11                   ;
 C - - - - - 0x01F9B3 07:F9A3: 29 07     AND #$07                           ; filters by mask
 C - - - - - 0x01F9B5 07:F9A5: 85 B9     STA vCurUniqueRoomShort            ;
-C - - - - - 0x01F9B7 07:F9A7: A8        TAY
-C - - - - - 0x01F9B8 07:F9A8: B1 BA     LDA (vCheckpointAddr),Y
-C - - - - - 0x01F9BA 07:F9AA: 85 C4     STA vCheckpoint
+C - - - - - 0x01F9B7 07:F9A7: A8        TAY                                ;
+C - - - - - 0x01F9B8 07:F9A8: B1 BA     LDA (vCheckpointAddr),Y            ; see tbl_ptr_checkpoints_on_the_levelX, Y <~ {0x00, 0x01, 0x02, 0x03}
+C - - - - - 0x01F9BA 07:F9AA: 85 C4     STA vCheckpoint                    ; <~ the checkpoint of the unique room
 C - - - - - 0x01F9BC 07:F9AC: 20 DA FB  JSR sub_FBDA_store_room_params_    ;
-C - - - - - 0x01F9BF 07:F9AF: A4 11     LDY v_cache_reg_y
+C - - - - - 0x01F9BF 07:F9AF: A4 11     LDY vCacheRam_11                   ; 4th of 5 bytes
 C - - - - - 0x01F9C1 07:F9B1: 4C C0 F9  JMP loc_F9C0_return_true           ;
 
 @bra_F9B4_sublevel_corridor:
@@ -9527,10 +9530,10 @@ C - - - - - 0x01F9C4 07:F9B4: A9 00     LDA #$00                           ;
 C - - - - - 0x01F9C6 07:F9B6: 85 B6     STA vCurrentUniqueRoom             ; clear
 C - - - - - 0x01F9C8 07:F9B8: 4C C0 F9  JMP loc_F9C0_return_true           ;
 
-bra_F9BB:
+bra_F9BB_is_checkpoint:
 C - - - - - 0x01F9CB 07:F9BB: C8        INY                                ; 4th of 5 bytes
-C - - - - - 0x01F9CC 07:F9BC: B1 BD     LDA (vCorridorAddr),Y
-C - - - - - 0x01F9CE 07:F9BE: 85 C4     STA vCheckpoint
+C - - - - - 0x01F9CC 07:F9BC: B1 BD     LDA (vCorridorAddr),Y              ;
+C - - - - - 0x01F9CE 07:F9BE: 85 C4     STA vCheckpoint                    ;
 loc_F9C0_return_true:
 C D 3 - - - 0x01F9D0 07:F9C0: C8        INY                                ; 5th of 5 bytes
 C - - - - - 0x01F9D1 07:F9C1: B1 BD     LDA (vCorridorAddr),Y              ;
@@ -9694,27 +9697,27 @@ C - - - - - 0x01FACC 07:FABC: 20 20 C4  JSR sub_C420_add_sound_effect    ;
 C - - - - - 0x01FACF 07:FABF: 60        RTS                              ;
 
 sub_FAC0_event_poll:
-C - - - - - 0x01FAD0 07:FAC0: A9 00     LDA #$00                         ;
-C - - - - - 0x01FAD2 07:FAC2: 85 41     STA vNPCMessageStatus            ; clear
-C - - - - - 0x01FAD4 07:FAC4: 85 3B     STA vSharedGameStatus            ; CONSTANT - In the game
-C - - - - - 0x01FAD6 07:FAC6: 85 C8     STA vMessageInProgress           ; CONSTANT - no message
-C - - - - - 0x01FAD8 07:FAC8: 85 38     STA vPauseStatus                 ; CONSTANT - no pause
-C - - - - - 0x01FADA 07:FACA: 20 46 EF  JSR sub_EF46_switch_bank_4_p1    ;
-C - - - - - 0x01FADD 07:FACD: A5 39     LDA vGameInterruptEvent          ;
-C - - - - - 0x01FADF 07:FACF: F0 1B     BEQ bra_FAEC_skip                ; If vGameInterruptEvent isn't exist
-C - - - - - 0x01FAE1 07:FAD1: C9 E0     CMP #$E0                         ;
-C - - - - - 0x01FAE3 07:FAD3: F0 17     BEQ bra_FAEC_skip                ; If vGameInterruptEvent is 'to next level'
-C - - - - - 0x01FAE5 07:FAD5: C9 C0     CMP #$C0                         ;
-C - - - - - 0x01FAE7 07:FAD7: F0 13     BEQ bra_FAEC_skip                ; If vGameInterruptEvent is 'go into the corridor'
-C - - - - - 0x01FAE9 07:FAD9: C9 C1     CMP #$C1                         ;
-C - - - - - 0x01FAEB 07:FADB: F0 55     BEQ bra_FB32_start_diving        ; If vGameInterruptEvent is 'dive into the water'
-C - - - - - 0x01FAED 07:FADD: C9 C2     CMP #$C2                         ;
-C - - - - - 0x01FAEF 07:FADF: F0 5A     BEQ bra_FB3B_get_out             ; If vGameInterruptEvent is 'get out of the water'
-C - - - - - 0x01FAF1 07:FAE1: C9 C3     CMP #$C3                         ;
-C - - - - - 0x01FAF3 07:FAE3: F0 53     BEQ bra_FB38_restore             ; If vGameInterruptEvent is 'leave the unique room'
-C - - - - - 0x01FAF5 07:FAE5: C9 C4     CMP #$C4                         ;
-C - - - - - 0x01FAF7 07:FAE7: F0 16     BEQ bra_FAFF                     ; If vGameInterruptEvent is 'to the cutscene of defeating the boss'
-C - - - - - 0x01FAF9 07:FAE9: 4C 41 FB  JMP loc_FB41
+C - - - - - 0x01FAD0 07:FAC0: A9 00     LDA #$00                                  ;
+C - - - - - 0x01FAD2 07:FAC2: 85 41     STA vNPCMessageStatus                     ; clear
+C - - - - - 0x01FAD4 07:FAC4: 85 3B     STA vSharedGameStatus                     ; CONSTANT - In the game
+C - - - - - 0x01FAD6 07:FAC6: 85 C8     STA vMessageInProgress                    ; CONSTANT - no message
+C - - - - - 0x01FAD8 07:FAC8: 85 38     STA vPauseStatus                          ; CONSTANT - no pause
+C - - - - - 0x01FADA 07:FACA: 20 46 EF  JSR sub_EF46_switch_bank_4_p1             ;
+C - - - - - 0x01FADD 07:FACD: A5 39     LDA vGameInterruptEvent                   ;
+C - - - - - 0x01FADF 07:FACF: F0 1B     BEQ bra_FAEC_skip                         ; If vGameInterruptEvent isn't exist
+C - - - - - 0x01FAE1 07:FAD1: C9 E0     CMP #$E0                                  ;
+C - - - - - 0x01FAE3 07:FAD3: F0 17     BEQ bra_FAEC_skip                         ; If vGameInterruptEvent is 'to next level'
+C - - - - - 0x01FAE5 07:FAD5: C9 C0     CMP #$C0                                  ;
+C - - - - - 0x01FAE7 07:FAD7: F0 13     BEQ bra_FAEC_skip                         ; If vGameInterruptEvent is 'go into the corridor'
+C - - - - - 0x01FAE9 07:FAD9: C9 C1     CMP #$C1                                  ;
+C - - - - - 0x01FAEB 07:FADB: F0 55     BEQ bra_FB32_start_diving                 ; If vGameInterruptEvent is 'dive into the water'
+C - - - - - 0x01FAED 07:FADD: C9 C2     CMP #$C2                                  ;
+C - - - - - 0x01FAEF 07:FADF: F0 5A     BEQ bra_FB3B_get_out                      ; If vGameInterruptEvent is 'get out of the water'
+C - - - - - 0x01FAF1 07:FAE1: C9 C3     CMP #$C3                                  ;
+C - - - - - 0x01FAF3 07:FAE3: F0 53     BEQ bra_FB38_restore                      ; If vGameInterruptEvent is 'leave the unique room'
+C - - - - - 0x01FAF5 07:FAE5: C9 C4     CMP #$C4                                  ;
+C - - - - - 0x01FAF7 07:FAE7: F0 16     BEQ bra_FAFF_boss_is_defeated             ; If vGameInterruptEvent is 'to the cutscene of defeating the boss'
+C - - - - - 0x01FAF9 07:FAE9: 4C 41 FB  JMP loc_FB41_select_character_after_death ;
 
 bra_FAEC_skip:
 loc_FAEC_start_of_level:
@@ -9729,20 +9732,20 @@ C - - - - - 0x01FB0A 07:FAFA: A0 BF     LDY #$BF                                
 C - - - - - 0x01FB0C 07:FAFC: 84 6A     STY vScreenChrPosY                          ;
 C - - - - - 0x01FB0E 07:FAFE: 60        RTS                                         ;
 
-bra_FAFF:
-C - - - - - 0x01FB0F 07:FAFF: A4 5E     LDY v_no_level               ;
-C - - - - - 0x01FB11 07:FB01: C0 03     CPY #$03                     ; CONSTANT - the level 4
-C - - - - - 0x01FB13 07:FB03: F0 1A     BEQ bra_FB1F_last_level      ; If vNoLevel == 0x03
-C - - - - - 0x01FB15 07:FB05: A5 46     LDA vNoSubLevel
-C - - - - - 0x01FB17 07:FB07: 38        SEC
-C - - - - - 0x01FB18 07:FB08: E9 05     SBC #$05
-C - - - - - 0x01FB1A 07:FB0A: 85 46     STA vNoSubLevel
-C - - - - - 0x01FB1C 07:FB0C: B9 2F FB  LDA tbl_FB2F,Y
-C - - - - - 0x01FB1F 07:FB0F: 85 B7     STA vRoomExtraInfo
-C - - - - - 0x01FB21 07:FB11: 20 C7 C6  JSR sub_C6C7_update_room_with_message
-C - - - - - 0x01FB24 07:FB14: A5 3B     LDA vSharedGameStatus
-C - - - - - 0x01FB26 07:FB16: 09 02     ORA #$02
-C - - - - - 0x01FB28 07:FB18: 85 3B     STA vSharedGameStatus
+bra_FAFF_boss_is_defeated:
+C - - - - - 0x01FB0F 07:FAFF: A4 5E     LDY v_no_level                        ;
+C - - - - - 0x01FB11 07:FB01: C0 03     CPY #$03                              ; CONSTANT - the level 4
+C - - - - - 0x01FB13 07:FB03: F0 1A     BEQ bra_FB1F_last_level               ; If vNoLevel == 0x03
+C - - - - - 0x01FB15 07:FB05: A5 46     LDA vNoSubLevel                       ;
+C - - - - - 0x01FB17 07:FB07: 38        SEC                                   ;
+C - - - - - 0x01FB18 07:FB08: E9 05     SBC #$05                              ;
+C - - - - - 0x01FB1A 07:FB0A: 85 46     STA vNoSubLevel                       ; from the boss room to the NPC room (0x1F ~> 0x1A, 0x21 ~> 0x1C, 0x22 ~> 0x1D)
+C - - - - - 0x01FB1C 07:FB0C: B9 2F FB  LDA tbl_FB2F_NPC_indexes,Y            ;
+C - - - - - 0x01FB1F 07:FB0F: 85 B7     STA vRoomExtraInfo                    ;
+C - - - - - 0x01FB21 07:FB11: 20 C7 C6  JSR sub_C6C7_update_room_with_message ;
+C - - - - - 0x01FB24 07:FB14: A5 3B     LDA vSharedGameStatus                 ;
+C - - - - - 0x01FB26 07:FB16: 09 02     ORA #$02                              ; CONSTANT - the boss is defeated
+C - - - - - 0x01FB28 07:FB18: 85 3B     STA vSharedGameStatus                 ;
 loc_FB1A_initial_clear:
 C D 3 - - - 0x01FB2A 07:FB1A: A9 40     LDA #$40                              ; CONSTANT - the message is clearing
 C - - - - - 0x01FB2C 07:FB1C: 85 41     STA vNPCMessageStatus                 ;
@@ -9757,10 +9760,10 @@ C - - - - - 0x01FB38 07:FB28: A9 00     LDA #$00                     ; CONSTANT 
 C - - - - - 0x01FB3A 07:FB2A: 85 D8     STA vFinalSceneNo            ;
 C - - - - - 0x01FB3C 07:FB2C: 4C 1A FB  JMP loc_FB1A_initial_clear   ;
 
-tbl_FB2F:
-- D 3 - - - 0x01FB3F 07:FB2F: 03        .byte $03
-- D 3 - - - 0x01FB40 07:FB30: 09        .byte $09
-- D 3 - - - 0x01FB41 07:FB31: 04        .byte $04
+tbl_FB2F_NPC_indexes:
+- D 3 - - - 0x01FB3F 07:FB2F: 03        .byte $03    ; level 1, see tbl_ptr_rooms1_4_with_NPCs
+- D 3 - - - 0x01FB40 07:FB30: 09        .byte $09    ; level 2, see tbl_ptr_rooms2_10_with_NPCs
+- D 3 - - - 0x01FB41 07:FB31: 04        .byte $04    ; level 3, see tbl_ptr_rooms3_5_with_NPCs
 
 bra_FB32_start_diving:
 C - - - - - 0x01FB42 07:FB32: 20 47 FC  JSR sub_FC47_init_diving                 ;
@@ -9773,7 +9776,7 @@ bra_FB3B_get_out:
 C - - - - - 0x01FB4B 07:FB3B: 20 9C FC  JSR sub_FC9C_finish_diving               ;
 C - - - - - 0x01FB4E 07:FB3E: 4C EC FA  JMP loc_FAEC_start_of_level              ;
 
-loc_FB41:
+loc_FB41_select_character_after_death:
 C D 3 - - - 0x01FB51 07:FB41: A9 00     LDA #$00                                 ;
 C - - - - - 0x01FB53 07:FB43: 85 B7     STA vRoomExtraInfo                       ; clear
 C - - - - - 0x01FB55 07:FB45: A5 46     LDA vNoSubLevel                          ;

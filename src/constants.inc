@@ -50,9 +50,8 @@ BULLET_PROOF_VEST_IN_WHITE_BRIEFCASE   = $07
 v_CE5A_counter                = ram_0005
 vTempCounterC                 = ram_000C
 vTempCounter10                = ram_0010
-v_cache_reg_y                 = ram_0011
-vTempCounter11                = ram_0011 ; Intermediate counter
-vCacheRam_11                  = ram_0011 ;
+vCacheRam_11                  = ram_0011
+vNonUsed11                    = ram_0011
 v_temp_check_buttons          = ram_0012 ; This is a variable that stores the checked state of the button
 vTempCounter12                = ram_0012
 vCacheRam12                   = ram_0012 ;
@@ -132,6 +131,8 @@ vDamageStatus                 = ram_003A
 ; 0x20 - The character got damage from Zenigata (arrested)
 
 vSharedGameStatus             = ram_003B
+; Byte: XYZW KLMN
+; M - the boss is defeated
 ; Value (some the flags):
 ; 0x00 - In the game
 ; 0x01 - A screen with the message
@@ -335,25 +336,27 @@ vEnemyScore                   = ram_00A6 ; [0xA6-0xAC]
 vIndexSelectableChr           = ram_00AD ; Selectable character number in character selection mode
 vMainMenuGunYPos              = ram_00AD ;
 vEnemyHitBoxY                 = ram_00AD ; position Y on the screen, in pixel units
+vNonUsedAD                    = ram_00AD
 vCopyIndexSelectableChr       = ram_00AE ;
 vEnemyHitBoxX                 = ram_00AE ; position X on the screen, in pixel units
 vEnemyHitBoxH                 = ram_00AF ; height, in pixel units
 vEnemyHitBoxW                 = ram_00B0 ; width, in pixel units							  
 v_start_level                 = ram_00B1 ; The start level [0-3]
 vTmpHitBoxY                   = ram_00B1 ; position Y, in pixel units
-v_count_secret_hits           = ram_00B2 ; Stage select codes at the title screen
+vSecretHitIndex               = ram_00B2 ; Stage select codes at the title screen
 vTmpHitBoxX                   = ram_00B2 ; position X, in pixel units
 v_lock_secret_hits            = ram_00B3 ; Allow button to be pressed only when other buttons aren't pressed
 vTmpHitBoxH                   = ram_00B3 ; height, in pixel units
 v_offset_in_secret_codes      = ram_00B4
 vTmpHitBoxW                   = ram_00B4 ; width, in pixel units
+vNonUsedB5                    = ram_00B5
 vCurrentUniqueRoom            = ram_00B6
 ; Byte: 00UU 00RR
 ; UU - 0x01 for an unique room (NPC, briefcase, boss), else 0x00
 ; RR - 0x01 - NPC room (use with UU), 0x02 - briefcase room (use with UU), 0x03 - room with the boss
 
 vRoomExtraInfo                = ram_00B7
-; If it is the NPC room - the NPX index in tbl_ptr_roomsX_with_NPC
+; If it is the NPC room - the NPC index in tbl_ptr_roomsX_with_NPC
 ; If it is the room with briefcases - the table index in tbl_briefcases_indexes_on_the_levelX
 ; If it is the broken wall - the number + 1 of items in a wall
 ; If it is the checkpoint - 0x80 for secondary list, else main list
