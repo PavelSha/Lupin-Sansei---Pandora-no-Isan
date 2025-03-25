@@ -7,329 +7,333 @@
 
 ; 1 byte - low address
 ; 2 byte - %BBBAAAAA, where B - Bank data, A + 0x80 - high address
+; 3 byte - low address
+; 4 byte - %BBBAAAAA, where B - Bank data, A + 0x80 - high address
+; 5 byte - low address  (see $D274)
+; 6 byte - %BBBAAAAA, where B - Bank data, A + 0x80 - high address  (see $D274)
 ; screen 0 (level 3.0)
-- D 0 - - - 0x000010 00:8000: 00        .byte $00, $08   ; bank 00, page 01, $8800
-- D 0 - I - 0x000012 00:8002: 00        .byte $00, $14   ; bank 00, page 01, $9400
-- D 0 - I - 0x000014 00:8004: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D 0 - I - 0x000016 00:8006: AB 07     .word $07AB      ; $87AB
+- D 0 - - - 0x000010 00:8000: 00        .addr loc_level3_0_screen0_indexes - $8000   ; bank 00, page 01, $8800
+- D 0 - I - 0x000012 00:8002: 00        .addr loc_level3_0_screen0_attrs   - $8000   ; bank 00, page 01, $9400
+- D 0 - I - 0x000014 00:8004: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D 0 - I - 0x000016 00:8006: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen 1 (level 3.0)
-- D 0 - I - 0x000018 00:8008: C0        .byte $C0, $08   ; bank 00, page 01, $88C0
-- D 0 - I - 0x00001A 00:800A: 38        .byte $38, $14   ; bank 00, page 01, $9438
-- D 0 - I - 0x00001C 00:800C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D - - - - 0x00001E 00:800E: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000018 00:8008: C0        .addr loc_level3_0_screen1_indexes - $8000   ; bank 00, page 01, $88C0
+- D 0 - I - 0x00001A 00:800A: 38        .addr loc_level3_0_screen1_attrs   - $8000   ; bank 00, page 01, $9438
+- D 0 - I - 0x00001C 00:800C: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D - - - - 0x00001E 00:800E: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen 2 (level 3.0)
-- D 0 - I - 0x000020 00:8010: 80        .byte $80, $09   ; bank 00, page 01, $8980
-- D 0 - I - 0x000022 00:8012: 70        .byte $70, $14   ; bank 00, page 01, $9470
-- D 0 - I - 0x000024 00:8014: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D - - - - 0x000026 00:8016: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000020 00:8010: 80        .addr loc_level3_0_screen2_indexes - $8000   ; bank 00, page 01, $8980
+- D 0 - I - 0x000022 00:8012: 70        .addr loc_level3_0_screen2_attrs   - $8000   ; bank 00, page 01, $9470
+- D 0 - I - 0x000024 00:8014: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D - - - - 0x000026 00:8016: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen 3 (level 3.0)
-- D 0 - I - 0x000028 00:8018: 40        .byte $40, $0A   ; bank 00, page 01, $8A40
-- D 0 - I - 0x00002A 00:801A: A8        .byte $A8, $14   ; bank 00, page 01, $94A8
-- D 0 - I - 0x00002C 00:801C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D 0 - I - 0x00002E 00:801E: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000028 00:8018: 40        .addr loc_level3_0_screen3_indexes - $8000   ; bank 00, page 01, $8A40
+- D 0 - I - 0x00002A 00:801A: A8        .addr loc_level3_0_screen3_attrs   - $8000   ; bank 00, page 01, $94A8
+- D 0 - I - 0x00002C 00:801C: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D 0 - I - 0x00002E 00:801E: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen 4 (level 3.0)
-- D 0 - I - 0x000030 00:8020: 00        .byte $00, $0B   ; bank 00, page 01, $8B00
-- D 0 - I - 0x000032 00:8022: E0        .byte $E0, $14   ; bank 00, page 01, $94E0
-- D 0 - I - 0x000034 00:8024: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D 0 - I - 0x000036 00:8026: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000030 00:8020: 00        .addr loc_level3_0_screen4_indexes - $8000   ; bank 00, page 01, $8B00
+- D 0 - I - 0x000032 00:8022: E0        .addr loc_level3_0_screen4_attrs   - $8000   ; bank 00, page 01, $94E0
+- D 0 - I - 0x000034 00:8024: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D 0 - I - 0x000036 00:8026: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen 5 (level 3.0)
-- D 0 - I - 0x000038 00:8028: C0        .byte $C0, $0B   ; bank 00, page 01, $8BC0
-- D 0 - I - 0x00003A 00:802A: 18        .byte $18, $15   ; bank 00, page 01, $9518
-- D 0 - I - 0x00003C 00:802C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D - - - - 0x00003E 00:802E: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000038 00:8028: C0        .addr loc_level3_0_screen5_indexes - $8000   ; bank 00, page 01, $8BC0
+- D 0 - I - 0x00003A 00:802A: 18        .addr loc_level3_0_screen5_attrs   - $8000   ; bank 00, page 01, $9518
+- D 0 - I - 0x00003C 00:802C: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D - - - - 0x00003E 00:802E: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen 6 (level 3.0)
-- D 0 - I - 0x000040 00:8030: 80        .byte $80, $0C   ; bank 00, page 01, $8C80
-- D 0 - I - 0x000042 00:8032: 50        .byte $50, $15   ; bank 00, page 01, $9550
-- D 0 - I - 0x000044 00:8034: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D 0 - I - 0x000046 00:8036: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000040 00:8030: 80        .addr loc_level3_0_screen6_indexes - $8000   ; bank 00, page 01, $8C80
+- D 0 - I - 0x000042 00:8032: 50        .addr loc_level3_0_screen6_attrs   - $8000   ; bank 00, page 01, $9550
+- D 0 - I - 0x000044 00:8034: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D 0 - I - 0x000046 00:8036: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen 7 (level 3.0)
-- D 0 - I - 0x000048 00:8038: 40        .byte $40, $0D   ; bank 00, page 01, $8D40
-- D 0 - I - 0x00004A 00:803A: 88        .byte $88, $15   ; bank 00, page 01, $9588
-- D 0 - I - 0x00004C 00:803C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D 0 - I - 0x00004E 00:803E: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000048 00:8038: 40        .addr loc_level3_0_screen7_indexes - $8000   ; bank 00, page 01, $8D40
+- D 0 - I - 0x00004A 00:803A: 88        .addr loc_level3_0_screen7_attrs   - $8000   ; bank 00, page 01, $9588
+- D 0 - I - 0x00004C 00:803C: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D 0 - I - 0x00004E 00:803E: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen 8 (level 3.0)
-- D 0 - I - 0x000050 00:8040: 00        .byte $00, $0E   ; bank 00, page 01, $8E00
-- D 0 - I - 0x000052 00:8042: C0        .byte $C0, $15   ; bank 00, page 01, $95C0
-- D 0 - I - 0x000054 00:8044: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D 0 - I - 0x000056 00:8046: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000050 00:8040: 00        .addr loc_level3_0_screen8_indexes - $8000   ; bank 00, page 01, $8E00
+- D 0 - I - 0x000052 00:8042: C0        .addr loc_level3_0_screen8_attrs   - $8000   ; bank 00, page 01, $95C0
+- D 0 - I - 0x000054 00:8044: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D 0 - I - 0x000056 00:8046: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen 9 (level 3.0)
-- D 0 - I - 0x000058 00:8048: C0        .byte $C0, $0E   ; bank 00, page 01, $8EC0
-- D 0 - I - 0x00005A 00:804A: F8        .byte $F8, $15   ; bank 00, page 01, $95F8
-- D 0 - I - 0x00005C 00:804C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D - - - - 0x00005E 00:804E: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000058 00:8048: C0        .addr loc_level3_0_screen9_indexes - $8000   ; bank 00, page 01, $8EC0
+- D 0 - I - 0x00005A 00:804A: F8        .addr loc_level3_0_screen9_attrs   - $8000   ; bank 00, page 01, $95F8
+- D 0 - I - 0x00005C 00:804C: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D - - - - 0x00005E 00:804E: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen A (level 3.0)
-- D 0 - I - 0x000060 00:8050: 80        .byte $80, $0F   ; bank 00, page 01, $8F80
-- D 0 - I - 0x000062 00:8052: 30        .byte $30, $16   ; bank 00, page 01, $9630
-- D 0 - I - 0x000064 00:8054: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D - - - - 0x000066 00:8056: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000060 00:8050: 80        .addr loc_level3_0_screenA_indexes - $8000   ; bank 00, page 01, $8F80
+- D 0 - I - 0x000062 00:8052: 30        .addr loc_level3_0_screenA_attrs   - $8000   ; bank 00, page 01, $9630
+- D 0 - I - 0x000064 00:8054: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D - - - - 0x000066 00:8056: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen B (level 3.0)
-- D 0 - I - 0x000068 00:8058: 40        .byte $40, $10   ; bank 00, page 01, $9040
-- D 0 - I - 0x00006A 00:805A: 68        .byte $68, $16   ; bank 00, page 01, $9668
-- D 0 - I - 0x00006C 00:805C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D - - - - 0x00006E 00:805E: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000068 00:8058: 40        .addr loc_level3_0_screenB_indexes - $8000   ; bank 00, page 01, $9040
+- D 0 - I - 0x00006A 00:805A: 68        .addr loc_level3_0_screenB_attrs   - $8000   ; bank 00, page 01, $9668
+- D 0 - I - 0x00006C 00:805C: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D - - - - 0x00006E 00:805E: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen C (level 3.0)
-- D 0 - I - 0x000070 00:8060: 00        .byte $00, $11   ; bank 00, page 01, $9100
-- D 0 - I - 0x000072 00:8062: A0        .byte $A0, $16   ; bank 00, page 01, $96A0
-- D 0 - I - 0x000074 00:8064: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D 0 - I - 0x000076 00:8066: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000070 00:8060: 00        .addr loc_level3_0_screenC_indexes - $8000   ; bank 00, page 01, $9100
+- D 0 - I - 0x000072 00:8062: A0        .addr loc_level3_0_screenC_attrs   - $8000   ; bank 00, page 01, $96A0
+- D 0 - I - 0x000074 00:8064: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D 0 - I - 0x000076 00:8066: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen D (level 3.0)
-- D 0 - I - 0x000078 00:8068: C0        .byte $C0, $11   ; bank 00, page 01, $91C0
-- D 0 - I - 0x00007A 00:806A: D8        .byte $D8, $16   ; bank 00, page 01, $96D8
-- D 0 - I - 0x00007C 00:806C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D - - - - 0x00007E 00:806E: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000078 00:8068: C0        .addr loc_level3_0_screenD_indexes - $8000   ; bank 00, page 01, $91C0
+- D 0 - I - 0x00007A 00:806A: D8        .addr loc_level3_0_screenD_attrs   - $8000   ; bank 00, page 01, $96D8
+- D 0 - I - 0x00007C 00:806C: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D - - - - 0x00007E 00:806E: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen E (level 3.0)
-- D 0 - I - 0x000080 00:8070: 80        .byte $80, $12   ; bank 00, page 01, $9280
-- D 0 - I - 0x000082 00:8072: 10        .byte $10, $17   ; bank 00, page 01, $9710
-- D 0 - I - 0x000084 00:8074: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D 0 - I - 0x000086 00:8076: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000080 00:8070: 80        .addr loc_level3_0_screenE_indexes - $8000   ; bank 00, page 01, $9280
+- D 0 - I - 0x000082 00:8072: 10        .addr loc_level3_0_screenE_attrs   - $8000   ; bank 00, page 01, $9710
+- D 0 - I - 0x000084 00:8074: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D 0 - I - 0x000086 00:8076: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen F (level 3.0)
-- D 0 - I - 0x000088 00:8078: 40        .byte $40, $13   ; bank 00, page 01, $9340
-- D 0 - I - 0x00008A 00:807A: 48        .byte $48, $17   ; bank 00, page 01, $9748
-- D 0 - I - 0x00008C 00:807C: 80        .byte $80, $17   ; bank 00, page 01, $9780
-- D - - - - 0x00008E 00:807E: AB 07     .word $07AB      ; $87AB
+- D 0 - I - 0x000088 00:8078: 40        .addr loc_level3_0_screenF_indexes - $8000   ; bank 00, page 01, $9340
+- D 0 - I - 0x00008A 00:807A: 48        .addr loc_level3_0_screenF_attrs   - $8000   ; bank 00, page 01, $9748
+- D 0 - I - 0x00008C 00:807C: 80        .addr loc_level3_0_metatiles       - $8000   ; bank 00, page 01, $9780
+- D - - - - 0x00008E 00:807E: AB 07     .word tbl_CHR_ROM_Banks_3_0        - $8000   ; $87AB
 
 ; screen 2, 6, 3 (level 3.X)
-- D 0 - I - 0x000090 00:8080: 00        .byte $00, $20   ; bank 00, page 02, $8000
-- D 0 - I - 0x000092 00:8082: 80        .byte $80, $1A   ; bank 00, page 01, $9A80
-- D 0 - I - 0x000094 00:8084: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D 0 - I - 0x000096 00:8086: C3 07     .word $07C3      ; $87C3
+- D 0 - I - 0x000090 00:8080: 00        .addr loc_level3_X_screen_u00_indexes - $6000   ; bank 00, page 02, $8000
+- D 0 - I - 0x000092 00:8082: 80        .addr loc_level3_X_screen_u00_attrs   - $8000   ; bank 00, page 01, $9A80
+- D 0 - I - 0x000094 00:8084: 90        .addr loc_level3_X_metatiles          - $8000   ; bank 00, page 01, $9D90
+- D 0 - I - 0x000096 00:8086: C3 07     .word tbl_CHR_ROM_Banks_3_X           - $8000   ; $87C3
 
 ; screen 6, 3, 1, 6 (level 3.X)
-- D 0 - I - 0x000098 00:8088: C0        .byte $C0, $20   ; bank 00, page 02, $80C0
-- D 0 - I - 0x00009A 00:808A: B8        .byte $B8, $1A   ; bank 00, page 01, $9AB8
-- D 0 - I - 0x00009C 00:808C: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D 0 - I - 0x00009E 00:808E: C3 07     .word $07C3      ; $87C3
+- D 0 - I - 0x000098 00:8088: C0        .addr loc_level3_X_screen_u01_indexes - $6000   ; bank 00, page 02, $80C0
+- D 0 - I - 0x00009A 00:808A: B8        .addr loc_level3_X_screen_u01_attrs   - $8000   ; bank 00, page 01, $9AB8
+- D 0 - I - 0x00009C 00:808C: 90        .addr loc_level3_X_metatiles          - $8000   ; bank 00, page 01, $9D90
+- D 0 - I - 0x00009E 00:808E: C3 07     .word tbl_CHR_ROM_Banks_3_X           - $8000   ; $87C3
 
 ; screen 0, 3, 4, 2 (level 3.X)
-- D 0 - I - 0x0000A0 00:8090: 80        .byte $80, $21   ; bank 00, page 02, $8180
-- D 0 - I - 0x0000A2 00:8092: F0        .byte $F0, $1A   ; bank 00, page 01, $9AF0
-- D 0 - I - 0x0000A4 00:8094: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D 0 - I - 0x0000A6 00:8096: C3 07     .word $07C3      ; $87C3
+- D 0 - I - 0x0000A0 00:8090: 80        .addr loc_level3_X_screen_u02_indexes - $6000   ; bank 00, page 02, $8180
+- D 0 - I - 0x0000A2 00:8092: F0        .addr loc_level3_X_screen_u02_attrs   - $8000   ; bank 00, page 01, $9AF0
+- D 0 - I - 0x0000A4 00:8094: 90        .addr loc_level3_X_metatiles          - $8000   ; bank 00, page 01, $9D90
+- D 0 - I - 0x0000A6 00:8096: C3 07     .word tbl_CHR_ROM_Banks_3_X           - $8000   ; $87C3
 
 ; screen 1, 5, 2, 5, 4, 5 (level 3.X)
-- D 0 - I - 0x0000A8 00:8098: 40        .byte $40, $22   ; bank 00, page 02, $8240
-- D 0 - I - 0x0000AA 00:809A: 28        .byte $28, $1B   ; bank 00, page 01, $9B28
-- D 0 - I - 0x0000AC 00:809C: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D 0 - I - 0x0000AE 00:809E: C3 07     .word $07C3      ; $87C3
+- D 0 - I - 0x0000A8 00:8098: 40        .addr loc_level3_X_screen_u03_indexes - $6000   ; bank 00, page 02, $8240
+- D 0 - I - 0x0000AA 00:809A: 28        .addr loc_level3_X_screen_u03_attrs   - $8000   ; bank 00, page 01, $9B28
+- D 0 - I - 0x0000AC 00:809C: 90        .addr loc_level3_X_metatiles          - $8000   ; bank 00, page 01, $9D90
+- D 0 - I - 0x0000AE 00:809E: C3 07     .word tbl_CHR_ROM_Banks_3_X           - $8000   ; $87C3
 
 ; screen 4, 6, 2 (level 3.X)
-- D 0 - I - 0x0000B0 00:80A0: 00        .byte $00, $23   ; bank 00, page 02, $8300
-- D 0 - I - 0x0000B2 00:80A2: 60        .byte $60, $1B   ; bank 00, page 01, $9B60
-- D 0 - I - 0x0000B4 00:80A4: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D 0 - I - 0x0000B6 00:80A6: C3 07     .word $07C3      ; $87C3
+- D 0 - I - 0x0000B0 00:80A0: 00        .addr loc_level3_X_screen_u04_indexes - $6000   ; bank 00, page 02, $8300
+- D 0 - I - 0x0000B2 00:80A2: 60        .addr loc_level3_X_screen_u04_attrs   - $8000   ; bank 00, page 01, $9B60
+- D 0 - I - 0x0000B4 00:80A4: 90        .addr loc_level3_X_metatiles          - $8000   ; bank 00, page 01, $9D90
+- D 0 - I - 0x0000B6 00:80A6: C3 07     .word tbl_CHR_ROM_Banks_3_X           - $8000   ; $87C3
 
 ; screen 7, 7 (level 3.X)
-- D 0 - I - 0x0000B8 00:80A8: C0        .byte $C0, $23   ; bank 00, page 02, $83C0
-- D 0 - I - 0x0000BA 00:80AA: 98        .byte $98, $1B   ; bank 00, page 01, $9B98
-- D 0 - I - 0x0000BC 00:80AC: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D 0 - I - 0x0000BE 00:80AE: C3 07     .word $07C3      ; $87C3
+- D 0 - I - 0x0000B8 00:80A8: C0        .addr loc_level3_X_screen_u05_indexes - $6000   ; bank 00, page 02, $83C0
+- D 0 - I - 0x0000BA 00:80AA: 98        .addr loc_level3_X_screen_u05_attrs   - $8000   ; bank 00, page 01, $9B98
+- D 0 - I - 0x0000BC 00:80AC: 90        .addr loc_level3_X_metatiles          - $8000   ; bank 00, page 01, $9D90
+- D 0 - I - 0x0000BE 00:80AE: C3 07     .word tbl_CHR_ROM_Banks_3_X           - $8000   ; $87C3
 
 ; screen 0, 0 (level 3.X)
-- D 0 - I - 0x0000C0 00:80B0: 80        .byte $80, $24   ; bank 00, page 02, $8480
-- D 0 - I - 0x0000C2 00:80B2: D0        .byte $D0, $1B   ; bank 00, page 01, $9BD0
-- D 0 - I - 0x0000C4 00:80B4: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D 0 - I - 0x0000C6 00:80B6: C3 07     .word $07C3      ; $87C3
+- D 0 - I - 0x0000C0 00:80B0: 80        .addr loc_level3_X_screen_u06_indexes - $6000   ; bank 00, page 02, $8480
+- D 0 - I - 0x0000C2 00:80B2: D0        .addr loc_level3_X_screen_u06_attrs   - $8000   ; bank 00, page 01, $9BD0
+- D 0 - I - 0x0000C4 00:80B4: 90        .addr loc_level3_X_metatiles          - $8000   ; bank 00, page 01, $9D90
+- D 0 - I - 0x0000C6 00:80B6: C3 07     .word tbl_CHR_ROM_Banks_3_X           - $8000   ; $87C3
 
 ; screen 1, 0, 3 (level 3.X)
-- D 0 - I - 0x0000C8 00:80B8: 40        .byte $40, $25   ; bank 00, page 02, $8540
-- D 0 - I - 0x0000CA 00:80BA: 08        .byte $08, $1C   ; bank 00, page 01, $9C08
-- D 0 - I - 0x0000CC 00:80BC: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D 0 - I - 0x0000CE 00:80BE: C3 07     .word $07C3      ; $87C3
+- D 0 - I - 0x0000C8 00:80B8: 40        .addr loc_level3_X_screen_u07_indexes - $6000   ; bank 00, page 02, $8540
+- D 0 - I - 0x0000CA 00:80BA: 08        .addr loc_level3_X_screen_u07_attrs   - $8000   ; bank 00, page 01, $9C08
+- D 0 - I - 0x0000CC 00:80BC: 90        .addr loc_level3_X_metatiles          - $8000   ; bank 00, page 01, $9D90
+- D 0 - I - 0x0000CE 00:80BE: C3 07     .word tbl_CHR_ROM_Banks_3_X           - $8000   ; $87C3
 
 ; screen 7, 7 (level 3.X)
-- D 0 - I - 0x0000D0 00:80C0: 00        .byte $00, $26   ; bank 00, page 02, $8600
-- D 0 - I - 0x0000D2 00:80C2: 40        .byte $40, $1C   ; bank 00, page 01, $9C40
-- D 0 - I - 0x0000D4 00:80C4: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D 0 - I - 0x0000D6 00:80C6: C3 07     .word $07C3      ; $87C3
+- D 0 - I - 0x0000D0 00:80C0: 00        .addr loc_level3_X_screen_u08_indexes - $6000   ; bank 00, page 02, $8600
+- D 0 - I - 0x0000D2 00:80C2: 40        .addr loc_level3_X_screen_u08_attrs   - $8000   ; bank 00, page 01, $9C40
+- D 0 - I - 0x0000D4 00:80C4: 90        .addr loc_level3_X_metatiles          - $8000   ; bank 00, page 01, $9D90
+- D 0 - I - 0x0000D6 00:80C6: C3 07     .word tbl_CHR_ROM_Banks_3_X           - $8000   ; $87C3
 
 ; screen 5, 1, 4 (level 3.X)
-- D 0 - I - 0x0000D8 00:80C8: C0        .byte $C0, $26   ; bank 00, page 02, $86C0
-- D 0 - I - 0x0000DA 00:80CA: 78        .byte $78, $1C   ; bank 00, page 01, $9C78
-- D 0 - I - 0x0000DC 00:80CC: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D 0 - I - 0x0000DE 00:80CE: C3 07     .word $07C3      ; $87C3
+- D 0 - I - 0x0000D8 00:80C8: C0        .addr loc_level3_X_screen_u09_indexes - $6000   ; bank 00, page 02, $86C0
+- D 0 - I - 0x0000DA 00:80CA: 78        .addr loc_level3_X_screen_u09_attrs   - $8000   ; bank 00, page 01, $9C78
+- D 0 - I - 0x0000DC 00:80CC: 90        .addr loc_level3_X_metatiles          - $8000   ; bank 00, page 01, $9D90
+- D 0 - I - 0x0000DE 00:80CE: C3 07     .word tbl_CHR_ROM_Banks_3_X           - $8000   ; $87C3
 
 ; screen 0 (level 2, outside)
-- D 0 - I - 0x0000E0 00:80D0: 80        .byte $80, $2A   ; bank 00, page 02, $8A80
-- D 0 - I - 0x0000E2 00:80D2: 80        .byte $80, $36   ; bank 00, page 02, $9680
-- D 0 - I - 0x0000E4 00:80D4: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D 0 - I - 0x0000E6 00:80D6: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x0000E0 00:80D0: 80        .addr loc_level2_outside_screen0_indexes - $6000   ; bank 00, page 02, $8A80
+- D 0 - I - 0x0000E2 00:80D2: 80        .addr loc_level2_outside_screen0_attrs   - $6000   ; bank 00, page 02, $9680
+- D 0 - I - 0x0000E4 00:80D4: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D 0 - I - 0x0000E6 00:80D6: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen 1 (level 2, outside)
-- D 0 - I - 0x0000E8 00:80D8: 40        .byte $40, $2B   ; bank 00, page 02, $8B40
-- D 0 - I - 0x0000EA 00:80DA: B8        .byte $B8, $36   ; bank 00, page 02, $96B8
-- D 0 - I - 0x0000EC 00:80DC: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D 0 - I - 0x0000EE 00:80DE: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x0000E8 00:80D8: 40        .addr loc_level2_outside_screen1_indexes - $6000   ; bank 00, page 02, $8B40
+- D 0 - I - 0x0000EA 00:80DA: B8        .addr loc_level2_outside_screen1_attrs   - $6000   ; bank 00, page 02, $96B8
+- D 0 - I - 0x0000EC 00:80DC: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D 0 - I - 0x0000EE 00:80DE: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen 2 (level 2, outside)
-- D 0 - I - 0x0000F0 00:80E0: 00        .byte $00, $2C   ; bank 00, page 02, $8C00
-- D 0 - I - 0x0000F2 00:80E2: F0        .byte $F0, $36   ; bank 00, page 02, $96F0
-- D 0 - I - 0x0000F4 00:80E4: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D 0 - I - 0x0000F6 00:80E6: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x0000F0 00:80E0: 00        .addr loc_level2_outside_screen2_indexes - $6000   ; bank 00, page 02, $8C00
+- D 0 - I - 0x0000F2 00:80E2: F0        .addr loc_level2_outside_screen2_attrs   - $6000   ; bank 00, page 02, $96F0
+- D 0 - I - 0x0000F4 00:80E4: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D 0 - I - 0x0000F6 00:80E6: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen 3 (level 2, outside)
-- D 0 - I - 0x0000F8 00:80E8: C0        .byte $C0, $2C   ; bank 00, page 02, $8CC0
-- D 0 - I - 0x0000FA 00:80EA: 28        .byte $28, $37   ; bank 00, page 02, $9728
-- D 0 - I - 0x0000FC 00:80EC: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D 0 - I - 0x0000FE 00:80EE: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x0000F8 00:80E8: C0        .addr loc_level2_outside_screen3_indexes - $6000   ; bank 00, page 02, $8CC0
+- D 0 - I - 0x0000FA 00:80EA: 28        .addr loc_level2_outside_screen3_attrs   - $6000   ; bank 00, page 02, $9728
+- D 0 - I - 0x0000FC 00:80EC: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D 0 - I - 0x0000FE 00:80EE: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen 4 (level 2, outside)
-- D 0 - I - 0x000100 00:80F0: 80        .byte $80, $2D   ; bank 00, page 02, $8D80
-- D 0 - I - 0x000102 00:80F2: 60        .byte $60, $37   ; bank 00, page 02, $9760
-- D 0 - I - 0x000104 00:80F4: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D - - - - 0x000106 00:80F6: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x000100 00:80F0: 80        .addr loc_level2_outside_screen4_indexes - $6000   ; bank 00, page 02, $8D80
+- D 0 - I - 0x000102 00:80F2: 60        .addr loc_level2_outside_screen4_attrs   - $6000   ; bank 00, page 02, $9760
+- D 0 - I - 0x000104 00:80F4: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D - - - - 0x000106 00:80F6: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen 5 (level 2, outside)
-- D 0 - I - 0x000108 00:80F8: 40        .byte $40, $2E   ; bank 00, page 02, $8E40
-- D 0 - I - 0x00010A 00:80FA: 98        .byte $98, $37   ; bank 00, page 02, $9798
-- D 0 - I - 0x00010C 00:80FC: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D 0 - I - 0x00010E 00:80FE: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x000108 00:80F8: 40        .addr loc_level2_outside_screen5_indexes - $6000   ; bank 00, page 02, $8E40
+- D 0 - I - 0x00010A 00:80FA: 98        .addr loc_level2_outside_screen5_attrs   - $6000   ; bank 00, page 02, $9798
+- D 0 - I - 0x00010C 00:80FC: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D 0 - I - 0x00010E 00:80FE: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen 6 (level 2, outside)
-- D 0 - I - 0x000110 00:8100: 00        .byte $00, $2F   ; bank 00, page 02, $8F00
-- D 0 - I - 0x000112 00:8102: D0        .byte $D0, $37   ; bank 00, page 02, $97D0
-- D 0 - I - 0x000114 00:8104: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D 0 - I - 0x000116 00:8106: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x000110 00:8100: 00        .addr loc_level2_outside_screen6_indexes - $6000   ; bank 00, page 02, $8F00
+- D 0 - I - 0x000112 00:8102: D0        .addr loc_level2_outside_screen6_attrs   - $6000   ; bank 00, page 02, $97D0
+- D 0 - I - 0x000114 00:8104: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D 0 - I - 0x000116 00:8106: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen 7 (level 2, outside)
-- D 0 - I - 0x000118 00:8108: C0        .byte $C0, $2F   ; bank 00, page 02, $8FC0
-- D 0 - I - 0x00011A 00:810A: 08        .byte $08, $38   ; bank 00, page 02, $9808
-- D 0 - I - 0x00011C 00:810C: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D - - - - 0x00011E 00:810E: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x000118 00:8108: C0        .addr loc_level2_outside_screen7_indexes - $6000   ; bank 00, page 02, $8FC0
+- D 0 - I - 0x00011A 00:810A: 08        .addr loc_level2_outside_screen7_attrs   - $6000   ; bank 00, page 02, $9808
+- D 0 - I - 0x00011C 00:810C: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D - - - - 0x00011E 00:810E: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen 8 (level 2, outside)
-- D 0 - I - 0x000120 00:8110: 80        .byte $80, $30   ; bank 00, page 02, $9080
-- D 0 - I - 0x000122 00:8112: 40        .byte $40, $38   ; bank 00, page 02, $9840
-- D 0 - I - 0x000124 00:8114: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D - - - - 0x000126 00:8116: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x000120 00:8110: 80        .addr loc_level2_outside_screen8_indexes - $6000   ; bank 00, page 02, $9080
+- D 0 - I - 0x000122 00:8112: 40        .addr loc_level2_outside_screen8_attrs   - $6000   ; bank 00, page 02, $9840
+- D 0 - I - 0x000124 00:8114: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D - - - - 0x000126 00:8116: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen 9 (level 2, outside)
-- D 0 - I - 0x000128 00:8118: 40        .byte $40, $31   ; bank 00, page 02, $9140
-- D 0 - I - 0x00012A 00:811A: 78        .byte $78, $38   ; bank 00, page 02, $9878
-- D 0 - I - 0x00012C 00:811C: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D - - - - 0x00012E 00:811E: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x000128 00:8118: 40        .addr loc_level2_outside_screen9_indexes - $6000   ; bank 00, page 02, $9140
+- D 0 - I - 0x00012A 00:811A: 78        .addr loc_level2_outside_screen9_attrs   - $6000   ; bank 00, page 02, $9878
+- D 0 - I - 0x00012C 00:811C: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D - - - - 0x00012E 00:811E: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen A (level 2, outside)
-- D 0 - I - 0x000130 00:8120: 00        .byte $00, $32   ; bank 00, page 02, $9200
-- D 0 - I - 0x000132 00:8122: B0        .byte $B0, $38   ; bank 00, page 02, $98B0
-- D 0 - I - 0x000134 00:8124: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D 0 - I - 0x000136 00:8126: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x000130 00:8120: 00        .addr loc_level2_outside_screenA_indexes - $6000   ; bank 00, page 02, $9200
+- D 0 - I - 0x000132 00:8122: B0        .addr loc_level2_outside_screenA_attrs   - $6000   ; bank 00, page 02, $98B0
+- D 0 - I - 0x000134 00:8124: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D 0 - I - 0x000136 00:8126: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen B (level 2, outside)
-- D 0 - I - 0x000138 00:8128: C0        .byte $C0, $32   ; bank 00, page 02, $92C0
-- D 0 - I - 0x00013A 00:812A: E0        .byte $E0, $38   ; bank 00, page 02, $98E0
-- D 0 - I - 0x00013C 00:812C: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D 0 - I - 0x00013E 00:812E: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x000138 00:8128: C0        .addr loc_level2_outside_screenB_indexes - $6000   ; bank 00, page 02, $92C0
+- D 0 - I - 0x00013A 00:812A: E0        .addr loc_level2_outside_screenB_attrs   - $6000   ; bank 00, page 02, $98E0
+- D 0 - I - 0x00013C 00:812C: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D 0 - I - 0x00013E 00:812E: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen C (level 2, outside)
-- D 0 - I - 0x000140 00:8130: 80        .byte $80, $33   ; bank 00, page 02, $9380
-- D 0 - I - 0x000142 00:8132: 18        .byte $18, $39   ; bank 00, page 02, $9918
-- D 0 - I - 0x000144 00:8134: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D 0 - I - 0x000146 00:8136: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x000140 00:8130: 80        .addr loc_level2_outside_screenC_indexes - $6000   ; bank 00, page 02, $9380
+- D 0 - I - 0x000142 00:8132: 18        .addr loc_level2_outside_screenC_attrs   - $6000   ; bank 00, page 02, $9918
+- D 0 - I - 0x000144 00:8134: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D 0 - I - 0x000146 00:8136: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen D (level 2, outside)
-- D 0 - I - 0x000148 00:8138: 40        .byte $40, $34   ; bank 00, page 02, $9440
-- D 0 - I - 0x00014A 00:813A: 50        .byte $50, $39   ; bank 00, page 02, $9950
-- D 0 - I - 0x00014C 00:813C: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D 0 - I - 0x00014E 00:813E: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x000148 00:8138: 40        .addr loc_level2_outside_screenD_indexes - $6000   ; bank 00, page 02, $9440
+- D 0 - I - 0x00014A 00:813A: 50        .addr loc_level2_outside_screenD_attrs   - $6000   ; bank 00, page 02, $9950
+- D 0 - I - 0x00014C 00:813C: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D 0 - I - 0x00014E 00:813E: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen E (level 2, outside)
-- D 0 - I - 0x000150 00:8140: 00        .byte $00, $35   ; bank 00, page 02, $9500
-- D 0 - I - 0x000152 00:8142: 88        .byte $88, $39   ; bank 00, page 02, $9988
-- D 0 - I - 0x000154 00:8144: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D 0 - I - 0x000156 00:8146: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x000150 00:8140: 00        .addr loc_level2_outside_screenE_indexes - $6000   ; bank 00, page 02, $9500
+- D 0 - I - 0x000152 00:8142: 88        .addr loc_level2_outside_screenE_attrs   - $6000   ; bank 00, page 02, $9988
+- D 0 - I - 0x000154 00:8144: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D 0 - I - 0x000156 00:8146: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen F (level 2, outside)
-- D 0 - I - 0x000158 00:8148: C0        .byte $C0, $35   ; bank 00, page 02, $95C0
-- D 0 - I - 0x00015A 00:814A: C0        .byte $C0, $39   ; bank 00, page 02, $99C0
-- D 0 - I - 0x00015C 00:814C: F8        .byte $F8, $39   ; bank 00, page 02, $99F8
-- D 0 - I - 0x00015E 00:814E: B1 07     .word $07B1      ; $87B1
+- D 0 - I - 0x000158 00:8148: C0        .addr loc_level2_outside_screenF_indexes - $6000   ; bank 00, page 02, $95C0
+- D 0 - I - 0x00015A 00:814A: C0        .addr loc_level2_outside_screenF_attrs   - $6000   ; bank 00, page 02, $99C0
+- D 0 - I - 0x00015C 00:814C: F8        .addr loc_level2_outside_metatiles       - $6000   ; bank 00, page 02, $99F8
+- D 0 - I - 0x00015E 00:814E: B1 07     .word tbl_CHR_ROM_Banks_2_outside        - $8000   ; $87B1
 
 ; screen 0, 7, 0, 0, 7 (level 2, inside)
-- D 0 - I - 0x000160 00:8150: 80        .byte $80, $40   ; bank 01, page 01, $8080
-- D 0 - I - 0x000162 00:8152: 80        .byte $80, $4C   ; bank 01, page 01, $8C80
-- D 0 - I - 0x000164 00:8154: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x000166 00:8156: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x000160 00:8150: 80        .addr loc_level2_inside_screen_u00_indexes - $4000   ; bank 01, page 01, $8080
+- D 0 - I - 0x000162 00:8152: 80        .addr loc_level2_inside_screen_u00_attrs   - $4000   ; bank 01, page 01, $8C80
+- D 0 - I - 0x000164 00:8154: 00        .addr loc_level2_inside_metatiles          - $6000   ; bank 00, page 02, $9E00
+- D 0 - I - 0x000166 00:8156: C9 07     .word tbl_CHR_ROM_Banks_2_inside           - $8000   ; $87C9
 
 ; screen 6, 1, 5, 7, 4 (level 2, inside)
-- D 0 - I - 0x000168 00:8158: 40        .byte $40, $41   ; bank 01, page 01, $8140
-- D 0 - I - 0x00016A 00:815A: B0        .byte $B0, $4C   ; bank 01, page 01, $8CB0
-- D 0 - I - 0x00016C 00:815C: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x00016E 00:815E: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x000168 00:8158: 40        .addr loc_level2_inside_screen_u01_indexes - $4000   ; bank 01, page 01, $8140
+- D 0 - I - 0x00016A 00:815A: B0        .addr loc_level2_inside_screen_u01_attrs   - $4000   ; bank 01, page 01, $8CB0
+- D 0 - I - 0x00016C 00:815C: 00        .addr loc_level2_inside_metatiles          - $6000   ; bank 00, page 02, $9E00
+- D 0 - I - 0x00016E 00:815E: C9 07     .word tbl_CHR_ROM_Banks_2_inside           - $8000   ; $87C9
 
 ; screen 4, 4, 2 (level 2, inside)
-- D 0 - I - 0x000170 00:8160: 00        .byte $00, $42   ; bank 01, page 01, $8200
-- D 0 - I - 0x000172 00:8162: E0        .byte $E0, $4C   ; bank 01, page 01, $8CE0
-- D 0 - I - 0x000174 00:8164: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x000176 00:8166: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x000170 00:8160: 00        .addr loc_level2_inside_screen_u02_indexes - $4000   ; bank 01, page 01, $8200
+- D 0 - I - 0x000172 00:8162: E0        .addr loc_level2_inside_screen_u02_attrs   - $4000   ; bank 01, page 01, $8CE0
+- D 0 - I - 0x000174 00:8164: 00        .addr loc_level2_inside_metatiles          - $6000   ; bank 00, page 02, $9E00
+- D 0 - I - 0x000176 00:8166: C9 07     .word tbl_CHR_ROM_Banks_2_inside           - $8000   ; $87C9
 
 ; screen 1, 3, 3, 6, 3, 5 (level 2, inside)
-- D 0 - I - 0x000178 00:8168: C0        .byte $C0, $42   ; bank 01, page 01, $82C0
-- D 0 - I - 0x00017A 00:816A: 10        .byte $10, $4D   ; bank 01, page 01, $8D10
-- D 0 - I - 0x00017C 00:816C: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x00017E 00:816E: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x000178 00:8168: C0        .addr loc_level2_inside_screen_u03_indexes - $4000   ; bank 01, page 01, $82C0
+- D 0 - I - 0x00017A 00:816A: 10        .addr loc_level2_inside_screen_u03_attrs   - $4000   ; bank 01, page 01, $8D10
+- D 0 - I - 0x00017C 00:816C: 00        .addr loc_level2_inside_metatiles          - $6000   ; bank 00, page 02, $9E00
+- D 0 - I - 0x00017E 00:816E: C9 07     .word tbl_CHR_ROM_Banks_2_inside           - $8000   ; $87C9
 
 ; screen 2, 5, 2, 1, 6 (level 2, inside)
-- D 0 - I - 0x000180 00:8170: 80        .byte $80, $43   ; bank 01, page 01, $8380
-- D 0 - I - 0x000182 00:8172: 40        .byte $40, $4D   ; bank 01, page 01, $8D40
-- D 0 - I - 0x000184 00:8174: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x000186 00:8176: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x000180 00:8170: 80        .addr loc_level2_inside_screen_u04_indexes - $4000   ; bank 01, page 01, $8380
+- D 0 - I - 0x000182 00:8172: 40        .addr loc_level2_inside_screen_u04_attrs   - $4000   ; bank 01, page 01, $8D40
+- D 0 - I - 0x000184 00:8174: 00        .addr loc_level2_inside_metatiles          - $6000   ; bank 00, page 02, $9E00
+- D 0 - I - 0x000186 00:8176: C9 07     .word tbl_CHR_ROM_Banks_2_inside           - $8000   ; $87C9
 
 ; screen 0, 0, 7, 7 (level 2, inside)
-- D 0 - I - 0x000188 00:8178: 40        .byte $40, $44   ; bank 01, page 01, $8440
-- D 0 - I - 0x00018A 00:817A: 70        .byte $70, $4D   ; bank 01, page 01, $8D70
-- D 0 - I - 0x00018C 00:817C: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x00018E 00:817E: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x000188 00:8178: 40        .addr loc_level2_inside_screen_u05_indexes - $4000   ; bank 01, page 01, $8440
+- D 0 - I - 0x00018A 00:817A: 70        .addr loc_level2_inside_screen_u05_attrs   - $4000   ; bank 01, page 01, $8D70
+- D 0 - I - 0x00018C 00:817C: 00        .addr loc_level2_inside_metatiles          - $6000   ; bank 00, page 02, $9E00
+- D 0 - I - 0x00018E 00:817E: C9 07     .word tbl_CHR_ROM_Banks_2_inside           - $8000   ; $87C9
 
 ; screen 7, 0, 0, 0 (level 2, inside)
-- D 0 - I - 0x000190 00:8180: 00        .byte $00, $45   ; bank 01, page 01, $8500
-- D 0 - I - 0x000192 00:8182: A0        .byte $A0, $4D   ; bank 01, page 01, $8DA0
-- D 0 - I - 0x000194 00:8184: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x000196 00:8186: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x000190 00:8180: 00        .addr loc_level2_inside_screen_u06_indexes - $4000   ; bank 01, page 01, $8500
+- D 0 - I - 0x000192 00:8182: A0        .addr loc_level2_inside_screen_u06_attrs   - $4000   ; bank 01, page 01, $8DA0
+- D 0 - I - 0x000194 00:8184: 00        .addr loc_level2_inside_metatiles          - $6000   ; bank 00, page 02, $9E00
+- D 0 - I - 0x000196 00:8186: C9 07     .word tbl_CHR_ROM_Banks_2_inside           - $8000   ; $87C9
 
 ; screen 3, 1, 7, 0, 3, 5, 7, 1, 3, 5, 4 (level 2, inside)
-- D 0 - I - 0x000198 00:8188: C0        .byte $C0, $45   ; bank 01, page 01, $85C0
-- D 0 - I - 0x00019A 00:818A: D0        .byte $D0, $4D   ; bank 01, page 01, $8DD0
-- D 0 - I - 0x00019C 00:818C: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x00019E 00:818E: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x000198 00:8188: C0        .addr loc_level2_inside_screen_u07_indexes - $4000   ; bank 01, page 01, $85C0
+- D 0 - I - 0x00019A 00:818A: D0        .addr loc_level2_inside_screen_u07_attrs   - $4000   ; bank 01, page 01, $8DD0
+- D 0 - I - 0x00019C 00:818C: 00        .addr loc_level2_inside_metatiles          - $6000   ; bank 00, page 02, $9E00
+- D 0 - I - 0x00019E 00:818E: C9 07     .word tbl_CHR_ROM_Banks_2_inside           - $8000   ; $87C9
 
 ; screen 1, 5, 6, 1, 6, 6 (level 2, inside)
-- D 0 - I - 0x0001A0 00:8190: 80        .byte $80, $46   ; bank 01, page 01, $8680
-- D 0 - I - 0x0001A2 00:8192: 00        .byte $00, $4E   ; bank 01, page 01, $8E00
-- D 0 - I - 0x0001A4 00:8194: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x0001A6 00:8196: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x0001A0 00:8190: 80        .addr loc_level2_inside_screen_u08_indexes - $4000   ; bank 01, page 01, $8680
+- D 0 - I - 0x0001A2 00:8192: 00        .addr loc_level2_inside_screen_u08_attrs   - $4000   ; bank 01, page 01, $8E00
+- D 0 - I - 0x0001A4 00:8194: 00        .addr loc_level2_inside_metatiles          - $6000   ; bank 00, page 02, $9E00
+- D 0 - I - 0x0001A6 00:8196: C9 07     .word tbl_CHR_ROM_Banks_2_inside           - $8000   ; $87C9
 
 ; screen 6, 2, 5, 4, 2, 1, 3, 6 (level 2, inside)
-- D 0 - I - 0x0001A8 00:8198: 40        .byte $40, $47   ; bank 01, page 01, $8740
-- D 0 - I - 0x0001AA 00:819A: 30        .byte $30, $4E   ; bank 01, page 01, $8E30
-- D 0 - I - 0x0001AC 00:819C: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x0001AE 00:819E: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x0001A8 00:8198: 40        .addr loc_level2_inside_screen_u09_indexes - $4000   ; bank 01, page 01, $8740
+- D 0 - I - 0x0001AA 00:819A: 30        .addr loc_level2_inside_screen_u09_attrs   - $4000   ; bank 01, page 01, $8E30
+- D 0 - I - 0x0001AC 00:819C: 00        .addr loc_level2_inside_metatiles          - $6000   ; bank 00, page 02, $9E00
+- D 0 - I - 0x0001AE 00:819E: C9 07     .word tbl_CHR_ROM_Banks_2_inside           - $8000   ; $87C9
 
 ; screen 3, 2 (level 2, inside)
-- D 0 - I - 0x0001B0 00:81A0: 00        .byte $00, $48   ; bank 01, page 01, $8800
-- D 0 - I - 0x0001B2 00:81A2: 60        .byte $60, $4E   ; bank 01, page 01, $8E60
-- D 0 - I - 0x0001B4 00:81A4: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x0001B6 00:81A6: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x0001B0 00:81A0: 00        .addr loc_level2_inside_screen_u10_indexes - $4000   ; bank 01, page 01, $8800
+- D 0 - I - 0x0001B2 00:81A2: 60        .addr loc_level2_inside_screen_u10_attrs   - $4000   ; bank 01, page 01, $8E60
+- D 0 - I - 0x0001B4 00:81A4: 00        .addr loc_level2_inside_metatiles          - $6000   ; bank 00, page 02, $9E00
+- D 0 - I - 0x0001B6 00:81A6: C9 07     .word tbl_CHR_ROM_Banks_2_inside           - $8000   ; $87C9
 
 ; screen 2, 4, 4, 2, 4, 5, 7 (level 2, inside)
-- D 0 - I - 0x0001B8 00:81A8: C0        .byte $C0, $48   ; bank 01, page 01, $88C0
-- D 0 - I - 0x0001BA 00:81AA: 90        .byte $90, $4E   ; bank 01, page 01, $8E90
-- D 0 - I - 0x0001BC 00:81AC: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x0001BE 00:81AE: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x0001B8 00:81A8: C0        .addr loc_level2_inside_screen_u11_indexes - $4000   ; bank 01, page 01, $88C0
+- D 0 - I - 0x0001BA 00:81AA: 90        .addr loc_level2_inside_screen_u11_attrs   - $4000   ; bank 01, page 01, $8E90
+- D 0 - I - 0x0001BC 00:81AC: 00        .addr loc_level2_inside_metatiles          - $6000   ; bank 00, page 02, $9E00
+- D 0 - I - 0x0001BE 00:81AE: C9 07     .word tbl_CHR_ROM_Banks_2_inside           - $8000   ; $87C9
 
 ; 1 byte - low address
 ; 2 byte - %BBBAAAAA, where B - Bank data, A + 0x80 - high address
@@ -338,584 +342,584 @@
 ; 5 byte - low address  (see $D274)
 ; 6 byte - %BBBAAAAA, where B - Bank data, A + 0x80 - high address  (see $D274)
 ; screen 0 (level 1.0)
-- D 0 - I - 0x0001C0 00:81B0: 00        .byte $00, $50   ; bank 01, page 01, $9000
-- D 0 - I - 0x0001C2 00:81B2: 00        .byte $00, $5C   ; bank 01, page 01, $9C00
-- D 0 - I - 0x0001C4 00:81B4: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D 0 - I - 0x0001C6 00:81B6: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x0001C0 00:81B0: 00        .addr loc_level1_0_screen0_indexes - $4000   ; bank 01, page 01, $9000
+- D 0 - I - 0x0001C2 00:81B2: 00        .addr loc_level1_0_screen0_attrs   - $4000   ; bank 01, page 01, $9C00
+- D 0 - I - 0x0001C4 00:81B4: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D 0 - I - 0x0001C6 00:81B6: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen 1 (level 1.0)
-- D 0 - I - 0x0001C8 00:81B8: C0        .byte $C0, $50   ; bank 01, page 01, $90C0
-- D 0 - I - 0x0001CA 00:81BA: 38        .byte $38, $5C   ; bank 01, page 01, $9C38
-- D 0 - I - 0x0001CC 00:81BC: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D - - - - 0x0001CE 00:81BE: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x0001C8 00:81B8: C0        .addr loc_level1_0_screen1_indexes - $4000   ; bank 01, page 01, $90C0
+- D 0 - I - 0x0001CA 00:81BA: 38        .addr loc_level1_0_screen1_attrs   - $4000   ; bank 01, page 01, $9C38
+- D 0 - I - 0x0001CC 00:81BC: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D - - - - 0x0001CE 00:81BE: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen 2 (level 1.0)
-- D 0 - I - 0x0001D0 00:81C0: 80        .byte $80, $51   ; bank 01, page 01, $9180
-- D 0 - I - 0x0001D2 00:81C2: 70        .byte $70, $5C   ; bank 01, page 01, $9C70
-- D 0 - I - 0x0001D4 00:81C4: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D - - - - 0x0001D6 00:81C6: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x0001D0 00:81C0: 80        .addr loc_level1_0_screen2_indexes - $4000   ; bank 01, page 01, $9180
+- D 0 - I - 0x0001D2 00:81C2: 70        .addr loc_level1_0_screen2_attrs   - $4000   ; bank 01, page 01, $9C70
+- D 0 - I - 0x0001D4 00:81C4: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D - - - - 0x0001D6 00:81C6: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen 3 (level 1.0)
-- D 0 - I - 0x0001D8 00:81C8: 40        .byte $40, $52   ; bank 01, page 01, $9240
-- D 0 - I - 0x0001DA 00:81CA: A8        .byte $A8, $5C   ; bank 01, page 01, $9CA8
-- D 0 - I - 0x0001DC 00:81CC: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D - - - - 0x0001DE 00:81CE: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x0001D8 00:81C8: 40        .addr loc_level1_0_screen3_indexes - $4000   ; bank 01, page 01, $9240
+- D 0 - I - 0x0001DA 00:81CA: A8        .addr loc_level1_0_screen3_attrs   - $4000   ; bank 01, page 01, $9CA8
+- D 0 - I - 0x0001DC 00:81CC: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D - - - - 0x0001DE 00:81CE: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen 4 (level 1.0)
-- D 0 - I - 0x0001E0 00:81D0: 00        .byte $00, $53   ; bank 01, page 01, $9300
-- D 0 - I - 0x0001E2 00:81D2: E0        .byte $E0, $5C   ; bank 01, page 01, $9CE0
-- D 0 - I - 0x0001E4 00:81D4: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D - - - - 0x0001E6 00:81D6: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x0001E0 00:81D0: 00        .addr loc_level1_0_screen4_indexes - $4000   ; bank 01, page 01, $9300
+- D 0 - I - 0x0001E2 00:81D2: E0        .addr loc_level1_0_screen4_attrs   - $4000   ; bank 01, page 01, $9CE0
+- D 0 - I - 0x0001E4 00:81D4: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D - - - - 0x0001E6 00:81D6: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen 5 (level 1.0)
-- D 0 - I - 0x0001E8 00:81D8: 00        .byte $00, $56   ; bank 01, page 01, $9600
-- D 0 - I - 0x0001EA 00:81DA: 18        .byte $18, $5D   ; bank 01, page 01, $9D18
-- D 0 - I - 0x0001EC 00:81DC: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D 0 - I - 0x0001EE 00:81DE: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x0001E8 00:81D8: 00        .addr loc_level1_0_screen5_indexes - $4000   ; bank 01, page 01, $9600
+- D 0 - I - 0x0001EA 00:81DA: 18        .addr loc_level1_0_screen5_attrs   - $4000   ; bank 01, page 01, $9D18
+- D 0 - I - 0x0001EC 00:81DC: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D 0 - I - 0x0001EE 00:81DE: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen 6 (level 1.0)
-- D 0 - I - 0x0001F0 00:81E0: C0        .byte $C0, $56   ; bank 01, page 01, $96C0
-- D 0 - I - 0x0001F2 00:81E2: 50        .byte $50, $5D   ; bank 01, page 01, $9D50
-- D 0 - I - 0x0001F4 00:81E4: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D - - - - 0x0001F6 00:81E6: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x0001F0 00:81E0: C0        .addr loc_level1_0_screen6_indexes - $4000   ; bank 01, page 01, $96C0
+- D 0 - I - 0x0001F2 00:81E2: 50        .addr loc_level1_0_screen6_attrs   - $4000   ; bank 01, page 01, $9D50
+- D 0 - I - 0x0001F4 00:81E4: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D - - - - 0x0001F6 00:81E6: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen 7 (level 1.0)
-- D 0 - I - 0x0001F8 00:81E8: C0        .byte $C0, $53   ; bank 01, page 01, $93C0
-- D 0 - I - 0x0001FA 00:81EA: 88        .byte $88, $5D   ; bank 01, page 01, $9D88
-- D 0 - I - 0x0001FC 00:81EC: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D - - - - 0x0001FE 00:81EE: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x0001F8 00:81E8: C0        .addr loc_level1_0_screen7_indexes - $4000   ; bank 01, page 01, $93C0
+- D 0 - I - 0x0001FA 00:81EA: 88        .addr loc_level1_0_screen7_attrs   - $4000   ; bank 01, page 01, $9D88
+- D 0 - I - 0x0001FC 00:81EC: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D - - - - 0x0001FE 00:81EE: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen 8 (level 1.0)
-- D 0 - I - 0x000200 00:81F0: 80        .byte $80, $54   ; bank 01, page 01, $9480
-- D 0 - I - 0x000202 00:81F2: C0        .byte $C0, $5D   ; bank 01, page 01, $9DC0
-- D 0 - I - 0x000204 00:81F4: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D - - - - 0x000206 00:81F6: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x000200 00:81F0: 80        .addr loc_level1_0_screen8_indexes - $4000   ; bank 01, page 01, $9480
+- D 0 - I - 0x000202 00:81F2: C0        .addr loc_level1_0_screen8_attrs   - $4000   ; bank 01, page 01, $9DC0
+- D 0 - I - 0x000204 00:81F4: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D - - - - 0x000206 00:81F6: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen 9 (level 1.0)
-- D 0 - I - 0x000208 00:81F8: 40        .byte $40, $55   ; bank 01, page 01, $9540
-- D 0 - I - 0x00020A 00:81FA: F8        .byte $F8, $5D   ; bank 01, page 01, $9DF8
-- D 0 - I - 0x00020C 00:81FC: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D 0 - I - 0x00020E 00:81FE: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x000208 00:81F8: 40        .addr loc_level1_0_screen9_indexes - $4000   ; bank 01, page 01, $9540
+- D 0 - I - 0x00020A 00:81FA: F8        .addr loc_level1_0_screen9_attrs   - $4000   ; bank 01, page 01, $9DF8
+- D 0 - I - 0x00020C 00:81FC: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D 0 - I - 0x00020E 00:81FE: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen A (level 1.0)
-- D 0 - I - 0x000210 00:8200: 80        .byte $80, $57   ; bank 01, page 01, $9780
-- D 0 - I - 0x000212 00:8202: 30        .byte $30, $5E   ; bank 01, page 01, $9E30
-- D 0 - I - 0x000214 00:8204: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D - - - - 0x000216 00:8206: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x000210 00:8200: 80        .addr loc_level1_0_screenA_indexes - $4000   ; bank 01, page 01, $9780
+- D 0 - I - 0x000212 00:8202: 30        .addr loc_level1_0_screenA_attrs   - $4000   ; bank 01, page 01, $9E30
+- D 0 - I - 0x000214 00:8204: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D - - - - 0x000216 00:8206: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen B (level 1.0)
-- D 0 - I - 0x000218 00:8208: 40        .byte $40, $58   ; bank 01, page 01, $9840
-- D 0 - I - 0x00021A 00:820A: 68        .byte $68, $5E   ; bank 01, page 01, $9E68
-- D 0 - I - 0x00021C 00:820C: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D 0 - I - 0x00021E 00:820E: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x000218 00:8208: 40        .addr loc_level1_0_screenB_indexes - $4000   ; bank 01, page 01, $9840
+- D 0 - I - 0x00021A 00:820A: 68        .addr loc_level1_0_screenB_attrs   - $4000   ; bank 01, page 01, $9E68
+- D 0 - I - 0x00021C 00:820C: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D 0 - I - 0x00021E 00:820E: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen C (level 1.0)
-- D 0 - I - 0x000220 00:8210: 00        .byte $00, $59   ; bank 01, page 01, $9900
-- D 0 - I - 0x000222 00:8212: A0        .byte $A0, $5E   ; bank 01, page 01, $9EA0
-- D 0 - I - 0x000224 00:8214: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D - - - - 0x000226 00:8216: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x000220 00:8210: 00        .addr loc_level1_0_screenC_indexes - $4000   ; bank 01, page 01, $9900
+- D 0 - I - 0x000222 00:8212: A0        .addr loc_level1_0_screenC_attrs   - $4000   ; bank 01, page 01, $9EA0
+- D 0 - I - 0x000224 00:8214: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D - - - - 0x000226 00:8216: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen D (level 1.0)
-- D 0 - I - 0x000228 00:8218: C0        .byte $C0, $59   ; bank 01, page 01, $99C0
-- D 0 - I - 0x00022A 00:821A: D8        .byte $D8, $5E   ; bank 01, page 01, $9ED8
-- D 0 - I - 0x00022C 00:821C: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D - - - - 0x00022E 00:821E: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x000228 00:8218: C0        .addr loc_level1_0_screenD_indexes - $4000   ; bank 01, page 01, $99C0
+- D 0 - I - 0x00022A 00:821A: D8        .addr loc_level1_0_screenD_attrs   - $4000   ; bank 01, page 01, $9ED8
+- D 0 - I - 0x00022C 00:821C: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D - - - - 0x00022E 00:821E: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen E (level 1.0)
-- D 0 - I - 0x000230 00:8220: 80        .byte $80, $5A   ; bank 01, page 01, $9A80
-- D 0 - I - 0x000232 00:8222: 10        .byte $10, $5F   ; bank 01, page 01, $9F10
-- D 0 - I - 0x000234 00:8224: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D 0 - I - 0x000236 00:8226: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x000230 00:8220: 80        .addr loc_level1_0_screenE_indexes - $4000   ; bank 01, page 01, $9A80
+- D 0 - I - 0x000232 00:8222: 10        .addr loc_level1_0_screenE_attrs   - $4000   ; bank 01, page 01, $9F10
+- D 0 - I - 0x000234 00:8224: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D 0 - I - 0x000236 00:8226: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen F (level 1.0)
-- D 0 - I - 0x000238 00:8228: 40        .byte $40, $5B   ; bank 01, page 01, $9B40
-- D 0 - I - 0x00023A 00:822A: 48        .byte $48, $5F   ; bank 01, page 01, $9F48
-- D 0 - I - 0x00023C 00:822C: 00        .byte $00, $60   ; bank 01, page 02, $8000
-- D 0 - I - 0x00023E 00:822E: B7 07     .word $07B7      ; $87B7
+- D 0 - I - 0x000238 00:8228: 40        .addr loc_level1_0_screenF_indexes - $4000   ; bank 01, page 01, $9B40
+- D 0 - I - 0x00023A 00:822A: 48        .addr loc_level1_0_screenF_attrs   - $4000   ; bank 01, page 01, $9F48
+- D 0 - I - 0x00023C 00:822C: 00        .addr loc_level1_0_metatiles       - $2000   ; bank 01, page 02, $8000
+- D 0 - I - 0x00023E 00:822E: B7 07     .word tbl_CHR_ROM_Banks_1_0        - $8000   ; $87B7
 
 ; screen 0, 0 (level 1.X)
-- D 0 - I - 0x000240 00:8230: B8        .byte $B8, $62   ; bank 01, page 02, $82B8
-- D 0 - I - 0x000242 00:8232: 38        .byte $38, $6A   ; bank 01, page 02, $8A38
-- D 0 - I - 0x000244 00:8234: 68        .byte $68, $6C   ; bank 01, page 02, $8C68
-- D 0 - I - 0x000246 00:8236: CF 07     .word $07CF      ; $87CF
+- D 0 - I - 0x000240 00:8230: B8        .addr loc_level1_X_screen_u00_indexes - $2000   ; bank 01, page 02, $82B8
+- D 0 - I - 0x000242 00:8232: 38        .addr loc_level1_X_screen_u00_attrs   - $2000   ; bank 01, page 02, $8A38
+- D 0 - I - 0x000244 00:8234: 68        .addr loc_level1_X_metatiles          - $2000   ; bank 01, page 02, $8C68
+- D 0 - I - 0x000246 00:8236: CF 07     .word tbl_CHR_ROM_Banks_1_X           - $8000   ; $87CF
 
 ; screen 7 (level 1.X)
-- D 0 - I - 0x000248 00:8238: 78        .byte $78, $63   ; bank 01, page 02, $8378
-- D 0 - I - 0x00024A 00:823A: 70        .byte $70, $6A   ; bank 01, page 02, $8A70
-- D 0 - I - 0x00024C 00:823C: 68        .byte $68, $6C   ; bank 01, page 02, $8C68
-- D 0 - I - 0x00024E 00:823E: CF 07     .word $07CF      ; $87CF
+- D 0 - I - 0x000248 00:8238: 78        .addr loc_level1_X_screen_u01_indexes - $2000   ; bank 01, page 02, $8378
+- D 0 - I - 0x00024A 00:823A: 70        .addr loc_level1_X_screen_u01_attrs   - $2000   ; bank 01, page 02, $8A70
+- D 0 - I - 0x00024C 00:823C: 68        .addr loc_level1_X_metatiles          - $2000   ; bank 01, page 02, $8C68
+- D 0 - I - 0x00024E 00:823E: CF 07     .word tbl_CHR_ROM_Banks_1_X           - $8000   ; $87CF
 
 ; screen 7 (level 1.X)
-- D 0 - I - 0x000250 00:8240: 38        .byte $38, $64   ; bank 01, page 02, $8438
-- D 0 - I - 0x000252 00:8242: A8        .byte $A8, $6A   ; bank 01, page 02, $8AA8
-- D 0 - I - 0x000254 00:8244: 68        .byte $68, $6C   ; bank 01, page 02, $8C68
-- D 0 - I - 0x000256 00:8246: CF 07     .word $07CF      ; $87CF
+- D 0 - I - 0x000250 00:8240: 38        .addr loc_level1_X_screen_u02_indexes - $2000   ; bank 01, page 02, $8438
+- D 0 - I - 0x000252 00:8242: A8        .addr loc_level1_X_screen_u02_attrs   - $2000   ; bank 01, page 02, $8AA8
+- D 0 - I - 0x000254 00:8244: 68        .addr loc_level1_X_metatiles          - $2000   ; bank 01, page 02, $8C68
+- D 0 - I - 0x000256 00:8246: CF 07     .word tbl_CHR_ROM_Banks_1_X           - $8000   ; $87CF
 
 ; screen 0 (level 1.X)
-- D 0 - I - 0x000258 00:8248: F8        .byte $F8, $64   ; bank 01, page 02, $84F8
-- D 0 - I - 0x00025A 00:824A: E0        .byte $E0, $6A   ; bank 01, page 02, $8AE0
-- D 0 - I - 0x00025C 00:824C: 68        .byte $68, $6C   ; bank 01, page 02, $8C68
-- D 0 - I - 0x00025E 00:824E: CF 07     .word $07CF      ; $87CF
+- D 0 - I - 0x000258 00:8248: F8        .addr loc_level1_X_screen_u03_indexes - $2000   ; bank 01, page 02, $84F8
+- D 0 - I - 0x00025A 00:824A: E0        .addr loc_level1_X_screen_u03_attrs   - $2000   ; bank 01, page 02, $8AE0
+- D 0 - I - 0x00025C 00:824C: 68        .addr loc_level1_X_metatiles          - $2000   ; bank 01, page 02, $8C68
+- D 0 - I - 0x00025E 00:824E: CF 07     .word tbl_CHR_ROM_Banks_1_X           - $8000   ; $87CF
 
 ; screen 1, 6, 4 (level 1.X)
-- D 0 - I - 0x000260 00:8250: B8        .byte $B8, $65   ; bank 01, page 02, $85B8
-- D 0 - I - 0x000262 00:8252: 18        .byte $18, $6B   ; bank 01, page 02, $8B18
-- D 0 - I - 0x000264 00:8254: 68        .byte $68, $6C   ; bank 01, page 02, $8C68
-- D - - - - 0x000266 00:8256: CF 07     .word $07CF      ; $87CF
+- D 0 - I - 0x000260 00:8250: B8        .addr loc_level1_X_screen_u04_indexes - $2000   ; bank 01, page 02, $85B8
+- D 0 - I - 0x000262 00:8252: 18        .addr loc_level1_X_screen_u04_attrs   - $2000   ; bank 01, page 02, $8B18
+- D 0 - I - 0x000264 00:8254: 68        .addr loc_level1_X_metatiles          - $2000   ; bank 01, page 02, $8C68
+- D - - - - 0x000266 00:8256: CF 07     .word tbl_CHR_ROM_Banks_1_X           - $8000   ; $87CF
 
 ; screen 3, 6, 5 (level 1.X)
-- D 0 - I - 0x000268 00:8258: 78        .byte $78, $66   ; bank 01, page 02, $8678
-- D 0 - I - 0x00026A 00:825A: 50        .byte $50, $6B   ; bank 01, page 02, $8B50
-- D 0 - I - 0x00026C 00:825C: 68        .byte $68, $6C   ; bank 01, page 02, $8C68
-- D 0 - I - 0x00026E 00:825E: CF 07     .word $07CF      ; $87CF
+- D 0 - I - 0x000268 00:8258: 78        .addr loc_level1_X_screen_u05_indexes - $2000   ; bank 01, page 02, $8678
+- D 0 - I - 0x00026A 00:825A: 50        .addr loc_level1_X_screen_u05_attrs   - $2000   ; bank 01, page 02, $8B50
+- D 0 - I - 0x00026C 00:825C: 68        .addr loc_level1_X_metatiles          - $2000   ; bank 01, page 02, $8C68
+- D 0 - I - 0x00026E 00:825E: CF 07     .word tbl_CHR_ROM_Banks_1_X           - $8000   ; $87CF
 
 ; screen 2, 4, 7 (level 1.X)
-- D 0 - I - 0x000270 00:8260: 38        .byte $38, $67   ; bank 01, page 02, $8738
-- D 0 - I - 0x000272 00:8262: 88        .byte $88, $6B   ; bank 01, page 02, $8B88
-- D 0 - I - 0x000274 00:8264: 68        .byte $68, $6C   ; bank 01, page 02, $8C68
-- D 0 - I - 0x000276 00:8266: CF 07     .word $07CF      ; $87CF
+- D 0 - I - 0x000270 00:8260: 38        .addr loc_level1_X_screen_u06_indexes - $2000   ; bank 01, page 02, $8738
+- D 0 - I - 0x000272 00:8262: 88        .addr loc_level1_X_screen_u06_attrs   - $2000   ; bank 01, page 02, $8B88
+- D 0 - I - 0x000274 00:8264: 68        .addr loc_level1_X_metatiles          - $2000   ; bank 01, page 02, $8C68
+- D 0 - I - 0x000276 00:8266: CF 07     .word tbl_CHR_ROM_Banks_1_X           - $8000   ; $87CF
 
 ; screen 2, 1, 3, 5 (level 1.X)
-- D 0 - I - 0x000278 00:8268: F8        .byte $F8, $67   ; bank 01, page 02, $87F8
-- D 0 - I - 0x00027A 00:826A: C0        .byte $C0, $6B   ; bank 01, page 02, $8BC0
-- D 0 - I - 0x00027C 00:826C: 68        .byte $68, $6C   ; bank 01, page 02, $8C68
-- D 0 - I - 0x00027E 00:826E: CF 07     .word $07CF      ; $87CF
+- D 0 - I - 0x000278 00:8268: F8        .addr loc_level1_X_screen_u07_indexes - $2000   ; bank 01, page 02, $87F8
+- D 0 - I - 0x00027A 00:826A: C0        .addr loc_level1_X_screen_u07_attrs   - $2000   ; bank 01, page 02, $8BC0
+- D 0 - I - 0x00027C 00:826C: 68        .addr loc_level1_X_metatiles          - $2000   ; bank 01, page 02, $8C68
+- D 0 - I - 0x00027E 00:826E: CF 07     .word tbl_CHR_ROM_Banks_1_X           - $8000   ; $87CF
 
 ; screen 4, 2, 6 (level 1.X)
-- D 0 - I - 0x000280 00:8270: B8        .byte $B8, $68   ; bank 01, page 02, $88B8
-- D 0 - I - 0x000282 00:8272: F8        .byte $F8, $6B   ; bank 01, page 02, $8BF8
-- D 0 - I - 0x000284 00:8274: 68        .byte $68, $6C   ; bank 01, page 02, $8C68
-- D 0 - I - 0x000286 00:8276: CF 07     .word $07CF      ; $87CF
+- D 0 - I - 0x000280 00:8270: B8        .addr loc_level1_X_screen_u08_indexes - $2000   ; bank 01, page 02, $88B8
+- D 0 - I - 0x000282 00:8272: F8        .addr loc_level1_X_screen_u08_attrs   - $2000   ; bank 01, page 02, $8BF8
+- D 0 - I - 0x000284 00:8274: 68        .addr loc_level1_X_metatiles          - $2000   ; bank 01, page 02, $8C68
+- D 0 - I - 0x000286 00:8276: CF 07     .word tbl_CHR_ROM_Banks_1_X           - $8000   ; $87CF
 
 ; screen 1, 5, 3 (level 1.X)
-- D 0 - I - 0x000288 00:8278: 78        .byte $78, $69   ; bank 01, page 02, $8978
-- D 0 - I - 0x00028A 00:827A: 30        .byte $30, $6C   ; bank 01, page 02, $8C30
-- D 0 - I - 0x00028C 00:827C: 68        .byte $68, $6C   ; bank 01, page 02, $8C68
-- D 0 - I - 0x00028E 00:827E: CF 07     .word $07CF      ; $87CF
+- D 0 - I - 0x000288 00:8278: 78        .addr loc_level1_X_screen_u09_indexes - $2000   ; bank 01, page 02, $8978
+- D 0 - I - 0x00028A 00:827A: 30        .addr loc_level1_X_screen_u09_attrs   - $2000   ; bank 01, page 02, $8C30
+- D 0 - I - 0x00028C 00:827C: 68        .addr loc_level1_X_metatiles          - $2000   ; bank 01, page 02, $8C68
+- D 0 - I - 0x00028E 00:827E: CF 07     .word tbl_CHR_ROM_Banks_1_X           - $8000   ; $87CF
 
-; water screen
+; water screen 1 (level 3.0)
 - D 0 - I - 0x000290 00:8280: 80        .byte $80, $27   ; bank 00, page 02, $8780
 - D 0 - I - 0x000292 00:8282: B0        .byte $B0, $1C   ; bank 00, page 01, $9CB0
 - D 0 - I - 0x000294 00:8284: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D 0 - I - 0x000296 00:8286: C3 07     .word $07C3      ; $87C3
+- D 0 - I - 0x000296 00:8286: C3 07     .word tbl_CHR_ROM_Banks_3_X - $8000      ; $87C3
 
-; screen ???
+; water screen 2 (level 3.0)
 - D - - - - 0x000298 00:8288: 40        .byte $40, $28   ; bank 00, page 02, $8840
 - D - - - - 0x00029A 00:828A: E8        .byte $E8, $1C   ; bank 00, page 01, $9CE8
 - D - - - - 0x00029C 00:828C: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D - - - - 0x00029E 00:828E: C3 07     .word $07C3      ; $87C3
+- D - - - - 0x00029E 00:828E: C3 07     .word tbl_CHR_ROM_Banks_3_X - $8000      ; $87C3
 
-; water screen 
+; water screen 1 (level 3.X)
 - D 0 - I - 0x0002A0 00:8290: 00        .byte $00, $29   ; bank 00, page 02, $8900
 - D 0 - I - 0x0002A2 00:8292: 20        .byte $20, $1D   ; bank 00, page 01, $9D20
 - D 0 - I - 0x0002A4 00:8294: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D 0 - I - 0x0002A6 00:8296: C3 07     .word $07C3      ; $87C3
+- D 0 - I - 0x0002A6 00:8296: C3 07     .word tbl_CHR_ROM_Banks_3_X - $8000      ; $87C3
 
-; water screen 
+; water screen 2 (level 3.X)
 - D 0 - I - 0x0002A8 00:8298: C0        .byte $C0, $29   ; bank 00, page 02, $89C0
 - D 0 - I - 0x0002AA 00:829A: 58        .byte $58, $1D   ; bank 00, page 01, $9D58
 - D 0 - I - 0x0002AC 00:829C: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D - - - - 0x0002AE 00:829E: C3 07     .word $07C3      ; $87C3
+- D - - - - 0x0002AE 00:829E: C3 07     .word tbl_CHR_ROM_Banks_3_X - $8000      ; $87C3
 
-; water screen 
+; water screen 1 (level 2, inside)
 - D 0 - I - 0x0002B0 00:82A0: 80        .byte $80, $49   ; bank 01, page 01, $8980
 - D 0 - I - 0x0002B2 00:82A2: C0        .byte $C0, $4E   ; bank 01, page 01, $8EC0
 - D 0 - I - 0x0002B4 00:82A4: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x0002B6 00:82A6: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x0002B6 00:82A6: C9 07     .word tbl_CHR_ROM_Banks_2_inside - $8000      ; $87C9
 
-; water screen 
+; water screen 2 (level 2, inside)
 - D 0 - I - 0x0002B8 00:82A8: 40        .byte $40, $4A   ; bank 01, page 01, $8A40
 - D 0 - I - 0x0002BA 00:82AA: F8        .byte $F8, $4E   ; bank 01, page 01, $8EF8
 - D 0 - I - 0x0002BC 00:82AC: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D - - - - 0x0002BE 00:82AE: C9 07     .word $07C9      ; $87C9
+- D - - - - 0x0002BE 00:82AE: C9 07     .word tbl_CHR_ROM_Banks_2_inside - $8000      ; $87C9
 
-; water screen 
+; water screen 3 (level 2, inside)
 - D 0 - I - 0x0002C0 00:82B0: 00        .byte $00, $4B   ; bank 01, page 01, $8B00
 - D 0 - I - 0x0002C2 00:82B2: 30        .byte $30, $4F   ; bank 01, page 01, $8F30
 - D 0 - I - 0x0002C4 00:82B4: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x0002C6 00:82B6: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x0002C6 00:82B6: C9 07     .word tbl_CHR_ROM_Banks_2_inside - $8000      ; $87C9
 
-; water screen 
+; water screen 4 (level 2, inside)
 - D 0 - I - 0x0002C8 00:82B8: C0        .byte $C0, $4B   ; bank 01, page 01, $8BC0
 - D 0 - I - 0x0002CA 00:82BA: 68        .byte $68, $4F   ; bank 01, page 01, $8F68
 - D 0 - I - 0x0002CC 00:82BC: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D - - - - 0x0002CE 00:82BE: C9 07     .word $07C9      ; $87C9
+- D - - - - 0x0002CE 00:82BE: C9 07     .word tbl_CHR_ROM_Banks_2_inside - $8000      ; $87C9
 
-; water screen 
-- D 0 - I - 0x0002D0 00:82C0: 80        .byte $80, $D6   ; bank 03, page 01, $9680
+; water screen 1 (level 4)
+- D 0 - I - 0x0002D0 00:82C0: 80        .addr loc_level4_water_screen1 + $4000   ; bank 03, page 01, $9680
 - D 0 - I - 0x0002D2 00:82C2: 00        .byte $00, $D8   ; bank 03, page 01, $9800
 - D 0 - I - 0x0002D4 00:82C4: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x0002D6 00:82C6: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x0002D6 00:82C6: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
-; water screen 
-- D 0 - I - 0x0002D8 00:82C8: 40        .byte $40, $D7   ; bank 03, page 01, $9740
+; water screen 2 (level 4)
+- D 0 - I - 0x0002D8 00:82C8: 40        .addr loc_level4_water_screen2 + $4000   ; bank 03, page 01, $9740
 - D 0 - I - 0x0002DA 00:82CA: 38        .byte $38, $D8   ; bank 03, page 01, $9838
 - D 0 - I - 0x0002DC 00:82CC: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D - - - - 0x0002DE 00:82CE: D5 07     .word $07D5      ; $87D5
+- D - - - - 0x0002DE 00:82CE: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen 2, B (level racing)
 - D 0 - I - 0x0002E0 00:82D0: 28        .byte $28, $7E   ; bank 01, page 02, $9E28
 - D 0 - I - 0x0002E2 00:82D2: 90        .byte $90, $B2   ; bank 02, page 02, $9290
 - D 0 - I - 0x0002E4 00:82D4: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x0002E6 00:82D6: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x0002E6 00:82D6: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 3 (level racing)
 - D 0 - I - 0x0002E8 00:82D8: E8        .byte $E8, $7E   ; bank 01, page 02, $9EE8
 - D 0 - I - 0x0002EA 00:82DA: C8        .byte $C8, $B2   ; bank 02, page 02, $92C8
 - D 0 - I - 0x0002EC 00:82DC: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x0002EE 00:82DE: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x0002EE 00:82DE: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 4, C (level racing)
 - D 0 - I - 0x0002F0 00:82E0: 90        .byte $90, $A6   ; bank 02, page 02, $8690
 - D 0 - I - 0x0002F2 00:82E2: 00        .byte $00, $B3   ; bank 02, page 02, $9300
 - D 0 - I - 0x0002F4 00:82E4: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x0002F6 00:82E6: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x0002F6 00:82E6: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 0, 5, A, F, 16 (level racing)
 - D 0 - I - 0x0002F8 00:82E8: 50        .byte $50, $A7   ; bank 02, page 02, $8750
 - D 0 - I - 0x0002FA 00:82EA: 38        .byte $38, $B3   ; bank 02, page 02, $9338
 - D 0 - I - 0x0002FC 00:82EC: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D 0 - I - 0x0002FE 00:82EE: BD 07     .word $07BD      ; $87BD
+- D 0 - I - 0x0002FE 00:82EE: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 1 (level racing)
 - D 0 - I - 0x000300 00:82F0: 10        .byte $10, $A8   ; bank 02, page 02, $8810
 - D 0 - I - 0x000302 00:82F2: 70        .byte $70, $B3   ; bank 02, page 02, $9370
 - D 0 - I - 0x000304 00:82F4: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x000306 00:82F6: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000306 00:82F6: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 6 (level racing)
 - D 0 - I - 0x000308 00:82F8: D0        .byte $D0, $A8   ; bank 02, page 02, $88D0
 - D 0 - I - 0x00030A 00:82FA: A8        .byte $A8, $B3   ; bank 02, page 02, $93A8
 - D 0 - I - 0x00030C 00:82FC: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x00030E 00:82FE: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00030E 00:82FE: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 7, 9 (level racing)
 - D 0 - I - 0x000310 00:8300: 90        .byte $90, $A9   ; bank 02, page 02, $8990
 - D 0 - I - 0x000312 00:8302: E0        .byte $E0, $B3   ; bank 02, page 02, $93E0
 - D 0 - I - 0x000314 00:8304: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x000316 00:8306: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000316 00:8306: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 8 (level racing)
 - D 0 - I - 0x000318 00:8308: 50        .byte $50, $AA   ; bank 02, page 02, $8A50
 - D 0 - I - 0x00031A 00:830A: 18        .byte $18, $B4   ; bank 02, page 02, $9418
 - D 0 - I - 0x00031C 00:830C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x00031E 00:830E: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00031E 00:830E: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen D, 10, 12 (level racing)
 - D 0 - I - 0x000320 00:8310: 10        .byte $10, $AB   ; bank 02, page 02, $8B10
 - D 0 - I - 0x000322 00:8312: 50        .byte $50, $B4   ; bank 02, page 02, $9450
 - D 0 - I - 0x000324 00:8314: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x000326 00:8316: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000326 00:8316: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 13, 14 (level racing)
 - D 0 - I - 0x000328 00:8318: D0        .byte $D0, $AB   ; bank 02, page 02, $8BD0
 - D 0 - I - 0x00032A 00:831A: 88        .byte $88, $B4   ; bank 02, page 02, $9488
 - D 0 - I - 0x00032C 00:831C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x00032E 00:831E: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00032E 00:831E: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen E, 11, 15 (level racing)
 - D 0 - I - 0x000330 00:8320: 90        .byte $90, $AC   ; bank 02, page 02, $8C90
 - D 0 - I - 0x000332 00:8322: C0        .byte $C0, $B4   ; bank 02, page 02, $94C0
 - D 0 - I - 0x000334 00:8324: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x000336 00:8326: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000336 00:8326: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 17, 1B (level racing)
 - D 0 - I - 0x000338 00:8328: 50        .byte $50, $AD   ; bank 02, page 02, $8D50
 - D 0 - I - 0x00033A 00:832A: F8        .byte $F8, $B4   ; bank 02, page 02, $94F8
 - D 0 - I - 0x00033C 00:832C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x00033E 00:832E: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00033E 00:832E: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 18, 1E (level racing)
 - D 0 - I - 0x000340 00:8330: 10        .byte $10, $AE   ; bank 02, page 02, $8E10
 - D 0 - I - 0x000342 00:8332: 30        .byte $30, $B5   ; bank 02, page 02, $9530
 - D 0 - I - 0x000344 00:8334: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x000346 00:8336: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000346 00:8336: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 19, 1C, 1F (level racing)
 - D 0 - I - 0x000348 00:8338: D0        .byte $D0, $AE   ; bank 02, page 02, $8ED0
 - D 0 - I - 0x00034A 00:833A: 68        .byte $68, $B5   ; bank 02, page 02, $9568
 - D 0 - I - 0x00034C 00:833C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x00034E 00:833E: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00034E 00:833E: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 1D (level racing)
 - D 0 - I - 0x000350 00:8340: 90        .byte $90, $AF   ; bank 02, page 02, $8F90
 - D 0 - I - 0x000352 00:8342: A0        .byte $A0, $B5   ; bank 02, page 02, $95A0
 - D 0 - I - 0x000354 00:8344: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x000356 00:8346: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000356 00:8346: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 1A, 20 (level racing)
 - D 0 - I - 0x000358 00:8348: 50        .byte $50, $B0   ; bank 02, page 02, $9050
 - D 0 - I - 0x00035A 00:834A: D8        .byte $D8, $B5   ; bank 02, page 02, $95D8
 - D 0 - I - 0x00035C 00:834C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x00035E 00:834E: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00035E 00:834E: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 21, 22 (level racing)
 - D 0 - I - 0x000360 00:8350: 10        .byte $10, $B1   ; bank 02, page 02, $9110
 - D 0 - I - 0x000362 00:8352: 10        .byte $10, $B6   ; bank 02, page 02, $9610
 - D 0 - I - 0x000364 00:8354: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x000366 00:8356: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x000366 00:8356: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
 ; screen 23 (level racing)
 - D 0 - I - 0x000368 00:8358: D0        .byte $D0, $B1   ; bank 02, page 02, $91D0
 - D 0 - I - 0x00036A 00:835A: 48        .byte $48, $B6   ; bank 02, page 02, $9648
 - D 0 - I - 0x00036C 00:835C: 80        .byte $80, $B6   ; bank 02, page 02, $9680
-- D - - - - 0x00036E 00:835E: BD 07     .word $07BD      ; $87BD
+- D - - - - 0x00036E 00:835E: BD 07     .word tbl_CHR_ROM_Banks_level_racing - $8000      ; $87BD
 
-; screen 0
+; screen 0 (level 3, unique room)
 - D 0 - I - 0x000370 00:8360: B0        .byte $B0, $B9   ; bank 02, page 02, $99B0
 - D 0 - I - 0x000372 00:8362: 70        .byte $70, $BA   ; bank 02, page 02, $9A70
 - D 0 - I - 0x000374 00:8364: 90        .byte $90, $1D   ; bank 00, page 01, $9D90
-- D 0 - I - 0x000376 00:8366: C3 07     .word $07C3      ; $87C3
+- D 0 - I - 0x000376 00:8366: C3 07     .word tbl_CHR_ROM_Banks_3_X - $8000      ; $87C3
 
-; screen 0
+; screen 0 (level 2, 2 part, unique room)
 - D 0 - I - 0x000378 00:8368: A8        .byte $A8, $BA   ; bank 02, page 02, $9AA8
 - D 0 - I - 0x00037A 00:836A: 28        .byte $28, $BC   ; bank 02, page 02, $9D28
 - D 0 - I - 0x00037C 00:836C: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x00037E 00:836E: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x00037E 00:836E: C9 07     .word tbl_CHR_ROM_Banks_2_inside - $8000      ; $87C9
 
-; screen 0
+; screen 0 (level 2, 1 part, unique room)
 - D 0 - I - 0x000380 00:8370: 68        .byte $68, $BB   ; bank 02, page 02, $9B68
 - D 0 - I - 0x000382 00:8372: 60        .byte $60, $BC   ; bank 02, page 02, $9C60
 - D 0 - I - 0x000384 00:8374: 00        .byte $00, $3E   ; bank 00, page 02, $9E00
-- D 0 - I - 0x000386 00:8376: C9 07     .word $07C9      ; $87C9
+- D 0 - I - 0x000386 00:8376: C9 07     .word tbl_CHR_ROM_Banks_2_inside - $8000      ; $87C9
 
-; screen 0
+; screen 0 (level 1, unique room)
 - D 0 - I - 0x000388 00:8378: 98        .byte $98, $BC   ; bank 02, page 02, $9C98
 - D 0 - I - 0x00038A 00:837A: 58        .byte $58, $BD   ; bank 02, page 02, $9D58
 - D 0 - I - 0x00038C 00:837C: 68        .byte $68, $6C   ; bank 01, page 02, $8C68
-- D 0 - I - 0x00038E 00:837E: CF 07     .word $07CF      ; $87CF
+- D 0 - I - 0x00038E 00:837E: CF 07     .word tbl_CHR_ROM_Banks_1_X - $8000      ; $87CF
 
-; screen 0
+; screen 0 (level 4, unique room)
 - D 0 - I - 0x000390 00:8380: 90        .byte $90, $BD   ; bank 02, page 02, $9D90
 - D 0 - I - 0x000392 00:8382: 10        .byte $10, $BF   ; bank 02, page 02, $9F10
 - D 0 - I - 0x000394 00:8384: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x000396 00:8386: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x000396 00:8386: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000398 00:8388: 00        .byte $00, $C0   ; bank 03, page 01, $8000
-- D 0 - I - 0x00039A 00:838A: 70        .byte $70, $D8   ; bank 03, page 01, $8870
+- D 0 - I - 0x000398 00:8388: 00        .addr loc_level4_screen_u00_indexes + $4000   ; bank 03, page 01, $8000
+- D 0 - I - 0x00039A 00:838A: 70        .byte $70, $D8   ; bank 03, page 01, $9870
 - D 0 - I - 0x00039C 00:838C: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x00039E 00:838E: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x00039E 00:838E: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x0003A0 00:8390: C0        .byte $C0, $C0   ; bank 03, page 01, $80C0
-- D 0 - I - 0x0003A2 00:8392: A8        .byte $A8, $D8   ; bank 03, page 01, $88A8
+- D 0 - I - 0x0003A0 00:8390: C0        .addr loc_level4_screen_u01_indexes + $4000   ; bank 03, page 01, $80C0
+- D 0 - I - 0x0003A2 00:8392: A8        .byte $A8, $D8   ; bank 03, page 01, $98A8
 - D 0 - I - 0x0003A4 00:8394: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x0003A6 00:8396: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x0003A6 00:8396: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x0003A8 00:8398: 80        .byte $80, $C1   ; bank 03, page 01, $8180
-- D 0 - I - 0x0003AA 00:839A: E0        .byte $E0, $D8   ; bank 03, page 01, $88E0
+- D 0 - I - 0x0003A8 00:8398: 80        .addr loc_level4_screen_u02_indexes + $4000   ; bank 03, page 01, $8180
+- D 0 - I - 0x0003AA 00:839A: E0        .byte $E0, $D8   ; bank 03, page 01, $98E0
 - D 0 - I - 0x0003AC 00:839C: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x0003AE 00:839E: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x0003AE 00:839E: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x0003B0 00:83A0: 40        .byte $40, $C2   ; bank 03, page 01, $8240
-- D 0 - I - 0x0003B2 00:83A2: 18        .byte $18, $D9   ; bank 03, page 01, $8918
+- D 0 - I - 0x0003B0 00:83A0: 40        .addr loc_level4_screen_u03_indexes + $4000   ; bank 03, page 01, $8240
+- D 0 - I - 0x0003B2 00:83A2: 18        .byte $18, $D9   ; bank 03, page 01, $9918
 - D 0 - I - 0x0003B4 00:83A4: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x0003B6 00:83A6: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x0003B6 00:83A6: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x0003B8 00:83A8: 00        .byte $00, $C3   ; bank 03, page 01, $8300
-- D 0 - I - 0x0003BA 00:83AA: 50        .byte $50, $D9   ; bank 03, page 01, $8950
+- D 0 - I - 0x0003B8 00:83A8: 00        .addr loc_level4_screen_u04_indexes + $4000   ; bank 03, page 01, $8300
+- D 0 - I - 0x0003BA 00:83AA: 50        .byte $50, $D9   ; bank 03, page 01, $9950
 - D 0 - I - 0x0003BC 00:83AC: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D - - - - 0x0003BE 00:83AE: D5 07     .word $07D5      ; $87D5
+- D - - - - 0x0003BE 00:83AE: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x0003C0 00:83B0: C0        .byte $C0, $C3   ; bank 03, page 01, $83C0
-- D 0 - I - 0x0003C2 00:83B2: 88        .byte $88, $D9   ; bank 03, page 01, $8988
+- D 0 - I - 0x0003C0 00:83B0: C0        .addr loc_level4_screen_u05_indexes + $4000   ; bank 03, page 01, $83C0
+- D 0 - I - 0x0003C2 00:83B2: 88        .byte $88, $D9   ; bank 03, page 01, $9988
 - D 0 - I - 0x0003C4 00:83B4: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D - - - - 0x0003C6 00:83B6: D5 07     .word $07D5      ; $87D5
+- D - - - - 0x0003C6 00:83B6: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x0003C8 00:83B8: 80        .byte $80, $C4   ; bank 03, page 01, $8480
-- D 0 - I - 0x0003CA 00:83BA: C0        .byte $C0, $D9   ; bank 03, page 01, $89C0
+- D 0 - I - 0x0003C8 00:83B8: 80        .addr loc_level4_screen_u06_indexes + $4000   ; bank 03, page 01, $8480
+- D 0 - I - 0x0003CA 00:83BA: C0        .byte $C0, $D9   ; bank 03, page 01, $99C0
 - D 0 - I - 0x0003CC 00:83BC: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D - - - - 0x0003CE 00:83BE: D5 07     .word $07D5      ; $87D5
+- D - - - - 0x0003CE 00:83BE: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x0003D0 00:83C0: 40        .byte $40, $C5   ; bank 03, page 01, $8540
-- D 0 - I - 0x0003D2 00:83C2: F8        .byte $F8, $D9   ; bank 03, page 01, $89F8
+- D 0 - I - 0x0003D0 00:83C0: 40        .addr loc_level4_screen_u07_indexes + $4000   ; bank 03, page 01, $8540
+- D 0 - I - 0x0003D2 00:83C2: F8        .byte $F8, $D9   ; bank 03, page 01, $99F8
 - D 0 - I - 0x0003D4 00:83C4: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x0003D6 00:83C6: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x0003D6 00:83C6: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x0003D8 00:83C8: 00        .byte $00, $C6   ; bank 03, page 01, $8600
-- D 0 - I - 0x0003DA 00:83CA: 30        .byte $30, $DA   ; bank 03, page 01, $8A30
+- D 0 - I - 0x0003D8 00:83C8: 00        .addr loc_level4_screen_u08_indexes + $4000   ; bank 03, page 01, $8600
+- D 0 - I - 0x0003DA 00:83CA: 30        .byte $30, $DA   ; bank 03, page 01, $9A30
 - D 0 - I - 0x0003DC 00:83CC: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x0003DE 00:83CE: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x0003DE 00:83CE: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x0003E0 00:83D0: C0        .byte $C0, $C6   ; bank 03, page 01, $86C0
-- D 0 - I - 0x0003E2 00:83D2: 68        .byte $68, $DA   ; bank 03, page 01, $8A68
+- D 0 - I - 0x0003E0 00:83D0: C0        .addr loc_level4_screen_u09_indexes + $4000   ; bank 03, page 01, $86C0
+- D 0 - I - 0x0003E2 00:83D2: 68        .byte $68, $DA   ; bank 03, page 01, $9A68
 - D 0 - I - 0x0003E4 00:83D4: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x0003E6 00:83D6: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x0003E6 00:83D6: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x0003E8 00:83D8: 80        .byte $80, $C7   ; bank 03, page 01, $8780
-- D 0 - I - 0x0003EA 00:83DA: A0        .byte $A0, $DA   ; bank 03, page 01, $8AA0
+- D 0 - I - 0x0003E8 00:83D8: 80        .addr loc_level4_screen_u10_indexes + $4000   ; bank 03, page 01, $8780
+- D 0 - I - 0x0003EA 00:83DA: A0        .byte $A0, $DA   ; bank 03, page 01, $9AA0
 - D 0 - I - 0x0003EC 00:83DC: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x0003EE 00:83DE: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x0003EE 00:83DE: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x0003F0 00:83E0: 40        .byte $40, $C8   ; bank 03, page 01, $8840
-- D 0 - I - 0x0003F2 00:83E2: D8        .byte $D8, $DA   ; bank 03, page 01, $8AD8
+- D 0 - I - 0x0003F0 00:83E0: 40        .addr loc_level4_screen_u11_indexes + $4000   ; bank 03, page 01, $8840
+- D 0 - I - 0x0003F2 00:83E2: D8        .byte $D8, $DA   ; bank 03, page 01, $9AD8
 - D 0 - I - 0x0003F4 00:83E4: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x0003F6 00:83E6: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x0003F6 00:83E6: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x0003F8 00:83E8: 00        .byte $00, $C9   ; bank 03, page 01, $8900
-- D 0 - I - 0x0003FA 00:83EA: 10        .byte $10, $DB   ; bank 03, page 01, $8B10
+- D 0 - I - 0x0003F8 00:83E8: 00        .addr loc_level4_screen_u12_indexes + $4000   ; bank 03, page 01, $8900
+- D 0 - I - 0x0003FA 00:83EA: 10        .byte $10, $DB   ; bank 03, page 01, $9B10
 - D 0 - I - 0x0003FC 00:83EC: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x0003FE 00:83EE: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x0003FE 00:83EE: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000400 00:83F0: C0        .byte $C0, $C9   ; bank 03, page 01, $89C0
-- D 0 - I - 0x000402 00:83F2: 48        .byte $48, $DB   ; bank 03, page 01, $8B48
+- D 0 - I - 0x000400 00:83F0: C0        .addr loc_level4_screen_u13_indexes + $4000   ; bank 03, page 01, $89C0
+- D 0 - I - 0x000402 00:83F2: 48        .byte $48, $DB   ; bank 03, page 01, $9B48
 - D 0 - I - 0x000404 00:83F4: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x000406 00:83F6: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x000406 00:83F6: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000408 00:83F8: 80        .byte $80, $CA   ; bank 03, page 01, $8A80
-- D 0 - I - 0x00040A 00:83FA: 80        .byte $80, $DB   ; bank 03, page 01, $8B80
+- D 0 - I - 0x000408 00:83F8: 80        .addr loc_level4_screen_u14_indexes + $4000   ; bank 03, page 01, $8A80
+- D 0 - I - 0x00040A 00:83FA: 80        .byte $80, $DB   ; bank 03, page 01, $9B80
 - D 0 - I - 0x00040C 00:83FC: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x00040E 00:83FE: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x00040E 00:83FE: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000410 00:8400: 40        .byte $40, $CB   ; bank 03, page 01, $8B40
-- D 0 - I - 0x000412 00:8402: B8        .byte $B8, $DB   ; bank 03, page 01, $8BB8
+- D 0 - I - 0x000410 00:8400: 40        .addr loc_level4_screen_u15_indexes + $4000   ; bank 03, page 01, $8B40
+- D 0 - I - 0x000412 00:8402: B8        .byte $B8, $DB   ; bank 03, page 01, $9BB8
 - D 0 - I - 0x000414 00:8404: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x000416 00:8406: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x000416 00:8406: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000418 00:8408: 00        .byte $00, $CC   ; bank 03, page 01, $8C00
-- D 0 - I - 0x00041A 00:840A: F0        .byte $F0, $DB   ; bank 03, page 01, $8BF0
+- D 0 - I - 0x000418 00:8408: 00        .addr loc_level4_screen_u16_indexes + $4000   ; bank 03, page 01, $8C00
+- D 0 - I - 0x00041A 00:840A: F0        .byte $F0, $DB   ; bank 03, page 01, $9BF0
 - D 0 - I - 0x00041C 00:840C: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D - - - - 0x00041E 00:840E: D5 07     .word $07D5      ; $87D5
+- D - - - - 0x00041E 00:840E: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000420 00:8410: C0        .byte $C0, $CC   ; bank 03, page 01, $8CC0
-- D 0 - I - 0x000422 00:8412: 28        .byte $28, $DC   ; bank 03, page 01, $8C28
+- D 0 - I - 0x000420 00:8410: C0        .addr loc_level4_screen_u17_indexes + $4000   ; bank 03, page 01, $8CC0
+- D 0 - I - 0x000422 00:8412: 28        .byte $28, $DC   ; bank 03, page 01, $9C28
 - D 0 - I - 0x000424 00:8414: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x000426 00:8416: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x000426 00:8416: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000428 00:8418: 80        .byte $80, $CD   ; bank 03, page 01, $8D80
-- D 0 - I - 0x00042A 00:841A: 60        .byte $60, $DC   ; bank 03, page 01, $8C60
+- D 0 - I - 0x000428 00:8418: 80        .addr loc_level4_screen_u18_indexes + $4000   ; bank 03, page 01, $8D80
+- D 0 - I - 0x00042A 00:841A: 60        .byte $60, $DC   ; bank 03, page 01, $9C60
 - D 0 - I - 0x00042C 00:841C: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x00042E 00:841E: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x00042E 00:841E: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000430 00:8420: 40        .byte $40, $CE   ; bank 03, page 01, $8E40
-- D 0 - I - 0x000432 00:8422: 98        .byte $98, $DC   ; bank 03, page 01, $8C98
+- D 0 - I - 0x000430 00:8420: 40        .addr loc_level4_screen_u19_indexes + $4000   ; bank 03, page 01, $8E40
+- D 0 - I - 0x000432 00:8422: 98        .byte $98, $DC   ; bank 03, page 01, $9C98
 - D 0 - I - 0x000434 00:8424: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x000436 00:8426: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x000436 00:8426: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000438 00:8428: 00        .byte $00, $CF   ; bank 03, page 01, $8F00
+- D 0 - I - 0x000438 00:8428: 00        .addr loc_level4_screen_u20_indexes + $4000   ; bank 03, page 01, $8F00
 - D 0 - I - 0x00043A 00:842A: D0        .byte $D0, $DC   ; bank 03, page 01, $9CD0
 - D 0 - I - 0x00043C 00:842C: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x00043E 00:842E: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x00043E 00:842E: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000440 00:8430: C0        .byte $C0, $CF   ; bank 03, page 01, $8FC0
+- D 0 - I - 0x000440 00:8430: C0        .addr loc_level4_screen_u21_indexes + $4000   ; bank 03, page 01, $8FC0
 - D 0 - I - 0x000442 00:8432: 08        .byte $08, $DD   ; bank 03, page 01, $9D08
 - D 0 - I - 0x000444 00:8434: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x000446 00:8436: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x000446 00:8436: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000448 00:8438: 80        .byte $80, $D0   ; bank 03, page 01, $9080
+- D 0 - I - 0x000448 00:8438: 80        .addr loc_level4_screen_u22_indexes + $4000   ; bank 03, page 01, $9080
 - D 0 - I - 0x00044A 00:843A: 40        .byte $40, $DD   ; bank 03, page 01, $9D40
 - D 0 - I - 0x00044C 00:843C: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x00044E 00:843E: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x00044E 00:843E: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000450 00:8440: 40        .byte $40, $D1   ; bank 03, page 01, $9140
+- D 0 - I - 0x000450 00:8440: 40        .addr loc_level4_screen_u23_indexes + $4000   ; bank 03, page 01, $9140
 - D 0 - I - 0x000452 00:8442: 78        .byte $78, $DD   ; bank 03, page 01, $9D78
 - D 0 - I - 0x000454 00:8444: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x000456 00:8446: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x000456 00:8446: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000458 00:8448: 00        .byte $00, $D2   ; bank 03, page 01, $9200
+- D 0 - I - 0x000458 00:8448: 00        .addr loc_level4_screen_u24_indexes + $4000   ; bank 03, page 01, $9200
 - D 0 - I - 0x00045A 00:844A: B0        .byte $B0, $DD   ; bank 03, page 01, $9DB0
 - D 0 - I - 0x00045C 00:844C: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D - - - - 0x00045E 00:844E: D5 07     .word $07D5      ; $87D5
+- D - - - - 0x00045E 00:844E: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000460 00:8450: C0        .byte $C0, $D2   ; bank 03, page 01, $92C0
+- D 0 - I - 0x000460 00:8450: C0        .addr loc_level4_screen_u25_indexes + $4000   ; bank 03, page 01, $92C0
 - D 0 - I - 0x000462 00:8452: E8        .byte $E8, $DD   ; bank 03, page 01, $9DE8
 - D 0 - I - 0x000464 00:8454: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x000466 00:8456: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x000466 00:8456: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000468 00:8458: 80        .byte $80, $D3   ; bank 03, page 01, $9380
+- D 0 - I - 0x000468 00:8458: 80        .addr loc_level4_screen_u26_indexes + $4000   ; bank 03, page 01, $9380
 - D 0 - I - 0x00046A 00:845A: 20        .byte $20, $DE   ; bank 03, page 01, $9E20
 - D 0 - I - 0x00046C 00:845C: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x00046E 00:845E: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x00046E 00:845E: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000470 00:8460: 40        .byte $40, $D4   ; bank 03, page 01, $9440
+- D 0 - I - 0x000470 00:8460: 40        .addr loc_level4_screen_u27_indexes + $4000   ; bank 03, page 01, $9440
 - D 0 - I - 0x000472 00:8462: 58        .byte $58, $DE   ; bank 03, page 01, $9E58
 - D 0 - I - 0x000474 00:8464: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x000476 00:8466: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x000476 00:8466: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000478 00:8468: 00        .byte $00, $D5   ; bank 03, page 01, $9500
+- D 0 - I - 0x000478 00:8468: 00        .addr loc_level4_screen_u28_indexes + $4000   ; bank 03, page 01, $9500
 - D 0 - I - 0x00047A 00:846A: 90        .byte $90, $DE   ; bank 03, page 01, $9E90
 - D 0 - I - 0x00047C 00:846C: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x00047E 00:846E: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x00047E 00:846E: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; screen level 4
-- D 0 - I - 0x000480 00:8470: C0        .byte $C0, $D5   ; bank 03, page 01, $95C0
+- D 0 - I - 0x000480 00:8470: C0        .addr loc_level4_screen_u29_indexes + $4000   ; bank 03, page 01, $95C0
 - D 0 - I - 0x000482 00:8472: C8        .byte $C8, $DE   ; bank 03, page 01, $9EC8
 - D 0 - I - 0x000484 00:8474: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x000486 00:8476: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x000486 00:8476: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
-; screen level 4
+; screen level 4 (boss room)
 - D 0 - I - 0x000488 00:8478: 50        .byte $50, $BE   ; bank 02, page 02, $9E50
 - D 0 - I - 0x00048A 00:847A: 48        .byte $48, $BF   ; bank 02, page 02, $9F48
 - D 0 - I - 0x00048C 00:847C: 00        .byte $00, $A4   ; bank 02, page 02, $8400
-- D 0 - I - 0x00048E 00:847E: D5 07     .word $07D5      ; $87D5
+- D 0 - I - 0x00048E 00:847E: D5 07     .word tbl_CHR_ROM_Banks_4 - $8000      ; $87D5
 
 ; Background indexes for the screen
 tbl_background_screens:
-- D 0 - - - 0x000490 00:8480: 7C 05     .word $057C ; level 1.0 (tbl_background_screens_level_1_0 $857C)
-- D - - - - 0x000492 00:8482: 8C 05     .word $058C
-- D - - - - 0x000494 00:8484: 8C 05     .word $058C
-- D 0 - - - 0x000496 00:8486: 8C 05     .word $058C ; level 1.1 (tbl_background_screens_level_1_1 $858C)
-- D 0 - - - 0x000498 00:8488: 94 05     .word $0594 ; level 1.2 (tbl_background_screens_level_1_2 $8594)
-- D 0 - - - 0x00049A 00:848A: 9C 05     .word $059C ; level 1.3 (tbl_background_screens_level_1_3 $859C)
-- D 0 - - - 0x00049C 00:848C: A4 05     .word $05A4 ; level 2 (outside) (tbl_background_screens_level2_outside $85A4)
-- D 0 - - - 0x00049E 00:848E: B4 05     .word $05B4 ; level 2 (1-3)     (tbl_background_screens_level2_d1_d3 $85B4)
-- D 0 - - - 0x0004A0 00:8490: BC 05     .word $05BC ; level 2 (2)       (tbl_background_screens_level2_d2 $85BC)
-- D 0 - - - 0x0004A2 00:8492: C4 05     .word $05C4 ; level 2 (4-5)     (tbl_background_screens_level2_d4_d5 $85C4)
-- D 0 - - - 0x0004A4 00:8494: CC 05     .word $05CC ; level 2 (6-8)     (tbl_background_screens_level2_d6_d8 $85CC)
-- D 0 - - - 0x0004A6 00:8496: D4 05     .word $05D4 ; level 2 (7)       (tbl_background_screens_level2_d7 $85D4)
-- D 0 - - - 0x0004A8 00:8498: DC 05     .word $05DC ; level 2 (9-10)    (tbl_background_screens_level2_d9_d10 $85DC)
-- D 0 - - - 0x0004AA 00:849A: E4 05     .word $05E4 ; level 2 (11-13)   (tbl_background_screens_level2_d11_d13 $85E4)
-- D 0 - - - 0x0004AC 00:849C: EC 05     .word $05EC ; level 2 (12)      (tbl_background_screens_level2_d12 $85EC)
-- D 0 - - - 0x0004AE 00:849E: F4 05     .word $05F4 ; level 3.0 (tbl_background_screens_level3_0 $85F4)
-- D 0 - - - 0x0004B0 00:84A0: 04 06     .word $0604 ; level 3.1 (tbl_background_screens_level3_1 $8604)
-- D 0 - - - 0x0004B2 00:84A2: 0C 06     .word $060C ; level 3.2 (tbl_background_screens_level3_2 $860C)
-- D 0 - - - 0x0004B4 00:84A4: 14 06     .word $0614 ; level 3.3 (tbl_background_screens_level3_3 $8614)
-- D 0 - - - 0x0004B6 00:84A6: 1C 06     .word $061C ; level 3.4 (tbl_background_screens_level3_4 $861C)
+- D 0 - - - 0x000490 00:8480: 7C 05     .word tbl_background_screens_level_1_0      - $8000 ; ($857C)
+- D - - - - 0x000492 00:8482: 8C 05     .word tbl_background_screens_level_1_1      - $8000
+- D - - - - 0x000494 00:8484: 8C 05     .word tbl_background_screens_level_1_1      - $8000
+- D 0 - - - 0x000496 00:8486: 8C 05     .word tbl_background_screens_level_1_1      - $8000 ; ($858C)
+- D 0 - - - 0x000498 00:8488: 94 05     .word tbl_background_screens_level_1_2      - $8000 ; ($8594)
+- D 0 - - - 0x00049A 00:848A: 9C 05     .word tbl_background_screens_level_1_3      - $8000 ; ($859C)
+- D 0 - - - 0x00049C 00:848C: A4 05     .word tbl_background_screens_level2_outside - $8000 ; ($85A4)
+- D 0 - - - 0x00049E 00:848E: B4 05     .word tbl_background_screens_level2_d1_d3   - $8000 ; ($85B4)
+- D 0 - - - 0x0004A0 00:8490: BC 05     .word tbl_background_screens_level2_d2      - $8000 ; ($85BC)
+- D 0 - - - 0x0004A2 00:8492: C4 05     .word tbl_background_screens_level2_d4_d5   - $8000 ; ($85C4)
+- D 0 - - - 0x0004A4 00:8494: CC 05     .word tbl_background_screens_level2_d6_d8   - $8000 ; ($85CC)
+- D 0 - - - 0x0004A6 00:8496: D4 05     .word tbl_background_screens_level2_d7      - $8000 ; ($85D4)
+- D 0 - - - 0x0004A8 00:8498: DC 05     .word tbl_background_screens_level2_d9_d10  - $8000 ; ($85DC)
+- D 0 - - - 0x0004AA 00:849A: E4 05     .word tbl_background_screens_level2_d11_d13 - $8000 ; ($85E4)
+- D 0 - - - 0x0004AC 00:849C: EC 05     .word tbl_background_screens_level2_d12     - $8000 ; ($85EC)
+- D 0 - - - 0x0004AE 00:849E: F4 05     .word tbl_background_screens_level3_0       - $8000 ; ($85F4)
+- D 0 - - - 0x0004B0 00:84A0: 04 06     .word tbl_background_screens_level3_1       - $8000 ; ($8604)
+- D 0 - - - 0x0004B2 00:84A2: 0C 06     .word tbl_background_screens_level3_2       - $8000 ; ($860C)
+- D 0 - - - 0x0004B4 00:84A4: 14 06     .word tbl_background_screens_level3_3       - $8000 ; ($8614)
+- D 0 - - - 0x0004B6 00:84A6: 1C 06     .word tbl_background_screens_level3_4       - $8000 ; ($861C)
 - D 0 - - - 0x0004B8 00:84A8: 24 06     .word $0624 ; boss of level 4 ($8624)
-- D - - - - 0x0004BA 00:84AA: 25 06     .word $0625
-- D - - - - 0x0004BC 00:84AC: 25 06     .word $0625
-- D - - - - 0x0004BE 00:84AE: 25 06     .word $0625
-- D - - - - 0x0004C0 00:84B0: 25 06     .word $0625
-- D 0 - - - 0x0004C2 00:84B2: 25 06     .word $0625 ; level racing (tbl_background_screens_level_racing $8625)
-- D 0 - - - 0x0004C4 00:84B4: 49 06     .word $0649 ; room with NPC in level 1   ($8649)
-- D 0 - - - 0x0004C6 00:84B6: 4A 06     .word $064A ; room with NPC in level 2.1 ($864A)
-- D 0 - - - 0x0004C8 00:84B8: 4B 06     .word $064B ; room with NPC in level 2.2 ($864B)
-- D 0 - - - 0x0004CA 00:84BA: 4C 06     .word $064C ; room with NPC in level 3   ($864C)
-- D 0 - - - 0x0004CC 00:84BC: 4D 06     .word $064D ; room with NPC in level 4   ($864D)
-- D 0 - - - 0x0004CE 00:84BE: 49 06     .word $0649 ; room with briefcases in level 1   ($8649)
-- D 0 - - - 0x0004D0 00:84C0: 4A 06     .word $064A ; room with briefcases in level 2.1 ($864A)
-- D 0 - - - 0x0004D2 00:84C2: 4B 06     .word $064B ; room with briefcases in level 2.2 ($864B)
-- D 0 - - - 0x0004D4 00:84C4: 4C 06     .word $064C ; room with briefcases in level 3   ($864C)
-- D 0 - - - 0x0004D6 00:84C6: 4D 06     .word $064D ; room with briefcases in level 4   ($864D)
-- D 0 - - - 0x0004D8 00:84C8: 4E 06     .word $064E ; level 3.0 (water 1.1) ($864E)
+- D - - - - 0x0004BA 00:84AA: 25 06     .word tbl_background_screens_level_racing         - $8000
+- D - - - - 0x0004BC 00:84AC: 25 06     .word tbl_background_screens_level_racing         - $8000
+- D - - - - 0x0004BE 00:84AE: 25 06     .word tbl_background_screens_level_racing         - $8000
+- D - - - - 0x0004C0 00:84B0: 25 06     .word tbl_background_screens_level_racing         - $8000
+- D 0 - - - 0x0004C2 00:84B2: 25 06     .word tbl_background_screens_level_racing         - $8000 ; ($8625)
+- D 0 - - - 0x0004C4 00:84B4: 49 06     .word tbl_background_screens_level1_unique_room   - $8000 ; room with NPC in level 1   ($8649)
+- D 0 - - - 0x0004C6 00:84B6: 4A 06     .word tbl_background_screens_level2_1_unique_room - $8000 ; room with NPC in level 2.1 ($864A)
+- D 0 - - - 0x0004C8 00:84B8: 4B 06     .word tbl_background_screens_level2_2_unique_room - $8000 ; room with NPC in level 2.2 ($864B)
+- D 0 - - - 0x0004CA 00:84BA: 4C 06     .word tbl_background_screens_level3_unique_room   - $8000 ; room with NPC in level 3   ($864C)
+- D 0 - - - 0x0004CC 00:84BC: 4D 06     .word tbl_background_screens_level4_unique_room   - $8000 ; room with NPC in level 4   ($864D)
+- D 0 - - - 0x0004CE 00:84BE: 49 06     .word tbl_background_screens_level1_unique_room   - $8000 ; room with briefcases in level 1   ($8649)
+- D 0 - - - 0x0004D0 00:84C0: 4A 06     .word tbl_background_screens_level2_1_unique_room - $8000 ; room with briefcases in level 2.1 ($864A)
+- D 0 - - - 0x0004D2 00:84C2: 4B 06     .word tbl_background_screens_level2_2_unique_room - $8000 ; room with briefcases in level 2.2 ($864B)
+- D 0 - - - 0x0004D4 00:84C4: 4C 06     .word tbl_background_screens_level3_unique_room   - $8000 ; room with briefcases in level 3   ($864C)
+- D 0 - - - 0x0004D6 00:84C6: 4D 06     .word tbl_background_screens_level4_unique_room   - $8000 ; room with briefcases in level 4   ($864D)
+- D 0 - - - 0x0004D8 00:84C8: 4E 06     .word tbl_background_screens_level3_0_water1_1    - $8000 ; ($864E)
 - D - - - - 0x0004DA 00:84CA: 4F 06     .word $064F ; ($864F)
 - D 0 - - - 0x0004DC 00:84CC: 51 06     .word $0651 ; level 3.0 (water 1.0) ($8651)
 - D - - - - 0x0004DE 00:84CE: 54 06     .word $0654 ; ($8654)
@@ -925,18 +929,18 @@ tbl_background_screens:
 - D 0 - - - 0x0004E6 00:84D6: 64 06     .word $0664 ; level 3.3 (water 1.0) ($8664)
 - D 0 - - - 0x0004E8 00:84D8: 66 06     .word $0666 ; level 3.1 / 3.2 (water 1.0) ($8666)
 - D 0 - - - 0x0004EA 00:84DA: 69 06     .word $0669 ; level 3.4 (water 1.0) ($8669)
-- D - - - - 0x0004EC 00:84DC: 70 06     .word $0670
-- D - - - - 0x0004EE 00:84DE: 70 06     .word $0670
-- D 0 - - - 0x0004F0 00:84E0: 70 06     .word $0670 ; level 2 (1-3) (water 1.0) ($8670)
-- D 0 - - - 0x0004F2 00:84E2: 74 06     .word $0674 ; level 2 (2) (water 1.0) ($8674)
-- D 0 - - - 0x0004F4 00:84E4: 78 06     .word $0678 ; level 2 (4-5) (water 1.0) ($8678)
-- D - - - - 0x0004F6 00:84E6: 7E 06     .word $067E
-- D - - - - 0x0004F8 00:84E8: 7E 06     .word $067E
-- D - - - - 0x0004FA 00:84EA: 7E 06     .word $067E
-- D 0 - - - 0x0004FC 00:84EC: 7E 06     .word $067E ; level 2 (6-8) (water 1.0) ($867E)
-- D 0 - - - 0x0004FE 00:84EE: 7F 06     .word $067F ; level 2 (7) (water 1.0) ($867F)
-- D 0 - - - 0x000500 00:84F0: 84 06     .word $0684 ; level 2 (9-10) (water 1.0) ($8684)
-- D 0 - - - 0x000502 00:84F2: 86 06     .word $0686 ; level 2 (11-13) / (12) (water 1.0) ($8686)
+- D - - - - 0x0004EC 00:84DC: 70 06     .word tbl_background_screens_level2_d1_d3_water   - $8000
+- D - - - - 0x0004EE 00:84DE: 70 06     .word tbl_background_screens_level2_d1_d3_water   - $8000
+- D 0 - - - 0x0004F0 00:84E0: 70 06     .word tbl_background_screens_level2_d1_d3_water   - $8000 ; (water 1.0) ($8670)
+- D 0 - - - 0x0004F2 00:84E2: 74 06     .word tbl_background_screens_level2_d2_water      - $8000 ; (water 1.0) ($8674)
+- D 0 - - - 0x0004F4 00:84E4: 78 06     .word tbl_background_screens_level2_d4_d5_water   - $8000 ; (water 1.0) ($8678)
+- D - - - - 0x0004F6 00:84E6: 7E 06     .word tbl_background_screens_level2_d6_d8_water   - $8000
+- D - - - - 0x0004F8 00:84E8: 7E 06     .word tbl_background_screens_level2_d6_d8_water   - $8000
+- D - - - - 0x0004FA 00:84EA: 7E 06     .word tbl_background_screens_level2_d6_d8_water   - $8000
+- D 0 - - - 0x0004FC 00:84EC: 7E 06     .word tbl_background_screens_level2_d6_d8_water   - $8000 ; (water 1.0) ($867E)
+- D 0 - - - 0x0004FE 00:84EE: 7F 06     .word tbl_background_screens_level2_d7_water      - $8000 ; (water 1.0) ($867F)
+- D 0 - - - 0x000500 00:84F0: 84 06     .word tbl_background_screens_level2_d9_d10_water  - $8000 ; (water 1.0) ($8684)
+- D 0 - - - 0x000502 00:84F2: 86 06     .word tbl_background_screens_level2_d11_d13_water - $8000 ; (water 1.0) ($8686)
 - D - - - - 0x000504 00:84F4: 89 06     .word $0689
 - D - - - - 0x000506 00:84F6: 89 06     .word $0689
 - D 0 - - - 0x000508 00:84F8: 89 06     .word $0689
@@ -945,66 +949,66 @@ tbl_background_screens:
 - D 0 - - - 0x00050E 00:84FE: 8F 06     .word $068F ; ($868F)
 - D 0 - - - 0x000510 00:8500: 96 06     .word $0696 ; ($8696)
 - D 0 - - - 0x000512 00:8502: 9A 06     .word $069A ; ($869A)
-- D 0 - - - 0x000514 00:8504: 9E 06     .word $069E ; level 4, map 1 (B2-D2) (tbl_background_screens_level4_map1_b2_d2 $869E)
-- D 0 - - - 0x000516 00:8506: A0 06     .word $06A0 ; level 4, map 1 (C0-C2) (tbl_background_screens_level4_map1_c0_c2 $86A0)
-- D 0 - - - 0x000518 00:8508: A2 06     .word $06A2 ; level 4, map 1 (B1-C1) (tbl_background_screens_level4_map1_b1_c1 $86A2)
-- D 0 - - - 0x00051A 00:850A: A3 06     .word $06A3 ; level 4, map 1 (B1-B3) (tbl_background_screens_level4_map1_b1_b3 $86A3)
-- D 0 - - - 0x00051C 00:850C: A5 06     .word $06A5 ; level 4, map 1 (A3-D3) (tbl_background_screens_level4_map1_a3_d3 $86A5)
-- D 0 - - - 0x00051E 00:850E: A9 06     .word $06A9 ; level 4, map 1 (D0-D3) (tbl_background_screens_level4_map1_d0_d3 $86A9)
-- D 0 - - - 0x000520 00:8510: AD 06     .word $06AD ; level 4, map 1 (A0-D0) (tbl_background_screens_level4_map1_a0_d0 $86AD)
-- D 0 - - - 0x000522 00:8512: B1 06     .word $06B1 ; level 4, map 1 (A0-A3) (tbl_background_screens_level4_map1_a0_a3 $86B1)
-- D 0 - - - 0x000524 00:8514: B5 06     .word $06B5 ; level 4, map 2 (A0-A6) (tbl_background_screens_level4_map2_a0_a6 $86B5)
-- D 0 - - - 0x000526 00:8516: BB 06     .word $06BB ; level 4, map 2 (A6-F6) (tbl_background_screens_level4_map2_a6_f6 $86BB)
-- D 0 - - - 0x000528 00:8518: C1 06     .word $06C1 ; level 4, map 2 (F0-F6) (tbl_background_screens_level4_map2_f0_f6 $86C1)
-- D 0 - - - 0x00052A 00:851A: C7 06     .word $06C7 ; level 4, map 2 (A0-F0) (tbl_background_screens_level4_map2_a0_f0 $86C7)
-- D 0 - - - 0x00052C 00:851C: CD 06     .word $06CD ; level 4, map 2 (B1-B5) (tbl_background_screens_level4_map2_b1_b5 $86CD)
-- D 0 - - - 0x00052E 00:851E: D1 06     .word $06D1 ; level 4, map 2 (A3-A3) (tbl_background_screens_level4_map2_a3_a3 $86D1)
-- D 0 - - - 0x000530 00:8520: D2 06     .word $06D2 ; level 4, map 2 (B5-E5) (tbl_background_screens_level4_map2_b5_e5 $86D2)
-- D 0 - - - 0x000532 00:8522: D5 06     .word $06D5 ; level 4, map 2 (E0-E6) (tbl_background_screens_level4_map2_e0_e6 $86D5)
-- D 0 - - - 0x000534 00:8524: DA 06     .word $06DA ; level 4, map 2 (B1-F1) (tbl_background_screens_level4_map2_b1_f1 $86DA)
-- D 0 - - - 0x000536 00:8526: DE 06     .word $06DE ; level 4, map 2 (C2-C4) (tbl_background_screens_level4_map2_c2_c4 $86DE)
-- D 0 - - - 0x000538 00:8528: DF 06     .word $06DF ; level 4, map 2 (B4-D4) (tbl_background_screens_level4_map2_b4_d4 $86DF)
-- D 0 - - - 0x00053A 00:852A: E1 06     .word $06E1 ; level 4, map 2 (D2-D4) (tbl_background_screens_level4_map2_d2_d4 $86E1)
-- D 0 - - - 0x00053C 00:852C: E2 06     .word $06E2 ; level 4, map 2 (C2-D2) (tbl_background_screens_level4_map2_c2_d2 $86E2)
-- D 0 - - - 0x00053E 00:852E: E3 06     .word $06E3 ; level 4, map 3 (D3-E3) (tbl_background_screens_level4_map3_d3_e3 $86E3)
-- D 0 - - - 0x000540 00:8530: E5 06     .word $06E5 ; level 4, map 3 (D3-D5) (tbl_background_screens_level4_map3_d3_d5 $86E5)
-- D 0 - - - 0x000542 00:8532: E7 06     .word $06E7 ; level 4, map 3 (D4-F4) (tbl_background_screens_level4_map3_d4_f4 $86E7)
-- D 0 - - - 0x000544 00:8534: E9 06     .word $06E9 ; level 4, map 3 (E3-E4) (tbl_background_screens_level4_map3_e3_e4 $86E9)
-- D 0 - - - 0x000546 00:8536: EA 06     .word $06EA ; level 4, map 3 (C2-G2) (tbl_background_screens_level4_map3_c2_g2 $86EA)
-- D 0 - - - 0x000548 00:8538: EE 06     .word $06EE ; level 4, map 3 (C1-C6) (tbl_background_screens_level4_map3_c1_c6 $86EE)
-- D 0 - - - 0x00054A 00:853A: F3 06     .word $06F3 ; level 4, map 3 (C5-F5) (tbl_background_screens_level4_map3_c5_f5 $86F3)
-- D 0 - - - 0x00054C 00:853C: F7 06     .word $06F7 ; level 4, map 3 (F2-F5) (tbl_background_screens_level4_map3_f2_f5 $86F7)
-- D 0 - - - 0x00054E 00:853E: FB 06     .word $06FB ; level 4, map 3 (B1-G1) (tbl_background_screens_level4_map3_b1_g1 $86FB)
-- D 0 - - - 0x000550 00:8540: 01 07     .word $0701 ; level 4, map 3 (B1-B7) (tbl_background_screens_level4_map3_b1_b7 $8701)
-- D 0 - - - 0x000552 00:8542: 07 07     .word $0707 ; level 4, map 3 (B6-G6) (tbl_background_screens_level4_map3_b6_g6 $8707)
-- D 0 - - - 0x000554 00:8544: 0D 07     .word $070D ; level 4, map 3 (G1-G6) (tbl_background_screens_level4_map3_g1_g6 $870D)
-- D 0 - - - 0x000556 00:8546: 13 07     .word $0713 ; level 4, map 3 (A0-H0) (tbl_background_screens_level4_map3_a0_h0 $8713)
-- D 0 - - - 0x000558 00:8548: 1B 07     .word $071B ; level 4, map 3 (A0-A7) (tbl_background_screens_level4_map3_a0_a7 $871B)
-- D 0 - - - 0x00055A 00:854A: 22 07     .word $0722 ; level 4, map 3 (A7-H7) (tbl_background_screens_level4_map3_a7_h7 $8722)
-- D 0 - - - 0x00055C 00:854C: 2A 07     .word $072A ; level 4, map 3 (H0-H7) (tbl_background_screens_level4_map3_h0_h7 $872A)
-- D 0 - - - 0x00055E 00:854E: 31 07     .word $0731 ; level 4, map 4 (A0-J0) (tbl_background_screens_level4_map4_a0_j0 $8731)
-- D 0 - - - 0x000560 00:8550: 3B 07     .word $073B ; level 4, map 4 (A0-A9) (tbl_background_screens_level4_map4_a0_a9 $873B)
-- D 0 - - - 0x000562 00:8552: 45 07     .word $0745 ; level 4, map 4 (A9-J9) (tbl_background_screens_level4_map4_a9_j9 $8745)
-- D 0 - - - 0x000564 00:8554: 4F 07     .word $074F ; level 4, map 4 (J0-J9) (tbl_background_screens_level4_map4_j0_j9 $874F)
-- D 0 - - - 0x000566 00:8556: 59 07     .word $0759 ; level 4, map 4 (B1-I1) (tbl_background_screens_level4_map4_b1_i1 $8759)
-- D 0 - - - 0x000568 00:8558: 61 07     .word $0761 ; level 4, map 4 (B1-B8) (tbl_background_screens_level4_map4_b1_b8 $8761)
-- D 0 - - - 0x00056A 00:855A: 69 07     .word $0769 ; level 4, map 4 (B8-E8) (tbl_background_screens_level4_map4_b8_e8 $8769)
-- D 0 - - - 0x00056C 00:855C: 6C 07     .word $076C ; level 4, map 4 (G8-J8) (tbl_background_screens_level4_map4_g8_j8 $876C)
-- D 0 - - - 0x00056E 00:855E: 71 07     .word $0771 ; level 4, map 4 (I6-I8) (tbl_background_screens_level4_map4_i6_i8 $8771)
-- D 0 - - - 0x000570 00:8560: 74 07     .word $0774 ; level 4, map 4 (I1-I3) (tbl_background_screens_level4_map4_i1_i3 $8774)
-- D 0 - - - 0x000572 00:8562: 78 07     .word $0778 ; level 4, map 4 (G2-I2) (tbl_background_screens_level4_map4_g2_i2 $8778)
-- D 0 - - - 0x000574 00:8564: 7B 07     .word $077B ; level 4, map 4 (C2-E2) (tbl_background_screens_level4_map4_c2_e2 $877B)
-- D 0 - - - 0x000576 00:8566: 7E 07     .word $077E ; level 4, map 4 (C1-C9) (tbl_background_screens_level4_map4_c1_c9 $877E)
-- D 0 - - - 0x000578 00:8568: 86 07     .word $0786 ; level 4, map 4 (A7-I7) (tbl_background_screens_level4_map4_a7_i7 $8786)
-- D 0 - - - 0x00057A 00:856A: 8E 07     .word $078E ; level 4, map 4 (H2-H7) (tbl_background_screens_level4_map4_h2_h7 $878E)
-- D 0 - - - 0x00057C 00:856C: 94 07     .word $0794 ; level 4, map 4 (D3-G3) (tbl_background_screens_level4_map4_d3_g3 $8794)
-- D 0 - - - 0x00057E 00:856E: 98 07     .word $0798 ; level 4, map 4 (D2-D7) (tbl_background_screens_level4_map4_d2_d7 $8798)
-- D 0 - - - 0x000580 00:8570: 9D 07     .word $079D ; level 4, map 4 (D6-H6) (tbl_background_screens_level4_map4_d6_h6 $879D)
-- D 0 - - - 0x000582 00:8572: A1 07     .word $07A1 ; level 4, map 4 (G3-G6) (tbl_background_screens_level4_map4_g3_g6 $87A1)
-- D 0 - - - 0x000584 00:8574: A5 07     .word $07A5 ; level 4, map 4 (E4-G4) (tbl_background_screens_level4_map4_e4_g4 $87A5)
-- D 0 - - - 0x000586 00:8576: A7 07     .word $07A7 ; level 4, map 4 (E3-E5) (tbl_background_screens_level4_map4_e3_e5 $87A7)
-- D 0 - - - 0x000588 00:8578: A9 07     .word $07A9 ; level 4, map 4 (E5-E5) (tbl_background_screens_level4_map4_e5_e5 $87A9)
-- D 0 - - - 0x00058A 00:857A: AA 07     .word $07AA ; level 4, map 4 (F4-F5) (tbl_background_screens_level4_map4_f4_f5 $87AA)
+- D 0 - - - 0x000514 00:8504: 9E 06     .word tbl_background_screens_level4_map1_b2_d2 - $8000 ; ($869E)
+- D 0 - - - 0x000516 00:8506: A0 06     .word tbl_background_screens_level4_map1_c0_c2 - $8000 ; ($86A0)
+- D 0 - - - 0x000518 00:8508: A2 06     .word tbl_background_screens_level4_map1_b1_c1 - $8000 ; ($86A2)
+- D 0 - - - 0x00051A 00:850A: A3 06     .word tbl_background_screens_level4_map1_b1_b3 - $8000 ; ($86A3)
+- D 0 - - - 0x00051C 00:850C: A5 06     .word tbl_background_screens_level4_map1_a3_d3 - $8000 ; ($86A5)
+- D 0 - - - 0x00051E 00:850E: A9 06     .word tbl_background_screens_level4_map1_d0_d3 - $8000 ; ($86A9)
+- D 0 - - - 0x000520 00:8510: AD 06     .word tbl_background_screens_level4_map1_a0_d0 - $8000 ; ($86AD)
+- D 0 - - - 0x000522 00:8512: B1 06     .word tbl_background_screens_level4_map1_a0_a3 - $8000 ; ($86B1)
+- D 0 - - - 0x000524 00:8514: B5 06     .word tbl_background_screens_level4_map2_a0_a6 - $8000 ; ($86B5)
+- D 0 - - - 0x000526 00:8516: BB 06     .word tbl_background_screens_level4_map2_a6_f6 - $8000 ; ($86BB)
+- D 0 - - - 0x000528 00:8518: C1 06     .word tbl_background_screens_level4_map2_f0_f6 - $8000 ; ($86C1)
+- D 0 - - - 0x00052A 00:851A: C7 06     .word tbl_background_screens_level4_map2_a0_f0 - $8000 ; ($86C7)
+- D 0 - - - 0x00052C 00:851C: CD 06     .word tbl_background_screens_level4_map2_b1_b5 - $8000 ; ($86CD)
+- D 0 - - - 0x00052E 00:851E: D1 06     .word tbl_background_screens_level4_map2_a3_a3 - $8000 ; ($86D1)
+- D 0 - - - 0x000530 00:8520: D2 06     .word tbl_background_screens_level4_map2_b5_e5 - $8000 ; ($86D2)
+- D 0 - - - 0x000532 00:8522: D5 06     .word tbl_background_screens_level4_map2_e0_e6 - $8000 ; ($86D5)
+- D 0 - - - 0x000534 00:8524: DA 06     .word tbl_background_screens_level4_map2_b1_f1 - $8000 ; ($86DA)
+- D 0 - - - 0x000536 00:8526: DE 06     .word tbl_background_screens_level4_map2_c2_c4 - $8000 ; ($86DE)
+- D 0 - - - 0x000538 00:8528: DF 06     .word tbl_background_screens_level4_map2_b4_d4 - $8000 ; ($86DF)
+- D 0 - - - 0x00053A 00:852A: E1 06     .word tbl_background_screens_level4_map2_d2_d4 - $8000 ; ($86E1)
+- D 0 - - - 0x00053C 00:852C: E2 06     .word tbl_background_screens_level4_map2_c2_d2 - $8000 ; ($86E2)
+- D 0 - - - 0x00053E 00:852E: E3 06     .word tbl_background_screens_level4_map3_d3_e3 - $8000 ; ($86E3)
+- D 0 - - - 0x000540 00:8530: E5 06     .word tbl_background_screens_level4_map3_d3_d5 - $8000 ; ($86E5)
+- D 0 - - - 0x000542 00:8532: E7 06     .word tbl_background_screens_level4_map3_d4_f4 - $8000 ; ($86E7)
+- D 0 - - - 0x000544 00:8534: E9 06     .word tbl_background_screens_level4_map3_e3_e4 - $8000 ; ($86E9)
+- D 0 - - - 0x000546 00:8536: EA 06     .word tbl_background_screens_level4_map3_c2_g2 - $8000 ; ($86EA)
+- D 0 - - - 0x000548 00:8538: EE 06     .word tbl_background_screens_level4_map3_c1_c6 - $8000 ; ($86EE)
+- D 0 - - - 0x00054A 00:853A: F3 06     .word tbl_background_screens_level4_map3_c5_f5 - $8000 ; ($86F3)
+- D 0 - - - 0x00054C 00:853C: F7 06     .word tbl_background_screens_level4_map3_f2_f5 - $8000 ; ($86F7)
+- D 0 - - - 0x00054E 00:853E: FB 06     .word tbl_background_screens_level4_map3_b1_g1 - $8000 ; ($86FB)
+- D 0 - - - 0x000550 00:8540: 01 07     .word tbl_background_screens_level4_map3_b1_b7 - $8000 ; ($8701)
+- D 0 - - - 0x000552 00:8542: 07 07     .word tbl_background_screens_level4_map3_b6_g6 - $8000 ; ($8707)
+- D 0 - - - 0x000554 00:8544: 0D 07     .word tbl_background_screens_level4_map3_g1_g6 - $8000 ; ($870D)
+- D 0 - - - 0x000556 00:8546: 13 07     .word tbl_background_screens_level4_map3_a0_h0 - $8000 ; ($8713)
+- D 0 - - - 0x000558 00:8548: 1B 07     .word tbl_background_screens_level4_map3_a0_a7 - $8000 ; ($871B)
+- D 0 - - - 0x00055A 00:854A: 22 07     .word tbl_background_screens_level4_map3_a7_h7 - $8000 ; ($8722)
+- D 0 - - - 0x00055C 00:854C: 2A 07     .word tbl_background_screens_level4_map3_h0_h7 - $8000 ; ($872A)
+- D 0 - - - 0x00055E 00:854E: 31 07     .word tbl_background_screens_level4_map4_a0_j0 - $8000 ; ($8731)
+- D 0 - - - 0x000560 00:8550: 3B 07     .word tbl_background_screens_level4_map4_a0_a9 - $8000 ; ($873B)
+- D 0 - - - 0x000562 00:8552: 45 07     .word tbl_background_screens_level4_map4_a9_j9 - $8000 ; ($8745)
+- D 0 - - - 0x000564 00:8554: 4F 07     .word tbl_background_screens_level4_map4_j0_j9 - $8000 ; ($874F)
+- D 0 - - - 0x000566 00:8556: 59 07     .word tbl_background_screens_level4_map4_b1_i1 - $8000 ; ($8759)
+- D 0 - - - 0x000568 00:8558: 61 07     .word tbl_background_screens_level4_map4_b1_b8 - $8000 ; ($8761)
+- D 0 - - - 0x00056A 00:855A: 69 07     .word tbl_background_screens_level4_map4_b8_e8 - $8000 ; ($8769)
+- D 0 - - - 0x00056C 00:855C: 6C 07     .word tbl_background_screens_level4_map4_g8_j8 - $8000 ; ($876C)
+- D 0 - - - 0x00056E 00:855E: 71 07     .word tbl_background_screens_level4_map4_i6_i8 - $8000 ; ($8771)
+- D 0 - - - 0x000570 00:8560: 74 07     .word tbl_background_screens_level4_map4_i1_i3 - $8000 ; ($8774)
+- D 0 - - - 0x000572 00:8562: 78 07     .word tbl_background_screens_level4_map4_g2_i2 - $8000 ; ($8778)
+- D 0 - - - 0x000574 00:8564: 7B 07     .word tbl_background_screens_level4_map4_c2_e2 - $8000 ; ($877B)
+- D 0 - - - 0x000576 00:8566: 7E 07     .word tbl_background_screens_level4_map4_c1_c9 - $8000 ; ($877E)
+- D 0 - - - 0x000578 00:8568: 86 07     .word tbl_background_screens_level4_map4_a7_i7 - $8000 ; ($8786)
+- D 0 - - - 0x00057A 00:856A: 8E 07     .word tbl_background_screens_level4_map4_h2_h7 - $8000 ; ($878E)
+- D 0 - - - 0x00057C 00:856C: 94 07     .word tbl_background_screens_level4_map4_d3_g3 - $8000 ; ($8794)
+- D 0 - - - 0x00057E 00:856E: 98 07     .word tbl_background_screens_level4_map4_d2_d7 - $8000 ; ($8798)
+- D 0 - - - 0x000580 00:8570: 9D 07     .word tbl_background_screens_level4_map4_d6_h6 - $8000 ; ($879D)
+- D 0 - - - 0x000582 00:8572: A1 07     .word tbl_background_screens_level4_map4_g3_g6 - $8000 ; ($87A1)
+- D 0 - - - 0x000584 00:8574: A5 07     .word tbl_background_screens_level4_map4_e4_g4 - $8000 ; ($87A5)
+- D 0 - - - 0x000586 00:8576: A7 07     .word tbl_background_screens_level4_map4_e3_e5 - $8000 ; ($87A7)
+- D 0 - - - 0x000588 00:8578: A9 07     .word tbl_background_screens_level4_map4_e5_e5 - $8000 ; ($87A9)
+- D 0 - - - 0x00058A 00:857A: AA 07     .word tbl_background_screens_level4_map4_f4_f5 - $8000 ; ($87AA)
 
 tbl_background_screens_level_1_0:
 - D 0 - I - 0x00058C 00:857C: 36        .byte $36   ; screen 0 ($81B0), 0x01B0 << 0xD8 << 0x6C << 0x36
@@ -1250,16 +1254,22 @@ tbl_background_screens_level_racing:
 - D 0 - I - 0x000657 00:8647: 6A        .byte $6A   ; screen 22 ($8350)
 - D 0 - I - 0x000658 00:8648: 6B        .byte $6B   ; screen 23 ($8358)
 
+tbl_background_screens_level1_unique_room:
 - D 0 - I - 0x000659 00:8649: 6F        .byte $6F   ; screen 0 ($8378)
 
+tbl_background_screens_level2_1_unique_room:
 - D 0 - I - 0x00065A 00:864A: 6D        .byte $6D   ; screen 0 ($8368)
 
+tbl_background_screens_level2_2_unique_room:
 - D 0 - I - 0x00065B 00:864B: 6E        .byte $6E   ; screen 0 ($8370)
 
+tbl_background_screens_level3_unique_room:
 - D 0 - I - 0x00065C 00:864C: 6C        .byte $6C   ; screen 0 ($8360)
 
+tbl_background_screens_level4_unique_room:
 - D 0 - I - 0x00065D 00:864D: 70        .byte $70   ; screen 0 ($8380)
 
+tbl_background_screens_level3_0_water1_1:
 - D 0 - I - 0x00065E 00:864E: 50        .byte $50   ; screen 0 ($8280)
 
 - D 0 - I - 0x00065F 00:864F: 50        .byte $50   ; screen 0 ($8280)
@@ -1304,16 +1314,19 @@ tbl_background_screens_level_racing:
 - D 0 - I - 0x00067E 00:866E: 53        .byte $53   ; screen 5 ($8298)
 - D 0 - I - 0x00067F 00:866F: 52        .byte $52   ; screen 6 ($8290)
 
+tbl_background_screens_level2_d1_d3_water:
 - D 0 - I - 0x000680 00:8670: 54        .byte $54   ; screen 0 ($82A0)
 - D 0 - I - 0x000681 00:8671: 54        .byte $54   ; screen 1 ($82A0)
 - D 0 - I - 0x000682 00:8672: 54        .byte $54   ; screen 2 ($82A0)
 - D 0 - I - 0x000683 00:8673: 54        .byte $54   ; screen 3 ($82A0)
 
+tbl_background_screens_level2_d2_water:
 - D 0 - I - 0x000684 00:8674: 54        .byte $54   ; screen 0 ($82A0)
 - D 0 - I - 0x000685 00:8675: 54        .byte $54   ; screen 1 ($82A0)
 - D 0 - I - 0x000686 00:8676: 55        .byte $55   ; screen 2 ($82A8)
 - D 0 - I - 0x000687 00:8677: 54        .byte $54   ; screen 3 ($82A0)
 
+tbl_background_screens_level2_d4_d5_water:
 - D 0 - I - 0x000688 00:8678: 54        .byte $54   ; screen 0 ($82A0)
 - D 0 - I - 0x000689 00:8679: 55        .byte $55   ; screen 1 ($82A8)
 - D 0 - I - 0x00068A 00:867A: 54        .byte $54   ; screen 2 ($82A0)
@@ -1321,20 +1334,27 @@ tbl_background_screens_level_racing:
 - D 0 - I - 0x00068C 00:867C: 54        .byte $54   ; screen 4 ($82A0)
 - D 0 - I - 0x00068D 00:867D: 54        .byte $54   ; screen 5 ($82A0)
 
+tbl_background_screens_level2_d6_d8_water:
 - D 0 - I - 0x00068E 00:867E: 56        .byte $56   ; screen 0 ($82B0)
 
+tbl_background_screens_level2_d7_water:
 - D 0 - I - 0x00068F 00:867F: 56        .byte $56   ; screen 0 ($82B0)
 - D 0 - I - 0x000690 00:8680: 56        .byte $56   ; screen 1 ($82B0)
 - D 0 - I - 0x000691 00:8681: 56        .byte $56   ; screen 2 ($82B0)
 - D 0 - I - 0x000692 00:8682: 57        .byte $57   ; screen 3 ($82B8)
 - D 0 - I - 0x000693 00:8683: 56        .byte $56   ; screen 4 ($82B0)
 
+tbl_background_screens_level2_d9_d10_water:
 - D 0 - I - 0x000694 00:8684: 56        .byte $56   ; screen 0 ($82B0)
 - D 0 - I - 0x000695 00:8685: 56        .byte $56   ; screen 1 ($82B0)
+                                                    ; !(BUG?) - next room will use from the next table
 
+tbl_background_screens_level2_d11_d13_water:
 - D 0 - I - 0x000696 00:8686: 56        .byte $56   ; screen 2 ($82B0)
 - D 0 - I - 0x000697 00:8687: 56        .byte $56   ; screen 0 ($82B0)
 - D 0 - I - 0x000698 00:8688: 56        .byte $56   ; screen 1 ($82B0)
+
+; !(UNUSED)
 - D 0 - I - 0x000699 00:8689: 58        .byte $58   ; screen 2 ($82C0)
 
 - D 0 - I - 0x00069A 00:868A: 58        .byte $58   ; screen 0 ($82C0)
@@ -1752,27 +1772,35 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x0007BA 00:87AA: 73        .byte $73   ; screen 0 ($8398)
 
 ; CHR ROM Banks (level 3.0)
+tbl_CHR_ROM_Banks_3_0:
 - D 0 - I - 0x0007BB 00:87AB: 20        .byte $20, $22, $00, $01, $0C, $0D
 
 ; CHR ROM Banks (level 2, outside)
+tbl_CHR_ROM_Banks_2_outside:
 - D 0 - I - 0x0007C1 00:87B1: 20        .byte $20, $24, $00, $01, $10, $11
 
 ; CHR ROM Banks (level 1.0)
+tbl_CHR_ROM_Banks_1_0:
 - D 0 - I - 0x0007C7 00:87B7: 20        .byte $20, $26, $00, $01, $14, $15
 
 ; CHR ROM Banks (level racing)
+tbl_CHR_ROM_Banks_level_racing:
 - D 0 - I - 0x0007CD 00:87BD: 20        .byte $20, $28, $00, $01, $18, $19
 
 ; CHR ROM Banks (level 3.X, water)
+tbl_CHR_ROM_Banks_3_X:
 - D 0 - I - 0x0007D3 00:87C3: 20        .byte $20, $2A, $00, $01, $0C, $0E
 
 ; CHR ROM Banks (level 2, inside, water)
+tbl_CHR_ROM_Banks_2_inside:
 - D 0 - I - 0x0007D9 00:87C9: 20        .byte $20, $2C, $00, $01, $10, $12
 
 ; CHR ROM Banks (level 1.X)
+tbl_CHR_ROM_Banks_1_X:
 - D 0 - I - 0x0007DF 00:87CF: 20        .byte $20, $2E, $00, $01, $14, $16
 
 ; CHR ROM Banks (level 4, water)
+tbl_CHR_ROM_Banks_4:
 - D 0 - I - 0x0007E5 00:87D5: 20        .byte $20, $30, $00, $01, $18, $1A
 
 ; reserve
@@ -1785,6 +1813,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D - - - - 0x00080F 00:87FF: FF        .byte $FF
 
 ; screen 0 (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screen0_indexes:
 - D 0 - I - 0x000810 00:8800: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 - D 0 - I - 0x00081C 00:880C: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $03, $04, $05, $02
 - D 0 - I - 0x000828 00:8818: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
@@ -1803,6 +1832,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x0008C4 00:88B4: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $26, $04, $05, $02
 
 ; screen 1 (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screen1_indexes:
 - D 0 - I - 0x0008D0 00:88C0: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 - D 0 - I - 0x0008DC 00:88CC: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 - D 0 - I - 0x0008E8 00:88D8: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
@@ -1821,6 +1851,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x000984 00:8974: 00        .byte $00, $00, $00, $00, $00, $14, $24, $24, $24, $25, $05, $02
 
 ; screen 2 (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screen2_indexes:
 - D 0 - I - 0x000990 00:8980: 00        .byte $00, $00, $00, $00, $00, $14, $24, $24, $24, $2A, $05, $02
 - D 0 - I - 0x00099C 00:898C: 00        .byte $00, $00, $00, $00, $00, $14, $24, $24, $24, $2A, $05, $02
 - D 0 - I - 0x0009A8 00:8998: 00        .byte $00, $00, $00, $00, $00, $14, $24, $24, $24, $27, $05, $02
@@ -1839,6 +1870,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x000A44 00:8A34: 00        .byte $00, $00, $00, $00, $00, $14, $24, $24, $24, $04, $05, $02
 
 ; screen 3 (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screen3_indexes:
 - D 0 - I - 0x000A50 00:8A40: 00        .byte $00, $00, $00, $00, $00, $14, $24, $24, $24, $04, $05, $02
 - D 0 - I - 0x000A5C 00:8A4C: 00        .byte $00, $00, $00, $00, $00, $14, $24, $24, $24, $04, $05, $02
 - D 0 - I - 0x000A68 00:8A58: 00        .byte $00, $00, $00, $06, $07, $14, $24, $24, $17, $04, $05, $02
@@ -1857,6 +1889,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x000B04 00:8AF4: 00        .byte $00, $00, $00, $00, $00, $1A, $1B, $1C, $19, $04, $05, $02
 
 ; screen 4 (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screen4_indexes:
 - D 0 - I - 0x000B10 00:8B00: 00        .byte $00, $00, $00, $00, $00, $1A, $1B, $1C, $1D, $04, $05, $02
 - D 0 - I - 0x000B1C 00:8B0C: 00        .byte $00, $00, $00, $00, $00, $1A, $1B, $1C, $1D, $04, $05, $02
 - D 0 - I - 0x000B28 00:8B18: 00        .byte $00, $00, $00, $00, $00, $1A, $1B, $1C, $1D, $04, $05, $02
@@ -1875,6 +1908,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x000BC4 00:8BB4: 00        .byte $00, $00, $00, $00, $00, $00, $00, $06, $07, $04, $05, $02
 
 ; screen 5 (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screen5_indexes:
 - D 0 - I - 0x000BD0 00:8BC0: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $28, $05, $02
 - D 0 - I - 0x000BDC 00:8BCC: 00        .byte $00, $00, $00, $3E, $40, $41, $00, $00, $00, $00, $05, $02
 - D 0 - I - 0x000BE8 00:8BD8: 00        .byte $00, $00, $00, $3F, $02, $02, $42, $43, $44, $45, $05, $02
@@ -1893,6 +1927,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x000C84 00:8C74: 00        .byte $00, $2E, $2D, $00, $02, $02, $02, $02, $01, $01, $05, $02
 
 ; screen 6 (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screen6_indexes:
 - D 0 - I - 0x000C90 00:8C80: 2E        .byte $2E, $2D, $00, $3B, $02, $02, $02, $02, $01, $01, $05, $02
 - D 0 - I - 0x000C9C 00:8C8C: 2F        .byte $2F, $30, $30, $4B, $02, $02, $02, $02, $01, $01, $05, $02
 - D 0 - I - 0x000CA8 00:8C98: 00        .byte $00, $00, $00, $3D, $02, $37, $39, $39, $39, $27, $05, $02
@@ -1911,6 +1946,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x000D44 00:8D34: 00        .byte $00, $00, $00, $00, $02, $02, $02, $02, $01, $01, $05, $02
 
 ; screen 7 (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screen7_indexes:
 - D 0 - I - 0x000D50 00:8D40: 00        .byte $00, $00, $00, $00, $02, $37, $39, $39, $39, $2A, $05, $02
 - D 0 - I - 0x000D5C 00:8D4C: 00        .byte $00, $00, $00, $00, $02, $37, $39, $39, $39, $27, $05, $02
 - D 0 - I - 0x000D68 00:8D58: 00        .byte $00, $00, $00, $3B, $02, $37, $39, $1A, $4F, $04, $05, $02
@@ -1929,6 +1965,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x000E04 00:8DF4: 00        .byte $00, $00, $00, $5D, $5E, $5F, $00, $00, $03, $04, $05, $02
 
 ; screen 8 (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screen8_indexes:
 - D 0 - I - 0x000E10 00:8E00: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 - D 0 - I - 0x000E1C 00:8E0C: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 - D 0 - I - 0x000E28 00:8E18: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $03, $04, $05, $02
@@ -1947,6 +1984,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x000EC4 00:8EB4: 00        .byte $00, $00, $00, $00, $00, $37, $39, $39, $39, $04, $05, $02
 
 ; screen 9 (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screen9_indexes:
 - D 0 - I - 0x000ED0 00:8EC0: 00        .byte $00, $00, $00, $00, $00, $37, $39, $39, $39, $25, $05, $02
 - D 0 - I - 0x000EDC 00:8ECC: 00        .byte $00, $00, $00, $00, $00, $37, $39, $39, $39, $2A, $05, $02
 - D 0 - I - 0x000EE8 00:8ED8: 00        .byte $00, $00, $00, $00, $00, $37, $39, $39, $39, $2A, $05, $02
@@ -1965,6 +2003,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x000F84 00:8F74: 00        .byte $00, $00, $00, $00, $00, $71, $3C, $3C, $3C, $04, $05, $02
 
 ; screen A (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screenA_indexes:
 - D 0 - I - 0x000F90 00:8F80: 00        .byte $00, $00, $00, $00, $00, $71, $3C, $3C, $3C, $04, $05, $02
 - D 0 - I - 0x000F9C 00:8F8C: 00        .byte $00, $00, $00, $00, $00, $71, $3C, $3C, $3C, $04, $05, $02
 - D 0 - I - 0x000FA8 00:8F98: 00        .byte $00, $00, $00, $00, $00, $71, $3C, $1A, $4F, $04, $05, $02
@@ -1983,6 +2022,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001044 00:9034: 00        .byte $00, $00, $00, $1A, $4F, $14, $24, $24, $17, $04, $05, $02
 
 ; screen B (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screenB_indexes:
 - D 0 - I - 0x001050 00:9040: 00        .byte $00, $00, $00, $1A, $4F, $14, $24, $24, $24, $04, $05, $02
 - D 0 - I - 0x00105C 00:904C: 00        .byte $00, $00, $00, $1A, $4F, $14, $24, $1A, $4F, $25, $05, $02
 - D 0 - I - 0x001068 00:9058: 00        .byte $00, $00, $00, $00, $00, $14, $24, $1A, $4F, $2A, $05, $02
@@ -2001,6 +2041,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001104 00:90F4: 00        .byte $00, $00, $00, $00, $26, $37, $39, $39, $39, $2A, $05, $02
 
 ; screen C (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screenC_indexes:
 - D 0 - I - 0x001110 00:9100: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $05, $02
 - D 0 - I - 0x00111C 00:910C: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $05, $02
 - D 0 - I - 0x001128 00:9118: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $29, $05, $02
@@ -2019,6 +2060,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x0011C4 00:91B4: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 
 ; screen D (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screenD_indexes:
 - D 0 - I - 0x0011D0 00:91C0: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 - D 0 - I - 0x0011DC 00:91CC: 00        .byte $00, $00, $00, $2C, $2B, $14, $24, $24, $24, $04, $05, $02
 - D 0 - I - 0x0011E8 00:91D8: 00        .byte $00, $00, $2E, $2D, $00, $14, $24, $24, $24, $25, $05, $02
@@ -2037,6 +2079,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001284 00:9274: 00        .byte $00, $00, $00, $00, $17, $37, $39, $39, $39, $04, $05, $02
 
 ; screen E (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screenE_indexes:
 - D 0 - I - 0x001290 00:9280: 00        .byte $00, $00, $00, $17, $17, $37, $39, $39, $39, $04, $05, $02
 - D 0 - I - 0x00129C 00:928C: 00        .byte $00, $00, $00, $17, $17, $37, $39, $39, $39, $04, $05, $02
 - D 0 - I - 0x0012A8 00:9298: 00        .byte $00, $00, $00, $00, $00, $37, $39, $1A, $4F, $04, $05, $02
@@ -2055,6 +2098,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001344 00:9334: 00        .byte $00, $00, $00, $00, $00, $37, $39, $39, $39, $04, $05, $02
 
 ; screen F (level 3.0), horizontally - y axis, vertically - x axis
+loc_level3_0_screenF_indexes:
 - D 0 - I - 0x001350 00:9340: 63        .byte $63, $63, $63, $63, $63, $63, $63, $63, $63, $04, $05, $02
 - D 0 - I - 0x00135C 00:934C: 64        .byte $64, $67, $64, $64, $64, $67, $64, $64, $64, $04, $05, $02
 - D 0 - I - 0x001368 00:9358: 65        .byte $65, $68, $65, $65, $65, $68, $65, $65, $65, $04, $05, $02
@@ -2073,6 +2117,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001404 00:93F4: 63        .byte $63, $63, $63, $63, $63, $63, $63, $63, $63, $04, $05, $02
 
 ; screen 0 (level 3.0), attribute tables
+loc_level3_0_screen0_attrs:
 - D 0 - I - 0x001410 00:9400: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001418 00:9408: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x001420 00:9410: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2082,6 +2127,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001440 00:9430: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; screen 1 (level 3.0), attribute tables
+loc_level3_0_screen1_attrs:
 - D 0 - I - 0x001448 00:9438: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001450 00:9440: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x001458 00:9448: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2091,6 +2137,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001478 00:9468: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; screen 2 (level 3.0), attribute tables
+loc_level3_0_screen2_attrs:
 - D 0 - I - 0x001480 00:9470: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001488 00:9478: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x001490 00:9480: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2100,6 +2147,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x0014B0 00:94A0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; screen 3 (level 3.0), attribute tables
+loc_level3_0_screen3_attrs:
 - D 0 - I - 0x0014B8 00:94A8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x0014C0 00:94B0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x0014C8 00:94B8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2109,6 +2157,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x0014E8 00:94D8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; screen 4 (level 3.0), attribute tables
+loc_level3_0_screen4_attrs:
 - D 0 - I - 0x0014F0 00:94E0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x0014F8 00:94E8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x001500 00:94F0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2118,6 +2167,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001520 00:9510: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; screen 5 (level 3.0), attribute tables
+loc_level3_0_screen5_attrs:
 - D 0 - I - 0x001528 00:9518: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001530 00:9520: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x001538 00:9528: 99        .byte $99, $AA, $AA, $AA, $A6, $A5, $A5, $A5
@@ -2127,6 +2177,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001558 00:9548: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; screen 6 (level 3.0), attribute tables
+loc_level3_0_screen6_attrs:
 - D 0 - I - 0x001560 00:9550: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001568 00:9558: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x001570 00:9560: A5        .byte $A5, $A5, $A5, $A5, $65, $55, $95, $A5
@@ -2136,6 +2187,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001590 00:9580: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; screen 7 (level 3.0), attribute tables
+loc_level3_0_screen7_attrs:
 - D 0 - I - 0x001598 00:9588: 50        .byte $50, $50, $A0, $A0, $50, $50, $50, $50
 - D 0 - I - 0x0015A0 00:9590: 55        .byte $55, $55, $99, $AA, $AA, $55, $55, $55
 - D 0 - I - 0x0015A8 00:9598: A5        .byte $A5, $A5, $A9, $AA, $AA, $AA, $AA, $AA
@@ -2145,6 +2197,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x0015C8 00:95B8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; screen 8 (level 3.0), attribute tables
+loc_level3_0_screen8_attrs:
 - D 0 - I - 0x0015D0 00:95C0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x0015D8 00:95C8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x0015E0 00:95D0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2154,6 +2207,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001600 00:95F0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; screen 9 (level 3.0), attribute tables
+loc_level3_0_screen9_attrs:
 - D 0 - I - 0x001608 00:95F8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001610 00:9600: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x001618 00:9608: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2163,6 +2217,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001638 00:9628: 05        .byte $05, $05, $05, $05, $05, $05, $05, $05
 
 ; screen A (level 3.0), attribute tables
+loc_level3_0_screenA_attrs:
 - D 0 - I - 0x001640 00:9630: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001648 00:9638: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x001650 00:9640: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2172,6 +2227,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001670 00:9660: 05        .byte $05, $05, $05, $05, $05, $05, $05, $05
 
 ; screen B (level 3.0), attribute tables
+loc_level3_0_screenB_attrs:
 - D 0 - I - 0x001678 00:9668: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001680 00:9670: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x001688 00:9678: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2181,6 +2237,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x0016A8 00:9698: 05        .byte $05, $05, $05, $05, $05, $05, $55, $55
 
 ; screen C (level 3.0), attribute tables
+loc_level3_0_screenC_attrs:
 - D 0 - I - 0x0016B0 00:96A0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x0016B8 00:96A8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x0016C0 00:96B0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2190,6 +2247,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x0016E0 00:96D0: 05        .byte $05, $05, $05, $05, $05, $05, $05, $05
 
 ; screen D (level 3.0), attribute tables
+loc_level3_0_screenD_attrs:
 - D 0 - I - 0x0016E8 00:96D8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x0016F0 00:96E0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x0016F8 00:96E8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2199,6 +2257,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001718 00:9708: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; screen E (level 3.0), attribute tables
+loc_level3_0_screenE_attrs:
 - D 0 - I - 0x001720 00:9710: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001728 00:9718: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x001730 00:9720: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2208,6 +2267,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001750 00:9740: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; screen F (level 3.0), attribute tables
+loc_level3_0_screenF_attrs:
 - D 0 - I - 0x001758 00:9748: 60        .byte $60, $50, $90, $50, $50, $60, $50, $90
 - D 0 - I - 0x001760 00:9750: 6A        .byte $6A, $5A, $9A, $5A, $5A, $6A, $5A, $9A
 - D 0 - I - 0x001768 00:9758: 66        .byte $66, $55, $99, $55, $55, $66, $55, $99
@@ -2217,6 +2277,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001788 00:9778: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; Indexes of the metatiles (level 3.0)
+loc_level3_0_metatiles:
 - D 0 - I - 0x001790 00:9780: 00        .byte $00, $00, $00, $00   ; 0x00
 - D 0 - I - 0x001794 00:9784: 01        .byte $01, $01, $01, $01   ; 0x01
 - D 0 - I - 0x001798 00:9788: 03        .byte $03, $03, $03, $03   ; 0x02
@@ -2413,6 +2474,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D - - - - 0x001A8C 00:9A7C: FF        .byte $FF, $FF, $FF, $FF
 
 ; screen 2, 6, 3 (level 3.X), attribute tables
+loc_level3_X_screen_u00_attrs:
 - D 0 - I - 0x001A90 00:9A80: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001A98 00:9A88: 55        .byte $55, $D5, $75, $55, $55, $55, $95, $55
 - D 0 - I - 0x001AA0 00:9A90: 55        .byte $55, $DD, $77, $55, $55, $DD, $59, $55
@@ -2422,6 +2484,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001AC0 00:9AB0: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
 ; screen 6, 3, 1, 6 (level 3.X), attribute tables
+loc_level3_X_screen_u01_attrs:
 - D 0 - I - 0x001AC8 00:9AB8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001AD0 00:9AC0: 55        .byte $55, $55, $55, $55, $55, $D5, $75, $55
 - D 0 - I - 0x001AD8 00:9AC8: 55        .byte $55, $DD, $55, $55, $55, $DD, $B7, $65
@@ -2431,6 +2494,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001AF8 00:9AE8: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
 ; screen 0, 3, 4, 2 (level 3.X), attribute tables
+loc_level3_X_screen_u02_attrs:
 - D 0 - I - 0x001B00 00:9AF0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001B08 00:9AF8: 55        .byte $55, $55, $55, $55, $55, $55, $95, $55
 - D 0 - I - 0x001B10 00:9B00: 55        .byte $55, $55, $55, $55, $55, $55, $59, $55
@@ -2440,6 +2504,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001B30 00:9B20: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
 ; screen 1, 5, 2, 5, 4, 5 (level 3.X), attribute tables
+loc_level3_X_screen_u03_attrs:
 - D 0 - I - 0x001B38 00:9B28: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001B40 00:9B30: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x001B48 00:9B38: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2449,6 +2514,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001B68 00:9B58: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
 ; screen 4, 6, 2 (level 3.X), attribute tables
+loc_level3_X_screen_u04_attrs:
 - D 0 - I - 0x001B70 00:9B60: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001B78 00:9B68: 55        .byte $55, $55, $55, $55, $55, $55, $95, $55
 - D 0 - I - 0x001B80 00:9B70: 55        .byte $55, $DD, $55, $55, $55, $A5, $59, $55
@@ -2458,6 +2524,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001BA0 00:9B90: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
 ; screen 7, 7 (level 3.X), attribute tables
+loc_level3_X_screen_u05_attrs:
 - D 0 - I - 0x001BA8 00:9B98: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001BB0 00:9BA0: 55        .byte $55, $55, $55, $55, $55, $D5, $75, $55
 - D 0 - I - 0x001BB8 00:9BA8: 55        .byte $55, $55, $55, $55, $55, $DD, $77, $55
@@ -2467,6 +2534,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001BD8 00:9BC8: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
 ; screen 0, 0 (level 3.X), attribute tables
+loc_level3_X_screen_u06_attrs:
 - D 0 - I - 0x001BE0 00:9BD0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001BE8 00:9BD8: 55        .byte $55, $55, $55, $D5, $75, $55, $55, $55
 - D 0 - I - 0x001BF0 00:9BE0: 55        .byte $55, $55, $55, $DD, $77, $55, $55, $55
@@ -2476,6 +2544,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001C10 00:9C00: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
 ; screen 1, 0, 3 (level 3.X), attribute tables
+loc_level3_X_screen_u07_attrs:
 - D 0 - I - 0x001C18 00:9C08: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001C20 00:9C10: D5        .byte $D5, $75, $55, $D5, $75, $55, $55, $55
 - D 0 - I - 0x001C28 00:9C18: DD        .byte $DD, $77, $55, $DD, $77, $55, $55, $55
@@ -2485,6 +2554,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001C48 00:9C38: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
 ; screen 7, 7 (level 3.X), attribute tables
+loc_level3_X_screen_u08_attrs:
 - D 0 - I - 0x001C50 00:9C40: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001C58 00:9C48: 55        .byte $55, $55, $D5, $75, $55, $55, $55, $55
 - D 0 - I - 0x001C60 00:9C50: 55        .byte $55, $55, $DD, $77, $A5, $55, $55, $55
@@ -2494,6 +2564,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001C80 00:9C70: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
 ; screen 5, 1, 4 (level 3.X), attribute tables
+loc_level3_X_screen_u09_attrs:
 - D 0 - I - 0x001C88 00:9C78: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001C90 00:9C80: 55        .byte $55, $55, $55, $D5, $75, $55, $55, $55
 - D 0 - I - 0x001C98 00:9C88: DD        .byte $DD, $55, $55, $DD, $FF, $55, $55, $55
@@ -2539,6 +2610,7 @@ tbl_background_screens_level4_map4_f4_f5:
 - D 0 - I - 0x001D98 00:9D88: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 ; Indexes of the metatiles (level 3.X, water)
+loc_level3_X_metatiles:
 - D 0 - I - 0x001DA0 00:9D90: 00        .byte $00, $00, $00, $00   ; 0x00
 - D 0 - I - 0x001DA4 00:9D94: 98        .byte $98, $99, $9A, $9B   ; 0x01
 - D 0 - I - 0x001DA8 00:9D98: 01        .byte $01, $9C, $01, $9E   ; 0x02

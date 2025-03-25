@@ -3,6 +3,63 @@
 .org $8000  ; for listing file
 ; 0x004010-0x00600F
 
+.export loc_level2_inside_screen_u00_indexes
+.export loc_level2_inside_screen_u01_indexes
+.export loc_level2_inside_screen_u02_indexes
+.export loc_level2_inside_screen_u03_indexes
+.export loc_level2_inside_screen_u04_indexes
+.export loc_level2_inside_screen_u05_indexes
+.export loc_level2_inside_screen_u06_indexes
+.export loc_level2_inside_screen_u07_indexes
+.export loc_level2_inside_screen_u08_indexes
+.export loc_level2_inside_screen_u09_indexes
+.export loc_level2_inside_screen_u10_indexes
+.export loc_level2_inside_screen_u11_indexes
+.export loc_level2_inside_screen_u00_attrs
+.export loc_level2_inside_screen_u01_attrs
+.export loc_level2_inside_screen_u02_attrs
+.export loc_level2_inside_screen_u03_attrs
+.export loc_level2_inside_screen_u04_attrs
+.export loc_level2_inside_screen_u05_attrs
+.export loc_level2_inside_screen_u06_attrs
+.export loc_level2_inside_screen_u07_attrs
+.export loc_level2_inside_screen_u08_attrs
+.export loc_level2_inside_screen_u09_attrs
+.export loc_level2_inside_screen_u10_attrs
+.export loc_level2_inside_screen_u11_attrs
+.export loc_level1_0_screen0_indexes
+.export loc_level1_0_screen1_indexes
+.export loc_level1_0_screen2_indexes
+.export loc_level1_0_screen3_indexes
+.export loc_level1_0_screen4_indexes
+.export loc_level1_0_screen5_indexes
+.export loc_level1_0_screen6_indexes
+.export loc_level1_0_screen7_indexes
+.export loc_level1_0_screen8_indexes
+.export loc_level1_0_screen9_indexes
+.export loc_level1_0_screenA_indexes
+.export loc_level1_0_screenB_indexes
+.export loc_level1_0_screenC_indexes
+.export loc_level1_0_screenD_indexes
+.export loc_level1_0_screenE_indexes
+.export loc_level1_0_screenF_indexes
+.export loc_level1_0_screen0_attrs
+.export loc_level1_0_screen1_attrs
+.export loc_level1_0_screen2_attrs
+.export loc_level1_0_screen3_attrs
+.export loc_level1_0_screen4_attrs
+.export loc_level1_0_screen5_attrs
+.export loc_level1_0_screen6_attrs
+.export loc_level1_0_screen7_attrs
+.export loc_level1_0_screen8_attrs
+.export loc_level1_0_screen9_attrs
+.export loc_level1_0_screenA_attrs
+.export loc_level1_0_screenB_attrs
+.export loc_level1_0_screenC_attrs
+.export loc_level1_0_screenD_attrs
+.export loc_level1_0_screenE_attrs
+.export loc_level1_0_screenF_attrs
+
 - D 0 - - - 0x004010 01:8000: B5        .byte $B5   ; 
 - D 0 - - - 0x004011 01:8001: B4        .byte $B4   ; 
 - - - - - - 0x004012 01:8002: B6        .byte $B6   ; 
@@ -133,6 +190,7 @@
 - D 0 - I - 0x00408F 01:807F: 00        .byte $00   ; 
 
 ; screen 0, 7, 0, 0, 7 (level 2, inside), horizontally - y axis, vertically - x axis
+loc_level2_inside_screen_u00_indexes:
 - D 0 - I - 0x004090 01:8080: 04        .byte $04, $02, $05, $02, $15, $46, $02, $11, $12, $19, $1C, $00   ; 
 - D 0 - I - 0x00409C 01:808C: 04        .byte $04, $02, $05, $11, $12, $46, $02, $13, $14, $17, $1E, $00   ; 
 - D 0 - I - 0x0040A8 01:8098: 04        .byte $04, $02, $05, $13, $14, $46, $07, $08, $0A, $17, $1E, $00   ; 
@@ -151,6 +209,7 @@
 - D 0 - I - 0x004144 01:8134: 04        .byte $04, $02, $05, $02, $15, $16, $1A, $38, $38, $17, $1E, $00   ; 
 
 ; screen 6, 1, 5, 7, 4 (level 2, inside), horizontally - y axis, vertically - x axis
+loc_level2_inside_screen_u01_indexes:
 - D 0 - I - 0x004150 01:8140: 04        .byte $04, $02, $05, $39, $37, $43, $02, $02, $15, $19, $1C, $00   ; 
 - D 0 - I - 0x00415C 01:814C: 04        .byte $04, $02, $06, $08, $0A, $46, $02, $02, $36, $43, $1E, $00   ; 
 - D 0 - I - 0x004168 01:8158: 04        .byte $04, $02, $06, $0C, $08, $46, $02, $02, $36, $43, $1E, $00   ; 
@@ -169,6 +228,7 @@
 - D 0 - I - 0x004204 01:81F4: 04        .byte $04, $02, $05, $38, $38, $46, $07, $08, $0A, $17, $1E, $00   ; 
 
 ; screen 4, 4, 2 (level 2, inside), horizontally - y axis, vertically - x axis
+loc_level2_inside_screen_u02_indexes:
 - D 0 - I - 0x004210 01:8200: 04        .byte $04, $02, $05, $02, $36, $43, $02, $38, $38, $19, $1C, $00   ; 
 - D 0 - I - 0x00421C 01:820C: 04        .byte $04, $02, $05, $0F, $36, $43, $02, $38, $38, $17, $1E, $00   ; 
 - D 0 - I - 0x004228 01:8218: 04        .byte $04, $02, $06, $08, $0A, $46, $02, $38, $38, $17, $1E, $00   ; 
@@ -187,6 +247,7 @@
 - D 0 - I - 0x0042C4 01:82B4: 04        .byte $04, $02, $05, $02, $15, $16, $1A, $1A, $1B, $17, $1E, $00   ; 
 
 ; screen 1, 3, 3, 6, 3, 5 (level 2, inside), horizontally - y axis, vertically - x axis
+loc_level2_inside_screen_u03_indexes:
 - D 0 - I - 0x0042D0 01:82C0: 04        .byte $04, $02, $06, $08, $0A, $46, $02, $0E, $38, $19, $1C, $00   ; 
 - D 0 - I - 0x0042DC 01:82CC: 04        .byte $04, $02, $06, $0C, $08, $46, $02, $02, $38, $17, $1E, $00   ; 
 - D 0 - I - 0x0042E8 01:82D8: 04        .byte $04, $02, $06, $09, $08, $46, $02, $11, $12, $17, $1E, $00   ; 
@@ -205,6 +266,7 @@
 - D 0 - I - 0x004384 01:8374: 04        .byte $04, $02, $05, $02, $10, $46, $02, $02, $15, $19, $1C, $00   ; 
 
 ; screen 2, 5, 2, 1, 6 (level 2, inside), horizontally - y axis, vertically - x axis
+loc_level2_inside_screen_u04_indexes:
 - D 0 - I - 0x004390 01:8380: 04        .byte $04, $0B, $06, $08, $0A, $46, $02, $02, $15, $1D, $1E, $00   ; 
 - D 0 - I - 0x00439C 01:838C: 04        .byte $04, $02, $06, $0C, $08, $46, $0F, $02, $15, $1D, $1E, $00   ; 
 - D 0 - I - 0x0043A8 01:8398: 04        .byte $04, $02, $06, $09, $08, $46, $02, $02, $15, $1D, $1E, $00   ; 
@@ -223,6 +285,7 @@
 - D 0 - I - 0x004444 01:8434: 04        .byte $04, $02, $05, $02, $15, $46, $02, $39, $37, $43, $1E, $00   ; 
 
 ; screen 0, 0, 7, 7 (level 2, inside), horizontally - y axis, vertically - x axis
+loc_level2_inside_screen_u05_indexes:
 - D 0 - I - 0x004450 01:8440: 04        .byte $04, $23, $24, $22, $23, $29, $22, $22, $23, $3C, $1C, $00   ; 
 - D 0 - I - 0x00445C 01:844C: 04        .byte $04, $28, $25, $03, $28, $29, $32, $33, $35, $3A, $1E, $00   ; 
 - D 0 - I - 0x004468 01:8458: 04        .byte $04, $28, $03, $03, $28, $29, $00, $00, $00, $3C, $1C, $00   ; 
@@ -241,6 +304,7 @@
 - D 0 - I - 0x004504 01:84F4: 04        .byte $04, $28, $26, $03, $28, $29, $03, $38, $38, $3A, $1E, $00   ; 
 
 ; screen 7, 0, 0, 0 (level 2, inside), horizontally - y axis, vertically - x axis
+loc_level2_inside_screen_u06_indexes:
 - D 0 - I - 0x004510 01:8500: 04        .byte $04, $23, $24, $22, $23, $29, $22, $22, $23, $3C, $1C, $00   ; 
 - D 0 - I - 0x00451C 01:850C: 04        .byte $04, $28, $25, $03, $28, $29, $03, $03, $28, $3A, $1E, $00   ; 
 - D 0 - I - 0x004528 01:8518: 04        .byte $04, $28, $03, $03, $28, $2A, $2B, $2B, $2C, $3C, $1C, $00   ; 
@@ -259,6 +323,7 @@
 - D 0 - I - 0x0045C4 01:85B4: 04        .byte $04, $28, $26, $03, $28, $29, $03, $03, $28, $3A, $1E, $00   ; 
 
 ; screen 3, 1, 7, 0, 3, 5, 7, 1, 3, 5, 4 (level 2, inside), horizontally - y axis, vertically - x axis
+loc_level2_inside_screen_u07_indexes:
 - D 0 - I - 0x0045D0 01:85C0: 04        .byte $04, $23, $24, $22, $23, $2D, $22, $22, $23, $3C, $1C, $00   ; 
 - D 0 - I - 0x0045DC 01:85CC: 04        .byte $04, $28, $25, $03, $28, $29, $03, $03, $38, $3A, $1E, $00   ; 
 - D 0 - I - 0x0045E8 01:85D8: 04        .byte $04, $28, $2F, $30, $31, $29, $03, $39, $37, $42, $1C, $00   ; 
@@ -277,6 +342,7 @@
 - D 0 - I - 0x004684 01:8674: 04        .byte $04, $28, $26, $38, $38, $29, $03, $03, $28, $3B, $20, $00   ;
 
 ; screen 1, 5, 6, 1, 6, 6 (level 2, inside), horizontally - y axis, vertically - x axis
+loc_level2_inside_screen_u08_indexes:
 - D 0 - I - 0x004690 01:8680: 04        .byte $04, $23, $24, $22, $38, $29, $22, $22, $23, $3C, $1C, $00   ; 
 - D 0 - I - 0x00469C 01:868C: 04        .byte $04, $28, $25, $03, $38, $29, $03, $38, $38, $3A, $1E, $00   ; 
 - D 0 - I - 0x0046A8 01:8698: 04        .byte $04, $28, $2F, $30, $31, $29, $03, $03, $38, $3C, $1C, $00   ; 
@@ -295,6 +361,7 @@
 - D 0 - I - 0x004744 01:8734: 04        .byte $04, $28, $26, $03, $38, $29, $03, $03, $38, $3A, $1E, $00   ; 
 
 ; screen 6, 2, 5, 4, 2, 1, 3, 6 (level 2, inside), horizontally - y axis, vertically - x axis
+loc_level2_inside_screen_u09_indexes:
 - D 0 - I - 0x004750 01:8740: 04        .byte $04, $23, $24, $22, $38, $29, $22, $22, $23, $3C, $1C, $00   ; 
 - D 0 - I - 0x00475C 01:874C: 04        .byte $04, $28, $25, $03, $38, $29, $03, $62, $63, $3A, $1E, $00   ; 
 - D 0 - I - 0x004768 01:8758: 04        .byte $04, $28, $2F, $30, $31, $29, $5E, $5F, $5F, $3C, $1C, $00   ; 
@@ -313,6 +380,7 @@
 - D 0 - I - 0x004804 01:87F4: 04        .byte $04, $28, $26, $03, $28, $2E, $2B, $2B, $2C, $3A, $1E, $00   ; 
 
 ; screen 3, 2 (level 2, inside), horizontally - y axis, vertically - x axis
+loc_level2_inside_screen_u10_indexes:
 - D 0 - I - 0x004810 01:8800: 04        .byte $04, $23, $24, $22, $23, $2D, $22, $22, $23, $00, $1E, $00   ; 
 - D 0 - I - 0x00481C 01:880C: 04        .byte $04, $28, $25, $03, $28, $29, $03, $03, $28, $3B, $20, $00   ; 
 - D 0 - I - 0x004828 01:8818: 04        .byte $04, $28, $03, $03, $28, $2A, $2B, $2B, $38, $3C, $1C, $00   ; 
@@ -331,6 +399,7 @@
 - D 0 - I - 0x0048C4 01:88B4: 04        .byte $04, $28, $26, $03, $28, $2A, $2B, $2B, $2C, $3B, $20, $00   ; 
 
 ; screen 2, 4, 4, 2, 4, 5, 7 (level 2, inside), horizontally - y axis, vertically - x axis
+loc_level2_inside_screen_u11_indexes:
 - D 0 - I - 0x0048D0 01:88C0: 04        .byte $04, $23, $24, $22, $36, $29, $22, $22, $23, $3C, $1C, $00   ; 
 - D 0 - I - 0x0048DC 01:88CC: 04        .byte $04, $28, $25, $39, $37, $45, $03, $03, $28, $3A, $1E, $00   ; 
 - D 0 - I - 0x0048E8 01:88D8: 04        .byte $04, $28, $2F, $30, $31, $29, $03, $03, $38, $3C, $1C, $00   ; 
@@ -421,6 +490,7 @@
 - D 0 - I - 0x004C84 01:8C74: 3A        .byte $3A, $49, $00, $4C, $4C, $4C, $4C, $4C, $4C, $4C, $5B, $00   ; 
 
 ; screen 0, 7, 0, 0, 7 (level 2, inside), attribute tables
+loc_level2_inside_screen_u00_attrs:
 - D 0 - I - 0x004C90 01:8C80: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x004C98 01:8C88: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x004CA0 01:8C90: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -429,6 +499,7 @@
 - D 0 - I - 0x004CB8 01:8CA8: AF        .byte $AF, $AF, $AF, $AF, $AF, $AF, $AF, $AF
 
 ; screen 6, 1, 5, 7, 4 (level 2, inside), attribute tables
+loc_level2_inside_screen_u01_attrs:
 - D 0 - I - 0x004CC0 01:8CB0: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x004CC8 01:8CB8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x004CD0 01:8CC0: 77        .byte $77, $55, $55, $55, $55, $55, $A9, $AA
@@ -437,6 +508,7 @@
 - D 0 - I - 0x004CE8 01:8CD8: AF        .byte $AF, $AF, $AF, $AF, $AF, $AF, $AF, $AF
 
 ; screen 4, 4, 2 (level 2, inside), attribute tables
+loc_level2_inside_screen_u02_attrs:
 - D 0 - I - 0x004CF0 01:8CE0: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x004CF8 01:8CE8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x004D00 01:8CF0: F5        .byte $F5, $55, $55, $55, $55, $55, $55, $55
@@ -445,6 +517,7 @@
 - D 0 - I - 0x004D18 01:8D08: AF        .byte $AF, $AF, $AF, $AF, $AF, $AF, $AF, $AF
 
 ; screen 1, 3, 3, 6, 3, 5 (level 2, inside), attribute tables
+loc_level2_inside_screen_u03_attrs:
 - D 0 - I - 0x004D20 01:8D10: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x004D28 01:8D18: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x004D30 01:8D20: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -453,6 +526,7 @@
 - D 0 - I - 0x004D48 01:8D38: AF        .byte $AF, $AF, $AF, $AF, $AF, $AF, $AF, $AF
 
 ; screen 2, 5, 2, 1, 6 (level 2, inside), attribute tables
+loc_level2_inside_screen_u04_attrs:
 - D 0 - I - 0x004D50 01:8D40: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x004D58 01:8D48: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x004D60 01:8D50: 55        .byte $55, $55, $55, $55, $55, $95, $AA, $66
@@ -461,6 +535,7 @@
 - D 0 - I - 0x004D78 01:8D68: AF        .byte $AF, $AF, $AF, $AF, $AF, $AF, $AF, $AF
 
 ; screen 0, 0, 7, 7 (level 2, inside), attribute tables
+loc_level2_inside_screen_u05_attrs:
 - D 0 - I - 0x004D80 01:8D70: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x004D88 01:8D78: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x004D90 01:8D80: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -469,6 +544,7 @@
 - D 0 - I - 0x004DA8 01:8D98: A5        .byte $A5, $A5, $A5, $A5, $A5, $A5, $A5, $A5
 
 ; screen 7, 0, 0, 0 (level 2, inside), attribute tables
+loc_level2_inside_screen_u06_attrs:
 - D 0 - I - 0x004DB0 01:8DA0: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x004DB8 01:8DA8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x004DC0 01:8DB0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -477,6 +553,7 @@
 - D 0 - I - 0x004DD8 01:8DC8: A5        .byte $A5, $A5, $A5, $A5, $A5, $A5, $A5, $A5
 
 ; screen 3, 1, 7, 0, 3, 5, 7, 1, 3, 5, 4 (level 2, inside), attribute tables
+loc_level2_inside_screen_u07_attrs:
 - D 0 - I - 0x004DE0 01:8DD0: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x004DE8 01:8DD8: 55        .byte $55, $65, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x004DF0 01:8DE0: 55        .byte $55, $66, $55, $55, $55, $55, $55, $55
@@ -485,6 +562,7 @@
 - D 0 - I - 0x004E08 01:8DF8: A5        .byte $A5, $A5, $A5, $A5, $A5, $A5, $AD, $A7
 
 ; screen 1, 5, 6, 1, 6, 6 (level 2, inside), attribute tables
+loc_level2_inside_screen_u08_attrs:
 - D 0 - I - 0x004E10 01:8E00: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x004E18 01:8E08: 55        .byte $55, $65, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x004E20 01:8E10: 55        .byte $55, $66, $55, $55, $55, $55, $55, $55
@@ -493,6 +571,7 @@
 - D 0 - I - 0x004E38 01:8E28: A5        .byte $A5, $A5, $A5, $A5, $A5, $A5, $A5, $A5
 
 ; screen 6, 2, 5, 4, 2, 1, 3, 6 (level 2, inside), attribute tables
+loc_level2_inside_screen_u09_attrs:
 - D 0 - I - 0x004E40 01:8E30: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x004E48 01:8E38: 55        .byte $55, $65, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x004E50 01:8E40: 55        .byte $55, $66, $55, $55, $55, $55, $55, $55
@@ -501,6 +580,7 @@
 - D 0 - I - 0x004E68 01:8E58: A5        .byte $A5, $A5, $A5, $A5, $A5, $A5, $A5, $A5
 
 ; screen 3, 2 (level 2, inside), attribute tables
+loc_level2_inside_screen_u10_attrs:
 - D 0 - I - 0x004E70 01:8E60: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x004E78 01:8E68: 55        .byte $55, $55, $55, $65, $55, $55, $55, $55
 - D 0 - I - 0x004E80 01:8E70: 55        .byte $55, $DD, $55, $66, $55, $55, $95, $55
@@ -509,6 +589,7 @@
 - D 0 - I - 0x004E98 01:8E88: A7        .byte $A7, $A5, $A5, $A5, $A5, $A5, $AF, $A7
 
 ; screen 2, 4, 4, 2, 4, 5, 7 (level 2, inside), attribute tables
+loc_level2_inside_screen_u11_attrs:
 - D 0 - I - 0x004EA0 01:8E90: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x004EA8 01:8E98: 55        .byte $55, $65, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x004EB0 01:8EA0: ED        .byte $ED, $66, $DD, $55, $55, $55, $55, $55
@@ -652,6 +733,7 @@
 ; 0xCCAAAAAA - see $D267, bank FF
 ; Indexes of the metatiles
 ; screen 0, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screen0_indexes:
 - D 0 - I - 0x005010 01:9000: 01        .byte $01, $01, $01, $01, $01, $28, $7F, $01, $01, $8D, $7A, $00
 - D 0 - I - 0x00501C 01:900C: 01        .byte $01, $01, $01, $01, $01, $97, $80, $01, $01, $9D, $9C, $00
 - D 0 - I - 0x005028 01:9018: 01        .byte $01, $01, $01, $89, $8A, $8B, $7E, $86, $86, $9A, $9B, $00
@@ -670,6 +752,7 @@
 - D 0 - I - 0x0050C4 01:90B4: 01        .byte $01, $01, $01, $66, $7A, $27, $7D, $81, $81, $8E, $7A, $00
 
 ; screen 1, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screen1_indexes:
 - D 0 - I - 0x0050D0 01:90C0: 01        .byte $01, $01, $01, $01, $01, $28, $7F, $01, $01, $8D, $7A, $00
 - D 0 - I - 0x0050DC 01:90CC: 01        .byte $01, $01, $80, $01, $01, $97, $80, $01, $01, $8E, $7A, $00
 - D 0 - I - 0x0050E8 01:90D8: 01        .byte $01, $95, $7E, $86, $86, $98, $7E, $86, $86, $9D, $9C, $00
@@ -688,6 +771,7 @@
 - D 0 - I - 0x005184 01:9174: 01        .byte $01, $01, $A2, $01, $01, $79, $7A, $7A, $7B, $7C, $7C, $00
 
 ; screen 2, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screen2_indexes:
 - D 0 - I - 0x005190 01:9180: 01        .byte $01, $01, $01, $01, $01, $79, $7A, $7D, $7F, $01, $01, $00
 - D 0 - I - 0x00519C 01:918C: 01        .byte $01, $01, $01, $01, $01, $79, $7A, $7E, $80, $01, $01, $00
 - D 0 - I - 0x0051A8 01:9198: 01        .byte $01, $01, $01, $01, $01, $79, $7A, $7A, $7B, $7C, $7C, $00
@@ -706,6 +790,7 @@
 - D 0 - I - 0x005244 01:9234: 01        .byte $01, $01, $01, $01, $01, $79, $7A, $7D, $7F, $01, $01, $00
 
 ; screen 3, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screen3_indexes:
 - D 0 - I - 0x005250 01:9240: 01        .byte $01, $01, $01, $01, $01, $79, $7A, $7E, $80, $01, $01, $00
 - D 0 - I - 0x00525C 01:924C: 01        .byte $01, $01, $01, $01, $01, $79, $7A, $7A, $7B, $7C, $7C, $00
 - D 0 - I - 0x005268 01:9258: 01        .byte $01, $01, $01, $01, $01, $79, $7A, $7D, $7F, $01, $01, $00
@@ -724,6 +809,7 @@
 - D 0 - I - 0x005304 01:92F4: 01        .byte $01, $01, $04, $05, $05, $A9, $2D, $43, $3C, $42, $2D, $00
 
 ; screen 4, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screen4_indexes:
 - D 0 - I - 0x005310 01:9300: 01        .byte $01, $01, $37, $38, $38, $A9, $2D, $44, $3E, $42, $2D, $00
 - D 0 - I - 0x00531C 01:930C: 01        .byte $01, $A2, $37, $38, $38, $A9, $2D, $2A, $2A, $42, $2D, $00
 - D 0 - I - 0x005328 01:9318: 01        .byte $01, $A1, $37, $38, $38, $A9, $2D, $2A, $2A, $42, $2D, $00
@@ -742,6 +828,7 @@
 - D 0 - I - 0x0053C4 01:93B4: 01        .byte $01, $01, $01, $01, $01, $01, $52, $53, $05, $12, $0D, $00
 
 ; screen 7, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screen7_indexes:
 - D 0 - I - 0x0053D0 01:93C0: 01        .byte $01, $01, $A1, $37, $38, $38, $A9, $43, $3B, $3C, $42, $00
 - D 0 - I - 0x0053DC 01:93CC: 01        .byte $01, $01, $01, $37, $38, $38, $A9, $A3, $AA, $A4, $42, $00
 - D 0 - I - 0x0053E8 01:93D8: 01        .byte $01, $01, $01, $37, $38, $38, $A9, $44, $3D, $3E, $42, $00
@@ -760,6 +847,7 @@
 - D 0 - I - 0x005484 01:9474: 01        .byte $01, $01, $01, $01, $01, $37, $38, $38, $38, $42, $2D, $00
 
 ; screen 8, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screen8_indexes:
 - D 0 - I - 0x005490 01:9480: 01        .byte $01, $01, $01, $01, $01, $45, $38, $38, $38, $42, $2D, $00
 - D 0 - I - 0x00549C 01:948C: 01        .byte $01, $01, $01, $01, $01, $01, $45, $38, $38, $42, $2D, $00
 - D 0 - I - 0x0054A8 01:9498: 01        .byte $01, $01, $01, $01, $01, $01, $01, $45, $38, $42, $2D, $00
@@ -778,6 +866,7 @@
 - D 0 - I - 0x005544 01:9534: 01        .byte $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $00
 
 ; screen 9, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screen9_indexes:
 - D 0 - I - 0x005550 01:9540: 01        .byte $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $00
 - D 0 - I - 0x00555C 01:954C: 01        .byte $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $00
 - D 0 - I - 0x005568 01:9558: 01        .byte $01, $01, $A0, $01, $01, $01, $01, $01, $52, $11, $14, $00
@@ -796,6 +885,7 @@
 - D 0 - I - 0x005604 01:95F4: 01        .byte $01, $01, $01, $37, $38, $38, $38, $38, $38, $12, $03, $00
 
 ; screen 5, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screen5_indexes:
 - D 0 - I - 0x005610 01:9600: 01        .byte $01, $A2, $01, $01, $01, $52, $53, $05, $05, $12, $10, $00
 - D 0 - I - 0x00561C 01:960C: 01        .byte $01, $01, $01, $01, $52, $53, $05, $05, $05, $12, $03, $00
 - D 0 - I - 0x005628 01:9618: 01        .byte $01, $01, $01, $52, $53, $05, $05, $05, $05, $11, $14, $00
@@ -814,6 +904,7 @@
 - D 0 - I - 0x0056C4 01:96B4: 01        .byte $01, $01, $04, $05, $07, $0A, $04, $05, $05, $12, $03, $00
 
 ; screen 6, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screen6_indexes:
 - D 0 - I - 0x0056D0 01:96C0: 01        .byte $01, $01, $04, $06, $08, $0B, $04, $05, $05, $12, $0D, $00
 - D 0 - I - 0x0056DC 01:96CC: 01        .byte $01, $01, $04, $05, $09, $0C, $04, $05, $05, $12, $10, $00
 - D 0 - I - 0x0056E8 01:96D8: 01        .byte $01, $01, $67, $68, $05, $05, $05, $05, $05, $12, $03, $00
@@ -832,6 +923,7 @@
 - D 0 - I - 0x005784 01:9774: 01        .byte $01, $01, $A2, $52, $38, $38, $A9, $2D, $2A, $2A, $A5, $00
 
 ; screen A, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screenA_indexes:
 - D 0 - I - 0x005790 01:9780: 01        .byte $01, $01, $01, $37, $38, $38, $38, $38, $38, $11, $14, $00
 - D 0 - I - 0x00579C 01:978C: 01        .byte $01, $01, $01, $37, $38, $38, $38, $38, $38, $12, $03, $00
 - D 0 - I - 0x0057A8 01:9798: 01        .byte $01, $01, $01, $37, $38, $07, $0A, $04, $38, $12, $03, $00
@@ -850,6 +942,7 @@
 - D 0 - I - 0x005844 01:9834: 01        .byte $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $00
 
 ; screen B, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screenB_indexes:
 - D 0 - I - 0x005850 01:9840: 01        .byte $01, $01, $01, $A2, $01, $01, $01, $01, $01, $01, $01, $00
 - D 0 - I - 0x00585C 01:984C: 01        .byte $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $00
 - D 0 - I - 0x005868 01:9858: 01        .byte $01, $01, $01, $01, $A1, $01, $01, $01, $01, $01, $01, $00
@@ -868,6 +961,7 @@
 - D 0 - I - 0x005904 01:98F4: 01        .byte $01, $01, $37, $38, $38, $38, $38, $38, $23, $56, $57, $00
 
 ; screen C, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screenC_indexes:
 - D 0 - I - 0x005910 01:9900: 01        .byte $01, $01, $37, $38, $38, $38, $38, $38, $42, $2D, $2A, $00
 - D 0 - I - 0x00591C 01:990C: 01        .byte $01, $01, $37, $38, $47, $49, $49, $4F, $42, $2D, $2A, $00
 - D 0 - I - 0x005928 01:9918: 01        .byte $01, $01, $37, $38, $41, $20, $20, $AC, $42, $2D, $43, $00
@@ -886,6 +980,7 @@
 - D 0 - I - 0x0059C4 01:99B4: 01        .byte $01, $01, $01, $01, $01, $01, $01, $45, $42, $2D, $2A, $00
 
 ; screen D, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screenD_indexes:
 - D 0 - I - 0x0059D0 01:99C0: 01        .byte $01, $01, $A0, $01, $01, $01, $01, $01, $01, $01, $01, $00
 - D 0 - I - 0x0059DC 01:99CC: A2        .byte $A2, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $00
 - D 0 - I - 0x0059E8 01:99D8: A1        .byte $A1, $01, $01, $01, $A0, $01, $01, $01, $01, $01, $01, $00
@@ -904,6 +999,7 @@
 - D 0 - I - 0x005A84 01:9A74: 01        .byte $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $00
 
 ; screen E, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screenE_indexes:
 - D 0 - I - 0x005A90 01:9A80: 01        .byte $01, $01, $01, $01, $A1, $01, $01, $A1, $01, $01, $01, $00
 - D 0 - I - 0x005A9C 01:9A8C: 01        .byte $01, $01, $01, $A0, $01, $01, $01, $01, $36, $42, $2D, $00
 - D 0 - I - 0x005AA8 01:9A98: 01        .byte $01, $01, $01, $01, $01, $01, $01, $36, $38, $42, $2D, $00
@@ -922,6 +1018,7 @@
 - D 0 - I - 0x005B44 01:9B34: 01        .byte $01, $01, $37, $46, $0B, $4D, $38, $38, $38, $42, $2D, $00
 
 ; screen F, level 1.0, horizontally - y axis, vertically - x axis
+loc_level1_0_screenF_indexes:
 - D 0 - I - 0x005B50 01:9B40: A2        .byte $A2, $01, $37, $48, $4A, $4E, $38, $38, $38, $42, $2D, $00
 - D 0 - I - 0x005B5C 01:9B4C: A0        .byte $A0, $01, $37, $38, $38, $38, $38, $38, $38, $42, $2D, $00
 - D 0 - I - 0x005B68 01:9B58: 01        .byte $01, $01, $37, $38, $38, $47, $49, $49, $4C, $42, $2D, $00
@@ -940,6 +1037,7 @@
 - D 0 - I - 0x005C04 01:9BF4: 01        .byte $01, $01, $37, $38, $38, $38, $38, $38, $38, $42, $2D, $00
 
 ; screen 0, level 1.0, attribute tables
+loc_level1_0_screen0_attrs:
 - D 0 - I - 0x005C10 01:9C00: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005C18 01:9C08: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 - D 0 - I - 0x005C20 01:9C10: 55        .byte $55, $66, $55, $55, $55, $55, $55, $FF   ;
@@ -949,6 +1047,7 @@
 - D 0 - I - 0x005C40 01:9C30: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen 1, level 1.0, attribute tables
+loc_level1_0_screen1_attrs:
 - D 0 - I - 0x005C48 01:9C38: 50        .byte $50, $D0, $B0, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005C50 01:9C40: 95        .byte $95, $FE, $AF, $B6, $55, $55, $55, $55   ;
 - D 0 - I - 0x005C58 01:9C48: 55        .byte $55, $FF, $55, $FF, $55, $55, $55, $55   ;
@@ -958,6 +1057,7 @@
 - D 0 - I - 0x005C78 01:9C68: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen 2, level 1.0, attribute tables
+loc_level1_0_screen2_attrs:
 - D 0 - I - 0x005C80 01:9C70: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005C88 01:9C78: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 - D 0 - I - 0x005C90 01:9C80: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
@@ -967,6 +1067,7 @@
 - D 0 - I - 0x005CB0 01:9CA0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen 3, level 1.0, attribute tables
+loc_level1_0_screen3_attrs:
 - D 0 - I - 0x005CB8 01:9CA8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005CC0 01:9CB0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 - D 0 - I - 0x005CC8 01:9CB8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
@@ -976,6 +1077,7 @@
 - D 0 - I - 0x005CE8 01:9CD8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen 4, level 1.0, attribute tables
+loc_level1_0_screen4_attrs:
 - D 0 - I - 0x005CF0 01:9CE0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005CF8 01:9CE8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 - D 0 - I - 0x005D00 01:9CF0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
@@ -985,6 +1087,7 @@
 - D 0 - I - 0x005D20 01:9D10: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen 5, level 1.0, attribute tables
+loc_level1_0_screen5_attrs:
 - D 0 - I - 0x005D28 01:9D18: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005D30 01:9D20: 55        .byte $55, $95, $A5, $A5, $A5, $A5, $A5, $A5   ;
 - D 0 - I - 0x005D38 01:9D28: 95        .byte $95, $AA, $AA, $AA, $AA, $AA, $AA, $AA   ;
@@ -994,6 +1097,7 @@
 - D 0 - I - 0x005D58 01:9D48: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen 6, level 1.0, attribute tables
+loc_level1_0_screen6_attrs:
 - D 0 - I - 0x005D60 01:9D50: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005D68 01:9D58: A5        .byte $A5, $65, $55, $55, $55, $55, $55, $55   ;
 - D 0 - I - 0x005D70 01:9D60: AA        .byte $AA, $AA, $65, $55, $55, $55, $55, $55   ;
@@ -1003,6 +1107,7 @@
 - D 0 - I - 0x005D90 01:9D80: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen 7, level 1.0, attribute tables
+loc_level1_0_screen7_attrs:
 - D 0 - I - 0x005D98 01:9D88: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005DA0 01:9D90: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 - D 0 - I - 0x005DA8 01:9D98: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
@@ -1012,6 +1117,7 @@
 - D 0 - I - 0x005DC8 01:9DB8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen 8, level 1.0, attribute tables
+loc_level1_0_screen8_attrs:
 - D 0 - I - 0x005DD0 01:9DC0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005DD8 01:9DC8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 - D 0 - I - 0x005DE0 01:9DD0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
@@ -1021,6 +1127,7 @@
 - D 0 - I - 0x005E00 01:9DF0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen 9, level 1.0, attribute tables
+loc_level1_0_screen9_attrs:
 - D 0 - I - 0x005E08 01:9DF8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005E10 01:9E00: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 - D 0 - I - 0x005E18 01:9E08: 55        .byte $55, $55, $55, $A9, $AA, $AA, $AA, $AA   ;
@@ -1030,6 +1137,7 @@
 - D 0 - I - 0x005E38 01:9E28: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen A, level 1.0, attribute tables
+loc_level1_0_screenA_attrs:
 - D 0 - I - 0x005E40 01:9E30: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005E48 01:9E38: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 - D 0 - I - 0x005E50 01:9E40: AA        .byte $AA, $AA, $AA, $AA, $AA, $65, $55, $55   ;
@@ -1039,6 +1147,7 @@
 - D 0 - I - 0x005E70 01:9E60: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen B, level 1.0, attribute tables
+loc_level1_0_screenB_attrs:
 - D 0 - I - 0x005E78 01:9E68: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005E80 01:9E70: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 - D 0 - I - 0x005E88 01:9E78: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
@@ -1048,6 +1157,7 @@
 - D 0 - I - 0x005EA8 01:9E98: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen C, level 1.0, attribute tables
+loc_level1_0_screenC_attrs:
 - D 0 - I - 0x005EB0 01:9EA0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005EB8 01:9EA8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 - D 0 - I - 0x005EC0 01:9EB0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
@@ -1057,6 +1167,7 @@
 - D 0 - I - 0x005EE0 01:9ED0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen D, level 1.0, attribute tables
+loc_level1_0_screenD_attrs:
 - D 0 - I - 0x005EE8 01:9ED8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005EF0 01:9EE0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 - D 0 - I - 0x005EF8 01:9EE8: 55        .byte $55, $55, $55, $55, $FF, $FF, $77, $55   ;
@@ -1066,6 +1177,7 @@
 - D 0 - I - 0x005F18 01:9F08: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen E, level 1.0, attribute tables
+loc_level1_0_screenE_attrs:
 - D 0 - I - 0x005F20 01:9F10: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005F28 01:9F18: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 - D 0 - I - 0x005F30 01:9F20: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
@@ -1075,6 +1187,7 @@
 - D 0 - I - 0x005F50 01:9F40: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ;
 
 ; screen F, level 1.0, attribute tables
+loc_level1_0_screenF_attrs:
 - D 0 - I - 0x005F58 01:9F48: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ;
 - D 0 - I - 0x005F60 01:9F50: 55        .byte $55, $55, $55, $F7, $F5, $77, $55, $55   ;
 - D 0 - I - 0x005F68 01:9F58: 55        .byte $55, $55, $55, $FF, $FF, $77, $55, $55   ;
@@ -1085,23 +1198,23 @@
 
 ; reverve
 - D 0 - I - 0x005F90 01:9F80: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x005F98 01:9F88: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x005FA0 01:9F90: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x005FA8 01:9F98: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x005FB0 01:9FA0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x005FB8 01:9FA8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x005FC0 01:9FB0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x005F98 01:9F88: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x005FA0 01:9F90: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x005FA8 01:9F98: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x005FB0 01:9FA0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x005FB8 01:9FA8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x005FC0 01:9FB0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
 
-- - - - - - 0x005FC8 01:9FB8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x005FD0 01:9FC0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x005FD8 01:9FC8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x005FE0 01:9FD0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x005FE8 01:9FD8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x005FF0 01:9FE0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x005FF8 01:9FE8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x005FC8 01:9FB8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x005FD0 01:9FC0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x005FD8 01:9FC8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x005FE0 01:9FD0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x005FE8 01:9FD8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x005FF0 01:9FE0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x005FF8 01:9FE8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
 
-- - - - - - 0x006000 01:9FF0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x006008 01:9FF8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x006000 01:9FF0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+- D - - - - 0x006008 01:9FF8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
 
 .out .sprintf("Free bytes in bank 01_1: 0x%X [%d]", ($A000 - *), ($A000 - *))
 

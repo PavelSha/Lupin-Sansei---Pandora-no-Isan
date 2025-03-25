@@ -1024,21 +1024,21 @@ tbl_A608_hitboxes:
 - D 1 - - - 0x01A620 06:A610: 00        .byte $00, $00, $20, $04 ; Karate-boy
 - D 1 - - - 0x01A624 06:A614: 00        .byte $00, $00, $18, $04 ; Karate-boy
 - D 1 - - - 0x01A628 06:A618: F0        .byte $F0, $06, $10, $08 ; Karate-boy
-- - - - - - 0x01A62C 06:A61C: 00        .byte $00, $00, $20, $04
-- - - - - - 0x01A630 06:A620: 00        .byte $00, $00, $18, $04
-- - - - - - 0x01A634 06:A624: F0        .byte $F0, $FA, $10, $08
+- D - - - - 0x01A62C 06:A61C: 00        .byte $00, $00, $20, $04
+- D - - - - 0x01A630 06:A620: 00        .byte $00, $00, $18, $04
+- D - - - - 0x01A634 06:A624: F0        .byte $F0, $FA, $10, $08
 - D 1 - - - 0x01A638 06:A628: 00        .byte $00, $00, $20, $04
 - D 1 - - - 0x01A63C 06:A62C: 00        .byte $00, $00, $18, $04
 - D 1 - - - 0x01A640 06:A630: 00        .byte $00, $00, $10, $08
-- - - - - - 0x01A644 06:A634: 00        .byte $00, $00, $18, $08
+- D - - - - 0x01A644 06:A634: 00        .byte $00, $00, $18, $08
 - D 1 - - - 0x01A648 06:A638: 00        .byte $00, $00, $20, $04 ; Street karate-boy
 - D 1 - - - 0x01A64C 06:A63C: 00        .byte $00, $00, $18, $04 ; Street karate-boy
 - D 1 - - - 0x01A650 06:A640: 00        .byte $00, $00, $10, $08 ; Street karate-boy
 - D 1 - - - 0x01A654 06:A644: 04        .byte $04, $08, $10, $08
-- - - - - - 0x01A658 06:A648: 00        .byte $00, $00, $20, $04
-- - - - - - 0x01A65C 06:A64C: 00        .byte $00, $00, $18, $04
-- - - - - - 0x01A660 06:A650: 00        .byte $00, $00, $10, $08
-- - - - - - 0x01A664 06:A654: 04        .byte $04, $F8, $10, $08
+- D - - - - 0x01A658 06:A648: 00        .byte $00, $00, $20, $04
+- D - - - - 0x01A65C 06:A64C: 00        .byte $00, $00, $18, $04
+- D - - - - 0x01A660 06:A650: 00        .byte $00, $00, $10, $08
+- D - - - - 0x01A664 06:A654: 04        .byte $04, $F8, $10, $08
 
 tbl_A658_status_flags:
 ; Karate-boy
@@ -2592,7 +2592,7 @@ C - - - - - 0x01B093 06:B083: 18        CLC                               ;
 C - - - - - 0x01B094 06:B084: 69 01     ADC #$01                          ;
 C - - - - - 0x01B096 06:B086: C9 FF     CMP #$FF                          ; CONSTANT - Max value
 C - - - - - 0x01B098 06:B088: 90 02     BCC @bra_B08C_less_than_max       ; If the number of the items is less than max value
-- - - - - - 0x01B09A 06:B08A: A9 FF     LDA #$FF                          ; reassign
+C - - - - - 0x01B09A 06:B08A: A9 FF     LDA #$FF                          ; reassign
 @bra_B08C_less_than_max:
 C - - - - - 0x01B09C 06:B08C: 99 00 02  STA v_items,Y                     ;
 C - - - - - 0x01B09F 06:B08F: A9 20     LDA #$20                          ; Initializing the remaining time
@@ -2967,10 +2967,10 @@ C - - - - - 0x01B2FA 06:B2EA: 68        PLA                      ; retrieve low-
 C - - - - - 0x01B2FB 06:B2EB: 8D 06 20  STA PPU_ADDRESS          ; <~ low value
 C - - - - - 0x01B2FE 06:B2EE: 4C FC B2  JMP loc_B2FC_skip        ;
 
-- - - - - - 0x01B301 06:B2F1: AD 02 20  LDA PPU_STATUS           ; !(UNUSED), not used
-- - - - - - 0x01B304 06:B2F4: A9 00     LDA #$00                 ; !(UNUSED), not used
-- - - - - - 0x01B306 06:B2F6: 8D 06 20  STA PPU_ADDRESS          ; !(UNUSED), not used
-- - - - - - 0x01B309 06:B2F9: 8C 06 20  STY PPU_ADDRESS          ; !(UNUSED), not used
+C - - - - - 0x01B301 06:B2F1: AD 02 20  LDA PPU_STATUS           ; !(UNUSED), not used
+C - - - - - 0x01B304 06:B2F4: A9 00     LDA #$00                 ; !(UNUSED), not used
+C - - - - - 0x01B306 06:B2F6: 8D 06 20  STA PPU_ADDRESS          ; !(UNUSED), not used
+C - - - - - 0x01B309 06:B2F9: 8C 06 20  STY PPU_ADDRESS          ; !(UNUSED), not used
 
 loc_B2FC_skip:
 C D 1 - - - 0x01B30C 06:B2FC: AD 07 20  LDA PPU_DATA             ;
@@ -2990,7 +2990,7 @@ C - - - - - 0x01B31C 06:B30C: A0 00     LDY #$00                ; Y <~ 1 of 2
 C - - - - - 0x01B31E 06:B30E: A5 BC     LDA vRoomCurrentIndex   ;
 C - - - - - 0x01B320 06:B310: C5 60     CMP vRoomWithPrisoner1  ;
 C - - - - - 0x01B322 06:B312: F0 01     BEQ @bra_B315_skip      ; If the room indexes is equal
-- - - - - - 0x01B324 06:B314: C8        INY                     ; Y <~ 2 of 2
+C - - - - - 0x01B324 06:B314: C8        INY                     ; Y <~ 2 of 2
 @bra_B315_skip:
 C - - - - - 0x01B325 06:B315: B9 62 00  LDA vPrisoners,Y        ;
 C - - - - - 0x01B328 06:B318: 60        RTS                     ;
@@ -3827,7 +3827,7 @@ C - - - - - 0x01B885 06:B875: A9 BF     LDA #$BF                   ;
 C - - - - - 0x01B887 06:B877: CD 2C 03  CMP vPhenixPosY            ;
 C - - - - - 0x01B88A 06:B87A: B0 03     BCS @bra_B87F_RTS          ; If 0xBF >= vPosY
 @bra_B87C_assign:
-- - - - - - 0x01B88C 06:B87C: 8D 2C 03  STA vPhenixPosY            ; <~ 0x30 or 0xBF
+C - - - - - 0x01B88C 06:B87C: 8D 2C 03  STA vPhenixPosY            ; <~ 0x30 or 0xBF
 @bra_B87F_RTS:
 C - - - - - 0x01B88F 06:B87F: 60        RTS                        ;
 
@@ -3866,18 +3866,8 @@ C - - - - - 0x01B8C6 06:B8B6: E0 08     CPX #$08                 ;
 C - - - - - 0x01B8C8 06:B8B8: D0 F4     BNE @bra_B8AE_loop       ; If Register X != 0x08
 C - - - - - 0x01B8CA 06:B8BA: 60        RTS                      ;
 
-- - - - - - 0x01B8CB 06:B8BB: 07        .byte $07   ; 
-- - - - - - 0x01B8CC 06:B8BC: 17        .byte $17   ; 
-- - - - - - 0x01B8CD 06:B8BD: 27        .byte $27   ; 
-- - - - - - 0x01B8CE 06:B8BE: 37        .byte $37   ; <7>
-- - - - - - 0x01B8CF 06:B8BF: 80        .byte $80   ; 
-- - - - - - 0x01B8D0 06:B8C0: 00        .byte $00   ; 
-- - - - - - 0x01B8D1 06:B8C1: 81        .byte $81   ; 
-- - - - - - 0x01B8D2 06:B8C2: 00        .byte $00   ; 
-- - - - - - 0x01B8D3 06:B8C3: 82        .byte $82   ; 
-- - - - - - 0x01B8D4 06:B8C4: 00        .byte $00   ; 
-- - - - - - 0x01B8D5 06:B8C5: 81        .byte $81   ; 
-- - - - - - 0x01B8D6 06:B8C6: 80        .byte $80   ; 
+; !(UNUSED)
+- D - - - - 0x01B8CB 06:B8BB: 07        .byte $07, $17, $27, $37, $80, $00, $81, $00, $82, $00, $81, $80
 
 sub_B8C7_main_menu_shared_routine:
 C - - - - - 0x01B8D7 06:B8C7: A5 37     LDA vCutscenesMode                         ;
