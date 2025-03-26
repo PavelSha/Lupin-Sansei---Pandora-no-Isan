@@ -3,6 +3,55 @@
 .org $8000  ; for listing file
 ; 0x00A010-0x00C00F
 
+.export loc_level4_metatiles
+.export loc_level4_unique_screen_indexes
+.export loc_level4_unique_screen_attrs
+.export loc_level4_boss_screen_indexes
+.export loc_level4_boss_screen_attrs
+.export loc_level_racing_metatiles
+.export loc_level_racing_screen_u02_indexes
+.export loc_level_racing_screen_u03_indexes
+.export loc_level_racing_screen_u04_indexes
+.export loc_level_racing_screen_u05_indexes
+.export loc_level_racing_screen_u06_indexes
+.export loc_level_racing_screen_u07_indexes
+.export loc_level_racing_screen_u08_indexes
+.export loc_level_racing_screen_u09_indexes
+.export loc_level_racing_screen_u10_indexes
+.export loc_level_racing_screen_u11_indexes
+.export loc_level_racing_screen_u12_indexes
+.export loc_level_racing_screen_u13_indexes
+.export loc_level_racing_screen_u14_indexes
+.export loc_level_racing_screen_u15_indexes
+.export loc_level_racing_screen_u16_indexes
+.export loc_level_racing_screen_u17_indexes
+.export loc_level_racing_screen_u00_attrs
+.export loc_level_racing_screen_u01_attrs
+.export loc_level_racing_screen_u02_attrs
+.export loc_level_racing_screen_u03_attrs
+.export loc_level_racing_screen_u04_attrs
+.export loc_level_racing_screen_u05_attrs
+.export loc_level_racing_screen_u06_attrs
+.export loc_level_racing_screen_u07_attrs
+.export loc_level_racing_screen_u08_attrs
+.export loc_level_racing_screen_u09_attrs
+.export loc_level_racing_screen_u10_attrs
+.export loc_level_racing_screen_u11_attrs
+.export loc_level_racing_screen_u12_attrs
+.export loc_level_racing_screen_u13_attrs
+.export loc_level_racing_screen_u14_attrs
+.export loc_level_racing_screen_u15_attrs
+.export loc_level_racing_screen_u16_attrs
+.export loc_level_racing_screen_u17_attrs
+.export loc_level3_unique_screen_indexes
+.export loc_level2_unique_screen1_indexes
+.export loc_level2_unique_screen2_indexes
+.export loc_level1_unique_screen_indexes
+.export loc_level3_unique_screen_attrs
+.export loc_level2_unique_screen1_attrs
+.export loc_level2_unique_screen2_attrs
+.export loc_level1_unique_screen_attrs
+
 - D 0 - - - 0x00A010 02:8000: B6 81     .addr loc_Zenigata_right_frame_1   ; CPU Address $81B6
 - D 0 - I - 0x00A012 02:8002: D3 81     .addr loc_Zenigata_left_frame_1    ; CPU Address $81D3
 - D 0 - I - 0x00A014 02:8004: F0 81     .addr loc_Zenigata_right_frame_2   ; CPU Address $81F0
@@ -446,6 +495,7 @@ loc_Zenigata_left_frame_7:
 - - - - - - 0x00A40E 02:83FE: 90        .byte $90   ; 
 - - - - - - 0x00A40F 02:83FF: 85        .byte $85   ; 
 
+loc_level4_metatiles:
 - D 0 - I - 0x00A410 02:8400: 00        .byte $00   ; 
 - D 0 - I - 0x00A411 02:8401: 00        .byte $00   ; 
 - D 0 - I - 0x00A412 02:8402: 00        .byte $00   ; 
@@ -1104,6 +1154,7 @@ loc_Zenigata_left_frame_7:
 - - - - - - 0x00A69F 02:868F: 00        .byte $00   ; 
 
 ; screen 4, C (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u02_indexes:
 - D 0 - I - 0x00A6A0 02:8690: 03        .byte $03, $03, $03, $03, $0B, $00, $00, $3B, $00, $C8, $AD, $C7   ; 
 - D 0 - I - 0x00A6AC 02:869C: 03        .byte $03, $03, $03, $03, $0C, $00, $39, $3A, $00, $C8, $00, $C5   ; 
 - D 0 - I - 0x00A6B8 02:86A8: 03        .byte $03, $03, $03, $03, $03, $21, $38, $00, $00, $2C, $00, $C6   ; 
@@ -1122,6 +1173,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00A754 02:8744: 03        .byte $03, $03, $03, $03, $03, $03, $03, $C2, $00, $C8, $00, $00   ; 
 
 ; screen 0, 5, A, F, 16 (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u03_indexes:
 - D 0 - I - 0x00A760 02:8750: 03        .byte $03, $03, $03, $03, $03, $03, $03, $05, $00, $C8, $00, $00   ; 
 - D 0 - I - 0x00A76C 02:875C: 03        .byte $03, $03, $03, $03, $03, $03, $03, $06, $36, $C8, $00, $00   ; 
 - D 0 - I - 0x00A778 02:8768: 03        .byte $03, $03, $03, $03, $03, $03, $03, $07, $25, $C8, $00, $C5   ; 
@@ -1140,6 +1192,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00A814 02:8804: 03        .byte $03, $03, $03, $03, $03, $03, $03, $0E, $00, $C8, $00, $00   ; 
 
 ; screen 1 (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u04_indexes:
 - D 0 - I - 0x00A820 02:8810: 03        .byte $03, $03, $03, $03, $03, $03, $03, $70, $00, $C8, $00, $C7   ; 
 - D 0 - I - 0x00A82C 02:881C: 03        .byte $03, $03, $03, $03, $03, $03, $03, $0C, $00, $2D, $00, $00   ; 
 - D 0 - I - 0x00A838 02:8828: 03        .byte $03, $03, $03, $03, $03, $03, $03, $03, $00, $C8, $AD, $00   ; 
@@ -1158,6 +1211,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00A8D4 02:88C4: 03        .byte $03, $03, $03, $03, $03, $03, $03, $1D, $00, $C8, $00, $C7   ; 
 
 ; screen 6 (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u05_indexes:
 - D 0 - I - 0x00A8E0 02:88D0: 03        .byte $03, $03, $03, $03, $03, $03, $03, $70, $00, $C8, $00, $C7   ; 
 - D 0 - I - 0x00A8EC 02:88DC: 03        .byte $03, $03, $03, $03, $03, $03, $03, $0C, $00, $C8, $00, $00   ; 
 - D 0 - I - 0x00A8F8 02:88E8: 03        .byte $03, $03, $03, $03, $03, $03, $03, $03, $00, $C8, $AD, $C7   ; 
@@ -1176,6 +1230,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00A994 02:8984: 03        .byte $03, $03, $03, $03, $03, $03, $03, $44, $49, $2C, $00, $C7   ; 
 
 ; screen 7, 9 (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u06_indexes:
 - D 0 - I - 0x00A9A0 02:8990: 03        .byte $03, $03, $03, $03, $03, $03, $03, $44, $49, $C8, $00, $C7   ; 
 - D 0 - I - 0x00A9AC 02:899C: 03        .byte $03, $03, $03, $03, $03, $03, $03, $44, $49, $2C, $AD, $00   ; 
 - D 0 - I - 0x00A9B8 02:89A8: 03        .byte $03, $03, $03, $03, $03, $03, $03, $5F, $60, $C8, $00, $C5   ; 
@@ -1194,6 +1249,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00AA54 02:8A44: 03        .byte $03, $03, $03, $03, $03, $03, $03, $5E, $00, $2C, $00, $C7   ; 
 
 ; screen 8 (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u07_indexes:
 - D 0 - I - 0x00AA60 02:8A50: 03        .byte $03, $03, $03, $03, $03, $03, $03, $70, $00, $C8, $00, $C7   ; 
 - D 0 - I - 0x00AA6C 02:8A5C: 03        .byte $03, $03, $03, $03, $03, $03, $03, $0C, $00, $2D, $00, $00   ; 
 - D 0 - I - 0x00AA78 02:8A68: 03        .byte $03, $03, $03, $03, $03, $03, $03, $03, $00, $2C, $00, $C5   ; 
@@ -1212,6 +1268,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00AB14 02:8B04: 03        .byte $03, $03, $03, $03, $03, $03, $03, $44, $49, $C8, $00, $00   ; 
 
 ; screen D, 10, 12 (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u08_indexes:
 - D 0 - I - 0x00AB20 02:8B10: 03        .byte $03, $03, $03, $03, $03, $03, $03, $70, $19, $C8, $00, $00   ; 
 - D 0 - I - 0x00AB2C 02:8B1C: 03        .byte $03, $03, $03, $03, $03, $03, $03, $83, $18, $C8, $00, $00   ; 
 - D 0 - I - 0x00AB38 02:8B28: 03        .byte $03, $03, $03, $03, $03, $03, $03, $56, $01, $C8, $00, $00   ; 
@@ -1230,6 +1287,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00ABD4 02:8BC4: 03        .byte $03, $03, $03, $03, $03, $10, $00, $00, $00, $00, $63, $66   ; <f>
 
 ; screen 13, 14 (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u09_indexes:
 - D 0 - I - 0x00ABE0 02:8BD0: 03        .byte $03, $03, $03, $03, $0F, $1D, $00, $00, $00, $00, $63, $66   ; <f>
 - D 0 - I - 0x00ABEC 02:8BDC: 03        .byte $03, $03, $03, $03, $68, $6A, $00, $00, $3C, $00, $63, $0E   ; 
 - D 0 - I - 0x00ABF8 02:8BE8: 03        .byte $03, $03, $03, $03, $03, $69, $3C, $63, $66, $00, $63, $67   ; <g>
@@ -1248,6 +1306,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00AC94 02:8C84: 03        .byte $03, $03, $03, $03, $03, $0D, $00, $00, $00, $00, $63, $66   ; <f>
 
 ; screen E, 11, 15 (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u10_indexes:
 - D 0 - I - 0x00ACA0 02:8C90: 03        .byte $03, $03, $03, $03, $0F, $0E, $00, $00, $00, $00, $63, $66   ; <f>
 - D 0 - I - 0x00ACAC 02:8C9C: 03        .byte $03, $03, $03, $03, $71, $6A, $00, $00, $00, $00, $63, $0E   ; 
 - D 0 - I - 0x00ACB8 02:8CA8: 03        .byte $03, $03, $03, $03, $03, $1D, $00, $00, $00, $00, $00, $00   ; 
@@ -1266,6 +1325,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00AD54 02:8D44: 03        .byte $03, $03, $03, $03, $03, $03, $03, $79, $34, $C8, $00, $00   ; 
 
 ; screen 17, 1B (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u11_indexes:
 - D 0 - I - 0x00AD60 02:8D50: 03        .byte $03, $03, $03, $03, $03, $03, $03, $00, $00, $C8, $00, $C7   ; 
 - D 0 - I - 0x00AD6C 02:8D5C: 03        .byte $03, $03, $03, $03, $03, $03, $03, $70, $00, $C8, $00, $C5   ; 
 - D 0 - I - 0x00AD78 02:8D68: 03        .byte $03, $03, $03, $03, $03, $03, $03, $0C, $7B, $7C, $00, $C6   ; 
@@ -1284,6 +1344,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00AE14 02:8E04: 03        .byte $03, $03, $03, $03, $03, $81, $02, $02, $02, $7F, $00, $C7   ; 
 
 ; screen 18, 1E (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u12_indexes:
 - D 0 - I - 0x00AE20 02:8E10: 03        .byte $03, $03, $03, $03, $03, $81, $02, $02, $02, $7F, $00, $C7   ; 
 - D 0 - I - 0x00AE2C 02:8E1C: 03        .byte $03, $03, $03, $03, $03, $81, $02, $02, $02, $4B, $00, $00   ; 
 - D 0 - I - 0x00AE38 02:8E28: 03        .byte $03, $03, $03, $03, $03, $81, $02, $02, $02, $4B, $AD, $00   ; 
@@ -1302,6 +1363,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00AED4 02:8EC4: 03        .byte $03, $03, $03, $03, $03, $81, $02, $02, $02, $7F, $00, $C7   ; 
 
 ; screen 19, 1C, 1F (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u13_indexes:
 - D 0 - I - 0x00AEE0 02:8ED0: 03        .byte $03, $03, $03, $03, $03, $81, $02, $02, $02, $7F, $00, $C7   ; 
 - D 0 - I - 0x00AEEC 02:8EDC: 03        .byte $03, $03, $03, $03, $03, $81, $02, $02, $02, $7F, $00, $00   ; 
 - D 0 - I - 0x00AEF8 02:8EE8: 03        .byte $03, $03, $03, $03, $03, $81, $02, $02, $02, $7F, $00, $C5   ; 
@@ -1320,6 +1382,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00AF94 02:8F84: 03        .byte $03, $03, $03, $03, $03, $03, $03, $00, $B5, $90, $00, $C7   ; 
 
 ; screen 1D (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u14_indexes:
 - D 0 - I - 0x00AFA0 02:8F90: 03        .byte $03, $03, $03, $03, $03, $03, $29, $00, $91, $C8, $00, $C7   ; 
 - D 0 - I - 0x00AFAC 02:8F9C: 03        .byte $03, $03, $03, $03, $03, $03, $2A, $00, $8F, $7C, $00, $00   ; 
 - D 0 - I - 0x00AFB8 02:8FA8: 03        .byte $03, $03, $03, $03, $03, $03, $2B, $00, $7D, $7E, $AD, $00   ; 
@@ -1338,6 +1401,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B054 02:9044: 03        .byte $03, $03, $03, $03, $03, $81, $02, $02, $02, $7F, $00, $C7   ; 
 
 ; screen 1A, 20 (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u15_indexes:
 - D 0 - I - 0x00B060 02:9050: 03        .byte $03, $03, $03, $03, $03, $03, $29, $00, $91, $C8, $00, $C7   ; 
 - D 0 - I - 0x00B06C 02:905C: 03        .byte $03, $03, $03, $03, $03, $03, $2A, $00, $8F, $7C, $00, $00   ; 
 - D 0 - I - 0x00B078 02:9068: 03        .byte $03, $03, $03, $03, $03, $03, $03, $00, $7D, $7E, $AD, $C7   ; 
@@ -1356,6 +1420,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B114 02:9104: 03        .byte $03, $03, $03, $03, $03, $03, $03, $00, $92, $90, $00, $C7   ; 
 
 ; screen 21, 22 (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u16_indexes:
 - D 0 - I - 0x00B120 02:9110: 03        .byte $03, $03, $03, $03, $03, $03, $29, $00, $00, $C8, $00, $C7   ; 
 - D 0 - I - 0x00B12C 02:911C: 03        .byte $03, $03, $03, $03, $03, $03, $2A, $00, $00, $C8, $00, $C5   ; 
 - D 0 - I - 0x00B138 02:9128: 03        .byte $03, $03, $03, $03, $03, $03, $2B, $00, $9E, $2D, $00, $C6   ; 
@@ -1374,6 +1439,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B1D4 02:91C4: 03        .byte $03, $03, $03, $03, $03, $03, $96, $97, $00, $C8, $00, $00   ; 
 
 ; screen 23 (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u17_indexes:
 - D 0 - I - 0x00B1E0 02:91D0: 03        .byte $03, $03, $03, $03, $03, $03, $03, $00, $00, $C8, $00, $C7   ; 
 - D 0 - I - 0x00B1EC 02:91DC: 03        .byte $03, $03, $03, $03, $03, $03, $2B, $00, $00, $2D, $AD, $00   ; 
 - D 0 - I - 0x00B1F8 02:91E8: 03        .byte $03, $03, $03, $03, $03, $03, $03, $00, $9E, $2C, $00, $C5   ; 
@@ -1391,6 +1457,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B288 02:9278: 9C        .byte $9C, $99, $99, $99, $99, $99, $99, $99, $AB, $C8, $00, $C7   ; 
 - D 0 - I - 0x00B294 02:9284: 03        .byte $03, $9C, $99, $99, $99, $99, $99, $99, $AB, $2D, $00, $C7   ; 
 
+loc_level_racing_screen_u00_attrs:
 - D 0 - I - 0x00B2A0 02:9290: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B2A8 02:9298: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B2B0 02:92A0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1399,6 +1466,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B2C8 02:92B8: 55        .byte $55, $56, $55, $55, $55, $55, $55, $59   ; <Y>
 - D 0 - I - 0x00B2D0 02:92C0: 07        .byte $07, $0F, $07, $0F, $07, $0D, $07, $0D   ; 
 
+loc_level_racing_screen_u01_attrs:
 - D 0 - I - 0x00B2D8 02:92C8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B2E0 02:92D0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B2E8 02:92D8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1407,6 +1475,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B300 02:92F0: 56        .byte $56, $55, $55, $55, $55, $59, $55, $55   ; <U>
 - D 0 - I - 0x00B308 02:92F8: 0F        .byte $0F, $07, $0D, $0F, $05, $0F, $0F, $0F   ; 
 
+loc_level_racing_screen_u02_attrs:
 - D 0 - I - 0x00B310 02:9300: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B318 02:9308: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B320 02:9310: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1415,6 +1484,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B338 02:9328: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B340 02:9330: 0F        .byte $0F, $07, $0D, $0D, $0F, $0F, $07, $05   ; 
 
+loc_level_racing_screen_u03_attrs:
 - D 0 - I - 0x00B348 02:9338: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B350 02:9340: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B358 02:9348: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1423,6 +1493,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B370 02:9360: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B378 02:9368: 05        .byte $05, $0F, $05, $0F, $05, $0F, $0D, $05   ; 
 
+loc_level_racing_screen_u04_attrs:
 - D 0 - I - 0x00B380 02:9370: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B388 02:9378: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B390 02:9380: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1431,6 +1502,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B3A8 02:9398: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B3B0 02:93A0: 07        .byte $07, $0D, $07, $0D, $05, $0D, $07, $0D   ; 
 
+loc_level_racing_screen_u05_attrs:
 - D 0 - I - 0x00B3B8 02:93A8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B3C0 02:93B0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B3C8 02:93B8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1439,6 +1511,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B3E0 02:93D0: 55        .byte $55, $55, $55, $5D, $5F, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B3E8 02:93D8: 07        .byte $07, $07, $0F, $05, $05, $0D, $07, $0D   ; 
 
+loc_level_racing_screen_u06_attrs:
 - D 0 - I - 0x00B3F0 02:93E0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B3F8 02:93E8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B400 02:93F0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1447,6 +1520,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B418 02:9408: 55        .byte $55, $55, $55, $55, $5D, $5F, $57, $55   ; <U>
 - D 0 - I - 0x00B420 02:9410: 07        .byte $07, $0F, $05, $0D, $07, $0F, $05, $0D   ; 
 
+loc_level_racing_screen_u07_attrs:
 - D 0 - I - 0x00B428 02:9418: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B430 02:9420: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B438 02:9428: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1455,6 +1529,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B450 02:9440: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B458 02:9448: 07        .byte $07, $0F, $0F, $07, $05, $0F, $05, $05   ; 
 
+loc_level_racing_screen_u08_attrs:
 - D 0 - I - 0x00B460 02:9450: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B468 02:9458: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B470 02:9460: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1463,6 +1538,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B488 02:9478: 55        .byte $55, $5D, $DF, $77, $55, $55, $55, $A5   ; 
 - D 0 - I - 0x00B490 02:9480: 05        .byte $05, $05, $05, $07, $05, $05, $05, $05   ; 
 
+loc_level_racing_screen_u09_attrs:
 - D 0 - I - 0x00B498 02:9488: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B4A0 02:9490: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B4A8 02:9498: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1471,6 +1547,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B4C0 02:94B0: A5        .byte $A5, $65, $55, $59, $5A, $55, $55, $95   ; 
 - D 0 - I - 0x00B4C8 02:94B8: 05        .byte $05, $05, $05, $05, $05, $05, $05, $05   ; 
 
+loc_level_racing_screen_u10_attrs:
 - D 0 - I - 0x00B4D0 02:94C0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B4D8 02:94C8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B4E0 02:94D0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1479,6 +1556,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B4F8 02:94E8: A5        .byte $A5, $55, $A5, $65, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B500 02:94F0: 05        .byte $05, $05, $05, $05, $05, $05, $05, $05   ; 
 
+loc_level_racing_screen_u11_attrs:
 - D 0 - I - 0x00B508 02:94F8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B510 02:9500: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B518 02:9508: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1487,6 +1565,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B530 02:9520: 55        .byte $55, $55, $55, $55, $5D, $5F, $55, $55   ; <U>
 - D 0 - I - 0x00B538 02:9528: 0F        .byte $0F, $07, $0D, $0F, $05, $0D, $0F, $0D   ; 
 
+loc_level_racing_screen_u12_attrs:
 - D 0 - I - 0x00B540 02:9530: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B548 02:9538: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B550 02:9540: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1495,6 +1574,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B568 02:9558: 5D        .byte $5D, $5F, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B570 02:9560: 07        .byte $07, $0D, $07, $0D, $07, $0D, $0F, $0D   ; 
 
+loc_level_racing_screen_u13_attrs:
 - D 0 - I - 0x00B578 02:9568: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B580 02:9570: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B588 02:9578: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1503,6 +1583,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B5A0 02:9590: 55        .byte $55, $5D, $5F, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B5A8 02:9598: 07        .byte $07, $0F, $0D, $0D, $0F, $0D, $0F, $0D   ; 
 
+loc_level_racing_screen_u14_attrs:
 - D 0 - I - 0x00B5B0 02:95A0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B5B8 02:95A8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B5C0 02:95B0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1511,6 +1592,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B5D8 02:95C8: 55        .byte $55, $55, $55, $5D, $5F, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B5E0 02:95D0: 07        .byte $07, $0D, $0F, $05, $0F, $07, $0F, $0F   ; 
 
+loc_level_racing_screen_u15_attrs:
 - D 0 - I - 0x00B5E8 02:95D8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B5F0 02:95E0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B5F8 02:95E8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1519,6 +1601,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B610 02:9600: 55        .byte $55, $55, $55, $5F, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B618 02:9608: 07        .byte $07, $07, $0F, $07, $0F, $0F, $07, $0D   ; 
 
+loc_level_racing_screen_u16_attrs:
 - D 0 - I - 0x00B620 02:9610: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B628 02:9618: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B630 02:9620: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1527,6 +1610,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B648 02:9638: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B650 02:9640: 0F        .byte $0F, $07, $0D, $05, $0D, $07, $05, $07   ; 
 
+loc_level_racing_screen_u17_attrs:
 - D 0 - I - 0x00B658 02:9648: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50   ; <P>
 - D 0 - I - 0x00B660 02:9650: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B668 02:9658: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
@@ -1535,6 +1619,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00B680 02:9670: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55   ; <U>
 - D 0 - I - 0x00B688 02:9678: 07        .byte $07, $0F, $05, $07, $0D, $07, $05, $0F   ; 
 
+loc_level_racing_metatiles:
 - D 0 - I - 0x00B690 02:9680: 00        .byte $00, $00, $00, $00   ; 0x00
 - D 0 - I - 0x00B694 02:9684: 01        .byte $01, $01, $01, $01   ; 
 - D 0 - I - 0x00B698 02:9688: 02        .byte $02, $02, $02, $02   ; 
@@ -1743,6 +1828,7 @@ loc_Zenigata_left_frame_7:
 - - - - - - 0x00B9BC 02:99AC: 00        .byte $00, $00, $00, $00   ; 
 
 ; screen 0, horizontally - y axis, vertically - x axis
+loc_level3_unique_screen_indexes:
 - D 0 - I - 0x00B9C0 02:99B0: 04        .byte $04, $04, $04, $04, $04, $04, $21, $22, $23, $25, $00, $00   ; 
 - D 0 - I - 0x00B9CC 02:99BC: 04        .byte $04, $04, $04, $04, $04, $04, $24, $29, $29, $25, $00, $00   ; 
 - D 0 - I - 0x00B9D8 02:99C8: 05        .byte $05, $68, $6B, $6F, $72, $77, $68, $6B, $77, $25, $00, $00   ; 
@@ -1760,6 +1846,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00BA68 02:9A58: 06        .byte $06, $6A, $6D, $71, $76, $78, $6A, $7C, $7B, $25, $00, $00   ; 
 - D 0 - I - 0x00BA74 02:9A64: 04        .byte $04, $04, $04, $04, $04, $04, $04, $04, $7C, $25, $00, $00   ; 
 
+loc_level3_unique_screen_attrs:
 - D 0 - I - 0x00BA80 02:9A70: 50        .byte $50   ; <P>
 - D 0 - I - 0x00BA81 02:9A71: 50        .byte $50   ; <P>
 - D 0 - I - 0x00BA82 02:9A72: 50        .byte $50   ; <P>
@@ -1818,6 +1905,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00BAB7 02:9AA7: 05        .byte $05   ; 
 
 ; screen 0, horizontally - y axis, vertically - x axis
+loc_level2_unique_screen1_indexes:
 - D 0 - I - 0x00BAB8 02:9AA8: 66        .byte $66, $66, $66, $66, $66, $9C, $66, $66, $67, $17, $00, $00   ; 
 - D 0 - I - 0x00BAC4 02:9AB4: 6B        .byte $6B, $02, $6B, $02, $0B, $46, $8B, $0C, $08, $17, $00, $00   ; 
 - D 0 - I - 0x00BAD0 02:9AC0: 6B        .byte $6B, $02, $6B, $02, $02, $46, $8B, $09, $08, $17, $00, $00   ; 
@@ -1836,6 +1924,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00BB6C 02:9B5C: 66        .byte $66, $66, $66, $66, $66, $9C, $66, $96, $96, $17, $00, $00   ; 
 
 ; screen 0, horizontally - y axis, vertically - x axis
+loc_level2_unique_screen2_indexes:
 - D 0 - I - 0x00BB78 02:9B68: 9A        .byte $9A, $66, $66, $66, $66, $66, $66, $66, $67, $3A, $00, $00   ; 
 - D 0 - I - 0x00BB84 02:9B74: 9B        .byte $9B, $03, $7B, $03, $28, $28, $25, $03, $28, $3A, $00, $00   ; 
 - D 0 - I - 0x00BB90 02:9B80: 9B        .byte $9B, $03, $78, $03, $28, $27, $2F, $30, $31, $3A, $00, $00   ; 
@@ -1853,6 +1942,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00BC20 02:9C10: 9B        .byte $9B, $03, $7C, $03, $28, $28, $96, $96, $96, $3A, $00, $00   ; 
 - D 0 - I - 0x00BC2C 02:9C1C: 9A        .byte $9A, $66, $66, $66, $66, $66, $66, $96, $96, $3A, $00, $00   ; 
 
+loc_level2_unique_screen1_attrs:
 - D 0 - I - 0x00BC38 02:9C28: 50        .byte $50   ; <P>
 - D 0 - I - 0x00BC39 02:9C29: 50        .byte $50   ; <P>
 - D 0 - I - 0x00BC3A 02:9C2A: 50        .byte $50   ; <P>
@@ -1909,6 +1999,8 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00BC6D 02:9C5D: 05        .byte $05   ; 
 - D 0 - I - 0x00BC6E 02:9C5E: 05        .byte $05   ; 
 - D 0 - I - 0x00BC6F 02:9C5F: 05        .byte $05   ; 
+
+loc_level2_unique_screen2_attrs:
 - D 0 - I - 0x00BC70 02:9C60: 50        .byte $50   ; <P>
 - D 0 - I - 0x00BC71 02:9C61: 50        .byte $50   ; <P>
 - D 0 - I - 0x00BC72 02:9C62: 50        .byte $50   ; <P>
@@ -1967,6 +2059,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00BCA7 02:9C97: 05        .byte $05   ; 
 
 ; screen 1, 5, 3 (level 1.X), horizontally - y axis, vertically - x axis
+loc_level1_unique_screen_indexes:
 - D 0 - I - 0x00BCA8 02:9C98: 65        .byte $65, $01, $6F, $72, $72, $76, $79, $7A, $7B, $8B, $00, $00   ; 
 - D 0 - I - 0x00BCB4 02:9CA4: 65        .byte $65, $01, $70, $01, $01, $77, $7C, $7D, $7E, $8B, $00, $00   ; 
 - D 0 - I - 0x00BCC0 02:9CB0: 65        .byte $65, $01, $71, $73, $73, $78, $7F, $80, $81, $8B, $00, $00   ; 
@@ -1984,6 +2077,7 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00BD50 02:9D40: 65        .byte $65, $01, $70, $01, $01, $01, $01, $70, $2C, $8B, $00, $00   ; 
 - D 0 - I - 0x00BD5C 02:9D4C: 65        .byte $65, $01, $71, $73, $73, $73, $73, $75, $68, $8B, $00, $00   ; 
 
+loc_level1_unique_screen_attrs:
 - D 0 - I - 0x00BD68 02:9D58: 50        .byte $50   ; <P>
 - D 0 - I - 0x00BD69 02:9D59: 50        .byte $50   ; <P>
 - D 0 - I - 0x00BD6A 02:9D5A: 50        .byte $50   ; <P>
@@ -2040,6 +2134,8 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00BD9D 02:9D8D: 0A        .byte $0A   ; 
 - D 0 - I - 0x00BD9E 02:9D8E: 0A        .byte $0A   ; 
 - D 0 - I - 0x00BD9F 02:9D8F: 0A        .byte $0A   ; 
+
+loc_level4_unique_screen_indexes:
 - D 0 - I - 0x00BDA0 02:9D90: 5B        .byte $5B   ; 
 - D 0 - I - 0x00BDA1 02:9D91: 5B        .byte $5B   ; 
 - D 0 - I - 0x00BDA2 02:9D92: 5B        .byte $5B   ; 
@@ -2232,6 +2328,8 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00BE5D 02:9E4D: 0E        .byte $0E   ; 
 - D 0 - I - 0x00BE5E 02:9E4E: 3A        .byte $3A   ; 
 - D 0 - I - 0x00BE5F 02:9E4F: 00        .byte $00   ; 
+
+loc_level4_boss_screen_indexes:
 - D 0 - I - 0x00BE60 02:9E50: 6B        .byte $6B   ; <k>
 - D 0 - I - 0x00BE61 02:9E51: 6B        .byte $6B   ; <k>
 - D 0 - I - 0x00BE62 02:9E52: 6B        .byte $6B   ; <k>
@@ -2424,6 +2522,8 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00BF1D 02:9F0D: 0E        .byte $0E   ; 
 - D 0 - I - 0x00BF1E 02:9F0E: 3A        .byte $3A   ; 
 - D 0 - I - 0x00BF1F 02:9F0F: 00        .byte $00   ; 
+
+loc_level4_unique_screen_attrs:
 - D 0 - I - 0x00BF20 02:9F10: 50        .byte $50   ; <P>
 - D 0 - I - 0x00BF21 02:9F11: 50        .byte $50   ; <P>
 - D 0 - I - 0x00BF22 02:9F12: 50        .byte $50   ; <P>
@@ -2480,6 +2580,8 @@ loc_Zenigata_left_frame_7:
 - D 0 - I - 0x00BF55 02:9F45: 05        .byte $05   ; 
 - D 0 - I - 0x00BF56 02:9F46: 05        .byte $05   ; 
 - D 0 - I - 0x00BF57 02:9F47: 05        .byte $05   ; 
+
+loc_level4_boss_screen_attrs:
 - D 0 - I - 0x00BF58 02:9F48: 50        .byte $50   ; <P>
 - D 0 - I - 0x00BF59 02:9F49: 50        .byte $50   ; <P>
 - D 0 - I - 0x00BF5A 02:9F4A: 50        .byte $50   ; <P>

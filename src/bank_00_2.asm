@@ -47,6 +47,10 @@
 .export loc_level2_outside_screenD_attrs
 .export loc_level2_outside_screenE_attrs
 .export loc_level2_outside_screenF_attrs
+.export loc_level3_0_water_screen1_indexes
+.export loc_level3_0_water_screen2_indexes
+.export loc_level3_X_water_screen1_indexes
+.export loc_level3_X_water_screen2_indexes
 
 ; screen 2, 6, 3 (level 3.X), horizontally - y axis, vertically - x axis
 loc_level3_X_screen_u00_indexes:
@@ -67,7 +71,7 @@ loc_level3_X_screen_u00_indexes:
 - D 0 - I - 0x0020B8 00:80A8: 0E        .byte $0E, $03, $06, $08, $0A, $0C, $24, $29, $29, $25, $26, $1D
 - D 0 - I - 0x0020C4 00:80B4: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 
-; screen 6, 3, 1, 6 (level 3.X), horizontally - y axis, vertically - x axis
+; screen 6, 3, 1, 6
 loc_level3_X_screen_u01_indexes:
 - D 0 - I - 0x0020D0 00:80C0: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 - D 0 - I - 0x0020DC 00:80CC: 0E        .byte $0E, $03, $05, $07, $09, $0C, $05, $07, $09, $25, $26, $1D
@@ -86,7 +90,7 @@ loc_level3_X_screen_u01_indexes:
 - D 0 - I - 0x002178 00:8168: 0E        .byte $0E, $03, $06, $2B, $20, $1E, $66, $67, $67, $25, $26, $1D
 - D 0 - I - 0x002184 00:8174: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 
-; screen 0, 3, 4, 2 (level 3.X), horizontally - y axis, vertically - x axis
+; screen 0, 3, 4, 2
 loc_level3_X_screen_u02_indexes:
 - D 0 - I - 0x002190 00:8180: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 - D 0 - I - 0x00219C 00:818C: 0E        .byte $0E, $03, $37, $07, $09, $0C, $05, $3C, $09, $25, $26, $1D
@@ -105,7 +109,7 @@ loc_level3_X_screen_u02_indexes:
 - D 0 - I - 0x002238 00:8228: 0E        .byte $0E, $03, $06, $08, $0A, $18, $06, $3A, $2C, $25, $26, $1D
 - D 0 - I - 0x002244 00:8234: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 
-; screen 1, 5, 2, 5, 4, 5 (level 3.X), horizontally - y axis, vertically - x axis
+; screen 1, 5, 2, 5, 4, 5
 loc_level3_X_screen_u03_indexes:
 - D 0 - I - 0x002250 00:8240: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 - D 0 - I - 0x00225C 00:824C: 37        .byte $37, $03, $05, $07, $09, $0C, $05, $07, $09, $25, $26, $1D
@@ -124,7 +128,7 @@ loc_level3_X_screen_u03_indexes:
 - D 0 - I - 0x0022F8 00:82E8: 0E        .byte $0E, $03, $06, $08, $2C, $18, $2D, $08, $38, $25, $26, $1D
 - D 0 - I - 0x002304 00:82F4: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $3A, $25, $26, $1D
 
-; screen 4, 6, 2 (level 3.X), horizontally - y axis, vertically - x axis
+; screen 4, 6, 2
 loc_level3_X_screen_u04_indexes:
 - D 0 - I - 0x002310 00:8300: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 - D 0 - I - 0x00231C 00:830C: 0E        .byte $0E, $03, $05, $07, $09, $0C, $05, $07, $09, $25, $26, $1D
@@ -143,7 +147,7 @@ loc_level3_X_screen_u04_indexes:
 - D 0 - I - 0x0023B8 00:83A8: 0E        .byte $0E, $03, $06, $08, $2C, $0C, $06, $08, $0A, $25, $26, $1D
 - D 0 - I - 0x0023C4 00:83B4: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 
-; screen 7, 7 (level 3.X), horizontally - y axis, vertically - x axis
+; screen 7, 7
 loc_level3_X_screen_u05_indexes:
 - D 0 - I - 0x0023D0 00:83C0: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 - D 0 - I - 0x0023DC 00:83CC: 0E        .byte $0E, $03, $05, $07, $09, $0C, $05, $07, $09, $25, $26, $1D
@@ -162,7 +166,7 @@ loc_level3_X_screen_u05_indexes:
 - D 0 - I - 0x002478 00:8468: 0E        .byte $0E, $03, $2D, $08, $0A, $0C, $15, $17, $17, $25, $26, $1D
 - D 0 - I - 0x002484 00:8474: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 
-; screen 0, 0 (level 3.X), horizontally - y axis, vertically - x axis
+; screen 0, 0
 loc_level3_X_screen_u06_indexes:
 - D 0 - I - 0x002490 00:8480: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 - D 0 - I - 0x00249C 00:848C: 0E        .byte $0E, $03, $05, $07, $09, $0D, $0F, $10, $10, $25, $26, $1D
@@ -181,7 +185,7 @@ loc_level3_X_screen_u06_indexes:
 - D 0 - I - 0x002538 00:8528: 0E        .byte $0E, $03, $2D, $08, $0A, $0C, $06, $08, $2C, $25, $26, $1D
 - D 0 - I - 0x002544 00:8534: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 
-; screen 1, 0, 3 (level 3.X), horizontally - y axis, vertically - x axis
+; screen 1, 0, 3
 loc_level3_X_screen_u07_indexes:
 - D 0 - I - 0x002550 00:8540: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 - D 0 - I - 0x00255C 00:854C: 0E        .byte $0E, $03, $21, $22, $23, $0C, $05, $3C, $09, $25, $26, $1D
@@ -200,7 +204,7 @@ loc_level3_X_screen_u07_indexes:
 - D 0 - I - 0x0025F8 00:85E8: 0E        .byte $0E, $03, $06, $2B, $0A, $18, $2D, $08, $0A, $25, $26, $1D
 - D 0 - I - 0x002604 00:85F4: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 
-; screen 7, 7 (level 3.X), horizontally - y axis, vertically - x axis
+; screen 7, 7
 loc_level3_X_screen_u08_indexes:
 - D 0 - I - 0x002610 00:8600: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 - D 0 - I - 0x00261C 00:860C: 0E        .byte $0E, $03, $05, $07, $09, $0C, $64, $65, $65, $25, $26, $1D
@@ -219,7 +223,7 @@ loc_level3_X_screen_u08_indexes:
 - D 0 - I - 0x0026B8 00:86A8: 0E        .byte $0E, $03, $06, $08, $2C, $35, $15, $17, $17, $25, $26, $1D
 - D 0 - I - 0x0026C4 00:86B4: 01        .byte $01, $02, $04, $04, $04, $36, $04, $04, $04, $25, $26, $1D
 
-; screen 5, 1, 4 (level 3.X), horizontally - y axis, vertically - x axis
+; screen 5, 1, 4
 loc_level3_X_screen_u09_indexes:
 - D 0 - I - 0x0026D0 00:86C0: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 - D 0 - I - 0x0026DC 00:86CC: 0E        .byte $0E, $03, $2A, $33, $34, $0C, $05, $07, $09, $25, $26, $1D
@@ -238,7 +242,8 @@ loc_level3_X_screen_u09_indexes:
 - D 0 - I - 0x002778 00:8768: 0E        .byte $0E, $03, $2D, $08, $0A, $18, $06, $2B, $0A, $25, $26, $1D
 - D 0 - I - 0x002784 00:8774: 01        .byte $01, $02, $04, $04, $04, $0B, $04, $04, $04, $25, $26, $1D
 
-; water screen, horizontally - y axis, vertically - x axis
+; water screen1
+loc_level3_0_water_screen1_indexes:
 - D 0 - I - 0x002790 00:8780: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
 - D 0 - I - 0x00279C 00:878C: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $5C, $62, $00
 - D 0 - I - 0x0027A8 00:8798: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $5B, $5D, $62, $00
@@ -256,25 +261,27 @@ loc_level3_X_screen_u09_indexes:
 - D 0 - I - 0x002838 00:8828: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $61, $5D, $62, $00
 - D 0 - I - 0x002844 00:8834: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
 
-; screen ???, horizontally - y axis, vertically - x axis
-- - - - - - 0x002850 00:8840: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $5C, $62, $00
-- - - - - - 0x00285C 00:884C: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
-- - - - - - 0x002868 00:8858: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $5B, $5D, $62, $00
-- - - - - - 0x002874 00:8864: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $5E, $62, $00
-- - - - - - 0x002880 00:8870: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
-- - - - - - 0x00288C 00:887C: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
-- - - - - - 0x002898 00:8888: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
-- - - - - - 0x0028A4 00:8894: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
-- - - - - - 0x0028B0 00:88A0: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $5F, $62, $00
-- - - - - - 0x0028BC 00:88AC: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $5D, $62, $00
-- - - - - - 0x0028C8 00:88B8: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $61, $5D, $62, $00
-- - - - - - 0x0028D4 00:88C4: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $5C, $62, $00
-- - - - - - 0x0028E0 00:88D0: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
-- - - - - - 0x0028EC 00:88DC: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $60, $62, $00
-- - - - - - 0x0028F8 00:88E8: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $5E, $62, $00
-- - - - - - 0x002904 00:88F4: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
+; water screen2
+loc_level3_0_water_screen2_indexes:
+- D - - - - 0x002850 00:8840: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $5C, $62, $00
+- D - - - - 0x00285C 00:884C: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
+- D - - - - 0x002868 00:8858: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $5B, $5D, $62, $00
+- D - - - - 0x002874 00:8864: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $5E, $62, $00
+- D - - - - 0x002880 00:8870: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
+- D - - - - 0x00288C 00:887C: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
+- D - - - - 0x002898 00:8888: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
+- D - - - - 0x0028A4 00:8894: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
+- D - - - - 0x0028B0 00:88A0: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $5F, $62, $00
+- D - - - - 0x0028BC 00:88AC: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $5D, $62, $00
+- D - - - - 0x0028C8 00:88B8: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $61, $5D, $62, $00
+- D - - - - 0x0028D4 00:88C4: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $5C, $62, $00
+- D - - - - 0x0028E0 00:88D0: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
+- D - - - - 0x0028EC 00:88DC: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $60, $62, $00
+- D - - - - 0x0028F8 00:88E8: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $5E, $62, $00
+- D - - - - 0x002904 00:88F4: 57        .byte $57, $5A, $16, $16, $16, $16, $16, $16, $16, $16, $62, $00
 
-; water screen, horizontally - y axis, vertically - x axis
+; water screen1
+loc_level3_X_water_screen1_indexes:
 - D 0 - I - 0x002910 00:8900: 3D        .byte $3D, $41, $4A, $4A, $4A, $4A, $4A, $4A, $4A, $4A, $56, $00
 - D 0 - I - 0x00291C 00:890C: 3D        .byte $3D, $42, $4B, $4B, $4D, $53, $4B, $4D, $4B, $4B, $56, $00
 - D 0 - I - 0x002928 00:8918: 3D        .byte $3D, $43, $4C, $4C, $4E, $54, $4C, $4E, $4C, $4C, $56, $00
@@ -292,7 +299,8 @@ loc_level3_X_screen_u09_indexes:
 - D 0 - I - 0x0029B8 00:89A8: 3D        .byte $3D, $43, $4C, $4C, $55, $4C, $4C, $4E, $4C, $4C, $56, $00
 - D 0 - I - 0x0029C4 00:89B4: 3D        .byte $3D, $41, $4A, $4A, $4A, $4A, $4A, $4A, $4A, $4A, $56, $00
 
-; water screen, horizontally - y axis, vertically - x axis
+; water screen2
+loc_level3_X_water_screen2_indexes:
 - D 0 - I - 0x0029D0 00:89C0: 3D        .byte $3D, $41, $4A, $4A, $4A, $4A, $53, $4A, $4A, $4A, $56, $00
 - D 0 - I - 0x0029DC 00:89CC: 3D        .byte $3D, $42, $4B, $4B, $4D, $4B, $54, $4D, $4B, $4B, $56, $00
 - D 0 - I - 0x0029E8 00:89D8: 3D        .byte $3D, $43, $4C, $4C, $4E, $4C, $54, $4E, $4C, $4C, $56, $00
@@ -310,7 +318,7 @@ loc_level3_X_screen_u09_indexes:
 - D 0 - I - 0x002A78 00:8A68: 3D        .byte $3D, $43, $4C, $4C, $55, $4C, $4C, $4E, $4C, $4C, $56, $00
 - D 0 - I - 0x002A84 00:8A74: 3D        .byte $3D, $41, $4A, $4A, $4A, $4A, $4A, $4A, $4A, $4A, $56, $00
 
-; screen 0 (level 2, outside), horizontally - y axis, vertically - x axis
+; level 2 (outisde)
 loc_level2_outside_screen0_indexes:
 - D 0 - I - 0x002A90 00:8A80: 25        .byte $25, $25, $25, $25, $2C, $00, $DA, $02, $03, $C6, $C7, $22
 - D 0 - I - 0x002A9C 00:8A8C: 25        .byte $25, $25, $2A, $2B, $DB, $00, $DA, $02, $03, $C6, $C7, $22
@@ -329,7 +337,6 @@ loc_level2_outside_screen0_indexes:
 - D 0 - I - 0x002B38 00:8B28: 25        .byte $25, $25, $2E, $2F, $DE, $00, $DA, $02, $03, $C6, $C7, $22
 - D 0 - I - 0x002B44 00:8B34: 25        .byte $25, $25, $25, $25, $30, $00, $DA, $02, $03, $C6, $C7, $22
 
-; screen 1 (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screen1_indexes:
 - D 0 - I - 0x002B50 00:8B40: 25        .byte $25, $25, $25, $25, $25, $00, $DA, $02, $03, $C6, $C7, $22
 - D 0 - I - 0x002B5C 00:8B4C: 25        .byte $25, $25, $25, $25, $25, $00, $DA, $02, $03, $C6, $C7, $22
@@ -348,7 +355,6 @@ loc_level2_outside_screen1_indexes:
 - D 0 - I - 0x002BF8 00:8BE8: 25        .byte $25, $25, $25, $25, $25, $00, $DA, $02, $03, $C6, $C7, $22
 - D 0 - I - 0x002C04 00:8BF4: 25        .byte $25, $25, $25, $25, $25, $00, $DA, $02, $03, $C6, $C7, $22
 
-; screen 2 (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screen2_indexes:
 - D 0 - I - 0x002C10 00:8C00: 25        .byte $25, $25, $25, $25, $25, $00, $DA, $02, $03, $C6, $C7, $22
 - D 0 - I - 0x002C1C 00:8C0C: 25        .byte $25, $25, $25, $25, $25, $00, $DA, $02, $03, $C6, $C7, $22
@@ -367,7 +373,6 @@ loc_level2_outside_screen2_indexes:
 - D 0 - I - 0x002CB8 00:8CA8: BC        .byte $BC, $C0, $DA, $C0, $DA, $33, $36, $36, $37, $C6, $C7, $22
 - D 0 - I - 0x002CC4 00:8CB4: BC        .byte $BC, $C0, $DA, $C0, $DA, $33, $22, $22, $22, $C6, $C7, $22
 
-; screen 3 (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screen3_indexes:
 - D 0 - I - 0x002CD0 00:8CC0: BC        .byte $BC, $C0, $DA, $C0, $DA, $33, $22, $22, $22, $C6, $C7, $22
 - D 0 - I - 0x002CDC 00:8CCC: BC        .byte $BC, $C0, $DA, $C0, $DA, $33, $36, $36, $37, $C6, $C7, $22
@@ -386,7 +391,6 @@ loc_level2_outside_screen3_indexes:
 - D 0 - I - 0x002D78 00:8D68: 25        .byte $25, $25, $25, $25, $25, $00, $DA, $02, $03, $C6, $C7, $22
 - D 0 - I - 0x002D84 00:8D74: 25        .byte $25, $25, $25, $25, $25, $00, $DA, $02, $03, $C6, $C7, $22
 
-; screen 4 (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screen4_indexes:
 - D 0 - I - 0x002D90 00:8D80: 25        .byte $25, $25, $25, $25, $07, $1C, $DA, $02, $03, $C6, $C7, $22
 - D 0 - I - 0x002D9C 00:8D8C: 25        .byte $25, $15, $05, $1B, $C0, $DF, $23, $23, $23, $C6, $C7, $22
@@ -405,7 +409,6 @@ loc_level2_outside_screen4_indexes:
 - D 0 - I - 0x002E38 00:8E28: 25        .byte $25, $25, $25, $25, $25, $00, $DA, $02, $03, $C6, $C7, $22
 - D 0 - I - 0x002E44 00:8E34: 25        .byte $25, $25, $25, $25, $25, $00, $DA, $02, $03, $C6, $C7, $22
 
-; screen 5 (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screen5_indexes:
 - D 0 - I - 0x002E50 00:8E40: 49        .byte $49, $49, $49, $4A, $25, $00, $DA, $02, $03, $C6, $C7, $22
 - D 0 - I - 0x002E5C 00:8E4C: 46        .byte $46, $46, $46, $46, $4A, $00, $DA, $02, $03, $C6, $C7, $22
@@ -424,7 +427,6 @@ loc_level2_outside_screen5_indexes:
 - D 0 - I - 0x002EF8 00:8EE8: 47        .byte $47, $47, $47, $47, $4C, $00, $DA, $02, $03, $C6, $C7, $22
 - D 0 - I - 0x002F04 00:8EF4: 4B        .byte $4B, $4B, $4B, $4C, $25, $00, $DA, $02, $03, $C6, $C7, $22
 
-; screen 6 (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screen6_indexes:
 - D 0 - I - 0x002F10 00:8F00: 25        .byte $25, $25, $25, $25, $25, $25, $EB, $BD, $BD, $C6, $C7, $22
 - D 0 - I - 0x002F1C 00:8F0C: 49        .byte $49, $49, $49, $49, $4A, $25, $EB, $BD, $BD, $C6, $C7, $22
@@ -443,7 +445,6 @@ loc_level2_outside_screen6_indexes:
 - D 0 - I - 0x002FB8 00:8FA8: 46        .byte $46, $46, $46, $46, $45, $4A, $EB, $BD, $89, $C6, $C7, $22
 - D 0 - I - 0x002FC4 00:8FB4: 46        .byte $46, $46, $46, $45, $46, $45, $EB, $BD, $BD, $C6, $C7, $22
 
-; screen 7 (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screen7_indexes:
 - D 0 - I - 0x002FD0 00:8FC0: 47        .byte $47, $47, $46, $47, $47, $4C, $EC, $BF, $BD, $C6, $C7, $22
 - D 0 - I - 0x002FDC 00:8FCC: 47        .byte $47, $48, $47, $48, $4C, $25, $ED, $BD, $BD, $C6, $C7, $22
@@ -462,7 +463,6 @@ loc_level2_outside_screen7_indexes:
 - D 0 - I - 0x003078 00:9068: 46        .byte $46, $46, $48, $49, $4A, $25, $EC, $BD, $89, $C6, $C7, $22
 - D 0 - I - 0x003084 00:9074: 46        .byte $46, $48, $45, $45, $45, $4A, $EB, $BD, $BD, $C6, $C7, $22
 
-; screen 8 (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screen8_indexes:
 - D 0 - I - 0x003090 00:9080: 47        .byte $47, $48, $46, $45, $45, $E1, $3E, $3F, $42, $C6, $C7, $22
 - D 0 - I - 0x00309C 00:908C: 48        .byte $48, $45, $45, $46, $46, $E1, $41, $40, $43, $C6, $C7, $22
@@ -481,7 +481,6 @@ loc_level2_outside_screen8_indexes:
 - D 0 - I - 0x003138 00:9128: 48        .byte $48, $48, $48, $48, $4C, $25, $EB, $BD, $BD, $C6, $C7, $22
 - D 0 - I - 0x003144 00:9134: 4B        .byte $4B, $4B, $4B, $4C, $25, $25, $EB, $BD, $BD, $C6, $C7, $22
 
-; screen 9 (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screen9_indexes:
 - D 0 - I - 0x003150 00:9140: 25        .byte $25, $25, $25, $25, $25, $25, $ED, $BD, $BD, $C6, $C7, $22
 - D 0 - I - 0x00315C 00:914C: 49        .byte $49, $49, $49, $49, $4A, $25, $EC, $BF, $BD, $C6, $C7, $22
@@ -500,7 +499,6 @@ loc_level2_outside_screen9_indexes:
 - D 0 - I - 0x0031F8 00:91E8: 48        .byte $48, $47, $47, $48, $4C, $E1, $3E, $44, $42, $C6, $C7, $22
 - D 0 - I - 0x003204 00:91F4: 4B        .byte $4B, $4B, $4B, $4C, $25, $E1, $41, $40, $43, $C6, $C7, $22
 
-; screen A (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screenA_indexes:
 - D 0 - I - 0x003210 00:9200: 23        .byte $23, $23, $23, $23, $23, $5E, $36, $36, $37, $C6, $C7, $22
 - D 0 - I - 0x00321C 00:920C: 23        .byte $23, $56, $73, $73, $23, $5E, $4F, $66, $BD, $C6, $C7, $22
@@ -519,7 +517,6 @@ loc_level2_outside_screenA_indexes:
 - D 0 - I - 0x0032B8 00:92A8: 23        .byte $23, $23, $23, $23, $23, $5E, $36, $36, $37, $C6, $C7, $22
 - D 0 - I - 0x0032C4 00:92B4: 22        .byte $22, $22, $22, $22, $22, $22, $22, $22, $52, $C6, $C7, $22
 
-; screen B (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screenB_indexes:
 - D 0 - I - 0x0032D0 00:92C0: 23        .byte $23, $EE, $EF, $23, $23, $5E, $62, $23, $57, $C6, $C7, $22
 - D 0 - I - 0x0032DC 00:92CC: 23        .byte $23, $EE, $EF, $55, $23, $5E, $54, $23, $57, $C6, $C7, $22
@@ -538,7 +535,6 @@ loc_level2_outside_screenB_indexes:
 - D 0 - I - 0x003378 00:9368: EE        .byte $EE, $C0, $EF, $63, $66, $5E, $6A, $6B, $6B, $C6, $C7, $22
 - D 0 - I - 0x003384 00:9374: EE        .byte $EE, $C0, $EF, $64, $66, $5E, $22, $22, $22, $C6, $C7, $22
 
-; screen C (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screenC_indexes:
 - D 0 - I - 0x003390 00:9380: EE        .byte $EE, $C0, $EF, $64, $66, $5E, $22, $22, $22, $C6, $C7, $22
 - D 0 - I - 0x00339C 00:938C: EE        .byte $EE, $C0, $EF, $65, $66, $5E, $6F, $70, $70, $C6, $C7, $22
@@ -557,7 +553,6 @@ loc_level2_outside_screenC_indexes:
 - D 0 - I - 0x003438 00:9428: 3D        .byte $3D, $8A, $8B, $23, $3D, $79, $5A, $8B, $38, $C6, $C7, $22
 - D 0 - I - 0x003444 00:9434: 3D        .byte $3D, $75, $A8, $A8, $A8, $A8, $A8, $A8, $77, $C6, $C7, $22
 
-; screen D (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screenD_indexes:
 - D 0 - I - 0x003450 00:9440: 22        .byte $22, $22, $22, $22, $22, $22, $22, $22, $52, $C6, $C7, $22
 - D 0 - I - 0x00345C 00:944C: 25        .byte $25, $25, $25, $25, $25, $25, $25, $25, $25, $C6, $C7, $22
@@ -576,7 +571,6 @@ loc_level2_outside_screenD_indexes:
 - D 0 - I - 0x0034F8 00:94E8: 23        .byte $23, $11, $0F, $23, $81, $5E, $62, $83, $81, $C6, $C7, $22
 - D 0 - I - 0x003504 00:94F4: 23        .byte $23, $23, $23, $23, $84, $5E, $62, $23, $84, $C6, $C7, $22
 
-; screen E (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screenE_indexes:
 - D 0 - I - 0x003510 00:9500: 22        .byte $22, $22, $22, $22, $22, $22, $22, $22, $52, $C6, $C7, $22
 - D 0 - I - 0x00351C 00:950C: 58        .byte $58, $58, $58, $58, $58, $58, $58, $58, $58, $C6, $C7, $22
@@ -595,7 +589,6 @@ loc_level2_outside_screenE_indexes:
 - D 0 - I - 0x0035B8 00:95A8: 9E        .byte $9E, $A1, $99, $66, $9D, $9E, $97, $98, $98, $C6, $C7, $22
 - D 0 - I - 0x0035C4 00:95B4: A0        .byte $A0, $A3, $21, $21, $21, $A5, $21, $21, $94, $C6, $C7, $22
 
-; screen F (level 2, outside), horizontally - y axis, vertically - x axis
 loc_level2_outside_screenF_indexes:
 - D 0 - I - 0x0035D0 00:95C0: 23        .byte $23, $23, $23, $EE, $EA, $B2, $B3, $B4, $38, $C6, $C7, $22
 - D 0 - I - 0x0035DC 00:95CC: 23        .byte $23, $5A, $8B, $EE, $EA, $25, $25, $B4, $38, $C6, $C7, $22
@@ -614,7 +607,7 @@ loc_level2_outside_screenF_indexes:
 - D 0 - I - 0x003678 00:9668: 23        .byte $23, $8C, $66, $6C, $AE, $8E, $AA, $91, $90, $C6, $C7, $22
 - D 0 - I - 0x003684 00:9674: 23        .byte $23, $8C, $66, $66, $AE, $23, $AB, $66, $23, $C6, $C7, $22
 
-; screen 0 (level 2, outside), attribute tables
+; level 2 (outside), attribute tables
 loc_level2_outside_screen0_attrs:
 - D 0 - I - 0x003690 00:9680: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x003698 00:9688: AA        .byte $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
@@ -624,7 +617,6 @@ loc_level2_outside_screen0_attrs:
 - D 0 - I - 0x0036B8 00:96A8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x0036C0 00:96B0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 1 (level 2, outside), attribute tables
 loc_level2_outside_screen1_attrs:
 - D 0 - I - 0x0036C8 00:96B8: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x0036D0 00:96C0: AA        .byte $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
@@ -634,7 +626,6 @@ loc_level2_outside_screen1_attrs:
 - D 0 - I - 0x0036F0 00:96E0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x0036F8 00:96E8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 2 (level 2, outside), attribute tables
 loc_level2_outside_screen2_attrs:
 - D 0 - I - 0x003700 00:96F0: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x003708 00:96F8: AA        .byte $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
@@ -644,7 +635,6 @@ loc_level2_outside_screen2_attrs:
 - D 0 - I - 0x003728 00:9718: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x003730 00:9720: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 3 (level 2, outside), attribute tables
 loc_level2_outside_screen3_attrs:
 - D 0 - I - 0x003738 00:9728: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x003740 00:9730: AA        .byte $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
@@ -654,7 +644,6 @@ loc_level2_outside_screen3_attrs:
 - D 0 - I - 0x003760 00:9750: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x003768 00:9758: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 4 (level 2, outside), attribute tables
 loc_level2_outside_screen4_attrs:
 - D 0 - I - 0x003770 00:9760: A0        .byte $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x003778 00:9768: AA        .byte $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
@@ -664,7 +653,6 @@ loc_level2_outside_screen4_attrs:
 - D 0 - I - 0x003798 00:9788: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x0037A0 00:9790: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 5 (level 2, outside), attribute tables
 loc_level2_outside_screen5_attrs:
 - D 0 - I - 0x0037A8 00:9798: 50        .byte $50, $50, $A0, $A0, $A0, $A0, $50, $50
 - D 0 - I - 0x0037B0 00:97A0: 55        .byte $55, $55, $AA, $AA, $AA, $AA, $55, $55
@@ -674,7 +662,6 @@ loc_level2_outside_screen5_attrs:
 - D 0 - I - 0x0037D0 00:97C0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x0037D8 00:97C8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 6 (level 2, outside), attribute tables
 loc_level2_outside_screen6_attrs:
 - D 0 - I - 0x0037E0 00:97D0: 60        .byte $60, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x0037E8 00:97D8: 66        .byte $66, $55, $55, $55, $55, $55, $55, $55
@@ -684,7 +671,6 @@ loc_level2_outside_screen6_attrs:
 - D 0 - I - 0x003808 00:97F8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x003810 00:9800: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 7 (level 2, outside), attribute tables
 loc_level2_outside_screen7_attrs:
 - D 0 - I - 0x003818 00:9808: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x003820 00:9810: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -694,7 +680,6 @@ loc_level2_outside_screen7_attrs:
 - D 0 - I - 0x003840 00:9830: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x003848 00:9838: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 8 (level 2, outside), attribute tables
 loc_level2_outside_screen8_attrs:
 - D 0 - I - 0x003850 00:9840: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x003858 00:9848: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -704,7 +689,6 @@ loc_level2_outside_screen8_attrs:
 - D 0 - I - 0x003878 00:9868: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x003880 00:9870: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 9 (level 2, outside), attribute tables
 loc_level2_outside_screen9_attrs:
 - D 0 - I - 0x003888 00:9878: 60        .byte $60, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x003890 00:9880: 66        .byte $66, $55, $55, $55, $55, $55, $55, $55
@@ -714,7 +698,6 @@ loc_level2_outside_screen9_attrs:
 - D 0 - I - 0x0038B0 00:98A0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x0038B8 00:98A8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen A (level 2, outside), attribute tables
 loc_level2_outside_screenA_attrs:
 - D 0 - I - 0x0038C0 00:98B0: F0        .byte $F0, $F0, $F0, $F0, $F0, $F0, $F0, $F0
 - D 0 - I - 0x0038C8 00:98B8: 7F        .byte $7F, $5F, $DF, $5F, $DF, $5F, $5F, $FF
@@ -723,7 +706,6 @@ loc_level2_outside_screenA_attrs:
 - D 0 - I - 0x0038E0 00:98D0: FF        .byte $FF, $FF, $FF, $FF, $FF, $CF, $FF, $7F
 - D 0 - I - 0x0038E8 00:98D8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen B (level 2, outside), attribute tables
 loc_level2_outside_screenB_attrs:
 - D 0 - I - 0x0038F0 00:98E0: 50        .byte $50, $50, $50, $50, $D0, $F0, $F0, $F0
 - D 0 - I - 0x0038F8 00:98E8: 55        .byte $55, $55, $55, $55, $DD, $FF, $FF, $FF
@@ -733,7 +715,6 @@ loc_level2_outside_screenB_attrs:
 - D 0 - I - 0x003918 00:9908: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x003920 00:9910: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen C (level 2, outside), attribute tables
 loc_level2_outside_screenC_attrs:
 - D 0 - I - 0x003928 00:9918: F0        .byte $F0, $F0, $F0, $70, $F0, $F0, $F0, $F0
 - D 0 - I - 0x003930 00:9920: FF        .byte $FF, $FF, $FF, $77, $59, $99, $66, $56
@@ -743,7 +724,6 @@ loc_level2_outside_screenC_attrs:
 - D 0 - I - 0x003950 00:9940: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x003958 00:9948: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen D (level 2, outside), attribute tables
 loc_level2_outside_screenD_attrs:
 - D 0 - I - 0x003960 00:9950: D0        .byte $D0, $50, $A0, $A0, $A0, $A0, $A0, $A0
 - D 0 - I - 0x003968 00:9958: DD        .byte $DD, $55, $66, $99, $66, $99, $66, $99
@@ -753,7 +733,6 @@ loc_level2_outside_screenD_attrs:
 - D 0 - I - 0x003988 00:9978: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x003990 00:9980: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen E (level 2, outside), attribute tables
 loc_level2_outside_screenE_attrs:
 - D 0 - I - 0x003998 00:9988: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x0039A0 00:9990: 55        .byte $55, $55, $55, $55, $D5, $F5, $F5, $75
@@ -763,7 +742,6 @@ loc_level2_outside_screenE_attrs:
 - D 0 - I - 0x0039C0 00:99B0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 - D 0 - I - 0x0039C8 00:99B8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen F (level 2, outside), attribute tables
 loc_level2_outside_screenF_attrs:
 - D 0 - I - 0x0039D0 00:99C0: A0        .byte $A0, $A0, $A0, $A0, $50, $50, $50, $50
 - D 0 - I - 0x0039D8 00:99C8: AA        .byte $AA, $AA, $AA, $AA, $55, $55, $55, $55
@@ -779,14 +757,14 @@ loc_level2_outside_metatiles:
 - D 0 - I - 0x003A0C 00:99FC: 81        .byte $81, $82, $81, $82
 - D 0 - I - 0x003A10 00:9A00: 94        .byte $94, $94, $94, $94
 - D 0 - I - 0x003A14 00:9A04: 94        .byte $94, $95, $94, $95
-- - - - - - 0x003A18 00:9A08: 82        .byte $82, $83, $84, $86
+- D - - - - 0x003A18 00:9A08: 82        .byte $82, $83, $84, $86
 - D 0 - I - 0x003A1C 00:9A0C: 03        .byte $03, $03, $88, $03
 - D 0 - I - 0x003A20 00:9A10: 83        .byte $83, $89, $86, $8C
 - D 0 - I - 0x003A24 00:9A14: 03        .byte $03, $03, $03, $8D
 - D 0 - I - 0x003A28 00:9A18: 03        .byte $03, $8F, $03, $03
 - D 0 - I - 0x003A2C 00:9A1C: 87        .byte $87, $8E, $85, $8B
 - D 0 - I - 0x003A30 00:9A20: 8A        .byte $8A, $03, $03, $03
-- - - - - - 0x003A34 00:9A24: 84        .byte $84, $87, $82, $85
+- D - - - - 0x003A34 00:9A24: 84        .byte $84, $87, $82, $85
 - D 0 - I - 0x003A38 00:9A28: 96        .byte $96, $2E, $30, $9A
 - D 0 - I - 0x003A3C 00:9A2C: 2E        .byte $2E, $2E, $9B, $9A
 - D 0 - I - 0x003A40 00:9A30: 2E        .byte $2E, $97, $9B, $31
@@ -804,38 +782,38 @@ loc_level2_outside_metatiles:
 - D 0 - I - 0x003A70 00:9A60: 01        .byte $01, $A4, $01, $A5
 - D 0 - I - 0x003A74 00:9A64: 03        .byte $03, $A4, $03, $A5
 - D 0 - I - 0x003A78 00:9A68: 82        .byte $82, $81, $82, $81
-- - - - - - 0x003A7C 00:9A6C: 82        .byte $82, $A8, $82, $01
-- - - - - - 0x003A80 00:9A70: 82        .byte $82, $01, $82, $01
+- D - - - - 0x003A7C 00:9A6C: 82        .byte $82, $A8, $82, $01
+- D - - - - 0x003A80 00:9A70: 82        .byte $82, $01, $82, $01
 - D 0 - I - 0x003A84 00:9A74: A9        .byte $A9, $02, $02, $AC
 - D 0 - I - 0x003A88 00:9A78: 02        .byte $02, $00, $02, $00   ; 0x20
 - D 0 - I - 0x003A8C 00:9A7C: 02        .byte $02, $02, $00, $00
 - D 0 - I - 0x003A90 00:9A80: 00        .byte $00, $00, $00, $00
 - D 0 - I - 0x003A94 00:9A84: 01        .byte $01, $01, $01, $01
-- - - - - - 0x003A98 00:9A88: 02        .byte $02, $02, $02, $02
+- D - - - - 0x003A98 00:9A88: 02        .byte $02, $02, $02, $02
 - D 0 - I - 0x003A9C 00:9A8C: 03        .byte $03, $03, $03, $03
 - D 0 - I - 0x003AA0 00:9A90: 00        .byte $00, $00, $02, $02
-- - - - - - 0x003AA4 00:9A94: 82        .byte $82, $01, $82, $AA
+- D - - - - 0x003AA4 00:9A94: 82        .byte $82, $01, $82, $AA
 - D 0 - I - 0x003AA8 00:9A98: 02        .byte $02, $AE, $AB, $02
 - D 0 - I - 0x003AAC 00:9A9C: 82        .byte $82, $81, $A7, $81
 - D 0 - I - 0x003AB0 00:9AA0: 03        .byte $03, $88, $8D, $82
 - D 0 - I - 0x003AB4 00:9AA4: 03        .byte $03, $89, $8D, $8C
 - D 0 - I - 0x003AB8 00:9AA8: 88        .byte $88, $03, $82, $83
-- - - - - - 0x003ABC 00:9AAC: 84        .byte $84, $86, $81, $82
+- D - - - - 0x003ABC 00:9AAC: 84        .byte $84, $86, $81, $82
 - D 0 - I - 0x003AC0 00:9AB0: 8F        .byte $8F, $82, $03, $8A
 - D 0 - I - 0x003AC4 00:9AB4: 8F        .byte $8F, $8E, $03, $8B
 - D 0 - I - 0x003AC8 00:9AB8: 82        .byte $82, $85, $8A, $03   ; 0x30
-- - - - - - 0x003ACC 00:9ABC: 81        .byte $81, $82, $84, $87
+- D - - - - 0x003ACC 00:9ABC: 81        .byte $81, $82, $84, $87
 - D 0 - I - 0x003AD0 00:9AC0: 21        .byte $21, $AD, $22, $AF
 - D 0 - I - 0x003AD4 00:9AC4: 9E        .byte $9E, $AD, $9E, $AF
 - D 0 - I - 0x003AD8 00:9AC8: B0        .byte $B0, $36, $B0, $36
-- - - - - - 0x003ADC 00:9ACC: 90        .byte $90, $90, $90, $90
+- D - - - - 0x003ADC 00:9ACC: 90        .byte $90, $90, $90, $90
 - D 0 - I - 0x003AE0 00:9AD0: B2        .byte $B2, $B2, $B4, $B4
 - D 0 - I - 0x003AE4 00:9AD4: B2        .byte $B2, $B3, $B4, $B5
 - D 0 - I - 0x003AE8 00:9AD8: 01        .byte $01, $1A, $01, $1A
 - D 0 - I - 0x003AEC 00:9ADC: 35        .byte $35, $35, $35, $35
-- - - - - - 0x003AF0 00:9AE0: 03        .byte $03, $30, $03, $30
-- - - - - - 0x003AF4 00:9AE4: B6        .byte $B6, $B6, $B6, $B6
-- - - - - - 0x003AF8 00:9AE8: 23        .byte $23, $23, $01, $01
+- D - - - - 0x003AF0 00:9AE0: 03        .byte $03, $30, $03, $30
+- D - - - - 0x003AF4 00:9AE4: B6        .byte $B6, $B6, $B6, $B6
+- D - - - - 0x003AF8 00:9AE8: 23        .byte $23, $23, $01, $01
 - D 0 - I - 0x003AFC 00:9AEC: C2        .byte $C2, $C3, $C4, $C5
 - D 0 - I - 0x003B00 00:9AF0: C6        .byte $C6, $C7, $C8, $C9
 - D 0 - I - 0x003B04 00:9AF4: 26        .byte $26, $26, $00, $00
@@ -855,18 +833,18 @@ loc_level2_outside_metatiles:
 - D 0 - I - 0x003B3C 00:9B2C: 00        .byte $00, $00, $28, $28
 - D 0 - I - 0x003B40 00:9B30: DE        .byte $DE, $DF, $DE, $DF
 - D 0 - I - 0x003B44 00:9B34: EE        .byte $EE, $EE, $EE, $EE
-- - - - - - 0x003B48 00:9B38: ED        .byte $ED, $01, $ED, $01   ; 0x50
-- - - - - - 0x003B4C 00:9B3C: 00        .byte $00, $EE, $00, $EE
+- D - - - - 0x003B48 00:9B38: ED        .byte $ED, $01, $ED, $01   ; 0x50
+- D - - - - 0x003B4C 00:9B3C: 00        .byte $00, $EE, $00, $EE
 - D 0 - I - 0x003B50 00:9B40: 00        .byte $00, $9C, $00, $9D
-- - - - - - 0x003B54 00:9B44: 01        .byte $01, $01, $D1, $D1
+- D - - - - 0x003B54 00:9B44: 01        .byte $01, $01, $D1, $D1
 - D 0 - I - 0x003B58 00:9B48: 00        .byte $00, $E0, $00, $E1
 - D 0 - I - 0x003B5C 00:9B4C: E0        .byte $E0, $E0, $E1, $E1
 - D 0 - I - 0x003B60 00:9B50: 01        .byte $01, $EC, $01, $EC
 - D 0 - I - 0x003B64 00:9B54: 01        .byte $01, $D7, $01, $D7
 - D 0 - I - 0x003B68 00:9B58: E8        .byte $E8, $E8, $E9, $E9
-- - - - - - 0x003B6C 00:9B5C: 03        .byte $03, $03, $01, $01
+- D - - - - 0x003B6C 00:9B5C: 03        .byte $03, $03, $01, $01
 - D 0 - I - 0x003B70 00:9B60: 06        .byte $06, $07, $09, $0A
-- - - - - - 0x003B74 00:9B64: D5        .byte $D5, $03, $D5, $03
+- D - - - - 0x003B74 00:9B64: D5        .byte $D5, $03, $D5, $03
 - D 0 - I - 0x003B78 00:9B68: EC        .byte $EC, $08, $EC, $0B
 - D 0 - I - 0x003B7C 00:9B6C: EC        .byte $EC, $E4, $EC, $00
 - D 0 - I - 0x003B80 00:9B70: 80        .byte $80, $82, $80, $82
@@ -878,7 +856,7 @@ loc_level2_outside_metatiles:
 - D 0 - I - 0x003B98 00:9B88: DA        .byte $DA, $D9, $DA, $D9
 - D 0 - I - 0x003B9C 00:9B8C: DA        .byte $DA, $D9, $DB, $D9
 - D 0 - I - 0x003BA0 00:9B90: D9        .byte $D9, $D9, $D9, $D9
-- - - - - - 0x003BA4 00:9B94: 1F        .byte $1F, $24, $1F, $24
+- D - - - - 0x003BA4 00:9B94: 1F        .byte $1F, $24, $1F, $24
 - D 0 - I - 0x003BA8 00:9B98: 00        .byte $00, $1A, $00, $1A
 - D 0 - I - 0x003BAC 00:9B9C: 00        .byte $00, $01, $DC, $DC
 - D 0 - I - 0x003BB0 00:9BA0: DC        .byte $DC, $DC, $02, $1E
@@ -897,8 +875,8 @@ loc_level2_outside_metatiles:
 - D 0 - I - 0x003BE4 00:9BD4: 01        .byte $01, $1A, $DC, $DC
 - D 0 - I - 0x003BE8 00:9BD8: 01        .byte $01, $01, $AA, $01
 - D 0 - I - 0x003BEC 00:9BDC: A8        .byte $A8, $01, $01, $01
-- - - - - - 0x003BF0 00:9BE0: 26        .byte $26, $29, $00, $29
-- - - - - - 0x003BF4 00:9BE4: 00        .byte $00, $29, $26, $29
+- D - - - - 0x003BF0 00:9BE0: 26        .byte $26, $29, $00, $29
+- D - - - - 0x003BF4 00:9BE4: 00        .byte $00, $29, $26, $29
 - D 0 - I - 0x003BF8 00:9BE8: E2        .byte $E2, $E2, $12, $EB
 - D 0 - I - 0x003BFC 00:9BEC: 01        .byte $01, $01, $DE, $DF
 - D 0 - I - 0x003C00 00:9BF0: DE        .byte $DE, $DF, $01, $01
@@ -921,7 +899,7 @@ loc_level2_outside_metatiles:
 - D 0 - I - 0x003C44 00:9C34: E2        .byte $E2, $E2, $10, $15
 - D 0 - I - 0x003C48 00:9C38: 11        .byte $11, $14, $01, $01   ; 0x90
 - D 0 - I - 0x003C4C 00:9C3C: 13        .byte $13, $13, $01, $01
-- - - - - - 0x003C50 00:9C40: 9F        .byte $9F, $DC, $00, $00
+- D - - - - 0x003C50 00:9C40: 9F        .byte $9F, $DC, $00, $00
 - D 0 - I - 0x003C54 00:9C44: 00        .byte $00, $9C, $02, $02
 - D 0 - I - 0x003C58 00:9C48: 02        .byte $02, $02, $00, $9C
 - D 0 - I - 0x003C5C 00:9C4C: 02        .byte $02, $02, $D9, $D9
@@ -950,7 +928,7 @@ loc_level2_outside_metatiles:
 - D 0 - I - 0x003CB8 00:9CA8: 01        .byte $01, $01, $DC, $DC
 - D 0 - I - 0x003CBC 00:9CAC: DC        .byte $DC, $DC, $01, $01
 - D 0 - I - 0x003CC0 00:9CB0: D9        .byte $D9, $ED, $D9, $ED
-- - - - - - 0x003CC4 00:9CB4: 81        .byte $81, $9F, $81, $9F
+- D - - - - 0x003CC4 00:9CB4: 81        .byte $81, $9F, $81, $9F
 - D 0 - I - 0x003CC8 00:9CB8: 96        .byte $96, $97, $DE, $DF   ; 0xB0
 - D 0 - I - 0x003CCC 00:9CBC: DE        .byte $DE, $DF, $98, $99
 - D 0 - I - 0x003CD0 00:9CC0: B4        .byte $B4, $B4, $9D, $03
@@ -958,10 +936,10 @@ loc_level2_outside_metatiles:
 - D 0 - I - 0x003CD8 00:9CC8: 20        .byte $20, $A6, $20, $A6
 - D 0 - I - 0x003CDC 00:9CCC: 03        .byte $03, $03, $B4, $B4
 - D 0 - I - 0x003CE0 00:9CD0: 03        .byte $03, $03, $B4, $B4
-- - - - - - 0x003CE4 00:9CD4: 8E        .byte $8E, $9F, $8B, $9F
-- - - - - - 0x003CE8 00:9CD8: 89        .byte $89, $9F, $8C, $9F
-- - - - - - 0x003CEC 00:9CDC: C5        .byte $C5, $00, $C5, $12
-- - - - - - 0x003CF0 00:9CE0: 00        .byte $00, $00, $12, $12
+- D - - - - 0x003CE4 00:9CD4: 8E        .byte $8E, $9F, $8B, $9F
+- D - - - - 0x003CE8 00:9CD8: 89        .byte $89, $9F, $8C, $9F
+- D - - - - 0x003CEC 00:9CDC: C5        .byte $C5, $00, $C5, $12
+- D - - - - 0x003CF0 00:9CE0: 00        .byte $00, $00, $12, $12
 - D 0 - I - 0x003CF4 00:9CE4: F7        .byte $F7, $80, $F8, $80
 - D 0 - I - 0x003CF8 00:9CE8: 03        .byte $03, $80, $03, $80
 - D 0 - I - 0x003CFC 00:9CEC: E5        .byte $E5, $E7, $E7, $E5
@@ -970,22 +948,22 @@ loc_level2_outside_metatiles:
 - D 0 - I - 0x003D08 00:9CF8: 81        .byte $81, $81, $81, $81   ; 0xC0
 - D 0 - I - 0x003D0C 00:9CFC: 01        .byte $01, $01, $D5, $01
 - D 0 - I - 0x003D10 00:9D00: 01        .byte $01, $01, $E3, $12
-- - - - - - 0x003D14 00:9D04: 96        .byte $96, $97, $30, $31
-- - - - - - 0x003D18 00:9D08: 30        .byte $30, $31, $98, $99
+- D - - - - 0x003D14 00:9D04: 96        .byte $96, $97, $30, $31
+- D - - - - 0x003D18 00:9D08: 30        .byte $30, $31, $98, $99
 - D 0 - I - 0x003D1C 00:9D0C: D5        .byte $D5, $01, $01, $01
 - D 0 - I - 0x003D20 00:9D10: 90        .byte $90, $91, $90, $91
 - D 0 - I - 0x003D24 00:9D14: 92        .byte $92, $93, $92, $93
-- - - - - - 0x003D28 00:9D18: 13        .byte $13, $13, $00, $00
-- - - - - - 0x003D2C 00:9D1C: 13        .byte $13, $16, $00, $00
-- - - - - - 0x003D30 00:9D20: 0E        .byte $0E, $12, $0F, $13
+- D - - - - 0x003D28 00:9D18: 13        .byte $13, $13, $00, $00
+- D - - - - 0x003D2C 00:9D1C: 13        .byte $13, $16, $00, $00
+- D - - - - 0x003D30 00:9D20: 0E        .byte $0E, $12, $0F, $13
 - D 0 - I - 0x003D34 00:9D24: 01        .byte $01, $01, $12, $12
 - D 0 - I - 0x003D38 00:9D28: 01        .byte $01, $01, $06, $07
 - D 0 - I - 0x003D3C 00:9D2C: 09        .byte $09, $0A, $01, $01
 - D 0 - I - 0x003D40 00:9D30: 01        .byte $01, $01, $10, $15
 - D 0 - I - 0x003D44 00:9D34: 11        .byte $11, $14, $EF, $EF
-- - - - - - 0x003D48 00:9D38: D7        .byte $D7, $D7, $E6, $01   ; 0xD0
-- - - - - - 0x003D4C 00:9D3C: E7        .byte $E7, $01, $01, $01
-- - - - - - 0x003D50 00:9D40: 96        .byte $96, $97, $98, $99
+- D - - - - 0x003D48 00:9D38: D7        .byte $D7, $D7, $E6, $01   ; 0xD0
+- D - - - - 0x003D4C 00:9D3C: E7        .byte $E7, $01, $01, $01
+- D - - - - 0x003D50 00:9D40: 96        .byte $96, $97, $98, $99
 - D 0 - I - 0x003D54 00:9D44: 00        .byte $00, $9C, $28, $28
 - D 0 - I - 0x003D58 00:9D48: 00        .byte $00, $D9, $00, $00
 - D 0 - I - 0x003D5C 00:9D4C: D9        .byte $D9, $D9, $00, $00
@@ -1000,172 +978,172 @@ loc_level2_outside_metatiles:
 - D 0 - I - 0x003D80 00:9D70: 81        .byte $81, $82, $84, $87
 - D 0 - I - 0x003D84 00:9D74: 82        .byte $82, $A8, $82, $01
 - D 0 - I - 0x003D88 00:9D78: 82        .byte $82, $01, $82, $AA   ; 0xE0
-- D 0 - I - 0x003D8C 00:9D7C: C2        .byte $C2, $C3, $C4, $C5   ; 0xE1
-- - - - - - 0x003D90 00:9D80: 82        .byte $82, $83, $84, $86   ; 0xE2
-- D 0 - I - 0x003D94 00:9D84: 89        .byte $89, $9F, $8C, $9F   ; 0xE3
-- D 0 - I - 0x003D98 00:9D88: 81        .byte $81, $9F, $81, $9F   ; 0xE4
-- D 0 - I - 0x003D9C 00:9D8C: 8E        .byte $8E, $9F, $8B, $9F   ; 0xE5
-- D 0 - I - 0x003DA0 00:9D90: 82        .byte $82, $83, $84, $86   ; 0xE6
-- D 0 - I - 0x003DA4 00:9D94: 84        .byte $84, $87, $82, $85   ; 0xE7
-- D 0 - I - 0x003DA8 00:9D98: 82        .byte $82, $01, $82, $01   ; 0xE8
-- - - - - - 0x003DAC 00:9D9C: 84        .byte $84, $87, $82, $85   ; 0xE9
-- D 0 - I - 0x003DB0 00:9DA0: 81        .byte $81, $9F, $81, $9F   ; 0xEA
-- D 0 - I - 0x003DB4 00:9DA4: E5        .byte $E5, $E7, $E7, $E5   ; 0xEB
-- D 0 - I - 0x003DB8 00:9DA8: E5        .byte $E5, $E7, $E6, $E5   ; 0xEC
-- D 0 - I - 0x003DBC 00:9DAC: E5        .byte $E5, $F0, $E7, $E5   ; 0xED
-- D 0 - I - 0x003DC0 00:9DB0: 80        .byte $80, $81, $80, $81   ; 0xEE
+- D 0 - I - 0x003D8C 00:9D7C: C2        .byte $C2, $C3, $C4, $C5
+- D - - - - 0x003D90 00:9D80: 82        .byte $82, $83, $84, $86
+- D 0 - I - 0x003D94 00:9D84: 89        .byte $89, $9F, $8C, $9F
+- D 0 - I - 0x003D98 00:9D88: 81        .byte $81, $9F, $81, $9F
+- D 0 - I - 0x003D9C 00:9D8C: 8E        .byte $8E, $9F, $8B, $9F
+- D 0 - I - 0x003DA0 00:9D90: 82        .byte $82, $83, $84, $86
+- D 0 - I - 0x003DA4 00:9D94: 84        .byte $84, $87, $82, $85
+- D 0 - I - 0x003DA8 00:9D98: 82        .byte $82, $01, $82, $01
+- D - - - - 0x003DAC 00:9D9C: 84        .byte $84, $87, $82, $85
+- D 0 - I - 0x003DB0 00:9DA0: 81        .byte $81, $9F, $81, $9F
+- D 0 - I - 0x003DB4 00:9DA4: E5        .byte $E5, $E7, $E7, $E5
+- D 0 - I - 0x003DB8 00:9DA8: E5        .byte $E5, $E7, $E6, $E5
+- D 0 - I - 0x003DBC 00:9DAC: E5        .byte $E5, $F0, $E7, $E5
+- D 0 - I - 0x003DC0 00:9DB0: 80        .byte $80, $81, $80, $81
 - D 0 - I - 0x003DC4 00:9DB4: 82        .byte $82, $00, $82, $00   ; 0xEF
 
 ; reserve
-- - - - - - 0x003DC8 00:9DB8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003DCC 00:9DBC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003DD0 00:9DC0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003DD4 00:9DC4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003DD8 00:9DC8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003DDC 00:9DCC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003DE0 00:9DD0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003DE4 00:9DD4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003DE8 00:9DD8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003DEC 00:9DDC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003DF0 00:9DE0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003DF4 00:9DE4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003DF8 00:9DE8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003DFC 00:9DEC: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003E00 00:9DF0: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003E04 00:9DF4: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003E08 00:9DF8: FF        .byte $FF, $FF, $FF, $FF
-- - - - - - 0x003E0C 00:9DFC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DC8 00:9DB8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DCC 00:9DBC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DD0 00:9DC0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DD4 00:9DC4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DD8 00:9DC8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DDC 00:9DCC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DE0 00:9DD0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DE4 00:9DD4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DE8 00:9DD8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DEC 00:9DDC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DF0 00:9DE0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DF4 00:9DE4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DF8 00:9DE8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003DFC 00:9DEC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003E00 00:9DF0: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003E04 00:9DF4: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003E08 00:9DF8: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x003E0C 00:9DFC: FF        .byte $FF, $FF, $FF, $FF
 
 ; Indexes of the metatiles (level 2, inside, water)
 loc_level2_inside_metatiles:
 - D 0 - I - 0x003E10 00:9E00: 00        .byte $00, $00, $00, $00   ; 0x00
-- - - - - - 0x003E14 00:9E04: 01        .byte $01, $01, $01, $01   ; 
-- D 0 - I - 0x003E18 00:9E08: 02        .byte $02, $02, $02, $02   ; 
-- D 0 - I - 0x003E1C 00:9E0C: 03        .byte $03, $03, $03, $03   ; 
-- D 0 - I - 0x003E20 00:9E10: 80        .byte $80, $81, $80, $81   ; 
-- D 0 - I - 0x003E24 00:9E14: 82        .byte $82, $02, $82, $02   ; 
-- D 0 - I - 0x003E28 00:9E18: 82        .byte $82, $90, $82, $92   ; 
-- D 0 - I - 0x003E2C 00:9E1C: A2        .byte $A2, $90, $A2, $92   ; 
-- D 0 - I - 0x003E30 00:9E20: 90        .byte $90, $90, $92, $92   ; 
-- D 0 - I - 0x003E34 00:9E24: 90        .byte $90, $91, $92, $92   ; 
-- D 0 - I - 0x003E38 00:9E28: 94        .byte $94, $95, $96, $97   ; 
-- D 0 - I - 0x003E3C 00:9E2C: 98        .byte $98, $99, $02, $9B   ; 
-- D 0 - I - 0x003E40 00:9E30: 90        .byte $90, $90, $92, $93   ; 
-- D 0 - I - 0x003E44 00:9E34: 02        .byte $02, $9F, $02, $9B   ; 
-- D 0 - I - 0x003E48 00:9E38: 02        .byte $02, $98, $02, $02   ; 
-- D 0 - I - 0x003E4C 00:9E3C: 9F        .byte $9F, $99, $9B, $02   ; 
+- D - - - - 0x003E14 00:9E04: 01        .byte $01, $01, $01, $01
+- D 0 - I - 0x003E18 00:9E08: 02        .byte $02, $02, $02, $02
+- D 0 - I - 0x003E1C 00:9E0C: 03        .byte $03, $03, $03, $03
+- D 0 - I - 0x003E20 00:9E10: 80        .byte $80, $81, $80, $81
+- D 0 - I - 0x003E24 00:9E14: 82        .byte $82, $02, $82, $02
+- D 0 - I - 0x003E28 00:9E18: 82        .byte $82, $90, $82, $92
+- D 0 - I - 0x003E2C 00:9E1C: A2        .byte $A2, $90, $A2, $92
+- D 0 - I - 0x003E30 00:9E20: 90        .byte $90, $90, $92, $92
+- D 0 - I - 0x003E34 00:9E24: 90        .byte $90, $91, $92, $92
+- D 0 - I - 0x003E38 00:9E28: 94        .byte $94, $95, $96, $97
+- D 0 - I - 0x003E3C 00:9E2C: 98        .byte $98, $99, $02, $9B
+- D 0 - I - 0x003E40 00:9E30: 90        .byte $90, $90, $92, $93
+- D 0 - I - 0x003E44 00:9E34: 02        .byte $02, $9F, $02, $9B
+- D 0 - I - 0x003E48 00:9E38: 02        .byte $02, $98, $02, $02
+- D 0 - I - 0x003E4C 00:9E3C: 9F        .byte $9F, $99, $9B, $02
 - D 0 - I - 0x003E50 00:9E40: 02        .byte $02, $03, $9F, $03   ; 0x10
-- D 0 - I - 0x003E54 00:9E44: 84        .byte $84, $85, $86, $87   ; 
-- D 0 - I - 0x003E58 00:9E48: 88        .byte $88, $03, $8A, $03   ; 
-- D 0 - I - 0x003E5C 00:9E4C: 89        .byte $89, $8C, $02, $02   ; 
-- D 0 - I - 0x003E60 00:9E50: 8D        .byte $8D, $03, $02, $03   ; 
-- D 0 - I - 0x003E64 00:9E54: 02        .byte $02, $03, $02, $03   ; 
-- D 0 - I - 0x003E68 00:9E58: 83        .byte $83, $8B, $83, $8E   ; 
-- D 0 - I - 0x003E6C 00:9E5C: 83        .byte $83, $00, $83, $00   ; 
-- D 0 - I - 0x003E70 00:9E60: 83        .byte $83, $00, $A1, $00   ; 
-- D 0 - I - 0x003E74 00:9E64: 83        .byte $83, $00, $83, $8E   ; 
-- D 0 - I - 0x003E78 00:9E68: 02        .byte $02, $02, $8E, $8E   ; 
-- D 0 - I - 0x003E7C 00:9E6C: 02        .byte $02, $03, $8E, $8F   ; 
-- D 0 - I - 0x003E80 00:9E70: 9E        .byte $9E, $9D, $9C, $9D   ; 
-- D 0 - I - 0x003E84 00:9E74: A0        .byte $A0, $00, $A0, $00   ; 
-- D 0 - I - 0x003E88 00:9E78: 9E        .byte $9E, $9D, $9E, $9D   ; 
-- D 0 - I - 0x003E8C 00:9E7C: A2        .byte $A2, $02, $A2, $02   ; 
+- D 0 - I - 0x003E54 00:9E44: 84        .byte $84, $85, $86, $87
+- D 0 - I - 0x003E58 00:9E48: 88        .byte $88, $03, $8A, $03
+- D 0 - I - 0x003E5C 00:9E4C: 89        .byte $89, $8C, $02, $02
+- D 0 - I - 0x003E60 00:9E50: 8D        .byte $8D, $03, $02, $03
+- D 0 - I - 0x003E64 00:9E54: 02        .byte $02, $03, $02, $03
+- D 0 - I - 0x003E68 00:9E58: 83        .byte $83, $8B, $83, $8E
+- D 0 - I - 0x003E6C 00:9E5C: 83        .byte $83, $00, $83, $00
+- D 0 - I - 0x003E70 00:9E60: 83        .byte $83, $00, $A1, $00
+- D 0 - I - 0x003E74 00:9E64: 83        .byte $83, $00, $83, $8E
+- D 0 - I - 0x003E78 00:9E68: 02        .byte $02, $02, $8E, $8E
+- D 0 - I - 0x003E7C 00:9E6C: 02        .byte $02, $03, $8E, $8F
+- D 0 - I - 0x003E80 00:9E70: 9E        .byte $9E, $9D, $9C, $9D
+- D 0 - I - 0x003E84 00:9E74: A0        .byte $A0, $00, $A0, $00
+- D 0 - I - 0x003E88 00:9E78: 9E        .byte $9E, $9D, $9E, $9D
+- D 0 - I - 0x003E8C 00:9E7C: A2        .byte $A2, $02, $A2, $02
 - D 0 - I - 0x003E90 00:9E80: 9C        .byte $9C, $9D, $9E, $9D   ; 0x20
-- D 0 - I - 0x003E94 00:9E84: 83        .byte $83, $8E, $83, $00   ; 
-- D 0 - I - 0x003E98 00:9E88: B4        .byte $B4, $B4, $B6, $B6   ; 
-- D 0 - I - 0x003E9C 00:9E8C: B4        .byte $B4, $B5, $B6, $B7   ; 
-- D 0 - I - 0x003EA0 00:9E90: B9        .byte $B9, $B4, $BB, $B6   ; 
-- D 0 - I - 0x003EA4 00:9E94: BA        .byte $BA, $03, $03, $03   ; 
-- D 0 - I - 0x003EA8 00:9E98: 03        .byte $03, $03, $B8, $03   ; 
-- D 0 - I - 0x003EAC 00:9E9C: B1        .byte $B1, $BE, $B3, $BE   ; 
-- D 0 - I - 0x003EB0 00:9EA0: 03        .byte $03, $BE, $03, $BE   ; 
-- D 0 - I - 0x003EB4 00:9EA4: BC        .byte $BC, $00, $BC, $00   ; 
-- D 0 - I - 0x003EB8 00:9EA8: BC        .byte $BC, $00, $BC, $EC   ; 
-- D 0 - I - 0x003EBC 00:9EAC: 03        .byte $03, $03, $EC, $EC   ; 
-- D 0 - I - 0x003EC0 00:9EB0: 03        .byte $03, $BE, $EC, $EB   ; 
-- D 0 - I - 0x003EC4 00:9EB4: A1        .byte $A1, $00, $02, $00   ; 
-- D 0 - I - 0x003EC8 00:9EB8: BC        .byte $BC, $F1, $BC, $EC   ; 
-- D 0 - I - 0x003ECC 00:9EBC: BD        .byte $BD, $C0, $BF, $C2   ; 
+- D 0 - I - 0x003E94 00:9E84: 83        .byte $83, $8E, $83, $00
+- D 0 - I - 0x003E98 00:9E88: B4        .byte $B4, $B4, $B6, $B6
+- D 0 - I - 0x003E9C 00:9E8C: B4        .byte $B4, $B5, $B6, $B7
+- D 0 - I - 0x003EA0 00:9E90: B9        .byte $B9, $B4, $BB, $B6
+- D 0 - I - 0x003EA4 00:9E94: BA        .byte $BA, $03, $03, $03
+- D 0 - I - 0x003EA8 00:9E98: 03        .byte $03, $03, $B8, $03
+- D 0 - I - 0x003EAC 00:9E9C: B1        .byte $B1, $BE, $B3, $BE
+- D 0 - I - 0x003EB0 00:9EA0: 03        .byte $03, $BE, $03, $BE
+- D 0 - I - 0x003EB4 00:9EA4: BC        .byte $BC, $00, $BC, $00
+- D 0 - I - 0x003EB8 00:9EA8: BC        .byte $BC, $00, $BC, $EC
+- D 0 - I - 0x003EBC 00:9EAC: 03        .byte $03, $03, $EC, $EC
+- D 0 - I - 0x003EC0 00:9EB0: 03        .byte $03, $BE, $EC, $EB
+- D 0 - I - 0x003EC4 00:9EB4: A1        .byte $A1, $00, $02, $00
+- D 0 - I - 0x003EC8 00:9EB8: BC        .byte $BC, $F1, $BC, $EC
+- D 0 - I - 0x003ECC 00:9EBC: BD        .byte $BD, $C0, $BF, $C2
 - D 0 - I - 0x003ED0 00:9EC0: C1        .byte $C1, $CC, $C3, $C3   ; 0x30
-- D 0 - I - 0x003ED4 00:9EC4: C4        .byte $C4, $C5, $C6, $C7   ; 
-- D 0 - I - 0x003ED8 00:9EC8: C8        .byte $C8, $C9, $CA, $CB   ; 
-- D 0 - I - 0x003EDC 00:9ECC: C9        .byte $C9, $C9, $CB, $CE   ; 
-- D 0 - I - 0x003EE0 00:9ED0: C9        .byte $C9, $CE, $CB, $CB   ; 
-- D 0 - I - 0x003EE4 00:9ED4: C9        .byte $C9, $CD, $CB, $CF   ; 
-- D 0 - I - 0x003EE8 00:9ED8: A4        .byte $A4, $A5, $A6, $A7   ; 
-- D 0 - I - 0x003EEC 00:9EDC: AD        .byte $AD, $B0, $AF, $B2   ; 
-- D 0 - I - 0x003EF0 00:9EE0: A8        .byte $A8, $A9, $AA, $AB   ; 
-- D 0 - I - 0x003EF4 00:9EE4: 02        .byte $02, $AC, $02, $AE   ; 
-- D 0 - I - 0x003EF8 00:9EE8: BC        .byte $BC, $00, $BC, $00   ; 
-- D 0 - I - 0x003EFC 00:9EEC: 9A        .byte $9A, $EC, $BC, $00   ; 
-- D 0 - I - 0x003F00 00:9EF0: BC        .byte $BC, $00, $9A, $EC   ; 
-- D 0 - I - 0x003F04 00:9EF4: BC        .byte $BC, $00, $ED, $00   ; 
-- - - - - - 0x003F08 00:9EF8: 00        .byte $00, $00, $00, $00   ; 
-- - - - - - 0x003F0C 00:9EFC: 00        .byte $00, $00, $00, $00   ; 
-- - - - - - 0x003F10 00:9F00: 00        .byte $00, $00, $00, $00   ; 0x40
-- D 0 - I - 0x003F14 00:9F04: BC        .byte $BC, $00, $BC, $00   ; 
-- D 0 - I - 0x003F18 00:9F08: BC        .byte $BC, $00, $9A, $EC   ; 
-- D 0 - I - 0x003F1C 00:9F0C: 83        .byte $83, $00, $83, $00   ; 
-- - - - - - 0x003F20 00:9F10: 83        .byte $83, $00, $83, $8E   ; 
-- D 0 - I - 0x003F24 00:9F14: BC        .byte $BC, $00, $BC, $00   ; 
-- D 0 - I - 0x003F28 00:9F18: 83        .byte $83, $00, $83, $00   ; 
-- - - - - - 0x003F2C 00:9F1C: 00        .byte $00, $00, $00, $00   ; 
-- D 0 - I - 0x003F30 00:9F20: 83        .byte $83, $00, $83, $8E   ; 
-- D 0 - I - 0x003F34 00:9F24: D4        .byte $D4, $00, $D4, $00   ; 
-- D 0 - I - 0x003F38 00:9F28: D6        .byte $D6, $8E, $D4, $00   ; 
-- D 0 - I - 0x003F3C 00:9F2C: 8E        .byte $8E, $DE, $00, $00   ; 
-- D 0 - I - 0x003F40 00:9F30: D5        .byte $D5, $D7, $D7, $D5   ; 
-- D 0 - I - 0x003F44 00:9F34: D0        .byte $D0, $D1, $D2, $D3   ; 
-- D 0 - I - 0x003F48 00:9F38: D5        .byte $D5, $D7, $D7, $DC   ; 
-- D 0 - I - 0x003F4C 00:9F3C: D5        .byte $D5, $DC, $D7, $D5   ; 
+- D 0 - I - 0x003ED4 00:9EC4: C4        .byte $C4, $C5, $C6, $C7
+- D 0 - I - 0x003ED8 00:9EC8: C8        .byte $C8, $C9, $CA, $CB
+- D 0 - I - 0x003EDC 00:9ECC: C9        .byte $C9, $C9, $CB, $CE
+- D 0 - I - 0x003EE0 00:9ED0: C9        .byte $C9, $CE, $CB, $CB
+- D 0 - I - 0x003EE4 00:9ED4: C9        .byte $C9, $CD, $CB, $CF
+- D 0 - I - 0x003EE8 00:9ED8: A4        .byte $A4, $A5, $A6, $A7
+- D 0 - I - 0x003EEC 00:9EDC: AD        .byte $AD, $B0, $AF, $B2
+- D 0 - I - 0x003EF0 00:9EE0: A8        .byte $A8, $A9, $AA, $AB
+- D 0 - I - 0x003EF4 00:9EE4: 02        .byte $02, $AC, $02, $AE
+- D 0 - I - 0x003EF8 00:9EE8: BC        .byte $BC, $00, $BC, $00
+- D 0 - I - 0x003EFC 00:9EEC: 9A        .byte $9A, $EC, $BC, $00
+- D 0 - I - 0x003F00 00:9EF0: BC        .byte $BC, $00, $9A, $EC
+- D 0 - I - 0x003F04 00:9EF4: BC        .byte $BC, $00, $ED, $00
+- D - - - - 0x003F08 00:9EF8: 00        .byte $00, $00, $00, $00
+- D - - - - 0x003F0C 00:9EFC: 00        .byte $00, $00, $00, $00
+- D - - - - 0x003F10 00:9F00: 00        .byte $00, $00, $00, $00   ; 0x40
+- D 0 - I - 0x003F14 00:9F04: BC        .byte $BC, $00, $BC, $00
+- D 0 - I - 0x003F18 00:9F08: BC        .byte $BC, $00, $9A, $EC
+- D 0 - I - 0x003F1C 00:9F0C: 83        .byte $83, $00, $83, $00
+- D - - - - 0x003F20 00:9F10: 83        .byte $83, $00, $83, $8E
+- D 0 - I - 0x003F24 00:9F14: BC        .byte $BC, $00, $BC, $00
+- D 0 - I - 0x003F28 00:9F18: 83        .byte $83, $00, $83, $00
+- D - - - - 0x003F2C 00:9F1C: 00        .byte $00, $00, $00, $00
+- D 0 - I - 0x003F30 00:9F20: 83        .byte $83, $00, $83, $8E
+- D 0 - I - 0x003F34 00:9F24: D4        .byte $D4, $00, $D4, $00
+- D 0 - I - 0x003F38 00:9F28: D6        .byte $D6, $8E, $D4, $00
+- D 0 - I - 0x003F3C 00:9F2C: 8E        .byte $8E, $DE, $00, $00
+- D 0 - I - 0x003F40 00:9F30: D5        .byte $D5, $D7, $D7, $D5
+- D 0 - I - 0x003F44 00:9F34: D0        .byte $D0, $D1, $D2, $D3
+- D 0 - I - 0x003F48 00:9F38: D5        .byte $D5, $D7, $D7, $DC
+- D 0 - I - 0x003F4C 00:9F3C: D5        .byte $D5, $DC, $D7, $D5
 - D 0 - I - 0x003F50 00:9F40: D8        .byte $D8, $D9, $DA, $DB   ; 0x50
-- D 0 - I - 0x003F54 00:9F44: D5        .byte $D5, $E0, $D7, $DD   ; 
-- D 0 - I - 0x003F58 00:9F48: D5        .byte $D5, $DF, $D7, $D5   ; 
-- D 0 - I - 0x003F5C 00:9F4C: D5        .byte $D5, $DF, $D7, $E0   ; 
-- D 0 - I - 0x003F60 00:9F50: D5        .byte $D5, $D7, $D7, $DD   ; 
-- D 0 - I - 0x003F64 00:9F54: D5        .byte $D5, $D7, $D7, $E0   ; 
-- - - - - - 0x003F68 00:9F58: EA        .byte $EA, $00, $EA, $00   ; 
-- D 0 - I - 0x003F6C 00:9F5C: E1        .byte $E1, $E1, $E1, $E1   ; 
-- D 0 - I - 0x003F70 00:9F60: E2        .byte $E2, $E3, $E6, $E9   ; 
-- D 0 - I - 0x003F74 00:9F64: E4        .byte $E4, $E8, $E6, $E9   ; 
-- D 0 - I - 0x003F78 00:9F68: E4        .byte $E4, $E8, $E2, $E3   ; 
-- D 0 - I - 0x003F7C 00:9F6C: E4        .byte $E4, $E5, $E6, $E7   ; 
-- D 0 - I - 0x003F80 00:9F70: 02        .byte $02, $03, $F2, $F3   ; 
-- D 0 - I - 0x003F84 00:9F74: 02        .byte $02, $02, $02, $F2   ; 
-- D 0 - I - 0x003F88 00:9F78: 02        .byte $02, $F4, $02, $F6   ; 
-- D 0 - I - 0x003F8C 00:9F7C: F7        .byte $F7, $F7, $F7, $F7   ; 
+- D 0 - I - 0x003F54 00:9F44: D5        .byte $D5, $E0, $D7, $DD
+- D 0 - I - 0x003F58 00:9F48: D5        .byte $D5, $DF, $D7, $D5
+- D 0 - I - 0x003F5C 00:9F4C: D5        .byte $D5, $DF, $D7, $E0
+- D 0 - I - 0x003F60 00:9F50: D5        .byte $D5, $D7, $D7, $DD
+- D 0 - I - 0x003F64 00:9F54: D5        .byte $D5, $D7, $D7, $E0
+- D - - - - 0x003F68 00:9F58: EA        .byte $EA, $00, $EA, $00
+- D 0 - I - 0x003F6C 00:9F5C: E1        .byte $E1, $E1, $E1, $E1
+- D 0 - I - 0x003F70 00:9F60: E2        .byte $E2, $E3, $E6, $E9
+- D 0 - I - 0x003F74 00:9F64: E4        .byte $E4, $E8, $E6, $E9
+- D 0 - I - 0x003F78 00:9F68: E4        .byte $E4, $E8, $E2, $E3
+- D 0 - I - 0x003F7C 00:9F6C: E4        .byte $E4, $E5, $E6, $E7
+- D 0 - I - 0x003F80 00:9F70: 02        .byte $02, $03, $F2, $F3
+- D 0 - I - 0x003F84 00:9F74: 02        .byte $02, $02, $02, $F2
+- D 0 - I - 0x003F88 00:9F78: 02        .byte $02, $F4, $02, $F6
+- D 0 - I - 0x003F8C 00:9F7C: F7        .byte $F7, $F7, $F7, $F7
 - D 0 - I - 0x003F90 00:9F80: F8        .byte $F8, $02, $02, $02   ; 0x60
-- D 0 - I - 0x003F94 00:9F84: F8        .byte $F8, $F9, $02, $03   ; 
-- D 0 - I - 0x003F98 00:9F88: 02        .byte $02, $02, $F2, $F2   ; 
-- D 0 - I - 0x003F9C 00:9F8C: 03        .byte $03, $BE, $03, $FA   ; 
-- D 0 - I - 0x003FA0 00:9F90: F8        .byte $F8, $F8, $02, $02   ; 
-- D 0 - I - 0x003FA4 00:9F94: 03        .byte $03, $FB, $03, $BE   ; 
-- D 0 - I - 0x003FA8 00:9F98: 8E        .byte $8E, $8E, $8E, $8E   ; 
-- D 0 - I - 0x003FAC 00:9F9C: 8E        .byte $8E, $8F, $8E, $8F   ; 
-- D 0 - I - 0x003FB0 00:9FA0: 8E        .byte $8E, $8E, $02, $02   ; 
-- - - - - - 0x003FB4 00:9FA4: 9F        .byte $9F, $0E, $02, $0E   ; 
-- - - - - - 0x003FB8 00:9FA8: 02        .byte $02, $0E, $02, $0E   ; 
-- D 0 - I - 0x003FBC 00:9FAC: BE        .byte $BE, $02, $BE, $02   ; 
-- D 0 - I - 0x003FC0 00:9FB0: 8E        .byte $8E, $8E, $02, $BE   ; 
-- - - - - - 0x003FC4 00:9FB4: 8E        .byte $8E, $8E, $2F, $2F   ; 
-- D 0 - I - 0x003FC8 00:9FB8: 8E        .byte $8E, $8E, $BE, $02   ; 
-- D 0 - I - 0x003FCC 00:9FBC: 02        .byte $02, $BE, $02, $BE   ; 
+- D 0 - I - 0x003F94 00:9F84: F8        .byte $F8, $F9, $02, $03
+- D 0 - I - 0x003F98 00:9F88: 02        .byte $02, $02, $F2, $F2
+- D 0 - I - 0x003F9C 00:9F8C: 03        .byte $03, $BE, $03, $FA
+- D 0 - I - 0x003FA0 00:9F90: F8        .byte $F8, $F8, $02, $02
+- D 0 - I - 0x003FA4 00:9F94: 03        .byte $03, $FB, $03, $BE
+- D 0 - I - 0x003FA8 00:9F98: 8E        .byte $8E, $8E, $8E, $8E
+- D 0 - I - 0x003FAC 00:9F9C: 8E        .byte $8E, $8F, $8E, $8F
+- D 0 - I - 0x003FB0 00:9FA0: 8E        .byte $8E, $8E, $02, $02
+- D - - - - 0x003FB4 00:9FA4: 9F        .byte $9F, $0E, $02, $0E
+- D - - - - 0x003FB8 00:9FA8: 02        .byte $02, $0E, $02, $0E
+- D 0 - I - 0x003FBC 00:9FAC: BE        .byte $BE, $02, $BE, $02
+- D 0 - I - 0x003FC0 00:9FB0: 8E        .byte $8E, $8E, $02, $BE
+- D - - - - 0x003FC4 00:9FB4: 8E        .byte $8E, $8E, $2F, $2F
+- D 0 - I - 0x003FC8 00:9FB8: 8E        .byte $8E, $8E, $BE, $02
+- D 0 - I - 0x003FCC 00:9FBC: 02        .byte $02, $BE, $02, $BE
 - D 0 - I - 0x003FD0 00:9FC0: 02        .byte $02, $BE, $8E, $8E   ; 0x70
-- - - - - - 0x003FD4 00:9FC4: 2E        .byte $2E, $2E, $8E, $8E   ; 
-- D 0 - I - 0x003FD8 00:9FC8: BE        .byte $BE, $02, $8E, $8E   ; 
-- D 0 - I - 0x003FDC 00:9FCC: 8E        .byte $8E, $8E, $9F, $BE   ; 
-- - - - - - 0x003FE0 00:9FD0: 8E        .byte $8E, $8E, $02, $0E   ; 
-- - - - - - 0x003FE4 00:9FD4: 02        .byte $02, $0E, $8E, $82   ; 
-- - - - - - 0x003FE8 00:9FD8: 03        .byte $03, $82, $03, $82   ; 
-- - - - - - 0x003FEC 00:9FDC: 2B        .byte $2B, $2C, $2D, $2A   ; 
-- D 0 - I - 0x003FF0 00:9FE0: BE        .byte $BE, $03, $BE, $03   ; 
-- - - - - - 0x003FF4 00:9FE4: B4        .byte $B4, $B4, $B7, $B6   ; 
-- - - - - - 0x003FF8 00:9FE8: B4        .byte $B4, $B4, $B7, $BB   ; 
-- D 0 - I - 0x003FFC 00:9FEC: BE        .byte $BE, $BA, $BE, $03   ; 
-- D 0 - I - 0x004000 00:9FF0: BE        .byte $BE, $03, $BE, $B8   ; 
-- - - - - - 0x004004 00:9FF4: B5        .byte $B5, $B9, $B6, $B6   ; 
-- - - - - - 0x004008 00:9FF8: B5        .byte $B5, $B4, $B6, $B7   ; 
-- - - - - - 0x00400C 00:9FFC: B4        .byte $B4, $B4, $B6, $B7   ; 0x7F
+- D - - - - 0x003FD4 00:9FC4: 2E        .byte $2E, $2E, $8E, $8E
+- D 0 - I - 0x003FD8 00:9FC8: BE        .byte $BE, $02, $8E, $8E
+- D 0 - I - 0x003FDC 00:9FCC: 8E        .byte $8E, $8E, $9F, $BE
+- D - - - - 0x003FE0 00:9FD0: 8E        .byte $8E, $8E, $02, $0E
+- D - - - - 0x003FE4 00:9FD4: 02        .byte $02, $0E, $8E, $82
+- D - - - - 0x003FE8 00:9FD8: 03        .byte $03, $82, $03, $82
+- D - - - - 0x003FEC 00:9FDC: 2B        .byte $2B, $2C, $2D, $2A
+- D 0 - I - 0x003FF0 00:9FE0: BE        .byte $BE, $03, $BE, $03
+- D - - - - 0x003FF4 00:9FE4: B4        .byte $B4, $B4, $B7, $B6
+- D - - - - 0x003FF8 00:9FE8: B4        .byte $B4, $B4, $B7, $BB
+- D 0 - I - 0x003FFC 00:9FEC: BE        .byte $BE, $BA, $BE, $03
+- D 0 - I - 0x004000 00:9FF0: BE        .byte $BE, $03, $BE, $B8
+- D - - - - 0x004004 00:9FF4: B5        .byte $B5, $B9, $B6, $B6
+- D - - - - 0x004008 00:9FF8: B5        .byte $B5, $B4, $B6, $B7
+- D - - - - 0x00400C 00:9FFC: B4        .byte $B4, $B4, $B6, $B7   ; 0x7F
 
 .out .sprintf("Free bytes in bank 00_2: 0x%X [%d]", ($A000 - *), ($A000 - *))
 

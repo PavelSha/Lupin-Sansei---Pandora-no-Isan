@@ -25,6 +25,8 @@
 .export loc_level1_X_screen_u07_attrs
 .export loc_level1_X_screen_u08_attrs
 .export loc_level1_X_screen_u09_attrs
+.export loc_level_racing_screen_u00_indexes
+.export loc_level_racing_screen_u01_indexes
 .export tbl_background_palette
 .export tbl_background_collisions
 
@@ -2948,6 +2950,7 @@ tbl_background_collisions_level4:
 - - - - - - 0x007E37 01:9E27: 00        .byte $00   ; 
 
 ; screen 2, B (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u00_indexes:
 - D 0 - I - 0x007E38 01:9E28: 03        .byte $03, $03, $03, $03, $03, $03, $03, $00, $00, $C8, $00, $C7
 - D 0 - I - 0x007E44 01:9E34: 03        .byte $03, $03, $03, $03, $03, $03, $03, $B7, $00, $C8, $00, $00
 - D 0 - I - 0x007E50 01:9E40: 03        .byte $03, $03, $03, $03, $03, $03, $03, $BA, $09, $35, $00, $C5
@@ -2966,6 +2969,7 @@ tbl_background_collisions_level4:
 - D 0 - I - 0x007EEC 01:9EDC: 03        .byte $03, $03, $03, $03, $0F, $0E, $00, $1F, $09, $35, $00, $C7
 
 ; screen 3 (level racing), horizontally - y axis, vertically - x axis
+loc_level_racing_screen_u01_indexes:
 - D 0 - I - 0x007EF8 01:9EE8: 03        .byte $03, $03, $03, $03, $0B, $00, $00, $00, $09, $35, $00, $C7
 - D 0 - I - 0x007F04 01:9EF4: 03        .byte $03, $03, $03, $03, $0C, $00, $00, $00, $00, $C8, $00, $C5
 - D 0 - I - 0x007F10 01:9F00: 03        .byte $03, $03, $03, $03, $03, $21, $1A, $00, $00, $C8, $00, $C6
@@ -2984,14 +2988,14 @@ tbl_background_collisions_level4:
 - D 0 - I - 0x007FAC 01:9F9C: 03        .byte $03, $03, $03, $03, $0F, $1D, $00, $00, $00, $C8, $00, $C7
 
 ; reserve
-- - - - - - 0x007FB8 01:9FA8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-- - - - - - 0x007FC4 01:9FB4: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-- - - - - - 0x007FD0 01:9FC0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-- - - - - - 0x007FDC 01:9FCC: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-- - - - - - 0x007FE8 01:9FD8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-- - - - - - 0x007FF4 01:9FE4: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-- - - - - - 0x008000 01:9FF0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-- - - - - - 0x00800C 01:9FFC: FF        .byte $FF, $FF, $FF, $FF
+- D - - - - 0x007FB8 01:9FA8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x007FC4 01:9FB4: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x007FD0 01:9FC0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x007FDC 01:9FCC: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x007FE8 01:9FD8: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x007FF4 01:9FE4: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x008000 01:9FF0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+- D - - - - 0x00800C 01:9FFC: FF        .byte $FF, $FF, $FF, $FF
 
 .out .sprintf("Free bytes in bank 01_2: 0x%X [%d]", ($A000 - *), ($A000 - *))
 
