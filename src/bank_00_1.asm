@@ -883,27 +883,27 @@
 
 ; Background indexes for the screen
 tbl_background_screens:
-- D 0 - - - 0x000490 00:8480: 7C 05     .word tbl_background_screen_info_level_1_0      - $8000 ; ($857C)
-- D - - - - 0x000492 00:8482: 8C 05     .word tbl_background_screen_info_level_1_1      - $8000
-- D - - - - 0x000494 00:8484: 8C 05     .word tbl_background_screen_info_level_1_1      - $8000
-- D 0 - - - 0x000496 00:8486: 8C 05     .word tbl_background_screen_info_level_1_1      - $8000 ; ($858C)
-- D 0 - - - 0x000498 00:8488: 94 05     .word tbl_background_screen_info_level_1_2      - $8000 ; ($8594)
-- D 0 - - - 0x00049A 00:848A: 9C 05     .word tbl_background_screen_info_level_1_3      - $8000 ; ($859C)
-- D 0 - - - 0x00049C 00:848C: A4 05     .word tbl_background_screen_info_level2_outside - $8000 ; ($85A4)
-- D 0 - - - 0x00049E 00:848E: B4 05     .word tbl_background_screen_info_level2_d1_d3   - $8000 ; ($85B4)
-- D 0 - - - 0x0004A0 00:8490: BC 05     .word tbl_background_screen_info_level2_d2      - $8000 ; ($85BC)
-- D 0 - - - 0x0004A2 00:8492: C4 05     .word tbl_background_screen_info_level2_d4_d5   - $8000 ; ($85C4)
-- D 0 - - - 0x0004A4 00:8494: CC 05     .word tbl_background_screen_info_level2_d6_d8   - $8000 ; ($85CC)
-- D 0 - - - 0x0004A6 00:8496: D4 05     .word tbl_background_screen_info_level2_d7      - $8000 ; ($85D4)
-- D 0 - - - 0x0004A8 00:8498: DC 05     .word tbl_background_screen_info_level2_d9_d10  - $8000 ; ($85DC)
-- D 0 - - - 0x0004AA 00:849A: E4 05     .word tbl_background_screen_info_level2_d11_d13 - $8000 ; ($85E4)
-- D 0 - - - 0x0004AC 00:849C: EC 05     .word tbl_background_screen_info_level2_d12     - $8000 ; ($85EC)
-- D 0 - - - 0x0004AE 00:849E: F4 05     .word tbl_background_screen_info_level3_0       - $8000 ; ($85F4)
-- D 0 - - - 0x0004B0 00:84A0: 04 06     .word tbl_background_screen_info_level3_1       - $8000 ; ($8604)
-- D 0 - - - 0x0004B2 00:84A2: 0C 06     .word tbl_background_screen_info_level3_2       - $8000 ; ($860C)
-- D 0 - - - 0x0004B4 00:84A4: 14 06     .word tbl_background_screen_info_level3_3       - $8000 ; ($8614)
-- D 0 - - - 0x0004B6 00:84A6: 1C 06     .word tbl_background_screen_info_level3_4       - $8000 ; ($861C)
-- D 0 - - - 0x0004B8 00:84A8: 24 06     .word $0624 ; boss of level 4 ($8624)
+- D 0 - - - 0x000490 00:8480: 7C 05     .word tbl_background_screen_info_level_1_0            - $8000 ; ($857C)
+- D - - - - 0x000492 00:8482: 8C 05     .word tbl_background_screen_info_level_1_1            - $8000
+- D - - - - 0x000494 00:8484: 8C 05     .word tbl_background_screen_info_level_1_1            - $8000
+- D 0 - - - 0x000496 00:8486: 8C 05     .word tbl_background_screen_info_level_1_1            - $8000 ; ($858C)
+- D 0 - - - 0x000498 00:8488: 94 05     .word tbl_background_screen_info_level_1_2            - $8000 ; ($8594)
+- D 0 - - - 0x00049A 00:848A: 9C 05     .word tbl_background_screen_info_level_1_3            - $8000 ; ($859C)
+- D 0 - - - 0x00049C 00:848C: A4 05     .word tbl_background_screen_info_level2_outside       - $8000 ; ($85A4)
+- D 0 - - - 0x00049E 00:848E: B4 05     .word tbl_background_screen_info_level2_d1_d3         - $8000 ; ($85B4)
+- D 0 - - - 0x0004A0 00:8490: BC 05     .word tbl_background_screen_info_level2_d2            - $8000 ; ($85BC)
+- D 0 - - - 0x0004A2 00:8492: C4 05     .word tbl_background_screen_info_level2_d4_d5         - $8000 ; ($85C4)
+- D 0 - - - 0x0004A4 00:8494: CC 05     .word tbl_background_screen_info_level2_d6_d8         - $8000 ; ($85CC)
+- D 0 - - - 0x0004A6 00:8496: D4 05     .word tbl_background_screen_info_level2_d7            - $8000 ; ($85D4)
+- D 0 - - - 0x0004A8 00:8498: DC 05     .word tbl_background_screen_info_level2_d9_d10        - $8000 ; ($85DC)
+- D 0 - - - 0x0004AA 00:849A: E4 05     .word tbl_background_screen_info_level2_d11_d13       - $8000 ; ($85E4)
+- D 0 - - - 0x0004AC 00:849C: EC 05     .word tbl_background_screen_info_level2_d12           - $8000 ; ($85EC)
+- D 0 - - - 0x0004AE 00:849E: F4 05     .word tbl_background_screen_info_level3_0             - $8000 ; ($85F4)
+- D 0 - - - 0x0004B0 00:84A0: 04 06     .word tbl_background_screen_info_level3_1             - $8000 ; ($8604)
+- D 0 - - - 0x0004B2 00:84A2: 0C 06     .word tbl_background_screen_info_level3_2             - $8000 ; ($860C)
+- D 0 - - - 0x0004B4 00:84A4: 14 06     .word tbl_background_screen_info_level3_3             - $8000 ; ($8614)
+- D 0 - - - 0x0004B6 00:84A6: 1C 06     .word tbl_background_screen_info_level3_4             - $8000 ; ($861C)
+- D 0 - - - 0x0004B8 00:84A8: 24 06     .word tbl_background_screen_info_level4_boss_room     - $8000 ; ($8624)
 - D - - - - 0x0004BA 00:84AA: 25 06     .word tbl_background_screen_info_level_racing         - $8000
 - D - - - - 0x0004BC 00:84AC: 25 06     .word tbl_background_screen_info_level_racing         - $8000
 - D - - - - 0x0004BE 00:84AE: 25 06     .word tbl_background_screen_info_level_racing         - $8000
@@ -919,16 +919,16 @@ tbl_background_screens:
 - D 0 - - - 0x0004D2 00:84C2: 4B 06     .word tbl_background_screen_info_level2_2_unique_room - $8000 ; room with briefcases in level 2.2 ($864B)
 - D 0 - - - 0x0004D4 00:84C4: 4C 06     .word tbl_background_screen_info_level3_unique_room   - $8000 ; room with briefcases in level 3   ($864C)
 - D 0 - - - 0x0004D6 00:84C6: 4D 06     .word tbl_background_screen_info_level4_unique_room   - $8000 ; room with briefcases in level 4   ($864D)
-- D 0 - - - 0x0004D8 00:84C8: 4E 06     .word tbl_background_screen_info_level3_0_water1_1    - $8000 ; ($864E)
-- D - - - - 0x0004DA 00:84CA: 4F 06     .word $064F ; ($864F)
-- D 0 - - - 0x0004DC 00:84CC: 51 06     .word $0651 ; level 3.0 (water 1.0) ($8651)
-- D - - - - 0x0004DE 00:84CE: 54 06     .word $0654 ; ($8654)
-- D - - - - 0x0004E0 00:84D0: 58 06     .word $0658 ; ($8658)
-- D 0 - - - 0x0004E2 00:84D2: 5D 06     .word $065D ; level 3.0 (water 1.2) ($865D)
-- D - - - - 0x0004E4 00:84D4: 63 06     .word $0663 ; ($8663)
-- D 0 - - - 0x0004E6 00:84D6: 64 06     .word $0664 ; level 3.3 (water 1.0) ($8664)
-- D 0 - - - 0x0004E8 00:84D8: 66 06     .word $0666 ; level 3.1 / 3.2 (water 1.0) ($8666)
-- D 0 - - - 0x0004EA 00:84DA: 69 06     .word $0669 ; level 3.4 (water 1.0) ($8669)
+- D 0 - - - 0x0004D8 00:84C8: 4E 06     .word tbl_background_screen_info_level3_0_water1      - $8000 ; ($864E)
+- D - - - - 0x0004DA 00:84CA: 4F 06     .word tbl_background_screen_info_level3_0_water2      - $8000 ; ($864F)
+- D 0 - - - 0x0004DC 00:84CC: 51 06     .word tbl_background_screen_info_level3_0_water3      - $8000 ; level 3.0 (water 1.0) ($8651)
+- D - - - - 0x0004DE 00:84CE: 54 06     .word tbl_background_screen_info_level3_0_water4      - $8000 ; ($8654)
+- D - - - - 0x0004E0 00:84D0: 58 06     .word tbl_background_screen_info_level3_0_water5      - $8000 ; ($8658)
+- D 0 - - - 0x0004E2 00:84D2: 5D 06     .word tbl_background_screen_info_level3_0_water6      - $8000 ; level 3.0 (water 1.2) ($865D)
+- D - - - - 0x0004E4 00:84D4: 63 06     .word tbl_background_screen_info_level3_X_water1      - $8000 ; ($8663)
+- D 0 - - - 0x0004E6 00:84D6: 64 06     .word tbl_background_screen_info_level3_X_water2      - $8000 ; level 3.3 (water 1.0) ($8664)
+- D 0 - - - 0x0004E8 00:84D8: 66 06     .word tbl_background_screen_info_level3_X_water3      - $8000 ; level 3.1 / 3.2 (water 1.0) ($8666)
+- D 0 - - - 0x0004EA 00:84DA: 69 06     .word tbl_background_screen_info_level3_X_water4      - $8000 ; level 3.4 (water 1.0) ($8669)
 - D - - - - 0x0004EC 00:84DC: 70 06     .word tbl_background_screen_info_level2_d1_d3_water   - $8000
 - D - - - - 0x0004EE 00:84DE: 70 06     .word tbl_background_screen_info_level2_d1_d3_water   - $8000
 - D 0 - - - 0x0004F0 00:84E0: 70 06     .word tbl_background_screen_info_level2_d1_d3_water   - $8000 ; (water 1.0) ($8670)
@@ -941,74 +941,74 @@ tbl_background_screens:
 - D 0 - - - 0x0004FE 00:84EE: 7F 06     .word tbl_background_screen_info_level2_d7_water      - $8000 ; (water 1.0) ($867F)
 - D 0 - - - 0x000500 00:84F0: 84 06     .word tbl_background_screen_info_level2_d9_d10_water  - $8000 ; (water 1.0) ($8684)
 - D 0 - - - 0x000502 00:84F2: 86 06     .word tbl_background_screen_info_level2_d11_d13_water - $8000 ; (water 1.0) ($8686)
-- D - - - - 0x000504 00:84F4: 89 06     .word $0689
-- D - - - - 0x000506 00:84F6: 89 06     .word $0689
-- D 0 - - - 0x000508 00:84F8: 89 06     .word $0689
-- D 0 - - - 0x00050A 00:84FA: 8A 06     .word $068A ; ($868A)
-- D 0 - - - 0x00050C 00:84FC: 8C 06     .word $068C ; ($868C)
-- D 0 - - - 0x00050E 00:84FE: 8F 06     .word $068F ; ($868F)
-- D 0 - - - 0x000510 00:8500: 96 06     .word $0696 ; ($8696)
-- D 0 - - - 0x000512 00:8502: 9A 06     .word $069A ; ($869A)
-- D 0 - - - 0x000514 00:8504: 9E 06     .word tbl_background_screen_info_level4_map1_b2_d2 - $8000 ; ($869E)
-- D 0 - - - 0x000516 00:8506: A0 06     .word tbl_background_screen_info_level4_map1_c0_c2 - $8000 ; ($86A0)
-- D 0 - - - 0x000518 00:8508: A2 06     .word tbl_background_screen_info_level4_map1_b1_c1 - $8000 ; ($86A2)
-- D 0 - - - 0x00051A 00:850A: A3 06     .word tbl_background_screen_info_level4_map1_b1_b3 - $8000 ; ($86A3)
-- D 0 - - - 0x00051C 00:850C: A5 06     .word tbl_background_screen_info_level4_map1_a3_d3 - $8000 ; ($86A5)
-- D 0 - - - 0x00051E 00:850E: A9 06     .word tbl_background_screen_info_level4_map1_d0_d3 - $8000 ; ($86A9)
-- D 0 - - - 0x000520 00:8510: AD 06     .word tbl_background_screen_info_level4_map1_a0_d0 - $8000 ; ($86AD)
-- D 0 - - - 0x000522 00:8512: B1 06     .word tbl_background_screen_info_level4_map1_a0_a3 - $8000 ; ($86B1)
-- D 0 - - - 0x000524 00:8514: B5 06     .word tbl_background_screen_info_level4_map2_a0_a6 - $8000 ; ($86B5)
-- D 0 - - - 0x000526 00:8516: BB 06     .word tbl_background_screen_info_level4_map2_a6_f6 - $8000 ; ($86BB)
-- D 0 - - - 0x000528 00:8518: C1 06     .word tbl_background_screen_info_level4_map2_f0_f6 - $8000 ; ($86C1)
-- D 0 - - - 0x00052A 00:851A: C7 06     .word tbl_background_screen_info_level4_map2_a0_f0 - $8000 ; ($86C7)
-- D 0 - - - 0x00052C 00:851C: CD 06     .word tbl_background_screen_info_level4_map2_b1_b5 - $8000 ; ($86CD)
-- D 0 - - - 0x00052E 00:851E: D1 06     .word tbl_background_screen_info_level4_map2_a3_a3 - $8000 ; ($86D1)
-- D 0 - - - 0x000530 00:8520: D2 06     .word tbl_background_screen_info_level4_map2_b5_e5 - $8000 ; ($86D2)
-- D 0 - - - 0x000532 00:8522: D5 06     .word tbl_background_screen_info_level4_map2_e0_e6 - $8000 ; ($86D5)
-- D 0 - - - 0x000534 00:8524: DA 06     .word tbl_background_screen_info_level4_map2_b1_f1 - $8000 ; ($86DA)
-- D 0 - - - 0x000536 00:8526: DE 06     .word tbl_background_screen_info_level4_map2_c2_c4 - $8000 ; ($86DE)
-- D 0 - - - 0x000538 00:8528: DF 06     .word tbl_background_screen_info_level4_map2_b4_d4 - $8000 ; ($86DF)
-- D 0 - - - 0x00053A 00:852A: E1 06     .word tbl_background_screen_info_level4_map2_d2_d4 - $8000 ; ($86E1)
-- D 0 - - - 0x00053C 00:852C: E2 06     .word tbl_background_screen_info_level4_map2_c2_d2 - $8000 ; ($86E2)
-- D 0 - - - 0x00053E 00:852E: E3 06     .word tbl_background_screen_info_level4_map3_d3_e3 - $8000 ; ($86E3)
-- D 0 - - - 0x000540 00:8530: E5 06     .word tbl_background_screen_info_level4_map3_d3_d5 - $8000 ; ($86E5)
-- D 0 - - - 0x000542 00:8532: E7 06     .word tbl_background_screen_info_level4_map3_d4_f4 - $8000 ; ($86E7)
-- D 0 - - - 0x000544 00:8534: E9 06     .word tbl_background_screen_info_level4_map3_e3_e4 - $8000 ; ($86E9)
-- D 0 - - - 0x000546 00:8536: EA 06     .word tbl_background_screen_info_level4_map3_c2_g2 - $8000 ; ($86EA)
-- D 0 - - - 0x000548 00:8538: EE 06     .word tbl_background_screen_info_level4_map3_c1_c6 - $8000 ; ($86EE)
-- D 0 - - - 0x00054A 00:853A: F3 06     .word tbl_background_screen_info_level4_map3_c5_f5 - $8000 ; ($86F3)
-- D 0 - - - 0x00054C 00:853C: F7 06     .word tbl_background_screen_info_level4_map3_f2_f5 - $8000 ; ($86F7)
-- D 0 - - - 0x00054E 00:853E: FB 06     .word tbl_background_screen_info_level4_map3_b1_g1 - $8000 ; ($86FB)
-- D 0 - - - 0x000550 00:8540: 01 07     .word tbl_background_screen_info_level4_map3_b1_b7 - $8000 ; ($8701)
-- D 0 - - - 0x000552 00:8542: 07 07     .word tbl_background_screen_info_level4_map3_b6_g6 - $8000 ; ($8707)
-- D 0 - - - 0x000554 00:8544: 0D 07     .word tbl_background_screen_info_level4_map3_g1_g6 - $8000 ; ($870D)
-- D 0 - - - 0x000556 00:8546: 13 07     .word tbl_background_screen_info_level4_map3_a0_h0 - $8000 ; ($8713)
-- D 0 - - - 0x000558 00:8548: 1B 07     .word tbl_background_screen_info_level4_map3_a0_a7 - $8000 ; ($871B)
-- D 0 - - - 0x00055A 00:854A: 22 07     .word tbl_background_screen_info_level4_map3_a7_h7 - $8000 ; ($8722)
-- D 0 - - - 0x00055C 00:854C: 2A 07     .word tbl_background_screen_info_level4_map3_h0_h7 - $8000 ; ($872A)
-- D 0 - - - 0x00055E 00:854E: 31 07     .word tbl_background_screen_info_level4_map4_a0_j0 - $8000 ; ($8731)
-- D 0 - - - 0x000560 00:8550: 3B 07     .word tbl_background_screen_info_level4_map4_a0_a9 - $8000 ; ($873B)
-- D 0 - - - 0x000562 00:8552: 45 07     .word tbl_background_screen_info_level4_map4_a9_j9 - $8000 ; ($8745)
-- D 0 - - - 0x000564 00:8554: 4F 07     .word tbl_background_screen_info_level4_map4_j0_j9 - $8000 ; ($874F)
-- D 0 - - - 0x000566 00:8556: 59 07     .word tbl_background_screen_info_level4_map4_b1_i1 - $8000 ; ($8759)
-- D 0 - - - 0x000568 00:8558: 61 07     .word tbl_background_screen_info_level4_map4_b1_b8 - $8000 ; ($8761)
-- D 0 - - - 0x00056A 00:855A: 69 07     .word tbl_background_screen_info_level4_map4_b8_e8 - $8000 ; ($8769)
-- D 0 - - - 0x00056C 00:855C: 6C 07     .word tbl_background_screen_info_level4_map4_g8_j8 - $8000 ; ($876C)
-- D 0 - - - 0x00056E 00:855E: 71 07     .word tbl_background_screen_info_level4_map4_i6_i8 - $8000 ; ($8771)
-- D 0 - - - 0x000570 00:8560: 74 07     .word tbl_background_screen_info_level4_map4_i1_i3 - $8000 ; ($8774)
-- D 0 - - - 0x000572 00:8562: 78 07     .word tbl_background_screen_info_level4_map4_g2_i2 - $8000 ; ($8778)
-- D 0 - - - 0x000574 00:8564: 7B 07     .word tbl_background_screen_info_level4_map4_c2_e2 - $8000 ; ($877B)
-- D 0 - - - 0x000576 00:8566: 7E 07     .word tbl_background_screen_info_level4_map4_c1_c9 - $8000 ; ($877E)
-- D 0 - - - 0x000578 00:8568: 86 07     .word tbl_background_screen_info_level4_map4_a7_i7 - $8000 ; ($8786)
-- D 0 - - - 0x00057A 00:856A: 8E 07     .word tbl_background_screen_info_level4_map4_h2_h7 - $8000 ; ($878E)
-- D 0 - - - 0x00057C 00:856C: 94 07     .word tbl_background_screen_info_level4_map4_d3_g3 - $8000 ; ($8794)
-- D 0 - - - 0x00057E 00:856E: 98 07     .word tbl_background_screen_info_level4_map4_d2_d7 - $8000 ; ($8798)
-- D 0 - - - 0x000580 00:8570: 9D 07     .word tbl_background_screen_info_level4_map4_d6_h6 - $8000 ; ($879D)
-- D 0 - - - 0x000582 00:8572: A1 07     .word tbl_background_screen_info_level4_map4_g3_g6 - $8000 ; ($87A1)
-- D 0 - - - 0x000584 00:8574: A5 07     .word tbl_background_screen_info_level4_map4_e4_g4 - $8000 ; ($87A5)
-- D 0 - - - 0x000586 00:8576: A7 07     .word tbl_background_screen_info_level4_map4_e3_e5 - $8000 ; ($87A7)
-- D 0 - - - 0x000588 00:8578: A9 07     .word tbl_background_screen_info_level4_map4_e5_e5 - $8000 ; ($87A9)
-- D 0 - - - 0x00058A 00:857A: AA 07     .word tbl_background_screen_info_level4_map4_f4_f5 - $8000 ; ($87AA)
+- D - - - - 0x000504 00:84F4: 89 06     .word tbl_background_screen_info_level4_water1        - $8000
+- D - - - - 0x000506 00:84F6: 89 06     .word tbl_background_screen_info_level4_water1        - $8000
+- D 0 - - - 0x000508 00:84F8: 89 06     .word tbl_background_screen_info_level4_water1        - $8000 ; ($8689)
+- D 0 - - - 0x00050A 00:84FA: 8A 06     .word tbl_background_screen_info_level4_water2        - $8000 ; ($868A)
+- D 0 - - - 0x00050C 00:84FC: 8C 06     .word tbl_background_screen_info_level4_water3        - $8000 ; ($868C)
+- D 0 - - - 0x00050E 00:84FE: 8F 06     .word tbl_background_screen_info_level4_water4        - $8000 ; ($868F)
+- D 0 - - - 0x000510 00:8500: 96 06     .word tbl_background_screen_info_level4_water5        - $8000 ; ($8696)
+- D 0 - - - 0x000512 00:8502: 9A 06     .word tbl_background_screen_info_level4_water6        - $8000 ; ($869A)
+- D 0 - - - 0x000514 00:8504: 9E 06     .word tbl_background_screen_info_level4_map1_b2_d2    - $8000 ; ($869E)
+- D 0 - - - 0x000516 00:8506: A0 06     .word tbl_background_screen_info_level4_map1_c0_c2    - $8000 ; ($86A0)
+- D 0 - - - 0x000518 00:8508: A2 06     .word tbl_background_screen_info_level4_map1_b1_c1    - $8000 ; ($86A2)
+- D 0 - - - 0x00051A 00:850A: A3 06     .word tbl_background_screen_info_level4_map1_b1_b3    - $8000 ; ($86A3)
+- D 0 - - - 0x00051C 00:850C: A5 06     .word tbl_background_screen_info_level4_map1_a3_d3    - $8000 ; ($86A5)
+- D 0 - - - 0x00051E 00:850E: A9 06     .word tbl_background_screen_info_level4_map1_d0_d3    - $8000 ; ($86A9)
+- D 0 - - - 0x000520 00:8510: AD 06     .word tbl_background_screen_info_level4_map1_a0_d0    - $8000 ; ($86AD)
+- D 0 - - - 0x000522 00:8512: B1 06     .word tbl_background_screen_info_level4_map1_a0_a3    - $8000 ; ($86B1)
+- D 0 - - - 0x000524 00:8514: B5 06     .word tbl_background_screen_info_level4_map2_a0_a6    - $8000 ; ($86B5)
+- D 0 - - - 0x000526 00:8516: BB 06     .word tbl_background_screen_info_level4_map2_a6_f6    - $8000 ; ($86BB)
+- D 0 - - - 0x000528 00:8518: C1 06     .word tbl_background_screen_info_level4_map2_f0_f6    - $8000 ; ($86C1)
+- D 0 - - - 0x00052A 00:851A: C7 06     .word tbl_background_screen_info_level4_map2_a0_f0    - $8000 ; ($86C7)
+- D 0 - - - 0x00052C 00:851C: CD 06     .word tbl_background_screen_info_level4_map2_b1_b5    - $8000 ; ($86CD)
+- D 0 - - - 0x00052E 00:851E: D1 06     .word tbl_background_screen_info_level4_map2_a3_a3    - $8000 ; ($86D1)
+- D 0 - - - 0x000530 00:8520: D2 06     .word tbl_background_screen_info_level4_map2_b5_e5    - $8000 ; ($86D2)
+- D 0 - - - 0x000532 00:8522: D5 06     .word tbl_background_screen_info_level4_map2_e0_e6    - $8000 ; ($86D5)
+- D 0 - - - 0x000534 00:8524: DA 06     .word tbl_background_screen_info_level4_map2_b1_f1    - $8000 ; ($86DA)
+- D 0 - - - 0x000536 00:8526: DE 06     .word tbl_background_screen_info_level4_map2_c2_c4    - $8000 ; ($86DE)
+- D 0 - - - 0x000538 00:8528: DF 06     .word tbl_background_screen_info_level4_map2_b4_d4    - $8000 ; ($86DF)
+- D 0 - - - 0x00053A 00:852A: E1 06     .word tbl_background_screen_info_level4_map2_d2_d4    - $8000 ; ($86E1)
+- D 0 - - - 0x00053C 00:852C: E2 06     .word tbl_background_screen_info_level4_map2_c2_d2    - $8000 ; ($86E2)
+- D 0 - - - 0x00053E 00:852E: E3 06     .word tbl_background_screen_info_level4_map3_d3_e3    - $8000 ; ($86E3)
+- D 0 - - - 0x000540 00:8530: E5 06     .word tbl_background_screen_info_level4_map3_d3_d5    - $8000 ; ($86E5)
+- D 0 - - - 0x000542 00:8532: E7 06     .word tbl_background_screen_info_level4_map3_d4_f4    - $8000 ; ($86E7)
+- D 0 - - - 0x000544 00:8534: E9 06     .word tbl_background_screen_info_level4_map3_e3_e4    - $8000 ; ($86E9)
+- D 0 - - - 0x000546 00:8536: EA 06     .word tbl_background_screen_info_level4_map3_c2_g2    - $8000 ; ($86EA)
+- D 0 - - - 0x000548 00:8538: EE 06     .word tbl_background_screen_info_level4_map3_c1_c6    - $8000 ; ($86EE)
+- D 0 - - - 0x00054A 00:853A: F3 06     .word tbl_background_screen_info_level4_map3_c5_f5    - $8000 ; ($86F3)
+- D 0 - - - 0x00054C 00:853C: F7 06     .word tbl_background_screen_info_level4_map3_f2_f5    - $8000 ; ($86F7)
+- D 0 - - - 0x00054E 00:853E: FB 06     .word tbl_background_screen_info_level4_map3_b1_g1    - $8000 ; ($86FB)
+- D 0 - - - 0x000550 00:8540: 01 07     .word tbl_background_screen_info_level4_map3_b1_b7    - $8000 ; ($8701)
+- D 0 - - - 0x000552 00:8542: 07 07     .word tbl_background_screen_info_level4_map3_b6_g6    - $8000 ; ($8707)
+- D 0 - - - 0x000554 00:8544: 0D 07     .word tbl_background_screen_info_level4_map3_g1_g6    - $8000 ; ($870D)
+- D 0 - - - 0x000556 00:8546: 13 07     .word tbl_background_screen_info_level4_map3_a0_h0    - $8000 ; ($8713)
+- D 0 - - - 0x000558 00:8548: 1B 07     .word tbl_background_screen_info_level4_map3_a0_a7    - $8000 ; ($871B)
+- D 0 - - - 0x00055A 00:854A: 22 07     .word tbl_background_screen_info_level4_map3_a7_h7    - $8000 ; ($8722)
+- D 0 - - - 0x00055C 00:854C: 2A 07     .word tbl_background_screen_info_level4_map3_h0_h7    - $8000 ; ($872A)
+- D 0 - - - 0x00055E 00:854E: 31 07     .word tbl_background_screen_info_level4_map4_a0_j0    - $8000 ; ($8731)
+- D 0 - - - 0x000560 00:8550: 3B 07     .word tbl_background_screen_info_level4_map4_a0_a9    - $8000 ; ($873B)
+- D 0 - - - 0x000562 00:8552: 45 07     .word tbl_background_screen_info_level4_map4_a9_j9    - $8000 ; ($8745)
+- D 0 - - - 0x000564 00:8554: 4F 07     .word tbl_background_screen_info_level4_map4_j0_j9    - $8000 ; ($874F)
+- D 0 - - - 0x000566 00:8556: 59 07     .word tbl_background_screen_info_level4_map4_b1_i1    - $8000 ; ($8759)
+- D 0 - - - 0x000568 00:8558: 61 07     .word tbl_background_screen_info_level4_map4_b1_b8    - $8000 ; ($8761)
+- D 0 - - - 0x00056A 00:855A: 69 07     .word tbl_background_screen_info_level4_map4_b8_e8    - $8000 ; ($8769)
+- D 0 - - - 0x00056C 00:855C: 6C 07     .word tbl_background_screen_info_level4_map4_g8_j8    - $8000 ; ($876C)
+- D 0 - - - 0x00056E 00:855E: 71 07     .word tbl_background_screen_info_level4_map4_i6_i8    - $8000 ; ($8771)
+- D 0 - - - 0x000570 00:8560: 74 07     .word tbl_background_screen_info_level4_map4_i1_i3    - $8000 ; ($8774)
+- D 0 - - - 0x000572 00:8562: 78 07     .word tbl_background_screen_info_level4_map4_g2_i2    - $8000 ; ($8778)
+- D 0 - - - 0x000574 00:8564: 7B 07     .word tbl_background_screen_info_level4_map4_c2_e2    - $8000 ; ($877B)
+- D 0 - - - 0x000576 00:8566: 7E 07     .word tbl_background_screen_info_level4_map4_c1_c9    - $8000 ; ($877E)
+- D 0 - - - 0x000578 00:8568: 86 07     .word tbl_background_screen_info_level4_map4_a7_i7    - $8000 ; ($8786)
+- D 0 - - - 0x00057A 00:856A: 8E 07     .word tbl_background_screen_info_level4_map4_h2_h7    - $8000 ; ($878E)
+- D 0 - - - 0x00057C 00:856C: 94 07     .word tbl_background_screen_info_level4_map4_d3_g3    - $8000 ; ($8794)
+- D 0 - - - 0x00057E 00:856E: 98 07     .word tbl_background_screen_info_level4_map4_d2_d7    - $8000 ; ($8798)
+- D 0 - - - 0x000580 00:8570: 9D 07     .word tbl_background_screen_info_level4_map4_d6_h6    - $8000 ; ($879D)
+- D 0 - - - 0x000582 00:8572: A1 07     .word tbl_background_screen_info_level4_map4_g3_g6    - $8000 ; ($87A1)
+- D 0 - - - 0x000584 00:8574: A5 07     .word tbl_background_screen_info_level4_map4_e4_g4    - $8000 ; ($87A5)
+- D 0 - - - 0x000586 00:8576: A7 07     .word tbl_background_screen_info_level4_map4_e3_e5    - $8000 ; ($87A7)
+- D 0 - - - 0x000588 00:8578: A9 07     .word tbl_background_screen_info_level4_map4_e5_e5    - $8000 ; ($87A9)
+- D 0 - - - 0x00058A 00:857A: AA 07     .word tbl_background_screen_info_level4_map4_f4_f5    - $8000 ; ($87AA)
 
 tbl_background_screen_info_level_1_0:
 - D 0 - I - 0x00058C 00:857C: 36        .byte $36   ; screen 0 ($81B0), 0x01B0 << 0xD8 << 0x6C << 0x36 (or '* 8 + 0x8000')
@@ -1214,6 +1214,7 @@ tbl_background_screen_info_level3_4:
 - D 0 - I - 0x000632 00:8622: 11        .byte $11   ; screen 6 ($8088)
 - D 0 - I - 0x000633 00:8623: 18        .byte $18   ; screen 7 ($80C0)
 
+tbl_background_screen_info_level4_boss_room:
 - D 0 - I - 0x000634 00:8624: 8F        .byte $8F   ; screen 0 ($8478)
 
 tbl_background_screen_info_level_racing:
@@ -1269,27 +1270,32 @@ tbl_background_screen_info_level3_unique_room:
 tbl_background_screen_info_level4_unique_room:
 - D 0 - I - 0x00065D 00:864D: 70        .byte $70   ; screen 0 ($8380)
 
-tbl_background_screen_info_level3_0_water1_1:
+tbl_background_screen_info_level3_0_water1:
 - D 0 - I - 0x00065E 00:864E: 50        .byte $50   ; screen 0 ($8280)
 
+tbl_background_screen_info_level3_0_water2:
 - D 0 - I - 0x00065F 00:864F: 50        .byte $50   ; screen 0 ($8280)
 - D - - - - 0x000660 00:8650: 50        .byte $50   ; screen 1 ($8280)
 
+tbl_background_screen_info_level3_0_water3:
 - D 0 - I - 0x000661 00:8651: 50        .byte $50   ; screen 0 ($8280)
 - D 0 - I - 0x000662 00:8652: 50        .byte $50   ; screen 1 ($8280)
 - D 0 - I - 0x000663 00:8653: 50        .byte $50   ; screen 2 ($8280)
 
+tbl_background_screen_info_level3_0_water4:
 - D 0 - I - 0x000664 00:8654: 50        .byte $50   ; screen 0 ($8280)
 - D - - - - 0x000665 00:8655: 50        .byte $50   ; screen 1 ($8280)
 - D - - - - 0x000666 00:8656: 50        .byte $50   ; screen 2 ($8280)
 - D - - - - 0x000667 00:8657: 50        .byte $50   ; screen 3 ($8280)
 
+tbl_background_screen_info_level3_0_water5:
 - D - - - - 0x000668 00:8658: 50        .byte $50   ; screen 0 ($8280)
 - D - - - - 0x000669 00:8659: 50        .byte $50   ; screen 1 ($8280)
 - D - - - - 0x00066A 00:865A: 50        .byte $50   ; screen 2 ($8280)
 - D - - - - 0x00066B 00:865B: 50        .byte $50   ; screen 3 ($8280)
 - D - - - - 0x00066C 00:865C: 50        .byte $50   ; screen 4 ($8280)
 
+tbl_background_screen_info_level3_0_water6:
 - D 0 - I - 0x00066D 00:865D: 50        .byte $50   ; screen 0 ($8280)
 - D 0 - I - 0x00066E 00:865E: 50        .byte $50   ; screen 1 ($8280)
 - D 0 - I - 0x00066F 00:865F: 50        .byte $50   ; screen 2 ($8280)
@@ -1297,15 +1303,19 @@ tbl_background_screen_info_level3_0_water1_1:
 - D 0 - I - 0x000671 00:8661: 50        .byte $50   ; screen 4 ($8280)
 - D 0 - I - 0x000672 00:8662: 50        .byte $50   ; screen 5 ($8280)
 
+tbl_background_screen_info_level3_X_water1:
 - D 0 - I - 0x000673 00:8663: 52        .byte $52   ; screen 0 ($8290)
 
+tbl_background_screen_info_level3_X_water2:
 - D 0 - I - 0x000674 00:8664: 53        .byte $53   ; screen 0 ($8298)
 - D 0 - I - 0x000675 00:8665: 52        .byte $52   ; screen 1 ($8290)
 
+tbl_background_screen_info_level3_X_water3:
 - D 0 - I - 0x000676 00:8666: 52        .byte $52   ; screen 0 ($8290)
 - D 0 - I - 0x000677 00:8667: 53        .byte $53   ; screen 1 ($8298)
 - D 0 - I - 0x000678 00:8668: 52        .byte $52   ; screen 2 ($8290)
 
+tbl_background_screen_info_level3_X_water4:
 - D 0 - I - 0x000679 00:8669: 52        .byte $52   ; screen 0 ($8290)
 - D 0 - I - 0x00067A 00:866A: 53        .byte $53   ; screen 1 ($8298)
 - D 0 - I - 0x00067B 00:866B: 52        .byte $52   ; screen 2 ($8290)
@@ -1354,16 +1364,19 @@ tbl_background_screen_info_level2_d11_d13_water:
 - D 0 - I - 0x000697 00:8687: 56        .byte $56   ; screen 0 ($82B0)
 - D 0 - I - 0x000698 00:8688: 56        .byte $56   ; screen 1 ($82B0)
 
-; !(UNUSED)
+tbl_background_screen_info_level4_water1:
 - D 0 - I - 0x000699 00:8689: 58        .byte $58   ; screen 2 ($82C0)
 
+tbl_background_screen_info_level4_water2:
 - D 0 - I - 0x00069A 00:868A: 58        .byte $58   ; screen 0 ($82C0)
 - D 0 - I - 0x00069B 00:868B: 58        .byte $58   ; screen 1 ($82C0)
 
+tbl_background_screen_info_level4_water3:
 - D 0 - I - 0x00069C 00:868C: 58        .byte $58   ; screen 0 ($82C0)
 - D 0 - I - 0x00069D 00:868D: 59        .byte $59   ; screen 1 ($82C8)
 - D 0 - I - 0x00069E 00:868E: 58        .byte $58   ; screen 2 ($82C0)
 
+tbl_background_screen_info_level4_water4:
 - D 0 - I - 0x00069F 00:868F: 58        .byte $58   ; screen 0 ($82C0)
 - D 0 - I - 0x0006A0 00:8690: 58        .byte $58   ; screen 1 ($82C0)
 - D 0 - I - 0x0006A1 00:8691: 59        .byte $59   ; screen 2 ($82C8)
@@ -1372,11 +1385,13 @@ tbl_background_screen_info_level2_d11_d13_water:
 - D 0 - I - 0x0006A4 00:8694: 58        .byte $58   ; screen 5 ($82C0)
 - D 0 - I - 0x0006A5 00:8695: 58        .byte $58   ; screen 6 ($82C0)
 
+tbl_background_screen_info_level4_water5:
 - D 0 - I - 0x0006A6 00:8696: 58        .byte $58   ; screen 0 ($82C0)
 - D 0 - I - 0x0006A7 00:8697: 58        .byte $58   ; screen 1 ($82C0)
 - D 0 - I - 0x0006A8 00:8698: 59        .byte $59   ; screen 2 ($82C8)
 - D 0 - I - 0x0006A9 00:8699: 58        .byte $58   ; screen 3 ($82C0)
 
+tbl_background_screen_info_level4_water6:
 - D 0 - I - 0x0006AA 00:869A: 58        .byte $58   ; screen 0 ($82C0)
 - D 0 - I - 0x0006AB 00:869B: 58        .byte $58   ; screen 1 ($82C0)
 - D 0 - I - 0x0006AC 00:869C: 58        .byte $58   ; screen 2 ($82C0)
@@ -1771,35 +1786,35 @@ tbl_background_screen_info_level4_map4_e5_e5:
 tbl_background_screen_info_level4_map4_f4_f5:
 - D 0 - I - 0x0007BA 00:87AA: 73        .byte $73   ; screen 0 ($8398)
 
-; CHR ROM Banks (level 3.0)
+; level 3.0
 tbl_CHR_ROM_Banks_3_0:
 - D 0 - I - 0x0007BB 00:87AB: 20        .byte $20, $22, $00, $01, $0C, $0D
 
-; CHR ROM Banks (level 2, outside)
+; level 2, outside
 tbl_CHR_ROM_Banks_2_outside:
 - D 0 - I - 0x0007C1 00:87B1: 20        .byte $20, $24, $00, $01, $10, $11
 
-; CHR ROM Banks (level 1.0)
+; level 1.0
 tbl_CHR_ROM_Banks_1_0:
 - D 0 - I - 0x0007C7 00:87B7: 20        .byte $20, $26, $00, $01, $14, $15
 
-; CHR ROM Banks (level racing)
+; level racing
 tbl_CHR_ROM_Banks_level_racing:
 - D 0 - I - 0x0007CD 00:87BD: 20        .byte $20, $28, $00, $01, $18, $19
 
-; CHR ROM Banks (level 3.X, water)
+; level 3.X, water
 tbl_CHR_ROM_Banks_3_X:
 - D 0 - I - 0x0007D3 00:87C3: 20        .byte $20, $2A, $00, $01, $0C, $0E
 
-; CHR ROM Banks (level 2, inside, water)
+; level 2, inside, water
 tbl_CHR_ROM_Banks_2_inside:
 - D 0 - I - 0x0007D9 00:87C9: 20        .byte $20, $2C, $00, $01, $10, $12
 
-; CHR ROM Banks (level 1.X)
+; level 1.X
 tbl_CHR_ROM_Banks_1_X:
 - D 0 - I - 0x0007DF 00:87CF: 20        .byte $20, $2E, $00, $01, $14, $16
 
-; CHR ROM Banks (level 4, water)
+; level 4, water
 tbl_CHR_ROM_Banks_4:
 - D 0 - I - 0x0007E5 00:87D5: 20        .byte $20, $30, $00, $01, $18, $1A
 
@@ -1812,7 +1827,7 @@ tbl_CHR_ROM_Banks_4:
 - D - - - - 0x000809 00:87F9: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF
 - D - - - - 0x00080F 00:87FF: FF        .byte $FF
 
-; screen 0 (level 3.0), horizontally - y axis, vertically - x axis
+; level 3.0, horizontally - y axis, vertically - x axis
 loc_level3_0_screen0_indexes:
 - D 0 - I - 0x000810 00:8800: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 - D 0 - I - 0x00081C 00:880C: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $03, $04, $05, $02
@@ -1831,7 +1846,6 @@ loc_level3_0_screen0_indexes:
 - D 0 - I - 0x0008B8 00:88A8: 00        .byte $00, $00, $00, $00, $00, $00, $00, $26, $23, $04, $05, $02
 - D 0 - I - 0x0008C4 00:88B4: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $26, $04, $05, $02
 
-; screen 1 (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screen1_indexes:
 - D 0 - I - 0x0008D0 00:88C0: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 - D 0 - I - 0x0008DC 00:88CC: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
@@ -1850,7 +1864,6 @@ loc_level3_0_screen1_indexes:
 - D 0 - I - 0x000978 00:8968: 00        .byte $00, $00, $00, $00, $00, $00, $20, $21, $22, $04, $05, $02
 - D 0 - I - 0x000984 00:8974: 00        .byte $00, $00, $00, $00, $00, $14, $24, $24, $24, $25, $05, $02
 
-; screen 2 (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screen2_indexes:
 - D 0 - I - 0x000990 00:8980: 00        .byte $00, $00, $00, $00, $00, $14, $24, $24, $24, $2A, $05, $02
 - D 0 - I - 0x00099C 00:898C: 00        .byte $00, $00, $00, $00, $00, $14, $24, $24, $24, $2A, $05, $02
@@ -1869,7 +1882,6 @@ loc_level3_0_screen2_indexes:
 - D 0 - I - 0x000A38 00:8A28: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $29, $05, $02
 - D 0 - I - 0x000A44 00:8A34: 00        .byte $00, $00, $00, $00, $00, $14, $24, $24, $24, $04, $05, $02
 
-; screen 3 (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screen3_indexes:
 - D 0 - I - 0x000A50 00:8A40: 00        .byte $00, $00, $00, $00, $00, $14, $24, $24, $24, $04, $05, $02
 - D 0 - I - 0x000A5C 00:8A4C: 00        .byte $00, $00, $00, $00, $00, $14, $24, $24, $24, $04, $05, $02
@@ -1888,7 +1900,6 @@ loc_level3_0_screen3_indexes:
 - D 0 - I - 0x000AF8 00:8AE8: 00        .byte $00, $00, $00, $00, $00, $00, $00, $18, $19, $04, $05, $02
 - D 0 - I - 0x000B04 00:8AF4: 00        .byte $00, $00, $00, $00, $00, $1A, $1B, $1C, $19, $04, $05, $02
 
-; screen 4 (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screen4_indexes:
 - D 0 - I - 0x000B10 00:8B00: 00        .byte $00, $00, $00, $00, $00, $1A, $1B, $1C, $1D, $04, $05, $02
 - D 0 - I - 0x000B1C 00:8B0C: 00        .byte $00, $00, $00, $00, $00, $1A, $1B, $1C, $1D, $04, $05, $02
@@ -1907,7 +1918,6 @@ loc_level3_0_screen4_indexes:
 - D 0 - I - 0x000BB8 00:8BA8: 00        .byte $00, $00, $00, $00, $00, $00, $32, $06, $07, $04, $05, $02
 - D 0 - I - 0x000BC4 00:8BB4: 00        .byte $00, $00, $00, $00, $00, $00, $00, $06, $07, $04, $05, $02
 
-; screen 5 (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screen5_indexes:
 - D 0 - I - 0x000BD0 00:8BC0: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $28, $05, $02
 - D 0 - I - 0x000BDC 00:8BCC: 00        .byte $00, $00, $00, $3E, $40, $41, $00, $00, $00, $00, $05, $02
@@ -1926,7 +1936,6 @@ loc_level3_0_screen5_indexes:
 - D 0 - I - 0x000C78 00:8C68: 00        .byte $00, $00, $2C, $2B, $02, $02, $02, $02, $01, $01, $05, $02
 - D 0 - I - 0x000C84 00:8C74: 00        .byte $00, $2E, $2D, $00, $02, $02, $02, $02, $01, $01, $05, $02
 
-; screen 6 (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screen6_indexes:
 - D 0 - I - 0x000C90 00:8C80: 2E        .byte $2E, $2D, $00, $3B, $02, $02, $02, $02, $01, $01, $05, $02
 - D 0 - I - 0x000C9C 00:8C8C: 2F        .byte $2F, $30, $30, $4B, $02, $02, $02, $02, $01, $01, $05, $02
@@ -1945,7 +1954,6 @@ loc_level3_0_screen6_indexes:
 - D 0 - I - 0x000D38 00:8D28: 00        .byte $00, $00, $00, $3D, $02, $37, $39, $39, $39, $25, $05, $02
 - D 0 - I - 0x000D44 00:8D34: 00        .byte $00, $00, $00, $00, $02, $02, $02, $02, $01, $01, $05, $02
 
-; screen 7 (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screen7_indexes:
 - D 0 - I - 0x000D50 00:8D40: 00        .byte $00, $00, $00, $00, $02, $37, $39, $39, $39, $2A, $05, $02
 - D 0 - I - 0x000D5C 00:8D4C: 00        .byte $00, $00, $00, $00, $02, $37, $39, $39, $39, $27, $05, $02
@@ -1964,7 +1972,6 @@ loc_level3_0_screen7_indexes:
 - D 0 - I - 0x000DF8 00:8DE8: 00        .byte $00, $00, $00, $3F, $02, $02, $60, $5F, $00, $29, $05, $02
 - D 0 - I - 0x000E04 00:8DF4: 00        .byte $00, $00, $00, $5D, $5E, $5F, $00, $00, $03, $04, $05, $02
 
-; screen 8 (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screen8_indexes:
 - D 0 - I - 0x000E10 00:8E00: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 - D 0 - I - 0x000E1C 00:8E0C: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
@@ -1983,7 +1990,6 @@ loc_level3_0_screen8_indexes:
 - D 0 - I - 0x000EB8 00:8EA8: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 - D 0 - I - 0x000EC4 00:8EB4: 00        .byte $00, $00, $00, $00, $00, $37, $39, $39, $39, $04, $05, $02
 
-; screen 9 (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screen9_indexes:
 - D 0 - I - 0x000ED0 00:8EC0: 00        .byte $00, $00, $00, $00, $00, $37, $39, $39, $39, $25, $05, $02
 - D 0 - I - 0x000EDC 00:8ECC: 00        .byte $00, $00, $00, $00, $00, $37, $39, $39, $39, $2A, $05, $02
@@ -2002,7 +2008,6 @@ loc_level3_0_screen9_indexes:
 - D 0 - I - 0x000F78 00:8F68: 00        .byte $00, $00, $00, $06, $07, $71, $3C, $3C, $3C, $04, $05, $02
 - D 0 - I - 0x000F84 00:8F74: 00        .byte $00, $00, $00, $00, $00, $71, $3C, $3C, $3C, $04, $05, $02
 
-; screen A (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screenA_indexes:
 - D 0 - I - 0x000F90 00:8F80: 00        .byte $00, $00, $00, $00, $00, $71, $3C, $3C, $3C, $04, $05, $02
 - D 0 - I - 0x000F9C 00:8F8C: 00        .byte $00, $00, $00, $00, $00, $71, $3C, $3C, $3C, $04, $05, $02
@@ -2021,7 +2026,6 @@ loc_level3_0_screenA_indexes:
 - D 0 - I - 0x001038 00:9028: 00        .byte $00, $00, $00, $00, $26, $14, $24, $17, $17, $04, $05, $02
 - D 0 - I - 0x001044 00:9034: 00        .byte $00, $00, $00, $1A, $4F, $14, $24, $24, $17, $04, $05, $02
 
-; screen B (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screenB_indexes:
 - D 0 - I - 0x001050 00:9040: 00        .byte $00, $00, $00, $1A, $4F, $14, $24, $24, $24, $04, $05, $02
 - D 0 - I - 0x00105C 00:904C: 00        .byte $00, $00, $00, $1A, $4F, $14, $24, $1A, $4F, $25, $05, $02
@@ -2040,7 +2044,6 @@ loc_level3_0_screenB_indexes:
 - D 0 - I - 0x0010F8 00:90E8: 00        .byte $00, $00, $00, $00, $23, $37, $39, $39, $39, $2A, $05, $02
 - D 0 - I - 0x001104 00:90F4: 00        .byte $00, $00, $00, $00, $26, $37, $39, $39, $39, $2A, $05, $02
 
-; screen C (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screenC_indexes:
 - D 0 - I - 0x001110 00:9100: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $05, $02
 - D 0 - I - 0x00111C 00:910C: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $05, $02
@@ -2059,7 +2062,6 @@ loc_level3_0_screenC_indexes:
 - D 0 - I - 0x0011B8 00:91A8: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 - D 0 - I - 0x0011C4 00:91B4: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 
-; screen D (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screenD_indexes:
 - D 0 - I - 0x0011D0 00:91C0: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $04, $05, $02
 - D 0 - I - 0x0011DC 00:91CC: 00        .byte $00, $00, $00, $2C, $2B, $14, $24, $24, $24, $04, $05, $02
@@ -2078,7 +2080,6 @@ loc_level3_0_screenD_indexes:
 - D 0 - I - 0x001278 00:9268: 00        .byte $00, $00, $00, $00, $17, $37, $39, $39, $39, $04, $05, $02
 - D 0 - I - 0x001284 00:9274: 00        .byte $00, $00, $00, $00, $17, $37, $39, $39, $39, $04, $05, $02
 
-; screen E (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screenE_indexes:
 - D 0 - I - 0x001290 00:9280: 00        .byte $00, $00, $00, $17, $17, $37, $39, $39, $39, $04, $05, $02
 - D 0 - I - 0x00129C 00:928C: 00        .byte $00, $00, $00, $17, $17, $37, $39, $39, $39, $04, $05, $02
@@ -2097,7 +2098,6 @@ loc_level3_0_screenE_indexes:
 - D 0 - I - 0x001338 00:9328: 00        .byte $00, $00, $00, $00, $00, $37, $39, $39, $39, $27, $05, $02
 - D 0 - I - 0x001344 00:9334: 00        .byte $00, $00, $00, $00, $00, $37, $39, $39, $39, $04, $05, $02
 
-; screen F (level 3.0), horizontally - y axis, vertically - x axis
 loc_level3_0_screenF_indexes:
 - D 0 - I - 0x001350 00:9340: 63        .byte $63, $63, $63, $63, $63, $63, $63, $63, $63, $04, $05, $02
 - D 0 - I - 0x00135C 00:934C: 64        .byte $64, $67, $64, $64, $64, $67, $64, $64, $64, $04, $05, $02
@@ -2116,7 +2116,7 @@ loc_level3_0_screenF_indexes:
 - D 0 - I - 0x0013F8 00:93E8: 66        .byte $66, $69, $66, $66, $66, $69, $66, $66, $66, $04, $05, $02
 - D 0 - I - 0x001404 00:93F4: 63        .byte $63, $63, $63, $63, $63, $63, $63, $63, $63, $04, $05, $02
 
-; screen 0 (level 3.0), attribute tables
+; level 3.0, attribute tables
 loc_level3_0_screen0_attrs:
 - D 0 - I - 0x001410 00:9400: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001418 00:9408: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2126,7 +2126,6 @@ loc_level3_0_screen0_attrs:
 - D 0 - I - 0x001438 00:9428: FA        .byte $FA, $FA, $FA, $FA, $FA, $FA, $FA, $FA
 - D 0 - I - 0x001440 00:9430: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 1 (level 3.0), attribute tables
 loc_level3_0_screen1_attrs:
 - D 0 - I - 0x001448 00:9438: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001450 00:9440: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2136,7 +2135,6 @@ loc_level3_0_screen1_attrs:
 - D 0 - I - 0x001470 00:9460: FA        .byte $FA, $FA, $FA, $FA, $FA, $FA, $FA, $FA
 - D 0 - I - 0x001478 00:9468: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 2 (level 3.0), attribute tables
 loc_level3_0_screen2_attrs:
 - D 0 - I - 0x001480 00:9470: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001488 00:9478: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2146,7 +2144,6 @@ loc_level3_0_screen2_attrs:
 - D 0 - I - 0x0014A8 00:9498: FA        .byte $FA, $FA, $FA, $FA, $FA, $F5, $F5, $FA
 - D 0 - I - 0x0014B0 00:94A0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 3 (level 3.0), attribute tables
 loc_level3_0_screen3_attrs:
 - D 0 - I - 0x0014B8 00:94A8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x0014C0 00:94B0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2156,7 +2153,6 @@ loc_level3_0_screen3_attrs:
 - D 0 - I - 0x0014E0 00:94D0: FA        .byte $FA, $FA, $FA, $FA, $FA, $FA, $FA, $FA
 - D 0 - I - 0x0014E8 00:94D8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 4 (level 3.0), attribute tables
 loc_level3_0_screen4_attrs:
 - D 0 - I - 0x0014F0 00:94E0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x0014F8 00:94E8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2166,7 +2162,6 @@ loc_level3_0_screen4_attrs:
 - D 0 - I - 0x001518 00:9508: FA        .byte $FA, $FA, $FA, $FA, $F9, $FA, $FA, $FA
 - D 0 - I - 0x001520 00:9510: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 5 (level 3.0), attribute tables
 loc_level3_0_screen5_attrs:
 - D 0 - I - 0x001528 00:9518: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001530 00:9520: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2176,7 +2171,6 @@ loc_level3_0_screen5_attrs:
 - D 0 - I - 0x001550 00:9540: F6        .byte $F6, $FA, $FA, $F6, $F9, $F6, $F5, $F5
 - D 0 - I - 0x001558 00:9548: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 6 (level 3.0), attribute tables
 loc_level3_0_screen6_attrs:
 - D 0 - I - 0x001560 00:9550: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001568 00:9558: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2186,7 +2180,6 @@ loc_level3_0_screen6_attrs:
 - D 0 - I - 0x001588 00:9578: F5        .byte $F5, $FA, $FA, $FA, $FA, $FA, $FA, $F6
 - D 0 - I - 0x001590 00:9580: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 7 (level 3.0), attribute tables
 loc_level3_0_screen7_attrs:
 - D 0 - I - 0x001598 00:9588: 50        .byte $50, $50, $A0, $A0, $50, $50, $50, $50
 - D 0 - I - 0x0015A0 00:9590: 55        .byte $55, $55, $99, $AA, $AA, $55, $55, $55
@@ -2196,7 +2189,6 @@ loc_level3_0_screen7_attrs:
 - D 0 - I - 0x0015C0 00:95B0: FA        .byte $FA, $FA, $FA, $FA, $FA, $FA, $F5, $FA
 - D 0 - I - 0x0015C8 00:95B8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 8 (level 3.0), attribute tables
 loc_level3_0_screen8_attrs:
 - D 0 - I - 0x0015D0 00:95C0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x0015D8 00:95C8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2206,7 +2198,6 @@ loc_level3_0_screen8_attrs:
 - D 0 - I - 0x0015F8 00:95E8: FA        .byte $FA, $FA, $FA, $FA, $FA, $FA, $FA, $FA
 - D 0 - I - 0x001600 00:95F0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen 9 (level 3.0), attribute tables
 loc_level3_0_screen9_attrs:
 - D 0 - I - 0x001608 00:95F8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001610 00:9600: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2216,7 +2207,6 @@ loc_level3_0_screen9_attrs:
 - D 0 - I - 0x001630 00:9620: FA        .byte $FA, $FA, $F9, $F6, $FA, $FA, $FA, $FA
 - D 0 - I - 0x001638 00:9628: 05        .byte $05, $05, $05, $05, $05, $05, $05, $05
 
-; screen A (level 3.0), attribute tables
 loc_level3_0_screenA_attrs:
 - D 0 - I - 0x001640 00:9630: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001648 00:9638: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2226,7 +2216,6 @@ loc_level3_0_screenA_attrs:
 - D 0 - I - 0x001668 00:9658: FA        .byte $FA, $FA, $FA, $FA, $FA, $FA, $FA, $FA
 - D 0 - I - 0x001670 00:9660: 05        .byte $05, $05, $05, $05, $05, $05, $05, $05
 
-; screen B (level 3.0), attribute tables
 loc_level3_0_screenB_attrs:
 - D 0 - I - 0x001678 00:9668: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001680 00:9670: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2236,7 +2225,6 @@ loc_level3_0_screenB_attrs:
 - D 0 - I - 0x0016A0 00:9690: FA        .byte $FA, $FA, $FA, $FA, $FA, $FA, $FA, $FA
 - D 0 - I - 0x0016A8 00:9698: 05        .byte $05, $05, $05, $05, $05, $05, $55, $55
 
-; screen C (level 3.0), attribute tables
 loc_level3_0_screenC_attrs:
 - D 0 - I - 0x0016B0 00:96A0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x0016B8 00:96A8: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2246,7 +2234,6 @@ loc_level3_0_screenC_attrs:
 - D 0 - I - 0x0016D8 00:96C8: F5        .byte $F5, $FA, $FA, $FA, $FA, $FA, $FA, $FA
 - D 0 - I - 0x0016E0 00:96D0: 05        .byte $05, $05, $05, $05, $05, $05, $05, $05
 
-; screen D (level 3.0), attribute tables
 loc_level3_0_screenD_attrs:
 - D 0 - I - 0x0016E8 00:96D8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x0016F0 00:96E0: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2256,7 +2243,6 @@ loc_level3_0_screenD_attrs:
 - D 0 - I - 0x001710 00:9700: FA        .byte $FA, $F6, $F5, $FA, $F5, $F5, $FA, $FA
 - D 0 - I - 0x001718 00:9708: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen E (level 3.0), attribute tables
 loc_level3_0_screenE_attrs:
 - D 0 - I - 0x001720 00:9710: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001728 00:9718: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2266,7 +2252,6 @@ loc_level3_0_screenE_attrs:
 - D 0 - I - 0x001748 00:9738: FA        .byte $FA, $FA, $FA, $FA, $FA, $FA, $FA, $FA
 - D 0 - I - 0x001750 00:9740: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
-; screen F (level 3.0), attribute tables
 loc_level3_0_screenF_attrs:
 - D 0 - I - 0x001758 00:9748: 60        .byte $60, $50, $90, $50, $50, $60, $50, $90
 - D 0 - I - 0x001760 00:9750: 6A        .byte $6A, $5A, $9A, $5A, $5A, $6A, $5A, $9A
@@ -2279,21 +2264,21 @@ loc_level3_0_screenF_attrs:
 ; Indexes of the metatiles (level 3.0)
 loc_level3_0_metatiles:
 - D 0 - I - 0x001790 00:9780: 00        .byte $00, $00, $00, $00   ; 0x00
-- D 0 - I - 0x001794 00:9784: 01        .byte $01, $01, $01, $01   ; 0x01
-- D 0 - I - 0x001798 00:9788: 03        .byte $03, $03, $03, $03   ; 0x02
-- D 0 - I - 0x00179C 00:978C: 80        .byte $80, $81, $82, $83   ; 0x03
-- D 0 - I - 0x0017A0 00:9790: 85        .byte $85, $03, $85, $03   ; 0x04
-- D 0 - I - 0x0017A4 00:9794: 87        .byte $87, $88, $87, $88   ; 0x05
-- D 0 - I - 0x0017A8 00:9798: 00        .byte $00, $89, $00, $86   ; 0x06
-- D 0 - I - 0x0017AC 00:979C: 89        .byte $89, $89, $86, $86   ; 0x07
-- D - - - - 0x0017B0 00:97A0: 8B        .byte $8B, $8B, $8C, $8C   ; 0x08
-- D - - - - 0x0017B4 00:97A4: 8C        .byte $8C, $8C, $8B, $8B   ; 0x09
-- D - - - - 0x0017B8 00:97A8: 8C        .byte $8C, $8C, $8C, $8C   ; 0x0A
-- D - - - - 0x0017BC 00:97AC: 8C        .byte $8C, $DF, $8C, $DF   ; 0x0B
-- D - - - - 0x0017C0 00:97B0: 00        .byte $00, $00, $00, $00   ; 0x0C
-- D - - - - 0x0017C4 00:97B4: 00        .byte $00, $00, $00, $00   ; 0x0D
-- D - - - - 0x0017C8 00:97B8: 8A        .byte $8A, $8A, $8A, $8A   ; 0x0E
-- D - - - - 0x0017CC 00:97BC: 00        .byte $00, $00, $00, $00   ; 0x0F
+- D 0 - I - 0x001794 00:9784: 01        .byte $01, $01, $01, $01
+- D 0 - I - 0x001798 00:9788: 03        .byte $03, $03, $03, $03
+- D 0 - I - 0x00179C 00:978C: 80        .byte $80, $81, $82, $83
+- D 0 - I - 0x0017A0 00:9790: 85        .byte $85, $03, $85, $03
+- D 0 - I - 0x0017A4 00:9794: 87        .byte $87, $88, $87, $88
+- D 0 - I - 0x0017A8 00:9798: 00        .byte $00, $89, $00, $86
+- D 0 - I - 0x0017AC 00:979C: 89        .byte $89, $89, $86, $86
+- D - - - - 0x0017B0 00:97A0: 8B        .byte $8B, $8B, $8C, $8C
+- D - - - - 0x0017B4 00:97A4: 8C        .byte $8C, $8C, $8B, $8B
+- D - - - - 0x0017B8 00:97A8: 8C        .byte $8C, $8C, $8C, $8C
+- D - - - - 0x0017BC 00:97AC: 8C        .byte $8C, $DF, $8C, $DF
+- D - - - - 0x0017C0 00:97B0: 00        .byte $00, $00, $00, $00
+- D - - - - 0x0017C4 00:97B4: 00        .byte $00, $00, $00, $00
+- D - - - - 0x0017C8 00:97B8: 8A        .byte $8A, $8A, $8A, $8A
+- D - - - - 0x0017CC 00:97BC: 00        .byte $00, $00, $00, $00
 - D - - - - 0x0017D0 00:97C0: 00        .byte $00, $00, $00, $00   ; 0x10
 - D - - - - 0x0017D4 00:97C4: 00        .byte $00, $00, $00, $00
 - D - - - - 0x0017D8 00:97C8: 00        .byte $00, $00, $00, $00
@@ -2391,8 +2376,8 @@ loc_level3_0_metatiles:
 - D 0 - I - 0x001948 00:9938: D0        .byte $D0, $D2, $02, $02
 - D 0 - I - 0x00194C 00:993C: D0        .byte $D0, $D5, $02, $D3
 - D 0 - I - 0x001950 00:9940: CE        .byte $CE, $D5, $CC, $D3   ; 0x70
-- D 0 - I - 0x001954 00:9944: CC        .byte $CC, $D3, $CC, $D3   ; 0x71
-- D 0 - I - 0x001958 00:9948: CC        .byte $CC, $D3, $CD, $D4   ; 0x72
+- D 0 - I - 0x001954 00:9944: CC        .byte $CC, $D3, $CC, $D3
+- D 0 - I - 0x001958 00:9948: CC        .byte $CC, $D3, $CD, $D4
 - D 0 - I - 0x00195C 00:994C: 85        .byte $85, $E8, $02, $02   ; 0x73
 
 ; reserve
@@ -2483,7 +2468,7 @@ loc_level3_X_screen_u00_attrs:
 - D 0 - I - 0x001AB8 00:9AA8: F5        .byte $F5, $F5, $F5, $F5, $F5, $F5, $F5, $F5
 - D 0 - I - 0x001AC0 00:9AB0: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
-; screen 6, 3, 1, 6 (level 3.X), attribute tables
+; screen 6, 3, 1, 6
 loc_level3_X_screen_u01_attrs:
 - D 0 - I - 0x001AC8 00:9AB8: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001AD0 00:9AC0: 55        .byte $55, $55, $55, $55, $55, $D5, $75, $55
@@ -2493,7 +2478,7 @@ loc_level3_X_screen_u01_attrs:
 - D 0 - I - 0x001AF0 00:9AE0: F5        .byte $F5, $F5, $F5, $F5, $F5, $F5, $F5, $F5
 - D 0 - I - 0x001AF8 00:9AE8: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
-; screen 0, 3, 4, 2 (level 3.X), attribute tables
+; screen 0, 3, 4, 2
 loc_level3_X_screen_u02_attrs:
 - D 0 - I - 0x001B00 00:9AF0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001B08 00:9AF8: 55        .byte $55, $55, $55, $55, $55, $55, $95, $55
@@ -2503,7 +2488,7 @@ loc_level3_X_screen_u02_attrs:
 - D 0 - I - 0x001B28 00:9B18: F5        .byte $F5, $F5, $F5, $F5, $F5, $F5, $F5, $F5
 - D 0 - I - 0x001B30 00:9B20: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
-; screen 1, 5, 2, 5, 4, 5 (level 3.X), attribute tables
+; screen 1, 5, 2, 5, 4, 5
 loc_level3_X_screen_u03_attrs:
 - D 0 - I - 0x001B38 00:9B28: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001B40 00:9B30: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
@@ -2513,7 +2498,7 @@ loc_level3_X_screen_u03_attrs:
 - D 0 - I - 0x001B60 00:9B50: F5        .byte $F5, $F5, $F5, $F5, $F5, $F5, $F5, $F5
 - D 0 - I - 0x001B68 00:9B58: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
-; screen 4, 6, 2 (level 3.X), attribute tables
+; screen 4, 6, 2
 loc_level3_X_screen_u04_attrs:
 - D 0 - I - 0x001B70 00:9B60: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001B78 00:9B68: 55        .byte $55, $55, $55, $55, $55, $55, $95, $55
@@ -2523,7 +2508,7 @@ loc_level3_X_screen_u04_attrs:
 - D 0 - I - 0x001B98 00:9B88: F5        .byte $F5, $F5, $F5, $F5, $F5, $F5, $F5, $F5
 - D 0 - I - 0x001BA0 00:9B90: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
-; screen 7, 7 (level 3.X), attribute tables
+; screen 7, 7
 loc_level3_X_screen_u05_attrs:
 - D 0 - I - 0x001BA8 00:9B98: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001BB0 00:9BA0: 55        .byte $55, $55, $55, $55, $55, $D5, $75, $55
@@ -2533,7 +2518,7 @@ loc_level3_X_screen_u05_attrs:
 - D 0 - I - 0x001BD0 00:9BC0: F5        .byte $F5, $F5, $F5, $F5, $F5, $F5, $F5, $F5
 - D 0 - I - 0x001BD8 00:9BC8: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
-; screen 0, 0 (level 3.X), attribute tables
+; screen 0, 0
 loc_level3_X_screen_u06_attrs:
 - D 0 - I - 0x001BE0 00:9BD0: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001BE8 00:9BD8: 55        .byte $55, $55, $55, $D5, $75, $55, $55, $55
@@ -2543,7 +2528,7 @@ loc_level3_X_screen_u06_attrs:
 - D 0 - I - 0x001C08 00:9BF8: F5        .byte $F5, $F5, $F5, $F5, $F5, $F5, $F5, $F5
 - D 0 - I - 0x001C10 00:9C00: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
-; screen 1, 0, 3 (level 3.X), attribute tables
+; screen 1, 0, 3
 loc_level3_X_screen_u07_attrs:
 - D 0 - I - 0x001C18 00:9C08: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001C20 00:9C10: D5        .byte $D5, $75, $55, $D5, $75, $55, $55, $55
@@ -2553,7 +2538,7 @@ loc_level3_X_screen_u07_attrs:
 - D 0 - I - 0x001C40 00:9C30: F5        .byte $F5, $F5, $F5, $F5, $F5, $F5, $F5, $F5
 - D 0 - I - 0x001C48 00:9C38: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
-; screen 7, 7 (level 3.X), attribute tables
+; screen 7, 7
 loc_level3_X_screen_u08_attrs:
 - D 0 - I - 0x001C50 00:9C40: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001C58 00:9C48: 55        .byte $55, $55, $D5, $75, $55, $55, $55, $55
@@ -2563,7 +2548,7 @@ loc_level3_X_screen_u08_attrs:
 - D 0 - I - 0x001C78 00:9C68: F5        .byte $F5, $F5, $F5, $F5, $F5, $F5, $F5, $F5
 - D 0 - I - 0x001C80 00:9C70: 0F        .byte $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
 
-; screen 5, 1, 4 (level 3.X), attribute tables
+; screen 5, 1, 4
 loc_level3_X_screen_u09_attrs:
 - D 0 - I - 0x001C88 00:9C78: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
 - D 0 - I - 0x001C90 00:9C80: 55        .byte $55, $55, $55, $D5, $75, $55, $55, $55
@@ -2616,21 +2601,21 @@ loc_level3_X_water_screen2_attrs:
 ; Indexes of the metatiles (level 3.X, water)
 loc_level3_X_metatiles:
 - D 0 - I - 0x001DA0 00:9D90: 00        .byte $00, $00, $00, $00   ; 0x00
-- D 0 - I - 0x001DA4 00:9D94: 98        .byte $98, $99, $9A, $9B   ; 0x01
-- D 0 - I - 0x001DA8 00:9D98: 01        .byte $01, $9C, $01, $9E   ; 0x02
-- D 0 - I - 0x001DAC 00:9D9C: 01        .byte $01, $A1, $01, $A1   ; 0x03
-- D 0 - I - 0x001DB0 00:9DA0: 9F        .byte $9F, $9F, $A0, $A0   ; 0x04
-- D 0 - I - 0x001DB4 00:9DA4: A6        .byte $A6, $A0, $A8, $01   ; 0x05
-- D 0 - I - 0x001DB8 00:9DA8: A8        .byte $A8, $01, $AA, $9F   ; 0x06
-- D 0 - I - 0x001DBC 00:9DAC: A0        .byte $A0, $A0, $01, $01   ; 0x07
-- D 0 - I - 0x001DC0 00:9DB0: 01        .byte $01, $01, $9F, $9F   ; 0x08
-- D 0 - I - 0x001DC4 00:9DB4: A0        .byte $A0, $D1, $01, $AE   ; 0x09
-- D 0 - I - 0x001DC8 00:9DB8: 01        .byte $01, $AE, $9F, $D2   ; 0x0A
-- D 0 - I - 0x001DCC 00:9DBC: 92        .byte $92, $95, $92, $96   ; 0x0B
-- D 0 - I - 0x001DD0 00:9DC0: 92        .byte $92, $93, $92, $93   ; 0x0C
-- D 0 - I - 0x001DD4 00:9DC4: 94        .byte $94, $93, $8F, $01   ; 0x0D
-- D 0 - I - 0x001DD8 00:9DC8: 97        .byte $97, $9D, $97, $9D   ; 0x0E
-- D 0 - I - 0x001DDC 00:9DCC: 80        .byte $80, $A0, $82, $81   ; 0x0F
+- D 0 - I - 0x001DA4 00:9D94: 98        .byte $98, $99, $9A, $9B
+- D 0 - I - 0x001DA8 00:9D98: 01        .byte $01, $9C, $01, $9E
+- D 0 - I - 0x001DAC 00:9D9C: 01        .byte $01, $A1, $01, $A1
+- D 0 - I - 0x001DB0 00:9DA0: 9F        .byte $9F, $9F, $A0, $A0
+- D 0 - I - 0x001DB4 00:9DA4: A6        .byte $A6, $A0, $A8, $01
+- D 0 - I - 0x001DB8 00:9DA8: A8        .byte $A8, $01, $AA, $9F
+- D 0 - I - 0x001DBC 00:9DAC: A0        .byte $A0, $A0, $01, $01
+- D 0 - I - 0x001DC0 00:9DB0: 01        .byte $01, $01, $9F, $9F
+- D 0 - I - 0x001DC4 00:9DB4: A0        .byte $A0, $D1, $01, $AE
+- D 0 - I - 0x001DC8 00:9DB8: 01        .byte $01, $AE, $9F, $D2
+- D 0 - I - 0x001DCC 00:9DBC: 92        .byte $92, $95, $92, $96
+- D 0 - I - 0x001DD0 00:9DC0: 92        .byte $92, $93, $92, $93
+- D 0 - I - 0x001DD4 00:9DC4: 94        .byte $94, $93, $8F, $01
+- D 0 - I - 0x001DD8 00:9DC8: 97        .byte $97, $9D, $97, $9D
+- D 0 - I - 0x001DDC 00:9DCC: 80        .byte $80, $A0, $82, $81
 - D 0 - I - 0x001DE0 00:9DD0: A0        .byte $A0, $A0, $81, $81   ; 0x10
 - D 0 - I - 0x001DE4 00:9DD4: 83        .byte $83, $03, $84, $85
 - D 0 - I - 0x001DE8 00:9DD8: 03        .byte $03, $03, $85, $85
@@ -2728,20 +2713,20 @@ loc_level3_X_metatiles:
 - D 0 - I - 0x001F58 00:9F48: A8        .byte $A8, $01, $A8, $01
 - D 0 - I - 0x001F5C 00:9F4C: A0        .byte $A0, $D5, $01, $D6
 - D 0 - I - 0x001F60 00:9F50: 01        .byte $01, $D6, $01, $D6   ; 0x70
-- D 0 - I - 0x001F64 00:9F54: 01        .byte $01, $D6, $9F, $D7   ; 0x71
-- D 0 - I - 0x001F68 00:9F58: 01        .byte $01, $A6, $01, $A8   ; 0x72
-- D 0 - I - 0x001F6C 00:9F5C: 01        .byte $01, $A8, $01, $A8   ; 0x73
-- D 0 - I - 0x001F70 00:9F60: E0        .byte $E0, $A8, $E0, $AA   ; 0x74
-- D 0 - I - 0x001F74 00:9F64: E0        .byte $E0, $A6, $E0, $A8   ; 0x75
-- D 0 - I - 0x001F78 00:9F68: 01        .byte $01, $A8, $01, $AA   ; 0x76
-- D 0 - I - 0x001F7C 00:9F6C: A0        .byte $A0, $A0, $01, $01   ; 0x77
-- D 0 - I - 0x001F80 00:9F70: 01        .byte $01, $01, $9F, $9F   ; 0x78
-- D - - - - 0x001F84 00:9F74: 01        .byte $01, $01, $A0, $A0   ; 0x79
-- D - - - - 0x001F88 00:9F78: 8A        .byte $8A, $8A, $A0, $A0   ; 0x7A
-- D 0 - I - 0x001F8C 00:9F7C: B0        .byte $B0, $B1, $B2, $B3   ; 0x7B
-- D 0 - I - 0x001F90 00:9F80: B2        .byte $B2, $B3, $B8, $B9   ; 0x7C
-- D - - - - 0x001F94 00:9F84: 00        .byte $00, $00, $C2, $FA   ; 0x7D
-- D - - - - 0x001F98 00:9F88: 00        .byte $00, $00, $F9, $FA   ; 0x7E
+- D 0 - I - 0x001F64 00:9F54: 01        .byte $01, $D6, $9F, $D7
+- D 0 - I - 0x001F68 00:9F58: 01        .byte $01, $A6, $01, $A8
+- D 0 - I - 0x001F6C 00:9F5C: 01        .byte $01, $A8, $01, $A8
+- D 0 - I - 0x001F70 00:9F60: E0        .byte $E0, $A8, $E0, $AA
+- D 0 - I - 0x001F74 00:9F64: E0        .byte $E0, $A6, $E0, $A8
+- D 0 - I - 0x001F78 00:9F68: 01        .byte $01, $A8, $01, $AA
+- D 0 - I - 0x001F7C 00:9F6C: A0        .byte $A0, $A0, $01, $01
+- D 0 - I - 0x001F80 00:9F70: 01        .byte $01, $01, $9F, $9F
+- D - - - - 0x001F84 00:9F74: 01        .byte $01, $01, $A0, $A0
+- D - - - - 0x001F88 00:9F78: 8A        .byte $8A, $8A, $A0, $A0
+- D 0 - I - 0x001F8C 00:9F7C: B0        .byte $B0, $B1, $B2, $B3
+- D 0 - I - 0x001F90 00:9F80: B2        .byte $B2, $B3, $B8, $B9
+- D - - - - 0x001F94 00:9F84: 00        .byte $00, $00, $C2, $FA
+- D - - - - 0x001F98 00:9F88: 00        .byte $00, $00, $F9, $FA
 - D - - - - 0x001F9C 00:9F8C: 00        .byte $00, $00, $F9, $F9   ; 0x7F
 
 ; reserve

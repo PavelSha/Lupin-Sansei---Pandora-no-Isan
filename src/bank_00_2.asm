@@ -318,7 +318,7 @@ loc_level3_X_water_screen2_indexes:
 - D 0 - I - 0x002A78 00:8A68: 3D        .byte $3D, $43, $4C, $4C, $55, $4C, $4C, $4E, $4C, $4C, $56, $00
 - D 0 - I - 0x002A84 00:8A74: 3D        .byte $3D, $41, $4A, $4A, $4A, $4A, $4A, $4A, $4A, $4A, $56, $00
 
-; level 2 (outisde)
+; level 2 (outside)
 loc_level2_outside_screen0_indexes:
 - D 0 - I - 0x002A90 00:8A80: 25        .byte $25, $25, $25, $25, $2C, $00, $DA, $02, $03, $C6, $C7, $22
 - D 0 - I - 0x002A9C 00:8A8C: 25        .byte $25, $25, $2A, $2B, $DB, $00, $DA, $02, $03, $C6, $C7, $22

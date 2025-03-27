@@ -1245,11 +1245,11 @@ bra_C738_internal_render_row:
 C - - - - - 0x01C748 07:C738: A5 5E     LDA v_no_level                                          ;
 C - - - - - 0x01C74A 07:C73A: 0A        ASL                                                     ;
 C - - - - - 0x01C74B 07:C73B: 0A        ASL                                                     ;
-C - - - - - 0x01C74C 07:C73C: 0A        ASL                                                     ; no * 8
+C - - - - - 0x01C74C 07:C73C: 0A        ASL                                                     ;
 C - - - - - 0x01C74D 07:C73D: 85 00     STA ram_0000                                            ;
 C - - - - - 0x01C74F 07:C73F: 0A        ASL                                                     ;
 C - - - - - 0x01C750 07:C740: 18        CLC                                                     ;
-C - - - - - 0x01C751 07:C741: 65 00     ADC ram_0000                                            ;
+C - - - - - 0x01C751 07:C741: 65 00     ADC ram_0000                                            ; no * 24
 C - - - - - 0x01C753 07:C743: 18        CLC                                                     ;
 C - - - - - 0x01C754 07:C744: 65 1A     ADC vTempRowNumber1A                                    ;
 C - - - - - 0x01C756 07:C746: 18        CLC                                                     ;
