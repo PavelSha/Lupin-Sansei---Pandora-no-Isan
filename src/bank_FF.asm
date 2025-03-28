@@ -1093,18 +1093,18 @@ C - - - - - 0x01C65F 07:C64F: 10 F7     BPL @bra_C648_repeat               ; If 
 C - - - - - 0x01C661 07:C651: 60        RTS                                ;
 
 sub_C652_display_character_portraits:
-C - - - - - 0x01C662 07:C652: A9 6B     LDA #$6B                                ;
-C - - - - - 0x01C664 07:C654: 85 12     STA ram_0012                            ;
-C - - - - - 0x01C666 07:C656: A9 81     LDA #$81                                ;
-C - - - - - 0x01C668 07:C658: 85 13     STA ram_0013                            ; ($0012-$0013) -> $816B
-C - - - - - 0x01C66A 07:C65A: A9 02     LDA #$02                                ;
-C - - - - - 0x01C66C 07:C65C: 85 1A     STA vTempCounter1A                      ; set loop counter
-bra_C65E_loop:                                                                  ; loop by vTempCounter1A (3 times)
-C - - - - - 0x01C66E 07:C65E: A5 1A     LDA vTempCounter1A                      ; prepares an input parameter
-C - - - - - 0x01C670 07:C660: 20 5C C8  JSR sub_C85C_display_character_portrait ;
-C - - - - - 0x01C673 07:C663: C6 1A     DEC vTempCounter1A                      ; decrement loop counter
-C - - - - - 0x01C675 07:C665: 10 F7     BPL bra_C65E_loop                       ; If Register X < 0x80
-C - - - - - 0x01C677 07:C667: 60        RTS                                     ;
+C - - - - - 0x01C662 07:C652: A9 6B     LDA #.lobyte(loc_display_all_character_are_died) ;
+C - - - - - 0x01C664 07:C654: 85 12     STA ram_0012                                     ;
+C - - - - - 0x01C666 07:C656: A9 81     LDA #.hibyte(loc_display_all_character_are_died) ;
+C - - - - - 0x01C668 07:C658: 85 13     STA ram_0013                                     ; ($0012-$0013) -> $816B
+C - - - - - 0x01C66A 07:C65A: A9 02     LDA #$02                                         ;
+C - - - - - 0x01C66C 07:C65C: 85 1A     STA vTempCounter1A                               ; set loop counter
+@bra_C65E_loop:                                                                          ; loop by vTempCounter1A (3 times)
+C - - - - - 0x01C66E 07:C65E: A5 1A     LDA vTempCounter1A                               ; prepares an input parameter
+C - - - - - 0x01C670 07:C660: 20 5C C8  JSR sub_C85C_display_character_portrait          ;
+C - - - - - 0x01C673 07:C663: C6 1A     DEC vTempCounter1A                               ; decrement loop counter
+C - - - - - 0x01C675 07:C665: 10 F7     BPL @bra_C65E_loop                               ; If Register X < 0x80
+C - - - - - 0x01C677 07:C667: 60        RTS                                              ;
 
 ; Params:
 ; ram_0000 - the count of the iterations
@@ -10085,211 +10085,109 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD3A 07:FD2A: AE EE     .addr loc_EEAE_shooter          ; Ninja upside down (level 4) (0x38) Type A
 - D 3 - - - 0x01FD3C 07:FD2C: 93 EE     .addr loc_EE93_sensor           ; Sensor (level 4) (0x39) Type B
 
-- - - - - - 0x01FD3E 07:FD2E: A9        .byte $A9
-- - - - - - 0x01FD3F 07:FD2F: 06        .byte $06
-- - - - - - 0x01FD40 07:FD30: A0        .byte $A0
-- - - - - - 0x01FD41 07:FD31: 03        .byte $03
-- - - - - - 0x01FD42 07:FD32: 9D        .byte $9D
-- - - - - - 0x01FD43 07:FD33: 86        .byte $86
-- - - - - - 0x01FD44 07:FD34: 03        .byte $03
-- - - - - - 0x01FD45 07:FD35: 98        .byte $98
-- - - - - - 0x01FD46 07:FD36: 9D        .byte $9D
-- - - - - - 0x01FD47 07:FD37: 92        .byte $92
-- - - - - - 0x01FD48 07:FD38: 03        .byte $03
-- - - - - - 0x01FD49 07:FD39: A9        .byte $A9
-- - - - - - 0x01FD4A 07:FD3A: 02        .byte $02
-- - - - - - 0x01FD4B 07:FD3B: 20        .byte $20
-- - - - - - 0x01FD4C 07:FD3C: 1C        .byte $1C
-- - - - - - 0x01FD4D 07:FD3D: BE        .byte $BE
-- - - - - - 0x01FD4E 07:FD3E: A9        .byte $A9
-- - - - - - 0x01FD4F 07:FD3F: 01        .byte $01
-- - - - - - 0x01FD50 07:FD40: 9D        .byte $9D
-- - - - - - 0x01FD51 07:FD41: 80        .byte $80
-- - - - - - 0x01FD52 07:FD42: 03        .byte $03
-- - - - - - 0x01FD53 07:FD43: BD        .byte $BD
-- - - - - - 0x01FD54 07:FD44: 68        .byte $68
-- - - - - - 0x01FD55 07:FD45: 03        .byte $03
-- - - - - - 0x01FD56 07:FD46: C9        .byte $C9
-- - - - - - 0x01FD57 07:FD47: DF        .byte $DF
-- - - - - - 0x01FD58 07:FD48: B0        .byte $B0
-- - - - - - 0x01FD59 07:FD49: 1E        .byte $1E
-- - - - - - 0x01FD5A 07:FD4A: BD        .byte $BD
-- - - - - - 0x01FD5B 07:FD4B: 92        .byte $92
-- - - - - - 0x01FD5C 07:FD4C: 03        .byte $03
-- - - - - - 0x01FD5D 07:FD4D: C9        .byte $C9
-- - - - - - 0x01FD5E 07:FD4E: 03        .byte $03
-- - - - - - 0x01FD5F 07:FD4F: D0        .byte $D0
-- - - - - - 0x01FD60 07:FD50: 17        .byte $17
-- - - - - - 0x01FD61 07:FD51: BD        .byte $BD
-- - - - - - 0x01FD62 07:FD52: 5C        .byte $5C
-- - - - - - 0x01FD63 07:FD53: 03        .byte $03
-- - - - - - 0x01FD64 07:FD54: 6A        .byte $6A
-- - - - - - 0x01FD65 07:FD55: 90        .byte $90
-- - - - - - 0x01FD66 07:FD56: 0A        .byte $0A
-- - - - - - 0x01FD67 07:FD57: 29        .byte $29
-- - - - - - 0x01FD68 07:FD58: 10        .byte $10
-- - - - - - 0x01FD69 07:FD59: D0        .byte $D0
-- - - - - - 0x01FD6A 07:FD5A: 0A        .byte $0A
-- - - - - - 0x01FD6B 07:FD5B: 20        .byte $20
-- - - - - - 0x01FD6C 07:FD5C: FB        .byte $FB
-- - - - - - 0x01FD6D 07:FD5D: BC        .byte $BC
-- - - - - - 0x01FD6E 07:FD5E: 4C        .byte $4C
-- - - - - - 0x01FD6F 07:FD5F: 68        .byte $68
-- - - - - - 0x01FD70 07:FD60: BD        .byte $BD
-- - - - - - 0x01FD71 07:FD61: 29        .byte $29
-- - - - - - 0x01FD72 07:FD62: 10        .byte $10
-- - - - - - 0x01FD73 07:FD63: D0        .byte $D0
-- - - - - - 0x01FD74 07:FD64: F6        .byte $F6
-- - - - - - 0x01FD75 07:FD65: 20        .byte $20
-- - - - - - 0x01FD76 07:FD66: 20        .byte $20
-- - - - - - 0x01FD77 07:FD67: BD        .byte $BD
-- - - - - - 0x01FD78 07:FD68: BC        .byte $BC
-- - - - - - 0x01FD79 07:FD69: 86        .byte $86
-- - - - - - 0x01FD7A 07:FD6A: 03        .byte $03
-- - - - - - 0x01FD7B 07:FD6B: B9        .byte $B9
-- - - - - - 0x01FD7C 07:FD6C: 5D        .byte $5D
-- - - - - - 0x01FD7D 07:FD6D: E3        .byte $E3
-- - - - - - 0x01FD7E 07:FD6E: 18        .byte $18
-- - - - - - 0x01FD7F 07:FD6F: 7D        .byte $7D
-- - - - - - 0x01FD80 07:FD70: 68        .byte $68
-- - - - - - 0x01FD81 07:FD71: 03        .byte $03
-- - - - - - 0x01FD82 07:FD72: C9        .byte $C9
-- - - - - - 0x01FD83 07:FD73: EF        .byte $EF
-- - - - - - 0x01FD84 07:FD74: 90        .byte $90
-- - - - - - 0x01FD85 07:FD75: 09        .byte $09
-- - - - - - 0x01FD86 07:FD76: A0        .byte $A0
-- - - - - - 0x01FD87 07:FD77: EF        .byte $EF
-- - - - - - 0x01FD88 07:FD78: C9        .byte $C9
-- - - - - - 0x01FD89 07:FD79: F8        .byte $F8
-- - - - - - 0x01FD8A 07:FD7A: 90        .byte $90
-- - - - - - 0x01FD8B 07:FD7B: 02        .byte $02
-- - - - - - 0x01FD8C 07:FD7C: A0        .byte $A0
-- - - - - - 0x01FD8D 07:FD7D: 00        .byte $00
-- - - - - - 0x01FD8E 07:FD7E: 98        .byte $98
-- - - - - - 0x01FD8F 07:FD7F: 9D        .byte $9D
-- - - - - - 0x01FD90 07:FD80: 68        .byte $68
-- - - - - - 0x01FD91 07:FD81: 03        .byte $03
-- - - - - - 0x01FD92 07:FD82: BC        .byte $BC
-- - - - - - 0x01FD93 07:FD83: 86        .byte $86
-- - - - - - 0x01FD94 07:FD84: 03        .byte $03
-- - - - - - 0x01FD95 07:FD85: C0        .byte $C0
-- - - - - - 0x01FD96 07:FD86: 18        .byte $18
-- - - - - - 0x01FD97 07:FD87: 90        .byte $90
-- - - - - - 0x01FD98 07:FD88: 38        .byte $38
-- - - - - - 0x01FD99 07:FD89: C9        .byte $C9
-- - - - - - 0x01FD9A 07:FD8A: EF        .byte $EF
-- - - - - - 0x01FD9B 07:FD8B: 90        .byte $90
-- - - - - - 0x01FD9C 07:FD8C: 05        .byte $05
-- - - - - - 0x01FD9D 07:FD8D: A0        .byte $A0
-- - - - - - 0x01FD9E 07:FD8E: FF        .byte $FF
-- - - - - - 0x01FD9F 07:FD8F: 4C        .byte $4C
-- - - - - - 0x01FDA0 07:FD90: 7D        .byte $7D
-- - - - - - 0x01FDA1 07:FD91: BC        .byte $BC
-- - - - - - 0x01FDA2 07:FD92: 20        .byte $20
-- - - - - - 0x01FDA3 07:FD93: D9        .byte $D9
-- - - - - - 0x01FDA4 07:FD94: D8        .byte $D8
-- - - - - - 0x01FDA5 07:FD95: F0        .byte $F0
-- - - - - - 0x01FDA6 07:FD96: 2A        .byte $2A
-- - - - - - 0x01FDA7 07:FD97: C9        .byte $C9
-- - - - - - 0x01FDA8 07:FD98: 01        .byte $01
-- - - - - - 0x01FDA9 07:FD99: F0        .byte $F0
-- - - - - - 0x01FDAA 07:FD9A: 0D        .byte $0D
-- - - - - - 0x01FDAB 07:FD9B: BD        .byte $BD
-- - - - - - 0x01FDAC 07:FD9C: 68        .byte $68
-- - - - - - 0x01FDAD 07:FD9D: 03        .byte $03
-- - - - - - 0x01FDAE 07:FD9E: C9        .byte $C9
-- - - - - - 0x01FDAF 07:FD9F: BF        .byte $BF
-- - - - - - 0x01FDB0 07:FDA0: B0        .byte $B0
-- - - - - - 0x01FDB1 07:FDA1: 06        .byte $06
-- - - - - - 0x01FDB2 07:FDA2: A5        .byte $A5
-- - - - - - 0x01FDB3 07:FDA3: 2C        .byte $2C
-- - - - - - 0x01FDB4 07:FDA4: 29        .byte $29
-- - - - - - 0x01FDB5 07:FDA5: 03        .byte $03
-- - - - - - 0x01FDB6 07:FDA6: D0        .byte $D0
-- - - - - - 0x01FDB7 07:FDA7: 19        .byte $19
-- - - - - - 0x01FDB8 07:FDA8: BD        .byte $BD
-- - - - - - 0x01FDB9 07:FDA9: 5C        .byte $5C
-- - - - - - 0x01FDBA 07:FDAA: 03        .byte $03
-- - - - - - 0x01FDBB 07:FDAB: 29        .byte $29
-- - - - - - 0x01FDBC 07:FDAC: 20        .byte $20
-- - - - - - 0x01FDBD 07:FDAD: D0        .byte $D0
-- - - - - - 0x01FDBE 07:FDAE: 12        .byte $12
-- - - - - - 0x01FDBF 07:FDAF: 20        .byte $20
-- - - - - - 0x01FDC0 07:FDB0: 9C        .byte $9C
-- - - - - - 0x01FDC1 07:FDB1: D8        .byte $D8
-- - - - - - 0x01FDC2 07:FDB2: A9        .byte $A9
-- - - - - - 0x01FDC3 07:FDB3: 00        .byte $00
-- - - - - - 0x01FDC4 07:FDB4: 9D        .byte $9D
-- - - - - - 0x01FDC5 07:FDB5: 86        .byte $86
-- - - - - - 0x01FDC6 07:FDB6: 03        .byte $03
-- - - - - - 0x01FDC7 07:FDB7: A9        .byte $A9
-- - - - - - 0x01FDC8 07:FDB8: 02        .byte $02
-- - - - - - 0x01FDC9 07:FDB9: 9D        .byte $9D
-- - - - - - 0x01FDCA 07:FDBA: 80        .byte $80
-- - - - - - 0x01FDCB 07:FDBB: 03        .byte $03
-- - - - - - 0x01FDCC 07:FDBC: A0        .byte $A0
-- - - - - - 0x01FDCD 07:FDBD: 08        .byte $08
-- - - - - - 0x01FDCE 07:FDBE: 4C        .byte $4C
-- - - - - - 0x01FDCF 07:FDBF: 7D        .byte $7D
-- - - - - - 0x01FDD0 07:FDC0: BC        .byte $BC
-- - - - - - 0x01FDD1 07:FDC1: FE        .byte $FE
-- - - - - - 0x01FDD2 07:FDC2: 86        .byte $86
-- - - - - - 0x01FDD3 07:FDC3: 03        .byte $03
-- - - - - - 0x01FDD4 07:FDC4: A9        .byte $A9
-- - - - - - 0x01FDD5 07:FDC5: 2F        .byte $2F
-- - - - - - 0x01FDD6 07:FDC6: DD        .byte $DD
-- - - - - - 0x01FDD7 07:FDC7: 86        .byte $86
-- - - - - - 0x01FDD8 07:FDC8: 03        .byte $03
-- - - - - - 0x01FDD9 07:FDC9: B0        .byte $B0
-- - - - - - 0x01FDDA 07:FDCA: 03        .byte $03
-- - - - - - 0x01FDDB 07:FDCB: 9D        .byte $9D
-- - - - - - 0x01FDDC 07:FDCC: 86        .byte $86
-- - - - - - 0x01FDDD 07:FDCD: 03        .byte $03
-- - - - - - 0x01FDDE 07:FDCE: A0        .byte $A0
-- - - - - - 0x01FDDF 07:FDCF: 08        .byte $08
-- - - - - - 0x01FDE0 07:FDD0: BD        .byte $BD
-- - - - - - 0x01FDE1 07:FDD1: 5C        .byte $5C
-- - - - - - 0x01FDE2 07:FDD2: 03        .byte $03
-- - - - - - 0x01FDE3 07:FDD3: 29        .byte $29
-- - - - - - 0x01FDE4 07:FDD4: 20        .byte $20
-- - - - - - 0x01FDE5 07:FDD5: D0        .byte $D0
-- - - - - - 0x01FDE6 07:FDD6: 02        .byte $02
-- - - - - - 0x01FDE7 07:FDD7: A0        .byte $A0
-- - - - - - 0x01FDE8 07:FDD8: 04        .byte $04
-- - - - - - 0x01FDE9 07:FDD9: 4C        .byte $4C
-- - - - - - 0x01FDEA 07:FDDA: 7D        .byte $7D
-- - - - - - 0x01FDEB 07:FDDB: BC        .byte $BC
-- - - - - - 0x01FDEC 07:FDDC: BD        .byte $BD
-- - - - - - 0x01FDED 07:FDDD: 86        .byte $86
-- - - - - - 0x01FDEE 07:FDDE: 03        .byte $03
-- - - - - - 0x01FDEF 07:FDDF: F0        .byte $F0
-- - - - - - 0x01FDF0 07:FDE0: 0A        .byte $0A
-- - - - - - 0x01FDF1 07:FDE1: DE        .byte $DE
-- - - - - - 0x01FDF2 07:FDE2: 86        .byte $86
-- - - - - - 0x01FDF3 07:FDE3: 03        .byte $03
-- - - - - - 0x01FDF4 07:FDE4: D0        .byte $D0
-- - - - - - 0x01FDF5 07:FDE5: 42        .byte $42
-- - - - - - 0x01FDF6 07:FDE6: A9        .byte $A9
-- - - - - - 0x01FDF7 07:FDE7: 00        .byte $00
-- - - - - - 0x01FDF8 07:FDE8: 20        .byte $20
-- - - - - - 0x01FDF9 07:FDE9: 1C        .byte $1C
-- - - - - - 0x01FDFA 07:FDEA: BE        .byte $BE
-- - - - - - 0x01FDFB 07:FDEB: 20        .byte $20
-- - - - - - 0x01FDFC 07:FDEC: 29        .byte $29
-- - - - - - 0x01FDFD 07:FDED: BE        .byte $BE
-- - - - - - 0x01FDFE 07:FDEE: BD        .byte $BD
-- - - - - - 0x01FDFF 07:FDEF: 80        .byte $80
-- - - - - - 0x01FE00 07:FDF0: FF        .byte $FF
-- - - - - - 0x01FE01 07:FDF1: FF        .byte $FF
-- - - - - - 0x01FE02 07:FDF2: FF        .byte $FF
-- - - - - - 0x01FE03 07:FDF3: FF        .byte $FF
-- - - - - - 0x01FE04 07:FDF4: FF        .byte $FF
-- - - - - - 0x01FE05 07:FDF5: FF        .byte $FF
-- - - - - - 0x01FE06 07:FDF6: FF        .byte $FF
-- - - - - - 0x01FE07 07:FDF7: FF        .byte $FF
-- - - - - - 0x01FE08 07:FDF8: FF        .byte $FF
-- - - - - - 0x01FE09 07:FDF9: FF        .byte $FF
-- - - - - - 0x01FE0A 07:FDFA: FF        .byte $FF
+; see loc_BD2E_activate_jump_status (bank 03, page 2)
+- C - - - - 0x01FD3E 07:FD2E: A9 06     LDA #$06                              ; !(UNUSED)
+- C - - - - 0x01FD40 07:FD30: A0 03     LDY #$03                              ; !(UNUSED)
+- C - - - - 0x01FD42 07:FD32: 9D 86 03  STA vEnemyBJumpCounter,X              ; !(UNUSED)
+- C - - - - 0x01FD45 07:FD35: 98        TYA                                   ; !(UNUSED)
+- C - - - - 0x01FD46 07:FD36: 9D 92 03  STA vEnemyBJumpType,X                 ; !(UNUSED)
+- C - - - - 0x01FD49 07:FD39: A9 02     LDA #$02                              ; !(UNUSED)
+- C - - - - 0x01FD4B 07:FD3B: 20 1C BE  JSR $BE1C                             ; !(UNUSED), see sub_BE1C_change_substatus (bank 03, page 2)
+- C - - - - 0x01FD4E 07:FD3E: A9 01     LDA #$01                              ; !(UNUSED)
+- C - - - - 0x01FD50 07:FD40: 9D 80 03  STA vEnemyBFrame_Counter,X            ; !(UNUSED)
+- C - - - - 0x01FD53 07:FD43: BD 68 03  LDA vEnemyBPosY,X                     ; !(UNUSED)
+- C - - - - 0x01FD56 07:FD46: C9 DF     CMP #$DF                              ; !(UNUSED), CONSTANT - Maximum allowed Y-value on the screen
+- C - - - - 0x01FD58 07:FD48: B0 1E     BCS bra_FD68_skip                     ; !(UNUSED)
+- C - - - - 0x01FD5A 07:FD4A: BD 92 03  LDA vEnemyBJumpType,X                 ; !(UNUSED)
+- C - - - - 0x01FD5D 07:FD4D: C9 03     CMP #$03                              ; !(UNUSED)
+- C - - - - 0x01FD5F 07:FD4F: D0 17     BNE bra_FD68_skip                     ; !(UNUSED)
+- C - - - - 0x01FD61 07:FD51: BD 5C 03  LDA vEnemyBStatus,X                   ; !(UNUSED)
+- C - - - - 0x01FD64 07:FD54: 6A        ROR                                   ; !(UNUSED)
+- C - - - - 0x01FD65 07:FD55: 90 0A     BCC bra_FD61_right                    ; !(UNUSED)
+- C - - - - 0x01FD67 07:FD57: 29 10     AND #$10                              ; !(UNUSED)
+- C - - - - 0x01FD69 07:FD59: D0 0A     BNE bra_FD65_invert                   ; !(UNUSED)
+bra_FD5B_invert:
+- C - - - - 0x01FD6B 07:FD5B: 20 FB BC  JSR $BCFB                             ; !(UNUSED), see sub_BCFB_try_movement_on_the_left (bank 03, page 2)
+- C - - - - 0x01FD6E 07:FD5E: 4C 68 BD  JMP $BD68                             ; !(UNUSED), see loc_BD68_continue (bank 03, page 2)
+
+bra_FD61_right:
+- C - - - - 0x01FD71 07:FD61: 29 10     AND #$10                              ; !(UNUSED)
+- C - - - - 0x01FD73 07:FD63: D0 F6     BNE bra_FD5B_invert                   ; !(UNUSED)
+bra_FD65_invert:
+- C - - - - 0x01FD75 07:FD65: 20 20 BD  JSR $BD20                             ; !(UNUSED), see sub_BD20_try_movement_on_the_right (bank 03, page 2)
+bra_FD68_skip:
+- C - - - - 0x01FD78 07:FD68: BC 86 03  LDY vEnemyBJumpCounter,X              ; !(UNUSED)
+- C - - - - 0x01FD7B 07:FD6B: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y       ; !(UNUSED)
+- C - - - - 0x01FD7E 07:FD6E: 18        CLC                                   ; !(UNUSED)
+- C - - - - 0x01FD7F 07:FD6F: 7D 68 03  ADC vEnemyBPosY,X                     ; !(UNUSED)
+- C - - - - 0x01FD82 07:FD72: C9 EF     CMP #$EF                              ; !(UNUSED), CONSTANT - Limit 1 for Y-position
+- C - - - - 0x01FD84 07:FD74: 90 09     BCC @bra_FD7F_skip                    ; !(UNUSED)
+- C - - - - 0x01FD86 07:FD76: A0 EF     LDY #$EF                              ; !(UNUSED)
+- C - - - - 0x01FD88 07:FD78: C9 F8     CMP #$F8                              ; !(UNUSED), CONSTANT - Limit 2 for Y-position
+- C - - - - 0x01FD8A 07:FD7A: 90 02     BCC @bra_FD7E_skip                    ; !(UNUSED)
+- C - - - - 0x01FD8C 07:FD7C: A0 00     LDY #$00                              ; !(UNUSED)
+@bra_FD7E_skip:
+- C - - - - 0x01FD8E 07:FD7E: 98        TYA                                   ; !(UNUSED)
+@bra_FD7F_skip:
+- C - - - - 0x01FD8F 07:FD7F: 9D 68 03  STA vEnemyBPosY,X                     ; !(UNUSED)
+- C - - - - 0x01FD92 07:FD82: BC 86 03  LDY vEnemyBJumpCounter,X              ; !(UNUSED)
+- C - - - - 0x01FD95 07:FD85: C0 18     CPY #$18                              ; !(UNUSED), CONSTANT - a maximum amplitude
+- C - - - - 0x01FD97 07:FD87: 90 38     BCC bra_FDC1_inc                      ; !(UNUSED)
+- C - - - - 0x01FD99 07:FD89: C9 EF     CMP #$EF                              ; !(UNUSED), CONSTANT - Maximum allowed Y-value on the screen
+- C - - - - 0x01FD9B 07:FD8B: 90 05     BCC @bra_FD92_skip                    ; !(UNUSED)
+- C - - - - 0x01FD9D 07:FD8D: A0 FF     LDY #$FF                              ; !(UNUSED)
+- C - - - - 0x01FD9F 07:FD8F: 4C 7D BC  JMP $BC7D                             ; !(UNUSED), see loc_BC7D_prepare_rendering (bank 03, page 2)
+
+@bra_FD92_skip:
+- C - - - - 0x01FDA2 07:FD92: 20 D9 D8  JSR sub_D8D9_enemyB_collision_by_one  ; !(UNUSED)
+- C - - - - 0x01FDA5 07:FD95: F0 2A     BEQ bra_FDC1_inc                      ; !(UNUSED)
+- C - - - - 0x01FDA7 07:FD97: C9 01     CMP #$01                              ; !(UNUSED), CONSTANT - a strong collision
+- C - - - - 0x01FDA9 07:FD99: F0 0D     BEQ bra_FDA8                          ; !(UNUSED), If the collision is strong
+- C - - - - 0x01FDAB 07:FD9B: BD 68 03  LDA vEnemyBPosY,X                     ; !(UNUSED)
+- C - - - - 0x01FDAE 07:FD9E: C9 BF     CMP #$BF                              ; !(UNUSED)
+- C - - - - 0x01FDB0 07:FDA0: B0 06     BCS bra_FDA8                          ; !(UNUSED)
+- C - - - - 0x01FDB2 07:FDA2: A5 2C     LDA vLowCounter                       ; !(UNUSED)
+- C - - - - 0x01FDB4 07:FDA4: 29 03     AND #$03                              ; !(UNUSED)
+- C - - - - 0x01FDB6 07:FDA6: D0 19     BNE bra_FDC1_inc                      ; !(UNUSED)
+bra_FDA8:
+- C - - - - 0x01FDB8 07:FDA8: BD 5C 03  LDA vEnemyBStatus,X                   ; !(UNUSED)
+- C - - - - 0x01FDBB 07:FDAB: 29 20     AND #$20                              ; !(UNUSED), CONSTANT - the dying
+- C - - - - 0x01FDBD 07:FDAD: D0 12     BNE bra_FDC1_inc                      ; !(UNUSED), If the enemy is dying
+- C - - - - 0x01FDBF 07:FDAF: 20 9C D8  JSR sub_D89C_correction_EnemyBPosY    ; !(UNUSED)
+- C - - - - 0x01FDC2 07:FDB2: A9 00     LDA #$00                              ; !(UNUSED)
+- C - - - - 0x01FDC4 07:FDB4: 9D 86 03  STA vEnemyBJumpCounter,X              ; !(UNUSED)
+- C - - - - 0x01FDC7 07:FDB7: A9 02     LDA #$02                              ; !(UNUSED)
+- C - - - - 0x01FDC9 07:FDB9: 9D 80 03  STA vEnemyBFrame_Counter,X            ; !(UNUSED)
+- C - - - - 0x01FDCC 07:FDBC: A0 08     LDY #$08                              ; !(UNUSED)
+- C - - - - 0x01FDCE 07:FDBE: 4C 7D BC  JMP $BC7D                             ; !(UNUSED), see loc_BC7D_prepare_rendering (bank 03, page 2)
+
+bra_FDC1_inc:
+- C - - - - 0x01FDD1 07:FDC1: FE 86 03  INC vEnemyBJumpCounter,X              ; !(UNUSED)
+- C - - - - 0x01FDD4 07:FDC4: A9 2F     LDA #$2F                              ; !(UNUSED), CONSTANT - a maximum jump value
+- C - - - - 0x01FDD6 07:FDC6: DD 86 03  CMP vEnemyBJumpCounter,X              ; !(UNUSED)
+- C - - - - 0x01FDD9 07:FDC9: B0 03     BCS @bra_FDCE_skip                    ; !(UNUSED)
+- C - - - - 0x01FDDB 07:FDCB: 9D 86 03  STA vEnemyBJumpCounter,X              ; !(UNUSED)
+@bra_FDCE_skip:
+- C - - - - 0x01FDDE 07:FDCE: A0 08     LDY #$08                              ; !(UNUSED)
+- C - - - - 0x01FDE0 07:FDD0: BD 5C 03  LDA vEnemyBStatus,X                   ; !(UNUSED)
+- C - - - - 0x01FDE3 07:FDD3: 29 20     AND #$20                              ; !(UNUSED), CONSTANT - the dying
+- C - - - - 0x01FDE5 07:FDD5: D0 02     BNE @bra_FDD9_skip                    ; !(UNUSED)
+- C - - - - 0x01FDE7 07:FDD7: A0 04     LDY #$04                              ; !(UNUSED)
+@bra_FDD9_skip:
+- C - - - - 0x01FDE9 07:FDD9: 4C 7D BC  JMP $BC7D                             ; !(UNUSED), see loc_BC7D_prepare_rendering (bank 03, page 2)
+
+- C - - - - 0x01FDEC 07:FDDC: BD 86 03  LDA vEnemyBJumpCounter,X              ; !(UNUSED)
+- C - - - - 0x01FDEF 07:FDDF: F0 0A     BEQ @bra_FDEB                         ; !(UNUSED)
+- C - - - - 0x01FDF1 07:FDE1: DE 86 03  DEC vEnemyBJumpCounter,X              ; !(UNUSED)
+- C - - - - 0x01FDF4 07:FDE4: D0 42     BNE $FE28                             ; !(UNUSED), see bra_BE28_RTS (bank 03, page 2)
+- C - - - - 0x01FDF6 07:FDE6: A9 00     LDA #$00                              ; !(UNUSED)
+- C - - - - 0x01FDF8 07:FDE8: 20 1C BE  JSR $BE1C                             ; !(UNUSED), see sub_BE1C_change_substatus (bank 03, page 2)
+@bra_FDEB:
+- C - - - - 0x01FDFB 07:FDEB: 20 29 BE  JSR $BE29                             ; !(UNUSED), see sub_BE29_try_change_direction (bank 03, page 2)
+- C - - - - 0x01FDFE 07:FDEE: BD 80 FF  LDA $FF80,X                           ; !(UNUSED), see $BDEE (bank 03, page 2)
+
+; reserve
+- D - - - - 0x01FE01 07:FDF1: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 
 ; There are a series of the Namco games, made by the same programmers Haruhisa Udagawa and Kumi Hanaoka, that contains the same self-test for the data integrity.
 ; To enable any of these tests you need a special device that should be plugged into the expansion port. The operation of that device is very simple.

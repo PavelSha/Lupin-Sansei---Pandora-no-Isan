@@ -3749,59 +3749,59 @@ C - - - - - 0x01B7E8 06:B7D8: 84 11     STY vCacheRam_11     ;
 C - - - - - 0x01B7EA 06:B7DA: 60        RTS                  ;
 
 sub_B7DB_prepare_last_cutscene:
-C - - - - - 0x01B7EB 06:B7DB: 20 02 C4  JSR sub_C402_clear_sound_parts              ;
-C - - - - - 0x01B7EE 06:B7DE: 20 1D C3  JSR sub_C31D_clear_ppu                      ;
-C - - - - - 0x01B7F1 06:B7E1: 20 58 C3  JSR sub_C358_clear_OAM                      ;
-C - - - - - 0x01B7F4 06:B7E4: 20 46 EF  JSR sub_EF46_switch_bank_4_p1               ;
-C - - - - - 0x01B7F7 06:B7E7: A2 05     LDX #$05                                    ; set loop counter
-@bra_B7E9_loop:                                                                     ; loop by x (6 times)
-C - - - - - 0x01B7F9 06:B7E9: BD CF BC  LDA tbl_BCCF_clarissa_is_saved_chr_banks,X  ;
-C - - - - - 0x01B7FC 06:B7EC: 9D AF 06  STA vCacheChrBankSelect,X                   ;
-C - - - - - 0x01B7FF 06:B7EF: CA        DEX                                         ; decrement x
-C - - - - - 0x01B800 06:B7F0: 10 F7     BPL @bra_B7E9_loop                          ; In Register X >= 0x00 && X < 0x80
-C - - - - - 0x01B802 06:B7F2: 20 BA BA  JSR sub_BABA_set_palette_for_clarissa       ;
-C - - - - - 0x01B805 06:B7F5: A9 5E     LDA #$5E                                    ;
-C - - - - - 0x01B807 06:B7F7: 18        CLC                                         ;
-C - - - - - 0x01B808 06:B7F8: 69 54     ADC #$54                                    ;
-C - - - - - 0x01B80A 06:B7FA: 85 12     STA ram_0012                                ; Low address
-C - - - - - 0x01B80C 06:B7FC: A9 80     LDA #$80                                    ;
-C - - - - - 0x01B80E 06:B7FE: 69 00     ADC #$00                                    ;
-C - - - - - 0x01B810 06:B800: 85 13     STA ram_0013                                ; High address ($80B2 in the bank 04_1)
-C - - - - - 0x01B812 06:B802: AD 02 20  LDA PPU_STATUS                              ; Read PPU status to reset the high/low latch
-C - - - - - 0x01B815 06:B805: 20 CB BA  JSR sub_BACB_fill_ppu                       ;
-C - - - - - 0x01B818 06:B808: A9 10     LDA #$10                                    ; CONSTANT - Background pattern table address: $1000
-C - - - - - 0x01B81A 06:B80A: 85 26     STA vPpuCtrlSettings                        ;
-C - - - - - 0x01B81C 06:B80C: 60        RTS                                         ;
+C - - - - - 0x01B7EB 06:B7DB: 20 02 C4  JSR sub_C402_clear_sound_parts                    ;
+C - - - - - 0x01B7EE 06:B7DE: 20 1D C3  JSR sub_C31D_clear_ppu                            ;
+C - - - - - 0x01B7F1 06:B7E1: 20 58 C3  JSR sub_C358_clear_OAM                            ;
+C - - - - - 0x01B7F4 06:B7E4: 20 46 EF  JSR sub_EF46_switch_bank_4_p1                     ;
+C - - - - - 0x01B7F7 06:B7E7: A2 05     LDX #$05                                          ; set loop counter
+@bra_B7E9_loop:                                                                           ; loop by x (6 times)
+C - - - - - 0x01B7F9 06:B7E9: BD CF BC  LDA tbl_BCCF_clarissa_is_saved_chr_banks,X        ;
+C - - - - - 0x01B7FC 06:B7EC: 9D AF 06  STA vCacheChrBankSelect,X                         ;
+C - - - - - 0x01B7FF 06:B7EF: CA        DEX                                               ; decrement x
+C - - - - - 0x01B800 06:B7F0: 10 F7     BPL @bra_B7E9_loop                                ; In Register X >= 0x00 && X < 0x80
+C - - - - - 0x01B802 06:B7F2: 20 BA BA  JSR sub_BABA_set_palette_for_clarissa             ;
+C - - - - - 0x01B805 06:B7F5: A9 5E     LDA #.lobyte(loc_display_Clarisse_first_cutscene) ;
+C - - - - - 0x01B807 06:B7F7: 18        CLC                                               ;
+C - - - - - 0x01B808 06:B7F8: 69 54     ADC #$54                                          ;
+C - - - - - 0x01B80A 06:B7FA: 85 12     STA ram_0012                                      ; Low address
+C - - - - - 0x01B80C 06:B7FC: A9 80     LDA #.hibyte(loc_display_Clarisse_first_cutscene) ;
+C - - - - - 0x01B80E 06:B7FE: 69 00     ADC #$00                                          ;
+C - - - - - 0x01B810 06:B800: 85 13     STA ram_0013                                      ; High address ($80B2 in the bank 04_1)
+C - - - - - 0x01B812 06:B802: AD 02 20  LDA PPU_STATUS                                    ; Read PPU status to reset the high/low latch
+C - - - - - 0x01B815 06:B805: 20 CB BA  JSR sub_BACB_fill_ppu                             ;
+C - - - - - 0x01B818 06:B808: A9 10     LDA #$10                                          ; CONSTANT - Background pattern table address: $1000
+C - - - - - 0x01B81A 06:B80A: 85 26     STA vPpuCtrlSettings                              ;
+C - - - - - 0x01B81C 06:B80C: 60        RTS                                               ;
 
 sub_B80D_init_final_score_screen:
-C - - - - - 0x01B81D 06:B80D: 20 2F C6  JSR sub_C62F_init_character_select        ;
-C - - - - - 0x01B820 06:B810: A9 39     LDA #$39                                  ;
-C - - - - - 0x01B822 06:B812: 18        CLC                                       ;
-C - - - - - 0x01B823 06:B813: 69 23     ADC #$23                                  ;
-C - - - - - 0x01B825 06:B815: 85 12     STA ram_0012                              ; Low address
-C - - - - - 0x01B827 06:B817: A9 81     LDA #$81                                  ;
-C - - - - - 0x01B829 06:B819: 69 00     ADC #$00                                  ;
-C - - - - - 0x01B82B 06:B81B: 85 13     STA ram_0013                              ; High address ($815C in the bank 04_1)
-C - - - - - 0x01B82D 06:B81D: A9 02     LDA #$02                                  ;
-C - - - - - 0x01B82F 06:B81F: 85 00     STA ram_0000                              ; prepare an input parameter (loop counter)
-C - - - - - 0x01B831 06:B821: 20 68 C6  JSR sub_C668_render_14_15_16_17_18_loop   ;
-C - - - - - 0x01B834 06:B824: 20 52 C6  JSR sub_C652_display_character_portraits  ;
-C - - - - - 0x01B837 06:B827: A9 21     LDA #$21                                  ;
-C - - - - - 0x01B839 06:B829: 8D 06 20  STA PPU_ADDRESS                           ;
-C - - - - - 0x01B83C 06:B82C: A9 94     LDA #$94                                  ;
-C - - - - - 0x01B83E 06:B82E: 8D 06 20  STA PPU_ADDRESS                           ; PPU address is 0x2194
-C - - - - - 0x01B841 06:B831: A9 00     LDA #$00                                  ; CONSTANT - a tile number for blank
-C - - - - - 0x01B843 06:B833: 85 08     STA ram_0008                              ;
-C - - - - - 0x01B845 06:B835: A9 70     LDA #$70                                  ; CONSTANT - a tile number '0' in current CHR page
-C - - - - - 0x01B847 06:B837: 85 09     STA ram_0009                              ;
-C - - - - - 0x01B849 06:B839: A2 99     LDX #$99                                  ; CONSTANT - HiScore
-C - - - - - 0x01B84B 06:B83B: 20 24 C9  JSR sub_C924_display_menu_score_ex        ;
-C - - - - - 0x01B84E 06:B83E: A9 22     LDA #$22                                  ;
-C - - - - - 0x01B850 06:B840: 8D 06 20  STA PPU_ADDRESS                           ;
-C - - - - - 0x01B853 06:B843: A9 14     LDA #$14                                  ;
-C - - - - - 0x01B855 06:B845: 8D 06 20  STA PPU_ADDRESS                           ; PPU address is 0x2214
-C - - - - - 0x01B858 06:B848: A2 56     LDX #$56                                  ; CONSTANT - Score
-C - - - - - 0x01B85A 06:B84A: 4C 24 C9  JMP loc_C924_display_menu_score_ex        ;
+C - - - - - 0x01B81D 06:B80D: 20 2F C6  JSR sub_C62F_init_character_select         ;
+C - - - - - 0x01B820 06:B810: A9 39     LDA #.lobyte(loc_display_select_character) ;
+C - - - - - 0x01B822 06:B812: 18        CLC                                        ;
+C - - - - - 0x01B823 06:B813: 69 23     ADC #$23                                   ;
+C - - - - - 0x01B825 06:B815: 85 12     STA ram_0012                               ; Low address
+C - - - - - 0x01B827 06:B817: A9 81     LDA #.hibyte(loc_display_select_character) ;
+C - - - - - 0x01B829 06:B819: 69 00     ADC #$00                                   ;
+C - - - - - 0x01B82B 06:B81B: 85 13     STA ram_0013                               ; High address ($815C in the bank 04_1)
+C - - - - - 0x01B82D 06:B81D: A9 02     LDA #$02                                   ;
+C - - - - - 0x01B82F 06:B81F: 85 00     STA ram_0000                               ; prepare an input parameter (loop counter)
+C - - - - - 0x01B831 06:B821: 20 68 C6  JSR sub_C668_render_14_15_16_17_18_loop    ;
+C - - - - - 0x01B834 06:B824: 20 52 C6  JSR sub_C652_display_character_portraits   ;
+C - - - - - 0x01B837 06:B827: A9 21     LDA #$21                                   ;
+C - - - - - 0x01B839 06:B829: 8D 06 20  STA PPU_ADDRESS                            ;
+C - - - - - 0x01B83C 06:B82C: A9 94     LDA #$94                                   ;
+C - - - - - 0x01B83E 06:B82E: 8D 06 20  STA PPU_ADDRESS                            ; PPU address is 0x2194
+C - - - - - 0x01B841 06:B831: A9 00     LDA #$00                                   ; CONSTANT - a tile number for blank
+C - - - - - 0x01B843 06:B833: 85 08     STA ram_0008                               ;
+C - - - - - 0x01B845 06:B835: A9 70     LDA #$70                                   ; CONSTANT - a tile number '0' in current CHR page
+C - - - - - 0x01B847 06:B837: 85 09     STA ram_0009                               ;
+C - - - - - 0x01B849 06:B839: A2 99     LDX #$99                                   ; CONSTANT - HiScore
+C - - - - - 0x01B84B 06:B83B: 20 24 C9  JSR sub_C924_display_menu_score_ex         ;
+C - - - - - 0x01B84E 06:B83E: A9 22     LDA #$22                                   ;
+C - - - - - 0x01B850 06:B840: 8D 06 20  STA PPU_ADDRESS                            ;
+C - - - - - 0x01B853 06:B843: A9 14     LDA #$14                                   ;
+C - - - - - 0x01B855 06:B845: 8D 06 20  STA PPU_ADDRESS                            ; PPU address is 0x2214
+C - - - - - 0x01B858 06:B848: A2 56     LDX #$56                                   ; CONSTANT - Score
+C - - - - - 0x01B85A 06:B84A: 4C 24 C9  JMP loc_C924_display_menu_score_ex         ;
 
 sub_B84D_update_jump_params_:
 C - - - - - 0x01B85D 06:B84D: A9 D5     LDA #$D5                   ;
@@ -3899,9 +3899,9 @@ C - - - - - 0x01B909 06:B8F9: BD C4 80  LDA tbl_main_menu_palette,X             
 C - - - - - 0x01B90C 06:B8FC: 9D 00 06  STA vCachePalette,X                        ;
 C - - - - - 0x01B90F 06:B8FF: CA        DEX                                        ; decrements loop counter
 C - - - - - 0x01B910 06:B900: 10 F7     BPL @bra_B8F9_loop                         ; If Register X < 0x80
-C - - - - - 0x01B912 06:B902: A9 E4     LDA #$E4                                   ;
+C - - - - - 0x01B912 06:B902: A9 E4     LDA #.lobyte(loc_display_main_title)       ;
 C - - - - - 0x01B914 06:B904: 85 12     STA ram_0012                               ; Low address
-C - - - - - 0x01B916 06:B906: A9 80     LDA #$80                                   ;
+C - - - - - 0x01B916 06:B906: A9 80     LDA #.hibyte(loc_display_main_title)       ;
 C - - - - - 0x01B918 06:B908: 85 13     STA ram_0013                               ; High address ($80E4 in the bank 04_1)
 C - - - - - 0x01B91A 06:B90A: A9 00     LDA #$00                                   ; CONSTANT - no reason
 C - - - - - 0x01B91C 06:B90C: 85 D6     STA vReasonCharacterChange                 ;
