@@ -19,227 +19,137 @@
 .export tbl_ptr_prison_rooms
 .export tbl_portrait_prisoners
 
-; The addresses are in the vram
+; The addresses are in the vram (the high-order nibble - 0%000XXXXX)
+; see docs (Messages)
 tbl_messages:
-- D - - - - 0x012010 04:8000: 65        .byte $65, $80   ; 0x0065
-- D 0 - - - 0x012012 04:8002: 00        .byte $00, $80   ; 0x0000 - おじさま こわいわ!! たれかにさらわれてしまったの まわりはくらくてよくわからないけれ ど とこかのおやしきみたい・... おしさまはやく たすけて・..
-- D 0 - - - 0x012014 04:8004: 66        .byte $66, $80   ; 0x0066 - おれのなは ルパン三世 かのなだかき かいとうルパンのまごだ。 じぶんでいうのもなんだがねらったえものは かならずうぼうしんしゅつきぼつのおおどろぼう それがこのおれ ルパン三世。
-- D 0 - - - 0x012016 04:8006: D6        .byte $D6, $80   ; 0x00D6 - じげんだいすけ おれのあいぼう はやうち 0,3びょうのクールなガンマン。 そのうえぎりがたく たよりになる おとこ。
-- D 0 - - - 0x012018 04:8008: 21        .byte $21, $81   ; 0x0121 - 十三だいめいしかわごえもん おおどろぼう いしかわごえもんの まつえい なんてもまっふたつにしてしまう おこらせるとこわい おとこ。
-- D 0 - - - 0x01201A 04:800A: 74        .byte $74, $81   ; 0x0174 - ぜにがたけいぶ けいしちょうのびんわんけいぶ。 おれをつかまえることをいきかいとする おれのもっともにがてな とっつぁんだ。
-- D 0 - - - 0x01201C 04:800C: C4        .byte $C4, $81   ; 0x01C4 - なぞのおんな みね ふじこ おんな とうぞくか?おんなスパイか? このおれにもわからないなぞの おんな。
-- D 0 - - - 0x01201E 04:800E: 07        .byte $07, $82   ; 0x0207 - クラリス おれの いのちのおんじん なにものかにさらわれた かわいそうなこだ。 このこのためならなんでもやるぜ。
-- D - - - - 0x012020 04:8010: 65        .byte $65, $80   ; 0x0065
-- D - - - - 0x012022 04:8012: 65        .byte $65, $80   ; 0x0065
-- D - - - - 0x012024 04:8014: 65        .byte $65, $80   ; 0x0065
-- D 0 - - - 0x012026 04:8016: 4F        .byte $4F, $82   ; 0x024F - こんばんわ ルパンさま。
-- D 0 - - - 0x012028 04:8018: 5F        .byte $5F, $82   ; 0x025F - このやしきでは つかまえた ぞくは へやのなかに とじこめて おくのです。
-- D 0 - - - 0x01202A 04:801A: 8A        .byte $8A, $82   ; 0x028A - ハルクさまに あうのなら したへ いくと よろしいでしょう で もむずかしいですぞ
-- D 0 - - - 0x01202C 04:801C: B9        .byte $B9, $82   ; 0x02B9 - ハルクは、 たれかに たのまれて むすめを さらって きたんですって。
-- D 0 - - - 0x01202E 04:801E: E1        .byte $E1, $82   ; 0x02E1 - やーねー ひげのばして ふけつ。
-- D 0 - - - 0x012030 04:8020: F5        .byte $F5   ; 
-- D 0 - - - 0x012031 04:8021: 82        .byte $82   ; 
-- D - - - - 0x012032 04:8022: 1D        .byte $1D, $83   ; 0x031D - ルビーのゆびわを もってないのね。 ざんねんだけど うらなえないわ。
-- D 0 - - - 0x012034 04:8024: 45        .byte $45, $83   ; 0x0345 - ここからさきは めがねを つかったほうが いいわよ。
-- D 0 - - - 0x012036 04:8026: 65        .byte $65, $83   ; 0x0365 - あなたなら ここのボスに かてるかも しれないわ。
-- D 0 - - - 0x012038 04:8028: 84        .byte $84, $83   ; 0x0384 - あなたには ハクを たおせないわ。
-- D 0 - - - 0x01203A 04:802A: 9A        .byte $9A   ; 
-- D 0 - - - 0x01203B 04:802B: 83        .byte $83   ; 
-- D - - - - 0x01203C 04:802C: 65        .byte $65, $80   ; 
-- D - - - - 0x01203E 04:802E: 65        .byte $65, $80   ; 
-- D - - - - 0x012040 04:8030: 65        .byte $65, $80   ; 
-- D 0 - - - 0x012042 04:8032: C9        .byte $C9   ; 
-- D 0 - - - 0x012043 04:8033: 83        .byte $83   ; 
-- D 0 - - - 0x012044 04:8034: F8        .byte $F8   ; 
-- D 0 - - - 0x012045 04:8035: 83        .byte $83   ; 
-- D 0 - - - 0x012046 04:8036: 27        .byte $27   ; 
-- D 0 - - - 0x012047 04:8037: 84        .byte $84   ; 
-- - - - - - 0x012048 04:8038: 54        .byte $54   ; <T>
-- - - - - - 0x012049 04:8039: 84        .byte $84   ; 
-- D 0 - - - 0x01204A 04:803A: 7F        .byte $7F   ; 
-- D 0 - - - 0x01204B 04:803B: 84        .byte $84   ; 
-- D 0 - - - 0x01204C 04:803C: AE        .byte $AE   ; 
-- D 0 - - - 0x01204D 04:803D: 84        .byte $84   ; 
-- D 0 - - - 0x01204E 04:803E: DB        .byte $DB   ; 
-- D 0 - - - 0x01204F 04:803F: 84        .byte $84   ; 
-- D 0 - - - 0x012050 04:8040: 0A        .byte $0A   ; 
-- D 0 - - - 0x012051 04:8041: 85        .byte $85   ; 
-- D 0 - - - 0x012052 04:8042: 36        .byte $36   ; <6>
-- D 0 - - - 0x012053 04:8043: 85        .byte $85   ; 
-- - - - - - 0x012054 04:8044: 61        .byte $61   ; <a>
-- - - - - - 0x012055 04:8045: 85        .byte $85   ; 
-- D 0 - - - 0x012056 04:8046: 8F        .byte $8F   ; 
-- D 0 - - - 0x012057 04:8047: 85        .byte $85   ; 
-- D 0 - - - 0x012058 04:8048: BD        .byte $BD   ; 
-- D 0 - - - 0x012059 04:8049: 85        .byte $85   ; 
-- D 0 - - - 0x01205A 04:804A: EB        .byte $EB   ; 
-- D 0 - - - 0x01205B 04:804B: 85        .byte $85   ; 
-- D 0 - - - 0x01205C 04:804C: 14        .byte $14   ; 
-- D 0 - - - 0x01205D 04:804D: 86        .byte $86   ; 
-- D 0 - - - 0x01205E 04:804E: 2B        .byte $2B   ; 
-- D 0 - - - 0x01205F 04:804F: 86        .byte $86   ; 
-- D 0 - - - 0x012060 04:8050: 58        .byte $58   ; <X>
-- D 0 - - - 0x012061 04:8051: 86        .byte $86   ; 
-- D 0 - - - 0x012062 04:8052: 83        .byte $83   ; 
-- D 0 - - - 0x012063 04:8053: 86        .byte $86   ; 
-- D 0 - - - 0x012064 04:8054: AE        .byte $AE   ; 
-- D 0 - - - 0x012065 04:8055: 86        .byte $86   ; 
-- D 0 - - - 0x012066 04:8056: B7        .byte $B7   ; 
-- D 0 - - - 0x012067 04:8057: 86        .byte $86   ; 
-- D 0 - - - 0x012068 04:8058: C1        .byte $C1   ; 
-- D 0 - - - 0x012069 04:8059: 86        .byte $86   ; 
-- - - - - - 0x01206A 04:805A: 65        .byte $65, $80   ; 
-- - - - - - 0x01206C 04:805C: 65        .byte $65, $80   ; 
-- - - - - - 0x01206E 04:805E: 65        .byte $65, $80   ; 
-- D 0 - - - 0x012070 04:8060: CB        .byte $CB   ; 
-- D 0 - - - 0x012071 04:8061: 86        .byte $86   ; 
-- D 0 - - - 0x012072 04:8062: F7        .byte $F7   ; 
-- D 0 - - - 0x012073 04:8063: 86        .byte $86   ; 
-- D 0 - - - 0x012074 04:8064: 22        .byte $22   ; 
-- D 0 - - - 0x012075 04:8065: 87        .byte $87   ; 
-- - - - - - 0x012076 04:8066: 4D        .byte $4D   ; <M>
-- - - - - - 0x012077 04:8067: 87        .byte $87   ; 
-- D 0 - - - 0x012078 04:8068: 77        .byte $77   ; <w>
-- D 0 - - - 0x012079 04:8069: 87        .byte $87   ; 
-- D 0 - - - 0x01207A 04:806A: 9B        .byte $9B   ; 
-- D 0 - - - 0x01207B 04:806B: 87        .byte $87   ; 
-- D 0 - - - 0x01207C 04:806C: BD        .byte $BD   ; 
-- D 0 - - - 0x01207D 04:806D: 87        .byte $87   ; 
-- D 0 - - - 0x01207E 04:806E: DD        .byte $DD   ; 
-- D 0 - - - 0x01207F 04:806F: 87        .byte $87   ; 
-- - - - - - 0x012080 04:8070: 65        .byte $65, $80   ; 
-- - - - - - 0x012082 04:8072: 65        .byte $65, $80   ; 
-- - - - - - 0x012084 04:8074: 65        .byte $65, $80   ; 
-- D 0 - - - 0x012086 04:8076: 0B        .byte $0B   ; 
-- D 0 - - - 0x012087 04:8077: 88        .byte $88   ; 
-- D 0 - - - 0x012088 04:8078: 20        .byte $20   ; 
-- D 0 - - - 0x012089 04:8079: 88        .byte $88   ; 
-- D 0 - - - 0x01208A 04:807A: 48        .byte $48   ; <H>
-- D 0 - - - 0x01208B 04:807B: 88        .byte $88   ; 
-- D 0 - - - 0x01208C 04:807C: 72        .byte $72   ; <r>
-- D 0 - - - 0x01208D 04:807D: 88        .byte $88   ; 
-- D 0 - - - 0x01208E 04:807E: 96        .byte $96   ; 
-- D 0 - - - 0x01208F 04:807F: 88        .byte $88   ; 
-- D 0 - - - 0x012090 04:8080: BE        .byte $BE   ; 
-- D 0 - - - 0x012091 04:8081: 88        .byte $88   ; 
-- D 0 - - - 0x012092 04:8082: DC        .byte $DC   ; 
-- D 0 - - - 0x012093 04:8083: 88        .byte $88   ; 
-- D 0 - - - 0x012094 04:8084: FE        .byte $FE   ; 
-- D 0 - - - 0x012095 04:8085: 88        .byte $88   ; 
-- D 0 - - - 0x012096 04:8086: 2C        .byte $2C   ; 
-- D 0 - - - 0x012097 04:8087: 89        .byte $89   ; 
-- D 0 - - - 0x012098 04:8088: 56        .byte $56   ; <V>
-- D 0 - - - 0x012099 04:8089: 89        .byte $89   ; 
-- D 0 - - - 0x01209A 04:808A: 7C        .byte $7C   ; 
-- D 0 - - - 0x01209B 04:808B: 89        .byte $89   ; 
-- D 0 - - - 0x01209C 04:808C: A0        .byte $A0   ; 
-- D 0 - - - 0x01209D 04:808D: 89        .byte $89   ; 
-- D 0 - - - 0x01209E 04:808E: CC        .byte $CC   ; 
-- D 0 - - - 0x01209F 04:808F: 89        .byte $89   ; 
-- D 0 - - - 0x0120A0 04:8090: F7        .byte $F7   ; 
-- D 0 - - - 0x0120A1 04:8091: 89        .byte $89   ; 
-- D 0 - - - 0x0120A2 04:8092: 22        .byte $22   ; 
-- D 0 - - - 0x0120A3 04:8093: 8A        .byte $8A   ; 
-- D 0 - - - 0x0120A4 04:8094: 4B        .byte $4B   ; <K>
-- D 0 - - - 0x0120A5 04:8095: 8A        .byte $8A   ; 
-- D 0 - - - 0x0120A6 04:8096: 79        .byte $79   ; <y>
-- D 0 - - - 0x0120A7 04:8097: 8A        .byte $8A   ; 
-- D 0 - - - 0x0120A8 04:8098: A0        .byte $A0   ; 
-- D 0 - - - 0x0120A9 04:8099: 8A        .byte $8A   ; 
-- D 0 - - - 0x0120AA 04:809A: BC        .byte $BC   ; 
-- D 0 - - - 0x0120AB 04:809B: 8A        .byte $8A   ; 
-- - - - - - 0x0120AC 04:809C: CE        .byte $CE   ; 
-- - - - - - 0x0120AD 04:809D: 8A        .byte $8A   ; 
-- D 0 - - - 0x0120AE 04:809E: F3        .byte $F3   ; 
-- D 0 - - - 0x0120AF 04:809F: 8A        .byte $8A   ; 
-- D 0 - - - 0x0120B0 04:80A0: 1C        .byte $1C   ; 
-- D 0 - - - 0x0120B1 04:80A1: 8B        .byte $8B   ; 
-- D 0 - - - 0x0120B2 04:80A2: 47        .byte $47   ; <G>
-- D 0 - - - 0x0120B3 04:80A3: 8B        .byte $8B   ; 
-- D 0 - - - 0x0120B4 04:80A4: 5B        .byte $5B   ; 
-- D 0 - - - 0x0120B5 04:80A5: 8B        .byte $8B   ; 
-- D 0 - - - 0x0120B6 04:80A6: 80        .byte $80   ; 
-- D 0 - - - 0x0120B7 04:80A7: 8B        .byte $8B   ; 
-- D 0 - - - 0x0120B8 04:80A8: 97        .byte $97   ; 
-- D 0 - - - 0x0120B9 04:80A9: 8B        .byte $8B   ; 
-- D 0 - - - 0x0120BA 04:80AA: AF        .byte $AF   ; 
-- D 0 - - - 0x0120BB 04:80AB: 8B        .byte $8B   ; 
-- D 0 - - - 0x0120BC 04:80AC: CD        .byte $CD   ; 
-- D 0 - - - 0x0120BD 04:80AD: 8B        .byte $8B   ; 
-- D 0 - - - 0x0120BE 04:80AE: ED        .byte $ED   ; 
-- D 0 - - - 0x0120BF 04:80AF: 8B        .byte $8B   ; 
-- D 0 - - - 0x0120C0 04:80B0: 0B        .byte $0B   ; 
-- D 0 - - - 0x0120C1 04:80B1: 8C        .byte $8C   ; 
-- D 0 - - - 0x0120C2 04:80B2: 2E        .byte $2E   ; 
-- D 0 - - - 0x0120C3 04:80B3: 8C        .byte $8C   ; 
-- D 0 - - - 0x0120C4 04:80B4: 46        .byte $46   ; <F>
-- D 0 - - - 0x0120C5 04:80B5: 8C        .byte $8C   ; 
-- D 0 - - - 0x0120C6 04:80B6: 68        .byte $68   ; <h>
-- D 0 - - - 0x0120C7 04:80B7: 8C        .byte $8C   ; 
-- D 0 - - - 0x0120C8 04:80B8: 8F        .byte $8F   ; 
-- D 0 - - - 0x0120C9 04:80B9: 8C        .byte $8C   ; 
-- D 0 - - - 0x0120CA 04:80BA: B4        .byte $B4   ; 
-- D 0 - - - 0x0120CB 04:80BB: 8C        .byte $8C   ; 
-- D 0 - - - 0x0120CC 04:80BC: DE        .byte $DE   ; 
-- D 0 - - - 0x0120CD 04:80BD: 8C        .byte $8C   ; 
-- D 0 - - - 0x0120CE 04:80BE: 02        .byte $02   ; 
-- D 0 - - - 0x0120CF 04:80BF: 8D        .byte $8D   ; 
-- D 0 - - - 0x0120D0 04:80C0: 22        .byte $22   ; 
-- D 0 - - - 0x0120D1 04:80C1: 8D        .byte $8D   ; 
-- D 0 - - - 0x0120D2 04:80C2: 49        .byte $49   ; <I>
-- D 0 - - - 0x0120D3 04:80C3: 8D        .byte $8D   ; 
-- D 0 - - - 0x0120D4 04:80C4: 5A        .byte $5A, $8D   ; 0x0D5A - バンドラのいさんを てにいれんと するも のにのろいあれ・・・・
-- D 0 - - - 0x0120D6 04:80C6: 80        .byte $80, $8D   ; 0x0D80 - あれ、ふじこちゃん どうしたの?
-- D 0 - - - 0x0120D8 04:80C8: 94        .byte $94, $8D   ; 0x0D94 - ごめんねルパン。 おんなボスは、わたしよ クラリスはぶじ。あっ? はこが あくわ
-- D 0 - - - 0x0120DA 04:80CA: C3        .byte $C3, $8D   ; 0x0DC3 - ルパン  あのとりを つかまえて。 わたしたち おおかねもちに なれるわよ。
-- D 0 - - - 0x0120DC 04:80CC: EE        .byte $EE, $8D   ; 0x0DEE - よしなよ ふじこ。 ながいあいだ とじこめられてたんだ。 そっとしとこうぜ
-- D 0 - - - 0x0120DE 04:80CE: 19        .byte $19, $8E   ; 0x0E19 - おじさま たすけに きてくれて ありがとう。ふじこさんを せめない わたし とっても たのしかったの それに おしさまに また あえて わたし しあわせてすさぁ みんなで いっしょに かえりましょう。
-- D 0 - - - 0x0120E0 04:80D0: 8E        .byte $8E   ; 
-- D 0 - - - 0x0120E1 04:80D1: 8E        .byte $8E   ; 
-- D 0 - - - 0x0120E2 04:80D2: AB        .byte $AB   ; 
-- D 0 - - - 0x0120E3 04:80D3: 8E        .byte $8E   ; 
-- D 0 - - - 0x0120E4 04:80D4: D7        .byte $D7   ; 
-- D 0 - - - 0x0120E5 04:80D5: 8E        .byte $8E   ; 
-- D 0 - - - 0x0120E6 04:80D6: FC        .byte $FC   ; 
-- D 0 - - - 0x0120E7 04:80D7: 8E        .byte $8E   ; 
-- D 0 - - - 0x0120E8 04:80D8: 26        .byte $26   ; 
-- D 0 - - - 0x0120E9 04:80D9: 8F        .byte $8F   ; 
-- D 0 - - - 0x0120EA 04:80DA: 8A        .byte $8A   ; 
-- D 0 - - - 0x0120EB 04:80DB: 8F        .byte $8F   ; 
-- D 0 - - - 0x0120EC 04:80DC: B7        .byte $B7   ; 
-- D 0 - - - 0x0120ED 04:80DD: 8F        .byte $8F   ; 
-- D 0 - - - 0x0120EE 04:80DE: E4        .byte $E4   ; 
-- D 0 - - - 0x0120EF 04:80DF: 8F        .byte $8F   ; 
-- D 0 - - - 0x0120F0 04:80E0: 02        .byte $02   ; 
-- D 0 - - - 0x0120F1 04:80E1: 90        .byte $90   ; 
-- D 0 - - - 0x0120F2 04:80E2: 15        .byte $15   ; 
-- D 0 - - - 0x0120F3 04:80E3: 90        .byte $90   ; 
-- D 0 - - - 0x0120F4 04:80E4: 7A        .byte $7A   ; <z>
-- D 0 - - - 0x0120F5 04:80E5: 90        .byte $90   ; 
-- D 0 - - - 0x0120F6 04:80E6: A9        .byte $A9   ; 
-- D 0 - - - 0x0120F7 04:80E7: 90        .byte $90   ; 
-- D 0 - - - 0x0120F8 04:80E8: D5        .byte $D5   ; 
-- D 0 - - - 0x0120F9 04:80E9: 90        .byte $90   ; 
-- D 0 - - - 0x0120FA 04:80EA: FA        .byte $FA   ; 
-- D 0 - - - 0x0120FB 04:80EB: 90        .byte $90   ; 
-- D 0 - - - 0x0120FC 04:80EC: 29        .byte $29   ; 
-- D 0 - - - 0x0120FD 04:80ED: 91        .byte $91   ; 
-- D 0 - - - 0x0120FE 04:80EE: 57        .byte $57   ; <W>
-- D 0 - - - 0x0120FF 04:80EF: 91        .byte $91   ; 
-- D 0 - - - 0x012100 04:80F0: 81        .byte $81   ; 
-- D 0 - - - 0x012101 04:80F1: 91        .byte $91   ; 
-- D 0 - - - 0x012102 04:80F2: A7        .byte $A7   ; 
-- D 0 - - - 0x012103 04:80F3: 91        .byte $91   ; 
-- D 0 - - - 0x012104 04:80F4: CF        .byte $CF, $91   ; 0x01CF - みじゅくな やつ。 しょせん,きかいに たよる ものは こうなる うんめいよ。
-- D 0 - - - 0x012106 04:80F6: FC        .byte $FC   ; 
-- D 0 - - - 0x012107 04:80F7: 91        .byte $91   ; 
-- D 0 - - - 0x012108 04:80F8: 09        .byte $09, $92   ; 0x0209 - The end
-- - - - - - 0x01210A 04:80FA: 14        .byte $14   ; 
-- - - - - - 0x01210B 04:80FB: 92        .byte $92   ; 
-- - - - - - 0x01210C 04:80FC: 00        .byte $00   ; 
-- - - - - - 0x01210D 04:80FD: 00        .byte $00   ; 
-- - - - - - 0x01210E 04:80FE: 00        .byte $00   ; 
-- - - - - - 0x01210F 04:80FF: 00        .byte $00   ; 
+- D - - - - 0x012010 04:8000: 65        .addr $8065   ; 0x00, $0065
+- D 0 - - - 0x012012 04:8002: 00        .addr $8000
+- D 0 - - - 0x012014 04:8004: 66        .addr $8066
+- D 0 - - - 0x012016 04:8006: D6        .addr $80D6
+- D 0 - - - 0x012018 04:8008: 21        .addr $8121
+- D 0 - - - 0x01201A 04:800A: 74        .addr $8174
+- D 0 - - - 0x01201C 04:800C: C4        .addr $81C4
+- D 0 - - - 0x01201E 04:800E: 07        .addr $8207
+- D - - - - 0x012020 04:8010: 65        .addr $8065
+- D - - - - 0x012022 04:8012: 65        .addr $8065
+- D - - - - 0x012024 04:8014: 65        .addr $8065
+- D 0 - - - 0x012026 04:8016: 4F        .addr $824F   ; $024F
+- D 0 - - - 0x012028 04:8018: 5F        .addr $825F   ; $025F
+- D 0 - - - 0x01202A 04:801A: 8A        .addr $828A   ; $028A
+- D 0 - - - 0x01202C 04:801C: B9        .addr $82B9   ; $02B9
+- D 0 - - - 0x01202E 04:801E: E1        .addr $82E1   ; $02E1
+- D 0 - - - 0x012030 04:8020: F5 82     .addr $82F5   ; 0x10, $02F5
+- D - - - - 0x012032 04:8022: 1D        .addr $831D   ; $031D
+- D 0 - - - 0x012034 04:8024: 45        .addr $8345   ; $0345
+- D 0 - - - 0x012036 04:8026: 65        .addr $8365   ; $0365
+- D 0 - - - 0x012038 04:8028: 84        .addr $8384   ; $0384
+- D 0 - - - 0x01203A 04:802A: 9A 83     .addr $839A
+- D - - - - 0x01203C 04:802C: 65        .addr $8065
+- D - - - - 0x01203E 04:802E: 65        .addr $8065
+- D - - - - 0x012040 04:8030: 65        .addr $8065
+- D 0 - - - 0x012042 04:8032: C9 83     .addr $83C9
+- D 0 - - - 0x012044 04:8034: F8 83     .addr $83F8
+- D 0 - - - 0x012046 04:8036: 27 84     .addr $8427
+- D - - - - 0x012048 04:8038: 54 84     .addr $8454
+- D 0 - - - 0x01204A 04:803A: 7F 84     .addr $847F
+- D 0 - - - 0x01204C 04:803C: AE 84     .addr $84AE
+- D 0 - - - 0x01204E 04:803E: DB 84     .addr $84DB
+- D 0 - - - 0x012050 04:8040: 0A 85     .addr $850A   ; 0x20
+- D 0 - - - 0x012052 04:8042: 36 85     .addr $8536
+- D - - - - 0x012054 04:8044: 61 85     .addr $8561
+- D 0 - - - 0x012056 04:8046: 8F 85     .addr $858F
+- D 0 - - - 0x012058 04:8048: BD 85     .addr $85BD
+- D 0 - - - 0x01205A 04:804A: EB 85     .addr $85EB
+- D 0 - - - 0x01205C 04:804C: 14 86     .addr $8614
+- D 0 - - - 0x01205E 04:804E: 2B 86     .addr $862B
+- D 0 - - - 0x012060 04:8050: 58 86     .addr $8658
+- D 0 - - - 0x012062 04:8052: 83 86     .addr $8683
+- D 0 - - - 0x012064 04:8054: AE 86     .addr $86AE
+- D 0 - - - 0x012066 04:8056: B7 86     .addr $86B7
+- D 0 - - - 0x012068 04:8058: C1 86     .addr $86C1
+- D - - - - 0x01206A 04:805A: 65        .addr $8065
+- D - - - - 0x01206C 04:805C: 65        .addr $8065
+- D - - - - 0x01206E 04:805E: 65        .addr $8065
+- D 0 - - - 0x012070 04:8060: CB 86     .addr $86CB   ; 0x30
+- D 0 - - - 0x012072 04:8062: F7 86     .addr $86F7
+- D 0 - - - 0x012074 04:8064: 22 87     .addr $8722
+- D - - - - 0x012076 04:8066: 4D 87     .addr $874D
+- D 0 - - - 0x012078 04:8068: 77 87     .addr $8777
+- D 0 - - - 0x01207A 04:806A: 9B 87     .addr $879B
+- D 0 - - - 0x01207C 04:806C: BD 87     .addr $87BD
+- D 0 - - - 0x01207E 04:806E: DD 87     .addr $87DD
+- D - - - - 0x012080 04:8070: 65        .addr $8065
+- D - - - - 0x012082 04:8072: 65        .addr $8065
+- D - - - - 0x012084 04:8074: 65        .addr $8065
+- D 0 - - - 0x012086 04:8076: 0B 88     .addr $880B
+- D 0 - - - 0x012088 04:8078: 20 88     .addr $8820
+- D 0 - - - 0x01208A 04:807A: 48 88     .addr $8848
+- D 0 - - - 0x01208C 04:807C: 72 88     .addr $8872
+- D 0 - - - 0x01208E 04:807E: 96 88     .addr $8896
+- D 0 - - - 0x012090 04:8080: BE 88     .addr $88BE   ; 0x40
+- D 0 - - - 0x012092 04:8082: DC 88     .addr $88DC
+- D 0 - - - 0x012094 04:8084: FE 88     .addr $88FE
+- D 0 - - - 0x012096 04:8086: 2C 89     .addr $892C
+- D 0 - - - 0x012098 04:8088: 56 89     .addr $8956
+- D 0 - - - 0x01209A 04:808A: 7C 89     .addr $897C
+- D 0 - - - 0x01209C 04:808C: A0 89     .addr $89A0
+- D 0 - - - 0x01209E 04:808E: CC 89     .addr $89CC
+- D 0 - - - 0x0120A0 04:8090: F7 89     .addr $89F7
+- D 0 - - - 0x0120A2 04:8092: 22 8A     .addr $8A22
+- D 0 - - - 0x0120A4 04:8094: 4B 8A     .addr $8A4B
+- D 0 - - - 0x0120A6 04:8096: 79 8A     .addr $8A79
+- D 0 - - - 0x0120A8 04:8098: A0 8A     .addr $8AA0
+- D 0 - - - 0x0120AA 04:809A: BC 8A     .addr $8ABC
+- D - - - - 0x0120AC 04:809C: CE 8A     .addr $8ACE
+- D 0 - - - 0x0120AE 04:809E: F3 8A     .addr $8AF3
+- D 0 - - - 0x0120B0 04:80A0: 1C 8B     .addr $8B1C   ; 0x50
+- D 0 - - - 0x0120B2 04:80A2: 47 8B     .addr $8B47
+- D 0 - - - 0x0120B4 04:80A4: 5B 8B     .addr $8B5B
+- D 0 - - - 0x0120B6 04:80A6: 80 8B     .addr $8B80
+- D 0 - - - 0x0120B8 04:80A8: 97 8B     .addr $8B97
+- D 0 - - - 0x0120BA 04:80AA: AF 8B     .addr $8BAF
+- D 0 - - - 0x0120BC 04:80AC: CD 8B     .addr $8BCD
+- D 0 - - - 0x0120BE 04:80AE: ED 8B     .addr $8BED
+- D 0 - - - 0x0120C0 04:80B0: 0B 8C     .addr $8C0B
+- D 0 - - - 0x0120C2 04:80B2: 2E 8C     .addr $8C2E
+- D 0 - - - 0x0120C4 04:80B4: 46 8C     .addr $8C46
+- D 0 - - - 0x0120C6 04:80B6: 68 8C     .addr $8C68
+- D 0 - - - 0x0120C8 04:80B8: 8F 8C     .addr $8C8F
+- D 0 - - - 0x0120CA 04:80BA: B4 8C     .addr $8CB4
+- D 0 - - - 0x0120CC 04:80BC: DE 8C     .addr $8CDE
+- D 0 - - - 0x0120CE 04:80BE: 02 8D     .addr $8D02
+- D 0 - - - 0x0120D0 04:80C0: 22 8D     .addr $8D22   ; 0x60
+- D 0 - - - 0x0120D2 04:80C2: 49 8D     .addr $8D49
+- D 0 - - - 0x0120D4 04:80C4: 5A        .addr $8D5A   ; $0D5A
+- D 0 - - - 0x0120D6 04:80C6: 80        .addr $8D80   ; $0D80
+- D 0 - - - 0x0120D8 04:80C8: 94        .addr $8D94   ; $0D94
+- D 0 - - - 0x0120DA 04:80CA: C3        .addr $8DC3   ; $0DC3
+- D 0 - - - 0x0120DC 04:80CC: EE        .addr $8DEE   ; $0DEE
+- D 0 - - - 0x0120DE 04:80CE: 19        .addr $8E19   ; $0E19
+- D 0 - - - 0x0120E0 04:80D0: 8E 8E     .addr $8E8E
+- D 0 - - - 0x0120E2 04:80D2: AB 8E     .addr $8EAB
+- D 0 - - - 0x0120E4 04:80D4: D7 8E     .addr $8ED7
+- D 0 - - - 0x0120E6 04:80D6: FC 8E     .addr $8EFC
+- D 0 - - - 0x0120E8 04:80D8: 26 8F     .addr $8F26
+- D 0 - - - 0x0120EA 04:80DA: 8A 8F     .addr $8F8A
+- D 0 - - - 0x0120EC 04:80DC: B7 8F     .addr $8FB7
+- D 0 - - - 0x0120EE 04:80DE: E4 8F     .addr $8FE4
+- D 0 - - - 0x0120F0 04:80E0: 02 90     .addr $9002   ; 0x70
+- D 0 - - - 0x0120F2 04:80E2: 15 90     .addr $9015
+- D 0 - - - 0x0120F4 04:80E4: 7A 90     .addr $907A
+- D 0 - - - 0x0120F6 04:80E6: A9 90     .addr $90A9
+- D 0 - - - 0x0120F8 04:80E8: D5 90     .addr $90D5
+- D 0 - - - 0x0120FA 04:80EA: FA 90     .addr $90FA
+- D 0 - - - 0x0120FC 04:80EC: 29 91     .addr $9129
+- D 0 - - - 0x0120FE 04:80EE: 57 91     .addr $9157
+- D 0 - - - 0x012100 04:80F0: 81 91     .addr $9181
+- D 0 - - - 0x012102 04:80F2: A7 91     .addr $91A7
+- D 0 - - - 0x012104 04:80F4: CF        .addr $91CF   ; $11CF
+- D 0 - - - 0x012106 04:80F6: FC 91     .addr $91FC
+- D 0 - - - 0x012108 04:80F8: 09        .addr $9209   ; $1209
+- D - - - - 0x01210A 04:80FA: 14 92     .addr $9214   ; 0x7D, $1214
+
+- D - - - - 0x01210C 04:80FC: 00        .byte $00, $00, $00, $00
 
 tbl_ptr_rooms_with_NPCs:
 - D 0 - - - 0x012110 04:8100: D4 9D     .addr tbl_ptr_rooms1_with_NPCs ; Level 1 CPU address $9DD4 
@@ -249,9 +159,9 @@ tbl_ptr_rooms_with_NPCs:
 
 tbl_ptr_prison_rooms:
 - D 0 - - - 0x012118 04:8108: C4 9C     .addr tbl_ptr_prison_rooms1 ; Level 1 CPU address $9CC4
-- D 0 - - - 0x01211A 04:810A: CD 9C     .word tbl_ptr_prison_rooms2 ; Level 2 CPU address $9CCD
-- D 0 - - - 0x01211C 04:810C: E5 9C     .word tbl_ptr_prison_rooms3 ; Level 3 CPU address $9CE5
-- D 0 - - - 0x01211E 04:810E: F1 9C     .word tbl_ptr_prison_rooms4 ; Level 4 CPU address $9CF1
+- D 0 - - - 0x01211A 04:810A: CD 9C     .addr tbl_ptr_prison_rooms2 ; Level 2 CPU address $9CCD
+- D 0 - - - 0x01211C 04:810C: E5 9C     .addr tbl_ptr_prison_rooms3 ; Level 3 CPU address $9CE5
+- D 0 - - - 0x01211E 04:810E: F1 9C     .addr tbl_ptr_prison_rooms4 ; Level 4 CPU address $9CF1
 
 tbl_portrait_prisoners:
 - D 0 - - - 0x012120 04:8110: 32        .addr tbl_portrait_demo_indexes      ; CPU address $9E32
@@ -458,7 +368,7 @@ tbl_ptr_enemies:
 - D - - - - 0x0123DE 04:83CE: 90 85     .addr deadlock
 - D - - - - 0x0123E0 04:83D0: 90 85     .addr deadlock
 - D - - - - 0x0123E2 04:83D2: 90 85     .addr deadlock
-- D 0 - - - 0x0123E4 04:83D4: 41 8E     .word $8E41 ; level racing
+- D 0 - - - 0x0123E4 04:83D4: 41 8E     .addr tbl_enemies_level_racing   ; CPU address $8E41
 - D 0 - - - 0x0123E6 04:83D6: 90 85     .addr deadlock
 - D 0 - - - 0x0123E8 04:83D8: 90 85     .addr deadlock
 - D 0 - - - 0x0123EA 04:83DA: 90 85     .addr deadlock
@@ -513,29 +423,29 @@ tbl_ptr_enemies:
 - D 0 - - - 0x01244C 04:843C: C8 8F     .addr tbl_enemies_level4_map2_a0_f0 ; CPU address $8FC8
 - D 0 - - - 0x01244E 04:843E: 05 90     .addr tbl_enemies_level4_map2_b1_b5 ; CPU address $9005
 - D 0 - - - 0x012450 04:8440: 90 85     .addr deadlock
-- D 0 - - - 0x012452 04:8442: 26 90     .word $9026 ; level 4, map 2 (B5-E5)
-- D 0 - - - 0x012454 04:8444: 53 90     .word $9053 ; level 4, map 2 (E0-E6)
-- D 0 - - - 0x012456 04:8446: 78 90     .word $9078 ; level 4, map 2 (B1-F1)
+- D 0 - - - 0x012452 04:8442: 26 90     .addr tbl_enemies_level4_map2_b5_e5 ; CPU address $9026
+- D 0 - - - 0x012454 04:8444: 53 90     .addr tbl_enemies_level4_map2_e0_e6 ; CPU address $9053
+- D 0 - - - 0x012456 04:8446: 78 90     .addr tbl_enemies_level4_map2_b1_f1 ; CPU address $9078
 - D 0 - - - 0x012458 04:8448: 90 85     .addr deadlock
-- D 0 - - - 0x01245A 04:844A: 9D 90     .word $909D ; level 4, map 2 (B4-D4)
+- D 0 - - - 0x01245A 04:844A: 9D 90     .addr tbl_enemies_level4_map2_b4_d4 ; CPU address $909D
 - D 0 - - - 0x01245C 04:844C: 90 85     .addr deadlock
 - D 0 - - - 0x01245E 04:844E: 90 85     .addr deadlock
-- D 0 - - - 0x012460 04:8450: B6 90     .word $90B6 ; level 4, map 3 (D3-E3)
-- D 0 - - - 0x012462 04:8452: BF 90     .word $90BF ; level 4, map 3 (D3-D5)
-- D 0 - - - 0x012464 04:8454: C8 90     .word $90C8 ; level 4, map 3 (D4-F4)
+- D 0 - - - 0x012460 04:8450: B6 90     .addr tbl_enemies_level4_map3_d3_e3 ; CPU address $90B6
+- D 0 - - - 0x012462 04:8452: BF 90     .addr tbl_enemies_level4_map3_d3_d5 ; CPU address $90BF
+- D 0 - - - 0x012464 04:8454: C8 90     .addr tbl_enemies_level4_map3_d4_f4 ; CPU address $90C8
 - D 0 - - - 0x012466 04:8456: 90 85     .addr deadlock
-- D 0 - - - 0x012468 04:8458: D9 90     .word $90D9 ; level 4, map 3 (C2-G2)
-- D 0 - - - 0x01246A 04:845A: FE 90     .word $90FE ; level 4, map 3 (C1-C6)
-- D 0 - - - 0x01246C 04:845C: 3B 91     .word $913B ; level 4, map 3 (C5-F5)
-- D 0 - - - 0x01246E 04:845E: 5C 91     .word $915C ; level 4, map 3 (F2-F5)
-- D 0 - - - 0x012470 04:8460: 85 91     .word $9185 ; level 4, map 3 (B1-G1)
-- D 0 - - - 0x012472 04:8462: B2 91     .word $91B2 ; level 4, map 3 (B1-B7)
-- D 0 - - - 0x012474 04:8464: E7 91     .word $91E7 ; level 4, map 3 (B6-G6)
-- D 0 - - - 0x012476 04:8466: 18 92     .word $9218 ; level 4, map 3 (G1-G6)
-- D 0 - - - 0x012478 04:8468: 41 92     .word $9241 ; level 4, map 3 (A0-H0)
-- D 0 - - - 0x01247A 04:846A: 8E 92     .word $928E ; level 4, map 3 (A0-A7)
-- D 0 - - - 0x01247C 04:846C: DF 92     .word $92DF ; level 4, map 3 (A7-H7)
-- D 0 - - - 0x01247E 04:846E: 34 93     .word $9334 ; level 4, map 3 (H0-H7)
+- D 0 - - - 0x012468 04:8458: D9 90     .addr tbl_enemies_level4_map3_c2_g2 ; CPU address $90D9
+- D 0 - - - 0x01246A 04:845A: FE 90     .addr tbl_enemies_level4_map3_c1_c6 ; CPU address $90FE
+- D 0 - - - 0x01246C 04:845C: 3B 91     .addr tbl_enemies_level4_map3_c5_f5 ; CPU address $913B
+- D 0 - - - 0x01246E 04:845E: 5C 91     .addr tbl_enemies_level4_map3_f2_f5 ; CPU address $915C
+- D 0 - - - 0x012470 04:8460: 85 91     .addr tbl_enemies_level4_map3_b1_g1 ; CPU address $9185
+- D 0 - - - 0x012472 04:8462: B2 91     .addr tbl_enemies_level4_map3_b1_b7 ; CPU address $91B2
+- D 0 - - - 0x012474 04:8464: E7 91     .addr tbl_enemies_level4_map3_b6_g6 ; CPU address $91E7
+- D 0 - - - 0x012476 04:8466: 18 92     .addr tbl_enemies_level4_map3_g1_g6 ; CPU address $9218
+- D 0 - - - 0x012478 04:8468: 41 92     .addr tbl_enemies_level4_map3_a0_h0 ; CPU address $9241
+- D 0 - - - 0x01247A 04:846A: 8E 92     .addr tbl_enemies_level4_map3_a0_a7 ; CPU address $928E
+- D 0 - - - 0x01247C 04:846C: DF 92     .addr tbl_enemies_level4_map3_a7_h7 ; CPU address $92DF
+- D 0 - - - 0x01247E 04:846E: 34 93     .addr tbl_enemies_level4_map3_h0_h7 ; CPU address $9334
 - D 0 - - - 0x012480 04:8470: 89 93     .addr tbl_enemies_level4_map4_a0_j0 ; CPU address $9389
 - D 0 - - - 0x012482 04:8472: FE 93     .addr tbl_enemies_level4_map4_a0_a9 ; CPU address $93FE
 - D 0 - - - 0x012484 04:8474: 5F 94     .addr tbl_enemies_level4_map4_a9_j9 ; CPU address $945F
@@ -1237,7 +1147,7 @@ tbl_enemies_level3_4:
 - D 0 - I - 0x012E4C 04:8E3C: 06        .byte $06, $D8, $DF, $04   ; 
 - D 0 - I - 0x012E50 04:8E40: FF        .byte $FF   ; 
 
-; level racing
+tbl_enemies_level_racing:
 - D 0 - I - 0x012E51 04:8E41: 01        .byte $01, $A8, $3F, $21   ; Cobblestone
 - D 0 - I - 0x012E55 04:8E45: 03        .byte $03, $18, $3F, $21   ; 
 - D 0 - I - 0x012E59 04:8E49: 03        .byte $03, $D8, $3F, $21   ; 
@@ -1394,7 +1304,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x013031 04:9021: 03        .byte $03, $48, $BF, $35   ; Egyptian with bow
 - D 0 - I - 0x013035 04:9025: FF        .byte $FF   ; 
 
-; level 4, map 2 (B5-E5)
+tbl_enemies_level4_map2_b5_e5:
 - D 0 - I - 0x013036 04:9026: 00        .byte $00, $38, $BF, $35   ; Egyptian with bow
 - D 0 - I - 0x01303A 04:902A: 00        .byte $00, $98, $3F, $21   ; Cobblestone
 - D 0 - I - 0x01303E 04:902E: 00        .byte $00, $A8, $BF, $35   ; Egyptian with bow
@@ -1408,7 +1318,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x01305E 04:904E: 02        .byte $02, $A8, $BF, $35   ; Egyptian with bow
 - D 0 - I - 0x013062 04:9052: FF        .byte $FF   ; 
 
-; level 4, map 2 (E0-E6)
+tbl_enemies_level4_map2_e0_e6:
 - D 0 - I - 0x013063 04:9053: 00        .byte $00, $40, $BF, $33   ; Blade trap
 - D 0 - I - 0x013067 04:9057: 00        .byte $00, $68, $7F, $38   ; Ninja upside down
 - D 0 - I - 0x01306B 04:905B: 01        .byte $01, $38, $BF, $35   ; Egyptian with bow
@@ -1420,7 +1330,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x013083 04:9073: 03        .byte $03, $D8, $BF, $35   ; Egyptian with bow
 - D 0 - I - 0x013087 04:9077: FF        .byte $FF   ; 
 
-; level 4, map 2 (B1-F1)
+tbl_enemies_level4_map2_b1_f1:
 - D 0 - I - 0x013088 04:9078: 01        .byte $01, $38, $BF, $24   ; Skeleton
 - D 0 - I - 0x01308C 04:907C: 01        .byte $01, $78, $BF, $24   ; 
 - D 0 - I - 0x013090 04:9080: 01        .byte $01, $D8, $7F, $24   ; 
@@ -1432,7 +1342,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x0130A8 04:9098: 03        .byte $03, $98, $78, $35   ; Egyptian with bow
 - D 0 - I - 0x0130AC 04:909C: FF        .byte $FF   ; 
 
-; level 4, map 2 (B4-D4)
+tbl_enemies_level4_map2_b4_d4:
 - D 0 - I - 0x0130AD 04:909D: 00        .byte $00, $80, $BF, $33   ; Blade trap
 - D 0 - I - 0x0130B1 04:90A1: 00        .byte $00, $98, $7F, $38   ; Ninja upside down
 - D 0 - I - 0x0130B5 04:90A5: 01        .byte $01, $38, $BF, $26   ; Mummy
@@ -1441,24 +1351,24 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x0130C1 04:90B1: 01        .byte $01, $B8, $3F, $21   ; Cobblestone
 - D 0 - I - 0x0130C5 04:90B5: FF        .byte $FF   ; 
 
-; level 4, map 3 (D3-E3)
+tbl_enemies_level4_map3_d3_e3:
 - D 0 - I - 0x0130C6 04:90B6: 00        .byte $00, $18, $BF, $35   ; Egyptian with bow
 - D 0 - I - 0x0130CA 04:90BA: 01        .byte $01, $48, $7F, $38   ; Ninja upside down
 - D 0 - I - 0x0130CE 04:90BE: FF        .byte $FF   ; 
 
-; level 4, map 3 (D3-D5)
+tbl_enemies_level4_map3_d3_d5:
 - D 0 - I - 0x0130CF 04:90BF: 00        .byte $00, $48, $BF, $35   ; Egyptian with bow
 - D 0 - I - 0x0130D3 04:90C3: 01        .byte $01, $88, $AF, $34   ; Potted snakes
 - D 0 - I - 0x0130D7 04:90C7: FF        .byte $FF   ; 
 
-; level 4, map 3 (D4-F4)
+tbl_enemies_level4_map3_d4_f4:
 - D 0 - I - 0x0130D8 04:90C8: 00        .byte $00, $28, $BF, $35   ; Egyptian with bow
 - D 0 - I - 0x0130DC 04:90CC: 01        .byte $01, $48, $7F, $38   ; Ninja upside down
 - D 0 - I - 0x0130E0 04:90D0: 01        .byte $01, $60, $BF, $33   ; Blade trap
 - D 0 - I - 0x0130E4 04:90D4: 01        .byte $01, $C8, $7F, $38   ; Ninja upside down
 - D 0 - I - 0x0130E8 04:90D8: FF        .byte $FF   ; 
 
-; level 4, map 3 (C2-G2)
+tbl_enemies_level4_map3_c2_g2:
 - D 0 - I - 0x0130E9 04:90D9: 00        .byte $00, $58, $7F, $38   ; Ninja upside down
 - D 0 - I - 0x0130ED 04:90DD: 00        .byte $00, $88, $7F, $38   ;
 - D 0 - I - 0x0130F1 04:90E1: 01        .byte $01, $68, $BF, $24   ; Skeleton
@@ -1470,7 +1380,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x013109 04:90F9: 03        .byte $03, $B8, $BF, $35   ;
 - D 0 - I - 0x01310D 04:90FD: FF        .byte $FF   ; 
 
-; level 4, map 3 (C1-C6)
+tbl_enemies_level4_map3_c1_c6:
 - D 0 - I - 0x01310E 04:90FE: 00        .byte $00, $90, $B7, $32   ; Breaking platform
 - D 0 - I - 0x013112 04:9102: 00        .byte $00, $A0, $B7, $32   ;
 - D 0 - I - 0x013116 04:9106: 01        .byte $01, $78, $BF, $35   ; Egyptian with bow
@@ -1488,7 +1398,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x013146 04:9136: 04        .byte $04, $B4, $BF, $31   ; Wall
 - D 0 - I - 0x01314A 04:913A: FF        .byte $FF   ; 
 
-; level 4, map 3 (C5-F5)
+tbl_enemies_level4_map3_c5_f5:
 - D 0 - I - 0x01314B 04:913B: 00        .byte $00, $98, $BF, $26   ; Mummy
 - D 0 - I - 0x01314F 04:913F: 00        .byte $00, $A8, $3F, $27   ; Gargoyle
 - D 0 - I - 0x013153 04:9143: 00        .byte $00, $E8, $7F, $26   ; Mummy
@@ -1499,7 +1409,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x013167 04:9157: 03        .byte $03, $48, $BF, $26   ; Mummy
 - D 0 - I - 0x01316B 04:915B: FF        .byte $FF   ; 
 
-; level 4, map 3 (F2-F5)
+tbl_enemies_level4_map3_f2_f5:
 - D 0 - I - 0x01316C 04:915C: 00        .byte $00, $98, $3F, $27   ; Gargoyle
 - D 0 - I - 0x013170 04:9160: 00        .byte $00, $A8, $BF, $26   ; Mummy
 - D 0 - I - 0x013174 04:9164: 00        .byte $00, $F8, $BF, $26   ; 
@@ -1512,7 +1422,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x013190 04:9180: 03        .byte $03, $38, $BF, $26   ; Mummy
 - D 0 - I - 0x013194 04:9184: FF        .byte $FF   ; 
 
-; level 4, map 3 (B1-G1)
+tbl_enemies_level4_map3_b1_g1:
 - D 0 - I - 0x013195 04:9185: 01        .byte $01, $08, $BF, $26   ; Mummy
 - D 0 - I - 0x013199 04:9189: 01        .byte $01, $28, $3F, $21   ; Cobblestone
 - D 0 - I - 0x01319D 04:918D: 01        .byte $01, $D8, $BF, $26   ; Mummy
@@ -1526,7 +1436,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x0131BD 04:91AD: 05        .byte $05, $28, $7F, $35   ;
 - D 0 - I - 0x0131C1 04:91B1: FF        .byte $FF   ; 
 
-; level 4, map 3 (B1-B7)
+tbl_enemies_level4_map3_b1_b7:
 - D 0 - I - 0x0131C2 04:91B2: 00        .byte $00, $F8, $BF, $26   ; Mummy
 - D 0 - I - 0x0131C6 04:91B6: 01        .byte $01, $48, $BF, $26   ; 
 - D 0 - I - 0x0131CA 04:91BA: 01        .byte $01, $58, $3F, $21   ; Cobblestone
@@ -1542,7 +1452,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x0131F2 04:91E2: 05        .byte $05, $C0, $BF, $33   ;
 - D 0 - I - 0x0131F6 04:91E6: FF        .byte $FF   ; 
 
-; level 4, map 3 (B6-G6)
+tbl_enemies_level4_map3_b6_g6:
 - D 0 - I - 0x0131F7 04:91E7: 00        .byte $00, $A8, $BF, $24   ; Skeleton
 - D 0 - I - 0x0131FB 04:91EB: 01        .byte $01, $58, $8F, $24   ; 
 - D 0 - I - 0x0131FF 04:91EF: 01        .byte $01, $78, $3F, $27   ; Gargoyle
@@ -1557,7 +1467,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x013223 04:9213: 04        .byte $04, $F8, $4F, $27   ; 
 - D 0 - I - 0x013227 04:9217: FF        .byte $FF   ; 
 
-; level 4, map 3 (G1-G6)
+tbl_enemies_level4_map3_g1_g6:
 - D 0 - I - 0x013228 04:9218: 00        .byte $00, $C8, $BF, $24   ; Skeleton
 - D 0 - I - 0x01322C 04:921C: 01        .byte $01, $28, $B8, $35   ; Egyptian with bow
 - D 0 - I - 0x013230 04:9220: 01        .byte $01, $98, $3F, $21   ; Cobblestone
@@ -1570,7 +1480,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x01324C 04:923C: 05        .byte $05, $08, $3F, $21   ; Cobblestone
 - D 0 - I - 0x013250 04:9240: FF        .byte $FF   ; 
 
-; level 4, map 3 (A0-H0)
+tbl_enemies_level4_map3_a0_h0:
 - D 0 - I - 0x013251 04:9241: 00        .byte $00, $58, $8F, $35   ; Egyptian with bow
 - D 0 - I - 0x013255 04:9245: 00        .byte $00, $D8, $BF, $35   ;
 - D 0 - I - 0x013259 04:9249: 01        .byte $01, $08, $BF, $35   ;
@@ -1592,7 +1502,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x013299 04:9289: 07        .byte $07, $80, $BF, $33   ; Blade trap
 - D 0 - I - 0x01329D 04:928D: FF        .byte $FF   ; 
 
-; level 4, map 3 (A0-A7)
+tbl_enemies_level4_map3_a0_a7:
 - D 0 - I - 0x01329E 04:928E: 00        .byte $00, $58, $8F, $35   ; Egyptian with bow
 - D 0 - I - 0x0132A2 04:9292: 00        .byte $00, $A8, $BF, $35   ; 
 - D 0 - I - 0x0132A6 04:9296: 00        .byte $00, $E8, $7F, $35   ; 
@@ -1615,7 +1525,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x0132EA 04:92DA: 06        .byte $06, $E8, $BF, $26   ; 
 - D 0 - I - 0x0132EE 04:92DE: FF        .byte $FF   ; 
 
-; level 4, map 3 (A7-H7)
+tbl_enemies_level4_map3_a7_h7:
 - D 0 - I - 0x0132EF 04:92DF: 00        .byte $00, $A8, $BF, $26   ; Mummy
 - D 0 - I - 0x0132F3 04:92E3: 00        .byte $00, $F8, $BF, $26   ; 
 - D 0 - I - 0x0132F7 04:92E7: 01        .byte $01, $18, $3F, $27   ; Gargoyle
@@ -1639,7 +1549,7 @@ tbl_enemies_level4_map2_b1_b5:
 - D 0 - I - 0x01333F 04:932F: 07        .byte $07, $48, $BF, $26   ; Mummy
 - D 0 - I - 0x013343 04:9333: FF        .byte $FF   ; 
 
-; level 4, map 3 (H0-H7)
+tbl_enemies_level4_map3_h0_h7:
 - D 0 - I - 0x013344 04:9334: 00        .byte $00, $38, $BF, $35   ; Egyptian with bow
 - D 0 - I - 0x013348 04:9338: 00        .byte $00, $68, $3F, $27   ; Gargoyle
 - D 0 - I - 0x01334C 04:933C: 00        .byte $00, $98, $BF, $35   ; Egyptian with bow
@@ -2754,12 +2664,12 @@ tbl_portrait_demo_indexes:
 ; Type 0x04 - (4 byte - for Lupin, 5 byte - for Jigen, 6 byte - for Goemon)
 ; Type 0x05 - type 0x04 + stealing the ring
 tbl_ptr_rooms1_1_with_NPCs:
-- D 0 - I - 0x013E4B 04:9E3B: 00        .byte $00   ; 
-- D 0 - I - 0x013E4C 04:9E3C: 04        .byte $04   ; 
+- D 0 - I - 0x013E4B 04:9E3B: 00        .byte $00   ; Count Lazare de Cagliostro 
+- D 0 - I - 0x013E4C 04:9E3C: 04        .byte $04   ;
 - D - - - - 0x013E4D 04:9E3D: 0B        .byte $0B   ; 
-- D 0 - I - 0x013E4E 04:9E3E: 0B        .byte $0B   ; 0x8016 
-- D 0 - I - 0x013E4F 04:9E3F: 0C        .byte $0C   ; 0x8018 
-- D 0 - I - 0x013E50 04:9E40: 0D        .byte $0D   ; 0x801A 
+- D 0 - I - 0x013E4E 04:9E3E: 0B        .byte $0B   ; see $8016 
+- D 0 - I - 0x013E4F 04:9E3F: 0C        .byte $0C   ; see $8018 
+- D 0 - I - 0x013E50 04:9E40: 0D        .byte $0D   ; see $801A 
 
 tbl_ptr_rooms1_2_with_NPCs:
 - D 0 - I - 0x013E51 04:9E41: 08        .byte $08   ; 

@@ -12,9 +12,9 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 -  Windows - run a command ***assemble.bat***
 -  Linux, MacOS - run a command ***assemble.sh*** (more information - [NES Games Disassembly](https://github.com/cyneprepou4uk/NES-Games-Disassembly))
 ## Statistic
--  Code Logger bytes - ***38.01%***
--  Data Logger bytes - ***55.80%***
--  Unknown bytes     - ***6.19%***
+-  Code Logger bytes - ***38.09%***
+-  Data Logger bytes - ***55.75%***
+-  Unknown bytes     - ***6.16%***
 -  Code commented    - ***100.00%***
 ## Documentation (in Russian)
 -  [terminology](docs/ru/terminology.md) - Basic terminology
@@ -25,6 +25,7 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 -  [Game Genie Codes](docs/ru/game_genie_codes.md) - It's the list of some Game Genie Codes.
 -  [ROM_Map](docs/ru/ROM_Map.md) - This is a detailed overview of the layout of the ROM file's contents.
 -  [audio tracks](docs/ru/audio_tracks.md) - All audio tracks from the game.
+-  [messages](docs/ru/messages.md) - All dialog messages from the game.
 ## Resources
 -  Lupin Sansei - Pandora no Isan (J) [!]
 
