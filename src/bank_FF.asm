@@ -7944,61 +7944,61 @@ C - - - - - 0x01EFA2 07:EF92: 8D 17 03  STA vZenigataTimerHigh1  ;
 C - - - - - 0x01EFA5 07:EF95: 60        RTS                      ;
 
 sub_EF96_initialize:
-C - - - - - 0x01EFA6 07:EF96: A9 00     LDA #$00                                   ; a clear value
-C - - - - - 0x01EFA8 07:EF98: A2 09     LDX #$09                                   ; set loop counter
-@bra_clear_loop:                                                                   ; loop by x (10 times)
-C - - - - - 0x01EFAA 07:EF9A: 9D 00 02  STA v_items,X                              ; 0x0200-0x0209 in 0
-C - - - - - 0x01EFAD 07:EF9D: CA        DEX                                        ; decrements loop counter
-C - - - - - 0x01EFAE 07:EF9E: 10 FA     BPL @bra_clear_loop                        ; If Register X < 0x80
-C - - - - - 0x01EFB0 07:EFA0: A9 00     LDA #$00                                   ;
-C - - - - - 0x01EFB2 07:EFA2: 8D 14 02  STA vCurrentWeaponStatus                   ; clear
+C - - - - - 0x01EFA6 07:EF96: A9 00     LDA #$00                                    ; a clear value
+C - - - - - 0x01EFA8 07:EF98: A2 09     LDX #$09                                    ; set loop counter
+@bra_clear_loop:                                                                    ; loop by x (10 times)
+C - - - - - 0x01EFAA 07:EF9A: 9D 00 02  STA v_items,X                               ; 0x0200-0x0209 in 0
+C - - - - - 0x01EFAD 07:EF9D: CA        DEX                                         ; decrements loop counter
+C - - - - - 0x01EFAE 07:EF9E: 10 FA     BPL @bra_clear_loop                         ; If Register X < 0x80
+C - - - - - 0x01EFB0 07:EFA0: A9 00     LDA #$00                                    ;
+C - - - - - 0x01EFB2 07:EFA2: 8D 14 02  STA vCurrentWeaponStatus                    ; clear
 sub_EFA5_initialize_without_items:
-C - - - - - 0x01EFB5 07:EFA5: 20 8D EF  JSR sub_EF8D_clear_Zenigata_timer          ;
-C - - - - - 0x01EFB8 07:EFA8: 85 60     STA vRoomWithPrisoner1                     ; clear
-C - - - - - 0x01EFBA 07:EFAA: 85 61     STA vRoomWithPrisoner2                     ; clear
-C - - - - - 0x01EFBC 07:EFAC: A2 0F     LDX #$0F                                   ; set loop counter
-@bra_EFAE_loop:                                                                    ; loop by x (16 times)
-C - - - - - 0x01EFBE 07:EFAE: 9D C0 05  STA vWalls,X                               ; clear, the walls are destructible again
-C - - - - - 0x01EFC1 07:EFB1: CA        DEX                                        ; decrement loop counter
-C - - - - - 0x01EFC2 07:EFB2: 10 FA     BPL @bra_EFAE_loop                         ; If Register X >= 0x00
-C - - - - - 0x01EFC4 07:EFB4: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2              ;
-C - - - - - 0x01EFC7 07:EFB7: A5 5E     LDA v_no_level                             ;
-C - - - - - 0x01EFC9 07:EFB9: 85 00     STA ram_0000                               ;
-C - - - - - 0x01EFCB 07:EFBB: 0A        ASL                                        ;
-C - - - - - 0x01EFCC 07:EFBC: 18        CLC                                        ;
-C - - - - - 0x01EFCD 07:EFBD: 65 00     ADC ram_0000                               ; A <~ v_no_level * 3, because the offset is 3 bytes
-C - - - - - 0x01EFCF 07:EFBF: AA        TAX                                        ;
+C - - - - - 0x01EFB5 07:EFA5: 20 8D EF  JSR sub_EF8D_clear_Zenigata_timer           ;
+C - - - - - 0x01EFB8 07:EFA8: 85 60     STA vRoomWithPrisoner1                      ; clear
+C - - - - - 0x01EFBA 07:EFAA: 85 61     STA vRoomWithPrisoner2                      ; clear
+C - - - - - 0x01EFBC 07:EFAC: A2 0F     LDX #$0F                                    ; set loop counter
+@bra_EFAE_loop:                                                                     ; loop by x (16 times)
+C - - - - - 0x01EFBE 07:EFAE: 9D C0 05  STA vWalls,X                                ; clear, the walls are destructible again
+C - - - - - 0x01EFC1 07:EFB1: CA        DEX                                         ; decrement loop counter
+C - - - - - 0x01EFC2 07:EFB2: 10 FA     BPL @bra_EFAE_loop                          ; If Register X >= 0x00
+C - - - - - 0x01EFC4 07:EFB4: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2               ;
+C - - - - - 0x01EFC7 07:EFB7: A5 5E     LDA v_no_level                              ;
+C - - - - - 0x01EFC9 07:EFB9: 85 00     STA ram_0000                                ;
+C - - - - - 0x01EFCB 07:EFBB: 0A        ASL                                         ;
+C - - - - - 0x01EFCC 07:EFBC: 18        CLC                                         ;
+C - - - - - 0x01EFCD 07:EFBD: 65 00     ADC ram_0000                                ; A <~ v_no_level * 3, because the offset is 3 bytes
+C - - - - - 0x01EFCF 07:EFBF: AA        TAX                                         ;
 ; Fill memory the rooms from ROM (Register X - level number)
-C - - - - - 0x01EFD0 07:EFC0: BC 16 81  LDY number_of_rooms_on_the_level,X         ; set loop counter, Y <~ the number of the rooms
-C - - - - - 0x01EFD3 07:EFC3: BD 17 81  LDA tbl_ptr_rooms_on_the_level,X           ;
-C - - - - - 0x01EFD6 07:EFC6: 85 12     STA ram_0012                               ; Low address
-C - - - - - 0x01EFD8 07:EFC8: BD 18 81  LDA tbl_ptr_rooms_on_the_level + 1,X       ;
-C - - - - - 0x01EFDB 07:EFCB: 85 13     STA ram_0013                               ; High address
-@bra_room_loop:                                                                    ; loop by y
-C - - - - - 0x01EFDD 07:EFCD: B1 12     LDA (ram_0012),Y                           ;
-C - - - - - 0x01EFDF 07:EFCF: 99 00 05  STA vRooms,Y                               ; <~ attributes (see vRoomAttrubute)
-C - - - - - 0x01EFE2 07:EFD2: 88        DEY                                        ; decrements loop counter
-C - - - - - 0x01EFE3 07:EFD3: D0 F8     BNE @bra_room_loop                         ; If Register Y != 0
+C - - - - - 0x01EFD0 07:EFC0: BC 16 81  LDY loc_number_of_rooms_on_the_level,X      ; set loop counter, Y <~ the number of the rooms
+C - - - - - 0x01EFD3 07:EFC3: BD 17 81  LDA tbl_ptr_rooms_on_the_level,X            ;
+C - - - - - 0x01EFD6 07:EFC6: 85 12     STA ram_0012                                ; Low address
+C - - - - - 0x01EFD8 07:EFC8: BD 18 81  LDA tbl_ptr_rooms_on_the_level + 1,X        ;
+C - - - - - 0x01EFDB 07:EFCB: 85 13     STA ram_0013                                ; High address
+@bra_room_loop:                                                                     ; loop by y
+C - - - - - 0x01EFDD 07:EFCD: B1 12     LDA (ram_0012),Y                            ;
+C - - - - - 0x01EFDF 07:EFCF: 99 00 05  STA vRooms,Y                                ; <~ attributes (see vRoomAttrubute)
+C - - - - - 0x01EFE2 07:EFD2: 88        DEY                                         ; decrements loop counter
+C - - - - - 0x01EFE3 07:EFD3: D0 F8     BNE @bra_room_loop                          ; If Register Y != 0
  ; Fill memory the white briefcases from ROM  (Register X - level number)
-C - - - - - 0x01EFE5 07:EFD5: BC 22 81  LDY number_of_briefcases_on_the_level,X    ; set loop counter, Y <~ the number of the briefcase
-C - - - - - 0x01EFE8 07:EFD8: BD 23 81  LDA tbl_ptr_briefcases_on_the_level,X      ;
-C - - - - - 0x01EFEB 07:EFDB: 85 12     STA ram_0012                               ; Low address
-C - - - - - 0x01EFED 07:EFDD: BD 24 81  LDA tbl_ptr_briefcases_on_the_level + 1,X  ;
-C - - - - - 0x01EFF0 07:EFE0: 85 13     STA ram_0013                               ; High address
-@bra_briefcase_loop:                                                               ; loop by y
-C - - - - - 0x01EFF2 07:EFE2: B1 12     LDA (ram_0012),Y                           ;
-C - - - - - 0x01EFF4 07:EFE4: 99 19 02  STA vArrayWhiteBriefcase,Y                 ; a briefcase ROM-value
-C - - - - - 0x01EFF7 07:EFE7: 88        DEY                                        ; decrements loop counter
-C - - - - - 0x01EFF8 07:EFE8: D0 F8     BNE @bra_briefcase_loop                    ; If Register Y != 0
-C - - - - - 0x01EFFA 07:EFEA: 20 46 EF  JSR sub_EF46_switch_bank_4_p1              ;
-C - - - - - 0x01EFFD 07:EFED: A5 5E     LDA v_no_level                             ;
-C - - - - - 0x01EFFF 07:EFEF: 0A        ASL                                        ; *2, because RAM address contains 2 bytes
-C - - - - - 0x01F000 07:EFF0: AA        TAX                                        ;
-C - - - - - 0x01F001 07:EFF1: BD B6 85  LDA tbl_ptr_checkpoints_on_the_level,X     ;
-C - - - - - 0x01F004 07:EFF4: 85 BA     STA vCheckpointAddr                        ;
-C - - - - - 0x01F006 07:EFF6: BD B7 85  LDA tbl_ptr_checkpoints_on_the_level + 1,X ;
-C - - - - - 0x01F009 07:EFF9: 85 BB     STA vHignCheckpointAddr                    ;
-C - - - - - 0x01F00B 07:EFFB: 60        RTS                                        ;
+C - - - - - 0x01EFE5 07:EFD5: BC 22 81  LDY loc_number_of_briefcases_on_the_level,X ; set loop counter, Y <~ the number of the briefcase
+C - - - - - 0x01EFE8 07:EFD8: BD 23 81  LDA tbl_ptr_briefcases_on_the_level,X       ;
+C - - - - - 0x01EFEB 07:EFDB: 85 12     STA ram_0012                                ; Low address
+C - - - - - 0x01EFED 07:EFDD: BD 24 81  LDA tbl_ptr_briefcases_on_the_level + 1,X   ;
+C - - - - - 0x01EFF0 07:EFE0: 85 13     STA ram_0013                                ; High address
+@bra_briefcase_loop:                                                                ; loop by y
+C - - - - - 0x01EFF2 07:EFE2: B1 12     LDA (ram_0012),Y                            ;
+C - - - - - 0x01EFF4 07:EFE4: 99 19 02  STA vArrayWhiteBriefcase,Y                  ; a briefcase ROM-value
+C - - - - - 0x01EFF7 07:EFE7: 88        DEY                                         ; decrements loop counter
+C - - - - - 0x01EFF8 07:EFE8: D0 F8     BNE @bra_briefcase_loop                     ; If Register Y != 0
+C - - - - - 0x01EFFA 07:EFEA: 20 46 EF  JSR sub_EF46_switch_bank_4_p1               ;
+C - - - - - 0x01EFFD 07:EFED: A5 5E     LDA v_no_level                              ;
+C - - - - - 0x01EFFF 07:EFEF: 0A        ASL                                         ; *2, because RAM address contains 2 bytes
+C - - - - - 0x01F000 07:EFF0: AA        TAX                                         ;
+C - - - - - 0x01F001 07:EFF1: BD B6 85  LDA tbl_ptr_checkpoints_on_the_level,X      ;
+C - - - - - 0x01F004 07:EFF4: 85 BA     STA vCheckpointAddr                         ;
+C - - - - - 0x01F006 07:EFF6: BD B7 85  LDA tbl_ptr_checkpoints_on_the_level + 1,X  ;
+C - - - - - 0x01F009 07:EFF9: 85 BB     STA vHignCheckpointAddr                     ;
+C - - - - - 0x01F00B 07:EFFB: 60        RTS                                         ;
 
 sub_EFFC_after_select_character:
 C - - - - - 0x01F00C 07:EFFC: A2 09     LDX #$09                            ; set loop counter
