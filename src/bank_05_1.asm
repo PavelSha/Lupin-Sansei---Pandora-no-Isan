@@ -5,225 +5,153 @@
 
 ; 1 Page
 ; Address of the frames (a list tiles)
-- D 0 - - - 0x014010 05:8000: F6 85     .word $85F6 ; Daisuke Jigen is standing (right) (or Lupin)
-- D 0 - I - 0x014012 05:8002: 17 86     .word $8617 ; Daisuke Jigen is standing (left) (or Lupin)
-- D 0 - I - 0x014014 05:8004: 38 86     .word $8638 ; Daisuke Jigen is running (right) (or Lupin)
-- D 0 - I - 0x014016 05:8006: 51 86     .word $8651 ; Daisuke Jigen is running (left) (or Lupin)
-- D 0 - I - 0x014018 05:8008: 6A 86     .word $866A ; Daisuke Jigen is running, 2nd frame (right) (or Lupin)
-- D 0 - I - 0x01401A 05:800A: 83 86     .word $8683 ; Daisuke Jigen is running, 2nd frame (left) (or Lupin)
-- D 0 - I - 0x01401C 05:800C: 9C 86     .word $869C ; Daisuke Jigen is running, 3nd frame (right) (or Lupin)
-- D 0 - I - 0x01401E 05:800E: B9 86     .word $86B9 ; Daisuke Jigen is running, 3nd frame (left) (or Lupin)
-- D 0 - I - 0x014020 05:8010: 8E 87     .word $878E ; Daisuke Jigen is descending (right) (or Lupin)
-- D 0 - I - 0x014022 05:8012: AF 87     .word $87AF ; Daisuke Jigen is descending (left) (or Lupin)
-- D 0 - I - 0x014024 05:8014: 08 87     .word $8708 ; Daisuke Jigen is sitting (right) (or Lupin)
-- D 0 - I - 0x014026 05:8016: 21 87     .word $8721 ; Daisuke Jigen is sitting (left) (or Lupin)
-- D - - - - 0x014028 05:8018: D6 86     .word $86D6 ; Broken
-- D - - - - 0x01402A 05:801A: EF 86     .word $86EF ; Broken
-- D 0 - I - 0x01402C 05:801C: 3A 87     .word $873A ; Daisuke Jigen is falling (right) (or Lupin)
-- D 0 - I - 0x01402E 05:801E: 53 87     .word $8753 ; Daisuke Jigen is falling (left) (or Lupin)
-- D 0 - I - 0x014030 05:8020: 6C 87     .word $876C ; Daisuke Jigen is lying (right) (or Lupin)
-- D 0 - I - 0x014032 05:8022: 7D 87     .word $877D ; Daisuke Jigen is lying (left) (or Lupin)
-- D 0 - I - 0x014034 05:8024: D0 87     .word $87D0 ; Daisuke Jigen is turning away, frame 1 (or Lupin)
-- D 0 - I - 0x014036 05:8026: E1 87     .word $87E1 ; Daisuke Jigen is turning away, frame 2 (or Lupin)
-- D 0 - I - 0x014038 05:8028: F2 87     .word $87F2 ; Daisuke Jigen is looking at us, frame 1 (or Lupin)
-- D 0 - I - 0x01403A 05:802A: 03 88     .word $8803 ; Daisuke Jigen is looking at us, frame 2 (or Lupin)
-- D 0 - I - 0x01403C 05:802C: 14 88     .word $8814 ; Goemon Ishikawa XIII is standing (right)
-- D 0 - I - 0x01403E 05:802E: 39 88     .word $8839 ; Goemon Ishikawa XIII is standing (left)
-- D 0 - I - 0x014040 05:8030: 5E 88     .word $885E ; Goemon Ishikawa XIII is running (right)
-- D 0 - I - 0x014042 05:8032: 7F 88     .word $887F ; Goemon Ishikawa XIII is running (left)
-- D 0 - I - 0x014044 05:8034: A0 88     .word $88A0 ; Goemon Ishikawa XIII is running, 2nd frame (right)
-- D 0 - I - 0x014046 05:8036: C1 88     .word $88C1 ; Goemon Ishikawa XIII is running, 2nd frame (left)
-- D 0 - I - 0x014048 05:8038: E2 88     .word $88E2 ; Goemon Ishikawa XIII is running, 3nd frame (right)
-- D 0 - I - 0x01404A 05:803A: 07 89     .word $8907 ; Goemon Ishikawa XIII is running, 3nd frame (left)
-- D 0 - I - 0x01404C 05:803C: 0C 8A     .word $8A0C ; Goemon Ishikawa XIII is descending (right)
-- D 0 - I - 0x01404E 05:803E: 31 8A     .word $8A31 ; Goemon Ishikawa XIII is descending (left)
-- D 0 - I - 0x014050 05:8040: 6E 89     .word $896E ; Goemon Ishikawa XIII is sitting (right)
-- D 0 - I - 0x014052 05:8042: 93 89     .word $8993 ; Goemon Ishikawa XIII is sitting (left)
-- - - - - - 0x014054 05:8044: 2C 89     .word $892C ; Goemon Ishikawa XIII is sitting ?? (right)
-- - - - - - 0x014056 05:8046: 4D 89     .word $894D ; Goemon Ishikawa XIII is sitting ?? (left)
-- D 0 - I - 0x014058 05:8048: B8 89     .word $89B8 ; Goemon Ishikawa XIII is falling (right)
-- D 0 - I - 0x01405A 05:804A: D1 89     .word $89D1 ; Goemon Ishikawa XIII is falling (left)
-- D 0 - I - 0x01405C 05:804C: EA 89     .word $89EA ; Goemon Ishikawa XIII is lying (right)
-- D 0 - I - 0x01405E 05:804E: FB 89     .word $89FB ; Goemon Ishikawa XIII is lying (left)
-- D 0 - I - 0x014060 05:8050: 56 8A     .word $8A56 ; Goemon Ishikawa XIII is turning away, frame 1
-- D 0 - I - 0x014062 05:8052: 67 8A     .word $8A67 ; Goemon Ishikawa XIII is turning away, frame 2
-- D 0 - I - 0x014064 05:8054: 78 8A     .word $8A78 ; Goemon Ishikawa XIII is looking at us, frame 1
-- D 0 - I - 0x014066 05:8056: 89 8A     .word $8A89 ; Goemon Ishikawa XIII is looking at us, frame 2
-- D 0 - I - 0x014068 05:8058: DB        .byte $DB   ; 
-- D 0 - I - 0x014069 05:8059: 8A        .byte $8A   ; 
-- D 0 - I - 0x01406A 05:805A: B4        .byte $B4   ; 
-- D 0 - I - 0x01406B 05:805B: 8A        .byte $8A   ; 
-- D 0 - I - 0x01406C 05:805C: CE        .byte $CE   ; 
-- D 0 - I - 0x01406D 05:805D: 8A        .byte $8A   ; 
-- D 0 - I - 0x01406E 05:805E: 0F        .byte $0F   ; 
-- D 0 - I - 0x01406F 05:805F: 8B        .byte $8B   ; 
-- D 0 - I - 0x014070 05:8060: C1        .byte $C1   ; 
-- D 0 - I - 0x014071 05:8061: 8A        .byte $8A   ; 
-- D 0 - I - 0x014072 05:8062: 02        .byte $02   ; 
-- D 0 - I - 0x014073 05:8063: 8B        .byte $8B   ; 
-- D 0 - I - 0x014074 05:8064: B4        .byte $B4   ; 
-- D 0 - I - 0x014075 05:8065: 8A        .byte $8A   ; 
-- D 0 - I - 0x014076 05:8066: DB        .byte $DB   ; 
-- D 0 - I - 0x014077 05:8067: 8A        .byte $8A   ; 
-- D 0 - I - 0x014078 05:8068: A7        .byte $A7   ; 
-- D 0 - I - 0x014079 05:8069: 8A        .byte $8A   ; 
-- D 0 - I - 0x01407A 05:806A: F5        .byte $F5   ; 
-- D 0 - I - 0x01407B 05:806B: 8A        .byte $8A   ; 
-- D 0 - I - 0x01407C 05:806C: 9A        .byte $9A   ; 
-- D 0 - I - 0x01407D 05:806D: 8A        .byte $8A   ; 
-- D 0 - I - 0x01407E 05:806E: E8        .byte $E8   ; 
-- D 0 - I - 0x01407F 05:806F: 8A        .byte $8A   ; 
-- - - - - - 0x014080 05:8070: 1C        .byte $1C   ; 
-- - - - - - 0x014081 05:8071: 8B        .byte $8B   ; 
-- D 0 - I - 0x014082 05:8072: 2D 8B     .word $8B2D ; Menu gun
-- D 0 - I - 0x014084 05:8074: 36        .byte $36   ; <6>
-- D 0 - I - 0x014085 05:8075: 8B        .byte $8B   ; 
-- D 0 - I - 0x014086 05:8076: 5F        .byte $5F   ; 
-- D 0 - I - 0x014087 05:8077: 8B        .byte $8B   ; 
-- - - - - - 0x014088 05:8078: 90        .byte $90   ; 
-- - - - - - 0x014089 05:8079: 8B        .byte $8B   ; 
-- - - - - - 0x01408A 05:807A: 95        .byte $95   ; 
-- - - - - - 0x01408B 05:807B: 8B        .byte $8B   ; 
-- - - - - - 0x01408C 05:807C: 9A        .byte $9A   ; 
-- - - - - - 0x01408D 05:807D: 8B        .byte $8B   ; 
-- D 0 - I - 0x01408E 05:807E: 9F 8B     .word $8B9F ; A car wheel (Jigen)
-- D 0 - I - 0x014090 05:8080: A8 8B     .word $8BA8 ; A car wheel (Lupin or Goemon)
-- D 0 - I - 0x014092 05:8082: B1        .byte $B1   ; 
-- D 0 - I - 0x014093 05:8083: 8B        .byte $8B   ; 
-- - - - - - 0x014094 05:8084: BA        .byte $BA   ; 
-- - - - - - 0x014095 05:8085: 8B        .byte $8B   ; 
-- - - - - - 0x014096 05:8086: C3        .byte $C3   ; 
-- - - - - - 0x014097 05:8087: 8B        .byte $8B   ; 
-- D 0 - I - 0x014098 05:8088: CC        .byte $CC   ; 
-- D 0 - I - 0x014099 05:8089: 8B        .byte $8B   ; 
-- D 0 - I - 0x01409A 05:808A: D5 8B     .word $8BD5 ; A car wheel (45 degree)
-- D 0 - I - 0x01409C 05:808C: DE 8B     .word $8BDE ; A car wheel (90 degree)
-- D 0 - I - 0x01409E 05:808E: DF 8B     .word $8BDF ; A car
-- - - - - - 0x0140A0 05:8090: FC        .byte $FC   ; 
-- - - - - - 0x0140A1 05:8091: 8B        .byte $8B   ; 
-- D 0 - I - 0x0140A2 05:8092: 19 8C     .word $8C19 ; A car (45 degree)
-- D 0 - I - 0x0140A4 05:8094: 3A 8C     .word $8C3A ; A car (90 degree)
-- D 0 - I - 0x0140A6 05:8096: 5B 8C     .word $8C5B ; Lupin is in the car
-- - - - - - 0x0140A8 05:8098: 64 8C     .word $8C64
-- - - - - - 0x0140AA 05:809A: 6D 8C     .word $8C6D
-- D 0 - I - 0x0140AC 05:809C: 76 8C     .word $8C76 ; Jigen is in the car
-- D 0 - I - 0x0140AE 05:809E: 7F        .byte $7F   ; 
-- D 0 - I - 0x0140AF 05:809F: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140B0 05:80A0: 88        .byte $88   ; 
-- D 0 - I - 0x0140B1 05:80A1: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140B2 05:80A2: 91 8C     .word $8C91 ; Doemon is in the car
-- D 0 - I - 0x0140B4 05:80A4: 96 8C     .word $8C96 ; Doemon is in the car (45 degree)
-- D 0 - I - 0x0140B6 05:80A6: 9B 8C     .word $8C9B ; Doemon is in the car (90 degree)
-- D 0 - I - 0x0140B8 05:80A8: A5        .byte $A5   ; 
-- D 0 - I - 0x0140B9 05:80A9: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140BA 05:80AA: A0        .byte $A0   ; 
-- D 0 - I - 0x0140BB 05:80AB: 8C        .byte $8C   ; 
-- D 0 - I - 0x0140BC 05:80AC: F5        .byte $F5   ; 
-- D 0 - I - 0x0140BD 05:80AD: 85        .byte $85   ; 
-- D 0 - I - 0x0140BE 05:80AE: AA 8C     .word $8CAA ; The car drives into the pyramid (frame 1)
-- D 0 - I - 0x0140C0 05:80B0: C3 8C     .word $8CC3 ; The car drives into the pyramid (frame 2)
-- D 0 - I - 0x0140C2 05:80B2: D4 8C     .word $8CD4 ; The car drives into the pyramid (frame 2, mirror)
-- D 0 - I - 0x0140C4 05:80B4: E5 8C     .word $8CE5 ; The car drives into the pyramid (frame 3)
-- D 0 - I - 0x0140C6 05:80B6: F6 8C     .word $8CF6 ; The car drives into the pyramid (frame 3, mirror)
-- D 0 - I - 0x0140C8 05:80B8: 07 8D     .word $8D07 ; The car drives into the pyramid (frame 4)
-- D 0 - I - 0x0140CA 05:80BA: 10 8D     .word $8D10 ; The car drives into the pyramid (frame 4, mirror)
-- D 0 - I - 0x0140CC 05:80BC: 19 8D     .word $8D19 ; The car drives into the pyramid (frame 6)
-- D 0 - I - 0x0140CE 05:80BE: 1E 8D     .word $8D1E ; The car drives into the pyramid (frame 5)
+- D 0 - - - 0x014010 05:8000: F6 85     .addr loc_lupin_jigen_stand_right_frame_       ; CPU address $85F6, Daisuke Jigen is standing (right) (or Lupin)
+- D 0 - I - 0x014012 05:8002: 17 86     .addr loc_lupin_jigen_stand_left_frame_        ; CPU address $8617, Daisuke Jigen is standing (left) (or Lupin)
+- D 0 - I - 0x014014 05:8004: 38 86     .addr loc_lupin_jigen_run_right_frame_1        ; CPU address $8638, Daisuke Jigen is running (right) (or Lupin)
+- D 0 - I - 0x014016 05:8006: 51 86     .addr loc_lupin_jigen_run_left_frame_1         ; CPU address $8651, Daisuke Jigen is running (left) (or Lupin)
+- D 0 - I - 0x014018 05:8008: 6A 86     .addr loc_lupin_jigen_run_right_frame_2        ; CPU address $866A, Daisuke Jigen is running, 2nd frame (right) (or Lupin)
+- D 0 - I - 0x01401A 05:800A: 83 86     .addr loc_lupin_jigen_run_left_frame_2         ; CPU address $8683, Daisuke Jigen is running, 2nd frame (left) (or Lupin)
+- D 0 - I - 0x01401C 05:800C: 9C 86     .addr loc_lupin_jigen_run_right_frame_3        ; CPU address $869C, Daisuke Jigen is running, 3nd frame (right) (or Lupin)
+- D 0 - I - 0x01401E 05:800E: B9 86     .addr loc_lupin_jigen_run_left_frame_3         ; CPU address $86B9, Daisuke Jigen is running, 3nd frame (left) (or Lupin)
+- D 0 - I - 0x014020 05:8010: 8E 87     .addr loc_lupin_jigen_descend_right_frame_     ; CPU address $878E, Daisuke Jigen is descending (right) (or Lupin)
+- D 0 - I - 0x014022 05:8012: AF 87     .addr loc_lupin_jigen_descend_left_frame_      ; CPU address $87AF, Daisuke Jigen is descending (left) (or Lupin)
+- D 0 - I - 0x014024 05:8014: 08 87     .addr loc_lupin_jigen_sit_right_frame_         ; CPU address $8708, Daisuke Jigen is sitting (right) (or Lupin)
+- D 0 - I - 0x014026 05:8016: 21 87     .addr loc_lupin_jigen_sit_left_frame_          ; CPU address $8721, Daisuke Jigen is sitting (left) (or Lupin)
+- D - - - - 0x014028 05:8018: D6 86     .addr loc_lupin_jigen_broken_right_frame_      ; CPU address $86D6, broken
+- D - - - - 0x01402A 05:801A: EF 86     .addr loc_lupin_jigen_broken_left_frame_       ; CPU address $86EF, broken
+- D 0 - I - 0x01402C 05:801C: 3A 87     .addr loc_lupin_jigen_fall_right_frame_        ; CPU address $873A, Daisuke Jigen is falling (right) (or Lupin)
+- D 0 - I - 0x01402E 05:801E: 53 87     .addr loc_lupin_jigen_fall_left_frame_         ; CPU address $8753, Daisuke Jigen is falling (left) (or Lupin)
+- D 0 - I - 0x014030 05:8020: 6C 87     .addr loc_lupin_jigen_lie_right_frame_         ; CPU address $876C, Daisuke Jigen is lying (right) (or Lupin)
+- D 0 - I - 0x014032 05:8022: 7D 87     .addr loc_lupin_jigen_lie_left_frame_          ; CPU address $877D, Daisuke Jigen is lying (left) (or Lupin)
+- D 0 - I - 0x014034 05:8024: D0 87     .addr loc_lupin_jigen_turn_away_frame_1        ; CPU address $87D0, Daisuke Jigen is turning away, frame 1 (or Lupin)
+- D 0 - I - 0x014036 05:8026: E1 87     .addr loc_lupin_jigen_turn_away_frame_2        ; CPU address $87E1, Daisuke Jigen is turning away, frame 2 (or Lupin)
+- D 0 - I - 0x014038 05:8028: F2 87     .addr loc_lupin_jigen_look_at_us_frame_1       ; CPU address $87F2, Daisuke Jigen is looking at us, frame 1 (or Lupin)
+- D 0 - I - 0x01403A 05:802A: 03 88     .addr loc_lupin_jigen_look_at_us_frame_2       ; CPU address $8803, Daisuke Jigen is looking at us, frame 2 (or Lupin)
+- D 0 - I - 0x01403C 05:802C: 14 88     .addr loc_goemon_stand_right_frame_            ; CPU address $8814, Goemon Ishikawa XIII is standing (right)
+- D 0 - I - 0x01403E 05:802E: 39 88     .addr loc_goemon_stand_left_frame_             ; CPU address $8839, Goemon Ishikawa XIII is standing (left)
+- D 0 - I - 0x014040 05:8030: 5E 88     .addr loc_goemon_run_right_frame_1             ; CPU address $885E, Goemon Ishikawa XIII is running (right)
+- D 0 - I - 0x014042 05:8032: 7F 88     .addr loc_goemon_run_left_frame_1              ; CPU address $887F, Goemon Ishikawa XIII is running (left)
+- D 0 - I - 0x014044 05:8034: A0 88     .addr loc_goemon_run_right_frame_2             ; CPU address $88A0, Goemon Ishikawa XIII is running, 2nd frame (right)
+- D 0 - I - 0x014046 05:8036: C1 88     .addr loc_goemon_run_left_frame_2              ; CPU address $88C1, Goemon Ishikawa XIII is running, 2nd frame (left)
+- D 0 - I - 0x014048 05:8038: E2 88     .addr loc_goemon_run_right_frame_3             ; CPU address $88E2, Goemon Ishikawa XIII is running, 3nd frame (right)
+- D 0 - I - 0x01404A 05:803A: 07 89     .addr loc_goemon_run_left_frame_3              ; CPU address $8907, Goemon Ishikawa XIII is running, 3nd frame (left)
+- D 0 - I - 0x01404C 05:803C: 0C 8A     .addr loc_goemon_descend_right_frame_          ; CPU address $8A0C, Goemon Ishikawa XIII is descending (right)
+- D 0 - I - 0x01404E 05:803E: 31 8A     .addr loc_goemon_descend_left_frame_           ; CPU address $8A31, Goemon Ishikawa XIII is descending (left)
+- D 0 - I - 0x014050 05:8040: 6E 89     .addr loc_goemon_sit_right_frame_              ; CPU address $896E, Goemon Ishikawa XIII is sitting (right)
+- D 0 - I - 0x014052 05:8042: 93 89     .addr loc_goemon_sit_left_frame_               ; CPU address $8993, Goemon Ishikawa XIII is sitting (left)
+- D - - - - 0x014054 05:8044: 2C 89     .addr loc_goemon_broken_right_frame_           ; CPU address $892C, broken
+- D - - - - 0x014056 05:8046: 4D 89     .addr loc_goemon_broken_left_frame_            ; CPU address $894D, broken
+- D 0 - I - 0x014058 05:8048: B8 89     .addr loc_goemon_fall_right_frame_             ; CPU address $89B8, Goemon Ishikawa XIII is falling (right)
+- D 0 - I - 0x01405A 05:804A: D1 89     .addr loc_goemon_fall_left_frame_              ; CPU address $89D1, Goemon Ishikawa XIII is falling (left)
+- D 0 - I - 0x01405C 05:804C: EA 89     .addr loc_goemon_lie_right_frame_              ; CPU address $89EA, Goemon Ishikawa XIII is lying (right)
+- D 0 - I - 0x01405E 05:804E: FB 89     .addr loc_goemon_lie_left_frame_               ; CPU address $89FB, Goemon Ishikawa XIII is lying (left)
+- D 0 - I - 0x014060 05:8050: 56 8A     .addr loc_goemon_turn_away_frame_1             ; CPU address $8A56, Goemon Ishikawa XIII is turning away, frame 1
+- D 0 - I - 0x014062 05:8052: 67 8A     .addr loc_goemon_turn_away_frame_2             ; CPU address $8A67, Goemon Ishikawa XIII is turning away, frame 2
+- D 0 - I - 0x014064 05:8054: 78 8A     .addr loc_goemon_look_at_us_frame_1            ; CPU address $8A78, Goemon Ishikawa XIII is looking at us, frame 1
+- D 0 - I - 0x014066 05:8056: 89 8A     .addr loc_goemon_look_at_us_frame_2            ; CPU address $8A89, Goemon Ishikawa XIII is looking at us, frame 2
+- D 0 - I - 0x014068 05:8058: DB 8A     .word $8ADB
+- D 0 - I - 0x01406A 05:805A: B4 8A     .word $8AB4
+- D 0 - I - 0x01406C 05:805C: CE 8A     .word $8ACE
+- D 0 - I - 0x01406E 05:805E: 0F 8B     .word $8B0F
+- D 0 - I - 0x014070 05:8060: C1 8A     .word $8AC1
+- D 0 - I - 0x014072 05:8062: 02 8B     .word $8B02
+- D 0 - I - 0x014074 05:8064: B4 8A     .word $8AB4
+- D 0 - I - 0x014076 05:8066: DB 8A     .word $8ADB
+- D 0 - I - 0x014078 05:8068: A7 8A     .word $8AA7
+- D 0 - I - 0x01407A 05:806A: F5 8A     .word $8AF5
+- D 0 - I - 0x01407C 05:806C: 9A 8A     .word $8A9A
+- D 0 - I - 0x01407E 05:806E: E8 8A     .word $8AE8
+- - - - - - 0x014080 05:8070: 1C 8B     .word $8B1C
+- D 0 - I - 0x014082 05:8072: 2D 8B     .addr loc_select_menu_gun_frame_         ; CPU address $8B2D
+- D 0 - I - 0x014084 05:8074: 36 8B     .addr loc_select_menu_handcuffs_frame_   ; CPU address $8B36
+- D 0 - I - 0x014086 05:8076: 5F 8B     .addr loc_select_menu_prison_bars_frame_ ; CPU address $8B5F
+- - - - - - 0x014088 05:8078: 90 8B     .word $8B90
+- - - - - - 0x01408A 05:807A: 95 8B     .word $8B95
+- - - - - - 0x01408C 05:807C: 9A 8B     .word $8B9A
+- D 0 - I - 0x01408E 05:807E: 9F 8B     .addr loc_car_wheels_frame_1                          ; CPU address $8B9F
+- D 0 - I - 0x014090 05:8080: A8 8B     .addr loc_car_wheels_frame_2                          ; CPU address $8BA8
+- D 0 - I - 0x014092 05:8082: B1 8B     .addr loc_car_wheels_frame_3                          ; CPU address $8BB1
+- - - - - - 0x014094 05:8084: BA 8B     .addr loc_car_wheels_frame_4                          ; CPU address $8BBA
+- - - - - - 0x014096 05:8086: C3 8B     .addr loc_car_wheels_frame_5                          ; CPU address $8BC3
+- D 0 - I - 0x014098 05:8088: CC 8B     .addr loc_car_wheels_frame_6                          ; CPU address $8BCC
+- D 0 - I - 0x01409A 05:808A: D5 8B     .addr loc_car_wheel_45_degree_frame_                  ; CPU address $8BD5
+- D 0 - I - 0x01409C 05:808C: DE 8B     .addr loc_car_wheel_90_degree_frame_                  ; CPU address $8BDE
+- D 0 - I - 0x01409E 05:808E: DF 8B     .addr loc_car_frame_                                  ; CPU address $8BDF
+- D - - - - 0x0140A0 05:8090: FC 8B     .addr loc_car_broken_frame_                           ; CPU address $8BFC
+- D 0 - I - 0x0140A2 05:8092: 19 8C     .addr loc_car_45_degree_frame_                        ; CPU address $8C19
+- D 0 - I - 0x0140A4 05:8094: 3A 8C     .addr loc_car_90_degree_frame_                        ; CPU address $8C3A
+- D 0 - I - 0x0140A6 05:8096: 5B 8C     .addr loc_lupin_in_car_frame_                         ; CPU address $8C5B, Lupin is in the car
+- D - - - - 0x0140A8 05:8098: 64 8C     .addr loc_lupin_45d_in_car_frame_                     ; CPU address $8C64
+- D - - - - 0x0140AA 05:809A: 6D 8C     .addr loc_lupin_90d_in_car_frame_                     ; CPU address $8C6D
+- D 0 - I - 0x0140AC 05:809C: 76 8C     .addr loc_jigen_in_car_frame_                         ; CPU address $8C76
+- D 0 - I - 0x0140AE 05:809E: 7F 8C     .addr loc_jigen_45d_in_car_frame_                     ; CPU address $8C7F
+- D 0 - I - 0x0140B0 05:80A0: 88 8C     .addr loc_jigen_90d_in_car_frame_                     ; CPU address $8C88
+- D 0 - I - 0x0140B2 05:80A2: 91 8C     .addr loc_goemon_in_car_frame_                        ; CPU address $8C91, Doemon is in the car
+- D 0 - I - 0x0140B4 05:80A4: 96 8C     .addr loc_goemon_45d_in_car_frame_                    ; CPU address $8C96
+- D 0 - I - 0x0140B6 05:80A6: 9B 8C     .addr loc_goemon_90d_in_car_frame_                    ; CPU address $8C9B
+- D 0 - I - 0x0140B8 05:80A8: A5 8C     .addr loc_goemon_sword_in_car_frame_1                 ; CPU address $8CA5
+- D 0 - I - 0x0140BA 05:80AA: A0 8C     .addr loc_goemon_sword_in_car_frame_2                 ; CPU address $8CA0
+- D 0 - I - 0x0140BC 05:80AC: F5 85     .addr loc_empty_frame_                                ; CPU address $85F5
+- D 0 - I - 0x0140BE 05:80AE: AA 8C     .addr loc_car_drives_into_the_pyramid_frame_1         ; CPU address $8CAA
+- D 0 - I - 0x0140C0 05:80B0: C3 8C     .addr loc_car_drives_into_the_pyramid_frame_2         ; CPU address $8CC3
+- D 0 - I - 0x0140C2 05:80B2: D4 8C     .addr loc_car_drives_into_the_pyramid_frame_2_mirror  ; CPU address $8CD4
+- D 0 - I - 0x0140C4 05:80B4: E5 8C     .addr loc_car_drives_into_the_pyramid_frame_3         ; CPU address $8CE5
+- D 0 - I - 0x0140C6 05:80B6: F6 8C     .addr loc_car_drives_into_the_pyramid_frame_3_mirror  ; CPU address $8CF6
+- D 0 - I - 0x0140C8 05:80B8: 07 8D     .addr loc_car_drives_into_the_pyramid_frame_4         ; CPU address $8D07
+- D 0 - I - 0x0140CA 05:80BA: 10 8D     .addr loc_car_drives_into_the_pyramid_frame_4_mirror  ; CPU address $8D10
+- D 0 - I - 0x0140CC 05:80BC: 19 8D     .addr loc_car_drives_into_the_pyramid_frame_5         ; CPU address $8D19
+- D 0 - I - 0x0140CE 05:80BE: 1E 8D     .addr loc_car_drives_into_the_pyramid_frame_6         ; CPU address $8D1E
 - D 0 - I - 0x0140D0 05:80C0: E8 82     .word $82E8
-- D 0 - I - 0x0140D2 05:80C2: 09        .byte $09   ; 
-- D 0 - I - 0x0140D3 05:80C3: 83        .byte $83   ; 
-- D 0 - I - 0x0140D4 05:80C4: 2E        .byte $2E   ; 
-- D 0 - I - 0x0140D5 05:80C5: 83        .byte $83   ; 
-- D 0 - I - 0x0140D6 05:80C6: 57        .byte $57   ; <W>
-- D 0 - I - 0x0140D7 05:80C7: 83        .byte $83   ; 
-- D 0 - I - 0x0140D8 05:80C8: 70        .byte $70   ; <p>
-- D 0 - I - 0x0140D9 05:80C9: 83        .byte $83   ; 
-- - - - - - 0x0140DA 05:80CA: 00        .byte $00   ; 
-- - - - - - 0x0140DB 05:80CB: 00        .byte $00   ; 
-- - - - - - 0x0140DC 05:80CC: 00        .byte $00   ; 
-- - - - - - 0x0140DD 05:80CD: 00        .byte $00   ; 
-- - - - - - 0x0140DE 05:80CE: 00        .byte $00   ; 
-- - - - - - 0x0140DF 05:80CF: 00        .byte $00   ; 
-- - - - - - 0x0140E0 05:80D0: 00        .byte $00   ; 
-- - - - - - 0x0140E1 05:80D1: 00        .byte $00   ; 
-- - - - - - 0x0140E2 05:80D2: 00        .byte $00   ; 
-- - - - - - 0x0140E3 05:80D3: 00        .byte $00   ; 
-- - - - - - 0x0140E4 05:80D4: 00        .byte $00   ; 
-- - - - - - 0x0140E5 05:80D5: 00        .byte $00   ; 
-- - - - - - 0x0140E6 05:80D6: 00        .byte $00   ; 
-- - - - - - 0x0140E7 05:80D7: 00        .byte $00   ; 
-- - - - - - 0x0140E8 05:80D8: 00        .byte $00   ; 
-- - - - - - 0x0140E9 05:80D9: 00        .byte $00   ; 
-- - - - - - 0x0140EA 05:80DA: 00        .byte $00   ; 
-- - - - - - 0x0140EB 05:80DB: 00        .byte $00   ; 
-- - - - - - 0x0140EC 05:80DC: 00        .byte $00   ; 
-- - - - - - 0x0140ED 05:80DD: 00        .byte $00   ; 
-- - - - - - 0x0140EE 05:80DE: 00        .byte $00   ; 
-- - - - - - 0x0140EF 05:80DF: 00        .byte $00   ; 
-- - - - - - 0x0140F0 05:80E0: 00        .byte $00   ; 
-- - - - - - 0x0140F1 05:80E1: 00        .byte $00   ; 
-- - - - - - 0x0140F2 05:80E2: 00        .byte $00   ; 
-- - - - - - 0x0140F3 05:80E3: 00        .byte $00   ; 
-- D 0 - I - 0x0140F4 05:80E4: 00        .byte $00   ; 
-- D 0 - I - 0x0140F5 05:80E5: 00        .byte $00   ; 
-- - - - - - 0x0140F6 05:80E6: 00        .byte $00   ; 
-- - - - - - 0x0140F7 05:80E7: 00        .byte $00   ; 
-- - - - - - 0x0140F8 05:80E8: 00        .byte $00   ; 
-- - - - - - 0x0140F9 05:80E9: 00        .byte $00   ; 
-- - - - - - 0x0140FA 05:80EA: 00        .byte $00   ; 
-- - - - - - 0x0140FB 05:80EB: 00        .byte $00   ; 
-- - - - - - 0x0140FC 05:80EC: 00        .byte $00   ; 
-- - - - - - 0x0140FD 05:80ED: 00        .byte $00   ; 
-- - - - - - 0x0140FE 05:80EE: 00        .byte $00   ; 
-- - - - - - 0x0140FF 05:80EF: 00        .byte $00   ; 
-- - - - - - 0x014100 05:80F0: 00        .byte $00   ; 
-- - - - - - 0x014101 05:80F1: 00        .byte $00   ; 
-- - - - - - 0x014102 05:80F2: 00        .byte $00   ; 
-- - - - - - 0x014103 05:80F3: 00        .byte $00   ; 
-- - - - - - 0x014104 05:80F4: 00        .byte $00   ; 
-- - - - - - 0x014105 05:80F5: 00        .byte $00   ; 
-- - - - - - 0x014106 05:80F6: 00        .byte $00   ; 
-- - - - - - 0x014107 05:80F7: 00        .byte $00   ; 
-- - - - - - 0x014108 05:80F8: 00        .byte $00   ; 
-- - - - - - 0x014109 05:80F9: 00        .byte $00   ; 
-- - - - - - 0x01410A 05:80FA: 00        .byte $00   ; 
-- - - - - - 0x01410B 05:80FB: 00        .byte $00   ; 
-- - - - - - 0x01410C 05:80FC: 00        .byte $00   ; 
-- - - - - - 0x01410D 05:80FD: 00        .byte $00   ; 
-- - - - - - 0x01410E 05:80FE: 00        .byte $00   ; 
-- - - - - - 0x01410F 05:80FF: 00        .byte $00   ; 
-- D 0 - I - 0x014110 05:8100: 23        .byte $23   ; 
-- D 0 - I - 0x014111 05:8101: 8D        .byte $8D   ; 
-- D 0 - I - 0x014112 05:8102: 48        .byte $48   ; <H>
-- D 0 - I - 0x014113 05:8103: 8D        .byte $8D   ; 
-- D 0 - I - 0x014114 05:8104: 6D        .byte $6D   ; <m>
-- D 0 - I - 0x014115 05:8105: 8D        .byte $8D   ; 
-- D 0 - I - 0x014116 05:8106: 86        .byte $86   ; 
-- D 0 - I - 0x014117 05:8107: 8D        .byte $8D   ; 
-- D 0 - I - 0x014118 05:8108: 9F        .byte $9F   ; 
-- D 0 - I - 0x014119 05:8109: 8D        .byte $8D   ; 
-- D 0 - I - 0x01411A 05:810A: B8        .byte $B8   ; 
-- D 0 - I - 0x01411B 05:810B: 8D        .byte $8D   ; 
-- D 0 - I - 0x01411C 05:810C: D1        .byte $D1   ; 
-- D 0 - I - 0x01411D 05:810D: 8D        .byte $8D   ; 
-- D 0 - I - 0x01411E 05:810E: EE        .byte $EE   ; 
-- D 0 - I - 0x01411F 05:810F: 8D        .byte $8D   ; 
-- D 0 - I - 0x014120 05:8110: 0B        .byte $0B   ; 
-- D 0 - I - 0x014121 05:8111: 8E        .byte $8E   ; 
-- D 0 - I - 0x014122 05:8112: 28        .byte $28   ; 
-- D 0 - I - 0x014123 05:8113: 8E        .byte $8E   ; 
-- D 0 - I - 0x014124 05:8114: 45        .byte $45   ; <E>
-- D 0 - I - 0x014125 05:8115: 8E        .byte $8E   ; 
-- D 0 - I - 0x014126 05:8116: 62        .byte $62   ; <b>
-- D 0 - I - 0x014127 05:8117: 8E        .byte $8E   ; 
-- D 0 - I - 0x014128 05:8118: 7F        .byte $7F   ; 
-- D 0 - I - 0x014129 05:8119: 8E        .byte $8E   ; 
-- D 0 - I - 0x01412A 05:811A: 84        .byte $84   ; 
-- D 0 - I - 0x01412B 05:811B: 8E        .byte $8E   ; 
-- D 0 - I - 0x01412C 05:811C: 89        .byte $89   ; 
-- D 0 - I - 0x01412D 05:811D: 8E        .byte $8E   ; 
-- D 0 - I - 0x01412E 05:811E: BD        .byte $BD   ; 
-- D 0 - I - 0x01412F 05:811F: 8E        .byte $8E   ; 
+- D 0 - I - 0x0140D2 05:80C2: 09 83     .word $8309
+- D 0 - I - 0x0140D4 05:80C4: 2E 83     .word $832E
+- D 0 - I - 0x0140D6 05:80C6: 57 83     .word $8357
+- D 0 - I - 0x0140D8 05:80C8: 70 83     .word $8370
+
+; reserve
+- D - - - - 0x0140DA 05:80CA: 00 00     .word $0000
+- D - - - - 0x0140DC 05:80CC: 00 00     .word $0000
+- D - - - - 0x0140DE 05:80CE: 00 00     .word $0000
+- D - - - - 0x0140E0 05:80D0: 00 00     .word $0000
+- D - - - - 0x0140E2 05:80D2: 00 00     .word $0000
+- D - - - - 0x0140E4 05:80D4: 00 00     .word $0000
+- D - - - - 0x0140E6 05:80D6: 00 00     .word $0000
+- D - - - - 0x0140E8 05:80D8: 00 00     .word $0000
+- D - - - - 0x0140EA 05:80DA: 00 00     .word $0000
+- D - - - - 0x0140EC 05:80DC: 00 00     .word $0000
+- D - - - - 0x0140EE 05:80DE: 00 00     .word $0000
+- D - - - - 0x0140F0 05:80E0: 00 00     .word $0000
+- D - - - - 0x0140F2 05:80E2: 00 00     .word $0000
+- D 0 - I - 0x0140F4 05:80E4: 00 00     .word $0000
+- D - - - - 0x0140F6 05:80E6: 00 00     .word $0000
+- D - - - - 0x0140F8 05:80E8: 00 00     .word $0000
+- D - - - - 0x0140FA 05:80EA: 00 00     .word $0000
+- D - - - - 0x0140FC 05:80EC: 00 00     .word $0000
+- D - - - - 0x0140FE 05:80EE: 00 00     .word $0000
+- D - - - - 0x014100 05:80F0: 00 00     .word $0000
+- D - - - - 0x014102 05:80F2: 00 00     .word $0000
+- D - - - - 0x014104 05:80F4: 00 00     .word $0000
+- D - - - - 0x014106 05:80F6: 00 00     .word $0000
+- D - - - - 0x014108 05:80F8: 00 00     .word $0000
+- D - - - - 0x01410A 05:80FA: 00 00     .word $0000
+- D - - - - 0x01410C 05:80FC: 00 00     .word $0000
+- D - - - - 0x01410E 05:80FE: 00 00     .word $0000
+
+- D 0 - I - 0x014110 05:8100: 23 8D     .addr loc_lupin_diver_and_gun_right_frame_ ; CPU address $8D23
+- D 0 - I - 0x014112 05:8102: 48 8D     .addr loc_lupin_diver_and_gun_left_frame_  ; CPU address $8D48
+- D 0 - I - 0x014114 05:8104: 6D 8D     .addr loc_lupin_diver_right_frame_1        ; CPU address $8D6D
+- D 0 - I - 0x014116 05:8106: 86 8D     .addr loc_lupin_diver_left_frame_1         ; CPU address $8D86
+- D 0 - I - 0x014118 05:8108: 9F 8D     .addr loc_lupin_diver_right_frame_2        ; CPU address $8D9F
+- D 0 - I - 0x01411A 05:810A: B8 8D     .addr loc_lupin_diver_left_frame_2         ; CPU address $8DB8
+- D 0 - I - 0x01411C 05:810C: D1 8D     .addr loc_lupin_diver_right_frame_3        ; CPU address $8DD1
+- D 0 - I - 0x01411E 05:810E: EE 8D     .addr loc_lupin_diver_left_frame_3         ; CPU address $8DEE
+- D 0 - I - 0x014120 05:8110: 0B 8E     .addr loc_lupin_diver_death_right_frame_   ; CPU address $8E0B
+- D 0 - I - 0x014122 05:8112: 28 8E     .addr loc_lupin_diver_death_left_frame_    ; CPU address $8E28
+- D 0 - I - 0x014124 05:8114: 45 8E     .addr loc_lupin_diver_bob_up_right_frame_  ; CPU address $8E45
+- D 0 - I - 0x014126 05:8116: 62 8E     .addr loc_lupin_diver_bob_up_left_frame_   ; CPU address $8E62
+- D 0 - I - 0x014128 05:8118: 7F 8E     .addr loc_bubble_small_frame_              ; CPU address $8E7F
+- D 0 - I - 0x01412A 05:811A: 84 8E     .addr loc_bubble_middle_frame_             ; CPU address $8E84
+- D 0 - I - 0x01412C 05:811C: 89 8E     .addr loc_bubble_big_frame_                ; CPU address $8E89
+- D 0 - I - 0x01412E 05:811E: BD 8E     .word $8EBD
 - D 0 - I - 0x014130 05:8120: C6        .byte $C6   ; 
 - D 0 - I - 0x014131 05:8121: 8E        .byte $8E   ; 
 - D 0 - I - 0x014132 05:8122: CF        .byte $CF   ; 
@@ -1322,10 +1250,12 @@
 - D 0 - I - 0x014602 05:85F2: BD        .byte $BD   ; 
 - D 0 - I - 0x014603 05:85F3: 00        .byte $00   ; 
 - D 0 - I - 0x014604 05:85F4: FD        .byte $FD   ; 
-- D 0 - I - 0x014605 05:85F5: 00        .byte $00   ; 
 
-; Daisuke Jigen is standing (right) (or Lupin)
-- D 0 - I - 0x014606 05:85F6: 08        .byte $08   ; Tile count
+loc_empty_frame_:
+- D 0 - I - 0x014605 05:85F5: 00        .byte $00
+
+loc_lupin_jigen_stand_right_frame_:
+- D 0 - I - 0x014606 05:85F6: 08        .byte $08                 ; Tile count
 - D 0 - I - 0x014607 05:85F7: E0        .byte $E0, $53, $00, $FD
 - D 0 - I - 0x01460B 05:85FB: E8        .byte $E8, $54, $00, $F8
 - D 0 - I - 0x01460F 05:85FF: E8        .byte $E8, $56, $00, $00
@@ -1335,8 +1265,8 @@
 - D 0 - I - 0x01461F 05:860F: F8        .byte $F8, $59, $00, $F8
 - D 0 - I - 0x014623 05:8613: F8        .byte $F8, $5B, $00, $00
 
-; Daisuke Jigen is standing (left) (or Lupin)
-- D 0 - I - 0x014627 05:8617: 08        .byte $08   ; 
+loc_lupin_jigen_stand_left_frame_:
+- D 0 - I - 0x014627 05:8617: 08        .byte $08
 - D 0 - I - 0x014628 05:8618: E0        .byte $E0, $53, $40, $FB
 - D 0 - I - 0x01462C 05:861C: E8        .byte $E8, $54, $40, $00
 - D 0 - I - 0x014630 05:8620: E8        .byte $E8, $56, $40, $F8
@@ -1346,8 +1276,8 @@
 - D 0 - I - 0x014640 05:8630: F8        .byte $F8, $59, $40, $00
 - D 0 - I - 0x014644 05:8634: F8        .byte $F8, $5B, $40, $F8
 
-; Daisuke Jigen is running (right) (or Lupin)
-- D 0 - I - 0x014648 05:8638: 06        .byte $06   ; 
+loc_lupin_jigen_run_right_frame_1:
+- D 0 - I - 0x014648 05:8638: 06        .byte $06
 - D 0 - I - 0x014649 05:8639: E0        .byte $E0, $44, $00, $FF
 - D 0 - I - 0x01464D 05:863D: E8        .byte $E8, $40, $00, $F8
 - D 0 - I - 0x014651 05:8641: E8        .byte $E8, $42, $00, $00
@@ -1355,8 +1285,8 @@
 - D 0 - I - 0x014659 05:8649: F0        .byte $F0, $43, $00, $00
 - D 0 - I - 0x01465D 05:864D: F8        .byte $F8, $45, $00, $00
 
-; Daisuke Jigen
-- D 0 - I - 0x014661 05:8651: 06        .byte $06   ; 
+loc_lupin_jigen_run_left_frame_1:
+- D 0 - I - 0x014661 05:8651: 06        .byte $06
 - D 0 - I - 0x014662 05:8652: E0        .byte $E0, $44, $40, $F9
 - D 0 - I - 0x014666 05:8656: E8        .byte $E8, $40, $40, $00
 - D 0 - I - 0x01466A 05:865A: E8        .byte $E8, $42, $40, $F8
@@ -1364,8 +1294,8 @@
 - D 0 - I - 0x014672 05:8662: F0        .byte $F0, $43, $40, $F8
 - D 0 - I - 0x014676 05:8666: F8        .byte $F8, $45, $40, $F8
 
-; Daisuke Jigen 
-- D 0 - I - 0x01467A 05:866A: 06        .byte $06   ; 
+loc_lupin_jigen_run_right_frame_2:
+- D 0 - I - 0x01467A 05:866A: 06        .byte $06
 - D 0 - I - 0x01467B 05:866B: E0        .byte $E0, $46, $00, $FF
 - D 0 - I - 0x01467F 05:866F: E8        .byte $E8, $48, $00, $F8
 - D 0 - I - 0x014683 05:8673: E8        .byte $E8, $4A, $00, $00
@@ -1373,8 +1303,8 @@
 - D 0 - I - 0x01468B 05:867B: F0        .byte $F0, $4B, $00, $00
 - D 0 - I - 0x01468F 05:867F: F8        .byte $F8, $47, $00, $FA
 
-; Daisuke Jigen
-- D 0 - I - 0x014693 05:8683: 06        .byte $06   ; 
+loc_lupin_jigen_run_left_frame_2:
+- D 0 - I - 0x014693 05:8683: 06        .byte $06
 - D 0 - I - 0x014694 05:8684: E0        .byte $E0, $46, $40, $F9
 - D 0 - I - 0x014698 05:8688: E8        .byte $E8, $48, $40, $00
 - D 0 - I - 0x01469C 05:868C: E8        .byte $E8, $4A, $40, $F8
@@ -1382,8 +1312,8 @@
 - D 0 - I - 0x0146A4 05:8694: F0        .byte $F0, $4B, $40, $F8
 - D 0 - I - 0x0146A8 05:8698: F8        .byte $F8, $47, $40, $FE
 
-; Daisuke Jigen
-- D 0 - I - 0x0146AC 05:869C: 07        .byte $07   ; 
+loc_lupin_jigen_run_right_frame_3:
+- D 0 - I - 0x0146AC 05:869C: 07        .byte $07
 - D 0 - I - 0x0146AD 05:869D: E0        .byte $E0, $52, $00, $FF
 - D 0 - I - 0x0146B1 05:86A1: E8        .byte $E8, $4C, $00, $F8
 - D 0 - I - 0x0146B5 05:86A5: E8        .byte $E8, $4E, $00, $00
@@ -1392,7 +1322,8 @@
 - D 0 - I - 0x0146C1 05:86B1: F8        .byte $F8, $50, $00, $F8
 - D 0 - I - 0x0146C5 05:86B5: F8        .byte $F8, $51, $00, $00
 
-- D 0 - I - 0x0146C9 05:86B9: 07        .byte $07   ; 
+loc_lupin_jigen_run_left_frame_3:
+- D 0 - I - 0x0146C9 05:86B9: 07        .byte $07
 - D 0 - I - 0x0146CA 05:86BA: E0        .byte $E0, $52, $40, $F9
 - D 0 - I - 0x0146CE 05:86BE: E8        .byte $E8, $4C, $40, $00
 - D 0 - I - 0x0146D2 05:86C2: E8        .byte $E8, $4E, $40, $F8
@@ -1401,26 +1332,26 @@
 - D 0 - I - 0x0146DE 05:86CE: F8        .byte $F8, $50, $40, $00
 - D 0 - I - 0x0146E2 05:86D2: F8        .byte $F8, $51, $40, $F8
 
-; Broken
-- - - - - - 0x0146E6 05:86D6: 06        .byte $06   ; 
-- - - - - - 0x0146E7 05:86D7: E8        .byte $E8, $60, $00, $F8
-- - - - - - 0x0146EB 05:86DB: E8        .byte $E8, $62, $00, $00
-- - - - - - 0x0146EF 05:86DF: F0        .byte $F0, $61, $00, $F8
-- - - - - - 0x0146F3 05:86E3: F0        .byte $F0, $63, $00, $00
-- - - - - - 0x0146F7 05:86E7: F8        .byte $F8, $64, $00, $F8
-- - - - - - 0x0146FB 05:86EB: F8        .byte $F8, $66, $00, $00
+loc_lupin_jigen_broken_right_frame_:
+- D - - - - 0x0146E6 05:86D6: 06        .byte $06
+- D - - - - 0x0146E7 05:86D7: E8        .byte $E8, $60, $00, $F8
+- D - - - - 0x0146EB 05:86DB: E8        .byte $E8, $62, $00, $00
+- D - - - - 0x0146EF 05:86DF: F0        .byte $F0, $61, $00, $F8
+- D - - - - 0x0146F3 05:86E3: F0        .byte $F0, $63, $00, $00
+- D - - - - 0x0146F7 05:86E7: F8        .byte $F8, $64, $00, $F8
+- D - - - - 0x0146FB 05:86EB: F8        .byte $F8, $66, $00, $00
 
-; Broken
-- - - - - - 0x0146FF 05:86EF: 06        .byte $06   ; 
-- - - - - - 0x014700 05:86F0: E8        .byte $E8, $60, $40, $00
-- - - - - - 0x014704 05:86F4: E8        .byte $E8, $62, $40, $F8
-- - - - - - 0x014708 05:86F8: F0        .byte $F0, $61, $40, $00
-- - - - - - 0x01470C 05:86FC: F0        .byte $F0, $63, $40, $F8
-- - - - - - 0x014710 05:8700: F8        .byte $F8, $64, $40, $00
-- - - - - - 0x014714 05:8704: F8        .byte $F8, $66, $40, $F8
+loc_lupin_jigen_broken_left_frame_:
+- D - - - - 0x0146FF 05:86EF: 06        .byte $06
+- D - - - - 0x014700 05:86F0: E8        .byte $E8, $60, $40, $00
+- D - - - - 0x014704 05:86F4: E8        .byte $E8, $62, $40, $F8
+- D - - - - 0x014708 05:86F8: F0        .byte $F0, $61, $40, $00
+- D - - - - 0x01470C 05:86FC: F0        .byte $F0, $63, $40, $F8
+- D - - - - 0x014710 05:8700: F8        .byte $F8, $64, $40, $00
+- D - - - - 0x014714 05:8704: F8        .byte $F8, $66, $40, $F8
 
-; Daisuke Jigen sitting
-- D 0 - I - 0x014718 05:8708: 06        .byte $06   ; 
+loc_lupin_jigen_sit_right_frame_:
+- D 0 - I - 0x014718 05:8708: 06        .byte $06
 - D 0 - I - 0x014719 05:8709: E8        .byte $E8, $5C, $00, $00
 - D 0 - I - 0x01471D 05:870D: F0        .byte $F0, $5D, $00, $F8
 - D 0 - I - 0x014721 05:8711: F0        .byte $F0, $5E, $00, $00
@@ -1428,7 +1359,8 @@
 - D 0 - I - 0x014729 05:8719: F8        .byte $F8, $55, $00, $F8
 - D 0 - I - 0x01472D 05:871D: F8        .byte $F8, $57, $00, $00
 
-- D 0 - I - 0x014731 05:8721: 06        .byte $06   ; 
+loc_lupin_jigen_sit_left_frame_:
+- D 0 - I - 0x014731 05:8721: 06        .byte $06
 - D 0 - I - 0x014732 05:8722: E8        .byte $E8   ; 
 - D 0 - I - 0x014733 05:8723: 5C        .byte $5C   ; 
 - D 0 - I - 0x014734 05:8724: 40        .byte $40   ; 
@@ -1453,7 +1385,9 @@
 - D 0 - I - 0x014747 05:8737: 57        .byte $57   ; <W>
 - D 0 - I - 0x014748 05:8738: 40        .byte $40   ; 
 - D 0 - I - 0x014749 05:8739: F8        .byte $F8   ; 
-- D 0 - I - 0x01474A 05:873A: 06        .byte $06   ; 
+
+loc_lupin_jigen_fall_right_frame_:
+- D 0 - I - 0x01474A 05:873A: 06        .byte $06
 - D 0 - I - 0x01474B 05:873B: F0        .byte $F0   ; 
 - D 0 - I - 0x01474C 05:873C: 64        .byte $64   ; <d>
 - D 0 - I - 0x01474D 05:873D: C0        .byte $C0   ; 
@@ -1478,7 +1412,9 @@
 - D 0 - I - 0x014760 05:8750: 69        .byte $69   ; <i>
 - D 0 - I - 0x014761 05:8751: 40        .byte $40   ; 
 - D 0 - I - 0x014762 05:8752: F0        .byte $F0   ; 
-- D 0 - I - 0x014763 05:8753: 06        .byte $06   ; 
+
+loc_lupin_jigen_fall_left_frame_:
+- D 0 - I - 0x014763 05:8753: 06        .byte $06
 - D 0 - I - 0x014764 05:8754: F0        .byte $F0   ; 
 - D 0 - I - 0x014765 05:8755: 64        .byte $64   ; <d>
 - D 0 - I - 0x014766 05:8756: 80        .byte $80   ; 
@@ -1503,7 +1439,9 @@
 - D 0 - I - 0x014779 05:8769: 69        .byte $69   ; <i>
 - D 0 - I - 0x01477A 05:876A: 00        .byte $00   ; 
 - D 0 - I - 0x01477B 05:876B: 08        .byte $08   ; 
-- D 0 - I - 0x01477C 05:876C: 04        .byte $04   ; 
+
+loc_lupin_jigen_lie_right_frame_:
+- D 0 - I - 0x01477C 05:876C: 04        .byte $04
 - D 0 - I - 0x01477D 05:876D: F8        .byte $F8   ; 
 - D 0 - I - 0x01477E 05:876E: 6B        .byte $6B   ; <k>
 - D 0 - I - 0x01477F 05:876F: 40        .byte $40   ; 
@@ -1520,7 +1458,9 @@
 - D 0 - I - 0x01478A 05:877A: 6D        .byte $6D   ; <m>
 - D 0 - I - 0x01478B 05:877B: 40        .byte $40   ; 
 - D 0 - I - 0x01478C 05:877C: F0        .byte $F0   ; 
-- D 0 - I - 0x01478D 05:877D: 04        .byte $04   ; 
+
+loc_lupin_jigen_lie_left_frame_:
+- D 0 - I - 0x01478D 05:877D: 04        .byte $04
 - D 0 - I - 0x01478E 05:877E: F8        .byte $F8   ; 
 - D 0 - I - 0x01478F 05:877F: 6B        .byte $6B   ; <k>
 - D 0 - I - 0x014790 05:8780: 00        .byte $00   ; 
@@ -1537,11 +1477,10 @@
 - D 0 - I - 0x01479B 05:878B: 6D        .byte $6D   ; <m>
 - D 0 - I - 0x01479C 05:878C: 00        .byte $00   ; 
 - D 0 - I - 0x01479D 05:878D: 08        .byte $08   ; 
-- D 0 - I - 0x01479E 05:878E: 08        .byte $08   ; 
-- D 0 - I - 0x01479F 05:878F: E0        .byte $E0   ; 
-- D 0 - I - 0x0147A0 05:8790: 6F        .byte $6F   ; <o>
-- D 0 - I - 0x0147A1 05:8791: 00        .byte $00   ; 
-- D 0 - I - 0x0147A2 05:8792: F8        .byte $F8   ; 
+
+loc_lupin_jigen_descend_right_frame_:
+- D 0 - I - 0x01479E 05:878E: 08        .byte $08
+- D 0 - I - 0x01479F 05:878F: E0        .byte $E0, $6F, $00, $F8
 - D 0 - I - 0x0147A3 05:8793: E0        .byte $E0   ; 
 - D 0 - I - 0x0147A4 05:8794: 44        .byte $44   ; <D>
 - D 0 - I - 0x0147A5 05:8795: 00        .byte $00   ; 
@@ -1570,7 +1509,9 @@
 - D 0 - I - 0x0147BC 05:87AC: 51        .byte $51   ; <Q>
 - D 0 - I - 0x0147BD 05:87AD: 00        .byte $00   ; 
 - D 0 - I - 0x0147BE 05:87AE: 00        .byte $00   ; 
-- D 0 - I - 0x0147BF 05:87AF: 08        .byte $08   ; 
+
+loc_lupin_jigen_descend_left_frame_:
+- D 0 - I - 0x0147BF 05:87AF: 08        .byte $08
 - D 0 - I - 0x0147C0 05:87B0: E0        .byte $E0   ; 
 - D 0 - I - 0x0147C1 05:87B1: 6F        .byte $6F   ; <o>
 - D 0 - I - 0x0147C2 05:87B2: 40        .byte $40   ; 
@@ -1603,7 +1544,9 @@
 - D 0 - I - 0x0147DD 05:87CD: 51        .byte $51   ; <Q>
 - D 0 - I - 0x0147DE 05:87CE: 40        .byte $40   ; 
 - D 0 - I - 0x0147DF 05:87CF: F8        .byte $F8   ; 
-- D 0 - I - 0x0147E0 05:87D0: 04        .byte $04   ; 
+
+loc_lupin_jigen_turn_away_frame_1:
+- D 0 - I - 0x0147E0 05:87D0: 04        .byte $04
 - D 0 - I - 0x0147E1 05:87D1: E0        .byte $E0   ; 
 - D 0 - I - 0x0147E2 05:87D2: 70        .byte $70   ; <p>
 - D 0 - I - 0x0147E3 05:87D3: 40        .byte $40   ; 
@@ -1620,7 +1563,9 @@
 - D 0 - I - 0x0147EE 05:87DE: 73        .byte $73   ; <s>
 - D 0 - I - 0x0147EF 05:87DF: 40        .byte $40   ; 
 - D 0 - I - 0x0147F0 05:87E0: FC        .byte $FC   ; 
-- D 0 - I - 0x0147F1 05:87E1: 04        .byte $04   ; 
+
+loc_lupin_jigen_turn_away_frame_2:
+- D 0 - I - 0x0147F1 05:87E1: 04        .byte $04
 - D 0 - I - 0x0147F2 05:87E2: E0        .byte $E0   ; 
 - D 0 - I - 0x0147F3 05:87E3: 70        .byte $70   ; <p>
 - D 0 - I - 0x0147F4 05:87E4: 00        .byte $00   ; 
@@ -1637,7 +1582,9 @@
 - D 0 - I - 0x0147FF 05:87EF: 73        .byte $73   ; <s>
 - D 0 - I - 0x014800 05:87F0: 00        .byte $00   ; 
 - D 0 - I - 0x014801 05:87F1: FC        .byte $FC   ; 
-- D 0 - I - 0x014802 05:87F2: 04        .byte $04   ; 
+
+loc_lupin_jigen_look_at_us_frame_1:
+- D 0 - I - 0x014802 05:87F2: 04        .byte $04
 - D 0 - I - 0x014803 05:87F3: E0        .byte $E0   ; 
 - D 0 - I - 0x014804 05:87F4: 75        .byte $75   ; <u>
 - D 0 - I - 0x014805 05:87F5: 40        .byte $40   ; 
@@ -1654,7 +1601,9 @@
 - D 0 - I - 0x014810 05:8800: 79        .byte $79   ; <y>
 - D 0 - I - 0x014811 05:8801: 40        .byte $40   ; 
 - D 0 - I - 0x014812 05:8802: FC        .byte $FC   ; 
-- D 0 - I - 0x014813 05:8803: 04        .byte $04   ; 
+
+loc_lupin_jigen_look_at_us_frame_2:
+- D 0 - I - 0x014813 05:8803: 04        .byte $04
 - D 0 - I - 0x014814 05:8804: E0        .byte $E0   ; 
 - D 0 - I - 0x014815 05:8805: 75        .byte $75   ; <u>
 - D 0 - I - 0x014816 05:8806: 00        .byte $00   ; 
@@ -1672,8 +1621,8 @@
 - D 0 - I - 0x014822 05:8812: 00        .byte $00   ; 
 - D 0 - I - 0x014823 05:8813: FC        .byte $FC   ; 
 
-; Goemon Ishikawa XIII
-- D 0 - I - 0x014824 05:8814: 07        .byte $07   ; Tile count
+loc_goemon_stand_right_frame_:
+- D 0 - I - 0x014824 05:8814: 07        .byte $07                 ; Tile count
 - D 0 - I - 0x014825 05:8815: E1        .byte $E1, $58, $00, $F8
 - D 0 - I - 0x014829 05:8819: E1        .byte $E1, $5A, $00, $00
 - D 0 - I - 0x01482D 05:881D: E9        .byte $E9, $59, $00, $F8
@@ -1691,8 +1640,8 @@
 - D 0 - I - 0x014847 05:8837: 00        .byte $00   ; 
 - D 0 - I - 0x014848 05:8838: 00        .byte $00   ; 
 
-; Goemon Ishikawa XIII
-- D 0 - I - 0x014849 05:8839: 07        .byte $07   ; 
+loc_goemon_stand_left_frame_:
+- D 0 - I - 0x014849 05:8839: 07        .byte $07
 - D 0 - I - 0x01484A 05:883A: E1        .byte $E1, $58, $40, $00
 - D 0 - I - 0x01484E 05:883E: E1        .byte $E1, $5A, $40, $F8
 - D 0 - I - 0x014852 05:8842: E9        .byte $E9, $59, $40, $00
@@ -1713,8 +1662,8 @@
 - D 0 - I - 0x01486C 05:885C: 40        .byte $40   ; 
 - D 0 - I - 0x01486D 05:885D: F8        .byte $F8   ; 
 
-; Goemon Ishikawa XIII
-- D 0 - I - 0x01486E 05:885E: 06        .byte $06   ; 
+loc_goemon_run_right_frame_1:
+- D 0 - I - 0x01486E 05:885E: 06        .byte $06
 - D 0 - I - 0x01486F 05:885F: E8        .byte $E8, $4A, $00, $F7
 - D 0 - I - 0x014873 05:8863: E8        .byte $E8, $42, $00, $FF
 - D 0 - I - 0x014877 05:8867: F0        .byte $F0, $41, $00, $F0
@@ -1730,7 +1679,9 @@
 - D 0 - I - 0x01488C 05:887C: 52        .byte $52   ; <R>
 - D 0 - I - 0x01488D 05:887D: 00        .byte $00   ; 
 - D 0 - I - 0x01488E 05:887E: 00        .byte $00   ; 
-- D 0 - I - 0x01488F 05:887F: 06        .byte $06   ; 
+
+loc_goemon_run_left_frame_1:
+- D 0 - I - 0x01488F 05:887F: 06        .byte $06
 - D 0 - I - 0x014890 05:8880: E8        .byte $E8   ; 
 - D 0 - I - 0x014891 05:8881: 4A        .byte $4A   ; <J>
 - D 0 - I - 0x014892 05:8882: 40        .byte $40   ; 
@@ -1755,6 +1706,7 @@
 - D 0 - I - 0x0148A5 05:8895: 4F        .byte $4F   ; <O>
 - D 0 - I - 0x0148A6 05:8896: 40        .byte $40   ; 
 - D 0 - I - 0x0148A7 05:8897: 00        .byte $00   ; 
+
 - D 0 - I - 0x0148A8 05:8898: F0        .byte $F0   ; 
 - D 0 - I - 0x0148A9 05:8899: 4E        .byte $4E   ; <N>
 - D 0 - I - 0x0148AA 05:889A: 40        .byte $40   ; 
@@ -1763,7 +1715,9 @@
 - D 0 - I - 0x0148AD 05:889D: 52        .byte $52   ; <R>
 - D 0 - I - 0x0148AE 05:889E: 40        .byte $40   ; 
 - D 0 - I - 0x0148AF 05:889F: F8        .byte $F8   ; 
-- D 0 - I - 0x0148B0 05:88A0: 06        .byte $06   ; 
+
+loc_goemon_run_right_frame_2:
+- D 0 - I - 0x0148B0 05:88A0: 06        .byte $06
 - D 0 - I - 0x0148B1 05:88A1: E8        .byte $E8   ; 
 - D 0 - I - 0x0148B2 05:88A2: 40        .byte $40   ; 
 - D 0 - I - 0x0148B3 05:88A3: 00        .byte $00   ; 
@@ -1788,6 +1742,7 @@
 - D 0 - I - 0x0148C6 05:88B6: 4B        .byte $4B   ; <K>
 - D 0 - I - 0x0148C7 05:88B7: 00        .byte $00   ; 
 - D 0 - I - 0x0148C8 05:88B8: FB        .byte $FB   ; 
+
 - D 0 - I - 0x0148C9 05:88B9: F0        .byte $F0   ; 
 - D 0 - I - 0x0148CA 05:88BA: 48        .byte $48   ; <H>
 - D 0 - I - 0x0148CB 05:88BB: 00        .byte $00   ; 
@@ -1796,7 +1751,9 @@
 - D 0 - I - 0x0148CE 05:88BE: 51        .byte $51   ; <Q>
 - D 0 - I - 0x0148CF 05:88BF: 00        .byte $00   ; 
 - D 0 - I - 0x0148D0 05:88C0: 00        .byte $00   ; 
-- D 0 - I - 0x0148D1 05:88C1: 06        .byte $06   ; 
+
+loc_goemon_run_left_frame_2:
+- D 0 - I - 0x0148D1 05:88C1: 06        .byte $06
 - D 0 - I - 0x0148D2 05:88C2: E8        .byte $E8   ; 
 - D 0 - I - 0x0148D3 05:88C3: 40        .byte $40   ; 
 - D 0 - I - 0x0148D4 05:88C4: 40        .byte $40   ; 
@@ -1821,6 +1778,7 @@
 - D 0 - I - 0x0148E7 05:88D7: 4B        .byte $4B   ; <K>
 - D 0 - I - 0x0148E8 05:88D8: 40        .byte $40   ; 
 - D 0 - I - 0x0148E9 05:88D9: FD        .byte $FD   ; 
+
 - D 0 - I - 0x0148EA 05:88DA: F0        .byte $F0   ; 
 - D 0 - I - 0x0148EB 05:88DB: 48        .byte $48   ; <H>
 - D 0 - I - 0x0148EC 05:88DC: 40        .byte $40   ; 
@@ -1829,7 +1787,9 @@
 - D 0 - I - 0x0148EF 05:88DF: 51        .byte $51   ; <Q>
 - D 0 - I - 0x0148F0 05:88E0: 40        .byte $40   ; 
 - D 0 - I - 0x0148F1 05:88E1: F8        .byte $F8   ; 
-- D 0 - I - 0x0148F2 05:88E2: 07        .byte $07   ; 
+
+loc_goemon_run_right_frame_3:
+- D 0 - I - 0x0148F2 05:88E2: 07        .byte $07
 - D 0 - I - 0x0148F3 05:88E3: E8        .byte $E8   ; 
 - D 0 - I - 0x0148F4 05:88E4: 40        .byte $40   ; 
 - D 0 - I - 0x0148F5 05:88E5: 00        .byte $00   ; 
@@ -1858,6 +1818,7 @@
 - D 0 - I - 0x01490C 05:88FC: 47        .byte $47   ; <G>
 - D 0 - I - 0x01490D 05:88FD: 00        .byte $00   ; 
 - D 0 - I - 0x01490E 05:88FE: FF        .byte $FF   ; 
+
 - D 0 - I - 0x01490F 05:88FF: F0        .byte $F0   ; 
 - D 0 - I - 0x014910 05:8900: 44        .byte $44   ; <D>
 - D 0 - I - 0x014911 05:8901: 00        .byte $00   ; 
@@ -1866,7 +1827,9 @@
 - D 0 - I - 0x014914 05:8904: 50        .byte $50   ; <P>
 - D 0 - I - 0x014915 05:8905: 00        .byte $00   ; 
 - D 0 - I - 0x014916 05:8906: 00        .byte $00   ; 
-- D 0 - I - 0x014917 05:8907: 07        .byte $07   ; 
+
+loc_goemon_run_left_frame_3:
+- D 0 - I - 0x014917 05:8907: 07        .byte $07
 - D 0 - I - 0x014918 05:8908: E8        .byte $E8   ; 
 - D 0 - I - 0x014919 05:8909: 40        .byte $40   ; 
 - D 0 - I - 0x01491A 05:890A: 40        .byte $40   ; 
@@ -1895,6 +1858,7 @@
 - D 0 - I - 0x014931 05:8921: 47        .byte $47   ; <G>
 - D 0 - I - 0x014932 05:8922: 40        .byte $40   ; 
 - D 0 - I - 0x014933 05:8923: F9        .byte $F9   ; 
+
 - D 0 - I - 0x014934 05:8924: F0        .byte $F0   ; 
 - D 0 - I - 0x014935 05:8925: 44        .byte $44   ; <D>
 - D 0 - I - 0x014936 05:8926: 40        .byte $40   ; 
@@ -1903,7 +1867,9 @@
 - D 0 - I - 0x014939 05:8929: 50        .byte $50   ; <P>
 - D 0 - I - 0x01493A 05:892A: 40        .byte $40   ; 
 - D 0 - I - 0x01493B 05:892B: F8        .byte $F8   ; 
-- - - - - - 0x01493C 05:892C: 08        .byte $08   ; 
+
+loc_goemon_broken_right_frame_:
+- - - - - - 0x01493C 05:892C: 08        .byte $08
 - - - - - - 0x01493D 05:892D: EC        .byte $EC   ; 
 - - - - - - 0x01493E 05:892E: 4A        .byte $4A   ; <J>
 - - - - - - 0x01493F 05:892F: 00        .byte $00   ; 
@@ -1936,7 +1902,9 @@
 - - - - - - 0x01495A 05:894A: 55        .byte $55   ; <U>
 - - - - - - 0x01495B 05:894B: 00        .byte $00   ; 
 - - - - - - 0x01495C 05:894C: 00        .byte $00   ; 
-- - - - - - 0x01495D 05:894D: 08        .byte $08   ; 
+
+loc_goemon_broken_left_frame_:
+- - - - - - 0x01495D 05:894D: 08        .byte $08
 - - - - - - 0x01495E 05:894E: EC        .byte $EC   ; 
 - - - - - - 0x01495F 05:894F: 4A        .byte $4A   ; <J>
 - - - - - - 0x014960 05:8950: 40        .byte $40   ; 
@@ -1969,7 +1937,9 @@
 - - - - - - 0x01497B 05:896B: 55        .byte $55   ; <U>
 - - - - - - 0x01497C 05:896C: 40        .byte $40   ; 
 - - - - - - 0x01497D 05:896D: F8        .byte $F8   ; 
-- D 0 - I - 0x01497E 05:896E: 07        .byte $07   ; 
+
+loc_goemon_sit_right_frame_:
+- D 0 - I - 0x01497E 05:896E: 07        .byte $07
 - D 0 - I - 0x01497F 05:896F: EC        .byte $EC   ; 
 - D 0 - I - 0x014980 05:8970: 40        .byte $40   ; 
 - D 0 - I - 0x014981 05:8971: 00        .byte $00   ; 
@@ -1998,6 +1968,7 @@
 - D 0 - I - 0x014998 05:8988: 56        .byte $56   ; <V>
 - D 0 - I - 0x014999 05:8989: 00        .byte $00   ; 
 - D 0 - I - 0x01499A 05:898A: 00        .byte $00   ; 
+
 - D 0 - I - 0x01499B 05:898B: F4        .byte $F4   ; 
 - D 0 - I - 0x01499C 05:898C: 55        .byte $55   ; <U>
 - D 0 - I - 0x01499D 05:898D: 00        .byte $00   ; 
@@ -2006,7 +1977,9 @@
 - D 0 - I - 0x0149A0 05:8990: 57        .byte $57   ; <W>
 - D 0 - I - 0x0149A1 05:8991: 00        .byte $00   ; 
 - D 0 - I - 0x0149A2 05:8992: 00        .byte $00   ; 
-- D 0 - I - 0x0149A3 05:8993: 07        .byte $07   ; 
+
+loc_goemon_sit_left_frame_:
+- D 0 - I - 0x0149A3 05:8993: 07        .byte $07
 - D 0 - I - 0x0149A4 05:8994: EC        .byte $EC   ; 
 - D 0 - I - 0x0149A5 05:8995: 40        .byte $40   ; 
 - D 0 - I - 0x0149A6 05:8996: 40        .byte $40   ; 
@@ -2035,6 +2008,7 @@
 - D 0 - I - 0x0149BD 05:89AD: 56        .byte $56   ; <V>
 - D 0 - I - 0x0149BE 05:89AE: 40        .byte $40   ; 
 - D 0 - I - 0x0149BF 05:89AF: F8        .byte $F8   ; 
+
 - D 0 - I - 0x0149C0 05:89B0: F4        .byte $F4   ; 
 - D 0 - I - 0x0149C1 05:89B1: 55        .byte $55   ; <U>
 - D 0 - I - 0x0149C2 05:89B2: 40        .byte $40   ; 
@@ -2043,7 +2017,9 @@
 - D 0 - I - 0x0149C5 05:89B5: 57        .byte $57   ; <W>
 - D 0 - I - 0x0149C6 05:89B6: 40        .byte $40   ; 
 - D 0 - I - 0x0149C7 05:89B7: F8        .byte $F8   ; 
-- D 0 - I - 0x0149C8 05:89B8: 06        .byte $06   ; 
+
+loc_goemon_fall_right_frame_:
+- D 0 - I - 0x0149C8 05:89B8: 06        .byte $06
 - D 0 - I - 0x0149C9 05:89B9: F0        .byte $F0   ; 
 - D 0 - I - 0x0149CA 05:89BA: 6A        .byte $6A   ; <j>
 - D 0 - I - 0x0149CB 05:89BB: 00        .byte $00   ; 
@@ -2068,6 +2044,8 @@
 - D 0 - I - 0x0149DE 05:89CE: 6C        .byte $6C   ; <l>
 - D 0 - I - 0x0149DF 05:89CF: 00        .byte $00   ; 
 - D 0 - I - 0x0149E0 05:89D0: 00        .byte $00   ; 
+
+loc_goemon_fall_left_frame_:
 - D 0 - I - 0x0149E1 05:89D1: 06        .byte $06   ; 
 - D 0 - I - 0x0149E2 05:89D2: F0        .byte $F0   ; 
 - D 0 - I - 0x0149E3 05:89D3: 6A        .byte $6A   ; <j>
@@ -2093,7 +2071,9 @@
 - D 0 - I - 0x0149F7 05:89E7: 6C        .byte $6C   ; <l>
 - D 0 - I - 0x0149F8 05:89E8: 40        .byte $40   ; 
 - D 0 - I - 0x0149F9 05:89E9: F8        .byte $F8   ; 
-- D 0 - I - 0x0149FA 05:89EA: 04        .byte $04   ; 
+
+loc_goemon_lie_right_frame_:
+- D 0 - I - 0x0149FA 05:89EA: 04        .byte $04
 - D 0 - I - 0x0149FB 05:89EB: F8        .byte $F8   ; 
 - D 0 - I - 0x0149FC 05:89EC: 6D        .byte $6D   ; <m>
 - D 0 - I - 0x0149FD 05:89ED: 00        .byte $00   ; 
@@ -2110,7 +2090,9 @@
 - D 0 - I - 0x014A08 05:89F8: 70        .byte $70   ; <p>
 - D 0 - I - 0x014A09 05:89F9: 00        .byte $00   ; 
 - D 0 - I - 0x014A0A 05:89FA: 08        .byte $08   ; 
-- D 0 - I - 0x014A0B 05:89FB: 04        .byte $04   ; 
+
+loc_goemon_lie_left_frame_:
+- D 0 - I - 0x014A0B 05:89FB: 04        .byte $04
 - D 0 - I - 0x014A0C 05:89FC: F8        .byte $F8   ; 
 - D 0 - I - 0x014A0D 05:89FD: 6D        .byte $6D   ; <m>
 - D 0 - I - 0x014A0E 05:89FE: 40        .byte $40   ; 
@@ -2127,7 +2109,9 @@
 - D 0 - I - 0x014A19 05:8A09: 70        .byte $70   ; <p>
 - D 0 - I - 0x014A1A 05:8A0A: 40        .byte $40   ; 
 - D 0 - I - 0x014A1B 05:8A0B: F0        .byte $F0   ; 
-- D 0 - I - 0x014A1C 05:8A0C: 07        .byte $07   ; 
+
+loc_goemon_descend_right_frame_:
+- D 0 - I - 0x014A1C 05:8A0C: 07        .byte $07
 - D 0 - I - 0x014A1D 05:8A0D: E0        .byte $E0   ; 
 - D 0 - I - 0x014A1E 05:8A0E: 58        .byte $58   ; <X>
 - D 0 - I - 0x014A1F 05:8A0F: 00        .byte $00   ; 
@@ -2156,6 +2140,7 @@
 - D 0 - I - 0x014A36 05:8A26: 7F        .byte $7F   ; 
 - D 0 - I - 0x014A37 05:8A27: 00        .byte $00   ; 
 - D 0 - I - 0x014A38 05:8A28: F8        .byte $F8   ; 
+
 - D 0 - I - 0x014A39 05:8A29: E8        .byte $E8   ; 
 - D 0 - I - 0x014A3A 05:8A2A: 7D        .byte $7D   ; 
 - D 0 - I - 0x014A3B 05:8A2B: 00        .byte $00   ; 
@@ -2164,6 +2149,8 @@
 - D 0 - I - 0x014A3E 05:8A2E: 50        .byte $50   ; <P>
 - D 0 - I - 0x014A3F 05:8A2F: 00        .byte $00   ; 
 - D 0 - I - 0x014A40 05:8A30: 03        .byte $03   ; 
+
+loc_goemon_descend_left_frame_:
 - D 0 - I - 0x014A41 05:8A31: 07        .byte $07   ; 
 - D 0 - I - 0x014A42 05:8A32: E0        .byte $E0   ; 
 - D 0 - I - 0x014A43 05:8A33: 58        .byte $58   ; <X>
@@ -2201,7 +2188,9 @@
 - D 0 - I - 0x014A63 05:8A53: 50        .byte $50   ; <P>
 - D 0 - I - 0x014A64 05:8A54: 40        .byte $40   ; 
 - D 0 - I - 0x014A65 05:8A55: F5        .byte $F5   ; 
-- D 0 - I - 0x014A66 05:8A56: 04        .byte $04   ; 
+
+loc_goemon_turn_away_frame_1:
+- D 0 - I - 0x014A66 05:8A56: 04        .byte $04
 - D 0 - I - 0x014A67 05:8A57: E0        .byte $E0   ; 
 - D 0 - I - 0x014A68 05:8A58: 60        .byte $60   ; 
 - D 0 - I - 0x014A69 05:8A59: 00        .byte $00   ; 
@@ -2218,7 +2207,9 @@
 - D 0 - I - 0x014A74 05:8A64: 63        .byte $63   ; <c>
 - D 0 - I - 0x014A75 05:8A65: 00        .byte $00   ; 
 - D 0 - I - 0x014A76 05:8A66: FC        .byte $FC   ; 
-- D 0 - I - 0x014A77 05:8A67: 04        .byte $04   ; 
+
+loc_goemon_turn_away_frame_2:
+- D 0 - I - 0x014A77 05:8A67: 04        .byte $04
 - D 0 - I - 0x014A78 05:8A68: E0        .byte $E0   ; 
 - D 0 - I - 0x014A79 05:8A69: 60        .byte $60   ; 
 - D 0 - I - 0x014A7A 05:8A6A: 40        .byte $40   ; 
@@ -2235,7 +2226,9 @@
 - D 0 - I - 0x014A85 05:8A75: 63        .byte $63   ; <c>
 - D 0 - I - 0x014A86 05:8A76: 40        .byte $40   ; 
 - D 0 - I - 0x014A87 05:8A77: FC        .byte $FC   ; 
-- D 0 - I - 0x014A88 05:8A78: 04        .byte $04   ; 
+
+loc_goemon_look_at_us_frame_1:
+- D 0 - I - 0x014A88 05:8A78: 04        .byte $04
 - D 0 - I - 0x014A89 05:8A79: E0        .byte $E0   ; 
 - D 0 - I - 0x014A8A 05:8A7A: 64        .byte $64   ; <d>
 - D 0 - I - 0x014A8B 05:8A7B: 00        .byte $00   ; 
@@ -2253,8 +2246,8 @@
 - D 0 - I - 0x014A97 05:8A87: 00        .byte $00   ; 
 - D 0 - I - 0x014A98 05:8A88: FC        .byte $FC   ; 
 
-; Goemon Ishikawa XIII
-- D 0 - I - 0x014A99 05:8A89: 04        .byte $04   ; 
+loc_goemon_look_at_us_frame_2:
+- D 0 - I - 0x014A99 05:8A89: 04        .byte $04
 - D 0 - I - 0x014A9A 05:8A8A: E0        .byte $E0, $64, $40, $FC
 - D 0 - I - 0x014A9E 05:8A8E: E8        .byte $E8, $65, $40, $FC
 - D 0 - I - 0x014AA2 05:8A92: F0        .byte $F0, $66, $40, $FC
@@ -2273,6 +2266,7 @@
 - D 0 - I - 0x014AB4 05:8AA4: 75        .byte $75   ; <u>
 - D 0 - I - 0x014AB5 05:8AA5: 00        .byte $00   ; 
 - D 0 - I - 0x014AB6 05:8AA6: F8        .byte $F8   ; 
+
 - D 0 - I - 0x014AB7 05:8AA7: 03        .byte $03   ; 
 - D 0 - I - 0x014AB8 05:8AA8: FD        .byte $FD   ; 
 - D 0 - I - 0x014AB9 05:8AA9: 71        .byte $71   ; <q>
@@ -2286,6 +2280,7 @@
 - D 0 - I - 0x014AC1 05:8AB1: 73        .byte $73   ; <s>
 - D 0 - I - 0x014AC2 05:8AB2: 00        .byte $00   ; 
 - D 0 - I - 0x014AC3 05:8AB3: FD        .byte $FD   ; 
+
 - D 0 - I - 0x014AC4 05:8AB4: 03        .byte $03   ; 
 - D 0 - I - 0x014AC5 05:8AB5: FD        .byte $FD   ; 
 - D 0 - I - 0x014AC6 05:8AB6: 76        .byte $76   ; <v>
@@ -2299,6 +2294,7 @@
 - D 0 - I - 0x014ACE 05:8ABE: 75        .byte $75   ; <u>
 - D 0 - I - 0x014ACF 05:8ABF: 00        .byte $00   ; 
 - D 0 - I - 0x014AD0 05:8AC0: 0F        .byte $0F   ; 
+
 - D 0 - I - 0x014AD1 05:8AC1: 03        .byte $03   ; 
 - D 0 - I - 0x014AD2 05:8AC2: FD        .byte $FD   ; 
 - D 0 - I - 0x014AD3 05:8AC3: 71        .byte $71   ; <q>
@@ -2312,6 +2308,7 @@
 - D 0 - I - 0x014ADB 05:8ACB: 73        .byte $73   ; <s>
 - D 0 - I - 0x014ADC 05:8ACC: 80        .byte $80   ; 
 - D 0 - I - 0x014ADD 05:8ACD: FD        .byte $FD   ; 
+
 - D 0 - I - 0x014ADE 05:8ACE: 03        .byte $03   ; 
 - D 0 - I - 0x014ADF 05:8ACF: FD        .byte $FD   ; 
 - D 0 - I - 0x014AE0 05:8AD0: 71        .byte $71   ; <q>
@@ -2325,6 +2322,7 @@
 - D 0 - I - 0x014AE8 05:8AD8: 75        .byte $75   ; <u>
 - D 0 - I - 0x014AE9 05:8AD9: 00        .byte $00   ; 
 - D 0 - I - 0x014AEA 05:8ADA: F8        .byte $F8   ; 
+
 - D 0 - I - 0x014AEB 05:8ADB: 03        .byte $03   ; 
 - D 0 - I - 0x014AEC 05:8ADC: FD        .byte $FD   ; 
 - D 0 - I - 0x014AED 05:8ADD: 76        .byte $76   ; <v>
@@ -2338,6 +2336,7 @@
 - D 0 - I - 0x014AF5 05:8AE5: 75        .byte $75   ; <u>
 - D 0 - I - 0x014AF6 05:8AE6: 00        .byte $00   ; 
 - D 0 - I - 0x014AF7 05:8AE7: EE        .byte $EE   ; 
+
 - D 0 - I - 0x014AF8 05:8AE8: 03        .byte $03   ; 
 - D 0 - I - 0x014AF9 05:8AE9: FD        .byte $FD   ; 
 - D 0 - I - 0x014AFA 05:8AEA: 71        .byte $71   ; <q>
@@ -2351,6 +2350,7 @@
 - D 0 - I - 0x014B02 05:8AF2: 75        .byte $75   ; <u>
 - D 0 - I - 0x014B03 05:8AF3: 00        .byte $00   ; 
 - D 0 - I - 0x014B04 05:8AF4: 05        .byte $05   ; 
+
 - D 0 - I - 0x014B05 05:8AF5: 03        .byte $03   ; 
 - D 0 - I - 0x014B06 05:8AF6: FD        .byte $FD   ; 
 - D 0 - I - 0x014B07 05:8AF7: 71        .byte $71   ; <q>
@@ -2364,6 +2364,7 @@
 - D 0 - I - 0x014B0F 05:8AFF: 73        .byte $73   ; <s>
 - D 0 - I - 0x014B10 05:8B00: 40        .byte $40   ; 
 - D 0 - I - 0x014B11 05:8B01: 00        .byte $00   ; 
+
 - D 0 - I - 0x014B12 05:8B02: 03        .byte $03   ; 
 - D 0 - I - 0x014B13 05:8B03: FD        .byte $FD   ; 
 - D 0 - I - 0x014B14 05:8B04: 71        .byte $71   ; <q>
@@ -2377,6 +2378,7 @@
 - D 0 - I - 0x014B1C 05:8B0C: 73        .byte $73   ; <s>
 - D 0 - I - 0x014B1D 05:8B0D: C0        .byte $C0   ; 
 - D 0 - I - 0x014B1E 05:8B0E: 00        .byte $00   ; 
+
 - D 0 - I - 0x014B1F 05:8B0F: 03        .byte $03   ; 
 - D 0 - I - 0x014B20 05:8B10: FD        .byte $FD   ; 
 - D 0 - I - 0x014B21 05:8B11: 71        .byte $71   ; <q>
@@ -2390,6 +2392,7 @@
 - D 0 - I - 0x014B29 05:8B19: 75        .byte $75   ; <u>
 - D 0 - I - 0x014B2A 05:8B1A: 00        .byte $00   ; 
 - D 0 - I - 0x014B2B 05:8B1B: 05        .byte $05   ; 
+
 - - - - - - 0x014B2C 05:8B1C: 04        .byte $04   ; 
 - - - - - - 0x014B2D 05:8B1D: 00        .byte $00   ; 
 - - - - - - 0x014B2E 05:8B1E: 03        .byte $03   ; 
@@ -2408,12 +2411,13 @@
 - - - - - - 0x014B3B 05:8B2B: 40        .byte $40   ; 
 - - - - - - 0x014B3C 05:8B2C: 08        .byte $08   ; 
 
-; Menu gun
-- D 0 - I - 0x014B3D 05:8B2D: 02        .byte $02   ; 
+loc_select_menu_gun_frame_:
+- D 0 - I - 0x014B3D 05:8B2D: 02        .byte $02
 - D 0 - I - 0x014B3E 05:8B2E: F8        .byte $F8, $62, $00, $F8
 - D 0 - I - 0x014B42 05:8B32: F8        .byte $F8, $63, $00, $00
 
-- D 0 - I - 0x014B46 05:8B36: 0A        .byte $0A   ; 
+loc_select_menu_handcuffs_frame_:
+- D 0 - I - 0x014B46 05:8B36: 0A        .byte $0A
 - D 0 - I - 0x014B47 05:8B37: E9        .byte $E9   ; 
 - D 0 - I - 0x014B48 05:8B38: 79        .byte $79   ; <y>
 - D 0 - I - 0x014B49 05:8B39: 00        .byte $00   ; 
@@ -2454,7 +2458,9 @@
 - D 0 - I - 0x014B6C 05:8B5C: 73        .byte $73   ; <s>
 - D 0 - I - 0x014B6D 05:8B5D: 00        .byte $00   ; 
 - D 0 - I - 0x014B6E 05:8B5E: 04        .byte $04   ; 
-- D 0 - I - 0x014B6F 05:8B5F: 0C        .byte $0C   ; 
+
+loc_select_menu_prison_bars_frame_:
+- D 0 - I - 0x014B6F 05:8B5F: 0C        .byte $0C
 - D 0 - I - 0x014B70 05:8B60: E0        .byte $E0   ; 
 - D 0 - I - 0x014B71 05:8B61: 61        .byte $61   ; <a>
 - D 0 - I - 0x014B72 05:8B62: 01        .byte $01   ; 
@@ -2503,33 +2509,37 @@
 - D 0 - I - 0x014B9D 05:8B8D: 61        .byte $61   ; <a>
 - D 0 - I - 0x014B9E 05:8B8E: 01        .byte $01   ; 
 - D 0 - I - 0x014B9F 05:8B8F: 04        .byte $04   ; 
+
 - - - - - - 0x014BA0 05:8B90: 01        .byte $01   ; 
 - - - - - - 0x014BA1 05:8B91: FC        .byte $FC   ; 
 - - - - - - 0x014BA2 05:8B92: 11        .byte $11   ; 
 - - - - - - 0x014BA3 05:8B93: 00        .byte $00   ; 
 - - - - - - 0x014BA4 05:8B94: FC        .byte $FC   ; 
+
 - - - - - - 0x014BA5 05:8B95: 01        .byte $01   ; 
 - - - - - - 0x014BA6 05:8B96: FC        .byte $FC   ; 
 - - - - - - 0x014BA7 05:8B97: 12        .byte $12   ; 
 - - - - - - 0x014BA8 05:8B98: 00        .byte $00   ; 
 - - - - - - 0x014BA9 05:8B99: FC        .byte $FC   ; 
+
 - - - - - - 0x014BAA 05:8B9A: 01        .byte $01   ; 
 - - - - - - 0x014BAB 05:8B9B: FC        .byte $FC   ; 
 - - - - - - 0x014BAC 05:8B9C: 10        .byte $10   ; 
 - - - - - - 0x014BAD 05:8B9D: 00        .byte $00   ; 
 - - - - - - 0x014BAE 05:8B9E: FC        .byte $FC   ; 
 
-; A car wheel (Jigen)
-- D 0 - I - 0x014BAF 05:8B9F: 02        .byte $02   ; 
+loc_car_wheels_frame_1:
+- D 0 - I - 0x014BAF 05:8B9F: 02        .byte $02
 - D 0 - I - 0x014BB0 05:8BA0: FB        .byte $FB, $46, $00, $F3
 - D 0 - I - 0x014BB4 05:8BA4: FA        .byte $FA, $46, $00, $04
 
-; A car wheel (Lupin)
-- D 0 - I - 0x014BB8 05:8BA8: 02        .byte $02   ; 
+loc_car_wheels_frame_2:
+- D 0 - I - 0x014BB8 05:8BA8: 02        .byte $02
 - D 0 - I - 0x014BB9 05:8BA9: FA        .byte $FA, $46, $00, $F3
 - D 0 - I - 0x014BBD 05:8BAD: FB        .byte $FB, $46, $00, $04
 
-- D 0 - I - 0x014BC1 05:8BB1: 02        .byte $02   ; 
+loc_car_wheels_frame_3:
+- D 0 - I - 0x014BC1 05:8BB1: 02        .byte $02
 - D 0 - I - 0x014BC2 05:8BB2: FB        .byte $FB   ; 
 - D 0 - I - 0x014BC3 05:8BB3: 46        .byte $46   ; <F>
 - D 0 - I - 0x014BC4 05:8BB4: 00        .byte $00   ; 
@@ -2538,7 +2548,9 @@
 - D 0 - I - 0x014BC7 05:8BB7: 46        .byte $46   ; <F>
 - D 0 - I - 0x014BC8 05:8BB8: 00        .byte $00   ; 
 - D 0 - I - 0x014BC9 05:8BB9: 04        .byte $04   ; 
-- - - - - - 0x014BCA 05:8BBA: 02        .byte $02   ; 
+
+loc_car_wheels_frame_4:
+- - - - - - 0x014BCA 05:8BBA: 02        .byte $02
 - - - - - - 0x014BCB 05:8BBB: FB        .byte $FB   ; 
 - - - - - - 0x014BCC 05:8BBC: 46        .byte $46   ; <F>
 - - - - - - 0x014BCD 05:8BBD: 00        .byte $00   ; 
@@ -2547,7 +2559,9 @@
 - - - - - - 0x014BD0 05:8BC0: 46        .byte $46   ; <F>
 - - - - - - 0x014BD1 05:8BC1: 00        .byte $00   ; 
 - - - - - - 0x014BD2 05:8BC2: 04        .byte $04   ; 
-- - - - - - 0x014BD3 05:8BC3: 02        .byte $02   ; 
+
+loc_car_wheels_frame_5:
+- - - - - - 0x014BD3 05:8BC3: 02        .byte $02
 - - - - - - 0x014BD4 05:8BC4: F9        .byte $F9   ; 
 - - - - - - 0x014BD5 05:8BC5: 46        .byte $46   ; <F>
 - - - - - - 0x014BD6 05:8BC6: 00        .byte $00   ; 
@@ -2556,7 +2570,9 @@
 - - - - - - 0x014BD9 05:8BC9: 46        .byte $46   ; <F>
 - - - - - - 0x014BDA 05:8BCA: 00        .byte $00   ; 
 - - - - - - 0x014BDB 05:8BCB: 04        .byte $04   ; 
-- D 0 - I - 0x014BDC 05:8BCC: 02        .byte $02   ; 
+
+loc_car_wheels_frame_6:
+- D 0 - I - 0x014BDC 05:8BCC: 02        .byte $02
 - D 0 - I - 0x014BDD 05:8BCD: FC        .byte $FC   ; 
 - D 0 - I - 0x014BDE 05:8BCE: 5B        .byte $5B   ; 
 - D 0 - I - 0x014BDF 05:8BCF: 00        .byte $00   ; 
@@ -2566,16 +2582,16 @@
 - D 0 - I - 0x014BE3 05:8BD3: 00        .byte $00   ; 
 - D 0 - I - 0x014BE4 05:8BD4: 04        .byte $04   ; 
 
-; A car wheel (45 degree)
-- D 0 - I - 0x014BE5 05:8BD5: 02        .byte $02   ; 
+loc_car_wheel_45_degree_frame_:
+- D 0 - I - 0x014BE5 05:8BD5: 02        .byte $02
 - D 0 - I - 0x014BE6 05:8BD6: FD        .byte $FD, $59, $00, $F3
 - D 0 - I - 0x014BEA 05:8BDA: FD        .byte $FD, $59, $00, $04
 
-; A car wheel (90 degree)
-- D 0 - I - 0x014BEE 05:8BDE: 00        .byte $00   ; 
+loc_car_wheel_90_degree_frame_:
+- D 0 - I - 0x014BEE 05:8BDE: 00        .byte $00
 
-; A car
-- D 0 - I - 0x014BEF 05:8BDF: 07        .byte $07   ; 
+loc_car_frame_:
+- D 0 - I - 0x014BEF 05:8BDF: 07        .byte $07
 - D 0 - I - 0x014BF0 05:8BE0: F0        .byte $F0, $40, $00, $F1
 - D 0 - I - 0x014BF4 05:8BE4: F0        .byte $F0, $42, $00, $F9
 - D 0 - I - 0x014BF8 05:8BE8: F0        .byte $F0, $44, $00, $01
@@ -2584,7 +2600,8 @@
 - D 0 - I - 0x014C04 05:8BF4: F8        .byte $F8, $45, $00, $FE
 - D 0 - I - 0x014C08 05:8BF8: F8        .byte $F8, $47, $00, $06
 
-- - - - - - 0x014C0C 05:8BFC: 07        .byte $07   ; 
+loc_car_broken_frame_:
+- - - - - - 0x014C0C 05:8BFC: 07        .byte $07
 - - - - - - 0x014C0D 05:8BFD: F0        .byte $F0   ; 
 - - - - - - 0x014C0E 05:8BFE: 50        .byte $50   ; <P>
 - - - - - - 0x014C0F 05:8BFF: 00        .byte $00   ; 
@@ -2614,8 +2631,8 @@
 - - - - - - 0x014C27 05:8C17: 00        .byte $00   ; 
 - - - - - - 0x014C28 05:8C18: 06        .byte $06   ; 
 
-; A car (45 degree)
-- D 0 - I - 0x014C29 05:8C19: 08        .byte $08   ; 
+loc_car_45_degree_frame_:
+- D 0 - I - 0x014C29 05:8C19: 08        .byte $08
 - D 0 - I - 0x014C2A 05:8C1A: F0        .byte $F0, $48, $00, $EC
 - D 0 - I - 0x014C2E 05:8C1E: F0        .byte $F0, $4A, $00, $F4
 - D 0 - I - 0x014C32 05:8C22: F0        .byte $F0, $4C, $00, $FC
@@ -2625,8 +2642,8 @@
 - D 0 - I - 0x014C42 05:8C32: F8        .byte $F8, $4D, $00, $FE
 - D 0 - I - 0x014C46 05:8C36: F8        .byte $F8, $4F, $00, $06
 
-; A car (90 degree)
-- D 0 - I - 0x014C4A 05:8C3A: 08        .byte $08   ; 
+loc_car_90_degree_frame_:
+- D 0 - I - 0x014C4A 05:8C3A: 08        .byte $08
 - D 0 - I - 0x014C4B 05:8C3B: F0        .byte $F0, $58, $00, $EE
 - D 0 - I - 0x014C4F 05:8C3F: F0        .byte $F0, $5A, $00, $F6
 - D 0 - I - 0x014C53 05:8C43: F0        .byte $F0, $5C, $00, $FE
@@ -2636,25 +2653,28 @@
 - D 0 - I - 0x014C63 05:8C53: F8        .byte $F8, $5C, $80, $FE
 - D 0 - I - 0x014C67 05:8C57: F8        .byte $F8, $5D, $00, $06
 
-; Lupin is in the car
-- D 0 - I - 0x014C6B 05:8C5B: 02        .byte $02   ; 
+loc_lupin_in_car_frame_:
+- D 0 - I - 0x014C6B 05:8C5B: 02        .byte $02
 - D 0 - I - 0x014C6C 05:8C5C: F8        .byte $F8, $68, $00, $FD
 - D 0 - I - 0x014C70 05:8C60: F8        .byte $F8, $69, $00, $05
 
-- - - - - - 0x014C74 05:8C64: 02        .byte $02   ; 
-- - - - - - 0x014C75 05:8C65: F8        .byte $F8, $6C, $00, $FD
-- - - - - - 0x014C79 05:8C69: F7        .byte $F7, $69, $00, $05
+loc_lupin_45d_in_car_frame_:
+- D - - - - 0x014C74 05:8C64: 02        .byte $02
+- D - - - - 0x014C75 05:8C65: F8        .byte $F8, $6C, $00, $FD
+- D - - - - 0x014C79 05:8C69: F7        .byte $F7, $69, $00, $05
 
-- - - - - - 0x014C7D 05:8C6D: 02        .byte $02   ; 
-- - - - - - 0x014C7E 05:8C6E: F8        .byte $F8, $6A, $00, $FD
-- - - - - - 0x014C82 05:8C72: F8        .byte $F8, $6B, $00, $05
+loc_lupin_90d_in_car_frame_:
+- D - - - - 0x014C7D 05:8C6D: 02        .byte $02
+- D - - - - 0x014C7E 05:8C6E: F8        .byte $F8, $6A, $00, $FD
+- D - - - - 0x014C82 05:8C72: F8        .byte $F8, $6B, $00, $05
 
-; Jigen is in the car 
-- D 0 - I - 0x014C86 05:8C76: 02        .byte $02   ; 
+loc_jigen_in_car_frame_:
+- D 0 - I - 0x014C86 05:8C76: 02        .byte $02
 - D 0 - I - 0x014C87 05:8C77: F8        .byte $F8, $63, $00, $FD
 - D 0 - I - 0x014C8B 05:8C7B: F8        .byte $F8, $64, $00, $05
 
-- D 0 - I - 0x014C8F 05:8C7F: 02        .byte $02   ; 
+loc_jigen_45d_in_car_frame_:
+- D 0 - I - 0x014C8F 05:8C7F: 02        .byte $02
 - D 0 - I - 0x014C90 05:8C80: F8        .byte $F8   ; 
 - D 0 - I - 0x014C91 05:8C81: 67        .byte $67   ; <g>
 - D 0 - I - 0x014C92 05:8C82: 00        .byte $00   ; 
@@ -2663,7 +2683,9 @@
 - D 0 - I - 0x014C95 05:8C85: 64        .byte $64   ; <d>
 - D 0 - I - 0x014C96 05:8C86: 00        .byte $00   ; 
 - D 0 - I - 0x014C97 05:8C87: 05        .byte $05   ; 
-- D 0 - I - 0x014C98 05:8C88: 02        .byte $02   ; 
+
+loc_jigen_90d_in_car_frame_:
+- D 0 - I - 0x014C98 05:8C88: 02        .byte $02
 - D 0 - I - 0x014C99 05:8C89: F8        .byte $F8   ; 
 - D 0 - I - 0x014C9A 05:8C8A: 65        .byte $65   ; <e>
 - D 0 - I - 0x014C9B 05:8C8B: 00        .byte $00   ; 
@@ -2673,31 +2695,28 @@
 - D 0 - I - 0x014C9F 05:8C8F: 00        .byte $00   ; 
 - D 0 - I - 0x014CA0 05:8C90: 05        .byte $05   ; 
 
-; Doemon is in the car
-- D 0 - I - 0x014CA1 05:8C91: 01        .byte $01   ; 
+loc_goemon_in_car_frame_:
+- D 0 - I - 0x014CA1 05:8C91: 01        .byte $01
 - D 0 - I - 0x014CA2 05:8C92: F8        .byte $F8, $5F, $00, $FD
 
-; Doemon is in the car (45 degree)
-- D 0 - I - 0x014CA6 05:8C96: 01        .byte $01   ; 
+loc_goemon_45d_in_car_frame_:
+- D 0 - I - 0x014CA6 05:8C96: 01        .byte $01
 - D 0 - I - 0x014CA7 05:8C97: F8        .byte $F8, $62, $00, $FD
 
-; Doemon is in the car (90 degree)
-- D 0 - I - 0x014CAB 05:8C9B: 01        .byte $01   ; 
+loc_goemon_90d_in_car_frame_:
+- D 0 - I - 0x014CAB 05:8C9B: 01        .byte $01
 - D 0 - I - 0x014CAC 05:8C9C: F8        .byte $F8, $61, $00, $FD
 
-- D 0 - I - 0x014CB0 05:8CA0: 01        .byte $01   ; 
-- D 0 - I - 0x014CB1 05:8CA1: F8        .byte $F8   ; 
-- D 0 - I - 0x014CB2 05:8CA2: 60        .byte $60   ; 
-- D 0 - I - 0x014CB3 05:8CA3: 00        .byte $00   ; 
-- D 0 - I - 0x014CB4 05:8CA4: 05        .byte $05   ; 
-- D 0 - I - 0x014CB5 05:8CA5: 01        .byte $01   ; 
-- D 0 - I - 0x014CB6 05:8CA6: F8        .byte $F8   ; 
-- D 0 - I - 0x014CB7 05:8CA7: 6D        .byte $6D   ; <m>
-- D 0 - I - 0x014CB8 05:8CA8: 00        .byte $00   ; 
-- D 0 - I - 0x014CB9 05:8CA9: 05        .byte $05   ; 
+loc_goemon_sword_in_car_frame_2:
+- D 0 - I - 0x014CB0 05:8CA0: 01        .byte $01
+- D 0 - I - 0x014CB1 05:8CA1: F8        .byte $F8, $60, $00, $05
 
-; The car drives into the pyramid (frame 1)
-- D 0 - I - 0x014CBA 05:8CAA: 06        .byte $06   ; 
+loc_goemon_sword_in_car_frame_1:
+- D 0 - I - 0x014CB5 05:8CA5: 01        .byte $01
+- D 0 - I - 0x014CB6 05:8CA6: F8        .byte $F8, $6D, $00, $05
+
+loc_car_drives_into_the_pyramid_frame_1:
+- D 0 - I - 0x014CBA 05:8CAA: 06        .byte $06
 - D 0 - I - 0x014CBB 05:8CAB: F0        .byte $F0, $6E, $00, $F4
 - D 0 - I - 0x014CBF 05:8CAF: F0        .byte $F0, $70, $00, $FC
 - D 0 - I - 0x014CC3 05:8CB3: F0        .byte $F0, $72, $00, $04
@@ -2705,52 +2724,53 @@
 - D 0 - I - 0x014CCB 05:8CBB: F8        .byte $F8, $71, $00, $FC
 - D 0 - I - 0x014CCF 05:8CBF: F8        .byte $F8, $73, $00, $04
 
-; The car drives into the pyramid (frame 2)
-- D 0 - I - 0x014CD3 05:8CC3: 04        .byte $04   ; 
+loc_car_drives_into_the_pyramid_frame_2:
+- D 0 - I - 0x014CD3 05:8CC3: 04        .byte $04
 - D 0 - I - 0x014CD4 05:8CC4: F0        .byte $F0, $74, $00, $F8
 - D 0 - I - 0x014CD8 05:8CC8: F0        .byte $F0, $74, $40, $00
 - D 0 - I - 0x014CDC 05:8CCC: F8        .byte $F8, $75, $00, $F8
 - D 0 - I - 0x014CE0 05:8CD0: F8        .byte $F8, $76, $00, $00
 
-; The car drives into the pyramid (frame 2, mirror)
-- D 0 - I - 0x014CE4 05:8CD4: 04        .byte $04   ; 
+loc_car_drives_into_the_pyramid_frame_2_mirror:
+- D 0 - I - 0x014CE4 05:8CD4: 04        .byte $04
 - D 0 - I - 0x014CE5 05:8CD5: F0        .byte $F0, $74, $00, $F8
 - D 0 - I - 0x014CE9 05:8CD9: F0        .byte $F0, $74, $40, $00
 - D 0 - I - 0x014CED 05:8CDD: F8        .byte $F8, $76, $40, $F8
 - D 0 - I - 0x014CF1 05:8CE1: F8        .byte $F8, $75, $40, $00
 
-; The car drives into the pyramid (frame 3)
-- D 0 - I - 0x014CF5 05:8CE5: 04        .byte $04   ; 
+loc_car_drives_into_the_pyramid_frame_3:
+- D 0 - I - 0x014CF5 05:8CE5: 04        .byte $04
 - D 0 - I - 0x014CF6 05:8CE6: F4        .byte $F4, $78, $00, $F8
 - D 0 - I - 0x014CFA 05:8CEA: F4        .byte $F4, $78, $40, $00
 - D 0 - I - 0x014CFE 05:8CEE: FC        .byte $FC, $79, $00, $F8
 - D 0 - I - 0x014D02 05:8CF2: FC        .byte $FC, $77, $00, $00
 
-; The car drives into the pyramid (frame 3, mirror)
-- D 0 - I - 0x014D06 05:8CF6: 04        .byte $04   ; 
+loc_car_drives_into_the_pyramid_frame_3_mirror:
+- D 0 - I - 0x014D06 05:8CF6: 04        .byte $04
 - D 0 - I - 0x014D07 05:8CF7: F4        .byte $F4, $78, $00, $F8
 - D 0 - I - 0x014D0B 05:8CFB: F4        .byte $F4, $78, $40, $00
 - D 0 - I - 0x014D0F 05:8CFF: FC        .byte $FC, $77, $40, $F8
 - D 0 - I - 0x014D13 05:8D03: FC        .byte $FC, $79, $40, $00
 
-; The car drives into the pyramid (frame 4)
-- D 0 - I - 0x014D17 05:8D07: 02        .byte $02   ; 
+loc_car_drives_into_the_pyramid_frame_4:
+- D 0 - I - 0x014D17 05:8D07: 02        .byte $02
 - D 0 - I - 0x014D18 05:8D08: F6        .byte $F6, $7A, $00, $FC
 - D 0 - I - 0x014D1C 05:8D0C: FE        .byte $FE, $7B, $00, $FC
 
-; The car drives into the pyramid (frame 4, mirror)
-- D 0 - I - 0x014D20 05:8D10: 02        .byte $02   ; 
+loc_car_drives_into_the_pyramid_frame_4_mirror:
+- D 0 - I - 0x014D20 05:8D10: 02        .byte $02
 - D 0 - I - 0x014D21 05:8D11: F6        .byte $F6, $7A, $00, $FC
 - D 0 - I - 0x014D25 05:8D15: FE        .byte $FE, $7B, $40, $FC
 
-; The car drives into the pyramid (frame 6)
-- D 0 - I - 0x014D29 05:8D19: 01        .byte $01   ; 
+loc_car_drives_into_the_pyramid_frame_5:
+- D 0 - I - 0x014D29 05:8D19: 01        .byte $01
 - D 0 - I - 0x014D2A 05:8D1A: F8        .byte $F8, $7C, $00, $FC
 
-; The car drives into the pyramid (frame 5)
-- D 0 - I - 0x014D2E 05:8D1E: 01        .byte $01   ; 
+loc_car_drives_into_the_pyramid_frame_6:
+- D 0 - I - 0x014D2E 05:8D1E: 01        .byte $01
 - D 0 - I - 0x014D2F 05:8D1F: F8        .byte $F8, $7D, $00, $FC
 
+loc_lupin_diver_and_gun_right_frame_:
 - D 0 - I - 0x014D33 05:8D23: 09        .byte $09   ; 
 - D 0 - I - 0x014D34 05:8D24: E0        .byte $E0   ; 
 - D 0 - I - 0x014D35 05:8D25: 57        .byte $57   ; <W>
@@ -2788,6 +2808,8 @@
 - D 0 - I - 0x014D55 05:8D45: 67        .byte $67   ; <g>
 - D 0 - I - 0x014D56 05:8D46: 00        .byte $00   ; 
 - D 0 - I - 0x014D57 05:8D47: F9        .byte $F9   ; 
+
+loc_lupin_diver_and_gun_left_frame_:
 - D 0 - I - 0x014D58 05:8D48: 09        .byte $09   ; 
 - D 0 - I - 0x014D59 05:8D49: E0        .byte $E0   ; 
 - D 0 - I - 0x014D5A 05:8D4A: 57        .byte $57   ; <W>
@@ -2825,6 +2847,8 @@
 - D 0 - I - 0x014D7A 05:8D6A: 67        .byte $67   ; <g>
 - D 0 - I - 0x014D7B 05:8D6B: 40        .byte $40   ; 
 - D 0 - I - 0x014D7C 05:8D6C: FF        .byte $FF   ; 
+
+loc_lupin_diver_right_frame_1:
 - D 0 - I - 0x014D7D 05:8D6D: 06        .byte $06   ; 
 - D 0 - I - 0x014D7E 05:8D6E: E0        .byte $E0   ; 
 - D 0 - I - 0x014D7F 05:8D6F: 57        .byte $57   ; <W>
@@ -2850,6 +2874,8 @@
 - D 0 - I - 0x014D93 05:8D83: 5C        .byte $5C   ; 
 - D 0 - I - 0x014D94 05:8D84: 00        .byte $00   ; 
 - D 0 - I - 0x014D95 05:8D85: F8        .byte $F8   ; 
+
+loc_lupin_diver_left_frame_1:
 - D 0 - I - 0x014D96 05:8D86: 06        .byte $06   ; 
 - D 0 - I - 0x014D97 05:8D87: E0        .byte $E0   ; 
 - D 0 - I - 0x014D98 05:8D88: 57        .byte $57   ; <W>
@@ -2875,6 +2901,8 @@
 - D 0 - I - 0x014DAC 05:8D9C: 5C        .byte $5C   ; 
 - D 0 - I - 0x014DAD 05:8D9D: 40        .byte $40   ; 
 - D 0 - I - 0x014DAE 05:8D9E: 00        .byte $00   ; 
+
+loc_lupin_diver_right_frame_2:
 - D 0 - I - 0x014DAF 05:8D9F: 06        .byte $06   ; 
 - D 0 - I - 0x014DB0 05:8DA0: E0        .byte $E0   ; 
 - D 0 - I - 0x014DB1 05:8DA1: 57        .byte $57   ; <W>
@@ -2900,6 +2928,8 @@
 - D 0 - I - 0x014DC5 05:8DB5: 60        .byte $60   ; 
 - D 0 - I - 0x014DC6 05:8DB6: 00        .byte $00   ; 
 - D 0 - I - 0x014DC7 05:8DB7: F2        .byte $F2   ; 
+
+loc_lupin_diver_left_frame_2:
 - D 0 - I - 0x014DC8 05:8DB8: 06        .byte $06   ; 
 - D 0 - I - 0x014DC9 05:8DB9: E0        .byte $E0   ; 
 - D 0 - I - 0x014DCA 05:8DBA: 57        .byte $57   ; <W>
@@ -2925,6 +2955,8 @@
 - D 0 - I - 0x014DDE 05:8DCE: 60        .byte $60   ; 
 - D 0 - I - 0x014DDF 05:8DCF: 40        .byte $40   ; 
 - D 0 - I - 0x014DE0 05:8DD0: 06        .byte $06   ; 
+
+loc_lupin_diver_right_frame_3:
 - D 0 - I - 0x014DE1 05:8DD1: 07        .byte $07   ; 
 - D 0 - I - 0x014DE2 05:8DD2: E0        .byte $E0   ; 
 - D 0 - I - 0x014DE3 05:8DD3: 57        .byte $57   ; <W>
@@ -2954,6 +2986,8 @@
 - D 0 - I - 0x014DFB 05:8DEB: 67        .byte $67   ; <g>
 - D 0 - I - 0x014DFC 05:8DEC: 00        .byte $00   ; 
 - D 0 - I - 0x014DFD 05:8DED: F9        .byte $F9   ; 
+
+loc_lupin_diver_left_frame_3:
 - D 0 - I - 0x014DFE 05:8DEE: 07        .byte $07   ; 
 - D 0 - I - 0x014DFF 05:8DEF: E0        .byte $E0   ; 
 - D 0 - I - 0x014E00 05:8DF0: 57        .byte $57   ; <W>
@@ -2983,7 +3017,9 @@
 - D 0 - I - 0x014E18 05:8E08: 67        .byte $67   ; <g>
 - D 0 - I - 0x014E19 05:8E09: 40        .byte $40   ; 
 - D 0 - I - 0x014E1A 05:8E0A: FF        .byte $FF   ; 
-- D 0 - I - 0x014E1B 05:8E0B: 07        .byte $07   ; 
+
+loc_lupin_diver_death_right_frame_:
+- D 0 - I - 0x014E1B 05:8E0B: 07        .byte $07
 - D 0 - I - 0x014E1C 05:8E0C: E7        .byte $E7   ; 
 - D 0 - I - 0x014E1D 05:8E0D: 68        .byte $68   ; <h>
 - D 0 - I - 0x014E1E 05:8E0E: 00        .byte $00   ; 
@@ -3012,7 +3048,9 @@
 - D 0 - I - 0x014E35 05:8E25: 5C        .byte $5C   ; 
 - D 0 - I - 0x014E36 05:8E26: 00        .byte $00   ; 
 - D 0 - I - 0x014E37 05:8E27: F8        .byte $F8   ; 
-- D 0 - I - 0x014E38 05:8E28: 07        .byte $07   ; 
+
+loc_lupin_diver_death_left_frame_:
+- D 0 - I - 0x014E38 05:8E28: 07        .byte $07
 - D 0 - I - 0x014E39 05:8E29: E7        .byte $E7   ; 
 - D 0 - I - 0x014E3A 05:8E2A: 68        .byte $68   ; <h>
 - D 0 - I - 0x014E3B 05:8E2B: 40        .byte $40   ; 
@@ -3041,6 +3079,8 @@
 - D 0 - I - 0x014E52 05:8E42: 5C        .byte $5C   ; 
 - D 0 - I - 0x014E53 05:8E43: 40        .byte $40   ; 
 - D 0 - I - 0x014E54 05:8E44: 00        .byte $00   ; 
+
+loc_lupin_diver_bob_up_right_frame_:
 - D 0 - I - 0x014E55 05:8E45: 07        .byte $07   ; 
 - D 0 - I - 0x014E56 05:8E46: D8        .byte $D8   ; 
 - D 0 - I - 0x014E57 05:8E47: 6C        .byte $6C   ; <l>
@@ -3070,6 +3110,8 @@
 - D 0 - I - 0x014E6F 05:8E5F: 5C        .byte $5C   ; 
 - D 0 - I - 0x014E70 05:8E60: 00        .byte $00   ; 
 - D 0 - I - 0x014E71 05:8E61: F8        .byte $F8   ; 
+
+loc_lupin_diver_bob_up_left_frame_:
 - D 0 - I - 0x014E72 05:8E62: 07        .byte $07   ; 
 - D 0 - I - 0x014E73 05:8E63: D8        .byte $D8   ; 
 - D 0 - I - 0x014E74 05:8E64: 6C        .byte $6C   ; <l>
@@ -3099,17 +3141,23 @@
 - D 0 - I - 0x014E8C 05:8E7C: 5C        .byte $5C   ; 
 - D 0 - I - 0x014E8D 05:8E7D: 40        .byte $40   ; 
 - D 0 - I - 0x014E8E 05:8E7E: 00        .byte $00   ; 
-- D 0 - I - 0x014E8F 05:8E7F: 01        .byte $01   ; 
+
+loc_bubble_small_frame_:
+- D 0 - I - 0x014E8F 05:8E7F: 01        .byte $01
 - D 0 - I - 0x014E90 05:8E80: F8        .byte $F8   ; 
 - D 0 - I - 0x014E91 05:8E81: 2C        .byte $2C   ; 
 - D 0 - I - 0x014E92 05:8E82: 00        .byte $00   ; 
 - D 0 - I - 0x014E93 05:8E83: FC        .byte $FC   ; 
-- D 0 - I - 0x014E94 05:8E84: 01        .byte $01   ; 
+
+loc_bubble_middle_frame_:
+- D 0 - I - 0x014E94 05:8E84: 01        .byte $01
 - D 0 - I - 0x014E95 05:8E85: F8        .byte $F8   ; 
 - D 0 - I - 0x014E96 05:8E86: 2B        .byte $2B   ; 
 - D 0 - I - 0x014E97 05:8E87: 00        .byte $00   ; 
 - D 0 - I - 0x014E98 05:8E88: FC        .byte $FC   ; 
-- D 0 - I - 0x014E99 05:8E89: 01        .byte $01   ; 
+
+loc_bubble_big_frame_:
+- D 0 - I - 0x014E99 05:8E89: 01        .byte $01
 - D 0 - I - 0x014E9A 05:8E8A: F8        .byte $F8   ; 
 - D 0 - I - 0x014E9B 05:8E8B: 2A        .byte $2A   ; 
 - D 0 - I - 0x014E9C 05:8E8C: 00        .byte $00   ; 
