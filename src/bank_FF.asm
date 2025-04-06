@@ -2507,29 +2507,29 @@ C - - - - - 0x01CF07 07:CEF7: D0 EC     BNE bra_CEE5_continue        ; Always tr
 
 ; Display 16 sprites starting from vCurrentNumberSprite
 sub_CEF9_display_16_sprite_magic:
-C - - - - - 0x01CF09 07:CEF9: A5 2C     LDA vLowCounter              ;
-C - - - - - 0x01CF0B 07:CEFB: 29 07     AND #$07                     ;
-C - - - - - 0x01CF0D 07:CEFD: 0A        ASL                          ;
-C - - - - - 0x01CF0E 07:CEFE: 0A        ASL                          ;
-C - - - - - 0x01CF0F 07:CEFF: 0A        ASL                          ;
-C - - - - - 0x01CF10 07:CF00: 0A        ASL                          ; Register A = {0x00, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70}
-C - - - - - 0x01CF11 07:CF01: 18        CLC                          ;
-C - - - - - 0x01CF12 07:CF02: 69 DE     ADC #$DE                     ;
-C - - - - - 0x01CF14 07:CF04: 85 12     STA ram_0012                 ; ram_0012 = {0xDE, 0xEE, 0xFE, 0x0E, 0x1E, 0x2E, 0x3E, 0x4E}
-C - - - - - 0x01CF16 07:CF06: A9 00     LDA #$00                     ;
-C - - - - - 0x01CF18 07:CF08: 69 CF     ADC #$CF                     ; 
-C - - - - - 0x01CF1A 07:CF0A: 85 13     STA ram_0013                 ; ram_0013 = (0xCF, 0xD0)
-C - - - - - 0x01CF1C 07:CF0C: A0 00     LDY #$00                     ;
-C - - - - - 0x01CF1E 07:CF0E: 84 1A     STY vTempCounter1A           ; set loop counter
-loc_CF10_loop:                                                       ; loop by vTempCounter1A (16 times)
-C D 2 - - - 0x01CF20 07:CF10: B1 12     LDA (ram_0012),Y             ; get a sprite relative index (see 'The order of the indexes X')
-C - - - - - 0x01CF22 07:CF12: 0A        ASL                          ;
-C - - - - - 0x01CF23 07:CF13: 0A        ASL                          ;
-C - - - - - 0x01CF24 07:CF14: A8        TAY                          ; put a sprite offset (4 bytes each)
-C - - - - - 0x01CF25 07:CF15: B9 B7 06  LDA v_sprite_magic1,Y        ;
-C - - - - - 0x01CF28 07:CF18: C9 F0     CMP #$F0                     ;
-C - - - - - 0x01CF2A 07:CF1A: D0 03     BNE bra_CF1F_skip            ; If a sprite is configured
-C - - - - - 0x01CF2C 07:CF1C: 4C C8 CF  JMP loc_CFC8_continue        ;
+C - - - - - 0x01CF09 07:CEF9: A5 2C     LDA vLowCounter                        ;
+C - - - - - 0x01CF0B 07:CEFB: 29 07     AND #$07                               ;
+C - - - - - 0x01CF0D 07:CEFD: 0A        ASL                                    ;
+C - - - - - 0x01CF0E 07:CEFE: 0A        ASL                                    ;
+C - - - - - 0x01CF0F 07:CEFF: 0A        ASL                                    ;
+C - - - - - 0x01CF10 07:CF00: 0A        ASL                                    ; Register A = {0x00, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70}
+C - - - - - 0x01CF11 07:CF01: 18        CLC                                    ;
+C - - - - - 0x01CF12 07:CF02: 69 DE     ADC #.lobyte(tbl_sprite_order_indexes) ;
+C - - - - - 0x01CF14 07:CF04: 85 12     STA ram_0012                           ; ram_0012 = {0xDE, 0xEE, 0xFE, 0x0E, 0x1E, 0x2E, 0x3E, 0x4E}
+C - - - - - 0x01CF16 07:CF06: A9 00     LDA #$00                               ;
+C - - - - - 0x01CF18 07:CF08: 69 CF     ADC #.hibyte(tbl_sprite_order_indexes) ; 
+C - - - - - 0x01CF1A 07:CF0A: 85 13     STA ram_0013                           ; ram_0013 = (0xCF, 0xD0)
+C - - - - - 0x01CF1C 07:CF0C: A0 00     LDY #$00                               ;
+C - - - - - 0x01CF1E 07:CF0E: 84 1A     STY vTempCounter1A                     ; set loop counter
+loc_CF10_loop:                                                                 ; loop by vTempCounter1A (16 times)
+C D 2 - - - 0x01CF20 07:CF10: B1 12     LDA (ram_0012),Y                       ; get a sprite relative index (see 'The order of the indexes X')
+C - - - - - 0x01CF22 07:CF12: 0A        ASL                                    ;
+C - - - - - 0x01CF23 07:CF13: 0A        ASL                                    ;
+C - - - - - 0x01CF24 07:CF14: A8        TAY                                    ; put a sprite offset (4 bytes each)
+C - - - - - 0x01CF25 07:CF15: B9 B7 06  LDA v_sprite_magic1,Y                  ;
+C - - - - - 0x01CF28 07:CF18: C9 F0     CMP #$F0                               ;
+C - - - - - 0x01CF2A 07:CF1A: D0 03     BNE bra_CF1F_skip                      ; If a sprite is configured
+C - - - - - 0x01CF2C 07:CF1C: 4C C8 CF  JMP loc_CFC8_continue                  ;
 
 bra_CF1F_skip:
 C - - - - - 0x01CF2F 07:CF1F: 85 00     STA ram_0000               ; <~ Y-position
@@ -2649,22 +2649,15 @@ C - - - - - 0x01CFE7 07:CFD7: A9 F0     LDA #$F0                   ; CONSTANT - 
 C - - - - - 0x01CFE9 07:CFD9: 9D 00 07  STA vStartOAM,X            ; 
 C - - - - - 0x01CFEC 07:CFDC: D0 E3     BNE bra_CFC1_next          ; Always true
 
-; The order of the indexes 1
-- D 2 - I - 0x01CFEE 07:CFDE: 00        .byte $00, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F
-; The order of the indexes 2
-- D 2 - I - 0x01CFFE 07:CFEE: 09        .byte $09, $0A, $0B, $0C, $0D, $0E, $0F, $02, $03, $04, $05, $06, $07, $08, $01, $00
-; The order of the indexes 3
-- D 2 - I - 0x01D00E 07:CFFE: 0F        .byte $0F, $0E, $0D, $0C, $0B, $0A, $00, $01, $09, $08, $07, $06, $05, $04, $03, $02
-; The order of the indexes 4
-- D 2 - I - 0x01D01E 07:D00E: 01        .byte $01, $08, $07, $06, $05, $04, $03, $02, $00, $0F, $0E, $0D, $0C, $0B, $0A, $09
-; The order of the indexes 5
-- D 2 - I - 0x01D02E 07:D01E: 05        .byte $05, $06, $07, $08, $02, $03, $04, $0C, $0D, $0E, $00, $01, $0F, $09, $08, $07
-; The order of the indexes 6
-- D 2 - I - 0x01D03E 07:D02E: 0C        .byte $0C, $0D, $0E, $0F, $01, $00, $09, $0A, $0B, $05, $06, $07, $08, $02, $03, $04
-; The order of the indexes 7
-- D 2 - I - 0x01D04E 07:D03E: 04        .byte $04, $03, $02, $01, $00, $08, $07, $06, $05, $0B, $0A, $09, $0F, $0E, $0D, $0C
-; The order of the indexes 8
-- D 2 - I - 0x01D05E 07:D04E: 0B        .byte $0B, $0A, $09, $0F, $0E, $0D, $0C, $01, $00, $04, $03, $02, $08, $07, $06, $05
+tbl_sprite_order_indexes:
+- D 2 - I - 0x01CFEE 07:CFDE: 00        .byte $00, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F  ; The order of the indexes 1
+- D 2 - I - 0x01CFFE 07:CFEE: 09        .byte $09, $0A, $0B, $0C, $0D, $0E, $0F, $02, $03, $04, $05, $06, $07, $08, $01, $00  ; The order of the indexes 2
+- D 2 - I - 0x01D00E 07:CFFE: 0F        .byte $0F, $0E, $0D, $0C, $0B, $0A, $00, $01, $09, $08, $07, $06, $05, $04, $03, $02  ; The order of the indexes 3
+- D 2 - I - 0x01D01E 07:D00E: 01        .byte $01, $08, $07, $06, $05, $04, $03, $02, $00, $0F, $0E, $0D, $0C, $0B, $0A, $09  ; The order of the indexes 4
+- D 2 - I - 0x01D02E 07:D01E: 05        .byte $05, $06, $07, $08, $02, $03, $04, $0C, $0D, $0E, $00, $01, $0F, $09, $08, $07  ; The order of the indexes 5
+- D 2 - I - 0x01D03E 07:D02E: 0C        .byte $0C, $0D, $0E, $0F, $01, $00, $09, $0A, $0B, $05, $06, $07, $08, $02, $03, $04  ; The order of the indexes 6
+- D 2 - I - 0x01D04E 07:D03E: 04        .byte $04, $03, $02, $01, $00, $08, $07, $06, $05, $0B, $0A, $09, $0F, $0E, $0D, $0C  ; The order of the indexes 7
+- D 2 - I - 0x01D05E 07:D04E: 0B        .byte $0B, $0A, $09, $0F, $0E, $0D, $0C, $01, $00, $04, $03, $02, $08, $07, $06, $05  ; The order of the indexes 8
 
 sub_accumulator_shift_right_by_5:
 C - - - - - 0x01D06E 07:D05E: 4A        LSR  ;
@@ -4769,13 +4762,13 @@ C - - - - - 0x01DBFC 07:DBEC: 4C 1C E2  JMP loc_E21C_goemon                     
 ; in: 0x0001 - The character's position along the X axis relative to the screen
 bra_DBEF_skip:
 C - - - - - 0x01DBFF 07:DBEF: AC 14 02  LDY vCurrentWeaponStatus        ;
-C - - - - - 0x01DC02 07:DBF2: A9 40     LDA #$40                        ; AAA = 0, LLL = 0%010, ?? = 0 (see vCharacterRenderData)
+C - - - - - 0x01DC02 07:DBF2: A9 40     LDA #$40                        ; AA = 0, LL = 1 (see vCharacterRenderData, $81XX)
 C - - - - - 0x01DC04 07:DBF4: C0 42     CPY #$42                        ; CONSTANT - The artillery rifle is activated
 C - - - - - 0x01DC06 07:DBF6: F0 1B     BEQ bra_DC13_rifle              ; If Register Y == #$42
 C - - - - - 0x01DC08 07:DBF8: 24 6D     BIT vMovableChrStatus           ;
 C - - - - - 0x01DC0A 07:DBFA: 70 28     BVS bra_DC24_balloon            ; If the character is moving on the balloon
 C - - - - - 0x01DC0C 07:DBFC: 30 02     BMI @bra_DC00_skip              ; If the character is moving in the water
-C - - - - - 0x01DC0E 07:DBFE: A9 01     LDA #$01                        ; AAA = 1, LLL = 0, ?? = 0x00 (see vCharacterRenderData)
+C - - - - - 0x01DC0E 07:DBFE: A9 01     LDA #$01                        ; AA = 1, LL = 0 (see vCharacterRenderData, $80XX)
 @bra_DC00_skip:
 C - - - - - 0x01DC10 07:DC00: 85 45     STA vCharacterRenderData        ;
 C - - - - - 0x01DC12 07:DC02: 20 5A CE  JSR sub_CE5A_render_character   ;
@@ -4790,10 +4783,10 @@ C - - - - - 0x01DC1E 07:DC0E: 86 7A     STX vBulletCount                ;
 C - - - - - 0x01DC20 07:DC10: 4C 32 E1  JMP loc_E132_bullets_subroutine ;
 
 bra_DC13_rifle:
-C - - - - - 0x01DC23 07:DC13: 85 45     STA vCharacterRenderData          ;
+C - - - - - 0x01DC23 07:DC13: 85 45     STA vCharacterRenderData          ; 
 C - - - - - 0x01DC25 07:DC15: 8A        TXA                               ;
 C - - - - - 0x01DC26 07:DC16: 18        CLC                               ;
-C - - - - - 0x01DC27 07:DC17: 69 3A     ADC #$3A                          ; 
+C - - - - - 0x01DC27 07:DC17: 69 3A     ADC #$3A                          ; see bank 05, page 1, $813A
 C - - - - - 0x01DC29 07:DC19: AA        TAX                               ; increment the offset of the sprite address
 ; In: Register X - increment the offset of the sprite address
 loc_DC1A_render_character_and_bullets:
@@ -4813,7 +4806,7 @@ C - - - - - 0x01DC3F 07:DC2F: A5 64     LDA vScreenChrPosX                      
 C - - - - - 0x01DC41 07:DC31: 85 01     STA ram_0001                               ; prepare an input parameter (for render)
 C - - - - - 0x01DC43 07:DC33: 68        PLA                                        ; retrieve x (see DC27)
 C - - - - - 0x01DC44 07:DC34: 18        CLC                                        ;
-C - - - - - 0x01DC45 07:DC35: 69 52     ADC #$52                                   ;
+C - - - - - 0x01DC45 07:DC35: 69 52     ADC #$52                                   ; see bank 05, page 1, $8152
 C - - - - - 0x01DC47 07:DC37: AA        TAX                                        ; increment the offset of the sprite address
 C - - - - - 0x01DC48 07:DC38: 4C 1A DC  JMP loc_DC1A_render_character_and_bullets  ;
 
@@ -4828,7 +4821,7 @@ C - - - - - 0x01DC57 07:DC47: B0 02     BCS @bra_DC4B_skip                      
 C - - - - - 0x01DC59 07:DC49: A9 08     LDA #$08                                   ; offset frame #3
 @bra_DC4B_skip:
 C - - - - - 0x01DC5B 07:DC4B: 18        CLC                                        ;
-C - - - - - 0x01DC5C 07:DC4C: 69 52     ADC #$52                                   ;
+C - - - - - 0x01DC5C 07:DC4C: 69 52     ADC #$52                                   ; see bank 05, page 1, $8152
 C - - - - - 0x01DC5E 07:DC4E: AA        TAX                                        ; increment the offset of the sprite address
 C - - - - - 0x01DC5F 07:DC4F: 4C 5A CE  JMP loc_CE5A_render_character              ;
 
@@ -5890,18 +5883,18 @@ C - - - - - 0x01E285 07:E275: E8        INX                              ; incre
 @bra_E276_right:
 C - - - - - 0x01E286 07:E276: 8A        TXA                              ;
 C - - - - - 0x01E287 07:E277: 18        CLC                              ;
-C - - - - - 0x01E288 07:E278: 69 58     ADC #$58                         ;
+C - - - - - 0x01E288 07:E278: 69 58     ADC #$58                         ; see bank 05, page 1, $8058
 C - - - - - 0x01E28A 07:E27A: AA        TAX                              ; X <~ X + 0x58
-C - - - - - 0x01E28B 07:E27B: A9 01     LDA #$01                         ; AAA = 1, LLL = 0, ?? = 0x00 (see vCharacterRenderData)
+C - - - - - 0x01E28B 07:E27B: A9 01     LDA #$01                         ; AA = 1, LL = 0 (see vCharacterRenderData, $80XX)
 C - - - - - 0x01E28D 07:E27D: 85 45     STA vCharacterRenderData         ;
 C - - - - - 0x01E28F 07:E27F: 4C 5A CE  JMP loc_CE5A_render_character    ;
 
 ; In: Register A - the offset of the sprite address
 sub_E282_render_goemon:
 C - - - - - 0x01E292 07:E282: 18        CLC                              ;
-C - - - - - 0x01E293 07:E283: 69 2C     ADC #$2C                         ;
+C - - - - - 0x01E293 07:E283: 69 2C     ADC #$2C                         ; see bank 05, page 1, $802C
 C - - - - - 0x01E295 07:E285: AA        TAX                              ; X <~ the offset + 0x2C
-C - - - - - 0x01E296 07:E286: A9 01     LDA #$01                         ; AAA = 1, LLL = 0, ?? = 0x00 (see vCharacterRenderData)
+C - - - - - 0x01E296 07:E286: A9 01     LDA #$01                         ; AA = 1, LL = 0 (see vCharacterRenderData, $80XX)
 C - - - - - 0x01E298 07:E288: 85 45     STA vCharacterRenderData         ;
 C - - - - - 0x01E29A 07:E28A: 4C 5A CE  JMP loc_CE5A_render_character    ;
 
@@ -6237,9 +6230,9 @@ C - - - - - 0x01E4E5 07:E4D5: B0 02     BCS @bra_E4D9_assign                    
 C - - - - - 0x01E4E7 07:E4D7: A9 00     LDA #$00                                   ; CONSTANT - the offset value #3 (small size)
 @bra_E4D9_assign:
 C - - - - - 0x01E4E9 07:E4D9: 18        CLC                                        ;
-C - - - - - 0x01E4EA 07:E4DA: 69 18     ADC #$18                                   ;
+C - - - - - 0x01E4EA 07:E4DA: 69 18     ADC #$18                                   ; see bank 05, page 1, $8118
 C - - - - - 0x01E4EC 07:E4DC: AA        TAX                                        ; prepare the offset of the sprite address {0x18, 0x1A, 0x1C}
-C - - - - - 0x01E4ED 07:E4DD: A9 40     LDA #$40                                   ; CONSTANT - AAA = 0, LLL = 0%010, ?? = 0 (see vCharacterRenderData)
+C - - - - - 0x01E4ED 07:E4DD: A9 40     LDA #$40                                   ; AA = 0, LL = 1 (see vCharacterRenderData, $81XX)
 C - - - - - 0x01E4EF 07:E4DF: 85 45     STA vCharacterRenderData                   ;
 C - - - - - 0x01E4F1 07:E4E1: 4C 5A CE  JMP loc_CE5A_render_character              ;
 
@@ -6591,7 +6584,7 @@ C - - - - - 0x01E6FC 07:E6EC: E8        INX                                     
 @bra_E6ED_right:
 C - - - - - 0x01E6FD 07:E6ED: 8A        TXA                                          ;
 C - - - - - 0x01E6FE 07:E6EE: 18        CLC                                          ;
-C - - - - - 0x01E6FF 07:E6EF: 69 2A     ADC #$2A                                     ;
+C - - - - - 0x01E6FF 07:E6EF: 69 2A     ADC #$2A                                     ; see bank 05, page 1, $812A
 C - - - - - 0x01E701 07:E6F1: AA        TAX                                          ; X <~ X + 0x2A (the offset of the sprite address)
 C - - - - - 0x01E702 07:E6F2: A5 6A     LDA vScreenChrPosY                           ;
 C - - - - - 0x01E704 07:E6F4: 85 00     STA ram_0000                                 ; prepare 1st parameter (a Y-position of the jet-pack)
@@ -6608,7 +6601,7 @@ C - - - - - 0x01E713 07:E703: 90 02     BCC @bra_E707_right             ; If the
 C - - - - - 0x01E715 07:E705: E8        INX                             ;
 C - - - - - 0x01E716 07:E706: E8        INX                             ; increment the offset of the sprite address (left frame)
 @bra_E707_right:
-C - - - - - 0x01E717 07:E707: A9 40     LDA #$40                        ; AAA = 0, LLL = 2, ?? = 0x00 (see vCharacterRenderData)
+C - - - - - 0x01E717 07:E707: A9 40     LDA #$40                        ; AA = 0, LL = 1 (see vCharacterRenderData, $81XX)
 C - - - - - 0x01E719 07:E709: 85 45     STA vCharacterRenderData        ;
 C - - - - - 0x01E71B 07:E70B: A5 2E     LDA vJetPackRiseCounter         ;
 C - - - - - 0x01E71D 07:E70D: F0 02     BEQ @bra_E711_skip              ; If the rise time is up
@@ -7446,11 +7439,11 @@ C - - - - - 0x01EC58 07:EC48: A5 6A     LDA vScreenChrPosY              ;
 C - - - - - 0x01EC5A 07:EC4A: 85 00     STA ram_0000                    ; prepare 1st parameter (for render)
 C - - - - - 0x01EC5C 07:EC4C: A5 66     LDA vLowChrPosX                 ;
 C - - - - - 0x01EC5E 07:EC4E: 85 01     STA ram_0001                    ; prepare 2nd parameter (for render)
-C - - - - - 0x01EC60 07:EC50: A9 02     LDA #$02                        ; AAA = 2, LLL = 0, ?? = 0x00 (see vCharacterRenderData)
+C - - - - - 0x01EC60 07:EC50: A9 02     LDA #$02                        ; AA = 2, LL = 0 (see vCharacterRenderData, $80XX)
 C - - - - - 0x01EC62 07:EC52: 85 45     STA vCharacterRenderData        ;
 C - - - - - 0x01EC64 07:EC54: 8A        TXA                             ; A <~ {0x00, 0x01, 0x02, 0x03, 0x04}
 C - - - - - 0x01EC65 07:EC55: 18        CLC                             ;
-C - - - - - 0x01EC66 07:EC56: 69 7E     ADC #$7E                        ;
+C - - - - - 0x01EC66 07:EC56: 69 7E     ADC #$7E                        ; see bank 05, page 1, $807E
 C - - - - - 0x01EC68 07:EC58: AA        TAX                             ; X <~ A + 0x7E (the offset of the sprite address)
 C - - - - - 0x01EC69 07:EC59: 4C 5A CE  JMP loc_CE5A_render_character   ;
 
@@ -7465,11 +7458,11 @@ C - - - - - 0x01EC75 07:EC65: A5 6A     LDA vScreenChrPosY              ;
 C - - - - - 0x01EC77 07:EC67: 85 00     STA ram_0000                    ; prepare 1st parameter (for render)
 C - - - - - 0x01EC79 07:EC69: A5 64     LDA vScreenChrPosX              ;
 C - - - - - 0x01EC7B 07:EC6B: 85 01     STA ram_0001                    ; prepare 2nd parameter (for render)
-C - - - - - 0x01EC7D 07:EC6D: A9 02     LDA #$02                        ; AAA = 2, LLL = 0, ?? = 0x00 (see vCharacterRenderData)
+C - - - - - 0x01EC7D 07:EC6D: A9 02     LDA #$02                        ; AA = 2, LL = 0 (see vCharacterRenderData, $80XX)
 C - - - - - 0x01EC7F 07:EC6F: 85 45     STA vCharacterRenderData        ;
 C - - - - - 0x01EC81 07:EC71: A5 72     LDA vCarWheelsFrame_Offset      ;
 C - - - - - 0x01EC83 07:EC73: 18        CLC                             ;
-C - - - - - 0x01EC84 07:EC74: 69 7E     ADC #$7E                        ;
+C - - - - - 0x01EC84 07:EC74: 69 7E     ADC #$7E                        ; see bank 05, page 1, $807E
 C - - - - - 0x01EC86 07:EC76: AA        TAX                             ; X <~ frame offset + 0x7E (the offset of the sprite address)
 C - - - - - 0x01EC87 07:EC77: 4C 5A CE  JMP loc_CE5A_render_character   ;
 
@@ -7480,7 +7473,7 @@ C - - - - - 0x01EC8D 07:EC7D: 65 75     ADC vCarChrRenderOffsetY            ;
 C - - - - - 0x01EC8F 07:EC7F: 85 00     STA ram_0000                        ; <~ ChrPosY + offset, prepare 1st parameter (for render)
 C - - - - - 0x01EC91 07:EC81: A5 64     LDA vScreenChrPosX                  ;
 C - - - - - 0x01EC93 07:EC83: 85 01     STA ram_0001                        ; prepare 2nd parameter (for render)
-C - - - - - 0x01EC95 07:EC85: A9 01     LDA #$01                            ; AAA = 1, LLL = 0, ?? = 0x00 (see vCharacterRenderData)
+C - - - - - 0x01EC95 07:EC85: A9 01     LDA #$01                            ; AA = 1, LL = 0 (see vCharacterRenderData, $80XX)
 C - - - - - 0x01EC97 07:EC87: 85 45     STA vCharacterRenderData            ;
 C - - - - - 0x01EC99 07:EC89: A5 5F     LDA vChrLiveStatus                  ;
 C - - - - - 0x01EC9B 07:EC8B: 29 03     AND #$03                            ; A <~ {0x00, 0x01, 0x02}
@@ -7491,7 +7484,7 @@ C - - - - - 0x01ECA1 07:EC91: 65 12     ADC ram_0012                        ;
 C - - - - - 0x01ECA3 07:EC93: 18        CLC                                 ;
 C - - - - - 0x01ECA4 07:EC94: 65 76     ADC vCarChrFrame_Offset             ;
 C - - - - - 0x01ECA6 07:EC96: 18        CLC                                 ;
-C - - - - - 0x01ECA7 07:EC97: 69 7E     ADC #$7E                            ;
+C - - - - - 0x01ECA7 07:EC97: 69 7E     ADC #$7E                            ; see bank 05, page 1, $807E
 C - - - - - 0x01ECA9 07:EC99: AA        TAX                                 ; X <~ 6 * the character number + 0x7E + offset
 C - - - - - 0x01ECAA 07:EC9A: 20 5A CE  JSR sub_CE5A_render_character       ;
 C - - - - - 0x01ECAD 07:EC9D: A5 5F     LDA vChrLiveStatus                  ;
@@ -7504,7 +7497,7 @@ C - - - - - 0x01ECB9 07:ECA9: E9 06     SBC #$06                            ;
 C - - - - - 0x01ECBB 07:ECAB: 90 08     BCC bra_ECB5_RTS                    ; If vSwordPosition < 0x06
 C - - - - - 0x01ECBD 07:ECAD: 0A        ASL                                 ;
 C - - - - - 0x01ECBE 07:ECAE: 18        CLC                                 ;
-C - - - - - 0x01ECBF 07:ECAF: 69 A8     ADC #$A8                            ;
+C - - - - - 0x01ECBF 07:ECAF: 69 A8     ADC #$A8                            ; see bank 05, page 1, $80A8
 C - - - - - 0x01ECC1 07:ECB1: AA        TAX                                 ; X <~ 2 * vSwordPosition + 0xA8
 C - - - - - 0x01ECC2 07:ECB2: 4C 5A CE  JMP loc_CE5A_render_character       ;
 
@@ -7518,11 +7511,11 @@ C - - - - - 0x01ECC9 07:ECB9: 65 74     ADC vCarRenderOffsetY           ;
 C - - - - - 0x01ECCB 07:ECBB: 85 00     STA ram_0000                    ; <~ ChrPosY + offset, prepare 1st parameter (for render)
 C - - - - - 0x01ECCD 07:ECBD: A5 64     LDA vScreenChrPosX              ;
 C - - - - - 0x01ECCF 07:ECBF: 85 01     STA ram_0001                    ; prepare 2nd parameter (for render)
-C - - - - - 0x01ECD1 07:ECC1: A9 02     LDA #$02                        ; AAA = 2, LLL = 0, ?? = 0x00 (see vCharacterRenderData)
+C - - - - - 0x01ECD1 07:ECC1: A9 02     LDA #$02                        ; AA = 2, LL = 0 (see vCharacterRenderData, $80XX)
 C - - - - - 0x01ECD3 07:ECC3: 85 45     STA vCharacterRenderData        ;
 C - - - - - 0x01ECD5 07:ECC5: A5 73     LDA vCarFrame_Offset            ;
 C - - - - - 0x01ECD7 07:ECC7: 18        CLC                             ;
-C - - - - - 0x01ECD8 07:ECC8: 69 7E     ADC #$7E                        ;
+C - - - - - 0x01ECD8 07:ECC8: 69 7E     ADC #$7E                        ; see bank 05, page 1, $807E
 C - - - - - 0x01ECDA 07:ECCA: AA        TAX                             ; X <~ frame offset + 0x7E (the offset of the sprite address)
 C - - - - - 0x01ECDB 07:ECCB: 4C 5A CE  JMP loc_CE5A_render_character   ;
 

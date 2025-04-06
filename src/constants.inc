@@ -187,9 +187,9 @@ vChrDirectMovement            = ram_0042
 vCurrentNumberSprite          = ram_0043
 vCurrentNumberSpriteAfCh      = ram_0044 ; Last sprite number received after character rendering
 vCharacterRenderData          = ram_0045
-; Byte: LLL??AAA
-; AAA - the OAM-attributes
-; LLL - the high part of address (0%10000LLL), e.i. [0x8000 - 0x8300]
+; Byte: LL????AA
+; AA - the OAM-attributes
+; LL - the high part of address (0%100000LL), e.i. [0x8000 - 0x8300]
 
 
 vNoSubLevel                   = ram_0046

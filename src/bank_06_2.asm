@@ -3336,13 +3336,13 @@ C - - - - - 0x01B565 06:B555: A9 00     LDA #$00                         ; CONST
 ; In: Register A - the offset value
 @bra_B557_skip:
 C - - - - - 0x01B567 06:B557: 18        CLC                              ;
-C - - - - - 0x01B568 06:B558: 69 BA     ADC #$BA                         ;
+C - - - - - 0x01B568 06:B558: 69 BA     ADC #$BA                         ; see bank 05, page 1, $81BA
 C - - - - - 0x01B56A 06:B55A: AA        TAX                              ; prepare the offset of the sprite address (0xBA or 0xBC)
 C - - - - - 0x01B56B 06:B55B: A9 80     LDA #$80                         ;
 C - - - - - 0x01B56D 06:B55D: 85 01     STA ram_0001                     ; prepare a X-position
 C - - - - - 0x01B56F 06:B55F: A9 BF     LDA #$BF                         ;
 C - - - - - 0x01B571 06:B561: 85 00     STA ram_0000                     ; prepare a Y-position
-C - - - - - 0x01B573 06:B563: A9 62     LDA #$62                         ; AAA = 2, LLL = 3, ?? = 0x00 (see vCharacterRenderData)
+C - - - - - 0x01B573 06:B563: A9 62     LDA #$62                         ; AA = 2, LL = 1 (see vCharacterRenderData, $81XX)
 C - - - - - 0x01B575 06:B565: 85 45     STA vCharacterRenderData         ;
 C - - - - - 0x01B577 06:B567: 20 5A CE  JSR sub_CE5A_render_character    ;
 C - - - - - 0x01B57A 06:B56A: 4C 4F EF  JMP loc_EF4F_switch_bank_4_p2    ;
