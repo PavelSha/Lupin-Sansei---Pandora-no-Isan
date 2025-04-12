@@ -7378,7 +7378,7 @@ C - - - - - 0x01EBFB 07:EBEB: 85 00     STA ram_0000                            
 C - - - - - 0x01EBFD 07:EBED: A5 64     LDA vScreenChrPosX                      ;
 C - - - - - 0x01EBFF 07:EBEF: 85 03     STA ram_0003                            ; <~ sprite_magic4
 C - - - - - 0x01EC01 07:EBF1: A9 60     LDA #$60                                ; ~> sprite_magic3 (see v_sprite_magic3)
-C - - - - - 0x01EC03 07:EBF3: 85 02     STA ram_0002                            ;
+C - - - - - 0x01EC03 07:EBF3: 85 02     STA ram_0002                            ; $8100, bank 05 (1 page), see $8174
 C - - - - - 0x01EC05 07:EBF5: 4C 33 CE  JMP loc_CE33_add_sprite_magic           ;
 
 loc_EBF8_landing:
