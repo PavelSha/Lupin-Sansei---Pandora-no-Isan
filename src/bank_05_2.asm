@@ -37,32 +37,22 @@
 - D 0 - I - 0x016048 05:8038: FE 97     .addr loc_gargoyle_right_frame_3  ; CPU Address $97FE
 - D 0 - I - 0x01604A 05:803A: 0F 98     .addr loc_gargoyle_left_frame_3   ; CPU Address $980F
 
-- D 0 - I - 0x01604C 05:803C: 20        .byte $20   ; 
-- D 0 - I - 0x01604D 05:803D: 98        .byte $98   ; 
-- D 0 - I - 0x01604E 05:803E: 35        .byte $35   ; <5>
-- D 0 - I - 0x01604F 05:803F: 98        .byte $98   ; 
-- D 0 - I - 0x016050 05:8040: 4A        .byte $4A   ; <J>
-- D 0 - I - 0x016051 05:8041: 98        .byte $98   ; 
-- D 0 - I - 0x016052 05:8042: 53        .byte $53   ; <S>
-- D 0 - I - 0x016053 05:8043: 98        .byte $98   ; 
-- D 0 - I - 0x016054 05:8044: 5C        .byte $5C   ; 
-- D 0 - I - 0x016055 05:8045: 98        .byte $98   ; 
-- D 0 - I - 0x016056 05:8046: 65        .byte $65   ; <e>
-- D 0 - I - 0x016057 05:8047: 98        .byte $98   ; 
-- D 0 - I - 0x016058 05:8048: 6E        .byte $6E   ; <n>
-- D 0 - I - 0x016059 05:8049: 98        .byte $98   ; 
-- D 0 - I - 0x01605A 05:804A: 77        .byte $77   ; <w>
-- D 0 - I - 0x01605B 05:804B: 98        .byte $98   ; 
-- D 0 - I - 0x01605C 05:804C: 7C        .byte $7C   ; 
-- D 0 - I - 0x01605D 05:804D: 98        .byte $98   ; 
-- D 0 - I - 0x01605E 05:804E: 89        .byte $89   ; 
-- D 0 - I - 0x01605F 05:804F: 98        .byte $98   ; 
-- D 0 - I - 0x016060 05:8050: 9A        .byte $9A   ; 
-- D 0 - I - 0x016061 05:8051: 98        .byte $98   ; 
-- D 0 - I - 0x016062 05:8052: AB        .byte $AB   ; 
-- D 0 - I - 0x016063 05:8053: 98        .byte $98   ; 
-- D 0 - I - 0x016064 05:8054: BC        .byte $BC   ; 
-- D 0 - I - 0x016065 05:8055: 98        .byte $98   ; 
+- D 0 - I - 0x01604C 05:803C: 20 98     .addr loc_wall_frame_1            ; CPU Address $9820
+- D 0 - I - 0x01604E 05:803E: 35 98     .addr loc_wall_frame_2            ; CPU Address $9835
+
+- D 0 - I - 0x016050 05:8040: 4A 98     .addr loc_breaking_platform_frame_1  ; CPU Address $984A
+- D 0 - I - 0x016052 05:8042: 53 98     .addr loc_breaking_platform_frame_2  ; CPU Address $9853
+- D 0 - I - 0x016054 05:8044: 5C 98     .addr loc_breaking_platform_frame_3  ; CPU Address $985C
+- D 0 - I - 0x016056 05:8046: 65 98     .addr loc_breaking_platform_frame_4  ; CPU Address $9865
+- D 0 - I - 0x016058 05:8048: 6E 98     .addr loc_breaking_platform_frame_5  ; CPU Address $986E
+
+- D 0 - I - 0x01605A 05:804A: 77 98     .addr loc_blade_trap_frame_1  ; CPU Address $9877
+- D 0 - I - 0x01605C 05:804C: 7C 98     .addr loc_blade_trap_frame_2  ; CPU Address $987C
+- D 0 - I - 0x01605E 05:804E: 89 98     .addr loc_blade_trap_frame_3  ; CPU Address $9889
+- D 0 - I - 0x016060 05:8050: 9A 98     .addr loc_blade_trap_frame_4  ; CPU Address $989A
+- D 0 - I - 0x016062 05:8052: AB 98     .addr loc_blade_trap_frame_5  ; CPU Address $98AB
+- D 0 - I - 0x016064 05:8054: BC 98     .addr loc_blade_trap_frame_6  ; CPU Address $98BC
+
 - D 0 - I - 0x016066 05:8056: C9        .byte $C9   ; 
 - D 0 - I - 0x016067 05:8057: 98        .byte $98   ; 
 - D 0 - I - 0x016068 05:8058: D2        .byte $D2   ; 
@@ -504,38 +494,23 @@
 - D 0 - I - 0x0162EC 05:82DC: A8 9E     .addr loc_egyptian_boomerung_hand_right_frame_3    ; CPU Address $9EA8
 - D 0 - I - 0x0162EE 05:82DE: AD 9E     .addr loc_egyptian_boomerung_hand_left_frame_3     ; CPU Address $9EAD
 
-- - - - - - 0x0162F0 05:82E0: 00        .byte $00   ; 
-- - - - - - 0x0162F1 05:82E1: 00        .byte $00   ; 
-- - - - - - 0x0162F2 05:82E2: 00        .byte $00   ; 
-- - - - - - 0x0162F3 05:82E3: 60        .byte $60   ; 
-- - - - - - 0x0162F4 05:82E4: 97        .byte $97   ; 
-- - - - - - 0x0162F5 05:82E5: 0F        .byte $0F   ; 
-- - - - - - 0x0162F6 05:82E6: 1F        .byte $1F   ; 
-- - - - - - 0x0162F7 05:82E7: 1C        .byte $1C   ; 
-- - - - - - 0x0162F8 05:82E8: C0        .byte $C0   ; 
-- - - - - - 0x0162F9 05:82E9: EF        .byte $EF   ; 
-- - - - - - 0x0162FA 05:82EA: FF        .byte $FF   ; 
-- - - - - - 0x0162FB 05:82EB: FF        .byte $FF   ; 
-- - - - - - 0x0162FC 05:82EC: FF        .byte $FF   ; 
-- - - - - - 0x0162FD 05:82ED: FF        .byte $FF   ; 
-- - - - - - 0x0162FE 05:82EE: FF        .byte $FF   ; 
-- - - - - - 0x0162FF 05:82EF: 1C        .byte $1C   ; 
-- - - - - - 0x016300 05:82F0: 00        .byte $00   ; 
-- - - - - - 0x016301 05:82F1: E0        .byte $E0   ; 
-- - - - - - 0x016302 05:82F2: FC        .byte $FC   ; 
-- - - - - - 0x016303 05:82F3: FF        .byte $FF   ; 
-- - - - - - 0x016304 05:82F4: FF        .byte $FF   ; 
-- - - - - - 0x016305 05:82F5: FF        .byte $FF   ; 
-- - - - - - 0x016306 05:82F6: FE        .byte $FE   ; 
-- - - - - - 0x016307 05:82F7: 06        .byte $06   ; 
-- - - - - - 0x016308 05:82F8: 00        .byte $00   ; 
-- - - - - - 0x016309 05:82F9: E0        .byte $E0   ; 
-- - - - - - 0x01630A 05:82FA: E8        .byte $E8   ; 
-- - - - - - 0x01630B 05:82FB: EA        .byte $EA   ; 
-- - - - - - 0x01630C 05:82FC: F2        .byte $F2   ; 
-- - - - - - 0x01630D 05:82FD: D4        .byte $D4   ; 
-- - - - - - 0x01630E 05:82FE: D4        .byte $D4   ; 
-- - - - - - 0x01630F 05:82FF: 04        .byte $04   ; 
+; reserved
+- D - - - - 0x0162F0 05:82E0: 00 00     .word $0000
+- D - - - - 0x0162F2 05:82E2: 00 60     .word $6000
+- D - - - - 0x0162F4 05:82E4: 97 0F     .word $0F97
+- D - - - - 0x0162F6 05:82E6: 1F 1C     .word $1C1F
+- D - - - - 0x0162F8 05:82E8: C0 EF     .word $EFC0
+- D - - - - 0x0162FA 05:82EA: FF FF     .word $FFFF
+- D - - - - 0x0162FC 05:82EC: FF FF     .word $FFFF
+- D - - - - 0x0162FE 05:82EE: FF 1C     .word $1CFF
+- D - - - - 0x016300 05:82F0: 00 E0     .word $E000
+- D - - - - 0x016302 05:82F2: FC FF     .word $FFFC
+- D - - - - 0x016304 05:82F4: FF FF     .word $FFFF
+- D - - - - 0x016306 05:82F6: FE 06     .word $06FE
+- D - - - - 0x016308 05:82F8: 00 E0     .word $E000
+- D - - - - 0x01630A 05:82FA: E8 EA     .word $EAE8
+- D - - - - 0x01630C 05:82FC: F2 D4     .word $D4F2
+- D - - - - 0x01630E 05:82FE: D4 04     .word $04D4
 
 - D 0 - I - 0x016310 05:8300: 2A 90     .addr loc_knight_right_frame_1   ; CPU Address $902A
 - D 0 - I - 0x016312 05:8302: 4B 90     .addr loc_knight_left_frame_1    ; CPU Address $904B
@@ -2862,7 +2837,8 @@ loc_gargoyle_left_frame_3:
 - D 0 - I - 0x017828 05:9818: F9        .byte $F9, $99, $00, $F8
 - D 0 - I - 0x01782C 05:981C: F9        .byte $F9, $9B, $00, $00
 
-- D 0 - I - 0x017830 05:9820: 05        .byte $05   ; 
+loc_wall_frame_1:
+- D 0 - I - 0x017830 05:9820: 05        .byte $05
 - D 0 - I - 0x017831 05:9821: D8        .byte $D8   ; 
 - D 0 - I - 0x017832 05:9822: 81        .byte $81   ; 
 - D 0 - I - 0x017833 05:9823: 00        .byte $00   ; 
@@ -2883,7 +2859,9 @@ loc_gargoyle_left_frame_3:
 - D 0 - I - 0x017842 05:9832: 81        .byte $81   ; 
 - D 0 - I - 0x017843 05:9833: 00        .byte $00   ; 
 - D 0 - I - 0x017844 05:9834: FC        .byte $FC   ; 
-- D 0 - I - 0x017845 05:9835: 05        .byte $05   ; 
+
+loc_wall_frame_2:
+- D 0 - I - 0x017845 05:9835: 05        .byte $05
 - D 0 - I - 0x017846 05:9836: D8        .byte $D8   ; 
 - D 0 - I - 0x017847 05:9837: 83        .byte $83   ; 
 - D 0 - I - 0x017848 05:9838: 00        .byte $00   ; 
@@ -2904,7 +2882,9 @@ loc_gargoyle_left_frame_3:
 - D 0 - I - 0x017857 05:9847: 83        .byte $83   ; 
 - D 0 - I - 0x017858 05:9848: 00        .byte $00   ; 
 - D 0 - I - 0x017859 05:9849: FC        .byte $FC   ; 
-- D 0 - I - 0x01785A 05:984A: 02        .byte $02   ; 
+
+loc_breaking_platform_frame_1:
+- D 0 - I - 0x01785A 05:984A: 02        .byte $02
 - D 0 - I - 0x01785B 05:984B: 00        .byte $00   ; 
 - D 0 - I - 0x01785C 05:984C: 84        .byte $84   ; 
 - D 0 - I - 0x01785D 05:984D: 00        .byte $00   ; 
@@ -2913,7 +2893,9 @@ loc_gargoyle_left_frame_3:
 - D 0 - I - 0x017860 05:9850: 84        .byte $84   ; 
 - D 0 - I - 0x017861 05:9851: 00        .byte $00   ; 
 - D 0 - I - 0x017862 05:9852: 00        .byte $00   ; 
-- D 0 - I - 0x017863 05:9853: 02        .byte $02   ; 
+
+loc_breaking_platform_frame_2:
+- D 0 - I - 0x017863 05:9853: 02        .byte $02
 - D 0 - I - 0x017864 05:9854: 00        .byte $00   ; 
 - D 0 - I - 0x017865 05:9855: 84        .byte $84   ; 
 - D 0 - I - 0x017866 05:9856: 00        .byte $00   ; 
@@ -2922,7 +2904,9 @@ loc_gargoyle_left_frame_3:
 - D 0 - I - 0x017869 05:9859: 86        .byte $86   ; 
 - D 0 - I - 0x01786A 05:985A: 00        .byte $00   ; 
 - D 0 - I - 0x01786B 05:985B: 00        .byte $00   ; 
-- D 0 - I - 0x01786C 05:985C: 02        .byte $02   ; 
+
+loc_breaking_platform_frame_3:
+- D 0 - I - 0x01786C 05:985C: 02        .byte $02
 - D 0 - I - 0x01786D 05:985D: 00        .byte $00   ; 
 - D 0 - I - 0x01786E 05:985E: 85        .byte $85   ; 
 - D 0 - I - 0x01786F 05:985F: 00        .byte $00   ; 
@@ -2931,7 +2915,9 @@ loc_gargoyle_left_frame_3:
 - D 0 - I - 0x017872 05:9862: 87        .byte $87   ; 
 - D 0 - I - 0x017873 05:9863: 00        .byte $00   ; 
 - D 0 - I - 0x017874 05:9864: 00        .byte $00   ; 
-- D 0 - I - 0x017875 05:9865: 02        .byte $02   ; 
+
+loc_breaking_platform_frame_4:
+- D 0 - I - 0x017875 05:9865: 02        .byte $02
 - D 0 - I - 0x017876 05:9866: 00        .byte $00   ; 
 - D 0 - I - 0x017877 05:9867: 86        .byte $86   ; 
 - D 0 - I - 0x017878 05:9868: 00        .byte $00   ; 
@@ -2940,7 +2926,9 @@ loc_gargoyle_left_frame_3:
 - D 0 - I - 0x01787B 05:986B: 87        .byte $87   ; 
 - D 0 - I - 0x01787C 05:986C: 00        .byte $00   ; 
 - D 0 - I - 0x01787D 05:986D: 00        .byte $00   ; 
-- D 0 - I - 0x01787E 05:986E: 02        .byte $02   ; 
+
+loc_breaking_platform_frame_5:
+- D 0 - I - 0x01787E 05:986E: 02        .byte $02
 - D 0 - I - 0x01787F 05:986F: 00        .byte $00   ; 
 - D 0 - I - 0x017880 05:9870: 87        .byte $87   ; 
 - D 0 - I - 0x017881 05:9871: 00        .byte $00   ; 
@@ -2949,12 +2937,16 @@ loc_gargoyle_left_frame_3:
 - D 0 - I - 0x017884 05:9874: 87        .byte $87   ; 
 - D 0 - I - 0x017885 05:9875: 00        .byte $00   ; 
 - D 0 - I - 0x017886 05:9876: 00        .byte $00   ; 
-- D 0 - I - 0x017887 05:9877: 01        .byte $01   ; 
+
+loc_blade_trap_frame_1:
+- D 0 - I - 0x017887 05:9877: 01        .byte $01
 - D 0 - I - 0x017888 05:9878: FD        .byte $FD   ; 
 - D 0 - I - 0x017889 05:9879: 8C        .byte $8C   ; 
 - D 0 - I - 0x01788A 05:987A: 00        .byte $00   ; 
 - D 0 - I - 0x01788B 05:987B: FC        .byte $FC   ; 
-- D 0 - I - 0x01788C 05:987C: 03        .byte $03   ; 
+
+loc_blade_trap_frame_2:
+- D 0 - I - 0x01788C 05:987C: 03        .byte $03
 - D 0 - I - 0x01788D 05:987D: F8        .byte $F8   ; 
 - D 0 - I - 0x01788E 05:987E: 88        .byte $88   ; 
 - D 0 - I - 0x01788F 05:987F: 00        .byte $00   ; 
@@ -2967,7 +2959,9 @@ loc_gargoyle_left_frame_3:
 - D 0 - I - 0x017896 05:9886: 8C        .byte $8C   ; 
 - D 0 - I - 0x017897 05:9887: 00        .byte $00   ; 
 - D 0 - I - 0x017898 05:9888: FC        .byte $FC   ; 
-- D 0 - I - 0x017899 05:9889: 04        .byte $04   ; 
+
+loc_blade_trap_frame_3:
+- D 0 - I - 0x017899 05:9889: 04        .byte $04
 - D 0 - I - 0x01789A 05:988A: ED        .byte $ED   ; 
 - D 0 - I - 0x01789B 05:988B: 8E        .byte $8E   ; 
 - D 0 - I - 0x01789C 05:988C: 00        .byte $00   ; 
@@ -2984,7 +2978,9 @@ loc_gargoyle_left_frame_3:
 - D 0 - I - 0x0178A7 05:9897: 8C        .byte $8C   ; 
 - D 0 - I - 0x0178A8 05:9898: 00        .byte $00   ; 
 - D 0 - I - 0x0178A9 05:9899: FC        .byte $FC   ; 
-- D 0 - I - 0x0178AA 05:989A: 04        .byte $04   ; 
+
+loc_blade_trap_frame_4:
+- D 0 - I - 0x0178AA 05:989A: 04        .byte $04
 - D 0 - I - 0x0178AB 05:989B: ED        .byte $ED   ; 
 - D 0 - I - 0x0178AC 05:989C: 89        .byte $89   ; 
 - D 0 - I - 0x0178AD 05:989D: 00        .byte $00   ; 
@@ -3001,7 +2997,9 @@ loc_gargoyle_left_frame_3:
 - D 0 - I - 0x0178B8 05:98A8: 8C        .byte $8C   ; 
 - D 0 - I - 0x0178B9 05:98A9: 00        .byte $00   ; 
 - D 0 - I - 0x0178BA 05:98AA: FC        .byte $FC   ; 
-- D 0 - I - 0x0178BB 05:98AB: 04        .byte $04   ; 
+
+loc_blade_trap_frame_5:
+- D 0 - I - 0x0178BB 05:98AB: 04        .byte $04
 - D 0 - I - 0x0178BC 05:98AC: ED        .byte $ED   ; 
 - D 0 - I - 0x0178BD 05:98AD: 8E        .byte $8E   ; 
 - D 0 - I - 0x0178BE 05:98AE: 40        .byte $40   ; 
@@ -3018,7 +3016,9 @@ loc_gargoyle_left_frame_3:
 - D 0 - I - 0x0178C9 05:98B9: 8C        .byte $8C   ; 
 - D 0 - I - 0x0178CA 05:98BA: 00        .byte $00   ; 
 - D 0 - I - 0x0178CB 05:98BB: FC        .byte $FC   ; 
-- D 0 - I - 0x0178CC 05:98BC: 03        .byte $03   ; 
+
+loc_blade_trap_frame_6:
+- D 0 - I - 0x0178CC 05:98BC: 03        .byte $03
 - D 0 - I - 0x0178CD 05:98BD: F8        .byte $F8   ; 
 - D 0 - I - 0x0178CE 05:98BE: 88        .byte $88   ; 
 - D 0 - I - 0x0178CF 05:98BF: 40        .byte $40   ; 
@@ -3031,6 +3031,7 @@ loc_gargoyle_left_frame_3:
 - D 0 - I - 0x0178D6 05:98C6: 8C        .byte $8C   ; 
 - D 0 - I - 0x0178D7 05:98C7: 00        .byte $00   ; 
 - D 0 - I - 0x0178D8 05:98C8: FC        .byte $FC   ; 
+
 - D 0 - I - 0x0178D9 05:98C9: 02        .byte $02   ; 
 - D 0 - I - 0x0178DA 05:98CA: F8        .byte $F8   ; 
 - D 0 - I - 0x0178DB 05:98CB: A2        .byte $A2   ; 

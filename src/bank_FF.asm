@@ -3297,10 +3297,10 @@ C - - - - - 0x01D3C8 07:D3B8: C9 03     CMP #$03                  ; CONSTANT - l
 C - - - - - 0x01D3CA 07:D3BA: D0 35     BNE bra_D3F1_return       ; If v_no_level != 0x03
 C - - - - - 0x01D3CC 07:D3BC: AD 01 03  LDA vEnemyB               ;
 C - - - - - 0x01D3CF 07:D3BF: C9 30     CMP #$30                  ; CONSTANT - Wall #1
-C - - - - - 0x01D3D1 07:D3C1: F0 04     BEQ @bra_D3C7             ; If vEnemyB == 0x30
+C - - - - - 0x01D3D1 07:D3C1: F0 04     BEQ @bra_D3C7_wall        ; If vEnemyB == 0x30
 C - - - - - 0x01D3D3 07:D3C3: C9 31     CMP #$31                  ; CONSTANT - Wall #2
 C - - - - - 0x01D3D5 07:D3C5: D0 2A     BNE bra_D3F1_return       ; If vEnemyB != 0x31
-@bra_D3C7:
+@bra_D3C7_wall:
 C - - - - - 0x01D3D7 07:D3C7: A0 01     LDY #$01                  ; set loop counter
 @bra_D3C9_loop:                                                   ; loop by y (2 times)
 C - - - - - 0x01D3D9 07:D3C9: B9 5C 03  LDA vEnemyBStatus,Y       ;
@@ -9109,7 +9109,7 @@ C - - - - - 0x01F70F 07:F6FF: 4C 83 D8  JMP loc_D883_dec_enemyB_counter  ;
 bra_F702_platform_appearance:
 C - - - - - 0x01F712 07:F702: A9 C2     LDA #$C2                         ; CONSTANT - default status + 'movable object'
 C - - - - - 0x01F714 07:F704: 9D 5C 03  STA vEnemyBStatus,X              ;
-C - - - - - 0x01F717 07:F707: D0 3F     BNE bra_F748                     ; Always true
+C - - - - - 0x01F717 07:F707: D0 3F     BNE bra_F748_continue            ; Always true
 
 ; In: $0000 - macro X-position
 ; In: $0001 - X-position
@@ -9153,7 +9153,7 @@ C - - - - - 0x01F74F 07:F73F: A9 C0     LDA #$C0                               ;
 C - - - - - 0x01F751 07:F741: 9D 5C 03  STA vEnemyBStatus,X                    ; initializes a default status
 C - - - - - 0x01F754 07:F744: 98        TYA                                    ;
 C - - - - - 0x01F755 07:F745: 9D 62 03  STA vEnemyBWallIndex,X                 ; initializes a wall index
-bra_F748:
+bra_F748_continue:
 C - - - - - 0x01F758 07:F748: 20 92 F3  JSR sub_F392_assign_enemyB_position    ;
 C - - - - - 0x01F75B 07:F74B: A9 3C     LDA #$3C                               ; the offset for sprite_magic2 (Offset: $003C)
 ; In: Register A - the offset for sprite_magic2

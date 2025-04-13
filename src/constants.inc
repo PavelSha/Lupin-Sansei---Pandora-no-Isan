@@ -611,15 +611,6 @@ vEnemyBStatus                 = ram_035C ; see below and docs (Bestiary)
 ; Z - see above
 ; Y - see above
 
-; Byte: 0YZW KLMN (Breaking platform)
-; N - the vertical direction (0 - up, 1 - down)
-; M - movable object (0 - non movable, 1 - movable)
-; L - 
-; K - 
-; W - the moving mode (0 - up and down, 1 - only down)
-; Z - the destroy
-; Y - the character can stand on the platform (0x00 - can not, 0x01 - can)
-
 vEnemyBStatus1                = ram_035C
 vEnemyBStatus2                = ram_035D
 vEnemyBBombStatus             = ram_035E ; For the bird with the bomb
