@@ -2,25 +2,25 @@
 |---|---|---|---|---|
 |0x00| - | - | - | - |
 |0x01|Cat with the gun| A | [Большой кот](#враг-01) | 3 |
-|0x02|Gray land hat| B |   | 3 |
-|0x03|Black land hat| B |   | 3 |
-|0x04|Land Diver| A |   | 3 |
-|0x05|Land Diver| A |   | 2 |
+|0x02|Gray land hat| B | [Серая летающая шляпа](#враг-02) | 3 |
+|0x03|Black land hat| B | [Черная летающая шляпа](#враг-03) | 3 |
+|0x04|Land Diver| A | [Земной водолаз](#враг-04) | 3 |
+|0x05|Land Diver| A | [Земной водолаз](#враг-05) | 2 |
 |0x06|Land Diver| A | [Земной водолаз](#враг-06) | 1 |
 |0x07|Zenigata| A | [Зенигата](#враг-07) |Все|
-|0x08|Shooter with bazooka| A |   | 3 |
+|0x08|Shooter with bazooka| A | [Стрелок из базуки](#враг-03) | 3 |
 |0x09|The fat sailor| A | [Полный моряк](#враг-09) | 3 |
 |0x0A|The barrel| B | [Красная бочка](#враг-0a) | 3 |
 |0x0B|Jumping sailor| B | [Прыгающий моряк](#враг-0b) | 3 |
-|0x0C|The lift| A |   | 3 |
+|0x0C|The lift| A | [Лифт](#враг-0c) | 3 |
 |0x0D|Sensor| B | [Сенсор](#враг-0d) | 3 |
 |0x0E|Bat| B | [Летучая мышь](#враг-0e) | 1 |
 |0x0F|Gray cat| B | [Серый кот](#враг-0f) | 1 |
 |0x10|Nun| A | [Монашка](#враг-10) | 2 |
 |0x11|Girl in red, in the castle| A | [Девушка в красном](#враг-11) | 1 |
-|0x12|Batterfly| B |   | 2 |
-|0x13|Broned batterfly| B |   | 2 |
-|0x14|Shooter with bazooka| A |   | 2 |
+|0x12|Butterfly| B | [Бабочка](#враг-12) | 2 |
+|0x13|Armored butterfly| B | [Бронированная бабочка](#враг-13) | 2 |
+|0x14|Shooter with bazooka| A | [Стрелок из базуки](#враг-14) | 2 |
 |0x15|Sensor| B | [Сенсор](#враг-15) | 2 |
 |0x16|Black cat| B | [Чёрный кот](#враг-16) | 1 |
 |0x17|Karate-boy| A | [Каратист](#враг-17) | 2 |
@@ -33,9 +33,9 @@
 |0x1E|Sensor| B | [Сенсор](#враг-1e) | 1 |
 |0x1F|Fly man| A | [Летающий человек](#враг-1f) | 1 |
 |0x20|Shooter with bazooka| A | [Стрелок из базуки](#враг-20) | 1 |
-|0x21|Cobblestone| B | [Булыжник](#враг-21) |4, racing|
-|0x22|The bird| B |[Птица](#враг-22)|racing|
-|0x23|The bird with a bomb| B | [Птица с бомбой](#враг-23) |racing|
+|0x21|Cobblestone| B | [Булыжник](#враг-21) |4, ездовой|
+|0x22|The bird| B |[Птица](#враг-22)|ездовой|
+|0x23|The bird with a bomb| B | [Птица с бомбой](#враг-23) |ездовой|
 |0x24|Skeleton| A | [Скелет](#враг-24) | 4 |
 |0x25|Diver| B | [Водолаз](#враг-25) |Все|
 |0x26|Mummy| A | [Мумия](#враг-26) | 4 |
@@ -52,7 +52,7 @@
 |0x31|Wall| B | [Стена](#враг-31) | 4 |
 |0x32|Breaking platform| B | [Платформа](#враг-32) | 4 |
 |0x33|Blade trap| B | [Ловушка с лезвием](#враг-33) | 4 |
-|0x34|Potted snakes| B |   | 4 |
+|0x34|Potted snake| B | [Змея в горшке](#враг-34) | 4 |
 |0x35|Egyptian with bow| A | [Египтянин с луком](#враг-35) | 4 |
 |0x36|Egyptian with a sword| A | [Египтянин с мечом](#враг-36) | 4 |
 |0x37|Egyptian with a boomerung| A | [Египтянин с бумерангом](#враг-37) | 4 |
@@ -88,6 +88,38 @@
 -  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
 -  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 
+## Враг 02
+Серая летающая шляпа
+|Кадр 1|Кадр 2|Кадр 3|
+|---|---|---|
+| ![Frame1](../images/enemies/02/frame1-r.png) | ![Frame2](../images/enemies/02/frame2-r.png) | ![Frame3](../images/enemies/02/frame3-r.png) |
+| ![Frame1](../images/enemies/02/frame1-l.png) | ![Frame2](../images/enemies/02/frame2-l.png) | ![Frame3](../images/enemies/02/frame3-l.png) |
+
+## Враг 03
+Чёрная летающая шляпа
+|Кадр 1|Кадр 2|Кадр 3|
+|---|---|---|
+| ![Frame1](../images/enemies/03/frame1-r.png) | ![Frame2](../images/enemies/03/frame2-r.png) | ![Frame3](../images/enemies/03/frame3-r.png) |
+| ![Frame1](../images/enemies/03/frame1-l.png) | ![Frame2](../images/enemies/03/frame2-l.png) | ![Frame3](../images/enemies/03/frame3-l.png) |
+
+## Враг 04
+Земной водолаз, версия 3
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|
+|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/04/frame1-r.png) | ![Frame2](../images/enemies/04/frame2-r.png) | ![Frame3](../images/enemies/04/frame3-r.png) | ![Frame4](../images/enemies/04/frame4-r.png) | ![Frame5](../images/enemies/04/frame5-r.png) | ![Frame6](../images/enemies/04/frame6-r.png) | ![Frame7](../images/enemies/04/frame7-r.png) |
+| ![Frame1](../images/enemies/04/frame1-l.png) | ![Frame2](../images/enemies/04/frame2-l.png) | ![Frame3](../images/enemies/04/frame3-l.png) | ![Frame4](../images/enemies/04/frame4-l.png) | ![Frame5](../images/enemies/04/frame5-l.png) | ![Frame6](../images/enemies/04/frame6-l.png) | ![Frame7](../images/enemies/04/frame7-l.png) |
+### Статусы
+Аналогично [земному водолазу](#враг-06).
+
+## Враг 05
+Земной водолаз, версия 2
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|
+|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/05/frame1-r.png) | ![Frame2](../images/enemies/05/frame2-r.png) | ![Frame3](../images/enemies/05/frame3-r.png) | ![Frame4](../images/enemies/05/frame4-r.png) | ![Frame5](../images/enemies/05/frame5-r.png) | ![Frame6](../images/enemies/05/frame6-r.png) | ![Frame7](../images/enemies/05/frame7-r.png) |
+| ![Frame1](../images/enemies/05/frame1-l.png) | ![Frame2](../images/enemies/05/frame2-l.png) | ![Frame3](../images/enemies/05/frame3-l.png) | ![Frame4](../images/enemies/05/frame4-l.png) | ![Frame5](../images/enemies/05/frame5-l.png) | ![Frame6](../images/enemies/05/frame6-l.png) | ![Frame7](../images/enemies/05/frame7-l.png) |
+### Статусы
+Аналогично [земному водолазу](#враг-06).
+
 ## Враг 06
 Земной водолаз, версия 1
 <!---
@@ -113,10 +145,16 @@
 <!---
 </div>
 -->
-<!---
-Статусы
+### Статусы
 ![DescriptionBits](../images/descriptionBits.jpg)
--->
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг прыжка, например через препятствие (**_0x00_** - не прыгает, **_0x01_** - прыгает)
+-  ***L*** - флаг появления врага (**_0x00_** - не появляется, **_0x01_** - появляется)
+-  ***K*** - флаг остановки (**_0x00_** - не остановился, **_0x01_** - остановился)
+-  ***W*** - флаг приседания перед прыжком (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 
 ## Враг 07
 Зенигата
@@ -134,6 +172,15 @@
 -  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
 -  ***Y*** - _не используется_
 -  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
+
+## Враг 08
+Стрелок из базуки, версия 3
+|Кадр 1|Кадр 2|Кадр 3|
+|---|---|---|
+| ![Frame1](../images/enemies/08/frame1-r.png) | ![Frame2](../images/enemies/08/frame2-r.png) | ![Frame3](../images/enemies/08/frame3-r.png) |
+| ![Frame1](../images/enemies/08/frame1-l.png) | ![Frame2](../images/enemies/08/frame2-l.png) | ![Frame3](../images/enemies/08/frame3-l.png) |
+### Статусы
+Аналогично [стрелку из базуки](#враг-20).
 
 ## Враг 09
 Полный моряк
@@ -183,6 +230,22 @@
 -  ***W*** - флаг приседания перед прыжком (**_0x00_** - неактивно, **_0x01_** - активно)
 -  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
 -  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
+
+## Враг 0C
+Лифт
+|Кадр 1|
+|---|
+| ![Frame](../images/enemies/0C/frame.png) |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление по-вертикали (**_0x00_** - вверх, **_0x01_** - вниз)
+-  ***M*** - _не используется_
+-  ***L*** - _не используется_
+-  ***K*** - _не используется_
+-  ***W*** - _не используется_
+-  ***Z*** - _не используется_
+-  ***Y*** - возможность стоять на платформе лифта (**_0x00_** - не возможно, **_0x01_** - возможно)
 -  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 
 ## Враг 0D
@@ -277,6 +340,29 @@
 -  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
 -  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
 -  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
+
+## Враг 12
+Бабочка
+|Кадр 1|Кадр 2|Кадр 3|
+|---|---|---|
+| ![Frame1](../images/enemies/12/frame1-r.png) | ![Frame2](../images/enemies/12/frame2-r.png) | ![Frame3](../images/enemies/12/frame3-r.png) |
+| ![Frame1](../images/enemies/12/frame1-l.png) | ![Frame2](../images/enemies/12/frame2-l.png) | ![Frame3](../images/enemies/12/frame3-l.png) |
+
+## Враг 13
+Бронированная бабочка
+|Кадр 1|Кадр 2|Кадр 3|
+|---|---|---|
+| ![Frame1](../images/enemies/13/frame1-r.png) | ![Frame2](../images/enemies/13/frame2-r.png) | ![Frame3](../images/enemies/13/frame3-r.png) |
+| ![Frame1](../images/enemies/13/frame1-l.png) | ![Frame2](../images/enemies/13/frame2-l.png) | ![Frame3](../images/enemies/13/frame3-l.png) |
+
+## Враг 14
+Стрелок из базуки, версия 2
+|Кадр 1|Кадр 2|Кадр 3|
+|---|---|---|
+| ![Frame1](../images/enemies/14/frame1-r.png) | ![Frame2](../images/enemies/14/frame2-r.png) | ![Frame3](../images/enemies/14/frame3-r.png) |
+| ![Frame1](../images/enemies/14/frame1-l.png) | ![Frame2](../images/enemies/14/frame2-l.png) | ![Frame3](../images/enemies/14/frame3-l.png) |
+### Статусы
+Аналогично [стрелку из базуки](#враг-20).
 
 ## Враг 15
 Сенсор
@@ -739,6 +825,7 @@
 
 ## Враг 31
 Стена
+
 Аналогично [стене](#враг-30).
 
 ## Враг 32
@@ -762,6 +849,23 @@
 |Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|
 |---|---|---|---|---|---|
 | ![Frame1](../images/enemies/33/frame1.png) | ![Frame2](../images/enemies/33/frame2.png) | ![Frame3](../images/enemies/33/frame3.png) | ![Frame4](../images/enemies/33/frame4.png) | ![Frame5](../images/enemies/33/frame5.png) | ![Frame6](../images/enemies/33/frame6.png) |
+
+## Враг 34
+Змея в горшке
+|Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|
+|---|---|---|---|---|---|---|
+| ![Frame1](../images/enemies/34/frame1-r.png) | ![Frame2](../images/enemies/34/frame2-r.png) | ![Frame3](../images/enemies/34/frame3-r.png) | ![Frame4](../images/enemies/34/frame4-r.png) | ![Frame5](../images/enemies/34/frame5-r.png) | ![Frame6](../images/enemies/34/frame6-r.png) | ![Frame7](../images/enemies/34/frame7.png) |
+| ![Frame1](../images/enemies/34/frame1-l.png) | ![Frame2](../images/enemies/34/frame2-l.png) | ![Frame3](../images/enemies/34/frame3-l.png) | ![Frame4](../images/enemies/34/frame4-l.png) | ![Frame5](../images/enemies/34/frame5-l.png) | ![Frame6](../images/enemies/34/frame6-l.png) | |
+### Статусы
+![DescriptionBits](../images/descriptionBits.jpg)
+-  ***N*** - направление врага (**_0x00_** - вправо, **_0x01_** - влево)
+-  ***M*** - флаг прыжка, например через препятствие (**_0x00_** - не прыгает, **_0x01_** - прыгает)
+-  ***L*** - _не используется_
+-  ***K*** - флаг остановки (**_0x00_** - не остановился, **_0x01_** - остановился)
+-  ***W*** - флаг появления врага (вылезание из горшка) (**_0x00_** - не появляется, **_0x01_** - появляется)
+-  ***Z*** - флаг умирания врага (**_0x00_** - неактивно, **_0x01_** - активно)
+-  ***Y*** - флаг получения урона врагом (**_0x00_** - не получает урон, **_0x01_** - получает)
+-  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 
 ## Враг 35
 Египтянин с луком

@@ -502,15 +502,6 @@ vEnemyAStatus                 = ram_0320 ; see below and docs (Bestiary)
 ; 0x40 - the enemy can get damage (1 - true, 0 - false)
 ; 0x80 - The status is used
 
-; Byte: 0YZW KLMN (template1, land diver)
-; N - the direction (1 - on the left, 0 - on the right)
-; M - the jump
-; L - the appearance
-; K - the stop
-; W - squatting
-; Z - the dying
-; Y - see above
-
 ; Byte: 0YZ0 00MN (fly man)
 ; N - see above
 ; M - the jump
@@ -521,11 +512,6 @@ vEnemyAStatus                 = ram_0320 ; see below and docs (Bestiary)
 ; M - moving along a parabola
 ; L - using vJumpCounter
 ; K - ???
-
-; Byte: 0YZW KLMN (lift)
-; N - vertical direction (0x00 - up, 0x01 - down)
-; ...
-; Y - the character can stand on the lift (0x00 - can not, 0x01 - can)
 
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
@@ -601,15 +587,6 @@ vEnemyBStatus                 = ram_035C ; see below and docs (Bestiary)
 ; 0x20 - the enemy is dying (1 - true, 0 - false)
 ; 0x40 - the enemy can get damage (1 - true, 0 - false)
 ; 0x80 - The status is used (1 - true, 0 - false)
-
-; Byte: 0YZW KLMN (template2, cat or snake)
-; N - see above
-; M - the jump
-; L - ???
-; K - the stop
-; W - crawling out (for snake)
-; Z - see above
-; Y - see above
 
 vEnemyBStatus1                = ram_035C
 vEnemyBStatus2                = ram_035D
