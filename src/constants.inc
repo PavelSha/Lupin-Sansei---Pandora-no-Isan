@@ -502,17 +502,6 @@ vEnemyAStatus                 = ram_0320 ; see below and docs (Bestiary)
 ; 0x40 - the enemy can get damage (1 - true, 0 - false)
 ; 0x80 - The status is used
 
-; Byte: 0YZ0 00MN (fly man)
-; N - see above
-; M - the jump
-; Z - see above
-; Y - see above
-
-; Byte: 00ZW KLM0 (projective)
-; M - moving along a parabola
-; L - using vJumpCounter
-; K - ???
-
 vEnemyAStatus1                = ram_0320
 vEnemyAStatus2                = ram_0321
 vEnemyAProjectileStatus       = ram_0322 ; $0322-$0325

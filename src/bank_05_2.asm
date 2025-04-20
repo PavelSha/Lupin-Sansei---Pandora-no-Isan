@@ -224,10 +224,10 @@
 - D 0 - I - 0x016188 05:8178: 24 89     .addr loc_bazookaman_right_frame_3  ; CPU Address $8924
 - D 0 - I - 0x01618A 05:817A: 39 89     .addr loc_bazookaman_left_frame_3   ; CPU Address $8939
 
-- D - - - - 0x01618C 05:817C: 4E 89     .addr $894E
-- D - - - - 0x01618E 05:817E: 53 89     .addr $8953
-- D 0 - I - 0x016190 05:8180: 58 89     .addr $8958
-- D 0 - I - 0x016192 05:8182: 69 89     .addr $8969
+- D - - - - 0x01618C 05:817C: 4E 89     .addr loc_unknown_right_frame_1            ; CPU Address $894E
+- D - - - - 0x01618E 05:817E: 53 89     .addr loc_unknown_left_frame_1             ; CPU Address $8953
+- D 0 - I - 0x016190 05:8180: 58 89     .addr loc_unknown_man_dying_right_frame_1  ; CPU Address $8958, CHR Rom - 0x0D 0x11 0x15
+- D 0 - I - 0x016192 05:8182: 69 89     .addr loc_unknown_man_dying_left_frame_1   ; CPU Address $8969, CHR Rom - 0x0D 0x11 0x15
 
 - D 0 - I - 0x016194 05:8184: 7A 89     .addr loc_fat_sailor_right_frame_1  ; CPU Address $897A
 - D 0 - I - 0x016196 05:8186: AB 89     .addr loc_fat_sailor_left_frame_1   ; CPU Address $89AB
@@ -256,49 +256,52 @@
 - D 0 - I - 0x0161C0 05:81B0: 90 83     .addr loc_bullet_collision_right_frame_ ; CPU Address $8390
 - D - - - - 0x0161C2 05:81B2: 95 83     .addr loc_bullet_collision_left_frame_  ; CPU Address $8395
 
-- D 0 - I - 0x0161C4 05:81B4: 9A 83     .addr $839A
-- D 0 - I - 0x0161C6 05:81B6: 9F 83     .addr $839F
-- D 0 - I - 0x0161C8 05:81B8: A4 83     .addr $83A4
-- D 0 - I - 0x0161CA 05:81BA: A9 83     .addr $83A9
-- D 0 - I - 0x0161CC 05:81BC: AE 83     .addr $83AE
-- D 0 - I - 0x0161CE 05:81BE: B3 83     .addr $83B3
+- D 0 - I - 0x0161C4 05:81B4: 9A 83     .addr loc_unknown_right_frame_2    ; CPU Address $839A
+- D 0 - I - 0x0161C6 05:81B6: 9F 83     .addr loc_unknown_left_frame_2     ; CPU Address $839F
+- D 0 - I - 0x0161C8 05:81B8: A4 83     .addr loc_unknown_right_frame_3    ; CPU Address $83A4
+- D 0 - I - 0x0161CA 05:81BA: A9 83     .addr loc_unknown_left_frame_3     ; CPU Address $83A9
+- D 0 - I - 0x0161CC 05:81BC: AE 83     .addr loc_unknown_right_frame_4    ; CPU Address $83AE
+- D 0 - I - 0x0161CE 05:81BE: B3 83     .addr loc_unknown_left_frame_4     ; CPU Address $83B3
+
 - D 0 - I - 0x0161D0 05:81C0: B8 83     .addr loc_rifle_flash_right_frame_ ; CPU Address $83B8
 - D 0 - I - 0x0161D2 05:81C2: C1 83     .addr loc_rifle_flash_left_frame_  ; CPU Address $83C1
 
-- D 0 - I - 0x0161D4 05:81C4: CA 83     .word $83CA
-- D 0 - I - 0x0161D6 05:81C6: CA 83     .word $83CA
-- D 0 - I - 0x0161D8 05:81C8: CF 83     .word $83CF
-- D 0 - I - 0x0161DA 05:81CA: D4 83     .word $83D4
-- D 0 - I - 0x0161DC 05:81CC: DC 9C     .word $9CDC
-- D 0 - I - 0x0161DE 05:81CE: E1 9C     .word $9CE1
-- D 0 - I - 0x0161E0 05:81D0: 2E 84     .word $842E
-- D 0 - I - 0x0161E2 05:81D2: 3F 84     .word $843F
-- D 0 - I - 0x0161E4 05:81D4: 2E 84     .word $842E
-- D 0 - I - 0x0161E6 05:81D6: 1D 84     .word $841D
+- D 0 - I - 0x0161D4 05:81C4: CA 83     .addr loc_unknown_frame_5                 ; CPU Address $83CA
+- D 0 - I - 0x0161D6 05:81C6: CA 83     .addr loc_unknown_frame_5                 ; CPU Address $83CA
+
+- D 0 - I - 0x0161D8 05:81C8: CF 83     .addr loc_zenigata_handcuffs_right_frame_ ; CPU Address $83CF
+- D 0 - I - 0x0161DA 05:81CA: D4 83     .addr loc_zenigata_handcuffs_left_frame_  ; CPU Address $83D4
+
+- D 0 - I - 0x0161DC 05:81CC: DC 9C     .addr loc_unknown_right_frame_6           ; CPU Address $9CDC
+- D 0 - I - 0x0161DE 05:81CE: E1 9C     .addr loc_unknown_left_frame_6            ; CPU Address $9CE1
+- D 0 - I - 0x0161E0 05:81D0: 2E 84     .addr loc_big_circle_flash_frame_         ; CPU Address $842E
+- D 0 - I - 0x0161E2 05:81D2: 3F 84     .addr loc_small_circle_flash_frame_       ; CPU Address $843F
+- D 0 - I - 0x0161E4 05:81D4: 2E 84     .addr loc_big_circle_flash_frame_         ; CPU Address $842E
+- D 0 - I - 0x0161E6 05:81D6: 1D 84     .addr loc_middle_circle_flash_frame_      ; CPU Address $841D
 
 - D 0 - I - 0x0161E8 05:81D8: 44 84     .addr loc_diving_frame_1 ; CPU Address $8444
 - D 0 - I - 0x0161EA 05:81DA: 4D 84     .addr loc_diving_frame_2 ; CPU Address $844D
 - D 0 - I - 0x0161EC 05:81DC: 5A 84     .addr loc_diving_frame_3 ; CPU Address $845A
 - D 0 - I - 0x0161EE 05:81DE: 67 84     .addr loc_diving_frame_4 ; CPU Address $8467
 
-- D 0 - I - 0x0161F0 05:81E0: D9 83     .word $83D9
-- D 0 - I - 0x0161F2 05:81E2: EA 83     .word $83EA
-- D 0 - I - 0x0161F4 05:81E4: FB 83     .word $83FB
-- D 0 - I - 0x0161F6 05:81E6: 0C 84     .word $840C
+- D 0 - I - 0x0161F0 05:81E0: D9 83     .addr loc_death_right_frame_1   ; CPU Address $83D9
+- D 0 - I - 0x0161F2 05:81E2: EA 83     .addr loc_death_left_frame_1    ; CPU Address $83EA
+- D 0 - I - 0x0161F4 05:81E4: FB 83     .addr loc_death_right_frame_2   ; CPU Address $83FB
+- D 0 - I - 0x0161F6 05:81E6: 0C 84     .addr loc_death_left_frame_2    ; CPU Address $840C
 
 ; reserved
-- D - - - - 0x0161F8 05:81E8: 1C 3E     .word $3E1C
-- D - - - - 0x0161FA 05:81EA: 07 79     .word $7907
-- D - - - - 0x0161FC 05:81EC: 7F 7F     .word $7F7F
-- D - - - - 0x0161FE 05:81EE: 7F 7F     .word $7F7F
-- D - - - - 0x016200 05:81F0: 9C 9E     .word $9E9C
-- D - - - - 0x016202 05:81F2: 98 10     .word $1098
-- D - - - - 0x016204 05:81F4: F0 F8     .word $F8F0
-- D - - - - 0x016206 05:81F6: F0 F0     .word $F0F0
-- D - - - - 0x016208 05:81F8: FC F6     .word $F6FC
-- D - - - - 0x01620A 05:81FA: F4 EE     .word $EEF4
-- D - - - - 0x01620C 05:81FC: 0E 03     .word $030E
-- D - - - - 0x01620E 05:81FE: 03 56     .word $5603
+- D - - - - 0x0161F8 05:81E8: 1C 3E     .addr $3E1C
+- D - - - - 0x0161FA 05:81EA: 07 79     .addr $7907
+- D - - - - 0x0161FC 05:81EC: 7F 7F     .addr $7F7F
+- D - - - - 0x0161FE 05:81EE: 7F 7F     .addr $7F7F
+- D - - - - 0x016200 05:81F0: 9C 9E     .addr $9E9C
+- D - - - - 0x016202 05:81F2: 98 10     .addr $1098
+- D - - - - 0x016204 05:81F4: F0 F8     .addr $F8F0
+- D - - - - 0x016206 05:81F6: F0 F0     .addr $F0F0
+- D - - - - 0x016208 05:81F8: FC F6     .addr $F6FC
+- D - - - - 0x01620A 05:81FA: F4 EE     .addr $EEF4
+- D - - - - 0x01620C 05:81FC: 0E 03     .addr $030E
+- D - - - - 0x01620E 05:81FE: 03 56     .addr $5603
 
 - D 0 - I - 0x016210 05:8200: 54 8B     .addr loc_nun_right_frame_1   ; CPU Address $8B54
 - D 0 - I - 0x016212 05:8202: 6D 8B     .addr loc_nun_left_frame_1    ; CPU Address $8B6D
@@ -518,6 +521,7 @@
 - D 0 - I - 0x01638C 05:837C: 50 95     .addr loc_bird_frame_2  ; CPU Address $9550
 - D 0 - I - 0x01638E 05:837E: 61 95     .addr loc_bird_frame_3  ; CPU Address $9561
 
+loc_empty:
 - D - - - - 0x016390 05:8380: 00        .byte $00
 
 loc_bullet_right_frame_:
@@ -541,21 +545,27 @@ loc_bullet_collision_left_frame_:
 - D - - - - 0x0163A5 05:8395: 01        .byte $01
 - D - - - - 0x0163A6 05:8396: FD        .byte $FD, $02, $40, $FE
 
+loc_unknown_right_frame_2:
 - D 0 - I - 0x0163AA 05:839A: 01        .byte $01
 - D 0 - I - 0x0163AB 05:839B: FC        .byte $FC, $22, $00, $FC
 
+loc_unknown_left_frame_2:
 - D 0 - I - 0x0163AF 05:839F: 01        .byte $01
 - D 0 - I - 0x0163B0 05:83A0: FC        .byte $FC, $22, $40, $FC
 
+loc_unknown_right_frame_3:
 - D 0 - I - 0x0163B4 05:83A4: 01        .byte $01
 - D 0 - I - 0x0163B5 05:83A5: FD        .byte $FD, $CA, $00, $FC
 
+loc_unknown_left_frame_3:
 - D 0 - I - 0x0163B9 05:83A9: 01        .byte $01
 - D 0 - I - 0x0163BA 05:83AA: FD        .byte $FD, $CA, $40, $FC
 
+loc_unknown_right_frame_4:
 - D 0 - I - 0x0163BE 05:83AE: 01        .byte $01
 - D 0 - I - 0x0163BF 05:83AF: FC        .byte $FC, $A8, $00, $FC
 
+loc_unknown_left_frame_4:
 - D 0 - I - 0x0163C3 05:83B3: 01        .byte $01
 - D 0 - I - 0x0163C4 05:83B4: FC        .byte $FC, $A8, $40, $FC
 
@@ -569,51 +579,61 @@ loc_rifle_flash_left_frame_:
 - D 0 - I - 0x0163D2 05:83C2: FC        .byte $FC, $58, $40, $00
 - D 0 - I - 0x0163D6 05:83C6: FC        .byte $FC, $59, $40, $F8
 
+loc_unknown_frame_5:
 - D 0 - I - 0x0163DA 05:83CA: 01        .byte $01
 - D 0 - I - 0x0163DB 05:83CB: F8        .byte $F8, $B9, $00, $FC
 
+loc_zenigata_handcuffs_right_frame_:
 - D 0 - I - 0x0163DF 05:83CF: 01        .byte $01
 - D 0 - I - 0x0163E0 05:83D0: F8        .byte $F8, $99, $02, $FC
 
+loc_zenigata_handcuffs_left_frame_:
 - D 0 - I - 0x0163E4 05:83D4: 01        .byte $01
 - D 0 - I - 0x0163E5 05:83D5: F8        .byte $F8, $99, $42, $FC
 
+loc_death_right_frame_1:
 - D 0 - I - 0x0163E9 05:83D9: 04        .byte $04
 - D 0 - I - 0x0163EA 05:83DA: F2        .byte $F2, $07, $00, $00
 - D 0 - I - 0x0163EE 05:83DE: FA        .byte $FA, $05, $00, $F0
 - D 0 - I - 0x0163F2 05:83E2: FA        .byte $FA, $06, $00, $F8
 - D 0 - I - 0x0163F6 05:83E6: FA        .byte $FA, $08, $00, $00
 
+loc_death_left_frame_1:
 - D 0 - I - 0x0163FA 05:83EA: 04        .byte $04
 - D 0 - I - 0x0163FB 05:83EB: F2        .byte $F2, $07, $40, $F8
 - D 0 - I - 0x0163FF 05:83EF: FA        .byte $FA, $05, $40, $08
 - D 0 - I - 0x016403 05:83F3: FA        .byte $FA, $06, $40, $00
 - D 0 - I - 0x016407 05:83F7: FA        .byte $FA, $08, $40, $F8
 
+loc_death_right_frame_2:
 - D 0 - I - 0x01640B 05:83FB: 04        .byte $04
 - D 0 - I - 0x01640C 05:83FC: F2        .byte $F2, $0B, $00, $00
 - D 0 - I - 0x016410 05:8400: FA        .byte $FA, $09, $00, $F0
 - D 0 - I - 0x016414 05:8404: FA        .byte $FA, $0A, $00, $F8
 - D 0 - I - 0x016418 05:8408: FA        .byte $FA, $0C, $00, $00
 
+loc_death_left_frame_2:
 - D 0 - I - 0x01641C 05:840C: 04        .byte $04
 - D 0 - I - 0x01641D 05:840D: F2        .byte $F2, $0B, $40, $F8
 - D 0 - I - 0x016421 05:8411: FA        .byte $FA, $09, $40, $08
 - D 0 - I - 0x016425 05:8415: FA        .byte $FA, $0A, $40, $00
 - D 0 - I - 0x016429 05:8419: FA        .byte $FA, $0C, $40, $F8
 
+loc_middle_circle_flash_frame_:
 - D 0 - I - 0x01642D 05:841D: 04        .byte $04
 - D 0 - I - 0x01642E 05:841E: F8        .byte $F8, $0D, $00, $F8
 - D 0 - I - 0x016432 05:8422: F8        .byte $F8, $0D, $40, $00
 - D 0 - I - 0x016436 05:8426: 00        .byte $00, $0D, $80, $F8
 - D 0 - I - 0x01643A 05:842A: 00        .byte $00, $0D, $C0, $00
 
+loc_big_circle_flash_frame_:
 - D 0 - I - 0x01643E 05:842E: 04        .byte $04
 - D 0 - I - 0x01643F 05:842F: F8        .byte $F8, $0E, $00, $F8
 - D 0 - I - 0x016443 05:8433: F8        .byte $F8, $0E, $40, $00
 - D 0 - I - 0x016447 05:8437: 00        .byte $00, $0E, $80, $F8
 - D 0 - I - 0x01644B 05:843B: 00        .byte $00, $0E, $C0, $00
 
+loc_small_circle_flash_frame_:
 - D 0 - I - 0x01644F 05:843F: 01        .byte $01
 - D 0 - I - 0x016450 05:8440: FC        .byte $FC, $0F, $00, $FC
 
@@ -1123,18 +1143,22 @@ loc_bazookaman_left_frame_3:
 - D 0 - I - 0x016956 05:8946: F8        .byte $F8, $B4, $40, $FD
 - D 0 - I - 0x01695A 05:894A: F6        .byte $F6, $B5, $40, $F5
 
+loc_unknown_right_frame_1:
 - D - - - - 0x01695E 05:894E: 01        .byte $01
 - D - - - - 0x01695F 05:894F: F8        .byte $F8, $B0, $00, $FC
 
+loc_unknown_left_frame_1:
 - D - - - - 0x016963 05:8953: 01        .byte $01
 - D - - - - 0x016964 05:8954: F8        .byte $F8, $B0, $40, $FC
 
+loc_unknown_man_dying_right_frame_1:
 - D 0 - I - 0x016968 05:8958: 04        .byte $04
 - D 0 - I - 0x016969 05:8959: F1        .byte $F1, $AE, $00, $04
 - D 0 - I - 0x01696D 05:895D: F9        .byte $F9, $A9, $00, $F4
 - D 0 - I - 0x016971 05:8961: F9        .byte $F9, $AD, $00, $FC
 - D 0 - I - 0x016975 05:8965: F9        .byte $F9, $AF, $00, $04
 
+loc_unknown_man_dying_left_frame_1:
 - D 0 - I - 0x016979 05:8969: 04        .byte $04
 - D 0 - I - 0x01697A 05:896A: F1        .byte $F1, $AE, $40, $F4
 - D 0 - I - 0x01697E 05:896E: F9        .byte $F9, $A9, $40, $04
@@ -3113,9 +3137,11 @@ loc_ninja_left_frame_4:
 - D 0 - I - 0x017CE4 05:9CD4: 08        .byte $08, $97, $00, $00
 - D 0 - I - 0x017CE8 05:9CD8: 10        .byte $10, $A7, $00, $F8
 
+loc_unknown_right_frame_6:
 - D 0 - I - 0x017CEC 05:9CDC: 01        .byte $01
 - D 0 - I - 0x017CED 05:9CDD: F8        .byte $F8, $AA, $40, $FC
 
+loc_unknown_left_frame_6:
 - D 0 - I - 0x017CF1 05:9CE1: 01        .byte $01
 - D 0 - I - 0x017CF2 05:9CE2: F8        .byte $F8, $AA, $00, $FC
 
