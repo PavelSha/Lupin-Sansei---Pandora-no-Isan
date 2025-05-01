@@ -137,7 +137,7 @@ tbl_sound_row_mini:
                                         .addr loc_track36        ; CPU Address $896C
 - D 0 - I - 0x0080EC 02:80DC: 2A        .byte $2A, $01           ; 0x37
                                         .addr loc_track37        ; CPU Address $8977
-- d - - - - 0x0080F0 02:80E0: 2A        .byte $2A, $01           ; 0x38 - blank
+- D - - - - 0x0080F0 02:80E0: 2A        .byte $2A, $01           ; 0x38 - blank
                                         .addr loc_track38        ; CPU Address $8982
 - D 0 - I - 0x0080F4 02:80E4: 7E        .byte $7E, $02           ; 0x39
                                         .addr loc_track39        ; CPU Address $87F1

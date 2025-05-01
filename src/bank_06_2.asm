@@ -96,6 +96,7 @@
 .export sub_B09A_try_to_create_item
 .export sub_AF4D_briefcase_or_item_handler
 .export sub_B3AA_room_with_NPC_or_prisoner
+.export sub_AD6E_resolve_lift_or_platform
 .export tbl_ptr_enemy_t2_types_for_sprites
 .export tbl_ptr_enemy_t3_types_for_sprites
 .export tbl_ptr_enemy_t2_sprite_params_
@@ -2129,7 +2130,7 @@ C - - - - - 0x01AD7A 06:AD6A: 9D 20 03  STA vEnemyAStatus,X         ;
 @bra_AD6D_RTS:
 C - - - - - 0x01AD7D 06:AD6D: 60        RTS                         ;
 
-sub_AD6E: ; from bank FF
+sub_AD6E_resolve_lift_or_platform:
 C - - - - - 0x01AD7E 06:AD6E: AD 01 03  LDA vEnemyB                    ;
 C - - - - - 0x01AD81 06:AD71: C9 32     CMP #$32                       ; CONSTANT - Breaking platform
 C - - - - - 0x01AD83 06:AD73: D0 03     BNE bra_AD78_skip              ; If the enemy isn't the 'breaking platform'
@@ -4655,280 +4656,53 @@ tbl_ptr_walls:
 - D 1 - - - 0x01BEF6 06:BEE6: 90        .byte $90, $90, $91, $0E
 - D 1 - - - 0x01BEFA 06:BEEA: 3A        .byte $3A, $00, $99, $9B
 
-- - - - - - 0x01BEFE 06:BEEE: A1        .byte $A1   ; 
-- - - - - - 0x01BEFF 06:BEEF: 83        .byte $83   ; 
-- - - - - - 0x01BF00 06:BEF0: 78        .byte $78   ; <x>
-- - - - - - 0x01BF01 06:BEF1: 79        .byte $79   ; <y>
-- - - - - - 0x01BF02 06:BEF2: 7A        .byte $7A   ; <z>
-- - - - - - 0x01BF03 06:BEF3: 81        .byte $81   ; 
-- - - - - - 0x01BF04 06:BEF4: 82        .byte $82   ; 
-- - - - - - 0x01BF05 06:BEF5: 0E        .byte $0E   ; 
-- - - - - - 0x01BF06 06:BEF6: 3A        .byte $3A   ; 
-- - - - - - 0x01BF07 06:BEF7: 00        .byte $00   ; 
-- - - - - - 0x01BF08 06:BEF8: 95        .byte $95   ; 
-- - - - - - 0x01BF09 06:BEF9: 97        .byte $97   ; 
-- - - - - - 0x01BF0A 06:BEFA: 9F        .byte $9F   ; 
-- - - - - - 0x01BF0B 06:BEFB: 72        .byte $72   ; <r>
-- - - - - - 0x01BF0C 06:BEFC: 7B        .byte $7B   ; 
-- - - - - - 0x01BF0D 06:BEFD: 7C        .byte $7C   ; 
-- - - - - - 0x01BF0E 06:BEFE: 7D        .byte $7D   ; 
-- - - - - - 0x01BF0F 06:BEFF: 81        .byte $81   ; 
-- - - - - - 0x01BF10 06:BF00: 82        .byte $82   ; 
-- - - - - - 0x01BF11 06:BF01: 0E        .byte $0E   ; 
-- - - - - - 0x01BF12 06:BF02: 3A        .byte $3A   ; 
-- - - - - - 0x01BF13 06:BF03: 00        .byte $00   ; 
-- - - - - - 0x01BF14 06:BF04: 9C        .byte $9C   ; 
-- - - - - - 0x01BF15 06:BF05: 9D        .byte $9D   ; 
-- - - - - - 0x01BF16 06:BF06: A2        .byte $A2   ; 
-- - - - - - 0x01BF17 06:BF07: 84        .byte $84   ; 
-- - - - - - 0x01BF18 06:BF08: 7E        .byte $7E   ; 
-- - - - - - 0x01BF19 06:BF09: 7F        .byte $7F   ; 
-- - - - - - 0x01BF1A 06:BF0A: 80        .byte $80   ; 
-- - - - - - 0x01BF1B 06:BF0B: 81        .byte $81   ; 
-- - - - - - 0x01BF1C 06:BF0C: 82        .byte $82   ; 
-- - - - - - 0x01BF1D 06:BF0D: 0E        .byte $0E   ; 
-- - - - - - 0x01BF1E 06:BF0E: 3A        .byte $3A   ; 
-- - - - - - 0x01BF1F 06:BF0F: 00        .byte $00   ; 
-- - - - - - 0x01BF20 06:BF10: 50        .byte $50   ; <P>
-- - - - - - 0x01BF21 06:BF11: 50        .byte $50   ; <P>
-- - - - - - 0x01BF22 06:BF12: 50        .byte $50   ; <P>
-- - - - - - 0x01BF23 06:BF13: 50        .byte $50   ; <P>
-- - - - - - 0x01BF24 06:BF14: 50        .byte $50   ; <P>
-- - - - - - 0x01BF25 06:BF15: 50        .byte $50   ; <P>
-- - - - - - 0x01BF26 06:BF16: 50        .byte $50   ; <P>
-- - - - - - 0x01BF27 06:BF17: 50        .byte $50   ; <P>
-- - - - - - 0x01BF28 06:BF18: 55        .byte $55   ; <U>
-- - - - - - 0x01BF29 06:BF19: 55        .byte $55   ; <U>
-- - - - - - 0x01BF2A 06:BF1A: 55        .byte $55   ; <U>
-- - - - - - 0x01BF2B 06:BF1B: 55        .byte $55   ; <U>
-- - - - - - 0x01BF2C 06:BF1C: 55        .byte $55   ; <U>
-- - - - - - 0x01BF2D 06:BF1D: 55        .byte $55   ; <U>
-- - - - - - 0x01BF2E 06:BF1E: 55        .byte $55   ; <U>
-- - - - - - 0x01BF2F 06:BF1F: 55        .byte $55   ; <U>
-- - - - - - 0x01BF30 06:BF20: 55        .byte $55   ; <U>
-- - - - - - 0x01BF31 06:BF21: 55        .byte $55   ; <U>
-- - - - - - 0x01BF32 06:BF22: 55        .byte $55   ; <U>
-- - - - - - 0x01BF33 06:BF23: 55        .byte $55   ; <U>
-- - - - - - 0x01BF34 06:BF24: 55        .byte $55   ; <U>
-- - - - - - 0x01BF35 06:BF25: 55        .byte $55   ; <U>
-- - - - - - 0x01BF36 06:BF26: 55        .byte $55   ; <U>
-- - - - - - 0x01BF37 06:BF27: 55        .byte $55   ; <U>
-- - - - - - 0x01BF38 06:BF28: 95        .byte $95   ; 
-- - - - - - 0x01BF39 06:BF29: 65        .byte $65   ; <e>
-- - - - - - 0x01BF3A 06:BF2A: 55        .byte $55   ; <U>
-- - - - - - 0x01BF3B 06:BF2B: 55        .byte $55   ; <U>
-- - - - - - 0x01BF3C 06:BF2C: 55        .byte $55   ; <U>
-- - - - - - 0x01BF3D 06:BF2D: 55        .byte $55   ; <U>
-- - - - - - 0x01BF3E 06:BF2E: 55        .byte $55   ; <U>
-- - - - - - 0x01BF3F 06:BF2F: 55        .byte $55   ; <U>
-- - - - - - 0x01BF40 06:BF30: 99        .byte $99   ; 
-- - - - - - 0x01BF41 06:BF31: 66        .byte $66   ; <f>
-- - - - - - 0x01BF42 06:BF32: 55        .byte $55   ; <U>
-- - - - - - 0x01BF43 06:BF33: 55        .byte $55   ; <U>
-- - - - - - 0x01BF44 06:BF34: 55        .byte $55   ; <U>
-- - - - - - 0x01BF45 06:BF35: 55        .byte $55   ; <U>
-- - - - - - 0x01BF46 06:BF36: 55        .byte $55   ; <U>
-- - - - - - 0x01BF47 06:BF37: 55        .byte $55   ; <U>
-- - - - - - 0x01BF48 06:BF38: 55        .byte $55   ; <U>
-- - - - - - 0x01BF49 06:BF39: 55        .byte $55   ; <U>
-- - - - - - 0x01BF4A 06:BF3A: 55        .byte $55   ; <U>
-- - - - - - 0x01BF4B 06:BF3B: 55        .byte $55   ; <U>
-- - - - - - 0x01BF4C 06:BF3C: 55        .byte $55   ; <U>
-- - - - - - 0x01BF4D 06:BF3D: 55        .byte $55   ; <U>
-- - - - - - 0x01BF4E 06:BF3E: 55        .byte $55   ; <U>
-- - - - - - 0x01BF4F 06:BF3F: 55        .byte $55   ; <U>
-- - - - - - 0x01BF50 06:BF40: 05        .byte $05   ; 
-- - - - - - 0x01BF51 06:BF41: 05        .byte $05   ; 
-- - - - - - 0x01BF52 06:BF42: 05        .byte $05   ; 
-- - - - - - 0x01BF53 06:BF43: 05        .byte $05   ; 
-- - - - - - 0x01BF54 06:BF44: 05        .byte $05   ; 
-- - - - - - 0x01BF55 06:BF45: 05        .byte $05   ; 
-- - - - - - 0x01BF56 06:BF46: 05        .byte $05   ; 
-- - - - - - 0x01BF57 06:BF47: 05        .byte $05   ; 
-- - - - - - 0x01BF58 06:BF48: 50        .byte $50   ; <P>
-- - - - - - 0x01BF59 06:BF49: 50        .byte $50   ; <P>
-- - - - - - 0x01BF5A 06:BF4A: 50        .byte $50   ; <P>
-- - - - - - 0x01BF5B 06:BF4B: 50        .byte $50   ; <P>
-- - - - - - 0x01BF5C 06:BF4C: 50        .byte $50   ; <P>
-- - - - - - 0x01BF5D 06:BF4D: 50        .byte $50   ; <P>
-- - - - - - 0x01BF5E 06:BF4E: 50        .byte $50   ; <P>
-- - - - - - 0x01BF5F 06:BF4F: 50        .byte $50   ; <P>
-- - - - - - 0x01BF60 06:BF50: 55        .byte $55   ; <U>
-- - - - - - 0x01BF61 06:BF51: 55        .byte $55   ; <U>
-- - - - - - 0x01BF62 06:BF52: 55        .byte $55   ; <U>
-- - - - - - 0x01BF63 06:BF53: 95        .byte $95   ; 
-- - - - - - 0x01BF64 06:BF54: A5        .byte $A5   ; 
-- - - - - - 0x01BF65 06:BF55: A5        .byte $A5   ; 
-- - - - - - 0x01BF66 06:BF56: 65        .byte $65   ; <e>
-- - - - - - 0x01BF67 06:BF57: 55        .byte $55   ; <U>
-- - - - - - 0x01BF68 06:BF58: 55        .byte $55   ; <U>
-- - - - - - 0x01BF69 06:BF59: 55        .byte $55   ; <U>
-- - - - - - 0x01BF6A 06:BF5A: 55        .byte $55   ; <U>
-- - - - - - 0x01BF6B 06:BF5B: 99        .byte $99   ; 
-- - - - - - 0x01BF6C 06:BF5C: 6A        .byte $6A   ; <j>
-- - - - - - 0x01BF6D 06:BF5D: 9A        .byte $9A   ; 
-- - - - - - 0x01BF6E 06:BF5E: 66        .byte $66   ; <f>
-- - - - - - 0x01BF6F 06:BF5F: 55        .byte $55   ; <U>
-- - - - - - 0x01BF70 06:BF60: 95        .byte $95   ; 
-- - - - - - 0x01BF71 06:BF61: 65        .byte $65   ; <e>
-- - - - - - 0x01BF72 06:BF62: 55        .byte $55   ; <U>
-- - - - - - 0x01BF73 06:BF63: 99        .byte $99   ; 
-- - - - - - 0x01BF74 06:BF64: AA        .byte $AA   ; 
-- - - - - - 0x01BF75 06:BF65: AA        .byte $AA   ; 
-- - - - - - 0x01BF76 06:BF66: 66        .byte $66   ; <f>
-- - - - - - 0x01BF77 06:BF67: 55        .byte $55   ; <U>
-- - - - - - 0x01BF78 06:BF68: 99        .byte $99   ; 
-- - - - - - 0x01BF79 06:BF69: 66        .byte $66   ; <f>
-- - - - - - 0x01BF7A 06:BF6A: AA        .byte $AA   ; 
-- - - - - - 0x01BF7B 06:BF6B: AA        .byte $AA   ; 
-- - - - - - 0x01BF7C 06:BF6C: AA        .byte $AA   ; 
-- - - - - - 0x01BF7D 06:BF6D: AA        .byte $AA   ; 
-- - - - - - 0x01BF7E 06:BF6E: AA        .byte $AA   ; 
-- - - - - - 0x01BF7F 06:BF6F: AA        .byte $AA   ; 
-- - - - - - 0x01BF80 06:BF70: 55        .byte $55   ; <U>
-- - - - - - 0x01BF81 06:BF71: 55        .byte $55   ; <U>
-- - - - - - 0x01BF82 06:BF72: 55        .byte $55   ; <U>
-- - - - - - 0x01BF83 06:BF73: 55        .byte $55   ; <U>
-- - - - - - 0x01BF84 06:BF74: 55        .byte $55   ; <U>
-- - - - - - 0x01BF85 06:BF75: 55        .byte $55   ; <U>
-- - - - - - 0x01BF86 06:BF76: 55        .byte $55   ; <U>
-- - - - - - 0x01BF87 06:BF77: 55        .byte $55   ; <U>
-- - - - - - 0x01BF88 06:BF78: 05        .byte $05   ; 
-- - - - - - 0x01BF89 06:BF79: 05        .byte $05   ; 
-- - - - - - 0x01BF8A 06:BF7A: 05        .byte $05   ; 
-- - - - - - 0x01BF8B 06:BF7B: 05        .byte $05   ; 
-- - - - - - 0x01BF8C 06:BF7C: 05        .byte $05   ; 
-- - - - - - 0x01BF8D 06:BF7D: 05        .byte $05   ; 
-- - - - - - 0x01BF8E 06:BF7E: 05        .byte $05   ; 
-- - - - - - 0x01BF8F 06:BF7F: 05        .byte $05   ; 
-- - - - - - 0x01BF90 06:BF80: 00        .byte $00   ; 
-- - - - - - 0x01BF91 06:BF81: 80        .byte $80   ; 
-- - - - - - 0x01BF92 06:BF82: F0        .byte $F0   ; 
-- - - - - - 0x01BF93 06:BF83: F8        .byte $F8   ; 
-- - - - - - 0x01BF94 06:BF84: F8        .byte $F8   ; 
-- - - - - - 0x01BF95 06:BF85: F8        .byte $F8   ; 
-- - - - - - 0x01BF96 06:BF86: F8        .byte $F8   ; 
-- - - - - - 0x01BF97 06:BF87: F8        .byte $F8   ; 
-- - - - - - 0x01BF98 06:BF88: 00        .byte $00   ; 
-- - - - - - 0x01BF99 06:BF89: 80        .byte $80   ; 
-- - - - - - 0x01BF9A 06:BF8A: 88        .byte $88   ; 
-- - - - - - 0x01BF9B 06:BF8B: 84        .byte $84   ; 
-- - - - - - 0x01BF9C 06:BF8C: 84        .byte $84   ; 
-- - - - - - 0x01BF9D 06:BF8D: 84        .byte $84   ; 
-- - - - - - 0x01BF9E 06:BF8E: 84        .byte $84   ; 
-- - - - - - 0x01BF9F 06:BF8F: 84        .byte $84   ; 
-- - - - - - 0x01BFA0 06:BF90: F8        .byte $F8   ; 
-- - - - - - 0x01BFA1 06:BF91: F8        .byte $F8   ; 
-- - - - - - 0x01BFA2 06:BF92: 78        .byte $78   ; <x>
-- - - - - - 0x01BFA3 06:BF93: 78        .byte $78   ; <x>
-- - - - - - 0x01BFA4 06:BF94: 70        .byte $70   ; <p>
-- - - - - - 0x01BFA5 06:BF95: 00        .byte $00   ; 
-- - - - - - 0x01BFA6 06:BF96: 00        .byte $00   ; 
-- - - - - - 0x01BFA7 06:BF97: 00        .byte $00   ; 
-- - - - - - 0x01BFA8 06:BF98: 84        .byte $84   ; 
-- - - - - - 0x01BFA9 06:BF99: 84        .byte $84   ; 
-- - - - - - 0x01BFAA 06:BF9A: 84        .byte $84   ; 
-- - - - - - 0x01BFAB 06:BF9B: 84        .byte $84   ; 
-- - - - - - 0x01BFAC 06:BF9C: 8C        .byte $8C   ; 
-- - - - - - 0x01BFAD 06:BF9D: F0        .byte $F0   ; 
-- - - - - - 0x01BFAE 06:BF9E: 00        .byte $00   ; 
-- - - - - - 0x01BFAF 06:BF9F: 00        .byte $00   ; 
-- - - - - - 0x01BFB0 06:BFA0: 00        .byte $00   ; 
-- - - - - - 0x01BFB1 06:BFA1: 00        .byte $00   ; 
-- - - - - - 0x01BFB2 06:BFA2: 00        .byte $00   ; 
-- - - - - - 0x01BFB3 06:BFA3: F8        .byte $F8   ; 
-- - - - - - 0x01BFB4 06:BFA4: 38        .byte $38   ; <8>
-- - - - - - 0x01BFB5 06:BFA5: F8        .byte $F8   ; 
-- - - - - - 0x01BFB6 06:BFA6: 38        .byte $38   ; <8>
-- - - - - - 0x01BFB7 06:BFA7: F0        .byte $F0   ; 
-- - - - - - 0x01BFB8 06:BFA8: 00        .byte $00   ; 
-- - - - - - 0x01BFB9 06:BFA9: 00        .byte $00   ; 
-- - - - - - 0x01BFBA 06:BFAA: F8        .byte $F8   ; 
-- - - - - - 0x01BFBB 06:BFAB: 08        .byte $08   ; 
-- - - - - - 0x01BFBC 06:BFAC: F0        .byte $F0   ; 
-- - - - - - 0x01BFBD 06:BFAD: C0        .byte $C0   ; 
-- - - - - - 0x01BFBE 06:BFAE: 08        .byte $08   ; 
-- - - - - - 0x01BFBF 06:BFAF: F0        .byte $F0   ; 
-- - - - - - 0x01BFC0 06:BFB0: 00        .byte $00   ; 
-- - - - - - 0x01BFC1 06:BFB1: 00        .byte $00   ; 
-- - - - - - 0x01BFC2 06:BFB2: 38        .byte $38   ; <8>
-- - - - - - 0x01BFC3 06:BFB3: 7C        .byte $7C   ; 
-- - - - - - 0x01BFC4 06:BFB4: 7C        .byte $7C   ; 
-- - - - - - 0x01BFC5 06:BFB5: 7C        .byte $7C   ; 
-- - - - - - 0x01BFC6 06:BFB6: 78        .byte $78   ; <x>
-- - - - - - 0x01BFC7 06:BFB7: 7E        .byte $7E   ; 
-- - - - - - 0x01BFC8 06:BFB8: 00        .byte $00   ; 
-- - - - - - 0x01BFC9 06:BFB9: 00        .byte $00   ; 
-- - - - - - 0x01BFCA 06:BFBA: 04        .byte $04   ; 
-- - - - - - 0x01BFCB 06:BFBB: 02        .byte $02   ; 
-- - - - - - 0x01BFCC 06:BFBC: 32        .byte $32   ; <2>
-- - - - - - 0x01BFCD 06:BFBD: 1A        .byte $1A   ; 
-- - - - - - 0x01BFCE 06:BFBE: 06        .byte $06   ; 
-- - - - - - 0x01BFCF 06:BFBF: 7E        .byte $7E   ; 
-- - - - - - 0x01BFD0 06:BFC0: 00        .byte $00   ; 
-- - - - - - 0x01BFD1 06:BFC1: 00        .byte $00   ; 
-- - - - - - 0x01BFD2 06:BFC2: 38        .byte $38   ; <8>
-- - - - - - 0x01BFD3 06:BFC3: 7C        .byte $7C   ; 
-- - - - - - 0x01BFD4 06:BFC4: 7C        .byte $7C   ; 
-- - - - - - 0x01BFD5 06:BFC5: 7C        .byte $7C   ; 
-- - - - - - 0x01BFD6 06:BFC6: 78        .byte $78   ; <x>
-- - - - - - 0x01BFD7 06:BFC7: 7E        .byte $7E   ; 
-- - - - - - 0x01BFD8 06:BFC8: 00        .byte $00   ; 
-- - - - - - 0x01BFD9 06:BFC9: 00        .byte $00   ; 
-- - - - - - 0x01BFDA 06:BFCA: 04        .byte $04   ; 
-- - - - - - 0x01BFDB 06:BFCB: 02        .byte $02   ; 
-- - - - - - 0x01BFDC 06:BFCC: 02        .byte $02   ; 
-- - - - - - 0x01BFDD 06:BFCD: 02        .byte $02   ; 
-- - - - - - 0x01BFDE 06:BFCE: 06        .byte $06   ; 
-- - - - - - 0x01BFDF 06:BFCF: 7E        .byte $7E   ; 
-- - - - - - 0x01BFE0 06:BFD0: 00        .byte $00   ; 
-- - - - - - 0x01BFE1 06:BFD1: 2C        .byte $2C   ; 
-- - - - - - 0x01BFE2 06:BFD2: 42        .byte $42   ; <B>
-- - - - - - 0x01BFE3 06:BFD3: 58        .byte $58   ; <X>
-- - - - - - 0x01BFE4 06:BFD4: 1A        .byte $1A   ; 
-- - - - - - 0x01BFE5 06:BFD5: 42        .byte $42   ; <B>
-- - - - - - 0x01BFE6 06:BFD6: 34        .byte $34   ; <4>
-- - - - - - 0x01BFE7 06:BFD7: 00        .byte $00   ; 
-- - - - - - 0x01BFE8 06:BFD8: 00        .byte $00   ; 
-- - - - - - 0x01BFE9 06:BFD9: 3C        .byte $3C   ; 
-- - - - - - 0x01BFEA 06:BFDA: 7E        .byte $7E   ; 
-- - - - - - 0x01BFEB 06:BFDB: 66        .byte $66   ; <f>
-- - - - - - 0x01BFEC 06:BFDC: 66        .byte $66   ; <f>
-- - - - - - 0x01BFED 06:BFDD: 7E        .byte $7E   ; 
-- - - - - - 0x01BFEE 06:BFDE: 3C        .byte $3C   ; 
-- - - - - - 0x01BFEF 06:BFDF: 00        .byte $00   ; 
-- - - - - - 0x01BFF0 06:BFE0: 08        .byte $08   ; 
-- - - - - - 0x01BFF1 06:BFE1: 66        .byte $66   ; <f>
-- - - - - - 0x01BFF2 06:BFE2: 5A        .byte $5A   ; <Z>
-- - - - - - 0x01BFF3 06:BFE3: BC        .byte $BC   ; 
-- - - - - - 0x01BFF4 06:BFE4: 3D        .byte $3D   ; 
-- - - - - - 0x01BFF5 06:BFE5: 5A        .byte $5A   ; <Z>
-- - - - - - 0x01BFF6 06:BFE6: 66        .byte $66   ; <f>
-- - - - - - 0x01BFF7 06:BFE7: 10        .byte $10   ; 
-- - - - - - 0x01BFF8 06:BFE8: 18        .byte $18   ; 
-- - - - - - 0x01BFF9 06:BFE9: 7E        .byte $7E   ; 
-- - - - - - 0x01BFFA 06:BFEA: 66        .byte $66   ; <f>
-- - - - - - 0x01BFFB 06:BFEB: C3        .byte $C3   ; 
-- - - - - - 0x01BFFC 06:BFEC: C3        .byte $C3   ; 
-- - - - - - 0x01BFFD 06:BFED: 66        .byte $66   ; <f>
-- - - - - - 0x01BFFE 06:BFEE: 7E        .byte $7E   ; 
-- - - - - - 0x01BFFF 06:BFEF: 18        .byte $18   ; 
-- - - - - - 0x01C000 06:BFF0: 00        .byte $00   ; 
-- - - - - - 0x01C001 06:BFF1: 00        .byte $00   ; 
-- - - - - - 0x01C002 06:BFF2: 00        .byte $00   ; 
-- - - - - - 0x01C003 06:BFF3: 00        .byte $00   ; 
-- - - - - - 0x01C004 06:BFF4: 00        .byte $00   ; 
-- - - - - - 0x01C005 06:BFF5: 00        .byte $00   ; 
-- - - - - - 0x01C006 06:BFF6: 00        .byte $00   ; 
-- - - - - - 0x01C007 06:BFF7: 00        .byte $00   ; 
-- - - - - - 0x01C008 06:BFF8: 00        .byte $00   ; 
-- - - - - - 0x01C009 06:BFF9: 00        .byte $00   ; 
-- - - - - - 0x01C00A 06:BFFA: 00        .byte $00   ; 
-- - - - - - 0x01C00B 06:BFFB: 00        .byte $00   ; 
-- - - - - - 0x01C00C 06:BFFC: 00        .byte $00   ; 
-- - - - - - 0x01C00D 06:BFFD: 00        .byte $00   ; 
-- - - - - - 0x01C00E 06:BFFE: 00        .byte $00   ; 
-- - - - - - 0x01C00F 06:BFFF: 00        .byte $00   ; 
+; reserved
+- D - - - - 0x01BEFE 06:BEEE: A1        .byte $A1, $83, $78, $79
+- D - - - - 0x01BF02 06:BEF2: 7A        .byte $7A, $81, $82, $0E
+- D - - - - 0x01BF06 06:BEF6: 3A        .byte $3A, $00, $95, $97
+- D - - - - 0x01BF0A 06:BEFA: 9F        .byte $9F, $72, $7B, $7C
+- D - - - - 0x01BF0E 06:BEFE: 7D        .byte $7D, $81, $82, $0E
+- D - - - - 0x01BF12 06:BF02: 3A        .byte $3A, $00, $9C, $9D
+- D - - - - 0x01BF16 06:BF06: A2        .byte $A2, $84, $7E, $7F
+- D - - - - 0x01BF1A 06:BF0A: 80        .byte $80, $81, $82, $0E
+
+; reserved
+- D - - - - 0x01BF1E 06:BF0E: 3A        .byte $3A, $00
+
+; reserved
+- D - - - - 0x01BF20 06:BF10: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
+- D - - - - 0x01BF28 06:BF18: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
+- D - - - - 0x01BF30 06:BF20: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
+- D - - - - 0x01BF38 06:BF28: 95        .byte $95, $65, $55, $55, $55, $55, $55, $55
+- D - - - - 0x01BF40 06:BF30: 99        .byte $99, $66, $55, $55, $55, $55, $55, $55
+- D - - - - 0x01BF48 06:BF38: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
+- D - - - - 0x01BF50 06:BF40: 05        .byte $05, $05, $05, $05, $05, $05, $05, $05
+- D - - - - 0x01BF58 06:BF48: 50        .byte $50, $50, $50, $50, $50, $50, $50, $50
+
+; reserved
+- D - - - - 0x01BF60 06:BF50: 55        .byte $55, $55, $55, $95, $A5, $A5, $65, $55
+- D - - - - 0x01BF68 06:BF58: 55        .byte $55, $55, $55, $99, $6A, $9A, $66, $55
+- D - - - - 0x01BF70 06:BF60: 95        .byte $95, $65, $55, $99, $AA, $AA, $66, $55
+- D - - - - 0x01BF78 06:BF68: 99        .byte $99, $66, $AA, $AA, $AA, $AA, $AA, $AA
+- D - - - - 0x01BF80 06:BF70: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
+- D - - - - 0x01BF88 06:BF78: 05        .byte $05, $05, $05, $05, $05, $05, $05, $05
+- D - - - - 0x01BF90 06:BF80: 00        .byte $00, $80, $F0, $F8, $F8, $F8, $F8, $F8
+- D - - - - 0x01BF98 06:BF88: 00        .byte $00, $80, $88, $84, $84, $84, $84, $84
+
+; reserved
+- D - - - - 0x01BFA0 06:BF90: F8        .byte $F8, $F8, $78, $78, $70, $00, $00, $00
+- D - - - - 0x01BFA8 06:BF98: 84        .byte $84, $84, $84, $84, $8C, $F0, $00, $00
+- D - - - - 0x01BFB0 06:BFA0: 00        .byte $00, $00, $00, $F8, $38, $F8, $38, $F0
+- D - - - - 0x01BFB8 06:BFA8: 00        .byte $00, $00, $F8, $08, $F0, $C0, $08, $F0
+- D - - - - 0x01BFC0 06:BFB0: 00        .byte $00, $00, $38, $7C, $7C, $7C, $78, $7E
+- D - - - - 0x01BFC8 06:BFB8: 00        .byte $00, $00, $04, $02, $32, $1A, $06, $7E
+- D - - - - 0x01BFD0 06:BFC0: 00        .byte $00, $00, $38, $7C, $7C, $7C, $78, $7E
+- D - - - - 0x01BFD8 06:BFC8: 00        .byte $00, $00, $04, $02, $02, $02, $06, $7E
+
+; reserved
+- D - - - - 0x01BFE0 06:BFD0: 00        .byte $00, $2C, $42, $58, $1A, $42, $34, $00, $00, $3C, $7E, $66, $66, $7E, $3C, $00
+- D - - - - 0x01BFF0 06:BFE0: 08        .byte $08, $66, $5A, $BC, $3D, $5A, $66, $10, $18, $7E, $66, $C3, $C3, $66, $7E, $18
+- D - - - - 0x01C000 06:BFF0: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 .out .sprintf("Free bytes in bank 06_2: 0x%X [%d]", ($C000 - *), ($C000 - *))
 

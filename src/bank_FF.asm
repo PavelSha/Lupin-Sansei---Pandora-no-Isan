@@ -723,21 +723,21 @@ sub_C3D9_increment_nmi_counter:
 C - - - - - 0x01C3E9 07:C3D9: E6 2B     INC v_nmi_counter ;
 C - - - - - 0x01C3EB 07:C3DB: 60        RTS               ; 
 
-- - - - - - 0x01C3EC 07:C3DC: A5 2B     LDA v_nmi_counter      ; not used ???
-- - - - - - 0x01C3EE 07:C3DE: 29 03     AND #$03               ; not used ???
-- - - - - - 0x01C3F0 07:C3E0: 6A        ROR                    ; not used ???
-- - - - - - 0x01C3F1 07:C3E1: 6A        ROR                    ; not used ???
-- - - - - - 0x01C3F2 07:C3E2: 6A        ROR                    ; not used ???
-- - - - - - 0x01C3F3 07:C3E3: AA        TAX                    ; not used ???
-- - - - - - 0x01C3F4 07:C3E4: 8E 03 20  STX PPU_OAM_ADDR       ; not used ???
-- - - - - - 0x01C3F7 07:C3E7: A0 40     LDY #$40               ; not used ???
+C - - - - - 0x01C3EC 07:C3DC: A5 2B     LDA v_nmi_counter      ; !(UNUSED), not used
+C - - - - - 0x01C3EE 07:C3DE: 29 03     AND #$03               ; !(UNUSED), not used
+C - - - - - 0x01C3F0 07:C3E0: 6A        ROR                    ; !(UNUSED), not used
+C - - - - - 0x01C3F1 07:C3E1: 6A        ROR                    ; !(UNUSED), not used
+C - - - - - 0x01C3F2 07:C3E2: 6A        ROR                    ; !(UNUSED), not used
+C - - - - - 0x01C3F3 07:C3E3: AA        TAX                    ; !(UNUSED), not used
+C - - - - - 0x01C3F4 07:C3E4: 8E 03 20  STX PPU_OAM_ADDR       ; !(UNUSED), not used
+C - - - - - 0x01C3F7 07:C3E7: A0 40     LDY #$40               ; !(UNUSED), not used
 @bra_C3E9_not_used:
-- - - - - - 0x01C3F9 07:C3E9: BD 00 07  LDA vStartOAM,X        ; not used ???
-- - - - - - 0x01C3FC 07:C3EC: 8D 04 20  STA $2004              ; not used ???
-- - - - - - 0x01C3FF 07:C3EF: E8        INX                    ; not used ???
-- - - - - - 0x01C400 07:C3F0: 88        DEY                    ; not used ???
-- - - - - - 0x01C401 07:C3F1: D0 F6     BNE @bra_C3E9_not_used ; not used ???
-- - - - - - 0x01C403 07:C3F3: 60        RTS                    ; not used ???
+C - - - - - 0x01C3F9 07:C3E9: BD 00 07  LDA vStartOAM,X        ; !(UNUSED), not used
+C - - - - - 0x01C3FC 07:C3EC: 8D 04 20  STA PPU_OAM_DATA       ; !(UNUSED), not used
+C - - - - - 0x01C3FF 07:C3EF: E8        INX                    ; !(UNUSED), not used
+C - - - - - 0x01C400 07:C3F0: 88        DEY                    ; !(UNUSED), not used
+C - - - - - 0x01C401 07:C3F1: D0 F6     BNE @bra_C3E9_not_used ; !(UNUSED), not used
+C - - - - - 0x01C403 07:C3F3: 60        RTS                    ; !(UNUSED), not used
 
 sub_C3F4_set_OAM_address:
 C - - - - - 0x01C404 07:C3F4: AD 02 20  LDA PPU_STATUS   ;
@@ -1059,12 +1059,12 @@ tbl_C614_PPU_address:
 - D 2 - - - 0x01C626 07:C616: EA 20     .word $20EA ; Name table address, Lupin, 2 message row
 - D 2 - - - 0x01C628 07:C618: 0A 21     .word $210A ; Name table address, Lupin, 3 message row
 - D 2 - - - 0x01C62A 07:C61A: 2A 21     .word $212A ; Name table address, Lupin, 4 message row
-- - - - - - 0x01C62C 07:C61C: CA 21     .word $21CA ; Name table address, Jigen, 1 message row
-- - - - - - 0x01C62E 07:C61E: EA 21     .word $21EA ; Name table address, Jigen, 2 message row
+- D - - - - 0x01C62C 07:C61C: CA 21     .word $21CA ; Name table address, Jigen, 1 message row
+- D - - - - 0x01C62E 07:C61E: EA 21     .word $21EA ; Name table address, Jigen, 2 message row
 - D 2 - - - 0x01C630 07:C620: 0A 22     .word $220A ; Name table address, Jigen, 3 message row
 - D 2 - - - 0x01C632 07:C622: 2A 22     .word $222A ; Name table address, Jigen, 4 message row
-- - - - - - 0x01C634 07:C624: CA 22     .word $22CA ; Name table address, Goemon, 1 message row
-- - - - - - 0x01C636 07:C626: EA 22     .word $22EA ; Name table address, Goemon, 2 message row
+- D - - - - 0x01C634 07:C624: CA 22     .word $22CA ; Name table address, Goemon, 1 message row
+- D - - - - 0x01C636 07:C626: EA 22     .word $22EA ; Name table address, Goemon, 2 message row
 - D 2 - - - 0x01C638 07:C628: 0A 23     .word $230A ; Name table address, Goemon, 3 message row
 - D 2 - - - 0x01C63A 07:C62A: 2A 23     .word $232A ; Name table address, Goemon, 4 message row
 
@@ -1305,15 +1305,15 @@ sub_C78E_select_character_subroutine:
 C - - - - - 0x01C79E 07:C78E: AD F6 FF  LDA Set_features                              ;
 C - - - - - 0x01C7A1 07:C791: 30 13     BMI bra_C7A6_skip                             ; If test mode is disable
 ; Only for test mode
-- - - - - - 0x01C7A3 07:C793: A5 1C     LDA vBtnPressedInGame
-- - - - - - 0x01C7A5 07:C795: 29 40     AND #BIT_BUTTON_Left
-- - - - - - 0x01C7A7 07:C797: F0 0D     BEQ bra_C7A6_skip
-- - - - - - 0x01C7A9 07:C799: A9 08     LDA #BIT_BUTTON_START
-- - - - - - 0x01C7AB 07:C79B: 20 79 D0  JSR sub_D079_check_button_press
-- - - - - - 0x01C7AE 07:C79E: F0 06     BEQ bra_C7A6_skip
-- - - - - - 0x01C7B0 07:C7A0: A5 3A     LDA vDamageStatus
-- - - - - - 0x01C7B2 07:C7A2: 49 80     EOR #$80                                      ; CONSTANT - The enemies don't damage
-- - - - - - 0x01C7B4 07:C7A4: 85 3A     STA vDamageStatus
+C - - - - - 0x01C7A3 07:C793: A5 1C     LDA vBtnPressedInGame                         ;
+C - - - - - 0x01C7A5 07:C795: 29 40     AND #BIT_BUTTON_Left                          ;
+C - - - - - 0x01C7A7 07:C797: F0 0D     BEQ bra_C7A6_skip                             ; If the button 'Left' isn't pressed
+C - - - - - 0x01C7A9 07:C799: A9 08     LDA #BIT_BUTTON_START                         ;
+C - - - - - 0x01C7AB 07:C79B: 20 79 D0  JSR sub_D079_check_button_press               ;
+C - - - - - 0x01C7AE 07:C79E: F0 06     BEQ bra_C7A6_skip                             ; Branch If the button 'Start' doesn't press
+C - - - - - 0x01C7B0 07:C7A0: A5 3A     LDA vDamageStatus                             ;
+C - - - - - 0x01C7B2 07:C7A2: 49 80     EOR #$80                                      ; CONSTANT - The character doesn't damage
+C - - - - - 0x01C7B4 07:C7A4: 85 3A     STA vDamageStatus                             ; set 'NO DAMAGE MODE'
 bra_C7A6_skip:
 C - - - - - 0x01C7B6 07:C7A6: A5 3D     LDA vCharacterSelectionCounter                ;
 C - - - - - 0x01C7B8 07:C7A8: D0 0B     BNE bra_C7B5_skip                             ; If vCharacterSelectionCounter != 0x00
@@ -1663,7 +1663,7 @@ C - - - - - 0x01C9AE 07:C99E: D0 07     BNE @bra_C9A7_loop                     ;
 C - - - - - 0x01C9B0 07:C9A0: E8        INX                                    ; increment loop counter
 C - - - - - 0x01C9B1 07:C9A1: E0 07     CPX #$07                               ;
 C - - - - - 0x01C9B3 07:C9A3: 90 F3     BCC bra_C998_loop                      ; If Register X < 0x07
-- - - - - - 0x01C9B5 07:C9A5: B0 09     BCS bra_C9B0_exit                      ; Always true
+C - - - - - 0x01C9B5 07:C9A5: B0 09     BCS bra_C9B0_exit                      ; Always true
 
 @bra_C9A7_loop:
 C - - - - - 0x01C9B7 07:C9A7: B5 56     LDA vScore,X                           ;
@@ -1912,8 +1912,8 @@ C - - - - - 0x01CB3C 07:CB2C: F0 08     BEQ bra_CB36_return_false   ; If the cur
 C - - - - - 0x01CB3E 07:CB2E: A5 5F     LDA vChrLiveStatus          ;
 C - - - - - 0x01CB40 07:CB30: 29 03     AND #$03                    ;
 C - - - - - 0x01CB42 07:CB32: F0 02     BEQ bra_CB36_return_false   ; If the character is Lupin
-- - - - - - 0x01CB44 07:CB34: 38        SEC                         ; return true
-- - - - - - 0x01CB45 07:CB35: 60        RTS                         ;
+C - - - - - 0x01CB44 07:CB34: 38        SEC                         ; return true
+C - - - - - 0x01CB45 07:CB35: 60        RTS                         ;
 
 bra_CB36_return_false:
 C - - - - - 0x01CB46 07:CB36: 18        CLC                         ; return false
@@ -1949,7 +1949,7 @@ C - - - - - 0x01CB74 07:CB64: BD 00 02  LDA v_items,X                           
 C - - - - - 0x01CB77 07:CB67: D0 17     BNE bra_CB80_found                      ; If the number of the current item > 0
 C - - - - - 0x01CB79 07:CB69: C6 12     DEC v_temp_check_buttons                ; some finite number (at the start - 0xC0)
 C - - - - - 0x01CB7B 07:CB6B: D0 F2     BNE bra_CB5F_left                       ; If vTempCheckButtons > 0x00
-- - - - - - 0x01CB7D 07:CB6D: 4C 8C CB  JMP loc_CB8C_render_frame_current_item  ;
+C - - - - - 0x01CB7D 07:CB6D: 4C 8C CB  JMP loc_CB8C_render_frame_current_item  ;
 
 bra_CB70_right:
 C - - - - - 0x01CB80 07:CB70: E8        INX                                     ; next item
@@ -1959,8 +1959,8 @@ C - - - - - 0x01CB85 07:CB75: A2 00     LDX #$00                                
 bra_CB77_skip:
 C - - - - - 0x01CB87 07:CB77: BD 00 02  LDA v_items,X                           ;
 C - - - - - 0x01CB8A 07:CB7A: D0 04     BNE bra_CB80_found                      ; If the number of the current item > 0
-- - - - - - 0x01CB8C 07:CB7C: C6 12     DEC v_temp_check_buttons                ; some finite number (at the start - 0xC0)
-- - - - - - 0x01CB8E 07:CB7E: D0 F0     BNE bra_CB70_right                      ; If vTempCheckButtons > 0x00
+C - - - - - 0x01CB8C 07:CB7C: C6 12     DEC v_temp_check_buttons                ; some finite number (at the start - 0xC0)
+C - - - - - 0x01CB8E 07:CB7E: D0 F0     BNE bra_CB70_right                      ; If vTempCheckButtons > 0x00
 bra_CB80_found:
 C - - - - - 0x01CB90 07:CB80: 86 00     STX ram_0000                            ;
 C - - - - - 0x01CB92 07:CB82: AD 14 02  LDA vCurrentWeaponStatus                ;
@@ -2051,7 +2051,7 @@ C - - - - - 0x01CC2B 07:CC1B: BD 00 02  LDA v_items,X              ;
 C - - - - - 0x01CC2E 07:CC1E: D0 06     BNE @bra_CC26_skip         ; If the current item exist
 C - - - - - 0x01CC30 07:CC20: C6 12     DEC vTempCounter12         ; decrement loop counter
 C - - - - - 0x01CC32 07:CC22: D0 F0     BNE @bra_CC14_loop         ; If vTempCounter12 != 0
-- - - - - - 0x01CC34 07:CC24: A2 80     LDX #$80                   ; CONSTANT - the weapons are not exist
+C - - - - - 0x01CC34 07:CC24: A2 80     LDX #$80                   ; CONSTANT - the weapons are not exist
 @bra_CC26_skip:
 C - - - - - 0x01CC36 07:CC26: 8E 14 02  STX vCurrentWeaponStatus   ;
 bra_CC29_RTS:
@@ -2201,7 +2201,7 @@ C - - - - - 0x01CD1D 07:CD0D: A2 07     LDX #$07                         ; CONST
 C - - - - - 0x01CD1F 07:CD0F: D0 02     BNE bra_CD13_use_item            ; Always true
 
 loc_CD11_use_ring:
-- - - - - - 0x01CD21 07:CD11: A2 08     LDX #$08              ; CONSTANT - the index of the ring item
+C - - - - - 0x01CD21 07:CD11: A2 08     LDX #$08              ; CONSTANT - the index of the ring item
 ; In: Register X - the index of the item
 bra_CD13_use_item:
 loc_CD13_use_item:
@@ -2311,20 +2311,20 @@ tbl_CDBE_item_dec_callback:
 bra_CDD0_decrement_apparatus:
 loc_CDD0_decrement_apparatus:
 C - - - - - 0x01CDE0 07:CDD0: AD 05 02  LDA v_breathing_apparatus_item            ;
-C - - - - - 0x01CDE3 07:CDD3: F0 08     BEQ bra_CDDD                              ; If the number of the breathing apparatuses == 0x00
+C - - - - - 0x01CDE3 07:CDD3: F0 08     BEQ bra_CDDD_death                        ; If the number of the breathing apparatuses == 0x00
 C - - - - - 0x01CDE5 07:CDD5: 20 E9 CC  JSR sub_CCE9_set_apparatus_counter_repeat ;
 C - - - - - 0x01CDE8 07:CDD8: A2 05     LDX #$05                                  ; CONSTANT - the breathing apparatuses index
 C - - - - - 0x01CDEA 07:CDDA: 4C 13 CD  JMP loc_CD13_use_item                     ;
 
-bra_CDDD:
-- - - - - - 0x01CDED 07:CDDD: A5 6C     LDA vChrStatus            ;
-- - - - - - 0x01CDEF 07:CDDF: 29 08     AND #$08                  ; CONSTANT - the character is dying
-- - - - - - 0x01CDF1 07:CDE1: D0 0A     BNE bra_CDED_RTS          ; If the character is dying
-- - - - - - 0x01CDF3 07:CDE3: A5 6C     LDA vChrStatus            ;
-- - - - - - 0x01CDF5 07:CDE5: 09 08     ORA #$08                  ; CONSTANT - the character is getting damage
-- - - - - - 0x01CDF7 07:CDE7: 85 6C     STA vChrStatus            ;
-- - - - - - 0x01CDF9 07:CDE9: A9 60     LDA #$60                  ;
-- - - - - - 0x01CDFB 07:CDEB: 85 2E     STA vWaterDeathCounter    ; initializes a death time 
+bra_CDDD_death:
+C - - - - - 0x01CDED 07:CDDD: A5 6C     LDA vChrStatus            ;
+C - - - - - 0x01CDEF 07:CDDF: 29 08     AND #$08                  ; CONSTANT - the character is dying
+C - - - - - 0x01CDF1 07:CDE1: D0 0A     BNE bra_CDED_RTS          ; If the character is dying
+C - - - - - 0x01CDF3 07:CDE3: A5 6C     LDA vChrStatus            ;
+C - - - - - 0x01CDF5 07:CDE5: 09 08     ORA #$08                  ; CONSTANT - the character is getting damage
+C - - - - - 0x01CDF7 07:CDE7: 85 6C     STA vChrStatus            ;
+C - - - - - 0x01CDF9 07:CDE9: A9 60     LDA #$60                  ;
+C - - - - - 0x01CDFB 07:CDEB: 85 2E     STA vWaterDeathCounter    ; initializes a death time 
 loc_CDED_RTS:
 bra_CDED_RTS:
 C - - - - - 0x01CDFD 07:CDED: 60        RTS                       ;
@@ -3203,19 +3203,15 @@ sub_D35E_check_enemyB_collision_by_Y:
 C - - - - - 0x01D36E 07:D35E: 20 52 D9  JSR sub_D952_init_short_enemyB_positions ;
 C - - - - - 0x01D371 07:D361: 4C 70 D3  JMP loc_D370_left_right_collision        ;
 
-- - - - - - 0x01D374 07:D364: 20        .byte $20
-- - - - - - 0x01D375 07:D365: 62        .byte $62
-- - - - - - 0x01D376 07:D366: D9        .byte $D9
-- - - - - - 0x01D377 07:D367: 4C        .byte $4C
-- - - - - - 0x01D378 07:D368: 70        .byte $70
-- - - - - - 0x01D379 07:D369: D3        .byte $D3
+C - - - - - 0x01D374 07:D364: 20 62 D9  JSR sub_D962_init_short_character_positions ; !(UNUSED)
+C - - - - - 0x01D377 07:D367: 4C 70 D3  JMP loc_D370_left_right_collision           ; !(UNUSED)
 
 ; In: $0000 - ChrPosY (in vScreenChrPosY units)
 ; Out: Register A - a strong collision or left + right collision value
 sub_D36A_short_left_right_collision:
 loc_D36A_short_left_right_collision:
-C D 2 - - - 0x01D37A 07:D36A: 20 6E AD  JSR $AD6E                             ; to sub_AD6E bank 06_2
-C - - - - - 0x01D37D 07:D36D: 20 74 D9  JSR sub_D974_init_short_chr_positions ;
+C D 2 - - - 0x01D37A 07:D36A: 20 6E AD  JSR sub_AD6E_resolve_lift_or_platform    ;
+C - - - - - 0x01D37D 07:D36D: 20 74 D9  JSR sub_D974_init_short_chr_positions    ;
 ; In: $0000 - ChrPosY (in vScreenChrPosY units)
 ; In: $0001 - vLowChrPosX
 ; Out: Register A - a strong collision or left + right collision value
@@ -3520,9 +3516,8 @@ C - - - - - 0x01D54D 07:D53D: E0 10     CPX #$10                           ;
 C - - - - - 0x01D54F 07:D53F: D0 F5     BNE @bra_D536_loop                 ; If Register X != 0x10 (a loop condition)
 C - - - - - 0x01D551 07:D541: 60        RTS                                ;
 
-- - - - - - 0x01D552 07:D542: 09        .byte $09
-- - - - - - 0x01D553 07:D543: 80        .byte $80
-- - - - - - 0x01D554 07:D544: 60        .byte $60
+C - - - - - 0x01D552 07:D542: 09 80     ORA #$80                           ; !(UNUSED)
+C - - - - - 0x01D554 07:D544: 60        RTS                                ; !(UNUSED)
 
 ; Out: the CPU-address in [0x000E-0x000F]
 sub_D545_get_bg_collision_address:
@@ -3733,10 +3728,8 @@ bra_D675_return_false:
 C - - - - - 0x01D685 07:D675: 18        CLC                          ; return false
 C - - - - - 0x01D686 07:D676: 60        RTS                          ;
 
-- - - - - - 0x01D687 07:D677: A9        .byte $A9
-- - - - - - 0x01D688 07:D678: 10        .byte $10
-- - - - - - 0x01D689 07:D679: D0        .byte $D0
-- - - - - - 0x01D68A 07:D67A: 02        .byte $02
+C - - - - - 0x01D687 07:D677: A9 10     LDA #$10                     ; !(UNUSED)
+C - - - - - 0x01D689 07:D679: D0 02     BNE bra_D67D                 ; !(UNUSED)
 
 ; In: $0000 - X-position
 ; In: $0001 - macro X-position
@@ -3745,6 +3738,7 @@ C - - - - - 0x01D686 07:D676: 60        RTS                          ;
 ; 0, otherwise.
 sub_D67B_out_of_sight:
 C - - - - - 0x01D68B 07:D67B: A9 40     LDA #$40               ;
+bra_D67D:
 C - - - - - 0x01D68D 07:D67D: 85 0D     STA ram_000D           ; $000D <~ 0x40
 C - - - - - 0x01D68F 07:D67F: A5 27     LDA vLowViewPortPosX   ;
 C - - - - - 0x01D691 07:D681: 18        CLC                    ;
@@ -4231,30 +4225,21 @@ C - - - - - 0x01D912 07:D902: 9D BC 03  STA vItemPosXHigh,X      ;
 bra_D905_RTS:
 C - - - - - 0x01D915 07:D905: 60        RTS                      ;
 
-- - - - - - 0x01D916 07:D906: BD        .byte $BD
-- - - - - - 0x01D917 07:D907: B6        .byte $B6
-- - - - - - 0x01D918 07:D908: 03        .byte $03
-- - - - - - 0x01D919 07:D909: 38        .byte $38
-- - - - - - 0x01D91A 07:D90A: E9        .byte $E9
-- - - - - - 0x01D91B 07:D90B: F0        .byte $F0
-- - - - - - 0x01D91C 07:D90C: BD        .byte $BD
-- - - - - - 0x01D91D 07:D90D: BC        .byte $BC
-- - - - - - 0x01D91E 07:D90E: 03        .byte $03
-- - - - - - 0x01D91F 07:D90F: E5        .byte $E5
-- - - - - - 0x01D920 07:D910: 4A        .byte $4A
-- - - - - - 0x01D921 07:D911: B0        .byte $B0
-- - - - - - 0x01D922 07:D912: F2        .byte $F2
+C - - - - - 0x01D916 07:D906: BD B6 03  LDA ram_03B6,X           ; !(UNUSED)
+C - - - - - 0x01D919 07:D909: 38        SEC                      ; !(UNUSED)
+C - - - - - 0x01D91A 07:D90A: E9 F0     SBC #$F0                 ; !(UNUSED)
+C - - - - - 0x01D91C 07:D90C: BD BC 03  LDA ram_03BC,X           ; !(UNUSED)
+C - - - - - 0x01D91F 07:D90F: E5 4A     SBC ram_004A             ; !(UNUSED)
+C - - - - - 0x01D921 07:D911: B0 F2     BCS bra_D905_RTS         ; !(UNUSED)
 
 ; In: Register X - the item number
 loc_D913_short_inc_ItemPosXLow:
-C D 2 - - - 0x01D923 07:D913: FE B6 03  INC vItemPosXLow,X       ;
-C - - - - - 0x01D926 07:D916: D0 ED     BNE bra_D905_RTS         ; If the item doesn't move from one screen to another
-C - - - - - 0x01D928 07:D918: FE BC 03  INC vItemPosXHigh,X      ;
-C - - - - - 0x01D92B 07:D91B: 60        RTS                      ;
+C D 2 - - - 0x01D923 07:D913: FE B6 03  INC vItemPosXLow,X                 ;
+C - - - - - 0x01D926 07:D916: D0 ED     BNE bra_D905_RTS                   ; If the item doesn't move from one screen to another
+C - - - - - 0x01D928 07:D918: FE BC 03  INC vItemPosXHigh,X                ;
+C - - - - - 0x01D92B 07:D91B: 60        RTS                                ;
 
-- - - - - - 0x01D92C 07:D91C: 20        .byte $20
-- - - - - - 0x01D92D 07:D91D: 28        .byte $28
-- - - - - - 0x01D92E 07:D91E: D9        .byte $D9
+C - - - - - 0x01D92C 07:D91C: 20 28 D9  JSR sub_D928_correction2_ItemPosY  ; !(UNUSED)
 
 ; In: Register X - 0x00 (an index for the bomb)
 sub_D91F_clear_substate:
@@ -4263,21 +4248,16 @@ C - - - - - 0x01D932 07:D922: 29 E1     AND #$E1                 ; clear substat
 C - - - - - 0x01D934 07:D924: 9D 9E 03  STA vItemStatus,X        ;
 C - - - - - 0x01D937 07:D927: 60        RTS                      ;
 
-- - - - - - 0x01D938 07:D928: BD        .byte $BD
-- - - - - - 0x01D939 07:D929: AA        .byte $AA
-- - - - - - 0x01D93A 07:D92A: 03        .byte $03
-- - - - - - 0x01D93B 07:D92B: 29        .byte $29
-- - - - - - 0x01D93C 07:D92C: 07        .byte $07
-- - - - - - 0x01D93D 07:D92D: C9        .byte $C9
-- - - - - - 0x01D93E 07:D92E: 07        .byte $07
-- - - - - - 0x01D93F 07:D92F: F0        .byte $F0
-- - - - - - 0x01D940 07:D930: 05        .byte $05
-- - - - - - 0x01D941 07:D931: DE        .byte $DE
-- - - - - - 0x01D942 07:D932: AA        .byte $AA
-- - - - - - 0x01D943 07:D933: 03        .byte $03
-- - - - - - 0x01D944 07:D934: D0        .byte $D0
-- - - - - - 0x01D945 07:D935: F2        .byte $F2
-- - - - - - 0x01D946 07:D936: 60        .byte $60
+sub_D928_correction2_ItemPosY:
+bra_D928_loop:
+C - - - - - 0x01D938 07:D928: BD AA 03  LDA vItemPosY,X          ; !(UNUSED)
+C - - - - - 0x01D93B 07:D92B: 29 07     AND #$07                 ; !(UNUSED)
+C - - - - - 0x01D93D 07:D92D: C9 07     CMP #$07                 ; !(UNUSED)
+C - - - - - 0x01D93F 07:D92F: F0 05     BEQ bra_D936_RTS         ; !(UNUSED), If Register A == 0x07
+C - - - - - 0x01D941 07:D931: DE AA 03  DEC vItemPosY,X          ; !(UNUSED)
+C - - - - - 0x01D944 07:D934: D0 F2     BNE bra_D928_loop        ; !(UNUSED), If vItemPosY != 0x00
+bra_D936_RTS:
+C - - - - - 0x01D946 07:D936: 60        RTS                      ; !(UNUSED)
 
 ; In: Register X - the enemyA number
 ; Out: $0000 - EnemyAPosY
@@ -4318,13 +4298,14 @@ C - - - - - 0x01D967 07:D957: BD 74 03  LDA vEnemyBPosXLow,X      ;
 C - - - - - 0x01D96A 07:D95A: 85 01     STA ram_0001              ;
 C - - - - - 0x01D96C 07:D95C: 60        RTS                       ;
 
-C - - - - - 0x01D96D 07:D95D: BD AA 03  LDA vItemPosY,X       ; not used ???
-C - - - - - 0x01D970 07:D960: 85 00     STA ram_0000          ; not used ???
-C - - - - - 0x01D972 07:D962: BD BC 03  LDA vItemPosXHigh,X   ; not used ???
-C - - - - - 0x01D975 07:D965: 85 4D     STA vCacheNoScreen    ; not used ???
-C - - - - - 0x01D977 07:D967: BD B6 03  LDA vItemPosXLow,X    ; not used ???
-C - - - - - 0x01D97A 07:D96A: 85 01     STA ram_0001          ; not used ???
-C - - - - - 0x01D97C 07:D96C: 60        RTS                   ; not used ???
+C - - - - - 0x01D96D 07:D95D: BD AA 03  LDA vItemPosY,X           ; !(UNUSED), not used ???
+C - - - - - 0x01D970 07:D960: 85 00     STA ram_0000              ; !(UNUSED), not used ???
+sub_D962_init_short_character_positions:
+C - - - - - 0x01D972 07:D962: BD BC 03  LDA vItemPosXHigh,X       ; !(UNUSED), not used ???
+C - - - - - 0x01D975 07:D965: 85 4D     STA vCacheNoScreen        ; !(UNUSED), not used ???
+C - - - - - 0x01D977 07:D967: BD B6 03  LDA vItemPosXLow,X        ; !(UNUSED), not used ???
+C - - - - - 0x01D97A 07:D96A: 85 01     STA ram_0001              ; !(UNUSED), not used ???
+C - - - - - 0x01D97C 07:D96C: 60        RTS                       ; !(UNUSED), not used ???
 
 ; Out: $0000 - vScreenChrPosY
 ; Out: $0001 - vLowChrPosX
@@ -4650,7 +4631,7 @@ C - - - - - 0x01DB41 07:DB31: 20 C1 D0  JSR sub_D0C1_change_stack_pointer    ;
 - D 2 - I - 0x01DB46 07:DB36: A6 DD     .addr loc_DDA7_jumping - 1             ; 0x1X
 - D 2 - I - 0x01DB48 07:DB38: 8C DF     .addr loc_DF8D_enter_corridor - 1      ; 0x2X
 - D 2 - I - 0x01DB4A 07:DB3A: A8 DE     .addr loc_DEA9_died_subroutine_bf2 - 1 ; 0x3X
-- D - - - - 0x01DB4C 07:DB3C: 39 E0     .addr loc_E03A - 1                     ; 0x4X
+- D - - - - 0x01DB4C 07:DB3C: 39 E0     .addr loc_E03A_unknown - 1             ; 0x4X
 - D - - - - 0x01DB4E 07:DB3E: 43 DB     .addr loc_DB44_main - 1
 - D - - - - 0x01DB50 07:DB40: 43 DB     .addr loc_DB44_main - 1
 - D - - - - 0x01DB52 07:DB42: 43 DB     .addr loc_DB44_main - 1
@@ -5136,7 +5117,7 @@ C - - - - - 0x01DE20 07:DE10: 90 09     BCC @bra_DE1B_skip              ; If Reg
 C - - - - - 0x01DE22 07:DE12: A0 DF     LDY #$DF                        ; 0xDF -> vScreenChrPosY
 C - - - - - 0x01DE24 07:DE14: C9 F8     CMP #$F8                        ; CONSTANT - Limit 2 for Y-position
 C - - - - - 0x01DE26 07:DE16: 90 02     BCC @bra_DE1A_skip              ; If Register A < 0xF8
-- - - - - - 0x01DE28 07:DE18: A0 00     LDY #$00                        ; 0x00 -> vScreenChrPosY
+C - - - - - 0x01DE28 07:DE18: A0 00     LDY #$00                        ; 0x00 -> vScreenChrPosY
 @bra_DE1A_skip:
 C - - - - - 0x01DE2A 07:DE1A: 98        TYA                             ; A <~ 0x00 or 0xDF
 @bra_DE1B_skip:
@@ -5497,16 +5478,16 @@ tbl_E036_frame_:
 - D 3 - - - 0x01E048 07:E038: 28        .byte $28  ; exit the corridor, frame #1
 - D 3 - - - 0x01E049 07:E039: 2A        .byte $2A  ; exit the corridor, frame #2
 
-loc_E03A:
-- - - - - - 0x01E04A 07:E03A: A5 2E     LDA vCorridorCounter
-- - - - - - 0x01E04C 07:E03C: D0 09     BNE @bra_E047_skip
-- - - - - - 0x01E04E 07:E03E: 20 F1 DC  JSR sub_DCF1_reset_velocity
-- - - - - - 0x01E051 07:E041: A5 6C     LDA vChrStatus
-- - - - - - 0x01E053 07:E043: 29 BF     AND #$BF
-- - - - - - 0x01E055 07:E045: 85 6C     STA vChrStatus
+loc_E03A_unknown:
+C - - - - - 0x01E04A 07:E03A: A5 2E     LDA vCorridorCounter            ; !(UNUSED)
+C - - - - - 0x01E04C 07:E03C: D0 09     BNE @bra_E047_skip              ; !(UNUSED)
+C - - - - - 0x01E04E 07:E03E: 20 F1 DC  JSR sub_DCF1_reset_velocity     ; !(UNUSED)
+C - - - - - 0x01E051 07:E041: A5 6C     LDA vChrStatus                  ; !(UNUSED)
+C - - - - - 0x01E053 07:E043: 29 BF     AND #$BF                        ; !(UNUSED)
+C - - - - - 0x01E055 07:E045: 85 6C     STA vChrStatus                  ; !(UNUSED)
 @bra_E047_skip:
-- - - - - - 0x01E057 07:E047: A2 18     LDX #$18
-- - - - - - 0x01E059 07:E049: 4C C2 DB  JMP loc_DBC2_before_rendering   ;
+C - - - - - 0x01E057 07:E047: A2 18     LDX #$18                        ; !(UNUSED)
+C - - - - - 0x01E059 07:E049: 4C C2 DB  JMP loc_DBC2_before_rendering   ; !(UNUSED)
 
 sub_E04C_try_to_activate_personal_weapon:
 C - - - - - 0x01E05C 07:E04C: A9 02     LDA #BIT_BUTTON_B               ;
@@ -6053,7 +6034,7 @@ tbl_E38D_offsets:
 - D 3 - - - 0x01E3B1 07:E3A1: F4        .byte $F4, $03 ; right
 - D 3 - - - 0x01E3B3 07:E3A3: F4        .byte $F4, $F8 ; left
 
-- - - - - - 0x01E3B5 07:E3A5: 0F        .byte $0F
+- D - - - - 0x01E3B5 07:E3A5: 0F        .byte $0F
 
 tbl_E3A6_palette:
 - D 3 - - - 0x01E3B6 07:E3A6: 37        .byte $37, $2A, $0F, $0F ; Lupin
@@ -7138,7 +7119,7 @@ C - - - - - 0x01EA90 07:EA80: C9 10     CMP #$10                      ;
 C - - - - - 0x01EA92 07:EA82: 90 1E     BCC bra_EAA2_RTS              ; If the velocity < 0x10
 C - - - - - 0x01EA94 07:EA84: C9 14     CMP #$14                      ;
 C - - - - - 0x01EA96 07:EA86: 90 10     BCC bra_EA98_1_of_2           ; If the velocity < 0x14
-- - - - - - 0x01EA98 07:EA88: 4C 91 EA  JMP loc_EA91_inc_LowChrPosX   ;
+C - - - - - 0x01EA98 07:EA88: 4C 91 EA  JMP loc_EA91_inc_LowChrPosX   ;
 
 bra_EA8B_3_of_4:
 C - - - - - 0x01EA9B 07:EA8B: A9 03     LDA #$03                      ; CONSTANT - 75% chance
@@ -9245,8 +9226,8 @@ C - - - - - 0x01F7F6 07:F7E6: 9D 2C 03  STA vEnemyAPosY,X                    ; i
 C - - - - - 0x01F7F9 07:F7E9: A5 3C     LDA vGameLocks                       ;
 C - - - - - 0x01F7FB 07:F7EB: 29 20     AND #$20                             ; CONSTANT - after a fall and after 'Select a character'
 C - - - - - 0x01F7FD 07:F7ED: F0 05     BEQ @bra_F7F4_skip                   ; If the player isn't reselected after dying
-- - - - - - 0x01F7FF 07:F7EF: BD 50 03  LDA vEnemyAHealthPoints,X            ;
-- - - - - - 0x01F802 07:F7F2: F0 12     BEQ @bra_F806_skip                   ; If HPoint == 0x00
+C - - - - - 0x01F7FF 07:F7EF: BD 50 03  LDA vEnemyAHealthPoints,X            ;
+C - - - - - 0x01F802 07:F7F2: F0 12     BEQ @bra_F806_skip                   ; If HPoint == 0x00
 @bra_F7F4_skip:
 C - - - - - 0x01F804 07:F7F4: B9 05 BD  LDA tbl_ptr_last_boss_params_,Y      ;
 C - - - - - 0x01F807 07:F7F7: 9D 20 03  STA vEnemyAStatus,X                  ; initializes the status
@@ -9334,7 +9315,7 @@ loc_enemy_RTS:
 C - - J - - 0x01F897 07:F887: 60        RTS                           ;
 
 tbl_F888_enemy_appearance:
-- - - - - - 0x01F898 07:F888: 87 F8     .addr loc_enemy_RTS                         ; Nobody  (0x00)
+- D - - - - 0x01F898 07:F888: 87 F8     .addr loc_enemy_RTS                         ; Nobody  (0x00)
 - D 3 - - - 0x01F89A 07:F88A: A2 F3     .addr loc_F3A2_enemy_appearance_t3          ; Cat with the gun
 - D 3 - - - 0x01F89C 07:F88C: 3E F4     .addr loc_F43E_enemy_appearance_t4          ; Gray Land hat
 - D 3 - - - 0x01F89E 07:F88E: 3E F4     .addr loc_F43E_enemy_appearance_t4          ; Black Land hat
@@ -10079,105 +10060,105 @@ tbl_FCBA_enemies:
 - D 3 - - - 0x01FD3C 07:FD2C: 93 EE     .addr loc_EE93_sensor           ; Sensor (level 4) (0x39) Type B
 
 ; see loc_BD2E_activate_jump_status (bank 03, page 2)
-- C - - - - 0x01FD3E 07:FD2E: A9 06     LDA #$06                              ; !(UNUSED)
-- C - - - - 0x01FD40 07:FD30: A0 03     LDY #$03                              ; !(UNUSED)
-- C - - - - 0x01FD42 07:FD32: 9D 86 03  STA vEnemyBJumpCounter,X              ; !(UNUSED)
-- C - - - - 0x01FD45 07:FD35: 98        TYA                                   ; !(UNUSED)
-- C - - - - 0x01FD46 07:FD36: 9D 92 03  STA vEnemyBJumpType,X                 ; !(UNUSED)
-- C - - - - 0x01FD49 07:FD39: A9 02     LDA #$02                              ; !(UNUSED)
-- C - - - - 0x01FD4B 07:FD3B: 20 1C BE  JSR $BE1C                             ; !(UNUSED), see sub_BE1C_change_substatus (bank 03, page 2)
-- C - - - - 0x01FD4E 07:FD3E: A9 01     LDA #$01                              ; !(UNUSED)
-- C - - - - 0x01FD50 07:FD40: 9D 80 03  STA vEnemyBFrame_Counter,X            ; !(UNUSED)
-- C - - - - 0x01FD53 07:FD43: BD 68 03  LDA vEnemyBPosY,X                     ; !(UNUSED)
-- C - - - - 0x01FD56 07:FD46: C9 DF     CMP #$DF                              ; !(UNUSED), CONSTANT - Maximum allowed Y-value on the screen
-- C - - - - 0x01FD58 07:FD48: B0 1E     BCS bra_FD68_skip                     ; !(UNUSED)
-- C - - - - 0x01FD5A 07:FD4A: BD 92 03  LDA vEnemyBJumpType,X                 ; !(UNUSED)
-- C - - - - 0x01FD5D 07:FD4D: C9 03     CMP #$03                              ; !(UNUSED)
-- C - - - - 0x01FD5F 07:FD4F: D0 17     BNE bra_FD68_skip                     ; !(UNUSED)
-- C - - - - 0x01FD61 07:FD51: BD 5C 03  LDA vEnemyBStatus,X                   ; !(UNUSED)
-- C - - - - 0x01FD64 07:FD54: 6A        ROR                                   ; !(UNUSED)
-- C - - - - 0x01FD65 07:FD55: 90 0A     BCC bra_FD61_right                    ; !(UNUSED)
-- C - - - - 0x01FD67 07:FD57: 29 10     AND #$10                              ; !(UNUSED)
-- C - - - - 0x01FD69 07:FD59: D0 0A     BNE bra_FD65_invert                   ; !(UNUSED)
+C - - - - - 0x01FD3E 07:FD2E: A9 06     LDA #$06                              ; !(UNUSED)
+C - - - - - 0x01FD40 07:FD30: A0 03     LDY #$03                              ; !(UNUSED)
+C - - - - - 0x01FD42 07:FD32: 9D 86 03  STA vEnemyBJumpCounter,X              ; !(UNUSED)
+C - - - - - 0x01FD45 07:FD35: 98        TYA                                   ; !(UNUSED)
+C - - - - - 0x01FD46 07:FD36: 9D 92 03  STA vEnemyBJumpType,X                 ; !(UNUSED)
+C - - - - - 0x01FD49 07:FD39: A9 02     LDA #$02                              ; !(UNUSED)
+C - - - - - 0x01FD4B 07:FD3B: 20 1C BE  JSR $BE1C                             ; !(UNUSED), see sub_BE1C_change_substatus (bank 03, page 2)
+C - - - - - 0x01FD4E 07:FD3E: A9 01     LDA #$01                              ; !(UNUSED)
+C - - - - - 0x01FD50 07:FD40: 9D 80 03  STA vEnemyBFrame_Counter,X            ; !(UNUSED)
+C - - - - - 0x01FD53 07:FD43: BD 68 03  LDA vEnemyBPosY,X                     ; !(UNUSED)
+C - - - - - 0x01FD56 07:FD46: C9 DF     CMP #$DF                              ; !(UNUSED), CONSTANT - Maximum allowed Y-value on the screen
+C - - - - - 0x01FD58 07:FD48: B0 1E     BCS bra_FD68_skip                     ; !(UNUSED)
+C - - - - - 0x01FD5A 07:FD4A: BD 92 03  LDA vEnemyBJumpType,X                 ; !(UNUSED)
+C - - - - - 0x01FD5D 07:FD4D: C9 03     CMP #$03                              ; !(UNUSED)
+C - - - - - 0x01FD5F 07:FD4F: D0 17     BNE bra_FD68_skip                     ; !(UNUSED)
+C - - - - - 0x01FD61 07:FD51: BD 5C 03  LDA vEnemyBStatus,X                   ; !(UNUSED)
+C - - - - - 0x01FD64 07:FD54: 6A        ROR                                   ; !(UNUSED)
+C - - - - - 0x01FD65 07:FD55: 90 0A     BCC bra_FD61_right                    ; !(UNUSED)
+C - - - - - 0x01FD67 07:FD57: 29 10     AND #$10                              ; !(UNUSED)
+C - - - - - 0x01FD69 07:FD59: D0 0A     BNE bra_FD65_invert                   ; !(UNUSED)
 bra_FD5B_invert:
-- C - - - - 0x01FD6B 07:FD5B: 20 FB BC  JSR $BCFB                             ; !(UNUSED), see sub_BCFB_try_movement_on_the_left (bank 03, page 2)
-- C - - - - 0x01FD6E 07:FD5E: 4C 68 BD  JMP $BD68                             ; !(UNUSED), see loc_BD68_continue (bank 03, page 2)
+C - - - - - 0x01FD6B 07:FD5B: 20 FB BC  JSR $BCFB                             ; !(UNUSED), see sub_BCFB_try_movement_on_the_left (bank 03, page 2)
+C - - - - - 0x01FD6E 07:FD5E: 4C 68 BD  JMP $BD68                             ; !(UNUSED), see loc_BD68_continue (bank 03, page 2)
 
 bra_FD61_right:
-- C - - - - 0x01FD71 07:FD61: 29 10     AND #$10                              ; !(UNUSED)
-- C - - - - 0x01FD73 07:FD63: D0 F6     BNE bra_FD5B_invert                   ; !(UNUSED)
+C - - - - - 0x01FD71 07:FD61: 29 10     AND #$10                              ; !(UNUSED)
+C - - - - - 0x01FD73 07:FD63: D0 F6     BNE bra_FD5B_invert                   ; !(UNUSED)
 bra_FD65_invert:
-- C - - - - 0x01FD75 07:FD65: 20 20 BD  JSR $BD20                             ; !(UNUSED), see sub_BD20_try_movement_on_the_right (bank 03, page 2)
+C - - - - - 0x01FD75 07:FD65: 20 20 BD  JSR $BD20                             ; !(UNUSED), see sub_BD20_try_movement_on_the_right (bank 03, page 2)
 bra_FD68_skip:
-- C - - - - 0x01FD78 07:FD68: BC 86 03  LDY vEnemyBJumpCounter,X              ; !(UNUSED)
-- C - - - - 0x01FD7B 07:FD6B: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y       ; !(UNUSED)
-- C - - - - 0x01FD7E 07:FD6E: 18        CLC                                   ; !(UNUSED)
-- C - - - - 0x01FD7F 07:FD6F: 7D 68 03  ADC vEnemyBPosY,X                     ; !(UNUSED)
-- C - - - - 0x01FD82 07:FD72: C9 EF     CMP #$EF                              ; !(UNUSED), CONSTANT - Limit 1 for Y-position
-- C - - - - 0x01FD84 07:FD74: 90 09     BCC @bra_FD7F_skip                    ; !(UNUSED)
-- C - - - - 0x01FD86 07:FD76: A0 EF     LDY #$EF                              ; !(UNUSED)
-- C - - - - 0x01FD88 07:FD78: C9 F8     CMP #$F8                              ; !(UNUSED), CONSTANT - Limit 2 for Y-position
-- C - - - - 0x01FD8A 07:FD7A: 90 02     BCC @bra_FD7E_skip                    ; !(UNUSED)
-- C - - - - 0x01FD8C 07:FD7C: A0 00     LDY #$00                              ; !(UNUSED)
+C - - - - - 0x01FD78 07:FD68: BC 86 03  LDY vEnemyBJumpCounter,X              ; !(UNUSED)
+C - - - - - 0x01FD7B 07:FD6B: B9 5D E3  LDA tbl_E35D_jump_posY_offset,Y       ; !(UNUSED)
+C - - - - - 0x01FD7E 07:FD6E: 18        CLC                                   ; !(UNUSED)
+C - - - - - 0x01FD7F 07:FD6F: 7D 68 03  ADC vEnemyBPosY,X                     ; !(UNUSED)
+C - - - - - 0x01FD82 07:FD72: C9 EF     CMP #$EF                              ; !(UNUSED), CONSTANT - Limit 1 for Y-position
+C - - - - - 0x01FD84 07:FD74: 90 09     BCC @bra_FD7F_skip                    ; !(UNUSED)
+C - - - - - 0x01FD86 07:FD76: A0 EF     LDY #$EF                              ; !(UNUSED)
+C - - - - - 0x01FD88 07:FD78: C9 F8     CMP #$F8                              ; !(UNUSED), CONSTANT - Limit 2 for Y-position
+C - - - - - 0x01FD8A 07:FD7A: 90 02     BCC @bra_FD7E_skip                    ; !(UNUSED)
+C - - - - - 0x01FD8C 07:FD7C: A0 00     LDY #$00                              ; !(UNUSED)
 @bra_FD7E_skip:
-- C - - - - 0x01FD8E 07:FD7E: 98        TYA                                   ; !(UNUSED)
+C - - - - - 0x01FD8E 07:FD7E: 98        TYA                                   ; !(UNUSED)
 @bra_FD7F_skip:
-- C - - - - 0x01FD8F 07:FD7F: 9D 68 03  STA vEnemyBPosY,X                     ; !(UNUSED)
-- C - - - - 0x01FD92 07:FD82: BC 86 03  LDY vEnemyBJumpCounter,X              ; !(UNUSED)
-- C - - - - 0x01FD95 07:FD85: C0 18     CPY #$18                              ; !(UNUSED), CONSTANT - a maximum amplitude
-- C - - - - 0x01FD97 07:FD87: 90 38     BCC bra_FDC1_inc                      ; !(UNUSED)
-- C - - - - 0x01FD99 07:FD89: C9 EF     CMP #$EF                              ; !(UNUSED), CONSTANT - Maximum allowed Y-value on the screen
-- C - - - - 0x01FD9B 07:FD8B: 90 05     BCC @bra_FD92_skip                    ; !(UNUSED)
-- C - - - - 0x01FD9D 07:FD8D: A0 FF     LDY #$FF                              ; !(UNUSED)
-- C - - - - 0x01FD9F 07:FD8F: 4C 7D BC  JMP $BC7D                             ; !(UNUSED), see loc_BC7D_prepare_rendering (bank 03, page 2)
+C - - - - - 0x01FD8F 07:FD7F: 9D 68 03  STA vEnemyBPosY,X                     ; !(UNUSED)
+C - - - - - 0x01FD92 07:FD82: BC 86 03  LDY vEnemyBJumpCounter,X              ; !(UNUSED)
+C - - - - - 0x01FD95 07:FD85: C0 18     CPY #$18                              ; !(UNUSED), CONSTANT - a maximum amplitude
+C - - - - - 0x01FD97 07:FD87: 90 38     BCC bra_FDC1_inc                      ; !(UNUSED)
+C - - - - - 0x01FD99 07:FD89: C9 EF     CMP #$EF                              ; !(UNUSED), CONSTANT - Maximum allowed Y-value on the screen
+C - - - - - 0x01FD9B 07:FD8B: 90 05     BCC @bra_FD92_skip                    ; !(UNUSED)
+C - - - - - 0x01FD9D 07:FD8D: A0 FF     LDY #$FF                              ; !(UNUSED)
+C - - - - - 0x01FD9F 07:FD8F: 4C 7D BC  JMP $BC7D                             ; !(UNUSED), see loc_BC7D_prepare_rendering (bank 03, page 2)
 
 @bra_FD92_skip:
-- C - - - - 0x01FDA2 07:FD92: 20 D9 D8  JSR sub_D8D9_enemyB_collision_by_one  ; !(UNUSED)
-- C - - - - 0x01FDA5 07:FD95: F0 2A     BEQ bra_FDC1_inc                      ; !(UNUSED)
-- C - - - - 0x01FDA7 07:FD97: C9 01     CMP #$01                              ; !(UNUSED), CONSTANT - a strong collision
-- C - - - - 0x01FDA9 07:FD99: F0 0D     BEQ bra_FDA8                          ; !(UNUSED), If the collision is strong
-- C - - - - 0x01FDAB 07:FD9B: BD 68 03  LDA vEnemyBPosY,X                     ; !(UNUSED)
-- C - - - - 0x01FDAE 07:FD9E: C9 BF     CMP #$BF                              ; !(UNUSED)
-- C - - - - 0x01FDB0 07:FDA0: B0 06     BCS bra_FDA8                          ; !(UNUSED)
-- C - - - - 0x01FDB2 07:FDA2: A5 2C     LDA vLowCounter                       ; !(UNUSED)
-- C - - - - 0x01FDB4 07:FDA4: 29 03     AND #$03                              ; !(UNUSED)
-- C - - - - 0x01FDB6 07:FDA6: D0 19     BNE bra_FDC1_inc                      ; !(UNUSED)
+C - - - - - 0x01FDA2 07:FD92: 20 D9 D8  JSR sub_D8D9_enemyB_collision_by_one  ; !(UNUSED)
+C - - - - - 0x01FDA5 07:FD95: F0 2A     BEQ bra_FDC1_inc                      ; !(UNUSED)
+C - - - - - 0x01FDA7 07:FD97: C9 01     CMP #$01                              ; !(UNUSED), CONSTANT - a strong collision
+C - - - - - 0x01FDA9 07:FD99: F0 0D     BEQ bra_FDA8                          ; !(UNUSED), If the collision is strong
+C - - - - - 0x01FDAB 07:FD9B: BD 68 03  LDA vEnemyBPosY,X                     ; !(UNUSED)
+C - - - - - 0x01FDAE 07:FD9E: C9 BF     CMP #$BF                              ; !(UNUSED)
+C - - - - - 0x01FDB0 07:FDA0: B0 06     BCS bra_FDA8                          ; !(UNUSED)
+C - - - - - 0x01FDB2 07:FDA2: A5 2C     LDA vLowCounter                       ; !(UNUSED)
+C - - - - - 0x01FDB4 07:FDA4: 29 03     AND #$03                              ; !(UNUSED)
+C - - - - - 0x01FDB6 07:FDA6: D0 19     BNE bra_FDC1_inc                      ; !(UNUSED)
 bra_FDA8:
-- C - - - - 0x01FDB8 07:FDA8: BD 5C 03  LDA vEnemyBStatus,X                   ; !(UNUSED)
-- C - - - - 0x01FDBB 07:FDAB: 29 20     AND #$20                              ; !(UNUSED), CONSTANT - the dying
-- C - - - - 0x01FDBD 07:FDAD: D0 12     BNE bra_FDC1_inc                      ; !(UNUSED), If the enemy is dying
-- C - - - - 0x01FDBF 07:FDAF: 20 9C D8  JSR sub_D89C_correction_EnemyBPosY    ; !(UNUSED)
-- C - - - - 0x01FDC2 07:FDB2: A9 00     LDA #$00                              ; !(UNUSED)
-- C - - - - 0x01FDC4 07:FDB4: 9D 86 03  STA vEnemyBJumpCounter,X              ; !(UNUSED)
-- C - - - - 0x01FDC7 07:FDB7: A9 02     LDA #$02                              ; !(UNUSED)
-- C - - - - 0x01FDC9 07:FDB9: 9D 80 03  STA vEnemyBFrame_Counter,X            ; !(UNUSED)
-- C - - - - 0x01FDCC 07:FDBC: A0 08     LDY #$08                              ; !(UNUSED)
-- C - - - - 0x01FDCE 07:FDBE: 4C 7D BC  JMP $BC7D                             ; !(UNUSED), see loc_BC7D_prepare_rendering (bank 03, page 2)
+C - - - - - 0x01FDB8 07:FDA8: BD 5C 03  LDA vEnemyBStatus,X                   ; !(UNUSED)
+C - - - - - 0x01FDBB 07:FDAB: 29 20     AND #$20                              ; !(UNUSED), CONSTANT - the dying
+C - - - - - 0x01FDBD 07:FDAD: D0 12     BNE bra_FDC1_inc                      ; !(UNUSED), If the enemy is dying
+C - - - - - 0x01FDBF 07:FDAF: 20 9C D8  JSR sub_D89C_correction_EnemyBPosY    ; !(UNUSED)
+C - - - - - 0x01FDC2 07:FDB2: A9 00     LDA #$00                              ; !(UNUSED)
+C - - - - - 0x01FDC4 07:FDB4: 9D 86 03  STA vEnemyBJumpCounter,X              ; !(UNUSED)
+C - - - - - 0x01FDC7 07:FDB7: A9 02     LDA #$02                              ; !(UNUSED)
+C - - - - - 0x01FDC9 07:FDB9: 9D 80 03  STA vEnemyBFrame_Counter,X            ; !(UNUSED)
+C - - - - - 0x01FDCC 07:FDBC: A0 08     LDY #$08                              ; !(UNUSED)
+C - - - - - 0x01FDCE 07:FDBE: 4C 7D BC  JMP $BC7D                             ; !(UNUSED), see loc_BC7D_prepare_rendering (bank 03, page 2)
 
 bra_FDC1_inc:
-- C - - - - 0x01FDD1 07:FDC1: FE 86 03  INC vEnemyBJumpCounter,X              ; !(UNUSED)
-- C - - - - 0x01FDD4 07:FDC4: A9 2F     LDA #$2F                              ; !(UNUSED), CONSTANT - a maximum jump value
-- C - - - - 0x01FDD6 07:FDC6: DD 86 03  CMP vEnemyBJumpCounter,X              ; !(UNUSED)
-- C - - - - 0x01FDD9 07:FDC9: B0 03     BCS @bra_FDCE_skip                    ; !(UNUSED)
-- C - - - - 0x01FDDB 07:FDCB: 9D 86 03  STA vEnemyBJumpCounter,X              ; !(UNUSED)
+C - - - - - 0x01FDD1 07:FDC1: FE 86 03  INC vEnemyBJumpCounter,X              ; !(UNUSED)
+C - - - - - 0x01FDD4 07:FDC4: A9 2F     LDA #$2F                              ; !(UNUSED), CONSTANT - a maximum jump value
+C - - - - - 0x01FDD6 07:FDC6: DD 86 03  CMP vEnemyBJumpCounter,X              ; !(UNUSED)
+C - - - - - 0x01FDD9 07:FDC9: B0 03     BCS @bra_FDCE_skip                    ; !(UNUSED)
+C - - - - - 0x01FDDB 07:FDCB: 9D 86 03  STA vEnemyBJumpCounter,X              ; !(UNUSED)
 @bra_FDCE_skip:
-- C - - - - 0x01FDDE 07:FDCE: A0 08     LDY #$08                              ; !(UNUSED)
-- C - - - - 0x01FDE0 07:FDD0: BD 5C 03  LDA vEnemyBStatus,X                   ; !(UNUSED)
-- C - - - - 0x01FDE3 07:FDD3: 29 20     AND #$20                              ; !(UNUSED), CONSTANT - the dying
-- C - - - - 0x01FDE5 07:FDD5: D0 02     BNE @bra_FDD9_skip                    ; !(UNUSED)
-- C - - - - 0x01FDE7 07:FDD7: A0 04     LDY #$04                              ; !(UNUSED)
+C - - - - - 0x01FDDE 07:FDCE: A0 08     LDY #$08                              ; !(UNUSED)
+C - - - - - 0x01FDE0 07:FDD0: BD 5C 03  LDA vEnemyBStatus,X                   ; !(UNUSED)
+C - - - - - 0x01FDE3 07:FDD3: 29 20     AND #$20                              ; !(UNUSED), CONSTANT - the dying
+C - - - - - 0x01FDE5 07:FDD5: D0 02     BNE @bra_FDD9_skip                    ; !(UNUSED)
+C - - - - - 0x01FDE7 07:FDD7: A0 04     LDY #$04                              ; !(UNUSED)
 @bra_FDD9_skip:
-- C - - - - 0x01FDE9 07:FDD9: 4C 7D BC  JMP $BC7D                             ; !(UNUSED), see loc_BC7D_prepare_rendering (bank 03, page 2)
+C - - - - - 0x01FDE9 07:FDD9: 4C 7D BC  JMP $BC7D                             ; !(UNUSED), see loc_BC7D_prepare_rendering (bank 03, page 2)
 
-- C - - - - 0x01FDEC 07:FDDC: BD 86 03  LDA vEnemyBJumpCounter,X              ; !(UNUSED)
-- C - - - - 0x01FDEF 07:FDDF: F0 0A     BEQ @bra_FDEB                         ; !(UNUSED)
-- C - - - - 0x01FDF1 07:FDE1: DE 86 03  DEC vEnemyBJumpCounter,X              ; !(UNUSED)
-- C - - - - 0x01FDF4 07:FDE4: D0 42     BNE $FE28                             ; !(UNUSED), see bra_BE28_RTS (bank 03, page 2)
-- C - - - - 0x01FDF6 07:FDE6: A9 00     LDA #$00                              ; !(UNUSED)
-- C - - - - 0x01FDF8 07:FDE8: 20 1C BE  JSR $BE1C                             ; !(UNUSED), see sub_BE1C_change_substatus (bank 03, page 2)
+C - - - - - 0x01FDEC 07:FDDC: BD 86 03  LDA vEnemyBJumpCounter,X              ; !(UNUSED)
+C - - - - - 0x01FDEF 07:FDDF: F0 0A     BEQ @bra_FDEB                         ; !(UNUSED)
+C - - - - - 0x01FDF1 07:FDE1: DE 86 03  DEC vEnemyBJumpCounter,X              ; !(UNUSED)
+C - - - - - 0x01FDF4 07:FDE4: D0 42     BNE $FE28                             ; !(UNUSED), see bra_BE28_RTS (bank 03, page 2)
+C - - - - - 0x01FDF6 07:FDE6: A9 00     LDA #$00                              ; !(UNUSED)
+C - - - - - 0x01FDF8 07:FDE8: 20 1C BE  JSR $BE1C                             ; !(UNUSED), see sub_BE1C_change_substatus (bank 03, page 2)
 @bra_FDEB:
-- C - - - - 0x01FDFB 07:FDEB: 20 29 BE  JSR $BE29                             ; !(UNUSED), see sub_BE29_try_change_direction (bank 03, page 2)
-- C - - - - 0x01FDFE 07:FDEE: BD 80 FF  LDA $FF80,X                           ; !(UNUSED), see $BDEE (bank 03, page 2)
+C - - - - - 0x01FDFB 07:FDEB: 20 29 BE  JSR $BE29                             ; !(UNUSED), see sub_BE29_try_change_direction (bank 03, page 2)
+C - - - - - 0x01FDFE 07:FDEE: BD 80 FF  LDA $FF80,X                           ; !(UNUSED), see $BDEE (bank 03, page 2)
 
 ; reserve
 - D - - - - 0x01FE01 07:FDF1: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
@@ -10393,70 +10374,11 @@ C - - - - - 0x01FF6A 07:FF5A: A0 00     LDY #$00          ;
 C - - - - - 0x01FF6C 07:FF5C: 8C 06 20  STY PPU_ADDRESS   ; PPU address is 0x3F00
 C - - - - - 0x01FF6F 07:FF5F: 60        RTS               ;
 
-- - - - - - 0x01FF70 07:FF60: 43        .byte $43
-- - - - - - 0x01FF71 07:FF61: 6F        .byte $6F
-- - - - - - 0x01FF72 07:FF62: 70        .byte $70
-- - - - - - 0x01FF73 07:FF63: 79        .byte $79
-- - - - - - 0x01FF74 07:FF64: 72        .byte $72
-- - - - - - 0x01FF75 07:FF65: 69        .byte $69
-- - - - - - 0x01FF76 07:FF66: 67        .byte $67
-- - - - - - 0x01FF77 07:FF67: 68        .byte $68
-- - - - - - 0x01FF78 07:FF68: 74        .byte $74
-- - - - - - 0x01FF79 07:FF69: 20        .byte $20
-- - - - - - 0x01FF7A 07:FF6A: 31        .byte $31
-- - - - - - 0x01FF7B 07:FF6B: 39        .byte $39
-- - - - - - 0x01FF7C 07:FF6C: 38        .byte $38
-- - - - - - 0x01FF7D 07:FF6D: 37        .byte $37
-- - - - - - 0x01FF7E 07:FF6E: 20        .byte $20
-- - - - - - 0x01FF7F 07:FF6F: 20        .byte $20
-- - - - - - 0x01FF80 07:FF70: 4E        .byte $4E
-- - - - - - 0x01FF81 07:FF71: 61        .byte $61
-- - - - - - 0x01FF82 07:FF72: 6D        .byte $6D
-- - - - - - 0x01FF83 07:FF73: 63        .byte $63
-- - - - - - 0x01FF84 07:FF74: 6F        .byte $6F
-- - - - - - 0x01FF85 07:FF75: 20        .byte $20
-- - - - - - 0x01FF86 07:FF76: 4C        .byte $4C
-- - - - - - 0x01FF87 07:FF77: 74        .byte $74
-- - - - - - 0x01FF88 07:FF78: 64        .byte $64
-- - - - - - 0x01FF89 07:FF79: 2E        .byte $2E
-- - - - - - 0x01FF8A 07:FF7A: 20        .byte $20
-- - - - - - 0x01FF8B 07:FF7B: 20        .byte $20
-- - - - - - 0x01FF8C 07:FF7C: 41        .byte $41
-- - - - - - 0x01FF8D 07:FF7D: 6C        .byte $6C
-- - - - - - 0x01FF8E 07:FF7E: 6C        .byte $6C
-- - - - - - 0x01FF8F 07:FF7F: 20        .byte $20
-- - - - - - 0x01FF90 07:FF80: 52        .byte $52
-- - - - - - 0x01FF91 07:FF81: 69        .byte $69
-- - - - - - 0x01FF92 07:FF82: 67        .byte $67
-- - - - - - 0x01FF93 07:FF83: 68        .byte $68
-- - - - - - 0x01FF94 07:FF84: 74        .byte $74
-- - - - - - 0x01FF95 07:FF85: 73        .byte $73
-- - - - - - 0x01FF96 07:FF86: 20        .byte $20
-- - - - - - 0x01FF97 07:FF87: 52        .byte $52
-- - - - - - 0x01FF98 07:FF88: 65        .byte $65
-- - - - - - 0x01FF99 07:FF89: 73        .byte $73
-- - - - - - 0x01FF9A 07:FF8A: 65        .byte $65
-- - - - - - 0x01FF9B 07:FF8B: 72        .byte $72
-- - - - - - 0x01FF9C 07:FF8C: 76        .byte $76
-- - - - - - 0x01FF9D 07:FF8D: 65        .byte $65
-- - - - - - 0x01FF9E 07:FF8E: 64        .byte $64
-- - - - - - 0x01FF9F 07:FF8F: 20        .byte $20
-- - - - - - 0x01FFA0 07:FF90: 50        .byte $50
-- - - - - - 0x01FFA1 07:FF91: 72        .byte $72
-- - - - - - 0x01FFA2 07:FF92: 6F        .byte $6F
-- - - - - - 0x01FFA3 07:FF93: 67        .byte $67
-- - - - - - 0x01FFA4 07:FF94: 72        .byte $72
-- - - - - - 0x01FFA5 07:FF95: 61        .byte $61
-- - - - - - 0x01FFA6 07:FF96: 6D        .byte $6D
-- - - - - - 0x01FFA7 07:FF97: 6D        .byte $6D
-- - - - - - 0x01FFA8 07:FF98: 65        .byte $65
-- - - - - - 0x01FFA9 07:FF99: 64        .byte $64
-- - - - - - 0x01FFAA 07:FF9A: 20        .byte $20
-- - - - - - 0x01FFAB 07:FF9B: 42        .byte $42
-- - - - - - 0x01FFAC 07:FF9C: 79        .byte $79
-- - - - - - 0x01FFAD 07:FF9D: 2E        .byte $2E
-- - - - - - 0x01FFAE 07:FF9E: 2E        .byte $2E
-- - - - - - 0x01FFAF 07:FF9F: 20        .byte $20
+; reserved
+- D - - - - 0x01FF70 07:FF60: 43        .byte $43, $6F, $70, $79, $72, $69, $67, $68, $74, $20, $31, $39, $38, $37, $20, $20
+- D - - - - 0x01FF80 07:FF70: 4E        .byte $4E, $61, $6D, $63, $6F, $20, $4C, $74, $64, $2E, $20, $20, $41, $6C, $6C, $20
+- D - - - - 0x01FF90 07:FF80: 52        .byte $52, $69, $67, $68, $74, $73, $20, $52, $65, $73, $65, $72, $76, $65, $64, $20
+- D - - - - 0x01FFA0 07:FF90: 50        .byte $50, $72, $6F, $67, $72, $61, $6D, $6D, $65, $64, $20, $42, $79, $2E, $2E, $20
 
 tbl_FFA0_data_for_device:
 - D 3 - - - 0x01FFB0 07:FFA0: 48        .byte $48, $41, $52, $55, $48, $49, $53, $41, $2E, $55, $44, $41, $47, $41, $57, $41

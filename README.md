@@ -12,9 +12,9 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 -  Windows - run a command ***assemble.bat***
 -  Linux, MacOS - run a command ***assemble.sh*** (more information - [NES Games Disassembly](https://github.com/cyneprepou4uk/NES-Games-Disassembly))
 ## Statistic
--  Code Logger bytes (by lines) - ***44.17%***
--  Data Logger bytes (by lines) - ***52.56%***
--  Unknown bytes (by lines)     - ***3.27%***
+-  Code Logger bytes (by lines) - ***45.51%***
+-  Data Logger bytes (by lines) - ***53.83%***
+-  Unknown bytes (by lines)     - ***0.00%***
 -  Code commented               - ***100.00%***
 ## Documentation (in Russian)
 -  [terminology](docs/ru/terminology.md) - Basic terminology

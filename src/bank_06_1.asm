@@ -120,30 +120,12 @@ tbl_A021_hitboxes:
 - D 1 - - - 0x018035 06:A025: 00        .byte $00, $00, $14, $06
 - D 1 - - - 0x018039 06:A029: 00        .byte $00, $00, $10, $06
 
-- - - - - - 0x01803D 06:A02D: F8        .byte $F8   ; 
-- - - - - - 0x01803E 06:A02E: 06        .byte $06   ; 
-- - - - - - 0x01803F 06:A02F: 06        .byte $06   ; 
-- - - - - - 0x018040 06:A030: 04        .byte $04   ; 
-- - - - - - 0x018041 06:A031: FD        .byte $FD   ; 
-- - - - - - 0x018042 06:A032: 05        .byte $05   ; 
-- - - - - - 0x018043 06:A033: 06        .byte $06   ; 
-- - - - - - 0x018044 06:A034: 04        .byte $04   ; 
-- - - - - - 0x018045 06:A035: 00        .byte $00   ; 
-- - - - - - 0x018046 06:A036: 00        .byte $00   ; 
-- - - - - - 0x018047 06:A037: 06        .byte $06   ; 
-- - - - - - 0x018048 06:A038: 04        .byte $04   ; 
-- - - - - - 0x018049 06:A039: F8        .byte $F8   ; 
-- - - - - - 0x01804A 06:A03A: FA        .byte $FA   ; 
-- - - - - - 0x01804B 06:A03B: 06        .byte $06   ; 
-- - - - - - 0x01804C 06:A03C: 04        .byte $04   ; 
-- - - - - - 0x01804D 06:A03D: FD        .byte $FD   ; 
-- - - - - - 0x01804E 06:A03E: FD        .byte $FD   ; 
-- - - - - - 0x01804F 06:A03F: 06        .byte $06   ; 
-- - - - - - 0x018050 06:A040: 04        .byte $04   ; 
-- - - - - - 0x018051 06:A041: 00        .byte $00   ; 
-- - - - - - 0x018052 06:A042: 00        .byte $00   ; 
-- - - - - - 0x018053 06:A043: 06        .byte $06   ; 
-- - - - - - 0x018054 06:A044: 04        .byte $04   ;
+- D - - - - 0x01803D 06:A02D: F8        .byte $F8, $06, $06, $04  ; !(UNUSED), right
+- D - - - - 0x018041 06:A031: FD        .byte $FD, $05, $06, $04  ; !(UNUSED), right
+- D - - - - 0x018045 06:A035: 00        .byte $00, $00, $06, $04  ; !(UNUSED), right
+- D - - - - 0x018049 06:A039: F8        .byte $F8, $FA, $06, $04  ; !(UNUSED), left
+- D - - - - 0x01804D 06:A03D: FD        .byte $FD, $FD, $06, $04  ; !(UNUSED), left
+- D - - - - 0x018051 06:A041: 00        .byte $00, $00, $06, $04  ; !(UNUSED), left
 
 tbl_A045_status_flags:
 - D 1 - - - 0x018055 06:A045: 00        .byte $00   ; The enemy continuis to move.
@@ -214,59 +196,49 @@ C - - - - - 0x0180B9 06:A0A9: A9 00     LDA #$00                       ;
 C - - - - - 0x0180BB 06:A0AB: 9D 44 03  STA vEnemyAFrame_Counter,X     ; reset a counter
 C - - - - - 0x0180BE 06:A0AE: 60        RTS                            ;
 
-- - - - - - 0x0180BF 06:A0AF: A0        .byte $A0   ; 
-- - - - - - 0x0180C0 06:A0B0: 0C        .byte $0C   ; 
-- - - - - - 0x0180C1 06:A0B1: BD        .byte $BD   ; 
-- - - - - - 0x0180C2 06:A0B2: 20        .byte $20   ; 
-- - - - - - 0x0180C3 06:A0B3: 03        .byte $03   ; 
-- - - - - - 0x0180C4 06:A0B4: 48        .byte $48   ; <H>
-- - - - - - 0x0180C5 06:A0B5: 29        .byte $29   ; 
-- - - - - - 0x0180C6 06:A0B6: 12        .byte $12   ; 
-- - - - - - 0x0180C7 06:A0B7: F0        .byte $F0   ; 
-- - - - - - 0x0180C8 06:A0B8: 08        .byte $08   ; 
-- - - - - - 0x0180C9 06:A0B9: A0        .byte $A0   ; 
-- - - - - - 0x0180CA 06:A0BA: 10        .byte $10   ; 
-- - - - - - 0x0180CB 06:A0BB: C9        .byte $C9   ; 
-- - - - - - 0x0180CC 06:A0BC: 10        .byte $10   ; 
-- - - - - - 0x0180CD 06:A0BD: F0        .byte $F0   ; 
-- - - - - - 0x0180CE 06:A0BE: 02        .byte $02   ; 
-- - - - - - 0x0180CF 06:A0BF: A0        .byte $A0   ; 
-- - - - - - 0x0180D0 06:A0C0: 14        .byte $14   ; 
-- - - - - - 0x0180D1 06:A0C1: 68        .byte $68   ; <h>
-- - - - - - 0x0180D2 06:A0C2: 6A        .byte $6A   ; <j>
-- - - - - - 0x0180D3 06:A0C3: 90        .byte $90   ; 
-- - - - - - 0x0180D4 06:A0C4: 18        .byte $18   ; 
-- - - - - - 0x0180D5 06:A0C5: 98        .byte $98   ; 
-- - - - - - 0x0180D6 06:A0C6: 18        .byte $18   ; 
-- - - - - - 0x0180D7 06:A0C7: 69        .byte $69   ; <i>
-- - - - - - 0x0180D8 06:A0C8: 0C        .byte $0C   ; 
-- - - - - - 0x0180D9 06:A0C9: A8        .byte $A8   ; 
-- - - - - - 0x0180DA 06:A0CA: D0        .byte $D0   ; 
-- - - - - - 0x0180DB 06:A0CB: 11        .byte $11   ; 
+C - - - - - 0x0180BF 06:A0AF: A0 0C     LDY #$0C                       ; !(UNUSED), 1 offset of the hitbox position
+C - - - - - 0x0180C1 06:A0B1: BD 20 03  LDA vEnemyAStatus,X            ; !(UNUSED)
+C - - - - - 0x0180C4 06:A0B4: 48        PHA                            ; !(UNUSED), diposit status
+C - - - - - 0x0180C5 06:A0B5: 29 12     AND #$12                       ; !(UNUSED)
+C - - - - - 0x0180C7 06:A0B7: F0 08     BEQ @bra_A0C1_check_direction  ; !(UNUSED), if the enemy isn't squatting and jumping
+C - - - - - 0x0180C9 06:A0B9: A0 10     LDY #$10                       ; !(UNUSED), 2 offset of the hitbox position
+C - - - - - 0x0180CB 06:A0BB: C9 10     CMP #$10                       ; !(UNUSED)
+C - - - - - 0x0180CD 06:A0BD: F0 02     BEQ @bra_A0C1_check_direction  ; !(UNUSED), if the enemy isn't squatting
+C - - - - - 0x0180CF 06:A0BF: A0 14     LDY #$14                       ; !(UNUSED), 3 offset of the hitbox position
+@bra_A0C1_check_direction:
+C - - - - - 0x0180D1 06:A0C1: 68        PLA                            ; !(UNUSED), retrieve status
+C - - - - - 0x0180D2 06:A0C2: 6A        ROR                            ; !(UNUSED)
+C - - - - - 0x0180D3 06:A0C3: 90 18     BCC bra_A0DD_assign            ; !(UNUSED), if the enemy is looking to the right
+C - - - - - 0x0180D5 06:A0C5: 98        TYA                            ; !(UNUSED)
+C - - - - - 0x0180D6 06:A0C6: 18        CLC                            ; !(UNUSED)
+C - - - - - 0x0180D7 06:A0C7: 69 0C     ADC #$0C                       ; !(UNUSED)
+C - - - - - 0x0180D9 06:A0C9: A8        TAY                            ; !(UNUSED), Y <~ Y + 0x0C
+C - - - - - 0x0180DA 06:A0CA: D0 11     BNE bra_A0DD_assign            ; !(UNUSED), always true
+
 sub_A0CC_prepare_hitbox:
-C - - - - - 0x0180DC 06:A0CC: A0 00     LDY #$00                     ; 1 offset of the hitbox position
-C - - - - - 0x0180DE 06:A0CE: BD 20 03  LDA vEnemyAStatus,X          ;
-C - - - - - 0x0180E1 06:A0D1: 29 12     AND #$12                     ;
-C - - - - - 0x0180E3 06:A0D3: F0 08     BEQ @bra_A0DD_assign         ; If the enemy isn't squatting and jumping
-C - - - - - 0x0180E5 06:A0D5: A0 04     LDY #$04                     ; 2 offset of the hitbox position
-C - - - - - 0x0180E7 06:A0D7: C9 10     CMP #$10                     ;
-C - - - - - 0x0180E9 06:A0D9: F0 02     BEQ @bra_A0DD_assign         ; If the enemy isn't squatting
-C - - - - - 0x0180EB 06:A0DB: A0 08     LDY #$08                     ; 3 offset of the hitbox position
-@bra_A0DD_assign:
-C - - - - - 0x0180ED 06:A0DD: BD 2C 03  LDA vEnemyAPosY,X            ;
-C - - - - - 0x0180F0 06:A0E0: 18        CLC                          ;
-C - - - - - 0x0180F1 06:A0E1: 79 21 A0  ADC tbl_A021_hitboxes,Y      ;
-C - - - - - 0x0180F4 06:A0E4: 85 AD     STA vEnemyHitBoxY            ; <~ posY + absolute hitBoxY
-C - - - - - 0x0180F6 06:A0E6: BD 32 03  LDA vEnemyAScreenPosX,X      ;
-C - - - - - 0x0180F9 06:A0E9: 18        CLC                          ;
-C - - - - - 0x0180FA 06:A0EA: 79 22 A0  ADC tbl_A021_hitboxes + 1,Y  ;
-C - - - - - 0x0180FD 06:A0ED: 85 AE     STA vEnemyHitBoxX            ; <~ posX + absolute hitBoxX
-C - - - - - 0x0180FF 06:A0EF: B9 23 A0  LDA tbl_A021_hitboxes + 2,Y  ;
-C - - - - - 0x018102 06:A0F2: 85 AF     STA vEnemyHitBoxH            ; <~ hitBoxH
-C - - - - - 0x018104 06:A0F4: B9 24 A0  LDA tbl_A021_hitboxes + 3,Y  ;
-C - - - - - 0x018107 06:A0F7: 85 B0     STA vEnemyHitBoxW            ; <~ hitBoxW
+C - - - - - 0x0180DC 06:A0CC: A0 00     LDY #$00                       ; 1 offset of the hitbox position
+C - - - - - 0x0180DE 06:A0CE: BD 20 03  LDA vEnemyAStatus,X            ;
+C - - - - - 0x0180E1 06:A0D1: 29 12     AND #$12                       ;
+C - - - - - 0x0180E3 06:A0D3: F0 08     BEQ bra_A0DD_assign            ; If the enemy isn't squatting and jumping
+C - - - - - 0x0180E5 06:A0D5: A0 04     LDY #$04                       ; 2 offset of the hitbox position
+C - - - - - 0x0180E7 06:A0D7: C9 10     CMP #$10                       ;
+C - - - - - 0x0180E9 06:A0D9: F0 02     BEQ bra_A0DD_assign            ; If the enemy isn't squatting
+C - - - - - 0x0180EB 06:A0DB: A0 08     LDY #$08                       ; 3 offset of the hitbox position
+bra_A0DD_assign:
+C - - - - - 0x0180ED 06:A0DD: BD 2C 03  LDA vEnemyAPosY,X              ;
+C - - - - - 0x0180F0 06:A0E0: 18        CLC                            ;
+C - - - - - 0x0180F1 06:A0E1: 79 21 A0  ADC tbl_A021_hitboxes,Y        ;
+C - - - - - 0x0180F4 06:A0E4: 85 AD     STA vEnemyHitBoxY              ; <~ posY + absolute hitBoxY
+C - - - - - 0x0180F6 06:A0E6: BD 32 03  LDA vEnemyAScreenPosX,X        ;
+C - - - - - 0x0180F9 06:A0E9: 18        CLC                            ;
+C - - - - - 0x0180FA 06:A0EA: 79 22 A0  ADC tbl_A021_hitboxes + 1,Y    ;
+C - - - - - 0x0180FD 06:A0ED: 85 AE     STA vEnemyHitBoxX              ; <~ posX + absolute hitBoxX
+C - - - - - 0x0180FF 06:A0EF: B9 23 A0  LDA tbl_A021_hitboxes + 2,Y    ;
+C - - - - - 0x018102 06:A0F2: 85 AF     STA vEnemyHitBoxH              ; <~ hitBoxH
+C - - - - - 0x018104 06:A0F4: B9 24 A0  LDA tbl_A021_hitboxes + 3,Y    ;
+C - - - - - 0x018107 06:A0F7: 85 B0     STA vEnemyHitBoxW              ; <~ hitBoxW
 bra_A0F9_RTS:
-C - - - - - 0x018109 06:A0F9: 60        RTS                          ;
+C - - - - - 0x018109 06:A0F9: 60        RTS                            ;
 
 ; In: Register X - the enemyA number
 sub_A0FA_status_behavior:
@@ -1424,7 +1396,7 @@ C - - - - - 0x018895 06:A885: 90 09     BCC @bra_A890_skip                      
 C - - - - - 0x018897 06:A887: A0 DF     LDY #$DF                                         ; 0xDF -> EnemyPosY
 C - - - - - 0x018899 06:A889: C9 F8     CMP #$F8                                         ; CONSTANT - Limit 2 for Y-position
 C - - - - - 0x01889B 06:A88B: 90 02     BCC @bra_A88F_skip                               ; If Register A < 0xF8
-c - - - - - 0x01889D 06:A88D: A0 00     LDY #$00                                         ; 0x00 -> EnemyPosY
+C - - - - - 0x01889D 06:A88D: A0 00     LDY #$00                                         ; 0x00 -> EnemyPosY
 @bra_A88F_skip:
 C - - - - - 0x01889F 06:A88F: 98        TYA                                              ; A <~ 0x00 or 0xDF
 @bra_A890_skip:
@@ -4696,442 +4668,35 @@ C - - - - - 0x019E55 06:BE45: A9 07     LDA #$07                      ; ~> sprit
 C - - - - - 0x019E57 06:BE47: 85 02     STA ram_0002                  ;
 C - - - - - 0x019E59 06:BE49: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
-- - - - - - 0x019E5C 06:BE4C: 1A        .byte $1A   ; 
-- - - - - - 0x019E5D 06:BE4D: 30        .byte $30   ; <0>
-- - - - - - 0x019E5E 06:BE4E: 2A        .byte $2A   ; 
-- - - - - - 0x019E5F 06:BE4F: 15        .byte $15   ; 
-- - - - - - 0x019E60 06:BE50: 00        .byte $00   ; 
-- - - - - - 0x019E61 06:BE51: 00        .byte $00   ; 
-- - - - - - 0x019E62 06:BE52: 00        .byte $00   ; 
-- - - - - - 0x019E63 06:BE53: 00        .byte $00   ; 
-- - - - - - 0x019E64 06:BE54: 00        .byte $00   ; 
-- - - - - - 0x019E65 06:BE55: 00        .byte $00   ; 
-- - - - - - 0x019E66 06:BE56: 00        .byte $00   ; 
-- - - - - - 0x019E67 06:BE57: 00        .byte $00   ; 
-- - - - - - 0x019E68 06:BE58: 00        .byte $00   ; 
-- - - - - - 0x019E69 06:BE59: 00        .byte $00   ; 
-- - - - - - 0x019E6A 06:BE5A: 00        .byte $00   ; 
-- - - - - - 0x019E6B 06:BE5B: 00        .byte $00   ; 
-- - - - - - 0x019E6C 06:BE5C: 00        .byte $00   ; 
-- - - - - - 0x019E6D 06:BE5D: 7E        .byte $7E   ; 
-- - - - - - 0x019E6E 06:BE5E: 00        .byte $00   ; 
-- - - - - - 0x019E6F 06:BE5F: 00        .byte $00   ; 
-- - - - - - 0x019E70 06:BE60: 00        .byte $00   ; 
-- - - - - - 0x019E71 06:BE61: 7E        .byte $7E   ; 
-- - - - - - 0x019E72 06:BE62: 00        .byte $00   ; 
-- - - - - - 0x019E73 06:BE63: 00        .byte $00   ; 
-- - - - - - 0x019E74 06:BE64: 00        .byte $00   ; 
-- - - - - - 0x019E75 06:BE65: 00        .byte $00   ; 
-- - - - - - 0x019E76 06:BE66: 00        .byte $00   ; 
-- - - - - - 0x019E77 06:BE67: 00        .byte $00   ; 
-- - - - - - 0x019E78 06:BE68: 00        .byte $00   ; 
-- - - - - - 0x019E79 06:BE69: 00        .byte $00   ; 
-- - - - - - 0x019E7A 06:BE6A: 00        .byte $00   ; 
-- - - - - - 0x019E7B 06:BE6B: 00        .byte $00   ; 
-- - - - - - 0x019E7C 06:BE6C: 00        .byte $00   ; 
-- - - - - - 0x019E7D 06:BE6D: 35        .byte $35   ; <5>
-- - - - - - 0x019E7E 06:BE6E: 3E        .byte $3E   ; 
-- - - - - - 0x019E7F 06:BE6F: 12        .byte $12   ; 
-- - - - - - 0x019E80 06:BE70: 30        .byte $30   ; <0>
-- - - - - - 0x019E81 06:BE71: 2A        .byte $2A   ; 
-- - - - - - 0x019E82 06:BE72: 27        .byte $27   ; 
-- - - - - - 0x019E83 06:BE73: 24        .byte $24   ; 
-- - - - - - 0x019E84 06:BE74: 11        .byte $11   ; 
-- - - - - - 0x019E85 06:BE75: 32        .byte $32   ; <2>
-- - - - - - 0x019E86 06:BE76: 00        .byte $00   ; 
-- - - - - - 0x019E87 06:BE77: 00        .byte $00   ; 
-- - - - - - 0x019E88 06:BE78: 00        .byte $00   ; 
-- - - - - - 0x019E89 06:BE79: 00        .byte $00   ; 
-- - - - - - 0x019E8A 06:BE7A: 00        .byte $00   ; 
-- - - - - - 0x019E8B 06:BE7B: 00        .byte $00   ; 
-- - - - - - 0x019E8C 06:BE7C: 00        .byte $00   ; 
-- - - - - - 0x019E8D 06:BE7D: 00        .byte $00   ; 
-- - - - - - 0x019E8E 06:BE7E: 00        .byte $00   ; 
-- - - - - - 0x019E8F 06:BE7F: 00        .byte $00   ; 
-- - - - - - 0x019E90 06:BE80: 00        .byte $00   ; 
-- - - - - - 0x019E91 06:BE81: 00        .byte $00   ; 
-- - - - - - 0x019E92 06:BE82: 7E        .byte $7E   ; 
-- - - - - - 0x019E93 06:BE83: 7E        .byte $7E   ; 
-- - - - - - 0x019E94 06:BE84: 00        .byte $00   ; 
-- - - - - - 0x019E95 06:BE85: 00        .byte $00   ; 
-- - - - - - 0x019E96 06:BE86: 00        .byte $00   ; 
-- - - - - - 0x019E97 06:BE87: 7E        .byte $7E   ; 
-- - - - - - 0x019E98 06:BE88: 00        .byte $00   ; 
-- - - - - - 0x019E99 06:BE89: 00        .byte $00   ; 
-- - - - - - 0x019E9A 06:BE8A: 00        .byte $00   ; 
-- - - - - - 0x019E9B 06:BE8B: 00        .byte $00   ; 
-- - - - - - 0x019E9C 06:BE8C: 00        .byte $00   ; 
-- - - - - - 0x019E9D 06:BE8D: 00        .byte $00   ; 
-- - - - - - 0x019E9E 06:BE8E: 00        .byte $00   ; 
-- - - - - - 0x019E9F 06:BE8F: 00        .byte $00   ; 
-- - - - - - 0x019EA0 06:BE90: 00        .byte $00   ; 
-- - - - - - 0x019EA1 06:BE91: 00        .byte $00   ; 
-- - - - - - 0x019EA2 06:BE92: 00        .byte $00   ; 
-- - - - - - 0x019EA3 06:BE93: 00        .byte $00   ; 
-- - - - - - 0x019EA4 06:BE94: 00        .byte $00   ; 
-- - - - - - 0x019EA5 06:BE95: 12        .byte $12   ; 
-- - - - - - 0x019EA6 06:BE96: 37        .byte $37   ; <7>
-- - - - - - 0x019EA7 06:BE97: 2A        .byte $2A   ; 
-- - - - - - 0x019EA8 06:BE98: 00        .byte $00   ; 
-- - - - - - 0x019EA9 06:BE99: 15        .byte $15   ; 
-- - - - - - 0x019EAA 06:BE9A: 24        .byte $24   ; 
-- - - - - - 0x019EAB 06:BE9B: 32        .byte $32   ; <2>
-- - - - - - 0x019EAC 06:BE9C: 00        .byte $00   ; 
-- - - - - - 0x019EAD 06:BE9D: 00        .byte $00   ; 
-- - - - - - 0x019EAE 06:BE9E: 00        .byte $00   ; 
-- - - - - - 0x019EAF 06:BE9F: 00        .byte $00   ; 
-- - - - - - 0x019EB0 06:BEA0: 00        .byte $00   ; 
-- - - - - - 0x019EB1 06:BEA1: 00        .byte $00   ; 
-- - - - - - 0x019EB2 06:BEA2: 00        .byte $00   ; 
-- - - - - - 0x019EB3 06:BEA3: 00        .byte $00   ; 
-- - - - - - 0x019EB4 06:BEA4: 00        .byte $00   ; 
-- - - - - - 0x019EB5 06:BEA5: 00        .byte $00   ; 
-- - - - - - 0x019EB6 06:BEA6: 00        .byte $00   ; 
-- - - - - - 0x019EB7 06:BEA7: 00        .byte $00   ; 
-- - - - - - 0x019EB8 06:BEA8: 00        .byte $00   ; 
-- - - - - - 0x019EB9 06:BEA9: 32        .byte $32   ; <2>
-- - - - - - 0x019EBA 06:BEAA: 3F        .byte $3F   ; 
-- - - - - - 0x019EBB 06:BEAB: 30        .byte $30   ; <0>
-- - - - - - 0x019EBC 06:BEAC: 62        .byte $62   ; <b>
-- - - - - - 0x019EBD 06:BEAD: 16        .byte $16   ; 
-- - - - - - 0x019EBE 06:BEAE: 39        .byte $39   ; <9>
-- - - - - - 0x019EBF 06:BEAF: 1C        .byte $1C   ; 
-- - - - - - 0x019EC0 06:BEB0: 2A        .byte $2A   ; 
-- - - - - - 0x019EC1 06:BEB1: 17        .byte $17   ; 
-- - - - - - 0x019EC2 06:BEB2: 00        .byte $00   ; 
-- - - - - - 0x019EC3 06:BEB3: 00        .byte $00   ; 
-- - - - - - 0x019EC4 06:BEB4: 00        .byte $00   ; 
-- - - - - - 0x019EC5 06:BEB5: 00        .byte $00   ; 
-- - - - - - 0x019EC6 06:BEB6: 00        .byte $00   ; 
-- - - - - - 0x019EC7 06:BEB7: 00        .byte $00   ; 
-- - - - - - 0x019EC8 06:BEB8: 00        .byte $00   ; 
-- - - - - - 0x019EC9 06:BEB9: 00        .byte $00   ; 
-- - - - - - 0x019ECA 06:BEBA: 00        .byte $00   ; 
-- - - - - - 0x019ECB 06:BEBB: 00        .byte $00   ; 
-- - - - - - 0x019ECC 06:BEBC: 00        .byte $00   ; 
-- - - - - - 0x019ECD 06:BEBD: 00        .byte $00   ; 
-- - - - - - 0x019ECE 06:BEBE: 00        .byte $00   ; 
-- - - - - - 0x019ECF 06:BEBF: 00        .byte $00   ; 
-- - - - - - 0x019ED0 06:BEC0: 00        .byte $00   ; 
-- - - - - - 0x019ED1 06:BEC1: 00        .byte $00   ; 
-- - - - - - 0x019ED2 06:BEC2: 00        .byte $00   ; 
-- - - - - - 0x019ED3 06:BEC3: 7E        .byte $7E   ; 
-- - - - - - 0x019ED4 06:BEC4: 7E        .byte $7E   ; 
-- - - - - - 0x019ED5 06:BEC5: 00        .byte $00   ; 
-- - - - - - 0x019ED6 06:BEC6: 00        .byte $00   ; 
-- - - - - - 0x019ED7 06:BEC7: 00        .byte $00   ; 
-- - - - - - 0x019ED8 06:BEC8: 00        .byte $00   ; 
-- - - - - - 0x019ED9 06:BEC9: 00        .byte $00   ; 
-- - - - - - 0x019EDA 06:BECA: 00        .byte $00   ; 
-- - - - - - 0x019EDB 06:BECB: 00        .byte $00   ; 
-- - - - - - 0x019EDC 06:BECC: 00        .byte $00   ; 
-- - - - - - 0x019EDD 06:BECD: 00        .byte $00   ; 
-- - - - - - 0x019EDE 06:BECE: 00        .byte $00   ; 
-- - - - - - 0x019EDF 06:BECF: 00        .byte $00   ; 
-- - - - - - 0x019EE0 06:BED0: 00        .byte $00   ; 
-- - - - - - 0x019EE1 06:BED1: 32        .byte $32   ; <2>
-- - - - - - 0x019EE2 06:BED2: 3F        .byte $3F   ; 
-- - - - - - 0x019EE3 06:BED3: 30        .byte $30   ; <0>
-- - - - - - 0x019EE4 06:BED4: 62        .byte $62   ; <b>
-- - - - - - 0x019EE5 06:BED5: 19        .byte $19   ; 
-- - - - - - 0x019EE6 06:BED6: 00        .byte $00   ; 
-- - - - - - 0x019EE7 06:BED7: 37        .byte $37   ; <7>
-- - - - - - 0x019EE8 06:BED8: 39        .byte $39   ; <9>
-- - - - - - 0x019EE9 06:BED9: 29        .byte $29   ; 
-- - - - - - 0x019EEA 06:BEDA: 2A        .byte $2A   ; 
-- - - - - - 0x019EEB 06:BEDB: 00        .byte $00   ; 
-- - - - - - 0x019EEC 06:BEDC: 00        .byte $00   ; 
-- - - - - - 0x019EED 06:BEDD: 00        .byte $00   ; 
-- - - - - - 0x019EEE 06:BEDE: 00        .byte $00   ; 
-- - - - - - 0x019EEF 06:BEDF: 00        .byte $00   ; 
-- - - - - - 0x019EF0 06:BEE0: 00        .byte $00   ; 
-- - - - - - 0x019EF1 06:BEE1: 00        .byte $00   ; 
-- - - - - - 0x019EF2 06:BEE2: 00        .byte $00   ; 
-- - - - - - 0x019EF3 06:BEE3: 00        .byte $00   ; 
-- - - - - - 0x019EF4 06:BEE4: 00        .byte $00   ; 
-- - - - - - 0x019EF5 06:BEE5: 77        .byte $77   ; <w>
-- - - - - - 0x019EF6 06:BEE6: 77        .byte $77   ; <w>
-- - - - - - 0x019EF7 06:BEE7: 3F        .byte $3F   ; 
-- - - - - - 0x019EF8 06:BEE8: 7F        .byte $7F   ; 
-- - - - - - 0x019EF9 06:BEE9: FE        .byte $FE   ; 
-- - - - - - 0x019EFA 06:BEEA: FE        .byte $FE   ; 
-- - - - - - 0x019EFB 06:BEEB: 6E        .byte $6E   ; <n>
-- - - - - - 0x019EFC 06:BEEC: 67        .byte $67   ; <g>
-- - - - - - 0x019EFD 06:BEED: 77        .byte $77   ; <w>
-- - - - - - 0x019EFE 06:BEEE: 77        .byte $77   ; <w>
-- - - - - - 0x019EFF 06:BEEF: 3F        .byte $3F   ; 
-- - - - - - 0x019F00 06:BEF0: 1C        .byte $1C   ; 
-- - - - - - 0x019F01 06:BEF1: 3E        .byte $3E   ; 
-- - - - - - 0x019F02 06:BEF2: 3E        .byte $3E   ; 
-- - - - - - 0x019F03 06:BEF3: 3E        .byte $3E   ; 
-- - - - - - 0x019F04 06:BEF4: 3E        .byte $3E   ; 
-- - - - - - 0x019F05 06:BEF5: 1E        .byte $1E   ; 
-- - - - - - 0x019F06 06:BEF6: 0E        .byte $0E   ; 
-- - - - - - 0x019F07 06:BEF7: 06        .byte $06   ; 
-- - - - - - 0x019F08 06:BEF8: 1C        .byte $1C   ; 
-- - - - - - 0x019F09 06:BEF9: 3E        .byte $3E   ; 
-- - - - - - 0x019F0A 06:BEFA: 36        .byte $36   ; <6>
-- - - - - - 0x019F0B 06:BEFB: 30        .byte $30   ; <0>
-- - - - - - 0x019F0C 06:BEFC: 34        .byte $34   ; <4>
-- - - - - - 0x019F0D 06:BEFD: 00        .byte $00   ; 
-- - - - - - 0x019F0E 06:BEFE: 30        .byte $30   ; <0>
-- - - - - - 0x019F0F 06:BEFF: F8        .byte $F8   ; 
-- - - - - - 0x019F10 06:BF00: 02        .byte $02   ; 
-- - - - - - 0x019F11 06:BF01: 54        .byte $54   ; <T>
-- - - - - - 0x019F12 06:BF02: 28        .byte $28   ; 
-- - - - - - 0x019F13 06:BF03: 44        .byte $44   ; <D>
-- - - - - - 0x019F14 06:BF04: C8        .byte $C8   ; 
-- - - - - - 0x019F15 06:BF05: 60        .byte $60   ; 
-- - - - - - 0x019F16 06:BF06: D8        .byte $D8   ; 
-- - - - - - 0x019F17 06:BF07: 72        .byte $72   ; <r>
-- - - - - - 0x019F18 06:BF08: 06        .byte $06   ; 
-- - - - - - 0x019F19 06:BF09: 0E        .byte $0E   ; 
-- - - - - - 0x019F1A 06:BF0A: 1C        .byte $1C   ; 
-- - - - - - 0x019F1B 06:BF0B: 38        .byte $38   ; <8>
-- - - - - - 0x019F1C 06:BF0C: 34        .byte $34   ; <4>
-- - - - - - 0x019F1D 06:BF0D: 18        .byte $18   ; 
-- - - - - - 0x019F1E 06:BF0E: 20        .byte $20   ; 
-- - - - - - 0x019F1F 06:BF0F: 00        .byte $00   ; 
-- - - - - - 0x019F20 06:BF10: 00        .byte $00   ; 
-- - - - - - 0x019F21 06:BF11: 00        .byte $00   ; 
-- - - - - - 0x019F22 06:BF12: 0F        .byte $0F   ; 
-- - - - - - 0x019F23 06:BF13: 1C        .byte $1C   ; 
-- - - - - - 0x019F24 06:BF14: 18        .byte $18   ; 
-- - - - - - 0x019F25 06:BF15: 00        .byte $00   ; 
-- - - - - - 0x019F26 06:BF16: 00        .byte $00   ; 
-- - - - - - 0x019F27 06:BF17: 00        .byte $00   ; 
-- - - - - - 0x019F28 06:BF18: 00        .byte $00   ; 
-- - - - - - 0x019F29 06:BF19: 00        .byte $00   ; 
-- - - - - - 0x019F2A 06:BF1A: 0F        .byte $0F   ; 
-- - - - - - 0x019F2B 06:BF1B: EC        .byte $EC   ; 
-- - - - - - 0x019F2C 06:BF1C: 38        .byte $38   ; <8>
-- - - - - - 0x019F2D 06:BF1D: 00        .byte $00   ; 
-- - - - - - 0x019F2E 06:BF1E: 00        .byte $00   ; 
-- - - - - - 0x019F2F 06:BF1F: 00        .byte $00   ; 
-- - - - - - 0x019F30 06:BF20: 00        .byte $00   ; 
-- - - - - - 0x019F31 06:BF21: 00        .byte $00   ; 
-- - - - - - 0x019F32 06:BF22: 00        .byte $00   ; 
-- - - - - - 0x019F33 06:BF23: 00        .byte $00   ; 
-- - - - - - 0x019F34 06:BF24: 00        .byte $00   ; 
-- - - - - - 0x019F35 06:BF25: 00        .byte $00   ; 
-- - - - - - 0x019F36 06:BF26: 01        .byte $01   ; 
-- - - - - - 0x019F37 06:BF27: 07        .byte $07   ; 
-- - - - - - 0x019F38 06:BF28: 0F        .byte $0F   ; 
-- - - - - - 0x019F39 06:BF29: 07        .byte $07   ; 
-- - - - - - 0x019F3A 06:BF2A: 03        .byte $03   ; 
-- - - - - - 0x019F3B 06:BF2B: 00        .byte $00   ; 
-- - - - - - 0x019F3C 06:BF2C: 00        .byte $00   ; 
-- - - - - - 0x019F3D 06:BF2D: 00        .byte $00   ; 
-- - - - - - 0x019F3E 06:BF2E: 01        .byte $01   ; 
-- - - - - - 0x019F3F 06:BF2F: 07        .byte $07   ; 
-- - - - - - 0x019F40 06:BF30: 0B        .byte $0B   ; 
-- - - - - - 0x019F41 06:BF31: 0E        .byte $0E   ; 
-- - - - - - 0x019F42 06:BF32: 06        .byte $06   ; 
-- - - - - - 0x019F43 06:BF33: 03        .byte $03   ; 
-- - - - - - 0x019F44 06:BF34: 00        .byte $00   ; 
-- - - - - - 0x019F45 06:BF35: 00        .byte $00   ; 
-- - - - - - 0x019F46 06:BF36: 00        .byte $00   ; 
-- - - - - - 0x019F47 06:BF37: 00        .byte $00   ; 
-- - - - - - 0x019F48 06:BF38: 0F        .byte $0F   ; 
-- - - - - - 0x019F49 06:BF39: 0E        .byte $0E   ; 
-- - - - - - 0x019F4A 06:BF3A: 06        .byte $06   ; 
-- - - - - - 0x019F4B 06:BF3B: 03        .byte $03   ; 
-- - - - - - 0x019F4C 06:BF3C: 00        .byte $00   ; 
-- - - - - - 0x019F4D 06:BF3D: 00        .byte $00   ; 
-- - - - - - 0x019F4E 06:BF3E: 00        .byte $00   ; 
-- - - - - - 0x019F4F 06:BF3F: 00        .byte $00   ; 
-- - - - - - 0x019F50 06:BF40: 10        .byte $10   ; 
-- - - - - - 0x019F51 06:BF41: 78        .byte $78   ; <x>
-- - - - - - 0x019F52 06:BF42: FC        .byte $FC   ; 
-- - - - - - 0x019F53 06:BF43: FC        .byte $FC   ; 
-- - - - - - 0x019F54 06:BF44: 78        .byte $78   ; <x>
-- - - - - - 0x019F55 06:BF45: F8        .byte $F8   ; 
-- - - - - - 0x019F56 06:BF46: D8        .byte $D8   ; 
-- - - - - - 0x019F57 06:BF47: 98        .byte $98   ; 
-- - - - - - 0x019F58 06:BF48: F0        .byte $F0   ; 
-- - - - - - 0x019F59 06:BF49: F8        .byte $F8   ; 
-- - - - - - 0x019F5A 06:BF4A: FC        .byte $FC   ; 
-- - - - - - 0x019F5B 06:BF4B: FC        .byte $FC   ; 
-- - - - - - 0x019F5C 06:BF4C: 78        .byte $78   ; <x>
-- - - - - - 0x019F5D 06:BF4D: F8        .byte $F8   ; 
-- - - - - - 0x019F5E 06:BF4E: D8        .byte $D8   ; 
-- - - - - - 0x019F5F 06:BF4F: 98        .byte $98   ; 
-- - - - - - 0x019F60 06:BF50: 18        .byte $18   ; 
-- - - - - - 0x019F61 06:BF51: 18        .byte $18   ; 
-- - - - - - 0x019F62 06:BF52: 18        .byte $18   ; 
-- - - - - - 0x019F63 06:BF53: 18        .byte $18   ; 
-- - - - - - 0x019F64 06:BF54: 18        .byte $18   ; 
-- - - - - - 0x019F65 06:BF55: 28        .byte $28   ; 
-- - - - - - 0x019F66 06:BF56: 3C        .byte $3C   ; 
-- - - - - - 0x019F67 06:BF57: 2F        .byte $2F   ; 
-- - - - - - 0x019F68 06:BF58: 18        .byte $18   ; 
-- - - - - - 0x019F69 06:BF59: 18        .byte $18   ; 
-- - - - - - 0x019F6A 06:BF5A: 18        .byte $18   ; 
-- - - - - - 0x019F6B 06:BF5B: 18        .byte $18   ; 
-- - - - - - 0x019F6C 06:BF5C: 18        .byte $18   ; 
-- - - - - - 0x019F6D 06:BF5D: 38        .byte $38   ; <8>
-- - - - - - 0x019F6E 06:BF5E: 3C        .byte $3C   ; 
-- - - - - - 0x019F6F 06:BF5F: 2F        .byte $2F   ; 
-- - - - - - 0x019F70 06:BF60: 38        .byte $38   ; <8>
-- - - - - - 0x019F71 06:BF61: 30        .byte $30   ; <0>
-- - - - - - 0x019F72 06:BF62: 60        .byte $60   ; 
-- - - - - - 0x019F73 06:BF63: 60        .byte $60   ; 
-- - - - - - 0x019F74 06:BF64: 00        .byte $00   ; 
-- - - - - - 0x019F75 06:BF65: 40        .byte $40   ; 
-- - - - - - 0x019F76 06:BF66: E0        .byte $E0   ; 
-- - - - - - 0x019F77 06:BF67: F0        .byte $F0   ; 
-- - - - - - 0x019F78 06:BF68: 38        .byte $38   ; <8>
-- - - - - - 0x019F79 06:BF69: 30        .byte $30   ; <0>
-- - - - - - 0x019F7A 06:BF6A: 60        .byte $60   ; 
-- - - - - - 0x019F7B 06:BF6B: 60        .byte $60   ; 
-- - - - - - 0x019F7C 06:BF6C: 40        .byte $40   ; 
-- - - - - - 0x019F7D 06:BF6D: 40        .byte $40   ; 
-- - - - - - 0x019F7E 06:BF6E: E0        .byte $E0   ; 
-- - - - - - 0x019F7F 06:BF6F: F0        .byte $F0   ; 
-- - - - - - 0x019F80 06:BF70: 18        .byte $18   ; 
-- - - - - - 0x019F81 06:BF71: 18        .byte $18   ; 
-- - - - - - 0x019F82 06:BF72: 18        .byte $18   ; 
-- - - - - - 0x019F83 06:BF73: 18        .byte $18   ; 
-- - - - - - 0x019F84 06:BF74: 00        .byte $00   ; 
-- - - - - - 0x019F85 06:BF75: 0C        .byte $0C   ; 
-- - - - - - 0x019F86 06:BF76: 1E        .byte $1E   ; 
-- - - - - - 0x019F87 06:BF77: 17        .byte $17   ; 
-- - - - - - 0x019F88 06:BF78: 18        .byte $18   ; 
-- - - - - - 0x019F89 06:BF79: 18        .byte $18   ; 
-- - - - - - 0x019F8A 06:BF7A: 18        .byte $18   ; 
-- - - - - - 0x019F8B 06:BF7B: 18        .byte $18   ; 
-- - - - - - 0x019F8C 06:BF7C: 08        .byte $08   ; 
-- - - - - - 0x019F8D 06:BF7D: 0C        .byte $0C   ; 
-- - - - - - 0x019F8E 06:BF7E: 1E        .byte $1E   ; 
-- - - - - - 0x019F8F 06:BF7F: 17        .byte $17   ; 
-- - - - - - 0x019F90 06:BF80: 00        .byte $00   ; 
-- - - - - - 0x019F91 06:BF81: 00        .byte $00   ; 
-- - - - - - 0x019F92 06:BF82: 06        .byte $06   ; 
-- - - - - - 0x019F93 06:BF83: 06        .byte $06   ; 
-- - - - - - 0x019F94 06:BF84: 00        .byte $00   ; 
-- - - - - - 0x019F95 06:BF85: 00        .byte $00   ; 
-- - - - - - 0x019F96 06:BF86: 00        .byte $00   ; 
-- - - - - - 0x019F97 06:BF87: 00        .byte $00   ; 
-- - - - - - 0x019F98 06:BF88: 00        .byte $00   ; 
-- - - - - - 0x019F99 06:BF89: 00        .byte $00   ; 
-- - - - - - 0x019F9A 06:BF8A: 06        .byte $06   ; 
-- - - - - - 0x019F9B 06:BF8B: 06        .byte $06   ; 
-- - - - - - 0x019F9C 06:BF8C: 00        .byte $00   ; 
-- - - - - - 0x019F9D 06:BF8D: 00        .byte $00   ; 
-- - - - - - 0x019F9E 06:BF8E: 00        .byte $00   ; 
-- - - - - - 0x019F9F 06:BF8F: 00        .byte $00   ; 
-- - - - - - 0x019FA0 06:BF90: 0E        .byte $0E   ; 
-- - - - - - 0x019FA1 06:BF91: 3E        .byte $3E   ; 
-- - - - - - 0x019FA2 06:BF92: 78        .byte $78   ; <x>
-- - - - - - 0x019FA3 06:BF93: 50        .byte $50   ; <P>
-- - - - - - 0x019FA4 06:BF94: 70        .byte $70   ; <p>
-- - - - - - 0x019FA5 06:BF95: 30        .byte $30   ; <0>
-- - - - - - 0x019FA6 06:BF96: 18        .byte $18   ; 
-- - - - - - 0x019FA7 06:BF97: 00        .byte $00   ; 
-- - - - - - 0x019FA8 06:BF98: 0E        .byte $0E   ; 
-- - - - - - 0x019FA9 06:BF99: 3E        .byte $3E   ; 
-- - - - - - 0x019FAA 06:BF9A: 78        .byte $78   ; <x>
-- - - - - - 0x019FAB 06:BF9B: 70        .byte $70   ; <p>
-- - - - - - 0x019FAC 06:BF9C: 70        .byte $70   ; <p>
-- - - - - - 0x019FAD 06:BF9D: 30        .byte $30   ; <0>
-- - - - - - 0x019FAE 06:BF9E: 18        .byte $18   ; 
-- - - - - - 0x019FAF 06:BF9F: 00        .byte $00   ; 
-- - - - - - 0x019FB0 06:BFA0: 13        .byte $13   ; 
-- - - - - - 0x019FB1 06:BFA1: FF        .byte $FF   ; 
-- - - - - - 0x019FB2 06:BFA2: FC        .byte $FC   ; 
-- - - - - - 0x019FB3 06:BFA3: F1        .byte $F1   ; 
-- - - - - - 0x019FB4 06:BFA4: 07        .byte $07   ; 
-- - - - - - 0x019FB5 06:BFA5: 07        .byte $07   ; 
-- - - - - - 0x019FB6 06:BFA6: 03        .byte $03   ; 
-- - - - - - 0x019FB7 06:BFA7: 07        .byte $07   ; 
-- - - - - - 0x019FB8 06:BFA8: 1C        .byte $1C   ; 
-- - - - - - 0x019FB9 06:BFA9: FD        .byte $FD   ; 
-- - - - - - 0x019FBA 06:BFAA: FF        .byte $FF   ; 
-- - - - - - 0x019FBB 06:BFAB: FF        .byte $FF   ; 
-- - - - - - 0x019FBC 06:BFAC: 07        .byte $07   ; 
-- - - - - - 0x019FBD 06:BFAD: 07        .byte $07   ; 
-- - - - - - 0x019FBE 06:BFAE: 03        .byte $03   ; 
-- - - - - - 0x019FBF 06:BFAF: 07        .byte $07   ; 
-- - - - - - 0x019FC0 06:BFB0: 0E        .byte $0E   ; 
-- - - - - - 0x019FC1 06:BFB1: 1C        .byte $1C   ; 
-- - - - - - 0x019FC2 06:BFB2: 1C        .byte $1C   ; 
-- - - - - - 0x019FC3 06:BFB3: 00        .byte $00   ; 
-- - - - - - 0x019FC4 06:BFB4: 38        .byte $38   ; <8>
-- - - - - - 0x019FC5 06:BFB5: 3C        .byte $3C   ; 
-- - - - - - 0x019FC6 06:BFB6: 00        .byte $00   ; 
-- - - - - - 0x019FC7 06:BFB7: 00        .byte $00   ; 
-- - - - - - 0x019FC8 06:BFB8: 0E        .byte $0E   ; 
-- - - - - - 0x019FC9 06:BFB9: 1C        .byte $1C   ; 
-- - - - - - 0x019FCA 06:BFBA: 1C        .byte $1C   ; 
-- - - - - - 0x019FCB 06:BFBB: 10        .byte $10   ; 
-- - - - - - 0x019FCC 06:BFBC: 38        .byte $38   ; <8>
-- - - - - - 0x019FCD 06:BFBD: 3C        .byte $3C   ; 
-- - - - - - 0x019FCE 06:BFBE: 00        .byte $00   ; 
-- - - - - - 0x019FCF 06:BFBF: 00        .byte $00   ; 
-- - - - - - 0x019FD0 06:BFC0: 00        .byte $00   ; 
-- - - - - - 0x019FD1 06:BFC1: 00        .byte $00   ; 
-- - - - - - 0x019FD2 06:BFC2: 00        .byte $00   ; 
-- - - - - - 0x019FD3 06:BFC3: 00        .byte $00   ; 
-- - - - - - 0x019FD4 06:BFC4: 00        .byte $00   ; 
-- - - - - - 0x019FD5 06:BFC5: 00        .byte $00   ; 
-- - - - - - 0x019FD6 06:BFC6: 00        .byte $00   ; 
-- - - - - - 0x019FD7 06:BFC7: 00        .byte $00   ; 
-- - - - - - 0x019FD8 06:BFC8: 00        .byte $00   ; 
-- - - - - - 0x019FD9 06:BFC9: 00        .byte $00   ; 
-- - - - - - 0x019FDA 06:BFCA: 00        .byte $00   ; 
-- - - - - - 0x019FDB 06:BFCB: 00        .byte $00   ; 
-- - - - - - 0x019FDC 06:BFCC: 00        .byte $00   ; 
-- - - - - - 0x019FDD 06:BFCD: 00        .byte $00   ; 
-- - - - - - 0x019FDE 06:BFCE: 00        .byte $00   ; 
-- - - - - - 0x019FDF 06:BFCF: 00        .byte $00   ; 
-- - - - - - 0x019FE0 06:BFD0: 00        .byte $00   ; 
-- - - - - - 0x019FE1 06:BFD1: 00        .byte $00   ; 
-- - - - - - 0x019FE2 06:BFD2: 00        .byte $00   ; 
-- - - - - - 0x019FE3 06:BFD3: 00        .byte $00   ; 
-- - - - - - 0x019FE4 06:BFD4: 00        .byte $00   ; 
-- - - - - - 0x019FE5 06:BFD5: 00        .byte $00   ; 
-- - - - - - 0x019FE6 06:BFD6: 00        .byte $00   ; 
-- - - - - - 0x019FE7 06:BFD7: 00        .byte $00   ; 
-- - - - - - 0x019FE8 06:BFD8: 00        .byte $00   ; 
-- - - - - - 0x019FE9 06:BFD9: 00        .byte $00   ; 
-- - - - - - 0x019FEA 06:BFDA: 00        .byte $00   ; 
-- - - - - - 0x019FEB 06:BFDB: 00        .byte $00   ; 
-- - - - - - 0x019FEC 06:BFDC: 00        .byte $00   ; 
-- - - - - - 0x019FED 06:BFDD: 00        .byte $00   ; 
-- - - - - - 0x019FEE 06:BFDE: 00        .byte $00   ; 
-- - - - - - 0x019FEF 06:BFDF: 00        .byte $00   ; 
-- - - - - - 0x019FF0 06:BFE0: 00        .byte $00   ; 
-- - - - - - 0x019FF1 06:BFE1: 00        .byte $00   ; 
-- - - - - - 0x019FF2 06:BFE2: 00        .byte $00   ; 
-- - - - - - 0x019FF3 06:BFE3: 00        .byte $00   ; 
-- - - - - - 0x019FF4 06:BFE4: 00        .byte $00   ; 
-- - - - - - 0x019FF5 06:BFE5: 00        .byte $00   ; 
-- - - - - - 0x019FF6 06:BFE6: 00        .byte $00   ; 
-- - - - - - 0x019FF7 06:BFE7: 00        .byte $00   ; 
-- - - - - - 0x019FF8 06:BFE8: 00        .byte $00   ; 
-- - - - - - 0x019FF9 06:BFE9: 00        .byte $00   ; 
-- - - - - - 0x019FFA 06:BFEA: 00        .byte $00   ; 
-- - - - - - 0x019FFB 06:BFEB: 00        .byte $00   ; 
-- - - - - - 0x019FFC 06:BFEC: 00        .byte $00   ; 
-- - - - - - 0x019FFD 06:BFED: 00        .byte $00   ; 
-- - - - - - 0x019FFE 06:BFEE: 00        .byte $00   ; 
-- - - - - - 0x019FFF 06:BFEF: 00        .byte $00   ; 
-- - - - - - 0x01A000 06:BFF0: 00        .byte $00   ; 
-- - - - - - 0x01A001 06:BFF1: 00        .byte $00   ; 
-- - - - - - 0x01A002 06:BFF2: 00        .byte $00   ; 
-- - - - - - 0x01A003 06:BFF3: 00        .byte $00   ; 
-- - - - - - 0x01A004 06:BFF4: 00        .byte $00   ; 
-- - - - - - 0x01A005 06:BFF5: 00        .byte $00   ; 
-- - - - - - 0x01A006 06:BFF6: 00        .byte $00   ; 
-- - - - - - 0x01A007 06:BFF7: 00        .byte $00   ; 
-- - - - - - 0x01A008 06:BFF8: 00        .byte $00   ; 
-- - - - - - 0x01A009 06:BFF9: 00        .byte $00   ; 
-- - - - - - 0x01A00A 06:BFFA: 00        .byte $00   ; 
-- - - - - - 0x01A00B 06:BFFB: 00        .byte $00   ; 
-- - - - - - 0x01A00C 06:BFFC: 00        .byte $00   ; 
-- - - - - - 0x01A00D 06:BFFD: 00        .byte $00   ; 
-- - - - - - 0x01A00E 06:BFFE: 00        .byte $00   ; 
-- - - - - - 0x01A00F 06:BFFF: 00        .byte $00   ; 
+; reversed
+- D - - - - 0x019E5C 06:BE4C: 1A        .byte $1A, $30, $2A, $15, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+- D - - - - 0x019E6C 06:BE5C: 00        .byte $00, $7E, $00, $00, $00, $7E, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+- D - - - - 0x019E7C 06:BE6C: 00        .byte $00, $35, $3E, $12, $30, $2A, $27, $24, $11, $32, $00, $00, $00, $00, $00, $00
+- D - - - - 0x019E8C 06:BE7C: 00        .byte $00, $00, $00, $00, $00, $00, $7E, $7E, $00, $00, $00, $7E, $00, $00, $00, $00
+- D - - - - 0x019E9C 06:BE8C: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $12, $37, $2A, $00, $15, $24, $32
+- D - - - - 0x019EAC 06:BE9C: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $32, $3F, $30
+- D - - - - 0x019EBC 06:BEAC: 62        .byte $62, $16, $39, $1C, $2A, $17, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+- D - - - - 0x019ECC 06:BEBC: 00        .byte $00, $00, $00, $00, $00, $00, $00, $7E, $7E, $00, $00, $00, $00, $00, $00, $00
+- D - - - - 0x019EDC 06:BECC: 00        .byte $00, $00, $00, $00, $00, $32, $3F, $30, $62, $19, $00, $37, $39, $29, $2A, $00
+- D - - - - 0x019EEC 06:BEDC: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $77, $77, $3F, $7F, $FE, $FE, $6E
+- D - - - - 0x019EFC 06:BEEC: 67        .byte $67, $77, $77, $3F, $1C, $3E, $3E, $3E, $3E, $1E, $0E, $06, $1C, $3E, $36, $30
+- D - - - - 0x019F0C 06:BEFC: 34        .byte $34, $00, $30, $F8, $02, $54, $28, $44, $C8, $60, $D8, $72, $06, $0E, $1C, $38
+- D - - - - 0x019F1C 06:BF0C: 34        .byte $34, $18, $20, $00, $00, $00, $0F, $1C, $18, $00, $00, $00, $00, $00, $0F, $EC
+- D - - - - 0x019F2C 06:BF1C: 38        .byte $38, $00, $00, $00, $00, $00, $00, $00, $00, $00, $01, $07, $0F, $07, $03, $00
+- D - - - - 0x019F3C 06:BF2C: 00        .byte $00, $00, $01, $07, $0B, $0E, $06, $03, $00, $00, $00, $00, $0F, $0E, $06, $03
+- D - - - - 0x019F4C 06:BF3C: 00        .byte $00, $00, $00, $00, $10, $78, $FC, $FC, $78, $F8, $D8, $98, $F0, $F8, $FC, $FC
+- D - - - - 0x019F5C 06:BF4C: 78        .byte $78, $F8, $D8, $98, $18, $18, $18, $18, $18, $28, $3C, $2F, $18, $18, $18, $18
+- D - - - - 0x019F6C 06:BF5C: 18        .byte $18, $38, $3C, $2F, $38, $30, $60, $60, $00, $40, $E0, $F0, $38, $30, $60, $60
+- D - - - - 0x019F7C 06:BF6C: 40        .byte $40, $40, $E0, $F0, $18, $18, $18, $18, $00, $0C, $1E, $17, $18, $18, $18, $18
+- D - - - - 0x019F8C 06:BF7C: 08        .byte $08, $0C, $1E, $17, $00, $00, $06, $06, $00, $00, $00, $00, $00, $00, $06, $06
+- D - - - - 0x019F9C 06:BF8C: 00        .byte $00, $00, $00, $00, $0E, $3E, $78, $50, $70, $30, $18, $00, $0E, $3E, $78, $70
+- D - - - - 0x019FAC 06:BF9C: 70        .byte $70, $30, $18, $00, $13, $FF, $FC, $F1, $07, $07, $03, $07, $1C, $FD, $FF, $FF
+- D - - - - 0x019FBC 06:BFAC: 07        .byte $07, $07, $03, $07, $0E, $1C, $1C, $00, $38, $3C, $00, $00, $0E, $1C, $1C, $10
+- D - - - - 0x019FCC 06:BFBC: 38        .byte $38, $3C, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+- D - - - - 0x019FDC 06:BFCC: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+- D - - - - 0x019FEC 06:BFDC: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+- D - - - - 0x019FFC 06:BFEC: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+- D - - - - 0x01A00C 06:BFFC: 00        .byte $00, $00, $00, $00
 
 .out .sprintf("Free bytes in bank 06_1: 0x%X [%d]", ($C000 - *), ($C000 - *))
 
