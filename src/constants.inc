@@ -103,6 +103,7 @@ vAnimationCounter             = ram_002F ; To animate the balloon and squeezing 
 
 vPostAttackCounter            = ram_0030 ; e.g. for the boss of level 1
 vClearMessageCounter          = ram_0030
+vNonUsedCounter               = ram_0031
 
 vResistantToDamageCounter     = ram_0032
 vLowCutsceneCounter           = ram_0033
@@ -192,10 +193,6 @@ vCharacterRenderData          = ram_0045
 ; AA - the OAM-attributes
 ; LL - the high part of address (0%100000LL), e.i. [0x8000 - 0x8300]
 
-
-vNoSubLevel                   = ram_0046
-; see docs (Rooms, Maze1, Maze2, Maze3, Maze4)
-
 vTempNoSubLevel               = ram_0047
 vScrollDirection              = ram_0048 ; The direction in which the screen will automatically scroll (viewport offset), e.g. if the character moves
 ; 0x00 - none
@@ -214,15 +211,6 @@ vTempValue50                  = ram_0050
 vTempValue51                  = ram_0051
 vPpuBufferInitValue           = ram_0054
 
-vNonUsed55                    = ram_0055
-vScore                        = ram_0056 ; [0x56-0x5C]
-
-vNonUsed2                     = ram_005D
-v_no_level                    = ram_005E ; It is a number of a level than it starts with 0.
-; 0x00 - level 1
-; 0x01 - level 2
-; 0x02 - level 3
-; 0x03 - level 4 + racing
 vChrLiveStatus                = ram_005F
 ; Byte: XYZW KLMM
 ; MM - the current selected character (0x00 - Lupin, 0x01 - Jigen, 0x10 - Goemon)
@@ -632,8 +620,8 @@ vEnemyBHealthPoints1          = ram_038C ; Only for the gargoyle
 vEnemyBHealthPoints2          = ram_038D ; Only for the gargoyle
 
 vEnemyBJumpType               = ram_0392 ; see below
-vEnemyBJumpType1              = ram_0392 ; vJumpCounter analog for the enemy (the enemy number = 1)
-vEnemyBJumpType2              = ram_0393 ; vJumpCounter analog for the enemy (the enemy number = 2)
+vEnemyBJumpType1              = ram_0392 ; vJumpType analog for the enemy (the enemy number = 1)
+vEnemyBJumpType2              = ram_0393 ; vJumpType analog for the enemy (the enemy number = 2)
 
 vButterflyCircularFlightCounter = ram_0392 ; For Kim
 
@@ -680,6 +668,7 @@ vCurrentApuChannelFlag        = ram_0403 ; apu channel flags (0x00 - pulse 1, 0x
 vSoundTempValue1              = ram_0404
 vSoundTempValue2              = ram_0405
 vSoundCounter                 = ram_0406
+vSoundNonUsed                 = ram_0407
 vSoundRowIndex                 = ram_0410 ; sound pair index
 vSoundRowComplexChannel        = ram_0411
 ; SVVV 00CC
@@ -775,7 +764,6 @@ v_OAM_3_4b               = ram_070B ; 4th byte
 ; индексы в одной из таблиц доходят до 0x70, хотя используются до 0x9F, почему так?
 ; Game Genie коды - исправление пробелов
 ; Баги - перейти в комнату 0x78, перейти на экран с двумя стенами и сменить персонажа. Стена сменится на стенообразного персонажа
-; vNoSubLevel -> vNoRoom
 ; JSR $AD6E ; to sub_AD6E bank 06_2 - проверить записи
 ; 0x008B91 - лишние байты музыки
 ; удалить лишние директивы .export/.import

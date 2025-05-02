@@ -72,7 +72,7 @@ ram_0042                        = $42 ; 18
 ram_0043                        = $43 ; 7   
 ram_0044                        = $44 ; 2   
 ram_0045                        = $45 ; 15   
-ram_0046                        = $46 ; 41   
+vNoRoom                         = $46 ; see docs (Rooms, Maze1, Maze2, Maze3, Maze4)
 ram_0047                        = $47 ; 3   
 ram_0048                        = $48 ; 5   
 ram_0049                        = $49 ; 3   
@@ -87,16 +87,20 @@ ram_0051                        = $51 ; 2
 ram_0052                        = $52 ; 4   ($indirect),Y <2>   
 ram_0053                        = $53 ; 2   
 ram_0054                        = $54 ; 4   
-ram_0055                        = $55 ; 1   
-ram_0056                        = $56 ; score X000000   
-ram_0057                        = $57 ; score 0X00000
-ram_0058                        = $58 ; score 00X0000
-ram_0059                        = $59 ; score 000X000
-ram_005A                        = $5A ; score 0000X00
-ram_005B                        = $5B ; score 00000X0
-ram_005C                        = $5C ; score 000000X
-ram_005D                        = $5D ; 1   
-ram_005E                        = $5E ; 29   
+vNonUsed55                      = $55 ; 1   
+vScore                          = $56 ; score X000000, [0x56-0x5C]
+; ram_0057                      = $57 ; score 0X00000
+; ram_0058                      = $58 ; score 00X0000
+; ram_0059                      = $59 ; score 000X000
+; ram_005A                      = $5A ; score 0000X00
+; ram_005B                      = $5B ; score 00000X0
+; ram_005C                      = $5C ; score 000000X
+vNonUsed5D                      = $5D ;
+vNoLevel                        = $5E ; It is a number of a level than it starts with 0.
+; 0x00 - level 1
+; 0x01 - level 2
+; 0x02 - level 3
+; 0x03 - level 4 + racing
 ram_005F                        = $5F ; 62   
 ram_0060                        = $60 ; 6   
 ram_0061                        = $61 ; 3   

@@ -24,6 +24,7 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 -  [rooms](docs/ru/rooms.md) - The list of all rooms in the game. The game level can be thought of as a large room.
 -  [Game Genie Codes](docs/ru/game_genie_codes.md) - It's the list of some Game Genie Codes.
 -  [ROM_Map](docs/ru/ROM_Map.md) - This is a detailed overview of the layout of the ROM file's contents.
+-  [RAM_Map](docs/ru/RAM_Map.md) - This is a detailed overview of the layout of the RAM file's contents.
 -  [audio tracks](docs/ru/audio_tracks.md) - All audio tracks from the game.
 -  [messages](docs/ru/messages.md) - All dialog messages from the game.
 ## Resources

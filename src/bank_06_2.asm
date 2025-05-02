@@ -2137,9 +2137,9 @@ C - - - - - 0x01AD83 06:AD73: D0 03     BNE bra_AD78_skip              ; If the 
 C - - - - - 0x01AD85 06:AD75: 4C FD AD  JMP loc_ADFD_breaking_platform ;
 
 bra_AD78_skip:
-C - - - - - 0x01AD88 06:AD78: A5 46     LDA vNoSubLevel                ;
+C - - - - - 0x01AD88 06:AD78: A5 46     LDA vNoRoom                    ;
 C - - - - - 0x01AD8A 06:AD7A: C9 0F     CMP #$0F                       ; CONSTANT - level 3.0
-C - - - - - 0x01AD8C 06:AD7C: D0 4F     BNE bra_ADCD_RTS               ; If vNoSubLevel != 0x0F
+C - - - - - 0x01AD8C 06:AD7C: D0 4F     BNE bra_ADCD_RTS               ; If vNoRoom != 0x0F
 C - - - - - 0x01AD8E 06:AD7E: 8A        TXA                            ;
 C - - - - - 0x01AD8F 06:AD7F: 48        PHA                            ; diposot x
 C - - - - - 0x01AD90 06:AD80: A2 01     LDX #$01                       ; set loop counter (the lift number)
@@ -2618,14 +2618,14 @@ C - - - - - 0x01B0B5 06:B0A5: A5 6D     LDA vMovableChrStatus                   
 C - - - - - 0x01B0B7 06:B0A7: 30 6A     BMI bra_B113_try_generate_item_in_water  ; If 'the character is moving in the water'
 C - - - - - 0x01B0B9 06:B0A9: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2            ; bank FF
 C - - - - - 0x01B0BC 06:B0AC: A0 00     LDY #$00                                 ;
-C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA vNoSubLevel                          ;
-C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ @bra_B0BE_skip                       ; If vNoSubLevel == level 1.0
+C - - - - - 0x01B0BE 06:B0AE: A5 46     LDA vNoRoom                              ;
+C - - - - - 0x01B0C0 06:B0B0: F0 0C     BEQ @bra_B0BE_skip                       ; If vNoRoom == level 1.0
 C - - - - - 0x01B0C2 06:B0B2: A0 02     LDY #$02                                 ;
 C - - - - - 0x01B0C4 06:B0B4: C9 06     CMP #$06                                 ; CONSTANT - level 2 (outside)
-C - - - - - 0x01B0C6 06:B0B6: F0 06     BEQ @bra_B0BE_skip                       ; If vNoSubLevel == level 2 (outside)
+C - - - - - 0x01B0C6 06:B0B6: F0 06     BEQ @bra_B0BE_skip                       ; If vNoRoom == level 2 (outside)
 C - - - - - 0x01B0C8 06:B0B8: A0 04     LDY #$04                                 ;
 C - - - - - 0x01B0CA 06:B0BA: C9 0F     CMP #$0F                                 ; CONSTANT - level 3.0
-C - - - - - 0x01B0CC 06:B0BC: D0 E6     BNE bra_B0A4_RTS                         ; If vNoSubLevel != level 3.0
+C - - - - - 0x01B0CC 06:B0BC: D0 E6     BNE bra_B0A4_RTS                         ; If vNoRoom != level 3.0
 @bra_B0BE_skip:
 C - - - - - 0x01B0CE 06:B0BE: B9 9E 84  LDA tbl_ptr_briefcases_outside,Y         ; 
 C - - - - - 0x01B0D1 06:B0C1: 85 12     STA ram_0012                             ; Low address
@@ -2754,13 +2754,13 @@ bra_B18B_RTS:
 C - - - - - 0x01B19B 06:B18B: 60        RTS                             ;
 
 sub_B18C_prepare_briefcases_by_index:
-C - - - - - 0x01B19C 06:B18C: A5 46     LDA vNoSubLevel                                     ;
+C - - - - - 0x01B19C 06:B18C: A5 46     LDA vNoRoom                                         ;
 C - - - - - 0x01B19E 06:B18E: C9 1F     CMP #$1F                                            ; CONSTANT - a briefcase room on level 1.0
-C - - - - - 0x01B1A0 06:B190: 90 F9     BCC bra_B18B_RTS                                    ; If vNoSubLevel < 0x1F
+C - - - - - 0x01B1A0 06:B190: 90 F9     BCC bra_B18B_RTS                                    ; If vNoRoom < 0x1F
 C - - - - - 0x01B1A2 06:B192: C9 24     CMP #$24                                            ; CONSTANT - a room - level 3.0 (water level)
-C - - - - - 0x01B1A4 06:B194: B0 F5     BCS bra_B18B_RTS                                    ; If vNoSubLevel >= 0x24
+C - - - - - 0x01B1A4 06:B194: B0 F5     BCS bra_B18B_RTS                                    ; If vNoRoom >= 0x24
 C - - - - - 0x01B1A6 06:B196: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2                       ;
-C - - - - - 0x01B1A9 06:B199: A5 46     LDA vNoSubLevel                                     ;
+C - - - - - 0x01B1A9 06:B199: A5 46     LDA vNoRoom                                         ;
 C - - - - - 0x01B1AB 06:B19B: 38        SEC                                                 ;
 C - - - - - 0x01B1AC 06:B19C: E9 1F     SBC #$1F                                            ; A <~ 0x00 (level1), 0x01 (level2.1), 0x02 (level2.2), 0x03 (level3), 0x04 (level4)
 C - - - - - 0x01B1AE 06:B19E: 0A        ASL                                                 ;
@@ -2784,7 +2784,7 @@ C - - - - - 0x01B1CD 06:B1BD: 9D A4 03  STA vBriefcaseHitCount - 1,X            
 C - - - - - 0x01B1D0 06:B1C0: C8        INY                                                 ; 1 of 2 again
 C - - - - - 0x01B1D1 06:B1C1: CA        DEX                                                 ; decrement loop counter
 C - - - - - 0x01B1D2 06:B1C2: D0 E5     BNE bra_B1A9_loop                                   ; If Register X != 0
-C - - - - - 0x01B1D4 06:B1C4: A5 5E     LDA v_no_level                                      ;
+C - - - - - 0x01B1D4 06:B1C4: A5 5E     LDA vNoLevel                                        ;
 C - - - - - 0x01B1D6 06:B1C6: 0A        ASL                                                 ; *2, because RAM address contains 2 bytes
 C - - - - - 0x01B1D7 06:B1C7: A8        TAY                                                 ;
 C - - - - - 0x01B1D8 06:B1C8: B9 2E 81  LDA tbl_ptr_briefcases_indexes_on_the_level,Y       ;
@@ -3028,7 +3028,7 @@ C - - - - - 0x01B353 06:B343: 20 03 B3  JSR sub_B303_reset_prison_room  ;
 C - - - - - 0x01B356 06:B346: A9 00     LDA #$00                        ;
 C - - - - - 0x01B358 06:B348: 85 60     STA vRoomWithPrisoner1          ; clear
 C - - - - - 0x01B35A 06:B34A: 85 61     STA vRoomWithPrisoner2          ; clear
-C - - - - - 0x01B35C 06:B34C: A5 5E     LDA v_no_level                  ;
+C - - - - - 0x01B35C 06:B34C: A5 5E     LDA vNoLevel                    ;
 C - - - - - 0x01B35E 06:B34E: 0A        ASL                             ; *2, because the table contains addresses
 C - - - - - 0x01B35F 06:B34F: A8        TAY                             ;
 C - - - - - 0x01B360 06:B350: B9 08 81  LDA tbl_ptr_prison_rooms,Y      ;
@@ -3036,11 +3036,11 @@ C - - - - - 0x01B363 06:B353: 85 12     STA ram_0012                    ; Low ad
 C - - - - - 0x01B365 06:B355: B9 09 81  LDA tbl_ptr_prison_rooms + 1,Y  ;
 C - - - - - 0x01B368 06:B358: 85 13     STA ram_0013                    ; High address
 C - - - - - 0x01B36A 06:B35A: A0 00     LDY #$00                        ; set loop counter
-C - - - - - 0x01B36C 06:B35C: A5 46     LDA vNoSubLevel                 ;
+C - - - - - 0x01B36C 06:B35C: A5 46     LDA vNoRoom                     ;
 ; In: Register A - room number
 bra_B35E_loop:
 C - - - - - 0x01B36E 06:B35E: D1 12     CMP (ram_0012),Y                ;
-C - - - - - 0x01B370 06:B360: 90 05     BCC bra_B367_found              ; If the room of the table < vNoSubLevel
+C - - - - - 0x01B370 06:B360: 90 05     BCC bra_B367_found              ; If the room of the table < vNoRoom    
 C - - - - - 0x01B372 06:B362: C8        INY                             ; 2 of 3
 C - - - - - 0x01B373 06:B363: C8        INY                             ; 3 of 3
 C - - - - - 0x01B374 06:B364: C8        INY                             ; 1 of 3
@@ -3088,7 +3088,7 @@ C - - - - - 0x01B3B9 06:B3A9: 60        RTS                             ;
 
 sub_B3AA_room_with_NPC_or_prisoner:
 C - - - - - 0x01B3BA 06:B3AA: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2       ; bank FF
-C - - - - - 0x01B3BD 06:B3AD: A5 5E     LDA v_no_level                      ;
+C - - - - - 0x01B3BD 06:B3AD: A5 5E     LDA vNoLevel                        ;
 C - - - - - 0x01B3BF 06:B3AF: 0A        ASL                                 ; *2, because the address have 2 bytes
 C - - - - - 0x01B3C0 06:B3B0: A8        TAY                                 ;
 C - - - - - 0x01B3C1 06:B3B1: B9 00 81  LDA tbl_ptr_rooms_with_NPCs,Y       ;
@@ -3987,7 +3987,7 @@ C - - - - - 0x01B9B3 06:B9A3: AC 09 01  LDY v_last_level                        
 C - - - - - 0x01B9B6 06:B9A6: B9 CA C1  LDA tbl_C1CA_checkpoint_on_start_levels,Y  ; 
 @bra_B9A9_skip:
 C - - - - - 0x01B9B9 06:B9A9: 85 C4     STA vCheckpoint                            ; assigned
-C - - - - - 0x01B9BB 06:B9AB: 84 5E     STY v_no_level                             ; assigned
+C - - - - - 0x01B9BB 06:B9AB: 84 5E     STY vNoLevel                               ; assigned
 C - - - - - 0x01B9BD 06:B9AD: A9 FC     LDA #$FC                                   ; CONSTANT (see vChrLiveStatus)
 C - - - - - 0x01B9BF 06:B9AF: 85 D4     STA vTempChrLiveStatus                     ; All characters are ready to play, Lupin is selected
 C - - - - - 0x01B9C1 06:B9B1: 20 04 C9  JSR sub_C904_clear_score                   ;
@@ -4118,7 +4118,7 @@ C - - - - - 0x01BAA6 06:BA96: A8        TAY                                     
 C - - - - - 0x01BAA7 06:BA97: B9 B9 B9  LDA tbl_B9B9_checkpoints,Y               ;
 C - - - - - 0x01BAAA 06:BA9A: 85 C4     STA vCheckpoint                          ;
 C - - - - - 0x01BAAC 06:BA9C: B9 C1 B9  LDA tbl_B9C1_levels,Y                    ;
-C - - - - - 0x01BAAF 06:BA9F: 85 5E     STA v_no_level                           ;
+C - - - - - 0x01BAAF 06:BA9F: 85 5E     STA vNoLevel                             ;
 C - - - - - 0x01BAB1 06:BAA1: A9 00     LDA #$00                                 ;
 C - - - - - 0x01BAB3 06:BAA3: 85 22     STA vDemoBtnPrsdCounter                  ; clear counter 
 C - - - - - 0x01BAB5 06:BAA5: 85 23     STA vDemoBtnPrsdIndex                    ; clear index
@@ -4313,12 +4313,12 @@ C - - - - - 0x01BBB6 06:BBA6: 24 6D     BIT vMovableChrStatus                   
 C - - - - - 0x01BBB8 06:BBA8: 30 13     BMI bra_BBBD_skip                         ; If the character is moving in the water
 C - - - - - 0x01BBBA 06:BBAA: 20 FE BB  JSR sub_BBFE_is_unique_room               ;
 C - - - - - 0x01BBBD 06:BBAD: B0 36     BCS bra_BBE5_resolve_index_in_unique_room ; If the current room is unique
-C - - - - - 0x01BBBF 06:BBAF: A5 5E     LDA v_no_level                            ;
+C - - - - - 0x01BBBF 06:BBAF: A5 5E     LDA vNoLevel                              ;
 C - - - - - 0x01BBC1 06:BBB1: C9 03     CMP #$03                                  ; CONSTANT - level 4 + racing
-C - - - - - 0x01BBC3 06:BBB3: D0 08     BNE bra_BBBD_skip                         ; If v_no_level != 0x03
-C - - - - - 0x01BBC5 06:BBB5: A6 46     LDX vNoSubLevel                           ;
+C - - - - - 0x01BBC3 06:BBB3: D0 08     BNE bra_BBBD_skip                         ; If vNoLevel != 0x03
+C - - - - - 0x01BBC5 06:BBB5: A6 46     LDX vNoRoom                               ;
 C - - - - - 0x01BBC7 06:BBB7: E0 19     CPX #$19                                  ; CONSTANT - level racing
-C - - - - - 0x01BBC9 06:BBB9: D0 02     BNE bra_BBBD_skip                         ; If vNoSubLevel != 0x19
+C - - - - - 0x01BBC9 06:BBB9: D0 02     BNE bra_BBBD_skip                         ; If vNoRoom != 0x19
 C - - - - - 0x01BBCB 06:BBBB: A9 04     LDA #$04                                  ; ~> the sound index 'music level racing'
 ; in: Register A - the sound index
 bra_BBBD_skip:
@@ -4357,18 +4357,18 @@ C - - - - - 0x01BC05 06:BBF5: A0 06     LDY #$06                    ; ~> the sta
 @bra_BBF7_add:
 C - - - - - 0x01BC07 06:BBF7: 98        TYA                         ;
 C - - - - - 0x01BC08 06:BBF8: 18        CLC                         ;
-C - - - - - 0x01BC09 06:BBF9: 65 5E     ADC v_no_level              ; 0x06 ... x09 - index for music 'boss time', 0x0A ... x0D - index for music 'in a room'
+C - - - - - 0x01BC09 06:BBF9: 65 5E     ADC vNoLevel                ; 0x06 ... x09 - index for music 'boss time', 0x0A ... x0D - index for music 'in a room'
 C - - - - - 0x01BC0B 06:BBFB: 4C BD BB  JMP loc_BBBD_add_room_sound ;
 
 ; Out: Carry flag - 1 for NPC rooms, briefcase rooms, rooms with the boss, else 0.
 sub_BBFE_is_unique_room:
-C - - - - - 0x01BC0E 06:BBFE: A5 46     LDA vNoSubLevel            ;
+C - - - - - 0x01BC0E 06:BBFE: A5 46     LDA vNoRoom                ;
 C - - - - - 0x01BC10 06:BC00: C9 14     CMP #$14                   ; CONSTANT - a room 'boss of level 4'
-C - - - - - 0x01BC12 06:BC02: F0 0A     BEQ bra_BC0E_return_true   ; If vNoSubLevel == 0x14
+C - - - - - 0x01BC12 06:BC02: F0 0A     BEQ bra_BC0E_return_true   ; If vNoRoom == 0x14
 C - - - - - 0x01BC14 06:BC04: C9 1A     CMP #$1A                   ; CONSTANT - a npc room or a character tied up
-C - - - - - 0x01BC16 06:BC06: 90 04     BCC @bra_BC0C_return_false ; If vNoSubLevel < 0x1A
+C - - - - - 0x01BC16 06:BC06: 90 04     BCC @bra_BC0C_return_false ; If vNoRoom < 0x1A
 C - - - - - 0x01BC18 06:BC08: C9 24     CMP #$24                   ; CONSTANT - a room - level 3.0 (water level)
-C - - - - - 0x01BC1A 06:BC0A: 90 02     BCC bra_BC0E_return_true   ; If vNoSubLevel < 0x24
+C - - - - - 0x01BC1A 06:BC0A: 90 02     BCC bra_BC0E_return_true   ; If vNoRoom < 0x24
 @bra_BC0C_return_false:
 C - - - - - 0x01BC1C 06:BC0C: 18        CLC                        ;
 C - - - - - 0x01BC1D 06:BC0D: 60        RTS                        ;
@@ -4397,8 +4397,8 @@ tbl_BC10_sound_indexes:
 sub_BC48_next_room:
 C - - - - - 0x01BC58 06:BC48: A9 00     LDA #$00                        ;
 C - - - - - 0x01BC5A 06:BC4A: 85 B7     STA vRoomExtraInfo              ; clear
-C - - - - - 0x01BC5C 06:BC4C: E6 46     INC vNoSubLevel                 ;
-C - - - - - 0x01BC5E 06:BC4E: A5 46     LDA vNoSubLevel                 ;
+C - - - - - 0x01BC5C 06:BC4C: E6 46     INC vNoRoom                     ;
+C - - - - - 0x01BC5E 06:BC4E: A5 46     LDA vNoRoom                     ;
 C - - - - - 0x01BC60 06:BC50: 85 C4     STA vCheckpoint                 ; updates the checkpoint
 @bra_BC52_repeat:
 C - - - - - 0x01BC62 06:BC52: 4A        LSR                             ;

@@ -495,7 +495,7 @@ C - - - - - 0x00E37F 03:A36F: BD 20 03  LDA vEnemyAStatus,X             ;
 C - - - - - 0x00E382 03:A372: 8D D7 03  STA vCacheBossStatus            ; store to a cache
 C - - - - - 0x00E385 03:A375: AD 32 03  LDA vEnemyAScreenPosX           ;
 C - - - - - 0x00E388 03:A378: 8D D8 03  STA vCacheBossScreenPosX        ; store to a cache
-C - - - - - 0x00E38B 03:A37B: A4 5E     LDY v_no_level                  ;
+C - - - - - 0x00E38B 03:A37B: A4 5E     LDY vNoLevel                    ;
 C - - - - - 0x00E38D 03:A37D: B9 88 A3  LDA tbl_A388_score,Y            ;
 C - - - - - 0x00E390 03:A380: 20 60 C9  JSR sub_C960_add_score2         ; adds score by the level number
 C - - - - - 0x00E393 03:A383: A9 00     LDA #$00                        ;
@@ -521,7 +521,7 @@ C - - - - - 0x00E3A8 03:A398: 60        RTS                     ;
 
 ; Out: Register A - DSSSSSSS (D - change direction, S - a new status index)
 sub_A399_get_status_index:
-C - - - - - 0x00E3A9 03:A399: A5 5E     LDA v_no_level                     ;
+C - - - - - 0x00E3A9 03:A399: A5 5E     LDA vNoLevel                       ;
 C - - - - - 0x00E3AB 03:A39B: 0A        ASL                                ; *2, because the table have 2 bytes
 C - - - - - 0x00E3AC 03:A39C: A8        TAY                                ;
 C - - - - - 0x00E3AD 03:A39D: B9 46 A0  LDA tbl_A046_distances,Y           ;
@@ -558,7 +558,7 @@ C - - - - - 0x00E3E4 03:A3D4: 29 0F     AND #$0F                           ;
 C - - - - - 0x00E3E6 03:A3D6: 18        CLC                                ;
 C - - - - - 0x00E3E7 03:A3D7: 65 11     ADC vCacheRam_11                   ;
 C - - - - - 0x00E3E9 03:A3D9: 85 00     STA ram_0000                       ; $0000 <~ {0x00, 0x01, ..., 0x3F}
-C - - - - - 0x00E3EB 03:A3DB: A4 5E     LDY v_no_level                     ;
+C - - - - - 0x00E3EB 03:A3DB: A4 5E     LDY vNoLevel                       ;
 C - - - - - 0x00E3ED 03:A3DD: B9 42 A0  LDA tbl_A042_index_offsets,Y       ; A <~ the offset
 C - - - - - 0x00E3F0 03:A3E0: 18        CLC                                ;
 C - - - - - 0x00E3F1 03:A3E1: 65 00     ADC ram_0000                       ;

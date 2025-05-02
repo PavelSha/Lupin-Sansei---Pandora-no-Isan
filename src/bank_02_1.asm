@@ -861,7 +861,7 @@ bra_AF58:
 C - - - - - 0x008F68 02:AF58: C9 A5     CMP #$A5                       ; !(UNUSED)
 C - - - - - 0x008F6A 02:AF5A: D0 08     BNE bra_AF64                   ; !(UNUSED)
 C - - - - - 0x008F6C 02:AF5C: B1 FE     LDA (ram_00FE),Y               ; !(UNUSED)
-C - - - - - 0x008F6E 02:AF5E: 8D 07 04  STA ram_0407                   ; !(UNUSED)
+C - - - - - 0x008F6E 02:AF5E: 8D 07 04  STA vSoundNonUsed              ; !(UNUSED)
 C - - - - - 0x008F71 02:AF61: 4C 38 AE  JMP loc_AE38_next_sound_pair   ; !(UNUSED)
 
 bra_AF64:

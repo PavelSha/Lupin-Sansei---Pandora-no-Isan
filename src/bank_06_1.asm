@@ -1198,9 +1198,9 @@ C - - - - - 0x018765 06:A755: D0 03     BNE bra_A75A_render_dying            ; I
 C - - - - - 0x018767 06:A757: 4C 73 D8  JMP loc_D873_free_enemyB             ;
 
 bra_A75A_render_dying:
-C - - - - - 0x01876A 06:A75A: A5 46     LDA vNoSubLevel                      ;
+C - - - - - 0x01876A 06:A75A: A5 46     LDA vNoRoom                          ;
 C - - - - - 0x01876C 06:A75C: C9 19     CMP #$19                             ; CONSTANT - level racing
-C - - - - - 0x01876E 06:A75E: F0 03     BEQ bra_A763_racing                  ; If vNoSubLevel is the level racing
+C - - - - - 0x01876E 06:A75E: F0 03     BEQ bra_A763_racing                  ; If vNoRoom is the level racing
 C - - - - - 0x018770 06:A760: 4C 7D D9  JMP loc_D97D_add_flash_sprite_magic  ;
 
 bra_A763_racing:
@@ -3908,7 +3908,7 @@ bra_B940_try_jump_over:
 C - - - - - 0x019950 06:B940: BD 20 03  LDA vEnemyAStatus,X            ;
 C - - - - - 0x019953 06:B943: 29 20     AND #$20                       ; CONSTANT - 'the dying' status
 C - - - - - 0x019955 06:B945: D0 1A     BNE bra_B961_RTS               ; If the enemy is dying
-C - - - - - 0x019957 06:B947: A5 5E     LDA v_no_level                 ;
+C - - - - - 0x019957 06:B947: A5 5E     LDA vNoLevel                   ;
 C - - - - - 0x019959 06:B949: C9 03     CMP #$03                       ; CONSTANT - level 4 or level-racing
 C - - - - - 0x01995B 06:B94B: F0 14     BEQ bra_B961_RTS               ; If vNoLevel == 0x03
 C - - - - - 0x01995D 06:B94D: A9 14     LDA #$14                       ;
