@@ -14,6 +14,13 @@
 :: the file will be at the top inside the folder.
 :: make sure to use the same name in preparations.lua
 set "file_name=_lupin"
+if "%~1"=="en" set "file_name=_lupin_en"
+
+set "chr_file_name=CHR_ROM"
+if "%~1"=="en" set "chr_file_name=CHR_ROM_EN"
+
+set "header_file_name=header"
+if "%~1"=="en" set "header_file_name=header_en"
 
 :: size of your ROM file in bytes (decimal),
 :: used for checking if assembled file is correct
@@ -23,6 +30,7 @@ set "file_size=196624"
 :: my disassembly is correct, but doesn't affect assembling.
 :: lowercase is allowed
 set "sha1_original=B633CC515C6A913D5A65A230E0698446331869A5"
+if "%~1"=="en" set "sha1_original=E66D818A0625C12F3410ABC326D1DC1E5F8B2835"
 
 :: set to 0 if you want to create debug and listing files.
 :: this can slow down assembling a little bit, but these
@@ -48,6 +56,9 @@ set "file_backup=0"
 :: default is 0
 set "file_diff=0"
 
+set "translate_symbol=jp"
+if "%~1"=="en" set "translate_symbol=en"
+
 :: CONFIG SECTION (end)
 
 
@@ -71,37 +82,37 @@ start /wait lua53 preparations.lua
 :: -l = create listing file
 :: -g = create debug file
 if %fast_assembly% equ 1 (
-    ca65 -U src\copy_bank_00_1.asm
-    ca65 -U src\copy_bank_00_2.asm
-    ca65 -U src\copy_bank_01_1.asm
-    ca65 -U src\copy_bank_01_2.asm
-    ca65 -U src\copy_bank_02_1.asm
-    ca65 -U src\copy_bank_02_2.asm
-    ca65 -U src\copy_bank_03_1.asm
-    ca65 -U src\copy_bank_03_2.asm
-    ca65 -U src\copy_bank_04_1.asm
-    ca65 -U src\copy_bank_04_2.asm
-    ca65 -U src\copy_bank_05_1.asm
-    ca65 -U src\copy_bank_05_2.asm
-    ca65 -U src\copy_bank_06_1.asm
-    ca65 -U src\copy_bank_06_2.asm
-    ca65 -U src\copy_bank_FF.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_00_1.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_00_2.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_01_1.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_01_2.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_02_1.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_02_2.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_03_1.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_03_2.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_04_1.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_04_2.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_05_1.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_05_2.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_06_1.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_06_2.asm
+    ca65 -D %translate_symbol% -U src\copy_bank_FF.asm
 ) else (
-    ca65 -U -l src\copy_bank_00_1.lst   -g src\copy_bank_00_1.asm
-    ca65 -U -l src\copy_bank_00_2.lst   -g src\copy_bank_00_2.asm
-    ca65 -U -l src\copy_bank_01_1.lst   -g src\copy_bank_01_1.asm
-    ca65 -U -l src\copy_bank_01_2.lst   -g src\copy_bank_01_2.asm
-    ca65 -U -l src\copy_bank_02_1.lst   -g src\copy_bank_02_1.asm
-    ca65 -U -l src\copy_bank_02_2.lst   -g src\copy_bank_02_2.asm
-    ca65 -U -l src\copy_bank_03_1.lst   -g src\copy_bank_03_1.asm
-    ca65 -U -l src\copy_bank_03_2.lst   -g src\copy_bank_03_2.asm
-    ca65 -U -l src\copy_bank_04_1.lst   -g src\copy_bank_04_1.asm
-    ca65 -U -l src\copy_bank_04_2.lst   -g src\copy_bank_04_2.asm
-    ca65 -U -l src\copy_bank_05_1.lst   -g src\copy_bank_05_1.asm
-    ca65 -U -l src\copy_bank_05_2.lst   -g src\copy_bank_05_2.asm
-    ca65 -U -l src\copy_bank_06_1.lst   -g src\copy_bank_06_1.asm
-    ca65 -U -l src\copy_bank_06_2.lst   -g src\copy_bank_06_2.asm
-    ca65 -U -l src\copy_bank_FF.lst     -g src\copy_bank_FF.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_00_1.lst   -g src\copy_bank_00_1.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_00_2.lst   -g src\copy_bank_00_2.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_01_1.lst   -g src\copy_bank_01_1.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_01_2.lst   -g src\copy_bank_01_2.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_02_1.lst   -g src\copy_bank_02_1.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_02_2.lst   -g src\copy_bank_02_2.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_03_1.lst   -g src\copy_bank_03_1.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_03_2.lst   -g src\copy_bank_03_2.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_04_1.lst   -g src\copy_bank_04_1.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_04_2.lst   -g src\copy_bank_04_2.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_05_1.lst   -g src\copy_bank_05_1.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_05_2.lst   -g src\copy_bank_05_2.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_06_1.lst   -g src\copy_bank_06_1.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_06_2.lst   -g src\copy_bank_06_2.asm
+    ca65 -D %translate_symbol% -U -l src\copy_bank_FF.lst     -g src\copy_bank_FF.asm
 )
 
 :: assemble code into binaries
@@ -142,7 +153,7 @@ if %fast_assembly% equ 1 (
 )
 
 :: join header, PRG and CHR (if exists) into a single ROM file
-copy /B header.bin + PRG_ROM.bin + assets\CHR_ROM.chr %file_name%.nes > nul
+copy /B %header_file_name%.bin + PRG_ROM.bin + assets\%chr_file_name%.chr %file_name%.nes > nul
 
 :: join listing files into a single file
 if %fast_assembly% equ 0 (

@@ -225,14 +225,7 @@ vRoomWithPrisoners            = ram_0060 ; [$0060-$0061]
 vRoomWithPrisoner1            = ram_0060
 vRoomWithPrisoner2            = ram_0061
 vPrisoners                    = ram_0062 ; [$0062-$0063], 0x00 - Lupin, 0x01 - Jigen, 0x02 - Goemon
-vScreenChrPosX                = ram_0064 ; The character's position along the X axis relative to the screen (no repeat)
-vTempScreenChrPosX            = ram_0065
-vLowChrPosX                   = ram_0066 ; The character's position along the X axis relative to the level (with repeat) 
-vTempLowChrPosX               = ram_0067
-vNoScreen                     = ram_0068 ; The number of the level screen, vHighChrPosX
-vTempNoScreen                 = ram_0069
-vScreenChrPosY                = ram_006A ; The character's position along the Y axis relative to the screen (no repeat)
-vTempScreenChrPosY            = ram_006B
+
 vChrStatus                    = ram_006C ; A status of a character
 ; Byte: XAAA KLMN
 ; N - the character is looking to the right/left (1 - left, 0 - right)

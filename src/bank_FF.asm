@@ -480,8 +480,8 @@ C - - - - - 0x01C230 07:C220: A5 47     LDA vTempNoSubLevel                     
 C - - - - - 0x01C232 07:C222: 85 46     STA vNoRoom                                  ; restores
 C - - - - - 0x01C234 07:C224: A5 67     LDA vTempLowChrPosX                          ;
 C - - - - - 0x01C236 07:C226: 85 66     STA vLowChrPosX                              ; restores
-C - - - - - 0x01C238 07:C228: A5 69     LDA vTempNoScreen                            ;
-C - - - - - 0x01C23A 07:C22A: 85 68     STA vNoScreen                                ; restores
+C - - - - - 0x01C238 07:C228: A5 69     LDA vTempHighChrPosX                         ;
+C - - - - - 0x01C23A 07:C22A: 85 68     STA vHighChrPosX                             ; restores
 bra_C22C_skip:
 C - - - - - 0x01C23C 07:C22C: A5 39     LDA vGameInterruptEvent                      ;
 C - - - - - 0x01C23E 07:C22E: C9 80     CMP #$80                                     ; CONSTANT - to select the character (the character is arrested)
@@ -2224,7 +2224,7 @@ C - - - - - 0x01CD41 07:CD31: A5 66     LDA vLowChrPosX                ;
 C - - - - - 0x01CD43 07:CD33: 18        CLC                            ;
 C - - - - - 0x01CD44 07:CD34: 79 56 CD  ADC tbl_CD53_bomb_info + 3,Y   ;
 C - - - - - 0x01CD47 07:CD37: 8D B6 03  STA vItemPosXLow               ; <~ ChrPosX + offset (low value)
-C - - - - - 0x01CD4A 07:CD3A: A5 68     LDA vNoScreen                  ;
+C - - - - - 0x01CD4A 07:CD3A: A5 68     LDA vHighChrPosX               ;
 C - - - - - 0x01CD4C 07:CD3C: 79 57 CD  ADC tbl_CD53_bomb_info + 4,Y   ;
 C - - - - - 0x01CD4F 07:CD3F: 8D BC 03  STA vItemPosXHigh              ; <~ ChrPosX + offset (high, value +1 with overflow)
 C - - - - - 0x01CD52 07:CD42: B9 58 CD  LDA tbl_CD53_bomb_info + 5,Y   ;
@@ -3815,7 +3815,7 @@ C - - - - - 0x01D6DA 07:D6CA: A0 00     LDY #$00                 ;
 C - - - - - 0x01D6DC 07:D6CC: A5 66     LDA vLowChrPosX          ;
 C - - - - - 0x01D6DE 07:D6CE: 38        SEC                      ;
 C - - - - - 0x01D6DF 07:D6CF: FD 38 03  SBC vEnemyAPosXLow,X     ;
-C - - - - - 0x01D6E2 07:D6D2: A5 68     LDA vNoScreen            ;
+C - - - - - 0x01D6E2 07:D6D2: A5 68     LDA vHighChrPosX         ;
 C - - - - - 0x01D6E4 07:D6D4: FD 3E 03  SBC vEnemyAPosXHigh,X    ;
 C - - - - - 0x01D6E7 07:D6D7: B0 01     BCS @bra_D6DA_RTS        ; If [Hc:Lc] >= [He:Le]
 C - - - - - 0x01D6E9 07:D6D9: C8        INY                      ;
@@ -3835,7 +3835,7 @@ C - - - - - 0x01D6EF 07:D6DF: A0 00     LDY #$00                   ;
 C - - - - - 0x01D6F1 07:D6E1: A5 66     LDA vLowChrPosX            ;
 C - - - - - 0x01D6F3 07:D6E3: 38        SEC                        ;
 C - - - - - 0x01D6F4 07:D6E4: FD 74 03  SBC vEnemyBPosXLow,X       ;
-C - - - - - 0x01D6F7 07:D6E7: A5 68     LDA vNoScreen              ;
+C - - - - - 0x01D6F7 07:D6E7: A5 68     LDA vHighChrPosX           ;
 C - - - - - 0x01D6F9 07:D6E9: FD 7A 03  SBC vEnemyBPosXHigh,X      ;
 C - - - - - 0x01D6FC 07:D6EC: B0 01     BCS @bra_D6EF_RTS          ; If [Hc:Lc] >= [He:Le]
 C - - - - - 0x01D6FE 07:D6EE: C8        INY                        ;
@@ -4322,7 +4322,7 @@ sub_D974_init_short_chr_positions:
 loc_D974_init_short_chr_positions:
 C D 2 - - - 0x01D984 07:D974: A5 66     LDA vLowChrPosX     ;
 C - - - - - 0x01D986 07:D976: 85 01     STA ram_0001        ;
-C - - - - - 0x01D988 07:D978: A5 68     LDA vNoScreen       ;
+C - - - - - 0x01D988 07:D978: A5 68     LDA vHighChrPosX    ;
 C - - - - - 0x01D98A 07:D97A: 85 4D     STA vCacheNoScreen  ;
 C - - - - - 0x01D98C 07:D97C: 60        RTS                 ;
 
@@ -4895,7 +4895,7 @@ loc_DCBB_dec_LowChrPosX:
 C D 2 - - - 0x01DCCB 07:DCBB: A5 66     LDA vLowChrPosX                 ;
 C - - - - - 0x01DCCD 07:DCBD: 38        SEC                             ;
 C - - - - - 0x01DCCE 07:DCBE: E9 10     SBC #$10                        ; CONSTANT - The character should be visible in its entirety on the left
-C - - - - - 0x01DCD0 07:DCC0: A5 68     LDA vNoScreen                   ;
+C - - - - - 0x01DCD0 07:DCC0: A5 68     LDA vHighChrPosX                ;
 C - - - - - 0x01DCD2 07:DCC2: E9 00     SBC #$00                        ;
 C - - - - - 0x01DCD4 07:DCC4: 90 F4     BCC bra_DCBA_RTS                ; Branch If the character reach the beginning of the room
 C - - - - - 0x01DCD6 07:DCC6: 20 D7 DC  JSR sub_DCD7_internal_decrement ;
@@ -4911,9 +4911,9 @@ C - - - - - 0x01DCE7 07:DCD7: A5 66     LDA vLowChrPosX     ;
 C - - - - - 0x01DCE9 07:DCD9: 38        SEC                 ;
 C - - - - - 0x01DCEA 07:DCDA: E9 01     SBC #$01            ;
 C - - - - - 0x01DCEC 07:DCDC: 85 66     STA vLowChrPosX     ;
-C - - - - - 0x01DCEE 07:DCDE: A5 68     LDA vNoScreen       ;
-C - - - - - 0x01DCF0 07:DCE0: E9 00     SBC #$00            ; decrement vNoScreen, if vLowChrPosX changed a sign
-C - - - - - 0x01DCF2 07:DCE2: 85 68     STA vNoScreen       ;  
+C - - - - - 0x01DCEE 07:DCDE: A5 68     LDA vHighChrPosX    ;
+C - - - - - 0x01DCF0 07:DCE0: E9 00     SBC #$00            ; decrement vHighChrPosX, if vLowChrPosX changed a sign
+C - - - - - 0x01DCF2 07:DCE2: 85 68     STA vHighChrPosX    ;  
 C - - - - - 0x01DCF4 07:DCE4: 60        RTS                 ;
 
 sub_DCE5_try_move_on_the_right:
@@ -4938,12 +4938,12 @@ loc_DCFA_inc_LowChrPosX:
 C D 2 - - - 0x01DD0A 07:DCFA: A5 66     LDA vLowChrPosX                 ;
 C - - - - - 0x01DD0C 07:DCFC: 38        SEC                             ;
 C - - - - - 0x01DD0D 07:DCFD: E9 F0     SBC #$F0                        ; CONSTANT - The character should be visible in its entirety on the right
-C - - - - - 0x01DD0F 07:DCFF: A5 68     LDA vNoScreen                   ;
+C - - - - - 0x01DD0F 07:DCFF: A5 68     LDA vHighChrPosX                ;
 C - - - - - 0x01DD11 07:DD01: E5 4A     SBC vNearCurrentRoomLength      ;
 C - - - - - 0x01DD13 07:DD03: B0 B5     BCS bra_DCBA_RTS                ; Branch If the character reach the end of the room
 C - - - - - 0x01DD15 07:DD05: E6 66     INC vLowChrPosX                 ;
 C - - - - - 0x01DD17 07:DD07: D0 02     BNE @bra_DD0B_skip              ; If the character doesn't move from one screen to another
-C - - - - - 0x01DD19 07:DD09: E6 68     INC vNoScreen                   ;
+C - - - - - 0x01DD19 07:DD09: E6 68     INC vHighChrPosX                ;
 @bra_DD0B_skip:
 C - - - - - 0x01DD1B 07:DD0B: 20 A9 DC  JSR sub_DCA9_calc_ScreenChrPosX ;
 C - - - - - 0x01DD1E 07:DD0E: C9 90     CMP #$90                        ; CONSTANT - the scroll border on the right
@@ -5245,7 +5245,7 @@ C - - - - - 0x01DEF1 07:DEE1: 85 6F     STA vJumpCounter                       ;
 C - - - - - 0x01DEF3 07:DEE3: 4C 86 DE  JMP loc_DE86_jump_subroutine_bf2       ;
 
 loc_DEE6_dead_fallin:
-C D 2 - - - 0x01DEF6 07:DEE6: A5 68     LDA vNoScreen                             ;
+C D 2 - - - 0x01DEF6 07:DEE6: A5 68     LDA vHighChrPosX                          ;
 C - - - - - 0x01DEF8 07:DEE8: 85 D7     STA ram_00D7                              ; prepare an input parameter
 C - - - - - 0x01DEFA 07:DEEA: 20 DA D9  JSR sub_D9DA_screen_with_water_gap        ;
 C - - - - - 0x01DEFD 07:DEED: 90 2D     BCC bra_DF1C_no_water                     ; If the screen has not the water gap
@@ -5584,7 +5584,7 @@ C - - - - - 0x01E0E7 07:E0D7: A5 66     LDA vLowChrPosX                     ;
 C - - - - - 0x01E0E9 07:E0D9: 18        CLC                                 ;
 C - - - - - 0x01E0EA 07:E0DA: 65 02     ADC ram_0002                        ;
 C - - - - - 0x01E0EC 07:E0DC: 95 85     STA vBulletLowPosX,X                ; <~ LowPosX + $0002
-C - - - - - 0x01E0EE 07:E0DE: A5 68     LDA vNoScreen                       ;
+C - - - - - 0x01E0EE 07:E0DE: A5 68     LDA vHighChrPosX                    ;
 C - - - - - 0x01E0F0 07:E0E0: 69 00     ADC #$00                            ;
 C - - - - - 0x01E0F2 07:E0E2: 95 8A     STA vBulletHighPosX,X               ; <~ HighPosX (+1 with overflow)
 C - - - - - 0x01E0F4 07:E0E4: 60        RTS                                 ;
@@ -5595,7 +5595,7 @@ C - - - - - 0x01E0F8 07:E0E8: A5 66     LDA vLowChrPosX                     ;
 C - - - - - 0x01E0FA 07:E0EA: 38        SEC                                 ;
 C - - - - - 0x01E0FB 07:E0EB: E5 02     SBC ram_0002                        ;
 C - - - - - 0x01E0FD 07:E0ED: 95 85     STA vBulletLowPosX,X                ; <~ LowPosX - $0002
-C - - - - - 0x01E0FF 07:E0EF: A5 68     LDA vNoScreen                       ;
+C - - - - - 0x01E0FF 07:E0EF: A5 68     LDA vHighChrPosX                    ;
 C - - - - - 0x01E101 07:E0F1: E9 00     SBC #$00                            ;
 C - - - - - 0x01E103 07:E0F3: 95 8A     STA vBulletHighPosX,X               ; <~ HighPosX - 0x01 (+1 with overflow)
 C - - - - - 0x01E105 07:E0F5: 60        RTS                                 ;
@@ -6232,7 +6232,7 @@ C - - - - - 0x01E505 07:E4F5: A5 66     LDA vLowChrPosX                 ;
 C - - - - - 0x01E507 07:E4F7: 18        CLC                             ;
 C - - - - - 0x01E508 07:E4F8: 79 11 E5  ADC tbl_E511_posX_offsets,Y     ;
 C - - - - - 0x01E50B 07:E4FB: 9D DD 03  STA vBubblePosXLow,X            ; <~ ChrPosX + offset (low value)
-C - - - - - 0x01E50E 07:E4FE: A5 68     LDA vNoScreen                   ;
+C - - - - - 0x01E50E 07:E4FE: A5 68     LDA vHighChrPosX                ;
 C - - - - - 0x01E510 07:E500: 79 12 E5  ADC tbl_E511_posX_offsets + 1,Y ;
 C - - - - - 0x01E513 07:E503: 9D E0 03  STA vBubblePosXHigh,X           ; <~ ChrPosX + offset (high value, maybe the overflow)
 C - - - - - 0x01E516 07:E506: A9 C0     LDA #$C0                        ;
@@ -6687,15 +6687,15 @@ C - - - - - 0x01E7B3 07:E7A3: 38        SEC                              ;
 C - - - - - 0x01E7B4 07:E7A4: E5 66     SBC vLowChrPosX                  ; 
 C - - - - - 0x01E7B6 07:E7A6: 85 01     STA ram_0001                     ; store low x-position relative to the starting screen
 C - - - - - 0x01E7B8 07:E7A8: B9 CF 85  LDA tbl_roof_pitches + 1,Y       ; get 2 byte
-C - - - - - 0x01E7BB 07:E7AB: E5 68     SBC vNoScreen                    ;
-C - - - - - 0x01E7BD 07:E7AD: B0 16     BCS bra_E7C5_return_false        ; If vNoScreen <= start screen-value
+C - - - - - 0x01E7BB 07:E7AB: E5 68     SBC vHighChrPosX                 ;
+C - - - - - 0x01E7BD 07:E7AD: B0 16     BCS bra_E7C5_return_false        ; If vHighChrPosX <= start screen-value
 C - - - - - 0x01E7BF 07:E7AF: B9 D0 85  LDA tbl_roof_pitches + 2,Y       ; get 3 byte
 C - - - - - 0x01E7C2 07:E7B2: 38        SEC                              ;
 C - - - - - 0x01E7C3 07:E7B3: E5 66     SBC vLowChrPosX                  ;
 C - - - - - 0x01E7C5 07:E7B5: 85 02     STA ram_0002                     ; store low x-position relative to the ending screen
 C - - - - - 0x01E7C7 07:E7B7: B9 D1 85  LDA tbl_roof_pitches + 3,Y       ; get 4 byte
-C - - - - - 0x01E7CA 07:E7BA: E5 68     SBC vNoScreen                    ;
-C - - - - - 0x01E7CC 07:E7BC: B0 0F     BCS bra_E7CD_skip                ; If vNoScreen <= end screen-value
+C - - - - - 0x01E7CA 07:E7BA: E5 68     SBC vHighChrPosX                 ;
+C - - - - - 0x01E7CC 07:E7BC: B0 0F     BCS bra_E7CD_skip                ; If vHighChrPosX <= end screen-value
 C - - - - - 0x01E7CE 07:E7BE: C8        INY                              ; increments y
 C - - - - - 0x01E7CF 07:E7BF: C8        INY                              ; increments y
 C - - - - - 0x01E7D0 07:E7C0: C8        INY                              ; increments y
@@ -6931,7 +6931,7 @@ C - - - - - 0x01E956 07:E946: A0 03     LDY #$03                                
 C - - - - - 0x01E958 07:E948: 4C 23 EB  JMP loc_EB23_activate_jump_status        ;
 
 bra_E94B_skip:
-C - - - - - 0x01E95B 07:E94B: A5 68     LDA vNoScreen                    ;
+C - - - - - 0x01E95B 07:E94B: A5 68     LDA vHighChrPosX                 ;
 C - - - - - 0x01E95D 07:E94D: C5 4A     CMP vNearCurrentRoomLength       ;
 C - - - - - 0x01E95F 07:E94F: F0 0F     BEQ bra_E960_into_pyramid_       ; If the car with character reach the end of the room
 C - - - - - 0x01E961 07:E951: A9 01     LDA #BIT_BUTTON_A                ; tries to execute a jump action
@@ -7071,7 +7071,7 @@ C - - - - - 0x01EA3E 07:EA2E: 85 01     STA ram_0001                         ; <
 C - - - - - 0x01EA40 07:EA30: A5 66     LDA vLowChrPosX                      ;
 C - - - - - 0x01EA42 07:EA32: 38        SEC                                  ;
 C - - - - - 0x01EA43 07:EA33: E5 00     SBC ram_0000                         ;
-C - - - - - 0x01EA45 07:EA35: A5 68     LDA vNoScreen                        ;
+C - - - - - 0x01EA45 07:EA35: A5 68     LDA vHighChrPosX                     ;
 C - - - - - 0x01EA47 07:EA37: E5 01     SBC ram_0001                         ;
 C - - - - - 0x01EA49 07:EA39: 90 18     BCC @bra_EA53_calc_posX_by_viewport  ; If [H:L] character < [Hvp:Lvp + 0x14] (1 and 2 bytes)
 C - - - - - 0x01EA4B 07:EA3B: A5 27     LDA vLowViewPortPosX                 ;
@@ -7084,14 +7084,14 @@ C - - - - - 0x01EA56 07:EA46: 85 01     STA ram_0001                         ; <
 C - - - - - 0x01EA58 07:EA48: A5 66     LDA vLowChrPosX                      ;
 C - - - - - 0x01EA5A 07:EA4A: 38        SEC                                  ;
 C - - - - - 0x01EA5B 07:EA4B: E5 00     SBC ram_0000                         ;
-C - - - - - 0x01EA5D 07:EA4D: A5 68     LDA vNoScreen                        ;
+C - - - - - 0x01EA5D 07:EA4D: A5 68     LDA vHighChrPosX                     ;
 C - - - - - 0x01EA5F 07:EA4F: E5 01     SBC ram_0001                         ;
 C - - - - - 0x01EA61 07:EA51: 90 08     BCC @bra_EA5B_calc_screenPosX        ; If [H:L] character < [Hvp:Lvp - 0x20] (1 and 2 bytes)
 @bra_EA53_calc_posX_by_viewport:
 C - - - - - 0x01EA63 07:EA53: A5 00     LDA ram_0000                         ;
 C - - - - - 0x01EA65 07:EA55: 85 66     STA vLowChrPosX                      ; assigns a new low value
 C - - - - - 0x01EA67 07:EA57: A5 01     LDA ram_0001                         ;
-C - - - - - 0x01EA69 07:EA59: 85 68     STA vNoScreen                        ; assigns a new high value
+C - - - - - 0x01EA69 07:EA59: 85 68     STA vHighChrPosX                     ; assigns a new high value
 @bra_EA5B_calc_screenPosX:
 C - - - - - 0x01EA6B 07:EA5B: 4C A9 DC  JMP loc_DCA9_calc_ScreenChrPosX      ;
 
@@ -7129,7 +7129,7 @@ sub_EA91_inc_LowChrPosX:
 loc_EA91_inc_LowChrPosX:
 C - - - - - 0x01EAA1 07:EA91: E6 66     INC vLowChrPosX               ;
 C - - - - - 0x01EAA3 07:EA93: D0 02     BNE @bra_EA97_RTS             ; If the car doesn't move from one screen to another
-C - - - - - 0x01EAA5 07:EA95: E6 68     INC vNoScreen                 ;
+C - - - - - 0x01EAA5 07:EA95: E6 68     INC vHighChrPosX              ;
 @bra_EA97_RTS:
 C - - - - - 0x01EAA7 07:EA97: 60        RTS                           ;
 
@@ -7158,28 +7158,28 @@ C - - - - - 0x01EAB8 07:EAA8: A2 FF     LDX #$FF                       ;
 C - - - - - 0x01EABA 07:EAAA: A5 66     LDA vLowChrPosX                ;
 C - - - - - 0x01EABC 07:EAAC: 38        SEC                            ;
 C - - - - - 0x01EABD 07:EAAD: F9 58 86  SBC tbl_road_hills + 1,Y       ;
-C - - - - - 0x01EAC0 07:EAB0: A5 68     LDA vNoScreen                  ;
+C - - - - - 0x01EAC0 07:EAB0: A5 68     LDA vHighChrPosX               ;
 C - - - - - 0x01EAC2 07:EAB2: F9 57 86  SBC tbl_road_hills,Y           ;
 C - - - - - 0x01EAC5 07:EAB5: 90 34     BCC bra_EAEB_return_false      ; If [H:L] character < [H:L] current road hill (1 and 2 bytes)
 C - - - - - 0x01EAC7 07:EAB7: E8        INX                            ; X = {0, 4, 8, 12, 16}
 C - - - - - 0x01EAC8 07:EAB8: A5 66     LDA vLowChrPosX                ;
 C - - - - - 0x01EACA 07:EABA: 38        SEC                            ;
 C - - - - - 0x01EACB 07:EABB: F9 59 86  SBC tbl_road_hills + 2,Y       ;
-C - - - - - 0x01EACE 07:EABE: A5 68     LDA vNoScreen                  ;
+C - - - - - 0x01EACE 07:EABE: A5 68     LDA vHighChrPosX               ;
 C - - - - - 0x01EAD0 07:EAC0: F9 57 86  SBC tbl_road_hills,Y           ;
 C - - - - - 0x01EAD3 07:EAC3: 90 28     BCC bra_EAED_inside_ascent     ; If [H:L] character < [H:L] current road hill (1 and 3 bytes)
 C - - - - - 0x01EAD5 07:EAC5: E8        INX                            ; X = {1, 5, 9, 13, 17}
 C - - - - - 0x01EAD6 07:EAC6: A5 66     LDA vLowChrPosX                ;
 C - - - - - 0x01EAD8 07:EAC8: 38        SEC                            ;
 C - - - - - 0x01EAD9 07:EAC9: F9 5B 86  SBC tbl_road_hills + 4,Y       ;
-C - - - - - 0x01EADC 07:EACC: A5 68     LDA vNoScreen                  ;
+C - - - - - 0x01EADC 07:EACC: A5 68     LDA vHighChrPosX               ;
 C - - - - - 0x01EADE 07:EACE: F9 5A 86  SBC tbl_road_hills + 3,Y       ;
 C - - - - - 0x01EAE1 07:EAD1: 90 3E     BCC bra_EB11_inside_hill       ; If [H:L] character < [H:L] current road hill (4 and 5 bytes)
 C - - - - - 0x01EAE3 07:EAD3: E8        INX                            ; X = {2, 6, 10, 14, 18}
 C - - - - - 0x01EAE4 07:EAD4: A5 66     LDA vLowChrPosX                ;
 C - - - - - 0x01EAE6 07:EAD6: 38        SEC                            ;
 C - - - - - 0x01EAE7 07:EAD7: F9 5C 86  SBC tbl_road_hills + 5,Y       ;
-C - - - - - 0x01EAEA 07:EADA: A5 68     LDA vNoScreen                  ;
+C - - - - - 0x01EAEA 07:EADA: A5 68     LDA vHighChrPosX               ;
 C - - - - - 0x01EAEC 07:EADC: F9 5A 86  SBC tbl_road_hills + 3,Y       ;
 C - - - - - 0x01EAEF 07:EADF: 90 27     BCC bra_EB08_inside_descent    ; If [H:L] character < [H:L] current road hill (4 and 6 bytes)
 C - - - - - 0x01EAF1 07:EAE1: E8        INX                            ; X = {3, 7, 11, 15, 19}
@@ -7382,7 +7382,7 @@ C - - - - - 0x01EC21 07:EC11: A5 66     LDA vLowChrPosX              ;
 C - - - - - 0x01EC23 07:EC13: 18        CLC                          ;
 C - - - - - 0x01EC24 07:EC14: 69 0A     ADC #$0A                     ;
 C - - - - - 0x01EC26 07:EC16: 95 85     STA vBulletLowPosX,X         ; <~ LowPosX + 0x0A
-C - - - - - 0x01EC28 07:EC18: A5 68     LDA vNoScreen                ;
+C - - - - - 0x01EC28 07:EC18: A5 68     LDA vHighChrPosX             ;
 C - - - - - 0x01EC2A 07:EC1A: 69 00     ADC #$00                     ;
 C - - - - - 0x01EC2C 07:EC1C: 95 8A     STA vBulletHighPosX,X        ; <~ HighPosX - 0x01 (+1 with overflow)
 C - - - - - 0x01EC2E 07:EC1E: 60        RTS                          ;
@@ -9423,9 +9423,9 @@ C - - - - - 0x01F935 07:F925: 4C C9 F9  JMP loc_F9C9_safe_return_false ;
 bra_F928_skip:
 C - - - - - 0x01F938 07:F928: 85 00     STA ram_0000                       ;
 C - - - - - 0x01F93A 07:F92A: 29 0F     AND #$0F                           ; restores by the mask
-C - - - - - 0x01F93C 07:F92C: C5 68     CMP vNoScreen                      ;
-C - - - - - 0x01F93E 07:F92E: 90 E2     BCC bra_F912_inc_next_set          ; If the screen of the current corridor < vNoScreen
-C - - - - - 0x01F940 07:F930: D0 F3     BNE bra_F925_fail                  ; If the screen of the current corridor != vNoScreen
+C - - - - - 0x01F93C 07:F92C: C5 68     CMP vHighChrPosX                   ;
+C - - - - - 0x01F93E 07:F92E: 90 E2     BCC bra_F912_inc_next_set          ; If the screen of the current corridor < vHighChrPosX
+C - - - - - 0x01F940 07:F930: D0 F3     BNE bra_F925_fail                  ; If the screen of the current corridor != vHighChrPosX
 C - - - - - 0x01F942 07:F932: A5 00     LDA ram_0000                       ;
 C - - - - - 0x01F944 07:F934: 29 40     AND #$40                           ; CONSTANT - a floor
 C - - - - - 0x01F946 07:F936: 18        CLC                                ;
@@ -9787,8 +9787,8 @@ C - - - - - 0x01FB86 07:FB76: E9 80     SBC #$80               ; ViewPort adjust
 C - - - - - 0x01FB88 07:FB78: 85 27     STA vLowViewPortPosX   ;
 C - - - - - 0x01FB8A 07:FB7A: C8        INY                    ; 3 of 3 bytes
 C - - - - - 0x01FB8B 07:FB7B: B1 12     LDA ($0012),Y          ; A <~ posX (high)
-C - - - - - 0x01FB8D 07:FB7D: 85 68     STA vNoScreen          ;
-C - - - - - 0x01FB8F 07:FB7F: E9 00     SBC #$00               ; decrement vNoScreen, if vLowChrPosX changed a sign
+C - - - - - 0x01FB8D 07:FB7D: 85 68     STA vHighChrPosX       ;
+C - - - - - 0x01FB8F 07:FB7F: E9 00     SBC #$00               ; decrement vHighChrPosX, if vLowChrPosX changed a sign
 C - - - - - 0x01FB91 07:FB81: 85 4B     STA vHighViewPortPosX  ;
 C - - - - - 0x01FB93 07:FB83: C8        INY                    ; next 1 of 3 bytes
 C - - - - - 0x01FB94 07:FB84: B1 12     LDA ($0012),Y          ; A <~ pos Y
@@ -9808,7 +9808,7 @@ C - - - - - 0x01FBA0 07:FB90: 38        SEC                ;
 C - - - - - 0x01FBA1 07:FB91: E5 66     SBC vLowChrPosX    ;
 C - - - - - 0x01FBA3 07:FB93: C8        INY                ; 3 of 3 bytes
 C - - - - - 0x01FBA4 07:FB94: B1 12     LDA ($0012),Y      ;
-C - - - - - 0x01FBA6 07:FB96: E5 68     SBC vNoScreen      ;
+C - - - - - 0x01FBA6 07:FB96: E5 68     SBC vHighChrPosX   ;
 C - - - - - 0x01FBA8 07:FB98: C8        INY                ; next 1 of 3 bytes
 C - - - - - 0x01FBA9 07:FB99: 60        RTS                ;
 
@@ -9847,7 +9847,7 @@ C - - - - - 0x01FBDF 07:FBCF: 65 27     ADC vLowViewPortPosX         ;
 C - - - - - 0x01FBE1 07:FBD1: 85 66     STA vLowChrPosX              ;
 C - - - - - 0x01FBE3 07:FBD3: A5 4B     LDA vHighViewPortPosX        ;
 C - - - - - 0x01FBE5 07:FBD5: 69 00     ADC #$00                     ;
-C - - - - - 0x01FBE7 07:FBD7: 85 68     STA vNoScreen                ;
+C - - - - - 0x01FBE7 07:FBD7: 85 68     STA vHighChrPosX             ;
 C - - - - - 0x01FBE9 07:FBD9: 60        RTS                          ;
 
 ; Fill the stack before entering the room
@@ -9856,8 +9856,8 @@ C - - - - - 0x01FBEA 07:FBDA: A5 46     LDA vNoRoom               ;
 C - - - - - 0x01FBEC 07:FBDC: 85 47     STA vTempNoSubLevel       ;
 C - - - - - 0x01FBEE 07:FBDE: A5 66     LDA vLowChrPosX           ;
 C - - - - - 0x01FBF0 07:FBE0: 85 67     STA vTempLowChrPosX       ;
-C - - - - - 0x01FBF2 07:FBE2: A5 68     LDA vNoScreen             ;
-C - - - - - 0x01FBF4 07:FBE4: 85 69     STA vTempNoScreen         ;
+C - - - - - 0x01FBF2 07:FBE2: A5 68     LDA vHighChrPosX          ;
+C - - - - - 0x01FBF4 07:FBE4: 85 69     STA vTempHighChrPosX      ;
 C - - - - - 0x01FBF6 07:FBE6: A5 6A     LDA vScreenChrPosY        ;
 C - - - - - 0x01FBF8 07:FBE8: 85 6B     STA vTempScreenChrPosY    ;
 C - - - - - 0x01FBFA 07:FBEA: A5 64     LDA vScreenChrPosX        ;
@@ -9878,8 +9878,8 @@ C - - - - - 0x01FC0F 07:FBFF: A5 65     LDA vTempScreenChrPosX    ;
 C - - - - - 0x01FC11 07:FC01: 85 64     STA vScreenChrPosX        ;
 C - - - - - 0x01FC13 07:FC03: A5 6B     LDA vTempScreenChrPosY    ;
 C - - - - - 0x01FC15 07:FC05: 85 6A     STA vScreenChrPosY        ;
-C - - - - - 0x01FC17 07:FC07: A5 69     LDA vTempNoScreen         ;
-C - - - - - 0x01FC19 07:FC09: 85 68     STA vNoScreen             ;
+C - - - - - 0x01FC17 07:FC07: A5 69     LDA vTempHighChrPosX      ;
+C - - - - - 0x01FC19 07:FC09: 85 68     STA vHighChrPosX          ;
 C - - - - - 0x01FC1B 07:FC0B: A5 67     LDA vTempLowChrPosX       ;
 C - - - - - 0x01FC1D 07:FC0D: 85 66     STA vLowChrPosX           ;
 C - - - - - 0x01FC1F 07:FC0F: A5 47     LDA vTempNoSubLevel       ;
@@ -9951,7 +9951,7 @@ C - - - - - 0x01FC76 07:FC66: 38        SEC                                ;
 C - - - - - 0x01FC77 07:FC67: E5 66     SBC vLowChrPosX                    ;
 C - - - - - 0x01FC79 07:FC69: C8        INY                                ; 2 of 6 bytes
 C - - - - - 0x01FC7A 07:FC6A: B1 12     LDA ($0012),Y                      ;
-C - - - - - 0x01FC7C 07:FC6C: E5 68     SBC vNoScreen                      ;
+C - - - - - 0x01FC7C 07:FC6C: E5 68     SBC vHighChrPosX                   ;
 C - - - - - 0x01FC7E 07:FC6E: B0 07     BCS @bra_FC77_break                ; If [Hc:Lc] <= [Hw:Lw] (the water gap position is to the right of the character)
 C - - - - - 0x01FC80 07:FC70: C8        INY                                ; 3 of 6 bytes
 C - - - - - 0x01FC81 07:FC71: C8        INY                                ; 4 of 6 bytes
@@ -9966,7 +9966,7 @@ C - - - - - 0x01FC8A 07:FC7A: 85 46     STA vNoRoom                        ;
 C - - - - - 0x01FC8C 07:FC7C: C8        INY                                ; 4 of 6 bytes
 C - - - - - 0x01FC8D 07:FC7D: B1 12     LDA ($0012),Y                      ;
 C - - - - - 0x01FC8F 07:FC7F: 85 4B     STA vHighViewPortPosX              ; reset viewport X-position (high value)
-C - - - - - 0x01FC91 07:FC81: 85 68     STA vNoScreen                      ;
+C - - - - - 0x01FC91 07:FC81: 85 68     STA vHighChrPosX                   ;
 C - - - - - 0x01FC93 07:FC83: C8        INY                                ; 5 of 6 bytes
 C - - - - - 0x01FC94 07:FC84: B1 12     LDA ($0012),Y                      ;
 C - - - - - 0x01FC96 07:FC86: 85 3F     STA vFlowingOffset                 ;
@@ -9991,7 +9991,7 @@ C - - - - - 0x01FCB3 07:FCA3: B9 24 95  LDA tbl_water_rooms_props_out,Y       ;
 C - - - - - 0x01FCB6 07:FCA6: 85 12     STA $0012                             ;
 C - - - - - 0x01FCB8 07:FCA8: B9 25 95  LDA tbl_water_rooms_props_out + 1,Y   ;
 C - - - - - 0x01FCBB 07:FCAB: 85 13     STA $0013                             ;
-C - - - - - 0x01FCBD 07:FCAD: A4 68     LDY vNoScreen                         ;
+C - - - - - 0x01FCBD 07:FCAD: A4 68     LDY vHighChrPosX                      ;
 C - - - - - 0x01FCBF 07:FCAF: A9 00     LDA #$00                              ;
 C - - - - - 0x01FCC1 07:FCB1: 85 B7     STA vRoomExtraInfo                    ; reset
 C - - - - - 0x01FCC3 07:FCB3: B1 12     LDA ($0012),Y                         ;

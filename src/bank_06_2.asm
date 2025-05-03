@@ -1764,7 +1764,7 @@ C - - - - - 0x01AB0F 06:AAFF: 38        SEC                                ;
 C - - - - - 0x01AB10 06:AB00: E5 66     SBC vLowChrPosX                    ;
 C - - - - - 0x01AB12 06:AB02: 85 12     STA vCacheRam_12                   ; $0012 <~ vEnemyPosX - vChrPosX (low)
 C - - - - - 0x01AB14 06:AB04: BD 7A 03  LDA vEnemyBPosXHigh,X              ;
-C - - - - - 0x01AB17 06:AB07: E5 68     SBC vNoScreen                      ;
+C - - - - - 0x01AB17 06:AB07: E5 68     SBC vHighChrPosX                   ;
 C - - - - - 0x01AB19 06:AB09: D0 26     BNE bra_AB31_RTS                   ; vEnemyPosX != vChrPosX (+1 with overflow) (high)
 C - - - - - 0x01AB1B 06:AB0B: A5 12     LDA vCacheRam_12                   ;
 C - - - - - 0x01AB1D 06:AB0D: C9 40     CMP #$40                           ;
@@ -2161,7 +2161,7 @@ C - - - - - 0x01ADAB 06:AD9B: 69 04     ADC #$04                       ; shifts 
 @bra_AD9D_skip:
 C - - - - - 0x01ADAD 06:AD9D: A8        TAY                            ;
 C - - - - - 0x01ADAE 06:AD9E: B9 DF F6  LDA tbl_lift_positions,Y       ;
-C - - - - - 0x01ADB1 06:ADA1: C5 68     CMP vNoScreen                  ;
+C - - - - - 0x01ADB1 06:ADA1: C5 68     CMP vHighChrPosX               ;
 C - - - - - 0x01ADB3 06:ADA3: D0 1D     BNE bra_ADC2_next              ; If the current lift high value != the screen number
 C - - - - - 0x01ADB5 06:ADA5: B9 E0 F6  LDA tbl_lift_positions + 1,Y   ;
 C - - - - - 0x01ADB8 06:ADA8: 38        SEC                            ;
@@ -2230,7 +2230,7 @@ C - - - - - 0x01AE14 06:AE04: 10 28     BPL bra_AE2E_next              ; If the 
 C - - - - - 0x01AE16 06:AE06: 29 40     AND #$40                       ; CONSTANT - the character can stand on the platform
 C - - - - - 0x01AE18 06:AE08: F0 24     BEQ bra_AE2E_next              ; If the character cann't stand on the platform
 C - - - - - 0x01AE1A 06:AE0A: BD 7A 03  LDA vEnemyBPosXHigh,X          ;
-C - - - - - 0x01AE1D 06:AE0D: C5 68     CMP vNoScreen                  ;
+C - - - - - 0x01AE1D 06:AE0D: C5 68     CMP vHighChrPosX               ;
 C - - - - - 0x01AE1F 06:AE0F: D0 1D     BNE bra_AE2E_next              ; If vEnemyBPosXHigh != the screen number
 C - - - - - 0x01AE21 06:AE11: BD 74 03  LDA vEnemyBPosXLow,X           ;
 C - - - - - 0x01AE24 06:AE14: 38        SEC                            ;
