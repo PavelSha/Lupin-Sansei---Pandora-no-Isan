@@ -64,6 +64,10 @@ tbl_clarissa_colors:
 
 ; Address of the frames (a list tiles)
 tbl_copyright:
+.ifdef en
+  .byte $00, $00, $7b, $00, $4c, $10, $0f, $0c, $06, $1a, $00, $4f, $16, $0f, $04, $09
+  .byte $00, $5b, $00, $53, $4c, $52, $00, $00
+.else
 - D 0 - - - 0x01003A 04:802A: 7B        .byte $7B   ; 
 - D 0 - - - 0x01003B 04:802B: 00        .byte $00   ; 
 - D 0 - - - 0x01003C 04:802C: 7A        .byte $7A   ; モ
@@ -88,6 +92,7 @@ tbl_copyright:
 - D 0 - - - 0x01004F 04:803F: 53        .byte $53   ; T
 - D 0 - - - 0x010050 04:8040: 55        .byte $55   ; V
 - D 0 - - - 0x010051 04:8041: 5C        .byte $5C   ; .
+.endif
 
 tbl_menu_npc_colors:
 - D 0 - - - 0x010052 04:8042: 0F        .byte $0F, $36, $21, $20
@@ -1108,27 +1113,51 @@ loc_tile_select_character1:
 
 ; Lupin (top row)
 loc_tile_select_character2:
+.ifdef en
+  .byte $00, $00, $00
+.else
 - D 0 - I - 0x0106F5 04:86E5: 00        .byte $00, $7F, $00
+.endif
 
 ; Lupin (bottom row)
 loc_tile_select_character3:
+.ifdef en
+  .byte $25, $26, $27
+.else
 - D 0 - I - 0x0106F8 04:86E8: 04        .byte $04, $05, $6C ; ルパン
+.endif
 
 ; Jigen (top row)
 loc_tile_select_character4:
+.ifdef en
+  .byte $00, $00, $00
+.else
 - D 0 - I - 0x0106FB 04:86EB: 7E        .byte $7E, $7E, $00
+.endif
 
 ; Jigen (bottom row)
 loc_tile_select_character5:
+.ifdef en
+  .byte $28, $29, $27
+.else
 - D 0 - I - 0x0106FE 04:86EE: 30        .byte $30, $2D, $29 ; じげん
+.endif
 
 ; Goemon (top row)
 loc_tile_select_character6:
+.ifdef en
+  .byte $00, $00, $00, $00
+.else
 - D 0 - I - 0x010701 04:86F1: 7E        .byte $7E, $00, $00, $00
+.endif
 
 ; Goemon (bottom row)
 loc_tile_select_character7:
+.ifdef en
+  .byte $2a, $2b, $2c, $00
+.else
 - D 0 - I - 0x010705 04:86F5: 2E        .byte $2E, $13, $1E, $29 ; ごえもん
+.endif
 
 loc_sc_first_cutscene_portrait:
 - D 0 - I - 0x010709 04:86F9: 00        .byte $00, $AF, $BE, $BF, $C8, $C9, $00, $00
@@ -1325,37 +1354,79 @@ loc_tile_continue:
 - D 0 - I - 0x010888 04:8878: 8E        .byte $8E   ; E
 
 loc_tile_title_row1:
+.ifdef en
+  .byte $00, $00, $00, $00, $00, $b3, $b4, $00, $b6, $b7, $00, $00, $00, $00, $00, $00
+  .byte $00, $00, $00, $00, $00, $00
+.else
 - D 0 - I - 0x010889 04:8879: F5        .byte $F5, $F7, $00, $00, $00, $00, $00, $00, $00, $00, $00, $B7, $B9, $00, $00, $00
 - D 0 - I - 0x010899 04:8889: 00        .byte $00, $00, $CA, $CB, $00, $00
+.endif
 
 loc_tile_title_row2:
+.ifdef en
+  .byte $00, $00, $00, $00, $00, $c3, $c4, $c5, $c6, $c7, $c8, $c9, $ca, $cb, $cc, $cd
+  .byte $ce, $cf, $00, $00, $00, $00
+.else
 - D 0 - I - 0x01089F 04:888F: B0        .byte $B0, $B2, $B4, $B6, $B8, $BA, $BC, $BE, $2C, $2E, $34, $00, $C0, $C2, $C8, $C8
 - D 0 - I - 0x0108AF 04:889F: CC        .byte $CC, $CE, $36, $02, $EA, $00
+.endif
 
 loc_tile_title_row3:
+.ifdef en
+  .byte $00, $00, $00, $00, $00, $d3, $d4, $d5, $d6, $d7, $d8, $d9, $da, $db, $dc, $dd
+  .byte $de, $df, $00, $00, $00, $00
+.else
 - D 0 - I - 0x0108B5 04:88A5: B1        .byte $B1, $B3, $B5, $B7, $B9, $BB, $BD, $BF, $2D, $2F, $35, $00, $C1, $C3, $C9, $C9
 - D 0 - I - 0x0108C5 04:88B5: CD        .byte $CD, $CF, $01, $03, $EB, $10
+.endif
 
 loc_tile_title_row4:
+.ifdef en
+  .byte $00, $00, $00, $00, $e2, $e3, $e4, $e5, $e6, $e7, $e8, $e9, $ea, $eb, $ec, $ed
+  .byte $ee, $ef, $00, $00, $00, $00
+.else
 - D 0 - I - 0x0108CB 04:88BB: D0        .byte $D0, $D2, $D4, $D6, $D8, $DA, $DC, $DE, $00, $00, $00, $E6, $E0, $E2, $E8, $E8
 - D 0 - I - 0x0108DB 04:88CB: EC        .byte $EC, $EE, $04, $06, $08, $0A
+.endif
 
 loc_tile_title_row5:
+.ifdef en
+  .byte $00, $00, $00, $00, $f2, $f3, $00, $f5, $f6, $f7, $f8, $f9, $fa, $fb, $fc, $fd
+  .byte $fe, $00, $00, $00, $00, $00
+.else
 - D 0 - I - 0x0108E1 04:88D1: D1        .byte $D1, $D3, $D5, $D7, $D9, $DB, $DD, $DF, $C5, $C7, $E5, $E7, $E1, $E3, $E9, $E9
 - D 0 - I - 0x0108F1 04:88E1: ED        .byte $ED, $EF, $05, $07, $09, $0B
+.endif
 
 loc_tile_title_row6:
+.ifdef en
+  .byte $00, $00, $00, $00, $00, $00, $00, $b8, $b9, $00, $00, $ba, $bb, $bc, $bd, $00
+  .byte $00, $00, $00, $00, $00, $00
+.else
 - D 0 - I - 0x0108F7 04:88E7: F0        .byte $F0, $F2, $F4, $F6, $F8, $FA, $FC, $FE, $F9, $FB, $FD, $FF, $C4, $C6, $E4, $E4
 - D 0 - I - 0x010907 04:88F7: 0C        .byte $0C, $0E, $E4, $E4, $0D, $0F
+.endif
 
 loc_tile_title_row7:
+.ifdef en
+  .byte $00, $F1
+.else
 - D 0 - I - 0x01090D 04:88FD: F3        .byte $F3, $F1
+.endif
 
 loc_tile_subtitle_row1:
+.ifdef en
+  .byte $00, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0a, $0b, $0c, $0d, $0e
+.else
 - D 0 - I - 0x01090F 04:88FF: 14        .byte $14, $16, $18, $1A, $1C, $1E, $20, $22, $24, $26, $28, $2A, $13, $12, $30
+.endif
 
 loc_tile_subtitle_row2:
+.ifdef en
+  .byte $00, $0f, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $15, $16, $17
+.else
 - D 0 - I - 0x01091E 04:890E: 15        .byte $15, $17, $19, $1B, $1D, $1F, $21, $23, $25, $27, $29, $2B, $11, $33, $31
+.endif
 
 ; 1 byte - a time counter
 ; 2 byte - a bits of the buttons (+ BIT_BUTTON_B is added every 16th frame)
@@ -2974,13 +3045,25 @@ loc_main_menu_gunshot_f3:
 loc_main_menu_gunshot_f4:
 - D 0 - I - 0x011DE9 04:9DD9: 01        .byte $01
 - D 0 - I - 0x011DEA 04:9DDA: 20        .dbyt $20AE   ; PPU Address
+.ifdef en
+  .byte $00
+.else
 - D 0 - I - 0x011DEC 04:9DDC: 55        .byte $55
+.endif
 - D 0 - I - 0x011DED 04:9DDD: 0D        .byte $0D
 - D 0 - I - 0x011DEE 04:9DDE: 20        .dbyt $20C8   ; PPU Address
+.ifdef en
+  .byte $00, $60, $00, $50, $52, $54, $56, $00, $00, $7C, $00, $00, $62
+.else
 - D 0 - I - 0x011DF0 04:9DE0: 6D        .byte $6D, $60, $00, $50, $52, $54, $56, $00, $00, $7C, $00, $00, $62
+.endif
 - D 0 - I - 0x011DFD 04:9DED: 0A        .byte $0A
 - D 0 - I - 0x011DFE 04:9DEE: 20        .dbyt $20EA   ; PPU Address
+.ifdef en
+  .byte $63, $51, $53, $55, $57, $38, $3A, $7D, $7F, $61
+.else
 - D 0 - I - 0x011E00 04:9DF0: 63        .byte $63, $51, $53, $00, $57, $38, $3A, $7D, $7F, $61
+.endif
 - D 0 - I - 0x011E0A 04:9DFA: 02        .byte $02
 - D 0 - I - 0x011E0B 04:9DFB: 21        .dbyt $2131   ; PPU Address
 - D 0 - I - 0x011E0D 04:9DFD: 39        .byte $39, $3B
@@ -2995,7 +3078,11 @@ loc_main_menu_gunshot_f5:
 - D 0 - I - 0x011E1F 04:9E0F: 5F        .byte $5F, $71, $00, $00, $77, $79, $00, $00, $58, $5A
 - D 0 - I - 0x011E29 04:9E19: 0C        .byte $0C
 - D 0 - I - 0x011E2A 04:9E1A: 21        .dbyt $21CA   ; PPU Address
+.ifdef en
+  .byte $5d, $03, $04, $05, $73, $07, $08, $09, $0a, $0b, $59, $5b
+.else
 - D 0 - I - 0x011E2C 04:9E1C: 5D        .byte $5D, $1A, $1C, $1E, $73, $22, $24, $26, $28, $2A, $59, $5B
+.endif
 - D 0 - I - 0x011E38 04:9E28: 01        .byte $01
 - D 0 - I - 0x011E39 04:9E29: 21        .dbyt $21EE   ; PPU Address
 - D 0 - I - 0x011E3B 04:9E2B: 75        .byte $75

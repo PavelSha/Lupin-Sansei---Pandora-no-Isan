@@ -10,6 +10,7 @@ If you have Python you can execute ``tools/prebuild.py`` script where is 1st arg
 Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "c:\Lupin Sansei - Pandora no Isan\assets\\"``
 ## Building
 -  Windows - run a command ***assemble.bat***
+-  Windows - run a command ***assemble.bat*** ***en*** (for an English translation)
 -  Linux, MacOS - run a command ***assemble.sh*** (more information - [NES Games Disassembly](https://github.com/cyneprepou4uk/NES-Games-Disassembly))
 ## Statistic
 -  Code Logger bytes (by lines) - ***45.51%***
@@ -35,6 +36,14 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 ***MD5***: 76FDF7F6623C9486360ADF5D6762D7DB
 
 ***SHA-1***: B633CC515C6A913D5A65A230E0698446331869A5
+
+-  Lupin the 3rd: Pandora's Legacy (Released By	Vice Translations, an English translation)
+
+***CRC32***: 6054CA94
+
+***MD5***: 4E0AC251E0FCC19F005E950934024F2B
+
+***SHA-1***: E66D818A0625C12F3410ABC326D1DC1E5F8B2835
 
 -  [BZK 6502 Disassembler](https://github.com/cyneprepou4uk/BZK-6502-Disassembler) - the main tool for creating disassembly source code.
 -  [FCEUX](https://fceux.com/web/home.html) - the Famicom emulator, debugger, PPU and name tables viewer, trace logger, recording movies tool, autohotkey (Tool-Assisted Speedrun) tool.

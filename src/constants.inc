@@ -132,29 +132,6 @@ vDamageStatus                 = ram_003A
 ; 0x40 - The character got damage with a non-zero bullet proof vest item
 ; 0x20 - The character got damage from Zenigata (arrested)
 
-vSharedGameStatus             = ram_003B
-; Byte: XYZW KLMN
-; M - the boss is defeated
-; Value (some the flags):
-; 0x00 - In the game
-; 0x01 - A screen with the message
-; 0x03 - A screen with the message after boss
-; 0x0B - A final scene
-; 0x10 - Select the character
-; 0x20 - Death by fall
-; 0x40 - Pause in the game
-; 0x41 - Pause in the game (a screen with the message)
-; 0x80 - Main menu
-; 0x91 - First cutscene (with Clarisse Cagliostro)
-; 0x93 - Last cutscene (with Clarisse Cagliostro)
-
-; Byte: XYZW KLMN
-; N - status 'The screen with the message'
-; M - status 'The boss is defeated'
-; W - status 'Select the character'
-; Z - status 'Not used'
-; Y - status 'Pause in the game'
-
 vGameLocks                    = ram_003C
 ; Byte: XYZ0 0000
 ; X - the lock for the process 'Select character' (1 - true)
@@ -211,71 +188,6 @@ vTempValue50                  = ram_0050
 vTempValue51                  = ram_0051
 vPpuBufferInitValue           = ram_0054
 
-vChrLiveStatus                = ram_005F
-; Byte: XYZW KLMM
-; MM - the current selected character (0x00 - Lupin, 0x01 - Jigen, 0x10 - Goemon)
-; X - Goemon fell (0 - true)
-; Y - Goemon arrested (0 - true)
-; Z - Jigen fell (0 - true)
-; W - Jigen arrested (0 - true)
-; K - Lupin fell (0 - true)
-; L - Lupin arrested (0 - true)
-vRoomWithPrisoners            = ram_0060 ; [$0060-$0061]
-; 0x00 - no exist
-vRoomWithPrisoner1            = ram_0060
-vRoomWithPrisoner2            = ram_0061
-vPrisoners                    = ram_0062 ; [$0062-$0063], 0x00 - Lupin, 0x01 - Jigen, 0x02 - Goemon
-
-vChrStatus                    = ram_006C ; A status of a character
-; Byte: XAAA KLMN
-; N - the character is looking to the right/left (1 - left, 0 - right)
-; M - the character is/isn't sitting (1 - sitting, 0 - no sitting)
-; L - ??
-; K - the character is dying  (1 - dying, 0 - no dying)
-; X - the character can hide in the room (1 - can, 0 - cann't)
-; AAA - the action:
-; 0x01 = the character is jumping
-; 0x02 = the character is entering a corridor or hiding place or died
-; 0x04 = Goemon's unknown technique !(UNUSED)
-vCarStatus                    = ram_006C ; A status of a car with character
-; Byte: XYZW KLMN
-; N - unused, the car with character is always looking to the right
-; M - the car is inside the road hill  (1 - is, 0 - is not)
-; L - unused
-; K - the car with character is destroying  (1 - destroying, 0 - not destroying)
-; XYZW - the action:
-; 0x01 - the car with character is jumping
-; ....
-; 0x03 - the strong collision
-; 0x04 - the car is landing
-; 0x05 - the water collision
-; ....
-; 0x07 - entry into the pyramid
-vMovableChrStatus             = ram_006D
-; Byte: XYZW KLMN
-; N - the character is moving on the lift (1 - moving, 0 - no moving)
-; ...
-; Z - the character is moving on the roof pitch (1 - moving, 0 - no moving)
-; Y - the character is moving on the balloon (1 - moving, 0 - no moving)
-; X - the character is moving in the water (1 - moving, 0 - no moving)
-; ...
-vJumpType                     = ram_006E
-; 0 - simple jump
-; 1 - high jump
-; 2 - jumping off
-; 3 - jump by side (or stand on the lift)
-; 4 - jump off after the squatting (for enemies)
-; For fly man:
-; 0x00 - 0x07 - the right fly direction
-; 0x08 - 0x0F - the left fly direction
-
-vJumpCounter                  = ram_006F
-
-vChrFrame_Counter             = ram_0070
-vVelocity                     = ram_0071
-; By default: 0x04 - min, 0x0C - max
-; Level-racing: 0x00 - min, 0x10 - max, 0x06 - default
-
 vCarRenderParams_             = ram_0072 ; [0x72-0x77]
 vRifleShotCount               = ram_0072 ; A number of rifle shots
 vCarWheelsFrame_Offset        = ram_0072
@@ -290,41 +202,9 @@ vChrAllowedStatus             = ram_0079 ; To give Lupin and Jigen a chance to s
 ; Byte: X000 0000
 ; X - the character is allowed the hit (1 - he can, 0 - he cann't)
 
-vBulletCount                  = ram_007A ; 0x00 - 1 bullet, 0x01 - 2 bullets, 0x02 - 3 bullets and so on...
-vBulletPosX                   = ram_007B ; [0x7B-0x7F] on the screen, in pixel units
-vBulletPosY                   = ram_0080 ; [0x80-0x84] on the screen, in pixel units
-vBulletLowPosX                = ram_0085 ; [0x85-0x89] on the level, in pixel units (with repeat)
-vBulletHighPosX               = ram_008A ; [0x8A-0x8E] on the level, in screen units
-vBulletStatus                 = ram_008F ; [0x8F-0x93] , for a rifle, Lupin's pistol, Jigen's pistol
-; Byte: XYZW KLMM
-; X - the bullet is activated (1 - is activated, 0, isn't activated)
-; Y - the dictance (1 - short, 0 - long)
-; Z - slow mode (1 - is activated, 0, isn't activated)
-; W - the direction (1 - left, 0 - right)
-; K - ???
-; L - the vBulletOffsetOrCounter indication (1 - the offset, 0 - the counter)
-; M - start of the shoot (1,2,3 - start, 0 - no start), the value decrements with each rendering
+vNonUsed3                     = $A3
+vNonUsedAD                    = $AD
 
-vBulletOffsetOrCounter        = ram_0094 ; only for Lupin [0x94-0x98]
-
-vNonUsed                      = ram_009C
-
-vHiScore                      = ram_0099 ; [0x99-0x9F]
-
-vNonUsed3                     = ram_00A3
-
-vEnemyScore                   = ram_00A6 ; [0xA6-0xAC]
-
-vIndexSelectableChr           = ram_00AD ; Selectable character number in character selection mode
-vMainMenuGunYPos              = ram_00AD ;
-vEnemyHitBoxY                 = ram_00AD ; position Y on the screen, in pixel units
-vNonUsedAD                    = ram_00AD
-vCopyIndexSelectableChr       = ram_00AE ;
-vEnemyHitBoxX                 = ram_00AE ; position X on the screen, in pixel units
-vEnemyHitBoxH                 = ram_00AF ; height, in pixel units
-vEnemyHitBoxW                 = ram_00B0 ; width, in pixel units							  
-v_start_level                 = ram_00B1 ; The start level [0-3]
-vTmpHitBoxY                   = ram_00B1 ; position Y, in pixel units
 vSecretHitIndex               = ram_00B2 ; Stage select codes at the title screen
 vTmpHitBoxX                   = ram_00B2 ; position X, in pixel units
 v_lock_secret_hits            = ram_00B3 ; Allow button to be pressed only when other buttons aren't pressed
@@ -445,9 +325,6 @@ vArrayWhiteBriefcase          = ram_0219
 ; W - ???
 ; K - the item number
 
-vEnemies                      = ram_0300 ; see docs (Bestiary)
-vEnemyA                       = ram_0300
-vEnemyB                       = ram_0301
 vEnemyASpriteMagic2           = ram_0302 ; see v_sprite_magic2
 vEnemyASpriteMagic3           = ram_0303 ; see v_sprite_magic3
 vEnemyASpriteMagic2Ex1        = ram_0304 ; see v_sprite_magic2
@@ -455,8 +332,6 @@ vEnemyASpriteMagic2Ex2        = ram_0305 ; see v_sprite_magic2
 vEnemyBSpriteMagic2           = ram_0306 ; see v_sprite_magic2
 vEnemyBSpriteMagic3           = ram_0307 ; see v_sprite_magic3
 
-vEnemyACount                  = ram_030A
-vEnemyBCount                  = ram_030B
 vEnemyAStartingPosXHigh1      = ram_030C ; macro X-position in which the enemy (A) appeared
 vEnemyAStartingPosXLow1       = ram_030D ; X-position in which the enemy (A) appeared
 vEnemyBStartingPosXHigh1      = ram_030E ; macro X-position in which the enemy (B) appeared

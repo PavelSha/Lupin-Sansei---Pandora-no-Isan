@@ -3932,7 +3932,7 @@ C - - - - - 0x01B94C 06:B93C: 20 1C C9  JSR sub_C91C_display_menu_score         
 C - - - - - 0x01B94F 06:B93F: A9 80     LDA #$80                                   ; CONSTANT - Main menu
 C - - - - - 0x01B951 06:B941: 85 3B     STA vSharedGameStatus                      ;
 C - - - - - 0x01B953 06:B943: A9 00     LDA #$00                                   ;
-C - - - - - 0x01B955 06:B945: 85 B1     STA v_start_level                          ; clear
+C - - - - - 0x01B955 06:B945: 85 B1     STA vStartLevel                            ; clear
 C - - - - - 0x01B957 06:B947: 85 B2     STA vSecretHitIndex                        ; clear
 C - - - - - 0x01B959 06:B949: 85 B3     STA v_lock_secret_hits                     ; clear
 C - - - - - 0x01B95B 06:B94B: 85 B4     STA v_offset_in_secret_codes               ; clear
@@ -3977,8 +3977,8 @@ C - - - - - 0x01B9A4 06:B994: 85 39     STA vGameInterruptEvent                 
 C - - - - - 0x01B9A6 06:B996: A6 AD     LDX vMainMenuGunYPos                       ;
 C - - - - - 0x01B9A8 06:B998: E0 9F     CPX #$9F                                   ; CONSTANT - The 'Continue' position
 C - - - - - 0x01B9AA 06:B99A: F0 07     BEQ @bra_B9A3_skip                         ; If select 'Continue' in the main menu
-C - - - - - 0x01B9AC 06:B99C: A5 B1     LDA v_start_level                          ;
-C - - - - - 0x01B9AE 06:B99E: F0 09     BEQ @bra_B9A9_skip                         ; Is v_start_level == 0x00
+C - - - - - 0x01B9AC 06:B99C: A5 B1     LDA vStartLevel                            ;
+C - - - - - 0x01B9AE 06:B99E: F0 09     BEQ @bra_B9A9_skip                         ; If the start level is first
 C - - - - - 0x01B9B0 06:B9A0: A8        TAY                                        ; 
 C - - - - - 0x01B9B1 06:B9A1: D0 03     BNE @bra_B9A6_skip                         ; Always the true branch
 @bra_B9A3_skip:
@@ -4225,7 +4225,7 @@ C - - - - - 0x01BB39 06:BB29: 60        RTS                 ;
 sub_BB2A_solve_secret_codes:
 C - - - - - 0x01BB3A 06:BB2A: 2C F6 FF  BIT Set_features                     ;
 C - - - - - 0x01BB3D 06:BB2D: 50 62     BVC bra_BB91_RTS                     ; If Set_features = 0%X0XXXXXX
-C - - - - - 0x01BB3F 06:BB2F: A5 B1     LDA v_start_level                    ;
+C - - - - - 0x01BB3F 06:BB2F: A5 B1     LDA vStartLevel                      ;
 C - - - - - 0x01BB41 06:BB31: D0 5E     BNE bra_BB91_RTS                     ; Go to the branch If start level is activated
 C - - - - - 0x01BB43 06:BB33: A5 1C     LDA vBtnPressedInGame                ;
 C - - - - - 0x01BB45 06:BB35: F0 56     BEQ bra_BB8D_reset_lock              ; Go to the branch If the any buttons aren't pressed
@@ -4273,7 +4273,7 @@ C - - - - - 0x01BB90 06:BB80: C9 06     CMP #$06                             ;
 C - - - - - 0x01BB92 06:BB82: F0 01     BEQ bra_BB85_assign                  ; If the 2nd secret combination was entered successfully
 C - - - - - 0x01BB94 06:BB84: E8        INX                                  ; X <~ 3, level 4.0
 bra_BB85_assign:
-C - - - - - 0x01BB95 06:BB85: 86 B1     STX v_start_level                    ;
+C - - - - - 0x01BB95 06:BB85: 86 B1     STX vStartLevel                      ;
 bra_BB87_reset:
 C - - - - - 0x01BB97 06:BB87: A9 00     LDA #$00                             ;
 C - - - - - 0x01BB99 06:BB89: 85 B2     STA vSecretHitIndex                  ;

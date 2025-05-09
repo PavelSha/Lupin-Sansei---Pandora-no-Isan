@@ -61,7 +61,28 @@ ram_0037                        = $37 ; 15
 ram_0038                        = $38 ; 6   
 ram_0039                        = $39 ; 19   
 ram_003A                        = $3A ; 12   
-ram_003B                        = $3B ; 35   
+vSharedGameStatus               = $3B ;
+; Byte: XYZW KLMN
+; M - the boss is defeated
+; Value (some the flags):
+; 0x00 - In the game
+; 0x01 - A screen with the message
+; 0x03 - A screen with the message after boss
+; 0x0B - A final scene
+; 0x10 - Select the character
+; 0x20 - Death by fall
+; 0x40 - Pause in the game
+; 0x41 - Pause in the game (a screen with the message)
+; 0x80 - Main menu
+; 0x91 - First cutscene (with Clarisse Cagliostro)
+; 0x93 - Last cutscene (with Clarisse Cagliostro)
+
+; Byte: XYZW KLMN
+; N - status 'The screen with the message'
+; M - status 'The boss is defeated'
+; W - status 'Select the character'
+; Z - status 'Not used'
+; Y - status 'Pause in the game'
 ram_003C                        = $3C ; 13   
 ram_003D                        = $3D ; 17   
 ram_003E                        = $3E ; 4   
@@ -88,7 +109,7 @@ ram_0052                        = $52 ; 4   ($indirect),Y <2>
 ram_0053                        = $53 ; 2   
 ram_0054                        = $54 ; 4   
 vNonUsed55                      = $55 ; 1   
-vScore                          = $56 ; score X000000, [0x56-0x5C]
+vScore                          = $56 ; score X000000, [$0056-$005C]
 ; ram_0057                      = $57 ; score 0X00000
 ; ram_0058                      = $58 ; score 00X0000
 ; ram_0059                      = $59 ; score 000X000
@@ -101,11 +122,20 @@ vNoLevel                        = $5E ; It is a number of a level than it starts
 ; 0x01 - level 2
 ; 0x02 - level 3
 ; 0x03 - level 4 + racing
-ram_005F                        = $5F ; 62   
-ram_0060                        = $60 ; 6   
-ram_0061                        = $61 ; 3   
-ram_0062                        = $62 ; 2   
-ram_0063                        = $63 ; N/A
+vChrLiveStatus                  = $5F ;
+; Byte: XYZW KLMM
+; MM - the current selected character (0x00 - Lupin, 0x01 - Jigen, 0x10 - Goemon)
+; X - Goemon fell (0 - true)
+; Y - Goemon arrested (0 - true)
+; Z - Jigen fell (0 - true)
+; W - Jigen arrested (0 - true)
+; K - Lupin fell (0 - true)
+; L - Lupin arrested (0 - true)
+vRoomWithPrisoners              = $60 ;
+vRoomWithPrisoner1              = $60 ;
+vRoomWithPrisoner2              = $61 ;
+vPrisoners                      = $62 ; [$0062-$0063], 0x00 - Lupin, 0x01 - Jigen, 0x02 - Goemon
+; ram_0063                      = $63 ; 
 vScreenChrPosX                  = $64 ; The character's position along the X axis relative to the screen (no repeat)
 vTempScreenChrPosX              = $65 ;
 vLowChrPosX                     = $66 ; The character's position along the X axis relative to the room (with repeat) 
@@ -114,12 +144,49 @@ vHighChrPosX                    = $68 ; The number of the level screen, vNoScree
 vTempHighChrPosX                = $69 ;
 vScreenChrPosY                  = $6A ; The character's position along the Y axis relative to the screen (no repeat)
 vTempScreenChrPosY              = $6B ; 
-ram_006C                        = $6C ; 99   
-ram_006D                        = $6D ; 36   
-ram_006E                        = $6E ; 7   
-ram_006F                        = $6F ; 22   
-ram_0070                        = $70 ; 13   
-ram_0071                        = $71 ; 15   
+vChrStatus                      = $6C ; A status of a character
+; Byte: XAAA K0MN
+; N - the character is looking to the right/left (1 - left, 0 - right)
+; M - the character is/isn't sitting (1 - sitting, 0 - no sitting)
+; K - the character is dying  (1 - dying, 0 - no dying)
+; X - the character can hide in the room (1 - can, 0 - cann't)
+; AAA - the action:
+; 0x01 = the character is jumping
+; 0x02 = the character is entering a corridor or hiding place or died
+; 0x04 = Goemon's unknown technique !(UNUSED)
+vCarStatus                      = $6C ; A status of a car with character
+; Byte: XYZW K0MN
+; N - unused, the car with character is always looking to the right
+; M - the car is inside the road hill  (1 - is, 0 - is not)
+; K - the car with character is destroying  (1 - destroying, 0 - not destroying)
+; XYZW - the action:
+; 0x01 - the car with character is jumping
+; ....
+; 0x03 - the strong collision
+; 0x04 - the car is landing
+; 0x05 - the water collision
+; ....
+; 0x07 - entry into the pyramid
+vMovableChrStatus               = $6D ;
+; Byte: XYZ0 000N
+; N - the character is moving on the lift (1 - moving, 0 - no moving)
+; Z - the character is moving on the roof pitch (1 - moving, 0 - no moving)
+; Y - the character is moving on the balloon (1 - moving, 0 - no moving)
+; X - the character is moving in the water (1 - moving, 0 - no moving)
+vJumpType                       = $6E ;
+; 0 - simple jump
+; 1 - high jump
+; 2 - jumping off
+; 3 - jump by side (or stand on the lift)
+; 4 - jump off after the squatting (for enemies)
+; For fly man:
+; 0x00 - 0x07 - the right fly direction
+; 0x08 - 0x0F - the left fly direction
+vJumpCounter                    = $6F ;
+vChrFrame_Counter               = $70 ;
+vVelocity                       = $71 ;
+; By default: 0x04 - min, 0x0C - max
+; Level-racing: 0x00 - min, 0x10 - max, 0x06 - default
 ram_0072                        = $72 ; 4   
 ram_0073                        = $73 ; 8   
 ram_0074                        = $74 ; 1   
@@ -128,62 +195,74 @@ ram_0076                        = $76 ; 1
 ram_0077                        = $77 ; 1   
 ram_0078                        = $78 ; 8   
 ram_0079                        = $79 ; 12   
-ram_007A                        = $7A ; 34   
-ram_007B                        = $7B ; 3   
-ram_007C                        = $7C ; N/A
-ram_007D                        = $7D ; N/A
-ram_007E                        = $7E ; N/A
-ram_007F                        = $7F ; N/A
-ram_0080                        = $80 ; 7   
-ram_0081                        = $81 ; N/A
-ram_0082                        = $82 ; N/A
-ram_0083                        = $83 ; N/A
-ram_0084                        = $84 ; N/A
-ram_0085                        = $85 ; 9   
-ram_0086                        = $86 ; N/A
-ram_0087                        = $87 ; N/A
-ram_0088                        = $88 ; N/A
-ram_0089                        = $89 ; N/A
-ram_008A                        = $8A ; 9   
-ram_008B                        = $8B ; N/A
-ram_008C                        = $8C ; N/A
-ram_008D                        = $8D ; N/A
-ram_008E                        = $8E ; N/A
-ram_008F                        = $8F ; 44   
-ram_0090                        = $90 ; N/A
-ram_0091                        = $91 ; N/A
-ram_0092                        = $92 ; N/A
-ram_0093                        = $93 ; N/A
-ram_0094                        = $94 ; 3   
-ram_0095                        = $95 ; N/A
-ram_0096                        = $96 ; N/A
-ram_0097                        = $97 ; N/A
-ram_0098                        = $98 ; N/A
-ram_0099                        = $99 ; 2   
-ram_009A                        = $9A ; N/A
-ram_009B                        = $9B ; N/A
-ram_009C                        = $9C ; N/A
-ram_009D                        = $9D ; N/A
-ram_009E                        = $9E ; N/A
-ram_009F                        = $9F ; N/A
+vBulletCount                    = $7A ; 0x00 - 1 bullet, 0x01 - 2 bullets, 0x02 - 3 bullets and so on...
+vBulletPosX                     = $7B ; [$007B-$007F] on the screen, in pixel units   
+;ram_007C                       = $7C ;
+;ram_007D                       = $7D ;
+;ram_007E                       = $7E ;
+;ram_007F                       = $7F ;
+vBulletPosY                     = $80 ; [$0080-$0084] on the screen, in pixel units
+;ram_0081                       = $81 ;
+;ram_0082                       = $82 ;
+;ram_0083                       = $83 ;
+;ram_0084                       = $84 ;
+vBulletLowPosX                  = $85 ; [$0085-$0089] on the level, in pixel units (with repeat)
+;ram_0086                       = $86 ;
+;ram_0087                       = $87 ;
+;ram_0088                       = $88 ;
+;ram_0089                       = $89 ;
+vBulletHighPosX                 = $8A ; [$008A-$008E] on the level, in screen units
+;ram_008B                       = $8B ;
+;ram_008C                       = $8C ;
+;ram_008D                       = $8D ;
+;ram_008E                       = $8E ;
+vBulletStatus                   = $8F ; [$008F-$0093] , for a rifle, Lupin's pistol, Jigen's pistol
+; Byte: XYZW KLMM
+; X - the bullet is activated (1 - is activated, 0, isn't activated)
+; Y - the dictance (1 - short, 0 - long)
+; Z - slow mode (1 - is activated, 0, isn't activated)
+; W - the direction (1 - left, 0 - right)
+; K - ???
+; L - the vBulletOffsetOrCounter indication (1 - the offset, 0 - the counter)
+; M - start of the shoot (1,2,3 - start, 0 - no start), the value decrements with each rendering
+;ram_0090                       = $90 ;
+;ram_0091                       = $91 ;
+;ram_0092                       = $92 ;
+;ram_0093                       = $93 ;
+vBulletOffsetOrCounter          = $94 ; [$0094-$0098], only for Lupin
+;ram_0095                       = $95 ;
+;ram_0096                       = $96 ;
+;ram_0097                       = $97 ;
+;ram_0098                       = $98 ;
+vHiScore                        = $99 ; score X000000, [$0099-$009F]
+;ram_009A                       = $9A ; score 0X00000
+;ram_009B                       = $9B ; score 00X0000
+;ram_009C                       = $9C ; score 000X000
+;ram_009D                       = $9D ; score 0000X00
+;ram_009E                       = $9E ; score 00000X0
+;ram_009F                       = $9F ; score 000000X
 ram_00A0                        = $A0 ; N/A
 ram_00A1                        = $A1 ; N/A
 ram_00A2                        = $A2 ; N/A
 ram_00A3                        = $A3 ; 1   
 ram_00A4                        = $A4 ; N/A
 ram_00A5                        = $A5 ; N/A
-ram_00A6                        = $A6 ; 1   
-ram_00A7                        = $A7 ; For execute a score
-ram_00A8                        = $A8 ; For execute a score
-ram_00A9                        = $A9 ; For execute a score
-ram_00AA                        = $AA ; For execute a score
-ram_00AB                        = $AB ; For execute a score   
-ram_00AC                        = $AC ; For execute a score
-ram_00AD                        = $AD ; 44   
-ram_00AE                        = $AE ; 39   
-ram_00AF                        = $AF ; 33   
-ram_00B0                        = $B0 ; 33   
-ram_00B1                        = $B1 ; Y-Coord hero, The start level at title screen
+vEnemyScore                     = $A6 ; score X000000, [$00A6-$00AC]
+;ram_00A7                       = $A7 ; score 0X00000
+;ram_00A8                       = $A8 ; score 00X0000
+;ram_00A9                       = $A9 ; score 000X000
+;ram_00AA                       = $AA ; score 0000X00
+;ram_00AB                       = $AB ; score 00000X0
+;ram_00AC                       = $AC ; score 000000X
+vIndexSelectableChr             = $AD ; Selectable character number in character selection mode
+vMainMenuGunYPos                = $AD ;
+vEnemyHitBoxY                   = $AD ; position Y on the screen, in pixel units
+vCopyIndexSelectableChr         = $AE ;
+vEnemyHitBoxX                   = $AE ; position X on the screen, in pixel units
+vEnemyHitBoxH                   = $AF ;
+vEnemyHitBoxW                   = $B0 ;
+vStartLevel                     = $B1 ; The start level [0-3]
+vTmpHitBoxY                     = $B1 ; position Y, in pixel units
 ram_00B2                        = $B2 ; X-Coord hero, The Count of secret hits at title screen
 ram_00B3                        = $B3 ; 8   
 ram_00B4                        = $B4 ; 8   
@@ -774,8 +853,9 @@ ram_02FC                        = $02FC ; N/A
 ram_02FD                        = $02FD ; N/A
 ram_02FE                        = $02FE ; N/A
 ram_02FF                        = $02FF ; N/A
-ram_0300                        = $0300 ; 89   
-ram_0301                        = $0301 ; 25   
+vEnemies                        = $0300 ; see docs (Bestiary)
+vEnemyA                         = $0300 ;
+vEnemyB                         = $0301 ;
 ram_0302                        = $0302 ; 23   
 ram_0303                        = $0303 ; 20   
 ram_0304                        = $0304 ; 5   
@@ -784,8 +864,8 @@ ram_0306                        = $0306 ; 9
 ram_0307                        = $0307 ; 9   
 ram_0308                        = $0308 ; N/A
 ram_0309                        = $0309 ; N/A
-ram_030A                        = $030A ; 8   
-ram_030B                        = $030B ; 5   
+vEnemyACount                    = $030A ;
+vEnemyBCount                    = $030B ;
 ram_030C                        = $030C ; 2   
 ram_030D                        = $030D ; 2   
 ram_030E                        = $030E ; 1   

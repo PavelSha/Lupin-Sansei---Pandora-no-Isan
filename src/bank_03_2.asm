@@ -311,9 +311,9 @@ C - - - - - 0x00E242 03:A232: A0 00     LDY #$00                               ;
 loc_A234_prepare_rendering:
 bra_A234_prepare_rendering:
 C D 1 - - - 0x00E244 03:A234: AD 38 03  LDA vEnemyAPosXLow                     ;
-C - - - - - 0x00E247 03:A237: 85 00     STA ram_0000                           ; prepares the 1st parameter
+C - - - - - 0x00E247 03:A237: 85 00     STA $0000                              ; prepares the 1st parameter
 C - - - - - 0x00E249 03:A239: AD 3E 03  LDA vEnemyAPosXHigh                    ;
-C - - - - - 0x00E24C 03:A23C: 85 01     STA ram_0001                           ; prepares the 2nd parameter
+C - - - - - 0x00E24C 03:A23C: 85 01     STA $0001                              ; prepares the 2nd parameter
 C - - - - - 0x00E24E 03:A23E: 20 AC D6  JSR sub_D6AC_out_of_screen             ;
 C - - - - - 0x00E251 03:A241: 20 EF A3  JSR sub_A3EF_boss_on_screen            ;
 C - - - - - 0x00E254 03:A244: 20 24 A5  JSR sub_A524_prepare_rendering_ex      ;

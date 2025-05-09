@@ -1539,7 +1539,7 @@ C - - - - - 0x01C909 07:C8F9: 85 24     STA vMenuDemoIndex       ;
 C - - - - - 0x01C90B 07:C8FB: A2 99     LDX #$99                 ; next [0x0099-0x009F] in 0
 C - - - - - 0x01C90D 07:C8FD: 20 11 C9  JSR sub_C911_memset_zero ; 
 C - - - - - 0x01C910 07:C900: A9 05     LDA #$05                 ;  
-C - - - - - 0x01C912 07:C902: 85 9C     STA vNonUsed             ;
+C - - - - - 0x01C912 07:C902: 85 9C     STA vHiScore + 3         ;
 sub_C904_clear_score:
 C - - - - - 0x01C914 07:C904: A2 A0     LDX #$A0                 ; next [0x00A0-0x00A6] in 0
 C - - - - - 0x01C916 07:C906: 20 11 C9  JSR sub_C911_memset_zero ; 
