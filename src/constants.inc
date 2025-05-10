@@ -48,26 +48,22 @@ BULLET_PROOF_VEST_IN_WHITE_BRIEFCASE   = $07
 
 ; Variables
 
-v_CE5A_counter                = ram_0005
+vTempCounter5                 = ram_0005
 vTempCounterC                 = ram_000C
 vTempCounter10                = ram_0010
 vCacheRam_11                  = ram_0011
 vNonUsed11                    = ram_0011
-v_temp_check_buttons          = ram_0012 ; This is a variable that stores the checked state of the button
+vTempCheckButtons             = ram_0012 ; This is a variable that stores the checked state of the button
 vTempCounter12                = ram_0012
-vCacheRam12                   = ram_0012 ;
-vCacheRam_12                  = ram_0012 ;
 vRenderActive                 = ram_0019 ; 0x00 - active, else deactive
-v_sub_AF4D_briefcase_no       = ram_001A ; Intermediate counter
-v_loc_CA48_counter            = ram_001A ; Intermediate counter
 vTempRowNumber1A              = ram_001A ; Intermediate counter
 vTempCounter1A                = ram_001A ; Intermediate counter
 vBtnPressedInGame             = ram_001C ; In a level 1-4 or a title screen
 vCopy001C                     = ram_001D
-v_player1_btn_pressed         = ram_001E ; For a contoller1
-v_player2_btn_pressed         = ram_001F ; For a contoller2
-v_last_p2_btn_pressed         = ram_0020 ; It's the previouse value for a contoller2 (the state of the buttons)
-v_last_p1_btn_pressed         = ram_0021 ; It's the previouse value for a contoller1 (the state of the buttons)
+vPlayer1BtnPressed            = ram_001E ; For a contoller1
+vPlayer2BtnPressed            = ram_001F ; For a contoller2
+vLastP2BtnPressed             = ram_0020 ; It's the previouse value for a contoller2 (the state of the buttons)
+vLastP1BtnPressed             = ram_0021 ; It's the previouse value for a contoller1 (the state of the buttons)
 vDemoBtnPrsdCounter           = ram_0022 ; Counter after which an attempt is made to simulate a button press in demo scenes
 vDemoBtnPrsdIndex             = ram_0023 ; Index in the table of pressed buttons in demo scenes
 vMenuDemoIndex                = ram_0024
@@ -85,9 +81,9 @@ vPpuCtrlSettings              = ram_0026 ; This is a last actual ppu controller 
 vLowViewPortPosX              = ram_0027 ; a horizontal scroll, in level it's the position of the viewport along the x-axis relative to the level (may repeat, with scrolling)
 vTempLowViewPortPosX          = ram_0028
 vLowViewPortPosY              = ram_0029 ; a vertical scroll
-v_nmi_counter                 = ram_002B
+vNmiCounter                   = ram_002B
 vLowCounter                   = ram_002C
-v_high_counter                = ram_002D
+vHighCounter                  = ram_002D
 vGameCounters                 = ram_002E ; [vCorridorCounter, the unknown counter1, 2, 3]
 vCorridorCounter              = ram_002E ; The counter starts when we enter the corridor
 vJetPackRiseCounter           = ram_002E
@@ -207,9 +203,9 @@ vNonUsedAD                    = $AD
 
 vSecretHitIndex               = ram_00B2 ; Stage select codes at the title screen
 vTmpHitBoxX                   = ram_00B2 ; position X, in pixel units
-v_lock_secret_hits            = ram_00B3 ; Allow button to be pressed only when other buttons aren't pressed
+vLockSecretHits               = ram_00B3 ; Allow button to be pressed only when other buttons aren't pressed
 vTmpHitBoxH                   = ram_00B3 ; height, in pixel units
-v_offset_in_secret_codes      = ram_00B4
+vOffsetInSecretCodes          = ram_00B4
 vTmpHitBoxW                   = ram_00B4 ; width, in pixel units
 vNonUsedB5                    = ram_00B5
 vCurrentUniqueRoom            = ram_00B6
@@ -261,12 +257,12 @@ vMessageInProgress            = ram_00C8
 ; 0x00 - no message
 ; 0x80 - the message is typing
 
-v_letter_offset               = ram_00C9
+vLetterOffset                 = ram_00C9
 vMessageCounter               = ram_00CA
 vLowVram_MsgAddress           = ram_00CB
 vHignVram_MsgAddress          = ram_00CC
-v_low_msg_ppu_address         = ram_00CF ; This temporary address for the message on the screen
-v_high_msg_ppu_address        = ram_00D0
+vLowMsgPpuAddress             = ram_00CF ; This temporary address for the message on the screen
+vHighMsgPpuAddress            = ram_00D0
 vGogglesActive                = ram_00D1
 ; 0x80 - active
 ; 0x40 - projectiles are falling
@@ -293,13 +289,13 @@ vCurrentDeviceData            = ram_00F9
 ; 0x40 - the character is fell or arrested
 ; 0x80 - the radio was using
 vSoundRoomIndex               = ram_00FD
-v_last_level                  = ram_0109 ; It is a last played level.
+vLastLevel                    = ram_0109 ; It is a last played level.
 vRadioItem                    = ram_0200
-v_items                       = ram_0200 ; 0x0200-0x0208
-v_breathing_apparatus_item    = ram_0205
-v_helium_balloon_item         = ram_0206
-v_bullet_proof_vest_item      = ram_0207
-v_ruby_ring                   = ram_0208
+vItems                        = ram_0200 ; 0x0200-0x0208
+vBreathingApparatusItem       = ram_0205
+vHeliumBalloonItem            = ram_0206
+vBulletProofVestItem          = ram_0207
+vRubyRing                     = ram_0208
 vTestSelectedItem             = ram_0209
 vItemsBlinkTime               = ram_020A ; 0x020A-0x0212
 vCurrentWeaponStatus          = ram_0214 ; Only the active items
@@ -325,12 +321,12 @@ vArrayWhiteBriefcase          = ram_0219
 ; W - ???
 ; K - the item number
 
-vEnemyASpriteMagic2           = ram_0302 ; see v_sprite_magic2
-vEnemyASpriteMagic3           = ram_0303 ; see v_sprite_magic3
-vEnemyASpriteMagic2Ex1        = ram_0304 ; see v_sprite_magic2
-vEnemyASpriteMagic2Ex2        = ram_0305 ; see v_sprite_magic2
-vEnemyBSpriteMagic2           = ram_0306 ; see v_sprite_magic2
-vEnemyBSpriteMagic3           = ram_0307 ; see v_sprite_magic3
+vEnemyASpriteMagic2           = ram_0302 ; see vSpriteMagic2
+vEnemyASpriteMagic3           = ram_0303 ; see vSpriteMagic3
+vEnemyASpriteMagic2Ex1        = ram_0304 ; see vSpriteMagic2
+vEnemyASpriteMagic2Ex2        = ram_0305 ; see vSpriteMagic2
+vEnemyBSpriteMagic2           = ram_0306 ; see vSpriteMagic2
+vEnemyBSpriteMagic3           = ram_0307 ; see vSpriteMagic3
 
 vEnemyAStartingPosXHigh1      = ram_030C ; macro X-position in which the enemy (A) appeared
 vEnemyAStartingPosXLow1       = ram_030D ; X-position in which the enemy (A) appeared
@@ -494,7 +490,7 @@ vEnemyBJumpType2              = ram_0393 ; vJumpType analog for the enemy (the e
 vButterflyCircularFlightCounter = ram_0392 ; For Kim
 
 vBombOnScreen                 = ram_0398 ; 0x00 - no exist, 0x01 - on screen
-v_briefcase_index             = ram_0398 ; [0399-039D] in vArrayWhiteBriefcase
+vBriefcaseIndex               = ram_0398 ; [0399-039D] in vArrayWhiteBriefcase
 ; 0x00 - it is not used
 vBombStatus                   = ram_039E
 ; 0x00 - none
@@ -529,40 +525,6 @@ vBubblePosXLow                = ram_03DD ; [$03DD-$03DF]
 vBubblePosXHigh               = ram_03E0 ; [$03E0-$03E2]
 vBubbleJumpCounter            = ram_03E3 ; [$03E3-$03E5]
 
-vApuChannelStatus             = ram_0400 ; Secondary status flag for adjusting APU_STATUS during sound and music processing
-vApuChannelProcessed          = ram_0401 ; 0x01 - pulse 1, 0x02 - pulse 2, 0x04 - triangle, 0x08 - noise
-vCurrentApuChannel            = ram_0402 ; apu channel (0x00 - pulse 1, 0x01 - pulse 2, 0x02 - triangle, 0x03 - noise) for each sound row
-vCurrentApuChannelFlag        = ram_0403 ; apu channel flags (0x00 - pulse 1, 0x01 - pulse 2, 0x82 - triangle, 0x43 - noise)
-vSoundTempValue1              = ram_0404
-vSoundTempValue2              = ram_0405
-vSoundCounter                 = ram_0406
-vSoundNonUsed                 = ram_0407
-vSoundRowIndex                 = ram_0410 ; sound pair index
-vSoundRowComplexChannel        = ram_0411
-; SVVV 00CC
-; S - 1 if the shaking effect is used
-; V - the shaking effect index in tbl_B1AA_shaking_spread (Bank 2, Page 1)
-; C - apu channel for the sound track (0x00 - pulse 1, 0x01 - pulse 2, 0x02 - triangle, 0x03 - noise)
-vSoundRowTrackLow              = ram_0412 ; low address of the current track
-vSoundRowTrackHigh             = ram_0413 ; high address of the current track
-vSoundRowFPPValue              = ram_0414 ; ppu frames per sound pair (FPP) in the sound track
-vSoundRowFPPCounter            = ram_0415 ; ppu frames per sound pair (FPP) counter, i.e. counter for number of frames per sound instruction
-vSoundRowMainChannelByte       = ram_0416 ; the current value for $4000 (pulse 1), $4004 (pulse 1), $4008 (triangle) or $400C (noise)
-vSoundRowFPPLength             = ram_0417 ; length of sound row, affects FPP (see vSoundRowFPPCounter)
-vSoundRowSweep                 = ram_0418
-vSoundRowMarkCacheNoReplay     = ram_0419 ; the sound row index for the replays
-vSoundRowCacheNoReplay         = ram_041A ; the cache number of replays
-vSoundRowVolumeDirection       = ram_041B ; It's the direction of distributions for the volume changes
-vSoundRowVolumeChLength        = ram_041C ; length in FPP (see vSoundRowFPPCounter) utits for next sound rows, feature 'volume changes'
-                                          ; Note: vSoundRowVolumeChLength is not cleared (may be bugs)
-vSoundRowVolumeChCounter       = ram_041D ; the counter between 0x00 and vSoundRowVolumeChLength
-vSoundRowVolumeIterCount       = ram_041E ; The count of the changes is for the constant volume change (0x0X - increasing or 0xFX - decreasing)
-vSoundRowVolumeIterStep        = ram_041F ; the constant step of changing the volume in the sound row
-vSoundRowVolumeIterCurrentStep = ram_0420 ; the current step of changing the volume in the sound row
-vSoundRowTimerCorrection       = ram_0421 ; the correction when the timer value < 0x02 or >= 0xFE
-vSoundRowMarkForReplay         = ram_0422 ; sound pair index for replays
-vSoundRowShakingEfValue        = ram_0423 ; shaking effect value in the sound track
-vSoundRowShakingEfCounter      = ram_0424 ; counter to skip shaking effect
 vRooms                         = ram_0500 ; the array of vRoomAttrubute
 
 vWalls                         = ram_05C0 ; [$05C0-05FF]
@@ -583,29 +545,29 @@ vPpuAddrDataCache             = ram_067B ; [ram_067B - ram_06AC]
 vCacheChrBankSelect           = ram_06AF ; [ram_06AF - ram_06B4]
 vBankData                     = ram_06B5
 vChrBankData                  = ram_06B6
-v_sprite_magics               = ram_06B7
-v_sprite_magic1               = ram_06B7 ; Y-position, 0xF0 - a sprite doesn't exist
-v_sprite_magic2               = ram_06B8 ; The offset by the address SS (see v_sprite_magic3)
-v_sprite_magic3               = ram_06B9
+vSpriteMagics                 = ram_06B7
+vSpriteMagic1                 = ram_06B7 ; Y-position, 0xF0 - a sprite doesn't exist
+vSpriteMagic2                 = ram_06B8 ; The offset by the address SS (see vSpriteMagic3)
+vSpriteMagic3                 = ram_06B9
 ; SSBB XCOO
 ; SS - the offset of the high address ($8000), i.e. $8000 + $(0%000000SS 0%00000000)
 ; BB - 0x00 - bank 05 (2 page), 0x01 - bank 02 (2 page), 0x1X - bank 05 (1 page)
 ; C  -  0x1 - usign next CHR-page size 1 Kb, 0x0 - using current CHR-page
 ; OO - OAM-attributes
-v_sprite_magic4               = ram_06BA ; X-position
+vSpriteMagic4                 = ram_06BA ; X-position
 vShiftSpriteMagic             = ram_06F7 ; The pack is using 1,2,3,4 sprite magic
 vStartOAM                     = ram_0700
 vStartOAM_2b                  = ram_0701 ; 2nd byte
 vStartOAM_3b                  = ram_0702 ; 3rd byte
 vStartOAM_4b                  = ram_0703 ; 4th byte
-v_OAM_2                  = ram_0704
-v_OAM_2_2b               = ram_0705 ; 2nd byte
-v_OAM_2_3b               = ram_0706 ; 3rd byte
-v_OAM_2_4b               = ram_0707 ; 4th byte
-v_OAM_3                  = ram_0708
-v_OAM_3_2b               = ram_0709 ; 2nd byte
-v_OAM_3_3b               = ram_070A ; 3rd byte
-v_OAM_3_4b               = ram_070B ; 4th byte
+vOAM_2                        = ram_0704
+vOAM_2_2b                     = ram_0705 ; 2nd byte
+vOAM_2_3b                     = ram_0706 ; 3rd byte
+vOAM_2_4b                     = ram_0707 ; 4th byte
+vOAM_3                        = ram_0708
+vOAM_3_2b                     = ram_0709 ; 2nd byte
+vOAM_3_3b                     = ram_070A ; 3rd byte
+vOAM_3_4b                     = ram_070B ; 4th byte
 
 ; Byte join regex: "\s\s\s;\s.*\n.*\$" -> ", $"
 

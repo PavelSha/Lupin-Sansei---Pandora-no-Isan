@@ -1762,11 +1762,11 @@ C - - - - - 0x01AB0A 06:AAFA: D0 35     BNE bra_AB31_RTS                   ; If 
 C - - - - - 0x01AB0C 06:AAFC: BD 74 03  LDA vEnemyBPosXLow,X               ;
 C - - - - - 0x01AB0F 06:AAFF: 38        SEC                                ;
 C - - - - - 0x01AB10 06:AB00: E5 66     SBC vLowChrPosX                    ;
-C - - - - - 0x01AB12 06:AB02: 85 12     STA vCacheRam_12                   ; $0012 <~ vEnemyPosX - vChrPosX (low)
+C - - - - - 0x01AB12 06:AB02: 85 12     STA $0012                          ; $0012 (cache) <~ vEnemyPosX - vChrPosX (low)
 C - - - - - 0x01AB14 06:AB04: BD 7A 03  LDA vEnemyBPosXHigh,X              ;
 C - - - - - 0x01AB17 06:AB07: E5 68     SBC vHighChrPosX                   ;
 C - - - - - 0x01AB19 06:AB09: D0 26     BNE bra_AB31_RTS                   ; vEnemyPosX != vChrPosX (+1 with overflow) (high)
-C - - - - - 0x01AB1B 06:AB0B: A5 12     LDA vCacheRam_12                   ;
+C - - - - - 0x01AB1B 06:AB0B: A5 12     LDA $0012                          ;
 C - - - - - 0x01AB1D 06:AB0D: C9 40     CMP #$40                           ;
 C - - - - - 0x01AB1F 06:AB0F: B0 20     BCS bra_AB31_RTS                   ; If vEnemyPosX - vChrPosX (low) >= 0x40
 C - - - - - 0x01AB21 06:AB11: C9 20     CMP #$20                           ;
@@ -2443,7 +2443,7 @@ C - - - - - 0x01AF96 06:AF86: BD C8 03  LDA vItemJumpCounter,X                  
 C - - - - - 0x01AF99 06:AF89: D0 3B     BNE bra_AFC6_next                           ; If the briefcase is exploding
 C - - - - - 0x01AF9B 06:AF8B: 20 42 D6  JSR sub_D642_have_intersect_with_character  ;
 C - - - - - 0x01AF9E 06:AF8E: 90 36     BCC bra_AFC6_next                           ; If the character hasn't damage
-C - - - - - 0x01AFA0 06:AF90: BC 98 03  LDY v_briefcase_index,X                     ;
+C - - - - - 0x01AFA0 06:AF90: BC 98 03  LDY vBriefcaseIndex,X                       ;
 C - - - - - 0x01AFA3 06:AF93: A5 6D     LDA vMovableChrStatus                       ;
 C - - - - - 0x01AFA5 06:AF95: 30 0B     BMI @bra_AFA2_skip                          ; If the character is moving in the water
 C - - - - - 0x01AFA7 06:AF97: B9 19 02  LDA vArrayWhiteBriefcase,Y                  ;
@@ -2504,7 +2504,7 @@ sub_AFEF_free_item:
 loc_AFEF_free_item:
 C D 1 - - - 0x01AFFF 06:AFEF: A9 00     LDA #$00                  ;
 C - - - - - 0x01B001 06:AFF1: 9D 9E 03  STA vItemStatus,X         ; clear the current briefcase item
-C - - - - - 0x01B004 06:AFF4: 9D 98 03  STA v_briefcase_index,X   ; clear an index
+C - - - - - 0x01B004 06:AFF4: 9D 98 03  STA vBriefcaseIndex,X     ; clear an index
 C - - - - - 0x01B007 06:AFF7: 60        RTS                       ;
 
 ; in: Register X - the number of the briefcase
@@ -2528,7 +2528,7 @@ C - - - - - 0x01B025 06:B015: A5 6D     LDA vMovableChrStatus              ;
 C - - - - - 0x01B027 06:B017: 10 03     BPL @bra_B01C_skip                 ; If the character doesn't move in the water
 C - - - - - 0x01B029 06:B019: 20 57 B0  JSR sub_B057_try_to_move_in_water  ;
 @bra_B01C_skip:
-C - - - - - 0x01B02C 06:B01C: BD 98 03  LDA v_briefcase_index,X            ;
+C - - - - - 0x01B02C 06:B01C: BD 98 03  LDA vBriefcaseIndex,X              ;
 C - - - - - 0x01B02F 06:B01F: A4 6D     LDY vMovableChrStatus              ;
 C - - - - - 0x01B031 06:B021: 30 06     BMI @bra_B029_skip                 ; If the character moves in the water
 C - - - - - 0x01B033 06:B023: A8        TAY                                ;
@@ -2588,14 +2588,14 @@ C - - - - - 0x01B089 06:B079: 29 7F     AND #$7F                          ; CONS
 C - - - - - 0x01B08B 06:B07B: 05 11     ORA vCacheRam_11                  ; the current item is used
 C - - - - - 0x01B08D 06:B07D: 8D 14 02  STA vCurrentWeaponStatus          ;
 @bra_B080_inc:
-C - - - - - 0x01B090 06:B080: B9 00 02  LDA v_items,Y                     ;
+C - - - - - 0x01B090 06:B080: B9 00 02  LDA vItems,Y                      ;
 C - - - - - 0x01B093 06:B083: 18        CLC                               ;
 C - - - - - 0x01B094 06:B084: 69 01     ADC #$01                          ;
 C - - - - - 0x01B096 06:B086: C9 FF     CMP #$FF                          ; CONSTANT - Max value
 C - - - - - 0x01B098 06:B088: 90 02     BCC @bra_B08C_less_than_max       ; If the number of the items is less than max value
 C - - - - - 0x01B09A 06:B08A: A9 FF     LDA #$FF                          ; reassign
 @bra_B08C_less_than_max:
-C - - - - - 0x01B09C 06:B08C: 99 00 02  STA v_items,Y                     ;
+C - - - - - 0x01B09C 06:B08C: 99 00 02  STA vItems,Y                      ;
 C - - - - - 0x01B09F 06:B08F: A9 20     LDA #$20                          ; Initializing the remaining time
 C - - - - - 0x01B0A1 06:B091: 99 0A 02  STA vItemsBlinkTime,Y             ;
 C - - - - - 0x01B0A4 06:B094: A9 18     LDA #$18                          ; CONSTANT - The sound of taking an item out in a blown-up wall
@@ -2671,7 +2671,7 @@ C - - - - - 0x01B115 06:B105: 9D B6 03  STA vItemPosXLow,X             ; Initial
 C - - - - - 0x01B118 06:B108: A5 02     LDA ram_0002                   ;
 C - - - - - 0x01B11A 06:B10A: 9D AA 03  STA vItemPosY,X                ; Initializes a Y-position
 C - - - - - 0x01B11D 06:B10D: A5 0A     LDA ram_000A                   ;
-C - - - - - 0x01B11F 06:B10F: 9D 98 03  STA v_briefcase_index,X        ; store index of a briefcase (or an item number for the water level)
+C - - - - - 0x01B11F 06:B10F: 9D 98 03  STA vBriefcaseIndex,X          ; store index of a briefcase (or an item number for the water level)
 bra_B112_RTS:
 C - - - - - 0x01B122 06:B112: 60        RTS                            ;
 
@@ -2801,7 +2801,7 @@ C - - - - - 0x01B1EA 06:B1DA: A2 05     LDX #$05                                
 @bra_B1DC_loop:                                                                             ; loop by x (5 times)
 C - - - - - 0x01B1EC 06:B1DC: 84 11     STY vCacheRam_11                                    ; caches y
 C - - - - - 0x01B1EE 06:B1DE: B1 12     LDA (ram_0012),Y                                    ;
-C - - - - - 0x01B1F0 06:B1E0: 9D 98 03  STA v_briefcase_index,X                             ;
+C - - - - - 0x01B1F0 06:B1E0: 9D 98 03  STA vBriefcaseIndex,X                               ;
 C - - - - - 0x01B1F3 06:B1E3: F0 0A     BEQ @bra_B1EF_no_exist                              ; If the index == 0x00
 C - - - - - 0x01B1F5 06:B1E5: A8        TAY                                                 ;
 C - - - - - 0x01B1F6 06:B1E6: B9 19 02  LDA vArrayWhiteBriefcase,Y                          ; load briefcase flags by index
@@ -2870,7 +2870,7 @@ C - - - - - 0x01B257 06:B247: A9 80     LDA #$80                      ; CONSTANT
 C - - - - - 0x01B259 06:B249: 85 C8     STA vMessageInProgress        ;
 C - - - - - 0x01B25B 06:B24B: A9 00     LDA #$00                      ;
 C - - - - - 0x01B25D 06:B24D: 85 CA     STA vMessageCounter           ; resets the counter
-C - - - - - 0x01B25F 06:B24F: 85 C9     STA v_letter_offset           ; in 0
+C - - - - - 0x01B25F 06:B24F: 85 C9     STA vLetterOffset             ; in 0
 C - - - - - 0x01B261 06:B251: 60        RTS                           ;
 
 bra_B252_return:
@@ -2884,7 +2884,7 @@ C - - - - - 0x01B26B 06:B25B: A5 CA     LDA vMessageCounter                    ;
 C - - - - - 0x01B26D 06:B25D: 29 03     AND #$03                               ; set the frequency of displaying the letter
 C - - - - - 0x01B26F 06:B25F: D0 F1     BNE bra_B252_return                    ; If Register A == 0x00
 C - - - - - 0x01B271 06:B261: 20 BE B2  JSR sub_B2BE_switch_messages_ppu_banks ;
-C - - - - - 0x01B274 06:B264: A4 C9     LDY v_letter_offset                    ; prepare an input parameter
+C - - - - - 0x01B274 06:B264: A4 C9     LDY vLetterOffset                      ; prepare an input parameter
 C - - - - - 0x01B276 06:B266: 20 DB B2  JSR sub_B2DB_prepare_letter_address    ;
 ; In: Register A - a letter number (aka a tile number)
 ; In: Register Y - a letter offset
@@ -2895,12 +2895,12 @@ C - - - - - 0x01B27D 06:B26D: C9 FE     CMP #$FE                               ;
 C - - - - - 0x01B27F 06:B26F: D0 15     BNE bra_B286_finish                    ; If letter isn't a new paragraph
 C - - - - - 0x01B281 06:B271: C8        INY                                    ;
 C - - - - - 0x01B282 06:B272: AD 07 20  LDA PPU_DATA                           ; 
-C - - - - - 0x01B285 06:B275: 85 CF     STA v_low_msg_ppu_address              ; retrieve low value of PPU-address
+C - - - - - 0x01B285 06:B275: 85 CF     STA vLowMsgPpuAddress                  ; retrieve low value of PPU-address
 C - - - - - 0x01B287 06:B277: C8        INY                                    ;
 C - - - - - 0x01B288 06:B278: AD 07 20  LDA PPU_DATA                           ; Increments address
-C - - - - - 0x01B28B 06:B27B: 85 D0     STA v_high_msg_ppu_address             ; retrieve high value of PPU-address
+C - - - - - 0x01B28B 06:B27B: 85 D0     STA vHighMsgPpuAddress                 ; retrieve high value of PPU-address
 C - - - - - 0x01B28D 06:B27D: C8        INY                                    ;
-C - - - - - 0x01B28E 06:B27E: 84 C9     STY v_letter_offset                    ; <~ v_letter_offset + 3
+C - - - - - 0x01B28E 06:B27E: 84 C9     STY vLetterOffset                      ; <~ vLetterOffset + 3
 C - - - - - 0x01B290 06:B280: AD 07 20  LDA PPU_DATA                           ; Increments address
 C - - - - - 0x01B293 06:B283: 4C 69 B2  JMP loc_B269_repeat                    ;
 
@@ -2911,7 +2911,7 @@ C - - - - - 0x01B29A 06:B28A: 60        RTS                    ;
 
 ; In: Register A - tile (a number)
 bra_B28B_simple_letter:
-C - - - - - 0x01B29B 06:B28B: E6 C9     INC v_letter_offset           ; updates the offset
+C - - - - - 0x01B29B 06:B28B: E6 C9     INC vLetterOffset             ; updates the offset
 C - - - - - 0x01B29D 06:B28D: D0 02     BNE @bra_B291_skip            ; If the new offset != 0x00
 C - - - - - 0x01B29F 06:B28F: E6 C8     INC vMessageInProgress        ; !(UNUSED), not used
 @bra_B291_skip:
@@ -2927,13 +2927,13 @@ C - - - - - 0x01B2AF 06:B29F: 29 3F     AND #$3F                      ; filters 
 bra_B2A1_skip:
 C - - - - - 0x01B2B1 06:B2A1: 8E 33 06  STX vPpuBufferData            ; <~ {0x00, 0x7E, 0x7F}
 C - - - - - 0x01B2B4 06:B2A4: 8D 34 06  STA vNonUsed634               ;
-C - - - - - 0x01B2B7 06:B2A7: A5 CF     LDA v_low_msg_ppu_address     ;
+C - - - - - 0x01B2B7 06:B2A7: A5 CF     LDA vLowMsgPpuAddress         ;
 C - - - - - 0x01B2B9 06:B2A9: 8D 30 06  STA vLowPpuAddress            ; <~ low value, 1 mode
-C - - - - - 0x01B2BC 06:B2AC: A5 D0     LDA v_high_msg_ppu_address    ;
+C - - - - - 0x01B2BC 06:B2AC: A5 D0     LDA vHighMsgPpuAddress        ;
 C - - - - - 0x01B2BE 06:B2AE: 8D 31 06  STA vHighPpuAddress           ; <~ high value, 1 mode
 C - - - - - 0x01B2C1 06:B2B1: A9 82     LDA #$82                      ; CONSTANT - a vertical increment + 2 tiles
 C - - - - - 0x01B2C3 06:B2B3: 8D 32 06  STA vPpuBufferCount           ;
-C - - - - - 0x01B2C6 06:B2B6: E6 CF     INC v_low_msg_ppu_address     ; next a low value of the address
+C - - - - - 0x01B2C6 06:B2B6: E6 CF     INC vLowMsgPpuAddress         ; next a low value of the address
 C - - - - - 0x01B2C8 06:B2B8: A9 50     LDA #$50                      ; typing sound
 C - - - - - 0x01B2CA 06:B2BA: 4C 20 C4  JMP loc_C420_add_sound_effect ;
 
@@ -3426,9 +3426,9 @@ C - - - - - 0x01B5C4 06:B5B4: C8        INY                    ;
 C - - - - - 0x01B5C5 06:B5B5: 60        RTS                    ;
 
 loc_npc_type5:
-C - - J - - 0x01B5C6 06:B5B6: AD 08 02  LDA v_ruby_ring        ;
+C - - J - - 0x01B5C6 06:B5B6: AD 08 02  LDA vRubyRing          ;
 C - - - - - 0x01B5C9 06:B5B9: F0 F9     BEQ loc_npc_type0      ; If the number of the rings is 0x00
-C - - - - - 0x01B5CB 06:B5BB: CE 08 02  DEC v_ruby_ring        ; the ring is used
+C - - - - - 0x01B5CB 06:B5BB: CE 08 02  DEC vRubyRing          ; the ring is used
 loc_npc_type4:
 C - - J - - 0x01B5CE 06:B5BE: A5 5F     LDA vChrLiveStatus     ;
 C - - - - - 0x01B5D0 06:B5C0: 29 03     AND #$03               ; Get the current selected character
@@ -3438,9 +3438,9 @@ C - - - - - 0x01B5D6 06:B5C6: F0 EA     BEQ loc_npc_type2      ; If the characte
 C - - - - - 0x01B5D8 06:B5C8: D0 E7     BNE loc_npc_type3      ; If the character is Goemon, always true
 
 loc_npc_type6:
-C - - J - - 0x01B5DA 06:B5CA: AD 08 02  LDA v_ruby_ring        ;
+C - - J - - 0x01B5DA 06:B5CA: AD 08 02  LDA vRubyRing          ;
 C - - - - - 0x01B5DD 06:B5CD: F0 E5     BEQ loc_npc_type0      ; If the number of the rings is 0x00
-C - - - - - 0x01B5DF 06:B5CF: CE 08 02  DEC v_ruby_ring        ; the ring is used
+C - - - - - 0x01B5DF 06:B5CF: CE 08 02  DEC vRubyRing          ; the ring is used
 C - - - - - 0x01B5E2 06:B5D2: 4C B3 B5  JMP loc_npc_type1      ;
 
 loc_npc_type9:
@@ -3907,7 +3907,7 @@ C - - - - - 0x01B918 06:B908: 85 13     STA ram_0013                            
 C - - - - - 0x01B91A 06:B90A: A9 00     LDA #$00                                   ; CONSTANT - no reason
 C - - - - - 0x01B91C 06:B90C: 85 D6     STA vReasonCharacterChange                 ;
 C - - - - - 0x01B91E 06:B90E: A2 0F     LDX #$0F                                   ;
-C - - - - - 0x01B920 06:B910: AD 09 01  LDA v_last_level                           ;
+C - - - - - 0x01B920 06:B910: AD 09 01  LDA vLastLevel                             ;
 C - - - - - 0x01B923 06:B913: F0 01     BEQ @bra_B916_skip                         ; If vLastLevel == 0x00
 C - - - - - 0x01B925 06:B915: E8        INX                                        ; For rendering a word 'Continue'
 @bra_B916_skip:
@@ -3934,10 +3934,10 @@ C - - - - - 0x01B951 06:B941: 85 3B     STA vSharedGameStatus                   
 C - - - - - 0x01B953 06:B943: A9 00     LDA #$00                                   ;
 C - - - - - 0x01B955 06:B945: 85 B1     STA vStartLevel                            ; clear
 C - - - - - 0x01B957 06:B947: 85 B2     STA vSecretHitIndex                        ; clear
-C - - - - - 0x01B959 06:B949: 85 B3     STA v_lock_secret_hits                     ; clear
-C - - - - - 0x01B95B 06:B94B: 85 B4     STA v_offset_in_secret_codes               ; clear
+C - - - - - 0x01B959 06:B949: 85 B3     STA vLockSecretHits                        ; clear
+C - - - - - 0x01B95B 06:B94B: 85 B4     STA vOffsetInSecretCodes                   ; clear
 C - - - - - 0x01B95D 06:B94D: 85 2C     STA vLowCounter                            ; clear
-C - - - - - 0x01B95F 06:B94F: 85 2D     STA v_high_counter                         ; clear
+C - - - - - 0x01B95F 06:B94F: 85 2D     STA vHighCounter                           ; clear
 C - - - - - 0x01B961 06:B951: 85 19     STA vRenderActive                          ; clear
 C - - - - - 0x01B963 06:B953: 8D 31 06  STA ram_0631                               ; clear
 C - - - - - 0x01B966 06:B956: 8D 7B 06  STA vPpuAddrDataCache                      ; clear
@@ -3956,9 +3956,9 @@ C - - - - - 0x01B97E 06:B96E: 85 1C     STA vBtnPressedInGame                   
 C - - - - - 0x01B980 06:B970: 85 3D     STA vCharacterSelectionCounter             ; clear
 C - - - - - 0x01B982 06:B972: A9 00     LDA #$00                                   ; !(WHY?), seems to be excessive
 C - - - - - 0x01B984 06:B974: 85 2C     STA vLowCounter                            ; clear
-C - - - - - 0x01B986 06:B976: 85 2D     STA v_high_counter                         ; clear
+C - - - - - 0x01B986 06:B976: 85 2D     STA vHighCounter                           ; clear
 @bra_B978_repeat:
-C - - - - - 0x01B988 06:B978: A5 2D     LDA v_high_counter                         ;
+C - - - - - 0x01B988 06:B978: A5 2D     LDA vHighCounter                           ;
 C - - - - - 0x01B98A 06:B97A: C9 02     CMP #$02                                   ;
 C - - - - - 0x01B98C 06:B97C: 90 06     BCC @bra_B984_skip                         ;
 C - - - - - 0x01B98E 06:B97E: A5 2C     LDA vLowCounter                            ;
@@ -3982,7 +3982,7 @@ C - - - - - 0x01B9AE 06:B99E: F0 09     BEQ @bra_B9A9_skip                      
 C - - - - - 0x01B9B0 06:B9A0: A8        TAY                                        ; 
 C - - - - - 0x01B9B1 06:B9A1: D0 03     BNE @bra_B9A6_skip                         ; Always the true branch
 @bra_B9A3_skip:
-C - - - - - 0x01B9B3 06:B9A3: AC 09 01  LDY v_last_level                           ;
+C - - - - - 0x01B9B3 06:B9A3: AC 09 01  LDY vLastLevel                             ;
 @bra_B9A6_skip:
 C - - - - - 0x01B9B6 06:B9A6: B9 CA C1  LDA tbl_C1CA_checkpoint_on_start_levels,Y  ; 
 @bra_B9A9_skip:
@@ -4094,7 +4094,7 @@ C - - - - - 0x01BA76 06:BA66: 8D 7B 06  STA vPpuAddrDataCache                   
 C - - - - - 0x01BA79 06:BA69: 85 29     STA vLowViewPortPosY                     ; clear
 C - - - - - 0x01BA7B 06:BA6B: 85 27     STA vLowViewPortPosX                     ; clear
 C - - - - - 0x01BA7D 06:BA6D: 85 2C     STA vLowCounter                          ; clear
-C - - - - - 0x01BA7F 06:BA6F: 85 2D     STA v_high_counter                       ; clear
+C - - - - - 0x01BA7F 06:BA6F: 85 2D     STA vHighCounter                         ; clear
 C - - - - - 0x01BA81 06:BA71: 85 3D     STA vStartStatus                         ; clear
 C - - - - - 0x01BA83 06:BA73: 85 19     STA vRenderActive                        ; clear
 C - - - - - 0x01BA85 06:BA75: 85 C8     STA vMessageInProgress                   ; clear
@@ -4229,7 +4229,7 @@ C - - - - - 0x01BB3F 06:BB2F: A5 B1     LDA vStartLevel                      ;
 C - - - - - 0x01BB41 06:BB31: D0 5E     BNE bra_BB91_RTS                     ; Go to the branch If start level is activated
 C - - - - - 0x01BB43 06:BB33: A5 1C     LDA vBtnPressedInGame                ;
 C - - - - - 0x01BB45 06:BB35: F0 56     BEQ bra_BB8D_reset_lock              ; Go to the branch If the any buttons aren't pressed
-C - - - - - 0x01BB47 06:BB37: A5 B3     LDA v_lock_secret_hits               ;
+C - - - - - 0x01BB47 06:BB37: A5 B3     LDA vLockSecretHits                  ;
 C - - - - - 0x01BB49 06:BB39: D0 56     BNE bra_BB91_RTS                     ; Go to the branch If the some buttons is pressing
 C - - - - - 0x01BB4B 06:BB3B: A5 B2     LDA vSecretHitIndex                  ;
 C - - - - - 0x01BB4D 06:BB3D: D0 24     BNE bra_BB63_non_first_hit           ; Go to the branch If vSecretHitIndex > 0x00
@@ -4240,7 +4240,7 @@ C - - - - - 0x01BB57 06:BB47: AD 98 BB  LDA tbl_BB92_stage_select_codes + 6  ; B
 C - - - - - 0x01BB5A 06:BB4A: 20 79 D0  JSR sub_D079_check_button_press      ;
 C - - - - - 0x01BB5D 06:BB4D: F0 06     BEQ @bra_BB55_skip                   ; Go to the branch If the button 'Left' isn't pressed
 C - - - - - 0x01BB5F 06:BB4F: A9 06     LDA #$06                             ; The offset in the table secret code -> level 3
-C - - - - - 0x01BB61 06:BB51: 85 B4     STA v_offset_in_secret_codes         ; Initializes the offset for 2 secret combination
+C - - - - - 0x01BB61 06:BB51: 85 B4     STA vOffsetInSecretCodes             ; Initializes the offset for 2 secret combination
 C - - - - - 0x01BB63 06:BB53: D0 1A     BNE bra_BB6F_success_hit             ; Always true
 
 @bra_BB55_skip:
@@ -4248,25 +4248,25 @@ C - - - - - 0x01BB65 06:BB55: AD 9E BB  LDA tbl_BB92_stage_select_codes + 12 ; B
 C - - - - - 0x01BB68 06:BB58: 20 79 D0  JSR sub_D079_check_button_press      ;
 C - - - - - 0x01BB6B 06:BB5B: F0 2A     BEQ bra_BB87_reset                   ; Go to the branch If the button 'Down' isn't pressed
 C - - - - - 0x01BB6D 06:BB5D: A9 0C     LDA #$0C                             ; The offset in the table secret code -> level 4
-C - - - - - 0x01BB6F 06:BB5F: 85 B4     STA v_offset_in_secret_codes         ; Initializes the offset for 2 secret combination
+C - - - - - 0x01BB6F 06:BB5F: 85 B4     STA vOffsetInSecretCodes             ; Initializes the offset for 2 secret combination
 C - - - - - 0x01BB71 06:BB61: D0 0C     BNE bra_BB6F_success_hit             ; Always true
 
 ; In: Register A - a secret hit index
 bra_BB63_non_first_hit:
 C - - - - - 0x01BB73 06:BB63: 18        CLC                                  ;
-C - - - - - 0x01BB74 06:BB64: 65 B4     ADC v_offset_in_secret_codes         ;
+C - - - - - 0x01BB74 06:BB64: 65 B4     ADC vOffsetInSecretCodes             ;
 C - - - - - 0x01BB76 06:BB66: A8        TAY                                  ; Y <~ the offset + a hit offset
 C - - - - - 0x01BB77 06:BB67: B9 92 BB  LDA tbl_BB92_stage_select_codes,Y    ;
 C - - - - - 0x01BB7A 06:BB6A: 20 79 D0  JSR sub_D079_check_button_press      ; bank FF
 C - - - - - 0x01BB7D 06:BB6D: F0 18     BEQ bra_BB87_reset                   ; Go to the branch If the secret button isn't pressed
 bra_BB6F_success_hit:
 C - - - - - 0x01BB7F 06:BB6F: E6 B2     INC vSecretHitIndex                  ; next secret hit (n-th of 6)
-C - - - - - 0x01BB81 06:BB71: E6 B3     INC v_lock_secret_hits               ; locks the buttons temporary
+C - - - - - 0x01BB81 06:BB71: E6 B3     INC vLockSecretHits                  ; locks the buttons temporary
 C - - - - - 0x01BB83 06:BB73: A5 B2     LDA vSecretHitIndex                  ;
 C - - - - - 0x01BB85 06:BB75: C9 06     CMP #$06                             ; CONSTANT - The number of the buttons is in the secret combination
 C - - - - - 0x01BB87 06:BB77: D0 18     BNE bra_BB91_RTS                     ; If the number of secret hits != 0x06
 C - - - - - 0x01BB89 06:BB79: A2 01     LDX #$01                             ; CONSTANT - level 2.0
-C - - - - - 0x01BB8B 06:BB7B: A5 B4     LDA v_offset_in_secret_codes         ;
+C - - - - - 0x01BB8B 06:BB7B: A5 B4     LDA vOffsetInSecretCodes             ;
 C - - - - - 0x01BB8D 06:BB7D: F0 06     BEQ bra_BB85_assign                  ; If the 1st secret combination was entered successfully
 C - - - - - 0x01BB8F 06:BB7F: E8        INX                                  ; X <~ 2, level 3.0
 C - - - - - 0x01BB90 06:BB80: C9 06     CMP #$06                             ;
@@ -4277,10 +4277,10 @@ C - - - - - 0x01BB95 06:BB85: 86 B1     STX vStartLevel                      ;
 bra_BB87_reset:
 C - - - - - 0x01BB97 06:BB87: A9 00     LDA #$00                             ;
 C - - - - - 0x01BB99 06:BB89: 85 B2     STA vSecretHitIndex                  ;
-C - - - - - 0x01BB9B 06:BB8B: 85 B4     STA v_offset_in_secret_codes         ;
+C - - - - - 0x01BB9B 06:BB8B: 85 B4     STA vOffsetInSecretCodes             ;
 bra_BB8D_reset_lock:
 C - - - - - 0x01BB9D 06:BB8D: A9 00     LDA #$00                             ;
-C - - - - - 0x01BB9F 06:BB8F: 85 B3     STA v_lock_secret_hits               ;
+C - - - - - 0x01BB9F 06:BB8F: 85 B3     STA vLockSecretHits                  ;
 bra_BB91_RTS:
 C - - - - - 0x01BBA1 06:BB91: 60        RTS                                  ;
 
@@ -4503,7 +4503,7 @@ tbl_BCCF_clarissa_is_saved_chr_banks:
 ; 1 byte - health points
 ; 2 byte - the 1 number of ChrBank
 ; 3 byte - the 2 number of ChrBank
-; 4 byte - see v_sprite_magic2
+; 4 byte - see vSpriteMagic2
 tbl_ptr_boss_sprite_params_:
 - D 1 - - - 0x01BD05 06:BCF5: 14        .byte $14, $17, $17, $00   ; 
 - D 1 - - - 0x01BD09 06:BCF9: 20        .byte $20, $13, $13, $3C   ; 
@@ -4529,8 +4529,8 @@ tbl_ptr_enemy_t3_types_for_sprites:
 ; 2 byte - health points (0x00 - 1HP)
 ; 3 byte - the 1 number of ChrBank
 ; 4 byte - the 2 number of ChrBank
-; 5 byte - see v_sprite_magic2
-; 6 byte - see v_sprite_magic3
+; 5 byte - see vSpriteMagic2
+; 6 byte - see vSpriteMagic3
 ; 7 byte - extra1, analog 5th byte
 ; 8 byte - extra2, analog 5th byte
 tbl_ptr_enemy_t3_sprite_params_:
@@ -4575,8 +4575,8 @@ tbl_ptr_enemy_t2_types_for_sprites:
 
 ; 1 byte - the 1 number of ChrBank
 ; 2 byte - the 2 number of ChrBank
-; 3 byte - see v_sprite_magic2
-; 4 byte - see v_sprite_magic3
+; 3 byte - see vSpriteMagic2
+; 4 byte - see vSpriteMagic3
 tbl_ptr_enemy_t2_sprite_params_:
 - D 1 - - - 0x01BDE2 06:BDD2: FF        .byte $FF, $19, $6A, $C3
 - D 1 - - - 0x01BDE6 06:BDD6: 0C        .byte $0C, $FF, $28, $43

@@ -2147,7 +2147,7 @@ bra_AED6_throw:
 C - - - - - 0x00EEE6 03:AED6: 4C A9 AF  JMP loc_AFA9_throw             ;
 
 sub_AED9_execute_fly_or_throw:
-C - - - - - 0x00EEE9 03:AED9: A5 2B     LDA v_nmi_counter                  ;
+C - - - - - 0x00EEE9 03:AED9: A5 2B     LDA vNmiCounter                    ;
 C - - - - - 0x00EEEB 03:AEDB: 29 01     AND #$01                           ;
 C - - - - - 0x00EEED 03:AEDD: D0 D9     BNE bra_AEB8_no_flying             ; If vNmiCounter is odd
 C - - - - - 0x00EEEF 03:AEDF: A9 C6     LDA #$C6                           ;

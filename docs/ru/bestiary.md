@@ -7,7 +7,7 @@
 |0x04|Land Diver| A | [Земной водолаз](#враг-04) | 3 |
 |0x05|Land Diver| A | [Земной водолаз](#враг-05) | 2 |
 |0x06|Land Diver| A | [Земной водолаз](#враг-06) | 1 |
-|0x07|Zenigata| A | [Зенигата](#враг-07) |Все|
+|0x07|Zenigata| A | [Дзэнигата](#враг-07) |Все|
 |0x08|Shooter with bazooka| A | [Стрелок из базуки](#враг-03) | 3 |
 |0x09|The fat sailor| A | [Полный моряк](#враг-09) | 3 |
 |0x0A|The barrel| B | [Красная бочка](#враг-0a) | 3 |
@@ -177,7 +177,7 @@
 -  ***X*** - общий флаг активности статусов (**_0x00_** - статусы не используются, **_0x01_** - используются)
 
 ## Враг 07
-Зенигата
+Дзэнигата
 |Кадр 1|Кадр 2|Кадр 3|Кадр 4|Кадр 5|Кадр 6|Кадр 7|
 |---|---|---|---|---|---|---|
 | ![Frame1](../images/enemies/07/frame1-r.png) | ![Frame2](../images/enemies/07/frame2-r.png) | ![Frame3](../images/enemies/07/frame3-r.png) | ![Frame4](../images/enemies/07/frame4-r.png) | ![Frame5](../images/enemies/07/frame5-r.png) | ![Frame6](../images/enemies/07/frame6-r.png) | ![Frame7](../images/enemies/07/frame7-r.png) |
