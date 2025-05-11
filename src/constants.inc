@@ -19,8 +19,8 @@ TRI_LINEAR   = $4008
 DMC_FREQ     = $4010
 OAM_DMA      = $4014
 APU_STATUS   = $4015
-JOY1 = $4016
-JOY2 = $4017
+JOY1         = $4016
+JOY2         = $4017
 
 BIT_BUTTON_START         = %00001000 ; 0x08
 BIT_BUTTON_SELECT        = %00000100 ; 0x04
@@ -48,20 +48,22 @@ BULLET_PROOF_VEST_IN_WHITE_BRIEFCASE   = $07
 
 ; Variables
 
-vTempCounter5                 = ram_0005
-vTempCounterC                 = ram_000C
-vTempCounter10                = ram_0010
-vCacheRam_11                  = ram_0011
-vNonUsed11                    = ram_0011
-vTempCheckButtons             = ram_0012 ; This is a variable that stores the checked state of the button
-vTempCounter12                = ram_0012
-vRenderActive                 = ram_0019 ; 0x00 - active, else deactive
-vTempRowNumber1A              = ram_001A ; Intermediate counter
-vTempCounter1A                = ram_001A ; Intermediate counter
-vBtnPressedInGame             = ram_001C ; In a level 1-4 or a title screen
-vCopy001C                     = ram_001D
-vPlayer1BtnPressed            = ram_001E ; For a contoller1
-vPlayer2BtnPressed            = ram_001F ; For a contoller2
+;vTempCounter5                 = ram_0005
+;vTempCounterC                 = ram_000C
+;vTempCounter10                = ram_0010
+;vCacheRam_11                  = ram_0011
+;vNonUsed11                    = ram_0011
+;vTempCheckButtons             = ram_0012 ; This is a variable that stores the checked state of the button
+;vTempCounter12                = ram_0012
+;vRenderActive                 = ram_0019 ; 0x00 - active, else deactive
+;vTempRowNumber1A              = ram_001A ; Intermediate counter
+;vTempCounter1A                = ram_001A ; Intermediate counter
+;vBtnPressedInGame             = ram_001C ; In a level 1-4 or a title screen
+;vCopy001C                     = ram_001D
+;vPlayer1BtnPressed            = ram_001E ; For a contoller1
+;vPlayer2BtnPressed            = ram_001F ; For a contoller2
+
+
 vLastP2BtnPressed             = ram_0020 ; It's the previouse value for a contoller2 (the state of the buttons)
 vLastP1BtnPressed             = ram_0021 ; It's the previouse value for a contoller1 (the state of the buttons)
 vDemoBtnPrsdCounter           = ram_0022 ; Counter after which an attempt is made to simulate a button press in demo scenes
@@ -290,36 +292,7 @@ vCurrentDeviceData            = ram_00F9
 ; 0x80 - the radio was using
 vSoundRoomIndex               = ram_00FD
 vLastLevel                    = ram_0109 ; It is a last played level.
-vRadioItem                    = ram_0200
-vItems                        = ram_0200 ; 0x0200-0x0208
-vBreathingApparatusItem       = ram_0205
-vHeliumBalloonItem            = ram_0206
-vBulletProofVestItem          = ram_0207
-vRubyRing                     = ram_0208
-vTestSelectedItem             = ram_0209
-vItemsBlinkTime               = ram_020A ; 0x020A-0x0212
-vCurrentWeaponStatus          = ram_0214 ; Only the active items
-; Byte: XY00 KKKK
-; X - the weapons are not exist
-; Y - the weapon is activated
-; K - the current item:
-; 0x0000 - Using the radio
-; 0x0001 - Using the bomb
-; 0x0010 - Using the artillery rifle
-; 0x0011 - Using the jet-pack
-; 0x0100 - Using the infrared goggles
-vApparatusLowCounter          = ram_0215 ; Breathing or flying
-vApparatusHighCounter         = ram_0216
-vSensorActiveLowCounter       = ram_0217
-vSensorActiveHighCounter      = ram_0218
 
-vArrayWhiteBriefcase          = ram_0219
-; Byte: XYZW KKKK
-; X - the item is got (1 - got, 0 - no got)
-; Y - ???
-; Z - ???
-; W - ???
-; K - the item number
 
 vEnemyASpriteMagic2           = ram_0302 ; see vSpriteMagic2
 vEnemyASpriteMagic3           = ram_0303 ; see vSpriteMagic3

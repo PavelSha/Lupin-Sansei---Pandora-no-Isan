@@ -1258,8 +1258,8 @@ C - - - - - 0x01C75A 07:C74A: B9 00 94  LDA tbl_select_characters_dialog,Y      
 C - - - - - 0x01C75D 07:C74D: 85 02     STA $0002                                               ; low address
 C - - - - - 0x01C75F 07:C74F: B9 01 94  LDA tbl_select_characters_dialog + 1,Y                  ;
 C - - - - - 0x01C762 07:C752: 85 03     STA $0003                                               ; high address
-; In: Register $0002 - Low address for ppu buffer data
-; In: Register $0003 - High address for ppu buffer data
+; In: $0002 - Low address for ppu buffer data
+; In: $0003 - High address for ppu buffer data
 loc_C754_render_02_03:
 C D 2 - - - 0x01C764 07:C754: A0 13     LDY #$13                              ; set loop counter
 @bra_C756_loop:                                                               ; loop by y (14 times)
@@ -1271,15 +1271,15 @@ C - - - - - 0x01C76E 07:C75E: A5 1A     LDA vTempRowNumber1A                  ;
 C - - - - - 0x01C770 07:C760: 0A        ASL                                   ; shift, because PPU address contains 2 bytes
 C - - - - - 0x01C771 07:C761: A8        TAY                                   ;
 C - - - - - 0x01C772 07:C762: B9 14 C6  LDA tbl_C614_PPU_address,Y            ;
-C - - - - - 0x01C775 07:C765: 85 14     STA ram_0014                          ; low PPU address
+C - - - - - 0x01C775 07:C765: 85 14     STA $0014                             ; low PPU address
 C - - - - - 0x01C777 07:C767: B9 15 C6  LDA tbl_C614_PPU_address + 1,Y        ;
-C - - - - - 0x01C77A 07:C76A: 85 15     STA ram_0015                          ; high PPU address
+C - - - - - 0x01C77A 07:C76A: 85 15     STA $0015                             ; high PPU address
 C - - - - - 0x01C77C 07:C76C: A9 33     LDA #$33                              ;
-C - - - - - 0x01C77E 07:C76E: 85 16     STA ram_0016                          ; low address
+C - - - - - 0x01C77E 07:C76E: 85 16     STA $0016                             ; low address
 C - - - - - 0x01C780 07:C770: A9 06     LDA #$06                              ;
-C - - - - - 0x01C782 07:C772: 85 17     STA ram_0017                          ; high address ($0633)
+C - - - - - 0x01C782 07:C772: 85 17     STA $0017                             ; high address ($0633)
 C - - - - - 0x01C784 07:C774: A9 14     LDA #$14                              ;
-C - - - - - 0x01C786 07:C776: 85 18     STA ram_0018                          ; the number of the tiles
+C - - - - - 0x01C786 07:C776: 85 18     STA $0018                             ; the number of the tiles
 C - - - - - 0x01C788 07:C778: 4C 89 D0  JMP loc_D089_render_14_15_16_17_18_v2 ;
 
 ; Out: Zero status - The character isn't fell and arrested
@@ -1432,30 +1432,30 @@ C - - - - - 0x01C867 07:C857: 05 AD     ORA vIndexSelectableChr ;
 C - - - - - 0x01C869 07:C859: 85 5F     STA vChrLiveStatus      ;
 C - - - - - 0x01C86B 07:C85B: 60        RTS                     ;
 
-; In: 0x12-0x13 - an input address
-; In: Register A - position by the content (indirect 0x12-0x13)
+; In: $0012-$0013 - an input address
+; In: Register A - position by the content (indirect $0012-$0013)
 sub_C85C_display_character_portrait:
 C - - - - - 0x01C86C 07:C85C: 20 A3 D0  JSR sub_D0A3_prepare_14_15_16_17_18   ;
 C - - - - - 0x01C86F 07:C85F: A9 03     LDA #$03                              ;
-C - - - - - 0x01C871 07:C861: 85 0F     STA ram_000F                          ; set loop counter
+C - - - - - 0x01C871 07:C861: 85 0F     STA vTempCounterF                     ; set loop counter
 bra_C863_loop:                                                                ; loop counter (4 times)
 C - - - - - 0x01C873 07:C863: 20 89 D0  JSR sub_D089_render_14_15_16_17_18_v2 ;
-C - - - - - 0x01C876 07:C866: A5 14     LDA ram_0014                          ;
+C - - - - - 0x01C876 07:C866: A5 14     LDA $0014                             ;
 C - - - - - 0x01C878 07:C868: 18        CLC                                   ;
 C - - - - - 0x01C879 07:C869: 69 20     ADC #$20                              ;
-C - - - - - 0x01C87B 07:C86B: 85 14     STA ram_0014                          ; shifts PPU address for next row
-C - - - - - 0x01C87D 07:C86D: A5 15     LDA ram_0015                    	  ;
+C - - - - - 0x01C87B 07:C86B: 85 14     STA $0014                             ; shifts PPU address for next row
+C - - - - - 0x01C87D 07:C86D: A5 15     LDA $0015                             ;
 C - - - - - 0x01C87F 07:C86F: 69 00     ADC #$00                        	  ;
-C - - - - - 0x01C881 07:C871: 85 15     STA ram_0015                    	  ; shift high address by Carry flag
-C - - - - - 0x01C883 07:C873: A5 16     LDA ram_0016                          ;
+C - - - - - 0x01C881 07:C871: 85 15     STA $0015                             ; shift high address by Carry flag
+C - - - - - 0x01C883 07:C873: A5 16     LDA $0016                             ;
 C - - - - - 0x01C885 07:C875: 18        CLC                                   ;
-C - - - - - 0x01C886 07:C876: 65 18     ADC ram_0018                          ;
-C - - - - - 0x01C888 07:C878: 85 16     STA ram_0016                          ; shifts ROM-address value by count of the bytes ($0018 contains 0x03)
-C - - - - - 0x01C88A 07:C87A: A5 17     LDA ram_0017                          ;
+C - - - - - 0x01C886 07:C876: 65 18     ADC $0018                             ;
+C - - - - - 0x01C888 07:C878: 85 16     STA $0016                             ; shifts ROM-address value by count of the bytes ($0018 contains 0x03)
+C - - - - - 0x01C88A 07:C87A: A5 17     LDA $0017                             ;
 C - - - - - 0x01C88C 07:C87C: 69 00     ADC #$00                              ;
-C - - - - - 0x01C88E 07:C87E: 85 17     STA ram_0017                          ; shift high ROM-address value by Carry flag
-C - - - - - 0x01C890 07:C880: C6 0F     DEC ram_000F                          ; decrement loop counter
-C - - - - - 0x01C892 07:C882: 10 DF     BPL bra_C863_loop                     ; If $000F < 0x80
+C - - - - - 0x01C88E 07:C87E: 85 17     STA $0017                             ; shift high ROM-address value by Carry flag
+C - - - - - 0x01C890 07:C880: C6 0F     DEC vTempCounterF                     ; decrement loop counter
+C - - - - - 0x01C892 07:C882: 10 DF     BPL bra_C863_loop                     ; If vTempCounterF < 0x80
 C - - - - - 0x01C894 07:C884: 60        RTS                                   ;
 
 sub_C885_try_interrupt_mode:
@@ -1933,7 +1933,7 @@ C - - - - - 0x01CB5A 07:CB4A: AD 14 02  LDA vCurrentWeaponStatus                
 C - - - - - 0x01CB5D 07:CB4D: 29 07     AND #$07                                ;
 C - - - - - 0x01CB5F 07:CB4F: AA        TAX                                     ; X <~ the item number
 C - - - - - 0x01CB60 07:CB50: A9 05     LDA #$05                                ; !(UNUSED)
-C - - - - - 0x01CB62 07:CB52: 85 14     STA ram_0014                            ; !(UNUSED)
+C - - - - - 0x01CB62 07:CB52: 85 14     STA vNonUsed14                          ; !(UNUSED)
 C - - - - - 0x01CB64 07:CB54: A9 C0     LDA #BIT_BUTTON_Left_OR_Right           ;
 C - - - - - 0x01CB66 07:CB56: 20 79 D0  JSR sub_D079_check_button_press         ;
 C - - - - - 0x01CB69 07:CB59: F0 31     BEQ bra_CB8C_render_frame_current_item  ; Go to the branch If the buttons 'Left' or 'Right' aren't pressed
@@ -2421,7 +2421,7 @@ C - - - - - 0x01CE83 07:CE73: 2A        ROL                          ;
 C - - - - - 0x01CE84 07:CE74: 2A        ROL                          ; get the part of the address
 C - - - - - 0x01CE85 07:CE75: 29 03     AND #$03                     ;
 C - - - - - 0x01CE87 07:CE77: 09 80     ORA #$80                     ;
-C - - - - - 0x01CE89 07:CE79: 85 05     STA ram_0005                 ; a high byte address [0x80-0x83]
+C - - - - - 0x01CE89 07:CE79: 85 05     STA $0005                    ; a high byte address [0x80-0x83]
 C - - - - - 0x01CE8B 07:CE7B: A9 00     LDA #$00                     ;
 C - - - - - 0x01CE8D 07:CE7D: 85 04     STA ram_0004                 ; a low byte address
 C - - - - - 0x01CE8F 07:CE7F: 8A        TXA                          ; shift by x (x - an input parameter)
@@ -2470,11 +2470,11 @@ C - - - - - 0x01CED6 07:CEC6: C6 04     DEC ram_0004                 ; 0x00 -> 0
 @bra_CEC8_skip:
 C - - - - - 0x01CED8 07:CEC8: 18        CLC                          ;
 C - - - - - 0x01CED9 07:CEC9: 65 01     ADC ram_0001                 ;
-C - - - - - 0x01CEDB 07:CECB: 85 06     STA ram_0006                 ; store X-position temporarily
+C - - - - - 0x01CEDB 07:CECB: 85 06     STA $0006                    ; store X-position temporarily
 C - - - - - 0x01CEDD 07:CECD: A5 04     LDA ram_0004                 ; $0004 is {0x00, 0xFF}, for 0xFF the overflow should be (it's the correction for negative X-position)
 C - - - - - 0x01CEDF 07:CECF: 65 09     ADC ram_0009                 ;
 C - - - - - 0x01CEE1 07:CED1: D0 1F     BNE bra_CEF2_blank           ; If Register A != 0x00 (it is an unacceptable sprite)
-C - - - - - 0x01CEE3 07:CED3: A5 06     LDA ram_0006                 ;
+C - - - - - 0x01CEE3 07:CED3: A5 06     LDA $0006                    ;
 C - - - - - 0x01CEE5 07:CED5: C9 F9     CMP #$F9                     ;
 C - - - - - 0x01CEE7 07:CED7: B0 19     BCS bra_CEF2_blank           ; If Register A >= 0xF9 (it is an unacceptable sprite)
 C - - - - - 0x01CEE9 07:CED9: 9D 03 07  STA vStartOAM_4b,X           ; set X-position
@@ -2564,7 +2564,7 @@ C - - - - - 0x01CF62 07:CF52: 2A        ROL                        ;
 C - - - - - 0x01CF63 07:CF53: 2A        ROL                        ;
 C - - - - - 0x01CF64 07:CF54: 29 03     AND #$03                   ; 
 C - - - - - 0x01CF66 07:CF56: 09 80     ORA #$80                   ; <~ 0x80 + SS
-C - - - - - 0x01CF68 07:CF58: 85 05     STA ram_0005               ; High address
+C - - - - - 0x01CF68 07:CF58: 85 05     STA $0005                  ; High address
 C - - - - - 0x01CF6A 07:CF5A: A9 00     LDA #$00                   ;
 C - - - - - 0x01CF6C 07:CF5C: 85 04     STA ram_0004               ; Low address
 C - - - - - 0x01CF6E 07:CF5E: B9 B8 06  LDA vSpriteMagic2,Y        ;
@@ -2576,7 +2576,7 @@ C - - - - - 0x01CF77 07:CF67: B1 04     LDA (ram_0004),Y           ;
 C - - - - - 0x01CF79 07:CF69: 85 03     STA ram_0003               ; High address
 C - - - - - 0x01CF7B 07:CF6B: A0 00     LDY #$00                   ;
 C - - - - - 0x01CF7D 07:CF6D: B1 02     LDA (ram_0002),Y           ; Tile count
-C - - - - - 0x01CF7F 07:CF6F: 85 05     STA ram_0005               ; set loop counter
+C - - - - - 0x01CF7F 07:CF6F: 85 05     STA vTempCounter5          ; set loop counter
 C - - - - - 0x01CF81 07:CF71: F0 55     BEQ bra_CFC8_skip          ; If counter == 0
 C - - - - - 0x01CF83 07:CF73: A6 43     LDX vCurrentNumberSprite   ;
 C - - - - - 0x01CF85 07:CF75: C8        INY                        ; y == 1, the position of first tile-byte
@@ -2610,11 +2610,11 @@ C - - - - - 0x01CFB5 07:CFA5: C6 04     DEC ram_0004               ; 0x00 -> 0xF
 bra_CFA7_skip:
 C - - - - - 0x01CFB7 07:CFA7: 18        CLC                        ;
 C - - - - - 0x01CFB8 07:CFA8: 65 01     ADC ram_0001               ;
-C - - - - - 0x01CFBA 07:CFAA: 85 06     STA ram_0006               ; store X-position temporarily
+C - - - - - 0x01CFBA 07:CFAA: 85 06     STA $0006                  ; store X-position temporarily
 C - - - - - 0x01CFBC 07:CFAC: A5 04     LDA ram_0004               ;
 C - - - - - 0x01CFBE 07:CFAE: 69 00     ADC #$00                   ;
 C - - - - - 0x01CFC0 07:CFB0: D0 25     BNE bra_CFD7_skip_sprite   ; If Register A != 0x00 (sprite off screen)
-C - - - - - 0x01CFC2 07:CFB2: A5 06     LDA ram_0006               ;
+C - - - - - 0x01CFC2 07:CFB2: A5 06     LDA $0006                  ;
 C - - - - - 0x01CFC4 07:CFB4: C9 F9     CMP #$F9                   ;
 C - - - - - 0x01CFC6 07:CFB6: B0 1F     BCS bra_CFD7_skip_sprite   ; If Register A >= 0xF9 (it is an unacceptable sprite)
 C - - - - - 0x01CFC8 07:CFB8: 9D 03 07  STA vStartOAM_4b,X         ; set X-position
@@ -2625,7 +2625,7 @@ C - - - - - 0x01CFCE 07:CFBE: E8        INX                        ; To 1st next
 C - - - - - 0x01CFCF 07:CFBF: F0 12     BEQ bra_CFD3_RTS           ; If Register X == 0x00
 bra_CFC1_next:
 C - - - - - 0x01CFD1 07:CFC1: C8        INY                        ; 1 of 4 again
-C - - - - - 0x01CFD2 07:CFC2: C6 05     DEC ram_0005               ; decrement loop counter
+C - - - - - 0x01CFD2 07:CFC2: C6 05     DEC vTempCounter5          ; decrement loop counter
 C - - - - - 0x01CFD4 07:CFC4: D0 B0     BNE bra_CF76_repeat        ; If counter != 0
 C - - - - - 0x01CFD6 07:CFC6: 86 43     STX vCurrentNumberSprite   ; 
 bra_CFC8_skip:
@@ -2700,41 +2700,40 @@ C - - - - - 0x01D093 07:D083: 25 12     AND vTempCheckButtons    ;
 @bra_D085_RTS:
 C - - - - - 0x01D095 07:D085: 60        RTS                      ;
 
-; Params:
-; 0x12-0x13 - an input address
-; Register A - position by the content (indirect 0x12-0x13)
+; In: $0012-$0013 - an input address
+; Register A - position by the content (indirect $0012-$0013)
 sub_D086_render_14_15_16_17_18_v1:
 C - - - - - 0x01D096 07:D086: 20 A3 D0  JSR sub_D0A3_prepare_14_15_16_17_18 ;
 ; Or 0x14, 0x15, 0x16, 0x17, 0x18 are prepared outside
 loc_D089_render_14_15_16_17_18_v2:
 sub_D089_render_14_15_16_17_18_v2:
 C D 2 - - - 0x01D099 07:D089: AD 02 20  LDA PPU_STATUS                      ; Reset PPU Address
-C - - - - - 0x01D09C 07:D08C: A5 15     LDA ram_0015                        ;
+C - - - - - 0x01D09C 07:D08C: A5 15     LDA $0015                           ;
 C - - - - - 0x01D09E 07:D08E: 8D 06 20  STA PPU_ADDRESS                     ;
-C - - - - - 0x01D0A1 07:D091: A5 14     LDA ram_0014                        ;
-C - - - - - 0x01D0A3 07:D093: 8D 06 20  STA PPU_ADDRESS                     ; PPU address is {0x14-0x15}
+C - - - - - 0x01D0A1 07:D091: A5 14     LDA $0014                           ;
+C - - - - - 0x01D0A3 07:D093: 8D 06 20  STA PPU_ADDRESS                     ; PPU address is {$0014-$0015}
 C - - - - - 0x01D0A6 07:D096: A0 00     LDY #$00                            ; set loop counter
 @bra_D098_loop:                                                             ; loop by y
-C - - - - - 0x01D0A8 07:D098: B1 16     LDA (ram_0016),Y                    ;
+C - - - - - 0x01D0A8 07:D098: B1 16     LDA ($0016),Y                       ;
 C - - - - - 0x01D0AA 07:D09A: 8D 07 20  STA PPU_DATA                        ;
 C - - - - - 0x01D0AD 07:D09D: C8        INY                                 ; increments loop counter
-C - - - - - 0x01D0AE 07:D09E: C4 18     CPY ram_0018                        ;
+C - - - - - 0x01D0AE 07:D09E: C4 18     CPY $0018                           ;
 C - - - - - 0x01D0B0 07:D0A0: D0 F6     BNE @bra_D098_loop                  ; If Register Y != ($0018)
 C - - - - - 0x01D0B2 07:D0A2: 60        RTS                                 ;
 
 ; In: $0012-$0013 - an input address
 ; In: Register A - position by the content (indirect $0012-$0013)
 sub_D0A3_prepare_14_15_16_17_18:
-C - - - - - 0x01D0B3 07:D0A3: 85 14     STA ram_0014       ;
+C - - - - - 0x01D0B3 07:D0A3: 85 14     STA $0014          ;
 C - - - - - 0x01D0B5 07:D0A5: 0A        ASL                ;
 C - - - - - 0x01D0B6 07:D0A6: 0A        ASL                ;
 C - - - - - 0x01D0B7 07:D0A7: 18        CLC                ;
-C - - - - - 0x01D0B8 07:D0A8: 65 14     ADC ram_0014       ; get the content offset (5 byte each * Register A)
+C - - - - - 0x01D0B8 07:D0A8: 65 14     ADC $0014          ; get the content offset (5 byte each * Register A)
 C - - - - - 0x01D0BA 07:D0AA: A8        TAY                ; 
 C - - - - - 0x01D0BB 07:D0AB: A2 00     LDX #$00           ; set loop counter
 @bra_D0AD_loop:                                            ; loop by x (5 times)
 C - - - - - 0x01D0BD 07:D0AD: B1 12     LDA ($0012),Y      ; get the content value
-C - - - - - 0x01D0BF 07:D0AF: 95 14     STA ram_0014,X     ; prepare 0x14 or 0x15 or 0x16 or 0x17 or 0x18
+C - - - - - 0x01D0BF 07:D0AF: 95 14     STA $0014,X        ; prepare $0014 or $0015 or $0016 or $0017 or $0018
 C - - - - - 0x01D0C1 07:D0B1: C8        INY                ; increment the position by the content
 C - - - - - 0x01D0C2 07:D0B2: E8        INX                ; increments loop counter
 C - - - - - 0x01D0C3 07:D0B3: E0 05     CPX #$05           ;
@@ -3036,7 +3035,7 @@ C - - - - - 0x01D280 07:D270: 0A        ASL                                     
 C - - - - - 0x01D281 07:D271: 26 07     ROL ram_0007                                    ; ram_0007 = {0x00, 0x01, 0x02, 0x03}
 C - - - - - 0x01D283 07:D273: 18        CLC                                             ;
 C - - - - - 0x01D284 07:D274: 65 50     ADC vTempValue50                                ; low address = vTempValue50 + ((ram_0052) << 2)
-C - - - - - 0x01D286 07:D276: 85 06     STA ram_0006                                    ; puts a low address of ppu datas
+C - - - - - 0x01D286 07:D276: 85 06     STA $0006                                       ; puts a low address of ppu datas
 C - - - - - 0x01D288 07:D278: A5 07     LDA ram_0007                                    ;
 C - - - - - 0x01D28A 07:D27A: 65 51     ADC vTempValue51                                ; 0xBBBAAAAA = vTempValue51 + ram_0007
 C - - - - - 0x01D28C 07:D27C: 20 04 C5  JSR sub_C504_switch_prg_8000                    ; switch to the bank with ppu datas
@@ -3049,11 +3048,11 @@ C - - - - - 0x01D297 07:D287: F0 02     BEQ @bra_D28B_skip                      
                                                                                         ; or which is the same, multiple of 8 without remainder
 C - - - - - 0x01D299 07:D289: A0 02     LDY #$02                                        ; using second pair of quartet
 @bra_D28B_skip:
-C - - - - - 0x01D29B 07:D28B: B1 06     LDA (ram_0006),Y                                ;
+C - - - - - 0x01D29B 07:D28B: B1 06     LDA ($0006),Y                                   ;
 C - - - - - 0x01D29D 07:D28D: 9D 33 06  STA vPpuBufferData,X                            ; store a tile number 1
 C - - - - - 0x01D2A0 07:D290: C8        INY                                             ; next vPpuBufferData
 C - - - - - 0x01D2A1 07:D291: E8        INX                                             ; increment loop counter
-C - - - - - 0x01D2A2 07:D292: B1 06     LDA (ram_0006),Y                                ;
+C - - - - - 0x01D2A2 07:D292: B1 06     LDA ($0006),Y                                   ;
 C - - - - - 0x01D2A4 07:D294: 9D 33 06  STA vPpuBufferData,X                            ; store a tile number 2
 C - - - - - 0x01D2A7 07:D297: E8        INX                                             ; increment loop counter
 C - - - - - 0x01D2A8 07:D298: A4 11     LDY vCacheRam_11                                ; restores the position in index array
@@ -3153,14 +3152,14 @@ C - - - - - 0x01D330 07:D320: 68        PLA                                     
 C - - - - - 0x01D331 07:D321: 0A        ASL                                             ; *2, because 2-nd row in the table with the collisions
 C - - - - - 0x01D332 07:D322: A8        TAY                                             ; 1 of 2 bytes (a relative to offset)
 C - - - - - 0x01D333 07:D323: 90 02     BCC @bra_D327_skip                              ; If an index * 2 < 0xFF
-C - - - - - 0x01D335 07:D325: E6 0F     INC ram_000F                                    ; increment a high address (an offset)
+C - - - - - 0x01D335 07:D325: E6 0F     INC $000F                                       ; increment a high address (an offset)
 @bra_D327_skip:
 C - - - - - 0x01D337 07:D327: A5 00     LDA ram_0000                                    ; load Y-position
 C - - - - - 0x01D339 07:D329: 29 08     AND #$08                                        ; 
 C - - - - - 0x01D33B 07:D32B: D0 01     BNE @bra_D32E_skip                              ; If it isn't a Y-border of the screen block
 C - - - - - 0x01D33D 07:D32D: C8        INY                                             ; 2 of 2 bytes (a relative to offset)
 @bra_D32E_skip:
-C - - - - - 0x01D33E 07:D32E: B1 0E     LDA (ram_000E),Y                                ; load a collision value
+C - - - - - 0x01D33E 07:D32E: B1 0E     LDA ($000E),Y                                   ; load a collision value
 C - - - - - 0x01D340 07:D330: 85 04     STA ram_0004                                    ;
 C - - - - - 0x01D342 07:D332: A5 01     LDA ram_0001                                    ; load X-position
 C - - - - - 0x01D344 07:D334: 29 08     AND #$08                                        ;
@@ -3340,13 +3339,13 @@ C - - - - - 0x01D40E 07:D3FE: A5 46     LDA vNoRoom                      ;
 C - - - - - 0x01D410 07:D400: 0A        ASL                              ; *2
 C - - - - - 0x01D411 07:D401: A8        TAY                              ;
 C - - - - - 0x01D412 07:D402: B9 80 84  LDA tbl_background_screens,Y     ;
-C - - - - - 0x01D415 07:D405: 85 0C     STA ram_000C                     ;
+C - - - - - 0x01D415 07:D405: 85 0C     STA $000C                        ;
 C - - - - - 0x01D417 07:D407: B9 81 84  LDA tbl_background_screens + 1,Y ;
 C - - - - - 0x01D41A 07:D40A: 29 1F     AND #$1F                         ;
 C - - - - - 0x01D41C 07:D40C: 09 80     ORA #$80                         ;
-C - - - - - 0x01D41E 07:D40E: 85 0D     STA ram_000D                     ;
+C - - - - - 0x01D41E 07:D40E: 85 0D     STA $000D                        ;
 C - - - - - 0x01D420 07:D410: A4 4D     LDY vCacheNoScreen               ;
-C - - - - - 0x01D422 07:D412: B1 0C     LDA (ram_000C),Y                 ;
+C - - - - - 0x01D422 07:D412: B1 0C     LDA ($000C),Y                    ;
 C - - - - - 0x01D424 07:D414: 85 4E     STA vBackgroundScreenInfo        ;
 C - - - - - 0x01D426 07:D416: A9 00     LDA #$00                         ;
 C - - - - - 0x01D428 07:D418: 06 4E     ASL vBackgroundScreenInfo        ;
@@ -3528,11 +3527,11 @@ C - - - - - 0x01D55F 07:D54F: A5 46     LDA vNoRoom                          ;
 C - - - - - 0x01D561 07:D551: 0A        ASL                                  ; *2, each row contains 2 bytes in the table
 C - - - - - 0x01D562 07:D552: AA        TAX                                  ;
 C - - - - - 0x01D563 07:D553: BD 00 90  LDA tbl_background_collisions,X      ;
-C - - - - - 0x01D566 07:D556: 85 0E     STA ram_000E                         ; Low address
+C - - - - - 0x01D566 07:D556: 85 0E     STA $000E                            ; Low address
 C - - - - - 0x01D568 07:D558: BD 01 90  LDA tbl_background_collisions + 1,X  ;
 C - - - - - 0x01D56B 07:D55B: 29 1F     AND #$1F                             ;
 C - - - - - 0x01D56D 07:D55D: 09 80     ORA #$80                             ;
-C - - - - - 0x01D56F 07:D55F: 85 0F     STA ram_000F                         ; High address
+C - - - - - 0x01D56F 07:D55F: 85 0F     STA $000F                            ; High address
 C - - - - - 0x01D571 07:D561: 60        RTS                                  ;
 
 ; Out: carry flag (analog return true or false):
@@ -3738,10 +3737,10 @@ C - - - - - 0x01D689 07:D679: D0 02     BNE bra_D67D                 ; !(UNUSED)
 sub_D67B_out_of_sight:
 C - - - - - 0x01D68B 07:D67B: A9 40     LDA #$40               ;
 bra_D67D:
-C - - - - - 0x01D68D 07:D67D: 85 0D     STA ram_000D           ; $000D <~ 0x40
+C - - - - - 0x01D68D 07:D67D: 85 0D     STA $000D              ; $000D <~ 0x40
 C - - - - - 0x01D68F 07:D67F: A5 27     LDA vLowViewPortPosX   ;
 C - - - - - 0x01D691 07:D681: 18        CLC                    ;
-C - - - - - 0x01D692 07:D682: 65 0D     ADC ram_000D           ;
+C - - - - - 0x01D692 07:D682: 65 0D     ADC $000D              ;
 C - - - - - 0x01D694 07:D684: 85 02     STA ram_0002           ; $0002 <~ LowPosX + 0x40
 C - - - - - 0x01D696 07:D686: A5 4B     LDA vHighViewPortPosX  ;
 C - - - - - 0x01D698 07:D688: 69 01     ADC #$01               ;
@@ -3754,7 +3753,7 @@ C - - - - - 0x01D6A2 07:D692: 60        RTS                    ;
 bra_D693_skip:
 C - - - - - 0x01D6A3 07:D693: A5 27     LDA vLowViewPortPosX   ;
 C - - - - - 0x01D6A5 07:D695: 38        SEC                    ;
-C - - - - - 0x01D6A6 07:D696: E5 0D     SBC ram_000D           ;
+C - - - - - 0x01D6A6 07:D696: E5 0D     SBC $000D              ;
 C - - - - - 0x01D6A8 07:D698: 85 02     STA ram_0002           ; $0002 <~ LowPosX - 0x40
 C - - - - - 0x01D6AA 07:D69A: A5 4B     LDA vHighViewPortPosX  ;
 C - - - - - 0x01D6AC 07:D69C: E9 00     SBC #$00               ;
@@ -6587,10 +6586,10 @@ C - - - - - 0x01E71B 07:E70B: A5 2E     LDA vJetPackRiseCounter         ;
 C - - - - - 0x01E71D 07:E70D: F0 02     BEQ @bra_E711_skip              ; If the rise time is up
 C - - - - - 0x01E71F 07:E70F: A9 04     LDA #$04                        ; CONSTANT - a position of the jet-pack in flight
 @bra_E711_skip:
-C - - - - - 0x01E721 07:E711: 85 05     STA ram_0005                    ; <~ an offset
+C - - - - - 0x01E721 07:E711: 85 05     STA $0005                       ; <~ an offset
 C - - - - - 0x01E723 07:E713: A5 6A     LDA vScreenChrPosY              ;
 C - - - - - 0x01E725 07:E715: 18        CLC                             ;
-C - - - - - 0x01E726 07:E716: 65 05     ADC ram_0005                    ; <~ ChrPosY + offset
+C - - - - - 0x01E726 07:E716: 65 05     ADC $0005                       ; <~ ChrPosY + offset
 C - - - - - 0x01E728 07:E718: 85 00     STA ram_0000                    ; prepare 1st parameter (a Y-position of the jet-pack)
 C - - - - - 0x01E72A 07:E71A: 4C 5A CE  JMP loc_CE5A_render_character   ;
 
@@ -8086,6 +8085,7 @@ C - - - - - 0x01F0C5 07:F0B5: 4C 46 F1  JMP loc_F146_try_before_appearing ;
 ; In: $0002 - Y-position
 ; In: $000A - type of an enemy
 ; In: $000B - the direction of appearance (0x00 - right, 0x01 - left)
+; In: $000C - For 0x80 - with the projectile
 bra_F0B8_skip:
 C - - - - - 0x01F0C8 07:F0B8: A2 01     LDX #$01                        ; CONSTANT - type B
 C - - - - - 0x01F0CA 07:F0BA: A0 15     LDY #$15                        ; set loop counter
@@ -8102,6 +8102,7 @@ C - - - - - 0x01F0D6 07:F0C6: CA        DEX                             ; 0x01 -
 ; In: $0002 - Y-position
 ; In: $000A - type of an enemy
 ; In: $000B - the direction of appearance (0x00 - right, 0x01 - left)
+; In: $000C - For 0x80 - with the projectile
 ; In: Register A - type of an enemy
 ; in: Register X - enemy type A/B (0x00 - A, 0x01 - B)
 loc_F0C7_try_to_appear:
@@ -8122,7 +8123,7 @@ C - - - - - 0x01F0F4 07:F0E4: 9D 0A 03  STA vEnemyACount,X                 ; cle
 ; In: $0001 - X-position
 ; In: $0002 - Y-position
 ; In: $000B - the direction of appearance (0x00 - right, 0x01 - left)
-; In: Register A - type of an enemy
+; In: $000C - For 0x80 - with the projectile
 ; In: Register X - enemy type A/B (0x00 - A, 0x01 - B)
 loc_F0E7_try_to_appear_ex:
 bra_F0E7_skip:
@@ -8132,9 +8133,9 @@ C - - - - - 0x01F0FC 07:F0EC: B0 22     BCS bra_F110_inc_counters          ; If 
 C - - - - - 0x01F0FE 07:F0EE: AD 00 03  LDA vEnemyA                        ;
 C - - - - - 0x01F101 07:F0F1: C9 07     CMP #$07                           ; CONSTANT - Zenigata
 C - - - - - 0x01F103 07:F0F3: F0 1B     BEQ bra_F110_inc_counters          ; If vEnemyA is Zenigata
-C - - - - - 0x01F105 07:F0F5: A5 00     LDA ram_0000                       ;
+C - - - - - 0x01F105 07:F0F5: A5 00     LDA $0000                          ;
 C - - - - - 0x01F107 07:F0F7: 85 D4     STA vTmpEnemyStartingPosXHigh      ; set macro X-position temporarily
-C - - - - - 0x01F109 07:F0F9: A5 01     LDA ram_0001                       ;
+C - - - - - 0x01F109 07:F0F9: A5 01     LDA $0001                          ;
 C - - - - - 0x01F10B 07:F0FB: 85 D5     STA vTmpEnemyStartingPosXLow       ; set X-position temporarily
 C - - - - - 0x01F10D 07:F0FD: A5 0A     LDA ram_000A                       ;
 C - - - - - 0x01F10F 07:F0FF: 9D 00 03  STA vEnemyA,X                      ; set the current enemy type
@@ -8224,7 +8225,7 @@ C - - - - - 0x01F1B2 07:F1A2: A0 10     LDY #$10                      ; the offs
 C - - - - - 0x01F1B4 07:F1A4: A5 6C     LDA vChrStatus                ;
 C - - - - - 0x01F1B6 07:F1A6: 29 01     AND #$01                      ; CONSTANT - the character is looking to the right/left
 C - - - - - 0x01F1B8 07:F1A8: 49 01     EOR #$01                      ; changes the direction (left or right)
-C - - - - - 0x01F1BA 07:F1AA: 85 0B     STA ram_000B                  ; prepares an input parameter
+C - - - - - 0x01F1BA 07:F1AA: 85 0B     STA $000B                     ; prepares an input parameter
 C - - - - - 0x01F1BC 07:F1AC: 6A        ROR                           ;
 C - - - - - 0x01F1BD 07:F1AD: 90 02     BCC @bra_F1B1_right           ; If the character is looking to the right
 C - - - - - 0x01F1BF 07:F1AF: A0 F0     LDY #$F0                      ; the offset value #2 (-10)
@@ -8306,22 +8307,22 @@ C - - - - - 0x01F22E 07:F21E: 60        RTS                            ;
 ; Out: Register X - enemy type A/B (0x00 - A, 0x01 - B)
 sub_F21F_get_params_after_waiting:
 C - - - - - 0x01F22F 07:F21F: A2 01     LDX #$01                        ; CONSTANT - type B
-C - - - - - 0x01F231 07:F221: 85 0B     STA ram_000B                    ;
+C - - - - - 0x01F231 07:F221: 85 0B     STA $000B                       ;
 C - - - - - 0x01F233 07:F223: 65 4B     ADC vHighViewPortPosX           ;
-C - - - - - 0x01F235 07:F225: 85 00     STA ram_0000                    ; macro X-position <~ vHighViewPortPosX or vHighViewPortPosX + 1
+C - - - - - 0x01F235 07:F225: 85 00     STA $0000                       ; macro X-position <~ vHighViewPortPosX or vHighViewPortPosX + 1
 C - - - - - 0x01F237 07:F227: A5 27     LDA vLowViewPortPosX            ;
-C - - - - - 0x01F239 07:F229: 85 01     STA ram_0001                    ; X-position <~ vLowViewPortPosX
+C - - - - - 0x01F239 07:F229: 85 01     STA $0001                       ; X-position <~ vLowViewPortPosX
 C - - - - - 0x01F23B 07:F22B: A9 60     LDA #$60                        ;
-C - - - - - 0x01F23D 07:F22D: 85 02     STA ram_0002                    ; Y-position <~ 0x60
+C - - - - - 0x01F23D 07:F22D: 85 02     STA $0002                       ; Y-position <~ 0x60
 C - - - - - 0x01F23F 07:F22F: 20 46 EF  JSR sub_EF46_switch_bank_4_p1   ;
 C - - - - - 0x01F242 07:F232: B9 BA 84  LDA tbl_enemies_after_waiting,Y ;
-C - - - - - 0x01F245 07:F235: 85 0A     STA ram_000A                    ;
+C - - - - - 0x01F245 07:F235: 85 0A     STA $000A                       ;
 C - - - - - 0x01F247 07:F237: 60        RTS                             ;
 
 ; In: $000A - type of an enemy
 ; Out: Z = 1, if the enemy is psevdo enemy (safe)
 sub_F238_is_psevdo_enemy:
-C - - - - - 0x01F248 07:F238: A5 0A     LDA ram_000A         ;
+C - - - - - 0x01F248 07:F238: A5 0A     LDA $000A            ;
 C - - - - - 0x01F24A 07:F23A: C9 0C     CMP #$0C             ; CONSTANT - The lift
 C - - - - - 0x01F24C 07:F23C: F0 1A     BEQ bra_F258_RTS     ; If the type of an enemy is the lift
 C - - - - - 0x01F24E 07:F23E: C9 0D     CMP #$0D             ; CONSTANT - Sensor
@@ -8354,7 +8355,7 @@ C - - - - - 0x01F27C 07:F26C: 30 03     BMI @bra_F271_skip            ; If the s
 C - - - - - 0x01F27E 07:F26E: C8        INY                           ; Y <- the left direction
 C - - - - - 0x01F27F 07:F26F: A9 F8     LDA #$F8                      ; CONSTANT - low X-position offset (-8)
 @bra_F271_skip:
-C - - - - - 0x01F281 07:F271: 84 0B     STY ram_000B                  ;
+C - - - - - 0x01F281 07:F271: 84 0B     STY $000B                     ; <~ 0x00 or 0x01
 C - - - - - 0x01F283 07:F273: 18        CLC                           ;
 C - - - - - 0x01F284 07:F274: 65 27     ADC vLowViewPortPosX          ;
 C - - - - - 0x01F286 07:F276: 85 01     STA ram_0001                  ; <~ vLowViewPortPosX + 8 or vLowViewPortPosX - 8
@@ -8407,7 +8408,7 @@ C - - - - - 0x01F2C1 07:F2B1: 60        RTS                                  ;
 ; Out: $0002 - Y-position
 ; Out: $000A - type of an enemy
 ; Out: $000B - the direction of appearance (0x00 - right, 0x01 - left)
-; Out: $000C - ???
+; Out: $000C - For 0x80 - with the projectile
 sub_F2B2_try_generate_enemy:
 C - - - - - 0x01F2C2 07:F2B2: AD 00 03  LDA vEnemyA                   ;
 C - - - - - 0x01F2C5 07:F2B5: C9 07     CMP #$07                      ; CONSTANT - Zenigata
@@ -8434,23 +8435,23 @@ C - - - - - 0x01F2E4 07:F2D4: A9 01     LDA #$01                      ; CONSTANT
 ; Out: $0002 - Y-position
 ; Out: $000A - an index of briefcase in an array
 ; Out: $000B - the direction of appearance (0x00 - right, 0x01 - left)
-; Out: $000C - ???
+; Out: $000C - For 0x80 - with the projectile
 sub_F2D6_try_put_briefcase:
 bra_F2D6_skip:
-C - - - - - 0x01F2E6 07:F2D6: 85 00     STA ram_0000             ; Register A has 0x00 or 0x01
+C - - - - - 0x01F2E6 07:F2D6: 85 00     STA $0000                ; Register A has 0x00 or 0x01
 C - - - - - 0x01F2E8 07:F2D8: A5 6C     LDA vChrStatus           ;
 C - - - - - 0x01F2EA 07:F2DA: 29 01     AND #$01                 ; only left or right
-C - - - - - 0x01F2EC 07:F2DC: 45 00     EOR ram_0000             ;
-C - - - - - 0x01F2EE 07:F2DE: 85 0B     STA ram_000B             ; 0x00 or 0x01
+C - - - - - 0x01F2EC 07:F2DC: 45 00     EOR $0000                ;
+C - - - - - 0x01F2EE 07:F2DE: 85 0B     STA $000B                ; 0x00 or 0x01
 C - - - - - 0x01F2F0 07:F2E0: A5 4B     LDA vHighViewPortPosX    ;
 C - - - - - 0x01F2F2 07:F2E2: 18        CLC                      ; 
-C - - - - - 0x01F2F3 07:F2E3: 65 0B     ADC ram_000B             ;
-C - - - - - 0x01F2F5 07:F2E5: 85 01     STA ram_0001             ; <~ vHighViewPortPosX or vHighViewPortPosX + 1
+C - - - - - 0x01F2F3 07:F2E3: 65 0B     ADC $000B                ;
+C - - - - - 0x01F2F5 07:F2E5: 85 01     STA $0001                ; <~ vHighViewPortPosX or vHighViewPortPosX + 1
 C - - - - - 0x01F2F7 07:F2E7: A0 00     LDY #$00                 ; set loop counter, 1 of 4
 loc_F2E9_repeat_loop:
 bra_F2E9_loop:                                                   ; loop by y
 C D 3 - - - 0x01F2F9 07:F2E9: B1 12     LDA ($0012),Y            ; load a item macro X-position
-C - - - - - 0x01F2FB 07:F2EB: C5 01     CMP ram_0001             ;
+C - - - - - 0x01F2FB 07:F2EB: C5 01     CMP $0001                ;
 C - - - - - 0x01F2FD 07:F2ED: B0 0D     BCS bra_F2FC_skip        ; If the item macro X-position >= HighViewPortPosX (+1)
 C - - - - - 0x01F2FF 07:F2EF: C8        INY                      ; 2 of 4
 bra_F2F0_repeat:
@@ -8458,7 +8459,7 @@ C - - - - - 0x01F300 07:F2F0: C8        INY                      ; 3 of 4
 C - - - - - 0x01F301 07:F2F1: C8        INY                      ; 4 of 4
 C - - - - - 0x01F302 07:F2F2: C8        INY                      ; 1 of 4 again
 C - - - - - 0x01F303 07:F2F3: D0 F4     BNE bra_F2E9_loop        ; If Register Y != 0x00
-C - - - - - 0x01F305 07:F2F5: E6 13     INC ram_0013             ; increment the high address
+C - - - - - 0x01F305 07:F2F5: E6 13     INC $0013                ; increment the high address
 C - - - - - 0x01F307 07:F2F7: 4C E9 F2  JMP loc_F2E9_repeat_loop ;
 
 bra_F2FA_return_false:
@@ -8487,7 +8488,7 @@ C - - - - - 0x01F328 07:F318: B1 12     LDA ($0012),Y             ;
 C - - - - - 0x01F32A 07:F31A: 85 02     STA ram_0002              ; store 3 item value
 C - - - - - 0x01F32C 07:F31C: C8        INY                       ; 4 of 4
 C - - - - - 0x01F32D 07:F31D: B1 12     LDA ($0012),Y             ;
-C - - - - - 0x01F32F 07:F31F: 85 0C     STA ram_000C              ; store 4 item value
+C - - - - - 0x01F32F 07:F31F: 85 0C     STA $000C                 ; store 4 item value
 C - - - - - 0x01F331 07:F321: 29 7F     AND #$7F                  ;
 C - - - - - 0x01F333 07:F323: 85 0A     STA ram_000A              ; store a type or an index
 C - - - - - 0x01F335 07:F325: 38        SEC                       ; return true
@@ -8500,10 +8501,10 @@ C D 3 - - - 0x01F337 07:F327: BD 00 03  LDA vEnemies,X                        ;
 C - - - - - 0x01F33A 07:F32A: 0A        ASL                                   ; *2, because the addresses have 2 bytes
 C - - - - - 0x01F33B 07:F32B: AA        TAX                                   ;
 C - - - - - 0x01F33C 07:F32C: BD 88 F8  LDA tbl_F888_enemy_appearance,X       ;
-C - - - - - 0x01F33F 07:F32F: 85 14     STA ram_0014                          ; Low address
+C - - - - - 0x01F33F 07:F32F: 85 14     STA $0014                             ; Low address
 C - - - - - 0x01F341 07:F331: BD 89 F8  LDA tbl_F888_enemy_appearance + 1,X   ;
-C - - - - - 0x01F344 07:F334: 85 15     STA ram_0015                          ; High address
-C - - - - - 0x01F346 07:F336: 6C 14 00  JMP (ram_0014)                        ;
+C - - - - - 0x01F344 07:F334: 85 15     STA $0015                             ; High address
+C - - - - - 0x01F346 07:F336: 6C 14 00  JMP ($0014)                           ;
 
 ; In: $0000 - macro X-position
 ; In: $0001 - X-position
@@ -8543,7 +8544,7 @@ C - - - - - 0x01F376 07:F366: 60        RTS                                  ;
 ; Out: Register A - the status
 sub_F367_prepare_start_status:
 C - - - - - 0x01F377 07:F367: A0 C0     LDY #$C0                ; CONSTANT - the start status (Y - see vEnemyBStatus)
-C - - - - - 0x01F379 07:F369: A5 0B     LDA ram_000B            ;
+C - - - - - 0x01F379 07:F369: A5 0B     LDA $000B               ;
 C - - - - - 0x01F37B 07:F36B: 6A        ROR                     ;
 C - - - - - 0x01F37C 07:F36C: 90 02     BCC @bra_F370_skip      ; if $000B == 0x00 (the right direction)
 C - - - - - 0x01F37E 07:F36E: A0 C1     LDY #$C1                ; CONSTANT - the start status (Y, N - see vEnemyBStatus)
@@ -8642,7 +8643,7 @@ C - - - - - 0x01F40F 07:F3FF: 8D 05 03  STA vEnemyASpriteMagic2Ex2              
 C - - - - - 0x01F412 07:F402: AD 00 03  LDA vEnemyA                                 ;
 C - - - - - 0x01F415 07:F405: C9 01     CMP #$01                                    ; CONSTANT - Cat with the gun
 C - - - - - 0x01F417 07:F407: D0 09     BNE @bra_F412_skip                          ; If vEnemyA != 0x01
-C - - - - - 0x01F419 07:F409: A5 0C     LDA ram_000C                                ;
+C - - - - - 0x01F419 07:F409: A5 0C     LDA $000C                                   ;
 C - - - - - 0x01F41B 07:F40B: 29 80     AND #$80                                    ; CONSTANT - the projectile is used
 C - - - - - 0x01F41D 07:F40D: 9D 26 03  STA vEnemyAProjectileIsUsed,X               ;
 C - - - - - 0x01F420 07:F410: D0 15     BNE bra_F427_finish                         ; If the projectile is used
@@ -8663,7 +8664,7 @@ C - - - - - 0x01F437 07:F427: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA     
 ; In: $000B - the direction of appearance (0x00 - right, 0x01 - left)
 bra_F42A_prepare_jump:
 C - - - - - 0x01F43A 07:F42A: A0 00     LDY #$00                                    ; a jump type #1
-C - - - - - 0x01F43C 07:F42C: A5 0B     LDA ram_000B                                ;
+C - - - - - 0x01F43C 07:F42C: A5 0B     LDA $000B                                   ;
 C - - - - - 0x01F43E 07:F42E: 6A        ROR                                         ;
 C - - - - - 0x01F43F 07:F42F: 90 02     BCC @bra_F433_right                         ; if $000B == 0x00 (the right direction)
 C - - - - - 0x01F441 07:F431: A0 08     LDY #$08                                    ; a jump type #2
@@ -8699,7 +8700,7 @@ C - - - - - 0x01F46E 07:F45E: C9 13     CMP #$13                                
 C - - - - - 0x01F470 07:F460: F0 02     BEQ @bra_F464_skip                          ; If vEnemyB == 0x13
 C - - - - - 0x01F472 07:F462: A0 28     LDY #$28                                    ; params #6
 @bra_F464_skip:
-C - - - - - 0x01F474 07:F464: A5 0B     LDA ram_000B                                ;
+C - - - - - 0x01F474 07:F464: A5 0B     LDA $000B                                   ;
 C - - - - - 0x01F476 07:F466: 6A        ROR                                         ;
 C - - - - - 0x01F477 07:F467: 90 05     BCC @bra_F46E_right                         ; if $000B == 0x00 (the right direction)
 C - - - - - 0x01F479 07:F469: 98        TYA                                         ;
@@ -8761,7 +8762,7 @@ C - - - - - 0x01F4DD 07:F4CD: BD 20 03  LDA vEnemyAStatus,X                 ;
 C - - - - - 0x01F4E0 07:F4D0: 10 01     BPL @bra_F4D3_skip                  ; If vEnemyAStatus2 < 0x80
 C - - - - - 0x01F4E2 07:F4D2: CA        DEX                                 ; X <~ 0
 @bra_F4D3_skip:
-C - - - - - 0x01F4E3 07:F4D3: A5 0B     LDA ram_000B                        ;
+C - - - - - 0x01F4E3 07:F4D3: A5 0B     LDA $000B                           ;
 C - - - - - 0x01F4E5 07:F4D5: 6A        ROR                                 ;
 C - - - - - 0x01F4E6 07:F4D6: 90 13     BCC @bra_F4EB_skip                  ; if $000B == 0x00 (the right direction)
 C - - - - - 0x01F4E8 07:F4D8: A5 01     LDA ram_0001                        ;
@@ -8916,7 +8917,7 @@ C - - - - - 0x01F5EE 07:F5DE: F0 25     BEQ bra_F605_potted_snakes              
 C - - - - - 0x01F5F0 07:F5E0: 4C 20 F8  JMP loc_F820_finish_creating_enemyB         ;
 
 bra_F5E3_bird:
-C - - - - - 0x01F5F3 07:F5E3: A5 0B     LDA ram_000B                                ;
+C - - - - - 0x01F5F3 07:F5E3: A5 0B     LDA $000B                                   ;
 C - - - - - 0x01F5F5 07:F5E5: 6A        ROR                                         ;
 C - - - - - 0x01F5F6 07:F5E6: 90 33     BCC bra_F61B_cancel_creating                ; if $000B == 0x00 (the right direction)
 C - - - - - 0x01F5F8 07:F5E8: 4C 20 F8  JMP loc_F820_finish_creating_enemyB         ;
@@ -8932,7 +8933,7 @@ bra_F5F7_cobblestone:
 C - - - - - 0x01F607 07:F5F7: A5 46     LDA vNoRoom                                 ;
 C - - - - - 0x01F609 07:F5F9: C9 19     CMP #$19                                    ; CONSTANT - level racing
 C - - - - - 0x01F60B 07:F5FB: D0 05     BNE bra_F602_skip                           ; If vNoRoom != 0x19
-C - - - - - 0x01F60D 07:F5FD: A5 0B     LDA ram_000B                                ;
+C - - - - - 0x01F60D 07:F5FD: A5 0B     LDA $000B                                   ;
 C - - - - - 0x01F60F 07:F5FF: 6A        ROR                                         ;
 C - - - - - 0x01F610 07:F600: 90 19     BCC bra_F61B_cancel_creating                ; if $000B == 0x00 (the right direction)
 bra_F602_skip:
@@ -9000,7 +9001,7 @@ C - - - - - 0x01F677 07:F667: 4C 20 F8  JMP loc_F820_finish_creating_enemyB     
 loc_F66A_enemy_appearance_t5:
 C - - J - - 0x01F67A 07:F66A: 20 72 F3  JSR sub_F372_start_enemyA_appearance   ;
 C - - - - - 0x01F67D 07:F66D: A0 D0     LDY #$D0                               ; CONSTANT - the start status (Y + 'squatting' - see vEnemyAStatus)
-C - - - - - 0x01F67F 07:F66F: A5 0B     LDA ram_000B                           ;
+C - - - - - 0x01F67F 07:F66F: A5 0B     LDA $000B                              ;
 C - - - - - 0x01F681 07:F671: 6A        ROR                                    ;
 C - - - - - 0x01F682 07:F672: 90 02     BCC @bra_F676_skip                     ; if $000B == 0x00 (the right direction)
 C - - - - - 0x01F684 07:F674: A0 D1     LDY #$D1                               ; CONSTANT - the start status (Y + 'squatting' + 'direction' - see vEnemyAStatus)

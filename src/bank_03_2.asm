@@ -318,10 +318,10 @@ C - - - - - 0x00E24E 03:A23E: 20 AC D6  JSR sub_D6AC_out_of_screen             ;
 C - - - - - 0x00E251 03:A241: 20 EF A3  JSR sub_A3EF_boss_on_screen            ;
 C - - - - - 0x00E254 03:A244: 20 24 A5  JSR sub_A524_prepare_rendering_ex      ;
 C - - - - - 0x00E257 03:A247: AD 20 03  LDA vEnemyAStatus                      ;
-C - - - - - 0x00E25A 03:A24A: 85 12     STA ram_0012                           ;
+C - - - - - 0x00E25A 03:A24A: 85 12     STA $0012                              ;
 C - - - - - 0x00E25C 03:A24C: 29 30     AND #$30                               ; CONSTANT - 'dying' + 'get damage' status
 C - - - - - 0x00E25E 03:A24E: D0 B9     BNE bra_A209_RTS                       ; If 'dying' or 'get damage' status is activated
-C - - - - - 0x00E260 03:A250: A5 12     LDA ram_0012                           ; A <~ status
+C - - - - - 0x00E260 03:A250: A5 12     LDA $0012                              ; A <~ status
 C - - - - - 0x00E262 03:A252: 29 04     AND #$04                               ; CONSTANT - 'throw' status
 C - - - - - 0x00E264 03:A254: D0 05     BNE @bra_A25B_skip                     ; If 'stop' status is activated
 C - - - - - 0x00E266 03:A256: AD 5C 03  LDA vEnemyBStatus                      ;
@@ -333,7 +333,7 @@ C - - - - - 0x00E26F 03:A25F: 6A        ROR                                    ;
 C - - - - - 0x00E270 03:A260: 90 02     BCC @bra_A264_skip                     ; Branch if vLowCounter multiple of 2 (50% chance)
 C - - - - - 0x00E272 03:A262: A0 18     LDY #$18                               ; the offset value #2
 @bra_A264_skip:
-C - - - - - 0x00E274 03:A264: A5 12     LDA ram_0012                           ; A <~ status
+C - - - - - 0x00E274 03:A264: A5 12     LDA $0012                              ; A <~ status
 C - - - - - 0x00E276 03:A266: 4A        LSR                                    ;
 C - - - - - 0x00E277 03:A267: 4A        LSR                                    ;
 C - - - - - 0x00E278 03:A268: B0 61     BCS bra_A2CB_render                    ; If 'block' status (0x02) is activated
@@ -438,10 +438,10 @@ C - - - - - 0x00E328 03:A318: 68        PLA                                    ;
 ; In: Register A - an new status
 sub_A319_change_substatus:
 loc_A319_change_substatus:
-C D 1 - - - 0x00E329 03:A319: 85 05     STA ram_0005                      ;
+C D 1 - - - 0x00E329 03:A319: 85 05     STA $0005                         ;
 C - - - - - 0x00E32B 03:A31B: BD 20 03  LDA vEnemyAStatus,X               ;
 C - - - - - 0x00E32E 03:A31E: 29 81     AND #$81                          ; clear substate
-C - - - - - 0x00E330 03:A320: 05 05     ORA ram_0005                      ;
+C - - - - - 0x00E330 03:A320: 05 05     ORA $0005                         ;
 C - - - - - 0x00E332 03:A322: 9D 20 03  STA vEnemyAStatus,X               ;
 bra_A325_RTS:
 C - - - - - 0x00E335 03:A325: 60        RTS                               ;
@@ -1269,10 +1269,10 @@ C - - - - - 0x00E8C4 03:A8B4: 60        RTS                                     
 ; In: Register X - the enemyB number
 ; In: Register A - an new status
 sub_A8B5_change_substatus:
-C - - - - - 0x00E8C5 03:A8B5: 85 05     STA ram_0005              ;
+C - - - - - 0x00E8C5 03:A8B5: 85 05     STA $0005                 ;
 C - - - - - 0x00E8C7 03:A8B7: BD 5C 03  LDA vEnemyBStatus,X       ;
 C - - - - - 0x00E8CA 03:A8BA: 29 C1     AND #$C1                  ; clear substate
-C - - - - - 0x00E8CC 03:A8BC: 05 05     ORA ram_0005              ;
+C - - - - - 0x00E8CC 03:A8BC: 05 05     ORA $0005                 ;
 C - - - - - 0x00E8CE 03:A8BE: 9D 5C 03  STA vEnemyBStatus,X       ;
 C - - - - - 0x00E8D1 03:A8C1: 60        RTS                       ;
 
@@ -2070,11 +2070,11 @@ C - - - - - 0x00EE66 03:AE56: 9D 32 03  STA vEnemyAScreenPosX,X                ;
 C - - - - - 0x00EE69 03:AE59: 98        TYA                                    ;
 C - - - - - 0x00EE6A 03:AE5A: 0A        ASL                                    ;
 C - - - - - 0x00EE6B 03:AE5B: 0A        ASL                                    ; *4
-C - - - - - 0x00EE6C 03:AE5C: 85 05     STA ram_0005                           ; <~ the table index
+C - - - - - 0x00EE6C 03:AE5C: 85 05     STA $0005                              ; <~ the table index
 C - - - - - 0x00EE6E 03:AE5E: A9 04     LDA #$04                               ;
-C - - - - - 0x00EE70 03:AE60: 85 06     STA ram_0006                           ; set loop counter
-@bra_AE62_loop:                                                                ; loop by $0006
-C - - - - - 0x00EE72 03:AE62: A4 05     LDY ram_0005                           ;
+C - - - - - 0x00EE70 03:AE60: 85 06     STA vTempCounter6                      ; set loop counter
+@bra_AE62_loop:                                                                ; loop by vTempCounter6
+C - - - - - 0x00EE72 03:AE62: A4 05     LDY $0005                              ;
 C - - - - - 0x00EE74 03:AE64: B9 32 AC  LDA tbl_AC32_offset_by_posY,Y          ;
 C - - - - - 0x00EE77 03:AE67: 18        CLC                                    ;
 C - - - - - 0x00EE78 03:AE68: 7D 2C 03  ADC vEnemyAPosY,X                      ;
@@ -2091,8 +2091,8 @@ C - - - - - 0x00EE8C 03:AE7C: C8        INY                                    ;
 @bra_AE7D_right:
 C - - - - - 0x00EE8D 03:AE7D: 20 24 A5  JSR sub_A524_prepare_rendering_ex      ;
 @bra_AE80_next:
-C - - - - - 0x00EE90 03:AE80: E6 05     INC ram_0005                           ; <~ next the table index
-C - - - - - 0x00EE92 03:AE82: C6 06     DEC ram_0006                           ; decrement loop counter
+C - - - - - 0x00EE90 03:AE80: E6 05     INC $0005                              ; <~ next the table index
+C - - - - - 0x00EE92 03:AE82: C6 06     DEC vTempCounter6                      ; decrement loop counter
 C - - - - - 0x00EE94 03:AE84: D0 DC     BNE @bra_AE62_loop                     ; If $0006 != 0x00
 C - - - - - 0x00EE96 03:AE86: 60        RTS                                    ;
 
@@ -2221,10 +2221,10 @@ C - - - - - 0x00EF77 03:AF67: 29 08     AND #$08                           ;
 C - - - - - 0x00EF79 03:AF69: F0 02     BEQ @bra_AF6D_set_direction        ; If the value contains 0x08 flag
 C - - - - - 0x00EF7B 03:AF6B: A9 01     LDA #$01                           ; CONSTANT - the left direction
 @bra_AF6D_set_direction:
-C - - - - - 0x00EF7D 03:AF6D: 85 05     STA ram_0005                       ; $0005 <~ 1, if the enemy is to the right of the character, 0 - otherwise
+C - - - - - 0x00EF7D 03:AF6D: 85 05     STA $0005                          ; $0005 <~ 1, if the enemy is to the right of the character, 0 - otherwise
 C - - - - - 0x00EF7F 03:AF6F: BD 20 03  LDA vEnemyAStatus,X                ;
 C - - - - - 0x00EF82 03:AF72: 29 FE     AND #$FE                           ; CONSTANT: N - the direction (see vEnemyAStatus)
-C - - - - - 0x00EF84 03:AF74: 05 05     ORA ram_0005                       ;
+C - - - - - 0x00EF84 03:AF74: 05 05     ORA $0005                          ;
 C - - - - - 0x00EF86 03:AF76: 9D 20 03  STA vEnemyAStatus,X                ;
 C - - - - - 0x00EF89 03:AF79: 60        RTS                                ;
 
@@ -2819,7 +2819,7 @@ C - - - - - 0x00F364 03:B354: B0 1F     BCS bra_B375_RTS                   ; 50%
 C - - - - - 0x00F366 03:B356: 29 07     AND #$07                           ;
 C - - - - - 0x00F368 03:B358: A8        TAY                                ; y is {0x00, ... , 0x07}
 C - - - - - 0x00F369 03:B359: B9 F3 AF  LDA tbl_AFF3_status_flags,Y        ;
-C - - - - - 0x00F36C 03:B35C: 85 05     STA ram_0005                       ;
+C - - - - - 0x00F36C 03:B35C: 85 05     STA $0005                          ;
 C - - - - - 0x00F36E 03:B35E: F0 0B     BEQ bra_B36B_change_substatus_ex   ; If status flag == 0x00
 C - - - - - 0x00F370 03:B360: C9 10     CMP #$10                           ; !(WHY?) - copy-paste error? (see sub_A2EC_try_to_change_self, bank 06, page 1)
 C - - - - - 0x00F372 03:B362: A9 20     LDA #$20                           ; An initialize jump value for 'squatting' and 'stop'
@@ -2828,12 +2828,12 @@ C - - - - - 0x00F377 03:B367: D0 02     BNE bra_B36B_change_substatus_ex   ; Alw
 
 ; In: Register A - a new status
 sub_B369_change_substatus:
-C - - - - - 0x00F379 03:B369: 85 05     STA ram_0005             ;
+C - - - - - 0x00F379 03:B369: 85 05     STA $0005                ;
 ; In: $0005 - a new status
 bra_B36B_change_substatus_ex:
 C - - - - - 0x00F37B 03:B36B: BD 20 03  LDA vEnemyAStatus,X      ;
 C - - - - - 0x00F37E 03:B36E: 29 C1     AND #$C1                 ;
-C - - - - - 0x00F380 03:B370: 05 05     ORA ram_0005             ;
+C - - - - - 0x00F380 03:B370: 05 05     ORA $0005                ;
 C - - - - - 0x00F382 03:B372: 9D 20 03  STA vEnemyAStatus,X      ;
 bra_B375_RTS:
 C - - - - - 0x00F385 03:B375: 60        RTS                      ;
@@ -2843,10 +2843,10 @@ bra_B376_try_change_direction:
 sub_B376_try_change_direction:
 C - - - - - 0x00F386 03:B376: A9 7F     LDA #$7F                                 ; f(A) = 128, see $D6BD
 C - - - - - 0x00F388 03:B378: 20 BD D6  JSR sub_D6BD_try_change_enemyA_direction ;
-C - - - - - 0x00F38B 03:B37B: 84 05     STY ram_0005                             ; $0005 <~ 1, if the enemy is to the right of the character, 0 - otherwise
+C - - - - - 0x00F38B 03:B37B: 84 05     STY $0005                                ; $0005 <~ 1, if the enemy is to the right of the character, 0 - otherwise
 C - - - - - 0x00F38D 03:B37D: BD 20 03  LDA vEnemyAStatus,X                      ;
 C - - - - - 0x00F390 03:B380: 29 FE     AND #$FE                                 ; CONSTANT: N - the direction (see vEnemyAStatus)
-C - - - - - 0x00F392 03:B382: 05 05     ORA ram_0005                             ;
+C - - - - - 0x00F392 03:B382: 05 05     ORA $0005                                ;
 C - - - - - 0x00F394 03:B384: 9D 20 03  STA vEnemyAStatus,X                      ;
 C - - - - - 0x00F397 03:B387: 60        RTS                                      ;
 
@@ -3474,7 +3474,7 @@ C - - - - - 0x00F7BC 03:B7AC: 69 08     ADC #$08                           ; + 0
 @bra_B7AE_skip:
 C - - - - - 0x00F7BE 03:B7AE: A8        TAY                                ;
 C - - - - - 0x00F7BF 03:B7AF: B9 E0 B3  LDA tbl_B3E0_status_flags,Y        ;
-C - - - - - 0x00F7C2 03:B7B2: 85 05     STA ram_0005                       ;
+C - - - - - 0x00F7C2 03:B7B2: 85 05     STA $0005                          ;
 C - - - - - 0x00F7C4 03:B7B4: F0 11     BEQ bra_B7C7_change_substatus_ex   ; If status flag == 0x00 (i.e. nothing)
 C - - - - - 0x00F7C6 03:B7B6: C9 10     CMP #$10                           ; CONSTANT - squatting
 C - - - - - 0x00F7C8 03:B7B8: F0 04     BEQ @bra_B7BE_skip                 ; If the enemy is going to squat
@@ -3489,12 +3489,12 @@ C - - - - - 0x00F7D3 03:B7C3: D0 02     BNE bra_B7C7_change_substatus_ex   ; Alw
 
 ; In: Register A - an new status
 sub_B7C5_change_substatus:
-C - - - - - 0x00F7D5 03:B7C5: 85 05     STA ram_0005              ;
+C - - - - - 0x00F7D5 03:B7C5: 85 05     STA $0005                 ;
 ; In: $0005 - an new status
 bra_B7C7_change_substatus_ex:
 C - - - - - 0x00F7D7 03:B7C7: BD 20 03  LDA vEnemyAStatus,X       ;
 C - - - - - 0x00F7DA 03:B7CA: 29 C1     AND #$C1                  ; clear substate
-C - - - - - 0x00F7DC 03:B7CC: 05 05     ORA ram_0005              ;
+C - - - - - 0x00F7DC 03:B7CC: 05 05     ORA $0005                 ;
 C - - - - - 0x00F7DE 03:B7CE: 9D 20 03  STA vEnemyAStatus,X       ;
 bra_B7D1_RTS:
 C - - - - - 0x00F7E1 03:B7D1: 60        RTS                       ;
@@ -3503,10 +3503,10 @@ C - - - - - 0x00F7E1 03:B7D1: 60        RTS                       ;
 sub_B7D2_try_change_direction:
 C - - - - - 0x00F7E2 03:B7D2: A9 7F     LDA #$7F                                 ; f(A) = 128, see $D6BD
 C - - - - - 0x00F7E4 03:B7D4: 20 BD D6  JSR sub_D6BD_try_change_enemyA_direction ;
-C - - - - - 0x00F7E7 03:B7D7: 84 05     STY ram_0005                             ; $0005 <~ 1, if the enemy is to the right of the character, 0 - otherwise
+C - - - - - 0x00F7E7 03:B7D7: 84 05     STY $0005                                ; $0005 <~ 1, if the enemy is to the right of the character, 0 - otherwise
 C - - - - - 0x00F7E9 03:B7D9: BD 20 03  LDA vEnemyAStatus,X                      ;
 C - - - - - 0x00F7EC 03:B7DC: 29 FE     AND #$FE                                 ; CONSTANT: N - the direction (see vEnemyAStatus)
-C - - - - - 0x00F7EE 03:B7DE: 05 05     ORA ram_0005                             ;
+C - - - - - 0x00F7EE 03:B7DE: 05 05     ORA $0005                                ;
 C - - - - - 0x00F7F0 03:B7E0: 9D 20 03  STA vEnemyAStatus,X                      ;
 C - - - - - 0x00F7F3 03:B7E3: 60        RTS                                      ;
 
@@ -3989,7 +3989,7 @@ C - - - - - 0x00FB24 03:BB14: B0 25     BCS bra_BB3B_RTS                  ; 50% 
 C - - - - - 0x00FB26 03:BB16: 29 07     AND #$07                          ;
 C - - - - - 0x00FB28 03:BB18: A8        TAY                               ; y is {0x00, ... , 0x07}
 C - - - - - 0x00FB29 03:BB19: B9 0C B8  LDA tbl_B80C_status_flags,Y       ;
-C - - - - - 0x00FB2C 03:BB1C: 85 05     STA ram_0005                      ;
+C - - - - - 0x00FB2C 03:BB1C: 85 05     STA $0005                         ;
 C - - - - - 0x00FB2E 03:BB1E: F0 11     BEQ bra_BB31_change_substatus_ex  ; If status flag == 0x00
 C - - - - - 0x00FB30 03:BB20: C9 20     CMP #$20                          ; CONSTANT - 'dying' status
 C - - - - - 0x00FB32 03:BB22: F0 04     BEQ @bra_BB28_skip                ; If the enemy is going to dying
@@ -4007,12 +4007,12 @@ C - - - - - 0x00FB3D 03:BB2D: D0 02     BNE bra_BB31_change_substatus_ex  ; Alwa
 ; In: Register A - an new status
 bra_BB2F_change_substatus:
 sub_BB2F_change_substatus:
-C - - - - - 0x00FB3F 03:BB2F: 85 05     STA ram_0005                      ;
+C - - - - - 0x00FB3F 03:BB2F: 85 05     STA $0005                         ;
 ; In: $0005 - an new status
 bra_BB31_change_substatus_ex:
 C - - - - - 0x00FB41 03:BB31: BD 20 03  LDA vEnemyAStatus,X               ;
 C - - - - - 0x00FB44 03:BB34: 29 C1     AND #$C1                          ;
-C - - - - - 0x00FB46 03:BB36: 05 05     ORA ram_0005                      ;
+C - - - - - 0x00FB46 03:BB36: 05 05     ORA $0005                         ;
 C - - - - - 0x00FB48 03:BB38: 9D 20 03  STA vEnemyAStatus,X               ;
 bra_BB3B_RTS:
 C - - - - - 0x00FB4B 03:BB3B: 60        RTS                               ;
@@ -4021,10 +4021,10 @@ C - - - - - 0x00FB4B 03:BB3B: 60        RTS                               ;
 sub_BB3C_try_change_direction:
 C - - - - - 0x00FB4C 03:BB3C: A9 3F     LDA #$3F                                 ; f(A) = 64, see $D6BD
 C - - - - - 0x00FB4E 03:BB3E: 20 BD D6  JSR sub_D6BD_try_change_enemyA_direction ;
-C - - - - - 0x00FB51 03:BB41: 84 05     STY ram_0005                             ; $0005 <~ 1, if the enemy is to the right of the character, 0 - otherwise
+C - - - - - 0x00FB51 03:BB41: 84 05     STY $0005                                ; $0005 <~ 1, if the enemy is to the right of the character, 0 - otherwise
 C - - - - - 0x00FB53 03:BB43: BD 20 03  LDA vEnemyAStatus,X                      ;
 C - - - - - 0x00FB56 03:BB46: 29 FE     AND #$FE                                 ; CONSTANT: N - the direction (see vEnemyAStatus)
-C - - - - - 0x00FB58 03:BB48: 05 05     ORA ram_0005                             ;
+C - - - - - 0x00FB58 03:BB48: 05 05     ORA $0005                                ;
 C - - - - - 0x00FB5A 03:BB4A: 9D 20 03  STA vEnemyAStatus,X                      ;
 C - - - - - 0x00FB5D 03:BB4D: 60        RTS                                      ;
 
@@ -4453,10 +4453,10 @@ C - - - - - 0x00FE2B 03:BE1B: 68        PLA                               ; retr
 ; In: Register A - an new status
 sub_BE1C_change_substatus:
 bra_BE1C_change_substatus:
-C - - - - - 0x00FE2C 03:BE1C: 85 05     STA ram_0005            ;
+C - - - - - 0x00FE2C 03:BE1C: 85 05     STA $0005               ;
 C - - - - - 0x00FE2E 03:BE1E: BD 5C 03  LDA vEnemyBStatus,X     ;
 C - - - - - 0x00FE31 03:BE21: 29 C1     AND #$C1                ;
-C - - - - - 0x00FE33 03:BE23: 05 05     ORA ram_0005            ;
+C - - - - - 0x00FE33 03:BE23: 05 05     ORA $0005               ;
 C - - - - - 0x00FE35 03:BE25: 9D 5C 03  STA vEnemyBStatus,X     ;
 bra_BE28_RTS:
 C - - - - - 0x00FE38 03:BE28: 60        RTS                     ;
@@ -4465,10 +4465,10 @@ C - - - - - 0x00FE38 03:BE28: 60        RTS                     ;
 sub_BE29_try_change_direction:
 C - - - - - 0x00FE39 03:BE29: A9 7F     LDA #$7F                                 ; f(A) = 128, see $D6DB
 C - - - - - 0x00FE3B 03:BE2B: 20 DB D6  JSR sub_D6DB_try_change_enemyB_direction ;
-C - - - - - 0x00FE3E 03:BE2E: 84 05     STY ram_0005                             ; $0005 <~ 1, if the enemy is to the right of the character, 0 - otherwise
+C - - - - - 0x00FE3E 03:BE2E: 84 05     STY $0005                                ; $0005 <~ 1, if the enemy is to the right of the character, 0 - otherwise
 C - - - - - 0x00FE40 03:BE30: BD 5C 03  LDA vEnemyBStatus,X                      ;
 C - - - - - 0x00FE43 03:BE33: 29 FE     AND #$FE                                 ; CONSTANT: N - the direction (see vEnemyBStatus)
-C - - - - - 0x00FE45 03:BE35: 05 05     ORA ram_0005                             ;
+C - - - - - 0x00FE45 03:BE35: 05 05     ORA $0005                                ;
 C - - - - - 0x00FE47 03:BE37: 9D 5C 03  STA vEnemyBStatus,X                      ;
 C - - - - - 0x00FE4A 03:BE3A: 60        RTS                                      ;
 
