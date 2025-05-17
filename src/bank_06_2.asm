@@ -277,9 +277,9 @@ C - - - - - 0x01A12C 06:A11C: A0 00     LDY #$00                        ; prepar
 ; In: Register Y - sprite_magic2 (The offset by the address)
 loc_A11E_prepare_rendering:
 C D 1 - - - 0x01A12E 06:A11E: BD 38 03  LDA vEnemyAPosXLow,X            ;
-C - - - - - 0x01A131 06:A121: 85 00     STA ram_0000                    ; prepares the 1st parameter
+C - - - - - 0x01A131 06:A121: 85 00     STA $0000                       ; prepares the 1st parameter
 C - - - - - 0x01A133 06:A123: BD 3E 03  LDA vEnemyAPosXHigh,X           ;
-C - - - - - 0x01A136 06:A126: 85 01     STA ram_0001                    ; prepares the 2nd parameter
+C - - - - - 0x01A136 06:A126: 85 01     STA $0001                       ; prepares the 2nd parameter
 C - - - - - 0x01A138 06:A128: 20 7B D6  JSR sub_D67B_out_of_sight       ; bank FF
 C - - - - - 0x01A13B 06:A12B: 90 03     BCC bra_A130_skip               ; If the enemy is visible
 C - - - - - 0x01A13D 06:A12D: 4C 7F D7  JMP loc_D77F_free_enemyA        ;
@@ -302,9 +302,9 @@ bra_A142_add_sprite_magic_v2:
 C - - - - - 0x01A152 06:A142: 98        TYA                           ;
 C - - - - - 0x01A153 06:A143: 18        CLC                           ;
 C - - - - - 0x01A154 06:A144: 6D 02 03  ADC vEnemyASpriteMagic2       ; + Y ~> sprite_magic2
-C - - - - - 0x01A157 06:A147: 85 01     STA ram_0001                  ;
+C - - - - - 0x01A157 06:A147: 85 01     STA $0001                     ;
 C - - - - - 0x01A159 06:A149: AD 03 03  LDA vEnemyASpriteMagic3       ; ~> sprite_magic3
-C - - - - - 0x01A15C 06:A14C: 85 02     STA ram_0002                  ;
+C - - - - - 0x01A15C 06:A14C: 85 02     STA $0002                     ;
 C - - - - - 0x01A15E 06:A14E: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 ; In: Register X - the enemyA number
@@ -357,10 +357,10 @@ C - - - - - 0x01A1A8 06:A198: C9 10     CMP #$10                       ; CONSTAN
 C - - - - - 0x01A1AA 06:A19A: F0 02     BEQ @bra_A19E_skip             ; If EnemyA == 0x10
 C - - - - - 0x01A1AC 06:A19C: A0 00     LDY #$00                       ; the mask for the first pair
 @bra_A19E_skip:
-C - - - - - 0x01A1AE 06:A19E: 84 00     STY ram_0000                   ;
+C - - - - - 0x01A1AE 06:A19E: 84 00     STY $0000                      ;
 C - - - - - 0x01A1B0 06:A1A0: 20 64 D0  JSR sub_D064_generate_rng      ;
 C - - - - - 0x01A1B3 06:A1A3: 29 01     AND #$01                       ; 50 chance (0x00 or 0x01)
-C - - - - - 0x01A1B5 06:A1A5: 05 00     ORA ram_0000                   ;
+C - - - - - 0x01A1B5 06:A1A5: 05 00     ORA $0000                      ;
 C - - - - - 0x01A1B7 06:A1A7: A8        TAY                            ; Y <~ {0x00, 0x01, 0x02, 0x03}
 C - - - - - 0x01A1B8 06:A1A8: B9 20 A0  LDA tbl_A020_jump_counter,Y    ;
 C - - - - - 0x01A1BB 06:A1AB: 9D 4A 03  STA vEnemyAJumpCounter,X       ; Initializes a jump counter
@@ -427,8 +427,8 @@ C - - - - - 0x01A226 06:A216: 4C 1E A1  JMP loc_A11E_prepare_rendering          
 ; In: Register X - the enemyA number
 ; In: $0000 - EnemyAPosY
 bra_A219_skip:
-C - - - - - 0x01A229 06:A219: 85 00     STA ram_0000                              ;
-C - - - - - 0x01A22B 06:A21B: E6 00     INC ram_0000                              ; prepare an input parameter
+C - - - - - 0x01A229 06:A219: 85 00     STA $0000                                 ;
+C - - - - - 0x01A22B 06:A21B: E6 00     INC $0000                                 ; prepare an input parameter
 C - - - - - 0x01A22D 06:A21D: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y  ;
 C - - - - - 0x01A230 06:A220: F0 2C     BEQ bra_A24E_before_inc                   ; If the collisions by Y-position doesn't exist
 C - - - - - 0x01A232 06:A222: C9 02     CMP #$02                                  ; CONSTANT - a weak collision
@@ -684,8 +684,8 @@ C - - - - - 0x01A3D4 06:A3C4: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bit
 ; In: Register X - the enemyA number
 loc_A3D5_main:
 C - - - - - 0x01A3E5 06:A3D5: BD 2C 03  LDA vEnemyAPosY,X                         ;
-C - - - - - 0x01A3E8 06:A3D8: 85 00     STA ram_0000                              ;
-C - - - - - 0x01A3EA 06:A3DA: E6 00     INC ram_0000                              ; prepare an input parameter (EnemyAPosY + 1)
+C - - - - - 0x01A3E8 06:A3D8: 85 00     STA $0000                                 ;
+C - - - - - 0x01A3EA 06:A3DA: E6 00     INC $0000                                 ; prepare an input parameter (EnemyAPosY + 1)
 C - - - - - 0x01A3EC 06:A3DC: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y  ;
 C - - - - - 0x01A3EF 06:A3DF: D0 07     BNE bra_A3E8_skip                         ; If the collisions by Y-position exists
 C - - - - - 0x01A3F1 06:A3E1: A9 1C     LDA #$1C                                  ; CONSTANT - a jump counter value
@@ -711,9 +711,9 @@ C - - - - - 0x01A411 06:A401: A8        TAY                               ;
 bra_A402_prepare_rendering:
 loc_A402_prepare_rendering:
 C D 1 - - - 0x01A412 06:A402: BD 38 03  LDA vEnemyAPosXLow,X            ;
-C - - - - - 0x01A415 06:A405: 85 00     STA ram_0000                    ; prepares the 1st parameter
+C - - - - - 0x01A415 06:A405: 85 00     STA $0000                       ; prepares the 1st parameter
 C - - - - - 0x01A417 06:A407: BD 3E 03  LDA vEnemyAPosXHigh,X           ;
-C - - - - - 0x01A41A 06:A40A: 85 01     STA ram_0001                    ; prepares the 2nd parameter
+C - - - - - 0x01A41A 06:A40A: 85 01     STA $0001                       ; prepares the 2nd parameter
 C - - - - - 0x01A41C 06:A40C: 20 7B D6  JSR sub_D67B_out_of_sight       ;
 C - - - - - 0x01A41F 06:A40F: 90 03     BCC bra_A414_skip               ; If the enemy is visible
 C - - - - - 0x01A421 06:A411: 4C 7F D7  JMP loc_D77F_free_enemyA        ;
@@ -736,9 +736,9 @@ bra_A426_skip:
 C - - - - - 0x01A436 06:A426: 98        TYA                           ;
 C - - - - - 0x01A437 06:A427: 18        CLC                           ;
 C - - - - - 0x01A438 06:A428: 6D 02 03  ADC vEnemyASpriteMagic2       ; + Y ~> sprite_magic2
-C - - - - - 0x01A43B 06:A42B: 85 01     STA ram_0001                  ;
+C - - - - - 0x01A43B 06:A42B: 85 01     STA $0001                     ;
 C - - - - - 0x01A43D 06:A42D: AD 03 03  LDA vEnemyASpriteMagic3       ; ~> sprite_magic3
-C - - - - - 0x01A440 06:A430: 85 02     STA ram_0002                  ;
+C - - - - - 0x01A440 06:A430: 85 02     STA $0002                     ;
 C - - - - - 0x01A442 06:A432: 20 33 CE  JSR sub_CE33_add_sprite_magic ; bank FF
 C - - - - - 0x01A445 06:A435: 98        TYA                           ;
 C - - - - - 0x01A446 06:A436: C9 18     CMP #$18                      ;
@@ -750,7 +750,7 @@ C - - - - - 0x01A44D 06:A43D: 69 04     ADC #$04                      ; A <~ 0x0
 bra_A43F_skip:
 C - - - - - 0x01A44F 06:A43F: 18        CLC                           ;
 C - - - - - 0x01A450 06:A440: 6D 04 03  ADC vEnemyASpriteMagic2Ex1    ; + A ~> sprite_magic2
-C - - - - - 0x01A453 06:A443: 85 01     STA ram_0001                  ;
+C - - - - - 0x01A453 06:A443: 85 01     STA $0001                     ;
 C - - - - - 0x01A455 06:A445: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 bra_A448_skip:
@@ -884,8 +884,8 @@ C - - - - - 0x01A534 06:A524: 4C 7F D7  JMP loc_D77F_free_enemyA                
 ; In: Register X - the enemyA number
 ; In: $0000 - EnemyAPosY
 bra_A527_skip:
-C - - - - - 0x01A537 06:A527: 85 00     STA ram_0000                              ;
-C - - - - - 0x01A539 06:A529: E6 00     INC ram_0000                              ;
+C - - - - - 0x01A537 06:A527: 85 00     STA $0000                                 ;
+C - - - - - 0x01A539 06:A529: E6 00     INC $0000                                 ;
 C - - - - - 0x01A53B 06:A52B: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y  ;
 C - - - - - 0x01A53E 06:A52E: F0 1C     BEQ bra_A54C_inc                          ; If the collisions by Y-position doesn't exist
 C - - - - - 0x01A540 06:A530: C9 02     CMP #$02                                  ; CONSTANT - a weak collision
@@ -1135,7 +1135,7 @@ C - - - - - 0x01A6EC 06:A6DC: AD 00 03  LDA vEnemyA                   ;
 C - - - - - 0x01A6EF 06:A6DF: C9 17     CMP #$17                      ; CONSTANT - Karate-boy
 C - - - - - 0x01A6F1 06:A6E1: F0 25     BEQ @bra_A708_boy             ; If EnemyA == 0x17
 C - - - - - 0x01A6F3 06:A6E3: A9 20     LDA #$20                      ;
-C - - - - - 0x01A6F5 06:A6E5: 85 00     STA ram_0000                  ; $0000 <~ 0x20
+C - - - - - 0x01A6F5 06:A6E5: 85 00     STA $0000                     ; $0000 <~ 0x20
 C - - - - - 0x01A6F7 06:A6E7: A0 30     LDY #$30                      ; the offset value #1
 C - - - - - 0x01A6F9 06:A6E9: BD 20 03  LDA vEnemyAStatus,X           ;
 C - - - - - 0x01A6FC 06:A6EC: 48        PHA                           ; store the status
@@ -1155,7 +1155,7 @@ C - - - - - 0x01A716 06:A706: D0 16     BNE @bra_A71E_add_and_assign  ; Always t
 
 @bra_A708_boy:
 C - - - - - 0x01A718 06:A708: A9 18     LDA #$18                      ;
-C - - - - - 0x01A71A 06:A70A: 85 00     STA ram_0000                  ; $0000 <~ 0x18
+C - - - - - 0x01A71A 06:A70A: 85 00     STA $0000                     ; $0000 <~ 0x18
 C - - - - - 0x01A71C 06:A70C: A0 08     LDY #$08                      ; the offset value #5
 C - - - - - 0x01A71E 06:A70E: BD 20 03  LDA vEnemyAStatus,X           ;
 C - - - - - 0x01A721 06:A711: 48        PHA                           ; store the status
@@ -1171,7 +1171,7 @@ C - - - - - 0x01A72F 06:A71F: 6A        ROR                           ;
 C - - - - - 0x01A730 06:A720: 90 33     BCC bra_A755_assign           ; If the enemy is looking to the right
 C - - - - - 0x01A732 06:A722: 98        TYA                           ;
 C - - - - - 0x01A733 06:A723: 18        CLC                           ;
-C - - - - - 0x01A734 06:A724: 65 00     ADC ram_0000                  ;
+C - - - - - 0x01A734 06:A724: 65 00     ADC $0000                     ;
 C - - - - - 0x01A736 06:A726: A8        TAY                           ; Y <~ Y + {0x18, 0x20}
 C - - - - - 0x01A737 06:A727: 4C 55 A7  JMP loc_A755_assign           ;
 
@@ -1232,8 +1232,8 @@ C - - - - - 0x01A78B 06:A77B: 20 B8 D0  JSR sub_D0B8_change_stack_pointer_by_bit
 
 loc_A78C_main:
 C - - - - - 0x01A79C 06:A78C: BD 2C 03  LDA vEnemyAPosY,X                         ;
-C - - - - - 0x01A79F 06:A78F: 85 00     STA ram_0000                              ;
-C - - - - - 0x01A7A1 06:A791: E6 00     INC ram_0000                              ; prepare an input parameter (EnemyAPosY + 1)
+C - - - - - 0x01A79F 06:A78F: 85 00     STA $0000                                 ;
+C - - - - - 0x01A7A1 06:A791: E6 00     INC $0000                                 ; prepare an input parameter (EnemyAPosY + 1)
 C - - - - - 0x01A7A3 06:A793: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y  ;
 C - - - - - 0x01A7A6 06:A796: D0 07     BNE bra_A79F_skip                         ; If the collisions by Y-position exists
 C - - - - - 0x01A7A8 06:A798: A9 1C     LDA #$1C                                  ; CONSTANT - a jump counter value
@@ -1263,9 +1263,9 @@ C - - - - - 0x01A7D1 06:A7C1: A0 1C     LDY #$1C                          ; the 
 @bra_A7C3_prepare_rendering:
 loc_A7C3_prepare_rendering:
 C D 1 - - - 0x01A7D3 06:A7C3: BD 38 03  LDA vEnemyAPosXLow,X              ;
-C - - - - - 0x01A7D6 06:A7C6: 85 00     STA ram_0000                      ; prepares the 1st parameter
+C - - - - - 0x01A7D6 06:A7C6: 85 00     STA $0000                         ; prepares the 1st parameter
 C - - - - - 0x01A7D8 06:A7C8: BD 3E 03  LDA vEnemyAPosXHigh,X             ;
-C - - - - - 0x01A7DB 06:A7CB: 85 01     STA ram_0001                      ; prepares the 2nd parameter
+C - - - - - 0x01A7DB 06:A7CB: 85 01     STA $0001                         ; prepares the 2nd parameter
 C - - - - - 0x01A7DD 06:A7CD: 20 7B D6  JSR sub_D67B_out_of_sight         ;
 C - - - - - 0x01A7E0 06:A7D0: 90 03     BCC @bra_A7D5_skip                ; If the enemy is visible
 C - - - - - 0x01A7E2 06:A7D2: 4C 7F D7  JMP loc_D77F_free_enemyA          ;
@@ -1295,9 +1295,9 @@ C - - - - - 0x01A805 06:A7F5: D0 0F     BNE @bra_A806_skip             ; If stat
 C - - - - - 0x01A807 06:A7F7: 98        TYA                            ;
 C - - - - - 0x01A808 06:A7F8: 18        CLC                            ;
 C - - - - - 0x01A809 06:A7F9: 6D 05 03  ADC vEnemyASpriteMagic2Ex2     ; + Y ~> sprite_magic2
-C - - - - - 0x01A80C 06:A7FC: 85 01     STA ram_0001                   ;
+C - - - - - 0x01A80C 06:A7FC: 85 01     STA $0001                      ;
 C - - - - - 0x01A80E 06:A7FE: AD 03 03  LDA vEnemyASpriteMagic3        ; ~> sprite_magic3
-C - - - - - 0x01A811 06:A801: 85 02     STA ram_0002                   ;
+C - - - - - 0x01A811 06:A801: 85 02     STA $0002                      ;
 C - - - - - 0x01A813 06:A803: 4C 33 CE  JMP loc_CE33_add_sprite_magic  ; bank FF
 
 ; In: Register Y - sprite_magic2 (The offset by the address)
@@ -1305,9 +1305,9 @@ C - - - - - 0x01A813 06:A803: 4C 33 CE  JMP loc_CE33_add_sprite_magic  ; bank FF
 C - - - - - 0x01A816 06:A806: 98        TYA                            ;
 C - - - - - 0x01A817 06:A807: 18        CLC                            ;
 C - - - - - 0x01A818 06:A808: 6D 02 03  ADC vEnemyASpriteMagic2        ; + Y ~> sprite_magic2
-C - - - - - 0x01A81B 06:A80B: 85 01     STA ram_0001                   ;
+C - - - - - 0x01A81B 06:A80B: 85 01     STA $0001                      ;
 C - - - - - 0x01A81D 06:A80D: AD 03 03  LDA vEnemyASpriteMagic3        ; ~> sprite_magic3
-C - - - - - 0x01A820 06:A810: 85 02     STA ram_0002                   ;
+C - - - - - 0x01A820 06:A810: 85 02     STA $0002                      ;
 C - - - - - 0x01A822 06:A812: 20 33 CE  JSR sub_CE33_add_sprite_magic  ; bank FF
 C - - - - - 0x01A825 06:A815: BD 20 03  LDA vEnemyAStatus,X            ;
 C - - - - - 0x01A828 06:A818: 29 08     AND #$08                       ; CONSTANT - 'close_contact' status
@@ -1322,7 +1322,7 @@ C - - - - - 0x01A835 06:A825: C8        INY                            ; +2 for 
 C - - - - - 0x01A836 06:A826: 98        TYA                            ;
 C - - - - - 0x01A837 06:A827: 18        CLC                            ;
 C - - - - - 0x01A838 06:A828: 6D 04 03  ADC vEnemyASpriteMagic2Ex1     ; + Y ~> sprite_magic2
-C - - - - - 0x01A83B 06:A82B: 85 01     STA ram_0001                   ;
+C - - - - - 0x01A83B 06:A82B: 85 01     STA $0001                      ;
 C - - - - - 0x01A83D 06:A82D: 4C 33 CE  JMP loc_CE33_add_sprite_magic  ; bank FF
 
 loc_A830_try_movements:
@@ -1467,8 +1467,8 @@ C - - - - - 0x01A92A 06:A91A: 4C C3 A7  JMP loc_A7C3_prepare_rendering          
 ; In: Register X - the enemyA number
 ; In: $0000 - EnemyAPosY
 bra_A91D_skip:
-C - - - - - 0x01A92D 06:A91D: 85 00     STA ram_0000                                 ;
-C - - - - - 0x01A92F 06:A91F: E6 00     INC ram_0000                                 ; prepare an input parameter (EnemyAPosY + 1)
+C - - - - - 0x01A92D 06:A91D: 85 00     STA $0000                                    ;
+C - - - - - 0x01A92F 06:A91F: E6 00     INC $0000                                    ; prepare an input parameter (EnemyAPosY + 1)
 C - - - - - 0x01A931 06:A921: 20 58 D3  JSR sub_D358_check_enemyA_collision_by_Y     ;
 C - - - - - 0x01A934 06:A924: F0 27     BEQ bra_A94D_inc                             ; If the collisions by Y-position doesn't exist
 C - - - - - 0x01A936 06:A926: C9 02     CMP #$02                                     ; CONSTANT - a weak collision
@@ -1674,9 +1674,9 @@ C - - - - - 0x01AA85 06:AA75: 20 B9 AA  JSR sub_AAB9_move_and_get_offset ;
 ; In: Register Y - sprite_magic2 (The offset by the address)
 bra_AA78_prepare_rendering:
 C - - - - - 0x01AA88 06:AA78: BD 74 03  LDA vEnemyBPosXLow,X             ;
-C - - - - - 0x01AA8B 06:AA7B: 85 00     STA ram_0000                     ; prepares the 1st parameter
+C - - - - - 0x01AA8B 06:AA7B: 85 00     STA $0000                        ; prepares the 1st parameter
 C - - - - - 0x01AA8D 06:AA7D: BD 7A 03  LDA vEnemyBPosXHigh,X            ;
-C - - - - - 0x01AA90 06:AA80: 85 01     STA ram_0001                     ; prepares the 2nd parameter
+C - - - - - 0x01AA90 06:AA80: 85 01     STA $0001                        ; prepares the 2nd parameter
 C - - - - - 0x01AA92 06:AA82: 20 7B D6  JSR sub_D67B_out_of_sight        ;
 C - - - - - 0x01AA95 06:AA85: 90 03     BCC bra_AA8A_skip                ; If the enemy is visible
 C - - - - - 0x01AA97 06:AA87: 4C 73 D8  JMP loc_D873_free_enemyB         ;
@@ -1702,9 +1702,9 @@ loc_AA9F_add_sprite:
 C D 1 - - - 0x01AAAF 06:AA9F: 98        TYA                            ;
 C - - - - - 0x01AAB0 06:AAA0: 18        CLC                            ;
 C - - - - - 0x01AAB1 06:AAA1: 6D 06 03  ADC vEnemyBSpriteMagic2        ; + Y ~> sprite_magic2
-C - - - - - 0x01AAB4 06:AAA4: 85 01     STA ram_0001                   ;
+C - - - - - 0x01AAB4 06:AAA4: 85 01     STA $0001                      ;
 C - - - - - 0x01AAB6 06:AAA6: AD 07 03  LDA vEnemyBSpriteMagic3        ; ~> sprite_magic3
-C - - - - - 0x01AAB9 06:AAA9: 85 02     STA ram_0002                   ;
+C - - - - - 0x01AAB9 06:AAA9: 85 02     STA $0002                      ;
 C - - - - - 0x01AABB 06:AAAB: 4C 33 CE  JMP loc_CE33_add_sprite_magic  ; bank FF
 
 loc_AAAE_dying:
@@ -1855,9 +1855,9 @@ C - - - - - 0x01ABAD 06:AB9D: A0 0C     LDY #$0C                              ; 
 ; In: Register Y - sprite_magic2 (The offset by the address)
 loc_AB9F_prepare_rendering:
 C D 1 - - - 0x01ABAF 06:AB9F: BD 74 03  LDA vEnemyBProjectilePosXLow - 2,X    ;
-C - - - - - 0x01ABB2 06:ABA2: 85 00     STA ram_0000                          ; prepares the 1st parameter
+C - - - - - 0x01ABB2 06:ABA2: 85 00     STA $0000                             ; prepares the 1st parameter
 C - - - - - 0x01ABB4 06:ABA4: BD 7A 03  LDA vEnemyBProjectilePosXHigh - 2,X   ;
-C - - - - - 0x01ABB7 06:ABA7: 85 01     STA ram_0001                          ; prepares the 2nd parameter
+C - - - - - 0x01ABB7 06:ABA7: 85 01     STA $0001                             ; prepares the 2nd parameter
 C - - - - - 0x01ABB9 06:ABA9: 20 7B D6  JSR sub_D67B_out_of_sight             ;
 C - - - - - 0x01ABBC 06:ABAC: 90 03     BCC bra_ABB1_skip                     ; If the enemy is visible
 C - - - - - 0x01ABBE 06:ABAE: 4C 69 AB  JMP loc_AB69_free_projectile          ;
@@ -1976,9 +1976,9 @@ C - - - - - 0x01AC79 06:AC69: 20 A6 AC  JSR sub_ACA6_try_movements            ;
 ; In: Register Y - sprite_magic2 (The offset by the address)
 @bra_AC6C_prepare_rendering:
 C - - - - - 0x01AC7C 06:AC6C: BD 74 03  LDA vEnemyBPosXLow,X                  ;
-C - - - - - 0x01AC7F 06:AC6F: 85 00     STA ram_0000                          ; prepares the 1st parameter
+C - - - - - 0x01AC7F 06:AC6F: 85 00     STA $0000                             ; prepares the 1st parameter
 C - - - - - 0x01AC81 06:AC71: BD 7A 03  LDA vEnemyBPosXHigh,X                 ;
-C - - - - - 0x01AC84 06:AC74: 85 01     STA ram_0001                          ; prepares the 2nd parameter
+C - - - - - 0x01AC84 06:AC74: 85 01     STA $0001                             ; prepares the 2nd parameter
 C - - - - - 0x01AC86 06:AC76: 20 7B D6  JSR sub_D67B_out_of_sight             ;
 C - - - - - 0x01AC89 06:AC79: 90 03     BCC bra_AC7E_skip                     ; If the enemy is visible
 C - - - - - 0x01AC8B 06:AC7B: 4C 73 D8  JMP loc_D873_free_enemyB              ;
@@ -2089,9 +2089,9 @@ C - - - - - 0x01AD26 06:AD16: BD 20 03  LDA vEnemyAStatus,X                     
 C - - - - - 0x01AD29 06:AD19: 10 FA     BPL bra_AD15_RTS                          ; If the status isn't used
 C - - - - - 0x01AD2B 06:AD1B: 20 47 AD  JSR sub_AD47_update_internal_params_      ;
 C - - - - - 0x01AD2E 06:AD1E: BD 38 03  LDA vEnemyAPosXLow,X                      ;
-C - - - - - 0x01AD31 06:AD21: 85 00     STA ram_0000                              ; prepares the 1st parameter
+C - - - - - 0x01AD31 06:AD21: 85 00     STA $0000                                 ; prepares the 1st parameter
 C - - - - - 0x01AD33 06:AD23: BD 3E 03  LDA vEnemyAPosXHigh,X                     ;
-C - - - - - 0x01AD36 06:AD26: 85 01     STA ram_0001                              ; prepares the 2nd parameter
+C - - - - - 0x01AD36 06:AD26: 85 01     STA $0001                                 ; prepares the 2nd parameter
 C - - - - - 0x01AD38 06:AD28: 20 AC D6  JSR sub_D6AC_out_of_screen                ;
 C - - - - - 0x01AD3B 06:AD2B: 90 03     BCC bra_AD30_prepare_rendering            ; If the enemy is on the screen
 C - - - - - 0x01AD3D 06:AD2D: 4C 8A D7  JMP loc_D78A_free_enemyA_while_creating   ;
@@ -2099,13 +2099,13 @@ C - - - - - 0x01AD3D 06:AD2D: 4C 8A D7  JMP loc_D78A_free_enemyA_while_creating 
 ; In: Register X - the enemyA number
 bra_AD30_prepare_rendering:
 C - - - - - 0x01AD40 06:AD30: BD 2C 03  LDA vEnemyAPosY,X             ;
-C - - - - - 0x01AD43 06:AD33: 85 00     STA ram_0000                  ; ~> sprite magic1
-C - - - - - 0x01AD45 06:AD35: A5 03     LDA ram_0003                  ; from sub_D6AC_out_of_screen
+C - - - - - 0x01AD43 06:AD33: 85 00     STA $0000                     ; ~> sprite magic1
+C - - - - - 0x01AD45 06:AD35: A5 03     LDA $0003                     ; from sub_D6AC_out_of_screen
 C - - - - - 0x01AD47 06:AD37: 9D 32 03  STA vEnemyAScreenPosX,X       ;
 C - - - - - 0x01AD4A 06:AD3A: AD 02 03  LDA vEnemyASpriteMagic2       ;
-C - - - - - 0x01AD4D 06:AD3D: 85 01     STA ram_0001                  ; ~> sprite_magic2
+C - - - - - 0x01AD4D 06:AD3D: 85 01     STA $0001                     ; ~> sprite_magic2
 C - - - - - 0x01AD4F 06:AD3F: AD 03 03  LDA vEnemyASpriteMagic3       ;
-C - - - - - 0x01AD52 06:AD42: 85 02     STA ram_0002                  ; ~> sprite_magic3
+C - - - - - 0x01AD52 06:AD42: 85 02     STA $0002                     ; ~> sprite_magic3
 C - - - - - 0x01AD54 06:AD44: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 sub_AD47_update_internal_params_:
@@ -2323,9 +2323,9 @@ C - - - - - 0x01AEB7 06:AEA7: A0 00     LDY #$00                         ; prepa
 bra_AEA9_prepare_rendering:
 loc_AEA9_prepare_rendering:
 C D 1 - - - 0x01AEB9 06:AEA9: BD 74 03  LDA vEnemyBPosXLow,X                    ;
-C - - - - - 0x01AEBC 06:AEAC: 85 00     STA ram_0000                            ; prepares the 1st parameter
+C - - - - - 0x01AEBC 06:AEAC: 85 00     STA $0000                               ; prepares the 1st parameter
 C - - - - - 0x01AEBE 06:AEAE: BD 7A 03  LDA vEnemyBPosXHigh,X                   ;
-C - - - - - 0x01AEC1 06:AEB1: 85 01     STA ram_0001                            ; prepares the 2nd parameter
+C - - - - - 0x01AEC1 06:AEB1: 85 01     STA $0001                               ; prepares the 2nd parameter
 C - - - - - 0x01AEC3 06:AEB3: 20 7B D6  JSR sub_D67B_out_of_sight               ;
 C - - - - - 0x01AEC6 06:AEB6: 90 03     BCC bra_AEBB_skip                       ; If the enemy is visible
 C - - - - - 0x01AEC8 06:AEB8: 4C 7E D8  JMP loc_D87E_free_enemyB_while_creating ;
@@ -2339,8 +2339,8 @@ C - - - - - 0x01AED0 06:AEC0: 4C 4D D8  JMP loc_D84D_enemyB_off_screen     ;
 ; In: Register Y - sprite_magic2 (The offset by the address)
 bra_AEC3_skip:
 C - - - - - 0x01AED3 06:AEC3: BD 68 03  LDA vEnemyBPosY,X             ;
-C - - - - - 0x01AED6 06:AEC6: 85 00     STA ram_0000                  ; ~> sprite magic1
-C - - - - - 0x01AED8 06:AEC8: A5 03     LDA ram_0003                  ; from sub_D6AC_out_of_screen
+C - - - - - 0x01AED6 06:AEC6: 85 00     STA $0000                     ; ~> sprite magic1
+C - - - - - 0x01AED8 06:AEC8: A5 03     LDA $0003                     ; from sub_D6AC_out_of_screen
 C - - - - - 0x01AEDA 06:AECA: 9D 6E 03  STA vEnemyBScreenPosX,X       ;
 C - - - - - 0x01AEDD 06:AECD: BD 5C 03  LDA vEnemyBStatus,X           ;
 C - - - - - 0x01AEE0 06:AED0: 09 40     ORA #$40                      ; CONSTANT - the character can stand on the platform
@@ -2348,9 +2348,9 @@ C - - - - - 0x01AEE2 06:AED2: 9D 5C 03  STA vEnemyBStatus,X           ;
 C - - - - - 0x01AEE5 06:AED5: 98        TYA                           ;
 C - - - - - 0x01AEE6 06:AED6: 18        CLC                           ;
 C - - - - - 0x01AEE7 06:AED7: 6D 06 03  ADC vEnemyBSpriteMagic2       ; + Y ~> sprite_magic2
-C - - - - - 0x01AEEA 06:AEDA: 85 01     STA ram_0001                  ;
+C - - - - - 0x01AEEA 06:AEDA: 85 01     STA $0001                     ;
 C - - - - - 0x01AEEC 06:AEDC: AD 07 03  LDA vEnemyBSpriteMagic3       ; ~> sprite_magic3
-C - - - - - 0x01AEEF 06:AEDF: 85 02     STA ram_0002                  ;
+C - - - - - 0x01AEEF 06:AEDF: 85 02     STA $0002                     ;
 C - - - - - 0x01AEF1 06:AEE1: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 bra_AEE4_skip:
@@ -2543,24 +2543,24 @@ C - - - - - 0x01B03D 06:B02D: A8        TAY                           ; Y <~ 2*A
 ; In: Register Y - sprite_magic2 (The offset by the address)
 bra_B02E_prepare_rendering:
 C - - - - - 0x01B03E 06:B02E: BD B6 03  LDA vItemPosXLow,X            ;
-C - - - - - 0x01B041 06:B031: 85 00     STA ram_0000                  ; prepares the 1st parameter
+C - - - - - 0x01B041 06:B031: 85 00     STA $0000                     ; prepares the 1st parameter
 C - - - - - 0x01B043 06:B033: BD BC 03  LDA vItemPosXHigh,X           ;
-C - - - - - 0x01B046 06:B036: 85 01     STA ram_0001                  ; prepares the 2nd parameter
+C - - - - - 0x01B046 06:B036: 85 01     STA $0001                     ; prepares the 2nd parameter
 C - - - - - 0x01B048 06:B038: 20 AC D6  JSR sub_D6AC_out_of_screen    ;
 C - - - - - 0x01B04B 06:B03B: 90 03     BCC bra_B040_skip             ; If the item is on the screen
 C - - - - - 0x01B04D 06:B03D: 4C EF AF  JMP loc_AFEF_free_item        ;
 
 bra_B040_skip:
 C - - - - - 0x01B050 06:B040: BD AA 03  LDA vItemPosY,X               ;
-C - - - - - 0x01B053 06:B043: 85 00     STA ram_0000                  ; ~> sprite magic1
-C - - - - - 0x01B055 06:B045: A5 03     LDA ram_0003                  ; from sub_D6AC_out_of_screen
+C - - - - - 0x01B053 06:B043: 85 00     STA $0000                     ; ~> sprite magic1
+C - - - - - 0x01B055 06:B045: A5 03     LDA $0003                     ; from sub_D6AC_out_of_screen
 C - - - - - 0x01B057 06:B047: 9D B0 03  STA vItemScreenPosX,X         ;
 C - - - - - 0x01B05A 06:B04A: 98        TYA                           ;
 C - - - - - 0x01B05B 06:B04B: 18        CLC                           ;
 C - - - - - 0x01B05C 06:B04C: 69 5C     ADC #$5C                      ;
-C - - - - - 0x01B05E 06:B04E: 85 01     STA ram_0001                  ; Y + 0x5C ~> sprite_magic2
+C - - - - - 0x01B05E 06:B04E: 85 01     STA $0001                     ; Y + 0x5C ~> sprite_magic2
 C - - - - - 0x01B060 06:B050: A9 60     LDA #$60                      ;
-C - - - - - 0x01B062 06:B052: 85 02     STA ram_0002                  ; ~> sprite_magic3
+C - - - - - 0x01B062 06:B052: 85 02     STA $0002                     ; ~> sprite_magic3
 C - - - - - 0x01B064 06:B054: 4C 33 CE  JMP loc_CE33_add_sprite_magic ; bank FF
 
 sub_B057_try_to_move_in_water:
@@ -2634,7 +2634,7 @@ C - - - - - 0x01B0D6 06:B0C6: 85 13     STA $0013                               
 C - - - - - 0x01B0D8 06:B0C8: A9 01     LDA #$01                                 ; CONSTANT - left-to-right direction
 C - - - - - 0x01B0DA 06:B0CA: 20 D6 F2  JSR sub_F2D6_try_put_briefcase           ; bank FF
 C - - - - - 0x01B0DD 06:B0CD: 90 D5     BCC bra_B0A4_RTS                         ; If a briefcase doesn't put
-C - - - - - 0x01B0DF 06:B0CF: A4 0A     LDY ram_000A                             ; load index of a briefcase
+C - - - - - 0x01B0DF 06:B0CF: A4 0A     LDY $000A                                ; load index of a briefcase
 C - - - - - 0x01B0E1 06:B0D1: B9 19 02  LDA vArrayWhiteBriefcase,Y               ; load an item (inside a briefcase)
 C - - - - - 0x01B0E4 06:B0D4: 30 CE     BMI bra_B0A4_RTS                         ; If the item is got
 C - - - - - 0x01B0E6 06:B0D6: A0 05     LDY #$05                                 ; set loop counter
@@ -2643,12 +2643,12 @@ C - - - - - 0x01B0E8 06:B0D8: B9 9E 03  LDA vItemStatus,Y                       
 C - - - - - 0x01B0EB 06:B0DB: 10 14     BPL @bra_B0F1_next                       ; If the current briefcase or item isn't used
 C - - - - - 0x01B0ED 06:B0DD: B9 B6 03  LDA vItemPosXLow,Y                       ;
 C - - - - - 0x01B0F0 06:B0E0: 38        SEC                                      ;
-C - - - - - 0x01B0F1 06:B0E1: E5 01     SBC ram_0001                             ;
+C - - - - - 0x01B0F1 06:B0E1: E5 01     SBC $0001                                ;
 C - - - - - 0x01B0F3 06:B0E3: B9 BC 03  LDA vItemPosXHigh,Y                      ;
-C - - - - - 0x01B0F6 06:B0E6: E5 00     SBC ram_0000                             ;
+C - - - - - 0x01B0F6 06:B0E6: E5 00     SBC $0000                                ;
 C - - - - - 0x01B0F8 06:B0E8: D0 07     BNE @bra_B0F1_next                       ; If [H:L] briefcase != [H:L] table value
 C - - - - - 0x01B0FA 06:B0EA: B9 AA 03  LDA vItemPosY,Y                          ;
-C - - - - - 0x01B0FD 06:B0ED: C5 02     CMP ram_0002                             ;
+C - - - - - 0x01B0FD 06:B0ED: C5 02     CMP $0002                                ;
 C - - - - - 0x01B0FF 06:B0EF: F0 B3     BEQ bra_B0A4_RTS                         ; If briefcase Y-position == Y-position of the table
 @bra_B0F1_next:
 C - - - - - 0x01B101 06:B0F1: 88        DEY                                      ; decrement loop counter
@@ -2690,10 +2690,10 @@ C - - - - - 0x01B139 06:B129: A9 F8     LDA #$F8                           ; CON
 @bra_B12B_positive:
 C - - - - - 0x01B13B 06:B12B: 18        CLC                                ;
 C - - - - - 0x01B13C 06:B12C: 65 27     ADC vLowViewPortPosX               ;
-C - - - - - 0x01B13E 06:B12E: 85 01     STA ram_0001                       ; prepare an input parameter (vPosX + 0x08 or vPosX - 0x08)
+C - - - - - 0x01B13E 06:B12E: 85 01     STA $0001                          ; prepare an input parameter (vPosX + 0x08 or vPosX - 0x08)
 C - - - - - 0x01B140 06:B130: A5 4B     LDA vHighViewPortPosX              ;
 C - - - - - 0x01B142 06:B132: 69 00     ADC #$00                           ; +1, if the overflow happened
-C - - - - - 0x01B144 06:B134: 85 00     STA ram_0000                       ; prepare an input parameter
+C - - - - - 0x01B144 06:B134: 85 00     STA $0000                          ; prepare an input parameter
 C - - - - - 0x01B146 06:B136: A5 35     LDA vEnemyRNGValue                 ;
 C - - - - - 0x01B148 06:B138: 29 1F     AND #$1F                           ;
 C - - - - - 0x01B14A 06:B13A: A8        TAY                                ; Y <~ {0x00, 0x01, ..., 0x1F}
@@ -2703,7 +2703,7 @@ C - - - - - 0x01B151 06:B141: 20 64 D0  JSR sub_D064_generate_rng          ;
 C - - - - - 0x01B154 06:B144: 29 1F     AND #$1F                           ;
 C - - - - - 0x01B156 06:B146: A8        TAY                                ; Y <~ {0x00, 0x01, ..., 0x1F}
 C - - - - - 0x01B157 06:B147: B9 C0 95  LDA tbl_water_y_position,Y         ;
-C - - - - - 0x01B15A 06:B14A: 85 02     STA ram_0002                       ; prepare an input parameter
+C - - - - - 0x01B15A 06:B14A: 85 02     STA $0002                          ; prepare an input parameter
 C - - - - - 0x01B15C 06:B14C: A9 D0     LDA #$D0                           ; CONSTANT - the status by default + the briefcase is hidden
 C - - - - - 0x01B15E 06:B14E: 9D 9E 03  STA vItemStatus,X                  ;
 C - - - - - 0x01B161 06:B151: A9 00     LDA #$00                           ;
@@ -2712,7 +2712,7 @@ C - - - - - 0x01B166 06:B156: 4C FB B0  JMP loc_B0FB_create                ;
 
 ; In: Register A - item number [0x00-0x08]
 sub_B159_check_availability:
-C - - - - - 0x01B169 06:B159: 85 0A     STA ram_000A                    ;
+C - - - - - 0x01B169 06:B159: 85 0A     STA $000A                       ;
 C - - - - - 0x01B16B 06:B15B: A8        TAY                             ; prepare loop counter
 C - - - - - 0x01B16C 06:B15C: A9 01     LDA #$01                        ;
 C - - - - - 0x01B16E 06:B15E: C0 08     CPY #$08                        ; CONSTANT - the ruby ring
@@ -2740,7 +2740,7 @@ C - - - - - 0x01B183 06:B173: AD 91 94  LDA loc_tbl_water_item_bits + 1 ;
 C - - - - - 0x01B186 06:B176: 69 00     ADC #$00                        ;
 C - - - - - 0x01B188 06:B178: 85 13     STA $0013                       ; High address
 C - - - - - 0x01B18A 06:B17A: A0 00     LDY #$00                        ; 1 of 2
-C - - - - - 0x01B18C 06:B17C: A5 0A     LDA ram_000A                    ;
+C - - - - - 0x01B18C 06:B17C: A5 0A     LDA $000A                       ;
 C - - - - - 0x01B18E 06:B17E: C9 08     CMP #$08                        ; CONSTANT - the ruby ring
 C - - - - - 0x01B190 06:B180: F0 01     BEQ @bra_B183_skip              ; If the item number == 0x08
 C - - - - - 0x01B192 06:B182: C8        INY                             ; 2 of 2
@@ -3054,18 +3054,18 @@ C - - - - - 0x01B37D 06:B36D: B1 12     LDA ($0012),Y                   ;
 C - - - - - 0x01B37F 06:B36F: 85 15     STA $0015                       ; High address
 C - - - - - 0x01B381 06:B371: A0 00     LDY #$00                        ; 1 of N
 C - - - - - 0x01B383 06:B373: B1 14     LDA ($0014),Y                   ;
-C - - - - - 0x01B385 06:B375: 85 00     STA ram_0000                    ; <~ the number of the prison rooms
+C - - - - - 0x01B385 06:B375: 85 00     STA $0000                       ; <~ the number of the prison rooms
 C - - - - - 0x01B387 06:B377: A9 02     LDA #$02                        ; !(UNUSED)
-C - - - - - 0x01B389 06:B379: 85 01     STA ram_0001                    ; !(UNUSED)
+C - - - - - 0x01B389 06:B379: 85 01     STA $0001                       ; !(UNUSED)
 bra_B37B_repeat:
 C - - - - - 0x01B38B 06:B37B: 20 64 D0  JSR sub_D064_generate_rng       ;
 C - - - - - 0x01B38E 06:B37E: 29 3F     AND #$3F                        ;
 C - - - - - 0x01B390 06:B380: 4A        LSR                             ; A <~ (0x00, 0x01, ..., 0x1F)
 @bra_B381_loop:
 C - - - - - 0x01B391 06:B381: 38        SEC                             ;
-C - - - - - 0x01B392 06:B382: E5 00     SBC ram_0000                    ;
+C - - - - - 0x01B392 06:B382: E5 00     SBC $0000                       ;
 C - - - - - 0x01B394 06:B384: B0 FB     BCS @bra_B381_loop              ; If Register A - the number of the prison rooms >= 0
-C - - - - - 0x01B396 06:B386: 65 00     ADC ram_0000                    ; corrects an index
+C - - - - - 0x01B396 06:B386: 65 00     ADC $0000                       ; corrects an index
 C - - - - - 0x01B398 06:B388: A8        TAY                             ;
 C - - - - - 0x01B399 06:B389: C8        INY                             ; 2 (or 3 or 4 or ...) of N (the room indexes)
 C - - - - - 0x01B39A 06:B38A: B1 14     LDA ($0014),Y                   ; <~ prison room index
@@ -3283,11 +3283,11 @@ C - - - - - 0x01B4FA 06:B4EA: 60        RTS                             ;
 sub_B4EB_add_npc_sprite_in_room:
 C - - - - - 0x01B4FB 06:B4EB: A0 00     LDY #$00                           ;
 C - - - - - 0x01B4FD 06:B4ED: B1 12     LDA ($0012),Y                      ; A <~ The model of the NP-character
-C - - - - - 0x01B4FF 06:B4EF: 85 00     STA ram_0000                       ; 1 of NPC bytes
+C - - - - - 0x01B4FF 06:B4EF: 85 00     STA $0000                          ; 1 of NPC bytes
 C - - - - - 0x01B501 06:B4F1: 0A        ASL                                ;
 C - - - - - 0x01B502 06:B4F2: 0A        ASL                                ;
 C - - - - - 0x01B503 06:B4F3: 18        CLC                                ;
-C - - - - - 0x01B504 06:B4F4: 65 00     ADC ram_0000                       ; *5, because the table contains 5 bytes in a row
+C - - - - - 0x01B504 06:B4F4: 65 00     ADC $0000                          ; *5, because the table contains 5 bytes in a row
 C - - - - - 0x01B506 06:B4F6: AA        TAX                                ;
 C - - - - - 0x01B507 06:B4F7: BD 4A 82  LDA tbl_npc_sprite_set + 1,X       ;
 C - - - - - 0x01B50A 06:B4FA: 8D 19 06  STA vCachePalette + 25             ;
@@ -3305,25 +3305,25 @@ C - - - - - 0x01B52B 06:B51B: EE B4 06  INC vCacheChrBankSelect + 5        ;
 C - - - - - 0x01B52E 06:B51E: BD 49 82  LDA tbl_npc_sprite_set,X           ;
 C - - - - - 0x01B531 06:B521: 18        CLC                                ;
 C - - - - - 0x01B532 06:B522: 69 84     ADC #$84                           ;
-C - - - - - 0x01B534 06:B524: 85 01     STA ram_0001                       ; 0x84 + the offset -> sprite_magic2
+C - - - - - 0x01B534 06:B524: 85 01     STA $0001                          ; 0x84 + the offset -> sprite_magic2
 C - - - - - 0x01B536 06:B526: 20 3E FC  JSR sub_FC3E_boss_defeated_status  ;
 C - - - - - 0x01B539 06:B529: F0 0F     BEQ @bra_B53A_skip                 ; If The boss isn't defeated
 C - - - - - 0x01B53B 06:B52B: AD D7 03  LDA vCacheBossStatus               ;
 C - - - - - 0x01B53E 06:B52E: 6A        ROR                                ;
 C - - - - - 0x01B53F 06:B52F: 90 04     BCC @bra_B535_skip                 ; If the enemy is looking to the right
-C - - - - - 0x01B541 06:B531: E6 01     INC ram_0001                       ;
-C - - - - - 0x01B543 06:B533: E6 01     INC ram_0001                       ; +2 for the left frame
+C - - - - - 0x01B541 06:B531: E6 01     INC $0001                          ;
+C - - - - - 0x01B543 06:B533: E6 01     INC $0001                          ; +2 for the left frame
 @bra_B535_skip:
 C - - - - - 0x01B545 06:B535: AD D8 03  LDA vCacheBossScreenPosX           ;
 C - - - - - 0x01B548 06:B538: D0 02     BNE @bra_B53C_skip                 ; If Register A != 0x00
 @bra_B53A_skip:
 C - - - - - 0x01B54A 06:B53A: A9 80     LDA #$80                           ; ~> sprite_magic4 (X pos)
 @bra_B53C_skip:
-C - - - - - 0x01B54C 06:B53C: 85 03     STA ram_0003                       ;
+C - - - - - 0x01B54C 06:B53C: 85 03     STA $0003                          ;
 C - - - - - 0x01B54E 06:B53E: A9 BF     LDA #$BF                           ; ~> sprite_magic1 (Y pos)
-C - - - - - 0x01B550 06:B540: 85 00     STA ram_0000                       ;
+C - - - - - 0x01B550 06:B540: 85 00     STA $0000                          ;
 C - - - - - 0x01B552 06:B542: A9 62     LDA #$62                           ; ~> sprite_magic3 (attributes)
-C - - - - - 0x01B554 06:B544: 85 02     STA ram_0002                       ;
+C - - - - - 0x01B554 06:B544: 85 02     STA $0002                          ;
 C - - - - - 0x01B556 06:B546: 4C 33 CE  JMP loc_CE33_add_sprite_magic      ; bank FF
 
 sub_B549_render_prisoner:
@@ -3340,9 +3340,9 @@ C - - - - - 0x01B567 06:B557: 18        CLC                              ;
 C - - - - - 0x01B568 06:B558: 69 BA     ADC #$BA                         ; see bank 05, page 1, $81BA
 C - - - - - 0x01B56A 06:B55A: AA        TAX                              ; prepare the offset of the sprite address (0xBA or 0xBC)
 C - - - - - 0x01B56B 06:B55B: A9 80     LDA #$80                         ;
-C - - - - - 0x01B56D 06:B55D: 85 01     STA ram_0001                     ; prepare a X-position
+C - - - - - 0x01B56D 06:B55D: 85 01     STA $0001                        ; prepare a X-position
 C - - - - - 0x01B56F 06:B55F: A9 BF     LDA #$BF                         ;
-C - - - - - 0x01B571 06:B561: 85 00     STA ram_0000                     ; prepare a Y-position
+C - - - - - 0x01B571 06:B561: 85 00     STA $0000                        ; prepare a Y-position
 C - - - - - 0x01B573 06:B563: A9 62     LDA #$62                         ; AA = 2, LL = 1 (see vCharacterRenderData, $81XX)
 C - - - - - 0x01B575 06:B565: 85 45     STA vCharacterRenderData         ;
 C - - - - - 0x01B577 06:B567: 20 5A CE  JSR sub_CE5A_render_character    ;
@@ -3375,10 +3375,10 @@ sub_B58C_resolve_npc_type:
 C - - - - - 0x01B59C 06:B58C: 0A        ASL                      ; *2, because the address contains 2 bytes
 C - - - - - 0x01B59D 06:B58D: AA        TAX                      ;
 C - - - - - 0x01B59E 06:B58E: BD 9B B5  LDA tbl_npc_types,X      ;
-C - - - - - 0x01B5A1 06:B591: 85 02     STA ram_0002             ; Low address
+C - - - - - 0x01B5A1 06:B591: 85 02     STA $0002                ; Low address
 C - - - - - 0x01B5A3 06:B593: BD 9C B5  LDA tbl_npc_types + 1,X  ;
-C - - - - - 0x01B5A6 06:B596: 85 03     STA ram_0003             ; High address
-C - - - - - 0x01B5A8 06:B598: 6C 02 00  JMP (ram_0002)           ;
+C - - - - - 0x01B5A6 06:B596: 85 03     STA $0003                ; High address
+C - - - - - 0x01B5A8 06:B598: 6C 02 00  JMP ($0002)              ;
 
 tbl_npc_types:
 - D 1 - - - 0x01B5AB 06:B59B: B4 B5     .addr loc_npc_type0  ; CPU address $B5B4
@@ -3646,9 +3646,9 @@ C - - - - - 0x01B741 06:B731: A9 00     LDA #$00                                
 C - - - - - 0x01B743 06:B733: 8D 44 03  STA vPhenixFrame_Counter                 ; reassign
 @bra_B736_prepare_rendering:
 C - - - - - 0x01B746 06:B736: AD 2C 03  LDA vPhenixPosY                          ;
-C - - - - - 0x01B749 06:B739: 85 00     STA ram_0000                             ; ~> sprite_magic1, Y-position
+C - - - - - 0x01B749 06:B739: 85 00     STA $0000                                ; ~> sprite_magic1, Y-position
 C - - - - - 0x01B74B 06:B73B: AD 38 03  LDA vPhenixPosXLow                       ;
-C - - - - - 0x01B74E 06:B73E: 85 03     STA ram_0003                             ; ~> sprite_magic4, X-position
+C - - - - - 0x01B74E 06:B73E: 85 03     STA $0003                                ; ~> sprite_magic4, X-position
 C - - - - - 0x01B750 06:B740: AD 44 03  LDA vPhenixFrame_Counter                 ;
 C - - - - - 0x01B753 06:B743: 0A        ASL                                      ;
 C - - - - - 0x01B754 06:B744: 18        CLC                                      ;
@@ -3705,27 +3705,27 @@ C - - - - - 0x01B7A3 06:B793: 20 34 B2  JSR sub_B234_add_message                
 C - - - - - 0x01B7A6 06:B796: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2                      ;
 C - - - - - 0x01B7A9 06:B799: A4 11     LDY vCacheRam_11                                   ; prepare 1st parameter
 C - - - - - 0x01B7AB 06:B79B: A9 00     LDA #$00                                           ;
-C - - - - - 0x01B7AD 06:B79D: 85 00     STA ram_0000                                       ; prepare 2nd parameter
+C - - - - - 0x01B7AD 06:B79D: 85 00     STA $0000                                          ; prepare 2nd parameter
 C - - - - - 0x01B7AF 06:B79F: 20 98 B4  JSR sub_B498_prepare_npc_portrait_render_params_ex ;
 C - - - - - 0x01B7B2 06:B7A2: E6 D8     INC vFinalSceneNo                                  ; next a final scene
 bra_B7A4_render_Clarissa_and_Fujiko:
 loc_B7A4_render_Clarissa_and_Fujiko:
 C D 1 - - - 0x01B7B4 06:B7A4: A9 BF     LDA #$BF                                           ;
-C - - - - - 0x01B7B6 06:B7A6: 85 00     STA ram_0000                                       ; ~> sprite_magic1, Y-position
+C - - - - - 0x01B7B6 06:B7A6: 85 00     STA $0000                                          ; ~> sprite_magic1, Y-position
 C - - - - - 0x01B7B8 06:B7A8: A9 B0     LDA #$B0                                           ;
-C - - - - - 0x01B7BA 06:B7AA: 85 03     STA ram_0003                                       ; ~> sprite_magic4, X-position
+C - - - - - 0x01B7BA 06:B7AA: 85 03     STA $0003                                          ; ~> sprite_magic4, X-position
 C - - - - - 0x01B7BC 06:B7AC: A9 00     LDA #$00                                           ; CONSTANT - Clarissa offset
 C - - - - - 0x01B7BE 06:B7AE: 20 B7 B7  JSR sub_B7B7_add_sprite                            ;
 C - - - - - 0x01B7C1 06:B7B1: A9 D0     LDA #$D0                                           ;
-C - - - - - 0x01B7C3 06:B7B3: 85 03     STA ram_0003                                       ; ~> sprite_magic4, X-position
+C - - - - - 0x01B7C3 06:B7B3: 85 03     STA $0003                                          ; ~> sprite_magic4, X-position
 C - - - - - 0x01B7C5 06:B7B5: A9 02     LDA #$02                                           ; CONSTANT - Fujiko offset
 ; In: Register A - The extra offset by the address
 sub_B7B7_add_sprite:
 C - - - - - 0x01B7C7 06:B7B7: 18        CLC                                                ;
 C - - - - - 0x01B7C8 06:B7B8: 69 C0     ADC #$C0                                           ; 0xC0 or 0xC2 ~> sprite_magic2
-C - - - - - 0x01B7CA 06:B7BA: 85 01     STA ram_0001                                       ;
+C - - - - - 0x01B7CA 06:B7BA: 85 01     STA $0001                                          ;
 C - - - - - 0x01B7CC 06:B7BC: A9 20     LDA #$20                                           ; ~> sprite_magic3
-C - - - - - 0x01B7CE 06:B7BE: 85 02     STA ram_0002                                       ;
+C - - - - - 0x01B7CE 06:B7BE: 85 02     STA $0002                                          ;
 C - - - - - 0x01B7D0 06:B7C0: 4C 33 CE  JMP loc_CE33_add_sprite_magic                      ; bank FF
 
 ; In: Register A - a dialog number (0x00, 0x02, 0x04, or 0x06)
@@ -3784,7 +3784,7 @@ C - - - - - 0x01B827 06:B817: A9 81     LDA #.hibyte(loc_display_select_characte
 C - - - - - 0x01B829 06:B819: 69 00     ADC #$00                                   ;
 C - - - - - 0x01B82B 06:B81B: 85 13     STA $0013                                  ; High address ($815C in the bank 04_1)
 C - - - - - 0x01B82D 06:B81D: A9 02     LDA #$02                                   ;
-C - - - - - 0x01B82F 06:B81F: 85 00     STA ram_0000                               ; prepare an input parameter (loop counter)
+C - - - - - 0x01B82F 06:B81F: 85 00     STA $0000                                  ; prepare an input parameter (loop counter)
 C - - - - - 0x01B831 06:B821: 20 68 C6  JSR sub_C668_render_14_15_16_17_18_loop    ;
 C - - - - - 0x01B834 06:B824: 20 52 C6  JSR sub_C652_display_character_portraits   ;
 C - - - - - 0x01B837 06:B827: A9 21     LDA #$21                                   ;
@@ -3805,36 +3805,36 @@ C - - - - - 0x01B858 06:B848: A2 56     LDX #$56                                
 C - - - - - 0x01B85A 06:B84A: 4C 24 C9  JMP loc_C924_display_menu_score_ex         ;
 
 sub_B84D_update_jump_params_:
-C - - - - - 0x01B85D 06:B84D: A9 D5     LDA #$D5                   ;
-C - - - - - 0x01B85F 06:B84F: 85 00     STA ram_0000               ;
-C - - - - - 0x01B861 06:B851: A9 BC     LDA #$BC                   ;
-C - - - - - 0x01B863 06:B853: 85 01     STA ram_0001               ; (ram_0000),0 = $BCD5
-C - - - - - 0x01B865 06:B855: CE 4A 03  DEC vPhenixJumpCounter     ;
-C - - - - - 0x01B868 06:B858: D0 14     BNE @bra_B86E_skip         ; If vJumpCounter != 0x00
-C - - - - - 0x01B86A 06:B85A: EE 56 03  INC vPhenixJumpType        ; set next jump type
-C - - - - - 0x01B86D 06:B85D: AD 56 03  LDA vPhenixJumpType        ;
-C - - - - - 0x01B870 06:B860: 29 0F     AND #$0F                   ;
-C - - - - - 0x01B872 06:B862: 8D 56 03  STA vPhenixJumpType        ; adjusts by mask
-C - - - - - 0x01B875 06:B865: 18        CLC                        ;
-C - - - - - 0x01B876 06:B866: 69 10     ADC #$10                   ; see $BCD5 + 0x10
-C - - - - - 0x01B878 06:B868: A8        TAY                        ;
-C - - - - - 0x01B879 06:B869: B1 00     LDA (ram_0000),Y           ;
-C - - - - - 0x01B87B 06:B86B: 8D 4A 03  STA vPhenixJumpCounter     ; assign an new counter
+C - - - - - 0x01B85D 06:B84D: A9 D5     LDA #.lobyte(tbl_BCD5_offset_indexes) ;
+C - - - - - 0x01B85F 06:B84F: 85 00     STA $0000                             ;
+C - - - - - 0x01B861 06:B851: A9 BC     LDA #.hibyte(tbl_BCD5_offset_indexes) ;
+C - - - - - 0x01B863 06:B853: 85 01     STA $0001                             ; ($0000),0 = $BCD5
+C - - - - - 0x01B865 06:B855: CE 4A 03  DEC vPhenixJumpCounter                ;
+C - - - - - 0x01B868 06:B858: D0 14     BNE @bra_B86E_skip                    ; If vJumpCounter != 0x00
+C - - - - - 0x01B86A 06:B85A: EE 56 03  INC vPhenixJumpType                   ; set next jump type
+C - - - - - 0x01B86D 06:B85D: AD 56 03  LDA vPhenixJumpType                   ;
+C - - - - - 0x01B870 06:B860: 29 0F     AND #$0F                              ;
+C - - - - - 0x01B872 06:B862: 8D 56 03  STA vPhenixJumpType                   ; adjusts by mask
+C - - - - - 0x01B875 06:B865: 18        CLC                                   ;
+C - - - - - 0x01B876 06:B866: 69 10     ADC #$10                              ; see $BCD5 + 0x10
+C - - - - - 0x01B878 06:B868: A8        TAY                                   ;
+C - - - - - 0x01B879 06:B869: B1 00     LDA ($0000),Y                         ;
+C - - - - - 0x01B87B 06:B86B: 8D 4A 03  STA vPhenixJumpCounter                ; assign an new counter
 @bra_B86E_skip:
-C - - - - - 0x01B87E 06:B86E: A9 30     LDA #$30                   ;
-C - - - - - 0x01B880 06:B870: CD 2C 03  CMP vPhenixPosY            ;
-C - - - - - 0x01B883 06:B873: B0 07     BCS @bra_B87C_assign       ; If 0x30 >= vPosY
-C - - - - - 0x01B885 06:B875: A9 BF     LDA #$BF                   ;
-C - - - - - 0x01B887 06:B877: CD 2C 03  CMP vPhenixPosY            ;
-C - - - - - 0x01B88A 06:B87A: B0 03     BCS @bra_B87F_RTS          ; If 0xBF >= vPosY
+C - - - - - 0x01B87E 06:B86E: A9 30     LDA #$30                              ;
+C - - - - - 0x01B880 06:B870: CD 2C 03  CMP vPhenixPosY                       ;
+C - - - - - 0x01B883 06:B873: B0 07     BCS @bra_B87C_assign                  ; If 0x30 >= vPosY
+C - - - - - 0x01B885 06:B875: A9 BF     LDA #$BF                              ;
+C - - - - - 0x01B887 06:B877: CD 2C 03  CMP vPhenixPosY                       ;
+C - - - - - 0x01B88A 06:B87A: B0 03     BCS @bra_B87F_RTS                     ; If 0xBF >= vPosY
 @bra_B87C_assign:
-C - - - - - 0x01B88C 06:B87C: 8D 2C 03  STA vPhenixPosY            ; <~ 0x30 or 0xBF
+C - - - - - 0x01B88C 06:B87C: 8D 2C 03  STA vPhenixPosY                       ; <~ 0x30 or 0xBF
 @bra_B87F_RTS:
-C - - - - - 0x01B88F 06:B87F: 60        RTS                        ;
+C - - - - - 0x01B88F 06:B87F: 60        RTS                                   ;
 
 sub_B880_execute_fly_phenix:
 C - - - - - 0x01B890 06:B880: AC 56 03  LDY vPhenixJumpType                ; vJumpType is {0x00, 0x01, ..., 0x0F}
-C - - - - - 0x01B893 06:B883: B1 00     LDA (ram_0000),Y                   ;
+C - - - - - 0x01B893 06:B883: B1 00     LDA ($0000),Y                      ;
 C - - - - - 0x01B895 06:B885: 0A        ASL                                ; *2, because the set contains 2 bytes
 C - - - - - 0x01B896 06:B886: A8        TAY                                ;
 C - - - - - 0x01B897 06:B887: AD 2C 03  LDA vPhenixPosY                    ;
@@ -3842,16 +3842,16 @@ C - - - - - 0x01B89A 06:B88A: 18        CLC                                ;
 C - - - - - 0x01B89B 06:B88B: 79 D4 DA  ADC tbl_flying_track_offset,Y      ;
 C - - - - - 0x01B89E 06:B88E: 8D 2C 03  STA vPhenixPosY                    ; <~ posY + offset
 C - - - - - 0x01B8A1 06:B891: A9 00     LDA #$00                           ;
-C - - - - - 0x01B8A3 06:B893: 85 02     STA ram_0002                       ; $0002 = 0x00
+C - - - - - 0x01B8A3 06:B893: 85 02     STA $0002                          ; $0002 = 0x00
 C - - - - - 0x01B8A5 06:B895: B9 D5 DA  LDA tbl_flying_track_offset + 1,Y  ;
 C - - - - - 0x01B8A8 06:B898: 10 02     BPL @bra_B89C_skip                 ; If the offset >= 0x00
-C - - - - - 0x01B8AA 06:B89A: C6 02     DEC ram_0002                       ; $0002 = 0xFF, i.e. -1
+C - - - - - 0x01B8AA 06:B89A: C6 02     DEC $0002                          ; $0002 = 0xFF, i.e. -1
 @bra_B89C_skip:
 C - - - - - 0x01B8AC 06:B89C: 18        CLC                                ;
 C - - - - - 0x01B8AD 06:B89D: 6D 38 03  ADC vPhenixPosXLow                 ;
 C - - - - - 0x01B8B0 06:B8A0: 8D 38 03  STA vPhenixPosXLow                 ; <~ posX + offset
 C - - - - - 0x01B8B3 06:B8A3: AD 3E 03  LDA vPhenixPosXHigh                ;
-C - - - - - 0x01B8B6 06:B8A6: 65 02     ADC ram_0002                       ;
+C - - - - - 0x01B8B6 06:B8A6: 65 02     ADC $0002                          ;
 C - - - - - 0x01B8B8 06:B8A8: 8D 3E 03  STA vPhenixPosXHigh                ; changed PosXHigh (+1 or -1), if PosXLow was overflow
 C - - - - - 0x01B8BB 06:B8AB: 60        RTS                                ;
 
@@ -3911,11 +3911,11 @@ C - - - - - 0x01B920 06:B910: AD 09 01  LDA vLastLevel                          
 C - - - - - 0x01B923 06:B913: F0 01     BEQ @bra_B916_skip                         ; If vLastLevel == 0x00
 C - - - - - 0x01B925 06:B915: E8        INX                                        ; For rendering a word 'Continue'
 @bra_B916_skip:
-C - - - - - 0x01B926 06:B916: 86 00     STX ram_0000                               ; X <~ 0x0F or 0x10
+C - - - - - 0x01B926 06:B916: 86 00     STX $0000                                  ; X <~ 0x0F or 0x10
 bra_B918_loop:                                                                     ; loop by 0x00
-C - - - - - 0x01B928 06:B918: A5 00     LDA ram_0000                               ; assigned as the parameter of the function
+C - - - - - 0x01B928 06:B918: A5 00     LDA $0000                                  ; assigned as the parameter of the function
 C - - - - - 0x01B92A 06:B91A: 20 86 D0  JSR sub_D086_render_14_15_16_17_18_v1      ;
-C - - - - - 0x01B92D 06:B91D: C6 00     DEC ram_0000                               ; decrement 0x00
+C - - - - - 0x01B92D 06:B91D: C6 00     DEC $0000                                  ; decrement 0x00
 C - - - - - 0x01B92F 06:B91F: 10 F7     BPL bra_B918_loop                          ; If $0000 < 0x80
 C - - - - - 0x01B931 06:B921: A9 20     LDA #$20                                   ;
 C - - - - - 0x01B933 06:B923: 8D 06 20  STA PPU_ADDRESS                            ;
@@ -3939,7 +3939,7 @@ C - - - - - 0x01B95B 06:B94B: 85 B4     STA vOffsetInSecretCodes                
 C - - - - - 0x01B95D 06:B94D: 85 2C     STA vLowCounter                            ; clear
 C - - - - - 0x01B95F 06:B94F: 85 2D     STA vHighCounter                           ; clear
 C - - - - - 0x01B961 06:B951: 85 19     STA vRenderActive                          ; clear
-C - - - - - 0x01B963 06:B953: 8D 31 06  STA ram_0631                               ; clear
+C - - - - - 0x01B963 06:B953: 8D 31 06  STA vHighPpuAddress                        ; clear
 C - - - - - 0x01B966 06:B956: 8D 7B 06  STA vPpuAddrDataCache                      ; clear
 C - - - - - 0x01B969 06:B959: 85 29     STA vLowViewPortPosY                       ; clear
 C - - - - - 0x01B96B 06:B95B: 85 27     STA vLowViewPortPosX                       ; clear
@@ -4159,13 +4159,13 @@ C - - - - - 0x01BAE2 06:BAD2: A0 00     LDY #$00                       ; prepare
 loc_BAD4_repeat:
 C D 1 - - - 0x01BAE4 06:BAD4: 20 12 BB  JSR sub_BB12_store_ppu_data    ;
 C - - - - - 0x01BAE7 06:BAD7: F0 10     BEQ bra_BAE9_attributes        ; If the loop counters == 0x00
-C - - - - - 0x01BAE9 06:BAD9: A5 00     LDA ram_0000                   ;
+C - - - - - 0x01BAE9 06:BAD9: A5 00     LDA $0000                      ;
 C - - - - - 0x01BAEB 06:BADB: 18        CLC                            ;
 C - - - - - 0x01BAEC 06:BADC: 69 20     ADC #$20                       ; CONSTANT - in one row contains 32 tiles
-C - - - - - 0x01BAEE 06:BADE: 85 00     STA ram_0000                   ; $0000 <~ $0000 + 0x20
-C - - - - - 0x01BAF0 06:BAE0: A5 01     LDA ram_0001                   ;
+C - - - - - 0x01BAEE 06:BADE: 85 00     STA $0000                      ; $0000 <~ $0000 + 0x20
+C - - - - - 0x01BAF0 06:BAE0: A5 01     LDA $0001                      ;
 C - - - - - 0x01BAF2 06:BAE2: 69 00     ADC #$00                       ;
-C - - - - - 0x01BAF4 06:BAE4: 85 01     STA ram_0001                   ; value +1 with overflow
+C - - - - - 0x01BAF4 06:BAE4: 85 01     STA $0001                      ; value +1 with overflow
 C - - - - - 0x01BAF6 06:BAE6: 4C D4 BA  JMP loc_BAD4_repeat            ;
 
 bra_BAE9_attributes:
@@ -4175,13 +4175,13 @@ C - - - - - 0x01BAFE 06:BAEE: A0 00     LDY #$00                       ; prepare
 loc_BAF0_repeat:
 C D 1 - - - 0x01BB00 06:BAF0: 20 12 BB  JSR sub_BB12_store_ppu_data    ;
 C - - - - - 0x01BB03 06:BAF3: F0 34     BEQ bra_BB29_RTS               ; If the loop counters == 0x00
-C - - - - - 0x01BB05 06:BAF5: A5 00     LDA ram_0000                   ;
+C - - - - - 0x01BB05 06:BAF5: A5 00     LDA $0000                      ;
 C - - - - - 0x01BB07 06:BAF7: 18        CLC                            ;
 C - - - - - 0x01BB08 06:BAF8: 69 08     ADC #$08                       ; CONSTANT - in one row contains 8 attributes
-C - - - - - 0x01BB0A 06:BAFA: 85 00     STA ram_0000                   ; $0000 <~ $0000 + 0x08
-C - - - - - 0x01BB0C 06:BAFC: A5 01     LDA ram_0001                   ;
+C - - - - - 0x01BB0A 06:BAFA: 85 00     STA $0000                      ; $0000 <~ $0000 + 0x08
+C - - - - - 0x01BB0C 06:BAFC: A5 01     LDA $0001                      ;
 C - - - - - 0x01BB0E 06:BAFE: 69 00     ADC #$00                       ;
-C - - - - - 0x01BB10 06:BB00: 85 01     STA ram_0001                   ; value +1 with overflow
+C - - - - - 0x01BB10 06:BB00: 85 01     STA $0001                      ; value +1 with overflow
 C - - - - - 0x01BB12 06:BB02: 4C F0 BA  JMP loc_BAF0_repeat            ;
 
 ; In: $0012 - Source address for the parameters (Low value)
@@ -4213,7 +4213,7 @@ C - - - - - 0x01BB27 06:BB17: A5 00     LDA $0000           ;
 C - - - - - 0x01BB29 06:BB19: 8D 06 20  STA PPU_ADDRESS     ; assinged PPU address
 C - - - - - 0x01BB2C 06:BB1C: A6 05     LDX $0005           ; set loop counter
 @bra_BB1E_loop:
-C - - - - - 0x01BB2E 06:BB1E: B1 02     LDA (ram_0002),Y    ;
+C - - - - - 0x01BB2E 06:BB1E: B1 02     LDA ($0002),Y       ;
 C - - - - - 0x01BB30 06:BB20: 8D 07 20  STA PPU_DATA        ;
 C - - - - - 0x01BB33 06:BB23: C8        INY                 ; next data
 C - - - - - 0x01BB34 06:BB24: CA        DEX                 ; decrement loop counter
@@ -4466,39 +4466,14 @@ tbl_BCC7_palettes:
 tbl_BCCF_clarissa_is_saved_chr_banks:
 - D 1 - - - 0x01BCDF 06:BCCF: 12        .byte $12, $00, $38, $39, $36, $37   ;
 
-- D 1 - I - 0x01BCE5 06:BCD5: 02        .byte $02   ; 
-- D 1 - I - 0x01BCE6 06:BCD6: 01        .byte $01   ; 
-- D 1 - I - 0x01BCE7 06:BCD7: 00        .byte $00   ; 
-- D 1 - I - 0x01BCE8 06:BCD8: 0F        .byte $0F   ; 
-- D 1 - I - 0x01BCE9 06:BCD9: 0D        .byte $0D   ; 
-- D 1 - I - 0x01BCEA 06:BCDA: 0B        .byte $0B   ; 
-- D 1 - I - 0x01BCEB 06:BCDB: 09        .byte $09   ; 
-- D 1 - I - 0x01BCEC 06:BCDC: 0A        .byte $0A   ; 
-- D 1 - I - 0x01BCED 06:BCDD: 0B        .byte $0B   ; 
-- D 1 - I - 0x01BCEE 06:BCDE: 0C        .byte $0C   ; 
-- D 1 - I - 0x01BCEF 06:BCDF: 0D        .byte $0D   ; 
-- D 1 - I - 0x01BCF0 06:BCE0: 0F        .byte $0F   ; 
-- D 1 - I - 0x01BCF1 06:BCE1: 00        .byte $00   ; 
-- D 1 - I - 0x01BCF2 06:BCE2: 01        .byte $01   ; 
-- D 1 - I - 0x01BCF3 06:BCE3: 03        .byte $03   ; 
-- D 1 - I - 0x01BCF4 06:BCE4: 04        .byte $04   ; 
+; offset index
+tbl_BCD5_offset_indexes:
+- D 1 - I - 0x01BCE5 06:BCD5: 02        .byte $02, $01, $00, $0F, $0D, $0B, $09, $0A   ; 
+- D 1 - I - 0x01BCED 06:BCDD: 0B        .byte $0B, $0C, $0D, $0F, $00, $01, $03, $04   ; 
 
-- D 1 - I - 0x01BCF5 06:BCE5: 20        .byte $20   ; 
-- D 1 - I - 0x01BCF6 06:BCE6: 08        .byte $08   ; 
-- D 1 - I - 0x01BCF7 06:BCE7: 08        .byte $08   ; 
-- D 1 - I - 0x01BCF8 06:BCE8: 08        .byte $08   ; 
-- D 1 - I - 0x01BCF9 06:BCE9: 0C        .byte $0C   ; 
-- D 1 - I - 0x01BCFA 06:BCEA: 20        .byte $20   ; 
-- D 1 - I - 0x01BCFB 06:BCEB: 20        .byte $20   ; 
-- D 1 - I - 0x01BCFC 06:BCEC: 20        .byte $20   ; 
-- D 1 - I - 0x01BCFD 06:BCED: 20        .byte $20   ; 
-- D 1 - I - 0x01BCFE 06:BCEE: 10        .byte $10   ; 
-- D 1 - I - 0x01BCFF 06:BCEF: 20        .byte $20   ; 
-- D 1 - I - 0x01BD00 06:BCF0: 10        .byte $10   ; 
-- D 1 - I - 0x01BD01 06:BCF1: 08        .byte $08   ; 
-- D 1 - I - 0x01BD02 06:BCF2: 10        .byte $10   ; 
-- D 1 - I - 0x01BD03 06:BCF3: 10        .byte $10   ; 
-- D 1 - I - 0x01BD04 06:BCF4: 10        .byte $10   ; 
+; jump counters
+- D 1 - I - 0x01BCF5 06:BCE5: 20        .byte $20, $08, $08, $08, $0C, $20, $20, $20   ; 
+- D 1 - I - 0x01BCFD 06:BCED: 20        .byte $20, $10, $20, $10, $08, $10, $10, $10   ; 
 
 ; 1 byte - health points
 ; 2 byte - the 1 number of ChrBank

@@ -184,6 +184,8 @@ vHighBackgroundScreenInfo     = ram_004F
 
 vTempValue50                  = ram_0050
 vTempValue51                  = ram_0051
+vBackgroundScreenIndexes      = ram_0052
+vHighBackgroundScreenIndexes  = ram_0053
 vPpuBufferInitValue           = ram_0054
 
 vCarRenderParams_             = ram_0072 ; [0x72-0x77]
@@ -291,6 +293,7 @@ vCurrentDeviceData            = ram_00F9
 ; 0x40 - the character is fell or arrested
 ; 0x80 - the radio was using
 vSoundRoomIndex               = ram_00FD
+vCacheYoshikawa               = ram_0100
 vLastLevel                    = ram_0109 ; It is a last played level.
 
 
