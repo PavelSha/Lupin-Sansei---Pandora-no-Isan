@@ -657,22 +657,22 @@ C - - - - - 0x008E08 02:ADF8: 60        RTS                                ;
 loc_ADF9:
 bra_ADF9_init:
 C - - - - - 0x008E09 02:ADF9: BD 12 04  LDA vSoundRowTrackLow,X                     ;
-C - - - - - 0x008E0C 02:ADFC: 85 FE     STA ram_00FE                                ; Low address (the current track)
+C - - - - - 0x008E0C 02:ADFC: 85 FE     STA vSoundRowLowPtr                         ; Low address (the current track)
 C - - - - - 0x008E0E 02:ADFE: BD 13 04  LDA vSoundRowTrackHigh,X                    ;
-C - - - - - 0x008E11 02:AE01: 85 FF     STA ram_00FF                                ; High address  (the current track)
+C - - - - - 0x008E11 02:AE01: 85 FF     STA vSoundRowHighPtr                        ; High address  (the current track)
 C - - - - - 0x008E13 02:AE03: A0 00     LDY #$00                                    ; to 1 byte of 4
-C - - - - - 0x008E15 02:AE05: B1 FE     LDA (ram_00FE),Y                            ;
+C - - - - - 0x008E15 02:AE05: B1 FE     LDA (vSoundRowLowPtr),Y                     ;
 C - - - - - 0x008E17 02:AE07: 29 0F     AND #$0F                                    ; CONSTANT - Max value (0x0F)
 C - - - - - 0x008E19 02:AE09: 9D 14 04  STA vSoundRowFPPValue,X                     ; set the control value
 C - - - - - 0x008E1C 02:AE0C: 9D 15 04  STA vSoundRowFPPCounter,X                   ; set the counter
 C - - - - - 0x008E1F 02:AE0F: C8        INY                                         ; to 2 byte of 4
 C - - - - - 0x008E20 02:AE10: 20 6F B0  JSR sub_B06F_prepare_duty_or_linear_counter ;
 C - - - - - 0x008E23 02:AE13: C8        INY                                         ; to 3 byte of 4
-C - - - - - 0x008E24 02:AE14: B1 FE     LDA (ram_00FE),Y                            ; load the volume
+C - - - - - 0x008E24 02:AE14: B1 FE     LDA (vSoundRowLowPtr),Y                     ; load the volume
 C - - - - - 0x008E26 02:AE16: 0D 04 04  ORA vSoundTempValue1                        ; adds the duty or the linear counter load
 C - - - - - 0x008E29 02:AE19: 9D 16 04  STA vSoundRowMainChannelByte,X              ;
 C - - - - - 0x008E2C 02:AE1C: C8        INY                                         ; to 4 byte of 4
-C - - - - - 0x008E2D 02:AE1D: B1 FE     LDA (ram_00FE),Y                            ; load the sweep
+C - - - - - 0x008E2D 02:AE1D: B1 FE     LDA (vSoundRowLowPtr),Y                     ; load the sweep
 C - - - - - 0x008E2F 02:AE1F: 9D 18 04  STA vSoundRowSweep,X                        ;
 C - - - - - 0x008E32 02:AE22: A9 00     LDA #$00                                    ;
 C - - - - - 0x008E34 02:AE24: 9D 19 04  STA vSoundRowMarkCacheNoReplay,X            ; clear
@@ -687,16 +687,16 @@ sub_AE38_execute_sound_pair:
 loc_AE38_next_sound_pair:
 bra_AE38_next_sound_pair:
 C D 1 - - - 0x008E48 02:AE38: A0 00     LDY #$00                    ; to 1 byte of 2
-C - - - - - 0x008E4A 02:AE3A: 84 FF     STY ram_00FF                ; clear
+C - - - - - 0x008E4A 02:AE3A: 84 FF     STY vSoundRowHighPtr        ; clear
 C - - - - - 0x008E4C 02:AE3C: BD 10 04  LDA vSoundRowIndex,X        ;
 C - - - - - 0x008E4F 02:AE3F: 0A        ASL                         ; *2, because the sound row has 2 bytes
-C - - - - - 0x008E50 02:AE40: 26 FF     ROL ram_00FF                ;
+C - - - - - 0x008E50 02:AE40: 26 FF     ROL vSoundRowHighPtr        ;
 C - - - - - 0x008E52 02:AE42: 7D 12 04  ADC vSoundRowTrackLow,X     ;
-C - - - - - 0x008E55 02:AE45: 85 FE     STA ram_00FE                ;
+C - - - - - 0x008E55 02:AE45: 85 FE     STA vSoundRowLowPtr         ;
 C - - - - - 0x008E57 02:AE47: BD 13 04  LDA vSoundRowTrackHigh,X    ;
-C - - - - - 0x008E5A 02:AE4A: 65 FF     ADC ram_00FF                ;
-C - - - - - 0x008E5C 02:AE4C: 85 FF     STA ram_00FF                ; $00FE,$00FF - the row address by the SoundRowIndex
-C - - - - - 0x008E5E 02:AE4E: B1 FE     LDA (ram_00FE),Y            ; A <~ sound command
+C - - - - - 0x008E5A 02:AE4A: 65 FF     ADC vSoundRowHighPtr        ;
+C - - - - - 0x008E5C 02:AE4C: 85 FF     STA vSoundRowHighPtr        ; $00FE,$00FF - the row address by the SoundRowIndex
+C - - - - - 0x008E5E 02:AE4E: B1 FE     LDA (vSoundRowLowPtr),Y     ; A <~ sound command
 C - - - - - 0x008E60 02:AE50: FE 10 04  INC vSoundRowIndex,X        ; resolves the index for next iteration
 C - - - - - 0x008E63 02:AE53: C8        INY                         ; to 2 byte of 2
 C - - - - - 0x008E64 02:AE54: C9 F0     CMP #$F0                    ;
@@ -748,7 +748,7 @@ loc_AE95_set_volume_iteration:
 C D 1 - - - 0x008EA5 02:AE95: 2C 03 04  BIT vCurrentApuChannelFlag            ;
 C - - - - - 0x008EA8 02:AE98: 30 0B     BMI @bra_AEA5_triangle                ; If the current channel is triangle
 C - - - - - 0x008EAA 02:AE9A: 9D 1E 04  STA vSoundRowVolumeIterCount,X        ; <~ {0x00, 0x01, ..., 0x0F} or {0xF0, 0xF1, ..., 0xFF}
-C - - - - - 0x008EAD 02:AE9D: B1 FE     LDA (ram_00FE),Y                      ; to 2 byte of 2 (second of the sound pair)
+C - - - - - 0x008EAD 02:AE9D: B1 FE     LDA (vSoundRowLowPtr),Y               ; to 2 byte of 2 (second of the sound pair)
 C - - - - - 0x008EAF 02:AE9F: 9D 1F 04  STA vSoundRowVolumeIterStep,X         ;
 C - - - - - 0x008EB2 02:AEA2: 9D 20 04  STA vSoundRowVolumeIterCurrentStep,X  ;
 @bra_AEA5_triangle:
@@ -763,7 +763,7 @@ C - - - - - 0x008EC0 02:AEB0: 30 12     BMI @bra_AEC4_next              ; If the
 C - - - - - 0x008EC2 02:AEB2: BD 16 04  LDA vSoundRowMainChannelByte,X  ;
 C - - - - - 0x008EC5 02:AEB5: 29 10     AND #$10                        ; CONSTANT - constant volume (C) https://www.nesdev.org/wiki/APU (#Pulse #Noise)
 C - - - - - 0x008EC7 02:AEB7: F0 0B     BEQ @bra_AEC4_next              ; If constant volume (C) is cleared
-C - - - - - 0x008EC9 02:AEB9: B1 FE     LDA (ram_00FE),Y                ; to 2 byte of 2 (second of the sound pair)
+C - - - - - 0x008EC9 02:AEB9: B1 FE     LDA (vSoundRowLowPtr),Y         ; to 2 byte of 2 (second of the sound pair)
 C - - - - - 0x008ECB 02:AEBB: 9D 1C 04  STA vSoundRowVolumeChLength,X   ;
 C - - - - - 0x008ECE 02:AEBE: AD 04 04  LDA vSoundTempValue1            ;
 C - - - - - 0x008ED1 02:AEC1: 9D 1B 04  STA vSoundRowVolumeDirection,X  ; <~ {0x00, 0x01, ..., 0x0F}, for {0x0A, ..., 0x0F} - this is not implemented
@@ -775,7 +775,7 @@ bra_AEC7_replays:
 C - - - - - 0x008ED7 02:AEC7: 29 0F     AND #$0F                            ; filters (a mask) for the number of replays
 C - - - - - 0x008ED9 02:AEC9: F0 1D     BEQ bra_AEE8_done                   ; If the number of replays == 0x00
 C - - - - - 0x008EDB 02:AECB: 48        PHA                                 ; store the number of replays
-C - - - - - 0x008EDC 02:AECC: B1 FE     LDA (ram_00FE),Y                    ;
+C - - - - - 0x008EDC 02:AECC: B1 FE     LDA (vSoundRowLowPtr),Y             ;
 C - - - - - 0x008EDE 02:AECE: D0 0D     BNE @bra_AEDD_simple_replay         ; If the second element of the sound pair != 0x00
 C - - - - - 0x008EE0 02:AED0: 68        PLA                                 ; retrieve the number of replays (see $AECB)
 C - - - - - 0x008EE1 02:AED1: DE 19 04  DEC vSoundRowMarkCacheNoReplay,X    ;
@@ -791,7 +791,7 @@ C - - - - - 0x008EF1 02:AEE1: F0 0F     BEQ bra_AEF2_stop                   ; If
 C - - - - - 0x008EF3 02:AEE3: 10 03     BPL bra_AEE8_done                   ; If the cache number of replays > 0x00
 C - - - - - 0x008EF5 02:AEE5: 9D 1A 04  STA vSoundRowCacheNoReplay,X        ; puts the number of replays to the cache
 bra_AEE8_done:
-C - - - - - 0x008EF8 02:AEE8: B1 FE     LDA (ram_00FE),Y                    ;
+C - - - - - 0x008EF8 02:AEE8: B1 FE     LDA (vSoundRowLowPtr),Y             ;
 C - - - - - 0x008EFA 02:AEEA: D0 03     BNE @bra_AEEF_assign                ; If the second element of the sound pair != 0x00
 C - - - - - 0x008EFC 02:AEEC: BD 22 04  LDA vSoundRowMarkForReplay,X        ; A <~ mark sound index
 @bra_AEEF_assign:
@@ -806,14 +806,14 @@ C - - - - - 0x008F07 02:AEF7: 2C 03 04  BIT vCurrentApuChannelFlag     ;
 C - - - - - 0x008F0A 02:AEFA: 30 13     BMI bra_AF0F_triangle          ; If the current channel is triangle
 C - - - - - 0x008F0C 02:AEFC: BD 16 04  LDA vSoundRowMainChannelByte,X ;
 C - - - - - 0x008F0F 02:AEFF: 29 C0     AND #$C0                       ; CONSTANT - Duty (D) https://www.nesdev.org/wiki/APU (#Pulse)
-C - - - - - 0x008F11 02:AF01: 11 FE     ORA (ram_00FE),Y               ; to 2 byte of 2 (second of the sound pair)
+C - - - - - 0x008F11 02:AF01: 11 FE     ORA (vSoundRowLowPtr),Y        ; to 2 byte of 2 (second of the sound pair)
 C - - - - - 0x008F13 02:AF03: 4C 23 AF  JMP loc_AF23_continue          ;
 
 ; In: Register A - the sound command
 bra_AF06_skip:
 C - - - - - 0x008F16 02:AF06: C9 A1     CMP #$A1                        ; CONSTANT - the new sweep
 C - - - - - 0x008F18 02:AF08: D0 08     BNE bra_AF12_skip               ; If the sound command != 0xA1
-C - - - - - 0x008F1A 02:AF0A: B1 FE     LDA (ram_00FE),Y                ; to 2 byte of 2 (second of the sound pair)
+C - - - - - 0x008F1A 02:AF0A: B1 FE     LDA (vSoundRowLowPtr),Y         ; to 2 byte of 2 (second of the sound pair)
 C - - - - - 0x008F1C 02:AF0C: 9D 18 04  STA vSoundRowSweep,X            ; adds the new sweep
 bra_AF0F_triangle:
 C - - - - - 0x008F1F 02:AF0F: 4C 38 AE  JMP loc_AE38_next_sound_pair    ;
@@ -834,7 +834,7 @@ C - - - - - 0x008F36 02:AF26: 4C 38 AE  JMP loc_AE38_next_sound_pair            
 bra_AF29_skip:
 C - - - - - 0x008F39 02:AF29: C9 A3     CMP #$A3                        ; CONSTANT - shaking effect
 C - - - - - 0x008F3B 02:AF2B: D0 1C     BNE bra_AF49_skip               ; If the sound command != 0xA3
-C - - - - - 0x008F3D 02:AF2D: B1 FE     LDA (ram_00FE),Y                ;
+C - - - - - 0x008F3D 02:AF2D: B1 FE     LDA (vSoundRowLowPtr),Y         ;
 C - - - - - 0x008F3F 02:AF2F: 30 1C     BMI bra_AF4D_restore            ; If the second element of the sound pair >= 0x80 (is negative)
 C - - - - - 0x008F41 02:AF31: 48        PHA                             ; store second of the sound pair
 C - - - - - 0x008F42 02:AF32: 29 0F     AND #$0F                        ; the mask for the skip
@@ -860,24 +860,24 @@ C - - - - - 0x008F65 02:AF55: 4C 38 AE  JMP loc_AE38_next_sound_pair   ; !(UNUSE
 bra_AF58:
 C - - - - - 0x008F68 02:AF58: C9 A5     CMP #$A5                       ; !(UNUSED)
 C - - - - - 0x008F6A 02:AF5A: D0 08     BNE bra_AF64                   ; !(UNUSED)
-C - - - - - 0x008F6C 02:AF5C: B1 FE     LDA (ram_00FE),Y               ; !(UNUSED)
+C - - - - - 0x008F6C 02:AF5C: B1 FE     LDA (vSoundRowLowPtr),Y        ; !(UNUSED)
 C - - - - - 0x008F6E 02:AF5E: 8D 07 04  STA vSoundNonUsed              ; !(UNUSED)
 C - - - - - 0x008F71 02:AF61: 4C 38 AE  JMP loc_AE38_next_sound_pair   ; !(UNUSED)
 
 bra_AF64:
 C - - - - - 0x008F74 02:AF64: C9 AD     CMP #$AD                       ; !(UNUSED)
 C - - - - - 0x008F76 02:AF66: D0 26     BNE bra_AF8E                   ; !(UNUSED)
-C - - - - - 0x008F78 02:AF68: B1 FE     LDA (ram_00FE),Y               ; !(UNUSED)
+C - - - - - 0x008F78 02:AF68: B1 FE     LDA (vSoundRowLowPtr),Y        ; !(UNUSED)
 C - - - - - 0x008F7A 02:AF6A: 48        PHA                            ; !(UNUSED)
 C - - - - - 0x008F7B 02:AF6B: A9 00     LDA #$00                       ; !(UNUSED)
-C - - - - - 0x008F7D 02:AF6D: 85 FF     STA ram_00FF                   ; !(UNUSED)
+C - - - - - 0x008F7D 02:AF6D: 85 FF     STA vSoundRowHighPtr           ; !(UNUSED)
 C - - - - - 0x008F7F 02:AF6F: BD 10 04  LDA vSoundRowIndex,X           ; !(UNUSED)
 C - - - - - 0x008F82 02:AF72: 0A        ASL                            ; !(UNUSED)
-C - - - - - 0x008F83 02:AF73: 26 FF     ROL ram_00FF                   ; !(UNUSED)
+C - - - - - 0x008F83 02:AF73: 26 FF     ROL vSoundRowHighPtr           ; !(UNUSED)
 C - - - - - 0x008F85 02:AF75: 7D 12 04  ADC vSoundRowTrackLow,X        ; !(UNUSED)
 C - - - - - 0x008F88 02:AF78: 9D 12 04  STA vSoundRowTrackLow,X        ; !(UNUSED)
 C - - - - - 0x008F8B 02:AF7B: BD 13 04  LDA vSoundRowTrackHigh,X       ; !(UNUSED)
-C - - - - - 0x008F8E 02:AF7E: 65 FF     ADC ram_00FF                   ; !(UNUSED)
+C - - - - - 0x008F8E 02:AF7E: 65 FF     ADC vSoundRowHighPtr           ; !(UNUSED)
 C - - - - - 0x008F90 02:AF80: 9D 13 04  STA vSoundRowTrackHigh,X       ; !(UNUSED)
 C - - - - - 0x008F93 02:AF83: A9 00     LDA #$00                       ; !(UNUSED)
 C - - - - - 0x008F95 02:AF85: 9D 10 04  STA vSoundRowIndex,X           ; !(UNUSED)
@@ -889,7 +889,7 @@ bra_AF8E:
 C - - - - - 0x008F9E 02:AF8E: C9 AE     CMP #$AE                       ; !(UNUSED)
 C - - - - - 0x008FA0 02:AF90: D0 0C     BNE bra_AF9E                   ; !(UNUSED)
 C - - - - - 0x008FA2 02:AF92: 1E 14 04  ASL vSoundRowFPPValue,X        ; !(UNUSED)
-C - - - - - 0x008FA5 02:AF95: B1 FE     LDA (ram_00FE),Y               ; !(UNUSED)
+C - - - - - 0x008FA5 02:AF95: B1 FE     LDA (vSoundRowLowPtr),Y        ; !(UNUSED)
 C - - - - - 0x008FA7 02:AF97: 0A        ASL                            ; !(UNUSED)
 C - - - - - 0x008FA8 02:AF98: 7E 14 04  ROR vSoundRowFPPValue,X        ; !(UNUSED)
 bra_AF9B:
@@ -898,7 +898,7 @@ C - - - - - 0x008FAB 02:AF9B: 4C 38 AE  JMP loc_AE38_next_sound_pair   ; !(UNUSE
 bra_AF9E:
 C - - - - - 0x008FAE 02:AF9E: C9 AF     CMP #$AF                       ; !(UNUSED)
 C - - - - - 0x008FB0 02:AFA0: D0 12     BNE @bra_AFB4_skip             ; !(UNUSED)
-C - - - - - 0x008FB2 02:AFA2: B1 FE     LDA (ram_00FE),Y               ; !(UNUSED)
+C - - - - - 0x008FB2 02:AFA2: B1 FE     LDA (vSoundRowLowPtr),Y        ; !(UNUSED)
 C - - - - - 0x008FB4 02:AFA4: 29 0F     AND #$0F                       ; !(UNUSED)
 C - - - - - 0x008FB6 02:AFA6: 9D 15 04  STA vSoundRowFPPCounter,X      ; !(UNUSED)
 C - - - - - 0x008FB9 02:AFA9: BD 14 04  LDA vSoundRowFPPValue,X        ; !(UNUSED)
@@ -950,7 +950,7 @@ C - - - - - 0x008FFF 02:AFEF: D0 F7     BNE @bra_AFE8_loop                      
 ; In: $0405 - timer high or noise period high
 bra_AFF1_set_internal_channel_params_:
 C - - - - - 0x009001 02:AFF1: A0 01     LDY #$01                                  ; to 2 byte of 2 (second of the sound pair)
-C - - - - - 0x009003 02:AFF3: B1 FE     LDA (ram_00FE),Y                          ;
+C - - - - - 0x009003 02:AFF3: B1 FE     LDA (vSoundRowLowPtr),Y                   ;
 C - - - - - 0x009005 02:AFF5: 9D 17 04  STA vSoundRowFPPLength,X                  ;
 C - - - - - 0x009008 02:AFF8: A9 00     LDA #$00                                  ;
 C - - - - - 0x00900A 02:AFFA: 9D 1D 04  STA vSoundRowVolumeChCounter,X            ; reset to 0x00 for next sound row
@@ -999,7 +999,7 @@ C D 1 - - - 0x009059 02:B049: 68        PLA                                    ;
 ; In: Register A - the sound command
 bra_B04A_mute_noise:
 C - - - - - 0x00905A 02:B04A: A0 01     LDY #$01                               ; to 2 byte of 2 (second of the sound pair)
-C - - - - - 0x00905C 02:B04C: B1 FE     LDA (ram_00FE),Y                       ;
+C - - - - - 0x00905C 02:B04C: B1 FE     LDA (vSoundRowLowPtr),Y                ;
 C - - - - - 0x00905E 02:B04E: 9D 17 04  STA vSoundRowFPPLength,X               ;
 loc_B051_skip_channel:
 C D 1 - - - 0x009061 02:B051: 20 61 B0  JSR sub_B061_prepare_current_channel   ;
@@ -1026,7 +1026,7 @@ C - - - - - 0x00907E 02:B06E: 60        RTS                        ;
 sub_B06F_prepare_duty_or_linear_counter:
 C - - - - - 0x00907F 02:B06F: 2C 03 04  BIT vCurrentApuChannelFlag  ;
 C - - - - - 0x009082 02:B072: 30 0C     BMI bra_B080_triangle       ; If the current channel is triangle
-C - - - - - 0x009084 02:B074: B1 FE     LDA (ram_00FE),Y            ; to 2 byte of 2 for the sound row (or 2 byte of 4 for the sound header)
+C - - - - - 0x009084 02:B074: B1 FE     LDA (vSoundRowLowPtr),Y     ; to 2 byte of 2 for the sound row (or 2 byte of 4 for the sound header)
 C - - - - - 0x009086 02:B076: 6A        ROR                         ;
 C - - - - - 0x009087 02:B077: 6A        ROR                         ;
 C - - - - - 0x009088 02:B078: 6A        ROR                         ; moves to high bits
@@ -1036,7 +1036,7 @@ C - - - - - 0x00908E 02:B07E: 18        CLC                         ; return fal
 C - - - - - 0x00908F 02:B07F: 60        RTS                         ;
 
 bra_B080_triangle:
-C - - - - - 0x009090 02:B080: B1 FE     LDA (ram_00FE),Y            ; to 2 byte of 2 for the sound row (or 2 byte of 4 for the sound header)
+C - - - - - 0x009090 02:B080: B1 FE     LDA (vSoundRowLowPtr),Y     ; to 2 byte of 2 for the sound row (or 2 byte of 4 for the sound header)
 C - - - - - 0x009092 02:B082: 29 7F     AND #$7F                    ; CONSTANT - linear counter load (R) https://www.nesdev.org/wiki/APU (#Triangle)
 C - - - - - 0x009094 02:B084: 8D 04 04  STA vSoundTempValue1        ; caches the linear counter load
 C - - - - - 0x009097 02:B087: 38        SEC                         ; return true
