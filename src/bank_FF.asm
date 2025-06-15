@@ -744,7 +744,7 @@ C - - - - - 0x01C404 07:C3F4: AD 02 20  LDA PPU_STATUS   ;
 C - - - - - 0x01C407 07:C3F7: A9 00     LDA #$00         ;
 C - - - - - 0x01C409 07:C3F9: 8D 03 20  STA PPU_OAM_ADDR ; DMA is used instead
 C - - - - - 0x01C40C 07:C3FC: A9 07     LDA #$07         ;
-C - - - - - 0x01C40E 07:C3FE: 8D 14 40  STA OAM_DMA      ; set 0x0700-0x07FF
+C - - - - - 0x01C40E 07:C3FE: 8D 14 40  STA OAM_DMA      ; set $0700-$07FF
 C - - - - - 0x01C411 07:C401: 60        RTS              ;
 
 loc_C402_clear_sound_parts:
@@ -904,7 +904,7 @@ C - - - - - 0x01C513 07:C503: 60        RTS                       ;
 ; In: Register A - %BBBAAAAA (B - for bank data)
 ; Out: Register A - high part of the address (0x8X or 0x9X)
 sub_C504_switch_prg_8000:
-C - - - - - 0x01C514 07:C504: 84 11     STY vCacheRam_11                     ;
+C - - - - - 0x01C514 07:C504: 84 11     STY vCacheRam11                      ;
 C - - - - - 0x01C516 07:C506: 48        PHA                                  ; store A
 C - - - - - 0x01C517 07:C507: 20 5E D0  JSR sub_accumulator_shift_right_by_5 ;
 C - - - - - 0x01C51A 07:C50A: A8        TAY                                  ; a new bank data
@@ -915,7 +915,7 @@ C - - - - - 0x01C523 07:C513: 8C B5 06  STY vBankData                        ;
 C - - - - - 0x01C526 07:C516: 68        PLA                                  ; retrieve A ($C506)
 C - - - - - 0x01C527 07:C517: 29 1F     AND #$1F                             ;
 C - - - - - 0x01C529 07:C519: 09 80     ORA #$80                             ;
-C - - - - - 0x01C52B 07:C51B: A4 11     LDY vCacheRam_11                     ;
+C - - - - - 0x01C52B 07:C51B: A4 11     LDY vCacheRam11                      ;
 C - - - - - 0x01C52D 07:C51D: 60        RTS                                  ;
 
 sub_C51E_update_ppu_and_screen:
@@ -3040,7 +3040,7 @@ C - - - - - 0x01D286 07:D276: 85 06     STA $0006                               
 C - - - - - 0x01D288 07:D278: A5 07     LDA $0007                                       ;
 C - - - - - 0x01D28A 07:D27A: 65 51     ADC vTempValue51                                ; 0xBBBAAAAA = vTempValue51 + $0007
 C - - - - - 0x01D28C 07:D27C: 20 04 C5  JSR sub_C504_switch_prg_8000                    ; switch to the bank with ppu datas
-                                                                                        ; vCacheRam_11 <~ the position in index array
+                                                                                        ; vCacheRam11 <~ the position in index array
 C - - - - - 0x01D28F 07:D27F: 85 07     STA $0007                                       ; puts a high address of ppu datas
 C - - - - - 0x01D291 07:D281: A0 00     LDY #$00                                        ; using first pair of quartet
 C - - - - - 0x01D293 07:D283: A5 27     LDA vLowViewPortPosX                            ;
@@ -3056,7 +3056,7 @@ C - - - - - 0x01D2A1 07:D291: E8        INX                                     
 C - - - - - 0x01D2A2 07:D292: B1 06     LDA ($0006),Y                                   ;
 C - - - - - 0x01D2A4 07:D294: 9D 33 06  STA vPpuBufferData,X                            ; store a tile number 2
 C - - - - - 0x01D2A7 07:D297: E8        INX                                             ; increment loop counter
-C - - - - - 0x01D2A8 07:D298: A4 11     LDY vCacheRam_11                                ; restores the position in index array
+C - - - - - 0x01D2A8 07:D298: A4 11     LDY vCacheRam11                                 ; restores the position in index array
 C - - - - - 0x01D2AA 07:D29A: C8        INY                                             ; increment the position in index array
 C - - - - - 0x01D2AB 07:D29B: E0 18     CPX #$18                                        ;
 C - - - - - 0x01D2AD 07:D29D: 90 BE     BCC bra_D25D_loop                               ; If Register X < 0x18
@@ -3330,11 +3330,11 @@ C - - - - - 0x01D406 07:D3F6: 60        RTS                       ;
 
 ; There PRG-bank switching happens 
 ; Out: the CPU-address in [$004E-#004F]
-; Out: Register Y - vCacheRam_11
+; Out: Register Y - vCacheRam11
 sub_D3F7_get_background_screen_info_address:
 C - - - - - 0x01D407 07:D3F7: A9 00     LDA #$00                         ; switch prg: bank 00 (page 1)
 C - - - - - 0x01D409 07:D3F9: 20 04 C5  JSR sub_C504_switch_prg_8000     ;
-C - - - - - 0x01D40C 07:D3FC: 98        TYA                              ; vCacheRam_11 to A
+C - - - - - 0x01D40C 07:D3FC: 98        TYA                              ; vCacheRam11 to A
 C - - - - - 0x01D40D 07:D3FD: 48        PHA                              ; store a
 C - - - - - 0x01D40E 07:D3FE: A5 46     LDA vNoRoom                      ;
 C - - - - - 0x01D410 07:D400: 0A        ASL                              ; *2
@@ -9489,14 +9489,14 @@ C - - - - - 0x01F9A9 07:F999: C9 10     CMP #$10                           ; CON
 C - - - - - 0x01F9AB 07:F99B: 90 17     BCC @bra_F9B4_sublevel_corridor    ; If vCurrentUniqueRoom < 0x10
 C - - - - - 0x01F9AD 07:F99D: C9 20     CMP #$20                           ;
 C - - - - - 0x01F9AF 07:F99F: B0 13     BCS @bra_F9B4_sublevel_corridor    ; If vCurrentUniqueRoom >= 0x20
-C - - - - - 0x01F9B1 07:F9A1: 84 11     STY vCacheRam_11                   ;
+C - - - - - 0x01F9B1 07:F9A1: 84 11     STY vCacheRam11                    ;
 C - - - - - 0x01F9B3 07:F9A3: 29 07     AND #$07                           ; filters by mask
 C - - - - - 0x01F9B5 07:F9A5: 85 B9     STA vCurUniqueRoomShort            ;
 C - - - - - 0x01F9B7 07:F9A7: A8        TAY                                ;
 C - - - - - 0x01F9B8 07:F9A8: B1 BA     LDA (vCheckpointAddr),Y            ; see tbl_ptr_checkpoints_on_the_levelX, Y <~ {0x00, 0x01, 0x02, 0x03}
 C - - - - - 0x01F9BA 07:F9AA: 85 C4     STA vCheckpoint                    ; <~ the checkpoint of the unique room
 C - - - - - 0x01F9BC 07:F9AC: 20 DA FB  JSR sub_FBDA_store_room_params_    ;
-C - - - - - 0x01F9BF 07:F9AF: A4 11     LDY vCacheRam_11                   ; 4th of 5 bytes
+C - - - - - 0x01F9BF 07:F9AF: A4 11     LDY vCacheRam11                    ; 4th of 5 bytes
 C - - - - - 0x01F9C1 07:F9B1: 4C C0 F9  JMP loc_F9C0_return_true           ;
 
 @bra_F9B4_sublevel_corridor:
@@ -10205,15 +10205,15 @@ C - - - - - 0x01FE37 07:FE27: D0 3E     BNE bra_FE67_RTS                  ; If t
 C - - - - - 0x01FE39 07:FE29: A9 3F     LDA #$3F                          ; CONSTANT - max bank data value
 C - - - - - 0x01FE3B 07:FE2B: 20 29 FF  JSR sub_FF29_next_bank_data       ;
 C - - - - - 0x01FE3E 07:FE2E: B0 D1     BCS @bra_FE01_loop                ; If the next bank exists
-C - - - - - 0x01FE40 07:FE30: 20 46 FE  JSR sub_FE46_prepare_vram_        ;
-C - - - - - 0x01FE43 07:FE33: 20 46 FE  JSR sub_FE46_prepare_vram_        ;
+C - - - - - 0x01FE40 07:FE30: 20 46 FE  JSR sub_FE46_prepare_vram         ;
+C - - - - - 0x01FE43 07:FE33: 20 46 FE  JSR sub_FE46_prepare_vram         ;
 C - - - - - 0x01FE46 07:FE36: A9 05     LDA #$05                          ; CONSTANT - red color
 C - - - - - 0x01FE48 07:FE38: 20 30 FF  JSR sub_FF30_prepare_test         ;
 C - - - - - 0x01FE4B 07:FE3B: 20 72 FE  JSR sub_FE72_PRG_test             ;
 C - - - - - 0x01FE4E 07:FE3E: A9 2A     LDA #$2A                          ; CONSTANT - green color
 C - - - - - 0x01FE50 07:FE40: 20 30 FF  JSR sub_FF30_prepare_test         ;
 C - - - - - 0x01FE53 07:FE43: 20 DD FE  JSR sub_FEDD_CHR_test             ;
-sub_FE46_prepare_vram_:
+sub_FE46_prepare_vram:
 C - - - - - 0x01FE56 07:FE46: A9 00     LDA #$00                          ;
 C - - - - - 0x01FE58 07:FE48: 8D 01 20  STA PPU_MASK                      ; disables all rendering
 @bra_FE4B_wait_til_vblank:

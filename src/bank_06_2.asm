@@ -2582,10 +2582,10 @@ C - - - - - 0x01B07B 06:B06B: 2C 14 02  BIT vCurrentWeaponStatus          ;
 C - - - - - 0x01B07E 06:B06E: 10 10     BPL @bra_B080_inc                 ; If the weapons are exist
 C - - - - - 0x01B080 06:B070: C0 05     CPY #$05                          ; CONSTANT - the breathing apparatus
 C - - - - - 0x01B082 06:B072: B0 0C     BCS @bra_B080_inc                 ; If Register Y >= 0x05 (i.e. all automatic items)
-C - - - - - 0x01B084 06:B074: 84 11     STY vCacheRam_11                  ;
+C - - - - - 0x01B084 06:B074: 84 11     STY vCacheRam11                   ;
 C - - - - - 0x01B086 06:B076: AD 14 02  LDA vCurrentWeaponStatus          ;
 C - - - - - 0x01B089 06:B079: 29 7F     AND #$7F                          ; CONSTANT - flip-flop 'the weapons are not exist'
-C - - - - - 0x01B08B 06:B07B: 05 11     ORA vCacheRam_11                  ; the current item is used
+C - - - - - 0x01B08B 06:B07B: 05 11     ORA vCacheRam11                   ; the current item is used
 C - - - - - 0x01B08D 06:B07D: 8D 14 02  STA vCurrentWeaponStatus          ;
 @bra_B080_inc:
 C - - - - - 0x01B090 06:B080: B9 00 02  LDA vItems,Y                      ;
@@ -2799,7 +2799,7 @@ C - - - - - 0x01B1E7 06:B1D7: 65 B7     ADC vRoomExtraInfo                      
 C - - - - - 0x01B1E9 06:B1D9: A8        TAY                                                 ; Y <~ vRoomExtraInfo * 5
 C - - - - - 0x01B1EA 06:B1DA: A2 05     LDX #$05                                            ; set loop counter
 @bra_B1DC_loop:                                                                             ; loop by x (5 times)
-C - - - - - 0x01B1EC 06:B1DC: 84 11     STY vCacheRam_11                                    ; caches y
+C - - - - - 0x01B1EC 06:B1DC: 84 11     STY vCacheRam11                                     ; caches y
 C - - - - - 0x01B1EE 06:B1DE: B1 12     LDA ($0012),Y                                       ;
 C - - - - - 0x01B1F0 06:B1E0: 9D 98 03  STA vBriefcaseIndex,X                               ;
 C - - - - - 0x01B1F3 06:B1E3: F0 0A     BEQ @bra_B1EF_no_exist                              ; If the index == 0x00
@@ -2813,7 +2813,7 @@ C - - - - - 0x01B1FD 06:B1ED: D0 02     BNE @bra_B1F1_skip                      
 C - - - - - 0x01B1FF 06:B1EF: A9 00     LDA #$00                                            ; CONSTANT: the item is collected
 @bra_B1F1_skip:
 C - - - - - 0x01B201 06:B1F1: 9D 9E 03  STA vItemStatus,X                                   ; prepare memory for render briefcase
-C - - - - - 0x01B204 06:B1F4: A4 11     LDY vCacheRam_11                                    ; restore y from the cache
+C - - - - - 0x01B204 06:B1F4: A4 11     LDY vCacheRam11                                     ; restore y from the cache
 C - - - - - 0x01B206 06:B1F6: C8        INY                                                 ; increments the index
 C - - - - - 0x01B207 06:B1F7: CA        DEX                                                 ; decrement loop counter
 C - - - - - 0x01B208 06:B1F8: D0 E2     BNE @bra_B1DC_loop                                  ; If Register X != 0
@@ -2862,10 +2862,10 @@ C - - - - - 0x01B248 06:B238: 68        PLA                           ; restore 
 C - - - - - 0x01B249 06:B239: 0A        ASL                           ; *2
 C - - - - - 0x01B24A 06:B23A: A8        TAY                           ;
 C - - - - - 0x01B24B 06:B23B: B9 00 80  LDA tbl_messages,Y            ; Load messages (low address)
-C - - - - - 0x01B24E 06:B23E: 85 CB     STA vLowVram_MsgAddress       ; Store a low address
+C - - - - - 0x01B24E 06:B23E: 85 CB     STA vLowVramMsgAddress        ; Store a low address
 C - - - - - 0x01B250 06:B240: B9 01 80  LDA tbl_messages + 1,Y        ; Load messages (high address)
 C - - - - - 0x01B253 06:B243: 29 1F     AND #$1F                      ;
-C - - - - - 0x01B255 06:B245: 85 CC     STA vHignVram_MsgAddress      ; Store a high address
+C - - - - - 0x01B255 06:B245: 85 CC     STA vHignVramMsgAddress       ; Store a high address
 C - - - - - 0x01B257 06:B247: A9 80     LDA #$80                      ; CONSTANT - the message is typing
 C - - - - - 0x01B259 06:B249: 85 C8     STA vMessageInProgress        ;
 C - - - - - 0x01B25B 06:B24B: A9 00     LDA #$00                      ;
@@ -2959,9 +2959,9 @@ sub_B2DB_prepare_letter_address:
 C - - - - - 0x01B2EB 06:B2DB: AD 02 20  LDA PPU_STATUS           ; Reset PPU Address
 C - - - - - 0x01B2EE 06:B2DE: 98        TYA                      ;
 C - - - - - 0x01B2EF 06:B2DF: 18        CLC                      ;
-C - - - - - 0x01B2F0 06:B2E0: 65 CB     ADC vLowVram_MsgAddress  ;
+C - - - - - 0x01B2F0 06:B2E0: 65 CB     ADC vLowVramMsgAddress   ;
 C - - - - - 0x01B2F2 06:B2E2: 48        PHA                      ; diposit low-value + an offset
-C - - - - - 0x01B2F3 06:B2E3: A5 CC     LDA vHignVram_MsgAddress ;
+C - - - - - 0x01B2F3 06:B2E3: A5 CC     LDA vHignVramMsgAddress  ;
 C - - - - - 0x01B2F5 06:B2E5: 69 00     ADC #$00                 ;
 C - - - - - 0x01B2F7 06:B2E7: 8D 06 20  STA PPU_ADDRESS          ; <~ high value (+1 with overflow)
 C - - - - - 0x01B2FA 06:B2EA: 68        PLA                      ; retrieve low-value + an offset (see $B2E2)
@@ -3016,7 +3016,7 @@ C - - - - - 0x01B340 06:B330: 68        PLA                             ; retrie
 C - - - - - 0x01B341 06:B331: E8        INX                             ; increment loop counter
 C - - - - - 0x01B342 06:B332: E0 03     CPX #$03                        ;
 C - - - - - 0x01B344 06:B334: D0 EC     BNE bra_B322_loop               ; If Register X != 0x03
-C - - - - - 0x01B346 06:B336: 84 11     STY vCacheRam_11                ; diposit the number of the prisoners
+C - - - - - 0x01B346 06:B336: 84 11     STY vCacheRam11                 ; diposit the number of the prisoners
 C - - - - - 0x01B348 06:B338: A6 60     LDX vRoomWithPrisoner1          ;
 C - - - - - 0x01B34A 06:B33A: F0 03     BEQ @bra_B33F_no_exist          ; If the room isn't exist
 C - - - - - 0x01B34C 06:B33C: 20 03 B3  JSR sub_B303_reset_prison_room  ;
@@ -3079,10 +3079,10 @@ C - - - - - 0x01B3A8 06:B398: D0 E1     BNE bra_B37B_repeat             ; If the
 bra_B39A_skip:
 C - - - - - 0x01B3AA 06:B39A: 29 1F     AND #$1F                        ; reset X,Y flags for vRoomAttrubute
 C - - - - - 0x01B3AC 06:B39C: 9D 00 05  STA vRooms,X                    ;
-C - - - - - 0x01B3AF 06:B39F: A4 11     LDY vCacheRam_11                ; retrieve the number of the prisoners (see $B336)
+C - - - - - 0x01B3AF 06:B39F: A4 11     LDY vCacheRam11                 ; retrieve the number of the prisoners (see $B336)
 C - - - - - 0x01B3B1 06:B3A1: 8A        TXA                             ;
 C - - - - - 0x01B3B2 06:B3A2: 99 60 00  STA vRoomWithPrisoners,Y        ; assigns a room index
-C - - - - - 0x01B3B5 06:B3A5: C6 11     DEC vCacheRam_11                ;
+C - - - - - 0x01B3B5 06:B3A5: C6 11     DEC vCacheRam11                 ;
 C - - - - - 0x01B3B7 06:B3A7: 10 D2     BPL bra_B37B_repeat             ; If a non-arrested prisoner is exist
 C - - - - - 0x01B3B9 06:B3A9: 60        RTS                             ;
 
@@ -3159,9 +3159,9 @@ C - - - - - 0x01B434 06:B424: 20 85 B4  JSR sub_B485_minus_npc_msg_status       
 C - - - - - 0x01B437 06:B427: A5 41     LDA vNPCMessageStatus                            ;
 C - - - - - 0x01B439 06:B429: 29 0F     AND #$0F                                         ; filters by mask
 C - - - - - 0x01B43B 06:B42B: A8        TAY                                              ;
-C - - - - - 0x01B43C 06:B42C: 84 11     STY vCacheRam_11                                 ; diposit K flag for vNpcMessageStatus
+C - - - - - 0x01B43C 06:B42C: 84 11     STY vCacheRam11                                  ; diposit K flag for vNpcMessageStatus
 C - - - - - 0x01B43E 06:B42E: 20 8A B4  JSR sub_B48A_prepare_npc_portrait_render_params_ ;
-C - - - - - 0x01B441 06:B431: A4 11     LDY vCacheRam_11                                 ; retrieves K flag for vNpcMessageStatus
+C - - - - - 0x01B441 06:B431: A4 11     LDY vCacheRam11                                  ; retrieves K flag for vNpcMessageStatus
 C - - - - - 0x01B443 06:B433: C8        INY                                              ; 2 of NPC bytes
 C - - - - - 0x01B444 06:B434: B1 12     LDA ($0012),Y                                    ; <~ npc type index {0x00, 0x01, ..., 0x0A}
 C - - - - - 0x01B446 06:B436: 20 8C B5  JSR sub_B58C_resolve_npc_type                    ; 3,4,... of NPC bytes
@@ -3703,7 +3703,7 @@ C D 1 - - - 0x01B79D 06:B78D: 20 C3 B7  JSR sub_B7C3_get_final_dialog_info      
 C - - - - - 0x01B7A0 06:B790: B9 A9 BC  LDA tbl_BCA8_final_dialogs + 1,Y                   ; prepare an input parameter (a message number)
 C - - - - - 0x01B7A3 06:B793: 20 34 B2  JSR sub_B234_add_message                           ;
 C - - - - - 0x01B7A6 06:B796: 20 4F EF  JSR sub_EF4F_switch_bank_4_p2                      ;
-C - - - - - 0x01B7A9 06:B799: A4 11     LDY vCacheRam_11                                   ; prepare 1st parameter
+C - - - - - 0x01B7A9 06:B799: A4 11     LDY vCacheRam11                                    ; prepare 1st parameter
 C - - - - - 0x01B7AB 06:B79B: A9 00     LDA #$00                                           ;
 C - - - - - 0x01B7AD 06:B79D: 85 00     STA $0000                                          ; prepare 2nd parameter
 C - - - - - 0x01B7AF 06:B79F: 20 98 B4  JSR sub_B498_prepare_npc_portrait_render_params_ex ;
@@ -3746,7 +3746,7 @@ C - - - - - 0x01B7E3 06:B7D3: 0A        ASL                                   ; 
 C - - - - - 0x01B7E4 06:B7D4: 18        CLC                                   ;
 C - - - - - 0x01B7E5 06:B7D5: 65 00     ADC $0000                             ;
 C - - - - - 0x01B7E7 06:B7D7: A8        TAY                                   ; Y <~ an index of n-th byte
-C - - - - - 0x01B7E8 06:B7D8: 84 11     STY vCacheRam_11                      ;
+C - - - - - 0x01B7E8 06:B7D8: 84 11     STY vCacheRam11                       ;
 C - - - - - 0x01B7EA 06:B7DA: 60        RTS                                   ;
 
 sub_B7DB_prepare_last_cutscene:
@@ -4154,7 +4154,7 @@ C - - - - - 0x01BADA 06:BACA: 60        RTS                        ;
 sub_BACB_fill_ppu:
 C - - - - - 0x01BADB 06:BACB: A0 00     LDY #$00                       ; prepare an input parameter
 C - - - - - 0x01BADD 06:BACD: 20 05 BB  JSR sub_BB05_prepare_00_to_05  ;
-C - - - - - 0x01BAE0 06:BAD0: 84 11     STY vCacheRam_11               ; put the new offset (the old offset + 0x06)
+C - - - - - 0x01BAE0 06:BAD0: 84 11     STY vCacheRam11                ; put the new offset (the old offset + 0x06)
 C - - - - - 0x01BAE2 06:BAD2: A0 00     LDY #$00                       ; prepare an input parameter
 loc_BAD4_repeat:
 C D 1 - - - 0x01BAE4 06:BAD4: 20 12 BB  JSR sub_BB12_store_ppu_data    ;
@@ -4169,7 +4169,7 @@ C - - - - - 0x01BAF4 06:BAE4: 85 01     STA $0001                      ; value +
 C - - - - - 0x01BAF6 06:BAE6: 4C D4 BA  JMP loc_BAD4_repeat            ;
 
 bra_BAE9_attributes:
-C - - - - - 0x01BAF9 06:BAE9: A4 11     LDY vCacheRam_11               ; load the new offset (the old offset + 0x06)
+C - - - - - 0x01BAF9 06:BAE9: A4 11     LDY vCacheRam11                ; load the new offset (the old offset + 0x06)
 C - - - - - 0x01BAFB 06:BAEB: 20 05 BB  JSR sub_BB05_prepare_00_to_05  ;
 C - - - - - 0x01BAFE 06:BAEE: A0 00     LDY #$00                       ; prepare an input parameter
 loc_BAF0_repeat:
