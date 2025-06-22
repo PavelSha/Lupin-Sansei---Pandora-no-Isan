@@ -3911,7 +3911,7 @@ C - - - - - 0x01D756 07:D746: 9D 20 03  STA vEnemyAStatus,X             ;
 C - - - - - 0x01D759 07:D749: C0 FF     CPY #$FF                        ; CONSTANT - death mark
 C - - - - - 0x01D75B 07:D74B: D0 05     BNE @bra_D752_RTS               ; If Register Y != 0xFF
 C - - - - - 0x01D75D 07:D74D: 20 9F D7  JSR sub_D79F_inc_diving_frameA_ ;
-C - - - - - 0x01D760 07:D750: B0 2D     BCS bra_D77F_free_enemyA        ; If vEnemyAFrame_Counter >= 0x1F
+C - - - - - 0x01D760 07:D750: B0 2D     BCS bra_D77F_free_enemyA        ; If vEnemyAFrameCounter >= 0x1F
 @bra_D752_RTS:
 C - - - - - 0x01D762 07:D752: 60        RTS                             ;
 
@@ -3923,7 +3923,7 @@ C - - - - - 0x01D768 07:D758: 85 D7     STA vTempGapHighChrPosX            ; pre
 C - - - - - 0x01D76A 07:D75A: 20 DA D9  JSR sub_D9DA_screen_with_water_gap ;
 C - - - - - 0x01D76D 07:D75D: 90 20     BCC bra_D77F_free_enemyA           ; If the screen hasn't the water gap
 C - - - - - 0x01D76F 07:D75F: 20 9F D7  JSR sub_D79F_inc_diving_frameA_    ;
-C - - - - - 0x01D772 07:D762: B0 1B     BCS bra_D77F_free_enemyA           ; If vEnemyAFrame_Counter >= 0x1F
+C - - - - - 0x01D772 07:D762: B0 1B     BCS bra_D77F_free_enemyA           ; If vEnemyAFrameCounter >= 0x1F
 ; In: Register A - the frame counter
 loc_D764_diving_render:
 C D 2 - - - 0x01D774 07:D764: 48        PHA                                ; store the frame counter
@@ -3966,8 +3966,8 @@ C - - - - - 0x01D7AE 07:D79E: 60        RTS                            ;
 
 ; In: Register X - the enemyA number
 sub_D79F_inc_diving_frameA_:
-C - - - - - 0x01D7AF 07:D79F: FE 44 03  INC vEnemyAFrame_Counter,X     ;
-C - - - - - 0x01D7B2 07:D7A2: BD 44 03  LDA vEnemyAFrame_Counter,X     ;
+C - - - - - 0x01D7AF 07:D79F: FE 44 03  INC vEnemyAFrameCounter,X      ;
+C - - - - - 0x01D7B2 07:D7A2: BD 44 03  LDA vEnemyAFrameCounter,X      ;
 C - - - - - 0x01D7B5 07:D7A5: C9 1F     CMP #$1F                       ; CONSTANT - the last frame
 C - - - - - 0x01D7B7 07:D7A7: 60        RTS                            ;
 
@@ -4097,7 +4097,7 @@ C - - - - - 0x01D862 07:D852: 9D 5C 03  STA vEnemyBStatus,X             ;
 C - - - - - 0x01D865 07:D855: C0 FF     CPY #$FF                        ; CONSTANT - death mark
 C - - - - - 0x01D867 07:D857: D0 05     BNE @bra_D85E_RTS               ; If Register Y != 0xFF
 C - - - - - 0x01D869 07:D859: 20 93 D8  JSR sub_D893_inc_diving_frameB_ ;
-C - - - - - 0x01D86C 07:D85C: B0 15     BCS bra_D873_free_enemyB        ; If vEnemyBFrame_Counter >= 0x1F
+C - - - - - 0x01D86C 07:D85C: B0 15     BCS bra_D873_free_enemyB        ; If vEnemyBFrameCounter >= 0x1F
 @bra_D85E_RTS:
 C - - - - - 0x01D86E 07:D85E: 60        RTS                             ;
 
@@ -4109,7 +4109,7 @@ C - - - - - 0x01D874 07:D864: 85 D7     STA vTempGapHighChrPosX              ; p
 C - - - - - 0x01D876 07:D866: 20 DA D9  JSR sub_D9DA_screen_with_water_gap   ;
 C - - - - - 0x01D879 07:D869: 90 08     BCC bra_D873_free_enemyB             ; If the screen hasn't the water gap
 C - - - - - 0x01D87B 07:D86B: 20 93 D8  JSR sub_D893_inc_diving_frameB_      ;
-C - - - - - 0x01D87E 07:D86E: B0 03     BCS bra_D873_free_enemyB             ; If vEnemyBFrame_Counter >= 0x1F
+C - - - - - 0x01D87E 07:D86E: B0 03     BCS bra_D873_free_enemyB             ; If vEnemyBFrameCounter >= 0x1F
 C - - - - - 0x01D880 07:D870: 4C 64 D7  JMP loc_D764_diving_render           ;
 
 loc_D873_free_enemyB:
@@ -4138,8 +4138,8 @@ C - - - - - 0x01D8A2 07:D892: 60        RTS                            ;
 ; In: Register X - the enemyB number
 ; Out: If flag Z = 1 then the frame counter has the last frame
 sub_D893_inc_diving_frameB_:
-C - - - - - 0x01D8A3 07:D893: FE 80 03  INC vEnemyBFrame_Counter,X     ;
-C - - - - - 0x01D8A6 07:D896: BD 80 03  LDA vEnemyBFrame_Counter,X     ;
+C - - - - - 0x01D8A3 07:D893: FE 80 03  INC vEnemyBFrameCounter,X      ;
+C - - - - - 0x01D8A6 07:D896: BD 80 03  LDA vEnemyBFrameCounter,X      ;
 C - - - - - 0x01D8A9 07:D899: C9 1F     CMP #$1F                       ; CONSTANT - the last frame
 C - - - - - 0x01D8AB 07:D89B: 60        RTS                            ;
 
@@ -4371,12 +4371,12 @@ loc_D9AE_inc_enemyA_frame_counter:
 C D 2 - - - 0x01D9BE 07:D9AE: A5 2C     LDA vLowCounter                 ;
 C - - - - - 0x01D9C0 07:D9B0: 29 07     AND #$07                        ;
 C - - - - - 0x01D9C2 07:D9B2: D0 0F     BNE bra_D9C3_RTS                ; Branch if vLowCounter doesn't multiple of 8 (vLowCounter % 8 != 0)
-C - - - - - 0x01D9C4 07:D9B4: FE 44 03  INC vEnemyAFrame_Counter,X      ;
-C - - - - - 0x01D9C7 07:D9B7: BD 44 03  LDA vEnemyAFrame_Counter,X      ;
+C - - - - - 0x01D9C4 07:D9B4: FE 44 03  INC vEnemyAFrameCounter,X       ;
+C - - - - - 0x01D9C7 07:D9B7: BD 44 03  LDA vEnemyAFrameCounter,X       ;
 C - - - - - 0x01D9CA 07:D9BA: C9 03     CMP #$03                        ; CONSTANT - Max value
-C - - - - - 0x01D9CC 07:D9BC: 90 05     BCC bra_D9C3_RTS                ; If vEnemyAFrame_Counter < 0x03
+C - - - - - 0x01D9CC 07:D9BC: 90 05     BCC bra_D9C3_RTS                ; If vEnemyAFrameCounter < 0x03
 C - - - - - 0x01D9CE 07:D9BE: A9 00     LDA #$00                        ;
-C - - - - - 0x01D9D0 07:D9C0: 9D 44 03  STA vEnemyAFrame_Counter,X      ; reset a counter
+C - - - - - 0x01D9D0 07:D9C0: 9D 44 03  STA vEnemyAFrameCounter,X       ; reset a counter
 bra_D9C3_RTS:
 C - - - - - 0x01D9D3 07:D9C3: 60        RTS                             ;
 
@@ -4384,12 +4384,12 @@ sub_D9C4_inc_enemyB_frame_counter:
 C - - - - - 0x01D9D4 07:D9C4: A5 2C     LDA vLowCounter                 ;
 C - - - - - 0x01D9D6 07:D9C6: 29 07     AND #$07                        ;
 C - - - - - 0x01D9D8 07:D9C8: D0 F9     BNE bra_D9C3_RTS                ; Branch if vLowCounter doesn't multiple of 8 (vLowCounter % 8 != 0)
-C - - - - - 0x01D9DA 07:D9CA: FE 80 03  INC vEnemyBFrame_Counter,X      ;
-C - - - - - 0x01D9DD 07:D9CD: BD 80 03  LDA vEnemyBFrame_Counter,X      ;
+C - - - - - 0x01D9DA 07:D9CA: FE 80 03  INC vEnemyBFrameCounter,X       ;
+C - - - - - 0x01D9DD 07:D9CD: BD 80 03  LDA vEnemyBFrameCounter,X       ;
 C - - - - - 0x01D9E0 07:D9D0: C9 03     CMP #$03                        ; CONSTANT - Max value
-C - - - - - 0x01D9E2 07:D9D2: 90 EF     BCC bra_D9C3_RTS                ; If vEnemyBFrame_Counter < 0x03
+C - - - - - 0x01D9E2 07:D9D2: 90 EF     BCC bra_D9C3_RTS                ; If vEnemyBFrameCounter < 0x03
 C - - - - - 0x01D9E4 07:D9D4: A9 00     LDA #$00                        ;
-C - - - - - 0x01D9E6 07:D9D6: 9D 80 03  STA vEnemyBFrame_Counter,X      ; reset a counter
+C - - - - - 0x01D9E6 07:D9D6: 9D 80 03  STA vEnemyBFrameCounter,X       ; reset a counter
 C - - - - - 0x01D9E9 07:D9D9: 60        RTS                             ;
 
 ; Out: carry flag - 1, if the screen has the water gap, otherwise - 0.
@@ -4670,7 +4670,7 @@ C - - - - - 0x01DB92 07:DB82: A5 6C     LDA vChrStatus                        ;
 C - - - - - 0x01DB94 07:DB84: 09 20     ORA #$20                              ; CONSTANT - the character is entering a corridor
 C - - - - - 0x01DB96 07:DB86: 85 6C     STA vChrStatus                        ;
 C - - - - - 0x01DB98 07:DB88: A9 00     LDA #$00                              ;
-C - - - - - 0x01DB9A 07:DB8A: 85 70     STA vChrFrame_Counter                 ; reset a frame for the entering a corridor
+C - - - - - 0x01DB9A 07:DB8A: 85 70     STA vChrFrameCounter                  ; reset a frame for the entering a corridor
 C - - - - - 0x01DB9C 07:DB8C: A9 40     LDA #$40                              ;
 C - - - - - 0x01DB9E 07:DB8E: 85 2E     STA vCorridorCounter                  ; Initializes a counter for the entering a corridor
 C - - - - - 0x01DBA0 07:DB90: 4C 8D DF  JMP loc_DF8D_enter_corridor           ;
@@ -4815,7 +4815,7 @@ loc_DC61_after_moving:
 C D 2 - - - 0x01DC71 07:DC61: 20 82 DC  JSR sub_DC82_try_inc_velocity       ;
 C - - - - - 0x01DC74 07:DC64: 20 96 DC  JSR sub_DC96_try_change_frame_index ;
 loc_DC67_after_moving_without_velocity:
-C D 2 - - - 0x01DC77 07:DC67: A4 70     LDY vChrFrame_Counter               ;
+C D 2 - - - 0x01DC77 07:DC67: A4 70     LDY vChrFrameCounter                ;
 C - - - - - 0x01DC79 07:DC69: BE 6F DC  LDX tbl_DC6F_movement_frames_,Y     ; prepares the offset of the sprite address
 C - - - - - 0x01DC7C 07:DC6C: 4C C2 DB  JMP loc_DBC2_before_rendering       ;
 
@@ -4861,12 +4861,12 @@ C - - - - - 0x01DCA6 07:DC96: A9 07     LDA #$07               ; f(A) = 8, see $
 sub_DC98_try_change_frame_index_ex:
 C - - - - - 0x01DCA8 07:DC98: 25 2C     AND vLowCounter        ;
 C - - - - - 0x01DCAA 07:DC9A: D0 F9     BNE bra_DC95_RTS       ; Branch if vLowCounter doesn't multiple of f(A) (vLowCounter % f(A) != 0)
-C - - - - - 0x01DCAC 07:DC9C: E6 70     INC vChrFrame_Counter  ; updates the frame counter
-C - - - - - 0x01DCAE 07:DC9E: A5 70     LDA vChrFrame_Counter  ;
+C - - - - - 0x01DCAC 07:DC9C: E6 70     INC vChrFrameCounter   ; updates the frame counter
+C - - - - - 0x01DCAE 07:DC9E: A5 70     LDA vChrFrameCounter   ;
 C - - - - - 0x01DCB0 07:DCA0: C9 03     CMP #$03               ; CONSTANT - Max value
 C - - - - - 0x01DCB2 07:DCA2: 90 04     BCC bra_DCA8_RTS       ; If the counter < 0x03
 C - - - - - 0x01DCB4 07:DCA4: A9 00     LDA #$00               ;
-C - - - - - 0x01DCB6 07:DCA6: 85 70     STA vChrFrame_Counter  ; clear (or reset)
+C - - - - - 0x01DCB6 07:DCA6: 85 70     STA vChrFrameCounter   ; clear (or reset)
 bra_DCA8_RTS:
 C - - - - - 0x01DCB8 07:DCA8: 60        RTS                    ;
 
@@ -5298,8 +5298,8 @@ C - - - - - 0x01DF4E 07:DF3E: A5 6A     LDA vScreenChrPosY             ;
 C - - - - - 0x01DF50 07:DF40: 85 00     STA $0000                      ; ~> sprite magic1
 C - - - - - 0x01DF52 07:DF42: A5 64     LDA vScreenChrPosX             ;
 C - - - - - 0x01DF54 07:DF44: 85 03     STA $0003                      ; ~> sprite magic4
-C - - - - - 0x01DF56 07:DF46: E6 70     INC vChrFrame_Counter          ; updates the frame counter
-C - - - - - 0x01DF58 07:DF48: A5 70     LDA vChrFrame_Counter          ;
+C - - - - - 0x01DF56 07:DF46: E6 70     INC vChrFrameCounter           ; updates the frame counter
+C - - - - - 0x01DF58 07:DF48: A5 70     LDA vChrFrameCounter           ;
 C - - - - - 0x01DF5A 07:DF4A: C9 01     CMP #$01                       ; !(BUG?), depends on character animation frame
 C - - - - - 0x01DF5C 07:DF4C: D0 06     BNE @bra_DF54_skip_inititalize ; if vChrFrameIndex != 0x01
 C - - - - - 0x01DF5E 07:DF4E: 48        PHA                            ; store a frame index
@@ -5391,11 +5391,11 @@ C - - - - - 0x01DFCA 07:DFBA: A9 00     LDA #$00                         ; CONST
 ; In: Register A - the adding
 bra_DFBC_continue:
 C - - - - - 0x01DFCC 07:DFBC: 85 00     STA $0000                      ; set the adding
-C - - - - - 0x01DFCE 07:DFBE: E6 70     INC vChrFrame_Counter          ; update for the toggle
-C - - - - - 0x01DFD0 07:DFC0: A5 70     LDA vChrFrame_Counter          ;
+C - - - - - 0x01DFCE 07:DFBE: E6 70     INC vChrFrameCounter           ; update for the toggle
+C - - - - - 0x01DFD0 07:DFC0: A5 70     LDA vChrFrameCounter           ;
 C - - - - - 0x01DFD2 07:DFC2: 29 01     AND #$01                       ; A <~ 0x00 or 0x01
 C - - - - - 0x01DFD4 07:DFC4: 05 00     ORA $0000                      ;
-C - - - - - 0x01DFD6 07:DFC6: 85 70     STA vChrFrame_Counter          ; <~ 0x00 or 0x01 (opening), 0x02 or 0x03 (closing)
+C - - - - - 0x01DFD6 07:DFC6: 85 70     STA vChrFrameCounter           ; <~ 0x00 or 0x01 (opening), 0x02 or 0x03 (closing)
 C - - - - - 0x01DFD8 07:DFC8: 4C 05 E0  JMP loc_E005_disallow_to_hide  ;
 
 loc_DFCB_close:
@@ -5449,7 +5449,7 @@ bra_E013_skip:
 loc_E013_continue:
 C D 3 - - - 0x01E023 07:E013: A5 6C     LDA vChrStatus                   ;
 C - - - - - 0x01E025 07:E015: 30 08     BMI bra_E01F_try_to_hiding       ; If the character can hide in the room
-C - - - - - 0x01E027 07:E017: A4 70     LDY vChrFrame_Counter            ;
+C - - - - - 0x01E027 07:E017: A4 70     LDY vChrFrameCounter             ;
 C - - - - - 0x01E029 07:E019: BE 36 E0  LDX tbl_E036_frame_,Y            ;
 C - - - - - 0x01E02C 07:E01C: 4C C2 DB  JMP loc_DBC2_before_rendering    ; prepares the offset of the sprite address
 
@@ -6119,7 +6119,7 @@ C - - - - - 0x01E446 07:E436: A5 1C     LDA vBtnPressedInGame               ;
 C - - - - - 0x01E448 07:E438: 29 F1     AND #BIT_BUTTON_Arrows_OR_A         ;
 C - - - - - 0x01E44A 07:E43A: F0 08     BEQ bra_E444_skip                   ; If the button 'A' or arrows aren't pressed
 C - - - - - 0x01E44C 07:E43C: 20 96 DC  JSR sub_DC96_try_change_frame_index ;
-C - - - - - 0x01E44F 07:E43F: A4 70     LDY vChrFrame_Counter               ;
+C - - - - - 0x01E44F 07:E43F: A4 70     LDY vChrFrameCounter                ;
 C - - - - - 0x01E451 07:E441: BE 47 E4  LDX tbl_E447_movement_frames_,Y     ; prepares the offset of the sprite address
 ; In: Register X - the offset of the sprite address
 bra_E444_skip:
@@ -7304,7 +7304,7 @@ bra_EB9A_start_drowning:
 C - - - - - 0x01EBAA 07:EB9A: A9 58     LDA #$58                                  ; CONSTANT - 'the water collision' + 'the detroying'
 C - - - - - 0x01EBAC 07:EB9C: 85 6C     STA vCarStatus                            ;
 C - - - - - 0x01EBAE 07:EB9E: A9 00     LDA #$00                                  ;
-C - - - - - 0x01EBB0 07:EBA0: 85 70     STA vChrFrame_Counter                     ; initializes a frame counter
+C - - - - - 0x01EBB0 07:EBA0: 85 70     STA vChrFrameCounter                      ; initializes a frame counter
 loc_EBA2_drowning:
 C - - - - - 0x01EBB2 07:EBA2: 20 3E DF  JSR sub_DF3E_update_render_params_for_gap ;
 C - - - - - 0x01EBB5 07:EBA5: B0 32     BCS bra_EBD9_finish_dying                 ; If the frame index >= 0x1F
@@ -8616,7 +8616,7 @@ C - - - - - 0x01F3CD 07:F3BD: 0A        ASL                                     
 C - - - - - 0x01F3CE 07:F3BE: 0A        ASL                                         ; *8, because the set of 8th bytes
 C - - - - - 0x01F3CF 07:F3BF: A8        TAY                                         ;
 C - - - - - 0x01F3D0 07:F3C0: A9 00     LDA #$00                                    ;
-C - - - - - 0x01F3D2 07:F3C2: 9D 44 03  STA vEnemyAFrame_Counter,X                  ; reset a frame counter
+C - - - - - 0x01F3D2 07:F3C2: 9D 44 03  STA vEnemyAFrameCounter,X                   ; reset a frame counter
 C - - - - - 0x01F3D5 07:F3C5: 9D 4A 03  STA vEnemyAJumpCounter,X                    ; clear
 C - - - - - 0x01F3D8 07:F3C8: 9D 22 03  STA vEnemyAProjectileStatus,X               ; clear
 C - - - - - 0x01F3DB 07:F3CB: 9D 24 03  STA vEnemyAProjectileStatus + 2,X           ; !(UNUSED), not used
@@ -8711,7 +8711,7 @@ C - - - - - 0x01F47D 07:F46D: A8        TAY                                     
 C - - - - - 0x01F47E 07:F46E: B9 9C BD  LDA tbl_ptr_enemy_t4_sprite_params_,Y       ;
 C - - - - - 0x01F481 07:F471: 9D 62 03  STA vEnemyBSoarFlags,X                      ;
 C - - - - - 0x01F484 07:F474: A9 00     LDA #$00                                    ;
-C - - - - - 0x01F486 07:F476: 9D 80 03  STA vEnemyBFrame_Counter,X                  ; Initializes a frame counter
+C - - - - - 0x01F486 07:F476: 9D 80 03  STA vEnemyBFrameCounter,X                   ; Initializes a frame counter
 C - - - - - 0x01F489 07:F479: A9 40     LDA #$40                                    ;
 C - - - - - 0x01F48B 07:F47B: 9D 86 03  STA vEnemyBJumpCounter,X                    ; Initializes a jump counter
 C - - - - - 0x01F48E 07:F47E: B9 9D BD  LDA tbl_ptr_enemy_t4_sprite_params_ + 1,Y   ;
@@ -8791,7 +8791,7 @@ C - - - - - 0x01F511 07:F501: 9D 2C 03  STA vEnemyAPosY,X                   ; st
 C - - - - - 0x01F514 07:F504: A9 10     LDA #$10                            ;
 C - - - - - 0x01F516 07:F506: 9D 4A 03  STA vEnemyAJumpCounter,X            ; initializes a jump counter 
 C - - - - - 0x01F519 07:F509: A9 00     LDA #$00                            ;
-C - - - - - 0x01F51B 07:F50B: 9D 44 03  STA vEnemyAFrame_Counter,X          ; reset a frame counter
+C - - - - - 0x01F51B 07:F50B: 9D 44 03  STA vEnemyAFrameCounter,X           ; reset a frame counter
 C - - - - - 0x01F51E 07:F50E: AD 00 03  LDA vEnemyA                         ;
 C - - - - - 0x01F521 07:F511: C9 05     CMP #$05                            ; CONSTANT - Land Diver from level 2
 C - - - - - 0x01F523 07:F513: F0 08     BEQ @bra_F51D_from_level2           ; If vEnemyA == 0x05
@@ -8891,7 +8891,7 @@ C - - - - - 0x01F5B6 07:F5A6: 0A        ASL                                     
 C - - - - - 0x01F5B7 07:F5A7: 0A        ASL                                         ; *4, because the set of 4th bytes
 C - - - - - 0x01F5B8 07:F5A8: A8        TAY                                         ;
 C - - - - - 0x01F5B9 07:F5A9: A9 00     LDA #$00                                    ;
-C - - - - - 0x01F5BB 07:F5AB: 9D 80 03  STA vEnemyBFrame_Counter,X                  ; reset a frame counter
+C - - - - - 0x01F5BB 07:F5AB: 9D 80 03  STA vEnemyBFrameCounter,X                   ; reset a frame counter
 C - - - - - 0x01F5BE 07:F5AE: 9D 86 03  STA vEnemyBJumpCounter,X                    ; clear
 C - - - - - 0x01F5C1 07:F5B1: B9 D2 BD  LDA tbl_ptr_enemy_t2_sprite_params_,Y       ; CONSTANT for CHR ROM
 C - - - - - 0x01F5C4 07:F5B4: 30 03     BMI @bra_F5B9_skip                          ; If CHR ROM is 0%1XXXXXXX, i.e. not used
@@ -9059,7 +9059,7 @@ C - - - - - 0x01F6DF 07:F6CF: 8D 03 03  STA vEnemyASpriteMagic3               ;
 C - - - - - 0x01F6E2 07:F6D2: A9 0D     LDA #$0D                              ; CONSTANT for CHR ROM #2
 C - - - - - 0x01F6E4 07:F6D4: 8D B4 06  STA vCacheChrBankSelect + 5           ;
 C - - - - - 0x01F6E7 07:F6D7: A9 00     LDA #$00                              ;
-C - - - - - 0x01F6E9 07:F6D9: 9D 44 03  STA vEnemyAFrame_Counter,X            ; reset a frame counter
+C - - - - - 0x01F6E9 07:F6D9: 9D 44 03  STA vEnemyAFrameCounter,X             ; reset a frame counter
 C - - - - - 0x01F6EC 07:F6DC: 4C 4A F8  JMP loc_F84A_finish_creating_enemyA   ;
 
 ; 1 byte - high X-position (the screen number)
@@ -9145,7 +9145,7 @@ C - - - - - 0x01F762 07:F752: 8D 07 03  STA vEnemyBSpriteMagic3                ;
 C - - - - - 0x01F765 07:F755: A9 18     LDA #$18                               ;
 C - - - - - 0x01F767 07:F757: 8D B4 06  STA vCacheChrBankSelect + 5            ; <~ CONSTANT for CHR ROM
 C - - - - - 0x01F76A 07:F75A: A9 00     LDA #$00                               ;
-C - - - - - 0x01F76C 07:F75C: 9D 80 03  STA vEnemyBFrame_Counter,X             ; reset a counter
+C - - - - - 0x01F76C 07:F75C: 9D 80 03  STA vEnemyBFrameCounter,X              ; reset a counter
 C - - - - - 0x01F76F 07:F75F: 4C 20 F8  JMP loc_F820_finish_creating_enemyB    ;
 
 ; In: $0000 - macro X-position
@@ -9155,7 +9155,7 @@ loc_F762_diver_appearance:
 C - - J - - 0x01F772 07:F762: 20 8A F3  JSR sub_F38A_start_enemyB_appearance      ;
 C - - - - - 0x01F775 07:F765: 20 60 F3  JSR sub_F360_prepare_enemyB_start_status  ;
 C - - - - - 0x01F778 07:F768: A9 00     LDA #$00                                  ;
-C - - - - - 0x01F77A 07:F76A: 9D 80 03  STA vEnemyBFrame_Counter,X                ; reset a counter
+C - - - - - 0x01F77A 07:F76A: 9D 80 03  STA vEnemyBFrameCounter,X                 ; reset a counter
 C - - - - - 0x01F77D 07:F76D: A9 06     LDA #$06                                  ; CONSTANT for CHR ROM
 C - - - - - 0x01F77F 07:F76F: 8D B3 06  STA vCacheChrBankSelect + 4               ;
 C - - - - - 0x01F782 07:F772: 4C 20 F8  JMP loc_F820_finish_creating_enemyB       ;
@@ -9200,7 +9200,7 @@ C - - - - - 0x01F7BF 07:F7AF: 8D 38 03  STA vEnemyAPosXLow                      
 C - - - - - 0x01F7C2 07:F7B2: A9 00     LDA #$00                                     ;
 C - - - - - 0x01F7C4 07:F7B4: 8D 3E 03  STA vEnemyAPosXHigh                          ; Initializes the X-position (Hi:Lo)
 C - - - - - 0x01F7C7 07:F7B7: A9 00     LDA #$00                                     ;
-C - - - - - 0x01F7C9 07:F7B9: 8D 44 03  STA vEnemyAFrame_Counter                     ; reset a frame counter
+C - - - - - 0x01F7C9 07:F7B9: 8D 44 03  STA vEnemyAFrameCounter                      ; reset a frame counter
 C - - - - - 0x01F7CC 07:F7BC: A9 20     LDA #$20                                     ;
 C - - - - - 0x01F7CE 07:F7BE: 8D 4A 03  STA vEnemyAJumpCounter                       ; Initializes a counter for 'the approach'
 bra_F7C1_skip:
@@ -10068,7 +10068,7 @@ C - - - - - 0x01FD46 07:FD36: 9D 92 03  STA vEnemyBJumpType,X                 ; 
 C - - - - - 0x01FD49 07:FD39: A9 02     LDA #$02                              ; !(UNUSED)
 C - - - - - 0x01FD4B 07:FD3B: 20 1C BE  JSR $BE1C                             ; !(UNUSED), see sub_BE1C_change_substatus (bank 03, page 2)
 C - - - - - 0x01FD4E 07:FD3E: A9 01     LDA #$01                              ; !(UNUSED)
-C - - - - - 0x01FD50 07:FD40: 9D 80 03  STA vEnemyBFrame_Counter,X            ; !(UNUSED)
+C - - - - - 0x01FD50 07:FD40: 9D 80 03  STA vEnemyBFrameCounter,X             ; !(UNUSED)
 C - - - - - 0x01FD53 07:FD43: BD 68 03  LDA vEnemyBPosY,X                     ; !(UNUSED)
 C - - - - - 0x01FD56 07:FD46: C9 DF     CMP #$DF                              ; !(UNUSED), CONSTANT - Maximum allowed Y-value on the screen
 C - - - - - 0x01FD58 07:FD48: B0 1E     BCS bra_FD68_skip                     ; !(UNUSED)
@@ -10131,7 +10131,7 @@ C - - - - - 0x01FDBF 07:FDAF: 20 9C D8  JSR sub_D89C_correction_EnemyBPosY    ; 
 C - - - - - 0x01FDC2 07:FDB2: A9 00     LDA #$00                              ; !(UNUSED)
 C - - - - - 0x01FDC4 07:FDB4: 9D 86 03  STA vEnemyBJumpCounter,X              ; !(UNUSED)
 C - - - - - 0x01FDC7 07:FDB7: A9 02     LDA #$02                              ; !(UNUSED)
-C - - - - - 0x01FDC9 07:FDB9: 9D 80 03  STA vEnemyBFrame_Counter,X            ; !(UNUSED)
+C - - - - - 0x01FDC9 07:FDB9: 9D 80 03  STA vEnemyBFrameCounter,X             ; !(UNUSED)
 C - - - - - 0x01FDCC 07:FDBC: A0 08     LDY #$08                              ; !(UNUSED)
 C - - - - - 0x01FDCE 07:FDBE: 4C 7D BC  JMP $BC7D                             ; !(UNUSED), see loc_BC7D_prepare_rendering (bank 03, page 2)
 

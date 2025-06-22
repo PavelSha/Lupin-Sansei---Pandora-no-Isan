@@ -144,6 +144,15 @@ for (let i = 0; i < enemyStatus.length; i++)
   enemyStatus[i]['canGetDamage'] = false;
   enemyStatus[i]['use']          = false;
 }
+let enemyJumpCounter = [0, 0];  // вспомогательный счетчик, обычно счетчик процесса прыжка
+let enemyJumpType = [0, 0];     // тип прыжка
+let enemyFrameCounter = [0, 0]; // счетчик для нумерации кадров анимации
+let enemyScrPosX = [0, 0]; // положение по оси X относительно экрана
+let enemyScrPosY = [0, 0]; // положение по оси Y относительно экрана
+
+const JUMP_BY_SIDE = 3; // прыжок в сторону
+const HITBOXES = [{y: 0, x: 0, h: 24, w: 6}, {y: 0, x: 0, h: 20, w: 6}, {y: 0, x: 0, h: 16, w: 6}];
+
 // Временные переменные для хранения прямоугольной области столкновения
 let hitBoxX, hitBoxY, hitBoxW, hitBoxH;
 // Предположим, что следующая переменная после объявления приняла одно из следующих значений - 'lupin','jigen','goemon'.
@@ -168,10 +177,10 @@ function fn_A04D_land_enemy_handler()
     // BCS bra_A089_next
     // CMP #$C0
     // BCC bra_A089_next
-    if (!('use' in enemyStatus[enemyNo] && 'canGetDamage' in enemyStatus[enemyNo] && !('dying' in enemyStatus[enemyNo])))
+    if (!(enemyStatus[enemyNo]['use'] && enemyStatus[enemyNo]['canGetDamage'] && !enemyStatus[enemyNo]['dying']))
       continue;
 
-    // sub_A0CC_prepare_hitbox
+    // JSR sub_A0CC_prepare_hitbox
     fn_A0CC_prepare_hitbox(enemyNo);
 
     // JSR sub_D660_is_bomb_exploding
@@ -251,17 +260,63 @@ function fn_A04D_land_enemy_handler()
 /**
  * @param {number} enemyNo - номер врага
  */
-function fn_A0FA_status_behavior(enemyNo)
+function fn_A0CC_prepare_hitbox(enemyNo)
 {
-  // todo ...
+  // LDY #$00
+  var index = 0;
+  // LDA vEnemyAStatus,X
+  // AND #$12
+  // BEQ bra_A0DD_assign
+  if (enemyStatus[enemyNo]['jump'] || enemyStatus[enemyNo]['squatting'])
+  {
+    // LDY #$04
+    // CMP #$10
+    // BEQ bra_A0DD_assign
+    // LDY #$08
+    if (enemyStatus[enemyNo]['squatting'])
+      index = 2;
+    else
+      index = 1;
+  }
+  // LDA vEnemyAPosY,X
+  // CLC
+  // ADC tbl_A021_hitboxes,Y
+  // STA vEnemyHitBoxY
+  hitBoxY = HITBOXES[index].y + enemyScrPosY[enemyNo];
+
+  // LDA vEnemyAScreenPosX,X
+  // CLC
+  // ADC tbl_A021_hitboxes + 1,Y
+  // STA vEnemyHitBoxX
+  hitBoxX = HITBOXES[index].x + enemyScrPosX[enemyNo];
+
+  // LDA tbl_A021_hitboxes + 2,Y
+  // STA vEnemyHitBoxH
+  hitBoxH = HITBOXES[index].h;
+
+  // LDA tbl_A021_hitboxes + 3,Y
+  // STA vEnemyHitBoxW
+  hitBoxW = HITBOXES[index].w;
+  // RTS
 }
 
 /**
  * @param {number} enemyNo - номер врага
+ * @param {object} obj - активные статусы (ключи: 'jump','appear','stop','squatting','dying')
  */
-function fn_A0CC_prepare_hitbox(enemyNo)
+function fn_A323_change_substatus(enemyNo, obj)
 {
-  // todo ...
+  // STA $0005
+  // LDA vEnemyAStatus,X
+  // AND #$C1
+  // ORA $0005
+  // STA vEnemyAStatus,X
+  enemyStatus[enemyNo]['jump'] = 'jump' in obj;
+  enemyStatus[enemyNo]['appear'] = 'appear' in obj;
+  enemyStatus[enemyNo]['stop'] = 'stop' in obj;
+  enemyStatus[enemyNo]['squatting'] = 'squatting' in obj;
+  enemyStatus[enemyNo]['dying'] = 'dying' in obj;
+  // RTS
 }
 
 /**
@@ -269,6 +324,30 @@ function fn_A0CC_prepare_hitbox(enemyNo)
  * @param {number} enemyNo - номер врага
  */
 function fn_A098_hit(enemyNo)
+{
+  // LDX vTempCounter1A
+  // LDA #$22
+  // JSR sub_A323_change_substatus
+  fn_A323_change_substatus(enemyNo, {jump:true, dying: true});
+
+  // LDA #$10
+  // STA vEnemyAJumpCounter,X
+  enemyJumpCounter[enemyNo] = 10; // настраиваем счетчик для прыжка в сторону
+
+  // LDA #$03
+  // STA vEnemyAJumpType,X
+  enemyJumpType[enemyNo] = JUMP_BY_SIDE; // настраиваем прыжок в сторону
+
+  // LDA #$00
+  // STA vEnemyAFrameCounter,X
+  enemyFrameCounter[enemyNo] = 0;
+  // RTS
+}
+
+/**
+ * @param {number} enemyNo - номер врага
+ */
+function fn_A0FA_status_behavior(enemyNo)
 {
   // todo ...
 }

@@ -193,7 +193,7 @@ C - - - - - 0x0180B1 06:A0A1: 9D 4A 03  STA vEnemyAJumpCounter,X       ;
 C - - - - - 0x0180B4 06:A0A4: A9 03     LDA #$03                       ; CONSTANT - jump by side
 C - - - - - 0x0180B6 06:A0A6: 9D 56 03  STA vEnemyAJumpType,X          ;
 C - - - - - 0x0180B9 06:A0A9: A9 00     LDA #$00                       ;
-C - - - - - 0x0180BB 06:A0AB: 9D 44 03  STA vEnemyAFrame_Counter,X     ; reset a counter
+C - - - - - 0x0180BB 06:A0AB: 9D 44 03  STA vEnemyAFrameCounter,X      ; reset a counter
 C - - - - - 0x0180BE 06:A0AE: 60        RTS                            ;
 
 C - - - - - 0x0180BF 06:A0AF: A0 0C     LDY #$0C                       ; !(UNUSED), 1 offset of the hitbox position
@@ -313,7 +313,7 @@ C - - - - - 0x018177 06:A167: 90 0F     BCC bra_A178_skip                     ; 
 C - - - - - 0x018179 06:A169: 20 7E A1  JSR sub_A17E_try_movement_on_the_left ;
 loc_A16C_prepare_rendering_by_frame_:
 C D 1 - - - 0x01817C 06:A16C: 20 AE D9  JSR sub_D9AE_inc_enemyA_frame_counter ;
-C - - - - - 0x01817F 06:A16F: BD 44 03  LDA vEnemyAFrame_Counter,X            ;
+C - - - - - 0x01817F 06:A16F: BD 44 03  LDA vEnemyAFrameCounter,X             ;
 C - - - - - 0x018182 06:A172: 0A        ASL                                   ;
 C - - - - - 0x018183 06:A173: 0A        ASL                                   ; *4
 C - - - - - 0x018184 06:A174: A8        TAY                                   ; prepares the sprite_magic2 (The offset by the address)
@@ -344,7 +344,7 @@ C - - - - - 0x0181AA 06:A19A: 9D 4A 03  STA vEnemyAJumpCounter,X      ;
 C - - - - - 0x0181AD 06:A19D: A9 03     LDA #$03                      ; CONSTANT - jump by side
 C - - - - - 0x0181AF 06:A19F: 9D 56 03  STA vEnemyAJumpType,X         ;
 C - - - - - 0x0181B2 06:A1A2: A9 00     LDA #$00                      ;
-C - - - - - 0x0181B4 06:A1A4: 9D 44 03  STA vEnemyAFrame_Counter,X    ; reset a counter
+C - - - - - 0x0181B4 06:A1A4: 9D 44 03  STA vEnemyAFrameCounter,X     ; reset a counter
 bra_A1A7_RTS:
 C - - - - - 0x0181B7 06:A1A7: 60        RTS                           ;
 
@@ -420,7 +420,7 @@ C - - - - - 0x018234 06:A224: 9D 56 03  STA vEnemyAJumpType,X          ;
 C - - - - - 0x018237 06:A227: A9 02     LDA #$02                       ; CONSTANT - the jump
 C - - - - - 0x018239 06:A229: 20 23 A3  JSR sub_A323_change_substatus  ;
 C - - - - - 0x01823C 06:A22C: A9 00     LDA #$00                       ;
-C - - - - - 0x01823E 06:A22E: 9D 44 03  STA vEnemyAFrame_Counter,X     ; reset a counter
+C - - - - - 0x01823E 06:A22E: 9D 44 03  STA vEnemyAFrameCounter,X      ; reset a counter
 ; In: Register X - the enemyA number
 loc_A231_jump:
 bra_A231_jump:
@@ -733,7 +733,7 @@ C - - - - - 0x01844C 06:A43C: 20 89 A4  JSR sub_A489_execute_fly_step          ;
 @bra_A43F_skip:
 C - - - - - 0x01844F 06:A43F: 20 C4 D9  JSR sub_D9C4_inc_enemyB_frame_counter  ;
 @bra_A442_prepare_rendering:
-C - - - - - 0x018452 06:A442: BD 80 03  LDA vEnemyBFrame_Counter,X             ;
+C - - - - - 0x018452 06:A442: BD 80 03  LDA vEnemyBFrameCounter,X              ;
 C - - - - - 0x018455 06:A445: 0A        ASL                                    ;
 C - - - - - 0x018456 06:A446: 0A        ASL                                    ; 
 C - - - - - 0x018457 06:A447: A8        TAY                                    ; Y <~ 4 * vFrameCounter
@@ -1028,9 +1028,9 @@ loc_A631_main:
 C - - - - - 0x018641 06:A631: A9 09     LDA #$09                                     ; prepare an input parameter (+9)
 C - - - - - 0x018643 06:A633: 20 DB D8  JSR sub_D8DB_enemyB_collision_by_shift_posY  ;
 C - - - - - 0x018646 06:A636: D0 49     BNE bra_A681_collision                       ; If the collision by posY exists
-C - - - - - 0x018648 06:A638: BD 80 03  LDA vEnemyBFrame_Counter,X                   ;
+C - - - - - 0x018648 06:A638: BD 80 03  LDA vEnemyBFrameCounter,X                    ;
 C - - - - - 0x01864B 06:A63B: 29 03     AND #$03                                     ; filters by 0%000000XX
-C - - - - - 0x01864D 06:A63D: 9D 80 03  STA vEnemyBFrame_Counter,X                   ;
+C - - - - - 0x01864D 06:A63D: 9D 80 03  STA vEnemyBFrameCounter,X                    ;
 C - - - - - 0x018650 06:A640: A9 1C     LDA #$1C                                     ; CONSTANT - a jump counter value
 C - - - - - 0x018652 06:A642: A0 03     LDY #$03                                     ; CONSTANT - jump by side
 C - - - - - 0x018654 06:A644: 4C CE A6  JMP loc_A6CE_activate_jump_status            ;
@@ -1058,7 +1058,7 @@ C - - - - - 0x018679 06:A669: F0 03     BEQ bra_A66E_skip               ; If 'th
 C - - - - - 0x01867B 06:A66B: 4C 52 A7  JMP loc_A752_dying              ;
 
 bra_A66E_skip:
-C - - - - - 0x01867E 06:A66E: BD 80 03  LDA vEnemyBFrame_Counter,X    ;
+C - - - - - 0x01867E 06:A66E: BD 80 03  LDA vEnemyBFrameCounter,X     ;
 C - - - - - 0x018681 06:A671: 29 06     AND #$06                      ; filters by vFrameCounter
 C - - - - - 0x018683 06:A673: 18        CLC                           ;
 C - - - - - 0x018684 06:A674: 6D 06 03  ADC vEnemyBSpriteMagic2       ; ~> sprite_magic2 + {0x00, 0x02, 0x04, 0x06}
@@ -1089,11 +1089,11 @@ C - - - - - 0x0186AF 06:A69F: D0 0D     BNE bra_A6AE_RTS              ; Branch i
 C - - - - - 0x0186B1 06:A6A1: BD 5C 03  LDA vEnemyBStatus,X           ;
 C - - - - - 0x0186B4 06:A6A4: 6A        ROR                           ;
 C - - - - - 0x0186B5 06:A6A5: B0 04     BCS bra_A6AB_left             ; If the enemy is looking to the left
-C - - - - - 0x0186B7 06:A6A7: FE 80 03  INC vEnemyBFrame_Counter,X    ; direct updating
+C - - - - - 0x0186B7 06:A6A7: FE 80 03  INC vEnemyBFrameCounter,X     ; direct updating
 C - - - - - 0x0186BA 06:A6AA: 60        RTS                           ;
 
 bra_A6AB_left:
-C - - - - - 0x0186BB 06:A6AB: DE 80 03  DEC vEnemyBFrame_Counter,X    ; reverse updating
+C - - - - - 0x0186BB 06:A6AB: DE 80 03  DEC vEnemyBFrameCounter,X     ; reverse updating
 bra_A6AE_RTS:
 C - - - - - 0x0186BE 06:A6AE: 60        RTS                           ;
 
@@ -1297,7 +1297,7 @@ C - - - - - 0x0187F9 06:A7E9: 9D 20 03  STA vEnemyAStatus,X            ;
 C - - - - - 0x0187FC 06:A7EC: A9 10     LDA #$10                       ; Initializes a jump counter
 C - - - - - 0x0187FE 06:A7EE: 9D 4A 03  STA vEnemyAJumpCounter,X       ;
 C - - - - - 0x018801 06:A7F1: A9 00     LDA #$00                       ;
-C - - - - - 0x018803 06:A7F3: 9D 44 03  STA vEnemyAFrame_Counter,X     ; reset a counter
+C - - - - - 0x018803 06:A7F3: 9D 44 03  STA vEnemyAFrameCounter,X      ; reset a counter
 bra_A7F6_RTS:
 C - - - - - 0x018806 06:A7F6: 60        RTS                            ;
 
@@ -1506,7 +1506,7 @@ sub_A92A_add_projectile_ex:
 C - - - - - 0x01893A 06:A92A: 20 37 A9  JSR sub_A937_prepare_projectile_params_  ;
 C - - - - - 0x01893D 06:A92D: A4 1A     LDY vTempCounter1A                       ;
 C - - - - - 0x01893F 06:A92F: A9 01     LDA #$01                                 ;
-C - - - - - 0x018941 06:A931: 99 46 03  STA vEnemyAProjectileFrame_Counter,Y     ; assign a counter
+C - - - - - 0x018941 06:A931: 99 46 03  STA vEnemyAProjectileFrameCounter,Y      ; assign a counter
 C - - - - - 0x018944 06:A934: 4C 50 A9  JMP loc_A950_set_projectile              ;
 
 ; In: Register Y - the projectile params number
@@ -1678,7 +1678,7 @@ C - - - - - 0x018A52 06:AA42: 4C 89 AA  JMP loc_AA89_prepare_rendering      ;
 
 ; In: Register X - the projectile number
 loc_AA45_main:
-C - - - - - 0x018A55 06:AA45: BD 44 03  LDA vEnemyAFrame_Counter,X        ;
+C - - - - - 0x018A55 06:AA45: BD 44 03  LDA vEnemyAFrameCounter,X         ;
 C - - - - - 0x018A58 06:AA48: F0 29     BEQ bra_AA73_zero                 ; If frameCounter == 0x00
 C - - - - - 0x018A5A 06:AA4A: BD 20 03  LDA vEnemyAStatus,X               ;
 C - - - - - 0x018A5D 06:AA4D: 29 04     AND #$04                          ; CONSTANT - using vJumpCounter
@@ -1704,7 +1704,7 @@ C - - - - - 0x018A80 06:AA70: 4C F2 AA  JMP loc_AAF2_try_to_move_along_parabola 
 
 ; In: Register X - the projectile number
 bra_AA73_zero:
-C - - - - - 0x018A83 06:AA73: DE 44 03  DEC vEnemyAFrame_Counter,X      ; 0x00 -> 0xFF
+C - - - - - 0x018A83 06:AA73: DE 44 03  DEC vEnemyAFrameCounter,X       ; 0x00 -> 0xFF
 C - - - - - 0x018A86 06:AA76: A0 04     LDY #$04                        ; prepares the sprite_magic2 #1 (The offset by the address)
 C - - - - - 0x018A88 06:AA78: AD 00 03  LDA vEnemyA                     ;
 C - - - - - 0x018A8B 06:AA7B: C9 01     CMP #$01                        ; CONSTANT - Cat with the gun
@@ -1882,9 +1882,9 @@ C - - - - - 0x018BD1 06:ABC1: 20 DB AB  JSR sub_ABDB_execute_fly_step     ;
 C - - - - - 0x018BD4 06:ABC4: A5 2C     LDA vLowCounter                   ;
 C - - - - - 0x018BD6 06:ABC6: 29 03     AND #$03                          ;
 C - - - - - 0x018BD8 06:ABC8: D0 03     BNE @bra_ABCD_skip                ; Branch if vLowCounter doesn't multiple of 4 (75% chance)
-C - - - - - 0x018BDA 06:ABCA: FE 44 03  INC vEnemyAFrame_Counter,X        ;
+C - - - - - 0x018BDA 06:ABCA: FE 44 03  INC vEnemyAFrameCounter,X         ;
 @bra_ABCD_skip:
-C - - - - - 0x018BDD 06:ABCD: BD 44 03  LDA vEnemyAFrame_Counter,X        ;
+C - - - - - 0x018BDD 06:ABCD: BD 44 03  LDA vEnemyAFrameCounter,X         ;
 C - - - - - 0x018BE0 06:ABD0: 29 03     AND #$03                          ; adjust by mask
 C - - - - - 0x018BE2 06:ABD2: 0A        ASL                               ;
 C - - - - - 0x018BE3 06:ABD3: 0A        ASL                               ; *4
@@ -1975,7 +1975,7 @@ C - - - - - 0x018C73 06:AC63: 99 7C 03  STA vEnemyBProjectilePosXHigh,Y        ;
 C - - - - - 0x018C76 06:AC66: A9 30     LDA #$30                               ;
 C - - - - - 0x018C78 06:AC68: 99 6A 03  STA vEnemyBProjectilePosY,Y            ; initialize Y-position
 C - - - - - 0x018C7B 06:AC6B: A9 00     LDA #$00                               ;
-C - - - - - 0x018C7D 06:AC6D: 99 82 03  STA vEnemyBProjectileFrame_Counter,Y   ; reset a counter
+C - - - - - 0x018C7D 06:AC6D: 99 82 03  STA vEnemyBProjectileFrameCounter,Y    ; reset a counter
 C - - - - - 0x018C80 06:AC70: A9 18     LDA #$18                               ; CONSTANT - a maximum amplitude
 C - - - - - 0x018C82 06:AC72: 99 88 03  STA vEnemyBProjectileJumpCounter,Y     ;
 @bra_AC75_skip:
@@ -2184,14 +2184,14 @@ C - - - - - 0x018DE1 06:ADD1: 9D 88 03  STA vEnemyBProjectileJumpCounter,X    ; 
 C - - - - - 0x018DE4 06:ADD4: A5 2C     LDA vLowCounter                       ;
 C - - - - - 0x018DE6 06:ADD6: 29 03     AND #$03                              ;
 C - - - - - 0x018DE8 06:ADD8: D0 0F     BNE @bra_ADE9_assign                  ; Branch if vLowCounter doesn't multiple of 4 (75% chance)
-C - - - - - 0x018DEA 06:ADDA: FE 82 03  INC vEnemyBProjectileFrame_Counter,X  ; prepare a next frame
-C - - - - - 0x018DED 06:ADDD: BD 82 03  LDA vEnemyBProjectileFrame_Counter,X  ;
+C - - - - - 0x018DEA 06:ADDA: FE 82 03  INC vEnemyBProjectileFrameCounter,X   ; prepare a next frame
+C - - - - - 0x018DED 06:ADDD: BD 82 03  LDA vEnemyBProjectileFrameCounter,X   ;
 C - - - - - 0x018DF0 06:ADE0: C9 08     CMP #$08                              ; CONSTANT - the number of the frames
 C - - - - - 0x018DF2 06:ADE2: 90 05     BCC @bra_ADE9_assign                  ; If vFrameCounter < 0x08
 C - - - - - 0x018DF4 06:ADE4: A9 00     LDA #$00                              ; CONSTANT - 1st frame
-C - - - - - 0x018DF6 06:ADE6: 9D 82 03  STA vEnemyBProjectileFrame_Counter,X  ; reassign
+C - - - - - 0x018DF6 06:ADE6: 9D 82 03  STA vEnemyBProjectileFrameCounter,X   ; reassign
 @bra_ADE9_assign:
-C - - - - - 0x018DF9 06:ADE9: BC 82 03  LDY vEnemyBProjectileFrame_Counter,X  ;
+C - - - - - 0x018DF9 06:ADE9: BC 82 03  LDY vEnemyBProjectileFrameCounter,X   ;
 C - - - - - 0x018DFC 06:ADEC: B9 F3 AD  LDA tbl_ADF3_offsets,Y                ;
 C - - - - - 0x018DFF 06:ADEF: A8        TAY                                   ; prepares the sprite_magic2 (The offset by the address)
 C - - - - - 0x018E00 06:ADF0: 4C 83 AD  JMP loc_AD83_prepare_rendering        ;
@@ -2288,7 +2288,7 @@ C - - - - - 0x018E8C 06:AE7C: 20 7A AF  JSR sub_AF7A_change_substatus           
 C - - - - - 0x018E8F 06:AE7F: 20 68 AF  JSR sub_AF68_horizontal_movement        ;
 loc_AE82_continue:
 C - - - - - 0x018E92 06:AE82: 20 C4 D9  JSR sub_D9C4_inc_enemyB_frame_counter   ;
-C - - - - - 0x018E95 06:AE85: BD 80 03  LDA vEnemyBFrame_Counter,X              ;
+C - - - - - 0x018E95 06:AE85: BD 80 03  LDA vEnemyBFrameCounter,X               ;
 C - - - - - 0x018E98 06:AE88: 0A        ASL                                     ;
 C - - - - - 0x018E99 06:AE89: 0A        ASL                                     ;
 C - - - - - 0x018E9A 06:AE8A: A8        TAY                                     ; Y <~ 4 * vFrameCounter
@@ -2522,7 +2522,7 @@ C - - - - - 0x019028 06:B018: 9D 4A 03  STA vEnemyAJumpCounter,X      ;
 C - - - - - 0x01902B 06:B01B: A9 03     LDA #$03                      ; CONSTANT - jump by side
 C - - - - - 0x01902D 06:B01D: 9D 56 03  STA vEnemyAJumpType,X         ;
 C - - - - - 0x019030 06:B020: A9 00     LDA #$00                      ;
-C - - - - - 0x019032 06:B022: 9D 44 03  STA vEnemyAFrame_Counter,X    ; reset a counter
+C - - - - - 0x019032 06:B022: 9D 44 03  STA vEnemyAFrameCounter,X     ; reset a counter
 bra_B025_RTS:
 C - - - - - 0x019035 06:B025: 60        RTS                           ;
 
@@ -2670,7 +2670,7 @@ C - - - - - 0x019128 06:B118: 20 37 A9  JSR sub_A937_prepare_projectile_params_ 
 C - - - - - 0x01912B 06:B11B: A4 05     LDY $0005                                ; prepares the projectile number
 C - - - - - 0x01912D 06:B11D: 20 50 A9  JSR sub_A950_set_projectile              ;
 C - - - - - 0x019130 06:B120: A9 04     LDA #$04                                 ;
-C - - - - - 0x019132 06:B122: 99 46 03  STA vEnemyAProjectileFrame_Counter,Y     ; assign a frame counter
+C - - - - - 0x019132 06:B122: 99 46 03  STA vEnemyAProjectileFrameCounter,Y      ; assign a frame counter
 C - - - - - 0x019135 06:B125: 99 28 03  STA vEnemyAProjectileVelocity,Y          ; assign a velocity
 @bra_B128_pop:
 C - - - - - 0x019138 06:B128: 68        PLA                                      ; retrieve A (see $B104)
@@ -2881,7 +2881,7 @@ C - - - - - 0x01929A 06:B28A: 20 4E B7  JSR sub_B74E_change_substatus  ;
 C - - - - - 0x01929D 06:B28D: A9 03     LDA #$03                       ; CONSTANT - jump by side
 C - - - - - 0x01929F 06:B28F: 9D 56 03  STA vEnemyAJumpType,X          ;
 C - - - - - 0x0192A2 06:B292: A9 00     LDA #$00                       ;
-C - - - - - 0x0192A4 06:B294: 9D 44 03  STA vEnemyAFrame_Counter,X     ; reset a counter
+C - - - - - 0x0192A4 06:B294: 9D 44 03  STA vEnemyAFrameCounter,X      ; reset a counter
 C - - - - - 0x0192A7 06:B297: A0 10     LDY #$10                       ; the jump counter value #1
 C - - - - - 0x0192A9 06:B299: AD 00 03  LDA vEnemyA                    ;
 C - - - - - 0x0192AC 06:B29C: C9 38     CMP #$38                       ; CONSTANT - Ninja upside down
@@ -3252,7 +3252,7 @@ C - - - - - 0x019507 06:B4F7: 90 0F     BCC bra_B508_skip                       
 C - - - - - 0x019509 06:B4F9: 20 0E B5  JSR sub_B50E_try_movement_on_the_left    ;
 loc_B4FC_prepare_rendering_by_frame_:
 C D 1 - - - 0x01950C 06:B4FC: 20 AE D9  JSR sub_D9AE_inc_enemyA_frame_counter    ;
-C - - - - - 0x01950F 06:B4FF: BD 44 03  LDA vEnemyAFrame_Counter,X               ;
+C - - - - - 0x01950F 06:B4FF: BD 44 03  LDA vEnemyAFrameCounter,X                ;
 C - - - - - 0x019512 06:B502: 0A        ASL                                      ;
 C - - - - - 0x019513 06:B503: 0A        ASL                                      ; *4
 C - - - - - 0x019514 06:B504: A8        TAY                                      ; prepares the sprite_magic2 (The offset by the address)
@@ -3298,7 +3298,7 @@ C - - - - - 0x01954F 06:B53F: 20 4E B7  JSR sub_B74E_change_substatus   ;
 C - - - - - 0x019552 06:B542: A9 03     LDA #$03                        ; CONSTANT - jump by side
 C - - - - - 0x019554 06:B544: 9D 56 03  STA vEnemyAJumpType,X           ;
 C - - - - - 0x019557 06:B547: A9 00     LDA #$00                        ;
-C - - - - - 0x019559 06:B549: 9D 44 03  STA vEnemyAFrame_Counter,X      ; reset a counter
+C - - - - - 0x019559 06:B549: 9D 44 03  STA vEnemyAFrameCounter,X       ; reset a counter
 bra_B54C_RTS:
 C - - - - - 0x01955C 06:B54C: 60        RTS                             ;
 
@@ -3339,7 +3339,7 @@ C - - - - - 0x01958C 06:B57C: 9D 56 03  STA vEnemyAJumpType,X                   
 C - - - - - 0x01958F 06:B57F: A9 02     LDA #$02                                ; CONSTANT - the jump
 C - - - - - 0x019591 06:B581: 20 4E B7  JSR sub_B74E_change_substatus           ;
 C - - - - - 0x019594 06:B584: A9 00     LDA #$00                                ;
-C - - - - - 0x019596 06:B586: 9D 44 03  STA vEnemyAFrame_Counter,X              ; reset a counter
+C - - - - - 0x019596 06:B586: 9D 44 03  STA vEnemyAFrameCounter,X               ; reset a counter
 loc_B589_jump:
 C - - - - - 0x019599 06:B589: BD 2C 03  LDA vEnemyAPosY,X                       ;
 C - - - - - 0x01959C 06:B58C: C9 DF     CMP #$DF                                ; CONSTANT - Maximum allowed Y-value on the screen
@@ -3661,7 +3661,7 @@ C - - - - - 0x019799 06:B789: 18        CLC                                   ;
 C - - - - - 0x01979A 06:B78A: 7D 2C 03  ADC vEnemyAPosY,X                     ;
 C - - - - - 0x01979D 06:B78D: 9D 2E 03  STA vEnemyAProjectilePosY,X           ; <~ PosY + the offset
 C - - - - - 0x0197A0 06:B790: A9 00     LDA #$00                              ;
-C - - - - - 0x0197A2 06:B792: 9D 46 03  STA vEnemyAProjectileFrame_Counter,X  ; Initializes a projectile frame counter
+C - - - - - 0x0197A2 06:B792: 9D 46 03  STA vEnemyAProjectileFrameCounter,X   ; Initializes a projectile frame counter
 C - - - - - 0x0197A5 06:B795: 4C A6 B7  JMP loc_B7A6_continue                 ;
 
 ; In: Register X - the enemyA number
@@ -3671,7 +3671,7 @@ C - - - - - 0x0197AB 06:B79B: 38        SEC                                   ;
 C - - - - - 0x0197AC 06:B79C: E9 17     SBC #$17                              ;
 C - - - - - 0x0197AE 06:B79E: 9D 2E 03  STA vEnemyAProjectilePosY,X           ; <~ PosY - 0x17
 C - - - - - 0x0197B1 06:B7A1: A9 01     LDA #$01                              ;
-C - - - - - 0x0197B3 06:B7A3: 9D 46 03  STA vEnemyAProjectileFrame_Counter,X  ; Initializes a projectile frame counter
+C - - - - - 0x0197B3 06:B7A3: 9D 46 03  STA vEnemyAProjectileFrameCounter,X   ; Initializes a projectile frame counter
 loc_B7A6_continue:
 C D 1 - - - 0x0197B6 06:B7A6: A9 C4     LDA #$C4                            ;
 C - - - - - 0x0197B8 06:B7A8: 85 00     STA $0000                           ; $0000 <~ 0xC4
@@ -3889,7 +3889,7 @@ C - - - - - 0x019927 06:B917: 90 0F     BCC bra_B928_right                      
 C - - - - - 0x019929 06:B919: 20 2E B9  JSR sub_B92E_try_movement_on_the_left     ;
 loc_B91C_prepare_rendering_by_frame_:
 C D 1 - - - 0x01992C 06:B91C: 20 AE D9  JSR sub_D9AE_inc_enemyA_frame_counter     ;
-C - - - - - 0x01992F 06:B91F: BD 44 03  LDA vEnemyAFrame_Counter,X                ;
+C - - - - - 0x01992F 06:B91F: BD 44 03  LDA vEnemyAFrameCounter,X                 ;
 C - - - - - 0x019932 06:B922: 0A        ASL                                       ;
 C - - - - - 0x019933 06:B923: 0A        ASL                                       ; *4
 C - - - - - 0x019934 06:B924: A8        TAY                                       ; prepares the sprite_magic2 (The offset by the address)
@@ -3923,7 +3923,7 @@ C - - - - - 0x019964 06:B954: 20 AD BA  JSR sub_BAAD_change_substatus  ;
 C - - - - - 0x019967 06:B957: A9 03     LDA #$03                       ; CONSTANT - jump by side
 C - - - - - 0x019969 06:B959: 9D 56 03  STA vEnemyAJumpType,X          ;
 C - - - - - 0x01996C 06:B95C: A9 00     LDA #$00                       ;
-C - - - - - 0x01996E 06:B95E: 9D 44 03  STA vEnemyAFrame_Counter,X     ; reset a counter
+C - - - - - 0x01996E 06:B95E: 9D 44 03  STA vEnemyAFrameCounter,X      ; reset a counter
 bra_B961_RTS:
 C - - - - - 0x019971 06:B961: 60        RTS                            ;
 
@@ -3966,7 +3966,7 @@ C - - - - - 0x0199A6 06:B996: 9D 56 03  STA vEnemyAJumpType,X                   
 C - - - - - 0x0199A9 06:B999: A9 02     LDA #$02                                ; CONSTANT - the jump
 C - - - - - 0x0199AB 06:B99B: 20 AD BA  JSR sub_BAAD_change_substatus           ;
 C - - - - - 0x0199AE 06:B99E: A9 00     LDA #$00                                ;
-C - - - - - 0x0199B0 06:B9A0: 9D 44 03  STA vEnemyAFrame_Counter,X              ; reset a counter
+C - - - - - 0x0199B0 06:B9A0: 9D 44 03  STA vEnemyAFrameCounter,X               ; reset a counter
 loc_B9A3_jump:
 C - - - - - 0x0199B3 06:B9A3: BD 2C 03  LDA vEnemyAPosY,X                       ;
 C - - - - - 0x0199B6 06:B9A6: C9 DF     CMP #$DF                                ; CONSTANT - Maximum allowed Y-value on the screen
@@ -4147,7 +4147,7 @@ C - - - - - 0x019ADC 06:BACC: 18        CLC                                    ;
 C - - - - - 0x019ADD 06:BACD: 69 03     ADC #$03                               ;
 C - - - - - 0x019ADF 06:BACF: 9D 28 03  STA vEnemyAProjectileVelocity,X        ; vVelocity <~ (0x03, 0x04, 0x05, 0x06)
 C - - - - - 0x019AE2 06:BAD2: A9 00     LDA #$00                               ;
-C - - - - - 0x019AE4 06:BAD4: 9D 46 03  STA vEnemyAProjectileFrame_Counter,X   ; Initializes a projectile frame counter
+C - - - - - 0x019AE4 06:BAD4: 9D 46 03  STA vEnemyAProjectileFrameCounter,X    ; Initializes a projectile frame counter
 C - - - - - 0x019AE7 06:BAD7: A9 03     LDA #$03                               ; 
 C - - - - - 0x019AE9 06:BAD9: 9D 4C 03  STA vEnemyAProjectileJumpCounter,X     ; Initializes a jump counter
 C - - - - - 0x019AEC 06:BADC: A9 31     LDA #$31                               ; sound of fist swings
@@ -4239,7 +4239,7 @@ C - - - - - 0x019B77 06:BB67: 9D 4A 03  STA vEnemyAJumpCounter,X       ;
 C - - - - - 0x019B7A 06:BB6A: A9 03     LDA #$03                       ; CONSTANT - jump by side
 C - - - - - 0x019B7C 06:BB6C: 9D 56 03  STA vEnemyAJumpType,X          ;
 C - - - - - 0x019B7F 06:BB6F: A9 00     LDA #$00                       ;
-C - - - - - 0x019B81 06:BB71: 9D 44 03  STA vEnemyAFrame_Counter,X     ; reset a counter
+C - - - - - 0x019B81 06:BB71: 9D 44 03  STA vEnemyAFrameCounter,X      ; reset a counter
 C - - - - - 0x019B84 06:BB74: 60        RTS                            ;
 
 sub_BB75_prepare_hitbox:
@@ -4292,7 +4292,7 @@ C - - - - - 0x019BD5 06:BBC5: 4C 6E BC  JMP loc_BC6E_mini_jump          ;
 bra_BBC8_skip:
 C - - - - - 0x019BD8 06:BBC8: 20 18 BC  JSR sub_BC18_try_movements      ;
 bra_BBCB_stopping:
-C - - - - - 0x019BDB 06:BBCB: BD 44 03  LDA vEnemyAFrame_Counter,X      ;
+C - - - - - 0x019BDB 06:BBCB: BD 44 03  LDA vEnemyAFrameCounter,X       ;
 C - - - - - 0x019BDE 06:BBCE: 0A        ASL                             ;
 C - - - - - 0x019BDF 06:BBCF: 0A        ASL                             ; *4
 C - - - - - 0x019BE0 06:BBD0: A8        TAY                             ; prepares the sprite_magic2 (The offset by the address)
@@ -4371,7 +4371,7 @@ C - - - - - 0x019C5C 06:BC4C: 9D 4A 03  STA vEnemyAJumpCounter,X        ;
 C - - - - - 0x019C5F 06:BC4F: A9 03     LDA #$03                        ; CONSTANT - jump by side
 C - - - - - 0x019C61 06:BC51: 9D 56 03  STA vEnemyAJumpType,X           ;
 C - - - - - 0x019C64 06:BC54: A9 00     LDA #$00                        ;
-C - - - - - 0x019C66 06:BC56: 9D 44 03  STA vEnemyAFrame_Counter,X      ; reset a counter
+C - - - - - 0x019C66 06:BC56: 9D 44 03  STA vEnemyAFrameCounter,X       ; reset a counter
 bra_BC59_RTS:
 C - - - - - 0x019C69 06:BC59: 60        RTS                             ;
 
@@ -4402,7 +4402,7 @@ C - - - - - 0x019C86 06:BC76: 9D 56 03  STA vEnemyAJumpType,X                   
 C - - - - - 0x019C89 06:BC79: A9 02     LDA #$02                                ; CONSTANT - the jump
 C - - - - - 0x019C8B 06:BC7B: 20 5F BD  JSR sub_BD5F_change_substatus           ;
 C - - - - - 0x019C8E 06:BC7E: A9 00     LDA #$00                                ;
-C - - - - - 0x019C90 06:BC80: 9D 44 03  STA vEnemyAFrame_Counter,X              ; reset a counter
+C - - - - - 0x019C90 06:BC80: 9D 44 03  STA vEnemyAFrameCounter,X               ; reset a counter
 loc_BC83_jump:
 C - - - - - 0x019C93 06:BC83: BD 2C 03  LDA vEnemyAPosY,X                       ;
 C - - - - - 0x019C96 06:BC86: C9 DF     CMP #$DF                                ; CONSTANT - Maximum allowed Y-value on the screen

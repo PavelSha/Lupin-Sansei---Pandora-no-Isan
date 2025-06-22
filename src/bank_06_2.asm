@@ -195,7 +195,7 @@ C - - - - - 0x01A09E 06:A08E: 9D 4A 03  STA vEnemyAJumpCounter,X       ;
 C - - - - - 0x01A0A1 06:A091: A9 01     LDA #$01                       ; CONSTANT - low jump
 C - - - - - 0x01A0A3 06:A093: 9D 56 03  STA vEnemyAJumpType,X          ;
 C - - - - - 0x01A0A6 06:A096: A9 00     LDA #$00                       ;
-C - - - - - 0x01A0A8 06:A098: 9D 44 03  STA vEnemyAFrame_Counter,X     ; reset a counter
+C - - - - - 0x01A0A8 06:A098: 9D 44 03  STA vEnemyAFrameCounter,X      ; reset a counter
 C - - - - - 0x01A0AB 06:A09B: 60        RTS                            ;
 
 ; In: Register X - the number of the bullet
@@ -369,7 +369,7 @@ C - - - - - 0x01A1C1 06:A1B1: 9D 56 03  STA vEnemyAJumpType,X          ; Initial
 C - - - - - 0x01A1C4 06:A1B4: A9 02     LDA #$02                       ; CONSTANT - 'jump' status
 C - - - - - 0x01A1C6 06:A1B6: 20 BA A2  JSR sub_A2BA_change_substatus  ;
 C - - - - - 0x01A1C9 06:A1B9: A9 00     LDA #$00                       ;
-C - - - - - 0x01A1CB 06:A1BB: 9D 44 03  STA vEnemyAFrame_Counter,X     ; reset a counter
+C - - - - - 0x01A1CB 06:A1BB: 9D 44 03  STA vEnemyAFrameCounter,X      ; reset a counter
 loc_A1BE_jump:
 C - - - - - 0x01A1CE 06:A1BE: BD 2C 03  LDA vEnemyAPosY,X              ;
 C - - - - - 0x01A1D1 06:A1C1: C9 DF     CMP #$DF                       ; CONSTANT - Maximum allowed Y-value on the screen
@@ -622,7 +622,7 @@ C - - - - - 0x01A37C 06:A36C: 9D 4A 03  STA vEnemyAJumpCounter,X       ;
 C - - - - - 0x01A37F 06:A36F: A9 03     LDA #$03                       ; CONSTANT - jump by side
 C - - - - - 0x01A381 06:A371: 9D 56 03  STA vEnemyAJumpType,X          ;
 C - - - - - 0x01A384 06:A374: A9 00     LDA #$00                       ;
-C - - - - - 0x01A386 06:A376: 9D 44 03  STA vEnemyAFrame_Counter,X     ; reset a counter
+C - - - - - 0x01A386 06:A376: 9D 44 03  STA vEnemyAFrameCounter,X      ; reset a counter
 C - - - - - 0x01A389 06:A379: 60        RTS                            ;
 
 ; In: Register X - the enemyA number
@@ -760,7 +760,7 @@ C - - - - - 0x01A45C 06:A44C: 90 0F     BCC bra_A45D_right                      
 C - - - - - 0x01A45E 06:A44E: 20 63 A4  JSR sub_A463_try_to_movement_on_the_left ;
 loc_A451_prepare_rendering_by_frame_:
 C D 1 - - - 0x01A461 06:A451: 20 AE D9  JSR sub_D9AE_inc_enemyA_frame_counter    ;
-C - - - - - 0x01A464 06:A454: BD 44 03  LDA vEnemyAFrame_Counter,X               ;
+C - - - - - 0x01A464 06:A454: BD 44 03  LDA vEnemyAFrameCounter,X                ;
 C - - - - - 0x01A467 06:A457: 0A        ASL                                      ;
 C - - - - - 0x01A468 06:A458: 0A        ASL                                      ; *4
 C - - - - - 0x01A469 06:A459: A8        TAY                                      ; prepares the sprite_magic2 (The offset by the address)
@@ -792,7 +792,7 @@ C - - - - - 0x01A496 06:A486: 9D 4A 03  STA vEnemyAJumpCounter,X       ;
 C - - - - - 0x01A499 06:A489: A9 03     LDA #$03                       ; CONSTANT - jump by side
 C - - - - - 0x01A49B 06:A48B: 9D 56 03  STA vEnemyAJumpType,X          ;
 C - - - - - 0x01A49E 06:A48E: A9 00     LDA #$00                       ;
-C - - - - - 0x01A4A0 06:A490: 9D 44 03  STA vEnemyAFrame_Counter,X     ; reset a counter
+C - - - - - 0x01A4A0 06:A490: 9D 44 03  STA vEnemyAFrameCounter,X      ; reset a counter
 bra_A493_RTS:
 C - - - - - 0x01A4A3 06:A493: 60        RTS                            ;
 
@@ -835,7 +835,7 @@ C - - - - - 0x01A4DB 06:A4CB: 9D 56 03  STA vEnemyAJumpType,X                   
 C - - - - - 0x01A4DE 06:A4CE: A9 02     LDA #$02                                  ; CONSTANT - the jump
 C - - - - - 0x01A4E0 06:A4D0: 20 E9 A5  JSR sub_A5E9_change_substatus             ;
 C - - - - - 0x01A4E3 06:A4D3: A9 00     LDA #$00                                  ;
-C - - - - - 0x01A4E5 06:A4D5: 9D 44 03  STA vEnemyAFrame_Counter,X                ; reset a counter
+C - - - - - 0x01A4E5 06:A4D5: 9D 44 03  STA vEnemyAFrameCounter,X                 ; reset a counter
 loc_A4D8_jump:
 C - - - - - 0x01A4E8 06:A4D8: BD 2C 03  LDA vEnemyAPosY,X                         ;
 C - - - - - 0x01A4EB 06:A4DB: C9 DF     CMP #$DF                                  ; CONSTANT - Maximum allowed Y-value on the screen
@@ -1127,7 +1127,7 @@ C - - - - - 0x01A6DE 06:A6CE: 9D 4A 03  STA vEnemyAJumpCounter,X       ;
 C - - - - - 0x01A6E1 06:A6D1: A9 03     LDA #$03                       ; CONSTANT - jump by side
 C - - - - - 0x01A6E3 06:A6D3: 9D 56 03  STA vEnemyAJumpType,X          ;
 C - - - - - 0x01A6E6 06:A6D6: A9 00     LDA #$00                       ;
-C - - - - - 0x01A6E8 06:A6D8: 9D 44 03  STA vEnemyAFrame_Counter,X     ; reset a counter
+C - - - - - 0x01A6E8 06:A6D8: 9D 44 03  STA vEnemyAFrameCounter,X      ; reset a counter
 C - - - - - 0x01A6EB 06:A6DB: 60        RTS                            ;
 
 sub_A6DC_prepare_external_hitbox:
@@ -1332,7 +1332,7 @@ C - - - - - 0x01A844 06:A834: 90 11     BCC bra_A847_skip                       
 C - - - - - 0x01A846 06:A836: 20 4D A8  JSR sub_A84D_try_movement_on_the_left    ;
 loc_A839_prepare_rendering_by_frame_:
 C D 1 - - - 0x01A849 06:A839: 20 AE D9  JSR sub_D9AE_inc_enemyA_frame_counter    ;
-C - - - - - 0x01A84C 06:A83C: BD 44 03  LDA vEnemyAFrame_Counter,X               ;
+C - - - - - 0x01A84C 06:A83C: BD 44 03  LDA vEnemyAFrameCounter,X                ;
 C - - - - - 0x01A84F 06:A83F: 29 03     AND #$03                                 ;
 C - - - - - 0x01A851 06:A841: 0A        ASL                                      ;
 C - - - - - 0x01A852 06:A842: 0A        ASL                                      ; *4
@@ -1367,7 +1367,7 @@ C - - - - - 0x01A880 06:A870: 9D 4A 03  STA vEnemyAJumpCounter,X        ;
 C - - - - - 0x01A883 06:A873: A9 03     LDA #$03                        ; CONSTANT - jump by side
 C - - - - - 0x01A885 06:A875: 9D 56 03  STA vEnemyAJumpType,X           ;
 C - - - - - 0x01A888 06:A878: A9 00     LDA #$00                        ;
-C - - - - - 0x01A88A 06:A87A: 9D 44 03  STA vEnemyAFrame_Counter,X      ; reset a counter
+C - - - - - 0x01A88A 06:A87A: 9D 44 03  STA vEnemyAFrameCounter,X       ; reset a counter
 bra_A87D_RTS:
 C - - - - - 0x01A88D 06:A87D: 60        RTS                             ;
 
@@ -1418,7 +1418,7 @@ C - - - - - 0x01A8D1 06:A8C1: 9D 56 03  STA vEnemyAJumpType,X                   
 C - - - - - 0x01A8D4 06:A8C4: A9 02     LDA #$02                                ; CONSTANT - the jump
 C - - - - - 0x01A8D6 06:A8C6: 20 E3 A9  JSR sub_A9E3_change_substatus           ;
 C - - - - - 0x01A8D9 06:A8C9: A9 00     LDA #$00                                ;
-C - - - - - 0x01A8DB 06:A8CB: 9D 44 03  STA vEnemyAFrame_Counter,X              ; reset a counter
+C - - - - - 0x01A8DB 06:A8CB: 9D 44 03  STA vEnemyAFrameCounter,X               ; reset a counter
 loc_A8CE_jump:
 C - - - - - 0x01A8DE 06:A8CE: BD 2C 03  LDA vEnemyAPosY,X                       ;
 C - - - - - 0x01A8E1 06:A8D1: C9 DF     CMP #$DF                                ; CONSTANT - Maximum allowed Y-value on the screen
@@ -1726,13 +1726,13 @@ sub_AAC6_get_offset_by_frame_:
 C - - - - - 0x01AAD6 06:AAC6: A5 2C     LDA vLowCounter                    ;
 C - - - - - 0x01AAD8 06:AAC8: 29 07     AND #$07                           ;
 C - - - - - 0x01AADA 06:AACA: D0 03     BNE @bra_AACF_skip                 ; Branch if vLowCounter doesn't multiple of 8 (vLowCounter % 8 != 0) (87.5% chance)
-C - - - - - 0x01AADC 06:AACC: FE 80 03  INC vEnemyBFrame_Counter,X         ;
+C - - - - - 0x01AADC 06:AACC: FE 80 03  INC vEnemyBFrameCounter,X          ;
 @bra_AACF_skip:
-C - - - - - 0x01AADF 06:AACF: BD 80 03  LDA vEnemyBFrame_Counter,X         ;
+C - - - - - 0x01AADF 06:AACF: BD 80 03  LDA vEnemyBFrameCounter,X          ;
 C - - - - - 0x01AAE2 06:AAD2: C9 03     CMP #$03                           ; CONSTANT - Max value
 C - - - - - 0x01AAE4 06:AAD4: 90 05     BCC @bra_AADB_acceptable           ; If vFrameCounter < 0x03
 C - - - - - 0x01AAE6 06:AAD6: A9 00     LDA #$00                           ;
-C - - - - - 0x01AAE8 06:AAD8: 9D 80 03  STA vEnemyBFrame_Counter,X         ; reset a counter
+C - - - - - 0x01AAE8 06:AAD8: 9D 80 03  STA vEnemyBFrameCounter,X          ; reset a counter
 @bra_AADB_acceptable:
 C - - - - - 0x01AAEB 06:AADB: 0A        ASL                                ;
 C - - - - - 0x01AAEC 06:AADC: 0A        ASL                                ;
@@ -2368,10 +2368,10 @@ C - - - - - 0x01AF0A 06:AEFA: D0 03     BNE bra_AEFF_update            ; If new 
 bra_AEFC_up:
 C - - - - - 0x01AF0C 06:AEFC: DE 68 03  DEC vEnemyBPosY,X              ; the platform moves up
 bra_AEFF_update:
-C - - - - - 0x01AF0F 06:AEFF: FE 80 03  INC vEnemyBFrame_Counter,X     ;
+C - - - - - 0x01AF0F 06:AEFF: FE 80 03  INC vEnemyBFrameCounter,X      ;
 C - - - - - 0x01AF12 06:AF02: 10 0D     BPL @bra_AF11_skip             ; If vFrameCounter < 0x80 (as signed value)
 C - - - - - 0x01AF14 06:AF04: A9 00     LDA #$00                       ;
-C - - - - - 0x01AF16 06:AF06: 9D 80 03  STA vEnemyBFrame_Counter,X     ; reset
+C - - - - - 0x01AF16 06:AF06: 9D 80 03  STA vEnemyBFrameCounter,X      ; reset
 C - - - - - 0x01AF19 06:AF09: BD 5C 03  LDA vEnemyBStatus,X            ;
 C - - - - - 0x01AF1C 06:AF0C: 49 01     EOR #$01                       ; changes the vertical direction
 C - - - - - 0x01AF1E 06:AF0E: 9D 5C 03  STA vEnemyBStatus,X            ;
@@ -3552,7 +3552,7 @@ C - - - - - 0x01B69B 06:B68B: D0 F5     BNE @bra_B682_loop             ; If Regi
 C - - - - - 0x01B69D 06:B68D: A9 04     LDA #$04                       ;
 C - - - - - 0x01B69F 06:B68F: 8D 32 06  STA vPpuBufferCount            ; init count (4 tiles)
 C - - - - - 0x01B6A2 06:B692: A9 02     LDA #$02                       ;
-C - - - - - 0x01B6A4 06:B694: 8D 44 03  STA vPhenixFrame_Counter       ; initializes a starting frame counter
+C - - - - - 0x01B6A4 06:B694: 8D 44 03  STA vPhenixFrameCounter        ; initializes a starting frame counter
 C - - - - - 0x01B6A7 06:B697: A9 A0     LDA #$A0                       ;
 C - - - - - 0x01B6A9 06:B699: 8D 38 03  STA vPhenixPosXLow             ; initializes a starting low X-position
 C - - - - - 0x01B6AC 06:B69C: A9 00     LDA #$00                       ;
@@ -3638,18 +3638,18 @@ C - - - - - 0x01B72E 06:B71E: 20 80 B8  JSR sub_B880_execute_fly_phenix         
 C - - - - - 0x01B731 06:B721: A9 07     LDA #$07                                 ;
 C - - - - - 0x01B733 06:B723: 25 2C     AND vLowCounter                          ;
 C - - - - - 0x01B735 06:B725: D0 0F     BNE @bra_B736_prepare_rendering          ; Branch if vLowCounter doesn't multiple of 8 (87.5% chance)
-C - - - - - 0x01B737 06:B727: EE 44 03  INC vPhenixFrame_Counter                 ; prepare a next frame
-C - - - - - 0x01B73A 06:B72A: AD 44 03  LDA vPhenixFrame_Counter                 ;
+C - - - - - 0x01B737 06:B727: EE 44 03  INC vPhenixFrameCounter                  ; prepare a next frame
+C - - - - - 0x01B73A 06:B72A: AD 44 03  LDA vPhenixFrameCounter                  ;
 C - - - - - 0x01B73D 06:B72D: C9 03     CMP #$03                                 ; CONSTANT - the number of the frames
 C - - - - - 0x01B73F 06:B72F: 90 05     BCC @bra_B736_prepare_rendering          ; If vFrameCounter < 0x03
 C - - - - - 0x01B741 06:B731: A9 00     LDA #$00                                 ; CONSTANT - 1st frame
-C - - - - - 0x01B743 06:B733: 8D 44 03  STA vPhenixFrame_Counter                 ; reassign
+C - - - - - 0x01B743 06:B733: 8D 44 03  STA vPhenixFrameCounter                  ; reassign
 @bra_B736_prepare_rendering:
 C - - - - - 0x01B746 06:B736: AD 2C 03  LDA vPhenixPosY                          ;
 C - - - - - 0x01B749 06:B739: 85 00     STA $0000                                ; ~> sprite_magic1, Y-position
 C - - - - - 0x01B74B 06:B73B: AD 38 03  LDA vPhenixPosXLow                       ;
 C - - - - - 0x01B74E 06:B73E: 85 03     STA $0003                                ; ~> sprite_magic4, X-position
-C - - - - - 0x01B750 06:B740: AD 44 03  LDA vPhenixFrame_Counter                 ;
+C - - - - - 0x01B750 06:B740: AD 44 03  LDA vPhenixFrameCounter                  ;
 C - - - - - 0x01B753 06:B743: 0A        ASL                                      ;
 C - - - - - 0x01B754 06:B744: 18        CLC                                      ;
 C - - - - - 0x01B755 06:B745: 69 04     ADC #$04                                 ; prepare an input parameter, A <~ 2 * vFrameCounter + 0x04

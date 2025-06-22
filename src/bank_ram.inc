@@ -229,7 +229,7 @@ vJumpType                       = $6E ;
 ; 0x00 - 0x07 - the right fly direction
 ; 0x08 - 0x0F - the left fly direction
 vJumpCounter                    = $6F ;
-vChrFrame_Counter               = $70 ;
+vChrFrameCounter                = $70 ;
 vVelocity                       = $71 ;
 ; By default: 0x04 - min, 0x0C - max
 ; Level-racing: 0x00 - min, 0x10 - max, 0x06 - default
@@ -552,14 +552,14 @@ vEnemyAProjectilePosXHigh       = $0340 ; [$0340-$0343]
 ;ram_0342                       = $0342 ;
 ;ram_0343                       = $0343 ;
 vLiftCounter                    = $0344 ; range: [0x00, 0x7F], for $0345-$0346
-vPhenixFrame_Counter            = $0344 ; see below
-vEnemyAFrame_Counter            = $0344 ; see below
-vEnemyAFrame_Counter1           = $0344 ; The frame index (the enemy number = 1)
+vPhenixFrameCounter             = $0344 ; see below
+vEnemyAFrameCounter             = $0344 ; see below
+vEnemyAFrameCounter1            = $0344 ; The frame index (the enemy number = 1)
 vEnemyASpecSubCounter           = $0344 ; for last boss
 vEnemyASpecSubCounter1          = $0344 ; for last boss
-vEnemyAFrame_Counter2           = $0345 ; The frame index (the enemy number = 2)
+vEnemyAFrameCounter2            = $0345 ; The frame index (the enemy number = 2)
 vEnemyASpecSubCounter2          = $0345 ; for last boss
-vEnemyAProjectileFrame_Counter  = $0346 ; [$0346-$0349]
+vEnemyAProjectileFrameCounter   = $0346 ; [$0346-$0349]
 ;ram_0347                       = $0347 ;
 ;ram_0348                       = $0348 ;
 ;ram_0349                       = $0349 ;
@@ -642,10 +642,10 @@ vEnemyBProjectilePosXHigh       = $037C ; [$037C-$037F]
 ;ram_037D                       = $037D ;
 ;ram_037E                       = $037E ;
 ;ram_037F                       = $037F ;
-vEnemyBFrame_Counter            = $0380 ; see below
-vEnemyBFrame_Counter1           = $0380 ; The frame index (the enemy number = 1)
-vEnemyBFrame_Counter2           = $0381 ; The frame index (the enemy number = 2)
-vEnemyBProjectileFrame_Counter  = $0382 ; [$0382-$0385]
+vEnemyBFrameCounter             = $0380 ; see below
+vEnemyBFrameCounter1            = $0380 ; The frame index (the enemy number = 1)
+vEnemyBFrameCounter2            = $0381 ; The frame index (the enemy number = 2)
+vEnemyBProjectileFrameCounter   = $0382 ; [$0382-$0385]
 ;ram_0383                       = $0383 ;
 ;ram_0384                       = $0384 ;
 ;ram_0385                       = $0385 ;
