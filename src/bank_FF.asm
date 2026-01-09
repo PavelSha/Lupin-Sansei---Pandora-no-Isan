@@ -1833,6 +1833,18 @@ C - - - - - 0x01CAD0 07:CAC0: 8D AD 06  STA vPpuAddrDataCache + 50   ; mark for 
 C - - - - - 0x01CAD3 07:CAC3: 60        RTS                          ;  
 
 tbl_CAC4_tiles:
+.if .defined(ru)
+  .byte $40 ; О
+  .byte $7a ; Ч
+  .byte $7b ; К
+  .byte $7c ; И
+  .byte $78 ; 
+  .byte $7d ; П
+  .byte $7e ; А
+  .byte $7f ; У
+  .byte $79 ; З
+  .byte $7e ; А
+.else
 - D 2 - - - 0x01CAD4 07:CAC4: 4D        .byte $4D ; S
 - D 2 - - - 0x01CAD5 07:CAC5: 50        .byte $50 ; C
 - D 2 - - - 0x01CAD6 07:CAC6: 51        .byte $51 ; O
@@ -1843,6 +1855,7 @@ tbl_CAC4_tiles:
 - D 2 - - - 0x01CADB 07:CACB: 4C        .byte $4C ; U
 - D 2 - - - 0x01CADC 07:CACC: 4D        .byte $4D ; S
 - D 2 - - - 0x01CADD 07:CACD: 4E        .byte $4E ; E
+.endif
 tbl_CACE_offset:
 - D 2 - - - 0x01CADE 07:CACE: 0B        .byte $0B ; Radio
 - D 2 - - - 0x01CADF 07:CACF: 0E        .byte $0E ; Bomb

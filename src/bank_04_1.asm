@@ -64,9 +64,12 @@ tbl_clarissa_colors:
 
 ; Address of the frames (a list tiles)
 tbl_copyright:
-.ifdef en
+.if .defined(en)
   .byte $00, $00, $7b, $00, $4c, $10, $0f, $0c, $06, $1a, $00, $4f, $16, $0f, $04, $09
   .byte $00, $5b, $00, $53, $4c, $52, $00, $00
+.elseif .defined(ru)
+  .byte $7b, $00, $42, $47, $48, $44, $45, $5b, $4d, $44, $53, $5f, $00, $71, $79, $5c
+  .byte $70, $77, $5c, $72, $70, $71, $70, $00
 .else
 - D 0 - - - 0x01003A 04:802A: 7B        .byte $7B   ; 
 - D 0 - - - 0x01003B 04:802B: 00        .byte $00   ; 
@@ -282,7 +285,11 @@ loc_display_select_character:
 - D 0 - I - 0x010175 04:8165: 08        .byte $08
 
 - D 0 - I - 0x010176 04:8166: 0E 22     .word $220E            ; PPU address
+.if .defined(ru)
+  .addr loc_sc_score_ru                                        ; CPU address $87F5
+.else
 - D 0 - I - 0x010178 04:8168: EE 87     .addr loc_sc_score     ; CPU address $87EE
+.endif
 - D 0 - I - 0x01017A 04:816A: 05        .byte $05
 
 ; see $C652
@@ -1082,6 +1089,36 @@ loc_tbl_attrs_select_character:
 
 ; Please select your character
 loc_tile_select_character1:
+.if .defined(ru)
+  .byte $00   ;
+  .byte $00   ;
+  .byte $41   ; В
+  .byte $13   ; Ы
+  .byte $02   ; Б
+  .byte $44   ; Е
+  .byte $4f   ; Р
+  .byte $08   ; И
+  .byte $53   ; Т
+  .byte $44   ; Е
+  .byte $00   ;
+  .byte $41   ; В
+  .byte $40   ; А
+  .byte $10   ; Ш
+  .byte $44   ; Е
+  .byte $03   ; Г
+  .byte $4e   ; О
+  .byte $00   ; 
+  .byte $0b   ; П
+  .byte $44   ; Е
+  .byte $4f   ; Р
+  .byte $42   ; С
+  .byte $4e   ; О
+  .byte $47   ; Н
+  .byte $40   ; А
+  .byte $06   ; Ж
+  .byte $40   ; А
+  .byte $00   ;
+.else
 - D 0 - I - 0x0106D9 04:86C9: 4F        .byte $4F   ; P
 - D 0 - I - 0x0106DA 04:86CA: 4B        .byte $4B   ; L
 - D 0 - I - 0x0106DB 04:86CB: 44        .byte $44   ; E
@@ -1110,51 +1147,64 @@ loc_tile_select_character1:
 - D 0 - I - 0x0106F2 04:86E2: 53        .byte $53   ; T
 - D 0 - I - 0x0106F3 04:86E3: 44        .byte $44   ; E
 - D 0 - I - 0x0106F4 04:86E4: 51        .byte $51   ; R
+.endif
 
 ; Lupin (top row)
 loc_tile_select_character2:
-.ifdef en
+.if .defined(en)
   .byte $00, $00, $00
+.elseif .defined(ru)
+  .byte $61, $62, $63
 .else
 - D 0 - I - 0x0106F5 04:86E5: 00        .byte $00, $7F, $00
 .endif
 
 ; Lupin (bottom row)
 loc_tile_select_character3:
-.ifdef en
+.if .defined(en)
   .byte $25, $26, $27
+.elseif .defined(ru)
+  .byte $00, $00, $00
 .else
 - D 0 - I - 0x0106F8 04:86E8: 04        .byte $04, $05, $6C ; ルパン
 .endif
 
 ; Jigen (top row)
 loc_tile_select_character4:
-.ifdef en
+.if .defined(en)
   .byte $00, $00, $00
+.elseif .defined(ru)
+  .byte $64, $65, $66
 .else
 - D 0 - I - 0x0106FB 04:86EB: 7E        .byte $7E, $7E, $00
 .endif
 
 ; Jigen (bottom row)
 loc_tile_select_character5:
-.ifdef en
+.if .defined(en)
   .byte $28, $29, $27
+.elseif .defined(ru)
+  .byte $00, $00, $00
 .else
 - D 0 - I - 0x0106FE 04:86EE: 30        .byte $30, $2D, $29 ; じげん
 .endif
 
 ; Goemon (top row)
 loc_tile_select_character6:
-.ifdef en
+.if .defined(en)
   .byte $00, $00, $00, $00
+.elseif .defined(ru)
+  .byte $67, $68, $69, $00
 .else
 - D 0 - I - 0x010701 04:86F1: 7E        .byte $7E, $00, $00, $00
 .endif
 
 ; Goemon (bottom row)
 loc_tile_select_character7:
-.ifdef en
+.if .defined(en)
   .byte $2a, $2b, $2c, $00
+.elseif .defined(ru)
+  .byte $00, $00, $00, $00
 .else
 - D 0 - I - 0x010705 04:86F5: 2E        .byte $2E, $13, $1E, $29 ; ごえもん
 .endif
@@ -1248,6 +1298,17 @@ loc_sc_last_cutscene_tbl_attrs:
 - D 0 - I - 0x0107F7 04:87E7: A6        .byte $A6, $BB
 - D 0 - I - 0x0107F9 04:87E9: 05        .byte $05, $05
 
+.if .defined(ru)
+loc_sc_hi_score:
+  .byte $00   ;
+  .byte $00   ;
+  .byte $4f   ; Р
+  .byte $44   ; Е
+  .byte $4a   ; К
+  .byte $4e   ; О
+  .byte $4f   ; Р
+  .byte $04   ; Д
+.else
 loc_sc_hi_score:
 - D 0 - I - 0x0107FB 04:87EB: 47        .byte $47   ; H
 - D 0 - I - 0x0107FC 04:87EC: 48        .byte $48   ; I
@@ -1258,9 +1319,21 @@ loc_sc_score:
 - D 0 - I - 0x010800 04:87F0: 4E        .byte $4E   ; O
 - D 0 - I - 0x010801 04:87F1: 51        .byte $51   ; R
 - D 0 - I - 0x010802 04:87F2: 44        .byte $44   ; E
+.endif
 
 loc_tbl_title_attrs:
+.if .defined(ru)
+  .byte $00, $f0
+loc_sc_score_ru:
+  .byte $00   ;
+  .byte $4e   ; О
+  .byte $0f   ; Ч
+  .byte $4a   ; К
+  .byte $08   ; И
+  .byte $f0   ;
+.else
 - D 0 - I - 0x010803 04:87F3: F0        .byte $F0, $F0, $F0, $F0, $F0, $F0, $F0, $F0
+.endif
 - D 0 - I - 0x01080B 04:87FB: 05        .byte $05, $05, $05, $05, $05, $05, $05, $05
 - D 0 - I - 0x010813 04:8803: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00
 - D 0 - I - 0x01081B 04:880B: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00
@@ -1270,13 +1343,31 @@ loc_tbl_title_attrs:
 - D 0 - I - 0x01083B 04:882B: 55        .byte $55, $55, $55, $55, $55, $55, $55, $55
 
 loc_tile_score:
+.if .defined(ru)
+  .byte $00   ;
+  .byte $80   ; О
+  .byte $84   ; Ч
+  .byte $94   ; К
+  .byte $97   ; И
+.else
 - D 0 - I - 0x010843 04:8833: 9C        .byte $9C   ; S
 - D 0 - I - 0x010844 04:8834: 8C        .byte $8C   ; C
 - D 0 - I - 0x010845 04:8835: 98        .byte $98   ; O
 - D 0 - I - 0x010846 04:8836: 9B        .byte $9B   ; R
 - D 0 - I - 0x010847 04:8837: 8E        .byte $8E   ; E
+.endif
 
 loc_tile_hi_score:
+.if .defined(ru)
+  .byte $00   ;
+  .byte $00   ;
+  .byte $99   ; Р
+  .byte $8e   ; Е
+  .byte $94   ; К
+  .byte $80   ; О
+  .byte $99   ; Р
+  .byte $8d   ; Д
+.else
 - D 0 - I - 0x010848 04:8838: 91        .byte $91   ; H
 - D 0 - I - 0x010849 04:8839: 92        .byte $92   ; I
 - D 0 - I - 0x01084A 04:883A: A5        .byte $A5   ; -
@@ -1285,8 +1376,12 @@ loc_tile_hi_score:
 - D 0 - I - 0x01084D 04:883D: 98        .byte $98   ; O
 - D 0 - I - 0x01084E 04:883E: 9B        .byte $9B   ; R
 - D 0 - I - 0x01084F 04:883F: 8E        .byte $8E   ; E
+.endif
 
 loc_tile_namcot:
+.if .defined(ru)
+  .byte $00, $ab, $ac, $ad, $ae, $af, $00, $00
+.else
 - D 0 - I - 0x010850 04:8840: A8        .byte $A8
 - D 0 - I - 0x010851 04:8841: AA        .byte $AA
 - D 0 - I - 0x010852 04:8842: A9        .byte $A9
@@ -1295,8 +1390,30 @@ loc_tile_namcot:
 - D 0 - I - 0x010855 04:8845: AE        .byte $AE
 - D 0 - I - 0x010856 04:8846: AD        .byte $AD
 - D 0 - I - 0x010857 04:8847: AF        .byte $AF
+.endif
 
 loc_tile_all_rights_reserved:
+.if .defined(ru)
+  .byte $00   ;
+  .byte $8d   ; Д
+  .byte $97   ; И
+  .byte $83   ; З
+  .byte $83   ; З
+  .byte $97   ; И
+  .byte $00   ;
+  .byte $97   ; И
+  .byte $00   ;
+  .byte $8f   ; Г
+  .byte $8a   ; А
+  .byte $a9   ; Й
+  .byte $8b   ; В
+  .byte $8e   ; Е
+  .byte $99   ; Р
+  .byte $80   ; О
+  .byte $96   ; М
+  .byte $a6   ; .
+  .byte $00   ;
+.else
 - D 0 - I - 0x010858 04:8848: 8A        .byte $8A   ; A
 - D 0 - I - 0x010859 04:8849: 95        .byte $95   ; L
 - D 0 - I - 0x01085A 04:884A: 95        .byte $95   ; L
@@ -1316,8 +1433,28 @@ loc_tile_all_rights_reserved:
 - D 0 - I - 0x010868 04:8858: 9F        .byte $9F   ; V
 - D 0 - I - 0x010869 04:8859: 8E        .byte $8E   ; E
 - D 0 - I - 0x01086A 04:885A: 8D        .byte $8D   ; D
+.endif
 
 loc_tile_1987_namco_ltd:
+.if .defined(ru)
+  .byte $00   ;
+  .byte $98   ; П
+  .byte $8e   ; Е
+  .byte $99   ; Р
+  .byte $8e   ; Е
+  .byte $8b   ; В
+  .byte $80   ; О
+  .byte $8d   ; Д
+  .byte $00   ;
+  .byte $8c   ; С
+  .byte $8d   ; Д
+  .byte $8e   ; Е
+  .byte $95   ; Л
+  .byte $8a   ; А
+  .byte $91   ; Н
+  .byte $00   ;
+  .byte $00   ;
+.else
 - D 0 - I - 0x01086B 04:885B: A7        .byte $A7   ; ©
 - D 0 - I - 0x01086C 04:885C: 00        .byte $00   ; 
 - D 0 - I - 0x01086D 04:885D: 81        .byte $81   ; 1
@@ -1335,15 +1472,34 @@ loc_tile_1987_namco_ltd:
 - D 0 - I - 0x010879 04:8869: 9D        .byte $9D   ; T
 - D 0 - I - 0x01087A 04:886A: 8D        .byte $8D   ; D
 - D 0 - I - 0x01087B 04:886B: A6        .byte $A6   ; .
+.endif
 
 loc_tile_start:
+.if .defined(ru)
+  .byte $8c   ; С
+  .byte $9d   ; Т
+  .byte $8a   ; А
+  .byte $99   ; Р
+  .byte $9d   ; Т
+.else
 - D 0 - I - 0x01087C 04:886C: 9C        .byte $9C   ; S
 - D 0 - I - 0x01087D 04:886D: 9D        .byte $9D   ; T
 - D 0 - I - 0x01087E 04:886E: 8A        .byte $8A   ; A
 - D 0 - I - 0x01087F 04:886F: 9B        .byte $9B   ; R
 - D 0 - I - 0x010880 04:8870: 9D        .byte $9D   ; T
+.endif
 
 loc_tile_continue:
+.if .defined(ru)
+  .byte $8d   ; Д
+  .byte $8a   ; А
+  .byte $95   ; Л
+  .byte $92   ; Ь
+  .byte $9e   ; Ш
+  .byte $8e   ; Е
+  .byte $00   ;
+  .byte $00   ;
+.else
 - D 0 - I - 0x010881 04:8871: 8C        .byte $8C   ; C
 - D 0 - I - 0x010882 04:8872: 98        .byte $98   ; O
 - D 0 - I - 0x010883 04:8873: 97        .byte $97   ; N
@@ -1352,10 +1508,14 @@ loc_tile_continue:
 - D 0 - I - 0x010886 04:8876: 97        .byte $97   ; N
 - D 0 - I - 0x010887 04:8877: 9E        .byte $9E   ; U
 - D 0 - I - 0x010888 04:8878: 8E        .byte $8E   ; E
+.endif
 
 loc_tile_title_row1:
-.ifdef en
+.if .defined(en)
   .byte $00, $00, $00, $00, $00, $b3, $b4, $00, $b6, $b7, $00, $00, $00, $00, $00, $00
+  .byte $00, $00, $00, $00, $00, $00
+.elseif .defined(ru)
+  .byte $f5, $f7, $d6, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
   .byte $00, $00, $00, $00, $00, $00
 .else
 - D 0 - I - 0x010889 04:8879: F5        .byte $F5, $F7, $00, $00, $00, $00, $00, $00, $00, $00, $00, $B7, $B9, $00, $00, $00
@@ -1363,66 +1523,81 @@ loc_tile_title_row1:
 .endif
 
 loc_tile_title_row2:
-.ifdef en
+.if .defined(en)
   .byte $00, $00, $00, $00, $00, $c3, $c4, $c5, $c6, $c7, $c8, $c9, $ca, $cb, $cc, $cd
   .byte $ce, $cf, $00, $00, $00, $00
+.elseif .defined(ru)
+  .byte $b0, $b2, $b4, $b6, $ba, $f6, $f9, $c1, $bd, $bc, $be, $ff, $bf, $fe, $ba, $b6
+  .byte $ba, $00, $c2, $c8, $c8, $cc
 .else
 - D 0 - I - 0x01089F 04:888F: B0        .byte $B0, $B2, $B4, $B6, $B8, $BA, $BC, $BE, $2C, $2E, $34, $00, $C0, $C2, $C8, $C8
 - D 0 - I - 0x0108AF 04:889F: CC        .byte $CC, $CE, $36, $02, $EA, $00
 .endif
 
 loc_tile_title_row3:
-.ifdef en
+.if .defined(en)
   .byte $00, $00, $00, $00, $00, $d3, $d4, $d5, $d6, $d7, $d8, $d9, $da, $db, $dc, $dd
   .byte $de, $df, $00, $00, $00, $00
+.elseif .defined(ru)
+  .byte $b1, $b3, $b5, $00, $bb, $bb, $c0, $fb, $bb, $00, $bb, $bb, $00, $00, $bb, $00
+  .byte $bb, $00, $c3, $e8, $ec, $cd
 .else
 - D 0 - I - 0x0108B5 04:88A5: B1        .byte $B1, $B3, $B5, $B7, $B9, $BB, $BD, $BF, $2D, $2F, $35, $00, $C1, $C3, $C9, $C9
 - D 0 - I - 0x0108C5 04:88B5: CD        .byte $CD, $CF, $01, $03, $EB, $10
 .endif
 
 loc_tile_title_row4:
-.ifdef en
+.if .defined(en)
   .byte $00, $00, $00, $00, $e2, $e3, $e4, $e5, $e6, $e7, $e8, $e9, $ea, $eb, $ec, $ed
   .byte $ee, $ef, $00, $00, $00, $00
+.elseif .defined(ru)
+  .byte $d0, $d2, $d4, $00, $cb, $d9, $00, $bb, $bb, $00, $bb, $c7, $bf, $c6, $b9, $b7
+  .byte $d8, $00, $ee, $e8, $e2, $00
 .else
 - D 0 - I - 0x0108CB 04:88BB: D0        .byte $D0, $D2, $D4, $D6, $D8, $DA, $DC, $DE, $00, $00, $00, $E6, $E0, $E2, $E8, $E8
 - D 0 - I - 0x0108DB 04:88CB: EC        .byte $EC, $EE, $04, $06, $08, $0A
 .endif
 
 loc_tile_title_row5:
-.ifdef en
+.if .defined(en)
   .byte $00, $00, $00, $00, $f2, $f3, $00, $f5, $f6, $f7, $f8, $f9, $fa, $fb, $fc, $fd
   .byte $fe, $00, $00, $00, $00, $00
+.elseif .defined(ru)
+  .byte $d1, $d3, $d5, $00, $db, $e5, $fd, $bb, $bb, $00, $bb, $bb, $00, $00, $bb, $00
+  .byte $bb, $e1, $e3, $e9, $e0, $ed
 .else
 - D 0 - I - 0x0108E1 04:88D1: D1        .byte $D1, $D3, $D5, $D7, $D9, $DB, $DD, $DF, $C5, $C7, $E5, $E7, $E1, $E3, $E9, $E9
 - D 0 - I - 0x0108F1 04:88E1: ED        .byte $ED, $EF, $05, $07, $09, $0B
 .endif
 
 loc_tile_title_row6:
-.ifdef en
+.if .defined(en)
   .byte $00, $00, $00, $00, $00, $00, $00, $b8, $b9, $00, $00, $ba, $bb, $bc, $bd, $00
   .byte $00, $00, $00, $00, $00, $00
+.elseif .defined(ru)
+  .byte $f0, $f2, $f4, $f8, $fa, $d7, $e6, $e7, $fc, $00, $fc, $c5, $bf, $c6, $fc, $00
+  .byte $fc, $c4, $e4, $e4, $e4, $ca
 .else
 - D 0 - I - 0x0108F7 04:88E7: F0        .byte $F0, $F2, $F4, $F6, $F8, $FA, $FC, $FE, $F9, $FB, $FD, $FF, $C4, $C6, $E4, $E4
 - D 0 - I - 0x010907 04:88F7: 0C        .byte $0C, $0E, $E4, $E4, $0D, $0F
 .endif
 
 loc_tile_title_row7:
-.ifdef en
+.if .defined(en)
   .byte $00, $F1
 .else
 - D 0 - I - 0x01090D 04:88FD: F3        .byte $F3, $F1
 .endif
 
 loc_tile_subtitle_row1:
-.ifdef en
+.if .defined(en)
   .byte $00, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0a, $0b, $0c, $0d, $0e
 .else
 - D 0 - I - 0x01090F 04:88FF: 14        .byte $14, $16, $18, $1A, $1C, $1E, $20, $22, $24, $26, $28, $2A, $13, $12, $30
 .endif
 
 loc_tile_subtitle_row2:
-.ifdef en
+.if .defined(en)
   .byte $00, $0f, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $15, $16, $17
 .else
 - D 0 - I - 0x01091E 04:890E: 15        .byte $15, $17, $19, $1B, $1D, $1F, $21, $23, $25, $27, $29, $2B, $11, $33, $31
@@ -3033,10 +3208,18 @@ loc_main_menu_gunshot_f3:
 - D 0 - I - 0x011DD1 04:9DC1: 66        .byte $66
 - D 0 - I - 0x011DD2 04:9DC2: 06        .byte $06
 - D 0 - I - 0x011DD3 04:9DC3: 21        .dbyt $216B   ; PPU Address
+.if .defined(ru)
+  .byte $65, $67, $69, $6b, $bb, $6f
+.else
 - D 0 - I - 0x011DD5 04:9DC5: 65        .byte $65, $67, $69, $6B, $00, $6F
+.endif
 - D 0 - I - 0x011DDB 04:9DCB: 05        .byte $05
 - D 0 - I - 0x011DDC 04:9DCC: 21        .dbyt $218C   ; PPU Address
+.if .defined(ru)
+  .byte $72, $fc, $76, $78, $7a
+.else
 - D 0 - I - 0x011DDE 04:9DCE: 72        .byte $72, $F9, $76, $78, $7A
+.endif
 - D 0 - I - 0x011DE3 04:9DD3: 02        .byte $02
 - D 0 - I - 0x011DE4 04:9DD4: 21        .dbyt $21AE   ; PPU Address
 - D 0 - I - 0x011DE6 04:9DD6: 77        .byte $77, $79
@@ -3045,21 +3228,21 @@ loc_main_menu_gunshot_f3:
 loc_main_menu_gunshot_f4:
 - D 0 - I - 0x011DE9 04:9DD9: 01        .byte $01
 - D 0 - I - 0x011DEA 04:9DDA: 20        .dbyt $20AE   ; PPU Address
-.ifdef en
+.if .defined(en)
   .byte $00
 .else
 - D 0 - I - 0x011DEC 04:9DDC: 55        .byte $55
 .endif
 - D 0 - I - 0x011DED 04:9DDD: 0D        .byte $0D
 - D 0 - I - 0x011DEE 04:9DDE: 20        .dbyt $20C8   ; PPU Address
-.ifdef en
+.if .defined(en)
   .byte $00, $60, $00, $50, $52, $54, $56, $00, $00, $7C, $00, $00, $62
 .else
 - D 0 - I - 0x011DF0 04:9DE0: 6D        .byte $6D, $60, $00, $50, $52, $54, $56, $00, $00, $7C, $00, $00, $62
 .endif
 - D 0 - I - 0x011DFD 04:9DED: 0A        .byte $0A
 - D 0 - I - 0x011DFE 04:9DEE: 20        .dbyt $20EA   ; PPU Address
-.ifdef en
+.if .defined(en)
   .byte $63, $51, $53, $55, $57, $38, $3A, $7D, $7F, $61
 .else
 - D 0 - I - 0x011E00 04:9DF0: 63        .byte $63, $51, $53, $00, $57, $38, $3A, $7D, $7F, $61
@@ -3078,7 +3261,7 @@ loc_main_menu_gunshot_f5:
 - D 0 - I - 0x011E1F 04:9E0F: 5F        .byte $5F, $71, $00, $00, $77, $79, $00, $00, $58, $5A
 - D 0 - I - 0x011E29 04:9E19: 0C        .byte $0C
 - D 0 - I - 0x011E2A 04:9E1A: 21        .dbyt $21CA   ; PPU Address
-.ifdef en
+.if .defined(en)
   .byte $5d, $03, $04, $05, $73, $07, $08, $09, $0a, $0b, $59, $5b
 .else
 - D 0 - I - 0x011E2C 04:9E1C: 5D        .byte $5D, $1A, $1C, $1E, $73, $22, $24, $26, $28, $2A, $59, $5B

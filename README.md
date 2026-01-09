@@ -11,6 +11,7 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 ## Building
 -  Windows - run a command ***assemble.bat***
 -  Windows - run a command ***assemble.bat*** ***en*** (for an English translation)
+-  Windows - run a command ***assemble.bat*** ***ru*** (for an Russian translation)
 -  Linux, MacOS - run a command ***assemble.sh*** (more information - [NES Games Disassembly](https://github.com/cyneprepou4uk/NES-Games-Disassembly))
 ## Statistic
 -  Code Logger bytes (by lines) - ***45.51%***
@@ -37,13 +38,21 @@ Example: ``python prebuild.py "c:\Lupin Sansei - Pandora no Isan\original.nes" "
 
 ***SHA-1***: B633CC515C6A913D5A65A230E0698446331869A5
 
--  Lupin the 3rd: Pandora's Legacy (Released By	Vice Translations, an English translation)
+-  Lupin the 3rd: Pandora's Legacy (Released By	[Vice Translations](https://www.romhacking.net/translations/773/), an English translation)
 
 ***CRC32***: 6054CA94
 
 ***MD5***: 4E0AC251E0FCC19F005E950934024F2B
 
 ***SHA-1***: E66D818A0625C12F3410ABC326D1DC1E5F8B2835
+
+-  Люпен III: Наследие пандоры (Released By [CHIEF-NET](http://chief-net.ru/index.php?option=com_content&task=view&id=161&Itemid=38), version 1.0, an Russian translation)
+
+***CRC32***: 1D2F7948
+
+***MD5***: 78F3C294D1A61E3F8D623FCDA59F3F3E
+
+***SHA-1***: C8E128A54BF9ABA9D9DD0F28A45F34E443FF0CDC
 
 -  [BZK 6502 Disassembler](https://github.com/cyneprepou4uk/BZK-6502-Disassembler) - the main tool for creating disassembly source code.
 -  [FCEUX](https://fceux.com/web/home.html) - the Famicom emulator, debugger, PPU and name tables viewer, trace logger, recording movies tool, autohotkey (Tool-Assisted Speedrun) tool.

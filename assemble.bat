@@ -15,12 +15,15 @@
 :: make sure to use the same name in preparations.lua
 set "file_name=_lupin"
 if "%~1"=="en" set "file_name=_lupin_en"
+if "%~1"=="ru" set "file_name=_lupin_ru"
 
 set "chr_file_name=CHR_ROM"
 if "%~1"=="en" set "chr_file_name=CHR_ROM_EN"
+if "%~1"=="ru" set "chr_file_name=CHR_ROM_RU"
 
 set "header_file_name=header"
 if "%~1"=="en" set "header_file_name=header_en"
+if "%~1"=="ru" set "header_file_name=header_ru"
 
 :: size of your ROM file in bytes (decimal),
 :: used for checking if assembled file is correct
@@ -31,6 +34,7 @@ set "file_size=196624"
 :: lowercase is allowed
 set "sha1_original=B633CC515C6A913D5A65A230E0698446331869A5"
 if "%~1"=="en" set "sha1_original=E66D818A0625C12F3410ABC326D1DC1E5F8B2835"
+if "%~1"=="ru" set "sha1_original=C8E128A54BF9ABA9D9DD0F28A45F34E443FF0CDC"
 
 :: set to 0 if you want to create debug and listing files.
 :: this can slow down assembling a little bit, but these
@@ -58,6 +62,7 @@ set "file_diff=0"
 
 set "translate_symbol=jp"
 if "%~1"=="en" set "translate_symbol=en"
+if "%~1"=="ru" set "translate_symbol=ru"
 
 :: CONFIG SECTION (end)
 

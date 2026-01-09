@@ -24,13 +24,20 @@
 tbl_messages:
 - D - - - - 0x012010 04:8000: 65        .addr $8065   ; 0x00, PPU address $0065
 - D 0 - - - 0x012012 04:8002: 00        .addr $8000
-.ifdef en
+.if .defined(en)
   .addr $806c
   .addr $8118
   .addr $8196
   .addr $8217
   .addr $828d
   .addr $82da
+.elseif .defined(ru)
+  .addr $806b
+  .addr $80e8
+  .addr $8146
+  .addr $81a9
+  .addr $8205
+  .addr $8240
 .else
 - D 0 - - - 0x012014 04:8004: 66        .addr $8066
 - D 0 - - - 0x012016 04:8006: D6        .addr $80D6
@@ -42,7 +49,7 @@ tbl_messages:
 - D - - - - 0x012020 04:8010: 65        .addr $8065
 - D - - - - 0x012022 04:8012: 65        .addr $8065
 - D - - - - 0x012024 04:8014: 65        .addr $8065
-.ifdef en
+.if .defined(en)
   .addr $8323
   .addr $8341
   .addr $8370
@@ -54,6 +61,18 @@ tbl_messages:
   .addr $847f
   .addr $84aa
   .addr $84d3
+.elseif .defined(ru)
+  .addr $8295
+  .addr $82ad
+  .addr $82d2
+  .addr $82ff
+  .addr $8324
+  .addr $833b
+  .addr $8368
+  .addr $8395
+  .addr $83c2
+  .addr $83e7
+  .addr $840e
 .else
 - D 0 - - - 0x012026 04:8016: 4F        .addr $824F   ; PPU address $024F
 - D 0 - - - 0x012028 04:8018: 5F        .addr $825F   ; PPU address $025F
@@ -70,7 +89,7 @@ tbl_messages:
 - D - - - - 0x01203C 04:802C: 65        .addr $8065
 - D - - - - 0x01203E 04:802E: 65        .addr $8065
 - D - - - - 0x012040 04:8030: 65        .addr $8065
-.ifdef en
+.if .defined(en)
   .addr $84ff
   .addr $8527
   .addr $855c
@@ -91,6 +110,27 @@ tbl_messages:
   .addr $87ed
   .addr $87fe
   .addr $8814
+.elseif .defined(ru)
+  .addr $843a
+  .addr $845e
+  .addr $8484
+  .addr $84ae
+  .addr $84da
+  .addr $84fe
+  .addr $8523
+  .addr $854b   ; 0x20
+  .addr $8578
+  .addr $859d
+  .addr $85c6
+  .addr $85f1
+  .addr $8620
+  .addr $864c
+  .addr $8662
+  .addr $8688
+  .addr $86b4
+  .addr $86d9
+  .addr $86ef
+  .addr $86ff
 .else
 - D 0 - - - 0x012042 04:8032: C9 83     .addr $83C9
 - D 0 - - - 0x012044 04:8034: F8 83     .addr $83F8
@@ -116,7 +156,7 @@ tbl_messages:
 - D - - - - 0x01206A 04:805A: 65        .addr $8065
 - D - - - - 0x01206C 04:805C: 65        .addr $8065
 - D - - - - 0x01206E 04:805E: 65        .addr $8065
-.ifdef en
+.if .defined(en)
   .addr $8826   ; 0x30
   .addr $8858
   .addr $8884
@@ -125,6 +165,15 @@ tbl_messages:
   .addr $88da
   .addr $88fd
   .addr $8925
+.elseif .defined(ru)
+  .addr $8712   ; 0x30
+  .addr $873f
+  .addr $876b
+  .addr $8794
+  .addr $87c3
+  .addr $87ed
+  .addr $8817
+  .addr $882e
 .else
 - D 0 - - - 0x012070 04:8060: CB 86     .addr $86CB   ; 0x30
 - D 0 - - - 0x012072 04:8062: F7 86     .addr $86F7
@@ -138,7 +187,7 @@ tbl_messages:
 - D - - - - 0x012080 04:8070: 65        .addr $8065
 - D - - - - 0x012082 04:8072: 65        .addr $8065
 - D - - - - 0x012084 04:8074: 65        .addr $8065
-.ifdef en
+.if .defined(en)
   .addr $894c
   .addr $8967
   .addr $8993
@@ -178,12 +227,12 @@ tbl_messages:
   .addr $8ec2
   .addr $8eeb   ; 0x60
   .addr $8f19
-  .addr $8f3c   ; PPU address $0D5A
-  .addr $8f6b   ; PPU address $0D80
-  .addr $8f96   ; PPU address $0D94
-  .addr $8fc3   ; PPU address $0DC3
-  .addr $8ff0   ; PPU address $0DEE
-  .addr $9019   ; PPU address $0E19
+  .addr $8f3c
+  .addr $8f6b
+  .addr $8f96
+  .addr $8fc3
+  .addr $8ff0
+  .addr $9019
   .addr $90a0
   .addr $90cc
   .addr $90fa
@@ -202,10 +251,78 @@ tbl_messages:
   .addr $9336
   .addr $935b
   .addr $9383
-  .addr $93a8   ; PPU address $11CF
+  .addr $93a8
   .addr $93d4
-  .addr $93e1   ; PPU address $1209
-  .addr $93ec   ; 0x7D, PPU address $1214
+  .addr $93e1
+  .addr $93ec   ; 0x7D
+.elseif .defined(ru)
+  .addr $8858
+  .addr $886f
+  .addr $889a
+  .addr $88c3
+  .addr $88ef
+  .addr $891a   ; 0x40
+  .addr $8942
+  .addr $896a
+  .addr $8992
+  .addr $89b4
+  .addr $89e2
+  .addr $8a03
+  .addr $8a31
+  .addr $8a57
+  .addr $8a7f
+  .addr $8aa5
+  .addr $8acd
+  .addr $8af5
+  .addr $8b15
+  .addr $8b2c
+  .addr $8b4d
+  .addr $8b74   ; 0x50
+  .addr $8b9d
+  .addr $8bb5
+  .addr $8be3
+  .addr $8bf8
+  .addr $8c0d
+  .addr $8c32
+  .addr $8c5a
+  .addr $8c7a
+  .addr $8c9f
+  .addr $8cb7
+  .addr $8cd7
+  .addr $8cfd
+  .addr $8d27
+  .addr $8d52
+  .addr $8d7e
+  .addr $8da1   ; 0x60
+  .addr $8dcd
+  .addr $8de3
+  .addr $8e06
+  .addr $8e1d
+  .addr $8e4b
+  .addr $8e70
+  .addr $8eb4
+  .addr $8f33
+  .addr $8f5b
+  .addr $8f83
+  .addr $8fa8
+  .addr $8fcb
+  .addr $903a
+  .addr $9061
+  .addr $9085
+  .addr $90ab   ; 0x70
+  .addr $90bd
+  .addr $912c
+  .addr $9159
+  .addr $9185
+  .addr $91ab
+  .addr $91cd
+  .addr $91f6
+  .addr $921a
+  .addr $923f
+  .addr $9262
+  .addr $9290
+  .addr $929e
+  .addr $92a7   ; 0x7D
 .else
 - D 0 - - - 0x012086 04:8076: 0B 88     .addr $880B
 - D 0 - - - 0x012088 04:8078: 20 88     .addr $8820
